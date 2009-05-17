@@ -30,16 +30,23 @@ public class AnyKeyboard extends Keyboard {
 
     private Key mEnterKey;
     private final boolean mSupportsShift;
+    private final String mKeyboardName;
     
-    public AnyKeyboard(Context context, int xmlLayoutResId, boolean supportsShift) {
+    private boolean mEnabled = true;
+    
+    public AnyKeyboard(Context context, int xmlLayoutResId, boolean supportsShift, String keyboardName, boolean enabled) {
         super(context, xmlLayoutResId);
         mSupportsShift = supportsShift;
+        mKeyboardName = keyboardName;
+        mEnabled = enabled;
     }
 
     public AnyKeyboard(Context context, int layoutTemplateResId, 
-            CharSequence characters, int columns, int horizontalPadding, boolean supportsShift) {
+            CharSequence characters, int columns, int horizontalPadding, boolean supportsShift, String keyboardName, boolean enabled) {
         super(context, layoutTemplateResId, characters, columns, horizontalPadding);
         mSupportsShift = supportsShift;
+        mKeyboardName = keyboardName;
+        mEnabled = enabled;
     }
 
     @Override
@@ -93,6 +100,21 @@ public class AnyKeyboard extends Keyboard {
     public boolean getSupportsShift()
     {
     	return mSupportsShift;
+    }
+    
+    public String getKeyboardName()
+    {
+    	return mKeyboardName;
+    }
+    
+    public boolean getEnabled()
+    {
+    	return mEnabled;
+    }
+    
+    public void setEnabled(boolean enabled)
+    {
+    	mEnabled = enabled;
     }
     
     static class LatinKey extends Keyboard.Key {

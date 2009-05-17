@@ -16,6 +16,7 @@
 
 package com.menny.android.anysoftkeyboard;
 
+import android.content.Context;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
@@ -84,6 +85,7 @@ public class SoftKeyboard extends InputMethodService
     @Override public void onCreate() {
         super.onCreate();
         mWordSeparators = getResources().getString(R.string.word_separators);
+        
     }
     
     /**
@@ -101,12 +103,23 @@ public class SoftKeyboard extends InputMethodService
             mLastDisplayWidth = displayWidth;
         }
         
-        mSymbolsKeyboard = new AnyKeyboard(this, R.xml.symbols, false);
-        mSymbolsShiftedKeyboard = new AnyKeyboard(this, R.xml.symbols_shift, false);
+        mSymbolsKeyboard = new AnyKeyboard(this, R.xml.symbols, false, "Symbols", true);
+        mSymbolsShiftedKeyboard = new AnyKeyboard(this, R.xml.symbols_shift, false, "Shift Symbols", true);
         
         mKeyboards = new AnyKeyboard[2];
-        mKeyboards[0] = new AnyKeyboard(this, R.xml.qwerty, true);
-        mKeyboards[1] = new AnyKeyboard(this, R.xml.heb_qwerty, false);
+        mKeyboards[0] = new AnyKeyboard(this, R.xml.qwerty, true, "English", true);
+        mKeyboards[1] = new AnyKeyboard(this, R.xml.heb_qwerty, false, "Hebrew", true);
+        
+        int maxTries = mKeyboards.length;
+		do
+		{
+			if (mLastSelectedKeyboard >= mKeyboards.length)
+				mLastSelectedKeyboard = 0;
+			if (mKeyboards[mLastSelectedKeyboard].getEnabled())
+				break;
+			maxTries--;
+			mLastSelectedKeyboard++;
+		}while(maxTries > 0);
     }
     
     /**
@@ -513,10 +526,16 @@ public class SoftKeyboard extends InputMethodService
                 && mInputView != null) {
         	if (isAlphaBetKeyboard(mInputView.getKeyboard()))
         	{
-        		mLastSelectedKeyboard++;
-        		if (mLastSelectedKeyboard >= mKeyboards.length)
-        			mLastSelectedKeyboard = 0;
-        		
+        		int maxTries = mKeyboards.length;
+        		do
+        		{
+        			mLastSelectedKeyboard++;
+        			if (mLastSelectedKeyboard >= mKeyboards.length)
+        				mLastSelectedKeyboard = 0;
+        			if (mKeyboards[mLastSelectedKeyboard].getEnabled())
+        				break;
+        			maxTries--;
+        		}while(maxTries > 0);
         	}
         	mInputView.setKeyboard(mKeyboards[mLastSelectedKeyboard]);
         } else if (primaryCode == Keyboard.KEYCODE_MODE_CHANGE
