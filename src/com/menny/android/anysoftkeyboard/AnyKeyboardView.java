@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.menny.android.hebrewsoftkeyboard;
+package com.menny.android.anysoftkeyboard;
 
 import android.content.Context;
 import android.inputmethodservice.Keyboard;

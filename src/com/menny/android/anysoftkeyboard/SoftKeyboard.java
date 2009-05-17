@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.menny.android.hebrewsoftkeyboard;
+package com.menny.android.anysoftkeyboard;
 
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
@@ -32,7 +32,7 @@ import android.view.inputmethod.InputMethodManager;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.menny.android.hebrewsoftkeyboard.R;
+import com.menny.android.anysoftkeyboard.R;
 
 /**
  * Example of writing an input method for a soft keyboard.  This code is

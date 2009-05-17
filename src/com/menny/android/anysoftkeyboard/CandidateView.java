@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.menny.android.hebrewsoftkeyboard;
+package com.menny.android.anysoftkeyboard;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -29,7 +29,7 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.menny.android.hebrewsoftkeyboard.R;
+import com.menny.android.anysoftkeyboard.R;
 
 public class CandidateView extends View {
 

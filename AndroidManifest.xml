@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" 
-        package="com.menny.android.hebrewsoftkeyboard">
+        package="com.menny.android.anysoftkeyboard">
     <application android:label="@string/ime_name">
         <service android:name="SoftKeyboard"
                 android:permission="android.permission.BIND_INPUT_METHOD">
