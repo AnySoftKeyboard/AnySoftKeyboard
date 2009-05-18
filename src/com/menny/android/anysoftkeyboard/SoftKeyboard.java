@@ -69,8 +69,9 @@ public class SoftKeyboard extends InputMethodService
     private CompletionInfo[] mCompletions;
     
     private StringBuilder mComposing = new StringBuilder();
-    private boolean mPredictionOn;
+    //private boolean mPredictionOn;
     private boolean mCompletionOn;
+    
     private int mLastDisplayWidth;
     private boolean mCapsLock;
     private long mLastShiftTime;
@@ -89,7 +90,7 @@ public class SoftKeyboard extends InputMethodService
     private boolean mVibrateOnKeyPress = false;
     private boolean mSoundOnKeyPress = false;
     private boolean mAutoCaps = false;
-    private boolean mConfigPredictionOn = false;
+    private boolean mShowCandidates = false;
     
     /**
      * Main initialization of the input method component.  Be sure to call
@@ -136,7 +137,7 @@ public class SoftKeyboard extends InputMethodService
         	((AudioManager)getSystemService(Context.AUDIO_SERVICE)).loadSoundEffects();
         
         mAutoCaps = sp.getBoolean("auto_caps", true);
-        mConfigPredictionOn = sp.getBoolean("candidates_on", true);;
+        mShowCandidates = sp.getBoolean("candidates_on", true);
     	setEnabledKeyboards();
     }
     
@@ -183,10 +184,16 @@ public class SoftKeyboard extends InputMethodService
      * Called by the framework when your view for showing candidates needs to
      * be generated, like {@link #onCreateInputView}.
      */
-    @Override public View onCreateCandidatesView() {
-        mCandidateView = new CandidateView(this);
-        mCandidateView.setService(this);
-        return mCandidateView;
+    @Override public View onCreateCandidatesView() 
+    {
+    	if (mCompletionOn)
+    	{
+    		mCandidateView = new CandidateView(this);
+    		mCandidateView.setService(this);
+    		return mCandidateView;
+    	}
+    	else
+    		return null;
     }
 
     /**
@@ -233,7 +240,8 @@ public class SoftKeyboard extends InputMethodService
                 // be doing predictive text (showing candidates as the
                 // user types).
                 mCurKeyboard = mKeyboards[mLastSelectedKeyboard];
-                mPredictionOn = mConfigPredictionOn;
+                //mPredictionOn = mShowCandidates;
+                mCompletionOn = mShowCandidates;
                 
                 // We now look for a few special variations of text that will
                 // modify our behavior.
@@ -242,7 +250,8 @@ public class SoftKeyboard extends InputMethodService
                         variation == EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
                     // Do not display predictions / what the user is typing
                     // when they are entering a password.
-                    mPredictionOn = false;
+                    //mPredictionOn = false;
+                	mCompletionOn = false;
                 }
                 
                 if (variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS 
@@ -250,7 +259,8 @@ public class SoftKeyboard extends InputMethodService
                         || variation == EditorInfo.TYPE_TEXT_VARIATION_FILTER) {
                     // Our predictions are not useful for e-mail addresses
                     // or URIs.
-                    mPredictionOn = false;
+                    //mPredictionOn = false;
+                	mCompletionOn = false;
                 }
                 
                 if ((attribute.inputType&EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE) != 0) {
@@ -259,8 +269,8 @@ public class SoftKeyboard extends InputMethodService
                     // to supply their own.  We only show the editor's
                     // candidates when in fullscreen mode, otherwise relying
                     // own it displaying its own UI.
-                    mPredictionOn = false;
-                    mCompletionOn = isFullscreenMode();
+                    //mPredictionOn = false;
+                    mCompletionOn = isFullscreenMode() && mShowCandidates;
                 }
                 
                 // We also want to look at the current state of the editor
@@ -344,7 +354,8 @@ public class SoftKeyboard extends InputMethodService
      * in that situation.
      */
     @Override public void onDisplayCompletions(CompletionInfo[] completions) {
-        if (mCompletionOn) {
+        if (mCompletionOn) 
+        {
             mCompletions = completions;
             if (completions == null) {
                 setSuggestions(null, false, false);
@@ -455,7 +466,7 @@ public class SoftKeyboard extends InputMethodService
                             return true;
                         }
                     }
-                    if (mPredictionOn && translateKeyDown(keyCode, event)) {
+                    if (/*mPredictionOn*/mCompletionOn && translateKeyDown(keyCode, event)) {
                         return true;
                     }
                 }
@@ -474,7 +485,7 @@ public class SoftKeyboard extends InputMethodService
         // keyboard, we need to process the up events to update the meta key
         // state we are tracking.
         if (PROCESS_HARD_KEYS) {
-            if (mPredictionOn) {
+            if (mCompletionOn/*mPredictionOn*/) {
                 mMetaState = MetaKeyKeyListener.handleKeyUp(mMetaState,
                         keyCode, event);
             }
@@ -662,7 +673,7 @@ public class SoftKeyboard extends InputMethodService
         } else if (isExtractViewShown()) {
             setCandidatesViewShown(true);
         }
-        if (mCandidateView != null && mPredictionOn) {
+        if (mCandidateView != null /*&& mPredictionOn*/) {
             mCandidateView.setSuggestions(suggestions, completions, typedWordValid);
         }
     }
@@ -712,7 +723,7 @@ public class SoftKeyboard extends InputMethodService
                 primaryCode = Character.toUpperCase(primaryCode);
             }
         }
-        if (isAlphabet(primaryCode) && mPredictionOn) {
+        if (isAlphabet(primaryCode) && /*mPredictionOn*/mCompletionOn) {
             mComposing.append((char) primaryCode);
             getCurrentInputConnection().setComposingText(mComposing, 1);
             updateShiftKeyState(getCurrentInputEditorInfo());
@@ -792,7 +803,8 @@ public class SoftKeyboard extends InputMethodService
         pickSuggestionManually(0);
     }
     
-    public void pickSuggestionManually(int index) {
+    public void pickSuggestionManually(int index) 
+    {
         if (mCompletionOn && mCompletions != null && index >= 0
                 && index < mCompletions.length) {
             CompletionInfo ci = mCompletions[index];
