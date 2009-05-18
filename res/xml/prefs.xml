@@ -22,6 +22,15 @@
             android:persistent="true"
             android:defaultValue="true" 
             />
+            <PreferenceCategory android:key="candidates_group"
+            android:title="@string/candidates_group"
+            />
+            <CheckBoxPreference
+            android:key="candidates_on"
+            android:title="@string/candidates_on"
+            android:persistent="true"
+            android:defaultValue="true" 
+            />
             <PreferenceCategory android:key="keyboards_group"
             android:title="@string/keyboards_group"
             />

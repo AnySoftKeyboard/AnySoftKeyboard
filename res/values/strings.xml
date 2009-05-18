@@ -32,7 +32,9 @@
     <string name="vibrate_on">Vibrate on keypress</string>
     <string name="sound_on">Sound on keypress</string>
     <string name="auto_caps">Auto-capitalization</string>
+    <string name="candidates_group">Word suggestions</string>
+    <string name="candidates_on">Show suggestions</string>
+    <string name="keyboards_group">Keyboards</string>
     <string name="eng_keyboard">English keyboard</string>
     <string name="heb_keyboard">מקלדת עיברית</string>
-    <string name="keyboards_group">Keyboards</string>
 </resources>

@@ -38,6 +38,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.menny.android.anysoftkeyboard.R;
+import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.menny.android.anysoftkeyboard.keyboards.EnglishKeyboard;
+import com.menny.android.anysoftkeyboard.keyboards.GenericKeyboard;
+import com.menny.android.anysoftkeyboard.keyboards.HebrewKeyboard;
 
 /**
  * Example of writing an input method for a soft keyboard.  This code is
@@ -85,6 +89,7 @@ public class SoftKeyboard extends InputMethodService
     private boolean mVibrateOnKeyPress = false;
     private boolean mSoundOnKeyPress = false;
     private boolean mAutoCaps = false;
+    private boolean mConfigPredictionOn = false;
     
     /**
      * Main initialization of the input method component.  Be sure to call
@@ -110,13 +115,13 @@ public class SoftKeyboard extends InputMethodService
             mLastDisplayWidth = displayWidth;
         }
         
-        mSymbolsKeyboard = new AnyKeyboard(this, R.xml.symbols, false, "Symbols", true);
-        mSymbolsShiftedKeyboard = new AnyKeyboard(this, R.xml.symbols_shift, false, "Shift Symbols", true);
+        mSymbolsKeyboard = new GenericKeyboard(this, R.xml.symbols, false, "Symbols");
+        mSymbolsShiftedKeyboard = new GenericKeyboard(this, R.xml.symbols_shift, false, "Shift Symbols");
         
         
         mKeyboards = new AnyKeyboard[2];
-        mKeyboards[0] = new AnyKeyboard(this, R.xml.qwerty, true, "English", true);
-        mKeyboards[1] = new AnyKeyboard(this, R.xml.heb_qwerty, false, "Hebrew", true);
+        mKeyboards[0] = new EnglishKeyboard(this);
+        mKeyboards[1] = new HebrewKeyboard(this);
         
         reloadConfiguration();
     }
@@ -126,7 +131,12 @@ public class SoftKeyboard extends InputMethodService
     	SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         mVibrateOnKeyPress = sp.getBoolean("vibrate_on", false);
         mSoundOnKeyPress = sp.getBoolean("sound_on", false);
+        
+        if (mSoundOnKeyPress)
+        	((AudioManager)getSystemService(Context.AUDIO_SERVICE)).loadSoundEffects();
+        
         mAutoCaps = sp.getBoolean("auto_caps", true);
+        mConfigPredictionOn = sp.getBoolean("candidates_on", true);;
     	setEnabledKeyboards();
     }
     
@@ -192,7 +202,6 @@ public class SoftKeyboard extends InputMethodService
         // Reset our state.  We want to do this even if restarting, because
         // the underlying state of the text editor could have changed in any way.
         mComposing.setLength(0);
-        mSentenceChars = 0;
         updateCandidates();
         
         if (!restarting) {
@@ -200,8 +209,6 @@ public class SoftKeyboard extends InputMethodService
             mMetaState = 0;
         }
         
-        mPredictionOn = false;
-        mCompletionOn = false;
         mCompletions = null;
         
         // We are now going to initialize our state based on the type of
@@ -226,7 +233,7 @@ public class SoftKeyboard extends InputMethodService
                 // be doing predictive text (showing candidates as the
                 // user types).
                 mCurKeyboard = mKeyboards[mLastSelectedKeyboard];
-                mPredictionOn = true;
+                mPredictionOn = mConfigPredictionOn;
                 
                 // We now look for a few special variations of text that will
                 // modify our behavior.
@@ -295,6 +302,9 @@ public class SoftKeyboard extends InputMethodService
         if (mInputView != null) {
             mInputView.closing();
         }
+        
+        if (mSoundOnKeyPress)
+        	((AudioManager)getSystemService(Context.AUDIO_SERVICE)).unloadSoundEffects();
     }
     
     @Override public void onStartInputView(EditorInfo attribute, boolean restarting) {
@@ -504,12 +514,9 @@ public class SoftKeyboard extends InputMethodService
     /**
      * Helper to determine if a given character code is alphabetic.
      */
-    private boolean isAlphabet(int code) {
-        if (Character.isLetter(code)) {
-            return true;
-        } else {
-            return false;
-        }
+    private boolean isAlphabet(int code) 
+    {
+        return mCurKeyboard.isLetter((char)code);
     }
     
     /**
@@ -550,7 +557,6 @@ public class SoftKeyboard extends InputMethodService
             }
             sendKey(primaryCode);
             updateShiftKeyState(getCurrentInputEditorInfo());
-            updateFirstKeyFlag(primaryCode);
         } else if (primaryCode == Keyboard.KEYCODE_DELETE) {
             handleBackspace();
         } else if (primaryCode == Keyboard.KEYCODE_SHIFT) {
@@ -582,10 +588,9 @@ public class SoftKeyboard extends InputMethodService
             mSymbolsKeyboard.setShifted(false);
         } else {
             handleCharacter(primaryCode, keyCodes);
-            updateFirstKeyFlag(primaryCode);
         }
     }
-
+/*
 	private void updateFirstKeyFlag(int primaryCode) {
 		//need to change the First Key flag
     	if (isEndOfSentanceChar(primaryCode))
@@ -604,7 +609,7 @@ public class SoftKeyboard extends InputMethodService
     		mSentenceChars++;
     	}
 	}
-    
+ */   
     private boolean isAlphaBetKeyboard(Keyboard viewedKeyboard)
     {
     	for(int i=0; i<mKeyboards.length; i++)
@@ -633,13 +638,18 @@ public class SoftKeyboard extends InputMethodService
      * text.  This will need to be filled in by however you are determining
      * candidates.
      */
-    private void updateCandidates() {
-        if (!mCompletionOn) {
-            if (mComposing.length() > 0) {
+    private void updateCandidates() 
+    {
+        if (!mCompletionOn) 
+        {
+            if (mComposing.length() > 0) 
+            {
                 ArrayList<String> list = new ArrayList<String>();
                 list.add(mComposing.toString());
                 setSuggestions(list, true, true);
-            } else {
+            } 
+            else 
+            {
                 setSuggestions(null, false, false);
             }
         }
@@ -652,7 +662,7 @@ public class SoftKeyboard extends InputMethodService
         } else if (isExtractViewShown()) {
             setCandidatesViewShown(true);
         }
-        if (mCandidateView != null) {
+        if (mCandidateView != null && mPredictionOn) {
             mCandidateView.setSuggestions(suggestions, completions, typedWordValid);
         }
     }
@@ -670,9 +680,6 @@ public class SoftKeyboard extends InputMethodService
         } else {
             keyDownUp(KeyEvent.KEYCODE_DEL);
         }
-        mSentenceChars--;
-        if (mSentenceChars < 0)
-        	mSentenceChars = 0;
         updateShiftKeyState(getCurrentInputEditorInfo());
     }
 
@@ -698,8 +705,10 @@ public class SoftKeyboard extends InputMethodService
     }
     
     private void original_handleCharacter(int primaryCode, int[] keyCodes) {
-        if (isInputViewShown()) {
-            if (mInputView.isShifted()) {
+        if (isInputViewShown()) 
+        {
+            if (mInputView.isShifted()) 
+            {
                 primaryCode = Character.toUpperCase(primaryCode);
             }
         }
@@ -714,20 +723,44 @@ public class SoftKeyboard extends InputMethodService
         }
     }
     
-    private void handleCharacter(int primaryCode, int[] keyCodes) 
+    private void old_handleCharacter(int primaryCode, int[] keyCodes) 
     {
+    	InputConnection ci = getCurrentInputConnection();
         if (isInputViewShown()) 
         {
             if (mInputView.isShifted() && (mCurKeyboard.getSupportsShift())) 
             {
                 primaryCode = Character.toUpperCase(primaryCode);
             }
-            else if((mAutoCaps) && (mSentenceChars == 0) && (mCurKeyboard.getSupportsShift()))
+            else if((mAutoCaps) && 
+            		(mCurKeyboard.getSupportsShift()) &&
+            		(ci.getCursorCapsMode(getCurrentInputEditorInfo().initialCapsMode) != 0))
         	{
         		primaryCode = Character.toUpperCase(primaryCode);
         	}
         }
-        getCurrentInputConnection().commitText(String.valueOf((char) primaryCode), 1);
+        ci.commitText(String.valueOf((char) primaryCode), 1);
+    }
+    
+    private void handleCharacter(int primaryCode, int[] keyCodes) {
+        if (isInputViewShown()) 
+        {
+            if (mInputView.isShifted() && mCurKeyboard.getSupportsShift()) 
+            {
+                primaryCode = Character.toUpperCase(primaryCode);
+            }
+        }
+        if (isAlphabet(primaryCode)) 
+        {
+            mComposing.append((char) primaryCode);
+            getCurrentInputConnection().setComposingText(mComposing, 1);
+            updateShiftKeyState(getCurrentInputEditorInfo());
+            updateCandidates();
+        } 
+        else 
+        {
+            getCurrentInputConnection().commitText(String.valueOf((char) primaryCode), 1);
+        }
     }
 
     private void handleClose() {
@@ -796,7 +829,7 @@ public class SoftKeyboard extends InputMethodService
     public void onPress(int primaryCode) {
     	if(mVibrateOnKeyPress)
     	{
-    		((Vibrator)getSystemService(Context.VIBRATOR_SERVICE)).vibrate(10);
+    		((Vibrator)getSystemService(Context.VIBRATOR_SERVICE)).vibrate(15);
     	}
     	if(mSoundOnKeyPress)
     	{
