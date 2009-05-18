@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+        android:title="@string/ime_settings"
+        android:key="ime_settings">
+
+   		 	<CheckBoxPreference
+            android:key="vibrate_on"
+            android:title="@string/vibrate_on"
+            android:persistent="true"
+            android:defaultValue="false"
+            />
+    		<CheckBoxPreference
+            android:key="sound_on"
+            android:title="@string/sound_on"
+            android:persistent="true"
+            android:defaultValue="false" 
+            />
+            <CheckBoxPreference
+            android:key="auto_caps"
+            android:title="@string/auto_caps"
+            android:persistent="true"
+            android:defaultValue="true" 
+            />
+            <PreferenceCategory android:key="keyboards_group"
+            android:title="@string/keyboards_group"
+            />
+            <CheckBoxPreference
+            android:key="eng_keyboard"
+            android:title="@string/eng_keyboard"
+            android:persistent="true" 
+            android:defaultValue="true"
+            />
+            <CheckBoxPreference
+            android:key="heb_keyboard"
+            android:title="@string/heb_keyboard"
+            android:persistent="true"
+            android:defaultValue="true" 
+            />   
+</PreferenceScreen>
