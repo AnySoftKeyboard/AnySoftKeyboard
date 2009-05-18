@@ -111,12 +111,12 @@ public abstract class AnyKeyboard extends Keyboard {
     	return mKeyboardName;
     }
     
-    public boolean getEnabled()
+    public boolean isEnabled()
     {
     	return mEnabled;
     }
     
-    public void setEnabled(boolean enabled)
+    public void setIsEnabled(boolean enabled)
     {
     	mEnabled = enabled;
     }

@@ -149,19 +149,20 @@ public class SoftKeyboard extends InputMethodService
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         boolean englishKeyboard = sp.getBoolean("eng_keyboard", true);
         boolean hebrewKeyboard = sp.getBoolean("heb_keyboard", true);
-        
+        boolean internetKeyboard = sp.getBoolean("internet_keyboard", false);
         if ((!hebrewKeyboard))
         	englishKeyboard = true;
         
-        mKeyboards[0].setEnabled(englishKeyboard);
-        mKeyboards[1].setEnabled(hebrewKeyboard);
+        mInternetKeyboard.setIsEnabled(internetKeyboard);
+        mKeyboards[0].setIsEnabled(englishKeyboard);
+        mKeyboards[1].setIsEnabled(hebrewKeyboard);
         
         int maxTries = mKeyboards.length;
 		do
 		{
 			if (mLastSelectedKeyboard >= mKeyboards.length)
 				mLastSelectedKeyboard = 0;
-			if (mKeyboards[mLastSelectedKeyboard].getEnabled())
+			if (mKeyboards[mLastSelectedKeyboard].isEnabled())
 				break;
 			maxTries--;
 			mLastSelectedKeyboard++;
@@ -271,7 +272,10 @@ public class SoftKeyboard extends InputMethodService
                 if (variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS 
                         || variation == EditorInfo.TYPE_TEXT_VARIATION_URI) {
                     //special keyboard
-                	mCurKeyboard = mInternetKeyboard;
+                	if (mInternetKeyboard.isEnabled())
+                		mCurKeyboard = mInternetKeyboard;
+                	else
+                		mCurKeyboard = mKeyboards[mLastSelectedKeyboard];
                 }
                 
                 if ((attribute.inputType&EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE) != 0) {
@@ -330,8 +334,7 @@ public class SoftKeyboard extends InputMethodService
     
     @Override public void onStartInputView(EditorInfo attribute, boolean restarting) {
         super.onStartInputView(attribute, restarting);
-        // Apply the selected keyboard to the input view.
-        reloadConfiguration();
+       
         mInputView.setKeyboard(mCurKeyboard);
         mInputView.closing();
     }
@@ -382,125 +385,6 @@ public class SoftKeyboard extends InputMethodService
         }
     }
     
-//    private boolean translateKeyDown(int keyCode, KeyEvent event) {
-//        mMetaState = MetaKeyKeyListener.handleKeyDown(mMetaState,
-//                keyCode, event);
-//        int c = event.getUnicodeChar(MetaKeyKeyListener.getMetaState(mMetaState));
-//        mMetaState = MetaKeyKeyListener.adjustMetaAfterKeypress(mMetaState);
-//        InputConnection ic = getCurrentInputConnection();
-//        if (c == 0 || ic == null) {
-//            return false;
-//        }
-//        
-//        boolean dead = false;
-//
-//        if ((c & KeyCharacterMap.COMBINING_ACCENT) != 0) {
-//            dead = true;
-//            c = c & KeyCharacterMap.COMBINING_ACCENT_MASK;
-//        }
-//        
-//        if (mComposing.length() > 0) {
-//            char accent = mComposing.charAt(mComposing.length() -1 );
-//            int composed = KeyEvent.getDeadChar(accent, c);
-//
-//            if (composed != 0) {
-//                c = composed;
-//                mComposing.setLength(mComposing.length()-1);
-//            }
-//        }
-//        
-//        onKey(c, null);
-//        
-//        return true;
-//    }
-//    
-//    /**
-//     * Use this to monitor key events being delivered to the application.
-//     * We get first crack at them, and can either resume them or let them
-//     * continue to the app.
-//     */
-//    @Override public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        switch (keyCode) {
-//            case KeyEvent.KEYCODE_BACK:
-//                // The InputMethodService already takes care of the back
-//                // key for us, to dismiss the input method if it is shown.
-//                // However, our keyboard could be showing a pop-up window
-//                // that back should dismiss, so we first allow it to do that.
-//                if (event.getRepeatCount() == 0 && mInputView != null) {
-//                    if (mInputView.handleBack()) {
-//                        return true;
-//                    }
-//                }
-//                break;
-//                
-//            case KeyEvent.KEYCODE_DEL:
-//                // Special handling of the delete key: if we currently are
-//                // composing text for the user, we want to modify that instead
-//                // of let the application to the delete itself.
-//                if (mComposing.length() > 0) {
-//                    onKey(Keyboard.KEYCODE_DELETE, null);
-//                    return true;
-//                }
-//                break;
-//                
-//            case KeyEvent.KEYCODE_ENTER:
-//                // Let the underlying text editor always handle these.
-//                return false;
-//                
-//            default:
-//                // For all other keys, if we want to do transformations on
-//                // text being entered with a hard keyboard, we need to process
-//                // it and do the appropriate action.
-//                if (PROCESS_HARD_KEYS) 
-//                {
-//                    if (keyCode == KeyEvent.KEYCODE_SPACE
-//                            && (event.getMetaState()&KeyEvent.META_ALT_ON) != 0) {
-//                        // A silly example: in our input method, Alt+Space
-//                        // is a shortcut for 'android' in lower case.
-//                        InputConnection ic = getCurrentInputConnection();
-//                        if (ic != null) {
-//                            // First, tell the editor that it is no longer in the
-//                            // shift state, since we are consuming this.
-//                            ic.clearMetaKeyStates(KeyEvent.META_ALT_ON);
-//                            keyDownUp(KeyEvent.KEYCODE_A);
-//                            keyDownUp(KeyEvent.KEYCODE_N);
-//                            keyDownUp(KeyEvent.KEYCODE_D);
-//                            keyDownUp(KeyEvent.KEYCODE_R);
-//                            keyDownUp(KeyEvent.KEYCODE_O);
-//                            keyDownUp(KeyEvent.KEYCODE_I);
-//                            keyDownUp(KeyEvent.KEYCODE_D);
-//                            // And we consume this event.
-//                            return true;
-//                        }
-//                    }
-//                    if (/*mPredictionOn*/mCompletionOn && translateKeyDown(keyCode, event)) {
-//                        return true;
-//                    }
-//                }
-//        }
-//        
-//        return super.onKeyDown(keyCode, event);
-//    }
-
-//    /**
-//     * Use this to monitor key events being delivered to the application.
-//     * We get first crack at them, and can either resume them or let them
-//     * continue to the app.
-//     */
-//    @Override public boolean onKeyUp(int keyCode, KeyEvent event) {
-//        // If we want to do transformations on text being entered with a hard
-//        // keyboard, we need to process the up events to update the meta key
-//        // state we are tracking.
-//        if (PROCESS_HARD_KEYS) {
-//            if (mCompletionOn/*mPredictionOn*/) {
-//                mMetaState = MetaKeyKeyListener.handleKeyUp(mMetaState,
-//                        keyCode, event);
-//            }
-//        }
-//        
-//        return super.onKeyUp(keyCode, event);
-//    }
-
     /**
      * Helper function to commit any text being composed in to the editor.
      */
@@ -592,10 +476,11 @@ public class SoftKeyboard extends InputMethodService
         } else if (primaryCode == -99//my special lang key
                 && mInputView != null) {
         	int variation = getCurrentInputEditorInfo().inputType &  EditorInfo.TYPE_MASK_VARIATION;
-            if (variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS 
-                    || variation == EditorInfo.TYPE_TEXT_VARIATION_URI) {
+            if (mInternetKeyboard.isEnabled() &&
+            		(variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS 
+                    || variation == EditorInfo.TYPE_TEXT_VARIATION_URI)) {
                 //special keyboard
-            	mCurKeyboard = mInternetKeyboard;
+           		mCurKeyboard = mInternetKeyboard;
             }            
             else
             {
@@ -607,7 +492,7 @@ public class SoftKeyboard extends InputMethodService
 	        			mLastSelectedKeyboard++;
 	        			if (mLastSelectedKeyboard >= mKeyboards.length)
 	        				mLastSelectedKeyboard = 0;
-	        			if (mKeyboards[mLastSelectedKeyboard].getEnabled())
+	        			if (mKeyboards[mLastSelectedKeyboard].isEnabled())
 	        				break;
 	        			maxTries--;
 	        		}while(maxTries > 0);
@@ -717,44 +602,6 @@ public class SoftKeyboard extends InputMethodService
             mInputView.setKeyboard(mSymbolsKeyboard);
             mSymbolsKeyboard.setShifted(false);
         }
-    }
-    
-    private void original_handleCharacter(int primaryCode, int[] keyCodes) {
-        if (isInputViewShown()) 
-        {
-            if (mInputView.isShifted()) 
-            {
-                primaryCode = Character.toUpperCase(primaryCode);
-            }
-        }
-        if (isAlphabet(primaryCode) && /*mPredictionOn*/mCompletionOn) {
-            mComposing.append((char) primaryCode);
-            getCurrentInputConnection().setComposingText(mComposing, 1);
-            updateShiftKeyState(getCurrentInputEditorInfo());
-            updateCandidates();
-        } else {
-            getCurrentInputConnection().commitText(
-                    String.valueOf((char) primaryCode), 1);
-        }
-    }
-    
-    private void old_handleCharacter(int primaryCode, int[] keyCodes) 
-    {
-    	InputConnection ci = getCurrentInputConnection();
-        if (isInputViewShown()) 
-        {
-            if (mInputView.isShifted() && (mCurKeyboard.getSupportsShift())) 
-            {
-                primaryCode = Character.toUpperCase(primaryCode);
-            }
-            else if((mAutoCaps) && 
-            		(mCurKeyboard.getSupportsShift()) &&
-            		(ci.getCursorCapsMode(getCurrentInputEditorInfo().initialCapsMode) != 0))
-        	{
-        		primaryCode = Character.toUpperCase(primaryCode);
-        	}
-        }
-        ci.commitText(String.valueOf((char) primaryCode), 1);
     }
     
     private void handleCharacter(int primaryCode, int[] keyCodes) {
