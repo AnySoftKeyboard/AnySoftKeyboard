@@ -28,4 +28,11 @@
     <string name="label_go_key">Go</string>
     <string name="label_next_key">Next</string>
     <string name="label_send_key">Send</string>
+    <string name="ime_settings">Keyboard settings</string>
+    <string name="vibrate_on">Vibrate on keypress</string>
+    <string name="sound_on">Sound on keypress</string>
+    <string name="auto_caps">Auto-capitalization</string>
+    <string name="eng_keyboard">English keyboard</string>
+    <string name="heb_keyboard">מקלדת עיברית</string>
+    <string name="keyboards_group">Keyboards</string>
 </resources>

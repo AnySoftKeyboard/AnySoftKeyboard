@@ -17,9 +17,13 @@
 package com.menny.android.anysoftkeyboard;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
+import android.media.AudioManager;
+import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.text.method.MetaKeyKeyListener;
 import android.util.Log;
 import android.view.KeyCharacterMap;
@@ -78,6 +82,10 @@ public class SoftKeyboard extends InputMethodService
     
     private String mWordSeparators;
     
+    private boolean mVibrateOnKeyPress = false;
+    private boolean mSoundOnKeyPress = false;
+    private boolean mAutoCaps = false;
+    
     /**
      * Main initialization of the input method component.  Be sure to call
      * to super class.
@@ -85,7 +93,6 @@ public class SoftKeyboard extends InputMethodService
     @Override public void onCreate() {
         super.onCreate();
         mWordSeparators = getResources().getString(R.string.word_separators);
-        
     }
     
     /**
@@ -106,9 +113,34 @@ public class SoftKeyboard extends InputMethodService
         mSymbolsKeyboard = new AnyKeyboard(this, R.xml.symbols, false, "Symbols", true);
         mSymbolsShiftedKeyboard = new AnyKeyboard(this, R.xml.symbols_shift, false, "Shift Symbols", true);
         
+        
         mKeyboards = new AnyKeyboard[2];
         mKeyboards[0] = new AnyKeyboard(this, R.xml.qwerty, true, "English", true);
         mKeyboards[1] = new AnyKeyboard(this, R.xml.heb_qwerty, false, "Hebrew", true);
+        
+        reloadConfiguration();
+    }
+
+    private void reloadConfiguration()
+    {
+    	SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        mVibrateOnKeyPress = sp.getBoolean("vibrate_on", false);
+        mSoundOnKeyPress = sp.getBoolean("sound_on", false);
+        mAutoCaps = sp.getBoolean("auto_caps", true);
+    	setEnabledKeyboards();
+    }
+    
+	private void setEnabledKeyboards() 
+	{
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean englishKeyboard = sp.getBoolean("eng_keyboard", true);
+        boolean hebrewKeyboard = sp.getBoolean("heb_keyboard", true);
+        
+        if ((!hebrewKeyboard))
+        	englishKeyboard = true;
+        
+        mKeyboards[0].setEnabled(englishKeyboard);
+        mKeyboards[1].setEnabled(hebrewKeyboard);
         
         int maxTries = mKeyboards.length;
 		do
@@ -120,7 +152,7 @@ public class SoftKeyboard extends InputMethodService
 			maxTries--;
 			mLastSelectedKeyboard++;
 		}while(maxTries > 0);
-    }
+	}
     
     /**
      * Called by the framework when your view for creating input needs to
@@ -132,6 +164,7 @@ public class SoftKeyboard extends InputMethodService
         mInputView = (KeyboardView) getLayoutInflater().inflate(
                 R.layout.input, null);
         mInputView.setOnKeyboardActionListener(this);
+        reloadConfiguration();
         mInputView.setKeyboard(mKeyboards[mLastSelectedKeyboard]);
         return mInputView;
     }
@@ -155,9 +188,11 @@ public class SoftKeyboard extends InputMethodService
     @Override public void onStartInput(EditorInfo attribute, boolean restarting) {
         super.onStartInput(attribute, restarting);
         
+        reloadConfiguration();
         // Reset our state.  We want to do this even if restarting, because
         // the underlying state of the text editor could have changed in any way.
         mComposing.setLength(0);
+        mSentenceChars = 0;
         updateCandidates();
         
         if (!restarting) {
@@ -265,6 +300,7 @@ public class SoftKeyboard extends InputMethodService
     @Override public void onStartInputView(EditorInfo attribute, boolean restarting) {
         super.onStartInputView(attribute, restarting);
         // Apply the selected keyboard to the input view.
+        reloadConfiguration();
         mInputView.setKeyboard(mCurKeyboard);
         mInputView.closing();
     }
@@ -453,11 +489,12 @@ public class SoftKeyboard extends InputMethodService
      * editor state.
      */
     private void updateShiftKeyState(EditorInfo attr) {
-        if (attr != null 
-                && mInputView != null && ((AnyKeyboard)mInputView.getKeyboard()).getSupportsShift()) {
+        if (attr != null && mInputView != null) 
+        {
             int caps = 0;
             EditorInfo ei = getCurrentInputEditorInfo();
-            if (ei != null && ei.inputType != EditorInfo.TYPE_NULL) {
+            if (ei != null && ei.inputType != EditorInfo.TYPE_NULL) 
+            {
                 caps = getCurrentInputConnection().getCursorCapsMode(attr.inputType);
             }
             mInputView.setShifted(mCapsLock || caps != 0);
@@ -513,6 +550,7 @@ public class SoftKeyboard extends InputMethodService
             }
             sendKey(primaryCode);
             updateShiftKeyState(getCurrentInputEditorInfo());
+            updateFirstKeyFlag(primaryCode);
         } else if (primaryCode == Keyboard.KEYCODE_DELETE) {
             handleBackspace();
         } else if (primaryCode == Keyboard.KEYCODE_SHIFT) {
@@ -544,8 +582,28 @@ public class SoftKeyboard extends InputMethodService
             mSymbolsKeyboard.setShifted(false);
         } else {
             handleCharacter(primaryCode, keyCodes);
+            updateFirstKeyFlag(primaryCode);
         }
     }
+
+	private void updateFirstKeyFlag(int primaryCode) {
+		//need to change the First Key flag
+    	if (isEndOfSentanceChar(primaryCode))
+    	{
+    		mSentenceChars = 0;
+    	}
+    	if (isNonAutoCapsResposibleChar(primaryCode))
+    	{
+    		//stays as it: e.g., if it is the beginning of the sentence, and the
+    		//user presses SPACE, we still want to stay in that state.
+    		if (mSentenceChars > 0)
+    			mSentenceChars++;
+    	}
+    	else
+    	{
+    		mSentenceChars++;
+    	}
+	}
     
     private boolean isAlphaBetKeyboard(Keyboard viewedKeyboard)
     {
@@ -612,6 +670,9 @@ public class SoftKeyboard extends InputMethodService
         } else {
             keyDownUp(KeyEvent.KEYCODE_DEL);
         }
+        mSentenceChars--;
+        if (mSentenceChars < 0)
+        	mSentenceChars = 0;
         updateShiftKeyState(getCurrentInputEditorInfo());
     }
 
@@ -657,12 +718,15 @@ public class SoftKeyboard extends InputMethodService
     {
         if (isInputViewShown()) 
         {
-            if (mInputView.isShifted()) 
+            if (mInputView.isShifted() && (mCurKeyboard.getSupportsShift())) 
             {
                 primaryCode = Character.toUpperCase(primaryCode);
             }
+            else if((mAutoCaps) && (mSentenceChars == 0) && (mCurKeyboard.getSupportsShift()))
+        	{
+        		primaryCode = Character.toUpperCase(primaryCode);
+        	}
         }
-        
         getCurrentInputConnection().commitText(String.valueOf((char) primaryCode), 1);
     }
 
@@ -730,8 +794,53 @@ public class SoftKeyboard extends InputMethodService
     }
     
     public void onPress(int primaryCode) {
+    	if(mVibrateOnKeyPress)
+    	{
+    		((Vibrator)getSystemService(Context.VIBRATOR_SERVICE)).vibrate(10);
+    	}
+    	if(mSoundOnKeyPress)
+    	{
+    		int keyFX = AudioManager.FX_KEYPRESS_STANDARD;
+    		switch(primaryCode)
+    		{
+    			case 13:
+    				keyFX = AudioManager.FX_KEYPRESS_RETURN;
+    			case Keyboard.KEYCODE_DELETE:
+    				keyFX = AudioManager.FX_KEYPRESS_DELETE;
+    			case 32:
+    				keyFX = AudioManager.FX_KEYPRESS_SPACEBAR;
+    		}
+    		((AudioManager)getSystemService(Context.AUDIO_SERVICE)).playSoundEffect(keyFX);
+    	}
     }
     
-    public void onRelease(int primaryCode) {
+    private static boolean isNonAutoCapsResposibleChar(int primaryCode) 
+    {
+    	switch(primaryCode)
+		{
+			case (int)' ':
+				return true;
+			case Keyboard.KEYCODE_DELETE:
+				return true;
+			default:
+				return false;
+		}
+	}
+
+	private static boolean isEndOfSentanceChar(int primaryCode) 
+	{
+		switch((char)primaryCode)
+		{
+			case 13:
+			case '.':
+			case '?':
+			case '!':
+				return true;
+			default:
+				return false;
+		}			
+	}
+
+	public void onRelease(int primaryCode) {
     }
 }

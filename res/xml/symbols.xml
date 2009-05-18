@@ -61,7 +61,7 @@
         <Key android:codes="58" android:keyLabel=":"/>
         <Key android:codes="59" android:keyLabel=";"/>
         <Key android:codes="47" android:keyLabel="/" />
-        <Key android:codes="63" android:keyLabel="\?"/>
+        <Key android:codes="44" android:keyLabel=","/>
         <Key android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete"
                 android:keyWidth="15%p" android:keyEdgeFlags="right"
                 android:isRepeatable="true"/>
@@ -69,10 +69,12 @@
     
     <Row  android:rowEdgeFlags="bottom">
         <Key android:codes="-99" android:keyIcon="@drawable/sym_keyboard_lang" 
-                android:keyWidth="20%p" android:keyEdgeFlags="left"/>
-        <Key android:codes="32" android:horizontalGap="10%p" android:keyIcon="@drawable/sym_keyboard_space" android:keyWidth="30%p" 
+                android:keyWidth="15%p" android:keyEdgeFlags="left"/>
+        <Key android:codes="-1" android:keyLabel="{&lt;\\" android:keyWidth="15%p"/>
+        <Key android:codes="32" android:keyIcon="@drawable/sym_keyboard_space" android:keyWidth="30%p" 
                 android:isRepeatable="true"/>
-        <Key android:codes="44" android:keyLabel=","/>
+        <Key android:codes="46" android:keyLabel="."/>
+        <Key android:codes="63" android:keyLabel="\?"/>
         <Key android:codes="10" android:keyIcon="@drawable/sym_keyboard_return"
                 android:keyWidth="20%p" android:keyEdgeFlags="right"/>
     </Row>
