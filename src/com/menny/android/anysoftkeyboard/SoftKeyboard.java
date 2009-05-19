@@ -24,15 +24,11 @@ import android.inputmethodservice.KeyboardView;
 import android.media.AudioManager;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-import android.text.method.MetaKeyKeyListener;
-import android.util.Log;
-import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
-import android.view.inputmethod.InputMethodManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -215,7 +211,8 @@ public class SoftKeyboard extends InputMethodService
         mComposing.setLength(0);
         updateCandidates();
         
-        if (!restarting) {
+        if (!restarting) 
+        {
             // Clear shift states.
             //mMetaState = 0;
         }
@@ -400,15 +397,19 @@ public class SoftKeyboard extends InputMethodService
      * Helper to update the shift state of our keyboard based on the initial
      * editor state.
      */
-    private void updateShiftKeyState(EditorInfo attr) {
+    private void updateShiftKeyState(EditorInfo attr) 
+    {
         if (attr != null && mInputView != null) 
         {
             int caps = 0;
-            EditorInfo ei = getCurrentInputEditorInfo();
-            if (ei != null && ei.inputType != EditorInfo.TYPE_NULL) 
+            //EditorInfo ei = getCurrentInputEditorInfo();
+            //if (ei != null && ei.inputType != EditorInfo.TYPE_NULL) 
+            //{
+            if (mAutoCaps)
             {
                 caps = getCurrentInputConnection().getCursorCapsMode(attr.inputType);
             }
+            //}
             mInputView.setShifted(mCapsLock || caps != 0);
         }
     }
@@ -452,13 +453,15 @@ public class SoftKeyboard extends InputMethodService
     // Implementation of KeyboardViewListener
 
     public void onKey(int primaryCode, int[] keyCodes) {
+    	EditorInfo currentEditorInfo = getCurrentInputEditorInfo();
+    	InputConnection currentInputConnection = getCurrentInputConnection();
         if (isWordSeparator(primaryCode)) {
             // Handle separator
             if (mComposing.length() > 0) {
-                commitTyped(getCurrentInputConnection());
+                commitTyped(currentInputConnection);
             }
             sendKey(primaryCode);
-            updateShiftKeyState(getCurrentInputEditorInfo());
+            updateShiftKeyState(currentEditorInfo);
         } else if (primaryCode == Keyboard.KEYCODE_DELETE) {
             handleBackspace();
         } else if (primaryCode == Keyboard.KEYCODE_SHIFT) {
@@ -471,11 +474,11 @@ public class SoftKeyboard extends InputMethodService
         }
         else if (primaryCode == -80//my special .COM key
                 && mInputView != null) {
-        	commitTyped(getCurrentInputConnection());
-        	getCurrentInputConnection().commitText(".com", 4);
+        	commitTyped(currentInputConnection);
+        	currentInputConnection.commitText(".com", 4);
         } else if (primaryCode == -99//my special lang key
                 && mInputView != null) {
-        	int variation = getCurrentInputEditorInfo().inputType &  EditorInfo.TYPE_MASK_VARIATION;
+        	int variation = currentEditorInfo.inputType &  EditorInfo.TYPE_MASK_VARIATION;
             if (mInternetKeyboard.isEnabled() &&
             		(variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS 
                     || variation == EditorInfo.TYPE_TEXT_VARIATION_URI)) {
@@ -500,7 +503,8 @@ public class SoftKeyboard extends InputMethodService
 	        	mCurKeyboard = mKeyboards[mLastSelectedKeyboard];
             }
         	mInputView.setKeyboard(mCurKeyboard);
-        	mCurKeyboard.setImeOptions(getResources(), getCurrentInputEditorInfo().imeOptions);
+        	updateShiftKeyState(currentEditorInfo);
+        	mCurKeyboard.setImeOptions(getResources(), currentEditorInfo.imeOptions);
         } else if (primaryCode == Keyboard.KEYCODE_MODE_CHANGE
                 && mInputView != null) {
             mInputView.setKeyboard(mSymbolsKeyboard);
@@ -615,7 +619,12 @@ public class SoftKeyboard extends InputMethodService
         if (isAlphabet(primaryCode)) 
         {
             mComposing.append((char) primaryCode);
-            getCurrentInputConnection().setComposingText(mComposing, 1);
+            
+            if (mCompletionOn)
+            	getCurrentInputConnection().setComposingText(mComposing, 1);
+            else
+            	getCurrentInputConnection().commitText(String.valueOf((char) primaryCode), 1);
+            
             updateShiftKeyState(getCurrentInputEditorInfo());
             updateCandidates();
         } 
@@ -692,11 +701,11 @@ public class SoftKeyboard extends InputMethodService
     public void onPress(int primaryCode) {
     	if(mVibrateOnKeyPress)
     	{
-    		((Vibrator)getSystemService(Context.VIBRATOR_SERVICE)).vibrate(15);
+    		((Vibrator)getSystemService(Context.VIBRATOR_SERVICE)).vibrate(10);
     	}
     	if(mSoundOnKeyPress)
     	{
-    		int keyFX = AudioManager.FX_KEYPRESS_STANDARD;
+    		int keyFX = AudioManager.FX_KEY_CLICK;
     		switch(primaryCode)
     		{
     			case 13:
@@ -708,34 +717,7 @@ public class SoftKeyboard extends InputMethodService
     		}
     		((AudioManager)getSystemService(Context.AUDIO_SERVICE)).playSoundEffect(keyFX);
     	}
-    }
-    
-    private static boolean isNonAutoCapsResposibleChar(int primaryCode) 
-    {
-    	switch(primaryCode)
-		{
-			case (int)' ':
-				return true;
-			case Keyboard.KEYCODE_DELETE:
-				return true;
-			default:
-				return false;
-		}
-	}
-
-	private static boolean isEndOfSentanceChar(int primaryCode) 
-	{
-		switch((char)primaryCode)
-		{
-			case 13:
-			case '.':
-			case '?':
-			case '!':
-				return true;
-			default:
-				return false;
-		}			
-	}
+    }    
 
 	public void onRelease(int primaryCode) {
     }

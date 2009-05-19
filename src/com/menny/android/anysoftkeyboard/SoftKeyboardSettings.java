@@ -15,11 +15,7 @@
 package com.menny.android.anysoftkeyboard;
 
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceGroup;
-import android.text.AutoText;
-
 
 public class SoftKeyboardSettings extends PreferenceActivity {
     @Override
