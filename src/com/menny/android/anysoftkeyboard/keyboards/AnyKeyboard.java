@@ -16,6 +16,8 @@
 
 package com.menny.android.anysoftkeyboard.keyboards;
 
+import java.util.ArrayList;
+
 import com.menny.android.anysoftkeyboard.R;
 
 import android.content.Context;
@@ -124,6 +126,9 @@ public abstract class AnyKeyboard extends Keyboard {
         else
         	return false;
     }
+	public void addSuggestions(String currentWord, ArrayList<String> list) 
+	{	
+	}
     
 //    static class LatinKey extends Keyboard.Key {
 //        

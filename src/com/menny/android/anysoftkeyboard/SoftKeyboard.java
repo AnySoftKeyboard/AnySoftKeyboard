@@ -407,7 +407,9 @@ public class SoftKeyboard extends InputMethodService
             //{
             if (mAutoCaps)
             {
-                caps = getCurrentInputConnection().getCursorCapsMode(attr.inputType);
+            	InputConnection ci = getCurrentInputConnection();
+            	if (ci != null)
+            		caps = ci.getCursorCapsMode(attr.inputType);
             }
             //}
             mInputView.setShifted(mCapsLock || caps != 0);
@@ -544,12 +546,15 @@ public class SoftKeyboard extends InputMethodService
      */
     private void updateCandidates() 
     {
-        if (!mCompletionOn) 
+        if (mCompletionOn) 
         {
             if (mComposing.length() > 0) 
             {
                 ArrayList<String> list = new ArrayList<String>();
-                list.add(mComposing.toString());
+                String currentWord = mComposing.toString();
+                list.add(currentWord);
+                //asking current keyboard for suggestions
+                mCurKeyboard.addSuggestions(currentWord, list);
                 setSuggestions(list, true, true);
             } 
             else 
@@ -659,32 +664,39 @@ public class SoftKeyboard extends InputMethodService
         return separators.contains(String.valueOf((char)code));
     }
 
-    public void pickDefaultCandidate() {
-        pickSuggestionManually(0);
-    }
+//    public void pickDefaultCandidate() 
+//    {
+//        pickSuggestionManually(0);
+//    }
     
-    public void pickSuggestionManually(int index) 
+    public void pickSuggestionManually(String word) 
     {
-        if (mCompletionOn && mCompletions != null && index >= 0
-                && index < mCompletions.length) {
-            CompletionInfo ci = mCompletions[index];
-            getCurrentInputConnection().commitCompletion(ci);
-            if (mCandidateView != null) {
-                mCandidateView.clear();
-            }
-            updateShiftKeyState(getCurrentInputEditorInfo());
-        } else if (mComposing.length() > 0) {
-            // If we were generating candidate suggestions for the current
-            // text, we would commit one of them here.  But for this sample,
-            // we will just commit the current text.
-            commitTyped(getCurrentInputConnection());
-        }
+//        if (mCompletionOn && mCompletions != null && index >= 0
+//                && index < mCompletions.length) {
+//            CompletionInfo ci = mCompletions[index];
+//            getCurrentInputConnection().commitCompletion(ci);
+//            if (mCandidateView != null) {
+//                mCandidateView.clear();
+//            }
+//            updateShiftKeyState(getCurrentInputEditorInfo());
+//        } else if (mComposing.length() > 0) {
+//            // If we were generating candidate suggestions for the current
+//            // text, we would commit one of them here.  But for this sample,
+//            // we will just commit the current text.
+//            commitTyped(getCurrentInputConnection());
+//        }
+    	getCurrentInputConnection().commitText(word, word.length());
+		mComposing.setLength(0);
+		//simulating space
+		onKey((int)' ', null);
+		if (mCandidateView != null) 
+		{
+		      mCandidateView.clear();
+		}
     }
     
-    public void swipeRight() {
-        if (mCompletionOn) {
-            pickDefaultCandidate();
-        }
+    public void swipeRight() 
+    {
     }
     
     public void swipeLeft() {
@@ -701,7 +713,7 @@ public class SoftKeyboard extends InputMethodService
     public void onPress(int primaryCode) {
     	if(mVibrateOnKeyPress)
     	{
-    		((Vibrator)getSystemService(Context.VIBRATOR_SERVICE)).vibrate(10);
+    		((Vibrator)getSystemService(Context.VIBRATOR_SERVICE)).vibrate(12);
     	}
     	if(mSoundOnKeyPress)
     	{
