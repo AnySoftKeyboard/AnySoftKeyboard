@@ -30,14 +30,18 @@ public abstract class AnyKeyboard extends Keyboard {
 
     private Key mEnterKey;
     private final boolean mSupportsShift;
+    private final boolean mOverridesPhysical;
     private final String mKeyboardName;
+    
+    protected int mPhysicalKeysMapping[] = null;
     
     private boolean mEnabled = true;
     
-    protected AnyKeyboard(Context context, int xmlLayoutResId, boolean supportsShift, String keyboardName) 
+    protected AnyKeyboard(Context context, int xmlLayoutResId, boolean supportsShift, boolean overridesPhysical, String keyboardName) 
     {
         super(context, xmlLayoutResId);
         mSupportsShift = supportsShift;
+        mOverridesPhysical = overridesPhysical;
         mKeyboardName = keyboardName;
         mEnabled = true;
     }
@@ -102,6 +106,16 @@ public abstract class AnyKeyboard extends Keyboard {
     public boolean getSupportsShift()
     {
     	return mSupportsShift;
+    }
+    
+    public boolean getOverridesPhysical()
+    {
+    	return mOverridesPhysical;
+    }
+    
+    public int[] getPhysicalKeysMapping()
+    {
+    	return mPhysicalKeysMapping;
     }
     
     public String getKeyboardName()

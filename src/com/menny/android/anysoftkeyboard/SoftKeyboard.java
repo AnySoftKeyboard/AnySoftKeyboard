@@ -383,6 +383,80 @@ public class SoftKeyboard extends InputMethodService
     }
     
     /**
+     * Use this to monitor key events being delivered to the application.
+     * We get first crack at them, and can either resume them or let them
+     * continue to the app.
+     */
+    @Override public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+                // The InputMethodService already takes care of the back
+                // key for us, to dismiss the input method if it is shown.
+                // However, our keyboard could be showing a pop-up window
+                // that back should dismiss, so we first allow it to do that.
+                if (event.getRepeatCount() == 0 && mInputView != null) {
+                    if (mInputView.handleBack()) {
+                        return true;
+                    }
+                }
+                break;
+                
+            case KeyEvent.KEYCODE_DEL:
+                // Special handling of the delete key: if we currently are
+                // composing text for the user, we want to modify that instead
+                // of let the application to the delete itself.
+                if (mComposing.length() > 0) {
+                    onKey(Keyboard.KEYCODE_DELETE, null);
+                    return true;
+                }
+                break;
+                
+            case KeyEvent.KEYCODE_ENTER:
+                // Let the underlying text editor always handle these.
+                return false;
+                
+            default:
+                // For all other keys, if we want to do transformations on
+                // text being entered with a hard keyboard, we need to process
+                // it and do the appropriate action.
+            	//TODO GET RID OF THIS
+                if (true) {
+                  	// using physical keyboard is more annoying with candidate view in the way
+                	// so we disable it.
+                	mCompletionOn = false;
+
+                	// are we swaping languages or typing a love letter?
+                	if (keyCode == KeyEvent.KEYCODE_SPACE
+                            && (event.getMetaState()&KeyEvent.META_ALT_ON) != 0) {
+                        // A silly example: in our input method, Alt+Space
+                        // is a shortcut for 'android' in lower case.
+                        InputConnection ic = getCurrentInputConnection();
+                        if (ic != null) {
+                            // First, tell the editor that it is no longer in the
+                            // shift state, since we are consuming this.
+                            ic.clearMetaKeyStates(KeyEvent.META_ALT_ON);
+                            
+                            // TODO: LANGUAGE SWAP CODE
+                            return true;
+                        }
+                	}
+                	else if(keyCode >= KeyEvent.KEYCODE_A &&
+                			keyCode <= KeyEvent.KEYCODE_COMMA &&
+                			mCurKeyboard.getOverridesPhysical() &&
+                			((event.getMetaState()&KeyEvent.META_ALT_ON) == 0) &&
+                			((event.getMetaState()&KeyEvent.META_SHIFT_ON) == 0))
+                	{
+                		sendKey(mCurKeyboard.getPhysicalKeysMapping()[keyCode - KeyEvent.KEYCODE_A]);
+                		return true;
+                	}
+                }
+        }
+        
+        return super.onKeyDown(keyCode, event);
+    }
+
+    
+    /**
      * Helper function to commit any text being composed in to the editor.
      */
     private void commitTyped(InputConnection inputConnection) {
