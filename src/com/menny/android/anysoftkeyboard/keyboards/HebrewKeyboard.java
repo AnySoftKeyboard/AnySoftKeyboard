@@ -8,7 +8,7 @@ public class HebrewKeyboard extends AnyKeyboard
 {
 	public HebrewKeyboard(Context context) 
 	{
-		super(context, R.xml.heb_qwerty, false, true, "Hebrew");
+		super(context, R.xml.heb_qwerty, false, true, "עיברית");
 		mPhysicalKeysMapping = new int[]{	1513, 1504, 1489, 1490,
 											1511, 1499, 1506, 1497,
 											1503, 1495, 1500, 1498,

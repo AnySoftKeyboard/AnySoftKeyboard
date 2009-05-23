@@ -143,7 +143,6 @@ public abstract class AnyKeyboard extends Keyboard {
 	public void addSuggestions(String currentWord, ArrayList<String> list) 
 	{	
 	}
-    
 //    static class LatinKey extends Keyboard.Key {
 //        
 //        public LatinKey(Resources res, Keyboard.Row parent, int x, int y, XmlResourceParser parser) {

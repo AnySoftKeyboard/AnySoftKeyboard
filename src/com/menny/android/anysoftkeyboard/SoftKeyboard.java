@@ -16,7 +16,11 @@
 
 package com.menny.android.anysoftkeyboard;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
@@ -24,6 +28,7 @@ import android.inputmethodservice.KeyboardView;
 import android.media.AudioManager;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.CompletionInfo;
@@ -581,6 +586,7 @@ public class SoftKeyboard extends InputMethodService
         	mInputView.setKeyboard(mCurKeyboard);
         	updateShiftKeyState(currentEditorInfo);
         	mCurKeyboard.setImeOptions(getResources(), currentEditorInfo.imeOptions);
+        	//notifyKeyboardChange();
         } else if (primaryCode == Keyboard.KEYCODE_MODE_CHANGE
                 && mInputView != null) {
             mInputView.setKeyboard(mSymbolsKeyboard);
@@ -589,6 +595,24 @@ public class SoftKeyboard extends InputMethodService
             handleCharacter(primaryCode, keyCodes);
         }
     }
+
+	private void notifyKeyboardChange() {
+		//notifying the user about the keyboard. This should be done in open keyboard only.
+		//getting the manager
+		NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		//creating the message
+		Notification notification = new Notification(R.drawable.sym_keyboard_notification_icon, mCurKeyboard.getKeyboardName(), System.currentTimeMillis());
+
+		Intent notificationIntent = new Intent();
+		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+		
+		notification.setLatestEventInfo(getApplicationContext(), "Any Soft Keyboard", mCurKeyboard.getKeyboardName(), contentIntent);
+		notification.flags |= Notification.FLAG_ONGOING_EVENT;
+		notification.flags |= Notification.FLAG_NO_CLEAR;
+		notification.defaults = 0;//no sound, vibrate, etc.
+		//notifying
+		notificationManager.notify(1, notification);
+	}
     
     private boolean isAlphaBetKeyboard(Keyboard viewedKeyboard)
     {
@@ -638,8 +662,7 @@ public class SoftKeyboard extends InputMethodService
         }
     }
     
-    public void setSuggestions(List<String> suggestions, boolean completions,
-            boolean typedWordValid) {
+    public void setSuggestions(List<String> suggestions, boolean completions, boolean typedWordValid) {
         if (suggestions != null && suggestions.size() > 0) {
             setCandidatesViewShown(true);
         } else if (isExtractViewShown()) {
@@ -780,8 +803,10 @@ public class SoftKeyboard extends InputMethodService
     public void swipeDown() {
         handleClose();
     }
-
-    public void swipeUp() {
+    
+    public void swipeUp() 
+    {
+    	onKey(-99, null);
     }
     
     public void onPress(int primaryCode) {
