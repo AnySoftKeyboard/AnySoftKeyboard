@@ -403,7 +403,8 @@ public class SoftKeyboard extends InputMethodService
      * continue to the app.
      */
     @Override public boolean onKeyDown(int keyCode, KeyEvent event) {
-        switch (keyCode) {
+        switch (keyCode) 
+        {
             case KeyEvent.KEYCODE_BACK:
                 // The InputMethodService already takes care of the back
                 // key for us, to dismiss the input method if it is shown.
@@ -434,38 +435,33 @@ public class SoftKeyboard extends InputMethodService
                 // For all other keys, if we want to do transformations on
                 // text being entered with a hard keyboard, we need to process
                 // it and do the appropriate action.
-            	//TODO GET RID OF THIS
-                if (true) {
-                  	// using physical keyboard is more annoying with candidate view in the way
-                	// so we disable it.
-                	mCompletionOn = false;
+            	// using physical keyboard is more annoying with candidate view in the way
+            	// so we disable it.
+            	mCompletionOn = false;
 
-                	if (keyCode == KeyEvent.KEYCODE_SPACE
-                            && (event.getMetaState()&KeyEvent.META_ALT_ON) != 0) {
-                        // A silly example: in our input method, Alt+Space
-                        // is a shortcut for 'android' in lower case.
-                        InputConnection ic = getCurrentInputConnection();
-                        if (ic != null) {
-                            // First, tell the editor that it is no longer in the
-                            // shift state, since we are consuming this.
-                            ic.clearMetaKeyStates(KeyEvent.META_ALT_ON);
-                            
-                            nextKeyboard(getCurrentInputEditorInfo(), true);
-                            notifyKeyboardChange();
-                            return true;
-                        }
-                	}
-                	else if(keyCode >= KeyEvent.KEYCODE_A &&
-                			keyCode <= KeyEvent.KEYCODE_COMMA &&
-                			mCurKeyboard.getOverridesPhysical() &&
-                			((event.getMetaState()&KeyEvent.META_ALT_ON) == 0) &&
-                			((event.getMetaState()&KeyEvent.META_SHIFT_ON) == 0))
-                	{
-                		char translatedChar = mCurKeyboard.translatePhysicalCharacter((char)keyCode);
-                		sendKey(translatedChar);
-                		return true;
-                	}
-                }
+            	if (keyCode == KeyEvent.KEYCODE_SPACE
+                        && (event.getMetaState()&KeyEvent.META_ALT_ON) != 0) {
+                    InputConnection ic = getCurrentInputConnection();
+                    if (ic != null) {
+                        // First, tell the editor that it is no longer in the
+                        // shift state, since we are consuming this.
+                        ic.clearMetaKeyStates(KeyEvent.META_ALT_ON);
+                        
+                        nextKeyboard(getCurrentInputEditorInfo(), true);
+                        notifyKeyboardChange();
+                        return true;
+                    }
+            	}
+            	else if(keyCode >= KeyEvent.KEYCODE_A &&
+            			keyCode <= KeyEvent.KEYCODE_COMMA &&
+            			mCurKeyboard.getOverridesPhysical() &&
+            			((event.getMetaState()&KeyEvent.META_ALT_ON) == 0) &&
+            			((event.getMetaState()&KeyEvent.META_SHIFT_ON) == 0))
+            	{
+            		char translatedChar = mCurKeyboard.translatePhysicalCharacter((char)keyCode);
+            		sendKey(translatedChar);
+            		return true;
+            	}
         }
         
         return super.onKeyDown(keyCode, event);
