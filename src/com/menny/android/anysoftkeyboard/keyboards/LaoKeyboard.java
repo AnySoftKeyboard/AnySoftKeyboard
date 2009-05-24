@@ -5,13 +5,13 @@ import android.view.KeyEvent;
 
 import com.menny.android.anysoftkeyboard.R;
 
-public class HebrewKeyboard extends AnyKeyboard 
+public class LaoKeyboard extends AnyKeyboard 
 {
 	private char mPhysicalKeysMapping[] = null;
     
-	public HebrewKeyboard(Context context) 
+	public LaoKeyboard(Context context) 
 	{
-		super(context, R.xml.heb_qwerty, false, true, "עיברית", "heb_keyboard");
+		super(context, R.xml.lao_qwerty, false, false, "Lao", "lao_keyboard");
 		mPhysicalKeysMapping = new char[]{	1513, 1504, 1489, 1490,
 											1511, 1499, 1506, 1497,
 											1503, 1495, 1500, 1498,
@@ -23,7 +23,7 @@ public class HebrewKeyboard extends AnyKeyboard
 	@Override
 	public int getKeyboardIcon() 
 	{
-		return R.drawable.he;
+		return R.drawable.lao;
 	}
 	
 	@Override

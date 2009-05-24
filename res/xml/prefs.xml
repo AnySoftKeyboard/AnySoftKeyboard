@@ -51,5 +51,11 @@
             android:title="@string/heb_keyboard"
             android:persistent="true"
             android:defaultValue="true" 
-            />   
+            />
+            <CheckBoxPreference
+            android:key="lao_keyboard"
+            android:title="@string/lao_keyboard"
+            android:persistent="true"
+            android:defaultValue="false" 
+            />      
 </PreferenceScreen>

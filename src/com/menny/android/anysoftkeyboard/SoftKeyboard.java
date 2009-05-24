@@ -44,6 +44,8 @@ import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.EnglishKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.HebrewKeyboard;
+import com.menny.android.anysoftkeyboard.keyboards.KeyboardFactory;
+import com.menny.android.anysoftkeyboard.keyboards.LaoKeyboard;
 
 /**
  * Example of writing an input method for a soft keyboard.  This code is
@@ -122,14 +124,12 @@ public class SoftKeyboard extends InputMethodService
             mLastDisplayWidth = displayWidth;
         }
         
-        mSymbolsKeyboard = new GenericKeyboard(this, R.xml.symbols, false, "Symbols");
-        mSymbolsShiftedKeyboard = new GenericKeyboard(this, R.xml.symbols_shift, false, "Shift Symbols");
-        mInternetKeyboard = new GenericKeyboard(this, R.xml.internet_qwerty, false, "Internet");
-        mSimpleNumbersKeyboard = new GenericKeyboard(this, R.xml.simple_numbers, false, "Numbers");
+        mSymbolsKeyboard = new GenericKeyboard(this, R.xml.symbols, false, "Symbols", "");
+        mSymbolsShiftedKeyboard = new GenericKeyboard(this, R.xml.symbols_shift, false, "Shift Symbols", "");
+        mInternetKeyboard = new GenericKeyboard(this, R.xml.internet_qwerty, false, "Internet", "internet_keyboard");
+        mSimpleNumbersKeyboard = new GenericKeyboard(this, R.xml.simple_numbers, false, "Numbers", "");
         
-        mKeyboards = new AnyKeyboard[2];
-        mKeyboards[0] = new EnglishKeyboard(this);
-        mKeyboards[1] = new HebrewKeyboard(this);
+        mKeyboards = KeyboardFactory.createAlphaBetKeyboards(this);
         
         reloadConfiguration();
     }
@@ -145,21 +145,18 @@ public class SoftKeyboard extends InputMethodService
         
         mAutoCaps = sp.getBoolean("auto_caps", true);
         mShowCandidates = sp.getBoolean("candidates_on", true);
-    	setEnabledKeyboards();
+    	reloadKeyboardsConfiguration();
     }
     
-	private void setEnabledKeyboards() 
+	private void reloadKeyboardsConfiguration() 
 	{
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean englishKeyboard = sp.getBoolean("eng_keyboard", true);
-        boolean hebrewKeyboard = sp.getBoolean("heb_keyboard", true);
-        boolean internetKeyboard = sp.getBoolean("internet_keyboard", false);
-        if ((!hebrewKeyboard))
-        	englishKeyboard = true;
-        
-        mInternetKeyboard.setIsEnabled(internetKeyboard);
-        mKeyboards[0].setIsEnabled(englishKeyboard);
-        mKeyboards[1].setIsEnabled(hebrewKeyboard);
+		
+        mInternetKeyboard.reloadKeyboardConfiguration(sp);
+        for(int keyboardIndex=0; keyboardIndex<mKeyboards.length; keyboardIndex++)
+        {
+        	mKeyboards[keyboardIndex].reloadKeyboardConfiguration(sp);
+        }
         
         int maxTries = mKeyboards.length;
 		do

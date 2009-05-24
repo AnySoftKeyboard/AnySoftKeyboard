@@ -24,44 +24,57 @@
     android:verticalGap="0px"
     android:keyHeight="@dimen/key_height"
     >
-
+    <!-- numbers -->
+	<Row>
+        <Key android:codes="3792" android:keyLabel="&#3792;" android:keyEdgeFlags="left"/>
+        <Key android:codes="3793" android:keyLabel="&#3793;"/>
+        <Key android:codes="3794" android:keyLabel="&#3794;"/>
+        <Key android:codes="3795" android:keyLabel="&#3795;"/>
+        <Key android:codes="3796" android:keyLabel="&#3796;"/>
+        <Key android:codes="3797" android:keyLabel="&#3797;"/>
+        <Key android:codes="3798" android:keyLabel="&#3798;"/>
+        <Key android:codes="3799" android:keyLabel="&#3799;"/>
+        <Key android:codes="3800" android:keyLabel="&#3800;"/>
+        <Key android:codes="3801" android:keyLabel="&#3801;" android:keyEdgeFlags="right"/>
+    </Row>
+	<!-- letters -->
     <Row>
-        <Key android:codes="113" android:keyLabel="ົ" android:keyEdgeFlags="left"/>
-        <Key android:codes="119" android:keyLabel="ໄ"/>
-        <Key android:codes="101" android:keyLabel="ຳ"/>
-        <Key android:codes="114" android:keyLabel="ພ"/>
-        <Key android:codes="116" android:keyLabel="ະ"/>
-        <Key android:codes="121" android:keyLabel="ິ"/>
-        <Key android:codes="117" android:keyLabel="ີ"/>
-        <Key android:codes="105" android:keyLabel="ຮ"/>
-        <Key android:codes="111" android:keyLabel="ນ"/>
-        <Key android:codes="112" android:keyLabel="ຍ" android:keyEdgeFlags="right"/>
+        <Key android:codes="3771" android:keyLabel="&#3771;" android:keyEdgeFlags="left"/>
+        <Key android:codes="3780" android:keyLabel="&#3780;"/>
+        <Key android:codes="3763" android:keyLabel="&#3763;"/>
+        <Key android:codes="3742" android:keyLabel="&#3742;"/>
+        <Key android:codes="3760" android:keyLabel="&#3760;"/>
+        <Key android:codes="3764" android:keyLabel="&#3764;"/>
+        <Key android:codes="3765" android:keyLabel="&#3765;"/>
+        <Key android:codes="3747" android:keyLabel="&#3747;"/>
+        <Key android:codes="3737" android:keyLabel="&#3737;"/>
+        <Key android:codes="3725" android:keyLabel="&#3725;" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row>
         <Key android:codes="-1" android:keyIcon="@drawable/sym_keyboard_shift" 
                 android:keyWidth="10%p" android:isModifier="true"
                 android:isSticky="true" android:keyEdgeFlags="left"/>
-        <Key android:codes="97" android:keyLabel="ັ"/>
-        <Key android:codes="115" android:keyLabel="ຫ"/>
-        <Key android:codes="100" android:keyLabel="ກ"/>
-        <Key android:codes="102" android:keyLabel="ດ"/>
-        <Key android:codes="103" android:keyLabel="ເ"/>
-        <Key android:codes="104" android:keyLabel="້"/>
-        <Key android:codes="106" android:keyLabel="່"/>
-        <Key android:codes="107" android:keyLabel="າ"/>
-        <Key android:codes="108" android:keyLabel="ສ" android:keyEdgeFlags="right"/>
+        <Key android:codes="3761" android:keyLabel="&#3761;"/>
+        <Key android:codes="3755" android:keyLabel="&#3755;"/>
+        <Key android:codes="3713" android:keyLabel="&#3713;"/>
+        <Key android:codes="3732" android:keyLabel="&#3732;"/>
+        <Key android:codes="3776" android:keyLabel="&#3776;"/>
+        <Key android:codes="3785" android:keyLabel="&#3785;"/>
+        <Key android:codes="3784" android:keyLabel="&#3784;"/>
+        <Key android:codes="3762" android:keyLabel="&#3762;"/>
+        <Key android:codes="3754" android:keyLabel="&#3754;" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row>
-        <Key android:codes="122" android:keyLabel="ຜ" android:keyEdgeFlags="left"/>
-        <Key android:codes="120" android:keyLabel="ປ"/>
-        <Key android:codes="99" android:keyLabel="ແ"/>
-        <Key android:codes="118" android:keyLabel="ອ"/>
-        <Key android:codes="98" android:keyLabel="ຶ"/>
-        <Key android:codes="110" android:keyLabel="ື"/>
-        <Key android:codes="109" android:keyLabel="ທ"/>
-        <Key android:codes="44" android:keyLabel="ມ"/>
+        <Key android:codes="3740" android:keyLabel="&#3740;" android:keyEdgeFlags="left"/>
+        <Key android:codes="3739" android:keyLabel="&#3739;"/>
+        <Key android:codes="3777" android:keyLabel="&#3777;"/>
+        <Key android:codes="3757" android:keyLabel="&#3757;"/>
+        <Key android:codes="3766" android:keyLabel="&#3766;"/>
+        <Key android:codes="3767" android:keyLabel="&#3767;"/>
+        <Key android:codes="3735" android:keyLabel="&#3735;"/>
+        <Key android:codes="3745" android:keyLabel="&#3745;"/>
         <Key android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete" 
                 android:keyWidth="20%p" android:keyEdgeFlags="right"
                 android:isRepeatable="true"/>
@@ -73,7 +86,7 @@
         <Key android:codes="-2" android:keyLabel="123" android:keyWidth="15%p"/>
         <Key android:codes="32" android:keyIcon="@drawable/sym_keyboard_space" 
                 android:keyWidth="30%p" android:isRepeatable="true"/>
-        <Key android:codes="46" android:keyLabel="ໃ"/>
+        <Key android:codes="3779" android:keyLabel="&#3779;"/>
         <Key android:codes="63" android:keyLabel="\?"/>
         <Key android:codes="10" android:keyIcon="@drawable/sym_keyboard_return" 
                 android:keyWidth="20%p" android:keyEdgeFlags="right"/>

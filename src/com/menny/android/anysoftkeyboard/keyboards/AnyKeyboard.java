@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import com.menny.android.anysoftkeyboard.R;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.inputmethodservice.Keyboard;
@@ -32,18 +33,21 @@ public abstract class AnyKeyboard extends Keyboard {
     private final boolean mSupportsShift;
     private final boolean mOverridesPhysical;
     private final String mKeyboardName;
+    private final String mKeyboardEnabledPref;
     
     private boolean mEnabled = true;
     
     protected AnyKeyboard(Context context, int xmlLayoutResId, boolean supportsShift,
     		boolean overridesPhysical, /*mapping XML id will be added here,*/
-    		String keyboardName) 
+    		String keyboardName,
+    		String keyboardEnabledPref) 
     {
         super(context, xmlLayoutResId);
         mSupportsShift = supportsShift;
         mOverridesPhysical = overridesPhysical;
         mKeyboardName = keyboardName;
         mEnabled = true;
+        mKeyboardEnabledPref = keyboardEnabledPref;
         //TODO: parsing of the mapping xml:
         //XmlResourceParser p = getResources().getXml(id from the constractor parameter);
         //parse to a HashMap?
@@ -66,6 +70,14 @@ public abstract class AnyKeyboard extends Keyboard {
             mEnterKey = key;
         }
         return key;
+    }
+    
+    public void reloadKeyboardConfiguration(SharedPreferences sp)
+    {
+    	if (mKeyboardEnabledPref == "")
+    		mEnabled = true;
+    	else
+    		mEnabled = sp.getBoolean(mKeyboardEnabledPref, true);
     }
     
     public char translatePhysicalCharacter(char primaryCode)
@@ -138,11 +150,6 @@ public abstract class AnyKeyboard extends Keyboard {
     public boolean isEnabled()
     {
     	return mEnabled;
-    }
-    
-    public void setIsEnabled(boolean enabled)
-    {
-    	mEnabled = enabled;
     }
     
     public boolean isLetter(char letterCode)

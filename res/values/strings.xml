@@ -38,4 +38,5 @@
     <string name="eng_keyboard">English keyboard</string>
     <string name="heb_keyboard">מקלדת עיברית</string>
     <string name="internet_keyboard">Internet keyboard</string>
+    <string name="lao_keyboard">Lao keyboard</string>
 </resources>
