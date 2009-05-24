@@ -22,6 +22,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.XmlResourceParser;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
@@ -54,6 +55,8 @@ import com.menny.android.anysoftkeyboard.keyboards.HebrewKeyboard;
 public class SoftKeyboard extends InputMethodService 
         implements KeyboardView.OnKeyboardActionListener {
     static final boolean DEBUG = false;
+
+	private static final int KEYBOARD_NOTIFICATION = 1;
     
     /**
      * This boolean indicates the optional example code for performing
@@ -332,6 +335,9 @@ public class SoftKeyboard extends InputMethodService
         
         if (mSoundOnKeyPress)
         	((AudioManager)getSystemService(Context.AUDIO_SERVICE)).unloadSoundEffects();
+        
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		notificationManager.cancel(KEYBOARD_NOTIFICATION);
     }
     
     @Override public void onStartInputView(EditorInfo attribute, boolean restarting) {
@@ -370,6 +376,10 @@ public class SoftKeyboard extends InputMethodService
      * in that situation.
      */
     @Override public void onDisplayCompletions(CompletionInfo[] completions) {
+    	String paramDetails = "NULL";
+    	if (completions != null)
+    		paramDetails = "" + completions.length; 
+    	Log.i("Completions", "onDisplayCompletions was called with "+paramDetails);
         if (mCompletionOn) 
         {
             mCompletions = completions;
@@ -430,7 +440,6 @@ public class SoftKeyboard extends InputMethodService
                 	// so we disable it.
                 	mCompletionOn = false;
 
-                	// are we swaping languages or typing a love letter?
                 	if (keyCode == KeyEvent.KEYCODE_SPACE
                             && (event.getMetaState()&KeyEvent.META_ALT_ON) != 0) {
                         // A silly example: in our input method, Alt+Space
@@ -441,7 +450,8 @@ public class SoftKeyboard extends InputMethodService
                             // shift state, since we are consuming this.
                             ic.clearMetaKeyStates(KeyEvent.META_ALT_ON);
                             
-                            // TODO: LANGUAGE SWAP CODE
+                            nextKeyboard(getCurrentInputEditorInfo(), true);
+                            notifyKeyboardChange();
                             return true;
                         }
                 	}
@@ -451,7 +461,8 @@ public class SoftKeyboard extends InputMethodService
                 			((event.getMetaState()&KeyEvent.META_ALT_ON) == 0) &&
                 			((event.getMetaState()&KeyEvent.META_SHIFT_ON) == 0))
                 	{
-                		sendKey(mCurKeyboard.getPhysicalKeysMapping()[keyCode - KeyEvent.KEYCODE_A]);
+                		char translatedChar = mCurKeyboard.translatePhysicalCharacter((char)keyCode);
+                		sendKey(translatedChar);
                 		return true;
                 	}
                 }
@@ -559,34 +570,7 @@ public class SoftKeyboard extends InputMethodService
         	currentInputConnection.commitText(".com", 4);
         } else if (primaryCode == -99//my special lang key
                 && mInputView != null) {
-        	int variation = currentEditorInfo.inputType &  EditorInfo.TYPE_MASK_VARIATION;
-            if (mInternetKeyboard.isEnabled() &&
-            		(variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS 
-                    || variation == EditorInfo.TYPE_TEXT_VARIATION_URI)) {
-                //special keyboard
-           		mCurKeyboard = mInternetKeyboard;
-            }            
-            else
-            {
-	        	if (isAlphaBetKeyboard(mInputView.getKeyboard()))
-	        	{
-	        		int maxTries = mKeyboards.length;
-	        		do
-	        		{
-	        			mLastSelectedKeyboard++;
-	        			if (mLastSelectedKeyboard >= mKeyboards.length)
-	        				mLastSelectedKeyboard = 0;
-	        			if (mKeyboards[mLastSelectedKeyboard].isEnabled())
-	        				break;
-	        			maxTries--;
-	        		}while(maxTries > 0);
-	        	}
-	        	mCurKeyboard = mKeyboards[mLastSelectedKeyboard];
-            }
-        	mInputView.setKeyboard(mCurKeyboard);
-        	updateShiftKeyState(currentEditorInfo);
-        	mCurKeyboard.setImeOptions(getResources(), currentEditorInfo.imeOptions);
-        	//notifyKeyboardChange();
+        	nextKeyboard(currentEditorInfo, false);//false - not just alphabet
         } else if (primaryCode == Keyboard.KEYCODE_MODE_CHANGE
                 && mInputView != null) {
             mInputView.setKeyboard(mSymbolsKeyboard);
@@ -596,12 +580,47 @@ public class SoftKeyboard extends InputMethodService
         }
     }
 
+	private void nextKeyboard(EditorInfo currentEditorInfo, boolean onlyAlphaBet) 
+	{
+		int variation = currentEditorInfo.inputType &  EditorInfo.TYPE_MASK_VARIATION;
+		if ((!onlyAlphaBet) && 
+				mInternetKeyboard.isEnabled() &&
+				(variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS 
+		        || variation == EditorInfo.TYPE_TEXT_VARIATION_URI)) {
+		    //special keyboard
+			mCurKeyboard = mInternetKeyboard;
+		}            
+		else
+		{
+			//in numeric keyboards, the LANG key will go back to the original alphabet keyboard-
+			//so no need to look for the next keyboard, 'mLastSelectedKeyboard' holds the last
+			//keyboard used.
+			if (isAlphaBetKeyboard(mInputView.getKeyboard()))
+			{
+				int maxTries = mKeyboards.length;
+				do
+				{
+					mLastSelectedKeyboard++;
+					if (mLastSelectedKeyboard >= mKeyboards.length)
+						mLastSelectedKeyboard = 0;
+					if (mKeyboards[mLastSelectedKeyboard].isEnabled())
+						break;
+					maxTries--;
+				}while(maxTries > 0);
+			}
+			mCurKeyboard = mKeyboards[mLastSelectedKeyboard];
+		}
+		mInputView.setKeyboard(mCurKeyboard);
+		updateShiftKeyState(currentEditorInfo);
+		mCurKeyboard.setImeOptions(getResources(), currentEditorInfo.imeOptions);
+	}
+
 	private void notifyKeyboardChange() {
 		//notifying the user about the keyboard. This should be done in open keyboard only.
 		//getting the manager
 		NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		//creating the message
-		Notification notification = new Notification(R.drawable.sym_keyboard_notification_icon, mCurKeyboard.getKeyboardName(), System.currentTimeMillis());
+		Notification notification = new Notification(mCurKeyboard.getKeyboardIcon(), mCurKeyboard.getKeyboardName(), System.currentTimeMillis());
 
 		Intent notificationIntent = new Intent();
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
@@ -611,7 +630,7 @@ public class SoftKeyboard extends InputMethodService
 		notification.flags |= Notification.FLAG_NO_CLEAR;
 		notification.defaults = 0;//no sound, vibrate, etc.
 		//notifying
-		notificationManager.notify(1, notification);
+		notificationManager.notify(KEYBOARD_NOTIFICATION, notification);
 	}
     
     private boolean isAlphaBetKeyboard(Keyboard viewedKeyboard)

@@ -61,7 +61,7 @@
         <Key android:codes="109" android:keyLabel="m"/>
         <Key android:codes="64" android:keyLabel="\@"/>
         <Key android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete" 
-                android:keyWidth="20%p" android:horizontalGap="3%p" android:keyEdgeFlags="right"
+                android:keyWidth="20%p" android:keyEdgeFlags="right"
                 android:isRepeatable="true"/>
     </Row>
     
@@ -72,7 +72,7 @@
                 android:keyWidth="30%p" android:isRepeatable="true"/>
         <Key android:codes="46" android:keyLabel="."/>
         <Key android:codes="10" android:keyIcon="@drawable/sym_keyboard_return" 
-                android:keyWidth="20%p" android:horizontalGap="5%p" android:keyEdgeFlags="right"/>
+                android:keyWidth="20%p" android:horizontalGap="6%p" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>
     

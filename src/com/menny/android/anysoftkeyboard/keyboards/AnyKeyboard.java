@@ -33,17 +33,20 @@ public abstract class AnyKeyboard extends Keyboard {
     private final boolean mOverridesPhysical;
     private final String mKeyboardName;
     
-    protected int mPhysicalKeysMapping[] = null;
-    
     private boolean mEnabled = true;
     
-    protected AnyKeyboard(Context context, int xmlLayoutResId, boolean supportsShift, boolean overridesPhysical, String keyboardName) 
+    protected AnyKeyboard(Context context, int xmlLayoutResId, boolean supportsShift,
+    		boolean overridesPhysical, /*mapping XML id will be added here,*/
+    		String keyboardName) 
     {
         super(context, xmlLayoutResId);
         mSupportsShift = supportsShift;
         mOverridesPhysical = overridesPhysical;
         mKeyboardName = keyboardName;
         mEnabled = true;
+        //TODO: parsing of the mapping xml:
+        //XmlResourceParser p = getResources().getXml(id from the constractor parameter);
+        //parse to a HashMap?
     }
 /*
     public AnyKeyboard(Context context, int layoutTemplateResId, 
@@ -63,6 +66,11 @@ public abstract class AnyKeyboard extends Keyboard {
             mEnterKey = key;
         }
         return key;
+    }
+    
+    public char translatePhysicalCharacter(char primaryCode)
+    {
+    	return primaryCode;
     }
     
     /**
@@ -113,14 +121,18 @@ public abstract class AnyKeyboard extends Keyboard {
     	return mOverridesPhysical;
     }
     
-    public int[] getPhysicalKeysMapping()
-    {
-    	return mPhysicalKeysMapping;
-    }
-    
     public String getKeyboardName()
     {
+    	//TODO: this should be taken from the strings.xml, right?
     	return mKeyboardName;
+    }
+    
+    /*
+     * This function is overridden by other alphabet keyboards, for nifty icons
+     */
+    public int getKeyboardIcon()
+    {
+    	return R.drawable.sym_keyboard_notification_icon;
     }
     
     public boolean isEnabled()

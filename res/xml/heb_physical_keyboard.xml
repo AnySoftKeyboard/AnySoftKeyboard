@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PhysicalKeyboard>
+	<!-- Any 'PhysicalChar' will be translated to 'TranslatedChar',
+	if the pressed key is not in the XML, then it wont be translated, and will
+	stay as is.	 -->
+	<!--Note: only the lower case are here, since the upper case will
+	be translated to the original latin upper case  -->
+	<Key PhysicalChar="q" TranslatedChar="%2F"/>
+	<Key PhysicalChar="w" TranslatedChar="'"/>
+	<Key PhysicalChar="e" TranslatedChar="ק"/>
+	<Key PhysicalChar="r" TranslatedChar="ר"/>
+	<Key PhysicalChar="t" TranslatedChar="/"/>
+	<Key PhysicalChar="y" TranslatedChar="/"/>
+	<Key PhysicalChar="u" TranslatedChar="/"/>
+	<Key PhysicalChar="i" TranslatedChar="/"/>
+	<Key PhysicalChar="o" TranslatedChar="/"/>
+	<Key PhysicalChar="p" TranslatedChar="/"/>
+	
+	<Key PhysicalChar="a" TranslatedChar="/"/>
+	<Key PhysicalChar="s" TranslatedChar="/"/>
+	<Key PhysicalChar="d" TranslatedChar="Q"/>
+	<Key PhysicalChar="f" TranslatedChar="/"/>
+	<Key PhysicalChar="g" TranslatedChar="/"/>
+	<Key PhysicalChar="h" TranslatedChar="/"/>
+	<Key PhysicalChar="j" TranslatedChar="/"/>
+	<Key PhysicalChar="k" TranslatedChar="/"/>
+	<Key PhysicalChar="l" TranslatedChar="/"/>
+	<Key PhysicalChar=";" TranslatedChar="/"/>
+	
+	<Key PhysicalChar="z" TranslatedChar="/"/>
+	<Key PhysicalChar="x" TranslatedChar="/"/>
+	<Key PhysicalChar="c" TranslatedChar="/"/>
+	<Key PhysicalChar="v" TranslatedChar="/"/>
+	<Key PhysicalChar="b" TranslatedChar="/"/>
+	<Key PhysicalChar="n" TranslatedChar="/"/>
+	<Key PhysicalChar="m" TranslatedChar="/"/>
+	<Key PhysicalChar="," TranslatedChar="/"/>
+	<Key PhysicalChar="." TranslatedChar="/"/>
+</PhysicalKeyboard>
+    
