@@ -113,7 +113,10 @@ public class SoftKeyboard extends InputMethodService
      * This is the point where you can do all of your UI initialization.  It
      * is called after creation and any configuration change.
      */
-    @Override public void onInitializeInterface() {
+    @Override public void onInitializeInterface() 
+    {
+    	Log.i("AnySoftKeyboard", "onInitializeInterface: Have keyboards="+(mKeyboards != null)+". isFullScreen="+super.isFullscreenMode()+". isInputViewShown="+super.isInputViewShown());
+    	
         if (mKeyboards != null) 
         {
             // Configuration changes can happen after the keyboard gets recreated,
@@ -158,16 +161,13 @@ public class SoftKeyboard extends InputMethodService
         	mKeyboards[keyboardIndex].reloadKeyboardConfiguration(sp);
         }
         
-        int maxTries = mKeyboards.length;
-		do
-		{
-			if (mLastSelectedKeyboard >= mKeyboards.length)
-				mLastSelectedKeyboard = 0;
-			if (mKeyboards[mLastSelectedKeyboard].isEnabled())
-				break;
-			maxTries--;
-			mLastSelectedKeyboard++;
-		}while(maxTries > 0);
+        //need to check that current keyboard and mLastSelectedKeyboard are enabled.
+        if (!mKeyboards[mLastSelectedKeyboard].isEnabled())
+        {
+        	nextKeyboard(getCurrentInputEditorInfo(), true);
+        }
+        if ((mCurKeyboard == null) || (!mCurKeyboard.isEnabled()))
+        	mCurKeyboard = mKeyboards[mLastSelectedKeyboard];
 	}
     
     /**
@@ -591,26 +591,31 @@ public class SoftKeyboard extends InputMethodService
 			AnyKeyboard currentViewedKeyboard = (AnyKeyboard)mInputView.getKeyboard();
 			if (currentViewedKeyboard != null)
 				currentKeyboardName = currentViewedKeyboard.getKeyboardName();
-			Log.d("AnySoftKeyboard", "nextKeyboard: Looking for next keyboard. Current keyboard is:"+currentKeyboardName);
+			Log.d("AnySoftKeyboard", "nextKeyboard: Looking for next keyboard. Current viewed keyboard is:"+currentKeyboardName+". mLastSelectedKeyboard:"+mLastSelectedKeyboard+". isEnabled:"+currentViewedKeyboard.isEnabled());
 			//in numeric keyboards, the LANG key will go back to the original alphabet keyboard-
 			//so no need to look for the next keyboard, 'mLastSelectedKeyboard' holds the last
 			//keyboard used.
 			if (isAlphaBetKeyboard(currentViewedKeyboard))
 			{
+				Log.d("AnySoftKeyboard", "nextKeyboard: Current keyboard is alphabet, so i'll look for the next");
 				int maxTries = mKeyboards.length;
 				do
 				{
 					mLastSelectedKeyboard++;
 					if (mLastSelectedKeyboard >= mKeyboards.length)
 						mLastSelectedKeyboard = 0;
+					
+					Log.d("AnySoftKeyboard", "nextKeyboard: testing: "+mKeyboards[mLastSelectedKeyboard].getKeyboardName()+", which is "+mKeyboards[mLastSelectedKeyboard].isEnabled()+". index="+mLastSelectedKeyboard);
 					if (mKeyboards[mLastSelectedKeyboard].isEnabled())
-						break;
+					{
+						maxTries = 0;
+					}
 					maxTries--;
 				}while(maxTries > 0);
 			}
 			mCurKeyboard = mKeyboards[mLastSelectedKeyboard];
 		}
-		Log.d("AnySoftKeyboard", "nextKeyboard: Setting next keyboard to: "+mCurKeyboard.getKeyboardName());
+		Log.i("AnySoftKeyboard", "nextKeyboard: Setting next keyboard to: "+mCurKeyboard.getKeyboardName());
 		mInputView.setKeyboard(mCurKeyboard);
 		updateShiftKeyState(currentEditorInfo);
 		mCurKeyboard.setImeOptions(getResources(), currentEditorInfo.imeOptions);
@@ -636,11 +641,11 @@ public class SoftKeyboard extends InputMethodService
 		notificationManager.notify(KEYBOARD_NOTIFICATION, notification);
 	}
     
-    private boolean isAlphaBetKeyboard(Keyboard viewedKeyboard)
+    private boolean isAlphaBetKeyboard(AnyKeyboard viewedKeyboard)
     {
     	for(int i=0; i<mKeyboards.length; i++)
     	{
-    		if (viewedKeyboard == mKeyboards[i])
+    		if (viewedKeyboard.getKeyboardName().equalsIgnoreCase(mKeyboards[i].getKeyboardName()))
     			return true;
     	}
     	
@@ -816,19 +821,22 @@ public class SoftKeyboard extends InputMethodService
     
     public void swipeRight() 
     {
+    	nextKeyboard(getCurrentInputEditorInfo(), true);
     }
     
-    public void swipeLeft() {
+    public void swipeLeft() 
+    {
         handleBackspace();
     }
 
-    public void swipeDown() {
+    public void swipeDown() 
+    {
         handleClose();
     }
     
     public void swipeUp() 
     {
-    	onKey(-99, null);
+    	//onKey(-99, null);
     }
     
     public void onPress(int primaryCode) {
