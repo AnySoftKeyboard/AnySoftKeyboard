@@ -27,6 +27,7 @@ import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.media.AudioManager;
+import android.os.Debug;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -444,8 +445,17 @@ public class SoftKeyboard extends InputMethodService
                         // shift state, since we are consuming this.
                         ic.clearMetaKeyStates(KeyEvent.META_ALT_ON);
                         
-                        nextKeyboard(getCurrentInputEditorInfo(), true);
-                        notifyKeyboardChange();
+                        
+                        // TODO: This check is a fix for issue 12, 
+                        // not quite sure why mInputView is null sometimes when
+                        // we try to change layout, so we check.
+                        // this should be further investigated and eventually remove if needed.
+                        if (mInputView != null) 
+                        {
+                        	nextKeyboard(getCurrentInputEditorInfo(), true);
+                            notifyKeyboardChange();
+                        }
+                        
                         return true;
                     }
             	}
@@ -595,6 +605,7 @@ public class SoftKeyboard extends InputMethodService
 			//in numeric keyboards, the LANG key will go back to the original alphabet keyboard-
 			//so no need to look for the next keyboard, 'mLastSelectedKeyboard' holds the last
 			//keyboard used.
+
 			if (isAlphaBetKeyboard(currentViewedKeyboard))
 			{
 				Log.d("AnySoftKeyboard", "nextKeyboard: Current keyboard is alphabet, so i'll look for the next");
