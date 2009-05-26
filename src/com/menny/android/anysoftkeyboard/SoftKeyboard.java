@@ -575,20 +575,27 @@ public class SoftKeyboard extends InputMethodService
 
 	private void nextKeyboard(EditorInfo currentEditorInfo, boolean onlyAlphaBet) 
 	{
+		Log.d("AnySoftKeyboard", "nextKeyboard: onlyAlphaBet="+onlyAlphaBet+". currentEditorInfo.inputType="+currentEditorInfo.inputType);
 		int variation = currentEditorInfo.inputType &  EditorInfo.TYPE_MASK_VARIATION;
 		if ((!onlyAlphaBet) && 
 				mInternetKeyboard.isEnabled() &&
 				(variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS 
 		        || variation == EditorInfo.TYPE_TEXT_VARIATION_URI)) {
 		    //special keyboard
+			Log.d("AnySoftKeyboard", "nextKeyboard: Starting in internet textbox.");
 			mCurKeyboard = mInternetKeyboard;
 		}            
 		else
 		{
+			String currentKeyboardName = "NULL";
+			AnyKeyboard currentViewedKeyboard = (AnyKeyboard)mInputView.getKeyboard();
+			if (currentViewedKeyboard != null)
+				currentKeyboardName = currentViewedKeyboard.getKeyboardName();
+			Log.d("AnySoftKeyboard", "nextKeyboard: Looking for next keyboard. Current keyboard is:"+currentKeyboardName);
 			//in numeric keyboards, the LANG key will go back to the original alphabet keyboard-
 			//so no need to look for the next keyboard, 'mLastSelectedKeyboard' holds the last
 			//keyboard used.
-			if (isAlphaBetKeyboard(mInputView.getKeyboard()))
+			if (isAlphaBetKeyboard(currentViewedKeyboard))
 			{
 				int maxTries = mKeyboards.length;
 				do
@@ -603,6 +610,7 @@ public class SoftKeyboard extends InputMethodService
 			}
 			mCurKeyboard = mKeyboards[mLastSelectedKeyboard];
 		}
+		Log.d("AnySoftKeyboard", "nextKeyboard: Setting next keyboard to: "+mCurKeyboard.getKeyboardName());
 		mInputView.setKeyboard(mCurKeyboard);
 		updateShiftKeyState(currentEditorInfo);
 		mCurKeyboard.setImeOptions(getResources(), currentEditorInfo.imeOptions);
@@ -612,6 +620,8 @@ public class SoftKeyboard extends InputMethodService
 		//notifying the user about the keyboard. This should be done in open keyboard only.
 		//getting the manager
 		NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		//removing last notification
+		notificationManager.cancel(KEYBOARD_NOTIFICATION);
 		//creating the message
 		Notification notification = new Notification(mCurKeyboard.getKeyboardIcon(), mCurKeyboard.getKeyboardName(), System.currentTimeMillis());
 
