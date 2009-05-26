@@ -57,19 +57,8 @@ import com.menny.android.anysoftkeyboard.keyboards.LaoKeyboard;
  */
 public class SoftKeyboard extends InputMethodService 
         implements KeyboardView.OnKeyboardActionListener {
-    static final boolean DEBUG = false;
-
-	private static final int KEYBOARD_NOTIFICATION = 1;
     
-    /**
-     * This boolean indicates the optional example code for performing
-     * processing of hard keys in addition to regular text generation
-     * from on-screen interaction.  It would be used for input methods that
-     * perform language translations (such as converting text entered on 
-     * a QWERTY keyboard to Chinese), but may not be used for input methods
-     * that are primarily intended to be used for on-screen text entry.
-     */
-    //static final boolean PROCESS_HARD_KEYS = true;
+	private static final int KEYBOARD_NOTIFICATION = 1;
     
     private KeyboardView mInputView;
     private CandidateView mCandidateView;
@@ -178,8 +167,7 @@ public class SoftKeyboard extends InputMethodService
      * a configuration change.
      */
     @Override public View onCreateInputView() {
-        mInputView = (KeyboardView) getLayoutInflater().inflate(
-                R.layout.input, null);
+        mInputView = (KeyboardView) getLayoutInflater().inflate(R.layout.input, null);
         mInputView.setOnKeyboardActionListener(this);
         reloadConfiguration();
         mInputView.setKeyboard(mKeyboards[mLastSelectedKeyboard]);
@@ -445,16 +433,8 @@ public class SoftKeyboard extends InputMethodService
                         // shift state, since we are consuming this.
                         ic.clearMetaKeyStates(KeyEvent.META_ALT_ON);
                         
-                        
-                        // TODO: This check is a fix for issue 12, 
-                        // not quite sure why mInputView is null sometimes when
-                        // we try to change layout, so we check.
-                        // this should be further investigated and eventually remove if needed.
-                        if (mInputView != null) 
-                        {
-                        	nextKeyboard(getCurrentInputEditorInfo(), true);
-                            notifyKeyboardChange();
-                        }
+                        nextKeyboard(getCurrentInputEditorInfo(), true);
+                        notifyKeyboardChange();
                         
                         return true;
                     }
@@ -495,16 +475,13 @@ public class SoftKeyboard extends InputMethodService
         if (attr != null && mInputView != null) 
         {
             int caps = 0;
-            //EditorInfo ei = getCurrentInputEditorInfo();
-            //if (ei != null && ei.inputType != EditorInfo.TYPE_NULL) 
-            //{
+            
             if (mAutoCaps)
             {
             	InputConnection ci = getCurrentInputConnection();
             	if (ci != null)
             		caps = ci.getCursorCapsMode(attr.inputType);
             }
-            //}
             mInputView.setShifted(mCapsLock || caps != 0);
         }
     }
@@ -597,16 +574,12 @@ public class SoftKeyboard extends InputMethodService
 		}            
 		else
 		{
-			String currentKeyboardName = "NULL";
-			AnyKeyboard currentViewedKeyboard = (AnyKeyboard)mInputView.getKeyboard();
-			if (currentViewedKeyboard != null)
-				currentKeyboardName = currentViewedKeyboard.getKeyboardName();
-			Log.d("AnySoftKeyboard", "nextKeyboard: Looking for next keyboard. Current viewed keyboard is:"+currentKeyboardName+". mLastSelectedKeyboard:"+mLastSelectedKeyboard+". isEnabled:"+currentViewedKeyboard.isEnabled());
+			Log.d("AnySoftKeyboard", "nextKeyboard: Looking for next keyboard. Current keyboard is:"+mCurKeyboard.getKeyboardName()+". mLastSelectedKeyboard:"+mLastSelectedKeyboard+". isEnabled:"+mCurKeyboard.isEnabled());
 			//in numeric keyboards, the LANG key will go back to the original alphabet keyboard-
 			//so no need to look for the next keyboard, 'mLastSelectedKeyboard' holds the last
 			//keyboard used.
 
-			if (isAlphaBetKeyboard(currentViewedKeyboard))
+			if (isAlphaBetKeyboard(mCurKeyboard))
 			{
 				Log.d("AnySoftKeyboard", "nextKeyboard: Current keyboard is alphabet, so i'll look for the next");
 				int maxTries = mKeyboards.length;
@@ -627,7 +600,8 @@ public class SoftKeyboard extends InputMethodService
 			mCurKeyboard = mKeyboards[mLastSelectedKeyboard];
 		}
 		Log.i("AnySoftKeyboard", "nextKeyboard: Setting next keyboard to: "+mCurKeyboard.getKeyboardName());
-		mInputView.setKeyboard(mCurKeyboard);
+		if (mInputView != null)
+			mInputView.setKeyboard(mCurKeyboard);
 		updateShiftKeyState(currentEditorInfo);
 		mCurKeyboard.setImeOptions(getResources(), currentEditorInfo.imeOptions);
 	}
@@ -777,7 +751,8 @@ public class SoftKeyboard extends InputMethodService
     private void handleClose() {
         commitTyped(getCurrentInputConnection());
         requestHideSelf(0);
-        mInputView.closing();
+        if (mInputView != null)
+        	mInputView.closing();
     }
 
     private void checkToggleCapsLock() {
