@@ -25,6 +25,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.inputmethodservice.Keyboard;
+import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
 public abstract class AnyKeyboard extends Keyboard {
@@ -49,18 +50,23 @@ public abstract class AnyKeyboard extends Keyboard {
         mEnabled = true;
         mKeyboardEnabledPref = keyboardEnabledPref;
         //TODO: parsing of the mapping xml:
-        //XmlResourceParser p = getResources().getXml(id from the constractor parameter);
+        //XmlResourceParser p = getResources().getXml(id from the constructor parameter);
         //parse to a HashMap?
     }
-/*
-    public AnyKeyboard(Context context, int layoutTemplateResId, 
-            CharSequence characters, int columns, int horizontalPadding, boolean supportsShift, String keyboardName, boolean enabled) {
-        super(context, layoutTemplateResId, characters, columns, horizontalPadding);
-        mSupportsShift = supportsShift;
-        mKeyboardName = keyboardName;
-        mEnabled = enabled;
-    }
-*/
+
+//    @Override
+//    protected Row createRowFromXml(Resources res, XmlResourceParser parser) 
+//    {
+//    	Row aRow = super.createRowFromXml(res, parser);
+//    	Log.i("AnySoftKeyboard", "createRowFromXml: rowEdgeFlags: "+aRow.rowEdgeFlags+". EDGE_TOP:"+EDGE_TOP+". verticalGap:"+aRow.verticalGap);
+//    	if ((aRow.rowEdgeFlags & EDGE_TOP) != 0)
+//    	{//this is the top row, I would like to add the swipe hints
+//    		aRow.verticalGap += 80;
+//    	}
+//    	
+//    	return aRow;
+//    }
+    
     @Override
     protected Key createKeyFromXml(Resources res, Row parent, int x, int y, 
             XmlResourceParser parser) {
@@ -160,22 +166,6 @@ public abstract class AnyKeyboard extends Keyboard {
         	return false;
     }
 	public void addSuggestions(String currentWord, ArrayList<String> list) 
-	{	
+	{
 	}
-//    static class LatinKey extends Keyboard.Key {
-//        
-//        public LatinKey(Resources res, Keyboard.Row parent, int x, int y, XmlResourceParser parser) {
-//            super(res, parent, x, y, parser);
-//        }
-//        
-//        /**
-//         * Overriding this method so that we can reduce the target area for the key that
-//         * closes the keyboard. 
-//         */
-//        @Override
-//        public boolean isInside(int x, int y) {
-//            return super.isInside(x, codes[0] == KEYCODE_CANCEL ? y - 10 : y);
-//        }
-//    }
-
 }

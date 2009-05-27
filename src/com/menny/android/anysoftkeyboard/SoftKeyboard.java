@@ -166,11 +166,16 @@ public class SoftKeyboard extends InputMethodService
      * is displayed, and every time it needs to be re-created such as due to
      * a configuration change.
      */
-    @Override public View onCreateInputView() {
+    @Override public View onCreateInputView() 
+    {
         mInputView = (KeyboardView) getLayoutInflater().inflate(R.layout.input, null);
         mInputView.setOnKeyboardActionListener(this);
         reloadConfiguration();
         mInputView.setKeyboard(mKeyboards[mLastSelectedKeyboard]);
+        
+        //Showing any required tutorials
+        TutorialsProvider.ShowTutorialsIfNeeded();
+        
         return mInputView;
     }
 
@@ -552,13 +557,33 @@ public class SoftKeyboard extends InputMethodService
                 && mInputView != null) {
         	nextKeyboard(currentEditorInfo, false);//false - not just alphabet
         } else if (primaryCode == Keyboard.KEYCODE_MODE_CHANGE
-                && mInputView != null) {
-            mInputView.setKeyboard(mSymbolsKeyboard);
-            mSymbolsKeyboard.setShifted(false);
+                && mInputView != null) 
+        {
+        	nextSymbolsKeyboard();
         } else {
             handleCharacter(primaryCode, keyCodes);
         }
     }
+
+	private void nextSymbolsKeyboard() 
+	{
+		AnyKeyboard keyboardToSet = null;
+		boolean shifted = false;
+		if (!mCurKeyboard.getKeyboardName().equals(mSymbolsKeyboard.getKeyboardName()))
+		{
+			keyboardToSet = mSymbolsKeyboard;
+			shifted = false;
+		}
+		else
+		{
+			keyboardToSet = mSymbolsShiftedKeyboard;
+			shifted = true;
+		}
+		//setting
+		mCurKeyboard = keyboardToSet;
+		mInputView.setKeyboard(mCurKeyboard);
+		mSymbolsKeyboard.setShifted(shifted);
+	}
 
 	private void nextKeyboard(EditorInfo currentEditorInfo, boolean onlyAlphaBet) 
 	{
@@ -707,18 +732,20 @@ public class SoftKeyboard extends InputMethodService
         }
         
         AnyKeyboard currentKeyboard = (AnyKeyboard)mInputView.getKeyboard();
-        if (currentKeyboard.getSupportsShift()) {
+        if (currentKeyboard.getSupportsShift()) 
+        {
             // Alphabet with shift support keyboard
             checkToggleCapsLock();
             mInputView.setShifted(mCapsLock || !mInputView.isShifted());
-        } else if (currentKeyboard == mSymbolsKeyboard) {
-            mSymbolsKeyboard.setShifted(true);
-            mInputView.setKeyboard(mSymbolsShiftedKeyboard);
-            mSymbolsShiftedKeyboard.setShifted(true);
-        } else if (currentKeyboard == mSymbolsShiftedKeyboard) {
-            mSymbolsShiftedKeyboard.setShifted(false);
-            mInputView.setKeyboard(mSymbolsKeyboard);
-            mSymbolsKeyboard.setShifted(false);
+        }
+        else if (isAlphaBetKeyboard(currentKeyboard))
+        {
+        	//alphabet with no shift support.
+        	//TODO: maybe move to English?
+        }
+        else
+        {//not alpha-bet keyboard
+        	nextSymbolsKeyboard();
         }
     }
     
@@ -812,7 +839,7 @@ public class SoftKeyboard extends InputMethodService
     
     public void swipeLeft() 
     {
-        handleBackspace();
+    	nextSymbolsKeyboard();
     }
 
     public void swipeDown() 
@@ -822,7 +849,7 @@ public class SoftKeyboard extends InputMethodService
     
     public void swipeUp() 
     {
-    	//onKey(-99, null);
+    	handleShift();
     }
     
     public void onPress(int primaryCode) {
