@@ -16,18 +16,19 @@
 
 package com.menny.android.anysoftkeyboard;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.XmlResourceParser;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.media.AudioManager;
-import android.os.Debug;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -37,10 +38,6 @@ import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.KeyboardFactory;
@@ -557,6 +554,11 @@ public class SoftKeyboard extends InputMethodService
                 && mInputView != null) {
         	commitTyped(currentInputConnection);
         	currentInputConnection.commitText(".com", 4);
+        } else if (primaryCode == -81//my special .COM key
+                && mInputView != null) {
+        	//should open up a popup with all domains
+        	commitTyped(currentInputConnection);
+        	currentInputConnection.commitText(".co.il", 4);
         } else if (primaryCode == -99//my special lang key
                 && mInputView != null) {
         	nextKeyboard(currentEditorInfo, false);//false - not just alphabet

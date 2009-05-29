@@ -36,6 +36,8 @@ public abstract class AnyKeyboard extends Keyboard
 	}
 
     private Key mEnterKey;
+    //private Row mTopRow;
+    //private ArrayList<Key> mTopKeys;
     private final boolean mSupportsShift;
     private final String mKeyboardName;
     private final String mKeyboardEnabledPref;
@@ -56,6 +58,7 @@ public abstract class AnyKeyboard extends Keyboard
         //TODO: parsing of the mapping xml:
         //XmlResourceParser p = getResources().getXml(id from the constructor parameter);
         //parse to a HashMap?
+        //mTopKeys = new ArrayList<Key>();
     }
 
 //    @Override
@@ -79,7 +82,25 @@ public abstract class AnyKeyboard extends Keyboard
         {
             mEnterKey = key;
         }
+        
+//        if ((key.edgeFlags & EDGE_TOP) != 0)
+//    	{
+//        	mTopKeys.add(key);
+//    	}
+        
         return key;
+    }
+    
+    @Override
+    protected Row createRowFromXml(Resources res, XmlResourceParser parser) {
+    	// TODO Auto-generated method stub
+    	Row aRow = super.createRowFromXml(res, parser);
+//    	if ((aRow.rowEdgeFlags & EDGE_TOP) != 0)
+//    	{
+//    		mTopRow = aRow;		
+//    	}    		
+    	
+    	return aRow;
     }
     
     public void reloadKeyboardConfiguration(SharedPreferences sp)
@@ -89,6 +110,16 @@ public abstract class AnyKeyboard extends Keyboard
     	else
     		mEnabled = sp.getBoolean(mKeyboardEnabledPref, true);
     }
+    
+//    public void hideSwipeHints()
+//    {
+//    	mTopRow.defaultHeight = 0;
+//    	for(int i=0;i<mTopKeys.size(); i++)
+//    	{
+//    		mTopKeys.get(i).height = 0;
+//    		mTopKeys.get(i).label = "";
+//    	}
+//    }
     
     /**
      * This looks at the ime options given by the current editor, to set the

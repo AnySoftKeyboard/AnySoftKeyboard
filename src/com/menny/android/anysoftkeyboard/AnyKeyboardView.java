@@ -39,6 +39,11 @@ public class AnyKeyboardView extends KeyboardView {
         if (key.codes[0] == Keyboard.KEYCODE_CANCEL) {
             getOnKeyboardActionListener().onKey(KEYCODE_OPTIONS, null);
             return true;
+        }
+        else if (key.codes[0] == -80) {
+                getOnKeyboardActionListener().onKey(-81, null);
+                return true;
+            
         } else {
             return super.onLongPress(key);
         }
