@@ -42,11 +42,9 @@ import java.util.List;
 
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
-import com.menny.android.anysoftkeyboard.keyboards.EnglishKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.GenericKeyboard;
-import com.menny.android.anysoftkeyboard.keyboards.HebrewKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.KeyboardFactory;
-import com.menny.android.anysoftkeyboard.keyboards.LaoKeyboard;
+import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
 /**
  * Example of writing an input method for a soft keyboard.  This code is
@@ -156,6 +154,8 @@ public class SoftKeyboard extends InputMethodService
         {
         	nextKeyboard(getCurrentInputEditorInfo(), true);
         }
+        //in the weird case (impossible?) that the  'mLastSelectedKeyboard' is enabled, 
+        //but the mCurKeyboard is null.
         if ((mCurKeyboard == null) || (!mCurKeyboard.isEnabled()))
         	mCurKeyboard = mKeyboards[mLastSelectedKeyboard];
 	}
@@ -433,7 +433,8 @@ public class SoftKeyboard extends InputMethodService
             	if (keyCode == KeyEvent.KEYCODE_SPACE
                         && (event.getMetaState()&KeyEvent.META_ALT_ON) != 0) {
                     InputConnection ic = getCurrentInputConnection();
-                    if (ic != null) {
+                    if (ic != null) 
+                    {
                         // First, tell the editor that it is no longer in the
                         // shift state, since we are consuming this.
                         ic.clearMetaKeyStates(KeyEvent.META_ALT_ON);
@@ -446,11 +447,14 @@ public class SoftKeyboard extends InputMethodService
             	}
             	else if(keyCode >= KeyEvent.KEYCODE_A &&
             			keyCode <= KeyEvent.KEYCODE_COMMA &&
-            			mCurKeyboard.getOverridesPhysical() &&
+            			(mCurKeyboard != null) &&
+            			(mCurKeyboard instanceof HardKeyboardTranslator) &&
             			((event.getMetaState()&KeyEvent.META_ALT_ON) == 0) &&
             			((event.getMetaState()&KeyEvent.META_SHIFT_ON) == 0))
             	{
-            		char translatedChar = mCurKeyboard.translatePhysicalCharacter((char)keyCode);
+            		Log.d("AnySoftKeyborad", "Asking '"+mCurKeyboard.getKeyboardName()+"' to translate key: "+keyCode);
+            		char translatedChar = ((HardKeyboardTranslator)mCurKeyboard).translatePhysicalCharacter(keyCode);
+            		Log.d("AnySoftKeyborad", "'"+mCurKeyboard.getKeyboardName()+"' translated key "+keyCode+" to "+translatedChar);
             		sendKey(translatedChar);
             		return true;
             	}
@@ -599,14 +603,21 @@ public class SoftKeyboard extends InputMethodService
 		}            
 		else
 		{
-			Log.d("AnySoftKeyboard", "nextKeyboard: Looking for next keyboard. Current keyboard is:"+mCurKeyboard.getKeyboardName()+". mLastSelectedKeyboard:"+mLastSelectedKeyboard+". isEnabled:"+mCurKeyboard.isEnabled());
+			if (mCurKeyboard == null)
+			{
+				Log.d("AnySoftKeyboard", "nextKeyboard: Looking for next keyboard. No current keyboard. mLastSelectedKeyboard:"+mLastSelectedKeyboard+".");
+			}
+			else
+			{
+				Log.d("AnySoftKeyboard", "nextKeyboard: Looking for next keyboard. Current keyboard is:"+mCurKeyboard.getKeyboardName()+". mLastSelectedKeyboard:"+mLastSelectedKeyboard+". isEnabled:"+mCurKeyboard.isEnabled());
+			}
 			//in numeric keyboards, the LANG key will go back to the original alphabet keyboard-
 			//so no need to look for the next keyboard, 'mLastSelectedKeyboard' holds the last
 			//keyboard used.
 
-			if (isAlphaBetKeyboard(mCurKeyboard))
+			if ((mCurKeyboard == null) || isAlphaBetKeyboard(mCurKeyboard))
 			{
-				Log.d("AnySoftKeyboard", "nextKeyboard: Current keyboard is alphabet, so i'll look for the next");
+				Log.d("AnySoftKeyboard", "nextKeyboard: Current keyboard is alphabet (or null), so i'll look for the next");
 				int maxTries = mKeyboards.length;
 				do
 				{

@@ -2,7 +2,6 @@ package com.menny.android.anysoftkeyboard.keyboards;
 
 import android.content.Context;
 
-
 public class GenericKeyboard extends AnyKeyboard 
 {
 
@@ -10,6 +9,6 @@ public class GenericKeyboard extends AnyKeyboard
 			boolean supportsShift, String keyboardName,
     		String keyboardEnabledPref) 
 	{
-		super(context, xmlLayoutResId, supportsShift, false, keyboardName, keyboardEnabledPref);
-	}
+		super(context, xmlLayoutResId, supportsShift, keyboardName, keyboardEnabledPref);
+	}	
 }

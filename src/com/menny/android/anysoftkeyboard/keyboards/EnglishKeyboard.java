@@ -847,7 +847,7 @@ public class EnglishKeyboard extends AnyKeyboard
 
 	public EnglishKeyboard(Context context) 
 	{
-		super(context, R.xml.qwerty, true, false, "English", "eng_keyboard");
+		super(context, R.xml.qwerty, true, "English", "eng_keyboard");
 	}
 	
 	@Override

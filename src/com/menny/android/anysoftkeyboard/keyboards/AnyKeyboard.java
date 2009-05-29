@@ -28,24 +28,28 @@ import android.inputmethodservice.Keyboard;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
-public abstract class AnyKeyboard extends Keyboard {
+public abstract class AnyKeyboard extends Keyboard 
+{
+	public interface HardKeyboardTranslator
+	{
+		char translatePhysicalCharacter(int primaryCode);
+	}
 
     private Key mEnterKey;
     private final boolean mSupportsShift;
-    private final boolean mOverridesPhysical;
     private final String mKeyboardName;
     private final String mKeyboardEnabledPref;
     
     private boolean mEnabled = true;
     
+    
     protected AnyKeyboard(Context context, int xmlLayoutResId, boolean supportsShift,
-    		boolean overridesPhysical, /*mapping XML id will be added here,*/
+    		/*mapping XML id will be added here,*/
     		String keyboardName,
     		String keyboardEnabledPref) 
     {
         super(context, xmlLayoutResId);
         mSupportsShift = supportsShift;
-        mOverridesPhysical = overridesPhysical;
         mKeyboardName = keyboardName;
         mEnabled = true;
         mKeyboardEnabledPref = keyboardEnabledPref;
@@ -84,11 +88,6 @@ public abstract class AnyKeyboard extends Keyboard {
     		mEnabled = true;
     	else
     		mEnabled = sp.getBoolean(mKeyboardEnabledPref, true);
-    }
-    
-    public char translatePhysicalCharacter(char primaryCode)
-    {
-    	return primaryCode;
     }
     
     /**
@@ -132,11 +131,6 @@ public abstract class AnyKeyboard extends Keyboard {
     public boolean getSupportsShift()
     {
     	return mSupportsShift;
-    }
-    
-    public boolean getOverridesPhysical()
-    {
-    	return mOverridesPhysical;
     }
     
     public String getKeyboardName()
