@@ -12,7 +12,7 @@ public class LaoKeyboard extends AnyKeyboard implements HardKeyboardTranslator
     
 	public LaoKeyboard(Context context) 
 	{
-		super(context, R.xml.lao_qwerty, false, "Lao", "lao_keyboard");
+		super(context, R.xml.lao_qwerty, true, "Lao", "lao_keyboard");
 		mPhysicalKeysMapping = new char[]{	1513, 1504, 1489, 1490,
 											1511, 1499, 1506, 1497,
 											1503, 1495, 1500, 1498,

@@ -40,6 +40,7 @@ import android.view.inputmethod.InputConnection;
 
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.GenericKeyboard;
+import com.menny.android.anysoftkeyboard.keyboards.InternetKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
@@ -114,7 +115,7 @@ public class SoftKeyboard extends InputMethodService
         
         mSymbolsKeyboard = new GenericKeyboard(this, R.xml.symbols, false, "Symbols", "");
         mSymbolsShiftedKeyboard = new GenericKeyboard(this, R.xml.symbols_shift, false, "Shift Symbols", "");
-        mInternetKeyboard = new GenericKeyboard(this, R.xml.internet_qwerty, false, "Internet", "internet_keyboard");
+        mInternetKeyboard = new InternetKeyboard(this);
         mSimpleNumbersKeyboard = new GenericKeyboard(this, R.xml.simple_numbers, false, "Numbers", "");
         
         mKeyboards = KeyboardFactory.createAlphaBetKeyboards(this);
@@ -795,9 +796,10 @@ public class SoftKeyboard extends InputMethodService
         	mInputView.closing();
     }
 
-    private void checkToggleCapsLock() {
+    private void checkToggleCapsLock() 
+    {
         long now = System.currentTimeMillis();
-        if (mLastShiftTime + 800 > now) {
+        if (mLastShiftTime + 400 > now) {
             mCapsLock = !mCapsLock;
             mLastShiftTime = 0;
         } else {

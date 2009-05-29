@@ -38,6 +38,6 @@
     <string name="eng_keyboard">English keyboard</string>
     <string name="heb_keyboard">מקלדת עיברית</string>
     <string name="internet_keyboard">Internet keyboard</string>
-    <string name="lao_keyboard">Lao keyboard</string>
+    <string name="lao_keyboard">&#3777;&#3739;&#3785;&#3737;&#3742;&#3765;&#3745;&#32;&#3749;&#3762;&#3751;</string>
     <string name="swipe_hints">Show swipe hints</string>
 </resources>
