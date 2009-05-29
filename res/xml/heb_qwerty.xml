@@ -41,8 +41,8 @@
         <Key android:codes="1493" android:keyLabel="&#1493;"/>
         <Key android:codes="1503" android:keyLabel="&#1503;"/>
         <Key android:codes="1501" android:keyLabel="&#1501;"/>
-        <Key android:codes="1509" android:keyLabel="&#1509;"/>
-        <Key android:codes="1508" android:keyLabel="&#1508;" android:keyEdgeFlags="right"/>
+        <Key android:codes="1508" android:keyLabel="&#1508;"/>
+        <Key android:codes="1509" android:keyLabel="&#1509;" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row>
