@@ -1,5 +1,7 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
+import java.util.Locale;
+
 import android.content.Context;
 import android.view.KeyEvent;
 
@@ -7,7 +9,7 @@ import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
 public class HebrewKeyboard extends AnyKeyboard implements HardKeyboardTranslator
-{
+{	
 	private char mPhysicalKeysMapping[] = null;
     
 	public HebrewKeyboard(Context context) 
@@ -27,12 +29,20 @@ public class HebrewKeyboard extends AnyKeyboard implements HardKeyboardTranslato
 		return R.drawable.he;
 	}
 	
-	public char translatePhysicalCharacter(int primaryCode) 
+	public char translatePhysicalCharacter(int primaryCode, int metaState) 
 	{
-		int charIndex = primaryCode - KeyEvent.KEYCODE_A;
-		if ((charIndex < 0) || (charIndex >= mPhysicalKeysMapping.length))
-			return (char)primaryCode;//out of my array.
+		if (((metaState&KeyEvent.META_ALT_ON) == 0) &&
+    	    ((metaState&KeyEvent.META_SHIFT_ON) == 0))
+		{
+			int charIndex = primaryCode - KeyEvent.KEYCODE_A;
+			if ((charIndex < 0) || (charIndex >= mPhysicalKeysMapping.length))
+				return (char)primaryCode;//out of my array.
+			else
+				return mPhysicalKeysMapping[charIndex];
+		}
 		else
-			return mPhysicalKeysMapping[charIndex];
+		{
+			return 0;
+		}
 	}
 }

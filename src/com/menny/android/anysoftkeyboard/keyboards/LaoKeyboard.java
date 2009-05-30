@@ -8,17 +8,9 @@ import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTrans
 
 public class LaoKeyboard extends AnyKeyboard implements HardKeyboardTranslator
 {
-	private char mPhysicalKeysMapping[] = null;
-    
 	public LaoKeyboard(Context context) 
 	{
 		super(context, R.xml.lao_qwerty, true, "Lao", "lao_keyboard");
-		mPhysicalKeysMapping = new char[]{	1513, 1504, 1489, 1490,
-											1511, 1499, 1506, 1497,
-											1503, 1495, 1500, 1498,
-											1510, 1502, 1501, 1508, 1509 /*Q*/,
-											1512, 1491, 1488, 1493, 1492, 
-											1507 /*W*/, 1505, 1496, 1494, 1514};
 	}
 
 	@Override
@@ -27,16 +19,8 @@ public class LaoKeyboard extends AnyKeyboard implements HardKeyboardTranslator
 		return R.drawable.lao;
 	}
 	
-	public char translatePhysicalCharacter(int primaryCode) 
+	public char translatePhysicalCharacter(int primaryCode, int metaState) 
 	{
-		/*
-		//sendKey(mCurKeyboard.getPhysicalKeysMapping()[keyCode - KeyEvent.KEYCODE_A]);
-		int charIndex = primaryCode - KeyEvent.KEYCODE_A;
-		if ((charIndex < 0) || (charIndex >= mPhysicalKeysMapping.length))
-			return primaryCode;//out of my array.
-		else
-			return mPhysicalKeysMapping[charIndex];
-		*/
-		return (char)primaryCode;
+		return 0;
 	}
 }

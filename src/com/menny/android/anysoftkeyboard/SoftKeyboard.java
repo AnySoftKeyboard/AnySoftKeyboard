@@ -18,6 +18,7 @@ package com.menny.android.anysoftkeyboard;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -43,6 +44,7 @@ import com.menny.android.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.InternetKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
+import com.menny.android.anysoftkeyboard.tutorials.TutorialsProvider;
 
 /**
  * Example of writing an input method for a soft keyboard.  This code is
@@ -170,9 +172,6 @@ public class SoftKeyboard extends InputMethodService
         mInputView.setOnKeyboardActionListener(this);
         reloadConfiguration();
         mInputView.setKeyboard(mKeyboards[mLastSelectedKeyboard]);
-        
-        //Showing any required tutorials
-        TutorialsProvider.ShowTutorialsIfNeeded();
         
         return mInputView;
     }
@@ -334,6 +333,8 @@ public class SoftKeyboard extends InputMethodService
        
         mInputView.setKeyboard(mCurKeyboard);
         mInputView.closing();
+        
+        //TutorialsProvider.ShowTutorialsIfNeeded(this);
     }
     
     /**
@@ -446,15 +447,22 @@ public class SoftKeyboard extends InputMethodService
             	else if(keyCode >= KeyEvent.KEYCODE_A &&
             			keyCode <= KeyEvent.KEYCODE_COMMA &&
             			(mCurKeyboard != null) &&
-            			(mCurKeyboard instanceof HardKeyboardTranslator) &&
+            			(mCurKeyboard instanceof HardKeyboardTranslator)/* &&
             			((event.getMetaState()&KeyEvent.META_ALT_ON) == 0) &&
-            			((event.getMetaState()&KeyEvent.META_SHIFT_ON) == 0))
+            			((event.getMetaState()&KeyEvent.META_SHIFT_ON) == 0)*/)
             	{
             		Log.d("AnySoftKeyborad", "Asking '"+mCurKeyboard.getKeyboardName()+"' to translate key: "+keyCode);
-            		char translatedChar = ((HardKeyboardTranslator)mCurKeyboard).translatePhysicalCharacter(keyCode);
-            		Log.d("AnySoftKeyborad", "'"+mCurKeyboard.getKeyboardName()+"' translated key "+keyCode+" to "+translatedChar);
-            		sendKey(translatedChar);
-            		return true;
+            		char translatedChar = ((HardKeyboardTranslator)mCurKeyboard).translatePhysicalCharacter(keyCode, event.getMetaState());
+            		if (translatedChar != 0)
+            		{
+            			Log.d("AnySoftKeyborad", "'"+mCurKeyboard.getKeyboardName()+"' translated key "+keyCode+" to "+translatedChar);
+                		sendKey(translatedChar);
+            			return true;
+            		}
+            		else
+            		{
+            			Log.d("AnySoftKeyborad", "'"+mCurKeyboard.getKeyboardName()+"' did not translated key "+keyCode+".");
+            		}
             	}
         }
         

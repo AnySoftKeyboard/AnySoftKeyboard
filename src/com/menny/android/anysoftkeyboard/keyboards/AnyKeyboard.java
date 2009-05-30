@@ -32,7 +32,11 @@ public abstract class AnyKeyboard extends Keyboard
 {
 	public interface HardKeyboardTranslator
 	{
-		char translatePhysicalCharacter(int primaryCode);
+		/*
+		 * Returns the mapped character for the provided parameters.
+		 * If the provided parameters are not to be mapped, returns 0;
+		 */
+		char translatePhysicalCharacter(int keyCode, int metaKeys);
 	}
 
     private Key mEnterKey;

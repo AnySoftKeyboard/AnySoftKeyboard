@@ -36,7 +36,7 @@ public class AnyKeyboardView extends KeyboardView {
 
     @Override
     protected boolean onLongPress(Key key) {
-        if (key.codes[0] == Keyboard.KEYCODE_CANCEL) {
+        if (key.codes[0] == 10) {
             getOnKeyboardActionListener().onKey(KEYCODE_OPTIONS, null);
             return true;
         }
