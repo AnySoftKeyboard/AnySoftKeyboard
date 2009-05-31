@@ -25,6 +25,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.inputmethodservice.Keyboard;
+import android.inputmethodservice.Keyboard.Row;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
@@ -40,14 +41,11 @@ public abstract class AnyKeyboard extends Keyboard
 	}
 
     private Key mEnterKey;
-    //private Row mTopRow;
-    //private ArrayList<Key> mTopKeys;
     private final boolean mSupportsShift;
     private final String mKeyboardName;
     private final String mKeyboardEnabledPref;
     
     private boolean mEnabled = true;
-    
     
     protected AnyKeyboard(Context context, int xmlLayoutResId, boolean supportsShift,
     		/*mapping XML id will be added here,*/
@@ -87,24 +85,7 @@ public abstract class AnyKeyboard extends Keyboard
             mEnterKey = key;
         }
         
-//        if ((key.edgeFlags & EDGE_TOP) != 0)
-//    	{
-//        	mTopKeys.add(key);
-//    	}
-        
         return key;
-    }
-    
-    @Override
-    protected Row createRowFromXml(Resources res, XmlResourceParser parser) {
-    	// TODO Auto-generated method stub
-    	Row aRow = super.createRowFromXml(res, parser);
-//    	if ((aRow.rowEdgeFlags & EDGE_TOP) != 0)
-//    	{
-//    		mTopRow = aRow;		
-//    	}    		
-    	
-    	return aRow;
     }
     
     public void reloadKeyboardConfiguration(SharedPreferences sp)
@@ -113,17 +94,14 @@ public abstract class AnyKeyboard extends Keyboard
     		mEnabled = true;
     	else
     		mEnabled = sp.getBoolean(mKeyboardEnabledPref, true);
+    	
+    	boolean swipeEnabled = sp.getBoolean("swipe_hints", true);
+    	for(Key key : getKeys())
+    	{
+    		if ((key.codes[0] == -2) || (key.codes[0] == -99))
+    			key.height = swipeEnabled? 5 : 0;
+    	}
     }
-    
-//    public void hideSwipeHints()
-//    {
-//    	mTopRow.defaultHeight = 0;
-//    	for(int i=0;i<mTopKeys.size(); i++)
-//    	{
-//    		mTopKeys.get(i).height = 0;
-//    		mTopKeys.get(i).label = "";
-//    	}
-//    }
     
     /**
      * This looks at the ime options given by the current editor, to set the
@@ -196,5 +174,11 @@ public abstract class AnyKeyboard extends Keyboard
     }
 	public void addSuggestions(String currentWord, ArrayList<String> list) 
 	{
+	}
+	
+	@Override
+	public int getShiftKeyIndex() 
+	{
+		return 1;
 	}
 }

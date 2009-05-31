@@ -26,7 +26,7 @@
     <string name="lao_keyboard">Lao - &#3777;&#3739;&#3785;&#3737;&#3742;&#3765;&#3745;&#32;&#3749;&#3762;&#3751;</string>
     <string name="swipe_hints">Show swipe hints</string>
     
-    <!-- Tutorials -->
+    <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Show this tutorial on startup</string>
     <string name="tutorial_swipe_title">Swipe for keyboard change</string>
     <string name="tutorial_swipe_text">Keyboard layout can be changed by swiping you finger over the keyboard. Swipe left-to-right to change language, swipe right-to-left to change to symbols.</string>

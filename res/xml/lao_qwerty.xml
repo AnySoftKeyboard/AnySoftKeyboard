@@ -34,16 +34,16 @@
     
     <!-- numbers -->
 	<Row>
-        <Key android:codes="3792" android:keyLabel="&#3792;" android:keyEdgeFlags="left"/>
-        <Key android:codes="3793" android:keyLabel="&#3793;"/>
-        <Key android:codes="3794" android:keyLabel="&#3794;"/>
-        <Key android:codes="3795" android:keyLabel="&#3795;"/>
-        <Key android:codes="3796" android:keyLabel="&#3796;"/>
-        <Key android:codes="3797" android:keyLabel="&#3797;"/>
-        <Key android:codes="3798" android:keyLabel="&#3798;"/>
-        <Key android:codes="3799" android:keyLabel="&#3799;"/>
-        <Key android:codes="3800" android:keyLabel="&#3800;"/>
-        <Key android:codes="3801" android:keyLabel="&#3801;" android:keyEdgeFlags="right"/>
+        <Key android:codes="3792,65" android:keyLabel="&#3792;" android:keyEdgeFlags="left"/>
+        <Key android:codes="3793,65" android:keyLabel="&#3793;"/>
+        <Key android:codes="3794,65" android:keyLabel="&#3794;"/>
+        <Key android:codes="3795,65" android:keyLabel="&#3795;"/>
+        <Key android:codes="3796,65" android:keyLabel="&#3796;"/>
+        <Key android:codes="3797,65" android:keyLabel="&#3797;"/>
+        <Key android:codes="3798,65" android:keyLabel="&#3798;"/>
+        <Key android:codes="3799,65" android:keyLabel="&#3799;"/>
+        <Key android:codes="3800,65" android:keyLabel="&#3800;"/>
+        <Key android:codes="3801,65" android:keyLabel="&#3801;" android:keyEdgeFlags="right"/>
     </Row>
 	<!-- letters -->
     <Row>

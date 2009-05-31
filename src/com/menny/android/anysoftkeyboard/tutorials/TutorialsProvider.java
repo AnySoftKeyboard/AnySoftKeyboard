@@ -13,7 +13,7 @@ public class TutorialsProvider
 {
 	public static void ShowTutorialsIfNeeded(Context context)
 	{
-		ShowTutorial(context, R.string.tutorial_swipe_title, R.string.tutorial_swipe_text);
+		ShowTutorial(context, 0/*R.string.tutorial_swipe_title*/, 0/*R.string.tutorial_swipe_text*/);
 	}
 	
 	public static void ShowTutorial(Context context, int titleId, int textId)
