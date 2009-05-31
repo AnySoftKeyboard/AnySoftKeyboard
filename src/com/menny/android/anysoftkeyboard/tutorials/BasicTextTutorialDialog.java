@@ -15,7 +15,7 @@ public class BasicTextTutorialDialog extends Dialog
 	public BasicTextTutorialDialog(Context context, int titleId, int textId) 
 	{
 		super(context);
-		// I want it ABOVE the IME
+/*		// I want it ABOVE the IME
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
 	             WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 		//setting the stuff inside the dialog
@@ -25,7 +25,7 @@ public class BasicTextTutorialDialog extends Dialog
         TextView title = (TextView)findViewById(R.id.tutorial_title);
         title.setText(titleId);
         TextView text = (TextView)findViewById(R.id.tutorial_text);
-		text.setText(textId);
+		text.setText(textId);*/
 	}
 
 }

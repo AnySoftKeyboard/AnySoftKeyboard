@@ -334,7 +334,7 @@ public class SoftKeyboard extends InputMethodService
         mInputView.setKeyboard(mCurKeyboard);
         mInputView.closing();
         
-        //TutorialsProvider.ShowTutorialsIfNeeded(this);
+        TutorialsProvider.ShowTutorialsIfNeeded(this);
     }
     
     /**
