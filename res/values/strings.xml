@@ -12,10 +12,12 @@
     <string name="label_next_key">Next</string>
     <string name="label_send_key">Send</string>
     
-    <!-- Settings text -->
+    <!-- settings - UI -->
     <string name="ui_group">User interface</string>
     <string name="swipe_hints">Show swipe hints</string>
     <string name="physical_keyboard_change_notification">Show notification on physical keyboard change</string>
+    
+    <!-- settings - effects-->
     <string name="effects_group">Effects</string>
     <string name="ime_settings">Keyboard settings</string>
     <string name="vibrate_on">Vibrate on keypress</string>
@@ -23,12 +25,14 @@
     <string name="auto_caps">Auto-capitalization</string>
     <string name="grammer_group">Grammer</string>
     <string name="candidates_on">Show suggestions</string>
+    
+    <!-- settings - keyboard group -->
     <string name="keyboards_group">Keyboards</string>
     <string name="eng_keyboard">English keyboard</string>
     <string name="heb_keyboard">Hebrew - מקלדת עיברית</string>
     <string name="internet_keyboard">Internet keyboard</string>
     <string name="lao_keyboard">Lao - &#3777;&#3739;&#3785;&#3737;&#3742;&#3765;&#3745;&#32;&#3749;&#3762;&#3751;</string>
-    
+    <string name="arabic_keyboard">Arabic</string>   
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Show this tutorial on startup</string>

@@ -1,19 +1,22 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 
 public class KeyboardFactory 
 {
 	public static synchronized AnyKeyboard[] createAlphaBetKeyboards(Context applicationContext)
 	{
-		AnyKeyboard[] mKeyboards = new AnyKeyboard[3];
-        mKeyboards[0] = new EnglishKeyboard(applicationContext);
-        mKeyboards[1] = new HebrewKeyboard(applicationContext);
-        mKeyboards[2] = new LaoKeyboard(applicationContext);
+		ArrayList<AnyKeyboard> keyboards = new ArrayList<AnyKeyboard>();
+		keyboards.add(new EnglishKeyboard(applicationContext));
+		keyboards.add(new HebrewKeyboard(applicationContext));
+		//Arabic keyboard - issue 16 - no ready yet.
+		//keyboards.add(new ArabicKeyboard(applicationContext));
 		
-        return mKeyboards;
+		//Lao keyboard - issue 10
+		keyboards.add(new LaoKeyboard(applicationContext));
+		
+        return keyboards.toArray(null);
 	}
-	
-	
-
 }

@@ -80,6 +80,12 @@
             android:defaultValue="true" 
             />
             <CheckBoxPreference
+            android:key="arabic_keyboard"
+            android:title="@string/arabic_keyboard"
+            android:persistent="true"
+            android:defaultValue="false" 
+            />
+            <CheckBoxPreference
             android:key="lao_keyboard"
             android:title="@string/lao_keyboard"
             android:persistent="true"

@@ -62,19 +62,6 @@ public abstract class AnyKeyboard extends Keyboard
         //parse to a HashMap?
         //mTopKeys = new ArrayList<Key>();
     }
-
-//    @Override
-//    protected Row createRowFromXml(Resources res, XmlResourceParser parser) 
-//    {
-//    	Row aRow = super.createRowFromXml(res, parser);
-//    	Log.i("AnySoftKeyboard", "createRowFromXml: rowEdgeFlags: "+aRow.rowEdgeFlags+". EDGE_TOP:"+EDGE_TOP+". verticalGap:"+aRow.verticalGap);
-//    	if ((aRow.rowEdgeFlags & EDGE_TOP) != 0)
-//    	{//this is the top row, I would like to add the swipe hints
-//    		aRow.verticalGap += 80;
-//    	}
-//    	
-//    	return aRow;
-//    }
     
     @Override
     protected Key createKeyFromXml(Resources res, Row parent, int x, int y, 
