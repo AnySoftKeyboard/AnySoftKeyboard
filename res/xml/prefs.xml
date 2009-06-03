@@ -3,27 +3,52 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
         android:title="@string/ime_settings"
         android:key="ime_settings">
-
-   		 	<CheckBoxPreference
+        	<PreferenceCategory android:key="ui_group"
+            android:title="@string/ui_group"
+            />
+            <CheckBoxPreference
+            android:key="swipe_hints"
+            android:title="@string/swipe_hints"
+            android:persistent="true" 
+            android:defaultValue="true"
+            android:summaryOff="Not implemented!"
+            android:summaryOn="Not implemented!"
+            />
+            <CheckBoxPreference
+            android:key="physical_keyboard_change_notification"
+            android:title="@string/physical_keyboard_change_notification"
+            android:persistent="true" 
+            android:defaultValue="true"
+            android:summaryOff="Not implemented!"
+            android:summaryOn="Not implemented!"
+            />
+   		 	<PreferenceCategory android:key="effects_group"
+            android:title="@string/effects_group"
+            />
+            <CheckBoxPreference
             android:key="vibrate_on"
             android:title="@string/vibrate_on"
             android:persistent="true"
             android:defaultValue="false"
+            android:summaryOn="Short vabration on soft keyboard press."
+            android:summaryOff=""
             />
     		<CheckBoxPreference
             android:key="sound_on"
             android:title="@string/sound_on"
             android:persistent="true"
             android:defaultValue="false" 
+            android:summaryOn="Click sound on soft keyboard press."
+            android:summaryOff=""
+            />
+            <PreferenceCategory android:key="grammer_group"
+            android:title="@string/grammer_group"
             />
             <CheckBoxPreference
             android:key="auto_caps"
             android:title="@string/auto_caps"
             android:persistent="true"
             android:defaultValue="true" 
-            />
-            <PreferenceCategory android:key="candidates_group"
-            android:title="@string/candidates_group"
             />
             <CheckBoxPreference
             android:key="candidates_on"
@@ -35,16 +60,12 @@
             android:title="@string/keyboards_group"
             />
             <CheckBoxPreference
-            android:key="swipe_hints"
-            android:title="@string/swipe_hints"
-            android:persistent="true" 
-            android:defaultValue="true"
-            />
-            <CheckBoxPreference
             android:key="internet_keyboard"
             android:title="@string/internet_keyboard"
             android:persistent="true" 
             android:defaultValue="true"
+            android:summaryOn="Special keyboard layout for URL/E-mail text boxes."
+            android:summaryOff=""
             />
             <CheckBoxPreference
             android:key="eng_keyboard"
