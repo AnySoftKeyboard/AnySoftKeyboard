@@ -95,12 +95,12 @@ public abstract class AnyKeyboard extends Keyboard
     	else
     		mEnabled = sp.getBoolean(mKeyboardEnabledPref, true);
     	
-    	boolean swipeEnabled = sp.getBoolean("swipe_hints", true);
-    	for(Key key : getKeys())
-    	{
-    		if ((key.codes[0] == -2) || (key.codes[0] == -99))
-    			key.height = swipeEnabled? 5 : 0;
-    	}
+//    	boolean swipeEnabled = sp.getBoolean("swipe_hints", true);
+//    	for(Key key : getKeys())
+//    	{
+//    		if ((key.codes[0] == -2) || (key.codes[0] == -99))
+//    			key.height = swipeEnabled? 5 : 0;
+//    	}
     }
     
     /**

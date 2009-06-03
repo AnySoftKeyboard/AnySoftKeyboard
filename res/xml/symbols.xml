@@ -74,7 +74,7 @@
     <!-- Generic bottom row -->
     <Row android:rowEdgeFlags="bottom">
     	<Key android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete" 
-                android:keyWidth="20%p" android:keyEdgeFlags="right"
+                android:keyWidth="20%p" android:keyEdgeFlags="left"
                 android:isRepeatable="true"/>
         <Key android:codes="63" android:keyLabel="\?"/>
         <Key android:codes="32" android:keyIcon="@drawable/sym_keyboard_space" 

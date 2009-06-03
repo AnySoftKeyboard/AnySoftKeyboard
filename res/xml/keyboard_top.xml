@@ -23,11 +23,9 @@
 	<!-- generic top row -->
     <Row android:rowEdgeFlags="top"
     android:keyWidth="45%p"
-    android:horizontalGap="0px"
-    android:verticalGap="0px"
-    android:keyHeight="2%p">
-    	<Key android:codes="-2" android:keyLabel="&#2192; ABC &#2192;" android:keyEdgeFlags="left"/>
-        <Key android:codes="-99" android:keyLabel="&#2190; 123 &#2190;" android:keyEdgeFlags="right"/>
+    android:keyHeight="5%p">
+    	<Key android:codes="-2" android:keyLabel="&#8592; 123 &#8592;" android:keyEdgeFlags="left"/>
+        <Key android:codes="-99" android:horizontalGap="10%p" android:keyLabel="&#8594; ABC &#8594;" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>
     
