@@ -16,7 +16,7 @@ public class KeyboardFactory
 		
 		//Lao keyboard - issue 10
 		keyboards.add(new LaoKeyboard(applicationContext));
-		
-        return keyboards.toArray(null);
+		//this function will create a new array if needed.
+        return keyboards.toArray(new AnyKeyboard[1]);
 	}
 }

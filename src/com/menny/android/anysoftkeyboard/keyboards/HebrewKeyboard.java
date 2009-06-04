@@ -1,7 +1,5 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
-import java.util.Locale;
-
 import android.content.Context;
 import android.view.KeyEvent;
 
@@ -14,7 +12,7 @@ public class HebrewKeyboard extends AnyKeyboard implements HardKeyboardTranslato
     
 	public HebrewKeyboard(Context context) 
 	{
-		super(context, R.xml.heb_qwerty, false, "עיברית", "heb_keyboard");
+		super(context, R.xml.heb_qwerty, true, "עיברית", "heb_keyboard");
 		mPhysicalKeysMapping = new char[]{	1513, 1504, 1489, 1490,
 											1511, 1499, 1506, 1497,
 											1503, 1495, 1500, 1498,

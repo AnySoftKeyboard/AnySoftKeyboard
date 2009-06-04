@@ -16,15 +16,15 @@
     </Row>
     
     <Row>
-    	<Key android:horizontalGap="5%p" android:codes="1511" android:keyLabel="&#1511;" android:keyEdgeFlags="left"/>
-        <Key android:codes="1512" android:keyLabel="&#1512;"/>
-        <Key android:codes="1488" android:keyLabel="&#1488;"/>
-        <Key android:codes="1496" android:keyLabel="&#1496;"/>
-        <Key android:codes="1493" android:keyLabel="&#1493;"/>
-        <Key android:codes="1503" android:keyLabel="&#1503;"/>
-        <Key android:codes="1501" android:keyLabel="&#1501;"/>
-        <Key android:codes="1508" android:keyLabel="&#1508;"/>
-        <Key android:codes="1509" android:keyLabel="&#1509;" android:keyEdgeFlags="right"/>
+    	<Key android:horizontalGap="5%p" android:codes="1511" android:keyLabel="" android:keyEdgeFlags="left"/>
+        <Key android:codes="1512" android:keyLabel=""/>
+        <Key android:codes="1488" android:keyLabel=""/>
+        <Key android:codes="1496" android:keyLabel=""/>
+        <Key android:codes="1493" android:keyLabel=""/>
+        <Key android:codes="1503" android:keyLabel=""/>
+        <Key android:codes="1501" android:keyLabel=""/>
+        <Key android:codes="1508" android:keyLabel=""/>
+        <Key android:codes="1509" android:keyLabel="" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row>

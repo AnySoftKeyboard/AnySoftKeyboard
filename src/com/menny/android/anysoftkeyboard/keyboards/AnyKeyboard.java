@@ -41,7 +41,7 @@ public abstract class AnyKeyboard extends Keyboard
 	}
 
     private Key mEnterKey;
-    private final boolean mSupportsShift;
+    //private final boolean mSupportsShift;
     private final String mKeyboardName;
     private final String mKeyboardEnabledPref;
     
@@ -53,7 +53,7 @@ public abstract class AnyKeyboard extends Keyboard
     		String keyboardEnabledPref) 
     {
         super(context, xmlLayoutResId);
-        mSupportsShift = supportsShift;
+        //mSupportsShift = supportsShift;
         mKeyboardName = keyboardName;
         mEnabled = true;
         mKeyboardEnabledPref = keyboardEnabledPref;
@@ -128,11 +128,6 @@ public abstract class AnyKeyboard extends Keyboard
         }
     }
     
-    public boolean getSupportsShift()
-    {
-    	return mSupportsShift;
-    }
-    
     public String getKeyboardName()
     {
     	//TODO: this should be taken from the strings.xml, right?
@@ -164,8 +159,23 @@ public abstract class AnyKeyboard extends Keyboard
 	}
 	
 	@Override
-	public int getShiftKeyIndex() 
+	public boolean setShifted(boolean shiftState) 
 	{
-		return 1;
+		boolean result = super.setShifted(shiftState);
+		Log.d("AnySoftKeyboard", "setShifted: shiftState:"+shiftState+". result:"+result);
+		for(Key aKey : getKeys())
+		{
+			if (aKey.codes.length > 1)
+			{
+				aKey.label = shiftState? ""+((char)aKey.codes[1]) : ""+((char)aKey.codes[0]);
+				Log.d("AnySoftKeyboard", "setShifted: changed key:"+aKey.label);
+			}
+			else
+			{
+				Log.d("AnySoftKeyboard", "setShifted: not changed key:"+aKey.label);
+			}
+		}
+		
+		return result;
 	}
 }

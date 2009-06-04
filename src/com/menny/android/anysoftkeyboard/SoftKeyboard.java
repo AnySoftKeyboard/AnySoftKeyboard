@@ -29,6 +29,7 @@ import android.content.SharedPreferences;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
+import android.inputmethodservice.Keyboard.Key;
 import android.media.AudioManager;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
@@ -538,7 +539,8 @@ public class SoftKeyboard extends InputMethodService
 
     // Implementation of KeyboardViewListener
 
-    public void onKey(int primaryCode, int[] keyCodes) {
+    public void onKey(int primaryCode, int[] keyCodes) 
+    {
     	EditorInfo currentEditorInfo = getCurrentInputEditorInfo();
     	InputConnection currentInputConnection = getCurrentInputConnection();
         if (isWordSeparator(primaryCode)) {
@@ -562,7 +564,7 @@ public class SoftKeyboard extends InputMethodService
                 && mInputView != null) {
         	commitTyped(currentInputConnection);
         	currentInputConnection.commitText(".com", 4);
-        } else if (primaryCode == -81//my special .COM key
+        } else if (primaryCode == -81//my special .COM key (long press)
                 && mInputView != null) {
         	//should open up a popup with all domains
         	commitTyped(currentInputConnection);
@@ -753,16 +755,11 @@ public class SoftKeyboard extends InputMethodService
         }
         
         AnyKeyboard currentKeyboard = (AnyKeyboard)mInputView.getKeyboard();
-        if (currentKeyboard.getSupportsShift()) 
+        if (isAlphaBetKeyboard(currentKeyboard))
         {
-            // Alphabet with shift support keyboard
+        	// Alphabet with shift support keyboard
             checkToggleCapsLock();
             mInputView.setShifted(mCapsLock || !mInputView.isShifted());
-        }
-        else if (isAlphaBetKeyboard(currentKeyboard))
-        {
-        	//alphabet with no shift support.
-        	//TODO: maybe move to English?
         }
         else
         {//not alpha-bet keyboard
@@ -773,9 +770,21 @@ public class SoftKeyboard extends InputMethodService
     private void handleCharacter(int primaryCode, int[] keyCodes) {
         if (isInputViewShown()) 
         {
-            if (mInputView.isShifted() && mCurKeyboard.getSupportsShift()) 
+            if (mInputView.isShifted()) 
             {
-                primaryCode = Character.toUpperCase(primaryCode);
+            	for(Key aKey : mCurKeyboard.getKeys())
+            	{
+            		final int[] aKeyCodes = aKey.codes;
+            		if (aKeyCodes[0] == primaryCode)
+            		{
+            			if (aKeyCodes.length > 1)
+                    		primaryCode = aKeyCodes[1];//keyboard specified the shift character
+                    	else
+                    		primaryCode = Character.toUpperCase(primaryCode);
+            			
+            			break;
+            		}
+            	}
             }
         }
         if (isAlphabet(primaryCode)) 
