@@ -25,6 +25,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.inputmethodservice.Keyboard;
+import android.inputmethodservice.Keyboard.Key;
 import android.inputmethodservice.Keyboard.Row;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
@@ -71,11 +72,26 @@ public abstract class AnyKeyboard extends Keyboard
         {
             mEnterKey = key;
         }
-        
+        else
+        {
+        	//setting the character label
+        	if (isAlphabetKey(key))
+        	{
+        		key.label = ""+((char)key.codes[0]); 
+        	}
+        }
         return key;
     }
     
-    public void reloadKeyboardConfiguration(SharedPreferences sp)
+    private boolean isAlphabetKey(Key key) {
+		return  (!key.modifier) && 
+				(!key.sticky) &&
+				(!key.repeatable) &&
+				(key.icon == null) &&
+				(key.codes[0] > 0);
+	}
+
+	public void reloadKeyboardConfiguration(SharedPreferences sp)
     {
     	if (mKeyboardEnabledPref == "")
     		mEnabled = true;

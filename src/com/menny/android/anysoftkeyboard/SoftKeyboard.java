@@ -18,7 +18,6 @@ package com.menny.android.anysoftkeyboard;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -314,7 +313,7 @@ public class SoftKeyboard extends InputMethodService
         // says it will do.
         mCurKeyboard.setImeOptions(getResources(), attribute.imeOptions);
     }
-
+    
     /**
      * This is called when the user is done editing a field.  We can use
      * this to reset our state.
@@ -348,7 +347,6 @@ public class SoftKeyboard extends InputMethodService
         mInputView.setKeyboard(mCurKeyboard);
         //no need?
         //mInputView.closing();
-        //TutorialsProvider.ShowTutorialsIfNeeded(this);
     }
     
     /**
