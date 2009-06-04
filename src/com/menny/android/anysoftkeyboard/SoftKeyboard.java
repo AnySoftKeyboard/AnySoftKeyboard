@@ -57,6 +57,13 @@ import com.menny.android.anysoftkeyboard.tutorials.TutorialsProvider;
 public class SoftKeyboard extends InputMethodService 
         implements KeyboardView.OnKeyboardActionListener {
     
+	private enum NextKeyboardType 
+	{
+		Alphabet,
+		SupportsPhysical,
+		Any
+	}
+	
 	private static final int KEYBOARD_NOTIFICATION = 1;
     
     private KeyboardView mInputView;
@@ -95,6 +102,7 @@ public class SoftKeyboard extends InputMethodService
      */
     @Override public void onCreate() {
         super.onCreate();
+        Log.i("AnySoftKeyboard", "onCreate");
         mWordSeparators = getResources().getString(R.string.word_separators);
     }
     
@@ -153,7 +161,8 @@ public class SoftKeyboard extends InputMethodService
         //need to check that current keyboard and mLastSelectedKeyboard are enabled.
         if (!mKeyboards[mLastSelectedKeyboard].isEnabled())
         {
-        	nextKeyboard(getCurrentInputEditorInfo(), true);
+        	//ALWAYS starting in Alphabet!
+        	nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
         }
         //in the weird case (impossible?) that the  'mLastSelectedKeyboard' is enabled, 
         //but the mCurKeyboard is null.
@@ -169,7 +178,7 @@ public class SoftKeyboard extends InputMethodService
      */
     @Override public View onCreateInputView() 
     {
-        mInputView = (KeyboardView) getLayoutInflater().inflate(R.layout.input, null);
+    	mInputView = (KeyboardView) getLayoutInflater().inflate(R.layout.input, null);
         mInputView.setOnKeyboardActionListener(this);
         reloadConfiguration();
         mInputView.setKeyboard(mKeyboards[mLastSelectedKeyboard]);
@@ -177,6 +186,13 @@ public class SoftKeyboard extends InputMethodService
         return mInputView;
     }
 
+//    @Override
+//    public void onWindowShown() 
+//    {
+//    	super.onWindowShown();
+//    	TutorialsProvider.ShowTutorialsIfNeeded(this);
+//    }
+    
     /**
      * Called by the framework when your view for showing candidates needs to
      * be generated, like {@link #onCreateInputView}.
@@ -201,7 +217,6 @@ public class SoftKeyboard extends InputMethodService
      */
     @Override public void onStartInput(EditorInfo attribute, boolean restarting) {
         super.onStartInput(attribute, restarting);
-        
         reloadConfiguration();
         // Reset our state.  We want to do this even if restarting, because
         // the underlying state of the text editor could have changed in any way.
@@ -306,7 +321,6 @@ public class SoftKeyboard extends InputMethodService
      */
     @Override public void onFinishInput() {
         super.onFinishInput();
-        
         // Clear current composing text and candidates.
         mComposing.setLength(0);
         updateCandidates();
@@ -331,9 +345,9 @@ public class SoftKeyboard extends InputMethodService
     
     @Override public void onStartInputView(EditorInfo attribute, boolean restarting) {
         super.onStartInputView(attribute, restarting);
-       
         mInputView.setKeyboard(mCurKeyboard);
-        mInputView.closing();
+        //no need?
+        //mInputView.closing();
         //TutorialsProvider.ShowTutorialsIfNeeded(this);
     }
     
@@ -437,8 +451,8 @@ public class SoftKeyboard extends InputMethodService
                         // First, tell the editor that it is no longer in the
                         // shift state, since we are consuming this.
                         ic.clearMetaKeyStates(KeyEvent.META_ALT_ON);
-                        
-                        nextKeyboard(getCurrentInputEditorInfo(), true);
+                        //only physical keyboard
+                        nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.SupportsPhysical);
                         notifyKeyboardChange();
                         
                         return true;
@@ -487,11 +501,11 @@ public class SoftKeyboard extends InputMethodService
      */
     private void updateShiftKeyState(EditorInfo attr) 
     {
-        if (attr != null && mInputView != null) 
+        if (mInputView != null) 
         {
             int caps = 0;
             
-            if (mAutoCaps)
+            if ((attr != null) && mAutoCaps)
             {
             	InputConnection ci = getCurrentInputConnection();
             	if (ci != null)
@@ -571,7 +585,7 @@ public class SoftKeyboard extends InputMethodService
         	currentInputConnection.commitText(".co.il", 4);
         } else if (primaryCode == -99//my special lang key
                 && mInputView != null) {
-        	nextKeyboard(currentEditorInfo, false);//false - not just alphabet
+        	nextKeyboard(currentEditorInfo, NextKeyboardType.Any);//false - not just alphabet
         } else if (primaryCode == Keyboard.KEYCODE_MODE_CHANGE
                 && mInputView != null) 
         {
@@ -601,18 +615,18 @@ public class SoftKeyboard extends InputMethodService
 		mSymbolsKeyboard.setShifted(shifted);
 	}
 
-	private void nextKeyboard(EditorInfo currentEditorInfo, boolean onlyAlphaBet) 
+	private void nextKeyboard(EditorInfo currentEditorInfo, NextKeyboardType keyboardType) 
 	{
-		Log.d("AnySoftKeyboard", "nextKeyboard: onlyAlphaBet="+onlyAlphaBet+". currentEditorInfo.inputType="+currentEditorInfo.inputType);
+		Log.d("AnySoftKeyboard", "nextKeyboard: keyboardType="+keyboardType+". currentEditorInfo.inputType="+currentEditorInfo.inputType);
 		int variation = currentEditorInfo.inputType &  EditorInfo.TYPE_MASK_VARIATION;
-		if ((!onlyAlphaBet) && 
+		if ((keyboardType == NextKeyboardType.Any) && 
 				mInternetKeyboard.isEnabled() &&
 				(variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS 
 		        || variation == EditorInfo.TYPE_TEXT_VARIATION_URI)) {
 		    //special keyboard
 			Log.d("AnySoftKeyboard", "nextKeyboard: Starting in internet textbox.");
 			mCurKeyboard = mInternetKeyboard;
-		}            
+		}
 		else
 		{
 			if (mCurKeyboard == null)
@@ -638,9 +652,22 @@ public class SoftKeyboard extends InputMethodService
 						mLastSelectedKeyboard = 0;
 					
 					Log.d("AnySoftKeyboard", "nextKeyboard: testing: "+mKeyboards[mLastSelectedKeyboard].getKeyboardName()+", which is "+mKeyboards[mLastSelectedKeyboard].isEnabled()+". index="+mLastSelectedKeyboard);
-					if (mKeyboards[mLastSelectedKeyboard].isEnabled())
+					AnyKeyboard aKeyboard = mKeyboards[mLastSelectedKeyboard];
+					if (aKeyboard.isEnabled())
 					{
-						maxTries = 0;
+						//we found an enabled keyboard - need to check that it OK
+						//for the keyboardType parameter.
+						if ((keyboardType == NextKeyboardType.SupportsPhysical) &&
+								(!(aKeyboard instanceof HardKeyboardTranslator)))
+						{
+							//not a valid keyboard, since we wanted physical handling
+							//and it is not
+						}
+						else
+						{
+							//HOHO! We found a valid keyboard!
+							maxTries = 0;
+						}
 					}
 					maxTries--;
 				}while(maxTries > 0);
@@ -865,7 +892,7 @@ public class SoftKeyboard extends InputMethodService
     
     public void swipeRight() 
     {
-    	nextKeyboard(getCurrentInputEditorInfo(), true);
+    	nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
     }
     
     public void swipeLeft() 

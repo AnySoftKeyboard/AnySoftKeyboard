@@ -4,7 +4,6 @@ import android.content.Context;
 
 public class GenericKeyboard extends AnyKeyboard 
 {
-
 	public GenericKeyboard(Context context, int xmlLayoutResId,
 			boolean supportsShift, String keyboardName,
     		String keyboardEnabledPref) 

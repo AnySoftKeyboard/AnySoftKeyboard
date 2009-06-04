@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import android.content.Context;
 
 import com.menny.android.anysoftkeyboard.R;
+import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
-public class EnglishKeyboard extends AnyKeyboard 
+public class EnglishKeyboard extends AnyKeyboard implements HardKeyboardTranslator
 {
 	private static final String[] mAllBasicWords = {
 	"able",
@@ -889,5 +890,11 @@ public class EnglishKeyboard extends AnyKeyboard
 	public int getKeyboardIcon() 
 	{
 		return R.drawable.en;
+	}
+
+	public char translatePhysicalCharacter(int keyCode, int metaKeys) 
+	{
+		//I'll return 0, so the caller will use defaults.
+		return 0;
 	}
 }

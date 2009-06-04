@@ -3,9 +3,8 @@ package com.menny.android.anysoftkeyboard.keyboards;
 import android.content.Context;
 
 import com.menny.android.anysoftkeyboard.R;
-import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
-public class ArabicKeyboard extends AnyKeyboard implements HardKeyboardTranslator
+public class ArabicKeyboard extends AnyKeyboard/* implements HardKeyboardTranslator*/
 {
 	public ArabicKeyboard(Context context) 
 	{
@@ -16,10 +15,5 @@ public class ArabicKeyboard extends AnyKeyboard implements HardKeyboardTranslato
 	public int getKeyboardIcon() 
 	{
 		return R.drawable.ar;
-	}
-	
-	public char translatePhysicalCharacter(int primaryCode, int metaState) 
-	{
-		return 0;
 	}
 }

@@ -6,7 +6,7 @@ import android.view.KeyEvent;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
-public class LaoKeyboard extends AnyKeyboard implements HardKeyboardTranslator
+public class LaoKeyboard extends AnyKeyboard /*implements HardKeyboardTranslator*/
 {
 	public LaoKeyboard(Context context) 
 	{
@@ -17,10 +17,5 @@ public class LaoKeyboard extends AnyKeyboard implements HardKeyboardTranslator
 	public int getKeyboardIcon() 
 	{
 		return R.drawable.lao;
-	}
-	
-	public char translatePhysicalCharacter(int primaryCode, int metaState) 
-	{
-		return 0;
 	}
 }
