@@ -16,39 +16,39 @@
     </Row>
     
     <Row>
-    	<Key android:horizontalGap="5%p" android:codes="1511" android:keyLabel="" android:keyEdgeFlags="left"/>
+    	<Key android:horizontalGap="5%p" android:codes="1509" android:keyLabel="" android:keyEdgeFlags="left"/>
+        <Key android:codes="1511" android:keyLabel=""/>
         <Key android:codes="1512" android:keyLabel=""/>
         <Key android:codes="1488" android:keyLabel=""/>
         <Key android:codes="1496" android:keyLabel=""/>
         <Key android:codes="1493" android:keyLabel=""/>
         <Key android:codes="1503" android:keyLabel=""/>
         <Key android:codes="1501" android:keyLabel=""/>
-        <Key android:codes="1508" android:keyLabel=""/>
-        <Key android:codes="1509" android:keyLabel="" android:keyEdgeFlags="right"/>
+        <Key android:codes="1508" android:keyLabel="" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row>
-        <Key android:codes="1513" android:keyLabel="&#1513;" android:keyEdgeFlags="left"/>
-        <Key android:codes="1491" android:keyLabel="&#1491;"/>
-        <Key android:codes="1490" android:keyLabel="&#1490;"/>
-        <Key android:codes="1499" android:keyLabel="&#1499;"/>
-        <Key android:codes="1506" android:keyLabel="&#1506;"/>
-        <Key android:codes="1497" android:keyLabel="&#1497;"/>
-        <Key android:codes="1495" android:keyLabel="&#1495;"/>
-        <Key android:codes="1500" android:keyLabel="&#1500;"/>
-        <Key android:codes="1498" android:keyLabel="&#1498;"/>
-        <Key android:codes="1507" android:keyLabel="&#1507;" android:keyEdgeFlags="right"/>
+        <Key android:codes="1513" android:keyLabel="" android:keyEdgeFlags="left"/>
+        <Key android:codes="1491" android:keyLabel=""/>
+        <Key android:codes="1490" android:keyLabel=""/>
+        <Key android:codes="1499" android:keyLabel=""/>
+        <Key android:codes="1506" android:keyLabel=""/>
+        <Key android:codes="1497" android:keyLabel=""/>
+        <Key android:codes="1495" android:keyLabel=""/>
+        <Key android:codes="1500" android:keyLabel=""/>
+        <Key android:codes="1498" android:keyLabel=""/>
+        <Key android:codes="1507" android:keyLabel="" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row>
-        <Key android:horizontalGap="5%p" android:codes="1494" android:keyLabel="&#1494;" android:keyEdgeFlags="left"/>
-        <Key android:codes="1505" android:keyLabel="&#1505;"/>
-        <Key android:codes="1489" android:keyLabel="&#1489;"/>
-        <Key android:codes="1492" android:keyLabel="&#1492;"/>
-        <Key android:codes="1504" android:keyLabel="&#1504;"/>
-        <Key android:codes="1502" android:keyLabel="&#1502;"/>
-        <Key android:codes="1510" android:keyLabel="&#1510;"/>
-        <Key android:codes="1514" android:keyLabel="&#1514;"/>
+        <Key android:horizontalGap="5%p" android:codes="1494" android:keyLabel="" android:keyEdgeFlags="left"/>
+        <Key android:codes="1505" android:keyLabel=""/>
+        <Key android:codes="1489" android:keyLabel=""/>
+        <Key android:codes="1492" android:keyLabel=""/>
+        <Key android:codes="1504" android:keyLabel=""/>
+        <Key android:codes="1502" android:keyLabel=""/>
+        <Key android:codes="1510" android:keyLabel=""/>
+        <Key android:codes="1514" android:keyLabel=""/>
         <Key android:horizontalGap="5%p" android:codes="33" android:keyLabel="!" android:keyEdgeFlags="right"/>
     </Row>
     

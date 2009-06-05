@@ -15,15 +15,15 @@
     <!-- settings - UI -->
     <string name="ui_group">User interface</string>
     <string name="swipe_hints">Show swipe hints</string>
-    <string name="physical_keyboard_change_notification">Show notification on physical keyboard change</string>
+    <string name="physical_keyboard_change_notification">Notify on physical layout change</string>
     
     <!-- settings - effects-->
     <string name="effects_group">Effects</string>
     <string name="ime_settings">Keyboard settings</string>
-    <string name="vibrate_on">Vibrate on keypress</string>
-    <string name="sound_on">Sound on keypress</string>
+    <string name="vibrate_on">Vibrate on key-press</string>
+    <string name="sound_on">Sound on key-press</string>
     <string name="auto_caps">Auto-capitalization</string>
-    <string name="grammer_group">Grammer</string>
+    <string name="grammer_group">Grammar</string>
     <string name="candidates_on">Show suggestions</string>
     
     <!-- settings - keyboard group -->

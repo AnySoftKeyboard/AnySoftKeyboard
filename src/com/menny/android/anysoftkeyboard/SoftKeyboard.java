@@ -94,6 +94,8 @@ public class SoftKeyboard extends InputMethodService
     private boolean mSoundOnKeyPress = false;
     private boolean mAutoCaps = false;
     private boolean mShowCandidates = false;
+
+	private boolean mKeyboardChangeNotification;
     
     /**
      * Main initialization of the input method component.  Be sure to call
@@ -138,6 +140,7 @@ public class SoftKeyboard extends InputMethodService
     	SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         mVibrateOnKeyPress = sp.getBoolean("vibrate_on", false);
         mSoundOnKeyPress = sp.getBoolean("sound_on", false);
+        mKeyboardChangeNotification = sp.getBoolean("physical_keyboard_change_notification", true);
         
         if (mSoundOnKeyPress)
         	((AudioManager)getSystemService(Context.AUDIO_SERVICE)).loadSoundEffects();
@@ -451,7 +454,7 @@ public class SoftKeyboard extends InputMethodService
                         ic.clearMetaKeyStates(KeyEvent.META_ALT_ON);
                         //only physical keyboard
                         nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.SupportsPhysical);
-                        notifyKeyboardChange();
+                        notifyKeyboardChangeIfNeeded();
                         
                         return true;
                     }
@@ -572,16 +575,16 @@ public class SoftKeyboard extends InputMethodService
         } else if (primaryCode == AnyKeyboardView.KEYCODE_OPTIONS) {
             // Show a menu or somethin'
         }
-        else if (primaryCode == -80//my special .COM key
+        else if (primaryCode == AnyKeyboard.KEYCODE_DOT_COM//my special .COM key
                 && mInputView != null) {
         	commitTyped(currentInputConnection);
         	currentInputConnection.commitText(".com", 4);
-        } else if (primaryCode == -81//my special .COM key (long press)
+        } else if (primaryCode == AnyKeyboardView.KEYCODE_DOMAINS_POP_UP//my special .COM key (long press)
                 && mInputView != null) {
         	//should open up a popup with all domains
         	commitTyped(currentInputConnection);
         	currentInputConnection.commitText(".co.il", 4);
-        } else if (primaryCode == -99//my special lang key
+        } else if (primaryCode == AnyKeyboard.KEYCODE_LANG_CHANGE//my special lang key
                 && mInputView != null) {
         	nextKeyboard(currentEditorInfo, NextKeyboardType.Any);//false - not just alphabet
         } else if (primaryCode == Keyboard.KEYCODE_MODE_CHANGE
@@ -679,24 +682,28 @@ public class SoftKeyboard extends InputMethodService
 		mCurKeyboard.setImeOptions(getResources(), currentEditorInfo.imeOptions);
 	}
 
-	private void notifyKeyboardChange() {
-		//notifying the user about the keyboard. This should be done in open keyboard only.
-		//getting the manager
-		NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		//removing last notification
-		notificationManager.cancel(KEYBOARD_NOTIFICATION);
-		//creating the message
-		Notification notification = new Notification(mCurKeyboard.getKeyboardIcon(), mCurKeyboard.getKeyboardName(), System.currentTimeMillis());
-
-		Intent notificationIntent = new Intent();
-		PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-		
-		notification.setLatestEventInfo(getApplicationContext(), "Any Soft Keyboard", mCurKeyboard.getKeyboardName(), contentIntent);
-		notification.flags |= Notification.FLAG_ONGOING_EVENT;
-		notification.flags |= Notification.FLAG_NO_CLEAR;
-		notification.defaults = 0;//no sound, vibrate, etc.
-		//notifying
-		notificationManager.notify(KEYBOARD_NOTIFICATION, notification);
+	private void notifyKeyboardChangeIfNeeded() 
+	{
+		if (mKeyboardChangeNotification)
+		{
+			//notifying the user about the keyboard. This should be done in open keyboard only.
+			//getting the manager
+			NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+			//removing last notification
+			notificationManager.cancel(KEYBOARD_NOTIFICATION);
+			//creating the message
+			Notification notification = new Notification(mCurKeyboard.getKeyboardIcon(), mCurKeyboard.getKeyboardName(), System.currentTimeMillis());
+	
+			Intent notificationIntent = new Intent();
+			PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+			
+			notification.setLatestEventInfo(getApplicationContext(), "Any Soft Keyboard", mCurKeyboard.getKeyboardName(), contentIntent);
+			notification.flags |= Notification.FLAG_ONGOING_EVENT;
+			notification.flags |= Notification.FLAG_NO_CLEAR;
+			notification.defaults = 0;//no sound, vibrate, etc.
+			//notifying
+			notificationManager.notify(KEYBOARD_NOTIFICATION, notification);
+		}
 	}
     
     private boolean isAlphaBetKeyboard(AnyKeyboard viewedKeyboard)

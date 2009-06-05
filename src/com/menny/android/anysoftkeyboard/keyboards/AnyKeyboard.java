@@ -32,6 +32,9 @@ import android.view.inputmethod.EditorInfo;
 
 public abstract class AnyKeyboard extends Keyboard 
 {
+	public final static int KEYCODE_LANG_CHANGE = -99;
+	public final static int KEYCODE_DOT_COM = -80;
+	
 	public interface HardKeyboardTranslator
 	{
 		/*
@@ -184,11 +187,11 @@ public abstract class AnyKeyboard extends Keyboard
 			if (aKey.codes.length > 1)
 			{
 				aKey.label = shiftState? ""+((char)aKey.codes[1]) : ""+((char)aKey.codes[0]);
-				Log.d("AnySoftKeyboard", "setShifted: changed key:"+aKey.label);
+				Log.v("AnySoftKeyboard", "setShifted: changed key:"+aKey.label);
 			}
 			else
 			{
-				Log.d("AnySoftKeyboard", "setShifted: not changed key:"+aKey.label);
+				Log.v("AnySoftKeyboard", "setShifted: not changed key:"+aKey.label);
 			}
 		}
 		
