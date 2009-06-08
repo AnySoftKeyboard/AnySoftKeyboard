@@ -19,6 +19,7 @@ package com.menny.android.anysoftkeyboard.keyboards;
 import java.util.ArrayList;
 
 import com.menny.android.anysoftkeyboard.R;
+import com.menny.android.anysoftkeyboard.SoftKeyboard;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -27,6 +28,7 @@ import android.content.res.XmlResourceParser;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.Keyboard.Key;
 import android.inputmethodservice.Keyboard.Row;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
@@ -45,9 +47,9 @@ public abstract class AnyKeyboard extends Keyboard
 	}
 
     private Key mEnterKey;
-    //private final boolean mSupportsShift;
+    
+    private String mChangeKeysMode;
     private final String mKeyboardName;
-    private final String mKeyboardEnabledPref;
     
     private boolean mEnabled = true;
     
@@ -59,22 +61,58 @@ public abstract class AnyKeyboard extends Keyboard
         super(context, xmlLayoutResId);
         //mSupportsShift = supportsShift;
         mKeyboardName = keyboardName;
-        mEnabled = true;
-        mKeyboardEnabledPref = keyboardEnabledPref;
+        Log.i("AnySoftKeyboard", "Creating keyboard: "+mKeyboardName);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        
+        if (keyboardEnabledPref == "")
+    		mEnabled = true;
+    	else
+    		mEnabled = sp.getBoolean(keyboardEnabledPref, true);
+    	
         //TODO: parsing of the mapping xml:
         //XmlResourceParser p = getResources().getXml(id from the constructor parameter);
         //parse to a HashMap?
         //mTopKeys = new ArrayList<Key>();
     }
     
+    //this function is called from within the super constructor.
     @Override
     protected Key createKeyFromXml(Resources res, Row parent, int x, int y, 
             XmlResourceParser parser) {
         Key key = new Key(res, parent, x, y, parser);
+        if (mChangeKeysMode == null)
+        {
+        	SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(SoftKeyboard.msCurrentInstance);
+        	mChangeKeysMode = sp.getString("keyboard_layout_change_method", "1");
+            
+        	Log.d("AnySoftKeyboard", "keyboard_layout_change_method is "+mChangeKeysMode);
+            
+        }
+        
         if (key.codes[0] == 10) 
         {
             mEnterKey = key;
         }
+//        else if (key.codes[0] == Keyboard.KEYCODE_MODE_CHANGE)
+//        {
+//        	String text = res.getString(R.string.change_lang_wide);
+//        	if (mChangeKeysMode.equals("3"))
+//        		text = res.getString(R.string.change_lang_regular);
+//        	else if (mChangeKeysMode.equals("2"))
+//        		text = "";
+//        		
+//        	changeLayoutKey(key, text, parent.defaultHeight);
+//        }
+//        else if (key.codes[0] == AnyKeyboard.KEYCODE_LANG_CHANGE)
+//        {
+//        	String text = res.getString(R.string.change_symbols_wide);
+//        	if (mChangeKeysMode.equals("3"))
+//        		text = res.getString(R.string.change_symbols_regular);
+//        	else if (mChangeKeysMode.equals("2"))
+//        		text = "";
+//        		
+//        	changeLayoutKey(key, text, parent.defaultHeight);
+//        }
         else
         {
         	//setting the character label
@@ -83,6 +121,8 @@ public abstract class AnyKeyboard extends Keyboard
         		key.label = ""+((char)key.codes[0]); 
         	}
         }
+        
+        Log.d("AnySoftKeyboard", "Key '"+key.codes[0]+"' will have - width: "+key.width+", height:"+key.height+", text: '"+key.label+"'.");
         return key;
     }
     
@@ -93,23 +133,34 @@ public abstract class AnyKeyboard extends Keyboard
 				(key.icon == null) &&
 				(key.codes[0] > 0);
 	}
-
-	public void reloadKeyboardConfiguration(SharedPreferences sp)
-    {
-    	if (mKeyboardEnabledPref == "")
-    		mEnabled = true;
-    	else
-    		mEnabled = sp.getBoolean(mKeyboardEnabledPref, true);
-    	
-//    	boolean swipeEnabled = sp.getBoolean("swipe_hints", true);
-//    	for(Key key : getKeys())
-//    	{
-//    		if ((key.codes[0] == -2) || (key.codes[0] == -99))
-//    			key.height = swipeEnabled? 5 : 0;
-//    	}
-    }
     
-    /**
+    private void changeLayoutKey(Key key, String changeString, int defaultHeight)
+    {
+    	Log.d("AnySoftKeyboard", "Key "+key.codes[0]+": with text '"+changeString+"'. mChangeKeysMode: "+mChangeKeysMode);
+    	boolean fullHeight = false;
+    	int widthPercentage = 45;
+    	if (mChangeKeysMode.equals("3"))
+    	{
+    		fullHeight = true;
+    		widthPercentage = 20;
+    	}
+    	else if (mChangeKeysMode.equals("2"))
+    	{
+    		widthPercentage = 0;
+    	}
+    	
+    	int keyWidth = SoftKeyboard.msCurrentInstance.getMaxWidth() * widthPercentage / 100;
+    	int keyHeight = fullHeight? defaultHeight : (defaultHeight / 2);
+    	if (widthPercentage == 0)
+    		keyHeight = 0;
+    	
+    	Log.d("AnySoftKeyboard", "Key will have - width: "+keyWidth+", height:"+keyHeight);
+    	key.width = keyWidth;
+    	key.height = keyHeight;
+    	key.label = changeString;
+	}
+
+	/**
      * This looks at the ime options given by the current editor, to set the
      * appropriate label on the keyboard's enter key (if it has one).
      */

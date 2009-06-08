@@ -63,7 +63,9 @@ public class SoftKeyboard extends InputMethodService
 		Any
 	}
 	
-	private static final int KEYBOARD_NOTIFICATION = 1;
+	public static SoftKeyboard msCurrentInstance;
+	
+	private static final int KEYBOARD_NOTIFICATION_ID = 1;
     
     private KeyboardView mInputView;
     private CandidateView mCandidateView;
@@ -97,6 +99,12 @@ public class SoftKeyboard extends InputMethodService
 
 	private boolean mKeyboardChangeNotification;
     
+	public SoftKeyboard()
+	{
+		super();
+		msCurrentInstance = this;
+	}
+	
     /**
      * Main initialization of the input method component.  Be sure to call
      * to super class.
@@ -125,18 +133,22 @@ public class SoftKeyboard extends InputMethodService
             mLastDisplayWidth = displayWidth;
         }
         
-        mSymbolsKeyboard = new GenericKeyboard(this, R.xml.symbols, false, "Symbols", "");
+        reloadConfiguration();
+    }
+
+	private void createKeyboards() {
+		mSymbolsKeyboard = new GenericKeyboard(this, R.xml.symbols, false, "Symbols", "");
         mSymbolsShiftedKeyboard = new GenericKeyboard(this, R.xml.symbols_shift, false, "Shift Symbols", "");
         mInternetKeyboard = new InternetKeyboard(this);
         mSimpleNumbersKeyboard = new GenericKeyboard(this, R.xml.simple_numbers, false, "Numbers", "");
         
         mKeyboards = KeyboardFactory.createAlphaBetKeyboards(this);
-        
-        reloadConfiguration();
-    }
+	}
 
     private void reloadConfiguration()
     {
+    	createKeyboards();
+    	
     	SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         mVibrateOnKeyPress = sp.getBoolean("vibrate_on", false);
         mSoundOnKeyPress = sp.getBoolean("sound_on", false);
@@ -147,19 +159,11 @@ public class SoftKeyboard extends InputMethodService
         
         mAutoCaps = sp.getBoolean("auto_caps", true);
         mShowCandidates = sp.getBoolean("candidates_on", true);
-    	reloadKeyboardsConfiguration();
+    	ensureCurrentKeyboardIsOk();
     }
     
-	private void reloadKeyboardsConfiguration() 
-	{
-		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-		
-        mInternetKeyboard.reloadKeyboardConfiguration(sp);
-        for(int keyboardIndex=0; keyboardIndex<mKeyboards.length; keyboardIndex++)
-        {
-        	mKeyboards[keyboardIndex].reloadKeyboardConfiguration(sp);
-        }
-        
+	private void ensureCurrentKeyboardIsOk() 
+	{        
         //need to check that current keyboard and mLastSelectedKeyboard are enabled.
         if (!mKeyboards[mLastSelectedKeyboard].isEnabled())
         {
@@ -180,10 +184,12 @@ public class SoftKeyboard extends InputMethodService
      */
     @Override public View onCreateInputView() 
     {
+    	mKeyboards = KeyboardFactory.createAlphaBetKeyboards(this);
+    	
     	mInputView = (KeyboardView) getLayoutInflater().inflate(R.layout.input, null);
         mInputView.setOnKeyboardActionListener(this);
-        reloadConfiguration();
         mInputView.setKeyboard(mKeyboards[mLastSelectedKeyboard]);
+        //reloadConfiguration();
         
         return mInputView;
     }
@@ -219,7 +225,7 @@ public class SoftKeyboard extends InputMethodService
      */
     @Override public void onStartInput(EditorInfo attribute, boolean restarting) {
         super.onStartInput(attribute, restarting);
-        reloadConfiguration();
+        //reloadConfiguration();
         // Reset our state.  We want to do this even if restarting, because
         // the underlying state of the text editor could have changed in any way.
         mComposing.setLength(0);
@@ -342,7 +348,7 @@ public class SoftKeyboard extends InputMethodService
         	((AudioManager)getSystemService(Context.AUDIO_SERVICE)).unloadSoundEffects();
         
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-		notificationManager.cancel(KEYBOARD_NOTIFICATION);
+		notificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
     }
     
     @Override public void onStartInputView(EditorInfo attribute, boolean restarting) {
@@ -690,7 +696,7 @@ public class SoftKeyboard extends InputMethodService
 			//getting the manager
 			NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 			//removing last notification
-			notificationManager.cancel(KEYBOARD_NOTIFICATION);
+			notificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
 			//creating the message
 			Notification notification = new Notification(mCurKeyboard.getKeyboardIcon(), mCurKeyboard.getKeyboardName(), System.currentTimeMillis());
 	
@@ -702,7 +708,7 @@ public class SoftKeyboard extends InputMethodService
 			notification.flags |= Notification.FLAG_NO_CLEAR;
 			notification.defaults = 0;//no sound, vibrate, etc.
 			//notifying
-			notificationManager.notify(KEYBOARD_NOTIFICATION, notification);
+			notificationManager.notify(KEYBOARD_NOTIFICATION_ID, notification);
 		}
 	}
     
