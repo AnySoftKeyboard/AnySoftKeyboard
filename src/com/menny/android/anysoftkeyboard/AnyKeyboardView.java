@@ -19,7 +19,6 @@ package com.menny.android.anysoftkeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
 
 import android.content.Context;
-import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.inputmethodservice.Keyboard.Key;
 import android.util.AttributeSet;

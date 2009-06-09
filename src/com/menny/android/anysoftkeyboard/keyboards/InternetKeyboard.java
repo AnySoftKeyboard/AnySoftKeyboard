@@ -1,13 +1,10 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
-import com.menny.android.anysoftkeyboard.R;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
-import android.inputmethodservice.Keyboard.Key;
-import android.inputmethodservice.Keyboard.Row;
-import android.util.Log;
+
+import com.menny.android.anysoftkeyboard.R;
 
 public class InternetKeyboard extends AnyKeyboard 
 {

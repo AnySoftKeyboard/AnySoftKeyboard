@@ -1,13 +1,7 @@
 package com.menny.android.anysoftkeyboard.tutorials;
 
-import com.menny.android.anysoftkeyboard.R;
-
 import android.app.Dialog;
 import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.TextView;
 
 public class BasicTextTutorialDialog extends Dialog
 {

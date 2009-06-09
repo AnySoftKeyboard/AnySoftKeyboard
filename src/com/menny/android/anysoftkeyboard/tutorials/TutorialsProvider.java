@@ -1,13 +1,6 @@
 package com.menny.android.anysoftkeyboard.tutorials;
 
-import com.menny.android.anysoftkeyboard.R;
-
 import android.content.Context;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 
 public class TutorialsProvider 
 {

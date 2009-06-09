@@ -5,22 +5,20 @@
     <string name="ime_name">Any Soft Keyboard</string>
 
     <!-- Symbols that are commonly considered word separators in this language -->
-    <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|&quot;1234567890</string>
+    <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
     
     <!-- settings - UI -->
     <string name="ui_group">User interface</string>
     <string name="keyboard_layout_change_method_title">Layout change method</string>
-    <string name="keyboard_layout_change_method_summary">On screen keyboard layout change method</string>
+    <string name="keyboard_layout_change_method_summary">Not Implemented - On screen keyboard layout change method</string>
     <string name="keyboard_layout_change_method_dialog_title">Select one</string>
     <string-array name="keyboard_layout_change_methods">
         <item>Swipe with hint keys</item>
         <item>Swipe without hint keys</item>
-        <item>Regular layout change keys</item>
     </string-array>
     <string-array name="keyboard_layout_change_methods_values">
         <item>1</item>
         <item>2</item>
-        <item>3</item>
     </string-array>
     <string name="physical_keyboard_change_notification">Notify on physical layout change</string>
     

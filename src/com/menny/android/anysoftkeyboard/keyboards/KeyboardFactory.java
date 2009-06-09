@@ -3,6 +3,7 @@ package com.menny.android.anysoftkeyboard.keyboards;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.util.Log;
 
 public class KeyboardFactory 
 {
@@ -17,6 +18,9 @@ public class KeyboardFactory
 		//Lao keyboard - issue 10
 		keyboards.add(new LaoKeyboard(applicationContext));
 		//this function will create a new array if needed.
-        return keyboards.toArray(new AnyKeyboard[1]);
+		AnyKeyboard[] keyboardsArray = keyboards.toArray(new AnyKeyboard[1]);
+        
+        Log.i("AnySoftKeyboard", "KeyboardFactory created "+keyboardsArray.length+" keyboards.");
+        return keyboardsArray;
 	}
 }

@@ -18,19 +18,17 @@ package com.menny.android.anysoftkeyboard.keyboards;
 
 import java.util.ArrayList;
 
-import com.menny.android.anysoftkeyboard.R;
-import com.menny.android.anysoftkeyboard.SoftKeyboard;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.inputmethodservice.Keyboard;
-import android.inputmethodservice.Keyboard.Key;
-import android.inputmethodservice.Keyboard.Row;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
+
+import com.menny.android.anysoftkeyboard.R;
+import com.menny.android.anysoftkeyboard.SoftKeyboard;
 
 public abstract class AnyKeyboard extends Keyboard 
 {
@@ -48,7 +46,6 @@ public abstract class AnyKeyboard extends Keyboard
 
     private Key mEnterKey;
     
-    private String mChangeKeysMode;
     private final String mKeyboardName;
     
     private boolean mEnabled = true;
@@ -79,22 +76,21 @@ public abstract class AnyKeyboard extends Keyboard
     @Override
     protected Key createKeyFromXml(Resources res, Row parent, int x, int y, 
             XmlResourceParser parser) {
-        Key key = new Key(res, parent, x, y, parser);
-        if (mChangeKeysMode == null)
-        {
-        	SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(SoftKeyboard.msCurrentInstance);
-        	mChangeKeysMode = sp.getString("keyboard_layout_change_method", "1");
-            
-        	Log.d("AnySoftKeyboard", "keyboard_layout_change_method is "+mChangeKeysMode);
-            
-        }
+        Key key = super.createKeyFromXml(res, parent, x, y, parser);
         
         if (key.codes[0] == 10) 
         {
             mEnterKey = key;
         }
-//        else if (key.codes[0] == Keyboard.KEYCODE_MODE_CHANGE)
-//        {
+        else if ((key.codes[0] == Keyboard.KEYCODE_MODE_CHANGE) ||
+        		 (key.codes[0] == AnyKeyboard.KEYCODE_LANG_CHANGE))
+        {
+        	if (SoftKeyboard.mChangeKeysMode.equals("2"))
+        	{
+        		key.label = "";
+        		key.height = 0;
+        		key.width = 0;
+        	}
 //        	String text = res.getString(R.string.change_lang_wide);
 //        	if (mChangeKeysMode.equals("3"))
 //        		text = res.getString(R.string.change_lang_regular);
@@ -102,17 +98,7 @@ public abstract class AnyKeyboard extends Keyboard
 //        		text = "";
 //        		
 //        	changeLayoutKey(key, text, parent.defaultHeight);
-//        }
-//        else if (key.codes[0] == AnyKeyboard.KEYCODE_LANG_CHANGE)
-//        {
-//        	String text = res.getString(R.string.change_symbols_wide);
-//        	if (mChangeKeysMode.equals("3"))
-//        		text = res.getString(R.string.change_symbols_regular);
-//        	else if (mChangeKeysMode.equals("2"))
-//        		text = "";
-//        		
-//        	changeLayoutKey(key, text, parent.defaultHeight);
-//        }
+        }
         else
         {
         	//setting the character label
@@ -122,8 +108,22 @@ public abstract class AnyKeyboard extends Keyboard
         	}
         }
         
-        Log.d("AnySoftKeyboard", "Key '"+key.codes[0]+"' will have - width: "+key.width+", height:"+key.height+", text: '"+key.label+"'.");
+        Log.v("AnySoftKeyboard", "Key '"+key.codes[0]+"' will have - width: "+key.width+", height:"+key.height+", text: '"+key.label+"'.");
         return key;
+    }
+
+    @Override
+    protected Row createRowFromXml(Resources res, XmlResourceParser parser) 
+    {
+    	// TODO Auto-generated method stub
+    	Row aRow = super.createRowFromXml(res, parser);
+    	if ((aRow.rowEdgeFlags&EDGE_TOP) != 0)
+    	{
+    		//top row
+    		if (SoftKeyboard.mChangeKeysMode.equals("2"))
+    			aRow.defaultHeight = 0;
+    	}
+    	return aRow;
     }
     
     private boolean isAlphabetKey(Key key) {
@@ -134,31 +134,31 @@ public abstract class AnyKeyboard extends Keyboard
 				(key.codes[0] > 0);
 	}
     
-    private void changeLayoutKey(Key key, String changeString, int defaultHeight)
-    {
-    	Log.d("AnySoftKeyboard", "Key "+key.codes[0]+": with text '"+changeString+"'. mChangeKeysMode: "+mChangeKeysMode);
-    	boolean fullHeight = false;
-    	int widthPercentage = 45;
-    	if (mChangeKeysMode.equals("3"))
-    	{
-    		fullHeight = true;
-    		widthPercentage = 20;
-    	}
-    	else if (mChangeKeysMode.equals("2"))
-    	{
-    		widthPercentage = 0;
-    	}
-    	
-    	int keyWidth = SoftKeyboard.msCurrentInstance.getMaxWidth() * widthPercentage / 100;
-    	int keyHeight = fullHeight? defaultHeight : (defaultHeight / 2);
-    	if (widthPercentage == 0)
-    		keyHeight = 0;
-    	
-    	Log.d("AnySoftKeyboard", "Key will have - width: "+keyWidth+", height:"+keyHeight);
-    	key.width = keyWidth;
-    	key.height = keyHeight;
-    	key.label = changeString;
-	}
+//    private void changeLayoutKey(Key key, String changeString, int defaultHeight)
+//    {
+//    	Log.d("AnySoftKeyboard", "Key "+key.codes[0]+": with text '"+changeString+"'. mChangeKeysMode: "+mChangeKeysMode);
+//    	boolean fullHeight = false;
+//    	int widthPercentage = 45;
+//    	if (mChangeKeysMode.equals("3"))
+//    	{
+//    		fullHeight = true;
+//    		widthPercentage = 20;
+//    	}
+//    	else if (mChangeKeysMode.equals("2"))
+//    	{
+//    		widthPercentage = 0;
+//    	}
+//    	
+//    	int keyWidth = SoftKeyboard.msCurrentInstance.getMaxWidth() * widthPercentage / 100;
+//    	int keyHeight = fullHeight? (defaultHeight*2) : defaultHeight;
+//    	if (widthPercentage == 0)
+//    		keyHeight = 0;
+//    	
+//    	Log.d("AnySoftKeyboard", "Key will have - width: "+keyWidth+", height:"+keyHeight);
+//    	key.width = keyWidth;
+//    	key.height = keyHeight;
+//    	key.label = changeString;
+//	}
 
 	/**
      * This looks at the ime options given by the current editor, to set the
