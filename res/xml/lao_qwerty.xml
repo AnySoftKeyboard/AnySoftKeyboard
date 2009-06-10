@@ -1,22 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-/* 
-**
-** Copyright 2008, The Android Open Source Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License"); 
-** you may not use this file except in compliance with the License. 
-** You may obtain a copy of the License at 
-**
-**     http://www.apache.org/licenses/LICENSE-2.0 
-**
-** Unless required by applicable law or agreed to in writing, software 
-** distributed under the License is distributed on an "AS IS" BASIS, 
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-** See the License for the specific language governing permissions and 
-** limitations under the License.
-*/
--->
 
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
     android:keyWidth="10%p"
@@ -34,54 +16,62 @@
     
     <!-- numbers -->
 	<Row>
-        <Key android:codes="3792,3771" android:keyLabel="&#3792;" android:keyEdgeFlags="left"/>
-        <Key android:codes="3793,3785" android:keyLabel="&#3793;"/>
-        <Key android:codes="3794,3789" android:keyLabel="&#3794;"/>
-        <Key android:codes="3795,3785" android:keyLabel="&#3795;"/>
-        <Key android:codes="3796,3762" android:keyLabel="&#3796;"/>
-        <Key android:codes="3797,95" android:keyLabel="&#3797;"/>
-        <Key android:codes="3798,43" android:keyLabel="&#3798;"/>
-        <Key android:codes="3799,3764" android:keyLabel="&#3799;"/>
-        <Key android:codes="3800,3785" android:keyLabel="&#3800;"/>
-        <Key android:codes="3801,3765" android:keyLabel="&#3801;" android:keyEdgeFlags="right"/>
+		<Key android:codes="3746,3793" android:keyLabel="&#3746;" android:keyEdgeFlags="left"/>
+        <Key android:codes="3743,3794" android:keyLabel="&#3743;"/>
+        <Key android:codes="3778,3795" android:keyLabel="&#3778;"/>
+        <Key android:codes="3734,3796" android:keyLabel="&#3734;"/>
+        <Key android:codes="3768,3797" android:keyLabel="&#3768;"/>
+        <Key android:codes="3769,3798" android:keyLabel="&#3769;"/>
+        <Key android:codes="3716,3799" android:keyLabel="&#3716;"/>
+        <Key android:codes="3733,3800" android:keyLabel="&#3733;"/>
+        <Key android:codes="3720,3801" android:keyLabel="&#3720;"/>
+		<Key android:codes="3714,3792" android:keyLabel="&#3174;"/>
+		<Key android:codes="3722,3788," android:keyLabel="&#3801;"/>
+		<Key android:codes="3789,3789" android:keyLabel="&#3792;" android:keyEdgeFlags="right"/>
     </Row>
 	<!-- letters -->
     <Row>
         <Key android:codes="3771" android:keyLabel="&#3771;" android:keyEdgeFlags="left"/>
-        <Key android:codes="3780" android:keyLabel="&#3780;"/>
+        <Key android:codes="3780,3789" android:keyLabel="&#3780;"/>
         <Key android:codes="3763" android:keyLabel="&#3763;"/>
-        <Key android:codes="3742" android:keyLabel="&#3742;"/>
-        <Key android:codes="3760" android:keyLabel="&#3760;"/>
+        <Key android:codes="3742,95" android:keyLabel="&#3742;"/>
+        <Key android:codes="3760,43" android:keyLabel="&#3760;"/>
         <Key android:codes="3764" android:keyLabel="&#3764;"/>
         <Key android:codes="3765" android:keyLabel="&#3765;"/>
-        <Key android:codes="3747" android:keyLabel="&#3747;"/>
-        <Key android:codes="3737" android:keyLabel="&#3737;"/>
-        <Key android:codes="3725" android:keyLabel="&#3725;" android:keyEdgeFlags="right"/>
+        <Key android:codes="3747,3747" android:keyLabel="&#3747;"/>
+        <Key android:codes="3737,3804" android:keyLabel="&#3737;"/>
+        <Key android:codes="3725,3773" android:keyLabel="&#3725;"/>
+		<Key android:codes="3738,3772" android:keyLabel="&#3738;"/>
+		<Key android:codes="3749" android:keyLabel="&#3749;" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row>
         <Key android:horizontalGap="5%p" android:codes="3761" android:keyLabel="&#3761;" android:keyEdgeFlags="left"/>
-        <Key android:codes="3755" android:keyLabel="&#3755;"/>
-        <Key android:codes="3713" android:keyLabel="&#3713;"/>
-        <Key android:codes="3732" android:keyLabel="&#3732;"/>
-        <Key android:codes="3776" android:keyLabel="&#3776;"/>
-        <Key android:codes="3785" android:keyLabel="&#3785;"/>
-        <Key android:codes="3784" android:keyLabel="&#3784;"/>
-        <Key android:codes="3762" android:keyLabel="&#3762;"/>
-        <Key android:codes="3754" android:keyLabel="&#3754;" android:keyEdgeFlags="right"/>
+        <Key android:codes="3755,59" android:keyLabel="&#3755;"/>
+        <Key android:codes="3713,46" android:keyLabel="&#3713;"/>
+        <Key android:codes="3732,44" android:keyLabel="&#3732;"/>
+        <Key android:codes="3776,58" android:keyLabel="&#3776;"/>
+        <Key android:codes="3785,3786" android:keyLabel="&#3785;"/>
+        <Key android:codes="3784,3787" android:keyLabel="&#3784;"/>
+        <Key android:codes="3762,33" android:keyLabel="&#3762;"/>
+        <Key android:codes="3754,63" android:keyLabel="&#3754;"/>
+        <Key android:codes="3751,37" android:keyLabel="&#3751;"/>
+        <Key android:codes="3719,61" android:keyLabel="&#3719;" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row>
         <Key android:codes="-1" android:keyIcon="@drawable/sym_keyboard_shift" 
                 android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
-        <Key android:codes="3740" android:keyLabel="&#3740;"/>
-        <Key android:codes="3739" android:keyLabel="&#3739;"/>
-        <Key android:codes="3777" android:keyLabel="&#3777;"/>
-        <Key android:codes="3757" android:keyLabel="&#3757;"/>
+        <Key android:codes="3740,8365" android:keyLabel="&#3740;"/>
+        <Key android:codes="3739,40" android:keyLabel="&#3739;"/>
+        <Key android:codes="3777,3759" android:keyLabel="&#3777;"/>
+        <Key android:codes="3757,215" android:keyLabel="&#3757;"/>
         <Key android:codes="3766" android:keyLabel="&#3766;"/>
         <Key android:codes="3767" android:keyLabel="&#3767;"/>
-        <Key android:codes="3735" android:keyLabel="&#3735;"/>
-        <Key android:codes="3745" android:keyLabel="&#3745;"/>
+        <Key android:codes="3735,3782" android:keyLabel="&#3735;"/>
+        <Key android:codes="3745,3805" android:keyLabel="&#3745;"/>
+        <Key android:codes="3779,36" android:keyLabel="&#3779;"/>
+        <Key android:codes="3741,41" android:keyLabel="&#3741;"/>
         <Key android:codes="33" android:keyLabel="!" android:keyEdgeFlags="right"/>
     </Row>
     
@@ -99,4 +89,3 @@
                 android:keyWidth="20%p" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>
-

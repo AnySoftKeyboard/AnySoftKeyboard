@@ -85,12 +85,13 @@ public abstract class AnyKeyboard extends Keyboard
         else if ((key.codes[0] == Keyboard.KEYCODE_MODE_CHANGE) ||
         		 (key.codes[0] == AnyKeyboard.KEYCODE_LANG_CHANGE))
         {
-        	if (SoftKeyboard.mChangeKeysMode.equals("2"))
-        	{
-        		key.label = "";
-        		key.height = 0;
-        		key.width = 0;
-        	}
+//        	if (SoftKeyboard.mChangeKeysMode.equals("2"))
+//        	{
+//        		key.label = "";
+//        		key.height = 0;
+//        		key.width = 0;
+//        	}
+        	
 //        	String text = res.getString(R.string.change_lang_wide);
 //        	if (mChangeKeysMode.equals("3"))
 //        		text = res.getString(R.string.change_lang_regular);
