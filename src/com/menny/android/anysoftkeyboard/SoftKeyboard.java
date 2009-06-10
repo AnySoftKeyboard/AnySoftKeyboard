@@ -25,6 +25,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.res.Configuration;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
@@ -54,8 +56,8 @@ import com.menny.android.anysoftkeyboard.tutorials.TutorialsProvider;
  * be fleshed out as appropriate.
  */
 public class SoftKeyboard extends InputMethodService 
-        implements KeyboardView.OnKeyboardActionListener {
-    
+        implements KeyboardView.OnKeyboardActionListener, OnSharedPreferenceChangeListener {
+	
 	private enum NextKeyboardType 
 	{
 		Alphabet,
@@ -111,6 +113,16 @@ public class SoftKeyboard extends InputMethodService
     @Override public void onCreate() {
         super.onCreate();
         Log.i("AnySoftKeyboard", "onCreate");
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+		sp.registerOnSharedPreferenceChangeListener(this);
+    }
+    
+    @Override
+    public void onDestroy() {
+    	// TODO Auto-generated method stub
+    	super.onDestroy();
+    	SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+		sp.unregisterOnSharedPreferenceChangeListener(this);
     }
     
     /**
@@ -129,8 +141,9 @@ public class SoftKeyboard extends InputMethodService
             // space has changed.
             int displayWidth = getMaxWidth();
             if (displayWidth == mLastDisplayWidth) return;
-            mLastDisplayWidth = displayWidth;
-        }      
+        }
+        mLastDisplayWidth = getMaxWidth();
+        
         //we'll create the keyboard only if needed
         createKeyboards();
     	ensureCurrentKeyboardIsOk();
@@ -181,6 +194,9 @@ public class SoftKeyboard extends InputMethodService
         //but the mCurKeyboard is null.
         if ((mCurKeyboard == null) || (!mCurKeyboard.isEnabled()))
         	mCurKeyboard = mKeyboards[mLastSelectedKeyboard];
+        
+        if (mInputView != null)
+        	mInputView.setKeyboard(mCurKeyboard);
 	}
     
     /**
@@ -946,4 +962,18 @@ public class SoftKeyboard extends InputMethodService
 
 	public void onRelease(int primaryCode) {
     }
+
+	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
+			String key) {
+		Log.d("AnySoftKeyboard", "onSharedPreferenceChanged - key:"+key);
+		mKeyboards = null;
+		onInitializeInterface();
+	}
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		// TODO Auto-generated method stub
+		Log.d("AnySoftKeyboard", "onConfigurationChanged - newConfig - newConfig.hardKeyboardHidden:"+newConfig.hardKeyboardHidden+" keyboard:"+newConfig.keyboard+" keyboardHidden:"+newConfig.keyboardHidden);
+		super.onConfigurationChanged(newConfig);
+	}
 }
