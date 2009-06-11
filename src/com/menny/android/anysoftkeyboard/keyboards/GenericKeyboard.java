@@ -8,6 +8,6 @@ public class GenericKeyboard extends AnyKeyboard
 			boolean supportsShift, String keyboardName,
     		String keyboardEnabledPref) 
 	{
-		super(context, xmlLayoutResId, supportsShift, keyboardName, keyboardEnabledPref);
+		super(context, xmlLayoutResId, supportsShift, keyboardName, keyboardEnabledPref, true);
 	}	
 }

@@ -98,6 +98,9 @@ public class SoftKeyboard extends InputMethodService
 
 	private boolean mKeyboardChangeNotification;
 
+	private boolean mCurrentTextDirectionIsLeftToRight = true;
+	private boolean mShouldAddDirectionMarkOnNextCharacter = true;
+
 	public static String mChangeKeysMode;
     
 	public SoftKeyboard()
@@ -522,14 +525,30 @@ public class SoftKeyboard extends InputMethodService
      * Helper function to commit any text being composed in to the editor.
      */
     private void commitTyped(InputConnection inputConnection) {
-        if (mComposing.length() > 0) {
+        if (mComposing.length() > 0) 
+        {
             inputConnection.commitText(mComposing, mComposing.length());
             mComposing.setLength(0);
             updateCandidates();
         }
     }
 
-    /**
+    private void handleTextDirection() 
+    {
+    	return;
+//    	//OK, it is official, we entered text using this keyboard
+//    	mCurrentTextDirectionIsLeftToRight = mCurKeyboard.isLeftToRightLanguage();
+//    	if (mShouldAddDirectionMarkOnNextCharacter)
+//    	{
+//    		//ho! it is a different direction!
+//    		char directionCharacter = mCurrentTextDirectionIsLeftToRight?
+//    				((char)8206):((char)8207);
+//    		mComposing.insert(0, directionCharacter);
+//    		mShouldAddDirectionMarkOnNextCharacter = false;//once is enough
+//    	}
+    }
+
+	/**
      * Helper to update the shift state of our keyboard based on the initial
      * editor state.
      */
@@ -579,7 +598,9 @@ public class SoftKeyboard extends InputMethodService
                 if (keyCode >= '0' && keyCode <= '9') {
                     keyDownUp(keyCode - '0' + KeyEvent.KEYCODE_0);
                 } else {
-                    getCurrentInputConnection().commitText(String.valueOf((char) keyCode), 1);
+                	mComposing.append((char) keyCode);
+                	handleTextDirection();
+                	commitTyped(getCurrentInputConnection());
                 }
                 break;
         }
@@ -607,7 +628,7 @@ public class SoftKeyboard extends InputMethodService
         	currentInputConnection.commitText(".com", 4);
         } else if (primaryCode == AnyKeyboardView.KEYCODE_DOMAINS_POP_UP//my special .COM key (long press)
                 && mInputView != null) {
-        	//should open up a popup with all domains
+        	//TODO: should open up a popup with all domains
         	commitTyped(currentInputConnection);
         	currentInputConnection.commitText(".co.il", 4);
         } else if (primaryCode == AnyKeyboard.KEYCODE_LANG_CHANGE//my special lang key
@@ -717,6 +738,17 @@ public class SoftKeyboard extends InputMethodService
 			mInputView.setKeyboard(mCurKeyboard);
 		updateShiftKeyState(currentEditorInfo);
 		mCurKeyboard.setImeOptions(getResources(), currentEditorInfo.imeOptions);
+		//now, this is a test for LTR and RTL special character.
+		if (mCurrentTextDirectionIsLeftToRight != mCurKeyboard.isLeftToRightLanguage())
+		{
+			//we switched directions, we need to add a character before the next key.
+			mShouldAddDirectionMarkOnNextCharacter = true;
+		}
+		else
+		{
+			//resetting
+			mShouldAddDirectionMarkOnNextCharacter = false;
+		}
 	}
 
 	private void notifyKeyboardChangeIfNeeded() 
@@ -779,6 +811,9 @@ public class SoftKeyboard extends InputMethodService
             {
                 ArrayList<String> list = new ArrayList<String>();
                 String currentWord = mComposing.toString();
+                if (mCurKeyboard.isLeftToRightLanguage())
+                	currentWord = ((char)8207)+currentWord;
+                
                 list.add(currentWord);
                 //asking current keyboard for suggestions
                 mCurKeyboard.addSuggestions(currentWord, list);
@@ -856,22 +891,17 @@ public class SoftKeyboard extends InputMethodService
             	}
             }
         }
-        if (isAlphabet(primaryCode)) 
-        {
-            mComposing.append((char) primaryCode);
-            
-            if (mCompletionOn)
-            	getCurrentInputConnection().setComposingText(mComposing, 1);
-            else
-            	getCurrentInputConnection().commitText(String.valueOf((char) primaryCode), 1);
-            
-            updateShiftKeyState(getCurrentInputEditorInfo());
-            updateCandidates();
-        } 
-        else 
-        {
-            getCurrentInputConnection().commitText(String.valueOf((char) primaryCode), 1);
-        }
+        //it is an alphabet character
+        handleTextDirection();
+        mComposing.append((char) primaryCode);
+        
+        if (mCompletionOn)
+        	getCurrentInputConnection().setComposingText(mComposing, 1);
+        else
+        	getCurrentInputConnection().commitText(String.valueOf((char) primaryCode), 1);
+        
+        updateShiftKeyState(getCurrentInputEditorInfo());
+        updateCandidates();
     }
 
     private void handleClose() {

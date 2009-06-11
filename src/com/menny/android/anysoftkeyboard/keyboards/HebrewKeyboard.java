@@ -1,5 +1,6 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.content.Context;
@@ -54,7 +55,7 @@ public class HebrewKeyboard extends AnyKeyboard implements HardKeyboardTranslato
     
 	public HebrewKeyboard(Context context) 
 	{
-		super(context, R.xml.heb_qwerty, true, "עיברית", "heb_keyboard");
+		super(context, R.xml.heb_qwerty, true, "עיברית", "heb_keyboard", false);
 	}
 
 	@Override
@@ -68,22 +69,24 @@ public class HebrewKeyboard extends AnyKeyboard implements HardKeyboardTranslato
 		if (((metaState&KeyEvent.META_ALT_ON) == 0) &&
     	    ((metaState&KeyEvent.META_SHIFT_ON) == 0))
 		{
-//			int charIndex = primaryCode - KeyEvent.KEYCODE_A;
-//			if ((charIndex < 0) || (charIndex >= msPhysicalKeysMapping.length))
-//				return (char)primaryCode;//out of my array.
-//			else
-//				return msPhysicalKeysMapping[charIndex];
 			if (msPhysicalKeysMap.containsKey(primaryCode))
 				return (char)msPhysicalKeysMap.get(primaryCode).intValue();
 			else
 				return 0;
 		}
-		else if (((metaState&KeyEvent.META_ALT_ON) == 0) &&
+		else if (((metaState&KeyEvent.META_ALT_ON) != 0) &&
 				 (primaryCode == KeyEvent.KEYCODE_COMMA))
 		{
 			//this is a special case - we support comma by giving 
 			//ALT+comma, since comma itself is TET Hebrew letter.
 			return (char)',';
+		}
+		else if (((metaState&KeyEvent.META_SHIFT_ON) != 0) &&
+				 (primaryCode == KeyEvent.KEYCODE_COMMA))
+		{
+			//this is a special case - we support comma by giving 
+			//shift+comma, since question itself is TET Hebrew letter.
+			return (char)'?';
 		}
 		else
 		{

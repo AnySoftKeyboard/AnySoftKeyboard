@@ -15,10 +15,12 @@
     <string-array name="keyboard_layout_change_methods">
         <item>Swipe with hint keys</item>
         <item>Swipe without hint keys</item>
+        <item>No swipe, just keys</item>
     </string-array>
     <string-array name="keyboard_layout_change_methods_values">
         <item>1</item>
         <item>2</item>
+        <item>3</item>
     </string-array>
     <string name="physical_keyboard_change_notification">Notify on physical layout change</string>
     

@@ -44,20 +44,22 @@ public abstract class AnyKeyboard extends Keyboard
 		char translatePhysicalCharacter(int keyCode, int metaKeys);
 	}
 
-    private Key mEnterKey;
-    
-    private final String mKeyboardName;
-    
+	private final String mKeyboardName;
+    private final boolean mLeftToRightLanguageDirection;
+	private Key mEnterKey;
     private boolean mEnabled = true;
+    
     
     protected AnyKeyboard(Context context, int xmlLayoutResId, boolean supportsShift,
     		/*mapping XML id will be added here,*/
     		String keyboardName,
-    		String keyboardEnabledPref) 
+    		String keyboardEnabledPref,
+    		boolean leftToRightLanguageDirection) 
     {
         super(context, xmlLayoutResId);
         //mSupportsShift = supportsShift;
         mKeyboardName = keyboardName;
+        mLeftToRightLanguageDirection = leftToRightLanguageDirection;
         Log.i("AnySoftKeyboard", "Creating keyboard: "+mKeyboardName);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         
@@ -91,14 +93,20 @@ public abstract class AnyKeyboard extends Keyboard
         		key.height = 0;
         		key.width = 0;
         	}
-        	
-//        	String text = res.getString(R.string.change_lang_wide);
-//        	if (mChangeKeysMode.equals("3"))
-//        		text = res.getString(R.string.change_lang_regular);
-//        	else if (mChangeKeysMode.equals("2"))
-//        		text = "";
-//        		
-//        	changeLayoutKey(key, text, parent.defaultHeight);
+        	else if (SoftKeyboard.mChangeKeysMode.equals("3"))
+        	{
+        		String keyText = (key.codes[0] == Keyboard.KEYCODE_MODE_CHANGE)?
+        				res.getString(R.string.change_symbols_regular) :
+        					res.getString(R.string.change_lang_regular);
+        		key.label = keyText;
+        	}
+        	else
+        	{
+        		String keyText = (key.codes[0] == Keyboard.KEYCODE_MODE_CHANGE)?
+        				res.getString(R.string.change_symbols_wide) :
+        					res.getString(R.string.change_lang_wide);
+        		key.label = keyText;
+        	}
         }
         else
         {
@@ -116,7 +124,6 @@ public abstract class AnyKeyboard extends Keyboard
     @Override
     protected Row createRowFromXml(Resources res, XmlResourceParser parser) 
     {
-    	// TODO Auto-generated method stub
     	Row aRow = super.createRowFromXml(res, parser);
     	if ((aRow.rowEdgeFlags&EDGE_TOP) != 0)
     	{
@@ -134,32 +141,6 @@ public abstract class AnyKeyboard extends Keyboard
 				(key.icon == null) &&
 				(key.codes[0] > 0);
 	}
-    
-//    private void changeLayoutKey(Key key, String changeString, int defaultHeight)
-//    {
-//    	Log.d("AnySoftKeyboard", "Key "+key.codes[0]+": with text '"+changeString+"'. mChangeKeysMode: "+mChangeKeysMode);
-//    	boolean fullHeight = false;
-//    	int widthPercentage = 45;
-//    	if (mChangeKeysMode.equals("3"))
-//    	{
-//    		fullHeight = true;
-//    		widthPercentage = 20;
-//    	}
-//    	else if (mChangeKeysMode.equals("2"))
-//    	{
-//    		widthPercentage = 0;
-//    	}
-//    	
-//    	int keyWidth = SoftKeyboard.msCurrentInstance.getMaxWidth() * widthPercentage / 100;
-//    	int keyHeight = fullHeight? (defaultHeight*2) : defaultHeight;
-//    	if (widthPercentage == 0)
-//    		keyHeight = 0;
-//    	
-//    	Log.d("AnySoftKeyboard", "Key will have - width: "+keyWidth+", height:"+keyHeight);
-//    	key.width = keyWidth;
-//    	key.height = keyHeight;
-//    	key.label = changeString;
-//	}
 
 	/**
      * This looks at the ime options given by the current editor, to set the
@@ -203,6 +184,11 @@ public abstract class AnyKeyboard extends Keyboard
     {
     	//TODO: this should be taken from the strings.xml, right?
     	return mKeyboardName;
+    }
+    
+    public boolean isLeftToRightLanguage()
+    {
+    	return mLeftToRightLanguageDirection;
     }
     
     /*
