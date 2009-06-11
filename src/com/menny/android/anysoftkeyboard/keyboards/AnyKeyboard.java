@@ -87,7 +87,7 @@ public abstract class AnyKeyboard extends Keyboard
         {
         	if (SoftKeyboard.mChangeKeysMode.equals("2"))
         	{
-        		key.label = "";
+        		key.label = null;
         		key.height = 0;
         		key.width = 0;
         	}
