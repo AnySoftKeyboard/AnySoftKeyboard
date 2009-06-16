@@ -52,13 +52,16 @@ public abstract class AnyKeyboard extends Keyboard
     
     protected AnyKeyboard(Context context, int xmlLayoutResId, boolean supportsShift,
     		/*mapping XML id will be added here,*/
-    		String keyboardName,
+    		int keyboardNameId,
     		String keyboardEnabledPref,
     		boolean leftToRightLanguageDirection) 
     {
         super(context, xmlLayoutResId);
         //mSupportsShift = supportsShift;
-        mKeyboardName = keyboardName;
+        if (keyboardNameId > 0)
+        	mKeyboardName = context.getResources().getString(keyboardNameId);
+        else
+        	mKeyboardName = "";
         mLeftToRightLanguageDirection = leftToRightLanguageDirection;
         Log.i("AnySoftKeyboard", "Creating keyboard: "+mKeyboardName);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
@@ -99,6 +102,7 @@ public abstract class AnyKeyboard extends Keyboard
         				res.getString(R.string.change_symbols_regular) :
         					res.getString(R.string.change_lang_regular);
         		key.label = keyText;
+        		//key.height *= 1.5;
         	}
         	else
         	{
@@ -130,6 +134,8 @@ public abstract class AnyKeyboard extends Keyboard
     		//top row
     		if (SoftKeyboard.mChangeKeysMode.equals("2"))
     			aRow.defaultHeight = 0;
+    		else if (SoftKeyboard.mChangeKeysMode.equals("3"))
+    			aRow.defaultHeight *= 1.5;
     	}
     	return aRow;
     }

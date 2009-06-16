@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Title for Latin keyboard  -->
     <string name="ime_name">Any Soft Keyboard</string>
 
     <!-- Symbols that are commonly considered word separators in this language -->
@@ -10,8 +9,8 @@
     <!-- settings - UI -->
     <string name="ui_group">User interface</string>
     <string name="keyboard_layout_change_method_title">Layout change method</string>
-    <string name="keyboard_layout_change_method_summary">Not Implemented - On screen keyboard layout change method</string>
-    <string name="keyboard_layout_change_method_dialog_title">Select one</string>
+    <string name="keyboard_layout_change_method_summary">On screen keyboard layout change method</string>
+    <string name="keyboard_layout_change_method_dialog_title">Select method</string>
     <string-array name="keyboard_layout_change_methods">
         <item>Swipe with hint keys</item>
         <item>Swipe without hint keys</item>
@@ -35,8 +34,8 @@
     
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Keyboards</string>
-    <string name="eng_keyboard">English keyboard</string>
-    <string name="heb_keyboard">Hebrew - מקלדת עיברית</string>
+    <string name="eng_keyboard">English</string>
+    <string name="heb_keyboard">Hebrew - &#1502;&#1511;&#1500;&#1491;&#1514;&#32;&#1506;&#1497;&#1489;&#1512;&#1497;&#1514;</string>
     <string name="internet_keyboard">Internet keyboard</string>
     <string name="lao_keyboard">Lao - &#3777;&#3739;&#3785;&#3737;&#3742;&#3765;&#3745;&#32;&#3749;&#3762;&#3751;</string>
     <string name="arabic_keyboard">Arabic</string>   

@@ -5,9 +5,9 @@ import android.content.Context;
 public class GenericKeyboard extends AnyKeyboard 
 {
 	public GenericKeyboard(Context context, int xmlLayoutResId,
-			boolean supportsShift, String keyboardName,
+			boolean supportsShift, int keyboardNameId,
     		String keyboardEnabledPref) 
 	{
-		super(context, xmlLayoutResId, supportsShift, keyboardName, keyboardEnabledPref, true);
+		super(context, xmlLayoutResId, supportsShift, keyboardNameId, keyboardEnabledPref, true);
 	}	
 }

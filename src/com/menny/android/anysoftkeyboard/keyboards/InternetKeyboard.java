@@ -10,7 +10,7 @@ public class InternetKeyboard extends AnyKeyboard
 {
 	public InternetKeyboard(Context context) 
 	{
-		super(context, R.xml.internet_qwerty, false, "Internet", "internet_keyboard", true);
+		super(context, R.xml.internet_qwerty, false, R.string.internet_keyboard, "internet_keyboard", true);
 	}
 	
 	@Override

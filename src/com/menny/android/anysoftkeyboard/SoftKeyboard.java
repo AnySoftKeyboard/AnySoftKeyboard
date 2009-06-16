@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2008-2009 Google Inc.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
-
 package com.menny.android.anysoftkeyboard;
 
 import java.util.ArrayList;
@@ -153,10 +137,10 @@ public class SoftKeyboard extends InputMethodService
     }
 
 	private void createKeyboards() {
-		mSymbolsKeyboard = new GenericKeyboard(this, R.xml.symbols, false, "Symbols", "");
-        mSymbolsShiftedKeyboard = new GenericKeyboard(this, R.xml.symbols_shift, false, "Shift Symbols", "");
+		mSymbolsKeyboard = new GenericKeyboard(this, R.xml.symbols, false, -1, "");
+        mSymbolsShiftedKeyboard = new GenericKeyboard(this, R.xml.symbols_shift, false, -1, "");
         mInternetKeyboard = new InternetKeyboard(this);
-        mSimpleNumbersKeyboard = new GenericKeyboard(this, R.xml.simple_numbers, false, "Numbers", "");
+        mSimpleNumbersKeyboard = new GenericKeyboard(this, R.xml.simple_numbers, false, -1, "");
         
         mKeyboards = KeyboardFactory.createAlphaBetKeyboards(this);
 	}
@@ -506,6 +490,12 @@ public class SoftKeyboard extends InputMethodService
             		char translatedChar = ((HardKeyboardTranslator)mCurKeyboard).translatePhysicalCharacter(keyCode, event.getMetaState());
             		if (translatedChar != 0)
             		{
+            			//consuming the meta keys
+            			InputConnection ic = getCurrentInputConnection();
+                        if (ic != null) 
+                        {
+                        	ic.clearMetaKeyStates(event.getMetaState());
+                        }
             			Log.d("AnySoftKeyborad", "'"+mCurKeyboard.getKeyboardName()+"' translated key "+keyCode+" to "+translatedChar);
                 		sendKey(translatedChar);
             			return true;
@@ -951,12 +941,28 @@ public class SoftKeyboard extends InputMethodService
     
     public void swipeRight() 
     {
-    	nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
+    	//this should be done only if swipe was enabled
+    	if (mChangeKeysMode.equals("3"))
+    	{
+    		//TODO: space/backspace (depends on direction of keyboard)
+    	}
+    	else
+    	{
+    		nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
+    	}
     }
     
     public void swipeLeft() 
     {
-    	nextSymbolsKeyboard();
+    	//this should be done only if swipe was enabled
+    	if (mChangeKeysMode.equals("3"))
+    	{
+    		//TODO: space/backspace (depends on direction of keyboard)
+    	}
+    	else
+    	{
+    		nextSymbolsKeyboard();
+    	}
     }
 
     public void swipeDown() 
