@@ -106,10 +106,14 @@ public class SoftKeyboard extends InputMethodService
     
     @Override
     public void onDestroy() {
-    	// TODO Auto-generated method stub
     	super.onDestroy();
     	SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 		sp.unregisterOnSharedPreferenceChangeListener(this);
+		if (mSoundOnKeyPress)
+		{
+			Log.i("AnySoftKeyboard", "Releasing sounds effects from AUDIO_SERVICE");
+        	((AudioManager)getSystemService(Context.AUDIO_SERVICE)).unloadSoundEffects();
+		}
     }
     
     /**
@@ -153,7 +157,10 @@ public class SoftKeyboard extends InputMethodService
         mKeyboardChangeNotification = sp.getBoolean("physical_keyboard_change_notification", true);
         
         if (mSoundOnKeyPress)
+        {
+        	Log.i("AnySoftKeyboard", "Loading sounds effects from AUDIO_SERVICE");
         	((AudioManager)getSystemService(Context.AUDIO_SERVICE)).loadSoundEffects();
+        }
         
         mAutoCaps = sp.getBoolean("auto_caps", true);
         mShowCandidates = sp.getBoolean("candidates_on", true);
@@ -356,9 +363,6 @@ public class SoftKeyboard extends InputMethodService
         if (mInputView != null) {
             mInputView.closing();
         }
-        
-        if (mSoundOnKeyPress)
-        	((AudioManager)getSystemService(Context.AUDIO_SERVICE)).unloadSoundEffects();
         
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		notificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
@@ -978,21 +982,34 @@ public class SoftKeyboard extends InputMethodService
     public void onPress(int primaryCode) {
     	if(mVibrateOnKeyPress)
     	{
+    		Log.d("AnySoftKeyboard", "Vibrating on key-pressed");
     		((Vibrator)getSystemService(Context.VIBRATOR_SERVICE)).vibrate(12);
     	}
     	if(mSoundOnKeyPress)
     	{
-    		int keyFX = AudioManager.FX_KEY_CLICK;
-    		switch(primaryCode)
+    		AudioManager manager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+    		//Will use sound effects ONLY if the device is not muted.
+    		if (manager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL)
     		{
-    			case 13:
-    				keyFX = AudioManager.FX_KEYPRESS_RETURN;
-    			case Keyboard.KEYCODE_DELETE:
-    				keyFX = AudioManager.FX_KEYPRESS_DELETE;
-    			case 32:
-    				keyFX = AudioManager.FX_KEYPRESS_SPACEBAR;
+	    		int keyFX = AudioManager.FX_KEY_CLICK;
+	    		switch(primaryCode)
+	    		{
+	    			case 13:
+	    				keyFX = AudioManager.FX_KEYPRESS_RETURN;
+	    			case Keyboard.KEYCODE_DELETE:
+	    				keyFX = AudioManager.FX_KEYPRESS_DELETE;
+	    			case 32:
+	    				keyFX = AudioManager.FX_KEYPRESS_SPACEBAR;
+	    		}
+	    		int volume = manager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+	    		Log.d("AnySoftKeyboard", "Sound on key-pressed. Sound ID:"+keyFX+" with volume "+volume);
+	    		
+    			manager.playSoundEffect(keyFX, volume);
     		}
-    		((AudioManager)getSystemService(Context.AUDIO_SERVICE)).playSoundEffect(keyFX);
+    		else
+    		{
+    			Log.d("AnySoftKeyboard", "Devices is muted. No sounds on key-pressed.");
+    		}
     	}
     }    
 
