@@ -2,8 +2,7 @@ package com.menny.android.anysoftkeyboard.keyboards;
 
 import java.util.ArrayList;
 
-import android.content.Context;
-
+import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
@@ -846,7 +845,7 @@ public class EnglishKeyboard extends AnyKeyboard implements HardKeyboardTranslat
 	"you",
 	"young"};
 
-	public EnglishKeyboard(Context context) 
+	public EnglishKeyboard(AnyKeyboardContextProvider context) 
 	{
 		super(context, R.xml.qwerty, true, R.string.eng_keyboard, "eng_keyboard", true);
 	}

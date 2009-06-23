@@ -1,14 +1,14 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 
+import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.R;
 
 public class InternetKeyboard extends AnyKeyboard 
 {
-	public InternetKeyboard(Context context) 
+	public InternetKeyboard(AnyKeyboardContextProvider context) 
 	{
 		super(context, R.xml.internet_qwerty, false, R.string.internet_keyboard, "internet_keyboard", true);
 	}

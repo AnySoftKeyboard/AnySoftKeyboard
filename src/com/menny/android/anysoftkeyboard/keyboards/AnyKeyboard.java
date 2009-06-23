@@ -18,7 +18,6 @@ package com.menny.android.anysoftkeyboard.keyboards;
 
 import java.util.ArrayList;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
@@ -27,6 +26,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
+import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.SoftKeyboard;
 
@@ -48,23 +48,24 @@ public abstract class AnyKeyboard extends Keyboard
     private final boolean mLeftToRightLanguageDirection;
 	private Key mEnterKey;
     private boolean mEnabled = true;
+    private final AnyKeyboardContextProvider mKeyboardContext;
     
-    
-    protected AnyKeyboard(Context context, int xmlLayoutResId, boolean supportsShift,
+    protected AnyKeyboard(AnyKeyboardContextProvider context, int xmlLayoutResId, boolean supportsShift,
     		/*mapping XML id will be added here,*/
     		int keyboardNameId,
     		String keyboardEnabledPref,
     		boolean leftToRightLanguageDirection) 
     {
-        super(context, xmlLayoutResId);
+        super(context.getApplicationContext(), xmlLayoutResId);
+        mKeyboardContext = context;
         //mSupportsShift = supportsShift;
         if (keyboardNameId > 0)
-        	mKeyboardName = context.getResources().getString(keyboardNameId);
+        	mKeyboardName = context.getApplicationContext().getResources().getString(keyboardNameId);
         else
         	mKeyboardName = "";
         mLeftToRightLanguageDirection = leftToRightLanguageDirection;
         Log.i("AnySoftKeyboard", "Creating keyboard: "+mKeyboardName);
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
         
         if (keyboardEnabledPref == "")
     		mEnabled = true;
@@ -75,6 +76,11 @@ public abstract class AnyKeyboard extends Keyboard
         //XmlResourceParser p = getResources().getXml(id from the constructor parameter);
         //parse to a HashMap?
         //mTopKeys = new ArrayList<Key>();
+    }
+    
+    protected AnyKeyboardContextProvider getKeyboardContext()
+    {
+    	return mKeyboardContext;
     }
     
     //this function is called from within the super constructor.

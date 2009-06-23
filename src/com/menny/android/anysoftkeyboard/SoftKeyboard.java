@@ -30,7 +30,6 @@ import com.menny.android.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.InternetKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
-import com.menny.android.anysoftkeyboard.tutorials.TutorialsProvider;
 
 /**
  * Example of writing an input method for a soft keyboard.  This code is
@@ -40,7 +39,9 @@ import com.menny.android.anysoftkeyboard.tutorials.TutorialsProvider;
  * be fleshed out as appropriate.
  */
 public class SoftKeyboard extends InputMethodService 
-        implements KeyboardView.OnKeyboardActionListener, OnSharedPreferenceChangeListener {
+        implements KeyboardView.OnKeyboardActionListener, OnSharedPreferenceChangeListener,
+        AnyKeyboardContextProvider
+    {
 	
 	private enum NextKeyboardType 
 	{
@@ -607,7 +608,7 @@ public class SoftKeyboard extends InputMethodService
     	EditorInfo currentEditorInfo = getCurrentInputEditorInfo();
     	InputConnection currentInputConnection = getCurrentInputConnection();
         if (primaryCode == Keyboard.KEYCODE_DELETE) {
-            handleBackspace();
+        	deleteLastCharactersFromInput(1);
         } else if (primaryCode == Keyboard.KEYCODE_SHIFT) {
             handleShift();
         } else if (primaryCode == Keyboard.KEYCODE_CANCEL) {
@@ -830,22 +831,6 @@ public class SoftKeyboard extends InputMethodService
             mCandidateView.setSuggestions(suggestions, completions, typedWordValid);
         }
     }
-    
-    private void handleBackspace() {
-        final int length = mComposing.length();
-        if (length > 1) {
-            mComposing.delete(length - 1, length);
-            getCurrentInputConnection().setComposingText(mComposing, 1);
-            updateCandidates();
-        } else if (length > 0) {
-            mComposing.setLength(0);
-            getCurrentInputConnection().commitText("", 0);
-            updateCandidates();
-        } else {
-            keyDownUp(KeyEvent.KEYCODE_DEL);
-        }
-        updateShiftKeyState(getCurrentInputEditorInfo());
-    }
 
     private void handleShift() {
         if (mInputView == null) {
@@ -886,16 +871,8 @@ public class SoftKeyboard extends InputMethodService
             }
         }
         //it is an alphabet character
-        handleTextDirection();
-        mComposing.append((char) primaryCode);
-        
-        if (mCompletionOn)
-        	getCurrentInputConnection().setComposingText(mComposing, 1);
-        else
-        	getCurrentInputConnection().commitText(String.valueOf((char) primaryCode), 1);
-        
-        updateShiftKeyState(getCurrentInputEditorInfo());
-        updateCandidates();
+        CharSequence textToCommit = String.valueOf((char) primaryCode);
+        appendCharactersToInput(textToCommit);
     }
 
     private void handleClose() {
@@ -1028,5 +1005,36 @@ public class SoftKeyboard extends InputMethodService
 		// TODO Auto-generated method stub
 		Log.d("AnySoftKeyboard", "onConfigurationChanged - newConfig - newConfig.hardKeyboardHidden:"+newConfig.hardKeyboardHidden+" keyboard:"+newConfig.keyboard+" keyboardHidden:"+newConfig.keyboardHidden);
 		super.onConfigurationChanged(newConfig);
+	}
+
+	public void appendCharactersToInput(CharSequence textToCommit) 
+	{
+		handleTextDirection();
+        mComposing.append(textToCommit);
+        
+        if (mCompletionOn)
+        	getCurrentInputConnection().setComposingText(mComposing, textToCommit.length());
+        else
+        	getCurrentInputConnection().commitText(textToCommit, textToCommit.length());
+        
+        updateShiftKeyState(getCurrentInputEditorInfo());
+        updateCandidates();
+	}
+
+	public void deleteLastCharactersFromInput(int countToDelete) 
+	{
+		final int currentLength = mComposing.length();
+        if (currentLength > countToDelete) {
+            mComposing.delete(currentLength - countToDelete, currentLength);
+            getCurrentInputConnection().setComposingText(mComposing, 1);
+            updateCandidates();
+        } else if (currentLength <= countToDelete) {
+            mComposing.setLength(0);
+            getCurrentInputConnection().commitText("", 0);
+            updateCandidates();
+        } else {
+            keyDownUp(KeyEvent.KEYCODE_DEL);
+        }
+        updateShiftKeyState(getCurrentInputEditorInfo());
 	}
 }

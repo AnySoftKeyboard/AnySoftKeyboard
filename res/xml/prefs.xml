@@ -38,7 +38,7 @@
             android:title="@string/sound_on"
             android:persistent="true"
             android:defaultValue="false" 
-            android:summaryOn="Click sound on soft keyboard press."
+            android:summaryOn="Sound effects on soft keyboard press. Volume is Notifications volume."
             android:summaryOff=""
             />
             </PreferenceCategory>
@@ -88,6 +88,18 @@
             <CheckBoxPreference
             android:key="lao_keyboard"
             android:title="@string/lao_keyboard"
+            android:persistent="true"
+            android:defaultValue="false" 
+            />
+            <CheckBoxPreference
+            android:key="bg_ph_keyboard"
+            android:title="@string/bg_ph_keyboard"
+            android:persistent="true"
+            android:defaultValue="false" 
+            />
+            <CheckBoxPreference
+            android:key="bg_bds_keyboard"
+            android:title="@string/bg_bds_keyboard"
             android:persistent="true"
             android:defaultValue="false" 
             />

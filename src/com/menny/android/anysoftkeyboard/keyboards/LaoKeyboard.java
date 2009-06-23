@@ -1,12 +1,11 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
-import android.content.Context;
-
+import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.R;
 
 public class LaoKeyboard extends AnyKeyboard /*implements HardKeyboardTranslator*/
 {
-	public LaoKeyboard(Context context) 
+	public LaoKeyboard(AnyKeyboardContextProvider context) 
 	{
 		super(context, R.xml.lao_qwerty, true, R.string.lao_keyboard, "lao_keyboard", true);
 	}

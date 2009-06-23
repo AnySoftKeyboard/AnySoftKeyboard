@@ -1,10 +1,10 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
-import android.content.Context;
+import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 
 public class GenericKeyboard extends AnyKeyboard 
 {
-	public GenericKeyboard(Context context, int xmlLayoutResId,
+	public GenericKeyboard(AnyKeyboardContextProvider context, int xmlLayoutResId,
 			boolean supportsShift, int keyboardNameId,
     		String keyboardEnabledPref) 
 	{
