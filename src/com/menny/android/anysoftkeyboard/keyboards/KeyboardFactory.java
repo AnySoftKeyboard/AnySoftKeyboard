@@ -12,6 +12,8 @@ public class KeyboardFactory
 	{
 		ArrayList<AnyKeyboard> keyboards = new ArrayList<AnyKeyboard>();
 		keyboards.add(new EnglishKeyboard(contextProvider));
+		//issue 31
+		keyboards.add(new DvorakKeyboard(contextProvider));
 		keyboards.add(new HebrewKeyboard(contextProvider));
 		//Arabic keyboard - issue 16 - no ready yet.
 		//keyboards.add(new ArabicKeyboard(applicationContext));

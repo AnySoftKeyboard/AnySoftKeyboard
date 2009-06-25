@@ -850,6 +850,11 @@ public class EnglishKeyboard extends AnyKeyboard implements HardKeyboardTranslat
 		super(context, R.xml.qwerty, true, R.string.eng_keyboard, "eng_keyboard", true);
 	}
 	
+	protected EnglishKeyboard(AnyKeyboardContextProvider context, int keyboardLayoutId, int keyboardNameId, String keyboardPrefId) 
+	{
+		super(context, keyboardLayoutId, true, keyboardNameId, keyboardPrefId, true);
+	}
+	
 	@Override
 	public void addSuggestions(String currentWord, ArrayList<String> list) 
 	{

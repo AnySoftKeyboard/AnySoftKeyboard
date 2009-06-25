@@ -74,6 +74,12 @@
             android:defaultValue="true"
             />
             <CheckBoxPreference
+            android:key="dvorak_keyboard"
+            android:title="@string/dvorak_keyboard"
+            android:persistent="true" 
+            android:defaultValue="false"
+            />
+            <CheckBoxPreference
             android:key="heb_keyboard"
             android:title="@string/heb_keyboard"
             android:persistent="true"
