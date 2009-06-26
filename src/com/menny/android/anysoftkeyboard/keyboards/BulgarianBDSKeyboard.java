@@ -33,7 +33,7 @@ public class BulgarianBDSKeyboard extends AnyKeyboard implements HardKeyboardTra
     	msPhysicalKeysMap.put(KeyEvent.KEYCODE_N, 1093);
     	msPhysicalKeysMap.put(KeyEvent.KEYCODE_O, 1076);
     	msPhysicalKeysMap.put(KeyEvent.KEYCODE_P, 1079);
-    	//msPhysicalKeysMap.put(KeyEvent.KEYCODE_Q, 0);
+    	msPhysicalKeysMap.put(KeyEvent.KEYCODE_Q, 1073);
     	msPhysicalKeysMap.put(KeyEvent.KEYCODE_R, 1080);
     	msPhysicalKeysMap.put(KeyEvent.KEYCODE_S, 1103);
     	msPhysicalKeysMap.put(KeyEvent.KEYCODE_T, 1096);
@@ -43,7 +43,9 @@ public class BulgarianBDSKeyboard extends AnyKeyboard implements HardKeyboardTra
     	msPhysicalKeysMap.put(KeyEvent.KEYCODE_X, 1081);
     	msPhysicalKeysMap.put(KeyEvent.KEYCODE_Y, 1097);
     	msPhysicalKeysMap.put(KeyEvent.KEYCODE_Z, 1102);
-    	msPhysicalKeysMap.put(KeyEvent.KEYCODE_ENVELOPE, 1084);
+    	msPhysicalKeysMap.put(KeyEvent.KEYCODE_COMMA, 1088);
+    	msPhysicalKeysMap.put(KeyEvent.KEYCODE_PERIOD, 1083);
+    	msPhysicalKeysMap.put(KeyEvent.KEYCODE_AT, 1084);
     	
     	msPhysicalShiftKeysMap = new HashMap<Integer, Integer>();
     	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_A, 1117);
@@ -62,7 +64,7 @@ public class BulgarianBDSKeyboard extends AnyKeyboard implements HardKeyboardTra
     	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_N, 1061);
     	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_O, 1044);
     	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_P, 1047);
-    	//msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_Q, 1071);
+    	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_Q, 1041);
     	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_R, 1048);
     	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_S, 1071);
     	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_T, 1064);
@@ -72,7 +74,9 @@ public class BulgarianBDSKeyboard extends AnyKeyboard implements HardKeyboardTra
     	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_X, 1049);
     	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_Y, 1065);
     	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_Z, 1070);
-    	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_ENVELOPE, 1052);
+    	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_COMMA, 1056);
+    	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_PERIOD, 1051);
+    	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_AT, 1052);
     }
     
 	public BulgarianBDSKeyboard(AnyKeyboardContextProvider context) 

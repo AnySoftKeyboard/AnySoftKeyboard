@@ -16,9 +16,9 @@
     </Row>
     
     <Row>
-        <Key android:codes="39"  android:keyLabel="'" android:keyEdgeFlags="left"/>
-        <Key android:codes="46"  android:keyLabel="."/>
-        <Key android:codes="44"  android:keyLabel=","/>
+        <Key android:codes="39,34"  android:keyLabel="'" android:keyEdgeFlags="left"/>
+        <Key android:codes="46,62"  android:keyLabel="."/>
+        <Key android:codes="44,60"  android:keyLabel=","/>
         <Key android:codes="112" android:keyLabel="p"/>
         <Key android:codes="121" android:keyLabel="y"/>
         <Key android:codes="102" android:keyLabel="f"/>
@@ -44,7 +44,7 @@
     <Row android:keyWidth="9.09%p">
         <Key android:codes="-1" android:keyIcon="@drawable/sym_keyboard_shift" 
                 android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
-        <Key android:codes="59" android:keyLabel=";"/>
+        <Key android:codes="59,58" android:keyLabel=";"/>
         <Key android:codes="113" android:keyLabel="q"/>
         <Key android:codes="106" android:keyLabel="j"/>
         <Key android:codes="107" android:keyLabel="k"/>

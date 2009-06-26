@@ -484,8 +484,8 @@ public class SoftKeyboard extends InputMethodService
                         return true;
                     }
             	}
-            	else if(keyCode >= KeyEvent.KEYCODE_A &&
-            			keyCode <= KeyEvent.KEYCODE_COMMA &&
+            	else if(/*keyCode >= KeyEvent.KEYCODE_A &&
+            			keyCode <= KeyEvent.KEYCODE_COMMA &&*/
             			(mCurKeyboard != null) &&
             			(mCurKeyboard instanceof HardKeyboardTranslator)/* &&
             			((event.getMetaState()&KeyEvent.META_ALT_ON) == 0) &&
@@ -589,12 +589,15 @@ public class SoftKeyboard extends InputMethodService
             case '\n':
                 keyDownUp(KeyEvent.KEYCODE_ENTER);
                 break;
+            case ' '://testing
+            	keyDownUp(KeyEvent.KEYCODE_SPACE);
+                break;
             default:
                 if (keyCode >= '0' && keyCode <= '9') {
                     keyDownUp(keyCode - '0' + KeyEvent.KEYCODE_0);
                 } else {
-                	mComposing.append((char) keyCode);
                 	handleTextDirection();
+                	mComposing.append((char) keyCode);
                 	commitTyped(getCurrentInputConnection());
                 }
                 break;
@@ -1002,7 +1005,6 @@ public class SoftKeyboard extends InputMethodService
 	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
-		// TODO Auto-generated method stub
 		Log.d("AnySoftKeyboard", "onConfigurationChanged - newConfig - newConfig.hardKeyboardHidden:"+newConfig.hardKeyboardHidden+" keyboard:"+newConfig.keyboard+" keyboardHidden:"+newConfig.keyboardHidden);
 		super.onConfigurationChanged(newConfig);
 	}
@@ -1013,28 +1015,50 @@ public class SoftKeyboard extends InputMethodService
         mComposing.append(textToCommit);
         
         if (mCompletionOn)
+        {
         	getCurrentInputConnection().setComposingText(mComposing, textToCommit.length());
+        	updateCandidates();
+        }	
         else
-        	getCurrentInputConnection().commitText(textToCommit, textToCommit.length());
+        	commitTyped(getCurrentInputConnection());
         
         updateShiftKeyState(getCurrentInputEditorInfo());
-        updateCandidates();
 	}
 
 	public void deleteLastCharactersFromInput(int countToDelete) 
 	{
 		final int currentLength = mComposing.length();
-        if (currentLength > countToDelete) {
-            mComposing.delete(currentLength - countToDelete, currentLength);
-            getCurrentInputConnection().setComposingText(mComposing, 1);
-            updateCandidates();
-        } else if (currentLength <= countToDelete) {
-            mComposing.setLength(0);
-            getCurrentInputConnection().commitText("", 0);
-            updateCandidates();
-        } else {
-            keyDownUp(KeyEvent.KEYCODE_DEL);
+		boolean shouldDeleteUsingCompletion;
+		if (currentLength > 0)
+		{
+			shouldDeleteUsingCompletion = true;
+	        if (currentLength > countToDelete) {
+	            mComposing.delete(currentLength - countToDelete, currentLength);
+	        } 
+	        else 
+	        {
+	            mComposing.setLength(0);
+	        }
+		}
+		else
+		{
+			shouldDeleteUsingCompletion = false;
+		}
+		
+		if (mCompletionOn && shouldDeleteUsingCompletion)
+        {
+        	getCurrentInputConnection().setComposingText(mComposing, 1);
+        	updateCandidates();
         }
+		else
+		{
+			int delsToDo = countToDelete;
+			while(delsToDo > 0)
+			{
+				delsToDo--;
+				keyDownUp(KeyEvent.KEYCODE_DEL);
+			}
+		}
         updateShiftKeyState(getCurrentInputEditorInfo());
 	}
 }

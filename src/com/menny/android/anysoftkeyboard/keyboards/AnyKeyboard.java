@@ -232,16 +232,19 @@ public abstract class AnyKeyboard extends Keyboard
 	{
 		boolean result = super.setShifted(shiftState);
 		Log.d("AnySoftKeyboard", "setShifted: shiftState:"+shiftState+". result:"+result);
-		for(Key aKey : getKeys())
-		{
-			if (aKey.codes.length > 1)
+		if (result)
+		{//layout changed. Need to change labels.
+			for(Key aKey : getKeys())
 			{
-				aKey.label = shiftState? ""+((char)aKey.codes[1]) : ""+((char)aKey.codes[0]);
-				Log.v("AnySoftKeyboard", "setShifted: changed key:"+aKey.label);
-			}
-			else
-			{
-				Log.v("AnySoftKeyboard", "setShifted: not changed key:"+aKey.label);
+				if (aKey.codes.length > 1)
+				{
+					aKey.label = shiftState? ""+((char)aKey.codes[1]) : ""+((char)aKey.codes[0]);
+					Log.v("AnySoftKeyboard", "setShifted: changed key:"+aKey.label);
+				}
+				else
+				{
+					Log.v("AnySoftKeyboard", "setShifted: not changed key:"+aKey.label);
+				}
 			}
 		}
 		
