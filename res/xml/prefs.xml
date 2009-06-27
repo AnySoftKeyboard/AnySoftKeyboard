@@ -78,6 +78,7 @@
             android:title="@string/dvorak_keyboard"
             android:persistent="true" 
             android:defaultValue="false"
+            android:summaryOn="Created with Stephen Paul Weber"
             />
             <CheckBoxPreference
             android:key="heb_keyboard"
@@ -102,12 +103,14 @@
             android:title="@string/bg_ph_keyboard"
             android:persistent="true"
             android:defaultValue="false" 
+            android:summaryOn="Created with atg2d"
             />
             <CheckBoxPreference
             android:key="bg_bds_keyboard"
             android:title="@string/bg_bds_keyboard"
             android:persistent="true"
-            android:defaultValue="false" 
+            android:defaultValue="false"
+            android:summaryOn="Created with atg2d" 
             />
             </PreferenceCategory>
 </PreferenceScreen>

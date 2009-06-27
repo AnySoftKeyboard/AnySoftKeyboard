@@ -42,7 +42,7 @@ public class BulgarianPhoneticKeyboard extends AnyKeyboard implements HardKeyboa
     	msPhysicalKeysMap.put(KeyEvent.KEYCODE_X, 1100);
     	msPhysicalKeysMap.put(KeyEvent.KEYCODE_Y, 1098);
     	msPhysicalKeysMap.put(KeyEvent.KEYCODE_Z, 1079);
-    	msPhysicalKeysMap.put(KeyEvent.KEYCODE_ENVELOPE, 1095);
+    	msPhysicalKeysMap.put(KeyEvent.KEYCODE_AT, 1095);
     	
     	msPhysicalShiftKeysMap = new HashMap<Integer, Integer>();
     	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_A, 1040);
@@ -71,7 +71,7 @@ public class BulgarianPhoneticKeyboard extends AnyKeyboard implements HardKeyboa
     	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_X, 1068);
     	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_Y, 1066);
     	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_Z, 1047);
-    	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_ENVELOPE, 1063);
+    	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_AT, 1063);
     }
 
 	public BulgarianPhoneticKeyboard(AnyKeyboardContextProvider context) 
