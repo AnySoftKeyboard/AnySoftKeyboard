@@ -16,7 +16,7 @@ public class KeyboardFactory
 		keyboards.add(new DvorakKeyboard(contextProvider));
 		keyboards.add(new HebrewKeyboard(contextProvider));
 		//Arabic keyboard - issue 16 - no ready yet.
-		//keyboards.add(new ArabicKeyboard(applicationContext));
+		keyboards.add(new ArabicKeyboard(contextProvider));
 		//BG - issue 25
 		keyboards.add(new BulgarianBDSKeyboard(contextProvider));
 		keyboards.add(new BulgarianPhoneticKeyboard(contextProvider));

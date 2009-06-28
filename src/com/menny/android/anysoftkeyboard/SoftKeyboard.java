@@ -963,7 +963,7 @@ public class SoftKeyboard extends InputMethodService
     	if(mVibrateOnKeyPress)
     	{
     		Log.d("AnySoftKeyboard", "Vibrating on key-pressed");
-    		((Vibrator)getSystemService(Context.VIBRATOR_SERVICE)).vibrate(12);
+    		((Vibrator)getSystemService(Context.VIBRATOR_SERVICE)).vibrate(15);
     	}
     	if(mSoundOnKeyPress)
     	{

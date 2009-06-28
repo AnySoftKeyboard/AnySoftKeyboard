@@ -32,7 +32,7 @@ public class BulgarianPhoneticKeyboard extends AnyKeyboard implements HardKeyboa
     	msPhysicalKeysMap.put(KeyEvent.KEYCODE_N, 1085);
     	msPhysicalKeysMap.put(KeyEvent.KEYCODE_O, 1086);
     	msPhysicalKeysMap.put(KeyEvent.KEYCODE_P, 1087);
-    	msPhysicalKeysMap.put(KeyEvent.KEYCODE_Q, 1071);
+    	msPhysicalKeysMap.put(KeyEvent.KEYCODE_Q, 1103);
     	msPhysicalKeysMap.put(KeyEvent.KEYCODE_R, 1088);
     	msPhysicalKeysMap.put(KeyEvent.KEYCODE_S, 1089);
     	msPhysicalKeysMap.put(KeyEvent.KEYCODE_T, 1090);
