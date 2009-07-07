@@ -71,7 +71,7 @@ public class SoftKeyboard extends InputMethodService
     private AnyKeyboard mInternetKeyboard;
     private AnyKeyboard mSimpleNumbersKeyboard;
     //my working keyboards
-    private AnyKeyboard[] mKeyboards = null;
+    private ArrayList<AnyKeyboard> mKeyboards = null;
     private int mLastSelectedKeyboard = 0;
     
     private AnyKeyboard mCurKeyboard;
@@ -136,7 +136,7 @@ public class SoftKeyboard extends InputMethodService
         }
         mLastDisplayWidth = getMaxWidth();
         
-        //we'll create the keyboard only if needed
+        //we'll create the keyboards
         createKeyboards();
     	ensureCurrentKeyboardIsOk();
     }
@@ -180,7 +180,7 @@ public class SoftKeyboard extends InputMethodService
 	private void ensureCurrentKeyboardIsOk() 
 	{        
         //need to check that current keyboard and mLastSelectedKeyboard are enabled.
-        if (!mKeyboards[mLastSelectedKeyboard].isEnabled())
+        if (!mKeyboards.get(mLastSelectedKeyboard).isEnabled())
         {
         	//ALWAYS starting in Alphabet!
         	nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
@@ -188,7 +188,7 @@ public class SoftKeyboard extends InputMethodService
         //in the weird case (impossible?) that the  'mLastSelectedKeyboard' is enabled, 
         //but the mCurKeyboard is null.
         if ((mCurKeyboard == null) || (!mCurKeyboard.isEnabled()))
-        	mCurKeyboard = mKeyboards[mLastSelectedKeyboard];
+        	mCurKeyboard = mKeyboards.get(mLastSelectedKeyboard);
         
         if (mInputView != null)
         	mInputView.setKeyboard(mCurKeyboard);
@@ -206,7 +206,7 @@ public class SoftKeyboard extends InputMethodService
     	
     	mInputView = (KeyboardView) getLayoutInflater().inflate(R.layout.input, null);
         mInputView.setOnKeyboardActionListener(this);
-        mInputView.setKeyboard(mKeyboards[mLastSelectedKeyboard]);
+        mInputView.setKeyboard(mKeyboards.get(mLastSelectedKeyboard));
         //reloadConfiguration();
         
         return mInputView;
@@ -282,7 +282,7 @@ public class SoftKeyboard extends InputMethodService
                 // normal alphabetic keyboard, and assume that we should
                 // be doing predictive text (showing candidates as the
                 // user types).
-                mCurKeyboard = mKeyboards[mLastSelectedKeyboard];
+                mCurKeyboard = mKeyboards.get(mLastSelectedKeyboard);
                 //mPredictionOn = mShowCandidates;
                 mCompletionOn = mShowCandidates;
                 
@@ -312,7 +312,7 @@ public class SoftKeyboard extends InputMethodService
                 	if (mInternetKeyboard.isEnabled())
                 		mCurKeyboard = mInternetKeyboard;
                 	else
-                		mCurKeyboard = mKeyboards[mLastSelectedKeyboard];
+                		mCurKeyboard = mKeyboards.get(mLastSelectedKeyboard);
                 }
                 
                 if ((attribute.inputType&EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE) != 0) {
@@ -334,7 +334,7 @@ public class SoftKeyboard extends InputMethodService
             default:
                 // For all unknown input types, default to the alphabetic
                 // keyboard with no special features.
-                mCurKeyboard = mKeyboards[mLastSelectedKeyboard];
+                mCurKeyboard = mKeyboards.get(mLastSelectedKeyboard);
                 updateShiftKeyState(attribute);
         }
         
@@ -360,7 +360,7 @@ public class SoftKeyboard extends InputMethodService
         // its window.
         setCandidatesViewShown(false);
         
-        mCurKeyboard = mKeyboards[mLastSelectedKeyboard];
+        mCurKeyboard = mKeyboards.get(mLastSelectedKeyboard);
         if (mInputView != null) {
             mInputView.closing();
         }
@@ -701,15 +701,15 @@ public class SoftKeyboard extends InputMethodService
 			if ((mCurKeyboard == null) || isAlphaBetKeyboard(mCurKeyboard))
 			{
 				Log.d("AnySoftKeyboard", "nextKeyboard: Current keyboard is alphabet (or null), so i'll look for the next");
-				int maxTries = mKeyboards.length;
+				int maxTries = mKeyboards.size();
 				do
 				{
 					mLastSelectedKeyboard++;
-					if (mLastSelectedKeyboard >= mKeyboards.length)
+					if (mLastSelectedKeyboard >= mKeyboards.size())
 						mLastSelectedKeyboard = 0;
 					
-					Log.d("AnySoftKeyboard", "nextKeyboard: testing: "+mKeyboards[mLastSelectedKeyboard].getKeyboardName()+", which is "+mKeyboards[mLastSelectedKeyboard].isEnabled()+". index="+mLastSelectedKeyboard);
-					AnyKeyboard aKeyboard = mKeyboards[mLastSelectedKeyboard];
+					Log.d("AnySoftKeyboard", "nextKeyboard: testing: "+mKeyboards.get(mLastSelectedKeyboard).getKeyboardName()+", which is "+mKeyboards.get(mLastSelectedKeyboard).isEnabled()+". index="+mLastSelectedKeyboard);
+					AnyKeyboard aKeyboard = mKeyboards.get(mLastSelectedKeyboard);
 					if (aKeyboard.isEnabled())
 					{
 						//we found an enabled keyboard - need to check that it OK
@@ -729,7 +729,7 @@ public class SoftKeyboard extends InputMethodService
 					maxTries--;
 				}while(maxTries > 0);
 			}
-			mCurKeyboard = mKeyboards[mLastSelectedKeyboard];
+			mCurKeyboard = mKeyboards.get(mLastSelectedKeyboard);
 		}
 		Log.i("AnySoftKeyboard", "nextKeyboard: Setting next keyboard to: "+mCurKeyboard.getKeyboardName());
 		if (mInputView != null)
@@ -775,9 +775,9 @@ public class SoftKeyboard extends InputMethodService
     
     private boolean isAlphaBetKeyboard(AnyKeyboard viewedKeyboard)
     {
-    	for(int i=0; i<mKeyboards.length; i++)
+    	for(int i=0; i<mKeyboards.size(); i++)
     	{
-    		if (viewedKeyboard.getKeyboardName().equalsIgnoreCase(mKeyboards[i].getKeyboardName()))
+    		if (viewedKeyboard.getKeyboardName().equalsIgnoreCase(mKeyboards.get(i).getKeyboardName()))
     			return true;
     	}
     	
@@ -999,7 +999,9 @@ public class SoftKeyboard extends InputMethodService
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
 			String key) {
 		Log.d("AnySoftKeyboard", "onSharedPreferenceChanged - key:"+key);
+		//if (key.equalsIgnoreCase("keyboard_layout_change_method"))
 		mKeyboards = null;
+		
 		onInitializeInterface();
 	}
 	

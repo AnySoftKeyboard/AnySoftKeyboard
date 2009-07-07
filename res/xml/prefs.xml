@@ -87,12 +87,12 @@
             android:persistent="true"
             android:defaultValue="true" 
             />
-            <CheckBoxPreference
+            <!-- <CheckBoxPreference
             android:key="arabic_keyboard"
             android:title="@string/arabic_keyboard"
             android:persistent="true"
             android:defaultValue="false" 
-            />
+            />-->
             <CheckBoxPreference
             android:key="lao_keyboard"
             android:title="@string/lao_keyboard"
@@ -114,6 +114,22 @@
             android:defaultValue="false"
             android:summaryOn="Created with atg2d"
             android:summaryOff="Created with atg2d"
+            />
+            <CheckBoxPreference
+            android:key="finnish_swedish_keyboard"
+            android:title="@string/finnish_swedish_keyboard"
+            android:persistent="true"
+            android:defaultValue="false"
+            android:summaryOn="Created with jtlallo"
+            android:summaryOff="Created with jtlallo"
+            />
+            <CheckBoxPreference
+            android:key="catalan_keyboard"
+            android:title="@string/catalan_keyboard"
+            android:persistent="true"
+            android:defaultValue="false"
+            android:summaryOn="Created with jmontane"
+            android:summaryOff="Created with jmontane"
             />
             </PreferenceCategory>
 </PreferenceScreen>

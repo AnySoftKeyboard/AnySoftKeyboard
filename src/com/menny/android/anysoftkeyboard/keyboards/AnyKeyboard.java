@@ -128,6 +128,9 @@ public abstract class AnyKeyboard extends Keyboard
         }
         
         Log.v("AnySoftKeyboard", "Key '"+key.codes[0]+"' will have - width: "+key.width+", height:"+key.height+", text: '"+key.label+"'.");
+        
+        setKeyPopup(key, false);
+        
         return key;
     }
 
@@ -236,18 +239,38 @@ public abstract class AnyKeyboard extends Keyboard
 		{//layout changed. Need to change labels.
 			for(Key aKey : getKeys())
 			{
-				if (aKey.codes.length > 1)
-				{
-					aKey.label = shiftState? ""+((char)aKey.codes[1]) : ""+((char)aKey.codes[0]);
-					Log.v("AnySoftKeyboard", "setShifted: changed key:"+aKey.label);
-				}
-				else
-				{
-					Log.v("AnySoftKeyboard", "setShifted: not changed key:"+aKey.label);
-				}
+				onKeyShifted(aKey, shiftState);
 			}
 		}
 		
 		return result;
+	}
+
+	protected void onKeyShifted(Key aKey, boolean shiftState) 
+	{
+		if (aKey.codes.length > 1)
+		{
+			aKey.label = shiftState? ""+((char)aKey.codes[1]) : ""+((char)aKey.codes[0]);
+			Log.v("AnySoftKeyboard", "setShifted: changed key:"+aKey.label);
+		}
+		else
+		{
+			Log.v("AnySoftKeyboard", "setShifted: not changed key:"+aKey.label);
+		}
+		
+		setKeyPopup(aKey, shiftState);
+	}
+	
+	protected void setKeyPopup(Key aKey, boolean shiftState) 
+	{
+		if (((char)aKey.codes[0]) == '.')
+		{
+			aKey.popupResId = R.xml.popup_punctuation;
+		}
+		if (((char)aKey.codes[0]) == ',')
+		{
+			aKey.popupResId = R.xml.popup;
+			aKey.popupCharacters = ";";
+		}
 	}
 }
