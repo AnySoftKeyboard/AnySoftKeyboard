@@ -263,14 +263,23 @@ public abstract class AnyKeyboard extends Keyboard
 	
 	protected void setKeyPopup(Key aKey, boolean shiftState) 
 	{
-		if (((char)aKey.codes[0]) == '.')
+		switch(((char)aKey.codes[0]))
 		{
+		case '.':
 			aKey.popupResId = R.xml.popup_punctuation;
-		}
-		if (((char)aKey.codes[0]) == ',')
-		{
+			break;
+		case ',':
 			aKey.popupResId = R.xml.popup;
 			aKey.popupCharacters = ";";
+			break;
+		case '!':
+			aKey.popupResId = R.xml.popup;
+			aKey.popupCharacters = "¡";
+			break;
+		case '?':
+			aKey.popupResId = R.xml.popup;
+			aKey.popupCharacters = "¿";
+			break;
 		}
 	}
 }
