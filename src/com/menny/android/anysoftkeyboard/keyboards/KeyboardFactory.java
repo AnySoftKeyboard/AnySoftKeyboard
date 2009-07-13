@@ -13,6 +13,8 @@ public class KeyboardFactory
 	{
 		ArrayList<AnyKeyboard> keyboards = new ArrayList<AnyKeyboard>();
 		keyboards.add(new EnglishKeyboard(contextProvider));
+		//issue 36: AZERTY keyboard
+		keyboards.add(new LatinKeyboard(contextProvider, R.xml.azerty, R.string.azerty_keyboard, "azerty_keyboard"));
 		//issue 31
 		keyboards.add(new LatinKeyboard(contextProvider, R.xml.dvorak, R.string.dvorak_keyboard, "dvorak_keyboard"));
 		keyboards.add(new HebrewKeyboard(contextProvider));
@@ -30,6 +32,10 @@ public class KeyboardFactory
 		
 		//Issue 42: Catalan keyboard
 		keyboards.add(new LatinKeyboard(contextProvider, R.xml.catalan, R.string.catalan_keyboard, "catalan_keyboard"));
+		
+		//Issue 37: Swiss keyboards
+		keyboards.add(new LatinKeyboard(contextProvider, R.xml.ch_fr_qwerty, R.string.ch_fr_keyboard, "ch_fr_keyboard"));
+		keyboards.add(new LatinKeyboard(contextProvider, R.xml.ch_de_qwerty, R.string.ch_fr_keyboard, "ch_fr_keyboard"));
 		
 		Log.i("AnySoftKeyboard", "KeyboardFactory created "+keyboards.size()+" keyboards.");
         return keyboards;

@@ -72,6 +72,16 @@
             android:title="@string/eng_keyboard"
             android:persistent="true" 
             android:defaultValue="true"
+            android:summaryOn="QWERTY Latin keyboard"
+            android:summaryOff="QWERTY Latin keyboard"
+            />
+            <CheckBoxPreference
+            android:key="azerty_keyboard"
+            android:title="@string/azerty_keyboard"
+            android:persistent="true" 
+            android:defaultValue="false"
+            android:summaryOn="Created with norman.obry"
+            android:summaryOff="Created with norman.obry"
             />
             <CheckBoxPreference
             android:key="dvorak_keyboard"
@@ -130,6 +140,22 @@
             android:defaultValue="false"
             android:summaryOn="Created with jmontane"
             android:summaryOff="Created with jmontane"
+            />
+            <CheckBoxPreference
+            android:key="ch_fr_keyboard"
+            android:title="@string/ch_fr_keyboard"
+            android:persistent="true"
+            android:defaultValue="false"
+            android:summaryOn="Created with tudor and Claude Philipona"
+            android:summaryOff="Created with tudor and Claude Philipona"
+            />
+            <CheckBoxPreference
+            android:key="ch_de_keyboard"
+            android:title="@string/ch_de_keyboard"
+            android:persistent="true"
+            android:defaultValue="false"
+            android:summaryOn="Created with tudor and Claude Philipona"
+            android:summaryOff="Created with tudor and Claude Philipona"
             />
             </PreferenceCategory>
 </PreferenceScreen>
