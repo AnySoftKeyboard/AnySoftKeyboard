@@ -265,20 +265,21 @@ public abstract class AnyKeyboard extends Keyboard
 	{
 		switch(((char)aKey.codes[0]))
 		{
+		case '\'':
+			aKey.popupResId = R.xml.popup;
+			aKey.popupCharacters = "-\"";
+			break;
 		case '.':
-			aKey.popupResId = R.xml.popup_punctuation;
+			aKey.popupResId = R.xml.popup;
+			aKey.popupCharacters = ";:-_·";
 			break;
 		case ',':
 			aKey.popupResId = R.xml.popup;
-			aKey.popupCharacters = ";";
-			break;
-		case '!':
-			aKey.popupResId = R.xml.popup;
-			aKey.popupCharacters = "¡";
+			aKey.popupCharacters = "'\"";
 			break;
 		case '?':
 			aKey.popupResId = R.xml.popup;
-			aKey.popupCharacters = "¿";
+			aKey.popupCharacters = "!/@¿¡";
 			break;
 		}
 	}
