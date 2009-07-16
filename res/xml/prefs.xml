@@ -102,6 +102,8 @@
             android:title="@string/ru_ph_keyboard"
             android:persistent="true"
             android:defaultValue="false" 
+            android:summaryOn="Created with dbriskin"
+            android:summaryOff="Created with dbriskin"
             />
             <!-- <CheckBoxPreference
             android:key="arabic_keyboard"
