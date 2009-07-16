@@ -97,6 +97,12 @@
             android:persistent="true"
             android:defaultValue="true" 
             />
+            <CheckBoxPreference
+            android:key="ru_ph_keyboard"
+            android:title="@string/ru_ph_keyboard"
+            android:persistent="true"
+            android:defaultValue="false" 
+            />
             <!-- <CheckBoxPreference
             android:key="arabic_keyboard"
             android:title="@string/arabic_keyboard"
@@ -132,6 +138,14 @@
             android:defaultValue="false"
             android:summaryOn="Created with jtlallo"
             android:summaryOff="Created with jtlallo"
+            />
+            <CheckBoxPreference
+            android:key="es_keyboard"
+            android:title="@string/es_keyboard"
+            android:persistent="true"
+            android:defaultValue="false"
+            android:summaryOn="Created with Jorge Jiménez"
+            android:summaryOff="Created with Jorge Jiménez"
             />
             <CheckBoxPreference
             android:key="catalan_keyboard"

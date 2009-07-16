@@ -18,6 +18,8 @@ public class KeyboardFactory
 		//issue 31
 		keyboards.add(new LatinKeyboard(contextProvider, R.xml.dvorak, R.string.dvorak_keyboard, "dvorak_keyboard"));
 		keyboards.add(new HebrewKeyboard(contextProvider));
+		//issue 26 - Russian keyboard
+		keyboards.add(new GenericKeyboard(contextProvider, R.xml.russian_ph_qwerty, true, R.string.ru_ph_keyboard, "ru_ph_keyboard"));
 		//Arabic keyboard - issue 16 - no ready yet.
 		//keyboards.add(new ArabicKeyboard(contextProvider));
 		//BG - issue 25
@@ -29,6 +31,9 @@ public class KeyboardFactory
 		
 		//Issue 39:  	 Finnish/Swedish keyboard
 		keyboards.add(new LatinKeyboard(contextProvider, R.xml.fin_swedish_qwerty, R.string.finnish_swedish_keyboard, "finnish_swedish_keyboard"));
+		
+		//Issue 54: Spanish keyboard
+		keyboards.add(new LatinKeyboard(contextProvider, R.xml.es_qwerty, R.string.es_keyboard, "es_keyboard"));
 		
 		//Issue 42: Catalan keyboard
 		keyboards.add(new LatinKeyboard(contextProvider, R.xml.catalan, R.string.catalan_keyboard, "catalan_keyboard"));

@@ -47,6 +47,8 @@
     <string name="ch_fr_keyboard">Swiss French</string>
     <string name="ch_de_keyboard">Swiss German</string>
     <string name="azerty_keyboard">AZERTY</string>
+    <string name="es_keyboard">Spanish</string>
+    <string name="ru_ph_keyboard">Russian Phonetic</string>
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Show this tutorial on startup</string>
