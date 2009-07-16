@@ -55,21 +55,21 @@
         <Key android:codes="1608" android:keyLabel="&#1608;"/>
         <Key android:codes="1586" android:keyLabel="&#1586;"/>
         <Key android:codes="1592" android:keyLabel="&#1592;"/>
-        <Key android:codes="33" android:keyLabel="!" android:keyEdgeFlags="right"/>
+        <Key android:codes="39" android:keyLabel="\'" android:keyEdgeFlags="right"/>
     </Row>
     
-    <!-- Generic bottom row -->
+   <!-- Generic bottom row -->
     <Row android:rowEdgeFlags="bottom">
-        <Key android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete" 
-                android:keyWidth="20%p" android:keyEdgeFlags="left"
+    	<Key android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete" 
+                android:keyWidth="15%p" android:keyEdgeFlags="left"
                 android:isRepeatable="true"/>
-        <Key android:codes="63" android:keyLabel="\?"/>
-        <Key android:codes="32" android:keyIcon="@drawable/sym_keyboard_space" 
+        <Key android:horizontalGap="2.5%p" android:codes="63" android:keyLabel="\?"/>
+        <Key android:horizontalGap="2.5%p" android:codes="32" android:keyIcon="@drawable/sym_keyboard_space" 
                 android:keyWidth="30%p" android:isRepeatable="true"/>
+        <Key android:horizontalGap="2.5%p" android:codes="44" android:keyLabel=","/>
         <Key android:codes="46" android:keyLabel="."/>
-        <Key android:codes="44" android:keyLabel=","/>
-        <Key android:codes="10" android:keyIcon="@drawable/sym_keyboard_return" 
-                android:keyWidth="20%p" android:keyEdgeFlags="right"/>
+        <Key android:horizontalGap="2.5%p" android:codes="10" android:keyIcon="@drawable/sym_keyboard_return" 
+                android:keyWidth="15%p" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>
     
