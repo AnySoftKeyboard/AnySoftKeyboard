@@ -19,7 +19,7 @@ public class KeyboardFactory
 		keyboards.add(new LatinKeyboard(contextProvider, R.xml.dvorak, R.string.dvorak_keyboard, "dvorak_keyboard"));
 		keyboards.add(new HebrewKeyboard(contextProvider));
 		//issue 26 - Russian keyboard
-		keyboards.add(new GenericKeyboard(contextProvider, R.xml.russian_ph_qwerty, true, R.string.ru_ph_keyboard, "ru_ph_keyboard"));
+		keyboards.add(new RussianPhoneticKeyboard(contextProvider));
 		//Arabic keyboard - issue 16 - no ready yet.
 		//keyboards.add(new ArabicKeyboard(contextProvider));
 		//BG - issue 25
