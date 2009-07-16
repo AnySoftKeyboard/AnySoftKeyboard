@@ -620,16 +620,7 @@ public class SoftKeyboard extends InputMethodService
         } else if (primaryCode == AnyKeyboardView.KEYCODE_OPTIONS) {
             // Show a menu or somethin'
         }
-        else if (primaryCode == AnyKeyboard.KEYCODE_DOT_COM//my special .COM key
-                && mInputView != null) {
-        	commitTyped(currentInputConnection);
-        	currentInputConnection.commitText(".com", 4);
-        } else if (primaryCode == AnyKeyboardView.KEYCODE_DOMAINS_POP_UP//my special .COM key (long press)
-                && mInputView != null) {
-        	//TODO: should open up a popup with all domains
-        	commitTyped(currentInputConnection);
-        	currentInputConnection.commitText(".co.il", 4);
-        } else if (primaryCode == AnyKeyboard.KEYCODE_LANG_CHANGE//my special lang key
+        else if (primaryCode == AnyKeyboard.KEYCODE_LANG_CHANGE//my special lang key
                 && mInputView != null) {
         	nextKeyboard(currentEditorInfo, NextKeyboardType.Any);//false - not just alphabet
         } else if (primaryCode == Keyboard.KEYCODE_MODE_CHANGE
@@ -643,7 +634,9 @@ public class SoftKeyboard extends InputMethodService
             if (mComposing.length() > 0) {
                 commitTyped(currentInputConnection);
             }
+            primaryCode = translatePrimaryCodeFromCurrentKeyboard(primaryCode);
             sendKey(primaryCode);
+            
             updateShiftKeyState(currentEditorInfo);
         }
         else
@@ -854,7 +847,14 @@ public class SoftKeyboard extends InputMethodService
     }
     
     private void handleCharacter(int primaryCode, int[] keyCodes) {
-        if (isInputViewShown()) 
+        primaryCode = translatePrimaryCodeFromCurrentKeyboard(primaryCode);
+        //it is an alphabet character
+        CharSequence textToCommit = String.valueOf((char) primaryCode);
+        appendCharactersToInput(textToCommit);
+    }
+
+	private int translatePrimaryCodeFromCurrentKeyboard(int primaryCode) {
+		if (isInputViewShown()) 
         {
             if (mInputView.isShifted()) 
             {
@@ -873,10 +873,8 @@ public class SoftKeyboard extends InputMethodService
             	}
             }
         }
-        //it is an alphabet character
-        CharSequence textToCommit = String.valueOf((char) primaryCode);
-        appendCharactersToInput(textToCommit);
-    }
+		return primaryCode;
+	}
 
     private void handleClose() {
         commitTyped(getCurrentInputConnection());

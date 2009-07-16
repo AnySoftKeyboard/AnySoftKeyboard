@@ -33,7 +33,7 @@ import com.menny.android.anysoftkeyboard.SoftKeyboard;
 public abstract class AnyKeyboard extends Keyboard 
 {
 	public final static int KEYCODE_LANG_CHANGE = -99;
-	public final static int KEYCODE_DOT_COM = -80;
+	//public final static int KEYCODE_DOT_COM = -80;
 	
 	public interface HardKeyboardTranslator
 	{

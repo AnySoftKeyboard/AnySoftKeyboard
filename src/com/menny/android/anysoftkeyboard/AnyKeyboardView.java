@@ -16,8 +16,6 @@
 
 package com.menny.android.anysoftkeyboard;
 
-import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
-
 import android.content.Context;
 import android.inputmethodservice.KeyboardView;
 import android.inputmethodservice.Keyboard.Key;
@@ -26,8 +24,7 @@ import android.util.AttributeSet;
 public class AnyKeyboardView extends KeyboardView {
 
     static final int KEYCODE_OPTIONS = -100;
-    static final int KEYCODE_DOMAINS_POP_UP = -101;
-
+    
     public AnyKeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -42,11 +39,11 @@ public class AnyKeyboardView extends KeyboardView {
             getOnKeyboardActionListener().onKey(KEYCODE_OPTIONS, null);
             return true;
         }
-        else if (key.codes[0] == AnyKeyboard.KEYCODE_DOT_COM) {
+        /*else if (key.codes[0] == AnyKeyboard.KEYCODE_DOT_COM) {
                 getOnKeyboardActionListener().onKey(KEYCODE_DOMAINS_POP_UP, null);
                 return true;
             
-        } else {
+        }*/ else {
             return super.onLongPress(key);
         }
     }
