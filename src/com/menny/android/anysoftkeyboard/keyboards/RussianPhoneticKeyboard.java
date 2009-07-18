@@ -42,7 +42,7 @@ public class RussianPhoneticKeyboard extends AnyKeyboard implements HardKeyboard
     	msPhysicalKeysMap.put(KeyEvent.KEYCODE_X, 1093);
     	msPhysicalKeysMap.put(KeyEvent.KEYCODE_Y, 1099);
     	msPhysicalKeysMap.put(KeyEvent.KEYCODE_Z, 1079);
-    	msPhysicalKeysMap.put(KeyEvent.KEYCODE_AT, 1095);
+    	msPhysicalKeysMap.put(KeyEvent.KEYCODE_COMMA, 1100);
     	
     	msPhysicalShiftKeysMap = new HashMap<Integer, Integer>();
     	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_A, 1040);
@@ -71,7 +71,7 @@ public class RussianPhoneticKeyboard extends AnyKeyboard implements HardKeyboard
     	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_X, 1061);
     	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_Y, 1067);
     	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_Z, 1047);
-    	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_AT, 1063);
+    	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_COMMA, 1068);
     }
 
 	public RussianPhoneticKeyboard(AnyKeyboardContextProvider context) 
@@ -96,6 +96,8 @@ public class RussianPhoneticKeyboard extends AnyKeyboard implements HardKeyboard
 		E,
 		z,
 		Z,
+		comma,
+		COMMA,
 	}
 	
 	private SequenceStage mCurrentSequenceStage = SequenceStage.None;
@@ -128,7 +130,13 @@ public class RussianPhoneticKeyboard extends AnyKeyboard implements HardKeyboard
 				mCurrentSequenceStage = SequenceStage.None;
 				super.getKeyboardContext().deleteLastCharactersFromInput(1);
 				return (char)1078;
-			}  else 
+			}  else if ((mCurrentSequenceStage == SequenceStage.comma) &&
+					(primaryCode == KeyEvent.KEYCODE_COMMA))
+			{
+				mCurrentSequenceStage = SequenceStage.None;
+				super.getKeyboardContext().deleteLastCharactersFromInput(1);
+				return (char)1098;
+			}  else  
 			//upper case
 			if ((mCurrentSequenceStage == SequenceStage.U) &&
 					(primaryCode == KeyEvent.KEYCODE_U))
@@ -154,6 +162,12 @@ public class RussianPhoneticKeyboard extends AnyKeyboard implements HardKeyboard
 				mCurrentSequenceStage = SequenceStage.None;
 				super.getKeyboardContext().deleteLastCharactersFromInput(1);
 				return (char)1046;
+			} else if ((mCurrentSequenceStage == SequenceStage.COMMA) &&
+					(primaryCode == KeyEvent.KEYCODE_COMMA))
+			{
+				mCurrentSequenceStage = SequenceStage.None;
+				super.getKeyboardContext().deleteLastCharactersFromInput(1);
+				return (char)1066;
 			}
 			
 			//ok, it is none of the above states (cause they have RETURN)
@@ -168,6 +182,8 @@ public class RussianPhoneticKeyboard extends AnyKeyboard implements HardKeyboard
 					mCurrentSequenceStage = SequenceStage.w;
 				else if (primaryCode == KeyEvent.KEYCODE_Z)
 					mCurrentSequenceStage = SequenceStage.z;
+				else if (primaryCode == KeyEvent.KEYCODE_COMMA)
+					mCurrentSequenceStage = SequenceStage.comma;
 				else
 					mCurrentSequenceStage = SequenceStage.None;
 				
@@ -186,6 +202,8 @@ public class RussianPhoneticKeyboard extends AnyKeyboard implements HardKeyboard
 					mCurrentSequenceStage = SequenceStage.W;
 				else if (primaryCode == KeyEvent.KEYCODE_Z)
 					mCurrentSequenceStage = SequenceStage.Z;
+				else if (primaryCode == KeyEvent.KEYCODE_COMMA)
+					mCurrentSequenceStage = SequenceStage.COMMA;
 				else
 					mCurrentSequenceStage = SequenceStage.None;
 				

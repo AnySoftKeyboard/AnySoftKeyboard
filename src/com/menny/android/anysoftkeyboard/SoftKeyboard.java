@@ -1052,12 +1052,7 @@ public class SoftKeyboard extends InputMethodService
         }
 		else
 		{
-			int delsToDo = countToDelete;
-			while(delsToDo > 0)
-			{
-				delsToDo--;
-				keyDownUp(KeyEvent.KEYCODE_DEL);
-			}
+			getCurrentInputConnection().deleteSurroundingText(countToDelete, 0);
 		}
         updateShiftKeyState(getCurrentInputEditorInfo());
 	}
