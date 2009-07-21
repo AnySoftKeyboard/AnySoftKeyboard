@@ -269,6 +269,10 @@ public abstract class AnyKeyboard extends Keyboard
 			aKey.popupResId = R.xml.popup;
 			aKey.popupCharacters = "-\"";
 			break;
+		case '-':
+			aKey.popupResId = R.xml.popup;
+			aKey.popupCharacters = "\'\"";
+			break;
 		case '.':
 			aKey.popupResId = R.xml.popup;
 			aKey.popupCharacters = ";:-_·";
@@ -277,9 +281,17 @@ public abstract class AnyKeyboard extends Keyboard
 			aKey.popupResId = R.xml.popup;
 			aKey.popupCharacters = "'\"";
 			break;
+		case '_':
+			aKey.popupResId = R.xml.popup;
+			aKey.popupCharacters = ",-";
+			break;
 		case '?':
 			aKey.popupResId = R.xml.popup;
 			aKey.popupCharacters = "!/@¿¡";
+			break;
+		case '@':
+			aKey.popupResId = R.xml.popup;
+			aKey.popupCharacters = "!/?¿¡";
 			break;
 		}
 	}

@@ -47,14 +47,15 @@
     
     <Row>
     	<Key android:codes="-1" android:keyIcon="@drawable/sym_keyboard_shift" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
-        <Key android:horizontalGap="5%p" android:codes="1079,1047" android:keyLabel=""/>
+        <Key android:codes="1079,1047" android:keyLabel=""/>
         <Key android:codes="1093,1061" android:keyLabel=""/>
         <Key android:codes="1094,1062" android:keyLabel=""/>
         <Key android:codes="1074,1042" android:keyLabel=""/>
         <Key android:codes="1073,1041" android:keyLabel=""/>
         <Key android:codes="1085,1053" android:keyLabel=""/>
         <Key android:codes="1084,1052" android:keyLabel=""/>
-        <Key android:horizontalGap="5%p" android:codes="39" android:keyLabel="\'" android:keyEdgeFlags="right"/>
+        <Key android:codes="1098,1066" android:keyLabel=""/>
+        <Key android:codes="39" android:keyLabel="\'" android:keyEdgeFlags="right"/>
     </Row>
     <!-- Generic bottom row -->
     <Row android:rowEdgeFlags="bottom">
