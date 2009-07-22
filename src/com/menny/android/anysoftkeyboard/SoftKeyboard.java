@@ -27,7 +27,6 @@ import android.view.inputmethod.InputConnection;
 
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.GenericKeyboard;
-import com.menny.android.anysoftkeyboard.keyboards.InternetKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
@@ -68,7 +67,7 @@ public class SoftKeyboard extends InputMethodService
     
     private AnyKeyboard mSymbolsKeyboard;
     private AnyKeyboard mSymbolsShiftedKeyboard;
-    private AnyKeyboard mInternetKeyboard;
+    //private AnyKeyboard mInternetKeyboard;
     private AnyKeyboard mSimpleNumbersKeyboard;
     //my working keyboards
     private ArrayList<AnyKeyboard> mKeyboards = null;
@@ -144,7 +143,7 @@ public class SoftKeyboard extends InputMethodService
 	private void createKeyboards() {
 		mSymbolsKeyboard = new GenericKeyboard(this, R.xml.symbols, false, -1, "");
         mSymbolsShiftedKeyboard = new GenericKeyboard(this, R.xml.symbols_shift, false, -1, "");
-        mInternetKeyboard = new InternetKeyboard(this);
+        //mInternetKeyboard = new InternetKeyboard(this);
         mSimpleNumbersKeyboard = new GenericKeyboard(this, R.xml.simple_numbers, false, -1, "");
         
         mKeyboards = KeyboardFactory.createAlphaBetKeyboards(this);
@@ -306,14 +305,15 @@ public class SoftKeyboard extends InputMethodService
                 	mCompletionOn = false;
                 }
                 
-                if (variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS 
-                        || variation == EditorInfo.TYPE_TEXT_VARIATION_URI) {
-                    //special keyboard
-                	if (mInternetKeyboard.isEnabled())
-                		mCurKeyboard = mInternetKeyboard;
-                	else
-                		mCurKeyboard = mKeyboards.get(mLastSelectedKeyboard);
-                }
+//                if (variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS 
+//                        || variation == EditorInfo.TYPE_TEXT_VARIATION_URI) {
+//                    //special keyboard
+//                	if (mInternetKeyboard.isEnabled())
+//                		mCurKeyboard = mInternetKeyboard;
+//                	else
+//                		mCurKeyboard = mKeyboards.get(mLastSelectedKeyboard);
+//                }
+                mCurKeyboard = mKeyboards.get(mLastSelectedKeyboard);
                 
                 if ((attribute.inputType&EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE) != 0) {
                     // If this is an auto-complete text view, then our predictions
@@ -341,6 +341,7 @@ public class SoftKeyboard extends InputMethodService
         // Update the label on the enter key, depending on what the application
         // says it will do.
         mCurKeyboard.setImeOptions(getResources(), attribute.imeOptions);
+        mCurKeyboard.setTextVariation(getResources(), attribute.inputType);
     }
     
     /**
@@ -668,16 +669,16 @@ public class SoftKeyboard extends InputMethodService
 	private void nextKeyboard(EditorInfo currentEditorInfo, NextKeyboardType keyboardType) 
 	{
 		Log.d("AnySoftKeyboard", "nextKeyboard: keyboardType="+keyboardType+". currentEditorInfo.inputType="+currentEditorInfo.inputType);
-		int variation = currentEditorInfo.inputType &  EditorInfo.TYPE_MASK_VARIATION;
-		if ((keyboardType == NextKeyboardType.Any) && 
-				mInternetKeyboard.isEnabled() &&
-				(variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS 
-		        || variation == EditorInfo.TYPE_TEXT_VARIATION_URI)) {
-		    //special keyboard
-			Log.d("AnySoftKeyboard", "nextKeyboard: Starting in internet textbox.");
-			mCurKeyboard = mInternetKeyboard;
-		}
-		else
+//		int variation = currentEditorInfo.inputType &  EditorInfo.TYPE_MASK_VARIATION;
+//		if ((keyboardType == NextKeyboardType.Any) && 
+//				mInternetKeyboard.isEnabled() &&
+//				(variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS 
+//		        || variation == EditorInfo.TYPE_TEXT_VARIATION_URI)) {
+//		    //special keyboard
+//			Log.d("AnySoftKeyboard", "nextKeyboard: Starting in internet textbox.");
+//			mCurKeyboard = mInternetKeyboard;
+//		}
+//		else
 		{
 			if (mCurKeyboard == null)
 			{
@@ -729,6 +730,7 @@ public class SoftKeyboard extends InputMethodService
 			mInputView.setKeyboard(mCurKeyboard);
 		updateShiftKeyState(currentEditorInfo);
 		mCurKeyboard.setImeOptions(getResources(), currentEditorInfo.imeOptions);
+		mCurKeyboard.setTextVariation(getResources(), currentEditorInfo.inputType);
 		//now, this is a test for LTR and RTL special character.
 		if (mCurrentTextDirectionIsLeftToRight != mCurKeyboard.isLeftToRightLanguage())
 		{

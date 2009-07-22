@@ -1,18 +1,3 @@
-/*
- * Copyright (C) 2008-2009 Google Inc.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
 
 package com.menny.android.anysoftkeyboard.keyboards;
 
@@ -33,6 +18,7 @@ import com.menny.android.anysoftkeyboard.SoftKeyboard;
 public abstract class AnyKeyboard extends Keyboard 
 {
 	public final static int KEYCODE_LANG_CHANGE = -99;
+	public final static int KEYCODE_SMILEY = -10;
 	//public final static int KEYCODE_DOT_COM = -80;
 	
 	public interface HardKeyboardTranslator
@@ -46,7 +32,12 @@ public abstract class AnyKeyboard extends Keyboard
 
 	private final String mKeyboardName;
     private final boolean mLeftToRightLanguageDirection;
-	private Key mEnterKey;
+	
+    private Key mEnterKey;
+	private Key mSmileyKey;
+	private Key mQuestionMarkKey;
+	
+	
     private boolean mEnabled = true;
     private final AnyKeyboardContextProvider mKeyboardContext;
     
@@ -89,42 +80,53 @@ public abstract class AnyKeyboard extends Keyboard
             XmlResourceParser parser) {
         Key key = super.createKeyFromXml(res, parent, x, y, parser);
         
-        if (key.codes[0] == 10) 
+        if ((key.codes != null) && (key.codes.length > 0))
         {
-            mEnterKey = key;
-        }
-        else if ((key.codes[0] == Keyboard.KEYCODE_MODE_CHANGE) ||
-        		 (key.codes[0] == AnyKeyboard.KEYCODE_LANG_CHANGE))
-        {
-        	if (SoftKeyboard.mChangeKeysMode.equals("2"))
-        	{
-        		key.label = null;
-        		key.height = 0;
-        		key.width = 0;
-        	}
-        	else if (SoftKeyboard.mChangeKeysMode.equals("3"))
-        	{
-        		String keyText = (key.codes[0] == Keyboard.KEYCODE_MODE_CHANGE)?
-        				res.getString(R.string.change_symbols_regular) :
-        					res.getString(R.string.change_lang_regular);
-        		key.label = keyText;
-        		//key.height *= 1.5;
-        	}
-        	else
-        	{
-        		String keyText = (key.codes[0] == Keyboard.KEYCODE_MODE_CHANGE)?
-        				res.getString(R.string.change_symbols_wide) :
-        					res.getString(R.string.change_lang_wide);
-        		key.label = keyText;
-        	}
-        }
-        else
-        {
-        	//setting the character label
-        	if (isAlphabetKey(key))
-        	{
-        		key.label = ""+((char)key.codes[0]); 
-        	}
+	        if (key.codes[0] == 10) 
+	        {
+	            mEnterKey = key;
+	        }
+	        else if ((key.codes[0] == AnyKeyboard.KEYCODE_SMILEY) && (parent.rowEdgeFlags == Keyboard.EDGE_BOTTOM)) 
+	        {
+	            mSmileyKey = key;
+	        }
+	        else if ((key.codes[0] == 63)  && (parent.rowEdgeFlags == Keyboard.EDGE_BOTTOM)) 
+	        {
+	            mQuestionMarkKey = key;
+	        }
+	        else if ((key.codes[0] == Keyboard.KEYCODE_MODE_CHANGE) ||
+	        		 (key.codes[0] == AnyKeyboard.KEYCODE_LANG_CHANGE))
+	        {
+	        	if (SoftKeyboard.mChangeKeysMode.equals("2"))
+	        	{
+	        		key.label = null;
+	        		key.height = 0;
+	        		key.width = 0;
+	        	}
+	        	else if (SoftKeyboard.mChangeKeysMode.equals("3"))
+	        	{
+	        		String keyText = (key.codes[0] == Keyboard.KEYCODE_MODE_CHANGE)?
+	        				res.getString(R.string.change_symbols_regular) :
+	        					res.getString(R.string.change_lang_regular);
+	        		key.label = keyText;
+	        		//key.height *= 1.5;
+	        	}
+	        	else
+	        	{
+	        		String keyText = (key.codes[0] == Keyboard.KEYCODE_MODE_CHANGE)?
+	        				res.getString(R.string.change_symbols_wide) :
+	        					res.getString(R.string.change_lang_wide);
+	        		key.label = keyText;
+	        	}
+	        }
+	        else
+	        {
+	        	//setting the character label
+	        	if (isAlphabetKey(key))
+	        	{
+	        		key.label = ""+((char)key.codes[0]); 
+	        	}
+	        }
         }
         
         Log.v("AnySoftKeyboard", "Key '"+key.codes[0]+"' will have - width: "+key.width+", height:"+key.height+", text: '"+key.label+"'.");
@@ -188,12 +190,15 @@ public abstract class AnyKeyboard extends Keyboard
                 mEnterKey.label = res.getText(R.string.label_send_key);
                 break;
             default:
-                mEnterKey.icon = res.getDrawable(
-                        R.drawable.sym_keyboard_return);
+                mEnterKey.icon = res.getDrawable(R.drawable.sym_keyboard_return);
                 mEnterKey.label = null;
                 break;
         }
     }
+
+	private int getDomainsPopupId() {
+		return R.xml.popup_domains;
+	}
     
     public String getKeyboardName()
     {
@@ -263,36 +268,85 @@ public abstract class AnyKeyboard extends Keyboard
 	
 	protected void setKeyPopup(Key aKey, boolean shiftState) 
 	{
-		switch(((char)aKey.codes[0]))
-		{
-		case '\'':
-			aKey.popupResId = R.xml.popup;
-			aKey.popupCharacters = "-\"";
-			break;
-		case '-':
-			aKey.popupResId = R.xml.popup;
-			aKey.popupCharacters = "\'\"";
-			break;
-		case '.':
-			aKey.popupResId = R.xml.popup;
-			aKey.popupCharacters = ";:-_·";
-			break;
-		case ',':
-			aKey.popupResId = R.xml.popup;
-			aKey.popupCharacters = "'\"";
-			break;
-		case '_':
-			aKey.popupResId = R.xml.popup;
-			aKey.popupCharacters = ",-";
-			break;
-		case '?':
-			aKey.popupResId = R.xml.popup;
-			aKey.popupCharacters = "!/@¿¡";
-			break;
-		case '@':
-			aKey.popupResId = R.xml.popup;
-			aKey.popupCharacters = "!/?¿¡";
-			break;
-		}
+		if ((aKey.codes != null) && (aKey.codes.length > 0))
+        {
+			switch(((char)aKey.codes[0]))
+			{
+			case '\'':
+				aKey.popupResId = R.xml.popup;
+				aKey.popupCharacters = "-\"";
+				break;
+			case '-':
+				aKey.popupResId = R.xml.popup;
+				aKey.popupCharacters = "\'\"";
+				break;
+			case '.':
+				aKey.popupResId = R.xml.popup;
+				aKey.popupCharacters = ";:-_·";
+				break;
+			case ',':
+				aKey.popupResId = R.xml.popup;
+				aKey.popupCharacters = "'\"";
+				break;
+			case '_':
+				aKey.popupResId = R.xml.popup;
+				aKey.popupCharacters = ",-";
+				break;
+			case '?':
+				aKey.popupResId = R.xml.popup;
+				aKey.popupCharacters = "!/@¿¡";
+				break;
+			case '@':
+				aKey.popupResId = R.xml.popup;
+				aKey.popupCharacters = "!/?¿¡";
+				break;
+			}
+        }
+	}
+
+	public void setTextVariation(Resources res, int inputType) 
+	{
+		int variation = inputType &  EditorInfo.TYPE_MASK_VARIATION;
+		//if ((keyboardType == NextKeyboardType.Any) && 
+		//		mInternetKeyboard.isEnabled() &&
+		//		(variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS 
+		//        || variation == EditorInfo.TYPE_TEXT_VARIATION_URI)) {
+        switch (variation) {
+	        case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
+	        case EditorInfo.TYPE_TEXT_VARIATION_URI:
+	        	if (mSmileyKey != null)
+	        	{
+	        		Log.d("AnySoftKeyboard", "Changing smiley key to domains.");
+		        	mSmileyKey.icon = res.getDrawable(R.drawable.sym_keyboard_key_domain);
+		        	mSmileyKey.label = null;
+		        	mSmileyKey.text = ".com";
+		        	mSmileyKey.popupResId = getDomainsPopupId();
+	        	}
+	        	if (mQuestionMarkKey != null)
+	        	{
+	        		Log.d("AnySoftKeyboard", "Changing question mark key to AT.");
+		        	mQuestionMarkKey.codes[0] = (int)'@';
+		        	mQuestionMarkKey.label = "@";
+		        	mQuestionMarkKey.popupCharacters = "!/?¿¡";
+	        	}
+	        	break;
+	        default:
+	        	if (mSmileyKey != null)
+	        	{
+	        		Log.d("AnySoftKeyboard", "Changing smiley key to smiley.");
+	        		mSmileyKey.icon = res.getDrawable(R.drawable.sym_keyboard_smiley);
+		        	mSmileyKey.label = null;
+		        	mSmileyKey.text = ":-) ";
+		        	mSmileyKey.popupResId = R.xml.popup_smileys;
+	        	}
+	        	if (mQuestionMarkKey != null)
+	        	{
+	        		Log.d("AnySoftKeyboard", "Changing question mark key to question.");
+		        	mQuestionMarkKey.codes[0] = (int)'?';
+		        	mQuestionMarkKey.label = "?";
+		        	mQuestionMarkKey.popupCharacters = "!/@¿¡";
+	        	}
+	        	break;
+        }
 	}
 }

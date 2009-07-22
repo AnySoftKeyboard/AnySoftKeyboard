@@ -59,14 +59,14 @@
             </PreferenceCategory>
             <PreferenceCategory android:key="keyboards_group"
             android:title="@string/keyboards_group">
-            <CheckBoxPreference
+            <!-- <CheckBoxPreference
             android:key="internet_keyboard"
             android:title="@string/internet_keyboard"
             android:persistent="true" 
             android:defaultValue="true"
             android:summaryOn="Special keyboard layout for URL/E-mail text boxes."
             android:summaryOff=""
-            />
+            />-->
             <CheckBoxPreference
             android:key="eng_keyboard"
             android:title="@string/eng_keyboard"
