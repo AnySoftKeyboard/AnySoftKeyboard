@@ -179,14 +179,14 @@ public class SoftKeyboard extends InputMethodService
 	private void ensureCurrentKeyboardIsOk() 
 	{        
         //need to check that current keyboard and mLastSelectedKeyboard are enabled.
-        if (!mKeyboards.get(mLastSelectedKeyboard).isEnabled())
-        {
-        	//ALWAYS starting in Alphabet!
-        	nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
-        }
+//        if (!mKeyboards.get(mLastSelectedKeyboard).isEnabled())
+//        {
+//        	//ALWAYS starting in Alphabet!
+//        	nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
+//        }
         //in the weird case (impossible?) that the  'mLastSelectedKeyboard' is enabled, 
         //but the mCurKeyboard is null.
-        if ((mCurKeyboard == null) || (!mCurKeyboard.isEnabled()))
+        if ((mCurKeyboard == null)/* || (!mCurKeyboard.isEnabled())*/)
         	mCurKeyboard = mKeyboards.get(mLastSelectedKeyboard);
         
         if (mInputView != null)
@@ -686,7 +686,7 @@ public class SoftKeyboard extends InputMethodService
 			}
 			else
 			{
-				Log.d("AnySoftKeyboard", "nextKeyboard: Looking for next keyboard. Current keyboard is:"+mCurKeyboard.getKeyboardName()+". mLastSelectedKeyboard:"+mLastSelectedKeyboard+". isEnabled:"+mCurKeyboard.isEnabled());
+				Log.d("AnySoftKeyboard", "nextKeyboard: Looking for next keyboard. Current keyboard is:"+mCurKeyboard.getKeyboardName()+". mLastSelectedKeyboard:"+mLastSelectedKeyboard/*+". isEnabled:"+mCurKeyboard.isEnabled()*/);
 			}
 			//in numeric keyboards, the LANG key will go back to the original alphabet keyboard-
 			//so no need to look for the next keyboard, 'mLastSelectedKeyboard' holds the last
@@ -702,10 +702,10 @@ public class SoftKeyboard extends InputMethodService
 					if (mLastSelectedKeyboard >= mKeyboards.size())
 						mLastSelectedKeyboard = 0;
 					
-					Log.d("AnySoftKeyboard", "nextKeyboard: testing: "+mKeyboards.get(mLastSelectedKeyboard).getKeyboardName()+", which is "+mKeyboards.get(mLastSelectedKeyboard).isEnabled()+". index="+mLastSelectedKeyboard);
+					Log.d("AnySoftKeyboard", "nextKeyboard: testing: "+mKeyboards.get(mLastSelectedKeyboard).getKeyboardName()/*+", which is "+mKeyboards.get(mLastSelectedKeyboard).isEnabled()*/+". index="+mLastSelectedKeyboard);
 					AnyKeyboard aKeyboard = mKeyboards.get(mLastSelectedKeyboard);
-					if (aKeyboard.isEnabled())
-					{
+					//if (aKeyboard.isEnabled())
+					//{
 						//we found an enabled keyboard - need to check that it OK
 						//for the keyboardType parameter.
 						if ((keyboardType == NextKeyboardType.SupportsPhysical) &&
@@ -719,7 +719,7 @@ public class SoftKeyboard extends InputMethodService
 							//HOHO! We found a valid keyboard!
 							maxTries = 0;
 						}
-					}
+					//}
 					maxTries--;
 				}while(maxTries > 0);
 			}
@@ -999,7 +999,7 @@ public class SoftKeyboard extends InputMethodService
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
 			String key) {
 		Log.d("AnySoftKeyboard", "onSharedPreferenceChanged - key:"+key);
-		//if (key.equalsIgnoreCase("keyboard_layout_change_method"))
+		
 		mKeyboards = null;
 		
 		onInitializeInterface();
@@ -1057,5 +1057,9 @@ public class SoftKeyboard extends InputMethodService
 			getCurrentInputConnection().deleteSurroundingText(countToDelete, 0);
 		}
         updateShiftKeyState(getCurrentInputEditorInfo());
+	}
+
+	public SharedPreferences getSharedPreferences() {
+		return PreferenceManager.getDefaultSharedPreferences(this);
 	}
 }

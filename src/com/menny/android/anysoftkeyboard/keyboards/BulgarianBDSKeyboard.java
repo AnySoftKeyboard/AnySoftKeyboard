@@ -79,9 +79,9 @@ public class BulgarianBDSKeyboard extends AnyKeyboard implements HardKeyboardTra
     	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_AT, 1052);
     }
     
-	public BulgarianBDSKeyboard(AnyKeyboardContextProvider context) 
+	public BulgarianBDSKeyboard(AnyKeyboardContextProvider context, String keyboardPrefId) 
 	{
-		super(context, R.xml.bg_bds_qwerty, false, R.string.bg_bds_keyboard, "bg_bds_keyboard", false);
+		super(context, R.xml.bg_bds_qwerty, false, R.string.bg_bds_keyboard, keyboardPrefId, false);
 	}
 
 	@Override

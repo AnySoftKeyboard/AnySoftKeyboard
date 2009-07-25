@@ -32,13 +32,13 @@ public abstract class AnyKeyboard extends Keyboard
 
 	private final String mKeyboardName;
     private final boolean mLeftToRightLanguageDirection;
-	
+	private final String mKeyboardPrefId;
+    
     private Key mEnterKey;
 	private Key mSmileyKey;
 	private Key mQuestionMarkKey;
 	
 	
-    private boolean mEnabled = true;
     private final AnyKeyboardContextProvider mKeyboardContext;
     
     protected AnyKeyboard(AnyKeyboardContextProvider context, int xmlLayoutResId, boolean supportsShift,
@@ -55,13 +55,8 @@ public abstract class AnyKeyboard extends Keyboard
         else
         	mKeyboardName = "";
         mLeftToRightLanguageDirection = leftToRightLanguageDirection;
+        mKeyboardPrefId = keyboardEnabledPref;
         Log.i("AnySoftKeyboard", "Creating keyboard: "+mKeyboardName);
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-        
-        if (keyboardEnabledPref == "")
-    		mEnabled = true;
-    	else
-    		mEnabled = sp.getBoolean(keyboardEnabledPref, true);
     	
         //TODO: parsing of the mapping xml:
         //XmlResourceParser p = getResources().getXml(id from the constructor parameter);
@@ -78,13 +73,22 @@ public abstract class AnyKeyboard extends Keyboard
     @Override
     protected Key createKeyFromXml(Resources res, Row parent, int x, int y, 
             XmlResourceParser parser) {
-        Key key = super.createKeyFromXml(res, parent, x, y, parser);
+        Key key = new AnyKey(res, parent, x, y, parser);
         
         if ((key.codes != null) && (key.codes.length > 0))
         {
+        	//creating less sensitive keys if required
+        	switch(key.codes[0])
+        	{
+        	case 10://enter
+        	case KEYCODE_DELETE://delete
+        	case KEYCODE_SHIFT://shift
+        		key = new LessSensitiveAnyKey(res, parent, x, y, parser);
+        	}
+        	
 	        if (key.codes[0] == 10) 
 	        {
-	            mEnterKey = key;
+	            mEnterKey = key;	            
 	        }
 	        else if ((key.codes[0] == AnyKeyboard.KEYCODE_SMILEY) && (parent.rowEdgeFlags == Keyboard.EDGE_BOTTOM)) 
 	        {
@@ -219,9 +223,9 @@ public abstract class AnyKeyboard extends Keyboard
     	return R.drawable.sym_keyboard_notification_icon;
     }
     
-    public boolean isEnabled()
+    public String getKeyboardKey()
     {
-    	return mEnabled;
+    	return mKeyboardPrefId;
     }
     
     public boolean isLetter(char letterCode)
@@ -349,4 +353,92 @@ public abstract class AnyKeyboard extends Keyboard
 	        	break;
         }
 	}
+	
+	class AnyKey extends Keyboard.Key {
+        
+        private boolean mShiftLockEnabled;
+        
+        public AnyKey(Resources res, Keyboard.Row parent, int x, int y, 
+                XmlResourceParser parser) {
+            super(res, parent, x, y, parser);
+            if (popupCharacters != null && popupCharacters.length() == 0) {
+                // If there is a keyboard with no keys specified in popupCharacters
+                popupResId = 0;
+            }
+        }
+        
+        void enableShiftLock() {
+            mShiftLockEnabled = true;
+        }
+
+        @Override
+        public void onReleased(boolean inside) {
+            if (!mShiftLockEnabled) {
+                super.onReleased(inside);
+            } else {
+                pressed = !pressed;
+            }
+        }
+    }
+	
+	class LessSensitiveAnyKey extends AnyKey {
+        
+        public LessSensitiveAnyKey(Resources res, Keyboard.Row parent, int x, int y, 
+                XmlResourceParser parser) {
+            super(res, parent, x, y, parser);
+        }
+        
+         /**
+         * Overriding this method so that we can reduce the target area for certain keys.
+         */
+        @Override
+        public boolean isInside(int clickedX, int clickedY) 
+        {
+        	int startX = this.x;
+        	int startY = this.y;
+        	int endX = this.width + this.x;
+        	int endY = this.height + this.y;
+        	
+        	boolean isInside = false;
+        	switch(codes[0])
+        	{
+        	case 10://the enter key!
+        		//we want to "click" it only if it in the lower 80%
+        		startY += (this.height * 0.2);
+        		isInside = checkIfInside(startX, startY, endX, endY, clickedX, clickedY);
+        		break;
+        	case KEYCODE_DELETE:
+        		//we want to "click" it only if it in the middle 80%
+        		//and in the right 80%
+        		startY += (this.height * 0.1);
+        		endY -= (this.height * 0.35);
+        		startX += (this.width * 0.2);
+        		isInside = checkIfInside(startX, startY, endX, endY, clickedX, clickedY);
+        		break;
+        	case KEYCODE_SHIFT:
+        		//we want to "click" it only if it in the left 80%
+        		endX -= (this.width * 0.2);
+        		isInside = checkIfInside(startX, startY, endX, endY, clickedX, clickedY);
+        		break;
+    		default:
+    			isInside = super.isInside(clickedX, clickedY);
+        		break;
+        	}
+            
+        	Log.d("AnySoftKeyboard", "Key "+codes[0]+" x:"+this.x+", y:"+this.y+", height:"+this.height+", width:"+this.width+", clickedX:"+clickedX+", clickedY:"+clickedY+" result:"+isInside);
+        	
+            return isInside;
+        }
+
+		private boolean checkIfInside(int startX, int startY, 
+				int endX, int endY, 
+				int clickedX, int clickedY) 
+		{
+			return 	clickedX >= startX &&
+					clickedX <= endX &&
+					clickedY >= startY &&
+					clickedY <= endY;
+		}
+    }
+
 }

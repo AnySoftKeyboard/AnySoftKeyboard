@@ -844,9 +844,9 @@ public class EnglishKeyboard extends LatinKeyboard
 	"you",
 	"young"};
 
-	public EnglishKeyboard(AnyKeyboardContextProvider context) 
+	public EnglishKeyboard(AnyKeyboardContextProvider context, String keyboardPrefId) 
 	{
-		super(context, R.xml.qwerty, R.string.eng_keyboard, "eng_keyboard");
+		super(context, R.xml.qwerty, R.string.eng_keyboard, keyboardPrefId);
 	}
 	
 	public EnglishKeyboard(AnyKeyboardContextProvider context, int keyboardLayoutId, int keyboardNameId, String keyboardPrefId) 
