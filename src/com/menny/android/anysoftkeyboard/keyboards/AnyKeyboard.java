@@ -32,7 +32,7 @@ public abstract class AnyKeyboard extends Keyboard
 
 	private final String mKeyboardName;
     private final boolean mLeftToRightLanguageDirection;
-	private final String mKeyboardPrefId;
+	//private final String mKeyboardPrefId;
     
     private Key mEnterKey;
 	private Key mSmileyKey;
@@ -44,7 +44,7 @@ public abstract class AnyKeyboard extends Keyboard
     protected AnyKeyboard(AnyKeyboardContextProvider context, int xmlLayoutResId, boolean supportsShift,
     		/*mapping XML id will be added here,*/
     		int keyboardNameId,
-    		String keyboardEnabledPref,
+    		/*String keyboardEnabledPref,*/
     		boolean leftToRightLanguageDirection) 
     {
         super(context.getApplicationContext(), xmlLayoutResId);
@@ -55,7 +55,7 @@ public abstract class AnyKeyboard extends Keyboard
         else
         	mKeyboardName = "";
         mLeftToRightLanguageDirection = leftToRightLanguageDirection;
-        mKeyboardPrefId = keyboardEnabledPref;
+        //mKeyboardPrefId = keyboardEnabledPref;
         Log.i("AnySoftKeyboard", "Creating keyboard: "+mKeyboardName);
     	
         //TODO: parsing of the mapping xml:
@@ -223,10 +223,10 @@ public abstract class AnyKeyboard extends Keyboard
     	return R.drawable.sym_keyboard_notification_icon;
     }
     
-    public String getKeyboardKey()
-    {
-    	return mKeyboardPrefId;
-    }
+//    public String getKeyboardKey()
+//    {
+//    	return mKeyboardPrefId;
+//    }
     
     public boolean isLetter(char letterCode)
     {

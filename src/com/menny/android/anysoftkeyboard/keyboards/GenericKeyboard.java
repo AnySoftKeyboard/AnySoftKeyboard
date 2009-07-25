@@ -5,9 +5,8 @@ import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 public class GenericKeyboard extends AnyKeyboard 
 {
 	public GenericKeyboard(AnyKeyboardContextProvider context, int xmlLayoutResId,
-			boolean supportsShift, int keyboardNameId,
-    		String keyboardEnabledPref) 
+			boolean supportsShift, int keyboardNameId) 
 	{
-		super(context, xmlLayoutResId, supportsShift, keyboardNameId, keyboardEnabledPref, true);
+		super(context, xmlLayoutResId, supportsShift, keyboardNameId, true);
 	}	
 }

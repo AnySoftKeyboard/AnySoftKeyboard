@@ -5,9 +5,9 @@ import com.menny.android.anysoftkeyboard.R;
 
 public class LaoKeyboard extends AnyKeyboard /*implements HardKeyboardTranslator*/
 {
-	public LaoKeyboard(AnyKeyboardContextProvider context, String keyboardPrefId) 
+	public LaoKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, R.xml.lao_qwerty, true, R.string.lao_keyboard, keyboardPrefId, true);
+		super(context, R.xml.lao_qwerty, true, R.string.lao_keyboard, true);
 	}
 
 	@Override

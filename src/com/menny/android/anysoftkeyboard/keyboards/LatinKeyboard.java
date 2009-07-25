@@ -5,9 +5,9 @@ import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTrans
 
 public class LatinKeyboard extends AnyKeyboard implements HardKeyboardTranslator
 {
-	protected LatinKeyboard(AnyKeyboardContextProvider context, int keyboardLayoutId, int keyboardNameId, String keyboardPrefId) 
+	protected LatinKeyboard(AnyKeyboardContextProvider context, int keyboardLayoutId, int keyboardNameId) 
 	{
-		super(context, keyboardLayoutId, true, keyboardNameId, keyboardPrefId, true);
+		super(context, keyboardLayoutId, true, keyboardNameId, true);
 	}
 		
 	public char translatePhysicalCharacter(int keyCode, int metaKeys) 

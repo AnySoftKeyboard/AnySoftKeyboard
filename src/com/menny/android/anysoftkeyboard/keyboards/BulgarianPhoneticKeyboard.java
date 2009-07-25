@@ -74,9 +74,9 @@ public class BulgarianPhoneticKeyboard extends AnyKeyboard implements HardKeyboa
     	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_AT, 1063);
     }
 
-	public BulgarianPhoneticKeyboard(AnyKeyboardContextProvider context, String keyboardPrefId) 
+	public BulgarianPhoneticKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, R.xml.bg_ph_qwerty, false, R.string.bg_ph_keyboard, keyboardPrefId, false);
+		super(context, R.xml.bg_ph_qwerty, false, R.string.bg_ph_keyboard, false);
 	}
 
 	@Override

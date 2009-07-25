@@ -141,10 +141,10 @@ public class SoftKeyboard extends InputMethodService
     }
 
 	private void createKeyboards() {
-		mSymbolsKeyboard = new GenericKeyboard(this, R.xml.symbols, false, -1, "");
-        mSymbolsShiftedKeyboard = new GenericKeyboard(this, R.xml.symbols_shift, false, -1, "");
+		mSymbolsKeyboard = new GenericKeyboard(this, R.xml.symbols, false, -1);
+        mSymbolsShiftedKeyboard = new GenericKeyboard(this, R.xml.symbols_shift, false, -1);
         //mInternetKeyboard = new InternetKeyboard(this);
-        mSimpleNumbersKeyboard = new GenericKeyboard(this, R.xml.simple_numbers, false, -1, "");
+        mSimpleNumbersKeyboard = new GenericKeyboard(this, R.xml.simple_numbers, false, -1);
         
         mKeyboards = KeyboardFactory.createAlphaBetKeyboards(this);
 	}

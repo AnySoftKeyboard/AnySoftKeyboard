@@ -44,9 +44,9 @@ public class HebrewKeyboard extends AnyKeyboard implements HardKeyboardTranslato
     	msPhysicalKeysMap.put(KeyEvent.KEYCODE_COMMA, 1514);
     }
     
-	public HebrewKeyboard(AnyKeyboardContextProvider context, String keyboardPrefId) 
+	public HebrewKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, R.xml.heb_qwerty, true, R.string.heb_keyboard, keyboardPrefId, false);
+		super(context, R.xml.heb_qwerty, true, R.string.heb_keyboard, false);
 	}
 
 	@Override

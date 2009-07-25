@@ -20,53 +20,53 @@ public class KeyboardFactory
 	
 	private static final ArrayList<KeyboardCreator> ms_creators;
 	
-	public static final String ENGLISH_KEYBOARD = "eng_keyboard";
-	public static final String AZERTY_KEYBOARD = "azerty_keyboard";
-	public static final String DVORAK_KEYBOARD = "dvorak_keyboard";
-	public static final String HEBREW_KEYBOARD = "heb_keyboard";
-	public static final String RU_PH_KEYBOARD = "ru_ph_keyboard";
+	private static final String ENGLISH_KEYBOARD = "eng_keyboard";
+	private static final String AZERTY_KEYBOARD = "azerty_keyboard";
+	private static final String DVORAK_KEYBOARD = "dvorak_keyboard";
+	private static final String HEBREW_KEYBOARD = "heb_keyboard";
+	private static final String RU_PH_KEYBOARD = "ru_ph_keyboard";
 	//public static final String ARABIC_KEYBOARD = "arabic_keyboard";
-	public static final String LAO_KEYBOARD ="lao_keyboard";
-	public static final String BG_PH_KEYBOARD = "bg_ph_keyboard";
-	public static final String BG_BDS_KEYBOARD = "bg_bds_keyboard";
-	public static final String FINNISH_SWEDISH_KEYBOARD = "finnish_swedish_keyboard";
-	public static final String SPANISH_KEYBOARD = "es_keyboard";
-	public static final String CATALAN_KEYBOARD = "catalan_keyboard";
-	public static final String CH_FR_KEYBOARD = "ch_fr_keyboard";
-	public static final String CH_DE_KEYBOARD = "ch_de_keyboard";
+	private static final String LAO_KEYBOARD ="lao_keyboard";
+	private static final String BG_PH_KEYBOARD = "bg_ph_keyboard";
+	private static final String BG_BDS_KEYBOARD = "bg_bds_keyboard";
+	private static final String FINNISH_SWEDISH_KEYBOARD = "finnish_swedish_keyboard";
+	private static final String SPANISH_KEYBOARD = "es_keyboard";
+	private static final String CATALAN_KEYBOARD = "catalan_keyboard";
+	private static final String CH_FR_KEYBOARD = "ch_fr_keyboard";
+	private static final String CH_DE_KEYBOARD = "ch_de_keyboard";
 	
 	static
 	{
 		ms_creators = new ArrayList<KeyboardCreator>();
-		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new EnglishKeyboard(contextProvider, ENGLISH_KEYBOARD);} public String getKeyboardPrefId() {return ENGLISH_KEYBOARD;}});
-		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.azerty, R.string.azerty_keyboard, AZERTY_KEYBOARD);} public String getKeyboardPrefId() {return AZERTY_KEYBOARD;}});
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new EnglishKeyboard(contextProvider);} public String getKeyboardPrefId() {return ENGLISH_KEYBOARD;}});
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.azerty, R.string.azerty_keyboard);} public String getKeyboardPrefId() {return AZERTY_KEYBOARD;}});
 		//issue 31
-		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.dvorak, R.string.dvorak_keyboard, DVORAK_KEYBOARD);} public String getKeyboardPrefId() {return DVORAK_KEYBOARD;}});
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.dvorak, R.string.dvorak_keyboard);} public String getKeyboardPrefId() {return DVORAK_KEYBOARD;}});
 		
-		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new HebrewKeyboard(contextProvider, HEBREW_KEYBOARD);} public String getKeyboardPrefId() {return HEBREW_KEYBOARD;}});
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new HebrewKeyboard(contextProvider);} public String getKeyboardPrefId() {return HEBREW_KEYBOARD;}});
 		//issue 26 - Russian keyboard
-		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new RussianPhoneticKeyboard(contextProvider, RU_PH_KEYBOARD);} public String getKeyboardPrefId() {return RU_PH_KEYBOARD;}});
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new RussianPhoneticKeyboard(contextProvider);} public String getKeyboardPrefId() {return RU_PH_KEYBOARD;}});
 		//Arabic keyboard - issue 16 - no ready yet.
 		//keyboards.add(new ArabicKeyboard(contextProvider));
 		//BG - issue 25
-		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BulgarianBDSKeyboard(contextProvider, BG_BDS_KEYBOARD);} public String getKeyboardPrefId() {return BG_BDS_KEYBOARD;}});
-		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BulgarianPhoneticKeyboard(contextProvider, BG_PH_KEYBOARD);} public String getKeyboardPrefId() {return BG_PH_KEYBOARD;}});
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BulgarianBDSKeyboard(contextProvider);} public String getKeyboardPrefId() {return BG_BDS_KEYBOARD;}});
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BulgarianPhoneticKeyboard(contextProvider);} public String getKeyboardPrefId() {return BG_PH_KEYBOARD;}});
 		
 		//Lao keyboard - issue 10
-		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LaoKeyboard(contextProvider, LAO_KEYBOARD);} public String getKeyboardPrefId() {return LAO_KEYBOARD;}});
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LaoKeyboard(contextProvider);} public String getKeyboardPrefId() {return LAO_KEYBOARD;}});
 		
 		//Issue 39:  	 Finnish/Swedish keyboard
-		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.fin_swedish_qwerty, R.string.finnish_swedish_keyboard, FINNISH_SWEDISH_KEYBOARD);} public String getKeyboardPrefId() {return FINNISH_SWEDISH_KEYBOARD;}});
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.fin_swedish_qwerty, R.string.finnish_swedish_keyboard);} public String getKeyboardPrefId() {return FINNISH_SWEDISH_KEYBOARD;}});
 		
 		//Issue 54: Spanish keyboard
-		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.es_qwerty, R.string.es_keyboard, SPANISH_KEYBOARD);} public String getKeyboardPrefId() {return SPANISH_KEYBOARD;}});
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.es_qwerty, R.string.es_keyboard);} public String getKeyboardPrefId() {return SPANISH_KEYBOARD;}});
 		
 		//Issue 42: Catalan keyboard
-		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.catalan, R.string.catalan_keyboard, CATALAN_KEYBOARD);} public String getKeyboardPrefId() {return CATALAN_KEYBOARD;}});
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.catalan, R.string.catalan_keyboard);} public String getKeyboardPrefId() {return CATALAN_KEYBOARD;}});
 		
 		//Issue 37: Swiss keyboards
-		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.ch_fr_qwerty, R.string.ch_fr_keyboard, CH_FR_KEYBOARD);} public String getKeyboardPrefId() {return CH_FR_KEYBOARD;}});
-		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.ch_de_qwerty, R.string.ch_fr_keyboard, CH_DE_KEYBOARD);} public String getKeyboardPrefId() {return CH_DE_KEYBOARD;}});		
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.ch_fr_qwerty, R.string.ch_fr_keyboard);} public String getKeyboardPrefId() {return CH_FR_KEYBOARD;}});
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.ch_de_qwerty, R.string.ch_fr_keyboard);} public String getKeyboardPrefId() {return CH_DE_KEYBOARD;}});		
 	}
 	
 	public static synchronized ArrayList<AnyKeyboard> createAlphaBetKeyboards(AnyKeyboardContextProvider contextProvider)

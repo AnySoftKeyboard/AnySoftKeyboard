@@ -74,9 +74,9 @@ public class RussianPhoneticKeyboard extends AnyKeyboard implements HardKeyboard
     	msPhysicalShiftKeysMap.put(KeyEvent.KEYCODE_COMMA, 1068);
     }
 
-	public RussianPhoneticKeyboard(AnyKeyboardContextProvider context, String keyboardPrefId) 
+	public RussianPhoneticKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, R.xml.russian_ph_qwerty, false, R.string.ru_ph_keyboard, keyboardPrefId, false);
+		super(context, R.xml.russian_ph_qwerty, false, R.string.ru_ph_keyboard, false);
 	}
 
 	@Override
