@@ -135,7 +135,7 @@ public abstract class AnyKeyboard extends Keyboard
         
         Log.v("AnySoftKeyboard", "Key '"+key.codes[0]+"' will have - width: "+key.width+", height:"+key.height+", text: '"+key.label+"'.");
         
-        setKeyPopup(key, false);
+        setPopupKeyChars(key);
         
         return key;
     }
@@ -266,11 +266,9 @@ public abstract class AnyKeyboard extends Keyboard
 		{
 			Log.v("AnySoftKeyboard", "setShifted: not changed key:"+aKey.label);
 		}
-		
-		setKeyPopup(aKey, shiftState);
 	}
 	
-	protected void setKeyPopup(Key aKey, boolean shiftState) 
+	protected void setPopupKeyChars(Key aKey) 
 	{
 		if ((aKey.codes != null) && (aKey.codes.length > 0))
         {

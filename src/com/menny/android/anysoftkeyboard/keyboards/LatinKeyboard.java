@@ -1,5 +1,10 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
+import android.content.res.Resources;
+import android.content.res.XmlResourceParser;
+import android.inputmethodservice.Keyboard.Key;
+import android.inputmethodservice.Keyboard.Row;
+
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
@@ -15,7 +20,7 @@ public class LatinKeyboard extends AnyKeyboard implements HardKeyboardTranslator
 		//I'll return 0, so the caller will use defaults.
 		return 0;
 	}
-	
+
 	/*
 	 * there are some keys which we'll like to expand, e.g.,
 	 * lowercase:
@@ -40,11 +45,11 @@ public class LatinKeyboard extends AnyKeyboard implements HardKeyboardTranslator
 		C: Ç
 		N: Ñ
 	 */
-	@Override
-	protected void setKeyPopup(Key aKey, boolean shiftState) 
-	{
-		super.setKeyPopup(aKey, shiftState);
-	
+//	@Override
+//	protected void setKeyPopup(Key aKey, boolean shiftState) 
+//	{
+//		super.setKeyPopup(aKey, shiftState);
+//	
 //		if ((aKey.codes != null) && (aKey.codes.length > 0))
 //        {
 //			switch((char)aKey.codes[0])
@@ -128,9 +133,9 @@ public class LatinKeyboard extends AnyKeyboard implements HardKeyboardTranslator
 //					break;
 //			}
 //        }
-	}
+//	}
 
-	private void setPopupKeyChars(Key aKey) 
+	protected void setPopupKeyChars(Key aKey) 
 	{
 		if ((aKey.codes != null) && (aKey.codes.length > 0))
         {
@@ -180,6 +185,8 @@ public class LatinKeyboard extends AnyKeyboard implements HardKeyboardTranslator
 					aKey.popupCharacters = "ž";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
+				default:
+					super.setPopupKeyChars(aKey);
 			}
         }
 	}

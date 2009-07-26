@@ -876,13 +876,14 @@ public class SoftKeyboard extends InputMethodService
             		if (aKeyCodes[0] == primaryCode)
             		{
             			if (aKeyCodes.length > 1)
-                    		primaryCode = aKeyCodes[1];//keyboard specified the shift character
-                    	else
-                    		primaryCode = Character.toUpperCase(primaryCode);
-            			
-            			break;
+                    		return aKeyCodes[1];//keyboard specified the shift character
+            			else
+            				return Character.toUpperCase(primaryCode);
             		}
             	}
+            	//if I got here, then I'm shifted, and couldn't locate the key
+            	//Is it pop-up?
+            	return Character.toUpperCase(primaryCode);
             }
         }
 		return primaryCode;
