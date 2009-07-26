@@ -27,7 +27,9 @@
     </Row>
     
     <Row>
-        <Key android:horizontalGap="15%p" android:codes="169" android:keyLabel="©" android:keyEdgeFlags="left"/>
+        <Key android:horizontalGap="5%p" android:codes="161" android:keyLabel="¡" android:keyEdgeFlags="left"/>
+        <Key android:codes="191" android:keyLabel="¿"/>
+        <Key android:codes="169" android:keyLabel="©" android:keyEdgeFlags="left"/>
         <Key android:codes="163" android:keyLabel="£"/>
         <Key android:codes="8364" android:keyLabel="€"/>
         <Key android:codes="174" android:keyLabel="®"/>
@@ -37,16 +39,16 @@
     </Row>
     
     <Row>
-        <Key android:codes="161" android:keyLabel="¡" android:keyEdgeFlags="left"/>
-        <Key android:codes="96" android:keyLabel="`"/>
+        <Key android:codes="-1" android:keyIcon="@drawable/sym_keyboard_shift" 
+                android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
+        <Key android:horizontalGap="5%p" android:codes="96" android:keyLabel="`"/>
         <Key android:codes="180" android:keyLabel="´"/>
         <Key android:codes="60" android:keyLabel="&lt;"/>
         <Key android:codes="62" android:keyLabel="&gt;"/>
         <Key android:codes="162" android:keyLabel="¢"/>
         <Key android:codes="124" android:keyLabel="|"/>
         <Key android:codes="92" android:keyLabel="\\" />
-        <Key android:codes="191" android:keyLabel="¿"/>
-    	<Key android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete_small" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+    	<Key android:horizontalGap="5%p" android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete_small" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     
     <!-- Generic bottom row -->

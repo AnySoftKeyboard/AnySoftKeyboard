@@ -43,8 +43,9 @@
     </Row>
     
     <Row>
-        <Key android:codes="34" android:keyLabel="&quot;" android:keyEdgeFlags="left"/>
-        <Key android:codes="39" android:keyLabel="\'"/>
+    	<Key android:codes="-1" android:keyIcon="@drawable/sym_keyboard_shift" 
+                android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
+        <Key android:codes="34" android:keyLabel="&quot;"/>
         <Key android:codes="58" android:keyLabel=":"/>
         <Key android:codes="59" android:keyLabel=";"/>
         <Key android:codes="47" android:keyLabel="/" />

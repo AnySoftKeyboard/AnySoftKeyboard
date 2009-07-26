@@ -648,22 +648,21 @@ public class SoftKeyboard extends InputMethodService
 
 	private void nextSymbolsKeyboard() 
 	{
-		AnyKeyboard keyboardToSet = null;
 		boolean shifted = false;
-		if (!mCurKeyboard.getKeyboardName().equals(mSymbolsKeyboard.getKeyboardName()))
+		if (mCurKeyboard != mSymbolsKeyboard)
 		{
-			keyboardToSet = mSymbolsKeyboard;
+			mCurKeyboard = mSymbolsKeyboard;
 			shifted = false;
 		}
 		else
 		{
-			keyboardToSet = mSymbolsShiftedKeyboard;
+			mCurKeyboard = mSymbolsShiftedKeyboard;
 			shifted = true;
 		}
-		//setting
-		mCurKeyboard = keyboardToSet;
+		Log.d("AnySoftKeyboard", "nextSymbolsKeyboard: Keyboard:"+mCurKeyboard.getKeyboardName()+". Shift:"+shifted);
+		//setting the keyboard
 		mInputView.setKeyboard(mCurKeyboard);
-		mSymbolsKeyboard.setShifted(shifted);
+		mCurKeyboard.setShifted(shifted);
 	}
 
 	private void nextKeyboard(EditorInfo currentEditorInfo, NextKeyboardType keyboardType) 
@@ -963,7 +962,7 @@ public class SoftKeyboard extends InputMethodService
     	if(mVibrateOnKeyPress)
     	{
     		Log.d("AnySoftKeyboard", "Vibrating on key-pressed");
-    		((Vibrator)getSystemService(Context.VIBRATOR_SERVICE)).vibrate(15);
+    		((Vibrator)getSystemService(Context.VIBRATOR_SERVICE)).vibrate(20);
     	}
     	if(mSoundOnKeyPress)
     	{

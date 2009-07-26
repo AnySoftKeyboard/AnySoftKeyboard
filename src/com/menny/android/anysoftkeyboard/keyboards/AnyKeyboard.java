@@ -411,8 +411,8 @@ public abstract class AnyKeyboard extends Keyboard
         		//we want to "click" it only if it in the middle 80%
         		//and in the right 80%
         		startY += (this.height * 0.1);
-        		endY -= (this.height * 0.35);
-        		startX += (this.width * 0.2);
+        		endY -= (this.height * 0.2);
+        		startX += (this.width * 0.15);
         		isInside = checkIfInside(startX, startY, endX, endY, clickedX, clickedY);
         		break;
         	case KEYCODE_SHIFT:
