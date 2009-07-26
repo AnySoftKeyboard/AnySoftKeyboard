@@ -356,7 +356,7 @@ public abstract class AnyKeyboard extends Keyboard
 	
 	class AnyKey extends Keyboard.Key {
         
-        private boolean mShiftLockEnabled;
+        //private boolean mShiftLockEnabled;
         
         public AnyKey(Resources res, Keyboard.Row parent, int x, int y, 
                 XmlResourceParser parser) {
@@ -367,18 +367,18 @@ public abstract class AnyKeyboard extends Keyboard
             }
         }
         
-        void enableShiftLock() {
-            mShiftLockEnabled = true;
-        }
-
-        @Override
-        public void onReleased(boolean inside) {
-            if (!mShiftLockEnabled) {
-                super.onReleased(inside);
-            } else {
-                pressed = !pressed;
-            }
-        }
+//        void enableShiftLock() {
+//            mShiftLockEnabled = true;
+//        }
+//
+//        @Override
+//        public void onReleased(boolean inside) {
+//            if (!mShiftLockEnabled) {
+//                super.onReleased(inside);
+//            } else {
+//                pressed = !pressed;
+//            }
+//        }
     }
 	
 	class LessSensitiveAnyKey extends AnyKey {

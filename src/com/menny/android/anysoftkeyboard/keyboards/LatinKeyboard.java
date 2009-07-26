@@ -93,9 +93,9 @@ public class LatinKeyboard extends AnyKeyboard implements HardKeyboardTranslator
 					break;
 				case 's':
 					if (shiftState)
-						aKey.popupCharacters = "§š";
-					else
 						aKey.popupCharacters = "ß§Š";
+					else
+						aKey.popupCharacters = "§š";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'u':
