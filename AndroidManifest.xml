@@ -17,8 +17,8 @@
 	</application>
 	
 	<uses-permission android:name="android.permission.VIBRATE" />
-    <!-- <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
-    <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />-->
+    <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
+    <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
     
 	<uses-sdk android:minSdkVersion="3"></uses-sdk>
 </manifest>

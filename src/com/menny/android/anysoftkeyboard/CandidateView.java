@@ -36,7 +36,7 @@ public class CandidateView extends View {
     private static final int OUT_OF_BOUNDS = -1;
 
     private SoftKeyboard mService;
-    private List<String> mSuggestions;
+    private List<CharSequence> mSuggestions;
     private int mSelectedIndex;
     private int mTouchX = OUT_OF_BOUNDS;
     private Drawable mSelectionHighlight;
@@ -52,7 +52,7 @@ public class CandidateView extends View {
 
     private static final int X_GAP = 10;
     
-    private static final List<String> EMPTY_LIST = new ArrayList<String>();
+    private static final List<CharSequence> EMPTY_LIST = new ArrayList<CharSequence>();
 
     private int mColorNormal;
     private int mColorRecommended;
@@ -181,7 +181,7 @@ public class CandidateView extends View {
         final int y = (int) (((height - mPaint.getTextSize()) / 2) - mPaint.ascent());
 
         for (int i = 0; i < count; i++) {
-            String suggestion = mSuggestions.get(i);
+            String suggestion = mSuggestions.get(i).toString();
             float textWidth = paint.measureText(suggestion);
             final int wordWidth = (int) textWidth + X_GAP * 2;
 
@@ -238,11 +238,11 @@ public class CandidateView extends View {
         invalidate();
     }
     
-    public void setSuggestions(List<String> suggestions, boolean completions,
+    public void setSuggestions(List<CharSequence> suggestions, boolean completions,
             boolean typedWordValid) {
         clear();
         if (suggestions != null) {
-            mSuggestions = new ArrayList<String>(suggestions);
+            mSuggestions = new ArrayList<CharSequence>(suggestions);
         }
         mTypedWordValid = typedWordValid;
         scrollTo(0, 0);

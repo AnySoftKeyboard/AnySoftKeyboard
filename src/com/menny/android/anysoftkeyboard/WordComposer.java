@@ -86,8 +86,23 @@ public class WordComposer {
      * Delete the last keystroke as a result of hitting backspace.
      */
     public void deleteLast() {
-        mCodes.remove(mCodes.size() - 1);
-        mTypedWord.deleteCharAt(mTypedWord.length() - 1);
+        deleteLast(1);
+    }
+    
+    public void deleteLast(int count) {
+    	int codesLength = mCodes.size();
+    	int typedWordLength = mTypedWord.length();
+    	for(int i=0; (i<count) && ((codesLength > 0) || (typedWordLength > 0));i++)
+    	{
+    		if (codesLength > 0)
+    			mCodes.remove(codesLength - 1);
+    		
+    		if (typedWordLength > 0)
+    			mTypedWord.deleteCharAt(typedWordLength - 1);
+    		
+    		codesLength--;
+    		typedWordLength--;
+    	}
     }
 
     /**
@@ -95,10 +110,10 @@ public class WordComposer {
      * @return the word that was typed so far
      */
     public CharSequence getTypedWord() {
-        int wordSize = mCodes.size();
-        if (wordSize == 0) {
-            return null;
-        }
+//        int wordSize = mCodes.size();
+//        if (wordSize == 0) {
+//            return null;
+//        }
 //        StringBuffer sb = new StringBuffer(wordSize);
 //        for (int i = 0; i < wordSize; i++) {
 //            char c = (char) mCodes.get(i)[0];
@@ -138,4 +153,9 @@ public class WordComposer {
     public CharSequence getPreferredWord() {
         return mPreferredWord != null ? mPreferredWord : getTypedWord();
     }
+
+	public void append(CharSequence textToAdd) 
+	{
+		mTypedWord.append(textToAdd);		
+	}
 }
