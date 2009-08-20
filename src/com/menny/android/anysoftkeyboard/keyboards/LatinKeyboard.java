@@ -1,18 +1,14 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
-import android.content.res.Resources;
-import android.content.res.XmlResourceParser;
-import android.inputmethodservice.Keyboard.Key;
-import android.inputmethodservice.Keyboard.Row;
-
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
+import com.menny.android.anysoftkeyboard.Dictionary.Dictionary;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
-public class LatinKeyboard extends AnyKeyboard implements HardKeyboardTranslator
+public class LatinKeyboard extends AnyKeyboard implements HardKeyboardTranslator//this class implements the HardKeyboardTranslator interface in an empty way, the physical keyboard is Latin...
 {
-	protected LatinKeyboard(AnyKeyboardContextProvider context, int keyboardLayoutId, int keyboardNameId) 
+	protected LatinKeyboard(AnyKeyboardContextProvider context, int keyboardLayoutId, int keyboardNameId, Dictionary.Language defaultDictionaryLanguage) 
 	{
-		super(context, keyboardLayoutId, true, keyboardNameId, true);
+		super(context, keyboardLayoutId, true, keyboardNameId, true, defaultDictionaryLanguage);
 	}
 		
 	public char translatePhysicalCharacter(int keyCode, int metaKeys) 

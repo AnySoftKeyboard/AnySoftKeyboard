@@ -1,12 +1,12 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
-import java.util.ArrayList;
-
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.R;
+import com.menny.android.anysoftkeyboard.Dictionary.Dictionary;
 
 public class EnglishKeyboard extends LatinKeyboard
 {
+	/*
 	private static final String[] mAllBasicWords = {
 	"able",
 	"about",
@@ -843,51 +843,51 @@ public class EnglishKeyboard extends LatinKeyboard
 	"yesterday",
 	"you",
 	"young"};
-
+*/
 	public EnglishKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, R.xml.qwerty, R.string.eng_keyboard);
+		super(context, R.xml.qwerty, R.string.eng_keyboard, Dictionary.Language.English);
 	}
 	
 	public EnglishKeyboard(AnyKeyboardContextProvider context, int keyboardLayoutId, int keyboardNameId) 
 	{
-		super(context, keyboardLayoutId, keyboardNameId);
+		super(context, keyboardLayoutId, keyboardNameId, Dictionary.Language.English);
 	}
 	
-	@Override
-	public void addSuggestions(String currentWord, ArrayList<String> list) 
-	{
-		super.addSuggestions(currentWord, list);
-		if (currentWord == null || (currentWord.length() < 1) || list == null)
-			return;
-		
-		boolean allCaps = false;
-		if (currentWord.length() > 1)
-		{
-			allCaps = true;
-			for(int typedCharIndex=0; allCaps && typedCharIndex<currentWord.length(); typedCharIndex++)
-			{
-				allCaps = allCaps & Character.isUpperCase(currentWord.charAt(typedCharIndex));
-			}
-		}
-		String lowerCaseWord = currentWord.toLowerCase();
-		int itemsFound = 0;
-		for(int i=0; ((itemsFound < 10) && (i<mAllBasicWords.length)); i++)
-		{
-			if (mAllBasicWords[i].startsWith(lowerCaseWord))
-			{
-				//we need to detect all uppers and capitalized words
-				if (allCaps)
-					list.add(mAllBasicWords[i].toUpperCase());
-				else
-				{
-					String suggestedWord = currentWord + mAllBasicWords[i].substring(currentWord.length());
-					list.add(suggestedWord);
-				}
-				itemsFound++;
-			}
-		}
-	}
+//	@Override
+//	public void addSuggestions(String currentWord, ArrayList<String> list) 
+//	{
+//		super.addSuggestions(currentWord, list);
+//		if (currentWord == null || (currentWord.length() < 1) || list == null)
+//			return;
+//		
+//		boolean allCaps = false;
+//		if (currentWord.length() > 1)
+//		{
+//			allCaps = true;
+//			for(int typedCharIndex=0; allCaps && typedCharIndex<currentWord.length(); typedCharIndex++)
+//			{
+//				allCaps = allCaps & Character.isUpperCase(currentWord.charAt(typedCharIndex));
+//			}
+//		}
+//		String lowerCaseWord = currentWord.toLowerCase();
+//		int itemsFound = 0;
+//		for(int i=0; ((itemsFound < 10) && (i<mAllBasicWords.length)); i++)
+//		{
+//			if (mAllBasicWords[i].startsWith(lowerCaseWord))
+//			{
+//				//we need to detect all uppers and capitalized words
+//				if (allCaps)
+//					list.add(mAllBasicWords[i].toUpperCase());
+//				else
+//				{
+//					String suggestedWord = currentWord + mAllBasicWords[i].substring(currentWord.length());
+//					list.add(suggestedWord);
+//				}
+//				itemsFound++;
+//			}
+//		}
+//	}
 	
 	@Override
 	public int getKeyboardIcon() 

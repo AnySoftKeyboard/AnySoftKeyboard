@@ -2,9 +2,17 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ime_name">Any Soft Keyboard</string>
-
+	<string name="how_to_pointer_title">Welcome to AnySoftKeyboard</string>
+	<string name="how_to_pointer_not_app">AnySoftKeyboard is not a regular application - it is a on-screen keyboard replacement.</string>
+	<string name="how_to_pointer_how_to_url">Go to http://code.google.com/p/softkeyboard/wiki/HowTo for details about how to use this keyboard.</string>
+	<string name="how_to_pointer_changelog">For details about the latest version, go to: http://code.google.com/p/softkeyboard/wiki/ChangeLog</string>
+	<string name="how_to_pointer_issues">For bug reporting, go to: http://code.google.com/p/softkeyboard/issues/list</string>
+	<string name="how_to_pointer_site">For general details, go to: http://code.google.com/p/softkeyboard/</string>
+	
     <!-- Symbols that are commonly considered word separators in this language -->
     <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
+    <!-- Indicates that a word has been added to the dictionary -->
+    <string name="added_word"><xliff:g id="word">%s</xliff:g> : Saved</string>
     
     <!-- settings - UI -->
     <string name="ui_group">User interface</string>
@@ -21,16 +29,48 @@
         <item>2</item>
         <item>3</item>
     </string-array>
-    <string name="physical_keyboard_change_notification">Notify on physical layout change</string>
+    <string name="physical_keyboard_change_notification_title">Keyboard layout notification</string>
+    <string name="physical_keyboard_change_notification_summary">Type of notification about the active layout</string>
+    <string name="physical_keyboard_change_notification_dialog_title">Select notification type</string>
+    <string-array name="physical_keyboard_change_notification_types">
+        <item>Always show layout icon</item>
+        <item>On physical keyboard change</item>
+        <item>No notification</item>
+    </string-array>
+    <string-array name="physical_keyboard_change_notification_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <!-- <string name="physical_keyboard_change_notification">Notify on physical layout change</string>-->
     
     <!-- settings - effects-->
     <string name="effects_group">Effects</string>
     <string name="ime_settings">Keyboard settings</string>
-    <string name="vibrate_on">Vibrate on key-press</string>
+    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
+    <string name="vibrate_on_key_press_title">Vibrate on key-press</string>
+    <string name="vibrate_on_key_press_summary">Vibration type selection</string>
+    <string name="vibrate_on_key_press_dialog_title">Select vibration duration</string>
+    <string-array name="vibrate_on_key_press_types">
+    	<item>No vibration</item>
+        <item>Soft</item>
+        <item>Medium</item>
+        <item>Hard</item>
+    </string-array>
+    <string-array name="vibrate_on_key_press_values">
+    	<item>0</item>
+        <item>17</item>
+        <item>30</item>
+        <item>50</item>
+    </string-array>
     <string name="sound_on">Sound on key-press</string>
     <string name="auto_caps">Auto-capitalization</string>
     <string name="grammer_group">Grammar</string>
     <string name="candidates_on">Show suggestions</string>
+    <string name="quick_fix">Quick fixes</string>
+    <string name="quick_fix_summary">Corrects commonly typed mistakes</string>
+    <string name="auto_complete">Auto select suggestion</string>
+    <string name="auto_complete_summary">Space will select highlighted suggestion</string>
     
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Keyboards</string>

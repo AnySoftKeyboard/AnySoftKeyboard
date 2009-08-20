@@ -80,6 +80,10 @@ public class WordComposer {
     public void add(int primaryCode, int[] codes) {
         mTypedWord.append((char) primaryCode);
         mCodes.add(codes);
+        if (mTypedWord.length() == 1)
+        {
+        	mIsCapitalized = Character.isUpperCase(primaryCode);        	
+        }
     }
 
     /**
@@ -156,6 +160,11 @@ public class WordComposer {
 
 	public void append(CharSequence textToAdd) 
 	{
-		mTypedWord.append(textToAdd);		
+		mTypedWord.append(textToAdd);
+		for(int i=0; i<textToAdd.length();i++)
+		{
+			char c = textToAdd.charAt(i);
+			mCodes.add(new int[]{c});
+		}		
 	}
 }

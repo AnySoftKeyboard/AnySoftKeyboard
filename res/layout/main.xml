@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/LinearLayout01" android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android">
+<ScrollView android:id="@+id/ScrollView01" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1">
+<LinearLayout android:id="@+id/LinearLayout02" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical">
+
+<TextView android:text="@string/how_to_pointer_title" android:textSize="24px" android:layout_width="fill_parent" android:layout_height="wrap_content"
+	android:textStyle="bold"></TextView>
+<ImageView android:id="@+id/ImageView01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/welcome_keyboard_image"></ImageView>
+<TextView android:text="@string/how_to_pointer_not_app" android:textSize="18px" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content"
+	android:paddingTop="10px"></TextView>
+<TextView android:text="@string/how_to_pointer_how_to_url" android:textSize="14px" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
+<TextView android:text="@string/how_to_pointer_site" android:textSize="14px" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
+<TextView android:text="@string/how_to_pointer_changelog" android:textSize="14px" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
+<TextView android:text="@string/how_to_pointer_issues" android:textSize="14px" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
+
+</LinearLayout>
+</ScrollView>
+</LinearLayout>

@@ -6,6 +6,7 @@ import android.view.KeyEvent;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.R;
+import com.menny.android.anysoftkeyboard.Dictionary.Dictionary;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
 public class BulgarianPhoneticKeyboard extends AnyKeyboard implements HardKeyboardTranslator
@@ -76,7 +77,7 @@ public class BulgarianPhoneticKeyboard extends AnyKeyboard implements HardKeyboa
 
 	public BulgarianPhoneticKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, R.xml.bg_ph_qwerty, false, R.string.bg_ph_keyboard, false);
+		super(context, R.xml.bg_ph_qwerty, false, R.string.bg_ph_keyboard, false, Dictionary.Language.None);
 	}
 
 	@Override

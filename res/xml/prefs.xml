@@ -14,25 +14,39 @@
                 android:defaultValue=""
                 android:dialogTitle="@string/keyboard_layout_change_method_dialog_title"/>
                 
-	            <CheckBoxPreference
+                <ListPreference
+                android:key="physical_keyboard_change_notification_type"
+                android:title="@string/physical_keyboard_change_notification_title"
+                android:summary="@string/physical_keyboard_change_notification_summary"
+                android:entries="@array/physical_keyboard_change_notification_types"
+                android:entryValues="@array/physical_keyboard_change_notification_values"
+                android:defaultValue=""
+                android:dialogTitle="@string/physical_keyboard_change_notification_dialog_title"/>
+	            <!-- <CheckBoxPreference
 	            android:key="physical_keyboard_change_notification"
 	            android:title="@string/physical_keyboard_change_notification"
 	            android:persistent="true" 
 	            android:defaultValue="true"
 	            android:summaryOff=""
 	            android:summaryOn="Show notification on physical keyboard change"
-	            />
+	            />-->
             </PreferenceCategory>
-   		 	<PreferenceCategory android:key="effects_group"
-            android:title="@string/effects_group">
-            <CheckBoxPreference
+   		 	<PreferenceCategory android:key="effects_group" android:title="@string/effects_group">
+            <ListPreference
+                android:key="vibrate_on_key_press_duration"
+                android:title="@string/vibrate_on_key_press_title"
+                android:summary="@string/vibrate_on_key_press_summary"
+                android:entries="@array/vibrate_on_key_press_types"
+                android:entryValues="@array/vibrate_on_key_press_values"
+                android:dialogTitle="@string/vibrate_on_key_press_dialog_title"/>
+            <!--<CheckBoxPreference
             android:key="vibrate_on"
             android:title="@string/vibrate_on"
             android:persistent="true"
             android:defaultValue="false"
             android:summaryOn="Short vabration on soft keyboard press."
             android:summaryOff=""
-            />
+            />-->
     		<CheckBoxPreference
             android:key="sound_on"
             android:title="@string/sound_on"
@@ -53,6 +67,22 @@
             <CheckBoxPreference
             android:key="candidates_on"
             android:title="@string/candidates_on"
+            android:persistent="true"
+            android:defaultValue="true" 
+            />
+            <CheckBoxPreference
+            android:key="auto_complete"
+            android:title="@string/auto_complete"
+            android:summaryOn="@string/auto_complete_summary"
+            android:summaryOff=""
+            android:persistent="true"
+            android:defaultValue="true" 
+            />
+            <CheckBoxPreference
+            android:key="quick_fix"
+            android:title="@string/quick_fix"
+            android:summaryOn="@string/quick_fix_summary"
+            android:summaryOff=""
             android:persistent="true"
             android:defaultValue="true" 
             />

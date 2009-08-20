@@ -26,6 +26,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.menny.android.anysoftkeyboard.Dictionary.Dictionary;
+import com.menny.android.anysoftkeyboard.Dictionary.UserDictionaryBase;
+
 /**
  * This class loads a dictionary and provides a list of suggestions for a given sequence of 
  * characters. This includes corrections and completions.
@@ -37,7 +40,7 @@ public class Suggest implements Dictionary.WordCallback {
     public static final int CORRECTION_BASIC = 1;
     public static final int CORRECTION_FULL = 2;
     
-    //private Dictionary mMainDict;
+    private Dictionary mMainDict;
     
     private Dictionary mUserDictionary;
     
@@ -45,9 +48,9 @@ public class Suggest implements Dictionary.WordCallback {
     
     private int[] mPriorities = new int[mPrefMaxSuggestions];
     private List<CharSequence> mSuggestions = new ArrayList<CharSequence>();
-    private boolean mIncludeTypedWordIfValid;
+    //private boolean mIncludeTypedWordIfValid;
     private List<CharSequence> mStringPool = new ArrayList<CharSequence>();
-    private Context mContext;
+    //private Context mContext;
     private boolean mHaveCorrection;
     private CharSequence mOriginalWord;
     private String mLowerOriginalWord;
@@ -56,7 +59,7 @@ public class Suggest implements Dictionary.WordCallback {
 
 
     public Suggest(Context context/*, int dictionaryResId*/) {
-        mContext = context;
+        //mContext = context;
         //mMainDict = new BinaryDictionary(context, dictionaryResId);
         for (int i = 0; i < mPrefMaxSuggestions; i++) {
             StringBuilder sb = new StringBuilder(32);
@@ -104,8 +107,8 @@ public class Suggest implements Dictionary.WordCallback {
         if (len <= 2) return true;
         int matching = 0;
         for (int i = 0; i < len; i++) {
-            if (UserDictionary.toLowerCase(original.charAt(i)) 
-                    == UserDictionary.toLowerCase(suggestion.charAt(i))) {
+            if (UserDictionaryBase.toLowerCase(original.charAt(i)) 
+                    == UserDictionaryBase.toLowerCase(suggestion.charAt(i))) {
                 matching++;
             }
         }
@@ -130,7 +133,7 @@ public class Suggest implements Dictionary.WordCallback {
         mHaveCorrection = false;
         collectGarbage();
         Arrays.fill(mPriorities, 0);
-        mIncludeTypedWordIfValid = includeTypedWordIfValid;
+        //mIncludeTypedWordIfValid = includeTypedWordIfValid;
         
         // Save a lowercase version of the original word
         mOriginalWord = wordComposer.getTypedWord();
@@ -143,12 +146,18 @@ public class Suggest implements Dictionary.WordCallback {
         // Search the dictionary only if there are at least 2 characters
         if (wordComposer.size() > 1) {
             if (mUserDictionary != null) {
+            	Log.v("AnySoftKeyboard", "getSuggestions from user-dictionary");
                 mUserDictionary.getWords(wordComposer, this);
                 if (mSuggestions.size() > 0 && isValidWord(mOriginalWord)) {
                     mHaveCorrection = true;
                 }
             }
-            //mMainDict.getWords(wordComposer, this);
+            if (mMainDict != null)
+            {
+            	Log.v("AnySoftKeyboard", "getSuggestions from main-dictionary");
+            	mMainDict.getWords(wordComposer, this);
+            }
+            
             if (mCorrectionMode == CORRECTION_FULL && mSuggestions.size() > 0) {
                 mHaveCorrection = true;
             }
@@ -210,6 +219,7 @@ public class Suggest implements Dictionary.WordCallback {
     }
 
     public boolean addWord(final char[] word, final int offset, final int length, final int freq) {
+    	Log.v("AnySoftKeyboard", "Suggest::addWord");
         int pos = 0;
         final int[] priorities = mPriorities;
         final int prefMaxSuggestions = mPrefMaxSuggestions;
@@ -254,8 +264,8 @@ public class Suggest implements Dictionary.WordCallback {
         if (word == null || word.length() == 0) {
             return false;
         }
-        return /*(mCorrectionMode == CORRECTION_FULL && mMainDict.isValidWord(word)) 
-                ||*/ (mCorrectionMode > CORRECTION_NONE && 
+        return (mCorrectionMode == CORRECTION_FULL && (mMainDict!=null) && mMainDict.isValidWord(word)) 
+                || (mCorrectionMode > CORRECTION_NONE && 
                     (mUserDictionary != null && mUserDictionary.isValidWord(word)));
     }
     
@@ -275,4 +285,10 @@ public class Suggest implements Dictionary.WordCallback {
         }
         mSuggestions.clear();
     }
+
+	public void setMainDictionary(Dictionary dictionary) {
+		Log.d("AnySoftKeyboard", "Suggest: Got main dictionary! Type: " +
+				((dictionary == null)? "NULL" : dictionary.getClass().getName()));
+		mMainDict = dictionary;		
+	}
 }
