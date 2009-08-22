@@ -194,13 +194,13 @@ public class AnySoftKeyboard extends InputMethodService
         mSuggest.setCorrectionMode(mCorrectionMode);
         mUserDictionary = DictionaryFactory.createUserDictionary(this); 
         mSuggest.setUserDictionary(mUserDictionary);
-        
-        if (mKeyboardSwitcher.isAlphabetMode())
-        {
-        	AnyKeyboard currentKeyobard = mKeyboardSwitcher.getCurrentKeyboard();
-        	Dictionary mainDictionary = DictionaryFactory.getDictionary(currentKeyobard.getDefaultDictionaryLanguage(), this);
-        	mSuggest.setMainDictionary(mainDictionary);
-        }
+        //the main dictionary will be set on the nextKeyboard call.
+//        if (mKeyboardSwitcher.isAlphabetMode())
+//        {
+//        	AnyKeyboard currentKeyobard = mKeyboardSwitcher.getCurrentKeyboard();
+//        	Dictionary mainDictionary = DictionaryFactory.getDictionary(currentKeyobard.getDefaultDictionaryLanguage(), this);
+//        	mSuggest.setMainDictionary(mainDictionary);
+//        }
         //mWordSeparators = getResources().getString(R.string.word_separators);
         //mSentenceSeparators = getResources().getString(R.string.sentence_separators);
     }
@@ -1150,7 +1150,7 @@ public class AnySoftKeyboard extends InputMethodService
 		//changing dictionary
 		if (mSuggest != null)
 		{
-			if (mKeyboardSwitcher.isAlphabetMode())
+			if (mKeyboardSwitcher.isAlphabetMode()&& mShowSuggestions)
 				mSuggest.setMainDictionary(DictionaryFactory.getDictionary(currentKeyboard.getDefaultDictionaryLanguage(), this));
 			else
 				mSuggest.setMainDictionary(null);
@@ -1355,8 +1355,28 @@ public class AnySoftKeyboard extends InputMethodService
         mAutoCap = newAutoCap;
         
         boolean newShowSuggestions = sp.getBoolean("candidates_on", true);
-        handled = handled || (newShowSuggestions != mShowSuggestions);
+        boolean suggestionsChanged = (newShowSuggestions != mShowSuggestions);
+        handled = handled || suggestionsChanged;
         mShowSuggestions = newShowSuggestions;
+        if(suggestionsChanged)
+        {
+	        if (!mShowSuggestions)
+	        {
+	        	Log.d("AnySoftKeyboard", "No suggestion is required. I'll try to release memory from the dictionary.");
+	        	DictionaryFactory.releaseAllDictionaries();
+	        	mSuggest.setMainDictionary(null);
+	        }
+	        else
+	        {
+	        	//It null at the creation of the application.
+	        	if ((mKeyboardSwitcher != null) && mKeyboardSwitcher.isAlphabetMode())
+	            {
+	            	AnyKeyboard currentKeyobard = mKeyboardSwitcher.getCurrentKeyboard();
+	            	Dictionary mainDictionary = DictionaryFactory.getDictionary(currentKeyobard.getDefaultDictionaryLanguage(), this);
+	            	mSuggest.setMainDictionary(mainDictionary);
+	            }
+	        }
+        }
         
         boolean newAutoComplete = sp.getBoolean("auto_complete", true) && mShowSuggestions;
         handled = handled || (newAutoComplete != mAutoComplete);
@@ -1474,7 +1494,13 @@ public class AnySoftKeyboard extends InputMethodService
 		
 		boolean handled = loadSettings();
 		if (!handled)
-			mKeyboardSwitcher.makeKeyboards(true);//maybe a new keyboard
+		{
+			/*AnyKeyboard removedKeyboard =*/ mKeyboardSwitcher.makeKeyboards(true);//maybe a new keyboard
+			/*if (removedKeyboard != null)
+			{
+				DictionaryFactory.releaseDictionary(removedKeyboard.getDefaultDictionaryLanguage());
+			}*/
+		}
 	}
 
     public void appendCharactersToInput(CharSequence textToCommit) 

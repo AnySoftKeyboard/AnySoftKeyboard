@@ -5,6 +5,7 @@ import java.util.HashMap;
 import android.util.Log;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
+import com.menny.android.anysoftkeyboard.Dictionary.Dictionary.Language;
 
 public class DictionaryFactory 
 {
@@ -118,5 +119,21 @@ public class DictionaryFactory
 		
 		msUserDictionary = null;
 		msDictionaries.clear();
+	}
+
+
+	public static void releaseAllDictionaries() 
+	{
+		close();
+	}
+	
+	public synchronized static void releaseDictionary(Language language)
+	{
+		if (msDictionaries.containsKey(language))
+		{
+			Dictionary dict = msDictionaries.get(language);
+			dict.close();
+			msDictionaries.remove(language);
+		}
 	}
 }
