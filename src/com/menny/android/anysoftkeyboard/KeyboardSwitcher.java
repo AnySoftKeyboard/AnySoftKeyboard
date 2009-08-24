@@ -59,7 +59,10 @@ public class KeyboardSwitcher
 //    private LatinKeyboard mEmailKeyboard;
 //    private LatinKeyboard mIMKeyboard;
     
-    private static final int PHONE_KEYBOARD_INDEX = 2;
+    private static final int SYMBOLS_KEYBOARD_REGULAR_INDEX = 0;
+    private static final int SYMBOLS_KEYBOARD_SHIFTED_INDEX = 1;
+    private static final int SYMBOLS_KEYBOARD_PHONE_INDEX = 2;
+    
     private int mLastSelectedSymbolsKeyboard = 0;
     private AnyKeyboard[] mSymbolsKeyboardsArray;
     //my working keyboards
@@ -79,13 +82,32 @@ public class KeyboardSwitcher
     void setInputView(AnyKeyboardView inputView) {
         mInputView = inputView;
         if ((mInputView != null) && (mSymbolsKeyboardsArray != null))
-    		mInputView.setPhoneKeyboard(mSymbolsKeyboardsArray[PHONE_KEYBOARD_INDEX]);
+    		mInputView.setPhoneKeyboard(mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_PHONE_INDEX]);
     }
     
-    private AnyKeyboard[] getSymbolsKeyboards()
+    private AnyKeyboard getSymbolsKeyboard(int keyboardIndex)
     {
     	makeKeyboards(false);
-    	return mSymbolsKeyboardsArray;
+    	AnyKeyboard keyboard = mSymbolsKeyboardsArray[keyboardIndex];
+    	if (keyboard == null)
+    	{
+	    	switch(keyboardIndex)
+	    	{
+	    		case SYMBOLS_KEYBOARD_REGULAR_INDEX:
+	    			keyboard = new GenericKeyboard(mContext, R.xml.symbols, false, -1);
+	    			break;
+	    		case SYMBOLS_KEYBOARD_SHIFTED_INDEX:
+	    			keyboard = new GenericKeyboard(mContext, R.xml.symbols_shift, false, -1);
+	    			break;
+	    		case SYMBOLS_KEYBOARD_PHONE_INDEX:
+	    			keyboard = new GenericKeyboard(mContext, R.xml.simple_numbers, false, -1);
+	    			if (mInputView != null)
+	            		mInputView.setPhoneKeyboard(keyboard);
+	    			break;
+	    	}
+	    	mSymbolsKeyboardsArray[keyboardIndex] = keyboard;
+    	}
+    	return keyboard;
     }
     
     private ArrayList<AnyKeyboard> getAlphabetKeyboards()
@@ -115,15 +137,15 @@ public class KeyboardSwitcher
 	        	mLastSelectedKeyboard = 0;
 	        
 	        mSymbolsKeyboardsArray = new AnyKeyboard[3];
-        	mSymbolsKeyboardsArray[0] = new GenericKeyboard(mContext, R.xml.symbols, false, -1); 
-        	mSymbolsKeyboardsArray[1] = new GenericKeyboard(mContext, R.xml.symbols_shift, false, -1);
-        	mSymbolsKeyboardsArray[2] = new GenericKeyboard(mContext, R.xml.simple_numbers, false, -1);
+//        	mSymbolsKeyboardsArray[0] = new GenericKeyboard(mContext, R.xml.symbols, false, -1); 
+//        	mSymbolsKeyboardsArray[1] = new GenericKeyboard(mContext, R.xml.symbols_shift, false, -1);
+//        	mSymbolsKeyboardsArray[2] = new GenericKeyboard(mContext, R.xml.simple_numbers, false, -1);
         	
         	if (mLastSelectedSymbolsKeyboard >= mSymbolsKeyboardsArray.length)
         		mLastSelectedSymbolsKeyboard = 0;
         	
-        	if (mInputView != null)
-        		mInputView.setPhoneKeyboard(mSymbolsKeyboardsArray[PHONE_KEYBOARD_INDEX]);
+//        	if (mInputView != null)
+//        		mInputView.setPhoneKeyboard(mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_PHONE_INDEX]);
         	//freeing old keyboards.
         	System.gc();
         }
@@ -146,8 +168,8 @@ public class KeyboardSwitcher
             case MODE_SYMBOLS:
             case MODE_PHONE:
                 keyboard = (mode == MODE_PHONE)?
-                		getSymbolsKeyboards()[PHONE_KEYBOARD_INDEX]
-                		: getSymbolsKeyboards()[0];
+                		getSymbolsKeyboard(SYMBOLS_KEYBOARD_PHONE_INDEX)
+                		: getSymbolsKeyboard(0);
                 mAlphabetMode = true;
                 break;
         }
@@ -207,19 +229,19 @@ public class KeyboardSwitcher
     {
         Keyboard currentKeyboard = mInputView.getKeyboard();
         
-        AnyKeyboard[] symbols = getSymbolsKeyboards(); 
-        if (currentKeyboard == symbols[0]) 
+        //AnyKeyboard[] symbols = getSymbolsKeyboards(); 
+        if (currentKeyboard == mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_REGULAR_INDEX]) 
         {
         	mLastSelectedSymbolsKeyboard = 1;
         }
-        else if (currentKeyboard == symbols[1]) 
+        else if (currentKeyboard == mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_SHIFTED_INDEX]) 
         {
         	mLastSelectedSymbolsKeyboard = 0;
         }
         else return;
         
-        AnyKeyboard nextKeyboard = symbols[mLastSelectedSymbolsKeyboard];
-        boolean shiftStateToSet = currentKeyboard == symbols[0];
+        AnyKeyboard nextKeyboard = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard);
+        boolean shiftStateToSet = currentKeyboard == mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_REGULAR_INDEX];
     	currentKeyboard.setShifted(shiftStateToSet);
         mInputView.setKeyboard(nextKeyboard);
         nextKeyboard.setShifted(shiftStateToSet);
@@ -266,17 +288,17 @@ public class KeyboardSwitcher
 
     private AnyKeyboard nextSymbolsKeyboard(EditorInfo currentEditorInfo)
     {
-    	AnyKeyboard[] symbolsKeyboards = getSymbolsKeyboards();
+    	//AnyKeyboard[] symbolsKeyboards = getSymbolsKeyboards();
     	AnyKeyboard current;
     	if (!isAlphabetMode())
     		mLastSelectedSymbolsKeyboard++;
     	
     	mAlphabetMode = false;
     	
-    	if (mLastSelectedSymbolsKeyboard >= symbolsKeyboards.length)
+    	if (mLastSelectedSymbolsKeyboard >= mSymbolsKeyboardsArray.length)
 			mLastSelectedSymbolsKeyboard = 0;
     	
-    	current = symbolsKeyboards[mLastSelectedSymbolsKeyboard];
+    	current = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard);
     	
     	return setKeyboard(currentEditorInfo, current);
     }
@@ -287,7 +309,7 @@ public class KeyboardSwitcher
 			mInputView.setKeyboard(current);
     	//all keyboards start as un-shifted, except the second symbols
 		//due to lazy loading the keyboards, the symbols may not be created yet.
-    	current.setShifted(current == getSymbolsKeyboards()[1]);
+    	current.setShifted(current == mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_SHIFTED_INDEX]);
     	
     	current.setImeOptions(mContext.getResources(), currentEditorInfo.imeOptions);
     	current.setTextVariation(mContext.getResources(), currentEditorInfo.inputType);
@@ -300,7 +322,7 @@ public class KeyboardSwitcher
 		if (isAlphabetMode())
 			return getAlphabetKeyboards().get(mLastSelectedKeyboard);
 		else
-			return getSymbolsKeyboards()[mLastSelectedSymbolsKeyboard];
+			return getSymbolsKeyboard(mLastSelectedSymbolsKeyboard);
 	}
 
 	public AnyKeyboard nextKeyboard(EditorInfo currentEditorInfo, NextKeyboardType type) 

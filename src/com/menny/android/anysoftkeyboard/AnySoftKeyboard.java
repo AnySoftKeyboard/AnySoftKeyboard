@@ -349,6 +349,8 @@ public class AnySoftKeyboard extends InputMethodService
         	NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         	notificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
         }
+        //releasing some memory. Dictionaries, completions, etc.
+        System.gc();
     }
 
     @Override

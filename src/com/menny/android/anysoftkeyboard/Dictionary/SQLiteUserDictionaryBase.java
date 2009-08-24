@@ -27,9 +27,11 @@ public abstract class SQLiteUserDictionaryBase extends UserDictionaryBase {
 		{
 			addWordFromStorage(word.getWord(), word.getFrequency());
 		}
+		/*calling GC here, will stop the device for even longer time.
 		//we just finished working with a lot of memory.
 		//lets release it.
 		System.gc();
+		*/
 	}
 
 	protected abstract DictionarySQLiteConnection createStorage() throws Exception;
