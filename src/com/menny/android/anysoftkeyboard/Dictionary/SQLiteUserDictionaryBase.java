@@ -5,6 +5,7 @@ import java.util.List;
 import android.util.Log;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
+import com.menny.android.anysoftkeyboard.Dictionary.DictionarySQLiteConnection.DictionaryWord;
 
 public abstract class SQLiteUserDictionaryBase extends UserDictionaryBase {
 
@@ -20,12 +21,15 @@ public abstract class SQLiteUserDictionaryBase extends UserDictionaryBase {
 		if (mStorage == null)
 			mStorage = createStorage();
 		
-		List<String> words = mStorage.getAllWords();
+		List<DictionaryWord> words = mStorage.getAllWords();
 		Log.d("AnySoftKeyboard", "SQLite dictionary loaded "+words.size()+" words.");
-		for(String word : words)
+		for(DictionaryWord word : words)
 		{
-			addWordFromStorage(word, 128);
+			addWordFromStorage(word.getWord(), word.getFrequency());
 		}
+		//we just finished working with a lot of memory.
+		//lets release it.
+		System.gc();
 	}
 
 	protected abstract DictionarySQLiteConnection createStorage() throws Exception;

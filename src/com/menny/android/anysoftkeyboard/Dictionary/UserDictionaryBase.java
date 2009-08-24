@@ -114,7 +114,7 @@ public abstract class UserDictionaryBase extends Dictionary {
 			}
         }
         mInputLength = codes.size();
-        mMaxDepth = mInputLength * 3;
+        mMaxDepth = mInputLength * 2;
         getWordsRec(mRoots, codes, mWordBuilder, 0, false, 1.0f, 0, callback);
     }
 

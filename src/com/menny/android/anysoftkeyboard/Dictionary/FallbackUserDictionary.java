@@ -22,12 +22,11 @@ public class FallbackUserDictionary extends SQLiteUserDictionaryBase {
 		}
 		
 		@Override
-		public List<String> getAllWords() {
-			// TODO Auto-generated method stub
-			List<String> words = super.getAllWords();
-			for(String word : words)
+		public List<DictionaryWord> getAllWords() {
+			List<DictionaryWord> words = super.getAllWords();
+			for(DictionaryWord word : words)
 			{
-				Log.d("AnySoftKeyboard", "FallBackSQLite dictionary loaded: "+word);
+				Log.d("AnySoftKeyboard", "FallBackSQLite dictionary loaded: "+word.getWord());
 			}
 			return words;
 		}

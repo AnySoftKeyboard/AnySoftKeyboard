@@ -12,6 +12,21 @@ import android.util.Log;
 
 public class DictionarySQLiteConnection extends SQLiteOpenHelper
 {
+	public class DictionaryWord
+	{
+		private final String mWord;
+		private final int mFrequency;
+		
+		public DictionaryWord(String word, int freq)
+		{
+			mWord = word;
+			mFrequency = freq;
+		}
+		
+		public String getWord() {return mWord;}
+		public int getFrequency() {return mFrequency;}
+	}
+	
 	protected final String mTableName;
 	protected final String mWordsColumnName;
 	protected final String mFrequencyColumnName;
@@ -59,20 +74,20 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
 		}
     }
     
-    public List<String> getAllWords()
+    public List<DictionaryWord> getAllWords()
     {
-    	List<String> words = new ArrayList<String>();
+    	//starting with a big storage
+    	List<DictionaryWord> words = new ArrayList<DictionaryWord>(5000);
     	SQLiteDatabase db = getReadableDatabase();
-    	Cursor c = db.query(mTableName, new String[]{mWordsColumnName}, null, null, null, null, null);
+    	Cursor c = db.query(mTableName, new String[]{mWordsColumnName, mFrequencyColumnName}, null, null, null, null, null);
     	
     	if (c != null)
     	{
         	if (c.moveToFirst()) {
                 while (!c.isAfterLast()) {
                     String word = c.getString(0);
-                    if (word.length() < UserDictionaryBase.MAX_WORD_LENGTH) {
-                    	words.add(word);
-                    }
+                    int freq = c.getInt(1);
+                    words.add(new DictionaryWord(word, freq));
                     c.moveToNext();
                 }
             }
