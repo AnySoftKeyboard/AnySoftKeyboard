@@ -138,7 +138,7 @@ public class LatinKeyboard extends AnyKeyboard implements HardKeyboardTranslator
 			switch((char)aKey.codes[0])
 			{
 				case 'a':
-					aKey.popupCharacters = "àâáäãæå";
+					aKey.popupCharacters = "àâáäãæåą";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'c':
@@ -150,11 +150,11 @@ public class LatinKeyboard extends AnyKeyboard implements HardKeyboardTranslator
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'e':
-					aKey.popupCharacters = "éèêë€";
+					aKey.popupCharacters = "éèêëę€";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'i':
-					aKey.popupCharacters = "îïíì";
+					aKey.popupCharacters = "îïíìł";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'o':
@@ -162,7 +162,7 @@ public class LatinKeyboard extends AnyKeyboard implements HardKeyboardTranslator
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 's':
-					aKey.popupCharacters = "§š";
+					aKey.popupCharacters = "§šś";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'u':
@@ -178,7 +178,7 @@ public class LatinKeyboard extends AnyKeyboard implements HardKeyboardTranslator
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'z':
-					aKey.popupCharacters = "ž";
+					aKey.popupCharacters = "žż";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				default:
