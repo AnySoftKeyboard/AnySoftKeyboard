@@ -2,7 +2,10 @@ package com.menny.android.anysoftkeyboard.Dictionary;
 
 import java.io.*;
 
+import com.menny.android.anysoftkeyboard.SoftKeyboardSettings;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -14,18 +17,12 @@ class AssertsSQLiteConnection extends DictionarySQLiteConnection {
     private static final String DB_PATH = "/data/data/com.menny.android.anysoftkeyboard/databases/";
 
     private final String mDbName;
-    // The revision is the version of the database in the assets.
-    // It is taken from the metadata table of the table (wordsTableName+"_metadata").
-    //If the version in this member does not match the version in the database already installed on the 
-    //device, then the database on the device will be deleted, and the database from the assets will be used.
-    private final int mDatabaseRevision;
     
     private SQLiteDatabase mDataBase; 
     
-	protected AssertsSQLiteConnection(Context conext, String dbName, String wordsTableName, int databaseRevision) throws IOException {
+	protected AssertsSQLiteConnection(Context conext, String dbName, String wordsTableName) throws IOException {
 		super(conext, dbName, wordsTableName, "Word", "Frequency");
 		mDbName = dbName;
-		mDatabaseRevision = databaseRevision;
 		
 		createDataBase();
 	}
@@ -78,32 +75,20 @@ class AssertsSQLiteConnection extends DictionarySQLiteConnection {
 		SQLiteDatabase checkDB = null;
 		boolean validDatabase = false;
 		try{
+			
+			
 			String myPath = DB_PATH + mDbName;
 			checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
 			//OK. If we got here, then the database exists!
 			//Lets check that it is from the correct version
-			Cursor c = checkDB.query(mTableName+"_metadata", new String[]{"key", "value"}, "key like '%revision%'", null, null, null, null);
-			try
-			{
-				if ((c != null) && (c.moveToFirst())) 
-				{
-					while ((!c.isAfterLast()) && (!validDatabase)) 
-	                {
-	                    int revision = c.getInt(1);
-	                    Log.v("AnySoftKeyboard", "Found revision "+revision+" looking for "+mDatabaseRevision);
-	                    if (revision == mDatabaseRevision) {
-	                    	Log.d("AnySoftKeyboard", mDbName+"."+mTableName+" is of the correct revision.");
-	                    	validDatabase = true;
-	                    }
-	                    c.moveToNext();
-	                }
-	            }
-			}
-			finally
-			{
-				if (c != null)
-					 c.close();
-			}
+			int assetDbRevision = getRevisionFromDatabase(checkDB);
+			
+			int installedAssetDatabaseRevision = getInstalledDatabaseRevision();
+			Log.v("AnySoftKeyboard", "Found revision "+assetDbRevision+" looking for "+installedAssetDatabaseRevision);
+            if (assetDbRevision == installedAssetDatabaseRevision) {
+            	Log.d("AnySoftKeyboard", mDbName+"."+mTableName+" is of the correct revision.");
+            	validDatabase = true;
+            }
 		}
 		catch(SQLiteException e)
 		{
@@ -129,6 +114,43 @@ class AssertsSQLiteConnection extends DictionarySQLiteConnection {
 		return validDatabase;
 	}
 
+	private int getRevisionFromDatabase(SQLiteDatabase checkDB) {
+		Cursor c = checkDB.query(mTableName+"_metadata", new String[]{"key", "value"}, "key like '%revision%'", null, null, null, null);
+		int assetDbRevision = -1;
+		try
+		{
+			if ((c != null) && (c.moveToFirst() && (!c.isAfterLast()))) 
+			{
+				assetDbRevision = c.getInt(1);
+		    }
+		}
+		finally
+		{
+			if (c != null)
+				 c.close();
+		}
+		return assetDbRevision;
+	}
+	
+	private String getSharedPreferencesKey()
+	{
+		return "AssertsDictionary_"+mDbName+"_"+mTableName;
+	}
+
+   private int getInstalledDatabaseRevision() 
+   {
+	   //the database revision is taken from the application's settings
+	   SharedPreferences sp = mContext.getSharedPreferences(SoftKeyboardSettings.PREFERENCES_FILE, 0);
+	   return sp.getInt(getSharedPreferencesKey(), -1);
+   }
+
+   private void setNewlyInstalledDatabaseRevision(int newRevisionNumber)
+   {
+	   SharedPreferences sp = mContext.getSharedPreferences(SoftKeyboardSettings.PREFERENCES_FILE, 0);
+	   SharedPreferences.Editor editor = sp.edit();
+	   editor.putInt(getSharedPreferencesKey(), newRevisionNumber);
+	   editor.commit();
+   }
    /**
     * Copies your database from your local assets-folder to the just created empty database in the
     * system folder, from where it can be accessed and handled.
@@ -171,6 +193,12 @@ class AssertsSQLiteConnection extends DictionarySQLiteConnection {
 	   
 		String myPath = DB_PATH + mDbName;
 		mDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+		//first time I have the database.
+		//I'll take its revision and store it in the application preferences, so I'll know if
+		//asserts upgrade has happened.
+		int installedRevision = getRevisionFromDatabase(mDataBase);
+		setNewlyInstalledDatabaseRevision(installedRevision);
+		
 		return mDataBase;
    }
 }

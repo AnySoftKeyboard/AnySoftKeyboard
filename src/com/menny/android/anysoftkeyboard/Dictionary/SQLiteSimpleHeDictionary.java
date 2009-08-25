@@ -12,7 +12,7 @@ public class SQLiteSimpleHeDictionary extends SQLiteUserDictionaryBase {
 	
 	@Override
 	protected DictionarySQLiteConnection createStorage() throws IOException {
-		return new AssertsSQLiteConnection(mContext, "he", "he", 4);
+		return new AssertsSQLiteConnection(mContext, "he", "he");
 	}
 	
 	

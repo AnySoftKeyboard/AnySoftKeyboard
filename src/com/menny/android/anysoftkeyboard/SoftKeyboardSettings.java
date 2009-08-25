@@ -18,6 +18,8 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
 public class SoftKeyboardSettings extends PreferenceActivity {
+	public final static String PREFERENCES_FILE = "anysoftkeyboard_preferences";
+	
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
