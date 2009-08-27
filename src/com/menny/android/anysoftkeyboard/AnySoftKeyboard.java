@@ -47,14 +47,6 @@ public class AnySoftKeyboard extends InputMethodService
         implements KeyboardView.OnKeyboardActionListener, 
         OnSharedPreferenceChangeListener,
         AnyKeyboardContextProvider {
-        
-    
-//	private enum NextKeyboardType 
-//	{
-//		Alphabet,
-//		Symbols,
-//		Any
-//	}
 	
     static final boolean DEBUG = false;
     static final boolean TRACE = false;
@@ -466,17 +458,20 @@ public class AnySoftKeyboard extends InputMethodService
         	// it and do the appropriate action.
 			// using physical keyboard is more annoying with candidate view in the way
 			// so we disable it.
+        	InputConnection ic = getCurrentInputConnection();
+        	if (mCompletionOn)
+        		commitTyped(ic);//to clear the underline.
+        	
 			mCompletionOn = false;
 			
 			if ((keyCode == KeyEvent.KEYCODE_SPACE && (event.getMetaState()&KeyEvent.META_ALT_ON) != 0) 
 				|| ((keyCode == KeyEvent.KEYCODE_ALT_LEFT || keyCode == KeyEvent.KEYCODE_ALT_RIGHT) && (event.getMetaState()&KeyEvent.META_SHIFT_ON) != 0))
 			{
-			      InputConnection ic = getCurrentInputConnection();
 			      if (ic != null) 
 			      {
 			          // First, tell the editor that it is no longer in the
 				      // shift state, since we are consuming this.
-				      ic.clearMetaKeyStates(KeyEvent.META_ALT_ON);
+				      ic.clearMetaKeyStates(event.getMetaState());
 				      //only physical keyboard
 			          nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.AlphabetSupportsPhysical);
 			          
@@ -489,7 +484,6 @@ public class AnySoftKeyboard extends InputMethodService
 				Log.d("AnySoftKeyborad", "Asking '"+current.getKeyboardName()+"' to translate key: "+keyCode);
 				//sometimes, the physical keyboard will delete input, and add some.
 				//we'll try to make it nice
-				InputConnection ic = getCurrentInputConnection();
 				if (ic != null)
 					ic.beginBatchEdit();
 				try

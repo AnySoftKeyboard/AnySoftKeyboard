@@ -169,7 +169,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        }
         }
         
-        Log.v("AnySoftKeyboard", "Key '"+key.codes[0]+"' will have - width: "+key.width+", height:"+key.height+", text: '"+key.label+"'.");
+        //Log.v("AnySoftKeyboard", "Key '"+key.codes[0]+"' will have - width: "+key.width+", height:"+key.height+", text: '"+key.label+"'.");
         
         setPopupKeyChars(key);
         
@@ -182,7 +182,7 @@ public abstract class AnyKeyboard extends Keyboard
         		ShiftedKeyData keyData = new ShiftedKeyData(key);
 	        	if (!mSpecialShiftKeys.containsKey(primary))
 	        		mSpecialShiftKeys.put(primary, keyData);
-	        	Log.v("AnySoftKeyboard", "Adding mapping ("+primary+"->"+keyData.ShiftCharacter+") to mSpecialShiftKeys.");
+	        	//Log.v("AnySoftKeyboard", "Adding mapping ("+primary+"->"+keyData.ShiftCharacter+") to mSpecialShiftKeys.");
 	        }
         }
         return key;
