@@ -20,13 +20,17 @@ public abstract class SQLiteUserDictionaryBase extends UserDictionaryBase {
 	{
 		if (mStorage == null)
 			mStorage = createStorage();
-		
+		//taking time for storage load.
+		long loadStartTime = System.currentTimeMillis();
 		List<DictionaryWord> words = mStorage.getAllWords();
-		Log.d("AnySoftKeyboard", "SQLite dictionary loaded "+words.size()+" words.");
+		long loadEndTime = System.currentTimeMillis();
+		Log.d("AnySoftKeyboard", "SQLite dictionary loaded "+words.size()+" words. Took "+(loadEndTime-loadStartTime)+" ms.");
 		for(DictionaryWord word : words)
 		{
 			addWordFromStorage(word.getWord(), word.getFrequency());
 		}
+		long storeEndTime = System.currentTimeMillis();
+		Log.d("AnySoftKeyboard", "Stored "+words.size()+" words in dictionary. Took "+(storeEndTime-loadEndTime)+" ms.");
 		/*calling GC here, will stop the device for even longer time.
 		//we just finished working with a lot of memory.
 		//lets release it.

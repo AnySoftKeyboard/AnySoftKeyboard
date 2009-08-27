@@ -123,7 +123,8 @@ public class KeyboardSwitcher
     	int displayWidth = mContext.getMaxWidth();
         if ((mAlphabetKeyboards != null) || (mSymbolsKeyboardsArray != null)) 
         {
-            Log.d("AnySoftKeyboard", "makeKeyboards: force:"+force+" maxWidth:"+displayWidth+" mLastDisplayWidth"+mLastDisplayWidth);
+        	if (AnySoftKeyboard.DEBUG)
+            	Log.d("AnySoftKeyboard", "makeKeyboards: force:"+force+" maxWidth:"+displayWidth+" mLastDisplayWidth"+mLastDisplayWidth);
             if ((!force) && (displayWidth == mLastDisplayWidth)) return;
             mAlphabetKeyboards = null;
             mSymbolsKeyboardsArray = null;
@@ -132,6 +133,7 @@ public class KeyboardSwitcher
         
         if ((mAlphabetKeyboards == null) || (mSymbolsKeyboardsArray == null))
         {
+        	Log.d("AnySoftKeyboard", "makeKeyboards: force:"+force+" maxWidth:"+displayWidth+" mLastDisplayWidth"+mLastDisplayWidth+". Creating keyboards.");
         	mAlphabetKeyboards = KeyboardFactory.createAlphaBetKeyboards(mContext);
 	        if (mLastSelectedKeyboard >= mAlphabetKeyboards.size())
 	        	mLastSelectedKeyboard = 0;

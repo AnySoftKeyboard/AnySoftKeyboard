@@ -6,6 +6,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
+import com.menny.android.anysoftkeyboard.AnySoftKeyboard;
 
 
 public class FallbackUserDictionary extends SQLiteUserDictionaryBase {
@@ -26,7 +27,8 @@ public class FallbackUserDictionary extends SQLiteUserDictionaryBase {
 			List<DictionaryWord> words = super.getAllWords();
 			for(DictionaryWord word : words)
 			{
-				Log.d("AnySoftKeyboard", "FallBackSQLite dictionary loaded: "+word.getWord());
+				if (AnySoftKeyboard.DEBUG)
+					Log.d("AnySoftKeyboard", "FallBackSQLite dictionary loaded: "+word.getWord());
 			}
 			return words;
 		}

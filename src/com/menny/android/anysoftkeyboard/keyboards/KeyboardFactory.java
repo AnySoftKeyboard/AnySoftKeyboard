@@ -91,7 +91,7 @@ public class KeyboardFactory
 		}
 		
 		for(AnyKeyboard aKeyboard : keyboards)
-			Log.d("AnySoftKeyboard", "Factory created:"+aKeyboard.getKeyboardName());
+			Log.d("AnySoftKeyboard", "Factory created: "+aKeyboard.getKeyboardName());
 		
 		return keyboards;
 	}
