@@ -89,6 +89,7 @@
     <string name="azerty_keyboard">AZERTY</string>
     <string name="es_keyboard">Spanish</string>
     <string name="ru_ph_keyboard">Russian Phonetic</string>
+    <string name="ru_keyboard">Russian</string>
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Show this tutorial on startup</string>

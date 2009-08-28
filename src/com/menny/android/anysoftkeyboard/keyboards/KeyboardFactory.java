@@ -24,6 +24,7 @@ public class KeyboardFactory
 	private static final String AZERTY_KEYBOARD = "azerty_keyboard";
 	private static final String DVORAK_KEYBOARD = "dvorak_keyboard";
 	private static final String HEBREW_KEYBOARD = "heb_keyboard";
+	private static final String RU_KEYBOARD = "ru_keyboard";
 	private static final String RU_PH_KEYBOARD = "ru_ph_keyboard";
 	//public static final String ARABIC_KEYBOARD = "arabic_keyboard";
 	private static final String LAO_KEYBOARD ="lao_keyboard";
@@ -44,6 +45,8 @@ public class KeyboardFactory
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.dvorak, R.string.dvorak_keyboard, Dictionary.Language.English);} public String getKeyboardPrefId() {return DVORAK_KEYBOARD;}});
 		
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new HebrewKeyboard(contextProvider);} public String getKeyboardPrefId() {return HEBREW_KEYBOARD;}});
+		//issue 59 - Regular Russian layout
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new RussianKeyboard(contextProvider);} public String getKeyboardPrefId() {return RU_KEYBOARD;}});
 		//issue 26 - Russian keyboard
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new RussianPhoneticKeyboard(contextProvider);} public String getKeyboardPrefId() {return RU_PH_KEYBOARD;}});
 		//Arabic keyboard - issue 16 - no ready yet.
