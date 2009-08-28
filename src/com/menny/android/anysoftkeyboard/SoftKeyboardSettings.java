@@ -14,8 +14,12 @@
 
 package com.menny.android.anysoftkeyboard;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.util.Log;
 
 public class SoftKeyboardSettings extends PreferenceActivity {
 	public final static String PREFERENCES_FILE = "anysoftkeyboard_preferences";
@@ -24,5 +28,16 @@ public class SoftKeyboardSettings extends PreferenceActivity {
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         addPreferencesFromResource(R.xml.prefs);
+        
+        String version = "";
+        try {
+			PackageInfo info = super.getApplication().getPackageManager().getPackageInfo(getApplication().getPackageName(), 0);
+			version = info.versionName + " (release "+info.versionCode+")";
+		} catch (NameNotFoundException e) {
+			Log.e("AnySoftKeyboard", "Failed to locate package information! This is very weird... I'm installed.");
+		}
+		
+		Preference label = super.findPreference("prefs_title_key");
+		label.setSummary(label.getSummary()+version);		
     }
 }

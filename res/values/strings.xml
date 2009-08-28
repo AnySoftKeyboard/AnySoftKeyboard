@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="ime_name">Any Soft Keyboard</string>
+    <string name="ime_name">AnySoftKeyboard</string>
 	<string name="how_to_pointer_title">Welcome to AnySoftKeyboard</string>
+	<string name="how_to_pointer_version_prefix">Version: </string>
+	
 	<string name="how_to_pointer_not_app">AnySoftKeyboard is not a regular application - it is a on-screen keyboard replacement.</string>
 	<string name="how_to_pointer_how_to_url">Go to http://code.google.com/p/softkeyboard/wiki/HowTo for details about how to use this keyboard.</string>
 	<string name="how_to_pointer_changelog">For details about the latest version, go to: http://code.google.com/p/softkeyboard/wiki/ChangeLog</string>

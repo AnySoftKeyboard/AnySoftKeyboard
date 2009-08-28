@@ -3,8 +3,12 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
         android:title="@string/ime_settings"
         android:key="ime_settings">
+        	<Preference android:key="prefs_title_key" android:selectable="false" android:enabled="false"
+        		android:persistent="false" 
+        		android:title="@string/ime_name"
+        		android:summary="@string/how_to_pointer_version_prefix"></Preference>
         	<PreferenceCategory android:key="ui_group"
-            android:title="@string/ui_group">
+            	android:title="@string/ui_group">
 	            <ListPreference
                 android:key="keyboard_layout_change_method"
                 android:title="@string/keyboard_layout_change_method_title"
