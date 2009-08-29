@@ -169,7 +169,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        }
         }
         
-        if (AnySoftKeyboard.TRACE)
+        if (AnySoftKeyboard.DEBUG)
         	Log.v("AnySoftKeyboard", "Key '"+key.codes[0]+"' will have - width: "+key.width+", height:"+key.height+", text: '"+key.label+"'.");
         
         setPopupKeyChars(key);
@@ -218,7 +218,7 @@ public abstract class AnyKeyboard extends Keyboard
      * appropriate label on the keyboard's enter key (if it has one).
      */
     public void setImeOptions(Resources res, int options) {
-    	if (AnySoftKeyboard.TRACE)
+    	if (AnySoftKeyboard.DEBUG)
     		Log.d("AnySoftKeyboard", "AnyKeyboard.setImeOptions");
         if (mEnterKey == null) {
             return;
@@ -419,7 +419,7 @@ public abstract class AnyKeyboard extends Keyboard
 
 	public void setTextVariation(Resources res, int inputType) 
 	{
-		if (AnySoftKeyboard.TRACE)
+		if (AnySoftKeyboard.DEBUG)
     		Log.d("AnySoftKeyboard", "setTextVariation");
 		int variation = inputType &  EditorInfo.TYPE_MASK_VARIATION;
 		//if ((keyboardType == NextKeyboardType.Any) && 

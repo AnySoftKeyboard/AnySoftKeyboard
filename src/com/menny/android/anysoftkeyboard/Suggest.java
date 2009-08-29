@@ -219,7 +219,7 @@ public class Suggest implements Dictionary.WordCallback {
     }
 
     public boolean addWord(final char[] word, final int offset, final int length, final int freq) {
-    	if (AnySoftKeyboard.TRACE)
+    	if (AnySoftKeyboard.DEBUG)
         	Log.v("AnySoftKeyboard", "Suggest::addWord");
         int pos = 0;
         final int[] priorities = mPriorities;

@@ -47,8 +47,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		KeyboardView.OnKeyboardActionListener,
 		OnSharedPreferenceChangeListener, AnyKeyboardContextProvider {
 
-	public static final boolean DEBUG = false;
-	public static final boolean TRACE = false;
+	public static final boolean DEBUG = true;
+	private static final boolean TRACE_SDCARD = false;
 
 	// private static final String PREF_VIBRATE_ON = "vibrate_on";
 	// private static final String PREF_SOUND_ON = "sound_on";
@@ -336,8 +336,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 		mPredictionOn = mPredictionOn && mCorrectionMode > 0;
 		// checkTutorial(attribute.privateImeOptions);
-		if (TRACE)
-			Debug.startMethodTracing("latinime");
+		if (TRACE_SDCARD)
+			Debug.startMethodTracing("anysoftkeyboard_log.trace");
 	}
 
 	@Override
@@ -385,8 +385,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	@Override
 	public void hideWindow() {
-		if (TRACE)
+		if (TRACE_SDCARD)
 			Debug.stopMethodTracing();
+		
 		if (mOptionsDialog != null && mOptionsDialog.isShowing()) {
 			mOptionsDialog.dismiss();
 			mOptionsDialog = null;
@@ -400,13 +401,16 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	@Override
-	public void onDisplayCompletions(CompletionInfo[] completions) {
-
-		Log.i("foo", "Received completions:");
-		for (int i = 0; i < (completions != null ? completions.length : 0); i++) {
-			Log.i("foo", "  #" + i + ": " + completions[i]);
+	public void onDisplayCompletions(CompletionInfo[] completions) 
+	{
+		if (DEBUG)
+		{
+			Log.i("AnySoftKeyboard", "Received completions:");
+			for (int i = 0; i < (completions != null ? completions.length : 0); i++) {
+				Log.i("AnySoftKeyboard", "  #" + i + ": " + completions[i]);
+			}
 		}
-
+		
 		if (mCompletionOn) {
 			mCompletions = completions;
 			if (completions == null) {
@@ -443,9 +447,16 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	}
 
+	private boolean mPhysicalShiftOn = false;
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		switch (keyCode) {
+		case KeyEvent.KEYCODE_SHIFT_LEFT:
+		case KeyEvent.KEYCODE_SHIFT_RIGHT:
+			mPhysicalShiftOn = !mPhysicalShiftOn;
+			if (DEBUG)
+				Log.d("AnySoftKeyboard", "Physical SHIFT was pressed. The new shift state is "+mPhysicalShiftOn);
+			break;
 		case KeyEvent.KEYCODE_BACK:
 			if (event.getRepeatCount() == 0 && mInputView != null) {
 				if (mInputView.handleBack()) {
@@ -479,12 +490,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mCompletionOn = false;
 
 			if ((keyCode == KeyEvent.KEYCODE_SPACE && (event.getMetaState() & KeyEvent.META_ALT_ON) != 0)
-					|| ((keyCode == KeyEvent.KEYCODE_ALT_LEFT || keyCode == KeyEvent.KEYCODE_ALT_RIGHT) && (event
-							.getMetaState() & KeyEvent.META_SHIFT_ON) != 0)) {
+					/*|| ((keyCode == KeyEvent.KEYCODE_ALT_LEFT || keyCode == KeyEvent.KEYCODE_ALT_RIGHT) && (event
+							.getMetaState() & KeyEvent.META_SHIFT_ON) != 0)*/) {
 				if (ic != null) {
 					// First, tell the editor that it is no longer in the
 					// shift state, since we are consuming this.
-					ic.clearMetaKeyStates(event.getMetaState());
+					ic.clearMetaKeyStates(KeyEvent.META_ALT_ON | KeyEvent.META_ALT_LEFT_ON | KeyEvent.META_ALT_RIGHT_ON);
 					// only physical keyboard
 					nextKeyboard(getCurrentInputEditorInfo(),
 							NextKeyboardType.AlphabetSupportsPhysical);
@@ -494,37 +505,35 @@ public class AnySoftKeyboard extends InputMethodService implements
 			} else if (mKeyboardSwitcher.isCurrentKeyboardPhysical()) {
 				AnyKeyboard current = mKeyboardSwitcher.getCurrentKeyboard();
 				if (AnySoftKeyboard.DEBUG)
-					Log.d("AnySoftKeyborad", "Asking '"
-							+ current.getKeyboardName()
-							+ "' to translate key: " + keyCode);
-				// sometimes, the physical keyboard will delete input, and add
-				// some.
+					Log.d("AnySoftKeyborad", "Asking '"	+ current.getKeyboardName()	+ "' to translate key: " + keyCode);
+				// sometimes, the physical keyboard will delete input, and then add some.
 				// we'll try to make it nice
 				if (ic != null)
 					ic.beginBatchEdit();
-				try {
-					char translatedChar = ((HardKeyboardTranslator) current)
-							.translatePhysicalCharacter(keyCode, event
-									.getMetaState());
-					if (translatedChar != 0) {
-						// consuming the meta keys
-						if (ic != null)
-							ic.clearMetaKeyStates(event.getMetaState());
-
+				try 
+				{
+					boolean shifted = mPhysicalShiftOn | ((event.getMetaState()&KeyEvent.META_SHIFT_ON) != 0);
+					
+					char translatedChar = ((HardKeyboardTranslator)current).translatePhysicalCharacter(keyCode, event.getMetaState());
+					// consuming the meta keys
+					if (ic != null)
+						ic.clearMetaKeyStates(Integer.MAX_VALUE);
+					mPhysicalShiftOn = false;
+					
+					if (translatedChar != 0) 
+					{
 						if (AnySoftKeyboard.DEBUG)
-							Log.d("AnySoftKeyborad", "'"
-									+ current.getKeyboardName()
-									+ "' translated key " + keyCode + " to "
-									+ translatedChar);
+							Log.d("AnySoftKeyborad", "'"+ current.getKeyboardName()	+ "' translated key " + keyCode + " to "+ translatedChar);
 
+						if (shifted)
+						{
+							translatedChar = Character.toUpperCase(translatedChar);
+						}
 						onKey(translatedChar, new int[] { translatedChar });
 						return true;
 					} else {
 						if (AnySoftKeyboard.DEBUG)
-							Log.d("AnySoftKeyborad", "'"
-									+ current.getKeyboardName()
-									+ "' did not translated key " + keyCode
-									+ ".");
+							Log.d("AnySoftKeyborad", "'"+ current.getKeyboardName()+ "' did not translated key " + keyCode+ ".");
 					}
 				} finally {
 					if (ic != null)

@@ -10,126 +10,13 @@ public class LatinKeyboard extends AnyKeyboard implements HardKeyboardTranslator
 	{
 		super(context, keyboardLayoutId, true, keyboardNameId, true, defaultDictionaryLanguage);
 	}
-		
+	
+	//this class implements the HardKeyboardTranslator interface in an empty way, the physical keyboard is Latin...
 	public char translatePhysicalCharacter(int keyCode, int metaKeys) 
 	{
 		//I'll return 0, so the caller will use defaults.
 		return 0;
 	}
-
-	/*
-	 * there are some keys which we'll like to expand, e.g.,
-	 * lowercase:
-		a: àâáäãæå
-		e: éèêë
-		u: ùûüú
-		i: îïíì
-		o: ôöòóõœø
-		c: ç
-		n: ñ
-		y: ÿý
-		s: ß§
-		
-		upper case:
-		E: ÈÉÊË
-		Y: ÝŸ
-		U: ÛÙÛÜ
-		I: ÎÌÏÍ
-		O: ÒÓÔÖÕŒØ
-		A: ÀÁÂÄÃÅÆ
-		S: §
-		C: Ç
-		N: Ñ
-	 */
-//	@Override
-//	protected void setKeyPopup(Key aKey, boolean shiftState) 
-//	{
-//		super.setKeyPopup(aKey, shiftState);
-//	
-//		if ((aKey.codes != null) && (aKey.codes.length > 0))
-//        {
-//			switch((char)aKey.codes[0])
-//			{
-//				case 'a':
-//					if (shiftState)
-//						aKey.popupCharacters = "ÀÁÂÄÃÅÆ";
-//					else
-//						aKey.popupCharacters = "àâáäãæå";
-//					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
-//					break;
-//				case 'c':
-//					if (shiftState)
-//						aKey.popupCharacters = "ÇČĆ";
-//					else
-//						aKey.popupCharacters = "çčć";
-//					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
-//					break;
-//				case 'd':
-//					if (shiftState)
-//						aKey.popupCharacters = "Đ";
-//					else
-//						aKey.popupCharacters = "đ";
-//					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
-//					break;
-//				case 'e':
-//					if (shiftState)
-//						aKey.popupCharacters = "ÈÉÊË€";
-//					else
-//						aKey.popupCharacters = "éèêë€";
-//					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
-//					break;
-//				case 'i':
-//					if (shiftState)
-//						aKey.popupCharacters = "ÎÌÏÍ";
-//					else
-//						aKey.popupCharacters = "îïíì";
-//					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
-//					break;
-//				case 'o':
-//					if (shiftState)
-//						aKey.popupCharacters = "ÒÓÔÖÕŒØ";
-//					else
-//						aKey.popupCharacters = "ôöòóõœø";
-//					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
-//					break;
-//				case 's':
-//					if (shiftState)
-//						aKey.popupCharacters = "ß§Š";
-//					else
-//						aKey.popupCharacters = "§š";
-//					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
-//					break;
-//				case 'u':
-//					if (shiftState)
-//						aKey.popupCharacters = "ÛÙÛÜ";
-//					else
-//						aKey.popupCharacters = "ùûüú";
-//					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
-//					break;
-//				case 'n':
-//					if (shiftState)
-//						aKey.popupCharacters = "Ñ";
-//					else
-//						aKey.popupCharacters = "ñ";
-//					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
-//					break;
-//				case 'y':
-//					if (shiftState)
-//						aKey.popupCharacters = "ÝŸ";
-//					else
-//						aKey.popupCharacters = "ÿý";
-//					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
-//					break;
-//				case 'z':
-//					if (shiftState)
-//						aKey.popupCharacters = "Ž";
-//					else
-//						aKey.popupCharacters = "ž";
-//					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
-//					break;
-//			}
-//        }
-//	}
 
 	protected void setPopupKeyChars(Key aKey) 
 	{
@@ -138,47 +25,47 @@ public class LatinKeyboard extends AnyKeyboard implements HardKeyboardTranslator
 			switch((char)aKey.codes[0])
 			{
 				case 'a':
-					aKey.popupCharacters = "àâáäãæåą";
+					aKey.popupCharacters = "\u00e0\u00e2\u00e1\u00e4\u00e3\u00e6\u00e5\u0105";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'c':
-					aKey.popupCharacters = "çčć";
+					aKey.popupCharacters = "\u00e7\u010d\u0107";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'd':
-					aKey.popupCharacters = "đ";
+					aKey.popupCharacters = "\u0111";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'e':
-					aKey.popupCharacters = "éèêëę€";
+					aKey.popupCharacters = "\u00e9\u00e8\u00ea\u00eb\u0119\u20ac";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'i':
-					aKey.popupCharacters = "îïíìł";
+					aKey.popupCharacters = "\u00ee\u00ef\u00ed\u00ec\u0142";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'o':
-					aKey.popupCharacters = "ôöòóõœø";
+					aKey.popupCharacters = "\u00f4\u00f6\u00f2\u00f3\u00f5\u0153\u00f8";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 's':
-					aKey.popupCharacters = "§šś";
+					aKey.popupCharacters = "\u00a7\u0161\u015b";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'u':
-					aKey.popupCharacters = "ùûüú";
+					aKey.popupCharacters = "\u00f9\u00fb\u00fc\u00fa";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'n':
-					aKey.popupCharacters = "ñ";
+					aKey.popupCharacters = "\u00f1";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'y':
-					aKey.popupCharacters = "ÿý";
+					aKey.popupCharacters = "\u00ff\u00fd";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'z':
-					aKey.popupCharacters = "žż";
+					aKey.popupCharacters = "\u017e\u017c";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				default:
