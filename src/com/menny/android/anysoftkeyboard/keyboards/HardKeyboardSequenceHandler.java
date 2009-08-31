@@ -124,6 +124,9 @@ class HardKeyboardSequenceHandler
 		}
 	}
 	
+	//See 'getSequenceCharacter' function for usage for msSequenceLivingTime and mLastTypedKeyEventTime.
+	private static final long msSequenceLivingTime = 500;
+	private long mLastTypedKeyEventTime;
 	private final KeyEventSequenceHolder mCurrentTypedSequence;
 	
 	private final HashMap<KeyEventSequence, KeyEventSequence> mSequences;
@@ -132,6 +135,7 @@ class HardKeyboardSequenceHandler
 	{
 		mSequences = new HashMap<KeyEventSequence, KeyEventSequence>();
 		mCurrentTypedSequence = new KeyEventSequenceHolder();
+		mLastTypedKeyEventTime = System.currentTimeMillis();
 	}
 	
 	public void addQwertyTranslation(String targetCharacters)
@@ -168,6 +172,14 @@ class HardKeyboardSequenceHandler
 	
 	public char getSequenceCharacter(int currentKeyEvent, AnyKeyboardContextProvider inputHandler)
 	{
+		//sequence does not live forever!
+		//I say, let it live for msSequenceLivingTime milliseconds.
+		long currentTime = System.currentTimeMillis();
+		if ((currentTime - mLastTypedKeyEventTime) >= msSequenceLivingTime)
+			mCurrentTypedSequence.reset();
+		
+		mLastTypedKeyEventTime = currentTime;
+		
 		mCurrentTypedSequence.appendKeyEvent(currentKeyEvent);
 		if (mSequences.containsKey(mCurrentTypedSequence))
 		{
