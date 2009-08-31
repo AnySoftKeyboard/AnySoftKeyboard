@@ -158,6 +158,8 @@
             android:title="@string/lao_keyboard"
             android:persistent="true"
             android:defaultValue="false" 
+			android:summaryOn="Created with Anousak Souphavanh"
+            android:summaryOff="Created with Anousak Souphavanh"
             />
             <CheckBoxPreference
             android:key="bg_ph_keyboard"
