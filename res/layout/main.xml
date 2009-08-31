@@ -7,7 +7,7 @@
 	android:textStyle="bold"></TextView>
 <TextView android:id="@+id/main_title_version" android:text="@string/how_to_pointer_version_prefix" android:textSize="12px" android:layout_width="fill_parent" android:layout_height="wrap_content"
 	android:textStyle="bold"></TextView>
-<ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/welcome_keyboard_image"></ImageView>
+<ImageView android:layout_height="wrap_content" android:src="@drawable/welcome_keyboard_image" android:layout_width="fill_parent" android:layout_marginTop="10px" android:layout_marginLeft="25px"></ImageView>
 <TextView android:text="@string/how_to_pointer_not_app" android:textSize="18px" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content"
 	android:paddingTop="10px"></TextView>
 <TextView android:text="@string/how_to_pointer_how_to_url" android:textSize="14px" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
