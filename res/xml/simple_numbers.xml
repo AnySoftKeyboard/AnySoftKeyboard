@@ -11,7 +11,7 @@
         <Key android:codes="49" android:horizontalGap="5%p" android:keyIcon="@drawable/sym_keyboard_num1" android:keyEdgeFlags="left"/>
         <Key android:codes="50" android:keyIcon="@drawable/sym_keyboard_num2"/>
         <Key android:codes="51" android:keyIcon="@drawable/sym_keyboard_num3"/>
-        <Key android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete" 
+        <Key android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete_small" 
         	android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     <Row>
