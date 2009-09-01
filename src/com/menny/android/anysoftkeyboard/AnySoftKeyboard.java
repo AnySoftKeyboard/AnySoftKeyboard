@@ -495,7 +495,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				if (ic != null) {
 					// First, tell the editor that it is no longer in the
 					// shift state, since we are consuming this.
-					ic.clearMetaKeyStates(KeyEvent.META_ALT_ON | KeyEvent.META_ALT_LEFT_ON | KeyEvent.META_ALT_RIGHT_ON);
+					ic.clearMetaKeyStates(Integer.MAX_VALUE);
 					// only physical keyboard
 					nextKeyboard(getCurrentInputEditorInfo(),
 							NextKeyboardType.AlphabetSupportsPhysical);
@@ -516,12 +516,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 					
 					char translatedChar = ((HardKeyboardTranslator)current).translatePhysicalCharacter(keyCode, event.getMetaState());
 					// consuming the meta keys
-					if (ic != null)
-						ic.clearMetaKeyStates(Integer.MAX_VALUE);
 					mPhysicalShiftOn = false;
 					
 					if (translatedChar != 0) 
 					{
+						if (ic != null)
+							ic.clearMetaKeyStates(Integer.MAX_VALUE);//translated, so we also take care of the metakeys.
+						
 						if (AnySoftKeyboard.DEBUG)
 							Log.d("AnySoftKeyborad", "'"+ current.getKeyboardName()	+ "' translated key " + keyCode + " to "+ translatedChar);
 
@@ -1595,7 +1596,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	public void deleteLastCharactersFromInput(int countToDelete) {
-		final int currentLength = mWord.getTypedWord().length();
+		final int currentLength = mComposing.length();
 		boolean shouldDeleteUsingCompletion;
 		if (currentLength > 0) {
 			shouldDeleteUsingCompletion = true;

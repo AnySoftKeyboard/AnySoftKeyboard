@@ -75,8 +75,6 @@ class AssertsSQLiteConnection extends DictionarySQLiteConnection {
 		SQLiteDatabase checkDB = null;
 		boolean validDatabase = false;
 		try{
-			
-			
 			String myPath = DB_PATH + mDbName;
 			checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
 			//OK. If we got here, then the database exists!
@@ -168,7 +166,12 @@ class AssertsSQLiteConnection extends DictionarySQLiteConnection {
    	//Open the empty db as the output stream
    	File databaseFile = new File(outFileName);
    	if (!databaseFile.exists())
-   		databaseFile.createNewFile();
+   	{
+   		Log.d("AnySoftKeyboard", "Since'"+outFileName+"' does not exist in the file-system, I'll create an empty for it");
+   		//this will create an empty database file at the current location
+   		SQLiteDatabase emptyDb = super.getReadableDatabase();
+   		emptyDb.close();
+   	}
    	
    	OutputStream myOutput = new FileOutputStream(outFileName, false);
 
@@ -188,11 +191,11 @@ class AssertsSQLiteConnection extends DictionarySQLiteConnection {
    
    @Override
    public synchronized SQLiteDatabase getReadableDatabase() {
-	   if (mDataBase != null)
-		   return mDataBase;
-	   
+	   	if (mDataBase != null)
+			return mDataBase;
+   
 		String myPath = DB_PATH + mDbName;
-		mDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+		mDataBase =  SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
 		//first time I have the database.
 		//I'll take its revision and store it in the application preferences, so I'll know if
 		//asserts upgrade has happened.

@@ -125,7 +125,7 @@ class HardKeyboardSequenceHandler
 	}
 	
 	//See 'getSequenceCharacter' function for usage for msSequenceLivingTime and mLastTypedKeyEventTime.
-	private static final long msSequenceLivingTime = 500;
+	private static final long msSequenceLivingTime = 600;
 	private long mLastTypedKeyEventTime;
 	private final KeyEventSequenceHolder mCurrentTypedSequence;
 	
