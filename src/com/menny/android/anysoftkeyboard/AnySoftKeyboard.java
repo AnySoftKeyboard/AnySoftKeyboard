@@ -448,18 +448,68 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	private boolean mPhysicalShiftOn = false;
+	private boolean mPhysicalAltOn = false;
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		switch (keyCode) {
+		// For all other keys, if we want to do transformations on
+		// text being entered with a hard keyboard, we need to process
+		// it and do the appropriate action.
+		// using physical keyboard is more annoying with candidate view in
+		// the way
+		// so we disable it.
+		InputConnection ic = getCurrentInputConnection();
+		if (mCompletionOn)
+			commitTyped(ic);// to clear the underline.
+
+		mCompletionOn = false;
+
+		switch (keyCode) 
+		{
 		case KeyEvent.KEYCODE_SHIFT_LEFT:
 		case KeyEvent.KEYCODE_SHIFT_RIGHT:
-			mPhysicalShiftOn = !mPhysicalShiftOn;
-			if (DEBUG)
-				Log.d("AnySoftKeyboard", "Physical SHIFT was pressed. The new shift state is "+mPhysicalShiftOn);
+			if (event.getRepeatCount() == 0)
+			{
+				mPhysicalShiftOn = event.isShiftPressed();
+				if (DEBUG)
+					Log.d("AnySoftKeyboard", "Physical SHIFT was pressed. The new shift state is "+mPhysicalShiftOn);
+			}
+			break;
+		case KeyEvent.KEYCODE_ALT_LEFT:
+		case KeyEvent.KEYCODE_ALT_RIGHT:
+			if (event.getRepeatCount() == 0)
+			{
+				mPhysicalAltOn = event.isAltPressed();
+				if (DEBUG)
+					Log.d("AnySoftKeyboard", "Physical ALT was pressed. The new ALT state is "+mPhysicalAltOn);
+			}
+			break;
+		case KeyEvent.KEYCODE_SPACE:
+			if (mPhysicalAltOn) 
+			{	
+				Log.d("AnySoftKeyborad", "User pressed ALT+SPACE, moving to next physical keyboard.");
+				// consuming the meta keys
+				mPhysicalShiftOn = false;
+				mPhysicalAltOn = false;
+				if (ic != null)
+					ic.clearMetaKeyStates(Integer.MAX_VALUE);//translated, so we also take care of the metakeys.
+				
+				// only physical keyboard
+				nextKeyboard(getCurrentInputEditorInfo(),
+						NextKeyboardType.AlphabetSupportsPhysical);
+
+				return true;
+			}
 			break;
 		case KeyEvent.KEYCODE_BACK:
 			if (event.getRepeatCount() == 0 && mInputView != null) {
-				if (mInputView.handleBack()) {
+				if (mInputView.handleBack()) 
+				{
+					// consuming the meta keys
+					mPhysicalShiftOn = false;
+					mPhysicalAltOn = false;
+					if (ic != null)
+						ic.clearMetaKeyStates(Integer.MAX_VALUE);//translated, so we also take care of the metakeys.
+
 					return true;
 				} /*
 				 * else if (mTutorial != null) { mTutorial.close(); mTutorial =
@@ -477,32 +527,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// }
 		// break;
 		default:
-			// For all other keys, if we want to do transformations on
-			// text being entered with a hard keyboard, we need to process
-			// it and do the appropriate action.
-			// using physical keyboard is more annoying with candidate view in
-			// the way
-			// so we disable it.
-			InputConnection ic = getCurrentInputConnection();
-			if (mCompletionOn)
-				commitTyped(ic);// to clear the underline.
-
-			mCompletionOn = false;
-
-			if ((keyCode == KeyEvent.KEYCODE_SPACE && (event.getMetaState() & KeyEvent.META_ALT_ON) != 0)
-					/*|| ((keyCode == KeyEvent.KEYCODE_ALT_LEFT || keyCode == KeyEvent.KEYCODE_ALT_RIGHT) && (event
-							.getMetaState() & KeyEvent.META_SHIFT_ON) != 0)*/) {
-				if (ic != null) {
-					// First, tell the editor that it is no longer in the
-					// shift state, since we are consuming this.
-					ic.clearMetaKeyStates(Integer.MAX_VALUE);
-					// only physical keyboard
-					nextKeyboard(getCurrentInputEditorInfo(),
-							NextKeyboardType.AlphabetSupportsPhysical);
-
-					return true;
-				}
-			} else if (mKeyboardSwitcher.isCurrentKeyboardPhysical()) {
+			if (mKeyboardSwitcher.isCurrentKeyboardPhysical()) 
+			{
 				AnyKeyboard current = mKeyboardSwitcher.getCurrentKeyboard();
 				if (AnySoftKeyboard.DEBUG)
 					Log.d("AnySoftKeyborad", "Asking '"	+ current.getKeyboardName()	+ "' to translate key: " + keyCode);
@@ -513,23 +539,40 @@ public class AnySoftKeyboard extends InputMethodService implements
 				try 
 				{
 					boolean shifted = mPhysicalShiftOn | ((event.getMetaState()&KeyEvent.META_SHIFT_ON) != 0);
-					
-					char translatedChar = ((HardKeyboardTranslator)current).translatePhysicalCharacter(keyCode, event.getMetaState());
+					boolean alted = mPhysicalAltOn | ((event.getMetaState()&KeyEvent.META_ALT_ON) != 0);
 					// consuming the meta keys
+					//note: I'm not clearing the meta-state, since it could be that
+					//i will want to pass the physical keys handling to the device (translatedChar == 0)
 					mPhysicalShiftOn = false;
+					mPhysicalAltOn = false;
+					
+					char translatedChar;
+					if (alted)
+					{
+						Log.d("AnySoftKeyborad", "Physical keyboard is in ALT state -> not translating.");
+						translatedChar = 0;
+					}
+					else
+					{
+						translatedChar = ((HardKeyboardTranslator)current).translatePhysicalCharacter(keyCode, event.getMetaState());
+						if (shifted)
+						{
+							Log.d("AnySoftKeyborad", "Physical keyboard is in SHIFT state -> changing to upper case.");
+							translatedChar = Character.toUpperCase(translatedChar);
+						}
+					}						
 					
 					if (translatedChar != 0) 
 					{
+						// consuming the meta keys
+						//Since I'm handling the physical keys, I also need to clear the meta state
 						if (ic != null)
 							ic.clearMetaKeyStates(Integer.MAX_VALUE);//translated, so we also take care of the metakeys.
 						
 						if (AnySoftKeyboard.DEBUG)
 							Log.d("AnySoftKeyborad", "'"+ current.getKeyboardName()	+ "' translated key " + keyCode + " to "+ translatedChar);
 
-						if (shifted)
-						{
-							translatedChar = Character.toUpperCase(translatedChar);
-						}
+						
 						onKey(translatedChar, new int[] { translatedChar });
 						return true;
 					} else {
