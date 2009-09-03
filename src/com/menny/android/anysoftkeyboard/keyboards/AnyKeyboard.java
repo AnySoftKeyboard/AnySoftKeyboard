@@ -252,7 +252,7 @@ public abstract class AnyKeyboard extends Keyboard
         }
     }
 
-	private int getDomainsPopupId() {
+	protected int getDomainsPopupId() {
 		return R.xml.popup_domains;
 	}
     
@@ -431,11 +431,14 @@ public abstract class AnyKeyboard extends Keyboard
 	        case EditorInfo.TYPE_TEXT_VARIATION_URI:
 	        	if (mSmileyKey != null)
 	        	{
-	        		Log.d("AnySoftKeyboard", "Changing smiley key to domains.");
-		        	mSmileyKey.icon = res.getDrawable(R.drawable.sym_keyboard_key_domain);
+	        		final int domainsDrawableId = getDomainsKeyDrawable();
+	        		final String domainsKeyText = getDomainsKeyText();
+	        		final int domainsPopupId = getDomainsPopupId();
+	        		Log.d("AnySoftKeyboard", "Changing smiley key to domains: Key text '"+domainsKeyText+"', drawable: "+domainsDrawableId+", popup Id:"+domainsPopupId);
+	        		mSmileyKey.icon = res.getDrawable(domainsDrawableId);
 		        	mSmileyKey.label = null;
-		        	mSmileyKey.text = ".com";
-		        	mSmileyKey.popupResId = getDomainsPopupId();
+		        	mSmileyKey.text = domainsKeyText;
+		        	mSmileyKey.popupResId = domainsPopupId;
 	        	}
 	        	if (mQuestionMarkKey != null)
 	        	{
@@ -464,6 +467,14 @@ public abstract class AnyKeyboard extends Keyboard
 	        	break;
         }
 	}
+
+	protected int getDomainsKeyDrawable() {
+		return R.drawable.sym_keyboard_key_domain;
+	}
+
+	protected String getDomainsKeyText() {
+		return ".com";
+	}
 	
 	public int getShiftedKeyValue(int primaryCode) 
 	{
@@ -482,8 +493,7 @@ public abstract class AnyKeyboard extends Keyboard
 		return Character.toUpperCase(primaryCode);
 	}
 	
-class AnyKey extends Keyboard.Key {
-        
+	class AnyKey extends Keyboard.Key {
         //private boolean mShiftLockEnabled;
         
         public AnyKey(Resources res, Keyboard.Row parent, int x, int y, 

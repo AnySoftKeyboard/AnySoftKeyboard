@@ -56,6 +56,21 @@ public class DictionaryFactory
 			case Hebrew:
 				dict = new SQLiteSimpleHeDictionary(context);
 				break;
+			case French:
+				dict = new SQLiteSimpleFrDictionary(context);
+				break;
+			case German:
+				dict = new SQLiteSimpleDeDictionary(context);
+				break;
+			case Spanish:
+				dict = new SQLiteSimpleEsDictionary(context);
+				break;
+			case Swedish:
+				dict = new SQLiteSimpleSvDictionary(context);
+				break;
+			case Russian:
+				dict = new SQLiteSimpleRuDictionary(context);
+				break;
 			default:
 				return null;
 			}

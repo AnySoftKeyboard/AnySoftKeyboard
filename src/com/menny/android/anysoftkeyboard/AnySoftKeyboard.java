@@ -1225,39 +1225,34 @@ public class AnySoftKeyboard extends InputMethodService implements
 		AnyKeyboard currentKeyboard = mKeyboardSwitcher.getCurrentKeyboard();
 		if (currentKeyboard == null) {
 			if (AnySoftKeyboard.DEBUG)
-				Log
-						.d("AnySoftKeyboard",
-								"nextKeyboard: Looking for next keyboard. No current keyboard.");
+				Log.d("AnySoftKeyboard", "nextKeyboard: Looking for next keyboard. No current keyboard.");
 		} else {
 			if (AnySoftKeyboard.DEBUG)
-				Log.d("AnySoftKeyboard",
-						"nextKeyboard: Looking for next keyboard. Current keyboard is:"
-								+ currentKeyboard.getKeyboardName());
+				Log.d("AnySoftKeyboard", "nextKeyboard: Looking for next keyboard. Current keyboard is:" + currentKeyboard.getKeyboardName());
 		}
 		// in numeric keyboards, the LANG key will go back to the original
 		// alphabet keyboard-
 		// so no need to look for the next keyboard, 'mLastSelectedKeyboard'
 		// holds the last
 		// keyboard used.
-		currentKeyboard = mKeyboardSwitcher.nextKeyboard(currentEditorInfo,
-				type);
+		currentKeyboard = mKeyboardSwitcher.nextKeyboard(currentEditorInfo,	type);
 
 		Log.i("AnySoftKeyboard", "nextKeyboard: Setting next keyboard to: "
 				+ currentKeyboard.getKeyboardName());
 		updateShiftKeyState(currentEditorInfo);
 		// changing dictionary
-		if (mSuggest != null) {
+		if (mSuggest != null) 
+		{
 			if (mKeyboardSwitcher.isAlphabetMode() && mShowSuggestions)
-				mSuggest.setMainDictionary(DictionaryFactory.getDictionary(
-						currentKeyboard.getDefaultDictionaryLanguage(), this));
+				mSuggest.setMainDictionary(DictionaryFactory.getDictionary(currentKeyboard.getDefaultDictionaryLanguage(), this));
 			else
 				mSuggest.setMainDictionary(null);
 		}
 		// Notifying if needed
 		if ((mKeyboardChangeNotificationType
 				.equals(KEYBOARD_NOTIFICATION_ALWAYS))
-				|| (mKeyboardChangeNotificationType
-						.equals(KEYBOARD_NOTIFICATION_ON_PHYSICAL) && (type == NextKeyboardType.AlphabetSupportsPhysical))) {
+				|| (mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ON_PHYSICAL) && (type == NextKeyboardType.AlphabetSupportsPhysical))) 
+		{
 			notifyKeyboardChangeIfNeeded();
 		}
 	}

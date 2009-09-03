@@ -29,6 +29,13 @@ abstract public class Dictionary {
 		None,
 		English,
 		Hebrew,
+		French,
+		German,
+		Spanish,
+		Russian,
+		Arabic,
+		Lao,
+		Swedish
 	}
 	
     /**

@@ -5,6 +5,7 @@ import android.view.KeyEvent;
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.Dictionary.Dictionary;
+import com.menny.android.anysoftkeyboard.Dictionary.Dictionary.Language;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
 public class RussianKeyboard extends AnyKeyboard implements HardKeyboardTranslator
@@ -49,5 +50,10 @@ public class RussianKeyboard extends AnyKeyboard implements HardKeyboardTranslat
 	public char translatePhysicalCharacter(int primaryCode, int metaState) 
 	{
 		return msKeySequenceHandler.getSequenceCharacter((char)primaryCode, getKeyboardContext());
+	}
+	
+	@Override
+	public Language getDefaultDictionaryLanguage() {
+		return Language.Russian;
 	}
 }

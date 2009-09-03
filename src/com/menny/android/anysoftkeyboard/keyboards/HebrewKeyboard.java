@@ -27,6 +27,23 @@ public class HebrewKeyboard extends AnyKeyboard implements HardKeyboardTranslato
 		return R.drawable.he;
 	}
 	
+	@Override
+	protected String getDomainsKeyText() {
+		return ".co.il";
+	}
+	
+	@Override
+	protected int getDomainsPopupId() {
+		return R.xml.popup_domains_il;
+	}
+	
+	@Override
+	protected int getDomainsKeyDrawable() {
+		// TODO Auto-generated method stub
+		//should use my own.
+		return super.getDomainsKeyDrawable();
+	}
+	
 	public char translatePhysicalCharacter(int primaryCode, int metaState) 
 	{
 //		if (((metaState&KeyEvent.META_ALT_ON) == 0) &&
