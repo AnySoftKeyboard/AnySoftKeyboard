@@ -12,10 +12,9 @@ public class LatinKeyboard extends AnyKeyboard implements HardKeyboardTranslator
 	}
 	
 	//this class implements the HardKeyboardTranslator interface in an empty way, the physical keyboard is Latin...
-	public char translatePhysicalCharacter(int keyCode, int metaKeys) 
+	public void translatePhysicalCharacter(HardKeyboardAction action) 
 	{
-		//I'll return 0, so the caller will use defaults.
-		return 0;
+		//I'll do nothing, so the caller will use defaults.
 	}
 
 	protected void setPopupKeyChars(Key aKey) 

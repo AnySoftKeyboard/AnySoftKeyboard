@@ -101,16 +101,18 @@ public class BulgarianPhoneticKeyboard extends AnyKeyboard implements HardKeyboa
 	
 	private SequenceStage mCurrentSequenceStage = SequenceStage.None;
 	
-	public char translatePhysicalCharacter(int primaryCode, int metaState) 
+	public void translatePhysicalCharacter(HardKeyboardAction action) 
 	{
-		if ((metaState&KeyEvent.META_ALT_ON) == 0)
+		final int primaryCode = action.getKeyCode();
+		if (!action.isAltActive())
 		{
 			if ((mCurrentSequenceStage == SequenceStage.c) &&
 					(primaryCode == KeyEvent.KEYCODE_H))
 			{
 				mCurrentSequenceStage = SequenceStage.None;
 				super.getKeyboardContext().deleteLastCharactersFromInput(1);
-				return (char)1095;
+				action.setNewKeyCode(1095);
+				return;
 			}
 			
 			if ((mCurrentSequenceStage == SequenceStage.s) &&
@@ -118,7 +120,8 @@ public class BulgarianPhoneticKeyboard extends AnyKeyboard implements HardKeyboa
 			{
 				mCurrentSequenceStage = SequenceStage.sh;
 				super.getKeyboardContext().deleteLastCharactersFromInput(1);
-				return (char)1096;
+				action.setNewKeyCode(1096);
+				return;
 			}
 			
 			if ((mCurrentSequenceStage == SequenceStage.sh) &&
@@ -126,7 +129,8 @@ public class BulgarianPhoneticKeyboard extends AnyKeyboard implements HardKeyboa
 			{
 				mCurrentSequenceStage = SequenceStage.None;
 				super.getKeyboardContext().deleteLastCharactersFromInput(1);
-				return (char)1097;
+				action.setNewKeyCode(1097);
+				return;
 			}
 			
 			if ((mCurrentSequenceStage == SequenceStage.y) &&
@@ -134,7 +138,8 @@ public class BulgarianPhoneticKeyboard extends AnyKeyboard implements HardKeyboa
 			{
 				mCurrentSequenceStage = SequenceStage.None;
 				super.getKeyboardContext().deleteLastCharactersFromInput(1);
-				return (char)1102;
+				action.setNewKeyCode(1102);
+				return;
 			}
 			
 			if ((mCurrentSequenceStage == SequenceStage.C) &&
@@ -142,7 +147,8 @@ public class BulgarianPhoneticKeyboard extends AnyKeyboard implements HardKeyboa
 			{
 				mCurrentSequenceStage = SequenceStage.None;
 				super.getKeyboardContext().deleteLastCharactersFromInput(1);
-				return (char)1063;
+				action.setNewKeyCode(1063);
+				return;
 			}
 			
 			if ((mCurrentSequenceStage == SequenceStage.S) &&
@@ -150,7 +156,8 @@ public class BulgarianPhoneticKeyboard extends AnyKeyboard implements HardKeyboa
 			{
 				mCurrentSequenceStage = SequenceStage.SH;
 				super.getKeyboardContext().deleteLastCharactersFromInput(1);
-				return (char)1064;
+				action.setNewKeyCode(1064);
+				return;
 			}
 			
 			if ((mCurrentSequenceStage == SequenceStage.SH) &&
@@ -158,7 +165,8 @@ public class BulgarianPhoneticKeyboard extends AnyKeyboard implements HardKeyboa
 			{
 				mCurrentSequenceStage = SequenceStage.None;
 				super.getKeyboardContext().deleteLastCharactersFromInput(1);
-				return (char)1065;
+				action.setNewKeyCode(1065);
+				return;
 			}
 			
 			if ((mCurrentSequenceStage == SequenceStage.Y) &&
@@ -166,10 +174,11 @@ public class BulgarianPhoneticKeyboard extends AnyKeyboard implements HardKeyboa
 			{
 				mCurrentSequenceStage = SequenceStage.None;
 				super.getKeyboardContext().deleteLastCharactersFromInput(1);
-				return (char)1070;
+				action.setNewKeyCode(1070);
+				return;
 			}
 				
-			if ((metaState&KeyEvent.META_SHIFT_ON) == 0)
+			if (!action.isShiftActive())
 			{
 				if (primaryCode == KeyEvent.KEYCODE_S)
 					mCurrentSequenceStage = SequenceStage.s;
@@ -181,9 +190,12 @@ public class BulgarianPhoneticKeyboard extends AnyKeyboard implements HardKeyboa
 					mCurrentSequenceStage = SequenceStage.None;
 				
 				if (msPhysicalKeysMap.containsKey(primaryCode))
-					return (char)msPhysicalKeysMap.get(primaryCode).intValue();
+				{
+					action.setNewKeyCode(msPhysicalKeysMap.get(primaryCode).intValue());
+					return;
+				}
 				else
-					return 0;
+					return;
 			}
 			else
 			{
@@ -197,14 +209,13 @@ public class BulgarianPhoneticKeyboard extends AnyKeyboard implements HardKeyboa
 					mCurrentSequenceStage = SequenceStage.None;
 				
 				if (msPhysicalShiftKeysMap.containsKey(primaryCode))
-					return (char)msPhysicalShiftKeysMap.get(primaryCode).intValue();
+				{
+					action.setNewKeyCode(msPhysicalShiftKeysMap.get(primaryCode).intValue());
+					return;
+				}
 				else
-					return 0;
+					return;
 			}
-		}
-		else
-		{
-			return 0;
 		}
 	}
 }

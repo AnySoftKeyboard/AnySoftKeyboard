@@ -31,13 +31,20 @@ public abstract class AnyKeyboard extends Keyboard
 	public final static int KEYCODE_SMILEY = -10;
 	//public final static int KEYCODE_DOT_COM = -80;
 	
+	public interface HardKeyboardAction
+	{
+		int getKeyCode();
+		boolean isAltActive();
+		boolean isShiftActive();
+		void setNewKeyCode(int keyCode);
+	}
+	
 	public interface HardKeyboardTranslator
 	{
 		/*
-		 * Returns the mapped character for the provided parameters.
-		 * If the provided parameters are not to be mapped, returns 0;
+		 * Gets the current state of the hard keyboard, and may change the output key-code.
 		 */
-		char translatePhysicalCharacter(int keyCode, int metaKeys);
+		void translatePhysicalCharacter(HardKeyboardAction action);
 	}
 
 	private static final int SHIFT_OFF = 0;

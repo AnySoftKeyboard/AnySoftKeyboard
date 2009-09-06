@@ -47,9 +47,20 @@ public class RussianKeyboard extends AnyKeyboard implements HardKeyboardTranslat
 		return R.drawable.ru;
 	}
 	
-	public char translatePhysicalCharacter(int primaryCode, int metaState) 
+	public void translatePhysicalCharacter(HardKeyboardAction action) 
 	{
-		return msKeySequenceHandler.getSequenceCharacter((char)primaryCode, getKeyboardContext());
+		if (action.isAltActive())
+			return;
+		else
+		{
+			char translated = msKeySequenceHandler.getSequenceCharacter((char)action.getKeyCode(), getKeyboardContext());
+			if (translated != 0)
+			{
+				if (action.isShiftActive())
+					translated = Character.toUpperCase(translated);
+				action.setNewKeyCode(translated);
+			}
+		}
 	}
 	
 	@Override

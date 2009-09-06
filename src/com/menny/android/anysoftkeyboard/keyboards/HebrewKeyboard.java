@@ -50,42 +50,25 @@ public class HebrewKeyboard extends AnyKeyboard implements HardKeyboardTranslato
 		return Character.isLetter(keyValue) || (keyValue == '\"');
 	}
 	
-	public char translatePhysicalCharacter(int primaryCode, int metaState) 
+	public void translatePhysicalCharacter(HardKeyboardAction action) 
 	{
-//		if (((metaState&KeyEvent.META_ALT_ON) == 0) &&
-//    	    ((metaState&KeyEvent.META_SHIFT_ON) == 0))
-//		{
-//			if (msPhysicalKeysMap.containsKey(primaryCode))
-//				return (char)msPhysicalKeysMap.get(primaryCode).intValue();
-//			else
-//				return 0;
-//		}
-//		else if (((metaState&KeyEvent.META_ALT_ON) != 0) &&
-//				 (primaryCode == KeyEvent.KEYCODE_COMMA))
-//		{
-//			//this is a special case - we support comma by giving 
-//			//ALT+comma, since comma itself is TET Hebrew letter.
-//			return (char)',';
-//		}
-//		else if (((metaState&KeyEvent.META_SHIFT_ON) != 0) &&
-//				 (primaryCode == KeyEvent.KEYCODE_COMMA))
-//		{
-//			//this is a special case - we support comma by giving 
-//			//shift+comma, since question itself is TET Hebrew letter.
-//			return (char)'?';
-//		}
-//		else
-//		{
-//			return 0;
-//		}
-		if (((metaState&KeyEvent.META_SHIFT_ON) != 0) &&
-				 (primaryCode == KeyEvent.KEYCODE_COMMA))
+		if (action.isAltActive() && (action.getKeyCode() == KeyEvent.KEYCODE_COMMA))
+		{
+			//this is a special case - we support comma by giving 
+			//ALT+comma, since question itself is TET Hebrew letter.
+			action.setNewKeyCode((char)',');
+		}
+		else if (action.isShiftActive() && (action.getKeyCode() == KeyEvent.KEYCODE_COMMA))
 		{
 			//this is a special case - we support comma by giving 
 			//shift+comma, since question itself is TET Hebrew letter.
-			return (char)',';
+			action.setNewKeyCode((char)'?');
 		}
-		else
-			return msKeySequenceHandler.getSequenceCharacter(primaryCode, getKeyboardContext());
+		else if ((!action.isAltActive()) && (!action.isShiftActive()))
+		{
+			final char translated = msKeySequenceHandler.getSequenceCharacter(action.getKeyCode(), getKeyboardContext());
+			if (translated != 0)
+				action.setNewKeyCode(translated);
+		}
 	}
 }

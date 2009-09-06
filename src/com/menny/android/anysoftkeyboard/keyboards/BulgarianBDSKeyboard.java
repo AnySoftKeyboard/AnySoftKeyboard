@@ -102,16 +102,18 @@ public class BulgarianBDSKeyboard extends AnyKeyboard implements HardKeyboardTra
 	
 	private SequenceStage mCurrentSequenceStage = SequenceStage.None;
 	
-	public char translatePhysicalCharacter(int primaryCode, int metaState) 
+	public void translatePhysicalCharacter(HardKeyboardAction action) 
 	{
-		if ((metaState&KeyEvent.META_ALT_ON) == 0)
+		final int primaryCode = action.getKeyCode(); 
+		if (!action.isAltActive())
 		{
 			if ((mCurrentSequenceStage == SequenceStage.t) &&
 				((primaryCode == KeyEvent.KEYCODE_S) || (primaryCode == KeyEvent.KEYCODE_C)))
 			{
 				mCurrentSequenceStage = SequenceStage.None;
 				super.getKeyboardContext().deleteLastCharactersFromInput(1);
-				return (char)1094;
+				action.setNewKeyCode(1094);
+				return;
 			}
 			
 			if ((mCurrentSequenceStage == SequenceStage.T) &&
@@ -119,7 +121,8 @@ public class BulgarianBDSKeyboard extends AnyKeyboard implements HardKeyboardTra
 			{
 				mCurrentSequenceStage = SequenceStage.None;
 				super.getKeyboardContext().deleteLastCharactersFromInput(1);
-				return (char)1062;
+				action.setNewKeyCode(1062);
+				return;
 			}
 			
 			if ((mCurrentSequenceStage == SequenceStage.c) &&
@@ -127,7 +130,8 @@ public class BulgarianBDSKeyboard extends AnyKeyboard implements HardKeyboardTra
 			{
 				mCurrentSequenceStage = SequenceStage.None;
 				super.getKeyboardContext().deleteLastCharactersFromInput(1);
-				return (char)1095;
+				action.setNewKeyCode(1095);
+				return;
 			}
 			
 			if ((mCurrentSequenceStage == SequenceStage.C) &&
@@ -135,10 +139,11 @@ public class BulgarianBDSKeyboard extends AnyKeyboard implements HardKeyboardTra
 			{
 				mCurrentSequenceStage = SequenceStage.None;
 				super.getKeyboardContext().deleteLastCharactersFromInput(1);
-				return (char)1063;
+				action.setNewKeyCode(1063);
+				return;
 			}
 			
-			if ((metaState&KeyEvent.META_SHIFT_ON) == 0)
+			if (!action.isShiftActive())
 			{
 				if (primaryCode == KeyEvent.KEYCODE_T)
 					mCurrentSequenceStage = SequenceStage.t;
@@ -148,9 +153,12 @@ public class BulgarianBDSKeyboard extends AnyKeyboard implements HardKeyboardTra
 					mCurrentSequenceStage = SequenceStage.None;
 				
 				if (msPhysicalKeysMap.containsKey(primaryCode))
-					return (char)msPhysicalKeysMap.get(primaryCode).intValue();
+				{
+					action.setNewKeyCode(msPhysicalKeysMap.get(primaryCode).intValue());
+					return;
+				}
 				else
-					return 0;
+					return;
 			}
 			else
 			{
@@ -162,14 +170,13 @@ public class BulgarianBDSKeyboard extends AnyKeyboard implements HardKeyboardTra
 					mCurrentSequenceStage = SequenceStage.None;
 				
 				if (msPhysicalShiftKeysMap.containsKey(primaryCode))
-					return (char)msPhysicalShiftKeysMap.get(primaryCode).intValue();
+				{
+					action.setNewKeyCode(msPhysicalShiftKeysMap.get(primaryCode).intValue());
+					return;
+				}
 				else
-					return 0;
+					return;
 			}
-		}
-		else
-		{
-			return 0;
 		}
 	}
 }
