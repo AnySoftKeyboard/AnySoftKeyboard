@@ -34,7 +34,7 @@ public class KeyboardFactory
 	private static final String SPANISH_KEYBOARD = "es_keyboard";
 	private static final String CATALAN_KEYBOARD = "catalan_keyboard";
 	private static final String CH_FR_KEYBOARD = "ch_fr_keyboard";
-	private static final String CH_DE_KEYBOARD = "ch_de_keyboard";
+	private static final String DE_KEYBOARD = "ch_de_keyboard";//this is the preferences key. Do not change it.
 	
 	static
 	{
@@ -69,7 +69,8 @@ public class KeyboardFactory
 		
 		//Issue 37: Swiss keyboards
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.ch_fr_qwerty, R.string.ch_fr_keyboard, Dictionary.Language.French);} public String getKeyboardPrefId() {return CH_FR_KEYBOARD;}});
-		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.ch_de_qwerty, R.string.ch_de_keyboard, Dictionary.Language.German);} public String getKeyboardPrefId() {return CH_DE_KEYBOARD;}});		
+		//Issue 86: German keyboard
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.de_qwerty, R.string.de_keyboard, Dictionary.Language.German);} public String getKeyboardPrefId() {return DE_KEYBOARD;}});		
 	}
 	
 	public static ArrayList<AnyKeyboard> createAlphaBetKeyboards(AnyKeyboardContextProvider contextProvider)

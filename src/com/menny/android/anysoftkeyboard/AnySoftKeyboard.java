@@ -761,8 +761,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	 * Helper to determine if a given character code is alphabetic.
 	 */
 	private boolean isAlphabet(int code) {
-		// return mKeyboardSwitcher.getCurrentKeyboard().isLetter((char)code);
-		return Character.isLetter((char) code);
+		return mKeyboardSwitcher.getCurrentKeyboard().isLetter((char)code);
 	}
 
 	// Implementation of KeyboardViewListener
@@ -1174,7 +1173,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public boolean isWordSeparator(int code) {
 		// String separators = getWordSeparators();
 		// return separators.contains(String.valueOf((char)code));
-		return (!isAlphabet(code)) && (code != '\'');
+		return (!isAlphabet(code));
 	}
 
 	public boolean isSentenceSeparator(int code) {
