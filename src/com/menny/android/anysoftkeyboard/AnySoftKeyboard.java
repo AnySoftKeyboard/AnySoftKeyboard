@@ -1430,11 +1430,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private boolean loadSettings() {
 		boolean handled = false;
 		// Get the settings preferences
-		SharedPreferences sp = PreferenceManager
-				.getDefaultSharedPreferences(this);
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 		int newVibrationDuration;
-		if (sp.contains("vibrate_on")
-				&& !sp.contains("vibrate_on_key_press_duration")) {
+		if (sp.contains("vibrate_on") && !sp.contains("vibrate_on_key_press_duration")) {
 			boolean oldVibrateOn = sp.getBoolean("vibrate_on", false);
 			newVibrationDuration = oldVibrateOn ? 30 : 0;
 		} else {
@@ -1446,16 +1444,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		boolean newSoundOn = sp.getBoolean("sound_on", false);
 		boolean soundChanged = (newSoundOn != mSoundOn);
-		if (soundChanged) {
+		if (soundChanged) 
+		{
 			if (newSoundOn) {
-				Log
-						.i("AnySoftKeyboard",
-								"Loading sounds effects from AUDIO_SERVICE due to configuration change.");
+				Log.i("AnySoftKeyboard", "Loading sounds effects from AUDIO_SERVICE due to configuration change.");
 				mAudioManager.loadSoundEffects();
 			} else {
-				Log
-						.i("AnySoftKeyboard",
-								"Releasing sounds effects from AUDIO_SERVICE due to configuration change.");
+				Log.i("AnySoftKeyboard", "Releasing sounds effects from AUDIO_SERVICE due to configuration change.");
 				mAudioManager.unloadSoundEffects();
 			}
 		}
@@ -1463,18 +1458,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mSoundOn = newSoundOn;
 		// in order to support the old type of configuration
 		String newKeyboardChangeNotificationType;
-		if (sp.contains("physical_keyboard_change_notification")
-				&& !sp.contains("physical_keyboard_change_notification_type")) {
-			boolean oldNotificationEnabled = sp.getBoolean(
-					"physical_keyboard_change_notification", true);
-			newKeyboardChangeNotificationType = oldNotificationEnabled ? "2"
-					: "3";
+		if (sp.contains("physical_keyboard_change_notification") && !sp.contains("physical_keyboard_change_notification_type")) 
+		{
+			boolean oldNotificationEnabled = sp.getBoolean("physical_keyboard_change_notification", true);
+			newKeyboardChangeNotificationType = oldNotificationEnabled ? "2" : "3";
 		} else {
-			newKeyboardChangeNotificationType = sp.getString(
-					"physical_keyboard_change_notification_type", "2");
+			newKeyboardChangeNotificationType = sp.getString("physical_keyboard_change_notification_type", "2");
 		}
-		boolean notificationChanged = (!newKeyboardChangeNotificationType
-				.equalsIgnoreCase(mKeyboardChangeNotificationType));
+		boolean notificationChanged = (!newKeyboardChangeNotificationType.equalsIgnoreCase(mKeyboardChangeNotificationType));
 		handled = handled || notificationChanged;
 		mKeyboardChangeNotificationType = newKeyboardChangeNotificationType;
 
@@ -1484,8 +1475,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			// now clearing the notification, and it will be re-shown if needed
 			notificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
 			// should it be always on?
-			if (mKeyboardChangeNotificationType
-					.equals(KEYBOARD_NOTIFICATION_ALWAYS))
+			if (mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS))
 				notifyKeyboardChangeIfNeeded();
 		}
 
@@ -1501,8 +1491,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			setMainDictionaryForCurrentKeyboard();
 		}
 
-		boolean newAutoComplete = sp.getBoolean("auto_complete", true)
-				&& mShowSuggestions;
+		boolean newAutoComplete = sp.getBoolean("auto_complete", true) && mShowSuggestions;
 		handled = handled || (newAutoComplete != mAutoComplete);
 		mAutoComplete = newAutoComplete;
 
@@ -1524,20 +1513,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private void setMainDictionaryForCurrentKeyboard() {
 		if (mSuggest != null) {
 			if (!mShowSuggestions) {
-				Log
-						.d("AnySoftKeyboard",
-								"No suggestion is required. I'll try to release memory from the dictionary.");
+				Log.d("AnySoftKeyboard", "No suggestion is required. I'll try to release memory from the dictionary.");
 				DictionaryFactory.releaseAllDictionaries();
 				mSuggest.setMainDictionary(null);
 			} else {
 				// It null at the creation of the application.
-				if ((mKeyboardSwitcher != null)
-						&& mKeyboardSwitcher.isAlphabetMode()) {
-					AnyKeyboard currentKeyobard = mKeyboardSwitcher
-							.getCurrentKeyboard();
-					Dictionary mainDictionary = DictionaryFactory
-							.getDictionary(currentKeyobard
-									.getDefaultDictionaryLanguage(), this);
+				if ((mKeyboardSwitcher != null) && mKeyboardSwitcher.isAlphabetMode()) {
+					AnyKeyboard currentKeyobard = mKeyboardSwitcher.getCurrentKeyboard();
+					Dictionary mainDictionary = DictionaryFactory.getDictionary(currentKeyobard.getDefaultDictionaryLanguage(), this);
 					mSuggest.setMainDictionary(mainDictionary);
 				}
 			}
