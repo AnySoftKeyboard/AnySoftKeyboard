@@ -211,7 +211,7 @@
             />
             <CheckBoxPreference
             android:key="ch_de_keyboard"
-            android:title="@string/ch_de_keyboard"
+            android:title="@string/de_keyboard"
             android:persistent="true"
             android:defaultValue="false"
             android:summaryOn="Created with tudor and Claude Philipona"

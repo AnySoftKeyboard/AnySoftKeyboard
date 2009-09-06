@@ -49,7 +49,7 @@ public class LatinKeyboard extends AnyKeyboard implements HardKeyboardTranslator
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 's':
-					aKey.popupCharacters = "\u00a7\u0161\u015b";
+					aKey.popupCharacters = "\u00a7\u0161\u015b\u00df";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'u':

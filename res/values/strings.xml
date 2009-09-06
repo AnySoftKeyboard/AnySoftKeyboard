@@ -89,7 +89,7 @@
     <string name="finnish_swedish_keyboard">Swedish/Finnish</string>
     <string name="catalan_keyboard">Catalan</string>
     <string name="ch_fr_keyboard">Swiss French</string>
-    <string name="ch_de_keyboard">Swiss German</string>
+    <string name="de_keyboard">German/Swiss German</string>
     <string name="azerty_keyboard">AZERTY</string>
     <string name="es_keyboard">Spanish</string>
     <string name="ru_ph_keyboard">Russian Phonetic</string>
