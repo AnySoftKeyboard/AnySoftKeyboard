@@ -46,8 +46,8 @@ public class HebrewKeyboard extends AnyKeyboard implements HardKeyboardTranslato
 	
 	@Override
 	public boolean isLetter(char keyValue) {
-		//I do not want the super behavior (' is not a part of the hebrew word)
-		return Character.isLetter(keyValue) || (keyValue == '\"');
+		//Hebrew also support "
+		return super.isLetter(keyValue) || (keyValue == '\"');
 	}
 	
 	public void translatePhysicalCharacter(HardKeyboardAction action) 
