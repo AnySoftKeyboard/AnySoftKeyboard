@@ -19,6 +19,11 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
 		
 		public DictionaryWord(String word, int freq)
 		{
+			if (word == null)
+			{
+				Log.e("AnySoftKeyboard", "Got a NULL word from dictionary! This is illegal!");
+				word = "" + this.hashCode();
+			}
 			mWord = word;
 			mFrequency = freq;
 		}
