@@ -8,8 +8,10 @@
 <TextView android:id="@+id/main_title_version" android:text="@string/how_to_pointer_version_prefix" android:textSize="12px" android:layout_width="fill_parent" android:layout_height="wrap_content"
 	android:textStyle="bold"></TextView>
 
-<ImageView android:layout_height="wrap_content" android:src="@drawable/twitter" android:layout_width="wrap_content"></ImageView><TextView android:text="http://twitter.com/anysoftkeyboard" android:autoLink="web" android:textSize="12px" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
-
+<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+	<ImageView android:paddingLeft="8px" android:layout_height="wrap_content" android:src="@drawable/twitter" android:layout_width="wrap_content"></ImageView>
+	<TextView android:paddingLeft="3px" android:text="http://twitter.com/anysoftkeyboard" android:autoLink="web" android:textSize="12px" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+</LinearLayout>
 <ImageView android:layout_height="wrap_content" android:src="@drawable/welcome_keyboard_image" android:layout_width="fill_parent" android:layout_marginTop="10px" android:layout_marginLeft="15px"></ImageView>
 <TextView android:text="@string/how_to_pointer_not_app" android:textSize="18px" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content"
 	android:paddingTop="10px"></TextView>

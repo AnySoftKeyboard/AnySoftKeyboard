@@ -5,6 +5,7 @@ import java.util.HashMap;
 import android.util.Log;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
+import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.Dictionary.Dictionary.Language;
 
 public class DictionaryFactory 
@@ -46,6 +47,10 @@ public class DictionaryFactory
 			return msDictionaries.get(language);
 		
 		Dictionary dict = null;
+		
+		//showing lengthy operation toast
+		context.showToastMessage(R.string.toast_lengthy_words_long_operation, false);
+		
 		try
 		{
 			switch(language)

@@ -26,13 +26,13 @@
                 android:entryValues="@array/physical_keyboard_change_notification_values"
                 android:defaultValue=""
                 android:dialogTitle="@string/physical_keyboard_change_notification_dialog_title"/>
-	            <!-- <CheckBoxPreference
-	            android:key="physical_keyboard_change_notification"
-	            android:title="@string/physical_keyboard_change_notification"
+	            <CheckBoxPreference
+	            android:key="lengthy_operations_toast_notification"
+	            android:title="@string/lengthy_operations_toast_notification"
 	            android:persistent="true" 
 	            android:defaultValue="true"
 	            android:summaryOff=""
-	            android:summaryOn="Show notification on physical keyboard change"
+	            android:summaryOn="Show short notifications on lengthy operations"
 	            />-->
             </PreferenceCategory>
    		 	<PreferenceCategory android:key="effects_group" android:title="@string/effects_group">

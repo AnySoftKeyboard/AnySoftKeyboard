@@ -34,6 +34,7 @@ import android.view.View;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import android.widget.Toast;
 
 import com.menny.android.anysoftkeyboard.Dictionary.*;
 import com.menny.android.anysoftkeyboard.KeyboardSwitcher.NextKeyboardType;
@@ -47,7 +48,10 @@ import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTrans
 public class AnySoftKeyboard extends InputMethodService implements
 		KeyboardView.OnKeyboardActionListener,
 		OnSharedPreferenceChangeListener, AnyKeyboardContextProvider {
-
+	
+	public static final boolean DEBUG = true;
+	private static final boolean TRACE_SDCARD = false;
+	
 	private class HardKeyboardActionImpl implements HardKeyboardAction
 	{
 		private boolean mPhysicalShiftOn = false;
@@ -117,9 +121,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	}
 	
-	public static final boolean DEBUG = true;
-	private static final boolean TRACE_SDCARD = false;
-
 	// private static final String PREF_VIBRATE_ON = "vibrate_on";
 	// private static final String PREF_SOUND_ON = "sound_on";
 	// private static final String PREF_AUTO_CAP = "auto_cap";
@@ -229,6 +230,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		showToastMessage(R.string.toast_lengthy_start_up_operation, true);
 		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 		// setStatusIcon(R.drawable.ime_qwerty);
@@ -1685,5 +1687,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	public SharedPreferences getSharedPreferences() {
 		return PreferenceManager.getDefaultSharedPreferences(this);
+	}
+	
+	public void showToastMessage(int resId, boolean forShortTime)
+	{
+		CharSequence text = getResources().getText(resId);
+		int duration = forShortTime? Toast.LENGTH_SHORT : Toast.LENGTH_LONG;
+		if (DEBUG)
+			Log.v("AnySoftKeyboard", "showToastMessage: '"+text+"'. For: "+duration);
+		Toast.makeText(this.getApplication(), text, duration).show();
 	}
 }

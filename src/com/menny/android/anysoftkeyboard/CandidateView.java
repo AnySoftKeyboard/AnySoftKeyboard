@@ -88,7 +88,9 @@ public class CandidateView extends View {
     private int mColorOther;
     private Paint mPaint;
     private int mDescent;
-    private boolean mScrolled;
+    //will be used to determine if we are scrolling or selecting.
+    private boolean mScrolling;
+    //will tell us what is the target scroll X, so we know to stop
     private int mTargetScrollX;
     
     private int mTotalWidth;
@@ -139,7 +141,7 @@ public class CandidateView extends View {
 
         mPaint = new Paint();
         mPaint.setColor(mColorNormal);
-        mPaint.setAntiAlias(true);
+        mPaint.setAntiAlias(true);//it is just MUCH better looking
         mPaint.setTextSize(mPreviewText.getTextSize());
         mPaint.setStrokeWidth(0);
         mDescent = (int) mPaint.descent();
@@ -158,7 +160,7 @@ public class CandidateView extends View {
             public boolean onScroll(MotionEvent e1, MotionEvent e2,
                     float distanceX, float distanceY) {
                 final int width = getWidth();
-                mScrolled = true;
+                mScrolling = true;
                 mScrollX += (int) distanceX;
                 if (mScrollX < 0) {
                     mScrollX = 0;
@@ -166,6 +168,9 @@ public class CandidateView extends View {
                 if (distanceX > 0 && mScrollX + width > mTotalWidth) {                    
                     mScrollX -= (int) distanceX;
                 }
+                //fixing the touchX too
+                mTouchX += mScrollX;
+                //it is at the target
                 mTargetScrollX = mScrollX;
                 hidePreview();
                 invalidate();
@@ -174,6 +179,7 @@ public class CandidateView extends View {
         });
         setHorizontalFadingEdgeEnabled(true);
         setWillNotDraw(false);
+        //I'm doing my own scroll icons.
         setHorizontalScrollBarEnabled(false);
         setVerticalScrollBarEnabled(false);
         mScrollX = 0;
@@ -213,14 +219,14 @@ public class CandidateView extends View {
             mDivider.setBounds(0, mBgPadding.top, mDivider.getIntrinsicWidth(), 
                     mDivider.getIntrinsicHeight());
         }
-        int x = 0;
         final int count = mSuggestions.size(); 
         //final int width = getWidth();
         final Rect bgPadding = mBgPadding;
         final Paint paint = mPaint;
         final int touchX = mTouchX;
         final int scrollX = mScrollX;
-        final boolean scrolled = mScrolled;
+        int x = 0-scrollX;
+        //final boolean scrolled = mScrolling;
         final boolean typedWordValid = mTypedWordValid;
         final int y = (int) (height + mPaint.getTextSize() - mDescent) / 2;
 
@@ -228,26 +234,34 @@ public class CandidateView extends View {
             CharSequence suggestion = mSuggestions.get(i);
             if ((suggestion == null) || (suggestion.length() == 0)) continue;
             paint.setColor(mColorNormal);
-            if (mHaveMinimalSuggestion 
-                    && ((i == 1 && !typedWordValid) || (i == 0 && typedWordValid))) {
+            //the typed word is the first.
+            //the valid word is either the first, or the second.
+            //So, the following if will set the valid word as bold and mColorRecommended
+            if (mHaveMinimalSuggestion && ((i == 1 && !typedWordValid) || (i == 0 && typedWordValid))) {
                 paint.setTypeface(Typeface.DEFAULT_BOLD);
                 paint.setColor(mColorRecommended);
             } else if (i != 0) {
+            	//not valid
+            	paint.setTypeface(Typeface.DEFAULT);
                 paint.setColor(mColorOther);
             }
             final int wordWidth;
             if (mWordWidth[i] != 0) {
+            	//already computed
                 wordWidth = mWordWidth[i];
             } else {
+            	//first time we see the word in the GUI, lets see how long it is
                 float textWidth =  paint.measureText(suggestion, 0, suggestion.length());
                 wordWidth = (int) (textWidth + (X_GAP * 1.8));
                 mWordWidth[i] = wordWidth;
             }
-
+            //x is the incremental X position
             mWordX[i] = x;
 
-            if (touchX + scrollX >= x && touchX + scrollX < x + wordWidth && !scrolled &&
-                    touchX != OUT_OF_BOUNDS) {
+            //this handles the touched word
+            //
+            if ((touchX != OUT_OF_BOUNDS) && (touchX >= x) && (touchX < (x + wordWidth))) /*!scrolled &&*/
+            {
                 if (canvas != null) {
                     canvas.translate(x, 0);
                     mSelectionHighlight.setBounds(0, bgPadding.top, wordWidth, height);
@@ -261,6 +275,7 @@ public class CandidateView extends View {
 
             if (canvas != null) {
             	//Hebrew letters are to be drawn in the other direction. This will be probably be removed in Donut.
+            	//Also, this is not valid for Galaxy (Israel's Cellcom Android)
             	CharSequence directionCorrectedSuggestion = ms_requiresRtlWorkaround?
             			workaroundCorrectStringDirection(suggestion) : suggestion;
                 canvas.drawText(directionCorrectedSuggestion, 0, directionCorrectedSuggestion.length(), x + X_GAP, y, paint);
@@ -272,7 +287,7 @@ public class CandidateView extends View {
             paint.setTypeface(Typeface.DEFAULT);
             x += wordWidth;
         }
-        mTotalWidth = x;
+        mTotalWidth = x + mScrollX;//with the fixed size
         if (mTargetScrollX != mScrollX) {
             scrollToTarget();
         }
@@ -335,45 +350,55 @@ public class CandidateView extends View {
     }
 
     public void scrollPrev() {
-        int i = 0;
-        final int count = mSuggestions.size();
-        int firstItem = 0; // Actually just before the first item, if at the boundary
-        while (i < count) {
-            if (mWordX[i] < mScrollX 
-                    && mWordX[i] + mWordWidth[i] >= mScrollX - 1) {
-                firstItem = i;
-                break;
-            }
-            i++;
-        }
-        int leftEdge = mWordX[firstItem] + mWordWidth[firstItem] - getWidth();
-        if (leftEdge < 0) leftEdge = 0;
-        updateScrollPosition(leftEdge);
+//        int i = 0;
+//        final int count = mSuggestions.size();
+//        int firstItem = 0; // Actually just before the first item, if at the boundary
+//        while (i < count) {
+//            if (mWordX[i] < mScrollX 
+//                    && mWordX[i] + mWordWidth[i] >= mScrollX - 1) {
+//                firstItem = i;
+//                break;
+//            }
+//            i++;
+//        }
+//        int leftEdge = mWordX[firstItem] + mWordWidth[firstItem] - getWidth();
+//        if (leftEdge < 0) leftEdge = 0;
+//        updateScrollPosition(leftEdge);
+    	//going 3/4 left
+    	updateScrollPosition(mScrollX - (int)(0.75 * getWidth()));
     }
     
     public void scrollNext() {
-        int i = 0;
-        int targetX = mScrollX;
-        final int count = mSuggestions.size();
-        int rightEdge = mScrollX + getWidth();
-        while (i < count) {
-            if (mWordX[i] <= rightEdge &&
-                    mWordX[i] + mWordWidth[i] >= rightEdge) {
-                targetX = Math.min(mWordX[i], mTotalWidth - getWidth());
-                break;
-            }
-            i++;
-        }
-        updateScrollPosition(targetX);
+//        int i = 0;
+//        int targetX = mScrollX;
+//        final int count = mSuggestions.size();
+//        int rightEdge = mScrollX + getWidth();
+//        while (i < count) 
+//        {
+//            if ((mWordX[i] <= rightEdge) && ((mWordX[i] + mWordWidth[i]) >= rightEdge)) 
+//            {
+//                targetX = Math.min(mWordX[i], mTotalWidth - getWidth());
+//                break;
+//            }
+//            i++;
+//        }
+//        updateScrollPosition(targetX);
+    	//going 3/4 right
+    	updateScrollPosition(mScrollX + (int)(0.75 * getWidth()));
     }
 
     private void updateScrollPosition(int targetX) {
+    	if (targetX < 0)
+    		targetX = 0;
+        if (targetX > (mTotalWidth - 50))
+        	targetX = (mTotalWidth - 50);
+        
         if (targetX != mScrollX) {
             // TODO: Animate
             mTargetScrollX = targetX;
             requestLayout();
             invalidate();
-            mScrolled = true;
+            mScrolling = true;
         }
     }
     
@@ -404,7 +429,7 @@ public class CandidateView extends View {
 
         switch (action) {
         case MotionEvent.ACTION_DOWN:
-            mScrolled = false;
+            mScrolling = false;
             invalidate();
             break;
         case MotionEvent.ACTION_MOVE:
@@ -423,7 +448,7 @@ public class CandidateView extends View {
             invalidate();
             break;
         case MotionEvent.ACTION_UP:
-            if (!mScrolled) {
+            if (!mScrolling) {
                 if (mSelectedString != null) {
                     if (!mShowingCompletions) {
                         TextEntryState.acceptedSuggestion(mSuggestions.get(0),
@@ -437,6 +462,8 @@ public class CandidateView extends View {
             removeHighlight();
             hidePreview();
             requestLayout();
+            //I picked up the finger... No more scrolling, right?
+            mScrolling = false;
             break;
         }
         return true;
@@ -522,4 +549,8 @@ public class CandidateView extends View {
         super.onDetachedFromWindow();
         hidePreview();
     }
+    
+    public int getmScrollX() {
+		return mScrollX;
+	}
 }

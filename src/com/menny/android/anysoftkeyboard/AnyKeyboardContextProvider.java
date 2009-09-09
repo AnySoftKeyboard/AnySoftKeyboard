@@ -1,5 +1,6 @@
 package com.menny.android.anysoftkeyboard;
 
+
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -9,4 +10,5 @@ public interface AnyKeyboardContextProvider
 	void deleteLastCharactersFromInput(int lenght);
 	void appendCharactersToInput(CharSequence text);
 	SharedPreferences getSharedPreferences();
+	void showToastMessage(int resId, boolean forShortTime);
 }

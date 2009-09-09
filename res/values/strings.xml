@@ -44,7 +44,7 @@
         <item>2</item>
         <item>3</item>
     </string-array>
-    <!-- <string name="physical_keyboard_change_notification">Notify on physical layout change</string>-->
+    <string name="lengthy_operations_toast_notification">Notify on lengthy operations</string>
     
     <!-- settings - effects-->
     <string name="effects_group">Effects</string>
@@ -109,4 +109,7 @@
     <string name="change_lang_regular">ABC</string>
     <string name="change_symbols_wide">&#8592; 123 &#8592;</string>
     <string name="change_symbols_regular">123</string>
+    
+    <string name="toast_lengthy_words_long_operation">Loading dictionary...</string>
+    <string name="toast_lengthy_start_up_operation">Starting AnySoftKeyboard...</string>
 </resources>
