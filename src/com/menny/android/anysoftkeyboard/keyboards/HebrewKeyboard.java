@@ -50,6 +50,17 @@ public class HebrewKeyboard extends AnyKeyboard implements HardKeyboardTranslato
 		return super.isLetter(keyValue) || (keyValue == '\"');
 	}
 	
+	@Override
+	protected void setPopupKeyChars(Key aKey) {
+		if (aKey.codes[0] == 1513)
+		{
+			aKey.popupResId = R.xml.popup;
+			aKey.popupCharacters = "\u20aa";
+		}
+		else
+			super.setPopupKeyChars(aKey);
+	}
+	
 	public void translatePhysicalCharacter(HardKeyboardAction action) 
 	{
 		if (action.isAltActive() && (action.getKeyCode() == KeyEvent.KEYCODE_COMMA))
@@ -63,6 +74,10 @@ public class HebrewKeyboard extends AnyKeyboard implements HardKeyboardTranslato
 			//this is a special case - we support comma by giving 
 			//shift+comma, since question itself is TET Hebrew letter.
 			action.setNewKeyCode((char)'?');
+		}
+		else if (action.isAltActive() && (action.getKeyCode() == KeyEvent.KEYCODE_A))
+		{//New Israeli Shekel (ALT+HEBREW SHIN) - issue 90
+			action.setNewKeyCode((char)'\u20aa');
 		}
 		else if ((!action.isAltActive()) && (!action.isShiftActive()))
 		{
