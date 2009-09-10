@@ -48,7 +48,7 @@
             android:title="@string/vibrate_on"
             android:persistent="true"
             android:defaultValue="false"
-            android:summaryOn="Short vabration on soft keyboard press."
+            android:summaryOn="Short vibration on soft keyboard press."
             android:summaryOff=""
             />-->
     		<CheckBoxPreference

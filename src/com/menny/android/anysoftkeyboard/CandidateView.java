@@ -226,7 +226,7 @@ public class CandidateView extends View {
         final int touchX = mTouchX;
         final int scrollX = mScrollX;
         int x = 0-scrollX;
-        //final boolean scrolled = mScrolling;
+        final boolean scrolling = mScrolling;
         final boolean typedWordValid = mTypedWordValid;
         final int y = (int) (height + mPaint.getTextSize() - mDescent) / 2;
 
@@ -258,9 +258,9 @@ public class CandidateView extends View {
             //x is the incremental X position
             mWordX[i] = x;
 
-            //this handles the touched word
-            //
-            if ((touchX != OUT_OF_BOUNDS) && (touchX >= x) && (touchX < (x + wordWidth))) /*!scrolled &&*/
+            //this handles the touched word popup and highlight.
+            //We want to do those only if we are not scrolling (by finger, e.g.)
+            if ((touchX != OUT_OF_BOUNDS) && (!scrolling) && (touchX >= x) && (touchX < (x + wordWidth)))
             {
                 if (canvas != null) {
                     canvas.translate(x, 0);
