@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="ime_name">AnySoftKeyboard</string>
+	<string name="how_to_pointer_title">Welcome to AnySoftKeyboard</string>
+	<string name="how_to_pointer_version_prefix">Version: </string>
+	
+	<string name="how_to_pointer_not_app">AnySoftKeyboard is not a regular application - it is a on-screen keyboard replacement.</string>
+	<string name="how_to_pointer_how_to_url">Go to http://code.google.com/p/softkeyboard/wiki/HowTo for details about how to use this keyboard.</string>
+	<string name="how_to_pointer_changelog">For details about the latest version, go to: http://code.google.com/p/softkeyboard/wiki/ChangeLog</string>
+	<string name="how_to_pointer_issues">For bug reporting, go to: http://code.google.com/p/softkeyboard/issues/list</string>
+	<string name="how_to_pointer_site">For general details, go to: http://code.google.com/p/softkeyboard/</string>
+	
+    <!-- Symbols that are commonly considered word separators in this language -->
+    <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
+    <!-- Indicates that a word has been added to the dictionary -->
+    <string name="added_word"><xliff:g id="word">%s</xliff:g> : Saved</string>
+    
+    <!-- settings - UI -->
+    <string name="ui_group">User interface</string>
+    <string name="keyboard_layout_change_method_title">Layout change method</string>
+    <string name="keyboard_layout_change_method_summary">On screen keyboard layout change method</string>
+    <string name="keyboard_layout_change_method_dialog_title">Select method</string>
+    <string-array name="keyboard_layout_change_methods">
+        <item>Swipe with hint keys</item>
+        <item>Swipe without hint keys</item>
+        <item>No swipe, just keys</item>
+    </string-array>
+    <string-array name="keyboard_layout_change_methods_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string name="physical_keyboard_change_notification_title">Keyboard layout notification</string>
+    <string name="physical_keyboard_change_notification_summary">Type of notification about the active layout</string>
+    <string name="physical_keyboard_change_notification_dialog_title">Select notification type</string>
+    <string-array name="physical_keyboard_change_notification_types">
+        <item>Always show layout icon</item>
+        <item>On physical keyboard change</item>
+        <item>No notification</item>
+    </string-array>
+    <string-array name="physical_keyboard_change_notification_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string name="lengthy_operations_toast_notification">Notify on lengthy operations</string>
+    
+    <!-- settings - effects-->
+    <string name="effects_group">Effects</string>
+    <string name="ime_settings">Keyboard settings</string>
+    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
+    <string name="vibrate_on_key_press_title">Vibrate on key-press</string>
+    <string name="vibrate_on_key_press_summary">Vibration type selection</string>
+    <string name="vibrate_on_key_press_dialog_title">Select vibration duration</string>
+    <string-array name="vibrate_on_key_press_types">
+    	<item>No vibration</item>
+        <item>Soft</item>
+        <item>Medium</item>
+        <item>Hard</item>
+    </string-array>
+    <string-array name="vibrate_on_key_press_values">
+    	<item>0</item>
+        <item>17</item>
+        <item>30</item>
+        <item>50</item>
+    </string-array>
+    <string name="sound_on">Sound on key-press</string>
+    <string name="auto_caps">Auto-capitalization</string>
+    <string name="grammer_group">Grammar</string>
+    <string name="candidates_on">Show suggestions</string>
+    <string name="quick_fix">Quick fixes</string>
+    <string name="quick_fix_summary">Corrects commonly typed mistakes</string>
+    <string name="auto_complete">Auto select suggestion</string>
+    <string name="auto_complete_summary">Space will select highlighted suggestion</string>
+    
+    <!-- settings - keyboard group -->
+    <string name="keyboards_group">Keyboards</string>
+    <string name="eng_keyboard">English</string>
+    <!-- <string name="heb_keyboard">Hebrew - &#1502;&#1511;&#1500;&#1491;&#1514;&#32;&#1506;&#1497;&#1489;&#1512;&#1497;&#1514;</string>-->
+    <string name="heb_keyboard">Hebrew</string>
+    <string name="internet_keyboard">Internet keyboard</string>
+    <!-- <string name="lao_keyboard">Lao - &#3777;&#3739;&#3785;&#3737;&#3742;&#3765;&#3745;&#32;&#3749;&#3762;&#3751;</string>-->
+    <string name="lao_keyboard">Lao</string>
+    <string name="arabic_keyboard">Arabic</string>
+    <string name="bg_ph_keyboard">Bulgarian Phonetic</string>
+    <string name="bg_bds_keyboard">Bulgarian BDS</string>
+    <string name="dvorak_keyboard">Dvorak</string>
+    <string name="finnish_swedish_keyboard">Swedish/Finnish</string>
+    <string name="catalan_keyboard">Catalan</string>
+    <string name="ch_fr_keyboard">Swiss French</string>
+    <string name="de_keyboard">German/Swiss German</string>
+    <string name="azerty_keyboard">AZERTY</string>
+    <string name="es_keyboard">Spanish</string>
+    <string name="ru_ph_keyboard">Russian Phonetic</string>
+    <string name="ru_keyboard">Russian</string>
+    
+    <!-- Tutorials --> 
+    <string name="show_tutorial_on_startup">Show this tutorial on startup</string>
+    <string name="tutorial_swipe_title">Swipe for keyboard change</string>
+    <string name="tutorial_swipe_text">Keyboard layout can be changed by swiping you finger over the keyboard. Swipe left-to-right to change language, swipe right-to-left to change to symbols.</string>
+    
+    <!-- Special soft keyboard keys text -->
+    <string name="label_go_key">Go</string>
+    <string name="label_next_key">Next</string>
+    <string name="label_send_key">Send</string>
+    
+    <string name="change_lang_wide">&#8594; ABC &#8594;</string>
+    <string name="change_lang_regular">ABC</string>
+    <string name="change_symbols_wide">&#8592; 123 &#8592;</string>
+    <string name="change_symbols_regular">123</string>
+    
+    <string name="toast_lengthy_words_long_operation">Loading dictionary...</string>
+    <string name="toast_lengthy_start_up_operation">Starting AnySoftKeyboard...</string>
+</resources>
