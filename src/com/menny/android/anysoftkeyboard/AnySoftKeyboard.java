@@ -58,6 +58,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		{
 			Off,
 			On,
+			Pressed,
 			Sticky
 		}
 		
@@ -74,15 +75,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mChanegd = false;
 		}
 		
-		public void resetNoneStickyMetaState() 
-		{
-			if (mPhysicalShiftState != MetaKeyState.Sticky)
-				mPhysicalShiftState = MetaKeyState.Off;
-			if (mPhysicalAltState != MetaKeyState.Sticky)
-				mPhysicalAltState = MetaKeyState.Off;
-			mKeyCode = 0;
-			mChanegd = false;
-		}
+//		public void resetNoneStickyMetaState() 
+//		{
+//			if (mPhysicalShiftState != MetaKeyState.Sticky)
+//				mPhysicalShiftState = MetaKeyState.Off;
+//			if (mPhysicalAltState != MetaKeyState.Sticky)
+//				mPhysicalAltState = MetaKeyState.Off;
+//			mKeyCode = 0;
+//			mChanegd = false;
+//		}
 		
 		public boolean initializeAction(KeyEvent event)
 		{
@@ -94,7 +95,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			case KeyEvent.KEYCODE_SHIFT_RIGHT:
 				if (event.getRepeatCount() == 0)
 				{
-					mPhysicalShiftState = getNextState(mPhysicalShiftState, event.isShiftPressed());
+					mPhysicalShiftState = getNextStateOnMetaKeyPress(mPhysicalShiftState, event.isShiftPressed());
 					if (DEBUG)
 						Log.d("AnySoftKeyboard", "Physical SHIFT was pressed. The new shift state is "+mPhysicalShiftState);
 				}
@@ -103,30 +104,44 @@ public class AnySoftKeyboard extends InputMethodService implements
 			case KeyEvent.KEYCODE_ALT_RIGHT:
 				if (event.getRepeatCount() == 0)
 				{
-					mPhysicalAltState = getNextState(mPhysicalAltState, event.isAltPressed());
+					mPhysicalAltState = getNextStateOnMetaKeyPress(mPhysicalAltState, event.isAltPressed());
 					if (DEBUG)
 						Log.d("AnySoftKeyboard", "Physical ALT was pressed. The new ALT state is "+mPhysicalAltState);
 				}
 				return true;
 			default:
 				//if it sticky, then it will stay.
-				//if it on, then it should go away
-				//if it off, the it should stay off.
-				if (((event.getMetaState()&KeyEvent.META_SHIFT_ON) == 0) && (mPhysicalShiftState == MetaKeyState.On))
-					mPhysicalShiftState = MetaKeyState.Off;
-				if (((event.getMetaState()&KeyEvent.META_ALT_ON) == 0) && (mPhysicalAltState == MetaKeyState.On))
-					mPhysicalAltState = MetaKeyState.Off;
+				//else
+				//if meta-key is pressed, then on else stay as is (may be consumed by the key translation)
+				mPhysicalShiftState = getNextStateOnRegularKey(mPhysicalShiftState, event.isShiftPressed());
+				mPhysicalAltState = getNextStateOnRegularKey(mPhysicalAltState, event.isAltPressed());				
 				return false;
 			}
 		}
 		
-		private static MetaKeyState getNextState(MetaKeyState currentState,	boolean isPressed) 
+		private static MetaKeyState getNextStateOnRegularKey(MetaKeyState currentState, boolean isPressed) {
+			switch(currentState)
+			{
+			case Off:
+			case Pressed:
+				return isPressed? MetaKeyState.Pressed : MetaKeyState.Off;
+			case On:
+				return isPressed? MetaKeyState.Pressed : MetaKeyState.On;
+			case Sticky:
+				return MetaKeyState.Sticky;
+			default:
+				return MetaKeyState.Off;
+			}
+		}
+
+		private static MetaKeyState getNextStateOnMetaKeyPress(MetaKeyState currentState, boolean isPressed) 
 		{
 			if (isPressed)
 			{
 				switch(currentState)
 				{
 				case Off:
+				case Pressed:
 					return MetaKeyState.On;
 				case On:
 					return MetaKeyState.Sticky;
@@ -141,7 +156,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 		public int getKeyCode() {
 			return mKeyCode;
 		}
-
+		
+		public int consumeKeyCode() {
+			//consuming
+			if (mPhysicalAltState == MetaKeyState.On)
+				mPhysicalAltState = MetaKeyState.Off;
+			if (mPhysicalShiftState == MetaKeyState.On)
+				mPhysicalShiftState = MetaKeyState.Off;
+			
+			return mKeyCode;
+		}
+		
 		public boolean isAltActive() {
 			return mPhysicalAltState != MetaKeyState.Off;
 		}
@@ -150,13 +175,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 			return mPhysicalShiftState != MetaKeyState.Off;
 		}
 		
-		public boolean isStickyAlt() {
-			return mPhysicalAltState == MetaKeyState.Sticky;
-		}
-
-		public boolean isStickyShift() {
-			return mPhysicalShiftState == MetaKeyState.Sticky;
-		}
+//		public boolean isStickyAlt() {
+//			return mPhysicalAltState == MetaKeyState.Sticky;
+//		}
+//
+//		public boolean isStickyShift() {
+//			return mPhysicalShiftState == MetaKeyState.Sticky;
+//		}
 
 		public void setNewKeyCode(int keyCode) {
 			mChanegd = true;
@@ -166,7 +191,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		public boolean getKeyCodeWasChanged()
 		{
 			return mChanegd;
-		}
+		}		
 	}
 	
 	// private static final String PREF_VIBRATE_ON = "vibrate_on";
@@ -653,19 +678,18 @@ public class AnySoftKeyboard extends InputMethodService implements
 						if (DEBUG)
 							Log.v("AnySoftKeyboard", "Hard Keyboard Action after translation: Shift: "+mHardKeyboardAction.isShiftActive()+", Alt: "+mHardKeyboardAction.isAltActive()+", Key code: "+mHardKeyboardAction.getKeyCode()+", changed: "+mHardKeyboardAction.getKeyCodeWasChanged());
 
+						final char translatedChar = (char)mHardKeyboardAction.consumeKeyCode();
 						if (mHardKeyboardAction.getKeyCodeWasChanged()) 
 						{
-							final char translatedChar = (char)mHardKeyboardAction.getKeyCode();
-							
 							// consuming the meta keys
 							//Since I'm handling the physical keys, I also need to clear the meta state
 							if (ic != null)
 							{
 								//the clear should be done only if we are not in sticky mode
 								int metaStateToClear = Integer.MAX_VALUE;
-								if (mHardKeyboardAction.isStickyShift() || ((event.getMetaState()&KeyEvent.META_SHIFT_ON) != 0))
+								if (mHardKeyboardAction.isShiftActive())
 									metaStateToClear -= KeyEvent.META_SHIFT_ON;
-								if (mHardKeyboardAction.isStickyAlt() || ((event.getMetaState()&KeyEvent.META_ALT_ON) != 0))
+								if (mHardKeyboardAction.isAltActive())
 									metaStateToClear -= KeyEvent.META_ALT_ON;
 								
 								ic.clearMetaKeyStates(metaStateToClear);//translated, so we also take care of the metakeys.
@@ -681,7 +705,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 								Log.d("AnySoftKeyborad", "'"+ current.getKeyboardName()+ "' did not translated key " + keyCode+ ".");
 						}
 					} finally {
-						mHardKeyboardAction.resetNoneStickyMetaState();
 						if (ic != null)
 							ic.endBatchEdit();
 					}
