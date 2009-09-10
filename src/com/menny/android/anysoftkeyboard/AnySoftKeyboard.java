@@ -52,17 +52,34 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public static final boolean DEBUG = true;
 	private static final boolean TRACE_SDCARD = false;
 	
-	private class HardKeyboardActionImpl implements HardKeyboardAction
+	private static class HardKeyboardActionImpl implements HardKeyboardAction
 	{
-		private boolean mPhysicalShiftOn = false;
-		private boolean mPhysicalAltOn = false;
+		private enum MetaKeyState
+		{
+			Off,
+			On,
+			Sticky
+		}
+		
+		private MetaKeyState mPhysicalShiftState = MetaKeyState.Off;
+		private MetaKeyState mPhysicalAltState = MetaKeyState.Off;
 		private int mKeyCode = 0;
 		private boolean mChanegd = false;
 		
 		public void resetMetaState()
 		{
-			mPhysicalShiftOn = false;
-			mPhysicalAltOn = false;
+			mPhysicalShiftState = MetaKeyState.Off;
+			mPhysicalAltState = MetaKeyState.Off;
+			mKeyCode = 0;
+			mChanegd = false;
+		}
+		
+		public void resetNoneStickyMetaState() 
+		{
+			if (mPhysicalShiftState != MetaKeyState.Sticky)
+				mPhysicalShiftState = MetaKeyState.Off;
+			if (mPhysicalAltState != MetaKeyState.Sticky)
+				mPhysicalAltState = MetaKeyState.Off;
 			mKeyCode = 0;
 			mChanegd = false;
 		}
@@ -77,37 +94,63 @@ public class AnySoftKeyboard extends InputMethodService implements
 			case KeyEvent.KEYCODE_SHIFT_RIGHT:
 				if (event.getRepeatCount() == 0)
 				{
-					mPhysicalShiftOn = event.isShiftPressed();
+					mPhysicalShiftState = getNextState(mPhysicalShiftState, event.isShiftPressed());
 					if (DEBUG)
-						Log.d("AnySoftKeyboard", "Physical SHIFT was pressed. The new shift state is "+mPhysicalShiftOn);
+						Log.d("AnySoftKeyboard", "Physical SHIFT was pressed. The new shift state is "+mPhysicalShiftState);
 				}
 				return true;
 			case KeyEvent.KEYCODE_ALT_LEFT:
 			case KeyEvent.KEYCODE_ALT_RIGHT:
 				if (event.getRepeatCount() == 0)
 				{
-					mPhysicalAltOn = event.isAltPressed();
+					mPhysicalAltState = getNextState(mPhysicalAltState, event.isAltPressed());
 					if (DEBUG)
-						Log.d("AnySoftKeyboard", "Physical ALT was pressed. The new ALT state is "+mPhysicalAltOn);
+						Log.d("AnySoftKeyboard", "Physical ALT was pressed. The new ALT state is "+mPhysicalAltState);
 				}
 				return true;
 			default:
-				mPhysicalShiftOn = mPhysicalShiftOn || ((event.getMetaState()&KeyEvent.META_SHIFT_ON) != 0);
-				mPhysicalAltOn = mPhysicalAltOn || ((event.getMetaState()&KeyEvent.META_ALT_ON) != 0);
+				//mPhysicalShiftState = mPhysicalShiftState || ((event.getMetaState()&KeyEvent.META_SHIFT_ON) != 0);
+				//mPhysicalAltState = mPhysicalAltState || ((event.getMetaState()&KeyEvent.META_ALT_ON) != 0);
 				return false;
 			}
 		}
 		
+		private static MetaKeyState getNextState(MetaKeyState currentState,	boolean isPressed) 
+		{
+			if (isPressed)
+			{
+				switch(currentState)
+				{
+				case Off:
+					return MetaKeyState.On;
+				case On:
+					return MetaKeyState.Sticky;
+				case Sticky:
+					return MetaKeyState.Off;
+				}
+			}
+			
+			return MetaKeyState.Off;
+		}
+
 		public int getKeyCode() {
 			return mKeyCode;
 		}
 
 		public boolean isAltActive() {
-			return mPhysicalAltOn;
+			return mPhysicalAltState != MetaKeyState.Off;
 		}
 
 		public boolean isShiftActive() {
-			return mPhysicalShiftOn;
+			return mPhysicalShiftState != MetaKeyState.Off;
+		}
+		
+		public boolean isStickyAlt() {
+			return mPhysicalAltState == MetaKeyState.Sticky;
+		}
+
+		public boolean isStickyShift() {
+			return mPhysicalShiftState == MetaKeyState.Sticky;
 		}
 
 		public void setNewKeyCode(int keyCode) {
@@ -551,7 +594,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 					mHardKeyboardAction.resetMetaState();
 					if (ic != null)
 						ic.clearMetaKeyStates(Integer.MAX_VALUE);//translated, so we also take care of the metakeys.
-					
 					// only physical keyboard
 					nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.AlphabetSupportsPhysical);
 	
@@ -610,7 +652,16 @@ public class AnySoftKeyboard extends InputMethodService implements
 							// consuming the meta keys
 							//Since I'm handling the physical keys, I also need to clear the meta state
 							if (ic != null)
-								ic.clearMetaKeyStates(Integer.MAX_VALUE);//translated, so we also take care of the metakeys.
+							{
+								//the clear should be done only if we are not in sticky mode
+								int metaStateToClear = Integer.MAX_VALUE;
+								if (mHardKeyboardAction.isStickyShift())
+									metaStateToClear -= KeyEvent.META_SHIFT_ON;
+								if (mHardKeyboardAction.isStickyAlt())
+									metaStateToClear -= KeyEvent.META_ALT_ON;
+								
+								ic.clearMetaKeyStates(metaStateToClear);//translated, so we also take care of the metakeys.
+							}
 							
 							if (AnySoftKeyboard.DEBUG)
 								Log.d("AnySoftKeyborad", "'"+ current.getKeyboardName()	+ "' translated key " + keyCode + " to "+ translatedChar);
@@ -622,7 +673,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 								Log.d("AnySoftKeyborad", "'"+ current.getKeyboardName()+ "' did not translated key " + keyCode+ ".");
 						}
 					} finally {
-						mHardKeyboardAction.resetMetaState();
+						mHardKeyboardAction.resetNoneStickyMetaState();
 						if (ic != null)
 							ic.endBatchEdit();
 					}
