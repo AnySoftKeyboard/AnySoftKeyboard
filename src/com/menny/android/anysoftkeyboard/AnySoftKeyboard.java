@@ -109,8 +109,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 				}
 				return true;
 			default:
-				//mPhysicalShiftState = mPhysicalShiftState || ((event.getMetaState()&KeyEvent.META_SHIFT_ON) != 0);
-				//mPhysicalAltState = mPhysicalAltState || ((event.getMetaState()&KeyEvent.META_ALT_ON) != 0);
+				//if it sticky, then it will stay.
+				//if it on, then it should go away
+				//if it off, the it should stay off.
+				if (((event.getMetaState()&KeyEvent.META_SHIFT_ON) == 0) && (mPhysicalShiftState == MetaKeyState.On))
+					mPhysicalShiftState = MetaKeyState.Off;
+				if (((event.getMetaState()&KeyEvent.META_ALT_ON) == 0) && (mPhysicalAltState == MetaKeyState.On))
+					mPhysicalAltState = MetaKeyState.Off;
 				return false;
 			}
 		}
@@ -581,6 +586,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		mCompletionOn = false;
 
+		if (DEBUG)
+			Log.d("AnySoftKeyboard", "Event: Key:"+event.getKeyCode()+" Shift:"+((event.getMetaState()&KeyEvent.META_SHIFT_ON) != 0)+" ALT:"+((event.getMetaState()&KeyEvent.META_ALT_ON) != 0)+" Repeats:"+event.getRepeatCount());
+		
 		boolean handledByAction = mHardKeyboardAction.initializeAction(event);
 		if (!handledByAction)
 		{
@@ -655,9 +663,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 							{
 								//the clear should be done only if we are not in sticky mode
 								int metaStateToClear = Integer.MAX_VALUE;
-								if (mHardKeyboardAction.isStickyShift())
+								if (mHardKeyboardAction.isStickyShift() || ((event.getMetaState()&KeyEvent.META_SHIFT_ON) != 0))
 									metaStateToClear -= KeyEvent.META_SHIFT_ON;
-								if (mHardKeyboardAction.isStickyAlt())
+								if (mHardKeyboardAction.isStickyAlt() || ((event.getMetaState()&KeyEvent.META_ALT_ON) != 0))
 									metaStateToClear -= KeyEvent.META_ALT_ON;
 								
 								ic.clearMetaKeyStates(metaStateToClear);//translated, so we also take care of the metakeys.
