@@ -22,6 +22,7 @@ import java.util.List;
 import android.app.*;
 import android.content.*;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.res.Configuration;
 import android.inputmethodservice.*;
 import android.media.AudioManager;
 import android.os.*;
@@ -303,6 +304,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		Log.i("AnySoftKeyboard", "****** Starting AnySoftKeyboard:");
+		Log.i("AnySoftKeyboard", "** Locale:"+ getResources().getConfiguration().locale.toString());
+		
 		showToastMessage(R.string.toast_lengthy_start_up_operation, true);
 		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
@@ -310,8 +314,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		loadSettings();
 		mKeyboardSwitcher = new KeyboardSwitcher(this);
 		// should it be always on?
-		if (mKeyboardChangeNotificationType
-				.equals(KEYBOARD_NOTIFICATION_ALWAYS))
+		if (mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS))
 			notifyKeyboardChangeIfNeeded();
 		initSuggest(/* getResources().getConfiguration().locale.toString() */);
 		// mVibrateDuration =
@@ -1706,6 +1709,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 	// System.out.println("CPS = " + ((CPS_BUFFER_SIZE * 1000f) / total));
 	// }
 
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		Log.i("AnySoftKeyboard", "**** onConfigurationChanged");
+		Log.i("AnySoftKeyboard", "** Locale:"+ newConfig.locale.toString());
+	}
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
 			String key) {
 		Log.d("AnySoftKeyboard", "onSharedPreferenceChanged - key:" + key);
