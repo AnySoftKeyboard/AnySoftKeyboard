@@ -7,8 +7,8 @@
 	
 	<string name="how_to_pointer_not_app">AnySoftKeyboard זו לא תוכנה רגילה אלא תחליף למקלדת הויזואלית של אנדרויד</string>
 	<string name="how_to_pointer_how_to_url">למידע כיצד להשתמש במקלדת גילשו ל: http://code.google.com/p/softkeyboard/wiki/HowTo</string>
-	<string name="how_to_pointer_changelog">For details about the latest version, go to: http://code.google.com/p/softkeyboard/wiki/ChangeLog</string>
-	<string name="how_to_pointer_issues">For bug reporting, go to: http://code.google.com/p/softkeyboard/issues/list</string>
+	<string name="how_to_pointer_changelog">למידע על השינויים בגירסה האחרונה גילשו ל http://code.google.com/p/softkeyboard/wiki/ChangeLog</string>
+	<string name="how_to_pointer_issues">לידע על שגיאות ובעיות גילשו ל http://code.google.com/p/softkeyboard/issues/list</string>
 	<string name="how_to_pointer_site">למידע כללי, גילשו ל: http://code.google.com/p/softkeyboard/</string>
 	
     <!-- Symbols that are commonly considered word separators in this language -->
@@ -22,9 +22,9 @@
     <string name="keyboard_layout_change_method_summary">הגדר את הדרך בה תתבצעה החלפת שפת מקלדת</string>
     <string name="keyboard_layout_change_method_dialog_title">בחר שיטה</string>
     <string-array name="keyboard_layout_change_methods">
-        <item>Swipe with hint keys</item>
-        <item>Swipe without hint keys</item>
-        <item>No swipe, just keys</item>
+        <item>החלקה עם מקשי עזר</item>
+        <item>החלקה ללא מקשי עזר</item>
+        <item>מקשי עזר בלבד</item>
     </string-array>
     <string-array name="keyboard_layout_change_methods_values">
         <item>1</item>
@@ -35,9 +35,9 @@
     <string name="physical_keyboard_change_notification_summary">סוג ההתראה שתינתן בעת החלפת שפת המקלדת</string>
     <string name="physical_keyboard_change_notification_dialog_title">בחר סוג התראה</string>
     <string-array name="physical_keyboard_change_notification_types">
-        <item>Always show layout icon</item>
-        <item>On physical keyboard change</item>
-        <item>No notification</item>
+        <item>הראה תמיד</item>
+        <item>בשינוי מקלדת פיזית בלבד</item>
+        <item>אף פעם</item>
     </string-array>
     <string-array name="physical_keyboard_change_notification_values">
         <item>1</item>
@@ -54,10 +54,10 @@
     <string name="vibrate_on_key_press_summary">משך הרטט בזמן הקלדה</string>
     <string name="vibrate_on_key_press_dialog_title">בחר משך הרטט</string>
     <string-array name="vibrate_on_key_press_types">
-    	<item>No vibration</item>
-        <item>Soft</item>
-        <item>Medium</item>
-        <item>Hard</item>
+    	<item>ללא</item>
+        <item>קצר</item>
+        <item>רגיל</item>
+        <item>ארוך</item>
     </string-array>
     <string-array name="vibrate_on_key_press_values">
     	<item>0</item>
@@ -65,7 +65,7 @@
         <item>30</item>
         <item>50</item>
     </string-array>
-    <string name="sound_on">קול בזמן הקלדה</string>
+    <string name="sound_on">צליל נקישה בהקלדה</string>
     <string name="auto_caps">קפיטליזציה אוטומטית</string>
     <string name="grammer_group">דקדוק</string>
     <string name="candidates_on">הראה הצעות</string>
@@ -77,10 +77,8 @@
     <!-- settings - keyboard group -->
     <string name="keyboards_group">מקלדות</string>
     <string name="eng_keyboard">אנגלית</string>
-    <!-- <string name="heb_keyboard">Hebrew - &#1502;&#1511;&#1500;&#1491;&#1514;&#32;&#1506;&#1497;&#1489;&#1512;&#1497;&#1514;</string>-->
     <string name="heb_keyboard">עיברית</string>
     <string name="internet_keyboard">אינטרנט</string>
-    <!-- <string name="lao_keyboard">Lao - &#3777;&#3739;&#3785;&#3737;&#3742;&#3765;&#3745;&#32;&#3749;&#3762;&#3751;</string>-->
     <string name="lao_keyboard">לאוס</string>
     <string name="arabic_keyboard">ערבית</string>
     <string name="bg_ph_keyboard">בולגרית פונטית</string>
@@ -96,9 +94,9 @@
     <string name="ru_keyboard">רוסית</string>
     
     <!-- Tutorials --> 
-    <string name="show_tutorial_on_startup">Show this tutorial on startup</string>
-    <string name="tutorial_swipe_title">Swipe for keyboard change</string>
-    <string name="tutorial_swipe_text">Keyboard layout can be changed by swiping you finger over the keyboard. Swipe left-to-right to change language, swipe right-to-left to change to symbols.</string>
+    <string name="show_tutorial_on_startup">הראה מדריך באתחול</string>
+    <string name="tutorial_swipe_title">החלקה לצרוך שינוי שפה</string>
+    <string name="tutorial_swipe_text">שפה המקלדת ניתנת לשינוי על ידי החלקת האצבע על המקלדת. החלקה מימין לשמאל משנה שפה. החלקה משמאל לימין מחליפה לסימנים</string>
     
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">לך</string>
