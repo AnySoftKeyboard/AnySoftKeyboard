@@ -26,7 +26,7 @@ public class KeyboardFactory
 	private static final String HEBREW_KEYBOARD = "heb_keyboard";
 	private static final String RU_KEYBOARD = "ru_keyboard";
 	private static final String RU_PH_KEYBOARD = "ru_ph_keyboard";
-	//public static final String ARABIC_KEYBOARD = "arabic_keyboard";
+	public static final String ARABIC_KEYBOARD = "arabic_keyboard";
 	private static final String LAO_KEYBOARD ="lao_keyboard";
 	private static final String BG_PH_KEYBOARD = "bg_ph_keyboard";
 	private static final String BG_BDS_KEYBOARD = "bg_bds_keyboard";
@@ -50,7 +50,7 @@ public class KeyboardFactory
 		//issue 26 - Russian keyboard
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new RussianPhoneticKeyboard(contextProvider);} public String getKeyboardPrefId() {return RU_PH_KEYBOARD;}});
 		//Arabic keyboard - issue 16 - no ready yet.
-		//keyboards.add(new ArabicKeyboard(contextProvider));
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new ArabicKeyboard(contextProvider);} public String getKeyboardPrefId() {return ARABIC_KEYBOARD;}});
 		//BG - issue 25
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BulgarianBDSKeyboard(contextProvider);} public String getKeyboardPrefId() {return BG_BDS_KEYBOARD;}});
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BulgarianPhoneticKeyboard(contextProvider);} public String getKeyboardPrefId() {return BG_PH_KEYBOARD;}});

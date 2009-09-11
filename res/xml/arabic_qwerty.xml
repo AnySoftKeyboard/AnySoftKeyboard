@@ -55,7 +55,7 @@
         <Key android:codes="1608" android:keyLabel="&#1608;"/>
         <Key android:codes="1586" android:keyLabel="&#1586;"/>
         <Key android:codes="1592" android:keyLabel="&#1592;"/>
-        <Key android:horizontalGap="5%p" android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete_small" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+        <Key android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete_small" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     
     <!-- Generic bottom row -->
