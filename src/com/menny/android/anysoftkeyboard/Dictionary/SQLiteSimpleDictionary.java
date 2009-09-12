@@ -7,7 +7,7 @@ public class SQLiteSimpleDictionary extends SQLiteUserDictionaryBase {
 	private final String mDbName;
 	private final String mTableName;
 	
-	protected SQLiteSimpleDictionary(AnyKeyboardContextProvider anyContext, String dbName, String tableName) throws Exception {
+	public SQLiteSimpleDictionary(AnyKeyboardContextProvider anyContext, String dbName, String tableName) throws Exception {
 		super(anyContext);
 		mDbName = dbName;
 		mTableName = tableName;
@@ -28,4 +28,8 @@ public class SQLiteSimpleDictionary extends SQLiteUserDictionaryBase {
 		//does nothing
 	}
 
+	@Override
+	public String toString() {
+		return "SQLiteSimpleDictionary("+mDbName+"."+mTableName+")";
+	}
 }

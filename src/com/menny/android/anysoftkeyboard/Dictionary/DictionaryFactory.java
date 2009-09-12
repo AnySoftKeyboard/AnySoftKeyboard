@@ -25,12 +25,14 @@ public class DictionaryFactory
 			try
 	        {
 				msUserDictionary = new AndroidUserDictionary(context);
+				msUserDictionary.loadDictionary();
 	        }
 	        catch(Exception ex)
 	        {
 	        	Log.w("AnySoftKeyboard", "Failed to load 'AndroidUserDictionary' (could be that the platform does not support it). Will use fall-back dictionary. Error:"+ex.getMessage());
 	        	try {
 					msUserDictionary = new FallbackUserDictionary(context);
+					msUserDictionary.loadDictionary();
 				} catch (Exception e) {
 					Log.e("AnySoftKeyboard", "Failed to load failback user dictionary!");
 					e.printStackTrace();
@@ -82,6 +84,7 @@ public class DictionaryFactory
 			default:
 				return null;
 			}
+			dict.loadDictionary();
 			msDictionaries.put(language, dict);
 		}
 		catch(Exception ex)

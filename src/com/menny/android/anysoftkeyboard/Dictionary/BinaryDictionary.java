@@ -35,7 +35,8 @@ class BinaryDictionary extends Dictionary {
     public static final int MAX_WORD_LENGTH = 48;
     private static final int MAX_ALTERNATIVES = 16;
     private static final int MAX_WORDS = 16;
-
+    private final AssetFileDescriptor mAfd;
+    
     private static final int TYPED_LETTER_MULTIPLIER = 2;
 
     private int mNativeDict;
@@ -43,11 +44,12 @@ class BinaryDictionary extends Dictionary {
     private char[] mOutputChars = new char[MAX_WORD_LENGTH * MAX_WORDS];
     private int[] mFrequencies = new int[MAX_WORDS];
 
+    
     static {
         try {
-            System.loadLibrary("greekim");
+            System.loadLibrary("nativeim");
         } catch (UnsatisfiedLinkError ule) {
-            Log.e(TAG, "Could not load native library greekim", ule);
+            Log.e(TAG, "Could not load native library nativeim", ule);
         }
     }
 
@@ -57,8 +59,13 @@ class BinaryDictionary extends Dictionary {
      * @param resId the resource containing the raw binary dictionary
      */
     public BinaryDictionary(AssetFileDescriptor afd) {
-        if (afd != null) {
-            loadDictionary(afd);
+    	mAfd = afd;
+    }
+    
+    @Override
+    public void loadDictionary() throws Exception {
+    	if (mAfd != null) {
+            loadDictionary(mAfd);
         }
     }
 

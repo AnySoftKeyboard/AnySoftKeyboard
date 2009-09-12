@@ -289,7 +289,7 @@ public class Suggest implements Dictionary.WordCallback {
 
 	public void setMainDictionary(Dictionary dictionary) {
 		Log.d("AnySoftKeyboard", "Suggest: Got main dictionary! Type: " +
-				((dictionary == null)? "NULL" : dictionary.getClass().getName()));
+				((dictionary == null)? "NULL" : dictionary.toString()));
 		mMainDict = dictionary;		
 	}
 }

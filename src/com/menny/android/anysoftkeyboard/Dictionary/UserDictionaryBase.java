@@ -55,7 +55,7 @@ public abstract class UserDictionaryBase extends Dictionary {
     	mAnyContext = anyContext;
     	mRoots = new ArrayList<Node>();
 
-    	loadDictionary();
+    	//loadDictionary();
     }
     
     @Override
@@ -65,7 +65,7 @@ public abstract class UserDictionaryBase extends Dictionary {
 
 	protected abstract void closeAllResources();
     
-    private synchronized void loadDictionary() throws Exception {
+    public synchronized void loadDictionary() throws Exception {
         loadAllWords();
         mRequiresReload = false;
     }
