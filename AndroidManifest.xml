@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" 
         package="com.menny.android.anysoftkeyboard"
-        android:versionCode="10" android:versionName="20090911-skipper">
+        android:versionCode="10" android:versionName="20090912-skipper">
 	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key">
 	    <service android:permission="android.permission.BIND_INPUT_METHOD" android:name="SoftKeyboard">
 	        <intent-filter>
@@ -9,9 +9,6 @@
 	        <meta-data android:name="android.view.im" android:resource="@xml/method" />
 	    </service>
 	    <activity android:name="SoftKeyboardSettings" android:label="Settings">
-<!--        <intent-filter>
-	            <action android:name="android.intent.action.MAIN"/>
-	        </intent-filter>-->
 	    </activity>
 	    <activity android:name=".MainForm"
                   android:label="@string/ime_name">

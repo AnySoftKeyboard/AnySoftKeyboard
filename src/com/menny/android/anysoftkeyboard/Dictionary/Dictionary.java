@@ -35,7 +35,8 @@ abstract public class Dictionary {
 		Russian,
 		Arabic,
 		Lao,
-		Swedish
+		Swedish, 
+		Finnish
 	}
 	
     /**

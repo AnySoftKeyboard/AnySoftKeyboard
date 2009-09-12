@@ -58,8 +58,8 @@ public class KeyboardFactory
 		//Lao keyboard - issue 10
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LaoKeyboard(contextProvider);} public String getKeyboardPrefId() {return LAO_KEYBOARD;}});
 		
-		//Issue 39:  	 Finnish/Swedish keyboard
-		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.fin_swedish_qwerty, R.string.finnish_swedish_keyboard, Dictionary.Language.Swedish);} public String getKeyboardPrefId() {return FINNISH_SWEDISH_KEYBOARD;}});
+		//Issue 39: Finnish/Swedish keyboard
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new FinnishSwedishKeyboard(contextProvider);} public String getKeyboardPrefId() {return FINNISH_SWEDISH_KEYBOARD;}});
 		
 		//Issue 54: Spanish keyboard
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.es_qwerty, R.string.es_keyboard, Dictionary.Language.Spanish);} public String getKeyboardPrefId() {return SPANISH_KEYBOARD;}});

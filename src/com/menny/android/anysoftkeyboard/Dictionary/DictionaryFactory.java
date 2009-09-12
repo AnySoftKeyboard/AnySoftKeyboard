@@ -56,25 +56,28 @@ public class DictionaryFactory
 			switch(language)
 			{
 			case English:
-				dict = new SQLiteSimpleEnDictionary(context);
+				dict = new SQLiteSimpleDictionary(context, "en", "en");
 				break;
 			case Hebrew:
-				dict = new SQLiteSimpleHeDictionary(context);
+				dict = new SQLiteSimpleDictionary(context, "he", "he");
 				break;
 			case French:
-				dict = new SQLiteSimpleFrDictionary(context);
+				dict = new SQLiteSimpleDictionary(context, "fr", "fr");
 				break;
 			case German:
-				dict = new SQLiteSimpleDeDictionary(context);
+				dict = new SQLiteSimpleDictionary(context, "de", "de");
 				break;
 			case Spanish:
-				dict = new SQLiteSimpleEsDictionary(context);
+				dict = new SQLiteSimpleDictionary(context, "es", "es");
 				break;
 			case Swedish:
-				dict = new SQLiteSimpleSvDictionary(context);
+				dict = new SQLiteSimpleDictionary(context, "sv", "sv");
 				break;
 			case Russian:
-				dict = new SQLiteSimpleRuDictionary(context);
+				dict = new SQLiteSimpleDictionary(context, "ru", "ru");
+				break;
+			case Finnish:
+				dict = new SQLiteSimpleDictionary(context, "fi", "fi");
 				break;
 			default:
 				return null;
