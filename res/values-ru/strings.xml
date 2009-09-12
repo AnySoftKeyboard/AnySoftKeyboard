@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="ime_name">AnySoftKeyboard</string>
+   <string name="ime_name">AnySoftKeyboard</string>
 	<string name="how_to_pointer_title">Добро пожаловать в AnySoftKeyboard</string>
 	<string name="how_to_pointer_version_prefix">Версия: </string>
 	
@@ -14,102 +14,103 @@
     <!-- Symbols that are commonly considered word separators in this language -->
     <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
     <!-- Indicates that a word has been added to the dictionary -->
-    <string name="added_word"><xliff:g id="word">%s</xliff:g> : сохранено</string>
+   <string name="added_word"><xliff:g id="word">%s</xliff:g> : сохранено</string>
     
-    <!-- settings - UI -->
-    <string name="ui_group">Пользовательский Интерфейс</string>
-    <string name="keyboard_layout_change_method_title">Метод изменения формата</string>
-    <string name="keyboard_layout_change_method_summary">Метод изменения формата на виртуальной клавиатуре</string>
-    <string name="keyboard_layout_change_method_dialog_title">Выбор Метода</string>
-    <string-array name="keyboard_layout_change_methods">
-        <item>Экран с кнопками</item>
-        <item>Экран без кнопок</item>
-        <item>Только кнопки</item>
-    </string-array>
-    <string-array name="keyboard_layout_change_methods_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-    <string name="physical_keyboard_change_notification_title">Уведомления</string>
-    <string name="physical_keyboard_change_notification_summary">Метод уведомления о выбранной раскладке</string>
-    <string name="physical_keyboard_change_notification_dialog_title">Выбор Уведомления</string>
-    <string-array name="physical_keyboard_change_notification_types">
-        <item>Всегда показывать иконку</item>
-        <item>Только для встроенной клавиатуры</item>
-        <item>Не показывать</item>
-    </string-array>
-    <string-array name="physical_keyboard_change_notification_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-    <string name="lengthy_operations_toast_notification">Уведомлять при долгих операциях</string>
-    
-    <!-- settings - effects-->
-    <string name="effects_group">Эффекты</string>
-    <string name="ime_settings">Настройки Клавиатуры</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
-    <string name="vibrate_on_key_press_title">Вибрация при нажатии</string>
-    <string name="vibrate_on_key_press_summary">Тип вибрации</string>
-    <string name="vibrate_on_key_press_dialog_title">Выбор типа вибрации</string>
-    <string-array name="vibrate_on_key_press_types">
-    	<item>Не вибрировать</item>
+   <!-- settings - UI -->
+   <string name="ui_group">Пользовательский Интерфейс</string>
+   <string name="keyboard_layout_change_method_title">Метод изменения формата</string>
+   <string name="keyboard_layout_change_method_summary">Метод изменения формата на виртуальной клавиатуре</string>
+   <string name="keyboard_layout_change_method_dialog_title">Выбор Метода</string>
+   <string-array name="keyboard_layout_change_methods">
+      <item>Экран с кнопками</item>
+      <item>Экран без кнопок</item>
+      <item>Только кнопки</item>
+   </string-array>
+   <string-array name="keyboard_layout_change_methods_values">
+      <item>1</item>
+      <item>2</item>
+      <item>3</item>
+   </string-array>
+   <string name="physical_keyboard_change_notification_title">Уведомления</string>
+   <string name="physical_keyboard_change_notification_summary">Метод уведомления о выбранной раскладке</string>
+   <string name="physical_keyboard_change_notification_dialog_title">Выбор Уведомления</string>
+   <string-array name="physical_keyboard_change_notification_types">
+      <item>Всегда показывать иконку</item>
+      <item>Только для встроенной клавиатуры</item>
+      <item>Не показывать</item>
+   </string-array>
+   <string-array name="physical_keyboard_change_notification_values">
+      <item>1</item>
+      <item>2</item>
+      <item>3</item>
+   </string-array>
+   <string name="lengthy_operations_toast_notification">Уведомлять при долгих операциях</string>
+   <string name="change_ime">Изменить метод ввода</string>
+   
+   <!-- settings - effects-->
+   <string name="effects_group">Эффекты</string>
+   <string name="ime_settings">Настройки Клавиатуры</string>
+   <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
+   <string name="vibrate_on_key_press_title">Вибрация при нажатии</string>
+   <string name="vibrate_on_key_press_summary">Тип вибрации</string>
+   <string name="vibrate_on_key_press_dialog_title">Выбор типа и силы вибрации</string>
+   <string-array name="vibrate_on_key_press_types">
+      <item>Не вибрировать</item>
       <item>Мягко</item>
       <item>Средне</item>
       <item>Сильно</item>
-    </string-array>
-    <string-array name="vibrate_on_key_press_values">
-    	<item>0</item>
-        <item>17</item>
-        <item>30</item>
-        <item>50</item>
-    </string-array>
-    <string name="sound_on">Звук при нажатии клавиш</string>
-    <string name="auto_caps">Автоматически оглавлять</string>
-    <string name="grammer_group">Грамматика</string>
-    <string name="candidates_on">Показывать соверы</string>
-    <string name="quick_fix">Авто-исправления</string>
-    <string name="quick_fix_summary">Автоматически исправлять ошибки</string>
-    <string name="auto_complete">Авто-выбор совета</string>
-    <string name="auto_complete_summary">Нажатие пробела выберет избранный совет.</string>
-    
-    <!-- settings - keyboard group -->
-    <string name="keyboards_group">Языки Раскладок</string>
-    <string name="eng_keyboard">Английский</string>
-    <!-- <string name="heb_keyboard">Hebrew - &#1502;&#1511;&#1500;&#1491;&#1514;&#32;&#1506;&#1497;&#1489;&#1512;&#1497;&#1514;</string>-->
-    <string name="heb_keyboard">Иврит</string>
-    <string name="internet_keyboard">Интернетовская</string>
-    <!-- <string name="lao_keyboard">Lao - &#3777;&#3739;&#3785;&#3737;&#3742;&#3765;&#3745;&#32;&#3749;&#3762;&#3751;</string>-->
-    <string name="lao_keyboard">Лаосский</string>
-    <string name="arabic_keyboard">Арабский</string>
-    <string name="bg_ph_keyboard">Болгарский Фонетический</string>
-    <string name="bg_bds_keyboard">Болгарский BDS</string>
-    <string name="dvorak_keyboard">Дворака</string>
-    <string name="finnish_swedish_keyboard">Швейцарский/Финский</string>
-    <string name="catalan_keyboard">Каталанский</string>
-    <string name="ch_fr_keyboard">Швейцарско-Французский</string>
-    <string name="de_keyboard">Немецкий/Швейцарско-Немецкий</string>
-    <string name="azerty_keyboard">AZERTY</string>
-    <string name="es_keyboard">Испанский</string>
-    <string name="ru_ph_keyboard">Русский Фонетический</string>
-    <string name="ru_keyboard">Русский Стандартный</string>
-    
-    <!-- Tutorials --> 
-    <string name="show_tutorial_on_startup">Показывать помощь при запуске</string>
-    <string name="tutorial_swipe_title">Провод пальцем для изменения раскладки</string>
-    <string name="tutorial_swipe_text">Раскладку можно поменять проведя пальцем по виртуальной клавиатуре. Проведите с лева на право для изменения языка, и с права на лево для вызова символов.</string>
-    
-    <!-- Special soft keyboard keys text -->
-    <string name="label_go_key">Пуск</string>
-    <string name="label_next_key">Следущий</string>
-    <string name="label_send_key">Послать</string>
-    
-    <string name="change_lang_wide">&#8594; АБВ &#8594;</string>
-    <string name="change_lang_regular">АБВ</string>
-    <string name="change_symbols_wide">&#8592; 123 &#8592;</string>
-    <string name="change_symbols_regular">123</string>
-    
-    <string name="toast_lengthy_words_long_operation">Загрузка Словаря...</string>
-    <string name="toast_lengthy_start_up_operation">Запуск AnySoftKeyboard...</string>
+   </string-array>
+   <string-array name="vibrate_on_key_press_values">
+      <item>0</item>
+      <item>17</item>
+      <item>30</item>
+      <item>50</item>
+   </string-array>
+   <string name="sound_on">Звук при нажатии</string>
+   <string name="auto_caps">Авто-заглав</string>
+   <string name="grammer_group">Грамматика</string>
+   <string name="candidates_on">Показывать советы</string>
+   <string name="quick_fix">Авто-исправления</string>
+   <string name="quick_fix_summary">Автоматически исправлять ошибки</string>
+   <string name="auto_complete">Авто-выбор совета</string>
+   <string name="auto_complete_summary">Нажатие пробела выберет избранный совет.</string>
+   
+   <!-- settings - keyboard group -->
+   <string name="keyboards_group">Языки Раскладок</string>
+   <string name="eng_keyboard">Английский</string>
+   <!-- <string name="heb_keyboard">Hebrew - &#1502;&#1511;&#1500;&#1491;&#1514;&#32;&#1506;&#1497;&#1489;&#1512;&#1497;&#1514;</string>-->
+   <string name="heb_keyboard">Иврит</string>
+   <string name="internet_keyboard">Интернет</string>
+   <!-- <string name="lao_keyboard">Lao - &#3777;&#3739;&#3785;&#3737;&#3742;&#3765;&#3745;&#32;&#3749;&#3762;&#3751;</string>-->
+   <string name="lao_keyboard">Лаосский</string>
+   <string name="arabic_keyboard">Арабский</string>
+   <string name="bg_ph_keyboard">Болгарский Фонетический</string>
+   <string name="bg_bds_keyboard">Болгарский BDS</string>
+   <string name="dvorak_keyboard">Дворака</string>
+   <string name="finnish_swedish_keyboard">Швейцарский/Финский</string>
+   <string name="catalan_keyboard">Каталанский</string>
+   <string name="ch_fr_keyboard">Швейцарско-Французский</string>
+   <string name="de_keyboard">Немецкий/Швейцарско-Немецкий</string>
+   <string name="azerty_keyboard">AZERTY</string>
+   <string name="es_keyboard">Испанский</string>
+   <string name="ru_ph_keyboard">Русский Фонетический</string>
+   <string name="ru_keyboard">Русский Стандартный</string>
+   
+   <!-- Tutorials --> 
+   <string name="show_tutorial_on_startup">Показывать помощь при запуске</string>
+   <string name="tutorial_swipe_title">Провод пальцем для изменения раскладки</string>
+   <string name="tutorial_swipe_text">Раскладку можно поменять проведя пальцем по виртуальной клавиатуре. Проведите с лева на право для изменения языка, и с права на лево для вызова символов.</string>
+   
+   <!-- Special soft keyboard keys text -->
+   <string name="label_go_key">Пуск</string>
+   <string name="label_next_key">Следующий</string>
+   <string name="label_send_key">Послать</string>
+   
+   <string name="change_lang_wide">&#8594; АБВ &#8594;</string>
+   <string name="change_lang_regular">АБВ</string>
+   <string name="change_symbols_wide">&#8592; 123 &#8592;</string>
+   <string name="change_symbols_regular">123</string>
+   
+   <string name="toast_lengthy_words_long_operation">Загрузка Словаря...</string>
+   <string name="toast_lengthy_start_up_operation">Запуск AnySoftKeyboard...</string>
 </resources>
