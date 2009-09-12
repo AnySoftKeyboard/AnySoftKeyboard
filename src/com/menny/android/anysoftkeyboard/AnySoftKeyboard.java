@@ -32,9 +32,12 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.menny.android.anysoftkeyboard.Dictionary.*;
@@ -1623,42 +1626,38 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	private void showOptionsMenu() {
-		launchSettings();
-	}
-
-	// AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	// builder.setCancelable(true);
-	// builder.setIcon(R.drawable.ic_dialog_keyboard);
-	// builder.setNegativeButton(android.R.string.cancel, null);
-	// CharSequence itemSettings = getString(R.string.english_ime_settings);
-	// CharSequence itemInputMethod =
-	// getString(R.string.english_ime_name);//getString(com.android.internal.R.string.inputMethod);
-	// builder.setItems(new CharSequence[] {
-	// itemSettings, itemInputMethod},
-	// new DialogInterface.OnClickListener() {
-	//
-	// public void onClick(DialogInterface di, int position) {
-	// di.dismiss();
-	// switch (position) {
-	// case POS_SETTINGS:
-	// launchSettings();
-	// break;
-	// case POS_METHOD:
-	// //InputMethodManager.getInstance(LatinIME.this).showInputMethodPicker();
-	// break;
-	// }
-	// }
-	// });
-	// builder.setTitle(getResources().getString(R.string.english_ime_name));
-	// mOptionsDialog = builder.create();
-	// Window window = mOptionsDialog.getWindow();
-	// WindowManager.LayoutParams lp = window.getAttributes();
-	// lp.token = mInputView.getWindowToken();
-	// lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
-	// window.setAttributes(lp);
-	// window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-	// mOptionsDialog.show();
-	// }
+//		launchSettings();
+//	}
+		 AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		 builder.setCancelable(true);
+		 builder.setIcon(R.drawable.icon_8_key);
+		 builder.setNegativeButton(android.R.string.cancel, null);
+		 CharSequence itemSettings = getString(R.string.ime_settings);
+		 CharSequence itemInputMethod = getString(R.string.change_ime);
+		 builder.setItems(new CharSequence[] { itemSettings, itemInputMethod}, 
+			 new DialogInterface.OnClickListener() {
+				 public void onClick(DialogInterface di, int position) {
+					 di.dismiss();
+					 switch (position) {
+					 case 0:
+						 launchSettings();
+						 break;
+					 case 1:
+						 ((InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE)).showInputMethodPicker();
+						 break;
+					 }
+				 }
+	 		});
+		 builder.setTitle(getResources().getString(R.string.ime_name));
+		 mOptionsDialog = builder.create();
+		 Window window = mOptionsDialog.getWindow();
+		 WindowManager.LayoutParams lp = window.getAttributes();
+		 lp.token = mInputView.getWindowToken();
+		 lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
+		 window.setAttributes(lp);
+		 window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+		 mOptionsDialog.show();
+	 }
 
 	// private void changeKeyboardMode() {
 	// mKeyboardSwitcher.toggleSymbols();

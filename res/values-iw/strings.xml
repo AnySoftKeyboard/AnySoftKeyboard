@@ -46,6 +46,7 @@
     </string-array>
     <string name="lengthy_operations_toast_notification">התראה על פעולות ממושכות</string>
     
+    <string name="change_ime">החלף IME</string>
     <!-- settings - effects-->
     <string name="effects_group">אפקטים</string>
     <string name="ime_settings">הגדרות מקלדת</string>

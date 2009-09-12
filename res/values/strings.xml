@@ -46,6 +46,7 @@
     </string-array>
     <string name="lengthy_operations_toast_notification">Notify on lengthy operations</string>
     
+    <string name="change_ime">Change input method</string>
     <!-- settings - effects-->
     <string name="effects_group">Effects</string>
     <string name="ime_settings">Keyboard settings</string>
