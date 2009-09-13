@@ -79,10 +79,8 @@
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Näppäimistöt</string>
     <string name="eng_keyboard">Englanti</string>
-    <!-- <string name="heb_keyboard">Hebrew - &#1502;&#1511;&#1500;&#1491;&#1514;&#32;&#1506;&#1497;&#1489;&#1512;&#1497;&#1514;</string>-->
     <string name="heb_keyboard">Heprea</string>
     <string name="internet_keyboard">Internet-näppäimistö</string>
-    <!-- <string name="lao_keyboard">Lao - &#3777;&#3739;&#3785;&#3737;&#3742;&#3765;&#3745;&#32;&#3749;&#3762;&#3751;</string>-->
     <string name="lao_keyboard">Lao</string>
     <string name="arabic_keyboard">Arabia</string>
     <string name="bg_ph_keyboard">Bulgaria, foneettinen</string>
@@ -112,6 +110,8 @@
     <string name="change_symbols_wide">&#8592; 123 &#8592;</string>
     <string name="change_symbols_regular">123</string>
     
+    <string name="please_wait">Odota hetki</string>
     <string name="toast_lengthy_words_long_operation">Ladataan sanakirjaa...</string>
     <string name="toast_lengthy_start_up_operation">Käynnistetään AnySoftKeyboardia...</string>
+    <string name="lengthy_creating_keyboard_operation">Luodaan näppäimistöjä...</string>
 </resources>
