@@ -19,25 +19,25 @@
     <!-- settings - UI -->
     <string name="ui_group">Käyttöliittymä</string>
 
-    <string name="keyboard_layout_change_method_title">Asettelun vaihto</string>
+    <string name="keyboard_layout_change_method_title">Asettelun vaihtotapa</string>
     <string name="keyboard_layout_change_method_summary">Näppäimistön asettelun vaihtotapa</string>
     <string name="keyboard_layout_change_method_dialog_title">Valitse tapa</string>
     <string-array name="keyboard_layout_change_methods">
         <item>Pyyhkäisy vinkkipainikkeilla</item>
         <item>Pyyhkäisy ilman vinkkipainikkeita</item>
-        <item>Ei pyyhkäisyä, ainoastaan painikkeet</item>
+        <item>Ei pyyhkäisyä, vain painikkeet</item>
     </string-array>
     <string-array name="keyboard_layout_change_methods_values">
         <item>1</item>
         <item>2</item>
         <item>3</item>
     </string-array>
-    <string name="physical_keyboard_change_notification_title">Näppäimistön asettelun tiedotukset</string>
+    <string name="physical_keyboard_change_notification_title">Näppäimistöasettelun tiedotukset</string>
     <string name="physical_keyboard_change_notification_summary">Tiedotukset näppäimistön asettelusta</string>
     <string name="physical_keyboard_change_notification_dialog_title">Valitse tapa</string>
     <string-array name="physical_keyboard_change_notification_types">
         <item>Näytä aina asetteluikoni</item>
-        <item>Fyysisen näppäimistön muuttuessa</item>
+        <item>Fyys. näppäimistön muuttuessa</item>
         <item>Ei muistutusta</item>
     </string-array>
     <string-array name="physical_keyboard_change_notification_values">
