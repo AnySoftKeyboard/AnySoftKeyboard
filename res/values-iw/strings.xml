@@ -14,7 +14,7 @@
     <!-- Symbols that are commonly considered word separators in this language -->
     <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
     <!-- Indicates that a word has been added to the dictionary -->
-    <string name="added_word"><xliff:g id="word">%s</xliff:g> נשמרה: </string>
+    <string name="added_word">נשמרה: <xliff:g id="word">%s</xliff:g></string>
     
     <!-- settings - UI -->
     <string name="ui_group">ממשק משתמש</string>
