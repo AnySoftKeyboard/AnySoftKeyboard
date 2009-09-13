@@ -41,13 +41,6 @@ import java.util.List;
 import com.menny.android.anysoftkeyboard.R;
 
 public class CandidateView extends View {
-	private static final boolean ms_requiresRtlWorkaround;
-	
-	static
-	{
-		//Determine whether this device has the fix for RTL in the suggestions list
-		ms_requiresRtlWorkaround = !android.os.Build.MODEL.toLowerCase().contains("galaxy");
-	}
 	
     private static final int OUT_OF_BOUNDS = -1;
     private static final List<CharSequence> EMPTY_LIST = new ArrayList<CharSequence>();
@@ -274,10 +267,8 @@ public class CandidateView extends View {
             }
 
             if (canvas != null) {
-            	//Hebrew letters are to be drawn in the other direction. This will be probably be removed in Donut.
-            	//Also, this is not valid for Galaxy (Israel's Cellcom Android)
-            	CharSequence directionCorrectedSuggestion = ms_requiresRtlWorkaround?
-            			workaroundCorrectStringDirection(suggestion) : suggestion;
+            	//canvas.drawText is not quite ready for LTR languages. Maybe in Donut.
+            	CharSequence directionCorrectedSuggestion = AnySoftKeyboard.workaroundCorrectStringDirection(suggestion);
                 canvas.drawText(directionCorrectedSuggestion, 0, directionCorrectedSuggestion.length(), x + X_GAP, y, paint);
                 paint.setColor(mColorOther);
                 canvas.translate(x + wordWidth, 0);
@@ -293,29 +284,7 @@ public class CandidateView extends View {
         }
     }
     
-    private CharSequence workaroundCorrectStringDirection(CharSequence suggestion) 
-    {
-    	//this function is a workaround! In the official 1.5 firmware, there is a RTL bug.
-    	final byte direction = Character.getDirectionality(suggestion.charAt(0));
-    	//Log.d("AnySoftKeyboard", "CandidateView: correctStringDirection: direction:"+direction+" char:"+suggestion.charAt(0));
-		switch(direction)
-		{
-		case Character.DIRECTIONALITY_RIGHT_TO_LEFT:
-		case Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC:
-		case Character.DIRECTIONALITY_RIGHT_TO_LEFT_EMBEDDING:
-		case Character.DIRECTIONALITY_RIGHT_TO_LEFT_OVERRIDE:
-			String reveresed = "";
-			for(int charIndex = suggestion.length() - 1; charIndex>=0; charIndex--)
-			{
-				reveresed = reveresed + suggestion.charAt(charIndex);
-			}
-			//Log.d("AnySoftKeyboard", "CandidateView: correctStringDirection: reversed "+suggestion+" to "+reveresed);
-			return reveresed;
-		}
-		return suggestion;
-	}
-
-	private void scrollToTarget() {
+    private void scrollToTarget() {
         if (mTargetScrollX > mScrollX) {
             mScrollX += SCROLL_PIXELS;
             if (mScrollX >= mTargetScrollX) {

@@ -239,12 +239,14 @@ public abstract class AnyKeyboard extends Keyboard
             case EditorInfo.IME_ACTION_GO:
                 mEnterKey.iconPreview = null;
                 mEnterKey.icon = null;
-                mEnterKey.label = res.getText(R.string.label_go_key);
+                //there is a problem with LTR languages
+                mEnterKey.label = AnySoftKeyboard.workaroundCorrectStringDirection(res.getText(R.string.label_go_key));
                 break;
             case EditorInfo.IME_ACTION_NEXT:
                 mEnterKey.iconPreview = null;
                 mEnterKey.icon = null;
-                mEnterKey.label = res.getText(R.string.label_next_key);
+              //there is a problem with LTR languages
+                mEnterKey.label = AnySoftKeyboard.workaroundCorrectStringDirection(res.getText(R.string.label_next_key));
                 break;
             case EditorInfo.IME_ACTION_SEARCH:
                 mEnterKey.icon = res.getDrawable(
@@ -254,7 +256,8 @@ public abstract class AnyKeyboard extends Keyboard
             case EditorInfo.IME_ACTION_SEND:
                 mEnterKey.iconPreview = null;
                 mEnterKey.icon = null;
-                mEnterKey.label = res.getText(R.string.label_send_key);
+              //there is a problem with LTR languages
+                mEnterKey.label = AnySoftKeyboard.workaroundCorrectStringDirection(res.getText(R.string.label_send_key));
                 break;
             default:
                 mEnterKey.icon = res.getDrawable(R.drawable.sym_keyboard_return);

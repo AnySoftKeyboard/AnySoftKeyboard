@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" 
         package="com.menny.android.anysoftkeyboard"
-        android:versionCode="10" android:versionName="20090912-skipper">
+        android:versionCode="10" android:versionName="20090913-skipper">
 	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key">
 	    <service android:permission="android.permission.BIND_INPUT_METHOD" android:name="SoftKeyboard">
 	        <intent-filter>
@@ -22,6 +22,5 @@
 	<uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
-    
 	<uses-sdk android:minSdkVersion="3"></uses-sdk>
 </manifest>
