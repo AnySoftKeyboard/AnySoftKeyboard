@@ -78,10 +78,7 @@
    <!-- settings - keyboard group -->
    <string name="keyboards_group">Языки Раскладок</string>
    <string name="eng_keyboard">Английский</string>
-   <!-- <string name="heb_keyboard">Hebrew - &#1502;&#1511;&#1500;&#1491;&#1514;&#32;&#1506;&#1497;&#1489;&#1512;&#1497;&#1514;</string>-->
    <string name="heb_keyboard">Иврит</string>
-   <string name="internet_keyboard">Интернет</string>
-   <!-- <string name="lao_keyboard">Lao - &#3777;&#3739;&#3785;&#3737;&#3742;&#3765;&#3745;&#32;&#3749;&#3762;&#3751;</string>-->
    <string name="lao_keyboard">Лаосский</string>
    <string name="arabic_keyboard">Арабский</string>
    <string name="bg_ph_keyboard">Болгарский Фонетический</string>
@@ -111,6 +108,8 @@
    <string name="change_symbols_wide">&#8592; 123 &#8592;</string>
    <string name="change_symbols_regular">123</string>
    
+   <string name="please_wait">Одну минутку</string>
    <string name="toast_lengthy_words_long_operation">Загрузка Словаря...</string>
    <string name="toast_lengthy_start_up_operation">Запуск AnySoftKeyboard...</string>
+   <string name="lengthy_creating_keyboard_operation">Создание раскладок...</string>
 </resources>
