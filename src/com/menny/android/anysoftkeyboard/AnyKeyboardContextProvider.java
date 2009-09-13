@@ -11,4 +11,5 @@ public interface AnyKeyboardContextProvider
 	void appendCharactersToInput(CharSequence text);
 	SharedPreferences getSharedPreferences();
 	void showToastMessage(int resId, boolean forShortTime);
+	void performLengthyOperation(int textResId, final Runnable thingToDo);
 }

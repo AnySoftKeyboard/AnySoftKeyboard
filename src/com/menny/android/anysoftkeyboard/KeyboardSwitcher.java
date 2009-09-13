@@ -134,22 +134,22 @@ public class KeyboardSwitcher
         if ((mAlphabetKeyboards == null) || (mSymbolsKeyboardsArray == null))
         {
         	Log.d("AnySoftKeyboard", "makeKeyboards: force:"+force+" maxWidth:"+displayWidth+" mLastDisplayWidth"+mLastDisplayWidth+". Creating keyboards.");
-        	mAlphabetKeyboards = KeyboardFactory.createAlphaBetKeyboards(mContext);
-	        if (mLastSelectedKeyboard >= mAlphabetKeyboards.size())
-	        	mLastSelectedKeyboard = 0;
-	        
-	        mSymbolsKeyboardsArray = new AnyKeyboard[3];
-//        	mSymbolsKeyboardsArray[0] = new GenericKeyboard(mContext, R.xml.symbols, false, -1); 
-//        	mSymbolsKeyboardsArray[1] = new GenericKeyboard(mContext, R.xml.symbols_shift, false, -1);
-//        	mSymbolsKeyboardsArray[2] = new GenericKeyboard(mContext, R.xml.simple_numbers, false, -1);
-        	
-        	if (mLastSelectedSymbolsKeyboard >= mSymbolsKeyboardsArray.length)
-        		mLastSelectedSymbolsKeyboard = 0;
-        	
-//        	if (mInputView != null)
-//        		mInputView.setPhoneKeyboard(mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_PHONE_INDEX]);
-        	//freeing old keyboards.
-        	System.gc();
+        	mContext.performLengthyOperation(R.string.lengthy_creating_keyboard_operation, 
+        			new Runnable()
+        	{
+        		public void run()
+        		{
+        			mAlphabetKeyboards = KeyboardFactory.createAlphaBetKeyboards(mContext);
+        	        if (mLastSelectedKeyboard >= mAlphabetKeyboards.size())
+        	        	mLastSelectedKeyboard = 0;
+        	        
+        	        mSymbolsKeyboardsArray = new AnyKeyboard[3];
+                	if (mLastSelectedSymbolsKeyboard >= mSymbolsKeyboardsArray.length)
+                		mLastSelectedSymbolsKeyboard = 0;
+                	//freeing old keyboards.
+                	System.gc();
+        		}
+        	});
         }
     }
 

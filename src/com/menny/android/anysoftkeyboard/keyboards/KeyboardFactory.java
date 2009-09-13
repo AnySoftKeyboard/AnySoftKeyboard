@@ -77,7 +77,6 @@ public class KeyboardFactory
 	{
 		Log.i("AnySoftKeyboard", "Creating keyboards. I have "+ ms_creators.size()+" creators");
 		//Thread.dumpStack();
-		
 		ArrayList<AnyKeyboard> keyboards = new ArrayList<AnyKeyboard>();
 		
 		//getting shared prefs to determine which to create.

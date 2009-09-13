@@ -352,10 +352,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// setStatusIcon(R.drawable.ime_qwerty);
 		loadSettings();
 		mKeyboardSwitcher = new KeyboardSwitcher(this);
-		// should it be always on?
-		if (mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS))
-			notifyKeyboardChangeIfNeeded();
-		initSuggest(/* getResources().getConfiguration().locale.toString() */);
+		if (mSuggest == null)
+		{
+			// should it be always on?
+			if (mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS))
+				notifyKeyboardChangeIfNeeded();
+			initSuggest(/* getResources().getConfiguration().locale.toString() */);
+		}
 		// mVibrateDuration =
 		// getResources().getInteger(R.integer.vibrate_duration_ms);
 
@@ -364,8 +367,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// IntentFilter(AudioManager.RINGER_MODE_CHANGED_ACTION);
 		// registerReceiver(mReceiver, filter);
 
-		SharedPreferences sp = PreferenceManager
-				.getDefaultSharedPreferences(this);
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 		sp.registerOnSharedPreferenceChangeListener(this);
 		
 		mHardKeyboardAction = new HardKeyboardActionImpl();
@@ -791,19 +793,16 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (mKeyboardSwitcher == null)// happens on first onCreate.
 			return;
 
-		if ((mKeyboardSwitcher.isAlphabetMode())
-				&& !mKeyboardChangeNotificationType
-						.equals(KEYBOARD_NOTIFICATION_NEVER)) {
+		if ((mKeyboardSwitcher.isAlphabetMode()) && 
+				!mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_NEVER)) 
+		{
 			AnyKeyboard current = mKeyboardSwitcher.getCurrentKeyboard();
 			// notifying the user about the keyboard.
 			// creating the message
-			Notification notification = new Notification(current
-					.getKeyboardIcon(), current.getKeyboardName(), System
-					.currentTimeMillis());
+			Notification notification = new Notification(current.getKeyboardIcon(), current.getKeyboardName(), System.currentTimeMillis());
 
 			Intent notificationIntent = new Intent();
-			PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-					notificationIntent, 0);
+			PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
 			notification.setLatestEventInfo(getApplicationContext(),
 					"Any Soft Keyboard", current.getKeyboardName(),
@@ -1822,5 +1821,23 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (DEBUG)
 			Log.v("AnySoftKeyboard", "showToastMessage: '"+text+"'. For: "+duration);
 		Toast.makeText(this.getApplication(), text, duration).show();
+	}
+	
+	public void performLengthyOperation(int textResId, final Runnable thingToDo) {
+		thingToDo.run();
+//		final ProgressDialog spinner = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
+//		
+//		Thread t = new Thread() {
+//            public void run() {
+//            	thingToDo.run();
+//            	spinner.dismiss();
+//            }
+//        };
+//        t.start();
+//        spinner.setTitle(R.string.please_wait);
+//        spinner.setIcon(R.drawable.icon_8_key);
+//        spinner.setMessage(getResources().getText(textResId));
+//        spinner.setCancelable(false);
+//        spinner.show();
 	}
 }
