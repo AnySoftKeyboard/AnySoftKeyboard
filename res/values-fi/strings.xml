@@ -46,6 +46,7 @@
         <item>3</item>
     </string-array>
     <string name="lengthy_operations_toast_notification">Tiedota pitkäkestoisista toiminnoista</string>
+    <string name="lengthy_operations_toast_notification_summary">Näytä lyhyt tiedotus pitkäkestoisista toiminnoista</string>
     
     <string name="change_ime">Vaihda tekstinsyöttötapa</string>
     <!-- settings - effects-->
@@ -68,6 +69,7 @@
         <item>50</item>
     </string-array>
     <string name="sound_on">Ääni painettaessa</string>
+	<string name="sound_on_summary">Ääniefektit painettaessa näppäimiä. Äänentaso määräytyy tiedotusten äänitason perusteella.</string>
     <string name="auto_caps">Autokapitalisointi</string>
     <string name="grammer_group">Kielioppi</string>
     <string name="candidates_on">Näytä ehdotukset</string>
