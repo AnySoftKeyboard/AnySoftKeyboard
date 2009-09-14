@@ -41,6 +41,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.menny.android.anysoftkeyboard.Dictionary.*;
+import com.menny.android.anysoftkeyboard.Dictionary.Dictionary.Language;
 import com.menny.android.anysoftkeyboard.KeyboardSwitcher.NextKeyboardType;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardAction;
@@ -1407,13 +1408,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 				+ currentKeyboard.getKeyboardName());
 		updateShiftKeyState(currentEditorInfo);
 		// changing dictionary
-		if (mSuggest != null) 
-		{
-			if (mKeyboardSwitcher.isAlphabetMode() && mShowSuggestions)
-				mSuggest.setMainDictionary(DictionaryFactory.getDictionary(currentKeyboard.getDefaultDictionaryLanguage(), this));
-			else
-				mSuggest.setMainDictionary(null);
-		}
+		setMainDictionaryForCurrentKeyboard();
+//		if (mSuggest != null) 
+//		{
+//			if (mKeyboardSwitcher.isAlphabetMode() && mShowSuggestions)
+//				mSuggest.setMainDictionary(DictionaryFactory.getDictionary(currentKeyboard.getDefaultDictionaryLanguage(), this));
+//			else
+//				mSuggest.setMainDictionary(null);
+//		}
 		// Notifying if needed
 		if ((mKeyboardChangeNotificationType
 				.equals(KEYBOARD_NOTIFICATION_ALWAYS))
@@ -1645,10 +1647,27 @@ public class AnySoftKeyboard extends InputMethodService implements
 				// It null at the creation of the application.
 				if ((mKeyboardSwitcher != null) && mKeyboardSwitcher.isAlphabetMode()) {
 					AnyKeyboard currentKeyobard = mKeyboardSwitcher.getCurrentKeyboard();
-					Dictionary mainDictionary = DictionaryFactory.getDictionary(currentKeyobard.getDefaultDictionaryLanguage(), this);
+					Language dictionaryLanguage = getLanguageForKeyobard(currentKeyobard);
+					Dictionary mainDictionary = DictionaryFactory.getDictionary(dictionaryLanguage, this);
 					mSuggest.setMainDictionary(mainDictionary);
 				}
 			}
+		}
+	}
+
+	private Language getLanguageForKeyobard(AnyKeyboard currentKeyobard) 
+	{
+		//if there is a mapping in the settings, we'll use that, else we'll return the default
+		String mappingSettingsKey = currentKeyobard.getKeyboardPrefId()+"_override_dictionary";
+		String defaultDictionary = currentKeyobard.getDefaultDictionaryLanguage().toString();
+		String dictionaryValue = getSharedPreferences().getString(mappingSettingsKey, defaultDictionary);
+		if (defaultDictionary.equals(dictionaryValue))
+			return currentKeyobard.getDefaultDictionaryLanguage();
+		else
+		{
+			Log.d("AnySoftKeyboard", "Default dictionary '"+defaultDictionary+"' for keyboard '"+currentKeyobard.getKeyboardPrefId()+"' ha been overriden to '"+dictionaryValue+"'");
+			Language overridingLanguage = Language.valueOf(dictionaryValue);
+			return overridingLanguage;
 		}
 	}
 

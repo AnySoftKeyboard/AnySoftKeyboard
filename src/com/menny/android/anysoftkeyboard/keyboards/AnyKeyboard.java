@@ -53,6 +53,7 @@ public abstract class AnyKeyboard extends Keyboard
     
     private int mShiftState = SHIFT_OFF;
     
+    private final String mKeyboardPrefId;
 	private final String mKeyboardName;
     private final boolean mLeftToRightLanguageDirection;
     private final Dictionary.Language mDefaultDictionaryLanguage;
@@ -71,7 +72,9 @@ public abstract class AnyKeyboard extends Keyboard
 	
     private final AnyKeyboardContextProvider mKeyboardContext;
     
-    protected AnyKeyboard(AnyKeyboardContextProvider context, int xmlLayoutResId, boolean supportsShift,
+    protected AnyKeyboard(AnyKeyboardContextProvider context,
+    		String keyboardPrefId,
+    		int xmlLayoutResId, boolean supportsShift,
     		/*mapping XML id will be added here,*/
     		int keyboardNameId,
     		/*String keyboardEnabledPref,*/
@@ -80,6 +83,7 @@ public abstract class AnyKeyboard extends Keyboard
     {
         super(context.getApplicationContext(), xmlLayoutResId);
         mKeyboardContext = context;
+        mKeyboardPrefId = keyboardPrefId;
         //mSupportsShift = supportsShift;
         if (keyboardNameId > 0)
         	mKeyboardName = context.getApplicationContext().getResources().getString(keyboardNameId);
@@ -625,4 +629,8 @@ public abstract class AnyKeyboard extends Keyboard
 //					clickedY <= endY;
 //		}
     }
+
+	public String getKeyboardPrefId() {
+		return mKeyboardPrefId;
+	}
 }
