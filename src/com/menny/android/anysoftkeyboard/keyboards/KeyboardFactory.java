@@ -73,11 +73,11 @@ public class KeyboardFactory
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.de_qwerty, R.string.de_keyboard, Dictionary.Language.German);} public String getKeyboardPrefId() {return DE_KEYBOARD;}});		
 	}
 	
-	public static ArrayList<AnyKeyboard> createAlphaBetKeyboards(AnyKeyboardContextProvider contextProvider)
+	public static KeyboardCreator[] createAlphaBetKeyboards(AnyKeyboardContextProvider contextProvider)
 	{
 		Log.i("AnySoftKeyboard", "Creating keyboards. I have "+ ms_creators.size()+" creators");
 		//Thread.dumpStack();
-		ArrayList<AnyKeyboard> keyboards = new ArrayList<AnyKeyboard>();
+		ArrayList<KeyboardCreator> keyboards = new ArrayList<KeyboardCreator>();
 		
 		//getting shared prefs to determine which to create.
 		SharedPreferences sharedPreferences = contextProvider.getSharedPreferences();
@@ -89,14 +89,16 @@ public class KeyboardFactory
 			
 			if (keyboardIsEnabled)
 			{
-				keyboards.add(creator.createKeyboard(contextProvider));
+				keyboards.add(creator/*.createKeyboard(contextProvider)*/);
 			}
 		}
 		
-		for(AnyKeyboard aKeyboard : keyboards)
-			Log.d("AnySoftKeyboard", "Factory created: "+aKeyboard.getKeyboardName());
+		for(KeyboardCreator aKeyboard : keyboards)
+			Log.d("AnySoftKeyboard", "Factory provided creator: "+aKeyboard.getKeyboardPrefId());
 		
-		return keyboards;
+		keyboards.trimToSize();
+		KeyboardCreator[] keyboardsArray = new KeyboardCreator[keyboards.size()];
+		return keyboards.toArray(keyboardsArray);
 	}
 
 }

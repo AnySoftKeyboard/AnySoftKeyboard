@@ -20,12 +20,11 @@ import android.inputmethodservice.Keyboard;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
-import java.util.ArrayList;
-
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
+import com.menny.android.anysoftkeyboard.keyboards.KeyboardFactory.KeyboardCreator;
 
 public class KeyboardSwitcher 
 {
@@ -66,7 +65,9 @@ public class KeyboardSwitcher
     private int mLastSelectedSymbolsKeyboard = 0;
     private AnyKeyboard[] mSymbolsKeyboardsArray;
     //my working keyboards
-    private ArrayList<AnyKeyboard> mAlphabetKeyboards = null;
+    private AnyKeyboard[] mAlphabetKeyboards = null;
+    private KeyboardCreator[] mAlphabetKeyboardsCreators = null;
+    
     private int mLastSelectedKeyboard = 0;
     
     //private int mMode;
@@ -110,7 +111,7 @@ public class KeyboardSwitcher
     	return keyboard;
     }
     
-    private ArrayList<AnyKeyboard> getAlphabetKeyboards()
+    private AnyKeyboard[] getAlphabetKeyboards()
     {
     	makeKeyboards(false);
     	return mAlphabetKeyboards;
@@ -139,8 +140,9 @@ public class KeyboardSwitcher
         	{
         		public void run()
         		{
-        			mAlphabetKeyboards = KeyboardFactory.createAlphaBetKeyboards(mContext);
-        	        if (mLastSelectedKeyboard >= mAlphabetKeyboards.size())
+        			mAlphabetKeyboardsCreators = KeyboardFactory.createAlphaBetKeyboards(mContext);
+        			mAlphabetKeyboards = new AnyKeyboard[mAlphabetKeyboardsCreators.length];
+        	        if (mLastSelectedKeyboard >= mAlphabetKeyboards.length)
         	        	mLastSelectedKeyboard = 0;
         	        
         	        mSymbolsKeyboardsArray = new AnyKeyboard[3];
@@ -164,7 +166,8 @@ public class KeyboardSwitcher
             case MODE_URL:
             case MODE_EMAIL:
             case MODE_IM:
-            	keyboard = getAlphabetKeyboards().get(mLastSelectedKeyboard);
+            	keyboard = getAlphabetKeyboard(mLastSelectedKeyboard);
+            	if (keyboard == null)
             	mAlphabetMode = true;
             	break;
             case MODE_SYMBOLS:
@@ -252,8 +255,7 @@ public class KeyboardSwitcher
     
     private AnyKeyboard nextAlphabetKeyboard(EditorInfo currentEditorInfo, boolean supportsPhysical)
     {
-    	ArrayList<AnyKeyboard> alphabetKeyboards = getAlphabetKeyboards();
-    	final int keyboardsCount = alphabetKeyboards.size();
+    	final int keyboardsCount = getAlphabetKeyboards().length;
     	AnyKeyboard current;
     	if (isAlphabetMode())
     		mLastSelectedKeyboard++;
@@ -263,7 +265,7 @@ public class KeyboardSwitcher
     	if (mLastSelectedKeyboard >= keyboardsCount)
 			mLastSelectedKeyboard = 0;
     	
-    	current = alphabetKeyboards.get(mLastSelectedKeyboard);
+    	current = getAlphabetKeyboard(mLastSelectedKeyboard);
     	//returning to the regular symbols keyboard, no matter what
     	mLastSelectedSymbolsKeyboard = 0;
     	
@@ -275,7 +277,7 @@ public class KeyboardSwitcher
     			mLastSelectedKeyboard++;
         		if (mLastSelectedKeyboard >= keyboardsCount)
         			mLastSelectedKeyboard = 0;
-        		current = alphabetKeyboards.get(mLastSelectedKeyboard);
+        		current = getAlphabetKeyboard(mLastSelectedKeyboard);
         		testsLeft--;
     		}
     		//if we scanned all keyboards... we screwed...
@@ -322,9 +324,22 @@ public class KeyboardSwitcher
 	public AnyKeyboard getCurrentKeyboard() 
 	{
 		if (isAlphabetMode())
-			return getAlphabetKeyboards().get(mLastSelectedKeyboard);
+			return getAlphabetKeyboard(mLastSelectedKeyboard);
 		else
 			return getSymbolsKeyboard(mLastSelectedSymbolsKeyboard);
+	}
+
+	private synchronized AnyKeyboard getAlphabetKeyboard(int index) {
+		AnyKeyboard keyboard = getAlphabetKeyboards()[index];
+		if (keyboard == null)
+		{
+			KeyboardCreator creator = mAlphabetKeyboardsCreators[index];
+			Log.d("AnySoftKeyboard", "About to create keyboard: "+creator.getKeyboardPrefId());
+			mAlphabetKeyboards[index] = creator.createKeyboard(mContext);
+			return mAlphabetKeyboards[index];
+		}
+		else
+			return keyboard;
 	}
 
 	public AnyKeyboard nextKeyboard(EditorInfo currentEditorInfo, NextKeyboardType type) 
