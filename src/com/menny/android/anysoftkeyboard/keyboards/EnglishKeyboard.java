@@ -8,12 +8,7 @@ public class EnglishKeyboard extends LatinKeyboard
 {
 	public EnglishKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, R.xml.qwerty, R.string.eng_keyboard, Dictionary.Language.English);
-	}
-	
-	public EnglishKeyboard(AnyKeyboardContextProvider context, int keyboardLayoutId, int keyboardNameId) 
-	{
-		super(context, keyboardLayoutId, keyboardNameId, Dictionary.Language.English);
+		super(context, KeyboardFactory.ENGLISH_KEYBOARD, R.xml.qwerty, R.string.eng_keyboard, Dictionary.Language.English);
 	}
 	
 	@Override
