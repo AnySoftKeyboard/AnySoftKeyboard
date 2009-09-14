@@ -46,7 +46,12 @@
     </string-array>
     <string name="lengthy_operations_toast_notification">Notify on lengthy operations</string>
     <string name="lengthy_operations_toast_notification_summary">Show short notifications on lengthy operations</string>
+    <!-- Options menu -->
     <string name="change_ime">Change input method</string>
+    <string name="override_dictionary">Override default dictionary</string>
+    <!-- Dictionary override strings -->
+    <string name="override_dictionary_title">Override <xliff:g id="word">%s</xliff:g> dictionary</string>
+    <string name="override_dictionary_default">Default</string>
     <!-- settings - effects-->
     <string name="effects_group">Effects</string>
     <string name="ime_settings">Keyboard settings</string>

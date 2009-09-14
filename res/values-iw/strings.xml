@@ -47,6 +47,10 @@
     <string name="lengthy_operations_toast_notification">התראה על פעולות ממושכות</string>
     
     <string name="change_ime">החלף IME</string>
+    <string name="override_dictionary">עקיפת מילון</string>
+    <!-- Dictionary override strings -->
+    <string name="override_dictionary_title">עקיפת מילון <xliff:g id="word">%s</xliff:g></string>
+    <string name="override_dictionary_default">ברירת מחדל</string>
     <!-- settings - effects-->
     <string name="effects_group">אפקטים</string>
     <string name="ime_settings">הגדרות מקלדת</string>

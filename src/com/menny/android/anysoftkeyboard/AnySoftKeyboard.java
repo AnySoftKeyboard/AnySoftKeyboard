@@ -21,6 +21,7 @@ import java.util.List;
 
 import android.app.*;
 import android.content.*;
+import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
 import android.inputmethodservice.*;
@@ -1658,17 +1659,22 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private Language getLanguageForKeyobard(AnyKeyboard currentKeyobard) 
 	{
 		//if there is a mapping in the settings, we'll use that, else we'll return the default
-		String mappingSettingsKey = currentKeyobard.getKeyboardPrefId()+"_override_dictionary";
+		String mappingSettingsKey = getDictionaryOverrideKey(currentKeyobard);
 		String defaultDictionary = currentKeyobard.getDefaultDictionaryLanguage().toString();
 		String dictionaryValue = getSharedPreferences().getString(mappingSettingsKey, defaultDictionary);
 		if (defaultDictionary.equals(dictionaryValue))
 			return currentKeyobard.getDefaultDictionaryLanguage();
 		else
 		{
-			Log.d("AnySoftKeyboard", "Default dictionary '"+defaultDictionary+"' for keyboard '"+currentKeyobard.getKeyboardPrefId()+"' ha been overriden to '"+dictionaryValue+"'");
+			Log.d("AnySoftKeyboard", "Default dictionary '"+defaultDictionary+"' for keyboard '"+currentKeyobard.getKeyboardPrefId()+"' has been overriden to '"+dictionaryValue+"'");
 			Language overridingLanguage = Language.valueOf(dictionaryValue);
 			return overridingLanguage;
 		}
+	}
+
+	private String getDictionaryOverrideKey(AnyKeyboard currentKeyobard) {
+		String mappingSettingsKey = currentKeyobard.getKeyboardPrefId()+"_override_dictionary";
+		return mappingSettingsKey;
 	}
 
 	private void launchSettings() {
@@ -1679,16 +1685,70 @@ public class AnySoftKeyboard extends InputMethodService implements
 		startActivity(intent);
 	}
 
+	private void launchDictioanryOverriding()
+	{
+		final String dictionaryOverridingKey = getDictionaryOverrideKey(mKeyboardSwitcher.getCurrentKeyboard());
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setCancelable(true);
+		builder.setIcon(R.drawable.icon_8_key);
+		builder.setTitle(getResources().getString(R.string.override_dictionary_title));
+		builder.setNegativeButton(android.R.string.cancel, null);
+		ArrayList<CharSequence> dictioanries = new ArrayList<CharSequence>();
+		dictioanries.add(getString(R.string.override_dictionary_default));
+		for(Language lang : Language.values())
+		{
+			dictioanries.add(lang.toString());
+		}
+		 
+		final CharSequence[] items = new CharSequence[dictioanries.size()];
+		dictioanries.toArray(items);
+		
+		builder.setItems(items, 
+			new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface di, int position) {
+					di.dismiss();
+					switch(position)
+					{
+					case 0:
+						Log.d("AnySoftKeyboard", "Dictionary overriden disabled. User selected default.");
+						getSharedPreferences().edit().remove(dictionaryOverridingKey);
+					default:
+						if ((position < 0) || (position >= items.length))
+						{
+							Log.d("AnySoftKeyboard", "Dictioanry override dialog canceled.");
+						}
+						else
+						{
+							String selectedLanguageString = items[position].toString();
+							Log.d("AnySoftKeyboard", "Dictionary override. User selected "+selectedLanguageString);
+							Editor editor = getSharedPreferences().edit();
+							editor.putString(dictionaryOverridingKey, selectedLanguageString);
+							editor.commit();
+							setMainDictionaryForCurrentKeyboard();
+						}
+					}
+				}
+			});
+		 
+		mOptionsDialog = builder.create();
+		Window window = mOptionsDialog.getWindow();
+		WindowManager.LayoutParams lp = window.getAttributes();
+		lp.token = mInputView.getWindowToken();
+		lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
+		window.setAttributes(lp);
+		window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+		mOptionsDialog.show();
+	}
+	
 	private void showOptionsMenu() {
-//		launchSettings();
-//	}
 		 AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		 builder.setCancelable(true);
 		 builder.setIcon(R.drawable.icon_8_key);
 		 builder.setNegativeButton(android.R.string.cancel, null);
 		 CharSequence itemSettings = getString(R.string.ime_settings);
+		 CharSequence itemOverrideDictionary = getString(R.string.override_dictionary);
 		 CharSequence itemInputMethod = getString(R.string.change_ime);
-		 builder.setItems(new CharSequence[] { itemSettings, itemInputMethod}, 
+		 builder.setItems(new CharSequence[] { itemSettings, itemOverrideDictionary, itemInputMethod}, 
 			 new DialogInterface.OnClickListener() {
 				 public void onClick(DialogInterface di, int position) {
 					 di.dismiss();
@@ -1697,6 +1757,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 						 launchSettings();
 						 break;
 					 case 1:
+						 launchDictioanryOverriding();
+						 break;
+					 case 2:
 						 ((InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE)).showInputMethodPicker();
 						 break;
 					 }
