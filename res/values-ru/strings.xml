@@ -44,7 +44,8 @@
       <item>2</item>
       <item>3</item>
    </string-array>
-   <string name="lengthy_operations_toast_notification">Уведомлять при долгих операциях</string>
+   <string name="lengthy_operations_toast_notification">Долгие операции</string>
+   <string name="lengthy_operations_toast_notification_summary">Показывать уведомления при долгих операциях.</string>
    <string name="change_ime">Изменить метод ввода</string>
    
    <!-- settings - effects-->
@@ -67,9 +68,10 @@
       <item>50</item>
    </string-array>
    <string name="sound_on">Звук при нажатии</string>
+   <string name="sound_on_summary">Звуковой эффект при нажатии клавиш на виртуальной клавиатуре. Громкость по умолчанию.</string>
    <string name="auto_caps">Авто-заглав</string>
    <string name="grammer_group">Грамматика</string>
-   <string name="candidates_on">Показывать советы</string>
+   <string name="candidates_on">Советы</string>
    <string name="quick_fix">Авто-исправления</string>
    <string name="quick_fix_summary">Автоматически исправлять ошибки</string>
    <string name="auto_complete">Авто-выбор совета</string>
