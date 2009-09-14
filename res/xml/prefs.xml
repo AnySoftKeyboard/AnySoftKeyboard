@@ -25,15 +25,15 @@
                 android:entries="@array/physical_keyboard_change_notification_types"
                 android:entryValues="@array/physical_keyboard_change_notification_values"
                 android:defaultValue=""
-                android:dialogTitle="@string/physical_keyboard_change_notification_dialog_title"/>
+                android:dialogTitle="@string/physical_keyboard_change_notification_dialog_title"/>                
 	            <CheckBoxPreference
 	            android:key="lengthy_operations_toast_notification"
 	            android:title="@string/lengthy_operations_toast_notification"
 	            android:persistent="true" 
-	            android:defaultValue="true"
+	            android:defaultValue="false"
 	            android:summaryOff=""
-	            android:summaryOn="Show short notifications on lengthy operations"
-	            />-->
+	            android:summaryOn="@string/lengthy_operations_toast_notification_summary"
+	            />
             </PreferenceCategory>
    		 	<PreferenceCategory android:key="effects_group" android:title="@string/effects_group">
             <ListPreference
@@ -56,7 +56,7 @@
             android:title="@string/sound_on"
             android:persistent="true"
             android:defaultValue="false" 
-            android:summaryOn="Sound effects on soft keyboard press. Volume is Notifications volume."
+            android:summaryOn="@string/sound_on_summary"
             android:summaryOff=""
             />
             </PreferenceCategory>
@@ -93,14 +93,6 @@
             </PreferenceCategory>
             <PreferenceCategory android:key="keyboards_group"
             android:title="@string/keyboards_group">
-            <!-- <CheckBoxPreference
-            android:key="internet_keyboard"
-            android:title="@string/internet_keyboard"
-            android:persistent="true" 
-            android:defaultValue="true"
-            android:summaryOn="Special keyboard layout for URL/E-mail text boxes."
-            android:summaryOff=""
-            />-->
             <CheckBoxPreference
             android:key="eng_keyboard"
             android:title="@string/eng_keyboard"

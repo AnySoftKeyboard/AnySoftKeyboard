@@ -45,7 +45,7 @@
         <item>3</item>
     </string-array>
     <string name="lengthy_operations_toast_notification">Notify on lengthy operations</string>
-    
+    <string name="lengthy_operations_toast_notification_summary">Show short notifications on lengthy operations</string>
     <string name="change_ime">Change input method</string>
     <!-- settings - effects-->
     <string name="effects_group">Effects</string>
@@ -67,6 +67,7 @@
         <item>50</item>
     </string-array>
     <string name="sound_on">Sound on key-press</string>
+    <string name="sound_on_summary">Sound effects on soft keyboard press. Volume is Notifications volume.</string>
     <string name="auto_caps">Auto-capitalization</string>
     <string name="grammer_group">Grammar</string>
     <string name="candidates_on">Show suggestions</string>
