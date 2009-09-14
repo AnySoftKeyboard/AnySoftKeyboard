@@ -346,7 +346,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		Log.i("AnySoftKeyboard", "****** Starting AnySoftKeyboard:");
 		Log.i("AnySoftKeyboard", "** Locale:"+ getResources().getConfiguration().locale.toString());
 		
-		showToastMessage(R.string.toast_lengthy_start_up_operation, true);
+		//showToastMessage(R.string.toast_lengthy_start_up_operation, true);
 		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 		// setStatusIcon(R.drawable.ime_qwerty);

@@ -255,7 +255,7 @@ public abstract class UserDictionaryBase extends Dictionary {
         }
     }
 
-    protected final void addWordFromStorage(String word, int frequency) {
+    protected synchronized final void addWordFromStorage(String word, int frequency) {
     	addWordRec(mRoots, word, 0, frequency);
 	}
 

@@ -5,7 +5,6 @@ import java.util.HashMap;
 import android.util.Log;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
-import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.Dictionary.Dictionary.Language;
 
 public class DictionaryFactory 
@@ -43,7 +42,7 @@ public class DictionaryFactory
 	}
 	
 	
-	public synchronized static Dictionary getDictionary(Dictionary.Language language, AnyKeyboardContextProvider context)
+	public synchronized static Dictionary getDictionary(final Dictionary.Language language, AnyKeyboardContextProvider context)
 	{
 		if (msDictionaries.containsKey(language))
 			return msDictionaries.get(language);
@@ -51,8 +50,7 @@ public class DictionaryFactory
 		Dictionary dict = null;
 		
 		//showing lengthy operation toast
-		context.showToastMessage(R.string.toast_lengthy_words_long_operation, false);
-		
+		//context.showToastMessage(R.string.toast_lengthy_words_long_operation, false);		
 		try
 		{
 			switch(language)
@@ -87,7 +85,21 @@ public class DictionaryFactory
 			default:
 				return null;
 			}
-			dict.loadDictionary();
+			final Dictionary dictToLoad = dict;
+			Thread loader = new Thread()
+			{
+				public void run()
+				{
+					try {
+						dictToLoad.loadDictionary();
+					} catch (Exception e) {
+						Log.e("AnySoftKeyboard", "Failed load dictionary for "+language+"! Will reset the map. Error:"+e.getMessage());
+						e.printStackTrace();
+						removeDictionary(language);
+					}
+				}				
+			};
+			loader.start();
 			msDictionaries.put(language, dict);
 		}
 		catch(Exception ex)
@@ -97,48 +109,17 @@ public class DictionaryFactory
 		}
 		
 		return dict;
-//		PackageManager packageManager = context.getApplicationContext().getPackageManager();
-//		
-//		String[] allDictionaryPackages = packageManager.getPackagesForUid(android.os.Process.myUid());
-//		if ((allDictionaryPackages == null) || (allDictionaryPackages.length == 0))
-//		{
-//			Log.i("AnySoftKeyboard", "*** No dictionary packages were found installed on system!");
-//			return null;
-//		}
-//		for(String packageName : allDictionaryPackages)
-//		{
-//			Log.d("AnySoftKeyboard", "Found package: "+packageName);
-//			try {
-//				Intent intent = packageManager.getLaunchIntentForPackage(packageName);
-//				if (intent != null)
-//				{
-//					String intentName = intent.getClass().getName();
-//					String classToInstantize = intent.getComponent().getClassName();
-//					Log.d("AnySoftKeyboard", "Found intent '"+intentName+"': component:"+classToInstantize);
-//					Object o = intent.getClass().getClassLoader().loadClass(classToInstantize).newInstance();
-//					Log.d("AnySoftKeyboard", "I've created an instance of "+o.getClass().getName());
-//				}
-//				else
-//				{
-//					Log.d("AnySoftKeyboard", "No intent found!");
-//				}
-//			} catch (NameNotFoundException e) {
-//				Log.e("AnySoftKeyboard", "This should not happen! This package '"+packageName+" was not found!");
-//			} catch (IllegalAccessException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (InstantiationException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (ClassNotFoundException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-//		
-//		return null;
 	}
 
+	public synchronized static void removeDictionary(Language language) 
+	{
+		if (msDictionaries.containsKey(language))
+		{
+			Dictionary dict = msDictionaries.get(language);
+			dict.close();
+			msDictionaries.remove(language);
+		}		
+	}
 
 	public synchronized static void close() {
 		if (msUserDictionary != null)
