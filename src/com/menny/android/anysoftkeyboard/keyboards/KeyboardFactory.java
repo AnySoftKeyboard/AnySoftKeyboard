@@ -20,21 +20,21 @@ public class KeyboardFactory
 	
 	private static final ArrayList<KeyboardCreator> ms_creators;
 	
-	private static final String ENGLISH_KEYBOARD = "eng_keyboard";
-	private static final String AZERTY_KEYBOARD = "azerty_keyboard";
-	private static final String DVORAK_KEYBOARD = "dvorak_keyboard";
-	private static final String HEBREW_KEYBOARD = "heb_keyboard";
-	private static final String RU_KEYBOARD = "ru_keyboard";
-	private static final String RU_PH_KEYBOARD = "ru_ph_keyboard";
+	public static final String ENGLISH_KEYBOARD = "eng_keyboard";
+	public static final String AZERTY_KEYBOARD = "azerty_keyboard";
+	public static final String DVORAK_KEYBOARD = "dvorak_keyboard";
+	public static final String HEBREW_KEYBOARD = "heb_keyboard";
+	public static final String RU_KEYBOARD = "ru_keyboard";
+	public static final String RU_PH_KEYBOARD = "ru_ph_keyboard";
 	public static final String ARABIC_KEYBOARD = "arabic_keyboard";
-	private static final String LAO_KEYBOARD ="lao_keyboard";
-	private static final String BG_PH_KEYBOARD = "bg_ph_keyboard";
-	private static final String BG_BDS_KEYBOARD = "bg_bds_keyboard";
-	private static final String FINNISH_SWEDISH_KEYBOARD = "finnish_swedish_keyboard";
-	private static final String SPANISH_KEYBOARD = "es_keyboard";
-	private static final String CATALAN_KEYBOARD = "catalan_keyboard";
-	private static final String CH_FR_KEYBOARD = "ch_fr_keyboard";
-	private static final String DE_KEYBOARD = "ch_de_keyboard";//this is the preferences key. Do not change it.
+	public static final String LAO_KEYBOARD ="lao_keyboard";
+	public static final String BG_PH_KEYBOARD = "bg_ph_keyboard";
+	public static final String BG_BDS_KEYBOARD = "bg_bds_keyboard";
+	public static final String FINNISH_SWEDISH_KEYBOARD = "finnish_swedish_keyboard";
+	public static final String SPANISH_KEYBOARD = "es_keyboard";
+	public static final String CATALAN_KEYBOARD = "catalan_keyboard";
+	public static final String CH_FR_KEYBOARD = "ch_fr_keyboard";
+	public static final String DE_KEYBOARD = "ch_de_keyboard";//this is the preferences key. Do not change it.
 	
 	static
 	{

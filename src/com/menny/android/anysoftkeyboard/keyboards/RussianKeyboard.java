@@ -38,7 +38,7 @@ public class RussianKeyboard extends AnyKeyboard implements HardKeyboardTranslat
 	}
 	public RussianKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, R.xml.russian_qwerty, false, R.string.ru_keyboard, false, Dictionary.Language.None);
+		super(context, KeyboardFactory.RU_KEYBOARD, R.xml.russian_qwerty, false, R.string.ru_keyboard, false, Dictionary.Language.None);
 	}
 
 	@Override

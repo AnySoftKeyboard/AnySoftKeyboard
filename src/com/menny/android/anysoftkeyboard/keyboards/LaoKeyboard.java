@@ -8,7 +8,7 @@ public class LaoKeyboard extends AnyKeyboard /*implements HardKeyboardTranslator
 {
 	public LaoKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, R.xml.lao_qwerty, true, R.string.lao_keyboard, true, Dictionary.Language.None);
+		super(context, KeyboardFactory.LAO_KEYBOARD, R.xml.lao_qwerty, true, R.string.lao_keyboard, true, Dictionary.Language.None);
 	}
 
 	@Override

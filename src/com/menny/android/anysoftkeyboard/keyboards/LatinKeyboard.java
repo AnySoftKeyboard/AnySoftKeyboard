@@ -10,9 +10,9 @@ import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTrans
 
 public class LatinKeyboard extends AnyKeyboard implements HardKeyboardTranslator//this class implements the HardKeyboardTranslator interface in an empty way, the physical keyboard is Latin...
 {
-	protected LatinKeyboard(AnyKeyboardContextProvider context, int keyboardLayoutId, int keyboardNameId, Dictionary.Language defaultDictionaryLanguage) 
+	protected LatinKeyboard(AnyKeyboardContextProvider context, String prefId, int keyboardLayoutId, int keyboardNameId, Dictionary.Language defaultDictionaryLanguage) 
 	{
-		super(context, keyboardLayoutId, true, keyboardNameId, true, defaultDictionaryLanguage);
+		super(context, prefId, keyboardLayoutId, true, keyboardNameId, true, defaultDictionaryLanguage);
 	}
 	
 	//this class implements the HardKeyboardTranslator interface in an empty way, the physical keyboard is Latin...
@@ -83,7 +83,7 @@ class FinnishSwedishKeyboard extends LatinKeyboard
 	private final Configuration mConfig;
 	public FinnishSwedishKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, R.xml.fin_swedish_qwerty, R.string.finnish_swedish_keyboard, Language.Swedish);
+		super(context, KeyboardFactory.FINNISH_SWEDISH_KEYBOARD, R.xml.fin_swedish_qwerty, R.string.finnish_swedish_keyboard, Language.Swedish);
 		mConfig = context.getApplicationContext().getResources().getConfiguration();
 	}
 	

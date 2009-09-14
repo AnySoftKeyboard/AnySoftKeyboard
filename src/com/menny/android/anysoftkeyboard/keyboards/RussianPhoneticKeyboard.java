@@ -28,7 +28,7 @@ public class RussianPhoneticKeyboard extends AnyKeyboard implements HardKeyboard
 	
 	public RussianPhoneticKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, R.xml.russian_ph_qwerty, false, R.string.ru_ph_keyboard, false, Dictionary.Language.None);
+		super(context, KeyboardFactory.RU_PH_KEYBOARD, R.xml.russian_ph_qwerty, false, R.string.ru_ph_keyboard, false, Dictionary.Language.None);
 	}
 
 	@Override

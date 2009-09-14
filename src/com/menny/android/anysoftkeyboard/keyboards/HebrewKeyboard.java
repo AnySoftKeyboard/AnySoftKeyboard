@@ -18,7 +18,7 @@ public class HebrewKeyboard extends AnyKeyboard implements HardKeyboardTranslato
 	}
 	public HebrewKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, R.xml.heb_qwerty, true, R.string.heb_keyboard, false, Dictionary.Language.Hebrew);
+		super(context, KeyboardFactory.HEBREW_KEYBOARD, R.xml.heb_qwerty, true, R.string.heb_keyboard, false, Dictionary.Language.Hebrew);
 	}
 
 	@Override

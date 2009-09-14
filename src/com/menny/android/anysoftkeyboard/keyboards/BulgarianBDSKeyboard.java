@@ -82,7 +82,7 @@ public class BulgarianBDSKeyboard extends AnyKeyboard implements HardKeyboardTra
     
 	public BulgarianBDSKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, R.xml.bg_bds_qwerty, false, R.string.bg_bds_keyboard, false, Dictionary.Language.None);
+		super(context, KeyboardFactory.BG_BDS_KEYBOARD, R.xml.bg_bds_qwerty, false, R.string.bg_bds_keyboard, false, Dictionary.Language.None);
 	}
 
 	@Override
