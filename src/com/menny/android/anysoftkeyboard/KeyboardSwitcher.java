@@ -367,9 +367,10 @@ public class KeyboardSwitcher
 		//else, we'll keep the current keyboard
 		for(int index=0; index<mSymbolsKeyboardsArray.length; index++)
 		{
-			if (isAlphabetMode() || (mLastSelectedSymbolsKeyboard!=index))
+			AnyKeyboard current = mSymbolsKeyboardsArray[index];
+			if ((current != null) && (isAlphabetMode() || (mLastSelectedSymbolsKeyboard!=index)))
 			{
-				Log.i("AnySoftKeyboard", "KeyboardSwitcher::onLowMemory: Removing "+mSymbolsKeyboardsArray[index].getKeyboardName());
+				Log.i("AnySoftKeyboard", "KeyboardSwitcher::onLowMemory: Removing "+current.getKeyboardName());
 				mSymbolsKeyboardsArray[index] = null;
 			}
 		}
@@ -377,9 +378,10 @@ public class KeyboardSwitcher
 		//just removing the not selected keyboards.
 		for(int index=0; index<mAlphabetKeyboards.length; index++)
 		{
-			if (mLastSelectedKeyboard!=index)
+			AnyKeyboard current = mAlphabetKeyboards[index];
+			if ((current != null) && (mLastSelectedKeyboard!=index))
 			{
-				Log.i("AnySoftKeyboard", "KeyboardSwitcher::onLowMemory: Removing "+mAlphabetKeyboards[index].getKeyboardName());
+				Log.i("AnySoftKeyboard", "KeyboardSwitcher::onLowMemory: Removing "+current.getKeyboardName());
 				mAlphabetKeyboards[index] = null;
 			}
 		}
