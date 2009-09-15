@@ -1,6 +1,7 @@
 package com.menny.android.anysoftkeyboard.Dictionary;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import android.util.Log;
 
@@ -144,6 +145,30 @@ public class DictionaryFactory
 			Dictionary dict = msDictionaries.get(language);
 			dict.close();
 			msDictionaries.remove(language);
+		}
+	}
+
+
+	public synchronized static void onLowMemory(Language currentlyUsedDictionary) {
+		//I'll clear all dictionaries but the required.
+		Dictionary dictToKeep = null;
+		for(Entry<Language, Dictionary> dict : msDictionaries.entrySet())
+		{
+			if (dict.getKey().equals(currentlyUsedDictionary))
+			{
+				dictToKeep = dict.getValue();
+			}
+			else
+			{
+				Log.i("AnySoftKeyboard", "DictionaryFacotry::onLowMemory: Removing "+dict.getKey());
+				dict.getValue().close();
+			}
+		}
+
+		msDictionaries.clear();
+		if (dictToKeep != null)
+		{
+			msDictionaries.put(currentlyUsedDictionary, dictToKeep);
 		}
 	}
 }

@@ -362,6 +362,29 @@ public class KeyboardSwitcher
 		return (current != null) && (current instanceof HardKeyboardTranslator);
 	}
 
+	public void onLowMemory() {
+		//if I'm in alphabet mode, then we'll clear all symbols
+		//else, we'll keep the current keyboard
+		for(int index=0; index<mSymbolsKeyboardsArray.length; index++)
+		{
+			if (isAlphabetMode() || (mLastSelectedSymbolsKeyboard!=index))
+			{
+				Log.i("AnySoftKeyboard", "KeyboardSwitcher::onLowMemory: Removing "+mSymbolsKeyboardsArray[index].getKeyboardName());
+				mSymbolsKeyboardsArray[index] = null;
+			}
+		}
+		//in alphabet we are a bit cautious..
+		//just removing the not selected keyboards.
+		for(int index=0; index<mAlphabetKeyboards.length; index++)
+		{
+			if (mLastSelectedKeyboard!=index)
+			{
+				Log.i("AnySoftKeyboard", "KeyboardSwitcher::onLowMemory: Removing "+mAlphabetKeyboards[index].getKeyboardName());
+				mAlphabetKeyboards[index] = null;
+			}
+		}
+	}
+
 //    void toggleSymbols() {
 //        Keyboard current = mInputView.getKeyboard();
 //        if (mSymbolsKeyboard == null) {

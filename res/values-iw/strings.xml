@@ -47,9 +47,9 @@
     <string name="lengthy_operations_toast_notification">התראה על פעולות ממושכות</string>
     
     <string name="change_ime">החלף IME</string>
-    <string name="override_dictionary">עקיפת מילון</string>
+    <string name="override_dictionary">בחירת מילון</string>
     <!-- Dictionary override strings -->
-    <string name="override_dictionary_title">עקיפת מילון <xliff:g id="word">%s</xliff:g></string>
+    <string name="override_dictionary_title">החלף <xliff:g id="word">%s</xliff:g></string>
     <string name="override_dictionary_default">ברירת מחדל</string>
     <!-- settings - effects-->
     <string name="effects_group">אפקטים</string>
@@ -83,7 +83,6 @@
     <string name="keyboards_group">מקלדות</string>
     <string name="eng_keyboard">אנגלית</string>
     <string name="heb_keyboard">עיברית</string>
-    <string name="internet_keyboard">אינטרנט</string>
     <string name="lao_keyboard">לאוס</string>
     <string name="arabic_keyboard">ערבית</string>
     <string name="bg_ph_keyboard">בולגרית פונטית</string>

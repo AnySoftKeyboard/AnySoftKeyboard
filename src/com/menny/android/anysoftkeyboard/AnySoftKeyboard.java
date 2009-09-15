@@ -1556,17 +1556,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 	// }
 
 	private boolean loadSettings() {
+		//setting all values to default
+		PreferenceManager.setDefaultValues(this, R.xml.prefs, false);
 		boolean handled = false;
 		// Get the settings preferences
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-		int newVibrationDuration;
-		if (sp.contains("vibrate_on") && !sp.contains("vibrate_on_key_press_duration")) {
-			boolean oldVibrateOn = sp.getBoolean("vibrate_on", false);
-			newVibrationDuration = oldVibrateOn ? 30 : 0;
-		} else {
-			newVibrationDuration = Integer.parseInt(sp.getString(
-					"vibrate_on_key_press_duration", "0"));
-		}
+		int newVibrationDuration = Integer.parseInt(sp.getString("vibrate_on_key_press_duration", "0"));
 		handled = handled || (newVibrationDuration != mVibrationDuration);
 		mVibrationDuration = newVibrationDuration;
 
@@ -1585,14 +1580,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		handled = handled || soundChanged;
 		mSoundOn = newSoundOn;
 		// in order to support the old type of configuration
-		String newKeyboardChangeNotificationType;
-		if (sp.contains("physical_keyboard_change_notification") && !sp.contains("physical_keyboard_change_notification_type")) 
-		{
-			boolean oldNotificationEnabled = sp.getBoolean("physical_keyboard_change_notification", true);
-			newKeyboardChangeNotificationType = oldNotificationEnabled ? "2" : "3";
-		} else {
-			newKeyboardChangeNotificationType = sp.getString("physical_keyboard_change_notification_type", "2");
-		}
+		String newKeyboardChangeNotificationType = sp.getString("physical_keyboard_change_notification_type", "2");
 		boolean notificationChanged = (!newKeyboardChangeNotificationType.equalsIgnoreCase(mKeyboardChangeNotificationType));
 		handled = handled || notificationChanged;
 		mKeyboardChangeNotificationType = newKeyboardChangeNotificationType;
@@ -1687,11 +1675,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void launchDictioanryOverriding()
 	{
-		final String dictionaryOverridingKey = getDictionaryOverrideKey(mKeyboardSwitcher.getCurrentKeyboard());
+		AnyKeyboard currentKeyboard = mKeyboardSwitcher.getCurrentKeyboard();
+		final String dictionaryOverridingKey = getDictionaryOverrideKey(currentKeyboard);
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setCancelable(true);
 		builder.setIcon(R.drawable.icon_8_key);
-		builder.setTitle(getResources().getString(R.string.override_dictionary_title));
+		builder.setTitle(getResources().getString(R.string.override_dictionary_title, currentKeyboard.getKeyboardName()));
 		builder.setNegativeButton(android.R.string.cancel, null);
 		ArrayList<CharSequence> dictioanries = new ArrayList<CharSequence>();
 		dictioanries.add(getString(R.string.override_dictionary_default));
@@ -1707,11 +1696,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 			new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface di, int position) {
 					di.dismiss();
+					Editor editor = getSharedPreferences().edit();
 					switch(position)
 					{
 					case 0:
 						Log.d("AnySoftKeyboard", "Dictionary overriden disabled. User selected default.");
-						getSharedPreferences().edit().remove(dictionaryOverridingKey);
+						editor.remove(dictionaryOverridingKey);
+						break;
 					default:
 						if ((position < 0) || (position >= items.length))
 						{
@@ -1721,12 +1712,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 						{
 							String selectedLanguageString = items[position].toString();
 							Log.d("AnySoftKeyboard", "Dictionary override. User selected "+selectedLanguageString);
-							Editor editor = getSharedPreferences().edit();
 							editor.putString(dictionaryOverridingKey, selectedLanguageString);
-							editor.commit();
-							setMainDictionaryForCurrentKeyboard();
 						}
+						break;
 					}
+					editor.commit();
+					setMainDictionaryForCurrentKeyboard();
 				}
 			});
 		 
@@ -1921,5 +1912,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 //        spinner.setMessage(getResources().getText(textResId));
 //        spinner.setCancelable(false);
 //        spinner.show();
+	}
+	
+	@Override
+	public void onLowMemory() {
+		Log.w("AnySoftKeyboard", "The OS has reported that it is low on memory!. I'll try to clear some cache.");
+		mKeyboardSwitcher.onLowMemory();
+		DictionaryFactory.onLowMemory(getLanguageForKeyobard(mKeyboardSwitcher.getCurrentKeyboard()));
+		super.onLowMemory();
 	}
 }
