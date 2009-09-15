@@ -47,8 +47,12 @@
     </string-array>
     <string name="lengthy_operations_toast_notification">Tiedota pitkäkestoisista toiminnoista</string>
     <string name="lengthy_operations_toast_notification_summary">Näytä lyhyt tiedotus pitkäkestoisista toiminnoista</string>
-    
-    <string name="change_ime">Vaihda tekstinsyöttötapa</string>
+    <!-- Options menu -->
+    <string name="change_ime">Vaihda tekstinsyöttötapa</string>   <string name="override_dictionary">Override default dictionary</string>
+    <string name="override_dictionary">Vaihda oletussanakirja</string>
+    <!-- Dictionary override strings -->
+    <string name="override_dictionary_title">Vaihda <xliff:g id="word">%s</xliff:g> sanakirja</string>
+    <string name="override_dictionary_default">Oletus</string>
     <!-- settings - effects-->
     <string name="effects_group">Efektit</string>
     <string name="ime_settings">Näppäimistöasetukset</string>
@@ -82,7 +86,6 @@
     <string name="keyboards_group">Näppäimistöt</string>
     <string name="eng_keyboard">Englanti</string>
     <string name="heb_keyboard">Heprea</string>
-    <string name="internet_keyboard">Internet-näppäimistö</string>
     <string name="lao_keyboard">Lao</string>
     <string name="arabic_keyboard">Arabia</string>
     <string name="bg_ph_keyboard">Bulgaria, foneettinen</string>
