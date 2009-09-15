@@ -46,8 +46,12 @@
    </string-array>
    <string name="lengthy_operations_toast_notification">Долгие операции</string>
    <string name="lengthy_operations_toast_notification_summary">Показывать уведомления при долгих операциях.</string>
+   <!-- Options menu -->
    <string name="change_ime">Изменить метод ввода</string>
-   
+   <string name="override_dictionary">Заместить стандартный словарь</string>
+   <!-- Dictionary override strings -->
+   <string name="override_dictionary_title">Заместить <xliff:g id="word">%s</xliff:g> словарь</string>
+   <string name="override_dictionary_default">Стандартный</string>
    <!-- settings - effects-->
    <string name="effects_group">Эффекты</string>
    <string name="ime_settings">Настройки Клавиатуры</string>
