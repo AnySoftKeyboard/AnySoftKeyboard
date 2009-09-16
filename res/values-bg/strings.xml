@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="ime_name">AnySoftKeyboard</string>
+	<string name="how_to_pointer_title">Добре дошли в AnySoftKeyboard</string>
+	<string name="how_to_pointer_version_prefix">Версия: </string>
+	
+	<string name="how_to_pointer_not_app">AnySoftKeyboard не еобикновена програма - тя е заместник на екранната клавиатура.</string>
+	<string name="how_to_pointer_how_to_url">Отидете на http://code.google.com/p/softkeyboard/wiki/HowTo за детайли как се използва тази клавиатура.</string>
+	<string name="how_to_pointer_changelog">За детайли относно последната версия отидете на: http://code.google.com/p/softkeyboard/wiki/ChangeLog</string>
+	<string name="how_to_pointer_issues">За докладване на грешки отидете на: http://code.google.com/p/softkeyboard/issues/list</string>
+	<string name="how_to_pointer_site">За обща информация отидете на: http://code.google.com/p/softkeyboard/</string>
+	
+    <!-- Symbols that are commonly considered word separators in this language -->
+    <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
+    <!-- Indicates that a word has been added to the dictionary -->
+    <string name="added_word"><xliff:g id="word">%s</xliff:g> : записана</string>
+    
+    <!-- settings - UI -->
+    <string name="ui_group">Потребителски интерфейс</string>
+    <string name="keyboard_layout_change_method_title">Метод за смяна на подредбата</string>
+    <string name="keyboard_layout_change_method_summary">Метод за смяна на клавиатурната подредба</string>
+    <string name="keyboard_layout_change_method_dialog_title">Изберете метод</string>
+    <string-array name="keyboard_layout_change_methods">
+        <item>Плъзгане с подсказващи бутони</item>
+        <item>Плъзгане без подсказващи бутони</item>
+        <item>Без плъзгане, само бутони</item>
+    </string-array>
+    <string-array name="keyboard_layout_change_methods_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string name="physical_keyboard_change_notification_title">Съобщение за смяна на подредбата</string>
+    <string name="physical_keyboard_change_notification_summary">Вид съобщение за активната подредба</string>
+    <string name="physical_keyboard_change_notification_dialog_title">Изберете вида на съобщението</string>
+    <string-array name="physical_keyboard_change_notification_types">
+        <item>Винаги показвай икона за подредбата</item>
+        <item>При смяна на физическата клавиатура</item>
+        <item>Без съобщение</item>
+    </string-array>
+    <string-array name="physical_keyboard_change_notification_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string name="lengthy_operations_toast_notification">Известявай при продължителни действия</string>
+    
+    <!-- settings - effects-->
+    <string name="effects_group">Ефекти</string>
+    <string name="ime_settings">Настройки на клавиатурата</string>
+    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
+    <string name="vibrate_on_key_press_title">Вибрация при натиснат клавиш</string>
+    <string name="vibrate_on_key_press_summary">Изберете вида вибрация</string>
+    <string name="vibrate_on_key_press_dialog_title">Изберете продължителност на вибрацията</string>
+    <string-array name="vibrate_on_key_press_types">
+    	<item>Без вибрация</item>
+        <item>Лека</item>
+        <item>Средна</item>
+        <item>Силна</item>
+    </string-array>
+    <string-array name="vibrate_on_key_press_values">
+    	<item>0</item>
+        <item>17</item>
+        <item>30</item>
+        <item>50</item>
+    </string-array>
+    <string name="sound_on">Звук при натиснат клавиш</string>
+    <string name="auto_caps">Авто-капитализация</string>
+    <string name="grammer_group">Граматика</string>
+    <string name="candidates_on">Показвай предложения</string>
+    <string name="quick_fix">Бързи поправки</string>
+    <string name="quick_fix_summary">Поправяй честите грешки</string>
+    <string name="auto_complete">Автоматично избиране на предложенията</string>
+    <string name="auto_complete_summary">Интервал ще избере подчертаното предложение</string>
+    
+    <!-- settings - keyboard group -->
+    <string name="keyboards_group">Клавиатури</string>
+    <string name="eng_keyboard">English</string>
+    <!-- <string name="heb_keyboard">Hebrew - &#1502;&#1511;&#1500;&#1491;&#1514;&#32;&#1506;&#1497;&#1489;&#1512;&#1497;&#1514;</string>-->
+    <string name="heb_keyboard">Hebrew</string>
+    <string name="internet_keyboard">Internet keyboard</string>
+    <!-- <string name="lao_keyboard">Lao - &#3777;&#3739;&#3785;&#3737;&#3742;&#3765;&#3745;&#32;&#3749;&#3762;&#3751;</string>-->
+    <string name="lao_keyboard">Lao</string>
+    <string name="arabic_keyboard">Arabic</string>
+    <string name="bg_ph_keyboard">Българска фонетична</string>
+    <string name="bg_bds_keyboard">Българска BDS</string>
+    <string name="dvorak_keyboard">Dvorak</string>
+    <string name="finnish_swedish_keyboard">Swedish/Finnish</string>
+    <string name="catalan_keyboard">Catalan</string>
+    <string name="ch_fr_keyboard">Swiss French</string>
+    <string name="de_keyboard">German/Swiss German</string>
+    <string name="azerty_keyboard">AZERTY</string>
+    <string name="es_keyboard">Spanish</string>
+    <string name="ru_ph_keyboard">Russian Phonetic</string>
+    <string name="ru_keyboard">Russian</string>
+    
+    <!-- Tutorials --> 
+    <string name="show_tutorial_on_startup">Показвай обучението при стартиране</string>
+    <string name="tutorial_swipe_title">Плъзни за промяна на клавиатурата</string>
+    <string name="tutorial_swipe_text">Клавиатурната подредба може да бъде сменена като плъзнете пръста си върху клавиатурата. Плъзнете отляво надясно, за да смените езика, и отдясно наляво за символи.</string>
+    
+    <!-- Special soft keyboard keys text -->
+    <string name="label_go_key">Давай</string>
+    <string name="label_next_key">Следващ</string>
+    <string name="label_send_key">Изпрати</string>
+    
+    <string name="change_lang_wide">&#8594; ABC &#8594;</string>
+    <string name="change_lang_regular">ABC</string>
+    <string name="change_symbols_wide">&#8592; 123 &#8592;</string>
+    <string name="change_symbols_regular">123</string>
+    
+    <string name="toast_lengthy_words_long_operation">Зареждане на речника...</string>
+    <string name="toast_lengthy_start_up_operation">Стартиране на AnySoftKeyboard...</string>
+</resources>
