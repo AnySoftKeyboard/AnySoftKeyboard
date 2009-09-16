@@ -15,31 +15,44 @@
             android:id="@android:id/tabcontent"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
-            <!-- <LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="vertical">
-				<ScrollView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1">-->
-			<LinearLayout android:id="@+id/main_tab1" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical">
-				<TextView android:text="@string/how_to_pointer_title" android:textSize="20px" android:layout_width="fill_parent" android:layout_height="wrap_content"
-					android:textStyle="bold"></TextView>
-				<TextView android:id="@+id/main_title_version" android:text="@string/how_to_pointer_version_prefix" android:textSize="12px" android:layout_width="fill_parent" android:layout_height="wrap_content"
-					android:textStyle="bold"></TextView>
-				
-				<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
-					<ImageView android:paddingLeft="8px" android:layout_height="wrap_content" android:src="@drawable/twitter" android:layout_width="wrap_content"></ImageView>
-					<TextView android:paddingLeft="3px" android:text="http://twitter.com/anysoftkeyboard" android:autoLink="web" android:textSize="12px" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
-				</LinearLayout>
-				<ImageView android:layout_height="wrap_content" android:src="@drawable/welcome_keyboard_image" android:layout_width="fill_parent" android:layout_marginTop="10px" android:layout_marginLeft="15px"></ImageView>
-				<TextView android:text="@string/how_to_pointer_not_app" android:textSize="18px" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content"
-					android:paddingTop="10px"></TextView>
+            <LinearLayout android:id="@+id/main_tab1" android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="vertical">
+				<ScrollView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1">
+					<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical">
+						<TextView android:text="@string/how_to_pointer_title" android:textSize="20px" android:layout_width="fill_parent" android:layout_height="wrap_content"
+							android:textStyle="bold"></TextView>
+						<TextView android:id="@+id/main_title_version" android:text="@string/how_to_pointer_version_prefix" android:textSize="12px" android:layout_width="fill_parent" android:layout_height="wrap_content"
+							android:textStyle="bold"></TextView>
+						
+						<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+							<ImageView android:paddingLeft="8px" android:layout_height="wrap_content" android:src="@drawable/twitter" android:layout_width="wrap_content"></ImageView>
+							<TextView android:paddingLeft="3px" android:text="http://twitter.com/anysoftkeyboard" android:autoLink="web" android:textSize="12px" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+						</LinearLayout>
+						<ImageView android:layout_height="wrap_content" android:src="@drawable/welcome_keyboard_image" android:layout_width="fill_parent" android:layout_marginTop="10px" android:layout_marginLeft="15px"></ImageView>
+						<TextView android:text="@string/how_to_pointer_not_app" android:textSize="16px" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content"
+							android:paddingTop="10px"></TextView>
+					</LinearLayout>
+			 	</ScrollView>
 			</LinearLayout>
-			<!-- 	</ScrollView>
-			</LinearLayout>-->
-			<LinearLayout android:id="@+id/main_tab2" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical">
-				<TextView android:text="@string/how_to_pointer_how_to_url" android:textSize="14px" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
-				<TextView android:text="@string/how_to_pointer_site" android:textSize="14px" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
-				<TextView android:text="@string/how_to_pointer_changelog" android:textSize="14px" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
-				<TextView android:text="@string/how_to_pointer_issues" android:textSize="14px" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
+			<LinearLayout android:id="@+id/main_tab2" android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="vertical">
+				<ScrollView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1">
+					<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical">
+						<TextView android:text="@string/how_to_pointer_how_to_url" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
+						<TextView android:text="http://code.google.com/p/softkeyboard/wiki/HowTo" android:textSize="14px" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
+						<TextView android:text="@string/how_to_pointer_site" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
+						<TextView android:text="http://code.google.com/p/softkeyboard/" android:textSize="14px" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
+						<TextView android:text="@string/how_to_pointer_changelog" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
+						<TextView android:text="http://code.google.com/p/softkeyboard/wiki/ChangeLog" android:textSize="14px" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
+						<TextView android:text="@string/how_to_pointer_issues" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
+						<TextView android:text="http://code.google.com/p/softkeyboard/issues/list" android:textSize="14px" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
+					</LinearLayout>
+				</ScrollView>
 			</LinearLayout>
             <LinearLayout android:id="@+id/main_tab3" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical">
+            	<ScrollView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1">
+            		<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical">
+            			<!-- Put here the credits -->
+            		</LinearLayout>
+            	</ScrollView>
 			</LinearLayout>
     	</FrameLayout>
     </LinearLayout>

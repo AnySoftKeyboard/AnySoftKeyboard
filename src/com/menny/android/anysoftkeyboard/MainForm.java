@@ -27,9 +27,9 @@ public class MainForm extends TabActivity {
 		
 		TabHost mTabHost = getTabHost();
 	    
-	    mTabHost.addTab(mTabHost.newTabSpec("tab_test1").setIndicator("Welcome").setContent(R.id.main_tab1));
-	    mTabHost.addTab(mTabHost.newTabSpec("tab_test2").setIndicator("Links").setContent(R.id.main_tab2));
-	    mTabHost.addTab(mTabHost.newTabSpec("tab_test3").setIndicator("Credits").setContent(R.id.main_tab3));
+	    mTabHost.addTab(mTabHost.newTabSpec("tab_test1").setIndicator(getString(R.string.main_tab_welcome)).setContent(R.id.main_tab1));
+	    mTabHost.addTab(mTabHost.newTabSpec("tab_test2").setIndicator(getString(R.string.main_tab_links)).setContent(R.id.main_tab2));
+	    mTabHost.addTab(mTabHost.newTabSpec("tab_test3").setIndicator(getString(R.string.main_tab_credits)).setContent(R.id.main_tab3));
 	    
 	    mTabHost.setCurrentTab(0);
     }

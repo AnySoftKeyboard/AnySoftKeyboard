@@ -1702,6 +1702,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 					case 0:
 						Log.d("AnySoftKeyboard", "Dictionary overriden disabled. User selected default.");
 						editor.remove(dictionaryOverridingKey);
+						showToastMessage(R.string.override_disabled, true);
 						break;
 					default:
 						if ((position < 0) || (position >= items.length))
@@ -1713,6 +1714,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 							String selectedLanguageString = items[position].toString();
 							Log.d("AnySoftKeyboard", "Dictionary override. User selected "+selectedLanguageString);
 							editor.putString(dictionaryOverridingKey, selectedLanguageString);
+							showToastMessage(getString(R.string.override_enabled, selectedLanguageString), true);
 						}
 						break;
 					}
@@ -1890,6 +1892,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public void showToastMessage(int resId, boolean forShortTime)
 	{
 		CharSequence text = getResources().getText(resId);
+		showToastMessage(text, forShortTime);
+	}
+
+	private void showToastMessage(CharSequence text, boolean forShortTime) {
 		int duration = forShortTime? Toast.LENGTH_SHORT : Toast.LENGTH_LONG;
 		if (DEBUG)
 			Log.v("AnySoftKeyboard", "showToastMessage: '"+text+"'. For: "+duration);

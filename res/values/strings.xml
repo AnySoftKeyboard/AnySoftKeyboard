@@ -2,14 +2,19 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ime_name">AnySoftKeyboard</string>
+    
+    <string name="main_tab_welcome">Welcome</string>
+    <string name="main_tab_links">Links</string>
+    <string name="main_tab_credits">Credits</string>
+    
 	<string name="how_to_pointer_title">Welcome to AnySoftKeyboard</string>
 	<string name="how_to_pointer_version_prefix">Version: </string>
 	
 	<string name="how_to_pointer_not_app">AnySoftKeyboard is not a regular application - it is a on-screen keyboard replacement.</string>
-	<string name="how_to_pointer_how_to_url">Go to http://code.google.com/p/softkeyboard/wiki/HowTo for details about how to use this keyboard.</string>
-	<string name="how_to_pointer_changelog">For details about the latest version, go to: http://code.google.com/p/softkeyboard/wiki/ChangeLog</string>
-	<string name="how_to_pointer_issues">For bug reporting, go to: http://code.google.com/p/softkeyboard/issues/list</string>
-	<string name="how_to_pointer_site">For general details, go to: http://code.google.com/p/softkeyboard/</string>
+	<string name="how_to_pointer_how_to_url">Details about how to use this keyboard:</string>
+	<string name="how_to_pointer_site">General details:</string>
+	<string name="how_to_pointer_changelog">Details about the latest version:</string>
+	<string name="how_to_pointer_issues">Bug reporting:</string>
 	
     <!-- Symbols that are commonly considered word separators in this language -->
     <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
@@ -46,12 +51,17 @@
     </string-array>
     <string name="lengthy_operations_toast_notification">Notify on lengthy operations</string>
     <string name="lengthy_operations_toast_notification_summary">Show short notifications on lengthy operations</string>
+    
     <!-- Options menu -->
     <string name="change_ime">Change input method</string>
     <string name="override_dictionary">Override default dictionary</string>
     <!-- Dictionary override strings -->
     <string name="override_dictionary_title">Override <xliff:g id="word">%s</xliff:g> dictionary</string>
     <string name="override_dictionary_default">Default</string>
+    <!-- Dictionary override toast messages -->
+    <string name="override_disabled">Override cleared</string>
+    <string name="override_enabled">Overriding to <xliff:g id="word">%s</xliff:g></string>
+    
     <!-- settings - effects-->
     <string name="effects_group">Effects</string>
     <string name="ime_settings">Keyboard settings</string>

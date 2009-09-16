@@ -48,8 +48,8 @@
     <string name="lengthy_operations_toast_notification">Tiedota pitkäkestoisista toiminnoista</string>
     <string name="lengthy_operations_toast_notification_summary">Näytä lyhyt tiedotus pitkäkestoisista toiminnoista</string>
     <!-- Options menu -->
-    <string name="change_ime">Vaihda tekstinsyöttötapa</string>   <string name="override_dictionary">Override default dictionary</string>
-    <string name="override_dictionary">Vaihda oletussanakirja</string>
+    <string name="change_ime">Vaihda tekstinsyöttötapa</string>
+	<string name="override_dictionary">Vaihda oletussanakirja</string>
     <!-- Dictionary override strings -->
     <string name="override_dictionary_title">Vaihda <xliff:g id="word">%s</xliff:g> sanakirja</string>
     <string name="override_dictionary_default">Oletus</string>
