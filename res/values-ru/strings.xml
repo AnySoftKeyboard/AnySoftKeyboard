@@ -2,15 +2,20 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
    <string name="ime_name">AnySoftKeyboard</string>
-	<string name="how_to_pointer_title">Добро пожаловать в AnySoftKeyboard</string>
-	<string name="how_to_pointer_version_prefix">Версия: </string>
-	
-	<string name="how_to_pointer_not_app">AnySoftKeyboard не обычная программа - это заменитель встроенной клавиатуры.</string>
-	<string name="how_to_pointer_how_to_url">Инструкции по пользованию: http://code.google.com/p/softkeyboard/wiki/HowTo</string>
-	<string name="how_to_pointer_changelog">Подробности об изменениях программе: http://code.google.com/p/softkeyboard/wiki/ChangeLog</string>
-	<string name="how_to_pointer_issues">Список неисправностей: http://code.google.com/p/softkeyboard/issues/list</string>
-	<string name="how_to_pointer_site">Подробности о программе: http://code.google.com/p/softkeyboard/</string>
-	
+   
+   <string name="main_tab_welcome">Добро Пожаловать</string>
+   <string name="main_tab_links">Ссылки</string>
+   <string name="main_tab_credits">Об Авторах</string>
+    
+   <string name="how_to_pointer_title">Добро пожаловать в AnySoftKeyboard</string>
+   <string name="how_to_pointer_version_prefix">Версия: </string>
+   
+   <string name="how_to_pointer_not_app">AnySoftKeyboard не обычная программа - это заменитель клавиатуры.</string>
+   <string name="how_to_pointer_how_to_url">Подробнее об использовании:</string>
+   <string name="how_to_pointer_site">Общие подробности:</string>
+   <string name="how_to_pointer_changelog">Изменения в последней версии:</string>
+   <string name="how_to_pointer_issues">Сообщить о дефекте:</string>
+   
     <!-- Symbols that are commonly considered word separators in this language -->
     <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
     <!-- Indicates that a word has been added to the dictionary -->
@@ -36,7 +41,7 @@
    <string name="physical_keyboard_change_notification_dialog_title">Выбор Уведомления</string>
    <string-array name="physical_keyboard_change_notification_types">
       <item>Всегда показывать иконку</item>
-      <item>Только для встроенной клавиатуры</item>
+      <item>При встроенной клавиатуре</item>
       <item>Не показывать</item>
    </string-array>
    <string-array name="physical_keyboard_change_notification_values">
@@ -46,12 +51,17 @@
    </string-array>
    <string name="lengthy_operations_toast_notification">Долгие операции</string>
    <string name="lengthy_operations_toast_notification_summary">Показывать уведомления при долгих операциях.</string>
+   
    <!-- Options menu -->
    <string name="change_ime">Изменить метод ввода</string>
    <string name="override_dictionary">Заместить стандартный словарь</string>
    <!-- Dictionary override strings -->
    <string name="override_dictionary_title">Заместить <xliff:g id="word">%s</xliff:g> словарь</string>
    <string name="override_dictionary_default">Стандартный</string>
+   <!-- Dictionary override toast messages -->
+   <string name="override_disabled">Сброшен на заводской</string>
+   <string name="override_enabled">Замещен на <xliff:g id="word">%s</xliff:g></string>
+   
    <!-- settings - effects-->
    <string name="effects_group">Эффекты</string>
    <string name="ime_settings">Настройки Клавиатуры</string>
@@ -75,11 +85,11 @@
    <string name="sound_on_summary">Звуковой эффект при нажатии клавиш на виртуальной клавиатуре. Громкость по умолчанию.</string>
    <string name="auto_caps">Авто-заглав</string>
    <string name="grammer_group">Грамматика</string>
-   <string name="candidates_on">Советы</string>
+   <string name="candidates_on">Показывать Советы</string>
    <string name="quick_fix">Авто-исправления</string>
    <string name="quick_fix_summary">Автоматически исправлять ошибки</string>
    <string name="auto_complete">Авто-выбор совета</string>
-   <string name="auto_complete_summary">Нажатие пробела выберет избранный совет.</string>
+   <string name="auto_complete_summary">Нажатие пробела выберет текущий совет.</string>
    
    <!-- settings - keyboard group -->
    <string name="keyboards_group">Языки Раскладок</string>
