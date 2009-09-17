@@ -23,7 +23,7 @@ public class MainForm extends TabActivity {
 		}
 		
 		TextView label = (TextView)super.findViewById(R.id.main_title_version);
-		label.setText(label.getText()+version);
+		label.setText(version);
 		
 		TabHost mTabHost = getTabHost();
 	    
