@@ -6,19 +6,27 @@
    <string name="main_tab_welcome">Добро Пожаловать</string>
    <string name="main_tab_links">Ссылки</string>
    <string name="main_tab_credits">Об Авторах</string>
-    
+   <!-- welcome tab -->
    <string name="how_to_pointer_title">Добро пожаловать в AnySoftKeyboard</string>
    <string name="how_to_pointer_version_prefix">Версия: </string>
    
    <string name="how_to_pointer_not_app">AnySoftKeyboard не обычная программа - это заменитель клавиатуры.</string>
-   <string name="how_to_pointer_how_to_url">Подробнее об использовании:</string>
-   <string name="how_to_pointer_site">Общие подробности:</string>
-   <string name="how_to_pointer_changelog">Изменения в последней версии:</string>
+   <string name="how_to_pointer_go_to_links">Посетите раздел ссылок для более подробной информации.</string>
+   <!-- links tab -->
+   <string name="how_to_pointer_how_to_url">Инструкции об употреблении:</string>
+   <string name="how_to_pointer_site">Подробнее о программе:</string>
+   <string name="how_to_pointer_changelog">Изменения в версиях:</string>
    <string name="how_to_pointer_issues">Сообщить о дефекте:</string>
+   <!-- credits tab -->
+   <string name="main_tab_credits_title">Эта программа была создана с помощью:</string>
+   <string name="main_tab_credits_created_by">Автор:</string>
+   <string name="main_tab_credits_additional_work_by">Программисты:</string>
+   <string name="main_tab_credits_localization_by">Переводчики:</string>
+   <string name="main_tab_credits_GUI_by">Художники:</string>
    
-    <!-- Symbols that are commonly considered word separators in this language -->
-    <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
-    <!-- Indicates that a word has been added to the dictionary -->
+   <!-- Symbols that are commonly considered word separators in this language -->
+   <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
+   <!-- Indicates that a word has been added to the dictionary -->
    <string name="added_word"><xliff:g id="word">%s</xliff:g> : сохранено</string>
     
    <!-- settings - UI -->
