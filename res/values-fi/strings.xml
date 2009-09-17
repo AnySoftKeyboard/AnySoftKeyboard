@@ -2,6 +2,11 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ime_name">AnySoftKeyboard</string>
+
+    <string name="main_tab_welcome">Tervetuloa</string>
+    <string name="main_tab_links">Linkit</string>
+    <string name="main_tab_credits">Credits</string>
+
 	<string name="how_to_pointer_title">Tervetuloa käyttämään AnySoftKeyboardia</string>
 	<string name="how_to_pointer_version_prefix">Versio: </string>
 	
@@ -18,7 +23,6 @@
     
     <!-- settings - UI -->
     <string name="ui_group">Käyttöliittymä</string>
-
     <string name="keyboard_layout_change_method_title">Asettelun vaihtotapa</string>
     <string name="keyboard_layout_change_method_summary">Näppäimistön asettelun vaihtotapa</string>
     <string name="keyboard_layout_change_method_dialog_title">Valitse tapa</string>
@@ -47,12 +51,17 @@
     </string-array>
     <string name="lengthy_operations_toast_notification">Tiedota pitkäkestoisista toiminnoista</string>
     <string name="lengthy_operations_toast_notification_summary">Näytä lyhyt tiedotus pitkäkestoisista toiminnoista</string>
+
     <!-- Options menu -->
     <string name="change_ime">Vaihda tekstinsyöttötapa</string>
 	<string name="override_dictionary">Vaihda oletussanakirja</string>
     <!-- Dictionary override strings -->
     <string name="override_dictionary_title">Vaihda <xliff:g id="word">%s</xliff:g> sanakirja</string>
     <string name="override_dictionary_default">Oletus</string>
+ 	<!-- Dictionary override toast messages -->
+    <string name="override_disabled">Yliajo poistettu</string>
+    <string name="override_enabled">Yliajettu: <xliff:g id="word">%s</xliff:g></string>
+    
     <!-- settings - effects-->
     <string name="effects_group">Efektit</string>
     <string name="ime_settings">Näppäimistöasetukset</string>
