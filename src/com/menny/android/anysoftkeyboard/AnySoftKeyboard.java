@@ -281,6 +281,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private int mCommittedLength;
 	private boolean mPredicting;
 	private CharSequence mBestWord;
+	private final boolean mPredictionLandscape = true;
 	private boolean mPredictionOn;
 	private boolean mCompletionOn;
 	private boolean mAutoSpace;
@@ -438,11 +439,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public View onCreateCandidatesView() {
 		mKeyboardSwitcher.makeKeyboards(false);
-		mCandidateViewContainer = (CandidateViewContainer) getLayoutInflater()
-				.inflate(R.layout.candidates, null);
+		mCandidateViewContainer = (CandidateViewContainer) getLayoutInflater().inflate(R.layout.candidates, null);
 		mCandidateViewContainer.initViews();
-		mCandidateView = (CandidateView) mCandidateViewContainer
-				.findViewById(R.id.candidates);
+		mCandidateView = (CandidateView) mCandidateViewContainer.findViewById(R.id.candidates);
 		mCandidateView.setService(this);
 		setCandidatesViewShown(true);
 		return mCandidateViewContainer;
@@ -652,11 +651,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// the way
 		// so we disable it.
 		InputConnection ic = getCurrentInputConnection();
-		if (mCompletionOn)
-			commitTyped(ic);// to clear the underline.
+		/*
+		// to clear the underline.
+		commitTyped(ic);// to clear the underline.
 
-		mCompletionOn = false;
-
+		mPredicting = false;
+		*/
 		if (DEBUG)
 			Log.d("AnySoftKeyboard", "Event: Key:"+event.getKeyCode()+" Shift:"+((event.getMetaState()&KeyEvent.META_SHIFT_ON) != 0)+" ALT:"+((event.getMetaState()&KeyEvent.META_ALT_ON) != 0)+" Repeats:"+event.getRepeatCount());
 		
@@ -665,20 +665,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		{
 			switch (keyCode) 
 			{
-			case KeyEvent.KEYCODE_SPACE:
-				if (mHardKeyboardAction.isAltActive()) 
-				{	
-					Log.d("AnySoftKeyborad", "User pressed ALT+SPACE, moving to next physical keyboard.");
-					// consuming the meta keys
-					mHardKeyboardAction.resetMetaState();
-					if (ic != null)
-						ic.clearMetaKeyStates(Integer.MAX_VALUE);//translated, so we also take care of the metakeys.
-					// only physical keyboard
-					nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.AlphabetSupportsPhysical);
-	
-					return true;
-				}
-				break;
 			case KeyEvent.KEYCODE_BACK:
 				if (event.getRepeatCount() == 0 && mInputView != null) {
 					if (mInputView.handleBack()) 
@@ -704,6 +690,28 @@ public class AnySoftKeyboard extends InputMethodService implements
 			// return true;
 			// }
 			// break;
+			case KeyEvent.KEYCODE_DEL:
+				onKey(Keyboard.KEYCODE_DELETE, new int[]{Keyboard.KEYCODE_DELETE});
+				return true;
+			case KeyEvent.KEYCODE_SPACE:
+				if (mHardKeyboardAction.isAltActive()) 
+				{	
+					Log.d("AnySoftKeyborad", "User pressed ALT+SPACE, moving to next physical keyboard.");
+					// consuming the meta keys
+					mHardKeyboardAction.resetMetaState();
+					if (ic != null)
+						ic.clearMetaKeyStates(Integer.MAX_VALUE);//translated, so we also take care of the metakeys.
+					// only physical keyboard
+					nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.AlphabetSupportsPhysical);
+	
+					return true;
+				}
+				else
+				{
+					//still handling it
+					onKey(32, new int[]{32});
+					return true;
+				}
 			default:
 				if (mKeyboardSwitcher.isCurrentKeyboardPhysical()) 
 				{
@@ -1184,7 +1192,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private boolean isPredictionOn() {
 		boolean predictionOn = mPredictionOn;
-		// if (isFullscreenMode()) predictionOn &= mPredictionLandscape;
+		if (isFullscreenMode()) predictionOn &= mPredictionLandscape;
 		return predictionOn;
 	}
 
