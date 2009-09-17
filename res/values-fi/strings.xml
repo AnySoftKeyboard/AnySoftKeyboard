@@ -5,7 +5,7 @@
 
     <string name="main_tab_welcome">Tervetuloa</string>
     <string name="main_tab_links">Linkit</string>
-    <string name="main_tab_credits">Credits</string>
+    <string name="main_tab_credits">Tekijät</string>
 
 	<string name="how_to_pointer_title">Tervetuloa käyttämään AnySoftKeyboardia</string>
 	<string name="how_to_pointer_version_prefix">Versio: </string>
