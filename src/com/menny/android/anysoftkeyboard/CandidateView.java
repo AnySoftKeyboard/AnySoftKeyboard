@@ -268,7 +268,7 @@ public class CandidateView extends View {
 
             if (canvas != null) {
             	//canvas.drawText is not quite ready for LTR languages. Maybe in Donut.
-            	CharSequence directionCorrectedSuggestion = AnySoftKeyboard.workaroundCorrectStringDirection(suggestion);
+            	CharSequence directionCorrectedSuggestion = Workarounds.workaroundCorrectStringDirection(suggestion);
                 canvas.drawText(directionCorrectedSuggestion, 0, directionCorrectedSuggestion.length(), x + X_GAP, y, paint);
                 paint.setColor(mColorOther);
                 canvas.translate(x + wordWidth, 0);

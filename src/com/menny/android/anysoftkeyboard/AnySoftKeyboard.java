@@ -45,7 +45,6 @@ import com.menny.android.anysoftkeyboard.Dictionary.*;
 import com.menny.android.anysoftkeyboard.Dictionary.Dictionary.Language;
 import com.menny.android.anysoftkeyboard.KeyboardSwitcher.NextKeyboardType;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
-import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardAction;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
 /**
@@ -58,207 +57,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public static final boolean DEBUG = true;
 	private static final boolean TRACE_SDCARD = false;
 	
-	private static final boolean ms_requiresRtlWorkaround;
-	
-	static
-	{
-		//Determine whether this device has the fix for RTL in the suggestions list
-		ms_requiresRtlWorkaround = !android.os.Build.MODEL.toLowerCase().contains("galaxy");
-	}
-	
-	public static CharSequence workaroundCorrectStringDirection(CharSequence suggestion) 
-    {
-		//Hebrew letters are to be drawn in the other direction. This will be probably be removed in Donut.
-    	//Also, this is not valid for Galaxy (Israel's Cellcom Android)
-    	if (!ms_requiresRtlWorkaround)
-			return suggestion;
-		
-    	//this function is a workaround! In the official 1.5 firmware, there is a RTL bug.
-    	final byte direction = Character.getDirectionality(suggestion.charAt(0));
-    	//Log.d("AnySoftKeyboard", "CandidateView: correctStringDirection: direction:"+direction+" char:"+suggestion.charAt(0));
-		switch(direction)
-		{
-		case Character.DIRECTIONALITY_RIGHT_TO_LEFT:
-		case Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC:
-		case Character.DIRECTIONALITY_RIGHT_TO_LEFT_EMBEDDING:
-		case Character.DIRECTIONALITY_RIGHT_TO_LEFT_OVERRIDE:
-			String reveresed = "";
-			for(int charIndex = suggestion.length() - 1; charIndex>=0; charIndex--)
-			{
-				reveresed = reveresed + suggestion.charAt(charIndex);
-			}
-			//Log.d("AnySoftKeyboard", "CandidateView: correctStringDirection: reversed "+suggestion+" to "+reveresed);
-			return reveresed;
-		}
-		return suggestion;
-	}
-
-	
-	private static class HardKeyboardActionImpl implements HardKeyboardAction
-	{
-		private enum MetaKeyState
-		{
-			Off,
-			On,
-			Pressed,
-			Sticky
-		}
-		
-		private MetaKeyState mPhysicalShiftState = MetaKeyState.Off;
-		private MetaKeyState mPhysicalAltState = MetaKeyState.Off;
-		private int mKeyCode = 0;
-		private boolean mChanegd = false;
-		
-		public void resetMetaState()
-		{
-			mPhysicalShiftState = MetaKeyState.Off;
-			mPhysicalAltState = MetaKeyState.Off;
-			mKeyCode = 0;
-			mChanegd = false;
-		}
-		
-//		public void resetNoneStickyMetaState() 
-//		{
-//			if (mPhysicalShiftState != MetaKeyState.Sticky)
-//				mPhysicalShiftState = MetaKeyState.Off;
-//			if (mPhysicalAltState != MetaKeyState.Sticky)
-//				mPhysicalAltState = MetaKeyState.Off;
-//			mKeyCode = 0;
-//			mChanegd = false;
-//		}
-		
-		public boolean initializeAction(KeyEvent event)
-		{
-			mChanegd = false;
-			mKeyCode = event.getKeyCode();
-			switch (mKeyCode) 
-			{
-			case KeyEvent.KEYCODE_SHIFT_LEFT:
-			case KeyEvent.KEYCODE_SHIFT_RIGHT:
-				if (event.getRepeatCount() == 0)
-				{
-					mPhysicalShiftState = getNextStateOnMetaKeyPress(mPhysicalShiftState, event.isShiftPressed());
-					if (DEBUG)
-						Log.d("AnySoftKeyboard", "Physical SHIFT was pressed. The new shift state is "+mPhysicalShiftState);
-				}
-				return true;
-			case KeyEvent.KEYCODE_ALT_LEFT:
-			case KeyEvent.KEYCODE_ALT_RIGHT:
-				if (event.getRepeatCount() == 0)
-				{
-					mPhysicalAltState = getNextStateOnMetaKeyPress(mPhysicalAltState, event.isAltPressed());
-					if (DEBUG)
-						Log.d("AnySoftKeyboard", "Physical ALT was pressed. The new ALT state is "+mPhysicalAltState);
-				}
-				return true;
-			default:
-				//if it sticky, then it will stay.
-				//else
-				//if meta-key is pressed, then on else stay as is (may be consumed by the key translation)
-				mPhysicalShiftState = getNextStateOnRegularKey(mPhysicalShiftState, event.isShiftPressed());
-				mPhysicalAltState = getNextStateOnRegularKey(mPhysicalAltState, event.isAltPressed());				
-				return false;
-			}
-		}
-		
-		private static MetaKeyState getNextStateOnRegularKey(MetaKeyState currentState, boolean isPressed) {
-			switch(currentState)
-			{
-			case Off:
-			case Pressed:
-				return isPressed? MetaKeyState.Pressed : MetaKeyState.Off;
-			case On:
-				return isPressed? MetaKeyState.Pressed : MetaKeyState.On;
-			case Sticky:
-				return MetaKeyState.Sticky;
-			default:
-				return MetaKeyState.Off;
-			}
-		}
-
-		private static MetaKeyState getNextStateOnMetaKeyPress(MetaKeyState currentState, boolean isPressed) 
-		{
-			if (isPressed)
-			{
-				switch(currentState)
-				{
-				case Off:
-				case Pressed:
-					return MetaKeyState.On;
-				case On:
-					return MetaKeyState.Sticky;
-				case Sticky:
-					return MetaKeyState.Off;
-				}
-			}
-			
-			return MetaKeyState.Off;
-		}
-
-		public int getKeyCode() {
-			return mKeyCode;
-		}
-		
-		public int consumeKeyCode() {
-			//consuming
-			if (mPhysicalAltState == MetaKeyState.On)
-				mPhysicalAltState = MetaKeyState.Off;
-			if (mPhysicalShiftState == MetaKeyState.On)
-				mPhysicalShiftState = MetaKeyState.Off;
-			
-			return mKeyCode;
-		}
-		
-		public boolean isAltActive() {
-			return mPhysicalAltState != MetaKeyState.Off;
-		}
-
-		public boolean isShiftActive() {
-			return mPhysicalShiftState != MetaKeyState.Off;
-		}
-		
-//		public boolean isStickyAlt() {
-//			return mPhysicalAltState == MetaKeyState.Sticky;
-//		}
-//
-//		public boolean isStickyShift() {
-//			return mPhysicalShiftState == MetaKeyState.Sticky;
-//		}
-
-		public void setNewKeyCode(int keyCode) {
-			mChanegd = true;
-			mKeyCode = keyCode;
-		}
-		
-		public boolean getKeyCodeWasChanged()
-		{
-			return mChanegd;
-		}		
-	}
-	
-	// private static final String PREF_VIBRATE_ON = "vibrate_on";
-	// private static final String PREF_SOUND_ON = "sound_on";
-	// private static final String PREF_AUTO_CAP = "auto_cap";
-	// private static final String PREF_QUICK_FIXES = "quick_fixes";
-	// private static final String PREF_SHOW_SUGGESTIONS = "show_suggestions";
-	// private static final String PREF_AUTO_COMPLETE = "auto_complete";
 
 	private static final int MSG_UPDATE_SUGGESTIONS = 0;
-	// private static final int MSG_START_TUTORIAL = 1;
-
-	// How many continuous deletes at which to start deleting at a higher speed.
-	// private static final int DELETE_ACCELERATE_AT = 20;
-	// Key events coming any faster than this are long-presses.
-	// private static final int QUICK_PRESS = 200;
-
+	
 	private static final int KEYCODE_ENTER = 10;
 	private static final int KEYCODE_SPACE = ' ';
 	private static final int KEYBOARD_NOTIFICATION_ID = 1;
 	private static final String SENTENCE_SEPERATORS = ".\n!?";
-
-	// Contextual menu positions
-	// private static final int POS_SETTINGS = 0;
-	// private static final int POS_METHOD = 1;
 
 	private AnyKeyboardView mInputView;
 	private CandidateViewContainer mCandidateViewContainer;
@@ -272,8 +77,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private HardKeyboardActionImpl mHardKeyboardAction;
 
 	private UserDictionaryBase mUserDictionary;
-
-	// private String mLocale;
 
 	private StringBuilder mComposing = new StringBuilder();
 	private WordComposer mWord = new WordComposer();
@@ -305,21 +108,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 	// Indicates whether the suggestion strip is to be on in landscape
 	private boolean mJustAccepted;
 	private CharSequence mJustRevertedSeparator;
-	// private int mDeleteCount;
-	// private long mLastKeyTime;
-
-	// private Tutorial mTutorial;
-
-	// private Vibrator mVibrator;
-	// private long mVibrateDuration;
-
+	
 	private AudioManager mAudioManager;
-	// private final float FX_VOLUME = 1.0f;
-	// private boolean mSilentMode;
 	private NotificationManager mNotificationManager;
-
-	// private String mWordSeparators;
-	// private String mSentenceSeparators;
 
 	Handler mHandler = new Handler() {
 		@Override
@@ -362,14 +153,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				notifyKeyboardChangeIfNeeded();
 			initSuggest(/* getResources().getConfiguration().locale.toString() */);
 		}
-		// mVibrateDuration =
-		// getResources().getInteger(R.integer.vibrate_duration_ms);
-
-		// register to receive ringer mode changes for silent mode
-		// IntentFilter filter = new
-		// IntentFilter(AudioManager.RINGER_MODE_CHANGED_ACTION);
-		// registerReceiver(mReceiver, filter);
-
+		
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 		sp.registerOnSharedPreferenceChangeListener(this);
 		
@@ -410,19 +194,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	@Override
 	public void onFinishInputView(boolean finishingInput) {
-		if (!mKeyboardChangeNotificationType
-				.equals(KEYBOARD_NOTIFICATION_ALWAYS)) {
+		if (!mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS)) {
 			mNotificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
 		}
 	};
-
-	// @Override
-	// public void onConfigurationChanged(Configuration conf) {
-	// if (!TextUtils.equals(conf.locale.toString(), mLocale)) {
-	// initSuggest(conf.locale.toString());
-	// }
-	// super.onConfigurationChanged(conf);
-	// }
 
 	@Override
 	public View onCreateInputView() {
@@ -541,8 +316,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mInputView.closing();
 		}
 
-		if (!mKeyboardChangeNotificationType
-				.equals(KEYBOARD_NOTIFICATION_ALWAYS)) {
+		if (!mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS)) {
 			NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 			notificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
 		}
@@ -640,8 +414,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	}
 
-	//private boolean mPhysicalShiftOn = false;
-	//private boolean mPhysicalAltOn = false;
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// For all other keys, if we want to do transformations on
@@ -768,35 +540,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-
-	// private void keyDownUp(int keyEventCode) {
-	// getCurrentInputConnection().sendKeyEvent(
-	// new KeyEvent(KeyEvent.ACTION_DOWN, keyEventCode));
-	// getCurrentInputConnection().sendKeyEvent(
-	// new KeyEvent(KeyEvent.ACTION_UP, keyEventCode));
-	// }
-	//    
-	// private void sendKey(int keyCode)
-	// {
-	// switch (keyCode) {
-	// case '\n':
-	// keyDownUp(KeyEvent.KEYCODE_ENTER);
-	// break;
-	// case ' '://testing
-	// keyDownUp(KeyEvent.KEYCODE_SPACE);
-	// break;
-	// default:
-	// if (keyCode >= '0' && keyCode <= '9') {
-	// keyDownUp(keyCode - '0' + KeyEvent.KEYCODE_0);
-	// } else {
-	// mComposing.append((char) keyCode);
-	// mWord.add(keyCode, new int[]{keyCode});
-	// commitTyped(getCurrentInputConnection());
-	// }
-	// break;
-	// }
-	// }
-
+	
 	private void notifyKeyboardChangeIfNeeded() {
 		// Log.d("anySoftKeyboard","notifyKeyboardChangeIfNeeded");
 		// Thread.dumpStack();
@@ -1368,14 +1112,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	public void swipeRight() {
-		// if (LatinKeyboardView.DEBUG_AUTO_PLAY) {
-		// ClipboardManager cm =
-		// ((ClipboardManager)getSystemService(CLIPBOARD_SERVICE));
-		// CharSequence text = cm.getText();
-		// if (!TextUtils.isEmpty(text)) {
-		// mInputView.startPlaying(text.toString());
-		// }
-		// }
 		// this should be done only if swipe was enabled
 		if (mChangeKeysMode.equals("3")) {
 			// TODO: space/backspace (depends on direction of keyboard)
@@ -1418,16 +1154,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		updateShiftKeyState(currentEditorInfo);
 		// changing dictionary
 		setMainDictionaryForCurrentKeyboard();
-//		if (mSuggest != null) 
-//		{
-//			if (mKeyboardSwitcher.isAlphabetMode() && mShowSuggestions)
-//				mSuggest.setMainDictionary(DictionaryFactory.getDictionary(currentKeyboard.getDefaultDictionaryLanguage(), this));
-//			else
-//				mSuggest.setMainDictionary(null);
-//		}
 		// Notifying if needed
-		if ((mKeyboardChangeNotificationType
-				.equals(KEYBOARD_NOTIFICATION_ALWAYS))
+		if ((mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS))
 				|| (mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ON_PHYSICAL) && (type == NextKeyboardType.AlphabetSupportsPhysical))) 
 		{
 			notifyKeyboardChangeIfNeeded();
@@ -1480,57 +1208,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public void onRelease(int primaryCode) {
 		// vibrate();
 	}
-
-	// receive ringer mode changes to detect silent mode
-	// private BroadcastReceiver mReceiver = new BroadcastReceiver() {
-	// @Override
-	// public void onReceive(Context context, Intent intent) {
-	// updateRingerMode();
-	// }
-	// };
-
-	// update flags for silent mode
-	// private void updateRingerMode() {
-	// mSilentMode = (mAudioManager.getRingerMode() !=
-	// AudioManager.RINGER_MODE_NORMAL);
-	// }
-
-	// private void playKeyClick(int primaryCode) {
-	// // if mAudioManager is null, we don't have the ringer state yet
-	// // mAudioManager will be set by updateRingerMode
-	// if (mAudioManager == null) {
-	// if (mInputView != null) {
-	// updateRingerMode();
-	// }
-	// }
-	// if (mSoundOn && !mSilentMode) {
-	// // FIXME: Volume and enable should come from UI settings
-	// // FIXME: These should be triggered after auto-repeat logic
-	// int sound = AudioManager.FX_KEYPRESS_STANDARD;
-	// switch (primaryCode) {
-	// case Keyboard.KEYCODE_DELETE:
-	// sound = AudioManager.FX_KEYPRESS_DELETE;
-	// break;
-	// case KEYCODE_ENTER:
-	// sound = AudioManager.FX_KEYPRESS_RETURN;
-	// break;
-	// case KEYCODE_SPACE:
-	// sound = AudioManager.FX_KEYPRESS_SPACEBAR;
-	// break;
-	// }
-	// mAudioManager.playSoundEffect(sound, FX_VOLUME);
-	// }
-	// }
-
-	// private void vibrate() {
-	// if (!mVibrateOn) {
-	// return;
-	// }
-	// if (mVibrator == null) {
-	// mVibrator = ((Vibrator)getSystemService(Context.VIBRATOR_SERVICE));
-	// }
-	// mVibrator.vibrate(mVibrateDuration);
-	// }
 
 	// private void checkTutorial(String privateImeOptions) {
 	// if (privateImeOptions == null) return;
@@ -1588,7 +1265,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		handled = handled || soundChanged;
 		mSoundOn = newSoundOn;
 		// in order to support the old type of configuration
-		String newKeyboardChangeNotificationType = sp.getString("physical_keyboard_change_notification_type", "2");
+		String newKeyboardChangeNotificationType = sp.getString("physical_keyboard_change_notification_type", KEYBOARD_NOTIFICATION_ON_PHYSICAL);
 		boolean notificationChanged = (!newKeyboardChangeNotificationType.equalsIgnoreCase(mKeyboardChangeNotificationType));
 		handled = handled || notificationChanged;
 		mKeyboardChangeNotificationType = newKeyboardChangeNotificationType;
@@ -1611,9 +1288,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		boolean suggestionsChanged = (newShowSuggestions != mShowSuggestions);
 		handled = handled || suggestionsChanged;
 		mShowSuggestions = newShowSuggestions;
-		if (suggestionsChanged) {
-			setMainDictionaryForCurrentKeyboard();
-		}
+		setMainDictionaryForCurrentKeyboard();
 
 		boolean newAutoComplete = sp.getBoolean("auto_complete", true) && mShowSuggestions;
 		handled = handled || (newAutoComplete != mAutoComplete);
@@ -1623,7 +1298,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		handled = handled || (newQuickFixes != mQuickFixes);
 		mQuickFixes = newQuickFixes;
 
-		mAutoCorrectOn = mSuggest != null && (mAutoComplete || mQuickFixes);
+		mAutoCorrectOn = /*mSuggest != null &&*//*Suggestion always exists, maybe not at the moment, but shortly*/
+			(mAutoComplete || mQuickFixes);
 		mCorrectionMode = mAutoComplete ? 2
 				: (mShowSuggestions/* mQuickFixes */? 1 : 0);
 
@@ -1776,56 +1452,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		 window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 		 mOptionsDialog.show();
 	 }
-
-	// private void changeKeyboardMode() {
-	// mKeyboardSwitcher.toggleSymbols();
-	// if (mCapsLock && mKeyboardSwitcher.isAlphabetMode()) {
-	// ((AnyKeyboard) mInputView.getKeyboard()).setShiftLocked(mCapsLock);
-	// }
-	//
-	// updateShiftKeyState(getCurrentInputEditorInfo());
-	// }
-
-	// @Override protected void dump(FileDescriptor fd, PrintWriter fout,
-	// String[] args) {
-	// super.dump(fd, fout, args);
-	//        
-	// final Printer p = new PrintWriterPrinter(fout);
-	// p.println("LatinIME state :");
-	// p.println("  Keyboard mode = " + mKeyboardSwitcher.getKeyboardMode());
-	// p.println("  mCapsLock=" + mCapsLock);
-	// p.println("  mComposing=" + mComposing.toString());
-	// p.println("  mPredictionOn=" + mPredictionOn);
-	// p.println("  mCorrectionMode=" + mCorrectionMode);
-	// p.println("  mPredicting=" + mPredicting);
-	// p.println("  mAutoCorrectOn=" + mAutoCorrectOn);
-	// p.println("  mAutoSpace=" + mAutoSpace);
-	// p.println("  mCompletionOn=" + mCompletionOn);
-	// p.println("  TextEntryState.state=" + TextEntryState.getState());
-	// p.println("  mSoundOn=" + mSoundOn);
-	// p.println("  mVibrateOn=" + mVibrateOn);
-	// }
-
-	// // Characters per second measurement
-	//    
-	// private static final boolean PERF_DEBUG = false;
-	// private long mLastCpsTime;
-	// private static final int CPS_BUFFER_SIZE = 16;
-	// private long[] mCpsIntervals = new long[CPS_BUFFER_SIZE];
-	// private int mCpsIndex;
-	//    
-	// private void measureCps() {
-	// if (!LatinIME.PERF_DEBUG) return;
-	// long now = System.currentTimeMillis();
-	// if (mLastCpsTime == 0) mLastCpsTime = now - 100; // Initial
-	// mCpsIntervals[mCpsIndex] = now - mLastCpsTime;
-	// mLastCpsTime = now;
-	// mCpsIndex = (mCpsIndex + 1) % CPS_BUFFER_SIZE;
-	// long total = 0;
-	// for (int i = 0; i < CPS_BUFFER_SIZE; i++) total += mCpsIntervals[i];
-	// System.out.println("CPS = " + ((CPS_BUFFER_SIZE * 1000f) / total));
-	// }
-
+	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
@@ -1838,8 +1465,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		boolean handled = loadSettings();
 		if (!handled) {
-			/* AnyKeyboard removedKeyboard = */mKeyboardSwitcher
-					.makeKeyboards(true);// maybe a new keyboard
+			/* AnyKeyboard removedKeyboard = */mKeyboardSwitcher.makeKeyboards(true);// maybe a new keyboard
 			/*
 			 * if (removedKeyboard != null) {
 			 * DictionaryFactory.releaseDictionary

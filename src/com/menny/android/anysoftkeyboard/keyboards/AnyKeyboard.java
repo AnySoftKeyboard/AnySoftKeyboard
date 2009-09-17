@@ -12,6 +12,7 @@ import android.view.inputmethod.EditorInfo;
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.AnySoftKeyboard;
 import com.menny.android.anysoftkeyboard.R;
+import com.menny.android.anysoftkeyboard.Workarounds;
 import com.menny.android.anysoftkeyboard.Dictionary.Dictionary;
 
 public abstract class AnyKeyboard extends Keyboard 
@@ -244,13 +245,13 @@ public abstract class AnyKeyboard extends Keyboard
                 mEnterKey.iconPreview = null;
                 mEnterKey.icon = null;
                 //there is a problem with LTR languages
-                mEnterKey.label = AnySoftKeyboard.workaroundCorrectStringDirection(res.getText(R.string.label_go_key));
+                mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_go_key));
                 break;
             case EditorInfo.IME_ACTION_NEXT:
                 mEnterKey.iconPreview = null;
                 mEnterKey.icon = null;
               //there is a problem with LTR languages
-                mEnterKey.label = AnySoftKeyboard.workaroundCorrectStringDirection(res.getText(R.string.label_next_key));
+                mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_next_key));
                 break;
             case EditorInfo.IME_ACTION_SEARCH:
                 mEnterKey.icon = res.getDrawable(
@@ -261,7 +262,7 @@ public abstract class AnyKeyboard extends Keyboard
                 mEnterKey.iconPreview = null;
                 mEnterKey.icon = null;
               //there is a problem with LTR languages
-                mEnterKey.label = AnySoftKeyboard.workaroundCorrectStringDirection(res.getText(R.string.label_send_key));
+                mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_send_key));
                 break;
             default:
                 mEnterKey.icon = res.getDrawable(R.drawable.sym_keyboard_return);
