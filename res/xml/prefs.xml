@@ -26,14 +26,14 @@
                 android:entryValues="@array/physical_keyboard_change_notification_values"
                 android:defaultValue=""
                 android:dialogTitle="@string/physical_keyboard_change_notification_dialog_title"/>                
-	            <CheckBoxPreference
+	            <!-- <CheckBoxPreference
 	            android:key="lengthy_operations_toast_notification"
 	            android:title="@string/lengthy_operations_toast_notification"
 	            android:persistent="true" 
 	            android:defaultValue="false"
 	            android:summaryOff=""
 	            android:summaryOn="@string/lengthy_operations_toast_notification_summary"
-	            />
+	            />-->
             </PreferenceCategory>
    		 	<PreferenceCategory android:key="effects_group" android:title="@string/effects_group">
             <ListPreference

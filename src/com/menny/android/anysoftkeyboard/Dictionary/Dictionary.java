@@ -21,7 +21,8 @@ abstract public class Dictionary {
 		Lao,
 		Swedish, 
 		Finnish, 
-		Dutch
+		Dutch,
+		Slovene
 	}
 	
     /**
