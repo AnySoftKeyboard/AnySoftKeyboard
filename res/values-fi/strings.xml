@@ -15,6 +15,13 @@
 	<string name="how_to_pointer_changelog">Uusimman version lisätiedot: http://code.google.com/p/softkeyboard/wiki/ChangeLog</string>
 	<string name="how_to_pointer_issues">Bugiraportin jättäminen: http://code.google.com/p/softkeyboard/issues/list</string>
 	<string name="how_to_pointer_site">Yleistietoa ohjelmasta: http://code.google.com/p/softkeyboard/</string>
+	<!-- credits tab -->
+	<string name="main_tab_credits_title">Tämän ohjelman tekoon osallistui-</string>
+	<string name="main_tab_credits_created_by">Tehnyt:</string>
+	<string name="main_tab_credits_additional_work_by">Lisäohjelmointityö:</string>
+	<string name="main_tab_credits_localization_by">Lokalisointi:</string>
+	<string name="main_tab_credits_GUI_by">UI kuvat:</string>
+	
 	
     <!-- Symbols that are commonly considered word separators in this language -->
     <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
