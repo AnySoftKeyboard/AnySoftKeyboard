@@ -85,6 +85,7 @@ public class DictionaryFactory
 				break;
 			case Slovene:
 				dict = new SQLiteSimpleDictionary(context, "sl", "sl");
+				break;
 			default:
 				return null;
 			}

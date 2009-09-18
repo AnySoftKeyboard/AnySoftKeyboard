@@ -30,7 +30,8 @@
     </Row>
     
     <Row>
-        <Key android:codes="64" android:keyLabel="\@" android:keyEdgeFlags="left"/>
+    	<Key android:codes="33" android:keyLabel="!" android:keyEdgeFlags="left"/>
+        <Key android:codes="64" android:keyLabel="\@"/>
         <Key android:codes="35" android:keyLabel="\#"/>
         <Key android:codes="36" android:keyLabel="$"/>
         <Key android:codes="37" android:keyLabel="%"/>
@@ -38,8 +39,7 @@
         <Key android:codes="38" android:keyLabel="&amp;"/>
         <Key android:codes="42" android:keyLabel="*"/>
         <Key android:codes="40" android:keyLabel="("/>
-        <Key android:codes="41" android:keyLabel=")"/>
-        <Key android:codes="33" android:keyLabel="!" android:keyEdgeFlags="right"/>
+        <Key android:codes="41" android:keyLabel=")" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row>
