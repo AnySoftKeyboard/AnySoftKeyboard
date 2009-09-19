@@ -404,31 +404,33 @@ public abstract class AnyKeyboard extends Keyboard
         {
 			switch(((char)aKey.codes[0]))
 			{
-			case '\'':
+			case '\''://in the generic bottom row
 				aKey.popupResId = R.xml.popup;
-				aKey.popupCharacters = "-\"";
+				aKey.popupCharacters = "\"";
 				break;
 			case '-':
 				aKey.popupResId = R.xml.popup;
 				aKey.popupCharacters = "\'\"";
 				break;
-			case '.':
+			case '.'://in the generic bottom row
 				aKey.popupResId = R.xml.popup;
 				aKey.popupCharacters = ";:-_·";
 				break;
-			case ',':
-				aKey.popupResId = R.xml.popup;
-				aKey.popupCharacters = "'\"";
-				break;
+//ISSUE 96: duplicate
+//			case ','://in the generic bottom row
+//				aKey.popupResId = R.xml.popup;
+//				aKey.popupCharacters = "'\"";
+//				break;
 			case '_':
 				aKey.popupResId = R.xml.popup;
 				aKey.popupCharacters = ",-";
 				break;
-			case '?':
+			//the two below are switched in regular and Internet mode
+			case '?'://in the generic bottom row
 				aKey.popupResId = R.xml.popup;
 				aKey.popupCharacters = "!/@¿¡";
 				break;
-			case '@':
+			case '@'://in the generic Internet mode
 				aKey.popupResId = R.xml.popup;
 				aKey.popupCharacters = "!/?¿¡";
 				break;
