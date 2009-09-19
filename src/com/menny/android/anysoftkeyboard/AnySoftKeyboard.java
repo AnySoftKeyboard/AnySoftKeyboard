@@ -201,9 +201,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	@Override
 	public View onCreateInputView() {
-		mInputView = (AnyKeyboardView) getLayoutInflater().inflate(
-				R.layout.input, null);
-
+		mInputView = (AnyKeyboardView) getLayoutInflater().inflate(R.layout.input, null);
+		
 		mKeyboardSwitcher.setInputView(mInputView);
 		mKeyboardSwitcher.makeKeyboards(false);
 		mInputView.setOnKeyboardActionListener(this);
@@ -1561,4 +1560,5 @@ public class AnySoftKeyboard extends InputMethodService implements
 		DictionaryFactory.onLowMemory(getLanguageForKeyobard(mKeyboardSwitcher.getCurrentKeyboard()));
 		super.onLowMemory();
 	}
+	
 }
