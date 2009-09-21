@@ -22,7 +22,7 @@ abstract public class Dictionary {
 		Swedish, 
 		Finnish, 
 		Dutch,
-		Slovene
+		Slovenian,
 	}
 	
     /**

@@ -1338,6 +1338,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 		else
 		{
 			Log.d("AnySoftKeyboard", "Default dictionary '"+defaultDictionary+"' for keyboard '"+currentKeyobard.getKeyboardPrefId()+"' has been overriden to '"+dictionaryValue+"'");
+			//fixing the Slovene->Slovenian
+			if (dictionaryValue.equalsIgnoreCase("Slovene"))
+			{//Please remove this in some future version.
+				dictionaryValue = "Slovenian";
+				Editor editor = getSharedPreferences().edit();
+				Log.d("AnySoftKeyboard", "Dictionary override fix: Slovene->Slovenian.");
+				editor.putString(mappingSettingsKey, dictionaryValue);
+				editor.commit();
+			}
 			Language overridingLanguage = Language.valueOf(dictionaryValue);
 			return overridingLanguage;
 		}

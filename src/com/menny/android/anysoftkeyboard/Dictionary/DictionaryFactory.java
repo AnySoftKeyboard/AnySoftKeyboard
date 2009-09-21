@@ -83,7 +83,7 @@ public class DictionaryFactory
 			case Dutch:
 				dict = new SQLiteSimpleDictionary(context, "nl", "nl");
 				break;
-			case Slovene:
+			case Slovenian:
 				dict = new SQLiteSimpleDictionary(context, "sl", "sl");
 				break;
 			default:
