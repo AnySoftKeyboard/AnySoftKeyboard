@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyWidth="15%p"
+    android:horizontalGap="0px"
+    android:verticalGap="5%p"
+    android:keyHeight="@dimen/key_height">
+    <Row android:rowEdgeFlags="top">
+		<Key android:keyLabel=".net" android:keyOutputText=".net" android:keyEdgeFlags="left"/>
+		<Key android:keyLabel=".org" android:keyOutputText=".org"/>
+		<Key android:keyLabel=".gov" android:keyOutputText=".gov"/>
+		<Key android:keyLabel=".edu" android:keyOutputText=".edu" android:keyEdgeFlags="right"/>
+	</Row>
+    <Row android:rowEdgeFlags="bottom">
+		<Key android:keyLabel=".fi" android:keyOutputText=".fi" android:keyEdgeFlags="left"/>
+		<Key android:keyLabel=".tv" android:keyOutputText=".tv"/>
+		<Key android:keyLabel=".info" android:keyOutputText=".info" android:keyEdgeFlags="right"/>	
+	</Row>
+</Keyboard>
