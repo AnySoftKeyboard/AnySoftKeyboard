@@ -28,23 +28,6 @@ public class HebrewKeyboard extends AnyKeyboard implements HardKeyboardTranslato
 	}
 	
 	@Override
-	protected String getDomainsKeyText() {
-		return ".co.il";
-	}
-	
-	@Override
-	protected int getDomainsPopupId() {
-		return R.xml.popup_domains_il;
-	}
-	
-	@Override
-	protected int getDomainsKeyDrawable() {
-		// TODO Auto-generated method stub
-		//should use my own.
-		return super.getDomainsKeyDrawable();
-	}
-	
-	@Override
 	public boolean isLetter(char keyValue) {
 		//Hebrew also support "
 		return super.isLetter(keyValue) || (keyValue == '\"');

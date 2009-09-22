@@ -38,11 +38,7 @@
         <item>Swipe without hint keys</item>
         <item>No swipe, just keys</item>
     </string-array>
-    <string-array name="keyboard_layout_change_methods_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
+    
     <string name="physical_keyboard_change_notification_title">Keyboard layout notification</string>
     <string name="physical_keyboard_change_notification_summary">Type of notification about the active layout</string>
     <string name="physical_keyboard_change_notification_dialog_title">Select notification type</string>
@@ -51,11 +47,7 @@
         <item>On physical keyboard change</item>
         <item>No notification</item>
     </string-array>
-    <string-array name="physical_keyboard_change_notification_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
+    
     <string name="lengthy_operations_toast_notification">Notify on lengthy operations</string>
     <string name="lengthy_operations_toast_notification_summary">Show short notifications on lengthy operations</string>
     
@@ -82,12 +74,7 @@
         <item>Medium</item>
         <item>Hard</item>
     </string-array>
-    <string-array name="vibrate_on_key_press_values">
-    	<item>0</item>
-        <item>17</item>
-        <item>30</item>
-        <item>50</item>
-    </string-array>
+    
     <string name="sound_on">Sound on key-press</string>
     <string name="sound_on_summary">Sound effects on soft keyboard press. Volume is Notifications volume.</string>
     <string name="auto_caps">Auto-capitalization</string>

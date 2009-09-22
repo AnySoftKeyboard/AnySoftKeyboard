@@ -270,10 +270,6 @@ public abstract class AnyKeyboard extends Keyboard
                 break;
         }
     }
-
-	protected int getDomainsPopupId() {
-		return R.xml.popup_domains;
-	}
     
     public String getKeyboardName()
     {
@@ -452,14 +448,11 @@ public abstract class AnyKeyboard extends Keyboard
 	        case EditorInfo.TYPE_TEXT_VARIATION_URI:
 	        	if (mSmileyKey != null)
 	        	{
-	        		final int domainsDrawableId = getDomainsKeyDrawable();
-	        		final String domainsKeyText = getDomainsKeyText();
-	        		final int domainsPopupId = getDomainsPopupId();
-	        		Log.d("AnySoftKeyboard", "Changing smiley key to domains: Key text '"+domainsKeyText+"', drawable: "+domainsDrawableId+", popup Id:"+domainsPopupId);
-	        		mSmileyKey.icon = res.getDrawable(domainsDrawableId);
+	        		Log.d("AnySoftKeyboard", "Changing smiley key to domains.");
+	        		mSmileyKey.icon = res.getDrawable(R.drawable.sym_keyboard_key_domain);
 		        	mSmileyKey.label = null;
-		        	mSmileyKey.text = domainsKeyText;
-		        	mSmileyKey.popupResId = domainsPopupId;
+		        	mSmileyKey.text = ".com";
+		        	mSmileyKey.popupResId = R.xml.popup_domains;
 	        	}
 	        	if (mQuestionMarkKey != null)
 	        	{
@@ -487,14 +480,6 @@ public abstract class AnyKeyboard extends Keyboard
 	        	}
 	        	break;
         }
-	}
-
-	protected int getDomainsKeyDrawable() {
-		return R.drawable.sym_keyboard_key_domain;
-	}
-
-	protected String getDomainsKeyText() {
-		return ".com";
 	}
 	
 	public int getShiftedKeyValue(int primaryCode) 

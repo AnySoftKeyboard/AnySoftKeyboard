@@ -43,15 +43,7 @@
                 android:entries="@array/vibrate_on_key_press_types"
                 android:entryValues="@array/vibrate_on_key_press_values"
                 android:dialogTitle="@string/vibrate_on_key_press_dialog_title"/>
-            <!--<CheckBoxPreference
-            android:key="vibrate_on"
-            android:title="@string/vibrate_on"
-            android:persistent="true"
-            android:defaultValue="false"
-            android:summaryOn="Short vibration on soft keyboard press."
-            android:summaryOff=""
-            />-->
-    		<CheckBoxPreference
+                		<CheckBoxPreference
             android:key="sound_on"
             android:title="@string/sound_on"
             android:persistent="true"

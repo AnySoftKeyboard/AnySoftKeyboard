@@ -1304,8 +1304,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		//if there is a mapping in the settings, we'll use that, else we'll return the default
 		String mappingSettingsKey = getDictionaryOverrideKey(currentKeyobard);
 		String defaultDictionary = currentKeyobard.getDefaultDictionaryLanguage().toString();
-		String dictionaryValue = getSharedPreferences().getString(mappingSettingsKey, defaultDictionary);
-		if (defaultDictionary.equals(dictionaryValue))
+		String dictionaryValue = getSharedPreferences().getString(mappingSettingsKey, null);
+		if ((dictionaryValue == null) || (defaultDictionary.equals(dictionaryValue)))
 			return currentKeyobard.getDefaultDictionaryLanguage();
 		else
 		{
