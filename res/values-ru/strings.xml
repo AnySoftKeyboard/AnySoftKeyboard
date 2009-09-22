@@ -39,11 +39,6 @@
       <item>Экран без кнопок</item>
       <item>Только кнопки</item>
    </string-array>
-   <string-array name="keyboard_layout_change_methods_values">
-      <item>1</item>
-      <item>2</item>
-      <item>3</item>
-   </string-array>
    <string name="physical_keyboard_change_notification_title">Уведомления</string>
    <string name="physical_keyboard_change_notification_summary">Метод уведомления о выбранной раскладке</string>
    <string name="physical_keyboard_change_notification_dialog_title">Выбор Уведомления</string>
@@ -51,11 +46,6 @@
       <item>Всегда показывать иконку</item>
       <item>При встроенной клавиатуре</item>
       <item>Не показывать</item>
-   </string-array>
-   <string-array name="physical_keyboard_change_notification_values">
-      <item>1</item>
-      <item>2</item>
-      <item>3</item>
    </string-array>
    <string name="lengthy_operations_toast_notification">Долгие операции</string>
    <string name="lengthy_operations_toast_notification_summary">Показывать уведомления при долгих операциях.</string>
@@ -82,12 +72,6 @@
       <item>Мягко</item>
       <item>Средне</item>
       <item>Сильно</item>
-   </string-array>
-   <string-array name="vibrate_on_key_press_values">
-      <item>0</item>
-      <item>17</item>
-      <item>30</item>
-      <item>50</item>
    </string-array>
    <string name="sound_on">Звук при нажатии</string>
    <string name="sound_on_summary">Звуковой эффект при нажатии клавиш на виртуальной клавиатуре. Громкость по умолчанию.</string>
