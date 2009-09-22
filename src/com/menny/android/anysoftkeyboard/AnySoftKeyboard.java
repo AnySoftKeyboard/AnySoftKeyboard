@@ -54,7 +54,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		KeyboardView.OnKeyboardActionListener,
 		OnSharedPreferenceChangeListener, AnyKeyboardContextProvider {
 	
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 	private static final boolean TRACE_SDCARD = false;
 	
 
@@ -669,14 +669,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		return true;
 	}
 
-	// private boolean isAlphabet(int code) {
-	// if (Character.isLetter(code)) {
-	// return true;
-	// } else {
-	// return false;
-	// }
-	// }
-
 	/**
 	 * Helper to determine if a given character code is alphabetic.
 	 */
@@ -830,35 +822,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private int translatePrimaryCodeFromCurrentKeyboard(int primaryCode) {
 		if (AnySoftKeyboard.DEBUG)
-			Log.d("AnySoftKeyboard",
-					"translatePrimaryCodeFromCurrentKeyboard: " + primaryCode);
+			Log.d("AnySoftKeyboard", "translatePrimaryCodeFromCurrentKeyboard: " + primaryCode);
 		if (isInputViewShown()) {
 			if (AnySoftKeyboard.DEBUG)
-				Log
-						.v("AnySoftKeyboard",
-								"translatePrimaryCodeFromCurrentKeyboard: isInputViewShown");
+				Log.v("AnySoftKeyboard", "translatePrimaryCodeFromCurrentKeyboard: isInputViewShown");
+			
 			if (mInputView.isShifted()) {
 				if (AnySoftKeyboard.DEBUG)
-					Log
-							.d("AnySoftKeyboard",
-									"translatePrimaryCodeFromCurrentKeyboard: mInputView.isShifted()");
-				return mKeyboardSwitcher.getCurrentKeyboard()
-						.getShiftedKeyValue(primaryCode);
-				// for(Key aKey :
-				// mKeyboardSwitcher.getCurrentKeyboard().getKeys())
-				// {
-				// final int[] aKeyCodes = aKey.codes;
-				// if (aKeyCodes[0] == primaryCode)
-				// {
-				// if (aKeyCodes.length > 1)
-				// return aKeyCodes[1];//keyboard specified the shift character
-				// else
-				// return Character.toUpperCase(primaryCode);
-				// }
-				// }
-				// if I got here, then I'm shifted, and couldn't locate the key
-				// Is it pop-up?
-				// return Character.toUpperCase(primaryCode);
+					Log.d("AnySoftKeyboard", "translatePrimaryCodeFromCurrentKeyboard: mInputView.isShifted()");
+				return mKeyboardSwitcher.getCurrentKeyboard().getShiftedKeyValue(primaryCode);
 			}
 		}
 		return primaryCode;
@@ -1467,6 +1439,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		Log.i("AnySoftKeyboard", "**** onConfigurationChanged");
 		Log.i("AnySoftKeyboard", "** Locale:"+ newConfig.locale.toString());
 	}
+	
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
 			String key) {
 		Log.d("AnySoftKeyboard", "onSharedPreferenceChanged - key:" + key);
@@ -1483,6 +1456,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	public void appendCharactersToInput(CharSequence textToCommit) {
+		if (DEBUG) Log.d("AnySoftKeyboard", "appendCharactersToInput: "+textToCommit);
 		mWord.append(textToCommit);
 		mComposing.append(textToCommit);
 		appendStringToInput(textToCommit);
@@ -1490,7 +1464,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void appendStringToInput(CharSequence textToCommit) {
 		// handleTextDirection();
-
+		if (DEBUG) Log.d("AnySoftKeyboard", "appendStringToInput: "+textToCommit);
 		if (mCompletionOn) {
 			getCurrentInputConnection().setComposingText(mWord.getTypedWord(),
 					textToCommit.length());
@@ -1502,6 +1476,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	public void deleteLastCharactersFromInput(int countToDelete) {
+		if (DEBUG) Log.d("AnySoftKeyboard", "deleteLastCharactersFromInput: "+countToDelete);
+			
 		final int currentLength = mComposing.length();
 		boolean shouldDeleteUsingCompletion;
 		if (currentLength > 0) {
@@ -1568,6 +1544,5 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mKeyboardSwitcher.onLowMemory();
 		DictionaryFactory.onLowMemory(getLanguageForKeyobard(mKeyboardSwitcher.getCurrentKeyboard()));
 		super.onLowMemory();
-	}
-	
+	}	
 }

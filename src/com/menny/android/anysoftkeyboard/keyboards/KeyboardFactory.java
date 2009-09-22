@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.Dictionary.Dictionary;
+import com.menny.android.anysoftkeyboard.Dictionary.Dictionary.Language;
 
 public class KeyboardFactory 
 {
@@ -59,7 +60,7 @@ public class KeyboardFactory
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LaoKeyboard(contextProvider);} public String getKeyboardPrefId() {return LAO_KEYBOARD;}});
 		
 		//Issue 39: Finnish/Swedish keyboard
-		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new FinnishSwedishKeyboard(contextProvider);} public String getKeyboardPrefId() {return FINNISH_SWEDISH_KEYBOARD;}});
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, KeyboardFactory.FINNISH_SWEDISH_KEYBOARD, R.xml.fin_swedish_qwerty, R.string.finnish_swedish_keyboard, Language.Swedish);} public String getKeyboardPrefId() {return FINNISH_SWEDISH_KEYBOARD;}});
 		
 		//Issue 54: Spanish keyboard
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, KeyboardFactory.SPANISH_KEYBOARD, R.xml.es_qwerty, R.string.es_keyboard, Dictionary.Language.Spanish);} public String getKeyboardPrefId() {return SPANISH_KEYBOARD;}});

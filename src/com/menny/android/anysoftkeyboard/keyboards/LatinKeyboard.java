@@ -1,24 +1,13 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
-import android.content.res.Configuration;
-
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
-import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.Dictionary.Dictionary;
-import com.menny.android.anysoftkeyboard.Dictionary.Dictionary.Language;
-import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
-public class LatinKeyboard extends AnyKeyboard implements HardKeyboardTranslator//this class implements the HardKeyboardTranslator interface in an empty way, the physical keyboard is Latin...
+public class LatinKeyboard extends AnyKeyboard
 {
 	protected LatinKeyboard(AnyKeyboardContextProvider context, String prefId, int keyboardLayoutId, int keyboardNameId, Dictionary.Language defaultDictionaryLanguage) 
 	{
 		super(context, prefId, keyboardLayoutId, true, keyboardNameId, true, defaultDictionaryLanguage);
-	}
-	
-	//this class implements the HardKeyboardTranslator interface in an empty way, the physical keyboard is Latin...
-	public void translatePhysicalCharacter(HardKeyboardAction action) 
-	{
-		//I'll do nothing, so the caller will use defaults.
 	}
 
 	protected void setPopupKeyChars(Key aKey) 
@@ -75,23 +64,5 @@ public class LatinKeyboard extends AnyKeyboard implements HardKeyboardTranslator
 					super.setPopupKeyChars(aKey);
 			}
         }
-	}
-}
-
-class FinnishSwedishKeyboard extends LatinKeyboard
-{
-	private final Configuration mConfig;
-	public FinnishSwedishKeyboard(AnyKeyboardContextProvider context) 
-	{
-		super(context, KeyboardFactory.FINNISH_SWEDISH_KEYBOARD, R.xml.fin_swedish_qwerty, R.string.finnish_swedish_keyboard, Language.Swedish);
-		mConfig = context.getApplicationContext().getResources().getConfiguration();
-	}
-	
-	@Override
-	public Language getDefaultDictionaryLanguage() {
-		if (mConfig.locale.toString().startsWith("fi"))
-			return Language.Finnish;
-		
-		return super.getDefaultDictionaryLanguage();
 	}
 }
