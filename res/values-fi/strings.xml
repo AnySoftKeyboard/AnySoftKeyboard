@@ -6,22 +6,22 @@
     <string name="main_tab_welcome">Tervetuloa</string>
     <string name="main_tab_links">Linkit</string>
     <string name="main_tab_credits">Tekijät</string>
-
+	<!-- welcome tab -->
 	<string name="how_to_pointer_title">Tervetuloa käyttämään AnySoftKeyboardia</string>
-	<string name="how_to_pointer_version_prefix">Versio: </string>
-	
+	<string name="how_to_pointer_version_prefix">Versio: </string>	
 	<string name="how_to_pointer_not_app">AnySoftKeyboard ei ole tavallinen ohjelma - se on virtuaalinäppäimistön korvike.</string>
-	<string name="how_to_pointer_how_to_url">Osoitteesta http://code.google.com/p/softkeyboard/wiki/HowTo (engl.) löytyy lisäopastusta näppäimistön käytöstä.</string>
-	<string name="how_to_pointer_changelog">Uusimman version lisätiedot: http://code.google.com/p/softkeyboard/wiki/ChangeLog</string>
-	<string name="how_to_pointer_issues">Bugiraportin jättäminen: http://code.google.com/p/softkeyboard/issues/list</string>
-	<string name="how_to_pointer_site">Yleistietoa ohjelmasta: http://code.google.com/p/softkeyboard/</string>
+	<string name="how_to_pointer_go_to_links">Lisätietoja Linkit-välilehdellä.</string>
+	<!-- links tab -->
+	<string name="how_to_pointer_how_to_url">Ohjeita tämän näppäimistön käyttöön:</string>
+	<string name="how_to_pointer_site">Yleisohjeita:</string>	
+	<string name="how_to_pointer_changelog">Uusimman version lisätiedot: </string>
+	<string name="how_to_pointer_issues">Bugiraportin jättäminen: http://code.google.com/p/softkeyboard/issues/list</string>	
 	<!-- credits tab -->
 	<string name="main_tab_credits_title">Tämän ohjelman tekoon osallistui-</string>
-	<string name="main_tab_credits_created_by">Tehnyt:</string>
+	<string name="main_tab_credits_created_by">Luonut:</string>
 	<string name="main_tab_credits_additional_work_by">Lisäohjelmointityö:</string>
 	<string name="main_tab_credits_localization_by">Lokalisointi:</string>
-	<string name="main_tab_credits_GUI_by">UI kuvat:</string>
-	
+	<string name="main_tab_credits_GUI_by">Käyttöliittymän kuvat:</string>	
 	
     <!-- Symbols that are commonly considered word separators in this language -->
     <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
@@ -38,24 +38,17 @@
         <item>Pyyhkäisy ilman vinkkipainikkeita</item>
         <item>Ei pyyhkäisyä, vain painikkeet</item>
     </string-array>
-    <string-array name="keyboard_layout_change_methods_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-    <string name="physical_keyboard_change_notification_title">Näppäimistöasettelun tiedotukset</string>
+    
+	<string name="physical_keyboard_change_notification_title">Näppäimistöasettelun tiedotukset</string>
     <string name="physical_keyboard_change_notification_summary">Tiedotukset näppäimistön asettelusta</string>
     <string name="physical_keyboard_change_notification_dialog_title">Valitse tapa</string>
+    
     <string-array name="physical_keyboard_change_notification_types">
         <item>Näytä aina asetteluikoni</item>
         <item>Fyys. näppäimistön muuttuessa</item>
         <item>Ei muistutusta</item>
     </string-array>
-    <string-array name="physical_keyboard_change_notification_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
+    
     <string name="lengthy_operations_toast_notification">Tiedota pitkäkestoisista toiminnoista</string>
     <string name="lengthy_operations_toast_notification_summary">Näytä lyhyt tiedotus pitkäkestoisista toiminnoista</string>
 
@@ -82,12 +75,7 @@
         <item>Kohtalainen</item>
         <item>Kova</item>
     </string-array>
-    <string-array name="vibrate_on_key_press_values">
-    	<item>0</item>
-        <item>17</item>
-        <item>30</item>
-        <item>50</item>
-    </string-array>
+    
     <string name="sound_on">Ääni painettaessa</string>
 	<string name="sound_on_summary">Ääniefektit painettaessa näppäimiä. Äänentaso määräytyy tiedotusten äänitason perusteella.</string>
     <string name="auto_caps">Autokapitalisointi</string>
