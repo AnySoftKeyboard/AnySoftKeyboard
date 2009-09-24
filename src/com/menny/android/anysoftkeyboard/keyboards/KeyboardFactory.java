@@ -36,6 +36,8 @@ public class KeyboardFactory
 	public static final String CATALAN_KEYBOARD = "catalan_keyboard";
 	public static final String CH_FR_KEYBOARD = "ch_fr_keyboard";
 	public static final String DE_KEYBOARD = "ch_de_keyboard";//this is the preferences key. Do not change it.
+	public static final String BE_CYRILLIC_KEYBOARD = "be_cyrillic";
+	public static final String BE_LATIN_KEYBOARD = "be_latin";
 	
 	static
 	{
@@ -72,6 +74,9 @@ public class KeyboardFactory
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, KeyboardFactory.CH_FR_KEYBOARD, R.xml.ch_fr_qwerty, R.string.ch_fr_keyboard, Dictionary.Language.French);} public String getKeyboardPrefId() {return CH_FR_KEYBOARD;}});
 		//Issue 86: German keyboard
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, KeyboardFactory.DE_KEYBOARD, R.xml.de_qwerty, R.string.de_keyboard, Dictionary.Language.German);} public String getKeyboardPrefId() {return DE_KEYBOARD;}});
+		//issue 105
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, KeyboardFactory.BE_CYRILLIC_KEYBOARD, R.xml.be_cyrillic, R.string.be_cyrillic_keyboard, Dictionary.Language.None);} public String getKeyboardPrefId() {return BE_CYRILLIC_KEYBOARD;}});
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, KeyboardFactory.BE_LATIN_KEYBOARD, R.xml.be_latin, R.string.be_latin_keyboard, Dictionary.Language.None);} public String getKeyboardPrefId() {return BE_LATIN_KEYBOARD;}});
 	}
 	
 	public static KeyboardCreator[] createAlphaBetKeyboards(AnyKeyboardContextProvider contextProvider)

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="ime_name">AnySoftKeyboard</string>
+    
+    <string name="main_tab_welcome">Вітаем</string>
+    <string name="main_tab_links">Спасылкі</string>
+    <string name="main_tab_credits">Падзякі</string>
+    <!-- welcome tab -->
+	<string name="how_to_pointer_title">Вітаем у AnySoftKeyboard</string>
+	<string name="how_to_pointer_version_prefix">Вэрсія:</string>
+	<string name="how_to_pointer_not_app">AnySoftKeyboard не зьяўляецца звычайнай праграмай - гэта замена экраннай клявіятуры.</string>
+	<string name="how_to_pointer_go_to_links">За дадатковай інфармацыяй, перайдзіце на ўкладку &quot;Спасылкі.</string>
+	<!-- links tab -->
+	<string name="how_to_pointer_how_to_url">Як карыстацца гэтае клявіятурай:</string>
+	<string name="how_to_pointer_site">Агульныя зьвесткі:</string>
+	<string name="how_to_pointer_changelog">Інфармацыя пра апошнюю вэрсію:</string>
+	<string name="how_to_pointer_issues">Паведамленьні пра памылкі:</string>
+	<!-- credits tab -->
+	<string name="main_tab_credits_title">Гэта праграма была створана з дапамогай наступных людзей</string>
+	<string name="main_tab_credits_created_by">Створана:</string>
+	<string name="main_tab_credits_additional_work_by">Таксама праграмавалі:</string>
+	<string name="main_tab_credits_localization_by">Перакладалі й дадавалі мовы:</string>
+	<string name="main_tab_credits_GUI_by">Малюнкі ад:</string>
+	
+    <!-- Symbols that are commonly considered word separators in this language -->
+    <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
+    <!-- Indicates that a word has been added to the dictionary -->
+    <string name="added_word"><xliff:g id="word">%s</xliff:g> : Захаваныя</string>
+    
+    <!-- settings - UI -->
+    <string name="ui_group">Інтэрфэйс карыстальніка</string>
+    <string name="keyboard_layout_change_method_title">Мэтад зьмяненьня раскладкі</string>
+    <string name="keyboard_layout_change_method_summary">Мэтад зьмяненьня выгляду экраннай клявіятуры</string>
+    <string name="keyboard_layout_change_method_dialog_title">Выбар мэтаду</string>
+    <string-array name="keyboard_layout_change_methods">
+        <item>Рухамі з спэцыяльнымі клявішамі</item>
+        <item>Рухамі без спэцыяльнымі клявішамі</item>
+        <item>Без рухаў, толькі клявішамі</item>
+    </string-array>
+    
+    <string name="physical_keyboard_change_notification_title">Паведамленьні аб зьмене раскладкі</string>
+    <string name="physical_keyboard_change_notification_summary">Тып паведамленьняў пра актыўную раскладку</string>
+    <string name="physical_keyboard_change_notification_dialog_title">Абраць тып паведамленьняў</string>
+    <string-array name="physical_keyboard_change_notification_types">
+        <item>Заўсёды паказваць іконку</item>
+        <item>Па зьмене фізычнай клявіятуры</item>
+        <item>Без паведамленьняў</item>
+    </string-array>
+    
+    <string name="lengthy_operations_toast_notification">Паведамляць аб працяглых апэрацыях</string>
+    <string name="lengthy_operations_toast_notification_summary">Паказваць кароткія паведамленьні пра працяглыя апэрацыі</string>
+    
+    <!-- Options menu -->
+    <string name="change_ime">Зьмяніць мэтад уводу</string>
+    <string name="override_dictionary">Вызначыць слоўнік</string>
+    <!-- Dictionary override strings -->
+    <string name="override_dictionary_title">Зьмяніць <xliff:g id="word">%s</xliff:g> слоўнік</string>
+    <string name="override_dictionary_default">Па змоўчваньні</string>
+    <!-- Dictionary override toast messages -->
+    <string name="override_disabled">Вызначэньне зьмененае</string>
+    <string name="override_enabled">Зьмена на <xliff:g id="word">%s</xliff:g></string>
+    
+    <!-- settings - effects-->
+    <string name="effects_group">Эфекты</string>
+    <string name="ime_settings">Наладкі клявіятуры</string>
+    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
+    <string name="vibrate_on_key_press_title">Вібраваць на націсканьні клявішаў</string>
+    <string name="vibrate_on_key_press_summary">Выбар тыпу вібраваньня</string>
+    <string name="vibrate_on_key_press_dialog_title">Абраць працягласьць вібраваньня</string>
+    <string-array name="vibrate_on_key_press_types">
+    	<item>Не вібраваць</item>
+        <item>Далікатна</item>
+        <item>Сярэдне</item>
+        <item>Моцна</item>
+    </string-array>
+    
+    <string name="sound_on">Гук на націсканьні клявішаў</string>
+    <string name="sound_on_summary">Гук на націсканьні клявішаў. Гучнасьць як астатніх паведамленьняў.</string>
+    <string name="auto_caps">Аўтаматычныя вялікія літары</string>
+    <string name="grammer_group">Граматыка</string>
+    <string name="candidates_on">Паказаць прапановы</string>
+    <string name="quick_fix">Хуткія выпраўленьні</string>
+    <string name="quick_fix_summary">Выпраўленьне звычайных памылак</string>
+    <string name="auto_complete">Аўтаматычна абіраць прапановы</string>
+    <string name="auto_complete_summary">Прабел будзе абіраць вылучаную прапанову</string>
+    
+    <!-- settings - keyboard group -->
+    <string name="keyboards_group">Клявіятуры</string>
+    <string name="eng_keyboard">Ангельская</string>
+    <string name="heb_keyboard">Іўрыт</string>
+    <string name="lao_keyboard">Лаоская</string>
+    <string name="arabic_keyboard">Арабская</string>
+    <string name="bg_ph_keyboard">Балгарская фанэтычная</string>
+    <string name="bg_bds_keyboard">Балгарская BDS</string>
+    <string name="dvorak_keyboard">Дворак</string>
+    <string name="finnish_swedish_keyboard">Швэдзкая / Фінская</string>
+    <string name="catalan_keyboard">Каталёнская</string>
+    <string name="ch_fr_keyboard">Швэйцарская француская</string>
+    <string name="de_keyboard">Нямецкая / Швэйцарская Нямецкі</string>
+    <string name="azerty_keyboard">AZERTY</string>
+    <string name="es_keyboard">Гішпанская</string>
+    <string name="ru_ph_keyboard">Руская фанэтычныя</string>
+    <string name="ru_keyboard">Руская</string>
+    <string name="be_cyrillic_keyboard">Беларускія кірылічная</string>
+    <string name="be_latin_keyboard">Беларуская лацінка</string>
+    
+    <!-- Tutorials --> 
+    <string name="show_tutorial_on_startup">Паказаць гэты дапаможнік пры запуску</string>
+    <string name="tutorial_swipe_title">Рухі для зьмены клявіятуры</string>
+    <string name="tutorial_swipe_text">Раскладка клявіятуры можа быць зьменена шляхам руханьня пальцамі па клявіятуры. Правядзіце зьлева направа каб зьмяняць мову, альбо з права налева каб зьмяніць сымбалі.</string>
+    
+    <!-- Special soft keyboard keys text -->
+    <string name="label_go_key">Перайсьці</string>
+    <string name="label_next_key">Наступны</string>
+    <string name="label_send_key">Даслаць</string>
+    
+    <string name="change_lang_wide">→ ABC →</string>
+    <string name="change_lang_regular">ABC</string>
+    <string name="change_symbols_wide">← 123 ←</string>
+    <string name="change_symbols_regular">123</string>
+    
+    <string name="please_wait">Калі ласка, пачакайце</string>
+    <string name="toast_lengthy_words_long_operation">Загрузка слоўніка ...</string>
+    <string name="toast_lengthy_start_up_operation">Запуск AnySoftKeyboard...</string>
+    <string name="lengthy_creating_keyboard_operation">Стварэньне клявіятураў...</string>
+</resources>

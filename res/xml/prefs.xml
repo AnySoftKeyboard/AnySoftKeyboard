@@ -201,5 +201,21 @@
             android:summaryOn="Created with tudor and Claude Philipona"
             android:summaryOff="Created with tudor and Claude Philipona"
             />
+            <CheckBoxPreference
+            android:key="be_cyrillic"
+            android:title="@string/be_cyrillic_keyboard"
+            android:persistent="true"
+            android:defaultValue="false"
+            android:summaryOn="Created with alex73"
+            android:summaryOff="Created with alex73"
+            />
+            <CheckBoxPreference
+            android:key="be_latin"
+            android:title="@string/be_latin_keyboard"
+            android:persistent="true"
+            android:defaultValue="false"
+            android:summaryOn="Created with alex73"
+            android:summaryOff="Created with alex73"
+            />
             </PreferenceCategory>
 </PreferenceScreen>
