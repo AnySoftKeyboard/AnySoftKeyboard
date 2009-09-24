@@ -103,6 +103,8 @@ public class DictionaryFactory
 					}
 				}				
 			};
+			//a little less...
+			loader.setPriority(Thread.NORM_PRIORITY - 1);
 			loader.start();
 			msDictionaries.put(language, dict);
 		}

@@ -65,7 +65,7 @@ public abstract class UserDictionaryBase extends Dictionary {
 
 	protected abstract void closeAllResources();
     
-    public synchronized void loadDictionary() throws Exception {
+    public void loadDictionary() throws Exception {
         loadAllWords();
         mRequiresReload = false;
     }
