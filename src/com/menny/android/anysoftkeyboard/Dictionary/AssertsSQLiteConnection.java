@@ -6,9 +6,7 @@ import com.menny.android.anysoftkeyboard.SoftKeyboardSettings;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
 class AssertsSQLiteConnection extends DictionarySQLiteConnection {
@@ -76,19 +74,29 @@ class AssertsSQLiteConnection extends DictionarySQLiteConnection {
 		boolean validDatabase = false;
 		try{
 			String myPath = DB_PATH + mDbName;
+			//opens the application's database (not the storage)
 			checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
 			//OK. If we got here, then the database exists!
-			//Lets check that it is from the correct version
-			int assetDbRevision = getRevisionFromDatabase(checkDB);
-			
-			int installedAssetDatabaseRevision = getInstalledDatabaseRevision();
-			Log.v("AnySoftKeyboard", "Found revision "+assetDbRevision+" looking for "+installedAssetDatabaseRevision);
-            if (assetDbRevision == installedAssetDatabaseRevision) {
-            	Log.d("AnySoftKeyboard", mDbName+"."+mTableName+" is of the correct revision.");
-            	validDatabase = true;
-            }
+			//Need to check that the assets database is has (or not) a different from the installed
+			//we'll do it by file size.
+			InputStream assetsDb = super.mContext.getAssets().open(mDbName);
+			try
+			{
+				int assetDbSize = assetsDb.available();
+				
+				int installedAssetDatabaseSize = getInstalledDatabaseSize();
+				Log.v("AnySoftKeyboard", "Found local DB size "+installedAssetDatabaseSize+" and assets DB size is "+assetDbSize);
+	            if (assetDbSize == installedAssetDatabaseSize) {
+	            	Log.d("AnySoftKeyboard", mDbName+"."+mTableName+" is of the correct size.");
+	            	validDatabase = true;
+	            }
+			}
+			finally
+			{
+				if (assetsDb != null) assetsDb.close();
+			}
 		}
-		catch(SQLiteException e)
+		catch(Exception e)
 		{
 			if(checkDB != null)
 			{
@@ -111,42 +119,24 @@ class AssertsSQLiteConnection extends DictionarySQLiteConnection {
 		
 		return validDatabase;
 	}
-
-	private int getRevisionFromDatabase(SQLiteDatabase checkDB) {
-		Cursor c = checkDB.query(mTableName+"_metadata", new String[]{"key", "value"}, "key like '%revision%'", null, null, null, null);
-		int assetDbRevision = -1;
-		try
-		{
-			if ((c != null) && (c.moveToFirst() && (!c.isAfterLast()))) 
-			{
-				assetDbRevision = c.getInt(1);
-		    }
-		}
-		finally
-		{
-			if (c != null)
-				 c.close();
-		}
-		return assetDbRevision;
-	}
 	
 	private String getSharedPreferencesKey()
 	{
 		return "AssertsDictionary_"+mDbName+"_"+mTableName;
 	}
 
-   private int getInstalledDatabaseRevision() 
+   private int getInstalledDatabaseSize() 
    {
 	   //the database revision is taken from the application's settings
 	   SharedPreferences sp = mContext.getSharedPreferences(SoftKeyboardSettings.PREFERENCES_FILE, 0);
 	   return sp.getInt(getSharedPreferencesKey(), -1);
    }
 
-   private void setNewlyInstalledDatabaseRevision(int newRevisionNumber)
+   private void setNewlyInstalledDatabaseSize(int size)
    {
 	   SharedPreferences sp = mContext.getSharedPreferences(SoftKeyboardSettings.PREFERENCES_FILE, 0);
 	   SharedPreferences.Editor editor = sp.edit();
-	   editor.putInt(getSharedPreferencesKey(), newRevisionNumber);
+	   editor.putInt(getSharedPreferencesKey(), size);
 	   editor.commit();
    }
    /**
@@ -158,7 +148,8 @@ class AssertsSQLiteConnection extends DictionarySQLiteConnection {
 
    	//Open your local db as the input stream
    	InputStream myInput = super.mContext.getAssets().open(mDbName);
-
+   	final int assetsSize = myInput.available();
+   	
    	// Path to the just created empty db
    	String outFileName = DB_PATH + mDbName;
 
@@ -187,6 +178,11 @@ class AssertsSQLiteConnection extends DictionarySQLiteConnection {
    	myOutput.close();
    	myInput.close();
    	Log.d("AnySoftKeyboard", "***** AssertsSQLiteConnection: DB was copied!");
+   	
+   	//first time I have the database.
+	//I'll take its size and store it in the application preferences, so I'll know if
+	//asserts upgrade has happened.
+	setNewlyInstalledDatabaseSize(assetsSize);
    }
    
    @Override
@@ -196,11 +192,6 @@ class AssertsSQLiteConnection extends DictionarySQLiteConnection {
    
 		String myPath = DB_PATH + mDbName;
 		mDataBase =  SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
-		//first time I have the database.
-		//I'll take its revision and store it in the application preferences, so I'll know if
-		//asserts upgrade has happened.
-		int installedRevision = getRevisionFromDatabase(mDataBase);
-		setNewlyInstalledDatabaseRevision(installedRevision);
 		
 		return mDataBase;
    }
