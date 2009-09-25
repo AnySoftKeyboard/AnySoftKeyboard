@@ -58,6 +58,7 @@ public abstract class AnyKeyboard extends Keyboard
 	private final String mKeyboardName;
     private final boolean mLeftToRightLanguageDirection;
     private final Dictionary.Language mDefaultDictionaryLanguage;
+    private final int mKeyboardIconId;
 	//private final String mKeyboardPrefId;
     private HashMap<Character, ShiftedKeyData> mSpecialShiftKeys;
     
@@ -80,7 +81,8 @@ public abstract class AnyKeyboard extends Keyboard
     		int keyboardNameId,
     		/*String keyboardEnabledPref,*/
     		boolean leftToRightLanguageDirection,
-    		Dictionary.Language defaultDictionaryLanguage) 
+    		Dictionary.Language defaultDictionaryLanguage,
+    		int keyboardIconId) 
     {
         super(context.getApplicationContext(), xmlLayoutResId);
         mKeyboardContext = context;
@@ -92,6 +94,7 @@ public abstract class AnyKeyboard extends Keyboard
         	mKeyboardName = "";
         mLeftToRightLanguageDirection = leftToRightLanguageDirection;
         mDefaultDictionaryLanguage = defaultDictionaryLanguage;
+        mKeyboardIconId = keyboardIconId;
         //mKeyboardPrefId = keyboardEnabledPref;
         Log.i("AnySoftKeyboard", "Done creating keyboard: "+mKeyboardName);
     	
@@ -287,7 +290,7 @@ public abstract class AnyKeyboard extends Keyboard
      */
     public int getKeyboardIcon()
     {
-    	return R.drawable.sym_keyboard_notification_icon;
+    	return mKeyboardIconId;
     }
     
 //    public String getKeyboardKey()

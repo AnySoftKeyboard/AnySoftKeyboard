@@ -47,7 +47,8 @@ public abstract class SQLiteUserDictionaryBase extends UserDictionaryBase {
 
 	@Override
 	protected void closeAllResources() {
-		mStorage.close();
+		if (mStorage != null)
+			mStorage.close();
 	}
 
 }

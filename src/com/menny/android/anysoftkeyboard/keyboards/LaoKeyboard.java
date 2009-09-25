@@ -8,12 +8,6 @@ public class LaoKeyboard extends AnyKeyboard /*implements HardKeyboardTranslator
 {
 	public LaoKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, KeyboardFactory.LAO_KEYBOARD, R.xml.lao_qwerty, true, R.string.lao_keyboard, true, Dictionary.Language.None);
-	}
-
-	@Override
-	public int getKeyboardIcon() 
-	{
-		return R.drawable.lao;
+		super(context, KeyboardFactory.LAO_KEYBOARD, R.xml.lao_qwerty, true, R.string.lao_keyboard, true, Dictionary.Language.None, R.drawable.lao);
 	}
 }

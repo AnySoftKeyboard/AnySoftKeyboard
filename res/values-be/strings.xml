@@ -30,11 +30,11 @@
     <!-- settings - UI -->
     <string name="ui_group">Інтэрфэйс карыстальніка</string>
     <string name="keyboard_layout_change_method_title">Мэтад зьмяненьня раскладкі</string>
-    <string name="keyboard_layout_change_method_summary">Мэтад зьмяненьня выгляду экраннай клявіятуры</string>
+    <string name="keyboard_layout_change_method_summary">Мэтад зьмяненьня раскладкі экраннай клявіятуры</string>
     <string name="keyboard_layout_change_method_dialog_title">Выбар мэтаду</string>
     <string-array name="keyboard_layout_change_methods">
         <item>Рухамі з спэцыяльнымі клявішамі</item>
-        <item>Рухамі без спэцыяльнымі клявішамі</item>
+        <item>Рухамі без спэцыяльных клявішаў</item>
         <item>Без рухаў, толькі клявішамі</item>
     </string-array>
     
@@ -110,7 +110,7 @@
     <string name="tutorial_swipe_text">Раскладка клявіятуры можа быць зьменена шляхам руханьня пальцамі па клявіятуры. Правядзіце зьлева направа каб зьмяняць мову, альбо з права налева каб зьмяніць сымбалі.</string>
     
     <!-- Special soft keyboard keys text -->
-    <string name="label_go_key">Перайсьці</string>
+    <string name="label_go_key">Go</string>
     <string name="label_next_key">Наступны</string>
     <string name="label_send_key">Даслаць</string>
     

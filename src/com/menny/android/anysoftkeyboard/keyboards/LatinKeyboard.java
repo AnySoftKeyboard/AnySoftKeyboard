@@ -5,9 +5,9 @@ import com.menny.android.anysoftkeyboard.Dictionary.Dictionary;
 
 public class LatinKeyboard extends AnyKeyboard
 {
-	protected LatinKeyboard(AnyKeyboardContextProvider context, String prefId, int keyboardLayoutId, int keyboardNameId, Dictionary.Language defaultDictionaryLanguage) 
+	protected LatinKeyboard(AnyKeyboardContextProvider context, String prefId, int keyboardLayoutId, int keyboardNameId, Dictionary.Language defaultDictionaryLanguage, int keyboardIconId) 
 	{
-		super(context, prefId, keyboardLayoutId, true, keyboardNameId, true, defaultDictionaryLanguage);
+		super(context, prefId, keyboardLayoutId, true, keyboardNameId, true, defaultDictionaryLanguage, keyboardIconId);
 	}
 
 	protected void setPopupKeyChars(Key aKey) 

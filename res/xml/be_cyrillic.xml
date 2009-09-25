@@ -14,13 +14,9 @@
     	<Key android:codes="-2" android:keyLabel="&#8592; 123 &#8592;" android:keyEdgeFlags="left"/>
         <Key android:codes="-99" android:horizontalGap="10%p" android:keyLabel="&#8594; ABC &#8594;" android:keyEdgeFlags="right"/>
     </Row>
-<!-- 
-׀¹ׁ†ׁƒ׀÷׀µ׀½׀³ׁˆׁ‰׀·ׁ…ׁ�
-ׁ„ׁ‹׀²׀°׀¿ׁ€׀¾׀»׀´׀¶ׁ�
-ׁ�ׁ‡ׁ�׀¼׀¸ׁ‚ׁ�׀±ׁ�
- -->    
+
     <Row android:keyWidth="8.33%p">
-    <!-- ׀¹ׁ†ׁƒ׀÷ ׀µ׀½ ׀³ׁˆׁ� ׀·ׁ…' -->
+    <!-- йцукенгшўзх' -->
         <Key android:codes="0x0439" android:keyLabel="" android:keyEdgeFlags="left"/>
         <Key android:codes="0x0446" android:keyLabel=""/>
         <Key android:codes="0x0443" android:keyLabel=""/>
@@ -36,7 +32,7 @@
     </Row>
     
     <Row android:keyWidth="8.33%p">
-    <!-- ׁ„ׁ‹׀²׀°׀¿ׁ€׀¾׀»׀´׀¶ׁ� -->
+    <!-- фывапролджэ -->
         <Key android:codes="0x0444" android:keyLabel="" android:keyEdgeFlags="left"/>
         <Key android:codes="0x044B" android:keyLabel=""/>
         <Key android:codes="0x0432" android:keyLabel=""/>
@@ -52,7 +48,7 @@
     </Row>
     
     <Row android:keyWidth="9.09%p">
-    <!-- ׁ�ׁ‡ׁ�׀¼ׁ–ׁ‚ׁ�׀±ׁ� -->
+    <!-- ячсмітьбю -->
     	<Key android:codes="-1" android:keyIcon="@drawable/sym_keyboard_shift" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
         <Key android:codes="0x044F" android:keyLabel=""/>
         <Key android:codes="0x0447" android:keyLabel=""/>
