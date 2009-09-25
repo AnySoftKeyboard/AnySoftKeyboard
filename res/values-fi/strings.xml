@@ -103,6 +103,8 @@
     <string name="es_keyboard">Espanja</string>
     <string name="ru_ph_keyboard">Venäjä, foneettinen</string>
     <string name="ru_keyboard">Venäjä</string>
+    <string name="be_cyrillic_keyboard">Valkovenäjä, kyrillinen</string>
+    <string name="be_latin_keyboard">Valkovenäjä, latinalainen</string>
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Näytä opastus käynnistyksen yhteydessä</string>
