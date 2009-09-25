@@ -1,129 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="ime_name">AnySoftKeyboard</string>
-    
-    <string name="main_tab_welcome">פתיחה</string>
-    <string name="main_tab_links">קישורים</string>
-    <string name="main_tab_credits">תודות</string> 
-    <!-- welcome tab -->
-	<string name="how_to_pointer_title">ברוכים הבאים ל AnySoftKeyboard</string>
-	<string name="how_to_pointer_version_prefix">גירסה: </string>
-	<string name="how_to_pointer_not_app">תוכנה זו אינה תוכנה רגילה, אלא מערכת חלופית למקלדת הויזואלית של אנדרויד.</string>
-	<string name="how_to_pointer_go_to_links">למידע נוסף, עבור לטאב הקישורים</string>
-	<!-- links tab -->
-	<string name="how_to_pointer_how_to_url">למידע כיצד להשתמש במקלדת:</string>
-	<string name="how_to_pointer_changelog">למידע על השינויים בגירסה האחרונה:</string>
-	<string name="how_to_pointer_issues">לידע על שגיאות ובעיות:</string>
-	<string name="how_to_pointer_site">למידע כללי:</string>
-	<!-- credits tab -->
-	<string name="main_tab_credits_title">האנשים מאחורי המקלדת</string>
-	<string name="main_tab_credits_created_by">נוצרה על-ידי:</string>
-	<string name="main_tab_credits_additional_work_by">מתכנתים נוספים:</string>
-	<string name="main_tab_credits_localization_by">תרגום:</string>
-	<string name="main_tab_credits_GUI_by">גרפיקה:</string>
+	<string name="ime_name">AnySoftKeyboard</string>
 	
-    <!-- Symbols that are commonly considered word separators in this language -->
-    <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
-    <!-- Indicates that a word has been added to the dictionary -->
-    <string name="added_word">נשמרה: <xliff:g id="word">%s</xliff:g></string>
-    
-    <!-- settings - UI -->
-    <string name="ui_group">ממשק משתמש</string>
-    <string name="keyboard_layout_change_method_title">שיטת החלפת שפות</string>
-    <string name="keyboard_layout_change_method_summary">הגדר את הדרך בה תתבצעה החלפת שפת מקלדת</string>
-    <string name="keyboard_layout_change_method_dialog_title">בחר שיטה</string>
-    <string-array name="keyboard_layout_change_methods">
-        <item>החלקה עם מקשי עזר</item>
-        <item>החלקה ללא מקשי עזר</item>
-        <item>מקשי עזר בלבד</item>
-    </string-array>
-    <string-array name="keyboard_layout_change_methods_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-    <string name="physical_keyboard_change_notification_title">סוג התראה בעת שינוי שפה</string>
-    <string name="physical_keyboard_change_notification_summary">סוג ההתראה שתינתן בעת החלפת שפת המקלדת</string>
-    <string name="physical_keyboard_change_notification_dialog_title">בחר סוג התראה</string>
-    <string-array name="physical_keyboard_change_notification_types">
-        <item>הראה תמיד</item>
-        <item>בשינוי מקלדת פיזית בלבד</item>
-        <item>אף פעם</item>
-    </string-array>
-    <string-array name="physical_keyboard_change_notification_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-    <string name="lengthy_operations_toast_notification">התראה על פעולות ממושכות</string>
-    
-    <string name="change_ime">החלף IME</string>
-    <string name="override_dictionary">בחירת מילון</string>
-    <!-- Dictionary override strings -->
-    <string name="override_dictionary_title">החלף <xliff:g id="word">%s</xliff:g></string>
-    <string name="override_dictionary_default">ברירת מחדל</string>
-    <!-- settings - effects-->
-    <string name="effects_group">אפקטים</string>
-    <string name="ime_settings">הגדרות מקלדת</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
-    <string name="vibrate_on_key_press_title">רטט בהקלדה</string>
-    <string name="vibrate_on_key_press_summary">משך הרטט בזמן הקלדה</string>
-    <string name="vibrate_on_key_press_dialog_title">בחר משך הרטט</string>
-    <string-array name="vibrate_on_key_press_types">
-    	<item>ללא</item>
-        <item>קצר</item>
-        <item>רגיל</item>
-        <item>ארוך</item>
-    </string-array>
-    <string-array name="vibrate_on_key_press_values">
-    	<item>0</item>
-        <item>17</item>
-        <item>30</item>
-        <item>50</item>
-    </string-array>
-    <string name="sound_on">צליל נקישה בהקלדה</string>
-    <string name="auto_caps">קפיטליזציה אוטומטית</string>
-    <string name="grammer_group">אפשרויות תיקון</string>
-    <string name="candidates_on">הראה הצעות</string>
-    <string name="quick_fix">תקן שגיאות נפוצות</string>
-    <string name="quick_fix_summary">תקן אוטומטית שגיאות נפוצות</string>
-    <string name="auto_complete">בחר מילה מוצעת אוטומטית</string>
-    <string name="auto_complete_summary">רווח יבחר אוטומטית את המילה המוצעת</string>
-    
-    <!-- settings - keyboard group -->
-    <string name="keyboards_group">מקלדות</string>
-    <string name="eng_keyboard">אנגלית</string>
-    <string name="heb_keyboard">עברית</string>
-    <string name="lao_keyboard">לאוס</string>
-    <string name="arabic_keyboard">ערבית</string>
-    <string name="bg_ph_keyboard">בולגרית פונטית</string>
-    <string name="bg_bds_keyboard">בולגרית</string>
-    <string name="dvorak_keyboard">פריסת Devorak</string>
-    <string name="finnish_swedish_keyboard">פינית/שוודית</string>
-    <string name="catalan_keyboard">קטלנית</string>
-    <string name="ch_fr_keyboard">שוודית צרפתית</string>
-    <string name="de_keyboard">גרמנית</string>
-    <string name="azerty_keyboard">פריסת AZERTY</string>
-    <string name="es_keyboard">ספרדית</string>
-    <string name="ru_ph_keyboard">רוסית פונטית</string>
-    <string name="ru_keyboard">רוסית</string>
-    
-    <!-- Tutorials --> 
-    <string name="show_tutorial_on_startup">הראה מדריך באתחול</string>
-    <string name="tutorial_swipe_title">החלקה לצרוך שינוי שפה</string>
-    <string name="tutorial_swipe_text">שפה המקלדת ניתנת לשינוי על ידי החלקת האצבע על המקלדת. החלקה מימין לשמאל משנה שפה. החלקה משמאל לימין מחליפה לסימנים</string>
-    
-    <!-- Special soft keyboard keys text -->
-    <string name="label_go_key">לך</string>
-    <string name="label_next_key">הבא</string>
-    <string name="label_send_key">שלח</string>
-    
-    <string name="change_lang_wide">&#8594; ABC &#8594;</string>
-    <string name="change_lang_regular">ABC</string>
-    <string name="change_symbols_wide">&#8592; 123 &#8592;</string>
-    <string name="change_symbols_regular">123</string>
-    
-    <string name="toast_lengthy_words_long_operation">טוען מילון...</string>
-    <string name="toast_lengthy_start_up_operation">טוען AnySoftKeyboard...</string>
+	<string name="main_tab_welcome">פתיחה</string>
+	<string name="main_tab_links">קישורים</string>
+	<string name="main_tab_credits">תודות</string>
+		<!-- welcome tab -->
+		<string name="how_to_pointer_title">ברוכים הבאים ל AnySoftKeyboard</string>
+		<string name="how_to_pointer_version_prefix">גירסה: </string>
+		<string name="how_to_pointer_not_app">תוכנה זו אינה תוכנה רגילה, אלא מערכת חלופית למקדלת הויזואלית של אנדרויד.</string>
+		<string name="how_to_pointer_go_to_links">למידע נוסף עבור לטאב הקישורים</string>
+		<!-- links tab -->
+		<string name="how_to_pointer_how_to_url">למידע כיצד להשתמש במקלדת:</string>
+		<string name="how_to_pointer_site">למידע כללי:</string>
+		<string name="how_to_pointer_changelog">למידע על השינויים בגירסה האחרונה:</string>
+		<string name="how_to_pointer_issues">למידע על שגיאות ובעיות:</string>
+		<!-- credits tab -->
+		<string name="main_tab_credits_title">האנשים מאחורי המקלדת</string>
+		<string name="main_tab_credits_created_by">נוצרה על-ידי:</string>
+		<string name="main_tab_credits_additional_work_by">מתכנתים נוספים:</string>
+		<string name="main_tab_credits_localization_by">תרגום:</string>
+		<string name="main_tab_credits_GUI_by">גרפיקה:</string>
+	
+	<!-- Symbols that are commonly considered word separators in this language -->
+	<!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
+	<!-- Indicates that a word has been added to the dictionary -->
+	<string name="added_word">נשמרה:<xliff:g id="word">%s</xliff:g></string>
+	
+	<!-- settings - UI -->
+	<string name="ui_group">ממשק משתמש</string>
+		<string name="keyboard_layout_change_method_title">שיטת החלפת שפות</string>
+		<string name="keyboard_layout_change_method_summary">הגדר כיצד החלפת שפה תתבצע</string>
+		<string name="keyboard_layout_change_method_dialog_title">בחר שיטה</string>
+		<string-array name="keyboard_layout_change_methods">
+			<item>החלקה עם מקשי עזר</item>
+			<item>החלקה ללא מקשי עזר</item>
+			<item>מקשי עזר בלבד</item>
+		</string-array>
+	
+		<string name="physical_keyboard_change_notification_title">התראה בשינוי שפה</string>
+		<string name="physical_keyboard_change_notification_summary">סוג ההתראה שתינתן בהחלפת שפה</string>
+		<string name="physical_keyboard_change_notification_dialog_title">בחר סוג התראה</string>
+		<string-array name="physical_keyboard_change_notification_types">
+			<item>הראה תמיד</item>
+			<item>בשינוי מקלדת פיזית בלבד</item>
+			<item>אף פעם</item>
+		</string-array>
+	
+		<string name="lengthy_operations_toast_notification">התראה על פעולות ממושכות</string>
+		<string name="lengthy_operations_toast_notification_summary">הראה הודעה בביצוע פעולות ארוכות</string>
+	
+	<!-- Options menu -->
+		<string name="change_ime">החלף IME</string>
+		<string name="override_dictionary">בחירת מילון</string>
+	<!-- Dictionary override strings -->
+		<string name="override_dictionary_title">החלף <xliff:g id="word">%s</xliff:g> </string>
+		<string name="override_dictionary_default">ברירת מחדל</string>
+	<!-- Dictionary override toast messages -->
+		<string name="override_disabled">החלפה בוטלה</string>
+		<string name="override_enabled"><xliff:g id="word">%s</xliff:g>הוחלפה</string>
+		
+	<!-- settings - effects-->
+	<string name="effects_group">אפקטים</string>
+		<string name="ime_settings">הגדרות מקלדת</string>
+		<!-- <string name="vibrate_on">Vibrate on key-press</string>-->
+		<string name="vibrate_on_key_press_title">רטט בהקלדה</string>
+		<string name="vibrate_on_key_press_summary">משך הרטט בזמן הקלדה</string>
+		<string name="vibrate_on_key_press_dialog_title">בחר את משך הרטט</string>
+		<string-array name="vibrate_on_key_press_types">
+			<item>ללא</item>
+			<item>קצר</item>
+			<item>רגיל</item>
+			<item>ארוך</item>
+		</string-array>
+	
+		<string name="sound_on">צליל בהקלדה</string>
+		<string name="sound_on_summary">צליל בנקישה על המקלדת</string>
+		<string name="auto_caps">קפיטליזציה אוטומטית</string>
+		<string name="grammer_group">אפשרויות תיקון</string>
+		<string name="candidates_on">הראה הצעות</string>
+		<string name="quick_fix">תקן שגיאות נפוצות</string>
+		<string name="quick_fix_summary">תקן אוטומטית שגיאות נפוצות</string>
+		<string name="auto_complete">בחר מילה מוצעת אוטומטית</string>
+		<string name="auto_complete_summary">רווח יבחר אוטומטית את המילה המוצעת</string>
+	
+	<!-- settings - keyboard group -->
+	<string name="keyboards_group">מקלדות</string>
+		<string name="eng_keyboard">אנגלית</string>
+		<string name="heb_keyboard">עברית</string>
+		<string name="lao_keyboard">לאוס</string>
+		<string name="arabic_keyboard">ערבית</string>
+		<string name="bg_ph_keyboard">בולגרית פונטית</string>
+		<string name="bg_bds_keyboard">בולגרית</string>
+		<string name="dvorak_keyboard">פריסת Dvorak</string>
+		<string name="finnish_swedish_keyboard">פינית/שוודית</string>
+		<string name="catalan_keyboard">קטלנית</string>
+		<string name="ch_fr_keyboard">שוודית צרפתית</string>
+		<string name="de_keyboard">גרמנית</string>
+		<string name="azerty_keyboard">פריסת AZERTY</string>
+		<string name="es_keyboard">ספרדית</string>
+		<string name="ru_ph_keyboard">רוסית פונטית</string>
+		<string name="ru_keyboard">רוסית</string>
+		<string name="be_cyrillic_keyboard">בלרוסית קרילית</string>
+		<string name="be_latin_keyboard">בלרוסית</string>
+	
+	<!-- Tutorials --> 
+		<string name="show_tutorial_on_startup">הראה מדריך באתחול</string>
+		<string name="tutorial_swipe_title">החלקה לצורך שינוי שפה</string>
+		<string name="tutorial_swipe_text">שפה המקלדת ניתנת לשינוי על ידי החלקת האצבע על המקלדת. החלקה מימין לשמאל משנה שפה. החלקה משמאל לימין מחליפה לסימנים</string>
+	
+	<!-- Special soft keyboard keys text -->
+		<string name="label_go_key">לך</string>
+		<string name="label_next_key">הבא</string>
+		<string name="label_send_key">שלח</string>
+	
+	<string name="change_lang_wide">&#8594; ABC &#8594;</string>
+	<string name="change_lang_regular">ABC</string>
+	<string name="change_symbols_wide">&#8592; 123 &#8592;</string>
+	<string name="change_symbols_regular">123</string>
+	
+	<string name="please_wait">אנא המתן</string>
+	<string name="toast_lengthy_words_long_operation">טוען מילון...</string>
+	<string name="toast_lengthy_start_up_operation">טוען AnySoftKeyboard...</string>
+	<string name="lengthy_creating_keyboard_operation">מאתחל מקלדות...</string>
 </resources>
