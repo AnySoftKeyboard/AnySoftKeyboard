@@ -87,6 +87,7 @@ class HardKeyboardSequenceHandler
 		private final int[] mSequence;
 		private int mHashCode;
 		private int mCurrentSequenceLength;
+		private int mDeletedCharactersTillNow;
 		
 		public KeyEventSequenceHolder()
 		{
@@ -107,10 +108,13 @@ class HardKeyboardSequenceHandler
 		{
 			mCurrentSequenceLength = 0;
 			mHashCode = 0;
+			mDeletedCharactersTillNow = 0;
 		}
 		
 		@Override
 		public int getSequenceLength() {return mCurrentSequenceLength;}
+		
+		public int getDeletedCharactersCountTillNow() {return mDeletedCharactersTillNow;}
 		
 		@Override
 		public int hashCode() {
@@ -121,6 +125,10 @@ class HardKeyboardSequenceHandler
 		protected int getIntAt(int i)
 		{
 			return mSequence[i % mSequence.length];
+		}
+
+		public void setDeletedCharactersCountAtInput(int charactersToDelete) {
+			mDeletedCharactersTillNow = charactersToDelete;
 		}
 	}
 	
@@ -167,6 +175,11 @@ class HardKeyboardSequenceHandler
 		}
 		//add the real sequence mapping
 		KeyEventSequence actualSequence = new KeyEventSequence(sequence, result);
+		//if sub-sequence had override my actual sequence, I'll remove it and write the actual.
+		if (mSequences.containsKey(actualSequence))
+		{
+			mSequences.remove(actualSequence);
+		}
 		mSequences.put(actualSequence, actualSequence);
 	}
 	
@@ -190,7 +203,10 @@ class HardKeyboardSequenceHandler
 			else
 			{
 				//need to delete the already typed characters
-				inputHandler.deleteLastCharactersFromInput(mappedSequence.getSequenceLength() - 1);
+				final int charactersToDelete = mappedSequence.getSequenceLength() - 1;
+				inputHandler.deleteLastCharactersFromInput(charactersToDelete - mCurrentTypedSequence.getDeletedCharactersCountTillNow());
+				mCurrentTypedSequence.setDeletedCharactersCountAtInput(charactersToDelete);
+				
 				return mappedChar;
 			}
 		}
