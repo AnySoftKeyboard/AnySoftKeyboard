@@ -9,10 +9,11 @@
 		<Key android:keyLabel=".net" android:keyOutputText=".net" android:keyEdgeFlags="left"/>
 		<Key android:keyLabel=".org" android:keyOutputText=".org"/>
 		<Key android:keyLabel=".gov" android:keyOutputText=".gov"/>
-		<Key android:keyLabel=".edu" android:keyOutputText=".edu" android:keyEdgeFlags="right"/>
+		<Key android:keyLabel=".edu" android:keyOutputText=".edu"/>
 	</Row>
     <Row android:rowEdgeFlags="bottom">
-		<Key android:keyLabel=".net.il" android:keyOutputText=".net.il" android:keyEdgeFlags="left"/>
+    	<Key android:keyLabel=".co.il" android:keyOutputText=".co.il" android:keyEdgeFlags="left"/>
+		<Key android:keyLabel=".net.il" android:keyOutputText=".net.il"/>
 		<Key android:keyLabel=".org.il" android:keyOutputText=".org.il"/>
 		<Key android:keyLabel=".gov.il" android:keyOutputText=".gov.il"/>
 		<Key android:keyLabel=".ac.il" android:keyOutputText=".ac.il" android:keyEdgeFlags="right"/>		
