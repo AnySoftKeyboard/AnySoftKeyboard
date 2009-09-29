@@ -102,6 +102,7 @@
    <string name="ru_keyboard">Русский Стандартный</string>
    <string name="be_cyrillic_keyboard">Беларусский Кириллица</string>
    <string name="be_latin_keyboard">Беларусский Латинский</string>
+   <string name="pt_keyboard">Португальский</string>
    
    <!-- Tutorials --> 
    <string name="show_tutorial_on_startup">Показывать помощь при запуске</string>
