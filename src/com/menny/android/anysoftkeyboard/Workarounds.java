@@ -7,7 +7,9 @@ public class Workarounds
 	static
 	{
 		//Determine whether this device has the fix for RTL in the suggestions list
-		ms_requiresRtlWorkaround = !android.os.Build.MODEL.toLowerCase().contains("galaxy");
+		ms_requiresRtlWorkaround = (!android.os.Build.MODEL.toLowerCase().contains("galaxy")) ||
+		//							issue 111 is a variant of Galaxy which does not have the fix
+								   (!android.os.Build.VERSION.RELEASE.toUpperCase().contains("I7500XXII5"));
 	}
 	
 	public static CharSequence workaroundCorrectStringDirection(CharSequence suggestion) 
@@ -31,7 +33,6 @@ public class Workarounds
 			{
 				reveresed = reveresed + suggestion.charAt(charIndex);
 			}
-			//Log.d("AnySoftKeyboard", "CandidateView: correctStringDirection: reversed "+suggestion+" to "+reveresed);
 			return reveresed;
 		}
 		return suggestion;
