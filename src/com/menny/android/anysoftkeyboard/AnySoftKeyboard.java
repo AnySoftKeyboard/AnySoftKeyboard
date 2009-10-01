@@ -887,7 +887,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	private void checkToggleCapsLock() {
-		if (mInputView.getKeyboard().isShifted()) {
+		if (mKeyboardSwitcher.getCurrentKeyboard().isShifted()) {
 			toggleCapsLock();
 		}
 	}
@@ -895,7 +895,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private void toggleCapsLock() {
 		mCapsLock = !mCapsLock;
 		if (mKeyboardSwitcher.isAlphabetMode()) {
-			((AnyKeyboard) mInputView.getKeyboard()).setShiftLocked(mCapsLock);
+			mKeyboardSwitcher.getCurrentKeyboard().setShiftLocked(mCapsLock);
 		}
 	}
 
@@ -931,8 +931,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			return;
 		}
 
-		List<CharSequence> stringList = mSuggest.getSuggestions(mInputView,
-				mWord, false);
+		List<CharSequence> stringList = mSuggest.getSuggestions(mInputView,	mWord, false);
 		boolean correctionAvailable = mSuggest.hasMinimalCorrection();
 		// || mCorrectionMode == mSuggest.CORRECTION_FULL;
 		CharSequence typedWord = mWord.getTypedWord();
@@ -999,8 +998,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (mCapsLock) {
 			suggestion = suggestion.toString().toUpperCase();
 		} else if (preferCapitalization()
-				|| (mKeyboardSwitcher.isAlphabetMode() && mInputView
-						.isShifted())) {
+				|| (mKeyboardSwitcher.isAlphabetMode() && mInputView.isShifted())) 
+		{
 			suggestion = Character.toUpperCase(suggestion.charAt(0))
 					+ suggestion.subSequence(1, suggestion.length()).toString();
 		}

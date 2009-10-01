@@ -257,8 +257,7 @@ public abstract class AnyKeyboard extends Keyboard
                 mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_next_key));
                 break;
             case EditorInfo.IME_ACTION_SEARCH:
-                mEnterKey.icon = res.getDrawable(
-                        R.drawable.sym_keyboard_search);
+                mEnterKey.icon = res.getDrawable(R.drawable.sym_keyboard_search);
                 mEnterKey.label = null;
                 break;
             case EditorInfo.IME_ACTION_SEND:
@@ -413,7 +412,7 @@ public abstract class AnyKeyboard extends Keyboard
 				break;
 			case '.'://in the generic bottom row
 				aKey.popupResId = R.xml.popup;
-				aKey.popupCharacters = ";:-_·";
+				aKey.popupCharacters = ";:-_\u00b7";
 				break;
 //ISSUE 96: duplicate
 //			case ','://in the generic bottom row
@@ -427,11 +426,11 @@ public abstract class AnyKeyboard extends Keyboard
 			//the two below are switched in regular and Internet mode
 			case '?'://in the generic bottom row
 				aKey.popupResId = R.xml.popup;
-				aKey.popupCharacters = "!/@¿¡";
+				aKey.popupCharacters = "!/@\u00bf\u00a1";
 				break;
 			case '@'://in the generic Internet mode
 				aKey.popupResId = R.xml.popup;
-				aKey.popupCharacters = "!/?¿¡";
+				aKey.popupCharacters = "!/?\u00bf\u00a1";
 				break;
 			}
         }
@@ -452,6 +451,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        	if (mSmileyKey != null)
 	        	{
 	        		Log.d("AnySoftKeyboard", "Changing smiley key to domains.");
+	        		mSmileyKey.iconPreview = null;// res.getDrawable(sym_keyboard_key_domain_preview);
 	        		mSmileyKey.icon = res.getDrawable(R.drawable.sym_keyboard_key_domain);
 		        	mSmileyKey.label = null;
 		        	mSmileyKey.text = ".com";
@@ -462,7 +462,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        		Log.d("AnySoftKeyboard", "Changing question mark key to AT.");
 		        	mQuestionMarkKey.codes[0] = (int)'@';
 		        	mQuestionMarkKey.label = "@";
-		        	mQuestionMarkKey.popupCharacters = "!/?¿¡";
+		        	mQuestionMarkKey.popupCharacters = "!/?\u00bf\u00a1";
 	        	}
 	        	break;
 	        default:
@@ -479,7 +479,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        		Log.d("AnySoftKeyboard", "Changing question mark key to question.");
 		        	mQuestionMarkKey.codes[0] = (int)'?';
 		        	mQuestionMarkKey.label = "?";
-		        	mQuestionMarkKey.popupCharacters = "!/@¿¡";
+		        	mQuestionMarkKey.popupCharacters = "!/@\u00bf\u00a1";
 	        	}
 	        	break;
         }
