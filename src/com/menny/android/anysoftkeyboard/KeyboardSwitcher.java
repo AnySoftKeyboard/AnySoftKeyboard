@@ -158,25 +158,25 @@ public class KeyboardSwitcher
     void setKeyboardMode(int mode, EditorInfo attr) {
         //mMode = mode;
         mImeOptions = (attr == null)? 0 : attr.imeOptions;
-        AnyKeyboard keyboard = (AnyKeyboard) mInputView.getKeyboard();
+        AnyKeyboard keyboard = null;
         mInputView.setPreviewEnabled(true);
         
         switch (mode) {
-            case MODE_TEXT:
-            case MODE_URL:
-            case MODE_EMAIL:
-            case MODE_IM:
-            	keyboard = getAlphabetKeyboard(mLastSelectedKeyboard);
-            	if (keyboard == null)
-            	mAlphabetMode = true;
-            	break;
-            case MODE_SYMBOLS:
-            case MODE_PHONE:
-                keyboard = (mode == MODE_PHONE)?
-                		getSymbolsKeyboard(SYMBOLS_KEYBOARD_PHONE_INDEX)
-                		: getSymbolsKeyboard(0);
-                mAlphabetMode = true;
-                break;
+        case MODE_SYMBOLS:
+        case MODE_PHONE:
+            keyboard = (mode == MODE_PHONE)?
+            		getSymbolsKeyboard(SYMBOLS_KEYBOARD_PHONE_INDEX)
+            		: getSymbolsKeyboard(0);
+            mAlphabetMode = false;
+            break;
+//        case MODE_TEXT:
+//        case MODE_URL:
+//        case MODE_EMAIL:
+//        case MODE_IM:
+        default:
+        	keyboard = getAlphabetKeyboard(mLastSelectedKeyboard);
+        	mAlphabetMode = true;
+        	break;            
         }
         if (mInputView != null)
         	mInputView.setKeyboard(keyboard);
