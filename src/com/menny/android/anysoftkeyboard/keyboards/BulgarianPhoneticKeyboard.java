@@ -77,7 +77,7 @@ public class BulgarianPhoneticKeyboard extends AnyKeyboard implements HardKeyboa
 
 	public BulgarianPhoneticKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, KeyboardFactory.BG_PH_KEYBOARD, R.xml.bg_ph_qwerty, false, R.string.bg_ph_keyboard, false, Dictionary.Language.None, R.drawable.bg_ph);
+		super(context, KeyboardFactory.BG_PH_KEYBOARD, R.xml.bg_ph_qwerty, false, R.string.bg_ph_keyboard, false, Dictionary.Language.Bulgarian, R.drawable.bg_ph);
 	}
 	
 	private enum SequenceStage

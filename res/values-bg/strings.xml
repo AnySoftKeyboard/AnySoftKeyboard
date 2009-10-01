@@ -1,25 +1,33 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ime_name">AnySoftKeyboard</string>
+
     <string name="main_tab_welcome">Добре дошли</string>
     <string name="main_tab_links">Линкове</string>
     <string name="main_tab_credits">Кредити</string>
-    
+    <!-- welcome tab -->
     <string name="how_to_pointer_title">Добре дошли в AnySoftKeyboard</string>
 	<string name="how_to_pointer_version_prefix">Версия: </string>
-	
 	<string name="how_to_pointer_not_app">AnySoftKeyboard не е обикновена програма - тя е заместник на екранната клавиатура.</string>
+	<string name="how_to_pointer_go_to_links">За повече информация отидете на таб Линкове.</string>
+    <!-- links tab -->
 	<string name="how_to_pointer_how_to_url">Детайли как се използва тази клавиатура:</string>
 	<string name="how_to_pointer_site">Обща информация:</string>
 	<string name="how_to_pointer_changelog">Детайли относно последната версия:</string>
 	<string name="how_to_pointer_issues">Докладване на грешки:</string>
-	
+	<!-- credits tab -->
+	<string name="main_tab_credits_title">Тази програма беше създадена с помощта на следните хора-</string>
+	<string name="main_tab_credits_created_by">Създадена от:</string>
+	<string name="main_tab_credits_additional_work_by">Допълнителен код от:</string>
+	<string name="main_tab_credits_localization_by">Превод от:</string>
+	<string name="main_tab_credits_GUI_by">UI картинки от:</string>
+
 	<!-- Symbols that are commonly considered word separators in this language -->
     <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word"><xliff:g id="word">%s</xliff:g> : записана</string>
-    
+
     <!-- settings - UI -->
     <string name="ui_group">Потребителски интерфейс</string>
     <string name="keyboard_layout_change_method_title">Метод за смяна</string>
@@ -30,11 +38,7 @@
         <item>Плъзгане без бутони</item>
         <item>Без плъзгане, само бутони</item>
     </string-array>
-    <string-array name="keyboard_layout_change_methods_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
+
     <string name="physical_keyboard_change_notification_title">Съобщение за смяна</string>
     <string name="physical_keyboard_change_notification_summary">Вид съобщение за активната подредба</string>
     <string name="physical_keyboard_change_notification_dialog_title">Изберете вида на съобщението</string>
@@ -43,14 +47,10 @@
         <item>Смяна на физическата клавиатура</item>
         <item>Без съобщение</item>
     </string-array>
-    <string-array name="physical_keyboard_change_notification_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
+
     <string name="lengthy_operations_toast_notification">Известие при забавяне</string>
     <string name="lengthy_operations_toast_notification_summary">Показвай кратко известие при продължителни операции</string>
-    
+
     <!-- Options menu -->
     <string name="change_ime">Промяна на метод на въвеждане</string>
     <string name="override_dictionary">Промени речника по подразбиране</string>
@@ -60,7 +60,7 @@
     <!-- Dictionary override toast messages -->
     <string name="override_disabled">Промяната премахната</string>
     <string name="override_enabled">Промяна към <xliff:g id="word">%s</xliff:g></string>
-    
+
     <!-- settings - effects-->
     <string name="effects_group">Ефекти</string>
     <string name="ime_settings">Настройки на клавиатурата</string>
@@ -74,12 +74,7 @@
         <item>Средна</item>
         <item>Силна</item>
     </string-array>
-    <string-array name="vibrate_on_key_press_values">
-    	<item>0</item>
-        <item>17</item>
-        <item>30</item>
-        <item>50</item>
-    </string-array>
+
     <string name="sound_on">Звук</string>
     <string name="sound_on_summary">Звукови ефекти при натискане на клавиш. Звукът е звукът за съобщения.</string>
     <string name="auto_caps">Авто-капитализация</string>
@@ -89,9 +84,9 @@
     <string name="quick_fix_summary">Поправяй честите грешки</string>
     <string name="auto_complete">Автоматично избиране</string>
     <string name="auto_complete_summary">Интервал ще избере подчертаното предложение</string>
-    
+
     <!-- settings - keyboard group -->
-    <string name="keyboards_group">Keyboards</string>
+    <string name="keyboards_group">Клавиатури</string>
     <string name="eng_keyboard">English</string>
     <string name="heb_keyboard">Hebrew</string>
     <string name="lao_keyboard">Lao</string>
@@ -107,24 +102,27 @@
     <string name="es_keyboard">Spanish</string>
     <string name="ru_ph_keyboard">Russian Phonetic</string>
     <string name="ru_keyboard">Russian</string>
-    
-    <!-- Tutorials --> 
+    <string name="be_cyrillic_keyboard">Belarusian cyrillic</string>
+    <string name="be_latin_keyboard">Belarusian latin</string>
+
+    <!-- Tutorials -->
     <string name="show_tutorial_on_startup">Показвай обучението при стартиране</string>
     <string name="tutorial_swipe_title">Показвай обучението при стартиране</string>
     <string name="tutorial_swipe_text">Клавиатурната подредба може да бъде сменена като плъзнете пръста си върху клавиатурата. Плъзнете отляво надясно, за да смените езика, и отдясно наляво за символи.</string>
-    
+
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Напр</string>
     <string name="label_next_key">Слдв</string>
     <string name="label_send_key">Изпр</string>
-    
+
     <string name="change_lang_wide">&#8594; ABC &#8594;</string>
     <string name="change_lang_regular">ABC</string>
     <string name="change_symbols_wide">&#8592; 123 &#8592;</string>
     <string name="change_symbols_regular">123</string>
-    
-    <string name="please_wait">Please wait</string>
+
+    <string name="please_wait">Моля изчакайте</string>
     <string name="toast_lengthy_words_long_operation">Зареждане на речника...</string>
     <string name="toast_lengthy_start_up_operation">Стартиране на AnySoftKeyboard...</string>
     <string name="lengthy_creating_keyboard_operation">Създаване на клавиатури...</string>
 </resources>
+

@@ -82,7 +82,7 @@ public class BulgarianBDSKeyboard extends AnyKeyboard implements HardKeyboardTra
     
 	public BulgarianBDSKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, KeyboardFactory.BG_BDS_KEYBOARD, R.xml.bg_bds_qwerty, false, R.string.bg_bds_keyboard, false, Dictionary.Language.None, R.drawable.bg_bds);
+		super(context, KeyboardFactory.BG_BDS_KEYBOARD, R.xml.bg_bds_qwerty, false, R.string.bg_bds_keyboard, false, Dictionary.Language.Bulgarian, R.drawable.bg_bds);
 	}
 	
 	private enum SequenceStage
