@@ -217,5 +217,13 @@
             android:summaryOn="Created with alex73"
             android:summaryOff="Created with alex73"
             />
+            <CheckBoxPreference
+            android:key="pt_keyboard"
+            android:title="@string/pt_keyboard"
+            android:persistent="true"
+            android:defaultValue="false"
+            android:summaryOn="Created with Hugo Lopes"
+            android:summaryOff="Created with Hugo Lopes"
+            />
             </PreferenceCategory>
 </PreferenceScreen>

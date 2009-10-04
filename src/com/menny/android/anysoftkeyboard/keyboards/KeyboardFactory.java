@@ -38,6 +38,7 @@ public class KeyboardFactory
 	public static final String DE_KEYBOARD = "ch_de_keyboard";//this is the preferences key. Do not change it.
 	public static final String BE_CYRILLIC_KEYBOARD = "be_cyrillic";
 	public static final String BE_LATIN_KEYBOARD = "be_latin";
+	public static final String PT_KEYBOARD = "pt_keyboard";
 	
 	static
 	{
@@ -77,6 +78,8 @@ public class KeyboardFactory
 		//issue 105
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BelarusianCyrillicKeyboard(contextProvider);} public String getKeyboardPrefId() {return BE_CYRILLIC_KEYBOARD;}}); 
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BelarusianLatinKeyboard(contextProvider);} public String getKeyboardPrefId() {return BE_LATIN_KEYBOARD;}});
+		//issue 108
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, KeyboardFactory.PT_KEYBOARD, R.xml.pt_qwerty, R.string.pt_keyboard, Dictionary.Language.Portuguese, R.drawable.pt);} public String getKeyboardPrefId() {return PT_KEYBOARD;}});
 	}
 	
 	public static KeyboardCreator[] createAlphaBetKeyboards(AnyKeyboardContextProvider contextProvider)
