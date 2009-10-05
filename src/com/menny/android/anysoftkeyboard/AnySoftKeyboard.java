@@ -54,7 +54,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		KeyboardView.OnKeyboardActionListener,
 		OnSharedPreferenceChangeListener, AnyKeyboardContextProvider {
 	
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 	private static final boolean TRACE_SDCARD = false;
 	
 
