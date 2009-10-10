@@ -40,16 +40,18 @@ public class HebrewKeyboard extends AnyKeyboard implements HardKeyboardTranslato
 	
 	public void translatePhysicalCharacter(HardKeyboardAction action) 
 	{
-		if (action.isAltActive() && (action.getKeyCode() == KeyEvent.KEYCODE_COMMA))
+		if (action.isShiftActive() && (action.getKeyCode() == KeyEvent.KEYCODE_COMMA))
 		{
-			//this is a special case - we support comma by giving 
-			//ALT+comma, since question itself is TET Hebrew letter.
-			action.setNewKeyCode((char)',');
-		}
-		else if (action.isShiftActive() && (action.getKeyCode() == KeyEvent.KEYCODE_COMMA))
-		{
+			//see issue 129
 			//this is a special case - we support comma by giving 
 			//shift+comma, since question itself is TET Hebrew letter.
+			action.setNewKeyCode((char)',');
+		}
+		else if (action.isAltActive() && (action.getKeyCode() == KeyEvent.KEYCODE_COMMA))
+		{
+			//see issue 129
+			//this is a special case - we support comma by giving 
+			//alt+comma, since question itself is TET Hebrew letter.
 			action.setNewKeyCode((char)'?');
 		}
 		else if (action.isAltActive() && (action.getKeyCode() == KeyEvent.KEYCODE_A))
