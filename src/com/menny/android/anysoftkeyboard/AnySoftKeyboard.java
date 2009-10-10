@@ -23,6 +23,8 @@ import android.app.*;
 import android.content.*;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.inputmethodservice.*;
 import android.media.AudioManager;
@@ -54,9 +56,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		KeyboardView.OnKeyboardActionListener,
 		OnSharedPreferenceChangeListener, AnyKeyboardContextProvider {
 	
-	public static final boolean DEBUG = false;
+	//this is determined from the version. It includes "tester", the it will be true
+	public static boolean DEBUG = true;
 	private static final boolean TRACE_SDCARD = false;
-	
 
 	private static final int MSG_UPDATE_SUGGESTIONS = 0;
 	
@@ -139,6 +141,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 		super.onCreate();
 		Log.i("AnySoftKeyboard", "****** Starting AnySoftKeyboard:");
 		Log.i("AnySoftKeyboard", "** Locale:"+ getResources().getConfiguration().locale.toString());
+		String version = "";
+        try {
+			PackageInfo info = super.getApplication().getPackageManager().getPackageInfo(getApplication().getPackageName(), 0);
+			version = info.versionName;
+			Log.i("AnySoftKeyboard", "** Version: "+version);
+		} catch (NameNotFoundException e) {
+			Log.e("AnySoftKeyboard", "Failed to locate package information! This is very weird... I'm installed.");
+		}
+		
+		DEBUG = version.contains("tester");
+		Log.i("AnySoftKeyboard", "** Debug: "+DEBUG);
 		
 		//showToastMessage(R.string.toast_lengthy_start_up_operation, true);
 		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

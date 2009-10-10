@@ -6,10 +6,12 @@ public class Workarounds
 	
 	static
 	{
+		String buildVersion = android.os.Build.VERSION.RELEASE.toUpperCase();
+		boolean fixedGalaxy = android.os.Build.MODEL.toLowerCase().contains("galaxy")
+				//Tomer's phone is the only one with the fix.
+				&& buildVersion.contains("76XXCSDCBALUM6375");
 		//Determine whether this device has the fix for RTL in the suggestions list
-		ms_requiresRtlWorkaround = (!android.os.Build.MODEL.toLowerCase().contains("galaxy")) ||
-		//							issue 111 is a variant of Galaxy which does not have the fix
-								   (!android.os.Build.VERSION.RELEASE.toUpperCase().contains("I7500XXII5"));
+		ms_requiresRtlWorkaround = !fixedGalaxy;
 	}
 	
 	public static CharSequence workaroundCorrectStringDirection(CharSequence suggestion) 
