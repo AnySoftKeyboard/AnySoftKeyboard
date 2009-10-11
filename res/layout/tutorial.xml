@@ -3,29 +3,24 @@
     android:layout_height="fill_parent">
 
     <TextView android:id="@+id/tutorial_title"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:textStyle="bold"
         android:text="" />
         
     <TextView
     	android:id="@+id/tutorial_text"
-    	android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
+    	android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
         android:layout_alignBaseline="@+id/tutorial_title"
         android:text="" />
 
-	<CheckBox 
+	<!-- <CheckBox 
 		android:id="@+id/show_tutorial_on_startup"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:text="@string/show_tutorial_on_startup"/>
+        android:text="@string/show_tutorial_on_startup"/>-->
 </RelativeLayout>

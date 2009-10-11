@@ -1,17 +1,35 @@
 package com.menny.android.anysoftkeyboard.tutorials;
 
+import com.menny.android.anysoftkeyboard.AnySoftKeyboard;
+
 import android.content.Context;
+import android.util.Log;
+import android.view.View;
 
 public class TutorialsProvider 
 {
-	public static void ShowTutorialsIfNeeded(Context context)
+	private static boolean msDEBUG_TUTORIAL_SHOWN = false;
+	
+	public static void ShowTutorialsIfNeeded(Context context, View view)
 	{
-		ShowTutorial(context, 0/*R.string.tutorial_swipe_title*/, 0/*R.string.tutorial_swipe_text*/);
+		Log.i("AnySoftKeyboard", "TutorialsProvider::ShowTutorialsIfNeeded called");
+		if ((!msDEBUG_TUTORIAL_SHOWN) && (AnySoftKeyboard.DEBUG))
+		{
+			Log.i("AnySoftKeyboard", "TutorialsProvider::ShowTutorialsIfNeeded starting 'TESTERS VERSION'");
+			msDEBUG_TUTORIAL_SHOWN = true;
+			ShowBasicTutorial(view.getContext(), "TESTERS VERSION", "This is an ALPHA/BETA version, and should be used by testers only. It probably contains a lot of bugs, and half-baked features, so do not expect a stable version.\n"
+					+"This version includes the following changes:\n*Georgian, Thai and Canadian keyboards\n*Fixes for issues: 132, 129, 112, 114, 109.\n\nThanks for testing.");
+		}
 	}
 	
-	public static void ShowTutorial(Context context, int titleId, int textId)
+	public static void ShowBasicTutorial(Context context, int titleId, int textId)
 	{
-		BasicTextTutorialDialog dialog = new BasicTextTutorialDialog(context, titleId, textId);
+		ShowBasicTutorial(context, context.getResources().getString(titleId), context.getResources().getString(textId));
+	}
+	
+	public static void ShowBasicTutorial(Context context, String title, String text)
+	{
+		BasicTextTutorialDialog dialog = new BasicTextTutorialDialog(context, title, text);
 		dialog.show();
 	}	
 }

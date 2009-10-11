@@ -48,6 +48,7 @@ import com.menny.android.anysoftkeyboard.Dictionary.Dictionary.Language;
 import com.menny.android.anysoftkeyboard.KeyboardSwitcher.NextKeyboardType;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
+import com.menny.android.anysoftkeyboard.tutorials.TutorialsProvider;
 
 /**
  * Input method implementation for Qwerty'ish keyboard.
@@ -61,6 +62,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private static final boolean TRACE_SDCARD = false;
 
 	private static final int MSG_UPDATE_SUGGESTIONS = 0;
+	private static final int MSG_START_TUTORIAL = 1;
+	
 	
 	private static final int KEYCODE_ENTER = 10;
 	private static final int KEYCODE_SPACE = ' ';
@@ -121,17 +124,16 @@ public class AnySoftKeyboard extends InputMethodService implements
 			case MSG_UPDATE_SUGGESTIONS:
 				updateSuggestions();
 				break;
-			// case MSG_START_TUTORIAL:
-			// if (mTutorial == null) {
-			// if (mInputView.isShown()) {
-			// mTutorial = new Tutorial(LatinIME.this, mInputView);
-			// mTutorial.start();
-			// } else {
-			// // Try again soon if the view is not yet showing
-			// sendMessageDelayed(obtainMessage(MSG_START_TUTORIAL), 100);
-			// }
-			// }
-			// break;
+			case MSG_START_TUTORIAL:
+				if (mInputView.isShown()) 
+				{
+					TutorialsProvider.ShowTutorialsIfNeeded(AnySoftKeyboard.this, mInputView);
+				} else 
+				{
+					// Try again soon if the view is not yet showing
+					sendMessageDelayed(obtainMessage(MSG_START_TUTORIAL), 100);
+				}
+				break;
 			}
 		}
 	};
@@ -220,6 +222,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mKeyboardSwitcher.makeKeyboards(false);
 		mInputView.setOnKeyboardActionListener(this);
 		mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT, null);
+		
+		startTutorial();
+		
 		return mInputView;
 	}
 
@@ -1206,10 +1211,16 @@ public class AnySoftKeyboard extends InputMethodService implements
 	// }
 	// }
 	//    
-	// private void startTutorial() {
-	// mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_START_TUTORIAL),
-	// 500);
-	// }
+	
+//	private boolean mTutorialsShown = false;
+	
+	private void startTutorial() {
+//		if (!mTutorialsShown)
+//		{
+//			mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_START_TUTORIAL), 500);
+//			mTutorialsShown = true;
+//		}
+	}
 
 	// void tutorialDone() {
 	// mTutorial = null;
