@@ -107,6 +107,7 @@
     <string name="pt_keyboard">Portuguese</string>
 	<string name="thai_keyboard">Thai</string>
 	<string name="fr_ca_keyboard">French Canadian</string>
+	<string name="ka_keyboard">Georgian</string>
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Show this tutorial on startup</string>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="ime_name">AnySoftKeyboard</string>
+    
+    <string name="main_tab_welcome">Welcome</string>
+    <string name="main_tab_links">Links</string>
+    <string name="main_tab_credits">Credits</string>
+    <!-- welcome tab -->
+	<string name="how_to_pointer_title">Welcome to AnySoftKeyboard</string>
+	<string name="how_to_pointer_version_prefix">Version: </string>
+	<string name="how_to_pointer_not_app">AnySoftKeyboard is not a regular application - it is a on-screen keyboard replacement.</string>
+	<string name="how_to_pointer_go_to_links">For further information, go to the Links tab.</string>
+	<!-- links tab -->
+	<string name="how_to_pointer_how_to_url">Details about how to use this keyboard:</string>
+	<string name="how_to_pointer_site">General details:</string>
+	<string name="how_to_pointer_changelog">Details about the latest version:</string>
+	<string name="how_to_pointer_issues">Bug reporting:</string>
+	<!-- credits tab -->
+	<string name="main_tab_credits_title">This application was created with the help of the following people-</string>
+	<string name="main_tab_credits_created_by">Created by:</string>
+	<string name="main_tab_credits_additional_work_by">Additional coding work by:</string>
+	<string name="main_tab_credits_localization_by">Localization efforts by:</string>
+	<string name="main_tab_credits_GUI_by">UI images by:</string>
+	
+    <!-- Symbols that are commonly considered word separators in this language -->
+    <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
+    <!-- Indicates that a word has been added to the dictionary -->
+    <string name="added_word"><xliff:g id="word">%s</xliff:g> : Saved</string>
+    
+    <!-- settings - UI -->
+    <string name="ui_group">User interface</string>
+    <string name="keyboard_layout_change_method_title">Layout change method</string>
+    <string name="keyboard_layout_change_method_summary">On screen keyboard layout change method</string>
+    <string name="keyboard_layout_change_method_dialog_title">Select method</string>
+    <string-array name="keyboard_layout_change_methods">
+        <item>Swipe with hint keys</item>
+        <item>Swipe without hint keys</item>
+        <item>No swipe, just keys</item>
+    </string-array>
+    
+    <string name="physical_keyboard_change_notification_title">Keyboard layout notification</string>
+    <string name="physical_keyboard_change_notification_summary">Type of notification about the active layout</string>
+    <string name="physical_keyboard_change_notification_dialog_title">Select notification type</string>
+    <string-array name="physical_keyboard_change_notification_types">
+        <item>Always show layout icon</item>
+        <item>On physical keyboard change</item>
+        <item>No notification</item>
+    </string-array>
+    
+    <string name="lengthy_operations_toast_notification">Notify on lengthy operations</string>
+    <string name="lengthy_operations_toast_notification_summary">Show short notifications on lengthy operations</string>
+    
+    <!-- Options menu -->
+    <string name="change_ime">Change input method</string>
+    <string name="override_dictionary">Override default dictionary</string>
+    <!-- Dictionary override strings -->
+    <string name="override_dictionary_title">Override <xliff:g id="word">%s</xliff:g> dictionary</string>
+    <string name="override_dictionary_default">Default</string>
+    <!-- Dictionary override toast messages -->
+    <string name="override_disabled">Override cleared</string>
+    <string name="override_enabled">Overriding to <xliff:g id="word">%s</xliff:g></string>
+    
+    <!-- settings - effects-->
+    <string name="effects_group">Effects</string>
+    <string name="ime_settings">Keyboard settings</string>
+    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
+    <string name="vibrate_on_key_press_title">Vibrate on key-press</string>
+    <string name="vibrate_on_key_press_summary">Vibration type selection</string>
+    <string name="vibrate_on_key_press_dialog_title">Select vibration duration</string>
+    <string-array name="vibrate_on_key_press_types">
+    	<item>No vibration</item>
+        <item>Soft</item>
+        <item>Medium</item>
+        <item>Hard</item>
+    </string-array>
+    
+    <string name="sound_on">Sound on key-press</string>
+    <string name="sound_on_summary">Sound effects on soft keyboard press. Volume is Notifications volume.</string>
+    <string name="auto_caps">Auto-capitalization</string>
+    <string name="grammer_group">Grammar</string>
+    <string name="candidates_on">Show suggestions</string>
+    <string name="quick_fix">Quick fixes</string>
+    <string name="quick_fix_summary">Corrects commonly typed mistakes</string>
+    <string name="auto_complete">Auto select suggestion</string>
+    <string name="auto_complete_summary">Space will select highlighted suggestion</string>
+    
+    <!-- settings - keyboard group -->
+    <string name="keyboards_group">Keyboards</string>
+    <string name="eng_keyboard">English</string>
+    <string name="heb_keyboard">Hebrew</string>
+    <string name="lao_keyboard">Lao</string>
+    <string name="arabic_keyboard">Arabic</string>
+    <string name="bg_ph_keyboard">Bulgarian Phonetic</string>
+    <string name="bg_bds_keyboard">Bulgarian BDS</string>
+    <string name="dvorak_keyboard">Dvorak</string>
+    <string name="finnish_swedish_keyboard">Swedish/Finnish</string>
+    <string name="catalan_keyboard">Catalan</string>
+    <string name="ch_fr_keyboard">Swiss French</string>
+    <string name="de_keyboard">German/Swiss German</string>
+    <string name="azerty_keyboard">AZERTY</string>
+    <string name="es_keyboard">Spanish</string>
+    <string name="ru_ph_keyboard">Russian Phonetic</string>
+    <string name="ru_keyboard">Russian</string>
+    <string name="be_cyrillic_keyboard">Belarusian cyrillic</string>
+    <string name="be_latin_keyboard">Belarusian latin</string>
+    <string name="pt_keyboard">Portuguese</string>
+	<string name="thai_keyboard">Thai</string>
+	<string name="fr_ca_keyboard">French Canadian</string>
+    
+    <!-- Tutorials --> 
+    <string name="show_tutorial_on_startup">Show this tutorial on startup</string>
+    <string name="tutorial_swipe_title">Swipe for keyboard change</string>
+    <string name="tutorial_swipe_text">Keyboard layout can be changed by swiping you finger over the keyboard. Swipe left-to-right to change language, swipe right-to-left to change to symbols.</string>
+    
+    <!-- Special soft keyboard keys text -->
+    <string name="label_go_key">Go</string>
+    <string name="label_next_key">Next</string>
+    <string name="label_send_key">Send</string>
+    
+    <string name="change_lang_wide">&#8594; ABC &#8594;</string>
+    <string name="change_lang_regular">ABC</string>
+    <string name="change_symbols_wide">&#8592; 123 &#8592;</string>
+    <string name="change_symbols_regular">123</string>
+    
+    <string name="please_wait">Please wait</string>
+    <string name="toast_lengthy_words_long_operation">Loading dictionary...</string>
+    <string name="toast_lengthy_start_up_operation">Starting AnySoftKeyboard...</string>
+    <string name="lengthy_creating_keyboard_operation">Creating keyboards...</string>
+</resources>

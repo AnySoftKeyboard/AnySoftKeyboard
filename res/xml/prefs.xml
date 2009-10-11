@@ -241,5 +241,13 @@
             android:summaryOn="Created with DroidSans"
             android:summaryOff="Created with DroidSans"
             />
+            <CheckBoxPreference
+            android:key="ka_keyboard"
+            android:title="@string/ka_keyboard"
+            android:persistent="true"
+            android:defaultValue="false" 
+            android:summaryOn="Created with t.kirkitadze"
+            android:summaryOff="Created with t.kirkitadze"
+            />
             </PreferenceCategory>
 </PreferenceScreen>

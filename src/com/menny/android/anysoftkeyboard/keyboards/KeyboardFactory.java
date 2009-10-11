@@ -41,6 +41,7 @@ public class KeyboardFactory
 	public static final String PT_KEYBOARD = "pt_keyboard";
 	public static final String THAI_KEYBOARD = "thai_keyboard";
 	public static final String FR_CA_KEYBOARD = "fr_ca_keyboard";
+	public static final String KA_KEYBOARD = "ka_keyboard";
 	
 	static
 	{
@@ -87,6 +88,8 @@ public class KeyboardFactory
 		
 		//Thai keyboard
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new ThaiKeyboard(contextProvider);} public String getKeyboardPrefId() {return THAI_KEYBOARD;}});
+		//Georgian keyboard - issue 109
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, KeyboardFactory.KA_KEYBOARD, R.xml.ka_qwerty, R.string.ka_keyboard, Dictionary.Language.None, R.drawable.ka);} public String getKeyboardPrefId() {return KA_KEYBOARD;}});
 	}
 	
 	public static KeyboardCreator[] createAlphaBetKeyboards(AnyKeyboardContextProvider contextProvider)
