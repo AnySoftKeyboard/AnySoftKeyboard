@@ -113,7 +113,7 @@
             android:key="heb_keyboard"
             android:title="@string/heb_keyboard"
             android:persistent="true"
-            android:defaultValue="true" 
+            android:defaultValue="false" 
             />
             <CheckBoxPreference
             android:key="ru_keyboard"
@@ -224,6 +224,14 @@
             android:defaultValue="false"
             android:summaryOn="Created with Hugo Lopes"
             android:summaryOff="Created with Hugo Lopes"
+            />
+			<CheckBoxPreference
+            android:key="thai_keyboard"
+            android:title="@string/thai_keyboard"
+            android:persistent="true"
+            android:defaultValue="false" 
+            android:summaryOn="Created with DroidSans"
+            android:summaryOff="Created with DroidSans"
             />
             </PreferenceCategory>
 </PreferenceScreen>

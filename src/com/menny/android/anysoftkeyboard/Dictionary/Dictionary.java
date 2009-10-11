@@ -24,7 +24,8 @@ abstract public class Dictionary {
 		Dutch,
 		Slovenian,
 		Portuguese,
-		Bulgarian
+		Bulgarian,
+		Thai
 	}
 	
     /**
