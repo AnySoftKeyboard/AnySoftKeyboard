@@ -202,6 +202,14 @@
             android:summaryOff="Created with tudor and Claude Philipona"
             />
             <CheckBoxPreference
+            android:key="fr_ca_keyboard"
+            android:title="@string/fr_ca_keyboard"
+            android:persistent="true"
+            android:defaultValue="false"
+            android:summaryOn="Created with d.nahmiasleonard"
+            android:summaryOff="Created with d.nahmiasleonard"
+            />
+            <CheckBoxPreference
             android:key="be_cyrillic"
             android:title="@string/be_cyrillic_keyboard"
             android:persistent="true"

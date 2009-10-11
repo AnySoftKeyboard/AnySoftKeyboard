@@ -40,6 +40,7 @@ public class KeyboardFactory
 	public static final String BE_LATIN_KEYBOARD = "be_latin";
 	public static final String PT_KEYBOARD = "pt_keyboard";
 	public static final String THAI_KEYBOARD = "thai_keyboard";
+	public static final String FR_CA_KEYBOARD = "fr_ca_keyboard";
 	
 	static
 	{
@@ -74,6 +75,8 @@ public class KeyboardFactory
 		
 		//Issue 37: Swiss keyboards
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, KeyboardFactory.CH_FR_KEYBOARD, R.xml.ch_fr_qwerty, R.string.ch_fr_keyboard, Dictionary.Language.French, R.drawable.sym_keyboard_notification_icon);} public String getKeyboardPrefId() {return CH_FR_KEYBOARD;}});
+		//Issue 114: French Canadian
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, KeyboardFactory.FR_CA_KEYBOARD, R.xml.ca_fr_qwerty, R.string.fr_ca_keyboard, Dictionary.Language.French, R.drawable.sym_keyboard_notification_icon);} public String getKeyboardPrefId() {return FR_CA_KEYBOARD;}});
 		//Issue 86: German keyboard
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, KeyboardFactory.DE_KEYBOARD, R.xml.de_qwerty, R.string.de_keyboard, Dictionary.Language.German, R.drawable.sym_keyboard_notification_icon);} public String getKeyboardPrefId() {return DE_KEYBOARD;}});
 		//issue 105
