@@ -41,8 +41,7 @@
     
 	<string name="physical_keyboard_change_notification_title">Näppäimistöasettelun tiedotukset</string>
     <string name="physical_keyboard_change_notification_summary">Tiedotukset näppäimistön asettelusta</string>
-    <string name="physical_keyboard_change_notification_dialog_title">Valitse tapa</string>
-    
+    <string name="physical_keyboard_change_notification_dialog_title">Valitse tapa</string>    
     <string-array name="physical_keyboard_change_notification_types">
         <item>Näytä aina asetteluikoni</item>
         <item>Fyys. näppäimistön muuttuessa</item>
@@ -100,12 +99,15 @@
     <string name="ch_fr_keyboard">Sveitsin ranska</string>
     <string name="de_keyboard">Saksan/Sveitsin saksa</string>
     <string name="azerty_keyboard">AZERTY</string>
-    <string name="es_keyboard">Espanja</string>
-    <string name="ru_ph_keyboard">Venäjä, foneettinen</string>
-    <string name="ru_keyboard">Venäjä</string>
-    <string name="be_cyrillic_keyboard">Valkovenäjä, kyrillinen</string>
-    <string name="be_latin_keyboard">Valkovenäjä, latinalainen</string>
-	<string name="pt_keyboard">Portugali</string>
+    <string name="es_keyboard">Spanish</string>
+    <string name="ru_ph_keyboard">Russian Phonetic</string>
+    <string name="ru_keyboard">Russian</string>
+    <string name="be_cyrillic_keyboard">Belarusian cyrillic</string>
+    <string name="be_latin_keyboard">Belarusian latin</string>
+    <string name="pt_keyboard">Portuguese</string>
+	<string name="thai_keyboard">Thai</string>
+	<string name="fr_ca_keyboard">Ranska/Kanada</string>
+	<string name="ka_keyboard">Georgia</string>
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Näytä opastus käynnistyksen yhteydessä</string>
