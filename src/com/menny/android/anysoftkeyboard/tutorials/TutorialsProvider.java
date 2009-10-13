@@ -13,7 +13,7 @@ public class TutorialsProvider
 	public static void ShowTutorialsIfNeeded(Context context, View view)
 	{
 		Log.i("AnySoftKeyboard", "TutorialsProvider::ShowTutorialsIfNeeded called");
-		if ((!msDEBUG_TUTORIAL_SHOWN) && (AnySoftKeyboard.DEBUG))
+		if ((!msDEBUG_TUTORIAL_SHOWN) && (AnySoftKeyboard.getDEBUG()))
 		{
 			Log.i("AnySoftKeyboard", "TutorialsProvider::ShowTutorialsIfNeeded starting 'TESTERS VERSION'");
 			msDEBUG_TUTORIAL_SHOWN = true;

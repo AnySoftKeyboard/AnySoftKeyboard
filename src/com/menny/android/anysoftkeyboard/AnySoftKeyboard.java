@@ -58,7 +58,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		OnSharedPreferenceChangeListener, AnyKeyboardContextProvider {
 	
 	//this is determined from the version. It includes "tester", the it will be true
-	public static boolean DEBUG = true;
+	private static boolean DEBUG = true;
+	public static boolean getDEBUG() {return DEBUG;}
+	
 	private static final boolean TRACE_SDCARD = false;
 
 	private static final int MSG_UPDATE_SUGGESTIONS = 0;

@@ -2,16 +2,26 @@ package com.menny.android.anysoftkeyboard;
 
 public class Workarounds 
 {
+	//Determine whether this device has the fix for RTL in the suggestions list
 	private static final boolean ms_requiresRtlWorkaround;
 	
 	static
 	{
-		String buildVersion = android.os.Build.VERSION.RELEASE.toUpperCase();
-		boolean fixedGalaxy = android.os.Build.MODEL.toLowerCase().contains("galaxy")
-				//Tomer's phone is the only one with the fix.
-				&& buildVersion.contains("76XXCSDCBALUM6375");
-		//Determine whether this device has the fix for RTL in the suggestions list
-		ms_requiresRtlWorkaround = !fixedGalaxy;
+		boolean requiresRtlWorkaround = true;//all devices required this fix (in 1.6 it is still required)
+		if (android.os.Build.MODEL.toLowerCase().contains("galaxy"))
+		{
+			try
+			{
+				final int buildInc = Integer.parseInt(android.os.Build.VERSION.INCREMENTAL);
+				requiresRtlWorkaround = (buildInc < 20090903);
+			}
+			catch(Exception ex)
+			{
+				requiresRtlWorkaround = true;//if it is like that, then I do not know, and rather say WORKAROUND!
+			}
+		}
+		//Tomer's phone is the only one with the fix (see issue 132).
+		ms_requiresRtlWorkaround = requiresRtlWorkaround;
 	}
 	
 	public static CharSequence workaroundCorrectStringDirection(CharSequence suggestion) 

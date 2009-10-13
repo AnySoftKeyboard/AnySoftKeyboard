@@ -27,7 +27,7 @@ public class FallbackUserDictionary extends SQLiteUserDictionaryBase {
 			List<DictionaryWord> words = super.getAllWords();
 			for(DictionaryWord word : words)
 			{
-				if (AnySoftKeyboard.DEBUG)
+				if (AnySoftKeyboard.getDEBUG())
 					Log.d("AnySoftKeyboard", "FallBackSQLite dictionary loaded: "+word.getWord());
 			}
 			return words;

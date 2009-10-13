@@ -124,7 +124,7 @@ public class KeyboardSwitcher
     	int displayWidth = mContext.getMaxWidth();
         if ((mAlphabetKeyboards != null) || (mSymbolsKeyboardsArray != null)) 
         {
-        	if (AnySoftKeyboard.DEBUG)
+        	if (AnySoftKeyboard.getDEBUG())
             	Log.d("AnySoftKeyboard", "makeKeyboards: force:"+force+" maxWidth:"+displayWidth+" mLastDisplayWidth"+mLastDisplayWidth);
             if ((!force) && (displayWidth == mLastDisplayWidth)) return;
             mAlphabetKeyboards = null;

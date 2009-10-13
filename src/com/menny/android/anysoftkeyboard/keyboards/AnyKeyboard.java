@@ -184,7 +184,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        }
         }
         
-        if (AnySoftKeyboard.DEBUG)
+        if (AnySoftKeyboard.getDEBUG())
         	Log.v("AnySoftKeyboard", "Key '"+key.codes[0]+"' will have - width: "+key.width+", height:"+key.height+", text: '"+key.label+"'.");
         
         setPopupKeyChars(key);
@@ -198,7 +198,7 @@ public abstract class AnyKeyboard extends Keyboard
         		ShiftedKeyData keyData = new ShiftedKeyData(key);
 	        	if (!mSpecialShiftKeys.containsKey(primary))
 	        		mSpecialShiftKeys.put(primary, keyData);
-	        	if (AnySoftKeyboard.DEBUG)
+	        	if (AnySoftKeyboard.getDEBUG())
 	            	Log.v("AnySoftKeyboard", "Adding mapping ("+primary+"->"+keyData.ShiftCharacter+") to mSpecialShiftKeys.");
 	        }
         }
@@ -237,7 +237,7 @@ public abstract class AnyKeyboard extends Keyboard
      * appropriate label on the keyboard's enter key (if it has one).
      */
     public void setImeOptions(Resources res, int options) {
-    	if (AnySoftKeyboard.DEBUG)
+    	if (AnySoftKeyboard.getDEBUG())
     		Log.d("AnySoftKeyboard", "AnyKeyboard.setImeOptions");
         if (mEnterKey == null) {
             return;
@@ -358,7 +358,7 @@ public abstract class AnyKeyboard extends Keyboard
 	public boolean setShifted(boolean shiftState) 
 	{
 		boolean result = super.setShifted(shiftState);
-		if (AnySoftKeyboard.DEBUG)
+		if (AnySoftKeyboard.getDEBUG())
     		Log.d("AnySoftKeyboard", "setShifted: shiftState:"+shiftState+". result:"+result);
 		mShiftState = shiftState? SHIFT_ON : SHIFT_OFF;
 		if (result)
@@ -438,7 +438,7 @@ public abstract class AnyKeyboard extends Keyboard
 
 	public void setTextVariation(Resources res, int inputType) 
 	{
-		if (AnySoftKeyboard.DEBUG)
+		if (AnySoftKeyboard.getDEBUG())
     		Log.d("AnySoftKeyboard", "setTextVariation");
 		int variation = inputType &  EditorInfo.TYPE_MASK_VARIATION;
 		//if ((keyboardType == NextKeyboardType.Any) && 
@@ -493,7 +493,7 @@ public abstract class AnyKeyboard extends Keyboard
 			if (mSpecialShiftKeys.containsKey(c))
 			{
 				char shifted = mSpecialShiftKeys.get(c).ShiftCharacter;
-				if (AnySoftKeyboard.DEBUG)
+				if (AnySoftKeyboard.getDEBUG())
 		        	Log.v("AnySoftKeyboard", "Returned the shifted mapping ("+c+"->"+shifted+") from mSpecialShiftKeys.");
 				return shifted;
 			}

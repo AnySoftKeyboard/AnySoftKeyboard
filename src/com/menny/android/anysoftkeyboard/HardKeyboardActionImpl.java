@@ -39,7 +39,7 @@ public class HardKeyboardActionImpl implements HardKeyboardAction
 			if (event.getRepeatCount() == 0)
 			{
 				mPhysicalShiftState = getNextStateOnMetaKeyPress(mPhysicalShiftState, event.isShiftPressed());
-				if (AnySoftKeyboard.DEBUG)
+				if (AnySoftKeyboard.getDEBUG())
 					Log.d("AnySoftKeyboard", "Physical SHIFT was pressed. The new shift state is "+mPhysicalShiftState);
 			}
 			return true;
@@ -48,7 +48,7 @@ public class HardKeyboardActionImpl implements HardKeyboardAction
 			if (event.getRepeatCount() == 0)
 			{
 				mPhysicalAltState = getNextStateOnMetaKeyPress(mPhysicalAltState, event.isAltPressed());
-				if (AnySoftKeyboard.DEBUG)
+				if (AnySoftKeyboard.getDEBUG())
 					Log.d("AnySoftKeyboard", "Physical ALT was pressed. The new ALT state is "+mPhysicalAltState);
 			}
 			return true;
