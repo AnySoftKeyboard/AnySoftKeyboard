@@ -414,7 +414,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			setCandidatesViewShown(isCandidateStripVisible() || mCompletionOn);
 		}
 	}
-
+/*
 	@Override
 	public void setCandidatesViewShown(boolean shown) {
 		// TODO: Remove this if we support candidates with hard keyboard
@@ -422,7 +422,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			super.setCandidatesViewShown(shown);
 		}
 	}
-
+*/
 	@Override
 	public void onComputeInsets(InputMethodService.Insets outInsets) {
 		super.onComputeInsets(outInsets);

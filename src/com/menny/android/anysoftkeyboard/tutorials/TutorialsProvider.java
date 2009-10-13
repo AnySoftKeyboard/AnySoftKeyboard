@@ -18,7 +18,7 @@ public class TutorialsProvider
 			Log.i("AnySoftKeyboard", "TutorialsProvider::ShowTutorialsIfNeeded starting 'TESTERS VERSION'");
 			msDEBUG_TUTORIAL_SHOWN = true;
 			ShowBasicTutorial(view.getContext(), "TESTERS VERSION", "This is an ALPHA/BETA version, and should be used by testers only. It probably contains a lot of bugs, and half-baked features, so do not expect a stable version.\n"
-					+"This version includes the following changes:\n*Georgian, Thai and Canadian keyboards\n*Fixes for issues: 132, 129, 112, 114, 109.\n\nThanks for testing.");
+					+"This version includes the following changes:\n*Georgian, Thai and Canadian keyboards\n*candidates in physical keyboard\n*Fixes for issues: 132, 129, 112, 114, 109, 141, 139.\n\nThanks for testing.");
 		}
 	}
 	
