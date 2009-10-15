@@ -8,25 +8,26 @@ public class Workarounds
 	static
 	{
 		boolean requiresRtlWorkaround = true;//all devices required this fix (in 1.6 it is still required)
+		
 		if (android.os.Build.MODEL.toLowerCase().contains("galaxy"))
 		{
+			//(see issue 132):
 			try
 			{
 				final int buildInc = Integer.parseInt(android.os.Build.VERSION.INCREMENTAL);
-				requiresRtlWorkaround = (buildInc < 20090903);
+				requiresRtlWorkaround = (buildInc < 20090831);
 			}
 			catch(Exception ex)
 			{
 				requiresRtlWorkaround = true;//if it is like that, then I do not know, and rather say WORKAROUND!
 			}
 		}
-		//Tomer's phone is the only one with the fix (see issue 132).
 		ms_requiresRtlWorkaround = requiresRtlWorkaround;
 	}
 	
 	public static CharSequence workaroundCorrectStringDirection(CharSequence suggestion) 
     {
-		//Hebrew letters are to be drawn in the other direction. This will be probably be removed in Donut.
+		//Hebrew letters are to be drawn in the other direction.
     	//Also, this is not valid for Galaxy (Israel's Cellcom Android)
     	if (!ms_requiresRtlWorkaround)
 			return suggestion;
