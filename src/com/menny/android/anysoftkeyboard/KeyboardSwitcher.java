@@ -159,7 +159,6 @@ public class KeyboardSwitcher
         //mMode = mode;
         mImeOptions = (attr == null)? 0 : attr.imeOptions;
         AnyKeyboard keyboard = null;
-        mInputView.setPreviewEnabled(true);
         
         switch (mode) {
         case MODE_SYMBOLS:

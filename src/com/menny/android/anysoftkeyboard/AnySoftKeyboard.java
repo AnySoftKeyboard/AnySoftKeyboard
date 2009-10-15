@@ -250,12 +250,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	@Override
 	public void onStartInputView(EditorInfo attribute, boolean restarting) {
-		// In landscape mode, this method gets called without the input view
-		// being created.
-		if (mInputView == null) {
-			return;
-		}
-
 		mKeyboardSwitcher.makeKeyboards(false);
 
 		TextEntryState.newSession(this);
@@ -268,17 +262,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case EditorInfo.TYPE_CLASS_NUMBER:
 		case EditorInfo.TYPE_CLASS_DATETIME:
 		case EditorInfo.TYPE_CLASS_PHONE:
-			mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_PHONE,
-					attribute);
+			mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_PHONE, attribute);
 			break;
 		case EditorInfo.TYPE_CLASS_TEXT:
-			mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT,
-					attribute);
+			mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT, attribute);
 			// startPrediction();
 			mPredictionOn = true;
 			// Make sure that passwords are not displayed in candidate view
-			int variation = attribute.inputType
-					& EditorInfo.TYPE_MASK_VARIATION;
+			final int variation = attribute.inputType & EditorInfo.TYPE_MASK_VARIATION;
 			if (variation == EditorInfo.TYPE_TEXT_VARIATION_PASSWORD
 					|| variation == EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
 				mPredictionOn = false;
@@ -291,15 +282,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 			if (variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS) {
 				mPredictionOn = false;
-				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_EMAIL,
-						attribute);
+				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_EMAIL, attribute);
 			} else if (variation == EditorInfo.TYPE_TEXT_VARIATION_URI) {
 				mPredictionOn = false;
-				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_URL,
-						attribute);
+				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_URL, attribute);
 			} else if (variation == EditorInfo.TYPE_TEXT_VARIATION_SHORT_MESSAGE) {
-				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_IM,
-						attribute);
+				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_IM, attribute);
 			} else if (variation == EditorInfo.TYPE_TEXT_VARIATION_FILTER) {
 				mPredictionOn = false;
 			}
@@ -310,26 +298,31 @@ public class AnySoftKeyboard extends InputMethodService implements
 			updateShiftKeyState(attribute);
 			break;
 		default:
-			mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT,
-					attribute);
+			mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT, attribute);
 			updateShiftKeyState(attribute);
 		}
-		mInputView.closing();
 		mComposing.setLength(0);
 		mPredicting = false;
 		// mDeleteCount = 0;
 		setCandidatesViewShown(false);
-		if (mCandidateView != null)
-			mCandidateView.setSuggestions(null, false, false, false);
 		// loadSettings();
 		if (AutoText.getSize(mInputView) < 1)
 			mQuickFixes = true;
-		mInputView.setProximityCorrectionEnabled(true);
+		
 		if (mSuggest != null) {
 			mSuggest.setCorrectionMode(mCorrectionMode);
 		}
+		
 		mPredictionOn = mPredictionOn && mCorrectionMode > 0;
-		// checkTutorial(attribute.privateImeOptions);
+		
+		if (mInputView != null)
+		{
+			mInputView.closing();
+		
+			if (mCandidateView != null)
+				mCandidateView.setSuggestions(null, false, false, false);
+		}
+		
 		if (TRACE_SDCARD)
 			Debug.startMethodTracing("anysoftkeyboard_log.trace");
 	}
@@ -346,6 +339,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 			NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 			notificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
 		}
+		//clearing any predications
+		resetComposing();
 		// releasing some memory. Dictionaries, completions, etc.
 		System.gc();
 	}
@@ -360,20 +355,24 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// clear whatever candidate text we have.
 		if (mComposing.length() > 0 && mPredicting
 				&& (newSelStart != candidatesEnd || newSelEnd != candidatesEnd)) {
-			mComposing.setLength(0);
-			mPredicting = false;
-			updateSuggestions();
-			TextEntryState.reset();
-			InputConnection ic = getCurrentInputConnection();
-			if (ic != null) {
-				ic.finishComposingText();
-			}
+			resetComposing();
 		} else if (!mPredicting
 				&& !mJustAccepted
 				&& TextEntryState.getState() == TextEntryState.STATE_ACCEPTED_DEFAULT) {
 			TextEntryState.reset();
 		}
 		mJustAccepted = false;
+	}
+
+	private void resetComposing() {
+		mComposing.setLength(0);
+		mPredicting = false;
+		updateSuggestions();
+		TextEntryState.reset();
+		InputConnection ic = getCurrentInputConnection();
+		if (ic != null) {
+			ic.finishComposingText();
+		}
 	}
 
 	@Override

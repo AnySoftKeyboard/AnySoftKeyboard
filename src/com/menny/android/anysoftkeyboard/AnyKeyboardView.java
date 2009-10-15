@@ -31,10 +31,17 @@ public class AnyKeyboardView extends KeyboardView {
 
     public AnyKeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        initializeStuff();
     }
+
+	private void initializeStuff() {
+		setPreviewEnabled(true);
+		setProximityCorrectionEnabled(true);
+	}
 
     public AnyKeyboardView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        initializeStuff();
     }
     
     public void setPhoneKeyboard(Keyboard phoneKeyboard) {
