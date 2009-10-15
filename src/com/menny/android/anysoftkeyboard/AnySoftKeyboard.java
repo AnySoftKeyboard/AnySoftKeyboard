@@ -118,6 +118,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	
 	private AudioManager mAudioManager;
 	private NotificationManager mNotificationManager;
+	
+	private final HardKeyboardTranslator mGenericKeyboardTranslator;
 
 	Handler mHandler = new Handler() {
 		@Override
@@ -140,6 +142,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	};
 
+	public AnySoftKeyboard()
+	{
+		mGenericKeyboardTranslator = new GenericPhysicalKeyboardTranslator(this);
+	}
+	
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -504,60 +511,74 @@ public class AnySoftKeyboard extends InputMethodService implements
 					return true;
 				}
 			default:
-				if (mKeyboardSwitcher.isCurrentKeyboardPhysical()) 
+				// sometimes, the physical keyboard will delete input, and then add some.
+				// we'll try to make it nice
+				if (ic != null)
+					ic.beginBatchEdit();
+				try 
 				{
-					AnyKeyboard current = mKeyboardSwitcher.getCurrentKeyboard();
-					if (AnySoftKeyboard.DEBUG)
-						Log.d("AnySoftKeyborad", "Asking '"	+ current.getKeyboardName()	+ "' to translate key: " + keyCode);
-					// sometimes, the physical keyboard will delete input, and then add some.
-					// we'll try to make it nice
-					if (ic != null)
-						ic.beginBatchEdit();
-					try 
+					if (mKeyboardSwitcher.isCurrentKeyboardPhysical()) 
 					{
-						if (DEBUG)
-							Log.v("AnySoftKeyboard", "Hard Keyboard Action before translation: Shift: "+mHardKeyboardAction.isShiftActive()+", Alt: "+mHardKeyboardAction.isAltActive()+", Key code: "+mHardKeyboardAction.getKeyCode()+", changed: "+mHardKeyboardAction.getKeyCodeWasChanged());
-
-						((HardKeyboardTranslator)current).translatePhysicalCharacter(mHardKeyboardAction);
-						
-						if (DEBUG)
-							Log.v("AnySoftKeyboard", "Hard Keyboard Action after translation: Shift: "+mHardKeyboardAction.isShiftActive()+", Alt: "+mHardKeyboardAction.isAltActive()+", Key code: "+mHardKeyboardAction.getKeyCode()+", changed: "+mHardKeyboardAction.getKeyCodeWasChanged());
-
-						final char translatedChar = (char)mHardKeyboardAction.consumeKeyCode();
-						if (mHardKeyboardAction.getKeyCodeWasChanged()) 
-						{
-							// consuming the meta keys
-							//Since I'm handling the physical keys, I also need to clear the meta state
-							if (ic != null)
-							{
-								//the clear should be done only if we are not in sticky mode
-								int metaStateToClear = Integer.MAX_VALUE;
-								if (mHardKeyboardAction.isShiftActive())
-									metaStateToClear -= KeyEvent.META_SHIFT_ON;
-								if (mHardKeyboardAction.isAltActive())
-									metaStateToClear -= KeyEvent.META_ALT_ON;
-								
-								ic.clearMetaKeyStates(metaStateToClear);//translated, so we also take care of the metakeys.
-							}
-							
-							if (AnySoftKeyboard.DEBUG)
-								Log.d("AnySoftKeyborad", "'"+ current.getKeyboardName()	+ "' translated key " + keyCode + " to "+ translatedChar);
-	
-							onKey(translatedChar, new int[] { translatedChar });
+						AnyKeyboard current = mKeyboardSwitcher.getCurrentKeyboard();
+						String keyboardName = current.getKeyboardName();
+						HardKeyboardTranslator keyTranslator = (HardKeyboardTranslator)current;
+						boolean translated = askTranslatorToTranslateHardKeyboardAction(keyCode, ic, keyboardName, keyTranslator);
+						if (translated)
 							return true;
-						} else {
-							if (AnySoftKeyboard.DEBUG)
-								Log.d("AnySoftKeyborad", "'"+ current.getKeyboardName()+ "' did not translated key " + keyCode+ ".");
-						}
-					} finally {
-						if (ic != null)
-							ic.endBatchEdit();
 					}
-				}
+					//if we reached here, it means that either the keyboard is has no physical translation
+					//or the it does not have a translation for the pressed keys.
+					//We'll call the generic translator.
+					boolean translated = askTranslatorToTranslateHardKeyboardAction(keyCode, ic, "Generic Physical Translator", mGenericKeyboardTranslator);
+					if (translated)
+						return true;
+					
+				} finally {
+					if (ic != null)
+						ic.endBatchEdit();
+				}	
 				break;
 			}
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+
+	private boolean askTranslatorToTranslateHardKeyboardAction(int keyCode,
+			InputConnection ic, String keyboardName,
+			HardKeyboardTranslator keyTranslator) 
+	{
+		if (AnySoftKeyboard.DEBUG) Log.d("AnySoftKeyborad", "Asking '"	+ keyboardName + "' to translate key: " + keyCode);
+		if (DEBUG) Log.v("AnySoftKeyboard", "Hard Keyboard Action before translation: Shift: "+mHardKeyboardAction.isShiftActive()+", Alt: "+mHardKeyboardAction.isAltActive()+", Key code: "+mHardKeyboardAction.getKeyCode()+", changed: "+mHardKeyboardAction.getKeyCodeWasChanged());
+		keyTranslator.translatePhysicalCharacter(mHardKeyboardAction);						
+		if (DEBUG) Log.v("AnySoftKeyboard", "Hard Keyboard Action after translation: Shift: "+mHardKeyboardAction.isShiftActive()+", Alt: "+mHardKeyboardAction.isAltActive()+", Key code: "+mHardKeyboardAction.getKeyCode()+", changed: "+mHardKeyboardAction.getKeyCodeWasChanged());
+
+		final char translatedChar = (char)mHardKeyboardAction.consumeKeyCode();
+		if (mHardKeyboardAction.getKeyCodeWasChanged()) 
+		{
+			// consuming the meta keys
+			//Since I'm handling the physical keys, I also need to clear the meta state
+			if (ic != null)
+			{
+				//the clear should be done only if we are not in sticky mode
+				int metaStateToClear = Integer.MAX_VALUE;
+				if (mHardKeyboardAction.isShiftActive())
+					metaStateToClear -= KeyEvent.META_SHIFT_ON;
+				if (mHardKeyboardAction.isAltActive())
+					metaStateToClear -= KeyEvent.META_ALT_ON;
+				
+				ic.clearMetaKeyStates(metaStateToClear);//translated, so we also take care of the metakeys.
+			}
+			
+			if (AnySoftKeyboard.DEBUG)
+				Log.d("AnySoftKeyborad", "'"+ keyboardName	+ "' translated key " + keyCode + " to "+ translatedChar);
+
+			onKey(translatedChar, new int[] { translatedChar });
+			return true;
+		} else {
+			if (AnySoftKeyboard.DEBUG)
+				Log.d("AnySoftKeyborad", "'"+ keyboardName+ "' did not translated key " + keyCode+ ".");
+			return false;
+		}
 	}
 	
 	private void notifyKeyboardChangeIfNeeded() {

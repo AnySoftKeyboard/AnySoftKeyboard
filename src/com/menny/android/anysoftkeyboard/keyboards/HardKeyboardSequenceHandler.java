@@ -7,7 +7,7 @@ import android.view.KeyEvent;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 
-class HardKeyboardSequenceHandler 
+public class HardKeyboardSequenceHandler 
 {
 	private static final int[] msQwerty = new int[]{
 		KeyEvent.KEYCODE_Q, KeyEvent.KEYCODE_W, KeyEvent.KEYCODE_E, KeyEvent.KEYCODE_R, KeyEvent.KEYCODE_T, KeyEvent.KEYCODE_Y,KeyEvent.KEYCODE_U,KeyEvent.KEYCODE_I,KeyEvent.KEYCODE_O,KeyEvent.KEYCODE_P,
