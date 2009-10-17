@@ -70,7 +70,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private static final int KEYCODE_ENTER = 10;
 	private static final int KEYCODE_SPACE = ' ';
 	private static final int KEYBOARD_NOTIFICATION_ID = 1;
-	private static final String SENTENCE_SEPERATORS = ".\n!?";
+	private static final String PUNCTUATION_CHARACTERS = ".\n!?,:;@";
 
 	private AnyKeyboardView mInputView;
 	private CandidateViewContainer mCandidateViewContainer;
@@ -91,7 +91,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private int mCommittedLength;
 	private boolean mPredicting;
 	private CharSequence mBestWord;
-	private final boolean mPredictionLandscape = true;
+	private boolean mPredictionLandscape;
 	private boolean mPredictionOn;
 	private boolean mCompletionOn;
 	private boolean mAutoSpace;
@@ -422,15 +422,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 			setCandidatesViewShown(isCandidateStripVisible() || mCompletionOn);
 		}
 	}
-/*
+	
 	@Override
 	public void setCandidatesViewShown(boolean shown) {
-		// TODO: Remove this if we support candidates with hard keyboard
-		if (onEvaluateInputViewShown()) {
-			super.setCandidatesViewShown(shown);
-		}
+		//we want to show candidates only when needed
+		super.setCandidatesViewShown(shown && isPredictionOn());
 	}
-*/
+
 	@Override
 	public void onComputeInsets(InputMethodService.Insets outInsets) {
 		super.onComputeInsets(outInsets);
@@ -675,7 +673,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		CharSequence lastTwo = ic.getTextBeforeCursor(2, 0);
 		if (lastTwo != null && lastTwo.length() == 2
 				&& lastTwo.charAt(0) == KEYCODE_SPACE
-				&& isSentenceSeparator(lastTwo.charAt(1))) {
+				&& isPunctuationCharacter(lastTwo.charAt(1))) {
 			ic.beginBatchEdit();
 			ic.deleteSurroundingText(2, 0);
 			ic.commitText(lastTwo.charAt(1) + " ", 1);
@@ -941,8 +939,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void postUpdateSuggestions() {
 		mHandler.removeMessages(MSG_UPDATE_SUGGESTIONS);
-		mHandler.sendMessageDelayed(mHandler
-				.obtainMessage(MSG_UPDATE_SUGGESTIONS), 100);
+		mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_UPDATE_SUGGESTIONS), 100);
 	}
 
 	private boolean isPredictionOn() {
@@ -962,12 +959,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 					+ isPredictionOn() + ", mPredicting:" + mPredicting
 					+ ", mCorrectionMode:" + mCorrectionMode);
 		// Check if we have a suggestion engine attached.
-		if (mSuggest == null || !isPredictionOn()) {
+		if (mSuggest == null) {
 			return;
 		}
 
-		if (!mPredicting) {
-			mCandidateView.setSuggestions(null, false, false, false);
+		if (!mPredicting  || !isPredictionOn()) {
+			if (mCandidateView != null)
+				mCandidateView.setSuggestions(null, false, false, false);
 			return;
 		}
 
@@ -1107,8 +1105,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		return (!isAlphabet(code));
 	}
 
-	public boolean isSentenceSeparator(int code) {
-		return SENTENCE_SEPERATORS.contains(String.valueOf((char) code));
+	public boolean isPunctuationCharacter(int code) {
+		return PUNCTUATION_CHARACTERS.contains(String.valueOf((char) code));
 	}
 
 	private void sendSpace() {
@@ -1319,10 +1317,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mCorrectionMode = mAutoComplete ? 2
 				: (mShowSuggestions/* mQuickFixes */? 1 : 0);
 
+		boolean newLandscapePredications= sp.getBoolean("physical_keyboard_suggestions", true);
+		handled = handled || (newLandscapePredications != mPredictionLandscape);
+		mPredictionLandscape = newLandscapePredications;
+		
 		// this change requires the recreation of the keyboards.
 		// so we wont mark the 'handled' result.
 		mChangeKeysMode = sp.getString("keyboard_layout_change_method", "1");
 
+		
 		return handled;
 	}
 

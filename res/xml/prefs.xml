@@ -43,7 +43,7 @@
                 android:entries="@array/vibrate_on_key_press_types"
                 android:entryValues="@array/vibrate_on_key_press_values"
                 android:dialogTitle="@string/vibrate_on_key_press_dialog_title"/>
-                		<CheckBoxPreference
+            <CheckBoxPreference
             android:key="sound_on"
             android:title="@string/sound_on"
             android:persistent="true"
@@ -78,6 +78,14 @@
             android:key="quick_fix"
             android:title="@string/quick_fix"
             android:summaryOn="@string/quick_fix_summary"
+            android:summaryOff=""
+            android:persistent="true"
+            android:defaultValue="true" 
+            />
+            <CheckBoxPreference
+            android:key="physical_keyboard_suggestions"
+            android:title="@string/physical_keyboard_suggestions"
+            android:summaryOn="@string/physical_keyboard_suggestions_summary"
             android:summaryOff=""
             android:persistent="true"
             android:defaultValue="true" 
