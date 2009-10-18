@@ -14,11 +14,7 @@
     	<Key android:codes="-2" android:keyLabel="&#8592; 123 &#8592;" android:keyEdgeFlags="left"/>
         <Key android:codes="-99" android:horizontalGap="10%p" android:keyLabel="&#8594; ABC &#8594;" android:keyEdgeFlags="right"/>
     </Row>
-<!-- 
-йцукенгшщзхъ
-фывапролджэ
-ячсмитьбю
- -->    
+
     <Row android:keyWidth="8.33%p">
     <!-- &#1081;&#1094;&#1091;&#1082;&#1077;&#1085;&#1075;&#1096;&#1097;&#1079;&#1093;&#1098; -->
         <Key android:codes="1081" android:keyLabel="" android:keyEdgeFlags="left"/>

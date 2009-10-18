@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android" android:keyWidth="8.33332%p" android:horizontalGap="0px" android:verticalGap="0px" android:keyHeight="@dimen/key_height">
     <!-- generic top row -->
-    <Row android:rowEdgeFlags="top" android:keyWidth="36%p" android:keyHeight="5%p">
-      	<Key android:codes="-2" android:keyLabel="&#8592; 123 &#8592;" android:keyEdgeFlags="left"/>
+    <Row android:rowEdgeFlags="top"
+    android:keyWidth="45%p"
+    android:keyHeight="5%p">
+    	<Key android:codes="-2" android:keyLabel="&#8592; 123 &#8592;" android:keyEdgeFlags="left"/>
         <Key android:codes="-99" android:horizontalGap="10%p" android:keyLabel="&#8594; ABC &#8594;" android:keyEdgeFlags="right"/>
     </Row>
     
