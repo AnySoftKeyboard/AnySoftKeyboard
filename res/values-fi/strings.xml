@@ -84,6 +84,8 @@
     <string name="quick_fix_summary">Korjaa yleiset kirjoitusvirheet</string>
     <string name="auto_complete">Ehdotuksen autom. valinta</string>
     <string name="auto_complete_summary">Välilyönti valitsee automaattisesti korostetun ehdotuksen</string>
+	<string name="physical_keyboard_suggestions">Ehdotukset laitenäppäimistöllä</string>
+    <string name="physical_keyboard_suggestions_summary">Näytä ehdotukset käytettäessä laitteen näppäimistöä</string>
     
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Näppäimistöt</string>
