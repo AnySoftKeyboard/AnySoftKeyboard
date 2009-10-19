@@ -27,7 +27,7 @@
     </Row>
     
     <Row>
-        <Key android:codes="1102" android:keyLabel="" android:keyEdgeFlags="left"/>
+        <Key android:codes="1103" android:keyLabel="" android:keyEdgeFlags="left"/>
         <Key android:codes="1074" android:keyLabel=""/>
         <Key android:codes="1077" android:keyLabel=""/>
         <Key android:codes="1088" android:keyLabel=""/>
