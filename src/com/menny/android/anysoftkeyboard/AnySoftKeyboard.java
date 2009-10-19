@@ -70,7 +70,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private static final int KEYCODE_ENTER = 10;
 	private static final int KEYCODE_SPACE = ' ';
 	private static final int KEYBOARD_NOTIFICATION_ID = 1;
-	private static final String PUNCTUATION_CHARACTERS = ".\n!?,:;@";
+	private static final String PUNCTUATION_CHARACTERS = ".\n!?,:;@<>()[]{}";
 
 	private AnyKeyboardView mInputView;
 	private CandidateViewContainer mCandidateViewContainer;
@@ -202,12 +202,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		// unregisterReceiver(mReceiver);
 
-		SharedPreferences sp = PreferenceManager
-				.getDefaultSharedPreferences(this);
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 		sp.unregisterOnSharedPreferenceChangeListener(this);
 		if (mSoundOn) {
-			Log.i("AnySoftKeyboard",
-					"Releasing sounds effects from AUDIO_SERVICE");
+			Log.i("AnySoftKeyboard", "Releasing sounds effects from AUDIO_SERVICE");
 			mAudioManager.unloadSoundEffects();
 		}
 
@@ -944,7 +942,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private boolean isPredictionOn() {
 		boolean predictionOn = mPredictionOn;
-		if (isFullscreenMode()) predictionOn &= mPredictionLandscape;
+		if (!onEvaluateInputViewShown()) predictionOn &= mPredictionLandscape;
 		return predictionOn;
 	}
 
