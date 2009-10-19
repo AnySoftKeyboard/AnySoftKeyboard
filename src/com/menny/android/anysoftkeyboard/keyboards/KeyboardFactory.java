@@ -42,6 +42,7 @@ public class KeyboardFactory
 	public static final String THAI_KEYBOARD = "thai_keyboard";
 	public static final String FR_CA_KEYBOARD = "fr_ca_keyboard";
 	public static final String KA_KEYBOARD = "ka_keyboard";
+	public static final String RU_KEYBOARD_4_ROWS = "ru_keyboard_4_row";
 	
 	static
 	{

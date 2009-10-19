@@ -140,6 +140,14 @@
             android:summaryOff="Created with dbriskin"
             />
             <CheckBoxPreference
+            android:key="ru_keyboard_4_row"
+            android:title="@string/ru_keyboard_4_row"
+            android:persistent="true"
+            android:defaultValue="true" 
+            android:summaryOn="Created with Igor Mariash"
+            android:summaryOff="Created with Igor Mariash"
+            />
+            <CheckBoxPreference
             android:key="arabic_keyboard"
             android:title="@string/arabic_keyboard"
             android:persistent="true"

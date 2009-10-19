@@ -38,9 +38,17 @@ public class RussianKeyboard extends AnyKeyboard implements HardKeyboardTranslat
 	}
 	public RussianKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, KeyboardFactory.RU_KEYBOARD, R.xml.russian_qwerty, false, R.string.ru_keyboard, false, Dictionary.Language.None, R.drawable.ru);
+		super(context, KeyboardFactory.RU_KEYBOARD, getKeyboardId(context), false, R.string.ru_keyboard, false, Dictionary.Language.None, R.drawable.ru);
 	}
 	
+	private static int getKeyboardId(AnyKeyboardContextProvider context) 
+	{
+		if (context.getSharedPreferences().getBoolean(KeyboardFactory.RU_KEYBOARD_4_ROWS, true))
+			return R.xml.russian_qwerty_4_rows;
+		else
+			return R.xml.russian_qwerty;
+	}
+
 	public void translatePhysicalCharacter(HardKeyboardAction action) 
 	{
 		if (action.isAltActive())
