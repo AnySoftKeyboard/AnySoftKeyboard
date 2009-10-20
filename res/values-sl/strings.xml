@@ -2,14 +2,26 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ime_name">AnySoftKeyboard</string>
-	<string name="how_to_pointer_title">Dobrodoli v AnySoftKeyboard</string>
+    
+    <string name="main_tab_welcome">Dobrodošli</string>
+    <string name="main_tab_links">Povezave</string>
+    <string name="main_tab_credits">Sodelujoèi</string>
+    <!-- welcome tab -->
+	<string name="how_to_pointer_title">Dobrodošli v AnySoftKeyboard</string>
 	<string name="how_to_pointer_version_prefix">Verzija: </string>
-	
-	<string name="how_to_pointer_not_app">AnySoftKeyboard ni obiטajna aplikacija - je nadomestek za ekransko tipkovnico.</string>
-	<string name="how_to_pointer_how_to_url">Pojdi na http://code.google.com/p/softkeyboard/wiki/HowTo za podrobnosti o uporabi te tipkovnice.</string>
-	<string name="how_to_pointer_changelog">Za podrobnosti o zadnji verziji pojdi na: http://code.google.com/p/softkeyboard/wiki/ChangeLog</string>
-	<string name="how_to_pointer_issues">Za poroטanje o hroטih pojdi na: http://code.google.com/p/softkeyboard/issues/list</string>
-	<string name="how_to_pointer_site">Za splone podrobnosti pojdi na: http://code.google.com/p/softkeyboard/</string>
+	<string name="how_to_pointer_not_app">AnySoftKeyboard ni obièajna aplikacija - je nadomestek za ekransko tipkovnico.</string>
+	<string name="how_to_pointer_go_to_links">Za dodatne informacije pojdite na jezièek s povezavami.</string>
+	<!-- links tab -->
+	<string name="how_to_pointer_how_to_url">Podrobnosti o uporabi te tipkovnice:</string>
+	<string name="how_to_pointer_site">Splošne podrobnosti:</string>
+	<string name="how_to_pointer_changelog">Podrobnosti o zadnji verziji:</string>
+	<string name="how_to_pointer_issues">Poroèanje o hrošèih:</string>
+	<!-- credits tab -->
+	<string name="main_tab_credits_title">Ta aplikacija je bila narejena s pomoèjo sledeèih oseb-</string>
+	<string name="main_tab_credits_created_by">Ustvaril jo je:</string>
+	<string name="main_tab_credits_additional_work_by">Dodatno programersko delo je od:</string>
+	<string name="main_tab_credits_localization_by">Pri lokalizaciji so pomagali:</string>
+	<string name="main_tab_credits_GUI_by">UI slike je prispeval:</string>
 	
     <!-- Symbols that are commonly considered word separators in this language -->
     <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
@@ -17,99 +29,106 @@
     <string name="added_word"><xliff:g id="word">%s</xliff:g> : Shranjeno</string>
     
     <!-- settings - UI -->
-    <string name="ui_group">Uporabniki vmesnik</string>
+    <string name="ui_group">Uporabniški vmesnik</string>
     <string name="keyboard_layout_change_method_title">Metoda spremembe postavitve</string>
     <string name="keyboard_layout_change_method_summary">Metoda spremembe postavitve zaslonske tipkovnice</string>
-    <string name="keyboard_layout_change_method_dialog_title">Izbirna metoda</string>
+    <string name="keyboard_layout_change_method_dialog_title">Metoda izbire</string>
     <string-array name="keyboard_layout_change_methods">
-        <item>Drsanje z namigi tipk</item>
-        <item>Drsanje brez namigov tipk</item>
-        <item>Brez drsanja, samo tipke</item>
+        <item>Drsenje z namigi tipk</item>
+        <item>Drsenje brez namigov tipk</item>
+        <item>Brez drsenja, samo tipke</item>
     </string-array>
-    <string-array name="keyboard_layout_change_methods_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-    <string name="physical_keyboard_change_notification_title">Obvestilo o postavitvi tipkovnice</string>
-    <string name="physical_keyboard_change_notification_summary">Tip obvestila o aktivni postavitvi</string>
+    
+    <string name="physical_keyboard_change_notification_title">Obvestilo o postavitvni tipkovnice</string>
+    <string name="physical_keyboard_change_notification_summary">Tip obvestila o postavitvi tipkovnice</string>
     <string name="physical_keyboard_change_notification_dialog_title">Izberi tip obvestila</string>
     <string-array name="physical_keyboard_change_notification_types">
-        <item>Vedno prikai ikono postavitve</item>
-        <item>Spremembe na fiziטni tipkovnic</item>
+        <item>Vedno prikaži ikono postavitve</item>
+        <item>Spremembe na fizièni tipkovnici</item>
         <item>Brez obvestil</item>
     </string-array>
-    <string-array name="physical_keyboard_change_notification_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-    <string name="lengthy_operations_toast_notification">Obvestilo ob predolgi operaciji</string>
+    
+    <string name="lengthy_operations_toast_notification">Obvesti me o dolgih operacijah</string>
+    <string name="lengthy_operations_toast_notification_summary">Prikaži kratko obvestilo o dolgih operacijah</string>
+    
+    <!-- Options menu -->
+    <string name="change_ime">Spremeni vnosno metodo</string>
+    <string name="override_dictionary">Prepiši privzeti slovar</string>
+    <!-- Dictionary override strings -->
+    <string name="override_dictionary_title">Prepiši <xliff:g id="word">%s</xliff:g> slovar</string>
+    <string name="override_dictionary_default">Privzeti</string>
+    <!-- Dictionary override toast messages -->
+    <string name="override_disabled">Prepisovanje preklicano</string>
+    <string name="override_enabled">Prepisujem v <xliff:g id="word">%s</xliff:g></string>
     
     <!-- settings - effects-->
-    <string name="effects_group">Uטinki</string>
+    <string name="effects_group">Uèinki</string>
     <string name="ime_settings">Nastavitve tipkovnice</string>
     <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Vibriraj ob pritisku na tipko</string>
     <string name="vibrate_on_key_press_summary">Izberi tip vibracije</string>
-    <string name="vibrate_on_key_press_dialog_title">Izberi dolino vibriranja</string>
+    <string name="vibrate_on_key_press_dialog_title">Izberi trajanje vibracije</string>
     <string-array name="vibrate_on_key_press_types">
-    	<item>Brez vibriranja</item>
+    	<item>Brez vibracije</item>
         <item>Mehko</item>
         <item>Srednje</item>
-        <item>Moטno</item>
+        <item>Moèno</item>
     </string-array>
-    <string-array name="vibrate_on_key_press_values">
-    	<item>0</item>
-        <item>17</item>
-        <item>30</item>
-        <item>50</item>
-    </string-array>
-    <string name="sound_on">Zvok ob pritisku na tipko</string>
-    <string name="auto_caps">Samodejno velike טrke</string>
+    
+    <string name="sound_on">Zvok ob pritisku tipke</string>
+    <string name="sound_on_summary">Zvoèni efekti ob pritisku na zaslonsko tipkovnico. Glasnost je glasnost obvestil.</string>
+    <string name="auto_caps">Samodejno velike èrke</string>
     <string name="grammer_group">Slovnica</string>
-    <string name="candidates_on">Prikai predloge</string>
+    <string name="candidates_on">Prikaži predloge</string>
     <string name="quick_fix">Hitri popravki</string>
-    <string name="quick_fix_summary">Popravi obiטajne tipkarske napake</string>
+    <string name="quick_fix_summary">Popravi obièajne tipkarske napake</string>
     <string name="auto_complete">Samodejna izbira predloga</string>
-    <string name="auto_complete_summary">S presledkom izberi oznaטen predlog</string>
+    <string name="auto_complete_summary">Presledek bo izbral oznaèen predlog</string>
+    <string name="physical_keyboard_suggestions">Predlogi za fizièno tipkovnico</string>
+    <string name="physical_keyboard_suggestions_summary">Prikaži predloge ko je v uporabi fizièna tipkovnica</string>
     
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Tipkovnice</string>
-    <string name="eng_keyboard">Angleka</string>
-    <!-- <string name="heb_keyboard">Hebrew - &#1502;&#1511;&#1500;&#1491;&#1514;&#32;&#1506;&#1497;&#1489;&#1512;&#1497;&#1514;</string>-->
+    <string name="eng_keyboard">Angleška</string>
     <string name="heb_keyboard">Hebrejska</string>
-    <string name="internet_keyboard">Internetna tipkovnica</string>
-    <!-- <string name="lao_keyboard">Lao - &#3777;&#3739;&#3785;&#3737;&#3742;&#3765;&#3745;&#32;&#3749;&#3762;&#3751;</string>-->
     <string name="lao_keyboard">Lao</string>
     <string name="arabic_keyboard">Arabska</string>
-    <string name="bg_ph_keyboard">Bolgarska - Fonetiטna</string>
+    <string name="bg_ph_keyboard">Bolgarska fonetièna</string>
     <string name="bg_bds_keyboard">Bolgarska BDS</string>
     <string name="dvorak_keyboard">Dvorak</string>
-    <string name="finnish_swedish_keyboard">vedsko-Finska</string>
+    <string name="finnish_swedish_keyboard">Švedska/Finska</string>
     <string name="catalan_keyboard">Katalonska</string>
-    <string name="ch_fr_keyboard">vicarsko francoska</string>
-    <string name="de_keyboard">Nemka/vicarsko Nemka</string>
+    <string name="ch_fr_keyboard">Švicarsko Francoska</string>
+    <string name="de_keyboard">Nemška/Švicarsko Nemška</string>
     <string name="azerty_keyboard">AZERTY</string>
-    <string name="es_keyboard">panska</string>
-    <string name="ru_ph_keyboard">Rusko fonetiטna</string>
+    <string name="es_keyboard">Španska</string>
+    <string name="ru_ph_keyboard">Ruska fonetièna</string>
     <string name="ru_keyboard">Ruska</string>
+    <string name="ru_keyboard_4_row">Uporabi 4 vrstno Rusko postavitev</string>
+    <string name="be_cyrillic_keyboard">Beloruskqa cirilica</string>
+    <string name="be_latin_keyboard">Beloruska latinica</string>
+    <string name="pt_keyboard">Portugalska</string>
+	<string name="thai_keyboard">Tajska</string>
+	<string name="fr_ca_keyboard">Francosko Kanadska</string>
+	<string name="ka_keyboard">Gruzijska</string>
     
     <!-- Tutorials --> 
-    <string name="show_tutorial_on_startup">Prikai to pomoט ob zagonu</string>
-    <string name="tutorial_swipe_title">Zdrs za spremembo tipkovnice</string>
-    <string name="tutorial_swipe_text">Postavitev tipkovnice se lahko spremeni z zdrsom prsta טez tipkovnico. Zdrs od leve proti desni za spremembo jezika, poteg od desne proti levi za spremembo simbolov.</string>
+    <string name="show_tutorial_on_startup">Prikaži ta navodila ob zagonu</string>
+    <string name="tutorial_swipe_title">Drsenje po ekranu za spremembo tipkovnice</string>
+    <string name="tutorial_swipe_text">Postavitev tipkovnice se lahko spremeni z drsenjem prsta èez tipkovnico. Drsenje od leve proti desni za spremembo jezika, drsenje od desne proti levi za spremembo simbolov.</string>
     
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Pojdi</string>
     <string name="label_next_key">Naslednji</string>
-    <string name="label_send_key">Polji</string>
+    <string name="label_send_key">Pošlji</string>
     
     <string name="change_lang_wide">&#8594; ABC &#8594;</string>
     <string name="change_lang_regular">ABC</string>
     <string name="change_symbols_wide">&#8592; 123 &#8592;</string>
     <string name="change_symbols_regular">123</string>
     
+    <string name="please_wait">Prosimo poèakajte...</string>
     <string name="toast_lengthy_words_long_operation">Nalagam slovar...</string>
     <string name="toast_lengthy_start_up_operation">Zaganjam AnySoftKeyboard...</string>
+    <string name="lengthy_creating_keyboard_operation">Ustvarjam tipkovnice...</string>
 </resources>
