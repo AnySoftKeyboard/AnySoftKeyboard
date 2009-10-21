@@ -119,7 +119,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private AudioManager mAudioManager;
 	private NotificationManager mNotificationManager;
 	
-	private final HardKeyboardTranslator mGenericKeyboardTranslator;
+	//private final HardKeyboardTranslator mGenericKeyboardTranslator;
 
 	Handler mHandler = new Handler() {
 		@Override
@@ -142,10 +142,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	};
 
-	public AnySoftKeyboard()
-	{
-		mGenericKeyboardTranslator = new GenericPhysicalKeyboardTranslator(this);
-	}
+//	public AnySoftKeyboard()
+//	{
+//		mGenericKeyboardTranslator = new GenericPhysicalKeyboardTranslator(this);
+//	}
 	
 	@Override
 	public void onCreate() {
@@ -420,13 +420,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 			setCandidatesViewShown(isCandidateStripVisible() || mCompletionOn);
 		}
 	}
-	
+	/*
 	@Override
 	public void setCandidatesViewShown(boolean shown) {
 		//we want to show candidates only when needed
 		super.setCandidatesViewShown(shown && isPredictionOn());
 	}
-
+	*/
 	@Override
 	public void onComputeInsets(InputMethodService.Insets outInsets) {
 		super.onComputeInsets(outInsets);
@@ -523,16 +523,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 					}
 					//if we reached here, it means that either the keyboard is has no physical translation
 					//or the it does not have a translation for the pressed keys.
-					//We'll call the generic translator.
-					boolean translated = askTranslatorToTranslateHardKeyboardAction(keyCode, ic, "Generic Physical Translator", mGenericKeyboardTranslator);
-					if (translated)
-						return true;
-					
+					return super.onKeyDown(keyCode, event);
 				} finally {
 					if (ic != null)
 						ic.endBatchEdit();
-				}	
-				break;
+				}
 			}
 		}
 		return super.onKeyDown(keyCode, event);
@@ -942,12 +937,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private boolean isPredictionOn() {
 		boolean predictionOn = mPredictionOn;
-		if (!onEvaluateInputViewShown()) predictionOn &= mPredictionLandscape;
+		//if (!onEvaluateInputViewShown()) predictionOn &= mPredictionLandscape;
 		return predictionOn;
 	}
 
 	private boolean isCandidateStripVisible() {
-		return isPredictionOn() && mShowSuggestions;
+		boolean shown = isPredictionOn() && mShowSuggestions;
+		if (!onEvaluateInputViewShown()) shown &= mPredictionLandscape;
+		return shown;
 	}
 
 	private void updateSuggestions() {
@@ -988,7 +985,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		} else {
 			mBestWord = null;
 		}
-		setCandidatesViewShown(isCandidateStripVisible() || mCompletionOn);
+		setCandidatesViewShown(isCandidateStripVisible()/* || mCompletionOn*/);
 	}
 
 	private void pickDefaultSuggestion() {
