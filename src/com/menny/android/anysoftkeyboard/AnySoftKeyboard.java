@@ -119,7 +119,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private AudioManager mAudioManager;
 	private NotificationManager mNotificationManager;
 	
-	//private final HardKeyboardTranslator mGenericKeyboardTranslator;
+	private final HardKeyboardTranslator mGenericKeyboardTranslator;
 
 	Handler mHandler = new Handler() {
 		@Override
@@ -142,10 +142,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	};
 
-//	public AnySoftKeyboard()
-//	{
-//		mGenericKeyboardTranslator = new GenericPhysicalKeyboardTranslator(this);
-//	}
+	public AnySoftKeyboard()
+	{
+		mGenericKeyboardTranslator = new GenericPhysicalKeyboardTranslator(this);
+	}
 	
 	@Override
 	public void onCreate() {
@@ -523,6 +523,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 					}
 					//if we reached here, it means that either the keyboard is has no physical translation
 					//or the it does not have a translation for the pressed keys.
+					boolean translated = askTranslatorToTranslateHardKeyboardAction(keyCode, ic, "GENERIC", mGenericKeyboardTranslator);
+					if (translated)
+						return true;
+					
 					return super.onKeyDown(keyCode, event);
 				} finally {
 					if (ic != null)
@@ -957,8 +961,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (mSuggest == null) {
 			return;
 		}
+		
+		final boolean showSuggestions = (mPredicting  && isPredictionOn() && isCandidateStripVisible());
 
-		if (!mPredicting  || !isPredictionOn()) {
+		if  (!showSuggestions)
+		{
 			if (mCandidateView != null)
 				mCandidateView.setSuggestions(null, false, false, false);
 			return;
@@ -974,8 +981,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			correctionAvailable |= typedWordValid;
 		}
 
-		mCandidateView.setSuggestions(stringList, false, typedWordValid,
-				correctionAvailable);
+		mCandidateView.setSuggestions(stringList, false, typedWordValid, correctionAvailable);
 		if (stringList.size() > 0) {
 			if (correctionAvailable && !typedWordValid && stringList.size() > 1) {
 				mBestWord = stringList.get(1);
@@ -985,7 +991,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		} else {
 			mBestWord = null;
 		}
-		setCandidatesViewShown(isCandidateStripVisible()/* || mCompletionOn*/);
+		setCandidatesViewShown(isCandidateStripVisible() || mCompletionOn);
 	}
 
 	private void pickDefaultSuggestion() {
