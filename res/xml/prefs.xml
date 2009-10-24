@@ -1,269 +1,278 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-        android:title="@string/ime_settings"
-        android:key="ime_settings">
-        	<Preference android:key="prefs_title_key" android:selectable="false" android:enabled="false"
-        		android:persistent="false" 
-        		android:title="@string/ime_name"
-        		android:summary="@string/how_to_pointer_version_prefix"></Preference>
-        	<PreferenceCategory android:key="ui_group"
-            	android:title="@string/ui_group">
-	            <ListPreference
-                android:key="keyboard_layout_change_method"
-                android:title="@string/keyboard_layout_change_method_title"
-                android:summary="@string/keyboard_layout_change_method_summary"
-                android:entries="@array/keyboard_layout_change_methods"
-                android:entryValues="@array/keyboard_layout_change_methods_values"
-                android:defaultValue=""
-                android:dialogTitle="@string/keyboard_layout_change_method_dialog_title"/>
-                
-                <ListPreference
-                android:key="physical_keyboard_change_notification_type"
-                android:title="@string/physical_keyboard_change_notification_title"
-                android:summary="@string/physical_keyboard_change_notification_summary"
-                android:entries="@array/physical_keyboard_change_notification_types"
-                android:entryValues="@array/physical_keyboard_change_notification_values"
-                android:defaultValue=""
-                android:dialogTitle="@string/physical_keyboard_change_notification_dialog_title"/>                
-	            <!-- <CheckBoxPreference
-	            android:key="lengthy_operations_toast_notification"
-	            android:title="@string/lengthy_operations_toast_notification"
-	            android:persistent="true" 
-	            android:defaultValue="false"
-	            android:summaryOff=""
-	            android:summaryOn="@string/lengthy_operations_toast_notification_summary"
-	            />-->
-            </PreferenceCategory>
-   		 	<PreferenceCategory android:key="effects_group" android:title="@string/effects_group">
-            <ListPreference
-                android:key="vibrate_on_key_press_duration"
-                android:title="@string/vibrate_on_key_press_title"
-                android:summary="@string/vibrate_on_key_press_summary"
-                android:entries="@array/vibrate_on_key_press_types"
-                android:entryValues="@array/vibrate_on_key_press_values"
-                android:dialogTitle="@string/vibrate_on_key_press_dialog_title"/>
-            <CheckBoxPreference
-            android:key="sound_on"
-            android:title="@string/sound_on"
-            android:persistent="true"
-            android:defaultValue="false" 
-            android:summaryOn="@string/sound_on_summary"
-            android:summaryOff=""
-            />
-            </PreferenceCategory>
-            <PreferenceCategory android:key="grammer_group"
-            android:title="@string/grammer_group">
-            <CheckBoxPreference
-            android:key="auto_caps"
-            android:title="@string/auto_caps"
-            android:persistent="true"
-            android:defaultValue="true" 
-            />
-            <CheckBoxPreference
-            android:key="candidates_on"
-            android:title="@string/candidates_on"
-            android:persistent="true"
-            android:defaultValue="true" 
-            />
-            <CheckBoxPreference
-            android:key="auto_complete"
-            android:title="@string/auto_complete"
-            android:summaryOn="@string/auto_complete_summary"
-            android:summaryOff=""
-            android:persistent="true"
-            android:defaultValue="true" 
-            />
-            <CheckBoxPreference
-            android:key="quick_fix"
-            android:title="@string/quick_fix"
-            android:summaryOn="@string/quick_fix_summary"
-            android:summaryOff=""
-            android:persistent="true"
-            android:defaultValue="true" 
-            />
-            <CheckBoxPreference
-            android:key="physical_keyboard_suggestions"
-            android:title="@string/physical_keyboard_suggestions"
-            android:summaryOn="@string/physical_keyboard_suggestions_summary"
-            android:summaryOff=""
-            android:persistent="true"
-            android:defaultValue="true" 
-            />
-            </PreferenceCategory>
-            <PreferenceCategory android:key="keyboards_group"
-            android:title="@string/keyboards_group">
-            <CheckBoxPreference
-            android:key="eng_keyboard"
-            android:title="@string/eng_keyboard"
-            android:persistent="true" 
-            android:defaultValue="true"
-            android:summaryOn="QWERTY Latin keyboard"
-            android:summaryOff="QWERTY Latin keyboard"
-            />
-            <CheckBoxPreference
-            android:key="azerty_keyboard"
-            android:title="@string/azerty_keyboard"
-            android:persistent="true" 
-            android:defaultValue="false"
-            android:summaryOn="Created with norman.obry"
-            android:summaryOff="Created with norman.obry"
-            />
-            <CheckBoxPreference
-            android:key="dvorak_keyboard"
-            android:title="@string/dvorak_keyboard"
-            android:persistent="true" 
-            android:defaultValue="false"
-            android:summaryOn="Created with Stephen Paul Weber"
-            android:summaryOff="Created with Stephen Paul Weber"
-            />
-            <CheckBoxPreference
-            android:key="heb_keyboard"
-            android:title="@string/heb_keyboard"
-            android:persistent="true"
-            android:defaultValue="false" 
-            />
-            <CheckBoxPreference
-            android:key="ru_keyboard"
-            android:title="@string/ru_keyboard"
-            android:persistent="true"
-            android:defaultValue="false" 
-            android:summaryOn="Created with dbriskin"
-            android:summaryOff="Created with dbriskin"
-            />
-            <CheckBoxPreference
-            android:key="ru_ph_keyboard"
-            android:title="@string/ru_ph_keyboard"
-            android:persistent="true"
-            android:defaultValue="false" 
-            android:summaryOn="Created with dbriskin"
-            android:summaryOff="Created with dbriskin"
-            />
-            <CheckBoxPreference
-            android:key="ru_keyboard_4_row"
-            android:title="@string/ru_keyboard_4_row"
-            android:persistent="true"
-            android:defaultValue="true" 
-            android:summaryOn="Created with Igor Mariash"
-            android:summaryOff="Created with Igor Mariash"
-            />
-            <CheckBoxPreference
-            android:key="arabic_keyboard"
-            android:title="@string/arabic_keyboard"
-            android:persistent="true"
-            android:defaultValue="false" 
-            />
-            <CheckBoxPreference
-            android:key="lao_keyboard"
-            android:title="@string/lao_keyboard"
-            android:persistent="true"
-            android:defaultValue="false" 
-			android:summaryOn="Created with Anousak Souphavanh"
-            android:summaryOff="Created with Anousak Souphavanh"
-            />
-            <CheckBoxPreference
-            android:key="bg_ph_keyboard"
-            android:title="@string/bg_ph_keyboard"
-            android:persistent="true"
-            android:defaultValue="false" 
-            android:summaryOn="Created with atg2d"
-            android:summaryOff="Created with atg2d"
-            />
-            <CheckBoxPreference
-            android:key="bg_bds_keyboard"
-            android:title="@string/bg_bds_keyboard"
-            android:persistent="true"
-            android:defaultValue="false"
-            android:summaryOn="Created with atg2d"
-            android:summaryOff="Created with atg2d"
-            />
-            <CheckBoxPreference
-            android:key="finnish_swedish_keyboard"
-            android:title="@string/finnish_swedish_keyboard"
-            android:persistent="true"
-            android:defaultValue="false"
-            android:summaryOn="Created with jtlallo"
-            android:summaryOff="Created with jtlallo"
-            />
-            <CheckBoxPreference
-            android:key="es_keyboard"
-            android:title="@string/es_keyboard"
-            android:persistent="true"
-            android:defaultValue="false"
-            android:summaryOn="Created with Jorge Jiménez"
-            android:summaryOff="Created with Jorge Jiménez"
-            />
-            <CheckBoxPreference
-            android:key="catalan_keyboard"
-            android:title="@string/catalan_keyboard"
-            android:persistent="true"
-            android:defaultValue="false"
-            android:summaryOn="Created with jmontane"
-            android:summaryOff="Created with jmontane"
-            />
-            <CheckBoxPreference
-            android:key="ch_fr_keyboard"
-            android:title="@string/ch_fr_keyboard"
-            android:persistent="true"
-            android:defaultValue="false"
-            android:summaryOn="Created with tudor and Claude Philipona"
-            android:summaryOff="Created with tudor and Claude Philipona"
-            />
-            <CheckBoxPreference
-            android:key="ch_de_keyboard"
-            android:title="@string/de_keyboard"
-            android:persistent="true"
-            android:defaultValue="false"
-            android:summaryOn="Created with tudor and Claude Philipona"
-            android:summaryOff="Created with tudor and Claude Philipona"
-            />
-            <CheckBoxPreference
-            android:key="fr_ca_keyboard"
-            android:title="@string/fr_ca_keyboard"
-            android:persistent="true"
-            android:defaultValue="false"
-            android:summaryOn="Created with d.nahmiasleonard"
-            android:summaryOff="Created with d.nahmiasleonard"
-            />
-            <CheckBoxPreference
-            android:key="be_cyrillic"
-            android:title="@string/be_cyrillic_keyboard"
-            android:persistent="true"
-            android:defaultValue="false"
-            android:summaryOn="Created with alex73"
-            android:summaryOff="Created with alex73"
-            />
-            <CheckBoxPreference
-            android:key="be_latin"
-            android:title="@string/be_latin_keyboard"
-            android:persistent="true"
-            android:defaultValue="false"
-            android:summaryOn="Created with alex73"
-            android:summaryOff="Created with alex73"
-            />
-            <CheckBoxPreference
-            android:key="pt_keyboard"
-            android:title="@string/pt_keyboard"
-            android:persistent="true"
-            android:defaultValue="false"
-            android:summaryOn="Created with Hugo Lopes"
-            android:summaryOff="Created with Hugo Lopes"
-            />
+android:title="@string/ime_settings"
+android:key="ime_settings">
+	<Preference android:key="prefs_title_key" android:selectable="false" android:enabled="false"
+	android:persistent="false" 
+	android:title="@string/ime_name"
+	android:summary="@string/how_to_pointer_version_prefix">
+	</Preference>
+	<PreferenceCategory android:key="ui_group"
+	android:title="@string/ui_group">
+		<ListPreference
+		android:key="keyboard_layout_change_method"
+		android:title="@string/keyboard_layout_change_method_title"
+		android:summary="@string/keyboard_layout_change_method_summary"
+		android:entries="@array/keyboard_layout_change_methods"
+		android:entryValues="@array/keyboard_layout_change_methods_values"
+		android:defaultValue=""
+		android:dialogTitle="@string/keyboard_layout_change_method_dialog_title"/>	
+		<ListPreference
+		android:key="physical_keyboard_change_notification_type"
+		android:title="@string/physical_keyboard_change_notification_title"
+		android:summary="@string/physical_keyboard_change_notification_summary"
+		android:entries="@array/physical_keyboard_change_notification_types"
+		android:entryValues="@array/physical_keyboard_change_notification_values"
+		android:defaultValue=""
+		android:dialogTitle="@string/physical_keyboard_change_notification_dialog_title"/>                
+		<!-- <CheckBoxPreference
+		android:key="lengthy_operations_toast_notification"
+		android:title="@string/lengthy_operations_toast_notification"
+		android:persistent="true" 
+		android:defaultValue="false"
+		android:summaryOff=""
+		android:summaryOn="@string/lengthy_operations_toast_notification_summary"
+		/>-->
+	</PreferenceCategory>
+	<PreferenceCategory android:key="effects_group" android:title="@string/effects_group">
+		<ListPreference
+		android:key="vibrate_on_key_press_duration"
+		android:title="@string/vibrate_on_key_press_title"
+		android:summary="@string/vibrate_on_key_press_summary"
+		android:entries="@array/vibrate_on_key_press_types"
+		android:entryValues="@array/vibrate_on_key_press_values"
+		android:dialogTitle="@string/vibrate_on_key_press_dialog_title"/>
+		<CheckBoxPreference
+		android:key="sound_on"
+		android:title="@string/sound_on"
+		android:persistent="true"
+		android:defaultValue="false" 
+		android:summaryOn="@string/sound_on_summary"
+		android:summaryOff=""
+		/>
+	</PreferenceCategory>
+	<PreferenceCategory android:key="grammer_group"
+	android:title="@string/grammer_group">
+		<CheckBoxPreference
+		android:key="auto_caps"
+		android:title="@string/auto_caps"
+		android:persistent="true"
+		android:defaultValue="true" 
+		/>
+		<CheckBoxPreference
+		android:key="candidates_on"
+		android:title="@string/candidates_on"
+		android:persistent="true"
+		android:defaultValue="true" 
+		/>
+		<CheckBoxPreference
+		android:key="auto_complete"
+		android:title="@string/auto_complete"
+		android:summaryOn="@string/auto_complete_summary"
+		android:summaryOff=""
+		android:persistent="true"
+		android:defaultValue="true" 
+		/>
+		<CheckBoxPreference
+		android:key="quick_fix"
+		android:title="@string/quick_fix"
+		android:summaryOn="@string/quick_fix_summary"
+		android:summaryOff=""
+		android:persistent="true"
+		android:defaultValue="true" 
+		/>
+		<CheckBoxPreference
+		android:key="physical_keyboard_suggestions"
+		android:title="@string/physical_keyboard_suggestions"
+		android:summaryOn="@string/physical_keyboard_suggestions_summary"
+		android:summaryOff=""
+		android:persistent="true"
+		android:defaultValue="true" 
+		/>
+	</PreferenceCategory>
+	<EditTextPreference android:key="keyboards_sandbox_1" 
+	android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false">
+	</EditTextPreference>
+	<PreferenceScreen android:key="keyboards_group"
+	android:title="@string/keyboards_group">
+		<PreferenceCategory android:key="keyboards_group"
+		android:title="@string/keyboards_group">
+			<EditTextPreference android:key="keyboards_sandbox_1" 
+			android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false">
+			</EditTextPreference>
 			<CheckBoxPreference
-            android:key="thai_keyboard"
-            android:title="@string/thai_keyboard"
-            android:persistent="true"
-            android:defaultValue="false" 
-            android:summaryOn="Created with DroidSans"
-            android:summaryOff="Created with DroidSans"
-            />
-            <CheckBoxPreference
-            android:key="ka_keyboard"
-            android:title="@string/ka_keyboard"
-            android:persistent="true"
-            android:defaultValue="false" 
-            android:summaryOn="Created with t.kirkitadze"
-            android:summaryOff="Created with t.kirkitadze"
-            />
-            </PreferenceCategory>
+			android:key="eng_keyboard"
+			android:title="@string/eng_keyboard"
+			android:persistent="true" 
+			android:defaultValue="true"
+			android:summaryOn="QWERTY Latin keyboard"
+			android:summaryOff="QWERTY Latin keyboard"
+			/>
+			<CheckBoxPreference
+			android:key="azerty_keyboard"
+			android:title="@string/azerty_keyboard"
+			android:persistent="true" 
+			android:defaultValue="false"
+			android:summaryOn="Created with norman.obry"
+			android:summaryOff="Created with norman.obry"
+			/>
+			<CheckBoxPreference
+			android:key="dvorak_keyboard"
+			android:title="@string/dvorak_keyboard"
+			android:persistent="true" 
+			android:defaultValue="false"
+			android:summaryOn="Created with Stephen Paul Weber"
+			android:summaryOff="Created with Stephen Paul Weber"
+			/>
+			<CheckBoxPreference
+			android:key="heb_keyboard"
+			android:title="@string/heb_keyboard"
+			android:persistent="true"
+			android:defaultValue="false" 
+			/>
+			<CheckBoxPreference
+			android:key="ru_keyboard"
+			android:title="@string/ru_keyboard"
+			android:persistent="true"
+			android:defaultValue="false" 
+			android:summaryOn="Created with dbriskin"
+			android:summaryOff="Created with dbriskin"
+			/>
+			<CheckBoxPreference
+			android:key="ru_ph_keyboard"
+			android:title="@string/ru_ph_keyboard"
+			android:persistent="true"
+			android:defaultValue="false" 
+			android:summaryOn="Created with dbriskin"
+			android:summaryOff="Created with dbriskin"
+			/>
+			<CheckBoxPreference
+			android:key="ru_keyboard_4_row"
+			android:title="@string/ru_keyboard_4_row"
+			android:persistent="true"
+			android:defaultValue="true" 
+			android:summaryOn="Created with Igor Mariash"
+			android:summaryOff="Created with Igor Mariash"
+			/>
+			<CheckBoxPreference
+			android:key="arabic_keyboard"
+			android:title="@string/arabic_keyboard"
+			android:persistent="true"
+			android:defaultValue="false" 
+			/>
+			<CheckBoxPreference
+			android:key="lao_keyboard"
+			android:title="@string/lao_keyboard"
+			android:persistent="true"
+			android:defaultValue="false" 
+			android:summaryOn="Created with Anousak Souphavanh"
+			android:summaryOff="Created with Anousak Souphavanh"
+			/>
+			<CheckBoxPreference
+			android:key="bg_ph_keyboard"
+			android:title="@string/bg_ph_keyboard"
+			android:persistent="true"
+			android:defaultValue="false" 
+			android:summaryOn="Created with atg2d"
+			android:summaryOff="Created with atg2d"
+			/>
+			<CheckBoxPreference
+			android:key="bg_bds_keyboard"
+			android:title="@string/bg_bds_keyboard"
+			android:persistent="true"
+			android:defaultValue="false"
+			android:summaryOn="Created with atg2d"
+			android:summaryOff="Created with atg2d"
+			/>
+			<CheckBoxPreference
+			android:key="finnish_swedish_keyboard"
+			android:title="@string/finnish_swedish_keyboard"
+			android:persistent="true"
+			android:defaultValue="false"
+			android:summaryOn="Created with jtlallo"
+			android:summaryOff="Created with jtlallo"
+			/>
+			<CheckBoxPreference
+			android:key="es_keyboard"
+			android:title="@string/es_keyboard"
+			android:persistent="true"
+			android:defaultValue="false"
+			android:summaryOn="Created with Jorge Jiménez"
+			android:summaryOff="Created with Jorge Jiménez"
+			/>
+			<CheckBoxPreference
+			android:key="catalan_keyboard"
+			android:title="@string/catalan_keyboard"
+			android:persistent="true"
+			android:defaultValue="false"
+			android:summaryOn="Created with jmontane"
+			android:summaryOff="Created with jmontane"
+			/>
+			<CheckBoxPreference
+			android:key="ch_fr_keyboard"
+			android:title="@string/ch_fr_keyboard"
+			android:persistent="true"
+			android:defaultValue="false"
+			android:summaryOn="Created with tudor and Claude Philipona"
+			android:summaryOff="Created with tudor and Claude Philipona"
+			/>
+			<CheckBoxPreference
+			android:key="ch_de_keyboard"
+			android:title="@string/de_keyboard"
+			android:persistent="true"
+			android:defaultValue="false"
+			android:summaryOn="Created with tudor and Claude Philipona"
+			android:summaryOff="Created with tudor and Claude Philipona"
+			/>
+			<CheckBoxPreference
+			android:key="fr_ca_keyboard"
+			android:title="@string/fr_ca_keyboard"
+			android:persistent="true"
+			android:defaultValue="false"
+			android:summaryOn="Created with d.nahmiasleonard"
+			android:summaryOff="Created with d.nahmiasleonard"
+			/>
+			<CheckBoxPreference
+			android:key="be_cyrillic"
+			android:title="@string/be_cyrillic_keyboard"
+			android:persistent="true"
+			android:defaultValue="false"
+			android:summaryOn="Created with alex73"
+			android:summaryOff="Created with alex73"
+			/>
+			<CheckBoxPreference
+			android:key="be_latin"
+			android:title="@string/be_latin_keyboard"
+			android:persistent="true"
+			android:defaultValue="false"
+			android:summaryOn="Created with alex73"
+			android:summaryOff="Created with alex73"
+			/>
+			<CheckBoxPreference
+			android:key="pt_keyboard"
+			android:title="@string/pt_keyboard"
+			android:persistent="true"
+			android:defaultValue="false"
+			android:summaryOn="Created with Hugo Lopes"
+			android:summaryOff="Created with Hugo Lopes"
+			/>
+			<CheckBoxPreference
+			android:key="thai_keyboard"
+			android:title="@string/thai_keyboard"
+			android:persistent="true"
+			android:defaultValue="false" 
+			android:summaryOn="Created with DroidSans"
+			android:summaryOff="Created with DroidSans"
+			/>
+			<CheckBoxPreference
+			android:key="ka_keyboard"
+			android:title="@string/ka_keyboard"
+			android:persistent="true"
+			android:defaultValue="false" 
+			android:summaryOn="Created with t.kirkitadze"
+			android:summaryOff="Created with t.kirkitadze"
+			/>
+		</PreferenceCategory>
+	</PreferenceScreen>
 </PreferenceScreen>

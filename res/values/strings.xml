@@ -86,7 +86,8 @@
     <string name="auto_complete_summary">Space will select highlighted suggestion</string>
     <string name="physical_keyboard_suggestions">Suggestions in device keyboard</string>
     <string name="physical_keyboard_suggestions_summary">Show suggestions when using device keyboard</string>
-    
+    <string name="keyboard_sandbox">Click for text testing</string>
+    <string name="keyboard_sandbox_title">Type below to test your settings</string>
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Keyboards</string>
     <string name="eng_keyboard">English</string>
