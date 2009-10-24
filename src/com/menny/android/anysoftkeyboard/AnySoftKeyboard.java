@@ -216,9 +216,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	@Override
 	public void onFinishInputView(boolean finishingInput) {
+		if (DEBUG) Log.d("AnySoftKeyboard", "onFinishInputView(finishingInput:"+finishingInput+")");
+		super.onFinishInputView(finishingInput);
 		if (!mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS)) {
 			mNotificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
 		}
+		
+		if (finishingInput)
+			resetComposing();//clearing any predications
 	};
 
 	@Override
@@ -248,8 +253,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	@Override
 	public void onStartInputView(EditorInfo attribute, boolean restarting) {
+		if (DEBUG) Log.d("AnySoftKeyboard", "onStartInputView(EditorInfo:"+attribute.imeOptions+","+attribute.inputType+", restarting:"+restarting+")");
+		super.onStartInputView(attribute, restarting);
+		
 		mKeyboardSwitcher.makeKeyboards(false);
-
+		resetComposing();//clearing any predications
 		TextEntryState.newSession(this);
 
 		mPredictionOn = false;
@@ -327,6 +335,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	@Override
 	public void onFinishInput() {
+		if (DEBUG) Log.d("AnySoftKeyboard", "onFinishInput()");
 		super.onFinishInput();
 
 		if (mInputView != null) {
@@ -347,8 +356,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public void onUpdateSelection(int oldSelStart, int oldSelEnd,
 			int newSelStart, int newSelEnd, int candidatesStart,
 			int candidatesEnd) {
-		super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd,
-				candidatesStart, candidatesEnd);
+		super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd,	candidatesStart, candidatesEnd);
 		// If the current selection in the text view changes, we should
 		// clear whatever candidate text we have.
 		if (mComposing.length() > 0 && mPredicting
@@ -888,8 +896,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 			if (mAutoCorrectOn
 					&& primaryCode != '\''
 					&& (mJustRevertedSeparator == null
-							|| mJustRevertedSeparator.length() == 0 || mJustRevertedSeparator
-							.charAt(0) != primaryCode)) {
+							|| mJustRevertedSeparator.length() == 0
+							|| mJustRevertedSeparator.charAt(0) != primaryCode)) 
+			{
 				pickDefaultSuggestion();
 				pickedDefault = true;
 			} else {

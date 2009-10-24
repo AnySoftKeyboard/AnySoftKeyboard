@@ -329,7 +329,11 @@ public class KeyboardSwitcher
 	}
 
 	private synchronized AnyKeyboard getAlphabetKeyboard(int index) {
-		AnyKeyboard keyboard = getAlphabetKeyboards()[index];
+		AnyKeyboard[] keyboards = getAlphabetKeyboards();
+		if (index >= keyboards.length)
+			index = 0;
+		
+		AnyKeyboard keyboard = keyboards[index];
 		if (keyboard == null)
 		{
 			KeyboardCreator creator = mAlphabetKeyboardsCreators[index];
