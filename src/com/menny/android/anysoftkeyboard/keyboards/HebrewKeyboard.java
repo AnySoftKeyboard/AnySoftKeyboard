@@ -27,17 +27,6 @@ public class HebrewKeyboard extends AnyKeyboard implements HardKeyboardTranslato
 		return super.isLetter(keyValue) || (keyValue == '\"');
 	}
 	
-	@Override
-	protected void setPopupKeyChars(Key aKey) {
-		if (aKey.codes[0] == 1513)
-		{
-			aKey.popupResId = R.xml.popup;
-			aKey.popupCharacters = "\u20aa";
-		}
-		else
-			super.setPopupKeyChars(aKey);
-	}
-	
 	public void translatePhysicalCharacter(HardKeyboardAction action) 
 	{
 		if (action.isShiftActive() && (action.getKeyCode() == KeyEvent.KEYCODE_COMMA))
