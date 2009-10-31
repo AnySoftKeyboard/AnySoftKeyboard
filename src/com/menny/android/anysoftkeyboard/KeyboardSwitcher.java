@@ -178,8 +178,10 @@ public class KeyboardSwitcher
         	break;            
         }
         if (mInputView != null)
+        {
         	mInputView.setKeyboard(keyboard);
-        keyboard.setShifted(mInputView.isShifted());
+        	keyboard.setShifted(mInputView.isShifted());
+        }
         keyboard.setShiftLocked(keyboard.isShiftLocked());
         keyboard.setImeOptions(mContext.getResources()/*, mMode*/, (attr == null)? 0 : attr.imeOptions);
         keyboard.setTextVariation(mContext.getResources(), (attr == null)? 0 : attr.inputType);

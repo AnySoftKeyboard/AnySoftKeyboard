@@ -91,7 +91,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private int mCommittedLength;
 	private boolean mPredicting;
 	private CharSequence mBestWord;
-	private boolean mPredictionLandscape;
+	private final boolean mPredictionLandscape = false;
 	private boolean mPredictionOn;
 	private boolean mCompletionOn;
 	private boolean mAutoSpace;
@@ -129,7 +129,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				updateSuggestions();
 				break;
 			case MSG_START_TUTORIAL:
-				if (mInputView.isShown()) 
+				if ((mInputView != null) && mInputView.isShown()) 
 				{
 					TutorialsProvider.ShowTutorialsIfNeeded(AnySoftKeyboard.this, mInputView);
 				} else 
@@ -141,6 +141,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 		}
 	};
+
+	private boolean mSpaceSent;
 
 	public AnySoftKeyboard()
 	{
@@ -250,11 +252,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 		setCandidatesViewShown(true);
 		return mCandidateViewContainer;
 	}
-
+	
 	@Override
-	public void onStartInputView(EditorInfo attribute, boolean restarting) {
-		if (DEBUG) Log.d("AnySoftKeyboard", "onStartInputView(EditorInfo:"+attribute.imeOptions+","+attribute.inputType+", restarting:"+restarting+")");
-		super.onStartInputView(attribute, restarting);
+	public void onStartInput(EditorInfo attribute, boolean restarting) {
+		if (DEBUG) Log.d("AnySoftKeyboard", "onStartInput(EditorInfo:"+attribute.imeOptions+","+attribute.inputType+", restarting:"+restarting+")");
+		super.onStartInput(attribute, restarting);
 		
 		mKeyboardSwitcher.makeKeyboards(false);
 		resetComposing();//clearing any predications
@@ -312,8 +314,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// mDeleteCount = 0;
 		setCandidatesViewShown(false);
 		// loadSettings();
-		if (AutoText.getSize(mInputView) < 1)
-			mQuickFixes = true;
 		
 		if (mSuggest != null) {
 			mSuggest.setCorrectionMode(mCorrectionMode);
@@ -321,16 +321,24 @@ public class AnySoftKeyboard extends InputMethodService implements
 		
 		mPredictionOn = mPredictionOn && mCorrectionMode > 0;
 		
-		if (mInputView != null)
-		{
-			mInputView.closing();
-		
-			if (mCandidateView != null)
-				mCandidateView.setSuggestions(null, false, false, false);
-		}
+		if (mCandidateView != null)
+			mCandidateView.setSuggestions(null, false, false, false);
 		
 		if (TRACE_SDCARD)
 			Debug.startMethodTracing("anysoftkeyboard_log.trace");
+	}
+
+	@Override
+	public void onStartInputView(EditorInfo attribute, boolean restarting) {
+		if (DEBUG) Log.d("AnySoftKeyboard", "onStartInputView(EditorInfo:"+attribute.imeOptions+","+attribute.inputType+", restarting:"+restarting+")");
+		super.onStartInputView(attribute, restarting);
+		
+		if (mInputView != null)
+		{
+			mInputView.closing();
+			if (AutoText.getSize(mInputView) < 1)
+				mQuickFixes = true;
+		}
 	}
 
 	@Override
@@ -371,14 +379,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	private void resetComposing() {
+		InputConnection ic = getCurrentInputConnection();
+		if (ic != null) {
+			ic.finishComposingText();
+			//commitTyped(ic);
+		}
 		mComposing.setLength(0);
 		mPredicting = false;
 		updateSuggestions();
 		TextEntryState.reset();
-		InputConnection ic = getCurrentInputConnection();
-		if (ic != null) {
-			ic.finishComposingText();
-		}
 	}
 
 	@Override
@@ -428,13 +437,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 			setCandidatesViewShown(isCandidateStripVisible() || mCompletionOn);
 		}
 	}
-	/*
+
 	@Override
 	public void setCandidatesViewShown(boolean shown) {
-		//we want to show candidates only when needed
-		super.setCandidatesViewShown(shown && isPredictionOn());
+		//we show predication only in on-screen keyboard (onEvaluateInputViewShown)
+		//or if the physical keyboard supports candidates (mPredictionLandscape)
+		super.setCandidatesViewShown((onEvaluateInputViewShown() || mPredictionLandscape) && shown);
 	}
-	*/
+
+	
 	@Override
 	public void onComputeInsets(InputMethodService.Insets outInsets) {
 		super.onComputeInsets(outInsets);
@@ -445,19 +456,21 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		// For all other keys, if we want to do transformations on
-		// text being entered with a hard keyboard, we need to process
-		// it and do the appropriate action.
-		// using physical keyboard is more annoying with candidate view in
-		// the way
-		// so we disable it.
 		InputConnection ic = getCurrentInputConnection();
-		/*
-		// to clear the underline.
-		commitTyped(ic);// to clear the underline.
-
-		mPredicting = false;
-		*/
+		if (!mPredictionLandscape)
+		{
+			// For all other keys, if we want to do transformations on
+			// text being entered with a hard keyboard, we need to process
+			// it and do the appropriate action.
+			// using physical keyboard is more annoying with candidate view in
+			// the way
+			// so we disable it.	
+			
+			// to clear the underline.
+			commitTyped(ic);// to clear the underline.
+	
+			mPredicting = false;
+		}
 		if (DEBUG)
 			Log.d("AnySoftKeyboard", "Event: Key:"+event.getKeyCode()+" Shift:"+((event.getMetaState()&KeyEvent.META_SHIFT_ON) != 0)+" ALT:"+((event.getMetaState()&KeyEvent.META_ALT_ON) != 0)+" Repeats:"+event.getRepeatCount());
 		
@@ -529,12 +542,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 						if (translated)
 							return true;
 					}
-					//if we reached here, it means that either the keyboard is has no physical translation
-					//or the it does not have a translation for the pressed keys.
-					boolean translated = askTranslatorToTranslateHardKeyboardAction(keyCode, ic, "GENERIC", mGenericKeyboardTranslator);
-					if (translated)
-						return true;
-					
+					if (mPredictionLandscape)
+					{
+						//if we reached here, it means that either the keyboard is has no physical translation
+						//or the it does not have a translation for the pressed keys.
+						boolean translated = askTranslatorToTranslateHardKeyboardAction(keyCode, ic, "GENERIC", mGenericKeyboardTranslator);
+						if (translated)
+							return true;
+					}
 					return super.onKeyDown(keyCode, event);
 				} finally {
 					if (ic != null)
@@ -762,6 +777,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 				handleSeparator(primaryCode);
 			} else {
 				handleCharacter(primaryCode, keyCodes);
+				//reseting the mSpaceSent, which is set to true upon selecting candidate
+				mSpaceSent = false;
 			}
 			// Cancel the just reverted state
 			mJustRevertedSeparator = null;
@@ -844,7 +861,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// primaryCode = Character.toUpperCase(primaryCode);
 		// }
 		if (mPredicting) {
-			if (mInputView.isShifted() && mComposing.length() == 0) {
+			if ((mInputView != null) && mInputView.isShifted() && mComposing.length() == 0) {
 				mWord.setCapitalized(true);
 			}
 			mComposing.append((char) primaryCode);
@@ -870,7 +887,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			if (AnySoftKeyboard.DEBUG)
 				Log.v("AnySoftKeyboard", "translatePrimaryCodeFromCurrentKeyboard: isInputViewShown");
 			
-			if (mInputView.isShifted()) {
+			if ((mInputView != null) && mInputView.isShifted()) {
 				if (AnySoftKeyboard.DEBUG)
 					Log.d("AnySoftKeyboard", "translatePrimaryCodeFromCurrentKeyboard: mInputView.isShifted()");
 				return mKeyboardSwitcher.getCurrentKeyboard().getShiftedKeyValue(primaryCode);
@@ -908,7 +925,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		sendKeyChar((char) primaryCode);
 		TextEntryState.typedCharacter((char) primaryCode, true);
 		if (TextEntryState.getState() == TextEntryState.STATE_PUNCTUATION_AFTER_ACCEPTED
-				&& primaryCode != KEYCODE_ENTER) {
+				&& primaryCode != KEYCODE_ENTER && mSpaceSent) {
 			swapPunctuationAndSpace();
 		} else if (isPredictionOn() && primaryCode == ' ') {
 			// else if (TextEntryState.STATE_SPACE_AFTER_ACCEPTED) {
@@ -926,7 +943,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private void handleClose() {
 		commitTyped(getCurrentInputConnection());
 		requestHideSelf(0);
-		mInputView.closing();
+		if (mInputView != null)
+			mInputView.closing();
 		TextEntryState.endSession();
 	}
 
@@ -971,7 +989,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			return;
 		}
 		
-		final boolean showSuggestions = (mPredicting  && isPredictionOn() && isCandidateStripVisible());
+		final boolean showSuggestions = (mCandidateView != null && mPredicting  && isPredictionOn() && isCandidateStripVisible());
 
 		if  (!showSuggestions)
 		{
@@ -1035,6 +1053,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		TextEntryState.acceptedSuggestion(mComposing.toString(), suggestion);
 		// Follow it with a space
 		if (mAutoSpace) {
+			mSpaceSent = true;
 			sendSpace();
 		}
 		// Fool the state watcher so that a subsequent backspace will not do a
@@ -1046,7 +1065,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (mCapsLock) {
 			suggestion = suggestion.toString().toUpperCase();
 		} else if (preferCapitalization()
-				|| (mKeyboardSwitcher.isAlphabetMode() && mInputView.isShifted())) 
+				|| (mKeyboardSwitcher.isAlphabetMode() && (mInputView != null) && mInputView.isShifted())) 
 		{
 			suggestion = Character.toUpperCase(suggestion.charAt(0))
 					+ suggestion.subSequence(1, suggestion.length()).toString();
@@ -1122,7 +1141,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private void sendSpace() {
 		sendKeyChar((char) KEYCODE_SPACE);
 		updateShiftKeyState(getCurrentInputEditorInfo());
-		// onKey(KEY_SPACE[0], KEY_SPACE);
 	}
 
 	public boolean preferCapitalization() {
@@ -1327,9 +1345,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mCorrectionMode = mAutoComplete ? 2
 				: (mShowSuggestions/* mQuickFixes */? 1 : 0);
 
-		boolean newLandscapePredications= sp.getBoolean("physical_keyboard_suggestions", true);
-		handled = handled || (newLandscapePredications != mPredictionLandscape);
-		mPredictionLandscape = newLandscapePredications;
+//		boolean newLandscapePredications= sp.getBoolean("physical_keyboard_suggestions", true);
+//		handled = handled || (newLandscapePredications != mPredictionLandscape);
+//		mPredictionLandscape = newLandscapePredications;
 		
 		// this change requires the recreation of the keyboards.
 		// so we wont mark the 'handled' result.

@@ -145,7 +145,7 @@ public class TextEntryState {
     }
     
     public static void typedCharacter(char c, boolean isSeparator) {
-        boolean isSpace = c == ' ';
+        final boolean isSpace = c == ' ';
         switch (sState) {
             case STATE_IN_WORD:
                 if (isSpace || isSeparator) {

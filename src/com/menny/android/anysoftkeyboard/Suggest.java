@@ -173,14 +173,16 @@ public class Suggest implements Dictionary.WordCallback {
             }
         }
         
+        if (view == null)
+        	return mSuggestions;
+        
         int i = 0;
         int max = 6;
         // Don't autotext the suggestions from the dictionaries
         if (mCorrectionMode == CORRECTION_BASIC) max = 1;
         while (i < mSuggestions.size() && i < max) {
             String suggestedWord = mSuggestions.get(i).toString().toLowerCase();
-            CharSequence autoText =
-                    AutoText.get(suggestedWord, 0, suggestedWord.length(), view);
+            CharSequence autoText = AutoText.get(suggestedWord, 0, suggestedWord.length(), view);
             // Is there an AutoText correction?
             boolean canAdd = autoText != null;
             // Is that correction already the current prediction (or original word)?
