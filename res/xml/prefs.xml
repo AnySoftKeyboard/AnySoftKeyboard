@@ -93,14 +93,16 @@ android:key="ime_settings">
 	</PreferenceCategory>
 	<PreferenceCategory android:key="keyboards_group"
 	android:title="@string/keyboards_group">
-		<EditTextPreference android:key="keyboards_sandbox_1" android:lines="3" android:singleLine="false"
+		<EditTextPreference android:key="keyboards_sandbox_1" 
+		android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"
 		android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false">
 		</EditTextPreference>
 		<PreferenceScreen android:key="keyboards_group"
 		android:title="@string/keyboards_group">
 			<PreferenceCategory android:key="keyboards_group"
 			android:title="@string/keyboards_group">
-				<EditTextPreference android:key="keyboards_sandbox_1" android:lines="3" android:singleLine="false"
+				<EditTextPreference android:key="keyboards_sandbox_1" 
+				android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"
 				android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false">
 				</EditTextPreference>
 				<CheckBoxPreference
@@ -272,8 +274,8 @@ android:key="ime_settings">
 				android:title="@string/ka_keyboard"
 				android:persistent="true"
 				android:defaultValue="false" 
-				android:summaryOn="Created with t.kirkitadze"
-				android:summaryOff="Created with t.kirkitadze"
+				android:summaryOn="Created with herrlado"
+				android:summaryOff="Created with herrlado"
 				/>
 			</PreferenceCategory>
 		</PreferenceScreen>
