@@ -84,7 +84,8 @@
    <string name="auto_complete_summary">Нажатие пробела выберет текущий совет.</string>
    <string name="physical_keyboard_suggestions">Советы Встроенной Клавиатуры</string>
    <string name="physical_keyboard_suggestions_summary">Показывать советы при использовании встроенной клавиатуры</string>
-   
+   <string name="keyboard_sandbox">Проверка ввода текста</string>
+   <string name="keyboard_sandbox_title">Начните печатать ниже для проверки ввода</string>
    <!-- settings - keyboard group -->
    <string name="keyboards_group">Языки Раскладок</string>
    <string name="eng_keyboard">Английский</string>
@@ -102,13 +103,15 @@
    <string name="es_keyboard">Испанский</string>
    <string name="ru_ph_keyboard">Русский Фонетический</string>
    <string name="ru_keyboard">Русский Стандартный</string>
-   <string name="ru_keyboard_4_row">4-Строчная Русская Расскладка</string>
+   <string name="ru_keyboard_4_row">4-х Строчная Русская Расскладка</string>
    <string name="be_cyrillic_keyboard">Беларусский Кириллица</string>
    <string name="be_latin_keyboard">Беларусский Латинский</string>
    <string name="pt_keyboard">Португальский</string>
    <string name="thai_keyboard">Таиландский</string>
    <string name="fr_ca_keyboard">Французский Канадский</string>
    <string name="ka_keyboard">Грузинский</string>
+   <string name="uk_keyboard">Украинский</string>
+   <string name="uk_keyboard_4_row">4-х Строчная Украинская Расскладка</string>
    
    <!-- Tutorials --> 
    <string name="show_tutorial_on_startup">Показывать помощь при запуске</string>
