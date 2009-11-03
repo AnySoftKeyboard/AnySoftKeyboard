@@ -43,6 +43,9 @@ public class KeyboardFactory
 	public static final String FR_CA_KEYBOARD = "fr_ca_keyboard";
 	public static final String KA_KEYBOARD = "ka_keyboard";
 	public static final String RU_KEYBOARD_4_ROWS = "ru_keyboard_4_row";
+	public static final String UK_KEYBOARD = "uk_keyboard";
+	public static final String UK_KEYBOARD_4_ROWS = "uk_keyboard_4_row";
+	
 	
 	static
 	{
@@ -91,6 +94,8 @@ public class KeyboardFactory
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new ThaiKeyboard(contextProvider);} public String getKeyboardPrefId() {return THAI_KEYBOARD;}});
 		//Georgian keyboard - issue 109
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, KeyboardFactory.KA_KEYBOARD, R.xml.ka_qwerty, R.string.ka_keyboard, Dictionary.Language.None, R.drawable.ka);} public String getKeyboardPrefId() {return KA_KEYBOARD;}});
+		//Ukrainian keyboard - issue 154
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new UkrainianKeyboard(contextProvider);} public String getKeyboardPrefId() {return UK_KEYBOARD;}});
 	}
 	
 	public static KeyboardCreator[] createAlphaBetKeyboards(AnyKeyboardContextProvider contextProvider)

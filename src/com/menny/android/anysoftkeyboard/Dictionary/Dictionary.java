@@ -25,7 +25,8 @@ abstract public class Dictionary {
 		Slovenian,
 		Portuguese,
 		Bulgarian,
-		Thai
+		Thai,
+		Ukrainian
 	}
 	
     /**

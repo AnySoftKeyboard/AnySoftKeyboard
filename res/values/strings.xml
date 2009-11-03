@@ -112,6 +112,8 @@
 	<string name="thai_keyboard">Thai</string>
 	<string name="fr_ca_keyboard">French Canadian</string>
 	<string name="ka_keyboard">Georgian</string>
+	<string name="uk_keyboard">Ukrainian</string>
+	<string name="uk_keyboard_4_row">Use 4 rows Ukrainian layout</string>
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Show this tutorial on startup</string>
