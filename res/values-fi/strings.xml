@@ -112,6 +112,8 @@
 	<string name="thai_keyboard">Thai</string>
 	<string name="fr_ca_keyboard">Ranska/Kanada</string>
 	<string name="ka_keyboard">Georgia</string>
+	<string name="uk_keyboard">Ukraina</string>
+	<string name="uk_keyboard_4_row">Ukraina, nelirivinen</string>
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Näytä opastus käynnistyksen yhteydessä</string>
