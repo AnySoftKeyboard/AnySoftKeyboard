@@ -32,6 +32,7 @@ import android.os.*;
 import android.preference.PreferenceManager;
 import android.text.AutoText;
 import android.text.TextUtils;
+import android.text.method.MetaKeyKeyListener;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -81,7 +82,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private AlertDialog mOptionsDialog;
 
 	KeyboardSwitcher mKeyboardSwitcher;
-	private HardKeyboardActionImpl mHardKeyboardAction;
+	private final HardKeyboardActionImpl mHardKeyboardAction;
 
 	private UserDictionaryBase mUserDictionary;
 
@@ -144,10 +145,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private boolean mSpaceSent;
 
-//	public AnySoftKeyboard()
-//	{
-//		mGenericKeyboardTranslator = new GenericPhysicalKeyboardTranslator(this);
-//	}
+	public AnySoftKeyboard()
+	{
+		//mGenericKeyboardTranslator = new GenericPhysicalKeyboardTranslator(this);
+		mHardKeyboardAction = new HardKeyboardActionImpl();
+	}
 	
 	@Override
 	public void onCreate() {
@@ -182,8 +184,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 		sp.registerOnSharedPreferenceChangeListener(this);
-		
-		mHardKeyboardAction = new HardKeyboardActionImpl();
 	}
 
 	private void initSuggest(/* String locale */) {
@@ -506,7 +506,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			return true;
 		case KeyEvent.KEYCODE_SPACE:
 			if (event.isAltPressed()) 
-			{	
+			{
 				Log.d("AnySoftKeyborad", "User pressed ALT+SPACE, moving to next physical keyboard.");
 				// consuming the meta keys
 				//mHardKeyboardAction.resetMetaState();
@@ -523,15 +523,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 				onKey(32, new int[]{32});
 				return true;
 			}
-		default:
-			// sometimes, the physical keyboard will delete input, and then add some.
-			// we'll try to make it nice
-			if (ic != null)
-				ic.beginBatchEdit();
-			try 
+		default:			
+			if (mKeyboardSwitcher.isCurrentKeyboardPhysical()) 
 			{
-				if (mKeyboardSwitcher.isCurrentKeyboardPhysical()) 
+				// sometimes, the physical keyboard will delete input, and then add some.
+				// we'll try to make it nice
+				if (ic != null)
+					ic.beginBatchEdit();
+				try 
 				{
+					//http://article.gmane.org/gmane.comp.handhelds.openmoko.android-freerunner/629
+					mHardKeyboardAction.initializeAction();
 					AnyKeyboard current = mKeyboardSwitcher.getCurrentKeyboard();
 					String keyboardName = current.getKeyboardName();
 					HardKeyboardTranslator keyTranslator = (HardKeyboardTranslator)current;
@@ -546,25 +548,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 						final int translatedChar = mHardKeyboardAction.getKeyCode();
 						//typing my own.
 						onKey(translatedChar, new int[] { translatedChar });
-						try
-						{
-							//letting the system handle the hard-keyboard stuff
-							return super.onKeyDown(keyCode, event);
-						}
-						finally
-						{
-							//deleting anything it did
-							if (ic != null)
-								ic.deleteSurroundingText(0, 1);
-						}
+						return true;
 					}
-				return super.onKeyDown(keyCode, event);
 				}
-			}
-			finally 
-			{
-				if (ic != null)
-					ic.endBatchEdit();
+				finally 
+				{					
+					if (ic != null)
+						ic.endBatchEdit();
+				}
 			}
 		}
 		return super.onKeyDown(keyCode, event);
@@ -1570,7 +1561,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	public void deleteLastCharactersFromInput(int countToDelete) {
 		if (DEBUG) Log.d("AnySoftKeyboard", "deleteLastCharactersFromInput: "+countToDelete);
-			
+		if (countToDelete == 0)
+			return;
+		
 		final int currentLength = mComposing.length();
 		boolean shouldDeleteUsingCompletion;
 		if (currentLength > 0) {
