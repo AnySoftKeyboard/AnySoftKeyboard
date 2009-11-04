@@ -1,27 +1,27 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ime_name">AnySoftKeyboard</string>
     
-    <string name="main_tab_welcome">Welcome</string>
-    <string name="main_tab_links">�?о�?иланн�?</string>
-    <string name="main_tab_credits">�?ро авторів</string>
+    <string name="main_tab_welcome">Ласкаво просимо</string>
+    <string name="main_tab_links">Посилання</string>
+    <string name="main_tab_credits">Про авторів</string>
     <!-- welcome tab -->
-	<string name="how_to_pointer_title">Ла�?каво про�?имо в AnySoftKeyboard</string>
-	<string name="how_to_pointer_version_prefix">Вер�?і�?:</string>
+	<string name="how_to_pointer_title">Ласкаво просимо в AnySoftKeyboard</string>
+	<string name="how_to_pointer_version_prefix">Версія:</string>
 	<string name="how_to_pointer_not_app">AnySoftKeyboard це не звичайна програма - це заміна екранної клавіатури.</string>
-	<string name="how_to_pointer_go_to_links">Щоб отримати біл�?ше інформації відвідайте закладку по�?илан�?.</string>
+	<string name="how_to_pointer_go_to_links">Щоб отримати більше інформації відвідайте закладку посилань.</string>
 	<!-- links tab -->
-	<string name="how_to_pointer_how_to_url">Детал�?но про викори�?танн�? цеї клавіатури:</string>
-	<string name="how_to_pointer_site">Загал�?на інформаці�?:</string>
-	<string name="how_to_pointer_changelog">Детал�?но про о�?танн�? вер�?і�?:</string>
+	<string name="how_to_pointer_how_to_url">Детально про використання цеї клавіатури:</string>
+	<string name="how_to_pointer_site">Загальна інформація:</string>
+	<string name="how_to_pointer_changelog">Детально про останню версію:</string>
 	<string name="how_to_pointer_issues">Відправити помилку:</string>
 	<!-- credits tab -->
-	<string name="main_tab_credits_title">Ц�? програму було �?творено за уча�?ті цих л�?дей:</string>
-	<string name="main_tab_credits_created_by">�?втор:</string>
+	<string name="main_tab_credits_title">Цю програму було створено за участі цих людей:</string>
+	<string name="main_tab_credits_created_by">Автор:</string>
 	<string name="main_tab_credits_additional_work_by">Розробники:</string>
-	<string name="main_tab_credits_localization_by">Локалізаці�?:</string>
-	<string name="main_tab_credits_GUI_by">Інтерфей�?:</string>
+	<string name="main_tab_credits_localization_by">Локалізація:</string>
+	<string name="main_tab_credits_GUI_by">Інтерфейс:</string>
 	
     <!-- Symbols that are commonly considered word separators in this language -->
     <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
@@ -29,108 +29,109 @@
     <string name="added_word"><xliff:g id="word">%s</xliff:g>: збережено</string>
     
     <!-- settings - UI -->
-    <string name="ui_group">Інтерфей�? кори�?тувача</string>
-    <string name="keyboard_layout_change_method_title">�?етод зміни розкладки</string>
-    <string name="keyboard_layout_change_method_summary">�?етод зміни розкладки екранної клавіатури</string>
-    <string name="keyboard_layout_change_method_dialog_title">�?беріт�? метод</string>
+    <string name="ui_group">Інтерфейс користувача</string>
+    <string name="keyboard_layout_change_method_title">Метод зміни розкладки</string>
+    <string name="keyboard_layout_change_method_summary">Метод зміни розкладки екранної клавіатури</string>
+    <string name="keyboard_layout_change_method_dialog_title">Оберіть метод</string>
     <string-array name="keyboard_layout_change_methods">
         <item>Екран з кнопками</item>
         <item>Екран без кнопок</item>
         <item>Лише кнопки</item>
     </string-array>
     
-    <string name="physical_keyboard_change_notification_title">�?овідомленн�?</string>
-    <string name="physical_keyboard_change_notification_summary">�?овідомленн�? про зміну розкладки</string>
-    <string name="physical_keyboard_change_notification_dialog_title">�?беріт�? тип повідомленн�?</string>
+    <string name="physical_keyboard_change_notification_title">Повідомлення</string>
+    <string name="physical_keyboard_change_notification_summary">Повідомлення про зміну розкладки</string>
+    <string name="physical_keyboard_change_notification_dialog_title">Оберіть тип повідомлення</string>
     <string-array name="physical_keyboard_change_notification_types">
-        <item>Завжди показувати �?имвол розкладки</item>
-        <item>�?ри зміні фізичної клавіатури</item>
-        <item>Без повідомленн�?</item>
+        <item>Завжди показувати символ розкладки</item>
+        <item>При зміні фізичної клавіатури</item>
+        <item>Без повідомлення</item>
     </string-array>
     
-    <string name="lengthy_operations_toast_notification">�?овідомл�?ти при тривалих ді�?х</string>
-    <string name="lengthy_operations_toast_notification_summary">�?оказувати короткі повідомленн�? при тривалих ді�?х</string>
+    <string name="lengthy_operations_toast_notification">Повідомляти при тривалих діях</string>
+    <string name="lengthy_operations_toast_notification_summary">Показувати короткі повідомлення при тривалих діях</string>
     
     <!-- Options menu -->
     <string name="change_ime">Змінити метод вводу</string>
-    <string name="override_dictionary">Змінити �?тандартний �?ловник</string>
+    <string name="override_dictionary">Змінити стандартний словник</string>
     <!-- Dictionary override strings -->
-    <string name="override_dictionary_title">Замінити<xliff:g id="word">%s</xliff:g>�?ловник</string>
-    <string name="override_dictionary_default">�?тандартний</string>
+    <string name="override_dictionary_title">Замінити<xliff:g id="word">%s</xliff:g>словник</string>
+    <string name="override_dictionary_default">стандартний</string>
     <!-- Dictionary override toast messages -->
-    <string name="override_disabled">Заміну �?ка�?овано</string>
-    <string name="override_enabled">Замін�?�? на<xliff:g id="word">%s</xliff:g></string>
+    <string name="override_disabled">Заміну скасовано</string>
+    <string name="override_enabled">Заміняю на<xliff:g id="word">%s</xliff:g></string>
     
     <!-- settings - effects-->
     <string name="effects_group">Ефекти</string>
-    <string name="ime_settings">�?а�?тройки клавіатури</string>
+    <string name="ime_settings">Настройки клавіатури</string>
     <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
-    <string name="vibrate_on_key_press_title">Вібрувати при нати�?ненні</string>
+    <string name="vibrate_on_key_press_title">Вібрувати при натисненні</string>
     <string name="vibrate_on_key_press_summary">Вибір типу вібрації</string>
-    <string name="vibrate_on_key_press_dialog_title">Вибір тривало�?ті вібрації</string>
+    <string name="vibrate_on_key_press_dialog_title">Вибір тривалості вібрації</string>
     <string-array name="vibrate_on_key_press_types">
     	<item>Без вібрації</item>
         <item>Злегка</item>
-        <item>Середн�?о</item>
-        <item>Сил�?но</item>
+        <item>Середньо</item>
+        <item>Сильно</item>
     </string-array>
     
-    <string name="sound_on">Звук при нати�?ненні</string>
-    <string name="sound_on_summary">Звук при нати�?ненні екранної клавіатури. Гучні�?т�? �?к у повідомлен�?.</string>
-    <string name="auto_caps">�?вто-великі</string>
+    <string name="sound_on">Звук при натисненні</string>
+    <string name="sound_on_summary">Звук при натисненні екранної клавіатури. Гучність як у повідомлень.</string>
+    <string name="auto_caps">Авто-великі</string>
     <string name="grammer_group">Граматика</string>
-    <string name="candidates_on">�?оказувати пропозиції</string>
-    <string name="quick_fix">�?втовиправленн�?</string>
-    <string name="quick_fix_summary">Виправл�?ти ча�?ті помилки</string>
-    <string name="auto_complete">�?втоматично пропонувати �?лово</string>
-    <string name="auto_complete_summary">Вибирати запропоноване �?лово пробілом</string>
-    <string name="physical_keyboard_suggestions">�?ропозиції при фізичній клавіатурі</string>
-    <string name="physical_keyboard_suggestions_summary">�?оказувати пропозиції при викори�?танні фізичної клавіатури</string>
-    
+    <string name="candidates_on">Показувати пропозиції</string>
+    <string name="quick_fix">Автовиправлення</string>
+    <string name="quick_fix_summary">Виправляти часті помилки</string>
+    <string name="auto_complete">Автоматично пропонувати слово</string>
+    <string name="auto_complete_summary">Вибирати запропоноване слово пробілом</string>
+    <string name="physical_keyboard_suggestions">Пропозиції при фізичній клавіатурі</string>
+    <string name="physical_keyboard_suggestions_summary">Показувати пропозиції при використанні фізичної клавіатури</string>
+	<string name="keyboard_sandbox">Перевірка вводу тексту</string>
+	<string name="keyboard_sandbox_title">Набирайте текст щоб перевірити ввід</string>
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Розкладки</string>
-    <string name="eng_keyboard">�?нглій�?�?ка</string>
+    <string name="eng_keyboard">Англійська</string>
     <string name="heb_keyboard">Іврит</string>
-    <string name="lao_keyboard">Лао�?�?ка</string>
-    <string name="arabic_keyboard">�?раб�?�?ка</string>
-    <string name="bg_ph_keyboard">Болгар�?�?ка фонетична</string>
-    <string name="bg_bds_keyboard">Болгар�?�?ка BDS</string>
+    <string name="lao_keyboard">Лаоська</string>
+    <string name="arabic_keyboard">Арабська</string>
+    <string name="bg_ph_keyboard">Болгарська фонетична</string>
+    <string name="bg_bds_keyboard">Болгарська BDS</string>
     <string name="dvorak_keyboard">Дворак</string>
-    <string name="finnish_swedish_keyboard">Швед�?�?ка/Фін�?�?ка</string>
-    <string name="catalan_keyboard">�?аталон�?�?ка</string>
-    <string name="ch_fr_keyboard">Швейцар�?�?ка француз�?ка</string>
-    <string name="de_keyboard">�?імец�?ка/Швейцар�?�?ка німец�?ка</string>
+    <string name="finnish_swedish_keyboard">Шведська/Фінська</string>
+    <string name="catalan_keyboard">Каталонська</string>
+    <string name="ch_fr_keyboard">Швейцарська французька</string>
+    <string name="de_keyboard">Німецька/Швейцарська німецька</string>
     <string name="azerty_keyboard">AZERTY</string>
-    <string name="es_keyboard">І�?пан�?�?ка</string>
-    <string name="ru_ph_keyboard">Ро�?ій�?�?ка фонетична</string>
-    <string name="ru_keyboard">Ро�?ій�?�?ка</string>
-    <string name="ru_keyboard_4_row">Викори�?товувати ро�?ій�?�?ку розкладку в 4 р�?ди</string>
-    <string name="be_cyrillic_keyboard">Білору�?�?ка кирилиц�?</string>
-    <string name="be_latin_keyboard">Білору�?�?ка латиниц�?</string>
-    <string name="pt_keyboard">�?ортугал�?�?�?ка</string>
-	<string name="thai_keyboard">Тай�?�?ка</string>
-	<string name="fr_ca_keyboard">�?анад�?�?ка француз�?ка </string>
-	<string name="ka_keyboard">Грузин�?�?ка</string>
-	<string name="uk_keyboard">Україн�?�?ка</string>
-    <string name="uk_keyboard_4_row">Викори�?товувати україн�?�?ку розкладку в 4 р�?ди</string>
+    <string name="es_keyboard">Іспанська</string>
+    <string name="ru_ph_keyboard">Російська фонетична</string>
+    <string name="ru_keyboard">Російська</string>
+    <string name="ru_keyboard_4_row">Використовувати російську розкладку в 4 ряди</string>
+    <string name="be_cyrillic_keyboard">Білоруська кирилиця</string>
+    <string name="be_latin_keyboard">Білоруська латиниця</string>
+    <string name="pt_keyboard">Португальська</string>
+	<string name="thai_keyboard">Тайська</string>
+	<string name="fr_ca_keyboard">Канадська французька </string>
+	<string name="ka_keyboard">Грузинська</string>
+	<string name="uk_keyboard">Українська</string>
+    <string name="uk_keyboard_4_row">Використовувати українську розкладку в 4 ряди</string>
     
     <!-- Tutorials --> 
-    <string name="show_tutorial_on_startup">�?оказувати в�?туп при �?тарті</string>
-    <string name="tutorial_swipe_title">�?рове�?ти пал�?цем дл�? зміни розкладки</string>
-    <string name="tutorial_swipe_text">Розкладку можна змінити провівши пал�?цем над клавіатуро�?. �?роведіт�? зліва направо щоб змінити розкладку, �?права наліво щоб перейти до �?имволів.</string>
+    <string name="show_tutorial_on_startup">Показувати вступ при старті</string>
+    <string name="tutorial_swipe_title">Провести пальцем для зміни розкладки</string>
+    <string name="tutorial_swipe_text">Розкладку можна змінити провівши пальцем над клавіатурою. Проведіть зліва направо щоб змінити розкладку, справа наліво щоб перейти до символів.</string>
     
     <!-- Special soft keyboard keys text -->
-    <string name="label_go_key">�?у�?к</string>
-    <string name="label_next_key">�?а�?тупне</string>
-    <string name="label_send_key">�?о�?лати</string>
+    <string name="label_go_key">Пуск</string>
+    <string name="label_next_key">Наступне</string>
+    <string name="label_send_key">Послати</string>
     
-    <string name="change_lang_wide">&#8594; �?БВ &#8594;</string>
-    <string name="change_lang_regular">�?БВ</string>
+    <string name="change_lang_wide">&#8594; АБВ &#8594;</string>
+    <string name="change_lang_regular">АБВ</string>
     <string name="change_symbols_wide">&#8592; 123 &#8592;</string>
     <string name="change_symbols_regular">123</string>
     
     <string name="please_wait">Зачекайте</string>
-    <string name="toast_lengthy_words_long_operation">Завантаженн�? �?ловника...</string>
-    <string name="toast_lengthy_start_up_operation">Запу�?к AnySoftKeyboard...</string>
-    <string name="lengthy_creating_keyboard_operation">Створенн�? розкладок...</string>
+    <string name="toast_lengthy_words_long_operation">Завантаження словника...</string>
+    <string name="toast_lengthy_start_up_operation">Запуск AnySoftKeyboard...</string>
+    <string name="lengthy_creating_keyboard_operation">Створення розкладок...</string>
 </resources>
