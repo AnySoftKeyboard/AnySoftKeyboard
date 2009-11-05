@@ -1,6 +1,5 @@
 package com.menny.android.anysoftkeyboard;
 
-import android.text.Editable;
 import android.text.method.MetaKeyKeyListener;
 import android.view.KeyEvent;
 
@@ -134,11 +133,16 @@ public class HardKeyboardActionImpl implements HardKeyboardAction
 {
 	private int mKeyCode = 0;
 	private boolean mChanegd = false;
+	private long mMetaState;
 	
-	public void initializeAction(KeyEvent event)
+	private final int META_ACTIVE_ALT = (MetaKeyKeyListener.META_ALT_ON | MetaKeyKeyListener.META_ALT_LOCKED);
+	private final int META_ACTIVE_SHIFT = (MetaKeyKeyListener.META_SHIFT_ON | MetaKeyKeyListener.META_CAP_LOCKED);
+	
+	public void initializeAction(KeyEvent event, long metaState)
 	{
 		mChanegd = false;
 		mKeyCode = event.getKeyCode();
+		mMetaState = metaState;
 	}
 	
 		public int getKeyCode() {
@@ -146,11 +150,11 @@ public class HardKeyboardActionImpl implements HardKeyboardAction
 	}
 	
 	public boolean isAltActive() {
-		MetaKeyKeyListener.
+		return (MetaKeyKeyListener.getMetaState(mMetaState) & META_ACTIVE_ALT) != 0;
 	}
 
 	public boolean isShiftActive() {
-		MetaKeyKeyListener.
+		return (MetaKeyKeyListener.getMetaState(mMetaState) & META_ACTIVE_SHIFT) != 0;
 	}
 	
 	public void setNewKeyCode(int keyCode) {

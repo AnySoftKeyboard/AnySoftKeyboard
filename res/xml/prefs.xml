@@ -277,6 +277,22 @@ android:key="ime_settings">
 				android:summaryOn="Created with herrlado"
 				android:summaryOff="Created with herrlado"
 				/>
+				<CheckBoxPreference
+				android:key="uk_keyboard"
+				android:title="@string/uk_keyboard"
+				android:persistent="true"
+				android:defaultValue="false" 
+				android:summaryOn="Created with rlavriv"
+				android:summaryOff="Created with rlavriv"
+				/>
+				<CheckBoxPreference
+				android:key="uk_keyboard_4_row"
+				android:title="@string/uk_keyboard_4_row"
+				android:persistent="true"
+				android:defaultValue="true" 
+				android:summaryOn="Created with rlavriv"
+				android:summaryOff="Created with rlavriv"
+				/>
 			</PreferenceCategory>
 		</PreferenceScreen>
 	</PreferenceCategory>

@@ -83,6 +83,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	KeyboardSwitcher mKeyboardSwitcher;
 	private final HardKeyboardActionImpl mHardKeyboardAction;
+	private long mMetaState;
 
 	private UserDictionaryBase mUserDictionary;
 
@@ -532,8 +533,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 					ic.beginBatchEdit();
 				try 
 				{
+					mMetaState = MetaKeyKeyListener.handleKeyDown(mMetaState, keyCode, event);
+					mHardKeyboardAction.initializeAction(event, mMetaState);
+					//we are at a regular key press, so we'll update our meta-state member 
+					mMetaState = MetaKeyKeyListener.adjustMetaAfterKeypress(mMetaState);
 					//http://article.gmane.org/gmane.comp.handhelds.openmoko.android-freerunner/629
-					mHardKeyboardAction.initializeAction();
 					AnyKeyboard current = mKeyboardSwitcher.getCurrentKeyboard();
 					String keyboardName = current.getKeyboardName();
 					HardKeyboardTranslator keyTranslator = (HardKeyboardTranslator)current;
@@ -548,11 +552,18 @@ public class AnySoftKeyboard extends InputMethodService implements
 						final int translatedChar = mHardKeyboardAction.getKeyCode();
 						//typing my own.
 						onKey(translatedChar, new int[] { translatedChar });
+						//since we are handling the key press, we'll also handle the
+						//meta-state of the input connection
+						//since we want to do the reverse, we'll invert the bits
+						final int clearStatesFlags = ~MetaKeyKeyListener.getMetaState(mMetaState);
+						if (ic != null)
+							ic.clearMetaKeyStates(clearStatesFlags);
+						//my handling
 						return true;
 					}
 				}
 				finally 
-				{					
+				{
 					if (ic != null)
 						ic.endBatchEdit();
 				}
@@ -663,6 +674,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 				return true;
 			}
 			break;
+			default:
+				mMetaState = MetaKeyKeyListener.handleKeyUp(mMetaState, keyCode, event);
 		}
 		return super.onKeyUp(keyCode, event);
 	}
