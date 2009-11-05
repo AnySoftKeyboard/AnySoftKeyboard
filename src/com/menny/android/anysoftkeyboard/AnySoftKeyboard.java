@@ -552,12 +552,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 						final int translatedChar = mHardKeyboardAction.getKeyCode();
 						//typing my own.
 						onKey(translatedChar, new int[] { translatedChar });
-						//since we are handling the key press, we'll also handle the
-						//meta-state of the input connection
-						//since we want to do the reverse, we'll invert the bits
-						final int clearStatesFlags = ~MetaKeyKeyListener.getMetaState(mMetaState);
-						if (ic != null)
-							ic.clearMetaKeyStates(clearStatesFlags);
 						//my handling
 						return true;
 					}
@@ -676,12 +670,24 @@ public class AnySoftKeyboard extends InputMethodService implements
 			break;
 			default:
 				mMetaState = MetaKeyKeyListener.handleKeyUp(mMetaState, keyCode, event);
-				final int clearStatesFlags = ~MetaKeyKeyListener.getMetaState(mMetaState);
-				InputConnection ic = getCurrentInputConnection();
-				if (ic != null)
-					ic.clearMetaKeyStates(clearStatesFlags);
+				setInputConnectionMetaStateAsCurrentMetaKeyKeyListenerState();
 		}
 		return super.onKeyUp(keyCode, event);
+	}
+
+	private void setInputConnectionMetaStateAsCurrentMetaKeyKeyListenerState() {
+		InputConnection ic = getCurrentInputConnection();
+		if (ic != null)
+		{
+			int clearStatesFlags = 0;
+			if (MetaKeyKeyListener.getMetaState(mMetaState, MetaKeyKeyListener.META_ALT_ON) == 0)
+				clearStatesFlags += KeyEvent.META_ALT_ON;
+			if (MetaKeyKeyListener.getMetaState(mMetaState, MetaKeyKeyListener.META_SHIFT_ON) == 0)
+				clearStatesFlags += KeyEvent.META_SHIFT_ON;
+			if (MetaKeyKeyListener.getMetaState(mMetaState, MetaKeyKeyListener.META_SYM_ON) == 0)
+				clearStatesFlags += KeyEvent.META_SYM_ON;
+			ic.clearMetaKeyStates(clearStatesFlags);
+		}
 	}
 
 	private void commitTyped(InputConnection inputConnection) {
