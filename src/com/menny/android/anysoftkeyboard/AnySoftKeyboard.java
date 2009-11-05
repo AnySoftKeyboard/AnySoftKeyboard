@@ -676,6 +676,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 			break;
 			default:
 				mMetaState = MetaKeyKeyListener.handleKeyUp(mMetaState, keyCode, event);
+				final int clearStatesFlags = ~MetaKeyKeyListener.getMetaState(mMetaState);
+				InputConnection ic = getCurrentInputConnection();
+				if (ic != null)
+					ic.clearMetaKeyStates(clearStatesFlags);
 		}
 		return super.onKeyUp(keyCode, event);
 	}
