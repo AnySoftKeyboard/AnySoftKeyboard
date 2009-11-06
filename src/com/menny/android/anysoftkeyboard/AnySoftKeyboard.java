@@ -524,6 +524,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 				onKey(32, new int[]{32});
 				return true;
 			}
+		case KeyEvent.KEYCODE_ENTER:
+             // Let the underlying text editor always handle these.
+             return false;
 		default:			
 			if (mKeyboardSwitcher.isCurrentKeyboardPhysical()) 
 			{
@@ -533,10 +536,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 					ic.beginBatchEdit();
 				try 
 				{
+					if (DEBUG) Log.d("AnySoftKeyboard-meta-key", getMetaKeysStates("onKeyDown before handle"));
 					mMetaState = MetaKeyKeyListener.handleKeyDown(mMetaState, keyCode, event);
+					if (DEBUG) Log.d("AnySoftKeyboard-meta-key", getMetaKeysStates("onKeyDown after handle"));
 					mHardKeyboardAction.initializeAction(event, mMetaState);
-					//we are at a regular key press, so we'll update our meta-state member 
-					mMetaState = MetaKeyKeyListener.adjustMetaAfterKeypress(mMetaState);
 					//http://article.gmane.org/gmane.comp.handhelds.openmoko.android-freerunner/629
 					AnyKeyboard current = mKeyboardSwitcher.getCurrentKeyboard();
 					String keyboardName = current.getKeyboardName();
@@ -552,8 +555,19 @@ public class AnySoftKeyboard extends InputMethodService implements
 						final int translatedChar = mHardKeyboardAction.getKeyCode();
 						//typing my own.
 						onKey(translatedChar, new int[] { translatedChar });
+						//we are at a regular key press, so we'll update our meta-state member 
+						mMetaState = MetaKeyKeyListener.adjustMetaAfterKeypress(mMetaState);
+						if (DEBUG) Log.d("AnySoftKeyboard-meta-key", getMetaKeysStates("onKeyDown after adjust (translated)"));
 						//my handling
 						return true;
+					}
+					else
+					{
+						if ((event.getUnicodeChar(MetaKeyKeyListener.getMetaState(mMetaState)) > 0))
+						{
+							mMetaState = MetaKeyKeyListener.adjustMetaAfterKeypress(mMetaState);
+							if (DEBUG) Log.d("AnySoftKeyboard-meta-key", getMetaKeysStates("onKeyDown after adjust (not-translated)"));
+						}
 					}
 				}
 				finally 
@@ -670,9 +684,18 @@ public class AnySoftKeyboard extends InputMethodService implements
 			break;
 			default:
 				mMetaState = MetaKeyKeyListener.handleKeyUp(mMetaState, keyCode, event);
+				if (getDEBUG()) Log.d("AnySoftKeyboard-meta-key", getMetaKeysStates("onKeyUp"));
 				setInputConnectionMetaStateAsCurrentMetaKeyKeyListenerState();
 		}
 		return super.onKeyUp(keyCode, event);
+	}
+
+	private String getMetaKeysStates(String place) {
+		final int shiftState = MetaKeyKeyListener.getMetaState(mMetaState, MetaKeyKeyListener.META_SHIFT_ON);
+		final int altState = MetaKeyKeyListener.getMetaState(mMetaState, MetaKeyKeyListener.META_ALT_ON);
+		final int symState = MetaKeyKeyListener.getMetaState(mMetaState, MetaKeyKeyListener.META_SYM_ON);
+		
+		return "Meta keys state at "+place+"- SHIFT:"+shiftState+", ALT:"+altState+" SYM:"+symState;
 	}
 
 	private void setInputConnectionMetaStateAsCurrentMetaKeyKeyListenerState() {

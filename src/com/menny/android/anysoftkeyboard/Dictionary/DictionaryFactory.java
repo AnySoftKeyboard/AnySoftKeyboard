@@ -92,6 +92,9 @@ public class DictionaryFactory
 			case Bulgarian:
 				dict = new SQLiteSimpleDictionary(context, "bg", "bg");
 				break;
+			case Ukrainian:
+				dict = new SQLiteSimpleDictionary(context, "uk", "uk");
+				break;
 			default:
 				return null;
 			}
