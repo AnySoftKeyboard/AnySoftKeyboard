@@ -32,7 +32,6 @@ import android.os.*;
 import android.preference.PreferenceManager;
 import android.text.AutoText;
 import android.text.TextUtils;
-import android.text.method.MetaKeyKeyListener;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -262,6 +261,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mKeyboardSwitcher.makeKeyboards(false);
 		resetComposing();//clearing any predications
 		TextEntryState.newSession(this);
+		
+		if (!restarting) {
+            // Clear shift states.
+            mMetaState = 0;
+        }
 
 		mPredictionOn = false;
 		mCompletionOn = false;
@@ -454,7 +458,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			outInsets.contentTopInsets = outInsets.visibleTopInsets;
 		}
 	}
-
+	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		InputConnection ic = getCurrentInputConnection();
@@ -482,10 +486,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 				if (mInputView.handleBack()) 
 				{
 					// consuming the meta keys
-					//mHardKeyboardAction.resetMetaState();
 					if (ic != null)
+					{
 						ic.clearMetaKeyStates(Integer.MAX_VALUE);//translated, so we also take care of the metakeys.
-
+					}
+					mMetaState = 0;
 					return true;
 				} /*
 				 * else if (mTutorial != null) { mTutorial.close(); mTutorial =
@@ -502,9 +507,21 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// return true;
 		// }
 		// break;
-		case KeyEvent.KEYCODE_DEL:
-			onKey(Keyboard.KEYCODE_DELETE, new int[]{Keyboard.KEYCODE_DELETE});
-			return true;
+//		case KeyEvent.KEYCODE_DEL:
+//			onKey(Keyboard.KEYCODE_DELETE, new int[]{Keyboard.KEYCODE_DELETE});
+//			return true;
+//		case KeyEvent.KEYCODE_ENTER:
+//            // Let the underlying text editor always handle these.
+//            return false;
+		case KeyEvent.KEYCODE_ALT_LEFT:
+		case KeyEvent.KEYCODE_ALT_RIGHT:
+		case KeyEvent.KEYCODE_SHIFT_LEFT:
+		case KeyEvent.KEYCODE_SHIFT_RIGHT:
+		case KeyEvent.KEYCODE_SYM:
+			if (DEBUG) Log.d("AnySoftKeyboard-meta-key", getMetaKeysStates("onKeyDown before handle"));
+			mMetaState = MyMetaKeyKeyListener.handleKeyDown(mMetaState, keyCode, event);
+			if (DEBUG) Log.d("AnySoftKeyboard-meta-key", getMetaKeysStates("onKeyDown after handle"));
+			break;
 		case KeyEvent.KEYCODE_SPACE:
 			if (event.isAltPressed()) 
 			{
@@ -512,22 +529,23 @@ public class AnySoftKeyboard extends InputMethodService implements
 				// consuming the meta keys
 				//mHardKeyboardAction.resetMetaState();
 				if (ic != null)
+				{
 					ic.clearMetaKeyStates(Integer.MAX_VALUE);//translated, so we also take care of the metakeys.
+				}
+				mMetaState = 0;
 				// only physical keyboard
 				nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.AlphabetSupportsPhysical);
 
 				return true;
 			}
-			else
-			{
-				//still handling it
-				onKey(32, new int[]{32});
-				return true;
-			}
-		case KeyEvent.KEYCODE_ENTER:
-             // Let the underlying text editor always handle these.
-             return false;
-		default:			
+			//letting it fall through to the "default"
+//			else
+//			{
+//				//still handling it
+//				onKey(32, new int[]{32});
+//				return true;
+//			}
+		default:
 			if (mKeyboardSwitcher.isCurrentKeyboardPhysical()) 
 			{
 				// sometimes, the physical keyboard will delete input, and then add some.
@@ -536,37 +554,28 @@ public class AnySoftKeyboard extends InputMethodService implements
 					ic.beginBatchEdit();
 				try 
 				{
-					if (DEBUG) Log.d("AnySoftKeyboard-meta-key", getMetaKeysStates("onKeyDown before handle"));
-					mMetaState = MetaKeyKeyListener.handleKeyDown(mMetaState, keyCode, event);
-					if (DEBUG) Log.d("AnySoftKeyboard-meta-key", getMetaKeysStates("onKeyDown after handle"));
-					mHardKeyboardAction.initializeAction(event, mMetaState);
-					//http://article.gmane.org/gmane.comp.handhelds.openmoko.android-freerunner/629
-					AnyKeyboard current = mKeyboardSwitcher.getCurrentKeyboard();
-					String keyboardName = current.getKeyboardName();
-					HardKeyboardTranslator keyTranslator = (HardKeyboardTranslator)current;
-					
-					if (AnySoftKeyboard.DEBUG) Log.d("AnySoftKeyborad", "Asking '"	+ keyboardName + "' to translate key: " + keyCode);
-					if (DEBUG) Log.v("AnySoftKeyboard", "Hard Keyboard Action before translation: Shift: "+mHardKeyboardAction.isShiftActive()+", Alt: "+mHardKeyboardAction.isAltActive()+", Key code: "+mHardKeyboardAction.getKeyCode()+", changed: "+mHardKeyboardAction.getKeyCodeWasChanged());
-					keyTranslator.translatePhysicalCharacter(mHardKeyboardAction);
-					if (DEBUG) Log.v("AnySoftKeyboard", "Hard Keyboard Action after translation: Key code: "+mHardKeyboardAction.getKeyCode()+", changed: "+mHardKeyboardAction.getKeyCodeWasChanged());
-					
-					if (mHardKeyboardAction.getKeyCodeWasChanged())
+					if (event.isPrintingKey())
 					{
-						final int translatedChar = mHardKeyboardAction.getKeyCode();
-						//typing my own.
-						onKey(translatedChar, new int[] { translatedChar });
-						//we are at a regular key press, so we'll update our meta-state member 
-						mMetaState = MetaKeyKeyListener.adjustMetaAfterKeypress(mMetaState);
-						if (DEBUG) Log.d("AnySoftKeyboard-meta-key", getMetaKeysStates("onKeyDown after adjust (translated)"));
-						//my handling
-						return true;
-					}
-					else
-					{
-						if ((event.getUnicodeChar(MetaKeyKeyListener.getMetaState(mMetaState)) > 0))
+						mHardKeyboardAction.initializeAction(event, mMetaState);
+						//http://article.gmane.org/gmane.comp.handhelds.openmoko.android-freerunner/629
+						AnyKeyboard current = mKeyboardSwitcher.getCurrentKeyboard();
+						String keyboardName = current.getKeyboardName();
+						HardKeyboardTranslator keyTranslator = (HardKeyboardTranslator)current;
+						
+						if (AnySoftKeyboard.DEBUG) Log.d("AnySoftKeyborad", "Asking '"	+ keyboardName + "' to translate key: " + keyCode);
+						if (DEBUG) Log.v("AnySoftKeyboard", "Hard Keyboard Action before translation: Shift: "+mHardKeyboardAction.isShiftActive()+", Alt: "+mHardKeyboardAction.isAltActive()+", Key code: "+mHardKeyboardAction.getKeyCode()+", changed: "+mHardKeyboardAction.getKeyCodeWasChanged());
+						keyTranslator.translatePhysicalCharacter(mHardKeyboardAction);
+						if (DEBUG) Log.v("AnySoftKeyboard", "Hard Keyboard Action after translation: Key code: "+mHardKeyboardAction.getKeyCode()+", changed: "+mHardKeyboardAction.getKeyCodeWasChanged());
+						if (mHardKeyboardAction.getKeyCodeWasChanged())
 						{
-							mMetaState = MetaKeyKeyListener.adjustMetaAfterKeypress(mMetaState);
-							if (DEBUG) Log.d("AnySoftKeyboard-meta-key", getMetaKeysStates("onKeyDown after adjust (not-translated)"));
+							final int translatedChar = mHardKeyboardAction.getKeyCode();
+							//typing my own.
+							onKey(translatedChar, new int[] { translatedChar });
+							//my handling
+							//we are at a regular key press, so we'll update our meta-state member 
+							mMetaState = MyMetaKeyKeyListener.adjustMetaAfterKeypress(mMetaState);
+							if (DEBUG) Log.d("AnySoftKeyboard-meta-key", getMetaKeysStates("onKeyDown after adjust - translated"));
+							return true;
 						}
 					}
 				}
@@ -575,6 +584,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 					if (ic != null)
 						ic.endBatchEdit();
 				}
+			}
+			if (event.isPrintingKey())
+			{
+				//we are at a regular key press, so we'll update our meta-state member
+				mMetaState = MyMetaKeyKeyListener.adjustMetaAfterKeypress(mMetaState);
+				if (DEBUG) Log.d("AnySoftKeyboard-meta-key", getMetaKeysStates("onKeyDown after adjust"));
 			}
 		}
 		return super.onKeyDown(keyCode, event);
@@ -682,20 +697,25 @@ public class AnySoftKeyboard extends InputMethodService implements
 				return true;
 			}
 			break;
-			default:
-				mMetaState = MetaKeyKeyListener.handleKeyUp(mMetaState, keyCode, event);
-				if (getDEBUG()) Log.d("AnySoftKeyboard-meta-key", getMetaKeysStates("onKeyUp"));
-				setInputConnectionMetaStateAsCurrentMetaKeyKeyListenerState();
+		case KeyEvent.KEYCODE_ALT_LEFT:
+		case KeyEvent.KEYCODE_ALT_RIGHT:
+		case KeyEvent.KEYCODE_SHIFT_LEFT:
+		case KeyEvent.KEYCODE_SHIFT_RIGHT:
+		case KeyEvent.KEYCODE_SYM:
+			mMetaState = MyMetaKeyKeyListener.handleKeyUp(mMetaState, keyCode, event);
+			if (getDEBUG()) Log.d("AnySoftKeyboard-meta-key", getMetaKeysStates("onKeyUp"));
+			setInputConnectionMetaStateAsCurrentMetaKeyKeyListenerState();
+			break;
 		}
 		return super.onKeyUp(keyCode, event);
 	}
 
 	private String getMetaKeysStates(String place) {
-		final int shiftState = MetaKeyKeyListener.getMetaState(mMetaState, MetaKeyKeyListener.META_SHIFT_ON);
-		final int altState = MetaKeyKeyListener.getMetaState(mMetaState, MetaKeyKeyListener.META_ALT_ON);
-		final int symState = MetaKeyKeyListener.getMetaState(mMetaState, MetaKeyKeyListener.META_SYM_ON);
+		final int shiftState = MyMetaKeyKeyListener.getMetaState(mMetaState, MyMetaKeyKeyListener.META_SHIFT_ON);
+		final int altState = MyMetaKeyKeyListener.getMetaState(mMetaState, MyMetaKeyKeyListener.META_ALT_ON);
+		final int symState = MyMetaKeyKeyListener.getMetaState(mMetaState, MyMetaKeyKeyListener.META_SYM_ON);
 		
-		return "Meta keys state at "+place+"- SHIFT:"+shiftState+", ALT:"+altState+" SYM:"+symState;
+		return "Meta keys state at "+place+"- SHIFT:"+shiftState+", ALT:"+altState+" SYM:"+symState+" bits:"+MyMetaKeyKeyListener.getMetaState(mMetaState)+" state:"+mMetaState;
 	}
 
 	private void setInputConnectionMetaStateAsCurrentMetaKeyKeyListenerState() {
@@ -703,12 +723,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (ic != null)
 		{
 			int clearStatesFlags = 0;
-			if (MetaKeyKeyListener.getMetaState(mMetaState, MetaKeyKeyListener.META_ALT_ON) == 0)
+			if (MyMetaKeyKeyListener.getMetaState(mMetaState, MyMetaKeyKeyListener.META_ALT_ON) == 0)
 				clearStatesFlags += KeyEvent.META_ALT_ON;
-			if (MetaKeyKeyListener.getMetaState(mMetaState, MetaKeyKeyListener.META_SHIFT_ON) == 0)
+			if (MyMetaKeyKeyListener.getMetaState(mMetaState, MyMetaKeyKeyListener.META_SHIFT_ON) == 0)
 				clearStatesFlags += KeyEvent.META_SHIFT_ON;
-			if (MetaKeyKeyListener.getMetaState(mMetaState, MetaKeyKeyListener.META_SYM_ON) == 0)
+			if (MyMetaKeyKeyListener.getMetaState(mMetaState, MyMetaKeyKeyListener.META_SYM_ON) == 0)
 				clearStatesFlags += KeyEvent.META_SYM_ON;
+			if (DEBUG) Log.d("AnySoftKeyboard-meta-key", getMetaKeysStates("setInputConnectionMetaStateAsCurrentMetaKeyKeyListenerState with flags: "+clearStatesFlags));
 			ic.clearMetaKeyStates(clearStatesFlags);
 		}
 	}
