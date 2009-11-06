@@ -11,6 +11,7 @@ import android.text.*;
  * inherit from it; you should not instantiate this class directly in a client.
  */
 
+//Taken from: http://android.git.kernel.org/?p=platform/frameworks/base.git;a=history;f=core/java/android/text/method/MetaKeyKeyListener.java;h=61ec67fce237cf62fc5863941b0e5c21d8f718bf;hb=HEAD
 public abstract class MyMetaKeyKeyListener {
     public static final int META_SHIFT_ON = KeyEvent.META_SHIFT_ON;
     public static final int META_ALT_ON = KeyEvent.META_ALT_ON;
