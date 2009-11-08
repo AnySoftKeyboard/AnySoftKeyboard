@@ -3,21 +3,21 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ime_name">AnySoftKeyboard</string>
     
-    <string name="main_tab_welcome">Dobrodošli</string>
+    <string name="main_tab_welcome">Dobrodoli</string>
     <string name="main_tab_links">Povezave</string>
-    <string name="main_tab_credits">Sodelujoèi</string>
+    <string name="main_tab_credits">Sodelujo&#269;i</string>
     <!-- welcome tab -->
-	<string name="how_to_pointer_title">Dobrodošli v AnySoftKeyboard</string>
+	<string name="how_to_pointer_title">Dobrodoli v AnySoftKeyboard</string>
 	<string name="how_to_pointer_version_prefix">Verzija: </string>
-	<string name="how_to_pointer_not_app">AnySoftKeyboard ni obièajna aplikacija - je nadomestek za ekransko tipkovnico.</string>
-	<string name="how_to_pointer_go_to_links">Za dodatne informacije pojdite na jezièek s povezavami.</string>
+	<string name="how_to_pointer_not_app">AnySoftKeyboard ni obi&#269;ajna aplikacija - je nadomestek za ekransko tipkovnico.</string>
+	<string name="how_to_pointer_go_to_links">Za dodatne informacije pojdite na jezi&#269;ek s povezavami.</string>
 	<!-- links tab -->
 	<string name="how_to_pointer_how_to_url">Podrobnosti o uporabi te tipkovnice:</string>
-	<string name="how_to_pointer_site">Splošne podrobnosti:</string>
+	<string name="how_to_pointer_site">Splone podrobnosti:</string>
 	<string name="how_to_pointer_changelog">Podrobnosti o zadnji verziji:</string>
-	<string name="how_to_pointer_issues">Poroèanje o hrošèih:</string>
+	<string name="how_to_pointer_issues">Poro&#269;anje o hro&#269;ih:</string>
 	<!-- credits tab -->
-	<string name="main_tab_credits_title">Ta aplikacija je bila narejena s pomoèjo sledeèih oseb-</string>
+	<string name="main_tab_credits_title">Ta aplikacija je bila narejena s pomo&#269;jo slede&#269;ih oseb-</string>
 	<string name="main_tab_credits_created_by">Ustvaril jo je:</string>
 	<string name="main_tab_credits_additional_work_by">Dodatno programersko delo je od:</string>
 	<string name="main_tab_credits_localization_by">Pri lokalizaciji so pomagali:</string>
@@ -29,7 +29,7 @@
     <string name="added_word"><xliff:g id="word">%s</xliff:g> : Shranjeno</string>
     
     <!-- settings - UI -->
-    <string name="ui_group">Uporabniški vmesnik</string>
+    <string name="ui_group">Uporabniki vmesnik</string>
     <string name="keyboard_layout_change_method_title">Metoda spremembe postavitve</string>
     <string name="keyboard_layout_change_method_summary">Metoda spremembe postavitve zaslonske tipkovnice</string>
     <string name="keyboard_layout_change_method_dialog_title">Metoda izbire</string>
@@ -43,26 +43,26 @@
     <string name="physical_keyboard_change_notification_summary">Tip obvestila o postavitvi tipkovnice</string>
     <string name="physical_keyboard_change_notification_dialog_title">Izberi tip obvestila</string>
     <string-array name="physical_keyboard_change_notification_types">
-        <item>Vedno prikaži ikono postavitve</item>
-        <item>Spremembe na fizièni tipkovnici</item>
+        <item>Vedno prikai ikono postavitve</item>
+        <item>Spremembe na fizi&#269;ni tipkovnici</item>
         <item>Brez obvestil</item>
     </string-array>
     
     <string name="lengthy_operations_toast_notification">Obvesti me o dolgih operacijah</string>
-    <string name="lengthy_operations_toast_notification_summary">Prikaži kratko obvestilo o dolgih operacijah</string>
+    <string name="lengthy_operations_toast_notification_summary">Prikai kratko obvestilo o dolgih operacijah</string>
     
     <!-- Options menu -->
     <string name="change_ime">Spremeni vnosno metodo</string>
-    <string name="override_dictionary">Prepiši privzeti slovar</string>
+    <string name="override_dictionary">Prepii privzeti slovar</string>
     <!-- Dictionary override strings -->
-    <string name="override_dictionary_title">Prepiši <xliff:g id="word">%s</xliff:g> slovar</string>
+    <string name="override_dictionary_title">Prepii <xliff:g id="word">%s</xliff:g> slovar</string>
     <string name="override_dictionary_default">Privzeti</string>
     <!-- Dictionary override toast messages -->
     <string name="override_disabled">Prepisovanje preklicano</string>
     <string name="override_enabled">Prepisujem v <xliff:g id="word">%s</xliff:g></string>
     
     <!-- settings - effects-->
-    <string name="effects_group">Uèinki</string>
+    <string name="effects_group">U&#269;inki</string>
     <string name="ime_settings">Nastavitve tipkovnice</string>
     <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Vibriraj ob pritisku na tipko</string>
@@ -72,40 +72,40 @@
     	<item>Brez vibracije</item>
         <item>Mehko</item>
         <item>Srednje</item>
-        <item>Moèno</item>
+        <item>Mo&#269;no</item>
     </string-array>
     
     <string name="sound_on">Zvok ob pritisku tipke</string>
-    <string name="sound_on_summary">Zvoèni efekti ob pritisku na zaslonsko tipkovnico. Glasnost je glasnost obvestil.</string>
-    <string name="auto_caps">Samodejno velike èrke</string>
+    <string name="sound_on_summary">Zvo&#269;ni efekti ob pritisku na zaslonsko tipkovnico. Glasnost je glasnost obvestil.</string>
+    <string name="auto_caps">Samodejno velike &#269;rke</string>
     <string name="grammer_group">Slovnica</string>
-    <string name="candidates_on">Prikaži predloge</string>
+    <string name="candidates_on">Prikai predloge</string>
     <string name="quick_fix">Hitri popravki</string>
-    <string name="quick_fix_summary">Popravi obièajne tipkarske napake</string>
+    <string name="quick_fix_summary">Popravi obi&#269;ajne tipkarske napake</string>
     <string name="auto_complete">Samodejna izbira predloga</string>
-    <string name="auto_complete_summary">Presledek bo izbral oznaèen predlog</string>
-    <string name="physical_keyboard_suggestions">Predlogi za fizièno tipkovnico</string>
-    <string name="physical_keyboard_suggestions_summary">Prikaži predloge ko je v uporabi fizièna tipkovnica</string>
+    <string name="auto_complete_summary">Presledek bo izbral ozna&#269;en predlog</string>
+    <string name="physical_keyboard_suggestions">Predlogi za fizi&#269;no tipkovnico</string>
+    <string name="physical_keyboard_suggestions_summary">Prikai predloge ko je v uporabi fizi&#269;na tipkovnica</string>
     
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Tipkovnice</string>
-    <string name="eng_keyboard">Angleška</string>
+    <string name="eng_keyboard">Angleka</string>
     <string name="heb_keyboard">Hebrejska</string>
     <string name="lao_keyboard">Lao</string>
     <string name="arabic_keyboard">Arabska</string>
-    <string name="bg_ph_keyboard">Bolgarska fonetièna</string>
+    <string name="bg_ph_keyboard">Bolgarska foneti&#269;na</string>
     <string name="bg_bds_keyboard">Bolgarska BDS</string>
     <string name="dvorak_keyboard">Dvorak</string>
-    <string name="finnish_swedish_keyboard">Švedska/Finska</string>
+    <string name="finnish_swedish_keyboard">vedsko/Finska</string>
     <string name="catalan_keyboard">Katalonska</string>
-    <string name="ch_fr_keyboard">Švicarsko Francoska</string>
-    <string name="de_keyboard">Nemška/Švicarsko Nemška</string>
+    <string name="ch_fr_keyboard">vicarsko Francoska</string>
+    <string name="de_keyboard">Nemka/vicarsko Nemka</string>
     <string name="azerty_keyboard">AZERTY</string>
-    <string name="es_keyboard">Španska</string>
-    <string name="ru_ph_keyboard">Ruska fonetièna</string>
+    <string name="es_keyboard">panska</string>
+    <string name="ru_ph_keyboard">Ruska foneti&#269;na</string>
     <string name="ru_keyboard">Ruska</string>
     <string name="ru_keyboard_4_row">Uporabi 4 vrstno Rusko postavitev</string>
-    <string name="be_cyrillic_keyboard">Beloruskqa cirilica</string>
+    <string name="be_cyrillic_keyboard">Beloruska cirilica</string>
     <string name="be_latin_keyboard">Beloruska latinica</string>
     <string name="pt_keyboard">Portugalska</string>
 	<string name="thai_keyboard">Tajska</string>
@@ -113,21 +113,21 @@
 	<string name="ka_keyboard">Gruzijska</string>
     
     <!-- Tutorials --> 
-    <string name="show_tutorial_on_startup">Prikaži ta navodila ob zagonu</string>
+    <string name="show_tutorial_on_startup">Prikai ta navodila ob zagonu</string>
     <string name="tutorial_swipe_title">Drsenje po ekranu za spremembo tipkovnice</string>
-    <string name="tutorial_swipe_text">Postavitev tipkovnice se lahko spremeni z drsenjem prsta èez tipkovnico. Drsenje od leve proti desni za spremembo jezika, drsenje od desne proti levi za spremembo simbolov.</string>
+    <string name="tutorial_swipe_text">Postavitev tipkovnice se lahko spremeni z drsenjem prsta &#269;ez tipkovnico. Drsenje od leve proti desni za spremembo jezika, drsenje od desne proti levi za spremembo simbolov.</string>
     
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Pojdi</string>
     <string name="label_next_key">Naslednji</string>
-    <string name="label_send_key">Pošlji</string>
+    <string name="label_send_key">Polji</string>
     
     <string name="change_lang_wide">&#8594; ABC &#8594;</string>
     <string name="change_lang_regular">ABC</string>
     <string name="change_symbols_wide">&#8592; 123 &#8592;</string>
     <string name="change_symbols_regular">123</string>
     
-    <string name="please_wait">Prosimo poèakajte...</string>
+    <string name="please_wait">Prosimo po&#269;akajte...</string>
     <string name="toast_lengthy_words_long_operation">Nalagam slovar...</string>
     <string name="toast_lengthy_start_up_operation">Zaganjam AnySoftKeyboard...</string>
     <string name="lengthy_creating_keyboard_operation">Ustvarjam tipkovnice...</string>
