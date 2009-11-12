@@ -40,23 +40,9 @@ public class KeyboardSwitcher
     public static final int MODE_URL = 4;
     public static final int MODE_EMAIL = 5;
     public static final int MODE_IM = 6;
-//    
-//    public static final int MODE_TEXT_QWERTY = 0;
-//    public static final int MODE_TEXT_ALPHA = 1;
-//    public static final int MODE_TEXT_COUNT = 2;
     
     AnyKeyboardView mInputView;
     AnySoftKeyboard mContext;
-    
-//    private LatinKeyboard mPhoneKeyboard;
-//    private LatinKeyboard mPhoneSymbolsKeyboard;
-//    private LatinKeyboard mSymbolsKeyboard;
-//    private LatinKeyboard mSymbolsShiftedKeyboard;
-//    private LatinKeyboard mQwertyKeyboard;
-//    private LatinKeyboard mAlphaKeyboard;
-//    private LatinKeyboard mUrlKeyboard;
-//    private LatinKeyboard mEmailKeyboard;
-//    private LatinKeyboard mIMKeyboard;
     
     private static final int SYMBOLS_KEYBOARD_REGULAR_INDEX = 0;
     private static final int SYMBOLS_KEYBOARD_SHIFTED_INDEX = 1;
@@ -70,9 +56,7 @@ public class KeyboardSwitcher
     
     private int mLastSelectedKeyboard = 0;
     
-    //private int mMode;
     private int mImeOptions;
-    //private int mTextMode = MODE_TEXT_QWERTY;
     private boolean mAlphabetMode = true;;
     private int mLastDisplayWidth;
 
@@ -121,7 +105,7 @@ public class KeyboardSwitcher
         // Configuration change is coming after the keyboard gets recreated. So don't rely on that.
         // If keyboards have already been made, check if we have a screen width change and 
         // create the keyboard layouts again at the correct orientation
-    	int displayWidth = mContext.getMaxWidth();
+    	final int displayWidth = mContext.getMaxWidth();
         if ((mAlphabetKeyboards != null) || (mSymbolsKeyboardsArray != null)) 
         {
         	if (AnySoftKeyboard.getDEBUG())

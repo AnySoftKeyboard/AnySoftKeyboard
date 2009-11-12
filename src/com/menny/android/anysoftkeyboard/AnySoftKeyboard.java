@@ -439,7 +439,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			// CharSequence typedWord = mWord.getTypedWord();
 			mCandidateView.setSuggestions(stringList, true, true, true);
 			mBestWord = null;
-			setCandidatesViewShown(isCandidateStripVisible() || mCompletionOn);
+			setCandidatesViewShown(shouldCandidatesStripBeShown() || mCompletionOn);
 		}
 	}
 
@@ -447,7 +447,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public void setCandidatesViewShown(boolean shown) {
 		//we show predication only in on-screen keyboard (onEvaluateInputViewShown)
 		//or if the physical keyboard supports candidates (mPredictionLandscape)
-		super.setCandidatesViewShown((onEvaluateInputViewShown() || mPredictionLandscape) && shown);
+		super.setCandidatesViewShown(shouldCandidatesStripBeShown() && shown);
 	}
 
 	
@@ -1047,7 +1047,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		return predictionOn;
 	}
 
-	private boolean isCandidateStripVisible() {
+	private boolean shouldCandidatesStripBeShown() {
 		boolean shown = isPredictionOn() && mShowSuggestions;
 		if (!onEvaluateInputViewShown()) shown &= mPredictionLandscape;
 		return shown;
@@ -1064,7 +1064,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			return;
 		}
 		
-		final boolean showSuggestions = (mCandidateView != null && mPredicting  && isPredictionOn() && isCandidateStripVisible());
+		final boolean showSuggestions = (mCandidateView != null && mPredicting  && isPredictionOn() && shouldCandidatesStripBeShown());
 
 		if  (!showSuggestions)
 		{
@@ -1093,7 +1093,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		} else {
 			mBestWord = null;
 		}
-		setCandidatesViewShown(isCandidateStripVisible() || mCompletionOn);
+		setCandidatesViewShown(shouldCandidatesStripBeShown() || mCompletionOn);
 	}
 
 	private void pickDefaultSuggestion() {
