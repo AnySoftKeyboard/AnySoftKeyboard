@@ -87,6 +87,8 @@
     <string name="physical_keyboard_suggestions">הצעות עם המקדלת הפיזית</string>
     <string name="physical_keyboard_suggestions_summary">הראה הצעות מילים בשימוש במקלדת הפיזית</string>
     
+    <string name="keyboard_sandbox">איזור לבדיקת ההגדרות</string>
+    <string name="keyboard_sandbox_title">איזור לצורך בדיקות המקלדות וההגדרות</string>
     <!-- settings - keyboard group -->
     <string name="keyboards_group">מקלדות</string>
     <string name="eng_keyboard">אנגלית</string>
@@ -111,6 +113,8 @@
 	<string name="thai_keyboard">תאית</string>
 	<string name="fr_ca_keyboard">צרפתית קנדית</string>
 	<string name="ka_keyboard">גאורגית</string>
+	<string name="uk_keyboard">אוקראינית</string>
+	<string name="uk_keyboard_4_row">אוקראינית (4 שורות)</string>
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">הראה מדריך באתחול</string>
