@@ -325,10 +325,18 @@ public class KeyboardSwitcher
 			KeyboardCreator creator = mAlphabetKeyboardsCreators[index];
 			Log.d("AnySoftKeyboard", "About to create keyboard: "+creator.getKeyboardPrefId());
 			mAlphabetKeyboards[index] = creator.createKeyboard(mContext);
-			return mAlphabetKeyboards[index];
+			keyboard = mAlphabetKeyboards[index];
+			if (keyboard.getMinWidth() != mLastDisplayWidth)
+			{
+				Log.w("AnySoftKeyboard", "NOTE: The created keyboard has the wrong width! Keyboard width: "+keyboard.getMinWidth()+", device width:"+mLastDisplayWidth);
+			}
 		}
-		else
-			return keyboard;
+		
+		if (keyboard.getMinWidth() != mLastDisplayWidth)
+		{
+			Log.w("AnySoftKeyboard", "NOTE: The returned keyboard has the wrong width! Keyboard width: "+keyboard.getMinWidth()+", device width:"+mLastDisplayWidth);
+		}
+		return keyboard;
 	}
 
 	public AnyKeyboard nextKeyboard(EditorInfo currentEditorInfo, NextKeyboardType type) 

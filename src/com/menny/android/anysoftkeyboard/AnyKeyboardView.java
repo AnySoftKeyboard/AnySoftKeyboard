@@ -21,6 +21,7 @@ import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.inputmethodservice.Keyboard.Key;
 import android.util.AttributeSet;
+import android.util.Log;
 
 public class AnyKeyboardView extends KeyboardView {
 
@@ -64,6 +65,15 @@ public class AnyKeyboardView extends KeyboardView {
         } else {
             return super.onLongPress(key);
         }
+    }
+    
+    @Override
+    public void setKeyboard(Keyboard keyboard) {
+    	if ((keyboard != null) && (keyboard.getMinWidth() != getWidth()))
+		{
+			Log.w("AnySoftKeyboard", "NOTE: The SET keyboard has the wrong width! Keyboard width: "+keyboard.getMinWidth()+", device width:"+getWidth());
+		}
+    	super.setKeyboard(keyboard);
     }
 
     
