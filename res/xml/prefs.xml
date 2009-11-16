@@ -130,6 +130,14 @@ android:key="ime_settings">
 				android:summaryOff="Created with Stephen Paul Weber"
 				/>
 				<CheckBoxPreference
+				android:key="colemak_keyboard"
+				android:title="@string/colemak_keyboard"
+				android:persistent="true" 
+				android:defaultValue="false"
+				android:summaryOn="Created with Hugo Lopes"
+				android:summaryOff="Created with Hugo Lopes"
+				/>
+				<CheckBoxPreference
 				android:key="heb_keyboard"
 				android:title="@string/heb_keyboard"
 				android:persistent="true"

@@ -24,6 +24,7 @@ public class KeyboardFactory
 	public static final String ENGLISH_KEYBOARD = "eng_keyboard";
 	public static final String AZERTY_KEYBOARD = "azerty_keyboard";
 	public static final String DVORAK_KEYBOARD = "dvorak_keyboard";
+	public static final String COLEMAK_KEYBOARD = "colemak_keyboard";
 	public static final String HEBREW_KEYBOARD = "heb_keyboard";
 	public static final String RU_KEYBOARD = "ru_keyboard";
 	public static final String RU_PH_KEYBOARD = "ru_ph_keyboard";
@@ -53,7 +54,10 @@ public class KeyboardFactory
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new EnglishKeyboard(contextProvider);} public String getKeyboardPrefId() {return ENGLISH_KEYBOARD;}});
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, KeyboardFactory.AZERTY_KEYBOARD, R.xml.azerty, R.string.azerty_keyboard, Dictionary.Language.French, R.drawable.sym_keyboard_notification_icon);} public String getKeyboardPrefId() {return AZERTY_KEYBOARD;}});
 		//issue 31
-		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, KeyboardFactory.ENGLISH_KEYBOARD, R.xml.dvorak, R.string.dvorak_keyboard, Dictionary.Language.English, R.drawable.en);} public String getKeyboardPrefId() {return DVORAK_KEYBOARD;}});
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, KeyboardFactory.DVORAK_KEYBOARD, R.xml.dvorak, R.string.dvorak_keyboard, Dictionary.Language.English, R.drawable.en);} public String getKeyboardPrefId() {return DVORAK_KEYBOARD;}});
+		
+		//issue 178: colemak
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, KeyboardFactory.COLEMAK_KEYBOARD, R.xml.colemak, R.string.colemak_keyboard, Dictionary.Language.English, R.drawable.en);} public String getKeyboardPrefId() {return COLEMAK_KEYBOARD;}});
 		
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new HebrewKeyboard(contextProvider);} public String getKeyboardPrefId() {return HEBREW_KEYBOARD;}});
 		//issue 59 - Regular Russian layout
