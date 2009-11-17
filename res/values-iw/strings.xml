@@ -115,6 +115,7 @@
 	<string name="ka_keyboard">גאורגית</string>
 	<string name="uk_keyboard">אוקראינית</string>
 	<string name="uk_keyboard_4_row">אוקראינית (4 שורות)</string>
+    <string name="colemak_keyboard">פריסת Colemak</string>
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">הראה מדריך באתחול</string>
