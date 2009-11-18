@@ -848,6 +848,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
 			break;
 		default:
+			primaryCode = translatePrimaryCodeFromCurrentKeyboard(primaryCode);
 			if (isWordSeparator(primaryCode)) {
 				handleSeparator(primaryCode);
 			} else {
@@ -931,7 +932,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 				mWord.reset();
 			}
 		}
-		primaryCode = translatePrimaryCodeFromCurrentKeyboard(primaryCode);
 		// if (mInputView.isShifted()) {
 		// primaryCode = Character.toUpperCase(primaryCode);
 		// }
