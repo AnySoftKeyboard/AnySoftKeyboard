@@ -42,8 +42,7 @@
       </Row>
     
     <Row>
-        <Key android:codes="-1" android:keyIcon="@drawable/sym_keyboard_shift" 
-                android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
+        <Key android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete_small" android:isRepeatable="true" android:keyEdgeFlags="left"/>
         <Key android:horizontalGap="5%p" android:codes="122" android:keyLabel="z"/>
         <Key android:codes="120" android:keyLabel="x"/>
         <Key android:codes="99" android:keyLabel="c"/>
@@ -51,7 +50,8 @@
         <Key android:codes="98" android:keyLabel="b"/>
         <Key android:codes="107" android:keyLabel="k"/>
         <Key android:codes="109" android:keyLabel="m"/>
-        <Key android:horizontalGap="5%p" android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete_small" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+        <Key android:codes="-1" android:keyIcon="@drawable/sym_keyboard_shift" 
+                android:isModifier="true" android:isSticky="true" android:horizontalGap="5%p" android:keyEdgeFlags="right"/>
     </Row>
     
     <!-- Generic bottom row -->
