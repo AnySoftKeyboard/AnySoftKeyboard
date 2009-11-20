@@ -45,7 +45,7 @@
     <string-array name="physical_keyboard_change_notification_types">
         <item>Näytä aina asetteluikoni</item>
         <item>Fyys. näppäimistön muuttuessa</item>
-        <item>Ei muistutusta</item>
+        <item>Ei tiedotuksia</item>
     </string-array>
     
     <string name="lengthy_operations_toast_notification">Tiedota pitkäkestoisista toiminnoista</string>
@@ -86,7 +86,7 @@
     <string name="auto_complete_summary">Välilyönti valitsee automaattisesti korostetun ehdotuksen</string>
 	<string name="physical_keyboard_suggestions">Ehdotukset laitenäppäimistöllä</string>
     <string name="physical_keyboard_suggestions_summary">Näytä ehdotukset käytettäessä laitteen näppäimistöä</string>
-        <string name="keyboard_sandbox">Paina testataksesi</string>
+        <string name="keyboard_sandbox">Kokeile asetuksia</string>
     <string name="keyboard_sandbox_title">Kirjoita tähän testataksesi asetuksiasi</string>
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Näppäimistöt</string>
