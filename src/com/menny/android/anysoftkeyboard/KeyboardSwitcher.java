@@ -57,8 +57,7 @@ public class KeyboardSwitcher
     private int mLastSelectedKeyboard = 0;
     
     private int mImeOptions;
-    private boolean mAlphabetMode = true;;
-    private int mLastDisplayWidth;
+    private boolean mAlphabetMode = true;
 
     KeyboardSwitcher(AnySoftKeyboard context) {
         mContext = context;
@@ -70,10 +69,16 @@ public class KeyboardSwitcher
     		mInputView.setPhoneKeyboard(mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_PHONE_INDEX]);
     }
     
-    private AnyKeyboard getSymbolsKeyboard(int keyboardIndex)
+    private synchronized AnyKeyboard getSymbolsKeyboard(int keyboardIndex)
     {
     	makeKeyboards(false);
     	AnyKeyboard keyboard = mSymbolsKeyboardsArray[keyboardIndex];
+    	if ((keyboard != null) && (keyboard.getMinWidth() != mContext.getMaxWidth()))
+    	{
+    		Log.d("AnySoftKeyboard", "Symbols keyboard width is "+keyboard.getMinWidth()+", while view width is "+mContext.getMaxWidth()+". Recreating.");
+    		keyboard = null;
+    		mSymbolsKeyboardsArray[keyboardIndex] = null;
+    	}
     	if (keyboard == null)
     	{
 	    	switch(keyboardIndex)
@@ -92,6 +97,12 @@ public class KeyboardSwitcher
 	    	}
 	    	mSymbolsKeyboardsArray[keyboardIndex] = keyboard;
     	}
+    	
+    	if (keyboard.getMinWidth() != mContext.getMaxWidth())
+		{
+			Log.w("AnySoftKeyboard", "NOTE: The returned keyboard has the wrong width! Keyboard width: "+keyboard.getMinWidth()+", device width:"+mContext.getMaxWidth());
+		}
+    	
     	return keyboard;
     }
     
@@ -102,23 +113,17 @@ public class KeyboardSwitcher
     }
     
     synchronized void makeKeyboards(boolean force) {
-        // Configuration change is coming after the keyboard gets recreated. So don't rely on that.
-        // If keyboards have already been made, check if we have a screen width change and 
-        // create the keyboard layouts again at the correct orientation
-    	final int displayWidth = mContext.getMaxWidth();
-        if ((mAlphabetKeyboards != null) || (mSymbolsKeyboardsArray != null)) 
+        if (force) 
         {
         	if (AnySoftKeyboard.getDEBUG())
-            	Log.d("AnySoftKeyboard", "makeKeyboards: force:"+force+" maxWidth:"+displayWidth+" mLastDisplayWidth"+mLastDisplayWidth);
-            if ((!force) && (displayWidth == mLastDisplayWidth)) return;
+            	Log.d("AnySoftKeyboard", "Forcing make Keyboards");
             mAlphabetKeyboards = null;
             mSymbolsKeyboardsArray = null;
         }
-        mLastDisplayWidth = displayWidth;
         
         if ((mAlphabetKeyboards == null) || (mSymbolsKeyboardsArray == null))
         {
-        	Log.d("AnySoftKeyboard", "makeKeyboards: force:"+force+" maxWidth:"+displayWidth+" mLastDisplayWidth"+mLastDisplayWidth+". Creating keyboards.");
+        	Log.d("AnySoftKeyboard", "makeKeyboards: force:"+force);
         	mContext.performLengthyOperation(R.string.lengthy_creating_keyboard_operation, 
         			new Runnable()
         	{
@@ -171,55 +176,14 @@ public class KeyboardSwitcher
         keyboard.setTextVariation(mContext.getResources(), (attr == null)? 0 : attr.inputType);
     }
 
-//    int getKeyboardMode() {
-//        return mMode;
-//    }
-//    
-//    boolean isTextMode() {
-//        return mMode == MODE_TEXT;
-//    }
-//    
-//    int getTextMode() {
-//        return mTextMode;
-//    }
-//    
-//    void setTextMode(int position) {
-//        if (position < MODE_TEXT_COUNT && position >= 0) {
-//            mTextMode = position;
-//        }
-//        if (isTextMode()) {
-//            setKeyboardMode(MODE_TEXT, mImeOptions);
-//        }
-//    }
-//
-//    int getTextModeCount() {
-//        return MODE_TEXT_COUNT;
-//    }
-
     boolean isAlphabetMode() {
     	return mAlphabetMode;
-/*        Keyboard current = mInputView.getKeyboard();
-        for(AnyKeyboard enabledKeyboard : mKeyboards)
-        {
-        	if (enabledKeyboard == current)
-        		return true;
-        }
-        return false;*/
-//        if (current == mQwertyKeyboard
-//                || current == mAlphaKeyboard
-//                || current == mUrlKeyboard
-//                || current == mIMKeyboard
-//                || current == mEmailKeyboard) {
-//            return true;
-//        }
-//        return false;
     }
 
     void toggleShift() 
     {
         Keyboard currentKeyboard = mInputView.getKeyboard();
         
-        //AnyKeyboard[] symbols = getSymbolsKeyboards(); 
         if (currentKeyboard == mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_REGULAR_INDEX]) 
         {
         	mLastSelectedSymbolsKeyboard = 1;
@@ -320,21 +284,25 @@ public class KeyboardSwitcher
 			index = 0;
 		
 		AnyKeyboard keyboard = keyboards[index];
+		
+		if ((keyboard != null) && (keyboard.getMinWidth() != mContext.getMaxWidth()))
+    	{
+    		Log.d("AnySoftKeyboard", "Alphabet keyboard width is "+keyboard.getMinWidth()+", while view width is "+mContext.getMaxWidth()+". Recreating.");
+    		keyboard = null;
+    		keyboards[index] = null;
+    	}
+		
 		if (keyboard == null)
 		{
 			KeyboardCreator creator = mAlphabetKeyboardsCreators[index];
 			Log.d("AnySoftKeyboard", "About to create keyboard: "+creator.getKeyboardPrefId());
 			mAlphabetKeyboards[index] = creator.createKeyboard(mContext);
 			keyboard = mAlphabetKeyboards[index];
-			if (keyboard.getMinWidth() != mLastDisplayWidth)
-			{
-				Log.w("AnySoftKeyboard", "NOTE: The created keyboard has the wrong width! Keyboard width: "+keyboard.getMinWidth()+", device width:"+mLastDisplayWidth);
-			}
 		}
 		
-		if (keyboard.getMinWidth() != mLastDisplayWidth)
+		if (keyboard.getMinWidth() != mContext.getMaxWidth())
 		{
-			Log.w("AnySoftKeyboard", "NOTE: The returned keyboard has the wrong width! Keyboard width: "+keyboard.getMinWidth()+", device width:"+mLastDisplayWidth);
+			Log.w("AnySoftKeyboard", "NOTE: The returned keyboard has the wrong width! Keyboard width: "+keyboard.getMinWidth()+", device width:"+mContext.getMaxWidth());
 		}
 		return keyboard;
 	}
