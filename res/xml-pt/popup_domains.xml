@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-    android:keyWidth="15%p"
+    android:keyWidth="20%p"
     android:horizontalGap="0px"
-    android:verticalGap="5%p"
+    android:verticalGap="0px"
     android:keyHeight="@dimen/key_height">
     <Row android:rowEdgeFlags="top">
 		<Key android:keyLabel=".net" android:keyOutputText=".net" android:keyEdgeFlags="left"/>
@@ -15,5 +15,6 @@
 		<Key android:keyLabel=".pt" android:keyOutputText=".pt" android:keyEdgeFlags="left"/>
 		<Key android:keyLabel=".com.pt" android:keyOutputText=".com.pt"/>
 		<Key android:keyLabel=".org.pt" android:keyOutputText=".org.pt"/>
+		<Key android:keyLabel=".eu" android:keyOutputText=".eu" android:keyEdgeFlags="right"/>
 	</Row>
 </Keyboard>
