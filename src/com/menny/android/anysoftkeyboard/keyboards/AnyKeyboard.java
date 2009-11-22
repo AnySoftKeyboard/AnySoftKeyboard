@@ -368,10 +368,6 @@ public abstract class AnyKeyboard extends Keyboard
 			{
 				onKeyShifted(data, shiftState);
 			}
-//			for(Key aKey : getKeys())
-//			{
-//				onKeyShifted(aKey, shiftState);
-//			}
 		}
 		
 		return result;
@@ -385,15 +381,6 @@ public abstract class AnyKeyboard extends Keyboard
 	{
 		AnyKey aKey = data.KeyboardKey;
 		aKey.label = shiftState? ""+data.ShiftCharacter : ""+((char)aKey.codes[0]);
-//		if (aKey.codes.length > 1)
-//		{
-//			aKey.label = shiftState? ""+((char)aKey.codes[1]) : ""+((char)aKey.codes[0]);
-//			Log.v("AnySoftKeyboard", "setShifted: changed key:"+aKey.label);
-//		}
-//		else
-//		{
-//			Log.v("AnySoftKeyboard", "setShifted: not changed key:"+aKey.label);
-//		}
 	}
 	
 	protected void setPopupKeyChars(Key aKey) 
@@ -440,11 +427,8 @@ public abstract class AnyKeyboard extends Keyboard
 		if (AnySoftKeyboard.getDEBUG())
     		Log.d("AnySoftKeyboard", "setTextVariation");
 		int variation = inputType &  EditorInfo.TYPE_MASK_VARIATION;
-		//if ((keyboardType == NextKeyboardType.Any) && 
-		//		mInternetKeyboard.isEnabled() &&
-		//		(variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS 
-		//        || variation == EditorInfo.TYPE_TEXT_VARIATION_URI)) {
-        switch (variation) {
+		
+		switch (variation) {
 	        case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
 	        case EditorInfo.TYPE_TEXT_VARIATION_URI:
 	        	if (mSmileyKey != null)
@@ -545,19 +529,18 @@ public abstract class AnyKeyboard extends Keyboard
         	switch(codes[0])
         	{
         	case 10://the enter key!
-        		//we want to "click" it only if it in the lower 80%
-        		mStartY += (this.height * 0.2);
+        		//we want to "click" it only if it in the lower
+        		mStartY += (this.height * 0.15);
         		break;
         	case KEYCODE_DELETE:
-        		//we want to "click" it only if it in the middle 80%
-        		//and in the right 80%
-        		mStartY += (this.height * 0.1);
-        		mEndY -= (this.height * 0.2);
-        		mStartX += (this.width * 0.1);
+        		//we want to "click" it only if it in the middle
+        		mStartY += (this.height * 0.05);
+        		mEndY -= (this.height * 0.05);
+        		mStartX += (this.width * 0.075);
         		break;
         	case KEYCODE_SHIFT:
-        		//we want to "click" it only if it in the left 80%
-        		mEndX -= (this.width * 0.15);
+        		//we want to "click" it only if it in the left
+        		mEndX -= (this.width * 0.1);
         		break;
         	}
         }
@@ -573,51 +556,7 @@ public abstract class AnyKeyboard extends Keyboard
 				clickedX <= mEndX &&
 				clickedY >= mStartY &&
 				clickedY <= mEndY;
-//        	int startX = this.x;
-//        	int startY = this.y;
-//        	int endX = this.width + this.x;
-//        	int endY = this.height + this.y;
-//        	
-//        	boolean isInside = false;
-//        	switch(codes[0])
-//        	{
-//        	case 10://the enter key!
-//        		//we want to "click" it only if it in the lower 80%
-//        		startY += (this.height * 0.2);
-//        		isInside = checkIfInside(startX, startY, endX, endY, clickedX, clickedY);
-//        		break;
-//        	case KEYCODE_DELETE:
-//        		//we want to "click" it only if it in the middle 80%
-//        		//and in the right 80%
-//        		startY += (this.height * 0.1);
-//        		endY -= (this.height * 0.2);
-//        		startX += (this.width * 0.15);
-//        		isInside = checkIfInside(startX, startY, endX, endY, clickedX, clickedY);
-//        		break;
-//        	case KEYCODE_SHIFT:
-//        		//we want to "click" it only if it in the left 80%
-//        		endX -= (this.width * 0.2);
-//        		isInside = checkIfInside(startX, startY, endX, endY, clickedX, clickedY);
-//        		break;
-//    		default:
-//    			isInside = super.isInside(clickedX, clickedY);
-//        		break;
-//        	}
-//            
-//        	//Log.d("AnySoftKeyboard", "Key "+codes[0]+" x:"+this.x+", y:"+this.y+", height:"+this.height+", width:"+this.width+", clickedX:"+clickedX+", clickedY:"+clickedY+" result:"+isInside);
-//        	
-//            return isInside;
         }
-
-//		private boolean checkIfInside(int startX, int startY, 
-//				int endX, int endY, 
-//				int clickedX, int clickedY) 
-//		{
-//			return 	clickedX >= startX &&
-//					clickedX <= endX &&
-//					clickedY >= startY &&
-//					clickedY <= endY;
-//		}
     }
 
 	public String getKeyboardPrefId() {
