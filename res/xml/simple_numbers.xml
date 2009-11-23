@@ -13,7 +13,7 @@
     android:keyWidth="45%p"
     android:keyHeight="5%p">
     	<Key android:codes="-2" android:horizontalGap="0%p" android:keyLabel="&#8592; 123 &#8592;" android:keyEdgeFlags="left"/>
-        <Key android:codes="-99" android:horizontalGap="0px" android:keyLabel="&#8594; ABC &#8594;" android:keyEdgeFlags="right"/>
+        <Key android:codes="-99" android:horizontalGap="10%p" android:keyLabel="&#8594; ABC &#8594;" android:keyEdgeFlags="right"/>
     </Row>
 
     <Row>
