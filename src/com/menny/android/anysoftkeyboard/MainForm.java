@@ -1,14 +1,18 @@
 package com.menny.android.anysoftkeyboard;
 
 import android.app.TabActivity;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TabHost;
 import android.widget.TextView;
 
-public class MainForm extends TabActivity {
+public class MainForm extends TabActivity implements OnClickListener {
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,5 +36,18 @@ public class MainForm extends TabActivity {
 	    mTabHost.addTab(mTabHost.newTabSpec("tab_test3").setIndicator(getString(R.string.main_tab_credits)).setContent(R.id.main_tab3));
 	    
 	    mTabHost.setCurrentTab(0);
+	    
+		Button gotoSettings = (Button)super.findViewById(R.id.goto_settings_button);
+		gotoSettings.setOnClickListener(this);
     }
+
+	public void onClick(View v) {
+		if (v.getId() == R.id.goto_settings_button)
+		{
+			Intent intent = new Intent();
+			intent.setClass(this, SoftKeyboardSettings.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
+		}
+	}
 }
