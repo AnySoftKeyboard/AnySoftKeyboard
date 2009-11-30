@@ -165,11 +165,20 @@ public class Suggest implements Dictionary.WordCallback {
         if (mOriginalWord != null) {
             mSuggestions.add(0, mOriginalWord.toString());
         }
-        
         // Check if the first suggestion has a minimum number of characters in common
         if (mCorrectionMode == CORRECTION_FULL && mSuggestions.size() > 1) {
             if (!haveSufficientCommonality(mLowerOriginalWord, mSuggestions.get(1))) {
                 mHaveCorrection = false;
+            }
+            //will check if the original typed word is in the suggestions
+            final int maxIndex = Math.min(4, mSuggestions.size());
+            for(int suggestionIndex=1; suggestionIndex<maxIndex; suggestionIndex++)
+            {
+            	if (mLowerOriginalWord.equalsIgnoreCase(mSuggestions.get(suggestionIndex).toString().toLowerCase()))
+            	{
+            		mSuggestions.remove(suggestionIndex);
+            		break;
+            	}
             }
         }
         
