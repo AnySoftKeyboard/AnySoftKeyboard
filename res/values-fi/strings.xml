@@ -77,7 +77,12 @@
     
     <string name="sound_on">Ääni painettaessa</string>
 	<string name="sound_on_summary">Ääniefektit painettaessa näppäimiä. Äänentaso määräytyy tiedotusten äänitason perusteella.</string>
-    <string name="auto_caps">Autokapitalisointi</string>
+    <string name="sound_based_on_notification">Käytä tiedotusäänenvoimakkuutta</string>
+    <string name="sound_based_on_notification_on_summary">Äänenvoimakkuutena käytetään järjestelmätiedotusäänenvoimakkuutta.</string>
+    <string name="sound_based_on_notification_off_summary">Äänenvoimakkuus on kustomoitu.</string>
+    <string name="sound_volume">Custom key-press volume</string>    
+
+	<string name="auto_caps">Autokapitalisointi</string>
     <string name="grammer_group">Kielioppi</string>
     <string name="candidates_on">Näytä ehdotukset</string>
     <string name="quick_fix">Pikkukorjaukset</string>
@@ -86,8 +91,8 @@
     <string name="auto_complete_summary">Välilyönti valitsee automaattisesti korostetun ehdotuksen</string>
 	<string name="physical_keyboard_suggestions">Ehdotukset laitenäppäimistöllä</string>
     <string name="physical_keyboard_suggestions_summary">Näytä ehdotukset käytettäessä laitteen näppäimistöä</string>
-        <string name="keyboard_sandbox">Kokeile asetuksia</string>
-    <string name="keyboard_sandbox_title">Kirjoita tähän testataksesi asetuksiasi</string>
+    <string name="keyboard_sandbox">Kokeile asetuksia</string>
+    <string name="keyboard_sandbox_title">Kirjoita tähän testataksesi asetuksiasi</string>    
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Näppäimistöt</string>
     <string name="eng_keyboard">Englanti</string>
@@ -105,7 +110,7 @@
     <string name="es_keyboard">Espanja</string>
     <string name="ru_ph_keyboard">Venäjä, foneettinen</string>
     <string name="ru_keyboard">Venäjä</string>
-<string name="ru_keyboard_4_row">Venäjä, nelirivinen</string>
+	<string name="ru_keyboard_4_row">Venäjä, nelirivinen</string>
     <string name="be_cyrillic_keyboard">Valkovenäjä, kyrillinen</string>
     <string name="be_latin_keyboard">Valkovenäjä, latinalainen</string>
     <string name="pt_keyboard">Portugali</string>
