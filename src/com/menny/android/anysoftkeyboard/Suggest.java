@@ -206,12 +206,16 @@ public class Suggest implements Dictionary.WordCallback {
         return mHaveCorrection;
     }
 
-    private boolean compareCaseInsensitive(final String mLowerOriginalWord, 
-            final char[] word, final int offset, final int length) {
-        final int originalLength = mLowerOriginalWord.length();
-        if (originalLength == length && Character.isUpperCase(word[offset])) {
-            for (int i = 0; i < originalLength; i++) {
-                if (mLowerOriginalWord.charAt(i) != Character.toLowerCase(word[offset+i])) {
+    private static boolean compareCaseInsensitive(final String lowerOriginalWord, 
+            final char[] word, final int offset, final int length) 
+    {
+        final int originalLength = lowerOriginalWord.length();
+        
+        if (originalLength == length) 
+        {
+            for (int i = 0; i < originalLength; i++) 
+            {
+                if (lowerOriginalWord.charAt(i) != Character.toLowerCase(word[offset+i])) {
                     return false;
                 }
             }
@@ -228,6 +232,8 @@ public class Suggest implements Dictionary.WordCallback {
         final int prefMaxSuggestions = mPrefMaxSuggestions;
         // Check if it's the same word, only caps are different
         if (compareCaseInsensitive(mLowerOriginalWord, word, offset, length)) {
+        	if (AnySoftKeyboard.getDEBUG())
+            	Log.v("AnySoftKeyboard", "Suggest::addWord - same word as typed");
             pos = 0;
         } else {
             // Check the last one's priority and bail
