@@ -536,7 +536,7 @@ public abstract class AnyKeyboard extends Keyboard
         		//we want to "click" it only if it in the middle
         		mStartY += (this.height * 0.05);
         		mEndY -= (this.height * 0.05);
-        		mStartX += (this.width * 0.075);
+        		mStartX += (this.width * 0.15);
         		break;
         	case KEYCODE_SHIFT:
         		//we want to "click" it only if it in the left
