@@ -61,7 +61,7 @@
         <Key android:codes="1101" android:keyLabel=""/>
         <Key android:codes="1093" android:keyLabel=""/>
         <Key android:codes="1098" android:keyLabel=""/>
-        <Key android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete_small" android:horizontalGap="10%p" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+        <Key android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete_small" android:horizontalGap="5%p" android:keyWidth="15%p" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     
     <!-- Generic bottom row -->

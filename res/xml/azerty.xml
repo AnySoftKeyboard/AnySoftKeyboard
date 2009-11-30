@@ -50,7 +50,7 @@
         <Key android:codes="118" android:keyLabel="v"/>
         <Key android:codes="98" android:keyLabel="b"/>
         <Key android:codes="110" android:keyLabel="n"/>
-        <Key android:horizontalGap="10%p" android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete_small" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+        <Key android:horizontalGap="5%p" android:keyWidth="15%p" android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete_small" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     
     <!-- Generic bottom row -->
