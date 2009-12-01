@@ -77,10 +77,10 @@
     
     <string name="sound_on">Sound on key-press</string>
     <string name="sound_on_summary">Sound effects on soft keyboard press.</string>
-    <string name="sound_based_on_notification">Set volume as notifications</string>
-    <string name="sound_based_on_notification_on_summary">Sounds effects volume is the system's notifications volume.</string>
-    <string name="sound_based_on_notification_off_summary">Sounds effects volume is custom.</string>
-    <string name="sound_volume">Custom key-press volume</string>
+    <string name="use_custom_sound_volume">Set custom volume</string>
+    <string name="use_custom_sound_volume_on_summary">Sounds effects volume is custom.</string>
+    <string name="use_custom_sound_volume_off_summary">Sounds effects volume is the system's notifications volume.</string>
+    <string name="custom_sound_volume">Custom key-press volume</string>
     
     <string name="auto_caps">Auto-capitalization</string>
     <string name="grammer_group">Grammar</string>

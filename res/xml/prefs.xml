@@ -52,20 +52,21 @@ android:key="ime_settings">
 		android:summaryOff=""
 		/>
 		<CheckBoxPreference
-		android:key="sound_based_on_notification"
-		android:title="@string/sound_based_on_notification"
+		android:key="use_custom_sound_volume"
+		android:title="@string/use_custom_sound_volume"
 		android:persistent="true"
 		android:defaultValue="false" 
-		android:summaryOn="@string/sound_based_on_notification_on_summary"
-		android:summaryOff="@string/sound_based_on_notification_off_summary"
+		android:summaryOn="@string/use_custom_sound_volume_on_summary"
+		android:summaryOff="@string/use_custom_sound_volume_off_summary"
 		/>
-		<SeekBarPreference
-		android:key="sound_volume"
-		android:title="@string/sound_volume"
-		android:dialogTitle="@string/sound_volume"
+		<com.menny.android.anysoftkeyboard.MySeekBarPreference
+		android:key="custom_sound_volume"
+		android:title="@string/custom_sound_volume"
+		android:dialogTitle="@string/custom_sound_volume"
 		android:persistent="true"
 		android:defaultValue="50"
-		android:dependency="sound_based_on_notification"
+		android:max="100"
+		android:dependency="use_custom_sound_volume"
 		/>
 	</PreferenceCategory>
 	<PreferenceCategory android:key="grammer_group"

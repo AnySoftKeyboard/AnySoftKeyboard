@@ -101,9 +101,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 	// private boolean mVibrateOn;
 	private int mVibrationDuration;
 	private boolean mSoundOn;
+	//between 0..8
+	private float mSoundVolume;
 	private boolean mAutoCap;
 	private boolean mQuickFixes;
-	private boolean mShowSuggestions;
+	private boolean mShowSuggestions = false;
 	private boolean mAutoComplete;
 	private int mCorrectionMode;
 	private String mKeyboardChangeNotificationType;
@@ -1291,8 +1293,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (mSoundOn/* && (!mSilentMode) */) {
 			AudioManager manager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 			// Will use sound effects ONLY if the device is not muted.
-			if (manager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL) {
-				int keyFX = AudioManager.FX_KEY_CLICK;
+			if (manager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL) 
+			{
+				int keyFX;
 				switch (primaryCode) {
 				case 13:
 					keyFX = AudioManager.FX_KEYPRESS_RETURN;
@@ -1300,18 +1303,18 @@ public class AnySoftKeyboard extends InputMethodService implements
 					keyFX = AudioManager.FX_KEYPRESS_DELETE;
 				case 32:
 					keyFX = AudioManager.FX_KEYPRESS_SPACEBAR;
+				default:
+					keyFX = AudioManager.FX_KEY_CLICK;
 				}
-				int volume = manager
-						.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+				final float volume = (mSoundVolume < 0)? manager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) : mSoundVolume;
 				if (AnySoftKeyboard.DEBUG)
-					Log.d("AnySoftKeyboard", "Sound on key-pressed. Sound ID:"
-							+ keyFX + " with volume " + volume);
+					Log.d("AnySoftKeyboard", "Sound on key-pressed. Sound ID:" + keyFX + " with volume " + volume);
 
+				//volume is between 0..8 (float)
 				manager.playSoundEffect(keyFX, volume);
 			} else {
 				if (AnySoftKeyboard.DEBUG)
-					Log.v("AnySoftKeyboard",
-							"Devices is muted. No sounds on key-pressed.");
+					Log.v("AnySoftKeyboard", "Devices is muted. No sounds on key-pressed.");
 			}
 		}
 	}
@@ -1381,6 +1384,22 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 		handled = handled || soundChanged;
 		mSoundOn = newSoundOn;
+		//checking the volume
+		boolean customVolume = sp.getBoolean("use_custom_sound_volume", true);
+		float newVolume;
+		if (customVolume)
+		{
+			newVolume = (float) ((float)((float)sp.getInt("custom_sound_volume", 0))/12.5);
+			Log.i("AnySoftKeyboard", "Custom volume checked: "+newVolume);
+		}
+		else
+		{
+			Log.i("AnySoftKeyboard", "Custom volume un-checked.");
+			newVolume = -1;
+		}
+		handled = handled || (newVolume != mSoundVolume);
+		mSoundVolume = newVolume;
+		
 		// in order to support the old type of configuration
 		String newKeyboardChangeNotificationType = sp.getString("physical_keyboard_change_notification_type", KEYBOARD_NOTIFICATION_ON_PHYSICAL);
 		boolean notificationChanged = (!newKeyboardChangeNotificationType.equalsIgnoreCase(mKeyboardChangeNotificationType));
@@ -1405,7 +1424,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		boolean suggestionsChanged = (newShowSuggestions != mShowSuggestions);
 		handled = handled || suggestionsChanged;
 		mShowSuggestions = newShowSuggestions;
-		setMainDictionaryForCurrentKeyboard();
+		//why check that it is "false"? Because it starts as "false", so it is not 'changed'.
+		if (suggestionsChanged || (!mShowSuggestions))
+			setMainDictionaryForCurrentKeyboard();
 
 		boolean newAutoComplete = sp.getBoolean("auto_complete", true) && mShowSuggestions;
 		handled = handled || (newAutoComplete != mAutoComplete);
