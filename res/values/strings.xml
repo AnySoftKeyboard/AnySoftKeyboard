@@ -110,7 +110,7 @@
     <string name="es_keyboard">Spanish</string>
     <string name="ru_ph_keyboard">Russian Phonetic</string>
     <string name="ru_keyboard">Russian</string>
-    <string name="ru_keyboard_4_row">Use 4 rows Russian layout</string>
+    <string name="ru_keyboard_4_row">Use 4 rows Russian portrait layout</string>
     <string name="be_cyrillic_keyboard">Belarusian cyrillic</string>
     <string name="be_latin_keyboard">Belarusian latin</string>
     <string name="pt_keyboard">Portuguese</string>
@@ -118,7 +118,7 @@
 	<string name="fr_ca_keyboard">French Canadian</string>
 	<string name="ka_keyboard">Georgian</string>
 	<string name="uk_keyboard">Ukrainian</string>
-	<string name="uk_keyboard_4_row">Use 4 rows Ukrainian layout</string>
+	<string name="uk_keyboard_4_row">Use 4 rows Ukrainian portrait layout</string>
     <string name="colemak_keyboard">Colemak</string>
     
     <!-- Tutorials --> 

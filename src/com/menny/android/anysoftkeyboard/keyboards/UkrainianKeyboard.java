@@ -1,5 +1,6 @@
 ﻿package com.menny.android.anysoftkeyboard.keyboards;
 
+import android.content.res.Configuration;
 import android.view.KeyEvent;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
@@ -30,7 +31,11 @@ public class UkrainianKeyboard extends AnyKeyboard implements HardKeyboardTransl
 	
 	private static int getKeyboardId(AnyKeyboardContextProvider context) 
 	{
-		if (context.getSharedPreferences().getBoolean(KeyboardFactory.UK_KEYBOARD_4_ROWS, true))
+		//4 rows only in portrait mode only
+		final boolean inPortraitMode = 
+			(context.getApplicationContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
+		
+		if (inPortraitMode && context.getSharedPreferences().getBoolean(KeyboardFactory.UK_KEYBOARD_4_ROWS, true))
 			return R.xml.ukrainian_qwerty_4_rows;
 		else
 			return R.xml.ukrainian_qwerty;
