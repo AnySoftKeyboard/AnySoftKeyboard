@@ -73,8 +73,14 @@
       <item>Средне</item>
       <item>Сильно</item>
    </string-array>
+   
    <string name="sound_on">Звук при нажатии</string>
-   <string name="sound_on_summary">Звуковой эффект при нажатии клавиш на виртуальной клавиатуре. Громкость по умолчанию.</string>
+   <string name="sound_on_summary">Звуковой эффект при нажатии клавиш на виртуальной клавиатуре.</string>
+   <string name="use_custom_sound_volume">Выставить громкость вручную</string>
+   <string name="use_custom_sound_volume_on_summary">Громкость выставленна вручную.</string>
+   <string name="use_custom_sound_volume_off_summary">Громкость такая-же как на системных уведомлениях.</string>
+   <string name="custom_sound_volume">Громкость при нажатии</string>
+   
    <string name="auto_caps">Авто-заглав</string>
    <string name="grammer_group">Грамматика</string>
    <string name="candidates_on">Показывать Советы</string>
@@ -103,16 +109,16 @@
    <string name="es_keyboard">Испанский</string>
    <string name="ru_ph_keyboard">Русский Фонетический</string>
    <string name="ru_keyboard">Русский Стандартный</string>
-   <string name="ru_keyboard_4_row">4-х Строчная Русская Расскладка</string>
+   <string name="ru_keyboard_4_row">4 Строки для Русских Раскладок</string>
    <string name="be_cyrillic_keyboard">Беларусский Кириллица</string>
-   <string name="be_latin_keyboard">Беларусский Латинский</string>
+   <string name="be_latin_keyboard">Беларусский Латинница</string>
    <string name="pt_keyboard">Португальский</string>
    <string name="thai_keyboard">Таиландский</string>
    <string name="fr_ca_keyboard">Французский Канадский</string>
    <string name="ka_keyboard">Грузинский</string>
    <string name="uk_keyboard">Украинский</string>
-   <string name="uk_keyboard_4_row">4-х Строчная Украинская Расскладка</string>
-   <string name="colemak_keyboard">Расскладка \"Colemak\"</string>
+   <string name="uk_keyboard_4_row">4 Строки для Украинских Раскладок</string>
+   <string name="colemak_keyboard">Раскладка \"Colemak\"</string>
    
    <!-- Tutorials --> 
    <string name="show_tutorial_on_startup">Показывать помощь при запуске</string>
