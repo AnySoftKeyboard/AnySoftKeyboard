@@ -92,7 +92,7 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
                 while (!c.isAfterLast()) {
                     String word = c.getString(0);
                     int freq = c.getInt(1);
-                    words.add(new DictionaryWord(word, freq));
+                    words.add(new DictionaryWord(word.toLowerCase(), freq));
                     c.moveToNext();
                 }
             }

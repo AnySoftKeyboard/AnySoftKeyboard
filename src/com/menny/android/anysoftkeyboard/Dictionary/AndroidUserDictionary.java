@@ -44,8 +44,7 @@ class AndroidUserDictionary extends UserDictionaryBase {
 	}
 	
 	protected void loadAllWords() {
-		Cursor cursor = mContext.getContentResolver()
-                .query(Words.CONTENT_URI, PROJECTION, null, null, null);
+		Cursor cursor = mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION, null, null, null);
                 		/*"(locale IS NULL) or (locale=?)", 
                         new String[] { Locale.getDefault().toString() }, null);*/
         addWords(cursor);
@@ -59,7 +58,7 @@ class AndroidUserDictionary extends UserDictionaryBase {
                 // Safeguard against adding really long words. Stack may overflow due
                 // to recursion
                 if (word.length() < MAX_WORD_LENGTH) {
-                	addWordFromStorage(word, frequency);
+                	addWordFromStorage(word.toLowerCase(), frequency);
                 }
                 cursor.moveToNext();
             }

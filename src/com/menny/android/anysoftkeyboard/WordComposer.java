@@ -78,7 +78,7 @@ public class WordComposer {
      * @param codes the array of unicode values
      */
     public void add(int primaryCode, int[] codes) {
-        mTypedWord.append((char) primaryCode);
+        mTypedWord.append(Character.toLowerCase((char) primaryCode));
         mCodes.add(codes);
         if (mTypedWord.length() == 1)
         {
@@ -160,10 +160,11 @@ public class WordComposer {
 
 	public void append(CharSequence textToAdd) 
 	{
-		mTypedWord.append(textToAdd);
-		for(int i=0; i<textToAdd.length();i++)
+		String loweredText = textToAdd.toString().toLowerCase();
+		mTypedWord.append(loweredText);
+		for(int i=0; i<loweredText.length();i++)
 		{
-			char c = textToAdd.charAt(i);
+			char c = loweredText.charAt(i);
 			mCodes.add(new int[]{c});
 		}		
 	}
