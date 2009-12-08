@@ -77,10 +77,10 @@
     
     <string name="sound_on">Ääni painettaessa</string>
 	<string name="sound_on_summary">Ääniefektit painettaessa näppäimiä. Äänentaso määräytyy tiedotusten äänitason perusteella.</string>
-    <string name="sound_based_on_notification">Käytä tiedotusäänenvoimakkuutta</string>
-    <string name="sound_based_on_notification_on_summary">Äänenvoimakkuutena käytetään järjestelmätiedotusäänenvoimakkuutta.</string>
-    <string name="sound_based_on_notification_off_summary">Äänenvoimakkuus on kustomoitu.</string>
-    <string name="sound_volume">Custom key-press volume</string>    
+    <string name="use_custom_sound_volume">Mukautettu äänenvoimakkuus</string>
+    <string name="use_custom_sound_volume_on_summary">Äänenvoimakkuus on mukautettu.</string>
+    <string name="use_custom_sound_volume_off_summary">Äänenvoimakkuutena käytetään järjestelmän tiedotusäänenvoimakkuutta.</string>
+    <string name="custom_sound_volume">Custom key-press volume</string>    
 
 	<string name="auto_caps">Autokapitalisointi</string>
     <string name="grammer_group">Kielioppi</string>
@@ -120,6 +120,8 @@
 	<string name="uk_keyboard">Ukraina</string>
 	<string name="uk_keyboard_4_row">Ukraina, nelirivinen</string>
 	<string name="colemak_keyboard">Colemak</string>
+    <string name="bepo_keyboard">B&#233;po</string><!-- BEPO -->
+    
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Näytä opastus käynnistyksen yhteydessä</string>
