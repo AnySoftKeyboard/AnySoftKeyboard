@@ -155,6 +155,14 @@ android:key="ime_settings">
 				android:summaryOff="Created with Hugo Lopes"
 				/>
 				<CheckBoxPreference
+				android:key="bepo_keyboard"
+				android:title="@string/bepo_keyboard"
+				android:persistent="true" 
+				android:defaultValue="false"
+				android:summaryOn=""
+				android:summaryOff=""
+				/>
+				<CheckBoxPreference
 				android:key="heb_keyboard"
 				android:title="@string/heb_keyboard"
 				android:persistent="true"

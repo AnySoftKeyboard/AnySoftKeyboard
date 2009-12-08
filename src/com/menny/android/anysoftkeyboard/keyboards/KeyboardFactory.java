@@ -46,6 +46,7 @@ public class KeyboardFactory
 	public static final String RU_KEYBOARD_4_ROWS = "ru_keyboard_4_row";
 	public static final String UK_KEYBOARD = "uk_keyboard";
 	public static final String UK_KEYBOARD_4_ROWS = "uk_keyboard_4_row";
+	public static final String BEPO_KEYBOARD = "bepo_keyboard";
 	
 	
 	static
@@ -58,6 +59,9 @@ public class KeyboardFactory
 		
 		//issue 178: colemak
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, KeyboardFactory.COLEMAK_KEYBOARD, R.xml.colemak, R.string.colemak_keyboard, Dictionary.Language.English, R.drawable.en);} public String getKeyboardPrefId() {return COLEMAK_KEYBOARD;}});
+		
+		//issue 78: bepo
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, KeyboardFactory.BEPO_KEYBOARD, R.xml.bepo, R.string.bepo_keyboard, Dictionary.Language.French, R.drawable.en);} public String getKeyboardPrefId() {return BEPO_KEYBOARD;}});
 		
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new HebrewKeyboard(contextProvider);} public String getKeyboardPrefId() {return HEBREW_KEYBOARD;}});
 		//issue 59 - Regular Russian layout
