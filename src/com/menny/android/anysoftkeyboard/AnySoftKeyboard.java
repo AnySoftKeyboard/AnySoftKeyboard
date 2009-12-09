@@ -103,6 +103,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private boolean mSoundOn;
 	//between 0..8
 	private float mSoundVolume;
+	private boolean mSmileyOnShortPress;
 	private boolean mAutoCap;
 	private boolean mQuickFixes;
 	private boolean mShowSuggestions = false;
@@ -843,6 +844,20 @@ public class AnySoftKeyboard extends InputMethodService implements
 				toggleCapsLock();
 			}
 			break;
+		case AnyKeyboard.KEYCODE_SMILEY:
+			if (mSmileyOnShortPress) {
+				Log.d("AnySoftKeyboard", "SMILEY short: type smiley");
+			} else {
+				Log.d("AnySoftKeyboard", "SMILEY short: popup smileys");
+			}
+			break;
+		case AnyKeyboardView.KEYCODE_SMILEY_LONGPRESS:
+			if (mSmileyOnShortPress) {
+				Log.d("AnySoftKeyboard", "SMILEY long: type smiley");
+			} else {
+				Log.d("AnySoftKeyboard", "SMILEY long: popup smileys");
+			}
+			break;
 		case Keyboard.KEYCODE_MODE_CHANGE:
 			nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Symbols);
 			break;
@@ -1449,6 +1464,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// so we wont mark the 'handled' result.
 		mChangeKeysMode = sp.getString("keyboard_layout_change_method", "1");
 
+		boolean newSmileyOnShort = sp.getBoolean("emoticon_long_press_opens_popup", false);
+		handled = handled || (newSmileyOnShort != mSmileyOnShortPress);
+		mSmileyOnShortPress = newSmileyOnShort;
 		
 		return handled;
 	}

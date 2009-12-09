@@ -16,6 +16,8 @@
 
 package com.menny.android.anysoftkeyboard;
 
+import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
+
 import android.content.Context;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
@@ -27,6 +29,7 @@ public class AnyKeyboardView extends KeyboardView {
 
 	static final int KEYCODE_OPTIONS = -100;
     static final int KEYCODE_SHIFT_LONGPRESS = -101;
+	static final int KEYCODE_SMILEY_LONGPRESS = -102;
     
     private Keyboard mPhoneKeyboard;
 
@@ -58,6 +61,10 @@ public class AnyKeyboardView extends KeyboardView {
             getOnKeyboardActionListener().onKey(KEYCODE_SHIFT_LONGPRESS, null);
             invalidate();
             return true;
+        } else if (key.codes[0] == AnyKeyboard.KEYCODE_SMILEY) {
+            getOnKeyboardActionListener().onKey(KEYCODE_SMILEY_LONGPRESS, null);
+            invalidate();
+            return true;
         } else if (key.codes[0] == '0' && getKeyboard() == mPhoneKeyboard) {
             // Long pressing on 0 in phone number keypad gives you a '+'.
             getOnKeyboardActionListener().onKey('+', null);
@@ -65,6 +72,21 @@ public class AnyKeyboardView extends KeyboardView {
         } else {
             return super.onLongPress(key);
         }
+    }
+    
+    public void simulateLongPress(int keyCode)
+    {
+    	if (super.getKeyboard() == null)
+    		return;
+    	
+    	for(Key key : super.getKeyboard().getKeys())
+    	{
+    		if (key.codes[0] == keyCode)
+    		{
+    			super.onLongPress(key);
+    			return;
+    		}
+    	}
     }
     
     @Override

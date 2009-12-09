@@ -50,25 +50,37 @@ android:key="ime_settings">
 		android:defaultValue="false" 
 		android:summaryOn="@string/sound_on_summary"
 		android:summaryOff=""
-		/>
+		/>		
+	</PreferenceCategory>
+	<PreferenceScreen android:key="tweaks_group"
+		android:title="@string/tweaks_group">
 		<CheckBoxPreference
-		android:key="use_custom_sound_volume"
-		android:title="@string/use_custom_sound_volume"
-		android:persistent="true"
-		android:defaultValue="false" 
-		android:summaryOn="@string/use_custom_sound_volume_on_summary"
-		android:summaryOff="@string/use_custom_sound_volume_off_summary"
+			android:key="use_custom_sound_volume"
+			android:title="@string/use_custom_sound_volume"
+			android:persistent="true"
+			android:defaultValue="false" 
+			android:summaryOn="@string/use_custom_sound_volume_on_summary"
+			android:summaryOff="@string/use_custom_sound_volume_off_summary"
+			android:dependency="use_custom_sound_volume"
 		/>
 		<com.menny.android.anysoftkeyboard.MySeekBarPreference
-		android:key="custom_sound_volume"
-		android:title="@string/custom_sound_volume"
-		android:dialogTitle="@string/custom_sound_volume"
-		android:persistent="true"
-		android:defaultValue="50"
-		android:max="100"
-		android:dependency="use_custom_sound_volume"
+			android:key="custom_sound_volume"
+			android:title="@string/custom_sound_volume"
+			android:dialogTitle="@string/custom_sound_volume"
+			android:persistent="true"
+			android:defaultValue="50"
+			android:max="100"
+			android:dependency="sound_on"
 		/>
-	</PreferenceCategory>
+		<CheckBoxPreference
+			android:key="emoticon_long_press_opens_popup"
+			android:title="@string/emoticon_long_press_opens_popup"
+			android:persistent="true"
+			android:defaultValue="false" 
+			android:summaryOn="@string/emoticon_long_press_opens_popup_on_summary"
+			android:summaryOff="@string/emoticon_long_press_opens_popup_off_summary"
+		/>
+	</PreferenceScreen>
 	<PreferenceCategory android:key="grammer_group"
 	android:title="@string/grammer_group">
 		<CheckBoxPreference

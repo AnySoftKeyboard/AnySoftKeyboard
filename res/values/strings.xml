@@ -82,6 +82,11 @@
     <string name="use_custom_sound_volume_off_summary">Sounds effects volume is the system's notifications volume.</string>
     <string name="custom_sound_volume">Custom key-press volume</string>
     
+    <string name="tweaks_group">Tweaks</string>
+    <string name="emoticon_long_press_opens_popup">Long-press smiley popup</string>
+    <string name="emoticon_long_press_opens_popup_on_summary">Show emoticons popup on long-press</string>
+    <string name="emoticon_long_press_opens_popup_off_summary">Show emoticons popup on short-press</string>
+    
     <string name="auto_caps">Auto-capitalization</string>
     <string name="grammer_group">Grammar</string>
     <string name="candidates_on">Show suggestions</string>
