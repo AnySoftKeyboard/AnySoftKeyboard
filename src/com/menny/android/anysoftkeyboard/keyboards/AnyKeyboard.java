@@ -454,7 +454,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        		Log.d("AnySoftKeyboard", "Changing smiley key to smiley.");
 	        		mSmileyKey.icon = res.getDrawable(R.drawable.sym_keyboard_smiley);
 		        	mSmileyKey.label = null;
-		        	mSmileyKey.text = ":-) ";
+		        	mSmileyKey.text = null;// ":-) ";
 		        	mSmileyKey.popupResId = R.xml.popup_smileys;
 	        	}
 	        	if (mQuestionMarkKey != null)

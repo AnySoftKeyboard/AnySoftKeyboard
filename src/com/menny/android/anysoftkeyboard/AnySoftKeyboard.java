@@ -815,6 +815,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	// Implementation of KeyboardViewListener
 
 	public void onKey(int primaryCode, int[] keyCodes) {
+		if (getDEBUG()) Log.d("AnySoftKeyboard", "onKey "+primaryCode);
 		// long when = SystemClock.uptimeMillis();
 		// if (primaryCode != Keyboard.KEYCODE_DELETE ||
 		// when > mLastKeyTime + QUICK_PRESS) {
@@ -847,15 +848,21 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case AnyKeyboard.KEYCODE_SMILEY:
 			if (mSmileyOnShortPress) {
 				Log.d("AnySoftKeyboard", "SMILEY short: type smiley");
+				onText(":) ");
 			} else {
 				Log.d("AnySoftKeyboard", "SMILEY short: popup smileys");
+				if (mInputView != null)
+					mInputView.simulateLongPress(AnyKeyboard.KEYCODE_SMILEY);
 			}
 			break;
 		case AnyKeyboardView.KEYCODE_SMILEY_LONGPRESS:
 			if (mSmileyOnShortPress) {
-				Log.d("AnySoftKeyboard", "SMILEY long: type smiley");
-			} else {
 				Log.d("AnySoftKeyboard", "SMILEY long: popup smileys");
+				if (mInputView != null)
+					mInputView.simulateLongPress(AnyKeyboard.KEYCODE_SMILEY);
+			} else {
+				Log.d("AnySoftKeyboard", "SMILEY long: type smiley");
+				onText(":) ");
 			}
 			break;
 		case Keyboard.KEYCODE_MODE_CHANGE:
@@ -879,6 +886,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	public void onText(CharSequence text) {
+		if (getDEBUG()) Log.d("AnySoftKeyboard", "onText: "+text);
 		InputConnection ic = getCurrentInputConnection();
 		if (ic == null)
 			return;

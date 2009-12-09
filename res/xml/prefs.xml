@@ -76,10 +76,12 @@ android:key="ime_settings">
 			android:key="emoticon_long_press_opens_popup"
 			android:title="@string/emoticon_long_press_opens_popup"
 			android:persistent="true"
-			android:defaultValue="false" 
+			android:defaultValue="true" 
 			android:summaryOn="@string/emoticon_long_press_opens_popup_on_summary"
 			android:summaryOff="@string/emoticon_long_press_opens_popup_off_summary"
 		/>
+		<!-- default smiley text -->
+		<!-- default domain text -->
 	</PreferenceScreen>
 	<PreferenceCategory android:key="grammer_group"
 	android:title="@string/grammer_group">
