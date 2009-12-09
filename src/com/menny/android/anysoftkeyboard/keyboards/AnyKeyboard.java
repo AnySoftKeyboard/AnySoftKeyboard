@@ -437,7 +437,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        		mSmileyKey.iconPreview = null;// res.getDrawable(sym_keyboard_key_domain_preview);
 	        		mSmileyKey.icon = res.getDrawable(R.drawable.sym_keyboard_key_domain);
 		        	mSmileyKey.label = null;
-		        	mSmileyKey.text = ".com";
+		        	mSmileyKey.text = AnySoftKeyboard.mDomainText;
 		        	mSmileyKey.popupResId = R.xml.popup_domains;
 	        	}
 	        	if (mQuestionMarkKey != null)

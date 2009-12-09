@@ -80,8 +80,17 @@ android:key="ime_settings">
 			android:summaryOn="@string/emoticon_long_press_opens_popup_on_summary"
 			android:summaryOff="@string/emoticon_long_press_opens_popup_off_summary"
 		/>
-		<!-- default smiley text -->
-		<!-- default domain text -->
+		<EditTextPreference android:key="default_smiley_text" 
+		android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none"
+		android:title="@string/default_smiley_text" android:dialogTitle="@string/default_smiley_text" android:persistent="true"
+		android:defaultValue=":-) "
+		/>
+		<EditTextPreference android:key="default_domain_text" 
+		android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none"
+		android:title="@string/default_domain_text" android:dialogTitle="@string/default_domain_text" android:persistent="true"
+		android:defaultValue=".com"
+		/>
+		<!-- @/.com selection -->
 	</PreferenceScreen>
 	<PreferenceCategory android:key="grammer_group"
 	android:title="@string/grammer_group">

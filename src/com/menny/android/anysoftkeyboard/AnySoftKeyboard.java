@@ -148,6 +148,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private boolean mSpaceSent;
 
+	private String mSmileyText;
+
+	public static String mDomainText;
+
 	public AnySoftKeyboard()
 	{
 		//mGenericKeyboardTranslator = new GenericPhysicalKeyboardTranslator(this);
@@ -847,22 +851,22 @@ public class AnySoftKeyboard extends InputMethodService implements
 			break;
 		case AnyKeyboard.KEYCODE_SMILEY:
 			if (mSmileyOnShortPress) {
-				Log.d("AnySoftKeyboard", "SMILEY short: type smiley");
-				onText(":) ");
+				//Log.d("AnySoftKeyboard", "SMILEY short: type smiley");
+				onText(mSmileyText);
 			} else {
-				Log.d("AnySoftKeyboard", "SMILEY short: popup smileys");
+				//Log.d("AnySoftKeyboard", "SMILEY short: popup smileys");
 				if (mInputView != null)
 					mInputView.simulateLongPress(AnyKeyboard.KEYCODE_SMILEY);
 			}
 			break;
 		case AnyKeyboardView.KEYCODE_SMILEY_LONGPRESS:
 			if (mSmileyOnShortPress) {
-				Log.d("AnySoftKeyboard", "SMILEY long: popup smileys");
+				//Log.d("AnySoftKeyboard", "SMILEY long: popup smileys");
 				if (mInputView != null)
 					mInputView.simulateLongPress(AnyKeyboard.KEYCODE_SMILEY);
 			} else {
-				Log.d("AnySoftKeyboard", "SMILEY long: type smiley");
-				onText(":) ");
+				//Log.d("AnySoftKeyboard", "SMILEY long: type smiley");
+				onText(mSmileyText);
 			}
 			break;
 		case Keyboard.KEYCODE_MODE_CHANGE:
@@ -1475,6 +1479,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 		boolean newSmileyOnShort = sp.getBoolean("emoticon_long_press_opens_popup", false);
 		handled = handled || (newSmileyOnShort != mSmileyOnShortPress);
 		mSmileyOnShortPress = newSmileyOnShort;
+		
+		String newSmileyText = sp.getString("default_smiley_text", ":-) ");
+		handled = handled || (!newSmileyText.equals(mSmileyText));
+		mSmileyText = newSmileyText;
+		
+		String newDomainText = sp.getString("default_domain_text", ".com");
+		handled = handled || (!newDomainText.equals(mDomainText));
+		mDomainText = newDomainText;
 		
 		return handled;
 	}

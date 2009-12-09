@@ -86,6 +86,8 @@
     <string name="emoticon_long_press_opens_popup">Long-press smiley popup</string>
     <string name="emoticon_long_press_opens_popup_on_summary">Show emoticons popup on long-press</string>
     <string name="emoticon_long_press_opens_popup_off_summary">Show emoticons popup on short-press</string>
+    <string name="default_smiley_text">Smiley text</string>
+    <string name="default_domain_text">Domain text</string>   
     
     <string name="auto_caps">Auto-capitalization</string>
     <string name="grammer_group">Grammar</string>
