@@ -1,4 +1,4 @@
-﻿package com.menny.android.anysoftkeyboard.keyboards;
+package com.menny.android.anysoftkeyboard.keyboards;
 
 import android.content.res.Configuration;
 import android.view.KeyEvent;
@@ -14,7 +14,7 @@ public class UkrainianKeyboard extends AnyKeyboard implements HardKeyboardTransl
 	static
 	{
 		msKeySequenceHandler = new HardKeyboardSequenceHandler();
-		
+
 		msKeySequenceHandler.addQwertyTranslation("\u0439\u0446\u0443\u043a\u0435\u043d\u0433\u0448\u0449\u0437\u0444\u0456\u0432\u0430\u043f\u0440\u043e\u043b\u0434\u044f\u0447\u0441\u043c\u0438\u0442\u044c");
 		
 		msKeySequenceHandler.addSequence(new int[]{KeyEvent.KEYCODE_O, KeyEvent.KEYCODE_O}, (char)0x445);
