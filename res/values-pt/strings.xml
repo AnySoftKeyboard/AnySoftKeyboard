@@ -43,13 +43,13 @@
     <string name="physical_keyboard_change_notification_summary">Tipo de notificação do esquema activo</string>
     <string name="physical_keyboard_change_notification_dialog_title">Seleccione tipo de notificação</string>
     <string-array name="physical_keyboard_change_notification_types">
-        <item>Mostrar sempre o ícone</item>
+        <item>Mostra sempre o ícone</item>
         <item>Ao alterar teclado físico</item>
         <item>Sem notificação</item>
     </string-array>
     
     <string name="lengthy_operations_toast_notification">Notificar em operações demoradas</string>
-    <string name="lengthy_operations_toast_notification_summary">Apresentar notificações breves em operações demoradas</string>
+    <string name="lengthy_operations_toast_notification_summary">Apresenta notificações breves em operações demoradas</string>
 
     <!-- Options menu -->
     <string name="change_ime">Seleccionar método de entrada</string>
@@ -65,7 +65,7 @@
     <string name="effects_group">Efeitos</string>
     <string name="ime_settings">Preferências do teclado</string>
     <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
-    <string name="vibrate_on_key_press_title">Vibrar ao pressionar</string>
+    <string name="vibrate_on_key_press_title">Vibração ao pressionar</string>
     <string name="vibrate_on_key_press_summary">Tipo de vibração</string>
     <string name="vibrate_on_key_press_dialog_title">Duração da vibração</string>
     <string-array name="vibrate_on_key_press_types">
@@ -76,28 +76,28 @@
     </string-array>
     
     <string name="sound_on">Som ao pressionar</string>
-    <string name="sound_on_summary">Efeitos sonoros ao pressionar teclas. É utilizado o volume de notificação.</string>
-    <string name="use_custom_sound_volume">Definir volume personalizado</string>
-    <string name="use_custom_sound_volume_on_summary">Utilizar volume personalizado.</string>
-    <string name="use_custom_sound_volume_off_summary">Utilizar volume das notificações.</string>
-    <string name="custom_sound_volume">Volume personalizado</string>
+    <string name="sound_on_summary">Emite som ao pressionar teclas</string>
+    <string name="use_custom_sound_volume">Configuração do volume</string>
+    <string name="use_custom_sound_volume_on_summary">Utiliza volume personalizado</string>
+    <string name="use_custom_sound_volume_off_summary">Utiliza volume das notificações</string>
+    <string name="custom_sound_volume">Controlo de volume</string>
     
     <string name="tweaks_group">Ajustes</string>
-    <string name="emoticon_long_press_opens_popup">Pressão longa da tecla Smiley</string>
-    <string name="emoticon_long_press_opens_popup_on_summary">Mostrar lista de emoticons com pressão longa</string>
-    <string name="emoticon_long_press_opens_popup_off_summary">Mostrar lista de emoticons com pressão breve</string>
-    <string name="default_smiley_text">Text da tecla Smiley</string>
-    <string name="default_domain_text">Text da tecla de domínio</string>   
+    <string name="emoticon_long_press_opens_popup">Lista de Smilies</string>
+    <string name="emoticon_long_press_opens_popup_on_summary">Mostra lista após pressão longa</string>
+    <string name="emoticon_long_press_opens_popup_off_summary">Mostra lista após pressão breve</string>
+    <string name="default_smiley_text">Texto da tecla Smiley</string>
+    <string name="default_domain_text">Texto da tecla domínio</string>   
     
     <string name="auto_caps">Auto-capitalização</string>
     <string name="grammer_group">Gramática</string>
-    <string name="candidates_on">Mostrar sugestões</string>
+    <string name="candidates_on">Mostra sugestões</string>
     <string name="quick_fix">Correcções</string>
     <string name="quick_fix_summary">Corrige erros comuns</string>
-    <string name="auto_complete">Seleccionar sugestões automaticamente</string>
+    <string name="auto_complete">Selecciona sugestões automaticamente</string>
     <string name="auto_complete_summary">Espaço selecciona a sugestão activa</string>
     <string name="physical_keyboard_suggestions">Sugestões no teclado físico</string>
-    <string name="physical_keyboard_suggestions_summary">Mostrar sugestões ao usar o teclado físico</string>
+    <string name="physical_keyboard_suggestions_summary">Mostra sugestões ao usar o teclado físico</string>
     <string name="keyboard_sandbox">Teste de escrita</string>
     <string name="keyboard_sandbox_title">Escreva abaixo para testar as configurações</string>
     <!-- settings - keyboard group -->
