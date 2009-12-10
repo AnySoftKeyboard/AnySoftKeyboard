@@ -77,6 +77,18 @@
     
     <string name="sound_on">Som ao pressionar</string>
     <string name="sound_on_summary">Efeitos sonoros ao pressionar teclas. É utilizado o volume de notificação.</string>
+    <string name="use_custom_sound_volume">Definir volume personalizado</string>
+    <string name="use_custom_sound_volume_on_summary">Utilizar volume personalizado.</string>
+    <string name="use_custom_sound_volume_off_summary">Utilizar volume das notificações.</string>
+    <string name="custom_sound_volume">Volume personalizado</string>
+    
+    <string name="tweaks_group">Ajustes</string>
+    <string name="emoticon_long_press_opens_popup">Pressão longa da tecla Smiley</string>
+    <string name="emoticon_long_press_opens_popup_on_summary">Mostrar lista de emoticons com pressão longa</string>
+    <string name="emoticon_long_press_opens_popup_off_summary">Mostrar lista de emoticons com pressão breve</string>
+    <string name="default_smiley_text">Text da tecla Smiley</string>
+    <string name="default_domain_text">Text da tecla de domínio</string>   
+    
     <string name="auto_caps">Auto-capitalização</string>
     <string name="grammer_group">Gramática</string>
     <string name="candidates_on">Mostrar sugestões</string>
@@ -115,6 +127,8 @@
     <string name="uk_keyboard">Ucraniano</string>
     <string name="uk_keyboard_4_row">Ucraniano com 4 linhas</string>
     <string name="colemak_keyboard">Colemak</string>
+    <string name="bepo_keyboard">B&#233;po</string><!-- BEPO -->
+
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Mostrar este tutorial ao iniciar</string>
