@@ -85,6 +85,8 @@
    <string name="emoticon_long_press_opens_popup">Долгое Нажатие Кнопки Смайликов</string>
    <string name="emoticon_long_press_opens_popup_on_summary">Показывать смайлики при долгом нажатии</string>
    <string name="emoticon_long_press_opens_popup_off_summary">Показывать смайлики при коротком нажатии</string>
+   <string name="default_smiley_text">Текст Смайликов</string>
+   <string name="default_domain_text">Текст Доменов</string>
    
    <string name="auto_caps">Авто-заглав</string>
    <string name="grammer_group">Грамматика</string>
