@@ -86,6 +86,8 @@
     <string name="emoticon_long_press_opens_popup">Paina pitkään, hymiökupla</string>
     <string name="emoticon_long_press_opens_popup_on_summary">Näytä hymiökupla kun painat pitkään</string>
     <string name="emoticon_long_press_opens_popup_off_summary">Näytä hymiökupla kun painat nopeasti</string>
+    <string name="default_smiley_text">Hymiöteksti</string>
+    <string name="default_domain_text">Domain-teksti</string>  
 
 	<string name="auto_caps">Autokapitalisointi</string>
     <string name="grammer_group">Kielioppi</string>
