@@ -36,8 +36,8 @@
         <Key android:keyLabel=":-X" android:keyIcon="@drawable/sym_keyboard_smiley_kiss" android:keyOutputText=":-X " android:keyEdgeFlags="left" />
         <Key android:keyLabel=":-I" android:keyIcon="@drawable/sym_keyboard_smiley_blush" android:keyOutputText=":-I "/>
         <Key android:keyLabel="8-." android:keyIcon="@drawable/sym_keyboard_smiley_shy" android:keyOutputText="8-. "/>
-        <Key android:keyLabel="|-." android:keyIcon="@drawable/sym_keyboard_smiley_sleepy" android:keyOutputText="|-. "/>
-        <Key android:keyLabel="8-o" android:keyIcon="@drawable/sym_keyboard_smiley_suprise" android:keyOutputText="8-o " android:keyEdgeFlags="right" />
+        <Key android:keyLabel="8-o" android:keyIcon="@drawable/sym_keyboard_smiley_sleepy" android:keyOutputText="|-. "/>
+        <Key android:keyLabel="O_Q" android:keyIcon="@drawable/sym_keyboard_smiley_suprise" android:keyOutputText="8-o " android:keyEdgeFlags="right" />
     </Row>
     <Row android:rowEdgeFlags="bottom">
         <Key android:keyLabel=":-(" android:keyIcon="@drawable/sym_keyboard_smiley_sad" android:keyOutputText=":-( " android:keyEdgeFlags="left" />
