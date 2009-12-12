@@ -8,7 +8,7 @@ public interface AnySoftKeyboardConfiguration
 	
 	String getDomainText();
 	
-	String getChangeLayoutMode();
+	String getChangeLayoutKeysSize();
 	
 	boolean getShowKeyPreview();
 }

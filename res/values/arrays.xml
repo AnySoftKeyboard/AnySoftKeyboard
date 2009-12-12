@@ -2,9 +2,15 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 	<string-array name="keyboard_layout_change_methods_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
+	<!--
+	previous values:
+		1: Small
+		2: None
+		3: Big
+	 -->
+        <item>None</item>
+        <item>Small</item>
+        <item>Big</item>
     </string-array>
     
     <string-array name="physical_keyboard_change_notification_values">

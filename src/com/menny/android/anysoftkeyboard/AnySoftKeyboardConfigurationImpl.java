@@ -1,6 +1,7 @@
 package com.menny.android.anysoftkeyboard;
 
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.inputmethodservice.InputMethodService;
@@ -19,7 +20,7 @@ public class AnySoftKeyboardConfigurationImpl implements AnySoftKeyboardConfigur
 
 	private String mSmileyText;
 	private String mDomainText;
-	private String mChangeKeysMode;
+	private String mLayoutChangeKeysSize;
 	private boolean mShowKeyPreview;
 	
 	AnySoftKeyboardConfigurationImpl(InputMethodService ime)
@@ -40,8 +41,32 @@ public class AnySoftKeyboardConfigurationImpl implements AnySoftKeyboardConfigur
 		
 		mDEBUG = version.contains("tester");
 		Log.i("AnySoftKeyboard", "** Debug: "+mDEBUG);
-		handleConfigurationChange(PreferenceManager.getDefaultSharedPreferences(mIme));
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mIme);
+		
+		upgradeSettingsValues(sp);
+		
+		handleConfigurationChange(sp);
 	}
+	
+	private void upgradeSettingsValues(SharedPreferences sp) {
+		Log.d("AnySoftKeyboard", "Checking if configuration upgrade is needed.");
+		String currentChangeLayoutKeysSize = sp.getString("keyboard_layout_change_method", "Small");
+		if ((currentChangeLayoutKeysSize == null) || (currentChangeLayoutKeysSize.length() == 0) ||
+			(currentChangeLayoutKeysSize.equals("1")) || (currentChangeLayoutKeysSize.equals("2")) || (currentChangeLayoutKeysSize.equals("3")))
+		{
+			String newValue = "Small";
+			Log.d("AnySoftKeyboard", "keyboard_layout_change_method holds an old value: "+(currentChangeLayoutKeysSize != null? currentChangeLayoutKeysSize : "NULL"));
+			if (currentChangeLayoutKeysSize.equals("1")) newValue = "Small";
+			else if (currentChangeLayoutKeysSize.equals("2")) newValue = "None";
+			else if (currentChangeLayoutKeysSize.equals("3")) newValue = "Big";
+			Editor e = sp.edit();
+			Log.d("AnySoftKeyboard", "keyboard_layout_change_method will be changed to: "+newValue);
+			e.putString("keyboard_layout_change_method", newValue);
+			e.commit();
+		}
+	}
+
+
 	
 	public boolean handleConfigurationChange(SharedPreferences sp)
 	{
@@ -49,8 +74,8 @@ public class AnySoftKeyboardConfigurationImpl implements AnySoftKeyboardConfigur
 		boolean handled = false;
 		// this change requires the recreation of the keyboards.
 		// so we wont mark the 'handled' result.
-		mChangeKeysMode = sp.getString("keyboard_layout_change_method", "1");
-		Log.i("AnySoftKeyboard", "** mChangeKeysMode: "+mChangeKeysMode);
+		mLayoutChangeKeysSize = sp.getString("keyboard_layout_change_method", "Small");
+		Log.i("AnySoftKeyboard", "** mChangeKeysMode: "+mLayoutChangeKeysSize);
 		
 		String newSmileyText = sp.getString("default_smiley_text", ":-) ");
 		handled = handled || (!newSmileyText.equals(mSmileyText));
@@ -80,8 +105,8 @@ public class AnySoftKeyboardConfigurationImpl implements AnySoftKeyboardConfigur
 		return mSmileyText;
 	}
 
-	public String getChangeLayoutMode() {
-		return mChangeKeysMode;
+	public String getChangeLayoutKeysSize() {
+		return mLayoutChangeKeysSize;
 	}
 	
 	public boolean getShowKeyPreview()

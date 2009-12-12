@@ -166,6 +166,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public void onCreate() {
 		super.onCreate();
 		Log.i("AnySoftKeyboard", "****** Starting AnySoftKeyboard:");
+		
 		mConfig = new AnySoftKeyboardConfigurationImpl(this);
 		DEBUG = mConfig.getDEBUG();
 		//showToastMessage(R.string.toast_lengthy_start_up_operation, true);
@@ -1245,21 +1246,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	public void swipeRight() {
-		// this should be done only if swipe was enabled
-		if (mConfig.getChangeLayoutMode().equals("3")) {
-			// TODO: space/backspace (depends on direction of keyboard)
-		} else {
-			nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
-		}
+		nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
 	}
 
 	public void swipeLeft() {
-		// this should be done only if swipe was enabled
-		if (mConfig.getChangeLayoutMode().equals("3")) {
-			// TODO: space/backspace (depends on direction of keyboard)
-		} else {
-			nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Symbols);
-		}
+		nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Symbols);
 	}
 
 	private void nextKeyboard(EditorInfo currentEditorInfo,

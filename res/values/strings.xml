@@ -30,13 +30,13 @@
     
     <!-- settings - UI -->
     <string name="ui_group">User interface</string>
-    <string name="keyboard_layout_change_method_title">Layout change method</string>
-    <string name="keyboard_layout_change_method_summary">On screen keyboard layout change method</string>
-    <string name="keyboard_layout_change_method_dialog_title">Select method</string>
+    <string name="keyboard_layout_change_method_title">Layout change keys</string>
+    <string name="keyboard_layout_change_method_summary">On screen keyboard layout keys size</string>
+    <string name="keyboard_layout_change_method_dialog_title">Select size</string>
     <string-array name="keyboard_layout_change_methods">
-        <item>Swipe with hint keys</item>
-        <item>Swipe without hint keys</item>
-        <item>No swipe, just keys</item>
+        <item>None</item>
+        <item>Small</item>
+        <item>Big</item>
     </string-array>
     
     <string name="physical_keyboard_change_notification_title">Keyboard layout notification</string>

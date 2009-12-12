@@ -154,14 +154,14 @@ public abstract class AnyKeyboard extends Keyboard
 	        else if ((key.codes[0] == Keyboard.KEYCODE_MODE_CHANGE) ||
 	        		 (key.codes[0] == AnyKeyboard.KEYCODE_LANG_CHANGE))
 	        {
-	        	final String keysMode = AnySoftKeyboardConfigurationImpl.getInstance().getChangeLayoutMode();
-	        	if (keysMode.equals("2"))
+	        	final String keysMode = AnySoftKeyboardConfigurationImpl.getInstance().getChangeLayoutKeysSize();
+	        	if (keysMode.equals("None"))
 	        	{
 	        		key.label = null;
 	        		key.height = 0;
 	        		key.width = 0;
 	        	}
-	        	else if (keysMode.equals("3"))
+	        	else if (keysMode.equals("Big"))
 	        	{
 	        		String keyText = (key.codes[0] == Keyboard.KEYCODE_MODE_CHANGE)?
 	        				res.getString(R.string.change_symbols_regular) :
@@ -214,11 +214,11 @@ public abstract class AnyKeyboard extends Keyboard
     	Row aRow = super.createRowFromXml(res, parser);
     	if ((aRow.rowEdgeFlags&EDGE_TOP) != 0)
     	{
-    		String layoutChangeType = AnySoftKeyboardConfigurationImpl.getInstance().getChangeLayoutMode();
+    		String layoutChangeType = AnySoftKeyboardConfigurationImpl.getInstance().getChangeLayoutKeysSize();
     		//top row
-    		if (layoutChangeType.equals("2"))
+    		if (layoutChangeType.equals("None"))
     			aRow.defaultHeight = 0;
-    		else if (layoutChangeType.equals("3"))
+    		else if (layoutChangeType.equals("Big"))
     			aRow.defaultHeight *= 1.5;
     	}
     	return aRow;
