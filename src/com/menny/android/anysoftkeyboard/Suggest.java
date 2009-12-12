@@ -234,14 +234,14 @@ public class Suggest implements Dictionary.WordCallback {
     }
 
     public boolean addWord(final char[] word, final int offset, final int length, final int freq) {
-    	if (AnySoftKeyboard.getDEBUG())
+    	if (AnySoftKeyboardConfigurationImpl.getInstance().getDEBUG())
         	Log.v("AnySoftKeyboard", "Suggest::addWord");
         int pos = 0;
         final int[] priorities = mPriorities;
         final int prefMaxSuggestions = mPrefMaxSuggestions;
         // Check if it's the same word, only caps are different
         if (compareCaseInsensitive(mLowerOriginalWord, word, offset, length)) {
-        	if (AnySoftKeyboard.getDEBUG())
+        	if (AnySoftKeyboardConfigurationImpl.getInstance().getDEBUG())
             	Log.v("AnySoftKeyboard", "Suggest::addWord - same word as typed");
             pos = 0;
         } else {

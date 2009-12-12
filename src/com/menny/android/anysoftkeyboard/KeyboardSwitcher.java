@@ -115,7 +115,7 @@ public class KeyboardSwitcher
     synchronized void makeKeyboards(boolean force) {
         if (force) 
         {
-        	if (AnySoftKeyboard.getDEBUG())
+        	if (AnySoftKeyboardConfigurationImpl.getInstance().getDEBUG())
             	Log.d("AnySoftKeyboard", "Forcing make Keyboards");
             mAlphabetKeyboards = null;
             mSymbolsKeyboardsArray = null;

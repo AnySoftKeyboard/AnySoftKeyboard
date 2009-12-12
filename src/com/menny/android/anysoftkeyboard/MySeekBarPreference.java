@@ -33,7 +33,7 @@ public class MySeekBarPreference extends DialogPreference implements SeekBar.OnS
 //    mSuffix = attrs.getAttributeValue(androidns,"text");
     mDefault = attrs.getAttributeIntValue(androidns,"defaultValue", 0);
     mMax = attrs.getAttributeIntValue(androidns,"max", 100);
-    if (AnySoftKeyboard.getDEBUG())
+    if (AnySoftKeyboardConfigurationImpl.getInstance().getDEBUG())
     	Log.d("AnySoftKeyboard:SeekBarPreference", "mDefault: "+mDefault+", mMax:"+mMax);
   }
   
@@ -65,7 +65,7 @@ public class MySeekBarPreference extends DialogPreference implements SeekBar.OnS
     mSeekBar.setMax(mMax);
     mSeekBar.setProgress(mValue);
     
-    if (AnySoftKeyboard.getDEBUG())
+    if (AnySoftKeyboardConfigurationImpl.getInstance().getDEBUG())
     	Log.d("AnySoftKeyboard:SeekBarPreference", "onCreateDialogView(): shouldPersist: "+shouldPersist()+", mValue:"+mValue);
     
     return layout;
@@ -75,7 +75,7 @@ public class MySeekBarPreference extends DialogPreference implements SeekBar.OnS
     super.onBindDialogView(v);
     mSeekBar.setMax(mMax);
     mSeekBar.setProgress(mValue);
-    if (AnySoftKeyboard.getDEBUG())
+    if (AnySoftKeyboardConfigurationImpl.getInstance().getDEBUG())
     	Log.d("AnySoftKeyboard:SeekBarPreference", "onBindDialogView(): mValue:"+mValue);
   }
   @Override
@@ -87,7 +87,7 @@ public class MySeekBarPreference extends DialogPreference implements SeekBar.OnS
     else 
       mValue = (Integer)defaultValue;
     
-    if (AnySoftKeyboard.getDEBUG())
+    if (AnySoftKeyboardConfigurationImpl.getInstance().getDEBUG())
     	Log.d("AnySoftKeyboard:SeekBarPreference", "onSetInitialValue(): restore:"+restore+", defaultValue:"+defaultValue+", mValue:"+mValue);
   }
 
@@ -98,7 +98,7 @@ public class MySeekBarPreference extends DialogPreference implements SeekBar.OnS
     if (shouldPersist())
       persistInt(value);
     
-    if (AnySoftKeyboard.getDEBUG())
+    if (AnySoftKeyboardConfigurationImpl.getInstance().getDEBUG())
     	Log.d("AnySoftKeyboard:SeekBarPreference", "onProgressChanged(): shouldPersist():"+shouldPersist()+", value:"+value);
     
     callChangeListener(new Integer(value));
@@ -114,7 +114,7 @@ public class MySeekBarPreference extends DialogPreference implements SeekBar.OnS
     if (mSeekBar != null)
       mSeekBar.setProgress(progress); 
     
-    if (AnySoftKeyboard.getDEBUG())
+    if (AnySoftKeyboardConfigurationImpl.getInstance().getDEBUG())
     	Log.d("AnySoftKeyboard:SeekBarPreference", "setProgress(): progress():"+progress);
   }
   public int getProgress() { return mValue; }
