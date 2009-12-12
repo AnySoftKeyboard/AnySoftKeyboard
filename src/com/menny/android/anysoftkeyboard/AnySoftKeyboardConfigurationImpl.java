@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.inputmethodservice.InputMethodService;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class AnySoftKeyboardConfigurationImpl implements AnySoftKeyboardConfiguration
@@ -19,11 +20,12 @@ public class AnySoftKeyboardConfigurationImpl implements AnySoftKeyboardConfigur
 	private String mSmileyText;
 	private String mDomainText;
 	private String mChangeKeysMode;
+	private boolean mShowKeyPreview;
 	
 	AnySoftKeyboardConfigurationImpl(InputMethodService ime)
 	{
 		msInstance = this;
-	
+		
 		mIme = ime;
 		
 		Log.i("AnySoftKeyboard", "** Locale:"+ mIme.getResources().getConfiguration().locale.toString());
@@ -38,6 +40,7 @@ public class AnySoftKeyboardConfigurationImpl implements AnySoftKeyboardConfigur
 		
 		mDEBUG = version.contains("tester");
 		Log.i("AnySoftKeyboard", "** Debug: "+mDEBUG);
+		handleConfigurationChange(PreferenceManager.getDefaultSharedPreferences(mIme));
 	}
 	
 	public boolean handleConfigurationChange(SharedPreferences sp)
@@ -59,6 +62,11 @@ public class AnySoftKeyboardConfigurationImpl implements AnySoftKeyboardConfigur
 		mDomainText = newDomainText;
 		Log.i("AnySoftKeyboard", "** mDomainText: "+mDomainText);
 		
+		boolean newShowPreview = sp.getBoolean("key_press_preview_popup", true);
+		handled = handled || (newShowPreview != mShowKeyPreview);
+		mShowKeyPreview = newShowPreview;
+		Log.i("AnySoftKeyboard", "** mShowKeyPreview: "+mShowKeyPreview);
+		
 		return handled;
 	}
 
@@ -74,6 +82,11 @@ public class AnySoftKeyboardConfigurationImpl implements AnySoftKeyboardConfigur
 
 	public String getChangeLayoutMode() {
 		return mChangeKeysMode;
+	}
+	
+	public boolean getShowKeyPreview()
+	{
+		return mShowKeyPreview;
 	}
 }
 

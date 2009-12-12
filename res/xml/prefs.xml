@@ -80,6 +80,14 @@ android:key="ime_settings">
 			android:summaryOn="@string/emoticon_long_press_opens_popup_on_summary"
 			android:summaryOff="@string/emoticon_long_press_opens_popup_off_summary"
 		/>
+		<CheckBoxPreference
+			android:key="key_press_preview_popup"
+			android:title="@string/key_press_preview_popup"
+			android:persistent="true"
+			android:defaultValue="true" 
+			android:summaryOn="@string/key_press_preview_popup_on_summary"
+			android:summaryOff="@string/key_press_preview_popup_off_summary"
+		/>
 		<EditTextPreference android:key="default_smiley_text" 
 		android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none"
 		android:title="@string/default_smiley_text" android:dialogTitle="@string/default_smiley_text" android:persistent="true"
@@ -90,7 +98,12 @@ android:key="ime_settings">
 		android:title="@string/default_domain_text" android:dialogTitle="@string/default_domain_text" android:persistent="true"
 		android:defaultValue=".com"
 		/>
-		<!-- @/.com selection -->
+		<!-- 
+		<PreferenceScreen android:key="swipe_tweak_group"
+			android:title="@string/swipe_tweak_group">
+			
+		</PreferenceScreen>
+		-->
 	</PreferenceScreen>
 	<PreferenceCategory android:key="grammer_group"
 	android:title="@string/grammer_group">

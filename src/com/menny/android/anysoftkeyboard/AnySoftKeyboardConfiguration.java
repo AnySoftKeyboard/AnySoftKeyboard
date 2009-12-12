@@ -9,4 +9,6 @@ public interface AnySoftKeyboardConfiguration
 	String getDomainText();
 	
 	String getChangeLayoutMode();
+	
+	boolean getShowKeyPreview();
 }

@@ -160,14 +160,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 	{
 		//mGenericKeyboardTranslator = new GenericPhysicalKeyboardTranslator(this);
 		mHardKeyboardAction = new HardKeyboardActionImpl();
-		mConfig = new AnySoftKeyboardConfigurationImpl(this);
-		DEBUG = mConfig.getDEBUG();
 	}
 	
 	@Override
 	public void onCreate() {
 		super.onCreate();
 		Log.i("AnySoftKeyboard", "****** Starting AnySoftKeyboard:");
+		mConfig = new AnySoftKeyboardConfigurationImpl(this);
+		DEBUG = mConfig.getDEBUG();
 		//showToastMessage(R.string.toast_lengthy_start_up_operation, true);
 		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
@@ -1470,6 +1470,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mSmileyOnShortPress = newSmileyOnShort;
 		
 		handled = handled || mConfig.handleConfigurationChange(sp);
+		
+		if (mInputView != null)
+			mInputView.setPreviewEnabled(mConfig.getShowKeyPreview());
 		
 		return handled;
 	}
