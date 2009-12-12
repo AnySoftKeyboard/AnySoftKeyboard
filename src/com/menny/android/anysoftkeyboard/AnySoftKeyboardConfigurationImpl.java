@@ -6,7 +6,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.inputmethodservice.InputMethodService;
 import android.util.Log;
 
-class AnySoftKeyboardConfigurationImpl implements AnySoftKeyboardConfiguration
+public class AnySoftKeyboardConfigurationImpl implements AnySoftKeyboardConfiguration
 {
 	private static AnySoftKeyboardConfigurationImpl msInstance;
 		

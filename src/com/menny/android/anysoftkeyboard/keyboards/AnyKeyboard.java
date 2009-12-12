@@ -10,7 +10,7 @@ import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
-import com.menny.android.anysoftkeyboard.AnySoftKeyboard;
+import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfigurationImpl;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.Workarounds;
 import com.menny.android.anysoftkeyboard.Dictionary.Dictionary;
@@ -54,6 +54,7 @@ public abstract class AnyKeyboard extends Keyboard
     
     private int mShiftState = SHIFT_OFF;
     
+    private final boolean mDebug;
     private final String mKeyboardPrefId;
 	private final String mKeyboardName;
     private final boolean mLeftToRightLanguageDirection;
@@ -85,6 +86,7 @@ public abstract class AnyKeyboard extends Keyboard
     		int keyboardIconId) 
     {
         super(context.getApplicationContext(), xmlLayoutResId);
+        mDebug = AnySoftKeyboardConfigurationImpl.getInstance().getDEBUG();
         mKeyboardContext = context;
         mKeyboardPrefId = keyboardPrefId;
         //mSupportsShift = supportsShift;
@@ -152,13 +154,14 @@ public abstract class AnyKeyboard extends Keyboard
 	        else if ((key.codes[0] == Keyboard.KEYCODE_MODE_CHANGE) ||
 	        		 (key.codes[0] == AnyKeyboard.KEYCODE_LANG_CHANGE))
 	        {
-	        	if (AnySoftKeyboard.mChangeKeysMode.equals("2"))
+	        	final String keysMode = AnySoftKeyboardConfigurationImpl.getInstance().getChangeLayoutMode();
+	        	if (keysMode.equals("2"))
 	        	{
 	        		key.label = null;
 	        		key.height = 0;
 	        		key.width = 0;
 	        	}
-	        	else if (AnySoftKeyboard.mChangeKeysMode.equals("3"))
+	        	else if (keysMode.equals("3"))
 	        	{
 	        		String keyText = (key.codes[0] == Keyboard.KEYCODE_MODE_CHANGE)?
 	        				res.getString(R.string.change_symbols_regular) :
@@ -184,7 +187,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        }
         }
         
-        if (AnySoftKeyboard.getDEBUG())
+        if (mDebug)
         	Log.v("AnySoftKeyboard", "Key '"+key.codes[0]+"' will have - width: "+key.width+", height:"+key.height+", text: '"+key.label+"'.");
         
         setPopupKeyChars(key);
@@ -198,7 +201,7 @@ public abstract class AnyKeyboard extends Keyboard
         		ShiftedKeyData keyData = new ShiftedKeyData(key);
 	        	if (!mSpecialShiftKeys.containsKey(primary))
 	        		mSpecialShiftKeys.put(primary, keyData);
-	        	if (AnySoftKeyboard.getDEBUG())
+	        	if (mDebug)
 	            	Log.v("AnySoftKeyboard", "Adding mapping ("+primary+"->"+keyData.ShiftCharacter+") to mSpecialShiftKeys.");
 	        }
         }
@@ -211,10 +214,11 @@ public abstract class AnyKeyboard extends Keyboard
     	Row aRow = super.createRowFromXml(res, parser);
     	if ((aRow.rowEdgeFlags&EDGE_TOP) != 0)
     	{
+    		String layoutChangeType = AnySoftKeyboardConfigurationImpl.getInstance().getChangeLayoutMode();
     		//top row
-    		if (AnySoftKeyboard.mChangeKeysMode.equals("2"))
+    		if (layoutChangeType.equals("2"))
     			aRow.defaultHeight = 0;
-    		else if (AnySoftKeyboard.mChangeKeysMode.equals("3"))
+    		else if (layoutChangeType.equals("3"))
     			aRow.defaultHeight *= 1.5;
     	}
     	return aRow;
@@ -237,7 +241,7 @@ public abstract class AnyKeyboard extends Keyboard
      * appropriate label on the keyboard's enter key (if it has one).
      */
     public void setImeOptions(Resources res, int options) {
-    	if (AnySoftKeyboard.getDEBUG())
+    	if (mDebug)
     		Log.d("AnySoftKeyboard", "AnyKeyboard.setImeOptions");
         if (mEnterKey == null) {
             return;
@@ -358,7 +362,7 @@ public abstract class AnyKeyboard extends Keyboard
 	public boolean setShifted(boolean shiftState) 
 	{
 		boolean result = super.setShifted(shiftState);
-		if (AnySoftKeyboard.getDEBUG())
+		if (mDebug)
     		Log.d("AnySoftKeyboard", "setShifted: shiftState:"+shiftState+". result:"+result);
 		mShiftState = shiftState? SHIFT_ON : SHIFT_OFF;
 		if (result)
@@ -424,7 +428,7 @@ public abstract class AnyKeyboard extends Keyboard
 
 	public void setTextVariation(Resources res, int inputType) 
 	{
-		if (AnySoftKeyboard.getDEBUG())
+		if (mDebug)
     		Log.d("AnySoftKeyboard", "setTextVariation");
 		int variation = inputType &  EditorInfo.TYPE_MASK_VARIATION;
 		
@@ -437,7 +441,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        		mSmileyKey.iconPreview = null;// res.getDrawable(sym_keyboard_key_domain_preview);
 	        		mSmileyKey.icon = res.getDrawable(R.drawable.sym_keyboard_key_domain);
 		        	mSmileyKey.label = null;
-		        	mSmileyKey.text = AnySoftKeyboard.mDomainText;
+		        	mSmileyKey.text = AnySoftKeyboardConfigurationImpl.getInstance().getDomainText();
 		        	mSmileyKey.popupResId = R.xml.popup_domains;
 	        	}
 	        	if (mQuestionMarkKey != null)
@@ -476,7 +480,7 @@ public abstract class AnyKeyboard extends Keyboard
 			if (mSpecialShiftKeys.containsKey(c))
 			{
 				char shifted = mSpecialShiftKeys.get(c).ShiftCharacter;
-				if (AnySoftKeyboard.getDEBUG())
+				if (mDebug)
 		        	Log.v("AnySoftKeyboard", "Returned the shifted mapping ("+c+"->"+shifted+") from mSpecialShiftKeys.");
 				return shifted;
 			}

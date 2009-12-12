@@ -1,6 +1,6 @@
 package com.menny.android.anysoftkeyboard.tutorials;
 
-import com.menny.android.anysoftkeyboard.AnySoftKeyboard;
+import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfigurationImpl;
 
 import android.content.Context;
 import android.util.Log;
@@ -13,7 +13,7 @@ public class TutorialsProvider
 	public static void ShowTutorialsIfNeeded(Context context, View view)
 	{
 		Log.i("AnySoftKeyboard", "TutorialsProvider::ShowTutorialsIfNeeded called");
-		if ((!msDEBUG_TUTORIAL_SHOWN) && (AnySoftKeyboard.getDEBUG()))
+		if ((!msDEBUG_TUTORIAL_SHOWN) && (AnySoftKeyboardConfigurationImpl.getInstance().getDEBUG()))
 		{
 			Log.i("AnySoftKeyboard", "TutorialsProvider::ShowTutorialsIfNeeded starting 'TESTERS VERSION'");
 			msDEBUG_TUTORIAL_SHOWN = true;
