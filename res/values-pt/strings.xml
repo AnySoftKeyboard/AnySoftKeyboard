@@ -30,13 +30,13 @@
     
     <!-- settings - UI -->
     <string name="ui_group">Interface de utilizador</string>
-    <string name="keyboard_layout_change_method_title">Alteração de esquema</string>
-    <string name="keyboard_layout_change_method_summary">Método de alteração do esquema do teclado virtual</string>
-    <string name="keyboard_layout_change_method_dialog_title">Seleccione o método</string>
+    <string name="keyboard_layout_change_method_title">Teclas de alteração de esquema</string>
+    <string name="keyboard_layout_change_method_summary">Tamanho das teclas de alteração do esquema do teclado</string>
+    <string name="keyboard_layout_change_method_dialog_title">Seleccione o tamanho</string>
     <string-array name="keyboard_layout_change_methods">
-        <item>Deslizar, com teclas de ajuda</item>
-        <item>Deslizar, sem teclas de ajuda</item>
-        <item>Só teclas de ajuda</item>
+        <item>Sem teclas</item>
+        <item>Pequenas</item>
+        <item>Grandes</item>
     </string-array>
     
     <string name="physical_keyboard_change_notification_title">Notificação de esquema</string>
@@ -88,7 +88,11 @@
     <string name="emoticon_long_press_opens_popup_off_summary">Mostra lista após pressão breve</string>
     <string name="default_smiley_text">Texto da tecla Smiley</string>
     <string name="default_domain_text">Texto da tecla domínio</string>   
-    
+    <string name="key_press_preview_popup">Tecla pressionada</string>
+    <string name="key_press_preview_popup_on_summary">Mostra ampliação da tecla pressionada</string>
+    <string name="key_press_preview_popup_off_summary">Não mostra ampliação da tecla pressionada</string>
+
+
     <string name="auto_caps">Auto-capitalização</string>
     <string name="grammer_group">Gramática</string>
     <string name="candidates_on">Mostra sugestões</string>
