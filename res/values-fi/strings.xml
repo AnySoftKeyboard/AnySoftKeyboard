@@ -82,12 +82,16 @@
     <string name="use_custom_sound_volume_off_summary">Äänenvoimakkuutena käytetään järjestelmän tiedotusäänenvoimakkuutta.</string>
     <string name="custom_sound_volume">Custom key-press volume</string>    
 
-    <string name="tweaks_group">Viilaus</string>
+    <string name="tweaks_group">Viilaukset</string>
     <string name="emoticon_long_press_opens_popup">Paina pitkään, hymiökupla</string>
     <string name="emoticon_long_press_opens_popup_on_summary">Näytä hymiökupla kun painat pitkään</string>
     <string name="emoticon_long_press_opens_popup_off_summary">Näytä hymiökupla kun painat nopeasti</string>
     <string name="default_smiley_text">Hymiöteksti</string>
     <string name="default_domain_text">Domain-teksti</string>  
+	<string name="key_press_preview_popup">Näppäimen esikatselukupla</string>
+	<string name="key_press_preview_popup_on_summary">Näytä esikatselukupla kun näppäintä painetaan</string>
+    <string name="key_press_preview_popup_off_summary">Älä näytä esikatselukupla kun näppäintä painetaan</string>
+
 
 	<string name="auto_caps">Autokapitalisointi</string>
     <string name="grammer_group">Kielioppi</string>
@@ -99,7 +103,7 @@
 	<string name="physical_keyboard_suggestions">Ehdotukset laitenäppäimistöllä</string>
     <string name="physical_keyboard_suggestions_summary">Näytä ehdotukset käytettäessä laitteen näppäimistöä</string>
     <string name="keyboard_sandbox">Kokeile asetuksia</string>
-    <string name="keyboard_sandbox_title">Kirjoita tähän testataksesi asetuksiasi</string>        
+    <string name="keyboard_sandbox_title">Kirjoita tähän testataksesi asetuksiasi</string>        	
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Näppäimistöt</string>
     <string name="eng_keyboard">Englanti</string>
