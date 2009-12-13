@@ -31,13 +31,13 @@
     
    <!-- settings - UI -->
    <string name="ui_group">Пользовательский Интерфейс</string>
-   <string name="keyboard_layout_change_method_title">Метод изменения формата</string>
-   <string name="keyboard_layout_change_method_summary">Метод изменения формата на виртуальной клавиатуре</string>
-   <string name="keyboard_layout_change_method_dialog_title">Выбор Метода</string>
+   <string name="keyboard_layout_change_method_title">Кнопки изменения формата</string>
+   <string name="keyboard_layout_change_method_summary">Кнопки изменения формата на виртуальной клавиатуре</string>
+   <string name="keyboard_layout_change_method_dialog_title">Размер Кнопок</string>
    <string-array name="keyboard_layout_change_methods">
-      <item>Экран с кнопками</item>
-      <item>Экран без кнопок</item>
-      <item>Только кнопки</item>
+      <item>Без Кнопок</item>
+      <item>Маленькие</item>
+      <item>Большие</item>
    </string-array>
    <string name="physical_keyboard_change_notification_title">Уведомления</string>
    <string name="physical_keyboard_change_notification_summary">Метод уведомления о выбранной раскладке</string>
@@ -87,6 +87,9 @@
    <string name="emoticon_long_press_opens_popup_off_summary">Показывать смайлики при коротком нажатии</string>
    <string name="default_smiley_text">Текст Смайликов</string>
    <string name="default_domain_text">Текст Доменов</string>
+   <string name="key_press_preview_popup">Показ кнопок</string>
+   <string name="key_press_preview_popup_on_summary">Показывать клавиши при нажатии</string>
+   <string name="key_press_preview_popup_off_summary">Не показывать клавиши при нажатии</string>
    
    <string name="auto_caps">Авто-заглав</string>
    <string name="grammer_group">Грамматика</string>
