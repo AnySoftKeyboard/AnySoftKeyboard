@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
+import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
@@ -63,11 +64,11 @@ public abstract class AnyKeyboard extends Keyboard
 	//private final String mKeyboardPrefId;
     private HashMap<Character, ShiftedKeyData> mSpecialShiftKeys;
     
-//    private Drawable mShiftLockIcon;
-//    private Drawable mShiftLockPreviewIcon;
-//    private Drawable mOldShiftIcon;
-//    private Drawable mOldShiftPreviewIcon;
-//    private Key mShiftKey;
+    private Drawable mShiftLockIcon;
+    //private Drawable mShiftLockPreviewIcon;
+    private Drawable mOldShiftIcon;
+    //private Drawable mOldShiftPreviewIcon;
+    private Key mShiftKey;
     private Key mEnterKey;
 	private Key mSmileyKey;
 	private Key mQuestionMarkKey;
@@ -105,7 +106,7 @@ public abstract class AnyKeyboard extends Keyboard
         //parse to a HashMap?
         //mTopKeys = new ArrayList<Key>();
         
-//        mShiftLockIcon = context.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift_locked);
+        mShiftLockIcon = context.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift_locked);
 //        mShiftLockPreviewIcon = context.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_feedback_shift_locked);
 //        mShiftLockPreviewIcon.setBounds(0, 0, mShiftLockPreviewIcon.getIntrinsicWidth(),mShiftLockPreviewIcon.getIntrinsicHeight());
     }
@@ -142,6 +143,12 @@ public abstract class AnyKeyboard extends Keyboard
 	        if (key.codes[0] == 10) 
 	        {
 	            mEnterKey = key;	            
+	        }
+	        else if (key.codes[0] == KEYCODE_SHIFT) 
+	        {
+	            mShiftKey = key;
+	            //saving the drawable for reseting purposes.
+	            mOldShiftIcon = mShiftKey.icon;
 	        }
 	        else if ((key.codes[0] == AnyKeyboard.KEYCODE_SMILEY) && (parent.rowEdgeFlags == Keyboard.EDGE_BOTTOM)) 
 	        {
@@ -314,17 +321,17 @@ public abstract class AnyKeyboard extends Keyboard
 //	}
 	
 	public void setShiftLocked(boolean shiftLocked) {
-//        if (mShiftKey != null) {
-//            if (shiftLocked) {
-//                mShiftKey.on = true;
-//                mShiftKey.icon = mShiftLockIcon;
-//                mShiftState = SHIFT_LOCKED;
-//            } else {
-//                mShiftKey.on = false;
-//                mShiftKey.icon = mShiftLockIcon;
-//                mShiftState = SHIFT_ON;
-//            }
-//        }
+        if (mShiftKey != null) {
+            if (shiftLocked) {
+                mShiftKey.on = true;
+                mShiftKey.icon = mShiftLockIcon;
+                mShiftState = SHIFT_LOCKED;
+            } else {
+                mShiftKey.on = false;
+                mShiftKey.icon = mOldShiftIcon;
+                mShiftState = SHIFT_ON;
+            }
+        }
     }
     
     @Override
@@ -372,8 +379,20 @@ public abstract class AnyKeyboard extends Keyboard
 			{
 				onKeyShifted(data, shiftState);
 			}
+			
+			if (mShiftKey != null) {
+	            if (shiftState == false) {
+	                mShiftState = SHIFT_OFF;
+	                mShiftKey.on = false;
+	                mShiftKey.icon = mOldShiftIcon;
+	            } else {
+	                if (mShiftState == SHIFT_OFF) {
+	                    mShiftState = SHIFT_ON;
+	                    mShiftKey.icon = mShiftLockIcon;
+	                }
+	            }
+	        }
 		}
-		
 		return result;
 	}
 	
