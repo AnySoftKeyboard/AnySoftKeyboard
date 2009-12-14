@@ -27,7 +27,7 @@
         <Key android:codes="105" android:keyLabel="i"/>
         <Key android:codes="111" android:keyLabel="o"/>
         <Key android:codes="112" android:keyLabel="p"/>
-        <Key android:codes="229,197" android:keyLabel="å" android:keyEdgeFlags="right"/>
+        <Key android:codes="229" android:keyLabel="å" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row android:keyWidth="9.09%p">
@@ -40,8 +40,8 @@
         <Key android:codes="106" android:keyLabel="j"/>
         <Key android:codes="107" android:keyLabel="k"/>
         <Key android:codes="108" android:keyLabel="l"/>
-        <Key android:codes="246,214" android:keyLabel="ö"/>
-        <Key android:codes="228,196" android:keyLabel="ä" android:keyEdgeFlags="right"/>
+        <Key android:codes="246" android:keyLabel="ö"/>
+        <Key android:codes="228" android:keyLabel="ä" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row>
