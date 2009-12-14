@@ -79,7 +79,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private static final int KEYBOARD_NOTIFICATION_ID = 1;
 	private static final String PUNCTUATION_CHARACTERS = ".\n!?,:;@<>()[]{}";
 
-	private AnySoftKeyboardConfigurationImpl mConfig;
+	private final AnySoftKeyboardConfigurationImpl mConfig;
 	private boolean DEBUG;
 	
 	private AnyKeyboardView mInputView;
@@ -159,6 +159,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public AnySoftKeyboard()
 	{
 		//mGenericKeyboardTranslator = new GenericPhysicalKeyboardTranslator(this);
+		mConfig = (AnySoftKeyboardConfigurationImpl)AnySoftKeyboardConfigurationImpl.getInstance();
 		mHardKeyboardAction = new HardKeyboardActionImpl();
 	}
 	
@@ -166,8 +167,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public void onCreate() {
 		super.onCreate();
 		Log.i("AnySoftKeyboard", "****** Starting AnySoftKeyboard:");
-		
-		mConfig = new AnySoftKeyboardConfigurationImpl(this);
+		((AnySoftKeyboardConfigurationImpl)mConfig).initializeConfiguration(this);
+
 		DEBUG = mConfig.getDEBUG();
 		//showToastMessage(R.string.toast_lengthy_start_up_operation, true);
 		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

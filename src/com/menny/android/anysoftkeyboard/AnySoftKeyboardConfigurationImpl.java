@@ -10,23 +10,31 @@ import android.util.Log;
 
 public class AnySoftKeyboardConfigurationImpl implements AnySoftKeyboardConfiguration
 {
-	private static AnySoftKeyboardConfigurationImpl msInstance;
+	private static final AnySoftKeyboardConfigurationImpl msInstance;
+	
+	static 
+	{
+		msInstance = new AnySoftKeyboardConfigurationImpl();
+	}
 		
 	public static AnySoftKeyboardConfiguration getInstance() {return msInstance;}
 	
-	private final InputMethodService mIme;
+	private InputMethodService mIme;
 	//this is determined from the version. It includes "tester", the it will be true
-	private final boolean mDEBUG;
+	private boolean mDEBUG = true;
 
-	private String mSmileyText;
-	private String mDomainText;
-	private String mLayoutChangeKeysSize;
-	private boolean mShowKeyPreview;
+	private String mSmileyText = ":-)";
+	private String mDomainText = ".com";
+	private String mLayoutChangeKeysSize = "Small";
+	private boolean mShowKeyPreview = true;
 	
-	AnySoftKeyboardConfigurationImpl(InputMethodService ime)
+	private AnySoftKeyboardConfigurationImpl()
 	{
-		msInstance = this;
 		
+	}
+	
+	void initializeConfiguration(InputMethodService ime) 
+	{
 		mIme = ime;
 		
 		Log.i("AnySoftKeyboard", "** Locale:"+ mIme.getResources().getConfiguration().locale.toString());
@@ -65,8 +73,6 @@ public class AnySoftKeyboardConfigurationImpl implements AnySoftKeyboardConfigur
 			e.commit();
 		}
 	}
-
-
 	
 	public boolean handleConfigurationChange(SharedPreferences sp)
 	{
