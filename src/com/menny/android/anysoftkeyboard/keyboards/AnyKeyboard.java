@@ -78,7 +78,7 @@ public abstract class AnyKeyboard extends Keyboard
     
     protected AnyKeyboard(AnyKeyboardContextProvider context,
     		String keyboardPrefId,
-    		int xmlLayoutResId, boolean supportsShift,
+    		int xmlLayoutResId,
     		/*mapping XML id will be added here,*/
     		int keyboardNameId,
     		/*String keyboardEnabledPref,*/
@@ -323,13 +323,15 @@ public abstract class AnyKeyboard extends Keyboard
 	public void setShiftLocked(boolean shiftLocked) {
         if (mShiftKey != null) {
             if (shiftLocked) {
+            	Log.d("AnySoftKeyboard", "Switching to LOCKED shift icon - capslock");
                 mShiftKey.on = true;
                 mShiftKey.icon = mShiftLockIcon;
                 mShiftState = SHIFT_LOCKED;
             } else {
+            	Log.d("AnySoftKeyboard", "Switching to regular shift icon - un-shifted");
                 mShiftKey.on = false;
                 mShiftKey.icon = mOldShiftIcon;
-                mShiftState = SHIFT_ON;
+                mShiftState = SHIFT_OFF;
             }
         }
     }
@@ -387,8 +389,9 @@ public abstract class AnyKeyboard extends Keyboard
 	                mShiftKey.icon = mOldShiftIcon;
 	            } else {
 	                if (mShiftState == SHIFT_OFF) {
+	                	mShiftKey.on = true;
 	                    mShiftState = SHIFT_ON;
-	                    mShiftKey.icon = mShiftLockIcon;
+	                    mShiftKey.icon = mOldShiftIcon;
 	                }
 	            }
 	        }

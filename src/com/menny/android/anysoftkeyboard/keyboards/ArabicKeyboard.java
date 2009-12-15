@@ -8,6 +8,6 @@ public class ArabicKeyboard extends AnyKeyboard/* implements HardKeyboardTransla
 {
 	public ArabicKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, KeyboardFactory.ARABIC_KEYBOARD, R.xml.arabic_qwerty, false, R.string.arabic_keyboard, false, Dictionary.Language.None, R.drawable.ar);
+		super(context, KeyboardFactory.ARABIC_KEYBOARD, R.xml.arabic_qwerty, R.string.arabic_keyboard, false, Dictionary.Language.None, R.drawable.ar);
 	}
 }

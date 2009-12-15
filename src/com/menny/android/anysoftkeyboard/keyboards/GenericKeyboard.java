@@ -5,9 +5,8 @@ import com.menny.android.anysoftkeyboard.Dictionary.Dictionary;
 
 public class GenericKeyboard extends AnyKeyboard 
 {
-	public GenericKeyboard(AnyKeyboardContextProvider context, int xmlLayoutResId,
-			boolean supportsShift, int keyboardNameId) 
+	public GenericKeyboard(AnyKeyboardContextProvider context, int xmlLayoutResId, int keyboardNameId) 
 	{
-		super(context, "NONE", xmlLayoutResId, supportsShift, keyboardNameId, true, Dictionary.Language.None, com.menny.android.anysoftkeyboard.R.drawable.sym_keyboard_notification_icon);
+		super(context, "NONE", xmlLayoutResId, keyboardNameId, true, Dictionary.Language.None, com.menny.android.anysoftkeyboard.R.drawable.sym_keyboard_notification_icon);
 	}	
 }

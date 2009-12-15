@@ -8,7 +8,7 @@ public class ThaiKeyboard extends AnyKeyboard /*implements HardKeyboardTranslato
 {
 	public ThaiKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, KeyboardFactory.THAI_KEYBOARD, R.xml.thai_qwerty, true, R.string.thai_keyboard, true, Dictionary.Language.None, R.drawable.thai);
+		super(context, KeyboardFactory.THAI_KEYBOARD, R.xml.thai_qwerty, R.string.thai_keyboard, true, Dictionary.Language.None, R.drawable.thai);
 	}
 
 	@Override

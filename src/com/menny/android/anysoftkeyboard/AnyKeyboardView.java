@@ -28,7 +28,7 @@ import android.util.Log;
 public class AnyKeyboardView extends KeyboardView {
 
 	static final int KEYCODE_OPTIONS = -100;
-    static final int KEYCODE_SHIFT_LONGPRESS = -101;
+    //static final int KEYCODE_SHIFT_LONGPRESS = -101;
 	static final int KEYCODE_SMILEY_LONGPRESS = -102;
     
     private Keyboard mPhoneKeyboard;
@@ -57,10 +57,10 @@ public class AnyKeyboardView extends KeyboardView {
         if (key.codes[0] == 10) {
             getOnKeyboardActionListener().onKey(KEYCODE_OPTIONS, null);
             return true;
-        } else if (key.codes[0] == Keyboard.KEYCODE_SHIFT) {
-            getOnKeyboardActionListener().onKey(KEYCODE_SHIFT_LONGPRESS, null);
-            invalidate();
-            return true;
+//        } else if (key.codes[0] == Keyboard.KEYCODE_SHIFT) {
+//            getOnKeyboardActionListener().onKey(KEYCODE_SHIFT_LONGPRESS, null);
+//            invalidate();
+//            return true;
         } else if (key.codes[0] == AnyKeyboard.KEYCODE_SMILEY) {
             getOnKeyboardActionListener().onKey(KEYCODE_SMILEY_LONGPRESS, null);
             invalidate();

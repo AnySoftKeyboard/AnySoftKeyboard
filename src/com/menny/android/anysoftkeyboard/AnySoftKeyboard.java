@@ -829,6 +829,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case Keyboard.KEYCODE_SHIFT:
 			handleShift();
 			break;
+//		case AnyKeyboardView.KEYCODE_SHIFT_LONGPRESS:
+//			if (mCapsLock) {
+//				handleShift();
+//			} else {
+//				toggleCapsLock();
+//			}
+//			break;
 		case Keyboard.KEYCODE_CANCEL:
 			if (mOptionsDialog == null || !mOptionsDialog.isShowing()) {
 				handleClose();
@@ -836,13 +843,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 			break;
 		case AnyKeyboardView.KEYCODE_OPTIONS:
 			showOptionsMenu();
-			break;
-		case AnyKeyboardView.KEYCODE_SHIFT_LONGPRESS:
-			if (mCapsLock) {
-				handleShift();
-			} else {
-				toggleCapsLock();
-			}
 			break;
 		case AnyKeyboard.KEYCODE_SMILEY:
 			if (mSmileyOnShortPress) {
