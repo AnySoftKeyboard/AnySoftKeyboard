@@ -7,7 +7,7 @@ public class LatinKeyboard extends AnyKeyboard
 {
 	protected LatinKeyboard(AnyKeyboardContextProvider context, String prefId, int keyboardLayoutId, int keyboardNameId, Dictionary.Language defaultDictionaryLanguage, int keyboardIconId) 
 	{
-		super(context, prefId, keyboardLayoutId, keyboardNameId, true, defaultDictionaryLanguage, keyboardIconId);
+		super(context, prefId, keyboardLayoutId, keyboardNameId, defaultDictionaryLanguage, keyboardIconId);
 	}
 
 	protected void setPopupKeyChars(Key aKey) 

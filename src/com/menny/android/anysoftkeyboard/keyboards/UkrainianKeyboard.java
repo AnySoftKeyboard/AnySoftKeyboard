@@ -26,7 +26,7 @@ public class UkrainianKeyboard extends AnyKeyboard implements HardKeyboardTransl
 	}
 	public UkrainianKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, KeyboardFactory.UK_KEYBOARD, getKeyboardId(context), R.string.uk_keyboard, false, Dictionary.Language.Ukrainian, R.drawable.uk);
+		super(context, KeyboardFactory.UK_KEYBOARD, getKeyboardId(context), R.string.uk_keyboard, Dictionary.Language.Ukrainian, R.drawable.uk);
 	}
 	
 	private static int getKeyboardId(AnyKeyboardContextProvider context) 

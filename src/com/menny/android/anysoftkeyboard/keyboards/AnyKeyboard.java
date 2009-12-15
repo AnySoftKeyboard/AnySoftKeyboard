@@ -58,7 +58,7 @@ public abstract class AnyKeyboard extends Keyboard
     private final boolean mDebug;
     private final String mKeyboardPrefId;
 	private final String mKeyboardName;
-    private final boolean mLeftToRightLanguageDirection;
+    //private final boolean mLeftToRightLanguageDirection;
     private final Dictionary.Language mDefaultDictionaryLanguage;
     private final int mKeyboardIconId;
 	//private final String mKeyboardPrefId;
@@ -73,6 +73,7 @@ public abstract class AnyKeyboard extends Keyboard
 	private Key mSmileyKey;
 	private Key mQuestionMarkKey;
 	
+	private boolean mRightToLeftLayout;
 	
     private final AnyKeyboardContextProvider mKeyboardContext;
     
@@ -82,7 +83,7 @@ public abstract class AnyKeyboard extends Keyboard
     		/*mapping XML id will be added here,*/
     		int keyboardNameId,
     		/*String keyboardEnabledPref,*/
-    		boolean leftToRightLanguageDirection,
+    		/*boolean leftToRightLanguageDirection,*/
     		Dictionary.Language defaultDictionaryLanguage,
     		int keyboardIconId) 
     {
@@ -95,7 +96,7 @@ public abstract class AnyKeyboard extends Keyboard
         	mKeyboardName = context.getApplicationContext().getResources().getString(keyboardNameId);
         else
         	mKeyboardName = "";
-        mLeftToRightLanguageDirection = leftToRightLanguageDirection;
+        //mLeftToRightLanguageDirection = leftToRightLanguageDirection;
         mDefaultDictionaryLanguage = defaultDictionaryLanguage;
         mKeyboardIconId = keyboardIconId;
         //mKeyboardPrefId = keyboardEnabledPref;
@@ -109,6 +110,8 @@ public abstract class AnyKeyboard extends Keyboard
         mShiftLockIcon = context.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift_locked);
 //        mShiftLockPreviewIcon = context.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_feedback_shift_locked);
 //        mShiftLockPreviewIcon.setBounds(0, 0, mShiftLockPreviewIcon.getIntrinsicWidth(),mShiftLockPreviewIcon.getIntrinsicHeight());
+        //lets say all is Left to Right
+        mRightToLeftLayout = false;
     }
     
     protected AnyKeyboardContextProvider getKeyboardContext()
@@ -131,8 +134,9 @@ public abstract class AnyKeyboard extends Keyboard
         
         if ((key.codes != null) && (key.codes.length > 0))
         {
+        	final int primaryCode = key.codes[0];
         	//creating less sensitive keys if required
-        	switch(key.codes[0])
+        	switch(primaryCode)
         	{
         	case 10://enter
         	case KEYCODE_DELETE://delete
@@ -140,26 +144,26 @@ public abstract class AnyKeyboard extends Keyboard
         		key = new LessSensitiveAnyKey(res, parent, x, y, parser);
         	}
         	
-	        if (key.codes[0] == 10) 
+	        if (primaryCode == 10) 
 	        {
 	            mEnterKey = key;	            
 	        }
-	        else if (key.codes[0] == KEYCODE_SHIFT) 
+	        else if (primaryCode == KEYCODE_SHIFT) 
 	        {
 	            mShiftKey = key;
 	            //saving the drawable for reseting purposes.
 	            mOldShiftIcon = mShiftKey.icon;
 	        }
-	        else if ((key.codes[0] == AnyKeyboard.KEYCODE_SMILEY) && (parent.rowEdgeFlags == Keyboard.EDGE_BOTTOM)) 
+	        else if ((primaryCode == AnyKeyboard.KEYCODE_SMILEY) && (parent.rowEdgeFlags == Keyboard.EDGE_BOTTOM)) 
 	        {
 	            mSmileyKey = key;
 	        }
-	        else if ((key.codes[0] == 63)  && (parent.rowEdgeFlags == Keyboard.EDGE_BOTTOM)) 
+	        else if ((primaryCode == 63)  && (parent.rowEdgeFlags == Keyboard.EDGE_BOTTOM)) 
 	        {
 	            mQuestionMarkKey = key;
 	        }
-	        else if ((key.codes[0] == Keyboard.KEYCODE_MODE_CHANGE) ||
-	        		 (key.codes[0] == AnyKeyboard.KEYCODE_LANG_CHANGE))
+	        else if ((primaryCode == Keyboard.KEYCODE_MODE_CHANGE) ||
+	        		 (primaryCode == AnyKeyboard.KEYCODE_LANG_CHANGE))
 	        {
 	        	final String keysMode = AnySoftKeyboardConfigurationImpl.getInstance().getChangeLayoutKeysSize();
 	        	if (keysMode.equals("None"))
@@ -170,7 +174,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        	}
 	        	else if (keysMode.equals("Big"))
 	        	{
-	        		String keyText = (key.codes[0] == Keyboard.KEYCODE_MODE_CHANGE)?
+	        		String keyText = (primaryCode == Keyboard.KEYCODE_MODE_CHANGE)?
 	        				res.getString(R.string.change_symbols_regular) :
 	        					res.getString(R.string.change_lang_regular);
 	        		key.label = keyText;
@@ -178,7 +182,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        	}
 	        	else
 	        	{
-	        		String keyText = (key.codes[0] == Keyboard.KEYCODE_MODE_CHANGE)?
+	        		String keyText = (primaryCode == Keyboard.KEYCODE_MODE_CHANGE)?
 	        				res.getString(R.string.change_symbols_wide) :
 	        					res.getString(R.string.change_lang_wide);
 	        		key.label = keyText;
@@ -189,21 +193,29 @@ public abstract class AnyKeyboard extends Keyboard
 	        	//setting the character label
 	        	if (isAlphabetKey(key))
 	        	{
-	        		key.label = ""+((char)key.codes[0]); 
+	        		key.label = ""+((char)primaryCode); 
 	        	}
 	        }
         }
         
         if (mDebug)
-        	Log.v("AnySoftKeyboard", "Key '"+key.codes[0]+"' will have - width: "+key.width+", height:"+key.height+", text: '"+key.label+"'.");
+        {
+        	final int primaryKey = ((key.codes != null) && key.codes.length > 0)?
+        			key.codes[0] : -1;
+        	Log.v("AnySoftKeyboard", "Key '"+primaryKey+"' will have - width: "+key.width+", height:"+key.height+", text: '"+key.label+"'.");
+        }
         
         setPopupKeyChars(key);
         
         if ((key.codes != null) && (key.codes.length > 1))
         {
-        	int primaryCode = key.codes[0];
+        	final int primaryCode = key.codes[0];
         	if ((primaryCode>0) && (primaryCode<Character.MAX_VALUE))
         	{
+        		//detecting LTR languages
+        		if (Workarounds.isRightToLeftCharacter((char)primaryCode))
+        			mRightToLeftLayout = true;//one is enough
+        		
         		Character primary = new Character((char)primaryCode);
         		ShiftedKeyData keyData = new ShiftedKeyData(key);
 	        	if (!mSpecialShiftKeys.containsKey(primary))
@@ -292,7 +304,7 @@ public abstract class AnyKeyboard extends Keyboard
     
     public boolean isLeftToRightLanguage()
     {
-    	return mLeftToRightLanguageDirection;
+    	return !mRightToLeftLayout;
     }
     
     /*

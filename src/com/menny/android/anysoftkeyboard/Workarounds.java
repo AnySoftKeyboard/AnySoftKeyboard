@@ -25,6 +25,22 @@ public class Workarounds
 		ms_requiresRtlWorkaround = requiresRtlWorkaround;
 	}
 	
+	public static boolean isRightToLeftCharacter(final char key)
+	{
+    	final byte direction = Character.getDirectionality(key);
+
+		switch(direction)
+		{
+		case Character.DIRECTIONALITY_RIGHT_TO_LEFT:
+		case Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC:
+		case Character.DIRECTIONALITY_RIGHT_TO_LEFT_EMBEDDING:
+		case Character.DIRECTIONALITY_RIGHT_TO_LEFT_OVERRIDE:
+			return true;
+		default:
+			return false;
+		}
+	}
+	
 	public static CharSequence workaroundCorrectStringDirection(CharSequence suggestion) 
     {
 		//Hebrew letters are to be drawn in the other direction.
@@ -33,21 +49,16 @@ public class Workarounds
 			return suggestion;
 		
     	//this function is a workaround! In the official 1.5 firmware, there is a RTL bug.
-    	final byte direction = Character.getDirectionality(suggestion.charAt(0));
-    	//Log.d("AnySoftKeyboard", "CandidateView: correctStringDirection: direction:"+direction+" char:"+suggestion.charAt(0));
-		switch(direction)
-		{
-		case Character.DIRECTIONALITY_RIGHT_TO_LEFT:
-		case Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC:
-		case Character.DIRECTIONALITY_RIGHT_TO_LEFT_EMBEDDING:
-		case Character.DIRECTIONALITY_RIGHT_TO_LEFT_OVERRIDE:
-			String reveresed = "";
+    	if (isRightToLeftCharacter(suggestion.charAt(0)))
+    	{
+    		String reveresed = "";
 			for(int charIndex = suggestion.length() - 1; charIndex>=0; charIndex--)
 			{
 				reveresed = reveresed + suggestion.charAt(charIndex);
 			}
 			return reveresed;
-		}
-		return suggestion;
+    	}
+    	else
+    		return suggestion;
 	}
 }

@@ -29,7 +29,7 @@ public class BelarusianCyrillicKeyboard extends AnyKeyboard implements
 
     public BelarusianCyrillicKeyboard(AnyKeyboardContextProvider context) {
         super(context, KeyboardFactory.BE_CYRILLIC_KEYBOARD, R.xml.be_cyrillic,
-                R.string.be_cyrillic_keyboard, true,
+                R.string.be_cyrillic_keyboard,
                 Dictionary.Language.None,
                 R.drawable.be_cyrillic);
     }

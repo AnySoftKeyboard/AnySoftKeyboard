@@ -39,7 +39,7 @@ public class RussianKeyboard extends AnyKeyboard implements HardKeyboardTranslat
 	}
 	public RussianKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, KeyboardFactory.RU_KEYBOARD, getKeyboardId(context), R.string.ru_keyboard, false, Dictionary.Language.None, R.drawable.ru);
+		super(context, KeyboardFactory.RU_KEYBOARD, getKeyboardId(context), R.string.ru_keyboard, Dictionary.Language.None, R.drawable.ru);
 	}
 	
 	private static int getKeyboardId(AnyKeyboardContextProvider context) 

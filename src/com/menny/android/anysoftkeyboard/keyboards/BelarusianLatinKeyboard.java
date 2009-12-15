@@ -39,7 +39,7 @@ public class BelarusianLatinKeyboard extends AnyKeyboard implements
 
     public BelarusianLatinKeyboard(AnyKeyboardContextProvider context) {
         super(context, KeyboardFactory.BE_LATIN_KEYBOARD, R.xml.be_latin,
-                R.string.be_latin_keyboard, true, Dictionary.Language.None, R.drawable.be_latin);
+                R.string.be_latin_keyboard, Dictionary.Language.None, R.drawable.be_latin);
     }
 
     @Override

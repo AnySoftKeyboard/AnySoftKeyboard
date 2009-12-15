@@ -29,7 +29,7 @@ public class RussianPhoneticKeyboard extends AnyKeyboard implements HardKeyboard
 	
 	public RussianPhoneticKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, KeyboardFactory.RU_PH_KEYBOARD, getKeyboardId(context), R.string.ru_ph_keyboard, false, Dictionary.Language.None, R.drawable.ru_ph);
+		super(context, KeyboardFactory.RU_PH_KEYBOARD, getKeyboardId(context), R.string.ru_ph_keyboard, Dictionary.Language.None, R.drawable.ru_ph);
 	}
 	
 	private static int getKeyboardId(AnyKeyboardContextProvider context) 

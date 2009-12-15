@@ -58,6 +58,8 @@ public class KeyboardSwitcher
     
     private int mImeOptions;
     private boolean mAlphabetMode = true;
+    //this is for workaround RTL langs and () characters (Issue 146)
+    private boolean mLTRLanguageLayout = true;
 
     KeyboardSwitcher(AnySoftKeyboard context) {
         mContext = context;
@@ -252,12 +254,16 @@ public class KeyboardSwitcher
 			mLastSelectedSymbolsKeyboard = 0;
     	
     	current = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard);
+    	//issue 146: workaround!
+    	if (mLastSelectedSymbolsKeyboard == SYMBOLS_KEYBOARD_REGULAR_INDEX)
+    	{
+    		((GenericKeyboard)current).workaroundSetRightToLeftKeys(!mLTRLanguageLayout);
+    	}
     	
     	return setKeyboard(currentEditorInfo, current);
     }
     
-	private AnyKeyboard setKeyboard(EditorInfo currentEditorInfo,
-			AnyKeyboard current) {
+	private AnyKeyboard setKeyboard(EditorInfo currentEditorInfo, AnyKeyboard current) {
 		if (mInputView != null)
 			mInputView.setKeyboard(current);
     	//all keyboards start as un-shifted, except the second symbols
@@ -267,6 +273,8 @@ public class KeyboardSwitcher
     	current.setImeOptions(mContext.getResources(), currentEditorInfo.imeOptions);
     	current.setTextVariation(mContext.getResources(), currentEditorInfo.inputType);
 		
+    	mLTRLanguageLayout = current.isLeftToRightLanguage();
+    	
     	return current;
 	}
     
