@@ -78,6 +78,7 @@
             			<TextView android:text="Radostin Radnev" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
             			<TextView android:text="Hugo Lopes" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
 						<TextView android:text="Henrik Andersson" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+						<TextView android:text="Joan Montané" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
             		</LinearLayout>
             	</ScrollView>
 			</LinearLayout>
