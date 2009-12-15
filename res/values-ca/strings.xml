@@ -33,21 +33,21 @@
     
     <!-- settings - UI -->
     <string name="ui_group">Interfície d\'usuari</string>
-    <string name="keyboard_layout_change_method_title">Tecles de canvi de distribució</string>
-    <string name="keyboard_layout_change_method_summary">Mida de les tecles de canvi a la pantalla</string>
-    <string name="keyboard_layout_change_method_dialog_title">Seleccioneu la mida</string>
+    <string name="keyboard_layout_change_method_title">Botons de canvi de teclat</string>
+    <string name="keyboard_layout_change_method_summary">Mida dels botons a la pantalla</string>
+    <string name="keyboard_layout_change_method_dialog_title">Seleccioneu-ne la mida</string>
     <string-array name="keyboard_layout_change_methods">
         <item>Cap</item>
         <item>Petita</item>
         <item>Gran</item>
     </string-array>
     
-    <string name="physical_keyboard_change_notification_title">Notificació de la distribució de teclat</string>
-    <string name="physical_keyboard_change_notification_summary">Tipus de notifació de la distribució activa</string>
+    <string name="physical_keyboard_change_notification_title">Avís de canvi de teclat</string>
+    <string name="physical_keyboard_change_notification_summary">Tipus d'avís del teclat actiu</string>
     <string name="physical_keyboard_change_notification_dialog_title">Seleccioneu el tipus de notificació</string>
     <string-array name="physical_keyboard_change_notification_types">
-        <item>Mostra sempre la icona de disposició</item>
-        <item>Mostra la icona en canviar de disposició</item>
+        <item>Mostra sempre la icona del teclat actiu</item>
+        <item>Mostra la icona en canviar de teclat</item>
         <item>Sense notificació</item>
     </string-array>
     
@@ -56,7 +56,7 @@
     
     <!-- Options menu -->
     <string name="change_ime">Canvia el mètode d\'entrada</string>
-    <string name="override_dictionary">NO usis el diccionari predeterminat</string>
+    <string name="override_dictionary">No usis el diccionari predeterminat</string>
     <!-- Dictionary override strings -->
     <string name="override_dictionary_title">No usis el diccionari <xliff:g id="word">%s</xliff:g></string>
     <string name="override_dictionary_default">Predeterminat</string>
@@ -66,9 +66,9 @@
     
     <!-- settings - effects-->
     <string name="effects_group">Efectes</string>
-    <string name="ime_settings">Paràmetres del teclat</string>
+    <string name="ime_settings">Configuració del teclat</string>
     <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
-    <string name="vibrate_on_key_press_title">Vibra en prémer les tecles</string>
+    <string name="vibrate_on_key_press_title">Vibració de les tecles</string>
     <string name="vibrate_on_key_press_summary">Selecció del tipus de vibració</string>
     <string name="vibrate_on_key_press_dialog_title">Seleccioneu la durada de vibració</string>
     <string-array name="vibrate_on_key_press_types">
@@ -80,32 +80,32 @@
     
     <string name="sound_on">So en prémer les tecles</string>
     <string name="sound_on_summary">Efectes de so en prémer les tecles.</string>
-    <string name="use_custom_sound_volume">Estableix el volum personalitzat</string>
+    <string name="use_custom_sound_volume">Volum personalitzat</string>
     <string name="use_custom_sound_volume_on_summary">El volum dels efectes de so és personalitzat.</string>
     <string name="use_custom_sound_volume_off_summary">El volum dels efectes de so és el volum de notificacions del sistema.</string>
     <string name="custom_sound_volume">Volum de pulsació de tecles personalitzat</string>
     
     <string name="tweaks_group">Arranjaments</string>
-    <string name="emoticon_long_press_opens_popup">Pulsació llarga a la finestra emergent d\'emoticones</string>
+    <string name="emoticon_long_press_opens_popup">Finestra d\'emoticones</string>
     <string name="emoticon_long_press_opens_popup_on_summary">Mostra la finestra emergent d\'emoticones amb una pulsació llarga</string>
     <string name="emoticon_long_press_opens_popup_off_summary">Mostra la finestra emergent d\'emoticones amb una pulsació curta</string>
     <string name="default_smiley_text">Text d\'emoticones</string>
     <string name="default_domain_text">Text de dominis</string>
-    <string name="key_press_preview_popup">Finestra emergent de vista prèvia de tecla</string>
-    <string name="key_press_preview_popup_on_summary">Mostra la finestra emergent sobre la tecla premuda</string>
-    <string name="key_press_preview_popup_off_summary">No mostris la finestra emergent sobre la tecla premuda</string>
+    <string name="key_press_preview_popup">Mostra la tecla premuda</string>
+    <string name="key_press_preview_popup_on_summary">Mostra en gran la tecla premuda</string>
+    <string name="key_press_preview_popup_off_summary">No mostra en gran la tecla premuda</string>
     
     
-    <string name="auto_caps">Majúscules automàtiques</string>
+    <string name="auto_caps">Maj. automàtiques</string>
     <string name="grammer_group">Gramàtica</string>
     <string name="candidates_on">Mostra els suggeriments</string>
     <string name="quick_fix">Correccions ràpides</string>
     <string name="quick_fix_summary">Corregeix errors d\'escriptura freqüents</string>
-    <string name="auto_complete">Selecció automàtica de suggeriments</string>
+    <string name="auto_complete">Sugeriments automàtics</string>
     <string name="auto_complete_summary">La tecla espai selecciona el suggeriment ressaltat</string>
     <string name="physical_keyboard_suggestions">Suggeriments al teclat del dispositiu</string>
     <string name="physical_keyboard_suggestions_summary">Mostra els suggeriments quan usi el teclat</string>
-    <string name="keyboard_sandbox">Feu clic per a fer una prova de text</string>
+    <string name="keyboard_sandbox">Feu clic per a fer una prova</string>
     <string name="keyboard_sandbox_title">Escriviu a sota per a provar la configuració</string>
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Teclats</string>
@@ -131,7 +131,7 @@
 	<string name="thai_keyboard">Thai</string>
 	<string name="fr_ca_keyboard">Francès del Canadà</string>
 	<string name="ka_keyboard">Georgià</string>
-	<string name="uk_keyboard">Ucrainès</string>
+	<string name="uk_keyboard">Ucraïnès</string>
 	<string name="uk_keyboard_4_row">Usa 4 files per a la distribució ucraïnesa en mode apaïsat</string>
     <string name="colemak_keyboard">Colemak</string>
     <string name="bepo_keyboard">B&#233;po</string><!-- BEPO -->
@@ -143,7 +143,7 @@
     <string name="tutorial_swipe_text">Podeu canviar la distribució del teclat lliscant el dit sobre el teclat. Llisque-lo d\'esquerra a dreta per canviar de llengua, feu-lo lliscar de dreta a esquerra per canviar als símbols.</string>
     
     <!-- Special soft keyboard keys text -->
-    <string name="label_go_key">Endavant</string>
+    <string name="label_go_key">D\'acord</string>
     <string name="label_next_key">Següent</string>
     <string name="label_send_key">Envia</string>
     

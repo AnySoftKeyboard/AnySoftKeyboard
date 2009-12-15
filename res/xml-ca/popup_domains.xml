@@ -7,15 +7,16 @@
     android:keyHeight="@dimen/key_height">
     <Row android:rowEdgeFlags="top">
 		<Key android:keyLabel=".cat" android:keyOutputText=".cat" android:keyEdgeFlags="left"/>
+		<Key android:keyLabel=".com" android:keyOutputText=".com"/>
+		<Key android:keyLabel=".info" android:keyOutputText=".info"/>
 		<Key android:keyLabel=".net" android:keyOutputText=".net"/>
 		<Key android:keyLabel=".org" android:keyOutputText=".org"/>
-		<Key android:keyLabel=".info" android:keyOutputText=".info"/>
 	</Row>
     <Row android:rowEdgeFlags="bottom">
-    	<Key android:keyLabel=".cat" android:keyOutputText=".cat" android:keyEdgeFlags="left"/>
+		<Key android:keyLabel=".eu" android:keyOutputText=".eu" android:keyEdgeFlags="left"/>
+		<Key android:keyLabel=".ad" android:keyOutputText=".ad"/>
 		<Key android:keyLabel=".es" android:keyOutputText=".es"/>
 		<Key android:keyLabel=".fr" android:keyOutputText=".fr"/>
-		<Key android:keyLabel=".ad" android:keyOutputText=".ad"/>
-		<Key android:keyLabel=".it" android:keyOutputText=".it" android:keyEdgeFlags="right"/>		
+		<Key android:keyLabel=".it" android:keyOutputText=".it" android:keyEdgeFlags="right"/>
 	</Row>
 </Keyboard>
