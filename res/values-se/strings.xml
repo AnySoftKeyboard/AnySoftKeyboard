@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="ime_name">AnySoftKeyboard</string>
+    
+    <string name="main_tab_welcome">Välkommen</string>
+    <string name="main_tab_links">Länkar</string>
+    <string name="main_tab_credits">Credits</string>
+    <!-- welcome tab -->
+    <string name="how_to_pointer_title">Välkommen till AnySoftKeyboard</string>
+    <string name="how_to_pointer_version_prefix">Version: </string>
+    <string name="how_to_pointer_not_app">AnySoftKeyboard är inte en vanlig applikation utan en ersättning av skärmtangentbordet.</string>
+    <string name="how_to_pointer_go_to_links">För mer information, gå till tabben länkar.</string>
+    <!-- links tab -->
+    <string name="how_to_pointer_how_to_url">Detaljer om hur du använder detta skärmtangentbord:</string>
+    <string name="how_to_pointer_site">Allmänna detaljer:</string>
+    <string name="how_to_pointer_changelog">Detaljer om senaste version:</string>
+    <string name="how_to_pointer_issues">Buggrapportering:</string>
+    <!-- credits tab -->
+    <string name="main_tab_credits_title">Denna applikation skapades med hjälp av följande personer-</string>
+    <string name="main_tab_credits_created_by">Skapad utav:</string>
+    <string name="main_tab_credits_additional_work_by">Bidragande programmering utav:</string>
+    <string name="main_tab_credits_localization_by">Översättningar utav:</string>
+    <string name="main_tab_credits_GUI_by">Användargränssnitt utav:</string>
+	
+    <string name="added_word"><xliff:g id="word">%s</xliff:g> : Sparad</string>
+    
+    <!-- settings - UI -->
+    <string name="ui_group">Användargränssnitt</string>
+    <string name="keyboard_layout_change_method_title">Tangent för byte utav layout</string>
+    <string name="keyboard_layout_change_method_summary">Val av tangentstorlek för byte av layout</string>
+    <string name="keyboard_layout_change_method_dialog_title">Välj storlek</string>
+    <string-array name="keyboard_layout_change_methods">
+        <item>Ingen</item>
+        <item>Liten</item>
+        <item>Stor</item>
+    </string-array>
+    
+    <string name="physical_keyboard_change_notification_title">Layout indikation</string>
+    <string name="physical_keyboard_change_notification_summary">Val av typ av indikation för aktiv layout</string>
+    <string name="physical_keyboard_change_notification_dialog_title">Välj indikationstyp</string>
+    <string-array name="physical_keyboard_change_notification_types">
+        <item>Visa alltid ikon för layout</item>
+        <item>När hårdvarutangentbordet ändras</item>
+        <item>Inga indikationer</item>
+    </string-array>
+    
+    <string name="lengthy_operations_toast_notification">Indikera på långa tangenttryckningar</string>
+    <string name="lengthy_operations_toast_notification_summary">Visa snabba indikationer</string>
+    
+    <!-- Options menu -->
+    <string name="change_ime">Ändra inmatningsmetod</string>
+    <string name="override_dictionary">Åsidosätt standardordlista</string>
+    <!-- Dictionary override strings -->
+    <string name="override_dictionary_title">Åsidosätt <xliff:g id="word">%s</xliff:g> ordlista</string>
+    <string name="override_dictionary_default">Standard</string>
+    <!-- Dictionary override toast messages -->
+    <string name="override_disabled">Åsidosättning in aktiverad</string>
+    <string name="override_enabled">Åsidosätter till <xliff:g id="word">%s</xliff:g></string>
+    
+    <!-- settings - effects-->
+    <string name="effects_group">Effekter</string>
+    <string name="ime_settings">Tangentbordsinställningar</string>
+    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
+    <string name="vibrate_on_key_press_title">Vibrera vid tangenttryckning</string>
+    <string name="vibrate_on_key_press_summary">Val av vibrationstyp</string>
+    <string name="vibrate_on_key_press_dialog_title">Välj vibrationstyp</string>
+    <string-array name="vibrate_on_key_press_types">
+    	<item>Ingen vibration</item>
+        <item>Mjuk</item>
+        <item>Medium</item>
+        <item>Hård</item>
+    </string-array>
+    
+    <string name="sound_on">Ljud vid tangenttryckning</string>
+    <string name="sound_on_summary">Ljudeffekter vid tangenttryckning.</string>
+    <string name="use_custom_sound_volume">Välj volym</string>
+    <string name="use_custom_sound_volume_on_summary">Volymen för ljudeffekter är egenvald.</string>
+    <string name="use_custom_sound_volume_off_summary">Volymen för ljudeffekterna är densamma som systemets standardvolym för indikationer.</string>
+    <string name="custom_sound_volume">Egenvald volym för ljudeffekter</string>
+    
+    <string name="tweaks_group">Tweaks</string>
+    <string name="emoticon_long_press_opens_popup">Lång tryckning för smiley's popupfönster</string>
+    <string name="emoticon_long_press_opens_popup_on_summary">Visa emoticons popupfönster vid lång tryckning</string>
+    <string name="emoticon_long_press_opens_popup_off_summary">Visa emoticons popupfönster vid kort tryckning</string>
+    <string name="default_smiley_text">Smiley text</string>
+    <string name="default_domain_text">Domän ändelse</string>
+    <string name="key_press_preview_popup">Popupfönster för tangenttryckning</string>
+    <string name="key_press_preview_popup_on_summary">Visa popupfönster när tangenttryckning</string>
+    <string name="key_press_preview_popup_off_summary">Visa inte popupfönster när tangentryckning</string>
+    
+    
+    <string name="auto_caps">Automatisk begynnelsebokstav</string>
+    <string name="grammer_group">Grammatik</string>
+    <string name="candidates_on">Visa förslag</string>
+    <string name="quick_fix">Snabbfixar</string>
+    <string name="quick_fix_summary">Rätta vanligt felskrivna ord</string>
+    <string name="auto_complete">Automatisk val av förslag</string>
+    <string name="auto_complete_summary">Mellanslag väljer automatisk förslag</string>
+    <string name="physical_keyboard_suggestions">Förslag vid hårdvarutangentbord</string>
+    <string name="physical_keyboard_suggestions_summary">Visa förslag när hårdvarutangentbordet används</string>
+    <string name="keyboard_sandbox">Klicka för test av inmatning</string>
+    <string name="keyboard_sandbox_title">Skriv nedan för test av inmatning</string>
+    
+    <!-- settings - keyboard group -->
+    <string name="keyboards_group">Tangenbord</string>
+    <string name="eng_keyboard">Engelskt</string>
+    <string name="heb_keyboard">Hebreiskt</string>
+    <string name="lao_keyboard">Lao</string>
+    <string name="arabic_keyboard">Arabiskt</string>
+    <string name="bg_ph_keyboard">Bulgariskt fonetiskt</string>
+    <string name="bg_bds_keyboard">Bulgariskt BDS</string>
+    <string name="dvorak_keyboard">Dvorak</string>
+    <string name="finnish_swedish_keyboard">Svenskt/Finnskt</string>
+    <string name="catalan_keyboard">Katalanskt</string>
+    <string name="ch_fr_keyboard">Schweizisk Franska</string>
+    <string name="de_keyboard">Tyskt/Schweizisk tyska</string>
+    <string name="azerty_keyboard">AZERTY</string>
+    <string name="es_keyboard">Spanska</string>
+    <string name="ru_ph_keyboard">Rysskt fonetiskt</string>
+    <string name="ru_keyboard">Rysskt</string>
+    <string name="ru_keyboard_4_row">Använd 4 raders Rysskt porträttlayout</string>
+    <string name="be_cyrillic_keyboard">Vitrysskt Kyrilliskt</string>
+    <string name="be_latin_keyboard">Vitrysskt latin</string>
+    <string name="pt_keyboard">Portugisiskt</string>
+    <string name="thai_keyboard">Thailändskt</string>
+    <string name="fr_ca_keyboard">Franskt Kanadensiskt</string>
+    <string name="ka_keyboard">Georgianskt</string>
+    <string name="uk_keyboard">Ukrainskt</string>
+    <string name="uk_keyboard_4_row">Använd 4 raders Ukrainskt porträttlayout</string>
+    <string name="colemak_keyboard">Colemak</string>
+    <string name="bepo_keyboard">B&#233;po</string><!-- BEPO -->
+    
+    <!-- Tutorials --> 
+    <string name="show_tutorial_on_startup">Visa den här handledningen vid uppstart</string>
+    <string name="tutorial_swipe_title">Swipe för att byta tangentbordsupplägg</string>
+    <string name="tutorial_swipe_text">Tangenbordslayout kan ändras genom att dra ditt finger över tangentbordet, dra vänster till höger för att ändra språk, dra höger till vänster för att få fram symboler.</string>
+    
+    <!-- Special soft keyboard keys text -->
+    <string name="label_go_key">Gå</string>
+    <string name="label_next_key">Nästa</string>
+    <string name="label_send_key">Skicka</string>
+    
+    <string name="change_lang_wide">&#8594; ABC &#8594;</string>
+    <string name="change_lang_regular">ABC</string>
+    <string name="change_symbols_wide">&#8592; 123 &#8592;</string>
+    <string name="change_symbols_regular">123</string>
+    
+    <string name="please_wait">Var vänlig vänta</string>
+    <string name="toast_lengthy_words_long_operation">Läser in ordlista...</string>
+    <string name="toast_lengthy_start_up_operation">Startar AnySoftKeyboard...</string>
+    <string name="lengthy_creating_keyboard_operation">Skapar tangentbord...</string>
+</resources>
