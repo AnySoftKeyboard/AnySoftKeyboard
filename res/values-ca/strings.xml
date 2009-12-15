@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="ime_name">AnySoftKeyboard</string>
+    
+    <string name="main_tab_welcome">Benvingut</string>
+    <string name="main_tab_links">Enllaços</string>
+    <string name="main_tab_credits">Crèdits</string>
+    <!-- welcome tab -->
+	<string name="how_to_pointer_title">Benvingut a l\'AnySoftKeyboard</string>
+	<string name="how_to_pointer_version_prefix">Versió: </string>
+	<string name="how_to_pointer_not_app">L\'AnySoftKeyboard no és una apliació normal - és un substitut del teclat en pantallà.</string>
+	<string name="how_to_pointer_go_to_links">Per a més informació, aneu a la pestanya d\'enllaços.</string>
+	<!-- links tab -->
+	<string name="how_to_pointer_how_to_url">Detalls sobre com usar aquest teclat:</string>
+	<string name="how_to_pointer_site">Detalls generals:</string>
+	<string name="how_to_pointer_changelog">Detalls de la darrera versió:</string>
+	<string name="how_to_pointer_issues">Com informar d\'errors:</string>
+	<!-- credits tab -->
+	<string name="main_tab_credits_title">Aquestà aplicació s\'ha creat amb l\'ajuda de les següents persones-</string>
+	<string name="main_tab_credits_created_by">Creat per:</string>
+	<string name="main_tab_credits_additional_work_by">Tasques de programació addicionals per:</string>
+	<string name="main_tab_credits_localization_by">Tasques de traducció per:</string>
+	<string name="main_tab_credits_GUI_by">Imatges de la interfície gràfica per:</string>
+	
+    <!-- Symbols that are commonly considered word separators in this language -->
+    <!-- Customized to Catalan, I\'ve removed - and \' chars: by jmontane-->
+    <!-- Menny: Not supported yet 
+    <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|`~&quot;1234567890</string>
+    -->
+    <!-- Indicates that a word has been added to the dictionary -->
+    <string name="added_word">S\'ha desat: <xliff:g id="word">%s</xliff:g></string>
+    
+    <!-- settings - UI -->
+    <string name="ui_group">Interfície d\'usuari</string>
+    <string name="keyboard_layout_change_method_title">Tecles de canvi de distribució</string>
+    <string name="keyboard_layout_change_method_summary">Mida de les tecles de canvi a la pantalla</string>
+    <string name="keyboard_layout_change_method_dialog_title">Seleccioneu la mida</string>
+    <string-array name="keyboard_layout_change_methods">
+        <item>Cap</item>
+        <item>Petita</item>
+        <item>Gran</item>
+    </string-array>
+    
+    <string name="physical_keyboard_change_notification_title">Notificació de la distribució de teclat</string>
+    <string name="physical_keyboard_change_notification_summary">Tipus de notifació de la distribució activa</string>
+    <string name="physical_keyboard_change_notification_dialog_title">Seleccioneu el tipus de notificació</string>
+    <string-array name="physical_keyboard_change_notification_types">
+        <item>Mostra sempre la icona de disposició</item>
+        <item>Mostra la icona en canviar de disposició</item>
+        <item>Sense notificació</item>
+    </string-array>
+    
+    <string name="lengthy_operations_toast_notification">Notifica les operacions de llarga durada</string>
+    <string name="lengthy_operations_toast_notification_summary">Mostra notificacions breus en operacions de llarga durada</string>
+    
+    <!-- Options menu -->
+    <string name="change_ime">Canvia el mètode d\'entrada</string>
+    <string name="override_dictionary">NO usis el diccionari predeterminat</string>
+    <!-- Dictionary override strings -->
+    <string name="override_dictionary_title">No usis el diccionari <xliff:g id="word">%s</xliff:g></string>
+    <string name="override_dictionary_default">Predeterminat</string>
+    <!-- Dictionary override toast messages -->
+    <string name="override_disabled">Anul·lació finalitzada</string>
+    <string name="override_enabled">S\'està usant el diccionari <xliff:g id="word">%s</xliff:g></string>
+    
+    <!-- settings - effects-->
+    <string name="effects_group">Efectes</string>
+    <string name="ime_settings">Paràmetres del teclat</string>
+    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
+    <string name="vibrate_on_key_press_title">Vibra en prémer les tecles</string>
+    <string name="vibrate_on_key_press_summary">Selecció del tipus de vibració</string>
+    <string name="vibrate_on_key_press_dialog_title">Seleccioneu la durada de vibració</string>
+    <string-array name="vibrate_on_key_press_types">
+    	<item>Sense vibració</item>
+        <item>Fluixa</item>
+        <item>Mitjana</item>
+        <item>Forta</item>
+    </string-array>
+    
+    <string name="sound_on">So en prémer les tecles</string>
+    <string name="sound_on_summary">Efectes de so en prémer les tecles.</string>
+    <string name="use_custom_sound_volume">Estableix el volum personalitzat</string>
+    <string name="use_custom_sound_volume_on_summary">El volum dels efectes de so és personalitzat.</string>
+    <string name="use_custom_sound_volume_off_summary">El volum dels efectes de so és el volum de notificacions del sistema.</string>
+    <string name="custom_sound_volume">Volum de pulsació de tecles personalitzat</string>
+    
+    <string name="tweaks_group">Arranjaments</string>
+    <string name="emoticon_long_press_opens_popup">Pulsació llarga a la finestra emergent d\'emoticones</string>
+    <string name="emoticon_long_press_opens_popup_on_summary">Mostra la finestra emergent d\'emoticones amb una pulsació llarga</string>
+    <string name="emoticon_long_press_opens_popup_off_summary">Mostra la finestra emergent d\'emoticones amb una pulsació curta</string>
+    <string name="default_smiley_text">Text d\'emoticones</string>
+    <string name="default_domain_text">Text de dominis</string>
+    <string name="key_press_preview_popup">Finestra emergent de vista prèvia de tecla</string>
+    <string name="key_press_preview_popup_on_summary">Mostra la finestra emergent sobre la tecla premuda</string>
+    <string name="key_press_preview_popup_off_summary">No mostris la finestra emergent sobre la tecla premuda</string>
+    
+    
+    <string name="auto_caps">Majúscules automàtiques</string>
+    <string name="grammer_group">Gramàtica</string>
+    <string name="candidates_on">Mostra els suggeriments</string>
+    <string name="quick_fix">Correccions ràpides</string>
+    <string name="quick_fix_summary">Corregeix errors d\'escriptura freqüents</string>
+    <string name="auto_complete">Selecció automàtica de suggeriments</string>
+    <string name="auto_complete_summary">La tecla espai selecciona el suggeriment ressaltat</string>
+    <string name="physical_keyboard_suggestions">Suggeriments al teclat del dispositiu</string>
+    <string name="physical_keyboard_suggestions_summary">Mostra els suggeriments quan usi el teclat</string>
+    <string name="keyboard_sandbox">Feu clic per a fer una prova de text</string>
+    <string name="keyboard_sandbox_title">Escriviu a sota per a provar la configuració</string>
+    <!-- settings - keyboard group -->
+    <string name="keyboards_group">Teclats</string>
+    <string name="eng_keyboard">Anglès</string>
+    <string name="heb_keyboard">Hebreu</string>
+    <string name="lao_keyboard">Lao</string>
+    <string name="arabic_keyboard">Àrab</string>
+    <string name="bg_ph_keyboard">Búlgar fonètic</string>
+    <string name="bg_bds_keyboard">Búlgar BDS</string>
+    <string name="dvorak_keyboard">Dvorak</string>
+    <string name="finnish_swedish_keyboard">Suec/Finès</string>
+    <string name="catalan_keyboard">Català</string>
+    <string name="ch_fr_keyboard">Francès de Suïssa</string>
+    <string name="de_keyboard">Alemany/Alemany de Suïssa</string>
+    <string name="azerty_keyboard">AZERTY</string>
+    <string name="es_keyboard">Castellà</string>
+    <string name="ru_ph_keyboard">Rus fonètic</string>
+    <string name="ru_keyboard">Rus</string>
+    <string name="ru_keyboard_4_row">Usa 4 files per a la distribució russa en mode apaïsat</string>
+    <string name="be_cyrillic_keyboard">Bielorús ciríl·lic</string>
+    <string name="be_latin_keyboard">Bielorús llatí</string>
+    <string name="pt_keyboard">Portuguès</string>
+	<string name="thai_keyboard">Thai</string>
+	<string name="fr_ca_keyboard">Francès del Canadà</string>
+	<string name="ka_keyboard">Georgià</string>
+	<string name="uk_keyboard">Ucrainès</string>
+	<string name="uk_keyboard_4_row">Usa 4 files per a la distribució ucraïnesa en mode apaïsat</string>
+    <string name="colemak_keyboard">Colemak</string>
+    <string name="bepo_keyboard">B&#233;po</string><!-- BEPO -->
+    
+    
+    <!-- Tutorials --> 
+    <string name="show_tutorial_on_startup">Mostra aquest tutorial a l\'inici</string>
+    <string name="tutorial_swipe_title">Swipe for keyboard change</string>
+    <string name="tutorial_swipe_text">Podeu canviar la distribució del teclat lliscant el dit sobre el teclat. Llisque-lo d\'esquerra a dreta per canviar de llengua, feu-lo lliscar de dreta a esquerra per canviar als símbols.</string>
+    
+    <!-- Special soft keyboard keys text -->
+    <string name="label_go_key">Endavant</string>
+    <string name="label_next_key">Següent</string>
+    <string name="label_send_key">Envia</string>
+    
+    <string name="change_lang_wide">&#8594; ABC &#8594;</string>
+    <string name="change_lang_regular">ABC</string>
+    <string name="change_symbols_wide">&#8592; 123 &#8592;</string>
+    <string name="change_symbols_regular">123</string>
+    
+    <string name="please_wait">Espereu</string>
+    <string name="toast_lengthy_words_long_operation">S\'està carregant el diccionari...</string>
+    <string name="toast_lengthy_start_up_operation">S\'està iniciant l\'AnySoftKeyboard...</string>
+    <string name="lengthy_creating_keyboard_operation">S\'estan creant els teclats...</string>
+</resources>
