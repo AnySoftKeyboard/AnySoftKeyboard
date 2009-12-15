@@ -75,19 +75,19 @@
     <string name="sound_on">Ljud vid tangenttryckning</string>
     <string name="sound_on_summary">Ljudeffekter vid tangenttryckning.</string>
     <string name="use_custom_sound_volume">Välj volym</string>
-    <string name="use_custom_sound_volume_on_summary">Volymen för ljudeffekter är egenvald.</string>
+    <string name="use_custom_sound_volume_on_summary">Egen volym för ljudeffekter är vald.</string>
     <string name="use_custom_sound_volume_off_summary">Volymen för ljudeffekterna är densamma som systemets standardvolym för indikationer.</string>
-    <string name="custom_sound_volume">Egenvald volym för ljudeffekter</string>
+    <string name="custom_sound_volume">Egen volym för ljudeffekter</string>
     
     <string name="tweaks_group">Tweaks</string>
-    <string name="emoticon_long_press_opens_popup">Lång tryckning för smiley's popupfönster</string>
-    <string name="emoticon_long_press_opens_popup_on_summary">Visa emoticons popupfönster vid lång tryckning</string>
-    <string name="emoticon_long_press_opens_popup_off_summary">Visa emoticons popupfönster vid kort tryckning</string>
+    <string name="emoticon_long_press_opens_popup">Lång tryckning för känlsoikoner</string>
+    <string name="emoticon_long_press_opens_popup_on_summary">Visa känsloikoner vid lång tryckning</string>
+    <string name="emoticon_long_press_opens_popup_off_summary">Visa känsloikoner vid kort tryckning</string>
     <string name="default_smiley_text">Smiley text</string>
     <string name="default_domain_text">Domän ändelse</string>
-    <string name="key_press_preview_popup">Popupfönster för tangenttryckning</string>
-    <string name="key_press_preview_popup_on_summary">Visa popupfönster när tangenttryckning</string>
-    <string name="key_press_preview_popup_off_summary">Visa inte popupfönster när tangentryckning</string>
+    <string name="key_press_preview_popup">Popupfönster vid tangenttryckning</string>
+    <string name="key_press_preview_popup_on_summary">Visa popupfönster vid tangenttryckning</string>
+    <string name="key_press_preview_popup_off_summary">Visa inte popupfönster vid tangenttryckning</string>
     
     
     <string name="auto_caps">Automatisk begynnelsebokstav</string>
@@ -119,7 +119,7 @@
     <string name="es_keyboard">Spanska</string>
     <string name="ru_ph_keyboard">Rysskt fonetiskt</string>
     <string name="ru_keyboard">Rysskt</string>
-    <string name="ru_keyboard_4_row">Använd 4 raders Rysskt porträttlayout</string>
+    <string name="ru_keyboard_4_row">Använd 4 rader Rysskt porträttlayout</string>
     <string name="be_cyrillic_keyboard">Vitrysskt Kyrilliskt</string>
     <string name="be_latin_keyboard">Vitrysskt latin</string>
     <string name="pt_keyboard">Portugisiskt</string>
@@ -127,13 +127,13 @@
     <string name="fr_ca_keyboard">Franskt Kanadensiskt</string>
     <string name="ka_keyboard">Georgianskt</string>
     <string name="uk_keyboard">Ukrainskt</string>
-    <string name="uk_keyboard_4_row">Använd 4 raders Ukrainskt porträttlayout</string>
+    <string name="uk_keyboard_4_row">Använd 4 rader Ukrainskt porträttlayout</string>
     <string name="colemak_keyboard">Colemak</string>
     <string name="bepo_keyboard">B&#233;po</string><!-- BEPO -->
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Visa den här handledningen vid uppstart</string>
-    <string name="tutorial_swipe_title">Swipe för att byta tangentbordsupplägg</string>
+    <string name="tutorial_swipe_title">Dra fingret för att byta tangentbordsupplägg</string>
     <string name="tutorial_swipe_text">Tangenbordslayout kan ändras genom att dra ditt finger över tangentbordet, dra vänster till höger för att ändra språk, dra höger till vänster för att få fram symboler.</string>
     
     <!-- Special soft keyboard keys text -->
