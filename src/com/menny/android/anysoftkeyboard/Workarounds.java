@@ -1,5 +1,7 @@
 package com.menny.android.anysoftkeyboard;
 
+import android.util.Log;
+
 public class Workarounds 
 {
 	//Determine whether this device has the fix for RTL in the suggestions list
@@ -29,7 +31,7 @@ public class Workarounds
 	{
     	final byte direction = Character.getDirectionality(key);
 
-		switch(direction)
+    	switch(direction)
 		{
 		case Character.DIRECTIONALITY_RIGHT_TO_LEFT:
 		case Character.DIRECTIONALITY_RIGHT_TO_LEFT_ARABIC:

@@ -73,17 +73,14 @@ public abstract class AnyKeyboard extends Keyboard
 	private Key mSmileyKey;
 	private Key mQuestionMarkKey;
 	
-	private boolean mRightToLeftLayout;
+	private boolean mRightToLeftLayout;//the "super" ctor will create keys, and we'll set the correct value there.
 	
     private final AnyKeyboardContextProvider mKeyboardContext;
     
     protected AnyKeyboard(AnyKeyboardContextProvider context,
     		String keyboardPrefId,
     		int xmlLayoutResId,
-    		/*mapping XML id will be added here,*/
     		int keyboardNameId,
-    		/*String keyboardEnabledPref,*/
-    		/*boolean leftToRightLanguageDirection,*/
     		Dictionary.Language defaultDictionaryLanguage,
     		int keyboardIconId) 
     {
@@ -91,30 +88,20 @@ public abstract class AnyKeyboard extends Keyboard
         mDebug = AnySoftKeyboardConfigurationImpl.getInstance().getDEBUG();
         mKeyboardContext = context;
         mKeyboardPrefId = keyboardPrefId;
-        //mSupportsShift = supportsShift;
         if (keyboardNameId > 0)
         	mKeyboardName = context.getApplicationContext().getResources().getString(keyboardNameId);
         else
         	mKeyboardName = "";
-        //mLeftToRightLanguageDirection = leftToRightLanguageDirection;
         mDefaultDictionaryLanguage = defaultDictionaryLanguage;
         mKeyboardIconId = keyboardIconId;
-        //mKeyboardPrefId = keyboardEnabledPref;
-        Log.i("AnySoftKeyboard", "Done creating keyboard: "+mKeyboardName);
+        Log.i("AnySoftKeyboard", "Done creating keyboard: "+mKeyboardName+", which is LTR:"+isLeftToRightLanguage());
     	
-        //TODO: parsing of the mapping xml:
-        //XmlResourceParser p = getResources().getXml(id from the constructor parameter);
-        //parse to a HashMap?
-        //mTopKeys = new ArrayList<Key>();
-        
         mShiftLockIcon = context.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift_locked);
 //        mShiftLockPreviewIcon = context.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_feedback_shift_locked);
 //        mShiftLockPreviewIcon.setBounds(0, 0, mShiftLockPreviewIcon.getIntrinsicWidth(),mShiftLockPreviewIcon.getIntrinsicHeight());
-        //lets say all is Left to Right
-        mRightToLeftLayout = false;
     }
-    
-    protected AnyKeyboardContextProvider getKeyboardContext()
+
+	protected AnyKeyboardContextProvider getKeyboardContext()
     {
     	return mKeyboardContext;
     }
@@ -135,6 +122,10 @@ public abstract class AnyKeyboard extends Keyboard
         if ((key.codes != null) && (key.codes.length > 0))
         {
         	final int primaryCode = key.codes[0];
+        	//detecting LTR languages
+        	if (Workarounds.isRightToLeftCharacter((char)primaryCode))
+    			mRightToLeftLayout = true;//one is enough
+    		
         	//creating less sensitive keys if required
         	switch(primaryCode)
         	{
@@ -212,10 +203,6 @@ public abstract class AnyKeyboard extends Keyboard
         	final int primaryCode = key.codes[0];
         	if ((primaryCode>0) && (primaryCode<Character.MAX_VALUE))
         	{
-        		//detecting LTR languages
-        		if (Workarounds.isRightToLeftCharacter((char)primaryCode))
-        			mRightToLeftLayout = true;//one is enough
-        		
         		Character primary = new Character((char)primaryCode);
         		ShiftedKeyData keyData = new ShiftedKeyData(key);
 	        	if (!mSpecialShiftKeys.containsKey(primary))
@@ -224,6 +211,7 @@ public abstract class AnyKeyboard extends Keyboard
 	            	Log.v("AnySoftKeyboard", "Adding mapping ("+primary+"->"+keyData.ShiftCharacter+") to mSpecialShiftKeys.");
 	        }
         }
+        		
         return key;
     }
 

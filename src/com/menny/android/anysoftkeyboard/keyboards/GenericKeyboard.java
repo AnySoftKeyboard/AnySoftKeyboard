@@ -33,12 +33,12 @@ public class GenericKeyboard extends AnyKeyboard
 		return aKey;
 	}
 	
-	public void workaroundSetRightToLeftKeys(boolean rightToLeftLayoutFix) 
+	public void workaroundSetRightToLeftKeys(boolean rightToLeftLayoutFixRequired) 
 	{
-		if (rightToLeftLayoutFix != mRightToLeft)
+		if (rightToLeftLayoutFixRequired != mRightToLeft)
 		{
-			mRightToLeft = rightToLeftLayoutFix;
-			Log.d("AnySoftKeyboard", "workaround: changing () characters behavior. rightToLeftLayoutFix:"+rightToLeftLayoutFix);
+			mRightToLeft = rightToLeftLayoutFixRequired;
+			Log.d("AnySoftKeyboard", "workaround: changing () characters behavior. rightToLeftLayoutFixRequired:"+rightToLeftLayoutFixRequired);
 			if (mRightToLeft)
 			{
 				mLeftClose.codes[0] = ')';

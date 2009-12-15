@@ -238,6 +238,8 @@ public class KeyboardSwitcher
     		}
     	}
     	
+    	mLTRLanguageLayout = current.isLeftToRightLanguage();
+    	
     	return setKeyboard(currentEditorInfo, current);
     }
 
@@ -257,6 +259,8 @@ public class KeyboardSwitcher
     	//issue 146: workaround!
     	if (mLastSelectedSymbolsKeyboard == SYMBOLS_KEYBOARD_REGULAR_INDEX)
     	{
+    		if (AnySoftKeyboardConfigurationImpl.getInstance().getDEBUG())
+    			Log.d("AnySoftKeyboard", "calling workaroundSetRightToLeftKeys with "+(!mLTRLanguageLayout));
     		((GenericKeyboard)current).workaroundSetRightToLeftKeys(!mLTRLanguageLayout);
     	}
     	
@@ -272,8 +276,6 @@ public class KeyboardSwitcher
     	
     	current.setImeOptions(mContext.getResources(), currentEditorInfo.imeOptions);
     	current.setTextVariation(mContext.getResources(), currentEditorInfo.inputType);
-		
-    	mLTRLanguageLayout = current.isLeftToRightLanguage();
     	
     	return current;
 	}
