@@ -3,6 +3,9 @@ package com.menny.android.anysoftkeyboard.keyboards;
 
 import java.util.HashMap;
 
+import org.xmlpull.v1.XmlPullParser;
+
+import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
@@ -31,7 +34,6 @@ public abstract class AnyKeyboard extends Keyboard
 	}
 	public final static int KEYCODE_LANG_CHANGE = -99;
 	public final static int KEYCODE_SMILEY = -10;
-	//public final static int KEYCODE_DOT_COM = -80;
 	
 	public interface HardKeyboardAction
 	{
@@ -49,6 +51,11 @@ public abstract class AnyKeyboard extends Keyboard
 		void translatePhysicalCharacter(HardKeyboardAction action);
 	}
 
+	private static final String XML_META_DATA_TAG = "AnySoftKeyboardMetaData";
+	private static final String XML_PREF_ID_ATTRIBUTE = "PrefString";
+	private static final String XML_NAME_ID_ATTRIBUTE = "KeyboardNameResId";
+	private static final String XML_ICON_ID_ATTRIBUTE = "KeyboardIconResId";
+	
 	private static final int SHIFT_OFF = 0;
     private static final int SHIFT_ON = 1;
     private static final int SHIFT_LOCKED = 2;
@@ -85,6 +92,8 @@ public abstract class AnyKeyboard extends Keyboard
     		int keyboardIconId) 
     {
         super(context.getApplicationContext(), xmlLayoutResId);
+        //loadKeyboard(context.getApplicationContext(), xmlLayoutResId);
+        
         mDebug = AnySoftKeyboardConfigurationImpl.getInstance().getDEBUG();
         mKeyboardContext = context;
         mKeyboardPrefId = keyboardPrefId;
@@ -100,6 +109,36 @@ public abstract class AnyKeyboard extends Keyboard
 //        mShiftLockPreviewIcon = context.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_feedback_shift_locked);
 //        mShiftLockPreviewIcon.setBounds(0, 0, mShiftLockPreviewIcon.getIntrinsicWidth(),mShiftLockPreviewIcon.getIntrinsicHeight());
     }
+    
+    
+
+	private void loadKeyboard(Context applicationContext, int xmlLayoutResId) {
+		XmlPullParser parser = applicationContext.getResources().getXml(xmlLayoutResId);
+		
+        Resources res = applicationContext.getResources();
+        boolean inMetaData = false;
+        
+        try {
+            int event;
+            while ((event = parser.next()) != XmlPullParser.END_DOCUMENT) 
+            {
+                if (event == XmlResourceParser.START_TAG) {
+                    String tag = parser.getName();
+                    if (XML_META_DATA_TAG.equals(tag)) {
+                    	inMetaData = true;
+                    	Log.d("AnySoftKeyboard", "Starting parsing "+XML_META_DATA_TAG);
+                    }
+                }
+                else if (event == XmlResourceParser.END_TAG && inMetaData) {
+                	Log.d("AnySoftKeyboard", "Finished parsing "+XML_META_DATA_TAG);
+                	break;
+                }
+            }
+        } catch (Exception e) {
+            Log.e("AnySoftKeyboard", "Parse error:" + e);
+            e.printStackTrace();
+        }
+	}
 
 	protected AnyKeyboardContextProvider getKeyboardContext()
     {
