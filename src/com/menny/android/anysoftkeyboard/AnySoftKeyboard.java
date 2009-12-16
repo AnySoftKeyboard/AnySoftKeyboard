@@ -113,6 +113,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private boolean mSoundOn;
 	//between 0..8
 	private float mSoundVolume;
+	private boolean mSwitchKeyboardOnSpace;
 	private boolean mSmileyOnShortPress;
 	private boolean mAutoCap;
 	private boolean mQuickFixes;
@@ -870,6 +871,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case AnyKeyboard.KEYCODE_LANG_CHANGE:
 			nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
 			break;
+		case KEYCODE_SPACE:
+		    if (DEBUG) Log.d("AnySoftKeyboard", "SwitchKeyboardOnSpace: "+mSwitchKeyboardOnSpace);
+		    if (mSwitchKeyboardOnSpace && !mKeyboardSwitcher.isAlphabetMode())
+    		    nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
 		default:
 			primaryCode = translatePrimaryCodeFromCurrentKeyboard(primaryCode);
 			if (isWordSeparator(primaryCode)) {
@@ -1456,6 +1461,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 //		boolean newLandscapePredications= sp.getBoolean("physical_keyboard_suggestions", true);
 //		handled = handled || (newLandscapePredications != mPredictionLandscape);
 //		mPredictionLandscape = newLandscapePredications;
+
+        boolean newSwitchKeyboardOnSpace = sp.getBoolean("switch_keyboard_on_space", false);
+        handled = handled || (newSwitchKeyboardOnSpace != mSwitchKeyboardOnSpace);
+        mSwitchKeyboardOnSpace = newSwitchKeyboardOnSpace;
 		
 		boolean newSmileyOnShort = sp.getBoolean("emoticon_long_press_opens_popup", false);
 		handled = handled || (newSmileyOnShort != mSmileyOnShortPress);

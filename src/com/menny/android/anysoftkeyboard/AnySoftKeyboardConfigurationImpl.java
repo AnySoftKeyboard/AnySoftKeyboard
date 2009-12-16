@@ -27,6 +27,7 @@ public class AnySoftKeyboardConfigurationImpl implements AnySoftKeyboardConfigur
 	private String mDomainText = ".com";
 	private String mLayoutChangeKeysSize = "Small";
 	private boolean mShowKeyPreview = true;
+	private boolean mSwitchKeyboardOnSpace = false;
 	
 	private AnySoftKeyboardConfigurationImpl()
 	{
@@ -97,6 +98,11 @@ public class AnySoftKeyboardConfigurationImpl implements AnySoftKeyboardConfigur
 		handled = handled || (newShowPreview != mShowKeyPreview);
 		mShowKeyPreview = newShowPreview;
 		Log.i("AnySoftKeyboard", "** mShowKeyPreview: "+mShowKeyPreview);
+
+		boolean newSwitchKeyboardOnSpace = sp.getBoolean("switch_keyboard_on_space", false);
+		handled = handled || (newSwitchKeyboardOnSpace != mSwitchKeyboardOnSpace);
+		mSwitchKeyboardOnSpace = newSwitchKeyboardOnSpace;
+		Log.i("AnySoftKeyboard", "** mSwitchKeyboardOnSpace: "+mSwitchKeyboardOnSpace);
 		
 		return handled;
 	}
@@ -118,6 +124,11 @@ public class AnySoftKeyboardConfigurationImpl implements AnySoftKeyboardConfigur
 	public boolean getShowKeyPreview()
 	{
 		return mShowKeyPreview;
+	}
+	
+	public boolean getSwitchKeyboardOnSpace()
+	{
+	    return mSwitchKeyboardOnSpace;
 	}
 }
 

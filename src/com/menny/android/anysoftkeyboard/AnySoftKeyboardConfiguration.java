@@ -11,4 +11,6 @@ public interface AnySoftKeyboardConfiguration
 	String getChangeLayoutKeysSize();
 	
 	boolean getShowKeyPreview();
+
+	boolean getSwitchKeyboardOnSpace();
 }
