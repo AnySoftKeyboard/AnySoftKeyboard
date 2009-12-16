@@ -80,7 +80,7 @@
     <string name="use_custom_sound_volume">Mukautettu äänenvoimakkuus</string>
     <string name="use_custom_sound_volume_on_summary">Äänenvoimakkuus on mukautettu.</string>
     <string name="use_custom_sound_volume_off_summary">Äänenvoimakkuutena käytetään järjestelmän tiedotusäänenvoimakkuutta.</string>
-    <string name="custom_sound_volume">Custom key-press volume</string>    
+    <string name="custom_sound_volume">Mukautettu volyymi napinpainalluksissa</string>    
 
     <string name="tweaks_group">Viilaukset</string>
     <string name="emoticon_long_press_opens_popup">Paina pitkään, hymiökupla</string>
@@ -91,6 +91,9 @@
 	<string name="key_press_preview_popup">Näppäimen esikatselukupla</string>
 	<string name="key_press_preview_popup_on_summary">Näytä esikatselukupla kun näppäintä painetaan</string>
     <string name="key_press_preview_popup_off_summary">Älä näytä esikatselukupla kun näppäintä painetaan</string>
+	<string name="switch_keyboard_on_space">Väli vaihtaa näppäimistöä</string>
+    <string name="switch_keyboard_on_space_on_summary">Vaihda kirjainnäppäimistöön välilyönnistä</string>
+    <string name="switch_keyboard_on_space_off_summary">Älä vaihda kirjainnäppäimistöön välilyönnistä</string>
 
 
 	<string name="auto_caps">Autokapitalisointi</string>
