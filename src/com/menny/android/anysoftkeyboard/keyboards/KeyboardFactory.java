@@ -104,6 +104,8 @@ public class KeyboardFactory
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, KeyboardFactory.KA_KEYBOARD, R.xml.ka_qwerty, R.string.ka_keyboard, Dictionary.Language.None, R.drawable.ka);} public String getKeyboardPrefId() {return KA_KEYBOARD;}});
 		//Ukrainian keyboard - issue 154
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new UkrainianKeyboard(contextProvider);} public String getKeyboardPrefId() {return UK_KEYBOARD;}});
+		
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, "esperanto_keyboard", R.xml.esperanto, R.string.esperanto_keyboard, Dictionary.Language.None, R.drawable.en);} public String getKeyboardPrefId() {return "esperanto_keyboard";}});
 	}
 	
 	public static KeyboardCreator[] createAlphaBetKeyboards(AnyKeyboardContextProvider contextProvider)

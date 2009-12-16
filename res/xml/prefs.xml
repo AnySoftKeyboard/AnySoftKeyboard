@@ -372,6 +372,14 @@ android:key="ime_settings">
 				android:summaryOff="Created with rlavriv"
 				android:dependency="uk_keyboard"
 				/>
+				<CheckBoxPreference
+				android:key="esperanto_keyboard"
+				android:title="@string/esperanto_keyboard"
+				android:persistent="true"
+				android:defaultValue="false" 
+				android:summaryOn="Created with Aaron Irvine"
+				android:summaryOff="Created with Aaron Irvine"
+				/>
 			</PreferenceCategory>
 		</PreferenceScreen>
 	</PreferenceCategory>
