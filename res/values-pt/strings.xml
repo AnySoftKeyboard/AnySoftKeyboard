@@ -135,7 +135,7 @@
     <string name="uk_keyboard_4_row">Ucraniano com 4 linhas</string>
     <string name="colemak_keyboard">Colemak</string>
     <string name="bepo_keyboard">B&#233;po</string><!-- BEPO -->
-
+    <string name="esperanto_keyboard">Esperanto</string>   
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Mostrar este tutorial ao iniciar</string>
