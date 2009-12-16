@@ -88,6 +88,9 @@
     <string name="key_press_preview_popup">Popupfönster vid tangenttryckning</string>
     <string name="key_press_preview_popup_on_summary">Visa popupfönster vid tangenttryckning</string>
     <string name="key_press_preview_popup_off_summary">Visa inte popupfönster vid tangenttryckning</string>
+   <string name="switch_keyboard_on_space">Byta tagentbord med mellanslag</string>
+   <string name="switch_keyboard_on_space_on_summary">Byt till alfabetiskt tangentbord med mellanslag</string>
+    <string name="switch_keyboard_on_space_off_summary">Byt inte till alfabetiskt tangentbord med mellanslag</string>
     
     
     <string name="auto_caps">Automatisk begynnelsebokstav</string>
