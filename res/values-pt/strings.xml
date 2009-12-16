@@ -91,7 +91,7 @@
     <string name="key_press_preview_popup">Tecla pressionada</string>
     <string name="key_press_preview_popup_on_summary">Mostra ampliação da tecla pressionada</string>
     <string name="key_press_preview_popup_off_summary">Não mostra ampliação da tecla pressionada</string>
-    <string name="switch_keyboard_on_space">Espaçe muda teclado</string>
+    <string name="switch_keyboard_on_space">Espaço muda teclado</string>
     <string name="switch_keyboard_on_space_on_summary">Muda para teclado alfabético ao pressionar espaço</string>
     <string name="switch_keyboard_on_space_off_summary">Não muda para teclado alfabético ao pressionar espaço</string>
 
