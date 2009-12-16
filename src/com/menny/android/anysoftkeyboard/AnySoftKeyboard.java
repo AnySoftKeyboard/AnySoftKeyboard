@@ -871,14 +871,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case AnyKeyboard.KEYCODE_LANG_CHANGE:
 			nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
 			break;
-		case KEYCODE_SPACE:
-		    if (DEBUG) Log.d("AnySoftKeyboard", "SwitchKeyboardOnSpace: "+mSwitchKeyboardOnSpace);
-		    if (mSwitchKeyboardOnSpace && !mKeyboardSwitcher.isAlphabetMode())
-    		    nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
 		default:
 			primaryCode = translatePrimaryCodeFromCurrentKeyboard(primaryCode);
 			if (isWordSeparator(primaryCode)) {
 				handleSeparator(primaryCode);
+				if (primaryCode == KEYCODE_SPACE) {
+					if (DEBUG) Log.d("AnySoftKeyboard", "SwitchKeyboardOnSpace: "+mSwitchKeyboardOnSpace);
+					if (mSwitchKeyboardOnSpace && !mKeyboardSwitcher.isAlphabetMode()) {
+						AnyKeyboard currentKeyboard = mKeyboardSwitcher.getCurrentKeyboard();
+						currentKeyboard = mKeyboardSwitcher.nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
+					}
+				}
 			} else {
 				handleCharacter(primaryCode, keyCodes);
 				//reseting the mSpaceSent, which is set to true upon selecting candidate
