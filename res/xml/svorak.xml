@@ -8,7 +8,7 @@
     >
 
     <AnySoftKeyboardMetaData
-        PrefString="svdvorak_keyboard" KeyboardNameResId="@com.menny.android.anysoftkeyboard:string/svdvorak_keyboard" 
+        PrefString="svorak_keyboard" KeyboardNameResId="@com.menny.android.anysoftkeyboard:string/svorak_keyboard" 
         DefaultDictionaryLanguage="Swedish"
     />
     
@@ -23,8 +23,8 @@
     
     <Row>
         <Key android:codes="229"  android:keyLabel="å" android:keyEdgeFlags="left"/>
-        <Key android:codes="44,59"  android:keyLabel=""/>									<!-- ,  ;  -->
-        <Key android:codes="46,58"  android:keyLabel=""/>   								<!-- .  : -->
+        <Key android:codes="228" android:keyLabel="ä"/>
+	<Key android:codes="246" android:keyLabel="ö"/>
         <Key android:codes="112" android:keyLabel="p"/>
         <Key android:codes="121" android:keyLabel="y"/>
         <Key android:codes="102" android:keyLabel="f"/>
@@ -32,12 +32,12 @@
         <Key android:codes="99"  android:keyLabel="c"/>
         <Key android:codes="114" android:keyLabel="r"/>
         <Key android:codes="108" android:keyLabel="l" />
-        <Key android:codes="39,42" android:keyLabel=""/>									<!-- '  *  -->
-        <Key android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete_small" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+        <Key android:codes="44,59"  android:keyLabel=""/>									<!-- ,  ;  -->
+        <Key android:codes="-5" android:keyWidth="10.05%p" android:keyIcon="@drawable/sym_keyboard_delete_small" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     
     <Row>
-        <Key android:codes="97" android:keyLabel="a" android:keyEdgeFlags="left"/>
+        <Key android:codes="97" android:keyLabel="a" android:horizontalGap="3.25%p" android:keyEdgeFlags="left"/>
         <Key android:codes="111" android:keyLabel="o"/>
         <Key android:codes="101" android:keyLabel="e"/>
         <Key android:codes="117" android:keyLabel="u"/>
@@ -48,14 +48,11 @@
         <Key android:codes="110" android:keyLabel="n"/>
         <Key android:codes="115" android:keyLabel="s"/>
         <Key android:codes="45,95" android:keyLabel=""/>									<!-- -  _ -->
-        <Key android:codes="60,62" android:keyLabel="" android:keyEdgeFlags="right"/> 			<!-- <  >  -->
     </Row>
     
     <Row>
-        <Key android:codes="-1" android:keyIcon="@drawable/sym_keyboard_shift" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
-        <Key android:codes="246" android:keyLabel="ö"/>
-        <Key android:codes="228" android:keyLabel="ä"/>
-        <Key android:codes="113" android:keyLabel="q"/>
+        <Key android:codes="46,58" android:keyLabel="" android:horizontalGap="5.25%p" android:keyEdgeFlags="left"/>   								<!-- .  : -->
+	<Key android:codes="113" android:keyLabel="q"/>
         <Key android:codes="106" android:keyLabel="j"/>
         <Key android:codes="107" android:keyLabel="k"/>
         <Key android:codes="120" android:keyLabel="x"/>
@@ -63,12 +60,13 @@
         <Key android:codes="109" android:keyLabel="m"/>
         <Key android:codes="119" android:keyLabel="w"/>
         <Key android:codes="118" android:keyLabel="v"/>
-        <Key android:codes="122" android:keyLabel="z" android:keyEdgeFlags="right"/>
+        <Key android:codes="122" android:keyLabel="z"/>
+	<Key android:codes="-1" android:keyIcon="@drawable/sym_keyboard_shift" android:isModifier="true" android:keyWidth="13%p" android:isSticky="true"  android:keyEdgeFlags="right"/>
     </Row>
     
     <!-- Generic bottom row -->
     <Row android:rowEdgeFlags="bottom"><!--android:keyIcon="@drawable/sym_keyboard_smiley"-->
-        <Key android:keyIcon="@drawable/sym_keyboard_smiley" android:codes="-10" android:keyOutputText=":-) " android:popupKeyboard="@xml/popup_smileys" android:keyEdgeFlags="left"/>
+        <Key android:keyIcon="@drawable/sym_keyboard_smiley" android:codes="-10" android:keyOutputText=":-) " android:keyWidth="10.5%p" android:horizontalGap="3.5%p" android:popupKeyboard="@xml/popup_smileys" android:keyEdgeFlags="left"/>
         
         <Key android:horizontalGap="2.5%p" android:codes="63" android:keyLabel="\?"/>
         <Key android:codes="44" android:keyLabel=","/>

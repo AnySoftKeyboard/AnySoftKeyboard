@@ -276,8 +276,8 @@ android:key="ime_settings">
 				android:summaryOff="Created with jtlallo"
 				/>
 				<CheckBoxPreference
-				android:key="svdvorak_keyboard"
-				android:title="@string/svdvorak_keyboard"
+				android:key="svorak_keyboard"
+				android:title="@string/svorak_keyboard"
 				android:persistent="true" 
 				android:defaultValue="false"
 				android:summaryOn="Created by Henrik Andersson"
