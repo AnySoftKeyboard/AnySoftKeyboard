@@ -53,13 +53,13 @@ public class KeyboardSwitcher
     //my working keyboards
     private AnyKeyboard[] mAlphabetKeyboards = null;
     private KeyboardCreator[] mAlphabetKeyboardsCreators = null;
+    //issue 146
+    private boolean mRightToLeftMode = false;
     
     private int mLastSelectedKeyboard = 0;
     
     private int mImeOptions;
     private boolean mAlphabetMode = true;
-    //this is for workaround RTL langs and () characters (Issue 146)
-    private boolean mLTRLanguageLayout = true;
 
     KeyboardSwitcher(AnySoftKeyboard context) {
         mContext = context;
@@ -237,8 +237,8 @@ public class KeyboardSwitcher
     			Log.w("AnySoftKeyboard", "Could not locate the next physical keyboard. Will continue with "+current.getKeyboardName());
     		}
     	}
-    	
-    	mLTRLanguageLayout = current.isLeftToRightLanguage();
+    	//Issue 146
+    	mRightToLeftMode = !current.isLeftToRightLanguage();
     	
     	return setKeyboard(currentEditorInfo, current);
     }
@@ -256,13 +256,6 @@ public class KeyboardSwitcher
 			mLastSelectedSymbolsKeyboard = 0;
     	
     	current = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard);
-    	//issue 146: workaround!
-    	if (mLastSelectedSymbolsKeyboard == SYMBOLS_KEYBOARD_REGULAR_INDEX)
-    	{
-    		if (AnySoftKeyboardConfigurationImpl.getInstance().getDEBUG())
-    			Log.d("AnySoftKeyboard", "calling workaroundSetRightToLeftKeys with "+(!mLTRLanguageLayout));
-    		((GenericKeyboard)current).workaroundSetRightToLeftKeys(!mLTRLanguageLayout);
-    	}
     	
     	return setKeyboard(currentEditorInfo, current);
     }
@@ -360,6 +353,10 @@ public class KeyboardSwitcher
 				mAlphabetKeyboards[index] = null;
 			}
 		}
+	}
+	
+	public boolean isRightToLeftMode() {
+		return mRightToLeftMode;
 	}
 
 //    void toggleSymbols() {

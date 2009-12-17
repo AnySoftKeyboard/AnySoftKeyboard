@@ -829,13 +829,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case Keyboard.KEYCODE_SHIFT:
 			handleShift();
 			break;
-//		case AnyKeyboardView.KEYCODE_SHIFT_LONGPRESS:
-//			if (mCapsLock) {
-//				handleShift();
-//			} else {
-//				toggleCapsLock();
-//			}
-//			break;
 		case Keyboard.KEYCODE_CANCEL:
 			if (mOptionsDialog == null || !mOptionsDialog.isShowing()) {
 				handleClose();
@@ -872,6 +865,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 			break;
 		default:
 			primaryCode = translatePrimaryCodeFromCurrentKeyboard(primaryCode);
+			//Issue 146: Right to left langs require reversed parenthesis
+			if (mKeyboardSwitcher.isRightToLeftMode())
+				primaryCode = Workarounds.workaroundParenthesisDirectionFix(primaryCode);
+			
 			if (isWordSeparator(primaryCode)) {
 				handleSeparator(primaryCode);
 				if (primaryCode == KEYCODE_SPACE) {
