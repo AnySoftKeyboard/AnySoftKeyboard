@@ -50,7 +50,7 @@
         <Key android:codes="231" android:keyLabel="ç" android:keyEdgeFlags="right"/>
     </Row>
     
-    <Row android:keyWidth="7.7%p">
+    <Row android:keyWidth="8.333%p">
         <Key android:codes="-1" android:keyIcon="@drawable/sym_keyboard_shift" 
                 android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
         <Key android:codes="224" android:keyLabel="à"/>
