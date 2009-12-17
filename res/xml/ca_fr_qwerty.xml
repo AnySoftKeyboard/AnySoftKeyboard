@@ -9,7 +9,7 @@
     >
 
     <AnySoftKeyboardMetaData
-    	PrefString="fr_ca_keyboard" KeyboardNameResId="@com.menny.android.anysoftkeyboard:string/fr_ca_keyboard" KeyboardIconResId="@com.menny.android.anysoftkeyboard:drawable/he"
+    	PrefString="fr_ca_keyboard" KeyboardNameResId="@com.menny.android.anysoftkeyboard:string/fr_ca_keyboard"
     	DefaultDictionaryLanguage="French"
     />
     

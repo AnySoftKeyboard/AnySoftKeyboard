@@ -8,7 +8,7 @@
     >
 
     <AnySoftKeyboardMetaData
-    	PrefString="catalan_keyboard" KeyboardNameResId="@com.menny.android.anysoftkeyboard:string/catalan_keyboard" KeyboardIconResId="@com.menny.android.anysoftkeyboard:drawable/he"
+    	PrefString="catalan_keyboard" KeyboardNameResId="@com.menny.android.anysoftkeyboard:string/catalan_keyboard"
     	DefaultDictionaryLanguage="Spanish"
     />
     
