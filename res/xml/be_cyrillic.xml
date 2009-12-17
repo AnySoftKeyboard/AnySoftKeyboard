@@ -7,6 +7,10 @@
     android:keyHeight="@dimen/key_height"
     >
 
+    <AnySoftKeyboardMetaData
+    	PrefString="be_cyrillic" KeyboardNameResId="@com.menny.android.anysoftkeyboard:string/be_cyrillic_keyboard" KeyboardIconResId="@com.menny.android.anysoftkeyboard:drawable/be_cyrillic"
+    />
+    
 	<!-- generic top row -->
     <Row android:rowEdgeFlags="top"
     android:keyWidth="45%p"

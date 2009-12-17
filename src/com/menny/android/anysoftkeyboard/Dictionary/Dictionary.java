@@ -7,28 +7,6 @@ import com.menny.android.anysoftkeyboard.WordComposer;
  * strokes.
  */
 abstract public class Dictionary {
-    
-	public enum Language
-	{
-		None,
-		English,
-		Hebrew,
-		French,
-		German,
-		Spanish,
-		Russian,
-		Arabic,
-		Lao,
-		Swedish, 
-		Finnish, 
-		Dutch,
-		Slovenian,
-		Portuguese,
-		Bulgarian,
-		Thai,
-		Ukrainian
-	}
-	
     /**
      * Whether or not to replicate the typed word in the suggested list, even if it's valid.
      */

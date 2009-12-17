@@ -6,6 +6,11 @@
     android:verticalGap="0px"
     android:keyHeight="@dimen/key_height"
     >
+    
+    <AnySoftKeyboardMetaData
+    	PrefString="heb_keyboard" KeyboardNameResId="@com.menny.android.anysoftkeyboard:string/heb_keyboard" KeyboardIconResId="@com.menny.android.anysoftkeyboard:drawable/he"
+    	DefaultDictionaryLanguage="Hebrew"
+    />
 
 	<!-- generic top row -->
     <Row android:rowEdgeFlags="top"

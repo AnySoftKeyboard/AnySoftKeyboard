@@ -55,7 +55,6 @@ import android.widget.Toast;
 import com.menny.android.anysoftkeyboard.Dictionary.Dictionary;
 import com.menny.android.anysoftkeyboard.Dictionary.DictionaryFactory;
 import com.menny.android.anysoftkeyboard.Dictionary.UserDictionaryBase;
-import com.menny.android.anysoftkeyboard.Dictionary.Dictionary.Language;
 import com.menny.android.anysoftkeyboard.KeyboardSwitcher.NextKeyboardType;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
@@ -878,8 +877,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				if (primaryCode == KEYCODE_SPACE) {
 					if (DEBUG) Log.d("AnySoftKeyboard", "SwitchKeyboardOnSpace: "+mSwitchKeyboardOnSpace);
 					if (mSwitchKeyboardOnSpace && !mKeyboardSwitcher.isAlphabetMode()) {
-						AnyKeyboard currentKeyboard = mKeyboardSwitcher.getCurrentKeyboard();
-						currentKeyboard = mKeyboardSwitcher.nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
+						mKeyboardSwitcher.nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
 					}
 				}
 			} else {
@@ -1491,7 +1489,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				// It null at the creation of the application.
 				if ((mKeyboardSwitcher != null) && mKeyboardSwitcher.isAlphabetMode()) {
 					AnyKeyboard currentKeyobard = mKeyboardSwitcher.getCurrentKeyboard();
-					Language dictionaryLanguage = getLanguageForKeyobard(currentKeyobard);
+					String dictionaryLanguage = getLanguageForKeyobard(currentKeyobard);
 					Dictionary mainDictionary = DictionaryFactory.getDictionary(dictionaryLanguage, this);
 					mSuggest.setMainDictionary(mainDictionary);
 				}
@@ -1499,28 +1497,18 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	}
 
-	private Language getLanguageForKeyobard(AnyKeyboard currentKeyobard) 
+	private String getLanguageForKeyobard(AnyKeyboard currentKeyobard) 
 	{
 		//if there is a mapping in the settings, we'll use that, else we'll return the default
 		String mappingSettingsKey = getDictionaryOverrideKey(currentKeyobard);
-		String defaultDictionary = currentKeyobard.getDefaultDictionaryLanguage().toString();
+		String defaultDictionary = currentKeyobard.getDefaultDictionaryLanguage();
 		String dictionaryValue = getSharedPreferences().getString(mappingSettingsKey, null);
 		if ((dictionaryValue == null) || (defaultDictionary.equals(dictionaryValue)))
 			return currentKeyobard.getDefaultDictionaryLanguage();
 		else
 		{
 			Log.d("AnySoftKeyboard", "Default dictionary '"+defaultDictionary+"' for keyboard '"+currentKeyobard.getKeyboardPrefId()+"' has been overriden to '"+dictionaryValue+"'");
-			//fixing the Slovene->Slovenian
-			if (dictionaryValue.equalsIgnoreCase("Slovene"))
-			{//Please remove this in some future version.
-				dictionaryValue = "Slovenian";
-				Editor editor = getSharedPreferences().edit();
-				Log.d("AnySoftKeyboard", "Dictionary override fix: Slovene->Slovenian.");
-				editor.putString(mappingSettingsKey, dictionaryValue);
-				editor.commit();
-			}
-			Language overridingLanguage = Language.valueOf(dictionaryValue);
-			return overridingLanguage;
+			return dictionaryValue;
 		}
 	}
 
@@ -1548,9 +1536,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		builder.setNegativeButton(android.R.string.cancel, null);
 		ArrayList<CharSequence> dictioanries = new ArrayList<CharSequence>();
 		dictioanries.add(getString(R.string.override_dictionary_default));
-		for(Language lang : Language.values())
+		for(String lang : DictionaryFactory.getKnownDictionariesNames())
 		{
-			dictioanries.add(lang.toString());
+			dictioanries.add(lang);
 		}
 		 
 		final CharSequence[] items = new CharSequence[dictioanries.size()];

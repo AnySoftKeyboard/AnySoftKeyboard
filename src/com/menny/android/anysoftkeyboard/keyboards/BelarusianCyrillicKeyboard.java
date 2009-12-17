@@ -4,8 +4,6 @@ import android.view.KeyEvent;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.R;
-import com.menny.android.anysoftkeyboard.Dictionary.Dictionary;
-import com.menny.android.anysoftkeyboard.Dictionary.Dictionary.Language;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
 /**
@@ -28,10 +26,7 @@ public class BelarusianCyrillicKeyboard extends AnyKeyboard implements
     }
 
     public BelarusianCyrillicKeyboard(AnyKeyboardContextProvider context) {
-        super(context, KeyboardFactory.BE_CYRILLIC_KEYBOARD, R.xml.be_cyrillic,
-                R.string.be_cyrillic_keyboard,
-                Dictionary.Language.None,
-                R.drawable.be_cyrillic);
+        super(context, R.xml.be_cyrillic);
     }
     
     @Override
@@ -60,10 +55,5 @@ public class BelarusianCyrillicKeyboard extends AnyKeyboard implements
                 action.setNewKeyCode(translated);
             }
         }
-    }
-
-    @Override
-    public Language getDefaultDictionaryLanguage() {
-        return Language.None;
     }
 }

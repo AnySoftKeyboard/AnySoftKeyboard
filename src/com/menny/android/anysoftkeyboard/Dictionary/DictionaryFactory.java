@@ -1,21 +1,22 @@
 package com.menny.android.anysoftkeyboard.Dictionary;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 
 import android.util.Log;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
-import com.menny.android.anysoftkeyboard.Dictionary.Dictionary.Language;
 
 public class DictionaryFactory 
 {
 	private static UserDictionaryBase msUserDictionary = null;
-	private static final HashMap<Dictionary.Language, Dictionary> msDictionaries;
+	private static final HashMap<String, Dictionary> msDictionaries;
 	
 	static
 	{
-		msDictionaries = new HashMap<Dictionary.Language, Dictionary>();
+		msDictionaries = new HashMap<String, Dictionary>();
 	}
 	
 	public synchronized static UserDictionaryBase createUserDictionary(AnyKeyboardContextProvider context)
@@ -43,7 +44,7 @@ public class DictionaryFactory
 	}
 	
 	
-	public synchronized static Dictionary getDictionary(final Dictionary.Language language, AnyKeyboardContextProvider context)
+	public synchronized static Dictionary getDictionary(final String language, AnyKeyboardContextProvider context)
 	{
 		if (msDictionaries.containsKey(language))
 			return msDictionaries.get(language);
@@ -54,50 +55,34 @@ public class DictionaryFactory
 		//context.showToastMessage(R.string.toast_lengthy_words_long_operation, false);		
 		try
 		{
-			switch(language)
-			{
-			case English:
+			if (language.equalsIgnoreCase("English"))
 				dict = new SQLiteSimpleDictionary(context, "en", "en");
-				break;
-			case Hebrew:
+			else if (language.equalsIgnoreCase("Hebrew"))
 				dict = new SQLiteSimpleDictionary(context, "he", "he");
-				break;
-			case French:
+			else if (language.equalsIgnoreCase("French")) 
 				dict = new SQLiteSimpleDictionary(context, "fr", "fr");
-				break;
-			case German:
+			else if (language.equalsIgnoreCase("German"))
 				dict = new SQLiteSimpleDictionary(context, "de", "de");
-				break;
-			case Spanish:
+			else if (language.equalsIgnoreCase("Spanish"))
 				dict = new SQLiteSimpleDictionary(context, "es", "es");
-				break;
-			case Swedish:
+			else if (language.equalsIgnoreCase("Swedish"))
 				dict = new SQLiteSimpleDictionary(context, "sv", "sv");
-				break;
-			case Russian:
+			else if (language.equalsIgnoreCase("Russian"))
 				dict = new SQLiteSimpleDictionary(context, "ru", "ru");
-				break;
-			case Finnish:
+			else if (language.equalsIgnoreCase("Finnish"))
 				dict = new SQLiteSimpleDictionary(context, "fi", "fi");
-				break;
-			case Dutch:
+			else if (language.equalsIgnoreCase("Dutch"))
 				dict = new SQLiteSimpleDictionary(context, "nl", "nl");
-				break;
-			case Slovenian:
+			else if (language.equalsIgnoreCase("Slovenian"))
 				dict = new SQLiteSimpleDictionary(context, "sl", "sl");
-				break;
-			case Portuguese:
+			else if (language.equalsIgnoreCase("Portuguese"))
 				dict = new SQLiteSimpleDictionary(context, "pt", "pt");
-				break;
-			case Bulgarian:
+			else if (language.equalsIgnoreCase("Bulgarian"))
 				dict = new SQLiteSimpleDictionary(context, "bg", "bg");
-				break;
-			case Ukrainian:
+			else if (language.equalsIgnoreCase("Ukrainian"))
 				dict = new SQLiteSimpleDictionary(context, "uk", "uk");
-				break;
-			default:
-				return null;
-			}
+			else return null;
+			
 			final Dictionary dictToLoad = dict;
 			Thread loader = new Thread()
 			{
@@ -126,7 +111,7 @@ public class DictionaryFactory
 		return dict;
 	}
 
-	public synchronized static void removeDictionary(Language language) 
+	public synchronized static void removeDictionary(String language) 
 	{
 		if (msDictionaries.containsKey(language))
 		{
@@ -152,7 +137,7 @@ public class DictionaryFactory
 		close();
 	}
 	
-	public synchronized static void releaseDictionary(Language language)
+	public synchronized static void releaseDictionary(String language)
 	{
 		if (msDictionaries.containsKey(language))
 		{
@@ -163,10 +148,10 @@ public class DictionaryFactory
 	}
 
 
-	public synchronized static void onLowMemory(Language currentlyUsedDictionary) {
+	public synchronized static void onLowMemory(String currentlyUsedDictionary) {
 		//I'll clear all dictionaries but the required.
 		Dictionary dictToKeep = null;
-		for(Entry<Language, Dictionary> dict : msDictionaries.entrySet())
+		for(Entry<String, Dictionary> dict : msDictionaries.entrySet())
 		{
 			if (dict.getKey().equals(currentlyUsedDictionary))
 			{
@@ -184,5 +169,33 @@ public class DictionaryFactory
 		{
 			msDictionaries.put(currentlyUsedDictionary, dictToKeep);
 		}
+	}
+	
+	private enum LanguageStrings
+	{
+		None,
+		English,
+		Hebrew,
+		French,
+		German,
+		Spanish,
+		Russian,
+		Arabic,
+		Lao,
+		Swedish, 
+		Finnish, 
+		Dutch,
+		Slovenian,
+		Portuguese,
+		Bulgarian,
+		Thai,
+		Ukrainian
+	}
+	public static List<String> getKnownDictionariesNames() {
+		ArrayList<String> list = new ArrayList<String>();
+		for(LanguageStrings lang : LanguageStrings.values())
+			list.add(lang.toString());
+		
+		return list;
 	}
 }

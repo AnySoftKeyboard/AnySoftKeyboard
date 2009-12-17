@@ -3,7 +3,6 @@ package com.menny.android.anysoftkeyboard.keyboards;
 import android.util.Log;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
-import com.menny.android.anysoftkeyboard.Dictionary.Dictionary;
 
 public class GenericKeyboard extends AnyKeyboard 
 {
@@ -12,9 +11,9 @@ public class GenericKeyboard extends AnyKeyboard
 	private Key mLeftClose;
 	private Key mRightClose;
 	
-	public GenericKeyboard(AnyKeyboardContextProvider context, int xmlLayoutResId, int keyboardNameId) 
+	public GenericKeyboard(AnyKeyboardContextProvider context, int xmlLayoutResId) 
 	{
-		super(context, "NONE", xmlLayoutResId, keyboardNameId, Dictionary.Language.None, com.menny.android.anysoftkeyboard.R.drawable.sym_keyboard_notification_icon);
+		super(context, xmlLayoutResId);
 	}
 
 	@Override

@@ -6,7 +6,12 @@
     android:verticalGap="0px"
     android:keyHeight="@dimen/key_height"
     >
-
+    
+    <AnySoftKeyboardMetaData
+    	PrefString="uk_keyboard" KeyboardNameResId="@com.menny.android.anysoftkeyboard:string/uk_keyboard" KeyboardIconResId="@com.menny.android.anysoftkeyboard:drawable/uk"
+    	DefaultDictionaryLanguage="Ukrainian"
+    />
+    
 	<!-- generic top row -->
     <Row android:rowEdgeFlags="top"
     android:keyWidth="45%p"

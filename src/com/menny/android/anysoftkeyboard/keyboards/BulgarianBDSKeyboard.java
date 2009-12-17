@@ -7,7 +7,6 @@ import android.view.KeyEvent;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.R;
-import com.menny.android.anysoftkeyboard.Dictionary.Dictionary;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
 public class BulgarianBDSKeyboard extends AnyKeyboard implements HardKeyboardTranslator
@@ -82,7 +81,7 @@ public class BulgarianBDSKeyboard extends AnyKeyboard implements HardKeyboardTra
     
 	public BulgarianBDSKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, KeyboardFactory.BG_BDS_KEYBOARD, R.xml.bg_bds_qwerty, R.string.bg_bds_keyboard, Dictionary.Language.Bulgarian, R.drawable.bg_bds);
+		super(context, R.xml.bg_bds_qwerty);
 	}
 	
 	private enum SequenceStage

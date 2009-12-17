@@ -1,7 +1,5 @@
 package com.menny.android.anysoftkeyboard;
 
-import android.util.Log;
-
 public class Workarounds 
 {
 	//Determine whether this device has the fix for RTL in the suggestions list

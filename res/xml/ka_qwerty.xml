@@ -7,6 +7,10 @@
     android:keyHeight="@dimen/key_height"
     >
 
+    <AnySoftKeyboardMetaData
+    	PrefString="ka_keyboard" KeyboardNameResId="@com.menny.android.anysoftkeyboard:string/ka_keyboard" KeyboardIconResId="@com.menny.android.anysoftkeyboard:drawable/ka"
+    />
+    
 	<!-- generic top row -->
     <Row android:rowEdgeFlags="top"
     android:keyWidth="45%p"

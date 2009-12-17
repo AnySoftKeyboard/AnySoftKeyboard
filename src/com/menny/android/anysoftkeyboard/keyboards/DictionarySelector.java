@@ -1,19 +1,17 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
-import com.menny.android.anysoftkeyboard.Dictionary.Dictionary.Language;
-
 public interface DictionarySelector {
-	Language getDictionaryLanguage();
+	String getDictionaryLanguage();
 }
 
 class DefaultDictionarySelector implements DictionarySelector
 {
-	private final Language mDefaultLanguage;
-	public DefaultDictionarySelector(Language language)
+	private final String mDefaultLanguage;
+	public DefaultDictionarySelector(String language)
 	{
 		mDefaultLanguage = language;
 	}
-	public Language getDictionaryLanguage() {
+	public String getDictionaryLanguage() {
 		return mDefaultLanguage;
 	}	
 }

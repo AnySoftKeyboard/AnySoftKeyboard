@@ -7,6 +7,10 @@
     android:keyHeight="@dimen/key_height"
     >
 
+    <AnySoftKeyboardMetaData
+    	PrefString="be_latin" KeyboardNameResId="@com.menny.android.anysoftkeyboard:string/be_latin_keyboard" KeyboardIconResId="@com.menny.android.anysoftkeyboard:drawable/be_latin"
+    />
+    
 	<!-- generic top row -->
     <Row android:rowEdgeFlags="top"
     android:keyWidth="45%p"

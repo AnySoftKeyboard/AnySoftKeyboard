@@ -2,13 +2,12 @@ package com.menny.android.anysoftkeyboard.keyboards;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.R;
-import com.menny.android.anysoftkeyboard.Dictionary.Dictionary;
 
 public class ThaiKeyboard extends AnyKeyboard /*implements HardKeyboardTranslator*/
 {
 	public ThaiKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, KeyboardFactory.THAI_KEYBOARD, R.xml.thai_qwerty, R.string.thai_keyboard, Dictionary.Language.None, R.drawable.thai);
+		super(context, R.xml.thai_qwerty);
 	}
 
 	@Override

@@ -7,6 +7,11 @@
     android:keyHeight="@dimen/key_height"
     >
 
+    <AnySoftKeyboardMetaData
+    	PrefString="bg_ph_keyboard" KeyboardNameResId="@com.menny.android.anysoftkeyboard:string/bg_ph_keyboard" KeyboardIconResId="@com.menny.android.anysoftkeyboard:drawable/bg_ph"
+    	DefaultDictionaryLanguage="Bulgarian"
+    />
+    
 	<!-- generic top row -->
     <Row android:rowEdgeFlags="top"
     android:keyWidth="45%p"

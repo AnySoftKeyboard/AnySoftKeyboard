@@ -4,7 +4,6 @@ import android.view.KeyEvent;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.R;
-import com.menny.android.anysoftkeyboard.Dictionary.Dictionary;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
 public class HebrewKeyboard extends AnyKeyboard implements HardKeyboardTranslator
@@ -18,7 +17,7 @@ public class HebrewKeyboard extends AnyKeyboard implements HardKeyboardTranslato
 	}
 	public HebrewKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, KeyboardFactory.HEBREW_KEYBOARD, R.xml.heb_qwerty, R.string.heb_keyboard, Dictionary.Language.Hebrew, R.drawable.he);
+		super(context, R.xml.heb_qwerty);
 	}
 	
 	@Override

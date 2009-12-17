@@ -10,14 +10,15 @@ import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.util.Xml;
 import android.view.inputmethod.EditorInfo;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfigurationImpl;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.Workarounds;
-import com.menny.android.anysoftkeyboard.Dictionary.Dictionary;
 
 public abstract class AnyKeyboard extends Keyboard 
 {
@@ -51,10 +52,27 @@ public abstract class AnyKeyboard extends Keyboard
 		void translatePhysicalCharacter(HardKeyboardAction action);
 	}
 
+	private class KeyboardMetaData
+	{
+		public String PrefString;
+		public String KeyboardName;
+		public int IconResId;
+		public String DefaultDictionaryLanguage;
+		
+		public KeyboardMetaData()
+		{
+			PrefString = null;
+			KeyboardName = "";
+			IconResId = -1;
+			DefaultDictionaryLanguage = "None";
+		}
+	}
+	
 	private static final String XML_META_DATA_TAG = "AnySoftKeyboardMetaData";
 	private static final String XML_PREF_ID_ATTRIBUTE = "PrefString";
-	private static final String XML_NAME_ID_ATTRIBUTE = "KeyboardNameResId";
-	private static final String XML_ICON_ID_ATTRIBUTE = "KeyboardIconResId";
+	private static final String XML_NAME_RES_ID_ATTRIBUTE = "KeyboardNameResId";
+	private static final String XML_ICON_RES_ID_ATTRIBUTE = "KeyboardIconResId";
+	private static final String XML_DICTIONARY_NAME_ATTRIBUTE = "DefaultDictionaryLanguage";
 	
 	private static final int SHIFT_OFF = 0;
     private static final int SHIFT_ON = 1;
@@ -63,13 +81,8 @@ public abstract class AnyKeyboard extends Keyboard
     private int mShiftState = SHIFT_OFF;
     
     private final boolean mDebug;
-    private final String mKeyboardPrefId;
-	private final String mKeyboardName;
-    //private final boolean mLeftToRightLanguageDirection;
-    private final Dictionary.Language mDefaultDictionaryLanguage;
-    private final int mKeyboardIconId;
-	//private final String mKeyboardPrefId;
-    private HashMap<Character, ShiftedKeyData> mSpecialShiftKeys;
+    private final KeyboardMetaData mKeyboardMetaData;
+	private HashMap<Character, ShiftedKeyData> mSpecialShiftKeys;
     
     private Drawable mShiftLockIcon;
     //private Drawable mShiftLockPreviewIcon;
@@ -85,25 +98,20 @@ public abstract class AnyKeyboard extends Keyboard
     private final AnyKeyboardContextProvider mKeyboardContext;
     
     protected AnyKeyboard(AnyKeyboardContextProvider context,
-    		String keyboardPrefId,
-    		int xmlLayoutResId,
-    		int keyboardNameId,
-    		Dictionary.Language defaultDictionaryLanguage,
-    		int keyboardIconId) 
+    		int xmlLayoutResId) 
     {
         super(context.getApplicationContext(), xmlLayoutResId);
-        //loadKeyboard(context.getApplicationContext(), xmlLayoutResId);
+        mKeyboardMetaData = loadKeyboard(context.getApplicationContext(), xmlLayoutResId);
+        
+        Log.d("AnySoftKeyboard", "loadKeyboard result: "+"" +
+        		"PrefString:"+ ((mKeyboardMetaData.PrefString!=null)? mKeyboardMetaData.PrefString : "NULL")+
+        		" KeyboardName:" + mKeyboardMetaData.KeyboardName +
+        		" IconResId:" + mKeyboardMetaData.IconResId +
+        		" DefaultDictionaryLanguage:" + ((mKeyboardMetaData.PrefString!=null)? mKeyboardMetaData.DefaultDictionaryLanguage : "NULL"));
         
         mDebug = AnySoftKeyboardConfigurationImpl.getInstance().getDEBUG();
         mKeyboardContext = context;
-        mKeyboardPrefId = keyboardPrefId;
-        if (keyboardNameId > 0)
-        	mKeyboardName = context.getApplicationContext().getResources().getString(keyboardNameId);
-        else
-        	mKeyboardName = "";
-        mDefaultDictionaryLanguage = defaultDictionaryLanguage;
-        mKeyboardIconId = keyboardIconId;
-        Log.i("AnySoftKeyboard", "Done creating keyboard: "+mKeyboardName+", which is LTR:"+isLeftToRightLanguage());
+        Log.i("AnySoftKeyboard", "Done creating keyboard: "+mKeyboardMetaData.KeyboardName+", which is LTR:"+isLeftToRightLanguage());
     	
         mShiftLockIcon = context.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift_locked);
 //        mShiftLockPreviewIcon = context.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_feedback_shift_locked);
@@ -112,7 +120,8 @@ public abstract class AnyKeyboard extends Keyboard
     
     
 
-	private void loadKeyboard(Context applicationContext, int xmlLayoutResId) {
+	private KeyboardMetaData loadKeyboard(Context applicationContext, int xmlLayoutResId) {
+		KeyboardMetaData result = new KeyboardMetaData();
 		XmlPullParser parser = applicationContext.getResources().getXml(xmlLayoutResId);
 		
         Resources res = applicationContext.getResources();
@@ -122,14 +131,20 @@ public abstract class AnyKeyboard extends Keyboard
             int event;
             while ((event = parser.next()) != XmlPullParser.END_DOCUMENT) 
             {
-                if (event == XmlResourceParser.START_TAG) {
+                if (event == XmlPullParser.START_TAG) {
                     String tag = parser.getName();
                     if (XML_META_DATA_TAG.equals(tag)) {
                     	inMetaData = true;
                     	Log.d("AnySoftKeyboard", "Starting parsing "+XML_META_DATA_TAG);
+                    	AttributeSet attrs = Xml.asAttributeSet(parser);
+                    	result.PrefString = attrs.getAttributeValue(null, XML_PREF_ID_ATTRIBUTE);
+                    	final int nameResId = attrs.getAttributeResourceValue(null, XML_NAME_RES_ID_ATTRIBUTE, -1);
+                    	result.KeyboardName = (nameResId > 0)? res.getString(nameResId) : "";
+                    	result.IconResId = attrs.getAttributeResourceValue(null, XML_ICON_RES_ID_ATTRIBUTE, R.drawable.sym_keyboard_notification_icon);
+                    	result.DefaultDictionaryLanguage = attrs.getAttributeValue(null, XML_DICTIONARY_NAME_ATTRIBUTE);
                     }
                 }
-                else if (event == XmlResourceParser.END_TAG && inMetaData) {
+                else if (event == XmlPullParser.END_TAG && inMetaData) {
                 	Log.d("AnySoftKeyboard", "Finished parsing "+XML_META_DATA_TAG);
                 	break;
                 }
@@ -138,6 +153,8 @@ public abstract class AnyKeyboard extends Keyboard
             Log.e("AnySoftKeyboard", "Parse error:" + e);
             e.printStackTrace();
         }
+        
+        return result;
 	}
 
 	protected AnyKeyboardContextProvider getKeyboardContext()
@@ -145,9 +162,9 @@ public abstract class AnyKeyboard extends Keyboard
     	return mKeyboardContext;
     }
     
-    public Dictionary.Language getDefaultDictionaryLanguage()
+    public String getDefaultDictionaryLanguage()
     {
-    	return mDefaultDictionaryLanguage;
+    	return mKeyboardMetaData.DefaultDictionaryLanguage;
     }
     
     //this function is called from within the super constructor.
@@ -326,7 +343,7 @@ public abstract class AnyKeyboard extends Keyboard
     public String getKeyboardName()
     {
     	//TODO: this should be taken from the strings.xml, right?
-    	return mKeyboardName;
+    	return mKeyboardMetaData.KeyboardName;
     }
     
     public boolean isLeftToRightLanguage()
@@ -339,7 +356,7 @@ public abstract class AnyKeyboard extends Keyboard
      */
     public int getKeyboardIcon()
     {
-    	return mKeyboardIconId;
+    	return mKeyboardMetaData.IconResId;
     }
     
 //    public String getKeyboardKey()
@@ -625,6 +642,6 @@ public abstract class AnyKeyboard extends Keyboard
     }
 
 	public String getKeyboardPrefId() {
-		return mKeyboardPrefId;
+		return mKeyboardMetaData.PrefString;
 	}
 }

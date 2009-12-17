@@ -5,7 +5,6 @@ import android.view.KeyEvent;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.R;
-import com.menny.android.anysoftkeyboard.Dictionary.Dictionary;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
 public class UkrainianKeyboard extends AnyKeyboard implements HardKeyboardTranslator
@@ -26,7 +25,7 @@ public class UkrainianKeyboard extends AnyKeyboard implements HardKeyboardTransl
 	}
 	public UkrainianKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, KeyboardFactory.UK_KEYBOARD, getKeyboardId(context), R.string.uk_keyboard, Dictionary.Language.Ukrainian, R.drawable.uk);
+		super(context, getKeyboardId(context));
 	}
 	
 	private static int getKeyboardId(AnyKeyboardContextProvider context) 

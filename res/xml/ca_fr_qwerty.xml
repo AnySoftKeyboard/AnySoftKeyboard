@@ -8,6 +8,11 @@
     android:keyHeight="@dimen/key_height"
     >
 
+    <AnySoftKeyboardMetaData
+    	PrefString="fr_ca_keyboard" KeyboardNameResId="@com.menny.android.anysoftkeyboard:string/fr_ca_keyboard" KeyboardIconResId="@com.menny.android.anysoftkeyboard:drawable/he"
+    	DefaultDictionaryLanguage="French"
+    />
+    
 	<!-- generic top row -->
     <Row android:rowEdgeFlags="top"
     android:keyWidth="45%p"

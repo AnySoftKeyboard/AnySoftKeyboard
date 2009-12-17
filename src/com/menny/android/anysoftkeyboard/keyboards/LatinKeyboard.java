@@ -1,13 +1,12 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
-import com.menny.android.anysoftkeyboard.Dictionary.Dictionary;
 
 public class LatinKeyboard extends AnyKeyboard
 {
-	protected LatinKeyboard(AnyKeyboardContextProvider context, String prefId, int keyboardLayoutId, int keyboardNameId, Dictionary.Language defaultDictionaryLanguage, int keyboardIconId) 
+	protected LatinKeyboard(AnyKeyboardContextProvider context, int keyboardLayoutId) 
 	{
-		super(context, prefId, keyboardLayoutId, keyboardNameId, defaultDictionaryLanguage, keyboardIconId);
+		super(context, keyboardLayoutId);
 	}
 
 	protected void setPopupKeyChars(Key aKey) 

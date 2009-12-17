@@ -7,6 +7,10 @@
     android:keyHeight="@dimen/key_height"
     >
 
+    <AnySoftKeyboardMetaData
+    	PrefString="esperanto_keyboard" KeyboardNameResId="@com.menny.android.anysoftkeyboard:string/esperanto_keyboard"
+    />
+    
 	<!-- generic top row -->
     <Row android:rowEdgeFlags="top"
     android:keyWidth="45%p"

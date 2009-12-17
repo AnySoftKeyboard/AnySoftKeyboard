@@ -8,6 +8,10 @@
         <Key android:codes="-99" android:horizontalGap="10%p" android:keyLabel="&#8594; ABC &#8594;" android:keyEdgeFlags="right"/>
     </Row>
     
+    <AnySoftKeyboardMetaData
+    	PrefString="thai_keyboard" KeyboardNameResId="@com.menny.android.anysoftkeyboard:string/thai_keyboard" KeyboardIconResId="@com.menny.android.anysoftkeyboard:drawable/thai"
+    />
+        
     <!-- numbers -->
     <Row>
         <Key android:codes="3613,3622" android:keyLabel="" android:keyEdgeFlags="left"/>

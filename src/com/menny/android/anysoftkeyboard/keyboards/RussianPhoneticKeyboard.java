@@ -6,8 +6,6 @@ import android.view.KeyEvent;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.R;
-import com.menny.android.anysoftkeyboard.Dictionary.Dictionary;
-import com.menny.android.anysoftkeyboard.Dictionary.Dictionary.Language;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
 public class RussianPhoneticKeyboard extends AnyKeyboard implements HardKeyboardTranslator
@@ -29,7 +27,7 @@ public class RussianPhoneticKeyboard extends AnyKeyboard implements HardKeyboard
 	
 	public RussianPhoneticKeyboard(AnyKeyboardContextProvider context) 
 	{
-		super(context, KeyboardFactory.RU_PH_KEYBOARD, getKeyboardId(context), R.string.ru_ph_keyboard, Dictionary.Language.None, R.drawable.ru_ph);
+		super(context, getKeyboardId(context));
 	}
 	
 	private static int getKeyboardId(AnyKeyboardContextProvider context) 
@@ -58,10 +56,5 @@ public class RussianPhoneticKeyboard extends AnyKeyboard implements HardKeyboard
 				action.setNewKeyCode(translated);
 			}
 		}
-	}
-	
-	@Override
-	public Language getDefaultDictionaryLanguage() {
-		return Language.Russian;
 	}
 }

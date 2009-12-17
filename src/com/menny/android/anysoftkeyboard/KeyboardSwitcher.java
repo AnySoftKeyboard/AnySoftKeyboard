@@ -86,13 +86,13 @@ public class KeyboardSwitcher
 	    	switch(keyboardIndex)
 	    	{
 	    		case SYMBOLS_KEYBOARD_REGULAR_INDEX:
-	    			keyboard = new GenericKeyboard(mContext, R.xml.symbols, -1);
+	    			keyboard = new GenericKeyboard(mContext, R.xml.symbols);
 	    			break;
 	    		case SYMBOLS_KEYBOARD_SHIFTED_INDEX:
-	    			keyboard = new GenericKeyboard(mContext, R.xml.symbols_shift, -1);
+	    			keyboard = new GenericKeyboard(mContext, R.xml.symbols_shift);
 	    			break;
 	    		case SYMBOLS_KEYBOARD_PHONE_INDEX:
-	    			keyboard = new GenericKeyboard(mContext, R.xml.simple_numbers, -1);
+	    			keyboard = new GenericKeyboard(mContext, R.xml.simple_numbers);
 	    			if (mInputView != null)
 	            		mInputView.setPhoneKeyboard(keyboard);
 	    			break;

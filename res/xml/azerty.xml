@@ -6,7 +6,11 @@
     android:verticalGap="0px"
     android:keyHeight="@dimen/key_height"
     >
-
+    <AnySoftKeyboardMetaData
+    	PrefString="azerty_keyboard" KeyboardNameResId="@com.menny.android.anysoftkeyboard:string/azerty_keyboard"
+    	DefaultDictionaryLanguage="French"
+    />
+    
 	<!-- generic top row -->
     <Row android:rowEdgeFlags="top"
     android:keyWidth="45%p"
