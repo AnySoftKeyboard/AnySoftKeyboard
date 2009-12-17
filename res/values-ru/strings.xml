@@ -115,6 +115,7 @@
    <string name="bg_bds_keyboard">Болгарский BDS</string>
    <string name="dvorak_keyboard">Дворак</string>
    <string name="finnish_swedish_keyboard">Швейцарский/Финский</string>
+   <string name="svdvorak_keyboard">Дворак (Швейцарский)</string>
    <string name="catalan_keyboard">Каталанский</string>
    <string name="ch_fr_keyboard">Швейцарско-Французский</string>
    <string name="de_keyboard">Немецкий/Швейцарско-Немецкий</string>
