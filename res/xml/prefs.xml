@@ -191,14 +191,6 @@ android:key="ime_settings">
 				android:summaryOff="Created with Stephen Paul Weber"
 				/>
 				<CheckBoxPreference
-				android:key="svdvorak_keyboard"
-				android:title="@string/svdvorak_keyboard"
-				android:persistent="true" 
-				android:defaultValue="false"
-				android:summaryOn="Created by Henrik Andersson"
-				android:summaryOff="Created by Henrik Andersson"
-				/>
-				<CheckBoxPreference
 				android:key="colemak_keyboard"
 				android:title="@string/colemak_keyboard"
 				android:persistent="true" 
@@ -282,6 +274,14 @@ android:key="ime_settings">
 				android:defaultValue="false"
 				android:summaryOn="Created with jtlallo"
 				android:summaryOff="Created with jtlallo"
+				/>
+				<CheckBoxPreference
+				android:key="svdvorak_keyboard"
+				android:title="@string/svdvorak_keyboard"
+				android:persistent="true" 
+				android:defaultValue="false"
+				android:summaryOn="Created by Henrik Andersson"
+				android:summaryOff="Created by Henrik Andersson"
 				/>
 				<CheckBoxPreference
 				android:key="es_keyboard"
