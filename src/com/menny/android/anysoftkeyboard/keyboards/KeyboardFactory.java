@@ -22,6 +22,7 @@ public class KeyboardFactory
 	public static final String ENGLISH_KEYBOARD = "eng_keyboard";
 	public static final String AZERTY_KEYBOARD = "azerty_keyboard";
 	public static final String DVORAK_KEYBOARD = "dvorak_keyboard";
+	public static final String SVDVORAK_KEYBOARD = "svdvorak_keyboard";
 	public static final String COLEMAK_KEYBOARD = "colemak_keyboard";
 	public static final String HEBREW_KEYBOARD = "heb_keyboard";
 	public static final String RU_KEYBOARD = "ru_keyboard";
@@ -54,6 +55,9 @@ public class KeyboardFactory
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.azerty);} public String getKeyboardPrefId() {return AZERTY_KEYBOARD;}});
 		//issue 31
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.dvorak);} public String getKeyboardPrefId() {return DVORAK_KEYBOARD;}});
+		
+		// issue 218: svdvorak
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.svdvorak);} public String getKeyboardPrefId() {return SVDVORAK_KEYBOARD;}});
 		
 		//issue 178: colemak
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.colemak);} public String getKeyboardPrefId() {return COLEMAK_KEYBOARD;}});
