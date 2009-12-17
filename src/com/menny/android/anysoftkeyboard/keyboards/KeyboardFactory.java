@@ -130,6 +130,16 @@ public class KeyboardFactory
 			}
 		}
 		
+		// Fix: issue 219
+		// Check if there is any keyboards created if not, lets create a default english keyboard
+		if( keyboards.size() == 0 ) {
+			SharedPreferences.Editor editor = sharedPreferences.edit( );
+			KeyboardCreator creator = ms_creators.get( 0 );
+			editor.putBoolean( creator.getKeyboardPrefId( ) , true );
+			editor.commit( );
+			keyboards.add( creator );
+		}
+		
 		for(KeyboardCreator aKeyboard : keyboards)
 			Log.d("AnySoftKeyboard", "Factory provided creator: "+aKeyboard.getKeyboardPrefId());
 		
