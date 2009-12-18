@@ -117,6 +117,7 @@
     <string name="bg_bds_keyboard">Bulgaria, BDS</string>
     <string name="dvorak_keyboard">Dvorak</string>
     <string name="finnish_swedish_keyboard">Ruotsi/Suomi</string>
+	<string name="svorak_keyboard">Svorak</string>
     <string name="catalan_keyboard">Katalaani</string>
     <string name="ch_fr_keyboard">Sveitsin ranska</string>
     <string name="de_keyboard">Saksan/Sveitsin saksa</string>
