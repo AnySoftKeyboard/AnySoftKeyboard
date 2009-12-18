@@ -27,7 +27,7 @@ public class AnySoftKeyboardConfigurationImpl implements AnySoftKeyboardConfigur
 	private String mDomainText = ".com";
 	private String mLayoutChangeKeysSize = "Small";
 	private boolean mShowKeyPreview = true;
-	private boolean mSwitchKeyboardOnSpace = false;
+	private boolean mSwitchKeyboardOnSpace = true;
 	
 	private AnySoftKeyboardConfigurationImpl()
 	{

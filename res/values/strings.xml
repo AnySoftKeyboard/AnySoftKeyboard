@@ -92,8 +92,8 @@
     <string name="key_press_preview_popup_on_summary">Show popup upon key-press</string>
     <string name="key_press_preview_popup_off_summary">Do not show popup upon key-press</string>
     <string name="switch_keyboard_on_space">Space switches keyboards</string>
-    <string name="switch_keyboard_on_space_on_summary">Switch to alphabet keyboard when pressing space</string>
-    <string name="switch_keyboard_on_space_off_summary">Do not switch to alphabet keyboard when pressing space</string>
+    <string name="switch_keyboard_on_space_on_summary">Switch from symbols to alphabet when pressing space</string>
+    <string name="switch_keyboard_on_space_off_summary">Do not switch from symbols to alphabet when pressing space</string>
     
     
     <string name="auto_caps">Auto-capitalization</string>

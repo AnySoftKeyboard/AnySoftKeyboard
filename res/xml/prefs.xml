@@ -76,7 +76,7 @@ android:key="ime_settings">
 			android:key="switch_keyboard_on_space"
 			android:title="@string/switch_keyboard_on_space"
 			android:persistent="true"
-			android:defaultValue="false" 
+			android:defaultValue="true" 
 			android:summaryOn="@string/switch_keyboard_on_space_on_summary"
 			android:summaryOff="@string/switch_keyboard_on_space_off_summary"
 		/>
