@@ -56,9 +56,6 @@ public class KeyboardFactory
 		//issue 31
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.dvorak);} public String getKeyboardPrefId() {return DVORAK_KEYBOARD;}});
 		
-		// issue 218: svorak
-		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.svorak);} public String getKeyboardPrefId() {return SVORAK_KEYBOARD;}});
-		
 		//issue 178: colemak
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.colemak);} public String getKeyboardPrefId() {return COLEMAK_KEYBOARD;}});
 		
@@ -81,6 +78,8 @@ public class KeyboardFactory
 		
 		//Issue 39: Finnish/Swedish keyboard
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.fin_swedish_qwerty);} public String getKeyboardPrefId() {return FINNISH_SWEDISH_KEYBOARD;}});
+		// issue 218: svorak
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.svorak);} public String getKeyboardPrefId() {return SVORAK_KEYBOARD;}});
 		
 		//Issue 54: Spanish keyboard
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.es_qwerty);} public String getKeyboardPrefId() {return SPANISH_KEYBOARD;}});
