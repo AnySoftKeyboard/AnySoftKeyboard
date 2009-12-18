@@ -871,7 +871,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			
 			if (isWordSeparator(primaryCode)) {
 				handleSeparator(primaryCode);
-				//Issue 160: Space in symbols keyboards shoud switch to alphabet keyboard
+				//Issue 160: Space in symbols keyboards should switch to alphabet keyboard
 				if (primaryCode == KEYCODE_SPACE) {
 					if (DEBUG) Log.d("AnySoftKeyboard", "SwitchKeyboardOnSpace: "+mSwitchKeyboardOnSpace);
 					if (mSwitchKeyboardOnSpace && !mKeyboardSwitcher.isAlphabetMode()) {

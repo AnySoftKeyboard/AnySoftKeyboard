@@ -475,10 +475,10 @@ public abstract class AnyKeyboard extends Keyboard
 				aKey.popupResId = R.xml.popup;
 				aKey.popupCharacters = "\"";
 				break;
-			case '-':
-				aKey.popupResId = R.xml.popup;
-				aKey.popupCharacters = "\'\"";
-				break;
+//			case '-':
+//				aKey.popupResId = R.xml.popup;
+//				aKey.popupCharacters = "\'\"";
+//				break;
 			case '.'://in the generic bottom row
 				aKey.popupResId = R.xml.popup;
 				aKey.popupCharacters = ";:-_\u00b7";

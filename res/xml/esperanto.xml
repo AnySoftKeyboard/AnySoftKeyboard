@@ -55,12 +55,12 @@
         <Key android:codes="98" android:keyLabel="b"/>
         <Key android:codes="110" android:keyLabel="n"/>
         <Key android:codes="109" android:keyLabel="m"/>
-		<Key android:codes="45,34" android:keyLabel="-"/>
+		<Key android:codes="45,34" android:keyLabel="-" android:popupKeyboard="@xml/popup" android:popupCharacters="qwyx"/>
         <Key android:keyWidth="10%p" android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete_small" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     
     <!-- Generic bottom row -->
-    <Row android:rowEdgeFlags="bottom"><!--android:keyIcon="@drawable/sym_keyboard_smiley"-->
+    <Row android:rowEdgeFlags="bottom">
     	<Key android:keyIcon="@drawable/sym_keyboard_smiley" android:codes="-10" android:keyOutputText=":-) " android:popupKeyboard="@xml/popup_smileys" android:keyEdgeFlags="left"/>
         
         <Key android:horizontalGap="2.5%p" android:codes="63" android:keyLabel="\?"/>
