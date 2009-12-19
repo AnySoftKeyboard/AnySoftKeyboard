@@ -28,7 +28,7 @@ public class AnySoftKeyboardConfigurationImpl implements AnySoftKeyboardConfigur
 	private String mLayoutChangeKeysSize = "Small";
 	private boolean mShowKeyPreview = true;
 	private boolean mSwitchKeyboardOnSpace = true;
-	
+	private boolean mUseFullScreenInput = true;
 	private AnySoftKeyboardConfigurationImpl()
 	{
 		
@@ -104,6 +104,11 @@ public class AnySoftKeyboardConfigurationImpl implements AnySoftKeyboardConfigur
 		mSwitchKeyboardOnSpace = newSwitchKeyboardOnSpace;
 		Log.i("AnySoftKeyboard", "** mSwitchKeyboardOnSpace: "+mSwitchKeyboardOnSpace);
 		
+		boolean newUseFullScreenInput = sp.getBoolean("fullscreen_input_connection_supported", true);
+		handled = handled || (newUseFullScreenInput != mUseFullScreenInput);
+		mUseFullScreenInput = newUseFullScreenInput;
+		Log.i("AnySoftKeyboard", "** mUseFullScreenInput: "+mUseFullScreenInput);
+		
 		return handled;
 	}
 
@@ -129,6 +134,10 @@ public class AnySoftKeyboardConfigurationImpl implements AnySoftKeyboardConfigur
 	public boolean getSwitchKeyboardOnSpace()
 	{
 	    return mSwitchKeyboardOnSpace;
+	}
+
+	public boolean getUseFullScreenInput() {
+		return mUseFullScreenInput;
 	}
 }
 

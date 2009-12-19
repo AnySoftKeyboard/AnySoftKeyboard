@@ -166,6 +166,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		super.showStatusIcon(R.drawable.icon_8_key);
 		Log.i("AnySoftKeyboard", "****** Starting AnySoftKeyboard:");
 		((AnySoftKeyboardConfigurationImpl)mConfig).initializeConfiguration(this);
 
@@ -459,6 +460,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (!isFullscreenMode()) {
 			outInsets.contentTopInsets = outInsets.visibleTopInsets;
 		}
+	}
+	
+	@Override
+	public boolean onEvaluateFullscreenMode() 
+	{
+		if (AnySoftKeyboardConfigurationImpl.getInstance().getUseFullScreenInput())
+			return super.onEvaluateFullscreenMode();
+		else
+			return false;
 	}
 	
 	@Override

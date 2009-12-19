@@ -13,4 +13,6 @@ public interface AnySoftKeyboardConfiguration
 	boolean getShowKeyPreview();
 
 	boolean getSwitchKeyboardOnSpace();
+	
+	boolean getUseFullScreenInput();
 }
