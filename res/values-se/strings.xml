@@ -91,7 +91,9 @@
    <string name="switch_keyboard_on_space">Byta tagentbord med mellanslag</string>
    <string name="switch_keyboard_on_space_on_summary">Byt till alfabetiskt tangentbord med mellanslag</string>
     <string name="switch_keyboard_on_space_off_summary">Byt inte till alfabetiskt tangentbord med mellanslag</string>
-    
+    <string name="fullscreen_input_connection_supported">Använd fullskärmsinmatning</string>
+    <string name="fullscreen_input_connection_supported_on_summary">Fullskärmsinmatning vid landskapsvy</string>
+    <string name="fullscreen_input_connection_supported_off_summary">Använd aldrig fullskärmsinmatning</string>
     
     <string name="auto_caps">Automatisk begynnelsebokstav</string>
     <string name="grammer_group">Grammatik</string>
