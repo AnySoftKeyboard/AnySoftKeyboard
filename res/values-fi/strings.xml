@@ -94,6 +94,9 @@
 	<string name="switch_keyboard_on_space">Väli vaihtaa näppäimistöä</string>
     <string name="switch_keyboard_on_space_on_summary">Vaihda kirjainnäppäimistöön välilyönnistä</string>
     <string name="switch_keyboard_on_space_off_summary">Älä vaihda kirjainnäppäimistöön välilyönnistä</string>
+	<string name="fullscreen_input_connection_supported">Syöttöruudun koko</string>
+    <string name="fullscreen_input_connection_supported_on_summary">Syöttöruutu täyttää koko ruudun vaaka-asennossa.</string>
+    <string name="fullscreen_input_connection_supported_off_summary">Syöttöruutu ei täytä koskaan koko ruutua.</string>
 
 
 	<string name="auto_caps">Autokapitalisointi</string>
