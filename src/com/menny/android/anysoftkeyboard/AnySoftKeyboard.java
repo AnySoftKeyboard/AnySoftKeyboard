@@ -166,7 +166,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		super.showStatusIcon(R.drawable.icon_8_key);
+		//super.showStatusIcon(R.drawable.icon_8_key);
 		Log.i("AnySoftKeyboard", "****** Starting AnySoftKeyboard:");
 		((AnySoftKeyboardConfigurationImpl)mConfig).initializeConfiguration(this);
 

@@ -39,16 +39,20 @@ public class AnySoftKeyboardConfigurationImpl implements AnySoftKeyboardConfigur
 		mIme = ime;
 		
 		Log.i("AnySoftKeyboard", "** Locale:"+ mIme.getResources().getConfiguration().locale.toString());
-		String version = "";
+		String version = "NONE";
+		int releaseNumber = 0;
         try {
 			PackageInfo info = mIme.getApplication().getPackageManager().getPackageInfo(mIme.getApplication().getPackageName(), 0);
 			version = info.versionName;
+			releaseNumber = info.versionCode;
 			Log.i("AnySoftKeyboard", "** Version: "+version);
 		} catch (NameNotFoundException e) {
 			Log.e("AnySoftKeyboard", "Failed to locate package information! This is very weird... I'm installed.");
 		}
 		
-		mDEBUG = version.contains("tester");
+		mDEBUG = ((releaseNumber % 2) == 0);//even versions are TESTERS
+		Log.i("AnySoftKeyboard", "** Version: "+version);
+		Log.i("AnySoftKeyboard", "** Release code: "+releaseNumber);
 		Log.i("AnySoftKeyboard", "** Debug: "+mDEBUG);
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mIme);
 		
