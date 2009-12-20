@@ -88,12 +88,15 @@
     <string name="emoticon_long_press_opens_popup_off_summary">Mostra lista após pressão breve</string>
     <string name="default_smiley_text">Texto da tecla Smiley</string>
     <string name="default_domain_text">Texto da tecla domínio</string>   
-    <string name="key_press_preview_popup">Tecla pressionada</string>
+    <string name="key_press_preview_popup">Ampliação de teclas</string>
     <string name="key_press_preview_popup_on_summary">Mostra ampliação da tecla pressionada</string>
     <string name="key_press_preview_popup_off_summary">Não mostra ampliação da tecla pressionada</string>
     <string name="switch_keyboard_on_space">Espaço muda teclado</string>
-    <string name="switch_keyboard_on_space_on_summary">Muda para teclado alfabético ao pressionar espaço</string>
-    <string name="switch_keyboard_on_space_off_summary">Não muda para teclado alfabético ao pressionar espaço</string>
+    <string name="switch_keyboard_on_space_on_summary">Muda de símbolos para alfabético ao pressionar espaço</string>
+    <string name="switch_keyboard_on_space_off_summary">Não muda de símbolos para alfabético ao pressionar espaço</string>
+    <string name="fullscreen_input_connection_supported">Usa todo o ecrã</string>
+    <string name="fullscreen_input_connection_supported_on_summary">Usa todo o ecrã para inserir texto no modo horizontal</string>
+    <string name="fullscreen_input_connection_supported_off_summary">Nunca usa todo o ecrã para inserir texto</string>
 
 
     <string name="auto_caps">Auto-capitalização</string>
@@ -116,7 +119,10 @@
     <string name="bg_ph_keyboard">Búlgaro fonético</string>
     <string name="bg_bds_keyboard">Búlgaro BDS</string>
     <string name="dvorak_keyboard">Dvorak</string>
+    <string name="danish_keyboard">Dinamarquês</string>
+    <string name="norwegian_keyboard">Norueguês</string>
     <string name="finnish_swedish_keyboard">Suíço/Finlandês</string>
+    <string name="svorak_keyboard">Svorak</string>
     <string name="catalan_keyboard">Catalão</string>
     <string name="ch_fr_keyboard">Suíço Francês</string>
     <string name="de_keyboard">Germânico/Suíço Germânico</string>
