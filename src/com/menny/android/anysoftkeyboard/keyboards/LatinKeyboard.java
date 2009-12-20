@@ -56,7 +56,7 @@ public class LatinKeyboard extends AnyKeyboard
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 's':
-					aKey.popupCharacters = "\u00a7\u0161\u015b\u00df";
+					aKey.popupCharacters = "\u00a7\u0161\u015b\u00df\u015d";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'u':
