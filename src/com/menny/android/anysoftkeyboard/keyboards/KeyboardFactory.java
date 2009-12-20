@@ -31,6 +31,8 @@ public class KeyboardFactory
 	public static final String LAO_KEYBOARD ="lao_keyboard";
 	public static final String BG_PH_KEYBOARD = "bg_ph_keyboard";
 	public static final String BG_BDS_KEYBOARD = "bg_bds_keyboard";
+	public static final String DANISH_KEYBOARD = "danish_keyboard";
+	public static final String NORWEGIAN_KEYBOARD = "norwegian_keyboard";
 	public static final String FINNISH_SWEDISH_KEYBOARD = "finnish_swedish_keyboard";
 	public static final String SPANISH_KEYBOARD = "es_keyboard";
 	public static final String CATALAN_KEYBOARD = "catalan_keyboard";
@@ -75,6 +77,12 @@ public class KeyboardFactory
 		
 		//Lao keyboard - issue 10
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LaoKeyboard(contextProvider);} public String getKeyboardPrefId() {return LAO_KEYBOARD;}});
+		
+		//Issue 122: Danish keyboard
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.dk_qwerty);} public String getKeyboardPrefId() {return DANISH_KEYBOARD;}});
+		
+		//Issue 166: Norwegian keyboard
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.no_qwerty);} public String getKeyboardPrefId() {return NORWEGIAN_KEYBOARD;}});
 		
 		//Issue 39: Finnish/Swedish keyboard
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.fin_swedish_qwerty);} public String getKeyboardPrefId() {return FINNISH_SWEDISH_KEYBOARD;}});

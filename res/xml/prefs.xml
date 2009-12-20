@@ -276,6 +276,22 @@ android:key="ime_settings">
 				android:summaryOff="Created with atg2d"
 				/>
 				<CheckBoxPreference
+				android:key="danish_keyboard"
+				android:title="@string/danish_keyboard"
+				android:persistent="true"
+				android:defaultValue="false"
+				android:summaryOn="Created by Henrik Andersson"
+				android:summaryOff="Created by Henrik Andersson"
+				/>
+				<CheckBoxPreference
+				android:key="norwegian_keyboard"
+				android:title="@string/norwegian_keyboard"
+				android:persistent="true"
+				android:defaultValue="false"
+				android:summaryOn="Created by Henrik Andersson"
+				android:summaryOff="Created by Henrik Andersson"
+				/>
+				<CheckBoxPreference
 				android:key="finnish_swedish_keyboard"
 				android:title="@string/finnish_swedish_keyboard"
 				android:persistent="true"

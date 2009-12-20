@@ -119,6 +119,8 @@
     <string name="bg_ph_keyboard">Bulgarian Phonetic</string>
     <string name="bg_bds_keyboard">Bulgarian BDS</string>
     <string name="dvorak_keyboard">Dvorak</string>
+    <string name="danish_keyboard">Danish</string>
+    <string name="norwegian_keyboard">Norwegian</string>
     <string name="finnish_swedish_keyboard">Swedish/Finnish</string>
     <string name="svorak_keyboard">Svorak</string>
     <string name="catalan_keyboard">Catalan</string>
