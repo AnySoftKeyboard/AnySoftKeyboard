@@ -39,7 +39,7 @@ public class AnyKeyboardView extends KeyboardView {
     }
 
 	private void initializeStuff() {
-		setPreviewEnabled(AnySoftKeyboardConfigurationImpl.getInstance().getShowKeyPreview());
+		setPreviewEnabled(AnySoftKeyboardConfiguration.getInstance().getShowKeyPreview());
 		setProximityCorrectionEnabled(true);
 	}
 

@@ -6,7 +6,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
-import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfigurationImpl;
+import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
 
 
 public class FallbackUserDictionary extends SQLiteUserDictionaryBase {
@@ -25,7 +25,7 @@ public class FallbackUserDictionary extends SQLiteUserDictionaryBase {
 		@Override
 		public List<DictionaryWord> getAllWords() {
 			List<DictionaryWord> words = super.getAllWords();
-			if (AnySoftKeyboardConfigurationImpl.getInstance().getDEBUG())
+			if (AnySoftKeyboardConfiguration.getInstance().getDEBUG())
 			{
 				for(DictionaryWord word : words)
 				{

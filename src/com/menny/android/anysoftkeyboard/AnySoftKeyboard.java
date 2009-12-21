@@ -78,7 +78,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private static final int KEYBOARD_NOTIFICATION_ID = 1;
 	private static final String PUNCTUATION_CHARACTERS = ".\n!?,:;@<>()[]{}";
 
-	private final AnySoftKeyboardConfigurationImpl mConfig;
+	private final AnySoftKeyboardConfiguration mConfig;
 	private boolean DEBUG;
 	
 	private AnyKeyboardView mInputView;
@@ -112,7 +112,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private boolean mSoundOn;
 	//between 0..8
 	private float mSoundVolume;
-	private boolean mUseKeyRepeat;
+	
 	private boolean mSwitchKeyboardOnSpace;
 	private boolean mSmileyOnShortPress;
 	private boolean mAutoCap;
@@ -160,7 +160,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public AnySoftKeyboard()
 	{
 		//mGenericKeyboardTranslator = new GenericPhysicalKeyboardTranslator(this);
-		mConfig = (AnySoftKeyboardConfigurationImpl)AnySoftKeyboardConfigurationImpl.getInstance();
+		mConfig = AnySoftKeyboardConfiguration.getInstance();
 		mHardKeyboardAction = new HardKeyboardActionImpl();
 	}
 	
@@ -169,7 +169,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		super.onCreate();
 		//super.showStatusIcon(R.drawable.icon_8_key);
 		Log.i("AnySoftKeyboard", "****** Starting AnySoftKeyboard:");
-		((AnySoftKeyboardConfigurationImpl)mConfig).initializeConfiguration(this);
+		((AnySoftKeyboardConfiguration.AnySoftKeyboardConfigurationImpl)mConfig).initializeConfiguration(this);
 
 		DEBUG = mConfig.getDEBUG();
 		//showToastMessage(R.string.toast_lengthy_start_up_operation, true);
@@ -466,7 +466,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public boolean onEvaluateFullscreenMode() 
 	{
-		if (AnySoftKeyboardConfigurationImpl.getInstance().getUseFullScreenInput())
+		if (AnySoftKeyboardConfiguration.getInstance().getUseFullScreenInput())
 			return super.onEvaluateFullscreenMode();
 		else
 			return false;
@@ -561,7 +561,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		default:
 		
 			// Fix issue 185, check if we should process key repeat
-			if( !mUseKeyRepeat && event.getRepeatCount() > 0 )
+			if( !AnySoftKeyboardConfiguration.getInstance().getUseRepeatingKeys() && event.getRepeatCount() > 0 )
 				return true;
 		
 			if (mKeyboardSwitcher.isCurrentKeyboardPhysical()) 
@@ -1477,14 +1477,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 //		handled = handled || (newLandscapePredications != mPredictionLandscape);
 //		mPredictionLandscape = newLandscapePredications;
 
-		// Fix issue 185
-		boolean newUseKeyRepeat = sp.getBoolean( "use_keyrepeat", true );
-		handled = handled || ( newUseKeyRepeat != mUseKeyRepeat );
-		mUseKeyRepeat = newUseKeyRepeat;
-		
-		Log.v("AnySoftKeyboard","LoadSettings(), keyrepeat = " + mUseKeyRepeat );
-		
-        boolean newSwitchKeyboardOnSpace = sp.getBoolean("switch_keyboard_on_space", false);
+		boolean newSwitchKeyboardOnSpace = sp.getBoolean("switch_keyboard_on_space", false);
         handled = handled || (newSwitchKeyboardOnSpace != mSwitchKeyboardOnSpace);
         mSwitchKeyboardOnSpace = newSwitchKeyboardOnSpace;
 		
@@ -1492,7 +1485,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		handled = handled || (newSmileyOnShort != mSmileyOnShortPress);
 		mSmileyOnShortPress = newSmileyOnShort;
 		
-		handled = handled || mConfig.handleConfigurationChange(sp);
+		//NOTE: a single "|" required here! We want the 'handleConfigurationChange' function to be called ANYWAY!
+		handled = handled | ((AnySoftKeyboardConfiguration.AnySoftKeyboardConfigurationImpl)mConfig).handleConfigurationChange(sp);
 		
 		if (mInputView != null)
 			mInputView.setPreviewEnabled(mConfig.getShowKeyPreview());

@@ -16,7 +16,7 @@ import android.util.Xml;
 import android.view.inputmethod.EditorInfo;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
-import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfigurationImpl;
+import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.Workarounds;
 
@@ -109,7 +109,7 @@ public abstract class AnyKeyboard extends Keyboard
         		" IconResId:" + mKeyboardMetaData.IconResId +
         		" DefaultDictionaryLanguage:" + ((mKeyboardMetaData.PrefString!=null)? mKeyboardMetaData.DefaultDictionaryLanguage : "NULL"));
         
-        mDebug = AnySoftKeyboardConfigurationImpl.getInstance().getDEBUG();
+        mDebug = AnySoftKeyboardConfiguration.getInstance().getDEBUG();
         mKeyboardContext = context;
         Log.i("AnySoftKeyboard", "Done creating keyboard: "+mKeyboardMetaData.KeyboardName+", which is LTR:"+isLeftToRightLanguage());
     	
@@ -212,7 +212,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        else if ((primaryCode == Keyboard.KEYCODE_MODE_CHANGE) ||
 	        		 (primaryCode == AnyKeyboard.KEYCODE_LANG_CHANGE))
 	        {
-	        	final String keysMode = AnySoftKeyboardConfigurationImpl.getInstance().getChangeLayoutKeysSize();
+	        	final String keysMode = AnySoftKeyboardConfiguration.getInstance().getChangeLayoutKeysSize();
 	        	if (keysMode.equals("None"))
 	        	{
 	        		key.label = null;
@@ -277,7 +277,7 @@ public abstract class AnyKeyboard extends Keyboard
     	Row aRow = super.createRowFromXml(res, parser);
     	if ((aRow.rowEdgeFlags&EDGE_TOP) != 0)
     	{
-    		String layoutChangeType = AnySoftKeyboardConfigurationImpl.getInstance().getChangeLayoutKeysSize();
+    		String layoutChangeType = AnySoftKeyboardConfiguration.getInstance().getChangeLayoutKeysSize();
     		//top row
     		if (layoutChangeType.equals("None"))
     			aRow.defaultHeight = 0;
@@ -519,7 +519,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        		mSmileyKey.iconPreview = null;// res.getDrawable(sym_keyboard_key_domain_preview);
 	        		mSmileyKey.icon = res.getDrawable(R.drawable.sym_keyboard_key_domain);
 		        	mSmileyKey.label = null;
-		        	mSmileyKey.text = AnySoftKeyboardConfigurationImpl.getInstance().getDomainText();
+		        	mSmileyKey.text = AnySoftKeyboardConfiguration.getInstance().getDomainText();
 		        	mSmileyKey.popupResId = R.xml.popup_domains;
 	        	}
 	        	if (mQuestionMarkKey != null)
