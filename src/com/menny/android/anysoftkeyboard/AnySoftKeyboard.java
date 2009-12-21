@@ -112,6 +112,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private boolean mSoundOn;
 	//between 0..8
 	private float mSoundVolume;
+	private boolean mUseKeyRepeat;
 	private boolean mSwitchKeyboardOnSpace;
 	private boolean mSmileyOnShortPress;
 	private boolean mAutoCap;
@@ -558,6 +559,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 //				return true;
 //			}
 		default:
+		
+			// Fix issue 185, check if we should process key repeat
+			if( !mUseKeyRepeat && event.getRepeatCount() > 0 )
+				return true;
+		
 			if (mKeyboardSwitcher.isCurrentKeyboardPhysical()) 
 			{
 				// sometimes, the physical keyboard will delete input, and then add some.
@@ -1471,6 +1477,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 //		handled = handled || (newLandscapePredications != mPredictionLandscape);
 //		mPredictionLandscape = newLandscapePredications;
 
+		// Fix issue 185
+		boolean newUseKeyRepeat = sp.getBoolean( "use_keyrepeat", true );
+		handled = handled || ( newUseKeyRepeat != mUseKeyRepeat );
+		mUseKeyRepeat = newUseKeyRepeat;
+		
+		Log.v("AnySoftKeyboard","LoadSettings(), keyrepeat = " + mUseKeyRepeat );
+		
         boolean newSwitchKeyboardOnSpace = sp.getBoolean("switch_keyboard_on_space", false);
         handled = handled || (newSwitchKeyboardOnSpace != mSwitchKeyboardOnSpace);
         mSwitchKeyboardOnSpace = newSwitchKeyboardOnSpace;

@@ -83,6 +83,9 @@
     <string name="custom_sound_volume">Custom key-press volume</string>
     
     <string name="tweaks_group">Tweaks</string>
+    <string name="use_keyrepeat">Use key repeat</string>
+    <string name="use_keyrepeat_on_summary">Key repeat is enabled</string>
+    <string name="use_keyrepeat_off_summary">Key repeat is disabled</string>    
     <string name="emoticon_long_press_opens_popup">Long-press smiley popup</string>
     <string name="emoticon_long_press_opens_popup_on_summary">Show emoticons popup on long-press</string>
     <string name="emoticon_long_press_opens_popup_off_summary">Show emoticons popup on short-press</string>
