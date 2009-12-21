@@ -10,7 +10,7 @@
 
     <AnySoftKeyboardMetaData
     	PrefString="norwegian_keyboard" KeyboardNameResId="@com.menny.android.anysoftkeyboard:string/norwegian_keyboard"
-    	DefaultDictionaryLanguage="Swedish"
+    	DefaultDictionaryLanguage="Norwegian"
     />
     
 	<!-- generic top row -->
