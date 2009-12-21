@@ -80,6 +80,9 @@
     <string name="custom_sound_volume">Egen volym för ljudeffekter</string>
     
     <string name="tweaks_group">Tweaks</string>
+    <string name="use_keyrepeat">Tangentrepetering</string>
+    <string name="use_keyrepeat_on_summary">Repetering är aktiv</string>
+    <string name="use_keyrepeat_off_summary">Repetering är inaktiv</string>    
     <string name="emoticon_long_press_opens_popup">Lång tryckning för känlsoikoner</string>
     <string name="emoticon_long_press_opens_popup_on_summary">Visa känsloikoner vid lång tryckning</string>
     <string name="emoticon_long_press_opens_popup_off_summary">Visa känsloikoner vid kort tryckning</string>
