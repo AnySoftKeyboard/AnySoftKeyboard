@@ -83,6 +83,9 @@
     <string name="custom_sound_volume">Mukautettu volyymi napinpainalluksissa</string>    
 
     <string name="tweaks_group">Viilaukset</string>
+	<string name="use_keyrepeat">Käytä näppäintoistoa</string>
+    <string name="use_keyrepeat_on_summary">Näppäintoisto päällä</string>
+    <string name="use_keyrepeat_off_summary">Näppäintoisto pois päältä</string>        
     <string name="emoticon_long_press_opens_popup">Paina pitkään, hymiökupla</string>
     <string name="emoticon_long_press_opens_popup_on_summary">Näytä hymiökupla kun painat pitkään</string>
     <string name="emoticon_long_press_opens_popup_off_summary">Näytä hymiökupla kun painat nopeasti</string>
@@ -119,8 +122,11 @@
     <string name="bg_ph_keyboard">Bulgaria, foneettinen</string>
     <string name="bg_bds_keyboard">Bulgaria, BDS</string>
     <string name="dvorak_keyboard">Dvorak</string>
+    <string name="danish_keyboard">Danish</string>
+    <string name="norwegian_keyboard">Norja</string>
     <string name="finnish_swedish_keyboard">Ruotsi/Suomi</string>
 	<string name="svorak_keyboard">Svorak</string>
+	<string name="hungarian_keyboard">Unkari</string>
     <string name="catalan_keyboard">Katalaani</string>
     <string name="ch_fr_keyboard">Sveitsin ranska</string>
     <string name="de_keyboard">Saksan/Sveitsin saksa</string>
