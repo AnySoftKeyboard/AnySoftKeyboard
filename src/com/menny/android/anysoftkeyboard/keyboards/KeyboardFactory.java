@@ -35,6 +35,7 @@ public class KeyboardFactory
 	public static final String NORWEGIAN_KEYBOARD = "norwegian_keyboard";
 	public static final String FINNISH_SWEDISH_KEYBOARD = "finnish_swedish_keyboard";
 	public static final String SPANISH_KEYBOARD = "es_keyboard";
+	public static final String HUNGARIAN_KEYBOARD = "hungarian_keyboard";
 	public static final String CATALAN_KEYBOARD = "catalan_keyboard";
 	public static final String CH_FR_KEYBOARD = "ch_fr_keyboard";
 	public static final String DE_KEYBOARD = "ch_de_keyboard";
@@ -88,6 +89,9 @@ public class KeyboardFactory
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.fin_swedish_qwerty);} public String getKeyboardPrefId() {return FINNISH_SWEDISH_KEYBOARD;}});
 		// issue 218: svorak
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.svorak);} public String getKeyboardPrefId() {return SVORAK_KEYBOARD;}});
+		
+		// issue 208: hungarian
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.hu_qwertz);} public String getKeyboardPrefId() {return HUNGARIAN_KEYBOARD;}});
 		
 		//Issue 54: Spanish keyboard
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.es_qwerty);} public String getKeyboardPrefId() {return SPANISH_KEYBOARD;}});
