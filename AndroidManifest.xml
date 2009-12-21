@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" 
         package="com.menny.android.anysoftkeyboard"
-        android:versionCode="14" android:versionName="20091219-imaginary-testers">
+        android:versionCode="14" android:versionName="20091221-imaginary-testers">
 	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key">
 	    <service android:permission="android.permission.BIND_INPUT_METHOD" android:name="SoftKeyboard">
 	        <intent-filter>
@@ -22,5 +22,12 @@
 	<uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
-	<uses-sdk android:minSdkVersion="3"></uses-sdk>
+	<uses-sdk android:minSdkVersion="3" android:targetSdkVersion="4"></uses-sdk>
+	
+	<supports-screens
+          android:largeScreens="true" 
+          android:normalScreens="true"
+          android:smallScreens="true"
+          android:anyDensity="false" />
+          <!-- http://d.android.com/guide/practices/screens_support.html read about legacy. -->
 </manifest>
