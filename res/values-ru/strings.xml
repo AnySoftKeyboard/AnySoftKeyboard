@@ -82,6 +82,9 @@
    <string name="custom_sound_volume">Громкость при нажатии</string>
    
    <string name="tweaks_group">Настройки</string>
+   <string name="use_keyrepeat">Повторять клавиши</string>
+   <string name="use_keyrepeat_on_summary">Повторение клавиш включено</string>
+   <string name="use_keyrepeat_off_summary">Повторение клавиш выключено</string>
    <string name="emoticon_long_press_opens_popup">Долгое Нажатие Кнопки Смайликов</string>
    <string name="emoticon_long_press_opens_popup_on_summary">Показывать смайлики при долгом нажатии</string>
    <string name="emoticon_long_press_opens_popup_off_summary">Показывать смайлики при коротком нажатии</string>
@@ -90,9 +93,12 @@
    <string name="key_press_preview_popup">Показ кнопок</string>
    <string name="key_press_preview_popup_on_summary">Показывать клавиши при нажатии</string>
    <string name="key_press_preview_popup_off_summary">Не показывать клавиши при нажатии</string>
-   <string name="switch_keyboard_on_space">Пробел Меняет Раскладку</string>
-   <string name="switch_keyboard_on_space_on_summary">Нажатие пробела возвращяет в буквенную раскладку</string>
+   <string name="switch_keyboard_on_space">Пробел Переключает Раскладку</string>
+   <string name="switch_keyboard_on_space_on_summary">Пробел возвращяет в буквенную раскладку из цифровой</string>
    <string name="switch_keyboard_on_space_off_summary">Нажатие пробела оставляет на цифровой раскладке</string>
+   <string name="fullscreen_input_connection_supported">Полноэкранный ввод</string>
+   <string name="fullscreen_input_connection_supported_on_summary">Полноэкранный ввод в ландшафтном режиме</string>
+   <string name="fullscreen_input_connection_supported_off_summary">Не использовать полноэкранный ввод</string>
    
    <string name="auto_caps">Авто-заглав</string>
    <string name="grammer_group">Грамматика</string>
@@ -113,9 +119,12 @@
    <string name="arabic_keyboard">Арабский</string>
    <string name="bg_ph_keyboard">Болгарский Фонетический</string>
    <string name="bg_bds_keyboard">Болгарский BDS</string>
-   <string name="dvorak_keyboard">Дворак</string>
+   <string name="dvorak_keyboard">Раскладка Дворака</string>
+   <string name="danish_keyboard">Датский</string>
+   <string name="norwegian_keyboard">Норвежский</string>
    <string name="finnish_swedish_keyboard">Швейцарский/Финский</string>
-   <string name="svdvorak_keyboard">Дворак (Швейцарский)</string>
+   <string name="svorak_keyboard">Раскладка Svorak</string>
+   <string name="hungarian_keyboard">Венгерский</string>
    <string name="catalan_keyboard">Каталанский</string>
    <string name="ch_fr_keyboard">Швейцарско-Французский</string>
    <string name="de_keyboard">Немецкий/Швейцарско-Немецкий</string>
