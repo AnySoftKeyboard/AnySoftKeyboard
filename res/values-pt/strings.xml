@@ -83,6 +83,9 @@
     <string name="custom_sound_volume">Controlo de volume</string>
     
     <string name="tweaks_group">Ajustes</string>
+    <string name="use_keyrepeat">Repetição de tecla</string>
+    <string name="use_keyrepeat_on_summary">Acção é repetida enquanto a tecla estiver pressionada</string>
+    <string name="use_keyrepeat_off_summary">Acção é efectuada apenas uma vez</string>    
     <string name="emoticon_long_press_opens_popup">Lista de Smilies</string>
     <string name="emoticon_long_press_opens_popup_on_summary">Mostra lista após pressão longa</string>
     <string name="emoticon_long_press_opens_popup_off_summary">Mostra lista após pressão breve</string>
@@ -123,6 +126,7 @@
     <string name="norwegian_keyboard">Norueguês</string>
     <string name="finnish_swedish_keyboard">Suíço/Finlandês</string>
     <string name="svorak_keyboard">Svorak</string>
+    <string name="hungarian_keyboard">Húngaro</string>
     <string name="catalan_keyboard">Catalão</string>
     <string name="ch_fr_keyboard">Suíço Francês</string>
     <string name="de_keyboard">Germânico/Suíço Germânico</string>
