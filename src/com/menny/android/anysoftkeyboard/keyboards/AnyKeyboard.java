@@ -84,9 +84,10 @@ public abstract class AnyKeyboard extends Keyboard
     private final KeyboardMetaData mKeyboardMetaData;
 	private HashMap<Character, ShiftedKeyData> mSpecialShiftKeys;
     
-    private Drawable mShiftLockIcon;
+    //private Drawable mShiftLockIcon;
     //private Drawable mShiftLockPreviewIcon;
-    private Drawable mOldShiftIcon;
+    private Drawable mOffShiftIcon;
+    private Drawable mOnShiftIcon;
     //private Drawable mOldShiftPreviewIcon;
     private Key mShiftKey;
     private Key mEnterKey;
@@ -113,7 +114,8 @@ public abstract class AnyKeyboard extends Keyboard
         mKeyboardContext = context;
         Log.i("AnySoftKeyboard", "Done creating keyboard: "+mKeyboardMetaData.KeyboardName+", which is LTR:"+isLeftToRightLanguage());
     	
-        mShiftLockIcon = context.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift_locked);
+        //mShiftLockIcon = context.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift_locked);
+        mOnShiftIcon = context.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift_on);
 //        mShiftLockPreviewIcon = context.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_feedback_shift_locked);
 //        mShiftLockPreviewIcon.setBounds(0, 0, mShiftLockPreviewIcon.getIntrinsicWidth(),mShiftLockPreviewIcon.getIntrinsicHeight());
     }
@@ -199,7 +201,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        {
 	            mShiftKey = key;
 	            //saving the drawable for reseting purposes.
-	            mOldShiftIcon = mShiftKey.icon;
+	            mOffShiftIcon = mShiftKey.icon;
 	        }
 	        else if ((primaryCode == AnyKeyboard.KEYCODE_SMILEY) && (parent.rowEdgeFlags == Keyboard.EDGE_BOTTOM)) 
 	        {
@@ -381,12 +383,12 @@ public abstract class AnyKeyboard extends Keyboard
             if (shiftLocked) {
             	Log.d("AnySoftKeyboard", "Switching to LOCKED shift icon - capslock");
                 mShiftKey.on = true;
-                mShiftKey.icon = mShiftLockIcon;
+                mShiftKey.icon = mOnShiftIcon;
                 mShiftState = SHIFT_LOCKED;
             } else {
             	Log.d("AnySoftKeyboard", "Switching to regular shift icon - un-shifted");
                 mShiftKey.on = false;
-                mShiftKey.icon = mOldShiftIcon;
+                mShiftKey.icon = mOffShiftIcon;
                 mShiftState = SHIFT_OFF;
             }
         }
@@ -442,12 +444,12 @@ public abstract class AnyKeyboard extends Keyboard
 	            if (shiftState == false) {
 	                mShiftState = SHIFT_OFF;
 	                mShiftKey.on = false;
-	                mShiftKey.icon = mOldShiftIcon;
+	                mShiftKey.icon = mOffShiftIcon;
 	            } else {
 	                if (mShiftState == SHIFT_OFF) {
-	                	mShiftKey.on = true;
+	                	mShiftKey.on = false;
 	                    mShiftState = SHIFT_ON;
-	                    mShiftKey.icon = mOldShiftIcon;
+	                    mShiftKey.icon = mOnShiftIcon;
 	                }
 	            }
 	        }
@@ -608,23 +610,26 @@ public abstract class AnyKeyboard extends Keyboard
             mEndX = this.width + this.x;
             mEndY = this.height + this.y;
         	
-        	switch(codes[0])
-        	{
-        	case 10://the enter key!
-        		//we want to "click" it only if it in the lower
+            if ((this.edgeFlags | Keyboard.EDGE_BOTTOM) != 0)
+            {//the enter key!
+            	//we want to "click" it only if it in the lower
         		mStartY += (this.height * 0.15);
-        		break;
-        	case KEYCODE_DELETE:
-        		//we want to "click" it only if it in the middle
-        		mStartY += (this.height * 0.05);
-        		mEndY -= (this.height * 0.05);
-        		mStartX += (this.width * 0.15);
-        		break;
-        	case KEYCODE_SHIFT:
-        		//we want to "click" it only if it in the left
-        		mEndX -= (this.width * 0.1);
-        		break;
-        	}
+            }
+            else
+            {
+	            if ((this.edgeFlags | Keyboard.EDGE_LEFT) != 0)
+	            {//usually, shift
+	            	mEndX -= (this.width * 0.1);
+	            }
+	            
+	            if ((this.edgeFlags | Keyboard.EDGE_RIGHT) != 0)
+	            {//usually, delete
+	            	//this is below the ENTER.. We want to be careful with this.
+	            	mStartY += (this.height * 0.05);
+	        		mEndY -= (this.height * 0.05);
+	        		mStartX += (this.width * 0.15);
+	            }
+            }
         }
         
         
