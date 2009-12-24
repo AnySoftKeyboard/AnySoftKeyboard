@@ -441,16 +441,14 @@ public abstract class AnyKeyboard extends Keyboard
 			}
 			
 			if (mShiftKey != null) {
-	            if (shiftState == false) {
-	                mShiftState = SHIFT_OFF;
-	                mShiftKey.on = false;
-	                mShiftKey.icon = mOffShiftIcon;
+	            if (shiftState) {
+	            	mShiftKey.on = false;
+                    mShiftState = SHIFT_ON;
+                    mShiftKey.icon = mOnShiftIcon;
 	            } else {
-	                if (mShiftState == SHIFT_OFF) {
-	                	mShiftKey.on = false;
-	                    mShiftState = SHIFT_ON;
-	                    mShiftKey.icon = mOnShiftIcon;
-	                }
+	            	mShiftKey.on = false;
+	            	mShiftState = SHIFT_OFF;
+	                mShiftKey.icon = mOffShiftIcon;
 	            }
 	        }
 		}
