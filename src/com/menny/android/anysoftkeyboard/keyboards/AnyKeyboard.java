@@ -382,13 +382,13 @@ public abstract class AnyKeyboard extends Keyboard
         if (mShiftKey != null) {
             if (shiftLocked) {
             	Log.d("AnySoftKeyboard", "Switching to LOCKED shift icon - capslock");
-                mShiftKey.on = true;
                 mShiftKey.icon = mOnShiftIcon;
+                mShiftKey.on = true;
                 mShiftState = SHIFT_LOCKED;
             } else {
             	Log.d("AnySoftKeyboard", "Switching to regular shift icon - un-shifted");
-                mShiftKey.on = false;
                 mShiftKey.icon = mOffShiftIcon;
+                mShiftKey.on = false;
                 mShiftState = SHIFT_OFF;
             }
         }
