@@ -608,19 +608,19 @@ public abstract class AnyKeyboard extends Keyboard
             mEndX = this.width + this.x;
             mEndY = this.height + this.y;
         	
-            if ((this.edgeFlags | Keyboard.EDGE_BOTTOM) != 0)
+            if ((this.edgeFlags & Keyboard.EDGE_BOTTOM) != 0)
             {//the enter key!
             	//we want to "click" it only if it in the lower
         		mStartY += (this.height * 0.15);
             }
             else
             {
-	            if ((this.edgeFlags | Keyboard.EDGE_LEFT) != 0)
+	            if ((this.edgeFlags & Keyboard.EDGE_LEFT) != 0)
 	            {//usually, shift
 	            	mEndX -= (this.width * 0.1);
 	            }
 	            
-	            if ((this.edgeFlags | Keyboard.EDGE_RIGHT) != 0)
+	            if ((this.edgeFlags & Keyboard.EDGE_RIGHT) != 0)
 	            {//usually, delete
 	            	//this is below the ENTER.. We want to be careful with this.
 	            	mStartY += (this.height * 0.05);
