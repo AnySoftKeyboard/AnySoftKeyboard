@@ -87,8 +87,8 @@
     <string name="use_keyrepeat_on_summary">Acção é repetida enquanto a tecla estiver pressionada</string>
     <string name="use_keyrepeat_off_summary">Acção é efectuada apenas uma vez</string>    
     <string name="emoticon_long_press_opens_popup">Lista de Smilies</string>
-    <string name="emoticon_long_press_opens_popup_on_summary">Mostra lista após pressão longa</string>
-    <string name="emoticon_long_press_opens_popup_off_summary">Mostra lista após pressão breve</string>
+    <string name="emoticon_long_press_opens_popup_on_summary">Mostra lista após pressão longa, insere Smiley com pressão breve</string>
+    <string name="emoticon_long_press_opens_popup_off_summary">Mostra lista após pressão breve, insere Smiley com pressão longa</string>
     <string name="default_smiley_text">Texto da tecla Smiley</string>
     <string name="default_domain_text">Texto da tecla domínio</string>   
     <string name="key_press_preview_popup">Ampliação de teclas</string>
@@ -100,7 +100,8 @@
     <string name="fullscreen_input_connection_supported">Usa todo o ecrã</string>
     <string name="fullscreen_input_connection_supported_on_summary">Usa todo o ecrã para inserir texto no modo horizontal</string>
     <string name="fullscreen_input_connection_supported_off_summary">Nunca usa todo o ecrã para inserir texto</string>
-
+    <string name="zoom_factor_keys_in_portrait">Factor altura na vertical</string>
+    <string name="zoom_factor_keys_in_landscape">Factor altura na horizontal</string>
 
     <string name="auto_caps">Auto-capitalização</string>
     <string name="grammer_group">Gramática</string>
