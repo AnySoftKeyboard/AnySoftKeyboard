@@ -1,9 +1,14 @@
 package com.menny.android.anysoftkeyboard;
 
+import java.lang.reflect.Field;
+
 public class Workarounds 
 {
 	//Determine whether this device has the fix for RTL in the suggestions list
 	private static final boolean ms_requiresRtlWorkaround;
+	
+	private static final boolean ms_isDonut;
+	private static final boolean ms_isEclair;
 	
 	static
 	{
@@ -23,6 +28,23 @@ public class Workarounds
 			}
 		}
 		ms_requiresRtlWorkaround = requiresRtlWorkaround;
+		//checking f/w API is a bit tricky, we need to do it by reflection
+		boolean isDonut = false;
+		boolean isEclair = false;
+		try
+		{
+			Field sdkInt = android.os.Build.VERSION.class.getField("SDK_INT");
+			if (sdkInt != null)
+			{
+				isDonut = (android.os.Build.VERSION.SDK_INT >= 4);
+				isEclair = (android.os.Build.VERSION.SDK_INT >= 5);
+			}
+		}
+		catch(Exception ex)
+		{
+		}
+		ms_isDonut = isDonut;
+		ms_isEclair = isEclair;
 	}
 	
 	public static boolean isRightToLeftCharacter(final char key)
@@ -74,5 +96,13 @@ public class Workarounds
     	}
     	else
     		return suggestion;
+	}
+
+	public static boolean isDonut() {
+		return ms_isDonut;
+	}
+	
+	public static boolean isEclair() {
+		return ms_isEclair;
 	}
 }

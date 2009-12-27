@@ -1065,7 +1065,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 			if (!mInputView.setShifted(mCapsLock || !mInputView.isShifted()))
 			{
 				//forcing redraw if view thinks it is still in the same state
-				mInputView.invalidateAllKeys();
+				if (Workarounds.isDonut())
+					mInputView.invalidateAllKeys();
+				else
+					mInputView.invalidate();//hope it 
 			}
 		} else {
 			mKeyboardSwitcher.toggleShift();

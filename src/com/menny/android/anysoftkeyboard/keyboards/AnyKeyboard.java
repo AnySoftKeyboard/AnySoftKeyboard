@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.xmlpull.v1.XmlPullParser;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
@@ -286,6 +287,12 @@ public abstract class AnyKeyboard extends Keyboard
     		else if (layoutChangeType.equals("Big"))
     			aRow.defaultHeight *= 1.5;
     	}
+    	
+    	if (res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+    		aRow.defaultHeight = (int)(aRow.defaultHeight * AnySoftKeyboardConfiguration.getInstance().getKeysHeightFactorInPortrait());
+    	else if (res.getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+    		aRow.defaultHeight = (int)(aRow.defaultHeight * AnySoftKeyboardConfiguration.getInstance().getKeysHeightFactorInLandscape());
+    		
     	return aRow;
     }
     

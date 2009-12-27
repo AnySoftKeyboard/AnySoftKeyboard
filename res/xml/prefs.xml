@@ -12,12 +12,12 @@ android:key="ime_settings">
 	android:title="@string/ui_group">
 		<ListPreference
 		android:key="keyboard_layout_change_method"
-		android:title="@string/keyboard_layout_change_method_title"
-		android:summary="@string/keyboard_layout_change_method_summary"
-		android:entries="@array/keyboard_layout_change_methods"
+		android:title="@string/keyboard_layout_change_keys_size_title"
+		android:summary="@string/keyboard_layout_change_keys_size_summary"
+		android:entries="@array/keyboard_layout_keys_size"
 		android:entryValues="@array/keyboard_layout_change_methods_values"
 		android:defaultValue="Small"
-		android:dialogTitle="@string/keyboard_layout_change_method_dialog_title"/>	
+		android:dialogTitle="@string/keyboard_layout_change_keys_size_dialog_title"/>	
 		<ListPreference
 		android:key="physical_keyboard_change_notification_type"
 		android:title="@string/physical_keyboard_change_notification_title"
@@ -111,6 +111,16 @@ android:key="ime_settings">
 			android:defaultValue="true" 
 			android:summaryOn="@string/fullscreen_input_connection_supported_on_summary"
 			android:summaryOff="@string/fullscreen_input_connection_supported_off_summary"
+		/>
+		<EditTextPreference android:key="zoom_factor_keys_in_portrait" 
+		android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none" android:inputType="numberDecimal"
+		android:title="@string/zoom_factor_keys_in_portrait" android:dialogTitle="@string/zoom_factor_keys_in_portrait" android:persistent="true"
+		android:defaultValue="1.0"
+		/>
+		<EditTextPreference android:key="zoom_factor_keys_in_landscape" 
+		android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none" android:inputType="numberDecimal"
+		android:title="@string/zoom_factor_keys_in_landscape" android:dialogTitle="@string/zoom_factor_keys_in_landscape" android:persistent="true"
+		android:defaultValue="1.0"
 		/>
 		<EditTextPreference android:key="default_smiley_text" 
 		android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none"

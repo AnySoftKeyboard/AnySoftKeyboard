@@ -35,6 +35,10 @@ public abstract class AnySoftKeyboardConfiguration
 	
 	public abstract boolean getUseRepeatingKeys();
 	
+	public abstract float getKeysHeightFactorInPortrait();
+	
+	public abstract float getKeysHeightFactorInLandscape();
+	
 	static class AnySoftKeyboardConfigurationImpl extends AnySoftKeyboardConfiguration
 	{
 		private InputMethodService mIme;
@@ -48,6 +52,8 @@ public abstract class AnySoftKeyboardConfiguration
 		private boolean mSwitchKeyboardOnSpace = true;
 		private boolean mUseFullScreenInput = true;
 		private boolean mUseKeyRepeat = true;
+		private float mKeysHeightFactorInPortrait = 1.0f;
+		private float mKeysHeightFactorInLandscape = 1.0f;
 		
 		public AnySoftKeyboardConfigurationImpl()
 		{
@@ -137,10 +143,31 @@ public abstract class AnySoftKeyboardConfiguration
 			boolean newUseKeyRepeat = sp.getBoolean("use_keyrepeat", true);
 			handled = handled || ( newUseKeyRepeat != mUseKeyRepeat );
 			mUseKeyRepeat = newUseKeyRepeat;
-			
 			Log.i("AnySoftKeyboard", "** mUseKeyRepeat: "+mUseKeyRepeat);
 			
+			float newKeyHeightFactorPortrait = getFloatFromString(sp, "zoom_factor_keys_in_portrait");
+			handled = handled || ( newKeyHeightFactorPortrait != mKeysHeightFactorInPortrait );
+			mKeysHeightFactorInPortrait = newKeyHeightFactorPortrait;
+			Log.i("AnySoftKeyboard", "** mKeysHeightFactorInPortrait: "+mKeysHeightFactorInPortrait);
+			
+			float newKeyHeightFactorLandscape = getFloatFromString(sp, "zoom_factor_keys_in_landscape");
+			handled = handled || ( newKeyHeightFactorLandscape != mKeysHeightFactorInLandscape );
+			mKeysHeightFactorInLandscape = newKeyHeightFactorLandscape;
+			Log.i("AnySoftKeyboard", "** mKeysHeightFactorInLandscape: "+mKeysHeightFactorInLandscape);
+			
 			return handled;
+		}
+
+		private static float getFloatFromString(SharedPreferences sp, String string) {
+			String floatValue = sp.getString(string, "1.0");
+			try
+			{
+				return Float.parseFloat(floatValue);
+			}
+			catch(Exception e)
+			{
+				return 1.0f;
+			}
 		}
 
 		public boolean getDEBUG() {return mDEBUG;}
@@ -175,7 +202,15 @@ public abstract class AnySoftKeyboardConfiguration
 		public boolean getUseRepeatingKeys() {
 			return mUseKeyRepeat;
 		}
-		
-		
+
+		@Override
+		public float getKeysHeightFactorInLandscape() {
+			return mKeysHeightFactorInLandscape;
+		}
+
+		@Override
+		public float getKeysHeightFactorInPortrait() {
+			return mKeysHeightFactorInPortrait;
+		}		
 	}
 }
