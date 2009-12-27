@@ -240,7 +240,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public View onCreateInputView() {
 		mInputView = (AnyKeyboardView) getLayoutInflater().inflate(
-				R.layout.input, null);
+				//the new layout will solve the "invalidateAllKeys" problem.
+				Workarounds.isDonut()? R.layout.input_donut : R.layout.input_cupcake
+				, null);
 
 		mKeyboardSwitcher.setInputView(mInputView);
 		mKeyboardSwitcher.makeKeyboards(false);
@@ -1065,10 +1067,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			if (!mInputView.setShifted(mCapsLock || !mInputView.isShifted()))
 			{
 				//forcing redraw if view thinks it is still in the same state
-				if (Workarounds.isDonut())
-					mInputView.invalidateAllKeys();
-				else
-					mInputView.invalidate();//hope it 
+				mInputView.requestRedraw();
 			}
 		} else {
 			mKeyboardSwitcher.toggleShift();

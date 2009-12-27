@@ -36,8 +36,10 @@ public class Workarounds
 			Field sdkInt = android.os.Build.VERSION.class.getField("SDK_INT");
 			if (sdkInt != null)
 			{
-				isDonut = (android.os.Build.VERSION.SDK_INT >= 4);
-				isEclair = (android.os.Build.VERSION.SDK_INT >= 5);
+				//NOTE: I can not use the field here, since this code MAY run in cupcake, and therefore
+				//fail in JIT compile. I need to perform this function with reflection...
+				isDonut = (sdkInt.getInt(null) >= 4);
+				isEclair = (sdkInt.getInt(null) >= 5);
 			}
 		}
 		catch(Exception ex)

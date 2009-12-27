@@ -209,4 +209,9 @@ public class AnyKeyboardView extends KeyboardView {
 //            }
 //        }
 //    }
+    public void requestRedraw()
+    {
+    	super.invalidate();
+    }
 }
+
