@@ -17,12 +17,12 @@ public class RussianPhoneticKeyboard extends AnyKeyboard implements HardKeyboard
 		msKeySequenceHandler = new HardKeyboardSequenceHandler();
 		msKeySequenceHandler.addQwertyTranslation("\u044f\u0448\u0435\u0440\u0442\u044b\u0443\u0438\u043e\u043f\u0430\u0441\u0434\u0444\u0433\u0447\u0439\u043a\u043b\u0437\u0445\u0446\u0432\u0431\u043d\u043c");
 		msKeySequenceHandler.addSequence(new int[]{KeyEvent.KEYCODE_COMMA, KeyEvent.KEYCODE_COMMA}, (char)1100);
-		
+
 		msKeySequenceHandler.addSequence(new int[]{KeyEvent.KEYCODE_U, KeyEvent.KEYCODE_U}, (char)1102);
 		msKeySequenceHandler.addSequence(new int[]{KeyEvent.KEYCODE_W, KeyEvent.KEYCODE_W}, (char)1097);
 		msKeySequenceHandler.addSequence(new int[]{KeyEvent.KEYCODE_E, KeyEvent.KEYCODE_E}, (char)1101);
 		msKeySequenceHandler.addSequence(new int[]{KeyEvent.KEYCODE_Z, KeyEvent.KEYCODE_H}, (char)1078);
-		msKeySequenceHandler.addSequence(new int[]{KeyEvent.KEYCODE_COMMA, KeyEvent.KEYCODE_COMMA}, (char)1098);
+		msKeySequenceHandler.addSequence(new int[]{KeyEvent.KEYCODE_PERIOD, KeyEvent.KEYCODE_PERIOD}, (char)1098);
 	}
 	
 	public RussianPhoneticKeyboard(AnyKeyboardContextProvider context) 
