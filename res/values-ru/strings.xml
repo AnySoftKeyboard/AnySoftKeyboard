@@ -31,10 +31,10 @@
     
    <!-- settings - UI -->
    <string name="ui_group">Пользовательский Интерфейс</string>
-   <string name="keyboard_layout_change_method_title">Кнопки изменения формата</string>
-   <string name="keyboard_layout_change_method_summary">Кнопки изменения формата на виртуальной клавиатуре</string>
-   <string name="keyboard_layout_change_method_dialog_title">Размер Кнопок</string>
-   <string-array name="keyboard_layout_change_methods">
+   <string name="keyboard_layout_change_keys_size_title">Кнопки изменения формата</string>
+   <string name="keyboard_layout_change_keys_size_summary">Кнопки изменения формата на виртуальной клавиатуре</string>
+   <string name="keyboard_layout_change_keys_size_dialog_title">Размер Кнопок</string>
+   <string-array name="keyboard_layout_keys_size">
       <item>Без Кнопок</item>
       <item>Маленькие</item>
       <item>Большие</item>
@@ -99,6 +99,8 @@
    <string name="fullscreen_input_connection_supported">Полноэкранный ввод</string>
    <string name="fullscreen_input_connection_supported_on_summary">Полноэкранный ввод в ландшафтном режиме</string>
    <string name="fullscreen_input_connection_supported_off_summary">Не использовать полноэкранный ввод</string>
+   <string name="zoom_factor_keys_in_portrait">Фактор высоты кнопок в портретном режиме</string>
+   <string name="zoom_factor_keys_in_landscape">Фактор высоты кнопок в ландшафтном режиме</string>
    
    <string name="auto_caps">Авто-заглав</string>
    <string name="grammer_group">Грамматика</string>
