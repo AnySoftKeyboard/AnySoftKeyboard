@@ -109,9 +109,12 @@ public abstract class AnySoftKeyboardConfiguration
 		{
 			Log.i("AnySoftKeyboard", "**** handleConfigurationChange: ");
 			boolean handled = false;
+			//if a change in the configuration requires rebuilding the keyboards, 'forceRebuildOfKeyboards' should set to 'true'
+			boolean forceRebuildOfKeyboards = false;
 			// this change requires the recreation of the keyboards.
-			// so we wont mark the 'handled' result.
-			mLayoutChangeKeysSize = sp.getString("keyboard_layout_change_method", "Small");
+			String newLayoutChangeKeysSize = sp.getString("keyboard_layout_change_method", "Small");
+			forceRebuildOfKeyboards = forceRebuildOfKeyboards || (!newLayoutChangeKeysSize.equalsIgnoreCase(mLayoutChangeKeysSize));
+			mLayoutChangeKeysSize = newLayoutChangeKeysSize;
 			Log.i("AnySoftKeyboard", "** mChangeKeysMode: "+mLayoutChangeKeysSize);
 			
 			String newSmileyText = sp.getString("default_smiley_text", ":-) ");
@@ -146,16 +149,16 @@ public abstract class AnySoftKeyboardConfiguration
 			Log.i("AnySoftKeyboard", "** mUseKeyRepeat: "+mUseKeyRepeat);
 			
 			float newKeyHeightFactorPortrait = getFloatFromString(sp, "zoom_factor_keys_in_portrait");
-			handled = handled || ( newKeyHeightFactorPortrait != mKeysHeightFactorInPortrait );
+			forceRebuildOfKeyboards = forceRebuildOfKeyboards || ( newKeyHeightFactorPortrait != mKeysHeightFactorInPortrait );
 			mKeysHeightFactorInPortrait = newKeyHeightFactorPortrait;
 			Log.i("AnySoftKeyboard", "** mKeysHeightFactorInPortrait: "+mKeysHeightFactorInPortrait);
 			
 			float newKeyHeightFactorLandscape = getFloatFromString(sp, "zoom_factor_keys_in_landscape");
-			handled = handled || ( newKeyHeightFactorLandscape != mKeysHeightFactorInLandscape );
+			forceRebuildOfKeyboards = forceRebuildOfKeyboards || ( newKeyHeightFactorLandscape != mKeysHeightFactorInLandscape );
 			mKeysHeightFactorInLandscape = newKeyHeightFactorLandscape;
 			Log.i("AnySoftKeyboard", "** mKeysHeightFactorInLandscape: "+mKeysHeightFactorInLandscape);
 			
-			return handled;
+			return handled && (!forceRebuildOfKeyboards);
 		}
 
 		private static float getFloatFromString(SharedPreferences sp, String string) {
