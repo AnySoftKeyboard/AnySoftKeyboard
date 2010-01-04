@@ -27,9 +27,9 @@
     
     <!-- settings - UI -->
     <string name="ui_group">Användargränssnitt</string>
-    <string name="keyboard_layout_change_method_title">Tangent för byte utav layout</string>
-    <string name="keyboard_layout_change_method_summary">Val av tangentstorlek för byte av layout</string>
-    <string name="keyboard_layout_change_method_dialog_title">Välj storlek</string>
+    <string name="keyboard_layout_change_keys_size_title">Tangent för byte utav layout</string>
+    <string name="keyboard_layout_change_keys_size_summary">Val av tangentstorlek för byte av layout</string>
+    <string name="keyboard_layout_change_keys_size_dialog_title">Välj storlek</string>
     <string-array name="keyboard_layout_change_methods">
         <item>Ingen</item>
         <item>Liten</item>
@@ -97,7 +97,9 @@
     <string name="fullscreen_input_connection_supported">Använd fullskärmsinmatning</string>
     <string name="fullscreen_input_connection_supported_on_summary">Fullskärmsinmatning vid landskapsvy</string>
     <string name="fullscreen_input_connection_supported_off_summary">Använd aldrig fullskärmsinmatning</string>
-    
+    <string name="zoom_factor_keys_in_portrait">Höjd på tangenter i porträttläge</string>
+    <string name="zoom_factor_keys_in_landscape">Höjd på tangenter i landskapsläge</string>
+
     <string name="auto_caps">Automatisk begynnelsebokstav</string>
     <string name="grammer_group">Grammatik</string>
     <string name="candidates_on">Visa förslag</string>
