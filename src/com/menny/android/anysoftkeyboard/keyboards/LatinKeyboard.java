@@ -16,11 +16,11 @@ public class LatinKeyboard extends AnyKeyboard
 			switch((char)aKey.codes[0])
 			{
 				case 'a':
-					aKey.popupCharacters = "\u00e0\u00e2\u00e1\u00e4\u00e3\u00e6\u00e5\u0105";
+					aKey.popupCharacters = "\u00e0\u00e1\u00e2\u00e3\u00e4\u00e5\u00e6\u0105";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'c':
-					aKey.popupCharacters = "\u00e7\u010d\u0107\u0109";
+					aKey.popupCharacters = "\u00e7\u0107\u0109\u010d";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'd':
@@ -28,7 +28,7 @@ public class LatinKeyboard extends AnyKeyboard
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'e':
-					aKey.popupCharacters = "\u00e9\u00e8\u00ea\u00eb\u0119\u20ac";
+					aKey.popupCharacters = "\u00e8\u00e9\u00ea\u00eb\u0119\u20ac";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'g':
@@ -40,7 +40,7 @@ public class LatinKeyboard extends AnyKeyboard
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'i':
-					aKey.popupCharacters = "\u00ee\u00ef\u00ed\u00ec\u0142";
+					aKey.popupCharacters = "\u00ec\u00ed\u00ee\u00ef\u0142";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'j':
@@ -52,15 +52,15 @@ public class LatinKeyboard extends AnyKeyboard
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'o':
-					aKey.popupCharacters = "\u00f4\u00f6\u00f2\u00f3\u00f5\u0153\u00f8\u0151";
+					aKey.popupCharacters = "\u00f2\u00f3\u00f4\u00f5\u00f6\u00f8\u0151\u0153";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 's':
-					aKey.popupCharacters = "\u00a7\u0161\u015b\u00df\u015d";
+					aKey.popupCharacters = "\u00a7\u00df\u015b\u015d\u0161";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'u':
-					aKey.popupCharacters = "\u00f9\u00fb\u00fc\u00fa\u0171\u016d";
+					aKey.popupCharacters = "\u00f9\u00fa\u00fb\u00fc\u016d\u0171";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'n':
@@ -68,11 +68,11 @@ public class LatinKeyboard extends AnyKeyboard
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'y':
-					aKey.popupCharacters = "\u00ff\u00fd";
+					aKey.popupCharacters = "\u00fd\u00ff";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'z':
-					aKey.popupCharacters = "\u017e\u017c";
+					aKey.popupCharacters = "\u017c\u017e";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				default:
