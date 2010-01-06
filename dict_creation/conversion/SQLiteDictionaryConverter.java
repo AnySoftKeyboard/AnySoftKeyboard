@@ -83,7 +83,7 @@ public class SQLiteDictionaryConverter {
             writer.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
             writer.append(NEWLINE);
             writer.append("<wordlist>");
-
+            writer.append(NEWLINE);
 
             connection = DriverManager.getConnection("jdbc:sqlite:" + dictionary);
             final Statement statement = connection.createStatement();
@@ -101,7 +101,7 @@ public class SQLiteDictionaryConverter {
                             + ", " + FREQUENCY_MAX + ") with word '" + word + "\'");
                 }
 
-                writer.append(MessageFormat.format("<w freq=\"{0}\">{1}</w>", new Object[] {
+                writer.append(MessageFormat.format("<w f=\"{0}\">{1}</w>", new Object[] {
                         freq, word
                 }));
                 writer.append(NEWLINE);
