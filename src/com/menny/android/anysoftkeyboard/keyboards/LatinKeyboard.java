@@ -1,12 +1,30 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
+import android.content.res.Configuration;
+
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 
 public class LatinKeyboard extends AnyKeyboard
 {
 	protected LatinKeyboard(AnyKeyboardContextProvider context, int keyboardLayoutId) 
 	{
-		super(context, keyboardLayoutId);
+		this(context, keyboardLayoutId, keyboardLayoutId);
+	}
+	
+	protected LatinKeyboard(AnyKeyboardContextProvider context, int keyboardLayoutId, int keyboardLayoutIdInLandscape) 
+	{
+		super(context, getKeyboardId(context, keyboardLayoutId, keyboardLayoutIdInLandscape));
+	}
+	
+	private static int getKeyboardId(AnyKeyboardContextProvider context, int portraitId, int landscapeId) 
+	{
+		final boolean inPortraitMode = 
+			(context.getApplicationContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
+		
+		if (inPortraitMode)
+			return portraitId;
+		else
+			return landscapeId;
 	}
 
 	protected void setPopupKeyChars(Key aKey) 

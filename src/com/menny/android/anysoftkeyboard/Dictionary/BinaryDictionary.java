@@ -30,7 +30,7 @@ import android.util.Log;
  * Implements a static, compacted, binary dictionary of standard words.
  */
 class BinaryDictionary extends Dictionary {
-    private static final String TAG = "BinaryDictionary";
+    private static final String TAG = "ASK_BinaryDictionary";
     
     public static final int MAX_WORD_LENGTH = 48;
     private static final int MAX_ALTERNATIVES = 16;

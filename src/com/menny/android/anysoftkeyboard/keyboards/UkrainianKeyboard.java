@@ -7,7 +7,7 @@ import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
-public class UkrainianKeyboard extends AnyKeyboard implements HardKeyboardTranslator
+public class UkrainianKeyboard extends LatinKeyboard implements HardKeyboardTranslator
 {
 	private static final HardKeyboardSequenceHandler msKeySequenceHandler;
 	static

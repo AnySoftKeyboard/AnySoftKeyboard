@@ -64,9 +64,11 @@ public class DictionaryFactory
         try
         {
             if (language.equalsIgnoreCase("English")) {
-                dict = new SQLiteSimpleDictionary(context, "en", "en");
+                //dict = new SQLiteSimpleDictionary(context, "en", "en");
+            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("enBinary.mp3"));
             } else if (language.equalsIgnoreCase("Hebrew")) {
-                dict = new SQLiteSimpleDictionary(context, "he", "he");
+                //dict = new SQLiteSimpleDictionary(context, "he", "he");
+            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("heBinary.mp3"));
             } else if (language.equalsIgnoreCase("French")) {
                 dict = new SQLiteSimpleDictionary(context, "fr", "fr");
             } else if (language.equalsIgnoreCase("German")) {
@@ -80,8 +82,7 @@ public class DictionaryFactory
             } else if (language.equalsIgnoreCase("Finnish")) {
                 // dict = new SQLiteSimpleDictionary(context, "fi", "fi");
                 // TODO: investigate filename extension
-                dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd(
-                "fiBinary.mp3"));
+                dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("fiBinary.mp3"));
             } else if (language.equalsIgnoreCase("Dutch")) {
                 dict = new SQLiteSimpleDictionary(context, "nl", "nl");
             } else if (language.equalsIgnoreCase("Slovenian")) {
