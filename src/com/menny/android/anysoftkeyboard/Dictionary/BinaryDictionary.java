@@ -99,9 +99,9 @@ class BinaryDictionary extends Dictionary {
         }
         Arrays.fill(mOutputChars, (char) 0);
 
-        int count = getSuggestionsNative(mNativeDict, mInputCodes, codesSize, mOutputChars, mFrequencies,
+        final int count = getSuggestionsNative(mNativeDict, mInputCodes, codesSize, mOutputChars, mFrequencies,
                 MAX_WORD_LENGTH, MAX_WORDS, MAX_ALTERNATIVES);
-
+        
         for (int j = 0; j < count; j++) {
             if (mFrequencies[j] < 1) break;
             int start = j * MAX_WORD_LENGTH;

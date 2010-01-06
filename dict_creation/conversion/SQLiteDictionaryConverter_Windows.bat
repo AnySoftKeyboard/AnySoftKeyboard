@@ -1,0 +1,1 @@
+java -Djava.ext.dirs="." SQLiteDictionaryConverter "%1"
