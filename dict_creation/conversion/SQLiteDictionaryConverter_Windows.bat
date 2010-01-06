@@ -1,1 +1,1 @@
-java -Djava.ext.dirs="." SQLiteDictionaryConverter "%1"
+java -Djava.ext.dirs="." SQLiteDictionaryConverter "%1" %2 "%3"
