@@ -33,7 +33,7 @@ public class SQLiteDictionaryConverter {
 
     private final static int FREQUENCY_MIN = 1;
 
-    private final static int FREQUENCY_MAX = 255;
+    private final static int FREQUENCY_MAX = Integer.MAX_VALUE;
     private final static String NEWLINE = "\r\n";
 
     /**
@@ -54,7 +54,7 @@ public class SQLiteDictionaryConverter {
         BufferedWriter writer = null;
 
         try {
-            System.out.println(args.length);
+            // System.out.println(args.length);
             if (args.length != 3 && args.length != 2) {
                 System.out.println("Converts SQLite dictionary to xml file");
                 System.out.println("Args: <dictionary file> [<table name>] <xml file>");
@@ -102,7 +102,7 @@ public class SQLiteDictionaryConverter {
                 }
 
                 writer.append(MessageFormat.format("<w f=\"{0}\">{1}</w>", new Object[] {
-                        freq, word
+                        String.valueOf(freq), word
                 }));
                 writer.append(NEWLINE);
             }
