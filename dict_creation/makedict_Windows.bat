@@ -1,0 +1,1 @@
+java -Djava.ext.dirs="." -jar makedict.jar "%1" "%2"
