@@ -30,10 +30,10 @@
     
     <!-- settings - UI -->
     <string name="ui_group">Interface de utilizador</string>
-    <string name="keyboard_layout_change_method_title">Teclas de alteração de esquema</string>
-    <string name="keyboard_layout_change_method_summary">Tamanho das teclas de alteração do esquema do teclado</string>
-    <string name="keyboard_layout_change_method_dialog_title">Seleccione o tamanho</string>
-    <string-array name="keyboard_layout_change_methods">
+    <string name="keyboard_layout_change_keys_size_title">Teclas de alteração de esquema</string>
+    <string name="keyboard_layout_change_keys_size_summary">Tamanho das teclas de alteração do esquema do teclado</string>
+    <string name="keyboard_layout_change_keys_size_dialog_title">Seleccione o tamanho</string>
+    <string-array name="keyboard_layout_keys_size">
         <item>Sem teclas</item>
         <item>Pequenas</item>
         <item>Grandes</item>
