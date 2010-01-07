@@ -100,7 +100,8 @@
 	<string name="fullscreen_input_connection_supported">Syöttöruudun koko</string>
     <string name="fullscreen_input_connection_supported_on_summary">Syöttöruutu täyttää koko ruudun vaaka-asennossa.</string>
     <string name="fullscreen_input_connection_supported_off_summary">Syöttöruutu ei täytä koskaan koko ruutua.</string>
-
+	<string name="zoom_factor_keys_in_portrait">Näppäimistön korkeuskerroin pystyasennossa</string>
+    <string name="zoom_factor_keys_in_landscape">Näppäimistön leveyskerroin vaakasennossa</string>
 
 	<string name="auto_caps">Autokapitalisointi</string>
     <string name="grammer_group">Kielioppi</string>
@@ -122,7 +123,7 @@
     <string name="bg_ph_keyboard">Bulgaria, foneettinen</string>
     <string name="bg_bds_keyboard">Bulgaria, BDS</string>
     <string name="dvorak_keyboard">Dvorak</string>
-    <string name="danish_keyboard">Danish</string>
+    <string name="danish_keyboard">Tanska</string>
     <string name="norwegian_keyboard">Norja</string>
     <string name="finnish_swedish_keyboard">Ruotsi/Suomi</string>
 	<string name="svorak_keyboard">Svorak</string>
