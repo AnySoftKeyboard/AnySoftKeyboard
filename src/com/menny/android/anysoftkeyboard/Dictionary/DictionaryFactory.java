@@ -63,36 +63,35 @@ public class DictionaryFactory
         // Problems with extensions?
         try
         {
+        	if ((language == null) || (language.length() == 0))
+        		return null;
             if (language.equalsIgnoreCase("English")) {
-                //dict = new SQLiteSimpleDictionary(context, "en", "en");
-            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("enBinary.mp3"));
+                dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("en_binary.mp3"));
             } else if (language.equalsIgnoreCase("Hebrew")) {
-                //dict = new SQLiteSimpleDictionary(context, "he", "he");
-            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("heBinary.mp3"));
+            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("he_binary.mp3"));
             } else if (language.equalsIgnoreCase("French")) {
-                dict = new SQLiteSimpleDictionary(context, "fr", "fr");
+            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("fr_binary.mp3"));
             } else if (language.equalsIgnoreCase("German")) {
-                dict = new SQLiteSimpleDictionary(context, "de", "de");
+            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("de_binary.mp3"));
             } else if (language.equalsIgnoreCase("Spanish")) {
-                dict = new SQLiteSimpleDictionary(context, "es", "es");
+            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("es_binary.mp3"));
             } else if (language.equalsIgnoreCase("Swedish")) {
-                dict = new SQLiteSimpleDictionary(context, "sv", "sv");
+            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("sv_binary.mp3"));
             } else if (language.equalsIgnoreCase("Russian")) {
-                dict = new SQLiteSimpleDictionary(context, "ru", "ru");
+            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("ru_binary.mp3"));
             } else if (language.equalsIgnoreCase("Finnish")) {
-                // dict = new SQLiteSimpleDictionary(context, "fi", "fi");
                 // TODO: investigate filename extension
-                dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("fiBinary.mp3"));
+            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("fi_binary.mp3"));
             } else if (language.equalsIgnoreCase("Dutch")) {
-                dict = new SQLiteSimpleDictionary(context, "nl", "nl");
+            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("nl_binary.mp3"));
             } else if (language.equalsIgnoreCase("Slovenian")) {
-                dict = new SQLiteSimpleDictionary(context, "sl", "sl");
+            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("sl_binary.mp3"));
             } else if (language.equalsIgnoreCase("Portuguese")) {
-                dict = new SQLiteSimpleDictionary(context, "pt", "pt");
+            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("pt_binary.mp3"));
             } else if (language.equalsIgnoreCase("Bulgarian")) {
-                dict = new SQLiteSimpleDictionary(context, "bg", "bg");
+            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("bg_binary.mp3"));
             } else if (language.equalsIgnoreCase("Ukrainian")) {
-                dict = new SQLiteSimpleDictionary(context, "uk", "uk");
+            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("uk_binary.mp3"));
             } else {
                 return null;
             }
