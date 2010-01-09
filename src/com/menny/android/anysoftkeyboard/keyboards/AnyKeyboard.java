@@ -480,15 +480,15 @@ public abstract class AnyKeyboard extends Keyboard
 			{
 			case '\''://in the generic bottom row
 				aKey.popupResId = R.xml.popup;
-				aKey.popupCharacters = "\"";
+				aKey.popupCharacters = "\"\u201e\u201d";
 				break;
-//			case '-':
-//				aKey.popupResId = R.xml.popup;
-//				aKey.popupCharacters = "\'\"";
-//				break;
+			case '-':
+				aKey.popupResId = R.xml.popup;
+				aKey.popupCharacters = "\u2013";
+				break;
 			case '.'://in the generic bottom row
 				aKey.popupResId = R.xml.popup;
-				aKey.popupCharacters = ";:-_\u00b7";
+				aKey.popupCharacters = ";:-_\u00b7\u2026";
 				break;
 			case ','://in the generic bottom row
 				aKey.popupResId = R.xml.popup;
