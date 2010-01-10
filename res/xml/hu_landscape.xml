@@ -21,7 +21,7 @@
         <Key android:codes="-99" android:horizontalGap="10%p" android:keyLabel="&#8594; ABC &#8594;" android:keyEdgeFlags="right"/>
     </Row>
     
-    <Row android:keyWidth="8.3333%p">
+    <Row android:keyWidth="7.692%p">
         <Key android:codes="113" android:keyLabel="q" android:keyEdgeFlags="left"/>
         <Key android:codes="119" android:keyLabel="w"/>
         <Key android:codes="101" android:keyLabel="e"/>
@@ -33,10 +33,11 @@
         <Key android:codes="111" android:keyLabel="o"/>
         <Key android:codes="112" android:keyLabel="p"/>
         <Key android:codes="337" android:keyLabel="ő"/>
-        <Key android:codes="250" android:keyLabel="ú" android:keyEdgeFlags="right"/>
+        <Key android:codes="250" android:keyLabel="ú"/>
+        <Key android:codes="237" android:keyLabel="" android:keyEdgeFlags="right"/>
     </Row>
     
-    <Row android:keyWidth="7.692%p">
+    <Row android:keyWidth="8.3333%p">
         <Key android:codes="97" android:keyLabel="a" android:keyEdgeFlags="left"/>
         <Key android:codes="115" android:keyLabel="s"/>
         <Key android:codes="100" android:keyLabel="d"/>
@@ -46,10 +47,9 @@
         <Key android:codes="106" android:keyLabel="j"/>
         <Key android:codes="107" android:keyLabel="k"/>
         <Key android:codes="108" android:keyLabel="l"/>
-        <Key android:codes="233" android:keyLabel="é"/>
-        <Key android:codes="237" android:keyLabel=""/>
-        <Key android:codes="243" android:keyLabel="ó"/>
-        <Key android:codes="246" android:keyLabel="ö" android:keyEdgeFlags="right"/>
+        <Key android:codes="233" android:keyLabel=""/>        
+        <Key android:codes="225" android:keyLabel=""/>
+        <Key android:codes="369" android:keyLabel="" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row  android:keyWidth="8.3333%p">
@@ -62,9 +62,9 @@
         <Key android:codes="98" android:keyLabel="b"/>
         <Key android:codes="110" android:keyLabel="n"/>
         <Key android:codes="109" android:keyLabel="m"/>
-        <Key android:codes="225" android:keyLabel="á"/>
-        <Key android:codes="252" android:keyLabel="ü"/>
-        <Key android:codes="369" android:keyLabel=""/>
+        <Key android:codes="246" android:keyLabel=""/>
+        <Key android:codes="252" android:keyLabel=""/>
+        <Key android:codes="243" android:keyLabel=""/>
         <Key android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete_small" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     
