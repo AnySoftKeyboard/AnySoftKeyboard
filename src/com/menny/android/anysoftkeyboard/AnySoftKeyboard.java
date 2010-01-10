@@ -982,21 +982,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 				primaryCode = Workarounds
 						.workaroundParenthesisDirectionFix(primaryCode);
 
-			if (isWordSeparator(primaryCode)) {
+			if (isWordSeparator(primaryCode)) {				
 				handleSeparator(primaryCode);
-				// Issue 160: Space in symbols keyboards should switch to
-				// alphabet keyboard
-				if (primaryCode == KEYCODE_SPACE) {
-					if (DEBUG)
-						Log.d("AnySoftKeyboard", "SwitchKeyboardOnSpace: "
-								+ mSwitchKeyboardOnSpace);
-					if (mSwitchKeyboardOnSpace
-							&& !mKeyboardSwitcher.isAlphabetMode()) {
-						mKeyboardSwitcher.nextKeyboard(
-								getCurrentInputEditorInfo(),
-								NextKeyboardType.Alphabet);
-					}
-				}
 			} else {
 				handleCharacter(primaryCode, keyCodes);
 				// reseting the mSpaceSent, which is set to true upon selecting
@@ -1476,6 +1463,19 @@ public class AnySoftKeyboard extends InputMethodService implements
 				if (DEBUG)
 					Log.v("AnySoftKeyboard",
 							"Devices is muted. No sounds on key-pressed.");
+			}
+		}
+		// Issue 160: Space in symbols keyboards should switch to
+		// alphabet keyboard
+		if (primaryCode == KEYCODE_SPACE) {
+			if (DEBUG)
+				Log.d("AnySoftKeyboard", "SwitchKeyboardOnSpace: "
+						+ mSwitchKeyboardOnSpace);
+			if (mSwitchKeyboardOnSpace
+					&& !mKeyboardSwitcher.isAlphabetMode()) {
+				mKeyboardSwitcher.nextKeyboard(
+						getCurrentInputEditorInfo(),
+						NextKeyboardType.Alphabet);
 			}
 		}
 	}
