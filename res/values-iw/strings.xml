@@ -29,14 +29,14 @@
     <string name="added_word">נשמרה:<xliff:g id="word">%s</xliff:g></string>
     
     <!-- settings - UI -->
-    <string name="ui_group">ממשק משתמש</string>
-    <string name="keyboard_layout_change_method_title">שיטת החלפת שפות</string>
-    <string name="keyboard_layout_change_method_summary">הגדר כיצד החלפת שפה תתבצע</string>
-    <string name="keyboard_layout_change_method_dialog_title">בחר שיטה</string>
-    <string-array name="keyboard_layout_change_methods">
-        <item>החלקה עם מקשי עזר</item>
-        <item>החלקה ללא מקשי עזר</item>
-        <item>מקשי עזר בלבד</item>
+    <string name="ui_group">שינוי שפה</string>
+   <string name="keyboard_layout_change_keys_size_title">מקשים לשינוי פריסה</string>
+    <string name="keyboard_layout_change_keys_size_summary">גודל המקשים</string>
+    <string name="keyboard_layout_change_keys_size_dialog_title">בחר גודל</string>
+    <string-array name="keyboard_layout_keys_size">
+        <item>ללא</item>
+        <item>קטנים</item>
+        <item>גדולים</item>
     </string-array>
     
     <string name="physical_keyboard_change_notification_title">התראה בשינוי שפה</string>
@@ -77,6 +77,32 @@
     
     <string name="sound_on">צליל בהקלדה</string>
     <string name="sound_on_summary">צליל בנקישה על המקלדת</string>
+    <string name="use_custom_sound_volume">בחירה אישית לעוצמת הצליל</string>
+    <string name="use_custom_sound_volume_on_summary">השתמש בגדרות אישיות</string>
+    <string name="use_custom_sound_volume_off_summary">קבע עוצמה</string>
+    <string name="custom_sound_volume">עוצמת הצליל</string>
+	
+    <string name="tweaks_group">הגדרות נוספות</string>
+    <string name="use_keyrepeat">Use key repeat</string>
+    <string name="use_keyrepeat_on_summary">Key repeat is enabled</string>
+    <string name="use_keyrepeat_off_summary">Key repeat is disabled</string>    
+    <string name="emoticon_long_press_opens_popup">אפשרות בחירת סמיילים</string>
+    <string name="emoticon_long_press_opens_popup_on_summary">הראה אפשרויות בלחיצה ארוכה</string>
+    <string name="emoticon_long_press_opens_popup_off_summary">הראה אפשרויות בלחיצה קצרה</string>
+    <string name="default_smiley_text">בחר טקסט לסמיילי</string>
+    <string name="default_domain_text">בחר טקסט למתחם אינטרנט</string>
+    <string name="key_press_preview_popup">הראה אינדקציה לסימון מקש</string>
+    <string name="key_press_preview_popup_on_summary">חלונית בזמן מעבר על המקש</string>
+    <string name="key_press_preview_popup_off_summary">ללא אינדיקציה לבחירת מקש</string>
+    <string name="switch_keyboard_on_space">מקש רווח מחליף פריסה</string>
+    <string name="switch_keyboard_on_space_on_summary">רווח יעביר מפריסת סמלים למקלדת</string>
+    <string name="switch_keyboard_on_space_off_summary">לא יתבצע שינוי בלחיצה על רווח</string>
+    <string name="fullscreen_input_connection_supported">שימוש במסך מלא לקלט</string>
+    <string name="fullscreen_input_connection_supported_on_summary">במצב אופקי המקלדת תתפרס למסך מלא</string>
+    <string name="fullscreen_input_connection_supported_off_summary">אין שינוי במעבר למצב אופקי</string>
+    <string name="zoom_factor_keys_in_portrait">מקדם גובה מקשים במצב אנכי</string>
+    <string name="zoom_factor_keys_in_landscape">מקדם גובה מקשים במצב אופקי</string>
+	
     <string name="auto_caps">קפיטליזציה אוטומטית</string>
     <string name="grammer_group">אפשרויות תיקון</string>
     <string name="candidates_on">הראה הצעות</string>
@@ -85,8 +111,7 @@
     <string name="auto_complete">בחר מילה מוצעת אוטומטית</string>
     <string name="auto_complete_summary">בחר מילה מוצעת אוטומטית</string>
     <string name="physical_keyboard_suggestions">הצעות עם המקדלת הפיזית</string>
-    <string name="physical_keyboard_suggestions_summary">הראה הצעות מילים בשימוש במקלדת הפיזית</string>
-    
+    <string name="physical_keyboard_suggestions_summary">הראה הצעות מילים בשימוש במקלדת הפיזית</string>    
     <string name="keyboard_sandbox">איזור לבדיקת ההגדרות</string>
     <string name="keyboard_sandbox_title">איזור לצורך בדיקות המקלדות וההגדרות</string>
     <!-- settings - keyboard group -->
@@ -98,7 +123,12 @@
     <string name="bg_ph_keyboard">בולגרית פונטית</string>
     <string name="bg_bds_keyboard">בולגרית</string>
     <string name="dvorak_keyboard">פריסת Dvorak</string>
+    <string name="danish_keyboard">דנית</string>
+    <string name="norwegian_keyboard">נורווגית</string>
     <string name="finnish_swedish_keyboard">פינית/שוודית</string>
+    <string name="svorak_keyboard">שוודית (Svorak)</string>
+    <string name="hungarian_keyboard">הונגרית</string>
+    <string name="hungarian_keyboard_4_row">הונגרית - 4 rows</string>
     <string name="catalan_keyboard">קטלאנית</string>
     <string name="ch_fr_keyboard">צרפתית שווצרית</string>
     <string name="de_keyboard">גרמנית</string>
@@ -116,6 +146,8 @@
 	<string name="uk_keyboard">אוקראינית</string>
 	<string name="uk_keyboard_4_row">אוקראינית (4 שורות)</string>
     <string name="colemak_keyboard">פריסת Colemak</string>
+    <string name="bepo_keyboard">צרפתית (B&#233;po)</string><!-- BEPO -->
+    <string name="esperanto_keyboard">אספרנטו</string>   
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">הראה מדריך באתחול</string>
