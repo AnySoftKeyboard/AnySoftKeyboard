@@ -332,7 +332,15 @@ android:key="ime_settings">
 				android:defaultValue="false"
 				android:summaryOn="Created by Henrik Andersson"
 				android:summaryOff="Created by Henrik Andersson"
-				/>				
+				/>
+				<CheckBoxPreference
+				android:key="hungarian_keyboard_4_row"
+				android:title="@string/hungarian_keyboard_4_row"
+				android:persistent="true"
+				android:defaultValue="false" 
+				android:summaryOn=""
+				android:summaryOff=""
+				/>
 				<CheckBoxPreference
 				android:key="es_keyboard"
 				android:title="@string/es_keyboard"

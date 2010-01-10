@@ -36,7 +36,7 @@
         <Key android:codes="250" android:keyLabel="ú" android:keyEdgeFlags="right"/>
     </Row>
     
-    <Row android:keyWidth="8.3333%p">
+    <Row android:keyWidth="7.692%p">
         <Key android:codes="97" android:keyLabel="a" android:keyEdgeFlags="left"/>
         <Key android:codes="115" android:keyLabel="s"/>
         <Key android:codes="100" android:keyLabel="d"/>
@@ -47,11 +47,12 @@
         <Key android:codes="107" android:keyLabel="k"/>
         <Key android:codes="108" android:keyLabel="l"/>
         <Key android:codes="233" android:keyLabel="é"/>
+        <Key android:codes="237" android:keyLabel=""/>
         <Key android:codes="243" android:keyLabel="ó"/>
         <Key android:codes="246" android:keyLabel="ö" android:keyEdgeFlags="right"/>
     </Row>
     
-    <Row  android:keyWidth="9.09%p">
+    <Row  android:keyWidth="8.3333%p">
         <Key android:codes="-1" android:keyIcon="@drawable/sym_keyboard_shift" 
                 android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
         <Key android:codes="121" android:keyLabel="y"/>
@@ -63,6 +64,7 @@
         <Key android:codes="109" android:keyLabel="m"/>
         <Key android:codes="225" android:keyLabel="á"/>
         <Key android:codes="252" android:keyLabel="ü"/>
+        <Key android:codes="369" android:keyLabel=""/>
         <Key android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete_small" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     

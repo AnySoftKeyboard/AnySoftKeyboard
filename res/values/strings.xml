@@ -128,6 +128,7 @@
     <string name="finnish_swedish_keyboard">Swedish/Finnish</string>
     <string name="svorak_keyboard">Svorak</string>
     <string name="hungarian_keyboard">Hungarian</string>
+    <string name="hungarian_keyboard_4_row">Hungarian - 4 rows</string>
     <string name="catalan_keyboard">Catalan</string>
     <string name="ch_fr_keyboard">Swiss French</string>
     <string name="de_keyboard">German/Swiss German</string>
