@@ -83,9 +83,9 @@
     <string name="custom_sound_volume">עוצמת הצליל</string>
 	
     <string name="tweaks_group">הגדרות נוספות</string>
-    <string name="use_keyrepeat">Use key repeat</string>
-    <string name="use_keyrepeat_on_summary">Key repeat is enabled</string>
-    <string name="use_keyrepeat_off_summary">Key repeat is disabled</string>    
+    <string name="use_keyrepeat">הפעל חזרת הקשות</string>
+    <string name="use_keyrepeat_on_summary">לחיצה ממושכת תחזור על המקש</string>
+    <string name="use_keyrepeat_off_summary">חזרת מקשים מבוטלת</string>    
     <string name="emoticon_long_press_opens_popup">אפשרות בחירת סמיילים</string>
     <string name="emoticon_long_press_opens_popup_on_summary">הראה אפשרויות בלחיצה ארוכה</string>
     <string name="emoticon_long_press_opens_popup_off_summary">הראה אפשרויות בלחיצה קצרה</string>
