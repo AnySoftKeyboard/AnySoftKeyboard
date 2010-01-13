@@ -30,13 +30,13 @@
     
     <!-- settings - UI -->
     <string name="ui_group">Käyttöliittymä</string>
-    <string name="keyboard_layout_change_method_title">Asettelun vaihtotapa</string>
-    <string name="keyboard_layout_change_method_summary">Näppäimistön asettelun vaihtotapa</string>
-    <string name="keyboard_layout_change_method_dialog_title">Valitse tapa</string>
-    <string-array name="keyboard_layout_change_methods">
-        <item>Pyyhkäisy vinkkipainikkeilla</item>
-        <item>Pyyhkäisy ilman vinkkipainikkeita</item>
-        <item>Ei pyyhkäisyä, vain painikkeet</item>
+    <string name="keyboard_layout_change_keys_size_title">Asettelun vaihtotapa</string>
+    <string name="keyboard_layout_change_keys_size_summary">Näppäimistön asettelun vaihtonappuloiden koko</string>
+    <string name="keyboard_layout_change_keys_size_dialog_title">Valitse koko</string>
+    <string-array name="keyboard_layout_keys_size">
+        <item>Ei näkyvissä</item>
+        <item>Pienet</item>
+        <item>Suuret</item>
     </string-array>
     
 	<string name="physical_keyboard_change_notification_title">Näppäimistöasettelun tiedotukset</string>
@@ -128,6 +128,7 @@
     <string name="finnish_swedish_keyboard">Ruotsi/Suomi</string>
 	<string name="svorak_keyboard">Svorak</string>
 	<string name="hungarian_keyboard">Unkari</string>
+	<string name="hungarian_keyboard_4_row">Unkari, nelirivinen</string>
     <string name="catalan_keyboard">Katalaani</string>
     <string name="ch_fr_keyboard">Sveitsin ranska</string>
     <string name="de_keyboard">Saksan/Sveitsin saksa</string>
