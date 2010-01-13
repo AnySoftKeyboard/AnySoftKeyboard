@@ -84,8 +84,8 @@
     
     <string name="tweaks_group">Ajustes</string>
     <string name="use_keyrepeat">Repetição de tecla</string>
-    <string name="use_keyrepeat_on_summary">Acção é repetida enquanto a tecla estiver pressionada</string>
-    <string name="use_keyrepeat_off_summary">Acção é efectuada apenas uma vez</string>    
+    <string name="use_keyrepeat_on_summary">A acção é repetida enquanto a tecla estiver pressionada</string>
+    <string name="use_keyrepeat_off_summary">A acção é efectuada apenas uma vez</string>    
     <string name="emoticon_long_press_opens_popup">Lista de Smilies</string>
     <string name="emoticon_long_press_opens_popup_on_summary">Mostra lista após pressão longa, insere Smiley com pressão breve</string>
     <string name="emoticon_long_press_opens_popup_off_summary">Mostra lista após pressão breve, insere Smiley com pressão longa</string>
@@ -94,7 +94,7 @@
     <string name="key_press_preview_popup">Ampliação de teclas</string>
     <string name="key_press_preview_popup_on_summary">Mostra ampliação da tecla pressionada</string>
     <string name="key_press_preview_popup_off_summary">Não mostra ampliação da tecla pressionada</string>
-    <string name="switch_keyboard_on_space">Espaço muda teclado</string>
+    <string name="switch_keyboard_on_space">Espaço muda esquema</string>
     <string name="switch_keyboard_on_space_on_summary">Muda de símbolos para alfabético ao pressionar espaço</string>
     <string name="switch_keyboard_on_space_off_summary">Não muda de símbolos para alfabético ao pressionar espaço</string>
     <string name="fullscreen_input_connection_supported">Usa todo o ecrã</string>
@@ -128,6 +128,7 @@
     <string name="finnish_swedish_keyboard">Suíço/Finlandês</string>
     <string name="svorak_keyboard">Svorak</string>
     <string name="hungarian_keyboard">Húngaro</string>
+    <string name="hungarian_keyboard_4_row">Húngaro com 4 linhas</string>
     <string name="catalan_keyboard">Catalão</string>
     <string name="ch_fr_keyboard">Suíço Francês</string>
     <string name="de_keyboard">Germânico/Suíço Germânico</string>
