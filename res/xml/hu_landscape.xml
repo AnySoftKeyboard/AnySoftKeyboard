@@ -21,7 +21,7 @@
         <Key android:codes="-99" android:horizontalGap="10%p" android:keyLabel="&#8594; ABC &#8594;" android:keyEdgeFlags="right"/>
     </Row>
     
-    <Row android:keyWidth="7.692%p">
+    <Row android:keyWidth="8.3333%p">
         <Key android:codes="113" android:keyLabel="q" android:keyEdgeFlags="left"/>
         <Key android:codes="119" android:keyLabel="w"/>
         <Key android:codes="101" android:keyLabel="e"/>
@@ -33,8 +33,7 @@
         <Key android:codes="111" android:keyLabel="o"/>
         <Key android:codes="112" android:keyLabel="p"/>
         <Key android:codes="337" android:keyLabel="ő"/>
-        <Key android:codes="250" android:keyLabel="ú"/>
-        <Key android:codes="237" android:keyLabel="" android:keyEdgeFlags="right"/>
+        <Key android:codes="250" android:keyLabel="ú" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row android:keyWidth="8.3333%p">
@@ -52,9 +51,10 @@
         <Key android:codes="369" android:keyLabel="" android:keyEdgeFlags="right"/>
     </Row>
     
-    <Row  android:keyWidth="8.3333%p">
+    <Row  android:keyWidth="7.692%p">
         <Key android:codes="-1" android:keyIcon="@drawable/sym_keyboard_shift" 
                 android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
+        <Key android:codes="237" android:keyLabel=""/>
         <Key android:codes="121" android:keyLabel="y"/>
         <Key android:codes="120" android:keyLabel="x"/>
         <Key android:codes="99" android:keyLabel="c"/>
