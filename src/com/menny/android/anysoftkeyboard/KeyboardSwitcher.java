@@ -248,7 +248,12 @@ public class KeyboardSwitcher
     	//AnyKeyboard[] symbolsKeyboards = getSymbolsKeyboards();
     	AnyKeyboard current;
     	if (!isAlphabetMode())
-    		mLastSelectedSymbolsKeyboard++;
+    	{
+    		if (mLastSelectedSymbolsKeyboard == SYMBOLS_KEYBOARD_PHONE_INDEX)
+    			mLastSelectedSymbolsKeyboard = SYMBOLS_KEYBOARD_REGULAR_INDEX;
+    		else
+    			mLastSelectedSymbolsKeyboard = SYMBOLS_KEYBOARD_PHONE_INDEX;
+    	}
     	
     	mAlphabetMode = false;
     	
