@@ -35,6 +35,7 @@ public abstract class AnyKeyboard extends Keyboard
 		}
 	}
 	public final static int KEYCODE_LANG_CHANGE = -99;
+	public final static int KEYCODE_ALTER_LAYOUT = -98;
 	public final static int KEYCODE_SMILEY = -10;
 	
 	public interface HardKeyboardAction

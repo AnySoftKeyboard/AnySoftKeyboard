@@ -975,6 +975,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case AnyKeyboard.KEYCODE_LANG_CHANGE:
 			nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
 			break;
+		case AnyKeyboard.KEYCODE_ALTER_LAYOUT:
+			nextAlterKeyboard(getCurrentInputEditorInfo());
+			break;
 		default:
 			primaryCode = translatePrimaryCodeFromCurrentKeyboard(primaryCode);
 			// Issue 146: Right to left langs require reversed parenthesis
@@ -1056,9 +1059,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 				//forcing redraw if view thinks it is still in the same state
 				mInputView.requestRedraw();
 			}
-		} else {
-			mKeyboardSwitcher.toggleShift();
-		}
+		} 
+//		else {
+//			mKeyboardSwitcher.toggleShift();
+//		}
 	}
 
 	private void handleCharacter(int primaryCode, int[] keyCodes) {
@@ -1380,6 +1384,25 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public void swipeLeft() {
 		nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Symbols);
 	}
+	
+	private void nextAlterKeyboard(EditorInfo currentEditorInfo)
+	{
+		Log.d("AnySoftKeyboard", "nextAlterKeyboard: currentEditorInfo.inputType="
+				+ currentEditorInfo.inputType);
+		
+		AnyKeyboard currentKeyboard = mKeyboardSwitcher.getCurrentKeyboard();
+		if (currentKeyboard == null) {
+			if (DEBUG) Log.d("AnySoftKeyboard", "nextKeyboard: Looking for next keyboard. No current keyboard.");
+		} else {
+			if (DEBUG) Log.d("AnySoftKeyboard", "nextKeyboard: Looking for next keyboard. Current keyboard is:"
+								+ currentKeyboard.getKeyboardName());
+		}
+
+		currentKeyboard = mKeyboardSwitcher.nextAlterKeyboard(currentEditorInfo);
+
+		Log.i("AnySoftKeyboard", "nextAlterKeyboard: Setting next keyboard to: "
+				+ currentKeyboard.getKeyboardName());
+	}
 
 	private void nextKeyboard(EditorInfo currentEditorInfo,
 			KeyboardSwitcher.NextKeyboardType type) {
@@ -1388,14 +1411,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		AnyKeyboard currentKeyboard = mKeyboardSwitcher.getCurrentKeyboard();
 		if (currentKeyboard == null) {
-			if (DEBUG)
-				Log
-						.d("AnySoftKeyboard",
-								"nextKeyboard: Looking for next keyboard. No current keyboard.");
+			if (DEBUG) Log.d("AnySoftKeyboard", "nextKeyboard: Looking for next keyboard. No current keyboard.");
 		} else {
-			if (DEBUG)
-				Log.d("AnySoftKeyboard",
-						"nextKeyboard: Looking for next keyboard. Current keyboard is:"
+			if (DEBUG) Log.d("AnySoftKeyboard", "nextKeyboard: Looking for next keyboard. Current keyboard is:"
 								+ currentKeyboard.getKeyboardName());
 		}
 		// in numeric keyboards, the LANG key will go back to the original
@@ -1403,8 +1421,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// so no need to look for the next keyboard, 'mLastSelectedKeyboard'
 		// holds the last
 		// keyboard used.
-		currentKeyboard = mKeyboardSwitcher.nextKeyboard(currentEditorInfo,
-				type);
+		currentKeyboard = mKeyboardSwitcher.nextKeyboard(currentEditorInfo, type);
 
 		Log.i("AnySoftKeyboard", "nextKeyboard: Setting next keyboard to: "
 				+ currentKeyboard.getKeyboardName());

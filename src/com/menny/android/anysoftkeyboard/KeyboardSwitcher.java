@@ -16,7 +16,6 @@
 
 package com.menny.android.anysoftkeyboard;
 
-import android.inputmethodservice.Keyboard;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
@@ -58,7 +57,7 @@ public class KeyboardSwitcher
     
     private int mLastSelectedKeyboard = 0;
     
-    private int mImeOptions;
+    //private int mImeOptions;
     private boolean mAlphabetMode = true;
 
     KeyboardSwitcher(AnySoftKeyboard context) {
@@ -148,7 +147,7 @@ public class KeyboardSwitcher
 
     void setKeyboardMode(int mode, EditorInfo attr) {
         //mMode = mode;
-        mImeOptions = (attr == null)? 0 : attr.imeOptions;
+        //mImeOptions = (attr == null)? 0 : attr.imeOptions;
         AnyKeyboard keyboard = null;
         
         switch (mode) {
@@ -182,27 +181,27 @@ public class KeyboardSwitcher
     	return mAlphabetMode;
     }
 
-    void toggleShift() 
-    {
-        Keyboard currentKeyboard = mInputView.getKeyboard();
-        
-        if (currentKeyboard == mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_REGULAR_INDEX]) 
-        {
-        	mLastSelectedSymbolsKeyboard = 1;
-        }
-        else if (currentKeyboard == mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_SHIFTED_INDEX]) 
-        {
-        	mLastSelectedSymbolsKeyboard = 0;
-        }
-        else return;
-        
-        AnyKeyboard nextKeyboard = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard);
-        boolean shiftStateToSet = currentKeyboard == mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_REGULAR_INDEX];
-    	currentKeyboard.setShifted(shiftStateToSet);
-        mInputView.setKeyboard(nextKeyboard);
-        nextKeyboard.setShifted(shiftStateToSet);
-        nextKeyboard.setImeOptions(mContext.getResources()/*, mMode*/, mImeOptions);
-    }
+//    void toggleShift() 
+//    {
+//        Keyboard currentKeyboard = mInputView.getKeyboard();
+//        
+//        if (currentKeyboard == mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_REGULAR_INDEX]) 
+//        {
+//        	mLastSelectedSymbolsKeyboard = 1;
+//        }
+//        else if (currentKeyboard == mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_SHIFTED_INDEX]) 
+//        {
+//        	mLastSelectedSymbolsKeyboard = 0;
+//        }
+//        else return;
+//        
+//        AnyKeyboard nextKeyboard = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard);
+//        boolean shiftStateToSet = currentKeyboard == mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_REGULAR_INDEX];
+//    	currentKeyboard.setShifted(shiftStateToSet);
+//        mInputView.setKeyboard(nextKeyboard);
+//        nextKeyboard.setShifted(shiftStateToSet);
+//        nextKeyboard.setImeOptions(mContext.getResources()/*, mMode*/, mImeOptions);
+//    }
     
     private AnyKeyboard nextAlphabetKeyboard(EditorInfo currentEditorInfo, boolean supportsPhysical)
     {
@@ -327,6 +326,30 @@ public class KeyboardSwitcher
 			default:
 				return nextAlphabetKeyboard(currentEditorInfo, false);
 		}
+	}
+	
+	public AnyKeyboard nextAlterKeyboard(EditorInfo currentEditorInfo)
+	{
+		AnyKeyboard currentKeyboard = getCurrentKeyboard();
+		
+		if (!isAlphabetMode())
+		{
+			if (mLastSelectedSymbolsKeyboard == SYMBOLS_KEYBOARD_REGULAR_INDEX) 
+	        {
+	        	mLastSelectedSymbolsKeyboard = 1;
+	        }
+	        else if (mLastSelectedSymbolsKeyboard == SYMBOLS_KEYBOARD_SHIFTED_INDEX) 
+	        {
+	        	mLastSelectedSymbolsKeyboard = 0;
+	        }
+	        else return currentKeyboard;
+			
+			currentKeyboard = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard);
+	    	
+	    	return setKeyboard(currentEditorInfo, currentKeyboard);
+		}
+		
+		return currentKeyboard;
 	}
 
 	public boolean isCurrentKeyboardPhysical() 
