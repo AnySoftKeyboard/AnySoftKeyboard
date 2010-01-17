@@ -77,6 +77,12 @@ public abstract class AnySoftKeyboardConfiguration
 			}
 			
 			mDEBUG = ((releaseNumber % 2) == 0);//even versions are TESTERS
+			if (mDEBUG)
+			{
+				//RC versions should not be "debug", but they do not have odd version.
+				if (version.contains("RC"))
+					mDEBUG = false;
+			}
 			Log.i("AnySoftKeyboard", "** Version: "+version);
 			Log.i("AnySoftKeyboard", "** Release code: "+releaseNumber);
 			Log.i("AnySoftKeyboard", "** Debug: "+mDEBUG);

@@ -450,10 +450,12 @@ public abstract class AnyKeyboard extends Keyboard
 			
 			if (mShiftKey != null) {
 	            if (shiftState) {
+	            	Log.d("AnySoftKeyboard", "Switching to regular ON shift icon - shifted");
 	            	mShiftKey.on = false;
                     mShiftState = SHIFT_ON;
                     mShiftKey.icon = mOnShiftIcon;
 	            } else {
+	            	Log.d("AnySoftKeyboard", "Switching to regular OFF shift icon - un-shifted");
 	            	mShiftKey.on = false;
 	            	mShiftState = SHIFT_OFF;
 	                mShiftKey.icon = mOffShiftIcon;
