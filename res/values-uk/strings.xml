@@ -17,7 +17,7 @@
 	<string name="how_to_pointer_changelog">Детально про останню версію:</string>
 	<string name="how_to_pointer_issues">Відправити помилку:</string>
 	<!-- credits tab -->
-	<string name="main_tab_credits_title">Цю програму було створено за участі цих людей:</string>
+	<string name="main_tab_credits_title">Програму було створено за участі цих людей:</string>
 	<string name="main_tab_credits_created_by">Автор:</string>
 	<string name="main_tab_credits_additional_work_by">Розробники:</string>
 	<string name="main_tab_credits_localization_by">Локалізація:</string>
@@ -26,17 +26,17 @@
     <!-- Symbols that are commonly considered word separators in this language -->
     <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
     <!-- Indicates that a word has been added to the dictionary -->
-    <string name="added_word"><xliff:g id="word">%s</xliff:g>: збережено</string>
+    <string name="added_word"><xliff:g>%s</xliff:g>: збережено</string>
     
     <!-- settings - UI -->
     <string name="ui_group">Інтерфейс користувача</string>
-    <string name="keyboard_layout_change_method_title">Метод зміни розкладки</string>
-    <string name="keyboard_layout_change_method_summary">Метод зміни розкладки екранної клавіатури</string>
-    <string name="keyboard_layout_change_method_dialog_title">Оберіть метод</string>
+    <string name="keyboard_layout_change_keys_size_title">Кнопки зміни розкладки</string>
+    <string name="keyboard_layout_change_keys_size_summary">Розмір кнопок зміни розкладки</string>
+    <string name="keyboard_layout_change_keys_size_dialog_title">Оберіть розмір</string>
     <string-array name="keyboard_layout_change_methods">
-        <item>Екран з кнопками</item>
-        <item>Екран без кнопок</item>
-        <item>Лише кнопки</item>
+        <item>Немає</item>
+        <item>Малі</item>
+        <item>Великі</item>
     </string-array>
     
     <string name="physical_keyboard_change_notification_title">Повідомлення</string>
@@ -55,11 +55,11 @@
     <string name="change_ime">Змінити метод вводу</string>
     <string name="override_dictionary">Змінити стандартний словник</string>
     <!-- Dictionary override strings -->
-    <string name="override_dictionary_title">Замінити<xliff:g id="word">%s</xliff:g>словник</string>
+    <string name="override_dictionary_title">Замінити <xliff:g>%s</xliff:g>словник</string>
     <string name="override_dictionary_default">стандартний</string>
     <!-- Dictionary override toast messages -->
     <string name="override_disabled">Заміну скасовано</string>
-    <string name="override_enabled">Заміняю на<xliff:g id="word">%s</xliff:g></string>
+    <string name="override_enabled">Заміняю на <xliff:g>%s</xliff:g></string>
     
     <!-- settings - effects-->
     <string name="effects_group">Ефекти</string>
@@ -77,17 +77,43 @@
     
     <string name="sound_on">Звук при натисненні</string>
     <string name="sound_on_summary">Звук при натисненні екранної клавіатури. Гучність як у повідомлень.</string>
-    <string name="auto_caps">Авто-великі</string>
-    <string name="grammer_group">Граматика</string>
+    <string name="use_custom_sound_volume">Авто-великі</string>
+    <string name="use_custom_sound_volume_on_summary">Граматика</string>
+    <string name="use_custom_sound_volume_off_summary">Показувати пропозиції</string>
+    <string name="custom_sound_volume">Автовиправлення</string>
+    
+    <string name="tweaks_group">Тонкі налаштування</string>
+    <string name="use_keyrepeat">Автоповтор</string>
+    <string name="use_keyrepeat_on_summary">Автоповтор ввімкнено</string>
+    <string name="use_keyrepeat_off_summary">Автоповтор вимкнено</string>    
+    <string name="emoticon_long_press_opens_popup">Поява діалогу смайлів</string>
+    <string name="emoticon_long_press_opens_popup_on_summary">Поява діалогу смайлів по довгому натисканню</string>
+    <string name="emoticon_long_press_opens_popup_off_summary">Поява діалогу смайлів по короткому натисканню</string>
+    <string name="default_smiley_text">Текст смайлів</string>
+    <string name="default_domain_text">Текст доменів</string>
+    <string name="key_press_preview_popup">Підказка при натисненні кнопок</string>
+    <string name="key_press_preview_popup_on_summary">Показувати підказку при натисненні кнопок</string>
+    <string name="key_press_preview_popup_off_summary">Не показувати підказку при натисненні кнопок</string>
+    <string name="switch_keyboard_on_space">Переключення клавіатури пробілом</string>
+    <string name="switch_keyboard_on_space_on_summary">Переключатись з символів на алфавіт по натисненню пробіла</string>
+    <string name="switch_keyboard_on_space_off_summary">Не переключатись з символів на алфавіт по натисненню пробіла</string>
+    <string name="fullscreen_input_connection_supported">Використовувати повноекранну форму вводу</string>
+    <string name="fullscreen_input_connection_supported_on_summary">Повноекранна форма вводу в положенні екрану "пейзаж"</string>
+    <string name="fullscreen_input_connection_supported_off_summary">Не використовувати повноекранну форму вводу</string>
+    <string name="zoom_factor_keys_in_portrait">Висота кнопок в положенні екрану "портрет"</string>
+    <string name="zoom_factor_keys_in_landscape">Висота кнопок в положенні екрану "пейзаж"</string>
+    
+    <string name="auto_caps">Авто-великі літери</string>
+    <string name="grammer_group">Перевірка граматики</string>
     <string name="candidates_on">Показувати пропозиції</string>
-    <string name="quick_fix">Автовиправлення</string>
+    <string name="quick_fix">Швидкі заміни</string>
     <string name="quick_fix_summary">Виправляти часті помилки</string>
-    <string name="auto_complete">Автоматично пропонувати слово</string>
-    <string name="auto_complete_summary">Вибирати запропоноване слово пробілом</string>
-    <string name="physical_keyboard_suggestions">Пропозиції при фізичній клавіатурі</string>
-    <string name="physical_keyboard_suggestions_summary">Показувати пропозиції при використанні фізичної клавіатури</string>
-	<string name="keyboard_sandbox">Перевірка вводу тексту</string>
-	<string name="keyboard_sandbox_title">Набирайте текст щоб перевірити ввід</string>
+    <string name="auto_complete">Авто-вибір пропозицій</string>
+    <string name="auto_complete_summary">Пробіл вибирає відмічену пропозицію</string>
+    <string name="physical_keyboard_suggestions">Пропозиції для апаратної клавіатури</string>
+    <string name="physical_keyboard_suggestions_summary">Показувати пропозиції для апаратної клавіатури</string>
+    <string name="keyboard_sandbox">Натисніть для перевірки набору тексту</string>
+    <string name="keyboard_sandbox_title">Набирайте текст для перевірки ваших налаштувань</string>
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Розкладки</string>
     <string name="eng_keyboard">Англійська</string>
@@ -97,7 +123,12 @@
     <string name="bg_ph_keyboard">Болгарська фонетична</string>
     <string name="bg_bds_keyboard">Болгарська BDS</string>
     <string name="dvorak_keyboard">Дворак</string>
+    <string name="danish_keyboard">Датська</string>
+    <string name="norwegian_keyboard">Норвежська</string>
     <string name="finnish_swedish_keyboard">Шведська/Фінська</string>
+    <string name="svorak_keyboard">Сворак</string>
+    <string name="hungarian_keyboard">Угорська</string>
+    <string name="hungarian_keyboard_4_row">Використовувати угорську розкладку в 4 ряди</string>
     <string name="catalan_keyboard">Каталонська</string>
     <string name="ch_fr_keyboard">Швейцарська французька</string>
     <string name="de_keyboard">Німецька/Швейцарська німецька</string>
@@ -113,7 +144,10 @@
 	<string name="fr_ca_keyboard">Канадська французька </string>
 	<string name="ka_keyboard">Грузинська</string>
 	<string name="uk_keyboard">Українська</string>
-    <string name="uk_keyboard_4_row">Використовувати українську розкладку в 4 ряди</string>
+	<string name="uk_keyboard_4_row">Використовувати українську розкладку в 4 ряди</string>
+    <string name="colemak_keyboard">Colemak</string>
+    <string name="bepo_keyboard">Bépo</string><!-- BEPO -->
+    <string name="esperanto_keyboard">Есперанто</string>   
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Показувати вступ при старті</string>
@@ -125,9 +159,9 @@
     <string name="label_next_key">Наступне</string>
     <string name="label_send_key">Послати</string>
     
-    <string name="change_lang_wide">&#8594; АБВ &#8594;</string>
+    <string name="change_lang_wide">→ АБВ →</string>
     <string name="change_lang_regular">АБВ</string>
-    <string name="change_symbols_wide">&#8592; 123 &#8592;</string>
+    <string name="change_symbols_wide">← 123 ←</string>
     <string name="change_symbols_regular">123</string>
     
     <string name="please_wait">Зачекайте</string>
