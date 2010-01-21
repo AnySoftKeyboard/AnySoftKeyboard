@@ -1832,8 +1832,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		boolean handled = loadSettings();
 		if (!handled) {
-			/* AnyKeyboard removedKeyboard = */mKeyboardSwitcher
-					.makeKeyboards(true);// maybe a new keyboard
+			/* AnyKeyboard removedKeyboard = */mKeyboardSwitcher.makeKeyboards(true);// maybe a new keyboard
 			/*
 			 * if (removedKeyboard != null) {
 			 * DictionaryFactory.releaseDictionary

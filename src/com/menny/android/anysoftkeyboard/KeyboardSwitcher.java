@@ -167,14 +167,16 @@ public class KeyboardSwitcher
         	mAlphabetMode = true;
         	break;            
         }
+        
+        //keyboard.setShiftLocked(keyboard.isShiftLocked());
+        keyboard.setImeOptions(mContext.getResources()/*, mMode*/, (attr == null)? 0 : attr.imeOptions);
+        keyboard.setTextVariation(mContext.getResources(), (attr == null)? 0 : attr.inputType);
+        //now show
         if (mInputView != null)
         {
         	mInputView.setKeyboard(keyboard);
-        	keyboard.setShifted(mInputView.isShifted());
-        }
-        keyboard.setShiftLocked(keyboard.isShiftLocked());
-        keyboard.setImeOptions(mContext.getResources()/*, mMode*/, (attr == null)? 0 : attr.imeOptions);
-        keyboard.setTextVariation(mContext.getResources(), (attr == null)? 0 : attr.inputType);
+        	//keyboard.setShifted(mInputView.isShifted());
+        }        
     }
 
     boolean isAlphabetMode() {
@@ -265,14 +267,16 @@ public class KeyboardSwitcher
     }
     
 	private AnyKeyboard setKeyboard(EditorInfo currentEditorInfo, AnyKeyboard current) {
-		if (mInputView != null)
-			mInputView.setKeyboard(current);
-    	//all keyboards start as un-shifted, except the second symbols
+		//all keyboards start as un-shifted, except the second symbols
 		//due to lazy loading the keyboards, the symbols may not be created yet.
     	current.setShifted(current == mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_SHIFTED_INDEX]);
     	
     	current.setImeOptions(mContext.getResources(), currentEditorInfo.imeOptions);
     	current.setTextVariation(mContext.getResources(), currentEditorInfo.inputType);
+
+    	//now show
+		if (mInputView != null)
+			mInputView.setKeyboard(current);   	
     	
     	return current;
 	}
