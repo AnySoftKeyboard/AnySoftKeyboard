@@ -44,7 +44,7 @@ public class KeyboardSwitcher
     AnySoftKeyboard mContext;
     
     private static final int SYMBOLS_KEYBOARD_REGULAR_INDEX = 0;
-    private static final int SYMBOLS_KEYBOARD_SHIFTED_INDEX = 1;
+    private static final int SYMBOLS_KEYBOARD_ALT_INDEX = 1;
     private static final int SYMBOLS_KEYBOARD_PHONE_INDEX = 2;
     
     private int mLastSelectedSymbolsKeyboard = 0;
@@ -87,8 +87,8 @@ public class KeyboardSwitcher
 	    		case SYMBOLS_KEYBOARD_REGULAR_INDEX:
 	    			keyboard = new GenericKeyboard(mContext, R.xml.symbols);
 	    			break;
-	    		case SYMBOLS_KEYBOARD_SHIFTED_INDEX:
-	    			keyboard = new GenericKeyboard(mContext, R.xml.symbols_shift);
+	    		case SYMBOLS_KEYBOARD_ALT_INDEX:
+	    			keyboard = new GenericKeyboard(mContext, R.xml.symbols_alt);
 	    			break;
 	    		case SYMBOLS_KEYBOARD_PHONE_INDEX:
 	    			keyboard = new GenericKeyboard(mContext, R.xml.simple_numbers);
@@ -269,7 +269,7 @@ public class KeyboardSwitcher
 	private AnyKeyboard setKeyboard(EditorInfo currentEditorInfo, AnyKeyboard current) {
 		//all keyboards start as un-shifted, except the second symbols
 		//due to lazy loading the keyboards, the symbols may not be created yet.
-    	current.setShifted(current == mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_SHIFTED_INDEX]);
+    	current.setShifted(current == mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_ALT_INDEX]);
     	
     	current.setImeOptions(mContext.getResources(), currentEditorInfo.imeOptions);
     	current.setTextVariation(mContext.getResources(), currentEditorInfo.inputType);
@@ -342,7 +342,7 @@ public class KeyboardSwitcher
 	        {
 	        	mLastSelectedSymbolsKeyboard = 1;
 	        }
-	        else if (mLastSelectedSymbolsKeyboard == SYMBOLS_KEYBOARD_SHIFTED_INDEX) 
+	        else if (mLastSelectedSymbolsKeyboard == SYMBOLS_KEYBOARD_ALT_INDEX) 
 	        {
 	        	mLastSelectedSymbolsKeyboard = 0;
 	        }
