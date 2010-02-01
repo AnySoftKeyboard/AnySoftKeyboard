@@ -9,6 +9,7 @@
 
     <AnySoftKeyboardMetaData
     	PrefString="ru_ph_keyboard" KeyboardNameResId="@com.menny.android.anysoftkeyboard:string/ru_ph_keyboard" KeyboardIconResId="@com.menny.android.anysoftkeyboard:drawable/ru_ph"
+    	DefaultDictionaryLanguage="Russian"
     />
     
 	<!-- generic top row -->
