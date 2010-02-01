@@ -450,9 +450,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 		}
 
-		if (mCompletionOn) {
+		//completions should be shown if dictionary requires, or if we are in full-screen and have outside completeions
+		if (mCompletionOn || (isFullscreenMode() && (completions != null))) {
+			if (DEBUG) Log.v("AnySoftKeyboard", "Received completions: completion should be shown: "+mCompletionOn+" fullscreen:"+isFullscreenMode());
 			mCompletions = completions;
 			if (completions == null) {
+				if (DEBUG) Log.v("AnySoftKeyboard", "Received completions: completion is NULL. Clearing suggestions.");
 				mCandidateView.setSuggestions(null, false, false, false);
 				return;
 			}
@@ -463,12 +466,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 				if (ci != null)
 					stringList.add(ci.getText());
 			}
+			if (DEBUG) Log.v("AnySoftKeyboard", "Received completions: setting to suggestions view "+stringList.size()+ " completions.");
 			// CharSequence typedWord = mWord.getTypedWord();
 			mCandidateView.setSuggestions(stringList, true, true, true);
 			mBestWord = null;
-			setCandidatesViewShown(shouldCandidatesStripBeShown()
-					|| mCompletionOn);
+			//I mean, if I'm here, it must be shown...
+			setCandidatesViewShown(true);
 		}
+		else if (DEBUG) Log.v("AnySoftKeyboard", "Received completions: completions should not be shown.");
 	}
 
 	@Override
@@ -1200,7 +1205,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	private boolean shouldCandidatesStripBeShown() {
-		boolean shown = isPredictionOn() && mShowSuggestions;
+		boolean shown = isPredictionOn() && (mShowSuggestions || isFullscreenMode());
 		if (!onEvaluateInputViewShown())
 			shown &= mPredictionLandscape;
 		return shown;
