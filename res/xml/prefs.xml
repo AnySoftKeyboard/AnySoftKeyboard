@@ -256,12 +256,11 @@ android:key="ime_settings">
 				/>
 				<CheckBoxPreference
 				android:key="ru_keyboard_4_row"
-				android:title="@string/ru_keyboard_4_row"
+				android:title="@string/ru_keyboard_extra_rows"
 				android:persistent="true"
 				android:defaultValue="true" 
 				android:summaryOn="Created with Igor Mariash"
 				android:summaryOff="Created with Igor Mariash"
-				android:dependency="ru_ph_keyboard"
 				/>
 				<CheckBoxPreference
 				android:key="arabic_keyboard"
