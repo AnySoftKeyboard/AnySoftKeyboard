@@ -40,7 +40,7 @@
         <Key android:codes="1610" android:keyLabel="&#1610;"/>
         <Key android:codes="1576" android:keyLabel="&#1576;"/>
         <Key android:codes="1604" android:keyLabel="&#1604;"/>
-        <Key android:codes="1575" android:keyLabel="&#1575;"/>
+        <Key android:codes="1575" android:keyLabel="&#1575;" android:popupKeyboard="@xml/popup" android:popupCharacters="&#1571;&#1573;"/>
         <Key android:codes="1578" android:keyLabel="&#1578;"/>
         <Key android:codes="1606" android:keyLabel="&#1606;"/>
         <Key android:codes="1605" android:keyLabel="&#1605;"/>
