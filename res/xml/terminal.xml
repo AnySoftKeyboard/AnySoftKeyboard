@@ -72,13 +72,10 @@
         <Key android:horizontalGap="2.5%p" android:codes="32" android:keyIcon="@drawable/sym_keyboard_space" 
                 android:keyWidth="25%p" android:isRepeatable="true"/>
 
-        <Key android:horizontalGap="2.5%p" android:codes="-11"
-                android:isRepeatable="true" 
+        <Key android:horizontalGap="2.5%p" android:codes="-20" android:isRepeatable="true" 
                 android:keyIcon="@drawable/sym_keyboard_arrow_left"/>
                 
-        <Key android:codes="-21"
-                android:isRepeatable="true" 
-                android:keyIcon="@drawable/sym_keyboard_arrow_right"/>
+        <Key android:codes="-21" android:isRepeatable="true" android:keyIcon="@drawable/sym_keyboard_arrow_right"/>
 
         <Key android:horizontalGap="2.5%p" android:codes="10"
                 android:keyIcon="@drawable/sym_keyboard_return"

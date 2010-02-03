@@ -242,7 +242,7 @@ android:key="ime_settings">
 				android:key="terminal_keyboard"
 				android:title="@string/terminal_keyboard"
 				android:persistent="true" 
-				android:defaultValue="true"
+				android:defaultValue="false"
 				android:summaryOn="Created with bittrance"
 				android:summaryOff="Created with bittrance"
 				/>
