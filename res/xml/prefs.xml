@@ -239,6 +239,14 @@ android:key="ime_settings">
 				android:defaultValue="false" 
 				/>
 				<CheckBoxPreference
+				android:key="terminal_keyboard"
+				android:title="@string/terminal_keyboard"
+				android:persistent="true" 
+				android:defaultValue="true"
+				android:summaryOn="Created with bittrance"
+				android:summaryOff="Created with bittrance"
+				/>
+				<CheckBoxPreference
 				android:key="ru_keyboard"
 				android:title="@string/ru_keyboard"
 				android:persistent="true"

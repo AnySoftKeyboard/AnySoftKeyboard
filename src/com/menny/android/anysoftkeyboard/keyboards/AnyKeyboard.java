@@ -38,6 +38,13 @@ public abstract class AnyKeyboard extends Keyboard
 	public final static int KEYCODE_ALTER_LAYOUT = -98;
 	public final static int KEYCODE_SMILEY = -10;
 	
+	public static final int KEYCODE_LEFT = -20;
+	public static final int KEYCODE_RIGHT = -21;
+	public static final int KEYCODE_UP = -22;
+	public static final int KEYCODE_Down = -23;
+	
+	public static final int	KEYCODE_CTRL = -11;
+	
 	public interface HardKeyboardAction
 	{
 		int getKeyCode();
@@ -404,11 +411,11 @@ public abstract class AnyKeyboard extends Keyboard
     
     @Override
     public boolean isShifted() {
-//        if (mShiftKey != null) {
-//            return mShiftState != SHIFT_OFF;
-//        } else {
+        if (mShiftKey != null) {
+            return mShiftState != SHIFT_OFF;
+        } else {
             return super.isShifted();
-//        }
+        }
     }
     
 //    @Override

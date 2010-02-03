@@ -930,23 +930,26 @@ public class AnySoftKeyboard extends InputMethodService implements
 	// Implementation of KeyboardViewListener
 
 	public void onKey(int primaryCode, int[] keyCodes) {
-		if (DEBUG)
-			Log.d("AnySoftKeyboard", "onKey " + primaryCode);
-		// long when = SystemClock.uptimeMillis();
-		// if (primaryCode != Keyboard.KEYCODE_DELETE ||
-		// when > mLastKeyTime + QUICK_PRESS) {
-		// mDeleteCount = 0;
-		// }
-		// mLastKeyTime = when;
+		if (DEBUG)	Log.d("AnySoftKeyboard", "onKey " + primaryCode);
 		switch (primaryCode) {
 		case Keyboard.KEYCODE_DELETE:
 			handleBackspace();
-			// mDeleteCount++;
 			break;
 		case Keyboard.KEYCODE_SHIFT:
 			handleShift();
 			break;
-		case Keyboard.KEYCODE_CANCEL:
+		case AnyKeyboard.KEYCODE_CTRL:
+			//mCtrl = true;
+			break;
+
+		case AnyKeyboard.KEYCODE_LEFT:
+			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_LEFT);
+			break;
+		case AnyKeyboard.KEYCODE_RIGHT:
+			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_RIGHT);
+			break;
+
+			case Keyboard.KEYCODE_CANCEL:
 			if (mOptionsDialog == null || !mOptionsDialog.isShowing()) {
 				handleClose();
 			}

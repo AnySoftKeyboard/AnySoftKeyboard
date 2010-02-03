@@ -147,7 +147,8 @@
 	<string name="uk_keyboard_4_row">Use 4 rows Ukrainian portrait layout</string>
     <string name="colemak_keyboard">Colemak</string>
     <string name="bepo_keyboard">B&#233;po</string><!-- BEPO -->
-    <string name="esperanto_keyboard">Esperanto</string>   
+    <string name="esperanto_keyboard">Esperanto</string>
+    <string name="terminal_keyboard">Terminal</string>
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Show this tutorial on startup</string>

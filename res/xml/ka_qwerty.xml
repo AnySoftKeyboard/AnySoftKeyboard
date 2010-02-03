@@ -20,14 +20,14 @@
     </Row>
     
     <Row>
-        <Key android:codes="4325" android:popupKeyboard="@xml/popup" android:popupCharacters="&#49;" android:keyLabel="" android:keyEdgeFlags="left"/>
-        <Key android:codes="4309" android:popupKeyboard="@xml/popup" android:popupCharacters="&#4333;&#50;" android:keyLabel=""/>
-        <Key android:codes="4308" android:popupKeyboard="@xml/popup" android:popupCharacters="&#51;" android:keyLabel=""/>
-        <Key android:codes="4320" android:popupKeyboard="@xml/popup" android:popupCharacters="&#4326;&#52;" android:keyLabel=""/>
-        <Key android:codes="4322" android:popupKeyboard="@xml/popup" android:popupCharacters="&#4322;&#53;" android:keyLabel=""/>
-        <Key android:codes="4327" android:popupKeyboard="@xml/popup" android:popupCharacters="&#54;" android:keyLabel=""/>
-        <Key android:codes="4323" android:popupKeyboard="@xml/popup" android:popupCharacters="&#55;" android:keyLabel=""/>
-        <Key android:codes="4312" android:popupKeyboard="@xml/popup" android:popupCharacters="&#56;" android:keyLabel=""/>
+		<Key android:codes="4325" android:popupKeyboard="@xml/popup" android:popupCharacters="&#49;" android:keyLabel="" android:keyEdgeFlags="left"/>
+		<Key android:codes="4332" android:popupKeyboard="@xml/popup" android:popupCharacters="&#4333;&#50;" android:keyLabel=""/>
+		<Key android:codes="4308" android:popupKeyboard="@xml/popup" android:popupCharacters="&#51;" android:keyLabel=""/>
+		<Key android:codes="4320" android:popupKeyboard="@xml/popup" android:popupCharacters="&#4326;&#52;" android:keyLabel=""/>
+		<Key android:codes="4322" android:popupKeyboard="@xml/popup" android:popupCharacters="&#4311;&#53;" android:keyLabel=""/>
+		<Key android:codes="4327" android:popupKeyboard="@xml/popup" android:popupCharacters="&#54;" android:keyLabel=""/>
+		<Key android:codes="4323" android:popupKeyboard="@xml/popup" android:popupCharacters="&#55;" android:keyLabel=""/>
+		<Key android:codes="4312" android:popupKeyboard="@xml/popup" android:popupCharacters="&#56;" android:keyLabel=""/>
         <Key android:codes="4317" android:popupKeyboard="@xml/popup" android:popupCharacters="&#57;" android:keyLabel=""/>
         <Key android:codes="4318" android:popupKeyboard="@xml/popup" android:popupCharacters="&#48;" android:keyLabel="" android:keyEdgeFlags="right"/>
     </Row>
