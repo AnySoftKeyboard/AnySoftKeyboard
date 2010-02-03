@@ -147,6 +147,7 @@
    <string name="colemak_keyboard">Раскладка \"Colemak\"</string>
    <string name="bepo_keyboard">Французский Дворак \"B&#233;po\"</string><!-- BEPO -->
    <string name="esperanto_keyboard">Эсперанто</string>
+   <string name="terminal_keyboard">Терминал</string>
    
    <!-- Tutorials --> 
    <string name="show_tutorial_on_startup">Показывать помощь при запуске</string>
