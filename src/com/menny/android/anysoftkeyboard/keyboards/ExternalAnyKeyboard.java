@@ -1,11 +1,7 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
-import android.content.Context;
 import android.content.res.Configuration;
-import android.inputmethodservice.Keyboard.Key;
-
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
-import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardAction;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
 public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTranslator {

@@ -9,7 +9,7 @@ import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTrans
 /**
  * @author Alex Buloichik(alex73mail@gmail.com)
  */
-public class BelarusianLatinKeyboard extends AnyKeyboard implements
+public class BelarusianLatinKeyboard extends InternalAnyKeyboard implements
         HardKeyboardTranslator {
     private static final HardKeyboardSequenceHandler msKeySequenceHandler;
 

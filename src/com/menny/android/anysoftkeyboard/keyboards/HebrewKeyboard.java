@@ -6,7 +6,7 @@ import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
-public class HebrewKeyboard extends AnyKeyboard implements HardKeyboardTranslator
+public class HebrewKeyboard extends InternalAnyKeyboard implements HardKeyboardTranslator
 {	
 	private static final HardKeyboardSequenceHandler msKeySequenceHandler;
 	static

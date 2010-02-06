@@ -3,7 +3,7 @@ package com.menny.android.anysoftkeyboard.keyboards;
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.R;
 
-public class ThaiKeyboard extends AnyKeyboard /*implements HardKeyboardTranslator*/
+public class ThaiKeyboard extends InternalAnyKeyboard /*implements HardKeyboardTranslator*/
 {
 	public ThaiKeyboard(AnyKeyboardContextProvider context) 
 	{

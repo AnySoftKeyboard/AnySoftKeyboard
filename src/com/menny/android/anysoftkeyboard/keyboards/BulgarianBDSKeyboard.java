@@ -9,7 +9,7 @@ import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
-public class BulgarianBDSKeyboard extends AnyKeyboard implements HardKeyboardTranslator
+public class BulgarianBDSKeyboard extends InternalAnyKeyboard implements HardKeyboardTranslator
 {
 	private final static HashMap<Integer, Integer> msPhysicalKeysMap;
 	private final static HashMap<Integer, Integer> msPhysicalShiftKeysMap;
