@@ -4,23 +4,72 @@ import java.util.ArrayList;
 
 import com.menny.android.anysoftkeyboard.R;
 
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.UriMatcher;
+import android.database.Cursor;
+import android.net.Uri;
 import android.util.Log;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 
 public class KeyboardFactory 
 {
+	//QSL TABLE
+	public static final String _ID = "_id";
+	public static final String KEYBOARD_COL_KEY = "Key";
+	public static final String KEYBOARD_COL_VALUE = "Value";
+	
+	public static final String KEYBOARD_KEY_NAME_RES_ID = "KeyboardNameResId";
+	public static final String KEYBOARD_KEY_Icon_RES_ID = "KeyboardIconResId";
+	public static final String KEYBOARD_KEY_LAYOUT_RES_ID = "KeyboardLayoutResId";
+	public static final String KEYBOARD_KEY_LAYOUT_LANDSCAPE_RES_ID = "KeyboardLandscapeLayoutResId";
+	public static final String KEYBOARD_KEY_PREF_ID = "KeyboardPrefId";
+	public static final String KEYBOARD_KEY_DICTIONARY = "KeyboardDefaultDictionary";
+	public static final String KEYBOARD_KEY_SORT_ORDER = "KeyboardSortOrder";
+	
 	public interface KeyboardCreator
 	{
 		AnyKeyboard createKeyboard(AnyKeyboardContextProvider context);
 		String getKeyboardPrefId();
 	}
 	
+	private static class KeyboardCreatorImpl implements KeyboardCreator
+	{
+		private final String mPrefId;
+		private final int mNameId;
+		private final int mResId;
+		private final int mLandscapeResId;
+		private final int mIconResId;
+		private final String mDefaultDictionary;
+		
+		public KeyboardCreatorImpl(Context context, String prefId, String resNameId, String resId, String resLandscapeId, String defaultDictionary, String resIconId)
+		{
+			mPrefId = prefId;
+			mNameId = context.getResources().getIdentifier(resNameId, null, null);
+			mResId = context.getResources().getIdentifier(resId, null, null);
+			if ((resLandscapeId == null) || (resLandscapeId.length() == 0))
+				mLandscapeResId = mResId;
+			else
+				mLandscapeResId = context.getResources().getIdentifier(resLandscapeId, null, null);
+			mDefaultDictionary = defaultDictionary;
+			mIconResId = context.getResources().getIdentifier(resIconId, null, null);
+			
+			Log.d("ASK KeyboardCreatorImpl", "Creator for "+prefId+" res: "+resId+" is actually:"+ mResId+" LandscapeRes: "+resLandscapeId+" is actually:"+ mLandscapeResId+" dictionary: "+mDefaultDictionary);
+		}
+		
+		public AnyKeyboard createKeyboard(AnyKeyboardContextProvider context) {
+			return new ExternalAnyKeyboard(context, mResId, mLandscapeResId, mPrefId, mNameId, mIconResId, mDefaultDictionary);
+		}
+
+		public String getKeyboardPrefId() {
+			return mPrefId;
+		}		
+	}
+	
 	private static final ArrayList<KeyboardCreator> ms_creators;
 	
-	public static final String ENGLISH_KEYBOARD = "eng_keyboard";
-	public static final String AZERTY_KEYBOARD = "azerty_keyboard";
 	public static final String DVORAK_KEYBOARD = "dvorak_keyboard";
 	public static final String SVORAK_KEYBOARD = "svorak_keyboard";
 	public static final String COLEMAK_KEYBOARD = "colemak_keyboard";
@@ -54,8 +103,9 @@ public class KeyboardFactory
 	static
 	{
 		ms_creators = new ArrayList<KeyboardCreator>();
-		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new EnglishKeyboard(contextProvider);} public String getKeyboardPrefId() {return ENGLISH_KEYBOARD;}});
-		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.azerty);} public String getKeyboardPrefId() {return AZERTY_KEYBOARD;}});
+		
+		//ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.qwerty);} public String getKeyboardPrefId() {return "eng_keyboard";}});
+		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.azerty);} public String getKeyboardPrefId() {return "azerty_keyboard";}});
 		//issue 31
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.dvorak);} public String getKeyboardPrefId() {return DVORAK_KEYBOARD;}});
 		
@@ -133,6 +183,10 @@ public class KeyboardFactory
 		
 		//getting shared prefs to determine which to create.
 		SharedPreferences sharedPreferences = contextProvider.getSharedPreferences();
+		ContentResolver rc = contextProvider.getApplicationContext().getContentResolver();
+		
+		extractExternalKeyboardFromUri(contextProvider, keyboards, sharedPreferences, rc, KeyboardsProvider.EnglishKeyboardProvider.CONTENT_URI);
+		
 		for(int keyboardIndex=0; keyboardIndex<ms_creators.size(); keyboardIndex++)
 		{
 			KeyboardCreator creator = ms_creators.get(keyboardIndex);
@@ -161,6 +215,74 @@ public class KeyboardFactory
 		keyboards.trimToSize();
 		KeyboardCreator[] keyboardsArray = new KeyboardCreator[keyboards.size()];
 		return keyboards.toArray(keyboardsArray);
+	}
+
+	private static void extractExternalKeyboardFromUri(
+			AnyKeyboardContextProvider contextProvider,
+			ArrayList<KeyboardCreator> keyboards,
+			SharedPreferences sharedPreferences, ContentResolver rc,
+			final Uri externalKeyboardUri) {
+		Cursor c = rc.query(externalKeyboardUri, null, null, null, null);
+		
+		if (c.moveToFirst())
+		{
+			String prefId = null;
+			String nameId = null;
+			String resId = null;
+			String landscapeResId = null;
+			String iconResId = "";
+			String defaultDictionary = "None";
+			String sortValue = "999999999";
+			
+			do
+			{
+				final String key = c.getString(0);
+				final String value = c.getString(1);
+				
+				if(key.equals(KEYBOARD_KEY_NAME_RES_ID))
+					nameId = value;
+				else if(key.equals(KEYBOARD_KEY_Icon_RES_ID))
+					iconResId = value;
+				else if(key.equals(KEYBOARD_KEY_LAYOUT_RES_ID))
+					resId = value;
+				else if(key.equals(KEYBOARD_KEY_LAYOUT_LANDSCAPE_RES_ID))
+					landscapeResId = value;
+				else if(key.equals(KEYBOARD_KEY_PREF_ID))
+					prefId = value;
+				else if(key.equals(KEYBOARD_KEY_SORT_ORDER))
+					sortValue = value;
+				else if(key.equals(KEYBOARD_KEY_DICTIONARY))
+					defaultDictionary = value;
+				else
+				{
+					Log.e("ASK Keyboards:", "Unknown Keyboard Provider KEY type: "+key+" in URI:"+externalKeyboardUri);
+				}
+			}while(c.moveToNext());
+			
+			//asserting
+			if ((prefId == null) ||
+				(nameId == null) ||
+				(resId == null))
+			{
+				Log.e("ASK Keyboards", "External Keyboard does not include all mandatory details! Will not create keyboard in URI:"+externalKeyboardUri);
+			}
+			else
+			{
+				boolean keyboardIsEnabled = sharedPreferences.getBoolean(prefId, keyboards.size() == 0);
+				if (keyboardIsEnabled)
+				{
+					KeyboardCreator creator = new KeyboardCreatorImpl(contextProvider.getApplicationContext(), 
+							prefId, nameId, resId, landscapeResId, defaultDictionary, iconResId);
+					
+					Log.d("ASK Keyboards", "External keyboard "+prefId+" will have a creator. URI:"+externalKeyboardUri);
+					keyboards.add(creator);
+				}
+			}
+		}
+		else
+		{
+			Log.d("ASK Keyboards", "No keyboards were located in ContentProviders in URI:"+externalKeyboardUri);
+		}
 	}
 
 }

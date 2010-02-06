@@ -61,17 +61,17 @@ public abstract class AnyKeyboard extends Keyboard
 		void translatePhysicalCharacter(HardKeyboardAction action);
 	}
 
-	private class KeyboardMetaData
+	protected static class KeyboardMetaData
 	{
 		public String PrefString;
-		public String KeyboardName;
+		public int KeyboardNameId;
 		public int IconResId;
 		public String DefaultDictionaryLanguage;
 		
 		public KeyboardMetaData()
 		{
 			PrefString = null;
-			KeyboardName = "";
+			KeyboardNameId = -1;
 			IconResId = -1;
 			DefaultDictionaryLanguage = "None";
 		}
@@ -115,13 +115,14 @@ public abstract class AnyKeyboard extends Keyboard
         
         Log.d("AnySoftKeyboard", "loadKeyboard result: "+"" +
         		"PrefString:"+ ((mKeyboardMetaData.PrefString!=null)? mKeyboardMetaData.PrefString : "NULL")+
-        		" KeyboardName:" + mKeyboardMetaData.KeyboardName +
+        		" KeyboardId:" + mKeyboardMetaData.KeyboardNameId +
         		" IconResId:" + mKeyboardMetaData.IconResId +
         		" DefaultDictionaryLanguage:" + ((mKeyboardMetaData.PrefString!=null)? mKeyboardMetaData.DefaultDictionaryLanguage : "NULL"));
         
         mDebug = AnySoftKeyboardConfiguration.getInstance().getDEBUG();
         mKeyboardContext = context;
-        Log.i("AnySoftKeyboard", "Done creating keyboard: "+mKeyboardMetaData.KeyboardName+", which is LTR:"+isLeftToRightLanguage());
+        final String keyboardName = context.getApplicationContext().getResources().getString(mKeyboardMetaData.KeyboardNameId);
+        Log.i("AnySoftKeyboard", "Done creating keyboard: "+keyboardName+", which is LTR:"+isLeftToRightLanguage());
     	
         //mShiftLockIcon = context.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift_locked);
         mOnShiftIcon = context.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift_on);
@@ -149,8 +150,7 @@ public abstract class AnyKeyboard extends Keyboard
                     	Log.d("AnySoftKeyboard", "Starting parsing "+XML_META_DATA_TAG);
                     	AttributeSet attrs = Xml.asAttributeSet(parser);
                     	result.PrefString = attrs.getAttributeValue(null, XML_PREF_ID_ATTRIBUTE);
-                    	final int nameResId = attrs.getAttributeResourceValue(null, XML_NAME_RES_ID_ATTRIBUTE, -1);
-                    	result.KeyboardName = (nameResId > 0)? res.getString(nameResId) : "";
+                    	result.KeyboardNameId = attrs.getAttributeResourceValue(null, XML_NAME_RES_ID_ATTRIBUTE, -1);
                     	result.IconResId = attrs.getAttributeResourceValue(null, XML_ICON_RES_ID_ATTRIBUTE, R.drawable.sym_keyboard_notification_icon);
                     	result.DefaultDictionaryLanguage = attrs.getAttributeValue(null, XML_DICTIONARY_NAME_ATTRIBUTE);
                     }
@@ -357,10 +357,9 @@ public abstract class AnyKeyboard extends Keyboard
         }
     }
     
-    public String getKeyboardName()
+    public int getKeyboardName()
     {
-    	//TODO: this should be taken from the strings.xml, right?
-    	return mKeyboardMetaData.KeyboardName;
+    	return mKeyboardMetaData.KeyboardNameId;
     }
     
     public boolean isLeftToRightLanguage()

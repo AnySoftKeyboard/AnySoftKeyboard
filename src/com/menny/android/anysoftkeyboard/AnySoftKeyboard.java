@@ -620,15 +620,16 @@ public class AnySoftKeyboard extends InputMethodService implements
 					if (event.isPrintingKey()) {
 						mHardKeyboardAction.initializeAction(event, mMetaState);
 						// http://article.gmane.org/gmane.comp.handhelds.openmoko.android-freerunner/629
-						AnyKeyboard current = mKeyboardSwitcher
-								.getCurrentKeyboard();
-						String keyboardName = current.getKeyboardName();
+						AnyKeyboard current = mKeyboardSwitcher.getCurrentKeyboard();
+						
 						HardKeyboardTranslator keyTranslator = (HardKeyboardTranslator) current;
 
 						if (DEBUG)
+						{
+							String keyboardName = getResources().getString(current.getKeyboardName());
+							
 							Log.d("AnySoftKeyborad", "Asking '" + keyboardName
 									+ "' to translate key: " + keyCode);
-						if (DEBUG)
 							Log.v("AnySoftKeyboard",
 									"Hard Keyboard Action before translation: Shift: "
 											+ mHardKeyboardAction
@@ -638,8 +639,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 											+ ", Key code: "
 											+ mHardKeyboardAction.getKeyCode()
 											+ ", changed: "
-											+ mHardKeyboardAction
-													.getKeyCodeWasChanged());
+											+ mHardKeyboardAction.getKeyCodeWasChanged());
+						}
+						
 						keyTranslator
 								.translatePhysicalCharacter(mHardKeyboardAction);
 						if (DEBUG)
@@ -752,16 +754,16 @@ public class AnySoftKeyboard extends InputMethodService implements
 			AnyKeyboard current = mKeyboardSwitcher.getCurrentKeyboard();
 			// notifying the user about the keyboard.
 			// creating the message
-			Notification notification = new Notification(current
-					.getKeyboardIcon(), current.getKeyboardName(), System
-					.currentTimeMillis());
+			String keyboardName = getResources().getString(current.getKeyboardName());
+			
+			Notification notification = new Notification(current.getKeyboardIcon(), keyboardName, System.currentTimeMillis());
 
 			Intent notificationIntent = new Intent();
 			PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
 					notificationIntent, 0);
 
 			notification.setLatestEventInfo(getApplicationContext(),
-					"Any Soft Keyboard", current.getKeyboardName(),
+					"Any Soft Keyboard", keyboardName,
 					contentIntent);
 			if (mKeyboardChangeNotificationType.equals("1")) {
 				notification.flags |= Notification.FLAG_ONGOING_EVENT;

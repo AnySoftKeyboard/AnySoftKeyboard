@@ -16,9 +16,17 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+             <intent-filter> 
+                <action android:name="com.menny.android.anysoftkeyboard.KEYBOARD" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.ALTERNATIVE" />
+                <category android:name="android.intent.category.SELECTED_ALTERNATIVE" />
+            </intent-filter> 
         </activity>
+        <provider android:name="com.menny.android.anysoftkeyboard.keyboards.KeyboardsProvider.EnglishKeyboardProvider"
+          android:authorities="com.anysoftkeyboard.keyboard.english"/>
 	</application>
-	
+
 	<uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />

@@ -1,20 +1,52 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
+import android.content.Context;
 import android.content.res.Configuration;
+import android.inputmethodservice.Keyboard.Key;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
+import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardAction;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
-public class LatinKeyboard extends AnyKeyboard implements HardKeyboardTranslator//this class implements the HardKeyboardTranslator interface in an empty way, the physical keyboard is Latin...
-{
-	protected LatinKeyboard(AnyKeyboardContextProvider context, int keyboardLayoutId) 
-	{
-		this(context, keyboardLayoutId, keyboardLayoutId);
+public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTranslator {
+
+	private final String mPrefId;
+	private final int mNameResId;
+	private final int mIconId;
+	private final String mDefaultDictionary;
+	
+	protected ExternalAnyKeyboard(AnyKeyboardContextProvider context,
+			int xmlLayoutResId,
+			int xmlLandscapeResId,
+			String prefId,
+			int nameResId,
+			int iconResId,
+			String defaultDictionary) {
+		super(context, getKeyboardId(context, xmlLayoutResId, xmlLandscapeResId));
+		mPrefId = prefId;
+		mNameResId = nameResId;
+		mIconId = iconResId;
+		mDefaultDictionary = defaultDictionary;
+	}
+
+	@Override
+	public String getDefaultDictionaryLanguage() {
+		return mDefaultDictionary;
 	}
 	
-	protected LatinKeyboard(AnyKeyboardContextProvider context, int keyboardLayoutId, int keyboardLayoutIdInLandscape) 
-	{
-		super(context, getKeyboardId(context, keyboardLayoutId, keyboardLayoutIdInLandscape));
+	@Override
+	public String getKeyboardPrefId() {
+		return mPrefId;
+	}
+	
+	@Override
+	public int getKeyboardIcon() {
+		return mIconId;
+	}
+	
+	@Override
+	public int getKeyboardName() {
+		return mNameResId;
 	}
 	
 	private static int getKeyboardId(AnyKeyboardContextProvider context, int portraitId, int landscapeId) 
@@ -34,7 +66,7 @@ public class LatinKeyboard extends AnyKeyboard implements HardKeyboardTranslator
 		//I'll do nothing, so the caller will use defaults.
 	}
 
-	protected void setPopupKeyChars(Key aKey) 
+	protected void setPopupKeyChars(Key aKey)
 	{
 		if ((aKey.codes != null) && (aKey.codes.length > 0))
         {
