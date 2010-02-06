@@ -10,6 +10,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	private final int mNameResId;
 	private final int mIconId;
 	private final String mDefaultDictionary;
+	private final HardKeyboardSequenceHandler mHardKeyboardTranslator;
+	private final String mAdditionalIsLetterExceptions;
 	
 	protected ExternalAnyKeyboard(AnyKeyboardContextProvider context,
 			int xmlLayoutResId,
@@ -17,12 +19,25 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 			String prefId,
 			int nameResId,
 			int iconResId,
-			String defaultDictionary) {
+			String qwertyTranslation,
+			String defaultDictionary,
+			String additionalIsLetterExceptions) {
 		super(context, getKeyboardId(context, xmlLayoutResId, xmlLandscapeResId));
 		mPrefId = prefId;
 		mNameResId = nameResId;
 		mIconId = iconResId;
 		mDefaultDictionary = defaultDictionary;
+		if (qwertyTranslation != null)
+		{
+			mHardKeyboardTranslator = new HardKeyboardSequenceHandler();
+			mHardKeyboardTranslator.addQwertyTranslation(qwertyTranslation);
+		}
+		else
+		{
+			mHardKeyboardTranslator = null;
+		}
+		
+		mAdditionalIsLetterExceptions = additionalIsLetterExceptions;
 	}
 
 	@Override
@@ -59,7 +74,21 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	//this class implements the HardKeyboardTranslator interface in an empty way, the physical keyboard is Latin...
 	public void translatePhysicalCharacter(HardKeyboardAction action) 
 	{
-		//I'll do nothing, so the caller will use defaults.
+		if (mHardKeyboardTranslator != null)
+		{
+			final char translated = mHardKeyboardTranslator.getSequenceCharacter(action.getKeyCode(), getKeyboardContext());
+			if (translated != 0)
+				action.setNewKeyCode(translated);
+		}
+	}
+	
+	@Override
+	public boolean isLetter(char keyValue) {
+		if (mAdditionalIsLetterExceptions == null)
+			return super.isLetter(keyValue);
+		else
+			return super.isLetter(keyValue) || 
+				(mAdditionalIsLetterExceptions.indexOf(keyValue) >= 0);
 	}
 
 	protected void setPopupKeyChars(Key aKey)

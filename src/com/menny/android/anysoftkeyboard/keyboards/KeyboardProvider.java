@@ -19,6 +19,8 @@ public abstract class KeyboardProvider extends ContentProvider {
 	public static final String KEYBOARD_KEY_LAYOUT_LANDSCAPE_RES_ID = "KeyboardLandscapeLayoutResId";
 	public static final String KEYBOARD_KEY_PREF_ID = "KeyboardPrefId";
 	public static final String KEYBOARD_KEY_DICTIONARY = "KeyboardDefaultDictionary";
+	public static final String KEYBOARD_KEY_ADDITIONAL_IS_LETTER_EXCEPTIONS = "IsLetterExceptions";
+	public static final String KEYBOARD_KEY_HARD_QWERTY_TRANSLATION = "HardKeyboardQwertyTranslation";
 	public static final String KEYBOARD_KEY_SORT_ORDER = "KeyboardSortOrder";
 	
 	public static final String[] rows = { 
@@ -28,6 +30,8 @@ public abstract class KeyboardProvider extends ContentProvider {
 		KEYBOARD_KEY_LAYOUT_LANDSCAPE_RES_ID,
 		KEYBOARD_KEY_PREF_ID,
 		KEYBOARD_KEY_DICTIONARY,
+		KEYBOARD_KEY_ADDITIONAL_IS_LETTER_EXCEPTIONS,
+		KEYBOARD_KEY_HARD_QWERTY_TRANSLATION,
 		KEYBOARD_KEY_SORT_ORDER
 	};
 
@@ -78,28 +82,46 @@ public abstract class KeyboardProvider extends ContentProvider {
 					getPackageName()+":xml/"+getKeyboardLandscapeLayoutId(),
 					getKeyboardEnabledPrefKey(),
 					getDefaultDictionary(),
+					getAdditionalIsLetterExceptions(),
+					getHardKeyboardQwertyTranslation(),
 					getKeyboardSortValue()});
 			return c;
 		}
 		return null;
 	}
 
-	protected abstract String getKeyboardLayoutId();
-
-	protected abstract String getKeyboardLandscapeLayoutId();
+	protected abstract String getPackageName();
 	
-	protected abstract int getKeyboardSortValue();
-
 	protected abstract String getKeyboardEnabledPrefKey();
 
+	protected abstract String getKeyboardLayoutId();
+
+	protected String getKeyboardLandscapeLayoutId()
+	{
+		return null;
+	}
+	
 	protected abstract String getKeyboardIconResId();
 
 	protected abstract String getKeyboardNameResId();
 
-	protected abstract String getDefaultDictionary();
-
-	protected abstract String getPackageName();
+	protected abstract int getKeyboardSortValue();
 	
+	protected String getDefaultDictionary()
+	{
+		return null;
+	}
+
+	protected String getAdditionalIsLetterExceptions()
+	{
+		return null;
+	}	
+	
+	protected String getHardKeyboardQwertyTranslation()
+	{
+		return null;
+	}
+
 	@Override
 	public int update(Uri arg0, ContentValues arg1, String arg2, String[] arg3) {
 		throw new SQLException("This operation is now allowed");

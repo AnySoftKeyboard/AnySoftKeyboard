@@ -20,7 +20,7 @@ public class ColemakKeyboardProvider extends KeyboardProvider {
 	
 	@Override
 	protected int getKeyboardSortValue() {
-		return 31;
+		return 3;
 	}
 
 	@Override

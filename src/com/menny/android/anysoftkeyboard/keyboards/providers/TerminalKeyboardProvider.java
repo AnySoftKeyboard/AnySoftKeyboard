@@ -4,13 +4,13 @@ import com.menny.android.anysoftkeyboard.keyboards.KeyboardProvider;
 
 import android.net.Uri;
 
-public class DVORAKKeyboardProvider extends KeyboardProvider {	
-	public static final String AUTHORITY = "com.anysoftkeyboard.keyboard.english.dvorak";
+public class TerminalKeyboardProvider extends KeyboardProvider {	
+	public static final String AUTHORITY = "com.anysoftkeyboard.keyboard.english.terminal";
 	public static final Uri CONTENT_URI = Uri.parse("content://"+AUTHORITY+"/items");
 	
 	@Override
 	protected String getKeyboardLayoutId() {
-		return "dvorak";
+		return "terminal";
 	}
 
 	@Override
@@ -20,22 +20,22 @@ public class DVORAKKeyboardProvider extends KeyboardProvider {
 	
 	@Override
 	protected int getKeyboardSortValue() {
-		return 2;
+		return 9;
 	}
 
 	@Override
 	protected String getKeyboardEnabledPrefKey() {
-		return "dvorak_keyboard";
+		return "terminal_keyboard";
 	}
 
 	@Override
 	protected String getKeyboardIconResId() {
-		return "en";
+		return null;
 	}
 
 	@Override
 	protected String getKeyboardNameResId() {
-		return "dvorak_keyboard";
+		return "terminal_keyboard";
 	}
 	
 	@Override
