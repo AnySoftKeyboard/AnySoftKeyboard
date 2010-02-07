@@ -6,10 +6,6 @@
         <Key android:codes="-99" android:horizontalGap="10%p" android:keyLabel="→ ABC →" android:keyEdgeFlags="right"/>
     </Row>
     
-	<AnySoftKeyboardMetaData
-    	PrefString="lao_keyboard" KeyboardNameResId="@com.menny.android.anysoftkeyboard:string/lao_keyboard" KeyboardIconResId="@com.menny.android.anysoftkeyboard:drawable/lao"
-    />
-    
     <!-- numbers -->
 	<Row android:keyWidth="8.33%p">
 		<Key android:codes="3746,3793" android:keyLabel="" android:keyEdgeFlags="left"/>

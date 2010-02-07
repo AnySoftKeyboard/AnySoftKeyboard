@@ -37,6 +37,10 @@
           android:authorities="com.anysoftkeyboard.keyboard.english.dvorak"/>
         <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.TerminalKeyboardProvider"
           android:authorities="com.anysoftkeyboard.keyboard.english.terminal"/>
+        <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.ArabicKeyboardProvider"
+          android:authorities="com.anysoftkeyboard.keyboard.arabic"/>
+        <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.LaoKeyboardProvider"
+          android:authorities="com.anysoftkeyboard.keyboard.lao"/>
 	</application>
 
 	<uses-permission android:name="android.permission.VIBRATE" />

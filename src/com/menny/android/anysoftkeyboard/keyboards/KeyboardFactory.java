@@ -15,6 +15,7 @@ import android.util.Log;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.keyboards.providers.AZERTYKeyboardProvider;
+import com.menny.android.anysoftkeyboard.keyboards.providers.ArabicKeyboardProvider;
 import com.menny.android.anysoftkeyboard.keyboards.providers.BepoKeyboardProvider;
 import com.menny.android.anysoftkeyboard.keyboards.providers.ColemakKeyboardProvider;
 import com.menny.android.anysoftkeyboard.keyboards.providers.DVORAKKeyboardProvider;
@@ -81,8 +82,6 @@ public class KeyboardFactory
 	public static final String HEBREW_KEYBOARD = "heb_keyboard";
 	public static final String RU_KEYBOARD = "ru_keyboard";
 	public static final String RU_PH_KEYBOARD = "ru_ph_keyboard";
-	public static final String ARABIC_KEYBOARD = "arabic_keyboard";
-	public static final String LAO_KEYBOARD ="lao_keyboard";
 	public static final String BG_PH_KEYBOARD = "bg_ph_keyboard";
 	public static final String BG_BDS_KEYBOARD = "bg_bds_keyboard";
 	public static final String DANISH_KEYBOARD = "danish_keyboard";
@@ -113,14 +112,9 @@ public class KeyboardFactory
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new RussianKeyboard(contextProvider);} public String getKeyboardPrefId() {return RU_KEYBOARD;} public int getSortOrderValue() {return 41;}});
 		//issue 26 - Russian keyboard
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new RussianPhoneticKeyboard(contextProvider);} public String getKeyboardPrefId() {return RU_PH_KEYBOARD;} public int getSortOrderValue() {return 42;}});
-		//Arabic keyboard - issue 16 - no ready yet.
-		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new ArabicKeyboard(contextProvider);} public String getKeyboardPrefId() {return ARABIC_KEYBOARD;} public int getSortOrderValue() {return 51;}});
 		//BG - issue 25
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BulgarianBDSKeyboard(contextProvider);} public String getKeyboardPrefId() {return BG_BDS_KEYBOARD;} public int getSortOrderValue() {return 61;}});
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BulgarianPhoneticKeyboard(contextProvider);} public String getKeyboardPrefId() {return BG_PH_KEYBOARD;} public int getSortOrderValue() {return 62;}});
-		
-		//Lao keyboard - issue 10
-		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LaoKeyboard(contextProvider);} public String getKeyboardPrefId() {return LAO_KEYBOARD;} public int getSortOrderValue() {return 81;}});
 		
 		//Issue 122: Danish keyboard
 		ms_creators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new LatinKeyboard(contextProvider, R.xml.dk_qwerty);} public String getKeyboardPrefId() {return DANISH_KEYBOARD;} public int getSortOrderValue() {return 91;}});
@@ -173,8 +167,9 @@ public class KeyboardFactory
 				DVORAKKeyboardProvider.CONTENT_URI,
 				ColemakKeyboardProvider.CONTENT_URI,
 				BepoKeyboardProvider.CONTENT_URI,
-				TerminalKeyboardProvider.CONTENT_URI/*,
-				HebrewKeyboardProvider.CONTENT_URI*/
+				TerminalKeyboardProvider.CONTENT_URI,
+				/*HebrewKeyboardProvider.CONTENT_URI,*/
+				ArabicKeyboardProvider.CONTENT_URI
 			};
 	}
 	
