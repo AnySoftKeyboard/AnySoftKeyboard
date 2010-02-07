@@ -7,11 +7,6 @@
     android:verticalGap="0px"
     android:keyHeight="@dimen/key_height"
     >
-
-    <AnySoftKeyboardMetaData
-    	PrefString="finnish_swedish_keyboard" KeyboardNameResId="@com.menny.android.anysoftkeyboard:string/finnish_swedish_keyboard"
-    	DefaultDictionaryLanguage="Swedish"
-    />
     
 	<!-- generic top row -->
     <Row android:rowEdgeFlags="top"

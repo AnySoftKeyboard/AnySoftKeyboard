@@ -101,7 +101,10 @@ public abstract class KeyboardProvider extends ContentProvider {
 		return null;
 	}
 	
-	protected abstract String getKeyboardIconResId();
+	protected String getKeyboardIconResId()
+	{
+		return null;
+	}
 
 	protected abstract String getKeyboardNameResId();
 
