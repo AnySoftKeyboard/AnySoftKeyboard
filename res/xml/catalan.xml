@@ -6,11 +6,6 @@
     android:verticalGap="0px"
     android:keyHeight="@dimen/key_height"
     >
-
-    <AnySoftKeyboardMetaData
-    	PrefString="catalan_keyboard" KeyboardNameResId="@com.menny.android.anysoftkeyboard:string/catalan_keyboard"
-    	DefaultDictionaryLanguage="Spanish"
-    />
     
 	<!-- generic top row -->
     <Row android:rowEdgeFlags="top"

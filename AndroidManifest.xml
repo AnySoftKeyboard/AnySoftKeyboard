@@ -47,6 +47,14 @@
           android:authorities="com.anysoftkeyboard.keyboard.norwegian"/>         
         <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.FinnishKeyboardProvider"
           android:authorities="com.anysoftkeyboard.keyboard.finnish"/> 
+        <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.SvorakKeyboardProvider"
+          android:authorities="com.anysoftkeyboard.keyboard.svorak"/>
+        <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.SpanishKeyboardProvider"
+          android:authorities="com.anysoftkeyboard.keyboard.spanish"/>
+        <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.CatalanKeyboardProvider"
+          android:authorities="com.anysoftkeyboard.keyboard.catalan"/>
+        <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.GermanKeyboardProvider"
+          android:authorities="com.anysoftkeyboard.keyboard.german"/>
 	</application>
 
 	<uses-permission android:name="android.permission.VIBRATE" />

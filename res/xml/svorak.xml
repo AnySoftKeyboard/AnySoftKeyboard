@@ -6,11 +6,6 @@
     android:verticalGap="0px"
     android:keyHeight="@dimen/key_height"
     >
-
-    <AnySoftKeyboardMetaData
-        PrefString="svorak_keyboard" KeyboardNameResId="@com.menny.android.anysoftkeyboard:string/svorak_keyboard" 
-        DefaultDictionaryLanguage="Swedish"
-    />
     
     <!-- generic top row -->
     <Row android:rowEdgeFlags="top"
