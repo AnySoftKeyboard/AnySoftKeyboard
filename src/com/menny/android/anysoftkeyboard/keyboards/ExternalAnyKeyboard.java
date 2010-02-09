@@ -1,7 +1,11 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.content.res.XmlResourceParser;
+
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
+import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
 public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTranslator {
@@ -91,6 +95,34 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 				(mAdditionalIsLetterExceptions.indexOf(keyValue) >= 0);
 	}
 
+	@Override
+	protected Key createKeyFromXml(Resources res, Row parent, int x, int y,
+			XmlResourceParser parser) {
+		Key key = super.createKeyFromXml(res, parent, x, y, parser);
+		//adding icons
+		switch(key.codes[0])
+		{
+		case AnyKeyboard.KEYCODE_DELETE:
+			key.icon = res.getDrawable(R.drawable.sym_keyboard_delete_small);
+			break;
+		case AnyKeyboard.KEYCODE_SHIFT:
+			key.icon = res.getDrawable(R.drawable.sym_keyboard_shift);
+			break;
+		case 32://SPACE
+			key.icon = res.getDrawable(R.drawable.sym_keyboard_space);
+			break;
+//these two will be set upon calling setTextVariation			
+//		case AnyKeyboard.KEYCODE_SMILEY:
+//			key.icon = res.getDrawable(R.drawable.sym_keyboard_smiley);
+//			key.popupResId = R.xml.popup_smileys;
+//			break;
+//		case 10://ENTER
+//			key.icon = res.getDrawable(R.drawable.sym_keyboard_return);
+//			break;
+		}
+		
+		return key;
+	}
 	protected void setPopupKeyChars(Key aKey)
 	{
 		if ((aKey.codes != null) && (aKey.codes.length > 0))

@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" 
         package="com.menny.android.anysoftkeyboard"
-        android:versionCode="16" android:versionName="20100207-rock-testers">
+        android:versionCode="16" android:versionName="20100210-rock-testers">
 	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key">
 	    <service android:permission="android.permission.BIND_INPUT_METHOD" android:name="SoftKeyboard">
 	        <intent-filter>
@@ -45,8 +45,7 @@
           android:authorities="com.anysoftkeyboard.keyboard.danish"/>
         <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.NorwegianKeyboardProvider"
           android:authorities="com.anysoftkeyboard.keyboard.norwegian"/>         
-        <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.FinnishKeyboardProvider"
-          android:authorities="com.anysoftkeyboard.keyboard.finnish"/> 
+        
         <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.SvorakKeyboardProvider"
           android:authorities="com.anysoftkeyboard.keyboard.svorak"/>
         <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.SpanishKeyboardProvider"

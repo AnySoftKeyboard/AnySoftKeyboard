@@ -10,16 +10,20 @@ import com.menny.android.anysoftkeyboard.keyboards.providers.ColemakKeyboardProv
 import com.menny.android.anysoftkeyboard.keyboards.providers.DVORAKKeyboardProvider;
 import com.menny.android.anysoftkeyboard.keyboards.providers.DanishKeyboardProvider;
 import com.menny.android.anysoftkeyboard.keyboards.providers.EnglishKeyboardProvider;
-import com.menny.android.anysoftkeyboard.keyboards.providers.FinnishKeyboardProvider;
 import com.menny.android.anysoftkeyboard.keyboards.providers.GermanKeyboardProvider;
 import com.menny.android.anysoftkeyboard.keyboards.providers.NorwegianKeyboardProvider;
 import com.menny.android.anysoftkeyboard.keyboards.providers.SpanishKeyboardProvider;
 import com.menny.android.anysoftkeyboard.keyboards.providers.SvorakKeyboardProvider;
 import com.menny.android.anysoftkeyboard.keyboards.providers.TerminalKeyboardProvider;
 
+import android.app.Activity;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
@@ -27,6 +31,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 public class KeyboardFactory 
 {
@@ -90,7 +95,6 @@ public class KeyboardFactory
     public static final String RU_PH_KEYBOARD = "ru_ph_keyboard";
     public static final String BG_PH_KEYBOARD = "bg_ph_keyboard";
     public static final String BG_BDS_KEYBOARD = "bg_bds_keyboard";
-    public static final String SPANISH_KEYBOARD = "es_keyboard";
     public static final String HUNGARIAN_KEYBOARD = "hungarian_keyboard";    
     public static final String CH_FR_KEYBOARD = "ch_fr_keyboard";
     public static final String BE_CYRILLIC_KEYBOARD = "be_cyrillic";
@@ -155,22 +159,36 @@ public class KeyboardFactory
     }
 
     private static Uri[] getExternalKeyboardsUri(Context applicationContext) {
-        return new Uri[]
-                       {
-                EnglishKeyboardProvider.CONTENT_URI,
-                AZERTYKeyboardProvider.CONTENT_URI,
-                DVORAKKeyboardProvider.CONTENT_URI,
-                ColemakKeyboardProvider.CONTENT_URI,
-                BepoKeyboardProvider.CONTENT_URI,
-                TerminalKeyboardProvider.CONTENT_URI,
-                /*HebrewKeyboardProvider.CONTENT_URI,*/
-                ArabicKeyboardProvider.CONTENT_URI,
-                DanishKeyboardProvider.CONTENT_URI,
-                NorwegianKeyboardProvider.CONTENT_URI,
-                FinnishKeyboardProvider.CONTENT_URI,
-                CatalanKeyboardProvider.CONTENT_URI, SvorakKeyboardProvider.CONTENT_URI,
-                GermanKeyboardProvider.CONTENT_URI, SpanishKeyboardProvider.CONTENT_URI
-                       };
+    	Intent keyboards = new Intent("com.menny.android.anysoftkeyboard.KEYBOARD");
+    	List<ResolveInfo> keyboardActivities = applicationContext.getPackageManager().queryIntentActivities(keyboards,PackageManager.MATCH_DEFAULT_ONLY);
+    	List<Uri> keyboardProviders = new ArrayList<Uri>();
+    	Log.d("ASK Factory", "Located "+keyboardActivities.size()+" external keyboards activities.");
+    	for(ResolveInfo info : keyboardActivities)
+    	{
+    		KeyboardsResolverActivity resolver = new KeyboardsResolverActivity(info);
+    		String uri = resolver.getKeyboardProviderUri();
+    		if (uri != null)
+    			keyboardProviders.add(Uri.parse(uri));            
+    	}
+    	
+    	//adding internal URI - this is for now.
+    	keyboardProviders.add(EnglishKeyboardProvider.CONTENT_URI);
+    	keyboardProviders.add(AZERTYKeyboardProvider.CONTENT_URI);
+    	keyboardProviders.add(DVORAKKeyboardProvider.CONTENT_URI);
+    	keyboardProviders.add(ColemakKeyboardProvider.CONTENT_URI);
+    	keyboardProviders.add(BepoKeyboardProvider.CONTENT_URI);
+    	keyboardProviders.add(TerminalKeyboardProvider.CONTENT_URI);
+        //keyboardProviders.add(HebrewKeyboardProvider.CONTENT_URI);
+    	keyboardProviders.add(ArabicKeyboardProvider.CONTENT_URI);
+    	keyboardProviders.add(DanishKeyboardProvider.CONTENT_URI);
+    	keyboardProviders.add(NorwegianKeyboardProvider.CONTENT_URI);
+        //keyboardProviders.add(FinnishKeyboardProvider.CONTENT_URI);
+    	keyboardProviders.add(CatalanKeyboardProvider.CONTENT_URI);
+    	keyboardProviders.add(SvorakKeyboardProvider.CONTENT_URI);
+    	keyboardProviders.add(GermanKeyboardProvider.CONTENT_URI);
+    	keyboardProviders.add(SpanishKeyboardProvider.CONTENT_URI);               
+    	
+    	return keyboardProviders.toArray(new Uri[]{});
     }
 
     public static KeyboardCreator[] createAlphaBetKeyboards(AnyKeyboardContextProvider contextProvider)
@@ -321,5 +339,46 @@ public class KeyboardFactory
         {
             Log.d("ASK Keyboards", "No keyboards were located in ContentProviders in URI:"+externalKeyboardUri);
         }
+    }
+    
+    private static class KeyboardsResolverActivity extends Activity
+    {
+    	private String mKeyboardProviderUri = null;
+    	private final Object mMonitor = new Object();
+    	
+    	public KeyboardsResolverActivity(ResolveInfo info)
+    	{
+    		super();
+    		Intent intent = new Intent();
+            intent.setClassName(info.activityInfo.applicationInfo.packageName, info.activityInfo.name);
+            Log.d("ASK KeyboardsResolverActivity", "Located external activity "+intent.getComponent().toString());
+    		try {
+    			startActivityForResult(intent, 1);
+				mMonitor.wait(5000);
+			} catch (Exception e) {
+				e.printStackTrace();
+				Log.w("ASK KeyboardsResolverActivity", "Failed receiving keyboard provider URI from external activity.");
+			}
+    	}
+    	
+    	@Override
+    	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    		super.onActivityResult(requestCode, resultCode, data);
+    		if (resultCode == RESULT_OK)
+    		{
+    			mKeyboardProviderUri = data.getStringExtra("keyboardContentProviderUri");
+    			Log.i("ASK KeyboardsResolverActivity", "Got result: "+mKeyboardProviderUri);
+    		}
+    		else
+    		{
+    			Log.w("ASK KeyboardsResolverActivity", "Got ERROR result: "+resultCode);
+    		}
+    		mMonitor.notifyAll();
+    	}
+    	
+    	public String getKeyboardProviderUri()
+    	{
+    		return mKeyboardProviderUri;
+    	}
     }
 }
