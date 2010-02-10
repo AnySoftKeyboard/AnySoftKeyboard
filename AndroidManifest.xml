@@ -25,6 +25,9 @@
             </intent-filter>
             --> 
         </activity>
+        <!-- Keyboard resolver activity -->
+        <activity android:name="com.menny.android.anysoftkeyboard.keyboards.KeyboardFactory.KeyboardsResolverActivity"></activity>
+        
         <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.EnglishKeyboardProvider"
           android:authorities="com.anysoftkeyboard.keyboard.english.qwerty"/>
         <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.AZERTYKeyboardProvider"

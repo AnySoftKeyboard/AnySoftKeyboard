@@ -54,7 +54,7 @@ public class KeyboardFactory
         private final String mAdditionalIsLetterExceptions;
         private final int mSortValue;
 
-        public KeyboardCreatorImpl(Context context, String prefId, String resNameId, String resId, String resLandscapeId, String defaultDictionary, String resIconId, String additionalIsLetterExceptions, String qwertyTranslation, int sortOrderValue)
+        public KeyboardCreatorImpl(Context context, String prefId, String resNameId, String resId, String resLandscapeId, String defaultDictionary, String resIconId, String qwertyTranslation, String additionalIsLetterExceptions, int sortOrderValue)
         {
             mPrefId = prefId;
             mNameId = context.getResources().getIdentifier(resNameId, null, null);
@@ -165,8 +165,8 @@ public class KeyboardFactory
     	Log.d("ASK Factory", "Located "+keyboardActivities.size()+" external keyboards activities.");
     	for(ResolveInfo info : keyboardActivities)
     	{
-    		KeyboardsResolverActivity resolver = new KeyboardsResolverActivity(info);
-    		String uri = resolver.getKeyboardProviderUri();
+    		KeyboardsResolverActivity resolver = new KeyboardsResolverActivity();
+    		String uri = resolver.getKeyboardProviderUri(info);
     		if (uri != null)
     			keyboardProviders.add(Uri.parse(uri));            
     	}
@@ -341,25 +341,10 @@ public class KeyboardFactory
         }
     }
     
-    private static class KeyboardsResolverActivity extends Activity
+    public static class KeyboardsResolverActivity extends Activity
     {
-    	private String mKeyboardProviderUri = null;
+    	private String mKeyboardProviderUri;
     	private final Object mMonitor = new Object();
-    	
-    	public KeyboardsResolverActivity(ResolveInfo info)
-    	{
-    		super();
-    		Intent intent = new Intent();
-            intent.setClassName(info.activityInfo.applicationInfo.packageName, info.activityInfo.name);
-            Log.d("ASK KeyboardsResolverActivity", "Located external activity "+intent.getComponent().toString());
-    		try {
-    			startActivityForResult(intent, 1);
-				mMonitor.wait(5000);
-			} catch (Exception e) {
-				e.printStackTrace();
-				Log.w("ASK KeyboardsResolverActivity", "Failed receiving keyboard provider URI from external activity.");
-			}
-    	}
     	
     	@Override
     	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -376,9 +361,20 @@ public class KeyboardFactory
     		mMonitor.notifyAll();
     	}
     	
-    	public String getKeyboardProviderUri()
+    	public String getKeyboardProviderUri(ResolveInfo info)
     	{
-    		return mKeyboardProviderUri;
+    		Intent intent = new Intent();
+            intent.setClassName(info.activityInfo.applicationInfo.packageName, info.activityInfo.name);
+            Log.d("ASK KeyboardsResolverActivity", "Located external activity "+intent.getComponent().toString());
+    		try {
+    			startActivityForResult(intent, 1);
+				mMonitor.wait(5000);
+			} catch (Exception e) {
+				e.printStackTrace();
+				Log.w("ASK KeyboardsResolverActivity", "Failed receiving keyboard provider URI from external activity.");
+			}
+			
+			return mKeyboardProviderUri;
     	}
     }
 }
