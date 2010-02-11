@@ -46,7 +46,7 @@ public class RussianKeyboard extends LatinKeyboard implements HardKeyboardTransl
 		final boolean inPortraitMode = 
 			(context.getApplicationContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
 		
-		if (inPortraitMode && context.getSharedPreferences().getBoolean(KeyboardFactory.RU_KEYBOARD_4_ROWS, true))
+		if (inPortraitMode && context.getSharedPreferences().getBoolean("ru_keyboard_4_row", true))
 			return R.xml.russian_qwerty_4_rows;
 		else
 			return R.xml.russian_qwerty;

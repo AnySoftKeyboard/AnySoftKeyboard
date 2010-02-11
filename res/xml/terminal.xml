@@ -43,7 +43,7 @@
     </Row>
 
     <Row>
-        <Key android:codes="9" android:keyIcon="@drawable/tab_key" android:keyEdgeFlags="left"/>
+        <Key android:codes="9" android:keyEdgeFlags="left"/>
         <Key android:horizontalGap="2.5%p" android:codes="122" android:keyLabel="z"/>
         <Key android:codes="120" android:keyLabel="x"/>
         <Key android:codes="99" android:keyLabel="c"/>
@@ -52,18 +52,16 @@
         <Key android:codes="110" android:keyLabel="n"/>
         <Key android:codes="109" android:keyLabel="m"/>
         <Key android:horizontalGap="2.5%p" android:keyWidth="15%p" 
-                android:codes="-5" android:isRepeatable="true" 
-                android:keyIcon="@drawable/sym_keyboard_delete_small" android:keyEdgeFlags="right"/>
+                android:codes="-5" android:isRepeatable="true" android:keyEdgeFlags="right"/>
     </Row>
 
     <Row android:rowEdgeFlags="bottom">
-        <Key android:codes="-20" android:keyIcon="@drawable/sym_keyboard_ctrl"
-            android:isModifier="true" android:isSticky="false" android:keyEdgeFlags="left"/>
+        <Key android:codes="-20" android:isModifier="true" android:isSticky="false" android:keyEdgeFlags="left"/>
 
         <Key android:horizontalGap="2.5%p" android:codes="47" android:keyLabel="/"/>
         <Key android:codes="45" android:keyLabel="-"/>
 
-        <Key android:horizontalGap="2.5%p" android:codes="32" android:keyIcon="@drawable/sym_keyboard_space" 
+        <Key android:horizontalGap="2.5%p" android:codes="32" 
                 android:keyWidth="25%p" android:isRepeatable="true"/>
 
         <Key android:horizontalGap="2.5%p" android:codes="-20" android:isRepeatable="true" 
@@ -72,7 +70,6 @@
         <Key android:codes="-21" android:isRepeatable="true" android:keyIcon="@drawable/sym_keyboard_arrow_right"/>
 
         <Key android:horizontalGap="2.5%p" android:codes="10"
-                android:keyIcon="@drawable/sym_keyboard_return"
                 android:keyWidth="15%p" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>

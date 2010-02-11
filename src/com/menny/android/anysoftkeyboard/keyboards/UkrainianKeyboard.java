@@ -34,7 +34,7 @@ public class UkrainianKeyboard extends LatinKeyboard implements HardKeyboardTran
 		final boolean inPortraitMode = 
 			(context.getApplicationContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
 		
-		if (inPortraitMode && context.getSharedPreferences().getBoolean(KeyboardFactory.UK_KEYBOARD_4_ROWS, true))
+		if (inPortraitMode && context.getSharedPreferences().getBoolean("uk_keyboard_4_row", true))
 			return R.xml.ukrainian_qwerty_4_rows;
 		else
 			return R.xml.ukrainian_qwerty;

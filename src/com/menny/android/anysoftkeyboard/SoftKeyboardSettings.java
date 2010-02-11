@@ -38,6 +38,6 @@ public class SoftKeyboardSettings extends PreferenceActivity {
 		}
 		
 		Preference label = super.findPreference("prefs_title_key");
-		label.setSummary(label.getSummary()+version);		
+		label.setSummary(label.getSummary()+version);
     }
 }

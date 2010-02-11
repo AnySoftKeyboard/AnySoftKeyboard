@@ -21,9 +21,10 @@ import android.view.inputmethod.EditorInfo;
 
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.GenericKeyboard;
+import com.menny.android.anysoftkeyboard.keyboards.KeyboardCreatorsFactory;
 import com.menny.android.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
-import com.menny.android.anysoftkeyboard.keyboards.KeyboardFactory.KeyboardCreator;
+import com.menny.android.anysoftkeyboard.keyboards.KeyboardCreatorsFactory.KeyboardCreator;
 
 public class KeyboardSwitcher 
 {
@@ -51,7 +52,7 @@ public class KeyboardSwitcher
     private AnyKeyboard[] mSymbolsKeyboardsArray;
     //my working keyboards
     private AnyKeyboard[] mAlphabetKeyboards = null;
-    private KeyboardCreator[] mAlphabetKeyboardsCreators = null;
+    private KeyboardCreatorsFactory.KeyboardCreator[] mAlphabetKeyboardsCreators = null;
     //issue 146
     private boolean mRightToLeftMode = false;
     

@@ -108,8 +108,14 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 		case AnyKeyboard.KEYCODE_SHIFT:
 			key.icon = res.getDrawable(R.drawable.sym_keyboard_shift);
 			break;
+		case AnyKeyboard.KEYCODE_CTRL:
+			key.icon = res.getDrawable(R.drawable.sym_keyboard_ctrl);
+			break;
 		case 32://SPACE
 			key.icon = res.getDrawable(R.drawable.sym_keyboard_space);
+			break;
+		case 9://TAB
+			key.icon = res.getDrawable(R.drawable.tab_key);
 			break;
 //these two will be set upon calling setTextVariation			
 //		case AnyKeyboard.KEYCODE_SMILEY:

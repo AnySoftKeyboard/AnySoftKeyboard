@@ -7,11 +7,6 @@
     android:verticalGap="0px"
     android:keyHeight="@dimen/key_height"
     >
-
-    <AnySoftKeyboardMetaData
-    	PrefString="hungarian_keyboard" KeyboardNameResId="@com.menny.android.anysoftkeyboard:string/hungarian_keyboard"
-    	DefaultDictionaryLanguage="Hungarian"
-    />
     
 	<!-- generic top row -->
     <Row android:rowEdgeFlags="top"
@@ -52,7 +47,7 @@
     </Row>
     
     <Row  android:keyWidth="7.692%p">
-        <Key android:codes="-1" android:keyIcon="@drawable/sym_keyboard_shift" 
+        <Key android:codes="-1" 
                 android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
         <Key android:codes="237" android:keyLabel=""/>
         <Key android:codes="121" android:keyLabel="y"/>
@@ -65,23 +60,23 @@
         <Key android:codes="246" android:keyLabel=""/>
         <Key android:codes="252" android:keyLabel=""/>
         <Key android:codes="243" android:keyLabel=""/>
-        <Key android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete_small" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+        <Key android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     
     <!-- Generic bottom row -->
-    <Row android:rowEdgeFlags="bottom"><!--android:keyIcon="@drawable/sym_keyboard_smiley"-->
-    	<Key android:keyIcon="@drawable/sym_keyboard_smiley" android:codes="-10" android:keyOutputText=":-) " android:popupKeyboard="@xml/popup_smileys" android:keyEdgeFlags="left"/>
+    <Row android:rowEdgeFlags="bottom">
+    	<Key android:codes="-10" android:keyOutputText=":-) " android:keyEdgeFlags="left"/>
         
         <Key android:horizontalGap="2.5%p" android:codes="63" android:keyLabel="\?"/>
         <Key android:codes="44" android:keyLabel=","/>
         
-        <Key android:horizontalGap="2.5%p" android:codes="32" android:keyIcon="@drawable/sym_keyboard_space" 
+        <Key android:horizontalGap="2.5%p" android:codes="32"
                 android:keyWidth="25%p" android:isRepeatable="true"/>
         
         <Key android:horizontalGap="2.5%p" android:codes="46" android:keyLabel="."/>
         <Key android:codes="39" android:keyLabel="\'"/>
         
-        <Key android:horizontalGap="2.5%p" android:codes="10" android:keyIcon="@drawable/sym_keyboard_return" 
+        <Key android:horizontalGap="2.5%p" android:codes="10" 
                 android:keyWidth="15%p" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>

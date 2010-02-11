@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" 
         package="com.menny.android.anysoftkeyboard"
-        android:versionCode="16" android:versionName="20100210-rock-testers">
+        android:versionCode="16" android:versionName="20100212-rock-testers">
 	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key">
 	    <service android:permission="android.permission.BIND_INPUT_METHOD" android:name="SoftKeyboard">
 	        <intent-filter>
@@ -26,7 +26,7 @@
             --> 
         </activity>
         <!-- Keyboard resolver activity -->
-        <activity android:name="com.menny.android.anysoftkeyboard.keyboards.KeyboardFactory.KeyboardsResolverActivity"></activity>
+        <activity android:name="com.menny.android.anysoftkeyboard.keyboards.KeyboardsResolverActivity"></activity>
         
         <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.EnglishKeyboardProvider"
           android:authorities="com.anysoftkeyboard.keyboard.english.qwerty"/>
@@ -57,6 +57,17 @@
           android:authorities="com.anysoftkeyboard.keyboard.catalan"/>
         <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.GermanKeyboardProvider"
           android:authorities="com.anysoftkeyboard.keyboard.german"/>
+          
+          <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.HungarianKeyboardProvider"
+          android:authorities="com.anysoftkeyboard.keyboard.hungarian.qwertz"/>
+          <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.Hungarian4RowsKeyboardProvider"
+          android:authorities="com.anysoftkeyboard.keyboard.hungarian.qwertz4row"/>
+          
+          <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.SwissKeyboardProvider"
+          android:authorities="com.anysoftkeyboard.keyboard.swiss.azerty"/>
+          
+          <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.FrenchCanadaKeyboardProvider"
+          android:authorities="com.anysoftkeyboard.keyboard.french.canada"/>
 	</application>
 
 	<uses-permission android:name="android.permission.VIBRATE" />
