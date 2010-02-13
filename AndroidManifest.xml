@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" 
         package="com.menny.android.anysoftkeyboard"
-        android:versionCode="16" android:versionName="20100212-rock-testers">
+        android:versionCode="16" android:versionName="20100214-dn-testers">
 	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key">
 	    <service android:permission="android.permission.BIND_INPUT_METHOD" android:name="SoftKeyboard">
 	        <intent-filter>
@@ -61,13 +61,28 @@
           <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.HungarianKeyboardProvider"
           android:authorities="com.anysoftkeyboard.keyboard.hungarian.qwertz"/>
           <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.Hungarian4RowsKeyboardProvider"
-          android:authorities="com.anysoftkeyboard.keyboard.hungarian.qwertz4row"/>
+          android:authorities="com.anysoftkeyboard.keyboard.hungarian.qwertz4rows"/>
           
           <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.SwissKeyboardProvider"
           android:authorities="com.anysoftkeyboard.keyboard.swiss.azerty"/>
           
           <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.FrenchCanadaKeyboardProvider"
           android:authorities="com.anysoftkeyboard.keyboard.french.canada"/>
+          
+          <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.PtKeyboardProvider"
+          android:authorities="com.anysoftkeyboard.keyboard.pt"/>
+          
+          <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.ThaiKeyboardProvider"
+          android:authorities="com.anysoftkeyboard.keyboard.thai"/>
+          
+          <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.GeorgianKeyboardProvider"
+          android:authorities="com.anysoftkeyboard.keyboard.georgian"/>
+          
+          <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.EsperantoKeyboardProvider"
+          android:authorities="com.anysoftkeyboard.keyboard.esperanto"/>
+          
+          <provider android:name="com.menny.android.anysoftkeyboard.keyboards.providers.FinnishKeyboardProvider"
+          android:authorities="com.anysoftkeyboard.keyboard.finnish"/>
 	</application>
 
 	<uses-permission android:name="android.permission.VIBRATE" />
