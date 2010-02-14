@@ -30,7 +30,7 @@ public class KeyboardCreatorsFactory {
         private final int mLandscapeResId;
         private final int mIconResId;
         private final String mDefaultDictionary;
-        private final String mQwertyTranslation;
+        private final int mQwertyTranslationId;
         private final String mAdditionalIsLetterExceptions;
         private final int mSortValue;
 
@@ -65,14 +65,14 @@ public class KeyboardCreatorsFactory {
 
             mAdditionalIsLetterExceptions = additionalIsLetterExceptions;
 
-            mQwertyTranslation = null;
+            mQwertyTranslationId = physicalTranslationResId;
 
             mSortValue = sortValue;
             Log.d("ASK KeyboardCreatorImpl", "Creator for "+mPrefId+" res: "+ mResId+" LandscapeRes: "+ mLandscapeResId+" dictionary: "+mDefaultDictionary);
 		}
 
 		public AnyKeyboard createKeyboard(AnyKeyboardContextProvider context) {
-            return new ExternalAnyKeyboard(context, mResId, mLandscapeResId, mPrefId, mNameId, mIconResId, mQwertyTranslation, mDefaultDictionary, mAdditionalIsLetterExceptions);
+            return new ExternalAnyKeyboard(context, mResId, mLandscapeResId, mPrefId, mNameId, mIconResId, mQwertyTranslationId, mDefaultDictionary, mAdditionalIsLetterExceptions);
         }
 
         public String getKeyboardPrefId() {
@@ -90,7 +90,6 @@ public class KeyboardCreatorsFactory {
     {
         ms_internalCreators = new ArrayList<KeyboardCreator>();
 
-        ms_internalCreators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new HebrewKeyboard(contextProvider);} public String getKeyboardPrefId() {return "heb_keyboard";} public int getSortOrderValue() {return 31;}});
         //issue 59 - Regular Russian layout
         ms_internalCreators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new RussianKeyboard(contextProvider);} public String getKeyboardPrefId() {return "ru_keyboard";} public int getSortOrderValue() {return 41;}});
         //issue 26 - Russian keyboard
