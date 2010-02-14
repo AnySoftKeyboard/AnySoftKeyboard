@@ -10,6 +10,7 @@ import android.util.Log;
 import android.util.Xml;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
+import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.menny.android.anysoftkeyboard.R;
 
 public class KeyboardCreatorsFactory {
@@ -134,11 +135,11 @@ public class KeyboardCreatorsFactory {
                 if (event == XmlPullParser.START_TAG) {
                     if (XML_KEYBOARDS_TAG.equals(tag)) {
                     	inKeyboards = true;
-                    	Log.d("ASK Keyboards creator factory", "Starting parsing "+XML_KEYBOARDS_TAG);
+                    	if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d("ASK Keyboards creator factory", "Starting parsing "+XML_KEYBOARDS_TAG);
                     }
                     else if (inKeyboards && XML_KEYBOARD_TAG.equals(tag))
                     {
-                    	Log.d("ASK Keyboards creator factory", "Starting parsing "+XML_KEYBOARD_TAG);
+                    	if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d("ASK Keyboards creator factory", "Starting parsing "+XML_KEYBOARD_TAG);
                     	AttributeSet attrs = Xml.asAttributeSet(allKeyboards);
                     	
                     	final String prefId = attrs.getAttributeValue(null, XML_PREF_ID_ATTRIBUTE);
@@ -158,11 +159,11 @@ public class KeyboardCreatorsFactory {
                         }
                         else
                         {
-                            Log.d("ASK Keyboards creator factory", "External keyboard details: prefId:"+prefId+" nameId:"+nameId+" resId:"+layoutResId+" landscapeResId:"+landscapeLayoutResId+" iconResId:"+iconResId+" defaultDictionary:"+defaultDictionary+" sortValue:"+sortValue);
+                        	if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d("ASK Keyboards creator factory", "External keyboard details: prefId:"+prefId+" nameId:"+nameId+" resId:"+layoutResId+" landscapeResId:"+landscapeLayoutResId+" iconResId:"+iconResId+" defaultDictionary:"+defaultDictionary+" sortValue:"+sortValue);
                             KeyboardCreator creator = new KeyboardCreatorImpl(context, prefId, nameId, layoutResId, landscapeLayoutResId, defaultDictionary, iconResId,
                             		physicalTranslationResId, additionalIsLetterExceptions, sortValue);
 
-                            Log.d("ASK Keyboards creator factory", "External keyboard "+prefId+" will have a creator.");
+                            if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d("ASK Keyboards creator factory", "External keyboard "+prefId+" will have a creator.");
                             keyboards.add(creator);
                         }
                         
@@ -171,12 +172,12 @@ public class KeyboardCreatorsFactory {
                 else if (event == XmlPullParser.END_TAG) {
                 	if (XML_KEYBOARDS_TAG.equals(tag)) {
                     	inKeyboards = false;
-                    	Log.d("ASK Keyboards creator factory", "Finished parsing "+XML_KEYBOARDS_TAG);
+                    	if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d("ASK Keyboards creator factory", "Finished parsing "+XML_KEYBOARDS_TAG);
                     	break;
                     } 
                 	else if (inKeyboards && XML_KEYBOARD_TAG.equals(tag))
                     {
-                		Log.d("ASK Keyboards creator factory", "Finished parsing "+XML_KEYBOARD_TAG);
+                		if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d("ASK Keyboards creator factory", "Finished parsing "+XML_KEYBOARD_TAG);
                     }
                 }
             }

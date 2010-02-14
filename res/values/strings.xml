@@ -116,6 +116,7 @@
     <string name="keyboard_sandbox_title">Type below to test your settings</string>
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Keyboards</string>
+    <string name="symbols_keyboard">Symbols</string>
     <string name="eng_keyboard">English</string>
     <string name="heb_keyboard">Hebrew</string>
     <string name="lao_keyboard">Lao</string>
