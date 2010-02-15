@@ -179,7 +179,7 @@ android:key="ime_settings">
 		/>-->
 	</PreferenceCategory>
 	<PreferenceCategory android:key="keyboards_group"
-	android:title="@string/keyboards_group">
+	android:title="@string/keyboards_group" android:id="@+id/prefs_keyboards">
 		<EditTextPreference android:key="keyboards_sandbox_1" 
 		android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"
 		android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false">
@@ -200,6 +200,7 @@ android:key="ime_settings">
 				android:summaryOn="QWERTY Latin keyboard"
 				android:summaryOff="QWERTY Latin keyboard"
 				/>
+				<!-- 
 				<CheckBoxPreference
 				android:key="azerty_keyboard"
 				android:title="@string/azerty_keyboard"
@@ -453,6 +454,7 @@ android:key="ime_settings">
 				android:summaryOn="Created with Aaron Irvine"
 				android:summaryOff="Created with Aaron Irvine"
 				/>
+				-->
 			</PreferenceCategory>
 		</PreferenceScreen>
 	</PreferenceCategory>

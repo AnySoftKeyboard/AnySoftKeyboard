@@ -14,7 +14,7 @@ public class KeyboardFactory
 {
     public static KeyboardCreator[] createAlphaBetKeyboards(AnyKeyboardContextProvider contextProvider)
     {
-    	final ArrayList<KeyboardCreator> keyboardCreators = KeyboardCreatorsFactory.getAllCreators(contextProvider);
+    	final ArrayList<KeyboardCreator> keyboardCreators = KeyboardCreatorsFactory.getAllCreators(contextProvider.getApplicationContext());
         Log.i("AnySoftKeyboard", "Creating keyboards. I have "+ keyboardCreators.size()+" creators");
         //Thread.dumpStack();
 

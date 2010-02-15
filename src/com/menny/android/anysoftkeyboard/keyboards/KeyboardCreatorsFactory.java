@@ -20,6 +20,8 @@ public class KeyboardCreatorsFactory {
         AnyKeyboard createKeyboard(AnyKeyboardContextProvider context);
         String getKeyboardPrefId();
         int getSortOrderValue();
+        int getKeyboardNameResId();
+        String getDescription();
     }
 
     private static class KeyboardCreatorImpl implements KeyboardCreator
@@ -75,6 +77,9 @@ public class KeyboardCreatorsFactory {
             return new ExternalAnyKeyboard(context, mResId, mLandscapeResId, mPrefId, mNameId, mIconResId, mQwertyTranslationId, mDefaultDictionary, mAdditionalIsLetterExceptions);
         }
 
+		public int getKeyboardNameResId() {return mNameId;}
+		public String getDescription() {return "test";}
+        
         public String getKeyboardPrefId() {
             return mPrefId;
         }
@@ -91,19 +96,19 @@ public class KeyboardCreatorsFactory {
         ms_internalCreators = new ArrayList<KeyboardCreator>();
 
         //issue 59 - Regular Russian layout
-        ms_internalCreators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new RussianKeyboard(contextProvider);} public String getKeyboardPrefId() {return "ru_keyboard";} public int getSortOrderValue() {return 41;}});
+        ms_internalCreators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new RussianKeyboard(contextProvider);} public String getKeyboardPrefId() {return "ru_keyboard";} public int getSortOrderValue() {return 41;} public int getKeyboardNameResId(){return R.string.ru_keyboard;} public String getDescription() {return "test1";}});
         //issue 26 - Russian keyboard
-        ms_internalCreators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new RussianPhoneticKeyboard(contextProvider);} public String getKeyboardPrefId() {return "ru_ph_keyboard";} public int getSortOrderValue() {return 42;}});
+        ms_internalCreators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new RussianPhoneticKeyboard(contextProvider);} public String getKeyboardPrefId() {return "ru_ph_keyboard";} public int getSortOrderValue() {return 42;} public int getKeyboardNameResId(){return R.string.ru_keyboard;} public String getDescription() {return "test1";}});
         //BG - issue 25
-        ms_internalCreators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BulgarianBDSKeyboard(contextProvider);} public String getKeyboardPrefId() {return "bg_bds_keyboard";} public int getSortOrderValue() {return 61;}});
-        ms_internalCreators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BulgarianPhoneticKeyboard(contextProvider);} public String getKeyboardPrefId() {return "bg_ph_keyboard";} public int getSortOrderValue() {return 62;}});
+        ms_internalCreators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BulgarianBDSKeyboard(contextProvider);} public String getKeyboardPrefId() {return "bg_bds_keyboard";} public int getSortOrderValue() {return 61;} public int getKeyboardNameResId(){return R.string.ru_keyboard;} public String getDescription() {return "test1";}});
+        ms_internalCreators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BulgarianPhoneticKeyboard(contextProvider);} public String getKeyboardPrefId() {return "bg_ph_keyboard";} public int getSortOrderValue() {return 62;} public int getKeyboardNameResId(){return R.string.ru_keyboard;} public String getDescription() {return "test1";}});
 
         //issue 105
-        ms_internalCreators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BelarusianCyrillicKeyboard(contextProvider);} public String getKeyboardPrefId() {return "be_cyrillic";} public int getSortOrderValue() {return 171;}}); 
-        ms_internalCreators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BelarusianLatinKeyboard(contextProvider);} public String getKeyboardPrefId() {return "be_latin";} public int getSortOrderValue() {return 172;}});
+        ms_internalCreators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BelarusianCyrillicKeyboard(contextProvider);} public String getKeyboardPrefId() {return "be_cyrillic";} public int getSortOrderValue() {return 171;} public int getKeyboardNameResId(){return R.string.ru_keyboard;} public String getDescription() {return "test1";}}); 
+        ms_internalCreators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BelarusianLatinKeyboard(contextProvider);} public String getKeyboardPrefId() {return "be_latin";} public int getSortOrderValue() {return 172;} public int getKeyboardNameResId(){return R.string.ru_keyboard;} public String getDescription() {return "test1";}});
 
         //Ukrainian keyboard - issue 154
-        ms_internalCreators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new UkrainianKeyboard(contextProvider);} public String getKeyboardPrefId() {return "uk_keyboard";} public int getSortOrderValue() {return 211;}});
+        ms_internalCreators.add(new KeyboardCreator(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new UkrainianKeyboard(contextProvider);} public String getKeyboardPrefId() {return "uk_keyboard";} public int getSortOrderValue() {return 211;} public int getKeyboardNameResId(){return R.string.ru_keyboard;} public String getDescription() {return "test1";}});
     }
     
     private static ArrayList<KeyboardCreator> ms_creators = null;
@@ -188,7 +193,7 @@ public class KeyboardCreatorsFactory {
         return keyboards;
     }
 
-	public synchronized static ArrayList<KeyboardCreator> getAllCreators(AnyKeyboardContextProvider contextProvider) {
+	public synchronized static ArrayList<KeyboardCreator> getAllCreators(Context context) {
 
 		if (ms_creators == null)
 		{
@@ -203,7 +208,7 @@ public class KeyboardCreatorsFactory {
 //	        	Log.d("ASK Keyboard Creators", "Extracting keyboard from:"+anExternalKeyboardUri);
 //	            extractExternalKeyboardFromUri(contextProvider, keyboards, rc, anExternalKeyboardUri);
 //	        }
-			keyboards.addAll(getKeyboardCreatorsFromResId(contextProvider.getApplicationContext(), R.xml.keyboards));
+			keyboards.addAll(getKeyboardCreatorsFromResId(context, R.xml.keyboards));
 	        ms_creators = keyboards;
 		}
 		

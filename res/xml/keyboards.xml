@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Keyboards creatorName="Menny Even Danan">
-	<Keyboard nameResId="@string/eng_keyboard" iconResId="@drawable/en" layoutResId="@xml/qwerty" enabledPrefStringId="eng_keyboard" sortOrder="1" defaultDictionaryName="English"/>
+<Keyboards>
+	<Keyboard nameResId="@string/eng_keyboard" iconResId="@drawable/en" layoutResId="@xml/qwerty" enabledPrefStringId="eng_keyboard" sortOrder="1" defaultDictionaryName="English" description="QWERTY Latin keyboard"/>
 	<Keyboard nameResId="@string/heb_keyboard" iconResId="@drawable/he" layoutResId="@xml/heb_qwerty" enabledPrefStringId="heb_keyboard" sortOrder="31" defaultDictionaryName="Hebrew" additionalIsLetterExceptions="&#34;" physicalKeyboardMappingResId="@xml/heb_physical"/>
 	<Keyboard nameResId="@string/finnish_swedish_keyboard" layoutResId="@xml/fin_swedish_qwerty" enabledPrefStringId="finnish_swedish_keyboard" sortOrder="111" defaultDictionaryName="Swedish"/>
 	<Keyboard nameResId="@string/fr_ca_keyboard" layoutResId="@xml/ca_fr_qwerty" enabledPrefStringId="fr_ca_keyboard" sortOrder="151" defaultDictionaryName="French"/>
