@@ -26,7 +26,7 @@ public class KeyboardFactory
         {
             final KeyboardCreator creator = keyboardCreators.get(keyboardIndex);
             //the first keyboard is defaulted to true
-            final boolean keyboardIsEnabled = sharedPreferences.getBoolean(creator.getKeyboardPrefId(), keyboardIndex == 0);
+            final boolean keyboardIsEnabled = sharedPreferences.getBoolean(creator.getKeyboardPrefId(), false);
 
             if (keyboardIsEnabled)
             {
@@ -38,10 +38,10 @@ public class KeyboardFactory
         //sort order (from minimum to maximum)
         Collections.sort(keyboards, new Comparator<KeyboardCreator>()
                 {
-            public int compare(KeyboardCreator k1, KeyboardCreator k2) 
-            {
-                return k1.getSortOrderValue() - k2.getSortOrderValue();
-            }
+		            public int compare(KeyboardCreator k1, KeyboardCreator k2) 
+		            {
+		                return k1.getSortOrderValue() - k2.getSortOrderValue();
+		            }
                 });
 
         // Fix: issue 219

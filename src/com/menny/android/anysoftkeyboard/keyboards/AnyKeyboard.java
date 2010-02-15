@@ -88,10 +88,8 @@ public abstract class AnyKeyboard extends Keyboard
         mDebug = AnySoftKeyboardConfiguration.getInstance().getDEBUG();
         mKeyboardContext = context;
         
-        //mShiftLockIcon = context.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift_locked);
         mOnShiftIcon = context.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift_on);
-//        mShiftLockPreviewIcon = context.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_feedback_shift_locked);
-//        mShiftLockPreviewIcon.setBounds(0, 0, mShiftLockPreviewIcon.getIntrinsicWidth(),mShiftLockPreviewIcon.getIntrinsicHeight());
+        mOffShiftIcon = context.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift);
     }
 
 	protected AnyKeyboardContextProvider getKeyboardContext()
@@ -132,8 +130,6 @@ public abstract class AnyKeyboard extends Keyboard
 	        else if (primaryCode == KEYCODE_SHIFT) 
 	        {
 	            mShiftKey = key;
-	            //saving the drawable for reseting purposes.
-	            mOffShiftIcon = mShiftKey.icon;
 	        }
 	        else if ((primaryCode == AnyKeyboard.KEYCODE_SMILEY) && (parent.rowEdgeFlags == Keyboard.EDGE_BOTTOM)) 
 	        {
