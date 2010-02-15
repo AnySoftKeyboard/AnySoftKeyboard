@@ -170,4 +170,7 @@
     <string name="toast_lengthy_words_long_operation">Loading dictionary...</string>
     <string name="toast_lengthy_start_up_operation">Starting AnySoftKeyboard...</string>
     <string name="lengthy_creating_keyboard_operation">Creating keyboards...</string>
+    
+    <!-- dictionaries -->
+    <string name="eng_dictionary">English</string>
 </resources>
