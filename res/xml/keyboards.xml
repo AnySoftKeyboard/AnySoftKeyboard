@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Keyboards>
 	<Keyboard nameResId="@string/eng_keyboard" iconResId="@drawable/en" layoutResId="@xml/qwerty" enabledPrefStringId="eng_keyboard" sortOrder="1" defaultDictionaryName="English" description="QWERTY Latin keyboard"/>
-	<Keyboard nameResId="@string/heb_keyboard" iconResId="@drawable/he" layoutResId="@xml/heb_qwerty" enabledPrefStringId="heb_keyboard" sortOrder="31" defaultDictionaryName="Hebrew" additionalIsLetterExceptions="&#34;" physicalKeyboardMappingResId="@xml/heb_physical"/>
-	<Keyboard nameResId="@string/finnish_swedish_keyboard" layoutResId="@xml/fin_swedish_qwerty" enabledPrefStringId="finnish_swedish_keyboard" sortOrder="111" defaultDictionaryName="Swedish"/>
-	<Keyboard nameResId="@string/fr_ca_keyboard" layoutResId="@xml/ca_fr_qwerty" enabledPrefStringId="fr_ca_keyboard" sortOrder="151" defaultDictionaryName="French"/>
-	<Keyboard nameResId="@string/ka_keyboard" iconResId="@drawable/ka" layoutResId="@xml/ka_qwerty" enabledPrefStringId="ka_keyboard" sortOrder="201"/>
-	<Keyboard nameResId="@string/de_keyboard" layoutResId="@xml/de_qwerty" enabledPrefStringId="ch_de_keyboard" sortOrder="161" defaultDictionaryName="German"/>
-	<Keyboard nameResId="@string/hungarian_keyboard" layoutResId="@xml/hu_qwertz" landscapeResId="@xml/hu_landscape" enabledPrefStringId="hungarian_keyboard" sortOrder="121" defaultDictionaryName="Hungarian"/>
-	<Keyboard nameResId="@string/hungarian_keyboard_4_row" layoutResId="@xml/hu_qwertz_4_row" landscapeResId="@xml/hu_landscape" enabledPrefStringId="hungarian_keyboard_4_row" sortOrder="122" defaultDictionaryName="Hungarian"/>
-	<Keyboard nameResId="@string/lao_keyboard" iconResId="@drawable/lao" layoutResId="@xml/lao_qwerty" enabledPrefStringId="lao_keyboard" sortOrder="81"/>
-	<Keyboard nameResId="@string/norwegian_keyboard" layoutResId="@xml/no_qwerty" enabledPrefStringId="norwegian_keyboard" sortOrder="101" defaultDictionaryName="Norwegian"/>
-	<Keyboard nameResId="@string/pt_keyboard" iconResId="@drawable/pt" layoutResId="@xml/pt_qwerty" enabledPrefStringId="pt_keyboard" sortOrder="181" defaultDictionaryName="Portuguese"/>
-	<Keyboard nameResId="@string/es_keyboard" layoutResId="@xml/es_qwerty" enabledPrefStringId="es_keyboard" sortOrder="131" defaultDictionaryName="Spanish"/>
-	<Keyboard nameResId="@string/svorak_keyboard" layoutResId="@xml/svorak" enabledPrefStringId="svorak_keyboard" sortOrder="112" defaultDictionaryName="Swedish"/>
-	<Keyboard nameResId="@string/ch_fr_keyboard" layoutResId="@xml/ch_fr_qwerty" enabledPrefStringId="ch_fr_keyboard" sortOrder="141" defaultDictionaryName="French"/>
-	<Keyboard nameResId="@string/terminal_keyboard" layoutResId="@xml/terminal" enabledPrefStringId="terminal_keyboard" sortOrder="9" defaultDictionaryName="English"/>
-	<Keyboard nameResId="@string/dvorak_keyboard" iconResId="@drawable/en" layoutResId="@xml/dvorak" enabledPrefStringId="dvorak_keyboard" sortOrder="2" defaultDictionaryName="English"/>
-	<Keyboard nameResId="@string/thai_keyboard" iconResId="@drawable/thai" layoutResId="@xml/thai_qwerty" enabledPrefStringId="thai_keyboard" sortOrder="191" additionalIsLetterExceptions="'"/>
-	<Keyboard nameResId="@string/arabic_keyboard" iconResId="@drawable/ar" layoutResId="@xml/arabic_qwerty" enabledPrefStringId="arabic_keyboard" sortOrder="51"/>
-	<Keyboard nameResId="@string/azerty_keyboard" layoutResId="@xml/azerty" enabledPrefStringId="azerty_keyboard" sortOrder="11" defaultDictionaryName="French"/>
-	<Keyboard nameResId="@string/bepo_keyboard" layoutResId="@xml/bepo" enabledPrefStringId="bepo_keyboard" sortOrder="12" defaultDictionaryName="French"/>
-	<Keyboard nameResId="@string/catalan_keyboard" layoutResId="@xml/catalan" enabledPrefStringId="catalan_keyboard" sortOrder="132" defaultDictionaryName="Spanish"/>
-	<Keyboard nameResId="@string/colemak_keyboard" iconResId="@drawable/en" layoutResId="@xml/colemak" enabledPrefStringId="colemak_keyboard" sortOrder="3" defaultDictionaryName="English"/>
-	<Keyboard nameResId="@string/danish_keyboard" layoutResId="@xml/dk_qwerty" enabledPrefStringId="danish_keyboard" sortOrder="91" defaultDictionaryName="Danish"/>
-	<Keyboard nameResId="@string/esperanto_keyboard" layoutResId="@xml/esperanto" enabledPrefStringId="esperanto_keyboard" sortOrder="221"/>
+	<Keyboard nameResId="@string/heb_keyboard" iconResId="@drawable/he" layoutResId="@xml/heb_qwerty" enabledPrefStringId="heb_keyboard" sortOrder="31" defaultDictionaryName="Hebrew" additionalIsLetterExceptions="&#34;" physicalKeyboardMappingResId="@xml/heb_physical" description=""/>
+	<Keyboard nameResId="@string/finnish_swedish_keyboard" layoutResId="@xml/fin_swedish_qwerty" enabledPrefStringId="finnish_swedish_keyboard" sortOrder="111" defaultDictionaryName="Swedish" description="Created with jtlallo"/>
+	<Keyboard nameResId="@string/fr_ca_keyboard" layoutResId="@xml/ca_fr_qwerty" enabledPrefStringId="fr_ca_keyboard" sortOrder="151" defaultDictionaryName="French" description="Created with d.nahmiasleonard"/>
+	<Keyboard nameResId="@string/ka_keyboard" iconResId="@drawable/ka" layoutResId="@xml/ka_qwerty" enabledPrefStringId="ka_keyboard" sortOrder="201" description="Created with herrlado"/>
+	<Keyboard nameResId="@string/de_keyboard" layoutResId="@xml/de_qwerty" enabledPrefStringId="ch_de_keyboard" sortOrder="161" defaultDictionaryName="German" description="Created with tudor and Claude Philipona"/>
+	<Keyboard nameResId="@string/hungarian_keyboard" layoutResId="@xml/hu_qwertz" landscapeResId="@xml/hu_landscape" enabledPrefStringId="hungarian_keyboard" sortOrder="121" defaultDictionaryName="Hungarian" description="Created by Henrik Andersson"/>
+	<Keyboard nameResId="@string/hungarian_keyboard_4_row" layoutResId="@xml/hu_qwertz_4_row" landscapeResId="@xml/hu_landscape" enabledPrefStringId="hungarian_keyboard_4_row" sortOrder="122" defaultDictionaryName="Hungarian" description=""/>
+	<Keyboard nameResId="@string/lao_keyboard" iconResId="@drawable/lao" layoutResId="@xml/lao_qwerty" enabledPrefStringId="lao_keyboard" sortOrder="81" description="Created with Anousak Souphavanh"/>
+	<Keyboard nameResId="@string/norwegian_keyboard" layoutResId="@xml/no_qwerty" enabledPrefStringId="norwegian_keyboard" sortOrder="101" defaultDictionaryName="Norwegian" description="Created by Henrik Andersson"/>
+	<Keyboard nameResId="@string/pt_keyboard" iconResId="@drawable/pt" layoutResId="@xml/pt_qwerty" enabledPrefStringId="pt_keyboard" sortOrder="181" defaultDictionaryName="Portuguese" description="Created with Hugo Lopes"/>
+	<Keyboard nameResId="@string/es_keyboard" layoutResId="@xml/es_qwerty" enabledPrefStringId="es_keyboard" sortOrder="131" defaultDictionaryName="Spanish" description="Created with Jorge Jiménez"/>
+	<Keyboard nameResId="@string/svorak_keyboard" layoutResId="@xml/svorak" enabledPrefStringId="svorak_keyboard" sortOrder="112" defaultDictionaryName="Swedish" description="Created by Henrik Andersson"/>
+	<Keyboard nameResId="@string/ch_fr_keyboard" layoutResId="@xml/ch_fr_qwerty" enabledPrefStringId="ch_fr_keyboard" sortOrder="141" defaultDictionaryName="French" description="Created with tudor and Claude Philipona"/>
+	<Keyboard nameResId="@string/terminal_keyboard" layoutResId="@xml/terminal" enabledPrefStringId="terminal_keyboard" sortOrder="9" defaultDictionaryName="English" description="Created with bittrance"/>
+	<Keyboard nameResId="@string/dvorak_keyboard" iconResId="@drawable/en" layoutResId="@xml/dvorak" enabledPrefStringId="dvorak_keyboard" sortOrder="2" defaultDictionaryName="English" description="Created with Stephen Paul Weber"/>
+	<Keyboard nameResId="@string/thai_keyboard" iconResId="@drawable/thai" layoutResId="@xml/thai_qwerty" enabledPrefStringId="thai_keyboard" sortOrder="191" additionalIsLetterExceptions="'" description="Created with DroidSans"/>
+	<Keyboard nameResId="@string/arabic_keyboard" iconResId="@drawable/ar" layoutResId="@xml/arabic_qwerty" enabledPrefStringId="arabic_keyboard" sortOrder="51" description=""/>
+	<Keyboard nameResId="@string/azerty_keyboard" layoutResId="@xml/azerty" enabledPrefStringId="azerty_keyboard" sortOrder="11" defaultDictionaryName="French" description="Created with norman.obry"/>
+	<Keyboard nameResId="@string/bepo_keyboard" layoutResId="@xml/bepo" enabledPrefStringId="bepo_keyboard" sortOrder="12" defaultDictionaryName="French" description=""/>
+	<Keyboard nameResId="@string/catalan_keyboard" layoutResId="@xml/catalan" enabledPrefStringId="catalan_keyboard" sortOrder="132" defaultDictionaryName="Spanish" description="Created with jmontane"/>
+	<Keyboard nameResId="@string/colemak_keyboard" iconResId="@drawable/en" layoutResId="@xml/colemak" enabledPrefStringId="colemak_keyboard" sortOrder="3" defaultDictionaryName="English" description="Created with Hugo Lopes"/>
+	<Keyboard nameResId="@string/danish_keyboard" layoutResId="@xml/dk_qwerty" enabledPrefStringId="danish_keyboard" sortOrder="91" defaultDictionaryName="Danish" description="Created by Henrik Andersson"/>
+	<Keyboard nameResId="@string/esperanto_keyboard" layoutResId="@xml/esperanto" enabledPrefStringId="esperanto_keyboard" sortOrder="221" description="Created with Aaron Irvine"/>
 	<!-- Template
-	<Keyboard nameResId="@string/" iconResId="@drawable/" layoutResId="@xml/" landscapeResId="@xml/" enabledPrefStringId="" sortOrder="" defaultDictionaryName="" additionalIsLetterExceptions="" physicalKeyboardMappingResId="@xml/"/>
+	<Keyboard nameResId="@string/" iconResId="@drawable/" layoutResId="@xml/" landscapeResId="@xml/" enabledPrefStringId="" sortOrder="" defaultDictionaryName="" additionalIsLetterExceptions="" physicalKeyboardMappingResId="@xml/" description=""/>
 	-->
 </Keyboards>

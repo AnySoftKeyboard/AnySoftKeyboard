@@ -50,7 +50,11 @@ android:key="ime_settings">
 		android:defaultValue="false" 
 		android:summaryOn="@string/sound_on_summary"
 		android:summaryOff=""
-		/>		
+		/>
+		<EditTextPreference android:key="keyboards_sandbox_1" 
+		android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"
+		android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false">
+		</EditTextPreference>				
 	</PreferenceCategory>
 	<PreferenceScreen android:key="tweaks_group"
 		android:title="@string/tweaks_group">
@@ -132,6 +136,10 @@ android:key="ime_settings">
 		android:title="@string/default_domain_text" android:dialogTitle="@string/default_domain_text" android:persistent="true"
 		android:defaultValue=".com"
 		/>
+		<EditTextPreference android:key="keyboards_sandbox_1" 
+		android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"
+		android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false">
+		</EditTextPreference>				
 		<!-- 
 		<PreferenceScreen android:key="swipe_tweak_group"
 			android:title="@string/swipe_tweak_group">
@@ -169,6 +177,10 @@ android:key="ime_settings">
 		android:persistent="true"
 		android:defaultValue="true" 
 		/>
+		<EditTextPreference android:key="keyboards_sandbox_1" 
+		android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"
+		android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false">
+		</EditTextPreference>				
 		<!-- <CheckBoxPreference
 		android:key="physical_keyboard_suggestions"
 		android:title="@string/physical_keyboard_suggestions"
@@ -179,15 +191,11 @@ android:key="ime_settings">
 		/>-->
 	</PreferenceCategory>
 	<PreferenceCategory android:key="keyboards_group"
-	android:title="@string/keyboards_group" android:id="@+id/prefs_keyboards">
-		<EditTextPreference android:key="keyboards_sandbox_1" 
-		android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"
-		android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false">
-		</EditTextPreference>
+	android:title="@string/keyboards_group">
 		<PreferenceScreen android:key="keyboards_group"
 		android:title="@string/keyboards_group">
-			<PreferenceCategory android:key="keyboards_group"
-			android:title="@string/keyboards_group">
+			<PreferenceCategory android:key="prefs_keyboards_screen"
+			android:title="@string/keyboards_group" android:id="@+id/prefs_keyboards_screen">
 				<EditTextPreference android:key="keyboards_sandbox_1" 
 				android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"
 				android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false">

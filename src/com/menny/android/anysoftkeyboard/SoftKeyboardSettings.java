@@ -35,7 +35,8 @@ public class SoftKeyboardSettings extends PreferenceActivity {
 		label.setSummary(label.getSummary()+version);
 		
 		ArrayList<KeyboardCreator> creators = KeyboardCreatorsFactory.getAllCreators(getApplicationContext());
-		PreferenceCategory keyboards = (PreferenceCategory)super.findPreference("prefs_keyboards");
+		PreferenceCategory keyboards = (PreferenceCategory)super.findPreference("prefs_keyboards_screen");
+		
 		for(KeyboardCreator creator : creators)
 		{
 			if (creator.getKeyboardNameResId() == R.string.eng_keyboard)

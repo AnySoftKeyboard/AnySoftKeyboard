@@ -34,16 +34,6 @@ public class KeyboardFactory
             }
         }
 
-        //sorting the keyboards according to the requested
-        //sort order (from minimum to maximum)
-        Collections.sort(keyboards, new Comparator<KeyboardCreator>()
-                {
-		            public int compare(KeyboardCreator k1, KeyboardCreator k2) 
-		            {
-		                return k1.getSortOrderValue() - k2.getSortOrderValue();
-		            }
-                });
-
         // Fix: issue 219
         // Check if there is any keyboards created if not, lets create a default english keyboard
         if( keyboards.size() == 0 ) {
