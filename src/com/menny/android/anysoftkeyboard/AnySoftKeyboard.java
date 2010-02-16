@@ -54,7 +54,9 @@ import android.widget.Toast;
 
 import com.menny.android.anysoftkeyboard.Dictionary.Dictionary;
 import com.menny.android.anysoftkeyboard.Dictionary.DictionaryFactory;
+import com.menny.android.anysoftkeyboard.Dictionary.ExternalDictionaryFactory;
 import com.menny.android.anysoftkeyboard.Dictionary.UserDictionaryBase;
+import com.menny.android.anysoftkeyboard.Dictionary.ExternalDictionaryFactory.DictionaryBuilder;
 import com.menny.android.anysoftkeyboard.KeyboardSwitcher.NextKeyboardType;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
@@ -1743,8 +1745,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		builder.setNegativeButton(android.R.string.cancel, null);
 		ArrayList<CharSequence> dictioanries = new ArrayList<CharSequence>();
 		dictioanries.add(getString(R.string.override_dictionary_default));
-		for (String lang : DictionaryFactory.getKnownDictionariesNames()) {
-			dictioanries.add(lang);
+		for (DictionaryBuilder dictionaryBuilder : ExternalDictionaryFactory.getAllCreators(this)) {
+			dictioanries.add(this.getResources().getString(dictionaryBuilder.getDictionaryNameResId()));
 		}
 
 		final CharSequence[] items = new CharSequence[dictioanries.size()];
