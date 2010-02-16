@@ -52,15 +52,6 @@ public class DictionaryFactory
 
         Dictionary dict = null;
 
-        //showing lengthy operation toast
-        // context.showToastMessage(R.string.toast_lengthy_words_long_operation,
-        // false);
-
-        // Binary dictionary
-        // dict = new
-        // BinaryDictionary(context.getApplicationContext().getAssets().openFd(
-        // "finnish.mp3"));
-        // Problems with extensions?
         try
         {
         	if ((language == null) || (language.length() == 0))
@@ -80,7 +71,6 @@ public class DictionaryFactory
             } else if (language.equalsIgnoreCase("Russian")) {
             	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("ru_binary.mp3"));
             } else if (language.equalsIgnoreCase("Finnish")) {
-                // TODO: investigate filename extension
             	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("fi_binary.mp3"));
             } else if (language.equalsIgnoreCase("Dutch")) {
             	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("nl_binary.mp3"));

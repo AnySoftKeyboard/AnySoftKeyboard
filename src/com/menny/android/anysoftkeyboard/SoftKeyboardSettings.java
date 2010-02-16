@@ -3,8 +3,8 @@ package com.menny.android.anysoftkeyboard;
 
 import java.util.ArrayList;
 
-import com.menny.android.anysoftkeyboard.keyboards.KeyboardCreatorsFactory;
-import com.menny.android.anysoftkeyboard.keyboards.KeyboardCreatorsFactory.KeyboardCreator;
+import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory;
+import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory.KeyboardBuilder;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -34,10 +34,10 @@ public class SoftKeyboardSettings extends PreferenceActivity {
 		Preference label = super.findPreference("prefs_title_key");
 		label.setSummary(label.getSummary()+version);
 		
-		ArrayList<KeyboardCreator> creators = KeyboardCreatorsFactory.getAllCreators(getApplicationContext());
+		ArrayList<KeyboardBuilder> creators = KeyboardBuildersFactory.getAllCreators(getApplicationContext());
 		PreferenceCategory keyboards = (PreferenceCategory)super.findPreference("prefs_keyboards_screen");
 		
-		for(KeyboardCreator creator : creators)
+		for(KeyboardBuilder creator : creators)
 		{
 			if (creator.getKeyboardNameResId() == R.string.eng_keyboard)
 				continue;//english is an internal keyboard, and is on by default.
