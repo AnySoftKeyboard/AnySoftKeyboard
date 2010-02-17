@@ -1,8 +1,6 @@
 
 package com.menny.android.anysoftkeyboard;
 
-import java.util.ArrayList;
-
 import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory;
 import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory.KeyboardBuilder;
 
@@ -15,6 +13,8 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 public class SoftKeyboardSettings extends PreferenceActivity {
 	public final static String PREFERENCES_FILE = "anysoftkeyboard_preferences";
 	
@@ -25,23 +25,24 @@ public class SoftKeyboardSettings extends PreferenceActivity {
         
         String version = "";
         try {
-			PackageInfo info = super.getApplication().getPackageManager().getPackageInfo(getApplication().getPackageName(), 0);
+			final PackageInfo info = super.getApplication().getPackageManager().getPackageInfo(getApplication().getPackageName(), 0);
 			version = info.versionName + " (release "+info.versionCode+")";
-		} catch (NameNotFoundException e) {
+		} catch (final NameNotFoundException e) {
 			Log.e("AnySoftKeyboard", "Failed to locate package information! This is very weird... I'm installed.");
 		}
 		
-		Preference label = super.findPreference("prefs_title_key");
+		final Preference label = super.findPreference("prefs_title_key");
 		label.setSummary(label.getSummary()+version);
 		
-		ArrayList<KeyboardBuilder> creators = KeyboardBuildersFactory.getAllCreators(getApplicationContext());
-		PreferenceCategory keyboards = (PreferenceCategory)super.findPreference("prefs_keyboards_screen");
+		final ArrayList<KeyboardBuilder> creators = KeyboardBuildersFactory.getAllCreators(getApplicationContext());
+		final PreferenceCategory keyboards = (PreferenceCategory)super.findPreference("prefs_keyboards_screen");
 		
-		for(KeyboardBuilder creator : creators)
+		for(final KeyboardBuilder creator : creators)
 		{
-			if (creator.getKeyboardNameResId() == R.string.eng_keyboard)
-				continue;//english is an internal keyboard, and is on by default.
-			CheckBoxPreference checkBox = new CheckBoxPreference(getApplicationContext());
+			if (creator.getKeyboardNameResId() == R.string.eng_keyboard) {
+                continue;//english is an internal keyboard, and is on by default.
+            }
+			final CheckBoxPreference checkBox = new CheckBoxPreference(getApplicationContext());
 			/*
 			 * <CheckBoxPreference
 				android:key="eng_keyboard"
