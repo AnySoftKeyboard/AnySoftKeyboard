@@ -25,6 +25,8 @@ import java.util.List;
 
 public class KeyboardBuildersFactory {
 
+    private static final String TAG = "ASK Keyboards creator factory";
+
     public interface KeyboardBuilder
     {
         /**
@@ -171,14 +173,20 @@ public class KeyboardBuildersFactory {
                 new Intent(KeyboardBuilder.RECEIVER_INTERFACE),
                 PackageManager.GET_META_DATA);
 
-        Log.d("ASK Keyboards creator factory", "Number of potential external keyboard packages found: " + broadcastReceivers.size());
+        if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
+            Log.d(TAG, "Number of potential external keyboard packages found: "
+                    + broadcastReceivers.size());
+        }
 
         final ArrayList<KeyboardBuilder> externalKeyboardCreators = new ArrayList<KeyboardBuilder>();
         for(final ResolveInfo receiver : broadcastReceivers){
+            // If activityInfo is null, we are probably dealing with a service.
             if (receiver.activityInfo == null) {
-                Log.e("ASK Keyboards creator factory",
+                Log.e(TAG,
                         "BroadcastReceiver has null ActivityInfo. Receiver's label is "
                         + receiver.loadLabel(context.getPackageManager()));
+                Log.e(TAG,
+                "Is the external keyboard a service instead of BroadcastReceiver?");
                 // Skip to next receiver
                 continue;
             }
@@ -190,13 +198,15 @@ public class KeyboardBuildersFactory {
                         receiver.activityInfo);
                 externalKeyboardCreators.addAll(packageKeyboardCreators);
             } catch (final NameNotFoundException e) {
-                Log.e("ASK Keyboards creator factory", "Did not find package: " + receiver.activityInfo.packageName);
+                Log.e(TAG, "Did not find package: " + receiver.activityInfo.packageName);
             }
 
         }
-        Log.d("ASK Keyboards creator factory",
-                "Number of external keyboard creators successfully parsed: "
-                + externalKeyboardCreators.size());
+        if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
+            Log.d(TAG,
+                    "Number of external keyboard creators successfully parsed: "
+                    + externalKeyboardCreators.size());
+        }
 
         return externalKeyboardCreators;
     }
@@ -226,12 +236,12 @@ public class KeyboardBuildersFactory {
                     if (XML_KEYBOARDS_TAG.equals(tag)) {
                         inKeyboards = true;
                         if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
-                            Log.d("ASK Keyboards creator factory", "Starting parsing "
+                            Log.d(TAG, "Starting parsing "
                                     + XML_KEYBOARDS_TAG);
                         }
                     } else if (inKeyboards && XML_KEYBOARD_TAG.equals(tag)) {
                         if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
-                            Log.d("ASK Keyboards creator factory", "Starting parsing "
+                            Log.d(TAG, "Starting parsing "
                                     + XML_KEYBOARD_TAG);
                         }
                         final AttributeSet attrs = Xml.asAttributeSet(allKeyboards);
@@ -260,11 +270,11 @@ public class KeyboardBuildersFactory {
                         // asserting
                         if ((prefId == null) || (nameId == -1) || (layoutResId == -1)) {
                             Log
-                            .e("ASK Keyboards creator factory",
+                            .e(TAG,
                             "External Keyboard does not include all mandatory details! Will not create keyboard.");
                         } else {
                             if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
-                                Log.d("ASK Keyboards creator factory",
+                                Log.d(TAG,
                                         "External keyboard details: prefId:" + prefId + " nameId:"
                                         + nameId + " resId:" + layoutResId
                                         + " landscapeResId:" + landscapeLayoutResId
@@ -277,7 +287,7 @@ public class KeyboardBuildersFactory {
                                     additionalIsLetterExceptions, sortValue, description);
 
                             if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
-                                Log.d("ASK Keyboards creator factory", "External keyboard "
+                                Log.d(TAG, "External keyboard "
                                         + prefId + " will have a creator.");
                             }
                             keyboards.add(creator);
@@ -288,23 +298,23 @@ public class KeyboardBuildersFactory {
                     if (XML_KEYBOARDS_TAG.equals(tag)) {
                         inKeyboards = false;
                         if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
-                            Log.d("ASK Keyboards creator factory", "Finished parsing "
+                            Log.d(TAG, "Finished parsing "
                                     + XML_KEYBOARDS_TAG);
                         }
                         break;
                     } else if (inKeyboards && XML_KEYBOARD_TAG.equals(tag)) {
                         if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
-                            Log.d("ASK Keyboards creator factory", "Finished parsing "
+                            Log.d(TAG, "Finished parsing "
                                     + XML_KEYBOARD_TAG);
                         }
                     }
                 }
             }
         } catch (final IOException e) {
-            Log.e("AnySoftKeyboard", "IO error:" + e);
+            Log.e(TAG, "IO error:" + e);
             e.printStackTrace();
         } catch (final XmlPullParserException e) {
-            Log.e("AnySoftKeyboard", "Parse error:" + e);
+            Log.e(TAG, "Parse error:" + e);
             e.printStackTrace();
         }       
 

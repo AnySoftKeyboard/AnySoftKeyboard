@@ -1,14 +1,12 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
+import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory.KeyboardBuilder;
 
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
-import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory.KeyboardBuilder;
+import java.util.ArrayList;
 
 public class KeyboardFactory 
 {
@@ -21,7 +19,7 @@ public class KeyboardFactory
         //getting shared prefs to determine which to create.
         final SharedPreferences sharedPreferences = contextProvider.getSharedPreferences();
         
-        ArrayList<KeyboardBuilder> keyboards = new ArrayList<KeyboardBuilder>();
+        final ArrayList<KeyboardBuilder> keyboards = new ArrayList<KeyboardBuilder>();
         for(int keyboardIndex=0; keyboardIndex<keyboardCreators.size(); keyboardIndex++)
         {
             final KeyboardBuilder creator = keyboardCreators.get(keyboardIndex);

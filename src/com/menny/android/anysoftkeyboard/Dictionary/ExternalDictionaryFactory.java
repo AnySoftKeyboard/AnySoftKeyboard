@@ -5,14 +5,21 @@ import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.Xml;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ExternalDictionaryFactory {
 
@@ -78,13 +85,13 @@ public class ExternalDictionaryFactory {
     private static final String XML_ASSETS_ATTRIBUTE = "dictionaryAssertName";
     private static final String XML_DESCRIPTION_ATTRIBUTE = "description";
 
-    private static ArrayList<DictionaryBuilder> getKeyboardCreatorsFromResId(Context context,
+    private static ArrayList<DictionaryBuilder> getDictionaryBuildersFromResId(Context context,
             int keyboardsResId) {
         final XmlPullParser allKeyboards = context.getResources().getXml(keyboardsResId);
         return parseDictionaryBuildersFromXml(context, allKeyboards);
     }
 
-    private static ArrayList<DictionaryBuilder> getKeyboardCreatorsFromActivityInfo(
+    private static ArrayList<DictionaryBuilder> getDictionaryBuildersFromActivityInfo(
             Context context, ActivityInfo ai) {
         final XmlPullParser allKeyboards = ai.loadXmlMetaData(context.getPackageManager(),
                 DictionaryBuilder.RECEIVER_META_DATA);
@@ -156,45 +163,64 @@ public class ExternalDictionaryFactory {
                     }
                 }
             }
-        } catch (final Exception e) {
+        } catch (final IOException e) {
+            Log.e(TAG, "IO error:" + e);
+            e.printStackTrace();
+        } catch (final XmlPullParserException e) {
             Log.e(TAG, "Parse error:" + e);
             e.printStackTrace();
-        }
+        }     
 
         return dictionaries;
             }
 
     private static ArrayList<DictionaryBuilder> getAllExternalDictionaryBuilders(Context context) {
 
-        // model from keyboards, remember to use dictionary intent
-        /*
-         * final List<ResolveInfo> broadcastReceivers =
-         * context.getPackageManager() .queryBroadcastReceivers( new
-         * Intent(AnyKeyboard.RECEIVER_INTERFACE),
-         * PackageManager.GET_META_DATA); Log.d("ASK Keyboards creator factory",
-         * "Number of potential external keyboard packages found: " +
-         * broadcastReceivers.size()); final ArrayList<KeyboardBuilder>
-         * externalKeyboardCreators = new ArrayList<KeyboardBuilder>();
-         * for(final ResolveInfo receiver : broadcastReceivers){ if
-         * (receiver.activityInfo == null) {
-         * Log.e("ASK Keyboards creator factory",
-         * "BroadcastReceiver has null ActivityInfo. Receiver's label is " +
-         * receiver.loadLabel(context.getPackageManager())); // Skip to next
-         * receiver continue; } try { final Context externalPackageContext =
-         * context.createPackageContext( receiver.activityInfo.packageName,
-         * PackageManager.GET_META_DATA); final ArrayList<KeyboardBuilder>
-         * packageKeyboardCreators =
-         * getKeyboardCreatorsFromActivityInfo(externalPackageContext,
-         * receiver.activityInfo);
-         * externalKeyboardCreators.addAll(packageKeyboardCreators); } catch
-         * (final NameNotFoundException e) {
-         * Log.e("ASK Keyboards creator factory", "Did not find package: " +
-         * receiver.activityInfo.packageName); } }
-         * Log.d("ASK Keyboards creator factory",
-         * "Number of external keyboard creators successfully parsed: " +
-         * externalKeyboardCreators.size()); return externalKeyboardCreators;
-         */
-        return new ArrayList<DictionaryBuilder>();
+        final List<ResolveInfo> broadcastReceivers =
+            context.getPackageManager() .queryBroadcastReceivers( new
+                    Intent(DictionaryBuilder.RECEIVER_INTERFACE),
+                    PackageManager.GET_META_DATA);
+
+        if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
+            Log.d(TAG, "Number of potential external dictionary packages found: "
+                    +
+                    broadcastReceivers.size());
+        }
+
+        final ArrayList<DictionaryBuilder> externalDictionaryBuilders = new ArrayList<DictionaryBuilder>();
+        for (final ResolveInfo receiver : broadcastReceivers) {
+
+            if (receiver.activityInfo == null) {
+                Log.e(TAG,
+                        "BroadcastReceiver has null ActivityInfo. Receiver's label is " +
+                        receiver.loadLabel(context.getPackageManager()));
+
+                // Skip to next receiver
+                continue;
+            } 
+
+            try { 
+                final Context externalPackageContext = context.createPackageContext(
+                        receiver.activityInfo.packageName,
+                        PackageManager.GET_META_DATA);
+                final ArrayList<DictionaryBuilder> packageKeyboardCreators = getDictionaryBuildersFromActivityInfo(
+                        externalPackageContext,
+                        receiver.activityInfo);
+
+                externalDictionaryBuilders.addAll(packageKeyboardCreators); 
+
+            } catch(final NameNotFoundException e) {
+                Log.e(TAG, "Did not find package: " + receiver.activityInfo.packageName);
+            }
+        }
+
+        if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
+            Log.d(TAG, "Number of external dictionary builders successfully parsed: "
+                    + externalDictionaryBuilders.size());
+        }
+
+        return externalDictionaryBuilders;
+
     }
 
     public synchronized static ArrayList<DictionaryBuilder> getAllCreators(Context context) {
@@ -203,7 +229,7 @@ public class ExternalDictionaryFactory {
         {
             final ArrayList<DictionaryBuilder> dictionaries = new ArrayList<DictionaryBuilder>();
 
-            dictionaries.addAll(getKeyboardCreatorsFromResId(context, R.xml.dictionaries));
+            dictionaries.addAll(getDictionaryBuildersFromResId(context, R.xml.dictionaries));
             dictionaries.addAll(getAllExternalDictionaryBuilders(context));
             ms_creators = dictionaries;
         }
