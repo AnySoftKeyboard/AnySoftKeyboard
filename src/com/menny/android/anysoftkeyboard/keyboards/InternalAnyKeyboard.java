@@ -41,7 +41,7 @@ public abstract class InternalAnyKeyboard extends AnyKeyboard
     protected InternalAnyKeyboard(AnyKeyboardContextProvider context,
     		int xmlLayoutResId) 
     {
-        super(context, xmlLayoutResId);
+        super(context, context.getApplicationContext(), xmlLayoutResId);
         mKeyboardMetaData = loadKeyboard(context.getApplicationContext(), xmlLayoutResId);
         
         Log.d("AnySoftKeyboard", "loadKeyboard result (not relevant in external keyboard): "+"" +
@@ -50,8 +50,7 @@ public abstract class InternalAnyKeyboard extends AnyKeyboard
         		" IconResId:" + mKeyboardMetaData.IconResId +
         		" DefaultDictionaryLanguage:" + ((mKeyboardMetaData.PrefString!=null)? mKeyboardMetaData.DefaultDictionaryLanguage : "NULL"));
         
-        final String keyboardName = context.getApplicationContext().getResources().getString(getKeyboardName());
-        Log.i("AnySoftKeyboard", "Done creating keyboard: "+keyboardName+", which is LTR:"+isLeftToRightLanguage());
+        Log.i("AnySoftKeyboard", "Done creating keyboard: "+getKeyboardName()+", which is LTR:"+isLeftToRightLanguage());
     }
 
 	private KeyboardMetaData loadKeyboard(Context applicationContext, int xmlLayoutResId) {
@@ -95,14 +94,11 @@ public abstract class InternalAnyKeyboard extends AnyKeyboard
     	return mKeyboardMetaData.DefaultDictionaryLanguage;
     }
     
+	@Override
+	public int getKeyboardNameResId(){return mKeyboardMetaData.KeyboardNameId;};
+	
     @Override
-    public int getKeyboardName()
-    {
-    	return mKeyboardMetaData.KeyboardNameId;
-    }
-    
-    @Override
-    public int getKeyboardIcon()
+    public int getKeyboardIconResId()
     {
     	return mKeyboardMetaData.IconResId;
     }

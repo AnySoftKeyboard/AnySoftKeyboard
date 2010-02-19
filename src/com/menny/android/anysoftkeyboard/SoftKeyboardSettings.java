@@ -4,6 +4,7 @@ package com.menny.android.anysoftkeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory;
 import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory.KeyboardBuilder;
 
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
@@ -33,13 +34,18 @@ public class SoftKeyboardSettings extends PreferenceActivity {
 		
 		final Preference label = super.findPreference("prefs_title_key");
 		label.setSummary(label.getSummary()+version);
-		
-		final ArrayList<KeyboardBuilder> creators = KeyboardBuildersFactory.getAllCreators(getApplicationContext());
+		//first resetting maybe the user has installed a new keyboard
+		KeyboardBuildersFactory.resetBuildersCache();
+		//getting all keyboards
+		final ArrayList<KeyboardBuilder> creators = KeyboardBuildersFactory.getAllKeyboardBuilders(getApplicationContext());
 		final PreferenceCategory keyboards = (PreferenceCategory)super.findPreference("prefs_keyboards_screen");
 		
 		for(final KeyboardBuilder creator : creators)
 		{
-			if (creator.getKeyboardNameResId() == R.string.eng_keyboard) {
+		    final Context creatorContext = creator.getPackageContext() == null?
+		            getApplicationContext() : creator.getPackageContext();
+		            
+			if (creatorContext == getApplicationContext() && creator.getKeyboardNameResId() == R.string.eng_keyboard) {
                 continue;//english is an internal keyboard, and is on by default.
             }
 			final CheckBoxPreference checkBox = new CheckBoxPreference(getApplicationContext());
@@ -54,7 +60,7 @@ public class SoftKeyboardSettings extends PreferenceActivity {
 				/>
 			 */
 			checkBox.setKey(creator.getKeyboardPrefId());
-			checkBox.setTitle(creator.getKeyboardNameResId());
+			checkBox.setTitle(creatorContext.getText(creator.getKeyboardNameResId()));
 			checkBox.setPersistent(true);
 			checkBox.setDefaultValue(false);
 			checkBox.setSummaryOn(creator.getDescription());

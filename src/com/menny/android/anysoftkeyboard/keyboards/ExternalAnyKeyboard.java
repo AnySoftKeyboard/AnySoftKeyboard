@@ -31,7 +31,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	private final HardKeyboardSequenceHandler mHardKeyboardTranslator;
 	private final String mAdditionalIsLetterExceptions;
 	
-	protected ExternalAnyKeyboard(AnyKeyboardContextProvider context,
+	protected ExternalAnyKeyboard(AnyKeyboardContextProvider askContext, Context context,
 			int xmlLayoutResId,
 			int xmlLandscapeResId,
 			String prefId,
@@ -40,7 +40,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 			int qwertyTranslationId,
 			String defaultDictionary,
 			String additionalIsLetterExceptions) {
-		super(context, getKeyboardId(context, xmlLayoutResId, xmlLandscapeResId));
+		super(askContext, context, getKeyboardId(context, xmlLayoutResId, xmlLandscapeResId));
 		mPrefId = prefId;
 		mNameResId = nameResId;
 		mIconId = iconResId;
@@ -55,6 +55,38 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 		}
 		
 		mAdditionalIsLetterExceptions = additionalIsLetterExceptions;
+		
+		for(final Key key : getKeys())
+		{
+		    final Resources localResources = getASKContext().getApplicationContext().getResources();
+	        //adding icons
+	        switch(key.codes[0])
+	        {
+	        case AnyKeyboard.KEYCODE_DELETE:
+	            key.icon = localResources.getDrawable(R.drawable.sym_keyboard_delete_small);
+	            break;
+	        case AnyKeyboard.KEYCODE_SHIFT:
+	            key.icon = localResources.getDrawable(R.drawable.sym_keyboard_shift);
+	            break;
+	        case AnyKeyboard.KEYCODE_CTRL:
+	            key.icon = localResources.getDrawable(R.drawable.sym_keyboard_ctrl);
+	            break;
+	        case 32://SPACE
+	            key.icon = localResources.getDrawable(R.drawable.sym_keyboard_space);
+	            break;
+	        case 9://TAB
+	            key.icon = localResources.getDrawable(R.drawable.tab_key);
+	            break;
+	//these two will be set upon calling setTextVariation           
+//	      case AnyKeyboard.KEYCODE_SMILEY:
+//	          key.icon = res.getDrawable(R.drawable.sym_keyboard_smiley);
+//	          key.popupResId = R.xml.popup_smileys;
+//	          break;
+//	      case 10://ENTER
+//	          key.icon = res.getDrawable(R.drawable.sym_keyboard_return);
+//	          break;
+	        }
+		}
 	}
 
 	private HardKeyboardSequenceHandler createPhysicalTranslatorFromResourceId(Context context, int qwertyTranslationId) {
@@ -135,19 +167,19 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	}
 	
 	@Override
-	public int getKeyboardIcon() {
+	public int getKeyboardIconResId() {
 		return mIconId;
 	}
 	
 	@Override
-	public int getKeyboardName() {
+	public int getKeyboardNameResId() {
 		return mNameResId;
 	}
 	
-	private static int getKeyboardId(AnyKeyboardContextProvider context, int portraitId, int landscapeId) 
+	private static int getKeyboardId(Context context, int portraitId, int landscapeId) 
 	{
 		final boolean inPortraitMode = 
-			(context.getApplicationContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
+			(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
 		
 		if (inPortraitMode)
 			return portraitId;
@@ -160,7 +192,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	{
 		if (mHardKeyboardTranslator != null)
 		{
-			final char translated = mHardKeyboardTranslator.getSequenceCharacter(action.getKeyCode(), getKeyboardContext());
+			final char translated = mHardKeyboardTranslator.getSequenceCharacter(action.getKeyCode(), getASKContext());
 			if (translated != 0)
 				action.setNewKeyCode(translated);
 		}
@@ -174,41 +206,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 			return super.isLetter(keyValue) || 
 				(mAdditionalIsLetterExceptions.indexOf(keyValue) >= 0);
 	}
-
-	@Override
-	protected Key createKeyFromXml(Resources res, Row parent, int x, int y,
-			XmlResourceParser parser) {
-		Key key = super.createKeyFromXml(res, parent, x, y, parser);
-		//adding icons
-		switch(key.codes[0])
-		{
-		case AnyKeyboard.KEYCODE_DELETE:
-			key.icon = res.getDrawable(R.drawable.sym_keyboard_delete_small);
-			break;
-		case AnyKeyboard.KEYCODE_SHIFT:
-			key.icon = res.getDrawable(R.drawable.sym_keyboard_shift);
-			break;
-		case AnyKeyboard.KEYCODE_CTRL:
-			key.icon = res.getDrawable(R.drawable.sym_keyboard_ctrl);
-			break;
-		case 32://SPACE
-			key.icon = res.getDrawable(R.drawable.sym_keyboard_space);
-			break;
-		case 9://TAB
-			key.icon = res.getDrawable(R.drawable.tab_key);
-			break;
-//these two will be set upon calling setTextVariation			
-//		case AnyKeyboard.KEYCODE_SMILEY:
-//			key.icon = res.getDrawable(R.drawable.sym_keyboard_smiley);
-//			key.popupResId = R.xml.popup_smileys;
-//			break;
-//		case 10://ENTER
-//			key.icon = res.getDrawable(R.drawable.sym_keyboard_return);
-//			break;
-		}
-		
-		return key;
-	}
+	
 	protected void setPopupKeyChars(Key aKey)
 	{
 		if ((aKey.codes != null) && (aKey.codes.length > 0))

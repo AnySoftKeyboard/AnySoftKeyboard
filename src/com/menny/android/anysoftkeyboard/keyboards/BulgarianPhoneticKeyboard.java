@@ -103,7 +103,7 @@ public class BulgarianPhoneticKeyboard extends InternalAnyKeyboard implements Ha
 					(primaryCode == KeyEvent.KEYCODE_H))
 			{
 				mCurrentSequenceStage = SequenceStage.None;
-				super.getKeyboardContext().deleteLastCharactersFromInput(1);
+				super.getASKContext().deleteLastCharactersFromInput(1);
 				action.setNewKeyCode(1095);
 				return;
 			}
@@ -112,7 +112,7 @@ public class BulgarianPhoneticKeyboard extends InternalAnyKeyboard implements Ha
 					(primaryCode == KeyEvent.KEYCODE_H))
 			{
 				mCurrentSequenceStage = SequenceStage.sh;
-				super.getKeyboardContext().deleteLastCharactersFromInput(1);
+				super.getASKContext().deleteLastCharactersFromInput(1);
 				action.setNewKeyCode(1096);
 				return;
 			}
@@ -121,7 +121,7 @@ public class BulgarianPhoneticKeyboard extends InternalAnyKeyboard implements Ha
 					(primaryCode == KeyEvent.KEYCODE_T))
 			{
 				mCurrentSequenceStage = SequenceStage.None;
-				super.getKeyboardContext().deleteLastCharactersFromInput(1);
+				super.getASKContext().deleteLastCharactersFromInput(1);
 				action.setNewKeyCode(1097);
 				return;
 			}
@@ -130,7 +130,7 @@ public class BulgarianPhoneticKeyboard extends InternalAnyKeyboard implements Ha
 					(primaryCode == KeyEvent.KEYCODE_U))
 			{
 				mCurrentSequenceStage = SequenceStage.None;
-				super.getKeyboardContext().deleteLastCharactersFromInput(1);
+				super.getASKContext().deleteLastCharactersFromInput(1);
 				action.setNewKeyCode(1102);
 				return;
 			}
@@ -139,7 +139,7 @@ public class BulgarianPhoneticKeyboard extends InternalAnyKeyboard implements Ha
 					(primaryCode == KeyEvent.KEYCODE_H))
 			{
 				mCurrentSequenceStage = SequenceStage.None;
-				super.getKeyboardContext().deleteLastCharactersFromInput(1);
+				super.getASKContext().deleteLastCharactersFromInput(1);
 				action.setNewKeyCode(1063);
 				return;
 			}
@@ -148,7 +148,7 @@ public class BulgarianPhoneticKeyboard extends InternalAnyKeyboard implements Ha
 					(primaryCode == KeyEvent.KEYCODE_H))
 			{
 				mCurrentSequenceStage = SequenceStage.SH;
-				super.getKeyboardContext().deleteLastCharactersFromInput(1);
+				super.getASKContext().deleteLastCharactersFromInput(1);
 				action.setNewKeyCode(1064);
 				return;
 			}
@@ -157,7 +157,7 @@ public class BulgarianPhoneticKeyboard extends InternalAnyKeyboard implements Ha
 					(primaryCode == KeyEvent.KEYCODE_T))
 			{
 				mCurrentSequenceStage = SequenceStage.None;
-				super.getKeyboardContext().deleteLastCharactersFromInput(1);
+				super.getASKContext().deleteLastCharactersFromInput(1);
 				action.setNewKeyCode(1065);
 				return;
 			}
@@ -166,7 +166,7 @@ public class BulgarianPhoneticKeyboard extends InternalAnyKeyboard implements Ha
 					(primaryCode == KeyEvent.KEYCODE_U))
 			{
 				mCurrentSequenceStage = SequenceStage.None;
-				super.getKeyboardContext().deleteLastCharactersFromInput(1);
+				super.getASKContext().deleteLastCharactersFromInput(1);
 				action.setNewKeyCode(1070);
 				return;
 			}

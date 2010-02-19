@@ -104,7 +104,7 @@ public class BulgarianBDSKeyboard extends InternalAnyKeyboard implements HardKey
 				((primaryCode == KeyEvent.KEYCODE_S) || (primaryCode == KeyEvent.KEYCODE_C)))
 			{
 				mCurrentSequenceStage = SequenceStage.None;
-				super.getKeyboardContext().deleteLastCharactersFromInput(1);
+				super.getASKContext().deleteLastCharactersFromInput(1);
 				action.setNewKeyCode(1094);
 				return;
 			}
@@ -113,7 +113,7 @@ public class BulgarianBDSKeyboard extends InternalAnyKeyboard implements HardKey
 					((primaryCode == KeyEvent.KEYCODE_S) || (primaryCode == KeyEvent.KEYCODE_C)))
 			{
 				mCurrentSequenceStage = SequenceStage.None;
-				super.getKeyboardContext().deleteLastCharactersFromInput(1);
+				super.getASKContext().deleteLastCharactersFromInput(1);
 				action.setNewKeyCode(1062);
 				return;
 			}
@@ -122,7 +122,7 @@ public class BulgarianBDSKeyboard extends InternalAnyKeyboard implements HardKey
 					(primaryCode == KeyEvent.KEYCODE_H))
 			{
 				mCurrentSequenceStage = SequenceStage.None;
-				super.getKeyboardContext().deleteLastCharactersFromInput(1);
+				super.getASKContext().deleteLastCharactersFromInput(1);
 				action.setNewKeyCode(1095);
 				return;
 			}
@@ -131,7 +131,7 @@ public class BulgarianBDSKeyboard extends InternalAnyKeyboard implements HardKey
 					(primaryCode == KeyEvent.KEYCODE_H))
 			{
 				mCurrentSequenceStage = SequenceStage.None;
-				super.getKeyboardContext().deleteLastCharactersFromInput(1);
+				super.getASKContext().deleteLastCharactersFromInput(1);
 				action.setNewKeyCode(1063);
 				return;
 			}

@@ -78,7 +78,7 @@ public class BelarusianLatinKeyboard extends InternalAnyKeyboard implements
             return;
         else {
             char translated = msKeySequenceHandler.getSequenceCharacter(
-                    (char) action.getKeyCode(), getKeyboardContext());
+                    (char) action.getKeyCode(), getASKContext());
             if (translated != 0) {
                 if (action.isShiftActive())
                     translated = Character.toUpperCase(translated);

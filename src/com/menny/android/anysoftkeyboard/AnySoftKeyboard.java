@@ -628,7 +628,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 						if (DEBUG)
 						{
-							String keyboardName = getResources().getString(current.getKeyboardName());
+							final String keyboardName = current.getKeyboardName();
 							
 							Log.d("AnySoftKeyborad", "Asking '" + keyboardName
 									+ "' to translate key: " + keyCode);
@@ -756,9 +756,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 			AnyKeyboard current = mKeyboardSwitcher.getCurrentKeyboard();
 			// notifying the user about the keyboard.
 			// creating the message
-			String keyboardName = getResources().getString(current.getKeyboardName());
+			final String keyboardName = current.getKeyboardName();
 			
-			Notification notification = new Notification(current.getKeyboardIcon(), keyboardName, System.currentTimeMillis());
+			Notification notification = new Notification(current.getKeyboardIconResId(), keyboardName, System.currentTimeMillis());
 
 			Intent notificationIntent = new Intent();
 			PendingIntent contentIntent = PendingIntent.getActivity(this, 0,

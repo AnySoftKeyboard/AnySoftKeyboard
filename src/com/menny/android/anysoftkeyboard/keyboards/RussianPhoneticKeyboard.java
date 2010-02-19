@@ -48,7 +48,7 @@ public class RussianPhoneticKeyboard extends LatinKeyboard implements HardKeyboa
 			return;
 		else
 		{
-			char translated = msKeySequenceHandler.getSequenceCharacter((char)action.getKeyCode(), getKeyboardContext());
+			char translated = msKeySequenceHandler.getSequenceCharacter((char)action.getKeyCode(), getASKContext());
 			if (translated != 0)
 			{
 				if (action.isShiftActive())

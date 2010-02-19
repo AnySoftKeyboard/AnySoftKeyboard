@@ -103,25 +103,28 @@ public class DictionaryFactory
         	{
         		Log.w("DictionaryFactory", "Could not locate dictionary for "+language);
         	}
-            final Dictionary dictToLoad = dict;
-            final Thread loader = new Thread()
-            {
-                @Override
-                public void run()
+        	else
+        	{
+                final Dictionary dictToLoad = dict;
+                final Thread loader = new Thread()
                 {
-                    try {
-                        dictToLoad.loadDictionary();
-                    } catch (final Exception e) {
-                        Log.e("DictionaryFactory", "Failed load dictionary for "+language+"! Will reset the map. Error:"+e.getMessage());
-                        e.printStackTrace();
-                        removeDictionary(language);
-                    }
-                }				
-            };
-            //a little less...
-            loader.setPriority(Thread.NORM_PRIORITY - 1);
-            loader.start();
-            msDictionaries.put(language, dict);
+                    @Override
+                    public void run()
+                    {
+                        try {
+                            dictToLoad.loadDictionary();
+                        } catch (final Exception e) {
+                            Log.e("DictionaryFactory", "Failed load dictionary for "+language+"! Will reset the map. Error:"+e.getMessage());
+                            e.printStackTrace();
+                            removeDictionary(language);
+                        }
+                    }				
+                };
+                //a little less...
+                loader.setPriority(Thread.NORM_PRIORITY - 1);
+                loader.start();
+                msDictionaries.put(language, dict);
+        	}
         }
         catch(final Exception ex)
         {
