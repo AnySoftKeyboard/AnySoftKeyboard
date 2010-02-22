@@ -149,7 +149,6 @@
     <string name="colemak_keyboard">Colemak</string>
     <string name="bepo_keyboard">B&#233;po</string><!-- BEPO -->
     <string name="esperanto_keyboard">Esperanto</string>
-    <string name="terminal_keyboard">Terminal</string>
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Show this tutorial on startup</string>

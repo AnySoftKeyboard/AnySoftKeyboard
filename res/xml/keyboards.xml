@@ -14,7 +14,6 @@
 	<Keyboard nameResId="@string/es_keyboard" layoutResId="@xml/es_qwerty" enabledPrefStringId="es_keyboard" sortOrder="131" defaultDictionaryName="Spanish" description="Created with Jorge Jiménez"/>
 	<Keyboard nameResId="@string/svorak_keyboard" layoutResId="@xml/svorak" enabledPrefStringId="svorak_keyboard" sortOrder="112" defaultDictionaryName="Swedish" description="Created by Henrik Andersson"/>
 	<Keyboard nameResId="@string/ch_fr_keyboard" layoutResId="@xml/ch_fr_qwerty" enabledPrefStringId="ch_fr_keyboard" sortOrder="141" defaultDictionaryName="French" description="Created with tudor and Claude Philipona"/>
-	<Keyboard nameResId="@string/terminal_keyboard" layoutResId="@xml/terminal" enabledPrefStringId="terminal_keyboard" sortOrder="9" defaultDictionaryName="English" description="Created with bittrance"/>
 	<Keyboard nameResId="@string/dvorak_keyboard" iconResId="@drawable/en" layoutResId="@xml/dvorak" enabledPrefStringId="dvorak_keyboard" sortOrder="2" defaultDictionaryName="English" description="Created with Stephen Paul Weber"/>
 	<Keyboard nameResId="@string/thai_keyboard" iconResId="@drawable/thai" layoutResId="@xml/thai_qwerty" enabledPrefStringId="thai_keyboard" sortOrder="191" additionalIsLetterExceptions="'" description="Created with DroidSans"/>
 	<Keyboard nameResId="@string/arabic_keyboard" iconResId="@drawable/ar" layoutResId="@xml/arabic_qwerty" enabledPrefStringId="arabic_keyboard" sortOrder="51" description=""/>
