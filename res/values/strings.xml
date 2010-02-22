@@ -102,6 +102,9 @@
     <string name="fullscreen_input_connection_supported_off_summary">Never use full-screen input</string>
     <string name="zoom_factor_keys_in_portrait">Keys height factor in portrait mode</string>
     <string name="zoom_factor_keys_in_landscape">Keys height factor in landscape mode</string>
+    <string name="insert_space_after_word_suggestion_selection">Space after candidate pick</string>
+    <string name="insert_space_after_word_suggestion_selection_on_summary">Insert space after word suggestion select</string>
+    <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
     
     <string name="auto_caps">Auto-capitalization</string>
     <string name="grammer_group">Grammar</string>

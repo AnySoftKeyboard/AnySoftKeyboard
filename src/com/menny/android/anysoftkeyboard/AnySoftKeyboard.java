@@ -309,8 +309,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 					|| variation == EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
 				mPredictionOn = false;
 			}
-			if (variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
-					|| variation == EditorInfo.TYPE_TEXT_VARIATION_PERSON_NAME) {
+			
+			if ((!AnySoftKeyboardConfiguration.getInstance().getInsertSpaceAfterCandidatePick()) ||//some users want to never get spaces added 
+					variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS ||
+					variation == EditorInfo.TYPE_TEXT_VARIATION_PERSON_NAME) 
+			{
 				mAutoSpace = false;
 			} else {
 				mAutoSpace = true;

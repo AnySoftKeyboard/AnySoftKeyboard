@@ -39,6 +39,8 @@ public abstract class AnySoftKeyboardConfiguration
 	
 	public abstract float getKeysHeightFactorInLandscape();
 	
+	public abstract boolean getInsertSpaceAfterCandidatePick();
+	
 	static class AnySoftKeyboardConfigurationImpl extends AnySoftKeyboardConfiguration
 	{
 		private InputMethodService mIme;
@@ -54,6 +56,7 @@ public abstract class AnySoftKeyboardConfiguration
 		private boolean mUseKeyRepeat = true;
 		private float mKeysHeightFactorInPortrait = 1.0f;
 		private float mKeysHeightFactorInLandscape = 1.0f;
+		private boolean mInsertSpaceAfterCandidatePick = true;
 		
 		public AnySoftKeyboardConfigurationImpl()
 		{
@@ -164,6 +167,11 @@ public abstract class AnySoftKeyboardConfiguration
 			mKeysHeightFactorInLandscape = newKeyHeightFactorLandscape;
 			Log.i("AnySoftKeyboard", "** mKeysHeightFactorInLandscape: "+mKeysHeightFactorInLandscape);
 			
+			boolean newInsertSpaceAfterCandidatePick = sp.getBoolean("insert_space_after_word_suggestion_selection", true);
+			handled = handled || ( newInsertSpaceAfterCandidatePick != mInsertSpaceAfterCandidatePick );
+			mInsertSpaceAfterCandidatePick = newInsertSpaceAfterCandidatePick;
+			Log.i("AnySoftKeyboard", "** mInsertSpaceAfterCandidatePick: "+mInsertSpaceAfterCandidatePick);
+			
 			return handled && (!forceRebuildOfKeyboards);
 		}
 
@@ -220,6 +228,11 @@ public abstract class AnySoftKeyboardConfiguration
 		@Override
 		public float getKeysHeightFactorInPortrait() {
 			return mKeysHeightFactorInPortrait;
-		}		
+		}	
+		
+		@Override
+		public boolean getInsertSpaceAfterCandidatePick() {
+			return mInsertSpaceAfterCandidatePick;
+		}
 	}
 }
