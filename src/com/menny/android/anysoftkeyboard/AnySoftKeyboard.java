@@ -1745,7 +1745,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 		builder.setNegativeButton(android.R.string.cancel, null);
 		ArrayList<CharSequence> dictioanries = new ArrayList<CharSequence>();
 		dictioanries.add(getString(R.string.override_dictionary_default));
-		for (DictionaryBuilder dictionaryBuilder : ExternalDictionaryFactory.getAllCreators(this)) {
+		//making sure I know every installed dictionary
+		ExternalDictionaryFactory.resetBuildersCache();
+		//going over all installed dictionaries
+		for (DictionaryBuilder dictionaryBuilder : ExternalDictionaryFactory.getAllBuilders(this)) {
 			dictioanries.add(dictionaryBuilder.getDictionaryName());
 		}
 

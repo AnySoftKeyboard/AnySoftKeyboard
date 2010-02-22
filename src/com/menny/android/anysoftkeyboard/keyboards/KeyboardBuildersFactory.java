@@ -151,7 +151,7 @@ public class KeyboardBuildersFactory {
         ms_creators = null;
     }
 
-    public synchronized static ArrayList<KeyboardBuilder> getAllKeyboardBuilders(Context context) {
+    public synchronized static ArrayList<KeyboardBuilder> getAllBuilders(Context context) {
 
         if (ms_creators == null)
         {

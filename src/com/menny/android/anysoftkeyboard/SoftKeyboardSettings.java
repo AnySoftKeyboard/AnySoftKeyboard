@@ -37,7 +37,7 @@ public class SoftKeyboardSettings extends PreferenceActivity {
 		//first resetting maybe the user has installed a new keyboard
 		KeyboardBuildersFactory.resetBuildersCache();
 		//getting all keyboards
-		final ArrayList<KeyboardBuilder> creators = KeyboardBuildersFactory.getAllKeyboardBuilders(getApplicationContext());
+		final ArrayList<KeyboardBuilder> creators = KeyboardBuildersFactory.getAllBuilders(getApplicationContext());
 		final PreferenceCategory keyboards = (PreferenceCategory)super.findPreference("prefs_keyboards_screen");
 		
 		for(final KeyboardBuilder creator : creators)

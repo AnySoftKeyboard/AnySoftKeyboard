@@ -229,8 +229,13 @@ public class ExternalDictionaryFactory {
         return externalDictionaryBuilders;
 
     }
+    
+    public synchronized static void resetBuildersCache()
+    {
+    	ms_creators = null;
+    }
 
-    public synchronized static ArrayList<DictionaryBuilder> getAllCreators(Context context) {
+    public synchronized static ArrayList<DictionaryBuilder> getAllBuilders(Context context) {
 
         if (ms_creators == null)
         {

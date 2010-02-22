@@ -12,7 +12,7 @@ public class KeyboardFactory
 {
     public static KeyboardBuilder[] createAlphaBetKeyboards(AnyKeyboardContextProvider contextProvider)
     {
-    	final ArrayList<KeyboardBuilder> keyboardCreators = KeyboardBuildersFactory.getAllKeyboardBuilders(contextProvider.getApplicationContext());
+    	final ArrayList<KeyboardBuilder> keyboardCreators = KeyboardBuildersFactory.getAllBuilders(contextProvider.getApplicationContext());
         Log.i("AnySoftKeyboard", "Creating keyboards. I have "+ keyboardCreators.size()+" creators");
         //Thread.dumpStack();
 

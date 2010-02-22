@@ -55,21 +55,10 @@ public class DictionaryFactory
 
         try
         {
-        	ArrayList<DictionaryBuilder> allBuilders = ExternalDictionaryFactory.getAllCreators(context.getApplicationContext());
-        	
         	if ((language == null) || (language.length() == 0 || ("none".equalsIgnoreCase(language))))
         		return null;
         	
-        	for(DictionaryBuilder builder : allBuilders)
-        	{
-        		if (AnySoftKeyboardConfiguration.getInstance().getDEBUG())
-        			Log.d("DictionaryFactory", "Checking if builder '"+builder.getDictionaryKey()+"' is '"+language+"'...");
-        		if (builder.getDictionaryKey().equalsIgnoreCase(language))
-        		{
-        			dict = builder.createDictionary();
-        			break;
-        		}
-        	}
+        	dict = locateDictionaryInFactory(language, context);
 //            if (language.equalsIgnoreCase("English")) {
 //                dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("en_binary.mp3"));
 //            } else if (language.equalsIgnoreCase("Hebrew")) {
@@ -101,9 +90,15 @@ public class DictionaryFactory
 //            }
         	if (dict == null)
         	{
-        		Log.w("DictionaryFactory", "Could not locate dictionary for "+language);
+        		Log.d("DictionaryFactory", "Could not locate dictionary for "+language+". Maybe it was not loaded yet (installed recently?)");
+        		ExternalDictionaryFactory.resetBuildersCache();
+        		//trying again
+        		dict = locateDictionaryInFactory(language, context);
+        		if (dict == null)
+        			Log.w("DictionaryFactory", "Could not locate dictionary for "+language);
         	}
-        	else
+        	//checking again, cause it may have loaded the second try.
+        	if (dict != null)
         	{
                 final Dictionary dictToLoad = dict;
                 final Thread loader = new Thread()
@@ -134,6 +129,26 @@ public class DictionaryFactory
 
         return dict;
     }
+
+
+	private static Dictionary locateDictionaryInFactory(final String language,
+			AnyKeyboardContextProvider context)
+			throws Exception {
+		Dictionary dict = null;
+		final ArrayList<DictionaryBuilder> allBuilders = ExternalDictionaryFactory.getAllBuilders(context.getApplicationContext());
+		
+		for(DictionaryBuilder builder : allBuilders)
+		{
+			if (AnySoftKeyboardConfiguration.getInstance().getDEBUG())
+				Log.d("DictionaryFactory", "Checking if builder '"+builder.getDictionaryKey()+"' is '"+language+"'...");
+			if (builder.getDictionaryKey().equalsIgnoreCase(language))
+			{
+				dict = builder.createDictionary();
+				break;
+			}
+		}
+		return dict;
+	}
 
     public synchronized static void removeDictionary(String language) 
     {
