@@ -1746,7 +1746,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		ArrayList<CharSequence> dictioanries = new ArrayList<CharSequence>();
 		dictioanries.add(getString(R.string.override_dictionary_default));
 		for (DictionaryBuilder dictionaryBuilder : ExternalDictionaryFactory.getAllCreators(this)) {
-			dictioanries.add(this.getResources().getString(dictionaryBuilder.getDictionaryNameResId()));
+			dictioanries.add(dictionaryBuilder.getDictionaryName());
 		}
 
 		final CharSequence[] items = new CharSequence[dictioanries.size()];

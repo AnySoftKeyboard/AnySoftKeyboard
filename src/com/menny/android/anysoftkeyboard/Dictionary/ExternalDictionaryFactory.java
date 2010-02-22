@@ -1,8 +1,8 @@
 package com.menny.android.anysoftkeyboard.Dictionary;
 
-import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
-import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
-import com.menny.android.anysoftkeyboard.R;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -17,9 +17,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.util.Xml;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
+import com.menny.android.anysoftkeyboard.R;
 
 public class ExternalDictionaryFactory {
 
@@ -39,10 +38,11 @@ public class ExternalDictionaryFactory {
          */
         public static final String RECEIVER_META_DATA = "com.menny.android.anysoftkeyboard.dictionaries";
 
-        Dictionary createDictionary(AnyKeyboardContextProvider context) throws Exception;
+        Dictionary createDictionary() throws Exception;
         String getDictionaryKey();
-        int getDictionaryNameResId();
+        String getDictionaryName();
         String getDescription();
+        Context getPackageContext();
     }
 
     private static class BinaryDictionaryBuilderImpl implements DictionaryBuilder
@@ -51,6 +51,7 @@ public class ExternalDictionaryFactory {
         private final int mNameId;
         private final String mDescription;
         private final String mAssetsFilename;
+        private final Context mPackageContext;
 
         public BinaryDictionaryBuilderImpl(Context context, String key, int nameId, String assetsFilename,
                 String description) 
@@ -59,18 +60,24 @@ public class ExternalDictionaryFactory {
             mNameId = nameId;            
             mDescription = description;
             mAssetsFilename = assetsFilename;
-            Log.d("ASK BinaryDictionaryBuilderImpl", "Creator for "+mKey+" assets:"+mAssetsFilename);
+            mPackageContext = context;
+            Log.d("ASK BinaryDictionaryBuilderImpl", "Creator for "+mKey+" assets:"+mAssetsFilename+" package:"+mPackageContext.getPackageName());
         }
 
-        public Dictionary createDictionary(AnyKeyboardContextProvider context) throws Exception{
-            return new BinaryDictionary(context.getApplicationContext().getAssets().openFd(mAssetsFilename));
+        public Dictionary createDictionary() throws Exception{
+            return new BinaryDictionary(mPackageContext.getAssets().openFd(mAssetsFilename));
         }
 
-        public int getDictionaryNameResId() {return mNameId;}
+        public String getDictionaryName() {return mPackageContext.getString(mNameId);}
         public String getDescription() {return mDescription;}
 
         public String getDictionaryKey() {
             return mKey;
+        }
+        
+        public Context getPackageContext()
+        {
+        	return mPackageContext;
         }
     }
 

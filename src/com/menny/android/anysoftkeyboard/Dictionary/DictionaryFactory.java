@@ -66,7 +66,7 @@ public class DictionaryFactory
         			Log.d("DictionaryFactory", "Checking if builder '"+builder.getDictionaryKey()+"' is '"+language+"'...");
         		if (builder.getDictionaryKey().equalsIgnoreCase(language))
         		{
-        			dict = builder.createDictionary(context);
+        			dict = builder.createDictionary();
         			break;
         		}
         	}

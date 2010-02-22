@@ -3,8 +3,6 @@ package com.menny.android.anysoftkeyboard.keyboards;
 
 import java.util.HashMap;
 
-
-import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
