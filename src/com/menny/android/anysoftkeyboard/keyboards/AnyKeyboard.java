@@ -32,12 +32,13 @@ public abstract class AnyKeyboard extends Keyboard
 	}
 	public final static int KEYCODE_LANG_CHANGE = -99;
 	public final static int KEYCODE_ALTER_LAYOUT = -98;
+	public final static int KEYCODE_KEYBOARD_CYCLE = -97;
 	public final static int KEYCODE_SMILEY = -10;
 	
 	public static final int KEYCODE_LEFT = -20;
 	public static final int KEYCODE_RIGHT = -21;
 	public static final int KEYCODE_UP = -22;
-	public static final int KEYCODE_Down = -23;
+	public static final int KEYCODE_DOWN = -23;
 	
 	public static final int	KEYCODE_CTRL = -11;
 	

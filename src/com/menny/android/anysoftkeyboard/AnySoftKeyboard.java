@@ -1393,11 +1393,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	public void swipeRight() {
-		nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
+		//nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
+		final int keyCode = AnySoftKeyboardConfiguration.getInstance().getSwipeRightKeyCode();
+		if (keyCode != 0)
+			onKey(keyCode, new int[]{keyCode});
 	}
 
 	public void swipeLeft() {
-		nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Symbols);
+		//nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Symbols);
+		final int keyCode = AnySoftKeyboardConfiguration.getInstance().getSwipeLeftKeyCode();
+		if (keyCode != 0)
+			onKey(keyCode, new int[]{keyCode});
 	}
 	
 	private void nextAlterKeyboard(EditorInfo currentEditorInfo)
@@ -1453,11 +1459,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	public void swipeDown() {
-		handleClose();
+		final int keyCode = AnySoftKeyboardConfiguration.getInstance().getSwipeDownKeyCode();
+		if (keyCode != 0)
+			onKey(keyCode, new int[]{keyCode});
 	}
 
 	public void swipeUp() {
-		handleShift();
+		final int keyCode = AnySoftKeyboardConfiguration.getInstance().getSwipeUpKeyCode();
+		if (keyCode != 0)
+			onKey(keyCode, new int[]{keyCode});
 	}
 
 	public void onPress(int primaryCode) {

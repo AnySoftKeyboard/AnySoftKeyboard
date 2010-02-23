@@ -1,10 +1,13 @@
 package com.menny.android.anysoftkeyboard;
 
+import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
+
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.inputmethodservice.InputMethodService;
+import android.inputmethodservice.Keyboard;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -41,6 +44,11 @@ public abstract class AnySoftKeyboardConfiguration
 	
 	public abstract boolean getInsertSpaceAfterCandidatePick();
 	
+	public abstract int getSwipeUpKeyCode();
+	public abstract int getSwipeDownKeyCode();
+	public abstract int getSwipeLeftKeyCode();
+	public abstract int getSwipeRightKeyCode();
+	
 	static class AnySoftKeyboardConfigurationImpl extends AnySoftKeyboardConfiguration
 	{
 		private InputMethodService mIme;
@@ -57,7 +65,11 @@ public abstract class AnySoftKeyboardConfiguration
 		private float mKeysHeightFactorInPortrait = 1.0f;
 		private float mKeysHeightFactorInLandscape = 1.0f;
 		private boolean mInsertSpaceAfterCandidatePick = true;
-		
+		private int mSwipeUpKeyCode;
+		private int mSwipeDownKeyCode;
+		private int mSwipeLeftKeyCode;
+		private int mSwipeRightKeyCode;
+				
 		public AnySoftKeyboardConfigurationImpl()
 		{
 			
@@ -90,7 +102,6 @@ public abstract class AnySoftKeyboardConfiguration
 			Log.i("AnySoftKeyboard", "** Release code: "+releaseNumber);
 			Log.i("AnySoftKeyboard", "** Debug: "+mDEBUG);
 			SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mIme);
-			
 			upgradeSettingsValues(sp);
 			
 			handleConfigurationChange(sp);
@@ -172,11 +183,72 @@ public abstract class AnySoftKeyboardConfiguration
 			mInsertSpaceAfterCandidatePick = newInsertSpaceAfterCandidatePick;
 			Log.i("AnySoftKeyboard", "** mInsertSpaceAfterCandidatePick: "+mInsertSpaceAfterCandidatePick);
 			
+			int newSwipeUpValue = getIntFromSwipeConfiguration(sp, "swipe_up_action", "shift");
+			handled = handled || ( newSwipeUpValue != mSwipeUpKeyCode );
+			mSwipeUpKeyCode = newSwipeUpValue;
+			Log.i("AnySoftKeyboard", "** mSwipeUpKeyCode: "+mSwipeUpKeyCode);
+			
+			int newSwipeDownValue = getIntFromSwipeConfiguration(sp, "swipe_down_action", "hide");
+			handled = handled || ( newSwipeDownValue != mSwipeDownKeyCode );
+			mSwipeDownKeyCode = newSwipeDownValue;
+			Log.i("AnySoftKeyboard", "** mSwipeDownKeyCode: "+mSwipeDownKeyCode);
+			
+			int newSwipeLeftValue = getIntFromSwipeConfiguration(sp, "swipe_left_action", "next_symbols");
+			handled = handled || ( newSwipeLeftValue != mSwipeLeftKeyCode );
+			mSwipeLeftKeyCode = newSwipeLeftValue;
+			Log.i("AnySoftKeyboard", "** mSwipeLeftKeyCode: "+mSwipeLeftKeyCode);
+			
+			int newSwipeRightValue = getIntFromSwipeConfiguration(sp, "swipe_right_action", "next_alphabet");
+			handled = handled || ( newSwipeRightValue != mSwipeRightKeyCode );
+			mSwipeRightKeyCode = newSwipeRightValue;
+			Log.i("AnySoftKeyboard", "** mSwipeRightKeyCode: "+mSwipeRightKeyCode);
+			
 			return handled && (!forceRebuildOfKeyboards);
 		}
 
-		private static float getFloatFromString(SharedPreferences sp, String string) {
-			String floatValue = sp.getString(string, "1.0");
+		private int getIntFromSwipeConfiguration(SharedPreferences sp, final String prefKey, final String defaultValue) {
+			/*
+	<string-array name="swipe_action_types_values">
+        <item>next_alphabet</item>
+        <item>next_symbols</item>
+        <item>cycle_keyboards</item>
+        <item>shift</item>
+        <item>hide</item>
+        <item>baskspace</item>
+        <item>cursor_up</item>
+        <item>cursor_down</item>
+        <item>cursor_left</item>
+        <item>cursor_right</item>
+    </string-array>			
+			*/
+			final String keyValue = sp.getString(prefKey, defaultValue);
+			
+			if (keyValue.equalsIgnoreCase("next_alphabet"))
+				return AnyKeyboard.KEYCODE_LANG_CHANGE;
+			else if (keyValue.equalsIgnoreCase("next_symbols"))
+				return Keyboard.KEYCODE_MODE_CHANGE;
+			else if (keyValue.equalsIgnoreCase("cycle_keyboards"))
+				return AnyKeyboard.KEYCODE_KEYBOARD_CYCLE;
+			else if (keyValue.equalsIgnoreCase("shift"))
+				return Keyboard.KEYCODE_SHIFT;
+			else if (keyValue.equalsIgnoreCase("hide"))
+				return Keyboard.KEYCODE_CANCEL;
+			else if (keyValue.equalsIgnoreCase("baskspace"))
+				return Keyboard.KEYCODE_DELETE;
+			else if (keyValue.equalsIgnoreCase("cursor_up"))
+				return AnyKeyboard.KEYCODE_UP;
+			else if (keyValue.equalsIgnoreCase("cursor_down"))
+				return AnyKeyboard.KEYCODE_DOWN;
+			else if (keyValue.equalsIgnoreCase("cursor_left"))
+				return AnyKeyboard.KEYCODE_LEFT;
+			else if (keyValue.equalsIgnoreCase("cursor_right"))
+				return AnyKeyboard.KEYCODE_RIGHT;
+			
+			return 0;
+		}
+
+		private static float getFloatFromString(SharedPreferences sp, String prefKey) {
+			String floatValue = sp.getString(prefKey, "1.0");
 			try
 			{
 				return Float.parseFloat(floatValue);
@@ -234,5 +306,14 @@ public abstract class AnySoftKeyboardConfiguration
 		public boolean getInsertSpaceAfterCandidatePick() {
 			return mInsertSpaceAfterCandidatePick;
 		}
+		
+		@Override
+		public int getSwipeUpKeyCode() {return mSwipeUpKeyCode;}
+		@Override
+		public int getSwipeDownKeyCode() {return mSwipeDownKeyCode;}
+		@Override
+		public int getSwipeLeftKeyCode() {return mSwipeLeftKeyCode;}
+		@Override
+		public int getSwipeRightKeyCode() {return mSwipeRightKeyCode;}
 	}
 }

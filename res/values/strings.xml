@@ -105,6 +105,32 @@
     <string name="insert_space_after_word_suggestion_selection">Space after candidate pick</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">Insert space after word suggestion select</string>
     <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
+    <string name="swipe_tweak_group">Change swipe gesture actions</string>
+    <string name="swipe_up_action">Swipe up</string>
+    <string name="swipe_up_action_summary">Define the swipe up gesture action</string>
+    <string name="swipe_up_action_title">Select swipe up action</string>
+    <string name="swipe_down_action">Swipe down</string>
+    <string name="swipe_down_action_summary">Define the swipe down gesture action</string>
+    <string name="swipe_down_action_title">Select swipe down action</string>
+    <string name="swipe_left_action">Swipe left</string>
+    <string name="swipe_left_action_summary">Define the swipe left gesture action</string>
+    <string name="swipe_left_action_title">Select swipe left action</string>
+    <string name="swipe_right_action">Swipe right</string>
+    <string name="swipe_right_action_summary">Define the swipe right gesture action</string>
+    <string name="swipe_right_action_title">Select swipe right action</string>
+    
+    <string-array name="swipe_action_types">
+    	<item>Next alphabet keyboard</item>
+        <item>Next symbols keyboard</item>
+        <item>Cycle through all keyboards</item>
+        <item>Shift</item>
+        <item>Hide keyboard</item>
+        <item>Back-space</item>
+        <item>Move cursor up</item>
+        <item>Move cursor down</item>
+        <item>Move cursor left</item>
+        <item>Move cursor right</item>
+    </string-array>
     
     <string name="auto_caps">Auto-capitalization</string>
     <string name="grammer_group">Grammar</string>

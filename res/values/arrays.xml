@@ -25,4 +25,17 @@
         <item>30</item>
         <item>50</item>
     </string-array>
+    
+    <string-array name="swipe_action_types_values">
+        <item>next_alphabet</item>
+        <item>next_symbols</item>
+        <item>cycle_keyboards</item>
+        <item>shift</item>
+        <item>hide</item>
+        <item>baskspace</item>
+        <item>cursor_up</item>
+        <item>cursor_down</item>
+        <item>cursor_left</item>
+        <item>cursor_right</item>
+    </string-array>
 </resources>
