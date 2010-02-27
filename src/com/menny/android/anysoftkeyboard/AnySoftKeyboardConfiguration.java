@@ -229,6 +229,8 @@ public abstract class AnySoftKeyboardConfiguration
 				return Keyboard.KEYCODE_MODE_CHANGE;
 			else if (keyValue.equalsIgnoreCase("cycle_keyboards"))
 				return AnyKeyboard.KEYCODE_KEYBOARD_CYCLE;
+			else if (keyValue.equalsIgnoreCase("reverse_cycle_keyboards"))
+                return AnyKeyboard.KEYCODE_KEYBOARD_REVERSE_CYCLE;
 			else if (keyValue.equalsIgnoreCase("shift"))
 				return Keyboard.KEYCODE_SHIFT;
 			else if (keyValue.equalsIgnoreCase("hide"))
@@ -244,7 +246,7 @@ public abstract class AnySoftKeyboardConfiguration
 			else if (keyValue.equalsIgnoreCase("cursor_right"))
 				return AnyKeyboard.KEYCODE_RIGHT;
 			
-			return 0;
+			return 0;//0 means no action
 		}
 
 		private static float getFloatFromString(SharedPreferences sp, String prefKey) {

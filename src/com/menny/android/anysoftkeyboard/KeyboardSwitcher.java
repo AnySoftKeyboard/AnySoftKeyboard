@@ -32,7 +32,9 @@ public class KeyboardSwitcher
 	{
 		Symbols,
 		Alphabet,
-		AlphabetSupportsPhysical
+		AlphabetSupportsPhysical,
+		Any,
+		PreviousAny
 	}
     public static final int MODE_TEXT = 1;
     public static final int MODE_SYMBOLS = 2;
@@ -328,6 +330,31 @@ public class KeyboardSwitcher
 				return nextAlphabetKeyboard(currentEditorInfo, (type == NextKeyboardType.AlphabetSupportsPhysical));
 			case Symbols:
 				return nextSymbolsKeyboard(currentEditorInfo);
+			case Any:
+			case PreviousAny://currently we'll support only one direction
+			    //cycling through the alphabet, and at the end, going to the symbols.
+			    final int alphabetKeyboardsCount = getAlphabetKeyboards().length;
+			    final int symbolsKeyboardsCount = mSymbolsKeyboardsArray.length;
+			    if (mAlphabetMode)
+			    {
+			        if (mLastSelectedKeyboard >= (alphabetKeyboardsCount-1))
+			        {//we are at the last alphabet keyboard
+			            mLastSelectedKeyboard = 0;
+			            return nextSymbolsKeyboard(currentEditorInfo); 
+			        }
+			        else
+			            return nextAlphabetKeyboard(currentEditorInfo, false); 
+			    }
+			    else
+			    {
+			        if (mLastSelectedSymbolsKeyboard >= (symbolsKeyboardsCount-1))
+                    {//we are at the last symbols keyboard
+			            mLastSelectedSymbolsKeyboard = 0;
+			            return nextAlphabetKeyboard(currentEditorInfo, false);
+                    }
+                    else
+                        return nextSymbolsKeyboard(currentEditorInfo);
+			    }
 			default:
 				return nextAlphabetKeyboard(currentEditorInfo, false);
 		}

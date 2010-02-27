@@ -27,9 +27,11 @@
     </string-array>
     
     <string-array name="swipe_action_types_values">
+    	<item>none</item>
         <item>next_alphabet</item>
         <item>next_symbols</item>
         <item>cycle_keyboards</item>
+        <item>reverse_cycle_keyboards</item>
         <item>shift</item>
         <item>hide</item>
         <item>baskspace</item>

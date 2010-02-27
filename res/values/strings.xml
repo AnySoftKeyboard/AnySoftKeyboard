@@ -120,9 +120,11 @@
     <string name="swipe_right_action_title">Select swipe right action</string>
     
     <string-array name="swipe_action_types">
+    	<item>No action</item>
     	<item>Next alphabet keyboard</item>
         <item>Next symbols keyboard</item>
         <item>Cycle through all keyboards</item>
+        <item>Reverse cycle through all keyboards</item>
         <item>Shift</item>
         <item>Hide keyboard</item>
         <item>Back-space</item>

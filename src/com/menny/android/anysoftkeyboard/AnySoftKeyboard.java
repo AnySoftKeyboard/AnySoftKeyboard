@@ -993,6 +993,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case AnyKeyboard.KEYCODE_ALTER_LAYOUT:
 			nextAlterKeyboard(getCurrentInputEditorInfo());
 			break;
+		case AnyKeyboard.KEYCODE_KEYBOARD_CYCLE:
+		    nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Any);
+            break;
+		case AnyKeyboard.KEYCODE_KEYBOARD_REVERSE_CYCLE:
+		    nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.PreviousAny);
+            break;
 		default:
 			primaryCode = translatePrimaryCodeFromCurrentKeyboard(primaryCode);
 			// Issue 146: Right to left langs require reversed parenthesis
