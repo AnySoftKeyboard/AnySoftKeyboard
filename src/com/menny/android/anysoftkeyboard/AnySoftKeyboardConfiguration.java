@@ -207,20 +207,6 @@ public abstract class AnySoftKeyboardConfiguration
 		}
 
 		private int getIntFromSwipeConfiguration(SharedPreferences sp, final String prefKey, final String defaultValue) {
-			/*
-	<string-array name="swipe_action_types_values">
-        <item>next_alphabet</item>
-        <item>next_symbols</item>
-        <item>cycle_keyboards</item>
-        <item>shift</item>
-        <item>hide</item>
-        <item>baskspace</item>
-        <item>cursor_up</item>
-        <item>cursor_down</item>
-        <item>cursor_left</item>
-        <item>cursor_right</item>
-    </string-array>			
-			*/
 			final String keyValue = sp.getString(prefKey, defaultValue);
 			
 			if (keyValue.equalsIgnoreCase("next_alphabet"))
@@ -235,7 +221,7 @@ public abstract class AnySoftKeyboardConfiguration
 				return Keyboard.KEYCODE_SHIFT;
 			else if (keyValue.equalsIgnoreCase("hide"))
 				return Keyboard.KEYCODE_CANCEL;
-			else if (keyValue.equalsIgnoreCase("baskspace"))
+			else if (keyValue.equalsIgnoreCase("backspace"))
 				return Keyboard.KEYCODE_DELETE;
 			else if (keyValue.equalsIgnoreCase("cursor_up"))
 				return AnyKeyboard.KEYCODE_UP;
