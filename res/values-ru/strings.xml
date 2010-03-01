@@ -104,6 +104,34 @@
    <string name="insert_space_after_word_suggestion_selection">Пробел После Совета</string>
    <string name="insert_space_after_word_suggestion_selection_on_summary">Вставить пробел после выбора совета</string>
    <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
+   <string name="swipe_tweak_group">Изменить жесты провода пальцем по сенсорному экрану</string>
+   <string name="swipe_up_action">Жест вверх</string>
+   <string name="swipe_up_action_summary">Определить жест действия пальцем вверх</string>
+   <string name="swipe_up_action_title">Выбрать действие</string>
+   <string name="swipe_down_action">Жест вниз</string>
+   <string name="swipe_down_action_summary">Определить жест действия пальцем вниз</string>
+   <string name="swipe_down_action_title">Выбрать действие</string>
+   <string name="swipe_left_action">Жест влево</string>
+   <string name="swipe_left_action_summary">Определить жест действия пальцем влево</string>
+   <string name="swipe_left_action_title">Выбрать действие</string>
+   <string name="swipe_right_action">Жест вправо</string>
+   <string name="swipe_right_action_summary">Определить жест действия пальцем вправо</string>
+   <string name="swipe_right_action_title">Выбрать действие</string>
+   
+   <string-array name="swipe_action_types">
+      <item>Никаких действий</item>
+    	<item>Следующая алфавитная раскладка</item>
+      <item>Следующая символьная раскладка</item>
+      <item>Цикл по всем раскладкам</item>
+      <item>Цикл по всем раскладкам в обратном направлении</item>
+      <item>Переключение на заглавные</item>
+      <item>Спрятать клавиатуру</item>
+      <item>Клавиша backspace</item>
+      <item>Переместить курсор вверх</item>
+      <item>Переместить курсор вниз</item>
+      <item>Переместить курсор влево</item>
+      <item>Переместить курсор вправо</item>
+   </string-array>
    
    <string name="auto_caps">Авто-заглав</string>
    <string name="grammer_group">Грамматика</string>
