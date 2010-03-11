@@ -102,6 +102,37 @@
     <string name="fullscreen_input_connection_supported_off_summary">אין שינוי במעבר למצב אופקי</string>
     <string name="zoom_factor_keys_in_portrait">מקדם גובה מקשים במצב אנכי</string>
     <string name="zoom_factor_keys_in_landscape">מקדם גובה מקשים במצב אופקי</string>
+    <string name="insert_space_after_word_suggestion_selection">רווח לאחר בחירת מילה</string>
+    <string name="insert_space_after_word_suggestion_selection_on_summary">הכנסת רווח אוטומטית לאחר בחירת מילה מוצעת</string>
+    <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
+    <string name="swipe_tweak_group">שנה אפשרויות החלקה</string>
+    <string name="swipe_up_action">החלקה מעלה</string>
+    <string name="swipe_up_action_summary">הגדר פעולה בהחלקה מעלה</string>
+    <string name="swipe_up_action_title">בחר פעולה</string>
+    <string name="swipe_down_action">החלקה מטה</string>
+    <string name="swipe_down_action_summary">הגדר פעולה בהחלקה מטה</string>
+    <string name="swipe_down_action_title">בחר פעולה</string>
+    <string name="swipe_left_action">החלקה שמאלה</string>
+    <string name="swipe_left_action_summary">הגדר פעולה בהחלקה שמאלה</string>
+    <string name="swipe_left_action_title">בחר פעולה</string>
+    <string name="swipe_right_action">החלקה ימינה</string>
+    <string name="swipe_right_action_summary">הגדר פעולה בהחלקה ימינה</string>
+    <string name="swipe_right_action_title">בחר פעולה</string>
+	
+    <string-array name="swipe_action_types">
+    	<item>שום פעולה</item>
+    	<item>עבור למקלדת שפה הבאה</item>
+        <item>עבור למקלדת סימנים הבאה</item>
+        <item>Cycle through all keyboards</item>
+        <item>Reverse cycle through all keyboards</item>
+        <item>Shift מקש</item>
+        <item>הסתר מקלדת</item>
+        <item>מחיקה</item>
+        <item>הזז סמן מעלה</item>
+        <item>הזז סמן מטה</item>
+        <item>הזז סמן שמאלה</item>
+        <item>הזז סמן ימינה</item>
+    </string-array>
 	
     <string name="auto_caps">קפיטליזציה אוטומטית</string>
     <string name="grammer_group">אפשרויות תיקון</string>
@@ -116,6 +147,7 @@
     <string name="keyboard_sandbox_title">איזור לצורך בדיקות המקלדות וההגדרות</string>
     <!-- settings - keyboard group -->
     <string name="keyboards_group">מקלדות</string>
+	<string name="symbols_keyboard">סימנים</string>
     <string name="eng_keyboard">אנגלית</string>
     <string name="heb_keyboard">עברית</string>
     <string name="lao_keyboard">לאית</string>
@@ -168,4 +200,19 @@
     <string name="toast_lengthy_words_long_operation">טוען מילון...</string>
     <string name="toast_lengthy_start_up_operation">טוען AnySoftKeyboard...</string>
     <string name="lengthy_creating_keyboard_operation">מאתחל מקלדת...</string>
+	
+    <!-- dictionaries -->
+    <string name="eng_dictionary">אנגלית</string>
+    <string name="heb_dictionary">עברית</string>
+    <string name="french_dictionary">צרפתית</string>
+    <string name="german_dictionary">גרמנית</string>
+    <string name="spanish_dictionary">ספרדית</string>
+    <string name="swedish_dictionary">שוודית</string>
+    <string name="russian_dictionary">רוסית</string>
+    <string name="finnish_dictionary">פינית</string>
+    <string name="dutch_dictionary">Dutch</string>
+    <string name="sl_dictionary">Slovenian</string>
+    <string name="pt_dictionary">פורטוגית</string>
+    <string name="bulgarian_dictionary">בולגרית</string>
+    <string name="ukrainian_dictionary">אוקראינית</string>
 </resources>
