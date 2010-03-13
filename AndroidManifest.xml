@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" 
         package="com.menny.android.anysoftkeyboard"
-        android:versionCode="16" android:versionName="20100227-x-dvtel-testers">
+        android:versionCode="16" android:versionName="20100313-x-dvtel-testers">
 	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key">
 	    <service android:permission="android.permission.BIND_INPUT_METHOD" android:name="SoftKeyboard">
 	        <intent-filter>
@@ -42,6 +42,6 @@
           android:largeScreens="true" 
           android:normalScreens="true"
           android:smallScreens="true"
-          android:anyDensity="false" />
+          android:anyDensity="true" />
           <!-- http://d.android.com/guide/practices/screens_support.html read about legacy. -->
 </manifest>
