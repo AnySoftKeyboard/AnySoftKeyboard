@@ -1128,7 +1128,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 					&& mComposing.length() == 0) {
 				mWord.setCapitalized(true);
 			}
-			if (DEBUG) Log.d(TAG, "mComposing.append:"+((int)primaryCode));
 			
 			mComposing.append((char) primaryCode);
 			mWord.add(primaryCode, keyCodes);
@@ -1146,12 +1145,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 				isWordSeparator(primaryCode));
 	}
 	
-	@Override
-	public void sendKeyChar(char charCode) {
-		if (DEBUG) Log.d(TAG, "sendKeyChar:"+((int)charCode));
-		super.sendKeyChar(charCode);
-	}
-
 	private int translatePrimaryCodeFromCurrentKeyboard(int primaryCode) {
 		if (DEBUG)
 			Log.d("AnySoftKeyboard",
