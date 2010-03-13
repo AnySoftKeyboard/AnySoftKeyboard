@@ -50,7 +50,7 @@ public class AnyKeyboardView extends KeyboardView {
         super(context, attrs, defStyle);
         initializeStuff();
     }
-//    
+    
 //    @Override
 //    public boolean onTouchEvent(MotionEvent me) {
 //    	Log.d(TAG, "onTouchEvent");

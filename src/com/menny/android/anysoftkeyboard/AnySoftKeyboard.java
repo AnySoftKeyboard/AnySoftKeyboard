@@ -1128,6 +1128,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 					&& mComposing.length() == 0) {
 				mWord.setCapitalized(true);
 			}
+			if (DEBUG) Log.d(TAG, "mComposing.append:"+((int)primaryCode));
+			
 			mComposing.append((char) primaryCode);
 			mWord.add(primaryCode, keyCodes);
 			InputConnection ic = getCurrentInputConnection();
@@ -1142,6 +1144,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// measureCps();
 		TextEntryState.typedCharacter((char) primaryCode,
 				isWordSeparator(primaryCode));
+	}
+	
+	@Override
+	public void sendKeyChar(char charCode) {
+		if (DEBUG) Log.d(TAG, "sendKeyChar:"+((int)charCode));
+		super.sendKeyChar(charCode);
 	}
 
 	private int translatePrimaryCodeFromCurrentKeyboard(int primaryCode) {
@@ -1191,8 +1199,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 				commitTyped(ic);
 			}
 		}
+		
 		sendKeyChar((char) primaryCode);
+
 		TextEntryState.typedCharacter((char) primaryCode, true);
+		
 		if (TextEntryState.getState() == TextEntryState.STATE_PUNCTUATION_AFTER_ACCEPTED
 				&& primaryCode != KEYCODE_ENTER && mSpaceSent) {
 			swapPunctuationAndSpace();
@@ -1896,6 +1907,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 					.d("AnySoftKeyboard", "appendCharactersToInput: "
 							+ textToCommit);
 		mWord.append(textToCommit);
+		
 		mComposing.append(textToCommit);
 		appendStringToInput(textToCommit);
 	}

@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
+import android.inputmethodservice.Keyboard.Row;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
@@ -19,6 +20,7 @@ import com.menny.android.anysoftkeyboard.Workarounds;
 
 public abstract class AnyKeyboard extends Keyboard 
 {
+	private final static String TAG = "ASK - AK";
 	protected class ShiftedKeyData
 	{
 		public final char ShiftCharacter;
@@ -75,7 +77,7 @@ public abstract class AnyKeyboard extends Keyboard
     private final Drawable mOnShiftIcon;
     //private Drawable mOldShiftPreviewIcon;
     private final Key mShiftKey;
-    private final Key mEnterKey;
+    private final EnterKey mEnterKey;
 	private final Key mSmileyKey;
 	private final Key mQuestionMarkKey;
 	
@@ -98,7 +100,7 @@ public abstract class AnyKeyboard extends Keyboard
         mOffShiftIcon = askContext.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift);
         //going to revisit the keys to fix some stuff
         boolean rightToLeftLayout = false;
-        Key enterKey = null;
+        EnterKey enterKey = null;
         Key shiftKey = null;
         Key smileyKey = null;
         Key questionKey = null;
@@ -116,7 +118,7 @@ public abstract class AnyKeyboard extends Keyboard
                 switch(primaryCode)
                 {
                 case 10:
-                    enterKey = key;
+                    enterKey = (EnterKey)key;
                     break;
                 case KEYCODE_SHIFT: 
                     shiftKey = key;
@@ -199,6 +201,8 @@ public abstract class AnyKeyboard extends Keyboard
         	switch(primaryCode)
         	{
         	case 10://enter
+        		key = new EnterKey(res, parent, x, y, parser);
+        		break;
         	case KEYCODE_DELETE://delete
         	case KEYCODE_SHIFT://shift
         		key = new LessSensitiveAnyKey(res, parent, x, y, parser);
@@ -210,7 +214,7 @@ public abstract class AnyKeyboard extends Keyboard
         {
         	final int primaryKey = ((key.codes != null) && key.codes.length > 0)?
         			key.codes[0] : -1;
-        	Log.v("AnySoftKeyboard", "Key '"+primaryKey+"' will have - width: "+key.width+", height:"+key.height+", text: '"+key.label+"'.");
+        	Log.v(TAG, "Key '"+primaryKey+"' will have - width: "+key.width+", height:"+key.height+", text: '"+key.label+"'.");
         }
         
         setPopupKeyChars(key);
@@ -225,7 +229,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        	if (!mSpecialShiftKeys.containsKey(primary))
 	        		mSpecialShiftKeys.put(primary, keyData);
 	        	if (mDebug)
-	            	Log.v("AnySoftKeyboard", "Adding mapping ("+primary+"->"+keyData.ShiftCharacter+") to mSpecialShiftKeys.");
+	            	Log.v(TAG, "Adding mapping ("+primary+"->"+keyData.ShiftCharacter+") to mSpecialShiftKeys.");
 	        }
         }
         		
@@ -272,12 +276,24 @@ public abstract class AnyKeyboard extends Keyboard
      */
     public void setImeOptions(Resources res, int options) {
     	if (mDebug)
-    		Log.d("AnySoftKeyboard", "AnyKeyboard.setImeOptions");
+    		Log.d(TAG, "AnyKeyboard.setImeOptions");
         if (mEnterKey == null) {
             return;
         }
+        mEnterKey.enable();
+        //sometimes, the OS will request the IME to make ENTER disappear...
+        //we will respect that.
+        //I hope that the GUI will provide a different option for ACTION
+        //NOTE: TextView will set this flag in multi-line inputs.
+        //but in these cases we DO want it to be available.
+        final boolean NO_ENTER_ACTION = ((options&EditorInfo.IME_FLAG_NO_ENTER_ACTION) != 0);
         
-        switch (options&(EditorInfo.IME_MASK_ACTION|EditorInfo.IME_FLAG_NO_ENTER_ACTION)) {
+    	final int action = (options&EditorInfo.IME_MASK_ACTION);
+    	
+    	if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) 
+    		Log.d(TAG, "Input Connection ENTER key with action: "+action + " and NO_ACTION flag is: "+NO_ENTER_ACTION);
+    	
+        switch (action) {
             case EditorInfo.IME_ACTION_GO:
                 mEnterKey.iconPreview = null;
                 mEnterKey.icon = null;
@@ -295,10 +311,18 @@ public abstract class AnyKeyboard extends Keyboard
                 mEnterKey.label = null;
                 break;
             case EditorInfo.IME_ACTION_SEND:
-                mEnterKey.iconPreview = null;
-                mEnterKey.icon = null;
-              //there is a problem with LTR languages
-                mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_send_key));
+            	if (NO_ENTER_ACTION)
+            	{
+            		Log.d(TAG, "Disabling the ENTER key, since this is a SEND action, and OS requested no mistakes.");
+            		mEnterKey.disable();
+            	}
+            	else
+            	{
+	                mEnterKey.iconPreview = null;
+	                mEnterKey.icon = null;
+	                //there is a problem with LTR languages
+	                mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_send_key));
+            	}
                 break;
             default:
                 mEnterKey.icon = res.getDrawable(R.drawable.sym_keyboard_return);
@@ -324,12 +348,12 @@ public abstract class AnyKeyboard extends Keyboard
 	public void setShiftLocked(boolean shiftLocked) {
         if (mShiftKey != null) {
             if (shiftLocked) {
-            	Log.d("AnySoftKeyboard", "Switching to LOCKED shift icon - capslock");
+            	Log.d(TAG, "Switching to LOCKED shift icon - capslock");
                 mShiftKey.icon = mOnShiftIcon;
                 mShiftKey.on = true;
                 mShiftState = SHIFT_LOCKED;
             } else {
-            	Log.d("AnySoftKeyboard", "Switching to regular shift icon - un-shifted");
+            	Log.d(TAG, "Switching to regular shift icon - un-shifted");
                 mShiftKey.icon = mOffShiftIcon;
                 mShiftKey.on = false;
                 mShiftState = SHIFT_OFF;
@@ -351,7 +375,7 @@ public abstract class AnyKeyboard extends Keyboard
 	{
 		boolean result = super.setShifted(shiftState);
 		if (mDebug)
-    		Log.d("AnySoftKeyboard", "setShifted: shiftState:"+shiftState+". result:"+result);
+    		Log.d(TAG, "setShifted: shiftState:"+shiftState+". result:"+result);
 		mShiftState = shiftState? SHIFT_ON : SHIFT_OFF;
 		if (result)
 		{//layout changed. Need to change labels.
@@ -363,12 +387,12 @@ public abstract class AnyKeyboard extends Keyboard
 			
 			if (mShiftKey != null) {
 	            if (shiftState) {
-	            	Log.d("AnySoftKeyboard", "Switching to regular ON shift icon - shifted");
+	            	Log.d(TAG, "Switching to regular ON shift icon - shifted");
 	            	mShiftKey.on = false;
                     mShiftState = SHIFT_ON;
                     mShiftKey.icon = mOnShiftIcon;
 	            } else {
-	            	Log.d("AnySoftKeyboard", "Switching to regular OFF shift icon - un-shifted");
+	            	Log.d(TAG, "Switching to regular OFF shift icon - un-shifted");
 	            	mShiftKey.on = false;
 	            	mShiftState = SHIFT_OFF;
 	                mShiftKey.icon = mOffShiftIcon;
@@ -430,7 +454,7 @@ public abstract class AnyKeyboard extends Keyboard
 	public void setTextVariation(Resources res, int inputType) 
 	{
 		if (mDebug)
-    		Log.d("AnySoftKeyboard", "setTextVariation");
+    		Log.d(TAG, "setTextVariation");
 		int variation = inputType &  EditorInfo.TYPE_MASK_VARIATION;
 		
 		switch (variation) {
@@ -438,7 +462,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        case EditorInfo.TYPE_TEXT_VARIATION_URI:
 	        	if (mSmileyKey != null)
 	        	{
-	        		Log.d("AnySoftKeyboard", "Changing smiley key to domains.");
+	        		//Log.d("AnySoftKeyboard", "Changing smiley key to domains.");
 	        		mSmileyKey.iconPreview = null;// res.getDrawable(sym_keyboard_key_domain_preview);
 	        		mSmileyKey.icon = res.getDrawable(R.drawable.sym_keyboard_key_domain);
 		        	mSmileyKey.label = null;
@@ -447,7 +471,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        	}
 	        	if (mQuestionMarkKey != null)
 	        	{
-	        		Log.d("AnySoftKeyboard", "Changing question mark key to AT.");
+	        		//Log.d("AnySoftKeyboard", "Changing question mark key to AT.");
 		        	mQuestionMarkKey.codes[0] = (int)'@';
 		        	mQuestionMarkKey.label = "@";
 		        	mQuestionMarkKey.popupCharacters = "!/?\u00bf\u00a1";
@@ -456,7 +480,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        default:
 	        	if (mSmileyKey != null)
 	        	{
-	        		Log.d("AnySoftKeyboard", "Changing smiley key to smiley.");
+	        		//Log.d("AnySoftKeyboard", "Changing smiley key to smiley.");
 	        		mSmileyKey.icon = res.getDrawable(R.drawable.sym_keyboard_smiley);
 		        	mSmileyKey.label = null;
 		        	mSmileyKey.text = null;// ":-) ";
@@ -464,7 +488,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        	}
 	        	if (mQuestionMarkKey != null)
 	        	{
-	        		Log.d("AnySoftKeyboard", "Changing question mark key to question.");
+	        		//Log.d("AnySoftKeyboard", "Changing question mark key to question.");
 		        	mQuestionMarkKey.codes[0] = (int)'?';
 		        	mQuestionMarkKey.label = "?";
 		        	mQuestionMarkKey.popupCharacters = "!/@\u00bf\u00a1";
@@ -482,7 +506,7 @@ public abstract class AnyKeyboard extends Keyboard
 			{
 				char shifted = mSpecialShiftKeys.get(c).ShiftCharacter;
 				if (mDebug)
-		        	Log.v("AnySoftKeyboard", "Returned the shifted mapping ("+c+"->"+shifted+") from mSpecialShiftKeys.");
+		        	Log.v(TAG, "Returned the shifted mapping ("+c+"->"+shifted+") from mSpecialShiftKeys.");
 				return shifted;
 			}
 		}
@@ -516,7 +540,7 @@ public abstract class AnyKeyboard extends Keyboard
 //        }
     }
 	
-	class LessSensitiveAnyKey extends AnyKey {
+	private class LessSensitiveAnyKey extends AnyKey {
         
 		private int mStartX;
 		private int mStartY;
@@ -567,5 +591,41 @@ public abstract class AnyKeyboard extends Keyboard
         }
     }
 
+	private class EnterKey extends LessSensitiveAnyKey
+	{
+		private final int mOriginalHeight;
+		private boolean mEnabled;
+		
+		public EnterKey(Resources res, Row parent, int x, int y,
+				XmlResourceParser parser) {
+			super(res, parent, x, y, parser);
+			mOriginalHeight = this.height;
+			mEnabled = true;
+		}
+		
+		public void disable()
+		{
+			this.height = 0;
+			iconPreview = null;
+            icon = null;
+            label = "  ";//can not use NULL.
+            mEnabled = false;
+		}
+		
+		public void enable()
+		{
+			this.height = mOriginalHeight;
+			mEnabled = true;
+		}
+		
+		@Override
+		public boolean isInside(int clickedX, int clickedY) {
+			if (mEnabled)
+				return super.isInside(clickedX, clickedY);
+			else
+				return false;//disabled.
+		}
+	}
+	
 	public abstract String getKeyboardPrefId();
 }
