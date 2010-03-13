@@ -24,9 +24,12 @@ import android.inputmethodservice.KeyboardView;
 import android.inputmethodservice.Keyboard.Key;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 
 public class AnyKeyboardView extends KeyboardView {
 
+	private final static String TAG = "ASK AnyKeyboardView";
 	static final int KEYCODE_OPTIONS = -100;
     //static final int KEYCODE_SHIFT_LONGPRESS = -101;
 	static final int KEYCODE_SMILEY_LONGPRESS = -102;
@@ -47,6 +50,24 @@ public class AnyKeyboardView extends KeyboardView {
         super(context, attrs, defStyle);
         initializeStuff();
     }
+//    
+//    @Override
+//    public boolean onTouchEvent(MotionEvent me) {
+//    	Log.d(TAG, "onTouchEvent");
+//    	return super.onTouchEvent(me);
+//    }
+//    
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//    	Log.d(TAG, "onKeyDown:"+keyCode);
+//    	return super.onKeyDown(keyCode, event);
+//    }
+//    
+//    @Override
+//    public boolean onKeyUp(int keyCode, KeyEvent event) {
+//    	Log.d(TAG, "onKeyUp:"+keyCode);
+//    	return super.onKeyUp(keyCode, event);
+//    }
     
     public void setPhoneKeyboard(Keyboard phoneKeyboard) {
         mPhoneKeyboard = phoneKeyboard;
@@ -93,7 +114,7 @@ public class AnyKeyboardView extends KeyboardView {
     public void setKeyboard(Keyboard keyboard) {
     	if ((keyboard != null) && (keyboard.getMinWidth() != getWidth()))
 		{
-			Log.w("AnySoftKeyboard", "NOTE: The SET keyboard has the wrong width! Keyboard width: "+keyboard.getMinWidth()+", device width:"+getWidth());
+			Log.w(TAG, "NOTE: The SET keyboard has the wrong width! Keyboard width: "+keyboard.getMinWidth()+", device width:"+getWidth());
 		}
     	super.setKeyboard(keyboard);
     }

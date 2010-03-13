@@ -68,7 +68,9 @@ import com.menny.android.anysoftkeyboard.tutorials.TutorialsProvider;
 public class AnySoftKeyboard extends InputMethodService implements
 		KeyboardView.OnKeyboardActionListener,
 		OnSharedPreferenceChangeListener, AnyKeyboardContextProvider {
-
+	private final static String TAG = "ASK"; 
+	
+	
 	private final boolean TRACE_SDCARD = false;
 
 	private static final int MSG_UPDATE_SUGGESTIONS = 0;
@@ -214,7 +216,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				.getDefaultSharedPreferences(this);
 		sp.unregisterOnSharedPreferenceChangeListener(this);
 		if (mSoundOn) {
-			Log.i("AnySoftKeyboard",
+			Log.i(TAG,
 					"Releasing sounds effects from AUDIO_SERVICE");
 			mAudioManager.unloadSoundEffects();
 		}
@@ -227,7 +229,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public void onFinishInputView(boolean finishingInput) {
 		if (DEBUG)
-			Log.d("AnySoftKeyboard", "onFinishInputView(finishingInput:"
+			Log.d(TAG, "onFinishInputView(finishingInput:"
 					+ finishingInput + ")");
 		super.onFinishInputView(finishingInput);
 		if (!mKeyboardChangeNotificationType
@@ -272,7 +274,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public void onStartInput(EditorInfo attribute, boolean restarting) {
 		if (DEBUG)
-			Log.d("AnySoftKeyboard", "onStartInput(EditorInfo:"
+			Log.d(TAG, "onStartInput(EditorInfo:"
 					+ attribute.imeOptions + "," + attribute.inputType
 					+ ", restarting:" + restarting + ")");
 		super.onStartInput(attribute, restarting);
@@ -365,7 +367,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public void onStartInputView(EditorInfo attribute, boolean restarting) {
 		if (DEBUG)
-			Log.d("AnySoftKeyboard", "onStartInputView(EditorInfo:"
+			Log.d(TAG, "onStartInputView(EditorInfo:"
 					+ attribute.imeOptions + "," + attribute.inputType
 					+ ", restarting:" + restarting + ")");
 		super.onStartInputView(attribute, restarting);
@@ -380,7 +382,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public void onFinishInput() {
 		if (DEBUG)
-			Log.d("AnySoftKeyboard", "onFinishInput()");
+			Log.d(TAG, "onFinishInput()");
 		super.onFinishInput();
 
 		if (mInputView != null) {
@@ -449,7 +451,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public void onDisplayCompletions(CompletionInfo[] completions) {
 		if (DEBUG) {
-			Log.i("AnySoftKeyboard", "Received completions:");
+			Log.i(TAG, "Received completions:");
 			for (int i = 0; i < (completions != null ? completions.length : 0); i++) {
 				Log.i("AnySoftKeyboard", "  #" + i + ": " + completions[i]);
 			}
@@ -457,10 +459,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		//completions should be shown if dictionary requires, or if we are in full-screen and have outside completeions
 		if (mCompletionOn || (isFullscreenMode() && (completions != null))) {
-			if (DEBUG) Log.v("AnySoftKeyboard", "Received completions: completion should be shown: "+mCompletionOn+" fullscreen:"+isFullscreenMode());
+			if (DEBUG) Log.v(TAG, "Received completions: completion should be shown: "+mCompletionOn+" fullscreen:"+isFullscreenMode());
 			mCompletions = completions;
 			if (completions == null) {
-				if (DEBUG) Log.v("AnySoftKeyboard", "Received completions: completion is NULL. Clearing suggestions.");
+				if (DEBUG) Log.v(TAG, "Received completions: completion is NULL. Clearing suggestions.");
 				mCandidateView.setSuggestions(null, false, false, false);
 				return;
 			}
@@ -471,14 +473,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 				if (ci != null)
 					stringList.add(ci.getText());
 			}
-			if (DEBUG) Log.v("AnySoftKeyboard", "Received completions: setting to suggestions view "+stringList.size()+ " completions.");
+			if (DEBUG) Log.v(TAG, "Received completions: setting to suggestions view "+stringList.size()+ " completions.");
 			// CharSequence typedWord = mWord.getTypedWord();
 			mCandidateView.setSuggestions(stringList, true, true, true);
 			mBestWord = null;
 			//I mean, if I'm here, it must be shown...
 			setCandidatesViewShown(true);
 		}
-		else if (DEBUG) Log.v("AnySoftKeyboard", "Received completions: completions should not be shown.");
+		else if (DEBUG) Log.v(TAG, "Received completions: completions should not be shown.");
 	}
 
 	@Override
@@ -508,6 +510,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		Log.d(TAG, "onKeyDown:"+keyCode);
+		
 		InputConnection ic = getCurrentInputConnection();
 		if (!mPredictionLandscape) {
 			// For all other keys, if we want to do transformations on
@@ -523,7 +527,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mPredicting = false;
 		}
 		if (DEBUG)
-			Log.d("AnySoftKeyboard", "Event: Key:" + event.getKeyCode()
+			Log.d(TAG, "Event: Key:" + event.getKeyCode()
 					+ " Shift:"
 					+ ((event.getMetaState() & KeyEvent.META_SHIFT_ON) != 0)
 					+ " ALT:"
@@ -572,18 +576,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case KeyEvent.KEYCODE_SHIFT_RIGHT:
 		case KeyEvent.KEYCODE_SYM:
 			if (DEBUG)
-				Log.d("AnySoftKeyboard-meta-key",
+				Log.d(TAG+"-meta-key",
 						getMetaKeysStates("onKeyDown before handle"));
 			mMetaState = MyMetaKeyKeyListener.handleKeyDown(mMetaState,
 					keyCode, event);
 			if (DEBUG)
-				Log.d("AnySoftKeyboard-meta-key",
+				Log.d(TAG+"-meta-key",
 						getMetaKeysStates("onKeyDown after handle"));
 			break;
 		case KeyEvent.KEYCODE_SPACE:
 			if (event.isAltPressed()) {
-				Log
-						.d("AnySoftKeyborad",
+				Log.d(TAG,
 								"User pressed ALT+SPACE, moving to next physical keyboard.");
 				// consuming the meta keys
 				// mHardKeyboardAction.resetMetaState();
@@ -600,6 +603,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 				return true;
 			}
+			//NOTE:
 			// letting it fall through to the "default"
 			// else
 			// {
@@ -633,9 +637,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 						{
 							final String keyboardName = current.getKeyboardName();
 							
-							Log.d("AnySoftKeyborad", "Asking '" + keyboardName
+							Log.d(TAG, "Asking '" + keyboardName
 									+ "' to translate key: " + keyCode);
-							Log.v("AnySoftKeyboard",
+							Log.v(TAG,
 									"Hard Keyboard Action before translation: Shift: "
 											+ mHardKeyboardAction
 													.isShiftActive()
@@ -650,7 +654,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 						keyTranslator
 								.translatePhysicalCharacter(mHardKeyboardAction);
 						if (DEBUG)
-							Log.v("AnySoftKeyboard",
+							Log.v(TAG,
 									"Hard Keyboard Action after translation: Key code: "
 											+ mHardKeyboardAction.getKeyCode()
 											+ ", changed: "
@@ -667,9 +671,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 							mMetaState = MyMetaKeyKeyListener
 									.adjustMetaAfterKeypress(mMetaState);
 							if (DEBUG)
-								Log
-										.d(
-												"AnySoftKeyboard-meta-key",
+								Log.d(TAG+"-meta-key",
 												getMetaKeysStates("onKeyDown after adjust - translated"));
 							return true;
 						}
@@ -685,7 +687,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				mMetaState = MyMetaKeyKeyListener
 						.adjustMetaAfterKeypress(mMetaState);
 				if (DEBUG)
-					Log.d("AnySoftKeyboard-meta-key",
+					Log.d(TAG+"-meta-key",
 							getMetaKeysStates("onKeyDown after adjust"));
 			}
 		}
@@ -938,6 +940,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	public void onKey(int primaryCode, int[] keyCodes) {
 		if (DEBUG)	Log.d("AnySoftKeyboard", "onKey " + primaryCode);
+		//see issue 160, and "KEYCODE_SPACE" branch about this var.
+		boolean switchToAlphabetAtTheEnd = false;
+		
 		switch (primaryCode) {
 		case Keyboard.KEYCODE_DELETE:
 			handleBackspace();
@@ -999,6 +1004,18 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case AnyKeyboard.KEYCODE_KEYBOARD_REVERSE_CYCLE:
 		    nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.PreviousAny);
             break;
+		case KEYCODE_SPACE:
+			// Issue 160: Space in symbols keyboards should switch to
+    		// alphabet keyboard
+    		if (DEBUG)
+    				Log.d(TAG, "SwitchKeyboardOnSpace: "
+    						+ mSwitchKeyboardOnSpace);
+    			
+			if (mSwitchKeyboardOnSpace
+					&& !mKeyboardSwitcher.isAlphabetMode()) {
+				switchToAlphabetAtTheEnd = true;
+			}
+    		//Note: letting the space fall to the DEFAULT
 		default:
 			primaryCode = translatePrimaryCodeFromCurrentKeyboard(primaryCode);
 			// Issue 146: Right to left langs require reversed parenthesis
@@ -1016,6 +1033,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 			// Cancel the just reverted state
 			mJustRevertedSeparator = null;
+			if (switchToAlphabetAtTheEnd)
+			{
+				mKeyboardSwitcher.nextKeyboard(getCurrentInputEditorInfo(),
+						NextKeyboardType.Alphabet);
+			}
+			break;
 		}
 	}
 
@@ -1477,9 +1500,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	public void onPress(int primaryCode) {
+		if (DEBUG) Log.d(TAG, "onPress:"+primaryCode);
 		if (mVibrationDuration > 0) {
 			if (DEBUG)
-				Log.d("AnySoftKeyboard", "Vibrating on key-pressed");
+				Log.d(TAG, "Vibrating on key-pressed");
 			((Vibrator) getSystemService(Context.VIBRATOR_SERVICE))
 					.vibrate(mVibrationDuration);
 		}
@@ -1513,22 +1537,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 							"Devices is muted. No sounds on key-pressed.");
 			}
 		}
-		// Issue 160: Space in symbols keyboards should switch to
-		// alphabet keyboard
-		if (primaryCode == KEYCODE_SPACE) {
-			if (DEBUG)
-				Log.d("AnySoftKeyboard", "SwitchKeyboardOnSpace: "
-						+ mSwitchKeyboardOnSpace);
-			if (mSwitchKeyboardOnSpace
-					&& !mKeyboardSwitcher.isAlphabetMode()) {
-				mKeyboardSwitcher.nextKeyboard(
-						getCurrentInputEditorInfo(),
-						NextKeyboardType.Alphabet);
-			}
-		}
 	}
 
 	public void onRelease(int primaryCode) {
+		if (DEBUG) Log.d(TAG, "onRelease:"+primaryCode);
 		// vibrate();
 	}
 
