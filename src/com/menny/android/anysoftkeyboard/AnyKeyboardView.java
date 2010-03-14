@@ -16,16 +16,14 @@
 
 package com.menny.android.anysoftkeyboard;
 
-import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
-
 import android.content.Context;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.inputmethodservice.Keyboard.Key;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
+
+import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
 
 public class AnyKeyboardView extends KeyboardView {
 

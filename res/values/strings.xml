@@ -118,7 +118,6 @@
     <string name="swipe_right_action">Swipe right</string>
     <string name="swipe_right_action_summary">Define the swipe right gesture action</string>
     <string name="swipe_right_action_title">Select swipe right action</string>
-    
     <string-array name="swipe_action_types">
     	<item>No action</item>
     	<item>Next alphabet keyboard</item>
@@ -133,6 +132,10 @@
         <item>Move cursor left</item>
         <item>Move cursor right</item>
     </string-array>
+    
+    <string name="action_key_invisible_on_disable">Invisible action key</string>
+    <string name="action_key_invisible_on_disable_on_summary">Action key will be invisible when GUI requests</string>
+    <string name="action_key_invisible_on_disable_off_summary">Action key will be visible even if GUI requests</string>
     
     <string name="auto_caps">Auto-capitalization</string>
     <string name="grammer_group">Grammar</string>

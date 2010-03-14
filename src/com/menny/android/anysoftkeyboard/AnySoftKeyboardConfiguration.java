@@ -49,6 +49,8 @@ public abstract class AnySoftKeyboardConfiguration
 	public abstract int getSwipeLeftKeyCode();
 	public abstract int getSwipeRightKeyCode();
 	
+	public abstract boolean getActionKeyInvisibleWhenRequested();
+	
 	static class AnySoftKeyboardConfigurationImpl extends AnySoftKeyboardConfiguration
 	{
 		private InputMethodService mIme;
@@ -69,6 +71,7 @@ public abstract class AnySoftKeyboardConfiguration
 		private int mSwipeDownKeyCode;
 		private int mSwipeLeftKeyCode;
 		private int mSwipeRightKeyCode;
+		private boolean mActionKeyInvisibleWhenRequested = false;
 				
 		public AnySoftKeyboardConfigurationImpl()
 		{
@@ -203,6 +206,11 @@ public abstract class AnySoftKeyboardConfiguration
 			mSwipeRightKeyCode = newSwipeRightValue;
 			Log.i("AnySoftKeyboard", "** mSwipeRightKeyCode: "+mSwipeRightKeyCode);
 			
+			boolean newActionKeyInvisibleWhenRequested = sp.getBoolean("action_key_invisible_on_disable", false);
+			handled = handled || ( newActionKeyInvisibleWhenRequested != mActionKeyInvisibleWhenRequested);
+			mActionKeyInvisibleWhenRequested = newActionKeyInvisibleWhenRequested;
+			Log.i("AnySoftKeyboard", "** mActionKeyInvisibleWhenRequested: "+mActionKeyInvisibleWhenRequested);
+			
 			return handled && (!forceRebuildOfKeyboards);
 		}
 
@@ -303,5 +311,10 @@ public abstract class AnySoftKeyboardConfiguration
 		public int getSwipeLeftKeyCode() {return mSwipeLeftKeyCode;}
 		@Override
 		public int getSwipeRightKeyCode() {return mSwipeRightKeyCode;}
+		
+		@Override
+		public boolean getActionKeyInvisibleWhenRequested() {
+			return mActionKeyInvisibleWhenRequested;
+		}
 	}
 }

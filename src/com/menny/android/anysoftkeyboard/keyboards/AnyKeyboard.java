@@ -9,7 +9,6 @@ import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
-import android.inputmethodservice.Keyboard.Row;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
@@ -605,7 +604,9 @@ public abstract class AnyKeyboard extends Keyboard
 		
 		public void disable()
 		{
-			this.height = 0;
+			if (AnySoftKeyboardConfiguration.getInstance().getActionKeyInvisibleWhenRequested())
+				this.height = 0;
+			
 			iconPreview = null;
             icon = null;
             label = "  ";//can not use NULL.
