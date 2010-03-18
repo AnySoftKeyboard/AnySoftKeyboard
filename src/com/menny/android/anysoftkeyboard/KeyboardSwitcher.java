@@ -77,7 +77,7 @@ public class KeyboardSwitcher
     {
     	makeKeyboards(false);
     	AnyKeyboard keyboard = mSymbolsKeyboardsArray[keyboardIndex];
-    	if ((keyboard != null) && (keyboard.getMinWidth() != mContext.getMaxWidth()))
+    	if (requiredToRecreateKeyboard(keyboard))
     	{
     		Log.d("AnySoftKeyboard", "Symbols keyboard width is "+keyboard.getMinWidth()+", while view width is "+mContext.getMaxWidth()+". Recreating.");
     		keyboard = null;
@@ -102,7 +102,7 @@ public class KeyboardSwitcher
 	    	mSymbolsKeyboardsArray[keyboardIndex] = keyboard;
     	}
     	
-    	if (keyboard.getMinWidth() != mContext.getMaxWidth())
+    	if (requiredToRecreateKeyboard(keyboard))
 		{
 			Log.w("AnySoftKeyboard", "NOTE: The returned keyboard has the wrong width! Keyboard width: "+keyboard.getMinWidth()+", device width:"+mContext.getMaxWidth());
 		}
@@ -299,7 +299,7 @@ public class KeyboardSwitcher
 		
 		AnyKeyboard keyboard = keyboards[index];
 		
-		if ((keyboard != null) && (keyboard.getMinWidth() != mContext.getMaxWidth()))
+		if (requiredToRecreateKeyboard(keyboard))
     	{
     		Log.d("AnySoftKeyboard", "Alphabet keyboard width is "+keyboard.getMinWidth()+", while view width is "+mContext.getMaxWidth()+". Recreating.");
     		keyboard = null;
@@ -314,11 +314,18 @@ public class KeyboardSwitcher
 			keyboard = mAlphabetKeyboards[index];
 		}
 		
-		if (keyboard.getMinWidth() != mContext.getMaxWidth())
+		if (requiredToRecreateKeyboard(keyboard))
 		{
 			Log.w("AnySoftKeyboard", "NOTE: The returned keyboard has the wrong width! Keyboard width: "+keyboard.getMinWidth()+", device width:"+mContext.getMaxWidth());
 		}
 		return keyboard;
+	}
+
+	private boolean requiredToRecreateKeyboard(AnyKeyboard keyboard) {
+		return (keyboard != null) && (keyboard.getMinWidth() != mContext.getMaxWidth())
+		//this is some tolerance, since sometimes the keyboard ends a bit after
+		//the end of the screen (see issue 305)
+			&& (Math.abs(keyboard.getMinWidth() - mContext.getMaxWidth()) > 5);
 	}
 
 	public AnyKeyboard nextKeyboard(EditorInfo currentEditorInfo, NextKeyboardType type) 
