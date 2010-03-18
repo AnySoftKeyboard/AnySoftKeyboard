@@ -960,8 +960,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case AnyKeyboard.KEYCODE_RIGHT:
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_RIGHT);
 			break;
-
-			case Keyboard.KEYCODE_CANCEL:
+		case AnyKeyboard.KEYCODE_UP:
+			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_UP);
+			break;
+		case AnyKeyboard.KEYCODE_DOWN:
+			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_DOWN);
+			break;
+			
+		case Keyboard.KEYCODE_CANCEL:
 			if (mOptionsDialog == null || !mOptionsDialog.isShowing()) {
 				handleClose();
 			}
