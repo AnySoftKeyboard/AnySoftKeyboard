@@ -19,8 +19,15 @@ public class Workarounds
 			//(see issue 132):
 			try
 			{
-				final int buildInc = Integer.parseInt(android.os.Build.VERSION.INCREMENTAL);
-				requiresRtlWorkaround = (buildInc < 20090831);
+				//no fix: 1251851795000
+				//fix: 1251970876000
+				//no fix: 1251851795000
+				//fix: 1251970876000
+				//fix: 1261367883000
+//				final int buildInc = Integer.parseInt(android.os.Build.VERSION.INCREMENTAL);
+//				requiresRtlWorkaround = (buildInc < 20090831);
+				requiresRtlWorkaround =  (android.os.Build.TIME <= 1251851795000l);
+				
 			}
 			catch(Exception ex)
 			{
