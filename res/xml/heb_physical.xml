@@ -3,5 +3,5 @@
 	<SequenceMapping keySequence="&#x0037;" target="&#x05ea;"/><!-- comma is mapped to TET -->
 	<SequenceMapping keySequence="&#x0037;" shiftModifier="true" target=","/><!-- shift comma is mapped to , -->
 	<SequenceMapping keySequence="&#x0037;" altModifier="true" target="\\?"/><!-- ALT comma is mapped to question mark -->
-	<SequenceMapping keySequence="&#x0037;" target="&#x20aa;"/><!-- ALT SHIN is SHEKEL -->
+	<SequenceMapping keySequence="&#x0061;" target="&#x20aa;"/><!-- ALT SHIN is SHEKEL -->
 </PhysicalTranslation>
