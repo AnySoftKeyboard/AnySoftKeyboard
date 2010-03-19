@@ -113,8 +113,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	// private boolean mVibrateOn;
 	private int mVibrationDuration;
 	private boolean mSoundOn;
-	// between 0..8
-	private float mSoundVolume;
+	// between 0..100. This is the custom volume
+	private int mSoundVolume;
 
 	private boolean mSwitchKeyboardOnSpace;
 	private boolean mSmileyOnShortPress;
@@ -1524,6 +1524,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				int keyFX;
 				switch (primaryCode) {
 				case 13:
+				case 10:
 					keyFX = AudioManager.FX_KEYPRESS_RETURN;
 				case Keyboard.KEYCODE_DELETE:
 					keyFX = AudioManager.FX_KEYPRESS_DELETE;
@@ -1532,15 +1533,46 @@ public class AnySoftKeyboard extends InputMethodService implements
 				default:
 					keyFX = AudioManager.FX_KEY_CLICK;
 				}
-				final float volume = (mSoundVolume < 0) ? manager
-						.getStreamVolume(AudioManager.STREAM_NOTIFICATION)
-						: mSoundVolume;
+				final float fxVolume;
+				//creating scoop to make sure volume and maxVolume
+				//are not used
+				{
+					final int volume;
+					final int maxVolume;
+					if (mSoundVolume < 0)
+					{
+						//take system's volume
+						volume = manager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+						maxVolume = manager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
+						if (DEBUG)
+							Log.d("AnySoftKeyboard", "Sound on key-pressed. Taking STREAM_NOTIFICATION: "+volume+" out of "+maxVolume);
+					}
+					else
+					{
+						volume = mSoundVolume;
+						maxVolume = 100;
+						if (DEBUG)
+							Log.d("AnySoftKeyboard", "Sound on key-pressed. Taking custom volume: "+volume+" out of "+maxVolume);
+					}
+					//pre-eclair
+					// volume is between 0..8 (float)
+					//eclair
+					// volume is between 0..1 (float)
+					if (Workarounds.isEclair())
+					{
+						fxVolume = ((float)volume)/((float)maxVolume);
+					}
+					else
+					{
+						fxVolume = 8*((float)volume)/((float)maxVolume);
+					}
+				}				
+
 				if (DEBUG)
 					Log.d("AnySoftKeyboard", "Sound on key-pressed. Sound ID:"
-							+ keyFX + " with volume " + volume);
+							+ keyFX + " with volume " + fxVolume);
 
-				// volume is between 0..8 (float)
-				manager.playSoundEffect(keyFX, volume);
+				manager.playSoundEffect(keyFX, fxVolume);
 			} else {
 				if (DEBUG)
 					Log.v("AnySoftKeyboard",
@@ -1622,12 +1654,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 		handled = handled || soundChanged;
 		mSoundOn = newSoundOn;
 		// checking the volume
-		boolean customVolume = sp.getBoolean("use_custom_sound_volume", true);
-		float newVolume;
+		boolean customVolume = sp.getBoolean("use_custom_sound_volume", false);
+		int newVolume;
 		if (customVolume) {
-			newVolume = (float) ((float) ((float) sp.getInt(
-					"custom_sound_volume", 0)) / 12.5);
-			Log.i("AnySoftKeyboard", "Custom volume checked: " + newVolume);
+			newVolume = sp.getInt("custom_sound_volume", 0);
+			Log.i("AnySoftKeyboard", "Custom volume checked: " + newVolume+" out of 100");
 		} else {
 			Log.i("AnySoftKeyboard", "Custom volume un-checked.");
 			newVolume = -1;
