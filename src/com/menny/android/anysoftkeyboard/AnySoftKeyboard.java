@@ -1521,15 +1521,18 @@ public class AnySoftKeyboard extends InputMethodService implements
 			AudioManager manager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 			// Will use sound effects ONLY if the device is not muted.
 			if (manager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL) {
-				int keyFX;
+				final int keyFX;
 				switch (primaryCode) {
 				case 13:
 				case 10:
 					keyFX = AudioManager.FX_KEYPRESS_RETURN;
+					break;
 				case Keyboard.KEYCODE_DELETE:
 					keyFX = AudioManager.FX_KEYPRESS_DELETE;
+					break;
 				case 32:
 					keyFX = AudioManager.FX_KEYPRESS_SPACEBAR;
+					break;
 				default:
 					keyFX = AudioManager.FX_KEY_CLICK;
 				}
