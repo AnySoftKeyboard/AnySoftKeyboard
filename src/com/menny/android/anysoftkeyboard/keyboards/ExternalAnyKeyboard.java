@@ -123,8 +123,15 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                         }
                         else
                         {
-                        	if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Physical translation details: keys:"+sequence+" isAlt:"+isAlt+" isShist:"+isShift+" target:"+target);
-                        	translator.addSequence(convertToIntArray(sequence.toCharArray()), target.charAt(0));
+                        	if (!isAlt && !isShift)
+                        	{
+	                        	if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Physical translation details: keys:"+sequence+" isAlt:"+isAlt+" isShist:"+isShift+" target:"+target);
+	                        	translator.addSequence(convertToIntArray(sequence.toCharArray()), target.charAt(0));
+                        	}
+                        	else
+                        	{
+                        		Log.w(TAG, "Currently, ALT and SHIFT are not supported");
+                        	}
                         }                        
                     }
                 }
