@@ -198,7 +198,14 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	{
 		if (mHardKeyboardTranslator != null)
 		{
-			final char translated = mHardKeyboardTranslator.getSequenceCharacter(action.getKeyCode(), getASKContext());
+			final char translated;
+			if (action.isAltActive())
+				translated = mHardKeyboardTranslator.getAltCharacter(action.getKeyCode());
+			else if (action.isShiftActive())
+				translated = mHardKeyboardTranslator.getShiftCharacter(action.getKeyCode());
+			else
+				translated = mHardKeyboardTranslator.getSequenceCharacter(action.getKeyCode(), getASKContext());
+			
 			if (translated != 0)
 				action.setNewKeyCode(translated);
 		}

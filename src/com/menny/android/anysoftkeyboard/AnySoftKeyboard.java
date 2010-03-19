@@ -651,8 +651,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 											+ mHardKeyboardAction.getKeyCodeWasChanged());
 						}
 						
-						keyTranslator
-								.translatePhysicalCharacter(mHardKeyboardAction);
+						keyTranslator.translatePhysicalCharacter(mHardKeyboardAction);
+						
 						if (DEBUG)
 							Log.v(TAG,
 									"Hard Keyboard Action after translation: Key code: "

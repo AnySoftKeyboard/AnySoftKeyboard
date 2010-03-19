@@ -138,10 +138,14 @@ public class HardKeyboardSequenceHandler
 	private final KeyEventSequenceHolder mCurrentTypedSequence;
 	
 	private final HashMap<KeyEventSequence, KeyEventSequence> mSequences;
+	private final HashMap<Integer, Character> mAltMapping;
+	private final HashMap<Integer, Character> mShiftMapping;
 
 	public HardKeyboardSequenceHandler()
 	{
 		mSequences = new HashMap<KeyEventSequence, KeyEventSequence>();
+		mAltMapping = new HashMap<Integer, Character>();
+		mShiftMapping = new HashMap<Integer, Character>();
 		mCurrentTypedSequence = new KeyEventSequenceHolder();
 		mLastTypedKeyEventTime = System.currentTimeMillis();
 	}
@@ -181,6 +185,46 @@ public class HardKeyboardSequenceHandler
 			mSequences.remove(actualSequence);
 		}
 		mSequences.put(actualSequence, actualSequence);
+	}
+	
+	public void addAltMapping(int keyEvent, char result)
+	{
+		if (mAltMapping.containsKey(keyEvent))
+		{
+			mAltMapping.remove(keyEvent);
+		}
+		mAltMapping.put(keyEvent, result);
+	}
+	
+	public void addShiftMapping(int keyEvent, char result)
+	{
+		if (mShiftMapping.containsKey(keyEvent))
+		{
+			mShiftMapping.remove(keyEvent);
+		}
+		mShiftMapping.put(keyEvent, result);
+	}
+	
+	public char getAltCharacter(int keyEvent)
+	{
+		//reseting the state
+		mCurrentTypedSequence.reset();
+		//returning the mapping
+		if (mAltMapping.containsKey(keyEvent))
+			return mAltMapping.get(keyEvent).charValue();
+		else
+			return 0;
+	}
+	
+	public char getShiftCharacter(int keyEvent)
+	{
+		//reseting the state
+		mCurrentTypedSequence.reset();
+		//returning the mapping
+		if (mShiftMapping.containsKey(keyEvent))
+			return mShiftMapping.get(keyEvent).charValue();
+		else
+			return 0;
 	}
 	
 	public char getSequenceCharacter(int currentKeyEvent, AnyKeyboardContextProvider inputHandler)
