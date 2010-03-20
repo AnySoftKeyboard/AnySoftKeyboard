@@ -16,23 +16,22 @@ public class Workarounds
 		
 		if (android.os.Build.MODEL.toLowerCase().contains("galaxy"))
 		{
-			//(see issue 132):
-			try
-			{
-				//no fix: 1251851795000
-				//fix: 1251970876000
-				//no fix: 1251851795000
-				//fix: 1251970876000
-				//fix: 1261367883000
-//				final int buildInc = Integer.parseInt(android.os.Build.VERSION.INCREMENTAL);
-//				requiresRtlWorkaround = (buildInc < 20090831);
-				requiresRtlWorkaround =  (android.os.Build.TIME <= 1251851795000l);
-				
-			}
-			catch(Exception ex)
-			{
-				requiresRtlWorkaround = true;//if it is like that, then I do not know, and rather say WORKAROUND!
-			}
+			//see issue 132
+			//and issue 285
+			//no fix: 1251851795000
+			//fix: 1251970876000
+			//no fix: 1251851795000
+			//fix: 1251970876000
+			//fix: 1261367883000
+//			//final int buildInc = Integer.parseInt(android.os.Build.VERSION.INCREMENTAL);
+//			//requiresRtlWorkaround = (buildInc < 20090831);
+			requiresRtlWorkaround =  (android.os.Build.TIME <= 1251851795000l);
+		}
+		else if (android.os.Build.MODEL.toLowerCase().contains("spica"))
+		{
+			//(see issue 285):
+			//fix: 1263807011000
+			requiresRtlWorkaround =  (android.os.Build.TIME < 1263807011000l);
 		}
 		ms_requiresRtlWorkaround = requiresRtlWorkaround;
 		//checking f/w API is a bit tricky, we need to do it by reflection
