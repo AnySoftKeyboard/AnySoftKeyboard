@@ -111,13 +111,13 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                     	if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Starting parsing "+XML_SEQUENCE_TAG);
                     	AttributeSet attrs = Xml.asAttributeSet(parser);
                     	
-                    	final String sequence = attrs.getAttributeValue(null, XML_KEYS_ATTRIBUTE);
+                    	final int[] keyCodes = getKeyCodesFromPhysicalSequence(attrs.getAttributeValue(null, XML_KEYS_ATTRIBUTE));
                     	final boolean isAlt = attrs.getAttributeBooleanValue(null, XML_ALT_ATTRIBUTE, false);
                     	final boolean isShift = attrs.getAttributeBooleanValue(null, XML_SHIFT_ATTRIBUTE, false);
                     	final String target = attrs.getAttributeValue(null, XML_TARGET_ATTRIBUTE);
                         
                     	//asserting
-                        if ((sequence == null) || (target == null))
+                        if ((keyCodes == null) || (keyCodes.length == 0) || (target == null))
                         {
                             Log.e(TAG, "Physical translator sequence does not include mandatory fields "+XML_KEYS_ATTRIBUTE+" or "+XML_TARGET_ATTRIBUTE);
                         }
@@ -125,12 +125,20 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                         {
                         	if (!isAlt && !isShift)
                         	{
-	                        	if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Physical translation details: keys:"+sequence+" isAlt:"+isAlt+" isShist:"+isShift+" target:"+target);
-	                        	translator.addSequence(convertToIntArray(sequence.toCharArray()), target.charAt(0));
+	                        	if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Physical translation details: keys:"+printInts(keyCodes)+" target:"+target);
+	                        	translator.addSequence(keyCodes, target.charAt(0));
                         	}
-                        	else
+                        	else if (isAlt)
                         	{
-                        		Log.w(TAG, "Currently, ALT and SHIFT are not supported");
+                        		final int keyCode = keyCodes[0];
+                        		if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Physical translation details: ALT+key:"+keyCode+" target:"+target);
+	                        	translator.addAltMapping(keyCode, target.charAt(0));
+                        	}
+                        	else if (isShift)
+                        	{
+                        		final int keyCode = keyCodes[0];
+                        		if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Physical translation details: ALT+key:"+keyCode+" target:"+target);
+	                        	translator.addShiftMapping(keyCode, target.charAt(0));
                         	}
                         }                        
                     }
@@ -154,12 +162,23 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 		return translator;
 	}
 
-	private static int[] convertToIntArray(char[] charArray) {
-		int[] target = new int[charArray.length];
-		for(int i=0; i<charArray.length; i++)
-			target[i] = charArray[i];
+	private String printInts(int[] keyCodes) {
+		String r = "";
+		for(int code : keyCodes)
+			r += (Integer.toString(code)+",");
 		
-		return target;
+		return r;
+	}
+
+	private int[] getKeyCodesFromPhysicalSequence(String keyCodesArray) {
+		String[] splitted = keyCodesArray.split(",");
+		int[] keyCodes = new int[splitted.length];
+		for(int i=0;i<keyCodes.length;i++)
+		{
+			keyCodes[i] = Integer.parseInt(splitted[i]);
+		}
+		
+		return keyCodes;
 	}
 
 	@Override
