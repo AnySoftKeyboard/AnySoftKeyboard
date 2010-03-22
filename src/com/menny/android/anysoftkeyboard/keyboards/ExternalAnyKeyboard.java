@@ -22,7 +22,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	private static final String XML_KEYS_ATTRIBUTE = "keySequence";
 	private static final String XML_ALT_ATTRIBUTE = "altModifier";
 	private static final String XML_SHIFT_ATTRIBUTE = "shiftModifier";
-	private static final String XML_TARGET_ATTRIBUTE = "target";
+	private static final String XML_TARGET_ATTRIBUTE = "targetChar";
+	private static final String XML_TARGET_CHAR_CODE_ATTRIBUTE = "targetCharCode";
 	private final String mPrefId;
 	private final int mNameResId;
 	private final int mIconId;
@@ -114,8 +115,13 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                     	final int[] keyCodes = getKeyCodesFromPhysicalSequence(attrs.getAttributeValue(null, XML_KEYS_ATTRIBUTE));
                     	final boolean isAlt = attrs.getAttributeBooleanValue(null, XML_ALT_ATTRIBUTE, false);
                     	final boolean isShift = attrs.getAttributeBooleanValue(null, XML_SHIFT_ATTRIBUTE, false);
-                    	final String target = attrs.getAttributeValue(null, XML_TARGET_ATTRIBUTE);
-                        
+                    	final String targetString = attrs.getAttributeValue(null, XML_TARGET_ATTRIBUTE);
+                    	final String targetChar = attrs.getAttributeValue(null, XML_TARGET_CHAR_CODE_ATTRIBUTE);
+                        final String target;
+                        if (targetString == null)
+                        	target = targetChar;
+                        else
+                        	target = targetString;
                     	//asserting
                         if ((keyCodes == null) || (keyCodes.length == 0) || (target == null))
                         {
