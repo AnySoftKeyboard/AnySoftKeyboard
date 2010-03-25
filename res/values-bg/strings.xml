@@ -102,6 +102,39 @@
     <string name="fullscreen_input_connection_supported_off_summary">Не използвай пълноекранна клавиатура</string>
     <string name="zoom_factor_keys_in_portrait">Височина в режим портрет</string>
     <string name="zoom_factor_keys_in_landscape">Височина в режим пейзаж</string>
+    <string name="insert_space_after_word_suggestion_selection">Интервал след избиране на кандидат</string>
+    <string name="insert_space_after_word_suggestion_selection_on_summary">Вмъкни интервал след избиране на предложение</string>
+    <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
+    <string name="swipe_tweak_group">Промяна на жестовете</string>
+    <string name="swipe_up_action">Плъзгане нагоре</string>
+    <string name="swipe_up_action_summary">Дефинирай действието за плъзгане нагоре</string>
+    <string name="swipe_up_action_title">Изберете действие за плъзгане нагоре</string>
+    <string name="swipe_down_action">Плъзгане надолу</string>
+    <string name="swipe_down_action_summary">Дефинирай действието за плъзгане надолу</string>
+    <string name="swipe_down_action_title">Изберете действие за плъзгане надолу</string>
+    <string name="swipe_left_action">Плъзгане наляво</string>
+    <string name="swipe_left_action_summary">Дефинирай действието за плъзгане наляво</string>
+    <string name="swipe_left_action_title">Изберете действие за плъзгане наляво</string>
+    <string name="swipe_right_action">Плъзгане надясно</string>
+    <string name="swipe_right_action_summary">Дефинирай действието за плъзгане надясно</string>
+    <string name="swipe_right_action_title">Изберете действие за плъзгане надясно</string>
+    <string-array name="swipe_action_types">
+        <item>Без действие</item>
+        <item>Следваща азбучна клавиатура</item>
+        <item>Следваща символна клавиатура</item>
+        <item>Поред през всички клавиатури</item>
+        <item>По обратен ред през всички клавиатури</item>
+        <item>Shift</item>
+        <item>Скрий клавиатурата</item>
+        <item>Back-space</item>
+        <item>Курсор нагоре</item>
+        <item>Курсор надолу</item>
+        <item>Курсор наляво</item>
+        <item>Курсор надясно</item>
+    </string-array>
+    <string name="action_key_invisible_on_disable">Невидим бутон за действие</string>
+    <string name="action_key_invisible_on_disable_on_summary">Нвидим бутон за действие когато програмата изисква</string>
+    <string name="action_key_invisible_on_disable_off_summary">Видим бутон за действие дори програмата да изисква друго</string>
 
     <string name="auto_caps">Авто-капитализация</string>
     <string name="grammer_group">Граматика</string>
@@ -116,6 +149,7 @@
     <string name="keyboard_sandbox_title">Пиши в полето за тестване на настройките</string>
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Клавиатури</string>
+    <string name="symbols_keyboard">Символна</string>
     <string name="eng_keyboard">English</string>
     <string name="heb_keyboard">Hebrew</string>
     <string name="lao_keyboard">Lao</string>
@@ -136,7 +170,7 @@
     <string name="es_keyboard">Spanish</string>
     <string name="ru_ph_keyboard">Russian Phonetic</string>
     <string name="ru_keyboard">Russian</string>
-    <string name="ru_keyboard_4_row">Use 4 rows Russian portrait layout</string>
+    <string name="ru_keyboard_extra_rows">Use extended Russian portrait layout</string>
     <string name="be_cyrillic_keyboard">Belarusian cyrillic</string>
     <string name="be_latin_keyboard">Belarusian latin</string>
     <string name="pt_keyboard">Portuguese</string>
@@ -168,7 +202,20 @@
     <string name="toast_lengthy_words_long_operation">Зареждане на речника...</string>
     <string name="toast_lengthy_start_up_operation">Стартиране на AnySoftKeyboard...</string>
     <string name="lengthy_creating_keyboard_operation">Създаване на клавиатури...</string>
+
+    <!-- dictionaries -->
+    <string name="eng_dictionary">English</string>
+    <string name="heb_dictionary">Hebrew</string>
+    <string name="french_dictionary">French</string>
+    <string name="german_dictionary">German</string>
+    <string name="spanish_dictionary">Spanish</string>
+    <string name="swedish_dictionary">Swedish</string>
+    <string name="russian_dictionary">Russian</string>
+    <string name="finnish_dictionary">Finnish</string>
+    <string name="dutch_dictionary">Dutch</string>
+    <string name="sl_dictionary">Slovenian</string>
+    <string name="pt_dictionary">Portuguese</string>
+    <string name="bulgarian_dictionary">Български</string>
+    <string name="ukrainian_dictionary">Ukranian</string>
 </resources>
-
-
 
