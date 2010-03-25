@@ -247,6 +247,9 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	
 	protected void setPopupKeyChars(Key aKey)
 	{
+		if (aKey.popupResId > 0)
+			return;//if the keyboard XML already specified the popup, then no need to override
+		
 		if ((aKey.codes != null) && (aKey.codes.length > 0))
         {
 			switch((char)aKey.codes[0])
