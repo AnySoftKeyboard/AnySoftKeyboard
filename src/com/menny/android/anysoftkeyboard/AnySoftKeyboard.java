@@ -1128,6 +1128,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 					mInputView.setShifted(true);
 					caps = true;
 				}
+				mInputView.requestRedraw();
 			}
 //			if (!mInputView.setShifted(mCapsLock || !mInputView.isShifted()))
 //			{
