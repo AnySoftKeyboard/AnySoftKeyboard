@@ -367,12 +367,13 @@ public abstract class AnyKeyboard extends Keyboard
 	{
 		final boolean superResult = super.setShifted(shiftState);
 		final boolean changed = (shiftState == (mShiftState == SHIFT_OFF));
-		mShiftState = shiftState? SHIFT_ON : SHIFT_OFF;
 		
 		if (mDebug) Log.d(TAG, "setShifted: shiftState:"+shiftState+". super result:"+superResult + " changed: "+changed);
 		
 		if (changed || superResult)
 		{//layout changed. Need to change labels.
+			mShiftState = shiftState? SHIFT_ON : SHIFT_OFF;
+			
 			//going over the special keys only.
 			for(ShiftedKeyData data : mSpecialShiftKeys.values())
 			{
@@ -382,15 +383,13 @@ public abstract class AnyKeyboard extends Keyboard
 			if (mShiftKey != null) {
 	            if (shiftState) {
 	            	if (mDebug) Log.d(TAG, "Switching to regular ON shift icon - shifted");
-	            	mShiftKey.on = false;
-                    mShiftState = SHIFT_ON;
-                    mShiftKey.icon = mOnShiftIcon;
+	            	mShiftKey.icon = mOnShiftIcon;
 	            } else {
 	            	if (mDebug) Log.d(TAG, "Switching to regular OFF shift icon - un-shifted");
-	            	mShiftKey.on = false;
-	            	mShiftState = SHIFT_OFF;
-	                mShiftKey.icon = mOffShiftIcon;
+	            	mShiftKey.icon = mOffShiftIcon;
 	            }
+	            //making sure it is off. Only caps turn it on
+	            mShiftKey.on = false;
 	        }
 			return true;
 		}

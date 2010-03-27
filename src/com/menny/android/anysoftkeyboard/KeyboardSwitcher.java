@@ -270,10 +270,11 @@ public class KeyboardSwitcher
     }
     
 	private AnyKeyboard setKeyboard(EditorInfo currentEditorInfo, AnyKeyboard current) {
+		/*
 		//all keyboards start as un-shifted, except the second symbols
 		//due to lazy loading the keyboards, the symbols may not be created yet.
     	current.setShifted(current == mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_ALT_INDEX]);
-    	
+    	*/
     	current.setImeOptions(mContext.getResources(), currentEditorInfo.imeOptions);
     	current.setTextVariation(mContext.getResources(), currentEditorInfo.inputType);
 
