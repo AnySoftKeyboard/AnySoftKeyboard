@@ -1100,15 +1100,42 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	private void handleShift() {
-		// Keyboard currentKeyboard = mInputView.getKeyboard();
 		if (mKeyboardSwitcher.isAlphabetMode()) {
-			// Alphabet keyboard
-			checkToggleCapsLock();
-			if (!mInputView.setShifted(mCapsLock || !mInputView.isShifted()))
+			//shift pressed and this is an alphabet keyboard
+			//we want to do:
+			//1)if keyboard is unshifted -> shift view and keyboard
+			//2)if keyboard is shifted -> capslock keyboard
+			//3)if keyboard is capslocked -> unshift view and keyboard
+			final AnyKeyboard currentKeyboard = mKeyboardSwitcher.getCurrentKeyboard();
+			final boolean caps;
+			if (!currentKeyboard.isShifted())
 			{
-				//forcing redraw if view thinks it is still in the same state
-				mInputView.requestRedraw();
+				if (DEBUG) Log.d(TAG, "handleShift: current keyboard is un-shifted");
+				mInputView.setShifted(true);
+				caps = false;
 			}
+			else
+			{
+				if (currentKeyboard.isShiftLocked())
+				{
+					if (DEBUG) Log.d(TAG, "handleShift: current keyboard is CAPSLOCKED");
+					mInputView.setShifted(false);
+					caps = false;
+				}
+				else
+				{
+					if (DEBUG) Log.d(TAG, "handleShift: current keyboard is shifted");
+					mInputView.setShifted(true);
+					caps = true;
+				}
+			}
+//			if (!mInputView.setShifted(mCapsLock || !mInputView.isShifted()))
+//			{
+//				//forcing redraw if view thinks it is still in the same state
+//				mInputView.requestRedraw();
+//			}
+			mCapsLock = caps;
+			currentKeyboard.setShiftLocked(mCapsLock);
 		} 
 //		else {
 //			mKeyboardSwitcher.toggleShift();
@@ -1227,18 +1254,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 		TextEntryState.endSession();
 	}
 
-	private void checkToggleCapsLock() {
-		if (mKeyboardSwitcher.getCurrentKeyboard().isShifted()) {
-			toggleCapsLock();
-		}
-	}
-
-	private void toggleCapsLock() {
-		mCapsLock = !mCapsLock;
-		if (mKeyboardSwitcher.isAlphabetMode()) {
-			mKeyboardSwitcher.getCurrentKeyboard().setShiftLocked(mCapsLock);
-		}
-	}
+//	private void checkToggleCapsLock() {
+//		if (mKeyboardSwitcher.getCurrentKeyboard().isShifted()) {
+//			toggleCapsLock();
+//		}
+//	}
 
 	private void postUpdateSuggestions() {
 		mHandler.removeMessages(MSG_UPDATE_SUGGESTIONS);

@@ -346,17 +346,10 @@ public abstract class AnyKeyboard extends Keyboard
     
 	public void setShiftLocked(boolean shiftLocked) {
         if (mShiftKey != null) {
-            if (shiftLocked) {
-            	Log.d(TAG, "Switching to LOCKED shift icon - capslock");
-                mShiftKey.icon = mOnShiftIcon;
-                mShiftKey.on = true;
-                mShiftState = SHIFT_LOCKED;
-            } else {
-            	Log.d(TAG, "Switching to regular shift icon - un-shifted");
-                mShiftKey.icon = mOffShiftIcon;
-                mShiftKey.on = false;
-                mShiftState = SHIFT_OFF;
-            }
+        	if (mDebug) Log.d(TAG, "setShiftLocked: Switching to locked: "+shiftLocked);
+        	mShiftKey.on = shiftLocked;
+        	if (shiftLocked)
+        		mShiftState = SHIFT_LOCKED;
         }
     }
     
@@ -372,11 +365,13 @@ public abstract class AnyKeyboard extends Keyboard
 	@Override
 	public boolean setShifted(boolean shiftState) 
 	{
-		boolean result = super.setShifted(shiftState);
-		if (mDebug)
-    		Log.d(TAG, "setShifted: shiftState:"+shiftState+". result:"+result);
+		final boolean superResult = super.setShifted(shiftState);
+		final boolean changed = (shiftState == (mShiftState == SHIFT_OFF));
 		mShiftState = shiftState? SHIFT_ON : SHIFT_OFF;
-		if (result)
+		
+		if (mDebug) Log.d(TAG, "setShifted: shiftState:"+shiftState+". super result:"+superResult + " changed: "+changed);
+		
+		if (changed || superResult)
 		{//layout changed. Need to change labels.
 			//going over the special keys only.
 			for(ShiftedKeyData data : mSpecialShiftKeys.values())
@@ -386,19 +381,21 @@ public abstract class AnyKeyboard extends Keyboard
 			
 			if (mShiftKey != null) {
 	            if (shiftState) {
-	            	Log.d(TAG, "Switching to regular ON shift icon - shifted");
+	            	if (mDebug) Log.d(TAG, "Switching to regular ON shift icon - shifted");
 	            	mShiftKey.on = false;
                     mShiftState = SHIFT_ON;
                     mShiftKey.icon = mOnShiftIcon;
 	            } else {
-	            	Log.d(TAG, "Switching to regular OFF shift icon - un-shifted");
+	            	if (mDebug) Log.d(TAG, "Switching to regular OFF shift icon - un-shifted");
 	            	mShiftKey.on = false;
 	            	mShiftState = SHIFT_OFF;
 	                mShiftKey.icon = mOffShiftIcon;
 	            }
 	        }
+			return true;
 		}
-		return result;
+		else
+			return false;
 	}
 	
 	public boolean isShiftLocked() {
