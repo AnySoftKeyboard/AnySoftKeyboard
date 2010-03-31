@@ -133,7 +133,7 @@
         <item>Курсор надясно</item>
     </string-array>
     <string name="action_key_invisible_on_disable">Невидим бутон за действие</string>
-    <string name="action_key_invisible_on_disable_on_summary">Нвидим бутон за действие когато програмата изисква</string>
+    <string name="action_key_invisible_on_disable_on_summary">Невидим бутон за действие когато програмата изисква</string>
     <string name="action_key_invisible_on_disable_off_summary">Видим бутон за действие дори програмата да изисква друго</string>
 
     <string name="auto_caps">Авто-капитализация</string>
