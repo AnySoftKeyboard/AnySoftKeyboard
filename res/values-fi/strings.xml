@@ -102,6 +102,40 @@
     <string name="fullscreen_input_connection_supported_off_summary">Syöttöruutu ei täytä koskaan koko ruutua.</string>
 	<string name="zoom_factor_keys_in_portrait">Näppäimistön korkeuskerroin pystyasennossa</string>
     <string name="zoom_factor_keys_in_landscape">Näppäimistön leveyskerroin vaakasennossa</string>
+	<string name="insert_space_after_word_suggestion_selection">Välilyönti ehdotuksen jälkeen</string>
+    <string name="insert_space_after_word_suggestion_selection_on_summary">Lisää välilyönti valitun ehdotuksen jälkeen</string>
+    <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
+    <string name="swipe_tweak_group">Muuta pyyhkäisyn toimintoja</string>
+    <string name="swipe_up_action">Pyyhkäisy ylös</string>
+    <string name="swipe_up_action_summary">Määrittele mitä tapahtuu kun pyyhkäistään ylös</string>
+    <string name="swipe_up_action_title">Valitse ylös-pyyhkäisyn toiminto</string>
+    <string name="swipe_down_action">Pyyhkäisy alas</string>
+    <string name="swipe_down_action_summary">Määrittele mitä tapahtuu kun pyyhkäistään alas</string>
+    <string name="swipe_down_action_title">Valitse alas-pyyhkäisyn toiminto</string>
+    <string name="swipe_left_action">Pyyhkäisy vasemmalle</string>
+    <string name="swipe_left_action_summary">Määrittele mitä tapahtuu kun pyyhkäistään vasemmalle</string>
+    <string name="swipe_left_action_title">Valitse vasen-pyyhkäisyn toiminto</string>
+    <string name="swipe_right_action">Pyyhkäisy oikealle</string>
+    <string name="swipe_right_action_summary">Määrittele mitä tapahtuu kun pyyhkäistään oikealle</string>
+    <string name="swipe_right_action_title">Valitse oikea-pyyhkäisyn toiminto</string>
+<string-array name="swipe_action_types">
+    	<item>Ei mitään</item>
+    	<item>Seuraava aakkosnäppäimistö</item>
+        <item>Seuraava symbolinäppäimistö</item>
+        <item>Käy läpi etuperin näppäimistöjä</item>
+        <item>Käy läpi takaperin näppäimistöjä</item>
+        <item>Shift</item>
+        <item>Piilota näppäimistö</item>
+        <item>Askelpalautin</item>
+        <item>Kursori ylös</item>
+        <item>Kursori alas</item>
+        <item>Kursori vasemmalle</item>
+        <item>Kursori oikealle</item>
+    </string-array>
+
+	<string name="action_key_invisible_on_disable">Näkymätön toimintonäppäin</string>
+    <string name="action_key_invisible_on_disable_on_summary">Toimintonäppäin on näkymätön GUIn sitä pyytäessä</string>
+    <string name="action_key_invisible_on_disable_off_summary">Toimintonäppäin on näkyvissä vaikka GUI pyytää</string>
 
 	<string name="auto_caps">Autokapitalisointi</string>
     <string name="grammer_group">Kielioppi</string>
@@ -116,6 +150,7 @@
     <string name="keyboard_sandbox_title">Kirjoita tähän testataksesi asetuksiasi</string>        	
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Näppäimistöt</string>
+	<string name="symbols_keyboard">Symbolit</string>
     <string name="eng_keyboard">Englanti</string>
     <string name="heb_keyboard">Heprea</string>
     <string name="lao_keyboard">Lao</string>
@@ -168,4 +203,19 @@
     <string name="toast_lengthy_words_long_operation">Ladataan sanakirjaa...</string>
     <string name="toast_lengthy_start_up_operation">Käynnistetään AnySoftKeyboardia...</string>
     <string name="lengthy_creating_keyboard_operation">Luodaan näppäimistöjä...</string>
+
+    <!-- dictionaries -->
+    <string name="eng_dictionary">Englanti</string>
+    <string name="heb_dictionary">Heprea</string>
+    <string name="french_dictionary">Ranska</string>
+    <string name="german_dictionary">Saksa</string>
+    <string name="spanish_dictionary">Espanja</string>
+    <string name="swedish_dictionary">Ruotsi</string>
+    <string name="russian_dictionary">Venäjä</string>
+    <string name="finnish_dictionary">Suomi</string>
+    <string name="dutch_dictionary">Hollanti</string>
+    <string name="sl_dictionary">Slovenia</string>
+    <string name="pt_dictionary">Portugali</string>
+    <string name="bulgarian_dictionary">Bulgaria</string>
+    <string name="ukrainian_dictionary">Ukrania</string>
 </resources>
