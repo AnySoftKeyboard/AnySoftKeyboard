@@ -439,7 +439,7 @@ public abstract class AnyKeyboard extends Keyboard
 			//the two below are switched in regular and Internet mode
 			case '?'://in the generic bottom row
 				aKey.popupResId = R.xml.popup;
-				aKey.popupCharacters = "!/@\u00bf\u00a1";
+				aKey.popupCharacters = "!/@&\u00bf\u00a1";
 				break;
 			case '@'://in the generic Internet mode
 				aKey.popupResId = R.xml.popup;
