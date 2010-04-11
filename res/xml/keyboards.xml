@@ -15,7 +15,6 @@
 	<Keyboard nameResId="@string/ch_fr_keyboard" layoutResId="@xml/ch_fr_qwerty" enabledPrefStringId="ch_fr_keyboard" sortOrder="141" defaultDictionaryName="French" description="Created with tudor and Claude Philipona"/>
 	<Keyboard nameResId="@string/dvorak_keyboard" iconResId="@drawable/en" layoutResId="@xml/dvorak" enabledPrefStringId="dvorak_keyboard" sortOrder="2" defaultDictionaryName="English" description="Created with Stephen Paul Weber"/>
 	<Keyboard nameResId="@string/thai_keyboard" iconResId="@drawable/thai" layoutResId="@xml/thai_qwerty" enabledPrefStringId="thai_keyboard" sortOrder="191" additionalIsLetterExceptions="'" description="Created with DroidSans"/>
-	<Keyboard nameResId="@string/arabic_keyboard" iconResId="@drawable/ar" layoutResId="@xml/arabic_qwerty" enabledPrefStringId="arabic_keyboard" sortOrder="51" description=""/>
 	<Keyboard nameResId="@string/azerty_keyboard" layoutResId="@xml/azerty" enabledPrefStringId="azerty_keyboard" sortOrder="11" defaultDictionaryName="French" description="Created with norman.obry"/>
 	<Keyboard nameResId="@string/bepo_keyboard" layoutResId="@xml/bepo" enabledPrefStringId="bepo_keyboard" sortOrder="12" defaultDictionaryName="French" description=""/>
 	<Keyboard nameResId="@string/catalan_keyboard" layoutResId="@xml/catalan" enabledPrefStringId="catalan_keyboard" sortOrder="132" defaultDictionaryName="Spanish" description="Created with jmontane"/>

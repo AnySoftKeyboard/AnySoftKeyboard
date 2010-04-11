@@ -152,9 +152,7 @@
    <string name="keyboards_group">Языки Раскладок</string>
    <string name="symbols_keyboard">Символы</string>
    <string name="eng_keyboard">Английский</string>
-   <string name="heb_keyboard">Иврит</string>
    <string name="lao_keyboard">Лаосский</string>
-   <string name="arabic_keyboard">Арабский</string>
    <string name="bg_ph_keyboard">Болгарский Фонетический</string>
    <string name="bg_bds_keyboard">Болгарский BDS</string>
    <string name="dvorak_keyboard">Раскладка Дворака</string>

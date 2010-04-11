@@ -87,9 +87,7 @@
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Клявіятуры</string>
     <string name="eng_keyboard">Ангельская</string>
-    <string name="heb_keyboard">Іўрыт</string>
     <string name="lao_keyboard">Лаоская</string>
-    <string name="arabic_keyboard">Арабская</string>
     <string name="bg_ph_keyboard">Балгарская фанэтычная</string>
     <string name="bg_bds_keyboard">Балгарская BDS</string>
     <string name="dvorak_keyboard">Дворак</string>

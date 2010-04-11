@@ -115,9 +115,7 @@
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Tangenbord</string>
     <string name="eng_keyboard">Engelskt</string>
-    <string name="heb_keyboard">Hebreiskt</string>
     <string name="lao_keyboard">Lao</string>
-    <string name="arabic_keyboard">Arabiskt</string>
     <string name="bg_ph_keyboard">Bulgariskt fonetiskt</string>
     <string name="bg_bds_keyboard">Bulgariskt BDS</string>
     <string name="dvorak_keyboard">Dvorak</string>

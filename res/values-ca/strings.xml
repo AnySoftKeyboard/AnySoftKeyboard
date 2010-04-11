@@ -110,9 +110,7 @@
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Teclats</string>
     <string name="eng_keyboard">Anglès</string>
-    <string name="heb_keyboard">Hebreu</string>
     <string name="lao_keyboard">Lao</string>
-    <string name="arabic_keyboard">Àrab</string>
     <string name="bg_ph_keyboard">Búlgar fonètic</string>
     <string name="bg_bds_keyboard">Búlgar BDS</string>
     <string name="dvorak_keyboard">Dvorak</string>

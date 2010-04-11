@@ -117,9 +117,7 @@
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Tipkovnice</string>
     <string name="eng_keyboard">Angle&#353;ka</string>
-    <string name="heb_keyboard">Hebrejska</string>
     <string name="lao_keyboard">Lao</string>
-    <string name="arabic_keyboard">Arabska</string>
     <string name="bg_ph_keyboard">Bolgarska foneti&#269;na</string>
     <string name="bg_bds_keyboard">Bolgarska BDS</string>
     <string name="dvorak_keyboard">Dvorak</string>

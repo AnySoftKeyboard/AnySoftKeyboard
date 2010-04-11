@@ -152,9 +152,7 @@
     <string name="keyboards_group">Näppäimistöt</string>
 	<string name="symbols_keyboard">Symbolit</string>
     <string name="eng_keyboard">Englanti</string>
-    <string name="heb_keyboard">Heprea</string>
     <string name="lao_keyboard">Lao</string>
-    <string name="arabic_keyboard">Arabia</string>
     <string name="bg_ph_keyboard">Bulgaria, foneettinen</string>
     <string name="bg_bds_keyboard">Bulgaria, BDS</string>
     <string name="dvorak_keyboard">Dvorak</string>

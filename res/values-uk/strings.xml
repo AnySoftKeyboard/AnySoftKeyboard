@@ -117,9 +117,7 @@
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Розкладки</string>
     <string name="eng_keyboard">Англійська</string>
-    <string name="heb_keyboard">Іврит</string>
     <string name="lao_keyboard">Лаоська</string>
-    <string name="arabic_keyboard">Арабська</string>
     <string name="bg_ph_keyboard">Болгарська фонетична</string>
     <string name="bg_bds_keyboard">Болгарська BDS</string>
     <string name="dvorak_keyboard">Дворак</string>

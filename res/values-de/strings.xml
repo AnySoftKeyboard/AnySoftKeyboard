@@ -149,9 +149,7 @@
     <string name="keyboards_group">Tastaturen</string>
     <string name="symbols_keyboard">Symbole</string>
     <string name="eng_keyboard">Englisch</string>
-    <string name="heb_keyboard">Hebräisch</string>
     <string name="lao_keyboard">Lao</string>
-    <string name="arabic_keyboard">Arabisch</string>
     <string name="bg_ph_keyboard">Bulgarisch (Phonetisch)</string>
     <string name="bg_bds_keyboard">Bulgarian BDS</string>
     <string name="dvorak_keyboard">Dvorak</string>

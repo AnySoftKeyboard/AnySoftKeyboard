@@ -107,9 +107,7 @@
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Klavaroj</string>
     <string name="eng_keyboard">Angla</string>
-    <string name="heb_keyboard">Hebrea</string>
     <string name="lao_keyboard">Laosa</string>
-    <string name="arabic_keyboard">Araba</string>
     <string name="bg_ph_keyboard">Bulgara (fonetike)</string>
     <string name="bg_bds_keyboard">Bulgara (BDS)</string>
     <string name="dvorak_keyboard">Dvoraka</string>
