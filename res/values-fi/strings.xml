@@ -158,9 +158,7 @@
     <string name="dvorak_keyboard">Dvorak</string>
     <string name="danish_keyboard">Tanska</string>
     <string name="norwegian_keyboard">Norja</string>
-    <string name="finnish_swedish_keyboard">Ruotsi/Suomi</string>
-	<string name="svorak_keyboard">Svorak</string>
-	<string name="hungarian_keyboard">Unkari</string>
+    <string name="hungarian_keyboard">Unkari</string>
 	<string name="hungarian_keyboard_4_row">Unkari, nelirivinen</string>
     <string name="catalan_keyboard">Katalaani</string>
     <string name="ch_fr_keyboard">Sveitsin ranska</string>
@@ -204,13 +202,10 @@
 
     <!-- dictionaries -->
     <string name="eng_dictionary">Englanti</string>
-    <string name="heb_dictionary">Heprea</string>
     <string name="french_dictionary">Ranska</string>
     <string name="german_dictionary">Saksa</string>
     <string name="spanish_dictionary">Espanja</string>
-    <string name="swedish_dictionary">Ruotsi</string>
     <string name="russian_dictionary">Venäjä</string>
-    <string name="finnish_dictionary">Suomi</string>
     <string name="dutch_dictionary">Hollanti</string>
     <string name="sl_dictionary">Slovenia</string>
     <string name="pt_dictionary">Portugali</string>
