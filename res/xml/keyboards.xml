@@ -4,8 +4,6 @@
 	<Keyboard nameResId="@string/fr_ca_keyboard" layoutResId="@xml/ca_fr_qwerty" enabledPrefStringId="fr_ca_keyboard" sortOrder="151" defaultDictionaryName="French" description="Created with d.nahmiasleonard"/>
 	<Keyboard nameResId="@string/ka_keyboard" iconResId="@drawable/ka" layoutResId="@xml/ka_qwerty" enabledPrefStringId="ka_keyboard" sortOrder="201" description="Created with herrlado"/>
 	<Keyboard nameResId="@string/de_keyboard" layoutResId="@xml/de_qwerty" enabledPrefStringId="ch_de_keyboard" sortOrder="161" defaultDictionaryName="German" description="Created with tudor and Claude Philipona"/>
-	<Keyboard nameResId="@string/hungarian_keyboard" layoutResId="@xml/hu_qwertz" landscapeResId="@xml/hu_landscape" enabledPrefStringId="hungarian_keyboard" sortOrder="121" defaultDictionaryName="Hungarian" description="Created by Henrik Andersson"/>
-	<Keyboard nameResId="@string/hungarian_keyboard_4_row" layoutResId="@xml/hu_qwertz_4_row" landscapeResId="@xml/hu_landscape" enabledPrefStringId="hungarian_keyboard_4_row" sortOrder="122" defaultDictionaryName="Hungarian" description=""/>
 	<Keyboard nameResId="@string/lao_keyboard" iconResId="@drawable/lao" layoutResId="@xml/lao_qwerty" enabledPrefStringId="lao_keyboard" sortOrder="81" description="Created with Anousak Souphavanh"/>
 	<Keyboard nameResId="@string/norwegian_keyboard" layoutResId="@xml/no_qwerty" enabledPrefStringId="norwegian_keyboard" sortOrder="101" defaultDictionaryName="Norwegian" description="Created by Henrik Andersson"/>
 	<Keyboard nameResId="@string/pt_keyboard" iconResId="@drawable/pt" layoutResId="@xml/pt_qwerty" enabledPrefStringId="pt_keyboard" sortOrder="181" defaultDictionaryName="Portuguese" description="Created with Hugo Lopes"/>
