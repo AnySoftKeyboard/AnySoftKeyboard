@@ -169,7 +169,6 @@
     <string name="ru_keyboard_extra_rows">Use extended Russian portrait layout</string>
     <string name="be_cyrillic_keyboard">Belarusian cyrillic</string>
     <string name="be_latin_keyboard">Belarusian latin</string>
-    <string name="pt_keyboard">Portuguese</string>
 	<string name="thai_keyboard">Thai</string>
 	<string name="fr_ca_keyboard">French Canadian</string>
 	<string name="ka_keyboard">Georgian</string>
@@ -210,7 +209,6 @@
     <string name="finnish_dictionary">Finnish</string>
     <string name="dutch_dictionary">Dutch</string>
     <string name="sl_dictionary">Slovenian</string>
-    <string name="pt_dictionary">Portuguese</string>
     <string name="bulgarian_dictionary">Bulgarian</string>
     <string name="ukrainian_dictionary">Ukranian</string>
 </resources>

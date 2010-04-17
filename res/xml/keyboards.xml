@@ -6,7 +6,6 @@
 	<Keyboard nameResId="@string/de_keyboard" layoutResId="@xml/de_qwerty" enabledPrefStringId="ch_de_keyboard" sortOrder="161" defaultDictionaryName="German" description="Created with tudor and Claude Philipona"/>
 	<Keyboard nameResId="@string/lao_keyboard" iconResId="@drawable/lao" layoutResId="@xml/lao_qwerty" enabledPrefStringId="lao_keyboard" sortOrder="81" description="Created with Anousak Souphavanh"/>
 	<Keyboard nameResId="@string/norwegian_keyboard" layoutResId="@xml/no_qwerty" enabledPrefStringId="norwegian_keyboard" sortOrder="101" defaultDictionaryName="Norwegian" description="Created by Henrik Andersson"/>
-	<Keyboard nameResId="@string/pt_keyboard" iconResId="@drawable/pt" layoutResId="@xml/pt_qwerty" enabledPrefStringId="pt_keyboard" sortOrder="181" defaultDictionaryName="Portuguese" description="Created with Hugo Lopes"/>
 	<Keyboard nameResId="@string/es_keyboard" layoutResId="@xml/es_qwerty" enabledPrefStringId="es_keyboard" sortOrder="131" defaultDictionaryName="Spanish" description="Created with Jorge Jiménez"/>
 	<Keyboard nameResId="@string/ch_fr_keyboard" layoutResId="@xml/ch_fr_qwerty" enabledPrefStringId="ch_fr_keyboard" sortOrder="141" defaultDictionaryName="French" description="Created with tudor and Claude Philipona"/>
 	<Keyboard nameResId="@string/dvorak_keyboard" iconResId="@drawable/en" layoutResId="@xml/dvorak" enabledPrefStringId="dvorak_keyboard" sortOrder="2" defaultDictionaryName="English" description="Created with Stephen Paul Weber"/>
