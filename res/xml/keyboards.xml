@@ -8,9 +8,7 @@
 	
 	<Keyboard nameResId="@string/ch_fr_keyboard" layoutResId="@xml/ch_fr_qwerty" enabledPrefStringId="ch_fr_keyboard" sortOrder="141" defaultDictionaryName="French" description="Created with tudor and Claude Philipona"/>
 	
-	<Keyboard nameResId="@string/dvorak_keyboard" iconResId="@drawable/en" layoutResId="@xml/dvorak" enabledPrefStringId="dvorak_keyboard" sortOrder="2" defaultDictionaryName="English" description="Created with Stephen Paul Weber"/>
 	<Keyboard nameResId="@string/thai_keyboard" iconResId="@drawable/thai" layoutResId="@xml/thai_qwerty" enabledPrefStringId="thai_keyboard" sortOrder="191" additionalIsLetterExceptions="'" description="Created with DroidSans"/>
-	<Keyboard nameResId="@string/colemak_keyboard" iconResId="@drawable/en" layoutResId="@xml/colemak" enabledPrefStringId="colemak_keyboard" sortOrder="3" defaultDictionaryName="English" description="Created with Hugo Lopes"/>
 	<Keyboard nameResId="@string/danish_keyboard" layoutResId="@xml/dk_qwerty" enabledPrefStringId="danish_keyboard" sortOrder="91" defaultDictionaryName="Danish" description="Created by Henrik Andersson"/>
 	<!-- Template
 	<Keyboard nameResId="@string/" iconResId="@drawable/" layoutResId="@xml/" landscapeResId="@xml/" enabledPrefStringId="" sortOrder="" defaultDictionaryName="" additionalIsLetterExceptions="" physicalKeyboardMappingResId="@xml/" description=""/>

@@ -156,7 +156,6 @@
     <string name="lao_keyboard">Lao</string>
     <string name="bg_ph_keyboard">Bulgarian Phonetic</string>
     <string name="bg_bds_keyboard">Bulgarian BDS</string>
-    <string name="dvorak_keyboard">Dvorak</string>
     <string name="danish_keyboard">Danish</string>
     <string name="norwegian_keyboard">Norwegian</string>
     <string name="catalan_keyboard">Catalan</string>
@@ -172,7 +171,6 @@
 	<string name="ka_keyboard">Georgian</string>
 	<string name="uk_keyboard">Ukrainian</string>
 	<string name="uk_keyboard_4_row">Use 4 rows Ukrainian portrait layout</string>
-    <string name="colemak_keyboard">Colemak</string>
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Show this tutorial on startup</string>
