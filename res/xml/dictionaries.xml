@@ -2,7 +2,6 @@
 <Dictionaries>
 	<Dictionary nameResId="@string/eng_dictionary" key="English" type="binary" dictionaryAssertName="en_binary.mp3" description=""/>
 	<Dictionary nameResId="@string/german_dictionary" key="German" type="binary" dictionaryAssertName="de_binary.mp3" description=""/>
-	<Dictionary nameResId="@string/spanish_dictionary" key="Spanish" type="binary" dictionaryAssertName="es_binary.mp3" description=""/>
 	<Dictionary nameResId="@string/russian_dictionary" key="Russian" type="binary" dictionaryAssertName="ru_binary.mp3" description=""/>
 	<Dictionary nameResId="@string/dutch_dictionary" key="Dutch" type="binary" dictionaryAssertName="nl_binary.mp3" description=""/>
 	<Dictionary nameResId="@string/sl_dictionary" key="Slovenian" type="binary" dictionaryAssertName="sl_binary.mp3" description=""/>
