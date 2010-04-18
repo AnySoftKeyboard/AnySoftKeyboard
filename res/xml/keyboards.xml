@@ -14,7 +14,6 @@
 	<Keyboard nameResId="@string/catalan_keyboard" layoutResId="@xml/catalan" enabledPrefStringId="catalan_keyboard" sortOrder="132" defaultDictionaryName="Spanish" description="Created with jmontane"/>
 	<Keyboard nameResId="@string/colemak_keyboard" iconResId="@drawable/en" layoutResId="@xml/colemak" enabledPrefStringId="colemak_keyboard" sortOrder="3" defaultDictionaryName="English" description="Created with Hugo Lopes"/>
 	<Keyboard nameResId="@string/danish_keyboard" layoutResId="@xml/dk_qwerty" enabledPrefStringId="danish_keyboard" sortOrder="91" defaultDictionaryName="Danish" description="Created by Henrik Andersson"/>
-	<Keyboard nameResId="@string/esperanto_keyboard" layoutResId="@xml/esperanto" enabledPrefStringId="esperanto_keyboard" sortOrder="221" description="Created with Aaron Irvine"/>
 	<!-- Template
 	<Keyboard nameResId="@string/" iconResId="@drawable/" layoutResId="@xml/" landscapeResId="@xml/" enabledPrefStringId="" sortOrder="" defaultDictionaryName="" additionalIsLetterExceptions="" physicalKeyboardMappingResId="@xml/" description=""/>
 	-->
