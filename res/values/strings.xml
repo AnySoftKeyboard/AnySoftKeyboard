@@ -162,7 +162,6 @@
     <string name="catalan_keyboard">Catalan</string>
     <string name="ch_fr_keyboard">Swiss French</string>
     <string name="de_keyboard">German/Swiss German</string>
-    <string name="azerty_keyboard">AZERTY</string>
     <string name="es_keyboard">Spanish</string>
     <string name="ru_ph_keyboard">Russian Phonetic</string>
     <string name="ru_keyboard">Russian</string>
@@ -170,12 +169,10 @@
     <string name="be_cyrillic_keyboard">Belarusian cyrillic</string>
     <string name="be_latin_keyboard">Belarusian latin</string>
 	<string name="thai_keyboard">Thai</string>
-	<string name="fr_ca_keyboard">French Canadian</string>
 	<string name="ka_keyboard">Georgian</string>
 	<string name="uk_keyboard">Ukrainian</string>
 	<string name="uk_keyboard_4_row">Use 4 rows Ukrainian portrait layout</string>
     <string name="colemak_keyboard">Colemak</string>
-    <string name="bepo_keyboard">B&#233;po</string><!-- BEPO -->
     <string name="esperanto_keyboard">Esperanto</string>
     
     <!-- Tutorials --> 
@@ -201,7 +198,6 @@
     <!-- dictionaries -->
     <string name="eng_dictionary">English</string>
     <string name="heb_dictionary">Hebrew</string>
-    <string name="french_dictionary">French</string>
     <string name="german_dictionary">German</string>
     <string name="spanish_dictionary">Spanish</string>
     <string name="swedish_dictionary">Swedish</string>
