@@ -6,7 +6,6 @@
 	<Dictionary nameResId="@string/russian_dictionary" key="Russian" type="binary" dictionaryAssertName="ru_binary.mp3" description=""/>
 	<Dictionary nameResId="@string/dutch_dictionary" key="Dutch" type="binary" dictionaryAssertName="nl_binary.mp3" description=""/>
 	<Dictionary nameResId="@string/sl_dictionary" key="Slovenian" type="binary" dictionaryAssertName="sl_binary.mp3" description=""/>
-	<Dictionary nameResId="@string/pt_dictionary" key="Portuguese" type="binary" dictionaryAssertName="pt_binary.mp3" description=""/>
 	<Dictionary nameResId="@string/bulgarian_dictionary" key="Bulgarian" type="binary" dictionaryAssertName="bg_binary.mp3" description=""/>
 	<Dictionary nameResId="@string/ukrainian_dictionary" key="Ukrainian" type="binary" dictionaryAssertName="uk_binary.mp3" description=""/>
 	
