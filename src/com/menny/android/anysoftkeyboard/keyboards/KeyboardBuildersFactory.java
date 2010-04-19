@@ -44,7 +44,7 @@ public class KeyboardBuildersFactory {
 
         AnyKeyboard createKeyboard(AnyKeyboardContextProvider context);
         String getKeyboardPrefId();
-        int getSortOrderValue();
+        //int getSortOrderValue();
         int getKeyboardNameResId();
         String getDescription();
         Context getPackageContext();
@@ -52,7 +52,7 @@ public class KeyboardBuildersFactory {
 
     private static class KeyboardBuilderImpl implements KeyboardBuilder
     {
-        private final String mPrefId;
+        private final String mId;
         private final int mNameId;
         private final int mResId;
         private final int mLandscapeResId;
@@ -60,18 +60,17 @@ public class KeyboardBuildersFactory {
         private final String mDefaultDictionary;
         private final int mQwertyTranslationId;
         private final String mAdditionalIsLetterExceptions;
-        private final int mSortValue;
         private final String mDescription;
         private final Context mPackageContext;
 
-        public KeyboardBuilderImpl(Context packageContext, String prefId, int nameId,
+        public KeyboardBuilderImpl(Context packageContext, String Id, int nameId,
                 int layoutResId, int landscapeLayoutResId,
                 String defaultDictionary, int iconResId,
                 int physicalTranslationResId,
-                String additionalIsLetterExceptions, int sortValue,
+                String additionalIsLetterExceptions, 
                 String description) 
         {
-            mPrefId = prefId;
+            mId = Id;
             mNameId = nameId;
             mResId = layoutResId;
             if (landscapeLayoutResId == -1){
@@ -83,14 +82,13 @@ public class KeyboardBuildersFactory {
             mIconResId = iconResId;
             mAdditionalIsLetterExceptions = additionalIsLetterExceptions;
             mQwertyTranslationId = physicalTranslationResId;
-            mSortValue = sortValue;
             mDescription = description;
             mPackageContext = packageContext;
-            Log.d("ASK KeyboardCreatorImpl", "Creator for "+mPrefId+" package:"+mPackageContext.getPackageName()+" res: "+ mResId+" LandscapeRes: "+ mLandscapeResId+" dictionary: "+mDefaultDictionary);
+            Log.d("ASK KeyboardCreatorImpl", "Creator for "+Id+" package:"+mPackageContext.getPackageName()+" res: "+ mResId+" LandscapeRes: "+ mLandscapeResId+" dictionary: "+mDefaultDictionary);
         }
 
         public AnyKeyboard createKeyboard(AnyKeyboardContextProvider askContext) {
-            return new ExternalAnyKeyboard(askContext, mPackageContext, mResId, mLandscapeResId, mPrefId, mNameId, mIconResId, mQwertyTranslationId, mDefaultDictionary, mAdditionalIsLetterExceptions);
+            return new ExternalAnyKeyboard(askContext, mPackageContext, mResId, mLandscapeResId, getKeyboardPrefId(), mNameId, mIconResId, mQwertyTranslationId, mDefaultDictionary, mAdditionalIsLetterExceptions);
         }
 
         public Context getPackageContext() {return mPackageContext;}
@@ -99,11 +97,7 @@ public class KeyboardBuildersFactory {
         public String getDescription() {return mDescription;}
 
         public String getKeyboardPrefId() {
-            return mPrefId;
-        }
-
-        public int getSortOrderValue() {
-            return mSortValue;
+            return mPackageContext.getPackageName()+"."+mId;
         }
     }
 
@@ -114,19 +108,19 @@ public class KeyboardBuildersFactory {
         ms_internalCreators = new ArrayList<KeyboardBuilder>();
 
         //issue 59 - Regular Russian layout
-        ms_internalCreators.add(new KeyboardBuilder(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new RussianKeyboard(contextProvider);} public String getKeyboardPrefId() {return "ru_keyboard";} public int getSortOrderValue() {return 41;} public int getKeyboardNameResId(){return R.string.ru_keyboard;} public String getDescription() {return "Created with dbriskin";} public Context getPackageContext() {return null;}});
+        ms_internalCreators.add(new KeyboardBuilder(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new RussianKeyboard(contextProvider);} public String getKeyboardPrefId() {return "ASK.ru_keyboard";} public int getKeyboardNameResId(){return R.string.ru_keyboard;} public String getDescription() {return "Created with dbriskin";} public Context getPackageContext() {return null;}});
         //issue 26 - Russian keyboard
-        ms_internalCreators.add(new KeyboardBuilder(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new RussianPhoneticKeyboard(contextProvider);} public String getKeyboardPrefId() {return "ru_ph_keyboard";} public int getSortOrderValue() {return 42;} public int getKeyboardNameResId(){return R.string.ru_ph_keyboard;} public String getDescription() {return "Created with dbriskin";} public Context getPackageContext() {return null;}});
+        ms_internalCreators.add(new KeyboardBuilder(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new RussianPhoneticKeyboard(contextProvider);} public String getKeyboardPrefId() {return "ASK.ru_ph_keyboard";} public int getKeyboardNameResId(){return R.string.ru_ph_keyboard;} public String getDescription() {return "Created with dbriskin";} public Context getPackageContext() {return null;}});
         //BG - issue 25
-        ms_internalCreators.add(new KeyboardBuilder(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BulgarianBDSKeyboard(contextProvider);} public String getKeyboardPrefId() {return "bg_bds_keyboard";} public int getSortOrderValue() {return 61;} public int getKeyboardNameResId(){return R.string.bg_bds_keyboard;} public String getDescription() {return "Created with atg2d";} public Context getPackageContext() {return null;}});
-        ms_internalCreators.add(new KeyboardBuilder(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BulgarianPhoneticKeyboard(contextProvider);} public String getKeyboardPrefId() {return "bg_ph_keyboard";} public int getSortOrderValue() {return 62;} public int getKeyboardNameResId(){return R.string.bg_ph_keyboard;} public String getDescription() {return "Created with atg2d";} public Context getPackageContext() {return null;}});
+        ms_internalCreators.add(new KeyboardBuilder(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BulgarianBDSKeyboard(contextProvider);} public String getKeyboardPrefId() {return "ASK.bg_bds_keyboard";} public int getKeyboardNameResId(){return R.string.bg_bds_keyboard;} public String getDescription() {return "Created with atg2d";} public Context getPackageContext() {return null;}});
+        ms_internalCreators.add(new KeyboardBuilder(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BulgarianPhoneticKeyboard(contextProvider);} public String getKeyboardPrefId() {return "ASK.bg_ph_keyboard";} public int getKeyboardNameResId(){return R.string.bg_ph_keyboard;} public String getDescription() {return "Created with atg2d";} public Context getPackageContext() {return null;}});
 
         //issue 105
-        ms_internalCreators.add(new KeyboardBuilder(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BelarusianCyrillicKeyboard(contextProvider);} public String getKeyboardPrefId() {return "be_cyrillic";} public int getSortOrderValue() {return 171;} public int getKeyboardNameResId(){return R.string.be_cyrillic_keyboard;} public String getDescription() {return "Created with alex73";} public Context getPackageContext() {return null;}}); 
-        ms_internalCreators.add(new KeyboardBuilder(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BelarusianLatinKeyboard(contextProvider);} public String getKeyboardPrefId() {return "be_latin";} public int getSortOrderValue() {return 172;} public int getKeyboardNameResId(){return R.string.be_latin_keyboard;} public String getDescription() {return "test1";} public Context getPackageContext() {return null;}});
+        ms_internalCreators.add(new KeyboardBuilder(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BelarusianCyrillicKeyboard(contextProvider);} public String getKeyboardPrefId() {return "ASK.be_cyrillic";} public int getKeyboardNameResId(){return R.string.be_cyrillic_keyboard;} public String getDescription() {return "Created with alex73";} public Context getPackageContext() {return null;}}); 
+        ms_internalCreators.add(new KeyboardBuilder(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new BelarusianLatinKeyboard(contextProvider);} public String getKeyboardPrefId() {return "ASK.be_latin";} public int getKeyboardNameResId(){return R.string.be_latin_keyboard;} public String getDescription() {return "test1";} public Context getPackageContext() {return null;}});
 
         //Ukrainian keyboard - issue 154
-        ms_internalCreators.add(new KeyboardBuilder(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new UkrainianKeyboard(contextProvider);} public String getKeyboardPrefId() {return "uk_keyboard";} public int getSortOrderValue() {return 211;} public int getKeyboardNameResId(){return R.string.uk_keyboard;} public String getDescription() {return "Created with rlavriv";} public Context getPackageContext() {return null;}});
+        ms_internalCreators.add(new KeyboardBuilder(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new UkrainianKeyboard(contextProvider);} public String getKeyboardPrefId() {return "ASK.uk_keyboard";} public int getKeyboardNameResId(){return R.string.uk_keyboard;} public String getDescription() {return "Created with rlavriv";} public Context getPackageContext() {return null;}});
     }
 
     private static ArrayList<KeyboardBuilder> ms_creators = null;
@@ -141,7 +135,6 @@ public class KeyboardBuildersFactory {
     private static final String XML_ICON_RES_ID_ATTRIBUTE = "iconResId";
     private static final String XML_DICTIONARY_NAME_ATTRIBUTE = "defaultDictionaryName";
     private static final String XML_ADDITIONAL_IS_LETTER_EXCEPTIONS_ATTRIBUTE = "additionalIsLetterExceptions";
-    private static final String XML_SORT_OREDER_VALUE_ATTRIBUTE = "sortOrder";
     private static final String XML_PHYSICAL_TRANSLATION_RES_ID_ATTRIBUTE = "physicalKeyboardMappingResId";
     private static final String XML_DESCRIPTION_ATTRIBUTE = "description";
 
@@ -165,10 +158,10 @@ public class KeyboardBuildersFactory {
             //sort order (from minimum to maximum)
             Collections.sort(ms_creators, new Comparator<KeyboardBuilder>()
                     {
-                public int compare(KeyboardBuilder k1, KeyboardBuilder k2) 
-                {
-                    return k1.getSortOrderValue() - k2.getSortOrderValue();
-                }
+		                public int compare(KeyboardBuilder k1, KeyboardBuilder k2) 
+		                {
+		                    return k1.getKeyboardPrefId().compareToIgnoreCase(k2.getKeyboardPrefId());
+		                }
                     });
         }
 
@@ -269,8 +262,6 @@ public class KeyboardBuildersFactory {
                                 XML_DICTIONARY_NAME_ATTRIBUTE);
                         final String additionalIsLetterExceptions = attrs.getAttributeValue(null,
                                 XML_ADDITIONAL_IS_LETTER_EXCEPTIONS_ATTRIBUTE);
-                        final int sortValue = attrs.getAttributeIntValue(null,
-                                XML_SORT_OREDER_VALUE_ATTRIBUTE, Integer.MAX_VALUE);
                         final int physicalTranslationResId = attrs.getAttributeResourceValue(null,
                                 XML_PHYSICAL_TRANSLATION_RES_ID_ATTRIBUTE, -1);
                         final String description = attrs.getAttributeValue(null,
@@ -288,12 +279,12 @@ public class KeyboardBuildersFactory {
                                         + nameId + " resId:" + layoutResId
                                         + " landscapeResId:" + landscapeLayoutResId
                                         + " iconResId:" + iconResId + " defaultDictionary:"
-                                        + defaultDictionary + " sortValue:" + sortValue);
+                                        + defaultDictionary);
                             }
                             final KeyboardBuilder creator = new KeyboardBuilderImpl(context,
                                     prefId, nameId, layoutResId, landscapeLayoutResId,
                                     defaultDictionary, iconResId, physicalTranslationResId,
-                                    additionalIsLetterExceptions, sortValue, description);
+                                    additionalIsLetterExceptions, description);
 
                             if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
                                 Log.d(TAG, "External keyboard "

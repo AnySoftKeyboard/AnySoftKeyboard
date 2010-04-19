@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Keyboards>
-	<Keyboard nameResId="@string/eng_keyboard" iconResId="@drawable/en" layoutResId="@xml/qwerty" enabledPrefStringId="eng_keyboard" sortOrder="1" defaultDictionaryName="English" description="QWERTY Latin keyboard"/>
-	<Keyboard nameResId="@string/ka_keyboard" iconResId="@drawable/ka" layoutResId="@xml/ka_qwerty" enabledPrefStringId="ka_keyboard" sortOrder="201" description="Created with herrlado"/>
-	<Keyboard nameResId="@string/de_keyboard" layoutResId="@xml/de_qwerty" enabledPrefStringId="ch_de_keyboard" sortOrder="161" defaultDictionaryName="German" description="Created with tudor and Claude Philipona"/>
-	<Keyboard nameResId="@string/lao_keyboard" iconResId="@drawable/lao" layoutResId="@xml/lao_qwerty" enabledPrefStringId="lao_keyboard" sortOrder="81" description="Created with Anousak Souphavanh"/>
-	<Keyboard nameResId="@string/norwegian_keyboard" layoutResId="@xml/no_qwerty" enabledPrefStringId="norwegian_keyboard" sortOrder="101" defaultDictionaryName="Norwegian" description="Created by Henrik Andersson"/>
+	<Keyboard nameResId="@string/eng_keyboard" iconResId="@drawable/en" layoutResId="@xml/qwerty" enabledPrefStringId="eng_keyboard" defaultDictionaryName="en" description="QWERTY Latin keyboard"/>
+	<Keyboard nameResId="@string/ka_keyboard" iconResId="@drawable/ka" layoutResId="@xml/ka_qwerty" enabledPrefStringId="ka_keyboard" description="Created with herrlado"/>
+	<Keyboard nameResId="@string/de_keyboard" layoutResId="@xml/de_qwerty" enabledPrefStringId="ch_de_keyboard" defaultDictionaryName="de" description="Created with tudor and Claude Philipona"/>
+	<Keyboard nameResId="@string/lao_keyboard" iconResId="@drawable/lao" layoutResId="@xml/lao_qwerty" enabledPrefStringId="lao_keyboard" description="Created with Anousak Souphavanh"/>
+	<Keyboard nameResId="@string/norwegian_keyboard" layoutResId="@xml/no_qwerty" enabledPrefStringId="norwegian_keyboard" defaultDictionaryName="no" description="Created by Henrik Andersson"/>
 	
-	<Keyboard nameResId="@string/ch_fr_keyboard" layoutResId="@xml/ch_fr_qwerty" enabledPrefStringId="ch_fr_keyboard" sortOrder="141" defaultDictionaryName="French" description="Created with tudor and Claude Philipona"/>
+	<Keyboard nameResId="@string/ch_fr_keyboard" layoutResId="@xml/ch_fr_qwerty" enabledPrefStringId="ch_fr_keyboard" defaultDictionaryName="fr" description="Created with tudor and Claude Philipona"/>
 	
-	<Keyboard nameResId="@string/thai_keyboard" iconResId="@drawable/thai" layoutResId="@xml/thai_qwerty" enabledPrefStringId="thai_keyboard" sortOrder="191" additionalIsLetterExceptions="'" description="Created with DroidSans"/>
-	<Keyboard nameResId="@string/danish_keyboard" layoutResId="@xml/dk_qwerty" enabledPrefStringId="danish_keyboard" sortOrder="91" defaultDictionaryName="Danish" description="Created by Henrik Andersson"/>
+	<Keyboard nameResId="@string/thai_keyboard" iconResId="@drawable/thai" layoutResId="@xml/thai_qwerty" enabledPrefStringId="thai_keyboard" additionalIsLetterExceptions="'" description="Created with DroidSans"/>
+	<Keyboard nameResId="@string/danish_keyboard" layoutResId="@xml/dk_qwerty" enabledPrefStringId="danish_keyboard" defaultDictionaryName="Danish" description="Created by Henrik Andersson"/>
 	<!-- Template
 	<Keyboard nameResId="@string/" iconResId="@drawable/" layoutResId="@xml/" landscapeResId="@xml/" enabledPrefStringId="" sortOrder="" defaultDictionaryName="" additionalIsLetterExceptions="" physicalKeyboardMappingResId="@xml/" description=""/>
 	-->
