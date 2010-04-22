@@ -24,7 +24,7 @@ public class KeyboardFactory
         {
             final KeyboardBuilder creator = keyboardCreators.get(keyboardIndex);
             //the first keyboard is defaulted to true
-            final boolean keyboardIsEnabled = sharedPreferences.getBoolean(creator.getKeyboardPrefId(), false);
+            final boolean keyboardIsEnabled = sharedPreferences.getBoolean(creator.getId(), false);
 
             if (keyboardIsEnabled)
             {
@@ -37,13 +37,13 @@ public class KeyboardFactory
         if( keyboards.size() == 0 ) {
             final SharedPreferences.Editor editor = sharedPreferences.edit( );
             final KeyboardBuilder creator = keyboardCreators.get( 0 );
-            editor.putBoolean( creator.getKeyboardPrefId( ) , true );
+            editor.putBoolean( creator.getId( ) , true );
             editor.commit( );
             keyboards.add( creator );
         }
 
         for(final KeyboardBuilder aKeyboard : keyboards) {
-            Log.d("AnySoftKeyboard", "Factory provided creator: "+aKeyboard.getKeyboardPrefId());
+            Log.d("AnySoftKeyboard", "Factory provided creator: "+aKeyboard.getId());
         }
 
         keyboards.trimToSize();

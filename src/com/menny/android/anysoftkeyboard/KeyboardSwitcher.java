@@ -310,7 +310,7 @@ public class KeyboardSwitcher
 		if (keyboard == null)
 		{
 			KeyboardBuilder creator = mAlphabetKeyboardsCreators[index];
-			Log.d("AnySoftKeyboard", "About to create keyboard: "+creator.getKeyboardPrefId());
+			Log.d("AnySoftKeyboard", "About to create keyboard: "+creator.getId());
 			mAlphabetKeyboards[index] = creator.createKeyboard(mContext);
 			keyboard = mAlphabetKeyboards[index];
 		}

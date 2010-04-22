@@ -59,7 +59,7 @@ public class SoftKeyboardSettings extends PreferenceActivity {
 				android:summaryOff="QWERTY Latin keyboard"
 				/>
 			 */
-			checkBox.setKey(creator.getKeyboardPrefId());
+			checkBox.setKey(creator.getId());
 			checkBox.setTitle(creatorContext.getText(creator.getKeyboardNameResId()));
 			checkBox.setPersistent(true);
 			checkBox.setDefaultValue(false);

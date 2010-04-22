@@ -3,7 +3,7 @@
 	<Dictionary nameResId="@string/eng_dictionary" key="en" type="binary" dictionaryAssertName="en_binary.mp3" description=""/>
 	<Dictionary nameResId="@string/german_dictionary" key="de" type="binary" dictionaryAssertName="de_binary.mp3" description=""/>
 	<Dictionary nameResId="@string/russian_dictionary" key="ru" type="binary" dictionaryAssertName="ru_binary.mp3" description=""/>
-	<Dictionary nameResId="@string/dutch_dictionary" key="Dutch" type="binary" dictionaryAssertName="nl_binary.mp3" description=""/>
+	<Dictionary nameResId="@string/dutch_dictionary" key="nl" type="binary" dictionaryAssertName="nl_binary.mp3" description=""/>
 	<Dictionary nameResId="@string/sl_dictionary" key="sl" type="binary" dictionaryAssertName="sl_binary.mp3" description=""/>
 	<Dictionary nameResId="@string/bulgarian_dictionary" key="bg" type="binary" dictionaryAssertName="bg_binary.mp3" description=""/>
 	<Dictionary nameResId="@string/ukrainian_dictionary" key="uk" type="binary" dictionaryAssertName="uk_binary.mp3" description=""/>
