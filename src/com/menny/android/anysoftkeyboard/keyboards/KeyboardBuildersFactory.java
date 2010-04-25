@@ -136,7 +136,7 @@ public class KeyboardBuildersFactory {
     private static final String XML_KEYBOARDS_TAG = "Keyboards";
     private static final String XML_KEYBOARD_TAG = "Keyboard";
 
-    private static final String XML_PREF_ID_ATTRIBUTE = "Id";
+    private static final String XML_PREF_ID_ATTRIBUTE = "id";
     private static final String XML_NAME_RES_ID_ATTRIBUTE = "nameResId";
     private static final String XML_LAYOUT_RES_ID_ATTRIBUTE = "layoutResId";
     private static final String XML_LANDSCAPE_LAYOUT_RES_ID_ATTRIBUTE = "landscapeResId";
