@@ -39,32 +39,32 @@ public class ExternalDictionaryFactory {
         public static final String RECEIVER_META_DATA = "com.menny.android.anysoftkeyboard.dictionaries";
 
         Dictionary createDictionary() throws Exception;
-        String getDictionaryId();
-        String getDictionaryLocale();
-        String getDictionaryName();
+        String getId();
+        String getLanguage();
+        //String getDictionaryName();
         String getDescription();
         Context getPackageContext();
     }
 
     private static class BinaryDictionaryBuilderImpl implements DictionaryBuilder
     {
+        private final String mLanguage;
         private final String mId;
-        private final String mLocale;
         private final int mNameId;
         private final String mDescription;
         private final String mAssetsFilename;
         private final Context mPackageContext;
 
-        public BinaryDictionaryBuilderImpl(Context context, String id, String locale, int nameId, String assetsFilename,
-                String description) 
+        public BinaryDictionaryBuilderImpl(Context context, String id, String language, int nameId, String assetsFilename,
+                String description)
         {
-            mId = id;
-            mLocale = locale;
-            mNameId = nameId;            
+        	mId = id;
+            mLanguage = language;
+            mNameId = nameId;
             mDescription = description;
             mAssetsFilename = assetsFilename;
             mPackageContext = context;
-            Log.d("ASK BinaryDictionaryBuilderImpl", "Creator for "+mId+" locale:"+mLocale+" assets:"+mAssetsFilename+" package:"+mPackageContext.getPackageName());
+            Log.d("ASK BinaryDictionaryBuilderImpl", "Creator for "+mLanguage+" with id "+mId+" assets:"+mAssetsFilename+" package:"+mPackageContext.getPackageName());
         }
 
         public Dictionary createDictionary() throws Exception{
@@ -74,18 +74,23 @@ public class ExternalDictionaryFactory {
         public String getDictionaryName() {return mPackageContext.getString(mNameId);}
         public String getDescription() {return mDescription;}
 
-        public String getDictionaryId() {
-            return mId;
+        public String getDictionaryKey() {
+            return mLanguage;
         }
-        
-        public String getDictionaryLocale() {
-        	return mLocale;
-        }
-        
+
         public Context getPackageContext()
         {
         	return mPackageContext;
         }
+
+		public String getId() {
+			return mId;
+		}
+
+		public String getLanguage() {
+			// TODO Auto-generated method stub
+			return null;
+		}
     }
 
     private static ArrayList<DictionaryBuilder> ms_creators = null;
@@ -94,7 +99,7 @@ public class ExternalDictionaryFactory {
     private static final String XML_DICTIONARY_TAG = "Dictionary";
 
     private static final String XML_ID_ATTRIBUTE = "id";
-    private static final String XML_LOCALE_ATTRIBUTE = "locale";
+    private static final String XML_LANGUAGE_ATTRIBUTE = "language";
     private static final String XML_NAME_RES_ID_ATTRIBUTE = "nameResId";
     //private static final String XML_TYPE_ATTRIBUTE = "type";
     private static final String XML_ASSETS_ATTRIBUTE = "dictionaryAssertName";
@@ -120,7 +125,7 @@ public class ExternalDictionaryFactory {
         try {
             int event;
             boolean inDictionaries = false;
-            while ((event = xmlParser.next()) != XmlPullParser.END_DOCUMENT) 
+            while ((event = xmlParser.next()) != XmlPullParser.END_DOCUMENT)
             {
                 final String tag = xmlParser.getName();
                 if (event == XmlPullParser.START_TAG) {
@@ -138,25 +143,25 @@ public class ExternalDictionaryFactory {
                         final AttributeSet attrs = Xml.asAttributeSet(xmlParser);
 
                         final String id = attrs.getAttributeValue(null, XML_ID_ATTRIBUTE);
-                        final String locale = attrs.getAttributeValue(null, XML_LOCALE_ATTRIBUTE);
+                        final String language = attrs.getAttributeValue(null, XML_LANGUAGE_ATTRIBUTE);
                         final int nameId = attrs.getAttributeResourceValue(null, XML_NAME_RES_ID_ATTRIBUTE, -1);
                         final String assets = attrs.getAttributeValue(null, XML_ASSETS_ATTRIBUTE);
                         final String description = attrs.getAttributeValue(null, XML_DESCRIPTION_ATTRIBUTE);
 
                         //asserting
-                        if ((id == null) || (locale == null) || (nameId == -1) || (assets == null))
+                        if ((id == null) || (id.length() == 0) ||(language == null) || (nameId == -1) || (assets == null))
                         {
                             Log.e(TAG, "External dictionary does not include all mandatory details! Will not create dictionary.");
                         }
                         else
                         {
                             if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
-                                Log.d(TAG, "External dictionary details: key:"+id+" nameId:"+nameId+" assets:"+assets);
+                                Log.d(TAG, "External dictionary details: language:"+language+" id:"+id+" nameId:"+nameId+" assets:"+assets);
                             }
-                            final DictionaryBuilder creator = new BinaryDictionaryBuilderImpl(context, id, locale, nameId, assets, description);
+                            final DictionaryBuilder creator = new BinaryDictionaryBuilderImpl(context, id, language, nameId, assets, description);
 
                             if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
-                                Log.d(TAG, "External dictionary "+id+" will have a creator.");
+                                Log.d(TAG, "External dictionary "+language+" will have a creator.");
                             }
                             dictionaries.add(creator);
                         }
@@ -170,7 +175,7 @@ public class ExternalDictionaryFactory {
                             Log.d(TAG, "Finished parsing "+XML_DICTIONARIES_TAG);
                         }
                         break;
-                    } 
+                    }
                     else if (inDictionaries && XML_DICTIONARY_TAG.equals(tag))
                     {
                         if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
@@ -185,7 +190,7 @@ public class ExternalDictionaryFactory {
         } catch (final XmlPullParserException e) {
             Log.e(TAG, "Parse error:" + e);
             e.printStackTrace();
-        }     
+        }
 
         return dictionaries;
             }
@@ -213,9 +218,9 @@ public class ExternalDictionaryFactory {
 
                 // Skip to next receiver
                 continue;
-            } 
+            }
 
-            try { 
+            try {
                 final Context externalPackageContext = context.createPackageContext(
                         receiver.activityInfo.packageName,
                         PackageManager.GET_META_DATA);
@@ -223,7 +228,7 @@ public class ExternalDictionaryFactory {
                         externalPackageContext,
                         receiver.activityInfo);
 
-                externalDictionaryBuilders.addAll(packageKeyboardCreators); 
+                externalDictionaryBuilders.addAll(packageKeyboardCreators);
 
             } catch(final NameNotFoundException e) {
                 Log.e(TAG, "Did not find package: " + receiver.activityInfo.packageName);
@@ -238,7 +243,7 @@ public class ExternalDictionaryFactory {
         return externalDictionaryBuilders;
 
     }
-    
+
     public synchronized static void resetBuildersCache()
     {
     	ms_creators = null;
@@ -252,6 +257,7 @@ public class ExternalDictionaryFactory {
 
             dictionaries.addAll(getAllExternalDictionaryBuilders(context));
             dictionaries.addAll(getDictionaryBuildersFromResId(context, R.xml.dictionaries));
+
             ms_creators = dictionaries;
         }
 

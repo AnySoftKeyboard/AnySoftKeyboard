@@ -10,13 +10,13 @@ import com.menny.android.anysoftkeyboard.Dictionary.DictionarySQLiteConnection.D
 public abstract class SQLiteUserDictionaryBase extends UserDictionaryBase {
 
 	private DictionarySQLiteConnection mStorage;
-	
+
 	protected SQLiteUserDictionaryBase(AnyKeyboardContextProvider anyContext) throws Exception {
 		super(anyContext);
 	}
 
 	@Override
-	protected void loadAllWords() throws Exception 
+	protected void loadAllWords() throws Exception
 	{
 		if (mStorage == null)
 			mStorage = createStorage();

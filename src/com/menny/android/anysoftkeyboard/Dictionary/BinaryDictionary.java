@@ -1,13 +1,13 @@
 /*
  * Copyright (C) 2008-2009 Google Inc.
  * Copyright (C) 2009 Spiros Papadimitriou <spapadim@cs.cmu.edu>
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -20,23 +20,22 @@ package com.menny.android.anysoftkeyboard.Dictionary;
 import java.io.FileDescriptor;
 import java.util.Arrays;
 
-import com.menny.android.anysoftkeyboard.WordComposer;
-import com.menny.android.anysoftkeyboard.Dictionary.Dictionary;
-
 import android.content.res.AssetFileDescriptor;
 import android.util.Log;
+
+import com.menny.android.anysoftkeyboard.WordComposer;
 
 /**
  * Implements a static, compacted, binary dictionary of standard words.
  */
 class BinaryDictionary extends Dictionary {
     private static final String TAG = "ASK_BinaryDictionary";
-    
+
     public static final int MAX_WORD_LENGTH = 48;
     private static final int MAX_ALTERNATIVES = 16;
     private static final int MAX_WORDS = 16;
     private final AssetFileDescriptor mAfd;
-    
+
     private static final int TYPED_LETTER_MULTIPLIER = 2;
 
     private int mNativeDict;
@@ -44,7 +43,7 @@ class BinaryDictionary extends Dictionary {
     private char[] mOutputChars = new char[MAX_WORD_LENGTH * MAX_WORDS];
     private int[] mFrequencies = new int[MAX_WORDS];
 
-    
+
     static {
         try {
             System.loadLibrary("nativeime");
@@ -61,7 +60,7 @@ class BinaryDictionary extends Dictionary {
     public BinaryDictionary(AssetFileDescriptor afd) {
     	mAfd = afd;
     }
-    
+
     @Override
     public void loadDictionary() throws Exception {
     	if (mAfd != null) {
@@ -73,13 +72,13 @@ class BinaryDictionary extends Dictionary {
             int typedLetterMultiplier, int fullWordMultiplier);
     private native void closeNative(int dict);
     private native boolean isValidWordNative(int nativeData, char[] word, int wordLength);
-    private native int getSuggestionsNative(int dict, int[] inputCodes, int codesSize, 
+    private native int getSuggestionsNative(int dict, int[] inputCodes, int codesSize,
             char[] outputChars, int[] frequencies,
             int maxWordLength, int maxWords, int maxAlternatives);
 
     private final void loadDictionary(AssetFileDescriptor afd) {
         long startTime = System.currentTimeMillis();
-        mNativeDict = openNative(afd.getFileDescriptor(), 
+        mNativeDict = openNative(afd.getFileDescriptor(),
                 afd.getStartOffset(), afd.getLength(),
                 TYPED_LETTER_MULTIPLIER, FULL_WORD_FREQ_MULTIPLIER);
         Log.i(TAG, "Loaded dictionary in " + (System.currentTimeMillis() - startTime) + "msec");
@@ -90,7 +89,7 @@ class BinaryDictionary extends Dictionary {
         final int codesSize = codes.size();
         // Wont deal with really long words.
         if (codesSize > MAX_WORD_LENGTH - 1) return;
-        
+
         Arrays.fill(mInputCodes, -1);
         for (int i = 0; i < codesSize; i++) {
             int[] alternatives = codes.getCodesAt(i);
@@ -101,7 +100,7 @@ class BinaryDictionary extends Dictionary {
 
         final int count = getSuggestionsNative(mNativeDict, mInputCodes, codesSize, mOutputChars, mFrequencies,
                 MAX_WORD_LENGTH, MAX_WORDS, MAX_ALTERNATIVES);
-        
+
         for (int j = 0; j < count; j++) {
             if (mFrequencies[j] < 1) break;
             int start = j * MAX_WORD_LENGTH;
@@ -121,7 +120,7 @@ class BinaryDictionary extends Dictionary {
         char[] chars = word.toString().toLowerCase().toCharArray();
         return isValidWordNative(mNativeDict, chars, chars.length);
     }
-    
+
     public synchronized void close() {
         if (mNativeDict != 0) {
             closeNative(mNativeDict);

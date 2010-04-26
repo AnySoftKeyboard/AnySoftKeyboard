@@ -1,4 +1,5 @@
-//package com.menny.android.anysoftkeyboard.Dictionary;
+package com.menny.android.anysoftkeyboard.Dictionary;
+//package com.menny.android.anysoftkeyboard.dictionary;
 //
 //import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 //

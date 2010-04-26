@@ -17,11 +17,11 @@ public class FallbackUserDictionary extends SQLiteUserDictionaryBase {
 		private static final String TABLE_NAME = "FALL_BACK_USER_DICTIONARY";
 		private static final String WORD_COL = "Word";
 		private static final String FREQ_COL = "Freq";
-		
+
 		public FallBackSQLite(Context context) {
 			super(context, DB_NAME, TABLE_NAME, WORD_COL, FREQ_COL);
 		}
-		
+
 		@Override
 		public List<DictionaryWord> getAllWords() {
 			List<DictionaryWord> words = super.getAllWords();
@@ -35,7 +35,7 @@ public class FallbackUserDictionary extends SQLiteUserDictionaryBase {
 			return words;
 		}
 	}
-	
+
 	public FallbackUserDictionary(AnyKeyboardContextProvider context) throws Exception {
 		super(context);
 	}

@@ -16,7 +16,7 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
 	{
 		private final String mWord;
 		private final int mFrequency;
-		
+
 		public DictionaryWord(String word, int freq)
 		{
 			if (word == null)
@@ -27,22 +27,22 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
 			mWord = word;
 			mFrequency = freq;
 		}
-		
+
 		public String getWord() {return mWord;}
 		public int getFrequency() {return mFrequency;}
 	}
-	
+
 	protected final String mTableName;
 	protected final String mWordsColumnName;
 	protected final String mFrequencyColumnName;
 	protected final Context mContext;
-	
+
 	public DictionarySQLiteConnection(Context context, String dbName, String tableName, String wordsColumnName, String frequencyColumnName) {
 		super(context, dbName, null, 3);
 		mContext = context;
 		mTableName = tableName;
 		mWordsColumnName = wordsColumnName;
-		mFrequencyColumnName =frequencyColumnName;			
+		mFrequencyColumnName =frequencyColumnName;
 	}
 
 	@Override
@@ -59,11 +59,11 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
         db.execSQL("DROP TABLE IF EXISTS "+mTableName);
         onCreate(db);
     }
-	
+
     public void addWord(String word, int freq)
     {
     	SQLiteDatabase db = super.getWritableDatabase();
-    	
+
     	ContentValues values = new ContentValues();
     	values.put("Id", word.hashCode());//ensuring that any word is inserted once
     	values.put(mWordsColumnName, word);
@@ -78,14 +78,14 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
 			Log.d("AnySoftKeyboard", "Inserted '"+word+"' to the fall-back dictionary. Id:"+res);
 		}
     }
-    
+
     public List<DictionaryWord> getAllWords()
     {
     	//starting with a big storage
     	List<DictionaryWord> words = new ArrayList<DictionaryWord>(5000);
     	SQLiteDatabase db = getReadableDatabase();
     	Cursor c = db.query(mTableName, new String[]{mWordsColumnName, mFrequencyColumnName}, null, null, null, null, null);
-    	
+
     	if (c != null)
     	{
         	if (c.moveToFirst()) {
@@ -98,7 +98,7 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
             }
         	c.close();
     	}
-        
+
     	return words;
     }
 }
