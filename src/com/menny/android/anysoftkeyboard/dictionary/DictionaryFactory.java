@@ -97,35 +97,6 @@ public class DictionaryFactory
             }
 
 
-//            if (language.equalsIgnoreCase("English")) {
-//                dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("en_binary.mp3"));
-//            } else if (language.equalsIgnoreCase("Hebrew")) {
-//            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("he_binary.mp3"));
-//            } else if (language.equalsIgnoreCase("French")) {
-//            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("fr_binary.mp3"));
-//            } else if (language.equalsIgnoreCase("German")) {
-//            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("de_binary.mp3"));
-//            } else if (language.equalsIgnoreCase("Spanish")) {
-//            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("es_binary.mp3"));
-//            } else if (language.equalsIgnoreCase("Swedish")) {
-//            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("sv_binary.mp3"));
-//            } else if (language.equalsIgnoreCase("Russian")) {
-//            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("ru_binary.mp3"));
-//            } else if (language.equalsIgnoreCase("Finnish")) {
-//            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("fi_binary.mp3"));
-//            } else if (language.equalsIgnoreCase("Dutch")) {
-//            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("nl_binary.mp3"));
-//            } else if (language.equalsIgnoreCase("Slovenian")) {
-//            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("sl_binary.mp3"));
-//            } else if (language.equalsIgnoreCase("Portuguese")) {
-//            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("pt_binary.mp3"));
-//            } else if (language.equalsIgnoreCase("Bulgarian")) {
-//            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("bg_binary.mp3"));
-//            } else if (language.equalsIgnoreCase("Ukrainian")) {
-//            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("uk_binary.mp3"));
-//            } else {
-//                return null;
-//            }
             if (dict == null)
             {
 
@@ -201,7 +172,7 @@ public class DictionaryFactory
         for(DictionaryBuilder builder : allBuilders)
         {
             if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()){
-                Log.d("DictionaryFactory", MessageFormat.format("Checking if builder ''{0}'' with key ''{1}'' matches key ''{2}'''",
+                Log.d("DictionaryFactory", MessageFormat.format("Checking if builder ''{0}'' with locale ''{1}'' matches key ''{2}'''",
                         new Object[] {builder.getId(), builder.getLanguage(), language}));
             }
             if (builder.getLanguage().equalsIgnoreCase(language))
@@ -222,7 +193,7 @@ public class DictionaryFactory
         for(DictionaryBuilder builder : allBuilders)
         {
             if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()){
-                Log.d("DictionaryFactory", MessageFormat.format("Checking if builder ''{0}'' with key ''{1}'' matches id ''{2}'''",
+                Log.d("DictionaryFactory", MessageFormat.format("Checking if builder ''{0}'' with locale ''{1}'' matches id ''{2}'''",
                         new Object[] {builder.getId(), builder.getLanguage(), id}));
             }
             if (builder.getId().equalsIgnoreCase(id))
@@ -365,33 +336,4 @@ public class DictionaryFactory
             }
         }
     }
-//
-//    private enum LanguageStrings
-//    {
-//        None,
-//        English,
-//        Hebrew,
-//        French,
-//        German,
-//        Spanish,
-//        Russian,
-//        Arabic,
-//        Lao,
-//        Swedish,
-//        Finnish,
-//        Dutch,
-//        Slovenian,
-//        Portuguese,
-//        Bulgarian,
-//        Thai,
-//        Ukrainian
-//    }
-//    public static List<String> getKnownDictionariesNames() {
-//        final ArrayList<String> list = new ArrayList<String>();
-//        for(final LanguageStrings lang : LanguageStrings.values()) {
-//            list.add(lang.toString());
-//        }
-//
-//        return list;
-//    }
 }

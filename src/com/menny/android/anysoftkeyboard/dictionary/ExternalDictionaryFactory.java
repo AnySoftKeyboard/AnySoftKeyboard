@@ -99,7 +99,7 @@ public class ExternalDictionaryFactory {
     private static final String XML_DICTIONARY_TAG = "Dictionary";
 
     private static final String XML_ID_ATTRIBUTE = "id";
-    private static final String XML_LANGUAGE_ATTRIBUTE = "language";
+    private static final String XML_LANGUAGE_ATTRIBUTE = "locale";
     private static final String XML_NAME_RES_ID_ATTRIBUTE = "nameResId";
     //private static final String XML_TYPE_ATTRIBUTE = "type";
     private static final String XML_ASSETS_ATTRIBUTE = "dictionaryAssertName";
