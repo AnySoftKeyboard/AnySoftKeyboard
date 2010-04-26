@@ -194,13 +194,7 @@
     
     <!-- dictionaries -->
     <string name="eng_dictionary">English</string>
-    <string name="heb_dictionary">Hebrew</string>
-    <string name="german_dictionary">German</string>
-    <string name="spanish_dictionary">Spanish</string>
-    <string name="swedish_dictionary">Swedish</string>
     <string name="russian_dictionary">Russian</string>
-    <string name="finnish_dictionary">Finnish</string>
-    <string name="sl_dictionary">Slovenian</string>
     <string name="bulgarian_dictionary">Bulgarian</string>
     <string name="ukrainian_dictionary">Ukranian</string>
 </resources>
