@@ -13,11 +13,11 @@ import java.util.Map.Entry;
 public class DictionaryFactory 
 {
     private static UserDictionaryBase msUserDictionary = null;
-    private static final HashMap<String, Dictionary> msDictionaries;
+    private static final HashMap<String, Dictionary> msDictionariesByLocale;
 
     static
     {
-        msDictionaries = new HashMap<String, Dictionary>();
+    	msDictionariesByLocale = new HashMap<String, Dictionary>();
     }
 
     public synchronized static UserDictionaryBase createUserDictionary(AnyKeyboardContextProvider context)
@@ -47,8 +47,8 @@ public class DictionaryFactory
 
     public synchronized static Dictionary getDictionary(final String language, AnyKeyboardContextProvider context)
     {
-        if (msDictionaries.containsKey(language)) {
-            return msDictionaries.get(language);
+        if (msDictionariesByLocale.containsKey(language)) {
+            return msDictionariesByLocale.get(language);
         }
 
         Dictionary dict = null;
@@ -59,35 +59,6 @@ public class DictionaryFactory
         		return null;
         	
         	dict = locateDictionaryInFactory(language, context);
-//            if (language.equalsIgnoreCase("English")) {
-//                dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("en_binary.mp3"));
-//            } else if (language.equalsIgnoreCase("Hebrew")) {
-//            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("he_binary.mp3"));
-//            } else if (language.equalsIgnoreCase("French")) {
-//            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("fr_binary.mp3"));
-//            } else if (language.equalsIgnoreCase("German")) {
-//            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("de_binary.mp3"));
-//            } else if (language.equalsIgnoreCase("Spanish")) {
-//            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("es_binary.mp3"));
-//            } else if (language.equalsIgnoreCase("Swedish")) {
-//            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("sv_binary.mp3"));
-//            } else if (language.equalsIgnoreCase("Russian")) {
-//            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("ru_binary.mp3"));
-//            } else if (language.equalsIgnoreCase("Finnish")) {
-//            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("fi_binary.mp3"));
-//            } else if (language.equalsIgnoreCase("Dutch")) {
-//            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("nl_binary.mp3"));
-//            } else if (language.equalsIgnoreCase("Slovenian")) {
-//            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("sl_binary.mp3"));
-//            } else if (language.equalsIgnoreCase("Portuguese")) {
-//            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("pt_binary.mp3"));
-//            } else if (language.equalsIgnoreCase("Bulgarian")) {
-//            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("bg_binary.mp3"));
-//            } else if (language.equalsIgnoreCase("Ukrainian")) {
-//            	dict = new BinaryDictionary(context.getApplicationContext().getAssets().openFd("uk_binary.mp3"));
-//            } else {
-//                return null;
-//            }
         	if (dict == null)
         	{
         		Log.d("DictionaryFactory", "Could not locate dictionary for "+language+". Maybe it was not loaded yet (installed recently?)");
@@ -131,7 +102,7 @@ public class DictionaryFactory
     }
 
 
-	private static Dictionary locateDictionaryInFactory(final String language,
+	private static Dictionary locateDictionaryInFactory(final String locale,
 			AnyKeyboardContextProvider context)
 			throws Exception {
 		Dictionary dict = null;
@@ -140,8 +111,8 @@ public class DictionaryFactory
 		for(DictionaryBuilder builder : allBuilders)
 		{
 			if (AnySoftKeyboardConfiguration.getInstance().getDEBUG())
-				Log.d("DictionaryFactory", "Checking if builder '"+builder.getDictionaryKey()+"' is '"+language+"'...");
-			if (builder.getDictionaryKey().equalsIgnoreCase(language))
+				Log.d("DictionaryFactory", "Checking if builder '"+builder.getDictionaryLocale()+"' is '"+locale+"'...");
+			if (builder.getDictionaryLocale().equalsIgnoreCase(locale))
 			{
 				dict = builder.createDictionary();
 				break;
@@ -211,33 +182,4 @@ public class DictionaryFactory
             msDictionaries.put(currentlyUsedDictionary, dictToKeep);
         }
     }
-//
-//    private enum LanguageStrings
-//    {
-//        None,
-//        English,
-//        Hebrew,
-//        French,
-//        German,
-//        Spanish,
-//        Russian,
-//        Arabic,
-//        Lao,
-//        Swedish, 
-//        Finnish, 
-//        Dutch,
-//        Slovenian,
-//        Portuguese,
-//        Bulgarian,
-//        Thai,
-//        Ukrainian
-//    }
-//    public static List<String> getKnownDictionariesNames() {
-//        final ArrayList<String> list = new ArrayList<String>();
-//        for(final LanguageStrings lang : LanguageStrings.values()) {
-//            list.add(lang.toString());
-//        }
-//
-//        return list;
-//    }
 }
