@@ -9,6 +9,4 @@
 	<Keyboard nameResId="@string/thai_keyboard" iconResId="@drawable/thai" layoutResId="@xml/thai_qwerty" id="6a7c193c-e909-4b4a-a111-8095c607a1bd" additionalIsLetterExceptions="'" description="Created with DroidSans" index="60"/>
 	<Keyboard nameResId="@string/danish_keyboard" layoutResId="@xml/dk_qwerty" id="4c3df471-29a4-40f5-b6c1-56491e451413" defaultDictionaryLocale="dk" description="Created by Henrik Andersson" index="70"/>
 	<Keyboard nameResId="@string/ka_keyboard" iconResId="@drawable/ka" layoutResId="@xml/ka_qwerty" id="7f7a846e-1462-4f1b-a0ac-70bd063ea5a3" description="Created with herrlado" index="80"/>
-	<Keyboard nameResId="@string/de_keyboard" layoutResId="@xml/de_qwerty" id="5a1b25da-c17d-4be1-ad8e-3e24333341ec" defaultDictionaryLocale="de" description="Created with tudor and Claude Philipona" index="90"/>
-	
 </Keyboards>
