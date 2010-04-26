@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Keyboards>
 	<Keyboard nameResId="@string/eng_keyboard" iconResId="@drawable/en" layoutResId="@xml/qwerty" id="c7535083-4fe6-49dc-81aa-c5438a1a343a" defaultDictionaryLocale="en" description="QWERTY Latin keyboard" index="1"/>
-	<Keyboard nameResId="@string/norwegian_keyboard" layoutResId="@xml/no_qwerty" id="e0987f82-f293-490d-a26e-c59144f6c577" defaultDictionaryLocale="no" description="Created by Henrik Andersson" index="40"/>
 	
 	<Keyboard nameResId="@string/ch_fr_keyboard" layoutResId="@xml/ch_fr_qwerty" id="6ffa7516-2fe6-4798-a813-83dc71d14562" defaultDictionaryLocale="fr" description="Created with tudor and Claude Philipona" index="50"/>
 	
