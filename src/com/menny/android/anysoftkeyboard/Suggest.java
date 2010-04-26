@@ -1,12 +1,12 @@
 /*
  * Copyright (C) 2008-2009 Google Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -16,21 +16,21 @@
 
 package com.menny.android.anysoftkeyboard;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import android.content.Context;
 import android.text.AutoText;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import com.menny.android.anysoftkeyboard.Dictionary.Dictionary;
 import com.menny.android.anysoftkeyboard.Dictionary.UserDictionaryBase;
 
 /**
- * This class loads a dictionary and provides a list of suggestions for a given sequence of 
+ * This class loads a dictionary and provides a list of suggestions for a given sequence of
  * characters. This includes corrections and completions.
  * @hide pending API Council Approval
  */
@@ -39,13 +39,13 @@ public class Suggest implements Dictionary.WordCallback {
     public static final int CORRECTION_NONE = 0;
     public static final int CORRECTION_BASIC = 1;
     public static final int CORRECTION_FULL = 2;
-    
+
     private Dictionary mMainDict;
-    
+
     private Dictionary mUserDictionary;
-    
+
     private int mPrefMaxSuggestions = 12;
-    
+
     private int[] mPriorities = new int[mPrefMaxSuggestions];
     private List<CharSequence> mSuggestions = new ArrayList<CharSequence>();
     //private boolean mIncludeTypedWordIfValid;
@@ -66,11 +66,11 @@ public class Suggest implements Dictionary.WordCallback {
             mStringPool.add(sb);
         }
     }
-    
+
     public int getCorrectionMode() {
         return mCorrectionMode;
     }
-    
+
     public void setCorrectionMode(int mode) {
         mCorrectionMode = mode;
     }
@@ -101,13 +101,13 @@ public class Suggest implements Dictionary.WordCallback {
             mStringPool.add(sb);
         }
     }
-    
+
     private boolean haveSufficientCommonality(String original, CharSequence suggestion) {
         final int len = Math.min(original.length(), suggestion.length());
         if (len <= 2) return true;
         int matching = 0;
         for (int i = 0; i < len; i++) {
-            if (UserDictionaryBase.toLowerCase(original.charAt(i)) 
+            if (UserDictionaryBase.toLowerCase(original.charAt(i))
                     == UserDictionaryBase.toLowerCase(suggestion.charAt(i))) {
                 matching++;
             }
@@ -118,23 +118,23 @@ public class Suggest implements Dictionary.WordCallback {
             return matching > len / 2;
         }
     }
-    
+
     /**
      * Returns a list of words that match the list of character codes passed in.
      * This list will be overwritten the next time this function is called.
      * @param a view for retrieving the context for AutoText
      * @param codes the list of codes. Each list item contains an array of character codes
-     * in order of probability where the character at index 0 in the array has the highest 
-     * probability. 
+     * in order of probability where the character at index 0 in the array has the highest
+     * probability.
      * @return list of suggestions.
      */
-    public List<CharSequence> getSuggestions(View view, WordComposer wordComposer, 
+    public List<CharSequence> getSuggestions(View view, WordComposer wordComposer,
             boolean includeTypedWordIfValid) {
         mHaveCorrection = false;
         collectGarbage();
         Arrays.fill(mPriorities, 0);
         //mIncludeTypedWordIfValid = includeTypedWordIfValid;
-        
+
         // Save a lowercase version of the original word
         mOriginalWord = wordComposer.getTypedWord();
         if (mOriginalWord.length() > 0) {
@@ -157,7 +157,7 @@ public class Suggest implements Dictionary.WordCallback {
             	Log.v("AnySoftKeyboard", "getSuggestions from main-dictionary");
             	mMainDict.getWords(wordComposer, this);
             }
-            
+
             if (mCorrectionMode == CORRECTION_FULL && mSuggestions.size() > 0) {
                 mHaveCorrection = true;
             }
@@ -181,10 +181,10 @@ public class Suggest implements Dictionary.WordCallback {
                 mHaveCorrection = false;
             }
         }
-        
+
         if (view == null)
         	return mSuggestions;
-        
+
         int i = 0;
         int max = 6;
         // Don't autotext the suggestions from the dictionaries
@@ -207,7 +207,7 @@ public class Suggest implements Dictionary.WordCallback {
             }
             i++;
         }
-        
+
         return mSuggestions;
     }
 
@@ -215,14 +215,14 @@ public class Suggest implements Dictionary.WordCallback {
         return mHaveCorrection;
     }
 
-    private static boolean compareCaseInsensitive(final String lowerOriginalWord, 
-            final char[] word, final int offset, final int length) 
+    private static boolean compareCaseInsensitive(final String lowerOriginalWord,
+            final char[] word, final int offset, final int length)
     {
         final int originalLength = lowerOriginalWord.length();
-        
-        if (originalLength == length) 
+
+        if (originalLength == length)
         {
-            for (int i = 0; i < originalLength; i++) 
+            for (int i = 0; i < originalLength; i++)
             {
                 if (lowerOriginalWord.charAt(i) != Character.toLowerCase(word[offset+i])) {
                     return false;
@@ -256,7 +256,7 @@ public class Suggest implements Dictionary.WordCallback {
                 pos++;
             }
         }
-        
+
         if (pos >= prefMaxSuggestions) {
             return true;
         }
@@ -264,7 +264,7 @@ public class Suggest implements Dictionary.WordCallback {
                 prefMaxSuggestions - pos - 1);
         priorities[pos] = freq;
         int poolSize = mStringPool.size();
-        StringBuilder sb = poolSize > 0 ? (StringBuilder) mStringPool.remove(poolSize - 1) 
+        StringBuilder sb = poolSize > 0 ? (StringBuilder) mStringPool.remove(poolSize - 1)
                 : new StringBuilder(32);
         sb.setLength(0);
         sb.append(word, offset, length);
@@ -282,11 +282,11 @@ public class Suggest implements Dictionary.WordCallback {
         if (word == null || word.length() == 0) {
             return false;
         }
-        return (mCorrectionMode == CORRECTION_FULL && (mMainDict!=null) && mMainDict.isValidWord(word)) 
-                || (mCorrectionMode > CORRECTION_NONE && 
+        return (mCorrectionMode == CORRECTION_FULL && (mMainDict!=null) && mMainDict.isValidWord(word))
+                || (mCorrectionMode > CORRECTION_NONE &&
                     (mUserDictionary != null && mUserDictionary.isValidWord(word)));
     }
-    
+
     private void collectGarbage() {
         int poolSize = mStringPool.size();
         int garbageSize = mSuggestions.size();
@@ -307,6 +307,6 @@ public class Suggest implements Dictionary.WordCallback {
 	public void setMainDictionary(Dictionary dictionary) {
 		Log.d("AnySoftKeyboard", "Suggest: Got main dictionary! Type: " +
 				((dictionary == null)? "NULL" : dictionary.toString()));
-		mMainDict = dictionary;		
+		mMainDict = dictionary;
 	}
 }
