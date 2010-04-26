@@ -217,34 +217,43 @@ public class DictionaryFactory
 
     public synchronized static void addDictionaryByLanguage(String language, Dictionary dictionary)
     {
-        // if there is previous mapping, remove it
-        if (msDictionariesByLanguage.containsKey(language))
-        {
-            removeDictionaryByLanguage(language);
-        }
-        int position = msDictionaries.size();
-        msDictionaries.add(dictionary);
-        assert msDictionaries.get(position) == dictionary;
+    	if(language == null || dictionary == null)
+    		return;
 
+    	// Add dictionary to msDictionaries, if necessary
+        int position = msDictionaries.indexOf(dictionary);
+        if(position < 0) {
+        	msDictionaries.add(dictionary);
+        	position = msDictionaries.size();
+        }
+
+        assert msDictionaries.get(position) == dictionary;
+        // Overwrite/Create language->dictionary mapping
         msDictionariesByLanguage.put(language, position);
     }
 
     public synchronized static void addDictionaryById(String id, Dictionary dictionary)
     {
-        // if there is previous mapping, remove it
-        if (msDictionariesById.containsKey(id))
-        {
-            removeDictionaryById(id);
-        }
-        int position = msDictionaries.size();
-        msDictionaries.add(dictionary);
-        assert msDictionaries.get(position) == dictionary;
+    	if(id == null || dictionary == null)
+    		return;
 
+    	// Add dictionary to msDictionaries, if necessary
+        int position = msDictionaries.indexOf(dictionary);
+        if(position < 0) {
+        	msDictionaries.add(dictionary);
+        	position = msDictionaries.size();
+        }
+
+        assert msDictionaries.get(position) == dictionary;
+        // Overwrite/Create id->dictionary mapping
         msDictionariesById.put(id, position);
     }
 
     public synchronized static void removeDictionaryByLanguage(String language)
     {
+    	if(language == null)
+    		return;
+
         if (msDictionariesByLanguage.containsKey(language))
         {
             final int index = msDictionariesByLanguage.get(language);
@@ -261,6 +270,9 @@ public class DictionaryFactory
 
     public synchronized static void removeDictionaryById(String id)
     {
+    	if(id == null)
+    		return;
+
         if (msDictionariesById.containsKey(id))
         {
             final int index = msDictionariesById.get(id);
@@ -307,8 +319,8 @@ public class DictionaryFactory
         String idMappingToDict = null;
         String languageMappingToDict = null;
 
-        // We search first the id->dictionary mapping and if not found
-        // then language->dictionary mapping
+        // We search first the id->dictionary mapping and
+        // then language->dictionary mapping.
         {
         Iterator<Entry<String, Integer>> idIterator = msDictionariesById.entrySet().iterator();
         while(idIterator.hasNext()) {
@@ -320,16 +332,16 @@ public class DictionaryFactory
         }
         }
 
-        if(idMappingToDict == null){
-            Iterator<Entry<String, Integer>> languageIterator = msDictionariesByLanguage.entrySet().iterator();
-            while(languageIterator.hasNext()) {
-                Entry<String, Integer> value = languageIterator.next();
-                if(value.getValue() == index) {
-                    languageMappingToDict = value.getKey();
-                    break;
-                }
+
+        Iterator<Entry<String, Integer>> languageIterator = msDictionariesByLanguage.entrySet().iterator();
+        while(languageIterator.hasNext()) {
+            Entry<String, Integer> value = languageIterator.next();
+            if(value.getValue() == index) {
+                languageMappingToDict = value.getKey();
+                break;
             }
         }
+
 
         assert idMappingToDict != null || languageMappingToDict != null;
 
@@ -341,7 +353,8 @@ public class DictionaryFactory
         {
             if(idMappingToDict != null){
             	addDictionaryById(idMappingToDict, currentlyUsedDictionary);
-            }else{
+            }
+            if(languageMappingToDict != null){
             	addDictionaryByLanguage(languageMappingToDict, currentlyUsedDictionary);
             }
         }
