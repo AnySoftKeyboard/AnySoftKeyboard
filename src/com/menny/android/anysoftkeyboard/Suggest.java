@@ -26,8 +26,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
-import com.menny.android.anysoftkeyboard.dictionary2.Dictionary;
-import com.menny.android.anysoftkeyboard.dictionary2.UserDictionaryBase;
+import com.menny.android.anysoftkeyboard.dictionary.Dictionary;
+import com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase;
 
 /**
  * This class loads a dictionary and provides a list of suggestions for a given sequence of

@@ -1,4 +1,4 @@
-package com.menny.android.anysoftkeyboard.dictionary2;
+package com.menny.android.anysoftkeyboard.dictionary;
 
 import java.util.List;
 

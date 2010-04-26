@@ -53,11 +53,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.menny.android.anysoftkeyboard.KeyboardSwitcher.NextKeyboardType;
-import com.menny.android.anysoftkeyboard.dictionary2.Dictionary;
-import com.menny.android.anysoftkeyboard.dictionary2.DictionaryFactory;
-import com.menny.android.anysoftkeyboard.dictionary2.ExternalDictionaryFactory;
-import com.menny.android.anysoftkeyboard.dictionary2.UserDictionaryBase;
-import com.menny.android.anysoftkeyboard.dictionary2.ExternalDictionaryFactory.DictionaryBuilder;
+import com.menny.android.anysoftkeyboard.dictionary.Dictionary;
+import com.menny.android.anysoftkeyboard.dictionary.DictionaryFactory;
+import com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory;
+import com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase;
+import com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory.DictionaryBuilder;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.menny.android.anysoftkeyboard.tutorials.TutorialsProvider;

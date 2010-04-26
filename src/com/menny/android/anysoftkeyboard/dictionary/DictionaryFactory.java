@@ -1,4 +1,4 @@
-package com.menny.android.anysoftkeyboard.dictionary2;
+package com.menny.android.anysoftkeyboard.dictionary;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import android.util.Log;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
-import com.menny.android.anysoftkeyboard.dictionary2.ExternalDictionaryFactory.DictionaryBuilder;
+import com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory.DictionaryBuilder;
 
 public class DictionaryFactory
 {
