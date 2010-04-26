@@ -57,10 +57,10 @@ public class DictionaryFactory
     }
 
     public synchronized static Dictionary getDictionaryByLanguage(final String language, AnyKeyboardContextProvider context){
-        return getDictionaryImpl(language, null, context);
+        return getDictionaryImpl(null, language, context);
     }
     public synchronized static Dictionary getDictionaryById(final String id, AnyKeyboardContextProvider context){
-        return getDictionaryImpl(null, id, context);
+        return getDictionaryImpl(id, null, context);
     }
 
 
