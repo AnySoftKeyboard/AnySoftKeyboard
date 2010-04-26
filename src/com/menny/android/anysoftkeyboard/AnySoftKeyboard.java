@@ -1846,7 +1846,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 		//going over all installed dictionaries
 		for (DictionaryBuilder dictionaryBuilder : ExternalDictionaryFactory.getAllBuilders(this)) {
 			dictionaryIds.add(dictionaryBuilder.getId());
-			dictionaries.add(dictionaryBuilder.getDictionaryName());
+			String description = dictionaryBuilder.getDescription();
+			if(description != null && description.length() != 0) {
+				description = " (" + description + ")";
+			}
+			dictionaries.add(dictionaryBuilder.getDictionaryName() + description);
 		}
 
 		final CharSequence[] ids = new CharSequence[dictionaryIds.size()];
