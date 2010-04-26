@@ -110,7 +110,7 @@ android:key="ime_settings">
 				android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false">
 				</EditTextPreference>
 				<CheckBoxPreference
-				android:key="eng_keyboard"
+				android:key="keyboard_c7535083-4fe6-49dc-81aa-c5438a1a343a"
 				android:title="@string/eng_keyboard"
 				android:persistent="true" 
 				android:defaultValue="true"
