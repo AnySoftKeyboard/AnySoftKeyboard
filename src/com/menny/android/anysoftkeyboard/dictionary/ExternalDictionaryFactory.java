@@ -41,7 +41,7 @@ public class ExternalDictionaryFactory {
         Dictionary createDictionary() throws Exception;
         String getId();
         String getLanguage();
-        //String getDictionaryName();
+        String getDictionaryName();
         String getDescription();
         Context getPackageContext();
     }
