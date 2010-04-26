@@ -74,10 +74,6 @@ public class ExternalDictionaryFactory {
         public String getDictionaryName() {return mPackageContext.getString(mNameId);}
         public String getDescription() {return mDescription;}
 
-        public String getDictionaryKey() {
-            return mLanguage;
-        }
-
         public Context getPackageContext()
         {
         	return mPackageContext;
@@ -88,8 +84,7 @@ public class ExternalDictionaryFactory {
 		}
 
 		public String getLanguage() {
-			// TODO Auto-generated method stub
-			return null;
+			return mLanguage;
 		}
     }
 

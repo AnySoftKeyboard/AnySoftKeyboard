@@ -57,10 +57,10 @@ public class DictionaryFactory
     }
 
     public synchronized static Dictionary getDictionaryByLanguage(final String language, AnyKeyboardContextProvider context){
-        return getDictionaryImpl(null, language, context);
+        return getDictionaryImpl(language, null, context);
     }
     public synchronized static Dictionary getDictionaryById(final String id, AnyKeyboardContextProvider context){
-        return getDictionaryImpl(id, null, context);
+        return getDictionaryImpl(null, id, context);
     }
 
 
@@ -84,15 +84,17 @@ public class DictionaryFactory
                 if ((language == null) || (language.length() == 0 || ("none".equalsIgnoreCase(language)))) {
                     return null;
                 }
-            } else {
-                dict = locateDictionaryByIdInFactory(language, context);
             }
-
             if(language == null) {
                 if ((id == null) || (id.length() == 0 || ("none".equalsIgnoreCase(id)))) {
                     return null;
                 }
-            } else {
+            }
+
+            if(id != null) {
+                dict = locateDictionaryByIdInFactory(id, context);
+            }
+            else if(language != null) {
                 dict = locateDictionaryByLanguageInFactory(language, context);
             }
 
@@ -106,7 +108,7 @@ public class DictionaryFactory
                 ExternalDictionaryFactory.resetBuildersCache();
                 //trying again
                 if(id != null) {
-                    dict = locateDictionaryByIdInFactory(language, context);
+                    dict = locateDictionaryByIdInFactory(id, context);
                 }
                 else if(language != null) {
                     dict = locateDictionaryByLanguageInFactory(language, context);
@@ -167,12 +169,16 @@ public class DictionaryFactory
             AnyKeyboardContextProvider context)
             throws Exception {
         Dictionary dict = null;
+
+        if (language == null)
+        	return dict;
+
         final ArrayList<DictionaryBuilder> allBuilders = ExternalDictionaryFactory.getAllBuilders(context.getApplicationContext());
 
         for(DictionaryBuilder builder : allBuilders)
         {
             if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()){
-                Log.d("DictionaryFactory", MessageFormat.format("Checking if builder ''{0}'' with locale ''{1}'' matches key ''{2}'''",
+                Log.d("DictionaryFactory", MessageFormat.format("Checking if builder ''{0}'' with locale ''{1}'' matches locale ''{2}''",
                         new Object[] {builder.getId(), builder.getLanguage(), language}));
             }
             if (builder.getLanguage().equalsIgnoreCase(language))
@@ -188,12 +194,16 @@ public class DictionaryFactory
             AnyKeyboardContextProvider context)
             throws Exception {
         Dictionary dict = null;
+
+        if (id == null)
+        	return dict;
+
         final ArrayList<DictionaryBuilder> allBuilders = ExternalDictionaryFactory.getAllBuilders(context.getApplicationContext());
 
         for(DictionaryBuilder builder : allBuilders)
         {
             if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()){
-                Log.d("DictionaryFactory", MessageFormat.format("Checking if builder ''{0}'' with locale ''{1}'' matches id ''{2}'''",
+                Log.d("DictionaryFactory", MessageFormat.format("Checking if builder ''{0}'' with locale ''{1}'' matches id ''{2}''",
                         new Object[] {builder.getId(), builder.getLanguage(), id}));
             }
             if (builder.getId().equalsIgnoreCase(id))

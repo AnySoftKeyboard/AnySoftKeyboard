@@ -1800,16 +1800,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 		String dictionaryValue = getSharedPreferences().getString(mappingSettingsKey, null);
 		Dictionary dictionary = null;
 
-		if (dictionaryValue == null)
+		if (dictionaryValue == null){
 			dictionary = DictionaryFactory.getDictionaryByLanguage(currentKeyboard.getDefaultDictionaryLanguage(), this);
-		else {
-			if (dictionaryValue != null)
-			{
+		} else {
 				Log.d("AnySoftKeyboard", "Default dictionary '" + (defaultDictionary == null? "None" : defaultDictionary)
 						+ "' for keyboard '" + currentKeyboard.getKeyboardPrefId()
 						+ "' has been overriden to '" + dictionaryValue + "'");
 				dictionary = DictionaryFactory.getDictionaryById(dictionaryValue, this);
-			}
 		}
 
 		return dictionary;
@@ -1829,7 +1826,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		startActivity(intent);
 	}
 
-	private void launchDictioanryOverriding() {
+	private void launchDictionaryOverriding() {
 		AnyKeyboard currentKeyboard = mKeyboardSwitcher.getCurrentKeyboard();
 		final String dictionaryOverridingKey = getDictionaryOverrideKey(currentKeyboard);
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -1873,13 +1870,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 						Log.d("AnySoftKeyboard",
 								"Dictionary override dialog canceled.");
 					} else {
-						String selectedDictionaryId  = ids[position].toString();
+						CharSequence id = ids[position];
+						String selectedDictionaryId = (id == null) ? null : id.toString();
 						String selectedLanguageString = items[position]
 								.toString();
 						Log.d("AnySoftKeyboard",
 								"Dictionary override. User selected "
 										+ selectedLanguageString + " which corresponds to id "
-										+ selectedDictionaryId);
+										+ ((selectedDictionaryId == null) ? "(null)" : selectedDictionaryId));
 						editor.putString(dictionaryOverridingKey,
 								selectedDictionaryId);
 						showToastMessage(getString(R.string.override_enabled,
@@ -1920,7 +1918,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 							launchSettings();
 							break;
 						case 1:
-							launchDictioanryOverriding();
+							launchDictionaryOverriding();
 							break;
 						case 2:
 							((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
