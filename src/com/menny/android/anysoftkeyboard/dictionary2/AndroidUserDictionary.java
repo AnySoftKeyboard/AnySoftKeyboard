@@ -1,4 +1,4 @@
-package com.menny.android.anysoftkeyboard.Dictionary;
+package com.menny.android.anysoftkeyboard.dictionary2;
 
 import android.content.ContentResolver;
 import android.database.ContentObserver;

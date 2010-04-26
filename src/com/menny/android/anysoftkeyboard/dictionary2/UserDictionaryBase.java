@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.menny.android.anysoftkeyboard.Dictionary;
+package com.menny.android.anysoftkeyboard.dictionary2;
 
 import java.util.ArrayList;
 import java.util.List;

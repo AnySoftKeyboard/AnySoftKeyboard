@@ -1,4 +1,4 @@
-package com.menny.android.anysoftkeyboard.Dictionary;
+package com.menny.android.anysoftkeyboard.dictionary2;
 
 import java.io.IOException;
 import java.util.ArrayList;

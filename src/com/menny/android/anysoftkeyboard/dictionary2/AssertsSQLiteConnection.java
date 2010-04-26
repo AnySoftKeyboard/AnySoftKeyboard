@@ -1,4 +1,4 @@
-package com.menny.android.anysoftkeyboard.Dictionary;
+package com.menny.android.anysoftkeyboard.dictionary2;
 //package com.menny.android.anysoftkeyboard.dictionary;
 //
 //import java.io.*;
@@ -16,16 +16,16 @@ package com.menny.android.anysoftkeyboard.Dictionary;
 //    private static final String DB_PATH = "/data/data/com.menny.android.anysoftkeyboard/databases/";
 //
 //    private final String mDbName;
-//    
-//    private SQLiteDatabase mDataBase; 
-//    
+//
+//    private SQLiteDatabase mDataBase;
+//
 //	protected AssertsSQLiteConnection(Context conext, String dbName, String wordsTableName) throws IOException {
 //		super(conext, dbName, wordsTableName, "Word", "Frequency");
 //		mDbName = dbName;
-//		
+//
 //		createDataBase();
 //	}
-//	
+//
 //	/**
 //    * Creates a empty database on the system and rewrites it with your own database.
 //    * */
@@ -47,22 +47,22 @@ package com.menny.android.anysoftkeyboard.Dictionary;
 //		   	copyDataBase();
 //		}
 //	}
-//	
+//
 //	@Override
 //	public synchronized void close() {
 //		if(mDataBase != null)
 //			mDataBase.close();
-//		
+//
 //		mDataBase = null;
 //		super.close();
 //	}
-// 
+//
 //	@Override
 //	public void onCreate(SQLiteDatabase db) {
 //	}
-// 
+//
 //	@Override
-//	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) { 
+//	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 //	}
 //
 //
@@ -84,7 +84,7 @@ package com.menny.android.anysoftkeyboard.Dictionary;
 //			try
 //			{
 //				int assetDbSize = assetsDb.available();
-//				
+//
 //				int installedAssetDatabaseSize = getInstalledDatabaseSize();
 //				Log.v("AnySoftKeyboard", "Found local DB size "+installedAssetDatabaseSize+" and assets DB size is "+assetDbSize);
 //	            if (assetDbSize == installedAssetDatabaseSize) {
@@ -114,19 +114,19 @@ package com.menny.android.anysoftkeyboard.Dictionary;
 //		}
 //		finally
 //		{
-//			if(checkDB != null)		
+//			if(checkDB != null)
 //				checkDB.close();
 //		}
-//		
+//
 //		return validDatabase;
 //	}
-//	
+//
 //	private String getSharedPreferencesKey()
 //	{
 //		return "AssertsDictionary_"+mDbName+"_"+mTableName;
 //	}
 //
-//   private int getInstalledDatabaseSize() 
+//   private int getInstalledDatabaseSize()
 //   {
 //	   //the database revision is taken from the application's settings
 //	   SharedPreferences sp = mContext.getSharedPreferences(SoftKeyboardSettings.PREFERENCES_FILE, 0);
@@ -150,7 +150,7 @@ package com.menny.android.anysoftkeyboard.Dictionary;
 //   	//Open your local db as the input stream
 //   	InputStream myInput = super.mContext.getAssets().open(mDbName);
 //   	final int assetsSize = myInput.available();
-//   	
+//
 //   	// Path to the just created empty db
 //   	String outFileName = DB_PATH + mDbName;
 //
@@ -164,7 +164,7 @@ package com.menny.android.anysoftkeyboard.Dictionary;
 //   		SQLiteDatabase emptyDb = super.getReadableDatabase();
 //   		emptyDb.close();
 //   	}
-//   	
+//
 //   	OutputStream myOutput = new FileOutputStream(outFileName, false);
 //
 //   	//transfer bytes from the inputfile to the outputfile
@@ -179,21 +179,21 @@ package com.menny.android.anysoftkeyboard.Dictionary;
 //   	myOutput.close();
 //   	myInput.close();
 //   	Log.d("AnySoftKeyboard", "***** AssertsSQLiteConnection: DB was copied!");
-//   	
+//
 //   	//first time I have the database.
 //	//I'll take its size and store it in the application preferences, so I'll know if
 //	//asserts upgrade has happened.
 //	setNewlyInstalledDatabaseSize(assetsSize);
 //   }
-//   
+//
 //   @Override
 //   public synchronized SQLiteDatabase getReadableDatabase() {
 //	   	if (mDataBase != null)
 //			return mDataBase;
-//   
+//
 //		String myPath = DB_PATH + mDbName;
 //		mDataBase =  SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
-//		
+//
 //		return mDataBase;
 //   }
 //}

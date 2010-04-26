@@ -150,7 +150,7 @@ static int registerNativeMethods(JNIEnv* env, const char* className,
  */
 jint JNI_OnLoad(JavaVM* vm, void* reserved)
 {
-    const char* const kClassPathName = "com/menny/android/anysoftkeyboard/Dictionary/BinaryDictionary";
+    const char* const kClassPathName = "com/menny/android/anysoftkeyboard/dictionary/BinaryDictionary";
 
     JNIEnv* env = NULL;
     jclass clazz;

@@ -1,11 +1,11 @@
-package com.menny.android.anysoftkeyboard.Dictionary;
+package com.menny.android.anysoftkeyboard.dictionary2;
 
 import java.util.List;
 
 import android.util.Log;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
-import com.menny.android.anysoftkeyboard.Dictionary.DictionarySQLiteConnection.DictionaryWord;
+import com.menny.android.anysoftkeyboard.dictionary2.DictionarySQLiteConnection.DictionaryWord;
 
 public abstract class SQLiteUserDictionaryBase extends UserDictionaryBase {
 

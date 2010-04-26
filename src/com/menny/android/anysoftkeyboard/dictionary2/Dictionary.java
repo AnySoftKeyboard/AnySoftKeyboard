@@ -1,4 +1,4 @@
-package com.menny.android.anysoftkeyboard.Dictionary;
+package com.menny.android.anysoftkeyboard.dictionary2;
 
 import com.menny.android.anysoftkeyboard.WordComposer;
 

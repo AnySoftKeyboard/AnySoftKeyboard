@@ -15,7 +15,7 @@
  * the License.
  */
 
-package com.menny.android.anysoftkeyboard.Dictionary;
+package com.menny.android.anysoftkeyboard.dictionary2;
 
 import java.io.FileDescriptor;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package com.menny.android.anysoftkeyboard.Dictionary;
+package com.menny.android.anysoftkeyboard.dictionary2;
 //package com.menny.android.anysoftkeyboard.dictionary;
 //
 //import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
@@ -7,13 +7,13 @@ package com.menny.android.anysoftkeyboard.Dictionary;
 //
 //	private final String mDbName;
 //	private final String mTableName;
-//	
+//
 //	public SQLiteSimpleDictionary(AnyKeyboardContextProvider anyContext, String dbName, String tableName) throws Exception {
 //		super(anyContext);
 //		mDbName = dbName;
 //		mTableName = tableName;
 //	}
-//	
+//
 //	@Override
 //	protected DictionarySQLiteConnection createStorage() {
 //		try {
@@ -23,7 +23,7 @@ package com.menny.android.anysoftkeyboard.Dictionary;
 //			return new DictionarySQLiteConnection(mContext, mDbName, mTableName, "Word", "Frequency");
 //		}
 //	}
-//	
+//
 //	@Override
 //	public synchronized void addWord(String word, int frequency) {
 //		//does nothing
