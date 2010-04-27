@@ -224,7 +224,7 @@ public class DictionaryFactory
         int position = msDictionaries.indexOf(dictionary);
         if(position < 0) {
         	msDictionaries.add(dictionary);
-        	position = msDictionaries.size();
+        	position = msDictionaries.size() - 1;
         }
 
         assert msDictionaries.get(position) == dictionary;
@@ -241,7 +241,7 @@ public class DictionaryFactory
         int position = msDictionaries.indexOf(dictionary);
         if(position < 0) {
         	msDictionaries.add(dictionary);
-        	position = msDictionaries.size();
+        	position = msDictionaries.size() - 1;
         }
 
         assert msDictionaries.get(position) == dictionary;
