@@ -177,7 +177,7 @@ public abstract class AnyKeyboard extends Keyboard
         return mASKContext;
     }
 
-	protected Context getKeyboardContext()
+	public Context getKeyboardContext()
     {
     	return mKeyboardContext;
     }
@@ -330,7 +330,7 @@ public abstract class AnyKeyboard extends Keyboard
         }
     }
     
-    public abstract int getKeyboardNameResId();
+    protected abstract int getKeyboardNameResId();
     
     public String getKeyboardName()
     {

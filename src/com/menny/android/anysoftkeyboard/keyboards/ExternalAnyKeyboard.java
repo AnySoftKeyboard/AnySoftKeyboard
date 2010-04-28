@@ -203,7 +203,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	}
 	
 	@Override
-	public int getKeyboardNameResId() {
+	protected int getKeyboardNameResId() {
 		return mNameResId;
 	}
 	

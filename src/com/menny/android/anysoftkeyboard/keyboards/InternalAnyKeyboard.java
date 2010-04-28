@@ -95,7 +95,7 @@ public abstract class InternalAnyKeyboard extends AnyKeyboard
     }
     
 	@Override
-	public int getKeyboardNameResId(){return mKeyboardMetaData.KeyboardNameId;};
+	protected int getKeyboardNameResId(){return mKeyboardMetaData.KeyboardNameId;};
 	
     @Override
     public int getKeyboardIconResId()

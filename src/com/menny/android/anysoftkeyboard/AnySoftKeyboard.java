@@ -756,15 +756,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 			// creating the message
 			final String keyboardName = current.getKeyboardName();
 
-			Notification notification = new Notification(current.getKeyboardIconResId(), keyboardName, System.currentTimeMillis());
-
+			Notification notification = new Notification();
+			
 			Intent notificationIntent = new Intent();
 			PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
 					notificationIntent, 0);
 
-			notification.setLatestEventInfo(getApplicationContext(),
-					"Any Soft Keyboard", keyboardName,
+			notification.setLatestEventInfo(current.getKeyboardContext(),
+					getText(R.string.ime_name), keyboardName,
 					contentIntent);
+			notification.icon = current.getKeyboardIconResId();
+			
 			if (mKeyboardChangeNotificationType.equals("1")) {
 				notification.flags |= Notification.FLAG_ONGOING_EVENT;
 				notification.flags |= Notification.FLAG_NO_CLEAR;
