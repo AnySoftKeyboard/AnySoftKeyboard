@@ -23,6 +23,13 @@
 	<string name="main_tab_credits_localization_by">Localization efforts by:</string>
 	<string name="main_tab_credits_GUI_by">UI images by:</string>
 	
+	<!-- notifications -->
+	<string name="notification_text">Press here for important information</string>
+	<string name="testers_version">Testers version!</string>
+	<string name="testers_version_text">This is a testing version. It may contain many bugs, and it may be non-backward compatible!\nPlease, report any problems you encounter.\nThank you for your beta-testing.</string>
+	
+	<!-- changelog -->
+	<string name="changelog">Changelog</string>
     <!-- Symbols that are commonly considered word separators in this language -->
     <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
     <!-- Indicates that a word has been added to the dictionary -->

@@ -1,0 +1,61 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:text="@string/changelog" />
+    <TextView
+    	android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:text="20100428 - 18"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:paddingTop="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        />
+    <TextView android:text="http://code.google.com/p/softkeyboard/issues/detail?id=317" android:textSize="12sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content"
+    	android:paddingTop="4dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"/>
+    <TextView
+    	android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:text="* External packages! Search the Market for your language - all languages have been removed from the main application!\n* Changelog notification (this one :) )"
+        android:textSize="16sp"
+        android:paddingTop="4dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        />
+    <TextView
+    	android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:text="20100328 - 17"
+        android:textSize="16sp"
+        android:paddingTop="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        />
+    <TextView android:text="http://code.google.com/p/softkeyboard/issues/detail?id=257" android:textSize="12sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content"
+    	android:paddingTop="4dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"/>
+    <TextView
+    	android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:text="* New layouts\n* Many bug fixes\n* High definition devices support (Nexus One, Droid, etc.)"
+        android:textSize="16sp"
+        android:paddingTop="4dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        />
+</LinearLayout>

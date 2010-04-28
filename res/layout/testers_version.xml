@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:text="@string/testers_version" />
+    <TextView
+    	android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:text="@string/testers_version_text"
+        android:textSize="16sp"
+        android:paddingTop="12dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        />
+</LinearLayout>

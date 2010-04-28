@@ -1,15 +1,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" 
         package="com.menny.android.anysoftkeyboard"
-        android:versionCode="18" android:versionName="20100427-x-dvtel">
+        android:versionCode="18" android:versionName="20100428-x-dvtel">
 	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key">
-	    <service android:permission="android.permission.BIND_INPUT_METHOD" android:name="SoftKeyboard">
+	    <service android:permission="android.permission.BIND_INPUT_METHOD" android:name=".SoftKeyboard">
 	        <intent-filter>
 	            <action android:name="android.view.InputMethod" />
 	        </intent-filter>
 	        <meta-data android:name="android.view.im" android:resource="@xml/method" />
 	    </service>
-	    <activity android:name="SoftKeyboardSettings" android:label="Settings">
+	    <activity android:name=".SoftKeyboardSettings" android:label="Settings">
 	    </activity>
+	    <activity android:name=".tutorials.TutorialActivity" android:label="Tutorial">
+	    </activity>
+	    
 	    <activity android:name=".MainForm"
                   android:label="@string/ime_name">
             <intent-filter>

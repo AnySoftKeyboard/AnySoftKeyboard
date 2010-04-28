@@ -1,35 +1,95 @@
 package com.menny.android.anysoftkeyboard.tutorials;
 
-import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
+import java.util.ArrayList;
 
+import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
+import com.menny.android.anysoftkeyboard.R;
+
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
-import android.view.View;
 
 public class TutorialsProvider 
 {
-	private static boolean msDEBUG_TUTORIAL_SHOWN = false;
+	private static final String TAG = "ASK Turorial";
+
+	private static final int BASE_NOTIFICATION_ID = 1024;
+
+	private static ArrayList<TutorialActivityData> msActivitiesToShow = new ArrayList<TutorialActivityData>();
 	
-	public static void ShowTutorialsIfNeeded(Context context, View view)
+	public static void ShowTutorialsIfNeeded(Context context)
 	{
-		Log.i("AnySoftKeyboard", "TutorialsProvider::ShowTutorialsIfNeeded called");
-		if ((!msDEBUG_TUTORIAL_SHOWN) && (AnySoftKeyboardConfiguration.getInstance().getDEBUG()))
+		Log.i(TAG, "TutorialsProvider::ShowTutorialsIfNeeded called");
+		if (AnySoftKeyboardConfiguration.getInstance().getDEBUG())
 		{
-			Log.i("AnySoftKeyboard", "TutorialsProvider::ShowTutorialsIfNeeded starting 'TESTERS VERSION'");
-			msDEBUG_TUTORIAL_SHOWN = true;
-			ShowBasicTutorial(view.getContext(), "TESTERS VERSION", "This is an ALPHA/BETA version, and should be used by testers only. It probably contains a lot of bugs, and half-baked features, so do not expect a stable version.\n"
-					+"This version includes the following changes:\n*Georgian, Thai and Canadian keyboards\n*candidates in physical keyboard\n*Fixes for issues: 132, 129, 112, 114, 109, 141, 139.\n\nThanks for testing.");
+			Log.i(TAG, "TESTERS VERSION added");
+			TutorialActivityData data = new TutorialActivityData(R.string.testers_version, R.layout.testers_version);
+			msActivitiesToShow.add(data);
+		}
+		
+		if (AnySoftKeyboardConfiguration.getInstance().getDEBUG() || firstTimeVersionLoaded(context))
+		{
+			Log.i(TAG, "changelog added");
+			TutorialActivityData data = new TutorialActivityData(R.string.changelog, R.layout.changelog);
+			msActivitiesToShow.add(data);
+		}
+		
+		showNotificationIcon(context);
+	}
+
+	private static boolean firstTimeVersionLoaded(Context context) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public synchronized static void showNotificationIcon(Context context) {
+		if (msActivitiesToShow.size() > 0)
+		{
+			Notification notification = new Notification(R.drawable.notification_icon, context.getText(R.string.notification_text), System.currentTimeMillis());
+            
+            Intent notificationIntent = new Intent(context, TutorialActivity.class);
+            
+            PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+            
+            notification.setLatestEventInfo(context,
+                            context.getText(R.string.ime_name), context.getText(R.string.notification_text),
+                            contentIntent);
+            notification.defaults = 0;// no sound, vibrate, etc.
+            //Cancel on click
+            notification.flags = Notification.FLAG_AUTO_CANCEL;
+            //shows the number on the icon
+            if (msActivitiesToShow.size() > 1)
+            	notification.number = msActivitiesToShow.size();
+            // notifying
+            //need different id for each notification, so we can cancel easily
+            ((NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE)).notify(BASE_NOTIFICATION_ID+msActivitiesToShow.size(), notification);
 		}
 	}
 	
-	public static void ShowBasicTutorial(Context context, int titleId, int textId)
+	public static synchronized TutorialActivityData dequeueTutorial()
 	{
-		ShowBasicTutorial(context, context.getResources().getString(titleId), context.getResources().getString(textId));
+		if (msActivitiesToShow.size() > 0)
+		{
+			return msActivitiesToShow.remove(0);
+		}
+		else
+		{
+			return null;
+		}
 	}
 	
-	public static void ShowBasicTutorial(Context context, String title, String text)
+	public static class TutorialActivityData
 	{
-		BasicTextTutorialDialog dialog = new BasicTextTutorialDialog(context, title, text);
-		dialog.show();
-	}	
+		public final int NameResourceId;
+		public final int LayoutResourceId;
+		
+		public TutorialActivityData(int nameId, int layoutId)
+		{
+			NameResourceId = nameId;
+			LayoutResourceId = layoutId;
+		}
+	}
 }

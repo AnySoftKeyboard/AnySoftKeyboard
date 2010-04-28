@@ -74,7 +74,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private final boolean TRACE_SDCARD = false;
 
 	private static final int MSG_UPDATE_SUGGESTIONS = 0;
-	private static final int MSG_START_TUTORIAL = 1;
+	//private static final int MSG_START_TUTORIAL = 1;
 
 	private static final int KEYCODE_ENTER = 10;
 	private static final int KEYCODE_SPACE = ' ';
@@ -144,15 +144,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 			case MSG_UPDATE_SUGGESTIONS:
 				updateSuggestions();
 				break;
-			case MSG_START_TUTORIAL:
-				if ((mInputView != null) && mInputView.isShown()) {
-					TutorialsProvider.ShowTutorialsIfNeeded(
-							AnySoftKeyboard.this, mInputView);
-				} else {
-					// Try again soon if the view is not yet showing
-					sendMessageDelayed(obtainMessage(MSG_START_TUTORIAL), 100);
-				}
-				break;
 			}
 		}
 	};
@@ -192,6 +183,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		SharedPreferences sp = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		sp.registerOnSharedPreferenceChangeListener(this);
+		
+		TutorialsProvider.ShowTutorialsIfNeeded(AnySoftKeyboard.this);
 	}
 
 	private void initSuggest(/* String locale */) {
