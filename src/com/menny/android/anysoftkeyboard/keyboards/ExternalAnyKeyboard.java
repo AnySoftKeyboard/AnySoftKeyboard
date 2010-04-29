@@ -188,7 +188,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	}
 
 	@Override
-	public String getDefaultDictionaryLanguage() {
+	public String getDefaultDictionaryLocale() {
 		return mDefaultDictionary;
 	}
 	

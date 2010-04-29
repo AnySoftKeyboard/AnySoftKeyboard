@@ -1,9 +1,11 @@
 package com.menny.android.anysoftkeyboard;
 
 import android.app.TabActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -42,12 +44,26 @@ public class MainForm extends TabActivity implements OnClickListener {
     }
 
 	public void onClick(View v) {
-		if (v.getId() == R.id.goto_settings_button)
+		switch(v.getId())
 		{
-			Intent intent = new Intent();
-			intent.setClass(this, SoftKeyboardSettings.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			startActivity(intent);
+		case R.id.goto_settings_button:
+			startSettings(getApplicationContext());
+			break;
+		case R.id.market_search_button:
+			searchMarketForAddons(getApplicationContext());
+			break;
 		}
+	}
+	
+	public static void searchMarketForAddons(Context applicationContext) {
+		Intent search = new Intent(Intent.ACTION_VIEW);
+		search.setData(Uri.parse("market://search?q=AnySoftKeyboard"));
+		applicationContext.startActivity(search);
+	}
+	
+	public static void startSettings(Context applicationContext) {
+		Intent intent = new Intent(applicationContext, SoftKeyboardSettings.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		applicationContext.startActivity(intent);
 	}
 }

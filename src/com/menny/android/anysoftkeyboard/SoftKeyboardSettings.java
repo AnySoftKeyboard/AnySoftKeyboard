@@ -22,7 +22,7 @@ public class SoftKeyboardSettings extends PreferenceActivity {
 	@Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        addPreferencesFromResource(R.xml.prefs);
+        addPreferencesFromResource(R.layout.prefs);
         
         String version = "";
         try {

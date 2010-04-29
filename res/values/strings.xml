@@ -30,6 +30,8 @@
 	
 	<!-- changelog -->
 	<string name="changelog">Changelog</string>
+	<string name="search_market_for_addons">Search for add-ons</string>
+	
     <!-- Symbols that are commonly considered word separators in this language -->
     <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
     <!-- Indicates that a word has been added to the dictionary -->

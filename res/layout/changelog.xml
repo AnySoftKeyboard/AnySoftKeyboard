@@ -1,61 +1,89 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
-
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:text="@string/changelog" />
-    <TextView
-    	android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:text="20100428 - 18"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:textSize="16sp"
-        android:paddingTop="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        />
-    <TextView android:text="http://code.google.com/p/softkeyboard/issues/detail?id=317" android:textSize="12sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content"
-    	android:paddingTop="4dp"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"/>
-    <TextView
-    	android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:text="* External packages! Search the Market for your language - all languages have been removed from the main application!\n* Changelog notification (this one :) )"
-        android:textSize="16sp"
-        android:paddingTop="4dp"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
-        />
-    <TextView
-    	android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:text="20100328 - 17"
-        android:textSize="16sp"
-        android:paddingTop="8dp"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        />
-    <TextView android:text="http://code.google.com/p/softkeyboard/issues/detail?id=257" android:textSize="12sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content"
-    	android:paddingTop="4dp"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"/>
-    <TextView
-    	android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:text="* New layouts\n* Many bug fixes\n* High definition devices support (Nexus One, Droid, etc.)"
-        android:textSize="16sp"
-        android:paddingTop="4dp"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
-        />
+	android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="vertical">
+	<ScrollView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1">
+		<LinearLayout 
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent"
+		    android:orientation="vertical">
+		    <TextView
+		        android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:textStyle="bold"
+		        android:gravity="center"
+		        android:textSize="20sp"
+		        android:text="@string/changelog"
+		        android:textColor="#FFF"/>
+		    <TextView
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:text="20100428 - 18"
+		        android:textStyle="bold"
+		        android:gravity="center"
+		        android:textSize="16sp"
+		        android:paddingTop="8dp"
+		        android:paddingLeft="8dp"
+		        android:paddingRight="8dp"
+		        android:textColor="#CCC"
+		        />
+		    <TextView android:text="http://code.google.com/p/softkeyboard/issues/detail?id=317" android:textSize="12sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content"
+		    	android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"/>
+		    <TextView
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:text="* External packages! All languages have been removed from the main application! Search the Market for your language:"
+		        android:textSize="16sp"
+		        android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"
+		        android:textColor="#AAA"
+		        />
+		    <Button android:id="@+id/market_search_button" android:text="@string/search_market_for_addons" android:layout_width="wrap_content" android:layout_height="wrap_content"
+		    	android:layout_gravity="center" android:onClick="onClick"/>
+		    <TextView
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:text="* Changelog notification (this one :) )"
+		        android:textSize="16sp"
+		        android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"
+		        android:textColor="#AAA"
+		        />
+		    <TextView
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:textStyle="bold"
+		        android:gravity="center"
+		        android:text="20100328 - 17"
+		        android:textSize="16sp"
+		        android:paddingTop="8dp"
+		        android:paddingLeft="8dp"
+		        android:paddingRight="8dp"
+		        android:textColor="#CCC"
+		        />
+		    <TextView android:text="http://code.google.com/p/softkeyboard/issues/detail?id=257" android:textSize="12sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content"
+		    	android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"/>
+		    <TextView
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:text="* New layouts\n* Many bug fixes\n* High definition devices support (Nexus One, Droid, etc.)\n* Swipe actions are configurable, under Settings->Tweaks option. Click to open the Settings page:"
+		        android:textSize="16sp"
+		        android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"
+		        android:textColor="#AAA"
+		        />
+		    <Button android:id="@+id/goto_settings_button" android:text="@string/ime_settings" android:layout_width="wrap_content" android:layout_height="wrap_content"
+		    	android:layout_gravity="center" android:onClick="onClick"/>
+		    
+		    <TextView android:text="Entire changelog can be found here: http://code.google.com/p/softkeyboard/wiki/ChangeLog" android:textSize="14sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content"
+		    	android:paddingTop="8dp"
+		        android:paddingLeft="4dp"
+		        android:paddingRight="4dp"/>
+		</LinearLayout>
+	</ScrollView>
 </LinearLayout>

@@ -762,10 +762,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 			PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
 					notificationIntent, 0);
 
-			notification.setLatestEventInfo(current.getKeyboardContext(),
+			notification.setLatestEventInfo(getApplicationContext(),
 					getText(R.string.ime_name), keyboardName,
 					contentIntent);
-			notification.icon = current.getKeyboardIconResId();
+			//this will not work. Need to find a way to show notification as a different package.
+			//notification.icon = current.getKeyboardIconResId();
+			notification.icon = R.drawable.notification_icon;
 			
 			if (mKeyboardChangeNotificationType.equals("1")) {
 				notification.flags |= Notification.FLAG_ONGOING_EVENT;
@@ -1645,7 +1647,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private boolean loadSettings() {
 		// setting all values to default
-		PreferenceManager.setDefaultValues(this, R.xml.prefs, false);
+		PreferenceManager.setDefaultValues(this, R.layout.prefs, false);
 		boolean handled = false;
 		// Get the settings preferences
 		SharedPreferences sp = PreferenceManager
@@ -1791,12 +1793,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// if there is a mapping in the settings, we'll use that, else we'll
 		// return the default
 		String mappingSettingsKey = getDictionaryOverrideKey(currentKeyboard);
-		String defaultDictionary = currentKeyboard.getDefaultDictionaryLanguage();
+		String defaultDictionary = currentKeyboard.getDefaultDictionaryLocale();
 		String dictionaryValue = getSharedPreferences().getString(mappingSettingsKey, null);
 		Dictionary dictionary = null;
 
 		if (dictionaryValue == null){
-			dictionary = DictionaryFactory.getDictionaryByLanguage(currentKeyboard.getDefaultDictionaryLanguage(), this);
+			dictionary = DictionaryFactory.getDictionaryByLanguage(currentKeyboard.getDefaultDictionaryLocale(), this);
 		} else {
 				Log.d("AnySoftKeyboard", "Default dictionary '" + (defaultDictionary == null? "None" : defaultDictionary)
 						+ "' for keyboard '" + currentKeyboard.getKeyboardPrefId()

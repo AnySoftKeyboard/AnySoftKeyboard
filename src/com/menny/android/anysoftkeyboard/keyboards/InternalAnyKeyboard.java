@@ -89,7 +89,7 @@ public abstract class InternalAnyKeyboard extends AnyKeyboard
 	}
     
 	@Override
-    public String getDefaultDictionaryLanguage()
+    public String getDefaultDictionaryLocale()
     {
     	return mKeyboardMetaData.DefaultDictionaryLanguage;
     }

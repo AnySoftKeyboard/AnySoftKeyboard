@@ -182,7 +182,7 @@ public abstract class AnyKeyboard extends Keyboard
     	return mKeyboardContext;
     }
     
-    public abstract String getDefaultDictionaryLanguage();
+    public abstract String getDefaultDictionaryLocale();
     
     //this function is called from within the super constructor.
     @Override
