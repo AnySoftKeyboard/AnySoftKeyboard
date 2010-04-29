@@ -2,8 +2,6 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/src
-
 LOCAL_SRC_FILES := \
 	com_menny_android_anysoftkeyboard_dictionary_BinaryDictionary.cpp \
 	dictionary.cpp
