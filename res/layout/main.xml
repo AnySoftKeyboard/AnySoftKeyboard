@@ -37,6 +37,7 @@
 						</LinearLayout>
 						<TextView android:layout_marginTop="3px" android:text="@string/how_to_pointer_go_to_links" android:textSize="16px" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
 						<Button android:id="@+id/goto_settings_button" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/ime_settings" android:layout_gravity="center"/>
+						<Button android:id="@+id/goto_changelog_button" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/changelog" android:layout_gravity="center"/>
 					</LinearLayout>
 			 	</ScrollView>
 			</LinearLayout>

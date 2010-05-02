@@ -1,5 +1,7 @@
 package com.menny.android.anysoftkeyboard;
 
+import com.menny.android.anysoftkeyboard.tutorials.TutorialActivity;
+
 import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -39,8 +41,9 @@ public class MainForm extends TabActivity implements OnClickListener {
 	    
 	    mTabHost.setCurrentTab(0);
 	    
-		Button gotoSettings = (Button)super.findViewById(R.id.goto_settings_button);
-		gotoSettings.setOnClickListener(this);
+		super.findViewById(R.id.goto_settings_button).setOnClickListener(this);
+		super.findViewById(R.id.goto_changelog_button).setOnClickListener(this);
+		
     }
 
 	public void onClick(View v) {
@@ -52,6 +55,9 @@ public class MainForm extends TabActivity implements OnClickListener {
 		case R.id.market_search_button:
 			searchMarketForAddons(getApplicationContext());
 			break;
+		case R.id.goto_changelog_button:
+			showChangelog(getApplicationContext());
+			break;
 		}
 	}
 	
@@ -60,6 +66,14 @@ public class MainForm extends TabActivity implements OnClickListener {
 		search.setData(Uri.parse("market://search?q=AnySoftKeyboard"));
 		search.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		applicationContext.startActivity(search);
+	}
+	
+	public static void showChangelog(Context applicationContext) {
+		Intent intent = new Intent(applicationContext, TutorialActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		intent.putExtra(TutorialActivity.LAYOUT_RESOURCE_ID, R.layout.changelog);
+		intent.putExtra(TutorialActivity.NAME_RESOURCE_ID, R.string.changelog);
+		applicationContext.startActivity(intent);
 	}
 	
 	public static void startSettings(Context applicationContext) {

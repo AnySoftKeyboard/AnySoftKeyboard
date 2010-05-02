@@ -11,35 +11,53 @@ import android.view.View.OnClickListener;
 
 public class TutorialActivity extends Activity implements OnClickListener{
 
+	public static final String NAME_RESOURCE_ID = "NameResourceId";
+	public static final String LAYOUT_RESOURCE_ID = "LayoutResourceId";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		TutorialActivityData data = TutorialsProvider.dequeueTutorial();
+		int titleId = getIntent().getIntExtra(NAME_RESOURCE_ID, -1);
+		int layoutId = getIntent().getIntExtra(LAYOUT_RESOURCE_ID, -1);
 		
-		if (data == null)
+		TutorialActivityData data = null;
+		
+		if (titleId == -1 || layoutId == -1)
 		{
-			finish();
-		}
-		else
-		{
-			setTitle(data.NameResourceId);
-			View content = getLayoutInflater().inflate(data.LayoutResourceId, null);
-			setContentView(content);
-			//next one
-			TutorialsProvider.showNotificationIcon(getApplicationContext());
-			//now to listen on all known buttons
-			for(View touchable : content.getTouchables())
+			data = TutorialsProvider.dequeueTutorial();
+			
+			if (data == null)
 			{
-				switch(touchable.getId())
-				{
-				case R.id.goto_settings_button:
-				case R.id.market_search_button:
-					touchable.setOnClickListener(this);
-					break;
-				}
+				finish();
+				return;
+			}
+			else
+			{
+				titleId = data.NameResourceId;
+				layoutId = data.LayoutResourceId;
 			}
 		}
+		
+		setTitle(titleId);
+		View content = getLayoutInflater().inflate(layoutId, null);
+		
+		setContentView(content);
+		//now to listen on all known buttons
+		for(View touchable : content.getTouchables())
+		{
+			switch(touchable.getId())
+			{
+			case R.id.goto_settings_button:
+			case R.id.market_search_button:
+				touchable.setOnClickListener(this);
+				break;
+			}
+		}
+		
+		//next one
+		if (data != null)
+			TutorialsProvider.showNotificationIcon(getApplicationContext());
 	}
 
 	public void onClick(View v) {

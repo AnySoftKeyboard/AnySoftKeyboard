@@ -5,14 +5,34 @@
 		    android:layout_width="fill_parent"
 		    android:layout_height="fill_parent"
 		    android:orientation="vertical">
-		    <TextView
+		    <RelativeLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content">
+		    	<ImageView android:src="@drawable/icon_8_key" android:layout_width="wrap_content" android:layout_centerVertical="true" android:paddingLeft="10dp" android:layout_height="wrap_content" android:id="@+id/changelog_icon" android:layout_alignParentLeft="true"/>
+		    	<TextView
+		    	android:id="@+id/changelog_label"
+		        android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:textStyle="bold"
+		        android:gravity="center"
+		        android:textSize="22sp"
+		        android:text="@string/ime_name"
+		        android:textColor="#FFF"
+		        android:layout_toRightOf="@id/changelog_icon"
+		        android:layout_alignParentTop="true"
+		        android:paddingTop="10dp"
+		        />
+		    	<TextView
 		        android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
 		        android:textStyle="bold"
 		        android:gravity="center"
 		        android:textSize="20sp"
 		        android:text="@string/changelog"
+		        android:layout_toRightOf="@id/changelog_icon"
+		        android:layout_below="@id/changelog_label"
 		        android:textColor="#FFF"/>
+		    </RelativeLayout>
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
