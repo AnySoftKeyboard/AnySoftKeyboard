@@ -216,6 +216,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		mNotificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
 
+		TutorialsProvider.onServiceDestroy();
+		
 		super.onDestroy();
 	}
 

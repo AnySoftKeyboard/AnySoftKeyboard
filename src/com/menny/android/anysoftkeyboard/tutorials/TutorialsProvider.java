@@ -39,6 +39,11 @@ public class TutorialsProvider
 		
 		showNotificationIcon(context);
 	}
+	
+	public static void onServiceDestroy()
+	{
+		msActivitiesToShow.clear();
+	}
 
 	private static boolean firstTimeVersionLoaded(Context context) {
 		// TODO Auto-generated method stub
