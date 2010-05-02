@@ -58,6 +58,7 @@ public class MainForm extends TabActivity implements OnClickListener {
 	public static void searchMarketForAddons(Context applicationContext) {
 		Intent search = new Intent(Intent.ACTION_VIEW);
 		search.setData(Uri.parse("market://search?q=AnySoftKeyboard"));
+		search.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		applicationContext.startActivity(search);
 	}
 	

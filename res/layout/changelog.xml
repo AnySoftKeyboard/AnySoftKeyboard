@@ -40,7 +40,7 @@
 		        android:textColor="#AAA"
 		        />
 		    <Button android:id="@+id/market_search_button" android:text="@string/search_market_for_addons" android:layout_width="wrap_content" android:layout_height="wrap_content"
-		    	android:layout_gravity="center" android:onClick="onClick"/>
+		    	android:layout_gravity="center"/>
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
@@ -78,7 +78,7 @@
 		        android:textColor="#AAA"
 		        />
 		    <Button android:id="@+id/goto_settings_button" android:text="@string/ime_settings" android:layout_width="wrap_content" android:layout_height="wrap_content"
-		    	android:layout_gravity="center" android:onClick="onClick"/>
+		    	android:layout_gravity="center"/>
 		    
 		    <TextView android:text="Entire changelog can be found here: http://code.google.com/p/softkeyboard/wiki/ChangeLog" android:textSize="14sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content"
 		    	android:paddingTop="8dp"
