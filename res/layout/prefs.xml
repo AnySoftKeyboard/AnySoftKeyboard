@@ -86,7 +86,7 @@ android:key="ime_settings">
 		android:persistent="true"
 		android:defaultValue="true" 
 		/>
-		<EditTextPreference android:key="keyboards_sandbox_1" 
+		<EditTextPreference android:key="keyboards_sandbox_2" 
 		android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"
 		android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false">
 		</EditTextPreference>				
@@ -99,13 +99,13 @@ android:key="ime_settings">
 		android:defaultValue="true" 
 		/>-->
 	</PreferenceCategory>
-	<PreferenceCategory android:key="keyboards_group"
+	<PreferenceCategory android:key="keyboards_group_cat"
 	android:title="@string/keyboards_group">
-		<PreferenceScreen android:key="keyboards_group"
+		<PreferenceScreen android:key="keyboards_group_screen"
 		android:title="@string/keyboards_group">
 			<PreferenceCategory android:key="prefs_keyboards_screen"
 			android:title="@string/keyboards_group" android:id="@+id/prefs_keyboards_screen">
-				<EditTextPreference android:key="keyboards_sandbox_1" 
+				<EditTextPreference android:key="keyboards_sandbox_3" 
 				android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"
 				android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false">
 				</EditTextPreference>
@@ -375,8 +375,8 @@ android:key="ime_settings">
 			</PreferenceCategory>
 		</PreferenceScreen>
 	</PreferenceCategory>
-	<PreferenceCategory android:key="tweaks_group" android:title="@string/tweaks_group">
-		<PreferenceScreen android:key="tweaks_group"
+	<PreferenceCategory android:key="tweaks_group_cat" android:title="@string/tweaks_group">
+		<PreferenceScreen android:key="tweaks_group_screen"
 			android:title="@string/tweaks_group">
 			<CheckBoxPreference
 				android:key="use_custom_sound_volume"
@@ -507,7 +507,7 @@ android:key="ime_settings">
 				android:summaryOn="@string/action_key_invisible_on_disable_on_summary"
 				android:summaryOff="@string/action_key_invisible_on_disable_off_summary"
 			/>
-			<EditTextPreference android:key="keyboards_sandbox_1" 
+			<EditTextPreference android:key="keyboards_sandbox_4" 
 			android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"
 			android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false">
 			</EditTextPreference>				
