@@ -115,31 +115,6 @@
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Tangenbord</string>
     <string name="eng_keyboard">Engelskt</string>
-    <string name="lao_keyboard">Lao</string>
-    <string name="bg_ph_keyboard">Bulgariskt fonetiskt</string>
-    <string name="bg_bds_keyboard">Bulgariskt BDS</string>
-    <string name="dvorak_keyboard">Dvorak</string>
-    <string name="finnish_swedish_keyboard">Svenskt/Finnskt</string>
-    <string name="hungarian_keyboard">Ungerskt</string>
-    <string name="catalan_keyboard">Katalanskt</string>
-    <string name="ch_fr_keyboard">Schweizisk Franska</string>
-    <string name="de_keyboard">Tyskt/Schweizisk tyska</string>
-    <string name="azerty_keyboard">AZERTY</string>
-    <string name="es_keyboard">Spanska</string>
-    <string name="ru_ph_keyboard">Rysskt fonetiskt</string>
-    <string name="ru_keyboard">Rysskt</string>
-    <string name="ru_keyboard_4_row">Använd 4 rader Rysskt porträttlayout</string>
-    <string name="be_cyrillic_keyboard">Vitrysskt Kyrilliskt</string>
-    <string name="be_latin_keyboard">Vitrysskt latin</string>
-    <string name="pt_keyboard">Portugisiskt</string>
-    <string name="thai_keyboard">Thailändskt</string>
-    <string name="fr_ca_keyboard">Franskt Kanadensiskt</string>
-    <string name="ka_keyboard">Georgianskt</string>
-    <string name="uk_keyboard">Ukrainskt</string>
-    <string name="uk_keyboard_4_row">Använd 4 rader Ukrainskt porträttlayout</string>
-    <string name="colemak_keyboard">Colemak</string>
-    <string name="bepo_keyboard">B&#233;po</string><!-- BEPO -->
-    <string name="esperanto_keyboard">Esperanto</string>
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Visa den här handledningen vid uppstart</string>

@@ -117,35 +117,6 @@
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Розкладки</string>
     <string name="eng_keyboard">Англійська</string>
-    <string name="lao_keyboard">Лаоська</string>
-    <string name="bg_ph_keyboard">Болгарська фонетична</string>
-    <string name="bg_bds_keyboard">Болгарська BDS</string>
-    <string name="dvorak_keyboard">Дворак</string>
-    <string name="danish_keyboard">Датська</string>
-    <string name="norwegian_keyboard">Норвежська</string>
-    <string name="finnish_swedish_keyboard">Шведська/Фінська</string>
-    <string name="svorak_keyboard">Сворак</string>
-    <string name="hungarian_keyboard">Угорська</string>
-    <string name="hungarian_keyboard_4_row">Використовувати угорську розкладку в 4 ряди</string>
-    <string name="catalan_keyboard">Каталонська</string>
-    <string name="ch_fr_keyboard">Швейцарська французька</string>
-    <string name="de_keyboard">Німецька/Швейцарська німецька</string>
-    <string name="azerty_keyboard">AZERTY</string>
-    <string name="es_keyboard">Іспанська</string>
-    <string name="ru_ph_keyboard">Російська фонетична</string>
-    <string name="ru_keyboard">Російська</string>
-    <string name="ru_keyboard_4_row">Використовувати російську розкладку в 4 ряди</string>
-    <string name="be_cyrillic_keyboard">Білоруська кирилиця</string>
-    <string name="be_latin_keyboard">Білоруська латиниця</string>
-    <string name="pt_keyboard">Португальська</string>
-	<string name="thai_keyboard">Тайська</string>
-	<string name="fr_ca_keyboard">Канадська французька </string>
-	<string name="ka_keyboard">Грузинська</string>
-	<string name="uk_keyboard">Українська</string>
-	<string name="uk_keyboard_4_row">Використовувати українську розкладку в 4 ряди</string>
-    <string name="colemak_keyboard">Colemak</string>
-    <string name="bepo_keyboard">Bépo</string><!-- BEPO -->
-    <string name="esperanto_keyboard">Есперанто</string>   
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Показувати вступ при старті</string>

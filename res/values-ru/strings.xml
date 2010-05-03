@@ -152,35 +152,6 @@
    <string name="keyboards_group">Языки Раскладок</string>
    <string name="symbols_keyboard">Символы</string>
    <string name="eng_keyboard">Английский</string>
-   <string name="lao_keyboard">Лаосский</string>
-   <string name="bg_ph_keyboard">Болгарский Фонетический</string>
-   <string name="bg_bds_keyboard">Болгарский BDS</string>
-   <string name="dvorak_keyboard">Раскладка Дворака</string>
-   <string name="danish_keyboard">Датский</string>
-   <string name="norwegian_keyboard">Норвежский</string>
-   <string name="finnish_swedish_keyboard">Швейцарский/Финский</string>
-   <string name="svorak_keyboard">Раскладка Svorak</string>
-   <string name="hungarian_keyboard">Венгерский</string>
-   <string name="hungarian_keyboard_4_row">4 Строки для Венгерскoй Раскладки</string>
-   <string name="catalan_keyboard">Каталанский</string>
-   <string name="ch_fr_keyboard">Швейцарско-Французский</string>
-   <string name="de_keyboard">Немецкий/Швейцарско-Немецкий</string>
-   <string name="azerty_keyboard">AZERTY</string>
-   <string name="es_keyboard">Испанский</string>
-   <string name="ru_ph_keyboard">Русский Фонетический</string>
-   <string name="ru_keyboard">Русский Стандартный</string>
-   <string name="ru_keyboard_4_row">4 Строки для Русских Раскладок</string>
-   <string name="be_cyrillic_keyboard">Беларусский Кириллица</string>
-   <string name="be_latin_keyboard">Беларусский Латинница</string>
-   <string name="pt_keyboard">Португальский</string>
-   <string name="thai_keyboard">Таиландский</string>
-   <string name="fr_ca_keyboard">Французский Канадский</string>
-   <string name="ka_keyboard">Грузинский</string>
-   <string name="uk_keyboard">Украинский</string>
-   <string name="uk_keyboard_4_row">4 Строки для Украинских Раскладок</string>
-   <string name="colemak_keyboard">Раскладка \"Colemak\"</string>
-   <string name="bepo_keyboard">Французский Дворак \"B&#233;po\"</string><!-- BEPO -->
-   <string name="esperanto_keyboard">Эсперанто</string>
    
    <!-- Tutorials --> 
    <string name="show_tutorial_on_startup">Показывать помощь при запуске</string>
@@ -204,16 +175,4 @@
    
    <!-- dictionaries -->
    <string name="eng_dictionary">Английский</string>
-   <string name="heb_dictionary">Иврит</string>
-   <string name="french_dictionary">Французский</string>
-   <string name="german_dictionary">Немецкий</string>
-   <string name="spanish_dictionary">Испанский</string>
-   <string name="swedish_dictionary">Шведский</string>
-   <string name="russian_dictionary">Русский</string>
-   <string name="finnish_dictionary">Финский</string>
-   <string name="dutch_dictionary">Голландский</string>
-   <string name="sl_dictionary">Словенский</string>
-   <string name="pt_dictionary">Португальский</string>
-   <string name="bulgarian_dictionary">Болгарский</string>
-   <string name="ukrainian_dictionary">Украинский</string>
 </resources>

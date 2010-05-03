@@ -152,33 +152,6 @@
     <string name="keyboards_group">Näppäimistöt</string>
 	<string name="symbols_keyboard">Symbolit</string>
     <string name="eng_keyboard">Englanti</string>
-    <string name="lao_keyboard">Lao</string>
-    <string name="bg_ph_keyboard">Bulgaria, foneettinen</string>
-    <string name="bg_bds_keyboard">Bulgaria, BDS</string>
-    <string name="dvorak_keyboard">Dvorak</string>
-    <string name="danish_keyboard">Tanska</string>
-    <string name="norwegian_keyboard">Norja</string>
-    <string name="hungarian_keyboard">Unkari</string>
-	<string name="hungarian_keyboard_4_row">Unkari, nelirivinen</string>
-    <string name="catalan_keyboard">Katalaani</string>
-    <string name="ch_fr_keyboard">Sveitsin ranska</string>
-    <string name="de_keyboard">Saksan/Sveitsin saksa</string>
-    <string name="azerty_keyboard">AZERTY</string>
-    <string name="es_keyboard">Espanja</string>
-    <string name="ru_ph_keyboard">Venäjä, foneettinen</string>
-    <string name="ru_keyboard">Venäjä</string>
-	<string name="ru_keyboard_4_row">Venäjä, nelirivinen</string>
-    <string name="be_cyrillic_keyboard">Valkovenäjä, kyrillinen</string>
-    <string name="be_latin_keyboard">Valkovenäjä, latinalainen</string>
-    <string name="pt_keyboard">Portugali</string>
-	<string name="thai_keyboard">Thai</string>
-	<string name="fr_ca_keyboard">Ranska/Kanada</string>
-	<string name="ka_keyboard">Georgia</string>
-	<string name="uk_keyboard">Ukraina</string>
-	<string name="uk_keyboard_4_row">Ukraina, nelirivinen</string>
-	<string name="colemak_keyboard">Colemak</string>
-    <string name="bepo_keyboard">B&#233;po</string><!-- BEPO -->
-    <string name="esperanto_keyboard">Esperanto</string>   
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Näytä opastus käynnistyksen yhteydessä</string>
@@ -202,13 +175,4 @@
 
     <!-- dictionaries -->
     <string name="eng_dictionary">Englanti</string>
-    <string name="french_dictionary">Ranska</string>
-    <string name="german_dictionary">Saksa</string>
-    <string name="spanish_dictionary">Espanja</string>
-    <string name="russian_dictionary">Venäjä</string>
-    <string name="dutch_dictionary">Hollanti</string>
-    <string name="sl_dictionary">Slovenia</string>
-    <string name="pt_dictionary">Portugali</string>
-    <string name="bulgarian_dictionary">Bulgaria</string>
-    <string name="ukrainian_dictionary">Ukrania</string>
 </resources>

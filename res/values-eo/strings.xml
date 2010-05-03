@@ -106,30 +106,7 @@
     <string name="keyboard_sandbox_title">Tajpu sube por kontroli viajn agordojn</string>
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Klavaroj</string>
-    <string name="eng_keyboard">Angla</string>
-    <string name="lao_keyboard">Laosa</string>
-    <string name="bg_ph_keyboard">Bulgara (fonetike)</string>
-    <string name="bg_bds_keyboard">Bulgara (BDS)</string>
-    <string name="dvorak_keyboard">Dvoraka</string>
-    <string name="catalan_keyboard">Kataluna</string>
-    <string name="ch_fr_keyboard">Svis-franca</string>
-    <string name="de_keyboard">Germana (Germanie/Svisie)</string>
-    <string name="azerty_keyboard">AZERTY</string>
-    <string name="es_keyboard">Hispana</string>
-    <string name="ru_ph_keyboard">Rusa (fonetike)</string>
-    <string name="ru_keyboard">Rusa</string>
-    <string name="ru_keyboard_4_row">Rusa (kvar-range)</string>
-    <string name="be_cyrillic_keyboard">Belorusa (cirile)</string>
-    <string name="be_latin_keyboard">Belorusa (latine)</string>
-    <string name="pt_keyboard">Portugala</string>
-	<string name="thai_keyboard">Taja</string>
-	<string name="fr_ca_keyboard">Franca (Kanade)</string>
-	<string name="ka_keyboard">Kartvela</string>
-	<string name="uk_keyboard">Ukraina</string>
-	<string name="uk_keyboard_4_row">Ukraina (kvar-range)</string>
-    <string name="colemak_keyboard">Colemak</string>
-    <string name="bepo_keyboard">B&#233;po</string><!-- BEPO -->
-    
+    <string name="eng_keyboard">Angla</string>    
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Montru tiujn ĉi klarigojn je starto</string>

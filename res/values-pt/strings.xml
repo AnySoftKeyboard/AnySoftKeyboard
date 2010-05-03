@@ -152,34 +152,6 @@
     <string name="keyboards_group">Teclados</string>
     <string name="symbols_keyboard">Symbólico</string>
     <string name="eng_keyboard">Inglês</string>
-    <string name="heb_keyboard">Hebreu</string>
-    <string name="lao_keyboard">Lao</string>
-    <string name="bg_ph_keyboard">Búlgaro fonético</string>
-    <string name="bg_bds_keyboard">Búlgaro BDS</string>
-    <string name="dvorak_keyboard">Dvorak</string>
-    <string name="danish_keyboard">Dinamarquês</string>
-    <string name="norwegian_keyboard">Norueguês</string>
-    <string name="hungarian_keyboard">Húngaro</string>
-    <string name="hungarian_keyboard_4_row">Húngaro com 4 linhas</string>
-    <string name="catalan_keyboard">Catalão</string>
-    <string name="ch_fr_keyboard">Suíço Francês</string>
-    <string name="de_keyboard">Germânico/Suíço Germânico</string>
-    <string name="azerty_keyboard">AZERTY</string>
-    <string name="es_keyboard">Espanhol</string>
-    <string name="ru_ph_keyboard">Russo fonético</string>
-    <string name="ru_keyboard">Russo</string>
-    <string name="ru_keyboard_4_row">Russo com 4 linhas</string>
-    <string name="be_cyrillic_keyboard">Bielorrusso cirílico</string>
-    <string name="be_latin_keyboard">Bielorrusso latino</string>
-    <string name="pt_keyboard">Português</string>
-    <string name="thai_keyboard">Tailandês</string>
-    <string name="fr_ca_keyboard">Francês Canadiano</string>
-    <string name="ka_keyboard">Georgiano</string>
-    <string name="uk_keyboard">Ucraniano</string>
-    <string name="uk_keyboard_4_row">Ucraniano com 4 linhas</string>
-    <string name="colemak_keyboard">Colemak</string>
-    <string name="bepo_keyboard">B&#233;po</string><!-- BEPO -->
-    <string name="esperanto_keyboard">Esperanto</string>   
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Mostrar este tutorial ao iniciar</string>
@@ -203,16 +175,4 @@
     
     <!-- dictionaries -->
     <string name="eng_dictionary">Inglês</string>
-    <string name="heb_dictionary">Hebreu</string>
-    <string name="french_dictionary">Francês</string>
-    <string name="german_dictionary">Germânico</string>
-    <string name="spanish_dictionary">Espanhol</string>
-    <string name="swedish_dictionary">Suíço</string>
-    <string name="russian_dictionary">Russo</string>
-    <string name="finnish_dictionary">Finlandês</string>
-    <string name="dutch_dictionary">Holandês</string>
-    <string name="sl_dictionary">Esloveno</string>
-    <string name="pt_dictionary">Português</string>
-    <string name="bulgarian_dictionary">Búlgaro</string>
-    <string name="ukrainian_dictionary">Ucraniano</string>
 </resources>

@@ -149,33 +149,6 @@
     <string name="keyboards_group">Tastaturen</string>
     <string name="symbols_keyboard">Symbole</string>
     <string name="eng_keyboard">Englisch</string>
-    <string name="lao_keyboard">Lao</string>
-    <string name="bg_ph_keyboard">Bulgarisch (Phonetisch)</string>
-    <string name="bg_bds_keyboard">Bulgarian BDS</string>
-    <string name="dvorak_keyboard">Dvorak</string>
-    <string name="danish_keyboard">Dänisch</string>
-    <string name="norwegian_keyboard">Norwegisch</string>
-    <string name="hungarian_keyboard">Ungarisch</string>
-    <string name="hungarian_keyboard_4_row">Ungarisch (4 Reihen)</string>
-    <string name="catalan_keyboard">Katalanisch</string>
-    <string name="ch_fr_keyboard">Schweiz-Französisch</string>
-    <string name="de_keyboard">Deutsch/Sweizerdeutsch</string>
-    <string name="azerty_keyboard">AZERTY</string>
-    <string name="es_keyboard">Spanisch</string>
-    <string name="ru_ph_keyboard">Russisch (Phonetisch)</string>
-    <string name="ru_keyboard">Russisch</string>
-    <string name="ru_keyboard_extra_rows">Russisch (erweitertes Layout für Hochformat)</string>
-    <string name="be_cyrillic_keyboard">Weißrussisch (Kyrillisch)</string>
-    <string name="be_latin_keyboard">Weißrussisch (Lateinisch)</string>
-    <string name="pt_keyboard">Portugiesisch</string>
-	<string name="thai_keyboard">Thailändisch</string>
-	<string name="fr_ca_keyboard">Französisch-Kanadisch</string>
-	<string name="ka_keyboard">Georgisch</string>
-	<string name="uk_keyboard">Ukrainisch</string>
-	<string name="uk_keyboard_4_row">Ukrainisch (4-Reihiges Layout für Hochformat)</string>
-    <string name="colemak_keyboard">Colemak</string>
-    <string name="bepo_keyboard">B&#233;po</string><!-- BEPO -->
-    <string name="esperanto_keyboard">Esperanto</string>
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Zeige diese Einfühung beim Start</string>
@@ -199,16 +172,4 @@
     
     <!-- dictionaries -->
     <string name="eng_dictionary">Englisch</string>
-    <string name="heb_dictionary">Hebräisch</string>
-    <string name="french_dictionary">Französisch</string>
-    <string name="german_dictionary">Deutsch</string>
-    <string name="spanish_dictionary">Spanisch</string>
-    <string name="swedish_dictionary">Schwedisch</string>
-    <string name="russian_dictionary">Russisch</string>
-    <string name="finnish_dictionary">Finnisch</string>
-    <string name="dutch_dictionary">Dänisch</string>
-    <string name="sl_dictionary">Slowenisch</string>
-    <string name="pt_dictionary">Portugiesisch</string>
-    <string name="bulgarian_dictionary">Bulgarisch</string>
-    <string name="ukrainian_dictionary">Ukrainisch</string>
 </resources>

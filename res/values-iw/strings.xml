@@ -149,35 +149,6 @@
     <string name="keyboards_group">מקלדות</string>
 	<string name="symbols_keyboard">סימנים</string>
     <string name="eng_keyboard">אנגלית</string>
-    <string name="lao_keyboard">לאית</string>
-    <string name="bg_ph_keyboard">בולגרית פונטית</string>
-    <string name="bg_bds_keyboard">בולגרית</string>
-    <string name="dvorak_keyboard">פריסת Dvorak</string>
-    <string name="danish_keyboard">דנית</string>
-    <string name="norwegian_keyboard">נורווגית</string>
-    <string name="finnish_swedish_keyboard">פינית/שוודית</string>
-    <string name="svorak_keyboard">שוודית (Svorak)</string>
-    <string name="hungarian_keyboard">הונגרית</string>
-    <string name="hungarian_keyboard_4_row">הונגרית - 4 rows</string>
-    <string name="catalan_keyboard">קטלאנית</string>
-    <string name="ch_fr_keyboard">צרפתית שווצרית</string>
-    <string name="de_keyboard">גרמנית</string>
-    <string name="azerty_keyboard">פריסת AZERTY</string>
-    <string name="es_keyboard">ספרדית</string>
-    <string name="ru_ph_keyboard">רוסית פונטית</string>
-    <string name="ru_keyboard">רוסית</string>
-    <string name="ru_keyboard_4_row">רוסית (4 שורות)</string>
-    <string name="be_cyrillic_keyboard">בלארוסית קרילית</string>
-    <string name="be_latin_keyboard">בלארוסית</string>
-    <string name="pt_keyboard">פורטוגזית</string>
-	<string name="thai_keyboard">תאית</string>
-	<string name="fr_ca_keyboard">צרפתית קנדית</string>
-	<string name="ka_keyboard">גאורגית</string>
-	<string name="uk_keyboard">אוקראינית</string>
-	<string name="uk_keyboard_4_row">אוקראינית (4 שורות)</string>
-    <string name="colemak_keyboard">פריסת Colemak</string>
-    <string name="bepo_keyboard">צרפתית (B&#233;po)</string><!-- BEPO -->
-    <string name="esperanto_keyboard">אספרנטו</string>   
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">הראה מדריך באתחול</string>
@@ -201,16 +172,4 @@
 	
     <!-- dictionaries -->
     <string name="eng_dictionary">אנגלית</string>
-    <string name="heb_dictionary">עברית</string>
-    <string name="french_dictionary">צרפתית</string>
-    <string name="german_dictionary">גרמנית</string>
-    <string name="spanish_dictionary">ספרדית</string>
-    <string name="swedish_dictionary">שוודית</string>
-    <string name="russian_dictionary">רוסית</string>
-    <string name="finnish_dictionary">פינית</string>
-    <string name="dutch_dictionary">Dutch</string>
-    <string name="sl_dictionary">Slovenian</string>
-    <string name="pt_dictionary">פורטוגית</string>
-    <string name="bulgarian_dictionary">בולגרית</string>
-    <string name="ukrainian_dictionary">אוקראינית</string>
 </resources>

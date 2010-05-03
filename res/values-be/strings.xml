@@ -87,19 +87,6 @@
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Клявіятуры</string>
     <string name="eng_keyboard">Ангельская</string>
-    <string name="lao_keyboard">Лаоская</string>
-    <string name="bg_ph_keyboard">Балгарская фанэтычная</string>
-    <string name="bg_bds_keyboard">Балгарская BDS</string>
-    <string name="dvorak_keyboard">Дворак</string>
-    <string name="catalan_keyboard">Каталёнская</string>
-    <string name="ch_fr_keyboard">Швэйцарская француская</string>
-    <string name="de_keyboard">Нямецкая / Швэйцарская Нямецкі</string>
-    <string name="azerty_keyboard">AZERTY</string>
-    <string name="es_keyboard">Гішпанская</string>
-    <string name="ru_ph_keyboard">Руская фанэтычныя</string>
-    <string name="ru_keyboard">Руская</string>
-    <string name="be_cyrillic_keyboard">Беларуская кірылічная</string>
-    <string name="be_latin_keyboard">Беларуская лацінка</string>
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Паказаць гэты дапаможнік пры запуску</string>

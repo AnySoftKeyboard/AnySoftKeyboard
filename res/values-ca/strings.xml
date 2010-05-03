@@ -110,29 +110,6 @@
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Teclats</string>
     <string name="eng_keyboard">Anglès</string>
-    <string name="lao_keyboard">Lao</string>
-    <string name="bg_ph_keyboard">Búlgar fonètic</string>
-    <string name="bg_bds_keyboard">Búlgar BDS</string>
-    <string name="dvorak_keyboard">Dvorak</string>
-    <string name="catalan_keyboard">Català</string>
-    <string name="ch_fr_keyboard">Francès de Suïssa</string>
-    <string name="de_keyboard">Alemany/Alemany de Suïssa</string>
-    <string name="azerty_keyboard">AZERTY</string>
-    <string name="es_keyboard">Castellà</string>
-    <string name="ru_ph_keyboard">Rus fonètic</string>
-    <string name="ru_keyboard">Rus</string>
-    <string name="ru_keyboard_4_row">Usa 4 files per a la distribució russa en mode apaïsat</string>
-    <string name="be_cyrillic_keyboard">Bielorús ciríl·lic</string>
-    <string name="be_latin_keyboard">Bielorús llatí</string>
-    <string name="pt_keyboard">Portuguès</string>
-	<string name="thai_keyboard">Thai</string>
-	<string name="fr_ca_keyboard">Francès del Canadà</string>
-	<string name="ka_keyboard">Georgià</string>
-	<string name="uk_keyboard">Ucraïnès</string>
-	<string name="uk_keyboard_4_row">Usa 4 files per a la distribució ucraïnesa en mode apaïsat</string>
-    <string name="colemak_keyboard">Colemak</string>
-    <string name="bepo_keyboard">B&#233;po</string><!-- BEPO -->
-    
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Mostra aquest tutorial a l\'inici</string>

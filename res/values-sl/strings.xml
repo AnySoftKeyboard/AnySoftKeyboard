@@ -117,35 +117,6 @@
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Tipkovnice</string>
     <string name="eng_keyboard">Angle&#353;ka</string>
-    <string name="lao_keyboard">Lao</string>
-    <string name="bg_ph_keyboard">Bolgarska foneti&#269;na</string>
-    <string name="bg_bds_keyboard">Bolgarska BDS</string>
-    <string name="dvorak_keyboard">Dvorak</string>
-    <string name="danish_keyboard">Danska</string>
-    <string name="norwegian_keyboard">Norve&#353;ka</string>
-    <string name="finnish_swedish_keyboard">&#352;vedsko finska</string>
-    <string name="svorak_keyboard">Svorak</string>
-    <string name="hungarian_keyboard">Mad&#382;arska</string>
-    <string name="hungarian_keyboard_4_row">Mad&#382;arska - 4 vrsti&#269;na</string>
-    <string name="catalan_keyboard">Katalonska</string>
-    <string name="ch_fr_keyboard">&#352;vicarsko francoska</string>
-    <string name="de_keyboard">Nem&#353;ka/&#352;vicarsko nem&#353;ka</string>
-    <string name="azerty_keyboard">AZERTY</string>
-    <string name="es_keyboard">&#352;panska</string>
-    <string name="ru_ph_keyboard">Ruska foneti&#269;na</string>
-    <string name="ru_keyboard">Ruska</string>
-    <string name="ru_keyboard_4_row">Uporabi 4 vrsti&#269;ni rusko le&#382;e&#269;o postavitev</string>
-    <string name="be_cyrillic_keyboard">Beloruska cirilica</string>
-    <string name="be_latin_keyboard">Beloruska latinica</string>
-    <string name="pt_keyboard">Portugalska</string>
-	<string name="thai_keyboard">Tajska</string>
-	<string name="fr_ca_keyboard">Francosko kanadska</string>
-	<string name="ka_keyboard">Gruzijska</string>
-	<string name="uk_keyboard">Ukrajinska</string>
-	<string name="uk_keyboard_4_row">Uporabi 4 vrsti&#269;no ukrajinsko le&#382;e&#269;o postavitev</string>
-    <string name="colemak_keyboard">Colemak</string>
-    <string name="bepo_keyboard">B&#233;po</string><!-- BEPO -->
-    <string name="esperanto_keyboard">Esperanto</string>   
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Prika&#382;i ta navodila ob zagonu</string>
