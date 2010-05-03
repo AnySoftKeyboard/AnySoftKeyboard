@@ -160,8 +160,6 @@
     <string name="keyboards_group">Keyboards</string>
     <string name="symbols_keyboard">Symbols</string>
     <string name="eng_keyboard">English</string>
-    <string name="uk_keyboard">Ukrainian</string>
-	<string name="uk_keyboard_4_row">Use 4 rows Ukrainian portrait layout</string>
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Show this tutorial on startup</string>
@@ -185,5 +183,4 @@
     
     <!-- dictionaries -->
     <string name="eng_dictionary">English</string>
-    <string name="ukrainian_dictionary">Ukranian</string>
 </resources>

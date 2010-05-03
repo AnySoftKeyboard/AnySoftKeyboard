@@ -109,16 +109,6 @@ public class KeyboardBuildersFactory {
         }
     }
 
-    private static final ArrayList<KeyboardBuilder> ms_internalCreators;
-
-    static
-    {
-        ms_internalCreators = new ArrayList<KeyboardBuilder>();
-
-        //Ukrainian keyboard - issue 154
-        ms_internalCreators.add(new KeyboardBuilder(){public AnyKeyboard createKeyboard(AnyKeyboardContextProvider contextProvider) {return new UkrainianKeyboard(contextProvider);} public String getId() {return "ASK.uk_keyboard";} public int getKeyboardNameResId(){return R.string.uk_keyboard;} public String getDescription() {return "Created with rlavriv";} public Context getPackageContext() {return null;} public int getKeyboardIndex() {return 11;}});
-    }
-
     private static ArrayList<KeyboardBuilder> ms_creators = null;
 
     private static final String XML_KEYBOARDS_TAG = "Keyboards";
@@ -145,8 +135,7 @@ public class KeyboardBuildersFactory {
 
         if (ms_creators == null)
         {
-            final ArrayList<KeyboardBuilder> keyboards = new ArrayList<KeyboardBuilder>(
-                    ms_internalCreators);
+            final ArrayList<KeyboardBuilder> keyboards = new ArrayList<KeyboardBuilder>();
             keyboards.addAll(getKeyboardCreatorsFromResId(context, R.xml.keyboards));
             keyboards.addAll(getAllExternalKeyboardCreators(context));
             ms_creators = keyboards;

@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Dictionaries>
 	<Dictionary nameResId="@string/eng_dictionary" locale="en" id="8a678ccc-b62a-41e3-9d1b-0023bf710b2b" type="binary" dictionaryAssertName="en_binary.mp3" description=""/>
-	<Dictionary nameResId="@string/bulgarian_dictionary" locale="bg" id="d784a820-e3bf-4c2f-8280-bfee8569b725" type="binary" dictionaryAssertName="bg_binary.mp3" description=""/>
-	<Dictionary nameResId="@string/ukrainian_dictionary" locale="uk" id="9aed337e-ab3a-47e4-97fb-f81b6aca870a" type="binary" dictionaryAssertName="uk_binary.mp3" description=""/>
 </Dictionaries>
