@@ -3,17 +3,18 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
+	<!-- No need to localize. It is for testers. -->
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:textStyle="bold"
         android:textSize="20sp"
         android:gravity="center"
-        android:text="@string/testers_version" />
+        android:text="Testers version!" />
     <TextView
     	android:layout_height="wrap_content"
         android:layout_width="fill_parent"
-        android:text="@string/testers_version_text"
+        android:text="This is a testing version. It may contain many bugs, and it may be non-backward compatible!\nPlease, report any problems you encounter.\nThank you for your beta-testing.\n\nIn this version we've implemented external packages. Please check your language pack and report issues."
         android:textSize="16sp"
         android:paddingTop="12dp"
         android:paddingLeft="8dp"

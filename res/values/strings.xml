@@ -24,9 +24,8 @@
 	<string name="main_tab_credits_GUI_by">UI images by:</string>
 	
 	<!-- notifications -->
-	<string name="notification_text">Press here for important information</string>
+	<string name="notification_text">Welcome! Please, read me.</string>
 	<string name="testers_version">Testers version!</string>
-	<string name="testers_version_text">This is a testing version. It may contain many bugs, and it may be non-backward compatible!\nPlease, report any problems you encounter.\nThank you for your beta-testing.</string>
 	
 	<!-- changelog -->
 	<string name="changelog">Changelog</string>

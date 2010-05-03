@@ -17,8 +17,6 @@ import android.util.Log;
 import java.util.ArrayList;
 
 public class SoftKeyboardSettings extends PreferenceActivity {
-	public final static String PREFERENCES_FILE = "anysoftkeyboard_preferences";
-	
 	@Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
@@ -26,7 +24,7 @@ public class SoftKeyboardSettings extends PreferenceActivity {
         
         String version = "";
         try {
-			final PackageInfo info = super.getApplication().getPackageManager().getPackageInfo(getApplication().getPackageName(), 0);
+			final PackageInfo info = getPackageInfo(getApplicationContext());
 			version = info.versionName + " (release "+info.versionCode+")";
 		} catch (final NameNotFoundException e) {
 			Log.e("AnySoftKeyboard", "Failed to locate package information! This is very weird... I'm installed.");
@@ -70,4 +68,8 @@ public class SoftKeyboardSettings extends PreferenceActivity {
 		}
 		
     }
+
+	public static PackageInfo getPackageInfo(Context context) throws NameNotFoundException {
+		return context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+	}
 }

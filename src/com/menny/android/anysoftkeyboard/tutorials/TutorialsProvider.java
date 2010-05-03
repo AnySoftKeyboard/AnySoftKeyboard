@@ -4,12 +4,17 @@ import java.util.ArrayList;
 
 import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.menny.android.anysoftkeyboard.R;
+import com.menny.android.anysoftkeyboard.SoftKeyboardSettings;
 
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.Log;
 
 public class TutorialsProvider 
@@ -46,8 +51,26 @@ public class TutorialsProvider
 	}
 
 	private static boolean firstTimeVersionLoaded(Context context) {
-		// TODO Auto-generated method stub
-		return false;
+		SharedPreferences sp = context.getSharedPreferences("tutorials", 0);//private
+		final int lastTutorialVersion = sp.getInt("tutorial_version", 0);
+		final int packageVersion = getPackageVersion(context);
+		
+		Editor e = sp.edit();
+		e.putInt("tutorial_version", packageVersion);
+		e.commit();
+		
+		return packageVersion != lastTutorialVersion;
+	}
+
+	private static int getPackageVersion(Context context) {
+		try {
+			PackageInfo pi = SoftKeyboardSettings.getPackageInfo(context);
+			return pi.versionCode;
+		} catch (NameNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 	public synchronized static void showNotificationIcon(Context context) {
