@@ -6,12 +6,7 @@
     android:verticalGap="0px"
     android:keyHeight="@dimen/key_height"
     >
-    
-    <AnySoftKeyboardMetaData
-    	PrefString="alt_symbols_keyboard" KeyboardNameResId="@com.menny.android.anysoftkeyboard:string/symbols_keyboard"
-    />
-
-	<!-- generic top row -->
+    <!-- generic top row -->
     <Row android:rowEdgeFlags="top"
     android:keyWidth="45%p"
     android:keyHeight="5%p">
