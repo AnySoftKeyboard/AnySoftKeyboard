@@ -172,7 +172,7 @@ public class KeyboardSwitcher
         }
         
         //keyboard.setShiftLocked(keyboard.isShiftLocked());
-        keyboard.setImeOptions(mContext.getResources()/*, mMode*/, (attr == null)? 0 : attr.imeOptions);
+        keyboard.setImeOptions(mContext.getResources()/*, mMode*/, (attr == null)? 0 : attr.imeOptions, attr.actionLabel);
         keyboard.setTextVariation(mContext.getResources(), (attr == null)? 0 : attr.inputType);
         //now show
         if (mInputView != null)
@@ -275,7 +275,7 @@ public class KeyboardSwitcher
 		//due to lazy loading the keyboards, the symbols may not be created yet.
     	current.setShifted(current == mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_ALT_INDEX]);
     	*/
-    	current.setImeOptions(mContext.getResources(), currentEditorInfo.imeOptions);
+    	current.setImeOptions(mContext.getResources(), currentEditorInfo.imeOptions, currentEditorInfo.actionLabel);
     	current.setTextVariation(mContext.getResources(), currentEditorInfo.inputType);
 
     	//now show
@@ -425,6 +425,15 @@ public class KeyboardSwitcher
 	
 	public boolean isRightToLeftMode() {
 		return mRightToLeftMode;
+	}
+
+	public boolean isKeyRequireSwitchToAlphabet(int primaryCode) {
+		if (primaryCode == AnySoftKeyboard.KEYCODE_ENTER || primaryCode == AnySoftKeyboard.KEYCODE_SPACE)
+		{
+			return (!isAlphabetMode()) && AnySoftKeyboardConfiguration.getInstance().getSwitchKeyboardOnSpace();
+		}
+		else
+			return false;
 	}
 
 //    void toggleSymbols() {

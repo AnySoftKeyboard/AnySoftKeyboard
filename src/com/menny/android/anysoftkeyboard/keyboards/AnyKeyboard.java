@@ -1,4 +1,3 @@
-
 package com.menny.android.anysoftkeyboard.keyboards;
 
 import java.util.HashMap;
@@ -273,7 +272,7 @@ public abstract class AnyKeyboard extends Keyboard
      * This looks at the ime options given by the current editor, to set the
      * appropriate label on the keyboard's enter key (if it has one).
      */
-    public void setImeOptions(Resources res, int options) {
+    public void setImeOptions(Resources res, int options, CharSequence imeLabel) {
     	if (mDebug)
     		Log.d(TAG, "AnyKeyboard.setImeOptions");
         if (mEnterKey == null) {
@@ -285,49 +284,63 @@ public abstract class AnyKeyboard extends Keyboard
         //I hope that the GUI will provide a different option for ACTION
         //NOTE: TextView will set this flag in multi-line inputs.
         //but in these cases we DO want it to be available.
-        final boolean NO_ENTER_ACTION = ((options&EditorInfo.IME_FLAG_NO_ENTER_ACTION) != 0);
+        boolean inNoEnterActionMode = ((options&EditorInfo.IME_FLAG_NO_ENTER_ACTION) != 0);
         
     	final int action = (options&EditorInfo.IME_MASK_ACTION);
     	
     	if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) 
-    		Log.d(TAG, "Input Connection ENTER key with action: "+action + " and NO_ACTION flag is: "+NO_ENTER_ACTION);
+    		Log.d(TAG, "Input Connection ENTER key with action: "+action + " and NO_ACTION flag is: "+inNoEnterActionMode);
     	
-        switch (action) {
-            case EditorInfo.IME_ACTION_GO:
-                mEnterKey.iconPreview = null;
-                mEnterKey.icon = null;
-                //there is a problem with LTR languages
-                mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_go_key));
-                break;
-            case EditorInfo.IME_ACTION_NEXT:
-                mEnterKey.iconPreview = null;
-                mEnterKey.icon = null;
-              //there is a problem with LTR languages
-                mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_next_key));
-                break;
-            case EditorInfo.IME_ACTION_SEARCH:
-                mEnterKey.icon = res.getDrawable(R.drawable.sym_keyboard_search);
-                mEnterKey.label = null;
-                break;
-            case EditorInfo.IME_ACTION_SEND:
-            	if (NO_ENTER_ACTION)
-            	{
-            		Log.d(TAG, "Disabling the ENTER key, since this is a SEND action, and OS requested no mistakes.");
-            		mEnterKey.disable();
-            	}
-            	else
-            	{
+    	if ((imeLabel != null) && (imeLabel.length() > 0))
+    	{
+    		Log.d(TAG, "Input has provided its own ENTER label: "+ imeLabel);
+    		mEnterKey.iconPreview = null;
+            mEnterKey.icon = null;
+          //there is a problem with LTR languages
+            mEnterKey.label = Workarounds.workaroundCorrectStringDirection(imeLabel);
+    	}
+    	else
+    	{
+	        switch (action) {
+	            case EditorInfo.IME_ACTION_GO:
 	                mEnterKey.iconPreview = null;
 	                mEnterKey.icon = null;
 	                //there is a problem with LTR languages
-	                mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_send_key));
-            	}
-                break;
-            default:
-                mEnterKey.icon = res.getDrawable(R.drawable.sym_keyboard_return);
-                mEnterKey.label = null;
-                break;
-        }
+	                mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_go_key));
+	                break;
+	            case EditorInfo.IME_ACTION_NEXT:
+	                mEnterKey.iconPreview = null;
+	                mEnterKey.icon = null;
+	              //there is a problem with LTR languages
+	                mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_next_key));
+	                break;
+	            case EditorInfo.IME_ACTION_DONE:
+	            	mEnterKey.iconPreview = null;
+	                mEnterKey.icon = null;
+	                //there is a problem with LTR languages
+	                mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_done_key));
+	                break;
+	            case EditorInfo.IME_ACTION_NONE:
+	            	Log.d(TAG, "Disabling the ENTER key, since this is a SEND action, and OS requested no mistakes.");
+	        		mEnterKey.disable();
+	                break;
+	            case EditorInfo.IME_ACTION_SEARCH:
+	                mEnterKey.icon = res.getDrawable(R.drawable.sym_keyboard_search);
+	                mEnterKey.label = null;
+	                break;
+	            case EditorInfo.IME_ACTION_SEND:
+	            	mEnterKey.iconPreview = null;
+		            mEnterKey.icon = null;
+		            //there is a problem with LTR languages
+		            mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_send_key));
+	            	break;
+	            case EditorInfo.IME_ACTION_UNSPECIFIED:
+	            default:
+	            	mEnterKey.icon = res.getDrawable(R.drawable.sym_keyboard_return);
+		            mEnterKey.label = null;
+	            	break;
+	        }
+    	}
     }
     
     protected abstract int getKeyboardNameResId();

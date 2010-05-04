@@ -76,8 +76,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private static final int MSG_UPDATE_SUGGESTIONS = 0;
 	//private static final int MSG_START_TUTORIAL = 1;
 
-	private static final int KEYCODE_ENTER = 10;
-	private static final int KEYCODE_SPACE = ' ';
+	public static final int KEYCODE_ENTER = 10;
+	public static final int KEYCODE_SPACE = ' ';
 	private static final int KEYBOARD_NOTIFICATION_ID = 1;
 	private static final String PUNCTUATION_CHARACTERS = ".\n!?,:;@<>()[]{}";
 
@@ -116,7 +116,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 	// between 0..100. This is the custom volume
 	private int mSoundVolume;
 
-	private boolean mSwitchKeyboardOnSpace;
 	private boolean mSmileyOnShortPress;
 	private boolean mAutoCap;
 	private boolean mQuickFixes;
@@ -246,9 +245,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mKeyboardSwitcher.setInputView(mInputView);
 		mKeyboardSwitcher.makeKeyboards(false);
 		mInputView.setOnKeyboardActionListener(this);
-		mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT, null);
-
-		startTutorial();
+		//mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT, null);
 
 		return mInputView;
 	}
@@ -267,13 +264,23 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	@Override
-	public void onStartInput(EditorInfo attribute, boolean restarting) {
+	public void onStartInputView(EditorInfo attribute, boolean restarting) {
 		if (DEBUG)
-			Log.d(TAG, "onStartInput(EditorInfo:"
+			Log.d(TAG, "onStartInputView(EditorInfo:"
 					+ attribute.imeOptions + "," + attribute.inputType
 					+ ", restarting:" + restarting + ")");
-		super.onStartInput(attribute, restarting);
+		super.onStartInputView(attribute, restarting);
 
+		if (mInputView != null) {
+			mInputView.closing();
+			if (AutoText.getSize(mInputView) < 1)
+				mQuickFixes = true;
+		}
+		else
+		{
+			return;
+		}
+		
 		mKeyboardSwitcher.makeKeyboards(false);
 		resetComposing();// clearing any predications
 		TextEntryState.newSession(this);
@@ -287,58 +294,62 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mCompletionOn = false;
 		mCompletions = null;
 		mCapsLock = false;
-		switch (attribute.inputType & EditorInfo.TYPE_MASK_CLASS) {
-		case EditorInfo.TYPE_CLASS_NUMBER:
-		case EditorInfo.TYPE_CLASS_DATETIME:
-		case EditorInfo.TYPE_CLASS_PHONE:
-			mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_PHONE,
-					attribute);
-			break;
-		case EditorInfo.TYPE_CLASS_TEXT:
-			mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT,
-					attribute);
-			// startPrediction();
-			mPredictionOn = true;
-			// Make sure that passwords are not displayed in candidate view
-			final int variation = attribute.inputType
-					& EditorInfo.TYPE_MASK_VARIATION;
-			if (variation == EditorInfo.TYPE_TEXT_VARIATION_PASSWORD
-					|| variation == EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
-				mPredictionOn = false;
-			}
-
-			if ((!AnySoftKeyboardConfiguration.getInstance().getInsertSpaceAfterCandidatePick()) ||//some users want to never get spaces added
-					variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS ||
-					variation == EditorInfo.TYPE_TEXT_VARIATION_PERSON_NAME)
+		if (!restarting)
+		{
+			switch (attribute.inputType & EditorInfo.TYPE_MASK_CLASS) 
 			{
-				mAutoSpace = false;
-			} else {
-				mAutoSpace = true;
-			}
-			if (variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS) {
-				mPredictionOn = false;
-				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_EMAIL,
+			case EditorInfo.TYPE_CLASS_NUMBER:
+			case EditorInfo.TYPE_CLASS_DATETIME:
+			case EditorInfo.TYPE_CLASS_PHONE:
+				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_PHONE,
 						attribute);
-			} else if (variation == EditorInfo.TYPE_TEXT_VARIATION_URI) {
-				mPredictionOn = false;
-				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_URL,
+				break;
+			case EditorInfo.TYPE_CLASS_TEXT:
+				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT,
 						attribute);
-			} else if (variation == EditorInfo.TYPE_TEXT_VARIATION_SHORT_MESSAGE) {
-				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_IM,
+				// startPrediction();
+				mPredictionOn = true;
+				// Make sure that passwords are not displayed in candidate view
+				final int variation = attribute.inputType
+						& EditorInfo.TYPE_MASK_VARIATION;
+				if (variation == EditorInfo.TYPE_TEXT_VARIATION_PASSWORD
+						|| variation == EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+					mPredictionOn = false;
+				}
+	
+				if ((!AnySoftKeyboardConfiguration.getInstance().getInsertSpaceAfterCandidatePick()) ||//some users want to never get spaces added
+						variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS ||
+						variation == EditorInfo.TYPE_TEXT_VARIATION_PERSON_NAME)
+				{
+					mAutoSpace = false;
+				} else {
+					mAutoSpace = true;
+				}
+				if (variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS) {
+					mPredictionOn = false;
+					mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_EMAIL,
+							attribute);
+				} else if (variation == EditorInfo.TYPE_TEXT_VARIATION_URI) {
+					mPredictionOn = false;
+					mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_URL,
+							attribute);
+				} else if (variation == EditorInfo.TYPE_TEXT_VARIATION_SHORT_MESSAGE) {
+					mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_IM,
+							attribute);
+				} else if (variation == EditorInfo.TYPE_TEXT_VARIATION_FILTER) {
+					mPredictionOn = false;
+				}
+				if ((attribute.inputType & EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE) != 0) {
+					mPredictionOn = false;
+					mCompletionOn = true && isFullscreenMode();
+				}
+				updateShiftKeyState(attribute);
+				break;
+			default:
+				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT,
 						attribute);
-			} else if (variation == EditorInfo.TYPE_TEXT_VARIATION_FILTER) {
-				mPredictionOn = false;
+				updateShiftKeyState(attribute);
 			}
-			if ((attribute.inputType & EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE) != 0) {
-				mPredictionOn = false;
-				mCompletionOn = true && isFullscreenMode();
-			}
-			updateShiftKeyState(attribute);
-			break;
-		default:
-			mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT,
-					attribute);
-			updateShiftKeyState(attribute);
 		}
 		mComposing.setLength(0);
 		mPredicting = false;
@@ -357,21 +368,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		if (TRACE_SDCARD)
 			Debug.startMethodTracing("anysoftkeyboard_log.trace");
-	}
-
-	@Override
-	public void onStartInputView(EditorInfo attribute, boolean restarting) {
-		if (DEBUG)
-			Log.d(TAG, "onStartInputView(EditorInfo:"
-					+ attribute.imeOptions + "," + attribute.inputType
-					+ ", restarting:" + restarting + ")");
-		super.onStartInputView(attribute, restarting);
-
-		if (mInputView != null) {
-			mInputView.closing();
-			if (AutoText.getSize(mInputView) < 1)
-				mQuickFixes = true;
-		}
 	}
 
 	@Override
@@ -505,7 +501,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		Log.d(TAG, "onKeyDown:"+keyCode);
+		Log.d(TAG, "onKeyDown:"+keyCode+" flags:"+event.getFlags());
 
 		InputConnection ic = getCurrentInputConnection();
 		if (!mPredictionLandscape) {
@@ -940,7 +936,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public void onKey(int primaryCode, int[] keyCodes) {
 		if (DEBUG)	Log.d("AnySoftKeyboard", "onKey " + primaryCode);
 		//see issue 160, and "KEYCODE_SPACE" branch about this var.
-		boolean switchToAlphabetAtTheEnd = false;
+		//boolean switchToAlphabetAtTheEnd = false;
 
 		switch (primaryCode) {
 		case Keyboard.KEYCODE_DELETE:
@@ -1009,18 +1005,18 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case AnyKeyboard.KEYCODE_KEYBOARD_REVERSE_CYCLE:
 		    nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.PreviousAny);
             break;
-		case KEYCODE_SPACE:
-			// Issue 160: Space in symbols keyboards should switch to
-    		// alphabet keyboard
-    		if (DEBUG)
-    				Log.d(TAG, "SwitchKeyboardOnSpace: "
-    						+ mSwitchKeyboardOnSpace);
-
-			if (mSwitchKeyboardOnSpace
-					&& !mKeyboardSwitcher.isAlphabetMode()) {
-				switchToAlphabetAtTheEnd = true;
-			}
-    		//Note: letting the space fall to the DEFAULT
+//		case KEYCODE_SPACE:
+//			// Issue 160: Space in symbols keyboards should switch to
+//    		// alphabet keyboard
+//    		if (DEBUG)
+//    				Log.d(TAG, "SwitchKeyboardOnSpace: "
+//    						+ mSwitchKeyboardOnSpace);
+//
+//			if (mSwitchKeyboardOnSpace
+//					&& !mKeyboardSwitcher.isAlphabetMode()) {
+//				switchToAlphabetAtTheEnd = true;
+//			}
+//    		//Note: letting the space fall to the DEFAULT
 		default:
 			primaryCode = translatePrimaryCodeFromCurrentKeyboard(primaryCode);
 			// Issue 146: Right to left langs require reversed parenthesis
@@ -1038,7 +1034,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 			// Cancel the just reverted state
 			mJustRevertedSeparator = null;
-			if (switchToAlphabetAtTheEnd)
+			if (mKeyboardSwitcher.isKeyRequireSwitchToAlphabet(primaryCode))
 			{
 				mKeyboardSwitcher.nextKeyboard(getCurrentInputEditorInfo(),
 						NextKeyboardType.Alphabet);
@@ -1143,8 +1139,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	private void handleCharacter(int primaryCode, int[] keyCodes) {
-		// Log.d("AnySoftKeyboard",
-		// "handleCharacter: "+primaryCode+", isPredictionOn:"+isPredictionOn()+", mPredicting:"+mPredicting);
+		if(DEBUG) Log.d("AnySoftKeyboard", "handleCharacter: "+primaryCode+", isPredictionOn:"+isPredictionOn()+", mPredicting:"+mPredicting);
 		if (isAlphabet(primaryCode) && isPredictionOn()
 				&& !isCursorTouchingWord()) {
 			if (!mPredicting) {
@@ -1201,6 +1196,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	private void handleSeparator(int primaryCode) {
+		if(DEBUG) Log.d(TAG, "handleSeparator: "+primaryCode);
 		boolean pickedDefault = false;
 		// Handle separator
 		InputConnection ic = getCurrentInputConnection();
@@ -1217,8 +1213,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 			if (mAutoCorrectOn
 					&& primaryCode != '\''
 					&& (mJustRevertedSeparator == null
-							|| mJustRevertedSeparator.length() == 0 || mJustRevertedSeparator
-							.charAt(0) != primaryCode)) {
+							|| mJustRevertedSeparator.length() == 0
+							|| mJustRevertedSeparator.charAt(0) != primaryCode)) {
 				pickDefaultSuggestion();
 				pickedDefault = true;
 			} else {
@@ -1227,9 +1223,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 
 		sendKeyChar((char) primaryCode);
-
+		
 		TextEntryState.typedCharacter((char) primaryCode, true);
-
 		if (TextEntryState.getState() == TextEntryState.STATE_PUNCTUATION_AFTER_ACCEPTED
 				&& primaryCode != KEYCODE_ENTER && mSpaceSent) {
 			swapPunctuationAndSpace();
@@ -1626,14 +1621,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	// private boolean mTutorialsShown = false;
 
-	private void startTutorial() {
-		// if (!mTutorialsShown)
-		// {
-		// mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_START_TUTORIAL),
-		// 500);
-		// mTutorialsShown = true;
-		// }
-	}
 
 	// void tutorialDone() {
 	// mTutorial = null;
@@ -1745,12 +1732,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// handled = handled || (newLandscapePredications !=
 		// mPredictionLandscape);
 		// mPredictionLandscape = newLandscapePredications;
-
-		boolean newSwitchKeyboardOnSpace = sp.getBoolean(
-				"switch_keyboard_on_space", false);
-		handled = handled
-				|| (newSwitchKeyboardOnSpace != mSwitchKeyboardOnSpace);
-		mSwitchKeyboardOnSpace = newSwitchKeyboardOnSpace;
 
 		boolean newSmileyOnShort = sp.getBoolean(
 				"emoticon_long_press_opens_popup", false);
