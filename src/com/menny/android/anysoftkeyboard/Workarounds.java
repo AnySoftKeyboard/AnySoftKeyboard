@@ -2,6 +2,9 @@ package com.menny.android.anysoftkeyboard;
 
 import java.lang.reflect.Field;
 
+import android.util.Log;
+import android.view.inputmethod.EditorInfo;
+
 public class Workarounds 
 {
 	//Determine whether this device has the fix for RTL in the suggestions list
@@ -9,6 +12,8 @@ public class Workarounds
 	
 	private static final boolean ms_isDonut;
 	private static final boolean ms_isEclair;
+
+	private static final String TAG = "ASK Workaround";
 	
 	static
 	{
@@ -112,5 +117,21 @@ public class Workarounds
 	
 	public static boolean isEclair() {
 		return ms_isEclair;
+	}
+
+	public static boolean doubleActionKeyDisableWorkAround(EditorInfo editor) {
+		if (editor != null)
+		{
+			//package: com.android.mms, id:2131361817
+			//in firmware 2, 2.1
+			if (ms_isEclair && editor.packageName.contentEquals("com.android.mms")
+					&& (editor.fieldId == 2131361817))
+			{
+				Log.d(TAG, "Android Ecliar Messaging MESSAGE field");
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }

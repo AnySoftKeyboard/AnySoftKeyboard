@@ -274,12 +274,33 @@ public abstract class AnyKeyboard extends Keyboard
      * This looks at the ime options given by the current editor, to set the
      * appropriate label on the keyboard's enter key (if it has one).
      */
-    public void setImeOptions(Resources res, int options, CharSequence imeLabel) {
+    public void setImeOptions(Resources res, EditorInfo editor) {
     	if (mDebug)
-    		Log.d(TAG, "AnyKeyboard.setImeOptions");
+    	{
+    		if (editor == null)
+    		{
+    			Log.d(TAG, "AnyKeyboard.setImeOptions");
+    		}
+    		else
+    		{
+    			Log.d(TAG, "AnyKeyboard.setImeOptions. package: "+editor.packageName+", id:"+editor.fieldId);
+    		}
+    	}
+    		
         if (mEnterKey == null) {
             return;
         }
+        
+        //Issue 254: we know of a known Android Messaging bug
+        //http://code.google.com/p/android/issues/detail?id=2739
+        if (Workarounds.doubleActionKeyDisableWorkAround(editor))
+        {//package: com.android.mms, id:2131361817
+        	mEnterKey.disable();
+        	return;
+        }
+        int options = (editor == null)? 0 : editor.imeOptions;
+        CharSequence imeLabel = (editor == null)? null :editor.actionLabel;
+        
         mEnterKey.enable();
         //sometimes, the OS will request the IME to make ENTER disappear...
         //we will respect that.
