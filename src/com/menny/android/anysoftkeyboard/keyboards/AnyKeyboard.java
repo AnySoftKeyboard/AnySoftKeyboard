@@ -18,6 +18,8 @@ import com.menny.android.anysoftkeyboard.Workarounds;
 
 public abstract class AnyKeyboard extends Keyboard 
 {
+	public static final String POPUP_FOR_QUESTION = "!/@\u0026\u00bf\u00a1";
+	public static final String POPUP_FOR_AT = "!/?\u0026\u00bf\u00a1";
 	private final static String TAG = "ASK - AK";
 	protected class ShiftedKeyData
 	{
@@ -452,11 +454,11 @@ public abstract class AnyKeyboard extends Keyboard
 			//the two below are switched in regular and Internet mode
 			case '?'://in the generic bottom row
 				aKey.popupResId = R.xml.popup;
-				aKey.popupCharacters = "!/@&\u00bf\u00a1";
+				aKey.popupCharacters = POPUP_FOR_QUESTION;
 				break;
 			case '@'://in the generic Internet mode
 				aKey.popupResId = R.xml.popup;
-				aKey.popupCharacters = "!/?\u00bf\u00a1";
+				aKey.popupCharacters = POPUP_FOR_AT;
 				break;
 			}
         }
@@ -485,7 +487,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        		//Log.d("AnySoftKeyboard", "Changing question mark key to AT.");
 		        	mQuestionMarkKey.codes[0] = (int)'@';
 		        	mQuestionMarkKey.label = "@";
-		        	mQuestionMarkKey.popupCharacters = "!/?\u00bf\u00a1";
+		        	mQuestionMarkKey.popupCharacters = POPUP_FOR_AT;
 	        	}
 	        	break;
 	        default:
@@ -502,7 +504,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        		//Log.d("AnySoftKeyboard", "Changing question mark key to question.");
 		        	mQuestionMarkKey.codes[0] = (int)'?';
 		        	mQuestionMarkKey.label = "?";
-		        	mQuestionMarkKey.popupCharacters = "!/@\u00bf\u00a1";
+		        	mQuestionMarkKey.popupCharacters = POPUP_FOR_QUESTION;
 	        	}
 	        	break;
         }

@@ -501,7 +501,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		Log.d(TAG, "onKeyDown:"+keyCode+" flags:"+event.getFlags());
+		if (DEBUG) Log.d(TAG, "onKeyDown:"+keyCode+" flags:"+event.getFlags());
 
 		InputConnection ic = getCurrentInputConnection();
 		if (!mPredictionLandscape) {
