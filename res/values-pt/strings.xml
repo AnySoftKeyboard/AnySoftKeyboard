@@ -23,6 +23,14 @@
 	<string name="main_tab_credits_localization_by">Localização por:</string>
 	<string name="main_tab_credits_GUI_by">Imagens do interface por:</string>
 
+	<!-- notifications -->
+	<string name="notification_text">Bem-vindo! Leia-me, por favor.</string>
+	<string name="testers_version">Versão para teste!</string>
+	
+	<!-- changelog -->
+	<string name="changelog">Alterações</string>
+	<string name="search_market_for_addons">Procurar extensões</string>
+
     <!-- Symbols that are commonly considered word separators in this language -->
     <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
     <!-- Indicates that a word has been added to the dictionary -->
