@@ -300,27 +300,36 @@ public abstract class AnyKeyboard extends Keyboard
         }
         int options = (editor == null)? 0 : editor.imeOptions;
         CharSequence imeLabel = (editor == null)? null :editor.actionLabel;
+        int imeActionId = (editor == null)? -1 :editor.actionId;
         
         mEnterKey.enable();
-        //sometimes, the OS will request the IME to make ENTER disappear...
-        //we will respect that.
-        //I hope that the GUI will provide a different option for ACTION
-        //NOTE: TextView will set this flag in multi-line inputs.
-        //but in these cases we DO want it to be available.
+        
+        //Used in conjunction with a custom action, this indicates that the action should not be available in-line 
+        //as a replacement for the "enter" key. Typically this is because the action has such a significant impact 
+        //or is not recoverable enough that accidentally hitting it should be avoided, such as sending a message. 
+        //Note that TextView  will automatically set this flag for you on multi-line text views. 
         boolean inNoEnterActionMode = ((options&EditorInfo.IME_FLAG_NO_ENTER_ACTION) != 0);
         
     	final int action = (options&EditorInfo.IME_MASK_ACTION);
     	
     	if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) 
     		Log.d(TAG, "Input Connection ENTER key with action: "+action + " and NO_ACTION flag is: "+inNoEnterActionMode);
-    	
-    	if ((imeLabel != null) && (imeLabel.length() > 0))
+    	//TODO: Maybe someday we will support this functionality
+//    	if ((imeLabel != null) && (imeLabel.length() > 0) && (imeActionId > 0))
+//    	{
+//    		Log.d(TAG, "Input has provided its own ENTER label: "+ imeLabel);
+//    		mEnterKey.iconPreview = null;
+//            mEnterKey.icon = null;
+//          //there is a problem with LTR languages
+//            mEnterKey.label = Workarounds.workaroundCorrectStringDirection(imeLabel);
+//    	}
+//    	else
+    	if (inNoEnterActionMode)
     	{
-    		Log.d(TAG, "Input has provided its own ENTER label: "+ imeLabel);
-    		mEnterKey.iconPreview = null;
-            mEnterKey.icon = null;
-          //there is a problem with LTR languages
-            mEnterKey.label = Workarounds.workaroundCorrectStringDirection(imeLabel);
+    		//this means that the ENTER should not be replaced with a custom action.
+    		//maybe in future ASK releases, we'll add the custom action key.
+    		mEnterKey.icon = res.getDrawable(R.drawable.sym_keyboard_return);
+            mEnterKey.label = null;
     	}
     	else
     	{
@@ -344,7 +353,7 @@ public abstract class AnyKeyboard extends Keyboard
 	                mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_done_key));
 	                break;
 	            case EditorInfo.IME_ACTION_NONE:
-	            	Log.d(TAG, "Disabling the ENTER key, since this is a SEND action, and OS requested no mistakes.");
+	            	Log.d(TAG, "Disabling the ENTER key, since this is a IME_ACTION_NONE action.");
 	        		mEnterKey.disable();
 	                break;
 	            case EditorInfo.IME_ACTION_SEARCH:
