@@ -1,10 +1,14 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
+import java.util.List;
+
 import org.xmlpull.v1.XmlPullParser;
 
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.res.XmlResourceParser;
+import android.inputmethodservice.Keyboard;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.Xml;
@@ -15,6 +19,19 @@ import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 
 public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTranslator {
+
+	private final static String TAG = "ASK - EAK";
+	
+	private static final String TAG_ROW = "Row";
+    private static final String TAG_KEY = "Key";
+	
+	private static class KeyboardMetadata
+	{
+		public int keysCount = 0;
+		public int rowHeight = 0;
+		public int rowWidth = 0;
+		public boolean isTopRow = false;
+	}
 
 	private static final String XML_TRANSLATION_TAG = "PhysicalTranslation";
 	private static final String XML_QWERTY_ATTRIBUTE = "QwertyTranslation";
@@ -30,6 +47,9 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	private final String mDefaultDictionary;
 	private final HardKeyboardSequenceHandler mHardKeyboardTranslator;
 	private final String mAdditionalIsLetterExceptions;
+	
+	private int mGenericRowsHeight = 0;
+	private int mTopRowKeysCount = 0;
 	
 	protected ExternalAnyKeyboard(AnyKeyboardContextProvider askContext, Context context,
 			int xmlLayoutResId,
@@ -56,6 +76,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 		
 		mAdditionalIsLetterExceptions = additionalIsLetterExceptions;
 		
+		addGenericRows(askContext, context);
+        
 		for(final Key key : getKeys())
 		{
 		    final Resources localResources = getASKContext().getApplicationContext().getResources();
@@ -89,6 +111,104 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 		}
 	}
 
+	private void addGenericRows(AnyKeyboardContextProvider askContext, Context context) {
+		KeyboardMetadata topMd = loadKeyboard(askContext.getApplicationContext(), R.xml.generic_top_row);
+		fixKeyboardDueToGenericRow(topMd);
+		KeyboardMetadata bottomMd = loadKeyboard(askContext.getApplicationContext(), R.xml.generic_bottom_row);
+		fixKeyboardDueToGenericRow(bottomMd);
+	}
+
+    private void fixKeyboardDueToGenericRow(KeyboardMetadata md) {
+    	mGenericRowsHeight += md.rowHeight;
+    	if (md.isTopRow)
+    	{
+    		mTopRowKeysCount += md.keysCount;
+    		List<Key> keys = getKeys();
+    		for(int keyIndex = md.keysCount; keyIndex < keys.size(); keyIndex++)
+            {
+    			keys.get(keyIndex).y += md.rowHeight;
+            }
+    	}
+	}
+
+	private KeyboardMetadata loadKeyboard(Context context, int rowResId) {
+		XmlResourceParser parser = context.getResources().getXml(rowResId);
+    	List<Key> keys = getKeys();
+        boolean inKey = false;
+        boolean inRow = false;
+        boolean leftMostKey = false;
+        
+        int row = 0;
+        int x = 0;
+        int y = 0;
+        Key key = null;
+        Row currentRow = null;
+        Resources res = context.getResources();
+        
+        KeyboardMetadata m = new KeyboardMetadata();
+        
+        try {
+            int event;
+            while ((event = parser.next()) != XmlResourceParser.END_DOCUMENT) {
+                if (event == XmlResourceParser.START_TAG) {
+                    String tag = parser.getName();
+                    if (TAG_ROW.equals(tag)) {
+                        inRow = true;
+                        x = 0;
+                        currentRow = createRowFromXml(res, parser);
+                        m.isTopRow = currentRow.rowEdgeFlags == Keyboard.EDGE_TOP;
+                        if (!m.isTopRow)
+                        	y = getHeight();//the bottom row Y should be last
+                        m.rowHeight = currentRow.defaultHeight;
+                   } else if (TAG_KEY.equals(tag)) {
+                        inKey = true;
+                        key = createKeyFromXml(res, currentRow, x, y, parser);
+                        if (m.isTopRow)
+                        	keys.add(m.keysCount, key);
+                        else
+                        	keys.add(key);
+                        m.keysCount++;
+                        
+                        if (key.height > m.rowHeight)
+                        	m.rowHeight = key.height;
+                    }
+                } else if (event == XmlResourceParser.END_TAG) {
+                    if (inKey) {
+                        inKey = false;
+                        x += key.gap + key.width;
+                        if (x > m.rowWidth) {
+                        	m.rowWidth = x;
+                        }
+                    } else if (inRow) {
+                        inRow = false;
+                        y += currentRow.verticalGap;
+                        y += currentRow.defaultHeight;
+                        row++;
+                    } else {
+                        // TODO: error or extend?
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Parse error:" + e);
+            e.printStackTrace();
+        }
+        //mTotalHeight = y - mDefaultVerticalGap;
+        return m;
+    }
+
+    /*required overrides*/
+    
+    @Override
+    public int getHeight() {
+    	return super.getHeight() + mGenericRowsHeight;
+    }
+    
+    @Override
+    public int getShiftKeyIndex() {
+    	return super.getShiftKeyIndex() + mTopRowKeysCount;
+    }
+    
 	private HardKeyboardSequenceHandler createPhysicalTranslatorFromResourceId(Context context, int qwertyTranslationId) {
 		HardKeyboardSequenceHandler translator = new HardKeyboardSequenceHandler();
 		XmlPullParser parser = context.getResources().getXml(qwertyTranslationId);
