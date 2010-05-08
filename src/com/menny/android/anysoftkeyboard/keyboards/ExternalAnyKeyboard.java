@@ -77,40 +77,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 		mAdditionalIsLetterExceptions = additionalIsLetterExceptions;
 		
 		addGenericRows(askContext, context);
-        
-		for(final Key key : getKeys())
-		{
-		    final Resources localResources = getASKContext().getApplicationContext().getResources();
-	        //adding icons
-	        switch(key.codes[0])
-	        {
-	        case AnyKeyboard.KEYCODE_DELETE:
-	            key.icon = localResources.getDrawable(R.drawable.sym_keyboard_delete_small);
-	            break;
-	        case AnyKeyboard.KEYCODE_SHIFT:
-	            key.icon = localResources.getDrawable(R.drawable.sym_keyboard_shift);
-	            break;
-	        case AnyKeyboard.KEYCODE_CTRL:
-	            key.icon = localResources.getDrawable(R.drawable.sym_keyboard_ctrl);
-	            break;
-	        case 32://SPACE
-	            key.icon = localResources.getDrawable(R.drawable.sym_keyboard_space);
-	            break;
-	        case 9://TAB
-	            key.icon = localResources.getDrawable(R.drawable.tab_key);
-	            break;
-	//these two will be set upon calling setTextVariation           
-//	      case AnyKeyboard.KEYCODE_SMILEY:
-//	          key.icon = res.getDrawable(R.drawable.sym_keyboard_smiley);
-//	          key.popupResId = R.xml.popup_smileys;
-//	          break;
-//	      case 10://ENTER
-//	          key.icon = res.getDrawable(R.drawable.sym_keyboard_return);
-//	          break;
-	        }
-		}
 	}
-
+	
 	private void addGenericRows(AnyKeyboardContextProvider askContext, Context context) {
 		KeyboardMetadata topMd = loadKeyboard(askContext.getApplicationContext(), R.xml.generic_top_row);
 		fixKeyboardDueToGenericRow(topMd);

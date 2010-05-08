@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
+import android.inputmethodservice.Keyboard.Key;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
@@ -76,12 +77,12 @@ public abstract class AnyKeyboard extends Keyboard
     private final Drawable mOffShiftIcon;
     private final Drawable mOnShiftIcon;
     //private Drawable mOldShiftPreviewIcon;
-    private final Key mShiftKey;
-    private final EnterKey mEnterKey;
-	private final Key mSmileyKey;
-	private final Key mQuestionMarkKey;
+    private Key mShiftKey;
+    private EnterKey mEnterKey;
+	private Key mSmileyKey;
+	private Key mQuestionMarkKey;
 
-	private final boolean mRightToLeftLayout;//the "super" ctor will create keys, and we'll set the correct value there.
+	private boolean mRightToLeftLayout = false;//the "super" ctor will create keys, and we'll set the correct value there.
 	
     private final Context mKeyboardContext;
     private final AnyKeyboardContextProvider mASKContext;
@@ -98,13 +99,11 @@ public abstract class AnyKeyboard extends Keyboard
         
         mOnShiftIcon = askContext.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift_on);
         mOffShiftIcon = askContext.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift);
-        //going to revisit the keys to fix some stuff
-        boolean rightToLeftLayout = false;
-        EnterKey enterKey = null;
-        Key shiftKey = null;
-        Key smileyKey = null;
-        Key questionKey = null;
-        
+    }
+    
+    public void initKeysMembers()
+    {
+    	final Resources localResources = getASKContext().getApplicationContext().getResources();
         for(final Key key : getKeys())
         {
         	//Log.d(TAG, "Key x:"+key.x+" y:"+key.y+" width:"+key.width+" height:"+key.height);
@@ -113,24 +112,28 @@ public abstract class AnyKeyboard extends Keyboard
                 final int primaryCode = key.codes[0];
                 //detecting LTR languages
                 if (Workarounds.isRightToLeftCharacter((char)primaryCode))
-                    rightToLeftLayout = true;//one is enough
-                
-                //creating less sensitive keys if required
+                	mRightToLeftLayout = true;//one is enough
                 switch(primaryCode)
                 {
-                case 10:
-                    enterKey = (EnterKey)key;
+                case AnyKeyboard.KEYCODE_DELETE:
+                    key.icon = localResources.getDrawable(R.drawable.sym_keyboard_delete_small);
                     break;
-                case KEYCODE_SHIFT: 
-                    shiftKey = key;
+                case AnyKeyboard.KEYCODE_SHIFT:
+                    key.icon = localResources.getDrawable(R.drawable.sym_keyboard_shift);
                     break;
-                case AnyKeyboard.KEYCODE_SMILEY: 
-                    smileyKey = key;
+                case AnyKeyboard.KEYCODE_CTRL:
+                    key.icon = localResources.getDrawable(R.drawable.sym_keyboard_ctrl);
+                    break;
+                case 32://SPACE
+                    key.icon = localResources.getDrawable(R.drawable.sym_keyboard_space);
+                    break;
+                case 9://TAB
+                    key.icon = localResources.getDrawable(R.drawable.tab_key);
                     break;
                 case 63:
                     if (key.edgeFlags == Keyboard.EDGE_BOTTOM) 
                     {
-                        questionKey = key;
+                    	mQuestionMarkKey = key;
                     }
                     break;
                 case Keyboard.KEYCODE_MODE_CHANGE:
@@ -147,16 +150,16 @@ public abstract class AnyKeyboard extends Keyboard
 	                    else if (keysMode.equals("Big"))
 	                    {
 	                        String keyText = (primaryCode == Keyboard.KEYCODE_MODE_CHANGE)?
-	                                askContext.getApplicationContext().getString(R.string.change_symbols_regular) :
-	                                    askContext.getApplicationContext().getString(R.string.change_lang_regular);
+	                                mASKContext.getApplicationContext().getString(R.string.change_symbols_regular) :
+	                                	mASKContext.getApplicationContext().getString(R.string.change_lang_regular);
 	                        key.label = keyText;
 	                        //key.height *= 1.5;
 	                    }
 	                    else
 	                    {
 	                        String keyText = (primaryCode == Keyboard.KEYCODE_MODE_CHANGE)?
-	                                askContext.getApplicationContext().getString(R.string.change_symbols_wide) :
-	                                    askContext.getApplicationContext().getString(R.string.change_lang_wide);
+	                        		mASKContext.getApplicationContext().getString(R.string.change_symbols_wide) :
+	                        			mASKContext.getApplicationContext().getString(R.string.change_lang_wide);
 	                        key.label = keyText;
 	                    }
                 	}
@@ -167,18 +170,19 @@ public abstract class AnyKeyboard extends Keyboard
                         {
                             key.label = ""+((char)primaryCode); 
                         }
+                        else
+                        {
+                        	onInitUnknownKey(key);
+                        }
                 }
             }
         }
-        mEnterKey = enterKey;
-        mShiftKey = shiftKey;
-        mSmileyKey = smileyKey;
-        mQuestionMarkKey = questionKey;
-        mRightToLeftLayout = rightToLeftLayout;
     }
     
-    
-    
+	protected void onInitUnknownKey(Key key) {
+		
+	}
+
 	protected AnyKeyboardContextProvider getASKContext()
     {
         return mASKContext;
@@ -207,12 +211,17 @@ public abstract class AnyKeyboard extends Keyboard
         	switch(primaryCode)
         	{
         	case 10://enter
-        		key = new EnterKey(res, parent, x, y, parser);
+        		key = mEnterKey = new EnterKey(res, parent, x, y, parser);
         		break;
         	case KEYCODE_DELETE://delete
         	case KEYCODE_SHIFT://shift
         		key = new LessSensitiveAnyKey(res, parent, x, y, parser);
+        		if (primaryCode ==KEYCODE_SHIFT)
+        			mShiftKey = key;
         		break;
+        	case AnyKeyboard.KEYCODE_SMILEY: 
+            	mSmileyKey = key;
+                break;
 	        }
         }
         

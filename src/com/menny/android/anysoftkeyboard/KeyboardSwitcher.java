@@ -100,6 +100,7 @@ public class KeyboardSwitcher
 	    			break;
 	    	}
 	    	mSymbolsKeyboardsArray[keyboardIndex] = keyboard;
+	    	keyboard.initKeysMembers();
     	}
     	
     	if (requiredToRecreateKeyboard(keyboard))
@@ -313,6 +314,7 @@ public class KeyboardSwitcher
 			Log.d("AnySoftKeyboard", "About to create keyboard: "+creator.getId());
 			mAlphabetKeyboards[index] = creator.createKeyboard(mContext);
 			keyboard = mAlphabetKeyboards[index];
+			keyboard.initKeysMembers();
 		}
 		
 		if (requiredToRecreateKeyboard(keyboard))
