@@ -1,6 +1,7 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
 import java.util.HashMap;
+import java.util.List;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -18,6 +19,9 @@ import com.menny.android.anysoftkeyboard.Workarounds;
 
 public abstract class AnyKeyboard extends Keyboard 
 {
+	private static final String TAG_ROW = "Row";
+    private static final String TAG_KEY = "Key";
+
 	public static final String POPUP_FOR_QUESTION = "!/@\u0026\u00bf\u00a1";
 	public static final String POPUP_FOR_AT = "!/?\u0026\u00bf\u00a1";
 	private final static String TAG = "ASK - AK";
@@ -81,11 +85,14 @@ public abstract class AnyKeyboard extends Keyboard
 	private final Key mSmileyKey;
 	private final Key mQuestionMarkKey;
 	
+	private int mGenericRowsHeight = 0;
+	private int mTopRowKeysCount = 0;
+	
 	private final boolean mRightToLeftLayout;//the "super" ctor will create keys, and we'll set the correct value there.
 	
     private final Context mKeyboardContext;
     private final AnyKeyboardContextProvider mASKContext;
-    
+	
     protected AnyKeyboard(AnyKeyboardContextProvider askContext, Context context,//note: the context can be from a different package!
     		int xmlLayoutResId) 
     {
@@ -105,8 +112,11 @@ public abstract class AnyKeyboard extends Keyboard
         Key smileyKey = null;
         Key questionKey = null;
         
+        addGenericRows(askContext, context);
+        
         for(final Key key : getKeys())
         {
+        	Log.d(TAG, "Key x:"+key.x+" y:"+key.y+" width:"+key.width+" height:"+key.height);
             if ((key.codes != null) && (key.codes.length > 0))
             {
                 final int primaryCode = key.codes[0];
@@ -134,28 +144,31 @@ public abstract class AnyKeyboard extends Keyboard
                     break;
                 case Keyboard.KEYCODE_MODE_CHANGE:
                 case AnyKeyboard.KEYCODE_LANG_CHANGE:
-                    final String keysMode = AnySoftKeyboardConfiguration.getInstance().getChangeLayoutKeysSize();
-                    if (keysMode.equals("None"))
-                    {
-                        key.label = null;
-                        key.height = 0;
-                        key.width = 0;
-                    }
-                    else if (keysMode.equals("Big"))
-                    {
-                        String keyText = (primaryCode == Keyboard.KEYCODE_MODE_CHANGE)?
-                                askContext.getApplicationContext().getString(R.string.change_symbols_regular) :
-                                    askContext.getApplicationContext().getString(R.string.change_lang_regular);
-                        key.label = keyText;
-                        //key.height *= 1.5;
-                    }
-                    else
-                    {
-                        String keyText = (primaryCode == Keyboard.KEYCODE_MODE_CHANGE)?
-                                askContext.getApplicationContext().getString(R.string.change_symbols_wide) :
-                                    askContext.getApplicationContext().getString(R.string.change_lang_wide);
-                        key.label = keyText;
-                    }
+                	if ((key.edgeFlags & Keyboard.EDGE_TOP) != 0)
+                	{//these keys should only be resized if they are in the top row.
+	                	final String keysMode = AnySoftKeyboardConfiguration.getInstance().getChangeLayoutKeysSize();
+	                    if (keysMode.equals("None"))
+	                    {
+	                        key.label = null;
+	                        key.height = 0;
+	                        key.width = 0;
+	                    }
+	                    else if (keysMode.equals("Big"))
+	                    {
+	                        String keyText = (primaryCode == Keyboard.KEYCODE_MODE_CHANGE)?
+	                                askContext.getApplicationContext().getString(R.string.change_symbols_regular) :
+	                                    askContext.getApplicationContext().getString(R.string.change_lang_regular);
+	                        key.label = keyText;
+	                        //key.height *= 1.5;
+	                    }
+	                    else
+	                    {
+	                        String keyText = (primaryCode == Keyboard.KEYCODE_MODE_CHANGE)?
+	                                askContext.getApplicationContext().getString(R.string.change_symbols_wide) :
+	                                    askContext.getApplicationContext().getString(R.string.change_lang_wide);
+	                        key.label = keyText;
+	                    }
+                	}
                     break;
                     default:
                         //setting the character label
@@ -173,7 +186,105 @@ public abstract class AnyKeyboard extends Keyboard
         mRightToLeftLayout = rightToLeftLayout;
     }
     
-    protected AnyKeyboardContextProvider getASKContext()
+    private void addGenericRows(AnyKeyboardContextProvider askContext, Context context) {
+		KeyboardMetadata topMd = loadKeyboard(askContext.getApplicationContext(), R.xml.generic_top_row);
+		fixKeyboardDueToGenericRow(topMd);
+		KeyboardMetadata bottomMd = loadKeyboard(askContext.getApplicationContext(), R.xml.generic_bottom_row);
+		fixKeyboardDueToGenericRow(bottomMd);
+	}
+
+    private void fixKeyboardDueToGenericRow(KeyboardMetadata md) {
+    	mGenericRowsHeight += md.rowHeight;
+    	if (md.isTopRow)
+    	{
+    		mTopRowKeysCount += md.keysCount;
+    		List<Key> keys = getKeys();
+    		for(int keyIndex = md.keysCount; keyIndex < keys.size(); keyIndex++)
+            {
+    			keys.get(keyIndex).y += md.rowHeight;
+            }
+    	}
+	}
+
+	private KeyboardMetadata loadKeyboard(Context context, int rowResId) {
+		XmlResourceParser parser = context.getResources().getXml(rowResId);
+    	List<Key> keys = getKeys();
+        boolean inKey = false;
+        boolean inRow = false;
+        boolean leftMostKey = false;
+        
+        int row = 0;
+        int x = 0;
+        int y = 0;
+        Key key = null;
+        Row currentRow = null;
+        Resources res = context.getResources();
+        
+        KeyboardMetadata m = new KeyboardMetadata();
+        
+        try {
+            int event;
+            while ((event = parser.next()) != XmlResourceParser.END_DOCUMENT) {
+                if (event == XmlResourceParser.START_TAG) {
+                    String tag = parser.getName();
+                    if (TAG_ROW.equals(tag)) {
+                        inRow = true;
+                        x = 0;
+                        currentRow = createRowFromXml(res, parser);
+                        m.isTopRow = currentRow.rowEdgeFlags == Keyboard.EDGE_TOP;
+                        if (!m.isTopRow)
+                        	y = getHeight();//the bottom row Y should be last
+                        m.rowHeight = currentRow.defaultHeight;
+                   } else if (TAG_KEY.equals(tag)) {
+                        inKey = true;
+                        key = createKeyFromXml(res, currentRow, x, y, parser);
+                        if (m.isTopRow)
+                        	keys.add(m.keysCount, key);
+                        else
+                        	keys.add(key);
+                        m.keysCount++;
+                        
+                        if (key.height > m.rowHeight)
+                        	m.rowHeight = key.height;
+                    }
+                } else if (event == XmlResourceParser.END_TAG) {
+                    if (inKey) {
+                        inKey = false;
+                        x += key.gap + key.width;
+                        if (x > m.rowWidth) {
+                        	m.rowWidth = x;
+                        }
+                    } else if (inRow) {
+                        inRow = false;
+                        y += currentRow.verticalGap;
+                        y += currentRow.defaultHeight;
+                        row++;
+                    } else {
+                        // TODO: error or extend?
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Parse error:" + e);
+            e.printStackTrace();
+        }
+        //mTotalHeight = y - mDefaultVerticalGap;
+        return m;
+    }
+
+    /*required overrides*/
+    
+    @Override
+    public int getHeight() {
+    	return super.getHeight() + mGenericRowsHeight;
+    }
+    
+    @Override
+    public int getShiftKeyIndex() {
+    	return super.getShiftKeyIndex() + mTopRowKeysCount;
+    }
+    
+	protected AnyKeyboardContextProvider getASKContext()
     {
         return mASKContext;
     }
@@ -673,4 +784,12 @@ public abstract class AnyKeyboard extends Keyboard
 	}
 	
 	public abstract String getKeyboardPrefId();
+	
+	private static class KeyboardMetadata
+	{
+		public int keysCount = 0;
+		public int rowHeight = 0;
+		public int rowWidth = 0;
+		public boolean isTopRow = false;
+	}
 }
