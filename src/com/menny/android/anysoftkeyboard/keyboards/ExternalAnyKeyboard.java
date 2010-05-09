@@ -30,6 +30,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 		public int keysCount = 0;
 		public int rowHeight = 0;
 		public int rowWidth = 0;
+		public int verticalGap = 0;
 		public boolean isTopRow = false;
 	}
 
@@ -85,20 +86,28 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 		KeyboardMetadata topMd = loadKeyboard(askContext.getApplicationContext(), R.xml.generic_top_row);
 		fixKeyboardDueToGenericRow(topMd);
 		KeyboardMetadata bottomMd = loadKeyboard(askContext.getApplicationContext(), R.xml.generic_bottom_row);
-		mMaxGenericRowsWidth = Math.max(topMd.rowWidth, bottomMd.rowWidth);
 		fixKeyboardDueToGenericRow(bottomMd);
 	}
 
     private void fixKeyboardDueToGenericRow(KeyboardMetadata md) {
-    	mGenericRowsHeight += md.rowHeight;
+    	mGenericRowsHeight += md.rowHeight + md.verticalGap;
     	if (md.isTopRow)
     	{
     		mTopRowKeysCount += md.keysCount;
     		List<Key> keys = getKeys();
     		for(int keyIndex = md.keysCount; keyIndex < keys.size(); keyIndex++)
             {
-    			keys.get(keyIndex).y += md.rowHeight;
+    			keys.get(keyIndex).y += md.rowHeight + md.verticalGap;
             }
+    	} else {
+    		// The height should not include any gap below that last row
+    		// this corresponds to
+    		// mTotalHeight = y - mDefaultVerticalGap;
+    		// in the Keyboard class from Android sources
+
+    		// Note that we are using keyboard default vertical gap (instead of row vertical gap)
+    		// as this is done also in Android sources.
+    		mGenericRowsHeight -= getVerticalGap();
     	}
 	}
 
@@ -128,9 +137,17 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                         x = 0;
                         currentRow = createRowFromXml(res, parser);
                         m.isTopRow = currentRow.rowEdgeFlags == Keyboard.EDGE_TOP;
-                        if (!m.isTopRow)
-                        	y = getHeight();//the bottom row Y should be last
+                        if (!m.isTopRow) {
+                        	//the bottom row Y should be last
+                        	// The last coordinate is height + keyboard's default vertical gap
+                        	// since  mTotalHeight = y - mDefaultVerticalGap; (see loadKeyboard
+                        	// in the android sources)
+                        	// We use our overriden getHeight method which
+                        	// is just fixed so that it includes the first generic row.
+                        	y = getHeight() + getVerticalGap();
+                        }
                         m.rowHeight = currentRow.defaultHeight;
+                        m.verticalGap = currentRow.verticalGap;
                    } else if (TAG_KEY.equals(tag)) {
                         inKey = true;
                         key = createKeyFromXml(res, currentRow, x, y, parser);
@@ -149,9 +166,13 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                         x += key.gap + key.width;
                         if (x > m.rowWidth) {
                         	m.rowWidth = x;
+                        	// We keep generic row max width updated
+                    		mMaxGenericRowsWidth = Math.max(mMaxGenericRowsWidth, m.rowWidth);
                         }
                     } else if (inRow) {
                         inRow = false;
+						// We keep generic row max width updated
+                        mMaxGenericRowsWidth = Math.max(mMaxGenericRowsWidth, currentRow.rowWidth);
                         y += currentRow.verticalGap;
                         y += currentRow.defaultHeight;
                         row++;
