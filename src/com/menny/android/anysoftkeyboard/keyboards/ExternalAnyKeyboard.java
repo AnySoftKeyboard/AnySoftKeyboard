@@ -168,8 +168,6 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                         }
                     } else if (inRow) {
                         inRow = false;
-						// We keep generic row max width updated
-                        mMaxGenericRowsWidth = Math.max(mMaxGenericRowsWidth, currentRow.defaultWidth);
                         y += currentRow.verticalGap;
                         y += currentRow.defaultHeight;
                         row++;
