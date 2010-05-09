@@ -21,10 +21,10 @@ import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTrans
 public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTranslator {
 
 	private final static String TAG = "ASK - EAK";
-	
+
 	private static final String TAG_ROW = "Row";
     private static final String TAG_KEY = "Key";
-	
+
 	private static class KeyboardMetadata
 	{
 		public int keysCount = 0;
@@ -47,10 +47,12 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	private final String mDefaultDictionary;
 	private final HardKeyboardSequenceHandler mHardKeyboardTranslator;
 	private final String mAdditionalIsLetterExceptions;
-	
+
 	private int mGenericRowsHeight = 0;
 	private int mTopRowKeysCount = 0;
-	
+	// max(generic row widths)
+	private int mMaxGenericRowsWidth = 0;
+
 	protected ExternalAnyKeyboard(AnyKeyboardContextProvider askContext, Context context,
 			int xmlLayoutResId,
 			int xmlLandscapeResId,
@@ -73,16 +75,17 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 		{
 			mHardKeyboardTranslator = null;
 		}
-		
+
 		mAdditionalIsLetterExceptions = additionalIsLetterExceptions;
-		
+
 		addGenericRows(askContext, context);
 	}
-	
+
 	private void addGenericRows(AnyKeyboardContextProvider askContext, Context context) {
 		KeyboardMetadata topMd = loadKeyboard(askContext.getApplicationContext(), R.xml.generic_top_row);
 		fixKeyboardDueToGenericRow(topMd);
 		KeyboardMetadata bottomMd = loadKeyboard(askContext.getApplicationContext(), R.xml.generic_bottom_row);
+		mMaxGenericRowsWidth = Math.max(topMd.rowWidth, bottomMd.rowWidth);
 		fixKeyboardDueToGenericRow(bottomMd);
 	}
 
@@ -105,16 +108,16 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
         boolean inKey = false;
         boolean inRow = false;
         boolean leftMostKey = false;
-        
+
         int row = 0;
         int x = 0;
         int y = 0;
         Key key = null;
         Row currentRow = null;
         Resources res = context.getResources();
-        
+
         KeyboardMetadata m = new KeyboardMetadata();
-        
+
         try {
             int event;
             while ((event = parser.next()) != XmlResourceParser.END_DOCUMENT) {
@@ -136,7 +139,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                         else
                         	keys.add(key);
                         m.keysCount++;
-                        
+
                         if (key.height > m.rowHeight)
                         	m.rowHeight = key.height;
                     }
@@ -166,17 +169,23 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     }
 
     /*required overrides*/
-    
+
     @Override
     public int getHeight() {
     	return super.getHeight() + mGenericRowsHeight;
     }
-    
+
+    // minWidth is actually 'total width', see android framework source code
+    @Override
+    public int getMinWidth() {
+    	return Math.max(mMaxGenericRowsWidth, super.getMinWidth());
+    }
+
     @Override
     public int getShiftKeyIndex() {
     	return super.getShiftKeyIndex() + mTopRowKeysCount;
     }
-    
+
 	private HardKeyboardSequenceHandler createPhysicalTranslatorFromResourceId(Context context, int qwertyTranslationId) {
 		HardKeyboardSequenceHandler translator = new HardKeyboardSequenceHandler();
 		XmlPullParser parser = context.getResources().getXml(qwertyTranslationId);
@@ -184,7 +193,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 		try {
             int event;
             boolean inTranslations = false;
-            while ((event = parser.next()) != XmlPullParser.END_DOCUMENT) 
+            while ((event = parser.next()) != XmlPullParser.END_DOCUMENT)
             {
             	String tag = parser.getName();
                 if (event == XmlPullParser.START_TAG) {
@@ -199,7 +208,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                     {
                     	if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Starting parsing "+XML_SEQUENCE_TAG);
                     	AttributeSet attrs = Xml.asAttributeSet(parser);
-                    	
+
                     	final int[] keyCodes = getKeyCodesFromPhysicalSequence(attrs.getAttributeValue(null, XML_KEYS_ATTRIBUTE));
                     	final boolean isAlt = attrs.getAttributeBooleanValue(null, XML_ALT_ATTRIBUTE, false);
                     	final boolean isShift = attrs.getAttributeBooleanValue(null, XML_SHIFT_ATTRIBUTE, false);
@@ -234,7 +243,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                         		if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Physical translation details: ALT+key:"+keyCode+" target:"+target);
 	                        	translator.addShiftMapping(keyCode, target.charAt(0));
                         	}
-                        }                        
+                        }
                     }
                 }
                 else if (event == XmlPullParser.END_TAG) {
@@ -242,7 +251,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                     	inTranslations = false;
                     	if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Finished parsing "+XML_TRANSLATION_TAG);
                     	break;
-                    } 
+                    }
                 	else if (inTranslations && XML_SEQUENCE_TAG.equals(tag))
                     {
                 		if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Finished parsing "+XML_SEQUENCE_TAG);
@@ -260,7 +269,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 		String r = "";
 		for(int code : keyCodes)
 			r += (Integer.toString(code)+",");
-		
+
 		return r;
 	}
 
@@ -271,7 +280,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 		{
 			keyCodes[i] = Integer.parseInt(splitted[i]);
 		}
-		
+
 		return keyCodes;
 	}
 
@@ -279,35 +288,35 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	public String getDefaultDictionaryLocale() {
 		return mDefaultDictionary;
 	}
-	
+
 	@Override
 	public String getKeyboardPrefId() {
 		return mPrefId;
 	}
-	
+
 	@Override
 	public int getKeyboardIconResId() {
 		return mIconId;
 	}
-	
+
 	@Override
 	protected int getKeyboardNameResId() {
 		return mNameResId;
 	}
-	
-	private static int getKeyboardId(Context context, int portraitId, int landscapeId) 
+
+	private static int getKeyboardId(Context context, int portraitId, int landscapeId)
 	{
-		final boolean inPortraitMode = 
+		final boolean inPortraitMode =
 			(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
-		
+
 		if (inPortraitMode)
 			return portraitId;
 		else
 			return landscapeId;
 	}
-	
+
 	//this class implements the HardKeyboardTranslator interface in an empty way, the physical keyboard is Latin...
-	public void translatePhysicalCharacter(HardKeyboardAction action) 
+	public void translatePhysicalCharacter(HardKeyboardAction action)
 	{
 		if (mHardKeyboardTranslator != null)
 		{
@@ -318,30 +327,30 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 				translated = mHardKeyboardTranslator.getShiftCharacter(action.getKeyCode());
 			else
 				translated = mHardKeyboardTranslator.getSequenceCharacter(action.getKeyCode(), getASKContext());
-			
+
 			if (translated != 0)
 				action.setNewKeyCode(translated);
 		}
 	}
-	
+
 	@Override
 	public boolean isLetter(char keyValue) {
 		if (mAdditionalIsLetterExceptions == null)
 			return super.isLetter(keyValue);
 		else
-			return super.isLetter(keyValue) || 
+			return super.isLetter(keyValue) ||
 				(mAdditionalIsLetterExceptions.indexOf(keyValue) >= 0);
 	}
-	
+
 	protected void setPopupKeyChars(Key aKey)
 	{
 		if (aKey.popupResId > 0)
 			return;//if the keyboard XML already specified the popup, then no need to override
-		
+
 		//filling popup res for external keyboards
 		if ((aKey.popupCharacters != null) && (aKey.popupCharacters.length() > 0))
 			aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
-		
+
 		if ((aKey.codes != null) && (aKey.codes.length > 0))
         {
 			switch((char)aKey.codes[0])
