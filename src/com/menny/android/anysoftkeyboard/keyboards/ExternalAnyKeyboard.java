@@ -156,9 +156,6 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                         else
                         	keys.add(key);
                         m.keysCount++;
-
-                        if (key.height > m.rowHeight)
-                        	m.rowHeight = key.height;
                     }
                 } else if (event == XmlResourceParser.END_TAG) {
                     if (inKey) {
@@ -172,7 +169,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                     } else if (inRow) {
                         inRow = false;
 						// We keep generic row max width updated
-                        mMaxGenericRowsWidth = Math.max(mMaxGenericRowsWidth, currentRow.rowWidth);
+                        mMaxGenericRowsWidth = Math.max(mMaxGenericRowsWidth, currentRow.defaultWidth);
                         y += currentRow.verticalGap;
                         y += currentRow.defaultHeight;
                         row++;
