@@ -32,11 +32,11 @@ public class Workarounds
 //			//requiresRtlWorkaround = (buildInc < 20090831);
 			requiresRtlWorkaround =  (android.os.Build.TIME <= 1251851795000l);
 		}
-		else if (android.os.Build.MODEL.toLowerCase().contains("spica"))
+		else if (android.os.Build.DEVICE.toLowerCase().contains("spica"))
 		{
 			//(see issue 285):
-			//fix: 1263807011000
-			requiresRtlWorkaround =  (android.os.Build.TIME < 1263807011000l);
+			//fixed: 1263807011000
+			requiresRtlWorkaround =  (android.os.Build.TIME < 1263807011000l);//this is a lower "L" at the end
 		}
 		ms_requiresRtlWorkaround = requiresRtlWorkaround;
 		//checking f/w API is a bit tricky, we need to do it by reflection
