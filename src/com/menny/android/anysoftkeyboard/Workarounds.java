@@ -17,26 +17,29 @@ public class Workarounds
 	
 	static
 	{
-		boolean requiresRtlWorkaround = true;//all devices required this fix (in 1.6 it is still required)
+		boolean requiresRtlWorkaround = true;//all devices required this fix (in 2.1 it is still required)
 		
-		if (android.os.Build.MODEL.toLowerCase().contains("galaxy"))
+		if (!android.os.Build.USER.toLowerCase().contains("root"))//there is no rooted ROM with a fix.
 		{
-			//see issue 132
-			//and issue 285
-			//no fix: 1251851795000
-			//fix: 1251970876000
-			//no fix: 1251851795000
-			//fix: 1251970876000
-			//fix: 1261367883000
-//			//final int buildInc = Integer.parseInt(android.os.Build.VERSION.INCREMENTAL);
-//			//requiresRtlWorkaround = (buildInc < 20090831);
-			requiresRtlWorkaround =  (android.os.Build.TIME <= 1251851795000l);
-		}
-		else if (android.os.Build.DEVICE.toLowerCase().contains("spica"))
-		{
-			//(see issue 285):
-			//fixed: 1263807011000
-			requiresRtlWorkaround =  (android.os.Build.TIME < 1263807011000l);//this is a lower "L" at the end
+			if (android.os.Build.MODEL.toLowerCase().contains("galaxy"))
+			{
+				//see issue 132
+				//and issue 285
+				//no fix: 1251851795000
+				//fix: 1251970876000
+				//no fix: 1251851795000
+				//fix: 1251970876000
+				//fix: 1261367883000
+	//			//final int buildInc = Integer.parseInt(android.os.Build.VERSION.INCREMENTAL);
+	//			//requiresRtlWorkaround = (buildInc < 20090831);
+				requiresRtlWorkaround =  (android.os.Build.TIME <= 1251851795000l);
+			}
+			else if (android.os.Build.DEVICE.toLowerCase().contains("spica"))
+			{
+				//(see issue 285):
+				//fixed: 1263807011000
+				requiresRtlWorkaround =  (android.os.Build.TIME < 1263807011000l);//this is a lower "L" at the end
+			}
 		}
 		ms_requiresRtlWorkaround = requiresRtlWorkaround;
 		//checking f/w API is a bit tricky, we need to do it by reflection
