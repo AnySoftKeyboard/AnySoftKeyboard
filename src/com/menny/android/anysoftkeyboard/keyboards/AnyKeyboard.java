@@ -17,36 +17,36 @@ import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.Workarounds;
 
-public abstract class AnyKeyboard extends Keyboard
+public abstract class AnyKeyboard extends Keyboard 
 {
 	public static final String POPUP_FOR_QUESTION = "!/@\u0026\u00bf\u00a1";
 	public static final String POPUP_FOR_AT = "!/?\u0026\u00bf\u00a1";
 	private final static String TAG = "ASK - AK";
-	protected static class ShiftedKeyData
+	protected class ShiftedKeyData
 	{
 		public final char ShiftCharacter;
 		public final AnyKey KeyboardKey;
-
+		
 		public ShiftedKeyData(AnyKey key)
 		{
 			KeyboardKey = key;
-			ShiftCharacter = (char) key.codes[1];
+			ShiftCharacter = (char) key.codes[1]; 
 		}
 	}
 	public final static int KEYCODE_LANG_CHANGE = -99;
 	public final static int KEYCODE_ALTER_LAYOUT = -98;
 	public final static int KEYCODE_KEYBOARD_CYCLE = -97;
 	public final static int KEYCODE_KEYBOARD_REVERSE_CYCLE = -96;
-
+	
 	public final static int KEYCODE_SMILEY = -10;
-
+	
 	public static final int KEYCODE_LEFT = -20;
 	public static final int KEYCODE_RIGHT = -21;
 	public static final int KEYCODE_UP = -22;
 	public static final int KEYCODE_DOWN = -23;
-
+	
 	public static final int	KEYCODE_CTRL = -11;
-
+	
 	public interface HardKeyboardAction
 	{
 		int getKeyCode();
@@ -54,7 +54,7 @@ public abstract class AnyKeyboard extends Keyboard
 		boolean isShiftActive();
 		void setNewKeyCode(int keyCode);
 	}
-
+	
 	public interface HardKeyboardTranslator
 	{
 		/*
@@ -62,16 +62,16 @@ public abstract class AnyKeyboard extends Keyboard
 		 */
 		void translatePhysicalCharacter(HardKeyboardAction action);
 	}
-
+	
 	private static final int SHIFT_OFF = 0;
     private static final int SHIFT_ON = 1;
     private static final int SHIFT_LOCKED = 2;
-
+    
     private int mShiftState = SHIFT_OFF;
-
+    
     private final boolean mDebug;
 	private HashMap<Character, ShiftedKeyData> mSpecialShiftKeys;
-
+    
     //private Drawable mShiftLockIcon;
     //private Drawable mShiftLockPreviewIcon;
     private final Drawable mOffShiftIcon;
@@ -83,24 +83,24 @@ public abstract class AnyKeyboard extends Keyboard
 	private Key mQuestionMarkKey;
 
 	private boolean mRightToLeftLayout = false;//the "super" ctor will create keys, and we'll set the correct value there.
-
+	
     private final Context mKeyboardContext;
     private final AnyKeyboardContextProvider mASKContext;
-
+	
     protected AnyKeyboard(AnyKeyboardContextProvider askContext, Context context,//note: the context can be from a different package!
-    		int xmlLayoutResId)
+    		int xmlLayoutResId) 
     {
         //should use the package context for creating the layout
         super(context, xmlLayoutResId);
-
+        
         mDebug = AnySoftKeyboardConfiguration.getInstance().getDEBUG();
         mKeyboardContext = context;
         mASKContext = askContext;
-
+        
         mOnShiftIcon = askContext.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift_on);
         mOffShiftIcon = askContext.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift);
     }
-
+    
     public void initKeysMembers()
     {
     	final Resources localResources = getASKContext().getApplicationContext().getResources();
@@ -119,6 +119,7 @@ public abstract class AnyKeyboard extends Keyboard
                     key.icon = localResources.getDrawable(R.drawable.sym_keyboard_delete_small);
                     break;
                 case AnyKeyboard.KEYCODE_SHIFT:
+                	mShiftKey = key;//I want the reference used by the super.
                     key.icon = localResources.getDrawable(R.drawable.sym_keyboard_shift);
                     break;
                 case AnyKeyboard.KEYCODE_CTRL:
@@ -131,7 +132,7 @@ public abstract class AnyKeyboard extends Keyboard
                     key.icon = localResources.getDrawable(R.drawable.tab_key);
                     break;
                 case 63:
-                    if (key.edgeFlags == Keyboard.EDGE_BOTTOM)
+                    if ((key.edgeFlags & Keyboard.EDGE_BOTTOM) != 0)
                     {
                     	mQuestionMarkKey = key;
                     }
@@ -168,7 +169,7 @@ public abstract class AnyKeyboard extends Keyboard
                         //setting the character label
                         if (isAlphabetKey(key))
                         {
-                            key.label = ""+((char)primaryCode);
+                            key.label = ""+((char)primaryCode); 
                         }
                         else
                         {
@@ -178,9 +179,9 @@ public abstract class AnyKeyboard extends Keyboard
             }
         }
     }
-
+    
 	protected void onInitUnknownKey(Key key) {
-
+		
 	}
 
 	protected AnyKeyboardContextProvider getASKContext()
@@ -192,21 +193,21 @@ public abstract class AnyKeyboard extends Keyboard
     {
     	return mKeyboardContext;
     }
-
+    
     public abstract String getDefaultDictionaryLocale();
-
+    
     //this function is called from within the super constructor.
     @Override
-    protected Key createKeyFromXml(Resources res, Row parent, int x, int y,
+    protected Key createKeyFromXml(Resources res, Row parent, int x, int y, 
             XmlResourceParser parser) {
     	if (mSpecialShiftKeys == null) mSpecialShiftKeys = new HashMap<Character, ShiftedKeyData>();
-
+    	
     	AnyKey key = new AnyKey(res, parent, x, y, parser);
-
+    	
         if ((key.codes != null) && (key.codes.length > 0))
         {
         	final int primaryCode = key.codes[0];
-
+    		
         	//creating less sensitive keys if required
         	switch(primaryCode)
         	{
@@ -214,26 +215,23 @@ public abstract class AnyKeyboard extends Keyboard
         		key = mEnterKey = new EnterKey(res, parent, x, y, parser);
         		break;
         	case KEYCODE_DELETE://delete
-        	case KEYCODE_SHIFT://shift
         		key = new LessSensitiveAnyKey(res, parent, x, y, parser);
-        		if (primaryCode ==KEYCODE_SHIFT)
-        			mShiftKey = key;
         		break;
-        	case AnyKeyboard.KEYCODE_SMILEY:
+        	case AnyKeyboard.KEYCODE_SMILEY: 
             	mSmileyKey = key;
                 break;
 	        }
         }
-
+        
         if (mDebug)
         {
         	final int primaryKey = ((key.codes != null) && key.codes.length > 0)?
         			key.codes[0] : -1;
         	Log.v(TAG, "Key '"+primaryKey+"' will have - width: "+key.width+", height:"+key.height+", text: '"+key.label+"'.");
         }
-
+        
         setPopupKeyChars(key);
-
+        
         if ((key.codes != null) && (key.codes.length > 1))
         {
         	final int primaryCode = key.codes[0];
@@ -247,12 +245,12 @@ public abstract class AnyKeyboard extends Keyboard
 	            	Log.v(TAG, "Adding mapping ("+primary+"->"+keyData.ShiftCharacter+") to mSpecialShiftKeys.");
 	        }
         }
-
+        		
         return key;
     }
 
     @Override
-    protected Row createRowFromXml(Resources res, XmlResourceParser parser)
+    protected Row createRowFromXml(Resources res, XmlResourceParser parser) 
     {
     	Row aRow = super.createRowFromXml(res, parser);
     	if ((aRow.rowEdgeFlags&EDGE_TOP) != 0)
@@ -264,17 +262,17 @@ public abstract class AnyKeyboard extends Keyboard
     		else if (layoutChangeType.equals("Big"))
     			aRow.defaultHeight *= 1.5;
     	}
-
+    	
     	if (res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
     		aRow.defaultHeight = (int)(aRow.defaultHeight * AnySoftKeyboardConfiguration.getInstance().getKeysHeightFactorInPortrait());
     	else if (res.getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
     		aRow.defaultHeight = (int)(aRow.defaultHeight * AnySoftKeyboardConfiguration.getInstance().getKeysHeightFactorInLandscape());
-
+    		
     	return aRow;
     }
-
+    
     private boolean isAlphabetKey(Key key) {
-		return  (!key.modifier) &&
+		return  (!key.modifier) && 
 				(!key.sticky) &&
 				(!key.repeatable) &&
 				(key.icon == null) &&
@@ -301,11 +299,11 @@ public abstract class AnyKeyboard extends Keyboard
     			Log.d(TAG, "AnyKeyboard.setImeOptions. package: "+editor.packageName+", id:"+editor.fieldId);
     		}
     	}
-
+    		
         if (mEnterKey == null) {
             return;
         }
-
+        
         //Issue 254: we know of a known Android Messaging bug
         //http://code.google.com/p/android/issues/detail?id=2739
         if (Workarounds.doubleActionKeyDisableWorkAround(editor))
@@ -316,18 +314,18 @@ public abstract class AnyKeyboard extends Keyboard
         int options = (editor == null)? 0 : editor.imeOptions;
         CharSequence imeLabel = (editor == null)? null :editor.actionLabel;
         int imeActionId = (editor == null)? -1 :editor.actionId;
-
+        
         mEnterKey.enable();
-
-        //Used in conjunction with a custom action, this indicates that the action should not be available in-line
-        //as a replacement for the "enter" key. Typically this is because the action has such a significant impact
-        //or is not recoverable enough that accidentally hitting it should be avoided, such as sending a message.
-        //Note that TextView  will automatically set this flag for you on multi-line text views.
+        
+        //Used in conjunction with a custom action, this indicates that the action should not be available in-line 
+        //as a replacement for the "enter" key. Typically this is because the action has such a significant impact 
+        //or is not recoverable enough that accidentally hitting it should be avoided, such as sending a message. 
+        //Note that TextView  will automatically set this flag for you on multi-line text views. 
         boolean inNoEnterActionMode = ((options&EditorInfo.IME_FLAG_NO_ENTER_ACTION) != 0);
-
+        
     	final int action = (options&EditorInfo.IME_MASK_ACTION);
-
-    	if (AnySoftKeyboardConfiguration.getInstance().getDEBUG())
+    	
+    	if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) 
     		Log.d(TAG, "Input Connection ENTER key with action: "+action + " and NO_ACTION flag is: "+inNoEnterActionMode);
     	//TODO: Maybe someday we will support this functionality
 //    	if ((imeLabel != null) && (imeLabel.length() > 0) && (imeActionId > 0))
@@ -389,21 +387,21 @@ public abstract class AnyKeyboard extends Keyboard
 	        }
     	}
     }
-
+    
     protected abstract int getKeyboardNameResId();
-
+    
     public String getKeyboardName()
     {
         return mKeyboardContext.getResources().getString(getKeyboardNameResId());
     }
-
+    
     public boolean isLeftToRightLanguage()
     {
     	return !mRightToLeftLayout;
     }
-
+    
     public abstract int getKeyboardIconResId();
-
+    
 	public void setShiftLocked(boolean shiftLocked) {
         if (mShiftKey != null) {
         	if (mDebug) Log.d(TAG, "setShiftLocked: Switching to locked: "+shiftLocked);
@@ -412,7 +410,7 @@ public abstract class AnyKeyboard extends Keyboard
         		mShiftState = SHIFT_LOCKED;
         }
     }
-
+    
     @Override
     public boolean isShifted() {
         if (mShiftKey != null) {
@@ -421,25 +419,29 @@ public abstract class AnyKeyboard extends Keyboard
             return super.isShifted();
         }
     }
-
+    
 	@Override
-	public boolean setShifted(boolean shiftState)
+	public boolean setShifted(boolean shiftState) 
 	{
 		final boolean superResult = super.setShifted(shiftState);
+		//making sure it is off. Only caps turn it on. The super will turn the lit on when
+		//shift is ON, and not when CAPS is on.
+        if (mShiftKey != null) mShiftKey.on = false;
+        
 		final boolean changed = (shiftState == (mShiftState == SHIFT_OFF));
-
+		
 		if (mDebug) Log.d(TAG, "setShifted: shiftState:"+shiftState+". super result:"+superResult + " changed: "+changed);
-
+		
 		if (changed || superResult)
 		{//layout changed. Need to change labels.
 			mShiftState = shiftState? SHIFT_ON : SHIFT_OFF;
-
+			
 			//going over the special keys only.
 			for(ShiftedKeyData data : mSpecialShiftKeys.values())
 			{
 				onKeyShifted(data, shiftState);
 			}
-
+			
 			if (mShiftKey != null) {
 	            if (shiftState) {
 	            	if (mDebug) Log.d(TAG, "Switching to regular ON shift icon - shifted");
@@ -448,30 +450,28 @@ public abstract class AnyKeyboard extends Keyboard
 	            	if (mDebug) Log.d(TAG, "Switching to regular OFF shift icon - un-shifted");
 	            	mShiftKey.icon = mOffShiftIcon;
 	            }
-	            //making sure it is off. Only caps turn it on
-	            mShiftKey.on = false;
 	        }
 			return true;
 		}
 		else
 			return false;
 	}
-
+	
 	public boolean isShiftLocked() {
 		return mShiftState == SHIFT_LOCKED;
 	}
 
-	protected void onKeyShifted(ShiftedKeyData data, boolean shiftState)
+	protected void onKeyShifted(ShiftedKeyData data, boolean shiftState) 
 	{
 		AnyKey aKey = data.KeyboardKey;
 		aKey.label = shiftState? ""+data.ShiftCharacter : ""+((char)aKey.codes[0]);
 	}
-
-	protected void setPopupKeyChars(Key aKey)
+	
+	protected void setPopupKeyChars(Key aKey) 
 	{
 		if (aKey.popupResId > 0)
 			return;//if the keyboard XML already specified the popup, then no need to override
-
+		
 		if ((aKey.codes != null) && (aKey.codes.length > 0))
         {
 			switch(((char)aKey.codes[0]))
@@ -509,12 +509,12 @@ public abstract class AnyKeyboard extends Keyboard
         }
 	}
 
-	public void setTextVariation(Resources res, int inputType)
+	public void setTextVariation(Resources res, int inputType) 
 	{
 		if (mDebug)
     		Log.d(TAG, "setTextVariation");
 		int variation = inputType &  EditorInfo.TYPE_MASK_VARIATION;
-
+		
 		switch (variation) {
 	        case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
 	        case EditorInfo.TYPE_TEXT_VARIATION_URI:
@@ -554,8 +554,8 @@ public abstract class AnyKeyboard extends Keyboard
 	        	break;
         }
 	}
-
-	public int getShiftedKeyValue(int primaryCode)
+	
+	public int getShiftedKeyValue(int primaryCode) 
 	{
 		if ((primaryCode>0) && (primaryCode<Character.MAX_VALUE))
 		{
@@ -571,11 +571,11 @@ public abstract class AnyKeyboard extends Keyboard
 		//else...best try.
 		return Character.toUpperCase(primaryCode);
 	}
-
+	
 	class AnyKey extends Keyboard.Key {
         //private boolean mShiftLockEnabled;
-
-        public AnyKey(Resources res, Keyboard.Row parent, int x, int y,
+        
+        public AnyKey(Resources res, Keyboard.Row parent, int x, int y, 
                 XmlResourceParser parser) {
             super(res, parent, x, y, parser);
             if (popupCharacters != null && popupCharacters.length() == 0) {
@@ -583,7 +583,7 @@ public abstract class AnyKeyboard extends Keyboard
                 popupResId = 0;
             }
         }
-
+        
 //        void enableShiftLock() {
 //            mShiftLockEnabled = true;
 //        }
@@ -597,22 +597,22 @@ public abstract class AnyKeyboard extends Keyboard
 //            }
 //        }
     }
-
+	
 	private class LessSensitiveAnyKey extends AnyKey {
-
+        
 		private int mStartX;
 		private int mStartY;
 		private int mEndX;
 		private int mEndY;
-
-        public LessSensitiveAnyKey(Resources res, Keyboard.Row parent, int x, int y,
+		
+        public LessSensitiveAnyKey(Resources res, Keyboard.Row parent, int x, int y, 
                 XmlResourceParser parser) {
             super(res, parent, x, y, parser);
             mStartX = this.x;
             mStartY = this.y;
             mEndX = this.width + this.x;
             mEndY = this.height + this.y;
-
+        	
             if ((this.edgeFlags & Keyboard.EDGE_BOTTOM) != 0)
             {//the enter key!
             	//we want to "click" it only if it in the lower
@@ -624,7 +624,7 @@ public abstract class AnyKeyboard extends Keyboard
 	            {//usually, shift
 	            	mEndX -= (this.width * 0.1);
 	            }
-
+	            
 	            if ((this.edgeFlags & Keyboard.EDGE_RIGHT) != 0)
 	            {//usually, delete
 	            	//this is below the ENTER.. We want to be careful with this.
@@ -634,13 +634,13 @@ public abstract class AnyKeyboard extends Keyboard
 	            }
             }
         }
-
-
+        
+        
          /**
          * Overriding this method so that we can reduce the target area for certain keys.
          */
         @Override
-        public boolean isInside(int clickedX, int clickedY)
+        public boolean isInside(int clickedX, int clickedY) 
         {
         	return 	clickedX >= mStartX &&
 				clickedX <= mEndX &&
@@ -653,31 +653,31 @@ public abstract class AnyKeyboard extends Keyboard
 	{
 		private final int mOriginalHeight;
 		private boolean mEnabled;
-
+		
 		public EnterKey(Resources res, Row parent, int x, int y,
 				XmlResourceParser parser) {
 			super(res, parent, x, y, parser);
 			mOriginalHeight = this.height;
 			mEnabled = true;
 		}
-
+		
 		public void disable()
 		{
 			if (AnySoftKeyboardConfiguration.getInstance().getActionKeyInvisibleWhenRequested())
 				this.height = 0;
-
+			
 			iconPreview = null;
             icon = null;
             label = "  ";//can not use NULL.
             mEnabled = false;
 		}
-
+		
 		public void enable()
 		{
 			this.height = mOriginalHeight;
 			mEnabled = true;
 		}
-
+		
 		@Override
 		public boolean isInside(int clickedX, int clickedY) {
 			if (mEnabled)
@@ -686,6 +686,6 @@ public abstract class AnyKeyboard extends Keyboard
 				return false;//disabled.
 		}
 	}
-
+	
 	public abstract String getKeyboardPrefId();
 }
