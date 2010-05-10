@@ -54,7 +54,17 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	// max(generic row widths)
 	private int mMaxGenericRowsWidth = 0;
 
-	protected ExternalAnyKeyboard(AnyKeyboardContextProvider askContext, Context context,
+	public ExternalAnyKeyboard(AnyKeyboardContextProvider askContext,
+			Context context, int xmlLayoutResId, int xmlLandscapeResId,
+			String prefId, int nameResId, int iconResId,
+			int qwertyTranslationId, String defaultDictionary,
+			String additionalIsLetterExceptions) {
+		this(askContext, context, xmlLayoutResId, xmlLandscapeResId, prefId,
+				nameResId, iconResId, qwertyTranslationId, defaultDictionary,
+				additionalIsLetterExceptions, true);
+	}
+
+	public ExternalAnyKeyboard(AnyKeyboardContextProvider askContext, Context context,
 			int xmlLayoutResId,
 			int xmlLandscapeResId,
 			String prefId,
@@ -62,7 +72,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 			int iconResId,
 			int qwertyTranslationId,
 			String defaultDictionary,
-			String additionalIsLetterExceptions) {
+			String additionalIsLetterExceptions,
+			boolean addGenericRows) {
 		super(askContext, context, getKeyboardId(context, xmlLayoutResId, xmlLandscapeResId));
 		mPrefId = prefId;
 		mNameResId = nameResId;
@@ -79,7 +90,9 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 
 		mAdditionalIsLetterExceptions = additionalIsLetterExceptions;
 
-		addGenericRows(askContext, context);
+		if(addGenericRows) {
+			addGenericRows(askContext, context);
+		}
 	}
 
 	private void addGenericRows(AnyKeyboardContextProvider askContext, Context context) {

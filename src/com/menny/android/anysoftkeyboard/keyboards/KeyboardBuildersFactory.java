@@ -51,7 +51,7 @@ public class KeyboardBuildersFactory {
         Context getPackageContext();
     }
 
-    private static class KeyboardBuilderImpl implements KeyboardBuilder
+    public static class KeyboardBuilderImpl implements KeyboardBuilder
     {
         private final String mId;
         private final int mNameId;
