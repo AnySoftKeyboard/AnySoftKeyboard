@@ -12,7 +12,7 @@ import android.util.Log;
 
 public class DictionarySQLiteConnection extends SQLiteOpenHelper
 {
-	public class DictionaryWord
+	public static class DictionaryWord
 	{
 		private final String mWord;
 		private final int mFrequency;

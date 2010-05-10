@@ -11,7 +11,7 @@ import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
 
 public class FallbackUserDictionary extends SQLiteUserDictionaryBase {
 
-	private class FallBackSQLite extends DictionarySQLiteConnection
+	private static class FallBackSQLite extends DictionarySQLiteConnection
 	{
 		private static final String DB_NAME = "fallback.db";
 		private static final String TABLE_NAME = "FALL_BACK_USER_DICTIONARY";
