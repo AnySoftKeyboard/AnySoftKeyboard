@@ -22,6 +22,13 @@
 	<string name="main_tab_credits_additional_work_by">Lisäohjelmointityö:</string>
 	<string name="main_tab_credits_localization_by">Lokalisointi:</string>
 	<string name="main_tab_credits_GUI_by">Käyttöliittymän kuvat:</string>	
+	<!-- notifications -->
+	<string name="notification_text">Tervetuloa! Lue minut.</string>
+	<string name="testers_version">Testaajien versio!</string>
+	
+	<!-- changelog -->
+	<string name="changelog">Muutosloki</string>
+	<string name="search_market_for_addons">Etsi lisäosia</string>
 	
     <!-- Symbols that are commonly considered word separators in this language -->
     <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
@@ -118,7 +125,7 @@
     <string name="swipe_right_action">Pyyhkäisy oikealle</string>
     <string name="swipe_right_action_summary">Määrittele mitä tapahtuu kun pyyhkäistään oikealle</string>
     <string name="swipe_right_action_title">Valitse oikea-pyyhkäisyn toiminto</string>
-<string-array name="swipe_action_types">
+	<string-array name="swipe_action_types">
     	<item>Ei mitään</item>
     	<item>Seuraava aakkosnäppäimistö</item>
         <item>Seuraava symbolinäppäimistö</item>
@@ -162,6 +169,7 @@
     <string name="label_go_key">Mene</string>
     <string name="label_next_key">Seur.</string>
     <string name="label_send_key">Lähetä</string>
+	<string name="label_done_key">Valmis</string>
     
     <string name="change_lang_wide">&#8594; ABC &#8594;</string>
     <string name="change_lang_regular">ABC</string>
