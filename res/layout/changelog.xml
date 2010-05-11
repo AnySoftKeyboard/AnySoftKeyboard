@@ -74,6 +74,16 @@
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
+		        android:text="* Some bug fixes (e.g., Enter/Next key problem, Suggestions under Samsung)"
+		        android:textSize="16sp"
+		        android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"
+		        android:textColor="#AAA"
+		        />
+		    <TextView
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
 		        android:textStyle="bold"
 		        android:gravity="center"
 		        android:text="20100328 - 17"
