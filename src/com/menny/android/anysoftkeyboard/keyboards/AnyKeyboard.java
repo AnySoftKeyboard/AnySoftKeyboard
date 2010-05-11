@@ -22,7 +22,7 @@ public abstract class AnyKeyboard extends Keyboard
 	public static final String POPUP_FOR_QUESTION = "!/@\u0026\u00bf\u00a1";
 	public static final String POPUP_FOR_AT = "!/?\u0026\u00bf\u00a1";
 	private final static String TAG = "ASK - AK";
-	protected class ShiftedKeyData
+	protected static class ShiftedKeyData
 	{
 		public final char ShiftCharacter;
 		public final AnyKey KeyboardKey;
