@@ -24,6 +24,14 @@
    <string name="main_tab_credits_localization_by">Переводчики:</string>
    <string name="main_tab_credits_GUI_by">Художники:</string>
    
+   <!-- notifications -->
+	<string name="notification_text">Добро пожаловать! Пожалучста, прочтите.</string>
+	<string name="testers_version">Версия для тестеров!</string>
+	
+	<!-- changelog -->
+	<string name="changelog">Список изменений</string>
+	<string name="search_market_for_addons">Поиск дополнений</string>
+	
    <!-- Symbols that are commonly considered word separators in this language -->
    <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
    <!-- Indicates that a word has been added to the dictionary -->
@@ -162,6 +170,7 @@
    <string name="label_go_key">Пуск</string>
    <string name="label_next_key">Следующий</string>
    <string name="label_send_key">Послать</string>
+   <string name="label_done_key">Закончено</string>
    
    <string name="change_lang_wide">&#8594; АБВ &#8594;</string>
    <string name="change_lang_regular">АБВ</string>
