@@ -327,16 +327,7 @@ public abstract class AnyKeyboard extends Keyboard
     	
     	if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) 
     		Log.d(TAG, "Input Connection ENTER key with action: "+action + " and NO_ACTION flag is: "+inNoEnterActionMode);
-    	//TODO: Maybe someday we will support this functionality
-//    	if ((imeLabel != null) && (imeLabel.length() > 0) && (imeActionId > 0))
-//    	{
-//    		Log.d(TAG, "Input has provided its own ENTER label: "+ imeLabel);
-//    		mEnterKey.iconPreview = null;
-//            mEnterKey.icon = null;
-//          //there is a problem with LTR languages
-//            mEnterKey.label = Workarounds.workaroundCorrectStringDirection(imeLabel);
-//    	}
-//    	else
+
     	if (inNoEnterActionMode)
     	{
     		//this means that the ENTER should not be replaced with a custom action.
@@ -365,10 +356,6 @@ public abstract class AnyKeyboard extends Keyboard
 	                //there is a problem with LTR languages
 	                mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_done_key));
 	                break;
-	            case EditorInfo.IME_ACTION_NONE:
-	            	Log.d(TAG, "Disabling the ENTER key, since this is a IME_ACTION_NONE action.");
-	        		mEnterKey.disable();
-	                break;
 	            case EditorInfo.IME_ACTION_SEARCH:
 	                mEnterKey.icon = res.getDrawable(R.drawable.sym_keyboard_search);
 	                mEnterKey.label = null;
@@ -379,10 +366,23 @@ public abstract class AnyKeyboard extends Keyboard
 		            //there is a problem with LTR languages
 		            mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_send_key));
 	            	break;
+	            case EditorInfo.IME_ACTION_NONE:
 	            case EditorInfo.IME_ACTION_UNSPECIFIED:
 	            default:
-	            	mEnterKey.icon = res.getDrawable(R.drawable.sym_keyboard_return);
-		            mEnterKey.label = null;
+	            	//TODO: Maybe someday we will support this functionality
+//	            	if ((imeLabel != null) && (imeLabel.length() > 0) && (imeActionId > 0))
+//	            	{
+//	            		Log.d(TAG, "Input has provided its own ENTER label: "+ imeLabel);
+//	            		mEnterKey.iconPreview = null;
+//	            		mEnterKey.icon = null;
+//			            //there is a problem with LTR languages
+//	                  	mEnterKey.label = Workarounds.workaroundCorrectStringDirection(imeLabel);
+//	            	}
+//	            	else
+//	            	{
+		            	mEnterKey.icon = res.getDrawable(R.drawable.sym_keyboard_return);
+			            mEnterKey.label = null;
+//	            	}
 	            	break;
 	        }
     	}
