@@ -572,7 +572,7 @@ public abstract class AnyKeyboard extends Keyboard
 		return Character.toUpperCase(primaryCode);
 	}
 	
-	class AnyKey extends Keyboard.Key {
+	static class AnyKey extends Keyboard.Key {
         //private boolean mShiftLockEnabled;
         
         public AnyKey(Resources res, Keyboard.Row parent, int x, int y, 
@@ -598,7 +598,7 @@ public abstract class AnyKeyboard extends Keyboard
 //        }
     }
 	
-	private class LessSensitiveAnyKey extends AnyKey {
+	protected static class LessSensitiveAnyKey extends AnyKey {
         
 		private int mStartX;
 		private int mStartY;
@@ -608,7 +608,12 @@ public abstract class AnyKeyboard extends Keyboard
         public LessSensitiveAnyKey(Resources res, Keyboard.Row parent, int x, int y, 
                 XmlResourceParser parser) {
             super(res, parent, x, y, parser);
-            mStartX = this.x;
+            resetSenitivity();
+        }
+        
+        void resetSenitivity()
+        {
+        	mStartX = this.x;
             mStartY = this.y;
             mEndX = this.width + this.x;
             mEndY = this.height + this.y;
@@ -649,7 +654,7 @@ public abstract class AnyKeyboard extends Keyboard
         }
     }
 
-	private class EnterKey extends LessSensitiveAnyKey
+	private static class EnterKey extends LessSensitiveAnyKey
 	{
 		private final int mOriginalHeight;
 		private boolean mEnabled;

@@ -17,6 +17,7 @@ import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
+import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.LessSensitiveAnyKey;
 
 public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTranslator {
 
@@ -110,7 +111,10 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     		List<Key> keys = getKeys();
     		for(int keyIndex = md.keysCount; keyIndex < keys.size(); keyIndex++)
             {
-    			keys.get(keyIndex).y += md.rowHeight + md.verticalGap;
+    			final Key key = keys.get(keyIndex);
+    			key.y += md.rowHeight + md.verticalGap;
+    			if (key instanceof LessSensitiveAnyKey)
+            		((LessSensitiveAnyKey)key).resetSenitivity();//reseting cause the key may be offseted now (generic rows)
             }
     	} else {
     		// The height should not include any gap below that last row
