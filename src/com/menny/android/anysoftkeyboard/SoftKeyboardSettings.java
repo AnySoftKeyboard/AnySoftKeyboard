@@ -12,6 +12,7 @@ import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -67,6 +68,17 @@ public class SoftKeyboardSettings extends PreferenceActivity {
 			keyboards.addPreference(checkBox);
 		}
 		
+		final Preference searcher = (Preference)super.findPreference("search_for_addons");
+		searcher.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+			public boolean onPreferenceClick(Preference preference) {
+				if (preference.getKey().equals("search_for_addons"))
+				{
+					MainForm.searchMarketForAddons(SoftKeyboardSettings.this.getApplicationContext());
+					return true;
+				}
+				return false;
+			}
+		});
     }
 
 	public static PackageInfo getPackageInfo(Context context) throws NameNotFoundException {

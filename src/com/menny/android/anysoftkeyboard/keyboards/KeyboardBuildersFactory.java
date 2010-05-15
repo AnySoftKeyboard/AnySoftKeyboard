@@ -88,7 +88,7 @@ public class KeyboardBuildersFactory {
             mDescription = description;
             mPackageContext = packageContext;
             mKeyboardIndex = keyboardIndex;
-            Log.d("ASK KeyboardCreatorImpl", "Creator for "+mId+" package:"+mPackageContext.getPackageName()+" res: "+ mResId+" LandscapeRes: "+ mLandscapeResId+" dictionary: "+mDefaultDictionary);
+            Log.d("ASK KeyboardCreatorImpl", "Creator for "+mId+" package:"+mPackageContext.getPackageName()+" res: "+ mResId+" LandscapeRes: "+ mLandscapeResId+" dictionary: "+mDefaultDictionary+" qwerty:" + mQwertyTranslationId);
         }
 
         public AnyKeyboard createKeyboard(AnyKeyboardContextProvider askContext) {

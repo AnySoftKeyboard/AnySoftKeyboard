@@ -82,7 +82,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 		mDefaultDictionary = defaultDictionary;
 		if (qwertyTranslationId != -1)
 		{
-			mHardKeyboardTranslator = createPhysicalTranslatorFromResourceId(context.getApplicationContext(), qwertyTranslationId);
+			Log.d(TAG, "Creating qwerty mapping:"+qwertyTranslationId);
+			mHardKeyboardTranslator = createPhysicalTranslatorFromResourceId(context, qwertyTranslationId);
 		}
 		else
 		{
@@ -357,7 +358,20 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 			if (action.isAltActive())
 				translated = mHardKeyboardTranslator.getAltCharacter(action.getKeyCode());
 			else if (action.isShiftActive())
-				translated = mHardKeyboardTranslator.getShiftCharacter(action.getKeyCode());
+			{
+				//shift is a special case, we might have a special shift mapping, but
+				//we may not... in the latter case, we'll use the regualr translation
+				//but upper-case the output
+				char shiftTranslation = mHardKeyboardTranslator.getShiftCharacter(action.getKeyCode());
+				if (shiftTranslation <= 0)
+				{
+					shiftTranslation = mHardKeyboardTranslator.getSequenceCharacter(action.getKeyCode(), getASKContext());
+					//uppercasing
+					shiftTranslation = Character.toUpperCase(shiftTranslation);
+				}
+				
+				translated = shiftTranslation;
+			}
 			else
 				translated = mHardKeyboardTranslator.getSequenceCharacter(action.getKeyCode(), getASKContext());
 
