@@ -101,6 +101,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private StringBuilder mComposing = new StringBuilder();
 	private WordComposer mWord = new WordComposer();
 
+	private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
+	
 	private int mCommittedLength;
 	private boolean mPredicting;
 	private CharSequence mBestWord;
@@ -178,6 +180,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 				notifyKeyboardChangeIfNeeded();
 			initSuggest(/* getResources().getConfiguration().locale.toString() */);
 		}
+		
+		mOrientation = getResources().getConfiguration().orientation;
 
 		SharedPreferences sp = PreferenceManager
 				.getDefaultSharedPreferences(this);
@@ -1928,6 +1932,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 		super.onConfigurationChanged(newConfig);
 		Log.i("AnySoftKeyboard", "**** onConfigurationChanged");
 		Log.i("AnySoftKeyboard", "** Locale:" + newConfig.locale.toString());
+		Log.i("AnySoftKeyboard", "** Orientation:" + newConfig.orientation + " previous:"+mOrientation);
+		if (mOrientation != newConfig.orientation)
+		{
+			mOrientation = newConfig.orientation;
+			if (mInputView != null)
+			{
+				mInputView.closing();
+			}
+		}
 	}
 
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,

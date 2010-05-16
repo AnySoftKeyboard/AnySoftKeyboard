@@ -26,7 +26,16 @@
     <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
 	<uses-sdk android:minSdkVersion="3" android:targetSdkVersion="4"></uses-sdk>
-	
+<!-- 	
+	<receiver android:name="PackageAddedReceiver">
+		<intent-filter>
+			<action android:name="android.intent.action.PACKAGE_REMOVED" />
+			<action android:name="android.intent.action.PACKAGE_REPLACED" />
+			<action android:name="android.intent.action.PACKAGE_ADDED" />
+	        <data android:scheme="package" />
+		</intent-filter>
+	</receiver>
+ -->        
 	<supports-screens
           android:largeScreens="true" 
           android:normalScreens="true"

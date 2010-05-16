@@ -26,7 +26,7 @@ import java.util.List;
 
 public class KeyboardBuildersFactory {
 
-    private static final String TAG = "ASK Keyboards creator factory";
+    private static final String TAG = "ASK KBD creator factory";
 
     public interface KeyboardBuilder
     {
@@ -130,6 +130,11 @@ public class KeyboardBuildersFactory {
     {
         ms_creators = null;
     }
+    
+    public synchronized static void onPackageSetupChanged(String packageName)
+    {
+    	
+    }
 
     public synchronized static ArrayList<KeyboardBuilder> getAllBuilders(final Context context) {
 
@@ -171,9 +176,9 @@ public class KeyboardBuildersFactory {
     private static ArrayList<KeyboardBuilder> getAllExternalKeyboardCreators(Context context){
 
         final List<ResolveInfo> broadcastReceivers = context.getPackageManager()
-        .queryBroadcastReceivers(
-                new Intent(KeyboardBuilder.RECEIVER_INTERFACE),
-                PackageManager.GET_META_DATA);
+	        .queryBroadcastReceivers(
+	                new Intent(KeyboardBuilder.RECEIVER_INTERFACE),
+	                PackageManager.GET_META_DATA);
 
         if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
             Log.d(TAG, "Number of potential external keyboard packages found: "
@@ -198,6 +203,7 @@ public class KeyboardBuildersFactory {
                         receiver.activityInfo.packageName, PackageManager.GET_META_DATA);
                 final ArrayList<KeyboardBuilder> packageKeyboardCreators = getKeyboardCreatorsFromActivityInfo(externalPackageContext,
                         receiver.activityInfo);
+                
                 externalKeyboardCreators.addAll(packageKeyboardCreators);
             } catch (final NameNotFoundException e) {
                 Log.e(TAG, "Did not find package: " + receiver.activityInfo.packageName);
