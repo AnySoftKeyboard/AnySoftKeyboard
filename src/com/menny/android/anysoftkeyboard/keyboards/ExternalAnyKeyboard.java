@@ -75,7 +75,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 			String defaultDictionary,
 			String additionalIsLetterExceptions,
 			boolean addGenericRows) {
-		super(askContext, context, getKeyboardId(context, xmlLayoutResId, xmlLandscapeResId));
+		super(askContext, context, getKeyboardId(askContext.getApplicationContext(), xmlLayoutResId, xmlLandscapeResId));
 		mPrefId = prefId;
 		mNameResId = nameResId;
 		mIconId = iconResId;
@@ -98,9 +98,9 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	}
 
 	private void addGenericRows(AnyKeyboardContextProvider askContext, Context context) {
-		KeyboardMetadata topMd = loadKeyboard(askContext.getApplicationContext(), R.xml.generic_top_row);
+		KeyboardMetadata topMd = addKeyboardRow(askContext.getApplicationContext(), R.xml.generic_top_row);
 		fixKeyboardDueToGenericRow(topMd);
-		KeyboardMetadata bottomMd = loadKeyboard(askContext.getApplicationContext(), R.xml.generic_bottom_row);
+		KeyboardMetadata bottomMd = addKeyboardRow(askContext.getApplicationContext(), R.xml.generic_bottom_row);
 		fixKeyboardDueToGenericRow(bottomMd);
 	}
 
@@ -129,7 +129,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
     	}
 	}
 
-	private KeyboardMetadata loadKeyboard(Context context, int rowResId) {
+	private KeyboardMetadata addKeyboardRow(Context context, int rowResId) {
 		XmlResourceParser parser = context.getResources().getXml(rowResId);
     	List<Key> keys = getKeys();
         boolean inKey = false;
@@ -178,7 +178,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                 } else if (event == XmlResourceParser.END_TAG) {
                     if (inKey) {
                         inKey = false;
-                        x += key.gap + key.width;
+                        x += (key.gap + key.width);
                         if (x > m.rowWidth) {
                         	m.rowWidth = x;
                         	// We keep generic row max width updated
@@ -343,6 +343,11 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 		final boolean inPortraitMode =
 			(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
 
+		if (AnySoftKeyboardConfiguration.getInstance().getDEBUG())
+		{
+			Log.d(TAG, "inPortraitMode:"+inPortraitMode+" portrait ID:"+portraitId+" landscape ID:"+landscapeId);
+		}
+		
 		if (inPortraitMode)
 			return portraitId;
 		else
