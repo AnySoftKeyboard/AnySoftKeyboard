@@ -312,8 +312,8 @@ public class KeyboardSwitcher
 		{
 			KeyboardBuilder creator = mAlphabetKeyboardsCreators[index];
 			Log.d("AnySoftKeyboard", "About to create keyboard: "+creator.getId());
-			mAlphabetKeyboards[index] = creator.createKeyboard(mContext);
-			keyboard = mAlphabetKeyboards[index];
+			keyboards[index] = creator.createKeyboard(mContext);
+			keyboard = keyboards[index];
 			keyboard.initKeysMembers();
 		}
 		
