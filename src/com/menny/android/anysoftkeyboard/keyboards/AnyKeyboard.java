@@ -70,8 +70,7 @@ public abstract class AnyKeyboard extends Keyboard
     private int mShiftState = SHIFT_OFF;
     
     private final boolean mDebug;
-	private HashMap<Character, ShiftedKeyData> mSpecialShiftKeys;
-    
+	
     //private Drawable mShiftLockIcon;
     //private Drawable mShiftLockPreviewIcon;
     private final Drawable mOffShiftIcon;
@@ -167,7 +166,7 @@ public abstract class AnyKeyboard extends Keyboard
                     break;
                     default:
                         //setting the character label
-                        if (isAlphabetKey(key))
+                        if (isAlphabetKey(key) && (key.label == null || key.label.length() == 0) && (key.icon == null))
                         {
                             key.label = ""+((char)primaryCode); 
                         }
@@ -200,8 +199,6 @@ public abstract class AnyKeyboard extends Keyboard
     @Override
     protected Key createKeyFromXml(Resources res, Row parent, int x, int y, 
             XmlResourceParser parser) {
-    	if (mSpecialShiftKeys == null) mSpecialShiftKeys = new HashMap<Character, ShiftedKeyData>();
-    	
     	AnyKey key = new AnyKey(res, parent, x, y, parser);
     	
         if ((key.codes != null) && (key.codes.length > 0))
@@ -232,19 +229,19 @@ public abstract class AnyKeyboard extends Keyboard
         
         setPopupKeyChars(key);
         
-        if ((key.codes != null) && (key.codes.length > 1))
-        {
-        	final int primaryCode = key.codes[0];
-        	if ((primaryCode>0) && (primaryCode<Character.MAX_VALUE))
-        	{
-        		Character primary = new Character((char)primaryCode);
-        		ShiftedKeyData keyData = new ShiftedKeyData(key);
-	        	if (!mSpecialShiftKeys.containsKey(primary))
-	        		mSpecialShiftKeys.put(primary, keyData);
-	        	if (mDebug)
-	            	Log.v(TAG, "Adding mapping ("+primary+"->"+keyData.ShiftCharacter+") to mSpecialShiftKeys.");
-	        }
-        }
+//        if ((key.codes != null) && (key.codes.length > 1))
+//        {
+//        	final int primaryCode = key.codes[0];
+//        	if ((primaryCode>0) && (primaryCode<Character.MAX_VALUE))
+//        	{
+//        		Character primary = new Character((char)primaryCode);
+//        		ShiftedKeyData keyData = new ShiftedKeyData(key);
+//	        	if (!mSpecialShiftKeys.containsKey(primary))
+//	        		mSpecialShiftKeys.put(primary, keyData);
+//	        	if (mDebug)
+//	            	Log.v(TAG, "Adding mapping ("+primary+"->"+keyData.ShiftCharacter+") to mSpecialShiftKeys.");
+//	        }
+//        }
         		
         return key;
     }
@@ -437,10 +434,10 @@ public abstract class AnyKeyboard extends Keyboard
 			mShiftState = shiftState? SHIFT_ON : SHIFT_OFF;
 			
 			//going over the special keys only.
-			for(ShiftedKeyData data : mSpecialShiftKeys.values())
-			{
-				onKeyShifted(data, shiftState);
-			}
+//			for(ShiftedKeyData data : mSpecialShiftKeys.values())
+//			{
+//				onKeyShifted(data, shiftState);
+//			}
 			
 			if (mShiftKey != null) {
 	            if (shiftState) {
@@ -464,7 +461,8 @@ public abstract class AnyKeyboard extends Keyboard
 	protected void onKeyShifted(ShiftedKeyData data, boolean shiftState) 
 	{
 		AnyKey aKey = data.KeyboardKey;
-		aKey.label = shiftState? ""+data.ShiftCharacter : ""+((char)aKey.codes[0]);
+		if (aKey.label != null && aKey.label.length() > 0)
+			aKey.label = shiftState? ""+data.ShiftCharacter : ""+((char)aKey.codes[0]);
 	}
 	
 	protected void setPopupKeyChars(Key aKey) 
@@ -557,17 +555,17 @@ public abstract class AnyKeyboard extends Keyboard
 	
 	public int getShiftedKeyValue(int primaryCode) 
 	{
-		if ((primaryCode>0) && (primaryCode<Character.MAX_VALUE))
-		{
-			Character c = new Character((char)primaryCode);
-			if (mSpecialShiftKeys.containsKey(c))
-			{
-				char shifted = mSpecialShiftKeys.get(c).ShiftCharacter;
-				if (mDebug)
-		        	Log.v(TAG, "Returned the shifted mapping ("+c+"->"+shifted+") from mSpecialShiftKeys.");
-				return shifted;
-			}
-		}
+//		if ((primaryCode>0) && (primaryCode<Character.MAX_VALUE))
+//		{
+//			Character c = new Character((char)primaryCode);
+//			if (mSpecialShiftKeys.containsKey(c))
+//			{
+//				char shifted = mSpecialShiftKeys.get(c).ShiftCharacter;
+//				if (mDebug)
+//		        	Log.v(TAG, "Returned the shifted mapping ("+c+"->"+shifted+") from mSpecialShiftKeys.");
+//				return shifted;
+//			}
+//		}
 		//else...best try.
 		return Character.toUpperCase(primaryCode);
 	}

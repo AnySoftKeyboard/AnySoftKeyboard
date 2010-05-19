@@ -160,6 +160,7 @@
     <string name="keyboards_group">Keyboards</string>
     <string name="symbols_keyboard">Symbols</string>
     <string name="eng_keyboard">English</string>
+    <string name="eng_keyboard_compact">Compact English</string>
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Show this tutorial on startup</string>
