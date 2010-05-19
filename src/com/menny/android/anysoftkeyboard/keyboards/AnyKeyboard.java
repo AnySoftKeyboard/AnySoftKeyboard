@@ -105,6 +105,7 @@ public abstract class AnyKeyboard extends Keyboard
     	final Resources localResources = getASKContext().getApplicationContext().getResources();
         for(final Key key : getKeys())
         {
+        	if (key.y == 0) key.edgeFlags = Keyboard.EDGE_TOP;
         	//Log.d(TAG, "Key x:"+key.x+" y:"+key.y+" width:"+key.width+" height:"+key.height);
             if ((key.codes != null) && (key.codes.length > 0))
             {
@@ -250,20 +251,22 @@ public abstract class AnyKeyboard extends Keyboard
     protected Row createRowFromXml(Resources res, XmlResourceParser parser) 
     {
     	Row aRow = super.createRowFromXml(res, parser);
-    	if ((aRow.rowEdgeFlags&EDGE_TOP) != 0)
-    	{
-    		String layoutChangeType = AnySoftKeyboardConfiguration.getInstance().getChangeLayoutKeysSize();
-    		//top row
-    		if (layoutChangeType.equals("None"))
-    			aRow.defaultHeight = 0;
-    		else if (layoutChangeType.equals("Big"))
-    			aRow.defaultHeight *= 1.5;
-    	}
+//    	if ((aRow.rowEdgeFlags&EDGE_TOP) != 0)
+//    	{
+//    		String layoutChangeType = AnySoftKeyboardConfiguration.getInstance().getChangeLayoutKeysSize();
+//    		//top row
+//    		if (layoutChangeType.equals("None"))
+//    			aRow.defaultHeight = 0;
+//    		else if (layoutChangeType.equals("Big"))
+//    			aRow.defaultHeight *= 1.5;
+//    	}
     	
-    	if (res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
-    		aRow.defaultHeight = (int)(aRow.defaultHeight * AnySoftKeyboardConfiguration.getInstance().getKeysHeightFactorInPortrait());
-    	else if (res.getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-    		aRow.defaultHeight = (int)(aRow.defaultHeight * AnySoftKeyboardConfiguration.getInstance().getKeysHeightFactorInLandscape());
+    	AnySoftKeyboardConfiguration config = AnySoftKeyboardConfiguration.getInstance();
+		final int orientation = config.getDeviceOrientation();
+    	if (orientation != Configuration.ORIENTATION_LANDSCAPE)//I want to support other orientations too (like square)
+    		aRow.defaultHeight = (int)(aRow.defaultHeight * config.getKeysHeightFactorInPortrait());
+    	else
+    		aRow.defaultHeight = (int)(aRow.defaultHeight * config.getKeysHeightFactorInLandscape());
     		
     	return aRow;
     }

@@ -6,16 +6,6 @@
     android:verticalGap="0px"
     android:keyHeight="@dimen/key_height"
     >
-    
-    <!-- generic top row -->
-    <Row android:rowEdgeFlags="top"
-    android:verticalGap="0%p"
-    android:keyWidth="45%p"
-    android:keyHeight="5%p">
-    	<Key android:codes="-2" android:horizontalGap="0%p" android:keyLabel="&#8592; 123 &#8592;" android:keyEdgeFlags="left"/>
-        <Key android:codes="-99" android:horizontalGap="10%p" android:keyLabel="&#8594; ABC &#8594;" android:keyEdgeFlags="right"/>
-    </Row>
-
     <Row>
         <Key android:codes="49" android:horizontalGap="0px" android:keyIcon="@drawable/sym_keyboard_num1" android:keyEdgeFlags="left"/>
         <Key android:codes="50" android:keyIcon="@drawable/sym_keyboard_num2"/>

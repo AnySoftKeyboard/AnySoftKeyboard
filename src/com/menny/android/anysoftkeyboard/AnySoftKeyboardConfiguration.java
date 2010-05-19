@@ -51,6 +51,8 @@ public abstract class AnySoftKeyboardConfiguration
 	
 	public abstract boolean getActionKeyInvisibleWhenRequested();
 	
+	public abstract int getDeviceOrientation();
+	
 	static class AnySoftKeyboardConfigurationImpl extends AnySoftKeyboardConfiguration
 	{
 		private InputMethodService mIme;
@@ -315,6 +317,11 @@ public abstract class AnySoftKeyboardConfiguration
 		@Override
 		public boolean getActionKeyInvisibleWhenRequested() {
 			return mActionKeyInvisibleWhenRequested;
+		}
+
+		@Override
+		public int getDeviceOrientation() {
+			return mIme.getApplicationContext().getResources().getConfiguration().orientation;
 		}
 	}
 }
