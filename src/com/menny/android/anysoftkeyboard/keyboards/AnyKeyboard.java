@@ -22,17 +22,7 @@ public abstract class AnyKeyboard extends Keyboard
 	public static final String POPUP_FOR_QUESTION = "!/@\u0026\u00bf\u00a1";
 	public static final String POPUP_FOR_AT = "!/?\u0026\u00bf\u00a1";
 	private final static String TAG = "ASK - AK";
-	protected static class ShiftedKeyData
-	{
-		public final char ShiftCharacter;
-		public final AnyKey KeyboardKey;
-		
-		public ShiftedKeyData(AnyKey key)
-		{
-			KeyboardKey = key;
-			ShiftCharacter = (char) key.codes[1]; 
-		}
-	}
+	
 	public final static int KEYCODE_LANG_CHANGE = -99;
 	public final static int KEYCODE_ALTER_LAYOUT = -98;
 	public final static int KEYCODE_KEYBOARD_CYCLE = -97;
@@ -137,35 +127,7 @@ public abstract class AnyKeyboard extends Keyboard
                     	mQuestionMarkKey = key;
                     }
                     break;
-                case Keyboard.KEYCODE_MODE_CHANGE:
-                case AnyKeyboard.KEYCODE_LANG_CHANGE:
-                	if ((key.edgeFlags & Keyboard.EDGE_TOP) != 0)
-                	{//these keys should only be resized if they are in the top row.
-	                	final String keysMode = AnySoftKeyboardConfiguration.getInstance().getChangeLayoutKeysSize();
-	                    if (keysMode.equals("None"))
-	                    {
-	                        key.label = null;
-	                        key.height = 0;
-	                        key.width = 0;
-	                    }
-	                    else if (keysMode.equals("Big"))
-	                    {
-	                        String keyText = (primaryCode == Keyboard.KEYCODE_MODE_CHANGE)?
-	                                mASKContext.getApplicationContext().getString(R.string.change_symbols_regular) :
-	                                	mASKContext.getApplicationContext().getString(R.string.change_lang_regular);
-	                        key.label = keyText;
-	                        //key.height *= 1.5;
-	                    }
-	                    else
-	                    {
-	                        String keyText = (primaryCode == Keyboard.KEYCODE_MODE_CHANGE)?
-	                        		mASKContext.getApplicationContext().getString(R.string.change_symbols_wide) :
-	                        			mASKContext.getApplicationContext().getString(R.string.change_lang_wide);
-	                        key.label = keyText;
-	                    }
-                	}
-                    break;
-                    default:
+               default:
                         //setting the character label
                         if (isAlphabetKey(key) && (key.label == null || key.label.length() == 0) && (key.icon == null))
                         {
@@ -251,15 +213,6 @@ public abstract class AnyKeyboard extends Keyboard
     protected Row createRowFromXml(Resources res, XmlResourceParser parser) 
     {
     	Row aRow = super.createRowFromXml(res, parser);
-//    	if ((aRow.rowEdgeFlags&EDGE_TOP) != 0)
-//    	{
-//    		String layoutChangeType = AnySoftKeyboardConfiguration.getInstance().getChangeLayoutKeysSize();
-//    		//top row
-//    		if (layoutChangeType.equals("None"))
-//    			aRow.defaultHeight = 0;
-//    		else if (layoutChangeType.equals("Big"))
-//    			aRow.defaultHeight *= 1.5;
-//    	}
     	
     	AnySoftKeyboardConfiguration config = AnySoftKeyboardConfiguration.getInstance();
 		final int orientation = config.getDeviceOrientation();
@@ -435,13 +388,7 @@ public abstract class AnyKeyboard extends Keyboard
 		if (changed || superResult)
 		{//layout changed. Need to change labels.
 			mShiftState = shiftState? SHIFT_ON : SHIFT_OFF;
-			
-			//going over the special keys only.
-//			for(ShiftedKeyData data : mSpecialShiftKeys.values())
-//			{
-//				onKeyShifted(data, shiftState);
-//			}
-			
+						
 			if (mShiftKey != null) {
 	            if (shiftState) {
 	            	if (mDebug) Log.d(TAG, "Switching to regular ON shift icon - shifted");
@@ -459,13 +406,6 @@ public abstract class AnyKeyboard extends Keyboard
 	
 	public boolean isShiftLocked() {
 		return mShiftState == SHIFT_LOCKED;
-	}
-
-	protected void onKeyShifted(ShiftedKeyData data, boolean shiftState) 
-	{
-		AnyKey aKey = data.KeyboardKey;
-		if (aKey.label != null && aKey.label.length() > 0)
-			aKey.label = shiftState? ""+data.ShiftCharacter : ""+((char)aKey.codes[0]);
 	}
 	
 	protected void setPopupKeyChars(Key aKey) 

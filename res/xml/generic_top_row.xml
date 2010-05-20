@@ -3,7 +3,7 @@
 <!-- generic top row -->
 <Row xmlns:android="http://schemas.android.com/apk/res/android" android:rowEdgeFlags="top"
    android:keyWidth="45%p"
-   android:keyHeight="5%p">
-   	<Key android:codes="-2" android:keyLabel="&#8592; 123 &#8592;" android:keyEdgeFlags="left"/>
-	<Key android:codes="-99" android:horizontalGap="10%p" android:keyLabel="&#8594; ABC &#8594;" android:keyEdgeFlags="right"/>
+   android:keyHeight="10%p">
+   	<Key android:codes="-2" android:keyLabel="@string/change_symbols_regular" android:keyEdgeFlags="left"/>
+	<Key android:codes="-99" android:horizontalGap="10%p" android:keyLabel="@string/change_lang_regular" android:keyEdgeFlags="right"/>
 </Row>

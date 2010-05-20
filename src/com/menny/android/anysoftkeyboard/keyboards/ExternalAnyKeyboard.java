@@ -98,13 +98,24 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	}
 
 	private void addGenericRows(AnyKeyboardContextProvider askContext, Context context) {
-		String layoutChangeType = AnySoftKeyboardConfiguration.getInstance().getChangeLayoutKeysSize();
-		//top row
-		if (!layoutChangeType.equals("None"))
-		{
-			KeyboardMetadata topMd = addKeyboardRow(askContext.getApplicationContext(), R.xml.generic_top_row);
+		final String keysMode = AnySoftKeyboardConfiguration.getInstance().getChangeLayoutKeysSize();
+		final KeyboardMetadata topMd;
+        if (keysMode.equals("None"))
+        {
+        	topMd = null;
+        }
+        else if (keysMode.equals("Big"))
+        {
+        	topMd = addKeyboardRow(askContext.getApplicationContext(), R.xml.generic_top_row);
+        }
+        else
+        {
+        	topMd = addKeyboardRow(askContext.getApplicationContext(), R.xml.generic_half_top_row);
+        }
+        
+		if (topMd != null)
 			fixKeyboardDueToGenericRow(topMd);
-		}
+
 		KeyboardMetadata bottomMd = addKeyboardRow(askContext.getApplicationContext(), R.xml.generic_bottom_row);
 		fixKeyboardDueToGenericRow(bottomMd);
 	}

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- generic top row -->
+<Row xmlns:android="http://schemas.android.com/apk/res/android" android:rowEdgeFlags="top"
+   android:keyWidth="45%p"
+   android:keyHeight="5%p">
+   	<Key android:codes="-2" android:keyLabel="@string/change_symbols_wide" android:keyEdgeFlags="left"/>
+	<Key android:codes="-99" android:horizontalGap="10%p" android:keyLabel="@string/change_lang_wide" android:keyEdgeFlags="right"/>
+</Row>
