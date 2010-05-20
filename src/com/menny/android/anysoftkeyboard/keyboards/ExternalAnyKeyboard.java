@@ -17,7 +17,7 @@ import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
-import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.LessSensitiveAnyKey;
+
 
 public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTranslator {
 
@@ -326,9 +326,18 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	private int[] getKeyCodesFromPhysicalSequence(String keyCodesArray) {
 		String[] splitted = keyCodesArray.split(",");
 		int[] keyCodes = new int[splitted.length];
-		for(int i=0;i<keyCodes.length;i++)
-		{
-			keyCodes[i] = Integer.parseInt(splitted[i]);
+		for (int i = 0; i < keyCodes.length; i++) {
+			try {
+				keyCodes[i] = Integer.parseInt(splitted[i]);//try parsing as an integer
+			} catch (final NumberFormatException nfe) {//no an integer
+				final String v = splitted[i];
+				try {
+					keyCodes[i] = android.view.KeyEvent.class.getField(v)
+							.getInt(null);//here comes the reflection
+				} catch (final Exception ex) {//crap :(
+					throw new RuntimeException(ex);//bum
+				}
+			}
 		}
 
 		return keyCodes;
