@@ -7,7 +7,7 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-         android:layout_marginTop="0px">
+         android:layout_marginTop="0dp">
         <TabWidget
             android:id="@android:id/tabs"
             android:layout_width="fill_parent"
@@ -19,23 +19,23 @@
             <LinearLayout android:id="@+id/main_tab1" android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="vertical">
 				<ScrollView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1">
 					<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical"
-			    	     android:layout_marginLeft="5px"
-				         android:layout_marginRight="5px">
-						<TextView android:text="@string/how_to_pointer_title" android:textSize="20px" android:layout_width="fill_parent" android:layout_height="wrap_content"
+			    	     android:layout_marginLeft="5dp"
+				         android:layout_marginRight="5dp">
+						<TextView android:text="@string/how_to_pointer_title" android:textSize="16sp" android:layout_width="fill_parent" android:layout_height="wrap_content"
 							android:textStyle="bold"></TextView>
-						<TextView android:text="@string/how_to_pointer_version_prefix" android:textSize="12px" android:layout_width="fill_parent" android:layout_height="wrap_content"
+						<TextView android:text="@string/how_to_pointer_version_prefix" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"
 							android:textStyle="bold"></TextView>
-						<TextView android:id="@+id/main_title_version" android:text="" android:textSize="12px" android:layout_width="fill_parent" android:layout_height="wrap_content"
+						<TextView android:id="@+id/main_title_version" android:text="" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"
 							android:textStyle="bold"></TextView>
 						<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
 							<ImageView android:layout_height="wrap_content" android:src="@drawable/twitter" android:layout_width="wrap_content"></ImageView>
-							<TextView android:text="http://twitter.com/anysoftkeyboard" android:autoLink="web" android:textSize="12px" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+							<TextView android:text="http://twitter.com/anysoftkeyboard" android:autoLink="web" android:textSize="12sp" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
 						</LinearLayout>
-						<LinearLayout android:layout_marginTop="5px" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+						<LinearLayout android:layout_marginTop="5dp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
 							<ImageView android:layout_height="wrap_content" android:src="@drawable/welcome_keyboard_image" android:layout_width="wrap_content"></ImageView>
-							<TextView android:text="@string/how_to_pointer_not_app" android:textSize="16px" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+							<TextView android:text="@string/how_to_pointer_not_app" android:textSize="14sp" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
 						</LinearLayout>
-						<TextView android:layout_marginTop="3px" android:text="@string/how_to_pointer_go_to_links" android:textSize="16px" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+						<TextView android:layout_marginTop="3dp" android:text="@string/how_to_pointer_go_to_links" android:textSize="14sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
 						<Button android:id="@+id/goto_settings_button" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/ime_settings" android:layout_gravity="center"/>
 						<Button android:id="@+id/goto_changelog_button" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/changelog" android:layout_gravity="center"/>
 					</LinearLayout>
@@ -44,44 +44,44 @@
 			<LinearLayout android:id="@+id/main_tab2" android:layout_width="fill_parent" android:layout_height="fill_parent" android:orientation="vertical">
 				<ScrollView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1">
 					<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical"
-						android:layout_marginLeft="5px"
-				        android:layout_marginRight="5px">
-						<TextView android:text="@string/how_to_pointer_how_to_url" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
-						<TextView android:text="http://code.google.com/p/softkeyboard/wiki/HowTo" android:textSize="14px" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
-						<TextView android:text="@string/how_to_pointer_site" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
-						<TextView android:text="http://code.google.com/p/softkeyboard/" android:textSize="14px" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
-						<TextView android:text="@string/how_to_pointer_changelog" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
-						<TextView android:text="http://code.google.com/p/softkeyboard/wiki/ChangeLog" android:textSize="14px" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
-						<TextView android:text="@string/how_to_pointer_issues" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
-						<TextView android:text="http://code.google.com/p/softkeyboard/issues/list" android:textSize="14px" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
+						android:layout_marginLeft="5dp"
+				        android:layout_marginRight="5dp">
+						<TextView android:text="@string/how_to_pointer_how_to_url" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
+						<TextView android:text="http://s.evendanan.net/ask_howto" android:textSize="12sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
+						<TextView android:text="@string/how_to_pointer_site" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
+						<TextView android:text="http://s.evendanan.net/ask" android:textSize="12sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
+						<TextView android:text="@string/how_to_pointer_changelog" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
+						<TextView android:text="http://s.evendanan.net/ask_changelog" android:textSize="12sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
+						<TextView android:text="@string/how_to_pointer_issues" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
+						<TextView android:text="http://s.evendanan.net/ask_issues" android:textSize="12sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
 					</LinearLayout>
 				</ScrollView>
 			</LinearLayout>
             <LinearLayout android:id="@+id/main_tab3" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical">
             	<ScrollView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1">
             		<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical"
-            			android:layout_marginLeft="5px"
-				        android:layout_marginRight="5px">
-            			<TextView android:text="@string/main_tab_credits_title" android:textSize="18px" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
-            			<TextView android:text="@string/main_tab_credits_created_by" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
-            			<TextView android:text="Menny Even Danan" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
-            			<TextView android:text="@string/main_tab_credits_additional_work_by" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
-            			<TextView android:text="Hezi Cohen" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
-            			<TextView android:text="Hugo Lopes" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
-						<TextView android:text="Henrik Andersson" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
-						<TextView android:text="Sami Salonen" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
-            			<TextView android:text="@string/main_tab_credits_GUI_by" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
-            			<TextView android:text="Roy Barina" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
-            			<TextView android:text="@string/main_tab_credits_localization_by" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5px"></TextView>
-            			<TextView android:text="Dmitry Briskin" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
-            			<TextView android:text="Alexander Jordanov" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
-            			<TextView android:text="Andrej Živec" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
-            			<TextView android:text="Dror Buhnik" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
-            			<TextView android:text="Alex Buloichik" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
-            			<TextView android:text="Radostin Radnev" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
-            			<TextView android:text="Joan Montané" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
-            			<TextView android:text="Johann Dirry" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
-            			<TextView android:text="Ayman Alsanad" android:textSize="14px" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			android:layout_marginLeft="5dp"
+				        android:layout_marginRight="5dp">
+            			<TextView android:text="@string/main_tab_credits_title" android:textSize="16sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:text="@string/main_tab_credits_created_by" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
+            			<TextView android:text="Menny Even Danan" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:text="@string/main_tab_credits_additional_work_by" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
+            			<TextView android:text="Hezi Cohen" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:text="Hugo Lopes" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+						<TextView android:text="Henrik Andersson" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+						<TextView android:text="Sami Salonen" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:text="@string/main_tab_credits_GUI_by" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
+            			<TextView android:text="Roy Barina" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:text="@string/main_tab_credits_localization_by" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
+            			<TextView android:text="Dmitry Briskin" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:text="Alexander Jordanov" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:text="Andrej Živec" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:text="Dror Buhnik" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:text="Alex Buloichik" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:text="Radostin Radnev" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:text="Joan Montané" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:text="Johann Dirry" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:text="Ayman Alsanad" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
             		</LinearLayout>
             	</ScrollView>
 			</LinearLayout>
