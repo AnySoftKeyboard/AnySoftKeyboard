@@ -102,7 +102,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private WordComposer mWord = new WordComposer();
 
 	private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
-	
+
 	private int mCommittedLength;
 	private boolean mPredicting;
 	private CharSequence mBestWord;
@@ -136,6 +136,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private AudioManager mAudioManager;
 	private NotificationManager mNotificationManager;
 
+	private static AnySoftKeyboard INSTANCE;
+
 	// private final HardKeyboardTranslator mGenericKeyboardTranslator;
 
 	Handler mHandler = new Handler() {
@@ -151,11 +153,16 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private boolean mSpaceSent;
 
+	public static AnySoftKeyboard getInstance() {
+		return INSTANCE;
+	}
+
 	public AnySoftKeyboard() {
 		// mGenericKeyboardTranslator = new
 		// GenericPhysicalKeyboardTranslator(this);
 		mConfig = AnySoftKeyboardConfiguration.getInstance();
 		mHardKeyboardAction = new HardKeyboardActionImpl();
+		INSTANCE = this;
 	}
 
 	@Override
@@ -172,7 +179,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 		// setStatusIcon(R.drawable.ime_qwerty);
 		loadSettings();
-		mKeyboardSwitcher = new KeyboardSwitcher(this);
+		mKeyboardSwitcher = KeyboardSwitcher.getInstance();
+		mKeyboardSwitcher.setContext(this);
 		if (mSuggest == null) {
 			// should it be always on?
 			if (mKeyboardChangeNotificationType
@@ -180,13 +188,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 				notifyKeyboardChangeIfNeeded();
 			initSuggest(/* getResources().getConfiguration().locale.toString() */);
 		}
-		
+
 		mOrientation = getResources().getConfiguration().orientation;
 
 		SharedPreferences sp = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		sp.registerOnSharedPreferenceChangeListener(this);
-		
+
 		TutorialsProvider.ShowTutorialsIfNeeded(AnySoftKeyboard.this);
 	}
 
@@ -220,7 +228,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mNotificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
 
 		TutorialsProvider.onServiceDestroy();
-		
+
 		super.onDestroy();
 	}
 
@@ -284,7 +292,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		{
 			return;
 		}
-		
+
 		mKeyboardSwitcher.makeKeyboards(false);
 		resetComposing();// clearing any predications
 		TextEntryState.newSession(this);
@@ -300,7 +308,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mCapsLock = false;
 		if (!restarting)
 		{
-			switch (attribute.inputType & EditorInfo.TYPE_MASK_CLASS) 
+			switch (attribute.inputType & EditorInfo.TYPE_MASK_CLASS)
 			{
 			case EditorInfo.TYPE_CLASS_NUMBER:
 			case EditorInfo.TYPE_CLASS_DATETIME:
@@ -320,7 +328,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 						|| variation == EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
 					mPredictionOn = false;
 				}
-	
+
 				if ((!AnySoftKeyboardConfiguration.getInstance().getInsertSpaceAfterCandidatePick()) ||//some users want to never get spaces added
 						variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS ||
 						variation == EditorInfo.TYPE_TEXT_VARIATION_PERSON_NAME)
@@ -759,7 +767,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			final String keyboardName = current.getKeyboardName();
 
 			Notification notification = new Notification();
-			
+
 			Intent notificationIntent = new Intent();
 			PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
 					notificationIntent, 0);
@@ -770,7 +778,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			//this will not work. Need to find a way to show notification as a different package.
 			//notification.icon = current.getKeyboardIconResId();
 			notification.icon = R.drawable.notification_icon;
-			
+
 			if (mKeyboardChangeNotificationType.equals("1")) {
 				notification.flags |= Notification.FLAG_ONGOING_EVENT;
 				notification.flags |= Notification.FLAG_NO_CLEAR;
@@ -1227,7 +1235,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 
 		sendKeyChar((char) primaryCode);
-		
+
 		TextEntryState.typedCharacter((char) primaryCode, true);
 		if (TextEntryState.getState() == TextEntryState.STATE_PUNCTUATION_AFTER_ACCEPTED
 				&& primaryCode != KEYCODE_ENTER && mSpaceSent) {
@@ -1754,7 +1762,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		return handled;
 	}
 
-	private void setMainDictionaryForCurrentKeyboard() {
+	/*package*/ void setMainDictionaryForCurrentKeyboard() {
 		if (mSuggest != null) {
 			if (!mShowSuggestions) {
 				Log

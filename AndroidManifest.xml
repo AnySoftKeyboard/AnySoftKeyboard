@@ -1,4 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" 
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.menny.android.anysoftkeyboard"
         android:versionCode="24" android:versionName="20100520-x-dvtel">
 	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key">
@@ -8,11 +8,20 @@
 	        </intent-filter>
 	        <meta-data android:name="android.view.im" android:resource="@xml/method" />
 	    </service>
+	    <receiver android:name=".PackagesChangedReceiver">
+	    	<intent-filter>
+	    		<category android:name="android.intent.category.DEFAULT" />
+	    		<action android:name="android.intent.action.PACKAGE_CHANGED"/>
+	    		<action android:name="android.intent.action.PACKAGE_REMOVED"/>
+	    		<action android:name="android.intent.action.PACKAGE_INSTALL"/>
+	    		<data android:scheme="package" />
+	    	</intent-filter>
+	    </receiver>
 	    <activity android:name=".SoftKeyboardSettings" android:label="Settings">
 	    </activity>
 	    <activity android:name=".tutorials.TutorialActivity" android:label="Tutorial">
 	    </activity>
-	    
+
 	    <activity android:name=".MainForm"
                   android:label="@string/ime_name">
             <intent-filter>
@@ -26,7 +35,7 @@
     <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
 	<uses-sdk android:minSdkVersion="3" android:targetSdkVersion="4"></uses-sdk>
-<!-- 	
+<!--
 	<receiver android:name="PackageAddedReceiver">
 		<intent-filter>
 			<action android:name="android.intent.action.PACKAGE_REMOVED" />
@@ -35,9 +44,9 @@
 	        <data android:scheme="package" />
 		</intent-filter>
 	</receiver>
- -->        
+ -->
 	<supports-screens
-          android:largeScreens="true" 
+          android:largeScreens="true"
           android:normalScreens="true"
           android:smallScreens="true"
           android:anyDensity="true" />
