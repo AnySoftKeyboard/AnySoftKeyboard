@@ -1345,7 +1345,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	}
 
-	public void pickSuggestionManually(int index, CharSequence suggestion) {
+	public CharSequence pickSuggestionManually(int index, CharSequence suggestion) {
 		if (mCompletionOn && mCompletions != null && index >= 0
 				&& index < mCompletions.length) {
 			CompletionInfo ci = mCompletions[index];
@@ -1358,9 +1358,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 				mCandidateView.clear();
 			}
 			updateShiftKeyState(getCurrentInputEditorInfo());
-			return;
+			return suggestion;
 		}
-		pickSuggestion(suggestion);
+		suggestion = pickSuggestion(suggestion);
 		TextEntryState.acceptedSuggestion(mComposing.toString(), suggestion);
 		// Follow it with a space
 		if (mAutoSpace) {
@@ -1370,9 +1370,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// Fool the state watcher so that a subsequent backspace will not do a
 		// revert
 		TextEntryState.typedCharacter((char) KEYCODE_SPACE, true);
+		return suggestion;
 	}
 
-	private void pickSuggestion(CharSequence suggestion) {
+	private CharSequence pickSuggestion(CharSequence suggestion) {
 		if (mCapsLock) {
 			suggestion = suggestion.toString().toUpperCase();
 		} else if (preferCapitalization()
@@ -1381,6 +1382,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			suggestion = Character.toUpperCase(suggestion.charAt(0))
 					+ suggestion.subSequence(1, suggestion.length()).toString();
 		}
+
 		InputConnection ic = getCurrentInputConnection();
 		if (ic != null) {
 			ic.commitText(suggestion, 1);
@@ -1391,6 +1393,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mCandidateView.setSuggestions(null, false, false, false);
 		}
 		updateShiftKeyState(getCurrentInputEditorInfo());
+
+		return suggestion;
 	}
 
 	private boolean isCursorTouchingWord() {
