@@ -43,7 +43,7 @@
     </string-array>
     
     <string name="physical_keyboard_change_notification_title">Avís de canvi de teclat</string>
-    <string name="physical_keyboard_change_notification_summary">Tipus d'avís del teclat actiu</string>
+    <string name="physical_keyboard_change_notification_summary">Tipus d\'avís del teclat actiu</string>
     <string name="physical_keyboard_change_notification_dialog_title">Seleccioneu el tipus de notificació</string>
     <string-array name="physical_keyboard_change_notification_types">
         <item>Mostra sempre la icona del teclat actiu</item>
