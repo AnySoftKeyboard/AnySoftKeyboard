@@ -58,7 +58,7 @@ class AndroidUserDictionary extends UserDictionaryBase {
                 // Safeguard against adding really long words. Stack may overflow due
                 // to recursion
                 if (word.length() < MAX_WORD_LENGTH) {
-                	addWordFromStorage(word.toLowerCase(), frequency);
+                	addWordFromStorage(word, frequency);
                 }
                 cursor.moveToNext();
             }
