@@ -1,12 +1,12 @@
 /*
  * Copyright (C) 2008-2009 Google Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -27,14 +27,14 @@ public class WordComposer {
      * The list of unicode values for each keystroke (including surrounding keys)
      */
     private List<int[]> mCodes;
-    
+
     /**
      * The word chosen from the candidate list, until it is committed.
      */
     private String mPreferredWord;
-    
+
     private StringBuilder mTypedWord;
-    
+
     /**
      * Whether the user chose to capitalize the word.
      */
@@ -78,11 +78,11 @@ public class WordComposer {
      * @param codes the array of unicode values
      */
     public void add(int primaryCode, int[] codes) {
-        mTypedWord.append(Character.toLowerCase((char) primaryCode));
+        mTypedWord.append((char) primaryCode);
         mCodes.add(codes);
         if (mTypedWord.length() == 1)
         {
-        	mIsCapitalized = Character.isUpperCase(primaryCode);        	
+        	mIsCapitalized = Character.isUpperCase(primaryCode);
         }
     }
 
@@ -92,7 +92,7 @@ public class WordComposer {
     public void deleteLast() {
         deleteLast(1);
     }
-    
+
     public void deleteLast(int count) {
     	int codesLength = mCodes.size();
     	int typedWordLength = mTypedWord.length();
@@ -100,10 +100,10 @@ public class WordComposer {
     	{
     		if (codesLength > 0)
     			mCodes.remove(codesLength - 1);
-    		
+
     		if (typedWordLength > 0)
     			mTypedWord.deleteCharAt(typedWordLength - 1);
-    		
+
     		codesLength--;
     		typedWordLength--;
     	}
@@ -133,7 +133,7 @@ public class WordComposer {
     public void setCapitalized(boolean capitalized) {
         mIsCapitalized = capitalized;
     }
-    
+
     /**
      * Whether or not the user typed a capital letter as the first letter in the word
      * @return capitalization preference
@@ -141,7 +141,7 @@ public class WordComposer {
     public boolean isCapitalized() {
         return mIsCapitalized;
     }
-    
+
     /**
      * Stores the user's selected word, before it is actually committed to the text field.
      * @param preferred
@@ -149,7 +149,7 @@ public class WordComposer {
     public void setPreferredWord(String preferred) {
         mPreferredWord = preferred;
     }
-    
+
     /**
      * Return the word chosen by the user, or the typed word if no other word was chosen.
      * @return the preferred word
@@ -158,14 +158,14 @@ public class WordComposer {
         return mPreferredWord != null ? mPreferredWord : getTypedWord();
     }
 
-	public void append(CharSequence textToAdd) 
+	public void append(CharSequence textToAdd)
 	{
-		String loweredText = textToAdd.toString().toLowerCase();
-		mTypedWord.append(loweredText);
-		for(int i=0; i<loweredText.length();i++)
+		mTypedWord.append(textToAdd);
+		int len = textToAdd.length();
+		for(int i=0; i < len; i++)
 		{
-			char c = loweredText.charAt(i);
+			char c = textToAdd.charAt(i);
 			mCodes.add(new int[]{c});
-		}		
+		}
 	}
 }

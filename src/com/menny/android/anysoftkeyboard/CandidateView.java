@@ -507,14 +507,10 @@ public class CandidateView extends View {
     }
 
     private void longPressFirstWord() {
-    	mSelectedIndex = 0;
-    	mSelectedString = mSuggestions.get(0);
-    	CharSequence suggestion = mService.pickSuggestionManually(mSelectedIndex, mSelectedString);
-        mSelectedString = null;
-        mSelectedIndex = OUT_OF_BOUNDS;
+    	CharSequence word = mSuggestions.get(0);
 
-        if (mService.addWordToDictionary(suggestion.toString())) {
-            showPreview(0, getContext().getResources().getString(R.string.added_word, suggestion));
+        if (mService.addWordToDictionary(word.toString())) {
+            showPreview(0, getContext().getResources().getString(R.string.added_word, word));
         }
     }
 
