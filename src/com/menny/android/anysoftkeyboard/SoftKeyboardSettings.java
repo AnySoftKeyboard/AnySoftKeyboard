@@ -57,7 +57,7 @@ public class SoftKeyboardSettings extends PreferenceActivity {
 		//getting all keyboards
 		final ArrayList<KeyboardBuilder> creators = KeyboardBuildersFactory.getAllBuilders(getApplicationContext());
 		final PreferenceCategory keyboards = (PreferenceCategory)super.findPreference("prefs_keyboards_screen");
-
+		keyboards.removeAll();
 		for(final KeyboardBuilder creator : creators)
 		{
 		    final Context creatorContext = creator.getPackageContext() == null?
