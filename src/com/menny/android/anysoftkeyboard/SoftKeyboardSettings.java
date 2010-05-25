@@ -20,14 +20,14 @@ import java.util.ArrayList;
 public class SoftKeyboardSettings extends PreferenceActivity {
 
 	// Number of preferences without loading external keyboards
-	private int default_preference_count = 0;
+	private int mDefaultPreferencesCount = 0;
 
 	@Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         addPreferencesFromResource(R.layout.prefs);
         final PreferenceCategory keyboards = (PreferenceCategory)super.findPreference("prefs_keyboards_screen");
-        default_preference_count = keyboards.getPreferenceCount();
+        mDefaultPreferencesCount = keyboards.getPreferenceCount();
 
 
         String version = "";
@@ -100,9 +100,9 @@ public class SoftKeyboardSettings extends PreferenceActivity {
 	private void removeNonDefaultPreferences() {
 		// We keep the preferences defined in the xml, everything else goes
 		final PreferenceCategory keyboards = (PreferenceCategory)super.findPreference("prefs_keyboards_screen");
-		while(keyboards.getPreferenceCount() > default_preference_count)
+		while(keyboards.getPreferenceCount() > mDefaultPreferencesCount)
 		{
-			keyboards.removePreference(keyboards.getPreference(default_preference_count));
+			keyboards.removePreference(keyboards.getPreference(mDefaultPreferencesCount));
 		}
 	}
 

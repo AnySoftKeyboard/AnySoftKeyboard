@@ -36,7 +36,7 @@
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
-		        android:text="20100519 - 25"
+		        android:text="20100525 - 25"
 		        android:textStyle="bold"
 		        android:gravity="center"
 		        android:textSize="16sp"
@@ -52,7 +52,17 @@
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
-		        android:text="* Bugs fixes"
+		        android:text="* Fix for re-loading external packages on install/upgrade/uninstall (fixes reboot requirement)."
+		        android:textSize="16sp"
+		        android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"
+		        android:textColor="#AAA"
+		        />
+		    <TextView
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:text="* Additional bug fixes"
 		        android:textSize="16sp"
 		        android:paddingTop="4dp"
 		        android:paddingLeft="12dp"
