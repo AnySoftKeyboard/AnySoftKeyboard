@@ -18,10 +18,17 @@ import android.util.Log;
 import java.util.ArrayList;
 
 public class SoftKeyboardSettings extends PreferenceActivity {
+
+	// Number of preferences without loading external keyboards
+	private int default_preference_count = 0;
+
 	@Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         addPreferencesFromResource(R.layout.prefs);
+        final PreferenceCategory keyboards = (PreferenceCategory)super.findPreference("prefs_keyboards_screen");
+        default_preference_count = keyboards.getPreferenceCount();
+
 
         String version = "";
         try {
@@ -57,7 +64,9 @@ public class SoftKeyboardSettings extends PreferenceActivity {
 		//getting all keyboards
 		final ArrayList<KeyboardBuilder> creators = KeyboardBuildersFactory.getAllBuilders(getApplicationContext());
 		final PreferenceCategory keyboards = (PreferenceCategory)super.findPreference("prefs_keyboards_screen");
-		keyboards.removeAll();
+
+		removeNonDefaultPreferences();
+
 		for(final KeyboardBuilder creator : creators)
 		{
 		    final Context creatorContext = creator.getPackageContext() == null?
@@ -85,6 +94,15 @@ public class SoftKeyboardSettings extends PreferenceActivity {
 			checkBox.setSummaryOff(creator.getDescription());
 
 			keyboards.addPreference(checkBox);
+		}
+	}
+
+	private void removeNonDefaultPreferences() {
+		// We keep the preferences defined in the xml, everything else goes
+		final PreferenceCategory keyboards = (PreferenceCategory)super.findPreference("prefs_keyboards_screen");
+		while(keyboards.getPreferenceCount() > default_preference_count)
+		{
+			keyboards.removePreference(keyboards.getPreference(default_preference_count));
 		}
 	}
 
