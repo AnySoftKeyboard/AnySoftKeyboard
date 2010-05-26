@@ -8,7 +8,7 @@
     <Key android:codes="44" android:keyLabel=","/>
     
     <Key android:horizontalGap="2.5%p" android:codes="32"
-            android:keyWidth="25%p" android:isRepeatable="true"/>
+            android:keyWidth="25%p"/>
     
     <Key android:horizontalGap="2.5%p" android:codes="46" android:keyLabel="."/>
     <Key android:codes="39" android:keyLabel="\'"/>
