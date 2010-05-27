@@ -333,7 +333,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 				final String v = splitted[i];
 				try {
 					keyCodes[i] = android.view.KeyEvent.class.getField(v)
-							.getInt(null);//here comes the reflection
+							.getInt(null);//here comes the reflection. No bother of performance.
+					//First hit takes just 20 milliseconds, the next hits <2 Milliseconds.
 				} catch (final Exception ex) {//crap :(
 					throw new RuntimeException(ex);//bum
 				}
