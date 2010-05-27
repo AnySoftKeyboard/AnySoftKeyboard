@@ -145,6 +145,9 @@
     <string name="action_key_invisible_on_disable_on_summary">Action key will be invisible when GUI requests</string>
     <string name="action_key_invisible_on_disable_off_summary">Action key will be visible even if GUI requests</string>
     
+    <string name="rtl_workaround_detection_title">RTL detection type</string>
+    <string name="rtl_workaround_detection_summary">Right-to-Left languages text fix</string>
+    
     <string name="auto_caps">Auto-capitalization</string>
     <string name="grammer_group">Grammar</string>
     <string name="candidates_on">Show suggestions</string>

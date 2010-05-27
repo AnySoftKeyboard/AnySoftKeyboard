@@ -82,7 +82,7 @@ public class Workarounds
 	public static int workaroundParenthesisDirectionFix(int primaryCode)
 	{
 		//Android does not support the correct direction of parenthesis in right-to-left langs.
-		if (!ms_requiresRtlWorkaround)
+		if (!getRtlWorkaround())
 			return primaryCode;//I hope Galaxy has the fix...
 		
 		if (primaryCode == (int)')')
@@ -97,7 +97,7 @@ public class Workarounds
     {
 		//Hebrew letters are to be drawn in the other direction.
     	//Also, this is not valid for Galaxy (Israel's Cellcom Android)
-    	if (!ms_requiresRtlWorkaround)
+    	if (!getRtlWorkaround())
 			return suggestion;
 		
     	//this function is a workaround! In the official 1.5 firmware, there is a RTL bug.
@@ -112,6 +112,16 @@ public class Workarounds
     	}
     	else
     		return suggestion;
+	}
+
+	public static boolean getRtlWorkaround() {
+		String configRtlWorkaround = AnySoftKeyboardConfiguration.getInstance().getRtlWorkaroundConfiguration();
+		if (configRtlWorkaround.equals("auto"))
+			return ms_requiresRtlWorkaround;
+		else if (configRtlWorkaround.equals("workaround"))
+			return true;
+		else 
+			return false;			
 	}
 
 	public static boolean isDonut() {

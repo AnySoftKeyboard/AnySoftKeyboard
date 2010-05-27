@@ -40,4 +40,16 @@
         <item>cursor_left</item>
         <item>cursor_right</item>
     </string-array>
+    
+    <string-array name="rtl_workaround_detectionn_types">
+        <item>Automatic</item>
+        <item>Force workaround</item>
+        <item>Force no workaround</item>
+    </string-array>
+    
+    <string-array name="rtl_workaround_detection_types_values">
+        <item>auto</item>
+        <item>workaround</item>
+        <item>no_workaround</item>
+    </string-array>
 </resources>

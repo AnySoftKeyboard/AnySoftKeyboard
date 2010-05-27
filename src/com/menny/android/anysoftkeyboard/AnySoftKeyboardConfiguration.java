@@ -13,6 +13,7 @@ import android.util.Log;
 
 public abstract class AnySoftKeyboardConfiguration 
 {
+	private static final String TAG = "ASK_Cfg";
 	private static final AnySoftKeyboardConfiguration msInstance;
 	
 	static 
@@ -53,6 +54,8 @@ public abstract class AnySoftKeyboardConfiguration
 	
 	public abstract int getDeviceOrientation();
 	
+	public abstract String getRtlWorkaroundConfiguration();
+	
 	static class AnySoftKeyboardConfigurationImpl extends AnySoftKeyboardConfiguration
 	{
 		private InputMethodService mIme;
@@ -74,7 +77,8 @@ public abstract class AnySoftKeyboardConfiguration
 		private int mSwipeLeftKeyCode;
 		private int mSwipeRightKeyCode;
 		private boolean mActionKeyInvisibleWhenRequested = false;
-				
+		private String mRtlWorkaround ="auto";
+		
 		public AnySoftKeyboardConfigurationImpl()
 		{
 			
@@ -84,16 +88,16 @@ public abstract class AnySoftKeyboardConfiguration
 		{
 			mIme = ime;
 			
-			Log.i("AnySoftKeyboard", "** Locale:"+ mIme.getResources().getConfiguration().locale.toString());
+			Log.i(TAG, "** Locale:"+ mIme.getResources().getConfiguration().locale.toString());
 			String version = "NONE";
 			int releaseNumber = 0;
 	        try {
 				PackageInfo info = mIme.getApplication().getPackageManager().getPackageInfo(mIme.getApplication().getPackageName(), 0);
 				version = info.versionName;
 				releaseNumber = info.versionCode;
-				Log.i("AnySoftKeyboard", "** Version: "+version);
+				Log.i(TAG, "** Version: "+version);
 			} catch (NameNotFoundException e) {
-				Log.e("AnySoftKeyboard", "Failed to locate package information! This is very weird... I'm installed.");
+				Log.e(TAG, "Failed to locate package information! This is very weird... I'm installed.");
 			}
 			
 			mDEBUG = ((releaseNumber % 2) == 0);//even versions are TESTERS
@@ -103,9 +107,9 @@ public abstract class AnySoftKeyboardConfiguration
 				if (version.contains("RC"))
 					mDEBUG = false;
 			}
-			Log.i("AnySoftKeyboard", "** Version: "+version);
-			Log.i("AnySoftKeyboard", "** Release code: "+releaseNumber);
-			Log.i("AnySoftKeyboard", "** Debug: "+mDEBUG);
+			Log.i(TAG, "** Version: "+version);
+			Log.i(TAG, "** Release code: "+releaseNumber);
+			Log.i(TAG, "** Debug: "+mDEBUG);
 			SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mIme);
 			upgradeSettingsValues(sp);
 			
@@ -113,18 +117,18 @@ public abstract class AnySoftKeyboardConfiguration
 		}
 		
 		private void upgradeSettingsValues(SharedPreferences sp) {
-			Log.d("AnySoftKeyboard", "Checking if configuration upgrade is needed.");
+			Log.d(TAG, "Checking if configuration upgrade is needed.");
 			String currentChangeLayoutKeysSize = sp.getString("keyboard_layout_change_method", "Small");
 			if ((currentChangeLayoutKeysSize == null) || (currentChangeLayoutKeysSize.length() == 0) ||
 				(currentChangeLayoutKeysSize.equals("1")) || (currentChangeLayoutKeysSize.equals("2")) || (currentChangeLayoutKeysSize.equals("3")))
 			{
 				String newValue = "Small";
-				Log.d("AnySoftKeyboard", "keyboard_layout_change_method holds an old value: "+(currentChangeLayoutKeysSize != null? currentChangeLayoutKeysSize : "NULL"));
+				Log.d(TAG, "keyboard_layout_change_method holds an old value: "+(currentChangeLayoutKeysSize != null? currentChangeLayoutKeysSize : "NULL"));
 				if (currentChangeLayoutKeysSize.equals("1")) newValue = "Small";
 				else if (currentChangeLayoutKeysSize.equals("2")) newValue = "None";
 				else if (currentChangeLayoutKeysSize.equals("3")) newValue = "Big";
 				Editor e = sp.edit();
-				Log.d("AnySoftKeyboard", "keyboard_layout_change_method will be changed to: "+newValue);
+				Log.d(TAG, "keyboard_layout_change_method will be changed to: "+newValue);
 				e.putString("keyboard_layout_change_method", newValue);
 				e.commit();
 			}
@@ -132,7 +136,7 @@ public abstract class AnySoftKeyboardConfiguration
 		
 		public boolean handleConfigurationChange(SharedPreferences sp)
 		{
-			Log.i("AnySoftKeyboard", "**** handleConfigurationChange: ");
+			Log.i(TAG, "**** handleConfigurationChange: ");
 			boolean handled = false;
 			//if a change in the configuration requires rebuilding the keyboards, 'forceRebuildOfKeyboards' should set to 'true'
 			boolean forceRebuildOfKeyboards = false;
@@ -140,78 +144,84 @@ public abstract class AnySoftKeyboardConfiguration
 			String newLayoutChangeKeysSize = sp.getString("keyboard_layout_change_method", "Small");
 			forceRebuildOfKeyboards = forceRebuildOfKeyboards || (!newLayoutChangeKeysSize.equalsIgnoreCase(mLayoutChangeKeysSize));
 			mLayoutChangeKeysSize = newLayoutChangeKeysSize;
-			Log.i("AnySoftKeyboard", "** mChangeKeysMode: "+mLayoutChangeKeysSize);
+			Log.i(TAG, "** mChangeKeysMode: "+mLayoutChangeKeysSize);
 			
 			String newSmileyText = sp.getString("default_smiley_text", ":-) ");
 			handled = handled || (!newSmileyText.equals(mSmileyText));
 			mSmileyText = newSmileyText;
-			Log.i("AnySoftKeyboard", "** mSmileyText: "+mSmileyText);
+			Log.i(TAG, "** mSmileyText: "+mSmileyText);
 			
 			String newDomainText = sp.getString("default_domain_text", ".com");
 			handled = handled || (!newDomainText.equals(mDomainText));
 			mDomainText = newDomainText;
-			Log.i("AnySoftKeyboard", "** mDomainText: "+mDomainText);
+			Log.i(TAG, "** mDomainText: "+mDomainText);
 			
 			boolean newShowPreview = sp.getBoolean("key_press_preview_popup", true);
 			handled = handled || (newShowPreview != mShowKeyPreview);
 			mShowKeyPreview = newShowPreview;
-			Log.i("AnySoftKeyboard", "** mShowKeyPreview: "+mShowKeyPreview);
+			Log.i(TAG, "** mShowKeyPreview: "+mShowKeyPreview);
 
 			boolean newSwitchKeyboardOnSpace = sp.getBoolean("switch_keyboard_on_space", false);
 			handled = handled || (newSwitchKeyboardOnSpace != mSwitchKeyboardOnSpace);
 			mSwitchKeyboardOnSpace = newSwitchKeyboardOnSpace;
-			Log.i("AnySoftKeyboard", "** mSwitchKeyboardOnSpace: "+mSwitchKeyboardOnSpace);
+			Log.i(TAG, "** mSwitchKeyboardOnSpace: "+mSwitchKeyboardOnSpace);
 			
 			boolean newUseFullScreenInput = sp.getBoolean("fullscreen_input_connection_supported", true);
 			handled = handled || (newUseFullScreenInput != mUseFullScreenInput);
 			mUseFullScreenInput = newUseFullScreenInput;
-			Log.i("AnySoftKeyboard", "** mUseFullScreenInput: "+mUseFullScreenInput);
+			Log.i(TAG, "** mUseFullScreenInput: "+mUseFullScreenInput);
 			
 			// Fix issue 185
 			boolean newUseKeyRepeat = sp.getBoolean("use_keyrepeat", true);
 			handled = handled || ( newUseKeyRepeat != mUseKeyRepeat );
 			mUseKeyRepeat = newUseKeyRepeat;
-			Log.i("AnySoftKeyboard", "** mUseKeyRepeat: "+mUseKeyRepeat);
+			Log.i(TAG, "** mUseKeyRepeat: "+mUseKeyRepeat);
 			
 			float newKeyHeightFactorPortrait = getFloatFromString(sp, "zoom_factor_keys_in_portrait");
 			forceRebuildOfKeyboards = forceRebuildOfKeyboards || ( newKeyHeightFactorPortrait != mKeysHeightFactorInPortrait );
 			mKeysHeightFactorInPortrait = newKeyHeightFactorPortrait;
-			Log.i("AnySoftKeyboard", "** mKeysHeightFactorInPortrait: "+mKeysHeightFactorInPortrait);
+			Log.i(TAG, "** mKeysHeightFactorInPortrait: "+mKeysHeightFactorInPortrait);
 			
 			float newKeyHeightFactorLandscape = getFloatFromString(sp, "zoom_factor_keys_in_landscape");
 			forceRebuildOfKeyboards = forceRebuildOfKeyboards || ( newKeyHeightFactorLandscape != mKeysHeightFactorInLandscape );
 			mKeysHeightFactorInLandscape = newKeyHeightFactorLandscape;
-			Log.i("AnySoftKeyboard", "** mKeysHeightFactorInLandscape: "+mKeysHeightFactorInLandscape);
+			Log.i(TAG, "** mKeysHeightFactorInLandscape: "+mKeysHeightFactorInLandscape);
 			
 			boolean newInsertSpaceAfterCandidatePick = sp.getBoolean("insert_space_after_word_suggestion_selection", true);
 			handled = handled || ( newInsertSpaceAfterCandidatePick != mInsertSpaceAfterCandidatePick );
 			mInsertSpaceAfterCandidatePick = newInsertSpaceAfterCandidatePick;
-			Log.i("AnySoftKeyboard", "** mInsertSpaceAfterCandidatePick: "+mInsertSpaceAfterCandidatePick);
+			Log.i(TAG, "** mInsertSpaceAfterCandidatePick: "+mInsertSpaceAfterCandidatePick);
 			
 			int newSwipeUpValue = getIntFromSwipeConfiguration(sp, "swipe_up_action", "shift");
 			handled = handled || ( newSwipeUpValue != mSwipeUpKeyCode );
 			mSwipeUpKeyCode = newSwipeUpValue;
-			Log.i("AnySoftKeyboard", "** mSwipeUpKeyCode: "+mSwipeUpKeyCode);
+			Log.i(TAG, "** mSwipeUpKeyCode: "+mSwipeUpKeyCode);
 			
 			int newSwipeDownValue = getIntFromSwipeConfiguration(sp, "swipe_down_action", "hide");
 			handled = handled || ( newSwipeDownValue != mSwipeDownKeyCode );
 			mSwipeDownKeyCode = newSwipeDownValue;
-			Log.i("AnySoftKeyboard", "** mSwipeDownKeyCode: "+mSwipeDownKeyCode);
+			Log.i(TAG, "** mSwipeDownKeyCode: "+mSwipeDownKeyCode);
 			
 			int newSwipeLeftValue = getIntFromSwipeConfiguration(sp, "swipe_left_action", "next_symbols");
 			handled = handled || ( newSwipeLeftValue != mSwipeLeftKeyCode );
 			mSwipeLeftKeyCode = newSwipeLeftValue;
-			Log.i("AnySoftKeyboard", "** mSwipeLeftKeyCode: "+mSwipeLeftKeyCode);
+			Log.i(TAG, "** mSwipeLeftKeyCode: "+mSwipeLeftKeyCode);
 			
 			int newSwipeRightValue = getIntFromSwipeConfiguration(sp, "swipe_right_action", "next_alphabet");
 			handled = handled || ( newSwipeRightValue != mSwipeRightKeyCode );
 			mSwipeRightKeyCode = newSwipeRightValue;
-			Log.i("AnySoftKeyboard", "** mSwipeRightKeyCode: "+mSwipeRightKeyCode);
+			Log.i(TAG, "** mSwipeRightKeyCode: "+mSwipeRightKeyCode);
 			
 			boolean newActionKeyInvisibleWhenRequested = sp.getBoolean("action_key_invisible_on_disable", false);
 			handled = handled || ( newActionKeyInvisibleWhenRequested != mActionKeyInvisibleWhenRequested);
 			mActionKeyInvisibleWhenRequested = newActionKeyInvisibleWhenRequested;
-			Log.i("AnySoftKeyboard", "** mActionKeyInvisibleWhenRequested: "+mActionKeyInvisibleWhenRequested);
+			Log.i(TAG, "** mActionKeyInvisibleWhenRequested: "+mActionKeyInvisibleWhenRequested);
+			
+			String newRtlWorkaround = sp.getString("rtl_workaround_detection", "auto");
+			handled = handled || (!newRtlWorkaround.equals(mRtlWorkaround));
+			mRtlWorkaround = newRtlWorkaround;
+			Log.i(TAG, "** mRtlWorkaround: "+mRtlWorkaround);
+			
 			
 			return handled && (!forceRebuildOfKeyboards);
 		}
@@ -322,6 +332,11 @@ public abstract class AnySoftKeyboardConfiguration
 		@Override
 		public int getDeviceOrientation() {
 			return mIme.getApplicationContext().getResources().getConfiguration().orientation;
+		}
+
+		@Override
+		public String getRtlWorkaroundConfiguration() {
+			return mRtlWorkaround;
 		}
 	}
 }
