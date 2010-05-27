@@ -1,6 +1,7 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
 import java.util.HashMap;
+import java.util.StringTokenizer;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -8,7 +9,6 @@ import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
-import android.inputmethodservice.Keyboard.Key;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
@@ -524,6 +524,37 @@ public abstract class AnyKeyboard extends Keyboard
                 popupResId = 0;
             }
         }
+        //Issue 395
+        protected int[] parseCSV(String value) {
+            int count = 0;
+            int lastIndex = 0;
+            if (value.length() > 0) {
+                count++;
+                while ((lastIndex = value.indexOf(",", lastIndex + 1)) > 0) {
+                    count++;
+                }
+            }
+            int[] values = new int[count];
+            count = 0;
+            StringTokenizer st = new StringTokenizer(value, ",");
+            while (st.hasMoreTokens()) {
+            	String nextToken = st.nextToken();
+                try {
+                	if(nextToken.length() != 1 ){// length==0 means, Letters and perhaps 0-9
+                		//It is not interpreted by us as a keyCode :(
+                		//There are no printable Codes with length 1
+                		values[count++] = Integer.parseInt(nextToken);
+                	}else {
+                		// length == 1, assume a char!
+                		values[count++] = (int)nextToken.charAt(0);
+                	}
+                } catch (NumberFormatException nfe) {
+                    Log.e(TAG, "Error parsing keycodes " + value);
+                }
+            }
+            return values;
+        }
+
         
 //        void enableShiftLock() {
 //            mShiftLockEnabled = true;
