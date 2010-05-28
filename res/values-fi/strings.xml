@@ -144,6 +144,9 @@
     <string name="action_key_invisible_on_disable_on_summary">Toimintonäppäin on näkymätön GUIn sitä pyytäessä</string>
     <string name="action_key_invisible_on_disable_off_summary">Toimintonäppäin on näkyvissä vaikka GUI pyytää</string>
 
+	<string name="rtl_workaround_detection_title">Oikealta vasemmalle tekstin tunnistus</string>
+    <string name="rtl_workaround_detection_summary">Oikealta vasemmalle kielien korjaus</string>
+
 	<string name="auto_caps">Autokapitalisointi</string>
     <string name="grammer_group">Kielioppi</string>
     <string name="candidates_on">Näytä ehdotukset</string>
@@ -159,6 +162,7 @@
     <string name="keyboards_group">Näppäimistöt</string>
 	<string name="symbols_keyboard">Symbolit</string>
     <string name="eng_keyboard">Englanti</string>
+	<string name="eng_keyboard_compact">Kompakti Englanti</string>
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Näytä opastus käynnistyksen yhteydessä</string>
