@@ -1281,10 +1281,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	private boolean shouldCandidatesStripBeShown() {
-		boolean shown = isPredictionOn() && (mShowSuggestions || isFullscreenMode());
-		if (!onEvaluateInputViewShown())
-			shown &= mPredictionLandscape;
-		return shown;
+//		boolean shown = isPredictionOn() && (mShowSuggestions || isFullscreenMode());
+//		if (!onEvaluateInputViewShown())
+//			shown &= mPredictionLandscape;
+//		return shown;
+		return true;
 	}
 
 	private void updateSuggestions() {
@@ -1298,10 +1299,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 			return;
 		}
 
-		final boolean showSuggestions = (mCandidateView != null && mPredicting
-				&& isPredictionOn() && shouldCandidatesStripBeShown());
+//		final boolean showSuggestions = (mCandidateView != null && mPredicting
+//				&& isPredictionOn() && shouldCandidatesStripBeShown());
 
-		if (!showSuggestions) {
+		if (!mPredicting) {
 			if (mCandidateView != null)
 				mCandidateView.setSuggestions(null, false, false, false);
 			return;
