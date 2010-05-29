@@ -17,6 +17,7 @@
 package com.menny.android.anysoftkeyboard;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import android.app.AlertDialog;
@@ -79,7 +80,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public static final int KEYCODE_ENTER = 10;
 	public static final int KEYCODE_SPACE = ' ';
 	private static final int KEYBOARD_NOTIFICATION_ID = 1;
-	private static final String PUNCTUATION_CHARACTERS = ".\n!?,:;@<>()[]{}";
+	private static final HashSet<Integer> PUNCTUATION_CHARACTERS = new HashSet<Integer>(
+			16);
+	static {
+		String src = ".\n!?,:;@<>()[]{}";
+		for (int i = 0; i < src.length(); ++i)
+			PUNCTUATION_CHARACTERS.add((int) src.charAt(i));
+	}
 
 	private final AnySoftKeyboardConfiguration mConfig;
 	private boolean DEBUG;
@@ -913,7 +920,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void doubleSpace() {
 		// if (!mAutoPunctuate) return;
-		if (!AnySoftKeyboardConfiguration.getInstance().isDoubleSpaceChangesToPeriod())
+		if (mCorrectionMode == Suggest.CORRECTION_NONE)
 			return;
 		final InputConnection ic = getCurrentInputConnection();
 		if (ic == null)
@@ -1070,12 +1077,54 @@ public class AnySoftKeyboard extends InputMethodService implements
 		updateShiftKeyState(getCurrentInputEditorInfo());
 		mJustRevertedSeparator = null;
 	}
+	
+	private static boolean isBackwordStopChar(int c) {
+		return c == 32 || PUNCTUATION_CHARACTERS.contains(c);
+	}
 
+	private static void handleBackword(InputConnection ic) {
+		CharSequence cs = ic.getTextBeforeCursor(1, 0);
+		int csl = cs.length();//check if there is no input
+		if (csl == 0) {
+			return;//nothing to delete
+		}
+		boolean stopCharsAtTheEnd = isBackwordStopChar(cs.charAt(0));//notice if the last char is separator,
+		int idx = 1;
+		while (true) {
+			cs = ic.getTextBeforeCursor(idx, 0);
+			csl = cs.length();
+			if (csl < idx) {// read text is smaller than requested. We are
+				// at start
+				break;
+			}
+			++idx;
+			int cc = cs.charAt(0);
+			boolean isBackwordStopChar = isBackwordStopChar(cc);
+			if (stopCharsAtTheEnd) {
+				if (!isBackwordStopChar)
+					stopCharsAtTheEnd = false;
+				continue;
+			}
+			if (isBackwordStopChar) {
+				csl--;
+				break;
+			}
+		}
+		ic.deleteSurroundingText(csl, 0);
+	}
+
+	
 	private void handleBackspace() {
-		boolean deleteChar = false;
 		InputConnection ic = getCurrentInputConnection();
 		if (ic == null)
 			return;
+		final AnyKeyboard currentKeyboard = mKeyboardSwitcher
+				.getCurrentKeyboard();
+		if (currentKeyboard.isShifted()) {
+			handleBackword(ic);
+			return;
+		}
+		boolean deleteChar = false;
 		if (mPredicting) {
 			final int length = mComposing.length();
 			if (length > 0) {
@@ -1240,7 +1289,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (TextEntryState.getState() == TextEntryState.STATE_PUNCTUATION_AFTER_ACCEPTED
 				&& primaryCode != KEYCODE_ENTER && mSpaceSent) {
 			swapPunctuationAndSpace();
-		} else if (/*isPredictionOn() &&*/ primaryCode == ' ') {
+		} else if (isPredictionOn() && primaryCode == ' ') {
 			// else if (TextEntryState.STATE_SPACE_AFTER_ACCEPTED) {
 			doubleSpace();
 		}
@@ -1281,11 +1330,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	private boolean shouldCandidatesStripBeShown() {
-//		boolean shown = isPredictionOn() && (mShowSuggestions || isFullscreenMode());
-//		if (!onEvaluateInputViewShown())
-//			shown &= mPredictionLandscape;
-//		return shown;
-		return true;
+		boolean shown = isPredictionOn() && (mShowSuggestions || isFullscreenMode());
+		if (!onEvaluateInputViewShown())
+			shown &= mPredictionLandscape;
+		return shown;
 	}
 
 	private void updateSuggestions() {
@@ -1299,10 +1347,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 			return;
 		}
 
-//		final boolean showSuggestions = (mCandidateView != null && mPredicting
-//				&& isPredictionOn() && shouldCandidatesStripBeShown());
+		final boolean showSuggestions = (mCandidateView != null && mPredicting
+				&& isPredictionOn() && shouldCandidatesStripBeShown());
 
-		if (!mPredicting) {
+		if (!showSuggestions) {
 			if (mCandidateView != null)
 				mCandidateView.setSuggestions(null, false, false, false);
 			return;
