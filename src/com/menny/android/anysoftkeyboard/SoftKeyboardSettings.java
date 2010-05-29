@@ -5,8 +5,10 @@ import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory;
 import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory.KeyboardBuilder;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -53,6 +55,21 @@ public class SoftKeyboardSettings extends PreferenceActivity {
 				return false;
 			}
 		});
+		
+		final Preference helper = (Preference)super.findPreference("prefs_help_key");
+		helper.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+			public boolean onPreferenceClick(Preference preference) {
+				if (preference.getKey().equals("prefs_help_key"))
+				{
+					//http://s.evendanan.net/ask_settings
+					Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse("http://s.evendanan.net/ask_settings"));
+					startActivity(browserIntent);
+					return true;
+				}
+				return false;
+			}
+		});
+		
     }
 
 	@Override

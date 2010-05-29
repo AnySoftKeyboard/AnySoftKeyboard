@@ -10,7 +10,7 @@
 		    android:layout_height="wrap_content">
 		    	<ImageView android:src="@drawable/icon_8_key" android:layout_width="wrap_content" android:layout_margin="10dp" android:layout_height="wrap_content" android:id="@+id/changelog_icon" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" android:scaleType="centerInside"/>
 		    	<TextView
-		    	android:id="@+id/changelog_label"
+		    	android:id="@+id/changelog_app_name"
 		        android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
 		        android:textStyle="bold"
@@ -23,6 +23,7 @@
 		        android:paddingTop="10dp"
 		        />
 		    	<TextView
+		        android:id="@+id/changelog_label"
 		        android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
 		        android:textStyle="bold"
@@ -30,8 +31,18 @@
 		        android:textSize="20sp"
 		        android:text="@string/changelog"
 		        android:layout_toRightOf="@id/changelog_icon"
-		        android:layout_below="@id/changelog_label"
+		        android:layout_below="@id/changelog_app_name"
 		        android:textColor="#FFF"/>
+		        <TextView
+		        android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:gravity="center"
+		        android:textSize="14sp"
+		        android:autoLink="web"
+		        android:text="http://s.evendanan.net/ask"
+		        android:layout_toRightOf="@id/changelog_icon"
+		        android:layout_below="@id/changelog_label"
+		        android:textColor="#BBB"/>
 		    </RelativeLayout>
 		    <TextView
 		    	android:layout_height="wrap_content"

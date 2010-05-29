@@ -36,6 +36,8 @@
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word"><xliff:g id="word">%s</xliff:g> : Saved</string>
     
+    <string name="click_for_help">Help</string>
+    <string name="click_for_help_summary">Press for on-line help</string>
     <!-- settings - UI -->
     <string name="ui_group">User interface</string>
     <string name="keyboard_layout_change_keys_size_title">Layout change keys</string>

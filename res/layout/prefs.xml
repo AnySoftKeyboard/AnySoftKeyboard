@@ -8,6 +8,11 @@ android:key="ime_settings">
 	android:title="@string/ime_name"
 	android:summary="@string/how_to_pointer_version_prefix">
 	</Preference>
+	<Preference android:key="prefs_help_key" android:selectable="true" android:enabled="true"
+	android:persistent="false"
+	android:title="@string/click_for_help"
+	android:summary="@string/click_for_help_summary">
+	</Preference>
 	<PreferenceCategory android:key="ui_group"
 	android:title="@string/ui_group">
 		<ListPreference
