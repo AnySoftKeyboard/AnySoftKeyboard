@@ -56,6 +56,8 @@ public abstract class AnySoftKeyboardConfiguration
 	
 	public abstract String getRtlWorkaroundConfiguration();
 	
+	public abstract boolean isDoubleSpaceChangesToPeriod();
+	
 	static class AnySoftKeyboardConfigurationImpl extends AnySoftKeyboardConfiguration
 	{
 		private InputMethodService mIme;
@@ -78,6 +80,7 @@ public abstract class AnySoftKeyboardConfiguration
 		private int mSwipeRightKeyCode;
 		private boolean mActionKeyInvisibleWhenRequested = false;
 		private String mRtlWorkaround ="auto";
+		private boolean mIsDoubleSpaceChangesToPeroid = true;
 		
 		public AnySoftKeyboardConfigurationImpl()
 		{
@@ -222,6 +225,11 @@ public abstract class AnySoftKeyboardConfiguration
 			mRtlWorkaround = newRtlWorkaround;
 			Log.i(TAG, "** mRtlWorkaround: "+mRtlWorkaround);
 			
+			boolean newIsDoubleSpaceChangesToPeroid = sp.getBoolean("double_space_to_period", true);
+			handled = handled || ( newIsDoubleSpaceChangesToPeroid != mIsDoubleSpaceChangesToPeroid);
+			mIsDoubleSpaceChangesToPeroid = newIsDoubleSpaceChangesToPeroid;
+			Log.i(TAG, "** mIsDoubleSpaceChangesToPeroid: "+mIsDoubleSpaceChangesToPeroid);
+			
 			
 			return handled && (!forceRebuildOfKeyboards);
 		}
@@ -337,6 +345,11 @@ public abstract class AnySoftKeyboardConfiguration
 		@Override
 		public String getRtlWorkaroundConfiguration() {
 			return mRtlWorkaround;
+		}
+
+		@Override
+		public boolean isDoubleSpaceChangesToPeriod() {
+			return mIsDoubleSpaceChangesToPeroid;
 		}
 	}
 }

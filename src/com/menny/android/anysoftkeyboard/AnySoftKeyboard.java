@@ -913,7 +913,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void doubleSpace() {
 		// if (!mAutoPunctuate) return;
-		if (mCorrectionMode == Suggest.CORRECTION_NONE)
+		if (!AnySoftKeyboardConfiguration.getInstance().isDoubleSpaceChangesToPeriod())
 			return;
 		final InputConnection ic = getCurrentInputConnection();
 		if (ic == null)
@@ -1240,7 +1240,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (TextEntryState.getState() == TextEntryState.STATE_PUNCTUATION_AFTER_ACCEPTED
 				&& primaryCode != KEYCODE_ENTER && mSpaceSent) {
 			swapPunctuationAndSpace();
-		} else if (isPredictionOn() && primaryCode == ' ') {
+		} else if (/*isPredictionOn() &&*/ primaryCode == ' ') {
 			// else if (TextEntryState.STATE_SPACE_AFTER_ACCEPTED) {
 			doubleSpace();
 		}

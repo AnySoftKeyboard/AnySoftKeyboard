@@ -90,29 +90,13 @@
     <string name="use_custom_sound_volume_off_summary">Sounds effects volume is the system\'s notifications volume.</string>
     <string name="custom_sound_volume">Custom key-press volume</string>
     
-    <string name="tweaks_group">Tweaks</string>
-    <string name="use_keyrepeat">Use key repeat</string>
-    <string name="use_keyrepeat_on_summary">Key repeat is enabled</string>
-    <string name="use_keyrepeat_off_summary">Key repeat is disabled</string>    
-    <string name="emoticon_long_press_opens_popup">Long-press smiley popup</string>
-    <string name="emoticon_long_press_opens_popup_on_summary">Show emoticons popup on long-press</string>
-    <string name="emoticon_long_press_opens_popup_off_summary">Show emoticons popup on short-press</string>
-    <string name="default_smiley_text">Smiley text</string>
-    <string name="default_domain_text">Domain text</string>
-    <string name="key_press_preview_popup">Key preview popup</string>
-    <string name="key_press_preview_popup_on_summary">Show popup upon key-press</string>
-    <string name="key_press_preview_popup_off_summary">Do not show popup upon key-press</string>
+    <string name="speacial_fetures_group">Special features</string>
     <string name="switch_keyboard_on_space">Space switches keyboards</string>
     <string name="switch_keyboard_on_space_on_summary">Switch from symbols to alphabet when pressing space</string>
     <string name="switch_keyboard_on_space_off_summary">Do not switch from symbols to alphabet when pressing space</string>
     <string name="fullscreen_input_connection_supported">Use full-screen input</string>
     <string name="fullscreen_input_connection_supported_on_summary">Full-screen input in landscape mode</string>
     <string name="fullscreen_input_connection_supported_off_summary">Never use full-screen input</string>
-    <string name="zoom_factor_keys_in_portrait">Keys height factor in portrait mode</string>
-    <string name="zoom_factor_keys_in_landscape">Keys height factor in landscape mode</string>
-    <string name="insert_space_after_word_suggestion_selection">Space after candidate pick</string>
-    <string name="insert_space_after_word_suggestion_selection_on_summary">Insert space after word suggestion select</string>
-    <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
     <string name="swipe_tweak_group">Change swipe gesture actions</string>
     <string name="swipe_up_action">Swipe up</string>
     <string name="swipe_up_action_summary">Define the swipe up gesture action</string>
@@ -141,6 +125,25 @@
         <item>Move cursor right</item>
     </string-array>
     
+    <string name="tweaks_group">Tweaks</string>
+    <string name="use_keyrepeat">Use key repeat</string>
+    <string name="use_keyrepeat_on_summary">Key repeat is enabled</string>
+    <string name="use_keyrepeat_off_summary">Key repeat is disabled</string>    
+    <string name="emoticon_long_press_opens_popup">Long-press smiley popup</string>
+    <string name="emoticon_long_press_opens_popup_on_summary">Show emoticons popup on long-press</string>
+    <string name="emoticon_long_press_opens_popup_off_summary">Show emoticons popup on short-press</string>
+    <string name="default_smiley_text">Smiley text</string>
+    <string name="default_domain_text">Domain text</string>
+    <string name="key_press_preview_popup">Key preview popup</string>
+    <string name="key_press_preview_popup_on_summary">Show popup upon key-press</string>
+    <string name="key_press_preview_popup_off_summary">Do not show popup upon key-press</string>
+	<string name="zoom_factor_keys_in_portrait">Keys height factor in portrait mode</string>
+    <string name="zoom_factor_keys_in_landscape">Keys height factor in landscape mode</string>
+    <string name="insert_space_after_word_suggestion_selection">Space after candidate pick</string>
+    <string name="insert_space_after_word_suggestion_selection_on_summary">Insert space after word suggestion select</string>
+    <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
+    <string name="double_space_to_period">Double space to period</string>
+    <string name="double_space_to_period_summary">Double space tap will became period+space</string>
     <string name="action_key_invisible_on_disable">Invisible action key</string>
     <string name="action_key_invisible_on_disable_on_summary">Action key will be invisible when GUI requests</string>
     <string name="action_key_invisible_on_disable_off_summary">Action key will be visible even if GUI requests</string>
