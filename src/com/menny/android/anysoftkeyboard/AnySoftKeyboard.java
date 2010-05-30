@@ -1082,7 +1082,21 @@ public class AnySoftKeyboard extends InputMethodService implements
 		return c == 32 || PUNCTUATION_CHARACTERS.contains(c);
 	}
 
-	private static void handleBackword(InputConnection ic) {
+	private  void handleBackword(InputConnection ic) {
+		if (mPredicting) {
+			final int length = mComposing.length();
+			if (length == 0) {
+				return;
+			}
+			mComposing.delete(0, length);
+			mWord.deleteLast();
+			ic.setComposingText(mComposing, 1);
+			if (mComposing.length() == 0) {
+				mPredicting = false;
+			}
+			postUpdateSuggestions();
+			return;
+		}
 		CharSequence cs = ic.getTextBeforeCursor(1, 0);
 		int csl = cs.length();//check if there is no input
 		if (csl == 0) {
@@ -1110,7 +1124,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 				break;
 			}
 		}
-		ic.deleteSurroundingText(csl, 0);
+	 
+				ic.deleteSurroundingText(csl, 0);
+	
 	}
 	
 
