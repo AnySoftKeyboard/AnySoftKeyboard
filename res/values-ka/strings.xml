@@ -7,9 +7,9 @@
     <string name="main_tab_links">ბმულები</string>
     <string name="main_tab_credits">ავტორები</string>
     <!-- welcome tab -->
-	<string name="how_to_pointer_title">Welcome to AnySoftKeyboard</string>
+	<string name="how_to_pointer_title">მოგესალმებათ AnySoftKeyboard</string>
 	<string name="how_to_pointer_version_prefix">ვერსია: </string>
-	<string name="how_to_pointer_not_app">AnySoftKeyboard არ არის რეგულარული პროგრამა - ის არის it is a ეკრანული კლავიატურის  keyboard შემცვლელი.</string>
+	<string name="how_to_pointer_not_app">AnySoftKeyboard - ეკრანული კლავიატურის შემცვლელი.</string>
 	<string name="how_to_pointer_go_to_links">დაწვრილებითი ინფორმაციისთვის გადადით ბმულების გვერდზე.</string>
 	<!-- links tab -->
 	<string name="how_to_pointer_how_to_url">Details about how to use this keyboard:</string>
@@ -19,12 +19,12 @@
 	<!-- credits tab -->
 	<string name="main_tab_credits_title">This application was created with the help of the following people-</string>
 	<string name="main_tab_credits_created_by">შემქმნელი:</string>
-	<string name="main_tab_credits_additional_work_by">Additional coding work by:</string>
-	<string name="main_tab_credits_localization_by">Localization efforts by:</string>
-	<string name="main_tab_credits_GUI_by">UI სურათების (ავტორი?) by:</string>
+	<string name="main_tab_credits_additional_work_by">დამატებით პროგრამირება:</string>
+	<string name="main_tab_credits_localization_by">თარგმნა:</string>
+	<string name="main_tab_credits_GUI_by">UI სურათების შემქმნელი:</string>
 	
 	<!-- notifications -->
-	<string name="notification_text">სალამი! წამიკითხე გეთაყვა.</string>
+	<string name="notification_text">წამიკითხე</string>
 	<string name="testers_version">ვერსია მტესტავთათვის!</string>
 	
 	<!-- changelog -->
@@ -60,7 +60,7 @@
     <string name="lengthy_operations_toast_notification_summary">Show short notifications on lengthy operations</string>
     
     <!-- Options menu -->
-    <string name="change_ime">Change input method</string>
+    <string name="change_ime">მონაცემთა შეტანის მეთოდის შეცვლა</string>
     <string name="override_dictionary">Override default dictionary</string>
     <!-- Dictionary override strings -->
     <string name="override_dictionary_title">Override <xliff:g id="word">%s</xliff:g> dictionary</string>
@@ -71,16 +71,16 @@
     
     <!-- settings - effects-->
     <string name="effects_group">ეფექტები</string>
-    <string name="ime_settings">Keyboard settings</string>
+    <string name="ime_settings">კლავიატურის პარამეტრები</string>
     <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
-    <string name="vibrate_on_key_press_title">Vibrate on key-press</string>
-    <string name="vibrate_on_key_press_summary">Vibration type selection</string>
-    <string name="vibrate_on_key_press_dialog_title">Select vibration duration</string>
+    <string name="vibrate_on_key_press_title">ვიბრაცია კლავიშზე დაჭერისას</string>
+    <string name="vibrate_on_key_press_summary">ვიბრაციის ტიპის არჩევა</string>
+    <string name="vibrate_on_key_press_dialog_title">ვიბრაციის ხანგრძლივობის არჩევა</string>
     <string-array name="vibrate_on_key_press_types">
-    	<item>No vibration</item>
-        <item>Soft</item>
-        <item>Medium</item>
-        <item>Hard</item>
+    	<item>ვიბრაციის გარეშე</item>
+        <item>მსუბუქი</item>
+        <item>საშუალო</item>
+        <item>მძიმე</item>
     </string-array>
     
     <string name="sound_on">ხმა კლავიშების დაჭერისას</string>
@@ -97,7 +97,7 @@
     <string name="emoticon_long_press_opens_popup">Long-press smiley popup</string>
     <string name="emoticon_long_press_opens_popup_on_summary">Show emoticons popup on long-press</string>
     <string name="emoticon_long_press_opens_popup_off_summary">Show emoticons popup on short-press</string>
-    <string name="default_smiley_text">Smiley text</string>
+    <string name="default_smiley_text">სიცილაკების ტექსტი</string>
     <string name="default_domain_text">Domain text</string>
     <string name="key_press_preview_popup">Key preview popup</string>
     <string name="key_press_preview_popup_on_summary">Show popup upon key-press</string>
@@ -172,7 +172,7 @@
     
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Go</string>
-    <string name="label_next_key">შემდეგი</string>
+    <string name="label_next_key">შემდ.</string>
     <string name="label_send_key">გაგზავნა</string>
     <string name="label_done_key">მორჩა</string>
     
