@@ -22,6 +22,7 @@
 	<string name="main_tab_credits_additional_work_by">Lisäohjelmointityö:</string>
 	<string name="main_tab_credits_localization_by">Lokalisointi:</string>
 	<string name="main_tab_credits_GUI_by">Käyttöliittymän kuvat:</string>	
+
 	<!-- notifications -->
 	<string name="notification_text">Tervetuloa! Lue minut.</string>
 	<string name="testers_version">Testaajien versio!</string>
@@ -35,6 +36,8 @@
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word"><xliff:g id="word">%s</xliff:g> : tallennettu</string>
     
+    <string name="click_for_help">Ohje</string>
+    <string name="click_for_help_summary">Online-ohje</string>
     <!-- settings - UI -->
     <string name="ui_group">Käyttöliittymä</string>
     <string name="keyboard_layout_change_keys_size_title">Asettelun vaihtotapa</string>
@@ -89,30 +92,14 @@
     <string name="use_custom_sound_volume_off_summary">Äänenvoimakkuutena käytetään järjestelmän tiedotusäänenvoimakkuutta.</string>
     <string name="custom_sound_volume">Mukautettu volyymi napinpainalluksissa</string>    
 
-    <string name="tweaks_group">Viilaukset</string>
-	<string name="use_keyrepeat">Käytä näppäintoistoa</string>
-    <string name="use_keyrepeat_on_summary">Näppäintoisto päällä</string>
-    <string name="use_keyrepeat_off_summary">Näppäintoisto pois päältä</string>        
-    <string name="emoticon_long_press_opens_popup">Paina pitkään, hymiökupla</string>
-    <string name="emoticon_long_press_opens_popup_on_summary">Näytä hymiökupla kun painat pitkään</string>
-    <string name="emoticon_long_press_opens_popup_off_summary">Näytä hymiökupla kun painat nopeasti</string>
-    <string name="default_smiley_text">Hymiöteksti</string>
-    <string name="default_domain_text">Domain-teksti</string>  
-	<string name="key_press_preview_popup">Näppäimen esikatselukupla</string>
-	<string name="key_press_preview_popup_on_summary">Näytä esikatselukupla kun näppäintä painetaan</string>
-    <string name="key_press_preview_popup_off_summary">Älä näytä esikatselukupla kun näppäintä painetaan</string>
+	<string name="speacial_fetures_group">Erikoistoiminnot</string>    
 	<string name="switch_keyboard_on_space">Väli vaihtaa näppäimistöä</string>
     <string name="switch_keyboard_on_space_on_summary">Vaihda kirjainnäppäimistöön välilyönnistä</string>
-    <string name="switch_keyboard_on_space_off_summary">Älä vaihda kirjainnäppäimistöön välilyönnistä</string>
+    <string name="switch_keyboard_on_space_off_summary">Älä vaihda kirjainnäppäimistöön välilyönnistä</string>	
 	<string name="fullscreen_input_connection_supported">Syöttöruudun koko</string>
     <string name="fullscreen_input_connection_supported_on_summary">Syöttöruutu täyttää koko ruudun vaaka-asennossa.</string>
     <string name="fullscreen_input_connection_supported_off_summary">Syöttöruutu ei täytä koskaan koko ruutua.</string>
-	<string name="zoom_factor_keys_in_portrait">Näppäimistön korkeuskerroin pystyasennossa</string>
-    <string name="zoom_factor_keys_in_landscape">Näppäimistön leveyskerroin vaakasennossa</string>
-	<string name="insert_space_after_word_suggestion_selection">Välilyönti ehdotuksen jälkeen</string>
-    <string name="insert_space_after_word_suggestion_selection_on_summary">Lisää välilyönti valitun ehdotuksen jälkeen</string>
-    <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
-    <string name="swipe_tweak_group">Muuta pyyhkäisyn toimintoja</string>
+	<string name="swipe_tweak_group">Muuta pyyhkäisyn toimintoja</string>			
     <string name="swipe_up_action">Pyyhkäisy ylös</string>
     <string name="swipe_up_action_summary">Määrittele mitä tapahtuu kun pyyhkäistään ylös</string>
     <string name="swipe_up_action_title">Valitse ylös-pyyhkäisyn toiminto</string>
@@ -140,6 +127,25 @@
         <item>Kursori oikealle</item>
     </string-array>
 
+  	<string name="tweaks_group">Viilaukset</string>
+	<string name="use_keyrepeat">Käytä näppäintoistoa</string>
+    <string name="use_keyrepeat_on_summary">Näppäintoisto päällä</string>
+    <string name="use_keyrepeat_off_summary">Näppäintoisto pois päältä</string>        
+    <string name="emoticon_long_press_opens_popup">Paina pitkään, hymiökupla</string>
+    <string name="emoticon_long_press_opens_popup_on_summary">Näytä hymiökupla kun painat pitkään</string>
+    <string name="emoticon_long_press_opens_popup_off_summary">Näytä hymiökupla kun painat nopeasti</string>
+    <string name="default_smiley_text">Hymiöteksti</string>
+    <string name="default_domain_text">Domain-teksti</string>  
+	<string name="key_press_preview_popup">Näppäimen esikatselukupla</string>
+	<string name="key_press_preview_popup_on_summary">Näytä esikatselukupla kun näppäintä painetaan</string>
+    <string name="key_press_preview_popup_off_summary">Älä näytä esikatselukupla kun näppäintä painetaan</string>
+	<string name="zoom_factor_keys_in_portrait">Näppäimistön korkeuskerroin pystyasennossa</string>
+    <string name="zoom_factor_keys_in_landscape">Näppäimistön leveyskerroin vaakasennossa</string>
+	<string name="insert_space_after_word_suggestion_selection">Välilyönti ehdotuksen jälkeen</string>
+    <string name="insert_space_after_word_suggestion_selection_on_summary">Lisää välilyönti valitun ehdotuksen jälkeen</string>	
+    <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
+	<string name="double_space_to_period">Tuplavälilyönti pisteeksi</string>
+    <string name="double_space_to_period_summary">Kaksoisvälilyönti muuttuu pisteeksi ja välilyönniksi</string>
 	<string name="action_key_invisible_on_disable">Näkymätön toimintonäppäin</string>
     <string name="action_key_invisible_on_disable_on_summary">Toimintonäppäin on näkymätön GUIn sitä pyytäessä</string>
     <string name="action_key_invisible_on_disable_off_summary">Toimintonäppäin on näkyvissä vaikka GUI pyytää</string>
