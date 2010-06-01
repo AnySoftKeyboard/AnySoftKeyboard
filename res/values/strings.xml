@@ -145,7 +145,7 @@
     <string name="insert_space_after_word_suggestion_selection_on_summary">Insert space after word suggestion select</string>
     <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
     <string name="double_space_to_period">Double space to period</string>
-    <string name="double_space_to_period_summary">Double space tap will became period+space</string>
+    <string name="double_space_to_period_summary">Double space tap will become period+space</string>
     <string name="action_key_invisible_on_disable">Invisible action key</string>
     <string name="action_key_invisible_on_disable_on_summary">Action key will be invisible when GUI requests</string>
     <string name="action_key_invisible_on_disable_off_summary">Action key will be visible even if GUI requests</string>

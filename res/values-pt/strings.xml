@@ -36,6 +36,8 @@
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word"><xliff:g id="word">%s</xliff:g> : Gravada</string>
     
+    <string name="click_for_help">Ajuda</string>
+    <string name="click_for_help_summary">Pressione para obter ajuda na internet</string>
     <!-- settings - UI -->
     <string name="ui_group">Interface de utilizador</string>
     <string name="keyboard_layout_change_keys_size_title">Teclas de alteração de esquema</string>
@@ -89,30 +91,14 @@
     <string name="use_custom_sound_volume_on_summary">Utiliza volume personalizado</string>
     <string name="use_custom_sound_volume_off_summary">Utiliza volume das notificações</string>
     <string name="custom_sound_volume">Controlo de volume</string>
-    
-    <string name="tweaks_group">Ajustes</string>
-    <string name="use_keyrepeat">Repetição de tecla</string>
-    <string name="use_keyrepeat_on_summary">A acção é repetida enquanto a tecla estiver pressionada</string>
-    <string name="use_keyrepeat_off_summary">A acção é efectuada apenas uma vez</string>    
-    <string name="emoticon_long_press_opens_popup">Lista de Smilies</string>
-    <string name="emoticon_long_press_opens_popup_on_summary">Mostra lista após pressão longa, insere Smiley com pressão breve</string>
-    <string name="emoticon_long_press_opens_popup_off_summary">Mostra lista após pressão breve, insere Smiley com pressão longa</string>
-    <string name="default_smiley_text">Texto da tecla Smiley</string>
-    <string name="default_domain_text">Texto da tecla domínio</string>   
-    <string name="key_press_preview_popup">Ampliação de teclas</string>
-    <string name="key_press_preview_popup_on_summary">Mostra ampliação da tecla pressionada</string>
-    <string name="key_press_preview_popup_off_summary">Não mostra ampliação da tecla pressionada</string>
+
+    <string name="speacial_fetures_group">Special features</string>
     <string name="switch_keyboard_on_space">Espaço muda esquema</string>
     <string name="switch_keyboard_on_space_on_summary">Muda de símbolos para alfabético ao pressionar espaço</string>
     <string name="switch_keyboard_on_space_off_summary">Não muda de símbolos para alfabético ao pressionar espaço</string>
     <string name="fullscreen_input_connection_supported">Usa todo o ecrã</string>
     <string name="fullscreen_input_connection_supported_on_summary">Usa todo o ecrã para inserir texto no modo horizontal</string>
     <string name="fullscreen_input_connection_supported_off_summary">Nunca usa todo o ecrã para inserir texto</string>
-    <string name="zoom_factor_keys_in_portrait">Factor altura na vertical</string>
-    <string name="zoom_factor_keys_in_landscape">Factor altura na horizontal</string>
-    <string name="insert_space_after_word_suggestion_selection">Espaço após sugestão</string>
-    <string name="insert_space_after_word_suggestion_selection_on_summary">Insere espaço depois da palavra sugerida</string>
-    <string name="insert_space_after_word_suggestion_selection_off_summary">Não insere espaço depois da palavra sugerida</string>
     <string name="swipe_tweak_group">Gestos de deslizamento</string>
     <string name="swipe_up_action">Deslizar para cima</string>
     <string name="swipe_up_action_summary">Define a acção do gesto deslizar para cima</string>
@@ -140,10 +126,32 @@
         <item>Mover cursor para a esquerda</item>
         <item>Mover cursor para a direita</item>
     </string-array>
-    
+
+    <string name="tweaks_group">Ajustes</string>
+    <string name="use_keyrepeat">Repetição de tecla</string>
+    <string name="use_keyrepeat_on_summary">A acção é repetida enquanto a tecla estiver pressionada</string>
+    <string name="use_keyrepeat_off_summary">A acção é efectuada apenas uma vez</string>    
+    <string name="emoticon_long_press_opens_popup">Lista de Smilies</string>
+    <string name="emoticon_long_press_opens_popup_on_summary">Mostra lista após pressão longa, insere Smiley com pressão breve</string>
+    <string name="emoticon_long_press_opens_popup_off_summary">Mostra lista após pressão breve, insere Smiley com pressão longa</string>
+    <string name="default_smiley_text">Texto da tecla Smiley</string>
+    <string name="default_domain_text">Texto da tecla domínio</string>   
+    <string name="key_press_preview_popup">Ampliação de teclas</string>
+    <string name="key_press_preview_popup_on_summary">Mostra ampliação da tecla pressionada</string>
+    <string name="key_press_preview_popup_off_summary">Não mostra ampliação da tecla pressionada</string>
+    <string name="zoom_factor_keys_in_portrait">Factor altura na vertical</string>
+    <string name="zoom_factor_keys_in_landscape">Factor altura na horizontal</string>
+    <string name="insert_space_after_word_suggestion_selection">Espaço após sugestão</string>
+    <string name="insert_space_after_word_suggestion_selection_on_summary">Insere espaço depois da palavra sugerida</string>
+    <string name="insert_space_after_word_suggestion_selection_off_summary">Não insere espaço depois da palavra sugerida</string>
+    <string name="double_space_to_period">Duplo espaçoe para ponto</string>
+    <string name="double_space_to_period_summary">Duplo espaço insere ponto final seguido de espaço</string>
     <string name="action_key_invisible_on_disable">Tecla de acção invisível</string>
     <string name="action_key_invisible_on_disable_on_summary">Tecla de acção está invisível se definido pelo sistema</string>
     <string name="action_key_invisible_on_disable_off_summary">Tecla de acção está visível mesmo que definido o contrário</string>
+
+    <string name="rtl_workaround_detection_title">Detecção de DPE</string>
+    <string name="rtl_workaround_detection_summary">Aplica correcções ao texto das linguagens escritas da direita para a esquerda</string>
 
     <string name="auto_caps">Auto-capitalização</string>
     <string name="grammer_group">Gramática</string>
@@ -160,7 +168,8 @@
     <string name="keyboards_group">Teclados</string>
     <string name="symbols_keyboard">Symbólico</string>
     <string name="eng_keyboard">Inglês</string>
-    
+    <string name="eng_keyboard_compact">Inglês Compacto</string>
+
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Mostrar este tutorial ao iniciar</string>
     <string name="tutorial_swipe_title">Deslizar para alterar esquema</string>
@@ -170,6 +179,7 @@
     <string name="label_go_key">Ir</string>
     <string name="label_next_key">Próx</string>
     <string name="label_send_key">Enviar</string>
+    <string name="label_done_key">Pronto</string>
     
     <string name="change_lang_wide">&#8594; ABC &#8594;</string>
     <string name="change_lang_regular">ABC</string>
