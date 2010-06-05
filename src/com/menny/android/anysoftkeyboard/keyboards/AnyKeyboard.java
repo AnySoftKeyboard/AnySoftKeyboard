@@ -1,6 +1,5 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
-import java.util.HashMap;
 import java.util.StringTokenizer;
 
 import android.content.Context;

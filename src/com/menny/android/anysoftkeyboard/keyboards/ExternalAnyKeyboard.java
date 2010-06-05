@@ -50,20 +50,13 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	private final HardKeyboardSequenceHandler mHardKeyboardTranslator;
 	private final String mAdditionalIsLetterExceptions;
 
+	private boolean mTopRowWasCreated;
+	private boolean mBottomRowWasCreated;
+	
 	private int mGenericRowsHeight = 0;
 	private int mTopRowKeysCount = 0;
 	// max(generic row widths)
 	private int mMaxGenericRowsWidth = 0;
-
-	public ExternalAnyKeyboard(AnyKeyboardContextProvider askContext,
-			Context context, int xmlLayoutResId, int xmlLandscapeResId,
-			String prefId, int nameResId, int iconResId,
-			int qwertyTranslationId, String defaultDictionary,
-			String additionalIsLetterExceptions) {
-		this(askContext, context, xmlLayoutResId, xmlLandscapeResId, prefId,
-				nameResId, iconResId, qwertyTranslationId, defaultDictionary,
-				additionalIsLetterExceptions, true);
-	}
 
 	public ExternalAnyKeyboard(AnyKeyboardContextProvider askContext, Context context,
 			int xmlLayoutResId,
@@ -73,8 +66,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 			int iconResId,
 			int qwertyTranslationId,
 			String defaultDictionary,
-			String additionalIsLetterExceptions,
-			boolean addGenericRows) {
+			String additionalIsLetterExceptions) 
+	{
 		super(askContext, context, getKeyboardId(askContext.getApplicationContext(), xmlLayoutResId, xmlLandscapeResId));
 		mPrefId = prefId;
 		mNameResId = nameResId;
@@ -92,32 +85,46 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 
 		mAdditionalIsLetterExceptions = additionalIsLetterExceptions;
 
-		if(addGenericRows) {
-			addGenericRows(askContext, context);
-		}
+		addGenericRows(askContext, context);
+	}
+	
+	@Override
+	protected Row createRowFromXml(Resources res, XmlResourceParser parser) {
+		Row row = super.createRowFromXml(res, parser);
+		if ((row.rowEdgeFlags & Keyboard.EDGE_TOP) != 0)
+			mTopRowWasCreated = true;
+		if ((row.rowEdgeFlags & Keyboard.EDGE_BOTTOM) != 0)
+			mBottomRowWasCreated = true;
+		
+		return row;
 	}
 
 	private void addGenericRows(AnyKeyboardContextProvider askContext, Context context) {
 		final String keysMode = AnySoftKeyboardConfiguration.getInstance().getChangeLayoutKeysSize();
 		final KeyboardMetadata topMd;
-        if (keysMode.equals("None"))
-        {
-        	topMd = null;
-        }
-        else if (keysMode.equals("Big"))
-        {
-        	topMd = addKeyboardRow(askContext.getApplicationContext(), R.xml.generic_top_row);
-        }
-        else
-        {
-        	topMd = addKeyboardRow(askContext.getApplicationContext(), R.xml.generic_half_top_row);
-        }
+		if (!mTopRowWasCreated)
+		{
+	        if (keysMode.equals("None"))
+	        {
+	        	topMd = null;
+	        }
+	        else if (keysMode.equals("Big"))
+	        {
+	        	topMd = addKeyboardRow(askContext.getApplicationContext(), R.xml.generic_top_row);
+	        }
+	        else
+	        {
+	        	topMd = addKeyboardRow(askContext.getApplicationContext(), R.xml.generic_half_top_row);
+	        }
         
-		if (topMd != null)
-			fixKeyboardDueToGenericRow(topMd);
-
-		KeyboardMetadata bottomMd = addKeyboardRow(askContext.getApplicationContext(), R.xml.generic_bottom_row);
-		fixKeyboardDueToGenericRow(bottomMd);
+			if (topMd != null)
+				fixKeyboardDueToGenericRow(topMd);
+		}
+		if (!mBottomRowWasCreated)
+		{
+			KeyboardMetadata bottomMd = addKeyboardRow(askContext.getApplicationContext(), R.xml.generic_bottom_row);
+			fixKeyboardDueToGenericRow(bottomMd);
+		}
 	}
 
     private void fixKeyboardDueToGenericRow(KeyboardMetadata md) {
