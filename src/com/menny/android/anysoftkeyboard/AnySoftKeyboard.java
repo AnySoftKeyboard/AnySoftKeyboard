@@ -160,6 +160,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private boolean mSpaceSent;
 
+
+	private boolean mLastCharacterWasShifted;
+
 	public static AnySoftKeyboard getInstance() {
 		return INSTANCE;
 	}
@@ -1102,7 +1105,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (csl == 0) {
 			return;//nothing to delete
 		}
-		boolean stopCharsAtTheEnd = isBackwordStopChar(cs.charAt(0));//notice if the last char is separator,
+		/*
+		 * What to do:
+		 * We delete until we find a separator (the function isBackwordStopChar).
+		 * But in any case, we delete at least one character!
+		 */
 		int idx = 1;
 		while (true) {
 			cs = ic.getTextBeforeCursor(idx, 0);
@@ -1114,19 +1121,18 @@ public class AnySoftKeyboard extends InputMethodService implements
 			++idx;
 			int cc = cs.charAt(0);
 			boolean isBackwordStopChar = isBackwordStopChar(cc);
-			if (stopCharsAtTheEnd) {
-				if (!isBackwordStopChar)
-					stopCharsAtTheEnd = false;
-				continue;
-			}
+//			if (stopCharsAtTheEnd) {
+//				if (!isBackwordStopChar)
+//					stopCharsAtTheEnd = false;
+//				continue;
+//			}
 			if (isBackwordStopChar) {
 				csl--;
 				break;
 			}
 		}
-	 
-				ic.deleteSurroundingText(csl, 0);
-	
+		//we want to delete at least one character
+		ic.deleteSurroundingText(csl == 0? 1 : csl, 0);
 	}
 	
 
@@ -1157,7 +1163,19 @@ public class AnySoftKeyboard extends InputMethodService implements
 		} else {
 			deleteChar = true;
 		}
-		updateShiftKeyState(getCurrentInputEditorInfo());
+		
+		if (mLastCharacterWasShifted)
+		{
+			//this code will help use in the case that
+			//a double/triple tap occur while first one was shifted
+			if (mInputView != null)
+				mInputView.setShifted(true);
+			mLastCharacterWasShifted = false;
+		}
+		else
+		{
+			updateShiftKeyState(getCurrentInputEditorInfo());
+		}
 		TextEntryState.backspace();
 		if (TextEntryState.getState() == TextEntryState.STATE_UNDO_COMMIT) {
 			revertLastWord(deleteChar);
@@ -1225,11 +1243,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 				mWord.reset();
 			}
 		}
-		// if (mInputView.isShifted()) {
-		// primaryCode = Character.toUpperCase(primaryCode);
-		// }
+		
+		mLastCharacterWasShifted = mInputView.isShifted();
+		
 		if (mPredicting) {
-			if ((mInputView != null) && mInputView.isShifted()
+			if ((mInputView != null) && mLastCharacterWasShifted
 					&& mComposing.length() == 0) {
 				mWord.setCapitalized(true);
 			}
