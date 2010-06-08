@@ -1108,24 +1108,27 @@ public class AnySoftKeyboard extends InputMethodService implements
 		/*
 		 * What to do:
 		 * We delete until we find a separator (the function isBackwordStopChar).
-		 * But in any case, we delete at least one character!
+		 * Note that we MUST delete a delete a whole word! So if the backword starts
+		 * at separators, we'll delete those, and then the word before:
+		 * "test this,       ," -> "test "
 		 */
+		boolean stopCharAtTheEnd = isBackwordStopChar((int)cs.charAt(0)); 
 		int idx = 1;
 		while (true) {
 			cs = ic.getTextBeforeCursor(idx, 0);
 			csl = cs.length();
-			if (csl < idx) {// read text is smaller than requested. We are
-				// at start
+			if (csl < idx) {
+				// read text is smaller than requested. We are at start
 				break;
 			}
 			++idx;
 			int cc = cs.charAt(0);
 			boolean isBackwordStopChar = isBackwordStopChar(cc);
-//			if (stopCharsAtTheEnd) {
-//				if (!isBackwordStopChar)
-//					stopCharsAtTheEnd = false;
-//				continue;
-//			}
+			if (stopCharAtTheEnd) {
+				if (!isBackwordStopChar)
+					stopCharAtTheEnd = false;
+				continue;
+			}
 			if (isBackwordStopChar) {
 				csl--;
 				break;
@@ -1220,17 +1223,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 				}
 				mInputView.requestRedraw();
 			}
-//			if (!mInputView.setShifted(mCapsLock || !mInputView.isShifted()))
-//			{
-//				//forcing redraw if view thinks it is still in the same state
-//				mInputView.requestRedraw();
-//			}
+
 			mCapsLock = caps;
 			currentKeyboard.setShiftLocked(mCapsLock);
 		}
-//		else {
-//			mKeyboardSwitcher.toggleShift();
-//		}
 	}
 
 	private void handleCharacter(int primaryCode, int[] keyCodes) {
