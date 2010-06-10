@@ -268,7 +268,15 @@ android:key="ime_settings">
 				android:entries="@array/rtl_workaround_detectionn_types"
 				android:entryValues="@array/rtl_workaround_detection_types_values"
 				android:defaultValue="auto"
-				android:dialogTitle="@string/rtl_workaround_detection_title"/>  
+				android:dialogTitle="@string/rtl_workaround_detection_title"/>
+			<CheckBoxPreference
+				android:key="@string/settings_key_lang_key_shows_popup"
+				android:title="@string/lang_key_shows_popup"
+				android:persistent="true"
+				android:defaultValue="@bool/settings_default_lang_key_shows_popup"
+				android:summaryOn="@string/lang_key_shows_popup_on_summary"
+				android:summaryOff="@string/lang_key_shows_popup_off_summary"
+			/>
 			<EditTextPreference android:key="keyboards_sandbox_4" 
 				android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"
 				android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false">

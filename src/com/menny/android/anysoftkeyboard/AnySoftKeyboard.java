@@ -1730,18 +1730,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 	// startActivity(intent);
 	// }
 
-	private boolean loadSettings() {
+	private void loadSettings() {
 		// setting all values to default
 		PreferenceManager.setDefaultValues(this, R.layout.prefs, false);
-		boolean handled = false;
 		// Get the settings preferences
 		SharedPreferences sp = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		int newVibrationDuration = Integer.parseInt(sp.getString(
+		mVibrationDuration = Integer.parseInt(sp.getString(
 				getString(R.string.settings_key_vibrate_on_key_press_duration),
 				getString(R.string.settings_default_vibrate_on_key_press_duration)));
-		handled = handled || (newVibrationDuration != mVibrationDuration);
-		mVibrationDuration = newVibrationDuration;
 
 		boolean newSoundOn = sp.getBoolean(getString(R.string.settings_key_sound_on), getResources().getBoolean(R.bool.settings_default_sound_on));
 		boolean soundChanged = (newSoundOn != mSoundOn);
@@ -1758,7 +1755,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 				mAudioManager.unloadSoundEffects();
 			}
 		}
-		handled = handled || soundChanged;
 		mSoundOn = newSoundOn;
 		// checking the volume
 		boolean customVolume = sp.getBoolean("use_custom_sound_volume", false);
@@ -1770,7 +1766,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 			Log.i("AnySoftKeyboard", "Custom volume un-checked.");
 			newVolume = -1;
 		}
-		handled = handled || (newVolume != mSoundVolume);
 		mSoundVolume = newVolume;
 
 		// in order to support the old type of configuration
@@ -1779,7 +1774,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 				getString(R.string.settings_default_physical_keyboard_change_notification_type));
 		boolean notificationChanged = (!newKeyboardChangeNotificationType
 				.equalsIgnoreCase(mKeyboardChangeNotificationType));
-		handled = handled || notificationChanged;
 		mKeyboardChangeNotificationType = newKeyboardChangeNotificationType;
 
 		if (notificationChanged) {
@@ -1793,27 +1787,19 @@ public class AnySoftKeyboard extends InputMethodService implements
 				notifyKeyboardChangeIfNeeded();
 		}
 
-		boolean newAutoCap = sp.getBoolean("auto_caps", true);
-		handled = handled || (newAutoCap != mAutoCap);
-		mAutoCap = newAutoCap;
+		mAutoCap = sp.getBoolean("auto_caps", true);
 
 		boolean newShowSuggestions = sp.getBoolean("candidates_on", true);
 		boolean suggestionsChanged = (newShowSuggestions != mShowSuggestions);
-		handled = handled || suggestionsChanged;
 		mShowSuggestions = newShowSuggestions;
 		// why check that it is "false"? Because it starts as "false", so it is
 		// not 'changed'.
 		if (suggestionsChanged || (!mShowSuggestions))
 			setMainDictionaryForCurrentKeyboard();
 
-		boolean newAutoComplete = sp.getBoolean("auto_complete", true)
-				&& mShowSuggestions;
-		handled = handled || (newAutoComplete != mAutoComplete);
-		mAutoComplete = newAutoComplete;
+		mAutoComplete = sp.getBoolean("auto_complete", true) && mShowSuggestions;
 
-		boolean newQuickFixes = sp.getBoolean("quick_fix", true);
-		handled = handled || (newQuickFixes != mQuickFixes);
-		mQuickFixes = newQuickFixes;
+		mQuickFixes = sp.getBoolean("quick_fix", true);
 
 		mAutoCorrectOn = /* mSuggest != null && *//*
 												 * Suggestion always exists,
@@ -1824,27 +1810,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mCorrectionMode = mAutoComplete ? 2
 				: (mShowSuggestions/* mQuickFixes */? 1 : 0);
 
-		// boolean newLandscapePredications=
-		// sp.getBoolean("physical_keyboard_suggestions", true);
-		// handled = handled || (newLandscapePredications !=
-		// mPredictionLandscape);
-		// mPredictionLandscape = newLandscapePredications;
+		mSmileyOnShortPress = sp.getBoolean("emoticon_long_press_opens_popup", false);
 
-		boolean newSmileyOnShort = sp.getBoolean(
-				"emoticon_long_press_opens_popup", false);
-		handled = handled || (newSmileyOnShort != mSmileyOnShortPress);
-		mSmileyOnShortPress = newSmileyOnShort;
-
-		// NOTE: a single "|" required here! We want the
-		// 'handleConfigurationChange' function to be called ANYWAY!
-		handled = handled
-				| ((AnySoftKeyboardConfiguration.AnySoftKeyboardConfigurationImpl) mConfig)
-						.handleConfigurationChange(sp);
+		((AnySoftKeyboardConfiguration.AnySoftKeyboardConfigurationImpl) mConfig).handleConfigurationChange(sp);
 
 		if (mInputView != null)
 			mInputView.setPreviewEnabled(mConfig.getShowKeyPreview());
-
-		return handled;
 	}
 
 	/*package*/ void setMainDictionaryForCurrentKeyboard() {
@@ -2040,14 +2011,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 			String key) {
 		Log.d("AnySoftKeyboard", "onSharedPreferenceChanged - key:" + key);
 
-		boolean handled = loadSettings();
-		if (!handled) {
-			/* AnyKeyboard removedKeyboard = */mKeyboardSwitcher.makeKeyboards(true);// maybe a new keyboard
-			/*
-			 * if (removedKeyboard != null) {
-			 * DictionaryFactory.releaseDictionary
-			 * (removedKeyboard.getDefaultDictionaryLanguage()); }
-			 */
+		boolean isKeyboardKey = key.startsWith("keyboard_");
+		boolean isDictionaryKey = key.startsWith("dictionary_");
+		if (isKeyboardKey || isDictionaryKey) {
+			mKeyboardSwitcher.makeKeyboards(true);
+		}
+		else
+		{
+			loadSettings();
 		}
 	}
 

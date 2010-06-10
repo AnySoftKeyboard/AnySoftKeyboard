@@ -58,7 +58,7 @@ public class ExternalDictionaryFactory {
         public BinaryDictionaryBuilderImpl(Context context, String id, String language, int nameId, String assetsFilename,
                 String description)
         {
-        	mId = id;
+        	mId = "dictionary_"+id;
             mLanguage = language;
             mNameId = nameId;
             mDescription = description;

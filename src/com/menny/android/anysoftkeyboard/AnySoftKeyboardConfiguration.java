@@ -58,6 +58,8 @@ public abstract class AnySoftKeyboardConfiguration
 	
 	public abstract boolean isDoubleSpaceChangesToPeriod();
 	
+	public abstract boolean shouldShowPopupForLanguageSwitch();
+	
 	static class AnySoftKeyboardConfigurationImpl extends AnySoftKeyboardConfiguration
 	{
 		private InputMethodService mIme;
@@ -81,6 +83,7 @@ public abstract class AnySoftKeyboardConfiguration
 		private boolean mActionKeyInvisibleWhenRequested = false;
 		private String mRtlWorkaround ="auto";
 		private boolean mIsDoubleSpaceChangesToPeroid = true;
+		private boolean mShouldPopupForLanguageSwitch = false;
 		
 		public AnySoftKeyboardConfigurationImpl()
 		{
@@ -137,7 +140,68 @@ public abstract class AnySoftKeyboardConfiguration
 			}
 		}
 		
-		public boolean handleConfigurationChange(SharedPreferences sp)
+		public void handleConfigurationChange(SharedPreferences sp)
+		{
+			Log.i(TAG, "**** handleConfigurationChange: ");
+			mLayoutChangeKeysSize = sp.getString(mIme.getResources().getString(R.string.settings_key_keyboard_layout_change_method), mIme.getResources().getString(R.string.settings_default_keyboard_layout_change_method));
+			Log.i(TAG, "** mChangeKeysMode: "+mLayoutChangeKeysSize);
+			
+			mSmileyText = sp.getString("default_smiley_text", ":-) ");
+			Log.i(TAG, "** mSmileyText: "+mSmileyText);
+			
+			mDomainText = sp.getString("default_domain_text", ".com");
+			Log.i(TAG, "** mDomainText: "+mDomainText);
+			
+			mShowKeyPreview = sp.getBoolean("key_press_preview_popup", true);
+			Log.i(TAG, "** mShowKeyPreview: "+mShowKeyPreview);
+
+			mSwitchKeyboardOnSpace = sp.getBoolean("switch_keyboard_on_space", false);
+			Log.i(TAG, "** mSwitchKeyboardOnSpace: "+mSwitchKeyboardOnSpace);
+			
+			mUseFullScreenInput = sp.getBoolean("fullscreen_input_connection_supported", true);
+			Log.i(TAG, "** mUseFullScreenInput: "+mUseFullScreenInput);
+			
+			// Fix issue 185
+			mUseKeyRepeat = sp.getBoolean("use_keyrepeat", true);
+			Log.i(TAG, "** mUseKeyRepeat: "+mUseKeyRepeat);
+			
+			mKeysHeightFactorInPortrait = getFloatFromString(sp, "zoom_factor_keys_in_portrait");
+			Log.i(TAG, "** mKeysHeightFactorInPortrait: "+mKeysHeightFactorInPortrait);
+			
+			mKeysHeightFactorInLandscape = getFloatFromString(sp, "zoom_factor_keys_in_landscape");
+			Log.i(TAG, "** mKeysHeightFactorInLandscape: "+mKeysHeightFactorInLandscape);
+			
+			mInsertSpaceAfterCandidatePick = sp.getBoolean("insert_space_after_word_suggestion_selection", true);
+			Log.i(TAG, "** mInsertSpaceAfterCandidatePick: "+mInsertSpaceAfterCandidatePick);
+			
+			mSwipeUpKeyCode = getIntFromSwipeConfiguration(sp, "swipe_up_action", "shift");
+			Log.i(TAG, "** mSwipeUpKeyCode: "+mSwipeUpKeyCode);
+			
+			mSwipeDownKeyCode = getIntFromSwipeConfiguration(sp, "swipe_down_action", "hide");
+			Log.i(TAG, "** mSwipeDownKeyCode: "+mSwipeDownKeyCode);
+			
+			mSwipeLeftKeyCode = getIntFromSwipeConfiguration(sp, "swipe_left_action", "next_symbols");
+			Log.i(TAG, "** mSwipeLeftKeyCode: "+mSwipeLeftKeyCode);
+			
+			mSwipeRightKeyCode = getIntFromSwipeConfiguration(sp, "swipe_right_action", "next_alphabet");
+			Log.i(TAG, "** mSwipeRightKeyCode: "+mSwipeRightKeyCode);
+			
+			mActionKeyInvisibleWhenRequested = sp.getBoolean("action_key_invisible_on_disable", false);
+			Log.i(TAG, "** mActionKeyInvisibleWhenRequested: "+mActionKeyInvisibleWhenRequested);
+			
+			mRtlWorkaround = sp.getString("rtl_workaround_detection", "auto");
+			Log.i(TAG, "** mRtlWorkaround: "+mRtlWorkaround);
+			
+			mIsDoubleSpaceChangesToPeroid = sp.getBoolean("double_space_to_period", true);
+			Log.i(TAG, "** mIsDoubleSpaceChangesToPeroid: "+mIsDoubleSpaceChangesToPeroid);
+			
+			mShouldPopupForLanguageSwitch = sp.getBoolean(mIme.getString(R.string.settings_key_lang_key_shows_popup),
+					mIme.getResources().getBoolean(R.bool.settings_default_lang_key_shows_popup));;
+			Log.i(TAG, "** mShouldPopupForLanguageSwitch: "+mShouldPopupForLanguageSwitch);
+		}
+
+		/*
+public boolean handleConfigurationChange(SharedPreferences sp)
 		{
 			Log.i(TAG, "**** handleConfigurationChange: ");
 			boolean handled = false;
@@ -230,10 +294,16 @@ public abstract class AnySoftKeyboardConfiguration
 			mIsDoubleSpaceChangesToPeroid = newIsDoubleSpaceChangesToPeroid;
 			Log.i(TAG, "** mIsDoubleSpaceChangesToPeroid: "+mIsDoubleSpaceChangesToPeroid);
 			
+			boolean newShouldPopupForLanguageSwitch = sp.getBoolean(mIme.getString(R.string.settings_key_lang_key_shows_popup),
+					mIme.getResources().getBoolean(R.bool.settings_default_lang_key_shows_popup));
+			handled = handled || ( newShouldPopupForLanguageSwitch != mShouldPopupForLanguageSwitch);
+			mShouldPopupForLanguageSwitch = newShouldPopupForLanguageSwitch;
+			Log.i(TAG, "** mShouldPopupForLanguageSwitch: "+mShouldPopupForLanguageSwitch);
 			
 			return handled && (!forceRebuildOfKeyboards);
 		}
-
+		 */
+		
 		private int getIntFromSwipeConfiguration(SharedPreferences sp, final String prefKey, final String defaultValue) {
 			final String keyValue = sp.getString(prefKey, defaultValue);
 			
@@ -350,6 +420,11 @@ public abstract class AnySoftKeyboardConfiguration
 		@Override
 		public boolean isDoubleSpaceChangesToPeriod() {
 			return mIsDoubleSpaceChangesToPeroid;
+		}
+
+		@Override
+		public boolean shouldShowPopupForLanguageSwitch() {
+			return mShouldPopupForLanguageSwitch;
 		}
 	}
 }
