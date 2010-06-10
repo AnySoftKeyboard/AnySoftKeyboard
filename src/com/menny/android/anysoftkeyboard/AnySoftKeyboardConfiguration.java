@@ -121,7 +121,7 @@ public abstract class AnySoftKeyboardConfiguration
 		
 		private void upgradeSettingsValues(SharedPreferences sp) {
 			Log.d(TAG, "Checking if configuration upgrade is needed.");
-			String currentChangeLayoutKeysSize = sp.getString("keyboard_layout_change_method", "Small");
+			String currentChangeLayoutKeysSize = sp.getString(mIme.getResources().getString(R.string.settings_key_keyboard_layout_change_method), mIme.getResources().getString(R.string.settings_default_keyboard_layout_change_method));
 			if ((currentChangeLayoutKeysSize == null) || (currentChangeLayoutKeysSize.length() == 0) ||
 				(currentChangeLayoutKeysSize.equals("1")) || (currentChangeLayoutKeysSize.equals("2")) || (currentChangeLayoutKeysSize.equals("3")))
 			{
@@ -144,7 +144,7 @@ public abstract class AnySoftKeyboardConfiguration
 			//if a change in the configuration requires rebuilding the keyboards, 'forceRebuildOfKeyboards' should set to 'true'
 			boolean forceRebuildOfKeyboards = false;
 			// this change requires the recreation of the keyboards.
-			String newLayoutChangeKeysSize = sp.getString("keyboard_layout_change_method", "Small");
+			String newLayoutChangeKeysSize = sp.getString(mIme.getResources().getString(R.string.settings_key_keyboard_layout_change_method), mIme.getResources().getString(R.string.settings_default_keyboard_layout_change_method));
 			forceRebuildOfKeyboards = forceRebuildOfKeyboards || (!newLayoutChangeKeysSize.equalsIgnoreCase(mLayoutChangeKeysSize));
 			mLayoutChangeKeysSize = newLayoutChangeKeysSize;
 			Log.i(TAG, "** mChangeKeysMode: "+mLayoutChangeKeysSize);

@@ -1738,11 +1738,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 		SharedPreferences sp = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		int newVibrationDuration = Integer.parseInt(sp.getString(
-				"vibrate_on_key_press_duration", "0"));
+				getString(R.string.settings_key_vibrate_on_key_press_duration),
+				getString(R.string.settings_default_vibrate_on_key_press_duration)));
 		handled = handled || (newVibrationDuration != mVibrationDuration);
 		mVibrationDuration = newVibrationDuration;
 
-		boolean newSoundOn = sp.getBoolean("sound_on", false);
+		boolean newSoundOn = sp.getBoolean(getString(R.string.settings_key_sound_on), getResources().getBoolean(R.bool.settings_default_sound_on));
 		boolean soundChanged = (newSoundOn != mSoundOn);
 		if (soundChanged) {
 			if (newSoundOn) {
@@ -1774,8 +1775,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		// in order to support the old type of configuration
 		String newKeyboardChangeNotificationType = sp.getString(
-				"physical_keyboard_change_notification_type",
-				KEYBOARD_NOTIFICATION_ON_PHYSICAL);
+				getString(R.string.settings_key_physical_keyboard_change_notification_type),
+				getString(R.string.settings_default_physical_keyboard_change_notification_type));
 		boolean notificationChanged = (!newKeyboardChangeNotificationType
 				.equalsIgnoreCase(mKeyboardChangeNotificationType));
 		handled = handled || notificationChanged;

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- DO NOT TRANSLATE -->
+	<!-- Default settings values -->
+    <string name="settings_default_keyboard_layout_change_method">Small</string>
+    <string name="settings_default_physical_keyboard_change_notification_type">2</string>
+    <string name="settings_default_vibrate_on_key_press_duration">0</string>
+    <bool name="settings_default_sound_on">false</bool>
+</resources>

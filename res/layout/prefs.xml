@@ -16,44 +16,36 @@ android:key="ime_settings">
 	<PreferenceCategory android:key="ui_group"
 	android:title="@string/ui_group">
 		<ListPreference
-		android:key="keyboard_layout_change_method"
+		android:key="@string/settings_key_keyboard_layout_change_method"
 		android:title="@string/keyboard_layout_change_keys_size_title"
 		android:summary="@string/keyboard_layout_change_keys_size_summary"
 		android:entries="@array/keyboard_layout_keys_size"
 		android:entryValues="@array/keyboard_layout_change_methods_values"
-		android:defaultValue="Small"
+		android:defaultValue="@string/settings_default_keyboard_layout_change_method"
 		android:dialogTitle="@string/keyboard_layout_change_keys_size_dialog_title"/>
 		<ListPreference
-		android:key="physical_keyboard_change_notification_type"
+		android:key="@string/settings_key_physical_keyboard_change_notification_type"
 		android:title="@string/physical_keyboard_change_notification_title"
 		android:summary="@string/physical_keyboard_change_notification_summary"
 		android:entries="@array/physical_keyboard_change_notification_types"
 		android:entryValues="@array/physical_keyboard_change_notification_values"
-		android:defaultValue="2"
+		android:defaultValue="@string/settings_default_physical_keyboard_change_notification_type"
 		android:dialogTitle="@string/physical_keyboard_change_notification_dialog_title"/>
-		<!-- <CheckBoxPreference
-		android:key="lengthy_operations_toast_notification"
-		android:title="@string/lengthy_operations_toast_notification"
-		android:persistent="true"
-		android:defaultValue="false"
-		android:summaryOff=""
-		android:summaryOn="@string/lengthy_operations_toast_notification_summary"
-		/>-->
 	</PreferenceCategory>
 	<PreferenceCategory android:key="effects_group" android:title="@string/effects_group">
 		<ListPreference
-		android:key="vibrate_on_key_press_duration"
+		android:key="@string/settings_key_vibrate_on_key_press_duration"
 		android:title="@string/vibrate_on_key_press_title"
 		android:summary="@string/vibrate_on_key_press_summary"
 		android:entries="@array/vibrate_on_key_press_types"
 		android:entryValues="@array/vibrate_on_key_press_values"
 		android:dialogTitle="@string/vibrate_on_key_press_dialog_title"
-		android:defaultValue="0" />
+		android:defaultValue="@string/settings_default_vibrate_on_key_press_duration" />
 		<CheckBoxPreference
-		android:key="sound_on"
+		android:key="@string/settings_key_sound_on"
 		android:title="@string/sound_on"
 		android:persistent="true"
-		android:defaultValue="false"
+		android:defaultValue="@bool/settings_default_sound_on"
 		android:summaryOn="@string/sound_on_summary"
 		android:summaryOff=""
 		/>
