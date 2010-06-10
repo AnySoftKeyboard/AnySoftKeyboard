@@ -2,7 +2,7 @@
 <resources>
 	<!-- DO NOT TRANSLATE -->
 	<!-- settings keys -->
-    <string name="settings_key_keyboard_layout_change_method">keyboard_layout_change_method</string>
+    <string name="settings_key_top_keyboard_row_id">top_keyboard_row_id</string><!-- used to be keyboard_layout_change_method -->
     <string name="settings_key_physical_keyboard_change_notification_type">physical_keyboard_change_notification_type</string>
     <string name="settings_key_vibrate_on_key_press_duration">vibrate_on_key_press_duration</string>
     <string name="settings_key_sound_on">sound_on</string>

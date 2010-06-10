@@ -124,18 +124,14 @@ public abstract class AnySoftKeyboardConfiguration
 		
 		private void upgradeSettingsValues(SharedPreferences sp) {
 			Log.d(TAG, "Checking if configuration upgrade is needed.");
-			String currentChangeLayoutKeysSize = sp.getString(mIme.getResources().getString(R.string.settings_key_keyboard_layout_change_method), mIme.getResources().getString(R.string.settings_default_keyboard_layout_change_method));
-			if ((currentChangeLayoutKeysSize == null) || (currentChangeLayoutKeysSize.length() == 0) ||
-				(currentChangeLayoutKeysSize.equals("1")) || (currentChangeLayoutKeysSize.equals("2")) || (currentChangeLayoutKeysSize.equals("3")))
+			String topRowNewIdValue = sp.getString(mIme.getString(R.string.settings_key_top_keyboard_row_id), null);
+			String topRowOldIdValue = sp.getString("keyboard_layout_change_method", null);
+			if (topRowNewIdValue == null && topRowOldIdValue != null)
 			{
-				String newValue = "Small";
-				Log.d(TAG, "keyboard_layout_change_method holds an old value: "+(currentChangeLayoutKeysSize != null? currentChangeLayoutKeysSize : "NULL"));
-				if (currentChangeLayoutKeysSize.equals("1")) newValue = "Small";
-				else if (currentChangeLayoutKeysSize.equals("2")) newValue = "None";
-				else if (currentChangeLayoutKeysSize.equals("3")) newValue = "Big";
+				Log.d(TAG, "Top row type is using the old configuration key. Switching...");
 				Editor e = sp.edit();
-				Log.d(TAG, "keyboard_layout_change_method will be changed to: "+newValue);
-				e.putString("keyboard_layout_change_method", newValue);
+				e.putString(mIme.getString(R.string.settings_key_top_keyboard_row_id), topRowOldIdValue);
+				e.remove("keyboard_layout_change_method");
 				e.commit();
 			}
 		}
@@ -143,7 +139,7 @@ public abstract class AnySoftKeyboardConfiguration
 		public void handleConfigurationChange(SharedPreferences sp)
 		{
 			Log.i(TAG, "**** handleConfigurationChange: ");
-			mLayoutChangeKeysSize = sp.getString(mIme.getResources().getString(R.string.settings_key_keyboard_layout_change_method), mIme.getResources().getString(R.string.settings_default_keyboard_layout_change_method));
+			mLayoutChangeKeysSize = sp.getString(mIme.getResources().getString(R.string.settings_key_top_keyboard_row_id), mIme.getResources().getString(R.string.settings_default_top_keyboard_row_id));
 			Log.i(TAG, "** mChangeKeysMode: "+mLayoutChangeKeysSize);
 			
 			mSmileyText = sp.getString("default_smiley_text", ":-) ");

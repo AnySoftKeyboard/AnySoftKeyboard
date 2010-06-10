@@ -2096,7 +2096,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		{
 			loadSettings();
 			//in some cases we do want to force keyboards recreations
-			if (	key.equals(getString(R.string.settings_key_keyboard_layout_change_method)) ||
+			if (	key.equals(getString(R.string.settings_key_top_keyboard_row_id)) ||
 					key.equals("zoom_factor_keys_in_portrait") ||
 					key.equals("zoom_factor_keys_in_landscape"))
 			{

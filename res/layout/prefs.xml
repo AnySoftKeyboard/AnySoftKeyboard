@@ -16,12 +16,12 @@ android:key="ime_settings">
 	<PreferenceCategory android:key="ui_group"
 	android:title="@string/ui_group">
 		<ListPreference
-		android:key="@string/settings_key_keyboard_layout_change_method"
+		android:key="@string/settings_key_top_keyboard_row_id"
 		android:title="@string/keyboard_layout_change_keys_size_title"
 		android:summary="@string/keyboard_layout_change_keys_size_summary"
 		android:entries="@array/keyboard_layout_keys_size"
 		android:entryValues="@array/keyboard_layout_change_methods_values"
-		android:defaultValue="@string/settings_default_keyboard_layout_change_method"
+		android:defaultValue="@string/settings_default_top_keyboard_row_id"
 		android:dialogTitle="@string/keyboard_layout_change_keys_size_dialog_title"/>
 		<ListPreference
 		android:key="@string/settings_key_physical_keyboard_change_notification_type"
