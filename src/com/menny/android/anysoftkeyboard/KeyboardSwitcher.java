@@ -131,6 +131,12 @@ public class KeyboardSwitcher
     	return mAlphabetKeyboards;
     }
 
+    public synchronized KeyboardBuilder[] getEnabledKeyboardsBuilders()
+    {
+    	makeKeyboards(false);
+    	return mAlphabetKeyboardsCreators;
+    }
+    
     synchronized void makeKeyboards(boolean force) {
     	if(mContext == null) return;
 
@@ -225,6 +231,31 @@ public class KeyboardSwitcher
 //        nextKeyboard.setImeOptions(mContext.getResources()/*, mMode*/, mImeOptions);
 //    }
 
+    public AnyKeyboard nextAlphabetKeyboard(EditorInfo currentEditorInfo, String keyboardId)
+	{
+    	final int keyboardsCount = getAlphabetKeyboards().length;
+    	AnyKeyboard current = null;
+    	
+    	for(int keyboardIndex = 0; keyboardIndex<keyboardsCount; keyboardIndex++)
+    	{
+    		current = getAlphabetKeyboard(keyboardIndex);
+    		if (current.getKeyboardPrefId().equals(keyboardId))
+    		{
+    			mAlphabetMode = true;
+    			mLastSelectedKeyboard = keyboardIndex;
+    			//returning to the regular symbols keyboard, no matter what
+    	    	mLastSelectedSymbolsKeyboard = 0;
+    	    	//Issue 146
+    	    	mRightToLeftMode = !current.isLeftToRightLanguage();
+
+    	    	return setKeyboard(currentEditorInfo, current);
+    		}
+    	}
+    	
+    	Log.w(TAG, "For some reason, I can't find keyboard with ID "+keyboardId);
+    	return null;
+	}
+    
     private AnyKeyboard nextAlphabetKeyboard(EditorInfo currentEditorInfo, boolean supportsPhysical)
     {
     	final int keyboardsCount = getAlphabetKeyboards().length;
@@ -452,6 +483,15 @@ public class KeyboardSwitcher
 		}
 		else
 			return false;
+	}
+
+	public boolean shouldPopupForLanguageSwitch() {
+		//only in alphabet mode,
+		//and only if there are more than two keyboards
+		//and only if user requested to have a popup
+		return mAlphabetMode &&
+			(getAlphabetKeyboards().length > 2) &&
+			AnySoftKeyboardConfiguration.getInstance().shouldShowPopupForLanguageSwitch();
 	}
 
 

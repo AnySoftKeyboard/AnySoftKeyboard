@@ -193,6 +193,7 @@
     <string name="toast_lengthy_start_up_operation">Starting AnySoftKeyboard...</string>
     <string name="lengthy_creating_keyboard_operation">Creating keyboards...</string>
     
+    <string name="select_keyboard_popup_title">Select keyboard</string>
     <!-- dictionaries -->
     <string name="eng_dictionary">English</string>
 </resources>

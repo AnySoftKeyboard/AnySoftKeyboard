@@ -60,7 +60,9 @@ import com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory;
 import com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase;
 import com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory.DictionaryBuilder;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
+import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory.KeyboardBuilder;
 import com.menny.android.anysoftkeyboard.tutorials.TutorialsProvider;
 
 /**
@@ -80,12 +82,19 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public static final int KEYCODE_ENTER = 10;
 	public static final int KEYCODE_SPACE = ' ';
 	private static final int KEYBOARD_NOTIFICATION_ID = 1;
+	
+	private static final HashSet<Integer> SPACE_SWAP_CHARACTERS = new HashSet<Integer>(
+			6);
 	private static final HashSet<Integer> PUNCTUATION_CHARACTERS = new HashSet<Integer>(
 			16);
 	static {
 		String src = ".\n!?,:;@<>()[]{}";
 		for (int i = 0; i < src.length(); ++i)
 			PUNCTUATION_CHARACTERS.add((int) src.charAt(i));
+		
+		src = ".!?,:;";
+		for (int i = 0; i < src.length(); ++i)
+			SPACE_SWAP_CHARACTERS.add((int) src.charAt(i));
 	}
 
 	private final AnySoftKeyboardConfiguration mConfig;
@@ -912,7 +921,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		CharSequence lastTwo = ic.getTextBeforeCursor(2, 0);
 		if (lastTwo != null && lastTwo.length() == 2
 				&& lastTwo.charAt(0) == KEYCODE_SPACE
-				&& isPunctuationCharacter(lastTwo.charAt(1))) {
+				&& SPACE_SWAP_CHARACTERS.contains(String.valueOf(lastTwo.charAt(1)))) {
 			ic.beginBatchEdit();
 			ic.deleteSurroundingText(2, 0);
 			ic.commitText(lastTwo.charAt(1) + " ", 1);
@@ -1016,7 +1025,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 			nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Symbols);
 			break;
 		case AnyKeyboard.KEYCODE_LANG_CHANGE:
-			nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
+			if (mKeyboardSwitcher.shouldPopupForLanguageSwitch())
+			{
+				showLanguageSelectionDialog();
+			}
+			else
+				nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
 			break;
 		case AnyKeyboard.KEYCODE_ALTER_LAYOUT:
 			nextAlterKeyboard(getCurrentInputEditorInfo());
@@ -1063,6 +1077,54 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 			break;
 		}
+	}
+
+	private void showLanguageSelectionDialog() {
+		KeyboardBuilder[] builders = mKeyboardSwitcher.getEnabledKeyboardsBuilders();
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setCancelable(true);
+		builder.setIcon(R.drawable.icon_8_key);
+		builder.setTitle(getResources().getString(R.string.select_keyboard_popup_title));
+		builder.setNegativeButton(android.R.string.cancel, null);
+		ArrayList<CharSequence> keyboardsIds = new ArrayList<CharSequence>();
+		ArrayList<CharSequence> keyboards = new ArrayList<CharSequence>();
+		//going over all enabled keyboards
+		for (KeyboardBuilder keyboardBuilder : builders) {
+			keyboardsIds.add(keyboardBuilder.getId());
+			String name = keyboardBuilder.getPackageContext().getString(keyboardBuilder.getKeyboardNameResId());
+			
+			keyboards.add(name);
+		}
+
+		final CharSequence[] ids = new CharSequence[keyboardsIds.size()];
+		final CharSequence[] items = new CharSequence[keyboards.size()];
+		keyboardsIds.toArray(ids);
+		keyboards.toArray(items);
+
+		builder.setItems(items, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface di, int position) {
+				di.dismiss();
+				
+				if ((position < 0) || (position >= items.length)) {
+					Log.d(TAG, "Keyboard selection popup canceled");
+				} else {
+					CharSequence id = ids[position];
+					Log.d(TAG, "User selected "+items[position]+" with id "+id);
+					EditorInfo currentEditorInfo = getCurrentInputEditorInfo();
+					AnyKeyboard currentKeyboard = mKeyboardSwitcher.nextAlphabetKeyboard(currentEditorInfo, id.toString());
+					setKeyboardToView(currentEditorInfo, NextKeyboardType.Alphabet, currentKeyboard);
+				}
+			}
+		});
+
+		mOptionsDialog = builder.create();
+		Window window = mOptionsDialog.getWindow();
+		WindowManager.LayoutParams lp = window.getAttributes();
+		lp.token = mInputView.getWindowToken();
+		lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
+		window.setAttributes(lp);
+		window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+		mOptionsDialog.show();
 	}
 
 	public void onText(CharSequence text) {
@@ -1529,10 +1591,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		return (!isAlphabet(code));
 	}
 
-	public boolean isPunctuationCharacter(int code) {
-		return PUNCTUATION_CHARACTERS.contains(String.valueOf((char) code));
-	}
-
 	private void sendSpace() {
 		sendKeyChar((char) KEYCODE_SPACE);
 		updateShiftKeyState(getCurrentInputEditorInfo());
@@ -1580,20 +1638,18 @@ public class AnySoftKeyboard extends InputMethodService implements
 		Log.d("AnySoftKeyboard", "nextKeyboard: currentEditorInfo.inputType="
 				+ currentEditorInfo.inputType + " type:" + type);
 
-		AnyKeyboard currentKeyboard = mKeyboardSwitcher.getCurrentKeyboard();
-		if (currentKeyboard == null) {
-			if (DEBUG) Log.d("AnySoftKeyboard", "nextKeyboard: Looking for next keyboard. No current keyboard.");
-		} else {
-			if (DEBUG) Log.d("AnySoftKeyboard", "nextKeyboard: Looking for next keyboard. Current keyboard is:"
-								+ currentKeyboard.getKeyboardName());
-		}
 		// in numeric keyboards, the LANG key will go back to the original
 		// alphabet keyboard-
 		// so no need to look for the next keyboard, 'mLastSelectedKeyboard'
 		// holds the last
 		// keyboard used.
-		currentKeyboard = mKeyboardSwitcher.nextKeyboard(currentEditorInfo, type);
+		AnyKeyboard currentKeyboard = mKeyboardSwitcher.nextKeyboard(currentEditorInfo, type);
 
+		setKeyboardToView(currentEditorInfo, type, currentKeyboard);
+	}
+
+	private void setKeyboardToView(EditorInfo currentEditorInfo,
+			KeyboardSwitcher.NextKeyboardType type, AnyKeyboard currentKeyboard) {
 		Log.i("AnySoftKeyboard", "nextKeyboard: Setting next keyboard to: "
 				+ currentKeyboard.getKeyboardName());
 		updateShiftKeyState(currentEditorInfo);
@@ -1745,12 +1801,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (soundChanged) {
 			if (newSoundOn) {
 				Log
-						.i("AnySoftKeyboard",
+						.i(TAG,
 								"Loading sounds effects from AUDIO_SERVICE due to configuration change.");
 				mAudioManager.loadSoundEffects();
 			} else {
 				Log
-						.i("AnySoftKeyboard",
+						.i(TAG,
 								"Releasing sounds effects from AUDIO_SERVICE due to configuration change.");
 				mAudioManager.unloadSoundEffects();
 			}
@@ -1761,9 +1817,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		int newVolume;
 		if (customVolume) {
 			newVolume = sp.getInt("custom_sound_volume", 0);
-			Log.i("AnySoftKeyboard", "Custom volume checked: " + newVolume+" out of 100");
+			Log.i(TAG, "Custom volume checked: " + newVolume+" out of 100");
 		} else {
-			Log.i("AnySoftKeyboard", "Custom volume un-checked.");
+			Log.i(TAG, "Custom volume un-checked.");
 			newVolume = -1;
 		}
 		mSoundVolume = newVolume;
@@ -2019,6 +2075,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 		else
 		{
 			loadSettings();
+			//in some cases we do want to force keyboards recreations
+			if (	key.equals(getString(R.string.settings_key_keyboard_layout_change_method)) ||
+					key.equals("zoom_factor_keys_in_portrait") ||
+					key.equals("zoom_factor_keys_in_landscape"))
+			{
+				mKeyboardSwitcher.makeKeyboards(true);
+			}
 		}
 	}
 
