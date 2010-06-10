@@ -92,7 +92,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		for (int i = 0; i < src.length(); ++i)
 			PUNCTUATION_CHARACTERS.add((int) src.charAt(i));
 		
-		src = ".!?,:;";
+		src = ".!?,:;@";
 		for (int i = 0; i < src.length(); ++i)
 			SPACE_SWAP_CHARACTERS.add((int) src.charAt(i));
 	}
@@ -921,7 +921,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		CharSequence lastTwo = ic.getTextBeforeCursor(2, 0);
 		if (lastTwo != null && lastTwo.length() == 2
 				&& lastTwo.charAt(0) == KEYCODE_SPACE
-				&& SPACE_SWAP_CHARACTERS.contains(String.valueOf(lastTwo.charAt(1)))) {
+				&& SPACE_SWAP_CHARACTERS.contains((int)lastTwo.charAt(1))) {
 			ic.beginBatchEdit();
 			ic.deleteSurroundingText(2, 0);
 			ic.commitText(lastTwo.charAt(1) + " ", 1);
