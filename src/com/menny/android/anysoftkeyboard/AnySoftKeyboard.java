@@ -1167,6 +1167,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (csl == 0) {
 			return;//nothing to delete
 		}
+		//TWO OPTIONS
+		//1) Either we do like Linux and Windows (and probably ALL desktop OSes):
+		//Delete all the characters till a complete word was deleted:
 		/*
 		 * What to do:
 		 * We delete until we find a separator (the function isBackwordStopChar).
@@ -1174,7 +1177,24 @@ public class AnySoftKeyboard extends InputMethodService implements
 		 * at separators, we'll delete those, and then the word before:
 		 * "test this,       ," -> "test "
 		 */
-		boolean stopCharAtTheEnd = isBackwordStopChar((int)cs.charAt(0)); 
+		//Pro: same as desktop
+		//Con: when auto-caps is on (the default), this will delete the previous word, which can be annoying..
+		//E.g., Writing a sentence, then a period, then ASK will auto-caps, then when the user press backspace (for some reason),
+		//the entire previous word deletes.
+		
+		//2) Or we delete all the characters till we encounter a separator, but delete at least one character.
+		/*
+		 * What to do:
+		 * We delete until we find a separator (the function isBackwordStopChar).
+		 * Note that we MUST delete a delete at least one character
+		 * "test this, " -> "test this," -> "test this" -> "test "
+		 */
+		//Pro: Supports auto-caps, and mostly similar to desktop OSes
+		//Con: Not all desktop use-cases are here.
+		
+		//For now, I go with option 2, but I'm open for discussion.
+		
+		//boolean stopCharAtTheEnd = isBackwordStopChar((int)cs.charAt(0)); 
 		int idx = 1;
 		while (true) {
 			cs = ic.getTextBeforeCursor(idx, 0);
@@ -1186,11 +1206,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 			++idx;
 			int cc = cs.charAt(0);
 			boolean isBackwordStopChar = isBackwordStopChar(cc);
-			if (stopCharAtTheEnd) {
-				if (!isBackwordStopChar)
-					stopCharAtTheEnd = false;
-				continue;
-			}
+//			if (stopCharAtTheEnd) {
+//				if (!isBackwordStopChar)
+//					stopCharAtTheEnd = false;
+//				continue;
+//			}
 			if (isBackwordStopChar) {
 				csl--;
 				break;
