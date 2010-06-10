@@ -60,7 +60,6 @@ import com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory;
 import com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase;
 import com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory.DictionaryBuilder;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
-import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory.KeyboardBuilder;
 import com.menny.android.anysoftkeyboard.tutorials.TutorialsProvider;
@@ -169,8 +168,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private boolean mSpaceSent;
 
-
-	private boolean mLastCharacterWasShifted;
+	private static final int LAST_CHAR_SHIFT_STATE_UNKNOWN = 0;
+	private static final int LAST_CHAR_SHIFT_STATE_UNSHIFTED = 1;
+	private static final int LAST_CHAR_SHIFT_STATE_SHIFTED = 2;
+	private int mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_UNKNOWN;
 
 	public static AnySoftKeyboard getInstance() {
 		return INSTANCE;
@@ -1112,7 +1113,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 					Log.d(TAG, "User selected "+items[position]+" with id "+id);
 					EditorInfo currentEditorInfo = getCurrentInputEditorInfo();
 					AnyKeyboard currentKeyboard = mKeyboardSwitcher.nextAlphabetKeyboard(currentEditorInfo, id.toString());
-					setKeyboardToView(currentEditorInfo, NextKeyboardType.Alphabet, currentKeyboard);
+					setKeyboardStuff(currentEditorInfo, NextKeyboardType.Alphabet, currentKeyboard);
 				}
 			}
 		});
@@ -1249,18 +1250,25 @@ public class AnySoftKeyboard extends InputMethodService implements
 			deleteChar = true;
 		}
 		
-		if (mLastCharacterWasShifted)
+		switch(mLastCharacterShiftState)
 		{
 			//this code will help use in the case that
 			//a double/triple tap occur while first one was shifted
+		case LAST_CHAR_SHIFT_STATE_SHIFTED:
 			if (mInputView != null)
 				mInputView.setShifted(true);
-			mLastCharacterWasShifted = false;
-		}
-		else
-		{
+			mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_UNKNOWN;
+			break;
+		case LAST_CHAR_SHIFT_STATE_UNSHIFTED:
+			if (mInputView != null)
+				mInputView.setShifted(false);
+			mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_UNKNOWN;
+			break;
+		default:
 			updateShiftKeyState(getCurrentInputEditorInfo());
+			break;
 		}
+		
 		TextEntryState.backspace();
 		if (TextEntryState.getState() == TextEntryState.STATE_UNDO_COMMIT) {
 			revertLastWord(deleteChar);
@@ -1322,10 +1330,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 		}
 		
-		mLastCharacterWasShifted = mInputView.isShifted();
+		mLastCharacterShiftState = mInputView.isShifted()? LAST_CHAR_SHIFT_STATE_SHIFTED : LAST_CHAR_SHIFT_STATE_UNSHIFTED;
 		
 		if (mPredicting) {
-			if ((mInputView != null) && mLastCharacterWasShifted
+			if ((mInputView != null) && mInputView.isShifted()
 					&& mComposing.length() == 0) {
 				mWord.setCapitalized(true);
 			}
@@ -1665,14 +1673,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// keyboard used.
 		AnyKeyboard currentKeyboard = mKeyboardSwitcher.nextKeyboard(currentEditorInfo, type);
 
-		setKeyboardToView(currentEditorInfo, type, currentKeyboard);
+		setKeyboardStuff(currentEditorInfo, type, currentKeyboard);
 	}
 
-	private void setKeyboardToView(EditorInfo currentEditorInfo,
+	private void setKeyboardStuff(EditorInfo currentEditorInfo,
 			KeyboardSwitcher.NextKeyboardType type, AnyKeyboard currentKeyboard) {
 		Log.i("AnySoftKeyboard", "nextKeyboard: Setting next keyboard to: "
 				+ currentKeyboard.getKeyboardName());
 		updateShiftKeyState(currentEditorInfo);
+		mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_UNKNOWN;
 		// changing dictionary
 		setMainDictionaryForCurrentKeyboard();
 		// Notifying if needed
