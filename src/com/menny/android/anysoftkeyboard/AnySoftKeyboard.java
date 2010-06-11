@@ -598,6 +598,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case KeyEvent.KEYCODE_SHIFT_LEFT:
 		case KeyEvent.KEYCODE_SHIFT_RIGHT:
 		case KeyEvent.KEYCODE_SYM:
+			boolean b = Workarounds.isMotoDroidOrMilestone();
 			if (DEBUG)
 				Log.d(TAG+"-meta-key",
 						getMetaKeysStates("onKeyDown before handle"));
@@ -1195,7 +1196,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		
 		//For now, I go with option 2, but I'm open for discussion.
 		
-		//boolean stopCharAtTheEnd = isBackwordStopChar((int)cs.charAt(0)); 
+		//2b) "test this, " -> "test this"
+		
+		boolean stopCharAtTheEnd = isBackwordStopChar((int)cs.charAt(0)); 
 		int idx = 1;
 		while (true) {
 			cs = ic.getTextBeforeCursor(idx, 0);
@@ -1207,18 +1210,21 @@ public class AnySoftKeyboard extends InputMethodService implements
 			++idx;
 			int cc = cs.charAt(0);
 			boolean isBackwordStopChar = isBackwordStopChar(cc);
-//			if (stopCharAtTheEnd) {
-//				if (!isBackwordStopChar)
-//					stopCharAtTheEnd = false;
-//				continue;
-//			}
+			if (stopCharAtTheEnd) {
+				if (!isBackwordStopChar){
+					--csl;
+					break;
+				} 
+				continue;
+			}
 			if (isBackwordStopChar) {
-				csl--;
+				--csl;
 				break;
 			}
 		}
 		//we want to delete at least one character
-		ic.deleteSurroundingText(csl == 0? 1 : csl, 0);
+		//ic.deleteSurroundingText(csl == 0 ? 1 : csl, 0);
+		ic.deleteSurroundingText(csl, 0);//it is always > 0 !
 	}
 	
 
