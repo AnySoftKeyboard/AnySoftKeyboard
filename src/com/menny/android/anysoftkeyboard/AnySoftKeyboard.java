@@ -598,7 +598,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case KeyEvent.KEYCODE_SHIFT_LEFT:
 		case KeyEvent.KEYCODE_SHIFT_RIGHT:
 		case KeyEvent.KEYCODE_SYM:
-			boolean b = Workarounds.isMotoDroidOrMilestone();
+			//boolean b = Workarounds.isMotoDroidOrMilestone();
 			if (DEBUG)
 				Log.d(TAG+"-meta-key",
 						getMetaKeysStates("onKeyDown before handle"));
