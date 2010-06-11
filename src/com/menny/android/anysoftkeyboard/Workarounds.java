@@ -123,6 +123,14 @@ public class Workarounds
 		else 
 			return false;			
 	}
+	
+	public static boolean isMotoDroidOrMilestone(){
+		String model = android.os.Build.MODEL.toLowerCase();
+		if(model.equals("milestone") || model.equals("droid")){
+			return true;
+		}
+		return false;
+	}
 
 	public static boolean isDonut() {
 		return ms_isDonut;
