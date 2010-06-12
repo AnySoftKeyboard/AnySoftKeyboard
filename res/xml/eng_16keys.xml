@@ -7,7 +7,7 @@
     android:keyHeight="@dimen/key_height"
     >
     <Row android:rowEdgeFlags="top">
-        <Key android:codes="49" android:keyIcon="@drawable/sym_keyboard_num1" android:keyEdgeFlags="left"/>
+        <Key android:codes="46,44,63,33" android:keyIcon="@drawable/sym_keyboard_num1_l" android:keyEdgeFlags="left"/>
         <Key android:codes="97,98,99" android:keyIcon="@drawable/sym_keyboard_num2"/>
         <Key android:codes="100,101,102" android:keyIcon="@drawable/sym_keyboard_num3"/>
         <Key android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete_small" 
