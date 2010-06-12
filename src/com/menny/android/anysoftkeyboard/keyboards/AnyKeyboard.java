@@ -85,8 +85,30 @@ public abstract class AnyKeyboard extends Keyboard
         mKeyboardContext = context;
         mASKContext = askContext;
         
-        mOnShiftIcon = askContext.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift_on);
-        mOffShiftIcon = askContext.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift);
+        //in wide shifts, we'll use the shift with the Globe
+        if (mShiftKey != null)
+        {
+	        Drawable shiftWithGlobes = askContext.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift_with_globe);
+	        Log.v(TAG, "Deciding which icon to use for the SHIFT. Shift key width is "+mShiftKey.width+" and sym_keyboard_shift_with_globe width is "+shiftWithGlobes.getMinimumWidth());
+	        
+	        if (mShiftKey.width > shiftWithGlobes.getMinimumWidth())
+	        {
+	        	mOnShiftIcon = askContext.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift_with_globes_on);
+		        mOffShiftIcon = shiftWithGlobes;
+	        }
+	        else
+	        {
+		        mOnShiftIcon = askContext.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift_on);
+		        mOffShiftIcon = askContext.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift);
+	        }
+        }
+        else
+        {
+        	mOnShiftIcon = null;
+        	mOffShiftIcon = null;
+        	Log.v(TAG, "No shift key, so no handling images.");
+	        
+        }
     }
     
     public void initKeysMembers()
@@ -108,8 +130,7 @@ public abstract class AnyKeyboard extends Keyboard
                     key.icon = localResources.getDrawable(R.drawable.sym_keyboard_delete_small);
                     break;
                 case AnyKeyboard.KEYCODE_SHIFT:
-                	mShiftKey = key;//I want the reference used by the super.
-                    key.icon = localResources.getDrawable(R.drawable.sym_keyboard_shift);
+                	key.icon = localResources.getDrawable(R.drawable.sym_keyboard_shift);
                     break;
                 case AnyKeyboard.KEYCODE_CTRL:
                     key.icon = localResources.getDrawable(R.drawable.sym_keyboard_ctrl);
@@ -172,6 +193,9 @@ public abstract class AnyKeyboard extends Keyboard
         	{
         	case 10://enter
         		key = mEnterKey = new EnterKey(res, parent, x, y, parser);
+        		break;
+        	case KEYCODE_SHIFT:
+        		mShiftKey = key;//I want the reference used by the super.
         		break;
         	case KEYCODE_DELETE://delete
         		key = new LessSensitiveAnyKey(res, parent, x, y, parser);

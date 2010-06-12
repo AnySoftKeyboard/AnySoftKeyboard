@@ -76,13 +76,14 @@ public class AnyKeyboardView extends KeyboardView {
         if (key.codes[0] == 10) {
             getOnKeyboardActionListener().onKey(KEYCODE_OPTIONS, null);
             return true;
-//        } else if (key.codes[0] == Keyboard.KEYCODE_SHIFT) {
-//            getOnKeyboardActionListener().onKey(KEYCODE_SHIFT_LONGPRESS, null);
-//            invalidate();
-//            return true;
         } else if (key.codes[0] == AnyKeyboard.KEYCODE_SMILEY) {
             getOnKeyboardActionListener().onKey(KEYCODE_SMILEY_LONGPRESS, null);
-            invalidate();
+            return true;
+        } else if (key.codes[0] == Keyboard.KEYCODE_SHIFT) {
+          getOnKeyboardActionListener().onKey(AnyKeyboard.KEYCODE_LANG_CHANGE, null);
+          return true;
+        }else if (key.codes[0] == AnyKeyboard.KEYCODE_LANG_CHANGE) {
+            getOnKeyboardActionListener().onKey(AnyKeyboard.KEYCODE_LANG_CHANGE, null);
             return true;
         } else if (key.codes[0] == '0' && getKeyboard() == mPhoneKeyboard) {
             // Long pressing on 0 in phone number keypad gives you a '+'.
