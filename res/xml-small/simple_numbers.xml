@@ -17,7 +17,7 @@
         <Key android:codes="52" android:keyLabel="4" android:keyEdgeFlags="left"/>
         <Key android:codes="53" android:keyLabel="5"/>
         <Key android:codes="54" android:keyLabel="6"/>
-        <Key android:codes="-98" android:keyIcon="@drawable/sym_keyboard_numalt" android:keyEdgeFlags="right"/>
+        <Key android:codes="-2" android:keyIcon="@drawable/sym_keyboard_numalt" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row>
@@ -28,7 +28,7 @@
     </Row>
     
     <Row android:rowEdgeFlags="bottom">
-        <Key android:codes="-99" android:keyEdgeFlags="left"/>
+        <Key android:codes="-1" android:keyIcon="@drawable/globe" android:keyEdgeFlags="left"/>
         <Key android:codes="48,32" android:keyWidth="50%p" android:keyIcon="@drawable/sym_keyboard_num0_space"/>
         <Key android:codes="10" android:keyEdgeFlags="right"/>
     </Row>

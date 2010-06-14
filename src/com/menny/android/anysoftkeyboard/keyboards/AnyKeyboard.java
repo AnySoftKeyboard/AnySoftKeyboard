@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
+import android.inputmethodservice.Keyboard.Key;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
@@ -101,6 +102,7 @@ public abstract class AnyKeyboard extends Keyboard
 		        mOnShiftIcon = askContext.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift_on);
 		        mOffShiftIcon = askContext.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift);
 	        }
+	        mShiftKey.icon = mOffShiftIcon; 
         }
         else
         {
@@ -127,19 +129,22 @@ public abstract class AnyKeyboard extends Keyboard
                 switch(primaryCode)
                 {
                 case AnyKeyboard.KEYCODE_DELETE:
-                    key.icon = localResources.getDrawable(R.drawable.sym_keyboard_delete_small);
+                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_delete_small);
                     break;
-                case AnyKeyboard.KEYCODE_SHIFT:
-                	key.icon = localResources.getDrawable(R.drawable.sym_keyboard_shift);
-                    break;
+//                case AnyKeyboard.KEYCODE_SHIFT:
+//                	key.icon = localResources.getDrawable(R.drawable.sym_keyboard_shift);
+//                    break;
                 case AnyKeyboard.KEYCODE_CTRL:
-                    key.icon = localResources.getDrawable(R.drawable.sym_keyboard_ctrl);
+                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_ctrl);
                     break;
                 case 32://SPACE
-                    key.icon = localResources.getDrawable(R.drawable.sym_keyboard_space);
+                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_space);
                     break;
                 case 9://TAB
-                    key.icon = localResources.getDrawable(R.drawable.tab_key);
+                	setIconIfNeeded(key, localResources, R.drawable.tab_key);
+                    break;
+                case AnyKeyboard.KEYCODE_LANG_CHANGE:
+                	setIconIfNeeded(key, localResources, R.drawable.globe);
                     break;
                 case 63:
                     if ((key.edgeFlags & Keyboard.EDGE_BOTTOM) != 0)
@@ -151,19 +156,26 @@ public abstract class AnyKeyboard extends Keyboard
                         //setting the character label
                         if (isAlphabetKey(key) && (key.label == null || key.label.length() == 0) && (key.icon == null))
                         {
-                            key.label = ""+((char)primaryCode); 
-                        }
-                        else
-                        {
-                        	onInitUnknownKey(key);
+                        	String label = "";
+                        	for(int code : key.codes)
+                        	{
+                        		if (code > 0 && !Character.isWhitespace((char)code))
+                        			label += ((char)code);
+                        	}
+                        	if (label.length() == 0)
+                        		key.label = " ";
+                        	else
+                        		key.label = label;
                         }
                 }
             }
         }
     }
     
-	protected void onInitUnknownKey(Key key) {
-		
+	private void setIconIfNeeded(Key key, Resources localResources, int iconId) {
+		if ((key.icon != null) || ((key.label != null) && (key.label.length() > 0)))
+			return;
+		key.icon = localResources.getDrawable(iconId);
 	}
 
 	protected AnyKeyboardContextProvider getASKContext()

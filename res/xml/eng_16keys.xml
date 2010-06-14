@@ -7,23 +7,23 @@
     android:keyHeight="@dimen/key_height"
     >
     <Row android:rowEdgeFlags="top">
-        <Key android:codes="46,44,63,33" android:keyIcon="@drawable/sym_keyboard_num1_l" android:keyEdgeFlags="left"/>
-        <Key android:codes="97,98,99" android:keyIcon="@drawable/sym_keyboard_num2"/>
-        <Key android:codes="100,101,102" android:keyIcon="@drawable/sym_keyboard_num3"/>
+        <Key android:codes="46,44,63,33" android:keyLabel=".,?!" android:keyEdgeFlags="left"/>
+        <Key android:codes="97,98,99" android:keyLabel="ABC"/>
+        <Key android:codes="100,101,102" android:keyLabel="DEF"/>
         <Key android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete_small" 
         	android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     <Row>
-        <Key android:codes="103,104,105" android:keyIcon="@drawable/sym_keyboard_num4" android:keyEdgeFlags="left"/>
-        <Key android:codes="106,107,108" android:keyIcon="@drawable/sym_keyboard_num5"/>
-        <Key android:codes="109,110,111" android:keyIcon="@drawable/sym_keyboard_num6"/>
-        <Key android:codes="-2" android:keyIcon="@drawable/sym_keyboard_numalt" android:keyEdgeFlags="right"/>
+        <Key android:codes="103,104,105" android:keyLabel="GHI" android:keyEdgeFlags="left"/>
+        <Key android:codes="106,107,108" android:keyLabel="JKL"/>
+        <Key android:codes="109,110,111" android:keyLabel="MNO"/>
+        <Key android:codes="-2" android:keyLabel="123" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row>
-        <Key android:codes="112,113,114,115" android:horizontalGap="0px" android:keyIcon="@drawable/sym_keyboard_num7" android:keyEdgeFlags="left"/>
-        <Key android:codes="116,117,118" android:keyIcon="@drawable/sym_keyboard_num8"/>
-        <Key android:codes="119,120,121,122" android:keyIcon="@drawable/sym_keyboard_num9"/>
+        <Key android:codes="112,113,114,115" android:keyLabel="PQRS" android:keyEdgeFlags="left"/>
+        <Key android:codes="116,117,118" android:keyLabel="TUV"/>
+        <Key android:codes="119,120,121,122" android:keyLabel="WXYZ"/>
         <Key android:codes="-10" android:keyEdgeFlags="right"/>
     </Row>
     
