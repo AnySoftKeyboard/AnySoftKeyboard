@@ -109,14 +109,14 @@ public class AnyKeyboardView extends KeyboardView {
     	}
     }
     
-    @Override
-    public void setKeyboard(Keyboard keyboard) {
-    	if ((keyboard != null) && (keyboard.getMinWidth() != getWidth()))
-		{
-			Log.w(TAG, "NOTE: The SET keyboard has the wrong width! Keyboard width: "+keyboard.getMinWidth()+", device width:"+getWidth());
-		}
-    	super.setKeyboard(keyboard);
-    }
+//    @Override
+//    public void setKeyboard(Keyboard keyboard) {
+//    	if ((keyboard != null) && (keyboard.getMinWidth() != getWidth()))
+//		{
+//			Log.w(TAG, "NOTE: The SET keyboard has the wrong width! Keyboard width: "+keyboard.getMinWidth()+", device width:"+getWidth());
+//		}
+//    	super.setKeyboard(keyboard);
+//    }
 
     
     /****************************  INSTRUMENTATION  *******************************/

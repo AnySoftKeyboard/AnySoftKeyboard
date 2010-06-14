@@ -60,6 +60,8 @@ import com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory;
 import com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase;
 import com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory.DictionaryBuilder;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory;
+import com.menny.android.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory.KeyboardBuilder;
 import com.menny.android.anysoftkeyboard.tutorials.TutorialsProvider;
@@ -269,13 +271,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	@Override
 	public View onCreateInputView() {
+		if (DEBUG) Log.v(TAG, "Creating Input View");
 		mInputView = (AnyKeyboardView) getLayoutInflater().inflate(
 				//the new layout will solve the "invalidateAllKeys" problem.
 				Workarounds.isDonut()? R.layout.input_donut : R.layout.input_cupcake
 				, null);
 
+		mKeyboardSwitcher.resetKeyboardsCache();
 		mKeyboardSwitcher.setInputView(mInputView);
-		mKeyboardSwitcher.makeKeyboards(false);
+		//mKeyboardSwitcher.makeKeyboards(false);
 		mInputView.setOnKeyboardActionListener(this);
 		//mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT, null);
 
@@ -2095,6 +2099,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 			{
 				mInputView.closing();
 			}
+			//resetting cache
+			//this will force recreating of keyboards upon showing them up.
+			mKeyboardSwitcher.resetKeyboardsCache();
 		}
 	}
 
@@ -2194,24 +2201,24 @@ public class AnySoftKeyboard extends InputMethodService implements
 		Toast.makeText(this.getApplication(), text, duration).show();
 	}
 
-	public void performLengthyOperation(int textResId, final Runnable thingToDo) {
-		thingToDo.run();
-		// final ProgressDialog spinner = new ProgressDialog(this,
-		// ProgressDialog.STYLE_SPINNER);
-		//
-		// Thread t = new Thread() {
-		// public void run() {
-		// thingToDo.run();
-		// spinner.dismiss();
-		// }
-		// };
-		// t.start();
-		// spinner.setTitle(R.string.please_wait);
-		// spinner.setIcon(R.drawable.icon_8_key);
-		// spinner.setMessage(getResources().getText(textResId));
-		// spinner.setCancelable(false);
-		// spinner.show();
-	}
+//	public void performLengthyOperation(int textResId, final Runnable thingToDo) {
+//		thingToDo.run();
+//		// final ProgressDialog spinner = new ProgressDialog(this,
+//		// ProgressDialog.STYLE_SPINNER);
+//		//
+//		// Thread t = new Thread() {
+//		// public void run() {
+//		// thingToDo.run();
+//		// spinner.dismiss();
+//		// }
+//		// };
+//		// t.start();
+//		// spinner.setTitle(R.string.please_wait);
+//		// spinner.setIcon(R.drawable.icon_8_key);
+//		// spinner.setMessage(getResources().getText(textResId));
+//		// spinner.setCancelable(false);
+//		// spinner.show();
+//	}
 
 	@Override
 	public void onLowMemory() {

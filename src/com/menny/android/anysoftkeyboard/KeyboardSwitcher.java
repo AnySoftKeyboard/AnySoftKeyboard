@@ -91,12 +91,12 @@ public class KeyboardSwitcher
     {
     	makeKeyboards(false);
     	AnyKeyboard keyboard = mSymbolsKeyboardsArray[keyboardIndex];
-    	if (requiredToRecreateKeyboard(keyboard))
-    	{
-    		Log.d(TAG, "Symbols keyboard width is "+keyboard.getMinWidth()+", while view width is "+mContext.getMaxWidth()+". Recreating.");
-    		keyboard = null;
-    		mSymbolsKeyboardsArray[keyboardIndex] = null;
-    	}
+//    	if (requiredToRecreateKeyboard(keyboard))
+//    	{
+//    		Log.d(TAG, "Symbols keyboard width is "+keyboard.getMinWidth()+", while view width is "+mContext.getMaxWidth()+". Recreating.");
+//    		keyboard = null;
+//    		mSymbolsKeyboardsArray[keyboardIndex] = null;
+//    	}
     	if (keyboard == null)
     	{
 	    	switch(keyboardIndex)
@@ -117,10 +117,10 @@ public class KeyboardSwitcher
 	    	keyboard.initKeysMembers();
     	}
 
-    	if (requiredToRecreateKeyboard(keyboard))
-		{
-			Log.w("AnySoftKeyboard", "NOTE: The returned keyboard has the wrong width! Keyboard width: "+keyboard.getMinWidth()+", device width:"+mContext.getMaxWidth());
-		}
+//    	if (requiredToRecreateKeyboard(keyboard))
+//		{
+//			Log.w("AnySoftKeyboard", "NOTE: The returned keyboard has the wrong width! Keyboard width: "+keyboard.getMinWidth()+", device width:"+mContext.getMaxWidth());
+//		}
 
     	return keyboard;
     }
@@ -142,34 +142,31 @@ public class KeyboardSwitcher
 
         if (force)
         {
-        	if (AnySoftKeyboardConfiguration.getInstance().getDEBUG())
-            	Log.d(TAG, "Forcing make Keyboards");
-            mAlphabetKeyboards = null;
-            mSymbolsKeyboardsArray = null;
+        	resetKeyboardsCache();
         }
 
         if ((mAlphabetKeyboards == null) || (mSymbolsKeyboardsArray == null))
         {
         	Log.d(TAG, "makeKeyboards: force:"+force);
-        	mContext.performLengthyOperation(R.string.lengthy_creating_keyboard_operation,
-        			new Runnable()
-        	{
-        		public void run()
-        		{
-        			mAlphabetKeyboardsCreators = KeyboardFactory.createAlphaBetKeyboards(mContext);
-        			mAlphabetKeyboards = new AnyKeyboard[mAlphabetKeyboardsCreators.length];
-        	        if (mLastSelectedKeyboard >= mAlphabetKeyboards.length)
-        	        	mLastSelectedKeyboard = 0;
+        	mAlphabetKeyboardsCreators = KeyboardFactory.createAlphaBetKeyboards(mContext);
+			mAlphabetKeyboards = new AnyKeyboard[mAlphabetKeyboardsCreators.length];
+	        if (mLastSelectedKeyboard >= mAlphabetKeyboards.length)
+	        	mLastSelectedKeyboard = 0;
 
-        	        mSymbolsKeyboardsArray = new AnyKeyboard[3];
-                	if (mLastSelectedSymbolsKeyboard >= mSymbolsKeyboardsArray.length)
-                		mLastSelectedSymbolsKeyboard = 0;
-                	//freeing old keyboards.
-                	System.gc();
-        		}
-        	});
+	        mSymbolsKeyboardsArray = new AnyKeyboard[3];
+        	if (mLastSelectedSymbolsKeyboard >= mSymbolsKeyboardsArray.length)
+        		mLastSelectedSymbolsKeyboard = 0;
+        	//freeing old keyboards.
+        	System.gc();
         }
     }
+
+    synchronized void resetKeyboardsCache() {
+		if (AnySoftKeyboardConfiguration.getInstance().getDEBUG())
+			Log.d(TAG, "Forcing Keyboards cache clear");
+		mAlphabetKeyboards = null;
+		mSymbolsKeyboardsArray = null;
+	}
 
     void setKeyboardMode(int mode, EditorInfo attr) {
         //mMode = mode;
@@ -349,12 +346,12 @@ public class KeyboardSwitcher
 
 		AnyKeyboard keyboard = keyboards[index];
 
-		if (requiredToRecreateKeyboard(keyboard))
-    	{
-    		Log.d(TAG, "Alphabet keyboard width is "+keyboard.getMinWidth()+", while view width is "+mContext.getMaxWidth()+". Recreating.");
-    		keyboard = null;
-    		keyboards[index] = null;
-    	}
+//		if (requiredToRecreateKeyboard(keyboard))
+//    	{
+//    		Log.d(TAG, "Alphabet keyboard width is "+keyboard.getMinWidth()+", while view width is "+mContext.getMaxWidth()+". Recreating.");
+//    		keyboard = null;
+//    		keyboards[index] = null;
+//    	}
 
 		if (keyboard == null)
 		{
@@ -365,19 +362,19 @@ public class KeyboardSwitcher
 			keyboard.initKeysMembers();
 		}
 
-		if (requiredToRecreateKeyboard(keyboard))
-		{
-			Log.w(TAG, "NOTE: The returned keyboard has the wrong width! Keyboard width: "+keyboard.getMinWidth()+", device width:"+mContext.getMaxWidth());
-		}
+//		if (requiredToRecreateKeyboard(keyboard))
+//		{
+//			Log.w(TAG, "NOTE: The returned keyboard has the wrong width! Keyboard width: "+keyboard.getMinWidth()+", device width:"+mContext.getMaxWidth());
+//		}
 		return keyboard;
 	}
 
-	private boolean requiredToRecreateKeyboard(AnyKeyboard keyboard) {
-		return (keyboard != null) && (keyboard.getMinWidth() != mContext.getMaxWidth())
-		//this is some tolerance, since sometimes the keyboard ends a bit after
-		//the end of the screen (see issue 305)
-			&& (Math.abs(keyboard.getMinWidth() - mContext.getMaxWidth()) > 5);
-	}
+//	private boolean requiredToRecreateKeyboard(AnyKeyboard keyboard) {
+//		return (keyboard != null) && (keyboard.getMinWidth() != mContext.getMaxWidth())
+//		//this is some tolerance, since sometimes the keyboard ends a bit after
+//		//the end of the screen (see issue 305)
+//			&& (Math.abs(keyboard.getMinWidth() - mContext.getMaxWidth()) > 5);
+//	}
 
 	public AnyKeyboard nextKeyboard(EditorInfo currentEditorInfo, NextKeyboardType type)
 	{
