@@ -972,6 +972,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	public void onKey(int primaryCode, int[] keyCodes) {
 		if (DEBUG)	Log.d("AnySoftKeyboard", "onKey " + primaryCode);
+		//if (DEBUG)	Thread.dumpStack();
 		//see issue 160, and "KEYCODE_SPACE" branch about this var.
 		//boolean switchToAlphabetAtTheEnd = false;
 
