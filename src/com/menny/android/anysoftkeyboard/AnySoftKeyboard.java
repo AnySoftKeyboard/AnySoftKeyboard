@@ -597,12 +597,28 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// case KeyEvent.KEYCODE_ENTER:
 		// // Let the underlying text editor always handle these.
 		// return false;
+		case KeyEvent.KEYCODE_SHIFT_LEFT:
+        case KeyEvent.KEYCODE_SHIFT_RIGHT:
+            if (event.isAltPressed() && Workarounds.isAltSpaceLangSwitchNotPossible()) {
+                Log.d(TAG,
+                                "User pressed ALT+SHIFT on motorola milestone, moving to next physical keyboard.");
+                // consuming the meta keys
+                // mHardKeyboardAction.resetMetaState();
+                if (ic != null) {
+                    ic.clearMetaKeyStates(Integer.MAX_VALUE);// translated, so
+                    // we also take
+                    // care of the
+                    // metakeys.
+                }
+                mMetaState = 0;
+                // only physical keyboard
+                nextKeyboard(getCurrentInputEditorInfo(),
+                        NextKeyboardType.AlphabetSupportsPhysical);
+                return true;
+            }
 		case KeyEvent.KEYCODE_ALT_LEFT:
 		case KeyEvent.KEYCODE_ALT_RIGHT:
-		case KeyEvent.KEYCODE_SHIFT_LEFT:
-		case KeyEvent.KEYCODE_SHIFT_RIGHT:
 		case KeyEvent.KEYCODE_SYM:
-			//boolean b = Workarounds.isMotoDroidOrMilestone();
 			if (DEBUG)
 				Log.d(TAG+"-meta-key",
 						getMetaKeysStates("onKeyDown before handle"));
@@ -613,7 +629,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 						getMetaKeysStates("onKeyDown after handle"));
 			break;
 		case KeyEvent.KEYCODE_SPACE:
-			if (event.isAltPressed()) {
+			if (event.isAltPressed() && !Workarounds.isAltSpaceLangSwitchNotPossible()) {
 				Log.d(TAG,
 								"User pressed ALT+SPACE, moving to next physical keyboard.");
 				// consuming the meta keys

@@ -124,7 +124,7 @@ public class Workarounds
 			return false;			
 	}
 	
-	public static boolean isMotoDroidOrMilestone(){
+	public static boolean isAltSpaceLangSwitchNotPossible(){
 		String model = android.os.Build.MODEL.toLowerCase();
 		if(model.equals("milestone") || model.equals("droid")){
 			return true;
