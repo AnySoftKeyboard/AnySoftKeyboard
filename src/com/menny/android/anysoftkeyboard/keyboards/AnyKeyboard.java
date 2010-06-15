@@ -156,16 +156,11 @@ public abstract class AnyKeyboard extends Keyboard
                         //setting the character label
                         if (isAlphabetKey(key) && (key.label == null || key.label.length() == 0) && (key.icon == null))
                         {
-                        	String label = "";
-                        	for(int code : key.codes)
-                        	{
-                        		if (code > 0 && !Character.isWhitespace((char)code))
-                        			label += ((char)code);
-                        	}
-                        	if (label.length() == 0)
-                        		key.label = " ";
+                        	final char code = (char)key.codes[0];
+                        	if (code > 0 && !Character.isWhitespace(code))
+                        		key.label = ""+code;
                         	else
-                        		key.label = label;
+                        		key.label = " ";
                         }
                 }
             }
