@@ -670,7 +670,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 				if (ic != null)
 					ic.beginBatchEdit();
 				try {
-					if (event.isPrintingKey()) {
+				    //issue 393, backword on the hw keyboard!
+				    if(keyCode == KeyEvent.KEYCODE_DEL && event.isShiftPressed()){
+                        handleBackword(ic);
+                        return true;
+				    } else if (event.isPrintingKey()) {
 						mHardKeyboardAction.initializeAction(event, mMetaState);
 						// http://article.gmane.org/gmane.comp.handhelds.openmoko.android-freerunner/629
 						AnyKeyboard current = mKeyboardSwitcher.getCurrentKeyboard();
