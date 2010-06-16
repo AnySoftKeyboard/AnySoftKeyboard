@@ -32,7 +32,7 @@
     </Row>
     
     <Row>
-        <Key android:codes="-98" android:keyLabel="..." android:keyEdgeFlags="left"/>
+        <Key android:codes="-6" android:keyLabel="..." android:keyEdgeFlags="left"/>
         <Key android:codes="9" android:keyIcon="@drawable/tab_key" />
         <Key android:horizontalGap="5%p" android:codes="96" android:keyLabel="`"/>
         <Key android:codes="180" android:keyLabel="´"/>        

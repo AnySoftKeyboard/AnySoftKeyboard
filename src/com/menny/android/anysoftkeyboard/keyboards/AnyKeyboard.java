@@ -24,7 +24,7 @@ public abstract class AnyKeyboard extends Keyboard
 	private final static String TAG = "ASK - AK";
 	
 	public final static int KEYCODE_LANG_CHANGE = -99;
-	public final static int KEYCODE_ALTER_LAYOUT = -98;
+	//public final static int KEYCODE_ALTER_LAYOUT = -98;
 	public final static int KEYCODE_KEYBOARD_CYCLE = -97;
 	public final static int KEYCODE_KEYBOARD_REVERSE_CYCLE = -96;
 	
@@ -399,23 +399,35 @@ public abstract class AnyKeyboard extends Keyboard
         if (mShiftKey != null) {
             return mShiftState != SHIFT_OFF;
         } else {
-            return super.isShifted();
+            return false;
         }
     }
     
 	@Override
 	public boolean setShifted(boolean shiftState) 
 	{
-		final boolean superResult = super.setShifted(shiftState);
+		//final boolean superResult = super.setShifted(shiftState);
 		//making sure it is off. Only caps turn it on. The super will turn the lit on when
 		//shift is ON, and not when CAPS is on.
-        if (mShiftKey != null) mShiftKey.on = false;
+		if (mShiftKey == null)
+			return false;
+        mShiftKey.on = false;
         
+        /*My shift state - parameter - changed
+         * OFF - true - true
+         * ON - true - false
+         * LOCKED - true - false
+         * OFF - false - false
+         * ON - false - true
+         * LOCKED - false - true
+         * 
+         * in Other words, ON and LOCKED act the same
+         */
 		final boolean changed = (shiftState == (mShiftState == SHIFT_OFF));
 		
-		if (mDebug) Log.d(TAG, "setShifted: shiftState:"+shiftState+". super result:"+superResult + " changed: "+changed);
+		if (mDebug) Log.d(TAG, "setShifted: shiftState:"+shiftState+". changed: "+changed);
 		
-		if (changed || superResult)
+		if (changed)
 		{//layout changed. Need to change labels.
 			mShiftState = shiftState? SHIFT_ON : SHIFT_OFF;
 						

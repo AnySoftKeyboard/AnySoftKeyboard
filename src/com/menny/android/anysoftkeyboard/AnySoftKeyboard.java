@@ -1055,7 +1055,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			else
 				nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
 			break;
-		case AnyKeyboard.KEYCODE_ALTER_LAYOUT:
+		case Keyboard.KEYCODE_ALT:
 			nextAlterKeyboard(getCurrentInputEditorInfo());
 			break;
 		case AnyKeyboard.KEYCODE_KEYBOARD_CYCLE:
