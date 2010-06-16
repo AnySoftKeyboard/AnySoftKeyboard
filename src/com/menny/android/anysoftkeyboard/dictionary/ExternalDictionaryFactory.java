@@ -108,9 +108,9 @@ public class ExternalDictionaryFactory {
 
     private static ArrayList<DictionaryBuilder> getDictionaryBuildersFromActivityInfo(
             Context context, ActivityInfo ai) {
-        final XmlPullParser allKeyboards = ai.loadXmlMetaData(context.getPackageManager(),
+        final XmlPullParser allDictionaries = ai.loadXmlMetaData(context.getPackageManager(),
                 DictionaryBuilder.RECEIVER_META_DATA);
-        return parseDictionaryBuildersFromXml(context, allKeyboards);
+        return parseDictionaryBuildersFromXml(context, allDictionaries);
     }
 
     private static ArrayList<DictionaryBuilder> parseDictionaryBuildersFromXml(Context context,
@@ -250,9 +250,11 @@ public class ExternalDictionaryFactory {
         {
             final ArrayList<DictionaryBuilder> dictionaries = new ArrayList<DictionaryBuilder>();
 
+            //I'll first load the external dictionaries
             dictionaries.addAll(getAllExternalDictionaryBuilders(context));
+            //this will allow EN dictionary to be overridden by default.
             dictionaries.addAll(getDictionaryBuildersFromResId(context, R.xml.dictionaries));
-
+            
             ms_creators = dictionaries;
         }
 
