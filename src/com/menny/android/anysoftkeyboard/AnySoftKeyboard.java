@@ -1175,6 +1175,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	private  void handleBackword(InputConnection ic) {
+	    if(ic == null){
+	        return;
+	    }
 		if (mPredicting) {
 			final int length = mComposing.length();
 			if (length == 0) {
@@ -1254,15 +1257,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 	
 
 	private void handleBackspace() {
-		InputConnection ic = getCurrentInputConnection();
-		if (ic == null)
-			return;
+		InputConnection ic = getCurrentInputConnection();	
 		final AnyKeyboard currentKeyboard = mKeyboardSwitcher
 				.getCurrentKeyboard();
 		if (currentKeyboard.isShifted()) {
 			handleBackword(ic);
 			return;
 		}
+	    if (ic == null) //handleBackword checks this itself. So no need to double check ic == null
+	            return;
 		boolean deleteChar = false;
 		if (mPredicting) {
 			final int length = mComposing.length();
