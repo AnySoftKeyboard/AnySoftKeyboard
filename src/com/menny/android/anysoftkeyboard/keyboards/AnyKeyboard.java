@@ -504,7 +504,9 @@ public abstract class AnyKeyboard extends Keyboard
 	        	if (mSmileyKey != null)
 	        	{
 	        		//Log.d("AnySoftKeyboard", "Changing smiley key to domains.");
-	        		mSmileyKey.iconPreview = null;// res.getDrawable(sym_keyboard_key_domain_preview);
+	        		Drawable preview = res.getDrawable(R.drawable.sym_keyboard_key_domain_preview);
+	        		preview.setBounds(0, 0, 
+	        				preview.getIntrinsicWidth(), preview.getIntrinsicHeight());
 	        		mSmileyKey.icon = res.getDrawable(R.drawable.sym_keyboard_key_domain);
 		        	mSmileyKey.label = null;
 		        	mSmileyKey.text = AnySoftKeyboardConfiguration.getInstance().getDomainText();
@@ -522,6 +524,10 @@ public abstract class AnyKeyboard extends Keyboard
 	        	if (mSmileyKey != null)
 	        	{
 	        		//Log.d("AnySoftKeyboard", "Changing smiley key to smiley.");
+	        		Drawable preview = res.getDrawable(R.drawable.sym_keyboard_smiley_feedback);
+	        		preview.setBounds(0, 0, 
+	        				preview.getIntrinsicWidth(), preview.getIntrinsicHeight());
+	        		mSmileyKey.iconPreview = preview;
 	        		mSmileyKey.icon = res.getDrawable(R.drawable.sym_keyboard_smiley);
 		        	mSmileyKey.label = null;
 		        	mSmileyKey.text = null;// ":-) ";
