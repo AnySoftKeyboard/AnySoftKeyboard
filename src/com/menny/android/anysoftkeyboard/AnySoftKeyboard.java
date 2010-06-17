@@ -1253,6 +1253,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		//we want to delete at least one character
 		//ic.deleteSurroundingText(csl == 0 ? 1 : csl, 0);
 		ic.deleteSurroundingText(csl, 0);//it is always > 0 !
+		
+		handleShiftStateAfterBackspace();
 	}
 	
 
@@ -1284,6 +1286,22 @@ public class AnySoftKeyboard extends InputMethodService implements
 			deleteChar = true;
 		}
 		
+		handleShiftStateAfterBackspace();
+		
+		TextEntryState.backspace();
+		if (TextEntryState.getState() == TextEntryState.STATE_UNDO_COMMIT) {
+			revertLastWord(deleteChar);
+			return;
+		} else if (deleteChar) {
+			sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+			// if (mDeleteCount > DELETE_ACCELERATE_AT) {
+			// sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+			// }
+		}
+		mJustRevertedSeparator = null;
+	}
+
+	private void handleShiftStateAfterBackspace() {
 		switch(mLastCharacterShiftState)
 		{
 			//this code will help use in the case that
@@ -1302,18 +1320,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 			updateShiftKeyState(getCurrentInputEditorInfo());
 			break;
 		}
-		
-		TextEntryState.backspace();
-		if (TextEntryState.getState() == TextEntryState.STATE_UNDO_COMMIT) {
-			revertLastWord(deleteChar);
-			return;
-		} else if (deleteChar) {
-			sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
-			// if (mDeleteCount > DELETE_ACCELERATE_AT) {
-			// sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
-			// }
-		}
-		mJustRevertedSeparator = null;
 	}
 
 	private void handleShift() {
