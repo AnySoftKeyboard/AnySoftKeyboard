@@ -1175,6 +1175,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	private  void handleBackword(InputConnection ic) {
+	    try{
 	    if(ic == null){
 	        return;
 	    }
@@ -1254,7 +1255,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		//ic.deleteSurroundingText(csl == 0 ? 1 : csl, 0);
 		ic.deleteSurroundingText(csl, 0);//it is always > 0 !
 		
-		handleShiftStateAfterBackspace();
+	    }finally{
+	        handleShiftStateAfterBackspace();
+	    }
 	}
 	
 
