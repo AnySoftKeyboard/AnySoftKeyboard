@@ -47,7 +47,7 @@
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
-		        android:text="20100608 - 25"
+		        android:text="20100617 - 25"
 		        android:textStyle="bold"
 		        android:gravity="center"
 		        android:textSize="16sp"
@@ -63,7 +63,7 @@
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
-		        android:text="* Fix for re-loading external packages on install/upgrade/uninstall (fixes reboot requirement).\n* Auto-completes in landscape (e.g., contact names in To fields).\n* Backword support (shift+backspace).\n* and many more."
+		        android:text="* Fix for re-loading external packages on install/upgrade/uninstall (fixes reboot requirement).\n* Auto-completes in landscape (e.g., contact names in To fields).\n* Backword support (shift+backspace).\n* better English dictionary.\n* Small screens support\n* and many more."
 		        android:textSize="16sp"
 		        android:paddingTop="4dp"
 		        android:paddingLeft="12dp"
