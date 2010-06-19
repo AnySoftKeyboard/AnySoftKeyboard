@@ -175,10 +175,11 @@ public class KeyboardSwitcher
 
         switch (mode) {
         case MODE_SYMBOLS:
+        	keyboard = getSymbolsKeyboard(0);
+        	mAlphabetMode = false;
+            break;
         case MODE_PHONE:
-            keyboard = (mode == MODE_PHONE)?
-            		getSymbolsKeyboard(SYMBOLS_KEYBOARD_PHONE_INDEX)
-            		: getSymbolsKeyboard(0);
+            keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_PHONE_INDEX);
             mAlphabetMode = false;
             break;
 //        case MODE_TEXT:

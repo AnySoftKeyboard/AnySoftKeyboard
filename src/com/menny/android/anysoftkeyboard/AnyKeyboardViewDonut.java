@@ -1,6 +1,7 @@
 package com.menny.android.anysoftkeyboard;
 
 import android.content.Context;
+import android.inputmethodservice.Keyboard;
 import android.util.AttributeSet;
 
 public class AnyKeyboardViewDonut extends AnyKeyboardView
@@ -10,7 +11,18 @@ public class AnyKeyboardViewDonut extends AnyKeyboardView
 	}
 
 	@Override
-	public void requestRedraw() {
-		super.invalidateAllKeys();
-	}    	
+	public void requestSpecialKeysRedraw() {
+		invalidateAllKeys();
+	}
+	
+	@Override
+	public void requestShiftKeyRedraw() {
+		Keyboard keyboard = getKeyboard();
+		if (keyboard != null)
+		{
+			final int shiftKeyIndex = keyboard.getShiftKeyIndex();
+			if (shiftKeyIndex >= 0)
+				invalidateKey(shiftKeyIndex);
+		}
+	}
 }

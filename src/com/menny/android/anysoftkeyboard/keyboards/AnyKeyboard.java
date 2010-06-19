@@ -1,5 +1,6 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
+import java.util.List;
 import java.util.StringTokenizer;
 
 import android.content.Context;
@@ -8,7 +9,6 @@ import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
-import android.inputmethodservice.Keyboard.Key;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
@@ -53,6 +53,18 @@ public abstract class AnyKeyboard extends Keyboard
 		void translatePhysicalCharacter(HardKeyboardAction action);
 	}
 	
+	private static final String TAG_ROW = "Row";
+    private static final String TAG_KEY = "Key";
+
+	private static class KeyboardMetadata
+	{
+		public int keysCount = 0;
+		public int rowHeight = 0;
+		public int rowWidth = 0;
+		public int verticalGap = 0;
+		public boolean isTopRow = false;
+	}
+	
 	private static final int SHIFT_OFF = 0;
     private static final int SHIFT_ON = 1;
     private static final int SHIFT_LOCKED = 2;
@@ -65,6 +77,7 @@ public abstract class AnyKeyboard extends Keyboard
     //private Drawable mShiftLockPreviewIcon;
     private final Drawable mOffShiftIcon;
     private final Drawable mOnShiftIcon;
+    private final Drawable mDomainsIcon;
     //private Drawable mOldShiftPreviewIcon;
     private Key mShiftKey;
     private EnterKey mEnterKey;
@@ -76,6 +89,14 @@ public abstract class AnyKeyboard extends Keyboard
     private final Context mKeyboardContext;
     private final AnyKeyboardContextProvider mASKContext;
 	
+    private boolean mTopRowWasCreated;
+	private boolean mBottomRowWasCreated;
+	
+	private int mGenericRowsHeight = 0;
+	private int mTopRowKeysCount = 0;
+	// max(generic row widths)
+	private int mMaxGenericRowsWidth = 0;
+	
     protected AnyKeyboard(AnyKeyboardContextProvider askContext, Context context,//note: the context can be from a different package!
     		int xmlLayoutResId) 
     {
@@ -85,22 +106,25 @@ public abstract class AnyKeyboard extends Keyboard
         mDebug = AnySoftKeyboardConfiguration.getInstance().getDEBUG();
         mKeyboardContext = context;
         mASKContext = askContext;
-        
+
+		addGenericRows(askContext, context);
+		
         //in wide shifts, we'll use the shift with the Globe
-        if (mShiftKey != null)
+        Resources resources = askContext.getApplicationContext().getResources();
+		if (mShiftKey != null)
         {
-	        Drawable shiftWithGlobes = askContext.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift_with_globe);
-	        Log.v(TAG, "Deciding which icon to use for the SHIFT. Shift key width is "+mShiftKey.width+" and sym_keyboard_shift_with_globe width is "+shiftWithGlobes.getMinimumWidth());
+	        Drawable shiftWithGlobes = resources.getDrawable(R.drawable.sym_keyboard_shift_with_globe);
+	        //Log.v(TAG, "Deciding which icon to use for the SHIFT. Shift key width is "+mShiftKey.width+" and sym_keyboard_shift_with_globe width is "+shiftWithGlobes.getMinimumWidth());
 	        
 	        if (mShiftKey.width > shiftWithGlobes.getMinimumWidth())
 	        {
-	        	mOnShiftIcon = askContext.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift_with_globes_on);
+	        	mOnShiftIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_with_globes_on);
 		        mOffShiftIcon = shiftWithGlobes;
 	        }
 	        else
 	        {
-		        mOnShiftIcon = askContext.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift_on);
-		        mOffShiftIcon = askContext.getApplicationContext().getResources().getDrawable(R.drawable.sym_keyboard_shift);
+		        mOnShiftIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_on);
+		        mOffShiftIcon = resources.getDrawable(R.drawable.sym_keyboard_shift);
 	        }
 	        mShiftKey.icon = mOffShiftIcon; 
         }
@@ -110,6 +134,24 @@ public abstract class AnyKeyboard extends Keyboard
         	mOffShiftIcon = null;
         	Log.v(TAG, "No shift key, so no handling images.");
 	        
+        }
+        
+        if (mSmileyKey != null)
+        {
+        	Drawable wideDomains = resources.getDrawable(R.drawable.sym_keyboard_key_domain_wide);
+	         
+	        if (mSmileyKey.width > wideDomains.getMinimumWidth())
+	        {
+	        	mDomainsIcon = wideDomains;
+		    }
+	        else
+	        {
+	        	mDomainsIcon = resources.getDrawable(R.drawable.sym_keyboard_key_domain);
+	        }
+        }
+        else
+        {
+        	mDomainsIcon = null;
         }
     }
     
@@ -165,6 +207,150 @@ public abstract class AnyKeyboard extends Keyboard
                 }
             }
         }
+    }
+    
+	private void addGenericRows(AnyKeyboardContextProvider askContext, Context context) {
+		final String keysMode = AnySoftKeyboardConfiguration.getInstance().getChangeLayoutKeysSize();
+		final KeyboardMetadata topMd;
+		if (!mTopRowWasCreated)
+		{
+	        if (keysMode.equals("None"))
+	        {
+	        	topMd = null;
+	        }
+	        else if (keysMode.equals("Big"))
+	        {
+	        	topMd = addKeyboardRow(askContext.getApplicationContext(), R.xml.generic_top_row);
+	        }
+	        else
+	        {
+	        	topMd = addKeyboardRow(askContext.getApplicationContext(), R.xml.generic_half_top_row);
+	        }
+        
+			if (topMd != null)
+				fixKeyboardDueToGenericRow(topMd);
+		}
+		if (!mBottomRowWasCreated)
+		{
+			KeyboardMetadata bottomMd = addKeyboardRow(askContext.getApplicationContext(), R.xml.generic_bottom_row);
+			fixKeyboardDueToGenericRow(bottomMd);
+		}
+	}
+
+    private void fixKeyboardDueToGenericRow(KeyboardMetadata md) {
+    	mGenericRowsHeight += md.rowHeight + md.verticalGap;
+    	if (md.isTopRow)
+    	{
+    		mTopRowKeysCount += md.keysCount;
+    		List<Key> keys = getKeys();
+    		for(int keyIndex = md.keysCount; keyIndex < keys.size(); keyIndex++)
+            {
+    			final Key key = keys.get(keyIndex);
+    			key.y += md.rowHeight + md.verticalGap;
+    			if (key instanceof LessSensitiveAnyKey)
+            		((LessSensitiveAnyKey)key).resetSenitivity();//reseting cause the key may be offseted now (generic rows)
+            }
+    	} else {
+    		// The height should not include any gap below that last row
+    		// this corresponds to
+    		// mTotalHeight = y - mDefaultVerticalGap;
+    		// in the Keyboard class from Android sources
+
+    		// Note that we are using keyboard default vertical gap (instead of row vertical gap)
+    		// as this is done also in Android sources.
+    		mGenericRowsHeight -= getVerticalGap();
+    	}
+	}
+
+	private KeyboardMetadata addKeyboardRow(Context context, int rowResId) {
+		XmlResourceParser parser = context.getResources().getXml(rowResId);
+    	List<Key> keys = getKeys();
+        boolean inKey = false;
+        boolean inRow = false;
+        boolean leftMostKey = false;
+
+        int row = 0;
+        int x = 0;
+        int y = 0;
+        Key key = null;
+        Row currentRow = null;
+        Resources res = context.getResources();
+
+        KeyboardMetadata m = new KeyboardMetadata();
+
+        try {
+            int event;
+            while ((event = parser.next()) != XmlResourceParser.END_DOCUMENT) {
+                if (event == XmlResourceParser.START_TAG) {
+                    String tag = parser.getName();
+                    if (TAG_ROW.equals(tag)) {
+                        inRow = true;
+                        x = 0;
+                        currentRow = createRowFromXml(res, parser);
+                        m.isTopRow = currentRow.rowEdgeFlags == Keyboard.EDGE_TOP;
+                        if (!m.isTopRow) {
+                        	//the bottom row Y should be last
+                        	// The last coordinate is height + keyboard's default vertical gap
+                        	// since  mTotalHeight = y - mDefaultVerticalGap; (see loadKeyboard
+                        	// in the android sources)
+                        	// We use our overriden getHeight method which
+                        	// is just fixed so that it includes the first generic row.
+                        	y = getHeight() + getVerticalGap();
+                        }
+                        m.rowHeight = currentRow.defaultHeight;
+                        m.verticalGap = currentRow.verticalGap;
+                   } else if (TAG_KEY.equals(tag)) {
+                        inKey = true;
+                        key = createKeyFromXml(res, currentRow, x, y, parser);
+                        if (m.isTopRow)
+                        	keys.add(m.keysCount, key);
+                        else
+                        	keys.add(key);
+                        m.keysCount++;
+                    }
+                } else if (event == XmlResourceParser.END_TAG) {
+                    if (inKey) {
+                        inKey = false;
+                        x += (key.gap + key.width);
+                        if (x > m.rowWidth) {
+                        	m.rowWidth = x;
+                        	// We keep generic row max width updated
+                    		mMaxGenericRowsWidth = Math.max(mMaxGenericRowsWidth, m.rowWidth);
+                        }
+                    } else if (inRow) {
+                        inRow = false;
+                        y += currentRow.verticalGap;
+                        y += currentRow.defaultHeight;
+                        row++;
+                    } else {
+                        // TODO: error or extend?
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Parse error:" + e);
+            e.printStackTrace();
+        }
+        //mTotalHeight = y - mDefaultVerticalGap;
+        return m;
+    }
+
+    /*required overrides*/
+
+    @Override
+    public int getHeight() {
+    	return super.getHeight() + mGenericRowsHeight;
+    }
+
+    // minWidth is actually 'total width', see android framework source code
+    @Override
+    public int getMinWidth() {
+    	return Math.max(mMaxGenericRowsWidth, super.getMinWidth());
+    }
+
+    @Override
+    public int getShiftKeyIndex() {
+    	return super.getShiftKeyIndex() + mTopRowKeysCount;
     }
     
 	private void setIconIfNeeded(Key key, Resources localResources, int iconId) {
@@ -250,7 +436,12 @@ public abstract class AnyKeyboard extends Keyboard
     		aRow.defaultHeight = (int)(aRow.defaultHeight * config.getKeysHeightFactorInPortrait());
     	else
     		aRow.defaultHeight = (int)(aRow.defaultHeight * config.getKeysHeightFactorInLandscape());
-    		
+    	
+    	if ((aRow.rowEdgeFlags & Keyboard.EDGE_TOP) != 0)
+			mTopRowWasCreated = true;
+		if ((aRow.rowEdgeFlags & Keyboard.EDGE_BOTTOM) != 0)
+			mBottomRowWasCreated = true;
+		
     	return aRow;
     }
     
@@ -507,7 +698,8 @@ public abstract class AnyKeyboard extends Keyboard
 	        		Drawable preview = res.getDrawable(R.drawable.sym_keyboard_key_domain_preview);
 	        		preview.setBounds(0, 0, 
 	        				preview.getIntrinsicWidth(), preview.getIntrinsicHeight());
-	        		mSmileyKey.icon = res.getDrawable(R.drawable.sym_keyboard_key_domain);
+	        		mSmileyKey.iconPreview = preview;
+	        		mSmileyKey.icon = mDomainsIcon;
 		        	mSmileyKey.label = null;
 		        	mSmileyKey.text = AnySoftKeyboardConfiguration.getInstance().getDomainText();
 		        	mSmileyKey.popupResId = R.xml.popup_domains;

@@ -31,6 +31,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
+import android.graphics.Rect;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
@@ -44,6 +45,7 @@ import android.text.AutoText;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -60,8 +62,6 @@ import com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory;
 import com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase;
 import com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory.DictionaryBuilder;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
-import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory;
-import com.menny.android.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory.KeyboardBuilder;
 import com.menny.android.anysoftkeyboard.tutorials.TutorialsProvider;
@@ -154,8 +154,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private NotificationManager mNotificationManager;
 
 	private static AnySoftKeyboard INSTANCE;
-
-	// private final HardKeyboardTranslator mGenericKeyboardTranslator;
 
 	Handler mHandler = new Handler() {
 		@Override
@@ -426,17 +424,25 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// releasing some memory. Dictionaries, completions, etc.
 		System.gc();
 	}
-
+	
 	@Override
 	public void onUpdateSelection(int oldSelStart, int oldSelEnd,
 			int newSelStart, int newSelEnd, int candidatesStart,
 			int candidatesEnd) {
 		super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd,
 				candidatesStart, candidatesEnd);
+		
+		Log.d(TAG, "mComposing.length():"+mComposing.length());
+		Log.d(TAG, "oldSelStart:"+oldSelStart+" oldSelEnd:"+oldSelEnd);
+		Log.d(TAG, "newSelStart:"+newSelStart+" newSelEnd:"+newSelEnd);
+		Log.d(TAG, "candidatesStart:"+candidatesStart+" candidatesEnd:"+candidatesEnd);
+		
 		// If the current selection in the text view changes, we should
 		// clear whatever candidate text we have.
-		if (mComposing.length() > 0 && mPredicting
-				&& (newSelStart != candidatesEnd || newSelEnd != candidatesEnd)) {
+		if (mComposing.length() > 0 && mPredicting 
+				&& (candidatesEnd >= 0)//we have candidates underline
+				&& (newSelEnd != candidatesEnd)) //the candidate underline does not end at the new cursor position! User changed the cursor.
+		{
 			resetComposing();
 		} else if (!mPredicting
 				&& !mJustAccepted
@@ -445,7 +451,18 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 		mJustAccepted = false;
 	}
-
+	
+	@Override
+	public boolean onTrackballEvent(MotionEvent event) {
+		Log.d(TAG, "onTrackballEvent");
+		return super.onTrackballEvent(event);
+	}
+	@Override
+	public Context getApplicationContext() {
+		// TODO Auto-generated method stub
+		return super.getApplicationContext();
+	}
+	
 	private void resetComposing() {
 		InputConnection ic = getCurrentInputConnection();
 		if (ic != null) {
@@ -742,61 +759,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		return super.onKeyDown(keyCode, event);
 	}
 
-	// private boolean askTranslatorToTranslateHardKeyboardAction(int keyCode,
-	// InputConnection ic, String keyboardName,
-	// HardKeyboardTranslator keyTranslator)
-	// {
-	// if (AnySoftKeyboard.DEBUG) Log.d("AnySoftKeyborad", "Asking '" +
-	// keyboardName + "' to translate key: " + keyCode);
-	// if (DEBUG) Log.v("AnySoftKeyboard",
-	// "Hard Keyboard Action before translation: Shift: "+mHardKeyboardAction.mPhysicalShiftState+", Alt: "+mHardKeyboardAction.mPhysicalAltState+", Key code: "+mHardKeyboardAction.getKeyCode()+", changed: "+mHardKeyboardAction.getKeyCodeWasChanged());
-	// keyTranslator.translatePhysicalCharacter(mHardKeyboardAction);
-	// if (DEBUG) Log.v("AnySoftKeyboard",
-	// "Hard Keyboard Action after translation: Shift: "+mHardKeyboardAction.mPhysicalShiftState+", Alt: "+mHardKeyboardAction.mPhysicalAltState+", Key code: "+mHardKeyboardAction.getKeyCode()+", changed: "+mHardKeyboardAction.getKeyCodeWasChanged());
-	//
-	// final char translatedChar = (char)mHardKeyboardAction.consumeKeyCode();
-	// if (DEBUG) Log.v("AnySoftKeyboard",
-	// "Hard Keyboard Action after consumeKeyCode: Shift: "+mHardKeyboardAction.mPhysicalShiftState+", Alt: "+mHardKeyboardAction.mPhysicalAltState+", Key code: "+mHardKeyboardAction.getKeyCode());
-	// if (mHardKeyboardAction.getKeyCodeWasChanged())
-	// {
-	// // consuming the meta keys
-	// //Since I'm handling the physical keys, I also need to clear the meta
-	// state
-	// if (ic != null)
-	// {
-	// //the clear should be done only if we are not in sticky mode
-	// int metaStateToClear = 0;
-	// if (!mHardKeyboardAction.isShiftActive())
-	// {
-	// if (DEBUG) Log.v("AnySoftKeyboard",
-	// "About to clear SHIFT state from input since shift state is:"+mHardKeyboardAction.mPhysicalShiftState);
-	// metaStateToClear += KeyEvent.META_SHIFT_ON;
-	// }
-	// if (!mHardKeyboardAction.isAltActive())
-	// {
-	// if (DEBUG) Log.v("AnySoftKeyboard",
-	// "About to clear ALT state from input since alt state is:"+mHardKeyboardAction.mPhysicalAltState);
-	// metaStateToClear += KeyEvent.META_ALT_ON;
-	// }
-	//
-	// ic.clearMetaKeyStates(metaStateToClear);//translated, so we also take
-	// care of the metakeys.
-	// }
-	//
-	// if (AnySoftKeyboard.DEBUG)
-	// Log.d("AnySoftKeyborad", "'"+ keyboardName + "' translated key " +
-	// keyCode + " to "+ translatedChar);
-	//
-	// onKey(translatedChar, new int[] { translatedChar });
-	// return true;
-	// } else {
-	// if (AnySoftKeyboard.DEBUG)
-	// Log.d("AnySoftKeyborad", "'"+ keyboardName+ "' did not translated key " +
-	// keyCode+ ".");
-	// return false;
-	// }
-	// }
-
 	private void notifyKeyboardChangeIfNeeded() {
 		// Log.d("anySoftKeyboard","notifyKeyboardChangeIfNeeded");
 		// Thread.dumpStack();
@@ -991,11 +953,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 	// Implementation of KeyboardViewListener
 
 	public void onKey(int primaryCode, int[] keyCodes) {
+		
 		if (DEBUG)	Log.d("AnySoftKeyboard", "onKey " + primaryCode);
-		//if (DEBUG)	Thread.dumpStack();
-		//see issue 160, and "KEYCODE_SPACE" branch about this var.
-		//boolean switchToAlphabetAtTheEnd = false;
-
+		
 		switch (primaryCode) {
 		case Keyboard.KEYCODE_DELETE:
 			handleBackspace();
@@ -1068,18 +1028,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case AnyKeyboard.KEYCODE_KEYBOARD_REVERSE_CYCLE:
 		    nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.PreviousAny);
             break;
-//		case KEYCODE_SPACE:
-//			// Issue 160: Space in symbols keyboards should switch to
-//    		// alphabet keyboard
-//    		if (DEBUG)
-//    				Log.d(TAG, "SwitchKeyboardOnSpace: "
-//    						+ mSwitchKeyboardOnSpace);
-//
-//			if (mSwitchKeyboardOnSpace
-//					&& !mKeyboardSwitcher.isAlphabetMode()) {
-//				switchToAlphabetAtTheEnd = true;
-//			}
-//    		//Note: letting the space fall to the DEFAULT
 		default:
 			primaryCode = translatePrimaryCodeFromCurrentKeyboard(primaryCode);
 			// Issue 146: Right to left langs require reversed parenthesis
@@ -1354,7 +1302,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 					mInputView.setShifted(true);
 					caps = true;
 				}
-				mInputView.requestRedraw();
 			}
 
 			mCapsLock = caps;
@@ -1551,6 +1498,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mHandler.removeMessages(MSG_UPDATE_SUGGESTIONS);
 			updateSuggestions();
 		}
+
 		if (mBestWord != null) {
 			TextEntryState.acceptedDefault(mWord.getTypedWord(), mBestWord);
 			mJustAccepted = true;
@@ -1827,36 +1775,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (DEBUG) Log.d(TAG, "onRelease:"+primaryCode);
 		// vibrate();
 	}
-
-	// private void checkTutorial(String privateImeOptions) {
-	// if (privateImeOptions == null) return;
-	// if (privateImeOptions.equals("com.android.setupwizard:ShowTutorial")) {
-	// if (mTutorial == null) startTutorial();
-	// } else if
-	// (privateImeOptions.equals("com.android.setupwizard:HideTutorial")) {
-	// if (mTutorial != null) {
-	// if (mTutorial.close()) {
-	// mTutorial = null;
-	// }
-	// }
-	// }
-	// }
-	//
-
-	// private boolean mTutorialsShown = false;
-
-
-	// void tutorialDone() {
-	// mTutorial = null;
-	// }
-	//
-	// private void launchSettings() {
-	// handleClose();
-	// Intent intent = new Intent();
-	// intent.setClass(LatinIME.this, LatinIMESettings.class);
-	// intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-	// startActivity(intent);
-	// }
 
 	private void loadSettings() {
 		// setting all values to default
@@ -2233,25 +2151,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 					+ duration);
 		Toast.makeText(this.getApplication(), text, duration).show();
 	}
-
-//	public void performLengthyOperation(int textResId, final Runnable thingToDo) {
-//		thingToDo.run();
-//		// final ProgressDialog spinner = new ProgressDialog(this,
-//		// ProgressDialog.STYLE_SPINNER);
-//		//
-//		// Thread t = new Thread() {
-//		// public void run() {
-//		// thingToDo.run();
-//		// spinner.dismiss();
-//		// }
-//		// };
-//		// t.start();
-//		// spinner.setTitle(R.string.please_wait);
-//		// spinner.setIcon(R.drawable.icon_8_key);
-//		// spinner.setMessage(getResources().getText(textResId));
-//		// spinner.setCancelable(false);
-//		// spinner.show();
-//	}
 
 	@Override
 	public void onLowMemory() {

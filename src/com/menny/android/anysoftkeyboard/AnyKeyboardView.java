@@ -22,6 +22,7 @@ import android.inputmethodservice.KeyboardView;
 import android.inputmethodservice.Keyboard.Key;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
 
@@ -49,11 +50,24 @@ public class AnyKeyboardView extends KeyboardView {
         initializeStuff();
     }
     
-//    @Override
-//    public boolean onTouchEvent(MotionEvent me) {
-//    	Log.d(TAG, "onTouchEvent");
-//    	return super.onTouchEvent(me);
-//    }
+    private final Object mTouchLock = new Object();
+    @Override
+    public boolean onTouchEvent(MotionEvent me) {
+    	synchronized (mTouchLock) {
+    		try
+    		{
+    			return super.onTouchEvent(me);
+    		}
+    		catch(ArrayIndexOutOfBoundsException ex)
+    		{
+    			//due to an Android bug (see KeyboardView class functions 'getKeyIndices' - usage of arrayCopy
+    			//and 'detectAndSendKey' usage of mTapCount) 
+    			Log.w(TAG, "Got ArrayIndexOutOfBoundsException, and ignoring.");
+    			ex.printStackTrace();
+    			return true;
+    		}
+		}
+    }
 //    
 //    @Override
 //    public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -109,127 +123,28 @@ public class AnyKeyboardView extends KeyboardView {
     	}
     }
     
-//    @Override
-//    public void setKeyboard(Keyboard keyboard) {
-//    	if ((keyboard != null) && (keyboard.getMinWidth() != getWidth()))
-//		{
-//			Log.w(TAG, "NOTE: The SET keyboard has the wrong width! Keyboard width: "+keyboard.getMinWidth()+", device width:"+getWidth());
-//		}
-//    	super.setKeyboard(keyboard);
-//    }
-
+    @Override
+    public void setKeyboard(Keyboard keyboard) {
+    	super.setKeyboard(keyboard);
+    	if (this.isShown())
+    		requestSpecialKeysRedraw();
+    }
     
-    /****************************  INSTRUMENTATION  *******************************/
-
-//    static final boolean DEBUG_AUTO_PLAY = false;
-//    private static final int MSG_TOUCH_DOWN = 1;
-//    private static final int MSG_TOUCH_UP = 2;
-//    
-//    Handler mHandler2;
-//    
-//    private String mStringToPlay;
-//    private int mStringIndex;
-//    private boolean mDownDelivered;
-//    private Key[] mAsciiKeys = new Key[256];
-//    private boolean mPlaying;
-
-//    @Override
-//    public void setKeyboard(Keyboard k) {
-//        super.setKeyboard(k);
-//        if (DEBUG_AUTO_PLAY) {
-//            findKeys();
-//            if (mHandler2 == null) {
-//                mHandler2 = new Handler() {
-//                    @Override
-//                    public void handleMessage(Message msg) {
-//                        removeMessages(MSG_TOUCH_DOWN);
-//                        removeMessages(MSG_TOUCH_UP);
-//                        if (mPlaying == false) return;
-//                        
-//                        switch (msg.what) {
-//                            case MSG_TOUCH_DOWN:
-//                                if (mStringIndex >= mStringToPlay.length()) {
-//                                    mPlaying = false;
-//                                    return;
-//                                }
-//                                char c = mStringToPlay.charAt(mStringIndex);
-//                                while (c > 255 || mAsciiKeys[(int) c] == null) {
-//                                    mStringIndex++;
-//                                    if (mStringIndex >= mStringToPlay.length()) {
-//                                        mPlaying = false;
-//                                        return;
-//                                    }
-//                                    c = mStringToPlay.charAt(mStringIndex);
-//                                }
-//                                int x = mAsciiKeys[c].x + 10;
-//                                int y = mAsciiKeys[c].y + 26;
-//                                MotionEvent me = MotionEvent.obtain(SystemClock.uptimeMillis(), 
-//                                        SystemClock.uptimeMillis(), 
-//                                        MotionEvent.ACTION_DOWN, x, y, 0);
-//                                AnyKeyboardView.this.dispatchTouchEvent(me);
-//                                me.recycle();
-//                                sendEmptyMessageDelayed(MSG_TOUCH_UP, 500); // Deliver up in 500ms if nothing else
-//                                // happens
-//                                mDownDelivered = true;
-//                                break;
-//                            case MSG_TOUCH_UP:
-//                                char cUp = mStringToPlay.charAt(mStringIndex);
-//                                int x2 = mAsciiKeys[cUp].x + 10;
-//                                int y2 = mAsciiKeys[cUp].y + 26;
-//                                mStringIndex++;
-//                                
-//                                MotionEvent me2 = MotionEvent.obtain(SystemClock.uptimeMillis(), 
-//                                        SystemClock.uptimeMillis(), 
-//                                        MotionEvent.ACTION_UP, x2, y2, 0);
-//                                AnyKeyboardView.this.dispatchTouchEvent(me2);
-//                                me2.recycle();
-//                                sendEmptyMessageDelayed(MSG_TOUCH_DOWN, 500); // Deliver up in 500ms if nothing else
-//                                // happens
-//                                mDownDelivered = false;
-//                                break;
-//                        }
-//                    }
-//                };
-//
-//            }
-//        }
-//    }
-
-//    private void findKeys() {
-//        List<Key> keys = getKeyboard().getKeys();
-//        // Get the keys on this keyboard
-//        for (int i = 0; i < keys.size(); i++) {
-//            int code = keys.get(i).codes[0];
-//            if (code >= 0 && code <= 255) { 
-//                mAsciiKeys[code] = keys.get(i);
-//            }
-//        }
-//    }
+    protected void requestSpecialKeysRedraw()
+    {
+    	super.invalidate();
+    }
     
-//    void startPlaying(String s) {
-//        if (!DEBUG_AUTO_PLAY) return;
-//        if (s == null) return;
-//        mStringToPlay = s.toLowerCase();
-//        mPlaying = true;
-//        mDownDelivered = false;
-//        mStringIndex = 0;
-//        mHandler2.sendEmptyMessageDelayed(MSG_TOUCH_DOWN, 10);
-//    }
-
-//    @Override
-//    public void draw(Canvas c) {
-//        super.draw(c);
-//        if (DEBUG_AUTO_PLAY && mPlaying) {
-//            mHandler2.removeMessages(MSG_TOUCH_DOWN);
-//            mHandler2.removeMessages(MSG_TOUCH_UP);
-//            if (mDownDelivered) {
-//                mHandler2.sendEmptyMessageDelayed(MSG_TOUCH_UP, 20);
-//            } else {
-//                mHandler2.sendEmptyMessageDelayed(MSG_TOUCH_DOWN, 20);
-//            }
-//        }
-//    }
-    public void requestRedraw()
+    @Override
+    public boolean setShifted(boolean shifted) {
+    	final boolean res = super.setShifted(shifted);
+    	if (isShown())
+    		requestShiftKeyRedraw();
+    	
+    	return res;
+    }
+    
+    protected void requestShiftKeyRedraw()
     {
     	super.invalidate();
     }
