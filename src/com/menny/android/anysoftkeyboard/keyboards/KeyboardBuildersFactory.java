@@ -271,8 +271,17 @@ public class KeyboardBuildersFactory {
                         final int physicalTranslationResId = attrs.getAttributeResourceValue(null,
                                 XML_PHYSICAL_TRANSLATION_RES_ID_ATTRIBUTE, -1);
 
-                        final String description = attrs.getAttributeValue(null,
-                                XML_DESCRIPTION_ATTRIBUTE);
+                        final int descriptionInt = attrs.getAttributeResourceValue(null,
+                                XML_DESCRIPTION_ATTRIBUTE,-1);
+                        //NOTE, to be compatibel we need this. because the most of descriptions are
+                        //without @string/<desc>
+                        String description;
+                        if(descriptionInt != -1){
+                            description = context.getResources().getString(descriptionInt);
+                        } else {
+                            description =  attrs.getAttributeValue(null,
+                                    XML_DESCRIPTION_ATTRIBUTE); 
+                        }
 
                         final int keyboardIndex = attrs.getAttributeResourceValue(null,
                         		XML_INDEX_ATTRIBUTE, 1);
