@@ -28,6 +28,11 @@ import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
 
 public class AnyKeyboardView extends KeyboardView {
 
+	public interface OnAnyKeyboardActionListener extends OnKeyboardActionListener
+	{
+		void startInputConnectionEdit();
+		void endInputConnectionEdit();
+	}
 	private final static String TAG = "ASK AnyKeyboardView";
 	static final int KEYCODE_OPTIONS = -100;
     //static final int KEYCODE_SHIFT_LONGPRESS = -101;
@@ -54,8 +59,10 @@ public class AnyKeyboardView extends KeyboardView {
     @Override
     public boolean onTouchEvent(MotionEvent me) {
     	synchronized (mTouchLock) {
+    		OnAnyKeyboardActionListener ime = (OnAnyKeyboardActionListener)getOnKeyboardActionListener();
     		try
     		{
+    			ime.startInputConnectionEdit();
     			return super.onTouchEvent(me);
     		}
     		catch(ArrayIndexOutOfBoundsException ex)
@@ -65,6 +72,10 @@ public class AnyKeyboardView extends KeyboardView {
     			Log.w(TAG, "Got ArrayIndexOutOfBoundsException, and ignoring.");
     			ex.printStackTrace();
     			return true;
+    		}
+    		finally
+    		{
+    			ime.endInputConnectionEdit();
     		}
 		}
     }
@@ -123,26 +134,26 @@ public class AnyKeyboardView extends KeyboardView {
     	}
     }
     
-    @Override
-    public void setKeyboard(Keyboard keyboard) {
-    	super.setKeyboard(keyboard);
-    	if (this.isShown())
-    		requestSpecialKeysRedraw();
-    }
+//    @Override
+//    public void setKeyboard(Keyboard keyboard) {
+//    	super.setKeyboard(keyboard);
+//    	if (this.isShown())
+//    		requestSpecialKeysRedraw();
+//    }
     
     protected void requestSpecialKeysRedraw()
     {
     	super.invalidate();
     }
     
-    @Override
-    public boolean setShifted(boolean shifted) {
-    	final boolean res = super.setShifted(shifted);
-    	if (isShown())
-    		requestShiftKeyRedraw();
-    	
-    	return res;
-    }
+//    @Override
+//    public boolean setShifted(boolean shifted) {
+//    	final boolean res = super.setShifted(shifted);
+//    	if (isShown())
+//    		requestShiftKeyRedraw();
+//    	
+//    	return res;
+//    }
     
     protected void requestShiftKeyRedraw()
     {

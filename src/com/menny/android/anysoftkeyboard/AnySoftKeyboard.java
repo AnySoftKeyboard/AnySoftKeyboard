@@ -31,10 +31,8 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
-import android.graphics.Rect;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
-import android.inputmethodservice.KeyboardView;
 import android.media.AudioManager;
 import android.os.Debug;
 import android.os.Handler;
@@ -70,7 +68,7 @@ import com.menny.android.anysoftkeyboard.tutorials.TutorialsProvider;
  * Input method implementation for Qwerty'ish keyboard.
  */
 public class AnySoftKeyboard extends InputMethodService implements
-		KeyboardView.OnKeyboardActionListener,
+		AnyKeyboardView.OnAnyKeyboardActionListener,
 		OnSharedPreferenceChangeListener, AnyKeyboardContextProvider {
 	private final static String TAG = "ASK";
 
@@ -910,10 +908,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (lastTwo != null && lastTwo.length() == 2
 				&& lastTwo.charAt(0) == KEYCODE_SPACE
 				&& SPACE_SWAP_CHARACTERS.contains((int)lastTwo.charAt(1))) {
-			ic.beginBatchEdit();
+			//ic.beginBatchEdit();
 			ic.deleteSurroundingText(2, 0);
 			ic.commitText(lastTwo.charAt(1) + " ", 1);
-			ic.endBatchEdit();
+			//ic.endBatchEdit();
 			updateShiftKeyState(getCurrentInputEditorInfo());
 		}
 	}
@@ -930,10 +928,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 				&& Character.isLetterOrDigit(lastThree.charAt(0))
 				&& lastThree.charAt(1) == KEYCODE_SPACE
 				&& lastThree.charAt(2) == KEYCODE_SPACE) {
-			ic.beginBatchEdit();
+			//ic.beginBatchEdit();
 			ic.deleteSurroundingText(2, 0);
 			ic.commitText(". ", 1);
-			ic.endBatchEdit();
+			//ic.endBatchEdit();
 			updateShiftKeyState(getCurrentInputEditorInfo());
 		}
 	}
@@ -1108,12 +1106,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 		InputConnection ic = getCurrentInputConnection();
 		if (ic == null)
 			return;
-		ic.beginBatchEdit();
+		//ic.beginBatchEdit();
 		if (mPredicting) {
 			commitTyped(ic);
 		}
 		ic.commitText(text, 1);
-		ic.endBatchEdit();
+		//ic.endBatchEdit();
 		updateShiftKeyState(getCurrentInputEditorInfo());
 		mJustRevertedSeparator = null;
 	}
@@ -1371,9 +1369,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		boolean pickedDefault = false;
 		// Handle separator
 		InputConnection ic = getCurrentInputConnection();
-		if (ic != null) {
-			ic.beginBatchEdit();
-		}
+//		if (ic != null) {
+//			ic.beginBatchEdit();
+//		}
 		if (mPredicting) {
 			// In certain languages where single quote is a separator, it's
 			// better
@@ -1407,9 +1405,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 			TextEntryState.acceptedDefault(mWord.getTypedWord(), mBestWord);
 		}
 		updateShiftKeyState(getCurrentInputEditorInfo());
-		if (ic != null) {
-			ic.endBatchEdit();
-		}
+//		if (ic != null) {
+//			ic.endBatchEdit();
+//		}
 	}
 
 	private void handleClose() {
@@ -1578,7 +1576,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (!mPredicting && length > 0) {
 			final InputConnection ic = getCurrentInputConnection();
 			mPredicting = true;
-			ic.beginBatchEdit();
+			//ic.beginBatchEdit();
 			mJustRevertedSeparator = ic.getTextBeforeCursor(1, 0);
 			if (deleteChar)
 				ic.deleteSurroundingText(1, 0);
@@ -1592,7 +1590,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			ic.deleteSurroundingText(toDelete, 0);
 			ic.setComposingText(mComposing, 1);
 			TextEntryState.backspace();
-			ic.endBatchEdit();
+			//ic.endBatchEdit();
 			postUpdateSuggestions();
 		} else {
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
@@ -2161,5 +2159,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 		DictionaryFactory.onLowMemory(getDictionaryForKeyboard(mKeyboardSwitcher
 				.getCurrentKeyboard()));
 		super.onLowMemory();
+	}
+
+	public void endInputConnectionEdit() {
+		InputConnection ic = getCurrentInputConnection();
+		if (ic != null)
+			ic.endBatchEdit();
+	}
+
+	public void startInputConnectionEdit() {
+		InputConnection ic = getCurrentInputConnection();
+		if (ic != null)
+			ic.beginBatchEdit();
 	}
 }
