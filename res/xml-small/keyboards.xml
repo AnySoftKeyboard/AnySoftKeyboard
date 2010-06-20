@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Keyboards>
 	<Keyboard nameResId="@string/eng_keyboard" iconResId="@drawable/en" layoutResId="@xml/eng_16keys" landscapeResId="@xml/qwerty" id="c7535083-4fe6-49dc-81aa-c5438a1a343a" defaultDictionaryLocale="en" description="QWERTY Latin keyboard" index="1"/>
+	<Keyboard nameResId="@string/eng_keyboard_compact" iconResId="@drawable/en" layoutResId="@xml/qwerty_compact" landscapeResId="@xml/qwerty" defaultDictionaryLocale="en" id="cbdc309f-6d9b-46f5-a5a2-b5ac2be8299f" description="Compact in portrait" index="2" />
 </Keyboards>
