@@ -252,8 +252,11 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 			return;//if the keyboard XML already specified the popup, then no need to override
 
 		//filling popup res for external keyboards
-		if ((aKey.popupCharacters != null) && (aKey.popupCharacters.length() > 0)){
+		//if ((aKey.popupCharacters != null) && (aKey.popupCharacters.length() > 0)){
+		if (aKey.popupCharacters != null){
+		    if(aKey.popupCharacters.length() > 0){
 			aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
+		    }
 			return;
 		}
 
