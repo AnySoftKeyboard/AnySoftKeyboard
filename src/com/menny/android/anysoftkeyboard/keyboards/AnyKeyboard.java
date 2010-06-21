@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
@@ -408,19 +409,8 @@ public abstract class AnyKeyboard extends Keyboard
         
         setPopupKeyChars(key);
         
-//        if ((key.codes != null) && (key.codes.length > 1))
-//        {
-//        	final int primaryCode = key.codes[0];
-//        	if ((primaryCode>0) && (primaryCode<Character.MAX_VALUE))
-//        	{
-//        		Character primary = new Character((char)primaryCode);
-//        		ShiftedKeyData keyData = new ShiftedKeyData(key);
-//	        	if (!mSpecialShiftKeys.containsKey(primary))
-//	        		mSpecialShiftKeys.put(primary, keyData);
-//	        	if (mDebug)
-//	            	Log.v(TAG, "Adding mapping ("+primary+"->"+keyData.ShiftCharacter+") to mSpecialShiftKeys.");
-//	        }
-//        }
+        if (!TextUtils.isEmpty(key.label))
+        	key.label = Workarounds.workaroundCorrectStringDirection(key.label);
         		
         return key;
     }
