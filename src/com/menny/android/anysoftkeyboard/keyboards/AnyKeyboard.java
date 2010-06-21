@@ -74,12 +74,12 @@ public abstract class AnyKeyboard extends Keyboard
     
     private final boolean mDebug;
 	
-    //private Drawable mShiftLockIcon;
-    //private Drawable mShiftLockPreviewIcon;
     private final Drawable mOffShiftIcon;
     private final Drawable mOnShiftIcon;
-    private final Drawable mDomainsIcon;
-    //private Drawable mOldShiftPreviewIcon;
+    private final Drawable mOffShiftFeedbackIcon;
+    private final Drawable mOnShiftFeedbackIcon;
+    private final int mDomainsIconId;
+
     private Key mShiftKey;
     private EnterKey mEnterKey;
 	private Key mSmileyKey;
@@ -121,18 +121,28 @@ public abstract class AnyKeyboard extends Keyboard
 	        {
 	        	mOnShiftIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_with_globes_on);
 		        mOffShiftIcon = shiftWithGlobes;
+		        mOnShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_with_globes_on);
+		        mOffShiftFeedbackIcon = shiftWithGlobes;
 	        }
 	        else
 	        {
 		        mOnShiftIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_on);
 		        mOffShiftIcon = resources.getDrawable(R.drawable.sym_keyboard_shift);
+		        mOnShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift_on);
+		        mOffShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift);;
 	        }
-	        mShiftKey.icon = mOffShiftIcon; 
+	        mShiftKey.icon = mOffShiftIcon;
+	        mOnShiftFeedbackIcon.setBounds(0, 0, 
+	        		mOnShiftFeedbackIcon.getIntrinsicWidth(), mOnShiftFeedbackIcon.getIntrinsicHeight());
+	        mOffShiftFeedbackIcon.setBounds(0, 0, 
+	        		mOffShiftFeedbackIcon.getIntrinsicWidth(), mOffShiftFeedbackIcon.getIntrinsicHeight());
         }
         else
         {
         	mOnShiftIcon = null;
         	mOffShiftIcon = null;
+        	mOnShiftFeedbackIcon = null;
+        	mOffShiftFeedbackIcon = null;
         	Log.v(TAG, "No shift key, so no handling images.");
 	        
         }
@@ -143,16 +153,16 @@ public abstract class AnyKeyboard extends Keyboard
 	         
 	        if (mSmileyKey.width > wideDomains.getMinimumWidth())
 	        {
-	        	mDomainsIcon = wideDomains;
+	        	mDomainsIconId = R.drawable.sym_keyboard_key_domain_wide;
 		    }
 	        else
 	        {
-	        	mDomainsIcon = resources.getDrawable(R.drawable.sym_keyboard_key_domain);
+	        	mDomainsIconId = R.drawable.sym_keyboard_key_domain;
 	        }
         }
         else
         {
-        	mDomainsIcon = null;
+        	mDomainsIconId = -1;
         }
     }
     
@@ -172,22 +182,22 @@ public abstract class AnyKeyboard extends Keyboard
                 switch(primaryCode)
                 {
                 case AnyKeyboard.KEYCODE_DELETE:
-                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_delete_small);
+                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_delete_small , R.drawable.sym_keyboard_feedback_delete);
                     break;
 //                case AnyKeyboard.KEYCODE_SHIFT:
 //                	key.icon = localResources.getDrawable(R.drawable.sym_keyboard_shift);
 //                    break;
                 case AnyKeyboard.KEYCODE_CTRL:
-                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_ctrl);
+                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_ctrl, -1);
                     break;
                 case 32://SPACE
-                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_space);
+                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_space, R.drawable.sym_keyboard_feedback_space);
                     break;
                 case 9://TAB
-                	setIconIfNeeded(key, localResources, R.drawable.tab_key);
+                	setIconIfNeeded(key, localResources, R.drawable.tab_key, -1);
                     break;
                 case AnyKeyboard.KEYCODE_LANG_CHANGE:
-                	setIconIfNeeded(key, localResources, R.drawable.globe);
+                	setIconIfNeeded(key, localResources, R.drawable.globe, -1);
                     break;
                 case 63:
                     if ((key.edgeFlags & Keyboard.EDGE_BOTTOM) != 0)
@@ -354,10 +364,23 @@ public abstract class AnyKeyboard extends Keyboard
     	return super.getShiftKeyIndex() + mTopRowKeysCount;
     }
     
-	private void setIconIfNeeded(Key key, Resources localResources, int iconId) {
+	private void setIconIfNeeded(Key key, Resources localResources, int iconId, int iconFeedbackId) {
 		if ((key.icon != null) || ((key.label != null) && (key.label.length() > 0)))
 			return;
+		setKeyIcons(key, localResources, iconId, iconFeedbackId);
+	}
+
+	private void setKeyIcons(Key key, Resources localResources, int iconId,
+			int iconFeedbackId) {
 		key.icon = localResources.getDrawable(iconId);
+		if (iconFeedbackId > 0)
+		{
+			Drawable preview = localResources.getDrawable(iconFeedbackId);
+    		preview.setBounds(0, 0, 
+    				preview.getIntrinsicWidth(), preview.getIntrinsicHeight());
+    		key.iconPreview = preview;
+    		key.label = null;
+		}
 	}
 
 	protected AnyKeyboardContextProvider getASKContext()
@@ -521,8 +544,7 @@ public abstract class AnyKeyboard extends Keyboard
 	                mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_done_key));
 	                break;
 	            case EditorInfo.IME_ACTION_SEARCH:
-	                mEnterKey.icon = res.getDrawable(R.drawable.sym_keyboard_search);
-	                mEnterKey.label = null;
+	            	setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_search, R.drawable.sym_keyboard_feedback_search);
 	                break;
 	            case EditorInfo.IME_ACTION_SEND:
 	            	mEnterKey.iconPreview = null;
@@ -544,8 +566,7 @@ public abstract class AnyKeyboard extends Keyboard
 //	            	}
 //	            	else
 //	            	{
-		            	mEnterKey.icon = res.getDrawable(R.drawable.sym_keyboard_return);
-			            mEnterKey.label = null;
+	            		setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_return, R.drawable.sym_keyboard_feedback_return);
 //	            	}
 	            	break;
 	        }
@@ -616,9 +637,11 @@ public abstract class AnyKeyboard extends Keyboard
 	            if (shiftState) {
 	            	if (mDebug) Log.d(TAG, "Switching to regular ON shift icon - shifted");
 	            	mShiftKey.icon = mOnShiftIcon;
+	            	mShiftKey.iconPreview = mOnShiftFeedbackIcon;
 	            } else {
 	            	if (mDebug) Log.d(TAG, "Switching to regular OFF shift icon - un-shifted");
 	            	mShiftKey.icon = mOffShiftIcon;
+	            	mShiftKey.iconPreview = mOffShiftFeedbackIcon;
 	            }
 	        }
 			return true;
@@ -685,13 +708,8 @@ public abstract class AnyKeyboard extends Keyboard
 	        	if (mSmileyKey != null)
 	        	{
 	        		//Log.d("AnySoftKeyboard", "Changing smiley key to domains.");
-	        		Drawable preview = res.getDrawable(R.drawable.sym_keyboard_key_domain_preview);
-	        		preview.setBounds(0, 0, 
-	        				preview.getIntrinsicWidth(), preview.getIntrinsicHeight());
-	        		mSmileyKey.iconPreview = preview;
-	        		mSmileyKey.icon = mDomainsIcon;
-		        	mSmileyKey.label = null;
-		        	mSmileyKey.text = AnySoftKeyboardConfiguration.getInstance().getDomainText();
+	        		setKeyIcons(mSmileyKey, res, mDomainsIconId, R.drawable.sym_keyboard_key_domain_preview);
+	        		mSmileyKey.text = AnySoftKeyboardConfiguration.getInstance().getDomainText();
 		        	mSmileyKey.popupResId = R.xml.popup_domains;
 	        	}
 	        	if (mQuestionMarkKey != null)
@@ -705,13 +723,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        default:
 	        	if (mSmileyKey != null)
 	        	{
-	        		//Log.d("AnySoftKeyboard", "Changing smiley key to smiley.");
-	        		Drawable preview = res.getDrawable(R.drawable.sym_keyboard_smiley_feedback);
-	        		preview.setBounds(0, 0, 
-	        				preview.getIntrinsicWidth(), preview.getIntrinsicHeight());
-	        		mSmileyKey.iconPreview = preview;
-	        		mSmileyKey.icon = res.getDrawable(R.drawable.sym_keyboard_smiley);
-		        	mSmileyKey.label = null;
+	        		setKeyIcons(mSmileyKey, res, R.drawable.sym_keyboard_smiley, R.drawable.sym_keyboard_smiley_feedback);
 		        	mSmileyKey.text = null;// ":-) ";
 		        	mSmileyKey.popupResId = R.xml.popup_smileys;
 	        	}
