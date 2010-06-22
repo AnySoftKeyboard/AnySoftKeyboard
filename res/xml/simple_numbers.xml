@@ -10,7 +10,7 @@
         <Key android:codes="49" android:horizontalGap="0px" android:keyIcon="@drawable/sym_keyboard_num1" android:keyEdgeFlags="left"/>
         <Key android:codes="50" android:keyIcon="@drawable/sym_keyboard_num2"/>
         <Key android:codes="51" android:keyIcon="@drawable/sym_keyboard_num3"/>
-        <Key android:codes="-5" android:horizontalGap="0px" android:keyIcon="@drawable/sym_keyboard_delete_small" 
+        <Key android:codes="-5" android:horizontalGap="0px"
         	android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     <Row>
@@ -31,6 +31,6 @@
         <Key android:codes="42" android:horizontalGap="0px" android:keyLabel="*" android:keyEdgeFlags="left"/>
         <Key android:codes="48" android:keyIcon="@drawable/sym_keyboard_num0"/>
         <Key android:codes="35" android:keyLabel="\#"/>
-        <Key android:codes="10" android:horizontalGap="0px" android:keyIcon="@drawable/sym_keyboard_return" android:keyEdgeFlags="right"/>
+        <Key android:codes="10" android:horizontalGap="0px" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>

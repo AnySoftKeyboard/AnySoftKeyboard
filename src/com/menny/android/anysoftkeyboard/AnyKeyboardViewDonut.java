@@ -3,6 +3,7 @@ package com.menny.android.anysoftkeyboard;
 import android.content.Context;
 import android.inputmethodservice.Keyboard;
 import android.util.AttributeSet;
+import android.util.Log;
 
 public class AnyKeyboardViewDonut extends AnyKeyboardView
 {
@@ -11,18 +12,22 @@ public class AnyKeyboardViewDonut extends AnyKeyboardView
 	}
 
 	@Override
-	public void requestSpecialKeysRedraw() {
+	protected void requestSpecialKeysRedraw() {
 		invalidateAllKeys();
 	}
 	
 	@Override
 	public void requestShiftKeyRedraw() {
-		Keyboard keyboard = getKeyboard();
-		if (keyboard != null)
+		if (canInteractWithUi())
 		{
-			final int shiftKeyIndex = keyboard.getShiftKeyIndex();
-			if (shiftKeyIndex >= 0)
-				invalidateKey(shiftKeyIndex);
+			Log.d("FSGSDFGS", "canInteractWithUi");
+			Keyboard keyboard = getKeyboard();
+			if (keyboard != null)
+			{
+				final int shiftKeyIndex = keyboard.getShiftKeyIndex();
+				if (shiftKeyIndex >= 0)
+					invalidateKey(shiftKeyIndex);
+			}
 		}
 	}
 }

@@ -10,7 +10,7 @@
         <Key android:codes="46,44,63,33" android:keyLabel=".,?!" android:keyEdgeFlags="left"/>
         <Key android:codes="97,98,99" android:keyLabel="ABC"/>
         <Key android:codes="100,101,102" android:keyLabel="DEF"/>
-        <Key android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete_small" 
+        <Key android:codes="-5"
         	android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     <Row>
@@ -29,7 +29,7 @@
     
     <Row android:rowEdgeFlags="bottom">
         <Key android:codes="-1" android:keyIcon="@drawable/globe" android:keyEdgeFlags="left"/>
-        <Key android:codes="32" android:keyWidth="50%p" android:keyIcon="@drawable/sym_keyboard_space"/>
+        <Key android:codes="32" android:keyWidth="50%p"/>
         <Key android:codes="10" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>

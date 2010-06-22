@@ -117,7 +117,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        Drawable shiftWithGlobes = resources.getDrawable(R.drawable.sym_keyboard_shift_with_globe);
 	        //Log.v(TAG, "Deciding which icon to use for the SHIFT. Shift key width is "+mShiftKey.width+" and sym_keyboard_shift_with_globe width is "+shiftWithGlobes.getMinimumWidth());
 	        
-	        if (mShiftKey.width > shiftWithGlobes.getMinimumWidth())
+	        if (mShiftKey.width > (shiftWithGlobes.getMinimumWidth() * 1.2))
 	        {
 	        	mOnShiftIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_with_globes_on);
 		        mOffShiftIcon = shiftWithGlobes;
@@ -131,11 +131,12 @@ public abstract class AnyKeyboard extends Keyboard
 		        mOnShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift_on);
 		        mOffShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift);;
 	        }
-	        mShiftKey.icon = mOffShiftIcon;
 	        mOnShiftFeedbackIcon.setBounds(0, 0, 
 	        		mOnShiftFeedbackIcon.getIntrinsicWidth(), mOnShiftFeedbackIcon.getIntrinsicHeight());
 	        mOffShiftFeedbackIcon.setBounds(0, 0, 
 	        		mOffShiftFeedbackIcon.getIntrinsicWidth(), mOffShiftFeedbackIcon.getIntrinsicHeight());
+	        mShiftKey.icon = mOffShiftIcon;
+	        mShiftKey.iconPreview = mOffShiftFeedbackIcon;
         }
         else
         {
@@ -150,8 +151,9 @@ public abstract class AnyKeyboard extends Keyboard
         if (mSmileyKey != null)
         {
         	Drawable wideDomains = resources.getDrawable(R.drawable.sym_keyboard_key_domain_wide);
-	         
-	        if (mSmileyKey.width > wideDomains.getMinimumWidth())
+        	Log.v(TAG, "Deciding which icon to use for the domains. Key width is "+mSmileyKey.width+" and sym_keyboard_key_domain_wide width is "+wideDomains.getMinimumWidth());
+	        
+	        if (mSmileyKey.width > (wideDomains.getMinimumWidth() * 1.2))
 	        {
 	        	mDomainsIconId = R.drawable.sym_keyboard_key_domain_wide;
 		    }
@@ -519,8 +521,7 @@ public abstract class AnyKeyboard extends Keyboard
     	{
     		//this means that the ENTER should not be replaced with a custom action.
     		//maybe in future ASK releases, we'll add the custom action key.
-    		mEnterKey.icon = res.getDrawable(R.drawable.sym_keyboard_return);
-            mEnterKey.label = null;
+    		setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_return, R.drawable.sym_keyboard_feedback_return);
     	}
     	else
     	{
@@ -907,4 +908,8 @@ public abstract class AnyKeyboard extends Keyboard
 	}
 	
 	public abstract String getKeyboardPrefId();
+
+	public boolean requiresProximityCorrection() {
+		return getKeys().size() > 20;
+	}
 }

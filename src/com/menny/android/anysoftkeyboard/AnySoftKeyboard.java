@@ -897,6 +897,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				caps = ic.getCursorCapsMode(attr.inputType);
 			}
 			mInputView.setShifted(mCapsLock || caps != 0);
+			mInputView.requestShiftKeyRedraw();
 		}
 	}
 
@@ -1269,6 +1270,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			updateShiftKeyState(getCurrentInputEditorInfo());
 			break;
 		}
+		mInputView.requestShiftKeyRedraw();
 	}
 
 	private void handleShift() {
@@ -1301,6 +1303,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 					caps = true;
 				}
 			}
+			mInputView.requestShiftKeyRedraw();
 
 			mCapsLock = caps;
 			currentKeyboard.setShiftLocked(mCapsLock);

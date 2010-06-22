@@ -67,7 +67,7 @@ public class KeyboardSwitcher
     private boolean mAlphabetMode = true;
 	private static String TAG = "AnySoftKeyboard";
 
-	private static KeyboardSwitcher INSTANCE = new KeyboardSwitcher();
+	private final static KeyboardSwitcher INSTANCE = new KeyboardSwitcher();
 
 	public void setContext(AnySoftKeyboard context ){
 		mContext = context;

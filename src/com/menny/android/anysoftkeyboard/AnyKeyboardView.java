@@ -20,6 +20,7 @@ import android.content.Context;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.inputmethodservice.Keyboard.Key;
+import android.os.IBinder;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -134,12 +135,11 @@ public class AnyKeyboardView extends KeyboardView {
     	}
     }
     
-//    @Override
-//    public void setKeyboard(Keyboard keyboard) {
-//    	super.setKeyboard(keyboard);
-//    	if (this.isShown())
-//    		requestSpecialKeysRedraw();
-//    }
+    @Override
+    public void setKeyboard(Keyboard keyboard) {
+    	super.setKeyboard(keyboard);
+    	setProximityCorrectionEnabled(((AnyKeyboard)keyboard).requiresProximityCorrection());
+    }
     
     protected void requestSpecialKeysRedraw()
     {
@@ -155,9 +155,16 @@ public class AnyKeyboardView extends KeyboardView {
 //    	return res;
 //    }
     
-    protected void requestShiftKeyRedraw()
+    public void requestShiftKeyRedraw()
     {
-    	super.invalidate();
+    	
+    	if (canInteractWithUi())
+    		super.invalidate();
     }
+
+	protected boolean canInteractWithUi() {
+		IBinder ib = getWindowToken();
+		return (ib != null && ib.isBinderAlive());
+	}
 }
 
