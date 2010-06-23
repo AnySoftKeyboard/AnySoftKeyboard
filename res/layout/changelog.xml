@@ -47,7 +47,7 @@
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
-		        android:text="20100620 - 25"
+		        android:text="20100623 - 25"
 		        android:textStyle="bold"
 		        android:gravity="center"
 		        android:textSize="16sp"
@@ -63,7 +63,7 @@
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
-		        android:text="* Fix for re-loading external packages on install/upgrade/uninstall (fixes reboot requirement).\n* Auto-completes in landscape (e.g., contact names in To fields).\n* Backword support (shift+backspace).\n* better English dictionary.\n* Small screens support\n* Better BiDi support.\n* Revised icons\n* and many more."
+		        android:text="* Fix for re-loading external packages on install/upgrade/uninstall (fixes reboot requirement).\n* Auto-completes in landscape (e.g., contact names in To fields).\n* Backword support (shift+backspace).\n* better English dictionary.\n* Small screens support.\n* Better BiDi support.\n* Revised icons (getting ready for themes).\n* and many more."
 		        android:textSize="16sp"
 		        android:paddingTop="4dp"
 		        android:paddingLeft="12dp"
@@ -85,7 +85,7 @@
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
-		        android:text="* Bugs fixes (landscape layout issue)"
+		        android:text="* Bugs fixes (landscape layout issue)."
 		        android:textSize="16sp"
 		        android:paddingTop="4dp"
 		        android:paddingLeft="12dp"
@@ -123,7 +123,7 @@
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
-		        android:text="* Changelog notification (this one :) )"
+		        android:text="* Changelog notification (this one :) )."
 		        android:textSize="16sp"
 		        android:paddingTop="4dp"
 		        android:paddingLeft="12dp"
@@ -133,7 +133,7 @@
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
-		        android:text="* Some bug fixes (e.g., Enter/Next key problem, Suggestions under Samsung)"
+		        android:text="* Some bug fixes (e.g., Enter/Next key problem, Suggestions under Samsung)."
 		        android:textSize="16sp"
 		        android:paddingTop="4dp"
 		        android:paddingLeft="12dp"

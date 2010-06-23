@@ -164,7 +164,9 @@ public class AnyKeyboardView extends KeyboardView {
 
 	protected boolean canInteractWithUi() {
 		IBinder ib = getWindowToken();
-		return (ib != null && ib.isBinderAlive());
+		return (ib != null && 
+				ib.isBinderAlive() &&//has not been disposed 
+				(this.getWidth() > 0));//the GUI has already been computed
 	}
 }
 

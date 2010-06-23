@@ -20,7 +20,7 @@ public class AnyKeyboardViewDonut extends AnyKeyboardView
 	public void requestShiftKeyRedraw() {
 		if (canInteractWithUi())
 		{
-			Log.d("FSGSDFGS", "canInteractWithUi");
+			//Log.d("FSGSDFGS", "canInteractWithUi");
 			Keyboard keyboard = getKeyboard();
 			if (keyboard != null)
 			{

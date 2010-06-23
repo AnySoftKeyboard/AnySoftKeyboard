@@ -1210,15 +1210,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void handleBackspace() {
 		InputConnection ic = getCurrentInputConnection();	
+		if (ic == null)//if we don't want to do anything, lets check null first.
+            return;
+		
 		final AnyKeyboard currentKeyboard = mKeyboardSwitcher
 				.getCurrentKeyboard();
+		
 		if (currentKeyboard.isShifted()) {
 			handleBackword(ic);
 			return;
 		}
-	    if (ic == null) //handleBackword checks this itself. So no need to double check ic == null
-	            return;
-		boolean deleteChar = false;
+	    boolean deleteChar = false;
 		if (mPredicting) {
 			final int length = mComposing.length();
 			if (length > 0) {
@@ -1243,7 +1245,32 @@ public class AnySoftKeyboard extends InputMethodService implements
 			revertLastWord(deleteChar);
 			return;
 		} else if (deleteChar) {
+			//ensuring this is actually happens
+			final int textLengthBeforeDelete = ic.getTextBeforeCursor(Integer.MAX_VALUE, 0).length();
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			int tries = 3;
+			while(tries > 0)
+			{
+				
+				final int textLengthAfterDelete = ic.getTextBeforeCursor(Integer.MAX_VALUE, 0).length();
+				if (textLengthBeforeDelete != textLengthAfterDelete)
+					break;
+				else
+					tries--;
+				
+				try {
+					Thread.sleep(25);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			// if (mDeleteCount > DELETE_ACCELERATE_AT) {
 			// sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
 			// }
