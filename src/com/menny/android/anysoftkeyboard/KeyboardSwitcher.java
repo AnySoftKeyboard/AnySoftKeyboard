@@ -16,9 +16,6 @@
 
 package com.menny.android.anysoftkeyboard;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
@@ -31,6 +28,9 @@ import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory.Keybo
 
 public class KeyboardSwitcher
 {
+    
+    public static final AnyKeyboard[] EMPTY_AnyKeyboards = new AnyKeyboard[]{};
+    
 	public enum NextKeyboardType
 	{
 		Symbols,
@@ -54,9 +54,9 @@ public class KeyboardSwitcher
     private static final int SYMBOLS_KEYBOARD_PHONE_INDEX = 2;
 
     private int mLastSelectedSymbolsKeyboard = 0;
-    private AnyKeyboard[] mSymbolsKeyboardsArray;
+    private AnyKeyboard[] mSymbolsKeyboardsArray = EMPTY_AnyKeyboards;
     //my working keyboards
-    private AnyKeyboard[] mAlphabetKeyboards = null;
+    private AnyKeyboard[] mAlphabetKeyboards = EMPTY_AnyKeyboards;
     private KeyboardBuildersFactory.KeyboardBuilder[] mAlphabetKeyboardsCreators = null;
     //issue 146
     private boolean mRightToLeftMode = false;
@@ -82,9 +82,14 @@ public class KeyboardSwitcher
     }
 
     void setInputView(AnyKeyboardView inputView) {
+        //TODO could this param be null? Why?
         mInputView = inputView;
-        if ((mInputView != null) && (mSymbolsKeyboardsArray != null))
+        if(inputView == null){
+            return;
+        }
+        if(mSymbolsKeyboardsArray.length > 0){
     		mInputView.setPhoneKeyboard(mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_PHONE_INDEX]);
+        }
     }
 
     private synchronized AnyKeyboard getSymbolsKeyboard(int keyboardIndex)
@@ -145,7 +150,7 @@ public class KeyboardSwitcher
         	resetKeyboardsCache();
         }
 
-        if ((mAlphabetKeyboards == null) || (mSymbolsKeyboardsArray == null))
+        if ((mAlphabetKeyboards.length == 0) || (mSymbolsKeyboardsArray.length == 0))
         {
         	Log.d(TAG, "makeKeyboards: force:"+force);
         	mAlphabetKeyboardsCreators = KeyboardFactory.createAlphaBetKeyboards(mContext);
@@ -164,8 +169,8 @@ public class KeyboardSwitcher
     synchronized void resetKeyboardsCache() {
 		if (AnySoftKeyboardConfiguration.getInstance().getDEBUG())
 			Log.d(TAG, "Forcing Keyboards cache clear");
-		mAlphabetKeyboards = null;
-		mSymbolsKeyboardsArray = null;
+		mAlphabetKeyboards = EMPTY_AnyKeyboards;
+		mSymbolsKeyboardsArray = EMPTY_AnyKeyboards;
 	}
 
     void setKeyboardMode(int mode, EditorInfo attr) {
