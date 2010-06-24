@@ -65,13 +65,17 @@
             			<TextView android:text="@string/main_tab_credits_title" android:textSize="16sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
             			<TextView android:text="@string/main_tab_credits_created_by" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
             			<TextView android:text="Menny Even Danan" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			
             			<TextView android:text="@string/main_tab_credits_additional_work_by" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
             			<TextView android:text="Hezi Cohen" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
             			<TextView android:text="Hugo Lopes" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
 						<TextView android:text="Henrik Andersson" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
 						<TextView android:text="Sami Salonen" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+						
+						<TextView android:text="Lado Kumsiashvili" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
             			<TextView android:text="@string/main_tab_credits_GUI_by" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
             			<TextView android:text="Roy Barina" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			
             			<TextView android:text="@string/main_tab_credits_localization_by" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
             			<TextView android:text="Dmitry Briskin" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
             			<TextView android:text="Alexander Jordanov" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>

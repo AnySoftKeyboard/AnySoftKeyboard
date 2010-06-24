@@ -1248,22 +1248,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 			//ensuring this is actually happens
 			final int textLengthBeforeDelete = ic.getTextBeforeCursor(Integer.MAX_VALUE, 0).length();
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
-			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
 			int tries = 3;
 			while(tries > 0)
 			{
-				
 				final int textLengthAfterDelete = ic.getTextBeforeCursor(Integer.MAX_VALUE, 0).length();
 				if (textLengthBeforeDelete != textLengthAfterDelete)
 					break;
 				else
 					tries--;
-				
+			
+				Log.v(TAG, "Delete did not happen. We'll wait some more for it.");
 				try {
 					Thread.sleep(25);
 				} catch (InterruptedException e) {
@@ -1276,6 +1271,19 @@ public class AnySoftKeyboard extends InputMethodService implements
 			// }
 		}
 		mJustRevertedSeparator = null;
+	}
+	
+	@Override
+	public void sendDownUpKeyEvents(int keyEventCode) {
+		super.sendDownUpKeyEvents(keyEventCode);
+		//since it happens in a different process (asynch)
+		//we'll let the system settle.
+		try {
+			Thread.sleep(10);//this is not a fix, but a bit relaxing..
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void handleShiftStateAfterBackspace() {
