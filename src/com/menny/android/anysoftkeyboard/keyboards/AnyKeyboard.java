@@ -367,7 +367,7 @@ public abstract class AnyKeyboard extends Keyboard
     }
     
 	private void setIconIfNeeded(Key key, Resources localResources, int iconId, int iconFeedbackId) {
-		if ((key.icon != null) || ((key.label != null) && (key.label.length() > 0)))
+		if ((key.icon != null) || (!TextUtils.isEmpty(key.label)))
 			return;
 		setKeyIcons(key, localResources, iconId, iconFeedbackId);
 	}

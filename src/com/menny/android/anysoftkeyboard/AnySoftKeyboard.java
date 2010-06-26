@@ -17,8 +17,10 @@
 package com.menny.android.anysoftkeyboard;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import android.app.AlertDialog;
 import android.app.Notification;
@@ -31,6 +33,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.media.AudioManager;
@@ -51,6 +54,8 @@ import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.menny.android.anysoftkeyboard.KeyboardSwitcher.NextKeyboardType;
@@ -106,7 +111,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private CompletionInfo[] mCompletions;
 
 	private AlertDialog mOptionsDialog;
-
+	private AlertDialog mSmileyDialog;
+	
 	KeyboardSwitcher mKeyboardSwitcher;
 	private final HardKeyboardActionImpl mHardKeyboardAction;
 	private long mMetaState;
@@ -134,6 +140,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private int mSoundVolume;
 
 	private boolean mSmileyOnShortPress;
+	private String mSmileyPopupType;
 	private boolean mAutoCap;
 	private boolean mQuickFixes;
 	private boolean mShowSuggestions = false;
@@ -993,15 +1000,28 @@ public class AnySoftKeyboard extends InputMethodService implements
 				onText(mConfig.getSmileyText());
 			} else {
 				// Log.d("AnySoftKeyboard", "SMILEY short: popup smileys");
-				if (mInputView != null)
-					mInputView.simulateLongPress(AnyKeyboard.KEYCODE_SMILEY);
+				if (mSmileyPopupType.equalsIgnoreCase("popupKeyboard"))
+				{
+					if (mInputView != null)
+						mInputView.simulateLongPress(AnyKeyboard.KEYCODE_SMILEY);
+				}
+				else
+				{
+					showSmileyDialog();
+				}
 			}
 			break;
 		case AnyKeyboardView.KEYCODE_SMILEY_LONGPRESS:
 			if (mSmileyOnShortPress) {
-				// Log.d("AnySoftKeyboard", "SMILEY long: popup smileys");
-				if (mInputView != null)
-					mInputView.simulateLongPress(AnyKeyboard.KEYCODE_SMILEY);
+				if (mSmileyPopupType.equalsIgnoreCase("popupKeyboard"))
+				{
+					if (mInputView != null)
+						mInputView.simulateLongPress(AnyKeyboard.KEYCODE_SMILEY);
+				}
+				else
+				{
+					showSmileyDialog();
+				}
 			} else {
 				// Log.d("AnySoftKeyboard", "SMILEY long: type smiley");
 				onText(mConfig.getSmileyText());
@@ -1893,6 +1913,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				: (mShowSuggestions/* mQuickFixes */? 1 : 0);
 
 		mSmileyOnShortPress = sp.getBoolean("emoticon_long_press_opens_popup", false);
+		mSmileyPopupType = sp.getString(getString(R.string.settings_key_smiley_popup_type), getString(R.string.settings_default_smiley_popup_type));
 
 		((AnySoftKeyboardConfiguration.AnySoftKeyboardConfigurationImpl) mConfig).handleConfigurationChange(sp);
 
@@ -2210,4 +2231,66 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (ic != null)
 			ic.beginBatchEdit();
 	}
+	
+	private void showSmileyDialog() {
+        if (mSmileyDialog == null) {
+            String[] names = getResources().getStringArray(R.array.smiley_names);
+            final String[] texts = getResources().getStringArray(R.array.smiley_texts);
+
+            final int N = names.length;
+
+            List<Map<String, ?>> entries = new ArrayList<Map<String, ?>>();
+            for (int i = 0; i < N; i++) {
+            	HashMap<String, Object> entry = new HashMap<String, Object>();
+
+                entry.put("name", names[i]);
+                entry.put("text", texts[i]);
+
+                entries.add(entry);
+            }
+
+            final SimpleAdapter a = new SimpleAdapter(
+                    this,
+                    entries,
+                    R.layout.smiley_menu_item,
+                    new String[] {"name", "text"},
+                    new int[] {R.id.smiley_name, R.id.smiley_text});
+            SimpleAdapter.ViewBinder viewBinder = new SimpleAdapter.ViewBinder() {
+                public boolean setViewValue(View view, Object data, String textRepresentation) {
+                    if (view instanceof ImageView) {
+                        Drawable img = getResources().getDrawable((Integer)data);
+                        ((ImageView)view).setImageDrawable(img);
+                        return true;
+                    }
+                    return false;
+                }
+            };
+            a.setViewBinder(viewBinder);
+
+            AlertDialog.Builder b = new AlertDialog.Builder(this);
+
+            b.setTitle(getString(R.string.menu_insert_smiley));
+
+            b.setCancelable(true);
+            b.setAdapter(a, new DialogInterface.OnClickListener() {
+                @SuppressWarnings("unchecked")
+                public final void onClick(DialogInterface dialog, int which) {
+                    HashMap<String, Object> item = (HashMap<String, Object>) a.getItem(which);
+                    onText((String)item.get("text"));
+
+                    dialog.dismiss();
+                }
+            });
+
+            mSmileyDialog = b.create();
+            Window window = mSmileyDialog.getWindow();
+    		WindowManager.LayoutParams lp = window.getAttributes();
+    		lp.token = mInputView.getWindowToken();
+    		lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
+    		window.setAttributes(lp);
+    		window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        }
+
+        mSmileyDialog.show();
+    }
 }

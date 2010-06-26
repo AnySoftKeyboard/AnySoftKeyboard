@@ -8,6 +8,8 @@
     <string name="settings_key_sound_on">sound_on</string>
     
     <string name="settings_key_lang_key_shows_popup">lang_key_shows_popup</string>
+    
+    <string name="settings_key_smiley_popup_type">settings_key_smiley_popup_type</string>
     <!-- template
     <string name="settings_key_"></string>
      -->
