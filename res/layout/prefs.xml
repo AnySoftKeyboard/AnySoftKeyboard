@@ -209,6 +209,16 @@ android:key="ime_settings">
 				android:summaryOn="@string/use_keyrepeat_on_summary"
 				android:summaryOff="@string/use_keyrepeat_off_summary"
 			/>
+			<EditTextPreference android:key="default_domain_text"
+			android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none"
+			android:title="@string/default_domain_text" android:dialogTitle="@string/default_domain_text" android:persistent="true"
+			android:defaultValue=".com"
+			/>
+			<EditTextPreference android:key="default_smiley_text"
+			android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none"
+			android:title="@string/default_smiley_text" android:dialogTitle="@string/default_smiley_text" android:persistent="true"
+			android:defaultValue=":-) "
+			/>
 			<CheckBoxPreference
 				android:key="emoticon_long_press_opens_popup"
 				android:title="@string/emoticon_long_press_opens_popup"
@@ -217,6 +227,14 @@ android:key="ime_settings">
 				android:summaryOn="@string/emoticon_long_press_opens_popup_on_summary"
 				android:summaryOff="@string/emoticon_long_press_opens_popup_off_summary"
 			/>
+			<ListPreference
+				android:key="@string/settings_key_smiley_popup_type"
+				android:title="@string/emoticon_popup_type_title"
+				android:summary="@string/emoticon_popup_type_summary"
+				android:entries="@array/emoticons_popup_types"
+				android:entryValues="@array/emoticons_popup_values"
+				android:defaultValue="@string/settings_default_smiley_popup_type"
+				android:dialogTitle="@string/emoticon_popup_type_title"/>
 			<CheckBoxPreference
 				android:key="key_press_preview_popup"
 				android:title="@string/key_press_preview_popup"
@@ -234,16 +252,6 @@ android:key="ime_settings">
 			android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none" android:inputType="numberDecimal"
 			android:title="@string/zoom_factor_keys_in_landscape" android:dialogTitle="@string/zoom_factor_keys_in_landscape" android:persistent="true"
 			android:defaultValue="1.0"
-			/>
-			<EditTextPreference android:key="default_smiley_text"
-			android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none"
-			android:title="@string/default_smiley_text" android:dialogTitle="@string/default_smiley_text" android:persistent="true"
-			android:defaultValue=":-) "
-			/>
-			<EditTextPreference android:key="default_domain_text"
-			android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none"
-			android:title="@string/default_domain_text" android:dialogTitle="@string/default_domain_text" android:persistent="true"
-			android:defaultValue=".com"
 			/>
 			<CheckBoxPreference
 				android:key="insert_space_after_word_suggestion_selection"

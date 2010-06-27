@@ -36,7 +36,7 @@
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word"><xliff:g id="word">%s</xliff:g> : Saved</string>
     
-    <string name="menu_insert_smiley">Insert smiley</string>
+    <string name="menu_insert_smiley">Insert emoticon</string>
     
     <string name="click_for_help">Help</string>
     <string name="click_for_help_summary">Press for on-line help</string>
@@ -138,6 +138,8 @@
     <string name="emoticon_long_press_opens_popup">Long-press smiley popup</string>
     <string name="emoticon_long_press_opens_popup_on_summary">Show emoticons popup on long-press</string>
     <string name="emoticon_long_press_opens_popup_off_summary">Show emoticons popup on short-press</string>
+   	<string name="emoticon_popup_type_title">Emoticon popup type</string>
+   	<string name="emoticon_popup_type_summary">Select the type of popup to show for emoticon selection</string>
     <string name="default_smiley_text">Smiley text</string>
     <string name="default_domain_text">Domain text</string>
     <string name="key_press_preview_popup">Key preview popup</string>

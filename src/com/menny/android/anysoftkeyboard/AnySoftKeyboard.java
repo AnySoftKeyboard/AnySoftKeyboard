@@ -222,6 +222,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		TutorialsProvider.ShowTutorialsIfNeeded(AnySoftKeyboard.this);
 	}
+	
+	@Override
+	public void onUnbindInput() {
+		Log.i(TAG, "onUnbindInput");
+		super.onUnbindInput();
+	}
 
 	private void initSuggest(/* String locale */) {
 		// mLocale = locale;
@@ -237,6 +243,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	@Override
 	public void onDestroy() {
+		Log.i(TAG, "AnySoftKeyboard has been destroyed! Cleaning resources..");
 		DictionaryFactory.close();
 
 		// unregisterReceiver(mReceiver);
@@ -279,7 +286,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 				//the new layout will solve the "invalidateAllKeys" problem.
 				Workarounds.isDonut()? R.layout.input_donut : R.layout.input_cupcake
 				, null);
-
+		//reseting token users
+		mOptionsDialog = null;
+		mSmileyDialog = null;
+		
+		
 		mKeyboardSwitcher.resetKeyboardsCache();
 		mKeyboardSwitcher.setInputView(mInputView);
 		//mKeyboardSwitcher.makeKeyboards(false);
@@ -488,6 +499,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (mOptionsDialog != null && mOptionsDialog.isShowing()) {
 			mOptionsDialog.dismiss();
 			mOptionsDialog = null;
+		}
+		if (mSmileyDialog != null && mSmileyDialog.isShowing()) {
+			mSmileyDialog.dismiss();
+			mSmileyDialog = null;
 		}
 		// if (mTutorial != null) {
 		// mTutorial.close();
