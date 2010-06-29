@@ -40,9 +40,10 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 			int iconResId,
 			int qwertyTranslationId,
 			String defaultDictionary,
-			String additionalIsLetterExceptions) 
+			String additionalIsLetterExceptions,
+			int mode) 
 	{
-		super(askContext, context, getKeyboardId(askContext.getApplicationContext(), xmlLayoutResId, xmlLandscapeResId));
+		super(askContext, context, getKeyboardId(askContext.getApplicationContext(), xmlLayoutResId, xmlLandscapeResId), mode);
 		mPrefId = prefId;
 		mNameResId = nameResId;
 		mIconId = iconResId;

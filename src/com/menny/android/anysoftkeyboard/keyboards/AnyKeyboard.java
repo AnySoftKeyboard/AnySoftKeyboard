@@ -1,7 +1,10 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import org.xmlpull.v1.XmlPullParserException;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -20,8 +23,8 @@ import com.menny.android.anysoftkeyboard.Workarounds;
 
 public abstract class AnyKeyboard extends Keyboard 
 {
-	public static final String POPUP_FOR_QUESTION = "!/@\u0026\u00bf\u00a1";
-	public static final String POPUP_FOR_AT = "!/?\u0026\u00bf\u00a1";
+	//public static final String POPUP_FOR_QUESTION = "!/@\u0026\u00bf\u00a1";
+	//public static final String POPUP_FOR_AT = "!/?\u0026\u00bf\u00a1";
 	private final static String TAG = "ASK - AK";
 	
 	public final static int KEYCODE_LANG_CHANGE = -99;
@@ -30,6 +33,7 @@ public abstract class AnyKeyboard extends Keyboard
 	public final static int KEYCODE_KEYBOARD_REVERSE_CYCLE = -96;
 	
 	public final static int KEYCODE_SMILEY = -10;
+	public final static int KEYCODE_DOMAIN = -9;
 	
 	public static final int KEYCODE_LEFT = -20;
 	public static final int KEYCODE_RIGHT = -21;
@@ -64,6 +68,7 @@ public abstract class AnyKeyboard extends Keyboard
 		public int rowWidth = 0;
 		public int verticalGap = 0;
 		public boolean isTopRow = false;
+		public boolean created = false;
 	}
 	
 	private static final int SHIFT_OFF = 0;
@@ -78,12 +83,13 @@ public abstract class AnyKeyboard extends Keyboard
     private final Drawable mOnShiftIcon;
     private final Drawable mOffShiftFeedbackIcon;
     private final Drawable mOnShiftFeedbackIcon;
-    private final int mDomainsIconId;
+    private final int mKeyboardMode;
+   // private final int mDomainsIconId;
 
     private Key mShiftKey;
     private EnterKey mEnterKey;
-	private Key mSmileyKey;
-	private Key mQuestionMarkKey;
+	//private Key mSwitchableKey;
+	//private Key mQuestionMarkKey;
 
 	private boolean mRightToLeftLayout = false;//the "super" ctor will create keys, and we'll set the correct value there.
 	
@@ -99,16 +105,16 @@ public abstract class AnyKeyboard extends Keyboard
 	private int mMaxGenericRowsWidth = 0;
 	
     protected AnyKeyboard(AnyKeyboardContextProvider askContext, Context context,//note: the context can be from a different package!
-    		int xmlLayoutResId) 
+    		int xmlLayoutResId, int mode) 
     {
         //should use the package context for creating the layout
-        super(context, xmlLayoutResId);
-        
+        super(context, xmlLayoutResId, mode);
+        mKeyboardMode = mode;
         mDebug = AnySoftKeyboardConfiguration.getInstance().getDEBUG();
         mKeyboardContext = context;
         mASKContext = askContext;
 
-		addGenericRows(askContext, context);
+		addGenericRows(askContext, context, mode);
 		
         //in wide shifts, we'll use the shift with the Globe
         Resources resources = askContext.getApplicationContext().getResources();
@@ -148,24 +154,24 @@ public abstract class AnyKeyboard extends Keyboard
 	        
         }
         
-        if (mSmileyKey != null)
-        {
-        	Drawable wideDomains = resources.getDrawable(R.drawable.sym_keyboard_key_domain_wide);
-        	Log.v(TAG, "Deciding which icon to use for the domains. Key width is "+mSmileyKey.width+" and sym_keyboard_key_domain_wide width is "+wideDomains.getMinimumWidth());
-	        
-	        if (mSmileyKey.width > (wideDomains.getMinimumWidth() * 1.2))
-	        {
-	        	mDomainsIconId = R.drawable.sym_keyboard_key_domain_wide;
-		    }
-	        else
-	        {
-	        	mDomainsIconId = R.drawable.sym_keyboard_key_domain;
-	        }
-        }
-        else
-        {
-        	mDomainsIconId = -1;
-        }
+//        if (mSwitchableKey != null)
+//        {
+//        	Drawable wideDomains = resources.getDrawable(R.drawable.sym_keyboard_key_domain_wide);
+//        	Log.v(TAG, "Deciding which icon to use for the domains. Key width is "+mSwitchableKey.width+" and sym_keyboard_key_domain_wide width is "+wideDomains.getMinimumWidth());
+//	        
+//	        if (mSwitchableKey.width > (wideDomains.getMinimumWidth() * 1.2))
+//	        {
+//	        	mDomainsIconId = R.drawable.sym_keyboard_key_domain_wide;
+//		    }
+//	        else
+//	        {
+//	        	mDomainsIconId = R.drawable.sym_keyboard_key_domain;
+//	        }
+//        }
+//        else
+//        {
+//        	mDomainsIconId = -1;
+//        }
     }
     
     public void initKeysMembers()
@@ -201,12 +207,12 @@ public abstract class AnyKeyboard extends Keyboard
                 case AnyKeyboard.KEYCODE_LANG_CHANGE:
                 	setIconIfNeeded(key, localResources, R.drawable.globe, -1);
                     break;
-                case 63:
-                    if ((key.edgeFlags & Keyboard.EDGE_BOTTOM) != 0)
-                    {
-                    	mQuestionMarkKey = key;
-                    }
-                    break;
+//                case 63:
+//                    if ((key.edgeFlags & Keyboard.EDGE_BOTTOM) != 0)
+//                    {
+//                    	mQuestionMarkKey = key;
+//                    }
+//                    break;
                default:
                         //setting the character label
                         if (isAlphabetKey(key) && (key.label == null || key.label.length() == 0) && (key.icon == null))
@@ -222,7 +228,7 @@ public abstract class AnyKeyboard extends Keyboard
         }
     }
     
-	private void addGenericRows(AnyKeyboardContextProvider askContext, Context context) {
+	private void addGenericRows(AnyKeyboardContextProvider askContext, Context context, int mode) {
 		final String keysMode = AnySoftKeyboardConfiguration.getInstance().getChangeLayoutKeysSize();
 		final KeyboardMetadata topMd;
 		if (!mTopRowWasCreated)
@@ -233,11 +239,11 @@ public abstract class AnyKeyboard extends Keyboard
 	        }
 	        else if (keysMode.equals("Big"))
 	        {
-	        	topMd = addKeyboardRow(askContext.getApplicationContext(), R.xml.generic_top_row);
+	        	topMd = addKeyboardRow(askContext.getApplicationContext(), R.xml.generic_top_row, mode);
 	        }
 	        else
 	        {
-	        	topMd = addKeyboardRow(askContext.getApplicationContext(), R.xml.generic_half_top_row);
+	        	topMd = addKeyboardRow(askContext.getApplicationContext(), R.xml.generic_half_top_row, mode);
 	        }
         
 			if (topMd != null)
@@ -245,7 +251,7 @@ public abstract class AnyKeyboard extends Keyboard
 		}
 		if (!mBottomRowWasCreated)
 		{
-			KeyboardMetadata bottomMd = addKeyboardRow(askContext.getApplicationContext(), R.xml.generic_bottom_row);
+			KeyboardMetadata bottomMd = addKeyboardRow(askContext.getApplicationContext(), R.xml.generic_bottom_row, mode);
 			fixKeyboardDueToGenericRow(bottomMd);
 		}
 	}
@@ -275,12 +281,13 @@ public abstract class AnyKeyboard extends Keyboard
     	}
 	}
 
-	private KeyboardMetadata addKeyboardRow(Context context, int rowResId) {
+	private KeyboardMetadata addKeyboardRow(Context context, int rowResId, int mode) {
 		XmlResourceParser parser = context.getResources().getXml(rowResId);
     	List<Key> keys = getKeys();
         boolean inKey = false;
         boolean inRow = false;
         boolean leftMostKey = false;
+        boolean skipRow = false;
 
         int row = 0;
         int x = 0;
@@ -300,18 +307,27 @@ public abstract class AnyKeyboard extends Keyboard
                         inRow = true;
                         x = 0;
                         currentRow = createRowFromXml(res, parser);
-                        m.isTopRow = currentRow.rowEdgeFlags == Keyboard.EDGE_TOP;
-                        if (!m.isTopRow) {
-                        	//the bottom row Y should be last
-                        	// The last coordinate is height + keyboard's default vertical gap
-                        	// since  mTotalHeight = y - mDefaultVerticalGap; (see loadKeyboard
-                        	// in the android sources)
-                        	// We use our overriden getHeight method which
-                        	// is just fixed so that it includes the first generic row.
-                        	y = getHeight() + getVerticalGap();
+                        skipRow = currentRow.mode != 0 && currentRow.mode != mode;
+                        if (skipRow) {
+                        	currentRow = null;
+                            skipToEndOfRow(parser);
+                            inRow = false;
                         }
-                        m.rowHeight = currentRow.defaultHeight;
-                        m.verticalGap = currentRow.verticalGap;
+                        else
+                        {
+	                        m.isTopRow = currentRow.rowEdgeFlags == Keyboard.EDGE_TOP;
+	                        if (!m.isTopRow) {
+	                        	//the bottom row Y should be last
+	                        	// The last coordinate is height + keyboard's default vertical gap
+	                        	// since  mTotalHeight = y - mDefaultVerticalGap; (see loadKeyboard
+	                        	// in the android sources)
+	                        	// We use our overriden getHeight method which
+	                        	// is just fixed so that it includes the first generic row.
+	                        	y = getHeight() + getVerticalGap();
+	                        }
+	                        m.rowHeight = currentRow.defaultHeight;
+	                        m.verticalGap = currentRow.verticalGap;
+                        }
                    } else if (TAG_KEY.equals(tag)) {
                         inKey = true;
                         key = createKeyFromXml(res, currentRow, x, y, parser);
@@ -348,6 +364,16 @@ public abstract class AnyKeyboard extends Keyboard
         return m;
     }
 
+	private void skipToEndOfRow(XmlResourceParser parser) throws XmlPullParserException, IOException
+	{
+		int event;
+		while ((event = parser.next()) != XmlResourceParser.END_DOCUMENT) {
+		    if (event == XmlResourceParser.END_TAG 
+		            && parser.getName().equals(TAG_ROW)) {
+		        break;
+		    }
+		}
+	}
     /*required overrides*/
 
     @Override
@@ -419,9 +445,16 @@ public abstract class AnyKeyboard extends Keyboard
         	case KEYCODE_DELETE://delete
         		key = new LessSensitiveAnyKey(res, parent, x, y, parser);
         		break;
-        	case AnyKeyboard.KEYCODE_SMILEY: 
-            	mSmileyKey = key;
+        	case AnyKeyboard.KEYCODE_SMILEY:
+        		//fixing icons
+            	setIconIfNeeded(key, res, R.drawable.sym_keyboard_smiley, R.drawable.sym_keyboard_smiley_feedback);
+            	key.popupResId = R.xml.popup_smileys;
                 break;
+        	case AnyKeyboard.KEYCODE_DOMAIN:
+        		//fixing icons
+            	setIconIfNeeded(key, res, R.drawable.sym_keyboard_key_domain, R.drawable.sym_keyboard_key_domain_preview);
+            	key.popupResId = R.xml.popup_domains;
+            	break;
 	        }
         }
         
@@ -655,89 +688,94 @@ public abstract class AnyKeyboard extends Keyboard
 		return mShiftState == SHIFT_LOCKED;
 	}
 	
-	protected void setPopupKeyChars(Key aKey) 
+	protected void setPopupKeyChars(Key aKey)
 	{
-		if (aKey.popupResId > 0)
-			return;//if the keyboard XML already specified the popup, then no need to override
 		
-		if ((aKey.codes != null) && (aKey.codes.length > 0))
-        {
-			switch(((char)aKey.codes[0]))
-			{
-			case '\''://in the generic bottom row
-				aKey.popupResId = R.xml.popup;
-				aKey.popupCharacters = "\"\u201e\u201d";
-				break;
-			case '-':
-				aKey.popupResId = R.xml.popup;
-				aKey.popupCharacters = "\u2013";
-				break;
-			case '.'://in the generic bottom row
-				aKey.popupResId = R.xml.popup;
-				aKey.popupCharacters = ";:-_\u00b7\u2026";
-				break;
-			case ','://in the generic bottom row
-				aKey.popupResId = R.xml.popup;
-				aKey.popupCharacters = "()";
-				break;
-			case '_':
-				aKey.popupResId = R.xml.popup;
-				aKey.popupCharacters = ",-";
-				break;
+	}
+	
+//	protected void setPopupKeyChars(Key aKey) 
+//	{
+//		if (aKey.popupResId > 0)
+//			return;//if the keyboard XML already specified the popup, then no need to override
+//		
+//		if ((aKey.codes != null) && (aKey.codes.length > 0))
+//        {
+//			switch(((char)aKey.codes[0]))
+//			{
+//			case '\''://in the generic bottom row
+//				aKey.popupResId = R.xml.popup;
+//				aKey.popupCharacters = "\"\u201e\u201d";
+//				break;
+//			case '-':
+//				aKey.popupResId = R.xml.popup;
+//				aKey.popupCharacters = "\u2013";
+//				break;
+//			case '.'://in the generic bottom row
+//				aKey.popupResId = R.xml.popup;
+//				aKey.popupCharacters = ";:-_\u00b7\u2026";
+//				break;
+//			case ','://in the generic bottom row
+//				aKey.popupResId = R.xml.popup;
+//				aKey.popupCharacters = "()";
+//				break;
+//			case '_':
+//				aKey.popupResId = R.xml.popup;
+//				aKey.popupCharacters = ",-";
+//				break;
 			//the two below are switched in regular and Internet mode
-			case '?'://in the generic bottom row
-				aKey.popupResId = R.xml.popup;
-				aKey.popupCharacters = POPUP_FOR_QUESTION;
-				break;
-			case '@'://in the generic Internet mode
-				aKey.popupResId = R.xml.popup;
-				aKey.popupCharacters = POPUP_FOR_AT;
-				break;
-			}
-        }
-	}
+//			case '?'://in the generic bottom row
+//				aKey.popupResId = R.xml.popup;
+//				aKey.popupCharacters = POPUP_FOR_QUESTION;
+//				break;
+//			case '@'://in the generic Internet mode
+//				aKey.popupResId = R.xml.popup;
+//				aKey.popupCharacters = POPUP_FOR_AT;
+//				break;
+//			}
+//        }
+//	}
 
-	public void setTextVariation(Resources res, int inputType) 
-	{
-		if (mDebug)
-    		Log.d(TAG, "setTextVariation");
-		int variation = inputType &  EditorInfo.TYPE_MASK_VARIATION;
-		
-		switch (variation) {
-	        case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
-	        case EditorInfo.TYPE_TEXT_VARIATION_URI:
-	        	if (mSmileyKey != null)
-	        	{
-	        		//Log.d("AnySoftKeyboard", "Changing smiley key to domains.");
-	        		setKeyIcons(mSmileyKey, res, mDomainsIconId, R.drawable.sym_keyboard_key_domain_preview);
-	        		mSmileyKey.text = AnySoftKeyboardConfiguration.getInstance().getDomainText();
-		        	mSmileyKey.popupResId = R.xml.popup_domains;
-	        	}
-	        	if (mQuestionMarkKey != null)
-	        	{
-	        		//Log.d("AnySoftKeyboard", "Changing question mark key to AT.");
-		        	mQuestionMarkKey.codes[0] = (int)'@';
-		        	mQuestionMarkKey.label = "@";
-		        	mQuestionMarkKey.popupCharacters = POPUP_FOR_AT;
-	        	}
-	        	break;
-	        default:
-	        	if (mSmileyKey != null)
-	        	{
-	        		setKeyIcons(mSmileyKey, res, R.drawable.sym_keyboard_smiley, R.drawable.sym_keyboard_smiley_feedback);
-		        	mSmileyKey.text = null;// ":-) ";
-		        	mSmileyKey.popupResId = R.xml.popup_smileys;
-	        	}
-	        	if (mQuestionMarkKey != null)
-	        	{
-	        		//Log.d("AnySoftKeyboard", "Changing question mark key to question.");
-		        	mQuestionMarkKey.codes[0] = (int)'?';
-		        	mQuestionMarkKey.label = "?";
-		        	mQuestionMarkKey.popupCharacters = POPUP_FOR_QUESTION;
-	        	}
-	        	break;
-        }
-	}
+//	public void setTextVariation(Resources res, int inputType) 
+//	{
+//		if (mDebug)
+//    		Log.d(TAG, "setTextVariation");
+//		int variation = inputType &  EditorInfo.TYPE_MASK_VARIATION;
+//		
+//		switch (variation) {
+//	        case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
+//	        case EditorInfo.TYPE_TEXT_VARIATION_URI:
+//	        	if (mSwitchableKey != null)
+//	        	{
+//	        		//Log.d("AnySoftKeyboard", "Changing smiley key to domains.");
+//	        		setKeyIcons(mSwitchableKey, res, mDomainsIconId, R.drawable.sym_keyboard_key_domain_preview);
+//	        		mSwitchableKey.text = AnySoftKeyboardConfiguration.getInstance().getDomainText();
+//		        	mSwitchableKey.popupResId = R.xml.popup_domains;
+//	        	}
+//	        	if (mQuestionMarkKey != null)
+//	        	{
+//	        		//Log.d("AnySoftKeyboard", "Changing question mark key to AT.");
+//		        	mQuestionMarkKey.codes[0] = (int)'@';
+//		        	mQuestionMarkKey.label = "@";
+//		        	mQuestionMarkKey.popupCharacters = POPUP_FOR_AT;
+//	        	}
+//	        	break;
+//	        default:
+//	        	if (mSwitchableKey != null)
+//	        	{
+//	        		setKeyIcons(mSwitchableKey, res, R.drawable.sym_keyboard_smiley, R.drawable.sym_keyboard_smiley_feedback);
+//		        	mSwitchableKey.text = null;// ":-) ";
+//		        	mSwitchableKey.popupResId = R.xml.popup_smileys;
+//	        	}
+//	        	if (mQuestionMarkKey != null)
+//	        	{
+//	        		//Log.d("AnySoftKeyboard", "Changing question mark key to question.");
+//		        	mQuestionMarkKey.codes[0] = (int)'?';
+//		        	mQuestionMarkKey.label = "?";
+//		        	mQuestionMarkKey.popupCharacters = POPUP_FOR_QUESTION;
+//	        	}
+//	        	break;
+//        }
+//	}
 	
 	public int getShiftedKeyValue(int primaryCode) 
 	{
@@ -911,5 +949,9 @@ public abstract class AnyKeyboard extends Keyboard
 
 	public boolean requiresProximityCorrection() {
 		return getKeys().size() > 20;
+	}
+
+	public int getKeyboardMode() {
+		return mKeyboardMode;
 	}
 }

@@ -1,9 +1,10 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
-import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
-import com.menny.android.anysoftkeyboard.AnySoftKeyboard;
-import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
-import com.menny.android.anysoftkeyboard.R;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -18,11 +19,9 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.util.Xml;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
+import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
+import com.menny.android.anysoftkeyboard.R;
 
 public class KeyboardBuildersFactory {
 
@@ -43,7 +42,7 @@ public class KeyboardBuildersFactory {
          */
         public static final String RECEIVER_META_DATA = "com.menny.android.anysoftkeyboard.keyboards";
 
-        AnyKeyboard createKeyboard(AnyKeyboardContextProvider context);
+        AnyKeyboard createKeyboard(AnyKeyboardContextProvider context, int mode);
         String getId();
         int getKeyboardIndex();
         int getKeyboardNameResId();
@@ -91,8 +90,8 @@ public class KeyboardBuildersFactory {
             Log.d("ASK KeyboardCreatorImpl", "Creator for "+mId+" package:"+mPackageContext.getPackageName()+" res: "+ mResId+" LandscapeRes: "+ mLandscapeResId+" dictionary: "+mDefaultDictionary+" qwerty:" + mQwertyTranslationId);
         }
 
-        public AnyKeyboard createKeyboard(AnyKeyboardContextProvider askContext) {
-            return new ExternalAnyKeyboard(askContext, mPackageContext, mResId, mLandscapeResId, getId(), mNameId, mIconResId, mQwertyTranslationId, mDefaultDictionary, mAdditionalIsLetterExceptions);
+        public AnyKeyboard createKeyboard(AnyKeyboardContextProvider askContext, int mode) {
+            return new ExternalAnyKeyboard(askContext, mPackageContext, mResId, mLandscapeResId, getId(), mNameId, mIconResId, mQwertyTranslationId, mDefaultDictionary, mAdditionalIsLetterExceptions, mode);
         }
 
         public Context getPackageContext() {return mPackageContext;}

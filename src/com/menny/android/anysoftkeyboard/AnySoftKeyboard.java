@@ -1009,6 +1009,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case AnyKeyboardView.KEYCODE_OPTIONS:
 			showOptionsMenu();
 			break;
+		case AnyKeyboard.KEYCODE_DOMAIN:
+			onText(mConfig.getDomainText());
+			break;
 		case AnyKeyboard.KEYCODE_SMILEY:
 			if (mSmileyOnShortPress) {
 				// Log.d("AnySoftKeyboard", "SMILEY short: type smiley");
@@ -1248,13 +1251,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (ic == null)//if we don't want to do anything, lets check null first.
             return;
 		
-		final AnyKeyboard currentKeyboard = mKeyboardSwitcher
-				.getCurrentKeyboard();
-		
-		if (currentKeyboard.isShifted()) {
+		if (mInputView != null && mInputView.isShifted())
+		{
 			handleBackword(ic);
 			return;
 		}
+		
 	    boolean deleteChar = false;
 		if (mPredicting) {
 			final int length = mComposing.length();
