@@ -16,6 +16,7 @@
 
 package com.menny.android.anysoftkeyboard;
 
+import android.content.res.Resources;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
@@ -46,13 +47,13 @@ public class KeyboardSwitcher
     public static final int MODE_EMAIL = 5;
     public static final int MODE_IM = 6;
     
-    public static final int KEYBOARDMODE_NORMAL = R.id.mode_normal;
-    public static final int KEYBOARDMODE_URL = R.id.mode_url;
-    public static final int KEYBOARDMODE_EMAIL = R.id.mode_email;
-    public static final int KEYBOARDMODE_IM = R.id.mode_im;
+    private final int KEYBOARDMODE_NORMAL;
+    private final int KEYBOARDMODE_URL;
+    private final int KEYBOARDMODE_EMAIL;
+    private final int KEYBOARDMODE_IM;
 
     AnyKeyboardView mInputView;
-    AnySoftKeyboard mContext;
+    private final AnySoftKeyboard mContext;
 
     private static final int SYMBOLS_KEYBOARD_REGULAR_INDEX = 0;
     private static final int SYMBOLS_KEYBOARD_ALT_INDEX = 1;
@@ -70,21 +71,29 @@ public class KeyboardSwitcher
 
     //private int mImeOptions;
     private boolean mAlphabetMode = true;
-	private int mLastKeyboardMode = KEYBOARDMODE_NORMAL;
-	private static String TAG = "AnySoftKeyboard";
+	private int mLastKeyboardMode;
+	private static String TAG = "ASK_KeySwitcher";
 
-	private final static KeyboardSwitcher INSTANCE = new KeyboardSwitcher();
+	private static KeyboardSwitcher INSTANCE;
 
-	public void setContext(AnySoftKeyboard context ){
-		mContext = context;
-	}
+//	public void setContext(AnySoftKeyboard context ){
+//		mContext = context;
+//	}
 
 	public static KeyboardSwitcher getInstance() {
 		return INSTANCE;
 	}
 
 	// Constructor hidden
-    protected KeyboardSwitcher() {
+    KeyboardSwitcher(AnySoftKeyboard context) {
+    	mContext = context;
+    	Resources res = mContext.getResources();
+    	KEYBOARDMODE_NORMAL = res.getInteger(R.integer.keyboard_mode_normal);
+    	KEYBOARDMODE_IM = res.getInteger(R.integer.keyboard_mode_im);
+    	KEYBOARDMODE_URL = res.getInteger(R.integer.keyboard_mode_url);
+    	KEYBOARDMODE_EMAIL = res.getInteger(R.integer.keyboard_mode_email);
+    	
+    	INSTANCE = this;
     }
 
     void setInputView(AnyKeyboardView inputView) {

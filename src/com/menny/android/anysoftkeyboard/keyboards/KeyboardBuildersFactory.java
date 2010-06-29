@@ -91,6 +91,7 @@ public class KeyboardBuildersFactory {
         }
 
         public AnyKeyboard createKeyboard(AnyKeyboardContextProvider askContext, int mode) {
+        	Log.d(TAG, "Creating external keyboard '"+mId+"' in mode "+mode);
             return new ExternalAnyKeyboard(askContext, mPackageContext, mResId, mLandscapeResId, getId(), mNameId, mIconResId, mQwertyTranslationId, mDefaultDictionary, mAdditionalIsLetterExceptions, mode);
         }
 

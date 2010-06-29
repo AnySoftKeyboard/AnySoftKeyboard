@@ -204,8 +204,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 		// setStatusIcon(R.drawable.ime_qwerty);
 		loadSettings();
-		mKeyboardSwitcher = KeyboardSwitcher.getInstance();
-		mKeyboardSwitcher.setContext(this);
+		mKeyboardSwitcher = new KeyboardSwitcher(this);
+		
 		if (mSuggest == null) {
 			// should it be always on?
 			if (mKeyboardChangeNotificationType

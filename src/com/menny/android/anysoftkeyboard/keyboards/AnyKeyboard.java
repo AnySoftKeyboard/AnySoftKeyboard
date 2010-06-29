@@ -207,6 +207,16 @@ public abstract class AnyKeyboard extends Keyboard
                 case AnyKeyboard.KEYCODE_LANG_CHANGE:
                 	setIconIfNeeded(key, localResources, R.drawable.globe, -1);
                     break;
+                case AnyKeyboard.KEYCODE_SMILEY:
+            		//fixing icons
+                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_smiley, R.drawable.sym_keyboard_smiley_feedback);
+                	key.popupResId = R.xml.popup_smileys;
+                    break;
+            	case AnyKeyboard.KEYCODE_DOMAIN:
+            		//fixing icons
+                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_key_domain, R.drawable.sym_keyboard_key_domain_preview);
+                	key.popupResId = R.xml.popup_domains;
+                	break;
 //                case 63:
 //                    if ((key.edgeFlags & Keyboard.EDGE_BOTTOM) != 0)
 //                    {
@@ -445,16 +455,6 @@ public abstract class AnyKeyboard extends Keyboard
         	case KEYCODE_DELETE://delete
         		key = new LessSensitiveAnyKey(res, parent, x, y, parser);
         		break;
-        	case AnyKeyboard.KEYCODE_SMILEY:
-        		//fixing icons
-            	setIconIfNeeded(key, res, R.drawable.sym_keyboard_smiley, R.drawable.sym_keyboard_smiley_feedback);
-            	key.popupResId = R.xml.popup_smileys;
-                break;
-        	case AnyKeyboard.KEYCODE_DOMAIN:
-        		//fixing icons
-            	setIconIfNeeded(key, res, R.drawable.sym_keyboard_key_domain, R.drawable.sym_keyboard_key_domain_preview);
-            	key.popupResId = R.xml.popup_domains;
-            	break;
 	        }
         }
         
@@ -477,6 +477,10 @@ public abstract class AnyKeyboard extends Keyboard
     protected Row createRowFromXml(Resources res, XmlResourceParser parser) 
     {
     	Row aRow = super.createRowFromXml(res, parser);
+    	if (aRow.mode > 0)
+    		aRow.mode = res.getInteger(aRow.mode);//switching to the mode!
+    	
+    	Log.d(TAG, "Row mode: "+aRow.mode);
     	
     	AnySoftKeyboardConfiguration config = AnySoftKeyboardConfiguration.getInstance();
 		final int orientation = config.getDeviceOrientation();

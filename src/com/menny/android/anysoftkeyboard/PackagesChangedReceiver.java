@@ -49,10 +49,10 @@ public class PackagesChangedReceiver extends BroadcastReceiver {
 		if (isKeyboard) {
 			Log.i(TAG,"Rebuilding Keyboards since (keyboard) packages have been changed.");
 			
+			KeyboardBuildersFactory.resetBuildersCache();
 			KeyboardSwitcher keyboardSwitcher = KeyboardSwitcher.getInstance();
 			if (keyboardSwitcher != null) {
-				KeyboardBuildersFactory.resetBuildersCache();
-				KeyboardSwitcher.getInstance().makeKeyboards(true);
+				keyboardSwitcher.makeKeyboards(true);
 			}
 		}
 
