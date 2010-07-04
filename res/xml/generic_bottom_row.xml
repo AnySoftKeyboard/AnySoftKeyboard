@@ -3,9 +3,9 @@
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
 	<!-- Generic bottom row -->
 	<Row android:keyboardMode="@integer/keyboard_mode_normal" android:rowEdgeFlags="bottom" android:keyWidth="10%p" android:keyHeight="@dimen/key_height">
-		<Key android:codes="-10" android:keyEdgeFlags="left"/>
+		<Key android:keyWidth="10.5%p" android:codes="-10" android:keyEdgeFlags="left"/>
 	    
-	    <Key android:horizontalGap="2.5%p" android:codes="63" android:keyLabel="\?" android:popupCharacters="!/@\u0026\u00bf\u00a1"/>
+	    <Key android:horizontalGap="2%p" android:codes="63" android:keyLabel="\?" android:popupCharacters="!/@\u0026\u00bf\u00a1"/>
 	    <Key android:codes="44" android:keyLabel="," android:popupCharacters="()"/>
 	    
 	    <Key android:horizontalGap="2.5%p" android:codes="32"
@@ -18,9 +18,9 @@
 	            android:keyWidth="15%p" android:keyEdgeFlags="right"/>
 	</Row>
 	<Row android:keyboardMode="@integer/keyboard_mode_im" android:rowEdgeFlags="bottom" android:keyWidth="10%p" android:keyHeight="@dimen/key_height">
-		<Key android:codes="-10" android:keyEdgeFlags="left"/>
+		<Key android:keyWidth="10.5%p" android:codes="-10" android:keyEdgeFlags="left"/>
 	    
-	    <Key android:horizontalGap="2.5%p" android:codes="63" android:keyLabel="\?" android:popupCharacters="!/@\u0026\u00bf\u00a1"/>
+	    <Key android:horizontalGap="2%p" android:codes="63" android:keyLabel="\?" android:popupCharacters="!/@\u0026\u00bf\u00a1"/>
 	    <Key android:codes="44" android:keyLabel="," android:popupCharacters="()"/>
 	    
 	    <Key android:horizontalGap="2.5%p" android:codes="32"
@@ -33,9 +33,9 @@
 	            android:keyWidth="15%p" android:keyEdgeFlags="right"/>
 	</Row>
 	<Row android:keyboardMode="@integer/keyboard_mode_url" android:rowEdgeFlags="bottom" android:keyWidth="10%p" android:keyHeight="@dimen/key_height">
-		<Key android:codes="-9" android:keyEdgeFlags="left"/>
+		<Key android:keyWidth="10.5%p" android:codes="-9" android:keyEdgeFlags="left"/>
 	    
-	    <Key android:horizontalGap="2.5%p" android:codes="63" android:keyLabel="\@" android:popupCharacters="!/?\u0026\u00bf\u00a1\',"/>
+	    <Key android:horizontalGap="2%p" android:codes="63" android:keyLabel="\@" android:popupCharacters="!/?\u0026\u00bf\u00a1\',"/>
 	    <Key android:codes="95" android:keyLabel="_" android:popupCharacters=",-()"/>
 	    
 	    <Key android:horizontalGap="2.5%p" android:codes="32"
@@ -48,9 +48,9 @@
 	            android:keyWidth="15%p" android:keyEdgeFlags="right"/>
 	</Row>
 	<Row android:keyboardMode="@integer/keyboard_mode_email" android:rowEdgeFlags="bottom" android:keyWidth="10%p" android:keyHeight="@dimen/key_height">
-		<Key android:codes="-9" android:keyEdgeFlags="left"/>
+		<Key android:keyWidth="10.5%p" android:codes="-9" android:keyEdgeFlags="left"/>
 	    
-	    <Key android:horizontalGap="2.5%p" android:codes="63" android:keyLabel="\@" android:popupCharacters="!/?\u0026\u00bf\u00a1\',"/>
+	    <Key android:horizontalGap="2%p" android:codes="63" android:keyLabel="\@" android:popupCharacters="!/?\u0026\u00bf\u00a1\',"/>
 	    <Key android:codes="95" android:keyLabel="_" android:popupCharacters=",-()"/>
 	    
 	    <Key android:horizontalGap="2.5%p" android:codes="32"
