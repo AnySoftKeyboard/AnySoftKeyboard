@@ -12,6 +12,7 @@ import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
+import android.inputmethodservice.Keyboard.Key;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
@@ -214,7 +215,7 @@ public abstract class AnyKeyboard extends Keyboard
                     break;
             	case AnyKeyboard.KEYCODE_DOMAIN:
             		//fixing icons
-                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_key_domain, R.drawable.sym_keyboard_key_domain_preview);
+                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_key_domain, R.drawable.sym_keyboard_key_domain_wide, R.drawable.sym_keyboard_key_domain_preview);
                 	key.popupResId = R.xml.popup_domains;
                 	break;
 //                case 63:
@@ -237,7 +238,7 @@ public abstract class AnyKeyboard extends Keyboard
             }
         }
     }
-    
+
 	private void addGenericRows(AnyKeyboardContextProvider askContext, Context context, int mode) {
 		final String keysMode = AnySoftKeyboardConfiguration.getInstance().getChangeLayoutKeysSize();
 		final KeyboardMetadata topMd;
@@ -402,6 +403,17 @@ public abstract class AnyKeyboard extends Keyboard
     	return super.getShiftKeyIndex() + mTopRowKeysCount;
     }
     
+    
+	private void setIconIfNeeded(Key key, Resources localResources,
+			int iconId, int iconWideId,
+			int iconFeedbackId) {
+
+		Drawable wider = localResources.getDrawable(iconWideId);
+		if ((wider.getMinimumWidth()*1.1) < key.width)
+			iconId = iconWideId;
+		
+		setKeyIcons(key, localResources, iconId, iconFeedbackId);
+	}
 	private void setIconIfNeeded(Key key, Resources localResources, int iconId, int iconFeedbackId) {
 		if ((key.icon != null) || (!TextUtils.isEmpty(key.label)))
 			return;
