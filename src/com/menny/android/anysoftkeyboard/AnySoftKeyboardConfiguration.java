@@ -60,6 +60,8 @@ public abstract class AnySoftKeyboardConfiguration
 	
 	public abstract boolean shouldShowPopupForLanguageSwitch();
 	
+	public abstract boolean showVersionNotification();
+	
 	static class AnySoftKeyboardConfigurationImpl extends AnySoftKeyboardConfiguration
 	{
 		private InputMethodService mIme;
@@ -84,6 +86,7 @@ public abstract class AnySoftKeyboardConfiguration
 		private String mRtlWorkaround ="auto";
 		private boolean mIsDoubleSpaceChangesToPeroid = true;
 		private boolean mShouldPopupForLanguageSwitch = false;
+		private boolean mShowVersionNotification = true;
 		
 		public AnySoftKeyboardConfigurationImpl()
 		{
@@ -192,8 +195,12 @@ public abstract class AnySoftKeyboardConfiguration
 			Log.i(TAG, "** mIsDoubleSpaceChangesToPeroid: "+mIsDoubleSpaceChangesToPeroid);
 			
 			mShouldPopupForLanguageSwitch = sp.getBoolean(mIme.getString(R.string.settings_key_lang_key_shows_popup),
-					mIme.getResources().getBoolean(R.bool.settings_default_lang_key_shows_popup));;
+					mIme.getResources().getBoolean(R.bool.settings_default_lang_key_shows_popup));
 			Log.i(TAG, "** mShouldPopupForLanguageSwitch: "+mShouldPopupForLanguageSwitch);
+			
+			mShowVersionNotification = sp.getBoolean(mIme.getString(R.string.settings_key_show_version_notification),
+					mIme.getResources().getBoolean(R.bool.settings_default_show_version_notification));
+			Log.i(TAG, "** mShowVersionNotification: "+mShowVersionNotification);
 		}
 
 		/*
@@ -421,6 +428,11 @@ public boolean handleConfigurationChange(SharedPreferences sp)
 		@Override
 		public boolean shouldShowPopupForLanguageSwitch() {
 			return mShouldPopupForLanguageSwitch;
+		}
+		
+		@Override
+		public boolean showVersionNotification() {
+			return mShowVersionNotification;
 		}
 	}
 }

@@ -3,4 +3,5 @@
 	<!-- DO NOT TRANSLATE -->
 	<!-- Default settings values -->
     <bool name="settings_default_lang_key_shows_popup">true</bool>
+    <bool name="settings_default_show_version_notification">false</bool>
 </resources>

@@ -43,6 +43,6 @@
         <Key android:codes="61" android:keyLabel="="/>
         <Key android:codes="95" android:keyLabel="_"/>
         <Key android:codes="43" android:keyLabel="+"/>
-        <Key android:codes="-5" android:keyIcon="@drawable/sym_keyboard_delete_small" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+        <Key android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
 </Keyboard>

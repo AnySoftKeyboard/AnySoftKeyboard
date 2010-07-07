@@ -28,14 +28,14 @@ public class TutorialsProvider
 	public static void ShowTutorialsIfNeeded(Context context)
 	{
 		Log.i(TAG, "TutorialsProvider::ShowTutorialsIfNeeded called");
-		if (AnySoftKeyboardConfiguration.getInstance().getDEBUG())
+		if (AnySoftKeyboardConfiguration.getInstance().showVersionNotification() && AnySoftKeyboardConfiguration.getInstance().getDEBUG())
 		{
 			Log.i(TAG, "TESTERS VERSION added");
 			TutorialActivityData data = new TutorialActivityData(R.string.testers_version, R.layout.testers_version);
 			msActivitiesToShow.add(data);
 		}
 		
-		if (AnySoftKeyboardConfiguration.getInstance().getDEBUG() || firstTimeVersionLoaded(context))
+		if (AnySoftKeyboardConfiguration.getInstance().showVersionNotification() && (AnySoftKeyboardConfiguration.getInstance().getDEBUG() || firstTimeVersionLoaded(context)))
 		{
 			Log.i(TAG, "changelog added");
 			TutorialActivityData data = new TutorialActivityData(R.string.changelog, R.layout.changelog);

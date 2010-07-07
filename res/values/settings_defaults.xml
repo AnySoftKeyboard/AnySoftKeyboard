@@ -8,4 +8,5 @@
     <bool name="settings_default_sound_on">false</bool>
     <bool name="settings_default_lang_key_shows_popup">false</bool>
     <string name="settings_default_smiley_popup_type">popupList</string>
+    <bool name="settings_default_show_version_notification">true</bool>
 </resources>
