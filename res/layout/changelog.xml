@@ -56,7 +56,7 @@
 		        android:paddingRight="8dp"
 		        android:textColor="#CCC"
 		        />
-		    <TextView android:text="http://bit.ly/cSI8F1" android:textSize="12sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content"
+		    <TextView android:text="http://s.evendanan.net/ask_r25" android:textSize="12sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content"
 		    	android:paddingTop="4dp"
 		        android:paddingLeft="12dp"
 		        android:paddingRight="12dp"/>

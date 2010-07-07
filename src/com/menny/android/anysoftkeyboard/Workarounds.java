@@ -1,15 +1,12 @@
 package com.menny.android.anysoftkeyboard;
 
 import java.lang.reflect.Field;
-import java.text.Bidi;
 
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
 public class Workarounds 
 {
-    private static final char FIRST_RIGHT_TO_LEFT = '\u0590';
-    private static final char LAST_RIGHT_TO_LEFT = '\u07b1';
 	//Determine whether this device has the fix for RTL in the suggestions list
 	private static final boolean ms_requiresRtlWorkaround;
 	
@@ -88,111 +85,6 @@ public class Workarounds
 			return false;
 		}
 	}
-	
-	private static String bidiProcess(CharSequence oldseq) {
-        String str;
-        boolean hasbidi=false;
-        String oldstr = oldseq.toString();
-        int strlen=oldstr.length();
-        char[] ca=new char[strlen];
-        oldstr.getChars(0, strlen, ca, 0);
-        
-        for (int i=0;i<oldstr.length();i++){
-            if (ca[i]>=FIRST_RIGHT_TO_LEFT&&ca[i]<=LAST_RIGHT_TO_LEFT){
-                hasbidi=true;
-                break;
-            }
-        }
-        if (hasbidi) {
-            char[] ca2=new char[strlen];
-            int count=0,srcindex=0;
-            boolean rtlmode=true;
-            for (int i=0;i<strlen;i++){
-                srcindex=strlen-1-i;
-                if (ca[srcindex]>=FIRST_RIGHT_TO_LEFT&&ca[srcindex]<=LAST_RIGHT_TO_LEFT){
-                    ca2[i]=ca[srcindex];
-                    rtlmode=true;
-                }
-                else {
-                    srcindex=strlen-1-i;
-                    if (count==0) {
-                        if (ca[srcindex]<='\u002f' ||
-                            (ca[srcindex]>'\u0039' && ca[srcindex]<='\u0040') ||
-                            (ca[srcindex]>'\u005a' && ca[srcindex]<='\u0060')||
-                            (ca[srcindex]>'\u007a' && ca[srcindex]<='\u00BF')) {
-
-                            if (rtlmode){
-                                switch (ca[srcindex]) {
-                                case '[':
-                                    ca2[i]=']';
-                                    break;
-                                case ']':
-                                    ca2[i]='[';
-                                    break;
-                                case '}':
-                                    ca2[i]='{';
-                                    break;
-                                case '{':
-                                    ca2[i]='}';
-                                    break;
-                                case '(':
-                                    ca2[i]=')';
-                                    break;
-                                case ')':
-                                    ca2[i]='(';
-                                    break;
-                                case '>':
-                                    ca2[i]='<';
-                                    break;
-                                case '<':
-                                    ca2[i]='>';
-                                    break;
-                                default:
-                                    ca2[i]=ca[srcindex];
-                                    break;
-                                }
-                            } else ca2[i]=ca[srcindex];
-                        } else {
-
-                            while (((srcindex-count)>=0)&&(ca[srcindex-count]<FIRST_RIGHT_TO_LEFT)){
-                                count++;
-                            }
-                            int index=0;
-                            int punctuation_marks=0;
-
-                            while (count>0 && (srcindex-(count)>=0) &&
-                                    (ca[srcindex-(count-1)]<='\u002f' ||
-                                            (ca[srcindex-(count-1)]>'\u0039' && ca[srcindex-(count-1)]<='\u0040') ||
-                                            (ca[srcindex-(count-1)]>'\u005a' && ca[srcindex-(count-1)]<='\u0060')||
-                                            (ca[srcindex-(count-1)]>'\u007a' && ca[srcindex-(count-1)]<='\u00BF'))){
-                                ca2[i+(count-1)]=ca[srcindex-(count-1)];
-                                count--;
-                                punctuation_marks++;
-                            }
-
-                            while (count>0){
-                                ca2[i+index]=ca[srcindex-(count-1)];
-                                count--;
-                                index++;
-                            }
-                            count=index+punctuation_marks-1;
-                        }
-                    }
-                    else {
-                        count--;
-                    }
-                    rtlmode=false;
-                }
-            }
-            str=new String(ca2);
-        } 
-        else
-        {
-            str=oldstr;
-        }
-        return str;
-
-    }
 	
 	public static int workaroundParenthesisDirectionFix(int primaryCode)
 	{
