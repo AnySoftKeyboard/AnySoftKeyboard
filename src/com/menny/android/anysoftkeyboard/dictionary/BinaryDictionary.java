@@ -47,8 +47,16 @@ class BinaryDictionary extends Dictionary {
     static {
         try {
             System.loadLibrary("nativeime");
-        } catch (UnsatisfiedLinkError ule) {
-            Log.e(TAG, "Could not load native library nativeim", ule);
+        } 
+        catch (UnsatisfiedLinkError ule) {
+        	Log.e(TAG, "******** Could not load native library nativeim ********");
+            Log.e(TAG, "******** Could not load native library nativeim ********", ule);
+            Log.e(TAG, "******** Could not load native library nativeim ********");
+        }
+        catch (Throwable t) {
+        	Log.e(TAG, "******** Failed to load native dictionary library ********");
+            Log.e(TAG, "******** Failed to load native dictionary library *******", t);
+            Log.e(TAG, "******** Failed to load native dictionary library ********");
         }
     }
 
