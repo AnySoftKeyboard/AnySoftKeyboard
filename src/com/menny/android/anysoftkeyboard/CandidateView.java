@@ -24,6 +24,9 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
+import android.text.StaticLayout;
+import android.text.TextPaint;
+import android.text.Layout.Alignment;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.Gravity;
@@ -221,8 +224,9 @@ public class CandidateView extends View {
         int x = 0-scrollX;
         final boolean scrolling = mScrolling;
         final boolean typedWordValid = mTypedWordValid;
-        final int y = (int) (height + mPaint.getTextSize() - mDescent) / 2;
-
+        //final int y = (int) (height - mPaint.getTextSize() - mDescent) / 2;
+        final int y = (int) (mPaint.getTextSize() - (2*mDescent));
+        
         for (int i = 0; i < count; i++) {
             CharSequence suggestion = mSuggestions.get(i);
             if ((suggestion == null) || (suggestion.length() == 0)) continue;
@@ -268,8 +272,15 @@ public class CandidateView extends View {
 
             if (canvas != null) {
             	//canvas.drawText is not quite ready for LTR languages. Maybe in Donut.
-            	CharSequence directionCorrectedSuggestion = Workarounds.workaroundCorrectStringDirection(suggestion);
-                canvas.drawText(directionCorrectedSuggestion, 0, directionCorrectedSuggestion.length(), x + X_GAP, y, paint);
+            	//CharSequence directionCorrectedSuggestion = Workarounds.workaroundCorrectStringDirection(suggestion);
+            	TextPaint suggestionPaint = new TextPaint(paint);
+            	StaticLayout suggestionText = new StaticLayout(suggestion, suggestionPaint, wordWidth, Alignment.ALIGN_CENTER,(float)0.0,(float)0.0,false);
+            	if (suggestionText != null) {
+            	    canvas.translate(x , y);
+            	    suggestionText.draw(canvas);
+            	    canvas.translate(-x , -y);
+            	}
+                //canvas.drawText(directionCorrectedSuggestion, 0, directionCorrectedSuggestion.length(), x + X_GAP, y, paint);
                 paint.setColor(mColorOther);
                 canvas.translate(x + wordWidth, 0);
                 mDivider.draw(canvas);
