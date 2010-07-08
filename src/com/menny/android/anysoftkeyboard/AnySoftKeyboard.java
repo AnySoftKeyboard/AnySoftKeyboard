@@ -1342,7 +1342,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 			updateShiftKeyState(getCurrentInputEditorInfo());
 			break;
 		}
-		mInputView.requestShiftKeyRedraw();
+		if(mInputView != null){
+		    mInputView.requestShiftKeyRedraw();
+		}
 	}
 
 	private void handleShift() {
