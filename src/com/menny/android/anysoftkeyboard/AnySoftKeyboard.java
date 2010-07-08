@@ -1392,8 +1392,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 				mWord.reset();
 			}
 		}
-		
-		mLastCharacterShiftState = mInputView.isShifted()? LAST_CHAR_SHIFT_STATE_SHIFTED : LAST_CHAR_SHIFT_STATE_UNSHIFTED;
+		if(mInputView != null){
+		    mLastCharacterShiftState = mInputView.isShifted()? LAST_CHAR_SHIFT_STATE_SHIFTED : LAST_CHAR_SHIFT_STATE_UNSHIFTED;
+		}
 		
 		if (mPredicting) {
 			if ((mInputView != null) && mInputView.isShifted()
