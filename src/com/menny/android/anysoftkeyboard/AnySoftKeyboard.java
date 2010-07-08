@@ -2199,12 +2199,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 		} else {
 			shouldDeleteUsingCompletion = false;
 		}
-
-		if (mCompletionOn && shouldDeleteUsingCompletion) {
-			getCurrentInputConnection().setComposingText(mComposing, 1);
-			// updateCandidates();
-		} else {
-			getCurrentInputConnection().deleteSurroundingText(countToDelete, 0);
+		InputConnection ic = getCurrentInputConnection();
+		if(ic != null){
+		    if (mCompletionOn && shouldDeleteUsingCompletion) {
+			    ic.setComposingText(mComposing, 1);
+			    // updateCandidates();
+		    } else {
+		        ic.deleteSurroundingText(countToDelete, 0);
+		    }
 		}
 		updateShiftKeyState(getCurrentInputEditorInfo());
 	}
