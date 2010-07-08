@@ -12,7 +12,6 @@ import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
-import android.inputmethodservice.Keyboard.Key;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
@@ -69,7 +68,6 @@ public abstract class AnyKeyboard extends Keyboard
 		public int rowWidth = 0;
 		public int verticalGap = 0;
 		public boolean isTopRow = false;
-		public boolean created = false;
 	}
 	
 	private static final int SHIFT_OFF = 0;
@@ -297,7 +295,7 @@ public abstract class AnyKeyboard extends Keyboard
     	List<Key> keys = getKeys();
         boolean inKey = false;
         boolean inRow = false;
-        boolean leftMostKey = false;
+        //boolean leftMostKey = false;
         boolean skipRow = false;
 
         int row = 0;
@@ -551,8 +549,8 @@ public abstract class AnyKeyboard extends Keyboard
         	return;
         }
         int options = (editor == null)? 0 : editor.imeOptions;
-        CharSequence imeLabel = (editor == null)? null :editor.actionLabel;
-        int imeActionId = (editor == null)? -1 :editor.actionId;
+//        CharSequence imeLabel = (editor == null)? null :editor.actionLabel;
+//        int imeActionId = (editor == null)? -1 :editor.actionId;
         
         mEnterKey.enable();
         
