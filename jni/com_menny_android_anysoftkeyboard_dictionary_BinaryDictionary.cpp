@@ -1,7 +1,6 @@
 /*
 **
 ** Copyright 2009, The Android Open Source Project
-** Copyright 2009, Spiros Papadimitriou <spapadim@cs.cmu.edu>
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -17,17 +16,24 @@
 */
 
 #define LOG_TAG "BinaryDictionary"
-
-#include <jni.h>
+//#include "utils/Log.h"
 
 #include <stdio.h>
 #include <assert.h>
 #include <unistd.h>
 #include <fcntl.h>
 
+#include <jni.h>
+//#include "utils/AssetManager.h"
+//#include "utils/Asset.h"
+
 #include "dictionary.h"
 
+// ----------------------------------------------------------------------------
+
 using namespace nativeime;
+
+
 
 static jfieldID sDescriptorField;
 
@@ -45,11 +51,10 @@ static void throwException(JNIEnv *env, const char* ex, const char* fmt, int dat
 }
 
 static jint nativeime_BinaryDictionary_open
-        (JNIEnv *env, jobject object, jobject fileDescriptor,
-         jlong offset, jlong length,
+        (JNIEnv *env, jobject object, jobject fileDescriptor, jlong offset, jlong length,
          jint typedLetterMultiplier, jint fullWordMultiplier)
 {
-    jint fd = env->GetIntField(fileDescriptor, sDescriptorField);
+  	jint fd = env->GetIntField(fileDescriptor, sDescriptorField);
 
     unsigned char *dict = new unsigned char[length];
     if (dict == NULL) {
@@ -66,8 +71,8 @@ static jint nativeime_BinaryDictionary_open
         bytesLeft -= bytesRead;
     }
     // FIXME check: need to close fd?
-
     Dictionary *dictionary = new Dictionary(dict, typedLetterMultiplier, fullWordMultiplier);
+    //dictionary->setAsset(dictAsset);
 
     return (jint) dictionary;
 }
@@ -75,7 +80,7 @@ static jint nativeime_BinaryDictionary_open
 static int nativeime_BinaryDictionary_getSuggestions(
         JNIEnv *env, jobject object, jint dict, jintArray inputArray, jint arraySize,
         jcharArray outputArray, jintArray frequencyArray, jint maxWordLength, jint maxWords,
-        jint maxAlternatives)
+        jint maxAlternatives, jint skipPos)
 {
     Dictionary *dictionary = (Dictionary*) dict;
     if (dictionary == NULL)
@@ -86,11 +91,11 @@ static int nativeime_BinaryDictionary_getSuggestions(
     jchar *outputChars = env->GetCharArrayElements(outputArray, NULL);
 
     int count = dictionary->getSuggestions(inputCodes, arraySize, (unsigned short*) outputChars, frequencies,
-            maxWordLength, maxWords, maxAlternatives);
+            maxWordLength, maxWords, maxAlternatives, skipPos);
 
-    env->ReleaseIntArrayElements(frequencyArray, frequencies, JNI_COMMIT);
+    env->ReleaseIntArrayElements(frequencyArray, frequencies, 0);
     env->ReleaseIntArrayElements(inputArray, inputCodes, JNI_ABORT);
-    env->ReleaseCharArrayElements(outputArray, outputChars, JNI_COMMIT);
+    env->ReleaseCharArrayElements(outputArray, outputChars, 0);
 
     return count;
 }
@@ -120,9 +125,9 @@ static void nativeime_BinaryDictionary_close
 
 static JNINativeMethod gMethods[] = {
     {"openNative",           "(Ljava/io/FileDescriptor;JJII)I",
-                                                (void*)nativeime_BinaryDictionary_open},
+                                          (void*)nativeime_BinaryDictionary_open},
     {"closeNative",          "(I)V",            (void*)nativeime_BinaryDictionary_close},
-    {"getSuggestionsNative", "(I[II[C[IIII)I",  (void*)nativeime_BinaryDictionary_getSuggestions},
+    {"getSuggestionsNative", "(I[II[C[IIIII)I",  (void*)nativeime_BinaryDictionary_getSuggestions},
     {"isValidWordNative",    "(I[CI)Z",         (void*)nativeime_BinaryDictionary_isValidWord}
 };
 
@@ -145,35 +150,46 @@ static int registerNativeMethods(JNIEnv* env, const char* className,
     return JNI_TRUE;
 }
 
+static int registerNatives(JNIEnv *env)
+{
+    const char* const kClassPathName = "com/menny/android/anysoftkeyboard/dictionary/BinaryDictionary";
+    jclass clazz;
+
+    clazz = env->FindClass("java/io/FileDescriptor");
+    if (clazz == NULL) {
+        //LOGE("Can't find %s", "java/io/FileDescriptor");
+		fprintf(stderr, "Can't find %s", "java/io/FileDescriptor");
+        return -1;
+    }
+    sDescriptorField = env->GetFieldID(clazz, "descriptor", "I");
+
+
+    return registerNativeMethods(env,
+            kClassPathName, gMethods, sizeof(gMethods) / sizeof(gMethods[0]));
+}
+
 /*
  * Returns the JNI version on success, -1 on failure.
  */
 jint JNI_OnLoad(JavaVM* vm, void* reserved)
 {
-    const char* const kClassPathName = "com/menny/android/anysoftkeyboard/dictionary/BinaryDictionary";
-
     JNIEnv* env = NULL;
-    jclass clazz;
+    jint result = -1;
 
     if (vm->GetEnv((void**) &env, JNI_VERSION_1_4) != JNI_OK) {
         fprintf(stderr, "ERROR: GetEnv failed\n");
-        return -1;
+        goto bail;
     }
     assert(env != NULL);
 
-    clazz = env->FindClass("java/io/FileDescriptor");
-    if (clazz == NULL) {
-        fprintf(stderr, "Can't find %s", "java/io/FileDescriptor");
-        return -2;
-    }
-    sDescriptorField = env->GetFieldID(clazz, "descriptor", "I");
-
-    if (!registerNativeMethods(env,
-            kClassPathName, gMethods, sizeof(gMethods) / sizeof(gMethods[0]))) {
+    if (!registerNatives(env)) {
         fprintf(stderr, "ERROR: BinaryDictionary native registration failed\n");
-        return -3;
+        goto bail;
     }
 
     /* success -- return valid version number */
-    return JNI_VERSION_1_4;
+    result = JNI_VERSION_1_4;
+
+bail:
+    return result;
 }

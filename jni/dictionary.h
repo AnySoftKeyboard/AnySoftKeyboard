@@ -32,7 +32,7 @@ class Dictionary {
 public:
     Dictionary(unsigned char *dict, int typedLetterMultipler, int fullWordMultiplier);
     int getSuggestions(int *codes, int codesSize, unsigned short *outWords, int *frequencies,
-        int maxWordLength, int maxWords, int maxAlternatives);
+        int maxWordLength, int maxWords, int maxAlternatives, int skipPos);
     bool isValidWord(unsigned short *word, int length);
     void setAsset(void *asset) { mAsset = asset; }
     void *getAsset() { return mAsset; }
@@ -50,9 +50,9 @@ private:
 
     bool sameAsTyped(unsigned short *word, int length);
     bool addWord(unsigned short *word, int length, int frequency);
-    unsigned short toLowerCase(unsigned short c, int depth);
+    unsigned short toLowerCase(unsigned short c);
     void getWordsRec(int pos, int depth, int maxDepth, bool completion, int frequency,
-            int inputIndex);
+            int inputIndex, int diffs);
     bool isValidWordRec(int pos, unsigned short *word, int offset, int length);
 
     unsigned char *mDict;
@@ -67,6 +67,8 @@ private:
     int mInputLength;
     int mMaxAlternatives;
     unsigned short mWord[128];
+    int mSkipPos;
+    int mMaxEditDistance;
 
     int mFullWordMultiplier;
     int mTypedLetterMultiplier;
@@ -74,6 +76,6 @@ private:
 
 // ----------------------------------------------------------------------------
 
-}; // namespace nativeime
+}; // namespace latinime
 
 #endif // NATIVEIME_DICTIONARY_H

@@ -37,6 +37,7 @@ class BinaryDictionary extends Dictionary {
     private final AssetFileDescriptor mAfd;
 
     private static final int TYPED_LETTER_MULTIPLIER = 2;
+    private static final boolean ENABLE_MISSED_CHARACTERS = true;
 
     private int mNativeDict;
     private int[] mInputCodes = new int[MAX_WORD_LENGTH * MAX_ALTERNATIVES];
@@ -82,7 +83,7 @@ class BinaryDictionary extends Dictionary {
     private native boolean isValidWordNative(int nativeData, char[] word, int wordLength);
     private native int getSuggestionsNative(int dict, int[] inputCodes, int codesSize,
             char[] outputChars, int[] frequencies,
-            int maxWordLength, int maxWords, int maxAlternatives);
+            int maxWordLength, int maxWords, int maxAlternatives, int skipPos);
 
     private final void loadDictionary(AssetFileDescriptor afd) {
         long startTime = System.currentTimeMillis();
@@ -105,9 +106,25 @@ class BinaryDictionary extends Dictionary {
                     Math.min(alternatives.length, MAX_ALTERNATIVES));
         }
         Arrays.fill(mOutputChars, (char) 0);
+        Arrays.fill(mFrequencies, 0);
 
-        final int count = getSuggestionsNative(mNativeDict, mInputCodes, codesSize, mOutputChars, mFrequencies,
-                MAX_WORD_LENGTH, MAX_WORDS, MAX_ALTERNATIVES);
+        int count = getSuggestionsNative(mNativeDict, mInputCodes, codesSize,
+                mOutputChars, mFrequencies,
+                MAX_WORD_LENGTH, MAX_WORDS, MAX_ALTERNATIVES, -1);
+
+        // If there aren't sufficient suggestions, search for words by allowing wild cards at
+        // the different character positions. This feature is not ready for prime-time as we need
+        // to figure out the best ranking for such words compared to proximity corrections and
+        // completions.
+        if (ENABLE_MISSED_CHARACTERS && count < 5) {
+            for (int skip = 0; skip < codesSize; skip++) {
+                int tempCount = getSuggestionsNative(mNativeDict, mInputCodes, codesSize,
+                        mOutputChars, mFrequencies,
+                        MAX_WORD_LENGTH, MAX_WORDS, MAX_ALTERNATIVES, skip);
+                count = Math.max(count, tempCount);
+                if (tempCount > 0) break;
+            }
+        }
 
         for (int j = 0; j < count; j++) {
             if (mFrequencies[j] < 1) break;
@@ -121,6 +138,7 @@ class BinaryDictionary extends Dictionary {
             }
         }
     }
+
 
     @Override
     public boolean isValidWord(CharSequence word) {
