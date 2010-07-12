@@ -2,6 +2,7 @@ package com.menny.android.anysoftkeyboard;
 
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
@@ -35,7 +36,9 @@ public abstract class AnySoftKeyboardConfiguration
 
 	public abstract boolean getSwitchKeyboardOnSpace();
 	
-	public abstract boolean getUseFullScreenInput();
+	public abstract boolean getUseFullScreenInputInLandscape();
+	
+	public abstract boolean getUseFullScreenInputInPortrait();
 	
 	public abstract boolean getUseRepeatingKeys();
 	
@@ -62,6 +65,8 @@ public abstract class AnySoftKeyboardConfiguration
 	
 	public abstract boolean showVersionNotification();
 	
+	public abstract boolean use16KeysSymbolsKeyboards();
+	
 	static class AnySoftKeyboardConfigurationImpl extends AnySoftKeyboardConfiguration
 	{
 		private InputMethodService mIme;
@@ -73,7 +78,8 @@ public abstract class AnySoftKeyboardConfiguration
 		private String mLayoutChangeKeysSize = "Small";
 		private boolean mShowKeyPreview = true;
 		private boolean mSwitchKeyboardOnSpace = true;
-		private boolean mUseFullScreenInput = true;
+		private boolean mUseFullScreenInputInLandscape = true;
+		private boolean mUseFullScreenInputInPortrait = false;
 		private boolean mUseKeyRepeat = true;
 		private float mKeysHeightFactorInPortrait = 1.0f;
 		private float mKeysHeightFactorInLandscape = 1.0f;
@@ -87,6 +93,7 @@ public abstract class AnySoftKeyboardConfiguration
 		private boolean mIsDoubleSpaceChangesToPeroid = true;
 		private boolean mShouldPopupForLanguageSwitch = false;
 		private boolean mShowVersionNotification = true;
+		private boolean mUse16KeysSymbolsKeyboard = false;
 		
 		public AnySoftKeyboardConfigurationImpl()
 		{
@@ -120,11 +127,31 @@ public abstract class AnySoftKeyboardConfiguration
 			Log.i(TAG, "** Release code: "+releaseNumber);
 			Log.i(TAG, "** Debug: "+mDEBUG);
 			SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mIme);
+			customizeSettingValues(mIme.getApplicationContext(), sp);
 			upgradeSettingsValues(sp);
 			
 			handleConfigurationChange(sp);
 		}
 		
+		private void customizeSettingValues(Context context, SharedPreferences sp) {
+			final int customizationLevel = sp.getInt("customizationLevel", 0);
+			if (customizationLevel < 1)
+			{
+				Editor e = sp.edit();
+				e.putBoolean(context.getString(R.string.settings_key_lang_key_shows_popup), true);
+				e.putBoolean(context.getString(R.string.settings_key_show_version_notification), false);
+				e.putBoolean(context.getString(R.string.settings_key_use_16_keys_symbols_keyboards), true);
+				//enabling 16keys, disabling english
+				e.putBoolean("keyboard_12335055-4aa6-49dc-8456-c7d38a1a5123", true);
+				e.putBoolean("keyboard_c7535083-4fe6-49dc-81aa-c5438a1a343a", false);
+				
+				//enabling external Hebrew
+				e.putBoolean("keyboard_8958fb12-6558-4e96-9aa6-0e90101570b3", true);
+				
+				e.commit();
+			}
+		}
+
 		private void upgradeSettingsValues(SharedPreferences sp) {
 			Log.d(TAG, "Checking if configuration upgrade is needed.");
 			String topRowNewIdValue = sp.getString(mIme.getString(R.string.settings_key_top_keyboard_row_id), null);
@@ -135,6 +162,18 @@ public abstract class AnySoftKeyboardConfiguration
 				Editor e = sp.edit();
 				e.putString(mIme.getString(R.string.settings_key_top_keyboard_row_id), topRowOldIdValue);
 				e.remove("keyboard_layout_change_method");
+				e.commit();
+			}
+			
+			final int configurationVersion = sp.getInt("configurationVersion", 0);
+			if (configurationVersion < 1)
+			{
+				boolean oldLandscapeFullScreenValue = sp.getBoolean("fullscreen_input_connection_supported", 
+						mIme.getResources().getBoolean(R.bool.settings_default_landscape_fullscreen));
+				Log.d(TAG, "Replacing landscape-fullscreen key...");
+				Editor e = sp.edit();
+				e.putBoolean(mIme.getString(R.string.settings_key_landscape_fullscreen), oldLandscapeFullScreenValue);
+				e.remove("fullscreen_input_connection_supported");
 				e.commit();
 			}
 		}
@@ -157,8 +196,13 @@ public abstract class AnySoftKeyboardConfiguration
 			mSwitchKeyboardOnSpace = sp.getBoolean("switch_keyboard_on_space", false);
 			Log.i(TAG, "** mSwitchKeyboardOnSpace: "+mSwitchKeyboardOnSpace);
 			
-			mUseFullScreenInput = sp.getBoolean("fullscreen_input_connection_supported", true);
-			Log.i(TAG, "** mUseFullScreenInput: "+mUseFullScreenInput);
+			mUseFullScreenInputInLandscape = sp.getBoolean(mIme.getString(R.string.settings_key_landscape_fullscreen), 
+					mIme.getResources().getBoolean(R.bool.settings_default_landscape_fullscreen));
+			Log.i(TAG, "** mUseFullScreenInputInLandscape: "+mUseFullScreenInputInLandscape);
+			
+			mUseFullScreenInputInPortrait = sp.getBoolean(mIme.getString(R.string.settings_key_portrait_fullscreen), 
+					mIme.getResources().getBoolean(R.bool.settings_default_portrait_fullscreen));
+			Log.i(TAG, "** mUseFullScreenInputInPortrait: "+mUseFullScreenInputInPortrait);
 			
 			// Fix issue 185
 			mUseKeyRepeat = sp.getBoolean("use_keyrepeat", true);
@@ -201,6 +245,11 @@ public abstract class AnySoftKeyboardConfiguration
 			mShowVersionNotification = sp.getBoolean(mIme.getString(R.string.settings_key_show_version_notification),
 					mIme.getResources().getBoolean(R.bool.settings_default_show_version_notification));
 			Log.i(TAG, "** mShowVersionNotification: "+mShowVersionNotification);
+			
+			mUse16KeysSymbolsKeyboard = sp.getBoolean(mIme.getString(R.string.settings_key_use_16_keys_symbols_keyboards),
+					mIme.getResources().getBoolean(R.bool.settings_default_use_16_keys_symbols_keyboards));
+			Log.i(TAG, "** mUse16KeysSymbolsKeyboard: "+mUse16KeysSymbolsKeyboard);
+			
 		}
 
 		/*
@@ -372,8 +421,14 @@ public boolean handleConfigurationChange(SharedPreferences sp)
 		    return mSwitchKeyboardOnSpace;
 		}
 
-		public boolean getUseFullScreenInput() {
-			return mUseFullScreenInput;
+		@Override
+		public boolean getUseFullScreenInputInLandscape() {
+			return mUseFullScreenInputInLandscape;
+		}
+		
+		@Override
+		public boolean getUseFullScreenInputInPortrait() {
+			return mUseFullScreenInputInPortrait;
 		}
 
 		@Override
@@ -433,6 +488,11 @@ public boolean handleConfigurationChange(SharedPreferences sp)
 		@Override
 		public boolean showVersionNotification() {
 			return mShowVersionNotification;
+		}
+
+		@Override
+		public boolean use16KeysSymbolsKeyboards() {
+			return mUse16KeysSymbolsKeyboard;
 		}
 	}
 }

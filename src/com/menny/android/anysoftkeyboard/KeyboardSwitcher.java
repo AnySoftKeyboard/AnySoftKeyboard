@@ -122,10 +122,16 @@ public class KeyboardSwitcher
 	    	switch(keyboardIndex)
 	    	{
 	    		case SYMBOLS_KEYBOARD_REGULAR_INDEX:
-	    			keyboard = new GenericKeyboard(mContext, R.xml.symbols, R.string.symbols_keyboard, "symbols_keyboard", mode);
+	    			if (AnySoftKeyboardConfiguration.getInstance().use16KeysSymbolsKeyboards())
+	    				keyboard = new GenericKeyboard(mContext, R.xml.symbols_16keys, R.xml.symbols, R.string.symbols_keyboard, "symbols_keyboard", mode);
+	    			else
+	    				keyboard = new GenericKeyboard(mContext, R.xml.symbols, R.string.symbols_keyboard, "symbols_keyboard", mode);
 	    			break;
 	    		case SYMBOLS_KEYBOARD_ALT_INDEX:
-	    			keyboard = new GenericKeyboard(mContext, R.xml.symbols_alt, R.string.symbols_keyboard, "alt_symbols_keyboard", mode);
+	    			if (AnySoftKeyboardConfiguration.getInstance().use16KeysSymbolsKeyboards())
+	    				keyboard = new GenericKeyboard(mContext, R.xml.symbols_alt_16keys, R.xml.symbols_alt, R.string.symbols_keyboard, "symbols_keyboard", mode);
+	    			else
+	    				keyboard = new GenericKeyboard(mContext, R.xml.symbols_alt, R.string.symbols_keyboard, "alt_symbols_keyboard", mode);
 	    			break;
 	    		case SYMBOLS_KEYBOARD_PHONE_INDEX:
 	    			keyboard = new GenericKeyboard(mContext, R.xml.simple_numbers, R.string.symbols_keyboard, "phone_symbols_keyboard", mode);

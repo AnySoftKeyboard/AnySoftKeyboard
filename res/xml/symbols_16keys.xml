@@ -28,8 +28,8 @@
     </Row>
     
     <Row android:rowEdgeFlags="bottom">
-        <Key android:codes="-6" android:keyIcon="@drawable/sym_keyboard_numalt" android:keyEdgeFlags="left"/>
-        <Key android:codes="48,32" android:keyWidth="50%p" android:keyIcon="@drawable/sym_keyboard_num0_space"/>
+        <Key android:codes="-6" android:keyEdgeFlags="left"/>
+        <Key android:codes="48,32" android:keyWidth="50%p"/>
         <Key android:codes="10" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>
