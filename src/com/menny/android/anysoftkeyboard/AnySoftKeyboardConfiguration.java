@@ -134,30 +134,30 @@ public abstract class AnySoftKeyboardConfiguration
 		}
 		
 		private void customizeSettingValues(Context context, SharedPreferences sp) {
-			final int customizationLevel = sp.getInt("customizationLevel", 0);
-			if (customizationLevel < 1)
-			{
-				Editor e = sp.edit();
-				
-				e.putBoolean(context.getString(R.string.settings_key_lang_key_shows_popup), true);
-				e.putBoolean(context.getString(R.string.settings_key_show_version_notification), false);
-				e.putBoolean(context.getString(R.string.settings_key_use_16_keys_symbols_keyboards), true);
-				//enabling 16keys, disabling english
-				e.putBoolean("keyboard_12335055-4aa6-49dc-8456-c7d38a1a5123", true);
-				e.putBoolean("keyboard_c7535083-4fe6-49dc-81aa-c5438a1a343a", false);
-				
-				//enabling external Hebrew
-				e.putBoolean("keyboard_8958fb12-6558-4e96-9aa6-0e90101570b3", true);
-				
-				//sound on
-				e.putBoolean(context.getString(R.string.settings_key_sound_on), true);
-				//custom volume: mid
-				e.putBoolean("use_custom_sound_volume", true);
-				e.putInt("custom_sound_volume", 50);
-				//vibrate on (hard)
-				e.putString(context.getString(R.string.settings_key_vibrate_on_key_press_duration), "50");
-				e.commit();
-			}
+//			final int customizationLevel = sp.getInt("customizationLevel", 0);
+//			if (customizationLevel < 1)
+//			{
+//				Editor e = sp.edit();
+//				
+//				e.putBoolean(context.getString(R.string.settings_key_lang_key_shows_popup), true);
+//				e.putBoolean(context.getString(R.string.settings_key_show_version_notification), false);
+//				e.putBoolean(context.getString(R.string.settings_key_use_16_keys_symbols_keyboards), true);
+//				//enabling 16keys, disabling english
+//				e.putBoolean("keyboard_12335055-4aa6-49dc-8456-c7d38a1a5123", true);
+//				e.putBoolean("keyboard_c7535083-4fe6-49dc-81aa-c5438a1a343a", false);
+//				
+//				//enabling external Hebrew
+//				e.putBoolean("keyboard_8958fb12-6558-4e96-9aa6-0e90101570b3", true);
+//				
+//				//sound on
+//				e.putBoolean(context.getString(R.string.settings_key_sound_on), true);
+//				//custom volume: mid
+//				e.putBoolean("use_custom_sound_volume", true);
+//				e.putInt("custom_sound_volume", 50);
+//				//vibrate on (hard)
+//				e.putString(context.getString(R.string.settings_key_vibrate_on_key_press_duration), "50");
+//				e.commit();
+//			}
 		}
 
 		private void upgradeSettingsValues(SharedPreferences sp) {
