@@ -126,15 +126,15 @@ public abstract class AnyKeyboard extends Keyboard
 	        {
 	        	mOnShiftIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_with_globes_on);
 		        mOffShiftIcon = shiftWithGlobes;
-		        mOnShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_with_globes_on);
-		        mOffShiftFeedbackIcon = shiftWithGlobes;
+		        mOnShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_with_globes_on_feedback);
+		        mOffShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_with_globe_feedback);
 	        }
 	        else
 	        {
 		        mOnShiftIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_on);
 		        mOffShiftIcon = resources.getDrawable(R.drawable.sym_keyboard_shift);
 		        mOnShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift_on);
-		        mOffShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift);;
+		        mOffShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift);
 	        }
 	        mOnShiftFeedbackIcon.setBounds(0, 0, 
 	        		mOnShiftFeedbackIcon.getIntrinsicWidth(), mOnShiftFeedbackIcon.getIntrinsicHeight());
@@ -469,12 +469,12 @@ public abstract class AnyKeyboard extends Keyboard
 	        }
         }
         
-        if (mDebug)
-        {
-        	final int primaryKey = ((key.codes != null) && key.codes.length > 0)?
-        			key.codes[0] : -1;
-        	Log.v(TAG, "Key '"+primaryKey+"' will have - width: "+key.width+", height:"+key.height+", text: '"+key.label+"'.");
-        }
+//        if (mDebug)
+//        {
+//        	final int primaryKey = ((key.codes != null) && key.codes.length > 0)?
+//        			key.codes[0] : -1;
+//        	Log.v(TAG, "Key '"+primaryKey+"' will have - width: "+key.width+", height:"+key.height+", text: '"+key.label+"'.");
+//        }
         
         setPopupKeyChars(key);
         
@@ -491,7 +491,7 @@ public abstract class AnyKeyboard extends Keyboard
     	if (aRow.mode > 0)
     		aRow.mode = res.getInteger(aRow.mode);//switching to the mode!
     	
-    	Log.d(TAG, "Row mode: "+aRow.mode);
+    	//Log.d(TAG, "Row mode: "+aRow.mode);
     	
     	AnySoftKeyboardConfiguration config = AnySoftKeyboardConfiguration.getInstance();
 		final int orientation = config.getDeviceOrientation();
@@ -662,7 +662,6 @@ public abstract class AnyKeyboard extends Keyboard
 		//shift is ON, and not when CAPS is on.
 		if (mShiftKey == null)
 			return false;
-        mShiftKey.on = false;
         
         /*My shift state - parameter - changed
          * OFF - true - true
@@ -676,7 +675,7 @@ public abstract class AnyKeyboard extends Keyboard
          */
 		final boolean changed = (shiftState == (mShiftState == SHIFT_OFF));
 		
-		if (mDebug) Log.d(TAG, "setShifted: shiftState:"+shiftState+". changed: "+changed);
+		if (mDebug) Log.d(TAG, "setShifted: shiftState:"+shiftState+", caps:"+(mShiftState == SHIFT_LOCKED)+". changed: "+changed);
 		
 		if (changed)
 		{//layout changed. Need to change labels.
@@ -692,11 +691,13 @@ public abstract class AnyKeyboard extends Keyboard
 	            	mShiftKey.icon = mOffShiftIcon;
 	            	mShiftKey.iconPreview = mOffShiftFeedbackIcon;
 	            }
-	        }
-			return true;
+			}
 		}
-		else
-			return false;
+		
+		mShiftKey.on = (mShiftState == SHIFT_LOCKED);
+		
+		return changed;
+        
 	}
 	
 	public boolean isShiftLocked() {

@@ -566,10 +566,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	@Override
 	public boolean onEvaluateFullscreenMode() {
-		if (AnySoftKeyboardConfiguration.getInstance().getUseFullScreenInput())
-			return super.onEvaluateFullscreenMode();
-		else
-			return false;
+		switch(mOrientation)
+		{
+		case Configuration.ORIENTATION_LANDSCAPE:
+			return AnySoftKeyboardConfiguration.getInstance().getUseFullScreenInputInLandscape();
+		default:
+			return AnySoftKeyboardConfiguration.getInstance().getUseFullScreenInputInPortrait();
+		}
 	}
 
 	@Override
@@ -1377,10 +1380,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 					caps = true;
 				}
 			}
-			mInputView.requestShiftKeyRedraw();
-
+			
 			mCapsLock = caps;
 			currentKeyboard.setShiftLocked(mCapsLock);
+			
+			mInputView.requestShiftKeyRedraw();
 		}
 	}
 
@@ -2123,10 +2127,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (mOrientation != newConfig.orientation)
 		{
 			mOrientation = newConfig.orientation;
-			if (mInputView != null)
-			{
-				mInputView.closing();
-			}
+//			if (mInputView != null)
+//			{
+//				mInputView.closing();
+//			}
 			//resetting cache
 			//this will force recreating of keyboards upon showing them up.
 			mKeyboardSwitcher.resetKeyboardsCache();
