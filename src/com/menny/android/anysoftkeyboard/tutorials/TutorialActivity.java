@@ -6,6 +6,7 @@ import com.menny.android.anysoftkeyboard.tutorials.TutorialsProvider.TutorialAct
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -67,7 +68,14 @@ public class TutorialActivity extends Activity implements OnClickListener{
 			MainForm.startSettings(getApplicationContext());
 			break;
 		case R.id.market_search_button:
-			MainForm.searchMarketForAddons(getApplicationContext());
+			try
+			{
+				MainForm.searchMarketForAddons(getApplicationContext());
+			}
+			catch(Exception ex)
+			{
+				Log.e("ASK - Tutorial", "Failed to launch Market!", ex);
+			}
 			break;
 		}
 	}

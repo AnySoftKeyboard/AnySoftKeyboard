@@ -49,7 +49,14 @@ public class SoftKeyboardSettings extends PreferenceActivity {
 			public boolean onPreferenceClick(Preference preference) {
 				if (preference.getKey().equals("search_for_addons"))
 				{
-					MainForm.searchMarketForAddons(SoftKeyboardSettings.this.getApplicationContext());
+					try
+					{
+						MainForm.searchMarketForAddons(SoftKeyboardSettings.this.getApplicationContext());
+					}
+					catch(Exception ex)
+					{
+						Log.e("ASK-SETTINGS", "Failed to launch market!", ex);
+					}
 					return true;
 				}
 				return false;

@@ -53,7 +53,14 @@ public class MainForm extends TabActivity implements OnClickListener {
 			startSettings(getApplicationContext());
 			break;
 		case R.id.market_search_button:
-			searchMarketForAddons(getApplicationContext());
+			try
+			{
+				searchMarketForAddons(getApplicationContext());
+			}
+			catch(Exception ex)
+			{
+				Log.e("MainForm", "Failed to launch Market! ", ex);
+			}
 			break;
 		case R.id.goto_changelog_button:
 			showChangelog(getApplicationContext());
@@ -61,7 +68,7 @@ public class MainForm extends TabActivity implements OnClickListener {
 		}
 	}
 	
-	public static void searchMarketForAddons(Context applicationContext) {
+	public static void searchMarketForAddons(Context applicationContext) throws android.content.ActivityNotFoundException {
 		Intent search = new Intent(Intent.ACTION_VIEW);
 		search.setData(Uri.parse("market://search?q=AnySoftKeyboard"));
 		search.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

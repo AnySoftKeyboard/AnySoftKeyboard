@@ -98,8 +98,8 @@
     
     <string name="speacial_fetures_group">Special features</string>
     <string name="switch_keyboard_on_space">Space switches keyboards</string>
-    <string name="switch_keyboard_on_space_on_summary">Switch from symbols to alphabet when pressing space</string>
-    <string name="switch_keyboard_on_space_off_summary">Do not switch from symbols to alphabet when pressing space</string>
+    <string name="switch_keyboard_on_space_on_summary">Switch from symbols/numbers to alphabet when pressing space</string>
+    <string name="switch_keyboard_on_space_off_summary">Do not switch from symbols/numbers to alphabet when pressing space</string>
     <string name="fullscreen_input_connection_supported">Use full-screen input</string>
     <string name="fullscreen_input_connection_supported_on_summary">Full-screen input in landscape mode</string>
     <string name="fullscreen_input_connection_supported_off_summary">Never use full-screen input</string>
