@@ -154,7 +154,7 @@ Dictionary::toLowerCase(unsigned short c) {
     }
     if (c >='A' && c <= 'Z') {
         c |= 32;
-    } else if (c > 127) {
+    } else if (c > 127 && c < sizeof(LOWER_CHARS) / sizeof(LOWER_CHARS[0])) {
         c = LOWER_CHARS[c];
     }
     return c;
