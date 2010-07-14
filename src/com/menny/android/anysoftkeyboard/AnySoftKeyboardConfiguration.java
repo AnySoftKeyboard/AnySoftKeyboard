@@ -69,6 +69,8 @@ public abstract class AnySoftKeyboardConfiguration
 	
 	static class AnySoftKeyboardConfigurationImpl extends AnySoftKeyboardConfiguration
 	{
+		private static final String CONFIGURATION_VERSION = "configurationVersion";
+		private static final String CUSTOMIZATION_LEVEL = "customizationLevel";
 		private InputMethodService mIme;
 		//this is determined from the version. It includes "tester", the it will be true
 		private boolean mDEBUG = true;
@@ -104,14 +106,14 @@ public abstract class AnySoftKeyboardConfiguration
 		{
 			mIme = ime;
 			
-			Log.i(TAG, "** Locale:"+ mIme.getResources().getConfiguration().locale.toString());
+			//Log.i(TAG, "** Locale:"+ mIme.getResources().getConfiguration().locale.toString());
 			String version = "NONE";
 			int releaseNumber = 0;
 	        try {
 				PackageInfo info = mIme.getApplication().getPackageManager().getPackageInfo(mIme.getApplication().getPackageName(), 0);
 				version = info.versionName;
 				releaseNumber = info.versionCode;
-				Log.i(TAG, "** Version: "+version);
+				//Log.i(TAG, "** Version: "+version);
 			} catch (NameNotFoundException e) {
 				Log.e(TAG, "Failed to locate package information! This is very weird... I'm installed.");
 			}
@@ -134,7 +136,7 @@ public abstract class AnySoftKeyboardConfiguration
 		}
 		
 		private void customizeSettingValues(Context context, SharedPreferences sp) {
-//			final int customizationLevel = sp.getInt("customizationLevel", 0);
+//			final int customizationLevel = sp.getInt(CUSTOMIZATION_LEVEL, 0);
 //			if (customizationLevel < 1)
 //			{
 //				Editor e = sp.edit();
@@ -142,6 +144,8 @@ public abstract class AnySoftKeyboardConfiguration
 //				e.putBoolean(context.getString(R.string.settings_key_lang_key_shows_popup), true);
 //				e.putBoolean(context.getString(R.string.settings_key_show_version_notification), false);
 //				e.putBoolean(context.getString(R.string.settings_key_use_16_keys_symbols_keyboards), true);
+//				e.putBoolean(context.getString(R.string.settings_key_landscape_fullscreen), true);
+//				e.putBoolean(context.getString(R.string.settings_key_portrait_fullscreen), false);
 //				//enabling 16keys, disabling english
 //				e.putBoolean("keyboard_12335055-4aa6-49dc-8456-c7d38a1a5123", true);
 //				e.putBoolean("keyboard_c7535083-4fe6-49dc-81aa-c5438a1a343a", false);
@@ -156,6 +160,9 @@ public abstract class AnySoftKeyboardConfiguration
 //				e.putInt("custom_sound_volume", 50);
 //				//vibrate on (hard)
 //				e.putString(context.getString(R.string.settings_key_vibrate_on_key_press_duration), "50");
+//				
+//				//saving customization level
+//				e.putInt(CUSTOMIZATION_LEVEL, 1);
 //				e.commit();
 //			}
 		}
@@ -173,7 +180,7 @@ public abstract class AnySoftKeyboardConfiguration
 				e.commit();
 			}
 			
-			final int configurationVersion = sp.getInt("configurationVersion", 0);
+			final int configurationVersion = sp.getInt(CONFIGURATION_VERSION, 0);
 			if (configurationVersion < 1)
 			{
 				boolean oldLandscapeFullScreenValue = sp.getBoolean("fullscreen_input_connection_supported", 
@@ -182,7 +189,8 @@ public abstract class AnySoftKeyboardConfiguration
 				Editor e = sp.edit();
 				e.putBoolean(mIme.getString(R.string.settings_key_landscape_fullscreen), oldLandscapeFullScreenValue);
 				e.remove("fullscreen_input_connection_supported");
-				
+				//saving config level
+				e.putInt(CONFIGURATION_VERSION, 1);
 				e.commit();
 			}
 		}

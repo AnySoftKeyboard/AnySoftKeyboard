@@ -2121,9 +2121,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
-		Log.i("AnySoftKeyboard", "**** onConfigurationChanged");
-		Log.i("AnySoftKeyboard", "** Locale:" + newConfig.locale.toString());
-		Log.i("AnySoftKeyboard", "** Orientation:" + newConfig.orientation + " previous:"+mOrientation);
+//		Log.i("AnySoftKeyboard", "**** onConfigurationChanged");
+//		Log.i("AnySoftKeyboard", "** Locale:" + newConfig.locale.toString());
+//		Log.i("AnySoftKeyboard", "** Orientation:" + newConfig.orientation + " previous:"+mOrientation);
 		if (mOrientation != newConfig.orientation)
 		{
 			mOrientation = newConfig.orientation;
@@ -2134,6 +2134,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			//resetting cache
 			//this will force recreating of keyboards upon showing them up.
 			mKeyboardSwitcher.resetKeyboardsCache();
+			updateFullscreenMode();
 		}
 	}
 
