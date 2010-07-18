@@ -27,6 +27,7 @@ public class SoftKeyboardSettings extends PreferenceActivity {
 	@Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+        //addPreferencesFromResource(R.layout.prefs_2);
         addPreferencesFromResource(R.layout.prefs);
         final PreferenceCategory keyboards = (PreferenceCategory)super.findPreference("prefs_keyboards_screen");
         mDefaultPreferencesCount = keyboards.getPreferenceCount();

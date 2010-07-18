@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+android:title="@string/ime_settings"
+android:key="ime_settings">
+	<PreferenceCategory android:key="ui_group"
+	android:title="@string/ui_group">
+		<ListPreference
+		android:key="@string/settings_key_top_keyboard_row_id"
+		android:title="@string/keyboard_layout_change_keys_size_title"
+		android:summary="@string/keyboard_layout_change_keys_size_summary"
+		android:entries="@array/keyboard_layout_keys_size"
+		android:entryValues="@array/keyboard_layout_change_methods_values"
+		android:defaultValue="@string/settings_default_top_keyboard_row_id"
+		android:dialogTitle="@string/keyboard_layout_change_keys_size_dialog_title"/>
+		<ListPreference
+		android:key="@string/settings_key_physical_keyboard_change_notification_type"
+		android:title="@string/physical_keyboard_change_notification_title"
+		android:summary="@string/physical_keyboard_change_notification_summary"
+		android:entries="@array/physical_keyboard_change_notification_types"
+		android:entryValues="@array/physical_keyboard_change_notification_values"
+		android:defaultValue="@string/settings_default_physical_keyboard_change_notification_type"
+		android:dialogTitle="@string/physical_keyboard_change_notification_dialog_title"/>
+	</PreferenceCategory>
+	<PreferenceCategory android:key="effects_group" android:title="@string/effects_group">
+		<ListPreference
+		android:key="@string/settings_key_vibrate_on_key_press_duration"
+		android:title="@string/vibrate_on_key_press_title"
+		android:summary="@string/vibrate_on_key_press_summary"
+		android:entries="@array/vibrate_on_key_press_types"
+		android:entryValues="@array/vibrate_on_key_press_values"
+		android:dialogTitle="@string/vibrate_on_key_press_dialog_title"
+		android:defaultValue="@string/settings_default_vibrate_on_key_press_duration" />
+		<CheckBoxPreference
+		android:key="@string/settings_key_sound_on"
+		android:title="@string/sound_on"
+		android:persistent="true"
+		android:defaultValue="@bool/settings_default_sound_on"
+		android:summaryOn="@string/sound_on_summary"
+		android:summaryOff=""
+		/>
+	</PreferenceCategory>
+	<PreferenceCategory android:key="grammer_group"
+	android:title="@string/grammer_group">
+		<CheckBoxPreference
+		android:key="auto_caps"
+		android:title="@string/auto_caps"
+		android:persistent="true"
+		android:defaultValue="true"
+		/>
+		<CheckBoxPreference
+		android:key="candidates_on"
+		android:title="@string/candidates_on"
+		android:persistent="true"
+		android:defaultValue="true"
+		/>
+		<CheckBoxPreference
+		android:key="auto_complete"
+		android:title="@string/auto_complete"
+		android:summaryOn="@string/auto_complete_summary"
+		android:summaryOff=""
+		android:persistent="true"
+		android:defaultValue="true"
+		/>
+		<CheckBoxPreference
+		android:key="quick_fix"
+		android:title="@string/quick_fix"
+		android:summaryOn="@string/quick_fix_summary"
+		android:summaryOff=""
+		android:persistent="true"
+		android:defaultValue="true"
+		/>
+		<EditTextPreference android:key="keyboards_sandbox_2" 
+		android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"
+		android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false">
+		</EditTextPreference>
+		
+	</PreferenceCategory>
+	<PreferenceCategory android:key="speacial_fetures_group"
+	android:title="@string/speacial_fetures_group">
+		<!-- <CheckBoxPreference
+		android:key="physical_keyboard_suggestions"
+		android:title="@string/physical_keyboard_suggestions"
+		android:summaryOn="@string/physical_keyboard_suggestions_summary"
+		android:summaryOff=""
+		android:persistent="true"
+		android:defaultValue="true"
+		/>-->
+		<CheckBoxPreference
+			android:key="switch_keyboard_on_space"
+			android:title="@string/switch_keyboard_on_space"
+			android:persistent="true"
+			android:defaultValue="true"
+			android:summaryOn="@string/switch_keyboard_on_space_on_summary"
+			android:summaryOff="@string/switch_keyboard_on_space_off_summary"/>
+		<CheckBoxPreference
+			android:key="double_space_to_period"
+			android:title="@string/double_space_to_period"
+			android:summaryOn="@string/double_space_to_period_summary"
+			android:summaryOff=""
+			android:persistent="true"
+			android:defaultValue="true"/>
+		<CheckBoxPreference
+			android:key="fullscreen_input_connection_supported"
+			android:title="@string/fullscreen_input_connection_supported"
+			android:persistent="true"
+			android:defaultValue="true"
+			android:summaryOn="@string/fullscreen_input_connection_supported_on_summary"
+			android:summaryOff="@string/fullscreen_input_connection_supported_off_summary"/>
+		<PreferenceScreen android:key="swipe_tweak_group"
+			android:title="@string/swipe_tweak_group">
+			<ListPreference
+				android:key="swipe_up_action"
+				android:title="@string/swipe_up_action_title"
+				android:summary="@string/swipe_up_action_summary"
+				android:entries="@array/swipe_action_types"
+				android:entryValues="@array/swipe_action_types_values"
+				android:defaultValue="shift"
+				android:dialogTitle="@string/swipe_up_action_title"/>
+			<ListPreference
+				android:key="swipe_down_action"
+				android:title="@string/swipe_down_action_title"
+				android:summary="@string/swipe_down_action_summary"
+				android:entries="@array/swipe_action_types"
+				android:entryValues="@array/swipe_action_types_values"
+				android:defaultValue="hide"
+				android:dialogTitle="@string/swipe_down_action_title"/>
+			<ListPreference
+				android:key="swipe_left_action"
+				android:title="@string/swipe_left_action_title"
+				android:summary="@string/swipe_left_action_summary"
+				android:entries="@array/swipe_action_types"
+				android:entryValues="@array/swipe_action_types_values"
+				android:defaultValue="next_symbols"
+				android:dialogTitle="@string/swipe_left_action_title"/>
+			<ListPreference
+				android:key="swipe_right_action"
+				android:title="@string/swipe_right_action_title"
+				android:summary="@string/swipe_right_action_summary"
+				android:entries="@array/swipe_action_types"
+				android:entryValues="@array/swipe_action_types_values"
+				android:defaultValue="next_alphabet"
+				android:dialogTitle="@string/swipe_right_action_title"/>
+		</PreferenceScreen>
+	</PreferenceCategory>
+	<PreferenceCategory android:key="keyboards_group_cat"
+	android:title="@string/keyboards_group">
+		<PreferenceScreen android:key="keyboards_group_screen"
+		android:title="@string/keyboards_group">
+			<PreferenceCategory android:key="prefs_keyboards_screen"
+			android:title="@string/keyboards_group" android:id="@+id/prefs_keyboards_screen">
+				<EditTextPreference android:key="keyboards_sandbox_3"
+				android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"
+				android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false">
+				</EditTextPreference>
+				<Preference android:key="search_for_addons" android:title="@string/search_market_for_addons"
+					android:persistent="false"/>
+				<CheckBoxPreference
+				android:key="keyboard_c7535083-4fe6-49dc-81aa-c5438a1a343a"
+				android:title="@string/eng_keyboard"
+				android:persistent="true"
+				android:defaultValue="true"
+				android:summaryOn="QWERTY Latin keyboard"
+				android:summaryOff="QWERTY Latin keyboard"
+				/>
+			</PreferenceCategory>
+		</PreferenceScreen>
+	</PreferenceCategory>
+	<PreferenceCategory android:key="tweaks_group_cat" android:title="@string/tweaks_group">
+		<PreferenceScreen android:key="tweaks_group_screen"
+			android:title="@string/tweaks_group">
+			<CheckBoxPreference
+				android:key="use_custom_sound_volume"
+				android:title="@string/use_custom_sound_volume"
+				android:persistent="true"
+				android:defaultValue="false"
+				android:summaryOn="@string/use_custom_sound_volume_on_summary"
+				android:summaryOff="@string/use_custom_sound_volume_off_summary"
+				android:dependency="sound_on"
+			/>
+			<com.menny.android.anysoftkeyboard.MySeekBarPreference
+				android:key="custom_sound_volume"
+				android:title="@string/custom_sound_volume"
+				android:dialogTitle="@string/custom_sound_volume"
+				android:persistent="true"
+				android:defaultValue="50"
+				android:max="100"
+				android:dependency="use_custom_sound_volume"
+			/>
+			<CheckBoxPreference
+				android:key="use_keyrepeat"
+				android:title="@string/use_keyrepeat"
+				android:persistent="true"
+				android:defaultValue="true"
+				android:summaryOn="@string/use_keyrepeat_on_summary"
+				android:summaryOff="@string/use_keyrepeat_off_summary"
+			/>
+			<EditTextPreference android:key="default_domain_text"
+			android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none"
+			android:title="@string/default_domain_text" android:dialogTitle="@string/default_domain_text" android:persistent="true"
+			android:defaultValue=".com"
+			/>
+			<EditTextPreference android:key="default_smiley_text"
+			android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none"
+			android:title="@string/default_smiley_text" android:dialogTitle="@string/default_smiley_text" android:persistent="true"
+			android:defaultValue=":-) "
+			/>
+			<CheckBoxPreference
+				android:key="emoticon_long_press_opens_popup"
+				android:title="@string/emoticon_long_press_opens_popup"
+				android:persistent="true"
+				android:defaultValue="true"
+				android:summaryOn="@string/emoticon_long_press_opens_popup_on_summary"
+				android:summaryOff="@string/emoticon_long_press_opens_popup_off_summary"
+			/>
+			<ListPreference
+				android:key="@string/settings_key_smiley_popup_type"
+				android:title="@string/emoticon_popup_type_title"
+				android:summary="@string/emoticon_popup_type_summary"
+				android:entries="@array/emoticons_popup_types"
+				android:entryValues="@array/emoticons_popup_values"
+				android:defaultValue="@string/settings_default_smiley_popup_type"
+				android:dialogTitle="@string/emoticon_popup_type_title"/>
+			<CheckBoxPreference
+				android:key="key_press_preview_popup"
+				android:title="@string/key_press_preview_popup"
+				android:persistent="true"
+				android:defaultValue="true"
+				android:summaryOn="@string/key_press_preview_popup_on_summary"
+				android:summaryOff="@string/key_press_preview_popup_off_summary"
+			/>
+			<EditTextPreference android:key="zoom_factor_keys_in_portrait"
+			android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none" android:inputType="numberDecimal"
+			android:title="@string/zoom_factor_keys_in_portrait" android:dialogTitle="@string/zoom_factor_keys_in_portrait" android:persistent="true"
+			android:defaultValue="1.0"
+			/>
+			<EditTextPreference android:key="zoom_factor_keys_in_landscape"
+			android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none" android:inputType="numberDecimal"
+			android:title="@string/zoom_factor_keys_in_landscape" android:dialogTitle="@string/zoom_factor_keys_in_landscape" android:persistent="true"
+			android:defaultValue="1.0"
+			/>
+			<CheckBoxPreference
+				android:key="insert_space_after_word_suggestion_selection"
+				android:title="@string/insert_space_after_word_suggestion_selection"
+				android:persistent="true"
+				android:defaultValue="true"
+				android:summaryOn="@string/insert_space_after_word_suggestion_selection_on_summary"
+				android:summaryOff="@string/insert_space_after_word_suggestion_selection_off_summary"
+			/>
+			<!-- 
+			<CheckBoxPreference
+				android:key="action_key_invisible_on_disable"
+				android:title="@string/action_key_invisible_on_disable"
+				android:persistent="true"
+				android:defaultValue="false"
+				android:summaryOn="@string/action_key_invisible_on_disable_on_summary"
+				android:summaryOff="@string/action_key_invisible_on_disable_off_summary"
+			/>
+			<ListPreference
+				android:key="rtl_workaround_detection"
+				android:title="@string/rtl_workaround_detection_title"
+				android:summary="@string/rtl_workaround_detection_summary"
+				android:entries="@array/rtl_workaround_detectionn_types"
+				android:entryValues="@array/rtl_workaround_detection_types_values"
+				android:defaultValue="auto"
+				android:dialogTitle="@string/rtl_workaround_detection_title"/>
+			 -->
+			<CheckBoxPreference
+				android:key="@string/settings_key_lang_key_shows_popup"
+				android:title="@string/lang_key_shows_popup"
+				android:persistent="true"
+				android:defaultValue="@bool/settings_default_lang_key_shows_popup"
+				android:summaryOn="@string/lang_key_shows_popup_on_summary"
+				android:summaryOff="@string/lang_key_shows_popup_off_summary"
+			/>
+			<EditTextPreference android:key="keyboards_sandbox_4" 
+				android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"
+				android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false">
+			</EditTextPreference>
+		</PreferenceScreen>
+	</PreferenceCategory>
+	<Preference android:key="prefs_title_key" android:selectable="false" android:enabled="false"
+	android:persistent="false"
+	android:title="@string/ime_name"
+	android:summary="@string/how_to_pointer_version_prefix">
+	</Preference>
+	<Preference android:key="prefs_help_key" android:selectable="true" android:enabled="true"
+	android:persistent="false"
+	android:title="@string/click_for_help"
+	android:summary="@string/click_for_help_summary">
+	</Preference>
+</PreferenceScreen>
