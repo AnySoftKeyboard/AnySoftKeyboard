@@ -67,6 +67,8 @@ public abstract class AnySoftKeyboardConfiguration
 	
 	public abstract boolean use16KeysSymbolsKeyboards();
 	
+	public abstract boolean useBackword();
+	
 	static class AnySoftKeyboardConfigurationImpl extends AnySoftKeyboardConfiguration
 	{
 		private static final String CONFIGURATION_VERSION = "configurationVersion";
@@ -96,6 +98,7 @@ public abstract class AnySoftKeyboardConfiguration
 		private boolean mShouldPopupForLanguageSwitch = false;
 		private boolean mShowVersionNotification = true;
 		private boolean mUse16KeysSymbolsKeyboard = false;
+		private boolean mUseBackword = true;
 		
 		public AnySoftKeyboardConfigurationImpl()
 		{
@@ -160,6 +163,10 @@ public abstract class AnySoftKeyboardConfiguration
 //				e.putInt("custom_sound_volume", 50);
 //				//vibrate on (hard)
 //				e.putString(context.getString(R.string.settings_key_vibrate_on_key_press_duration), "50");
+//				//no RTL fixes
+//				e.putString("rtl_workaround_detection", "no_workaround");
+//				//no backword
+//				e.putBoolean(context.getString(R.string.settings_key_use_backword), false);
 //				
 //				//saving customization level
 //				e.putInt(CUSTOMIZATION_LEVEL, 1);
@@ -266,7 +273,10 @@ public abstract class AnySoftKeyboardConfiguration
 			mUse16KeysSymbolsKeyboard = sp.getBoolean(mIme.getString(R.string.settings_key_use_16_keys_symbols_keyboards),
 					mIme.getResources().getBoolean(R.bool.settings_default_use_16_keys_symbols_keyboards));
 			Log.i(TAG, "** mUse16KeysSymbolsKeyboard: "+mUse16KeysSymbolsKeyboard);
-			
+		
+			mUseBackword = sp.getBoolean(mIme.getString(R.string.settings_key_use_backword),
+					mIme.getResources().getBoolean(R.bool.settings_default_use_backword));
+			Log.i(TAG, "** mUseBackword: "+mUseBackword);
 		}
 
 		/*
@@ -510,6 +520,11 @@ public boolean handleConfigurationChange(SharedPreferences sp)
 		@Override
 		public boolean use16KeysSymbolsKeyboards() {
 			return mUse16KeysSymbolsKeyboard;
+		}
+		
+		@Override
+		public boolean useBackword() {
+			return mUseBackword;
 		}
 	}
 }
