@@ -269,15 +269,16 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (DEBUG)
 			Log.d(TAG, "onFinishInputView(finishingInput:"
 					+ finishingInput + ")");
+		
 		super.onFinishInputView(finishingInput);
+		
 		if (!mKeyboardChangeNotificationType
 				.equals(KEYBOARD_NOTIFICATION_ALWAYS)) {
 			mNotificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
 		}
 
-		if (finishingInput)
-			resetComposing();// clearing any predications
-	};
+		resetComposing();// clearing any predications
+	}
 
 	@Override
 	public View onCreateInputView() {
@@ -448,19 +449,28 @@ public class AnySoftKeyboard extends InputMethodService implements
 		super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd,
 				candidatesStart, candidatesEnd);
 		
-		Log.d(TAG, "mComposing.length():"+mComposing.length());
-		Log.d(TAG, "oldSelStart:"+oldSelStart+" oldSelEnd:"+oldSelEnd);
-		Log.d(TAG, "newSelStart:"+newSelStart+" newSelEnd:"+newSelEnd);
-		Log.d(TAG, "candidatesStart:"+candidatesStart+" candidatesEnd:"+candidatesEnd);
-		
+		if (DEBUG)
+		{
+			Log.d(TAG, "mComposing.length():"+mComposing.length());
+			Log.d(TAG, "oldSelStart:"+oldSelStart+" oldSelEnd:"+oldSelEnd);
+			Log.d(TAG, "newSelStart:"+newSelStart+" newSelEnd:"+newSelEnd);
+			Log.d(TAG, "candidatesStart:"+candidatesStart+" candidatesEnd:"+candidatesEnd);
+		}
 		// If the current selection in the text view changes, we should
 		// clear whatever candidate text we have.
-		if (mComposing.length() > 0 && mPredicting 
-				&& (candidatesEnd >= 0)//we have candidates underline
-				&& (newSelEnd != candidatesEnd)) //the candidate underline does not end at the new cursor position! User changed the cursor.
+		if (mComposing.length() > 0 && mPredicting)//OK we are in predicting state
 		{
-			resetComposing();
-		} else if (!mPredicting
+			if ((candidatesEnd >= 0)//we have candidates underline
+					&& (newSelEnd != candidatesEnd)) //the candidate underline does not end at the new cursor position! User changed the cursor.
+			{
+				resetComposing();
+			}
+			else if ((candidatesEnd < 0) || (candidatesStart <0))//the input cleared the underline
+			{
+				resetComposing();
+			}
+		}
+		else if (!mPredicting
 				&& !mJustAccepted
 				&& TextEntryState.getState() == TextEntryState.STATE_ACCEPTED_DEFAULT) {
 			TextEntryState.reset();
@@ -711,7 +721,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 					ic.beginBatchEdit();
 				try {
 				    //issue 393, backword on the hw keyboard!
-				    if(keyCode == KeyEvent.KEYCODE_DEL && event.isShiftPressed()){
+				    if(AnySoftKeyboardConfiguration.getInstance().useBackword() && keyCode == KeyEvent.KEYCODE_DEL && event.isShiftPressed()){
                         handleBackword(ic);
                         return true;
 				    } else if (event.isPrintingKey()) {
@@ -1254,7 +1264,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (ic == null)//if we don't want to do anything, lets check null first.
             return;
 		
-		if (mInputView != null && mInputView.isShifted())
+		if (AnySoftKeyboardConfiguration.getInstance().useBackword() && mInputView != null && mInputView.isShifted())
 		{
 			handleBackword(ic);
 			return;
