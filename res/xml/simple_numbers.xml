@@ -6,7 +6,7 @@
     android:verticalGap="0px"
     android:keyHeight="@dimen/key_height"
     >
-    <Row android:rowEdgeFlags="top">
+    <Row>
         <Key android:codes="49" android:horizontalGap="0px" android:keyIcon="@drawable/sym_keyboard_num1" android:keyEdgeFlags="left"/>
         <Key android:codes="50" android:keyIcon="@drawable/sym_keyboard_num2"/>
         <Key android:codes="51" android:keyIcon="@drawable/sym_keyboard_num3"/>

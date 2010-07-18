@@ -138,6 +138,8 @@ public abstract class AnySoftKeyboardConfiguration
 			handleConfigurationChange(sp);
 		}
 		
+		public static final int PREF_XML_RES_ID = R.layout.prefs;
+		
 		private void customizeSettingValues(Context context, SharedPreferences sp) {
 //			final int customizationLevel = sp.getInt(CUSTOMIZATION_LEVEL, 0);
 //			if (customizationLevel < 1)
