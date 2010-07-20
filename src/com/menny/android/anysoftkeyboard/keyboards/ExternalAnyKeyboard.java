@@ -266,63 +266,63 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 			switch((char)aKey.codes[0])
 			{
 				case 'a':
-					aKey.popupCharacters = "àáâãäåæą";
+					aKey.popupCharacters =  "\u00e0\u00e1\u00e2\u00e3\u00e4\u00e5\u00e6\u0105";//"àáâãäåæą";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'c':
-					aKey.popupCharacters = "çćĉč";
+					aKey.popupCharacters = "\u00e7\u0107\u0109\u010d";//"çćĉč";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'd':
-					aKey.popupCharacters = "đ";
+					aKey.popupCharacters =  "\u0111"; //"đ";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'e':
-					aKey.popupCharacters = "èéêëę€";
+					aKey.popupCharacters = "\u00e8\u00e9\u00ea\u00eb\u0119\u20ac";//"èéêëę€";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'g':
-					aKey.popupCharacters = "ĝ";
+					aKey.popupCharacters =  "\u011d";//"ĝ";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'h':
-					aKey.popupCharacters = "ĥ";
+					aKey.popupCharacters = "\u0125";//"ĥ";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'i':
-					aKey.popupCharacters = "ìíîïł";
+					aKey.popupCharacters = "\u00ec\u00ed\u00ee\u00ef\u0142";//"ìíîïł";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'j':
-					aKey.popupCharacters = "ĵ";
+					aKey.popupCharacters = "\u0135";//"ĵ";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'l':
-					aKey.popupCharacters = "ł";
+					aKey.popupCharacters = "\u0142";//"ł";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'o':
-					aKey.popupCharacters = "òóôõöøőœ";
+					aKey.popupCharacters =  "\u00f2\u00f3\u00f4\u00f5\u00f6\u00f8\u0151\u0153";//"òóôõöøőœ";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 's':
-					aKey.popupCharacters = "§ßśŝš";
+					aKey.popupCharacters =  "\u00a7\u00df\u015b\u015d\u0161";//"§ßśŝš";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'u':
-					aKey.popupCharacters = "ùúûüŭű";
+					aKey.popupCharacters = "\u00f9\u00fa\u00fb\u00fc\u016d\u0171";//"ùúûüŭű";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'n':
-					aKey.popupCharacters = "ñ";
+					aKey.popupCharacters =  "\u00f1";//"ñ";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'y':
-					aKey.popupCharacters = "ýÿ";
+					aKey.popupCharacters = "\u00fd\u00ff";//"ýÿ";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'z':
-					aKey.popupCharacters = "żžź";
+					aKey.popupCharacters = "\u017c\u017e\u017a";//"żžź";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				default:
