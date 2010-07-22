@@ -7,14 +7,14 @@
     android:keyHeight="@dimen/key_height"
     >
      <Row android:rowEdgeFlags="top" android:keyboardMode="@integer/keyboard_mode_normal">
-        <Key android:codes="46,44,63,33,49,8217,45,64,47,58" android:keyLabel=".,?!" android:keyEdgeFlags="left"/>
+        <Key android:codes="46,44,63,33,49,8217,45,64,47,58" android:keyLabel=".,?!’" android:keyEdgeFlags="left"/>
         <Key android:codes="97,98,99,50" android:keyLabel="abc"/>
         <Key android:codes="100,101,102,51" android:keyLabel="def"/>
         <Key android:codes="-5"
         	android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     <Row android:rowEdgeFlags="top" android:keyboardMode="@integer/keyboard_mode_im">
-        <Key android:codes="46,44,63,33,49,8217,45,64,47,58" android:keyLabel=".,?!" android:keyEdgeFlags="left"/>
+        <Key android:codes="46,44,63,33,49,8217,45,64,47,58" android:keyLabel=".,?!’" android:keyEdgeFlags="left"/>
         <Key android:codes="97,98,99,50" android:keyLabel="abc"/>
         <Key android:codes="100,101,102,51" android:keyLabel="def"/>
         <Key android:codes="-5"

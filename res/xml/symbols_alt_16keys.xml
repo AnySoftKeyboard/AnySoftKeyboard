@@ -7,23 +7,23 @@
     android:keyHeight="@dimen/key_height"
     >
     <Row android:rowEdgeFlags="top">
-        <Key android:codes="46,44,45" android:keyLabel=".,-" android:keyEdgeFlags="left"/>
-        <Key android:codes="63,33,58" android:keyLabel="\?!:"/>
-        <Key android:codes="40,41,39" android:keyLabel="()'"/>
+        <Key android:codes="46,44,63,33" android:keyLabel=".,?!" android:keyEdgeFlags="left"/>
+        <Key android:codes="8216,40,41" android:keyLabel="‘()"/>
+        <Key android:codes="45,47,95" android:keyLabel="-/_"/>
         <Key android:codes="-5"
         	android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     <Row>
-        <Key android:codes="95,34,59" android:keyLabel="_&quot;;" android:keyEdgeFlags="left"/>
-        <Key android:codes="47,64,126" android:keyLabel="&#47;@~"/>
-        <Key android:codes="60,62,124" android:keyLabel="&#60;&#62;|"/>
+        <Key android:codes="64,59,126" android:keyLabel="\@;~" android:keyEdgeFlags="left"/>
+        <Key android:codes="36,8364,163" android:keyLabel="$€£"/>
+        <Key android:codes="58,61,43" android:keyLabel=":=+"/>
         <Key android:codes="-99" android:keyLabel="ABC" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row>
-        <Key android:codes="43,61,37" android:keyLabel="+=%" android:keyEdgeFlags="left"/>
-        <Key android:codes="35,42,38" android:keyLabel="#*&amp;"/>
-        <Key android:codes="36,8364,94" android:keyLabel="&#36;&#8364;^"/>
+        <Key android:codes="35,42,94" android:keyLabel="#*^" android:keyEdgeFlags="left"/>
+        <Key android:codes="37,60,62" android:keyLabel="%&lt;&gt;"/>
+        <Key android:codes="34,38,8220,124" android:keyLabel="&quot;&amp;“|"/>
         <Key android:codes="-10" android:keyEdgeFlags="right"/>
     </Row>
     
