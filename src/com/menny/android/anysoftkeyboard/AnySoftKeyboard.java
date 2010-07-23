@@ -1419,6 +1419,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 
 			mComposing.append((char) primaryCode);
+			if(keyCodes != null && keyCodes.length > 1){
+			    if(primaryCode != keyCodes[0]){
+			    int[] tmp = new int[keyCodes.length+1];
+			    tmp[0] = primaryCode;
+			    System.arraycopy(keyCodes, 0, tmp, 1, keyCodes.length);
+			    keyCodes = tmp;
+			   }
+			}
 			mWord.add(primaryCode, keyCodes);
 			InputConnection ic = getCurrentInputConnection();
 			if (ic != null) {
