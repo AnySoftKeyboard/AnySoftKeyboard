@@ -152,25 +152,6 @@ public abstract class AnyKeyboard extends Keyboard
         	Log.v(TAG, "No shift key, so no handling images.");
 	        
         }
-        
-//        if (mSwitchableKey != null)
-//        {
-//        	Drawable wideDomains = resources.getDrawable(R.drawable.sym_keyboard_key_domain_wide);
-//        	Log.v(TAG, "Deciding which icon to use for the domains. Key width is "+mSwitchableKey.width+" and sym_keyboard_key_domain_wide width is "+wideDomains.getMinimumWidth());
-//	        
-//	        if (mSwitchableKey.width > (wideDomains.getMinimumWidth() * 1.2))
-//	        {
-//	        	mDomainsIconId = R.drawable.sym_keyboard_key_domain_wide;
-//		    }
-//	        else
-//	        {
-//	        	mDomainsIconId = R.drawable.sym_keyboard_key_domain;
-//	        }
-//        }
-//        else
-//        {
-//        	mDomainsIconId = -1;
-//        }
     }
     
     public void initKeysMembers()
@@ -208,13 +189,15 @@ public abstract class AnyKeyboard extends Keyboard
                     break;
                 case AnyKeyboard.KEYCODE_SMILEY:
             		//fixing icons
-                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_smiley, R.drawable.sym_keyboard_smiley_feedback);
+                	//setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_smiley, R.drawable.sym_keyboard_smiley_feedback);
+                	key.label = AnySoftKeyboardConfiguration.getInstance().getSmileyText().trim();
                 	key.popupResId = R.xml.popup_smileys;
                     break;
             	case AnyKeyboard.KEYCODE_DOMAIN:
             		//fixing icons
-                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_key_domain, R.drawable.sym_keyboard_key_domain_wide, R.drawable.sym_keyboard_key_domain_preview);
-                	key.popupResId = R.xml.popup_domains;
+                	//setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_key_domain, R.drawable.sym_keyboard_key_domain_wide, R.drawable.sym_keyboard_key_domain_preview);
+                	key.label = AnySoftKeyboardConfiguration.getInstance().getDomainText().trim();
+            		key.popupResId = R.xml.popup_domains;
                 	break;
 //                case 63:
 //                    if ((key.edgeFlags & Keyboard.EDGE_BOTTOM) != 0)
