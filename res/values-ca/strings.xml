@@ -3,13 +3,13 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ime_name">AnySoftKeyboard</string>
     
-    <string name="main_tab_welcome">Benvingut</string>
+    <string name="main_tab_welcome">Benvinguda</string>
     <string name="main_tab_links">Enllaços</string>
     <string name="main_tab_credits">Crèdits</string>
     <!-- welcome tab -->
-	<string name="how_to_pointer_title">Benvingut a l\'AnySoftKeyboard</string>
+	<string name="how_to_pointer_title">Us donem la benvinguda a l\'AnySoftKeyboard</string>
 	<string name="how_to_pointer_version_prefix">Versió: </string>
-	<string name="how_to_pointer_not_app">L\'AnySoftKeyboard no és una apliació normal - és un substitut del teclat en pantallà.</string>
+	<string name="how_to_pointer_not_app">L\'AnySoftKeyboard no és una apliació normal - és un substitut del teclat en pantalla.</string>
 	<string name="how_to_pointer_go_to_links">Per a més informació, aneu a la pestanya d\'enllaços.</string>
 	<!-- links tab -->
 	<string name="how_to_pointer_how_to_url">Detalls sobre com usar aquest teclat:</string>
@@ -17,7 +17,7 @@
 	<string name="how_to_pointer_changelog">Detalls de la darrera versió:</string>
 	<string name="how_to_pointer_issues">Com informar d\'errors:</string>
 	<!-- credits tab -->
-	<string name="main_tab_credits_title">Aquestà aplicació s\'ha creat amb l\'ajuda de les següents persones-</string>
+	<string name="main_tab_credits_title">Aquesta aplicació s\'ha creat amb l\'ajuda de les següents persones-</string>
 	<string name="main_tab_credits_created_by">Autoria:</string>
 	<string name="main_tab_credits_additional_work_by">Tasques de programació addicionals:</string>
 	<string name="main_tab_credits_localization_by">Tasques de traducció:</string>
@@ -73,7 +73,7 @@
     <string name="override_dictionary_default">Predeterminat</string>
     <!-- Dictionary override toast messages -->
     <string name="override_disabled">Anul·lació finalitzada</string>
-    <string name="override_enabled">S\'està usant el diccionari <xliff:g id="word">%s</xliff:g></string>
+    <string name="override_enabled">Esteu usant el diccionari <xliff:g id="word">%s</xliff:g></string>
     
     <!-- settings - effects-->
     <string name="effects_group">Efectes</string>
@@ -153,8 +153,8 @@
     <string name="double_space_to_period">Converteix doble espai a un punt</string>
     <string name="double_space_to_period_summary">Un espai repetit es converteix a punt+espai</string>
     <string name="action_key_invisible_on_disable">Tecla d\'acció invisible</string>
-    <string name="action_key_invisible_on_disable_on_summary">La teclà d\acció no serà visible</string>
-    <string name="action_key_invisible_on_disable_off_summary">La teclà d\acció serà visible</string>
+    <string name="action_key_invisible_on_disable_on_summary">La tecla d\acció no serà visible</string>
+    <string name="action_key_invisible_on_disable_off_summary">La tecla d\acció serà visible</string>
     <string name="rtl_workaround_detection_title">Tipus de detecció RTL</string>
     <string name="rtl_workaround_detection_summary">Correcció de textos de llengües amb escritura de dreta a esquerra</string>
     <string name="lang_key_shows_popup">Finestra de canvi de llengua</string>
@@ -166,7 +166,7 @@
     <string name="candidates_on">Mostra els suggeriments</string>
     <string name="quick_fix">Correccions ràpides</string>
     <string name="quick_fix_summary">Corregeix errors d\'escriptura freqüents</string>
-    <string name="auto_complete">Sugeriments automàtics</string>
+    <string name="auto_complete">Suggeriments automàtics</string>
     <string name="auto_complete_summary">La tecla espai selecciona el suggeriment ressaltat</string>
     <string name="physical_keyboard_suggestions">Suggeriments al teclat del dispositiu</string>
     <string name="physical_keyboard_suggestions_summary">Mostra els suggeriments quan usi el teclat</string>
@@ -182,14 +182,14 @@
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Mostra aquest tutorial a l\'inici</string>
-    <string name="tutorial_swipe_title">Swipe for keyboard change</string>
+    <string name="tutorial_swipe_title">Llisqueu el dit per canviar el teclat</string>
     <string name="tutorial_swipe_text">Podeu canviar la distribució del teclat lliscant el dit sobre el teclat. Llisque-lo d\'esquerra a dreta per canviar de llengua, feu-lo lliscar de dreta a esquerra per canviar als símbols.</string>
     
     <!-- Special soft keyboard keys text -->
-    <string name="label_go_key">D\'acord</string>
+    <string name="label_go_key">Fet</string>
     <string name="label_next_key">Següent</string>
     <string name="label_send_key">Envia</string>
-    <string name="label_done_key">Done</string>
+    <string name="label_done_key">Fet</string>
 
     
     <string name="change_lang_wide">&#8594; ABC &#8594;</string>
