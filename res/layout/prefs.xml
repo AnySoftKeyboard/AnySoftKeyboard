@@ -220,6 +220,14 @@ android:key="ime_settings">
 			android:defaultValue=":-) "
 			/>
 			<CheckBoxPreference
+				android:key="@string/settings_key_smiley_icon_on_smileys_key"
+				android:title="@string/smiley_icon_on_smileys_key"
+				android:persistent="true"
+				android:defaultValue="@bool/settings_default_smiley_icon_on_smileys_key"
+				android:summaryOn="@string/smiley_icon_on_smileys_key_on_summary"
+				android:summaryOff="@string/smiley_icon_on_smileys_key_off_summary"
+			/>
+			<CheckBoxPreference
 				android:key="emoticon_long_press_opens_popup"
 				android:title="@string/emoticon_long_press_opens_popup"
 				android:persistent="true"
