@@ -1,9 +1,7 @@
 
 package com.menny.android.anysoftkeyboard;
 
-import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration.AnySoftKeyboardConfigurationImpl;
-import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory;
-import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory.KeyboardBuilder;
+import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +16,8 @@ import android.preference.PreferenceCategory;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.util.Log;
 
-import java.util.ArrayList;
+import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory;
+import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory.KeyboardBuilder;
 
 public class SoftKeyboardSettings extends PreferenceActivity {
 
@@ -28,7 +27,7 @@ public class SoftKeyboardSettings extends PreferenceActivity {
 	@Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        addPreferencesFromResource(AnySoftKeyboardConfigurationImpl.PREF_XML_RES_ID);
+        addPreferencesFromResource(R.layout.prefs);
         final PreferenceCategory keyboards = (PreferenceCategory)super.findPreference("prefs_keyboards_screen");
         mDefaultPreferencesCount = keyboards.getPreferenceCount();
 
