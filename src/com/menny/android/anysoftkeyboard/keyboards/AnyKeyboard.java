@@ -189,8 +189,16 @@ public abstract class AnyKeyboard extends Keyboard
                     break;
                 case AnyKeyboard.KEYCODE_SMILEY:
             		//fixing icons
-                	//setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_smiley, R.drawable.sym_keyboard_smiley_feedback);
-                	key.label = AnySoftKeyboardConfiguration.getInstance().getSmileyText().trim();
+                	if (AnySoftKeyboardConfiguration.getInstance().showIconForSmileyKey())
+                	{
+                		setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_smiley, R.drawable.sym_keyboard_smiley_feedback);
+                	}
+                	else
+                	{
+                		key.label = AnySoftKeyboardConfiguration.getInstance().getSmileyText().trim();
+                		key.icon = null;
+                		key.iconPreview = null;
+                	}                	
                 	key.popupResId = R.xml.popup_smileys;
                     break;
             	case AnyKeyboard.KEYCODE_DOMAIN:

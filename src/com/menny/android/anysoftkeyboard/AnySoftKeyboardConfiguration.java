@@ -69,6 +69,8 @@ public abstract class AnySoftKeyboardConfiguration
 	
 	public abstract boolean useBackword();
 	
+	public abstract boolean showIconForSmileyKey();
+	
 	static class AnySoftKeyboardConfigurationImpl extends AnySoftKeyboardConfiguration
 	{
 		private static final String CONFIGURATION_VERSION = "configurationVersion";
@@ -99,6 +101,7 @@ public abstract class AnySoftKeyboardConfiguration
 		private boolean mShowVersionNotification = true;
 		private boolean mUse16KeysSymbolsKeyboard = false;
 		private boolean mUseBackword = true;
+		private boolean mShowIconForSmileyKey = false;
 		
 		public AnySoftKeyboardConfigurationImpl()
 		{
@@ -151,7 +154,7 @@ public abstract class AnySoftKeyboardConfiguration
 //				e.putBoolean(context.getString(R.string.settings_key_show_version_notification), false);
 //				e.putBoolean(context.getString(R.string.settings_key_use_16_keys_symbols_keyboards), true);
 //				e.putBoolean(context.getString(R.string.settings_key_landscape_fullscreen), true);
-//				e.putBoolean(context.getString(R.string.settings_key_portrait_fullscreen), false);
+//				e.putBoolean(context.getString(R.string.settings_key_portrait_fullscreen), true);
 //				//enabling 16keys, disabling english
 //				e.putBoolean("keyboard_12335055-4aa6-49dc-8456-c7d38a1a5123", true);
 //				e.putBoolean("keyboard_c7535083-4fe6-49dc-81aa-c5438a1a343a", false);
@@ -170,7 +173,8 @@ public abstract class AnySoftKeyboardConfiguration
 //				e.putString("rtl_workaround_detection", "no_workaround");
 //				//no backword
 //				e.putBoolean(context.getString(R.string.settings_key_use_backword), false);
-//				
+//				//portrait height
+//				e.putString("zoom_factor_keys_in_portrait", "1.4");
 //				//saving customization level
 //				e.putInt(CUSTOMIZATION_LEVEL, 1);
 //				e.commit();
@@ -280,6 +284,10 @@ public abstract class AnySoftKeyboardConfiguration
 			mUseBackword = sp.getBoolean(mIme.getString(R.string.settings_key_use_backword),
 					mIme.getResources().getBoolean(R.bool.settings_default_use_backword));
 			Log.i(TAG, "** mUseBackword: "+mUseBackword);
+			
+			mShowIconForSmileyKey = sp.getBoolean(mIme.getString(R.string.settings_key_smiley_icon_on_smileys_key),
+					mIme.getResources().getBoolean(R.bool.settings_default_smiley_icon_on_smileys_key));
+			Log.i(TAG, "** mShowIconForSmileyKey: "+mShowIconForSmileyKey);
 		}
 
 		/*
@@ -528,6 +536,11 @@ public boolean handleConfigurationChange(SharedPreferences sp)
 		@Override
 		public boolean useBackword() {
 			return mUseBackword;
+		}
+		
+		@Override
+		public boolean showIconForSmileyKey() {
+			return mShowIconForSmileyKey;
 		}
 	}
 }

@@ -2171,7 +2171,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 			//in some cases we do want to force keyboards recreations
 			if (	key.equals(getString(R.string.settings_key_top_keyboard_row_id)) ||
 					key.equals("zoom_factor_keys_in_portrait") ||
-					key.equals("zoom_factor_keys_in_landscape"))
+					key.equals("zoom_factor_keys_in_landscape") ||
+					key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key)))
 			{
 				mKeyboardSwitcher.makeKeyboards(true);
 			}
