@@ -499,6 +499,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mPredicting = false;
 		updateSuggestions();
 		TextEntryState.reset();
+		
+		mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_UNKNOWN;
 	}
 
 	@Override
@@ -1172,7 +1174,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		return c == 32 || PUNCTUATION_CHARACTERS.contains(c);
 	}
 
-	private  void handleBackword(InputConnection ic) {
+	private void handleBackword(InputConnection ic) {
 	    try{
 	    if(ic == null){
 	        return;
@@ -1296,26 +1298,26 @@ public class AnySoftKeyboard extends InputMethodService implements
 			return;
 		} else if (deleteChar) {
 			//ensuring this is actually happens
-			final int textLengthBeforeDelete = ic.getTextBeforeCursor(Integer.MAX_VALUE, 0).length();
+//			final int textLengthBeforeDelete = ic.getTextBeforeCursor(Integer.MAX_VALUE, 0).length();
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
 			
-			int tries = 3;
-			while(tries > 0)
-			{
-				final int textLengthAfterDelete = ic.getTextBeforeCursor(Integer.MAX_VALUE, 0).length();
-				if (textLengthBeforeDelete != textLengthAfterDelete)
-					break;
-				else
-					tries--;
-			
-				Log.v(TAG, "Delete did not happen. We'll wait some more for it.");
-				try {
-					Thread.sleep(25);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+//			int tries = 3;
+//			while(tries > 0)
+//			{
+//				final int textLengthAfterDelete = ic.getTextBeforeCursor(Integer.MAX_VALUE, 0).length();
+//				if (textLengthBeforeDelete != textLengthAfterDelete)
+//					break;
+//				else
+//					tries--;
+//			
+//				Log.v(TAG, "Delete did not happen. We'll wait some more for it.");
+//				try {
+//					Thread.sleep(25);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
 			// if (mDeleteCount > DELETE_ACCELERATE_AT) {
 			// sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
 			// }
@@ -1328,12 +1330,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		super.sendDownUpKeyEvents(keyEventCode);
 		//since it happens in a different process (asynch)
 		//we'll let the system settle.
-		try {
-			Thread.sleep(10);//this is not a fix, but a bit relaxing..
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Thread.yield();//this is not a fix, but a bit relaxing..
 	}
 
 	private void handleShiftStateAfterBackspace() {
@@ -1419,13 +1416,21 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 
 			mComposing.append((char) primaryCode);
-			if(keyCodes != null && keyCodes.length > 1){
-			    if(primaryCode != keyCodes[0]){
-			    int[] tmp = new int[keyCodes.length+1];
-			    tmp[0] = primaryCode;
-			    System.arraycopy(keyCodes, 0, tmp, 1, keyCodes.length);
-			    keyCodes = tmp;
-			   }
+			if(keyCodes != null && keyCodes.length > 1 && primaryCode != keyCodes[0]){
+				int swapedItem = keyCodes[0];
+				keyCodes[0] = primaryCode;
+				for(int i=1;i<keyCodes.length; i++)
+				{
+					if (keyCodes[i] == primaryCode)
+					{
+						keyCodes[i] = swapedItem;
+						break;
+					}
+				}
+//				int[] tmp = new int[keyCodes.length+1];
+//			    tmp[0] = primaryCode;
+//			    System.arraycopy(keyCodes, 0, tmp, 1, keyCodes.length);
+//			    keyCodes = tmp;
 			}
 			mWord.add(primaryCode, keyCodes);
 			InputConnection ic = getCurrentInputConnection();
