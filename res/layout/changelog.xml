@@ -10,44 +10,44 @@
 		    android:layout_height="wrap_content">
 		    	<ImageView android:src="@drawable/icon_8_key" android:layout_width="wrap_content" android:layout_margin="10dp" android:layout_height="wrap_content" android:id="@+id/changelog_icon" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" android:scaleType="centerInside"/>
 		    	<TextView
-		    	android:id="@+id/changelog_app_name"
-		        android:layout_height="wrap_content"
-		        android:layout_width="fill_parent"
-		        android:textStyle="bold"
-		        android:gravity="center"
-		        android:textSize="22sp"
-		        android:text="@string/ime_name"
-		        android:textColor="#FFF"
-		        android:layout_toRightOf="@id/changelog_icon"
-		        android:layout_alignParentTop="true"
-		        android:paddingTop="10dp"
-		        />
-		    	<TextView
-		        android:id="@+id/changelog_label"
-		        android:layout_height="wrap_content"
-		        android:layout_width="fill_parent"
-		        android:textStyle="bold"
-		        android:gravity="center"
-		        android:textSize="20sp"
-		        android:text="@string/changelog"
-		        android:layout_toRightOf="@id/changelog_icon"
-		        android:layout_below="@id/changelog_app_name"
-		        android:textColor="#FFF"/>
-		        <TextView
-		        android:layout_height="wrap_content"
-		        android:layout_width="fill_parent"
-		        android:gravity="center"
-		        android:textSize="14sp"
-		        android:autoLink="web"
-		        android:text="http://s.evendanan.net/ask"
-		        android:layout_toRightOf="@id/changelog_icon"
-		        android:layout_below="@id/changelog_label"
-		        android:textColor="#BBB"/>
+			    	android:id="@+id/changelog_app_name"
+			        android:layout_height="wrap_content"
+			        android:layout_width="fill_parent"
+			        android:textStyle="bold"
+			        android:gravity="center"
+			        android:textSize="22sp"
+			        android:text="@string/ime_name"
+			        android:textColor="#FFF"
+			        android:layout_toRightOf="@id/changelog_icon"
+			        android:layout_alignParentTop="true"
+			        android:paddingTop="10dp"
+			        />
+				<TextView
+			        android:id="@+id/changelog_label"
+			        android:layout_height="wrap_content"
+			        android:layout_width="fill_parent"
+			        android:textStyle="bold"
+			        android:gravity="center"
+			        android:textSize="20sp"
+			        android:text="@string/changelog"
+			        android:layout_toRightOf="@id/changelog_icon"
+			        android:layout_below="@id/changelog_app_name"
+			        android:textColor="#FFF"/>
+				<TextView
+			        android:layout_height="wrap_content"
+			        android:layout_width="fill_parent"
+			        android:gravity="center"
+			        android:textSize="14sp"
+			        android:autoLink="web"
+			        android:text="http://s.evendanan.net/ask"
+			        android:layout_toRightOf="@id/changelog_icon"
+			        android:layout_below="@id/changelog_label"
+			        android:textColor="#BBB"/>
 		    </RelativeLayout>
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
-		        android:text="20100721 - 25"
+		        android:text="20100727 - 25"
 		        android:textStyle="bold"
 		        android:gravity="center"
 		        android:textSize="16sp"
@@ -63,7 +63,19 @@
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
-		        android:text="* Fix for re-loading external packages on install/upgrade/uninstall (fixes reboot requirement).\n* Auto-completes in landscape (e.g., contact names in To fields).\n* Backword support (shift+backspace).\n* better English dictionary.\n* Small screens support.\n* Better BiDi support (thanks Dudy Kohen).\n* Revised smiley popup and keyboard icons (getting ready for themes).\n* and many more."
+		        android:text="* Fix for re-loading external packages on install/upgrade/uninstall (fixes reboot requirement).\n* Auto-completes in landscape (e.g., contact names in To fields).\n* Backword support (shift+backspace). Enable it in Tweaks."
+		        android:textSize="16sp"
+		        android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"
+		        android:textColor="#AAA"
+		        />
+			<Button android:id="@+id/goto_settings_button" android:text="@string/ime_settings" android:layout_width="wrap_content" android:layout_height="wrap_content"
+		    	android:layout_gravity="center"/>
+		    <TextView
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:text="* better English dictionary.\n* Small screens support.\n* Better BiDi support (thanks Dudy Kohen).\n* Revised smiley popup and keyboard icons (getting ready for themes).\n* new bottom row format.\n* and many more."
 		        android:textSize="16sp"
 		        android:paddingTop="4dp"
 		        android:paddingLeft="12dp"
