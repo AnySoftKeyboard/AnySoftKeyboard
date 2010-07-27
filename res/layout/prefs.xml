@@ -115,6 +115,13 @@ android:key="ime_settings">
 			android:persistent="true"
 			android:defaultValue="true"/>
 		<CheckBoxPreference
+			android:key="@string/settings_key_use_backword"
+			android:title="@string/backword_support"
+			android:persistent="true"
+			android:defaultValue="@bool/settings_default_use_backword"
+			android:summaryOn="@string/backword_support_on_summary"
+			android:summaryOff="@string/backword_support_off_summary"/>
+		<CheckBoxPreference
 			android:key="fullscreen_input_connection_supported"
 			android:title="@string/fullscreen_input_connection_supported"
 			android:persistent="true"

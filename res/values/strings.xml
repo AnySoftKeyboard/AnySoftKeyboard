@@ -103,6 +103,9 @@
     <string name="fullscreen_input_connection_supported">Use full-screen input</string>
     <string name="fullscreen_input_connection_supported_on_summary">Full-screen input in landscape mode</string>
     <string name="fullscreen_input_connection_supported_off_summary">Never use full-screen input</string>
+    <string name="backword_support">Back-word support</string>
+    <string name="backword_support_on_summary">Shifted Backspace will delete the last word</string>
+    <string name="backword_support_off_summary">Shifted Backspace will delete the last character</string>
     <string name="swipe_tweak_group">Change swipe gesture actions</string>
     <string name="swipe_up_action">Swipe up</string>
     <string name="swipe_up_action_summary">Define the swipe up gesture action</string>

@@ -13,5 +13,5 @@
     <bool name="settings_default_use_16_keys_symbols_keyboards">false</bool>
     <bool name="settings_default_landscape_fullscreen">true</bool>
     <bool name="settings_default_portrait_fullscreen">false</bool>
-    <bool name="settings_default_use_backword">true</bool>
+    <bool name="settings_default_use_backword">false</bool>
 </resources>
