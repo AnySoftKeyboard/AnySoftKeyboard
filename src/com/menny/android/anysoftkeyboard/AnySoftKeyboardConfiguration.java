@@ -14,6 +14,8 @@ import android.util.Log;
 
 public abstract class AnySoftKeyboardConfiguration 
 {
+	public static final boolean DEBUG = false;
+	
 	private static final String TAG = "ASK_Cfg";
 	private static final AnySoftKeyboardConfiguration msInstance;
 	
@@ -23,8 +25,6 @@ public abstract class AnySoftKeyboardConfiguration
 	}
 		
 	public static AnySoftKeyboardConfiguration getInstance() {return msInstance;}
-	
-	public abstract boolean getDEBUG();
 	
 	public abstract String getSmileyText();
 	
@@ -63,7 +63,9 @@ public abstract class AnySoftKeyboardConfiguration
 	
 	public abstract boolean shouldShowPopupForLanguageSwitch();
 	
-	public abstract boolean showVersionNotification();
+	public abstract boolean getShowVersionNotification();
+	
+	public abstract void setShowVersionNotification(boolean show);
 	
 	public abstract boolean use16KeysSymbolsKeyboards();
 	
@@ -76,9 +78,7 @@ public abstract class AnySoftKeyboardConfiguration
 		private static final String CONFIGURATION_VERSION = "configurationVersion";
 		private static final String CUSTOMIZATION_LEVEL = "customizationLevel";
 		private InputMethodService mIme;
-		//this is determined from the version. It includes "tester", the it will be true
-		private boolean mDEBUG = true;
-
+		
 		private String mSmileyText = ":-)";
 		private String mDomainText = ".com";
 		private String mLayoutChangeKeysSize = "Small";
@@ -124,16 +124,9 @@ public abstract class AnySoftKeyboardConfiguration
 				Log.e(TAG, "Failed to locate package information! This is very weird... I'm installed.");
 			}
 			
-			mDEBUG = ((releaseNumber % 2) == 0);//even versions are TESTERS
-			if (mDEBUG)
-			{
-				//RC versions should not be "debug", but they do not have odd version.
-				if (version.contains("RC"))
-					mDEBUG = false;
-			}
 			Log.i(TAG, "** Version: "+version);
 			Log.i(TAG, "** Release code: "+releaseNumber);
-			Log.i(TAG, "** Debug: "+mDEBUG);
+			Log.i(TAG, "** Debug: "+DEBUG);
 			SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mIme);
 			customizeSettingValues(mIme.getApplicationContext(), sp);
 			upgradeSettingsValues(sp);
@@ -432,8 +425,6 @@ public boolean handleConfigurationChange(SharedPreferences sp)
 			}
 		}
 
-		public boolean getDEBUG() {return mDEBUG;}
-
 		public String getDomainText() {
 			return mDomainText;
 		}
@@ -521,8 +512,17 @@ public boolean handleConfigurationChange(SharedPreferences sp)
 		}
 		
 		@Override
-		public boolean showVersionNotification() {
+		public boolean getShowVersionNotification() {
 			return mShowVersionNotification;
+		}
+		
+		@Override
+		public void setShowVersionNotification(boolean show) {
+			SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mIme);
+			Editor e = sp.edit();
+			e.putBoolean(mIme.getString(R.string.settings_key_show_version_notification), show);
+			mShowVersionNotification = show;
+			e.commit();
 		}
 
 		@Override

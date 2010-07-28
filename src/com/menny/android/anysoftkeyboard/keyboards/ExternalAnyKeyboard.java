@@ -79,11 +79,11 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                     	AttributeSet attrs = Xml.asAttributeSet(parser);
                     	final String qwerty = attrs.getAttributeValue(null, XML_QWERTY_ATTRIBUTE);
                     	translator.addQwertyTranslation(qwerty);
-                    	if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Starting parsing "+XML_TRANSLATION_TAG+". Qwerty:"+qwerty);
+                    	//if (AnySoftKeyboardConfiguration.DEBUG) Log.d(TAG, "Starting parsing "+XML_TRANSLATION_TAG+". Qwerty:"+qwerty);
                     }
                     else if (inTranslations && XML_SEQUENCE_TAG.equals(tag))
                     {
-                    	if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Starting parsing "+XML_SEQUENCE_TAG);
+                    	//if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Starting parsing "+XML_SEQUENCE_TAG);
                     	AttributeSet attrs = Xml.asAttributeSet(parser);
 
                     	final int[] keyCodes = getKeyCodesFromPhysicalSequence(attrs.getAttributeValue(null, XML_KEYS_ATTRIBUTE));
@@ -105,19 +105,19 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                         {
                         	if (!isAlt && !isShift)
                         	{
-	                        	if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Physical translation details: keys:"+printInts(keyCodes)+" target:"+target);
+	                        	//if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Physical translation details: keys:"+printInts(keyCodes)+" target:"+target);
 	                        	translator.addSequence(keyCodes, target.charAt(0));
                         	}
                         	else if (isAlt)
                         	{
                         		final int keyCode = keyCodes[0];
-                        		if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Physical translation details: ALT+key:"+keyCode+" target:"+target);
+                        		//if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Physical translation details: ALT+key:"+keyCode+" target:"+target);
 	                        	translator.addAltMapping(keyCode, target.charAt(0));
                         	}
                         	else if (isShift)
                         	{
                         		final int keyCode = keyCodes[0];
-                        		if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Physical translation details: ALT+key:"+keyCode+" target:"+target);
+                        		//if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Physical translation details: ALT+key:"+keyCode+" target:"+target);
 	                        	translator.addShiftMapping(keyCode, target.charAt(0));
                         	}
                         }
@@ -126,12 +126,12 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                 else if (event == XmlPullParser.END_TAG) {
                 	if (XML_TRANSLATION_TAG.equals(tag)) {
                     	inTranslations = false;
-                    	if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Finished parsing "+XML_TRANSLATION_TAG);
+                    	//if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Finished parsing "+XML_TRANSLATION_TAG);
                     	break;
                     }
                 	else if (inTranslations && XML_SEQUENCE_TAG.equals(tag))
                     {
-                		if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Finished parsing "+XML_SEQUENCE_TAG);
+                		//if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Finished parsing "+XML_SEQUENCE_TAG);
                     }
                 }
             }
@@ -196,11 +196,6 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 		final boolean inPortraitMode =
 			(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
 
-		if (AnySoftKeyboardConfiguration.getInstance().getDEBUG())
-		{
-			Log.d(TAG, "inPortraitMode:"+inPortraitMode+" portrait ID:"+portraitId+" landscape ID:"+landscapeId);
-		}
-		
 		if (inPortraitMode)
 			return portraitId;
 		else

@@ -76,7 +76,7 @@ public abstract class AnyKeyboard extends Keyboard
     
     private int mShiftState = SHIFT_OFF;
     
-    private final boolean mDebug;
+    //private final boolean mDebug;
 	
     private final Drawable mOffShiftIcon;
     private final Drawable mOnShiftIcon;
@@ -109,7 +109,6 @@ public abstract class AnyKeyboard extends Keyboard
         //should use the package context for creating the layout
         super(context, xmlLayoutResId, mode);
         mKeyboardMode = mode;
-        mDebug = AnySoftKeyboardConfiguration.getInstance().getDEBUG();
         mKeyboardContext = context;
         mASKContext = askContext;
 
@@ -516,18 +515,14 @@ public abstract class AnyKeyboard extends Keyboard
      * appropriate label on the keyboard's enter key (if it has one).
      */
     public void setImeOptions(Resources res, EditorInfo editor) {
-    	if (mDebug)
+    	if (AnySoftKeyboardConfiguration.DEBUG)
     	{
-    		if (editor == null)
-    		{
-    			Log.d(TAG, "AnyKeyboard.setImeOptions");
-    		}
-    		else
-    		{
-    			Log.d(TAG, "AnyKeyboard.setImeOptions. package: "+editor.packageName+", id:"+editor.fieldId);
-    		}
-    	}
-    		
+	    	if (editor == null)
+	    		Log.d(TAG, "AnyKeyboard.setImeOptions");
+			else
+				Log.d(TAG, "AnyKeyboard.setImeOptions. package: "+editor.packageName+", id:"+editor.fieldId);
+	    }
+    	
         if (mEnterKey == null) {
             return;
         }
@@ -553,7 +548,7 @@ public abstract class AnyKeyboard extends Keyboard
         
     	final int action = (options&EditorInfo.IME_MASK_ACTION);
     	
-    	if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) 
+    	if (AnySoftKeyboardConfiguration.DEBUG) 
     		Log.d(TAG, "Input Connection ENTER key with action: "+action + " and NO_ACTION flag is: "+inNoEnterActionMode);
 
     	if (inNoEnterActionMode)
@@ -629,7 +624,7 @@ public abstract class AnyKeyboard extends Keyboard
     
 	public void setShiftLocked(boolean shiftLocked) {
         if (mShiftKey != null) {
-        	if (mDebug) Log.d(TAG, "setShiftLocked: Switching to locked: "+shiftLocked);
+        	if (AnySoftKeyboardConfiguration.DEBUG) Log.d(TAG, "setShiftLocked: Switching to locked: "+shiftLocked);
         	mShiftKey.on = shiftLocked;
         	if (shiftLocked)
         		mShiftState = SHIFT_LOCKED;
@@ -666,7 +661,7 @@ public abstract class AnyKeyboard extends Keyboard
          */
 		final boolean changed = (shiftState == (mShiftState == SHIFT_OFF));
 		
-		if (mDebug) Log.d(TAG, "setShifted: shiftState:"+shiftState+", caps:"+(mShiftState == SHIFT_LOCKED)+". changed: "+changed);
+		if (AnySoftKeyboardConfiguration.DEBUG) Log.d(TAG, "setShifted: shiftState:"+shiftState+", caps:"+(mShiftState == SHIFT_LOCKED)+". changed: "+changed);
 		
 		if (changed)
 		{//layout changed. Need to change labels.
@@ -674,11 +669,11 @@ public abstract class AnyKeyboard extends Keyboard
 						
 			if (mShiftKey != null) {
 	            if (shiftState) {
-	            	if (mDebug) Log.d(TAG, "Switching to regular ON shift icon - shifted");
+	            	if (AnySoftKeyboardConfiguration.DEBUG) Log.d(TAG, "Switching to regular ON shift icon - shifted");
 	            	mShiftKey.icon = mOnShiftIcon;
 	            	mShiftKey.iconPreview = mOnShiftFeedbackIcon;
 	            } else {
-	            	if (mDebug) Log.d(TAG, "Switching to regular OFF shift icon - un-shifted");
+	            	if (AnySoftKeyboardConfiguration.DEBUG) Log.d(TAG, "Switching to regular OFF shift icon - un-shifted");
 	            	mShiftKey.icon = mOffShiftIcon;
 	            	mShiftKey.iconPreview = mOffShiftFeedbackIcon;
 	            }

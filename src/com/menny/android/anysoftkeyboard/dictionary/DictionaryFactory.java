@@ -177,7 +177,7 @@ public class DictionaryFactory
 
         for(DictionaryBuilder builder : allBuilders)
         {
-            if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()){
+            if (AnySoftKeyboardConfiguration.DEBUG){
                 Log.d("DictionaryFactory", MessageFormat.format("Checking if builder ''{0}'' with locale ''{1}'' matches locale ''{2}''",
                         new Object[] {builder.getId(), builder.getLanguage(), language}));
             }
@@ -202,7 +202,7 @@ public class DictionaryFactory
 
         for(DictionaryBuilder builder : allBuilders)
         {
-            if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()){
+            if (AnySoftKeyboardConfiguration.DEBUG){
                 Log.d("DictionaryFactory", MessageFormat.format("Checking if builder ''{0}'' with locale ''{1}'' matches id ''{2}''",
                         new Object[] {builder.getId(), builder.getLanguage(), id}));
             }

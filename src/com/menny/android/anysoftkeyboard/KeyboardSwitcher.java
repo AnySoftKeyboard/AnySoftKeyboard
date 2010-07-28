@@ -188,7 +188,7 @@ public class KeyboardSwitcher
     }
 
     synchronized void resetKeyboardsCache() {
-		if (AnySoftKeyboardConfiguration.getInstance().getDEBUG())
+		if (AnySoftKeyboardConfiguration.DEBUG)
 			Log.d(TAG, "Forcing Keyboards cache clear");
 		mAlphabetKeyboards = EMPTY_AnyKeyboards;
 		mSymbolsKeyboardsArray = EMPTY_AnyKeyboards;

@@ -1,5 +1,6 @@
 package com.menny.android.anysoftkeyboard;
 
+import com.menny.android.anysoftkeyboard.tutorials.ChangeLogActivity;
 import com.menny.android.anysoftkeyboard.tutorials.TutorialActivity;
 
 import android.app.TabActivity;
@@ -76,10 +77,8 @@ public class MainForm extends TabActivity implements OnClickListener {
 	}
 	
 	public static void showChangelog(Context applicationContext) {
-		Intent intent = new Intent(applicationContext, TutorialActivity.class);
+		Intent intent = new Intent(applicationContext, ChangeLogActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		intent.putExtra(TutorialActivity.LAYOUT_RESOURCE_ID, R.layout.changelog);
-		intent.putExtra(TutorialActivity.NAME_RESOURCE_ID, R.string.changelog);
 		applicationContext.startActivity(intent);
 	}
 	

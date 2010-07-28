@@ -102,7 +102,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	private final AnySoftKeyboardConfiguration mConfig;
-	private boolean DEBUG;
+	private static final boolean DEBUG = AnySoftKeyboardConfiguration.DEBUG;
 
 	private AnyKeyboardView mInputView;
 	private CandidateViewContainer mCandidateViewContainer;
@@ -198,7 +198,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		((AnySoftKeyboardConfiguration.AnySoftKeyboardConfigurationImpl) mConfig)
 				.initializeConfiguration(this);
 
-		DEBUG = mConfig.getDEBUG();
 		// showToastMessage(R.string.toast_lengthy_start_up_operation, true);
 		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);

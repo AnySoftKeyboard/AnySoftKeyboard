@@ -300,6 +300,14 @@ android:key="ime_settings">
 				android:summaryOn="@string/lang_key_shows_popup_on_summary"
 				android:summaryOff="@string/lang_key_shows_popup_off_summary"
 			/>
+			<CheckBoxPreference
+				android:key="@string/settings_key_show_version_notification"
+				android:title="@string/show_new_version_notifications_again"
+				android:persistent="true"
+				android:defaultValue="@bool/settings_default_show_version_notification"
+				android:summaryOn="@string/show_new_version_notifications_again_on_summary"
+				android:summaryOff="@string/show_new_version_notifications_again_off_summary"
+			/>
 			<EditTextPreference android:key="keyboards_sandbox_4" 
 				android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"
 				android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false">

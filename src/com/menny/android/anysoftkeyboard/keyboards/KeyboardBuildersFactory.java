@@ -180,11 +180,6 @@ public class KeyboardBuildersFactory {
 	                new Intent(KeyboardBuilder.RECEIVER_INTERFACE),
 	                PackageManager.GET_META_DATA);
 
-        if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
-            Log.d(TAG, "Number of potential external keyboard packages found: "
-                    + broadcastReceivers.size());
-        }
-
         final ArrayList<KeyboardBuilder> externalKeyboardCreators = new ArrayList<KeyboardBuilder>();
         for(final ResolveInfo receiver : broadcastReceivers){
             // If activityInfo is null, we are probably dealing with a service.
@@ -209,11 +204,6 @@ public class KeyboardBuildersFactory {
                 Log.e(TAG, "Did not find package: " + receiver.activityInfo.packageName);
             }
 
-        }
-        if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
-            Log.d(TAG,
-                    "Number of external keyboard creators successfully parsed: "
-                    + externalKeyboardCreators.size());
         }
 
         return externalKeyboardCreators;
@@ -243,15 +233,7 @@ public class KeyboardBuildersFactory {
                 if (event == XmlPullParser.START_TAG) {
                     if (XML_KEYBOARDS_TAG.equals(tag)) {
                         inKeyboards = true;
-                        if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
-                            Log.d(TAG, "Starting parsing "
-                                    + XML_KEYBOARDS_TAG);
-                        }
                     } else if (inKeyboards && XML_KEYBOARD_TAG.equals(tag)) {
-                        if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
-                            Log.d(TAG, "Starting parsing "
-                                    + XML_KEYBOARD_TAG);
-                        }
                         final AttributeSet attrs = Xml.asAttributeSet(allKeyboards);
 
                         final String prefId = attrs.getAttributeValue(null, XML_PREF_ID_ATTRIBUTE);
@@ -292,7 +274,7 @@ public class KeyboardBuildersFactory {
                             .e(TAG,
                             "External Keyboard does not include all mandatory details! Will not create keyboard.");
                         } else {
-                            if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
+                            if (AnySoftKeyboardConfiguration.DEBUG) {
                                 Log.d(TAG,
                                         "External keyboard details: prefId:" + prefId + " nameId:"
                                         + nameId + " resId:" + layoutResId
@@ -305,10 +287,6 @@ public class KeyboardBuildersFactory {
                                     defaultDictionary, iconResId, physicalTranslationResId,
                                     additionalIsLetterExceptions, description, keyboardIndex);
 
-                            if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
-                                Log.d(TAG, "External keyboard "
-                                        + prefId + " will have a creator.");
-                            }
                             keyboards.add(creator);
                         }
 
@@ -316,16 +294,7 @@ public class KeyboardBuildersFactory {
                 } else if (event == XmlPullParser.END_TAG) {
                     if (XML_KEYBOARDS_TAG.equals(tag)) {
                         inKeyboards = false;
-                        if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
-                            Log.d(TAG, "Finished parsing "
-                                    + XML_KEYBOARDS_TAG);
-                        }
                         break;
-                    } else if (inKeyboards && XML_KEYBOARD_TAG.equals(tag)) {
-                        if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
-                            Log.d(TAG, "Finished parsing "
-                                    + XML_KEYBOARD_TAG);
-                        }
                     }
                 }
             }

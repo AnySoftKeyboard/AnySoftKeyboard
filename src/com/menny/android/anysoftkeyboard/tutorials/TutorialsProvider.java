@@ -23,23 +23,29 @@ public class TutorialsProvider
 
 	private static final int BASE_NOTIFICATION_ID = 1024;
 
-	private static ArrayList<TutorialActivityData> msActivitiesToShow = new ArrayList<TutorialActivityData>();
+	private static ArrayList<Intent> msActivitiesToShow = new ArrayList<Intent>();
 	
 	public static void ShowTutorialsIfNeeded(Context context)
 	{
 		Log.i(TAG, "TutorialsProvider::ShowTutorialsIfNeeded called");
-		if (AnySoftKeyboardConfiguration.getInstance().showVersionNotification() && AnySoftKeyboardConfiguration.getInstance().getDEBUG())
+		if (AnySoftKeyboardConfiguration.DEBUG && AnySoftKeyboardConfiguration.getInstance().getShowVersionNotification())
 		{
 			Log.i(TAG, "TESTERS VERSION added");
-			TutorialActivityData data = new TutorialActivityData(R.string.testers_version, R.layout.testers_version);
-			msActivitiesToShow.add(data);
+
+			Intent i = new Intent(context, TutorialActivity.class);
+			i.putExtra(TutorialActivity.LAYOUT_RESOURCE_ID, R.layout.testers_version);
+			i.putExtra(TutorialActivity.NAME_RESOURCE_ID, R.string.testers_version);
+			
+			msActivitiesToShow.add(i);
 		}
 		
-		if (AnySoftKeyboardConfiguration.getInstance().showVersionNotification() && (AnySoftKeyboardConfiguration.getInstance().getDEBUG() || firstTimeVersionLoaded(context)))
+		if (AnySoftKeyboardConfiguration.getInstance().getShowVersionNotification() && (AnySoftKeyboardConfiguration.DEBUG || firstTimeVersionLoaded(context)))
 		{
 			Log.i(TAG, "changelog added");
-			TutorialActivityData data = new TutorialActivityData(R.string.changelog, R.layout.changelog);
-			msActivitiesToShow.add(data);
+			
+			Intent i = new Intent(context, ChangeLogActivity.class);
+			
+			msActivitiesToShow.add(i);
 		}
 		
 		showNotificationIcon(context);
@@ -78,7 +84,7 @@ public class TutorialsProvider
 		{
 			Notification notification = new Notification(R.drawable.notification_icon, context.getText(R.string.notification_text), System.currentTimeMillis());
             
-            Intent notificationIntent = new Intent(context, TutorialActivity.class);
+            Intent notificationIntent = msActivitiesToShow.remove(0);
             
             PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
             
@@ -94,30 +100,6 @@ public class TutorialsProvider
             // notifying
             //need different id for each notification, so we can cancel easily
             ((NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE)).notify(BASE_NOTIFICATION_ID+msActivitiesToShow.size(), notification);
-		}
-	}
-	
-	public static synchronized TutorialActivityData dequeueTutorial()
-	{
-		if (msActivitiesToShow.size() > 0)
-		{
-			return msActivitiesToShow.remove(0);
-		}
-		else
-		{
-			return null;
-		}
-	}
-	
-	public static class TutorialActivityData
-	{
-		public final int NameResourceId;
-		public final int LayoutResourceId;
-		
-		public TutorialActivityData(int nameId, int layoutId)
-		{
-			NameResourceId = nameId;
-			LayoutResourceId = layoutId;
 		}
 	}
 }

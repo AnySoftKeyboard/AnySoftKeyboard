@@ -135,6 +135,9 @@
     </string-array>
     
     <string name="tweaks_group">Tweaks</string>
+    <string name="show_new_version_notifications_again">Show new version notifications</string>
+    <string name="show_new_version_notifications_again_on_summary">Upon installing a new version, a change-log will be shown</string>
+    <string name="show_new_version_notifications_again_off_summary">Will not notify you when a new version is installed</string>
     <string name="use_keyrepeat">Use key repeat</string>
     <string name="use_keyrepeat_on_summary">Key repeat is enabled</string>
     <string name="use_keyrepeat_off_summary">Key repeat is disabled</string>    
@@ -180,6 +183,8 @@
     <string name="physical_keyboard_suggestions_summary">Show suggestions when using device keyboard</string>
     <string name="keyboard_sandbox">Click for text testing</string>
     <string name="keyboard_sandbox_title">Type below to test your settings</string>
+    
+    
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Keyboards</string>
     <string name="symbols_keyboard">Symbols</string>

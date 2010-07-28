@@ -126,15 +126,15 @@ public class ExternalDictionaryFactory {
                 if (event == XmlPullParser.START_TAG) {
                     if (XML_DICTIONARIES_TAG.equals(tag)) {
                         inDictionaries = true;
-                        if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
-                            Log.d(TAG, "Starting parsing "+XML_DICTIONARIES_TAG);
-                        }
+//                        if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
+//                            Log.d(TAG, "Starting parsing "+XML_DICTIONARIES_TAG);
+//                        }
                     }
                     else if (inDictionaries && XML_DICTIONARY_TAG.equals(tag))
                     {
-                        if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
-                            Log.d(TAG, "Starting parsing "+XML_DICTIONARY_TAG);
-                        }
+//                        if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
+//                            Log.d(TAG, "Starting parsing "+XML_DICTIONARY_TAG);
+//                        }
                         final AttributeSet attrs = Xml.asAttributeSet(xmlParser);
 
                         final String id = attrs.getAttributeValue(null, XML_ID_ATTRIBUTE);
@@ -150,14 +150,14 @@ public class ExternalDictionaryFactory {
                         }
                         else
                         {
-                            if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
-                                Log.d(TAG, "External dictionary details: language:"+language+" id:"+id+" nameId:"+nameId+" assets:"+assets);
-                            }
+//                            if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
+//                                Log.d(TAG, "External dictionary details: language:"+language+" id:"+id+" nameId:"+nameId+" assets:"+assets);
+//                            }
                             final DictionaryBuilder creator = new BinaryDictionaryBuilderImpl(context, id, language, nameId, assets, description);
 
-                            if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
-                                Log.d(TAG, "External dictionary "+language+" will have a creator.");
-                            }
+//                            if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
+//                                Log.d(TAG, "External dictionary "+language+" will have a creator.");
+//                            }
                             dictionaries.add(creator);
                         }
 
@@ -166,16 +166,16 @@ public class ExternalDictionaryFactory {
                 else if (event == XmlPullParser.END_TAG) {
                     if (XML_DICTIONARIES_TAG.equals(tag)) {
                         inDictionaries = false;
-                        if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
-                            Log.d(TAG, "Finished parsing "+XML_DICTIONARIES_TAG);
-                        }
+//                        if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
+//                            Log.d(TAG, "Finished parsing "+XML_DICTIONARIES_TAG);
+//                        }
                         break;
                     }
                     else if (inDictionaries && XML_DICTIONARY_TAG.equals(tag))
                     {
-                        if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
-                            Log.d(TAG, "Finished parsing "+XML_DICTIONARY_TAG);
-                        }
+//                        if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
+//                            Log.d(TAG, "Finished parsing "+XML_DICTIONARY_TAG);
+//                        }
                     }
                 }
             }
@@ -197,7 +197,7 @@ public class ExternalDictionaryFactory {
                     Intent(DictionaryBuilder.RECEIVER_INTERFACE),
                     PackageManager.GET_META_DATA);
 
-        if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
+        if (AnySoftKeyboardConfiguration.DEBUG) {
             Log.d(TAG, "Number of potential external dictionary packages found: "
                     +
                     broadcastReceivers.size());
@@ -230,7 +230,7 @@ public class ExternalDictionaryFactory {
             }
         }
 
-        if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) {
+        if (AnySoftKeyboardConfiguration.DEBUG) {
             Log.d(TAG, "Number of external dictionary builders successfully parsed: "
                     + externalDictionaryBuilders.size());
         }
