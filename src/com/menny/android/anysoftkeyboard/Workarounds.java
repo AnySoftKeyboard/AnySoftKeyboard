@@ -86,19 +86,19 @@ public class Workarounds
 		}
 	}
 	
-	public static int workaroundParenthesisDirectionFix(int primaryCode)
-	{
-		//Android does not support the correct direction of parenthesis in right-to-left langs.
-		if (!getRtlWorkaround())
-			return primaryCode;//I hope Galaxy has the fix...
-		
-		if (primaryCode == (int)')')
-			return '(';
-		else if (primaryCode == (int)'(')
-			return ')';
-		
-		return primaryCode;
-	}
+//	public static int workaroundParenthesisDirectionFix(int primaryCode)
+//	{
+//		//Android does not support the correct direction of parenthesis in right-to-left langs.
+//		if (!getRtlWorkaround())
+//			return primaryCode;//I hope Galaxy has the fix...
+//		
+//		if (primaryCode == (int)')')
+//			return '(';
+//		else if (primaryCode == (int)'(')
+//			return ')';
+//		
+//		return primaryCode;
+//	}
 	
 	public static CharSequence workaroundCorrectStringDirection(CharSequence suggestion) 
     {

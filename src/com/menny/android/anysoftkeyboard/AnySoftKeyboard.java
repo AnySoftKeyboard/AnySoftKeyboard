@@ -1089,9 +1089,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 			primaryCode = translatePrimaryCodeFromCurrentKeyboard(primaryCode);
 			// Issue 146: Right to left langs require reversed parenthesis
 			if (mKeyboardSwitcher.isRightToLeftMode())
-				primaryCode = Workarounds
-						.workaroundParenthesisDirectionFix(primaryCode);
-
+			{
+				if (primaryCode == (int)')')
+					primaryCode = (int)'(';
+				else if (primaryCode == (int)'(')
+					primaryCode = (int)')';
+			}
 			if (isWordSeparator(primaryCode)) {
 				handleSeparator(primaryCode);
 			} else {
