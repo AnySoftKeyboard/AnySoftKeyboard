@@ -1086,7 +1086,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		    nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.PreviousAny);
             break;
 		default:
-			primaryCode = translatePrimaryCodeFromCurrentKeyboard(primaryCode);
+			if (mInputView != null && mInputView.isShifted())
+				primaryCode = Character.toUpperCase(primaryCode);
+			
 			// Issue 146: Right to left langs require reversed parenthesis
 			if (mKeyboardSwitcher.isRightToLeftMode())
 			{
@@ -1432,27 +1434,24 @@ public class AnySoftKeyboard extends InputMethodService implements
 				isWordSeparator(primaryCode));
 	}
 
-	private int translatePrimaryCodeFromCurrentKeyboard(int primaryCode) {
-		if (DEBUG)
-			Log.d("AnySoftKeyboard",
-					"translatePrimaryCodeFromCurrentKeyboard: " + primaryCode);
-		if (isInputViewShown()) {
-			if (DEBUG)
-				Log
-						.v("AnySoftKeyboard",
-								"translatePrimaryCodeFromCurrentKeyboard: isInputViewShown");
-
-			if ((mInputView != null) && mInputView.isShifted()) {
-				if (DEBUG)
-					Log
-							.d("AnySoftKeyboard",
-									"translatePrimaryCodeFromCurrentKeyboard: mInputView.isShifted()");
-				return mKeyboardSwitcher.getCurrentKeyboard()
-						.getShiftedKeyValue(primaryCode);
-			}
-		}
-		return primaryCode;
-	}
+//	private int translatePrimaryCodeFromCurrentKeyboard(int primaryCode) {
+//		if (DEBUG)
+//			Log.d(TAG,
+//					"translatePrimaryCodeFromCurrentKeyboard: " + primaryCode);
+//		if (isInputViewShown()) {
+//			if (DEBUG)
+//				Log.v(TAG, "translatePrimaryCodeFromCurrentKeyboard: isInputViewShown");
+//
+//			if ((mInputView != null) && mInputView.isShifted()) {
+//				if (DEBUG)
+//					Log.d(TAG, "translatePrimaryCodeFromCurrentKeyboard: mInputView.isShifted()");
+//				
+//				return mKeyboardSwitcher.getCurrentKeyboard()
+//						.getShiftedKeyValue(primaryCode);
+//			}
+//		}
+//		return primaryCode;
+//	}
 
 	private void handleSeparator(int primaryCode) {
 		if(DEBUG) Log.d(TAG, "handleSeparator: "+primaryCode);

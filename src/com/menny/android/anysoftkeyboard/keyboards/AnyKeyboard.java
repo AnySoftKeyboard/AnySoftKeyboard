@@ -778,23 +778,23 @@ public abstract class AnyKeyboard extends Keyboard
 //	        	break;
 //        }
 //	}
-	
-	public int getShiftedKeyValue(int primaryCode) 
-	{
-//		if ((primaryCode>0) && (primaryCode<Character.MAX_VALUE))
-//		{
-//			Character c = new Character((char)primaryCode);
-//			if (mSpecialShiftKeys.containsKey(c))
-//			{
-//				char shifted = mSpecialShiftKeys.get(c).ShiftCharacter;
-//				if (mDebug)
-//		        	Log.v(TAG, "Returned the shifted mapping ("+c+"->"+shifted+") from mSpecialShiftKeys.");
-//				return shifted;
-//			}
-//		}
-		//else...best try.
-		return Character.toUpperCase(primaryCode);
-	}
+//	
+//	public int getShiftedKeyValue(int primaryCode) 
+//	{
+////		if ((primaryCode>0) && (primaryCode<Character.MAX_VALUE))
+////		{
+////			Character c = new Character((char)primaryCode);
+////			if (mSpecialShiftKeys.containsKey(c))
+////			{
+////				char shifted = mSpecialShiftKeys.get(c).ShiftCharacter;
+////				if (mDebug)
+////		        	Log.v(TAG, "Returned the shifted mapping ("+c+"->"+shifted+") from mSpecialShiftKeys.");
+////				return shifted;
+////			}
+////		}
+//		//else...best try.
+//		return Character.toUpperCase(primaryCode);
+//	}
 	
 	static class AnyKey extends Keyboard.Key {
         //private boolean mShiftLockEnabled;
