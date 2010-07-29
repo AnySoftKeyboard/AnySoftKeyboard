@@ -46,6 +46,8 @@ public class KeyboardSwitcher
     public static final int MODE_URL = 4;
     public static final int MODE_EMAIL = 5;
     public static final int MODE_IM = 6;
+    public static final int MODE_DATETIME = 7;
+    public static final int MODE_NUMBERS = 8;
     
     private final int KEYBOARDMODE_NORMAL;
     private final int KEYBOARDMODE_URL;
@@ -58,8 +60,11 @@ public class KeyboardSwitcher
     private static final int SYMBOLS_KEYBOARD_REGULAR_INDEX = 0;
     private static final int SYMBOLS_KEYBOARD_ALT_INDEX = 1;
     private static final int SYMBOLS_KEYBOARD_PHONE_INDEX = 2;
+    private static final int SYMBOLS_KEYBOARD_NUMBERS_INDEX = 3;
+    private static final int SYMBOLS_KEYBOARD_DATETIME_INDEX = 4;
 
-    private int mLastSelectedSymbolsKeyboard = 0;
+    private int mLastSelectedSymbolsKeyboard = SYMBOLS_KEYBOARD_REGULAR_INDEX;
+    
     private AnyKeyboard[] mSymbolsKeyboardsArray = EMPTY_AnyKeyboards;
     //my working keyboards
     private AnyKeyboard[] mAlphabetKeyboards = EMPTY_AnyKeyboards;
@@ -67,6 +72,10 @@ public class KeyboardSwitcher
     //issue 146
     private boolean mRightToLeftMode = false;
 
+    //this flag will be used for inputs which require specific layout
+    //thus disabling the option to move to another layout
+    private boolean mKeyboardLocked = false;
+    
     private int mLastSelectedKeyboard = 0;
 
     //private int mImeOptions;
@@ -134,12 +143,19 @@ public class KeyboardSwitcher
 	    				keyboard = new GenericKeyboard(mContext, R.xml.symbols_alt, R.string.symbols_keyboard, "alt_symbols_keyboard", mode);
 	    			break;
 	    		case SYMBOLS_KEYBOARD_PHONE_INDEX:
-	    			keyboard = new GenericKeyboard(mContext, R.xml.simple_numbers, R.string.symbols_keyboard, "phone_symbols_keyboard", mode);
+	    			keyboard = new GenericKeyboard(mContext, R.xml.simple_phone, R.string.symbols_keyboard, "phone_symbols_keyboard", mode);
 	    			if (mInputView != null)
 	            		mInputView.setPhoneKeyboard(keyboard);
 	    			break;
+	    		case SYMBOLS_KEYBOARD_NUMBERS_INDEX:
+	    			keyboard = new GenericKeyboard(mContext, R.xml.simple_numbers, R.string.symbols_keyboard, "numbers_symbols_keyboard", mode);
+	    			break;
+	    		case SYMBOLS_KEYBOARD_DATETIME_INDEX:
+	    			keyboard = new GenericKeyboard(mContext, R.xml.simple_datetime, R.string.symbols_keyboard, "datetime_symbols_keyboard", mode);
+	    			break;
 	    	}
 	    	mSymbolsKeyboardsArray[keyboardIndex] = keyboard;
+	    	mLastSelectedSymbolsKeyboard = keyboardIndex;
 	    	keyboard.initKeysMembers();
     	}
 
@@ -200,19 +216,32 @@ public class KeyboardSwitcher
         AnyKeyboard keyboard = null;
 
         switch (mode) {
-        case MODE_SYMBOLS:
-        	keyboard = getSymbolsKeyboard(0, getKeyboardMode(attr));
+        case MODE_DATETIME:
+        	keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_DATETIME_INDEX, getKeyboardMode(attr));
         	mAlphabetMode = false;
+        	mKeyboardLocked = true;
+            break;
+        case MODE_NUMBERS:
+        	keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_NUMBERS_INDEX, getKeyboardMode(attr));
+        	mAlphabetMode = false;
+        	mKeyboardLocked = true;
+            break;
+        case MODE_SYMBOLS:
+        	keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_REGULAR_INDEX, getKeyboardMode(attr));
+        	mAlphabetMode = false;
+        	mKeyboardLocked = true;
             break;
         case MODE_PHONE:
             keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_PHONE_INDEX, getKeyboardMode(attr));
             mAlphabetMode = false;
+            mKeyboardLocked = true;
             break;
 //        case MODE_TEXT:
 //        case MODE_URL:
 //        case MODE_EMAIL:
 //        case MODE_IM:
         default:
+        	mKeyboardLocked = false;
         	keyboard = getAlphabetKeyboard(mLastSelectedKeyboard, getKeyboardMode(attr));
         	mAlphabetMode = true;
         	break;
@@ -277,9 +306,11 @@ public class KeyboardSwitcher
 
     public AnyKeyboard nextAlphabetKeyboard(EditorInfo currentEditorInfo, String keyboardId)
 	{
-    	final int keyboardsCount = getAlphabetKeyboards().length;
-    	AnyKeyboard current = null;
+    	AnyKeyboard current = getLockedKeyboard(currentEditorInfo);
+    	if (current != null)
+    		return current;
     	
+    	final int keyboardsCount = getAlphabetKeyboards().length;
     	for(int keyboardIndex = 0; keyboardIndex<keyboardsCount; keyboardIndex++)
     	{
     		current = getAlphabetKeyboard(keyboardIndex, getKeyboardMode(currentEditorInfo));
@@ -300,64 +331,93 @@ public class KeyboardSwitcher
     	return null;
 	}
     
+    private AnyKeyboard getLockedKeyboard(EditorInfo currentEditorInfo) 
+    {
+    	if (mKeyboardLocked)
+    	{
+    		AnyKeyboard current = getCurrentKeyboard();
+    		Log.i(TAG, "Request for nextAlphabetKeyboard, but the keyboard-switcher is locked! Returning "+current.getKeyboardName());
+    		//Issue 146
+        	mRightToLeftMode = !current.isLeftToRightLanguage();
+        	return setKeyboard(currentEditorInfo, current);
+    	}
+    	else
+    	{
+    		return null;
+    	}
+    }
+    
     private AnyKeyboard nextAlphabetKeyboard(EditorInfo currentEditorInfo, boolean supportsPhysical)
     {
-    	final int keyboardsCount = getAlphabetKeyboards().length;
-    	AnyKeyboard current;
-    	if (isAlphabetMode())
-    		mLastSelectedKeyboard++;
-
-    	mAlphabetMode = true;
-
-    	if (mLastSelectedKeyboard >= keyboardsCount)
-			mLastSelectedKeyboard = 0;
-
-    	current = getAlphabetKeyboard(mLastSelectedKeyboard, getKeyboardMode(currentEditorInfo));
-    	//returning to the regular symbols keyboard, no matter what
-    	mLastSelectedSymbolsKeyboard = 0;
-
-    	if (supportsPhysical)
+    	AnyKeyboard current = getLockedKeyboard(currentEditorInfo);
+    	
+    	if (current == null)
     	{
-    		int testsLeft = keyboardsCount;
-    		while(!(current instanceof HardKeyboardTranslator) && (testsLeft > 0))
-    		{
-    			mLastSelectedKeyboard++;
-        		if (mLastSelectedKeyboard >= keyboardsCount)
-        			mLastSelectedKeyboard = 0;
-        		current = getAlphabetKeyboard(mLastSelectedKeyboard, getKeyboardMode(currentEditorInfo));
-        		testsLeft--;
-    		}
-    		//if we scanned all keyboards... we screwed...
-    		if (testsLeft == 0)
-    		{
-    			Log.w(TAG, "Could not locate the next physical keyboard. Will continue with "+current.getKeyboardName());
-    		}
-    	}
-    	//Issue 146
-    	mRightToLeftMode = !current.isLeftToRightLanguage();
+	    	final int keyboardsCount = getAlphabetKeyboards().length;
+	    	if (isAlphabetMode())
+	    		mLastSelectedKeyboard++;
+	
+	    	mAlphabetMode = true;
+	
+	    	if (mLastSelectedKeyboard >= keyboardsCount)
+				mLastSelectedKeyboard = 0;
+	
+	    	current = getAlphabetKeyboard(mLastSelectedKeyboard, getKeyboardMode(currentEditorInfo));
+	    	//returning to the regular symbols keyboard, no matter what
+	    	mLastSelectedSymbolsKeyboard = 0;
+	
+	    	if (supportsPhysical)
+	    	{
+	    		int testsLeft = keyboardsCount;
+	    		while(!(current instanceof HardKeyboardTranslator) && (testsLeft > 0))
+	    		{
+	    			mLastSelectedKeyboard++;
+	        		if (mLastSelectedKeyboard >= keyboardsCount)
+	        			mLastSelectedKeyboard = 0;
+	        		current = getAlphabetKeyboard(mLastSelectedKeyboard, getKeyboardMode(currentEditorInfo));
+	        		testsLeft--;
+	    		}
+	    		//if we scanned all keyboards... we screwed...
+	    		if (testsLeft == 0)
+	    		{
+	    			Log.w(TAG, "Could not locate the next physical keyboard. Will continue with "+current.getKeyboardName());
+	    		}
+	    	}
+	    	
+	    	//Issue 146
+	    	mRightToLeftMode = !current.isLeftToRightLanguage();
 
-    	return setKeyboard(currentEditorInfo, current);
+	    	return setKeyboard(currentEditorInfo, current);
+    	}
+    	else
+    		return current;
     }
 
     private AnyKeyboard nextSymbolsKeyboard(EditorInfo currentEditorInfo)
     {
-    	//AnyKeyboard[] symbolsKeyboards = getSymbolsKeyboards();
-    	AnyKeyboard current;
-    	if (!isAlphabetMode())
-    	{
-    		if (mLastSelectedSymbolsKeyboard == SYMBOLS_KEYBOARD_PHONE_INDEX)
-    			mLastSelectedSymbolsKeyboard = SYMBOLS_KEYBOARD_REGULAR_INDEX;
-    		else
-    			mLastSelectedSymbolsKeyboard = SYMBOLS_KEYBOARD_PHONE_INDEX;
-    	}
-
+    	AnyKeyboard locked = getLockedKeyboard(currentEditorInfo);
+    	if (locked != null)
+    		return locked;
+    	
+//    	AnyKeyboard current;
+//    	if (!isAlphabetMode())
+//    	{
+//    		if (mLastSelectedSymbolsKeyboard == SYMBOLS_KEYBOARD_PHONE_INDEX)
+//    			mLastSelectedSymbolsKeyboard = SYMBOLS_KEYBOARD_REGULAR_INDEX;
+//    		else
+//    			mLastSelectedSymbolsKeyboard = SYMBOLS_KEYBOARD_PHONE_INDEX;
+//    	}
+//
+//    	mAlphabetMode = false;
+//
+//    	if (mLastSelectedSymbolsKeyboard >= mSymbolsKeyboardsArray.length)
+//			mLastSelectedSymbolsKeyboard = 0;
+//
+//    	current = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard, getKeyboardMode(currentEditorInfo));
+//
+//    	return setKeyboard(currentEditorInfo, current);
     	mAlphabetMode = false;
-
-    	if (mLastSelectedSymbolsKeyboard >= mSymbolsKeyboardsArray.length)
-			mLastSelectedSymbolsKeyboard = 0;
-
-    	current = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard, getKeyboardMode(currentEditorInfo));
-
+    	AnyKeyboard current = getSymbolsKeyboard(SYMBOLS_KEYBOARD_REGULAR_INDEX, getKeyboardMode(currentEditorInfo));
     	return setKeyboard(currentEditorInfo, current);
     }
 
@@ -418,6 +478,10 @@ public class KeyboardSwitcher
 
 	public AnyKeyboard nextKeyboard(EditorInfo currentEditorInfo, NextKeyboardType type)
 	{
+		AnyKeyboard locked = getLockedKeyboard(currentEditorInfo);
+    	if (locked != null)
+    		return locked;
+    	
 		switch(type)
 		{
 			case Alphabet:
@@ -457,6 +521,10 @@ public class KeyboardSwitcher
 
 	public AnyKeyboard nextAlterKeyboard(EditorInfo currentEditorInfo)
 	{
+		AnyKeyboard locked = getLockedKeyboard(currentEditorInfo);
+    	if (locked != null)
+    		return locked;
+    	
 		AnyKeyboard currentKeyboard = getCurrentKeyboard();
 
 		if (!isAlphabetMode())

@@ -348,8 +348,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 		{
 			switch (attribute.inputType & EditorInfo.TYPE_MASK_CLASS)
 			{
-			case EditorInfo.TYPE_CLASS_NUMBER:
 			case EditorInfo.TYPE_CLASS_DATETIME:
+				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_DATETIME,
+						attribute);
+				break;
+			case EditorInfo.TYPE_CLASS_NUMBER:
+				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_NUMBERS,
+						attribute);
+				break;
 			case EditorInfo.TYPE_CLASS_PHONE:
 				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_PHONE,
 						attribute);
