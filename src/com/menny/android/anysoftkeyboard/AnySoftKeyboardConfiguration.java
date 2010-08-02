@@ -231,9 +231,28 @@ public abstract class AnySoftKeyboardConfiguration
 			
 			mKeysHeightFactorInPortrait = getFloatFromString(sp, "zoom_factor_keys_in_portrait");
 			Log.i(TAG, "** mKeysHeightFactorInPortrait: "+mKeysHeightFactorInPortrait);
-			
+			if (mKeysHeightFactorInPortrait > 2.0f)
+			{
+				mKeysHeightFactorInPortrait = 2.0f;
+				Log.i(TAG, "** mKeysHeightFactorInPortrait fixed to: "+mKeysHeightFactorInPortrait);
+			}
+			else if (mKeysHeightFactorInPortrait < 0.2f)
+			{
+				mKeysHeightFactorInPortrait = 0.2f;
+				Log.i(TAG, "** mKeysHeightFactorInPortrait fixed to: "+mKeysHeightFactorInPortrait);
+			}
 			mKeysHeightFactorInLandscape = getFloatFromString(sp, "zoom_factor_keys_in_landscape");
 			Log.i(TAG, "** mKeysHeightFactorInLandscape: "+mKeysHeightFactorInLandscape);
+			if (mKeysHeightFactorInLandscape > 2.0f)
+			{
+				mKeysHeightFactorInLandscape = 2.0f;
+				Log.i(TAG, "** mKeysHeightFactorInLandscape fixed to: "+mKeysHeightFactorInLandscape);
+			}
+			else if (mKeysHeightFactorInPortrait < 0.2f)
+			{
+				mKeysHeightFactorInPortrait = 0.2f;
+				Log.i(TAG, "** mKeysHeightFactorInPortrait fixed to: "+mKeysHeightFactorInLandscape);
+			}
 			
 			mInsertSpaceAfterCandidatePick = sp.getBoolean("insert_space_after_word_suggestion_selection", true);
 			Log.i(TAG, "** mInsertSpaceAfterCandidatePick: "+mInsertSpaceAfterCandidatePick);

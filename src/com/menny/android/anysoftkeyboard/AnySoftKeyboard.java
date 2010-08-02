@@ -26,9 +26,11 @@ import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -133,12 +135,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private boolean mAutoSpace;
 	private boolean mAutoCorrectOn;
 	private boolean mCapsLock;
-	// private boolean mVibrateOn;
-	private int mVibrationDuration;
-	private boolean mSoundOn;
-	// between 0..100. This is the custom volume
-	private int mSoundVolume;
-
+	
 	private boolean mSmileyOnShortPress;
 	private String mSmileyPopupType;
 	private boolean mAutoCap;
@@ -156,6 +153,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private CharSequence mJustRevertedSeparator;
 
 	private AudioManager mAudioManager;
+    private boolean mSilentMode;
+    private boolean mSoundOn;
+	// between 0..100. This is the custom volume
+	private int mSoundVolume;
+
+	private Vibrator mVibrator;
+	private int mVibrationDuration;
+	
 	private NotificationManager mNotificationManager;
 
 	private static AnySoftKeyboard INSTANCE;
@@ -201,6 +206,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// showToastMessage(R.string.toast_lengthy_start_up_operation, true);
 		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        updateRingerMode();
+		// register to receive ringer mode changes for silent mode
+        IntentFilter filter = new IntentFilter(AudioManager.RINGER_MODE_CHANGED_ACTION);
+        registerReceiver(mReceiver, filter);
+        
+		mVibrator = ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE));
 		// setStatusIcon(R.drawable.ime_qwerty);
 		loadSettings();
 		mKeyboardSwitcher = new KeyboardSwitcher(this);
@@ -255,6 +266,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 					"Releasing sounds effects from AUDIO_SERVICE");
 			mAudioManager.unloadSoundEffects();
 		}
+        unregisterReceiver(mReceiver);
 
 		mNotificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
 
@@ -1786,51 +1798,36 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public void onPress(int primaryCode) {
 		if (DEBUG) Log.d(TAG, "onPress:"+primaryCode);
 		if (mVibrationDuration > 0) {
-			if (DEBUG)
-				Log.d(TAG, "Vibrating on key-pressed");
-			((Vibrator) getSystemService(Context.VIBRATOR_SERVICE))
-					.vibrate(mVibrationDuration);
+			mVibrator.vibrate(mVibrationDuration);
 		}
-		if (mSoundOn/* && (!mSilentMode) */) {
-			AudioManager manager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-			// Will use sound effects ONLY if the device is not muted.
-			if (manager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL) {
-				final int keyFX;
-				switch (primaryCode) {
-				case 13:
-				case 10:
-					keyFX = AudioManager.FX_KEYPRESS_RETURN;
-					break;
-				case Keyboard.KEYCODE_DELETE:
-					keyFX = AudioManager.FX_KEYPRESS_DELETE;
-					break;
-				case 32:
-					keyFX = AudioManager.FX_KEYPRESS_SPACEBAR;
-					break;
-				default:
-					keyFX = AudioManager.FX_KEY_CLICK;
-				}
-				final float fxVolume;
-				//creating scoop to make sure volume and maxVolume
-				//are not used
+		if (mSoundOn && (!mSilentMode) ) {
+			final int keyFX;
+			switch (primaryCode) {
+			case 13:
+			case 10:
+				keyFX = AudioManager.FX_KEYPRESS_RETURN;
+				break;
+			case Keyboard.KEYCODE_DELETE:
+				keyFX = AudioManager.FX_KEYPRESS_DELETE;
+				break;
+			case 32:
+				keyFX = AudioManager.FX_KEYPRESS_SPACEBAR;
+				break;
+			default:
+				keyFX = AudioManager.FX_KEY_CLICK;
+			}
+			final float fxVolume;
+			//creating scoop to make sure volume and maxVolume
+			//are not used
+			{
+				final int volume;
+				final int maxVolume;
+				if (mSoundVolume > 0)
 				{
-					final int volume;
-					final int maxVolume;
-					if (mSoundVolume < 0)
-					{
-						//take system's volume
-						volume = manager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
-						maxVolume = manager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
-						if (DEBUG)
-							Log.d("AnySoftKeyboard", "Sound on key-pressed. Taking STREAM_NOTIFICATION: "+volume+" out of "+maxVolume);
-					}
-					else
-					{
-						volume = mSoundVolume;
-						maxVolume = 100;
-						if (DEBUG)
-							Log.d("AnySoftKeyboard", "Sound on key-pressed. Taking custom volume: "+volume+" out of "+maxVolume);
-					}
+					volume = mSoundVolume;
+					maxVolume = 100;
+					if (DEBUG)
+						Log.d("AnySoftKeyboard", "Sound on key-pressed. Taking custom volume: "+volume+" out of "+maxVolume);
 					//pre-eclair
 					// volume is between 0..8 (float)
 					//eclair
@@ -1844,17 +1841,18 @@ public class AnySoftKeyboard extends InputMethodService implements
 						fxVolume = 8*((float)volume)/((float)maxVolume);
 					}
 				}
-
-				if (DEBUG)
-					Log.d("AnySoftKeyboard", "Sound on key-pressed. Sound ID:"
-							+ keyFX + " with volume " + fxVolume);
-
-				manager.playSoundEffect(keyFX, fxVolume);
-			} else {
-				if (DEBUG)
-					Log.v("AnySoftKeyboard",
-							"Devices is muted. No sounds on key-pressed.");
+				else
+				{
+					fxVolume = -1.0f;
+				}
+				
 			}
+
+			if (DEBUG)
+				Log.d("AnySoftKeyboard", "Sound on key-pressed. Sound ID:"
+						+ keyFX + " with volume " + fxVolume);
+
+			mAudioManager.playSoundEffect(keyFX, fxVolume);
 		}
 	}
 
@@ -1863,6 +1861,19 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// vibrate();
 	}
 
+	// receive ringer mode changes to detect silent mode
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateRingerMode();
+        }
+    };
+    
+ // update flags for silent mode
+    private void updateRingerMode() {
+        mSilentMode = (mAudioManager.getRingerMode() != AudioManager.RINGER_MODE_NORMAL);
+    }
+    
 	private void loadSettings() {
 		// setting all values to default
 		PreferenceManager.setDefaultValues(this, R.layout.prefs, false);
