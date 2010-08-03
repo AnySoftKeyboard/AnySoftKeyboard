@@ -31,7 +31,7 @@ import com.menny.android.anysoftkeyboard.WordComposer;
 class BinaryDictionary extends Dictionary {
     private static final String TAG = "ASK_BinaryDictionary";
 
-    public static final int MAX_WORD_LENGTH = 48;
+    public static final int MAX_WORD_LENGTH = 20;
     private static final int MAX_ALTERNATIVES = 16;
     private static final int MAX_WORDS = 16;
     private final AssetFileDescriptor mAfd;
