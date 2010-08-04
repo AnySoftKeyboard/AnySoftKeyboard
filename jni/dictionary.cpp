@@ -195,11 +195,18 @@ Dictionary::getWordsRec(int pos, int depth, int maxDepth, bool completion, int s
     if (mInputLength <= inputIndex) {
         completion = true;
     } else {
+    	//currentChars will point to the current character TYPED by the user
+    	//and after that all the alternative characters (e.g., near-by keys)
+    	//note that the alternative will include the letter but in lower case!
+    	//so, F will have f,e,r,t,g,b,v,c,d
+    	//and f will have f,e,r,t,g,b,v,c,d
         currentChars = mInputCodes + (inputIndex * mMaxAlternatives);
     }
 
     for (int i = 0; i < count; i++) {
+    	//c is a letter from the dictionary
         unsigned short c = getChar(&pos);
+        //lowerC the dictionary letter, but in lowercase
         unsigned short lowerC = toLowerCase(c);
         bool terminal = getTerminal(&pos);
         int childrenAddress = getAddress(&pos);

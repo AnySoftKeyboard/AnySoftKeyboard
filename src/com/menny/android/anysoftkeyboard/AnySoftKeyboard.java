@@ -1098,9 +1098,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		    nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.PreviousAny);
             break;
 		default:
-			if (mInputView != null && mInputView.isShifted())
-				primaryCode = Character.toUpperCase(primaryCode);
-			
 			// Issue 146: Right to left langs require reversed parenthesis
 			if (mKeyboardSwitcher.isRightToLeftMode())
 			{
@@ -1113,6 +1110,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				handleSeparator(primaryCode);
 			} else {
 				handleCharacter(primaryCode, keyCodes);
+				
 				// reseting the mSpaceSent, which is set to true upon selecting
 				// candidate
 				mSpaceSent = false;
@@ -1394,7 +1392,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	}
 
-	private void handleCharacter(int primaryCode, int[] keyCodes) {
+	private void handleCharacter(final int primaryCode, int[] keyCodes) {
 		if(DEBUG) Log.d("AnySoftKeyboard", "handleCharacter: "+primaryCode+", isPredictionOn:"+isPredictionOn()+", mPredicting:"+mPredicting);
 		if (isAlphabet(primaryCode) && isPredictionOn()
 				&& !isCursorTouchingWord()) {
@@ -1408,13 +1406,19 @@ public class AnySoftKeyboard extends InputMethodService implements
 		    mLastCharacterShiftState = mInputView.isShifted()? LAST_CHAR_SHIFT_STATE_SHIFTED : LAST_CHAR_SHIFT_STATE_UNSHIFTED;
 		}
 		
+		final int primaryCodeForShow;
+		if (mInputView != null && mInputView.isShifted())
+			primaryCodeForShow = Character.toUpperCase(primaryCode);
+		else
+			primaryCodeForShow = primaryCode;
+		
 		if (mPredicting) {
 			if ((mInputView != null) && mInputView.isShifted()
 					&& mComposing.length() == 0) {
 				mWord.setCapitalized(true);
 			}
-
-			mComposing.append((char) primaryCode);
+			
+			mComposing.append((char) primaryCodeForShow);
 			if(keyCodes != null && keyCodes.length > 1 && primaryCode != keyCodes[0]){
 				int swapedItem = keyCodes[0];
 				keyCodes[0] = primaryCode;
@@ -1431,19 +1435,19 @@ public class AnySoftKeyboard extends InputMethodService implements
 //			    System.arraycopy(keyCodes, 0, tmp, 1, keyCodes.length);
 //			    keyCodes = tmp;
 			}
-			mWord.add(primaryCode, keyCodes);
+			mWord.add(primaryCodeForShow, keyCodes);
 			InputConnection ic = getCurrentInputConnection();
 			if (ic != null) {
 				ic.setComposingText(mComposing, 1);
 			}
 			postUpdateSuggestions();
 		} else {
-			sendKeyChar((char) primaryCode);
+			sendKeyChar((char) primaryCodeForShow);
 		}
 		updateShiftKeyState(getCurrentInputEditorInfo());
 		// measureCps();
-		TextEntryState.typedCharacter((char) primaryCode,
-				isWordSeparator(primaryCode));
+		TextEntryState.typedCharacter((char) primaryCodeForShow,
+				isWordSeparator(primaryCodeForShow));
 	}
 
 //	private int translatePrimaryCodeFromCurrentKeyboard(int primaryCode) {
