@@ -62,6 +62,7 @@ public class KeyboardSwitcher
     private static final int SYMBOLS_KEYBOARD_PHONE_INDEX = 2;
     private static final int SYMBOLS_KEYBOARD_NUMBERS_INDEX = 3;
     private static final int SYMBOLS_KEYBOARD_DATETIME_INDEX = 4;
+    private static final int SYMBOLS_KEYBOARDS_COUNT = 5;
 
     private int mLastSelectedSymbolsKeyboard = SYMBOLS_KEYBOARD_REGULAR_INDEX;
     
@@ -195,7 +196,7 @@ public class KeyboardSwitcher
 	        if (mLastSelectedKeyboard >= mAlphabetKeyboards.length)
 	        	mLastSelectedKeyboard = 0;
 
-	        mSymbolsKeyboardsArray = new AnyKeyboard[3];
+	        mSymbolsKeyboardsArray = new AnyKeyboard[SYMBOLS_KEYBOARDS_COUNT];
         	if (mLastSelectedSymbolsKeyboard >= mSymbolsKeyboardsArray.length)
         		mLastSelectedSymbolsKeyboard = 0;
         	//freeing old keyboards.
