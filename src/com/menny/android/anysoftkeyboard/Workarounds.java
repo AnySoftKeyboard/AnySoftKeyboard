@@ -17,7 +17,37 @@ public class Workarounds
 	
 	static
 	{
+		//checking f/w API is a bit tricky, we need to do it by reflection
+		boolean isDonut = false;
+		boolean isEclair = false;
+		int sdkVersion = 1;
+		try
+		{
+			Field sdkInt = android.os.Build.VERSION.class.getField("SDK_INT");
+			if (sdkInt != null)
+			{
+				//NOTE: I can not use the field here, since this code MAY run in cupcake, and therefore
+				//fail in JIT compile. I need to perform this function with reflection...
+				sdkVersion = sdkInt.getInt(null);
+				isDonut = (sdkVersion >= 4);
+				isEclair = (sdkVersion >= 5);
+			}
+		}
+		catch(Exception ex)
+		{
+		}
+		ms_isDonut = isDonut;
+		ms_isEclair = isEclair;
+		
 		boolean requiresRtlWorkaround = true;//all devices required this fix (in 2.1 it is still required)
+		
+		//from 2.1 we'll default to RTL supported!
+		//but there are many versions which patched it.
+		//it is fixed in 2.2
+		if (sdkVersion >= 6)
+		{
+			requiresRtlWorkaround = false;
+		}
 		
 		if (!android.os.Build.USER.toLowerCase().contains("root"))//there is no rooted ROM with a fix.
 		{
@@ -40,34 +70,9 @@ public class Workarounds
 				//fixed: 1263807011000
 				requiresRtlWorkaround =  (android.os.Build.TIME < 1263807011000l);//this is a lower "L" at the end
 			}
-			else if (android.os.Build.USER.contains("shade"))
-			{
-				//cyanogen has patched drawText and StaticLayout to support BiDi (thanks to kohen.d patch)
-				//since 5.0.8
-				requiresRtlWorkaround = (android.os.Build.TIME < 1276940912000l);
-			}
 		}
 		
 		ms_requiresRtlWorkaround = requiresRtlWorkaround;
-		//checking f/w API is a bit tricky, we need to do it by reflection
-		boolean isDonut = false;
-		boolean isEclair = false;
-		try
-		{
-			Field sdkInt = android.os.Build.VERSION.class.getField("SDK_INT");
-			if (sdkInt != null)
-			{
-				//NOTE: I can not use the field here, since this code MAY run in cupcake, and therefore
-				//fail in JIT compile. I need to perform this function with reflection...
-				isDonut = (sdkInt.getInt(null) >= 4);
-				isEclair = (sdkInt.getInt(null) >= 5);
-			}
-		}
-		catch(Exception ex)
-		{
-		}
-		ms_isDonut = isDonut;
-		ms_isEclair = isEclair;
 	}
 	
 	public static boolean isRightToLeftCharacter(final char key)
