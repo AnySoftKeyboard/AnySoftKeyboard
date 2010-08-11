@@ -69,6 +69,7 @@ import com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory.Di
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory.KeyboardBuilder;
+import com.menny.android.anysoftkeyboard.settings.MainSettings;
 import com.menny.android.anysoftkeyboard.tutorials.TutorialsProvider;
 
 /**
@@ -2018,7 +2019,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private void launchSettings() {
 		handleClose();
 		Intent intent = new Intent();
-		intent.setClass(AnySoftKeyboard.this, SoftKeyboardSettings.class);
+		intent.setClass(AnySoftKeyboard.this, MainSettings.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(intent);
 	}

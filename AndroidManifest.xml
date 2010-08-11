@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.menny.android.anysoftkeyboard"
-        android:versionCode="25" android:versionName="20100805-tap-tap">
+        android:versionCode="26" android:versionName="20100811-tap-tap">
 	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key">
 		<service android:permission="android.permission.BIND_INPUT_METHOD" android:name=".SoftKeyboard">
 	        <intent-filter>
@@ -19,8 +19,16 @@
 	    		<data android:scheme="package" />
 	    	</intent-filter>
 	    </receiver>
+	    
 	    <activity android:name=".SoftKeyboardSettings" android:label="@string/ime_name">
 	    </activity>
+	    <activity android:name=".settings.MainSettings" android:label="@string/ime_name">
+	    </activity>
+	    <activity android:name=".settings.Tweaks" android:label="@string/tweaks_group">
+	    </activity>
+	    <activity android:name=".settings.Keyboards" android:label="@string/keyboards_group">
+	    </activity>
+	    
 	    <activity android:name=".tutorials.TutorialActivity" android:label="@string/ime_name">
 	    </activity>
 	    <activity android:name=".tutorials.ChangeLogActivity" android:label="@string/changelog">
@@ -33,6 +41,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
 	</application>
 
 	<uses-permission android:name="android.permission.VIBRATE" />

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+android:title="@string/tweaks_group"
+android:key="tweaks_group_screen">
+	<CheckBoxPreference
+		android:key="use_custom_sound_volume"
+		android:title="@string/use_custom_sound_volume"
+		android:persistent="true"
+		android:defaultValue="false"
+		android:summaryOn="@string/use_custom_sound_volume_on_summary"
+		android:summaryOff="@string/use_custom_sound_volume_off_summary"
+	/>
+	<com.menny.android.anysoftkeyboard.MySeekBarPreference
+		android:key="custom_sound_volume"
+		android:title="@string/custom_sound_volume"
+		android:dialogTitle="@string/custom_sound_volume"
+		android:persistent="true"
+		android:defaultValue="50"
+		android:max="100"
+		android:dependency="use_custom_sound_volume"
+	/>
+	<CheckBoxPreference
+		android:key="use_keyrepeat"
+		android:title="@string/use_keyrepeat"
+		android:persistent="true"
+		android:defaultValue="true"
+		android:summaryOn="@string/use_keyrepeat_on_summary"
+		android:summaryOff="@string/use_keyrepeat_off_summary"
+	/>
+	<EditTextPreference android:key="default_domain_text"
+	android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none"
+	android:title="@string/default_domain_text" android:dialogTitle="@string/default_domain_text" android:persistent="true"
+	android:defaultValue=".com"
+	/>
+	<EditTextPreference android:key="default_smiley_text"
+	android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none"
+	android:title="@string/default_smiley_text" android:dialogTitle="@string/default_smiley_text" android:persistent="true"
+	android:defaultValue=":-) "
+	/>
+	<CheckBoxPreference
+		android:key="@string/settings_key_smiley_icon_on_smileys_key"
+		android:title="@string/smiley_icon_on_smileys_key"
+		android:persistent="true"
+		android:defaultValue="@bool/settings_default_smiley_icon_on_smileys_key"
+		android:summaryOn="@string/smiley_icon_on_smileys_key_on_summary"
+		android:summaryOff="@string/smiley_icon_on_smileys_key_off_summary"
+	/>
+	<CheckBoxPreference
+		android:key="emoticon_long_press_opens_popup"
+		android:title="@string/emoticon_long_press_opens_popup"
+		android:persistent="true"
+		android:defaultValue="true"
+		android:summaryOn="@string/emoticon_long_press_opens_popup_on_summary"
+		android:summaryOff="@string/emoticon_long_press_opens_popup_off_summary"
+	/>
+	<ListPreference
+		android:key="@string/settings_key_smiley_popup_type"
+		android:title="@string/emoticon_popup_type_title"
+		android:summary="@string/emoticon_popup_type_summary"
+		android:entries="@array/emoticons_popup_types"
+		android:entryValues="@array/emoticons_popup_values"
+		android:defaultValue="@string/settings_default_smiley_popup_type"
+		android:dialogTitle="@string/emoticon_popup_type_title"/>
+	<CheckBoxPreference
+		android:key="key_press_preview_popup"
+		android:title="@string/key_press_preview_popup"
+		android:persistent="true"
+		android:defaultValue="true"
+		android:summaryOn="@string/key_press_preview_popup_on_summary"
+		android:summaryOff="@string/key_press_preview_popup_off_summary"
+	/>
+	<EditTextPreference android:key="zoom_factor_keys_in_portrait"
+	android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none" android:inputType="numberDecimal"
+	android:title="@string/zoom_factor_keys_in_portrait" android:dialogTitle="@string/zoom_factor_keys_in_portrait" android:persistent="true"
+	android:defaultValue="1.0"
+	/>
+	<EditTextPreference android:key="zoom_factor_keys_in_landscape"
+	android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none" android:inputType="numberDecimal"
+	android:title="@string/zoom_factor_keys_in_landscape" android:dialogTitle="@string/zoom_factor_keys_in_landscape" android:persistent="true"
+	android:defaultValue="1.0"
+	/>
+	<CheckBoxPreference
+		android:key="insert_space_after_word_suggestion_selection"
+		android:title="@string/insert_space_after_word_suggestion_selection"
+		android:persistent="true"
+		android:defaultValue="true"
+		android:summaryOn="@string/insert_space_after_word_suggestion_selection_on_summary"
+		android:summaryOff="@string/insert_space_after_word_suggestion_selection_off_summary"
+	/>
+	<CheckBoxPreference
+		android:key="action_key_invisible_on_disable"
+		android:title="@string/action_key_invisible_on_disable"
+		android:persistent="true"
+		android:defaultValue="false"
+		android:summaryOn="@string/action_key_invisible_on_disable_on_summary"
+		android:summaryOff="@string/action_key_invisible_on_disable_off_summary"
+	/>
+	<ListPreference
+		android:key="rtl_workaround_detection"
+		android:title="@string/rtl_workaround_detection_title"
+		android:summary="@string/rtl_workaround_detection_summary"
+		android:entries="@array/rtl_workaround_detectionn_types"
+		android:entryValues="@array/rtl_workaround_detection_types_values"
+		android:defaultValue="auto"
+		android:dialogTitle="@string/rtl_workaround_detection_title"/>
+	<CheckBoxPreference
+		android:key="@string/settings_key_lang_key_shows_popup"
+		android:title="@string/lang_key_shows_popup"
+		android:persistent="true"
+		android:defaultValue="@bool/settings_default_lang_key_shows_popup"
+		android:summaryOn="@string/lang_key_shows_popup_on_summary"
+		android:summaryOff="@string/lang_key_shows_popup_off_summary"
+	/>
+	<CheckBoxPreference
+		android:key="@string/settings_key_show_version_notification"
+		android:title="@string/show_new_version_notifications_again"
+		android:persistent="true"
+		android:defaultValue="@bool/settings_default_show_version_notification"
+		android:summaryOn="@string/show_new_version_notifications_again_on_summary"
+		android:summaryOff="@string/show_new_version_notifications_again_off_summary"
+	/>
+	<EditTextPreference android:key="keyboards_sandbox" 
+		android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"
+		android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false">
+	</EditTextPreference>
+</PreferenceScreen>

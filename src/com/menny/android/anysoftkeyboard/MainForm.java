@@ -1,5 +1,6 @@
 package com.menny.android.anysoftkeyboard;
 
+import com.menny.android.anysoftkeyboard.settings.MainSettings;
 import com.menny.android.anysoftkeyboard.tutorials.ChangeLogActivity;
 import com.menny.android.anysoftkeyboard.tutorials.TutorialActivity;
 
@@ -83,7 +84,7 @@ public class MainForm extends TabActivity implements OnClickListener {
 	}
 	
 	public static void startSettings(Context applicationContext) {
-		Intent intent = new Intent(applicationContext, SoftKeyboardSettings.class);
+		Intent intent = new Intent(applicationContext, MainSettings.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		applicationContext.startActivity(intent);
 	}

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.menny.android.anysoftkeyboard.R;
-import com.menny.android.anysoftkeyboard.SoftKeyboardSettings;
+import com.menny.android.anysoftkeyboard.settings.MainSettings;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -70,7 +70,7 @@ public class TutorialsProvider
 
 	private static int getPackageVersion(Context context) {
 		try {
-			PackageInfo pi = SoftKeyboardSettings.getPackageInfo(context);
+			PackageInfo pi = MainSettings.getPackageInfo(context);
 			return pi.versionCode;
 		} catch (NameNotFoundException e) {
 			// TODO Auto-generated catch block

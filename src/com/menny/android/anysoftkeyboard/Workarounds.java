@@ -43,7 +43,6 @@ public class Workarounds
 		
 		//from 2.1 we'll default to RTL supported!
 		//but there are many versions which patched it.
-		//it is fixed in 2.2
 		if (sdkVersion >= 6)
 		{
 			requiresRtlWorkaround = false;

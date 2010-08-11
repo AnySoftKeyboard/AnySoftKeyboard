@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+	android:key="prefs_keyboards_screen"
+	android:title="@string/keyboards_group"
+	android:id="@+id/prefs_keyboards_screen">
+	
+	<EditTextPreference android:key="keyboards_sandbox_3"
+	android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"
+	android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false">
+	</EditTextPreference>
+	
+	<Preference android:key="search_for_keyboards_packs" android:title="@string/search_market_for_addons"
+	android:persistent="false"/>
+	
+	<CheckBoxPreference
+	android:key="keyboard_c7535083-4fe6-49dc-81aa-c5438a1a343a"
+	android:title="@string/eng_keyboard"
+	android:persistent="true"
+	android:defaultValue="true"
+	android:summaryOn="QWERTY Latin keyboard"
+	android:summaryOff="QWERTY Latin keyboard"
+	/>
+</PreferenceScreen>
