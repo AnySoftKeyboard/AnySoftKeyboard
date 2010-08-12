@@ -325,6 +325,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 		setCandidatesViewShown(true);
 		return mCandidateViewContainer;
 	}
+	
+	@Override
+	public void onStartInput(EditorInfo attribute, boolean restarting) {
+		if (DEBUG)
+			Log.d(TAG, "onStartInput(EditorInfo:"+attribute+" restarting:"+restarting);
+		
+		super.onStartInput(attribute, restarting);
+	}
 
 	@Override
 	public void onStartInputView(EditorInfo attribute, boolean restarting) {
@@ -334,13 +342,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 					+ ", restarting:" + restarting + ")");
 		super.onStartInputView(attribute, restarting);
 
-		if (mInputView != null) {
-			mInputView.closing();
-			if (AutoText.getSize(mInputView) < 1)
-				mQuickFixes = true;
-		}
-		else
-		{
+		if (mInputView == null) {
 			return;
 		}
 
@@ -420,6 +422,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 				updateShiftKeyState(attribute);
 			}
 		}
+		
+		mInputView.closing();
+		if (AutoText.getSize(mInputView) < 1)
+			mQuickFixes = true;
+		
 		mComposing.setLength(0);
 		mPredicting = false;
 		// mDeleteCount = 0;
@@ -455,7 +462,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			notificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
 		}
 		// clearing any predications
-		resetComposing();
+		//resetComposing();
 		// releasing some memory. Dictionaries, completions, etc.
 		System.gc();
 	}
@@ -993,7 +1000,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	public boolean addWordToDictionary(String word) {
-		mUserDictionary.addWord(word, 128);
+		mUserDictionary.addWord(word, 32*1024);
 		return true;
 	}
 
