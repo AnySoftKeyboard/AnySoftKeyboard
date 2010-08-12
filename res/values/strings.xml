@@ -166,6 +166,11 @@
     <string name="action_key_invisible_on_disable">Invisible action key</string>
     <string name="action_key_invisible_on_disable_on_summary">Action key will be invisible when GUI requests</string>
     <string name="action_key_invisible_on_disable_off_summary">Action key will be visible even if GUI requests</string>
+    
+    <string name="cycle_all_symbols_keyboards">Cycle over all symbols</string>
+    <string name="cycle_all_symbols_keyboards_on_summary">Symbols key will cycle over all symbols keyboards</string>
+    <string name="cycle_all_symbols_keyboards_off_summary">Symbols key will only show main symbols keyboard</string>
+    
     <string name="rtl_workaround_detection_title">RTL detection type</string>
     <string name="rtl_workaround_detection_summary">Right-to-Left languages text fix</string>
     <string name="lang_key_shows_popup">Language switch by popup</string>

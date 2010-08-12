@@ -59,8 +59,9 @@ public class KeyboardSwitcher
 
     private static final int SYMBOLS_KEYBOARD_REGULAR_INDEX = 0;
     private static final int SYMBOLS_KEYBOARD_ALT_INDEX = 1;
-    private static final int SYMBOLS_KEYBOARD_PHONE_INDEX = 2;
-    private static final int SYMBOLS_KEYBOARD_NUMBERS_INDEX = 3;
+    private static final int SYMBOLS_KEYBOARD_NUMBERS_INDEX = 2;
+    private static final int SYMBOLS_KEYBOARD_LAST_CYCLE_INDEX = SYMBOLS_KEYBOARD_NUMBERS_INDEX;
+    private static final int SYMBOLS_KEYBOARD_PHONE_INDEX = 3;
     private static final int SYMBOLS_KEYBOARD_DATETIME_INDEX = 4;
     private static final int SYMBOLS_KEYBOARDS_COUNT = 5;
 
@@ -417,8 +418,22 @@ public class KeyboardSwitcher
 //    	current = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard, getKeyboardMode(currentEditorInfo));
 //
 //    	return setKeyboard(currentEditorInfo, current);
+    	if (AnySoftKeyboardConfiguration.getInstance().getCycleOverAllSymbols())
+    	{
+        	if (!isAlphabetMode())
+        	{
+        		if (mLastSelectedSymbolsKeyboard >= SYMBOLS_KEYBOARD_LAST_CYCLE_INDEX)
+        			mLastSelectedSymbolsKeyboard = SYMBOLS_KEYBOARD_REGULAR_INDEX;
+        		else
+        			mLastSelectedSymbolsKeyboard++;
+        	}
+    	}
+    	else
+    	{
+    		mLastSelectedSymbolsKeyboard = SYMBOLS_KEYBOARD_REGULAR_INDEX;
+    	}
     	mAlphabetMode = false;
-    	AnyKeyboard current = getSymbolsKeyboard(SYMBOLS_KEYBOARD_REGULAR_INDEX, getKeyboardMode(currentEditorInfo));
+    	AnyKeyboard current = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard, getKeyboardMode(currentEditorInfo));
     	return setKeyboard(currentEditorInfo, current);
     }
 

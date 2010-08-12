@@ -1318,7 +1318,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 			revertLastWord(deleteChar);
 			return;
 		} else if (deleteChar) {
-			ic.deleteSurroundingText(1, 0);
+			//ic.deleteSurroundingText(1, 0);
+			//sendDownUpKeyEvents is needed for Android's Terminal Console app.
+			//I can't understand just why, just yet...
+			sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
 		}
 		mJustRevertedSeparator = null;
 	}

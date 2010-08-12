@@ -96,6 +96,14 @@ android:key="tweaks_group_screen">
 		android:summaryOn="@string/action_key_invisible_on_disable_on_summary"
 		android:summaryOff="@string/action_key_invisible_on_disable_off_summary"
 	/>
+	<CheckBoxPreference
+		android:key="@string/settings_key_cycle_all_symbols"
+		android:title="@string/cycle_all_symbols_keyboards"
+		android:persistent="true"
+		android:defaultValue="@bool/settings_default_cycle_all_symbols"
+		android:summaryOn="@string/cycle_all_symbols_keyboards_on_summary"
+		android:summaryOff="@string/cycle_all_symbols_keyboards_off_summary"
+	/>
 	<ListPreference
 		android:key="rtl_workaround_detection"
 		android:title="@string/rtl_workaround_detection_title"

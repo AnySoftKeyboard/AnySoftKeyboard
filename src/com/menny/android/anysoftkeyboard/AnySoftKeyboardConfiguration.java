@@ -14,7 +14,7 @@ import android.util.Log;
 
 public abstract class AnySoftKeyboardConfiguration 
 {
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 	
 	private static final String TAG = "ASK_Cfg";
 	private static final AnySoftKeyboardConfiguration msInstance;
@@ -73,6 +73,8 @@ public abstract class AnySoftKeyboardConfiguration
 	
 	public abstract boolean showIconForSmileyKey();
 	
+	public abstract boolean getCycleOverAllSymbols();
+	
 	static class AnySoftKeyboardConfigurationImpl extends AnySoftKeyboardConfiguration
 	{
 		private static final String CONFIGURATION_VERSION = "configurationVersion";
@@ -102,6 +104,7 @@ public abstract class AnySoftKeyboardConfiguration
 		private boolean mUse16KeysSymbolsKeyboard = false;
 		private boolean mUseBackword = true;
 		private boolean mShowIconForSmileyKey = false;
+		private boolean mCycleOverAllSymbolsKeyboard = true;
 		
 		public AnySoftKeyboardConfigurationImpl()
 		{
@@ -297,111 +300,11 @@ public abstract class AnySoftKeyboardConfiguration
 			mShowIconForSmileyKey = sp.getBoolean(mIme.getString(R.string.settings_key_smiley_icon_on_smileys_key),
 					mIme.getResources().getBoolean(R.bool.settings_default_smiley_icon_on_smileys_key));
 			Log.i(TAG, "** mShowIconForSmileyKey: "+mShowIconForSmileyKey);
+			
+			mCycleOverAllSymbolsKeyboard = sp.getBoolean(mIme.getString(R.string.settings_key_cycle_all_symbols),
+					mIme.getResources().getBoolean(R.bool.settings_default_cycle_all_symbols));
+			Log.i(TAG, "** mCycleOverAllSymbolsKeyboard: "+mCycleOverAllSymbolsKeyboard);
 		}
-
-		/*
-public boolean handleConfigurationChange(SharedPreferences sp)
-		{
-			Log.i(TAG, "**** handleConfigurationChange: ");
-			boolean handled = false;
-			//if a change in the configuration requires rebuilding the keyboards, 'forceRebuildOfKeyboards' should set to 'true'
-			boolean forceRebuildOfKeyboards = false;
-			// this change requires the recreation of the keyboards.
-			String newLayoutChangeKeysSize = sp.getString(mIme.getResources().getString(R.string.settings_key_keyboard_layout_change_method), mIme.getResources().getString(R.string.settings_default_keyboard_layout_change_method));
-			forceRebuildOfKeyboards = forceRebuildOfKeyboards || (!newLayoutChangeKeysSize.equalsIgnoreCase(mLayoutChangeKeysSize));
-			mLayoutChangeKeysSize = newLayoutChangeKeysSize;
-			Log.i(TAG, "** mChangeKeysMode: "+mLayoutChangeKeysSize);
-			
-			String newSmileyText = sp.getString("default_smiley_text", ":-) ");
-			handled = handled || (!newSmileyText.equals(mSmileyText));
-			mSmileyText = newSmileyText;
-			Log.i(TAG, "** mSmileyText: "+mSmileyText);
-			
-			String newDomainText = sp.getString("default_domain_text", ".com");
-			handled = handled || (!newDomainText.equals(mDomainText));
-			mDomainText = newDomainText;
-			Log.i(TAG, "** mDomainText: "+mDomainText);
-			
-			boolean newShowPreview = sp.getBoolean("key_press_preview_popup", true);
-			handled = handled || (newShowPreview != mShowKeyPreview);
-			mShowKeyPreview = newShowPreview;
-			Log.i(TAG, "** mShowKeyPreview: "+mShowKeyPreview);
-
-			boolean newSwitchKeyboardOnSpace = sp.getBoolean("switch_keyboard_on_space", false);
-			handled = handled || (newSwitchKeyboardOnSpace != mSwitchKeyboardOnSpace);
-			mSwitchKeyboardOnSpace = newSwitchKeyboardOnSpace;
-			Log.i(TAG, "** mSwitchKeyboardOnSpace: "+mSwitchKeyboardOnSpace);
-			
-			boolean newUseFullScreenInput = sp.getBoolean("fullscreen_input_connection_supported", true);
-			handled = handled || (newUseFullScreenInput != mUseFullScreenInput);
-			mUseFullScreenInput = newUseFullScreenInput;
-			Log.i(TAG, "** mUseFullScreenInput: "+mUseFullScreenInput);
-			
-			// Fix issue 185
-			boolean newUseKeyRepeat = sp.getBoolean("use_keyrepeat", true);
-			handled = handled || ( newUseKeyRepeat != mUseKeyRepeat );
-			mUseKeyRepeat = newUseKeyRepeat;
-			Log.i(TAG, "** mUseKeyRepeat: "+mUseKeyRepeat);
-			
-			float newKeyHeightFactorPortrait = getFloatFromString(sp, "zoom_factor_keys_in_portrait");
-			forceRebuildOfKeyboards = forceRebuildOfKeyboards || ( newKeyHeightFactorPortrait != mKeysHeightFactorInPortrait );
-			mKeysHeightFactorInPortrait = newKeyHeightFactorPortrait;
-			Log.i(TAG, "** mKeysHeightFactorInPortrait: "+mKeysHeightFactorInPortrait);
-			
-			float newKeyHeightFactorLandscape = getFloatFromString(sp, "zoom_factor_keys_in_landscape");
-			forceRebuildOfKeyboards = forceRebuildOfKeyboards || ( newKeyHeightFactorLandscape != mKeysHeightFactorInLandscape );
-			mKeysHeightFactorInLandscape = newKeyHeightFactorLandscape;
-			Log.i(TAG, "** mKeysHeightFactorInLandscape: "+mKeysHeightFactorInLandscape);
-			
-			boolean newInsertSpaceAfterCandidatePick = sp.getBoolean("insert_space_after_word_suggestion_selection", true);
-			handled = handled || ( newInsertSpaceAfterCandidatePick != mInsertSpaceAfterCandidatePick );
-			mInsertSpaceAfterCandidatePick = newInsertSpaceAfterCandidatePick;
-			Log.i(TAG, "** mInsertSpaceAfterCandidatePick: "+mInsertSpaceAfterCandidatePick);
-			
-			int newSwipeUpValue = getIntFromSwipeConfiguration(sp, "swipe_up_action", "shift");
-			handled = handled || ( newSwipeUpValue != mSwipeUpKeyCode );
-			mSwipeUpKeyCode = newSwipeUpValue;
-			Log.i(TAG, "** mSwipeUpKeyCode: "+mSwipeUpKeyCode);
-			
-			int newSwipeDownValue = getIntFromSwipeConfiguration(sp, "swipe_down_action", "hide");
-			handled = handled || ( newSwipeDownValue != mSwipeDownKeyCode );
-			mSwipeDownKeyCode = newSwipeDownValue;
-			Log.i(TAG, "** mSwipeDownKeyCode: "+mSwipeDownKeyCode);
-			
-			int newSwipeLeftValue = getIntFromSwipeConfiguration(sp, "swipe_left_action", "next_symbols");
-			handled = handled || ( newSwipeLeftValue != mSwipeLeftKeyCode );
-			mSwipeLeftKeyCode = newSwipeLeftValue;
-			Log.i(TAG, "** mSwipeLeftKeyCode: "+mSwipeLeftKeyCode);
-			
-			int newSwipeRightValue = getIntFromSwipeConfiguration(sp, "swipe_right_action", "next_alphabet");
-			handled = handled || ( newSwipeRightValue != mSwipeRightKeyCode );
-			mSwipeRightKeyCode = newSwipeRightValue;
-			Log.i(TAG, "** mSwipeRightKeyCode: "+mSwipeRightKeyCode);
-			
-			boolean newActionKeyInvisibleWhenRequested = sp.getBoolean("action_key_invisible_on_disable", false);
-			handled = handled || ( newActionKeyInvisibleWhenRequested != mActionKeyInvisibleWhenRequested);
-			mActionKeyInvisibleWhenRequested = newActionKeyInvisibleWhenRequested;
-			Log.i(TAG, "** mActionKeyInvisibleWhenRequested: "+mActionKeyInvisibleWhenRequested);
-			
-			String newRtlWorkaround = sp.getString("rtl_workaround_detection", "auto");
-			handled = handled || (!newRtlWorkaround.equals(mRtlWorkaround));
-			mRtlWorkaround = newRtlWorkaround;
-			Log.i(TAG, "** mRtlWorkaround: "+mRtlWorkaround);
-			
-			boolean newIsDoubleSpaceChangesToPeroid = sp.getBoolean("double_space_to_period", true);
-			handled = handled || ( newIsDoubleSpaceChangesToPeroid != mIsDoubleSpaceChangesToPeroid);
-			mIsDoubleSpaceChangesToPeroid = newIsDoubleSpaceChangesToPeroid;
-			Log.i(TAG, "** mIsDoubleSpaceChangesToPeroid: "+mIsDoubleSpaceChangesToPeroid);
-			
-			boolean newShouldPopupForLanguageSwitch = sp.getBoolean(mIme.getString(R.string.settings_key_lang_key_shows_popup),
-					mIme.getResources().getBoolean(R.bool.settings_default_lang_key_shows_popup));
-			handled = handled || ( newShouldPopupForLanguageSwitch != mShouldPopupForLanguageSwitch);
-			mShouldPopupForLanguageSwitch = newShouldPopupForLanguageSwitch;
-			Log.i(TAG, "** mShouldPopupForLanguageSwitch: "+mShouldPopupForLanguageSwitch);
-			
-			return handled && (!forceRebuildOfKeyboards);
-		}
-		 */
 		
 		private int getIntFromSwipeConfiguration(SharedPreferences sp, final String prefKey, final String defaultValue) {
 			final String keyValue = sp.getString(prefKey, defaultValue);
@@ -558,5 +461,10 @@ public boolean handleConfigurationChange(SharedPreferences sp)
 		public boolean showIconForSmileyKey() {
 			return mShowIconForSmileyKey;
 		}
-	}
+		
+		@Override
+		public boolean getCycleOverAllSymbols() {
+			return mCycleOverAllSymbolsKeyboard;
+		}
+	}	
 }

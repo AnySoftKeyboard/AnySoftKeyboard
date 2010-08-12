@@ -14,4 +14,5 @@
     <bool name="settings_default_landscape_fullscreen">true</bool>
     <bool name="settings_default_portrait_fullscreen">false</bool>
     <bool name="settings_default_use_backword">false</bool>
+    <bool name="settings_default_cycle_all_symbols">true</bool>
 </resources>
