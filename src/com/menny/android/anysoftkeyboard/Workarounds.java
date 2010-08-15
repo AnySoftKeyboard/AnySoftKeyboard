@@ -126,7 +126,7 @@ public class Workarounds
 	}
 
 	private static boolean getRtlWorkaround() {
-		String configRtlWorkaround = AnySoftKeyboardConfiguration.getInstance().getRtlWorkaroundConfiguration();
+		String configRtlWorkaround = AnyApplication.getConfig().getRtlWorkaroundConfiguration();
 		if (configRtlWorkaround.equals("auto"))
 			return ms_requiresRtlWorkaround;
 		else if (configRtlWorkaround.equals("workaround"))

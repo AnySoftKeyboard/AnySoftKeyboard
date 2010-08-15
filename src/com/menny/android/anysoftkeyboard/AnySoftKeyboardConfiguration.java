@@ -2,6 +2,7 @@ package com.menny.android.anysoftkeyboard;
 
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -17,14 +18,8 @@ public abstract class AnySoftKeyboardConfiguration
 	public static final boolean DEBUG = true;
 	
 	private static final String TAG = "ASK_Cfg";
-	private static final AnySoftKeyboardConfiguration msInstance;
-	
-	static 
-	{
-		msInstance = new AnySoftKeyboardConfigurationImpl();
-	}
 		
-	public static AnySoftKeyboardConfiguration getInstance() {return msInstance;}
+	static AnySoftKeyboardConfiguration createInstance(Application app) {return new AnySoftKeyboardConfigurationImpl(app);}
 	
 	public abstract String getSmileyText();
 	
@@ -79,7 +74,7 @@ public abstract class AnySoftKeyboardConfiguration
 	{
 		private static final String CONFIGURATION_VERSION = "configurationVersion";
 		private static final String CUSTOMIZATION_LEVEL = "customizationLevel";
-		private InputMethodService mIme;
+		private final Context mContext;
 		
 		private String mSmileyText = ":-)";
 		private String mDomainText = ".com";
@@ -106,20 +101,15 @@ public abstract class AnySoftKeyboardConfiguration
 		private boolean mShowIconForSmileyKey = false;
 		private boolean mCycleOverAllSymbolsKeyboard = true;
 		
-		public AnySoftKeyboardConfigurationImpl()
+		public AnySoftKeyboardConfigurationImpl(Context context)
 		{
-			
-		}
-		
-		void initializeConfiguration(InputMethodService ime) 
-		{
-			mIme = ime;
+			mContext = context;
 			
 			//Log.i(TAG, "** Locale:"+ mIme.getResources().getConfiguration().locale.toString());
 			String version = "NONE";
 			int releaseNumber = 0;
 	        try {
-				PackageInfo info = mIme.getApplication().getPackageManager().getPackageInfo(mIme.getApplication().getPackageName(), 0);
+				PackageInfo info = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
 				version = info.versionName;
 				releaseNumber = info.versionCode;
 				//Log.i(TAG, "** Version: "+version);
@@ -130,8 +120,8 @@ public abstract class AnySoftKeyboardConfiguration
 			Log.i(TAG, "** Version: "+version);
 			Log.i(TAG, "** Release code: "+releaseNumber);
 			Log.i(TAG, "** Debug: "+DEBUG);
-			SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mIme);
-			customizeSettingValues(mIme.getApplicationContext(), sp);
+			SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
+			customizeSettingValues(mContext.getApplicationContext(), sp);
 			upgradeSettingsValues(sp);
 			
 			handleConfigurationChange(sp);
@@ -176,13 +166,13 @@ public abstract class AnySoftKeyboardConfiguration
 
 		private void upgradeSettingsValues(SharedPreferences sp) {
 			Log.d(TAG, "Checking if configuration upgrade is needed.");
-			String topRowNewIdValue = sp.getString(mIme.getString(R.string.settings_key_top_keyboard_row_id), null);
+			String topRowNewIdValue = sp.getString(mContext.getString(R.string.settings_key_top_keyboard_row_id), null);
 			String topRowOldIdValue = sp.getString("keyboard_layout_change_method", null);
 			if (topRowNewIdValue == null && topRowOldIdValue != null)
 			{
 				Log.d(TAG, "Top row type is using the old configuration key. Switching...");
 				Editor e = sp.edit();
-				e.putString(mIme.getString(R.string.settings_key_top_keyboard_row_id), topRowOldIdValue);
+				e.putString(mContext.getString(R.string.settings_key_top_keyboard_row_id), topRowOldIdValue);
 				e.remove("keyboard_layout_change_method");
 				e.commit();
 			}
@@ -191,10 +181,10 @@ public abstract class AnySoftKeyboardConfiguration
 			if (configurationVersion < 1)
 			{
 				boolean oldLandscapeFullScreenValue = sp.getBoolean("fullscreen_input_connection_supported", 
-						mIme.getResources().getBoolean(R.bool.settings_default_landscape_fullscreen));
+						mContext.getResources().getBoolean(R.bool.settings_default_landscape_fullscreen));
 				Log.d(TAG, "Replacing landscape-fullscreen key...");
 				Editor e = sp.edit();
-				e.putBoolean(mIme.getString(R.string.settings_key_landscape_fullscreen), oldLandscapeFullScreenValue);
+				e.putBoolean(mContext.getString(R.string.settings_key_landscape_fullscreen), oldLandscapeFullScreenValue);
 				e.remove("fullscreen_input_connection_supported");
 				//saving config level
 				e.putInt(CONFIGURATION_VERSION, 1);
@@ -205,7 +195,7 @@ public abstract class AnySoftKeyboardConfiguration
 		public void handleConfigurationChange(SharedPreferences sp)
 		{
 			Log.i(TAG, "**** handleConfigurationChange: ");
-			mLayoutChangeKeysSize = sp.getString(mIme.getResources().getString(R.string.settings_key_top_keyboard_row_id), mIme.getResources().getString(R.string.settings_default_top_keyboard_row_id));
+			mLayoutChangeKeysSize = sp.getString(mContext.getResources().getString(R.string.settings_key_top_keyboard_row_id), mContext.getResources().getString(R.string.settings_default_top_keyboard_row_id));
 			Log.i(TAG, "** mChangeKeysMode: "+mLayoutChangeKeysSize);
 			
 			mSmileyText = sp.getString("default_smiley_text", ":-) ");
@@ -220,12 +210,12 @@ public abstract class AnySoftKeyboardConfiguration
 			mSwitchKeyboardOnSpace = sp.getBoolean("switch_keyboard_on_space", false);
 			Log.i(TAG, "** mSwitchKeyboardOnSpace: "+mSwitchKeyboardOnSpace);
 			
-			mUseFullScreenInputInLandscape = sp.getBoolean(mIme.getString(R.string.settings_key_landscape_fullscreen), 
-					mIme.getResources().getBoolean(R.bool.settings_default_landscape_fullscreen));
+			mUseFullScreenInputInLandscape = sp.getBoolean(mContext.getString(R.string.settings_key_landscape_fullscreen), 
+					mContext.getResources().getBoolean(R.bool.settings_default_landscape_fullscreen));
 			Log.i(TAG, "** mUseFullScreenInputInLandscape: "+mUseFullScreenInputInLandscape);
 			
-			mUseFullScreenInputInPortrait = sp.getBoolean(mIme.getString(R.string.settings_key_portrait_fullscreen), 
-					mIme.getResources().getBoolean(R.bool.settings_default_portrait_fullscreen));
+			mUseFullScreenInputInPortrait = sp.getBoolean(mContext.getString(R.string.settings_key_portrait_fullscreen), 
+					mContext.getResources().getBoolean(R.bool.settings_default_portrait_fullscreen));
 			Log.i(TAG, "** mUseFullScreenInputInPortrait: "+mUseFullScreenInputInPortrait);
 			
 			// Fix issue 185
@@ -281,28 +271,28 @@ public abstract class AnySoftKeyboardConfiguration
 			mIsDoubleSpaceChangesToPeroid = sp.getBoolean("double_space_to_period", true);
 			Log.i(TAG, "** mIsDoubleSpaceChangesToPeroid: "+mIsDoubleSpaceChangesToPeroid);
 			
-			mShouldPopupForLanguageSwitch = sp.getBoolean(mIme.getString(R.string.settings_key_lang_key_shows_popup),
-					mIme.getResources().getBoolean(R.bool.settings_default_lang_key_shows_popup));
+			mShouldPopupForLanguageSwitch = sp.getBoolean(mContext.getString(R.string.settings_key_lang_key_shows_popup),
+					mContext.getResources().getBoolean(R.bool.settings_default_lang_key_shows_popup));
 			Log.i(TAG, "** mShouldPopupForLanguageSwitch: "+mShouldPopupForLanguageSwitch);
 			
-			mShowVersionNotification = sp.getBoolean(mIme.getString(R.string.settings_key_show_version_notification),
-					mIme.getResources().getBoolean(R.bool.settings_default_show_version_notification));
+			mShowVersionNotification = sp.getBoolean(mContext.getString(R.string.settings_key_show_version_notification),
+					mContext.getResources().getBoolean(R.bool.settings_default_show_version_notification));
 			Log.i(TAG, "** mShowVersionNotification: "+mShowVersionNotification);
 			
-			mUse16KeysSymbolsKeyboard = sp.getBoolean(mIme.getString(R.string.settings_key_use_16_keys_symbols_keyboards),
-					mIme.getResources().getBoolean(R.bool.settings_default_use_16_keys_symbols_keyboards));
+			mUse16KeysSymbolsKeyboard = sp.getBoolean(mContext.getString(R.string.settings_key_use_16_keys_symbols_keyboards),
+					mContext.getResources().getBoolean(R.bool.settings_default_use_16_keys_symbols_keyboards));
 			Log.i(TAG, "** mUse16KeysSymbolsKeyboard: "+mUse16KeysSymbolsKeyboard);
 		
-			mUseBackword = sp.getBoolean(mIme.getString(R.string.settings_key_use_backword),
-					mIme.getResources().getBoolean(R.bool.settings_default_use_backword));
+			mUseBackword = sp.getBoolean(mContext.getString(R.string.settings_key_use_backword),
+					mContext.getResources().getBoolean(R.bool.settings_default_use_backword));
 			Log.i(TAG, "** mUseBackword: "+mUseBackword);
 			
-			mShowIconForSmileyKey = sp.getBoolean(mIme.getString(R.string.settings_key_smiley_icon_on_smileys_key),
-					mIme.getResources().getBoolean(R.bool.settings_default_smiley_icon_on_smileys_key));
+			mShowIconForSmileyKey = sp.getBoolean(mContext.getString(R.string.settings_key_smiley_icon_on_smileys_key),
+					mContext.getResources().getBoolean(R.bool.settings_default_smiley_icon_on_smileys_key));
 			Log.i(TAG, "** mShowIconForSmileyKey: "+mShowIconForSmileyKey);
 			
-			mCycleOverAllSymbolsKeyboard = sp.getBoolean(mIme.getString(R.string.settings_key_cycle_all_symbols),
-					mIme.getResources().getBoolean(R.bool.settings_default_cycle_all_symbols));
+			mCycleOverAllSymbolsKeyboard = sp.getBoolean(mContext.getString(R.string.settings_key_cycle_all_symbols),
+					mContext.getResources().getBoolean(R.bool.settings_default_cycle_all_symbols));
 			Log.i(TAG, "** mCycleOverAllSymbolsKeyboard: "+mCycleOverAllSymbolsKeyboard);
 		}
 		
@@ -415,7 +405,7 @@ public abstract class AnySoftKeyboardConfiguration
 
 		@Override
 		public int getDeviceOrientation() {
-			return mIme.getApplicationContext().getResources().getConfiguration().orientation;
+			return mContext.getApplicationContext().getResources().getConfiguration().orientation;
 		}
 
 		@Override
@@ -440,9 +430,9 @@ public abstract class AnySoftKeyboardConfiguration
 		
 		@Override
 		public void setShowVersionNotification(boolean show) {
-			SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mIme);
+			SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
 			Editor e = sp.edit();
-			e.putBoolean(mIme.getString(R.string.settings_key_show_version_notification), show);
+			e.putBoolean(mContext.getString(R.string.settings_key_show_version_notification), show);
 			mShowVersionNotification = show;
 			e.commit();
 		}

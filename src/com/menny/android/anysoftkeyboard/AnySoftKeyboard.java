@@ -191,7 +191,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public AnySoftKeyboard() {
 		// mGenericKeyboardTranslator = new
 		// GenericPhysicalKeyboardTranslator(this);
-		mConfig = AnySoftKeyboardConfiguration.getInstance();
+		mConfig = AnyApplication.getConfig();
 		mHardKeyboardAction = new HardKeyboardActionImpl();
 		INSTANCE = this;
 	}
@@ -200,10 +200,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public void onCreate() {
 		super.onCreate();
 		// super.showStatusIcon(R.drawable.icon_8_key);
-		Log.i("AnySoftKeyboard", "****** Starting AnySoftKeyboard:");
-		((AnySoftKeyboardConfiguration.AnySoftKeyboardConfigurationImpl) mConfig)
-				.initializeConfiguration(this);
-
+		Log.i("AnySoftKeyboard", "****** AnySoftKeyboard service started.");
+		
 		// showToastMessage(R.string.toast_lengthy_start_up_operation, true);
 		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
@@ -388,7 +386,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 					mPredictionOn = false;
 				}
 
-				if ((!AnySoftKeyboardConfiguration.getInstance().getInsertSpaceAfterCandidatePick()) ||//some users want to never get spaces added
+				if ((!mConfig.getInsertSpaceAfterCandidatePick()) ||//some users want to never get spaces added
 						variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS ||
 						variation == EditorInfo.TYPE_TEXT_VARIATION_PERSON_NAME)
 				{
@@ -606,9 +604,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		switch(mOrientation)
 		{
 		case Configuration.ORIENTATION_LANDSCAPE:
-			return AnySoftKeyboardConfiguration.getInstance().getUseFullScreenInputInLandscape();
+			return mConfig.getUseFullScreenInputInLandscape();
 		default:
-			return AnySoftKeyboardConfiguration.getInstance().getUseFullScreenInputInPortrait();
+			return mConfig.getUseFullScreenInputInPortrait();
 		}
 	}
 
@@ -735,8 +733,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		default:
 
 			// Fix issue 185, check if we should process key repeat
-			if (!AnySoftKeyboardConfiguration.getInstance()
-					.getUseRepeatingKeys()
+			if (!mConfig.getUseRepeatingKeys()
 					&& event.getRepeatCount() > 0)
 				return true;
 
@@ -748,7 +745,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 					ic.beginBatchEdit();
 				try {
 				    //issue 393, backword on the hw keyboard!
-				    if(AnySoftKeyboardConfiguration.getInstance().useBackword() && keyCode == KeyEvent.KEYCODE_DEL && event.isShiftPressed()){
+				    if(mConfig.useBackword() && keyCode == KeyEvent.KEYCODE_DEL && event.isShiftPressed()){
                         handleBackword(ic);
                         return true;
 				    } else if (event.isPrintingKey()) {
@@ -981,7 +978,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void doubleSpace() {
 		// if (!mAutoPunctuate) return;
-		if (!AnySoftKeyboardConfiguration.getInstance().isDoubleSpaceChangesToPeriod())
+		if (!mConfig.isDoubleSpaceChangesToPeriod())
 			return;
 		final InputConnection ic = getCurrentInputConnection();
 		if (ic == null)
@@ -1294,7 +1291,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (ic == null)//if we don't want to do anything, lets check null first.
             return;
 		
-		if (AnySoftKeyboardConfiguration.getInstance().useBackword() && mInputView != null && mInputView.isShifted())
+		if (mConfig.useBackword() && mInputView != null && mInputView.isShifted())
 		{
 			handleBackword(ic);
 			return;
@@ -1735,14 +1732,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	public void swipeRight() {
 		//nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
-		final int keyCode = AnySoftKeyboardConfiguration.getInstance().getSwipeRightKeyCode();
+		final int keyCode = mConfig.getSwipeRightKeyCode();
 		if (keyCode != 0)
 			onKey(keyCode, new int[]{keyCode});
 	}
 
 	public void swipeLeft() {
 		//nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Symbols);
-		final int keyCode = AnySoftKeyboardConfiguration.getInstance().getSwipeLeftKeyCode();
+		final int keyCode = mConfig.getSwipeLeftKeyCode();
 		if (keyCode != 0)
 			onKey(keyCode, new int[]{keyCode});
 	}
@@ -1799,13 +1796,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	public void swipeDown() {
-		final int keyCode = AnySoftKeyboardConfiguration.getInstance().getSwipeDownKeyCode();
+		final int keyCode = mConfig.getSwipeDownKeyCode();
 		if (keyCode != 0)
 			onKey(keyCode, new int[]{keyCode});
 	}
 
 	public void swipeUp() {
-		final int keyCode = AnySoftKeyboardConfiguration.getInstance().getSwipeUpKeyCode();
+		final int keyCode = mConfig.getSwipeUpKeyCode();
 		if (keyCode != 0)
 			onKey(keyCode, new int[]{keyCode});
 	}

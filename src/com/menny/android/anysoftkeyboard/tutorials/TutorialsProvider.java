@@ -2,6 +2,7 @@ package com.menny.android.anysoftkeyboard.tutorials;
 
 import java.util.ArrayList;
 
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.settings.MainSettings;
@@ -28,7 +29,7 @@ public class TutorialsProvider
 	public static void ShowTutorialsIfNeeded(Context context)
 	{
 		Log.i(TAG, "TutorialsProvider::ShowTutorialsIfNeeded called");
-		if (AnySoftKeyboardConfiguration.DEBUG && AnySoftKeyboardConfiguration.getInstance().getShowVersionNotification())
+		if (AnySoftKeyboardConfiguration.DEBUG && AnyApplication.getConfig().getShowVersionNotification())
 		{
 			Log.i(TAG, "TESTERS VERSION added");
 
@@ -39,7 +40,7 @@ public class TutorialsProvider
 			msActivitiesToShow.add(i);
 		}
 		
-		if (AnySoftKeyboardConfiguration.getInstance().getShowVersionNotification() && (AnySoftKeyboardConfiguration.DEBUG || firstTimeVersionLoaded(context)))
+		if (AnyApplication.getConfig().getShowVersionNotification() && (AnySoftKeyboardConfiguration.DEBUG || firstTimeVersionLoaded(context)))
 		{
 			Log.i(TAG, "changelog added");
 			

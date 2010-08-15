@@ -1,5 +1,6 @@
 package com.menny.android.anysoftkeyboard.tutorials;
 
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.menny.android.anysoftkeyboard.MainForm;
 import com.menny.android.anysoftkeyboard.R;
@@ -34,12 +35,11 @@ public class ChangeLogActivity extends Activity implements OnClickListener{
 		}
 		
 		final CheckBox showNotifications = (CheckBox)findViewById(R.id.show_notifications_next_time);
-		showNotifications.setChecked(AnySoftKeyboardConfiguration.getInstance().getShowVersionNotification());
+		showNotifications.setChecked(AnyApplication.getConfig().getShowVersionNotification());
 		
 		showNotifications.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				AnySoftKeyboardConfiguration.getInstance().setShowVersionNotification(
-						!AnySoftKeyboardConfiguration.getInstance().getShowVersionNotification());
+				AnyApplication.getConfig().setShowVersionNotification(!AnyApplication.getConfig().getShowVersionNotification());
 			}
 		});
 	}

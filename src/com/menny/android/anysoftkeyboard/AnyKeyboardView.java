@@ -47,7 +47,7 @@ public class AnyKeyboardView extends KeyboardView {
     }
 
 	private void initializeStuff() {
-		setPreviewEnabled(AnySoftKeyboardConfiguration.getInstance().getShowKeyPreview());
+		setPreviewEnabled(AnyApplication.getConfig().getShowKeyPreview());
 		setProximityCorrectionEnabled(true);
 	}
 
@@ -105,9 +105,9 @@ public class AnyKeyboardView extends KeyboardView {
         } else if (key.codes[0] == AnyKeyboard.KEYCODE_SMILEY) {
             getOnKeyboardActionListener().onKey(KEYCODE_SMILEY_LONGPRESS, null);
             return true;
-        } else if (key.codes[0] == Keyboard.KEYCODE_SHIFT) {
-          getOnKeyboardActionListener().onKey(AnyKeyboard.KEYCODE_LANG_CHANGE, null);
-          return true;
+//        } else if (key.codes[0] == Keyboard.KEYCODE_SHIFT) {
+//          getOnKeyboardActionListener().onKey(AnyKeyboard.KEYCODE_LANG_CHANGE, null);
+//          return true;
         }else if (key.codes[0] == AnyKeyboard.KEYCODE_LANG_CHANGE) {
             getOnKeyboardActionListener().onKey(AnyKeyboard.KEYCODE_LANG_CHANGE, null);
             return true;

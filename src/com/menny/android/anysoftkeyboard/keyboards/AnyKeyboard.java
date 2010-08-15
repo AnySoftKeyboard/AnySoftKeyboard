@@ -16,6 +16,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.menny.android.anysoftkeyboard.R;
@@ -118,23 +119,23 @@ public abstract class AnyKeyboard extends Keyboard
         Resources resources = askContext.getApplicationContext().getResources();
 		if (mShiftKey != null)
         {
-	        Drawable shiftWithGlobes = resources.getDrawable(R.drawable.sym_keyboard_shift_with_globe);
+//	        Drawable shiftWithGlobes = resources.getDrawable(R.drawable.sym_keyboard_shift_with_globe);
 	        //Log.v(TAG, "Deciding which icon to use for the SHIFT. Shift key width is "+mShiftKey.width+" and sym_keyboard_shift_with_globe width is "+shiftWithGlobes.getMinimumWidth());
 	        
-	        if (mShiftKey.width > (shiftWithGlobes.getMinimumWidth() * 1.2))
-	        {
-	        	mOnShiftIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_with_globes_on);
-		        mOffShiftIcon = shiftWithGlobes;
-		        mOnShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_with_globes_on_feedback);
-		        mOffShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_with_globe_feedback);
-	        }
-	        else
-	        {
+//	        if (mShiftKey.width > (shiftWithGlobes.getMinimumWidth() * 1.2))
+//	        {
+//	        	mOnShiftIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_with_globes_on);
+//		        mOffShiftIcon = shiftWithGlobes;
+//		        mOnShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_with_globes_on_feedback);
+//		        mOffShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_with_globe_feedback);
+//	        }
+//	        else
+//	        {
 		        mOnShiftIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_on);
 		        mOffShiftIcon = resources.getDrawable(R.drawable.sym_keyboard_shift);
 		        mOnShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift_on);
 		        mOffShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift);
-	        }
+//	        }
 	        mOnShiftFeedbackIcon.setBounds(0, 0, 
 	        		mOnShiftFeedbackIcon.getIntrinsicWidth(), mOnShiftFeedbackIcon.getIntrinsicHeight());
 	        mOffShiftFeedbackIcon.setBounds(0, 0, 
@@ -188,13 +189,13 @@ public abstract class AnyKeyboard extends Keyboard
                     break;
                 case AnyKeyboard.KEYCODE_SMILEY:
             		//fixing icons
-                	if (AnySoftKeyboardConfiguration.getInstance().showIconForSmileyKey())
+                	if (AnyApplication.getConfig().showIconForSmileyKey())
                 	{
                 		setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_smiley, R.drawable.sym_keyboard_smiley_feedback);
                 	}
                 	else
                 	{
-                		key.label = AnySoftKeyboardConfiguration.getInstance().getSmileyText().trim();
+                		key.label = AnyApplication.getConfig().getSmileyText().trim();
                 		key.icon = null;
                 		key.iconPreview = null;
                 	}                	
@@ -203,7 +204,7 @@ public abstract class AnyKeyboard extends Keyboard
             	case AnyKeyboard.KEYCODE_DOMAIN:
             		//fixing icons
                 	//setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_key_domain, R.drawable.sym_keyboard_key_domain_wide, R.drawable.sym_keyboard_key_domain_preview);
-                	key.label = AnySoftKeyboardConfiguration.getInstance().getDomainText().trim();
+                	key.label = AnyApplication.getConfig().getDomainText().trim();
             		key.popupResId = R.xml.popup_domains;
                 	break;
 //                case 63:
@@ -228,7 +229,7 @@ public abstract class AnyKeyboard extends Keyboard
     }
 
 	private void addGenericRows(AnyKeyboardContextProvider askContext, Context context, int mode) {
-		final String keysMode = AnySoftKeyboardConfiguration.getInstance().getChangeLayoutKeysSize();
+		final String keysMode = AnyApplication.getConfig().getChangeLayoutKeysSize();
 		final KeyboardMetadata topMd;
 		if (!mTopRowWasCreated)
 		{
@@ -483,7 +484,7 @@ public abstract class AnyKeyboard extends Keyboard
     	
     	//Log.d(TAG, "Row mode: "+aRow.mode);
     	
-    	AnySoftKeyboardConfiguration config = AnySoftKeyboardConfiguration.getInstance();
+    	AnySoftKeyboardConfiguration config = AnyApplication.getConfig();
 		final int orientation = config.getDeviceOrientation();
     	if (orientation != Configuration.ORIENTATION_LANDSCAPE)//I want to support other orientations too (like square)
     		aRow.defaultHeight = (int)(aRow.defaultHeight * config.getKeysHeightFactorInPortrait());
@@ -923,7 +924,7 @@ public abstract class AnyKeyboard extends Keyboard
 		
 		public void disable()
 		{
-			if (AnySoftKeyboardConfiguration.getInstance().getActionKeyInvisibleWhenRequested())
+			if (AnyApplication.getConfig().getActionKeyInvisibleWhenRequested())
 				this.height = 0;
 			
 			iconPreview = null;

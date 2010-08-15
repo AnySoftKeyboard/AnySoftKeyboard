@@ -133,13 +133,13 @@ public class KeyboardSwitcher
 	    	switch(keyboardIndex)
 	    	{
 	    		case SYMBOLS_KEYBOARD_REGULAR_INDEX:
-	    			if (AnySoftKeyboardConfiguration.getInstance().use16KeysSymbolsKeyboards())
+	    			if (AnyApplication.getConfig().use16KeysSymbolsKeyboards())
 	    				keyboard = new GenericKeyboard(mContext, R.xml.symbols_16keys, R.xml.symbols, R.string.symbols_keyboard, "symbols_keyboard", mode);
 	    			else
 	    				keyboard = new GenericKeyboard(mContext, R.xml.symbols, R.string.symbols_keyboard, "symbols_keyboard", mode);
 	    			break;
 	    		case SYMBOLS_KEYBOARD_ALT_INDEX:
-	    			if (AnySoftKeyboardConfiguration.getInstance().use16KeysSymbolsKeyboards())
+	    			if (AnyApplication.getConfig().use16KeysSymbolsKeyboards())
 	    				keyboard = new GenericKeyboard(mContext, R.xml.symbols_alt_16keys, R.xml.symbols_alt, R.string.symbols_keyboard, "symbols_keyboard", mode);
 	    			else
 	    				keyboard = new GenericKeyboard(mContext, R.xml.symbols_alt, R.string.symbols_keyboard, "alt_symbols_keyboard", mode);
@@ -418,7 +418,7 @@ public class KeyboardSwitcher
 //    	current = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard, getKeyboardMode(currentEditorInfo));
 //
 //    	return setKeyboard(currentEditorInfo, current);
-    	if (AnySoftKeyboardConfiguration.getInstance().getCycleOverAllSymbols())
+    	if (AnyApplication.getConfig().getCycleOverAllSymbols())
     	{
         	if (!isAlphabetMode())
         	{
@@ -600,7 +600,7 @@ public class KeyboardSwitcher
 	public boolean isKeyRequireSwitchToAlphabet(int primaryCode) {
 		if (primaryCode == AnySoftKeyboard.KEYCODE_ENTER || primaryCode == AnySoftKeyboard.KEYCODE_SPACE)
 		{
-			return (!isAlphabetMode()) && AnySoftKeyboardConfiguration.getInstance().getSwitchKeyboardOnSpace();
+			return (!isAlphabetMode()) && AnyApplication.getConfig().getSwitchKeyboardOnSpace();
 		}
 		else
 			return false;
@@ -612,7 +612,7 @@ public class KeyboardSwitcher
 		//and only if user requested to have a popup
 		return mAlphabetMode &&
 			(getAlphabetKeyboards().length > 2) &&
-			AnySoftKeyboardConfiguration.getInstance().shouldShowPopupForLanguageSwitch();
+			AnyApplication.getConfig().shouldShowPopupForLanguageSwitch();
 	}
 
 
