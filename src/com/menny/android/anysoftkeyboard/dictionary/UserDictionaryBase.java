@@ -38,6 +38,8 @@ public abstract class UserDictionaryBase extends Dictionary {
 
     public static final int MAX_WORD_LENGTH = 32;
 
+	protected static final String TAG = "ASK UDict";
+
     private char[] mWordBuilder = new char[MAX_WORD_LENGTH];
 
     static class Node {
@@ -85,7 +87,7 @@ public abstract class UserDictionaryBase extends Dictionary {
         	try {
 				loadDictionary();
 			} catch (Exception e) {
-				Log.e("AnySoftKeyboard", "Failed to load database while adding word");
+				Log.e(TAG, "Failed to load database while adding word");
 				e.printStackTrace();
 			}
     	}
@@ -108,7 +110,7 @@ public abstract class UserDictionaryBase extends Dictionary {
         	try {
 				loadDictionary();
 			} catch (Exception e) {
-				Log.e("AnySoftKeyboard", "Failed to load database while adding word");
+				Log.e(TAG, "Failed to load database while adding word");
 				e.printStackTrace();
 			}
         }
@@ -124,7 +126,7 @@ public abstract class UserDictionaryBase extends Dictionary {
         	try {
 				loadDictionary();
 			} catch (Exception e) {
-				Log.e("AnySoftKeyboard", "Failed to load database while adding word");
+				Log.e(TAG, "Failed to load database while adding word");
 				e.printStackTrace();
 			}
         }

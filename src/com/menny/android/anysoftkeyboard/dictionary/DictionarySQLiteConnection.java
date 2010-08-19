@@ -12,6 +12,8 @@ import android.util.Log;
 
 public class DictionarySQLiteConnection extends SQLiteOpenHelper
 {
+	private static final String TAG = "ASK DictSql";
+	
 	public static class DictionaryWord
 	{
 		private final String mWord;
@@ -21,7 +23,7 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
 		{
 			if (word == null)
 			{
-				Log.e("AnySoftKeyboard", "Got a NULL word from dictionary! This is illegal!");
+				Log.e(TAG, "Got a NULL word from dictionary! This is illegal!");
 				word = "" + this.hashCode();
 			}
 			mWord = word;
@@ -71,11 +73,11 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
 		long res = db.insert(mTableName, null, values);
 		if (res < 0)
 		{
-			Log.e("AnySoftKeyboard", "Unable to insert '"+word+"' to the fall-back dictionary! Result:"+res);
+			Log.e(TAG, "Unable to insert '"+word+"' to the fall-back dictionary! Result:"+res);
 		}
 		else
 		{
-			Log.d("AnySoftKeyboard", "Inserted '"+word+"' to the fall-back dictionary. Id:"+res);
+			Log.d(TAG, "Inserted '"+word+"' to the fall-back dictionary. Id:"+res);
 		}
     }
 

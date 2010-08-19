@@ -17,6 +17,8 @@ import com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory.Di
 
 public class DictionaryFactory
 {
+    private static final String TAG = "ASK DictFctry";
+    
     private static UserDictionaryBase msUserDictionary = null;
     private static final List<Dictionary> msDictionaries;
 
@@ -43,12 +45,12 @@ public class DictionaryFactory
             }
             catch(final Exception ex)
             {
-                Log.w("AnySoftKeyboard", "Failed to load 'AndroidUserDictionary' (could be that the platform does not support it). Will use fall-back dictionary. Error:"+ex.getMessage());
+                Log.w(TAG, "Failed to load 'AndroidUserDictionary' (could be that the platform does not support it). Will use fall-back dictionary. Error:"+ex.getMessage());
                 try {
                     msUserDictionary = new FallbackUserDictionary(context);
                     msUserDictionary.loadDictionary();
                 } catch (final Exception e) {
-                    Log.e("AnySoftKeyboard", "Failed to load failback user dictionary!");
+                    Log.e(TAG, "Failed to load failback user dictionary!");
                     e.printStackTrace();
                 }
             }
@@ -102,7 +104,7 @@ public class DictionaryFactory
             if (dict == null)
             {
 
-                Log.d("DictionaryFactory",
+                Log.d(TAG,
                         MessageFormat.format("Could not locate dictionary for language {0} and id {1}. Maybe it was not loaded yet (installed recently?)",
                                 new Object[]{languageFormat, idFormat}));
                 ExternalDictionaryFactory.resetBuildersCache();
@@ -115,7 +117,7 @@ public class DictionaryFactory
                 }
 
                 if (dict == null)
-                    Log.w("DictionaryFactory",
+                    Log.w(TAG,
                             MessageFormat.format("Could not locate dictionary for language {0} and id {1}.",
                                     new Object[]{languageFormat, idFormat}));
             }
@@ -131,7 +133,7 @@ public class DictionaryFactory
                         try {
                             dictToLoad.loadDictionary();
                         } catch (final Exception e) {
-                            Log.e("DictionaryFactory", MessageFormat.format(
+                            Log.e(TAG, MessageFormat.format(
                                     "Failed load dictionary for language {0} with id {1}! Will reset the map. Error:{2}",
                                     new Object[]{languageFormat, idFormat, e.getMessage()}));
                             e.printStackTrace();
@@ -157,7 +159,7 @@ public class DictionaryFactory
         }
         catch(final Exception ex)
         {
-            Log.e("DictionaryFactory", "Failed to load main dictionary for: "+language);
+            Log.e(TAG, "Failed to load main dictionary for: "+language);
             ex.printStackTrace();
         }
 
@@ -178,7 +180,7 @@ public class DictionaryFactory
         for(DictionaryBuilder builder : allBuilders)
         {
             if (AnySoftKeyboardConfiguration.DEBUG){
-                Log.d("DictionaryFactory", MessageFormat.format("Checking if builder ''{0}'' with locale ''{1}'' matches locale ''{2}''",
+                Log.d(TAG, MessageFormat.format("Checking if builder ''{0}'' with locale ''{1}'' matches locale ''{2}''",
                         new Object[] {builder.getId(), builder.getLanguage(), language}));
             }
             if (builder.getLanguage().equalsIgnoreCase(language))
@@ -203,7 +205,7 @@ public class DictionaryFactory
         for(DictionaryBuilder builder : allBuilders)
         {
             if (AnySoftKeyboardConfiguration.DEBUG){
-                Log.d("DictionaryFactory", MessageFormat.format("Checking if builder ''{0}'' with locale ''{1}'' matches id ''{2}''",
+                Log.d(TAG, MessageFormat.format("Checking if builder ''{0}'' with locale ''{1}'' matches id ''{2}''",
                         new Object[] {builder.getId(), builder.getLanguage(), id}));
             }
             if (builder.getId().equalsIgnoreCase(id))

@@ -39,6 +39,7 @@ public class Suggest implements Dictionary.WordCallback {
     public static final int CORRECTION_NONE = 0;
     public static final int CORRECTION_BASIC = 1;
     public static final int CORRECTION_FULL = 2;
+	private static final String TAG = "ASK Suggest";
 
     private Dictionary mMainDict;
 
@@ -146,7 +147,7 @@ public class Suggest implements Dictionary.WordCallback {
         // Search the dictionary only if there are at least 2 characters
         if (wordComposer.size() > 1) {
             if (mUserDictionary != null) {
-            	Log.v("AnySoftKeyboard", "getSuggestions from user-dictionary");
+            	if (AnySoftKeyboardConfiguration.DEBUG) Log.v(TAG, "getSuggestions from user-dictionary");
                 mUserDictionary.getWords(wordComposer, this);
                 if (mSuggestions.size() > 0 && isValidWord(mOriginalWord)) {
                     mHaveCorrection = true;
@@ -154,7 +155,8 @@ public class Suggest implements Dictionary.WordCallback {
             }
             if (mMainDict != null)
             {
-            	Log.v("AnySoftKeyboard", "getSuggestions from main-dictionary");
+            	AnyApplication.getConfig();
+				if (AnySoftKeyboardConfiguration.DEBUG) Log.v(TAG, "getSuggestions from main-dictionary");
             	mMainDict.getWords(wordComposer, this);
             }
 
@@ -235,14 +237,14 @@ public class Suggest implements Dictionary.WordCallback {
 
     public boolean addWord(final char[] word, final int offset, final int length, final int freq) {
     	if (AnySoftKeyboardConfiguration.DEBUG)
-        	Log.v("AnySoftKeyboard", "Suggest::addWord");
+        	Log.v(TAG, "Suggest::addWord");
         int pos = 0;
         final int[] priorities = mPriorities;
         final int prefMaxSuggestions = mPrefMaxSuggestions;
         // Check if it's the same word, only caps are different
         if (compareCaseInsensitive(mLowerOriginalWord, word, offset, length)) {
         	if (AnySoftKeyboardConfiguration.DEBUG)
-            	Log.v("AnySoftKeyboard", "Suggest::addWord - same word as typed");
+            	Log.v(TAG, "Suggest::addWord - same word as typed");
             pos = 0;
         } else {
             // Check the last one's priority and bail
@@ -299,13 +301,13 @@ public class Suggest implements Dictionary.WordCallback {
             garbageSize--;
         }
         if (poolSize == mPrefMaxSuggestions + 1) {
-            Log.w("Suggest", "String pool got too big: " + poolSize);
+            Log.w(TAG, "String pool got too big: " + poolSize);
         }
         mSuggestions.clear();
     }
 
 	public void setMainDictionary(Dictionary dictionary) {
-		Log.d("AnySoftKeyboard", "Suggest: Got main dictionary! Type: " +
+		Log.d(TAG, "Suggest: Got main dictionary! Type: " +
 				((dictionary == null)? "NULL" : dictionary.toString()));
 		mMainDict = dictionary;
 	}

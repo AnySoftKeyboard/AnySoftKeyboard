@@ -22,7 +22,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 public class ExternalDictionaryFactory {
 
-    private static final String TAG = "ExternalDictionaryFactory";
+    private static final String TAG = "ASK ExtDictFctry";
     public interface DictionaryBuilder
     {
         /**
