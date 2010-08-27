@@ -611,7 +611,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	public boolean onKeyDown(final int keyCode, KeyEvent event) {
 		if (DEBUG) Log.d(TAG, "onKeyDown:"+keyCode+" flags:"+event.getFlags());
 
 		InputConnection ic = getCurrentInputConnection();
@@ -637,6 +637,30 @@ public class AnySoftKeyboard extends InputMethodService implements
 					+ " Repeats:" + event.getRepeatCount());
 
 		switch (keyCode) {
+		case KeyEvent.KEYCODE_CAMERA:
+		     if(mConfig.useCameraKeyForBackspaceBackword()){
+		        handleBackword(getCurrentInputConnection());
+		        return true;
+		     }
+		     break;
+		case KeyEvent.KEYCODE_FOCUS:
+		     if(mConfig.useCameraKeyForBackspaceBackword()){
+		       handleBackspace();
+		       return true;
+		     }
+		     break;
+		case KeyEvent.KEYCODE_VOLUME_UP:
+             if(mConfig.useVolumeKeyForLeftRight()){
+		      sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_LEFT);
+		      return true;
+             }
+             break;
+		case KeyEvent.KEYCODE_VOLUME_DOWN:
+	        if(mConfig.useVolumeKeyForLeftRight()){
+		     sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_RIGHT);
+		     return true;
+	        }
+	        break;
 		case KeyEvent.KEYCODE_BACK:
 			if (event.getRepeatCount() == 0 && mInputView != null) {
 				if (mInputView.handleBack()) {
@@ -858,6 +882,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		switch (keyCode) {
+        //Issue 248
+		case KeyEvent.KEYCODE_VOLUME_DOWN:
+	    case KeyEvent.KEYCODE_VOLUME_UP:
+	    if(mConfig.useVolumeKeyForLeftRight()){
+	        //no need of vol up/down sound
+	        return true;
+		}
 		case KeyEvent.KEYCODE_DPAD_DOWN:
 		case KeyEvent.KEYCODE_DPAD_UP:
 		case KeyEvent.KEYCODE_DPAD_LEFT:
