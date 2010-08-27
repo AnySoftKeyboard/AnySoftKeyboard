@@ -106,6 +106,12 @@
     <string name="backword_support">Back-word support</string>
     <string name="backword_support_on_summary">Shifted Backspace will delete the last word</string>
     <string name="backword_support_off_summary">Shifted Backspace will delete the last character</string>
+    <string name="volume_key_for_left_right_support">Volume key for left/right</string>
+    <string name="volume_key_for_left_right_support_on_summary">Disable left/right via volume up/down</string>
+    <string name="volume_key_for_left_right_support_off_summary">Volume up turns cursor left, volume down turns cursor right</string>
+    <string name="camera_key_for_backspace_backword_support">Use Camera key for backspace/backword</string>
+    <string name="camera_key_for_backspace_backword_support_on_summary">Restore the camera key function</string>
+    <string name="camera_key_for_backspace_backword_support_off_summary">Half press on camera button deletes last character, full press deletes last word</string>
     <string name="swipe_tweak_group">Change swipe gesture actions</string>
     <string name="swipe_up_action">Swipe up</string>
     <string name="swipe_up_action_summary">Define the swipe up gesture action</string>

@@ -22,6 +22,11 @@
     <string name="settings_key_use_backword">settings_key_use_backword</string>
     
     <string name="settings_key_cycle_all_symbols">settings_key_cycle_all_symbols</string>
+        
+    <string name="settings_key_use_volume_key_for_left_right">settings_key_use_volume_key_for_left_right</string>
+
+  	<string name="settings_key_use_camera_key_for_backspace_backword">settings_key_use_camera_key_for_backspace_backword</string>
+  	
     <!-- template
     <string name="settings_key_"></string>
      -->
