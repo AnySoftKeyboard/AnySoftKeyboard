@@ -70,6 +70,10 @@ public abstract class AnySoftKeyboardConfiguration
 	
 	public abstract boolean getCycleOverAllSymbols();
 	
+	public abstract boolean useVolumeKeyForLeftRight();
+	
+	public abstract boolean useCameraKeyForBackspaceBackword();
+	
 	static class AnySoftKeyboardConfigurationImpl extends AnySoftKeyboardConfiguration
 	{
 		private static final String CONFIGURATION_VERSION = "configurationVersion";
@@ -100,6 +104,8 @@ public abstract class AnySoftKeyboardConfiguration
 		private boolean mUseBackword = true;
 		private boolean mShowIconForSmileyKey = false;
 		private boolean mCycleOverAllSymbolsKeyboard = true;
+		private boolean mUseVolumeKeyForLeftRight = false;
+		private boolean mUseCameraKeyForBackspaceBackword = false;
 		
 		public AnySoftKeyboardConfigurationImpl(Context context)
 		{
@@ -294,6 +300,16 @@ public abstract class AnySoftKeyboardConfiguration
 			mCycleOverAllSymbolsKeyboard = sp.getBoolean(mContext.getString(R.string.settings_key_cycle_all_symbols),
 					mContext.getResources().getBoolean(R.bool.settings_default_cycle_all_symbols));
 			Log.i(TAG, "** mCycleOverAllSymbolsKeyboard: "+mCycleOverAllSymbolsKeyboard);
+			
+			
+		    mUseCameraKeyForBackspaceBackword = sp.getBoolean(mContext.getString(R.string.settings_key_use_camera_key_for_backspace_backword),
+	                    mContext.getResources().getBoolean(R.bool.settings_default_use_camera_key_for_backspace_backword));
+	            Log.i(TAG, "** mUseCameraKeyForBackspaceBackword: "+mUseCameraKeyForBackspaceBackword);
+	            
+	        mUseVolumeKeyForLeftRight = sp.getBoolean(mContext.getString(R.string.settings_key_use_volume_key_for_left_right),
+	                    mContext.getResources().getBoolean(R.bool.settings_default_use_volume_key_for_left_right));
+	            Log.i(TAG, "** mUseVolumeKeyForLeftRight: "+mUseVolumeKeyForLeftRight);
+			
 		}
 		
 		private int getIntFromSwipeConfiguration(SharedPreferences sp, final String prefKey, final String defaultValue) {
@@ -456,5 +472,17 @@ public abstract class AnySoftKeyboardConfiguration
 		public boolean getCycleOverAllSymbols() {
 			return mCycleOverAllSymbolsKeyboard;
 		}
+
+        @Override
+        public boolean useCameraKeyForBackspaceBackword() {
+            return mUseCameraKeyForBackspaceBackword;
+        }
+
+        @Override
+        public boolean useVolumeKeyForLeftRight() {
+            return mUseVolumeKeyForLeftRight;
+        }
+		
+		
 	}	
 }
