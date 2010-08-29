@@ -59,11 +59,12 @@ public class KeyboardSwitcher
 
     private static final int SYMBOLS_KEYBOARD_REGULAR_INDEX = 0;
     private static final int SYMBOLS_KEYBOARD_ALT_INDEX = 1;
-    private static final int SYMBOLS_KEYBOARD_NUMBERS_INDEX = 2;
-    private static final int SYMBOLS_KEYBOARD_LAST_CYCLE_INDEX = SYMBOLS_KEYBOARD_NUMBERS_INDEX;
-    private static final int SYMBOLS_KEYBOARD_PHONE_INDEX = 3;
-    private static final int SYMBOLS_KEYBOARD_DATETIME_INDEX = 4;
-    private static final int SYMBOLS_KEYBOARDS_COUNT = 5;
+    private static final int SYMBOLS_KEYBOARD_ALT_NUMBERS_INDEX = 2;
+    private static final int SYMBOLS_KEYBOARD_LAST_CYCLE_INDEX = SYMBOLS_KEYBOARD_ALT_NUMBERS_INDEX;
+    private static final int SYMBOLS_KEYBOARD_NUMBERS_INDEX = 3;
+    private static final int SYMBOLS_KEYBOARD_PHONE_INDEX = 4;
+    private static final int SYMBOLS_KEYBOARD_DATETIME_INDEX = 5;
+    private static final int SYMBOLS_KEYBOARDS_COUNT = 6;
 
     private int mLastSelectedSymbolsKeyboard = SYMBOLS_KEYBOARD_REGULAR_INDEX;
     
@@ -143,6 +144,9 @@ public class KeyboardSwitcher
 	    				keyboard = new GenericKeyboard(mContext, R.xml.symbols_alt_16keys, R.xml.symbols_alt, R.string.symbols_keyboard, "symbols_keyboard", mode);
 	    			else
 	    				keyboard = new GenericKeyboard(mContext, R.xml.symbols_alt, R.string.symbols_keyboard, "alt_symbols_keyboard", mode);
+	    			break;
+	    		case SYMBOLS_KEYBOARD_ALT_NUMBERS_INDEX:
+	    			keyboard = new GenericKeyboard(mContext, R.xml.simple_alt_numbers, R.string.symbols_keyboard, "alt_numbers_symbols_keyboard", mode);
 	    			break;
 	    		case SYMBOLS_KEYBOARD_PHONE_INDEX:
 	    			keyboard = new GenericKeyboard(mContext, R.xml.simple_phone, R.string.symbols_keyboard, "phone_symbols_keyboard", mode);

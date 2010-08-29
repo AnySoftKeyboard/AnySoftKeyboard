@@ -47,7 +47,33 @@
 		    android:layout_width="fill_parent"
 		    android:layout_height="fill_parent"
 		    android:orientation="vertical">
-		    
+		    <TextView
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:text="20100829 - 29"
+		        android:textStyle="bold"
+		        android:gravity="center"
+		        android:textSize="16sp"
+		        android:paddingTop="8dp"
+		        android:paddingLeft="8dp"
+		        android:paddingRight="8dp"
+		        android:textColor="#CCC"
+		        />
+		    <TextView android:text="http://s.evendanan.net/ask_r29" android:textSize="12sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content"
+		    	android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"/>
+		    <TextView
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:text="* Revised top row (now with arrows).\n* Arrows also in ALT symbols keyboard."
+		        android:textSize="16sp"
+		        android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"
+		        android:textColor="#AAA"
+		        />
+		        
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
