@@ -13,5 +13,7 @@
 	</Row>
     <Row android:rowEdgeFlags="bottom">
     	<Key android:keyLabel=".bg" android:keyOutputText=".bg" android:keyEdgeFlags="left"/>
+    	<Key android:keyLabel="bg.com" android:keyOutputText="bg.com"/>
+    	<Key android:keyLabel=".eu" android:keyOutputText=".eu"/>
 	</Row>
 </Keyboard>

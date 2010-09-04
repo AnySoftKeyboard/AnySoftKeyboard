@@ -14,6 +14,7 @@
     <Row android:rowEdgeFlags="bottom">
 		<Key android:keyLabel=".fi" android:keyOutputText=".fi" android:keyEdgeFlags="left"/>
 		<Key android:keyLabel=".tv" android:keyOutputText=".tv"/>
-		<Key android:keyLabel=".info" android:keyOutputText=".info" android:keyEdgeFlags="right"/>	
+		<Key android:keyLabel=".info" android:keyOutputText=".info" android:keyEdgeFlags="right"/>
+    	<Key android:keyLabel=".eu" android:keyOutputText=".eu"/>
 	</Row>
 </Keyboard>

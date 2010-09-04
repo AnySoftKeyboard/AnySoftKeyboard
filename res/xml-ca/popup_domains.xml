@@ -17,6 +17,6 @@
 		<Key android:keyLabel=".ad" android:keyOutputText=".ad"/>
 		<Key android:keyLabel=".es" android:keyOutputText=".es"/>
 		<Key android:keyLabel=".fr" android:keyOutputText=".fr"/>
-		<Key android:keyLabel=".it" android:keyOutputText=".it" android:keyEdgeFlags="right"/>
+		<Key android:keyLabel=".it" android:keyOutputText=".it"/>
 	</Row>
 </Keyboard>
