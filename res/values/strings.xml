@@ -44,13 +44,13 @@
     
     <!-- settings - UI -->
     <string name="ui_group">User interface</string>
-    <string name="keyboard_layout_change_keys_size_title">Layout change keys</string>
-    <string name="keyboard_layout_change_keys_size_summary">On screen keyboard layout keys size</string>
-    <string name="keyboard_layout_change_keys_size_dialog_title">Select size</string>
+    <string name="keyboard_layout_change_keys_size_title">Top row keys</string>
+    <string name="keyboard_layout_change_keys_size_summary">Sets the cap/number mode key size</string>
+    <string name="keyboard_layout_change_keys_size_dialog_title">Mode key size</string>
     <string-array name="keyboard_layout_keys_size">
         <item>None</item>
         <item>Small</item>
-        <item>Big</item>
+        <item>Large</item>
     </string-array>
     
     <string name="physical_keyboard_change_notification_title">Keyboard layout notification</string>
@@ -80,13 +80,13 @@
     <string name="ime_settings">Keyboard settings</string>
     <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Vibrate on key-press</string>
-    <string name="vibrate_on_key_press_summary">Vibration type selection</string>
-    <string name="vibrate_on_key_press_dialog_title">Select vibration duration</string>
+    <string name="vibrate_on_key_press_summary">Select to have keys vibrate when tapped</string>
+    <string name="vibrate_on_key_press_dialog_title">Select vibration type</string>
     <string-array name="vibrate_on_key_press_types">
-    	<item>No vibration</item>
-        <item>Soft</item>
+    	<item>None</item>
+        <item>Light</item>
         <item>Medium</item>
-        <item>Hard</item>
+        <item>Strong</item>
     </string-array>
     
     <string name="sound_on">Sound on key-press</string>
