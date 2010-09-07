@@ -1353,21 +1353,28 @@ public class AnySoftKeyboard extends InputMethodService implements
 			revertLastWord(deleteChar);
 			return;
 		} else if (deleteChar) {
-			//ic.deleteSurroundingText(1, 0);
-			//sendDownUpKeyEvents is needed for Android's Terminal Console app.
-			//I can't understand just why, just yet...
-			sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+			if (ic.getTextBeforeCursor(1, 0).length() > 0)
+			{
+				//much better performance!
+				ic.deleteSurroundingText(1, 0);
+			}
+			else
+			{
+				//sendDownUpKeyEvents is needed for Android's Terminal Console app.
+				//I can't understand just why, just yet...
+				sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+			}
 		}
 		mJustRevertedSeparator = null;
 	}
 	
-	@Override
-	public void sendDownUpKeyEvents(int keyEventCode) {
-		super.sendDownUpKeyEvents(keyEventCode);
-		//since it happens in a different process (asynch)
-		//we'll let the system settle.
-		Thread.yield();//this is not a fix, but a bit relaxing..
-	}
+//	@Override
+//	public void sendDownUpKeyEvents(int keyEventCode) {
+//		super.sendDownUpKeyEvents(keyEventCode);
+//		//since it happens in a different process (asynch)
+//		//we'll let the system settle.
+//		Thread.yield();//this is not a fix, but a bit relaxing..
+//	}
 
 	private void handleShiftStateAfterBackspace() {
 		switch(mLastCharacterShiftState)
