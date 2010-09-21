@@ -31,8 +31,8 @@ public class AnyKeyboardView extends KeyboardView {
 
 	public interface OnAnyKeyboardActionListener extends OnKeyboardActionListener
 	{
-		void startInputConnectionEdit();
-		void endInputConnectionEdit();
+//		void startInputConnectionEdit();
+//		void endInputConnectionEdit();
 	}
 	private final static String TAG = "ASK AnyKeyboardView";
 	static final int KEYCODE_OPTIONS = -100;
@@ -56,14 +56,14 @@ public class AnyKeyboardView extends KeyboardView {
         initializeStuff();
     }
     
-    private final Object mTouchLock = new Object();
+    //private final Object mTouchLock = new Object();
     @Override
     public boolean onTouchEvent(MotionEvent me) {
-    	synchronized (mTouchLock) {
-    		OnAnyKeyboardActionListener ime = (OnAnyKeyboardActionListener)getOnKeyboardActionListener();
+    	//synchronized (mTouchLock) {
+    		//OnAnyKeyboardActionListener ime = (OnAnyKeyboardActionListener)getOnKeyboardActionListener();
     		try
     		{
-    			ime.startInputConnectionEdit();
+    			//ime.startInputConnectionEdit();
     			return super.onTouchEvent(me);
     		}
     		catch(ArrayIndexOutOfBoundsException ex)
@@ -74,11 +74,11 @@ public class AnyKeyboardView extends KeyboardView {
     			ex.printStackTrace();
     			return true;
     		}
-    		finally
-    		{
-    			ime.endInputConnectionEdit();
-    		}
-		}
+//    		finally
+//    		{
+//    			ime.endInputConnectionEdit();
+//    		}
+//		}
     }
 //    
 //    @Override

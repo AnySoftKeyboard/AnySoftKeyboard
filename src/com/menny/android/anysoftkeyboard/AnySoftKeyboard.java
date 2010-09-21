@@ -2316,17 +2316,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 		super.onLowMemory();
 	}
 
-	public void endInputConnectionEdit() {
-		InputConnection ic = getCurrentInputConnection();
-		if (ic != null)
-			ic.endBatchEdit();
-	}
-
-	public void startInputConnectionEdit() {
-		InputConnection ic = getCurrentInputConnection();
-		if (ic != null)
-			ic.beginBatchEdit();
-	}
+//	public void endInputConnectionEdit() {
+//		InputConnection ic = getCurrentInputConnection();
+//		if (ic != null)
+//			ic.endBatchEdit();
+//	}
+//
+//	public void startInputConnectionEdit() {
+//		InputConnection ic = getCurrentInputConnection();
+//		if (ic != null)
+//			ic.beginBatchEdit();
+//	}
 	
 	private void showSmileyDialog() {
         if (mSmileyDialog == null) {
