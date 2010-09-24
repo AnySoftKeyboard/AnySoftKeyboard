@@ -11,6 +11,7 @@
     
     <string name="settings_key_smiley_popup_type">settings_key_smiley_popup_type</string>
     <string name="settings_key_smiley_icon_on_smileys_key">settings_key_smiley_icon_on_smileys_key</string>
+    <string name="settings_key_emoticon_long_press_opens_popup">emoticon_long_press_opens_popup</string>
     
     <string name="settings_key_show_version_notification">settings_key_show_version_notification</string>
     

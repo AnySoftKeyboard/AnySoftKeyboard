@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.menny.android.anysoftkeyboard"
-        android:versionCode="28" android:versionName="20100921-tap-tap">
+        android:versionCode="28" android:versionName="20100924-rocking">
 	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key"
 		android:name=".AnyApplication">
 		<service android:permission="android.permission.BIND_INPUT_METHOD" android:name=".SoftKeyboard">

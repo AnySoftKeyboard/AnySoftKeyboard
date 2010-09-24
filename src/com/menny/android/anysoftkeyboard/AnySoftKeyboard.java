@@ -2004,7 +2004,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mCorrectionMode = mAutoComplete ? 2
 				: (mShowSuggestions/* mQuickFixes */? 1 : 0);
 
-		mSmileyOnShortPress = sp.getBoolean("emoticon_long_press_opens_popup", false);
+		mSmileyOnShortPress = sp.getBoolean(getString(R.string.settings_key_emoticon_long_press_opens_popup), getResources().getBoolean(R.bool.settings_default_emoticon_long_press_opens_popup));
 		mSmileyPopupType = sp.getString(getString(R.string.settings_key_smiley_popup_type), getString(R.string.settings_default_smiley_popup_type));
 
 		((AnySoftKeyboardConfiguration.AnySoftKeyboardConfigurationImpl) mConfig).handleConfigurationChange(sp);

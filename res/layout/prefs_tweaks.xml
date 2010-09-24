@@ -47,10 +47,10 @@ android:key="tweaks_group_screen">
 		android:summaryOff="@string/smiley_icon_on_smileys_key_off_summary"
 	/>
 	<CheckBoxPreference
-		android:key="emoticon_long_press_opens_popup"
+		android:key="@string/settings_key_emoticon_long_press_opens_popup"
 		android:title="@string/emoticon_long_press_opens_popup"
 		android:persistent="true"
-		android:defaultValue="true"
+		android:defaultValue="@bool/settings_default_emoticon_long_press_opens_popup"
 		android:summaryOn="@string/emoticon_long_press_opens_popup_on_summary"
 		android:summaryOff="@string/emoticon_long_press_opens_popup_off_summary"
 	/>

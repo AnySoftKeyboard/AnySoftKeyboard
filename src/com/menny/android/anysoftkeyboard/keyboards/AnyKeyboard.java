@@ -562,32 +562,37 @@ public abstract class AnyKeyboard extends Keyboard
     	{
 	        switch (action) {
 	            case EditorInfo.IME_ACTION_GO:
-	                mEnterKey.iconPreview = null;
-	                mEnterKey.icon = null;
-	                //there is a problem with LTR languages
-	                mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_go_key));
-	                break;
+//	                mEnterKey.iconPreview = null;
+//	                mEnterKey.icon = null;
+//	                //there is a problem with LTR languages
+//	                mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_go_key));
+//	                
+	            	setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_go, R.drawable.sym_keyboard_go_feedback);
+	            	break;
 	            case EditorInfo.IME_ACTION_NEXT:
-	                mEnterKey.iconPreview = null;
-	                mEnterKey.icon = null;
-	              //there is a problem with LTR languages
-	                mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_next_key));
-	                break;
+//	                mEnterKey.iconPreview = null;
+//	                mEnterKey.icon = null;
+//	              //there is a problem with LTR languages
+//	                mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_next_key));
+	            	setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_net, R.drawable.sym_keyboard_net_feedback);
+	            	break;
 	            case EditorInfo.IME_ACTION_DONE:
-	            	mEnterKey.iconPreview = null;
-	                mEnterKey.icon = null;
-	                //there is a problem with LTR languages
-	                mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_done_key));
-	                break;
+//	            	mEnterKey.iconPreview = null;
+//	                mEnterKey.icon = null;
+//	                //there is a problem with LTR languages
+//	                mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_done_key));
+	            	setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_done, R.drawable.sym_keyboard_done_feedback);
+	            	break;
 	            case EditorInfo.IME_ACTION_SEARCH:
 	            	setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_search, R.drawable.sym_keyboard_feedback_search);
 	                break;
 	            case EditorInfo.IME_ACTION_SEND:
-	            	mEnterKey.iconPreview = null;
-		            mEnterKey.icon = null;
-		            //there is a problem with LTR languages
-		            mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_send_key));
-	            	break;
+//	            	mEnterKey.iconPreview = null;
+//		            mEnterKey.icon = null;
+//		            //there is a problem with LTR languages
+//		            mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_send_key));
+	            	setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_send, R.drawable.sym_keyboard_send_feedback);
+	                break;
 	            case EditorInfo.IME_ACTION_NONE:
 	            case EditorInfo.IME_ACTION_UNSPECIFIED:
 	            default:
