@@ -612,8 +612,25 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	@Override
 	public boolean onKeyDown(final int keyCode, KeyEvent event) {
-		if (DEBUG) Log.d(TAG, "onKeyDown:"+keyCode+" flags:"+event.getFlags());
-
+		if (DEBUG)
+		{
+			Log.d(TAG, "onKeyDown:"+keyCode+" flags:"+event.getFlags());
+			
+			if (mInputView == null)
+			{
+				Log.d(TAG, "No input view");
+			}
+			else
+			{
+				Log.d(TAG, "\n canInteractWithUi:"+mInputView.canInteractWithUi()+"\n"+
+						"getHeight:"+mInputView.getHeight()+"\n"+
+						"getVisibility:"+mInputView.getVisibility()+"\n"+
+						"getWindowVisibility:"+mInputView.getWindowVisibility()+"\n"+
+						"isFocused:"+mInputView.isFocused()+"\n"+
+						"isShown:"+mInputView.isShown()+"\n");
+			}
+		}
+		
 		InputConnection ic = getCurrentInputConnection();
 		if (!mPredictionLandscape) {
 			// For all other keys, if we want to do transformations on
