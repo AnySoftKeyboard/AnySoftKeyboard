@@ -573,11 +573,10 @@ public abstract class AnyKeyboard extends Keyboard
 	            	setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_go, R.drawable.sym_keyboard_go_feedback);
 	            	break;
 	            case EditorInfo.IME_ACTION_NEXT:
-//	                mEnterKey.iconPreview = null;
-//	                mEnterKey.icon = null;
-//	              //there is a problem with LTR languages
-//	                mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_next_key));
-	            	setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_net, R.drawable.sym_keyboard_net_feedback);
+	                mEnterKey.iconPreview = null;
+	                mEnterKey.icon = null;
+	                //there is a problem with LTR languages
+	                mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_next_key));
 	            	break;
 	            case EditorInfo.IME_ACTION_DONE:
 //	            	mEnterKey.iconPreview = null;
