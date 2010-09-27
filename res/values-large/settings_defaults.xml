@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- DO NOT TRANSLATE -->
+	<!-- Default settings values -->
+    <bool name="settings_default_landscape_fullscreen">false</bool>
+    <bool name="settings_default_portrait_fullscreen">false</bool>
+</resources>
