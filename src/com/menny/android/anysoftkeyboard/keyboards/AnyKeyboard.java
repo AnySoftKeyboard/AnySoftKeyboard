@@ -448,7 +448,10 @@ public abstract class AnyKeyboard extends Keyboard
         	//creating less sensitive keys if required
         	switch(primaryCode)
         	{
-        	case 10://enter
+        	case 0://disabled
+        		key.disable();
+        		break;
+            case 10://enter
         		key = mEnterKey = new EnterKey(res, parent, x, y, parser);
         		break;
         	case KEYCODE_SHIFT:
@@ -803,16 +806,38 @@ public abstract class AnyKeyboard extends Keyboard
 //	}
 	
 	static class AnyKey extends Keyboard.Key {
-        //private boolean mShiftLockEnabled;
-        
+		private boolean mEnabled;
+		
         public AnyKey(Resources res, Keyboard.Row parent, int x, int y, 
                 XmlResourceParser parser) {
             super(res, parent, x, y, parser);
+            mEnabled = true;
             if (popupCharacters != null && popupCharacters.length() == 0) {
                 // If there is a keyboard with no keys specified in popupCharacters
                 popupResId = 0;
             }
         }
+        
+        public void enable()
+        {
+        	mEnabled = true;
+        }
+
+        public void disable()
+		{
+			iconPreview = null;
+            icon = null;
+            label = "  ";//can not use NULL.
+            mEnabled = false;
+		}
+        		
+		public boolean isInside(int clickedX, int clickedY) {
+			if (mEnabled)
+				return super.isInside(clickedX, clickedY);
+			else
+				return false;//disabled.
+		}
+		
         //Issue 395
         protected int[] parseCSV(String value) {
             int count = 0;
@@ -918,38 +943,26 @@ public abstract class AnyKeyboard extends Keyboard
 	private static class EnterKey extends LessSensitiveAnyKey
 	{
 		private final int mOriginalHeight;
-		private boolean mEnabled;
 		
 		public EnterKey(Resources res, Row parent, int x, int y,
 				XmlResourceParser parser) {
 			super(res, parent, x, y, parser);
 			mOriginalHeight = this.height;
-			mEnabled = true;
 		}
 		
+		@Override
 		public void disable()
 		{
 			if (AnyApplication.getConfig().getActionKeyInvisibleWhenRequested())
 				this.height = 0;
-			
-			iconPreview = null;
-            icon = null;
-            label = "  ";//can not use NULL.
-            mEnabled = false;
-		}
-		
-		public void enable()
-		{
-			this.height = mOriginalHeight;
-			mEnabled = true;
+			super.disable();
 		}
 		
 		@Override
-		public boolean isInside(int clickedX, int clickedY) {
-			if (mEnabled)
-				return super.isInside(clickedX, clickedY);
-			else
-				return false;//disabled.
+		public void enable()
+		{
+			this.height = mOriginalHeight;
+			super.enable();
 		}
 	}
 	

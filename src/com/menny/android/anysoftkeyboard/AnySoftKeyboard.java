@@ -1847,10 +1847,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	public void onPress(int primaryCode) {
 		if (DEBUG) Log.d(TAG, "onPress:"+primaryCode);
-		if (mVibrationDuration > 0) {
+		if (mVibrationDuration > 0 && primaryCode!=0) {
 			mVibrator.vibrate(mVibrationDuration);
 		}
-		if (mSoundOn && (!mSilentMode) ) {
+		if (mSoundOn && (!mSilentMode) && primaryCode!=0) {
 			final int keyFX;
 			switch (primaryCode) {
 			case 13:
