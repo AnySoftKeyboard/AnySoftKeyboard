@@ -613,23 +613,27 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	@Override
 	public boolean onKeyDown(final int keyCode, KeyEvent event) {
-		if (DEBUG)
-		{
-			Log.d(TAG, "onKeyDown:"+keyCode+" flags:"+event.getFlags());
-			
-			if (mInputView == null)
-			{
-				Log.d(TAG, "No input view");
-			}
-			else
-			{
-				Log.d(TAG, "\n canInteractWithUi:"+mInputView.canInteractWithUi()+"\n"+
-						"getHeight:"+mInputView.getHeight()+"\n"+
-						"getVisibility:"+mInputView.getVisibility()+"\n"+
-						"getWindowVisibility:"+mInputView.getWindowVisibility()+"\n"+
-						"isFocused:"+mInputView.isFocused()+"\n"+
-						"isShown:"+mInputView.isShown()+"\n");
-			}
+//		if (DEBUG)
+//		{
+//			Log.d(TAG, "onKeyDown:"+keyCode+" flags:"+event.getFlags());
+//			
+//			if (mInputView == null)
+//			{
+//				Log.d(TAG, "No input view");
+//			}
+//			else
+//			{
+//				Log.d(TAG, "\n canInteractWithUi:"+mInputView.canInteractWithUi()+"\n"+
+//						"getHeight:"+mInputView.getHeight()+"\n"+
+//						"getVisibility:"+mInputView.getVisibility()+"\n"+
+//						"getWindowVisibility:"+mInputView.getWindowVisibility()+"\n"+
+//						"isFocused:"+mInputView.isFocused()+"\n"+
+//						"isShown:"+mInputView.isShown()+"\n");
+//			}
+//		}
+		//TODO can mInputView be null?
+		if(mInputView == null || !mInputView.isShown()){
+		    return super.onKeyDown(keyCode, event);
 		}
 		
 		InputConnection ic = getCurrentInputConnection();
@@ -903,10 +907,12 @@ public class AnySoftKeyboard extends InputMethodService implements
         //Issue 248
 		case KeyEvent.KEYCODE_VOLUME_DOWN:
 	    case KeyEvent.KEYCODE_VOLUME_UP:
-	    if(mConfig.useVolumeKeyForLeftRight()){
-	        //no need of vol up/down sound
-	        return true;
-		}
+	        if(mInputView == null || !mInputView.isShown()){
+	            return super.onKeyUp(keyCode, event);
+	        }else if(mConfig.useVolumeKeyForLeftRight()){
+	            //no need of vol up/down sound
+	            return true;
+	        }
 		case KeyEvent.KEYCODE_DPAD_DOWN:
 		case KeyEvent.KEYCODE_DPAD_UP:
 		case KeyEvent.KEYCODE_DPAD_LEFT:
