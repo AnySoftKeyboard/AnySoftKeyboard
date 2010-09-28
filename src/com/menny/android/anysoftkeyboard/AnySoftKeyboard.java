@@ -26,6 +26,7 @@ import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -1498,7 +1499,26 @@ public class AnySoftKeyboard extends InputMethodService implements
 //			    System.arraycopy(keyCodes, 0, tmp, 1, keyCodes.length);
 //			    keyCodes = tmp;
 			}
-			mWord.add(primaryCodeForShow, keyCodes);
+			if (mWord.add(primaryCodeForShow, keyCodes))
+			{
+				Toast note = Toast.makeText(this, "Check the logcat for a note from AnySoftKeyboard developers!", Toast.LENGTH_LONG);
+				note.show();
+				
+				Log.i(TAG, "*******************"
+						+"\nNICE!!! You found the our easter egg! http://www.dailymotion.com/video/x3zg90_gnarls-barkley-crazy-2006-mtv-star_music\n"
+						+"\nAnySoftKeyboard R&D team would like to thank you for using our keyboard application."
+						+"\nWe hope you enjoying it, we enjoyed making it."
+						+"\nWhile developing this application, we heard Gnarls Barkley's Crazy quite a lot, and would like to share it with you."
+						+"\n"
+						+"\nThanks."
+						+"\nMenny Even Danan, Hezi Cohen, Hugo Lopes, Henrik Andersson, Sami Salonen, and Lado Kumsiashvili."
+						+"\n*******************");
+				
+				Intent easterEgg = new Intent(Intent.ACTION_WEB_SEARCH);
+				easterEgg.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				easterEgg.putExtra(SearchManager.QUERY, "http://www.dailymotion.com/video/x3zg90_gnarls-barkley-crazy-2006-mtv-star_music");
+				startActivity(easterEgg);
+			}
 			InputConnection ic = getCurrentInputConnection();
 			if (ic != null) {
 				ic.setComposingText(mComposing, 1);

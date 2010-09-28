@@ -23,7 +23,9 @@ import java.util.List;
  * A place to store the currently composing word with information such as adjacent key codes as well
  */
 public class WordComposer {
-    /**
+    private static final String CHEWBACCAONTHEDRUMS = "chewbaccaonthedrums";
+
+	/**
      * The list of unicode values for each keystroke (including surrounding keys)
      */
     private List<int[]> mCodes;
@@ -77,13 +79,22 @@ public class WordComposer {
      * the array containing unicode for adjacent keys, sorted by reducing probability/proximity.
      * @param codes the array of unicode values
      */
-    public void add(int primaryCode, int[] codes) {
+    public boolean add(int primaryCode, int[] codes) {
         mTypedWord.append((char) primaryCode);
         mCodes.add(codes);
         if (mTypedWord.length() == 1)
         {
         	mIsCapitalized = Character.isUpperCase(primaryCode);
         }
+        else if (mTypedWord.length() == CHEWBACCAONTHEDRUMS.length())
+        {
+        	if (mTypedWord.toString().equalsIgnoreCase(CHEWBACCAONTHEDRUMS))
+        	{
+        		return true;
+        	}
+        }
+        
+        return false;
     }
 
     /**
