@@ -3,26 +3,30 @@
 	android:orientation="horizontal"
 	android:layout_width="match_parent"
 	android:layout_height="?android:attr/listPreferredItemHeight">
+	<!-- 
 	<ImageView android:id="@+id/smiley_icon"
 		android:layout_gravity="center_vertical"
 		android:layout_marginLeft="18dip"
 		android:layout_width="20dip"
 		android:layout_height="20dip" />
+	-->
 	<TextView android:id="@+id/smiley_name"
 		android:singleLine="true"
 		android:textAppearance="?android:attr/textAppearanceLarge"
 		android:textColor="?android:attr/textColorPrimaryInverse"
- 		android:layout_marginLeft="15dip"
-		android:layout_gravity="center_vertical"
+ 		android:layout_gravity="center"
 		android:layout_weight="1"
 		android:layout_width="0dip"
-		android:layout_height="wrap_content" />
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="16dp"
+		android:layout_marginRight="16dp"/>
 	<TextView android:id="@+id/smiley_text"
 		android:singleLine="true"
 		android:textAppearance="?android:attr/textAppearanceLarge"
 		android:textColor="?android:attr/textColorPrimaryInverse"
 		android:layout_marginRight="10dip"
 		android:layout_gravity="center_vertical"
-		android:layout_width="wrap_content"
+		android:gravity="right"
+		android:layout_width="40dp"
 		android:layout_height="wrap_content" />
 </LinearLayout>
