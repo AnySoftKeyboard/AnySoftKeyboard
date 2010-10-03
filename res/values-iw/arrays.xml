@@ -1,23 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-	<string-array name="smiley_names">
-		<item>סמיילי</item>                   <!-- 0: :-) -->
-		<item>עצוב</item>                     <!-- 1: :-( -->
-		<item>קריצה</item>                 <!-- 2: ;-) -->
-		<item>הוצאת לשון</item>     <!-- 3: :-P -->
-		<item>מופתע</item>               <!-- 4: =-O -->
-		<item>נשיקה</item>                 <!-- 5: :-* -->
-		<item>צועק</item>                 <!-- 6: :O -->
-		<item>קול</item>                    <!-- 7: B-) -->
-		<item>טחון בכסף</item>             <!-- 8: :-$ -->
- 		<item>פליטת פה</item>           <!-- 9: :-! -->
-		<item>נבוך</item>             <!-- 10: :-[ -->
-		<item>מלאך</item>                   <!-- 11: O:-) -->
-		<item>מהסס</item>               <!-- 12: :-\\ -->
-		<item>בוכה</item>                  <!-- 13: :\'( -->
-		<item>שפתיים חתומות</item>         <!-- 14: :-X -->
-		<item>צוחק</item>                <!-- 15: :-D -->
-		<item>מבולבל</item>                <!-- 16: o_O -->
-	</string-array>
+	
 </resources>
