@@ -24,7 +24,7 @@
     	<Key android:codes="33" android:keyLabel="!" android:keyEdgeFlags="left"/>
         <Key android:codes="64" android:keyLabel="\@"/>
         <Key android:codes="35" android:keyLabel="\#"/>
-        <Key android:codes="36" android:keyLabel="$"/>
+        <Key android:codes="36" android:keyLabel="$" android:popupCharacters="£€¥¢"/>
         <Key android:codes="37" android:keyLabel="%"/>
         <Key android:codes="94" android:keyLabel="^"/>
         <Key android:codes="38" android:keyLabel="&amp;"/>
@@ -34,15 +34,14 @@
     </Row>
     
     <Row>
-    	<Key android:codes="-6" android:keyLabel="..." android:keyEdgeFlags="left"/>
+    	<Key android:keyWidth="15%p" android:codes="-6" android:keyLabel="..." android:keyEdgeFlags="left"/>
         <Key android:codes="34" android:keyLabel="&quot;"/>
-        <Key android:codes="58" android:keyLabel=":"/>
-        <Key android:codes="59" android:keyLabel=";"/>
+        <Key android:codes="58" android:keyLabel=":" android:popupCharacters=";"/>
         <Key android:codes="47" android:keyLabel="/" />
         <Key android:codes="45" android:keyLabel="-"/>
         <Key android:codes="61" android:keyLabel="="/>
         <Key android:codes="95" android:keyLabel="_"/>
         <Key android:codes="43" android:keyLabel="+"/>
-        <Key android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+        <Key android:keyWidth="15%p" android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
 </Keyboard>

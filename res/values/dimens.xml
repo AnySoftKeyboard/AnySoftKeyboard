@@ -20,6 +20,7 @@
 
 <resources>
     <dimen name="key_height">50dip</dimen>
+    <dimen name="key_half_height">25dip</dimen>
     <dimen name="candidate_font_height">16sp</dimen>
     <dimen name="candidate_vertical_padding">6sp</dimen>
 </resources>
