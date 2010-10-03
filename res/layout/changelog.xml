@@ -50,7 +50,7 @@
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
-		        android:text="20100829 - 29"
+		        android:text="20101003 - 29"
 		        android:textStyle="bold"
 		        android:gravity="center"
 		        android:textSize="16sp"
@@ -66,7 +66,7 @@
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
-		        android:text="* Revised top row (now with arrows).\n* Arrows also in ALT symbols keyboard.\n* Symbols layouts can be cycled."
+		        android:text="* Revised top row (now with arrows).\n* Arrows also in ALT symbols keyboard.\n* Symbols layouts can be cycled.\n *Lots of small bug fixes."
 		        android:textSize="16sp"
 		        android:paddingTop="4dp"
 		        android:paddingLeft="12dp"
