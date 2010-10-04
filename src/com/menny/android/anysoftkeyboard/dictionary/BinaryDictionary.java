@@ -128,11 +128,13 @@ class BinaryDictionary extends Dictionary {
 
         for (int j = 0; j < count; j++) {
             if (mFrequencies[j] < 1) break;
-            int start = j * MAX_WORD_LENGTH;
-            int len = 0;
-            while (mOutputChars[start + len] != 0) {
-                len++;
+            final int start = j * MAX_WORD_LENGTH;
+            
+            int position = start;
+            while ((mOutputChars.length > position) && (mOutputChars[position] != 0)) {
+                position++;
             }
+            final int len = (position - start);
             if (len > 0) {
                 callback.addWord(mOutputChars, start, len, mFrequencies[j]);
             }
