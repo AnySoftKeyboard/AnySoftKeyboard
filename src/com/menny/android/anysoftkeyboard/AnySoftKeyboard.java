@@ -1256,84 +1256,85 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void handleBackword(InputConnection ic) {
 	    try{
-	    if(ic == null){
-	        return;
-	    }
-		if (mPredicting) {
-			final int length = mComposing.length();
-			if (length == 0) {
+		    if(ic == null){
+		        return;
+		    }
+			if (mPredicting) {
+				final int length = mComposing.length();
+				if (length == 0) {
+					return;
+				}
+				mComposing.delete(0, length);
+				mWord.deleteLast();
+				ic.setComposingText(mComposing, 1);
+				if (mComposing.length() == 0) {
+					mPredicting = false;
+				}
+				postUpdateSuggestions();
 				return;
 			}
-			mComposing.delete(0, length);
-			mWord.deleteLast();
-			ic.setComposingText(mComposing, 1);
-			if (mComposing.length() == 0) {
-				mPredicting = false;
+			CharSequence cs = ic.getTextBeforeCursor(1, 0);
+			//int csl = cs.length();//check if there is no input
+			if (TextUtils.isEmpty(cs)) {
+				return;//nothing to delete
 			}
-			postUpdateSuggestions();
-			return;
-		}
-		CharSequence cs = ic.getTextBeforeCursor(1, 0);
-		int csl = cs.length();//check if there is no input
-		if (csl == 0) {
-			return;//nothing to delete
-		}
-		//TWO OPTIONS
-		//1) Either we do like Linux and Windows (and probably ALL desktop OSes):
-		//Delete all the characters till a complete word was deleted:
-		/*
-		 * What to do:
-		 * We delete until we find a separator (the function isBackwordStopChar).
-		 * Note that we MUST delete a delete a whole word! So if the backword starts
-		 * at separators, we'll delete those, and then the word before:
-		 * "test this,       ," -> "test "
-		 */
-		//Pro: same as desktop
-		//Con: when auto-caps is on (the default), this will delete the previous word, which can be annoying..
-		//E.g., Writing a sentence, then a period, then ASK will auto-caps, then when the user press backspace (for some reason),
-		//the entire previous word deletes.
-		
-		//2) Or we delete all the characters till we encounter a separator, but delete at least one character.
-		/*
-		 * What to do:
-		 * We delete until we find a separator (the function isBackwordStopChar).
-		 * Note that we MUST delete a delete at least one character
-		 * "test this, " -> "test this," -> "test this" -> "test "
-		 */
-		//Pro: Supports auto-caps, and mostly similar to desktop OSes
-		//Con: Not all desktop use-cases are here.
-		
-		//For now, I go with option 2, but I'm open for discussion.
-		
-		//2b) "test this, " -> "test this"
-		
-		boolean stopCharAtTheEnd = isBackwordStopChar((int)cs.charAt(0)); 
-		int idx = 1;
-		while (true) {
-			cs = ic.getTextBeforeCursor(idx, 0);
-			csl = cs.length();
-			if (csl < idx) {
-				// read text is smaller than requested. We are at start
-				break;
-			}
-			++idx;
-			int cc = cs.charAt(0);
-			boolean isBackwordStopChar = isBackwordStopChar(cc);
-			if (stopCharAtTheEnd) {
-				if (!isBackwordStopChar){
+			//TWO OPTIONS
+			//1) Either we do like Linux and Windows (and probably ALL desktop OSes):
+			//Delete all the characters till a complete word was deleted:
+			/*
+			 * What to do:
+			 * We delete until we find a separator (the function isBackwordStopChar).
+			 * Note that we MUST delete a delete a whole word! So if the backword starts
+			 * at separators, we'll delete those, and then the word before:
+			 * "test this,       ," -> "test "
+			 */
+			//Pro: same as desktop
+			//Con: when auto-caps is on (the default), this will delete the previous word, which can be annoying..
+			//E.g., Writing a sentence, then a period, then ASK will auto-caps, then when the user press backspace (for some reason),
+			//the entire previous word deletes.
+			
+			//2) Or we delete all the characters till we encounter a separator, but delete at least one character.
+			/*
+			 * What to do:
+			 * We delete until we find a separator (the function isBackwordStopChar).
+			 * Note that we MUST delete a delete at least one character
+			 * "test this, " -> "test this," -> "test this" -> "test "
+			 */
+			//Pro: Supports auto-caps, and mostly similar to desktop OSes
+			//Con: Not all desktop use-cases are here.
+			
+			//For now, I go with option 2, but I'm open for discussion.
+			
+			//2b) "test this, " -> "test this"
+			
+			boolean stopCharAtTheEnd = isBackwordStopChar((int)cs.charAt(0)); 
+			int idx = 1;
+			int csl = 0;
+			while (true) {
+				cs = ic.getTextBeforeCursor(idx, 0);
+				csl = cs.length();
+				if (csl < idx) {
+					// read text is smaller than requested. We are at start
+					break;
+				}
+				++idx;
+				int cc = cs.charAt(0);
+				boolean isBackwordStopChar = isBackwordStopChar(cc);
+				if (stopCharAtTheEnd) {
+					if (!isBackwordStopChar){
+						--csl;
+						break;
+					} 
+					continue;
+				}
+				if (isBackwordStopChar) {
 					--csl;
 					break;
-				} 
-				continue;
+				}
 			}
-			if (isBackwordStopChar) {
-				--csl;
-				break;
-			}
-		}
-		//we want to delete at least one character
-		//ic.deleteSurroundingText(csl == 0 ? 1 : csl, 0);
-		ic.deleteSurroundingText(csl, 0);//it is always > 0 !
+			//we want to delete at least one character
+			//ic.deleteSurroundingText(csl == 0 ? 1 : csl, 0);
+			ic.deleteSurroundingText(csl, 0);//it is always > 0 !
 		
 	    }finally{
 	        handleShiftStateAfterBackspace();
