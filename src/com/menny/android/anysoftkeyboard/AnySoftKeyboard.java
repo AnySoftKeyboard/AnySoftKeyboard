@@ -1378,7 +1378,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 			revertLastWord(deleteChar);
 			return;
 		} else if (deleteChar) {
-			if (ic.getTextBeforeCursor(1, 0).length() > 0)
+			final CharSequence beforeText = ic.getTextBeforeCursor(1, 0);
+			final int textLengthBeforeDelete = (TextUtils.isEmpty(beforeText))? 0 : beforeText.length();
+			if (textLengthBeforeDelete > 0)
 			{
 				//much better performance!
 				ic.deleteSurroundingText(1, 0);
