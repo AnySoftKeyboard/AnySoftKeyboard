@@ -172,7 +172,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case MSG_UPDATE_SUGGESTIONS:
-				updateSuggestions();
+				performUpdateSuggestions();
 				break;
 			}
 		}
@@ -382,14 +382,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 				// Make sure that passwords are not displayed in candidate view
 				final int variation = attribute.inputType
 						& EditorInfo.TYPE_MASK_VARIATION;
-				if (variation == EditorInfo.TYPE_TEXT_VARIATION_PASSWORD
-						|| variation == EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+				if (	variation == EditorInfo.TYPE_TEXT_VARIATION_PASSWORD ||
+						variation == EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD ||
+						variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS ||
+						variation == EditorInfo.TYPE_TEXT_VARIATION_URI || 
+						variation == EditorInfo.TYPE_TEXT_VARIATION_FILTER) {
 					mPredictionOn = false;
 				}
 
 				if ((!mConfig.getInsertSpaceAfterCandidatePick()) ||//some users want to never get spaces added
 						variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS ||
-						variation == EditorInfo.TYPE_TEXT_VARIATION_PERSON_NAME)
+						variation == EditorInfo.TYPE_TEXT_VARIATION_URI)
 				{
 					mAutoSpace = false;
 				} else {
@@ -406,8 +409,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 				} else if (variation == EditorInfo.TYPE_TEXT_VARIATION_SHORT_MESSAGE) {
 					mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_IM,
 							attribute);
-				} else if (variation == EditorInfo.TYPE_TEXT_VARIATION_FILTER) {
-					mPredictionOn = false;
+				} else {
+					mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT, attribute);
 				}
 				if ((attribute.inputType & EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE) != 0) {
 					mPredictionOn = false;
@@ -416,8 +419,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 				updateShiftKeyState(attribute);
 				break;
 			default:
-				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT,
-						attribute);
+				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT, attribute);
+				mPredictionOn = true;
+				mCompletionOn = true && isFullscreenMode();
+				mAutoSpace = true;
 				updateShiftKeyState(attribute);
 			}
 		}
@@ -521,7 +526,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 		mComposing.setLength(0);
 		mPredicting = false;
-		updateSuggestions();
+		postUpdateSuggestionsNow();
 		TextEntryState.reset();
 		
 		mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_UNKNOWN;
@@ -631,10 +636,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 //						"isShown:"+mInputView.isShown()+"\n");
 //			}
 //		}
-		//TODO can mInputView be null?
-		if(mInputView == null || !mInputView.isShown()){
-		    return super.onKeyDown(keyCode, event);
-		}
+		final boolean shouldTranslateSpecialKeys;
+		if(mInputView == null || !mInputView.isShown())
+			shouldTranslateSpecialKeys = false;
+		else
+			shouldTranslateSpecialKeys = true;
 		
 		InputConnection ic = getCurrentInputConnection();
 		if (!mPredictionLandscape) {
@@ -659,30 +665,36 @@ public class AnySoftKeyboard extends InputMethodService implements
 					+ " Repeats:" + event.getRepeatCount());
 
 		switch (keyCode) {
+		/**** SPEACIAL translated HW keys
+		 * If you add new keys here, do not forget to add to the 
+		 */
 		case KeyEvent.KEYCODE_CAMERA:
-		     if(mConfig.useCameraKeyForBackspaceBackword()){
+		     if(shouldTranslateSpecialKeys && mConfig.useCameraKeyForBackspaceBackword()){
 		        handleBackword(getCurrentInputConnection());
 		        return true;
 		     }
 		     break;
 		case KeyEvent.KEYCODE_FOCUS:
-		     if(mConfig.useCameraKeyForBackspaceBackword()){
-		       handleBackspace();
-		       return true;
+		     if(shouldTranslateSpecialKeys && mConfig.useCameraKeyForBackspaceBackword()){
+		    	 handleBackspace();
+		    	 return true;
 		     }
 		     break;
 		case KeyEvent.KEYCODE_VOLUME_UP:
-             if(mConfig.useVolumeKeyForLeftRight()){
-		      sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_LEFT);
-		      return true;
+             if(shouldTranslateSpecialKeys && mConfig.useVolumeKeyForLeftRight()){
+            	 sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_LEFT);
+		     	return true;
              }
              break;
 		case KeyEvent.KEYCODE_VOLUME_DOWN:
-	        if(mConfig.useVolumeKeyForLeftRight()){
-		     sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_RIGHT);
-		     return true;
+	        if(shouldTranslateSpecialKeys && mConfig.useVolumeKeyForLeftRight()){
+				sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_RIGHT);
+				return true;
 	        }
 	        break;
+        /**** END of SPEACIAL translated HW keys code section
+		 * 
+		 */
 		case KeyEvent.KEYCODE_BACK:
 			if (event.getRepeatCount() == 0 && mInputView != null) {
 				if (mInputView.handleBack()) {
@@ -703,21 +715,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 				 */
 			}
 			break;
-		// case KeyEvent.KEYCODE_DPAD_DOWN:
-		// case KeyEvent.KEYCODE_DPAD_UP:
-		// case KeyEvent.KEYCODE_DPAD_LEFT:
-		// case KeyEvent.KEYCODE_DPAD_RIGHT:
-		// // If tutorial is visible, don't allow dpad to work
-		// if (mTutorial != null) {
-		// return true;
-		// }
-		// break;
-		// case KeyEvent.KEYCODE_DEL:
-		// onKey(Keyboard.KEYCODE_DELETE, new int[]{Keyboard.KEYCODE_DELETE});
-		// return true;
-		// case KeyEvent.KEYCODE_ENTER:
-		// // Let the underlying text editor always handle these.
-		// return false;
 		case KeyEvent.KEYCODE_SHIFT_LEFT:
         case KeyEvent.KEYCODE_SHIFT_RIGHT:
             if (event.isAltPressed() && Workarounds.isAltSpaceLangSwitchNotPossible()) {
@@ -737,6 +734,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                         NextKeyboardType.AlphabetSupportsPhysical);
                 return true;
             }
+            //NOTE: letting it fallthru to the other meta-keys
 		case KeyEvent.KEYCODE_ALT_LEFT:
 		case KeyEvent.KEYCODE_ALT_RIGHT:
 		case KeyEvent.KEYCODE_SYM:
@@ -770,17 +768,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 			//NOTE:
 			// letting it fall through to the "default"
-			// else
-			// {
-			// //still handling it
-			// onKey(32, new int[]{32});
-			// return true;
-			// }
 		default:
 
 			// Fix issue 185, check if we should process key repeat
-			if (!mConfig.getUseRepeatingKeys()
-					&& event.getRepeatCount() > 0)
+			if (!mConfig.getUseRepeatingKeys() && event.getRepeatCount() > 0)
 				return true;
 
 			if (mKeyboardSwitcher.isCurrentKeyboardPhysical()) {
@@ -997,7 +988,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				mCommittedLength = mComposing.length();
 				TextEntryState.acceptedTyped(mComposing);
 			}
-			updateSuggestions();
+			postUpdateSuggestionsNow();
 		}
 	}
 
@@ -1371,28 +1362,21 @@ public class AnySoftKeyboard extends InputMethodService implements
 			deleteChar = true;
 		}
 		
-		handleShiftStateAfterBackspace();
-		
 		TextEntryState.backspace();
 		if (TextEntryState.getState() == TextEntryState.STATE_UNDO_COMMIT) {
 			revertLastWord(deleteChar);
-			return;
+			handleShiftStateAfterBackspace();
 		} else if (deleteChar) {
 			final CharSequence beforeText = ic.getTextBeforeCursor(1, 0);
 			final int textLengthBeforeDelete = (TextUtils.isEmpty(beforeText))? 0 : beforeText.length();
 			if (textLengthBeforeDelete > 0)
-			{
-				//much better performance!
 				ic.deleteSurroundingText(1, 0);
-			}
 			else
-			{
-				//sendDownUpKeyEvents is needed for Android's Terminal Console app.
-				//I can't understand just why, just yet...
 				sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
-			}
+			
+			mJustRevertedSeparator = null;
 		}
-		mJustRevertedSeparator = null;
+		handleShiftStateAfterBackspace();
 	}
 	
 //	@Override
@@ -1623,8 +1607,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void postUpdateSuggestions() {
 		mHandler.removeMessages(MSG_UPDATE_SUGGESTIONS);
-		mHandler.sendMessageDelayed(mHandler
-				.obtainMessage(MSG_UPDATE_SUGGESTIONS), 100);
+		mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_UPDATE_SUGGESTIONS), 100);
+	}
+	
+	private void postUpdateSuggestionsNow() {
+		mHandler.removeMessages(MSG_UPDATE_SUGGESTIONS);
+		mHandler.sendMessage(mHandler.obtainMessage(MSG_UPDATE_SUGGESTIONS));
 	}
 
 	private boolean isPredictionOn() {
@@ -1642,9 +1630,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		return true;
 	}
 
-	private void updateSuggestions() {
+	private void performUpdateSuggestions() {
 		if (DEBUG)
-			Log.d("AnySoftKeyboard", "updateSuggestions: has mSuggest:"
+			Log.d(TAG, "performUpdateSuggestions: has mSuggest:"
 					+ (mSuggest != null) + ", isPredictionOn:"
 					+ isPredictionOn() + ", mPredicting:" + mPredicting
 					+ ", mCorrectionMode:" + mCorrectionMode);
@@ -1691,7 +1679,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// Complete any pending candidate query first
 		if (mHandler.hasMessages(MSG_UPDATE_SUGGESTIONS)) {
 			mHandler.removeMessages(MSG_UPDATE_SUGGESTIONS);
-			updateSuggestions();
+			postUpdateSuggestionsNow();
 		}
 
 		if (mBestWord != null) {
@@ -1806,7 +1794,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	private void sendSpace() {
-		sendKeyChar((char) KEYCODE_SPACE);
+		sendKeyChar(' ');
 		updateShiftKeyState(getCurrentInputEditorInfo());
 	}
 
@@ -1867,6 +1855,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		Log.i("AnySoftKeyboard", "nextKeyboard: Setting next keyboard to: "
 				+ currentKeyboard.getKeyboardName());
 		updateShiftKeyState(currentEditorInfo);
+		mCapsLock = currentKeyboard.isShiftLocked();
 		mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_UNKNOWN;
 		// changing dictionary
 		setMainDictionaryForCurrentKeyboard();
@@ -1980,27 +1969,19 @@ public class AnySoftKeyboard extends InputMethodService implements
 				getString(R.string.settings_key_vibrate_on_key_press_duration),
 				getString(R.string.settings_default_vibrate_on_key_press_duration)));
 
-		boolean newSoundOn = sp.getBoolean(getString(R.string.settings_key_sound_on), getResources().getBoolean(R.bool.settings_default_sound_on));
-		boolean soundChanged = (newSoundOn != mSoundOn);
-		if (soundChanged) {
-			if (newSoundOn) {
-				Log
-						.i(TAG,
-								"Loading sounds effects from AUDIO_SERVICE due to configuration change.");
-				mAudioManager.loadSoundEffects();
-			} else {
-				Log
-						.i(TAG,
-								"Releasing sounds effects from AUDIO_SERVICE due to configuration change.");
-				mAudioManager.unloadSoundEffects();
-			}
+		mSoundOn = sp.getBoolean(getString(R.string.settings_key_sound_on), getResources().getBoolean(R.bool.settings_default_sound_on));
+		if (mSoundOn) {
+			Log.i(TAG, "Loading sounds effects from AUDIO_SERVICE due to configuration change.");
+			mAudioManager.loadSoundEffects();
+		} else {
+			Log.i(TAG, "Releasing sounds effects from AUDIO_SERVICE due to configuration change.");
+			mAudioManager.unloadSoundEffects();
 		}
-		mSoundOn = newSoundOn;
 		// checking the volume
 		boolean customVolume = sp.getBoolean("use_custom_sound_volume", false);
 		int newVolume;
 		if (customVolume) {
-			newVolume = sp.getInt("custom_sound_volume", 0);
+			newVolume = sp.getInt("custom_sound_volume", 0) + 1;
 			Log.i(TAG, "Custom volume checked: " + newVolume+" out of 100");
 		} else {
 			Log.i(TAG, "Custom volume un-checked.");
@@ -2361,18 +2342,28 @@ public class AnySoftKeyboard extends InputMethodService implements
 				.getCurrentKeyboard()));
 		super.onLowMemory();
 	}
-
-//	public void endInputConnectionEdit() {
-//		InputConnection ic = getCurrentInputConnection();
-//		if (ic != null)
-//			ic.endBatchEdit();
-//	}
-//
-//	public void startInputConnectionEdit() {
-//		InputConnection ic = getCurrentInputConnection();
-//		if (ic != null)
-//			ic.beginBatchEdit();
-//	}
+	
+	private InputConnection mEditingInput = null;
+	public void startInputConnectionEdit() {
+		mEditingInput = getCurrentInputConnection();
+		if (mEditingInput != null)
+			mEditingInput.beginBatchEdit();
+	}
+	
+	public void endInputConnectionEdit() {
+		if (mEditingInput != null)
+		{
+			try
+			{
+				mEditingInput.endBatchEdit();
+			}
+			catch(Exception e)
+			{
+				//it could be dead already.
+				e.printStackTrace();
+			}
+		}		
+	}
 	
 	private void showSmileyDialog() {
         if (mSmileyDialog == null) {

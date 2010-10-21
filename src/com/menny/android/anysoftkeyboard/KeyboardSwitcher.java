@@ -242,10 +242,11 @@ public class KeyboardSwitcher
             mAlphabetMode = false;
             mKeyboardLocked = true;
             break;
-//        case MODE_TEXT:
-//        case MODE_URL:
-//        case MODE_EMAIL:
-//        case MODE_IM:
+        case MODE_URL:
+        case MODE_EMAIL:
+        	//starting with English
+        	mLastSelectedKeyboard = 0;
+			//note: letting it fallthru to the default branch
         default:
         	mKeyboardLocked = false;
         	keyboard = getAlphabetKeyboard(mLastSelectedKeyboard, getKeyboardMode(attr));
@@ -551,13 +552,13 @@ public class KeyboardSwitcher
 		{
 			if (mLastSelectedSymbolsKeyboard == SYMBOLS_KEYBOARD_REGULAR_INDEX)
 	        {
-	        	mLastSelectedSymbolsKeyboard = 1;
+	        	mLastSelectedSymbolsKeyboard = SYMBOLS_KEYBOARD_ALT_INDEX;
 	        }
-	        else if (mLastSelectedSymbolsKeyboard == SYMBOLS_KEYBOARD_ALT_INDEX)
+	        else// if (mLastSelectedSymbolsKeyboard == SYMBOLS_KEYBOARD_ALT_INDEX)
 	        {
-	        	mLastSelectedSymbolsKeyboard = 0;
+	        	mLastSelectedSymbolsKeyboard = SYMBOLS_KEYBOARD_REGULAR_INDEX;
 	        }
-	        else return currentKeyboard;
+	        //else return currentKeyboard;
 
 			currentKeyboard = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard, getKeyboardMode(currentEditorInfo));
 
@@ -574,25 +575,27 @@ public class KeyboardSwitcher
 	}
 
 	public void onLowMemory() {
-
-		for(int index=0; index<mSymbolsKeyboardsArray.length; index++)
+	if (mSymbolsKeyboardsArray != null)
 		{
-			AnyKeyboard current = mSymbolsKeyboardsArray[index];
-			if ((current != null) && (isAlphabetMode() || (mLastSelectedSymbolsKeyboard!=index)))
+			for(int index=0; index<mSymbolsKeyboardsArray.length; index++)
 			{
-				Log.i(TAG, "KeyboardSwitcher::onLowMemory: Removing "+current.getKeyboardName());
-				mSymbolsKeyboardsArray[index] = null;
+				AnyKeyboard current = mSymbolsKeyboardsArray[index];
+				if ((current != null) && (isAlphabetMode() || (mLastSelectedSymbolsKeyboard!=index)))
+				{
+					Log.i(TAG, "KeyboardSwitcher::onLowMemory: Removing "+current.getKeyboardName());
+					mSymbolsKeyboardsArray[index] = null;
+				}
 			}
-		}
-		//in alphabet we are a bit cautious..
-		//just removing the not selected keyboards.
-		for(int index=0; index<mAlphabetKeyboards.length; index++)
-		{
-			AnyKeyboard current = mAlphabetKeyboards[index];
-			if ((current != null) && (mLastSelectedKeyboard!=index))
+			//in alphabet we are a bit cautious..
+			//just removing the not selected keyboards.
+			for(int index=0; index<mAlphabetKeyboards.length; index++)
 			{
-				Log.i(TAG, "KeyboardSwitcher::onLowMemory: Removing "+current.getKeyboardName());
-				mAlphabetKeyboards[index] = null;
+				AnyKeyboard current = mAlphabetKeyboards[index];
+				if ((current != null) && (mLastSelectedKeyboard!=index))
+				{
+					Log.i(TAG, "KeyboardSwitcher::onLowMemory: Removing "+current.getKeyboardName());
+					mAlphabetKeyboards[index] = null;
+				}
 			}
 		}
 	}
