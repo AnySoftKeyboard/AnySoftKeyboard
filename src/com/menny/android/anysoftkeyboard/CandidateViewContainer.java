@@ -18,7 +18,6 @@ package com.menny.android.anysoftkeyboard;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -73,15 +72,15 @@ public class CandidateViewContainer extends LinearLayout implements OnTouchListe
     public boolean onTouch(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             if (v == mButtonRight) {
-            	Log.d("AnySoftKeyboard", "onTouch:mButtonRight");
+            	//Log.d("AnySoftKeyboard", "onTouch:mButtonRight");
                 mCandidates.scrollNext();
                 return true;
             } else if (v == mButtonLeft) {
-            	Log.d("AnySoftKeyboard", "onTouch:mButtonLeft");
+            	//Log.d("AnySoftKeyboard", "onTouch:mButtonLeft");
                 mCandidates.scrollPrev();
                 return true;
             }
-            Log.d("AnySoftKeyboard", "onTouch:Don't know");
+            //Log.d("AnySoftKeyboard", "onTouch:Don't know");
         }
         return false;
     }

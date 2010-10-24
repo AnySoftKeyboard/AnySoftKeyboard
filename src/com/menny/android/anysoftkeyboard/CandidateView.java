@@ -212,8 +212,10 @@ public class CandidateView extends View {
             if (getBackground() != null) {
                 getBackground().getPadding(mBgPadding);
             }
-            mDivider.setBounds(0, mBgPadding.top, mDivider.getIntrinsicWidth(),
-                    mDivider.getIntrinsicHeight());
+//            mDivider.setBounds(0, mBgPadding.top, mDivider.getIntrinsicWidth(),
+//                    mDivider.getIntrinsicHeight());
+            mDivider.setBounds(0, mBgPadding.top, mPreviewPopup.getWidth(),
+            		mPreviewPopup.getHeight());
         }
         final int count = mSuggestions.size();
         //final int width = getWidth();

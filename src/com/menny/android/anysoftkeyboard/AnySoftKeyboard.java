@@ -129,10 +129,19 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
 
 	private int mCommittedLength;
+	/*
+	 * Do we do prediction now
+	 */
 	private boolean mPredicting;
 	private CharSequence mBestWord;
 	private final boolean mPredictionLandscape = false;
+	/*
+	 * is prediction needed for the current input connection
+	 */
 	private boolean mPredictionOn;
+	/*
+	 * is out-side completions needed
+	 */
 	private boolean mCompletionOn;
 	private boolean mAutoSpace;
 	private boolean mAutoCorrectOn;
@@ -142,7 +151,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private String mSmileyPopupType;
 	private boolean mAutoCap;
 	private boolean mQuickFixes;
+	/*
+	 * Configuration flag. Should we support dictionary suggestions
+	 */
 	private boolean mShowSuggestions = false;
+	
 	private boolean mAutoComplete;
 	private int mCorrectionMode;
 	private String mKeyboardChangeNotificationType;
@@ -363,33 +376,44 @@ public class AnySoftKeyboard extends InputMethodService implements
 			switch (attribute.inputType & EditorInfo.TYPE_MASK_CLASS)
 			{
 			case EditorInfo.TYPE_CLASS_DATETIME:
-				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_DATETIME,
-						attribute);
+				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_DATETIME, attribute);
 				break;
 			case EditorInfo.TYPE_CLASS_NUMBER:
-				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_NUMBERS,
-						attribute);
+				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_NUMBERS, attribute);
 				break;
 			case EditorInfo.TYPE_CLASS_PHONE:
-				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_PHONE,
-						attribute);
+				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_PHONE, attribute);
 				break;
 			case EditorInfo.TYPE_CLASS_TEXT:
-				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT,
-						attribute);
-				// startPrediction();
-				mPredictionOn = true;
-				// Make sure that passwords are not displayed in candidate view
-				final int variation = attribute.inputType
-						& EditorInfo.TYPE_MASK_VARIATION;
-				if (	variation == EditorInfo.TYPE_TEXT_VARIATION_PASSWORD ||
-						variation == EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD ||
-						variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS ||
-						variation == EditorInfo.TYPE_TEXT_VARIATION_URI || 
-						variation == EditorInfo.TYPE_TEXT_VARIATION_FILTER) {
+				final int variation = attribute.inputType & EditorInfo.TYPE_MASK_VARIATION;
+				switch(variation)
+				{
+				case EditorInfo.TYPE_TEXT_VARIATION_PASSWORD:
+				case EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD:
+				case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
+				case EditorInfo.TYPE_TEXT_VARIATION_URI:
+				case EditorInfo.TYPE_TEXT_VARIATION_FILTER:
 					mPredictionOn = false;
+					break;
+				default:
+					mPredictionOn = true;
 				}
-
+				
+				switch(variation)
+				{
+				case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
+					mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_EMAIL, attribute);
+					break;
+				case EditorInfo.TYPE_TEXT_VARIATION_URI:
+					mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_URL, attribute);
+					break;
+				case EditorInfo.TYPE_TEXT_VARIATION_SHORT_MESSAGE:
+					mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_IM, attribute);
+					break;
+				default:
+					mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT, attribute);
+				}
+				
 				if ((!mConfig.getInsertSpaceAfterCandidatePick()) ||//some users want to never get spaces added
 						variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS ||
 						variation == EditorInfo.TYPE_TEXT_VARIATION_URI)
@@ -398,30 +422,23 @@ public class AnySoftKeyboard extends InputMethodService implements
 				} else {
 					mAutoSpace = true;
 				}
-				if (variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS) {
+				
+				final int textFlag = attribute.inputType & EditorInfo.TYPE_MASK_FLAGS;
+				switch(textFlag)
+				{
+				case EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS:
+				case EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE:
 					mPredictionOn = false;
-					mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_EMAIL,
-							attribute);
-				} else if (variation == EditorInfo.TYPE_TEXT_VARIATION_URI) {
-					mPredictionOn = false;
-					mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_URL,
-							attribute);
-				} else if (variation == EditorInfo.TYPE_TEXT_VARIATION_SHORT_MESSAGE) {
-					mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_IM,
-							attribute);
-				} else {
-					mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT, attribute);
-				}
-				if ((attribute.inputType & EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE) != 0) {
-					mPredictionOn = false;
-					mCompletionOn = true && isFullscreenMode();
+					break;
+				default:
+					mPredictionOn = true;
 				}
 				updateShiftKeyState(attribute);
 				break;
 			default:
+				//No class. Probably a console window, or no GUI input connection
 				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT, attribute);
-				mPredictionOn = true;
-				mCompletionOn = true && isFullscreenMode();
+				mPredictionOn = false;
 				mAutoSpace = true;
 				updateShiftKeyState(attribute);
 			}
@@ -566,6 +583,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (mCompletionOn || (isFullscreenMode() && (completions != null))) {
 			if (DEBUG) Log.v(TAG, "Received completions: completion should be shown: "+mCompletionOn+" fullscreen:"+isFullscreenMode());
 			mCompletions = completions;
+			//we do completions :)
+			
+			mCompletionOn = true;
 			if (completions == null) {
 				if (DEBUG) Log.v(TAG, "Received completions: completion is NULL. Clearing suggestions.");
 				mCandidateView.setSuggestions(null, false, false, false);
@@ -587,7 +607,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 		else if (DEBUG) Log.v(TAG, "Received completions: completions should not be shown.");
 	}
-
+/*
 	@Override
 	public void setCandidatesViewShown(boolean shown) {
 		// we show predication only in on-screen keyboard
@@ -596,7 +616,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// (mPredictionLandscape)
 		super.setCandidatesViewShown(shouldCandidatesStripBeShown() && shown);
 	}
-
+*/
+	
 	@Override
 	public void onComputeInsets(InputMethodService.Insets outInsets) {
 		super.onComputeInsets(outInsets);
@@ -1627,6 +1648,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 //		if (!onEvaluateInputViewShown())
 //			shown &= mPredictionLandscape;
 //		return shown;
+//		return true;
+//		return isPredictionOn() || isFullscreenMode();
 		return true;
 	}
 
@@ -1650,8 +1673,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			return;
 		}
 
-		List<CharSequence> stringList = mSuggest.getSuggestions(mInputView,
-				mWord, false);
+		List<CharSequence> stringList = mSuggest.getSuggestions(mInputView, mWord, false);
 		boolean correctionAvailable = mSuggest.hasMinimalCorrection();
 		// || mCorrectionMode == mSuggest.CORRECTION_FULL;
 		CharSequence typedWord = mWord.getTypedWord();
@@ -1661,8 +1683,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			correctionAvailable |= typedWordValid;
 		}
 
-		mCandidateView.setSuggestions(stringList, false, typedWordValid,
-				correctionAvailable);
+		mCandidateView.setSuggestions(stringList, false, typedWordValid, correctionAvailable);
 		if (stringList.size() > 0) {
 			if (correctionAvailable && !typedWordValid && stringList.size() > 1) {
 				mBestWord = stringList.get(1);
@@ -1721,8 +1742,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (mCapsLock) {
 			suggestion = suggestion.toString().toUpperCase();
 		} else if (preferCapitalization()
-				|| (mKeyboardSwitcher.isAlphabetMode() && (mInputView != null) && mInputView
-						.isShifted())) {
+				|| (mKeyboardSwitcher.isAlphabetMode() && (mInputView != null) && mInputView .isShifted())) {
 			suggestion = Character.toUpperCase(suggestion.charAt(0))
 					+ suggestion.subSequence(1, suggestion.length()).toString();
 		}
@@ -2027,7 +2047,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 												 * maybe not at the moment, but
 												 * shortly
 												 */
-		(mAutoComplete || mQuickFixes);
+								(mAutoComplete || mQuickFixes);
+		
 		mCorrectionMode = mAutoComplete ? 2
 				: (mShowSuggestions/* mQuickFixes */? 1 : 0);
 
@@ -2043,9 +2064,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	/*package*/ void setMainDictionaryForCurrentKeyboard() {
 		if (mSuggest != null) {
 			if (!mShowSuggestions) {
-				Log
-						.d("AnySoftKeyboard",
-								"No suggestion is required. I'll try to release memory from the dictionary.");
+				Log.d(TAG, "No suggestion is required. I'll try to release memory from the dictionary.");
 				DictionaryFactory.releaseAllDictionaries();
 				mSuggest.setMainDictionary(null);
 			} else {
@@ -2264,18 +2283,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mWord.append(textToCommit);
 
 		mComposing.append(textToCommit);
-		appendStringToInput(textToCommit);
-	}
-
-	private void appendStringToInput(CharSequence textToCommit) {
-		// handleTextDirection();
-		if (DEBUG)
-			Log.d("AnySoftKeyboard", "appendStringToInput: " + textToCommit);
-		if (mCompletionOn) {
-			getCurrentInputConnection().setComposingText(mWord.getTypedWord(),
-					textToCommit.length());
-			// updateCandidates();
-		} else
+		
+		if (mCompletionOn)
+			getCurrentInputConnection().setComposingText(mWord.getTypedWord(), textToCommit.length());
+		else
 			commitTyped(getCurrentInputConnection());
 
 		updateShiftKeyState(getCurrentInputEditorInfo());
