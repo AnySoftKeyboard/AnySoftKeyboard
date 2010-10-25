@@ -431,7 +431,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 					mPredictionOn = false;
 					break;
 				default:
-					mPredictionOn = true;
+					//we'll keep the previous mPredictionOn value
 				}
 				updateShiftKeyState(attribute);
 				break;
