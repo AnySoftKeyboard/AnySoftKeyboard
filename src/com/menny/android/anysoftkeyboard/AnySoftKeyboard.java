@@ -385,18 +385,34 @@ public class AnySoftKeyboard extends InputMethodService implements
 				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_PHONE, attribute);
 				break;
 			case EditorInfo.TYPE_CLASS_TEXT:
+				
 				final int variation = attribute.inputType & EditorInfo.TYPE_MASK_VARIATION;
 				switch(variation)
 				{
 				case EditorInfo.TYPE_TEXT_VARIATION_PASSWORD:
 				case EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD:
-				case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
-				case EditorInfo.TYPE_TEXT_VARIATION_URI:
-				case EditorInfo.TYPE_TEXT_VARIATION_FILTER:
 					mPredictionOn = false;
 					break;
 				default:
 					mPredictionOn = true;
+				}
+				
+				if (mConfig.getInsertSpaceAfterCandidatePick())
+				{
+					switch(variation)
+					{
+					case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
+					case EditorInfo.TYPE_TEXT_VARIATION_URI:
+						mAutoSpace = false;
+						break;
+					default:
+						mAutoSpace = true;
+					}
+				}
+				else
+				{
+					//some users don't want auto-space
+					mAutoSpace = false;
 				}
 				
 				switch(variation)
@@ -414,15 +430,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 					mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT, attribute);
 				}
 				
-				if ((!mConfig.getInsertSpaceAfterCandidatePick()) ||//some users want to never get spaces added
-						variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS ||
-						variation == EditorInfo.TYPE_TEXT_VARIATION_URI)
-				{
-					mAutoSpace = false;
-				} else {
-					mAutoSpace = true;
-				}
-				
 				final int textFlag = attribute.inputType & EditorInfo.TYPE_MASK_FLAGS;
 				switch(textFlag)
 				{
@@ -433,6 +440,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				default:
 					//we'll keep the previous mPredictionOn value
 				}
+				
 				updateShiftKeyState(attribute);
 				break;
 			default:
