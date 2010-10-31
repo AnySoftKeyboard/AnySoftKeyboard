@@ -50,7 +50,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 		mDefaultDictionary = defaultDictionary;
 		if (qwertyTranslationId != -1)
 		{
-			Log.d(TAG, "Creating qwerty mapping:"+qwertyTranslationId);
+		    if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, "Creating qwerty mapping:"+qwertyTranslationId);
 			mHardKeyboardTranslator = createPhysicalTranslatorFromResourceId(context, qwertyTranslationId);
 		}
 		else
