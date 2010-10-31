@@ -64,7 +64,7 @@ public class ExternalDictionaryFactory {
             mDescription = description;
             mAssetsFilename = assetsFilename;
             mPackageContext = context;
-            Log.d("ASK BinaryDictionaryBuilderImpl", "Creator for "+mLanguage+" with id "+mId+" assets:"+mAssetsFilename+" package:"+mPackageContext.getPackageName());
+            if (AnySoftKeyboardConfiguration.DEBUG)            Log.d("ASK BinaryDictionaryBuilderImpl", "Creator for "+mLanguage+" with id "+mId+" assets:"+mAssetsFilename+" package:"+mPackageContext.getPackageName());
         }
 
         public Dictionary createDictionary() throws Exception{
