@@ -18,7 +18,7 @@ public class PackagesChangedReceiver extends BroadcastReceiver {
 		if (intent == null || intent.getData() == null || context == null)
 			return;
 
-		Log.d(TAG, new StringBuffer("Packages (").append(intent.getData())
+		if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, new StringBuffer("Packages (").append(intent.getData())
 				.append(") have been changed.").toString());
 		boolean isDictionary = true;
 		boolean isKeyboard = true;
@@ -41,7 +41,8 @@ public class PackagesChangedReceiver extends BroadcastReceiver {
 //		isKeyboard = isKeyboard
 //				|| context.getPackageName().equals(intent.getPackage());
 
-		Log.d(TAG, new StringBuffer("Packages (").append(intent.getData())
+		if (AnySoftKeyboardConfiguration.DEBUG)
+		    Log.d(TAG, new StringBuffer("Packages (").append(intent.getData())
 				.append(") have been changed. Is dictionary ").append(
 						isDictionary).append(", isKeyboard ")
 				.append(isKeyboard).toString());

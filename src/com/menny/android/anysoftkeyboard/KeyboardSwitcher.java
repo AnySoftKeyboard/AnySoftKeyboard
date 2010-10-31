@@ -195,7 +195,7 @@ public class KeyboardSwitcher
 
         if ((mAlphabetKeyboards.length == 0) || (mSymbolsKeyboardsArray.length == 0))
         {
-        	Log.d(TAG, "makeKeyboards: force:"+force);
+            if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, "makeKeyboards: force:"+force);
         	mAlphabetKeyboardsCreators = KeyboardFactory.createAlphaBetKeyboards(mContext);
 			mAlphabetKeyboards = new AnyKeyboard[mAlphabetKeyboardsCreators.length];
 	        if (mLastSelectedKeyboard >= mAlphabetKeyboards.length)
@@ -477,7 +477,7 @@ public class KeyboardSwitcher
 		if (keyboard == null || keyboard.getKeyboardMode() != mode)
 		{
 			KeyboardBuilder creator = mAlphabetKeyboardsCreators[index];
-			Log.d(TAG, "About to create keyboard: "+creator.getId());
+			if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, "About to create keyboard: "+creator.getId());
 			keyboards[index] = creator.createKeyboard(mContext, mode);
 			keyboard = keyboards[index];
 			keyboard.initKeysMembers();
