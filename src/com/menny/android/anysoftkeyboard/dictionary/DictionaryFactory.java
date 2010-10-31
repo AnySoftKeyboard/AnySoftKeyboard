@@ -79,6 +79,16 @@ public class DictionaryFactory
         return contactsDictionary;
     }
     
+    public static boolean equals(String a, String b){
+        if(a == null && b == null){
+            return true;
+        }
+        if(a == null || b == null){
+            return false;
+        }
+        return a.equals(b);
+    }
+    
     
     public synchronized static AutoDictionary createAutoDictionary(AnyKeyboardContextProvider context, AnySoftKeyboard ime, String locale)
     {
@@ -86,7 +96,7 @@ public class DictionaryFactory
               autoDictionary = new AutoDictionary(context, ime,locale);
               return autoDictionary;
           }
-          if(autoDictionary.getLocale().equals(locale)){
+          if(equals(autoDictionary.getLocale(),locale)){
               return autoDictionary;
           }
           autoDictionary.close();
