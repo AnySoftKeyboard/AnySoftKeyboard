@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.menny.android.anysoftkeyboard"
-        android:versionCode="28" android:versionName="20101027-rocking">
+        android:versionCode="28" android:versionName="20101031-rocking">
 	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key"
 		android:name=".AnyApplication">
 		<service android:permission="android.permission.BIND_INPUT_METHOD" android:name=".SoftKeyboard">
@@ -46,8 +46,11 @@
 	</application>
 
 	<uses-permission android:name="android.permission.VIBRATE" />
+	<!-- required for the user dictionary (long press a word in the suggestions bar) -->
     <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
+    <!-- REQUIRED FOR THE CONTACTS DICTIONARY -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 	<uses-sdk android:minSdkVersion="3" android:targetSdkVersion="8"></uses-sdk>
 	<!-- currently, only support touch screens -->
 	<uses-configuration android:reqTouchScreen="finger"/>

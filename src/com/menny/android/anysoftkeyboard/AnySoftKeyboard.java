@@ -2337,10 +2337,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (key.equals(getString(R.string.settings_key_use_contacts_dictionary)))
 		{
 		    initContactsDictionary();
-		} else if (key.equals(getString(R.string.settings_key_use_auto_dictionary)))
+		} 
+		else if (key.equals(getString(R.string.settings_key_use_auto_dictionary)))
 		{
 		    initAutoDictionary();
-		} else  
+		} 
+		else  
 		{
 			//in some cases we do want to force keyboards recreations
 			if (	key.equals(getString(R.string.settings_key_top_keyboard_row_id)) ||
