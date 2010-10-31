@@ -44,7 +44,7 @@
 		<pathelement path="${sdk.dir}/tools/lib/androidprefs.jar" />
 		<pathelement path="${sdk.dir}/tools/lib/apkbuilder.jar" />
 		<pathelement path="${sdk.dir}/tools/lib/jarutils.jar" />
-		<pathelement path="libs/ant-apache-regexp-1.8.1.jar"/>
+		<pathelement path="ant/ant-nodeps.jar"/>
 	</path>
 
 	<taskdef name="setup" classname="com.android.ant.SetupTask" classpathref="android.antlibs" />
@@ -356,7 +356,7 @@
 		<echo>and run zipalign from the Android SDK tools.</echo>
 	</target>
 
-	<target name="release" depends="clean,-package-no-sign, -release-nosign" if="release.sign" description="Builds the application. The generated apk file must be signed before
+	<target name="release" depends="clean,-package-no-sign,-release-nosign" if="release.sign" description="Builds the application. The generated apk file must be signed before
 	                            it is published.">
 		<!-- Gets passwords -->
 		<input message="Please enter keystore password (store:${key.store}):" addproperty="key.store.password" />
@@ -489,12 +489,12 @@
 	<!--
 	<property environment="env" />
 	-->
-	<target name="preprocess" if="${release}">
+	<target name="preprocess" unless="nopreprocess">
 		<echo>Removing debug attribute from AndroidManifest.xml</echo>
 		<replaceregexp file="AndroidManifest.xml" match="android:debuggable=&quot;.*?&quot;" replace="" />
-		
-		<echo>Setting version code</echo>
+		<echo>Setting versionName</echo>
 		<replaceregexp file="AndroidManifest.xml" match="android:versionName=&quot;.*?&quot;" replace="android:versionName=&quot;${DSTAMP}-${version.name}&quot;" />
+		<echo>Setting versionCode</echo>
 		<replaceregexp file="AndroidManifest.xml" match="android:versionCode=&quot;.*?&quot;" replace="android:versionCode=&quot;${version.code}&quot;" />
 	</target>
 
