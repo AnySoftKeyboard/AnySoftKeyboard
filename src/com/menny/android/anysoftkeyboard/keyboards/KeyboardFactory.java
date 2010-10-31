@@ -1,6 +1,7 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
+import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory.KeyboardBuilder;
 
 import android.content.SharedPreferences;
@@ -42,6 +43,7 @@ public class KeyboardFactory
             keyboards.add( creator );
         }
 
+        if (AnySoftKeyboardConfiguration.DEBUG)
         for(final KeyboardBuilder aKeyboard : keyboards) {
             Log.d("AnySoftKeyboard", "Factory provided creator: "+aKeyboard.getId());
         }
