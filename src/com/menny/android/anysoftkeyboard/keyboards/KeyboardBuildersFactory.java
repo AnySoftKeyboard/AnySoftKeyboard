@@ -87,11 +87,11 @@ public class KeyboardBuildersFactory {
             mDescription = description;
             mPackageContext = packageContext;
             mKeyboardIndex = keyboardIndex;
-            Log.d("ASK KeyboardCreatorImpl", "Creator for "+mId+" package:"+mPackageContext.getPackageName()+" res: "+ mResId+" LandscapeRes: "+ mLandscapeResId+" dictionary: "+mDefaultDictionary+" qwerty:" + mQwertyTranslationId);
+            if (AnySoftKeyboardConfiguration.DEBUG)Log.d("ASK KeyboardCreatorImpl", "Creator for "+mId+" package:"+mPackageContext.getPackageName()+" res: "+ mResId+" LandscapeRes: "+ mLandscapeResId+" dictionary: "+mDefaultDictionary+" qwerty:" + mQwertyTranslationId);
         }
 
         public AnyKeyboard createKeyboard(AnyKeyboardContextProvider askContext, int mode) {
-        	Log.d(TAG, "Creating external keyboard '"+mId+"' in mode "+mode);
+            if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, "Creating external keyboard '"+mId+"' in mode "+mode);
             return new ExternalAnyKeyboard(askContext, mPackageContext, mResId, mLandscapeResId, getId(), mNameId, mIconResId, mQwertyTranslationId, mDefaultDictionary, mAdditionalIsLetterExceptions, mode);
         }
 
