@@ -16,9 +16,6 @@
 
 package com.menny.android.anysoftkeyboard.dictionary;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.util.Log;
 
@@ -31,8 +28,7 @@ public abstract class UserDictionaryBase extends Dictionary {
 
     protected final AnyKeyboardContextProvider mAnyContext;
     protected final Context mContext;
-
-    private final List<Node> mRoots;
+    private  NodeArray mRoots;
     private int mMaxDepth;
     private int mInputLength;
 
@@ -46,17 +42,36 @@ public abstract class UserDictionaryBase extends Dictionary {
         char code;
         int frequency;
         boolean terminal;
-        List<Node> children;
+        NodeArray children;
+    }
+    
+    static class NodeArray {
+        Node[] data;
+        int length = 0;
+        private static final int INCREMENT = 2;
+
+        NodeArray() {
+            data = new Node[INCREMENT];
+        }
+
+        void add(Node n) {
+            if (length + 1 > data.length) {
+                Node[] tempData = new Node[length + INCREMENT];
+                if (length > 0) {
+                    System.arraycopy(data, 0, tempData, 0, length);
+                }
+                data = tempData;
+            }
+            data[length++] = n;
+        }
     }
 
     protected boolean mRequiresReload;
 
-    protected UserDictionaryBase(AnyKeyboardContextProvider anyContext) throws Exception {
+    protected UserDictionaryBase(AnyKeyboardContextProvider anyContext) {
     	mContext = anyContext.getApplicationContext();
     	mAnyContext = anyContext;
-    	mRoots = new ArrayList<Node>();
-
-    	//loadDictionary();
+    	mRoots = new NodeArray();
     }
 
     @Override
@@ -133,12 +148,12 @@ public abstract class UserDictionaryBase extends Dictionary {
         return isValidWordRec(mRoots, word, 0, word.length());
     }
 
-    private boolean isValidWordRec(final List<Node> children, final CharSequence word,
+    private boolean isValidWordRec(final NodeArray children, final CharSequence word,
             final int offset, final int length) {
-        final int count = children.size();
+        final int count = children.length;
         char currentChar = word.charAt(offset);
         for (int j = 0; j < count; j++) {
-            final Node node = children.get(j);
+            final Node node = children.data[j];
             if (node.code == currentChar) {
                 if (offset == length - 1) {
                     if (node.terminal) {
@@ -183,10 +198,10 @@ public abstract class UserDictionaryBase extends Dictionary {
      * inputIndex
      * @param callback the callback class for adding a word
      */
-    private void getWordsRec(List<Node> roots, final WordComposer codes, final char[] word,
+    private void getWordsRec(NodeArray roots, final WordComposer codes, final char[] word,
             final int depth, boolean completion, float snr, int inputIndex,
             WordCallback callback) {
-        final int count = roots.size();
+        final int count = roots.length;
         final int codeSize = mInputLength;
         // Optimization: Prune out words that are too long compared to how much was typed.
         if (depth > mMaxDepth) {
@@ -200,11 +215,11 @@ public abstract class UserDictionaryBase extends Dictionary {
         }
 
         for (int i = 0; i < count; i++) {
-            final Node node = roots.get(i);
+            final Node node = roots.data[i];
             final char c = node.code;
             final char lowerC = toLowerCase(c);
             boolean terminal = node.terminal;
-            List<Node> children = node.children;
+            NodeArray children = node.children;
             int freq = node.frequency;
             if (completion) {
                 word[depth] = c;
@@ -260,17 +275,17 @@ public abstract class UserDictionaryBase extends Dictionary {
     	addWordRec(mRoots, word, 0, frequency);
 	}
 
-	private void addWordRec(List<Node> children, final String word,
+	private void addWordRec(NodeArray children, final String word,
             final int depth, final int frequency) {
 
         final int wordLength = word.length();
         final char c = word.charAt(depth);
         // Does children have the current character?
-        final int childrenLength = children.size();
+        final int childrenLength = children.length;
         Node childNode = null;
         boolean found = false;
         for (int i = 0; i < childrenLength; i++) {
-            childNode = children.get(i);
+            childNode = children.data[i];
             if (childNode.code == c) {
                 found = true;
                 break;
@@ -288,11 +303,49 @@ public abstract class UserDictionaryBase extends Dictionary {
             return;
         }
         if (childNode.children == null) {
-            childNode.children = new ArrayList<Node>();
+            childNode.children = new NodeArray();
         }
         addWordRec(childNode.children, word, depth + 1, frequency);
     }
 
+	protected void clearDictionary() {
+        mRoots = new NodeArray();
+    }
+
+	 /**
+     * Returns the word's frequency or -1 if not found
+     */
+    public int getWordFrequency(CharSequence word) {
+        return getWordFrequencyRec(mRoots, word, 0, word.length());
+    }
+
+    /**
+     * Returns the word's frequency or -1 if not found
+     */
+    private int getWordFrequencyRec(final NodeArray children, final CharSequence word, 
+            final int offset, final int length) {
+        final int count = children.length;
+        char currentChar = word.charAt(offset);
+        for (int j = 0; j < count; j++) {
+            final Node node = children.data[j];
+            if (node.code == currentChar) {
+                if (offset == length - 1) {
+                    if (node.terminal) {
+                        return node.frequency;
+                    }
+                } else {
+                    if (node.children != null) {
+                        int freq = getWordFrequencyRec(node.children, word, offset + 1, length);
+                        if (freq > -1) return freq;
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+
+	
+	
     /**
      * Table mapping most combined Latin, Greek, and Cyrillic characters
      * to their base characters.  If c is in range, BASE_CHARS[c] == c
