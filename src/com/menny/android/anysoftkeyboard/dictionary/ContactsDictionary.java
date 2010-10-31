@@ -39,8 +39,6 @@ public class ContactsDictionary extends UserDictionaryBase {
     private static final int INDEX_NAME = 1;
 
     private ContentObserver mObserver;
-    //TODO lado add an asyn task to reload the dictionary every <minutes> etc
-    private long mLastLoadedContacts;
 
     // Use this lock before touching mUpdatingDictionary & mRequiresDownload
     private Object mUpdatingLock = new Object();
@@ -104,7 +102,6 @@ public class ContactsDictionary extends UserDictionaryBase {
         if (cursor != null) {
             addWords(cursor);
         }
-        mLastLoadedContacts = SystemClock.uptimeMillis();
     }
     
     
