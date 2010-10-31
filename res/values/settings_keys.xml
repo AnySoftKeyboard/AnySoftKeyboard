@@ -17,8 +17,8 @@
     
     <string name="settings_key_use_16_keys_symbols_keyboards">settings_key_use_16_keys_symbols_keyboards</string>
     
-    <string name="settings_key_landscape_fullscreen">settings_key_top_landscape_fullscreen</string>
-    <string name="settings_key_portrait_fullscreen">settings_key_top_portrait_fullscreen</string>
+    <string name="settings_key_landscape_fullscreen">settings_key_landscape_fullscreen</string>
+    <string name="settings_key_portrait_fullscreen">settings_key_portrait_fullscreen</string>
     
     <string name="settings_key_use_backword">settings_key_use_backword</string>
     
@@ -28,9 +28,9 @@
 
   	<string name="settings_key_use_camera_key_for_backspace_backword">settings_key_use_camera_key_for_backspace_backword</string>
   	
-  	<string name="settings_key_use_contacts_dictionary">settings_key_use_contacts_dictionary</string>
+  	<string name="settings_key_use_user_dictionary">settings_key_use_user_dictionary</string>
   	<string name="settings_key_use_auto_dictionary">settings_key_use_auto_dictionary</string>
-  	
+  	<string name="settings_key_use_contacts_dictionary">settings_key_use_contacts_dictionary</string>
     <!-- template
     <string name="settings_key_"></string>
      -->

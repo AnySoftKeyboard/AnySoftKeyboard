@@ -20,4 +20,5 @@
     <bool name="settings_default_emoticon_long_press_opens_popup">true</bool>
     <bool name="settings_default_contacts_dictionary">true</bool>
     <bool name="settings_default_auto_dictionary">true</bool>
+    <bool name="settings_default_user_dictionary">true</bool>
 </resources>

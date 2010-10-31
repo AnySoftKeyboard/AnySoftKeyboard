@@ -128,6 +128,13 @@ android:key="tweaks_group_screen">
 		android:summaryOn="@string/show_new_version_notifications_again_on_summary"
 		android:summaryOff="@string/show_new_version_notifications_again_off_summary"
 	/>
+	<CheckBoxPreference
+		android:key="@string/settings_key_use_backword"
+		android:title="@string/backword_support"
+		android:persistent="true"
+		android:defaultValue="@bool/settings_default_use_backword"
+		android:summaryOn="@string/backword_support_on_summary"
+		android:summaryOff="@string/backword_support_off_summary"/>
 	<EditTextPreference android:key="keyboards_sandbox" 
 		android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"
 		android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false">

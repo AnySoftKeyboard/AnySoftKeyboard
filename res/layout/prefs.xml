@@ -16,38 +16,38 @@ android:key="ime_settings">
 	<PreferenceCategory android:key="ui_group"
 	android:title="@string/ui_group">
 		<ListPreference
-		android:key="@string/settings_key_top_keyboard_row_id"
-		android:title="@string/keyboard_layout_change_keys_size_title"
-		android:summary="@string/keyboard_layout_change_keys_size_summary"
-		android:entries="@array/keyboard_layout_keys_size"
-		android:entryValues="@array/keyboard_layout_change_methods_values"
-		android:defaultValue="@string/settings_default_top_keyboard_row_id"
-		android:dialogTitle="@string/keyboard_layout_change_keys_size_dialog_title"/>
+			android:key="@string/settings_key_top_keyboard_row_id"
+			android:title="@string/keyboard_layout_change_keys_size_title"
+			android:summary="@string/keyboard_layout_change_keys_size_summary"
+			android:entries="@array/keyboard_layout_keys_size"
+			android:entryValues="@array/keyboard_layout_change_methods_values"
+			android:defaultValue="@string/settings_default_top_keyboard_row_id"
+			android:dialogTitle="@string/keyboard_layout_change_keys_size_dialog_title"/>
 		<ListPreference
-		android:key="@string/settings_key_physical_keyboard_change_notification_type"
-		android:title="@string/physical_keyboard_change_notification_title"
-		android:summary="@string/physical_keyboard_change_notification_summary"
-		android:entries="@array/physical_keyboard_change_notification_types"
-		android:entryValues="@array/physical_keyboard_change_notification_values"
-		android:defaultValue="@string/settings_default_physical_keyboard_change_notification_type"
-		android:dialogTitle="@string/physical_keyboard_change_notification_dialog_title"/>
+			android:key="@string/settings_key_physical_keyboard_change_notification_type"
+			android:title="@string/physical_keyboard_change_notification_title"
+			android:summary="@string/physical_keyboard_change_notification_summary"
+			android:entries="@array/physical_keyboard_change_notification_types"
+			android:entryValues="@array/physical_keyboard_change_notification_values"
+			android:defaultValue="@string/settings_default_physical_keyboard_change_notification_type"
+			android:dialogTitle="@string/physical_keyboard_change_notification_dialog_title"/>
 	</PreferenceCategory>
 	<PreferenceCategory android:key="effects_group" android:title="@string/effects_group">
 		<ListPreference
-		android:key="@string/settings_key_vibrate_on_key_press_duration"
-		android:title="@string/vibrate_on_key_press_title"
-		android:summary="@string/vibrate_on_key_press_summary"
-		android:entries="@array/vibrate_on_key_press_types"
-		android:entryValues="@array/vibrate_on_key_press_values"
-		android:dialogTitle="@string/vibrate_on_key_press_dialog_title"
-		android:defaultValue="@string/settings_default_vibrate_on_key_press_duration" />
+			android:key="@string/settings_key_vibrate_on_key_press_duration"
+			android:title="@string/vibrate_on_key_press_title"
+			android:summary="@string/vibrate_on_key_press_summary"
+			android:entries="@array/vibrate_on_key_press_types"
+			android:entryValues="@array/vibrate_on_key_press_values"
+			android:dialogTitle="@string/vibrate_on_key_press_dialog_title"
+			android:defaultValue="@string/settings_default_vibrate_on_key_press_duration" />
 		<CheckBoxPreference
-		android:key="@string/settings_key_sound_on"
-		android:title="@string/sound_on"
-		android:persistent="true"
-		android:defaultValue="@bool/settings_default_sound_on"
-		android:summaryOn="@string/sound_on_summary"
-		android:summaryOff=""
+			android:key="@string/settings_key_sound_on"
+			android:title="@string/sound_on"
+			android:persistent="true"
+			android:defaultValue="@bool/settings_default_sound_on"
+			android:summaryOn="@string/sound_on_summary"
+			android:summaryOff=""
 		/>
 		<EditTextPreference android:key="keyboards_sandbox_1"
 		android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"
@@ -83,24 +83,7 @@ android:key="ime_settings">
 		android:summaryOff=""
 		android:persistent="true"
 		android:defaultValue="true"
-		/>
-		<CheckBoxPreference
-		android:key="settings_key_use_contacts_dictionary"
-		android:title="@string/contacts_dict"
-		android:summaryOn="@string/contacts_dict_summary"
-		android:summaryOff=""
-		android:persistent="true"
-		android:defaultValue="true"
-		/>
-		<CheckBoxPreference
-		android:key="settings_key_use_auto_dictionary"
-		android:title="@string/auto_dict"
-		android:summaryOn="@string/auto_dict_summary"
-		android:summaryOff=""
-		android:persistent="true"
-		android:defaultValue="true"
-		/>
-		
+		/>		
 		<EditTextPreference android:key="keyboards_sandbox_2"
 		android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"
 		android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false">
@@ -132,34 +115,17 @@ android:key="ime_settings">
 			android:persistent="true"
 			android:defaultValue="true"/>
 		<CheckBoxPreference
-			android:key="@string/settings_key_use_backword"
-			android:title="@string/backword_support"
+			android:key="@string/settings_key_portrait_fullscreen"
+			android:title="@string/fullscreen_portrait_input_connection_supported"
 			android:persistent="true"
-			android:defaultValue="@bool/settings_default_use_backword"
-			android:summaryOn="@string/backword_support_on_summary"
-			android:summaryOff="@string/backword_support_off_summary"/>
-			
+			android:defaultValue="@bool/settings_default_portrait_fullscreen"
+			android:summaryOn="@string/fullscreen_portrait_input_connection_supported_on_summary"
+			android:summaryOff="@string/fullscreen_portrait_input_connection_supported_off_summary"/>
 		<CheckBoxPreference
-			android:key="@string/settings_key_use_camera_key_for_backspace_backword"
-			android:title="@string/camera_key_for_backspace_backword_support"
-			android:persistent="true"
-			android:defaultValue="@bool/settings_default_use_camera_key_for_backspace_backword"
-			android:summaryOn="@string/camera_key_for_backspace_backword_support_on_summary"
-			android:summaryOff="@string/camera_key_for_backspace_backword_support_off_summary"/>
-			
-		<CheckBoxPreference
-			android:key="@string/settings_key_use_volume_key_for_left_right"
-			android:title="@string/volume_key_for_left_right_support"
-			android:persistent="true"
-			android:defaultValue="@bool/settings_default_use_volume_key_for_left_right"
-			android:summaryOn="@string/volume_key_for_left_right_support_on_summary"
-			android:summaryOff="@string/volume_key_for_left_right_support_off_summary"/>
-			
-		<CheckBoxPreference
-			android:key="fullscreen_input_connection_supported"
+			android:key="@string/settings_key_landscape_fullscreen"
 			android:title="@string/fullscreen_input_connection_supported"
 			android:persistent="true"
-			android:defaultValue="true"
+			android:defaultValue="@bool/settings_default_landscape_fullscreen"
 			android:summaryOn="@string/fullscreen_input_connection_supported_on_summary"
 			android:summaryOff="@string/fullscreen_input_connection_supported_off_summary"/>
 		<PreferenceScreen android:key="swipe_tweak_group"
@@ -197,9 +163,50 @@ android:key="ime_settings">
 				android:defaultValue="next_alphabet"
 				android:dialogTitle="@string/swipe_right_action_title"/>
 		</PreferenceScreen>
+		<PreferenceScreen android:key="hardware_keys_group"
+			android:title="@string/hardware_keys_group">
+			<CheckBoxPreference
+				android:key="@string/settings_key_use_camera_key_for_backspace_backword"
+				android:title="@string/camera_key_for_backspace_backword_support"
+				android:persistent="true"
+				android:defaultValue="@bool/settings_default_use_camera_key_for_backspace_backword"
+				android:summaryOn="@string/camera_key_for_backspace_backword_support_on_summary"
+				android:summaryOff="@string/camera_key_for_backspace_backword_support_off_summary"/>
+			<CheckBoxPreference
+				android:key="@string/settings_key_use_volume_key_for_left_right"
+				android:title="@string/volume_key_for_left_right_support"
+				android:persistent="true"
+				android:defaultValue="@bool/settings_default_use_volume_key_for_left_right"
+				android:summaryOn="@string/volume_key_for_left_right_support_on_summary"
+				android:summaryOff="@string/volume_key_for_left_right_support_off_summary"/>
+		</PreferenceScreen>
+		<PreferenceScreen android:key="special_dictionaries_group"
+			android:title="@string/special_dictionaries_group">
+			<CheckBoxPreference
+				android:key="@string/settings_key_use_user_dictionary"
+				android:title="@string/use_user_dictionary"
+				android:persistent="true"
+				android:defaultValue="@bool/settings_default_user_dictionary"
+				android:summaryOn="@string/use_user_dictionary_on_summary"
+				android:summaryOff="@string/use_user_dictionary_off_summary"/>
+			<CheckBoxPreference
+				android:key="@string/settings_key_use_auto_dictionary"
+				android:title="@string/use_auto_dictionary"
+				android:persistent="true"
+				android:defaultValue="@bool/settings_default_auto_dictionary"
+				android:summaryOn="@string/use_auto_dictionary_on_summary"
+				android:summaryOff="@string/use_auto_dictionary_off_summary"/>
+			<CheckBoxPreference
+				android:key="@string/settings_key_use_contacts_dictionary"
+				android:title="@string/use_contacts_dictionary"
+				android:persistent="true"
+				android:defaultValue="@bool/settings_default_contacts_dictionary"
+				android:summaryOn="@string/use_contacts_dictionary_on_summary"
+				android:summaryOff="@string/use_contacts_dictionary_off_summary"/>
+		</PreferenceScreen>
 	</PreferenceCategory>
 	<PreferenceCategory android:key="keyboards_group_cat"
-	android:title="@string/keyboards_group">
+		android:title="@string/keyboards_group">
 		<Preference
 		    android:title="@string/keyboards_group">
 		    <intent
