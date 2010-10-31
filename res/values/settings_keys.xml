@@ -28,8 +28,9 @@
 
   	<string name="settings_key_use_camera_key_for_backspace_backword">settings_key_use_camera_key_for_backspace_backword</string>
   	
-  	<string name="settings_key_use_auto_dictionary">settings_key_use_auto_dictionary</string>
   	<string name="settings_key_use_contacts_dictionary">settings_key_use_contacts_dictionary</string>
+  	<string name="settings_key_use_auto_dictionary">settings_key_use_auto_dictionary</string>
+  	
     <!-- template
     <string name="settings_key_"></string>
      -->
