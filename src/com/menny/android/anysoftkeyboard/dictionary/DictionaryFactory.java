@@ -79,7 +79,7 @@ public class DictionaryFactory
         return contactsDictionary;
     }
     
-    public static boolean equals(String a, String b){
+    public static boolean equalsString(String a, String b){
         if(a == null && b == null){
             return true;
         }
@@ -96,7 +96,7 @@ public class DictionaryFactory
               autoDictionary = new AutoDictionary(context, ime,locale);
               return autoDictionary;
           }
-          if(equals(autoDictionary.getLocale(),locale)){
+          if(equalsString(autoDictionary.getLocale(),locale)){
               return autoDictionary;
           }
           autoDictionary.close();
