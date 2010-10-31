@@ -74,6 +74,10 @@ public abstract class AnySoftKeyboardConfiguration
 	
 	public abstract boolean useCameraKeyForBackspaceBackword();
 	
+	public abstract boolean useContactsDictionary();
+	
+	public abstract boolean useAutoDictionary();
+	
 	static class AnySoftKeyboardConfigurationImpl extends AnySoftKeyboardConfiguration
 	{
 		private static final String CONFIGURATION_VERSION = "configurationVersion";
@@ -106,6 +110,8 @@ public abstract class AnySoftKeyboardConfiguration
 		private boolean mCycleOverAllSymbolsKeyboard = true;
 		private boolean mUseVolumeKeyForLeftRight = false;
 		private boolean mUseCameraKeyForBackspaceBackword = false;
+		private boolean mUseContactsDictionary = true;
+		private boolean mUseAutoDictionary = true;
 		
 		public AnySoftKeyboardConfigurationImpl(Context context)
 		{
@@ -171,12 +177,12 @@ public abstract class AnySoftKeyboardConfiguration
 		}
 
 		private void upgradeSettingsValues(SharedPreferences sp) {
-			Log.d(TAG, "Checking if configuration upgrade is needed.");
+		    if (DEBUG)Log.d(TAG, "Checking if configuration upgrade is needed.");
 			String topRowNewIdValue = sp.getString(mContext.getString(R.string.settings_key_top_keyboard_row_id), null);
 			String topRowOldIdValue = sp.getString("keyboard_layout_change_method", null);
 			if (topRowNewIdValue == null && topRowOldIdValue != null)
 			{
-				Log.d(TAG, "Top row type is using the old configuration key. Switching...");
+			    if (DEBUG)Log.d(TAG, "Top row type is using the old configuration key. Switching...");
 				Editor e = sp.edit();
 				e.putString(mContext.getString(R.string.settings_key_top_keyboard_row_id), topRowOldIdValue);
 				e.remove("keyboard_layout_change_method");
@@ -188,7 +194,7 @@ public abstract class AnySoftKeyboardConfiguration
 			{
 				boolean oldLandscapeFullScreenValue = sp.getBoolean("fullscreen_input_connection_supported", 
 						mContext.getResources().getBoolean(R.bool.settings_default_landscape_fullscreen));
-				Log.d(TAG, "Replacing landscape-fullscreen key...");
+				if (DEBUG)Log.d(TAG, "Replacing landscape-fullscreen key...");
 				Editor e = sp.edit();
 				e.putBoolean(mContext.getString(R.string.settings_key_landscape_fullscreen), oldLandscapeFullScreenValue);
 				e.remove("fullscreen_input_connection_supported");
@@ -309,7 +315,15 @@ public abstract class AnySoftKeyboardConfiguration
 	        mUseVolumeKeyForLeftRight = sp.getBoolean(mContext.getString(R.string.settings_key_use_volume_key_for_left_right),
 	                    mContext.getResources().getBoolean(R.bool.settings_default_use_volume_key_for_left_right));
 	            Log.i(TAG, "** mUseVolumeKeyForLeftRight: "+mUseVolumeKeyForLeftRight);
-			
+	            
+	        mUseContactsDictionary = sp.getBoolean(mContext.getString(R.string.settings_key_use_contacts_dictionary),
+	                    mContext.getResources().getBoolean(R.bool.settings_default_contacts_dictionary));
+                Log.i(TAG, "** mUseContactsDictionary: " + mUseContactsDictionary);
+
+	        mUseAutoDictionary = sp.getBoolean(mContext.getString(R.string.settings_key_use_auto_dictionary),
+	                mContext.getResources().getBoolean(R.bool.settings_default_auto_dictionary));
+			    Log.i(TAG, "** mUseAutoDictionary: " + mUseAutoDictionary);
+			    
 		}
 		
 		private int getIntFromSwipeConfiguration(SharedPreferences sp, final String prefKey, final String defaultValue) {
@@ -481,6 +495,16 @@ public abstract class AnySoftKeyboardConfiguration
         @Override
         public boolean useVolumeKeyForLeftRight() {
             return mUseVolumeKeyForLeftRight;
+        }
+
+        @Override
+        public boolean useContactsDictionary() {
+            return mUseContactsDictionary;
+        }
+
+        @Override
+        public boolean useAutoDictionary() {
+            return mUseAutoDictionary;
         }
 		
 		

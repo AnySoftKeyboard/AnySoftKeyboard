@@ -41,7 +41,12 @@ public class WordComposer {
      * Whether the user chose to capitalize the word.
      */
     private boolean mIsCapitalized;
-
+    
+    /**
+     * Wheter it was capitalized automatic
+     */
+    private boolean mAutoCapitalized;
+    
     WordComposer() {
         mCodes = new ArrayList<int[]>(12);
         mTypedWord = new StringBuilder(20);
@@ -179,4 +184,22 @@ public class WordComposer {
 			mCodes.add(new int[]{c});
 		}
 	}
+	
+
+    /** 
+     * Saves the reason why the word is capitalized - whether it was automatic or
+     * due to the user hitting shift in the middle of a sentence.
+     * @param auto whether it was an automatic capitalization due to start of sentence
+     */
+    public void setAutoCapitalized(boolean auto) {
+        mAutoCapitalized = auto;
+    }
+
+    /**
+     * Returns whether the word was automatically capitalized.
+     * @return whether the word was automatically capitalized
+     */
+    public boolean isAutoCapitalized() {
+        return mAutoCapitalized;
+    }
 }

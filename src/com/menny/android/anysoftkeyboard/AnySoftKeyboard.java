@@ -61,7 +61,10 @@ import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+
 import com.menny.android.anysoftkeyboard.KeyboardSwitcher.NextKeyboardType;
+import com.menny.android.anysoftkeyboard.dictionary.AutoDictionary;
+import com.menny.android.anysoftkeyboard.dictionary.ContactsDictionary;
 import com.menny.android.anysoftkeyboard.dictionary.Dictionary;
 import com.menny.android.anysoftkeyboard.dictionary.DictionaryFactory;
 import com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory;
@@ -121,7 +124,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private final HardKeyboardActionImpl mHardKeyboardAction;
 	private long mMetaState;
 
+	private ContactsDictionary mContactsDictionary;
 	private UserDictionaryBase mUserDictionary;
+	private AutoDictionary mAutoDictionary;
+	
 
 	private StringBuilder mComposing = new StringBuilder();
 	private WordComposer mWord = new WordComposer();
@@ -258,6 +264,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mSuggest.setCorrectionMode(mCorrectionMode);
 		mUserDictionary = DictionaryFactory.createUserDictionary(this);
 		mSuggest.setUserDictionary(mUserDictionary);
+		initContactsDictionary();
+		initAutoDictionary();
 		setMainDictionaryForCurrentKeyboard();
 		// mWordSeparators = getResources().getString(R.string.word_separators);
 		// mSentenceSeparators =
@@ -493,6 +501,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// clearing any predications
 		//resetComposing();
 		// releasing some memory. Dictionaries, completions, etc.
+		if (mAutoDictionary != null) mAutoDictionary.flushPendingWrites();
 		System.gc();
 	}
 	
@@ -534,7 +543,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	
 	@Override
 	public boolean onTrackballEvent(MotionEvent event) {
-		Log.d(TAG, "onTrackballEvent");
+	    if(DEBUG)Log.d(TAG, "onTrackballEvent");
 		return super.onTrackballEvent(event);
 	}
 	@Override
@@ -747,7 +756,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case KeyEvent.KEYCODE_SHIFT_LEFT:
         case KeyEvent.KEYCODE_SHIFT_RIGHT:
             if (event.isAltPressed() && Workarounds.isAltSpaceLangSwitchNotPossible()) {
-                Log.d(TAG,
+                if(DEBUG)    Log.d(TAG,
                                 "User pressed ALT+SHIFT on motorola milestone, moving to next physical keyboard.");
                 // consuming the meta keys
                 // mHardKeyboardAction.resetMetaState();
@@ -778,6 +787,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			break;
 		case KeyEvent.KEYCODE_SPACE:
 			if (event.isAltPressed() && !Workarounds.isAltSpaceLangSwitchNotPossible()) {
+			    if(DEBUG)
 				Log.d(TAG,
 								"User pressed ALT+SPACE, moving to next physical keyboard.");
 				// consuming the meta keys
@@ -1006,7 +1016,23 @@ public class AnySoftKeyboard extends InputMethodService implements
 			ic.clearMetaKeyStates(clearStatesFlags);
 		}
 	}
-
+	
+	
+	private void checkAddToDictionary(CharSequence suggestion, int frequencyDelta) {
+	        if(mAutoDictionary == null){
+	            return;
+	        }
+	        // Only auto-add to dictionary if auto-correct is ON. Otherwise we'll be
+	        // adding words in situations where the user or application really didn't
+	        // want corrections enabled or learned.
+	        //if (!(mCorrectionMode == Suggest.CORRECTION_FULL)) return;TODO lado make it configurable
+	        if (mAutoDictionary.isValidWord(suggestion)
+	                || (!mSuggest.isValidWord(suggestion.toString())
+	                    && !mSuggest.isValidWord(suggestion.toString().toLowerCase()))) {
+	            mAutoDictionary.addWord(suggestion.toString(), frequencyDelta);
+	        }
+	}
+	
 	private void commitTyped(InputConnection inputConnection) {
 		if (mPredicting) {
 			mPredicting = false;
@@ -1016,6 +1042,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				}
 				mCommittedLength = mComposing.length();
 				TextEntryState.acceptedTyped(mComposing);
+				 checkAddToDictionary(mComposing, AutoDictionary.FREQUENCY_FOR_TYPED);
 			}
 			postUpdateSuggestionsNow();
 		}
@@ -1233,10 +1260,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 				di.dismiss();
 				
 				if ((position < 0) || (position >= items.length)) {
-					Log.d(TAG, "Keyboard selection popup canceled");
+				    if (DEBUG)Log.d(TAG, "Keyboard selection popup canceled");
 				} else {
 					CharSequence id = ids[position];
-					Log.d(TAG, "User selected "+items[position]+" with id "+id);
+					if (DEBUG)Log.d(TAG, "User selected "+items[position]+" with id "+id);
 					EditorInfo currentEditorInfo = getCurrentInputEditorInfo();
 					AnyKeyboard currentKeyboard = mKeyboardSwitcher.nextAlphabetKeyboard(currentEditorInfo, id.toString());
 					setKeyboardStuff(currentEditorInfo, NextKeyboardType.Alphabet, currentKeyboard);
@@ -1715,6 +1742,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 			TextEntryState.acceptedDefault(mWord.getTypedWord(), mBestWord);
 			mJustAccepted = true;
 			pickSuggestion(mBestWord);
+			  // Add the word to the auto dictionary if it's not a known word
+            checkAddToDictionary(mBestWord, AutoDictionary.FREQUENCY_FOR_TYPED);
 		}
 	}
 
@@ -1734,6 +1763,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 			return suggestion;
 		}
 		suggestion = pickSuggestion(suggestion);
+		// Add the word to the auto dictionary if it's not a known word
+        if (index == 0) {
+            checkAddToDictionary(suggestion, AutoDictionary.FREQUENCY_FOR_PICKED);
+        }
 		TextEntryState.acceptedSuggestion(mComposing.toString(), suggestion);
 		// Follow it with a space
 		if (mAutoSpace) {
@@ -1846,7 +1879,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void nextAlterKeyboard(EditorInfo currentEditorInfo)
 	{
-		Log.d("AnySoftKeyboard", "nextAlterKeyboard: currentEditorInfo.inputType="
+		if(DEBUG)Log.d("AnySoftKeyboard", "nextAlterKeyboard: currentEditorInfo.inputType="
 				+ currentEditorInfo.inputType);
 
 		AnyKeyboard currentKeyboard = mKeyboardSwitcher.getCurrentKeyboard();
@@ -1865,6 +1898,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void nextKeyboard(EditorInfo currentEditorInfo,
 			KeyboardSwitcher.NextKeyboardType type) {
+	    if (DEBUG)
 		Log.d("AnySoftKeyboard", "nextKeyboard: currentEditorInfo.inputType="
 				+ currentEditorInfo.inputType + " type:" + type);
 
@@ -1894,6 +1928,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 						.equals(KEYBOARD_NOTIFICATION_ON_PHYSICAL) && (type == NextKeyboardType.AlphabetSupportsPhysical))) {
 			notifyKeyboardChangeIfNeeded();
 		}
+		initAutoDictionary();
 	}
 
 	public void swipeDown() {
@@ -2072,7 +2107,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	/*package*/ void setMainDictionaryForCurrentKeyboard() {
 		if (mSuggest != null) {
 			if (!mShowSuggestions) {
-				Log.d(TAG, "No suggestion is required. I'll try to release memory from the dictionary.");
+			    if (DEBUG)Log.d(TAG, "No suggestion is required. I'll try to release memory from the dictionary.");
 				DictionaryFactory.releaseAllDictionaries();
 				mSuggest.setMainDictionary(null);
 			} else {
@@ -2100,6 +2135,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (dictionaryValue == null){
 			dictionary = DictionaryFactory.getDictionaryByLanguage(currentKeyboard.getDefaultDictionaryLocale(), this);
 		} else {
+		        if (AnySoftKeyboardConfiguration.DEBUG)
 				Log.d("AnySoftKeyboard", "Default dictionary '" + (defaultDictionary == null? "None" : defaultDictionary)
 						+ "' for keyboard '" + currentKeyboard.getKeyboardPrefId()
 						+ "' has been overriden to '" + dictionaryValue + "'");
@@ -2161,6 +2197,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				Editor editor = getSharedPreferences().edit();
 				switch (position) {
 				case 0:
+				    if (AnySoftKeyboardConfiguration.DEBUG)
 					Log
 							.d("AnySoftKeyboard",
 									"Dictionary overriden disabled. User selected default.");
@@ -2169,6 +2206,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 					break;
 				default:
 					if ((position < 0) || (position >= items.length)) {
+					    if (DEBUG)
 						Log.d("AnySoftKeyboard",
 								"Dictionary override dialog canceled.");
 					} else {
@@ -2176,6 +2214,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 						String selectedDictionaryId = (id == null) ? null : id.toString();
 						String selectedLanguageString = items[position]
 								.toString();
+						if (DEBUG)
 						Log.d("AnySoftKeyboard",
 								"Dictionary override. User selected "
 										+ selectedLanguageString + " which corresponds to id "
@@ -2260,18 +2299,49 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	}
 
+	private void initContactsDictionary(){
+        if(mConfig.useContactsDictionary()){
+            mContactsDictionary = DictionaryFactory.createContactsDictionary(this); 
+            mSuggest.setContactsDictionary(mContactsDictionary);
+        } else{
+            mSuggest.setContactsDictionary(null);
+        }
+	}
+	
+	private void initAutoDictionary(){
+	    if(mConfig.useAutoDictionary()){
+	        mAutoDictionary = DictionaryFactory.createAutoDictionary(this, this, mKeyboardSwitcher.getCurrentKeyboard().getDefaultDictionaryLocale());
+	        
+	    } else {
+	        if(mAutoDictionary != null){
+	            //flush pendings
+	            mAutoDictionary.close();
+	        }
+	        mAutoDictionary = null;
+	    }
+	}
+	
+	
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
 			String key) {
-		Log.d("AnySoftKeyboard", "onSharedPreferenceChanged - key:" + key);
-
+	    if (DEBUG)Log.d("AnySoftKeyboard", "onSharedPreferenceChanged - key:" + key);
 		boolean isKeyboardKey = key.startsWith("keyboard_");
 		boolean isDictionaryKey = key.startsWith("dictionary_");
 		if (isKeyboardKey || isDictionaryKey) {
 			mKeyboardSwitcher.makeKeyboards(true);
-		}
-		else
+			return;
+		} 
+		
+		loadSettings();
+
+		if (key.equals(getString(R.string.settings_key_use_contacts_dictionary)))
 		{
-			loadSettings();
+		    initContactsDictionary();
+		} else if (key.equals(getString(R.string.settings_key_use_auto_dictionary)))
+		{
+		    initAutoDictionary();
+		} else  
+		{
 			//in some cases we do want to force keyboards recreations
 			if (	key.equals(getString(R.string.settings_key_top_keyboard_row_id)) ||
 					key.equals("zoom_factor_keys_in_portrait") ||
@@ -2445,4 +2515,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         mSmileyDialog.show();
     }
+
+	public void promoteToUserDictionary(String word, int frequency) {
+	        if (mUserDictionary.isValidWord(word)) return;
+	        mUserDictionary.addWord(word, frequency);
+	    }
+
+	public WordComposer getCurrentWord() {
+        return mWord;
+    }
+	
 }

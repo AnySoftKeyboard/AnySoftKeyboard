@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 import android.util.Log;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
+import com.menny.android.anysoftkeyboard.AnySoftKeyboard;
 import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory.DictionaryBuilder;
 
@@ -33,12 +34,17 @@ public class DictionaryFactory
         msDictionariesById = new HashMap<String, Integer>();
         msDictionariesByLanguage = new HashMap<String, Integer>();
     }
-
+    
+    private static  ContactsDictionary contactsDictionary;
+    
+    private static  AutoDictionary autoDictionary;
+    
     public synchronized static UserDictionaryBase createUserDictionary(AnyKeyboardContextProvider context)
     {
-        if (msUserDictionary == null)
-        {
-            try
+        if (msUserDictionary != null){
+            return msUserDictionary;
+        }
+        try
             {
                 msUserDictionary = new AndroidUserDictionary(context);
                 msUserDictionary.loadDictionary();
@@ -54,10 +60,40 @@ public class DictionaryFactory
                     e.printStackTrace();
                 }
             }
-        }
         return msUserDictionary;
     }
-
+    
+    public synchronized static ContactsDictionary createContactsDictionary(AnyKeyboardContextProvider context)
+    {
+          if(contactsDictionary != null){
+              return contactsDictionary;
+          }
+          try{
+                contactsDictionary = new ContactsDictionary(context);
+                contactsDictionary.loadDictionary();
+            }
+            catch(final Exception ex)
+            {
+                Log.w(TAG, "Failed to load 'ContactsDictionary'",ex); 
+            }
+        return contactsDictionary;
+    }
+    
+    
+    public synchronized static AutoDictionary createAutoDictionary(AnyKeyboardContextProvider context, AnySoftKeyboard ime, String locale)
+    {
+          if(autoDictionary == null){
+              autoDictionary = new AutoDictionary(context, ime,locale);
+              return autoDictionary;
+          }
+          if(autoDictionary.getLocale().equals(locale)){
+              return autoDictionary;
+          }
+          autoDictionary.close();
+          autoDictionary = new AutoDictionary(context, ime,locale);
+          return autoDictionary;
+    }
+    
     public synchronized static Dictionary getDictionaryByLanguage(final String language, AnyKeyboardContextProvider context){
         return getDictionaryImpl(language, null, context);
     }
@@ -104,7 +140,7 @@ public class DictionaryFactory
             if (dict == null)
             {
 
-                Log.d(TAG,
+                if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG,
                         MessageFormat.format("Could not locate dictionary for language {0} and id {1}. Maybe it was not loaded yet (installed recently?)",
                                 new Object[]{languageFormat, idFormat}));
                 ExternalDictionaryFactory.resetBuildersCache();
@@ -301,6 +337,11 @@ public class DictionaryFactory
         msDictionaries.clear();
         msDictionariesById.clear();
         msDictionariesByLanguage.clear();
+        
+        if(contactsDictionary != null){
+            contactsDictionary.close();
+        }
+        
     }
 
 
