@@ -194,6 +194,10 @@
     <string name="physical_keyboard_suggestions_summary">Show suggestions when using device keyboard</string>
     <string name="keyboard_sandbox">Click for text testing</string>
     <string name="keyboard_sandbox_title">Type below to test your settings</string>
+    <string name="contacts_dict">Contacts dictionary</string>
+    <string name="contacts_dict_summary">Include contact names in suggestions</string>
+    <string name="auto_dict">Auto dictionary</string>
+    <string name="auto_dict_summary">Add commonly used or selected words automatically to the dictionary</string>
     
     
     <!-- settings - keyboard group -->
