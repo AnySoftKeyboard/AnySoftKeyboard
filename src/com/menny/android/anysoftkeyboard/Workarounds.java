@@ -159,7 +159,7 @@ public class Workarounds
 			if (ms_isEclair && editor.packageName.contentEquals("com.android.mms")
 					&& (editor.fieldId == 2131361817))
 			{
-				Log.d(TAG, "Android Ecliar Messaging MESSAGE field");
+			    if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, "Android Ecliar Messaging MESSAGE field");
 				return true;
 			}
 		}
