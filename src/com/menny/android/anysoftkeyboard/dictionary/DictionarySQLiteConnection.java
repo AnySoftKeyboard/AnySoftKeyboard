@@ -1,5 +1,7 @@
 package com.menny.android.anysoftkeyboard.dictionary;
 
+import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,7 +79,7 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
 		}
 		else
 		{
-			Log.d(TAG, "Inserted '"+word+"' to the fall-back dictionary. Id:"+res);
+		    if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, "Inserted '"+word+"' to the fall-back dictionary. Id:"+res);
 		}
     }
 
