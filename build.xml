@@ -251,6 +251,8 @@
 		<mkdir dir="${gen.absolute.dir}" />
 		<mkdir dir="${out.absolute.dir}" />
 		<mkdir dir="${out.classes.absolute.dir}" />
+		<mkdir dir="${out.release.dir}" />
+		<mkdir dir="${out.debug.dir}" />
 	</target>
 
 	<!-- Generates the R.java file for this project's resources. -->
