@@ -3,6 +3,8 @@
 -dontusemixedcaseclassnames 
 -dontskipnonpubliclibraryclasses 
 -dontpreverify 
+
+
 -verbose 
 -dump class_files.txt 
 -printseeds seeds.txt 
@@ -18,7 +20,7 @@
 -keep public class * extends android.content.BroadcastReceiver 
 -keep public class * extends android.content.ContentProvider 
 
--keep public class * extends View { 
+-keep public class * extends android.view.View { 
 public <init>(android.content.Context); 
 public <init>(android.content.Context, android.util.AttributeSet); 
 public <init>(android.content.Context, android.util.AttributeSet, int); 
@@ -31,3 +33,39 @@ public void set*(...);
     public static **[] values();
     public static ** valueOf(java.lang.String);
 } 
+
+-keep class com.menny.android.anysoftkeyboard.dictionary.BinaryDictionary
+
+-keepclassmembers  class com.menny.android.anysoftkeyboard.dictionary.BinaryDictionary {
+ public protected *;
+
+}
+
+-keepclassmembernames class com.menny.android.anysoftkeyboard.dictionary.BinaryDictionary {
+ public protected *;
+} 
+
+
+-keepclassmembers class com.menny.android.anysoftkeyboard.keyboards.AnyKey {
+  public protected *;
+}
+
+-keep class com.menny.android.anysoftkeyboard.keyboards.AnyKey
+
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+      
+-keep class com.menny.android.anysoftkeyboard.AnyKeyboardViewDonut
+
+
+-keepclassmembernames class com.menny.android.anysoftkeyboard.AnyKeyboardViewDonut {
+ public protected *;
+} 
+
+-keep class com.menny.android.anysoftkeyboard.CandidateViewContainer
+
+-keepclassmembernames class com.menny.android.anysoftkeyboard.CandidateViewContainer {
+ public protected *;
+}
+
