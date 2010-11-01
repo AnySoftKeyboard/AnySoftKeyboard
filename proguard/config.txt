@@ -41,16 +41,16 @@ public void set*(...);
 
 }
 
+
 -keepclassmembernames class com.menny.android.anysoftkeyboard.dictionary.BinaryDictionary {
  public protected *;
 } 
 
+-keep class com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard$AnyKey
 
--keepclassmembers class com.menny.android.anysoftkeyboard.keyboards.AnyKey {
-  public protected *;
-}
-
--keep class com.menny.android.anysoftkeyboard.keyboards.AnyKey
+-keepclassmembernames class com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard$AnyKey {
+ public protected *;
+} 
 
 -keepclasseswithmembernames class * {
     native <methods>;
