@@ -50,7 +50,7 @@
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
-		        android:text="20101031 - 29"
+		        android:text="${RELEASE_DATE} - ${RELEASE_NUMBER}"
 		        android:textStyle="bold"
 		        android:gravity="center"
 		        android:textSize="16sp"
