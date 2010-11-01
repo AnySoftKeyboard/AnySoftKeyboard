@@ -815,6 +815,8 @@ public abstract class AnyKeyboard extends Keyboard
                 // If there is a keyboard with no keys specified in popupCharacters
                 popupResId = 0;
             }
+            parseCSV("");//TODO lado parseCSV is removed by proGuard if it here not set. I'm on it to leave this method
+            //untasted without this call.
         }
         
         public void enable()
