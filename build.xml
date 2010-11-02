@@ -127,7 +127,6 @@
 
 	<!-- The final package file to generate -->
 	<property name="out.debug.unaligned.package" location="${out.absolute.dir}/${ant.project.name}-debug-unaligned.apk" />
-	<property name="out.debug.package" location="${out.debug.dir}/${ant.project.name}-${DSTAMP}-${version.name}.apk" />
 	<property name="out.unsigned.package" location="${out.absolute.dir}/${ant.project.name}-unsigned.apk" />
 	<property name="out.unaligned.package" location="${out.absolute.dir}/${ant.project.name}-unaligned.apk" />
 	<!--
@@ -339,8 +338,14 @@
 		</subant>
 	</target>
 
+	<target name="-prepare-debug">
+		<property name="nooptimize" value="nooptimize"/>
+			<property name="havedebug" value="havedebug"/>
+			<property name="havedebuggable" value="havedebuggable"/>
+	</target>
 	<!-- Builds debug output package, provided all the necessary files are already dexed -->
-	<target name="debug" depends="-compile-tested-if-test, -package-debug-sign" description="Builds the application and signs it with a debug key.">
+	<target name="debug" depends="clean,-prepare-debug,-get-version-info,-compile-tested-if-test, -package-debug-sign" description="Builds the application and signs it with a debug key.">
+		<property name="out.debug.package" location="${out.debug.dir}/${ant.project.name}-${DSTAMP}-${version.name}.apk" />
 		<zipalign-helper in.package="${out.debug.unaligned.package}" out.package="${out.debug.package}" />
 		<echo>Debug Package: ${out.debug.package}</echo>
 	</target>
@@ -504,19 +509,19 @@
 		<input  message="Please enter versionName:"   addproperty="version.name" />
 	</target>
 	
-	<target name="-pre-resource-src-preprocess" unless="nopreprocess" depends="preprocess.nodebuggable">
+	<target name="-pre-resource-src-preprocess" unless="nopreprocess" depends="-preprocess.nodebuggable">
 		<echo>Setting versionName</echo>
 		<replaceregexp file="AndroidManifest.xml" match="android:versionName=&quot;.*?&quot;" replace="android:versionName=&quot;${DSTAMP}-${version.name}&quot;" />
 		<echo>Setting versionCode</echo>
 		<replaceregexp file="AndroidManifest.xml" match="android:versionCode=&quot;.*?&quot;" replace="android:versionCode=&quot;${version.code}&quot;" />
 	</target>
 	
-	<target name="preprocess.nodebuggable" if="nodebuggable">
+	<target name="-preprocess.nodebuggable" unless="havedebuggable">
 		<echo>Removing debug attribute from AndroidManifest.xml</echo>
 		<replaceregexp file="AndroidManifest.xml" match="android:debuggable=&quot;.*?&quot;" replace="" />
 	</target>
 	
-	<target name="-pre-compile-preprocess" if="nodebug">
+	<target name="-pre-compile-preprocess" unless="havedebug">
 		<echo>AnySoftKeyboardConfiguration.DEBUG is going to be set to false</echo>
 		<replaceregexp file="src/com/menny/android/anysoftkeyboard/AnySoftKeyboardConfiguration.java" match="DEBUG\s*=\s*true" replace="DEBUG = false"/>
 	</target>
