@@ -69,3 +69,4 @@ public void set*(...);
  public protected *;
 }
 
+-keep public class com.menny.android.anysoftkeyboard.MySeekBarPreference
