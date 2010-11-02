@@ -45,7 +45,6 @@
 		<pathelement path="${sdk.dir}/tools/lib/apkbuilder.jar" />
 		<pathelement path="${sdk.dir}/tools/lib/jarutils.jar" />
 		<pathelement path="ant/ant-nodeps.jar"/>
-		<pathelement path="ant/ant-googlecode-0.0.2.jar"/>
 	</path>
 
 	<taskdef name="setup" classname="com.android.ant.SetupTask" classpathref="android.antlibs" />
@@ -556,7 +555,7 @@
 	
 	
 	<!-- TODO lado not yet tested. Make own config for it for menny -->
-	<taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="ant/ant-googlecode-0.0.2.jar" name="gcupload"/>
+	<taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="ant/ant-googlecode-0.0.2-lado.jar" name="gcupload"/>
 <!--
 username 	    - Google user name to authenticate as (this is just the username part; don't include the @gmail.com part) 	Yes
 password 	    - Coogle Code password (not the same as the gmail password). 	Yes
@@ -591,8 +590,8 @@ labels      	- The labels that the download should have, separated by commas. Ex
 			        password="${gcu.password}" 
 			        projectname="${gcu.project}" 
 			        filename="${gcu.releasefile}" 
-			        summary="${gcu.summary}"
-					verbose="true"
+                                summary="${gcu.summary}"
+				verbose="true"
 			        labels="${gcu.labels}">
 		</gcupload>
 	</target>
