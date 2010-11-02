@@ -70,3 +70,6 @@ public void set*(...);
 }
 
 -keep public class com.menny.android.anysoftkeyboard.MySeekBarPreference
+{
+public <init>(android.content.Context, android.util.AttributeSet); 
+}
