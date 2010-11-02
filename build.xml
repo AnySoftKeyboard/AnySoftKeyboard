@@ -45,6 +45,7 @@
 		<pathelement path="${sdk.dir}/tools/lib/apkbuilder.jar" />
 		<pathelement path="${sdk.dir}/tools/lib/jarutils.jar" />
 		<pathelement path="ant/ant-nodeps.jar"/>
+		<pathelement path="ant/ant-googlecode-0.0.2.jar"/>
 	</path>
 
 	<taskdef name="setup" classname="com.android.ant.SetupTask" classpathref="android.antlibs" />
@@ -511,6 +512,30 @@
 		<replaceregexp file="src/com/menny/android/anysoftkeyboard/AnySoftKeyboardConfiguration.java" match="DEBUG\s*=\s*true" replace="DEBUG = false"/>
 	</target>
 
+	
+	<!-- TODO lado not yet tested. Make own config for it for menny -->
+	<taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="ant/ant-googlecode-0.0.2.jar" name="gcupload"/>
+<!--
+username 	    - Google user name to authenticate as (this is just the username part; don't include the @gmail.com part) 	Yes
+password 	    - Coogle Code password (not the same as the gmail password). 	Yes
+projectname     - Google Code project name to upload to. 	Yes
+filename 	    - The local path of the file to upload. 	Yes
+targetfilename 	- The file name that this file will be given on Google Code. 	Yes
+summary 	    - Summary of the upload. 	Yes
+uploadurl 	    - Overrides the default upload URL. This parameter is only useful for testing this Ant task without uploading to the live server. 	No
+verbose 	    - If set to true, this task will print debugging information to System.out as it progresses through its job 	No, default is false
+labels      	- The labels that the download should have, separated by commas. Extra whitespace before and after each label name will not be considered part of the label name. 	No 
+-->
+	<gcupload  username="${gcu.username}" 
+	        password="${gcu.password}" 
+	        projectname="{gcu.project}" 
+	        filename="put release variable" 
+	        targetfilename="leave it empty?"
+	        summary="${gcu.summary}"
+			vebose="true"
+	        labels="Featured, Type-Package, OpSys-All">
+		<input message="Enter Summary" property="gcu.summary"/>
+	</gcupload>
 
 	<target name="help">
 		<!-- displays starts at col 13
