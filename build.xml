@@ -590,7 +590,6 @@ labels      	- The labels that the download should have, separated by commas. Ex
 			        password="${gcu.password}" 
 			        projectname="${gcu.project}" 
 			        filename="${gcu.releasefile}" 
-					targetfilename="${gcu.releasefile}"
 			        summary="${gcu.summary}"
 					verbose="true"
 			        labels="${gcu.labels}">
