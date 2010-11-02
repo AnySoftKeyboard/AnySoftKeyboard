@@ -254,6 +254,7 @@
 		<mkdir dir="${out.classes.absolute.dir}" />
 		<mkdir dir="${out.release.dir}" />
 		<mkdir dir="${out.debug.dir}" />
+		<mkdir dir="${out.market.dir}" />
 	</target>
 
 	<!-- Generates the R.java file for this project's resources. -->
@@ -365,7 +366,11 @@
 		<echo>and run zipalign from the Android SDK tools.</echo>
 	</target>
 
-	<target name="release" depends="clean,-get-version-info,-package-no-sign,-release-nosign" if="release.sign" description="Builds the application. The generated apk file must be signed before
+	<target name="sethavedebug">
+		<property name="havedebug" value="havedebug"/>
+	</target>
+	
+	<target name="release" depends="clean,sethavedebug,-get-version-info,-package-no-sign,-release-nosign" if="release.sign" description="Builds the application. The generated apk file must be signed before
 	                            it is published.">
 		<!-- Gets passwords -->
 		<input message="Please enter keystore password (store:${key.store}):" addproperty="key.store.password" />
@@ -532,6 +537,24 @@
 	
 	
 	
+	<target name="market" depends="clean,-get-version-info,-package-no-sign,-release-nosign" if="release.sign" description="Builds the application. The generated apk file must be signed before
+		                            it is published.">
+			<!-- Gets passwords -->
+			<input message="Please enter keystore password (store:${key.store}):" addproperty="key.store.password" />
+			<input message="Please enter password for alias '${key.alias}':" addproperty="key.alias.password" />
+
+			<!-- Signs the APK -->
+			<echo>Signing final apk...</echo>
+			<signjar jar="${out.unsigned.package}" signedjar="${out.unaligned.package}" keystore="${key.store}" storepass="${key.store.password}" alias="${key.alias}" keypass="${key.alias.password}" verbose="${verbose}" />
+
+			<!-- Zip aligns the APK -->
+			<property name="out.market.package" value="${out.market.dir}/${ant.project.name}-${DSTAMP}-${version.name}.apk"/>
+			<zipalign-helper in.package="${out.unaligned.package}" out.package="${out.market.package}" />
+			<echo>Market Package: ${out.market.package}</echo>
+	</target>
+	
+	
+	
 	<!-- TODO lado not yet tested. Make own config for it for menny -->
 	<taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="ant/ant-googlecode-0.0.2.jar" name="gcupload"/>
 <!--
@@ -556,6 +579,23 @@ labels      	- The labels that the download should have, separated by commas. Ex
 	        labels="Featured, Type-Package, OpSys-All">
 	</gcupload>
 -->
+	<target name="upload">
+		<property file="gcupload.properties"/>
+		<input message="Enter Username" addproperty="gcu.username"/>
+		<input message="Enter Password" addproperty="gcu.password"/>
+		<input message="Enter Projectname" addproperty="gcu.project"/>
+		<input message="Enter Filename" addproperty="gcu.releasefile"/>
+		<input message="Enter comma separated labels" addproperty="gcu.summary"/>
+		<gcupload   username="${gcu.username}" 
+			        password="${gcu.password}" 
+			        projectname="${gcu.project}" 
+			        filename="${gcu.releasefile}" 
+					targetfilename="${gcu.releasefile}"
+			        summary="${gcu.summary}"
+					verbose="true"
+			        labels="${gcu.labels}">
+		</gcupload>
+	</target>
 	<target name="help">
 		<!-- displays starts at col 13
 	              |13                                                              80| -->
