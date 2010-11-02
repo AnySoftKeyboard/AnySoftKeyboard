@@ -585,7 +585,8 @@ labels      	- The labels that the download should have, separated by commas. Ex
 		<input message="Enter Password" addproperty="gcu.password"/>
 		<input message="Enter Projectname" addproperty="gcu.project"/>
 		<input message="Enter Filename" addproperty="gcu.releasefile"/>
-		<input message="Enter comma separated labels" addproperty="gcu.summary"/>
+		<input message="Enter Summary" addproperty="gcu.summary"/>
+		<input message="Enter comma separated labels" addproperty="gcu.labels"/>
 		<gcupload   username="${gcu.username}" 
 			        password="${gcu.password}" 
 			        projectname="${gcu.project}" 
