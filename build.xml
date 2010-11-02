@@ -491,16 +491,22 @@
 	<!--
 	<property environment="env" />
 	-->
-	<target name="preprocess" unless="nopreprocess">
+	<target name="preprocess" unless="nopreprocess" depends="preprocess.nodebug,preprocess.nodebugagble">
 		<input  message="Please enter versionCode:"   addproperty="version.code" />
 		<input  message="Please enter versionName:"   addproperty="version.name" />
-
 		<echo>Setting versionName</echo>
 		<replaceregexp file="AndroidManifest.xml" match="android:versionName=&quot;.*?&quot;" replace="android:versionName=&quot;${DSTAMP}-${version.name}&quot;" />
 		<echo>Setting versionCode</echo>
 		<replaceregexp file="AndroidManifest.xml" match="android:versionCode=&quot;.*?&quot;" replace="android:versionCode=&quot;${version.code}&quot;" />
+		
+	</target>
+	
+	<target name="preprocess.nodebugagble" if="nodebuggable">
 		<echo>Removing debug attribute from AndroidManifest.xml</echo>
 		<replaceregexp file="AndroidManifest.xml" match="android:debuggable=&quot;.*?&quot;" replace="" />
+	</target>
+	
+	<target name="preprocess.nodebug" if="nodebug">
 		<echo>AnySoftKeyboardConfiguration.DEBUG is going to be set to false</echo>
 		<replaceregexp file="src/com/menny/android/anysoftkeyboard/AnySoftKeyboardConfiguration.java" match="DEBUG\s*=\s*true" replace="DEBUG = false"/>
 	</target>
