@@ -38,7 +38,6 @@ public void set*(...);
 
 -keepclassmembers  class com.menny.android.anysoftkeyboard.dictionary.BinaryDictionary {
  public protected *;
-
 }
 
 
