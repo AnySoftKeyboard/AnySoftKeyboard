@@ -130,8 +130,9 @@
 	<property name="out.debug.package" location="${out.debug.dir}/${ant.project.name}-${DSTAMP}-${version.name}.apk" />
 	<property name="out.unsigned.package" location="${out.absolute.dir}/${ant.project.name}-unsigned.apk" />
 	<property name="out.unaligned.package" location="${out.absolute.dir}/${ant.project.name}-unaligned.apk" />
+	<!--
 	<property name="out.release.package" location="${out.release.dir}/${ant.project.name}-${DSTAMP}-${version.name}.apk" />
-
+	-->
 	<!-- Verbosity -->
 	<property name="verbose" value="false" />
 	<!-- This is needed by emma as it uses multilevel verbosity instead of simple 'true' or 'false'
@@ -257,7 +258,7 @@
 	</target>
 
 	<!-- Generates the R.java file for this project's resources. -->
-	<target name="-resource-src" depends="-dirs">
+	<target name="-resource-src" depends="-dirs,-pre-resource-src">
 		<echo>Generating R.java / Manifest.java from the resources...</echo>
 		<exec executable="${aapt}" failonerror="true">
 			<arg value="package" />
@@ -359,7 +360,7 @@
 		<echo>and run zipalign from the Android SDK tools.</echo>
 	</target>
 
-	<target name="release" depends="-package-no-sign,-release-nosign" if="release.sign" description="Builds the application. The generated apk file must be signed before
+	<target name="release" depends="clean,-get-version-info,-package-no-sign,-release-nosign" if="release.sign" description="Builds the application. The generated apk file must be signed before
 	                            it is published.">
 		<!-- Gets passwords -->
 		<input message="Please enter keystore password (store:${key.store}):" addproperty="key.store.password" />
@@ -370,6 +371,7 @@
 		<signjar jar="${out.unsigned.package}" signedjar="${out.unaligned.package}" keystore="${key.store}" storepass="${key.store.password}" alias="${key.alias}" keypass="${key.alias.password}" verbose="${verbose}" />
 
 		<!-- Zip aligns the APK -->
+		<property name="out.release.package" value="${out.release.dir}/${ant.project.name}-${DSTAMP}-${version.name}.apk"/>
 		<zipalign-helper in.package="${out.unaligned.package}" out.package="${out.release.package}" />
 		<echo>Release Package: ${out.release.package}</echo>
 	</target>
@@ -492,29 +494,39 @@
 	<!--
 	<property environment="env" />
 	-->
-	<target name="preprocess" unless="nopreprocess" depends="preprocess.nodebug,preprocess.nodebugagble">
+	
+	<target name="-pre-resource-src"  description="Some stuff to do before pre-resource-src">
+			<antcall target="-pre-resource-src-preprocess"/>
+	</target>
+	
+	<target name="-get-version-info">
 		<input  message="Please enter versionCode:"   addproperty="version.code" />
 		<input  message="Please enter versionName:"   addproperty="version.name" />
+	</target>
+	
+	<target name="-pre-resource-src-preprocess" unless="nopreprocess" depends="preprocess.nodebuggable">
 		<echo>Setting versionName</echo>
 		<replaceregexp file="AndroidManifest.xml" match="android:versionName=&quot;.*?&quot;" replace="android:versionName=&quot;${DSTAMP}-${version.name}&quot;" />
 		<echo>Setting versionCode</echo>
 		<replaceregexp file="AndroidManifest.xml" match="android:versionCode=&quot;.*?&quot;" replace="android:versionCode=&quot;${version.code}&quot;" />
-		
 	</target>
 	
-	<target name="preprocess.nodebugagble" if="nodebuggable">
+	<target name="preprocess.nodebuggable" if="nodebuggable">
 		<echo>Removing debug attribute from AndroidManifest.xml</echo>
 		<replaceregexp file="AndroidManifest.xml" match="android:debuggable=&quot;.*?&quot;" replace="" />
 	</target>
 	
-	<target name="preprocess.nodebug" if="nodebug">
+	<target name="-pre-compile-preprocess" if="nodebug">
 		<echo>AnySoftKeyboardConfiguration.DEBUG is going to be set to false</echo>
 		<replaceregexp file="src/com/menny/android/anysoftkeyboard/AnySoftKeyboardConfiguration.java" match="DEBUG\s*=\s*true" replace="DEBUG = false"/>
 	</target>
-
-	<target name="-pre-compile" description="Some stuff to do before compile" depends="">
-		<antcall target="preprocess"/>
+	
+	<target name="-pre-compile" description="Some stuff to do before compile" unless="nopreprocess">
+		<antcall target="-pre-compile-preprocess"/>
 	</target>
+	
+	
+	
 	<!-- TODO lado not yet tested. Make own config for it for menny -->
 	<taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="ant/ant-googlecode-0.0.2.jar" name="gcupload"/>
 <!--
