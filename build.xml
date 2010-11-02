@@ -288,7 +288,7 @@
 	</target>
 
 	<!-- Compiles this project's .java files into .class files. -->
-	<target name="compile" depends="-resource-src, -aidl" description="Compiles project's .java files into .class files">
+	<target name="compile" depends="-pre-compile,-resource-src, -aidl" description="Compiles project's .java files into .class files">
 		<!-- If android rules are used for a test project, its classpath should include
 	             tested project's location -->
 		<condition property="extensible.classpath" value="${tested.project.absolute.dir}/bin/classes" else=".">
@@ -317,7 +317,7 @@
 	         Some custom apk with specific configuration have been
 	         declared in default.properties.
 	         -->
-	<target name="-package-resources" depends="preprocess">
+	<target name="-package-resources" depends="">
 		<echo>Packaging resources</echo>
 		<aaptexec executable="${aapt}" command="package" manifest="AndroidManifest.xml" resources="${resource.absolute.dir}" assets="${asset.absolute.dir}" androidjar="${android.jar}" outfolder="${out.absolute.dir}" basename="${ant.project.name}" />
 	</target>
@@ -512,7 +512,9 @@
 		<replaceregexp file="src/com/menny/android/anysoftkeyboard/AnySoftKeyboardConfiguration.java" match="DEBUG\s*=\s*true" replace="DEBUG = false"/>
 	</target>
 
-	
+	<target name="-pre-compile" description="Some stuff to do before compile" depends="">
+		<antcall target="preprocess"/>
+	</target>
 	<!-- TODO lado not yet tested. Make own config for it for menny -->
 	<taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="ant/ant-googlecode-0.0.2.jar" name="gcupload"/>
 <!--
@@ -526,17 +528,17 @@ uploadurl 	    - Overrides the default upload URL. This parameter is only useful
 verbose 	    - If set to true, this task will print debugging information to System.out as it progresses through its job 	No, default is false
 labels      	- The labels that the download should have, separated by commas. Extra whitespace before and after each label name will not be considered part of the label name. 	No 
 -->
-	<gcupload  username="${gcu.username}" 
+	<!--
+	<gcupload username="${gcu.username}" 
 	        password="${gcu.password}" 
 	        projectname="{gcu.project}" 
-	        filename="put release variable" 
+	        filename="" 
 	        targetfilename="leave it empty?"
 	        summary="${gcu.summary}"
-			vebose="true"
+			verbose="true"
 	        labels="Featured, Type-Package, OpSys-All">
-		<input message="Enter Summary" property="gcu.summary"/>
 	</gcupload>
-
+-->
 	<target name="help">
 		<!-- displays starts at col 13
 	              |13                                                              80| -->
