@@ -325,6 +325,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 		
 		
 		mKeyboardSwitcher.resetKeyboardsCache();
+		//saving the orientation now, since the GUI is correct (we created that a second ago)
+		//and the keyboard are empty
+		mOrientation = getResources().getConfiguration().orientation;
+		
 		mKeyboardSwitcher.setInputView(mInputView);
 		//mKeyboardSwitcher.makeKeyboards(false);
 		mInputView.setOnKeyboardActionListener(this);
@@ -1475,8 +1479,16 @@ public class AnySoftKeyboard extends InputMethodService implements
 			//2)if keyboard is shifted -> capslock keyboard
 			//3)if keyboard is capslocked -> unshift view and keyboard
 			final AnyKeyboard currentKeyboard = mKeyboardSwitcher.getCurrentKeyboard();
+			if (AnySoftKeyboardConfiguration.DEBUG)
+			{
+				final AnyKeyboard viewKeyboard = (AnyKeyboard)mInputView.getKeyboard();
+				if (currentKeyboard != viewKeyboard)
+				{
+					Log.e(TAG, "NOTE: view keyboard and switcher keyboard are not the same!");
+				}
+			}
 			final boolean caps;
-			if (!currentKeyboard.isShifted())
+			if (!mInputView.isShifted())
 			{
 				if (DEBUG) Log.d(TAG, "handleShift: current keyboard is un-shifted");
 				mInputView.setShifted(true);
@@ -2329,6 +2341,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		boolean isDictionaryKey = key.startsWith("dictionary_");
 		if (isKeyboardKey || isDictionaryKey) {
 			mKeyboardSwitcher.makeKeyboards(true);
+			//saving the orientation
+			mOrientation = getResources().getConfiguration().orientation;
 			return;
 		} 
 		
@@ -2351,6 +2365,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 					key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key)))
 			{
 				mKeyboardSwitcher.makeKeyboards(true);
+				//saving the orientation
+				mOrientation = getResources().getConfiguration().orientation;
 			}
 		}
 	}

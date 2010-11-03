@@ -163,6 +163,9 @@ public class KeyboardSwitcher
 	    	mSymbolsKeyboardsArray[keyboardIndex] = keyboard;
 	    	mLastSelectedSymbolsKeyboard = keyboardIndex;
 	    	keyboard.initKeysMembers();
+	    	//new keyboard. let's set it.
+			if (mInputView != null)
+				mInputView.setKeyboard(keyboard);
     	}
 
 //    	if (requiredToRecreateKeyboard(keyboard))
@@ -196,14 +199,21 @@ public class KeyboardSwitcher
         if ((mAlphabetKeyboards.length == 0) || (mSymbolsKeyboardsArray.length == 0))
         {
             if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, "makeKeyboards: force:"+force);
-        	mAlphabetKeyboardsCreators = KeyboardFactory.createAlphaBetKeyboards(mContext);
-			mAlphabetKeyboards = new AnyKeyboard[mAlphabetKeyboardsCreators.length];
-	        if (mLastSelectedKeyboard >= mAlphabetKeyboards.length)
-	        	mLastSelectedKeyboard = 0;
-
-	        mSymbolsKeyboardsArray = new AnyKeyboard[SYMBOLS_KEYBOARDS_COUNT];
-        	if (mLastSelectedSymbolsKeyboard >= mSymbolsKeyboardsArray.length)
-        		mLastSelectedSymbolsKeyboard = 0;
+            if (mAlphabetKeyboards.length == 0)
+            {
+            	if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, "makeKeyboards: creating alphabets");
+	        	mAlphabetKeyboardsCreators = KeyboardFactory.createAlphaBetKeyboards(mContext);
+				mAlphabetKeyboards = new AnyKeyboard[mAlphabetKeyboardsCreators.length];
+		        if (mLastSelectedKeyboard >= mAlphabetKeyboards.length)
+		        	mLastSelectedKeyboard = 0;
+            }
+            if (mSymbolsKeyboardsArray.length == 0)
+            {
+            	if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, "makeKeyboards: creating symbols");
+		        	mSymbolsKeyboardsArray = new AnyKeyboard[SYMBOLS_KEYBOARDS_COUNT];
+	        	if (mLastSelectedSymbolsKeyboard >= mSymbolsKeyboardsArray.length)
+	        		mLastSelectedSymbolsKeyboard = 0;
+            }
         	//freeing old keyboards.
         	System.gc();
         }
@@ -211,7 +221,10 @@ public class KeyboardSwitcher
 
     synchronized void resetKeyboardsCache() {
 		if (AnySoftKeyboardConfiguration.DEBUG)
+		{
 			Log.d(TAG, "Forcing Keyboards cache clear");
+			Thread.dumpStack();
+		}
 		mAlphabetKeyboards = EMPTY_AnyKeyboards;
 		mSymbolsKeyboardsArray = EMPTY_AnyKeyboards;
 	}
@@ -481,6 +494,9 @@ public class KeyboardSwitcher
 			keyboards[index] = creator.createKeyboard(mContext, mode);
 			keyboard = keyboards[index];
 			keyboard.initKeysMembers();
+			//new keyboard. let's set it.
+			if (mInputView != null)
+				mInputView.setKeyboard(keyboard);
 		}
 
 //		if (requiredToRecreateKeyboard(keyboard))
