@@ -50,7 +50,6 @@ public abstract class LanguageChangeddBroadcastReceiver extends BroadcastReceive
         //}
     }
 
-    
     private void sendNotification(Context ctx, Intent i)
     {  
        int icon =  i.getExtras().getInt("current_layout_resid");
@@ -58,7 +57,6 @@ public abstract class LanguageChangeddBroadcastReceiver extends BroadcastReceive
        String ns = Context.NOTIFICATION_SERVICE;
        NotificationManager nm = 
           (NotificationManager)ctx.getSystemService(ns);
-       nm.cancel(1);
        long when = System.currentTimeMillis();
        Notification notification = 
           new Notification(icon, name, when);
@@ -66,27 +64,15 @@ public abstract class LanguageChangeddBroadcastReceiver extends BroadcastReceive
        //intent.setData(Uri.parse("http://www.google.com"));
        PendingIntent pi = PendingIntent.getActivity(ctx, 0, intent, 0);
        notification.setLatestEventInfo(ctx, "AnySoftKeyboard", name , pi);
-          
        nm.notify(1, notification);
     }
 
     private void cancelNotification(Context ctx, Intent i)
     {  
-       int icon =  i.getExtras().getInt("current_layout_resid");
-       String name = i.getExtras().getString("current_layout_name");
-       String ns = Context.NOTIFICATION_SERVICE;
-       NotificationManager nm = 
-          (NotificationManager)ctx.getSystemService(ns);
-       nm.cancel(1);
-       long when = System.currentTimeMillis();
-       Notification notification = 
-          new Notification(icon, name, when);
-       Intent intent = new Intent(Intent.ACTION_DEFAULT);
-       //intent.setData(Uri.parse("http://www.google.com"));
-       PendingIntent pi = PendingIntent.getActivity(ctx, 0, intent, 0);
-       notification.setLatestEventInfo(ctx, "AnySoftKeyboard", name , pi);
-          
-       nm.notify(1, notification);
+        String ns = Context.NOTIFICATION_SERVICE;
+        NotificationManager nm = 
+           (NotificationManager)ctx.getSystemService(ns);
+        nm.cancel(1);
     }
     
 }
