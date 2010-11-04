@@ -26,20 +26,14 @@ public abstract class LayoutChangedBroadcastReceiver extends BroadcastReceiver {
     private static final String NOTIFY_LAYOUT_SWITCH_NOTIFICATION_FLAGS = "notification_flags";
     private static final String NOTIFY_LAYOUT_SWITCH_NOTIFICATION_TITLE = "notification_title";
    
-    private static final String TAG = "ASK-LCBR";
-    private static final boolean DEBUG = false;
-    
+
     /* (non-Javadoc)
      * @see android.content.BroadcastReceiver#onReceive(android.content.Context, android.content.Intent)
      */
     @Override
     public final void onReceive(Context ctx, Intent intent) {
         String currentPackage = getClass().getPackage().getName();
-        if(DEBUG)
-        Log.d(TAG, "Calling  onReceive for package: " + currentPackage);
         String pack  = intent.getExtras().getString(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_PACKAGE);
-        if(DEBUG)
-        Log.d(TAG, "onReceive got package " + pack);
         if(!currentPackage.equals(pack)){
             String ns = Context.NOTIFICATION_SERVICE;
             NotificationManager nm = 
