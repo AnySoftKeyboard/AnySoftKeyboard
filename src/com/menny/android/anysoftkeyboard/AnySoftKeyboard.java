@@ -83,7 +83,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 		AnyKeyboardView.OnAnyKeyboardActionListener,
 		OnSharedPreferenceChangeListener, AnyKeyboardContextProvider {
 	private final static String TAG = "ASK";
-
+	
+	public final static String NOTIFY_LAYOUT_SWITCH  = "com.menny.android.anysoftkeyboard.api.NOTIFY_LAYOUT_SWITCH";
+    //API
+    private static final String NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_RESID = "current_layout_resid";
+    private static final String NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_NAME = "current_layout_name";
+    private static final String NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_PACKAGE = "current_layout_package";
+    private static final String NOTIFY_LAYOUT_SWITCH_NOTIFICATION_FLAGS = "notification_flags";
+    private static final String NOTIFY_LAYOUT_SWITCH_NOTIFICATION_TITLE = "notification_title";
 
 	private final boolean TRACE_SDCARD = false;
 
@@ -290,6 +297,12 @@ public class AnySoftKeyboard extends InputMethodService implements
         unregisterReceiver(mReceiver);
 
 		mNotificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
+		
+		
+		Intent i = new Intent(NOTIFY_LAYOUT_SWITCH);
+		//dome summy package, so that everybody removes notification
+        i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_PACKAGE, "NO_SUCH_PACKAGE");
+        sendBroadcast(i);
 
 		TutorialsProvider.onServiceDestroy();
 
@@ -501,6 +514,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 				.equals(KEYBOARD_NOTIFICATION_ALWAYS)) {
 			NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 			notificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
+			Intent i = new Intent(NOTIFY_LAYOUT_SWITCH);
+			i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_PACKAGE, NOTIFY_LAYOUT_SWITCH);//dome summy package, so that everybody removes notification
+		    sendBroadcast(i);
 		}
 		// clearing any predications
 		//resetComposing();
@@ -931,10 +947,19 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 			notification.defaults = 0;// no sound, vibrate, etc.
 			// notifying
-			mNotificationManager.notify(KEYBOARD_NOTIFICATION_ID, notification);
+			//mNotificationManager.notify(KEYBOARD_NOTIFICATION_ID, notification);
+			Intent i = new Intent(NOTIFY_LAYOUT_SWITCH);
+			i.putExtra(NOTIFY_LAYOUT_SWITCH_NOTIFICATION_TITLE, getText(R.string.ime_name));
+			i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_RESID,   mKeyboardSwitcher.getCurrentKeyboard().getKeyboardIconResId());
+			i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_NAME,    mKeyboardSwitcher.getCurrentKeyboard().getKeyboardName());
+			i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_PACKAGE, mKeyboardSwitcher.getCurrentKeyboard().getKeyboardContext().getPackageName());
+			i.putExtra(NOTIFY_LAYOUT_SWITCH_NOTIFICATION_FLAGS, notification.flags);
+			sendBroadcast(i);
+			
 		}
 	}
 
+	
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		switch (keyCode) {
