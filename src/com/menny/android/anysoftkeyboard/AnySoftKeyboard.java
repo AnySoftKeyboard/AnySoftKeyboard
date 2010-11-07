@@ -336,11 +336,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mOptionsDialog = null;
 		mSmileyDialog = null;
 		
-		
-		mKeyboardSwitcher.resetKeyboardsCache();
+		//mKeyboardSwitcher.resetKeyboardsCache();
 		//saving the orientation now, since the GUI is correct (we created that a second ago)
 		//and the keyboard are empty
-		mOrientation = getResources().getConfiguration().orientation;
+		//mOrientation = getResources().getConfiguration().orientation;
 		
 		mKeyboardSwitcher.setInputView(mInputView);
 		//mKeyboardSwitcher.makeKeyboards(false);
@@ -2318,22 +2317,16 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
+
+        // If orientation changed while predicting, commit the change
+        if (newConfig.orientation != mOrientation) {
+            commitTyped(getCurrentInputConnection());
+            mOrientation = newConfig.orientation;
+            
+            mKeyboardSwitcher.makeKeyboards(true);
+        }
+        
 		super.onConfigurationChanged(newConfig);
-//		Log.i("AnySoftKeyboard", "**** onConfigurationChanged");
-//		Log.i("AnySoftKeyboard", "** Locale:" + newConfig.locale.toString());
-//		Log.i("AnySoftKeyboard", "** Orientation:" + newConfig.orientation + " previous:"+mOrientation);
-		if (mOrientation != newConfig.orientation)
-		{
-			mOrientation = newConfig.orientation;
-//			if (mInputView != null)
-//			{
-//				mInputView.closing();
-//			}
-			//resetting cache
-			//this will force recreating of keyboards upon showing them up.
-			mKeyboardSwitcher.resetKeyboardsCache();
-			updateFullscreenMode();
-		}
 	}
 
 	private void initContactsDictionary(){
@@ -2367,7 +2360,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (isKeyboardKey || isDictionaryKey) {
 			mKeyboardSwitcher.makeKeyboards(true);
 			//saving the orientation
-			mOrientation = getResources().getConfiguration().orientation;
+			//mOrientation = getResources().getConfiguration().orientation;
 			return;
 		} 
 		
@@ -2391,7 +2384,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			{
 				mKeyboardSwitcher.makeKeyboards(true);
 				//saving the orientation
-				mOrientation = getResources().getConfiguration().orientation;
+				//mOrientation = getResources().getConfiguration().orientation;
 			}
 		}
 	}
