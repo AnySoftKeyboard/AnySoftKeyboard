@@ -100,10 +100,10 @@
     <string name="switch_keyboard_on_space">Space switches keyboards</string>
     <string name="switch_keyboard_on_space_on_summary">Switch from symbols/numbers to alphabet when pressing space</string>
     <string name="switch_keyboard_on_space_off_summary">Do not switch from symbols/numbers to alphabet when pressing space</string>
-    <string name="fullscreen_input_connection_supported">Use portrait full-screen</string>
+    <string name="fullscreen_input_connection_supported">Use landscape full-screen</string>
     <string name="fullscreen_input_connection_supported_on_summary">Full-screen input in landscape</string>
     <string name="fullscreen_input_connection_supported_off_summary">Do not use full-screen input in landscape</string>
-    <string name="fullscreen_portrait_input_connection_supported">Use landscape full-screen</string>
+    <string name="fullscreen_portrait_input_connection_supported">Use portrait full-screen</string>
     <string name="fullscreen_portrait_input_connection_supported_on_summary">Full-screen input in portrait</string>
     <string name="fullscreen_portrait_input_connection_supported_off_summary">Do not use full-screen input in portrait</string>
     <string name="backword_support">Back-word support</string>
