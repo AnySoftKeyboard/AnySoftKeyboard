@@ -223,7 +223,7 @@ public class KeyboardSwitcher
 		if (AnySoftKeyboardConfiguration.DEBUG)
 		{
 			Log.d(TAG, "Forcing Keyboards cache clear");
-			Thread.dumpStack();
+			//Thread.dumpStack();
 		}
 		mAlphabetKeyboards = EMPTY_AnyKeyboards;
 		mSymbolsKeyboardsArray = EMPTY_AnyKeyboards;

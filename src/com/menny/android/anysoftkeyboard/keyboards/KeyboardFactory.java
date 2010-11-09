@@ -11,10 +11,11 @@ import java.util.ArrayList;
 
 public class KeyboardFactory 
 {
+	private static final String TAG = "ASK_KF";
     public static KeyboardBuilder[] createAlphaBetKeyboards(AnyKeyboardContextProvider contextProvider)
     {
     	final ArrayList<KeyboardBuilder> keyboardCreators = KeyboardBuildersFactory.getAllBuilders(contextProvider.getApplicationContext());
-        Log.i("AnySoftKeyboard", "Creating keyboards. I have "+ keyboardCreators.size()+" creators");
+        Log.i(TAG, "Creating keyboards. I have "+ keyboardCreators.size()+" creators");
         //Thread.dumpStack();
 
         //getting shared prefs to determine which to create.
@@ -44,8 +45,10 @@ public class KeyboardFactory
         }
 
         if (AnySoftKeyboardConfiguration.DEBUG)
-        for(final KeyboardBuilder aKeyboard : keyboards) {
-            Log.d("AnySoftKeyboard", "Factory provided creator: "+aKeyboard.getId());
+        {
+	        for(final KeyboardBuilder aKeyboard : keyboards) {
+	            Log.d(TAG, "Factory provided creator: "+aKeyboard.getId());
+	        }
         }
 
         keyboards.trimToSize();
