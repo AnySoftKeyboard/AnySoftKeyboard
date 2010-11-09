@@ -100,9 +100,12 @@
     <string name="switch_keyboard_on_space">Espaço muda esquema</string>
     <string name="switch_keyboard_on_space_on_summary">Muda de símbolos para alfabético ao pressionar espaço</string>
     <string name="switch_keyboard_on_space_off_summary">Não muda de símbolos para alfabético ao pressionar espaço</string>
-    <string name="fullscreen_input_connection_supported">Usa todo o ecrã</string>
+    <string name="fullscreen_input_connection_supported">Ecrã completo na horizontal</string>
     <string name="fullscreen_input_connection_supported_on_summary">Usa todo o ecrã para inserir texto no modo horizontal</string>
     <string name="fullscreen_input_connection_supported_off_summary">Nunca usa todo o ecrã para inserir texto</string>
+    <string name="fullscreen_portrait_input_connection_supported">Ecrã completo na vertical</string>
+    <string name="fullscreen_portrait_input_connection_supported_on_summary">Usa todo o ecrã para inserir texto no modo vertical</string>
+    <string name="fullscreen_portrait_input_connection_supported_off_summary">Nunca usa todo o ecrã para inserir texto</string>
     <string name="backword_support">Apagar palavra</string>
     <string name="backword_support_on_summary">Shift + Apagar apaga última palavra</string>
     <string name="backword_support_off_summary">Shift + Apagar apaga último carácter</string>
@@ -133,6 +136,23 @@
         <item>Mover cursor para a esquerda</item>
         <item>Mover cursor para a direita</item>
     </string-array>
+    <string name="hardware_keys_group">Mapeamento de teclas físicas</string>
+    <string name="volume_key_for_left_right_support">Tecla de volume key para esquerda/direita</string>
+    <string name="volume_key_for_left_right_support_on_summary">Desactivar esquerda/direita usando teclas de volume</string>
+    <string name="volume_key_for_left_right_support_off_summary">Volume para cima move cursor para a esquerda, volume para baixo move cursor para a direita</string>
+    <string name="camera_key_for_backspace_backword_support">Usar tecla da câmara para apagar carácter/palavra</string>
+    <string name="camera_key_for_backspace_backword_support_on_summary">Restaurar a funcionalidade da tecla da câmara</string>
+    <string name="camera_key_for_backspace_backword_support_off_summary">Pressão mínima no botão da câmara apaga o último carácter, pressão máxima apaga a última palavra</string>
+    <string name="special_dictionaries_group">Dicionários especiais</string>
+    <string name="use_user_dictionary">Dicionário de utilizador</string>
+    <string name="use_user_dictionary_on_summary">Sugerir palavras adicionadas pelo utilizador (pressão longa na sugestão para adicionar)</string>
+    <string name="use_user_dictionary_off_summary"></string>
+    <string name="use_auto_dictionary">Auto dicionário</string>
+    <string name="use_auto_dictionary_on_summary">Sugerir também palavras usadas com frequência</string>
+    <string name="use_auto_dictionary_off_summary"></string>
+    <string name="use_contacts_dictionary">Dicionário de contactos</string>
+    <string name="use_contacts_dictionary_on_summary">Sugerir nomes da lista de contactos</string>
+    <string name="use_contacts_dictionary_off_summary"></string>
 
     <string name="tweaks_group">Ajustes</string>
     <string name="show_new_version_notifications_again">Notificações de nova versão</string>
@@ -166,6 +186,11 @@
     <string name="action_key_invisible_on_disable">Tecla de acção invisível</string>
     <string name="action_key_invisible_on_disable_on_summary">Tecla de acção está invisível se definido pelo sistema</string>
     <string name="action_key_invisible_on_disable_off_summary">Tecla de acção está visível mesmo que definido o contrário</string>
+
+    <string name="cycle_all_symbols_keyboards">Passar por todos os símbolos</string>
+    <string name="cycle_all_symbols_keyboards_on_summary">Tecla de símbolos mostra todos os teclados de símbolos</string>
+    <string name="cycle_all_symbols_keyboards_off_summary">Tecla de símbolos mostra apenas teclado de símbolos principal</string>
+
     <string name="rtl_workaround_detection_title">Linguagens DPE</string>
     <string name="rtl_workaround_detection_summary">Aplica correcção ao texto das linguagens escritas da direita para a esquerda</string>
     <string name="lang_key_shows_popup">Modo de selecção de linguagem</string>
@@ -183,6 +208,10 @@
     <string name="physical_keyboard_suggestions_summary">Mostra sugestões ao usar o teclado físico</string>
     <string name="keyboard_sandbox">Teste de escrita</string>
     <string name="keyboard_sandbox_title">Escreva abaixo para testar as configurações</string>
+    <string name="contacts_dict">Dicionário de contactos</string>
+    <string name="contacts_dict_summary">Incluir nomes de contactos nas sugestões</string>
+    <string name="auto_dict">Auto dictionário</string>
+    <string name="auto_dict_summary">Adicionar automaticamente ao dicionário as palavras seleccionadas ou utilizadas frequentemente</string>
 
 
     <!-- settings - keyboard group -->
@@ -215,4 +244,24 @@
     <string name="select_keyboard_popup_title">Seleccionar teclado</string>
     <!-- dictionaries -->
     <string name="eng_dictionary">Inglês</string>
+
+		<string-array name="smiley_names">
+			<item>Feliz</item>                    <!-- 0: :-) -->
+			<item>Triste</item>                   <!-- 1: :-( -->
+			<item>Piscadela de olho</item>        <!-- 2: ;-) -->
+			<item>Língua de fora</item>           <!-- 3: :-P -->
+			<item>Surpreendido</item>             <!-- 4: =-O -->
+			<item>Beijo</item>                    <!-- 5: :-* -->
+			<item>Gritando</item>                 <!-- 6: :O -->
+			<item>Fixe</item>                     <!-- 7: B-) -->
+			<item>\"Money mouth\"</item>          <!-- 8: :-$ -->
+	 		<item>\"Foot in mouth\"</item>        <!-- 9: :-! -->
+			<item>Envergonhado</item>             <!-- 10: :-[ -->
+			<item>Anjo</item>                     <!-- 11: O:-) -->
+			<item>Indeciso</item>                 <!-- 12: :-\\ -->
+			<item>Chorando</item>                 <!-- 13: :\'( -->
+			<item>Juro segredo</item>             <!-- 14: :-X -->
+			<item>Rindo</item>                    <!-- 15: :-D -->
+			<item>Confuso</item>                  <!-- 16: o_O -->
+		</string-array>
 </resources>
