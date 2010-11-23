@@ -1,15 +1,14 @@
--target 1.6 
+-target 1.6
 -optimizationpasses 2 
 -dontusemixedcaseclassnames 
 -dontskipnonpubliclibraryclasses 
--dontpreverify 
-
+-dontpreverify
 
 -verbose 
 -dump class_files.txt 
 -printseeds seeds.txt 
 -printusage unused.txt 
--printmapping mapping.txt 
+#-printmapping mapping.txt 
 
 # The -optimizations option disables some arithmetic simplifications that Dalvik 1.0 and 1.5 can't handle. 
 -optimizations !code/simplification/arithmetic 

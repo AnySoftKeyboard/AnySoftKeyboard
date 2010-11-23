@@ -131,7 +131,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private final HardKeyboardActionImpl mHardKeyboardAction;
 	private long mMetaState;
 
-	private ContactsDictionary mContactsDictionary;
+	private UserDictionaryBase mContactsDictionary;
 	private UserDictionaryBase mUserDictionary;
 	private AutoDictionary mAutoDictionary;
 	
@@ -269,7 +269,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// mLocale = locale;
 		mSuggest = new Suggest(this/* , R.raw.main */);
 		mSuggest.setCorrectionMode(mCorrectionMode);
-		mUserDictionary = DictionaryFactory.createUserDictionary(this);
+		mUserDictionary = DictionaryFactory.getInstance().createUserDictionary(this);
 		mSuggest.setUserDictionary(mUserDictionary);
 		initContactsDictionary();
 		initAutoDictionary();
@@ -282,7 +282,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public void onDestroy() {
 		Log.i(TAG, "AnySoftKeyboard has been destroyed! Cleaning resources..");
-		DictionaryFactory.close();
+		DictionaryFactory.getInstance().close();
 
 		// unregisterReceiver(mReceiver);
 
@@ -2144,7 +2144,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (mSuggest != null) {
 			if (!mShowSuggestions) {
 			    if (DEBUG)Log.d(TAG, "No suggestion is required. I'll try to release memory from the dictionary.");
-				DictionaryFactory.releaseAllDictionaries();
+				DictionaryFactory.getInstance().releaseAllDictionaries();
 				mSuggest.setMainDictionary(null);
 			} else {
 				// It null at the creation of the application.
@@ -2169,13 +2169,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 		Dictionary dictionary = null;
 
 		if (dictionaryValue == null){
-			dictionary = DictionaryFactory.getDictionaryByLanguage(currentKeyboard.getDefaultDictionaryLocale(), this);
+			dictionary = DictionaryFactory.getInstance().getDictionaryByLanguage(currentKeyboard.getDefaultDictionaryLocale(), this);
 		} else {
 		        if (AnySoftKeyboardConfiguration.DEBUG)
 				Log.d("AnySoftKeyboard", "Default dictionary '" + (defaultDictionary == null? "None" : defaultDictionary)
 						+ "' for keyboard '" + currentKeyboard.getKeyboardPrefId()
 						+ "' has been overriden to '" + dictionaryValue + "'");
-				dictionary = DictionaryFactory.getDictionaryById(dictionaryValue, this);
+				dictionary = DictionaryFactory.getInstance().getDictionaryById(dictionaryValue, this);
 		}
 
 		return dictionary;
@@ -2331,7 +2331,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void initContactsDictionary(){
         if(mConfig.useContactsDictionary()){
-            mContactsDictionary = DictionaryFactory.createContactsDictionary(this); 
+            mContactsDictionary = DictionaryFactory.getInstance().createContactsDictionary(this); 
             mSuggest.setContactsDictionary(mContactsDictionary);
         } else{
             mSuggest.setContactsDictionary(null);
@@ -2340,7 +2340,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	
 	private void initAutoDictionary(){
 	    if(mConfig.useAutoDictionary()){
-	        mAutoDictionary = DictionaryFactory.createAutoDictionary(this, this, mKeyboardSwitcher.getCurrentKeyboard().getDefaultDictionaryLocale());
+	        mAutoDictionary = DictionaryFactory.getInstance().createAutoDictionary(this, this, mKeyboardSwitcher.getCurrentKeyboard().getDefaultDictionaryLocale());
 	        
 	    } else {
 	        if(mAutoDictionary != null){
@@ -2463,7 +2463,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				.w("AnySoftKeyboard",
 						"The OS has reported that it is low on memory!. I'll try to clear some cache.");
 		mKeyboardSwitcher.onLowMemory();
-		DictionaryFactory.onLowMemory(getDictionaryForKeyboard(mKeyboardSwitcher
+		DictionaryFactory.getInstance().onLowMemory(getDictionaryForKeyboard(mKeyboardSwitcher
 				.getCurrentKeyboard()));
 		super.onLowMemory();
 	}

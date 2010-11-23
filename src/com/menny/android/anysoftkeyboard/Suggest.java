@@ -49,7 +49,7 @@ public class Suggest implements Dictionary.WordCallback {
 
     private Dictionary mAutoDictionary;
 
-    private ContactsDictionary mContactsDictionary;
+    private Dictionary mContactsDictionary;
 
     private int mPrefMaxSuggestions = 12;
 
@@ -92,7 +92,7 @@ public class Suggest implements Dictionary.WordCallback {
     /**
      * Sets an optional contacts dictionary resource to be loaded.
      */
-    public void setContactsDictionary(ContactsDictionary contactsDictionary) {
+    public void setContactsDictionary(Dictionary contactsDictionary) {
         mContactsDictionary = contactsDictionary;
     }
 

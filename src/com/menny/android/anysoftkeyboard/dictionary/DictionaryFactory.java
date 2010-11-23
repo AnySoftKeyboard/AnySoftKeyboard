@@ -14,32 +14,66 @@ import android.util.Log;
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.AnySoftKeyboard;
 import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
+import com.menny.android.anysoftkeyboard.Workarounds;
 import com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory.DictionaryBuilder;
 
 public class DictionaryFactory
 {
     private static final String TAG = "ASK DictFctry";
     
-    private static UserDictionaryBase msUserDictionary = null;
-    private static final List<Dictionary> msDictionaries;
+    private static final DictionaryFactory msFactory;
+    
+    static
+    {
+    	if (!Workarounds.isEclair())
+    		msFactory = new DictionaryFactory();
+    	else
+    	{
+    		//it seems that Contacts Dictionary can be used from OS 2.0 or higher....
+    		DictionaryFactory factory = null;
+    		
+			try {
+				Class<?> theClass = Class.forName("com.menny.android.anysoftkeyboard.dictionary.DictionaryFactoryAPI5");
+	    		factory = (DictionaryFactory)theClass.newInstance();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		
+    		msFactory = (factory == null)? new DictionaryFactory() : factory;
+    	}
+    }
+    
+    public static DictionaryFactory getInstance()
+    {
+    	return msFactory;
+    }
+    
+    private UserDictionaryBase msUserDictionary = null;
+    private final List<Dictionary> msDictionaries;
 
     // Maps id to specific index in msDictionaries
-    private static final Map<String, Integer> msDictionariesById;
+    private final Map<String, Integer> msDictionariesById;
     // Maps language to specific index in msDictionaries
-    private static final Map<String, Integer> msDictionariesByLanguage;
+    private final Map<String, Integer> msDictionariesByLanguage;
 
-    static
+    protected DictionaryFactory()
     {
         msDictionaries = new ArrayList<Dictionary>();
         msDictionariesById = new HashMap<String, Integer>();
         msDictionariesByLanguage = new HashMap<String, Integer>();
     }
     
-    private static  ContactsDictionary contactsDictionary;
     
-    private static  AutoDictionary autoDictionary;
+    private AutoDictionary autoDictionary;
     
-    public synchronized static UserDictionaryBase createUserDictionary(AnyKeyboardContextProvider context)
+    public synchronized UserDictionaryBase createUserDictionary(AnyKeyboardContextProvider context)
     {
         if (msUserDictionary != null){
             return msUserDictionary;
@@ -63,23 +97,12 @@ public class DictionaryFactory
         return msUserDictionary;
     }
     
-    public synchronized static ContactsDictionary createContactsDictionary(AnyKeyboardContextProvider context)
+    public synchronized UserDictionaryBase createContactsDictionary(AnyKeyboardContextProvider context)
     {
-          if(contactsDictionary != null){
-              return contactsDictionary;
-          }
-          try{
-                contactsDictionary = new ContactsDictionary(context);
-                contactsDictionary.loadDictionary();
-            }
-            catch(final Exception ex)
-            {
-                Log.w(TAG, "Failed to load 'ContactsDictionary'",ex); 
-            }
-        return contactsDictionary;
+          return null;
     }
     
-    public static boolean equalsString(String a, String b){
+    public boolean equalsString(String a, String b){
         if(a == null && b == null){
             return true;
         }
@@ -90,7 +113,7 @@ public class DictionaryFactory
     }
     
     
-    public synchronized static AutoDictionary createAutoDictionary(AnyKeyboardContextProvider context, AnySoftKeyboard ime, String locale)
+    public synchronized AutoDictionary createAutoDictionary(AnyKeyboardContextProvider context, AnySoftKeyboard ime, String locale)
     {
           if(autoDictionary == null){
               autoDictionary = new AutoDictionary(context, ime,locale);
@@ -104,15 +127,15 @@ public class DictionaryFactory
           return autoDictionary;
     }
     
-    public synchronized static Dictionary getDictionaryByLanguage(final String language, AnyKeyboardContextProvider context){
+    public synchronized Dictionary getDictionaryByLanguage(final String language, AnyKeyboardContextProvider context){
         return getDictionaryImpl(language, null, context);
     }
-    public synchronized static Dictionary getDictionaryById(final String id, AnyKeyboardContextProvider context){
+    public synchronized Dictionary getDictionaryById(final String id, AnyKeyboardContextProvider context){
         return getDictionaryImpl(null, id, context);
     }
 
 
-    private synchronized static Dictionary getDictionaryImpl(final String language, final String id, AnyKeyboardContextProvider context)
+    private synchronized Dictionary getDictionaryImpl(final String language, final String id, AnyKeyboardContextProvider context)
     {
         final String languageFormat = language == null ? "(null)" : language;
         final String idFormat = id == null ? "(null)" : id;
@@ -213,7 +236,7 @@ public class DictionaryFactory
     }
 
 
-    private static Dictionary locateDictionaryByLanguageInFactory(final String language,
+    private Dictionary locateDictionaryByLanguageInFactory(final String language,
             AnyKeyboardContextProvider context)
             throws Exception {
         Dictionary dict = null;
@@ -238,7 +261,7 @@ public class DictionaryFactory
         return dict;
     }
 
-    private static Dictionary locateDictionaryByIdInFactory(final String id,
+    private Dictionary locateDictionaryByIdInFactory(final String id,
             AnyKeyboardContextProvider context)
             throws Exception {
         Dictionary dict = null;
@@ -263,7 +286,7 @@ public class DictionaryFactory
         return dict;
     }
 
-    public synchronized static void addDictionaryByLanguage(String language, Dictionary dictionary)
+    public synchronized void addDictionaryByLanguage(String language, Dictionary dictionary)
     {
     	if(language == null || dictionary == null)
     		return;
@@ -280,7 +303,7 @@ public class DictionaryFactory
         msDictionariesByLanguage.put(language, position);
     }
 
-    public synchronized static void addDictionaryById(String id, Dictionary dictionary)
+    public synchronized void addDictionaryById(String id, Dictionary dictionary)
     {
     	if(id == null || dictionary == null)
     		return;
@@ -297,7 +320,7 @@ public class DictionaryFactory
         msDictionariesById.put(id, position);
     }
 
-    public synchronized static void removeDictionaryByLanguage(String language)
+    public synchronized void removeDictionaryByLanguage(String language)
     {
     	if(language == null)
     		return;
@@ -316,7 +339,7 @@ public class DictionaryFactory
         }
     }
 
-    public synchronized static void removeDictionaryById(String id)
+    public synchronized void removeDictionaryById(String id)
     {
     	if(id == null)
     		return;
@@ -335,7 +358,7 @@ public class DictionaryFactory
         }
     }
 
-    public synchronized static void close() {
+    public synchronized void close() {
         if (msUserDictionary != null) {
             msUserDictionary.close();
         }
@@ -347,21 +370,16 @@ public class DictionaryFactory
         msDictionaries.clear();
         msDictionariesById.clear();
         msDictionariesByLanguage.clear();
-        
-        if(contactsDictionary != null){
-            contactsDictionary.close();
-        }
-        
     }
 
 
-    public static void releaseAllDictionaries()
+    public void releaseAllDictionaries()
     {
         close();
     }
 
 
-    public synchronized static void onLowMemory(Dictionary currentlyUsedDictionary) {
+    public synchronized void onLowMemory(Dictionary currentlyUsedDictionary) {
         //I'll clear all dictionaries but the required.
         Dictionary dictToKeep = null;
         int index = msDictionaries.indexOf(currentlyUsedDictionary);

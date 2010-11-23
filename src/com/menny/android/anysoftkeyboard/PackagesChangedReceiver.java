@@ -60,7 +60,7 @@ public class PackagesChangedReceiver extends BroadcastReceiver {
 		if (isDictionary) {
 			Log.i(TAG, "Refreshing dictionaries since (dictionary) packages have been changed.");
 
-			DictionaryFactory.releaseAllDictionaries();
+			DictionaryFactory.getInstance().releaseAllDictionaries();
 			AnySoftKeyboard softKeyboard = AnySoftKeyboard.getInstance();
 			if (softKeyboard != null) {
 				softKeyboard.setMainDictionaryForCurrentKeyboard();
