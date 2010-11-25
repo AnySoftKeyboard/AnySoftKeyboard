@@ -88,6 +88,7 @@ public abstract class AnyKeyboard extends Keyboard
 
     private Key mShiftKey;
     private EnterKey mEnterKey;
+    public Key langSwitch;
 	//private Key mSwitchableKey;
 	//private Key mQuestionMarkKey;
 
@@ -460,6 +461,9 @@ public abstract class AnyKeyboard extends Keyboard
         	case KEYCODE_DELETE://delete
         		key = new LessSensitiveAnyKey(res, parent, x, y, parser);
         		break;
+        	case -99:
+        	    langSwitch = key;
+        	    break;
 	        }
         }
         
