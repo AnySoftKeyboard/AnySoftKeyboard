@@ -17,15 +17,23 @@ public class DictionaryFactoryAPI5 extends DictionaryFactory
               return contactsDictionary;
           }
           try{
-                contactsDictionary = new ContactsDictionary(context);
-                contactsDictionary.loadDictionary();
-            }
-            catch(final Exception ex)
-            {
-                Log.w(TAG, "Failed to load 'ContactsDictionary'",ex); 
-            }
+            contactsDictionary = new ContactsDictionary(context);
+            contactsDictionary.loadDictionary();
+        }
+        catch(final Exception ex)
+        {
+            Log.w(TAG, "Failed to load 'ContactsDictionary'",ex); 
+            contactsDictionary = null;
+        }
         return contactsDictionary;
     }
+	
+
+
+	public void closeContactsDictionary() {
+		contactsDictionary.close();
+		contactsDictionary = null;
+	}
 	
 	@Override
 	public synchronized void close() {

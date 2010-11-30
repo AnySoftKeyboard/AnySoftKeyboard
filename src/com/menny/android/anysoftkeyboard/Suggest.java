@@ -165,34 +165,35 @@ public class Suggest implements Dictionary.WordCallback {
         }
         // Search the dictionary only if there are at least 2 characters
          if (wordComposer.size() > 1) {
-           if (mUserDictionary != null || mContactsDictionary != null) {
-             if (mContactsDictionary != null) {
-                   if (AnySoftKeyboardConfiguration.DEBUG)
-                        Log.v(TAG, "getSuggestions from contacts-dictionary");
-                    mContactsDictionary.getWords(wordComposer, this);
+        	 if (mContactsDictionary != null) {
+        		 if (AnySoftKeyboardConfiguration.DEBUG) 
+        			 Log.v(TAG, "getSuggestions from contacts-dictionary");
+        		 
+        		 mContactsDictionary.getWords(wordComposer, this);
+        	 }
+        	 
+        	 if (mUserDictionary != null) {
+        		 if (AnySoftKeyboardConfiguration.DEBUG)
+        			 Log.v(TAG, "getSuggestions from user-dictionary");
+        		 
+        		 mUserDictionary.getWords(wordComposer, this);
+        	 }
+        	 
+             if (mSuggestions.size() > 0 && isValidWord(mOriginalWord)) {
+                  mHaveCorrection = true;
              }
-            
-             if (mUserDictionary != null) {
-                     if (AnySoftKeyboardConfiguration.DEBUG)
-                        Log.v(TAG, "getSuggestions from user-dictionary");
-                     mUserDictionary.getWords(wordComposer, this);
-              }
              
-               if (mSuggestions.size() > 0 && isValidWord(mOriginalWord)) {
-                    mHaveCorrection = true;
-               }
-            }
-            if (mMainDict != null) {
-                AnyApplication.getConfig();
-                if (AnySoftKeyboardConfiguration.DEBUG)
-                    Log.v(TAG, "getSuggestions from main-dictionary");
-                mMainDict.getWords(wordComposer, this);
-            }
+             if (mMainDict != null) {
+            	 if (AnySoftKeyboardConfiguration.DEBUG)
+            		 Log.v(TAG, "getSuggestions from main-dictionary");
+            	 mMainDict.getWords(wordComposer, this);
+             }
 
-            if (mCorrectionMode == CORRECTION_FULL && mSuggestions.size() > 0) {
-                mHaveCorrection = true;
-            }
-        }
+             if (mCorrectionMode == CORRECTION_FULL && mSuggestions.size() > 0) {
+                 mHaveCorrection = true;
+             }
+         }
+        
         if (mOriginalWord != null) {
             mSuggestions.add(0, mOriginalWord.toString());
         }

@@ -131,7 +131,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private final HardKeyboardActionImpl mHardKeyboardAction;
 	private long mMetaState;
 
-	private UserDictionaryBase mContactsDictionary;
+	//private UserDictionaryBase mContactsDictionary;
 	private UserDictionaryBase mUserDictionary;
 	private AutoDictionary mAutoDictionary;
 	
@@ -271,8 +271,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mSuggest.setCorrectionMode(mCorrectionMode);
 		mUserDictionary = DictionaryFactory.getInstance().createUserDictionary(this);
 		mSuggest.setUserDictionary(mUserDictionary);
-		initContactsDictionary();
-		initAutoDictionary();
+		handleContactsDictionaryMember();
+		handleAutoDictionaryMember();
 		setMainDictionaryForCurrentKeyboard();
 		// mWordSeparators = getResources().getString(R.string.word_separators);
 		// mSentenceSeparators =
@@ -1964,7 +1964,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 						.equals(KEYBOARD_NOTIFICATION_ON_PHYSICAL) && (type == NextKeyboardType.AlphabetSupportsPhysical))) {
 			notifyKeyboardChangeIfNeeded();
 		}
-		initAutoDictionary();
+		handleAutoDictionaryMember();
 	}
 
 	public void swipeDown() {
@@ -2329,25 +2329,25 @@ public class AnySoftKeyboard extends InputMethodService implements
 		super.onConfigurationChanged(newConfig);
 	}
 
-	private void initContactsDictionary(){
+	private void handleContactsDictionaryMember(){
         if(mConfig.useContactsDictionary()){
-            mContactsDictionary = DictionaryFactory.getInstance().createContactsDictionary(this); 
-            mSuggest.setContactsDictionary(mContactsDictionary);
+        	UserDictionaryBase contactsDictionary = DictionaryFactory.getInstance().createContactsDictionary(this); 
+            mSuggest.setContactsDictionary(contactsDictionary);
         } else{
+        	DictionaryFactory.getInstance().closeContactsDictionary();        	
             mSuggest.setContactsDictionary(null);
         }
 	}
 	
-	private void initAutoDictionary(){
+	private void handleAutoDictionaryMember(){
 	    if(mConfig.useAutoDictionary()){
 	        mAutoDictionary = DictionaryFactory.getInstance().createAutoDictionary(this, this, mKeyboardSwitcher.getCurrentKeyboard().getDefaultDictionaryLocale());
-	        
+	        mSuggest.setAutoDictionary(mAutoDictionary);
 	    } else {
-	        if(mAutoDictionary != null){
-	            //flush pendings
-	            mAutoDictionary.close();
-	        }
+	    	DictionaryFactory.getInstance().closeAutoDictionary();
 	        mAutoDictionary = null;
+	        
+	        mSuggest.setAutoDictionary(null);
 	    }
 	}
 	
@@ -2368,11 +2368,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		if (key.equals(getString(R.string.settings_key_use_contacts_dictionary)))
 		{
-		    initContactsDictionary();
+		    handleContactsDictionaryMember();
 		} 
 		else if (key.equals(getString(R.string.settings_key_use_auto_dictionary)))
 		{
-		    initAutoDictionary();
+		    handleAutoDictionaryMember();
 		} 
 		else  
 		{

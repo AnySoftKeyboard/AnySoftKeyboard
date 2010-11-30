@@ -33,7 +33,7 @@ public class ContactsDictionary extends UserDictionaryBase {
     
     private static final String[] PROJECTION = {
         Contacts._ID,
-        Contacts.DISPLAY_NAME,
+        Contacts.DISPLAY_NAME
     };
 
     private static final int INDEX_NAME = 1;
@@ -54,20 +54,20 @@ public class ContactsDictionary extends UserDictionaryBase {
         cres.registerContentObserver(Contacts.CONTENT_URI, true, mObserver = new ContentObserver(null) {
             @Override
             public void onChange(boolean self) {
-                if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, "Contacts list modified. Reloading...");
+                if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, "Contacts list modified (self: "+self+"). Reloading...");
                 //mRequiresReload = true;
                 loadAllWords();
             }
         });
     }
-
-    public synchronized void close() {
-        if (mObserver != null) {
-            mContext.getContentResolver().unregisterContentObserver(mObserver);
-            mObserver = null;
-        }
-        super.close();
-    }
+//this is done in closeAllResources function
+//    public synchronized void close() {
+//        if (mObserver != null) {
+//            mContext.getContentResolver().unregisterContentObserver(mObserver);
+//            mObserver = null;
+//        }
+//        super.close();
+//    }
     
     private class LoadDictionaryTask extends AsyncTask<Void, Void, Void> {
         @Override
@@ -98,7 +98,7 @@ public class ContactsDictionary extends UserDictionaryBase {
     protected void loadDictionaryAsync() {
         Log.d(TAG, "Loading contacts asynchronously.");
         Cursor cursor = mContext.getContentResolver()
-                .query(Contacts.CONTENT_URI, PROJECTION, null, null, null);
+                .query(Contacts.CONTENT_URI, PROJECTION, Contacts.IN_VISIBLE_GROUP+"="+1, null, null);
         if (cursor != null) {
             addWords(cursor);
         }
@@ -118,7 +118,7 @@ public class ContactsDictionary extends UserDictionaryBase {
 
     private void addWords(Cursor cursor) {
         clearDictionary();
-
+        int loadedContacts = 0;
         final int maxWordLength = MAX_WORD_LENGTH;
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
@@ -149,6 +149,9 @@ public class ContactsDictionary extends UserDictionaryBase {
                             // capitalization of i.
                             final int wordLen = word.length();
                             if (wordLen < maxWordLength && wordLen > 1) {
+                            	if (AnySoftKeyboardConfiguration.DEBUG)
+                            		Log.d(TAG, "Contact '"+word+"' will be added to contacts dictionary.");
+                            	loadedContacts++;
                                 super.addWord(word, 128);
                             }
                         }
@@ -159,6 +162,8 @@ public class ContactsDictionary extends UserDictionaryBase {
             }
         }
         cursor.close();
+        
+        Log.i(TAG, "Loaded "+loadedContacts+" contacts");
     }
 
     

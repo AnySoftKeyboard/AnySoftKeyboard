@@ -102,6 +102,9 @@ public class DictionaryFactory
           return null;
     }
     
+    public void closeContactsDictionary() {
+	}
+    
     public boolean equalsString(String a, String b){
         if(a == null && b == null){
             return true;
@@ -113,19 +116,26 @@ public class DictionaryFactory
     }
     
     
-    public synchronized AutoDictionary createAutoDictionary(AnyKeyboardContextProvider context, AnySoftKeyboard ime, String locale)
+    public synchronized AutoDictionary createAutoDictionary(AnyKeyboardContextProvider context, AnySoftKeyboard ime, String mCurrentAutoDictionaryLocale)
     {
           if(autoDictionary == null){
-              autoDictionary = new AutoDictionary(context, ime,locale);
+        	  mCurrentAutoDictionaryLocale = context.getApplicationContext().getResources().getConfiguration().locale.toString();
+        	  Log.d(TAG, "Creating AutoDictionary for locale: "+mCurrentAutoDictionaryLocale);
+              autoDictionary = new AutoDictionary(context, ime, mCurrentAutoDictionaryLocale);
               return autoDictionary;
           }
-          if(equalsString(autoDictionary.getLocale(),locale)){
+          if(equalsString(autoDictionary.getLocale(), mCurrentAutoDictionaryLocale)){
               return autoDictionary;
           }
-          autoDictionary.close();
-          autoDictionary = new AutoDictionary(context, ime,locale);
+          closeAutoDictionary();
+          autoDictionary = new AutoDictionary(context, ime, mCurrentAutoDictionaryLocale);
           return autoDictionary;
     }
+    
+	public void closeAutoDictionary() {
+		autoDictionary.close();
+		autoDictionary = null;
+	}
     
     public synchronized Dictionary getDictionaryByLanguage(final String language, AnyKeyboardContextProvider context){
         return getDictionaryImpl(language, null, context);
