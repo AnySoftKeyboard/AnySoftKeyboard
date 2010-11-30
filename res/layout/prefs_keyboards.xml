@@ -12,7 +12,7 @@
 	
 	<Preference android:key="search_for_keyboards_packs" android:title="@string/search_market_for_addons"
 	android:persistent="false"/>
-	
+	<!-- 
 	<CheckBoxPreference
 	android:key="keyboard_c7535083-4fe6-49dc-81aa-c5438a1a343a"
 	android:title="@string/eng_keyboard"
@@ -21,4 +21,5 @@
 	android:summaryOn="QWERTY Latin keyboard"
 	android:summaryOff="QWERTY Latin keyboard"
 	/>
+	 -->
 </PreferenceScreen>

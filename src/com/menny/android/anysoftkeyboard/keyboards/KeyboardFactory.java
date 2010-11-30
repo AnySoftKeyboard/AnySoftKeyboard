@@ -26,7 +26,8 @@ public class KeyboardFactory
         {
             final KeyboardBuilder creator = keyboardCreators.get(keyboardIndex);
             //the first keyboard is defaulted to true
-            final boolean keyboardIsEnabled = sharedPreferences.getBoolean(creator.getId(), false);
+            final boolean keyboardIsEnabled = sharedPreferences.getBoolean(creator.getId(),
+            		creator.getKeyboardDefaultEnabled());
 
             if (keyboardIsEnabled)
             {

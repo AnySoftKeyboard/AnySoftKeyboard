@@ -48,6 +48,7 @@ public class KeyboardBuildersFactory {
         int getKeyboardNameResId();
         String getDescription();
         Context getPackageContext();
+        boolean getKeyboardDefaultEnabled();
     }
 
     public static class KeyboardBuilderImpl implements KeyboardBuilder
@@ -63,6 +64,7 @@ public class KeyboardBuildersFactory {
         private final String mAdditionalIsLetterExceptions;
         private final String mDescription;
         private final Context mPackageContext;
+        private final boolean mKeyboardDefaultEnabled;
 
         public KeyboardBuilderImpl(Context packageContext, String id, int nameId,
                 int layoutResId, int landscapeLayoutResId,
@@ -70,7 +72,8 @@ public class KeyboardBuildersFactory {
                 int physicalTranslationResId,
                 String additionalIsLetterExceptions,
                 String description,
-                int keyboardIndex)
+                int keyboardIndex,
+                boolean keyboardDefaultEnabled)
         {
             mId = "keyboard_"+id;
             mNameId = nameId;
@@ -87,6 +90,7 @@ public class KeyboardBuildersFactory {
             mDescription = description;
             mPackageContext = packageContext;
             mKeyboardIndex = keyboardIndex;
+            mKeyboardDefaultEnabled = keyboardDefaultEnabled;
             if (AnySoftKeyboardConfiguration.DEBUG)Log.d("ASK KeyboardCreatorImpl", "Creator for "+mId+" package:"+mPackageContext.getPackageName()+" res: "+ mResId+" LandscapeRes: "+ mLandscapeResId+" dictionary: "+mDefaultDictionary+" qwerty:" + mQwertyTranslationId);
         }
 
@@ -107,6 +111,10 @@ public class KeyboardBuildersFactory {
         public int getKeyboardIndex() {
         	return mKeyboardIndex;
         }
+        
+        public boolean getKeyboardDefaultEnabled() {
+        	return mKeyboardDefaultEnabled;
+        }
     }
 
     private static ArrayList<KeyboardBuilder> ms_creators = null;
@@ -124,6 +132,7 @@ public class KeyboardBuildersFactory {
     private static final String XML_PHYSICAL_TRANSLATION_RES_ID_ATTRIBUTE = "physicalKeyboardMappingResId";
     private static final String XML_DESCRIPTION_ATTRIBUTE = "description";
     private static final String XML_INDEX_ATTRIBUTE = "index";
+    private static final String XML_DEFAULT_ATTRIBUTE = "default";
 
 
     public synchronized static void resetBuildersCache()
@@ -148,28 +157,27 @@ public class KeyboardBuildersFactory {
             //sorting the keyboards according to the requested
             //sort order (from minimum to maximum)
             Collections.sort(ms_creators, new Comparator<KeyboardBuilder>()
-                    {
-		                public int compare(KeyboardBuilder k1, KeyboardBuilder k2)
-		                {
-		                	Context c1 = k1.getPackageContext();
-		                	Context c2 = k2.getPackageContext();
-		                	if (c1 == null)
-		                		c1 = context;
-		                	if (c2 == null)
-		                		c2 = context;
-
-		                	String key1 = c1.getPackageName()+String.format("%08d%n", k1.getKeyboardIndex());
-		                	String key2 = c2.getPackageName()+String.format("%08d%n", k2.getKeyboardIndex());
-
-		                	int value = key2.compareToIgnoreCase(key1);
-
-		                	//Log.d(TAG, "Collections.sort: "+key1+" vs "+key2+" = "+value);
-
-		                	return value;
-		                }
-                    });
+	            {
+	                public int compare(KeyboardBuilder k1, KeyboardBuilder k2)
+	                {
+	                	Context c1 = k1.getPackageContext();
+	                	Context c2 = k2.getPackageContext();
+	                	if (c1 == null)
+	                		c1 = context;
+	                	if (c2 == null)
+	                		c2 = context;
+	
+	                	String key1 = String.format("%s.%08d%n", c1.getPackageName(), k1.getKeyboardIndex());
+	                	String key2 = String.format("%s.%08d%n", c2.getPackageName(), k2.getKeyboardIndex());
+	
+	                	int value = key1.compareToIgnoreCase(key2);
+	
+	                	Log.d(TAG, "Collections.sort: "+key1+" vs "+key2+" = "+value);
+	
+	                	return value;
+	                }
+	            });
         }
-
         return ms_creators;
     }
 
@@ -265,8 +273,12 @@ public class KeyboardBuildersFactory {
                                     XML_DESCRIPTION_ATTRIBUTE); 
                         }
 
-                        final int keyboardIndex = attrs.getAttributeResourceValue(null,
+                        final int keyboardIndex = attrs.getAttributeUnsignedIntValue(null,
                         		XML_INDEX_ATTRIBUTE, 1);
+                        
+                        // A keyboard is enabled by default if it is the first one (index==1)
+                        final boolean keyboardDefault = attrs.getAttributeBooleanValue(null,
+                        		XML_DEFAULT_ATTRIBUTE, keyboardIndex==1);
 
                         // asserting
                         if ((prefId == null) || (nameId == -1) || (layoutResId == -1)) {
@@ -285,7 +297,8 @@ public class KeyboardBuildersFactory {
                             final KeyboardBuilder creator = new KeyboardBuilderImpl(context,
                                     prefId, nameId, layoutResId, landscapeLayoutResId,
                                     defaultDictionary, iconResId, physicalTranslationResId,
-                                    additionalIsLetterExceptions, description, keyboardIndex);
+                                    additionalIsLetterExceptions, description, keyboardIndex,
+                                    keyboardDefault );
 
                             keyboards.add(creator);
                         }
