@@ -171,8 +171,9 @@ public class KeyboardBuildersFactory {
 	                	String key2 = String.format("%s.%08d%n", c2.getPackageName(), k2.getKeyboardIndex());
 	
 	                	int value = key1.compareToIgnoreCase(key2);
-	
-	                	Log.d(TAG, "Collections.sort: "+key1+" vs "+key2+" = "+value);
+	                	
+	                	if (AnySoftKeyboardConfiguration.DEBUG)
+	                		Log.d(TAG, "Collections.sort: "+key1+" vs "+key2+" = "+value);
 	
 	                	return value;
 	                }

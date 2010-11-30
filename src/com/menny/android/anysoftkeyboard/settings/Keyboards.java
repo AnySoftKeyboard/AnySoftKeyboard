@@ -22,13 +22,13 @@ public class Keyboards extends PreferenceActivity {
 
 	// Number of preferences without loading external keyboards
 	//private int mDefaultPreferencesCount = 0;
-	private PreferenceGroup mKeyboardsGroup;
+	private PreferenceCategory mKeyboardsGroup;
 
 	@Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         addPreferencesFromResource(R.layout.prefs_keyboards);
-        mKeyboardsGroup = (PreferenceGroup)super.findPreference("prefs_keyboards_screen");
+        mKeyboardsGroup = (PreferenceCategory)super.findPreference("keyboard_addons_group");
         //mDefaultPreferencesCount = mKeyboardsGroup.getPreferenceCount();
 
 		final Preference searcher = (Preference)super.findPreference("search_for_keyboards_packs");
@@ -61,7 +61,8 @@ public class Keyboards extends PreferenceActivity {
 		final ArrayList<KeyboardBuilder> creators = KeyboardBuildersFactory.getAllBuilders(getApplicationContext());
 		
 		//removeNonDefaultPreferences();
-
+		mKeyboardsGroup.removeAll();
+			
 		for(final KeyboardBuilder creator : creators)
 		{
 		    final Context creatorContext = creator.getPackageContext() == null?

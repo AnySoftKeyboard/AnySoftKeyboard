@@ -12,6 +12,10 @@
 	
 	<Preference android:key="search_for_keyboards_packs" android:title="@string/search_market_for_addons"
 	android:persistent="false"/>
+	
+	<PreferenceCategory android:key="keyboard_addons_group"
+		android:title="@string/keyboards_group">
+	</PreferenceCategory>
 	<!-- 
 	<CheckBoxPreference
 	android:key="keyboard_c7535083-4fe6-49dc-81aa-c5438a1a343a"
