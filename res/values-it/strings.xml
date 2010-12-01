@@ -28,7 +28,7 @@
   <string name="click_for_help_summary">Premi per l\' aiuto on-line</string>
   <string name="ui_group">Interfaccia utente</string>
   <string name="keyboard_layout_change_keys_size_title">Tasti riga in alto</string>
-  <string name="keyboard_layout_change_keys_size_summary">Sets the cap/number mode key size</string>
+  <string name="keyboard_layout_change_keys_size_summary">Imposta dimensione tasto modalità per cap/numero</string>
   <string name="keyboard_layout_change_keys_size_dialog_title">Modalità dimensione tasto</string>
   <string name="physical_keyboard_change_notification_title">Notifica layout tastiera</string>
   <string name="physical_keyboard_change_notification_summary">Tipo di notifica relativa al layout attivo</string>
@@ -44,30 +44,30 @@
   <string name="effects_group">Effetti</string>
   <string name="ime_settings">Impostazioni tastiera</string>
   <string name="vibrate_on_key_press_title">Vibrazione su tasto premuto</string>
-  <string name="vibrate_on_key_press_summary">Select to have keys vibrate when tapped</string>
+  <string name="vibrate_on_key_press_summary">Selezionare per avere la vibrazione dei tasti quando vengono premuti</string>
   <string name="vibrate_on_key_press_dialog_title">Seleziona tipo di vibrazione</string>
   <string name="sound_on">Suono su pressione tasto</string>
-  <string name="sound_on_summary">Sound effects on soft keyboard press.</string>
+  <string name="sound_on_summary">Effetti sonori su pressione della tastiera.</string>
   <string name="use_custom_sound_volume">Imposta volume personalizzato</string>
   <string name="use_custom_sound_volume_on_summary">Volume effetti sonori personalizzato.</string>
-  <string name="use_custom_sound_volume_off_summary">Sounds effects volume is the system\'s notifications volume.</string>
-  <string name="custom_sound_volume">Custom key-press volume</string>
+  <string name="use_custom_sound_volume_off_summary">Il volume degli effetti sonori è il volume delle notifiche di sistema.</string>
+  <string name="custom_sound_volume">Personalizza volume pressione-tasto</string>
   <string name="speacial_fetures_group">Funzioni speciali</string>
-  <string name="switch_keyboard_on_space">Space switches keyboards</string>
-  <string name="switch_keyboard_on_space_on_summary">Switch from symbols/numbers to alphabet when pressing space</string>
+  <string name="switch_keyboard_on_space">Lo spazio scambia le tastiere</string>
+  <string name="switch_keyboard_on_space_on_summary">Passa da simboli/numeri all\' alfabeto quando si preme spazio</string>
   <string name="switch_keyboard_on_space_off_summary">Non passare da simboli/numeri all\' alfabeto quando si preme lo spazio</string>
   <string name="fullscreen_input_connection_supported">Utilizza l\' input a schermo intero</string>
   <string name="fullscreen_input_connection_supported_on_summary">Input a schermo intero in modalità landscape</string>
   <string name="fullscreen_input_connection_supported_off_summary">Non usare mai input a schermo intero</string>
-  <string name="backword_support">Back-word support</string>
-  <string name="backword_support_on_summary">Shifted Backspace will delete the last word</string>
-  <string name="backword_support_off_summary">Shifted Backspace will delete the last character</string>
+  <string name="backword_support">Supporto parola precedente</string>
+  <string name="backword_support_on_summary">Shifted Backspace cancellerà l\' ultima parola</string>
+  <string name="backword_support_off_summary">Shifted Backspace cncellerà l\' ultimo carattere</string>
   <string name="volume_key_for_left_right_support">Tasto volume per sinistra/destra</string>
   <string name="volume_key_for_left_right_support_on_summary">Disabilita sinistra/destra attraverso volume su/giù</string>
-  <string name="volume_key_for_left_right_support_off_summary">Volume up turns cursor left, volume down turns cursor right</string>
+  <string name="volume_key_for_left_right_support_off_summary">Volume su sposterà il puntatore a sinistra,volume giù lo sposterà a destra</string>
   <string name="camera_key_for_backspace_backword_support">Utilizza tasto fotocamera per backspace/backword</string>
   <string name="camera_key_for_backspace_backword_support_on_summary">Ripristina funzione tasto della fotocamera</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Half press on camera button deletes last character, full press deletes last word</string>
+  <string name="camera_key_for_backspace_backword_support_off_summary">Metà pressione del pulsante fotocamera cancella gli ultimi caratteri, la pressione completa cancella l\' ultima parola</string>
   <string name="swipe_tweak_group">Cambia swipe gesto azioni</string>
   <string name="swipe_up_action">Swipe su</string>
   <string name="swipe_up_action_summary">Definisci il gesto azione swipe su</string>
@@ -83,8 +83,8 @@
   <string name="swipe_right_action_title">Seleziona azione swipe a destra</string>
   <string name="tweaks_group">Tweaks</string>
   <string name="show_new_version_notifications_again">Mostra notifiche nuova versione</string>
-  <string name="show_new_version_notifications_again_on_summary">Upon installing a new version, a change-log will be shown</string>
-  <string name="show_new_version_notifications_again_off_summary">Will not notify you when a new version is installed</string>
+  <string name="show_new_version_notifications_again_on_summary">Dopo l\' installazione di una nuova versione verrà mostrato il change-log</string>
+  <string name="show_new_version_notifications_again_off_summary">Non notificare quando viene installata una nuova versione</string>
   <string name="use_keyrepeat">Utilizza tasto ripetizione</string>
   <string name="use_keyrepeat_on_summary">La ripetizione tasto è abilitata</string>
   <string name="use_keyrepeat_off_summary">La ripetizione tasto è disattivata</string>
@@ -92,40 +92,40 @@
   <string name="emoticon_long_press_opens_popup_on_summary">Mostra popup emoticons su pressione prolungata</string>
   <string name="emoticon_long_press_opens_popup_off_summary">Mostra popup emoticons su pressione breve</string>
   <string name="emoticon_popup_type_title">Tipo di popup emoticon</string>
-  <string name="emoticon_popup_type_summary">Select the type of popup to show for emoticon selection</string>
+  <string name="emoticon_popup_type_summary">Seleziona il tipo di popup da mostrare per la scelta delle faccine</string>
   <string name="default_smiley_text">Testo faccine</string>
   <string name="default_domain_text">Testo dominio</string>
   <string name="smiley_icon_on_smileys_key">Usa icona per tasto faccine</string>
   <string name="smiley_icon_on_smileys_key_on_summary">L\' icona sarà disegnata sul tasto faccine</string>
-  <string name="smiley_icon_on_smileys_key_off_summary">Smiley default text will be drawn on smiley key</string>
+  <string name="smiley_icon_on_smileys_key_off_summary">Il testo di default faccina sarà disegnato sul tasto faccina</string>
   <string name="key_press_preview_popup">Tasto anteprima popup</string>
   <string name="key_press_preview_popup_on_summary">Mostra popup su pressione tasto</string>
   <string name="key_press_preview_popup_off_summary">Non mostrare popup su pressione tasto</string>
   <string name="zoom_factor_keys_in_portrait">Fattore altezza tasti in modalità verticale</string>
   <string name="zoom_factor_keys_in_landscape">Fattore altezza tasti in modalità orizzontale</string>
-  <string name="insert_space_after_word_suggestion_selection">Space after candidate pick</string>
+  <string name="insert_space_after_word_suggestion_selection">Spazio dopo la scelta del candidato</string>
   <string name="insert_space_after_word_suggestion_selection_on_summary">Inserisci spazio dopo selezione suggerimento parola</string>
   <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
   <string name="double_space_to_period">Doppio spazio per periodo</string>
-  <string name="double_space_to_period_summary">Double space tap will become period+space</string>
+  <string name="double_space_to_period_summary">La pressione del doppio spazio diventerà periodo+spazio</string>
   <string name="action_key_invisible_on_disable">Tasto azione invisibile</string>
-  <string name="action_key_invisible_on_disable_on_summary">Action key will be invisible when GUI requests</string>
-  <string name="action_key_invisible_on_disable_off_summary">Action key will be visible even if GUI requests</string>
-  <string name="cycle_all_symbols_keyboards">Cycle over all symbols</string>
-  <string name="cycle_all_symbols_keyboards_on_summary">Symbols key will cycle over all symbols keyboards</string>
-  <string name="cycle_all_symbols_keyboards_off_summary">Symbols key will only show main symbols keyboard</string>
+  <string name="action_key_invisible_on_disable_on_summary">Il tasto azione sarà invisibile quando vengono richieste GUI</string>
+  <string name="action_key_invisible_on_disable_off_summary">Il tasto azione sarà visibile anche se la vengono richieste GUI</string>
+  <string name="cycle_all_symbols_keyboards">Scorri tra tutti i simboli</string>
+  <string name="cycle_all_symbols_keyboards_on_summary">Il tasto simboli scorrerà tutte le tastiere simboli</string>
+  <string name="cycle_all_symbols_keyboards_off_summary">Il tasto simboli sarà mostrato solo per le tastiere simboli principali</string>
   <string name="rtl_workaround_detection_title">Tipo di rilevazione RTL</string>
   <string name="rtl_workaround_detection_summary">Right-to-Left languages text fix</string>
-  <string name="lang_key_shows_popup">Language switch by popup</string>
-  <string name="lang_key_shows_popup_on_summary">Language key will pop-up a selection dialog</string>
-  <string name="lang_key_shows_popup_off_summary">Language key will cycle languages</string>
+  <string name="lang_key_shows_popup">Cambia lingua dal popup</string>
+  <string name="lang_key_shows_popup_on_summary">Il tasto lingua farà apparire una finestra popup di selezione</string>
+  <string name="lang_key_shows_popup_off_summary">Il tasto lingua scorrerà le lingue</string>
   <string name="auto_caps">Maiuscole automatiche</string>
   <string name="grammer_group">Grammatica</string>
   <string name="candidates_on">Mostra suggerimenti</string>
   <string name="quick_fix">Correzioni rapide</string>
   <string name="quick_fix_summary">Correggi errori di digitazione più comuni</string>
   <string name="auto_complete">Selezione automatica suggerimento</string>
-  <string name="auto_complete_summary">Space will select highlighted suggestion</string>
+  <string name="auto_complete_summary">Lo spazio selezionerà il suggerimento evideniato</string>
   <string name="physical_keyboard_suggestions">Suggerimenti nella tastiera del dispositivo</string>
   <string name="physical_keyboard_suggestions_summary">Mostra suggerimenti quando si usa la tastiera del dispositivo</string>
   <string name="keyboard_sandbox">Clicca per provare il testo</string>
@@ -136,7 +136,7 @@
   <string name="eng_keyboard_16keys">16 Tasti Inglese</string>
   <string name="show_tutorial_on_startup">Mostra questo tutorial all\' avvio</string>
   <string name="tutorial_swipe_title">Swipe per il cambiamento della tastiera</string>
-  <string name="tutorial_swipe_text">Keyboard layout can be changed by swiping you finger over the keyboard. Swipe left-to-right to change language, swipe right-to-left to change to symbols.</string>
+  <string name="tutorial_swipe_text">Il layout della tastiera può essere cambiato facendo scorrere il dito sulla tastiera. Swipe da sinistra a destra per cambiare lingua, swipe da destra a sinistra per cambiarla in simboli.</string>
   <string name="label_go_key">Vai</string>
   <string name="label_next_key">Successiva</string>
   <string name="label_send_key">Invia</string>
@@ -173,7 +173,7 @@
     <item>Tastiera simboli successiva</item>
     <item>Scorri fra tutte le tastiere</item>
     <item>Scorri indietro fra tutte le tastiere</item>
-    <item>Shift</item>
+    <item>Maiusc</item>
     <item>Nascondi tastiera</item>
     <item>Back-space</item>
     <item>Sposta il puntatore in alto</item>
