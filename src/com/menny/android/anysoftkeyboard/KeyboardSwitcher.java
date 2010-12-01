@@ -84,6 +84,7 @@ public class KeyboardSwitcher
     //private int mImeOptions;
     private boolean mAlphabetMode = true;
 	private int mLastKeyboardMode;
+	private int mLatinKeyboardIndex;
 	private static String TAG = "ASK_KeySwitcher";
 
 	private static KeyboardSwitcher INSTANCE;
@@ -203,6 +204,7 @@ public class KeyboardSwitcher
             {
             	if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, "makeKeyboards: creating alphabets");
 	        	mAlphabetKeyboardsCreators = KeyboardFactory.createAlphaBetKeyboards(mContext);
+	        	mLatinKeyboardIndex = findLatinKeyboardIndex();
 				mAlphabetKeyboards = new AnyKeyboard[mAlphabetKeyboardsCreators.length];
 		        if (mLastSelectedKeyboard >= mAlphabetKeyboards.length)
 		        	mLastSelectedKeyboard = 0;
@@ -219,7 +221,21 @@ public class KeyboardSwitcher
         }
     }
 
-    synchronized void resetKeyboardsCache() {
+    /*
+     * This is used for url and emails fields
+     */
+    private int findLatinKeyboardIndex() {
+    	int index = 0;
+		for(KeyboardBuilder builder : mAlphabetKeyboardsCreators)
+		{
+			if (builder.getKeyboardNameResId() == R.string.eng_keyboard)
+				return index; 
+		}
+		
+		return -1;
+	}
+
+	synchronized void resetKeyboardsCache() {
 		if (AnySoftKeyboardConfiguration.DEBUG)
 		{
 			Log.d(TAG, "Forcing Keyboards cache clear");
@@ -258,7 +274,8 @@ public class KeyboardSwitcher
         case MODE_URL:
         case MODE_EMAIL:
         	//starting with English
-        	mLastSelectedKeyboard = 0;
+        	if (mLatinKeyboardIndex >= 0)
+        		mLastSelectedKeyboard = mLatinKeyboardIndex;
 			//note: letting it fallthru to the default branch
         default:
         	mKeyboardLocked = false;

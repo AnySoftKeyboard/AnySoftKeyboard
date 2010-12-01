@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Generated with crowdin.net-->
+<resources>
+  <string name="ime_name">AnySoftKeyboard</string>
+  <string name="main_tab_welcome">Üdvözlünk</string>
+  <string name="main_tab_links">Linkek</string>
+  <string name="main_tab_credits">Közreműködők</string>
+  <string name="how_to_pointer_title">Üdvözöllek az AnySoftKeyboard programban</string>
+  <string name="how_to_pointer_version_prefix">Verzió: </string>
+  <string name="how_to_pointer_not_app">Az AnySoftKeyboard nem egy szokványos alkalmazás - ez egy képernyő-billentyűzet program.</string>
+  <string name="how_to_pointer_go_to_links">További információért keresd fel a Linkek fület.</string>
+  <string name="how_to_pointer_how_to_url">Részletek arról, hogyan kell használni a billentyűzet:</string>
+  <string name="how_to_pointer_site">Általános adatok:</string>
+  <string name="how_to_pointer_changelog">Részletek a legújabb változatról:</string>
+  <string name="how_to_pointer_issues">Hibajelentő:</string>
+  <string name="main_tab_credits_title">Az alkalmazás a következő emberek segítségével jött létre</string>
+  <string name="main_tab_credits_created_by">Készítette:</string>
+  <string name="main_tab_credits_additional_work_by">További kódolási munka:</string>
+  <string name="main_tab_credits_localization_by">Honosítás:</string>
+  <string name="main_tab_credits_GUI_by">UI képek:</string>
+  <string name="notification_text">Üdvözlet! Kérlek ezt olvasd el!</string>
+  <string name="testers_version">Teszt verzió!</string>
+  <string name="changelog">Változások</string>
+  <string name="search_market_for_addons">Kiegészítők keresése</string>
+  <string name="added_word"> : Mentve</string>
+  <string name="menu_insert_smiley">Hangulatjel beszúrása</string>
+  <string name="click_for_help">Súgó</string>
+  <string name="click_for_help_summary">Online segítség</string>
+  <string name="ui_group">Felhasználói felület</string>
+  <string name="keyboard_layout_change_keys_size_title">Felső sori gombok</string>
+  <string name="keyboard_layout_change_keys_size_summary">Billentyű méret beállítása</string>
+  <string name="keyboard_layout_change_keys_size_dialog_title">Mód gomb mérete</string>
+  <string name="physical_keyboard_change_notification_title">Billentyűzet elrendezés-értesítés</string>
+  <string name="physical_keyboard_change_notification_summary">Az aktív elrendezési értesítés típusa</string>
+  <string name="physical_keyboard_change_notification_dialog_title">Válaszd ki az értesítés típusát</string>
+  <string name="lengthy_operations_toast_notification">Értesítés a hosszadalmas műveleteknél</string>
+  <string name="lengthy_operations_toast_notification_summary">Rövid értesítés megjelenítése a hosszadalmas műveleteknél</string>
+  <string name="change_ime">Beviteli mód módosítása</string>
+  <string name="override_dictionary">Alapértelmezett szótár felülbírálása</string>
+  <string name="override_dictionary_title">Felülírja a szótárt</string>
+  <string name="override_dictionary_default">Alapértelmezett</string>
+  <string name="override_disabled">Felülbírálás törölve</string>
+  <string name="override_enabled">Elsődleges fontosságú, hogy</string>
+  <string name="effects_group">Hatások</string>
+  <string name="ime_settings">Billentyűzet beállítások</string>
+  <string name="vibrate_on_key_press_title">Gombnyomásra rezegjen</string>
+  <string name="vibrate_on_key_press_summary">Bejelölésével a gomblenyomásoknál a telefon rezegni fog</string>
+  <string name="vibrate_on_key_press_dialog_title">Rezgés típusának kiválasztása</string>
+  <string name="sound_on">Gombnyomásra hang</string>
+  <string name="sound_on_summary">Hang kiadása gombnyomásra.</string>
+  <string name="use_custom_sound_volume">Hangerő beállítása</string>
+  <string name="use_custom_sound_volume_on_summary">Egyéni hanghatási szintek.</string>
+  <string name="use_custom_sound_volume_off_summary">Hanghatási szintek a rendszer értesítéseknél.</string>
+  <string name="custom_sound_volume">Egyedi gombnyomási hangerő</string>
+  <string name="speacial_fetures_group">Speciális funkciók</string>
+  <string name="switch_keyboard_on_space">Szóközzel billentyűzet váltás</string>
+  <string name="switch_keyboard_on_space_on_summary">Váltás a szimbólumok/számok billentyűről az ábécére a szóköz megnyomásával</string>
+  <string name="switch_keyboard_on_space_off_summary">Ne váltson a szimbólumok/számok billentyűről az ábécére a szóköz megnyomásával</string>
+  <string name="fullscreen_input_connection_supported">Teljes képernyős bevitel használata</string>
+  <string name="fullscreen_input_connection_supported_on_summary">Teljes képernyős bevitel elfogatott módban</string>
+  <string name="fullscreen_input_connection_supported_off_summary">Soha ne használjon teljes képernyős bevitelt</string>
+  <string name="backword_support">Vissza-szó támogatása</string>
+  <string name="backword_support_on_summary">Tolódott Backspace törli az utolsó szót</string>
+  <string name="backword_support_off_summary">Tolódott Backspace törli az utolsó karaktert</string>
+  <string name="volume_key_for_left_right_support">Balra/jobbra a hangerő gomb</string>
+  <string name="volume_key_for_left_right_support_on_summary">Tiltása bal / jobb via hangerő fel / le</string>
+  <string name="volume_key_for_left_right_support_off_summary">Hangerő fel - kurzor balra, hangerő le - kurzor jobbra</string>
+  <string name="camera_key_for_backspace_backword_support">Használja kamera gombot a törlés/vissza módra</string>
+  <string name="camera_key_for_backspace_backword_support_on_summary">Kamera gomb funkciójának visszaállítása</string>
+  <string name="camera_key_for_backspace_backword_support_off_summary">Kamera gomb félig nyomásánál törlődik az utolsó karakter, teljes nyomásánál az egész szó</string>
+  <string name="swipe_tweak_group">Gesztusok változtatása</string>
+  <string name="swipe_up_action">Felfele húzás</string>
+  <string name="swipe_up_action_summary">Felfele húzás beállítása</string>
+  <string name="swipe_up_action_title">Felfele húzás kiválasztása</string>
+  <string name="swipe_down_action">Lefele húzás</string>
+  <string name="swipe_down_action_summary">Lefele húzás beállítása</string>
+  <string name="swipe_down_action_title">Lefele húzás kiválasztása</string>
+  <string name="swipe_left_action">Balra húzás</string>
+  <string name="swipe_left_action_summary">Balra húzás beállítása</string>
+  <string name="swipe_left_action_title">Balra húzás kiválasztása</string>
+  <string name="swipe_right_action">Jobbra húzás</string>
+  <string name="swipe_right_action_summary">Jobbra húzás beállítása</string>
+  <string name="swipe_right_action_title">Jobbra húzás kiválasztása</string>
+  <string name="tweaks_group">Tweaks</string>
+  <string name="show_new_version_notifications_again">Új verzióknál értesítés megjelenítése</string>
+  <string name="show_new_version_notifications_again_on_summary">Új verzió telepítésekor a változtatások listája meg fog jelenni</string>
+  <string name="show_new_version_notifications_again_off_summary">Új verzió telepítésekor nem fog értesíteni</string>
+  <string name="use_keyrepeat">Ismétlő gomb használata</string>
+  <string name="use_keyrepeat_on_summary">Ismétlő gomb bekapcsolva</string>
+  <string name="use_keyrepeat_off_summary">Ismétlő gomb kikapcsolva</string>
+  <string name="emoticon_long_press_opens_popup">Smiley ablak hosszú gombnyomásra</string>
+  <string name="emoticon_long_press_opens_popup_on_summary">Hangulatjelek megjelenítése hosszú gombnyomásra</string>
+  <string name="emoticon_long_press_opens_popup_off_summary">Hangulatjelek megjelenítése rövid gombnyomásra</string>
+  <string name="emoticon_popup_type_title">Hangulatjelek felugró ablakának típusa</string>
+  <string name="emoticon_popup_type_summary">Válaszd ki a felugró ablak típusát a hangulatjelek számára</string>
+  <string name="default_smiley_text">Smiley-szöveg</string>
+  <string name="default_domain_text">Domain szöveg</string>
+  <string name="smiley_icon_on_smileys_key">Smiley ikon használata</string>
+  <string name="smiley_icon_on_smileys_key_on_summary">Meg lesz jelenítve egy smiley-ikon</string>
+  <string name="smiley_icon_on_smileys_key_off_summary">Alapértelmezett smiley jelenik meg smiley gombként</string>
+  <string name="key_press_preview_popup">Gomb-előnézet</string>
+  <string name="key_press_preview_popup_on_summary">Felugró megjelenítése gombnyomásra</string>
+  <string name="key_press_preview_popup_off_summary">Ne jelenjen meg felugró gombnyomáskor</string>
+  <string name="zoom_factor_keys_in_portrait">Gombok magasság portré módban</string>
+  <string name="zoom_factor_keys_in_landscape">Gombok magassága tájkép módban</string>
+  <string name="insert_space_after_word_suggestion_selection">Kijelölés után szóköz</string>
+  <string name="insert_space_after_word_suggestion_selection_on_summary">Szóköz használata szójavaslat után</string>
+  <string name="insert_space_after_word_suggestion_selection_off_summary"> </string>
+  <string name="double_space_to_period">Dupla szóköz</string>
+  <string name="double_space_to_period_summary">Dupla szóköz érintésre</string>
+  <string name="action_key_invisible_on_disable">Láthatatlan műveletgomb</string>
+  <string name="action_key_invisible_on_disable_on_summary">Műveletgombot láthatatlan lesz, ha a GUI kéri</string>
+  <string name="action_key_invisible_on_disable_off_summary">Művelet gomb látható lesz, még akkor is, ha a GUI kéri</string>
+  <string name="cycle_all_symbols_keyboards">Ciklusban az összes szimbólum</string>
+  <string name="cycle_all_symbols_keyboards_on_summary">Szimbólum gombra az összes szimbólum billentyű</string>
+  <string name="cycle_all_symbols_keyboards_off_summary">Szimbólum kulcsra csak a fő szimbólumok</string>
+  <string name="rtl_workaround_detection_title">RTL azonosítási típus</string>
+  <string name="rtl_workaround_detection_summary">Jobbról balra író nyelveknél szöveg-javítás</string>
+  <string name="lang_key_shows_popup">Nyelvváltó ablak</string>
+  <string name="lang_key_shows_popup_on_summary">Kiválasztó nyelvváltó ablak</string>
+  <string name="lang_key_shows_popup_off_summary">Nyelvgombnál nyelvek változtatása</string>
+  <string name="auto_caps">Automatikus nagybetűs</string>
+  <string name="grammer_group">Nyelvtan</string>
+  <string name="candidates_on">Javaslatok megjelenítése</string>
+  <string name="quick_fix">Gyors javítások</string>
+  <string name="quick_fix_summary">Gyakran gépelt hibákat kijavítja</string>
+  <string name="auto_complete">Automatikus javaslatok</string>
+  <string name="auto_complete_summary">Szóközre a javasolt szó használata</string>
+  <string name="physical_keyboard_suggestions">Javaslatok a készülék billentyűzetén</string>
+  <string name="physical_keyboard_suggestions_summary">Javaslatok megjelenítése a készülék billentyűzetének használatakor</string>
+  <string name="keyboard_sandbox">Kattints a szöveg teszteléshez</string>
+  <string name="keyboard_sandbox_title">Írd be az alábbi szöveget a beállításaid teszteléséhez</string>
+  <string name="keyboards_group">Billentyűzet</string>
+  <string name="symbols_keyboard">Szimbólumok</string>
+  <string name="eng_keyboard">Angol</string>
+  <string name="eng_keyboard_16keys">16 billentyűs angol</string>
+  <string name="show_tutorial_on_startup">Ennek a bevezetőnek a megjelenítése indításkor</string>
+  <string name="tutorial_swipe_title">Gesztus a billentyűzet váltásra</string>
+  <string name="tutorial_swipe_text">Billentyűzetet lehet gesztussal is cserélni. Érintsd meg a képernyőt balról jobbra a nyelvváltáshoz, majd balról jobbra a szimbólumokhoz.</string>
+  <string name="label_go_key">Ugrás</string>
+  <string name="label_next_key">Következő</string>
+  <string name="label_send_key">Küldés</string>
+  <string name="label_done_key">Kész</string>
+  <string name="change_lang_wide">→ ABC →</string>
+  <string name="change_lang_regular">ABC</string>
+  <string name="change_symbols_wide">← 123 ←</string>
+  <string name="change_symbols_regular">123</string>
+  <string name="please_wait">Kérlek várj</string>
+  <string name="toast_lengthy_words_long_operation">Szótár betöltése...</string>
+  <string name="toast_lengthy_start_up_operation">AnySoftKeyboard indítása... </string>
+  <string name="lengthy_creating_keyboard_operation">Billentyűzetek létrehozása...</string>
+  <string name="select_keyboard_popup_title">Billentyűzet kiválasztása</string>
+  <string name="eng_dictionary">Angol</string>
+  <string-array name="keyboard_layout_keys_size">
+    <item>Nincs</item>
+    <item>Kicsi</item>
+    <item>Nagy</item>
+  </string-array>
+  <string-array name="physical_keyboard_change_notification_types">
+    <item>Elrendezés ikon mindig legyen látható</item>
+    <item>Fizikai billentyűzet változtatásakor</item>
+    <item>Nincs értesítés</item>
+  </string-array>
+  <string-array name="vibrate_on_key_press_types">
+    <item>Nincs</item>
+    <item>Enyhe</item>
+    <item>Közepes</item>
+    <item>Erős</item>
+  </string-array>
+  <string-array name="swipe_action_types">
+    <item>Nincs művelet</item>
+    <item>Következő ábécé billentyűzet</item>
+    <item>Következő szimbólumok billentyűzet</item>
+    <item>Összes billentyűzet megjelenítése</item>
+    <item>Összes billentyűzet megjelenítése visszafele</item>
+    <item>Eltolás</item>
+    <item>Billentyűzet elrejtése</item>
+    <item>Visszatörlés</item>
+    <item>Kurzor mozgatása felfelé</item>
+    <item>Kurzor mozgatása lefelé</item>
+    <item>Kurzor mozgatása balra</item>
+    <item>Kurzor mozgatása jobbra</item>
+  </string-array>
+  <string-array name="smiley_names">
+    <item>Boldog</item>
+    <item>Szomorú</item>
+    <item>Kacsintás</item>
+    <item>Nyelvnyújtós</item>
+    <item>Meglepődött</item>
+    <item>Csókolózó</item>
+    <item>Kiabáló</item>
+    <item>Laza</item>
+    <item>Pénzes arc</item>
+    <item>Láb a szájban</item>
+    <item>Zavart</item>
+    <item>Angyal</item>
+    <item>Határozatlan</item>
+    <item>Síró</item>
+    <item>Zárt ajkak</item>
+    <item>Nevető</item>
+    <item>Zavart</item>
+  </string-array>
+</resources>

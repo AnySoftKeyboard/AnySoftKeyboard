@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Generated with crowdin.net-->
+<resources>
+  <string name="ime_name">AnySoftKeyboard</string>
+  <string name="main_tab_welcome">Benvenuti</string>
+  <string name="main_tab_links">Collegamenti</string>
+  <string name="main_tab_credits">Crediti</string>
+  <string name="how_to_pointer_title">Benvenuti in AnySoftKeyboard</string>
+  <string name="how_to_pointer_version_prefix">Versione: </string>
+  <string name="how_to_pointer_not_app">AnySoftKeyboard non è una normale applicazione - è una tastiera a schermo sostitutiva.</string>
+  <string name="how_to_pointer_go_to_links">Per ulteriori informazioni, vai alla scheda Collegamenti.</string>
+  <string name="how_to_pointer_how_to_url">Dettagli su come utilizzare questa tastiera:</string>
+  <string name="how_to_pointer_site">Dettagli generali:</string>
+  <string name="how_to_pointer_changelog">Dettagli sull\' ultima versione:</string>
+  <string name="how_to_pointer_issues">Senalazione bug:</string>
+  <string name="main_tab_credits_title">Questa applicazione è stata creata con l\' aiuto delle seguenti persone-</string>
+  <string name="main_tab_credits_created_by">Creata da:</string>
+  <string name="main_tab_credits_additional_work_by">Ulteriori lavori di codifica di:</string>
+  <string name="main_tab_credits_localization_by">Attività di localizzazione di:</string>
+  <string name="main_tab_credits_GUI_by">Immagini dell\' interfaccia utente:</string>
+  <string name="notification_text">Benvenuti! Per favore, leggimi.</string>
+  <string name="testers_version">Versione tester!</string>
+  <string name="changelog">Changelog</string>
+  <string name="search_market_for_addons">Cerca componenti aggiuntivi</string>
+  <string name="added_word"> :Salvato</string>
+  <string name="menu_insert_smiley">Inserire emoticon</string>
+  <string name="click_for_help">Aiuto</string>
+  <string name="click_for_help_summary">Premi per l\' aiuto on-line</string>
+  <string name="ui_group">Interfaccia utente</string>
+  <string name="keyboard_layout_change_keys_size_title">Tasti riga in alto</string>
+  <string name="keyboard_layout_change_keys_size_summary">Sets the cap/number mode key size</string>
+  <string name="keyboard_layout_change_keys_size_dialog_title">Modalità dimensione tasto</string>
+  <string name="physical_keyboard_change_notification_title">Notifica layout tastiera</string>
+  <string name="physical_keyboard_change_notification_summary">Tipo di notifica relativa al layout attivo</string>
+  <string name="physical_keyboard_change_notification_dialog_title">Seleziona tipo di notifica</string>
+  <string name="lengthy_operations_toast_notification">Notifica operazioni lunghe</string>
+  <string name="lengthy_operations_toast_notification_summary">Mostra brevi notifiche per le operazioni lunghe</string>
+  <string name="change_ime">Cambia metodo di input</string>
+  <string name="override_dictionary">Esegui l\' override del dizionario predefinito</string>
+  <string name="override_dictionary_title">Esegui l\' override del dizionario</string>
+  <string name="override_dictionary_default">Default</string>
+  <string name="override_disabled">Override eliminato</string>
+  <string name="override_enabled">Overriding di </string>
+  <string name="effects_group">Effetti</string>
+  <string name="ime_settings">Impostazioni tastiera</string>
+  <string name="vibrate_on_key_press_title">Vibrazione su tasto premuto</string>
+  <string name="vibrate_on_key_press_summary">Select to have keys vibrate when tapped</string>
+  <string name="vibrate_on_key_press_dialog_title">Seleziona tipo di vibrazione</string>
+  <string name="sound_on">Suono su pressione tasto</string>
+  <string name="sound_on_summary">Sound effects on soft keyboard press.</string>
+  <string name="use_custom_sound_volume">Imposta volume personalizzato</string>
+  <string name="use_custom_sound_volume_on_summary">Volume effetti sonori personalizzato.</string>
+  <string name="use_custom_sound_volume_off_summary">Sounds effects volume is the system\'s notifications volume.</string>
+  <string name="custom_sound_volume">Custom key-press volume</string>
+  <string name="speacial_fetures_group">Funzioni speciali</string>
+  <string name="switch_keyboard_on_space">Space switches keyboards</string>
+  <string name="switch_keyboard_on_space_on_summary">Switch from symbols/numbers to alphabet when pressing space</string>
+  <string name="switch_keyboard_on_space_off_summary">Non passare da simboli/numeri all\' alfabeto quando si preme lo spazio</string>
+  <string name="fullscreen_input_connection_supported">Utilizza l\' input a schermo intero</string>
+  <string name="fullscreen_input_connection_supported_on_summary">Input a schermo intero in modalità landscape</string>
+  <string name="fullscreen_input_connection_supported_off_summary">Non usare mai input a schermo intero</string>
+  <string name="backword_support">Back-word support</string>
+  <string name="backword_support_on_summary">Shifted Backspace will delete the last word</string>
+  <string name="backword_support_off_summary">Shifted Backspace will delete the last character</string>
+  <string name="volume_key_for_left_right_support">Tasto volume per sinistra/destra</string>
+  <string name="volume_key_for_left_right_support_on_summary">Disabilita sinistra/destra attraverso volume su/giù</string>
+  <string name="volume_key_for_left_right_support_off_summary">Volume up turns cursor left, volume down turns cursor right</string>
+  <string name="camera_key_for_backspace_backword_support">Utilizza tasto fotocamera per backspace/backword</string>
+  <string name="camera_key_for_backspace_backword_support_on_summary">Ripristina funzione tasto della fotocamera</string>
+  <string name="camera_key_for_backspace_backword_support_off_summary">Half press on camera button deletes last character, full press deletes last word</string>
+  <string name="swipe_tweak_group">Cambia swipe gesto azioni</string>
+  <string name="swipe_up_action">Swipe su</string>
+  <string name="swipe_up_action_summary">Definisci il gesto azione swipe su</string>
+  <string name="swipe_up_action_title">Seleziona azione swipe su</string>
+  <string name="swipe_down_action">Swipe giù</string>
+  <string name="swipe_down_action_summary">Definisci il gesto azione swipe giù</string>
+  <string name="swipe_down_action_title">Seleziona azione swipe giù</string>
+  <string name="swipe_left_action">Swipe a sinistra</string>
+  <string name="swipe_left_action_summary">Definisci gesto azione swipe a sinistra</string>
+  <string name="swipe_left_action_title">Seleziona azione swipe a sinistra</string>
+  <string name="swipe_right_action">Swipe a destra</string>
+  <string name="swipe_right_action_summary">Definisci gesto azione swipe a destra</string>
+  <string name="swipe_right_action_title">Seleziona azione swipe a destra</string>
+  <string name="tweaks_group">Tweaks</string>
+  <string name="show_new_version_notifications_again">Mostra notifiche nuova versione</string>
+  <string name="show_new_version_notifications_again_on_summary">Upon installing a new version, a change-log will be shown</string>
+  <string name="show_new_version_notifications_again_off_summary">Will not notify you when a new version is installed</string>
+  <string name="use_keyrepeat">Utilizza tasto ripetizione</string>
+  <string name="use_keyrepeat_on_summary">La ripetizione tasto è abilitata</string>
+  <string name="use_keyrepeat_off_summary">La ripetizione tasto è disattivata</string>
+  <string name="emoticon_long_press_opens_popup">Pressione prolungata per popup faccine</string>
+  <string name="emoticon_long_press_opens_popup_on_summary">Mostra popup emoticons su pressione prolungata</string>
+  <string name="emoticon_long_press_opens_popup_off_summary">Mostra popup emoticons su pressione breve</string>
+  <string name="emoticon_popup_type_title">Tipo di popup emoticon</string>
+  <string name="emoticon_popup_type_summary">Select the type of popup to show for emoticon selection</string>
+  <string name="default_smiley_text">Testo faccine</string>
+  <string name="default_domain_text">Testo dominio</string>
+  <string name="smiley_icon_on_smileys_key">Usa icona per tasto faccine</string>
+  <string name="smiley_icon_on_smileys_key_on_summary">L\' icona sarà disegnata sul tasto faccine</string>
+  <string name="smiley_icon_on_smileys_key_off_summary">Smiley default text will be drawn on smiley key</string>
+  <string name="key_press_preview_popup">Tasto anteprima popup</string>
+  <string name="key_press_preview_popup_on_summary">Mostra popup su pressione tasto</string>
+  <string name="key_press_preview_popup_off_summary">Non mostrare popup su pressione tasto</string>
+  <string name="zoom_factor_keys_in_portrait">Fattore altezza tasti in modalità verticale</string>
+  <string name="zoom_factor_keys_in_landscape">Fattore altezza tasti in modalità orizzontale</string>
+  <string name="insert_space_after_word_suggestion_selection">Space after candidate pick</string>
+  <string name="insert_space_after_word_suggestion_selection_on_summary">Inserisci spazio dopo selezione suggerimento parola</string>
+  <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
+  <string name="double_space_to_period">Doppio spazio per periodo</string>
+  <string name="double_space_to_period_summary">Double space tap will become period+space</string>
+  <string name="action_key_invisible_on_disable">Tasto azione invisibile</string>
+  <string name="action_key_invisible_on_disable_on_summary">Action key will be invisible when GUI requests</string>
+  <string name="action_key_invisible_on_disable_off_summary">Action key will be visible even if GUI requests</string>
+  <string name="cycle_all_symbols_keyboards">Cycle over all symbols</string>
+  <string name="cycle_all_symbols_keyboards_on_summary">Symbols key will cycle over all symbols keyboards</string>
+  <string name="cycle_all_symbols_keyboards_off_summary">Symbols key will only show main symbols keyboard</string>
+  <string name="rtl_workaround_detection_title">Tipo di rilevazione RTL</string>
+  <string name="rtl_workaround_detection_summary">Right-to-Left languages text fix</string>
+  <string name="lang_key_shows_popup">Language switch by popup</string>
+  <string name="lang_key_shows_popup_on_summary">Language key will pop-up a selection dialog</string>
+  <string name="lang_key_shows_popup_off_summary">Language key will cycle languages</string>
+  <string name="auto_caps">Maiuscole automatiche</string>
+  <string name="grammer_group">Grammatica</string>
+  <string name="candidates_on">Mostra suggerimenti</string>
+  <string name="quick_fix">Correzioni rapide</string>
+  <string name="quick_fix_summary">Correggi errori di digitazione più comuni</string>
+  <string name="auto_complete">Selezione automatica suggerimento</string>
+  <string name="auto_complete_summary">Space will select highlighted suggestion</string>
+  <string name="physical_keyboard_suggestions">Suggerimenti nella tastiera del dispositivo</string>
+  <string name="physical_keyboard_suggestions_summary">Mostra suggerimenti quando si usa la tastiera del dispositivo</string>
+  <string name="keyboard_sandbox">Clicca per provare il testo</string>
+  <string name="keyboard_sandbox_title">Digita qui sotto per provare le impostazioni</string>
+  <string name="keyboards_group">Tastiere</string>
+  <string name="symbols_keyboard">Simboli</string>
+  <string name="eng_keyboard">Inglese</string>
+  <string name="eng_keyboard_16keys">16 Tasti Inglese</string>
+  <string name="show_tutorial_on_startup">Mostra questo tutorial all\' avvio</string>
+  <string name="tutorial_swipe_title">Swipe per il cambiamento della tastiera</string>
+  <string name="tutorial_swipe_text">Keyboard layout can be changed by swiping you finger over the keyboard. Swipe left-to-right to change language, swipe right-to-left to change to symbols.</string>
+  <string name="label_go_key">Vai</string>
+  <string name="label_next_key">Successiva</string>
+  <string name="label_send_key">Invia</string>
+  <string name="label_done_key">Fatto</string>
+  <string name="change_lang_wide">→ ABC →</string>
+  <string name="change_lang_regular">ABC</string>
+  <string name="change_symbols_wide">← 123 ←</string>
+  <string name="change_symbols_regular">123</string>
+  <string name="please_wait">Attendere prego</string>
+  <string name="toast_lengthy_words_long_operation">Caricamento in corso dizionario...</string>
+  <string name="toast_lengthy_start_up_operation">Avvio AnySoftKeyboard...</string>
+  <string name="lengthy_creating_keyboard_operation">Creazione tastiere...</string>
+  <string name="select_keyboard_popup_title">Seleziona tastiera</string>
+  <string name="eng_dictionary">Inglese</string>
+  <string-array name="keyboard_layout_keys_size">
+    <item>Nessuna</item>
+    <item>Piccola</item>
+    <item>Grande</item>
+  </string-array>
+  <string-array name="physical_keyboard_change_notification_types">
+    <item>Mostra sempre l\' icona layout</item>
+    <item>Su cambiamento di tastiera fisica</item>
+    <item>Nessuna notifica</item>
+  </string-array>
+  <string-array name="vibrate_on_key_press_types">
+    <item>Nessuna</item>
+    <item>Leggera</item>
+    <item>Media</item>
+    <item>Forte</item>
+  </string-array>
+  <string-array name="swipe_action_types">
+    <item>Nessuna azione</item>
+    <item>Tastiera alfabetica successiva</item>
+    <item>Tastiera simboli successiva</item>
+    <item>Scorri fra tutte le tastiere</item>
+    <item>Scorri indietro fra tutte le tastiere</item>
+    <item>Shift</item>
+    <item>Nascondi tastiera</item>
+    <item>Back-space</item>
+    <item>Sposta il puntatore in alto</item>
+    <item>Sposta il puntatore in basso</item>
+    <item>Sposta puntatore a sinistra</item>
+    <item>Sposta puntatore a destra</item>
+  </string-array>
+  <string-array name="smiley_names">
+    <item>Felice</item>
+    <item>Triste</item>
+    <item>Occhiolino</item>
+    <item>Linguaccia</item>
+    <item>Sorpreso</item>
+    <item>Bacio</item>
+    <item>Urlare</item>
+    <item>Fico</item>
+    <item>Denaro in bocca</item>
+    <item>Piedi in bocca</item>
+    <item>Imbarazzato</item>
+    <item>Angelico</item>
+    <item>Indeciso</item>
+    <item>Pianto</item>
+    <item>Labbra serrate</item>
+    <item>Risata</item>
+    <item>Confuso</item>
+  </string-array>
+</resources>

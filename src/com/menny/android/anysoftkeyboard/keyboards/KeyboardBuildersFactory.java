@@ -167,15 +167,14 @@ public class KeyboardBuildersFactory {
 	                	if (c2 == null)
 	                		c2 = context;
 	
-	                	String key1 = String.format("%s.%08d%n", c1.getPackageName(), k1.getKeyboardIndex());
-	                	String key2 = String.format("%s.%08d%n", c2.getPackageName(), k2.getKeyboardIndex());
-	
-	                	int value = key1.compareToIgnoreCase(key2);
-	                	
-	                	if (AnySoftKeyboardConfiguration.DEBUG)
-	                		Log.d(TAG, "Collections.sort: "+key1+" vs "+key2+" = "+value);
-	
-	                	return value;
+	                	if (c1 == c2)
+	                		return k1.getKeyboardIndex() - k2.getKeyboardIndex();
+	                	else if (c1 == context)//I want to make sure ASK packages are first
+	                		return -1;
+	                	else if (c2 == context)
+	                		return 1;
+	                	else
+	                		return c1.getPackageName().compareToIgnoreCase(c2.getPackageName());
 	                }
 	            });
         }
