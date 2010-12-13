@@ -23,6 +23,7 @@
 	<string name="main_tab_credits_localization_by">Localization efforts by:</string>
 	<string name="main_tab_credits_GUI_by">UI images by:</string>
 	
+	<string name="how_to_simple_howto">To enable AnySoftKeyboard, go to Android\'s Settings and select \'Locale&amp;text\' and turn on AnySoftKeyboard. It will warn you about possible key-logging, don\'t worry, we do not keep data, and we do not send it anywere.\nTo actually use AnySoftKeyboard, you\'ll need to activate it: in any textbox (e.g., Messagings TO field), and long-press it. A dialog will pop-up, select \'Input Method\', and then AnySoftKeyboard.\nThat\'s it!</string>
 	<!-- notifications -->
 	<string name="notification_text">Welcome! Please, read me.</string>
 	<string name="testers_version">Testers version!</string>

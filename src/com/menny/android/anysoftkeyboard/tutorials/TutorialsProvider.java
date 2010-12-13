@@ -14,8 +14,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.provider.Settings.Secure;
 import android.util.Log;
 
 public class TutorialsProvider 
@@ -26,9 +28,28 @@ public class TutorialsProvider
 
 	private static ArrayList<Intent> msActivitiesToShow = new ArrayList<Intent>();
 	
+	/**
+	 * Search array for an entry BEGINNING with key.
+	 * 
+	 * @param array the array to search over
+	 * @param key the string to search for
+	 * @return true if the key was found in the array
+	 */
+	private static boolean linearSearch( String array[], String key )
+	{
+		boolean flag=false;
+		
+		for(int i=0; i<array.length && !flag; ++i ) {
+			flag=array[i].startsWith(key);
+		}
+		
+		return flag;
+	}
+	
 	public static void ShowTutorialsIfNeeded(Context context)
 	{
 		Log.i(TAG, "TutorialsProvider::ShowTutorialsIfNeeded called");
+		
 		if (AnySoftKeyboardConfiguration.DEBUG && AnyApplication.getConfig().getShowVersionNotification())
 		{
 			Log.i(TAG, "TESTERS VERSION added");
@@ -40,14 +61,32 @@ public class TutorialsProvider
 			msActivitiesToShow.add(i);
 		}
 		
-		if (AnyApplication.getConfig().getShowVersionNotification() && (AnySoftKeyboardConfiguration.DEBUG || firstTimeVersionLoaded(context)))
+		if (!linearSearch( Secure.getString(context.getContentResolver(), Secure.ENABLED_INPUT_METHODS).split(":"),
+				context.getApplicationInfo().packageName ) )
 		{
-			Log.i(TAG, "changelog added");
-			
-			Intent i = new Intent(context, ChangeLogActivity.class);
-			
-			msActivitiesToShow.add(i);
+			//ASK is not enabled, but installed. Has the user forgot how to turn it on?
+			if (AnyApplication.getConfig().getShowVersionNotification() && firstTimeVersionLoaded(context))
+			{
+				//this is the first time the application is loaded.
+				Log.i(TAG, "Welcome added");
+
+				Intent i = new Intent(context, TutorialActivity.class);
+				i.putExtra(TutorialActivity.LAYOUT_RESOURCE_ID, R.layout.welcome_howto);
+				i.putExtra(TutorialActivity.NAME_RESOURCE_ID, R.string.how_to_pointer_title);
+				
+				msActivitiesToShow.add(i);
+			}
 		}
+		
+		
+//		if (AnyApplication.getConfig().getShowVersionNotification() && (AnySoftKeyboardConfiguration.DEBUG || firstTimeVersionLoaded(context)))
+//		{
+//			Log.i(TAG, "changelog added");
+//			
+//			Intent i = new Intent(context, ChangeLogActivity.class);
+//			
+//			msActivitiesToShow.add(i);
+//		}
 		
 		showNotificationIcon(context);
 	}

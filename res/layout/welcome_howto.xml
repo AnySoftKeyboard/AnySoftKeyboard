@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:layout_marginTop="0dp">
+	<ScrollView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1">
+		<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical"
+			android:layout_marginLeft="5dp"
+			android:layout_marginRight="5dp">
+			<TextView android:text="@string/how_to_pointer_title" android:textSize="16sp" android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:textStyle="bold"></TextView>
+			<TextView android:text="@string/how_to_pointer_version_prefix" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:textStyle="bold"></TextView>
+			<TextView android:id="@+id/main_title_version" android:text="" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:textStyle="bold"></TextView>
+			<LinearLayout android:layout_marginTop="5dp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+				<ImageView android:layout_height="wrap_content" android:src="@drawable/welcome_keyboard_image" android:layout_width="wrap_content"></ImageView>
+				<TextView android:text="@string/how_to_pointer_not_app" android:textSize="14sp" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+			</LinearLayout>
+			<TextView android:layout_marginTop="3dp" android:text="@string/how_to_simple_howto" android:textSize="14sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+			<TextView android:layout_marginTop="3dp" android:text="@string/how_to_pointer_go_to_links" android:textSize="14sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+			<Button android:id="@+id/goto_settings_button" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/ime_settings" android:layout_gravity="center"/>
+			<Button android:id="@+id/goto_main_button" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/about" android:layout_gravity="center"/>
+		</LinearLayout>
+	</ScrollView>
+</LinearLayout>
+
