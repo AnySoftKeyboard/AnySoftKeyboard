@@ -3,10 +3,10 @@
 	<Keyboard nameResId="@string/eng_keyboard" iconResId="@drawable/en"
 		layoutResId="@xml/qwerty" id="c7535083-4fe6-49dc-81aa-c5438a1a343a"
 		defaultDictionaryLocale="en" description="QWERTY Latin keyboard"
-		index="1" default="true" />
+		index="1" defaultEnabled="true" />
 	<Keyboard nameResId="@string/eng_keyboard_16keys"
 		iconResId="@drawable/en" layoutResId="@xml/eng_16keys"
 		landscapeResId="@xml/qwerty" id="12335055-4aa6-49dc-8456-c7d38a1a5123"
 		defaultDictionaryLocale="en" description="16 keys English layout"
-		index="2" enabled="false" />
+		index="2" defaultEnabled="false" />
 </Keyboards>

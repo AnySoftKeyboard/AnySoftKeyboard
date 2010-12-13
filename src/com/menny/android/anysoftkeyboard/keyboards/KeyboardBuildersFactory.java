@@ -132,7 +132,7 @@ public class KeyboardBuildersFactory {
     private static final String XML_PHYSICAL_TRANSLATION_RES_ID_ATTRIBUTE = "physicalKeyboardMappingResId";
     private static final String XML_DESCRIPTION_ATTRIBUTE = "description";
     private static final String XML_INDEX_ATTRIBUTE = "index";
-    private static final String XML_DEFAULT_ATTRIBUTE = "default";
+    private static final String XML_DEFAULT_ATTRIBUTE = "defaultEnabled";
 
 
     public synchronized static void resetBuildersCache()
