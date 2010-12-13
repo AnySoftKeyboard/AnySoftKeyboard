@@ -28,6 +28,11 @@
 	<string name="notification_text">Welcome! Please, read me.</string>
 	<string name="testers_version">Testers version!</string>
 	
+	<!-- settings -->
+	<string name="license_title">License</string>
+	<string name="license_text">This software is licensed under Apache2 (c) 2010 Menny Even-Danan</string>
+	<!-- welcome -->
+	<string name="about">About</string>
 	<!-- changelog -->
 	<string name="changelog">Changelog</string>
 	<string name="search_market_for_addons">Search for add-ons</string>

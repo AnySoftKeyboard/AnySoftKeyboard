@@ -8,6 +8,10 @@ android:key="ime_settings">
 	android:title="@string/ime_name"
 	android:summary="@string/how_to_pointer_version_prefix">
 	</Preference>
+	<Preference android:key="prefs_license_key" android:selectable="false" android:enabled="true"
+	android:persistent="false"
+	android:title="@string/license_title"
+	android:summary="@string/license_text"/>
 	<Preference android:key="prefs_help_key" android:selectable="true" android:enabled="true"
 	android:persistent="false"
 	android:title="@string/click_for_help"

@@ -200,7 +200,7 @@
 		<attribute name="sign.package" />
 		<element name="extra-jars" optional="yes" />
 		<sequential>
-			<apkbuilder outfolder="${out.absolute.dir}" basename="${ant.project.name}" signed="@{sign.package}" verbose="${verbose}">
+			<apkbuilder apkfolder="${out.absolute.dir}" apkbasename="${ant.project.name}" debugsigning="@{sign.package}" verbose="${verbose}">
 				<file path="${intermediate.dex.file}" />
 				<sourcefolder path="${source.absolute.dir}" />
 				<nativefolder path="${native.libs.absolute.dir}" />
@@ -319,7 +319,7 @@
 	         -->
 	<target name="-package-resources" depends="">
 		<echo>Packaging resources</echo>
-		<aaptexec executable="${aapt}" command="package" manifest="AndroidManifest.xml" resources="${resource.absolute.dir}" assets="${asset.absolute.dir}" androidjar="${android.jar}" outfolder="${out.absolute.dir}" basename="${ant.project.name}" />
+		<aaptexec executable="${aapt}" command="package" manifest="AndroidManifest.xml" resources="${resource.absolute.dir}" assets="${asset.absolute.dir}" androidjar="${android.jar}" apkfolder="${out.absolute.dir}" />
 	</target>
 
 	<!-- Packages the application and sign it with a debug key. -->
