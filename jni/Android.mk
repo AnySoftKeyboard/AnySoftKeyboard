@@ -6,6 +6,6 @@ LOCAL_SRC_FILES := \
 	com_menny_android_anysoftkeyboard_dictionary_BinaryDictionary.cpp \
 	dictionary.cpp
 
-LOCAL_MODULE := nativeime
+LOCAL_MODULE := anysoftkey_jni
 
 include $(BUILD_SHARED_LIBRARY)

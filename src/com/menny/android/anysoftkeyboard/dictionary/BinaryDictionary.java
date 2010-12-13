@@ -47,7 +47,7 @@ class BinaryDictionary extends Dictionary {
 
     static {
         try {
-            System.loadLibrary("nativeime");
+            System.loadLibrary("anysoftkey_jni");
         } 
         catch (UnsatisfiedLinkError ule) {
         	Log.e(TAG, "******** Could not load native library nativeim ********");
