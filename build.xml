@@ -200,7 +200,7 @@
 		<attribute name="sign.package" />
 		<element name="extra-jars" optional="yes" />
 		<sequential>
-			<apkbuilder apkfolder="${out.absolute.dir}" apkbasename="${ant.project.name}" debugsigning="@{sign.package}" verbose="${verbose}">
+			<apkbuilder outfolder="${out.absolute.dir}" basename="${ant.project.name}" signed="@{sign.package}" verbose="${verbose}">
 				<file path="${intermediate.dex.file}" />
 				<sourcefolder path="${source.absolute.dir}" />
 				<nativefolder path="${native.libs.absolute.dir}" />
