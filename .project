@@ -30,4 +30,11 @@
 		<nature>com.android.ide.eclipse.adt.AndroidNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>AnySoftKeyboardAPI_src</name>
+			<type>2</type>
+			<locationURI>_android_AnySoftKeyboardAPI_3a4f66bd/src</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>
