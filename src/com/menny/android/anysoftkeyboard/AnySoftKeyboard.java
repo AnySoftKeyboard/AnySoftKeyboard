@@ -2459,12 +2459,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	@Override
 	public void onLowMemory() {
-		Log
-				.w("AnySoftKeyboard",
-						"The OS has reported that it is low on memory!. I'll try to clear some cache.");
+		Log.w(TAG, "The OS has reported that it is low on memory!. I'll try to clear some cache.");
 		mKeyboardSwitcher.onLowMemory();
-		DictionaryFactory.getInstance().onLowMemory(getDictionaryForKeyboard(mKeyboardSwitcher
-				.getCurrentKeyboard()));
+		DictionaryFactory.getInstance().onLowMemory(mSuggest.getMainDictionary());
 		super.onLowMemory();
 	}
 	

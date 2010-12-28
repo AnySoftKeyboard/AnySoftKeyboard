@@ -348,4 +348,9 @@ public class Suggest implements Dictionary.WordCallback {
                 + ((dictionary == null) ? "NULL" : dictionary.toString()));
         mMainDict = dictionary;
     }
+    
+    public Dictionary getMainDictionary()
+    {
+    	return mMainDict;
+    }
 }
