@@ -435,24 +435,7 @@ public class KeyboardSwitcher
     	AnyKeyboard locked = getLockedKeyboard(currentEditorInfo);
     	if (locked != null)
     		return locked;
-    	
-//    	AnyKeyboard current;
-//    	if (!isAlphabetMode())
-//    	{
-//    		if (mLastSelectedSymbolsKeyboard == SYMBOLS_KEYBOARD_PHONE_INDEX)
-//    			mLastSelectedSymbolsKeyboard = SYMBOLS_KEYBOARD_REGULAR_INDEX;
-//    		else
-//    			mLastSelectedSymbolsKeyboard = SYMBOLS_KEYBOARD_PHONE_INDEX;
-//    	}
-//
-//    	mAlphabetMode = false;
-//
-//    	if (mLastSelectedSymbolsKeyboard >= mSymbolsKeyboardsArray.length)
-//			mLastSelectedSymbolsKeyboard = 0;
-//
-//    	current = getSymbolsKeyboard(mLastSelectedSymbolsKeyboard, getKeyboardMode(currentEditorInfo));
-//
-//    	return setKeyboard(currentEditorInfo, current);
+
     	if (AnyApplication.getConfig().getCycleOverAllSymbols())
     	{
         	if (!isAlphabetMode())
@@ -462,6 +445,8 @@ public class KeyboardSwitcher
         		else
         			mLastSelectedSymbolsKeyboard++;
         	}
+        	else
+        		mLastSelectedSymbolsKeyboard = SYMBOLS_KEYBOARD_REGULAR_INDEX;
     	}
     	else
     	{

@@ -12,8 +12,8 @@ public abstract class SQLiteUserDictionaryBase extends UserDictionaryBase {
 
 	private DictionarySQLiteConnection mStorage;
 
-	protected SQLiteUserDictionaryBase(AnyKeyboardContextProvider anyContext) throws Exception {
-		super(anyContext);
+	protected SQLiteUserDictionaryBase(String dictionaryName, AnyKeyboardContextProvider anyContext) throws Exception {
+		super(dictionaryName, anyContext);
 	}
 
 	@Override

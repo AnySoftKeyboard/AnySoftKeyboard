@@ -93,7 +93,7 @@ public class AutoDictionary extends UserDictionaryBase {
     private static DatabaseHelper mOpenHelper = null;
 
     public AutoDictionary(AnyKeyboardContextProvider context, AnySoftKeyboard ime, String locale) {
-        super(context);
+        super("Auto", context);
         mIme = ime;
         mLocale = locale;
         if (mOpenHelper == null) {

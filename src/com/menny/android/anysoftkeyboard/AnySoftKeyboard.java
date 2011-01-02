@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -40,6 +41,7 @@ import android.graphics.drawable.Drawable;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Debug;
 import android.os.Handler;
 import android.os.Message;
@@ -1599,9 +1601,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 						+"\nMenny Even Danan, Hezi Cohen, Hugo Lopes, Henrik Andersson, Sami Salonen, and Lado Kumsiashvili."
 						+"\n*******************");
 				
-				Intent easterEgg = new Intent(Intent.ACTION_WEB_SEARCH);
-				easterEgg.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				easterEgg.putExtra(SearchManager.QUERY, "http://www.dailymotion.com/video/x3zg90_gnarls-barkley-crazy-2006-mtv-star_music");
+				Intent easterEgg = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.dailymotion.com/video/x3zg90_gnarls-barkley-crazy-2006-mtv-star_music"));
+				easterEgg.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				startActivity(easterEgg);
 			}
 			InputConnection ic = getCurrentInputConnection();
@@ -1617,25 +1618,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		TextEntryState.typedCharacter((char) primaryCodeForShow,
 				isWordSeparator(primaryCodeForShow));
 	}
-
-//	private int translatePrimaryCodeFromCurrentKeyboard(int primaryCode) {
-//		if (DEBUG)
-//			Log.d(TAG,
-//					"translatePrimaryCodeFromCurrentKeyboard: " + primaryCode);
-//		if (isInputViewShown()) {
-//			if (DEBUG)
-//				Log.v(TAG, "translatePrimaryCodeFromCurrentKeyboard: isInputViewShown");
-//
-//			if ((mInputView != null) && mInputView.isShifted()) {
-//				if (DEBUG)
-//					Log.d(TAG, "translatePrimaryCodeFromCurrentKeyboard: mInputView.isShifted()");
-//				
-//				return mKeyboardSwitcher.getCurrentKeyboard()
-//						.getShiftedKeyValue(primaryCode);
-//			}
-//		}
-//		return primaryCode;
-//	}
 
 	private void handleSeparator(int primaryCode) {
 		if(DEBUG) Log.d(TAG, "handleSeparator: "+primaryCode);
@@ -1928,14 +1910,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		currentKeyboard = mKeyboardSwitcher.nextAlterKeyboard(currentEditorInfo);
 
-		Log.i("AnySoftKeyboard", "nextAlterKeyboard: Setting next keyboard to: "
+		Log.i(TAG, "nextAlterKeyboard: Setting next keyboard to: "
 				+ currentKeyboard.getKeyboardName());
 	}
 
 	private void nextKeyboard(EditorInfo currentEditorInfo,
 			KeyboardSwitcher.NextKeyboardType type) {
-	    if (DEBUG)
-		Log.d("AnySoftKeyboard", "nextKeyboard: currentEditorInfo.inputType="
+	    if (DEBUG) Log.d(TAG, "nextKeyboard: currentEditorInfo.inputType="
 				+ currentEditorInfo.inputType + " type:" + type);
 
 		// in numeric keyboards, the LANG key will go back to the original
@@ -1950,7 +1931,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void setKeyboardStuff(EditorInfo currentEditorInfo,
 			KeyboardSwitcher.NextKeyboardType type, AnyKeyboard currentKeyboard) {
-		Log.i("AnySoftKeyboard", "nextKeyboard: Setting next keyboard to: "
+		Log.i(TAG, "nextKeyboard: Setting next keyboard to: "
 				+ currentKeyboard.getKeyboardName());
 		updateShiftKeyState(currentEditorInfo);
 		mCapsLock = currentKeyboard.isShiftLocked();

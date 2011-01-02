@@ -391,10 +391,15 @@ public class DictionaryFactory
 
     public synchronized void onLowMemory(Dictionary currentlyUsedDictionary) {
         //I'll clear all dictionaries but the required.
-        Dictionary dictToKeep = null;
-        int index = msDictionaries.indexOf(currentlyUsedDictionary);
-        if(index >= 0) {
-            dictToKeep = msDictionaries.get(index);
+        final Dictionary dictToKeep;
+        final int dictToKeepIndex = msDictionaries.indexOf(currentlyUsedDictionary);
+        if(dictToKeepIndex >= 0) {
+            dictToKeep = msDictionaries.get(dictToKeepIndex);
+            Log.d(TAG, "Going to keep "+dictToKeep.getDictionaryName()+" dictionary");
+        }
+        else
+        {
+        	dictToKeep = null;
         }
 
         String idMappingToDict = null;
@@ -406,7 +411,7 @@ public class DictionaryFactory
         Iterator<Entry<String, Integer>> idIterator = msDictionariesById.entrySet().iterator();
         while(idIterator.hasNext()) {
             Entry<String, Integer> value = idIterator.next();
-            if(value.getValue() == index) {
+            if(value.getValue() == dictToKeepIndex) {
                 idMappingToDict = value.getKey();
                 break;
             }
@@ -417,15 +422,24 @@ public class DictionaryFactory
         Iterator<Entry<String, Integer>> languageIterator = msDictionariesByLanguage.entrySet().iterator();
         while(languageIterator.hasNext()) {
             Entry<String, Integer> value = languageIterator.next();
-            if(value.getValue() == index) {
+            if(value.getValue() == dictToKeepIndex) {
                 languageMappingToDict = value.getKey();
                 break;
             }
         }
 
 
-        assert idMappingToDict != null || languageMappingToDict != null;
+        assert (dictToKeep == null) || (idMappingToDict != null && languageMappingToDict != null);
 
+        for(int dictToCloseIndex=0; dictToCloseIndex<msDictionaries.size(); dictToCloseIndex++)
+        {
+        	if (dictToCloseIndex == dictToKeepIndex) continue;
+        	
+        	final Dictionary dictToClose = msDictionaries.get(dictToCloseIndex);
+        	Log.d(TAG, "Going to release "+dictToClose.getDictionaryName()+" dictionary");
+        	dictToClose.close();
+        }
+        
         msDictionaries.clear();
         msDictionariesByLanguage.clear();
         msDictionariesById.clear();
@@ -435,6 +449,7 @@ public class DictionaryFactory
             if(idMappingToDict != null){
             	addDictionaryById(idMappingToDict, currentlyUsedDictionary);
             }
+            
             if(languageMappingToDict != null){
             	addDictionaryByLanguage(languageMappingToDict, currentlyUsedDictionary);
             }

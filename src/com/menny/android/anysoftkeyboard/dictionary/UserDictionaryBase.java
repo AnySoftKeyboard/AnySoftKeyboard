@@ -68,7 +68,8 @@ public abstract class UserDictionaryBase extends Dictionary {
 
     protected boolean mRequiresReload;
 
-    protected UserDictionaryBase(AnyKeyboardContextProvider anyContext) {
+    protected UserDictionaryBase(String dictionaryName, AnyKeyboardContextProvider anyContext) {
+    	super(dictionaryName);
     	mContext = anyContext.getApplicationContext();
     	mAnyContext = anyContext;
     	mRoots = new NodeArray();

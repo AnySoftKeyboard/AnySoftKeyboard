@@ -34,8 +34,15 @@ abstract public class Dictionary {
          */
         boolean addWord(char[] word, int wordOffset, int wordLength, int frequency);
     }
+    
+    private final String mDictionaryName;
+    
+    protected Dictionary(String dictionaryName)
+    {
+    	mDictionaryName = dictionaryName;
+    }
 
-    /**
+	/**
      * Searches for words in the dictionary that match the characters in the composer. Matched
      * words are added through the callback object.
      * @param composer the key sequence to match
@@ -74,4 +81,6 @@ abstract public class Dictionary {
     public abstract void close();
 
     public abstract void loadDictionary() throws Exception;
+    
+    public String getDictionaryName() {return mDictionaryName;}
 }

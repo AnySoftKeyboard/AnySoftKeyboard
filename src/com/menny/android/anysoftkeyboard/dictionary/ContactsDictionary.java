@@ -50,7 +50,7 @@ public class ContactsDictionary extends UserDictionaryBase {
 	private long mContactsHash = 0;
     
     public ContactsDictionary(AnyKeyboardContextProvider context) throws Exception {
-        super(context);
+        super("ContactsDictionary",context);
         // Perform a managed query. The Activity will handle closing and requerying the cursor
         // when needed.
         ContentResolver cres = mContext.getContentResolver();

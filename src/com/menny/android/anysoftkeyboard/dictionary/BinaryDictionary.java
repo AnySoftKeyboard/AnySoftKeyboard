@@ -66,7 +66,8 @@ class BinaryDictionary extends Dictionary {
      * @param context application context for reading resources
      * @param resId the resource containing the raw binary dictionary
      */
-    public BinaryDictionary(AssetFileDescriptor afd) {
+    public BinaryDictionary(String dictionaryName, AssetFileDescriptor afd) {
+    	super(dictionaryName);
     	mAfd = afd;
     }
 

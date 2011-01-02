@@ -20,7 +20,7 @@ public class FallbackUserDictionary extends SQLiteUserDictionaryBase {
 	}
 
 	public FallbackUserDictionary(AnyKeyboardContextProvider context) throws Exception {
-		super(context);
+		super("FallbackUserDictionary", context);
 	}
 
 	@Override

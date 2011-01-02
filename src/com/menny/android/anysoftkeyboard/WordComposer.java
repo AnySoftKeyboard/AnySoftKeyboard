@@ -23,7 +23,7 @@ import java.util.List;
  * A place to store the currently composing word with information such as adjacent key codes as well
  */
 public class WordComposer {
-    private static final String CHEWBACCAONTHEDRUMS = "chewbaccaonthedrums";
+    private static final String CHEWBACCAONTHEDRUMS = "chewbacca";
 
 	/**
      * The list of unicode values for each keystroke (including surrounding keys)

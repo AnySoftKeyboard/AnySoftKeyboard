@@ -22,7 +22,7 @@ class AndroidUserDictionary extends UserDictionaryBase {
 
     public AndroidUserDictionary(AnyKeyboardContextProvider context) throws Exception
     {
-    	super(context);
+    	super("AndroidUserDictionary", context);
 
         // Perform a managed query. The Activity will handle closing and requerying the cursor
         // when needed.
