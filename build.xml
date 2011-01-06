@@ -394,7 +394,8 @@
 	<!-- empty default pre-compile target. Create a similar target in
              your build.xml and it'll be called instead of this one. -->
 	<target name="-pre-compile">
-		<antcall target="-pre-compile-preprocess" />
+		<antcall target="-pre-compile-preprocess-release" />
+		<antcall target="-pre-compile-preprocess-debug" />
 	</target>
 
 	<!-- Compiles this project's .java files into .class files. -->
@@ -560,7 +561,11 @@
 
 	<!-- Builds debug output package, provided all the necessary files are already dexed -->
 	<target name="debug" depends="-get-version-info,-set-debug-mode, -compile-tested-if-test, -package-debug-sign" description="Builds the application and signs it with a debug key.">
-		<property name="out.debug.file" location="${out.debug.dir}/${ant.project.name}-${DSTAMP}-${version.name}.apk" />
+		<!-- Signs the APK -->
+		<echo>Signing final apk...</echo>
+		<signjar jar="${out.unsigned.file}" signedjar="${out.unaligned.file}" keystore="${key.store}" storepass="${key.store.password}" alias="${key.alias}" keypass="${key.alias.password}" verbose="${verbose}" />
+
+		<property name="out.debug.file" location="${out.debug.dir}/${ant.project.name}-${DSTAMP}-${version.name}-DEBUG.apk" />
 		<zipalign-helper in.package="${out.debug.unaligned.file}" out.package="${out.debug.file}" />
 		<echo>Debug Package: ${out.debug.file}</echo>
 	</target>
@@ -714,11 +719,14 @@
 	</target>
 
 
-	<target name="-pre-compile-preprocess" unless="havedebug">
+	<target name="-pre-compile-preprocess-release" unless="havedebug">
 		<echo>AnySoftKeyboardConfiguration.DEBUG is going to be set to false</echo>
 		<replaceregexp file="src/com/menny/android/anysoftkeyboard/AnySoftKeyboardConfiguration.java" match="DEBUG\s*=\s*true" replace="DEBUG = false" />
 	</target>
-
+	<target name="-pre-compile-preprocess-debug" if="havedebug">
+		<echo>AnySoftKeyboardConfiguration.DEBUG is going to be set to true</echo>
+		<replaceregexp file="src/com/menny/android/anysoftkeyboard/AnySoftKeyboardConfiguration.java" match="DEBUG\s*=\s*false" replace="DEBUG = true" />
+	</target>
 
 
 	<target name="-get-version-info">
@@ -743,17 +751,17 @@
 	</target>
 		
 
-		<target name="market" depends="clean,-set-release-mode, -get-version-info, -release-obfuscation-check, -package-release, -release-prompt-for-password, -release-nosign" if="has.keystore" description="Builds the application. The generated apk file must be signed before
-	                                it is published.">
-			<!-- Signs the APK -->
-			<echo>Signing final apk...</echo>
-			<signjar jar="${out.unsigned.file}" signedjar="${out.unaligned.file}" keystore="${key.store}" storepass="${key.store.password}" alias="${key.alias}" keypass="${key.alias.password}" verbose="${verbose}" />
+	<target name="market" depends="clean,-set-release-mode, -get-version-info, -release-obfuscation-check, -package-release, -release-prompt-for-password, -release-nosign" if="has.keystore" description="Builds the application. The generated apk file must be signed before
+								it is published.">
+		<!-- Signs the APK -->
+		<echo>Signing final apk...</echo>
+		<signjar jar="${out.unsigned.file}" signedjar="${out.unaligned.file}" keystore="${key.store}" storepass="${key.store.password}" alias="${key.alias}" keypass="${key.alias.password}" verbose="${verbose}" />
 
-			<!-- Zip aligns the APK -->
-			<property name="out.market.file" value="${out.release.dir}/${ant.project.name}-${DSTAMP}-${version.name}.apk" />
-			<zipalign-helper in.package="${out.unaligned.file}" out.package="${out.market.file}" />
-			<echo>Release Package: ${out.market.file}</echo>
-		</target>
+		<!-- Zip aligns the APK -->
+		<property name="out.market.file" value="${out.release.dir}/${ant.project.name}-${DSTAMP}-${version.name}.apk" />
+		<zipalign-helper in.package="${out.unaligned.file}" out.package="${out.market.file}" />
+		<echo>Release Package: ${out.market.file}</echo>
+	</target>
 
 
 
