@@ -796,13 +796,13 @@ labels      	- The labels that the download should have, separated by commas. Ex
 		<input message="Enter Projectname" addproperty="gcu.project"/>
 		<input message="Enter Filename" addproperty="gcu.releasefile"/>
 		<input message="Enter Summary" addproperty="gcu.summary"/>
-		<input message="Enter comma separated labels" addproperty="gcu.labels"/>
+		<input message="Enter comma separated labels (e.g., Featured,Type-Package,OpSys-Android,Testers,Market,Deprecated)" addproperty="gcu.labels"/>
 		<gcupload   username="${gcu.username}" 
 			        password="${gcu.password}" 
 			        projectname="${gcu.project}" 
-			        filename="${gcu.releasefile}" 
-                                summary="${gcu.summary}"
-				verbose="true"
+					filename="${gcu.releasefile}" 
+					summary="${gcu.summary}"
+					verbose="true"
 			        labels="${gcu.labels}">
 		</gcupload>
 	</target>
