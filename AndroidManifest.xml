@@ -19,6 +19,9 @@
 	    		<action android:name="android.intent.action.PACKAGE_REPLACED"/>
 	    		<data android:scheme="package" />
 	    	</intent-filter>
+	    	<intent-filter>
+				<action android:name="com.menny.android.anysoftkeyboard.api.NOTIFY_LAYOUT_SWITCH" />
+			</intent-filter>
 	    </receiver>
 	    
 	    <activity android:name=".SoftKeyboardSettings" android:label="@string/ime_name">
