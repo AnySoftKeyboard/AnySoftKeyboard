@@ -4,7 +4,7 @@
    android:keyWidth="35%p"
    android:keyHeight="@dimen/key_half_height">
    	<Key android:codes="-2"  android:keyLabel="@string/change_symbols_wide" android:keyEdgeFlags="left"/>
-   	<Key android:codes="-20" android:keyWidth="15%p" android:keyLabel="←" />
-   	<Key android:codes="-21" android:keyWidth="15%p" android:keyLabel="→" />
+   	<Key android:codes="-20" android:keyWidth="15%p" android:keyLabel="←" android:isRepeatable="true" />
+   	<Key android:codes="-21" android:keyWidth="15%p" android:keyLabel="→" android:isRepeatable="true" />
 	<Key android:codes="-99" android:keyLabel="@string/change_lang_wide" android:keyEdgeFlags="right"/>
 </Row>
