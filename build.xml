@@ -763,6 +763,50 @@
 		<echo>Release Package: ${out.market.file}</echo>
 	</target>
 
+	
+	
+	<!-- TODO lado not yet tested. Make own config for it for menny -->
+	<taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="ant/ant-googlecode-0.0.2-lado.jar" name="gcupload"/>
+<!--
+username 	    - Google user name to authenticate as (this is just the username part; don't include the @gmail.com part) 	Yes
+password 	    - Coogle Code password (not the same as the gmail password). 	Yes
+projectname     - Google Code project name to upload to. 	Yes
+filename 	    - The local path of the file to upload. 	Yes
+targetfilename 	- The file name that this file will be given on Google Code. 	Yes
+summary 	    - Summary of the upload. 	Yes
+uploadurl 	    - Overrides the default upload URL. This parameter is only useful for testing this Ant task without uploading to the live server. 	No
+verbose 	    - If set to true, this task will print debugging information to System.out as it progresses through its job 	No, default is false
+labels      	- The labels that the download should have, separated by commas. Extra whitespace before and after each label name will not be considered part of the label name. 	No 
+-->
+	<!--
+	<gcupload username="${gcu.username}" 
+	        password="${gcu.password}" 
+	        projectname="{gcu.project}" 
+	        filename="" 
+	        targetfilename="leave it empty?"
+	        summary="${gcu.summary}"
+			verbose="true"
+	        labels="Featured, Type-Package, OpSys-All">
+	</gcupload>
+-->
+	<target name="upload">
+		<property file="gcupload.properties"/>
+		<input message="Enter Username" addproperty="gcu.username"/>
+		<input message="Enter Password" addproperty="gcu.password"/>
+		<input message="Enter Projectname" addproperty="gcu.project"/>
+		<input message="Enter Filename" addproperty="gcu.releasefile"/>
+		<input message="Enter Summary" addproperty="gcu.summary"/>
+		<input message="Enter comma separated labels" addproperty="gcu.labels"/>
+		<gcupload   username="${gcu.username}" 
+			        password="${gcu.password}" 
+			        projectname="${gcu.project}" 
+			        filename="${gcu.releasefile}" 
+                                summary="${gcu.summary}"
+				verbose="true"
+			        labels="${gcu.labels}">
+		</gcupload>
+	</target>
+	
 
 
 	<!-- End of targets for code-coverage measurement purposes -->
