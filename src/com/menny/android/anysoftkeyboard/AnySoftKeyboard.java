@@ -2327,7 +2327,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 	    } else {
 	    	DictionaryFactory.getInstance().closeAutoDictionary();
 	        mAutoDictionary = null;
-	        
 	        mSuggest.setAutoDictionary(null);
 	    }
 	}
