@@ -1,0 +1,93 @@
+com.menny.android.anysoftkeyboard.KeyboardSwitcher$NextKeyboardType: com.menny.android.anysoftkeyboard.KeyboardSwitcher$NextKeyboardType[] values()
+com.menny.android.anysoftkeyboard.KeyboardSwitcher$NextKeyboardType: com.menny.android.anysoftkeyboard.KeyboardSwitcher$NextKeyboardType valueOf(java.lang.String)
+com.menny.android.anysoftkeyboard.dictionary.BinaryDictionary
+com.menny.android.anysoftkeyboard.dictionary.BinaryDictionary: int MAX_WORD_LENGTH
+com.menny.android.anysoftkeyboard.dictionary.BinaryDictionary: BinaryDictionary(android.content.res.AssetFileDescriptor)
+com.menny.android.anysoftkeyboard.dictionary.BinaryDictionary: void loadDictionary()
+com.menny.android.anysoftkeyboard.dictionary.BinaryDictionary: void getWords(com.menny.android.anysoftkeyboard.WordComposer,com.menny.android.anysoftkeyboard.dictionary.Dictionary$WordCallback)
+com.menny.android.anysoftkeyboard.dictionary.BinaryDictionary: boolean isValidWord(java.lang.CharSequence)
+com.menny.android.anysoftkeyboard.dictionary.BinaryDictionary: void close()
+com.menny.android.anysoftkeyboard.dictionary.BinaryDictionary: void finalize()
+com.menny.android.anysoftkeyboard.dictionary.Dictionary: boolean INCLUDE_TYPED_WORD_IF_VALID
+com.menny.android.anysoftkeyboard.dictionary.Dictionary: int FULL_WORD_FREQ_MULTIPLIER
+com.menny.android.anysoftkeyboard.dictionary.Dictionary: Dictionary()
+com.menny.android.anysoftkeyboard.dictionary.Dictionary: void getWords(com.menny.android.anysoftkeyboard.WordComposer,com.menny.android.anysoftkeyboard.dictionary.Dictionary$WordCallback)
+com.menny.android.anysoftkeyboard.dictionary.Dictionary: boolean isValidWord(java.lang.CharSequence)
+com.menny.android.anysoftkeyboard.dictionary.Dictionary: boolean same(char[],int,java.lang.CharSequence)
+com.menny.android.anysoftkeyboard.dictionary.Dictionary: void close()
+com.menny.android.anysoftkeyboard.dictionary.Dictionary: void loadDictionary()
+com.menny.android.anysoftkeyboard.dictionary.BinaryDictionary: int MAX_WORD_LENGTH
+com.menny.android.anysoftkeyboard.dictionary.BinaryDictionary: BinaryDictionary(android.content.res.AssetFileDescriptor)
+com.menny.android.anysoftkeyboard.dictionary.BinaryDictionary: void loadDictionary()
+com.menny.android.anysoftkeyboard.dictionary.BinaryDictionary: void getWords(com.menny.android.anysoftkeyboard.WordComposer,com.menny.android.anysoftkeyboard.dictionary.Dictionary$WordCallback)
+com.menny.android.anysoftkeyboard.dictionary.BinaryDictionary: boolean isValidWord(java.lang.CharSequence)
+com.menny.android.anysoftkeyboard.dictionary.BinaryDictionary: void close()
+com.menny.android.anysoftkeyboard.dictionary.BinaryDictionary: void finalize()
+com.menny.android.anysoftkeyboard.dictionary.Dictionary: boolean INCLUDE_TYPED_WORD_IF_VALID
+com.menny.android.anysoftkeyboard.dictionary.Dictionary: int FULL_WORD_FREQ_MULTIPLIER
+com.menny.android.anysoftkeyboard.dictionary.Dictionary: Dictionary()
+com.menny.android.anysoftkeyboard.dictionary.Dictionary: void getWords(com.menny.android.anysoftkeyboard.WordComposer,com.menny.android.anysoftkeyboard.dictionary.Dictionary$WordCallback)
+com.menny.android.anysoftkeyboard.dictionary.Dictionary: boolean isValidWord(java.lang.CharSequence)
+com.menny.android.anysoftkeyboard.dictionary.Dictionary: boolean same(char[],int,java.lang.CharSequence)
+com.menny.android.anysoftkeyboard.dictionary.Dictionary: void close()
+com.menny.android.anysoftkeyboard.dictionary.Dictionary: void loadDictionary()
+com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard$AnyKey
+com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard$AnyKey: AnyKeyboard$AnyKey(android.content.res.Resources,android.inputmethodservice.Keyboard$Row,int,int,android.content.res.XmlResourceParser)
+com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard$AnyKey: void enable()
+com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard$AnyKey: void disable()
+com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard$AnyKey: boolean isInside(int,int)
+com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard$AnyKey: int[] parseCSV(java.lang.String)
+com.menny.android.anysoftkeyboard.dictionary.BinaryDictionary
+com.menny.android.anysoftkeyboard.dictionary.BinaryDictionary: int openNative(java.io.FileDescriptor,long,long,int,int)
+com.menny.android.anysoftkeyboard.dictionary.BinaryDictionary: void closeNative(int)
+com.menny.android.anysoftkeyboard.dictionary.BinaryDictionary: boolean isValidWordNative(int,char[],int)
+com.menny.android.anysoftkeyboard.dictionary.BinaryDictionary: int getSuggestionsNative(int,int[],int,char[],int[],int,int,int,int)
+com.menny.android.anysoftkeyboard.AnyKeyboardViewDonut
+com.menny.android.anysoftkeyboard.AnyKeyboardViewDonut: AnyKeyboardViewDonut(android.content.Context,android.util.AttributeSet)
+com.menny.android.anysoftkeyboard.AnyKeyboardViewDonut: void requestSpecialKeysRedraw()
+com.menny.android.anysoftkeyboard.AnyKeyboardViewDonut: void requestShiftKeyRedraw()
+com.menny.android.anysoftkeyboard.AnyKeyboardView: AnyKeyboardView(android.content.Context,android.util.AttributeSet)
+com.menny.android.anysoftkeyboard.AnyKeyboardView: AnyKeyboardView(android.content.Context,android.util.AttributeSet,int)
+com.menny.android.anysoftkeyboard.AnyKeyboardView: boolean onTouchEvent(android.view.MotionEvent)
+com.menny.android.anysoftkeyboard.AnyKeyboardView: void setPhoneKeyboard(android.inputmethodservice.Keyboard)
+com.menny.android.anysoftkeyboard.AnyKeyboardView: boolean onLongPress(android.inputmethodservice.Keyboard$Key)
+com.menny.android.anysoftkeyboard.AnyKeyboardView: void simulateLongPress(int)
+com.menny.android.anysoftkeyboard.AnyKeyboardView: void setKeyboard(android.inputmethodservice.Keyboard)
+com.menny.android.anysoftkeyboard.AnyKeyboardView: void requestSpecialKeysRedraw()
+com.menny.android.anysoftkeyboard.AnyKeyboardView: void requestShiftKeyRedraw()
+com.menny.android.anysoftkeyboard.AnyKeyboardView: boolean canInteractWithUi()
+com.menny.android.anysoftkeyboard.CandidateViewContainer
+com.menny.android.anysoftkeyboard.CandidateViewContainer: CandidateViewContainer(android.content.Context,android.util.AttributeSet)
+com.menny.android.anysoftkeyboard.CandidateViewContainer: void initViews()
+com.menny.android.anysoftkeyboard.CandidateViewContainer: void requestLayout()
+com.menny.android.anysoftkeyboard.CandidateViewContainer: boolean onTouch(android.view.View,android.view.MotionEvent)
+com.menny.android.anysoftkeyboard.MySeekBarPreference
+com.menny.android.anysoftkeyboard.MySeekBarPreference: MySeekBarPreference(android.content.Context,android.util.AttributeSet)
+com.menny.android.anysoftkeyboard.tutorials.ChangeLogActivity
+com.menny.android.anysoftkeyboard.tutorials.TutorialActivity
+com.menny.android.anysoftkeyboard.MainForm
+com.menny.android.anysoftkeyboard.settings.Keyboards
+com.menny.android.anysoftkeyboard.settings.MainSettings
+com.menny.android.anysoftkeyboard.SoftKeyboardSettings
+com.menny.android.anysoftkeyboard.settings.Tweaks
+com.menny.android.anysoftkeyboard.AnyApplication
+com.menny.android.anysoftkeyboard.AnySoftKeyboard
+com.menny.android.anysoftkeyboard.SoftKeyboard
+com.menny.android.anysoftkeyboard.PackagesChangedReceiver
+com.menny.android.anysoftkeyboard.CandidateView
+com.menny.android.anysoftkeyboard.CandidateView: CandidateView(android.content.Context,android.util.AttributeSet)
+com.menny.android.anysoftkeyboard.CandidateView: void setService(com.menny.android.anysoftkeyboard.AnySoftKeyboard)
+com.menny.android.anysoftkeyboard.CandidateView: void setSuggestions(java.util.List,boolean,boolean,boolean)
+com.menny.android.anysoftkeyboard.AnyKeyboardView
+com.menny.android.anysoftkeyboard.AnyKeyboardView: AnyKeyboardView(android.content.Context,android.util.AttributeSet)
+com.menny.android.anysoftkeyboard.AnyKeyboardView: AnyKeyboardView(android.content.Context,android.util.AttributeSet,int)
+com.menny.android.anysoftkeyboard.AnyKeyboardView: void setPhoneKeyboard(android.inputmethodservice.Keyboard)
+com.menny.android.anysoftkeyboard.AnyKeyboardView: void setKeyboard(android.inputmethodservice.Keyboard)
+com.menny.android.anysoftkeyboard.AnyKeyboardViewDonut
+com.menny.android.anysoftkeyboard.AnyKeyboardViewDonut: AnyKeyboardViewDonut(android.content.Context,android.util.AttributeSet)
+com.menny.android.anysoftkeyboard.AnyKeyboardView: AnyKeyboardView(android.content.Context,android.util.AttributeSet)
+com.menny.android.anysoftkeyboard.AnyKeyboardView: AnyKeyboardView(android.content.Context,android.util.AttributeSet,int)
+com.menny.android.anysoftkeyboard.AnyKeyboardView: void setPhoneKeyboard(android.inputmethodservice.Keyboard)
+com.menny.android.anysoftkeyboard.AnyKeyboardView: void setKeyboard(android.inputmethodservice.Keyboard)
+com.menny.android.anysoftkeyboard.CandidateViewContainer
+com.menny.android.anysoftkeyboard.CandidateViewContainer: CandidateViewContainer(android.content.Context,android.util.AttributeSet)
