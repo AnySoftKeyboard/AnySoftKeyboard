@@ -133,8 +133,10 @@ public class DictionaryFactory
     }
     
 	public void closeAutoDictionary() {
-		autoDictionary.close();
-		autoDictionary = null;
+	    if(autoDictionary != null){
+	        autoDictionary.close();
+	        autoDictionary = null;
+	    }
 	}
     
     public synchronized Dictionary getDictionaryByLanguage(final String language, AnyKeyboardContextProvider context){
