@@ -859,9 +859,8 @@ public abstract class AnyKeyboard extends Keyboard
             while (st.hasMoreTokens()) {
             	String nextToken = st.nextToken();
                 try {
-                	if(nextToken.length() != 1 ){// length==0 means, Letters and perhaps 0-9
-                		//It is not interpreted by us as a keyCode :(
-                		//There are no printable Codes with length 1
+                    //default behavior
+                	if(nextToken.length() != 1 ){
                 		values[count++] = Integer.parseInt(nextToken);
                 	}else {
                 		// length == 1, assume a char!
