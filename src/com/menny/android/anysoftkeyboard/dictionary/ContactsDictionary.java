@@ -127,14 +127,18 @@ public class ContactsDictionary extends UserDictionaryBase {
     	if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast()) {
                 String name = cursor.getString(INDEX_NAME);
-                newHash += name.hashCode();
-                newCount++;
+                if(name != null){
+                    newHash += name.hashCode();
+                    newCount++;
+                }
                 cursor.moveToNext();
             }
     	}
     	
-    	if (newCount != mContactsCount  || newHash != mContactsHash )
+    	if (newCount == mContactsCount  && newHash == mContactsHash )
     	{
+    	    return;
+    	}
     		if (AnySoftKeyboardConfiguration.DEBUG) Log.d(TAG, "Contacts will be reloaded since count or hash changed. New count "+newCount+" was("+mContactsCount+"), new hash "+newHash+" (was "+mContactsHash+").");
     		mContactsCount = newCount;
     		mContactsHash = newHash;
@@ -185,7 +189,7 @@ public class ContactsDictionary extends UserDictionaryBase {
             }
             
             Log.i(TAG, "Loaded "+loadedContacts+" contacts");
-    	}
+    	
         
         cursor.close();
     }
