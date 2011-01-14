@@ -48,6 +48,7 @@ import android.os.Message;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.text.AutoText;
+import android.text.ClipboardManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -1234,6 +1235,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case AnyKeyboard.KEYCODE_KEYBOARD_REVERSE_CYCLE:
 		    nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.PreviousAny);
             break;
+		case AnyKeyboard.KEYCODE_CLIPBOARD:
+		    ClipboardManager cm = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+		    if(cm.hasText()){
+		        onText(cm.getText());
+		    }
+		    break;
 		default:
 			// Issue 146: Right to left langs require reversed parenthesis
 			if (mKeyboardSwitcher.isRightToLeftMode())
