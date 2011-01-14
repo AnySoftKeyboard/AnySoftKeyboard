@@ -31,8 +31,10 @@ public class DictionaryFactoryAPI5 extends DictionaryFactory
 
 
 	public void closeContactsDictionary() {
-		contactsDictionary.close();
-		contactsDictionary = null;
+	    if(contactsDictionary != null){
+	        contactsDictionary.close();
+	        contactsDictionary = null;
+	    }
 	}
 	
 	@Override
