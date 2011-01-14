@@ -136,7 +136,9 @@ public class ContactsDictionary extends UserDictionaryBase {
     	
     	if (newCount == mContactsCount  && newHash == mContactsHash )
     	{
+    	    cursor.close();
     	    return;
+    	    
     	}
     		if (AnySoftKeyboardConfiguration.DEBUG) Log.d(TAG, "Contacts will be reloaded since count or hash changed. New count "+newCount+" was("+mContactsCount+"), new hash "+newHash+" (was "+mContactsHash+").");
     		mContactsCount = newCount;
