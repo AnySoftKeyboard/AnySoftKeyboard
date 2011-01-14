@@ -23,7 +23,6 @@ import android.content.ContentResolver;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.os.AsyncTask;
-import android.os.SystemClock;
 import android.provider.ContactsContract.Contacts;
 import android.util.Log;
 
