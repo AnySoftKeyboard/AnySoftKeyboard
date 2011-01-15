@@ -34,7 +34,7 @@ com.menny.android.anysoftkeyboard.AnySoftKeyboard -> com.menny.android.anysoftke
     com.menny.android.anysoftkeyboard.KeyboardSwitcher mKeyboardSwitcher -> a
     com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard$1 mHardKeyboardAction$1d4dea67 -> l
     long mMetaState -> m
-    com.menny.android.anysoftkeyboard.dictionary.ContactsDictionary mContactsDictionary -> n
+    com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase mContactsDictionary -> n
     com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase mUserDictionary -> o
     com.menny.android.anysoftkeyboard.dictionary.AutoDictionary mAutoDictionary -> p
     java.lang.StringBuilder mComposing -> q
@@ -92,6 +92,7 @@ com.menny.android.anysoftkeyboard.AnySoftKeyboard -> com.menny.android.anysoftke
     boolean onKeyDown(int,android.view.KeyEvent) -> onKeyDown
     void notifyKeyboardChangeIfNeeded() -> h
     boolean onKeyUp(int,android.view.KeyEvent) -> onKeyUp
+    java.lang.String getMetaKeysStates(java.lang.String) -> c
     void checkAddToDictionary(java.lang.CharSequence,int) -> a
     void commitTyped(android.view.inputmethod.InputConnection) -> a
     void updateShiftKeyState(android.view.inputmethod.EditorInfo) -> a
@@ -129,6 +130,7 @@ com.menny.android.anysoftkeyboard.AnySoftKeyboard -> com.menny.android.anysoftke
     void deleteLastCharactersFromInput(int) -> a
     android.content.SharedPreferences getSharedPreferences() -> a
     void showToastMessage$2563266() -> f
+    void showToastMessage(java.lang.CharSequence,boolean) -> a
     void onLowMemory() -> onLowMemory
     void startInputConnectionEdit() -> b
     void endInputConnectionEdit() -> c
@@ -329,24 +331,24 @@ com.menny.android.anysoftkeyboard.KeyboardSwitcher -> com.menny.android.anysoftk
     com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard getSymbolsKeyboard(int,int) -> a
     com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory$KeyboardBuilder[] getEnabledKeyboardsBuilders() -> b
     void makeKeyboards(boolean) -> a
-    void resetKeyboardsCache() -> c
+    void resetKeyboardsCache() -> i
     void setKeyboardMode(int,android.view.inputmethod.EditorInfo) -> a
     int getKeyboardMode(android.view.inputmethod.EditorInfo) -> b
-    boolean isAlphabetMode() -> d
+    boolean isAlphabetMode() -> c
     com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard nextAlphabetKeyboard(android.view.inputmethod.EditorInfo,java.lang.String) -> a
     com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard getLockedKeyboard(android.view.inputmethod.EditorInfo) -> c
     com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard nextAlphabetKeyboard(android.view.inputmethod.EditorInfo,boolean) -> a
     com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard nextSymbolsKeyboard(android.view.inputmethod.EditorInfo) -> d
     com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard setKeyboard(android.view.inputmethod.EditorInfo,com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard) -> a
-    com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard getCurrentKeyboard() -> e
+    com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard getCurrentKeyboard() -> d
     com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard getAlphabetKeyboard(int,int) -> b
     com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard nextKeyboard(android.view.inputmethod.EditorInfo,com.menny.android.anysoftkeyboard.KeyboardSwitcher$NextKeyboardType) -> a
     com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard nextAlterKeyboard(android.view.inputmethod.EditorInfo) -> a
-    boolean isCurrentKeyboardPhysical() -> f
-    void onLowMemory() -> g
-    boolean isRightToLeftMode() -> h
+    boolean isCurrentKeyboardPhysical() -> e
+    void onLowMemory() -> f
+    boolean isRightToLeftMode() -> g
     boolean isKeyRequireSwitchToAlphabet(int) -> a
-    boolean shouldPopupForLanguageSwitch() -> i
+    boolean shouldPopupForLanguageSwitch() -> h
 com.menny.android.anysoftkeyboard.KeyboardSwitcher$1 -> com.menny.android.anysoftkeyboard.n:
     int[] $SwitchMap$com$menny$android$anysoftkeyboard$KeyboardSwitcher$NextKeyboardType -> a
 com.menny.android.anysoftkeyboard.KeyboardSwitcher$NextKeyboardType -> com.menny.android.anysoftkeyboard.o:
@@ -364,9 +366,10 @@ com.menny.android.anysoftkeyboard.MainForm -> com.menny.android.anysoftkeyboard.
     void searchMarketForAddons(android.content.Context) -> a
     void startSettings(android.content.Context) -> b
 com.menny.android.anysoftkeyboard.MyMetaKeyKeyListener -> com.menny.android.anysoftkeyboard.p:
+    int getMetaState(long) -> a
     int getMetaState(long,int) -> a
-    int getActive$399925b9(long,int) -> d
-    long adjustMetaAfterKeypress(long) -> a
+    int getActive(long,int,int,int) -> a
+    long adjustMetaAfterKeypress(long) -> b
     long adjust(long,int,long) -> a
     long handleKeyDown$41e3bb3c(long,int) -> b
     long press(long,int,long) -> b
@@ -374,7 +377,10 @@ com.menny.android.anysoftkeyboard.MyMetaKeyKeyListener -> com.menny.android.anys
     long release(long,int,long) -> c
 com.menny.android.anysoftkeyboard.MySeekBarPreference -> com.menny.android.anysoftkeyboard.MySeekBarPreference:
     android.widget.SeekBar mSeekBar -> a
-    int mValue -> b
+    android.content.Context mContext -> b
+    int mDefault -> c
+    int mMax -> d
+    int mValue -> e
     android.view.View onCreateDialogView() -> onCreateDialogView
     void onBindDialogView(android.view.View) -> onBindDialogView
     void onSetInitialValue(boolean,java.lang.Object) -> onSetInitialValue
@@ -388,7 +394,7 @@ com.menny.android.anysoftkeyboard.SoftKeyboardSettings -> com.menny.android.anys
 com.menny.android.anysoftkeyboard.Suggest -> com.menny.android.anysoftkeyboard.q:
     com.menny.android.anysoftkeyboard.dictionary.Dictionary mMainDict -> a
     com.menny.android.anysoftkeyboard.dictionary.Dictionary mUserDictionary -> b
-    com.menny.android.anysoftkeyboard.dictionary.ContactsDictionary mContactsDictionary -> c
+    com.menny.android.anysoftkeyboard.dictionary.Dictionary mContactsDictionary -> c
     int mPrefMaxSuggestions -> d
     int[] mPriorities -> e
     java.util.List mSuggestions -> f
@@ -399,13 +405,13 @@ com.menny.android.anysoftkeyboard.Suggest -> com.menny.android.anysoftkeyboard.q
     int mCorrectionMode -> k
     void setCorrectionMode(int) -> a
     void setUserDictionary(com.menny.android.anysoftkeyboard.dictionary.Dictionary) -> a
-    void setContactsDictionary(com.menny.android.anysoftkeyboard.dictionary.ContactsDictionary) -> a
+    void setContactsDictionary(com.menny.android.anysoftkeyboard.dictionary.Dictionary) -> b
     boolean haveSufficientCommonality(java.lang.String,java.lang.CharSequence) -> a
     java.util.List getSuggestions$26952287(android.view.View,com.menny.android.anysoftkeyboard.WordComposer) -> a
     boolean hasMinimalCorrection() -> a
     boolean addWord(char[],int,int,int) -> a
     boolean isValidWord(java.lang.CharSequence) -> a
-    void setMainDictionary(com.menny.android.anysoftkeyboard.dictionary.Dictionary) -> b
+    void setMainDictionary(com.menny.android.anysoftkeyboard.dictionary.Dictionary) -> c
 com.menny.android.anysoftkeyboard.TextEntryState -> com.menny.android.anysoftkeyboard.r:
     int sBackspaceCount -> a
     int sAutoSuggestCount -> b
@@ -526,15 +532,16 @@ com.menny.android.anysoftkeyboard.dictionary.Dictionary -> com.menny.android.any
 com.menny.android.anysoftkeyboard.dictionary.Dictionary$WordCallback -> com.menny.android.anysoftkeyboard.dictionary.j:
     boolean addWord(char[],int,int,int) -> a
 com.menny.android.anysoftkeyboard.dictionary.DictionaryFactory -> com.menny.android.anysoftkeyboard.dictionary.k:
-    com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase msUserDictionary -> a
-    java.util.List msDictionaries -> b
-    java.util.Map msDictionariesById -> c
-    java.util.Map msDictionariesByLanguage -> d
-    com.menny.android.anysoftkeyboard.dictionary.ContactsDictionary contactsDictionary -> e
+    com.menny.android.anysoftkeyboard.dictionary.DictionaryFactory msFactory -> a
+    com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase msUserDictionary -> b
+    java.util.List msDictionaries -> c
+    java.util.Map msDictionariesById -> d
+    java.util.Map msDictionariesByLanguage -> e
     com.menny.android.anysoftkeyboard.dictionary.AutoDictionary autoDictionary -> f
     boolean $assertionsDisabled -> g
+    com.menny.android.anysoftkeyboard.dictionary.DictionaryFactory getInstance() -> a
     com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase createUserDictionary(com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider) -> a
-    com.menny.android.anysoftkeyboard.dictionary.ContactsDictionary createContactsDictionary(com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider) -> b
+    com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase createContactsDictionary(com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider) -> b
     com.menny.android.anysoftkeyboard.dictionary.AutoDictionary createAutoDictionary(com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider,com.menny.android.anysoftkeyboard.AnySoftKeyboard,java.lang.String) -> a
     com.menny.android.anysoftkeyboard.dictionary.Dictionary getDictionaryByLanguage(java.lang.String,com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider) -> a
     com.menny.android.anysoftkeyboard.dictionary.Dictionary getDictionaryById(java.lang.String,com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider) -> b
@@ -545,8 +552,8 @@ com.menny.android.anysoftkeyboard.dictionary.DictionaryFactory -> com.menny.andr
     void addDictionaryById(java.lang.String,com.menny.android.anysoftkeyboard.dictionary.Dictionary) -> b
     void removeDictionaryByLanguage(java.lang.String) -> a
     void removeDictionaryById(java.lang.String) -> b
-    void close() -> a
-    void releaseAllDictionaries() -> b
+    void close() -> b
+    void releaseAllDictionaries() -> c
     void onLowMemory(com.menny.android.anysoftkeyboard.dictionary.Dictionary) -> a
 com.menny.android.anysoftkeyboard.dictionary.DictionaryFactory$1 -> com.menny.android.anysoftkeyboard.dictionary.l:
     com.menny.android.anysoftkeyboard.dictionary.Dictionary val$dictToLoad -> a
@@ -554,8 +561,13 @@ com.menny.android.anysoftkeyboard.dictionary.DictionaryFactory$1 -> com.menny.an
     java.lang.String val$idFormat -> c
     java.lang.String val$id -> d
     java.lang.String val$language -> e
+    com.menny.android.anysoftkeyboard.dictionary.DictionaryFactory this$0 -> f
     void run() -> run
-com.menny.android.anysoftkeyboard.dictionary.DictionarySQLiteConnection -> com.menny.android.anysoftkeyboard.dictionary.m:
+com.menny.android.anysoftkeyboard.dictionary.DictionaryFactoryAPI5 -> com.menny.android.anysoftkeyboard.dictionary.m:
+    com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase contactsDictionary -> a
+    com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase createContactsDictionary(com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider) -> b
+    void close() -> b
+com.menny.android.anysoftkeyboard.dictionary.DictionarySQLiteConnection -> com.menny.android.anysoftkeyboard.dictionary.n:
     java.lang.String mTableName -> a
     java.lang.String mWordsColumnName -> b
     java.lang.String mFrequencyColumnName -> c
@@ -563,18 +575,19 @@ com.menny.android.anysoftkeyboard.dictionary.DictionarySQLiteConnection -> com.m
     void onUpgrade(android.database.sqlite.SQLiteDatabase,int,int) -> onUpgrade
     void addWord(java.lang.String,int) -> a
     java.util.List getAllWords() -> a
-com.menny.android.anysoftkeyboard.dictionary.DictionarySQLiteConnection$DictionaryWord -> com.menny.android.anysoftkeyboard.dictionary.n:
+com.menny.android.anysoftkeyboard.dictionary.DictionarySQLiteConnection$DictionaryWord -> com.menny.android.anysoftkeyboard.dictionary.o:
     java.lang.String mWord -> a
     int mFrequency -> b
     java.lang.String getWord() -> a
     int getFrequency() -> b
-com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory -> com.menny.android.anysoftkeyboard.dictionary.o:
+    com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory$KeyboardBuilder[] createAlphaBetKeyboards(com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider) -> a
+com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory -> com.menny.android.anysoftkeyboard.dictionary.p:
     java.util.ArrayList ms_creators -> a
     java.util.ArrayList parseDictionaryBuildersFromXml(android.content.Context,org.xmlpull.v1.XmlPullParser) -> a
     java.util.ArrayList getAllExternalDictionaryBuilders(android.content.Context) -> b
     void resetBuildersCache() -> a
     java.util.ArrayList getAllBuilders(android.content.Context) -> a
-com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory$DictionaryBuilder -> com.menny.android.anysoftkeyboard.dictionary.p:
+com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory$DictionaryBuilder -> com.menny.android.anysoftkeyboard.dictionary.q:
     java.lang.String mLanguage -> a
     java.lang.String mId -> b
     int mNameId -> c
@@ -586,16 +599,16 @@ com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory$Dictionar
     java.lang.String getLanguage() -> c
     java.lang.String getDictionaryName() -> d
     java.lang.String getDescription() -> e
-com.menny.android.anysoftkeyboard.dictionary.FallbackUserDictionary -> com.menny.android.anysoftkeyboard.dictionary.q:
+com.menny.android.anysoftkeyboard.dictionary.FallbackUserDictionary -> com.menny.android.anysoftkeyboard.dictionary.r:
     com.menny.android.anysoftkeyboard.dictionary.DictionarySQLiteConnection createStorage() -> c
-com.menny.android.anysoftkeyboard.dictionary.FallbackUserDictionary$FallBackSQLite -> com.menny.android.anysoftkeyboard.dictionary.r:
-com.menny.android.anysoftkeyboard.dictionary.SQLiteUserDictionaryBase -> com.menny.android.anysoftkeyboard.dictionary.s:
+com.menny.android.anysoftkeyboard.dictionary.FallbackUserDictionary$FallBackSQLite -> com.menny.android.anysoftkeyboard.dictionary.s:
+com.menny.android.anysoftkeyboard.dictionary.SQLiteUserDictionaryBase -> com.menny.android.anysoftkeyboard.dictionary.t:
     com.menny.android.anysoftkeyboard.dictionary.DictionarySQLiteConnection mStorage -> c
     void loadAllWords() -> b
     com.menny.android.anysoftkeyboard.dictionary.DictionarySQLiteConnection createStorage() -> c
     void AddWordToStorage(java.lang.String,int) -> a
     void closeAllResources() -> a
-com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase -> com.menny.android.anysoftkeyboard.dictionary.t:
+com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase -> com.menny.android.anysoftkeyboard.dictionary.u:
     android.content.Context mContext -> a
     com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase$NodeArray mRoots -> c
     int mMaxDepth -> d
@@ -619,12 +632,12 @@ com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase -> com.menny.and
     void clearDictionary() -> e
     int getWordFrequency(java.lang.CharSequence) -> a
     int getWordFrequencyRec(com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase$NodeArray,java.lang.CharSequence,int,int) -> b
-com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase$Node -> com.menny.android.anysoftkeyboard.dictionary.u:
+com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase$Node -> com.menny.android.anysoftkeyboard.dictionary.v:
     char code -> a
     int frequency -> b
     boolean terminal -> c
     com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase$NodeArray children -> d
-com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase$NodeArray -> com.menny.android.anysoftkeyboard.dictionary.v:
+com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase$NodeArray -> com.menny.android.anysoftkeyboard.dictionary.w:
     com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase$Node[] data -> a
     int length -> b
 com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard -> com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard:
@@ -653,21 +666,23 @@ com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard -> com.menny.android.any
     void setIconIfNeeded(android.inputmethodservice.Keyboard$Key,android.content.res.Resources,int,int) -> a
     void setKeyIcons(android.inputmethodservice.Keyboard$Key,android.content.res.Resources,int,int) -> b
     com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider getASKContext() -> b
-    java.lang.String getDefaultDictionaryLocale() -> c
+    android.content.Context getKeyboardContext() -> c
+    java.lang.String getDefaultDictionaryLocale() -> d
     android.inputmethodservice.Keyboard$Key createKeyFromXml(android.content.res.Resources,android.inputmethodservice.Keyboard$Row,int,int,android.content.res.XmlResourceParser) -> createKeyFromXml
     android.inputmethodservice.Keyboard$Row createRowFromXml(android.content.res.Resources,android.content.res.XmlResourceParser) -> createRowFromXml
     boolean isLetter(char) -> a
     void setImeOptions(android.content.res.Resources,android.view.inputmethod.EditorInfo) -> a
-    int getKeyboardNameResId() -> d
-    java.lang.String getKeyboardName() -> e
-    boolean isLeftToRightLanguage() -> f
+    int getKeyboardNameResId() -> e
+    java.lang.String getKeyboardName() -> f
+    boolean isLeftToRightLanguage() -> g
+    int getKeyboardIconResId() -> h
     void setShiftLocked(boolean) -> a
     boolean isShifted() -> isShifted
     boolean setShifted(boolean) -> setShifted
-    boolean isShiftLocked() -> g
+    boolean isShiftLocked() -> i
     void setPopupKeyChars(android.inputmethodservice.Keyboard$Key) -> a
-    java.lang.String getKeyboardPrefId() -> h
-    int getKeyboardMode() -> i
+    java.lang.String getKeyboardPrefId() -> j
+    int getKeyboardMode() -> k
 com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard$1 -> com.menny.android.anysoftkeyboard.keyboards.a:
     int mKeyCode -> a
     boolean mChanegd -> b
@@ -706,14 +721,16 @@ com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard$LessSensitiveAnyKey -> c
 com.menny.android.anysoftkeyboard.keyboards.ExternalAnyKeyboard -> com.menny.android.anysoftkeyboard.keyboards.f:
     java.lang.String mPrefId -> a
     int mNameResId -> b
-    java.lang.String mDefaultDictionary -> c
-    com.menny.android.anysoftkeyboard.keyboards.HardKeyboardSequenceHandler mHardKeyboardTranslator -> d
-    java.lang.String mAdditionalIsLetterExceptions -> e
+    int mIconId -> c
+    java.lang.String mDefaultDictionary -> d
+    com.menny.android.anysoftkeyboard.keyboards.HardKeyboardSequenceHandler mHardKeyboardTranslator -> e
+    java.lang.String mAdditionalIsLetterExceptions -> f
     com.menny.android.anysoftkeyboard.keyboards.HardKeyboardSequenceHandler createPhysicalTranslatorFromResourceId(android.content.Context,int) -> a
     int[] getKeyCodesFromPhysicalSequence(java.lang.String) -> a
-    java.lang.String getDefaultDictionaryLocale() -> c
-    java.lang.String getKeyboardPrefId() -> h
-    int getKeyboardNameResId() -> d
+    java.lang.String getDefaultDictionaryLocale() -> d
+    java.lang.String getKeyboardPrefId() -> j
+    int getKeyboardIconResId() -> h
+    int getKeyboardNameResId() -> e
     void translatePhysicalCharacter$6ce72c66(com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard$1) -> a
     boolean isLetter(char) -> a
     void setPopupKeyChars(android.inputmethodservice.Keyboard$Key) -> a
@@ -806,5 +823,4 @@ com.menny.android.anysoftkeyboard.tutorials.TutorialsProvider -> com.menny.andro
     java.util.ArrayList msActivitiesToShow -> a
     void ShowTutorialsIfNeeded(android.content.Context) -> a
     void onServiceDestroy() -> a
-    int getPackageVersion(android.content.Context) -> b
-    void showNotificationIcon(android.content.Context) -> c
+    void showNotificationIcon(android.content.Context) -> b

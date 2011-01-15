@@ -26,8 +26,7 @@ com.menny.android.anysoftkeyboard.AnySoftKeyboard:
     private static final int LAST_CHAR_SHIFT_STATE_UNKNOWN
     private static final int LAST_CHAR_SHIFT_STATE_UNSHIFTED
     private static final int LAST_CHAR_SHIFT_STATE_SHIFTED
-    1012:1019:private java.lang.String getMetaKeysStates(java.lang.String)
-    2397:2407:public void appendCharactersToInput(java.lang.CharSequence)
+    2394:2407:public void appendCharactersToInput(java.lang.CharSequence)
 com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration:
     public static final boolean DEBUG
     private static final java.lang.String TAG
@@ -107,7 +106,6 @@ com.menny.android.anysoftkeyboard.MyMetaKeyKeyListener:
     284:288:public static void clearMetaKeyState(android.text.Editable,int)
     295:298:public static long resetLockedMeta(long)
     302:305:private static long resetLock(long,int,long)
-    321:321:public static final int getMetaState(long)
     445:451:public long clearMetaKeyState(long,int)
 com.menny.android.anysoftkeyboard.MySeekBarPreference:
     private static final java.lang.String androidns
@@ -135,7 +133,6 @@ com.menny.android.anysoftkeyboard.Suggest:
     public static final int CORRECTION_FULL
     private static final java.lang.String TAG
     77:77:public int getCorrectionMode()
-    100:101:public void setAutoDictionary(com.menny.android.anysoftkeyboard.dictionary.Dictionary)
     111:121:public void setMaxSuggestions(int)
 com.menny.android.anysoftkeyboard.TextEntryState:
     public static final int STATE_UNKNOWN
@@ -233,7 +230,7 @@ com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard:
     private static final int SHIFT_OFF
     private static final int SHIFT_ON
     private static final int SHIFT_LOCKED
-    400:405:private void setIconIfNeeded(android.inputmethodservice.Keyboard$Key,android.content.res.Resources,int,int,int)
+    401:406:private void setIconIfNeeded(android.inputmethodservice.Keyboard$Key,android.content.res.Resources,int,int,int)
 com.menny.android.anysoftkeyboard.keyboards.DefaultDictionarySelector
 com.menny.android.anysoftkeyboard.keyboards.DictionarySelector
 com.menny.android.anysoftkeyboard.keyboards.ExternalAnyKeyboard:
@@ -263,7 +260,8 @@ com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory:
     private static final java.lang.String XML_PHYSICAL_TRANSLATION_RES_ID_ATTRIBUTE
     private static final java.lang.String XML_DESCRIPTION_ATTRIBUTE
     private static final java.lang.String XML_INDEX_ATTRIBUTE
-    137:137:public static synchronized void onPackageSetupChanged(java.lang.String)
+    private static final java.lang.String XML_DEFAULT_ATTRIBUTE
+    146:146:public static synchronized void onPackageSetupChanged(java.lang.String)
 com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory$KeyboardBuilder:
     public static final java.lang.String RECEIVER_INTERFACE
     public static final java.lang.String RECEIVER_META_DATA
