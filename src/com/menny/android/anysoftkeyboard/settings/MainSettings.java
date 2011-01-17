@@ -28,6 +28,20 @@ public class MainSettings extends PreferenceActivity {
 
 		final Preference label = super.findPreference("prefs_title_key");
 		label.setSummary(label.getSummary()+version);
+		
+		final Preference helper = (Preference)super.findPreference("prefs_help_key");
+		helper.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+			public boolean onPreferenceClick(Preference preference) {
+				if (preference.getKey().equals("prefs_help_key"))
+				{
+						//http://s.evendanan.net/ask_settings
+						Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse("http://s.evendanan.net/ask_settings"));
+						startActivity(browserIntent);
+						return true;
+				}
+				return false;
+			}
+		});
 	}
 
 	public static PackageInfo getPackageInfo(Context context) throws NameNotFoundException {
