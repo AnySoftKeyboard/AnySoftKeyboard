@@ -1,11 +1,13 @@
-
 package com.menny.android.anysoftkeyboard.settings;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.util.Log;
 
@@ -35,7 +37,7 @@ public class MainSettings extends PreferenceActivity {
 				if (preference.getKey().equals("prefs_help_key"))
 				{
 						//http://s.evendanan.net/ask_settings
-						Intent browserIntent = new Intent("android.intent.action.VIEW", Uri.parse("http://s.evendanan.net/ask_settings"));
+						Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://s.evendanan.net/ask_settings"));
 						startActivity(browserIntent);
 						return true;
 				}
