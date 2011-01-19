@@ -231,6 +231,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		super.onCreate();
 		// super.showStatusIcon(R.drawable.icon_8_key);
 		Log.i("AnySoftKeyboard", "****** AnySoftKeyboard service started.");
+		Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(getApplication(), null));
 		
 		// showToastMessage(R.string.toast_lengthy_start_up_operation, true);
 		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
