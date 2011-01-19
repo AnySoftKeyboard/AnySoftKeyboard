@@ -62,7 +62,7 @@ public class TutorialsProvider
 		}
 		
 		if (!linearSearch( Secure.getString(context.getContentResolver(), Secure.ENABLED_INPUT_METHODS).split(":"),
-				context.getApplicationInfo().packageName ) )
+				context.getPackageName() ) )
 		{
 			//ASK is not enabled, but installed. Has the user forgot how to turn it on?
 			if (AnyApplication.getConfig().getShowVersionNotification() && firstTimeVersionLoaded(context))
