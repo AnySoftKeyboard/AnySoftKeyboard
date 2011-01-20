@@ -20,9 +20,9 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 
 	private final UncaughtExceptionHandler mOsDefaultHandler;
 
-	private final Application mApp;
+	private final Context mApp;
 	
-	public ChewbaccaUncaughtExceptionHandler(Application app, UncaughtExceptionHandler previous)
+	public ChewbaccaUncaughtExceptionHandler(Context app, UncaughtExceptionHandler previous)
 	{
 		mApp = app;
 		mOsDefaultHandler = previous;
@@ -36,13 +36,14 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 			Notification notification = new Notification();
 
 			Intent notificationIntent = new Intent();
-			notificationIntent = new Intent(mApp.getBaseContext(), SendBugReportUiActivity.class);
+			notificationIntent = new Intent(mApp, SendBugReportUiActivity.class);
 			
 			String appName = mApp.getText(R.string.ime_name).toString();
 			try {
 				PackageInfo info = mApp.getPackageManager().getPackageInfo(mApp.getPackageName(), 0);
 				appName = appName + " v"+info.versionName+" release "+info.versionCode;
 			} catch (NameNotFoundException e) {
+				appName = "NA";
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -60,10 +61,10 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 	        
 			notificationIntent.putExtra(SendBugReportUiActivity.CRASH_REPORT_TEXT, logText);
 			
-			PendingIntent contentIntent = PendingIntent.getActivity(mApp.getBaseContext(), 0,
+			PendingIntent contentIntent = PendingIntent.getActivity(mApp, 0,
 					notificationIntent, 0);
 
-			notification.setLatestEventInfo(mApp.getBaseContext(), 
+			notification.setLatestEventInfo(mApp, 
 					mApp.getText(R.string.ime_name), 
 					"Caught an unhandled exception!",
 					contentIntent);
@@ -81,6 +82,8 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 			Log.i(TAG, "Sending the exception to OS exception handler...");
 			mOsDefaultHandler.uncaughtException(thread, ex);
 		}
+		
+		System.exit(0);
 	}
 
 	private String getLogcat() {

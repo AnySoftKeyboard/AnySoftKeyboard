@@ -1,4 +1,3 @@
--dontobfuscate
 -optimizationpasses 5
 -dontusemixedcaseclassnames
 -dontskipnonpubliclibraryclasses
