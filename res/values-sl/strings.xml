@@ -1,141 +1,225 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="ime_name">AnySoftKeyboard</string>
-    
-    <string name="main_tab_welcome">Dobrodo&#353;li</string>
-    <string name="main_tab_links">Povezave</string>
-    <string name="main_tab_credits">Sodelujo&#269;i</string>
-    <!-- welcome tab -->
-	<string name="how_to_pointer_title">Dobrodo&#353;li v AnySoftKeyboard</string>
-	<string name="how_to_pointer_version_prefix">Razli&#269;ica: </string>
-	<string name="how_to_pointer_not_app">AnySoftKeyboard ni obi&#269;ajna aplikacija - je nadomestek za ekransko tipkovnico.</string>
-	<string name="how_to_pointer_go_to_links">Za dodatne informacije pojdite na jezi&#269;ek s povezavami.</string>
-	<!-- links tab -->
-	<string name="how_to_pointer_how_to_url">Podrobnosti o uporabi te tipkovnice:</string>
-	<string name="how_to_pointer_site">Splo&#353;ne podrobnosti:</string>
-	<string name="how_to_pointer_changelog">Podrobnosti o zadnji razli&#269;ici:</string>
-	<string name="how_to_pointer_issues">>Poro&#269;anje o hro&#353;&#269;ih:</string>
-	<!-- credits tab -->
-	<string name="main_tab_credits_title">Ta aplikacija je bila narejena s pomo&#269;jo slede&#269;ih oseb-</string>
-	<string name="main_tab_credits_created_by">Ustvaril jo je:</string>
-	<string name="main_tab_credits_additional_work_by">Dodatno programersko delo je od:</string>
-	<string name="main_tab_credits_localization_by">Pri lokalizaciji so pomagali:</string>
-	<string name="main_tab_credits_GUI_by">UI slike je prispeval:</string>
-	
-    <!-- Symbols that are commonly considered word separators in this language -->
-    <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
-    <!-- Indicates that a word has been added to the dictionary -->
-    <string name="added_word"><xliff:g id="word">%s</xliff:g> :Shranjeno</string>
-    
-    <!-- settings - UI -->
-    <string name="ui_group">Uporabni&#353;ki vmesnik</string>
-    <string name="keyboard_layout_change_keys_size_title">Tipke za spremembo postavitve</string>
-    <string name="keyboard_layout_change_keys_size_summary">Velikost tipk na zaslonski tipkovnici</string>
-    <string name="keyboard_layout_change_keys_size_dialog_title">Izberi velikost</string>
-    <string-array name="keyboard_layout_keys_size">
-        <item>Brez</item>
-        <item>Majhna</item>
-        <item>Velika</item>
-    </string-array>
-    
-    <string name="physical_keyboard_change_notification_title">Obvestilo o postavitvni tipkovnice</string>
-    <string name="physical_keyboard_change_notification_summary">Tip obvestila o aktivni postavitvi tipkovnice</string>
-    <string name="physical_keyboard_change_notification_dialog_title">Izberi tip obvestila</string>
-    <string-array name="physical_keyboard_change_notification_types">
-        <item>Vedno prika&#382;i ikono postavitve</item>
-        <item>Spremembe na fizi&#269;ni tipkovnici</item>
-        <item>Brez obvestil</item>
-    </string-array>
-    
-    <string name="lengthy_operations_toast_notification">Obvesti me o dolgih operacijah</string>
-    <string name="lengthy_operations_toast_notification_summary">Prika&#382;i kratko obvestilo o dolgih operacijah</string>
-    
-    <!-- Options menu -->
-    <string name="change_ime">Spremeni vnosni na&#269;in</string>
-    <string name="override_dictionary">Prepi&#353;i privzeti slovar</string>
-    <!-- Dictionary override strings -->
-    <string name="override_dictionary_title">Prepi&#353;i <xliff:g id="word">%s</xliff:g> dictionary</string>
-    <string name="override_dictionary_default">Privzeti</string>
-    <!-- Dictionary override toast messages -->
-    <string name="override_disabled">Prepisovanje preklicano</string>
-    <string name="override_enabled">Prepisujem v <xliff:g id="word">%s</xliff:g></string>
-    
-    <!-- settings - effects-->
-    <string name="effects_group">U&#269;inki</string>
-    <string name="ime_settings">Nastavitve tipkovnice</string>
-    <!-- <string name="vibrate_on">Vibriraj ob pritisku tipke</string>-->
-    <string name="vibrate_on_key_press_title">Vibriraj ob pritisku tipke</string>
-    <string name="vibrate_on_key_press_summary">Izberi tip vibracije</string>
-    <string name="vibrate_on_key_press_dialog_title">Izberi trajanje vibracije</string>
-    <string-array name="vibrate_on_key_press_types">
-    	<item>Brez vibracije</item>
-        <item>Mehko</item>
-        <item>Srednje</item>
-        <item>Mo&#269;no</item>
-    </string-array>
-    
-    <string name="sound_on">Zvok ob pritisku tipke</string>
-    <string name="sound_on_summary">Zvo&#269;ni u&#269;inki ob pritisku na zaslonsko tipkovnico.</string>
-    <string name="use_custom_sound_volume">Nastavi glasnost po meri</string>
-    <string name="use_custom_sound_volume_on_summary">Glasnost zvo&#269;nih u&#269;inkov je po meri.</string>
-    <string name="use_custom_sound_volume_off_summary">Glasnost zvo&#269;nih u&#269;inkov je glasnost sistemskih obvestil.</string>
-    <string name="custom_sound_volume">Po meri glasnost pritiska na tipko</string>
-    
-    <string name="tweaks_group">Tweaks</string>
-    <string name="use_keyrepeat">Uporabi ponavljanje tip</string>
-    <string name="use_keyrepeat_on_summary">Ponavljanje tip je omogo&#269;eno</string>
-    <string name="use_keyrepeat_off_summary">Ponavljanje tipk je onemogo&#269;eno</string>    
-    <string name="emoticon_long_press_opens_popup">Dolg pritisk prika&#382;e sme&#353;ke</string>
-    <string name="emoticon_long_press_opens_popup_on_summary">&#268;ustvene ikone prika&#382;i ob dolgem pritisku</string>
-    <string name="emoticon_long_press_opens_popup_off_summary">&#268;ustvene ikone prika&#382;i ob kratkem pritisku</string>
-    <string name="default_smiley_text">Tekst sme&#353;kov</string>
-    <string name="default_domain_text">Tekst domen</string>
-    <string name="key_press_preview_popup">Prikaz predogleda tipk</string>
-    <string name="key_press_preview_popup_on_summary">Prika&#382;i pojavno okno ob pritisku tipke</string>
-    <string name="key_press_preview_popup_off_summary">Ne prika&#382;i pojavnega okna ob pritisku tipke</string>
-    <string name="switch_keyboard_on_space">Preklop tipkovnice s preslednico</string>
-    <string name="switch_keyboard_on_space_on_summary">Preklopi iz simbolov v &#269;rke ko pritisne&#353; preslednico</string>
-    <string name="switch_keyboard_on_space_off_summary">Ne preklopi iz simbolov na &#269;rke ko pritisne&#353; preslednico</string>
-    <string name="fullscreen_input_connection_supported">Uporabi celozaslonski vnos</string>
-    <string name="fullscreen_input_connection_supported_on_summary">Celozaslonski vnos v le&#382;e&#269;em na&#269;inu</string>
-    <string name="fullscreen_input_connection_supported_off_summary">Nikoli ne uporabi celozaslonskega vnosa</string>
-    <string name="zoom_factor_keys_in_portrait">Faktor vi&#353;ine tipk v pokon&#269;nem na&#269;inu</string>
-    <string name="zoom_factor_keys_in_landscape">Faktor vi&#353;ine tipk v le&#382;e&#269;em na&#269;inu</string>
-    
-    <string name="auto_caps">Samodejno velike &#269;rke</string>
-    <string name="grammer_group">Slovnica</string>
-    <string name="candidates_on">Prika&#382;i predloge</string>
-    <string name="quick_fix">Hitri popravki</string>
-    <string name="quick_fix_summary">Popravi obi&#269;ajne tipkarske napake</string>
-    <string name="auto_complete">Samodejna izbira predloga</string>
-    <string name="auto_complete_summary">Presledek bo izbral ozna&#269;en predlog</string>
-    <string name="physical_keyboard_suggestions">Predlogi za fizi&#269;no tipkovnico</string>
-    <string name="physical_keyboard_suggestions_summary">Prika&#382;i predloge ko je v uporabi fizi&#269;na tipkovnica</string>
-    <string name="keyboard_sandbox">Pritisni za testiranje vnosa besedila</string>
-    <string name="keyboard_sandbox_title">Tipkaj za testiranje tvojih nastavitev</string>
-    <!-- settings - keyboard group -->
-    <string name="keyboards_group">Tipkovnice</string>
-    <string name="eng_keyboard">Angle&#353;ka</string>
-    
-    <!-- Tutorials --> 
-    <string name="show_tutorial_on_startup">Prika&#382;i ta navodila ob zagonu</string>
-    <string name="tutorial_swipe_title">Drsenje po ekranu za spremembo tipkovnice</string>
-    <string name="tutorial_swipe_text">Postavitev tipkovnice se lahko spremeni z drsenjem prsta &#269;ez tipkovnico. Drsenje od leve proti desni za spremembo jezika, drsenje od desne proti levi za spremembo simbolov.</string>
-    
-    <!-- Special soft keyboard keys text -->
-    <string name="label_go_key">Pojdi</string>
-    <string name="label_next_key">Naslednji</string>
-    <string name="label_send_key">Po&#353;lji</string>
-    
-    <string name="change_lang_wide">&#8594; ABC &#8594;</string>
-    <string name="change_lang_regular">ABC</string>
-    <string name="change_symbols_wide">&#8592; 123 &#8592;</string>
-    <string name="change_symbols_regular">123</string>
-    
-    <string name="please_wait">Prosimo po&#269;akajte</string>
-    <string name="toast_lengthy_words_long_operation">Nalagam slovar...</string>
-    <string name="toast_lengthy_start_up_operation">Zaganjam AnySoftKeyboard...</string>
-    <string name="lengthy_creating_keyboard_operation">Ustvarjam tipkovnice...</string>
+<!--Generated with crowdin.net-->
+<resources>
+  <string name="ime_name">AnySoftKeyboard</string>
+  <string name="main_tab_welcome">Dobrodošli</string>
+  <string name="main_tab_links">Povezave</string>
+  <string name="main_tab_credits">Sodelujoči</string>
+  <string name="how_to_pointer_title">Dobrodošli v AnySoftKeyboard</string>
+  <string name="how_to_pointer_version_prefix">Različica: </string>
+  <string name="how_to_pointer_not_app">AnySoftKeyboard ni običajna aplikacija - je nadomestek za ekransko tipkovnico.</string>
+  <string name="how_to_pointer_go_to_links">Za dodatne informacije pojdite na jeziček s povezavami.</string>
+  <string name="how_to_pointer_how_to_url">Podrobnosti o uporabi te tipkovnice:</string>
+  <string name="how_to_pointer_site">Splošne podrobnosti:</string>
+  <string name="how_to_pointer_changelog">Podrobnosti o zadnji različici:</string>
+  <string name="how_to_pointer_issues">&amp;gt;Poročanje o hroščih:</string>
+  <string name="main_tab_credits_title">Ta aplikacija je bila narejena s pomočjo sledečih oseb-</string>
+  <string name="main_tab_credits_created_by">Ustvaril jo je:</string>
+  <string name="main_tab_credits_additional_work_by">Dodatno programersko delo je od:</string>
+  <string name="main_tab_credits_localization_by">Pri lokalizaciji so pomagali:</string>
+  <string name="main_tab_credits_GUI_by">UI slike je prispeval:</string>
+  <string name="how_to_simple_howto">To enable AnySoftKeyboard, go to Android's Settings and select 'Locale&amp;amp;text' and turn on AnySoftKeyboard. It will warn you about possible key-logging, don't worry, we do not keep data, and we do not send it anywere.\nTo actually use AnySoftKeyboard, you'll need to activate it: in any textbox (e.g., Messagings TO field), and long-press it. A dialog will pop-up, select 'Input Method', and then AnySoftKeyboard.\nThat's it!</string>
+  <string name="notification_text">Welcome! Please, read me.</string>
+  <string name="testers_version">Testers version!</string>
+  <string name="license_title">License</string>
+  <string name="license_text">This software is licensed under Apache2 (c) 2010 Menny Even-Danan</string>
+  <string name="about">About</string>
+  <string name="changelog">Changelog</string>
+  <string name="search_market_for_addons">Search for add-ons</string>
+  <string name="added_word">&lt;xliff:g id="word"&gt;%s&lt;/xliff:g&gt; :Shranjeno</string>
+  <string name="menu_insert_smiley">Insert emoticon</string>
+  <string name="click_for_help">Help</string>
+  <string name="click_for_help_summary">Press for on-line help</string>
+  <string name="ui_group">Uporabniški vmesnik</string>
+  <string name="keyboard_layout_change_keys_size_title">Tipke za spremembo postavitve</string>
+  <string name="keyboard_layout_change_keys_size_summary">Velikost tipk na zaslonski tipkovnici</string>
+  <string name="keyboard_layout_change_keys_size_dialog_title">Izberi velikost</string>
+  <string name="physical_keyboard_change_notification_title">Obvestilo o postavitvni tipkovnice</string>
+  <string name="physical_keyboard_change_notification_summary">Tip obvestila o aktivni postavitvi tipkovnice</string>
+  <string name="physical_keyboard_change_notification_dialog_title">Izberi tip obvestila</string>
+  <string name="lengthy_operations_toast_notification">Obvesti me o dolgih operacijah</string>
+  <string name="lengthy_operations_toast_notification_summary">Prikaži kratko obvestilo o dolgih operacijah</string>
+  <string name="change_ime">Spremeni vnosni način</string>
+  <string name="override_dictionary">Prepiši privzeti slovar</string>
+  <string name="override_dictionary_title">Prepiši &lt;xliff:g id="word"&gt;%s&lt;/xliff:g&gt; dictionary</string>
+  <string name="override_dictionary_default">Privzeti</string>
+  <string name="override_disabled">Prepisovanje preklicano</string>
+  <string name="override_enabled">Prepisujem v &lt;xliff:g id="word"&gt;%s&lt;/xliff:g&gt;</string>
+  <string name="effects_group">Učinki</string>
+  <string name="ime_settings">Nastavitve tipkovnice</string>
+  <string name="vibrate_on_key_press_title">Vibriraj ob pritisku tipke</string>
+  <string name="vibrate_on_key_press_summary">Izberi tip vibracije</string>
+  <string name="vibrate_on_key_press_dialog_title">Izberi trajanje vibracije</string>
+  <string name="sound_on">Zvok ob pritisku tipke</string>
+  <string name="sound_on_summary">Zvočni učinki ob pritisku na zaslonsko tipkovnico.</string>
+  <string name="use_custom_sound_volume">Nastavi glasnost po meri</string>
+  <string name="use_custom_sound_volume_on_summary">Glasnost zvočnih učinkov je po meri.</string>
+  <string name="use_custom_sound_volume_off_summary">Glasnost zvočnih učinkov je glasnost sistemskih obvestil.</string>
+  <string name="custom_sound_volume">Po meri glasnost pritiska na tipko</string>
+  <string name="speacial_fetures_group">Special features</string>
+  <string name="switch_keyboard_on_space">Preklop tipkovnice s preslednico</string>
+  <string name="switch_keyboard_on_space_on_summary">Preklopi iz simbolov v črke ko pritisneš preslednico</string>
+  <string name="switch_keyboard_on_space_off_summary">Ne preklopi iz simbolov na črke ko pritisneš preslednico</string>
+  <string name="fullscreen_input_connection_supported">Uporabi celozaslonski vnos</string>
+  <string name="fullscreen_input_connection_supported_on_summary">Celozaslonski vnos v ležečem načinu</string>
+  <string name="fullscreen_input_connection_supported_off_summary">Nikoli ne uporabi celozaslonskega vnosa</string>
+  <string name="fullscreen_portrait_input_connection_supported">Use portrait full-screen</string>
+  <string name="fullscreen_portrait_input_connection_supported_on_summary">Full-screen input in portrait</string>
+  <string name="fullscreen_portrait_input_connection_supported_off_summary">Do not use full-screen input in portrait</string>
+  <string name="backword_support">Back-word support</string>
+  <string name="backword_support_on_summary">Shifted Backspace will delete the last word</string>
+  <string name="backword_support_off_summary">Shifted Backspace will delete the last character</string>
+  <string name="swipe_tweak_group">Change swipe gesture actions</string>
+  <string name="swipe_up_action">Swipe up</string>
+  <string name="swipe_up_action_summary">Define the swipe up gesture action</string>
+  <string name="swipe_up_action_title">Select swipe up action</string>
+  <string name="swipe_down_action">Swipe down</string>
+  <string name="swipe_down_action_summary">Define the swipe down gesture action</string>
+  <string name="swipe_down_action_title">Select swipe down action</string>
+  <string name="swipe_left_action">Swipe left</string>
+  <string name="swipe_left_action_summary">Define the swipe left gesture action</string>
+  <string name="swipe_left_action_title">Select swipe left action</string>
+  <string name="swipe_right_action">Swipe right</string>
+  <string name="swipe_right_action_summary">Define the swipe right gesture action</string>
+  <string name="swipe_right_action_title">Select swipe right action</string>
+  <string name="hardware_keys_group">Hardware keys mapping</string>
+  <string name="volume_key_for_left_right_support">Volume key for left/right</string>
+  <string name="volume_key_for_left_right_support_on_summary">Disable left/right via volume up/down</string>
+  <string name="volume_key_for_left_right_support_off_summary">Volume up turns cursor left, volume down turns cursor right</string>
+  <string name="camera_key_for_backspace_backword_support">Use Camera key for backspace/backword</string>
+  <string name="camera_key_for_backspace_backword_support_on_summary">Restore the camera key function</string>
+  <string name="camera_key_for_backspace_backword_support_off_summary">Half press on camera button deletes last character, full press deletes last word</string>
+  <string name="special_dictionaries_group">Special dictionaries</string>
+  <string name="use_user_dictionary">User dictionary</string>
+  <string name="use_user_dictionary_on_summary">Suggest user added words (long press on suggestion to add)</string>
+  <string name="use_user_dictionary_off_summary">&lt;string name="use_user_dictionary_off_summary"/&gt;</string>
+  <string name="use_auto_dictionary">Auto dictionary</string>
+  <string name="use_auto_dictionary_on_summary">Suggest frequently used words too</string>
+  <string name="use_auto_dictionary_off_summary">&lt;string name="use_auto_dictionary_off_summary"/&gt;</string>
+  <string name="use_contacts_dictionary">Contacts dictionary</string>
+  <string name="use_contacts_dictionary_on_summary">Suggest names from contacts list</string>
+  <string name="use_contacts_dictionary_off_summary">&lt;string name="use_contacts_dictionary_off_summary"/&gt;</string>
+  <string name="tweaks_group">Tweaks</string>
+  <string name="show_new_version_notifications_again">Show new version notifications</string>
+  <string name="show_new_version_notifications_again_on_summary">Upon installing a new version, a change-log will be shown</string>
+  <string name="show_new_version_notifications_again_off_summary">Will not notify you when a new version is installed</string>
+  <string name="use_keyrepeat">Uporabi ponavljanje tip</string>
+  <string name="use_keyrepeat_on_summary">Ponavljanje tip je omogočeno</string>
+  <string name="use_keyrepeat_off_summary">Ponavljanje tipk je onemogočeno</string>
+  <string name="emoticon_long_press_opens_popup">Dolg pritisk prikaže smeške</string>
+  <string name="emoticon_long_press_opens_popup_on_summary">Čustvene ikone prikaži ob dolgem pritisku</string>
+  <string name="emoticon_long_press_opens_popup_off_summary">Čustvene ikone prikaži ob kratkem pritisku</string>
+  <string name="emoticon_popup_type_title">Emoticon popup type</string>
+  <string name="emoticon_popup_type_summary">Select the type of popup to show for emoticon selection</string>
+  <string name="default_smiley_text">Tekst smeškov</string>
+  <string name="default_domain_text">Tekst domen</string>
+  <string name="smiley_icon_on_smileys_key">Use icon for smiley key</string>
+  <string name="smiley_icon_on_smileys_key_on_summary">Icon will be drawn on smiley key</string>
+  <string name="smiley_icon_on_smileys_key_off_summary">Smiley default text will be drawn on smiley key</string>
+  <string name="key_press_preview_popup">Prikaz predogleda tipk</string>
+  <string name="key_press_preview_popup_on_summary">Prikaži pojavno okno ob pritisku tipke</string>
+  <string name="key_press_preview_popup_off_summary">Ne prikaži pojavnega okna ob pritisku tipke</string>
+  <string name="zoom_factor_keys_in_portrait">Faktor višine tipk v pokončnem načinu</string>
+  <string name="zoom_factor_keys_in_landscape">Faktor višine tipk v ležečem načinu</string>
+  <string name="insert_space_after_word_suggestion_selection">Space after candidate pick</string>
+  <string name="insert_space_after_word_suggestion_selection_on_summary">Insert space after word suggestion select</string>
+  <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
+  <string name="double_space_to_period">Double space to period</string>
+  <string name="double_space_to_period_summary">Double space tap will become period+space</string>
+  <string name="action_key_invisible_on_disable">Invisible action key</string>
+  <string name="action_key_invisible_on_disable_on_summary">Action key will be invisible when GUI requests</string>
+  <string name="action_key_invisible_on_disable_off_summary">Action key will be visible even if GUI requests</string>
+  <string name="cycle_all_symbols_keyboards">Cycle over all symbols</string>
+  <string name="cycle_all_symbols_keyboards_on_summary">Symbols key will cycle over all symbols keyboards</string>
+  <string name="cycle_all_symbols_keyboards_off_summary">Symbols key will only show main symbols keyboard</string>
+  <string name="rtl_workaround_detection_title">RTL detection type</string>
+  <string name="rtl_workaround_detection_summary">Right-to-Left languages text fix</string>
+  <string name="lang_key_shows_popup">Language switch by popup</string>
+  <string name="lang_key_shows_popup_on_summary">Language key will pop-up a selection dialog</string>
+  <string name="lang_key_shows_popup_off_summary">Language key will cycle languages</string>
+  <string name="auto_caps">Samodejno velike črke</string>
+  <string name="grammer_group">Slovnica</string>
+  <string name="candidates_on">Prikaži predloge</string>
+  <string name="quick_fix">Hitri popravki</string>
+  <string name="quick_fix_summary">Popravi običajne tipkarske napake</string>
+  <string name="auto_complete">Samodejna izbira predloga</string>
+  <string name="auto_complete_summary">Presledek bo izbral označen predlog</string>
+  <string name="physical_keyboard_suggestions">Predlogi za fizično tipkovnico</string>
+  <string name="physical_keyboard_suggestions_summary">Prikaži predloge ko je v uporabi fizična tipkovnica</string>
+  <string name="keyboard_sandbox">Pritisni za testiranje vnosa besedila</string>
+  <string name="keyboard_sandbox_title">Tipkaj za testiranje tvojih nastavitev</string>
+  <string name="contacts_dict">Contacts dictionary</string>
+  <string name="contacts_dict_summary">Include contact names in suggestions</string>
+  <string name="auto_dict">Auto dictionary</string>
+  <string name="auto_dict_summary">Add commonly used or selected words automatically to the dictionary</string>
+  <string name="keyboards_group">Tipkovnice</string>
+  <string name="symbols_keyboard">Symbols</string>
+  <string name="eng_keyboard">Angleška</string>
+  <string name="eng_keyboard_16keys">16 Keys English</string>
+  <string name="show_tutorial_on_startup">Prikaži ta navodila ob zagonu</string>
+  <string name="tutorial_swipe_title">Drsenje po ekranu za spremembo tipkovnice</string>
+  <string name="tutorial_swipe_text">Postavitev tipkovnice se lahko spremeni z drsenjem prsta čez tipkovnico. Drsenje od leve proti desni za spremembo jezika, drsenje od desne proti levi za spremembo simbolov.</string>
+  <string name="label_go_key">Pojdi</string>
+  <string name="label_next_key">Naslednji</string>
+  <string name="label_send_key">Pošlji</string>
+  <string name="label_done_key">Done</string>
+  <string name="change_lang_wide">→ ABC →</string>
+  <string name="change_lang_regular">ABC</string>
+  <string name="change_symbols_wide">← 123 ←</string>
+  <string name="change_symbols_regular">123</string>
+  <string name="please_wait">Prosimo počakajte</string>
+  <string name="toast_lengthy_words_long_operation">Nalagam slovar...</string>
+  <string name="toast_lengthy_start_up_operation">Zaganjam AnySoftKeyboard...</string>
+  <string name="lengthy_creating_keyboard_operation">Ustvarjam tipkovnice...</string>
+  <string name="select_keyboard_popup_title">Select keyboard</string>
+  <string name="eng_dictionary">English</string>
+  <string-array name="keyboard_layout_keys_size">
+    <item>Brez</item>
+    <item>Majhna</item>
+    <item>Velika</item>
+  </string-array>
+  <string-array name="physical_keyboard_change_notification_types">
+    <item>Vedno prikaži ikono postavitve</item>
+    <item>Spremembe na fizični tipkovnici</item>
+    <item>Brez obvestil</item>
+  </string-array>
+  <string-array name="vibrate_on_key_press_types">
+    <item>Brez vibracije</item>
+    <item>Mehko</item>
+    <item>Srednje</item>
+    <item>Močno</item>
+  </string-array>
+  <string-array name="swipe_action_types">
+    <item>No action</item>
+    <item>Next alphabet keyboard</item>
+    <item>Next symbols keyboard</item>
+    <item>Cycle through all keyboards</item>
+    <item>Reverse cycle through all keyboards</item>
+    <item>Shift</item>
+    <item>Hide keyboard</item>
+    <item>Back-space</item>
+    <item>Move cursor up</item>
+    <item>Move cursor down</item>
+    <item>Move cursor left</item>
+    <item>Move cursor right</item>
+  </string-array>
+  <string-array name="smiley_names">
+    <item>Happy</item>
+    <item>Sad</item>
+    <item>Winking</item>
+    <item>Tongue sticking out</item>
+    <item>Surprised</item>
+    <item>Kissing</item>
+    <item>Yelling</item>
+    <item>Cool</item>
+    <item>Money mouth</item>
+    <item>Foot in mouth</item>
+    <item>Embarrassed</item>
+    <item>Angel</item>
+    <item>Undecided</item>
+    <item>Crying</item>
+    <item>Lips are sealed</item>
+    <item>Laughing</item>
+    <item>Confused</item>
+  </string-array>
 </resources>
-

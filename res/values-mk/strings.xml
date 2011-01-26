@@ -18,8 +18,12 @@
   <string name="main_tab_credits_additional_work_by">Дополнително кодирање од:</string>
   <string name="main_tab_credits_localization_by">Локализација од:</string>
   <string name="main_tab_credits_GUI_by">UI слики од:</string>
+  <string name="how_to_simple_howto">To enable AnySoftKeyboard, go to Android's Settings and select 'Locale&amp;amp;text' and turn on AnySoftKeyboard. It will warn you about possible key-logging, don't worry, we do not keep data, and we do not send it anywere.\nTo actually use AnySoftKeyboard, you'll need to activate it: in any textbox (e.g., Messagings TO field), and long-press it. A dialog will pop-up, select 'Input Method', and then AnySoftKeyboard.\nThat's it!</string>
   <string name="notification_text">Здраво! Те молам прочитај ме.</string>
   <string name="testers_version">Верзија за тестирање!</string>
+  <string name="license_title">License</string>
+  <string name="license_text">This software is licensed under Apache2 (c) 2010 Menny Even-Danan</string>
+  <string name="about">About</string>
   <string name="changelog">Листа на измени</string>
   <string name="search_market_for_addons">Пребарај додатоци</string>
   <string name="added_word"> : Зачувано</string>
@@ -59,15 +63,12 @@
   <string name="fullscreen_input_connection_supported">Користи цел екран за внесување</string>
   <string name="fullscreen_input_connection_supported_on_summary">Цел екран за внесување во лендскејп мод</string>
   <string name="fullscreen_input_connection_supported_off_summary">Не користи цел екран за внесување</string>
+  <string name="fullscreen_portrait_input_connection_supported">Use portrait full-screen</string>
+  <string name="fullscreen_portrait_input_connection_supported_on_summary">Full-screen input in portrait</string>
+  <string name="fullscreen_portrait_input_connection_supported_off_summary">Do not use full-screen input in portrait</string>
   <string name="backword_support">Back-word поддршка</string>
   <string name="backword_support_on_summary">Backspace со Shift ќе го избрише последниот збор</string>
   <string name="backword_support_off_summary">Backspace со Shift ќе го избрише последниот карактер</string>
-  <string name="volume_key_for_left_right_support">Лево и десно преку копче за јачина</string>
-  <string name="volume_key_for_left_right_support_on_summary">Оневозможи лево и десно преку копче за јачина</string>
-  <string name="volume_key_for_left_right_support_off_summary">Притискање на копчето за јачина нагоре го поместува курсорот налево, а притискање надолу го поместува надесно</string>
-  <string name="camera_key_for_backspace_backword_support">Користи го копчето за камера за backspace/backword</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Ресетирај функција на копчето за камера</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Притискање на копчето за камера до половина го брише последниот карактер, а целосно притискање го брише последниот збор</string>
   <string name="swipe_tweak_group">Измени акции при повлекување (swipe)</string>
   <string name="swipe_up_action">Повлекување нагоре</string>
   <string name="swipe_up_action_summary">Подеси акција за повлекување нагоре</string>
@@ -81,6 +82,23 @@
   <string name="swipe_right_action">Повлекување надесно</string>
   <string name="swipe_right_action_summary">Подеси акција за повлекување надесно</string>
   <string name="swipe_right_action_title">Акција за повлекување надесно</string>
+  <string name="hardware_keys_group">Hardware keys mapping</string>
+  <string name="volume_key_for_left_right_support">Лево и десно преку копче за јачина</string>
+  <string name="volume_key_for_left_right_support_on_summary">Оневозможи лево и десно преку копче за јачина</string>
+  <string name="volume_key_for_left_right_support_off_summary">Притискање на копчето за јачина нагоре го поместува курсорот налево, а притискање надолу го поместува надесно</string>
+  <string name="camera_key_for_backspace_backword_support">Користи го копчето за камера за backspace/backword</string>
+  <string name="camera_key_for_backspace_backword_support_on_summary">Ресетирај функција на копчето за камера</string>
+  <string name="camera_key_for_backspace_backword_support_off_summary">Притискање на копчето за камера до половина го брише последниот карактер, а целосно притискање го брише последниот збор</string>
+  <string name="special_dictionaries_group">Special dictionaries</string>
+  <string name="use_user_dictionary">User dictionary</string>
+  <string name="use_user_dictionary_on_summary">Suggest user added words (long press on suggestion to add)</string>
+  <string name="use_user_dictionary_off_summary">&lt;string name="use_user_dictionary_off_summary"/&gt;</string>
+  <string name="use_auto_dictionary">Auto dictionary</string>
+  <string name="use_auto_dictionary_on_summary">Suggest frequently used words too</string>
+  <string name="use_auto_dictionary_off_summary">&lt;string name="use_auto_dictionary_off_summary"/&gt;</string>
+  <string name="use_contacts_dictionary">Contacts dictionary</string>
+  <string name="use_contacts_dictionary_on_summary">Suggest names from contacts list</string>
+  <string name="use_contacts_dictionary_off_summary">&lt;string name="use_contacts_dictionary_off_summary"/&gt;</string>
   <string name="tweaks_group">Додатни подесувања</string>
   <string name="show_new_version_notifications_again">Прикажувај нотификации за нови верзии</string>
   <string name="show_new_version_notifications_again_on_summary">По инсталирање на нова верзија, ќе биде прикажана листа со промени</string>
@@ -130,6 +148,10 @@
   <string name="physical_keyboard_suggestions_summary">Прикажува предлози кога користиш физичка тастатура</string>
   <string name="keyboard_sandbox">Кликни за тестирање</string>
   <string name="keyboard_sandbox_title">Пишувај подолу за да тестираш</string>
+  <string name="contacts_dict">Contacts dictionary</string>
+  <string name="contacts_dict_summary">Include contact names in suggestions</string>
+  <string name="auto_dict">Auto dictionary</string>
+  <string name="auto_dict_summary">Add commonly used or selected words automatically to the dictionary</string>
   <string name="keyboards_group">Тастатури</string>
   <string name="symbols_keyboard">Симболи</string>
   <string name="eng_keyboard">Англиски</string>

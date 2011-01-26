@@ -18,8 +18,12 @@
   <string name="main_tab_credits_additional_work_by">Lisäohjelmatyö:</string>
   <string name="main_tab_credits_localization_by">Lokaisointi:</string>
   <string name="main_tab_credits_GUI_by">UI kuvat:</string>
+  <string name="how_to_simple_howto">To enable AnySoftKeyboard, go to Android's Settings and select 'Locale&amp;amp;text' and turn on AnySoftKeyboard. It will warn you about possible key-logging, don't worry, we do not keep data, and we do not send it anywere.\nTo actually use AnySoftKeyboard, you'll need to activate it: in any textbox (e.g., Messagings TO field), and long-press it. A dialog will pop-up, select 'Input Method', and then AnySoftKeyboard.\nThat's it!</string>
   <string name="notification_text">Tervetuloa! Ole hyvä, lue minut.</string>
   <string name="testers_version">Testaaja versio!</string>
+  <string name="license_title">Lisenssi</string>
+  <string name="license_text">Tämä ohjelmisto on lisensoitu Apache2 (c) 2010 Menny Even-Danan</string>
+  <string name="about">Tietoja</string>
   <string name="changelog">Muutosloki</string>
   <string name="search_market_for_addons">Etsi lisäosia</string>
   <string name="added_word"> : Tallennettu</string>
@@ -27,7 +31,7 @@
   <string name="click_for_help">Ohje</string>
   <string name="click_for_help_summary">Online-ohje</string>
   <string name="ui_group">Käyttöliittymä</string>
-  <string name="keyboard_layout_change_keys_size_title">Top row keys</string>
+  <string name="keyboard_layout_change_keys_size_title">Ylärivin näppäimet</string>
   <string name="keyboard_layout_change_keys_size_summary">Sets the cap/number mode key size</string>
   <string name="keyboard_layout_change_keys_size_dialog_title">Näppäimen koko</string>
   <string name="physical_keyboard_change_notification_title">Tietotukset näppäimistön asetteluista</string>
@@ -59,15 +63,12 @@
   <string name="fullscreen_input_connection_supported">Use full-screen input</string>
   <string name="fullscreen_input_connection_supported_on_summary">Koko näyttö -tila vaaka-asennossa</string>
   <string name="fullscreen_input_connection_supported_off_summary">Älä koskaan käytä koko näyttö -tilaa</string>
+  <string name="fullscreen_portrait_input_connection_supported">Use portrait full-screen</string>
+  <string name="fullscreen_portrait_input_connection_supported_on_summary">Full-screen input in portrait</string>
+  <string name="fullscreen_portrait_input_connection_supported_off_summary">Do not use full-screen input in portrait</string>
   <string name="backword_support">Back-word support</string>
   <string name="backword_support_on_summary">Shifted Backspace will delete the last word</string>
   <string name="backword_support_off_summary">Shifted Backspace will delete the last character</string>
-  <string name="volume_key_for_left_right_support">Volume key for left/right</string>
-  <string name="volume_key_for_left_right_support_on_summary">Disable left/right via volume up/down</string>
-  <string name="volume_key_for_left_right_support_off_summary">Volume up turns cursor left, volume down turns cursor right</string>
-  <string name="camera_key_for_backspace_backword_support">Use Camera key for backspace/backword</string>
-  <string name="camera_key_for_backspace_backword_support_on_summary">Restore the camera key function</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Half press on camera button deletes last character, full press deletes last word</string>
   <string name="swipe_tweak_group">Muuta pyyhkäisyn toimintoja</string>
   <string name="swipe_up_action">Pyyhkäise ylös</string>
   <string name="swipe_up_action_summary">Define the swipe up gesture action</string>
@@ -81,6 +82,23 @@
   <string name="swipe_right_action">Pyyhkäise oikealle</string>
   <string name="swipe_right_action_summary">Define the swipe right gesture action</string>
   <string name="swipe_right_action_title">Valitse oikea-pyyhkäysyn toiminto</string>
+  <string name="hardware_keys_group">Hardware keys mapping</string>
+  <string name="volume_key_for_left_right_support">Volume key for left/right</string>
+  <string name="volume_key_for_left_right_support_on_summary">Disable left/right via volume up/down</string>
+  <string name="volume_key_for_left_right_support_off_summary">Volume up turns cursor left, volume down turns cursor right</string>
+  <string name="camera_key_for_backspace_backword_support">Use Camera key for backspace/backword</string>
+  <string name="camera_key_for_backspace_backword_support_on_summary">Restore the camera key function</string>
+  <string name="camera_key_for_backspace_backword_support_off_summary">Half press on camera button deletes last character, full press deletes last word</string>
+  <string name="special_dictionaries_group">Erikoissanakirjat</string>
+  <string name="use_user_dictionary">Käyttäjän sanakirja</string>
+  <string name="use_user_dictionary_on_summary">Suggest user added words (long press on suggestion to add)</string>
+  <string name="use_user_dictionary_off_summary">&lt;string name="use_user_dictionary_off_summary"/&gt;</string>
+  <string name="use_auto_dictionary">Auto dictionary</string>
+  <string name="use_auto_dictionary_on_summary">Suggest frequently used words too</string>
+  <string name="use_auto_dictionary_off_summary">&lt;string name="use_auto_dictionary_off_summary"/&gt;</string>
+  <string name="use_contacts_dictionary">Contacts dictionary</string>
+  <string name="use_contacts_dictionary_on_summary">Suggest names from contacts list</string>
+  <string name="use_contacts_dictionary_off_summary">&lt;string name="use_contacts_dictionary_off_summary"/&gt;</string>
   <string name="tweaks_group">Hienosäädöt</string>
   <string name="show_new_version_notifications_again">Uusimman version lisätiedot</string>
   <string name="show_new_version_notifications_again_on_summary">Kun uusi version on asennettu, mootosloki näytetään</string>
@@ -130,10 +148,14 @@
   <string name="physical_keyboard_suggestions_summary">Show suggestions when using device keyboard</string>
   <string name="keyboard_sandbox">Click for text testing</string>
   <string name="keyboard_sandbox_title">Kokeile asetuksia</string>
+  <string name="contacts_dict">Contacts dictionary</string>
+  <string name="contacts_dict_summary">Include contact names in suggestions</string>
+  <string name="auto_dict">Auto dictionary</string>
+  <string name="auto_dict_summary">Lisää yleisesti käytettyjä tai valitut sanat automaattisesti sanakirjaan</string>
   <string name="keyboards_group">Näppäimistöt</string>
   <string name="symbols_keyboard">Symbolit</string>
   <string name="eng_keyboard">englanti</string>
-  <string name="eng_keyboard_16keys">16 Keys English</string>
+  <string name="eng_keyboard_16keys">16 näppäimen anglant</string>
   <string name="show_tutorial_on_startup">Näytä tämä tutoriaali käynnistyksessä</string>
   <string name="tutorial_swipe_title">Pyyhkäise vaihdaaksesi näppäimistöä</string>
   <string name="tutorial_swipe_text">Keyboard layout can be changed by swiping you finger over the keyboard. Swipe left-to-right to change language, swipe right-to-left to change to symbols.</string>

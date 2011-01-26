@@ -1,177 +1,225 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="ime_name">AnySoftKeyboard</string>
-
-    <string name="main_tab_welcome">Добре дошли</string>
-    <string name="main_tab_links">Линкове</string>
-    <string name="main_tab_credits">Кредити</string>
-    <!-- welcome tab -->
-    <string name="how_to_pointer_title">Добре дошли в AnySoftKeyboard</string>
-    <string name="how_to_pointer_version_prefix">Версия: </string>
-    <string name="how_to_pointer_not_app">AnySoftKeyboard не е обикновена програма - тя е заместник на екранната клавиатура.</string>
-    <string name="how_to_pointer_go_to_links">За повече информация отидете на таб Линкове.</string>
-    <!-- links tab -->
-    <string name="how_to_pointer_how_to_url">Детайли как се използва тази клавиатура:</string>
-    <string name="how_to_pointer_site">Обща информация:</string>
-    <string name="how_to_pointer_changelog">Детайли относно последната версия:</string>
-    <string name="how_to_pointer_issues">Докладване на грешки:</string>
-    <!-- credits tab -->
-    <string name="main_tab_credits_title">Тази програма беше създадена с помощта на следните хора-</string>
-    <string name="main_tab_credits_created_by">Създадена от:</string>
-    <string name="main_tab_credits_additional_work_by">Допълнителен код от:</string>
-    <string name="main_tab_credits_localization_by">Превод от:</string>
-    <string name="main_tab_credits_GUI_by">UI картинки от:</string>
-
-    <!-- Symbols that are commonly considered word separators in this language -->
-    <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
-    <!-- Indicates that a word has been added to the dictionary -->
-    <string name="added_word"><xliff:g id="word">%s</xliff:g> : записана</string>
-
-    <!-- settings - UI -->
-    <string name="ui_group">Потребителски интерфейс</string>
-    <string name="keyboard_layout_change_keys_size_title">Бутони за смяна</string>
-    <string name="keyboard_layout_change_keys_size_summary">Бутони за смяна на клавиатурната подредба</string>
-    <string name="keyboard_layout_change_keys_size_dialog_title">Изберете размер</string>
-    <string-array name="keyboard_layout_keys_size">
-        <item>Без бутони</item>
-        <item>Малки бутони</item>
-        <item>Големи бутони</item>
-    </string-array>
-
-    <string name="physical_keyboard_change_notification_title">Съобщение за смяна</string>
-    <string name="physical_keyboard_change_notification_summary">Вид съобщение за активната подредба</string>
-    <string name="physical_keyboard_change_notification_dialog_title">Изберете вида на съобщението</string>
-    <string-array name="physical_keyboard_change_notification_types">
-        <item>Винаги показвай икона</item>
-        <item>Смяна на физическата клавиатура</item>
-        <item>Без съобщение</item>
-    </string-array>
-
-    <string name="lengthy_operations_toast_notification">Известие при забавяне</string>
-    <string name="lengthy_operations_toast_notification_summary">Показвай кратко известие при продължителни операции</string>
-
-    <!-- Options menu -->
-    <string name="change_ime">Промяна на метод на въвеждане</string>
-    <string name="override_dictionary">Промени речника по подразбиране</string>
-    <!-- Dictionary override strings -->
-    <string name="override_dictionary_title">Промени <xliff:g id="word">%s</xliff:g> речник</string>
-    <string name="override_dictionary_default">По подразбиране</string>
-    <!-- Dictionary override toast messages -->
-    <string name="override_disabled">Промяната премахната</string>
-    <string name="override_enabled">Промяна към <xliff:g id="word">%s</xliff:g></string>
-
-    <!-- settings - effects-->
-    <string name="effects_group">Ефекти</string>
-    <string name="ime_settings">Настройки на клавиатурата</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
-    <string name="vibrate_on_key_press_title">Вибрация</string>
-    <string name="vibrate_on_key_press_summary">Вибрация</string>
-    <string name="vibrate_on_key_press_dialog_title">Вибрация</string>
-    <string-array name="vibrate_on_key_press_types">
-        <item>Без вибрация</item>
-        <item>Лека</item>
-        <item>Средна</item>
-        <item>Силна</item>
-    </string-array>
-
-    <string name="sound_on">Звук</string>
-    <string name="sound_on_summary">Звукови ефекти при натискане на клавиш.</string>
-    <string name="use_custom_sound_volume">Настрой сила на звука</string>
-    <string name="use_custom_sound_volume_on_summary">Силата на звуковите ефекти е настроена.</string>
-    <string name="use_custom_sound_volume_off_summary">Силата на звуковите ефекти е силата на системните съобщения.</string>
-    <string name="custom_sound_volume">Сила за натиснат клавиш</string>
-
-    <string name="tweaks_group">Настройки</string>
-    <string name="use_keyrepeat">Използвай повторение на клавиши</string>
-    <string name="use_keyrepeat_on_summary">Повторение на клавиши е включено</string>
-    <string name="use_keyrepeat_off_summary">Повторение на клавиши е изключено</string>
-    <string name="emoticon_long_press_opens_popup">Показване на емотикони</string>
-    <string name="emoticon_long_press_opens_popup_on_summary">Показвай емотиконите при продължително натискане</string>
-    <string name="emoticon_long_press_opens_popup_off_summary">Показвай емотиконите при кратко натискане</string>
-    <string name="default_smiley_text">Текст за емотикони</string>
-    <string name="default_domain_text">Текст за домейни</string>
-    <string name="key_press_preview_popup">Попъп на клавиш</string>
-    <string name="key_press_preview_popup_on_summary">Показвай попъп при натискане на клавиш</string>
-    <string name="key_press_preview_popup_off_summary">Не показвай попъп при натискане на клавиш</string>
-    <string name="switch_keyboard_on_space">Интервал превключване</string>
-    <string name="switch_keyboard_on_space_on_summary">Превключи от символна на буквена при натискане на интервал</string>
-    <string name="switch_keyboard_on_space_off_summary">Не превключвай от символна на буквена при натискане на интервал</string>
-    <string name="fullscreen_input_connection_supported">Пълноекранна клавиатура</string>
-    <string name="fullscreen_input_connection_supported_on_summary">Пълноекранна клавиатура в режим пейзаж</string>
-    <string name="fullscreen_input_connection_supported_off_summary">Не използвай пълноекранна клавиатура</string>
-    <string name="zoom_factor_keys_in_portrait">Височина в режим портрет</string>
-    <string name="zoom_factor_keys_in_landscape">Височина в режим пейзаж</string>
-    <string name="insert_space_after_word_suggestion_selection">Интервал след избиране на кандидат</string>
-    <string name="insert_space_after_word_suggestion_selection_on_summary">Вмъкни интервал след избиране на предложение</string>
-    <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
-    <string name="swipe_tweak_group">Промяна на жестовете</string>
-    <string name="swipe_up_action">Плъзгане нагоре</string>
-    <string name="swipe_up_action_summary">Дефинирай действието за плъзгане нагоре</string>
-    <string name="swipe_up_action_title">Изберете действие за плъзгане нагоре</string>
-    <string name="swipe_down_action">Плъзгане надолу</string>
-    <string name="swipe_down_action_summary">Дефинирай действието за плъзгане надолу</string>
-    <string name="swipe_down_action_title">Изберете действие за плъзгане надолу</string>
-    <string name="swipe_left_action">Плъзгане наляво</string>
-    <string name="swipe_left_action_summary">Дефинирай действието за плъзгане наляво</string>
-    <string name="swipe_left_action_title">Изберете действие за плъзгане наляво</string>
-    <string name="swipe_right_action">Плъзгане надясно</string>
-    <string name="swipe_right_action_summary">Дефинирай действието за плъзгане надясно</string>
-    <string name="swipe_right_action_title">Изберете действие за плъзгане надясно</string>
-    <string-array name="swipe_action_types">
-        <item>Без действие</item>
-        <item>Следваща азбучна клавиатура</item>
-        <item>Следваща символна клавиатура</item>
-        <item>Поред през всички клавиатури</item>
-        <item>По обратен ред през всички клавиатури</item>
-        <item>Shift</item>
-        <item>Скрий клавиатурата</item>
-        <item>Back-space</item>
-        <item>Курсор нагоре</item>
-        <item>Курсор надолу</item>
-        <item>Курсор наляво</item>
-        <item>Курсор надясно</item>
-    </string-array>
-    <string name="action_key_invisible_on_disable">Невидим бутон за действие</string>
-    <string name="action_key_invisible_on_disable_on_summary">Невидим бутон за действие когато програмата изисква</string>
-    <string name="action_key_invisible_on_disable_off_summary">Видим бутон за действие дори програмата да изисква друго</string>
-
-    <string name="auto_caps">Авто-капитализация</string>
-    <string name="grammer_group">Граматика</string>
-    <string name="candidates_on">Показвай предложения</string>
-    <string name="quick_fix">Бързи поправки</string>
-    <string name="quick_fix_summary">Поправяй честите грешки</string>
-    <string name="auto_complete">Автоматично избиране</string>
-    <string name="auto_complete_summary">Интервал ще избере подчертаното предложение</string>
-    <string name="physical_keyboard_suggestions">Предложения от хардуерната клавиатура</string>
-    <string name="physical_keyboard_suggestions_summary">Показвай предложения от хардуерната клавиатура</string>
-    <string name="keyboard_sandbox">Натисни за тестване</string>
-    <string name="keyboard_sandbox_title">Пиши в полето за тестване на настройките</string>
-    <!-- settings - keyboard group -->
-    <string name="keyboards_group">Клавиатури</string>
-    <string name="symbols_keyboard">Символна</string>
-    <string name="eng_keyboard">English</string>
-    <!-- Tutorials -->
-    <string name="show_tutorial_on_startup">Показвай обучението при стартиране</string>
-    <string name="tutorial_swipe_title">Показвай обучението при стартиране</string>
-    <string name="tutorial_swipe_text">Клавиатурната подредба може да бъде сменена като плъзнете пръста си върху клавиатурата. Плъзнете отляво надясно, за да смените езика, и отдясно наляво за символи.</string>
-
-    <!-- Special soft keyboard keys text -->
-    <string name="label_go_key">Напр</string>
-    <string name="label_next_key">Слдв</string>
-    <string name="label_send_key">Изпр</string>
-
-    <string name="change_lang_wide">&#8594; ABC &#8594;</string>
-    <string name="change_lang_regular">ABC</string>
-    <string name="change_symbols_wide">&#8592; 123 &#8592;</string>
-    <string name="change_symbols_regular">123</string>
-
-    <string name="please_wait">Моля изчакайте</string>
-    <string name="toast_lengthy_words_long_operation">Зареждане на речника...</string>
-    <string name="toast_lengthy_start_up_operation">Стартиране на AnySoftKeyboard...</string>
-    <string name="lengthy_creating_keyboard_operation">Създаване на клавиатури...</string>
-
-    <!-- dictionaries -->
-    <string name="eng_dictionary">English</string>
+<!--Generated with crowdin.net-->
+<resources>
+  <string name="ime_name">AnySoftKeyboard</string>
+  <string name="main_tab_welcome">Добре дошли</string>
+  <string name="main_tab_links">Връзки</string>
+  <string name="main_tab_credits">Заслуги</string>
+  <string name="how_to_pointer_title">Добре дошли в AnySoftKeyboard</string>
+  <string name="how_to_pointer_version_prefix">Версия: </string>
+  <string name="how_to_pointer_not_app">AnySoftKeyboard не е обикновена програма - тя е на екранна клавиатура.</string>
+  <string name="how_to_pointer_go_to_links">За повече информация, отидете на раздела Връзка.</string>
+  <string name="how_to_pointer_how_to_url">Подробности за това как се използва тази клавиатура:</string>
+  <string name="how_to_pointer_site">Общи данни:</string>
+  <string name="how_to_pointer_changelog">Подробности за новата версия:</string>
+  <string name="how_to_pointer_issues">Докладване на грешки:</string>
+  <string name="main_tab_credits_title">Тази програма беше създадена с помощта на следните хора-</string>
+  <string name="main_tab_credits_created_by">Създаден от:</string>
+  <string name="main_tab_credits_additional_work_by">Допълнително кодиране от:</string>
+  <string name="main_tab_credits_localization_by">Локализация от:</string>
+  <string name="main_tab_credits_GUI_by">UI снимки от:</string>
+  <string name="how_to_simple_howto">To enable AnySoftKeyboard, go to Android's Settings and select 'Locale&amp;amp;text' and turn on AnySoftKeyboard. It will warn you about possible key-logging, don't worry, we do not keep data, and we do not send it anywere.\nTo actually use AnySoftKeyboard, you'll need to activate it: in any textbox (e.g., Messagings TO field), and long-press it. A dialog will pop-up, select 'Input Method', and then AnySoftKeyboard.\nThat's it!</string>
+  <string name="notification_text">Добре дошли! Моля прочетете ме.</string>
+  <string name="testers_version">Версия за тестери!</string>
+  <string name="license_title">License</string>
+  <string name="license_text">This software is licensed under Apache2 (c) 2010 Menny Even-Danan</string>
+  <string name="about">About</string>
+  <string name="changelog">Списък с промените</string>
+  <string name="search_market_for_addons">Търсене на добавки</string>
+  <string name="added_word"> : Запаметено</string>
+  <string name="menu_insert_smiley">Вмъкване на емотикон</string>
+  <string name="click_for_help">Помощ</string>
+  <string name="click_for_help_summary">Натиснете за помощ по интернет</string>
+  <string name="ui_group">Потребителски интерфейс</string>
+  <string name="keyboard_layout_change_keys_size_title">Горния ред клавиши</string>
+  <string name="keyboard_layout_change_keys_size_summary">Бутони за смяна на клавиатурната подредба</string>
+  <string name="keyboard_layout_change_keys_size_dialog_title">Изберете размер</string>
+  <string name="physical_keyboard_change_notification_title">Уведомяване за клавиатурна подредба</string>
+  <string name="physical_keyboard_change_notification_summary">Вид на съобщението за активна подредба</string>
+  <string name="physical_keyboard_change_notification_dialog_title">Изберете типа на уведомяване</string>
+  <string name="lengthy_operations_toast_notification">Уведомяване при продължителни операции</string>
+  <string name="lengthy_operations_toast_notification_summary">Показване на кратко уведомление за продължителни операции</string>
+  <string name="change_ime">Промяна на метода за въвеждане</string>
+  <string name="override_dictionary">Промени речника по подразбиране</string>
+  <string name="override_dictionary_title">Промени речник</string>
+  <string name="override_dictionary_default">По подразбиране</string>
+  <string name="override_disabled">Промяната премахната</string>
+  <string name="override_enabled">Промяна към </string>
+  <string name="effects_group">Ефекти</string>
+  <string name="ime_settings">Настройки на клавиатурата</string>
+  <string name="vibrate_on_key_press_title">Вибрация</string>
+  <string name="vibrate_on_key_press_summary">Вибрация</string>
+  <string name="vibrate_on_key_press_dialog_title">Вибрация</string>
+  <string name="sound_on">Звук</string>
+  <string name="sound_on_summary">Звукови ефекти при натискане на клавиш.</string>
+  <string name="use_custom_sound_volume">Настрой сила на звука</string>
+  <string name="use_custom_sound_volume_on_summary">Силата на звуковите ефекти е настроена.</string>
+  <string name="use_custom_sound_volume_off_summary">Силата на звуковите ефекти е силата на системните съобщения.</string>
+  <string name="custom_sound_volume">Сила за натиснат клавиш</string>
+  <string name="speacial_fetures_group">Специални възможности</string>
+  <string name="switch_keyboard_on_space">Интервал превключване</string>
+  <string name="switch_keyboard_on_space_on_summary">Превключи от символна на буквена при натискане на интервал</string>
+  <string name="switch_keyboard_on_space_off_summary">Не превключвай от символна на буквена при натискане на интервал</string>
+  <string name="fullscreen_input_connection_supported">Пълноекранна клавиатура</string>
+  <string name="fullscreen_input_connection_supported_on_summary">Пълноекранна клавиатура в режим пейзаж</string>
+  <string name="fullscreen_input_connection_supported_off_summary">Не използвай пълноекранна клавиатура</string>
+  <string name="fullscreen_portrait_input_connection_supported">Use portrait full-screen</string>
+  <string name="fullscreen_portrait_input_connection_supported_on_summary">Full-screen input in portrait</string>
+  <string name="fullscreen_portrait_input_connection_supported_off_summary">Do not use full-screen input in portrait</string>
+  <string name="backword_support">Изтриване на дума</string>
+  <string name="backword_support_on_summary">Shift+Backspace ще изтрие последната дума</string>
+  <string name="backword_support_off_summary">Shift+Backspace ще изтрие последният символ</string>
+  <string name="swipe_tweak_group">Промяна на жестовете</string>
+  <string name="swipe_up_action">Плъзгане нагоре</string>
+  <string name="swipe_up_action_summary">Дефинирай действието за плъзгане нагоре</string>
+  <string name="swipe_up_action_title">Изберете действие за плъзгане нагоре</string>
+  <string name="swipe_down_action">Плъзгане надолу</string>
+  <string name="swipe_down_action_summary">Дефинирай действието за плъзгане надолу</string>
+  <string name="swipe_down_action_title">Изберете действие за плъзгане надолу</string>
+  <string name="swipe_left_action">Плъзгане наляво</string>
+  <string name="swipe_left_action_summary">Дефинирай действието за плъзгане наляво</string>
+  <string name="swipe_left_action_title">Изберете действие за плъзгане наляво</string>
+  <string name="swipe_right_action">Плъзгане надясно</string>
+  <string name="swipe_right_action_summary">Дефинирай действието за плъзгане надясно</string>
+  <string name="swipe_right_action_title">Изберете действие за плъзгане надясно</string>
+  <string name="hardware_keys_group">Hardware keys mapping</string>
+  <string name="volume_key_for_left_right_support">Наляво/Надясно с бутона за звук</string>
+  <string name="volume_key_for_left_right_support_on_summary">Изключи наляво/надясно с бутона за звук</string>
+  <string name="volume_key_for_left_right_support_off_summary">Звук нагоре мести курсора наляво, звук надолу мести надясно</string>
+  <string name="camera_key_for_backspace_backword_support">Използвай бутона на камерата за изтриване на последна дума/символ</string>
+  <string name="camera_key_for_backspace_backword_support_on_summary">Възстанови функцията на бутона за камера</string>
+  <string name="camera_key_for_backspace_backword_support_off_summary">Натисни бутона за камера наполовина за изтриване на последен символ, напълно за изтриване на последна дума</string>
+  <string name="special_dictionaries_group">Special dictionaries</string>
+  <string name="use_user_dictionary">User dictionary</string>
+  <string name="use_user_dictionary_on_summary">Suggest user added words (long press on suggestion to add)</string>
+  <string name="use_user_dictionary_off_summary">&lt;string name="use_user_dictionary_off_summary"/&gt;</string>
+  <string name="use_auto_dictionary">Auto dictionary</string>
+  <string name="use_auto_dictionary_on_summary">Suggest frequently used words too</string>
+  <string name="use_auto_dictionary_off_summary">&lt;string name="use_auto_dictionary_off_summary"/&gt;</string>
+  <string name="use_contacts_dictionary">Contacts dictionary</string>
+  <string name="use_contacts_dictionary_on_summary">Suggest names from contacts list</string>
+  <string name="use_contacts_dictionary_off_summary">&lt;string name="use_contacts_dictionary_off_summary"/&gt;</string>
+  <string name="tweaks_group">Настройки</string>
+  <string name="show_new_version_notifications_again">Показвай известия за нова версия</string>
+  <string name="show_new_version_notifications_again_on_summary">При инсталиране на нова версия да се показва списък с промените</string>
+  <string name="show_new_version_notifications_again_off_summary">Да не ме известява когато е инсталирана нова версия</string>
+  <string name="use_keyrepeat">Използвай повторение на клавиши</string>
+  <string name="use_keyrepeat_on_summary">Повторение на клавиши е включено</string>
+  <string name="use_keyrepeat_off_summary">Повторение на клавиши е изключено</string>
+  <string name="emoticon_long_press_opens_popup">Показване на емотикони</string>
+  <string name="emoticon_long_press_opens_popup_on_summary">Показвай емотиконите при продължително натискане</string>
+  <string name="emoticon_long_press_opens_popup_off_summary">Показвай емотиконите при кратко натискане</string>
+  <string name="emoticon_popup_type_title">Тип на прозорец с емотикони</string>
+  <string name="emoticon_popup_type_summary">Избери типа на прозореца с емотикони</string>
+  <string name="default_smiley_text">Текст за емотикони</string>
+  <string name="default_domain_text">Текст за домейни</string>
+  <string name="smiley_icon_on_smileys_key">Използвай икона за бутона с емотикони</string>
+  <string name="smiley_icon_on_smileys_key_on_summary">Ще бъде използвана икона на клавиша с емотикони</string>
+  <string name="smiley_icon_on_smileys_key_off_summary">Текст за емотикони ще бъде използван на клавиша за емотикони</string>
+  <string name="key_press_preview_popup">Попъп на клавиш</string>
+  <string name="key_press_preview_popup_on_summary">Показвай попъп при натискане на клавиш</string>
+  <string name="key_press_preview_popup_off_summary">Не показвай попъп при натискане на клавиш</string>
+  <string name="zoom_factor_keys_in_portrait">Височина в режим портрет</string>
+  <string name="zoom_factor_keys_in_landscape">Височина в режим пейзаж</string>
+  <string name="insert_space_after_word_suggestion_selection">Интервал след избиране на кандидат</string>
+  <string name="insert_space_after_word_suggestion_selection_on_summary">Вмъкни интервал след избиране на предложение</string>
+  <string name="insert_space_after_word_suggestion_selection_off_summary"> </string>
+  <string name="double_space_to_period">Точка при двоен интервал</string>
+  <string name="double_space_to_period_summary">Точка и интервал при двоен интервал</string>
+  <string name="action_key_invisible_on_disable">Невидим бутон за действие</string>
+  <string name="action_key_invisible_on_disable_on_summary">Невидим бутон за действие когато програмата изисква</string>
+  <string name="action_key_invisible_on_disable_off_summary">Видим бутон за действие дори програмата да изисква друго</string>
+  <string name="cycle_all_symbols_keyboards">Поред през всички символни клавиатури</string>
+  <string name="cycle_all_symbols_keyboards_on_summary">Клавиша за символи ще сменя символните клавиатури поред</string>
+  <string name="cycle_all_symbols_keyboards_off_summary">Клавиша за символи ще показва само главната символна клавиатура</string>
+  <string name="rtl_workaround_detection_title">Тип на откриването на RTL език</string>
+  <string name="rtl_workaround_detection_summary">Поправка на текст за езици писани отдясно-наляво</string>
+  <string name="lang_key_shows_popup">Превключвай езиците от прозорец</string>
+  <string name="lang_key_shows_popup_on_summary">Клавиша за език ще покаже диалог за избор</string>
+  <string name="lang_key_shows_popup_off_summary">Клавиша за език ще променя подредбата поред</string>
+  <string name="auto_caps">Авто-капитализация</string>
+  <string name="grammer_group">Граматика</string>
+  <string name="candidates_on">Показвай предложения</string>
+  <string name="quick_fix">Бързи поправки</string>
+  <string name="quick_fix_summary">Поправяй честите грешки</string>
+  <string name="auto_complete">Автоматично избиране</string>
+  <string name="auto_complete_summary">Интервал ще избере подчертаното предложение</string>
+  <string name="physical_keyboard_suggestions">Предложения от хардуерната клавиатура</string>
+  <string name="physical_keyboard_suggestions_summary">Показвай предложения от хардуерната клавиатура</string>
+  <string name="keyboard_sandbox">Натисни за тестване</string>
+  <string name="keyboard_sandbox_title">Пиши в полето за тестване на настройките</string>
+  <string name="contacts_dict">Contacts dictionary</string>
+  <string name="contacts_dict_summary">Include contact names in suggestions</string>
+  <string name="auto_dict">Auto dictionary</string>
+  <string name="auto_dict_summary">Add commonly used or selected words automatically to the dictionary</string>
+  <string name="keyboards_group">Клавиатури</string>
+  <string name="symbols_keyboard">Символна</string>
+  <string name="eng_keyboard">English</string>
+  <string name="eng_keyboard_16keys">Английска клавиатура с 16 клавиша</string>
+  <string name="show_tutorial_on_startup">Показвай обучението при стартиране</string>
+  <string name="tutorial_swipe_title">Показвай обучението при стартиране</string>
+  <string name="tutorial_swipe_text">Клавиатурната подредба може да бъде сменена като плъзнете пръста си върху клавиатурата. Плъзнете отляво надясно, за да смените езика, и отдясно наляво за символи.</string>
+  <string name="label_go_key">Напр</string>
+  <string name="label_next_key">Слдв</string>
+  <string name="label_send_key">Изпр</string>
+  <string name="label_done_key">Готово</string>
+  <string name="change_lang_wide">→ АБВ →</string>
+  <string name="change_lang_regular">АБВ</string>
+  <string name="change_symbols_wide">← 123 ←</string>
+  <string name="change_symbols_regular">123</string>
+  <string name="please_wait">Моля изчакайте</string>
+  <string name="toast_lengthy_words_long_operation">Зареждане на речник ...</string>
+  <string name="toast_lengthy_start_up_operation">Стартиране на AnySoftKeyboard...</string>
+  <string name="lengthy_creating_keyboard_operation">Създаване на клавиатури...</string>
+  <string name="select_keyboard_popup_title">Изберете клавиатура</string>
+  <string name="eng_dictionary">Английски</string>
+  <string-array name="keyboard_layout_keys_size">
+    <item>Без бутони</item>
+    <item>Малки бутони</item>
+    <item>Големи бутони</item>
+  </string-array>
+  <string-array name="physical_keyboard_change_notification_types">
+    <item>Винаги показвай икона</item>
+    <item>Смяна на физическата клавиатура</item>
+    <item>Без съобщение</item>
+  </string-array>
+  <string-array name="vibrate_on_key_press_types">
+    <item>Без вибрация</item>
+    <item>Лека</item>
+    <item>Средна</item>
+    <item>Силна</item>
+  </string-array>
+  <string-array name="swipe_action_types">
+    <item>Без действие</item>
+    <item>Следваща азбучна клавиатура</item>
+    <item>Следваща символна клавиатура</item>
+    <item>Поред през всички клавиатури</item>
+    <item>По обратен ред през всички клавиатури</item>
+    <item>Shift</item>
+    <item>Скрий клавиатурата</item>
+    <item>Back-space</item>
+    <item>Курсор нагоре</item>
+    <item>Курсор надолу</item>
+    <item>Курсор наляво</item>
+    <item>Курсор надясно</item>
+  </string-array>
+  <string-array name="smiley_names">
+    <item>Щастлив</item>
+    <item>Тъжен</item>
+    <item>Намигване</item>
+    <item>Плезене</item>
+    <item>Изненадан</item>
+    <item>Целувка</item>
+    <item>Викане</item>
+    <item>Супер</item>
+    <item>Пари в устата</item>
+    <item>Краката в устата</item>
+    <item>Смутен</item>
+    <item>Ангел</item>
+    <item>Нерешителен</item>
+    <item>Плачещ</item>
+    <item>Устните са запечатани</item>
+    <item>Смях</item>
+    <item>Объркан</item>
+  </string-array>
 </resources>
-

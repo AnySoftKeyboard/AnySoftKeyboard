@@ -1,191 +1,225 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="ime_name">AnySoftKeyboard</string>
-    
-    <string name="main_tab_welcome">სალამი</string>
-    <string name="main_tab_links">ბმულები</string>
-    <string name="main_tab_credits">ავტორები</string>
-    <!-- welcome tab -->
-	<string name="how_to_pointer_title">მოგესალმებათ AnySoftKeyboard</string>
-	<string name="how_to_pointer_version_prefix">ვერსია: </string>
-	<string name="how_to_pointer_not_app">AnySoftKeyboard - ეკრანული კლავიატურის შემცვლელი.</string>
-	<string name="how_to_pointer_go_to_links">დაწვრილებითი ინფორმაციისთვის გადადით ბმულების გვერდზე.</string>
-	<!-- links tab -->
-	<string name="how_to_pointer_how_to_url">Details about how to use this keyboard:</string>
-	<string name="how_to_pointer_site">ზოაგადი დეტალები:</string>
-	<string name="how_to_pointer_changelog">დეტალები უახლესი ვერსისს შესახებ:</string>
-	<string name="how_to_pointer_issues">Bug reporting:</string>
-	<!-- credits tab -->
-	<string name="main_tab_credits_title">This application was created with the help of the following people-</string>
-	<string name="main_tab_credits_created_by">შემქმნელი:</string>
-	<string name="main_tab_credits_additional_work_by">დამატებით პროგრამირება:</string>
-	<string name="main_tab_credits_localization_by">თარგმნა:</string>
-	<string name="main_tab_credits_GUI_by">UI სურათების შემქმნელი:</string>
-	
-	<!-- notifications -->
-	<string name="notification_text">წამიკითხე</string>
-	<string name="testers_version">ვერსია მტესტავთათვის!</string>
-	
-	<!-- changelog -->
-	<string name="changelog">ცვლილებები</string>
-	<string name="search_market_for_addons">დამატებათა ძიება</string>
-	
-    <!-- Symbols that are commonly considered word separators in this language -->
-    <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
-    <!-- Indicates that a word has been added to the dictionary -->
-    <string name="added_word"><xliff:g id="word">%s</xliff:g> : შენახულია</string>
-    
-    <!-- settings - UI -->
-    <string name="ui_group">კლიენტუირ ინტერფეისი</string>
-    <string name="keyboard_layout_change_keys_size_title">განლაგების გადამრთველები</string>
-    <string name="keyboard_layout_change_keys_size_summary">On screen keyboard layout keys size</string>
-    <string name="keyboard_layout_change_keys_size_dialog_title">ზომის არჩევა</string>
-    <string-array name="keyboard_layout_keys_size">
-        <item>არცერთო</item>
-        <item>პატარა</item>
-        <item>დიდი</item>
-    </string-array>
-    
-    <string name="physical_keyboard_change_notification_title">Keyboard layout notification</string>
-    <string name="physical_keyboard_change_notification_summary">Type of notification about the active layout</string>
-    <string name="physical_keyboard_change_notification_dialog_title">Select notification type</string>
-    <string-array name="physical_keyboard_change_notification_types">
-        <item>Always show layout icon</item>
-        <item>On physical keyboard change</item>
-        <item>No notification</item>
-    </string-array>
-    
-    <string name="lengthy_operations_toast_notification">Notify on lengthy operations</string>
-    <string name="lengthy_operations_toast_notification_summary">Show short notifications on lengthy operations</string>
-    
-    <!-- Options menu -->
-    <string name="change_ime">მონაცემთა შეტანის მეთოდის შეცვლა</string>
-    <string name="override_dictionary">Override default dictionary</string>
-    <!-- Dictionary override strings -->
-    <string name="override_dictionary_title">Override <xliff:g id="word">%s</xliff:g> dictionary</string>
-    <string name="override_dictionary_default">Default</string>
-    <!-- Dictionary override toast messages -->
-    <string name="override_disabled">Override cleared</string>
-    <string name="override_enabled">Overriding to <xliff:g id="word">%s</xliff:g></string>
-    
-    <!-- settings - effects-->
-    <string name="effects_group">ეფექტები</string>
-    <string name="ime_settings">კლავიატურის პარამეტრები</string>
-    <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
-    <string name="vibrate_on_key_press_title">ვიბრაცია კლავიშზე დაჭერისას</string>
-    <string name="vibrate_on_key_press_summary">ვიბრაციის ტიპის არჩევა</string>
-    <string name="vibrate_on_key_press_dialog_title">ვიბრაციის ხანგრძლივობის არჩევა</string>
-    <string-array name="vibrate_on_key_press_types">
-    	<item>ვიბრაციის გარეშე</item>
-        <item>მსუბუქი</item>
-        <item>საშუალო</item>
-        <item>მძიმე</item>
-    </string-array>
-    
-    <string name="sound_on">ხმა კლავიშების დაჭერისას</string>
-    <string name="sound_on_summary">Sound effects on soft keyboard press.</string>
-    <string name="use_custom_sound_volume">Set custom volume</string>
-    <string name="use_custom_sound_volume_on_summary">Sounds effects volume is custom.</string>
-    <string name="use_custom_sound_volume_off_summary">Sounds effects volume is the system\'s notifications volume.</string>
-    <string name="custom_sound_volume">Custom key-press volume</string>
-    
-    <string name="tweaks_group">Tweaks</string>
-    <string name="use_keyrepeat">Use key repeat</string>
-    <string name="use_keyrepeat_on_summary">Key repeat is enabled</string>
-    <string name="use_keyrepeat_off_summary">Key repeat is disabled</string>    
-    <string name="emoticon_long_press_opens_popup">Long-press smiley popup</string>
-    <string name="emoticon_long_press_opens_popup_on_summary">Show emoticons popup on long-press</string>
-    <string name="emoticon_long_press_opens_popup_off_summary">Show emoticons popup on short-press</string>
-    <string name="default_smiley_text">სიცილაკების ტექსტი</string>
-    <string name="default_domain_text">Domain text</string>
-    <string name="key_press_preview_popup">Key preview popup</string>
-    <string name="key_press_preview_popup_on_summary">Show popup upon key-press</string>
-    <string name="key_press_preview_popup_off_summary">Do not show popup upon key-press</string>
-    <string name="switch_keyboard_on_space">Space switches keyboards</string>
-    <string name="switch_keyboard_on_space_on_summary">Switch from symbols to alphabet when pressing space</string>
-    <string name="switch_keyboard_on_space_off_summary">Do not switch from symbols to alphabet when pressing space</string>
-    <string name="fullscreen_input_connection_supported">Use full-screen input</string>
-    <string name="fullscreen_input_connection_supported_on_summary">Full-screen input in landscape mode</string>
-    <string name="fullscreen_input_connection_supported_off_summary">Never use full-screen input</string>
-    <string name="zoom_factor_keys_in_portrait">Keys height factor in portrait mode</string>
-    <string name="zoom_factor_keys_in_landscape">Keys height factor in landscape mode</string>
-    <string name="insert_space_after_word_suggestion_selection">Space after candidate pick</string>
-    <string name="insert_space_after_word_suggestion_selection_on_summary">Insert space after word suggestion select</string>
-    <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
-    <string name="swipe_tweak_group">Change swipe gesture actions</string>
-    <string name="swipe_up_action">ასმა</string>
-    <string name="swipe_up_action_summary">Define the swipe up gesture action</string>
-    <string name="swipe_up_action_title">Select swipe up action</string>
-    <string name="swipe_down_action">ჩამოსმა</string>
-    <string name="swipe_down_action_summary">Define the swipe down gesture action</string>
-    <string name="swipe_down_action_title">Select swipe down action</string>
-    <string name="swipe_left_action">მარცხნივ გასმა</string>
-    <string name="swipe_left_action_summary">Define the swipe left gesture action</string>
-    <string name="swipe_left_action_title">Select swipe left action</string>
-    <string name="swipe_right_action">მარჯვნივ გასმა</string>
-    <string name="swipe_right_action_summary">Define the swipe right gesture action</string>
-    <string name="swipe_right_action_title">Select swipe right action</string>
-    <string-array name="swipe_action_types">
-    	<item>No action</item>
-    	<item>Next alphabet keyboard</item>
-        <item>Next symbols keyboard</item>
-        <item>Cycle through all keyboards</item>
-        <item>Reverse cycle through all keyboards</item>
-        <item>შიფტი</item>
-        <item>კლავიატურის დამალვა</item>
-        <item>Back-space</item>
-        <item>Move cursor up</item>
-        <item>Move cursor down</item>
-        <item>Move cursor left</item>
-        <item>Move cursor right</item>
-    </string-array>
-    
-    <string name="action_key_invisible_on_disable">Invisible action key</string>
-    <string name="action_key_invisible_on_disable_on_summary">Action key will be invisible when GUI requests</string>
-    <string name="action_key_invisible_on_disable_off_summary">Action key will be visible even if GUI requests</string>
-    
-    <string name="rtl_workaround_detection_title">RTL detection type</string>
-    <string name="rtl_workaround_detection_summary">Right-to-Left languages text fix</string>
-    
-    <string name="auto_caps">ავტო-capitalization</string>
-    <string name="grammer_group">გრამატიკა</string>
-    <string name="candidates_on">შეთავაზებების ჩვენება</string>
-    <string name="quick_fix">სწრაფი ჩასწორება</string>
-    <string name="quick_fix_summary">Corrects commonly typed mistakes</string>
-    <string name="auto_complete">შემოთავაზებების ავტომატურად არჩევა</string>
-    <string name="auto_complete_summary">Space will select highlighted suggestion</string>
-    <string name="physical_keyboard_suggestions">Suggestions in device keyboard</string>
-    <string name="physical_keyboard_suggestions_summary">შემოთავაზებების ჩვენება წერისას</string>
-    <string name="keyboard_sandbox">აირჩიეთ წერის ტესტირებისთვის</string>
-    <string name="keyboard_sandbox_title">Type below to test your settings</string>
-    <!-- settings - keyboard group -->
-    <string name="keyboards_group">განლაგებები</string>
-    <string name="symbols_keyboard">სიმბოლოები</string>
-    <string name="eng_keyboard">ინგლისური</string>
-    <string name="eng_keyboard_compact">კომპაქტური ინგლისური</string>
-    
-    <!-- Tutorials --> 
-    <string name="show_tutorial_on_startup">ამ tutorialის ჩვენება გაშვებისას</string>
-    <string name="tutorial_swipe_title">გადასმა განლაგების შესაცვლელად</string>
-    <string name="tutorial_swipe_text">Keyboard layout can be changed by swiping you finger over the keyboard. Swipe left-to-right to change language, swipe right-to-left to change to symbols.</string>
-    
-    <!-- Special soft keyboard keys text -->
-    <string name="label_go_key">Go</string>
-    <string name="label_next_key">შემდ.</string>
-    <string name="label_send_key">გაგზავნა</string>
-    <string name="label_done_key">მორჩა</string>
-    
-    <string name="change_lang_wide">&#8594; აბგ &#8594;</string>
-    <string name="change_lang_regular">აბგ</string>
-    <string name="change_symbols_wide">&#8592; 123 &#8592;</string>
-    <string name="change_symbols_regular">123</string>
-    
-    <string name="please_wait">მოითმინე</string>
-    <string name="toast_lengthy_words_long_operation">ლექსიკონი იტვირთება...</string>
-    <string name="toast_lengthy_start_up_operation">AnySoftKeyboard ეშვება...</string>
-    <string name="lengthy_creating_keyboard_operation">განლაგება იქმნება...</string>
-    
-    <!-- dictionaries -->
-    <string name="eng_dictionary">ინგლისური</string>
+<!--Generated with crowdin.net-->
+<resources>
+  <string name="ime_name">AnySoftKeyboard</string>
+  <string name="main_tab_welcome">სალამი</string>
+  <string name="main_tab_links">ბმულები</string>
+  <string name="main_tab_credits">ავტორები</string>
+  <string name="how_to_pointer_title">მოგესალმებათ AnySoftKeyboard</string>
+  <string name="how_to_pointer_version_prefix">ვერსია: </string>
+  <string name="how_to_pointer_not_app">AnySoftKeyboard - ეკრანული კლავიატურის შემცვლელი.</string>
+  <string name="how_to_pointer_go_to_links">დაწვრილებითი ინფორმაციისთვის გადადით ბმულების გვერდზე.</string>
+  <string name="how_to_pointer_how_to_url">როგორ გამოვიყენოთ ეს კლავიატურა:</string>
+  <string name="how_to_pointer_site">ზოაგადი დეტალები:</string>
+  <string name="how_to_pointer_changelog">დეტალები უახლესი ვერსისს შესახებ:</string>
+  <string name="how_to_pointer_issues">Bug reporting:</string>
+  <string name="main_tab_credits_title">პროგრამის შექმნაში მონაწილეობდნენ-</string>
+  <string name="main_tab_credits_created_by">შემქმნელი:</string>
+  <string name="main_tab_credits_additional_work_by">დამატებით პროგრამირება:</string>
+  <string name="main_tab_credits_localization_by">თარგმნა:</string>
+  <string name="main_tab_credits_GUI_by">UI სურათების შემქმნელი:</string>
+  <string name="how_to_simple_howto">To enable AnySoftKeyboard, go to Android's Settings and select 'Locale&amp;amp;text' and turn on AnySoftKeyboard. It will warn you about possible key-logging, don't worry, we do not keep data, and we do not send it anywere.\nTo actually use AnySoftKeyboard, you'll need to activate it: in any textbox (e.g., Messagings TO field), and long-press it. A dialog will pop-up, select 'Input Method', and then AnySoftKeyboard.\nThat's it!</string>
+  <string name="notification_text">წამიკითხე</string>
+  <string name="testers_version">ვერსია მტესტავთათვის!</string>
+  <string name="license_title">License</string>
+  <string name="license_text">This software is licensed under Apache2 (c) 2010 Menny Even-Danan</string>
+  <string name="about">About</string>
+  <string name="changelog">ცვლილებები</string>
+  <string name="search_market_for_addons">დამატებათა ძიება</string>
+  <string name="added_word">&lt;xliff:g id="word"&gt;%s&lt;/xliff:g&gt; : შენახულია</string>
+  <string name="menu_insert_smiley">სმაილიკის ჩასმა</string>
+  <string name="click_for_help">Help</string>
+  <string name="click_for_help_summary">დააკლიკეთ - ონლაინ დახმარებისთვის</string>
+  <string name="ui_group">კლიენტუირ ინტერფეისი</string>
+  <string name="keyboard_layout_change_keys_size_title">განლაგების გადამრთველები</string>
+  <string name="keyboard_layout_change_keys_size_summary">On screen keyboard layout keys size</string>
+  <string name="keyboard_layout_change_keys_size_dialog_title">ზომის არჩევა</string>
+  <string name="physical_keyboard_change_notification_title">კლავიატურის იერსახის შეტყობინება</string>
+  <string name="physical_keyboard_change_notification_summary">შეტყობინების ტიპი აქტიური იერსახის შესახებ</string>
+  <string name="physical_keyboard_change_notification_dialog_title">აირჩიე შეტყობინების ტიპი</string>
+  <string name="lengthy_operations_toast_notification">Notify on lengthy operations</string>
+  <string name="lengthy_operations_toast_notification_summary">Show short notifications on lengthy operations</string>
+  <string name="change_ime">მონაცემთა შეტანის მეთოდის შეცვლა</string>
+  <string name="override_dictionary">ნაგულისხმევი ლექსიკონის უგულვებელყოფა</string>
+  <string name="override_dictionary_title">ლექსიკონის უგულვებელყოფა</string>
+  <string name="override_dictionary_default">ნაგულისხმები</string>
+  <string name="override_disabled">უგულვებელყოფა გაუქმებულია</string>
+  <string name="override_enabled">უგულველვყოოთ </string>
+  <string name="effects_group">ეფექტები</string>
+  <string name="ime_settings">კლავიატურის პარამეტრები</string>
+  <string name="vibrate_on_key_press_title">ვიბრაცია კლავიშზე დაჭერისას</string>
+  <string name="vibrate_on_key_press_summary">ვიბრაციის ტიპის არჩევა</string>
+  <string name="vibrate_on_key_press_dialog_title">ვიბრაციის ხანგრძლივობის არჩევა</string>
+  <string name="sound_on">ხმა კლავიშების დაჭერისას</string>
+  <string name="sound_on_summary">ხმოვანი ეფექტი პროგრამულ კლავიშზე დაჭერისას.</string>
+  <string name="use_custom_sound_volume">Set custom volume</string>
+  <string name="use_custom_sound_volume_on_summary">Sounds effects volume is custom.</string>
+  <string name="use_custom_sound_volume_off_summary">Sounds effects volume is the system\'s notifications volume.</string>
+  <string name="custom_sound_volume">Custom key-press volume</string>
+  <string name="speacial_fetures_group">სპეციალური საშუალებები</string>
+  <string name="switch_keyboard_on_space">Space switches keyboards</string>
+  <string name="switch_keyboard_on_space_on_summary">Switch from symbols to alphabet when pressing space</string>
+  <string name="switch_keyboard_on_space_off_summary">Do not switch from symbols to alphabet when pressing space</string>
+  <string name="fullscreen_input_connection_supported">მთელი ეკრანის გამოყენება ტექსტის შესაყვანად</string>
+  <string name="fullscreen_input_connection_supported_on_summary">მთელ ეკრანზე შეყვანა ჰორიზონტალურ რეჟიმში</string>
+  <string name="fullscreen_input_connection_supported_off_summary">არასოდეს გამოვიყენოთ ტექსტის შეყვანისთვის მთელი ეკრანი</string>
+  <string name="fullscreen_portrait_input_connection_supported">Use portrait full-screen</string>
+  <string name="fullscreen_portrait_input_connection_supported_on_summary">Full-screen input in portrait</string>
+  <string name="fullscreen_portrait_input_connection_supported_off_summary">Do not use full-screen input in portrait</string>
+  <string name="backword_support">Back-word support</string>
+  <string name="backword_support_on_summary">შიფტ-ბექსპეისი წაშლის ბოლო სიტყვას</string>
+  <string name="backword_support_off_summary">შიფტ-ბექსპეისი წაშლის ბოლო სიმბოლოს</string>
+  <string name="swipe_tweak_group">Change swipe gesture actions</string>
+  <string name="swipe_up_action">ასმა</string>
+  <string name="swipe_up_action_summary">Define the swipe up gesture action</string>
+  <string name="swipe_up_action_title">Select swipe up action</string>
+  <string name="swipe_down_action">ჩამოსმა</string>
+  <string name="swipe_down_action_summary">Define the swipe down gesture action</string>
+  <string name="swipe_down_action_title">Select swipe down action</string>
+  <string name="swipe_left_action">მარცხნივ გასმა</string>
+  <string name="swipe_left_action_summary">Define the swipe left gesture action</string>
+  <string name="swipe_left_action_title">Select swipe left action</string>
+  <string name="swipe_right_action">მარჯვნივ გასმა</string>
+  <string name="swipe_right_action_summary">Define the swipe right gesture action</string>
+  <string name="swipe_right_action_title">Select swipe right action</string>
+  <string name="hardware_keys_group">Hardware keys mapping</string>
+  <string name="volume_key_for_left_right_support">Volume key for left/right</string>
+  <string name="volume_key_for_left_right_support_on_summary">Disable left/right via volume up/down</string>
+  <string name="volume_key_for_left_right_support_off_summary">Volume up turns cursor left, volume down turns cursor right</string>
+  <string name="camera_key_for_backspace_backword_support">Use Camera key for backspace/backword</string>
+  <string name="camera_key_for_backspace_backword_support_on_summary">კამერის კლავიშის ფუნქციის აღდგენა</string>
+  <string name="camera_key_for_backspace_backword_support_off_summary">Half press on camera button deletes last character, full press deletes last word</string>
+  <string name="special_dictionaries_group">Special dictionaries</string>
+  <string name="use_user_dictionary">User dictionary</string>
+  <string name="use_user_dictionary_on_summary">Suggest user added words (long press on suggestion to add)</string>
+  <string name="use_user_dictionary_off_summary">&lt;string name="use_user_dictionary_off_summary"/&gt;</string>
+  <string name="use_auto_dictionary">Auto dictionary</string>
+  <string name="use_auto_dictionary_on_summary">Suggest frequently used words too</string>
+  <string name="use_auto_dictionary_off_summary">&lt;string name="use_auto_dictionary_off_summary"/&gt;</string>
+  <string name="use_contacts_dictionary">Contacts dictionary</string>
+  <string name="use_contacts_dictionary_on_summary">Suggest names from contacts list</string>
+  <string name="use_contacts_dictionary_off_summary">&lt;string name="use_contacts_dictionary_off_summary"/&gt;</string>
+  <string name="tweaks_group">Tweaks</string>
+  <string name="show_new_version_notifications_again">Show new version notifications</string>
+  <string name="show_new_version_notifications_again_on_summary">Upon installing a new version, a change-log will be shown</string>
+  <string name="show_new_version_notifications_again_off_summary">არ უნდა გაცნობოთ, როდესაც ახალი ვერსია დაინსტალირდება</string>
+  <string name="use_keyrepeat">გამოვიყენოთ კლავიშის განმეორება</string>
+  <string name="use_keyrepeat_on_summary">Key repeat is enabled</string>
+  <string name="use_keyrepeat_off_summary">Key repeat is disabled</string>
+  <string name="emoticon_long_press_opens_popup">Long-press smiley popup</string>
+  <string name="emoticon_long_press_opens_popup_on_summary">Show emoticons popup on long-press</string>
+  <string name="emoticon_long_press_opens_popup_off_summary">Show emoticons popup on short-press</string>
+  <string name="emoticon_popup_type_title">Emoticon popup type</string>
+  <string name="emoticon_popup_type_summary">Select the type of popup to show for emoticon selection</string>
+  <string name="default_smiley_text">სიცილაკების ტექსტი</string>
+  <string name="default_domain_text">Domain text</string>
+  <string name="smiley_icon_on_smileys_key">Use icon for smiley key</string>
+  <string name="smiley_icon_on_smileys_key_on_summary">Icon will be drawn on smiley key</string>
+  <string name="smiley_icon_on_smileys_key_off_summary">Smiley default text will be drawn on smiley key</string>
+  <string name="key_press_preview_popup">Key preview popup</string>
+  <string name="key_press_preview_popup_on_summary">Show popup upon key-press</string>
+  <string name="key_press_preview_popup_off_summary">Do not show popup upon key-press</string>
+  <string name="zoom_factor_keys_in_portrait">კლავიშების მონიშვნის ფაქტორი ვერტიკალურ რეჟიმში</string>
+  <string name="zoom_factor_keys_in_landscape">კლავიშების მონიშვნის ფაქტორი ჰორიზონტალურ რეჟიმში</string>
+  <string name="insert_space_after_word_suggestion_selection">პრობელის დასმა შემოთავაზაბული სიტყვის არჩევის შემდეგ</string>
+  <string name="insert_space_after_word_suggestion_selection_on_summary">პრობელის ჩასმა შემოთავაზაბული სიტყვის მონიშვნის შემდეგ</string>
+  <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
+  <string name="double_space_to_period">ორმაგი პრობელი წერტილად</string>
+  <string name="double_space_to_period_summary">ორმაგი პრობელის დასმა გარდაიქმნება წერტილი+პრობელი</string>
+  <string name="action_key_invisible_on_disable">Invisible action key</string>
+  <string name="action_key_invisible_on_disable_on_summary">Action key will be invisible when GUI requests</string>
+  <string name="action_key_invisible_on_disable_off_summary">Action key will be visible even if GUI requests</string>
+  <string name="cycle_all_symbols_keyboards">Cycle over all symbols</string>
+  <string name="cycle_all_symbols_keyboards_on_summary">Symbols key will cycle over all symbols keyboards</string>
+  <string name="cycle_all_symbols_keyboards_off_summary">Symbols key will only show main symbols keyboard</string>
+  <string name="rtl_workaround_detection_title">RTL detection type</string>
+  <string name="rtl_workaround_detection_summary">მარჯვნიდან-მარცხნივ ენების ტექსტის კორექცია</string>
+  <string name="lang_key_shows_popup">Language switch by popup</string>
+  <string name="lang_key_shows_popup_on_summary">Language key will pop-up a selection dialog</string>
+  <string name="lang_key_shows_popup_off_summary">ენის კლავიში ამოირჩევს ენებს ციკლურად</string>
+  <string name="auto_caps">ავტო-capitalization</string>
+  <string name="grammer_group">გრამატიკა</string>
+  <string name="candidates_on">შეთავაზებების ჩვენება</string>
+  <string name="quick_fix">სწრაფი ჩასწორება</string>
+  <string name="quick_fix_summary">ხდება საერთო ტიპის შეცდომების კორექტირება</string>
+  <string name="auto_complete">შემოთავაზებების ავტომატურად არჩევა</string>
+  <string name="auto_complete_summary">პრობელი მონიშნავს ხაზგასმულ შემოთავაზებას</string>
+  <string name="physical_keyboard_suggestions">შემოთავაზებები მოწყობილობის კლავიატურაზე</string>
+  <string name="physical_keyboard_suggestions_summary">შემოთავაზებების ჩვენება წერისას</string>
+  <string name="keyboard_sandbox">აირჩიეთ წერის ტესტირებისთვის</string>
+  <string name="keyboard_sandbox_title">Type below to test your settings</string>
+  <string name="contacts_dict">Contacts dictionary</string>
+  <string name="contacts_dict_summary">Include contact names in suggestions</string>
+  <string name="auto_dict">Auto dictionary</string>
+  <string name="auto_dict_summary">Add commonly used or selected words automatically to the dictionary</string>
+  <string name="keyboards_group">განლაგებები</string>
+  <string name="symbols_keyboard">სიმბოლოები</string>
+  <string name="eng_keyboard">ინგლისური</string>
+  <string name="eng_keyboard_16keys">16 Keys English</string>
+  <string name="show_tutorial_on_startup">ამ tutorialის ჩვენება გაშვებისას</string>
+  <string name="tutorial_swipe_title">გადასმა განლაგების შესაცვლელად</string>
+  <string name="tutorial_swipe_text">კლავიატურის იერსახე შეიძლება შეიცვალოს კლავიატურაზე თითის გასმით. გაუსვით მარცხნიდან-მარჯვნივ, რომ შეცვალოთ ენა, ხოლო მარჯვნიდან-მარცხნივ, რომ გადაერთოთ სიმბოლოებზე.</string>
+  <string name="label_go_key">Go</string>
+  <string name="label_next_key">შემდ.</string>
+  <string name="label_send_key">გაგზავნა</string>
+  <string name="label_done_key">მორჩა</string>
+  <string name="change_lang_wide">→ აბგ →</string>
+  <string name="change_lang_regular">აბგ</string>
+  <string name="change_symbols_wide">← 123 ←</string>
+  <string name="change_symbols_regular">123</string>
+  <string name="please_wait">მოითმინე</string>
+  <string name="toast_lengthy_words_long_operation">ლექსიკონი იტვირთება...</string>
+  <string name="toast_lengthy_start_up_operation">AnySoftKeyboard ეშვება...</string>
+  <string name="lengthy_creating_keyboard_operation">განლაგება იქმნება...</string>
+  <string name="select_keyboard_popup_title">აირჩიე კლავიატურა</string>
+  <string name="eng_dictionary">ინგლისური</string>
+  <string-array name="keyboard_layout_keys_size">
+    <item>არცერთო</item>
+    <item>პატარა</item>
+    <item>დიდი</item>
+  </string-array>
+  <string-array name="physical_keyboard_change_notification_types">
+    <item>ყოველთვის აჩვენე იერსახის პიქტოგრამა</item>
+    <item>როდესაც შეიცვლება ფიზიკური კლავიატურა</item>
+    <item>შეტყობინება არ არის</item>
+  </string-array>
+  <string-array name="vibrate_on_key_press_types">
+    <item>ვიბრაციის გარეშე</item>
+    <item>მსუბუქი</item>
+    <item>საშუალო</item>
+    <item>მძიმე</item>
+  </string-array>
+  <string-array name="swipe_action_types">
+    <item>No action</item>
+    <item>შემდეგი ალფავიტური კლავიატურა</item>
+    <item>შემდეგი სიმბოლური კლავიატურა</item>
+    <item>ყველა კლავიატურის ჩამოტარება</item>
+    <item>ყველა კლავიატურის ჩამოტარება საპირისპირო მიმართულებით</item>
+    <item>შიფტი</item>
+    <item>კლავიატურის დამალვა</item>
+    <item>ბექსპეისი</item>
+    <item>კურსორის სვლა ზემოთ</item>
+    <item>კურსორის სვლა ქვემოთ</item>
+    <item>კურსორის სვლა მარცხნივ</item>
+    <item>კურსორის სვლა მარჯვნივ</item>
+  </string-array>
+  <string-array name="smiley_names">
+    <item>Happy</item>
+    <item>Sad</item>
+    <item>Winking</item>
+    <item>Tongue sticking out</item>
+    <item>Surprised</item>
+    <item>Kissing</item>
+    <item>Yelling</item>
+    <item>Cool</item>
+    <item>Money mouth</item>
+    <item>ფეხი პირში</item>
+    <item>Embarrassed</item>
+    <item>ანგელოზი</item>
+    <item>განუსაზღვრელი</item>
+    <item>ტირილი</item>
+    <item>ტუჩები დამუწულია</item>
+    <item>Laughing</item>
+    <item>დაბნეული</item>
+  </string-array>
 </resources>
