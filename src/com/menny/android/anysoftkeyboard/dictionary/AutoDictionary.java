@@ -126,7 +126,7 @@ public class AutoDictionary extends UserDictionaryBase {
     }
 
     @Override
-   protected  void loadAllWords()
+   protected  void loadDictionaryAsync()
    {
         // Load the words that correspond to the current input locale
         Cursor cursor = query(COLUMN_LOCALE + "=?", new String[] { mLocale });

@@ -17,6 +17,7 @@
 package com.menny.android.anysoftkeyboard.dictionary;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
@@ -65,6 +66,11 @@ public abstract class UserDictionaryBase extends Dictionary {
             data[length++] = n;
         }
     }
+    
+    private boolean mUpdatingDictionary;
+
+    // Use this lock before touching mUpdatingDictionary & mRequiresDownload
+    private Object mUpdatingLock = new Object();
 
     protected boolean mRequiresReload;
 
@@ -82,12 +88,43 @@ public abstract class UserDictionaryBase extends Dictionary {
 
 	protected abstract void closeAllResources();
 
-    public void loadDictionary() throws Exception {
-        loadAllWords();
-        mRequiresReload = false;
+	
+    private class LoadDictionaryTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... v) {
+            loadDictionaryAsync();
+     
+            synchronized (mUpdatingLock) {
+                mUpdatingDictionary = false;
+            }
+            return null;
+        }
+    }
+    
+    public void startDictionaryLoadingTaskLocked() {
+        if (!mUpdatingDictionary) {
+            mUpdatingDictionary = true;
+            mRequiresReload = false;
+            new LoadDictionaryTask().execute();
+        }
     }
 
-	protected abstract void loadAllWords() throws Exception;
+    
+    public void loadDictionary() {
+        synchronized (mUpdatingLock) {
+            startDictionaryLoadingTaskLocked();
+        }
+    }
+
+    //TODO menny, check this please.  is needed after each loadDictionary ? mRequiresReload = false; 
+    //because it is done in startDictionaryLoadingTaskLocked
+	
+   // public void loadDictionary() throws Exception {
+     //   loadAllWords();
+       // mRequiresReload = false;
+    //}
+
+	protected abstract void loadDictionaryAsync();
 
     /**
      * Adds a word to the dictionary and makes it persistent.

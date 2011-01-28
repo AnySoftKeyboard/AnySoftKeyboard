@@ -17,7 +17,7 @@ public abstract class SQLiteUserDictionaryBase extends UserDictionaryBase {
 	}
 
 	@Override
-	protected void loadAllWords() throws Exception
+	protected void loadDictionaryAsync()
 	{
 		if (mStorage == null)
 			mStorage = createStorage();
@@ -39,7 +39,7 @@ public abstract class SQLiteUserDictionaryBase extends UserDictionaryBase {
 		*/
 	}
 
-	protected abstract DictionarySQLiteConnection createStorage() throws Exception;
+	protected abstract DictionarySQLiteConnection createStorage();
 
 	@Override
 	protected void AddWordToStorage(String word, int frequency) {

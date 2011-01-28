@@ -22,7 +22,6 @@ import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import android.content.ContentResolver;
 import android.database.ContentObserver;
 import android.database.Cursor;
-import android.os.AsyncTask;
 import android.provider.ContactsContract.Contacts;
 import android.util.Log;
 
@@ -39,11 +38,6 @@ public class ContactsDictionary extends UserDictionaryBase {
 
     private ContentObserver mObserver;
 
-    // Use this lock before touching mUpdatingDictionary & mRequiresDownload
-    private Object mUpdatingLock = new Object();
-    
-    private boolean mUpdatingDictionary;
-
 	private int mContactsCount = 0;
 
 	private long mContactsHash = 0;
@@ -59,65 +53,25 @@ public class ContactsDictionary extends UserDictionaryBase {
             public void onChange(boolean self) {
                 if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, "Contacts list modified (self: "+self+"). Reloading...");
                 //mRequiresReload = true;
-                loadAllWords();
+                loadDictionaryAsync();
             }
         });
     }
-//this is done in closeAllResources function
-//    public synchronized void close() {
-//        if (mObserver != null) {
-//            mContext.getContentResolver().unregisterContentObserver(mObserver);
-//            mObserver = null;
-//        }
-//        super.close();
-//    }
+
     
-    private class LoadDictionaryTask extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... v) {
-            loadDictionaryAsync();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            synchronized (mUpdatingLock) {
-                mUpdatingDictionary = false;
-            }
-            super.onPostExecute(result);
-        }
-        
-    }
-
-//    @Override
-//    public void startDictionaryLoadingTaskLocked() {
-//        long now = SystemClock.uptimeMillis();
-//        if (mLastLoadedContacts == 0
-//                || now - mLastLoadedContacts > 30 * 60 * 1000 /* 30 minutes */) {
-//            super.startDictionaryLoadingTaskLocked();
-//        }
-//    }
-
+    @Override
     protected void loadDictionaryAsync() {
-        Log.d(TAG, "Loading contacts asynchronously.");
+    	try{
         Cursor cursor = mContext.getContentResolver()
                 .query(Contacts.CONTENT_URI, PROJECTION, Contacts.IN_VISIBLE_GROUP+"="+1, null, null);
         if (cursor != null) {
             addWords(cursor);
         }
-    }
-    
-    
-    @Override
-    public void loadAllWords() {
-        synchronized (mUpdatingLock) {
-            if (!mUpdatingDictionary) {
-                mUpdatingDictionary = true;
-                //mRequiresReload = false;
-                new LoadDictionaryTask().execute();
-            }
+        } catch(IllegalStateException e) {
+            Log.e(TAG, "Contacts DB is having problems");
         }
     }
+    
 
     private void addWords(Cursor cursor) {
     	int newCount = 0;

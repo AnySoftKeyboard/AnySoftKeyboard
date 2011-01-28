@@ -43,7 +43,7 @@ class AndroidUserDictionary extends UserDictionaryBase {
         }
 	}
 
-	protected void loadAllWords() {
+	protected void loadDictionaryAsync() {
 		Cursor cursor = mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION, null, null, null);
                 		/*"(locale IS NULL) or (locale=?)",
                         new String[] { Locale.getDefault().toString() }, null);*/
