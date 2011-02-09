@@ -4,6 +4,8 @@ import java.util.LinkedList;
 
 public class KeyEventStateMachine {
 	
+	public static final int	KEYCODE_FIRST_CHAR = -4097;
+	
 	private final class KeyEventTransition {
 		
 		private KeyEventState next;
@@ -75,7 +77,14 @@ public class KeyEventStateMachine {
 			this.iVisibleSequenceLength = 0;
 		}
 		
-		public State addKeyCode(int keyCode) {
+		private void returnToFirst(int keyCode) {
+			this.state = KeyEventStateMachine.this.start;
+			if (keyCode > 0)
+				this.iVisibleSequenceLength--;
+			this.iSequenceLength--;		
+		}
+		
+		private State addKeyCode(int keyCode) {
 			this.state = this.state.getNext(keyCode);
 			if (this.state == null) {
 				this.reset();
@@ -91,6 +100,10 @@ public class KeyEventStateMachine {
 				this.visibleSequenceLength = this.iVisibleSequenceLength;
 				
 				if (!this.state.hasNext()) {
+					if (this.resultChar == KEYCODE_FIRST_CHAR) {
+						this.returnToFirst(keyCode);
+						return this.addKeyCode(keyCode);
+					} 
 					this.reset();
 					return State.FULLMATCH;
 				}			
