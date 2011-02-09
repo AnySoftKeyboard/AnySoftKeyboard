@@ -4,9 +4,11 @@ import org.xmlpull.v1.XmlPullParser;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.inputmethodservice.Keyboard;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.Xml;
+import android.view.KeyEvent;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
@@ -32,6 +34,9 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	private final HardKeyboardSequenceHandler mHardKeyboardTranslator;
 	private final String mAdditionalIsLetterExceptions;
 
+	private static final int[] qwertKeysequence = new int[] { 45,51,33,46,48 };
+	private static final int[] dotKeysequence = new int[] { 56,56,56,56 };
+	
 	public ExternalAnyKeyboard(AnyKeyboardContextProvider askContext, Context context,
 			int xmlLayoutResId,
 			int xmlLandscapeResId,
@@ -78,7 +83,13 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                     	inTranslations = true;
                     	AttributeSet attrs = Xml.asAttributeSet(parser);
                     	final String qwerty = attrs.getAttributeValue(null, XML_QWERTY_ATTRIBUTE);
-                    	translator.addQwertyTranslation(qwerty);
+                    	if (qwerty != null)
+                    		translator.addQwertyTranslation(qwerty);
+                    	
+                    	translator.addSequence(qwertKeysequence, AnyKeyboard.KEYCODE_LANG_CHANGE);
+                    	translator.addShiftSequence(qwertKeysequence, AnyKeyboard.KEYCODE_LANG_CHANGE);
+                    	translator.addSequence(dotKeysequence, AnyKeyboard.KEYCODE_LANG_CHANGE);
+                    	translator.addShiftSequence(dotKeysequence, AnyKeyboard.KEYCODE_LANG_CHANGE);
                     	//if (AnySoftKeyboardConfiguration.DEBUG) Log.d(TAG, "Starting parsing "+XML_TRANSLATION_TAG+". Qwerty:"+qwerty);
                     }
                     else if (inTranslations && XML_SEQUENCE_TAG.equals(tag))
@@ -91,11 +102,12 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                     	final boolean isShift = attrs.getAttributeBooleanValue(null, XML_SHIFT_ATTRIBUTE, false);
                     	final String targetChar = attrs.getAttributeValue(null, XML_TARGET_ATTRIBUTE);
                     	final String targetCharCode = attrs.getAttributeValue(null, XML_TARGET_CHAR_CODE_ATTRIBUTE);
-                        final String target;
-                        if (targetChar == null)
-                        	target = Character.toString((char)Integer.parseInt(targetCharCode));
+                        final Integer target;
+                        if (targetCharCode == null)
+                        	target = new Integer((int)targetChar.charAt(0));
                         else
-                        	target = targetChar;
+                        	target = new Integer(Integer.parseInt(targetCharCode));
+                        	
                     	//asserting
                         if ((keyCodes == null) || (keyCodes.length == 0) || (target == null))
                         {
@@ -106,19 +118,17 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                         	if (!isAlt && !isShift)
                         	{
 	                        	//if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Physical translation details: keys:"+printInts(keyCodes)+" target:"+target);
-	                        	translator.addSequence(keyCodes, target.charAt(0));
+	                        	translator.addSequence(keyCodes, target.intValue());
                         	}
                         	else if (isAlt)
                         	{
-                        		final int keyCode = keyCodes[0];
                         		//if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Physical translation details: ALT+key:"+keyCode+" target:"+target);
-	                        	translator.addAltMapping(keyCode, target.charAt(0));
+	                        	translator.addAltSequence(keyCodes, target.intValue());
                         	}
                         	else if (isShift)
                         	{
-                        		final int keyCode = keyCodes[0];
                         		//if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Physical translation details: ALT+key:"+keyCode+" target:"+target);
-	                        	translator.addShiftMapping(keyCode, target.charAt(0));
+	                        	translator.addShiftSequence(keyCodes, target.intValue());
                         	}
                         }
                     }
@@ -207,27 +217,16 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	{
 		if (mHardKeyboardTranslator != null)
 		{
-			final char translated;
+			final int translated;
 			if (action.isAltActive())
-				translated = mHardKeyboardTranslator.getAltCharacter(action.getKeyCode());
-			else if (action.isShiftActive())
-			{
-				//shift is a special case, we might have a special shift mapping, but
-				//we may not... in the latter case, we'll use the regualr translation
-				//but upper-case the output
-				char shiftTranslation = mHardKeyboardTranslator.getShiftCharacter(action.getKeyCode());
-				if (shiftTranslation <= 0)
-				{
-					shiftTranslation = mHardKeyboardTranslator.getSequenceCharacter(action.getKeyCode(), getASKContext());
-					//uppercasing
-					shiftTranslation = Character.toUpperCase(shiftTranslation);
-				}
-				
-				translated = shiftTranslation;
-			}
-			else
-				translated = mHardKeyboardTranslator.getSequenceCharacter(action.getKeyCode(), getASKContext());
+				if (!mHardKeyboardTranslator.addSpecialKey(AnyKeyboard.KEYCODE_ALT))
+					return;					
+			if (action.isShiftActive())
+				if (!mHardKeyboardTranslator.addSpecialKey(AnyKeyboard.KEYCODE_SHIFT))
+					return;
 
+			translated = mHardKeyboardTranslator.getCurrentCharacter(action.getKeyCode(), getASKContext());
+			 
 			if (translated != 0)
 				action.setNewKeyCode(translated);
 		}
