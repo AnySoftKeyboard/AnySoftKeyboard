@@ -30,6 +30,7 @@
     	<item>none</item>
         <item>next_alphabet</item>
         <item>next_symbols</item>
+        <item>next_inside_mode</item>
         <item>cycle_keyboards</item>
         <item>reverse_cycle_keyboards</item>
         <item>shift</item>
@@ -39,6 +40,22 @@
         <item>cursor_down</item>
         <item>cursor_left</item>
         <item>cursor_right</item>
+    </string-array>
+    
+    <string-array name="swipe_action_types_names">
+    	<item>@string/swipe_action_name_none</item>
+    	<item>@string/swipe_action_name_next_alphabet</item>
+        <item>@string/swipe_action_name_next_symbols</item>
+        <item>@string/swipe_action_name_next_inside_mode</item>
+        <item>@string/swipe_action_name_cycle_keyboards</item>
+        <item>@string/swipe_action_name_reverse_cycle_keyboards</item>
+        <item>@string/swipe_action_name_shift</item>
+        <item>@string/swipe_action_name_hide</item>
+        <item>@string/swipe_action_name_backspace</item>
+        <item>@string/swipe_action_name_cursor_up</item>
+        <item>@string/swipe_action_name_cursor_down</item>
+        <item>@string/swipe_action_name_cursor_left</item>
+        <item>@string/swipe_action_name_cursor_right</item>
     </string-array>
     
     <string-array name="rtl_workaround_detectionn_types">

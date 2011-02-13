@@ -1236,6 +1236,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case AnyKeyboard.KEYCODE_KEYBOARD_REVERSE_CYCLE:
 		    nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.PreviousAny);
             break;
+		case AnyKeyboard.KEYCODE_KEYBOARD_CYCLE_INSIDE_MODE:
+			nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.AnyInsideMode);
+			break;
 		case AnyKeyboard.KEYCODE_CLIPBOARD:
 		    ClipboardManager cm = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
 		    if(cm.hasText()){
