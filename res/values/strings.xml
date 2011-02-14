@@ -142,6 +142,7 @@
     <string name="swipe_action_name_cursor_down">Move cursor down</string>
     <string name="swipe_action_name_cursor_left">Move cursor left</string>
     <string name="swipe_action_name_cursor_right">Move cursor right</string>
+	<string name="swipe_action_name_other_keyboards_mode">Switch layout mode</string>
    
     <string name="hardware_keys_group">Hardware keys mapping</string>
     <string name="volume_key_for_left_right_support">Volume key for left/right</string>

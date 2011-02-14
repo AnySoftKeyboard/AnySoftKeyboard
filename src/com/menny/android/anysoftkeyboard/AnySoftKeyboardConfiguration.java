@@ -352,6 +352,8 @@ public abstract class AnySoftKeyboardConfiguration
 				return AnyKeyboard.KEYCODE_RIGHT;
 			else if (keyValue.equalsIgnoreCase("next_inside_mode"))
 				return AnyKeyboard.KEYCODE_KEYBOARD_CYCLE_INSIDE_MODE;
+			else if (keyValue.equalsIgnoreCase("other_keyboards_mode"))
+				return AnyKeyboard.KEYCODE_KEYBOARD_MODE_CHANGE;
 			
 			return 0;//0 means no action
 		}

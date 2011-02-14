@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+	<!-- It is very important NOT to translate any string in this file. -->
 	<string-array name="keyboard_layout_change_methods_values">
 	<!--
 	previous values:
@@ -31,6 +33,7 @@
         <item>next_alphabet</item>
         <item>next_symbols</item>
         <item>next_inside_mode</item>
+        <item>other_keyboards_mode</item>
         <item>cycle_keyboards</item>
         <item>reverse_cycle_keyboards</item>
         <item>shift</item>
@@ -47,6 +50,7 @@
     	<item>@string/swipe_action_name_next_alphabet</item>
         <item>@string/swipe_action_name_next_symbols</item>
         <item>@string/swipe_action_name_next_inside_mode</item>
+        <item>@string/swipe_action_name_other_keyboards_mode</item>
         <item>@string/swipe_action_name_cycle_keyboards</item>
         <item>@string/swipe_action_name_reverse_cycle_keyboards</item>
         <item>@string/swipe_action_name_shift</item>

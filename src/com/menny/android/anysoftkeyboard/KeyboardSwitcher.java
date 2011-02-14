@@ -39,7 +39,8 @@ public class KeyboardSwitcher
 		AlphabetSupportsPhysical,
 		Any,
 		PreviousAny,
-		AnyInsideMode
+		AnyInsideMode,
+		OtherMode
 	}
     public static final int MODE_TEXT = 1;
     public static final int MODE_SYMBOLS = 2;
@@ -562,8 +563,19 @@ public class KeyboardSwitcher
 			    }
 			    else
 			    {
-			    	//re-calling this function,but with Alphabet
+			    	//re-calling this function,but with Symbols
 					return nextKeyboard(currentEditorInfo, NextKeyboardType.Symbols);
+			    }
+			case OtherMode:
+				if (mAlphabetMode)
+			    {
+			        //re-calling this function,but with Symbols
+					return nextKeyboard(currentEditorInfo, NextKeyboardType.Symbols);
+			    }
+			    else
+			    {
+			    	//re-calling this function,but with Alphabet
+					return nextKeyboard(currentEditorInfo, NextKeyboardType.Alphabet);
 			    }
 			default:
 				return nextAlphabetKeyboard(currentEditorInfo, false);
