@@ -17,20 +17,20 @@
         <Key android:codes="52" android:horizontalGap="0px" android:keyIcon="@drawable/sym_keyboard_num4" android:keyEdgeFlags="left"/>
         <Key android:codes="53" android:keyIcon="@drawable/sym_keyboard_num5"/>
         <Key android:codes="54" android:keyIcon="@drawable/sym_keyboard_num6"/>
-        <Key android:codes="46" android:horizontalGap="0px" android:keyLabel="." android:keyEdgeFlags="right"/>
+        <Key android:codes="46,40,41" android:horizontalGap="0px" android:keyLabel=". ( )" android:popupCharacters="()" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row>
         <Key android:codes="55" android:horizontalGap="0px" android:keyIcon="@drawable/sym_keyboard_num7" android:keyEdgeFlags="left"/>
         <Key android:codes="56" android:keyIcon="@drawable/sym_keyboard_num8"/>
         <Key android:codes="57" android:keyIcon="@drawable/sym_keyboard_num9"/>
-        <Key android:codes="45" android:horizontalGap="0px" android:keyLabel="-" android:keyEdgeFlags="right"/>
+        <Key android:codes="45,47" android:horizontalGap="0px" android:keyLabel="- /" android:popupCharacters="/" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row android:rowEdgeFlags="bottom">
-        <Key android:codes="42" android:horizontalGap="0px" android:keyLabel="*" android:popupCharacters="pw" android:keyEdgeFlags="left"/>
+        <Key android:codes="42" android:horizontalGap="0px" android:keyLabel="*" android:popupCharacters=",;N " android:keyEdgeFlags="left"/>
         <Key android:codes="48" android:keyIcon="@drawable/sym_keyboard_num0"/>
-        <Key android:codes="35" android:keyLabel="\#" android:popupCharacters="pw"/>
+        <Key android:codes="35" android:popupCharacters=",;N " />
         <Key android:codes="10" android:horizontalGap="0px" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>
