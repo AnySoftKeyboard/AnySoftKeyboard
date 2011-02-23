@@ -33,11 +33,14 @@ android:key="tweaks_group_screen">
 	android:title="@string/default_domain_text" android:dialogTitle="@string/default_domain_text" android:persistent="true"
 	android:defaultValue=".com"
 	/>
+	<!--
 	<EditTextPreference android:key="default_smiley_text"
 	android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none"
 	android:title="@string/default_smiley_text" android:dialogTitle="@string/default_smiley_text" android:persistent="true"
 	android:defaultValue=":-) "
 	/>
+	-->
+	<!--
 	<CheckBoxPreference
 		android:key="@string/settings_key_smiley_icon_on_smileys_key"
 		android:title="@string/smiley_icon_on_smileys_key"
@@ -46,6 +49,7 @@ android:key="tweaks_group_screen">
 		android:summaryOn="@string/smiley_icon_on_smileys_key_on_summary"
 		android:summaryOff="@string/smiley_icon_on_smileys_key_off_summary"
 	/>
+	-->
 	<CheckBoxPreference
 		android:key="@string/settings_key_emoticon_long_press_opens_popup"
 		android:title="@string/emoticon_long_press_opens_popup"
@@ -54,6 +58,7 @@ android:key="tweaks_group_screen">
 		android:summaryOn="@string/emoticon_long_press_opens_popup_on_summary"
 		android:summaryOff="@string/emoticon_long_press_opens_popup_off_summary"
 	/>
+	<!--
 	<ListPreference
 		android:key="@string/settings_key_smiley_popup_type"
 		android:title="@string/emoticon_popup_type_title"
@@ -62,6 +67,7 @@ android:key="tweaks_group_screen">
 		android:entryValues="@array/emoticons_popup_values"
 		android:defaultValue="@string/settings_default_smiley_popup_type"
 		android:dialogTitle="@string/emoticon_popup_type_title"/>
+	-->
 	<CheckBoxPreference
 		android:key="key_press_preview_popup"
 		android:title="@string/key_press_preview_popup"
@@ -73,12 +79,12 @@ android:key="tweaks_group_screen">
 	<EditTextPreference android:key="zoom_factor_keys_in_portrait"
 	android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none" android:inputType="numberDecimal"
 	android:title="@string/zoom_factor_keys_in_portrait" android:dialogTitle="@string/zoom_factor_keys_in_portrait" android:persistent="true"
-	android:defaultValue="1.0"
+	android:defaultValue="@string/settings_default_portrait_keyboard_height_factor"
 	/>
 	<EditTextPreference android:key="zoom_factor_keys_in_landscape"
 	android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none" android:inputType="numberDecimal"
 	android:title="@string/zoom_factor_keys_in_landscape" android:dialogTitle="@string/zoom_factor_keys_in_landscape" android:persistent="true"
-	android:defaultValue="1.0"
+	android:defaultValue="@string/settings_default_landscape_keyboard_height_factor"
 	/>
 	<CheckBoxPreference
 		android:key="insert_space_after_word_suggestion_selection"

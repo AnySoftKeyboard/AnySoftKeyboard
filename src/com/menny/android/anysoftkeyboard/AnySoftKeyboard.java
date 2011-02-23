@@ -22,12 +22,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -67,7 +65,6 @@ import android.widget.Toast;
 
 import com.menny.android.anysoftkeyboard.KeyboardSwitcher.NextKeyboardType;
 import com.menny.android.anysoftkeyboard.dictionary.AutoDictionary;
-import com.menny.android.anysoftkeyboard.dictionary.ContactsDictionary;
 import com.menny.android.anysoftkeyboard.dictionary.Dictionary;
 import com.menny.android.anysoftkeyboard.dictionary.DictionaryFactory;
 import com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory;
@@ -76,6 +73,7 @@ import com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory.Di
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory.KeyboardBuilder;
+import com.menny.android.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.menny.android.anysoftkeyboard.settings.MainSettings;
 import com.menny.android.anysoftkeyboard.tutorials.TutorialsProvider;
 
@@ -128,7 +126,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private CompletionInfo[] mCompletions;
 
 	private AlertDialog mOptionsDialog;
-	private AlertDialog mSmileyDialog;
+	private AlertDialog mQuickTextKeyDialog;
 	
 	KeyboardSwitcher mKeyboardSwitcher;
 	private final HardKeyboardActionImpl mHardKeyboardAction;
@@ -162,9 +160,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private boolean mAutoSpace;
 	private boolean mAutoCorrectOn;
 	private boolean mCapsLock;
-	
+
+	private static final String SMILEY_PLUGIN_ID = "0077b34d-770f-4083-83e4-081957e06c27";
 	private boolean mSmileyOnShortPress;
-	private String mSmileyPopupType;
 	private boolean mAutoCap;
 	private boolean mQuickFixes;
 	/*
@@ -338,7 +336,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				, null);
 		//reseting token users
 		mOptionsDialog = null;
-		mSmileyDialog = null;
+		mQuickTextKeyDialog = null;
 		
 		//mKeyboardSwitcher.resetKeyboardsCache();
 		//saving the orientation now, since the GUI is correct (we created that a second ago)
@@ -598,9 +596,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mOptionsDialog.dismiss();
 			mOptionsDialog = null;
 		}
-		if (mSmileyDialog != null && mSmileyDialog.isShowing()) {
-			mSmileyDialog.dismiss();
-			mSmileyDialog = null;
+		if (mQuickTextKeyDialog != null && mQuickTextKeyDialog.isShowing()) {
+			mQuickTextKeyDialog.dismiss();
+			mQuickTextKeyDialog = null;
 		}
 		// if (mTutorial != null) {
 		// mTutorial.close();
@@ -1183,37 +1181,36 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case AnyKeyboard.KEYCODE_DOMAIN:
 			onText(mConfig.getDomainText());
 			break;
-		case AnyKeyboard.KEYCODE_SMILEY:
-			if (mSmileyOnShortPress) {
-				// Log.d("AnySoftKeyboard", "SMILEY short: type smiley");
-				onText(mConfig.getSmileyText());
+		case AnyKeyboard.KEYCODE_QUICK_TEXT:
+			QuickTextKey quickTextKey = mKeyboardSwitcher.getCurrentKeyboard().getQuickTextKey();
+
+			boolean printDefaultText;
+			if (quickTextKey.getId().equals(SMILEY_PLUGIN_ID)) {
+				printDefaultText = mSmileyOnShortPress;
 			} else {
-				// Log.d("AnySoftKeyboard", "SMILEY short: popup smileys");
-				if (mSmileyPopupType.equalsIgnoreCase("popupKeyboard"))
-				{
-					if (mInputView != null)
-						mInputView.simulateLongPress(AnyKeyboard.KEYCODE_SMILEY);
-				}
-				else
-				{
-					showSmileyDialog();
+				printDefaultText = quickTextKey.getKeyOutputText() != null;
+			}
+
+			if (printDefaultText) {
+				onText(quickTextKey.getKeyOutputText());
+			} else {
+				if (quickTextKey.isPopupKeyboardUsed()) {
+					showQuickTextKeyPopupKeyboard(quickTextKey);
+				} else {
+					showQuickTextKeyPopupList(quickTextKey);
 				}
 			}
 			break;
-		case AnyKeyboardView.KEYCODE_SMILEY_LONGPRESS:
-			if (mSmileyOnShortPress) {
-				if (mSmileyPopupType.equalsIgnoreCase("popupKeyboard"))
-				{
-					if (mInputView != null)
-						mInputView.simulateLongPress(AnyKeyboard.KEYCODE_SMILEY);
-				}
-				else
-				{
-					showSmileyDialog();
-				}
+		case AnyKeyboardView.KEYCODE_QUICK_TEXT_LONGPRESS:
+			quickTextKey = mKeyboardSwitcher.getCurrentKeyboard().getQuickTextKey();
+			if (quickTextKey.getId().equals(SMILEY_PLUGIN_ID) && !mSmileyOnShortPress) {
+				onText(quickTextKey.getKeyOutputText());
 			} else {
-				// Log.d("AnySoftKeyboard", "SMILEY long: type smiley");
-				onText(mConfig.getSmileyText());
+				if (quickTextKey.isPopupKeyboardUsed()) {
+					showQuickTextKeyPopupKeyboard(quickTextKey);
+				} else {
+					showQuickTextKeyPopupList(quickTextKey);
+				}
 			}
 			break;
 		case Keyboard.KEYCODE_MODE_CHANGE:
@@ -2127,7 +2124,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				: (mShowSuggestions/* mQuickFixes */? 1 : 0);
 
 		mSmileyOnShortPress = sp.getBoolean(getString(R.string.settings_key_emoticon_long_press_opens_popup), getResources().getBoolean(R.bool.settings_default_emoticon_long_press_opens_popup));
-		mSmileyPopupType = sp.getString(getString(R.string.settings_key_smiley_popup_type), getString(R.string.settings_default_smiley_popup_type));
+//		mSmileyPopupType = sp.getString(getString(R.string.settings_key_smiley_popup_type), getString(R.string.settings_default_smiley_popup_type));
 
 		((AnySoftKeyboardConfiguration.AnySoftKeyboardConfigurationImpl) mConfig).handleConfigurationChange(sp);
 
@@ -2351,7 +2348,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	    if (DEBUG)Log.d("AnySoftKeyboard", "onSharedPreferenceChanged - key:" + key);
 		boolean isKeyboardKey = key.startsWith("keyboard_");
 		boolean isDictionaryKey = key.startsWith("dictionary_");
-		if (isKeyboardKey || isDictionaryKey) {
+		boolean isQuickTextKey = key.equals(getString(R.string.settings_key_active_quick_text_key));
+		if (isKeyboardKey || isDictionaryKey || isQuickTextKey) {
 			mKeyboardSwitcher.makeKeyboards(true);
 			//saving the orientation
 			//mOrientation = getResources().getConfiguration().orientation;
@@ -2480,9 +2478,19 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 		}		
 	}
+
+	private void showQuickTextKeyPopupKeyboard(QuickTextKey quickTextKey) {
+		if (mInputView != null) {
+			if (quickTextKey.getPackageContext() == getApplicationContext()) {
+				mInputView.simulateLongPress(AnyKeyboard.KEYCODE_QUICK_TEXT);
+			} else {
+				mInputView.showQuickTextPopupKeyboard(quickTextKey.getPackageContext());
+			}
+		}
+	}
 	
-	private void showSmileyDialog() {
-        if (mSmileyDialog == null) {
+	private void showQuickTextKeyPopupList(QuickTextKey key) {
+        if (mQuickTextKeyDialog == null) {
             String[] names = getResources().getStringArray(R.array.smiley_names);
             final String[] texts = getResources().getStringArray(R.array.smiley_texts);
 
@@ -2501,9 +2509,9 @@ public class AnySoftKeyboard extends InputMethodService implements
             final SimpleAdapter a = new SimpleAdapter(
                     this,
                     entries,
-                    R.layout.smiley_menu_item,
+                    R.layout.quick_text_key_menu_item,
                     new String[] {"name", "text"},
-                    new int[] {R.id.smiley_name, R.id.smiley_text});
+                    new int[] {R.id.quick_text_name, R.id.quick_text_output});
             SimpleAdapter.ViewBinder viewBinder = new SimpleAdapter.ViewBinder() {
                 public boolean setViewValue(View view, Object data, String textRepresentation) {
                     if (view instanceof ImageView) {
@@ -2531,8 +2539,8 @@ public class AnySoftKeyboard extends InputMethodService implements
                 }
             });
 
-            mSmileyDialog = b.create();
-            Window window = mSmileyDialog.getWindow();
+            mQuickTextKeyDialog = b.create();
+            Window window = mQuickTextKeyDialog.getWindow();
     		WindowManager.LayoutParams lp = window.getAttributes();
     		lp.token = mInputView.getWindowToken();
     		lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
@@ -2540,7 +2548,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     		window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         }
 
-        mSmileyDialog.show();
+        mQuickTextKeyDialog.show();
     }
 
 	public void promoteToUserDictionary(String word, int frequency) {

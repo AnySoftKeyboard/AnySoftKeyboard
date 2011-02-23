@@ -31,6 +31,8 @@
   	<string name="settings_key_use_user_dictionary">settings_key_use_user_dictionary</string>
   	<string name="settings_key_use_auto_dictionary">settings_key_use_auto_dictionary</string>
   	<string name="settings_key_use_contacts_dictionary">settings_key_use_contacts_dictionary</string>
+
+	<string name="settings_key_active_quick_text_key">settings_key_active_quick_text_key</string>
     <!-- template
     <string name="settings_key_"></string>
      -->

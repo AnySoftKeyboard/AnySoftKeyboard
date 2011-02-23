@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.menny.android.anysoftkeyboard.dictionary.DictionaryFactory;
 import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory;
+import com.menny.android.anysoftkeyboard.quicktextkeys.QuickTextKeyBuildersFactory;
 
 public class PackagesChangedReceiver extends BroadcastReceiver {
 
@@ -22,6 +23,7 @@ public class PackagesChangedReceiver extends BroadcastReceiver {
 				.append(") have been changed.").toString());
 		boolean isDictionary = true;
 		boolean isKeyboard = true;
+		boolean isQuickTextKey = true;
 //		msDictionaryIntent.setPackage(intent.getPackage());
 //		msKeyboardIntent.setPackage(intent.getPackage());
 //		
@@ -65,6 +67,10 @@ public class PackagesChangedReceiver extends BroadcastReceiver {
 			if (softKeyboard != null) {
 				softKeyboard.setMainDictionaryForCurrentKeyboard();
 			}
+		}
+
+		if (isQuickTextKey) {
+			QuickTextKeyBuildersFactory.resetBuildersCache();
 		}
 	}
 }

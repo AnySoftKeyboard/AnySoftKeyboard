@@ -20,8 +20,6 @@ public abstract class AnySoftKeyboardConfiguration
 		
 	static AnySoftKeyboardConfiguration createInstance(Application app) {return new AnySoftKeyboardConfigurationImpl(app);}
 	
-	public abstract String getSmileyText();
-	
 	public abstract String getDomainText();
 	
 	public abstract String getChangeLayoutKeysSize();
@@ -65,8 +63,8 @@ public abstract class AnySoftKeyboardConfiguration
 	
 	public abstract boolean useBackword();
 	
-	public abstract boolean showIconForSmileyKey();
-	
+//	public abstract boolean showIconForSmileyKey();
+
 	public abstract boolean getCycleOverAllSymbols();
 	
 	public abstract boolean useVolumeKeyForLeftRight();
@@ -83,7 +81,6 @@ public abstract class AnySoftKeyboardConfiguration
 		private static final String CUSTOMIZATION_LEVEL = "customizationLevel";
 		private final Context mContext;
 		
-		private String mSmileyText = ":-)";
 		private String mDomainText = ".com";
 		private String mLayoutChangeKeysSize = "Small";
 		private boolean mShowKeyPreview = true;
@@ -105,7 +102,7 @@ public abstract class AnySoftKeyboardConfiguration
 		private boolean mShowVersionNotification = true;
 		private boolean mUse16KeysSymbolsKeyboard = false;
 		private boolean mUseBackword = true;
-		private boolean mShowIconForSmileyKey = false;
+//		private boolean mShowIconForSmileyKey = false;
 		private boolean mCycleOverAllSymbolsKeyboard = true;
 		private boolean mUseVolumeKeyForLeftRight = false;
 		private boolean mUseCameraKeyForBackspaceBackword = false;
@@ -209,9 +206,6 @@ public abstract class AnySoftKeyboardConfiguration
 			mLayoutChangeKeysSize = sp.getString(mContext.getResources().getString(R.string.settings_key_top_keyboard_row_id), mContext.getResources().getString(R.string.settings_default_top_keyboard_row_id));
 			Log.i(TAG, "** mChangeKeysMode: "+mLayoutChangeKeysSize);
 			
-			mSmileyText = sp.getString("default_smiley_text", ":-) ");
-			Log.i(TAG, "** mSmileyText: "+mSmileyText);
-			
 			mDomainText = sp.getString("default_domain_text", ".com");
 			Log.i(TAG, "** mDomainText: "+mDomainText);
 			
@@ -233,7 +227,7 @@ public abstract class AnySoftKeyboardConfiguration
 			mUseKeyRepeat = sp.getBoolean("use_keyrepeat", true);
 			Log.i(TAG, "** mUseKeyRepeat: "+mUseKeyRepeat);
 			
-			mKeysHeightFactorInPortrait = getFloatFromString(sp, "zoom_factor_keys_in_portrait");
+			mKeysHeightFactorInPortrait = getFloatFromString(sp, "zoom_factor_keys_in_portrait", mContext.getResources().getString(R.string.settings_default_portrait_keyboard_height_factor));
 			Log.i(TAG, "** mKeysHeightFactorInPortrait: "+mKeysHeightFactorInPortrait);
 			if (mKeysHeightFactorInPortrait > 2.0f)
 			{
@@ -245,7 +239,7 @@ public abstract class AnySoftKeyboardConfiguration
 				mKeysHeightFactorInPortrait = 0.2f;
 				Log.i(TAG, "** mKeysHeightFactorInPortrait fixed to: "+mKeysHeightFactorInPortrait);
 			}
-			mKeysHeightFactorInLandscape = getFloatFromString(sp, "zoom_factor_keys_in_landscape");
+			mKeysHeightFactorInLandscape = getFloatFromString(sp, "zoom_factor_keys_in_landscape", mContext.getResources().getString(R.string.settings_default_landscape_keyboard_height_factor));
 			Log.i(TAG, "** mKeysHeightFactorInLandscape: "+mKeysHeightFactorInLandscape);
 			if (mKeysHeightFactorInLandscape > 2.0f)
 			{
@@ -298,9 +292,9 @@ public abstract class AnySoftKeyboardConfiguration
 					mContext.getResources().getBoolean(R.bool.settings_default_use_backword));
 			Log.i(TAG, "** mUseBackword: "+mUseBackword);
 			
-			mShowIconForSmileyKey = sp.getBoolean(mContext.getString(R.string.settings_key_smiley_icon_on_smileys_key),
+/*			mShowIconForSmileyKey = sp.getBoolean(mContext.getString(R.string.settings_key_smiley_icon_on_smileys_key),
 					mContext.getResources().getBoolean(R.bool.settings_default_smiley_icon_on_smileys_key));
-			Log.i(TAG, "** mShowIconForSmileyKey: "+mShowIconForSmileyKey);
+			Log.i(TAG, "** mShowIconForSmileyKey: "+mShowIconForSmileyKey);*/
 			
 			mCycleOverAllSymbolsKeyboard = sp.getBoolean(mContext.getString(R.string.settings_key_cycle_all_symbols),
 					mContext.getResources().getBoolean(R.bool.settings_default_cycle_all_symbols));
@@ -358,8 +352,8 @@ public abstract class AnySoftKeyboardConfiguration
 			return 0;//0 means no action
 		}
 
-		private static float getFloatFromString(SharedPreferences sp, String prefKey) {
-			String floatValue = sp.getString(prefKey, "1.0");
+		private static float getFloatFromString(SharedPreferences sp, String prefKey, String defaultValue) {
+			String floatValue = sp.getString(prefKey, defaultValue);
 			try
 			{
 				return Float.parseFloat(floatValue);
@@ -372,10 +366,6 @@ public abstract class AnySoftKeyboardConfiguration
 
 		public String getDomainText() {
 			return mDomainText;
-		}
-
-		public String getSmileyText() {
-			return mSmileyText;
 		}
 
 		public String getChangeLayoutKeysSize() {
@@ -480,10 +470,10 @@ public abstract class AnySoftKeyboardConfiguration
 			return mUseBackword;
 		}
 		
-		@Override
+/*		@Override
 		public boolean showIconForSmileyKey() {
 			return mShowIconForSmileyKey;
-		}
+		}*/
 		
 		@Override
 		public boolean getCycleOverAllSymbols() {

@@ -7,8 +7,8 @@
     <string name="settings_default_vibrate_on_key_press_duration">0</string>
     <bool name="settings_default_sound_on">false</bool>
     <bool name="settings_default_lang_key_shows_popup">false</bool>
-    <bool name="settings_default_smiley_icon_on_smileys_key">true</bool>
-    <string name="settings_default_smiley_popup_type">popupList</string>
+    <!-- <bool name="settings_default_smiley_icon_on_smileys_key">true</bool> -->
+	<eat-comment/>
     <bool name="settings_default_show_version_notification">true</bool>
     <bool name="settings_default_use_16_keys_symbols_keyboards">false</bool>
     <bool name="settings_default_landscape_fullscreen">true</bool>

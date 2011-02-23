@@ -4,4 +4,7 @@
 	<!-- Default settings values -->
     <bool name="settings_default_landscape_fullscreen">false</bool>
     <bool name="settings_default_portrait_fullscreen">false</bool>
+    
+    <string name="settings_default_portrait_keyboard_height_factor">0.9</string>
+    <string name="settings_default_landscape_keyboard_height_factor">0.78</string>
 </resources>

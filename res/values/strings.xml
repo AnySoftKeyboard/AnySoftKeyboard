@@ -227,6 +227,12 @@
     <string name="symbols_keyboard">Symbols</string>
     <string name="eng_keyboard">English</string>
     <string name="eng_keyboard_16keys">16 Keys English</string>
+
+	<!-- settings - quick text keys -->
+	<string name="quick_text_keys_group">Quick text keys</string>
+	<string name="quick_text_key_active">Active quick text key</string>
+	<string name="quick_text_key_dialog_title">Select key</string>
+	<string name="quick_text_key_summary">Select quick text key to show on keyboards</string>
     
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Show this tutorial on startup</string>
@@ -252,7 +258,10 @@
     <string name="select_keyboard_popup_title">Select keyboard</string>
     <!-- dictionaries -->
     <string name="eng_dictionary">English</string>
-	
+
+	<string name="simley_key_name">Smiley key</string>
+	<string name="smiley_key_label">:-)</string>
+	<string name="smiley_key_default_output">:-) </string>
 	<string-array name="smiley_names">
 		<item>Happy</item>                   <!-- 0: :-) -->
 		<item>Sad</item>                     <!-- 1: :-( -->
