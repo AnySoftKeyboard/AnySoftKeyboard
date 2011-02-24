@@ -33,12 +33,12 @@ public class QuickTextKeyBuildersFactory {
 		 * external quick text key should say that it supports -- that is, this is the
 		 * action it uses for its intent filter.
 		 */
-		public static final String RECEIVER_INTERFACE = "com.menny.android.anysoftkeyboard.QUICK_TEXT_KEY";
+		public static final String RECEIVER_INTERFACE = "com.anysoftkeyboard.plugin.QUICK_TEXT_KEY";
 		/**
 		 * Name under which an external quick text key broadcast receiver component
 		 * publishes information about itself.
 		 */
-		public static final String RECEIVER_META_DATA = "com.menny.android.anysoftkeyboard.quicktextkeys";
+		public static final String RECEIVER_META_DATA = "com.anysoftkeyboard.plugindata.quicktextkeys";
 
 		QuickTextKey createQuickTextKey();
 		String getId();
