@@ -11,6 +11,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.util.Log;
 
+import com.menny.android.anysoftkeyboard.MainForm;
 import com.menny.android.anysoftkeyboard.R;
 
 public class MainSettings extends PreferenceActivity {
@@ -37,8 +38,11 @@ public class MainSettings extends PreferenceActivity {
 				if (preference.getKey().equals("prefs_help_key"))
 				{
 						//http://s.evendanan.net/ask_settings
-						Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://s.evendanan.net/ask_settings"));
-						startActivity(browserIntent);
+						//Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://s.evendanan.net/ask_settings"));
+						//startActivity(browserIntent);
+						Intent main = new Intent(getApplicationContext(), MainForm.class);
+						startActivity(main);
+						finish();
 						return true;
 				}
 				return false;

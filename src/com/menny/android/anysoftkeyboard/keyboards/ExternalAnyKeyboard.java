@@ -1,5 +1,7 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
+import java.util.HashSet;
+
 import org.xmlpull.v1.XmlPullParser;
 
 import android.content.Context;
@@ -32,7 +34,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	private final int mIconId;
 	private final String mDefaultDictionary;
 	private final HardKeyboardSequenceHandler mHardKeyboardTranslator;
-	private final String mAdditionalIsLetterExceptions;
+	private final HashSet<Character> mAdditionalIsLetterExceptions;
 
 	private static final int[] qwertKeysequence = new int[] { 45,51,33,46,48 };
 	private static final int[] dotKeysequence = new int[] { 56,56,56,56 };
@@ -63,7 +65,12 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 			mHardKeyboardTranslator = null;
 		}
 
-		mAdditionalIsLetterExceptions = additionalIsLetterExceptions;
+		mAdditionalIsLetterExceptions = new HashSet<Character>();
+		if (additionalIsLetterExceptions != null)
+		{
+			for(int i=0;i<additionalIsLetterExceptions.length(); i++)
+				mAdditionalIsLetterExceptions.add(additionalIsLetterExceptions.charAt(i));
+		}
 	}
 	
 	
@@ -231,14 +238,10 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 				action.setNewKeyCode(translated);
 		}
 	}
-
+	
 	@Override
-	public boolean isLetter(char keyValue) {
-		if (mAdditionalIsLetterExceptions == null)
-			return super.isLetter(keyValue);
-		else
-			return super.isLetter(keyValue) ||
-				(mAdditionalIsLetterExceptions.indexOf(keyValue) >= 0);
+	public boolean isInnerWordLetter(char keyValue) {
+		return super.isInnerWordLetter(keyValue) || mAdditionalIsLetterExceptions.contains(keyValue);
 	}
 
 	protected void setPopupKeyChars(Key aKey)

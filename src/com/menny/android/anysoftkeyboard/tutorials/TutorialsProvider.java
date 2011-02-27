@@ -79,14 +79,14 @@ public class TutorialsProvider
 		}
 		
 		
-//		if (AnyApplication.getConfig().getShowVersionNotification() && (AnySoftKeyboardConfiguration.DEBUG || firstTimeVersionLoaded(context)))
-//		{
-//			Log.i(TAG, "changelog added");
-//			
-//			Intent i = new Intent(context, ChangeLogActivity.class);
-//			
-//			msActivitiesToShow.add(i);
-//		}
+		if (AnyApplication.getConfig().getShowVersionNotification() && firstTimeVersionLoaded(context))
+		{
+			Log.i(TAG, "changelog added");
+			
+			Intent i = new Intent(context, ChangeLogActivity.class);
+			
+			msActivitiesToShow.add(i);
+		}
 		
 		showNotificationIcon(context);
 	}

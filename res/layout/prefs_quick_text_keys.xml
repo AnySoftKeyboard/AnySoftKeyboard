@@ -19,17 +19,7 @@
 				android:key="@string/settings_key_active_quick_text_key"
 				android:title="@string/quick_text_key_active"
 				android:persistent="true"
-				android:dialogTitle="quick_text_key_dialog_title"
+				android:dialogTitle="@string/quick_text_key_dialog_title"
 				android:summary="@string/quick_text_key_summary"/>
 	</PreferenceCategory>
-	<!--
-	<CheckBoxPreference
-	android:key="keyboard_c7535083-4fe6-49dc-81aa-c5438a1a343a"
-	android:title="@string/eng_keyboard"
-	android:persistent="true"
-	android:defaultValue="true"
-	android:summaryOn="QWERTY Latin keyboard"
-	android:summaryOff="QWERTY Latin keyboard"
-	/>
-	 -->
 </PreferenceScreen>

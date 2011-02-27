@@ -1,5 +1,6 @@
 package com.menny.android.anysoftkeyboard;
 
+import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.settings.MainSettings;
 import com.menny.android.anysoftkeyboard.tutorials.ChangeLogActivity;
 import com.menny.android.anysoftkeyboard.tutorials.TutorialActivity;
@@ -45,12 +46,19 @@ public class MainForm extends TabActivity implements OnClickListener {
 	    
 		super.findViewById(R.id.goto_settings_button).setOnClickListener(this);
 		super.findViewById(R.id.goto_changelog_button).setOnClickListener(this);
+		super.findViewById(R.id.goto_howto_form).setOnClickListener(this);
 		
     }
 
 	public void onClick(View v) {
 		switch(v.getId())
 		{
+		case R.id.goto_howto_form:
+			Intent i = new Intent(getApplicationContext(), TutorialActivity.class);
+			i.putExtra(TutorialActivity.LAYOUT_RESOURCE_ID, R.layout.welcome_howto);
+			i.putExtra(TutorialActivity.NAME_RESOURCE_ID, R.string.how_to_pointer_title);
+			startActivity(i);
+			break;
 		case R.id.goto_settings_button:
 			startSettings(getApplicationContext());
 			break;

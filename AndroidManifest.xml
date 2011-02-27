@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.menny.android.anysoftkeyboard"
-        android:versionCode="34" android:versionName="20110223-smile">
+        android:versionCode="34" android:versionName="20110227-smiley">
 	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key"
 		android:name=".AnyApplication" >
 		<service android:permission="android.permission.BIND_INPUT_METHOD" android:name=".SoftKeyboard">
@@ -42,10 +42,12 @@
 	    
 	    <activity android:name=".MainForm"
                   android:label="@string/ime_name">
+			<!-- don't want it anymore
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+             -->
         </activity>
         <receiver android:exported="true" android:name=".KeyboardBroadcastReceiver">
 	    	<intent-filter>
@@ -61,7 +63,7 @@
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
     <!-- REQUIRED FOR THE CONTACTS DICTIONARY -->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-	<uses-sdk android:minSdkVersion="3" android:targetSdkVersion="8"></uses-sdk>
+	<uses-sdk android:minSdkVersion="3" android:targetSdkVersion="10"></uses-sdk>
 	<!-- currently, only support touch screens -->
 	<uses-configuration android:reqTouchScreen="finger"/>
     <uses-configuration android:reqTouchScreen="stylus"/>

@@ -1137,7 +1137,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 	 * Helper to determine if a given character code is alphabetic.
 	 */
 	private boolean isAlphabet(int code) {
-		return mKeyboardSwitcher.getCurrentKeyboard().isLetter((char) code);
+		//inner letters have more options: ' in English. " in Hebrew, and more.
+		if (mPredicting)
+			return mKeyboardSwitcher.getCurrentKeyboard().isInnerWordLetter((char) code);
+		else
+			return mKeyboardSwitcher.getCurrentKeyboard().isStartOfWordLetter((char) code);
 	}
 
 	// Implementation of KeyboardViewListener

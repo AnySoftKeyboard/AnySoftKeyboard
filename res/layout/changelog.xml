@@ -47,6 +47,45 @@
 		    android:layout_width="fill_parent"
 		    android:layout_height="fill_parent"
 		    android:orientation="vertical">
+		    <TextView
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:text="20110227 - 35"
+		        android:textStyle="bold"
+		        android:gravity="center"
+		        android:textSize="16sp"
+		        android:paddingTop="8dp"
+		        android:paddingLeft="8dp"
+		        android:paddingRight="8dp"
+		        android:textColor="#CCC"
+		        />
+		    <TextView android:text="http://s.evendanan.net/ask_r35" android:textSize="12sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content"
+		    	android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"/>
+		    <TextView
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:text="* Quick text key (a.k.a Smiley) is pluginable! Search the Market for packs:"
+		        android:textSize="16sp"
+		        android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"
+		        android:textColor="#AAA"
+		        />
+		    <Button android:id="@+id/market_search_button" android:text="@string/search_market_for_addons" android:layout_width="wrap_content" android:layout_height="wrap_content"
+		    	android:layout_gravity="center"/>
+		    <TextView
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:text="* Faster dictionary loading.\n* Some improvements to physical keybaord handling.\n* Some bug fixes."
+		        android:textSize="16sp"
+		        android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"
+		        android:textColor="#AAA"
+		        />
+		        
 			<TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
