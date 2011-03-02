@@ -587,8 +587,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_UNKNOWN;
 	}
 
-	private void hardHide() {
-		if (!mConfig.showOnScreenWhenPhysical()) hideWindow(); 
+	private void onPhysicalKeyboardKeyPressed() {
+		if (mConfig.hideSoftKeyboardWhenPhysicalKeyPressed()) hideWindow(); 
 	}
 
 	@Override
@@ -850,7 +850,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                         handleBackword(ic);
                         return true;
 				    } else if (event.isPrintingKey()) {
-						hardHide();
+						onPhysicalKeyboardKeyPressed();
 						mHardKeyboardAction.initializeAction(event, mMetaState);
 						// http://article.gmane.org/gmane.comp.handhelds.openmoko.android-freerunner/629
 						AnyKeyboard current = mKeyboardSwitcher.getCurrentKeyboard();

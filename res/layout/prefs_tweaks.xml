@@ -68,12 +68,12 @@ android:key="tweaks_group_screen">
 		android:summaryOff="@string/insert_space_after_word_suggestion_selection_off_summary"
 	/>
 	<CheckBoxPreference
-			android:key="@string/settings_key_soft_when_physical"
-			android:title="@string/soft_when_physical"
+			android:key="@string/settings_key_hide_soft_when_physical"
+			android:title="@string/hide_soft_when_physical"
 			android:persistent="true"
-			android:defaultValue="@bool/settings_default_soft_when_physical"
-			android:summaryOn="@string/soft_when_physical_on_summary"
-			android:summaryOff="@string/soft_when_physical_off_summary"/>
+			android:defaultValue="@bool/settings_default_hide_soft_when_physical"
+			android:summaryOn="@string/hide_soft_when_physical_on_summary"
+			android:summaryOff="@string/hide_soft_when_physical_off_summary"/>
 	<CheckBoxPreference
 		android:key="action_key_invisible_on_disable"
 		android:title="@string/action_key_invisible_on_disable"

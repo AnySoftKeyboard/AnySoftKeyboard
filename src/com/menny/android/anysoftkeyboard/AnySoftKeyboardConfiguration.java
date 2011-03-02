@@ -55,7 +55,7 @@ public abstract class AnySoftKeyboardConfiguration
 	
 	public abstract boolean shouldShowPopupForLanguageSwitch();
 	
-	public abstract boolean showOnScreenWhenPhysical();
+	public abstract boolean hideSoftKeyboardWhenPhysicalKeyPressed();
 	
 	public abstract boolean getShowVersionNotification();
 	
@@ -101,7 +101,7 @@ public abstract class AnySoftKeyboardConfiguration
 		private String mRtlWorkaround ="auto";
 		private boolean mIsDoubleSpaceChangesToPeroid = true;
 		private boolean mShouldPopupForLanguageSwitch = false;
-		private boolean mShowOnScreenWhenPhysical = false;
+		private boolean mHideSoftKeyboardWhenPhysicalKeyPressed = true;
 		private boolean mShowVersionNotification = true;
 		private boolean mUse16KeysSymbolsKeyboard = false;
 		private boolean mUseBackword = true;
@@ -283,9 +283,9 @@ public abstract class AnySoftKeyboardConfiguration
 					mContext.getResources().getBoolean(R.bool.settings_default_lang_key_shows_popup));
 			Log.i(TAG, "** mShouldPopupForLanguageSwitch: "+mShouldPopupForLanguageSwitch);
 			
-			mShowOnScreenWhenPhysical = sp.getBoolean(mContext.getString(R.string.settings_key_soft_when_physical), 
-					mContext.getResources().getBoolean(R.bool.settings_default_soft_when_physical));
-			Log.i(TAG, "** mShowOnScreenWhenPhysical: "+mShowOnScreenWhenPhysical);
+			mHideSoftKeyboardWhenPhysicalKeyPressed = sp.getBoolean(mContext.getString(R.string.settings_key_hide_soft_when_physical), 
+					mContext.getResources().getBoolean(R.bool.settings_default_hide_soft_when_physical));
+			Log.i(TAG, "** mHideSoftKeyboardWhenPhysicalKeyPressed: "+mHideSoftKeyboardWhenPhysicalKeyPressed);
 
 			mShowVersionNotification = sp.getBoolean(mContext.getString(R.string.settings_key_show_version_notification),
 					mContext.getResources().getBoolean(R.bool.settings_default_show_version_notification));
@@ -454,8 +454,8 @@ public abstract class AnySoftKeyboardConfiguration
 		}
 		
 		@Override
-		public boolean showOnScreenWhenPhysical() {
-			return mShowOnScreenWhenPhysical;
+		public boolean hideSoftKeyboardWhenPhysicalKeyPressed() {
+			return mHideSoftKeyboardWhenPhysicalKeyPressed;
 		}
 		
 		@Override

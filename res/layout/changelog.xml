@@ -50,7 +50,7 @@
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
-		        android:text="20110227 - 35"
+		        android:text="20110302 - 35"
 		        android:textStyle="bold"
 		        android:gravity="center"
 		        android:textSize="16sp"
