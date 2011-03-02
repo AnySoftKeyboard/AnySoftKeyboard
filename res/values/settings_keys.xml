@@ -33,6 +33,8 @@
   	<string name="settings_key_use_contacts_dictionary">settings_key_use_contacts_dictionary</string>
 
 	<string name="settings_key_active_quick_text_key">settings_key_active_quick_text_key</string>
+	
+	<string name="settings_key_soft_when_physical">settings_key_soft_when_physical</string>
     <!-- template
     <string name="settings_key_"></string>
      -->

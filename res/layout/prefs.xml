@@ -132,6 +132,13 @@ android:key="ime_settings">
 			android:defaultValue="@bool/settings_default_landscape_fullscreen"
 			android:summaryOn="@string/fullscreen_input_connection_supported_on_summary"
 			android:summaryOff="@string/fullscreen_input_connection_supported_off_summary"/>
+		<CheckBoxPreference
+			android:key="@string/settings_key_soft_when_physical"
+			android:title="@string/soft_when_physical"
+			android:persistent="true"
+			android:defaultValue="@bool/settings_default_soft_when_physical"
+			android:summaryOn="@string/soft_when_physical_on_summary"
+			android:summaryOff="@string/soft_when_physical_off_summary"/>
 		<PreferenceScreen android:key="swipe_tweak_group"
 			android:title="@string/swipe_tweak_group">
 			<ListPreference

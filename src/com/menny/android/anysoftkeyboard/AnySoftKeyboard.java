@@ -587,6 +587,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_UNKNOWN;
 	}
 
+	private void hardHide() {
+		if (!mConfig.showOnScreenWhenPhysical()) hideWindow(); 
+	}
+
 	@Override
 	public void hideWindow() {
 		if (TRACE_SDCARD)
@@ -846,6 +850,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                         handleBackword(ic);
                         return true;
 				    } else if (event.isPrintingKey()) {
+						hardHide();
 						mHardKeyboardAction.initializeAction(event, mMetaState);
 						// http://article.gmane.org/gmane.comp.handhelds.openmoko.android-freerunner/629
 						AnyKeyboard current = mKeyboardSwitcher.getCurrentKeyboard();
@@ -2562,6 +2567,22 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	public WordComposer getCurrentWord() {
         return mWord;
+    }
+	
+	/**
+     * Override this to control when the soft input area should be shown to
+     * the user.  The default implementation only shows the input view when
+     * there is no hard keyboard or the keyboard is hidden.  If you change what
+     * this returns, you will need to call {@link #updateInputViewShown()}
+     * yourself whenever the returned value may have changed to have it
+     * re-evalauted and applied.
+	 * This needs to be re-coded for Issue 620
+     */
+	@Override
+    public boolean onEvaluateInputViewShown() {
+        Configuration config = getResources().getConfiguration();
+        return config.keyboard == Configuration.KEYBOARD_NOKEYS
+                || config.hardKeyboardHidden == Configuration.KEYBOARDHIDDEN_YES;
     }
 	
 }

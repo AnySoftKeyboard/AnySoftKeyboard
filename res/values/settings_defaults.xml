@@ -21,4 +21,5 @@
     <bool name="settings_default_contacts_dictionary">true</bool>
     <bool name="settings_default_auto_dictionary">true</bool>
     <bool name="settings_default_user_dictionary">true</bool>
+	<bool name="settings_default_soft_when_physical">false</bool>
 </resources>

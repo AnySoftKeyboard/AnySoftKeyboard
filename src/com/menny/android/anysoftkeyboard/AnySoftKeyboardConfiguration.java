@@ -55,6 +55,8 @@ public abstract class AnySoftKeyboardConfiguration
 	
 	public abstract boolean shouldShowPopupForLanguageSwitch();
 	
+	public abstract boolean showOnScreenWhenPhysical();
+	
 	public abstract boolean getShowVersionNotification();
 	
 	public abstract void setShowVersionNotification(boolean show);
@@ -99,6 +101,7 @@ public abstract class AnySoftKeyboardConfiguration
 		private String mRtlWorkaround ="auto";
 		private boolean mIsDoubleSpaceChangesToPeroid = true;
 		private boolean mShouldPopupForLanguageSwitch = false;
+		private boolean mShowOnScreenWhenPhysical = false;
 		private boolean mShowVersionNotification = true;
 		private boolean mUse16KeysSymbolsKeyboard = false;
 		private boolean mUseBackword = true;
@@ -280,6 +283,10 @@ public abstract class AnySoftKeyboardConfiguration
 					mContext.getResources().getBoolean(R.bool.settings_default_lang_key_shows_popup));
 			Log.i(TAG, "** mShouldPopupForLanguageSwitch: "+mShouldPopupForLanguageSwitch);
 			
+			mShowOnScreenWhenPhysical = sp.getBoolean(mContext.getString(R.string.settings_key_soft_when_physical), 
+					mContext.getResources().getBoolean(R.bool.settings_default_soft_when_physical));
+			Log.i(TAG, "** mShowOnScreenWhenPhysical: "+mShowOnScreenWhenPhysical);
+
 			mShowVersionNotification = sp.getBoolean(mContext.getString(R.string.settings_key_show_version_notification),
 					mContext.getResources().getBoolean(R.bool.settings_default_show_version_notification));
 			Log.i(TAG, "** mShowVersionNotification: "+mShowVersionNotification);
@@ -444,6 +451,11 @@ public abstract class AnySoftKeyboardConfiguration
 		@Override
 		public boolean shouldShowPopupForLanguageSwitch() {
 			return mShouldPopupForLanguageSwitch;
+		}
+		
+		@Override
+		public boolean showOnScreenWhenPhysical() {
+			return mShowOnScreenWhenPhysical;
 		}
 		
 		@Override
