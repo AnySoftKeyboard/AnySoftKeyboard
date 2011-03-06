@@ -2500,8 +2500,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	
 	private void showQuickTextKeyPopupList(QuickTextKey key) {
         if (mQuickTextKeyDialog == null) {
-            String[] names = getResources().getStringArray(R.array.smiley_names);
-            final String[] texts = getResources().getStringArray(R.array.smiley_texts);
+            String[] names = key.getPopupListNames();
+            final String[] texts = key.getPopupListValues();
 
             final int N = names.length;
 
