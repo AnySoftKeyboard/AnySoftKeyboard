@@ -202,23 +202,4 @@
     <item>Помести го курсорот налево</item>
     <item>Помести го курсорот надесно</item>
   </string-array>
-  <string-array name="smiley_names">
-    <item>Среќен</item>
-    <item>Тажен</item>
-    <item>Намигнува</item>
-    <item>Се плазам</item>
-    <item>Изненаден</item>
-    <item>Бакнување</item>
-    <item>Вика</item>
-    <item>Кул</item>
-    <item>Уста со пари</item>
-    <item>Нога во уста</item>
-    <item>Засрамен</item>
-    <item>Ангел</item>
-    <item>Неодлучен</item>
-    <item>Плачам</item>
-    <item>Запечатени усни</item>
-    <item>Се смеам</item>
-    <item>Збунет</item>
-  </string-array>
 </resources>

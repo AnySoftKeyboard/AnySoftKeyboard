@@ -262,27 +262,8 @@
     <string name="select_keyboard_popup_title">Select keyboard</string>
     <!-- dictionaries -->
     <string name="eng_dictionary">English</string>
-
-	<string name="simley_key_name">Smiley key</string>
+    
+    <string name="simley_key_name">Smiley key</string>
 	<string name="smiley_key_label">:-)</string>
 	<string name="smiley_key_default_output">:-) </string>
-	<string-array name="smiley_names">
-		<item>Happy</item>                   <!-- 0: :-) -->
-		<item>Sad</item>                     <!-- 1: :-( -->
-		<item>Winking</item>                 <!-- 2: ;-) -->
-		<item>Tongue sticking out</item>     <!-- 3: :-P -->
-		<item>Surprised</item>               <!-- 4: =-O -->
-		<item>Kissing</item>                 <!-- 5: :-* -->
-		<item>Yelling</item>                 <!-- 6: :O -->
-		<item>Cool</item>                    <!-- 7: B-) -->
-		<item>Money mouth</item>             <!-- 8: :-$ -->
- 		<item>Foot in mouth</item>           <!-- 9: :-! -->
-		<item>Embarrassed</item>             <!-- 10: :-[ -->
-		<item>Angel</item>                   <!-- 11: O:-) -->
-		<item>Undecided</item>               <!-- 12: :-\\ -->
-		<item>Crying</item>                  <!-- 13: :\'( -->
-		<item>Lips are sealed</item>         <!-- 14: :-X -->
-		<item>Laughing</item>                <!-- 15: :-D -->
-		<item>Confused</item>                <!-- 16: o_O -->
-	</string-array>
 </resources>

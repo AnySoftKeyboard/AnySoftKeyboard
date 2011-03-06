@@ -203,23 +203,4 @@
     <item>تحريك المؤشر لليسار</item>
     <item>تحريك المؤشر لليمين</item>
   </string-array>
-  <string-array name="smiley_names">
-    <item>سعيد</item>
-    <item>حزين</item>
-    <item>يرف جفنه</item>
-    <item>اللسان يخرج</item>
-    <item>مندهش</item>
-    <item>تقبيل</item>
-    <item>صراخ</item>
-    <item>مثير</item>
-    <item>المال الفم</item>
-    <item>قدم في الفم</item>
-    <item>محرج</item>
-    <item>ملاك</item>
-    <item>محتار</item>
-    <item>بكاء</item>
-    <item>شفاه مغلقة</item>
-    <item>يضحك</item>
-    <item>مرتبك</item>
-  </string-array>
 </resources>

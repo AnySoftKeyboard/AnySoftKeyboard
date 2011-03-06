@@ -30,9 +30,6 @@
     
     <!-- settings - UI -->
     <string name="ui_group">Interfaco</string>
-    <string name="keyboard_layout_change_method_title">Klavar-ŝanĝaj butonoj</string>
-    <string name="keyboard_layout_change_method_summary">Grandeco de la butonoj (123, ABC) kiuj komutas la klavaran aranĝon</string>
-    <string name="keyboard_layout_change_method_dialog_title">Kiaj klavar-ŝanĝaj butonoj?</string>
     <string-array name="keyboard_layout_change_methods">
         <item>Neniuj</item>
         <item>Etaj</item>

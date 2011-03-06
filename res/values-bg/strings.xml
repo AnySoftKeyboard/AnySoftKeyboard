@@ -202,23 +202,4 @@
     <item>Курсор наляво</item>
     <item>Курсор надясно</item>
   </string-array>
-  <string-array name="smiley_names">
-    <item>Щастлив</item>
-    <item>Тъжен</item>
-    <item>Намигване</item>
-    <item>Плезене</item>
-    <item>Изненадан</item>
-    <item>Целувка</item>
-    <item>Викане</item>
-    <item>Супер</item>
-    <item>Пари в устата</item>
-    <item>Краката в устата</item>
-    <item>Смутен</item>
-    <item>Ангел</item>
-    <item>Нерешителен</item>
-    <item>Плачещ</item>
-    <item>Устните са запечатани</item>
-    <item>Смях</item>
-    <item>Объркан</item>
-  </string-array>
 </resources>

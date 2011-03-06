@@ -202,23 +202,4 @@
     <item>Kursori vasemmalle</item>
     <item>Kursori oikealle</item>
   </string-array>
-  <string-array name="smiley_names">
-    <item>Onnellinen</item>
-    <item>Surullinen</item>
-    <item>Silmäniskut</item>
-    <item>Kielen törröttää</item>
-    <item>Yllättynyt</item>
-    <item>Suutelua</item>
-    <item>Huutaa</item>
-    <item>Viilee</item>
-    <item>Raha suu</item>
-    <item>Jalka suussa</item>
-    <item>Nolo</item>
-    <item>Enkeli</item>
-    <item>Epävarma</item>
-    <item>Itkeminen</item>
-    <item>Huulet sinetöidyt</item>
-    <item>Naurava</item>
-    <item>Hämmentynyt</item>
-  </string-array>
 </resources>

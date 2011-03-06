@@ -202,23 +202,4 @@
     <item>הזז סמן שמאלה</item>
     <item>הזז סמן ימינה</item>
   </string-array>
-  <string-array name="smiley_names">
-    <item>סמיילי</item>
-    <item>עצוב</item>
-    <item>קריצה</item>
-    <item>הוצאת לשון</item>
-    <item>מופתע</item>
-    <item>נשיקה</item>
-    <item>צועק</item>
-    <item>קול</item>
-    <item>טחון בכסף</item>
-    <item>פליטת פה</item>
-    <item>נבוך</item>
-    <item>מלאך</item>
-    <item>מהסס</item>
-    <item>בוכה</item>
-    <item>שפתיים חתומות</item>
-    <item>צוחק</item>
-    <item>מבולבל</item>
-  </string-array>
 </resources>

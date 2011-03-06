@@ -202,23 +202,4 @@
     <item>Sposta puntatore a sinistra</item>
     <item>Sposta puntatore a destra</item>
   </string-array>
-  <string-array name="smiley_names">
-    <item>Felice</item>
-    <item>Triste</item>
-    <item>Occhiolino</item>
-    <item>Linguaccia</item>
-    <item>Sorpreso</item>
-    <item>Bacio</item>
-    <item>Urlare</item>
-    <item>Fico</item>
-    <item>Denaro in bocca</item>
-    <item>Piedi in bocca</item>
-    <item>Imbarazzato</item>
-    <item>Angelico</item>
-    <item>Indeciso</item>
-    <item>Pianto</item>
-    <item>Labbra serrate</item>
-    <item>Risata</item>
-    <item>Confuso</item>
-  </string-array>
 </resources>

@@ -202,23 +202,4 @@
     <item>Kurzor mozgatása balra</item>
     <item>Kurzor mozgatása jobbra</item>
   </string-array>
-  <string-array name="smiley_names">
-    <item>Boldog</item>
-    <item>Szomorú</item>
-    <item>Kacsintás</item>
-    <item>Nyelvnyújtós</item>
-    <item>Meglepődött</item>
-    <item>Csókolózó</item>
-    <item>Kiabáló</item>
-    <item>Laza</item>
-    <item>Pénzes arc</item>
-    <item>Láb a szájban</item>
-    <item>Zavart</item>
-    <item>Angyal</item>
-    <item>Határozatlan</item>
-    <item>Síró</item>
-    <item>Zárt ajkak</item>
-    <item>Nevető</item>
-    <item>Zavart</item>
-  </string-array>
 </resources>

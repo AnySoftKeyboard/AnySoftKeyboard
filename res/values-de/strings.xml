@@ -202,23 +202,4 @@
     <item>Eingabe-Cursor nach links bewegen</item>
     <item>Eingabe-Cursor nach rechts bewegen</item>
   </string-array>
-  <string-array name="smiley_names">
-    <item>Happy</item>
-    <item>Sad</item>
-    <item>Winking</item>
-    <item>Tongue sticking out</item>
-    <item>Surprised</item>
-    <item>Kissing</item>
-    <item>Yelling</item>
-    <item>Cool</item>
-    <item>Money mouth</item>
-    <item>Foot in mouth</item>
-    <item>Embarrassed</item>
-    <item>Angel</item>
-    <item>Undecided</item>
-    <item>Crying</item>
-    <item>Lips are sealed</item>
-    <item>Laughing</item>
-    <item>Confused</item>
-  </string-array>
 </resources>

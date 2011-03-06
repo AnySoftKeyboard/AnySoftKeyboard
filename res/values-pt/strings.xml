@@ -202,23 +202,4 @@
     <item>Mover cursor para a esquerda</item>
     <item>Mover cursor para a direita</item>
   </string-array>
-  <string-array name="smiley_names">
-    <item>Feliz</item>
-    <item>Triste</item>
-    <item>Piscadela de olho</item>
-    <item>Língua de fora</item>
-    <item>Surpreendido</item>
-    <item>Beijo</item>
-    <item>Gritando</item>
-    <item>Fixe</item>
-    <item>\"Money mouth\"</item>
-    <item>\"Foot in mouth\"</item>
-    <item>Envergonhado</item>
-    <item>Anjo</item>
-    <item>Indeciso</item>
-    <item>Chorando</item>
-    <item>Juro segredo</item>
-    <item>Rindo</item>
-    <item>Confuso</item>
-  </string-array>
 </resources>
