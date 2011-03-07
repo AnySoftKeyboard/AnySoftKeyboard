@@ -75,6 +75,7 @@
 						<TextView android:text="Sami Salonen" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
 						<TextView android:text="Lado Kumsiashvili" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
 						<TextView android:text="Alexander Gazarov" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+						<TextView android:text="David Kohen" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
 						
             			<TextView android:text="@string/main_tab_credits_GUI_by" android:textSize="15sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp" android:textStyle="bold"></TextView>
             			<TextView android:text="Roy Barina" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
