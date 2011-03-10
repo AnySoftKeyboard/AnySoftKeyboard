@@ -402,21 +402,25 @@ public class AnySoftKeyboard extends InputMethodService implements
 			switch (attribute.inputType & EditorInfo.TYPE_MASK_CLASS)
 			{
 			case EditorInfo.TYPE_CLASS_DATETIME:
+				if (DEBUG) Log.d(TAG, "Setting MODE_DATETIME as keyboard due to a TYPE_CLASS_DATETIME input.");
 				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_DATETIME, attribute);
 				break;
 			case EditorInfo.TYPE_CLASS_NUMBER:
+				if (DEBUG) Log.d(TAG, "Setting MODE_NUMBERS as keyboard due to a TYPE_CLASS_NUMBER input.");
 				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_NUMBERS, attribute);
 				break;
 			case EditorInfo.TYPE_CLASS_PHONE:
+				if (DEBUG) Log.d(TAG, "Setting MODE_PHONE as keyboard due to a TYPE_CLASS_PHONE input.");
 				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_PHONE, attribute);
 				break;
 			case EditorInfo.TYPE_CLASS_TEXT:
-				
+				if (DEBUG) Log.d(TAG, "A TYPE_CLASS_TEXT input.");
 				final int variation = attribute.inputType & EditorInfo.TYPE_MASK_VARIATION;
 				switch(variation)
 				{
 				case EditorInfo.TYPE_TEXT_VARIATION_PASSWORD:
 				case EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD:
+					if (DEBUG) Log.d(TAG, "A password TYPE_CLASS_TEXT input with no prediction");
 					mPredictionOn = false;
 					break;
 				default:
@@ -444,15 +448,19 @@ public class AnySoftKeyboard extends InputMethodService implements
 				switch(variation)
 				{
 				case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
+					if (DEBUG) Log.d(TAG, "Setting MODE_EMAIL as keyboard due to a TYPE_TEXT_VARIATION_EMAIL_ADDRESS input.");
 					mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_EMAIL, attribute);
 					break;
 				case EditorInfo.TYPE_TEXT_VARIATION_URI:
+					if (DEBUG) Log.d(TAG, "Setting MODE_URL as keyboard due to a TYPE_TEXT_VARIATION_URI input.");
 					mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_URL, attribute);
 					break;
 				case EditorInfo.TYPE_TEXT_VARIATION_SHORT_MESSAGE:
+					if (DEBUG) Log.d(TAG, "Setting MODE_IM as keyboard due to a TYPE_TEXT_VARIATION_SHORT_MESSAGE input.");
 					mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_IM, attribute);
 					break;
 				default:
+					if (DEBUG) Log.d(TAG, "Setting MODE_TEXT as keyboard due to a default input.");
 					mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT, attribute);
 				}
 				
@@ -461,6 +469,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				{
 				case EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS:
 				case EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE:
+					if (DEBUG) Log.d(TAG, "Input requested NO_SUGGESTIONS, or it is AUTO_COMPLETE by itself.");
 					mPredictionOn = false;
 					break;
 				default:
@@ -470,6 +479,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				updateShiftKeyState(attribute);
 				break;
 			default:
+				if (DEBUG) Log.d(TAG, "Setting MODE_TEXT as keyboard due to a default input.");
 				//No class. Probably a console window, or no GUI input connection
 				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT, attribute);
 				mPredictionOn = false;
