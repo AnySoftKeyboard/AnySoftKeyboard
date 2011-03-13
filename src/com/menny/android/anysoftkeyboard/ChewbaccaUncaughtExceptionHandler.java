@@ -28,7 +28,6 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 		mOsDefaultHandler = previous;
 	}
 	
-	@Override
 	public void uncaughtException(Thread thread, Throwable ex) {
 		Log.e(TAG, "Caught an unhandled exception!!! ", ex);
 		if (AnySoftKeyboardConfiguration.DEBUG)
