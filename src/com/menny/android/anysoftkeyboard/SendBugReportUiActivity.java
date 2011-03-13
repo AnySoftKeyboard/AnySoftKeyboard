@@ -24,7 +24,6 @@ public class SendBugReportUiActivity extends Activity {
 			.setTitle(R.string.ime_name)
 			.setMessage("Oops, didn't see that coming...")
 			.setPositiveButton("Send :)", new OnClickListener() {
-				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					sendCrashReportViaEmail();
 					finish();
@@ -33,7 +32,6 @@ public class SendBugReportUiActivity extends Activity {
 			.setCancelable(true)
 			.setNegativeButton("No", new OnClickListener() {
 				
-				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					finish();
 				}
