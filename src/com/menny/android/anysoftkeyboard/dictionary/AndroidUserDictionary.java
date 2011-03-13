@@ -42,6 +42,19 @@ class AndroidUserDictionary extends UserDictionaryBase {
             mObserver = null;
         }
 	}
+	
+	@Override
+	public void loadDictionary() {
+		//in this SPECIAL case we need to check that it is possible 
+		//to query the Android dictionary BEFORE requesting load in async
+		Cursor cursor = mContext.getContentResolver().query(Words.CONTENT_URI, new String[]{Words._ID}, null, null, null);
+		if (cursor == null)
+			throw new RuntimeException("No Andorid User Dictionary found");
+		else
+			cursor.close();
+		
+		super.loadDictionary();
+	}
 
 	protected void loadDictionaryAsync() {
 		Cursor cursor = mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION, null, null, null);
