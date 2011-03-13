@@ -821,10 +821,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 						getMetaKeysStates("onKeyDown after handle"));
 			break;
 		case KeyEvent.KEYCODE_SPACE:
-			if (event.isAltPressed() && !Workarounds.isAltSpaceLangSwitchNotPossible()) {
+			if ((event.isAltPressed() && !Workarounds.isAltSpaceLangSwitchNotPossible()) || event.isShiftPressed()) {
 			    if(DEBUG)
+			    	if(event.isAltPressed()){
 				Log.d(TAG,
 								"User pressed ALT+SPACE, moving to next physical keyboard.");
+			    	} else {
+						Log.d(TAG,
+						"User pressed SHIFT+SPACE, moving to next physical keyboard.");
+			    	}
 				// consuming the meta keys
 				// mHardKeyboardAction.resetMetaState();
 				if (ic != null) {
