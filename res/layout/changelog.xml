@@ -50,6 +50,33 @@
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
+		        android:text="20110316 - 37"
+		        android:textStyle="bold"
+		        android:gravity="center"
+		        android:textSize="16sp"
+		        android:paddingTop="8dp"
+		        android:paddingLeft="8dp"
+		        android:paddingRight="8dp"
+		        android:textColor="#CCC"
+		        />
+		    <TextView android:text="http://s.evendanan.net/ask_r37" android:textSize="12sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content"
+		    	android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"/>
+		    <TextView
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:text="* Crashes fix for Android 1.5. Sorry about that.\n* Another physical keyboard switch key (SHIFT+SPACE, FN+SPACE, ALT+SPACE)."
+		        android:textSize="16sp"
+		        android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"
+		        android:textColor="#AAA"
+		        />
+		        
+		    <TextView
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
 		        android:text="20110308 - 35"
 		        android:textStyle="bold"
 		        android:gravity="center"
