@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.menny.android.anysoftkeyboard"
-        android:versionCode="36" android:versionName="20110316-smiley4all">
+        android:versionCode="36" android:versionName="20110320-smiley4all">
 	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key"
 		android:name=".AnyApplication" >
 		<service android:permission="android.permission.BIND_INPUT_METHOD" android:name=".SoftKeyboard">

@@ -274,7 +274,7 @@ public class AnyKeyboardView extends KeyboardView {
 			mQuickTextPopupKeyboard.setHeight(mMiniKeyboardContainer.getMeasuredHeight());
 			mQuickTextPopupKeyboard.showAtLocation(this, Gravity.NO_GRAVITY, x, y);
 			mQuickTextKeyboardOnScreen = true;
-			invalidateAllKeys();
+			requestSpecialKeysRedraw();
 		}
 	}
 
@@ -288,7 +288,7 @@ public class AnyKeyboardView extends KeyboardView {
         if (mQuickTextPopupKeyboard.isShowing()) {
             mQuickTextPopupKeyboard.dismiss();
             mQuickTextKeyboardOnScreen = false;
-            invalidateAllKeys();
+            requestSpecialKeysRedraw();
         }
     }
 

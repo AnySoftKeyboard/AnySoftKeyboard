@@ -14,7 +14,7 @@ import android.util.Log;
 
 public abstract class AnySoftKeyboardConfiguration 
 {
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 	
 	private static final String TAG = "ASK_Cfg";
 		
@@ -206,7 +206,7 @@ public abstract class AnySoftKeyboardConfiguration
 		public void handleConfigurationChange(SharedPreferences sp)
 		{
 			Log.i(TAG, "**** handleConfigurationChange: ");
-			mLayoutChangeKeysSize = sp.getString(mContext.getResources().getString(R.string.settings_key_top_keyboard_row_id), mContext.getResources().getString(R.string.settings_default_top_keyboard_row_id));
+			mLayoutChangeKeysSize = sp.getString(mContext.getString(R.string.settings_key_top_keyboard_row_id), mContext.getString(R.string.settings_default_top_keyboard_row_id));
 			Log.i(TAG, "** mChangeKeysMode: "+mLayoutChangeKeysSize);
 			
 			mDomainText = sp.getString("default_domain_text", ".com");
@@ -230,7 +230,7 @@ public abstract class AnySoftKeyboardConfiguration
 			mUseKeyRepeat = sp.getBoolean("use_keyrepeat", true);
 			Log.i(TAG, "** mUseKeyRepeat: "+mUseKeyRepeat);
 			
-			mKeysHeightFactorInPortrait = getFloatFromString(sp, "zoom_factor_keys_in_portrait", mContext.getResources().getString(R.string.settings_default_portrait_keyboard_height_factor));
+			mKeysHeightFactorInPortrait = getFloatFromString(sp, "zoom_factor_keys_in_portrait", mContext.getString(R.string.settings_default_portrait_keyboard_height_factor));
 			Log.i(TAG, "** mKeysHeightFactorInPortrait: "+mKeysHeightFactorInPortrait);
 			if (mKeysHeightFactorInPortrait > 2.0f)
 			{
@@ -242,7 +242,7 @@ public abstract class AnySoftKeyboardConfiguration
 				mKeysHeightFactorInPortrait = 0.2f;
 				Log.i(TAG, "** mKeysHeightFactorInPortrait fixed to: "+mKeysHeightFactorInPortrait);
 			}
-			mKeysHeightFactorInLandscape = getFloatFromString(sp, "zoom_factor_keys_in_landscape", mContext.getResources().getString(R.string.settings_default_landscape_keyboard_height_factor));
+			mKeysHeightFactorInLandscape = getFloatFromString(sp, "zoom_factor_keys_in_landscape", mContext.getString(R.string.settings_default_landscape_keyboard_height_factor));
 			Log.i(TAG, "** mKeysHeightFactorInLandscape: "+mKeysHeightFactorInLandscape);
 			if (mKeysHeightFactorInLandscape > 2.0f)
 			{
