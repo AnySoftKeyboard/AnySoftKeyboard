@@ -20,5 +20,5 @@
 
 <resources>
     <dimen name="key_height">46dip</dimen>
-    <dimen name="key_half_height">30dip</dimen>
+    <dimen name="key_half_height">26dip</dimen>
 </resources>
