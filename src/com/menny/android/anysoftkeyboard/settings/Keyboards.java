@@ -3,20 +3,18 @@ package com.menny.android.anysoftkeyboard.settings;
 
 import java.util.ArrayList;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
-import android.preference.PreferenceGroup;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.util.Log;
 
 import com.menny.android.anysoftkeyboard.MainForm;
 import com.menny.android.anysoftkeyboard.R;
-import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory;
-import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory.KeyboardBuilder;
+import com.menny.android.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
+import com.menny.android.anysoftkeyboard.keyboards.KeyboardFactory;
 
 public class Keyboards extends PreferenceActivity {
 
@@ -55,35 +53,18 @@ public class Keyboards extends PreferenceActivity {
 	protected void onResume() {
 		super.onResume();
 
-		//first resetting maybe the user has installed a new keyboard
-		KeyboardBuildersFactory.resetBuildersCache();
 		//getting all keyboards
-		final ArrayList<KeyboardBuilder> creators = KeyboardBuildersFactory.getAllBuilders(getApplicationContext());
+		final ArrayList<KeyboardAddOnAndBuilder> creators = KeyboardFactory.getAllAvailableKeyboards(getApplicationContext());
 		
 		//removeNonDefaultPreferences();
 		mKeyboardsGroup.removeAll();
 			
-		for(final KeyboardBuilder creator : creators)
+		for(final KeyboardAddOnAndBuilder creator : creators)
 		{
-		    final Context creatorContext = creator.getPackageContext() == null?
-		            getApplicationContext() : creator.getPackageContext();
+		    final CheckBoxPreference checkBox = new CheckBoxPreference(getApplicationContext());
 
-//			if (creatorContext == getApplicationContext() && creator.getKeyboardNameResId() == R.string.eng_keyboard) {
-//                continue;//english is an internal keyboard, and is on by default.
-//            }
-			final CheckBoxPreference checkBox = new CheckBoxPreference(getApplicationContext());
-			/*
-			 * <CheckBoxPreference
-				android:key="eng_keyboard"
-				android:title="@string/eng_keyboard"
-				android:persistent="true"
-				android:defaultValue="true"
-				android:summaryOn="QWERTY Latin keyboard"
-				android:summaryOff="QWERTY Latin keyboard"
-				/>
-			 */
 			checkBox.setKey(creator.getId());
-			checkBox.setTitle(creatorContext.getText(creator.getKeyboardNameResId()));
+			checkBox.setTitle(creator.getName());
 			checkBox.setPersistent(true);
 			checkBox.setDefaultValue(creator.getKeyboardDefaultEnabled());
 			checkBox.setSummaryOn(creator.getDescription());
@@ -92,12 +73,4 @@ public class Keyboards extends PreferenceActivity {
 			mKeyboardsGroup.addPreference(checkBox);
 		}
 	}
-
-//	private void removeNonDefaultPreferences() {
-//		// We keep the preferences defined in the xml, everything else goes
-//		while(mKeyboardsGroup.getPreferenceCount() > mDefaultPreferencesCount)
-//		{
-//			mKeyboardsGroup.removePreference(mKeyboardsGroup.getPreference(mDefaultPreferencesCount));
-//		}
-//	}
 }

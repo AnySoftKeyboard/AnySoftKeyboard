@@ -3,7 +3,6 @@ package com.menny.android.anysoftkeyboard;
 import android.content.Context;
 import android.inputmethodservice.Keyboard;
 import android.util.AttributeSet;
-import android.util.Log;
 
 public class AnyKeyboardViewDonut extends AnyKeyboardView
 {

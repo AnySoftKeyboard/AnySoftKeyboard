@@ -26,7 +26,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
-import com.menny.android.anysoftkeyboard.dictionary.ContactsDictionary;
 import com.menny.android.anysoftkeyboard.dictionary.Dictionary;
 import com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase;
 

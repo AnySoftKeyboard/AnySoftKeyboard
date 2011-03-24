@@ -1,18 +1,18 @@
 package com.menny.android.anysoftkeyboard.settings;
 
-import android.content.Context;
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.util.Log;
+
 import com.menny.android.anysoftkeyboard.MainForm;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.menny.android.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
-
-import java.util.ArrayList;
 
 /**
  *
@@ -50,10 +50,8 @@ public class QuickTextKeys extends PreferenceActivity {
 		String[] names = new String[keys.size()];
 		int entryPos = 0;
 		for (QuickTextKey aKey : keys) {
-			Context creatorContext = aKey.getPackageContext() == null
-					? getApplicationContext() : aKey.getPackageContext();
 			ids[entryPos] = aKey.getId();
-			names[entryPos] = creatorContext.getString(aKey.getNameResId());
+			names[entryPos] = aKey.getName();
 			entryPos++;
 		}
 		ListPreference keysList = (ListPreference)

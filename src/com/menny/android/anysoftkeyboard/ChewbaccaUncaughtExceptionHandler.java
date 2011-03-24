@@ -3,9 +3,6 @@ package com.menny.android.anysoftkeyboard;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.Date;
 
-
-import android.app.Activity;
-import android.app.Application;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -30,8 +27,8 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 	
 	public void uncaughtException(Thread thread, Throwable ex) {
 		Log.e(TAG, "Caught an unhandled exception!!! ", ex);
-		if (AnySoftKeyboardConfiguration.DEBUG)
-		{
+		//if (AnySoftKeyboardConfiguration.DEBUG)
+		//{
 			Notification notification = new Notification();
 
 			Intent notificationIntent = new Intent();
@@ -74,7 +71,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 			NotificationManager notificationManager = (NotificationManager)mApp.getSystemService(Context.NOTIFICATION_SERVICE);
 			
 			notificationManager.notify(1, notification);
-		}
+		//}
 		//and sending to the OS
 		if (mOsDefaultHandler != null)
 		{

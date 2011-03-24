@@ -405,7 +405,7 @@ public abstract class AnyKeyboard extends Keyboard
     	return super.getShiftKeyIndex() + mTopRowKeysCount;
     }
     
-    //Unused right now
+    /*
 	private void setIconIfNeeded(Key key, Resources localResources,
 			int iconId, int iconWideId,
 			int iconFeedbackId) {
@@ -416,7 +416,8 @@ public abstract class AnyKeyboard extends Keyboard
 		
 		setKeyIcons(key, localResources, iconId, iconFeedbackId);
 	}
-	
+	*/
+    
 	private void setIconIfNeeded(Key key, Resources localResources, int iconId, int iconFeedbackId) {
 		if ((key.icon != null) || (!TextUtils.isEmpty(key.label)))
 			return;

@@ -22,10 +22,9 @@ import android.view.inputmethod.EditorInfo;
 
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.GenericKeyboard;
-import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory;
+import com.menny.android.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.menny.android.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
-import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory.KeyboardBuilder;
 
 public class KeyboardSwitcher
 {
@@ -73,7 +72,7 @@ public class KeyboardSwitcher
     private AnyKeyboard[] mSymbolsKeyboardsArray = EMPTY_AnyKeyboards;
     //my working keyboards
     private AnyKeyboard[] mAlphabetKeyboards = EMPTY_AnyKeyboards;
-    private KeyboardBuildersFactory.KeyboardBuilder[] mAlphabetKeyboardsCreators = null;
+    private KeyboardAddOnAndBuilder[] mAlphabetKeyboardsCreators = null;
     //issue 146
     private boolean mRightToLeftMode = false;
 
@@ -185,7 +184,7 @@ public class KeyboardSwitcher
     	return mAlphabetKeyboards;
     }
 
-    public synchronized KeyboardBuilder[] getEnabledKeyboardsBuilders()
+    public synchronized KeyboardAddOnAndBuilder[] getEnabledKeyboardsBuilders()
     {
     	makeKeyboards(false);
     	return mAlphabetKeyboardsCreators;
@@ -205,7 +204,7 @@ public class KeyboardSwitcher
             if (mAlphabetKeyboards.length == 0)
             {
             	if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, "makeKeyboards: creating alphabets");
-	        	mAlphabetKeyboardsCreators = KeyboardFactory.createAlphaBetKeyboards(mContext);
+	        	mAlphabetKeyboardsCreators = KeyboardFactory.getEnabledKeyboards(mContext).toArray(new KeyboardAddOnAndBuilder[]{});
 	        	mLatinKeyboardIndex = findLatinKeyboardIndex();
 				mAlphabetKeyboards = new AnyKeyboard[mAlphabetKeyboardsCreators.length];
 		        if (mLastSelectedKeyboard >= mAlphabetKeyboards.length)
@@ -227,12 +226,15 @@ public class KeyboardSwitcher
      * This is used for url and emails fields
      */
     private int findLatinKeyboardIndex() {
-    	int index = 0;
-		for(KeyboardBuilder builder : mAlphabetKeyboardsCreators)
-		{
-			if (builder.getKeyboardNameResId() == R.string.eng_keyboard)
+    	if (mAlphabetKeyboardsCreators == null)
+    		return -1;
+    	
+    	for(int index=0; index < mAlphabetKeyboardsCreators.length; index++)
+    	{
+    		final KeyboardAddOnAndBuilder builder = mAlphabetKeyboardsCreators[index];
+    		if (builder.getNameResId() == R.string.eng_keyboard)
 				return index; 
-		}
+    	}
 		
 		return -1;
 	}
@@ -493,7 +495,7 @@ public class KeyboardSwitcher
 
 		if (keyboard == null || keyboard.getKeyboardMode() != mode)
 		{
-			KeyboardBuilder creator = mAlphabetKeyboardsCreators[index];
+			KeyboardAddOnAndBuilder creator = mAlphabetKeyboardsCreators[index];
 			if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, "About to create keyboard: "+creator.getId());
 			keyboards[index] = creator.createKeyboard(mContext, mode);
 			keyboard = keyboards[index];

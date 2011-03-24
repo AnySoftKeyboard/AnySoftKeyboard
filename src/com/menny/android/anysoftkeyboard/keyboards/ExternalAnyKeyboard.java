@@ -6,11 +6,9 @@ import org.xmlpull.v1.XmlPullParser;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import android.inputmethodservice.Keyboard;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.Xml;
-import android.view.KeyEvent;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
@@ -159,6 +157,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 		return translator;
 	}
 
+	/*
 	private String printInts(int[] keyCodes) {
 		String r = "";
 		for(int code : keyCodes)
@@ -166,7 +165,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 
 		return r;
 	}
-
+*/
 	private int[] getKeyCodesFromPhysicalSequence(String keyCodesArray) {
 		String[] splitted = keyCodesArray.split(",");
 		int[] keyCodes = new int[splitted.length];

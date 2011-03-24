@@ -66,13 +66,13 @@ import android.widget.Toast;
 import com.menny.android.anysoftkeyboard.KeyboardSwitcher.NextKeyboardType;
 import com.menny.android.anysoftkeyboard.dictionary.AutoDictionary;
 import com.menny.android.anysoftkeyboard.dictionary.Dictionary;
+import com.menny.android.anysoftkeyboard.dictionary.DictionaryAddOnAndBuilder;
 import com.menny.android.anysoftkeyboard.dictionary.DictionaryFactory;
 import com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory;
 import com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase;
-import com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory.DictionaryBuilder;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
-import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory.KeyboardBuilder;
+import com.menny.android.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.menny.android.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.menny.android.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.menny.android.anysoftkeyboard.settings.MainSettings;
@@ -1300,7 +1300,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	private void showLanguageSelectionDialog() {
-		KeyboardBuilder[] builders = mKeyboardSwitcher.getEnabledKeyboardsBuilders();
+		KeyboardAddOnAndBuilder[] builders = mKeyboardSwitcher.getEnabledKeyboardsBuilders();
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setCancelable(true);
 		builder.setIcon(R.drawable.icon_8_key);
@@ -1309,9 +1309,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		ArrayList<CharSequence> keyboardsIds = new ArrayList<CharSequence>();
 		ArrayList<CharSequence> keyboards = new ArrayList<CharSequence>();
 		//going over all enabled keyboards
-		for (KeyboardBuilder keyboardBuilder : builders) {
+		for (KeyboardAddOnAndBuilder keyboardBuilder : builders) {
 			keyboardsIds.add(keyboardBuilder.getId());
-			String name = keyboardBuilder.getPackageContext().getString(keyboardBuilder.getKeyboardNameResId());
+			String name = keyboardBuilder.getName();
 			
 			keyboards.add(name);
 		}
@@ -2227,16 +2227,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// null dictionary is handled as the default for the keyboard
 		dictionaryIds.add(null);
 		dictionaries.add(getString(R.string.override_dictionary_default));
-		//making sure I know every installed dictionary
-		ExternalDictionaryFactory.resetBuildersCache();
 		//going over all installed dictionaries
-		for (DictionaryBuilder dictionaryBuilder : ExternalDictionaryFactory.getAllBuilders(this)) {
+		for (DictionaryAddOnAndBuilder dictionaryBuilder : ExternalDictionaryFactory.getAllAvailableExternalDictionaries(this)) {
 			dictionaryIds.add(dictionaryBuilder.getId());
 			String description = dictionaryBuilder.getDescription();
 			if(description != null && description.length() != 0) {
 				description = " (" + description + ")";
 			}
-			dictionaries.add(dictionaryBuilder.getDictionaryName() + description);
+			dictionaries.add(dictionaryBuilder.getName() + description);
 		}
 
 		final CharSequence[] ids = new CharSequence[dictionaryIds.size()];
@@ -2371,7 +2369,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
 			String key) {
 	    if (DEBUG)Log.d("AnySoftKeyboard", "onSharedPreferenceChanged - key:" + key);
-		boolean isKeyboardKey = key.startsWith("keyboard_");
+		boolean isKeyboardKey = key.startsWith(KeyboardAddOnAndBuilder.KEYBOARD_PREF_PREFIX);
 		boolean isDictionaryKey = key.startsWith("dictionary_");
 		boolean isQuickTextKey = key.equals(getString(R.string.settings_key_active_quick_text_key));
 		if (isKeyboardKey || isDictionaryKey || isQuickTextKey) {

@@ -15,7 +15,6 @@ import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.AnySoftKeyboard;
 import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.menny.android.anysoftkeyboard.Workarounds;
-import com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory.DictionaryBuilder;
 
 public class DictionaryFactory
 {
@@ -185,22 +184,21 @@ public class DictionaryFactory
             if (dict == null)
             {
 
-                if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG,
-                        MessageFormat.format("Could not locate dictionary for language {0} and id {1}. Maybe it was not loaded yet (installed recently?)",
+                Log.d(TAG, MessageFormat.format("Could not locate dictionary for language {0} and id {1}. Maybe it was not loaded yet (installed recently?)",
                                 new Object[]{languageFormat, idFormat}));
-                ExternalDictionaryFactory.resetBuildersCache();
-                //trying again
-                if(id != null) {
-                    dict = locateDictionaryByIdInFactory(id, context);
-                }
-                else if(language != null) {
-                    dict = locateDictionaryByLanguageInFactory(language, context);
-                }
-
-                if (dict == null)
-                    Log.w(TAG,
-                            MessageFormat.format("Could not locate dictionary for language {0} and id {1}.",
-                                    new Object[]{languageFormat, idFormat}));
+//                ExternalDictionaryFactory.resetBuildersCache();
+//                //trying again
+//                if(id != null) {
+//                    dict = locateDictionaryByIdInFactory(id, context);
+//                }
+//                else if(language != null) {
+//                    dict = locateDictionaryByLanguageInFactory(language, context);
+//                }
+//
+//                if (dict == null)
+//                    Log.w(TAG,
+//                            MessageFormat.format("Could not locate dictionary for language {0} and id {1}.",
+//                                    new Object[]{languageFormat, idFormat}));
             }
             //checking again, cause it may have loaded the second try.
             if (dict != null)
@@ -256,9 +254,9 @@ public class DictionaryFactory
         if (language == null)
         	return dict;
 
-        final ArrayList<DictionaryBuilder> allBuilders = ExternalDictionaryFactory.getAllBuilders(context.getApplicationContext());
+        final ArrayList<DictionaryAddOnAndBuilder> allBuilders = ExternalDictionaryFactory.getAllAvailableExternalDictionaries(context.getApplicationContext());
 
-        for(DictionaryBuilder builder : allBuilders)
+        for(DictionaryAddOnAndBuilder builder : allBuilders)
         {
             if (AnySoftKeyboardConfiguration.DEBUG){
                 Log.d(TAG, MessageFormat.format("Checking if builder ''{0}'' with locale ''{1}'' matches locale ''{2}''",
@@ -281,9 +279,9 @@ public class DictionaryFactory
         if (id == null)
         	return dict;
 
-        final ArrayList<DictionaryBuilder> allBuilders = ExternalDictionaryFactory.getAllBuilders(context.getApplicationContext());
+        final ArrayList<DictionaryAddOnAndBuilder> allBuilders = ExternalDictionaryFactory.getAllAvailableExternalDictionaries(context.getApplicationContext());
 
-        for(DictionaryBuilder builder : allBuilders)
+        for(DictionaryAddOnAndBuilder builder : allBuilders)
         {
             if (AnySoftKeyboardConfiguration.DEBUG){
                 Log.d(TAG, MessageFormat.format("Checking if builder ''{0}'' with locale ''{1}'' matches id ''{2}''",

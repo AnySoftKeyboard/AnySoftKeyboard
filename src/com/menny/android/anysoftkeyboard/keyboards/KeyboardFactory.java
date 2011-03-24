@@ -1,61 +1,132 @@
 package com.menny.android.anysoftkeyboard.keyboards;
 
-import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
-import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
-import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory.KeyboardBuilder;
-
-import android.content.SharedPreferences;
-import android.util.Log;
-
 import java.util.ArrayList;
 
-public class KeyboardFactory 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.AttributeSet;
+import android.util.Log;
+
+import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
+import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
+import com.menny.android.anysoftkeyboard.R;
+import com.menny.android.anysoftkeyboard.addons.AddOnsFactory;
+
+
+public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder>
 {
 	private static final String TAG = "ASK_KF";
-    public static KeyboardBuilder[] createAlphaBetKeyboards(AnyKeyboardContextProvider contextProvider)
-    {
-    	final ArrayList<KeyboardBuilder> keyboardCreators = KeyboardBuildersFactory.getAllBuilders(contextProvider.getApplicationContext());
-        Log.i(TAG, "Creating keyboards. I have "+ keyboardCreators.size()+" creators");
-        //Thread.dumpStack();
+	
+	private static final String XML_LAYOUT_RES_ID_ATTRIBUTE = "layoutResId";
+	private static final String XML_LANDSCAPE_LAYOUT_RES_ID_ATTRIBUTE = "landscapeResId";
+	private static final String XML_ICON_RES_ID_ATTRIBUTE = "iconResId";
+	private static final String XML_DICTIONARY_NAME_ATTRIBUTE = "defaultDictionaryLocale";
+	private static final String XML_ADDITIONAL_IS_LETTER_EXCEPTIONS_ATTRIBUTE = "additionalIsLetterExceptions";
+	private static final String XML_PHYSICAL_TRANSLATION_RES_ID_ATTRIBUTE = "physicalKeyboardMappingResId";
+	private static final String XML_DEFAULT_ATTRIBUTE = "defaultEnabled";
+	
+	private static final KeyboardFactory msInstance;
+	static
+	{
+		msInstance = new KeyboardFactory();
+	}
+	
+	public static ArrayList<KeyboardAddOnAndBuilder> getAllAvailableKeyboards(Context askContext)
+	{
+		return msInstance.getAllAddOns(askContext);
+	}
+	
+	public static ArrayList<KeyboardAddOnAndBuilder> getEnabledKeyboards(AnyKeyboardContextProvider contextProvider)
+	{
+		final ArrayList<KeyboardAddOnAndBuilder> allAddOns = msInstance.getAllAddOns(contextProvider.getApplicationContext());
+        Log.i(TAG, "Creating enabled addons list. I have a total of "+ allAddOns.size()+" addons");
 
         //getting shared prefs to determine which to create.
         final SharedPreferences sharedPreferences = contextProvider.getSharedPreferences();
         
-        final ArrayList<KeyboardBuilder> keyboards = new ArrayList<KeyboardBuilder>();
-        for(int keyboardIndex=0; keyboardIndex<keyboardCreators.size(); keyboardIndex++)
+        final ArrayList<KeyboardAddOnAndBuilder> enabledAddOns = new ArrayList<KeyboardAddOnAndBuilder>();
+        for(int addOnIndex=0; addOnIndex<allAddOns.size(); addOnIndex++)
         {
-            final KeyboardBuilder creator = keyboardCreators.get(keyboardIndex);
-            //the first keyboard is defaulted to true
-            final boolean keyboardIsEnabled = sharedPreferences.getBoolean(creator.getId(),
-            		creator.getKeyboardDefaultEnabled());
+            final KeyboardAddOnAndBuilder addOn = allAddOns.get(addOnIndex);
 
-            if (keyboardIsEnabled)
+            final boolean addOnEnabled = sharedPreferences.getBoolean(addOn.getId(), addOn.getKeyboardDefaultEnabled());
+
+            if (addOnEnabled)
             {
-                keyboards.add(creator);
+            	enabledAddOns.add(addOn);
             }
         }
 
         // Fix: issue 219
         // Check if there is any keyboards created if not, lets create a default english keyboard
-        if( keyboards.size() == 0 ) {
+        if( enabledAddOns.size() == 0 ) {
             final SharedPreferences.Editor editor = sharedPreferences.edit( );
-            final KeyboardBuilder creator = keyboardCreators.get( 0 );
-            editor.putBoolean( creator.getId( ) , true );
+            final KeyboardAddOnAndBuilder addOn = allAddOns.get( 0 );
+            editor.putBoolean( addOn.getId( ) , true );
             editor.commit( );
-            keyboards.add( creator );
+            enabledAddOns.add( addOn );
         }
 
         if (AnySoftKeyboardConfiguration.DEBUG)
         {
-	        for(final KeyboardBuilder aKeyboard : keyboards) {
-	            Log.d(TAG, "Factory provided creator: "+aKeyboard.getId());
+	        for(final KeyboardAddOnAndBuilder addOn : enabledAddOns) {
+	            Log.d(TAG, "Factory provided addon: "+addOn.getId());
 	        }
         }
 
-        keyboards.trimToSize();
-        final KeyboardBuilder[] keyboardsArray = new KeyboardBuilder[keyboards.size()];
-        return keyboards.toArray(keyboardsArray);
-    }
+        return enabledAddOns;
+	}
+	
+	private KeyboardFactory() {
+		super(TAG, "com.menny.android.anysoftkeyboard.KEYBOARD", "com.menny.android.anysoftkeyboard.keyboards", 
+				"Keyboards", "Keyboard",
+				R.xml.keyboards);
+	}
 
+	@Override
+	protected KeyboardAddOnAndBuilder createConcreateAddOn(Context context,
+			String prefId, int nameId, String description, int sortIndex,
+			AttributeSet attrs) {
+		
+      final int layoutResId = attrs.getAttributeResourceValue(null,
+              XML_LAYOUT_RES_ID_ATTRIBUTE, -1);
+      final int landscapeLayoutResId = attrs.getAttributeResourceValue(null,
+              XML_LANDSCAPE_LAYOUT_RES_ID_ATTRIBUTE, -1);
+      final int iconResId = attrs.getAttributeResourceValue(null,
+              XML_ICON_RES_ID_ATTRIBUTE,
+              R.drawable.sym_keyboard_notification_icon);
+      final String defaultDictionary = attrs.getAttributeValue(null,
+              XML_DICTIONARY_NAME_ATTRIBUTE);
+      final String additionalIsLetterExceptions = attrs.getAttributeValue(null,
+              XML_ADDITIONAL_IS_LETTER_EXCEPTIONS_ATTRIBUTE);
+      final int physicalTranslationResId = attrs.getAttributeResourceValue(null,
+              XML_PHYSICAL_TRANSLATION_RES_ID_ATTRIBUTE, -1);
+      
+      // A keyboard is enabled by default if it is the first one (index==1)
+      final boolean keyboardDefault = attrs.getAttributeBooleanValue(null,
+      		XML_DEFAULT_ATTRIBUTE, sortIndex==1);
+
+      // asserting
+      if ((prefId == null) || (nameId == -1) || (layoutResId == -1)) {
+          Log.e(TAG, "External Keyboard does not include all mandatory details! Will not create keyboard.");
+          return null;
+      } else {
+          if (AnySoftKeyboardConfiguration.DEBUG) {
+              Log.d(TAG,
+                      "External keyboard details: prefId:" + prefId + " nameId:"
+                      + nameId + " resId:" + layoutResId
+                      + " landscapeResId:" + landscapeLayoutResId
+                      + " iconResId:" + iconResId + " defaultDictionary:"
+                      + defaultDictionary);
+          }
+          final KeyboardAddOnAndBuilder creator = new KeyboardAddOnAndBuilder(context,
+                  prefId, nameId, layoutResId, landscapeLayoutResId,
+                  defaultDictionary, iconResId, physicalTranslationResId,
+                  additionalIsLetterExceptions, description, sortIndex,
+                  keyboardDefault );
+
+          return creator;
+      }
+	}
     
 }

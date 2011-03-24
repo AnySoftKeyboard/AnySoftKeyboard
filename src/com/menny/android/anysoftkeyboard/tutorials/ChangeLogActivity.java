@@ -1,7 +1,6 @@
 package com.menny.android.anysoftkeyboard.tutorials;
 
 import com.menny.android.anysoftkeyboard.AnyApplication;
-import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.menny.android.anysoftkeyboard.MainForm;
 import com.menny.android.anysoftkeyboard.R;
 

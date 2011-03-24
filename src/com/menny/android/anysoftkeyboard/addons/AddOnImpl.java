@@ -39,4 +39,7 @@ public abstract class AddOnImpl implements AddOn {
 		return mSortIndex;
 	}
 
+	public String getName() {
+		return mPackageContext.getString(mNameResId);
+	}
 }

@@ -7,7 +7,6 @@ package com.menny.android.anysoftkeyboard;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.preference.DialogPreference;
 import android.widget.SeekBar;
