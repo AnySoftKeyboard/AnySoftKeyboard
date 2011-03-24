@@ -14,7 +14,7 @@ import android.util.Log;
 
 public abstract class AnySoftKeyboardConfiguration 
 {
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 	
 	private static final String TAG = "ASK_Cfg";
 		

@@ -22,7 +22,6 @@ import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.menny.android.anysoftkeyboard.R;
 import com.menny.android.anysoftkeyboard.Workarounds;
 import com.menny.android.anysoftkeyboard.quicktextkeys.QuickTextKey;
-import com.menny.android.anysoftkeyboard.quicktextkeys.QuickTextKeyBuildersFactory.QuickTextKeyBuilder;
 import com.menny.android.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 
 public abstract class AnyKeyboard extends Keyboard 
@@ -111,13 +110,6 @@ public abstract class AnyKeyboard extends Keyboard
 	private int mTopRowKeysCount = 0;
 	// max(generic row widths)
 	private int mMaxGenericRowsWidth = 0;
-
-	/**
-	 * Defines which plugin for quick text key has been used during creation. If this field is
-	 * <code>null</code>, this means that either keys haven't been initialized yet, or this
-	 * keyboard doesn't use quick text keys.
-	 */
-	private QuickTextKey mQuickTextKey = null;
 	
     protected AnyKeyboard(AnyKeyboardContextProvider askContext, Context context,//note: the context can be from a different package!
     		int xmlLayoutResId, int mode) 
@@ -203,27 +195,24 @@ public abstract class AnyKeyboard extends Keyboard
                 	setIconIfNeeded(key, localResources, R.drawable.globe, -1);
                     break;
                 case AnyKeyboard.KEYCODE_QUICK_TEXT:
-					QuickTextKeyBuilder builder = QuickTextKeyFactory
-							.getQuickTextKeyBuilder(mASKContext);
-					if (builder == null) { //No plugins. Weird, but we can't do anything
-						mQuickTextKey = null;
+					QuickTextKey quickKey = QuickTextKeyFactory.getCurrentQuickTextKey(getASKContext());
+					if (quickKey == null) { //No plugins. Weird, but we can't do anything
 						break;
 					}
 
-					mQuickTextKey = builder.createQuickTextKey();
-					Resources quickTextKeyResources = builder.getPackageContext().getResources();
+					Resources quickTextKeyResources = quickKey.getPackageContext().getResources();
 
-					key.label = mQuickTextKey.getKeyLabel();
+					key.label = quickKey.getKeyLabel();
 
-					int iconResId = mQuickTextKey.getKeyIconResId();
-					int previewResId = mQuickTextKey.getIconPreviewResId();
+					int iconResId = quickKey.getKeyIconResId();
+					int previewResId = quickKey.getIconPreviewResId();
 					if (iconResId > 0) {
 						setKeyIcons(key, quickTextKeyResources, iconResId, previewResId);
 					}
 
 					/* Popup resource may be from another context, requires special handling when
 					the key is long-pressed! */
-                	key.popupResId = mQuickTextKey.getPopupKeyboardResId();
+                	key.popupResId = quickKey.getPopupKeyboardResId();
                     break;
             	case AnyKeyboard.KEYCODE_DOMAIN:
             		//fixing icons
@@ -415,10 +404,6 @@ public abstract class AnyKeyboard extends Keyboard
     public int getShiftKeyIndex() {
     	return super.getShiftKeyIndex() + mTopRowKeysCount;
     }
-
-	public QuickTextKey getQuickTextKey() {
-		return mQuickTextKey;
-	}
     
     //Unused right now
 	private void setIconIfNeeded(Key key, Resources localResources,

@@ -1,5 +1,7 @@
 package com.menny.android.anysoftkeyboard.quicktextkeys;
 
+import com.menny.android.anysoftkeyboard.addons.AddOnImpl;
+
 import android.content.Context;
 import android.content.res.Resources;
 
@@ -7,12 +9,8 @@ import android.content.res.Resources;
  *
  * @author Malcolm
  */
-public class QuickTextKey {
-	private Context mPackageContext;
-
-	private String mId;
-	private String mName;
-
+public class QuickTextKey extends AddOnImpl {
+	
 	private int mPopupKeyboardResId;
 	private String[] mPopupListNames;
 	private String[] mPopupListValues;
@@ -22,16 +20,12 @@ public class QuickTextKey {
 	private int mKeyIconResId;
 	private int mIconPreviewResId;
 
-	private final String mDescription;
-
 	public QuickTextKey(Context packageContext, String id, int nameResId, int popupKeyboardResId,
 			int popupListNamesResId, int popupListValuesResId, int keyIconResId, int keyLabelResId,
-			int keyOutputTextResId, int iconPreviewResId, String description) {
-		this.mPackageContext = packageContext;
+			int keyOutputTextResId, int iconPreviewResId, String description, int sortIndex) {
+		super(packageContext, id, nameResId, description, sortIndex);
+		
 		Resources resources = packageContext.getResources();
-
-		this.mId = id;
-		this.mName = resources.getString(nameResId);
 
 		this.mPopupKeyboardResId = popupKeyboardResId;
 		if (popupKeyboardResId <= 0) {
@@ -43,19 +37,6 @@ public class QuickTextKey {
 		this.mKeyOutputText = keyOutputTextResId > 0 ? resources.getString(keyOutputTextResId) :
 			null;
 		this.mIconPreviewResId = iconPreviewResId;
-		this.mDescription = description;
-	}
-
-	public Context getPackageContext() {
-		return mPackageContext;
-	}
-
-	public String getId() {
-		return mId;
-	}
-
-	public String getName() {
-		return mName;
 	}
 
 	public boolean isPopupKeyboardUsed() {
@@ -88,9 +69,5 @@ public class QuickTextKey {
 
 	public int getIconPreviewResId() {
 		return mIconPreviewResId;
-	}
-
-	public String getDescription() {
-		return mDescription;
 	}
 }

@@ -6,12 +6,12 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceCategory;
 import android.util.Log;
 import com.menny.android.anysoftkeyboard.MainForm;
 import com.menny.android.anysoftkeyboard.R;
-import com.menny.android.anysoftkeyboard.quicktextkeys.QuickTextKeyBuildersFactory;
-import com.menny.android.anysoftkeyboard.quicktextkeys.QuickTextKeyBuildersFactory.QuickTextKeyBuilder;
+import com.menny.android.anysoftkeyboard.quicktextkeys.QuickTextKey;
+import com.menny.android.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
+
 import java.util.ArrayList;
 
 /**
@@ -19,14 +19,11 @@ import java.util.ArrayList;
  * @author Malcolm
  */
 public class QuickTextKeys extends PreferenceActivity {
-	private PreferenceCategory mQuickTextKeysGroup;
 
 	@Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         addPreferencesFromResource(R.layout.prefs_quick_text_keys);
-        mQuickTextKeysGroup = (PreferenceCategory) findPreference("quick_text_key_addons_group");
-        //mDefaultPreferencesCount = mKeyboardsGroup.getPreferenceCount();
 
 		final Preference searcher = (Preference) findPreference("search_for_quick_text_keys_packs");
 		searcher.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -47,17 +44,16 @@ public class QuickTextKeys extends PreferenceActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		final ArrayList<QuickTextKeyBuilder> creators = QuickTextKeyBuildersFactory
-				.getAllBuilders(getApplicationContext());
+		final ArrayList<QuickTextKey> keys = QuickTextKeyFactory.getAllAvailableQuickKeys(getApplicationContext());
 
-		String[] ids = new String[creators.size()];
-		String[] names = new String[creators.size()];
+		String[] ids = new String[keys.size()];
+		String[] names = new String[keys.size()];
 		int entryPos = 0;
-		for (QuickTextKeyBuilder creator : creators) {
-			Context creatorContext = creator.getPackageContext() == null
-					? getApplicationContext() : creator.getPackageContext();
-			ids[entryPos] = creator.getId();
-			names[entryPos] = creatorContext.getString(creator.getQuickTextKeyNameResId());
+		for (QuickTextKey aKey : keys) {
+			Context creatorContext = aKey.getPackageContext() == null
+					? getApplicationContext() : aKey.getPackageContext();
+			ids[entryPos] = aKey.getId();
+			names[entryPos] = creatorContext.getString(aKey.getNameResId());
 			entryPos++;
 		}
 		ListPreference keysList = (ListPreference)

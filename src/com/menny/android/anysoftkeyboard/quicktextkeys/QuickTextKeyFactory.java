@@ -1,62 +1,95 @@
 package com.menny.android.anysoftkeyboard.quicktextkeys;
 
-import android.content.SharedPreferences;
-import android.util.Log;
-import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
-import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
-import com.menny.android.anysoftkeyboard.R;
-import com.menny.android.anysoftkeyboard.quicktextkeys.QuickTextKeyBuildersFactory.QuickTextKeyBuilder;
-
 import java.util.ArrayList;
 
-public class QuickTextKeyFactory {
-	private static final String TAG = "ASK_QTKF";
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.AttributeSet;
 
-    public static QuickTextKeyBuilder getQuickTextKeyBuilder(AnyKeyboardContextProvider
-			contextProvider) {
-    	ArrayList<QuickTextKeyBuilder> keyCreators = QuickTextKeyBuildersFactory
-				.getAllBuilders(contextProvider.getApplicationContext());
-		if (keyCreators.isEmpty()) {
-			Log.w(TAG, "I haven't found any quick text key plugins!");
-			return null;
-		} else {
-			Log.i(TAG, "Creating quick text keys. I have " + keyCreators.size() + " creators");
-		}
-        //Thread.dumpStack();
+import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
+import com.menny.android.anysoftkeyboard.R;
+import com.menny.android.anysoftkeyboard.addons.AddOnsFactory;
 
-        //Find out which key should be created
-		QuickTextKeyBuilder selectedKeyBuilder = null;
-        SharedPreferences sharedPreferences = contextProvider.getSharedPreferences();
-		String settingKey = contextProvider
-				.getApplicationContext().getString(R.string.settings_key_active_quick_text_key);
-        String selectedKeyId = sharedPreferences.getString(settingKey, null);
-		if (selectedKeyId != null) {
-			//Find the builder in the array by id. Mayne would've been better off with a HashSet
-			for (QuickTextKeyBuilder builder : keyCreators) {
-				if (builder.getId().equals(selectedKeyId)) {
-					selectedKeyBuilder = builder;
-					break;
-				}
-			}
-		}
+public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey>
+{
+	
+	private static final QuickTextKeyFactory msInstance;
+	
+	static
+	{
+		msInstance = new QuickTextKeyFactory();
+	}
+	
+	public static QuickTextKey getCurrentQuickTextKey(AnyKeyboardContextProvider contextProvider)
+	{
+		 SharedPreferences sharedPreferences = contextProvider.getSharedPreferences();
+         String settingKey = contextProvider.getApplicationContext().getString(R.string.settings_key_active_quick_text_key);
+         
+         String selectedKeyId = sharedPreferences.getString(settingKey, null);
+         QuickTextKey selectedKey = null;
+         ArrayList<QuickTextKey> keys = msInstance.getAllAddOns(contextProvider.getApplicationContext());
+         if (selectedKeyId != null) {
+        	 //Find the builder in the array by id. Mayne would've been better off with a HashSet
+             for (QuickTextKey aKey : keys) {
+                 if (aKey.getId().equals(selectedKeyId)) {
+                     selectedKey = aKey;
+                     break;
+                 }
+             }
+         }
 
-		if (selectedKeyBuilder == null) {
-			//Haven't found a builder or no preference is stored, so we use the default one
-			selectedKeyBuilder = keyCreators.get(0);
+         if (selectedKey == null) {
+        	 //Haven't found a builder or no preference is stored, so we use the default one
+        	 selectedKey = keys.get(0);
 
-			SharedPreferences.Editor editor = sharedPreferences.edit();
-			editor.putString(settingKey, selectedKeyBuilder.getId());
-			editor.commit();
-		}
+             SharedPreferences.Editor editor = sharedPreferences.edit();
+             editor.putString(settingKey, selectedKey.getId());
+             editor.commit();
+         }
 
-        if (AnySoftKeyboardConfiguration.DEBUG) {
-			Log.d(TAG, "List of available quick text keys:");
-	        for (QuickTextKeyBuilder builder : keyCreators) {
-				//If it weren'r an interface, I'd rather do the same thing through toString()
-				Log.d(TAG, builder.getId() + " " + builder.getDescription());
-			}
-        }
+         return selectedKey;
+	}
+	
 
-        return selectedKeyBuilder;
-    }
+
+	public static ArrayList<QuickTextKey> getAllAvailableQuickKeys(Context applicationContext) {
+		return msInstance.getAllAddOns(applicationContext);
+	}
+
+	private static final String XML_POPUP_KEYBOARD_RES_ID_ATTRIBUTE = "popupKeyboard";
+	private static final String XML_POPUP_LIST_TEXT_RES_ID_ATTRIBUTE = "popupListText";
+	private static final String XML_POPUP_LIST_OUTPUT_RES_ID_ATTRIBUTE = "popupListOutput";
+	private static final String XML_ICON_RES_ID_ATTRIBUTE = "keyIcon";
+	private static final String XML_KEY_LABEL_RES_ID_ATTRIBUTE = "keyLabel";
+	private static final String XML_KEY_OUTPUT_TEXT_RES_ID_ATTRIBUTE = "keyOutputText";
+	private static final String XML_ICON_PREVIEW_RES_ID_ATTRIBUTE = "iconPreview";
+	
+	private QuickTextKeyFactory() {
+		super("ASK_QKF", "com.anysoftkeyboard.plugin.QUICK_TEXT_KEY", "com.anysoftkeyboard.plugindata.quicktextkeys", 
+				"QuickTextKeys", "QuickTextKey", 
+				R.xml.quick_text_keys);
+	}
+
+	@Override
+	protected QuickTextKey createConcreateAddOn(Context context, String prefId, int nameResId,
+			String description, int sortIndex, AttributeSet attrs) {
+		final int popupKeyboardResId = attrs.getAttributeResourceValue(null,
+				XML_POPUP_KEYBOARD_RES_ID_ATTRIBUTE, -1);
+		final int popupListTextResId = attrs.getAttributeResourceValue(null,
+				XML_POPUP_LIST_TEXT_RES_ID_ATTRIBUTE, -1);
+		final int popupListOutputResId = attrs.getAttributeResourceValue(null,
+				XML_POPUP_LIST_OUTPUT_RES_ID_ATTRIBUTE, -1);
+		final int iconResId = attrs.getAttributeResourceValue(null,
+				XML_ICON_RES_ID_ATTRIBUTE, -1); //Maybe should make a default icon
+		final int keyLabelResId = attrs.getAttributeResourceValue(null,
+				XML_KEY_LABEL_RES_ID_ATTRIBUTE, -1);
+		final int keyOutputTextResId = attrs.getAttributeResourceValue(null,
+				XML_KEY_OUTPUT_TEXT_RES_ID_ATTRIBUTE, -1);
+		final int keyIconPreviewResId = attrs.getAttributeResourceValue(null,
+				XML_ICON_PREVIEW_RES_ID_ATTRIBUTE, -1);
+		
+		return new QuickTextKey(context, prefId, nameResId, popupKeyboardResId,
+				popupListTextResId, popupListOutputResId, iconResId, keyLabelResId,
+				keyOutputTextResId, keyIconPreviewResId, description, sortIndex);
+	}
 }

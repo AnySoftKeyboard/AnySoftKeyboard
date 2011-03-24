@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.menny.android.anysoftkeyboard.addons.AddOnsFactory;
 import com.menny.android.anysoftkeyboard.dictionary.DictionaryFactory;
 import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory;
-import com.menny.android.anysoftkeyboard.quicktextkeys.QuickTextKeyBuildersFactory;
 
 public class PackagesChangedReceiver extends BroadcastReceiver {
 
@@ -43,6 +43,7 @@ public class PackagesChangedReceiver extends BroadcastReceiver {
 //		isKeyboard = isKeyboard
 //				|| context.getPackageName().equals(intent.getPackage());
 
+		/*
 		if (AnySoftKeyboardConfiguration.DEBUG)
 		    Log.d(TAG, new StringBuffer("Packages (").append(intent.getData())
 				.append(") have been changed. Is dictionary ").append(
@@ -72,5 +73,7 @@ public class PackagesChangedReceiver extends BroadcastReceiver {
 		if (isQuickTextKey) {
 			QuickTextKeyBuildersFactory.resetBuildersCache();
 		}
+		*/
+		AddOnsFactory.onPackageChanged(intent);
 	}
 }

@@ -74,6 +74,7 @@ import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.menny.android.anysoftkeyboard.keyboards.KeyboardBuildersFactory.KeyboardBuilder;
 import com.menny.android.anysoftkeyboard.quicktextkeys.QuickTextKey;
+import com.menny.android.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.menny.android.anysoftkeyboard.settings.MainSettings;
 import com.menny.android.anysoftkeyboard.tutorials.TutorialsProvider;
 
@@ -1206,7 +1207,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			onText(mConfig.getDomainText());
 			break;
 		case AnyKeyboard.KEYCODE_QUICK_TEXT:
-			QuickTextKey quickTextKey = mKeyboardSwitcher.getCurrentKeyboard().getQuickTextKey();
+			QuickTextKey quickTextKey = QuickTextKeyFactory.getCurrentQuickTextKey(this);
 
 			boolean printDefaultText;
 			if (quickTextKey.getId().equals(SMILEY_PLUGIN_ID)) {
@@ -1226,7 +1227,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 			break;
 		case AnyKeyboardView.KEYCODE_QUICK_TEXT_LONGPRESS:
-			quickTextKey = mKeyboardSwitcher.getCurrentKeyboard().getQuickTextKey();
+			quickTextKey = QuickTextKeyFactory.getCurrentQuickTextKey(this);
 			if (quickTextKey.getId().equals(SMILEY_PLUGIN_ID) && !mSmileyOnShortPress) {
 				onText(quickTextKey.getKeyOutputText());
 			} else {
