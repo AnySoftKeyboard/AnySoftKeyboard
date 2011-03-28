@@ -1,10 +1,11 @@
-package com.menny.android.anysoftkeyboard;
+package com.menny.android.anysoftkeyboard.receivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.menny.android.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.menny.android.anysoftkeyboard.addons.AddOnsFactory;
 import com.menny.android.anysoftkeyboard.dictionary.DictionaryFactory;
 

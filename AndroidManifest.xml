@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.menny.android.anysoftkeyboard"
-        android:versionCode="38" android:versionName="20110324-smiley4all">
+        android:versionCode="38" android:versionName="20110328-smiley4all">
 	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key"
 		android:name=".AnyApplication" >
 		<service android:permission="android.permission.BIND_INPUT_METHOD" android:name=".SoftKeyboard">
@@ -9,7 +9,7 @@
 	        </intent-filter>
 	        <meta-data android:name="android.view.im" android:resource="@xml/method" />
 	    </service>
-	    <receiver android:name=".PackagesChangedReceiver">
+	    <receiver android:name=".receivers.PackagesChangedReceiver">
 	    	<intent-filter>
 	    		<category android:name="android.intent.category.DEFAULT" />
 	    		<action android:name="android.intent.action.PACKAGE_CHANGED"/>
@@ -20,7 +20,11 @@
 	    		<data android:scheme="package" />
 	    	</intent-filter>	    	
 	    </receiver>
-	    
+	    <receiver android:name=".receivers.AnySoftKeyboardInstalledReceiver" android:exported="true">
+			<intent-filter>
+			    <action android:name="com.android.vending.INSTALL_REFERRER" />
+			</intent-filter>
+		</receiver>
 	    <activity android:name=".SoftKeyboardSettings" android:label="@string/ime_name">
 	    </activity>
 	    <activity android:name=".settings.MainSettings" android:label="@string/ime_name">
@@ -32,7 +36,9 @@
 		<activity android:name=".settings.QuickTextKeys"
 				android:label="@string/quick_text_keys_group" />
 	    
-	    <activity android:name=".tutorials.TutorialActivity" android:label="@string/ime_name">
+	    <activity android:name=".tutorials.TestersNoticeActivity" android:label="@string/testers_version">
+	    </activity>
+	    <activity android:name=".tutorials.WelcomeHowToNoticeActivity" android:label="@string/how_to_pointer_title">
 	    </activity>
 	    <activity android:name=".tutorials.ChangeLogActivity" android:label="@string/changelog">
 	    </activity>

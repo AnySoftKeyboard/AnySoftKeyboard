@@ -4,23 +4,19 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.MainForm;
 import com.menny.android.anysoftkeyboard.R;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
 
-public class ChangeLogActivity extends Activity implements OnClickListener{
+public class ChangeLogActivity extends BaseTutorialActivity implements OnClickListener{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		setTitle(R.string.changelog);
-		View content = getLayoutInflater().inflate(R.layout.changelog, null);
-		
-		setContentView(content);
+		View content = getWindow().getDecorView();
 		//now to listen on all known buttons
 		for(View touchable : content.getTouchables())
 		{
@@ -60,5 +56,15 @@ public class ChangeLogActivity extends Activity implements OnClickListener{
 			}
 			break;
 		}
+	}
+
+	@Override
+	protected int getLayoutResId() {
+		return R.layout.changelog;
+	}
+
+	@Override
+	protected int getTitleResId() {
+		return R.string.changelog;
 	}
 }

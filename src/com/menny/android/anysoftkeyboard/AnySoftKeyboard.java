@@ -258,8 +258,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		SharedPreferences sp = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		sp.registerOnSharedPreferenceChangeListener(this);
-
-		TutorialsProvider.ShowTutorialsIfNeeded(AnySoftKeyboard.this);
 	}
 	
 	@Override

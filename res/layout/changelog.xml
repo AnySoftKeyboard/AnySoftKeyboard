@@ -41,7 +41,17 @@
 	        android:layout_below="@id/changelog_label"
 	        android:textColor="#BBB"/>
     </RelativeLayout>
-	<CheckBox android:layout_alignParentBottom="true" android:id="@+id/show_notifications_next_time" android:text="@string/show_new_version_notifications_again" android:layout_width="fill_parent" android:layout_height="wrap_content"/>
+
+	<LinearLayout android:id="@+id/close_button_layout" android:layout_width="fill_parent" android:layout_alignParentBottom="true"
+	    android:layout_height="wrap_content" android:padding="4dp"
+	    android:orientation="horizontal" android:weightSum="2" android:background="#555">
+		<Button android:id="@+id/close_button"
+			android:layout_height="wrap_content" android:layout_width="0px" android:layout_weight="1" android:onClick="onCloseClicked"  android:padding="8dp"
+			android:gravity="center" android:layout_gravity="center" android:text="@string/close_button"/>
+	</LinearLayout>
+	
+	<CheckBox android:id="@+id/show_notifications_next_time" android:layout_above="@id/close_button_layout" android:text="@string/show_new_version_notifications_again" android:layout_width="fill_parent" android:layout_height="wrap_content"/>
+	
 	<ScrollView android:layout_below="@id/changelog_title_layout" android:layout_above="@id/show_notifications_next_time" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1">
 		<LinearLayout 
 		    android:layout_width="fill_parent"

@@ -36,6 +36,7 @@
 	<!-- changelog -->
 	<string name="changelog">Changelog</string>
 	<string name="search_market_for_addons">Search for add-ons</string>
+	<string name="close_button">Close</string>
 	
 	<string name="how_to_active_text">How to active AnySoftKeyboard</string>
     <!-- Symbols that are commonly considered word separators in this language -->

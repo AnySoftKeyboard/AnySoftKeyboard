@@ -21,6 +21,8 @@ import android.util.Log;
 
 public class TutorialsProvider 
 {
+	private static final String ASK_HAS_BEEN_ENABLED_BEFORE = "ask_has_been_enabled_before";
+
 	private static final String TAG = "ASK Turorial";
 
 	private static final int BASE_NOTIFICATION_ID = 1024;
@@ -34,15 +36,23 @@ public class TutorialsProvider
 	 * @param key the string to search for
 	 * @return true if the key was found in the array
 	 */
-	private static boolean linearSearch( String array[], String key )
+	private static boolean linearSearch( String listOfIme, final String key )
 	{
-		boolean flag=false;
+		String[] arrayOfIme = listOfIme.split(":");
+		if (AnySoftKeyboardConfiguration.DEBUG)
+			Log.d(TAG, "Currently these are the IME enabled in the OS: "+listOfIme);
 		
-		for(int i=0; i<array.length && !flag; ++i ) {
-			flag=array[i].startsWith(key);
+		for(final String ime : arrayOfIme)
+		{
+			if (AnySoftKeyboardConfiguration.DEBUG)
+				Log.d(TAG, "Is '"+ime+"' equals '"+key+"'?");
+			
+			if (ime.equals(key)) return true;
 		}
 		
-		return flag;
+		if (AnySoftKeyboardConfiguration.DEBUG)
+			Log.d(TAG, "'"+key+"' was not found in the list of IMEs!");
+		return false;
 	}
 	
 	public static void ShowTutorialsIfNeeded(Context context)
@@ -53,28 +63,34 @@ public class TutorialsProvider
 		{
 			Log.i(TAG, "TESTERS VERSION added");
 
-			Intent i = new Intent(context, TutorialActivity.class);
-			i.putExtra(TutorialActivity.LAYOUT_RESOURCE_ID, R.layout.testers_version);
-			i.putExtra(TutorialActivity.NAME_RESOURCE_ID, R.string.testers_version);
+			Intent i = new Intent(context, TestersNoticeActivity.class);
+			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			
 			msActivitiesToShow.add(i);
 		}
 		
-		if (!linearSearch( Secure.getString(context.getContentResolver(), Secure.ENABLED_INPUT_METHODS).split(":"),
+		if (!linearSearch( Secure.getString(context.getContentResolver(), Secure.ENABLED_INPUT_METHODS),
 				context.getPackageName() ) )
 		{
 			//ASK is not enabled, but installed. Has the user forgot how to turn it on?
-			if (AnyApplication.getConfig().getShowVersionNotification() && firstTimeVersionLoaded(context))
+			if (!hasAnySoftKeyboardEnabled(context))
 			{
 				//this is the first time the application is loaded.
 				Log.i(TAG, "Welcome added");
 
-				Intent i = new Intent(context, TutorialActivity.class);
-				i.putExtra(TutorialActivity.LAYOUT_RESOURCE_ID, R.layout.welcome_howto);
-				i.putExtra(TutorialActivity.NAME_RESOURCE_ID, R.string.how_to_pointer_title);
+				Intent i = new Intent(context, WelcomeHowToNoticeActivity.class);
+				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				
 				msActivitiesToShow.add(i);
 			}
+		}
+		else
+		{
+			SharedPreferences sp = context.getSharedPreferences("tutorials", 0);//private
+			
+			Editor e = sp.edit();
+			e.putBoolean(ASK_HAS_BEEN_ENABLED_BEFORE, true);
+			e.commit();
 		}
 		
 		
@@ -83,6 +99,7 @@ public class TutorialsProvider
 			Log.i(TAG, "changelog added");
 			
 			Intent i = new Intent(context, ChangeLogActivity.class);
+			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			
 			msActivitiesToShow.add(i);
 		}
@@ -95,6 +112,13 @@ public class TutorialsProvider
 		msActivitiesToShow.clear();
 	}
 
+	private static boolean hasAnySoftKeyboardEnabled(Context context) {
+		SharedPreferences sp = context.getSharedPreferences("tutorials", 0);//private
+		final boolean hasBeenLoaded = sp.getBoolean(ASK_HAS_BEEN_ENABLED_BEFORE, false);
+		
+		return hasBeenLoaded;
+	}
+	
 	private static boolean firstTimeVersionLoaded(Context context) {
 		SharedPreferences sp = context.getSharedPreferences("tutorials", 0);//private
 		final int lastTutorialVersion = sp.getInt("tutorial_version", 0);
@@ -123,7 +147,7 @@ public class TutorialsProvider
 		{
 			Notification notification = new Notification(R.drawable.notification_icon, context.getText(R.string.notification_text), System.currentTimeMillis());
             
-            Intent notificationIntent = msActivitiesToShow.remove(0);
+            Intent notificationIntent = msActivitiesToShow.get(0);
             
             PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
             
@@ -139,6 +163,9 @@ public class TutorialsProvider
             // notifying
             //need different id for each notification, so we can cancel easily
             ((NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE)).notify(BASE_NOTIFICATION_ID+msActivitiesToShow.size(), notification);
+            
+            //removes this notification
+            msActivitiesToShow.remove(0);
 		}
 	}
 }

@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="vertical" android:weightSum="1">
 
 	<!-- No need to localize. It is for testers. -->
     <TextView
@@ -12,7 +12,8 @@
         android:gravity="center"
         android:text="Testers version!" />
     <TextView
-    	android:layout_height="wrap_content"
+    	android:layout_height="0px"
+    	android:layout_weight="1"
         android:layout_width="fill_parent"
         android:text="This is a testing version. It may contain many bugs, and it may be non-backward compatible!\nPlease, report any problems you encounter.\nThank you for your beta-testing."
         android:textSize="16sp"
@@ -20,4 +21,11 @@
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         />
+	<LinearLayout android:layout_width="fill_parent"
+	    android:layout_height="wrap_content" android:padding="4dp"
+	    android:orientation="horizontal" android:weightSum="2" android:background="#555">
+		<Button android:id="@+id/close_button" android:onClick="onCloseClicked" android:padding="4dp"
+			android:layout_height="wrap_content" android:layout_width="0px" android:layout_weight="1"
+			android:gravity="center" android:layout_gravity="center" android:text="@string/close_button"/>
+	</LinearLayout>
 </LinearLayout>
