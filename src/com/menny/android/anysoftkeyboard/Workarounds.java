@@ -12,6 +12,8 @@ public class Workarounds
 	
 	private static final boolean ms_isDonut;
 	private static final boolean ms_isEclair;
+	private static final int ms_ApiLevel;
+	
 
 	private static final String TAG = "ASK Workaround";
 	
@@ -35,9 +37,11 @@ public class Workarounds
 		}
 		catch(Exception ex)
 		{
+			sdkVersion = 3;
 		}
 		ms_isDonut = isDonut;
 		ms_isEclair = isEclair;
+		ms_ApiLevel = sdkVersion;
 		
 		boolean requiresRtlWorkaround = true;//all devices required this fix (in 2.1 it is still required)
 		
@@ -151,6 +155,10 @@ public class Workarounds
 		return ms_isEclair;
 	}
 
+	public static int getApiLevel() {
+		return ms_ApiLevel;
+	}
+	
 	public static boolean doubleActionKeyDisableWorkAround(EditorInfo editor) {
 		if (editor != null)
 		{

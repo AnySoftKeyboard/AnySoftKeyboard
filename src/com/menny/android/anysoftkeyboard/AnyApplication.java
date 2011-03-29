@@ -1,5 +1,6 @@
 package com.menny.android.anysoftkeyboard;
 
+import com.menny.android.anysoftkeyboard.backup.CloudBackupRequester;
 import com.menny.android.anysoftkeyboard.tutorials.TutorialsProvider;
 
 import android.app.Application;
@@ -15,6 +16,8 @@ public class AnyApplication extends Application {
 		super.onCreate();
 		
 		if (AnySoftKeyboardConfiguration.DEBUG) Log.d("ASK", "** Starting application in DEBUG mode.");
+		
+		CloudBackupRequester.createRequesterInstance(getPackageName());
 		
 		msConfig = AnySoftKeyboardConfiguration.createInstance(this);
 

@@ -64,6 +64,7 @@ import android.widget.Toast;
 
 
 import com.menny.android.anysoftkeyboard.KeyboardSwitcher.NextKeyboardType;
+import com.menny.android.anysoftkeyboard.backup.CloudBackupRequester;
 import com.menny.android.anysoftkeyboard.dictionary.AutoDictionary;
 import com.menny.android.anysoftkeyboard.dictionary.Dictionary;
 import com.menny.android.anysoftkeyboard.dictionary.DictionaryAddOnAndBuilder;
@@ -2367,6 +2368,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
 			String key) {
 	    if (DEBUG)Log.d("AnySoftKeyboard", "onSharedPreferenceChanged - key:" + key);
+	    CloudBackupRequester.requestPrefsBackupToTheCloud();
+	    
 		boolean isKeyboardKey = key.startsWith(KeyboardAddOnAndBuilder.KEYBOARD_PREF_PREFIX);
 		boolean isDictionaryKey = key.startsWith("dictionary_");
 		boolean isQuickTextKey = key.equals(getString(R.string.settings_key_active_quick_text_key));
