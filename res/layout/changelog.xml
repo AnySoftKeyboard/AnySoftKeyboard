@@ -60,6 +60,33 @@
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
+		        android:text="20110330 - 39"
+		        android:textStyle="bold"
+		        android:gravity="center"
+		        android:textSize="16sp"
+		        android:paddingTop="8dp"
+		        android:paddingLeft="8dp"
+		        android:paddingRight="8dp"
+		        android:textColor="#CCC"
+		        />
+		    <TextView android:text="http://s.evendanan.net/ask_r39" android:textSize="12sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content"
+		    	android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"/>
+		    <TextView
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:text="* Backup-Agent support (Android 2.2+).\n* Better handling of external packs.\n* Some images refactoring.\n* Bug fixes."
+		        android:textSize="16sp"
+		        android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"
+		        android:textColor="#AAA"
+		        />
+		        
+		    <TextView
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
 		        android:text="20110321 - 37"
 		        android:textStyle="bold"
 		        android:gravity="center"
