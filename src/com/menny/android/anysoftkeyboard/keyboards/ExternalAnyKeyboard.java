@@ -274,7 +274,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'e':
-					aKey.popupCharacters = "\u00e8\u00e9\u00ea\u00eb\u0119\u20ac";//"èéêëę€";
+					aKey.popupCharacters = "\u00e8\u00e9\u00ea\u00eb\u0119\u20ac\u0113";//"èéêëę€";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'g':
@@ -286,7 +286,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'i':
-					aKey.popupCharacters = "\u00ec\u00ed\u00ee\u00ef\u0142";//"ìíîïł";
+					aKey.popupCharacters = "\u00ec\u00ed\u00ee\u00ef\u0142\u012B";//"ìíîïł";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'j':
@@ -298,7 +298,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'o':
-					aKey.popupCharacters =  "\u00f2\u00f3\u00f4\u00f5\u00f6\u00f8\u0151\u0153";//"òóôõöøőœ";
+					aKey.popupCharacters =  "\u00f2\u00f3\u00f4\u00f5\u00f6\u00f8\u0151\u0153\u014D";//"òóôõöøőœ";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 's':
@@ -306,7 +306,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'u':
-					aKey.popupCharacters = "\u00f9\u00fa\u00fb\u00fc\u016d\u0171";//"ùúûüŭű";
+					aKey.popupCharacters = "\u00f9\u00fa\u00fb\u00fc\u016d\u0171\u016B";//"ùúûüŭű";
 					aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 					break;
 				case 'n':
