@@ -23,7 +23,7 @@ import android.util.Log;
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.WordComposer;
 
-public abstract class UserDictionaryBase extends Dictionary {
+public abstract class UserDictionaryBase extends AddableDictionary {
 
     private static final char QUOTE = '\'';
 

@@ -65,6 +65,7 @@ import android.widget.Toast;
 
 import com.menny.android.anysoftkeyboard.KeyboardSwitcher.NextKeyboardType;
 import com.menny.android.anysoftkeyboard.backup.CloudBackupRequester;
+import com.menny.android.anysoftkeyboard.dictionary.AddableDictionary;
 import com.menny.android.anysoftkeyboard.dictionary.AutoDictionary;
 import com.menny.android.anysoftkeyboard.dictionary.Dictionary;
 import com.menny.android.anysoftkeyboard.dictionary.DictionaryAddOnAndBuilder;
@@ -135,7 +136,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private long mMetaState;
 
 	//private UserDictionaryBase mContactsDictionary;
-	private UserDictionaryBase mUserDictionary;
+	private AddableDictionary mUserDictionary;
 	private AutoDictionary mAutoDictionary;
 	
 
@@ -2345,7 +2346,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void handleContactsDictionaryMember(){
         if(mConfig.useContactsDictionary()){
-        	UserDictionaryBase contactsDictionary = DictionaryFactory.getInstance().createContactsDictionary(this); 
+        	Dictionary contactsDictionary = DictionaryFactory.getInstance().createContactsDictionary(this); 
             mSuggest.setContactsDictionary(contactsDictionary);
         } else{
         	DictionaryFactory.getInstance().closeContactsDictionary();        	

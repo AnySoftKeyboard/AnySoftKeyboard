@@ -12,7 +12,7 @@ public abstract class SQLiteUserDictionaryBase extends UserDictionaryBase {
 
 	private DictionarySQLiteConnection mStorage;
 
-	protected SQLiteUserDictionaryBase(String dictionaryName, AnyKeyboardContextProvider anyContext) throws Exception {
+	protected SQLiteUserDictionaryBase(String dictionaryName, AnyKeyboardContextProvider anyContext) {
 		super(dictionaryName, anyContext);
 	}
 

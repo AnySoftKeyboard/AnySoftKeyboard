@@ -312,17 +312,30 @@ public class Suggest implements Dictionary.WordCallback {
 
     public boolean isValidWord(final CharSequence word) {
         if (word == null || word.length() == 0) {
+			if (AnySoftKeyboardConfiguration.DEBUG)
+                Log.v(TAG, "Suggest::isValidWord - word is empty");
             return false;
         }
         
-       
-       return (mCorrectionMode == CORRECTION_FULL && (mMainDict != null) && mMainDict
-                .isValidWord(word))
-                || (mCorrectionMode > CORRECTION_NONE
-                        && (mUserDictionary != null && mUserDictionary.isValidWord(word))
-                        || (mAutoDictionary != null && mAutoDictionary.isValidWord(word))
-                        || (mContactsDictionary != null && mContactsDictionary
-                        .isValidWord(word)));
+		if (mCorrectionMode > CORRECTION_NONE)
+		{
+			final boolean validFromMain = (mCorrectionMode == CORRECTION_FULL && mMainDict != null && mMainDict.isValidWord(word));
+			final boolean validFromUser = (mUserDictionary != null && mUserDictionary.isValidWord(word));
+			final boolean validFromAuto = (mAutoDictionary != null && mAutoDictionary.isValidWord(word));
+			final boolean validFromContacts = (mContactsDictionary != null && mContactsDictionary.isValidWord(word));
+			
+			if (AnySoftKeyboardConfiguration.DEBUG)
+                Log.v(TAG, "Suggest::isValidWord("+word+") mCorrectionMode:"+mCorrectionMode
+					+" validFromMain:"+validFromMain
+					+" validFromUser:"+validFromUser
+					+" validFromAuto:"+validFromAuto
+					+" validFromContacts:"+validFromContacts);
+			return validFromMain || validFromUser || validFromAuto || validFromContacts;
+		}
+		else
+		{
+			return false;
+		}
     }
 
     private void collectGarbage() {

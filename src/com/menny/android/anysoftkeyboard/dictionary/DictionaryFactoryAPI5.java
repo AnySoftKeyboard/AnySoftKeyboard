@@ -8,32 +8,32 @@ public class DictionaryFactoryAPI5 extends DictionaryFactory
 {
 	private static final String TAG = "ASK DictFctry5";
     
-	private UserDictionaryBase contactsDictionary;
+	private AddableDictionary mContactsDictionary;
     
 	@Override
-	public synchronized UserDictionaryBase createContactsDictionary(AnyKeyboardContextProvider context)
+	public synchronized AddableDictionary createContactsDictionary(AnyKeyboardContextProvider context)
     {
-          if(contactsDictionary != null){
-              return contactsDictionary;
+          if(mContactsDictionary != null){
+              return mContactsDictionary;
           }
           try{
-            contactsDictionary = new ContactsDictionary(context);
-            contactsDictionary.loadDictionary();
+            mContactsDictionary = new ContactsDictionary(context);
+            mContactsDictionary.loadDictionary();
         }
         catch(final Exception ex)
         {
             Log.w(TAG, "Failed to load 'ContactsDictionary'",ex); 
-            contactsDictionary = null;
+            mContactsDictionary = null;
         }
-        return contactsDictionary;
+        return mContactsDictionary;
     }
 	
 
 
 	public void closeContactsDictionary() {
-	    if(contactsDictionary != null){
-	        contactsDictionary.close();
-	        contactsDictionary = null;
+	    if(mContactsDictionary != null){
+	        mContactsDictionary.close();
+	        mContactsDictionary = null;
 	    }
 	}
 	
@@ -41,8 +41,8 @@ public class DictionaryFactoryAPI5 extends DictionaryFactory
 	public synchronized void close() {
 		super.close();
         
-        if(contactsDictionary != null){
-            contactsDictionary.close();
+        if(mContactsDictionary != null){
+            mContactsDictionary.close();
         }
 	}
 }

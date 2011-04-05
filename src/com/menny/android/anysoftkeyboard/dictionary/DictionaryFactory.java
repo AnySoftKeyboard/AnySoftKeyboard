@@ -54,49 +54,33 @@ public class DictionaryFactory
     	return msFactory;
     }
     
-    private UserDictionaryBase msUserDictionary = null;
-    private final List<Dictionary> msDictionaries;
+    private AutoDictionary mAutoDictionary;
+    private AddableDictionary mUserDictionary = null;
+    private final List<Dictionary> mDictionaries;
 
     // Maps id to specific index in msDictionaries
-    private final Map<String, Integer> msDictionariesById;
+    private final Map<String, Integer> mDictionariesById;
     // Maps language to specific index in msDictionaries
-    private final Map<String, Integer> msDictionariesByLanguage;
+    private final Map<String, Integer> mDictionariesByLanguage;
 
     protected DictionaryFactory()
     {
-        msDictionaries = new ArrayList<Dictionary>();
-        msDictionariesById = new HashMap<String, Integer>();
-        msDictionariesByLanguage = new HashMap<String, Integer>();
+        mDictionaries = new ArrayList<Dictionary>();
+        mDictionariesById = new HashMap<String, Integer>();
+        mDictionariesByLanguage = new HashMap<String, Integer>();
     }
     
-    
-    private AutoDictionary autoDictionary;
-    
-    public synchronized UserDictionaryBase createUserDictionary(AnyKeyboardContextProvider context)
+    public synchronized AddableDictionary createUserDictionary(AnyKeyboardContextProvider context)
     {
-        if (msUserDictionary != null){
-            return msUserDictionary;
+        if (mUserDictionary != null){
+            return mUserDictionary;
         }
-        try
-            {
-                msUserDictionary = new AndroidUserDictionary(context);
-                msUserDictionary.loadDictionary();
-            }
-            catch(final Exception ex)
-            {
-                Log.w(TAG, "Failed to load 'AndroidUserDictionary' (could be that the platform does not support it). Will use fall-back dictionary. Error:"+ex.getMessage());
-                try {
-                    msUserDictionary = new FallbackUserDictionary(context);
-                    msUserDictionary.loadDictionary();
-                } catch (final Exception e) {
-                    Log.e(TAG, "Failed to load failback user dictionary!");
-                    e.printStackTrace();
-                }
-            }
-        return msUserDictionary;
+        
+        mUserDictionary = new SafeUserDictionary(context);
+        return mUserDictionary;
     }
     
-    public synchronized UserDictionaryBase createContactsDictionary(AnyKeyboardContextProvider context)
+    public synchronized AddableDictionary createContactsDictionary(AnyKeyboardContextProvider context)
     {
           return null;
     }
@@ -115,26 +99,25 @@ public class DictionaryFactory
     }
     
     
-    public synchronized AutoDictionary createAutoDictionary(AnyKeyboardContextProvider context, AnySoftKeyboard ime, String mCurrentAutoDictionaryLocale)
+    public synchronized AutoDictionary createAutoDictionary(AnyKeyboardContextProvider context, AnySoftKeyboard ime, String currentAutoDictionaryLocale)
     {
-          if(autoDictionary == null){
-        	  mCurrentAutoDictionaryLocale = context.getApplicationContext().getResources().getConfiguration().locale.toString();
-        	  Log.d(TAG, "Creating AutoDictionary for locale: "+mCurrentAutoDictionaryLocale);
-              autoDictionary = new AutoDictionary(context, ime, mCurrentAutoDictionaryLocale);
-              return autoDictionary;
-          }
-          if(equalsString(autoDictionary.getLocale(), mCurrentAutoDictionaryLocale)){
-              return autoDictionary;
-          }
-          closeAutoDictionary();
-          autoDictionary = new AutoDictionary(context, ime, mCurrentAutoDictionaryLocale);
-          return autoDictionary;
+    	if (mAutoDictionary != null && equalsString(mAutoDictionary.getLocale(), currentAutoDictionaryLocale))
+    	{
+    		return mAutoDictionary;
+    	}
+    	
+    	closeAutoDictionary();
+    	
+    	Log.d(TAG, "Creating AutoDictionary for locale: "+currentAutoDictionaryLocale);
+        mAutoDictionary = new AutoDictionary(context, ime, currentAutoDictionaryLocale);
+        
+        return mAutoDictionary;
     }
     
 	public void closeAutoDictionary() {
-	    if(autoDictionary != null){
-	        autoDictionary.close();
-	        autoDictionary = null;
+	    if(mAutoDictionary != null){
+	        mAutoDictionary.close();
+	        mAutoDictionary = null;
 	    }
 	}
     
@@ -145,17 +128,16 @@ public class DictionaryFactory
         return getDictionaryImpl(null, id, context);
     }
 
-
     private synchronized Dictionary getDictionaryImpl(final String language, final String id, AnyKeyboardContextProvider context)
     {
         final String languageFormat = language == null ? "(null)" : language;
         final String idFormat = id == null ? "(null)" : id;
 
-        if (language != null && msDictionariesByLanguage.containsKey(language)) {
-            return msDictionaries.get(msDictionariesByLanguage.get(language));
+        if (language != null && mDictionariesByLanguage.containsKey(language)) {
+            return mDictionaries.get(mDictionariesByLanguage.get(language));
         }
-        if (id != null && msDictionariesById.containsKey(id)) {
-            return msDictionaries.get(msDictionariesById.get(id));
+        if (id != null && mDictionariesById.containsKey(id)) {
+            return mDictionaries.get(mDictionariesById.get(id));
         }
 
         Dictionary dict = null;
@@ -186,19 +168,6 @@ public class DictionaryFactory
 
                 Log.d(TAG, MessageFormat.format("Could not locate dictionary for language {0} and id {1}. Maybe it was not loaded yet (installed recently?)",
                                 new Object[]{languageFormat, idFormat}));
-//                ExternalDictionaryFactory.resetBuildersCache();
-//                //trying again
-//                if(id != null) {
-//                    dict = locateDictionaryByIdInFactory(id, context);
-//                }
-//                else if(language != null) {
-//                    dict = locateDictionaryByLanguageInFactory(language, context);
-//                }
-//
-//                if (dict == null)
-//                    Log.w(TAG,
-//                            MessageFormat.format("Could not locate dictionary for language {0} and id {1}.",
-//                                    new Object[]{languageFormat, idFormat}));
             }
             //checking again, cause it may have loaded the second try.
             if (dict != null)
@@ -302,15 +271,15 @@ public class DictionaryFactory
     		return;
 
     	// Add dictionary to msDictionaries, if necessary
-        int position = msDictionaries.indexOf(dictionary);
+        int position = mDictionaries.indexOf(dictionary);
         if(position < 0) {
-        	msDictionaries.add(dictionary);
-        	position = msDictionaries.size() - 1;
+        	mDictionaries.add(dictionary);
+        	position = mDictionaries.size() - 1;
         }
 
-        assert msDictionaries.get(position) == dictionary;
+        assert mDictionaries.get(position) == dictionary;
         // Overwrite/Create language->dictionary mapping
-        msDictionariesByLanguage.put(language, position);
+        mDictionariesByLanguage.put(language, position);
     }
 
     public synchronized void addDictionaryById(String id, Dictionary dictionary)
@@ -319,15 +288,15 @@ public class DictionaryFactory
     		return;
 
     	// Add dictionary to msDictionaries, if necessary
-        int position = msDictionaries.indexOf(dictionary);
+        int position = mDictionaries.indexOf(dictionary);
         if(position < 0) {
-        	msDictionaries.add(dictionary);
-        	position = msDictionaries.size() - 1;
+        	mDictionaries.add(dictionary);
+        	position = mDictionaries.size() - 1;
         }
 
-        assert msDictionaries.get(position) == dictionary;
+        assert mDictionaries.get(position) == dictionary;
         // Overwrite/Create id->dictionary mapping
-        msDictionariesById.put(id, position);
+        mDictionariesById.put(id, position);
     }
 
     public synchronized void removeDictionaryByLanguage(String language)
@@ -335,14 +304,14 @@ public class DictionaryFactory
     	if(language == null)
     		return;
 
-        if (msDictionariesByLanguage.containsKey(language))
+        if (mDictionariesByLanguage.containsKey(language))
         {
-            final int index = msDictionariesByLanguage.get(language);
-            final Dictionary dict = msDictionaries.get(index);
+            final int index = mDictionariesByLanguage.get(language);
+            final Dictionary dict = mDictionaries.get(index);
             dict.close();
-            msDictionaries.remove(index);
-            msDictionariesById.remove(language);
-            Collection<Integer> languageMappings = msDictionariesByLanguage.values();
+            mDictionaries.remove(index);
+            mDictionariesById.remove(language);
+            Collection<Integer> languageMappings = mDictionariesByLanguage.values();
             // Note that changes in this collection are mapped back to the map which
             // is what we want
             languageMappings.remove(index);
@@ -354,14 +323,14 @@ public class DictionaryFactory
     	if(id == null)
     		return;
 
-        if (msDictionariesById.containsKey(id))
+        if (mDictionariesById.containsKey(id))
         {
-            final int index = msDictionariesById.get(id);
-            final Dictionary dict = msDictionaries.get(index);
+            final int index = mDictionariesById.get(id);
+            final Dictionary dict = mDictionaries.get(index);
             dict.close();
-            msDictionaries.remove(index);
-            msDictionariesById.remove(id);
-            Collection<Integer> idMappings = msDictionariesById.values();
+            mDictionaries.remove(index);
+            mDictionariesById.remove(id);
+            Collection<Integer> idMappings = mDictionariesById.values();
             // Note that changes in this collection are mapped back to the map which
             // is what we want
             idMappings.remove(index);
@@ -369,17 +338,17 @@ public class DictionaryFactory
     }
 
     public synchronized void close() {
-        if (msUserDictionary != null) {
-            msUserDictionary.close();
+        if (mUserDictionary != null) {
+            mUserDictionary.close();
         }
-        for(final Dictionary dict : msDictionaries) {
+        for(final Dictionary dict : mDictionaries) {
             dict.close();
         }
 
-        msUserDictionary = null;
-        msDictionaries.clear();
-        msDictionariesById.clear();
-        msDictionariesByLanguage.clear();
+        mUserDictionary = null;
+        mDictionaries.clear();
+        mDictionariesById.clear();
+        mDictionariesByLanguage.clear();
     }
 
 
@@ -392,9 +361,9 @@ public class DictionaryFactory
     public synchronized void onLowMemory(Dictionary currentlyUsedDictionary) {
         //I'll clear all dictionaries but the required.
         final Dictionary dictToKeep;
-        final int dictToKeepIndex = msDictionaries.indexOf(currentlyUsedDictionary);
+        final int dictToKeepIndex = mDictionaries.indexOf(currentlyUsedDictionary);
         if(dictToKeepIndex >= 0) {
-            dictToKeep = msDictionaries.get(dictToKeepIndex);
+            dictToKeep = mDictionaries.get(dictToKeepIndex);
             Log.d(TAG, "Going to keep "+dictToKeep.getDictionaryName()+" dictionary");
         }
         else
@@ -407,8 +376,7 @@ public class DictionaryFactory
 
         // We search first the id->dictionary mapping and
         // then language->dictionary mapping.
-        {
-        Iterator<Entry<String, Integer>> idIterator = msDictionariesById.entrySet().iterator();
+        Iterator<Entry<String, Integer>> idIterator = mDictionariesById.entrySet().iterator();
         while(idIterator.hasNext()) {
             Entry<String, Integer> value = idIterator.next();
             if(value.getValue() == dictToKeepIndex) {
@@ -416,10 +384,9 @@ public class DictionaryFactory
                 break;
             }
         }
-        }
+       
 
-
-        Iterator<Entry<String, Integer>> languageIterator = msDictionariesByLanguage.entrySet().iterator();
+        Iterator<Entry<String, Integer>> languageIterator = mDictionariesByLanguage.entrySet().iterator();
         while(languageIterator.hasNext()) {
             Entry<String, Integer> value = languageIterator.next();
             if(value.getValue() == dictToKeepIndex) {
@@ -431,18 +398,18 @@ public class DictionaryFactory
 
         assert (dictToKeep == null) || (idMappingToDict != null && languageMappingToDict != null);
 
-        for(int dictToCloseIndex=0; dictToCloseIndex<msDictionaries.size(); dictToCloseIndex++)
+        for(int dictToCloseIndex=0; dictToCloseIndex<mDictionaries.size(); dictToCloseIndex++)
         {
         	if (dictToCloseIndex == dictToKeepIndex) continue;
         	
-        	final Dictionary dictToClose = msDictionaries.get(dictToCloseIndex);
+        	final Dictionary dictToClose = mDictionaries.get(dictToCloseIndex);
         	Log.d(TAG, "Going to release "+dictToClose.getDictionaryName()+" dictionary");
         	dictToClose.close();
         }
         
-        msDictionaries.clear();
-        msDictionariesByLanguage.clear();
-        msDictionariesById.clear();
+        mDictionaries.clear();
+        mDictionariesByLanguage.clear();
+        mDictionariesById.clear();
 
         if (dictToKeep != null)
         {

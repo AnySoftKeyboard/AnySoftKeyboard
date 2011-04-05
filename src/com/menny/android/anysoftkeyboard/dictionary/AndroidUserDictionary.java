@@ -20,20 +20,9 @@ class AndroidUserDictionary extends UserDictionaryBase {
 
 	private ContentObserver mObserver;
 
-    public AndroidUserDictionary(AnyKeyboardContextProvider context) throws Exception
+    public AndroidUserDictionary(AnyKeyboardContextProvider context)
     {
     	super("AndroidUserDictionary", context);
-
-        // Perform a managed query. The Activity will handle closing and requerying the cursor
-        // when needed.
-        ContentResolver cres = mContext.getContentResolver();
-
-        cres.registerContentObserver(Words.CONTENT_URI, true, mObserver = new ContentObserver(null) {
-            @Override
-            public void onChange(boolean self) {
-                mRequiresReload = true;
-            }
-        });
     }
 
 	protected void closeAllResources() {
@@ -45,22 +34,29 @@ class AndroidUserDictionary extends UserDictionaryBase {
 	
 	@Override
 	public void loadDictionary() {
-		//in this SPECIAL case we need to check that it is possible 
-		//to query the Android dictionary BEFORE requesting load in async
-		Cursor cursor = mContext.getContentResolver().query(Words.CONTENT_URI, new String[]{Words._ID}, null, null, null);
-		if (cursor == null)
-			throw new RuntimeException("No Andorid User Dictionary found");
-		else
-			cursor.close();
-		
-		super.loadDictionary();
+		loadDictionaryAsync();
 	}
 
 	protected void loadDictionaryAsync() {
+
 		Cursor cursor = mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION, null, null, null);
-                		/*"(locale IS NULL) or (locale=?)",
-                        new String[] { Locale.getDefault().toString() }, null);*/
-        addWords(cursor);
+			/*"(locale IS NULL) or (locale=?)",
+        	new String[] { Locale.getDefault().toString() }, null);*/
+		if (cursor == null)
+			throw new RuntimeException("No built-in Android dictionary!");
+		
+		addWords(cursor);
+		
+		// Perform a managed query. The Activity will handle closing and requerying the cursor
+        // when needed.
+        ContentResolver cres = mContext.getContentResolver();
+
+        cres.registerContentObserver(Words.CONTENT_URI, true, mObserver = new ContentObserver(null) {
+            @Override
+            public void onChange(boolean self) {
+                mRequiresReload = true;
+            }
+        });
 	}
 
 	private void addWords(Cursor cursor) {

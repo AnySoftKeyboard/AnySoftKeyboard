@@ -4,8 +4,7 @@ import android.content.Context;
 
 import com.menny.android.anysoftkeyboard.AnyKeyboardContextProvider;
 
-
-public class FallbackUserDictionary extends SQLiteUserDictionaryBase {
+class FallbackUserDictionary extends SQLiteUserDictionaryBase {
 
 	private static class FallBackSQLite extends DictionarySQLiteConnection
 	{
@@ -19,12 +18,18 @@ public class FallbackUserDictionary extends SQLiteUserDictionaryBase {
 		}
 	}
 
-	public FallbackUserDictionary(AnyKeyboardContextProvider context) throws Exception {
+	public FallbackUserDictionary(AnyKeyboardContextProvider context){
 		super("FallbackUserDictionary", context);
 	}
 
 	@Override
 	protected DictionarySQLiteConnection createStorage() {
 		return new FallBackSQLite(super.mContext);
+	}
+	
+	@Override
+	public void loadDictionary() {
+		//NOT doing it async
+		loadDictionaryAsync();
 	}
 }

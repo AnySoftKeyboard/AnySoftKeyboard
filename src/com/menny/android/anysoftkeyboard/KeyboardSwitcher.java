@@ -88,16 +88,6 @@ public class KeyboardSwitcher
 	private int mLatinKeyboardIndex;
 	private static String TAG = "ASK_KeySwitcher";
 
-	private static KeyboardSwitcher INSTANCE;
-
-//	public void setContext(AnySoftKeyboard context ){
-//		mContext = context;
-//	}
-
-	public static KeyboardSwitcher getInstance() {
-		return INSTANCE;
-	}
-
 	// Constructor hidden
     KeyboardSwitcher(AnySoftKeyboard context) {
     	mContext = context;
@@ -106,8 +96,6 @@ public class KeyboardSwitcher
     	KEYBOARDMODE_IM = res.getInteger(R.integer.keyboard_mode_im);
     	KEYBOARDMODE_URL = res.getInteger(R.integer.keyboard_mode_url);
     	KEYBOARDMODE_EMAIL = res.getInteger(R.integer.keyboard_mode_email);
-    	
-    	INSTANCE = this;
     }
 
     void setInputView(AnyKeyboardView inputView) {
