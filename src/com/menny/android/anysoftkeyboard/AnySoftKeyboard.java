@@ -71,7 +71,6 @@ import com.menny.android.anysoftkeyboard.dictionary.Dictionary;
 import com.menny.android.anysoftkeyboard.dictionary.DictionaryAddOnAndBuilder;
 import com.menny.android.anysoftkeyboard.dictionary.DictionaryFactory;
 import com.menny.android.anysoftkeyboard.dictionary.ExternalDictionaryFactory;
-import com.menny.android.anysoftkeyboard.dictionary.UserDictionaryBase;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.menny.android.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.menny.android.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
@@ -2514,10 +2513,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	}
 	
-	private void showQuickTextKeyPopupList(QuickTextKey key) {
+	private void showQuickTextKeyPopupList(final QuickTextKey key) {
         if (mQuickTextKeyDialog == null) {
             String[] names = key.getPopupListNames();
             final String[] texts = key.getPopupListValues();
+			int[] icons = key.getPopupListIconResIds();
 
             final int N = names.length;
 
@@ -2527,21 +2527,29 @@ public class AnySoftKeyboard extends InputMethodService implements
 
                 entry.put("name", names[i]);
                 entry.put("text", texts[i]);
+				if (icons != null) entry.put("icons", icons[i]);
 
                 entries.add(entry);
             }
 
-            final SimpleAdapter a = new SimpleAdapter(
-                    this,
-                    entries,
-                    R.layout.quick_text_key_menu_item,
-                    new String[] {"name", "text"},
-                    new int[] {R.id.quick_text_name, R.id.quick_text_output});
+			int layout;
+			String[] from;
+			int[] to;
+			if (icons == null) {
+				layout = R.layout.quick_text_key_menu_item_without_icon;
+				from = new String[] {"name", "text"};
+				to = new int[] {R.id.quick_text_name, R.id.quick_text_output};
+			} else {
+				layout = R.layout.quick_text_key_menu_item_with_icon;
+				from = new String[] {"name", "text", "icons"};
+				to = new int[]{R.id.quick_text_name, R.id.quick_text_output, R.id.quick_text_icon};
+			}
+            final SimpleAdapter a = new SimpleAdapter(this,	entries, layout, from, to);
             SimpleAdapter.ViewBinder viewBinder = new SimpleAdapter.ViewBinder() {
                 public boolean setViewValue(View view, Object data, String textRepresentation) {
                     if (view instanceof ImageView) {
-                        Drawable img = getResources().getDrawable((Integer)data);
-                        ((ImageView)view).setImageDrawable(img);
+                        Drawable img = key.getPackageContext().getResources().getDrawable((Integer) data);
+                        ((ImageView) view).setImageDrawable(img);
                         return true;
                     }
                     return false;

@@ -59,6 +59,7 @@ public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey>
 	private static final String XML_POPUP_KEYBOARD_RES_ID_ATTRIBUTE = "popupKeyboard";
 	private static final String XML_POPUP_LIST_TEXT_RES_ID_ATTRIBUTE = "popupListText";
 	private static final String XML_POPUP_LIST_OUTPUT_RES_ID_ATTRIBUTE = "popupListOutput";
+	private static final String XML_POPUP_LIST_ICONS_RES_ID_ATTRIBUTE = "popupListIcons";
 	private static final String XML_ICON_RES_ID_ATTRIBUTE = "keyIcon";
 	private static final String XML_KEY_LABEL_RES_ID_ATTRIBUTE = "keyLabel";
 	private static final String XML_KEY_OUTPUT_TEXT_RES_ID_ATTRIBUTE = "keyOutputText";
@@ -79,6 +80,8 @@ public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey>
 				XML_POPUP_LIST_TEXT_RES_ID_ATTRIBUTE, -1);
 		final int popupListOutputResId = attrs.getAttributeResourceValue(null,
 				XML_POPUP_LIST_OUTPUT_RES_ID_ATTRIBUTE, -1);
+		final int popupListIconsResId = attrs.getAttributeResourceValue(null,
+				XML_POPUP_LIST_ICONS_RES_ID_ATTRIBUTE, -1);
 		final int iconResId = attrs.getAttributeResourceValue(null,
 				XML_ICON_RES_ID_ATTRIBUTE, -1); //Maybe should make a default icon
 		final int keyLabelResId = attrs.getAttributeResourceValue(null,
@@ -89,7 +92,7 @@ public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey>
 				XML_ICON_PREVIEW_RES_ID_ATTRIBUTE, -1);
 		
 		return new QuickTextKey(context, prefId, nameResId, popupKeyboardResId,
-				popupListTextResId, popupListOutputResId, iconResId, keyLabelResId,
-				keyOutputTextResId, keyIconPreviewResId, description, sortIndex);
+				popupListTextResId, popupListOutputResId, popupListIconsResId, iconResId,
+				keyLabelResId, keyOutputTextResId, keyIconPreviewResId, description, sortIndex);
 	}
 }

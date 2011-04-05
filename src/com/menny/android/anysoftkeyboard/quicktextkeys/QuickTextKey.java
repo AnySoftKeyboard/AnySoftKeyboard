@@ -4,6 +4,7 @@ import com.menny.android.anysoftkeyboard.addons.AddOnImpl;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 
 /**
  *
@@ -14,6 +15,7 @@ public class QuickTextKey extends AddOnImpl {
 	private int mPopupKeyboardResId;
 	private String[] mPopupListNames;
 	private String[] mPopupListValues;
+	private int[] mPopupListIconResIds;
 	private String mKeyOutputText;
 
 	private String mKeyLabel;
@@ -21,8 +23,9 @@ public class QuickTextKey extends AddOnImpl {
 	private int mIconPreviewResId;
 
 	public QuickTextKey(Context packageContext, String id, int nameResId, int popupKeyboardResId,
-			int popupListNamesResId, int popupListValuesResId, int keyIconResId, int keyLabelResId,
-			int keyOutputTextResId, int iconPreviewResId, String description, int sortIndex) {
+			int popupListNamesResId, int popupListValuesResId, int popupListIconsResId,
+			int keyIconResId, int keyLabelResId, int keyOutputTextResId, int iconPreviewResId,
+			String description, int sortIndex) {
 		super(packageContext, id, nameResId, description, sortIndex);
 		
 		Resources resources = packageContext.getResources();
@@ -31,6 +34,15 @@ public class QuickTextKey extends AddOnImpl {
 		if (popupKeyboardResId <= 0) {
 			this.mPopupListNames = resources.getStringArray(popupListNamesResId);
 			this.mPopupListValues = resources.getStringArray(popupListValuesResId);
+
+			if (popupListIconsResId > 0) {
+				TypedArray arr = resources.obtainTypedArray(popupListIconsResId);
+				mPopupListIconResIds = new int[arr.length()];
+				for (int pos = 0; pos < mPopupListIconResIds.length; pos++) {
+					mPopupListIconResIds[pos] = arr.getResourceId(pos, -1);
+				}
+				arr.recycle();
+			}
 		}
 		this.mKeyIconResId = keyIconResId;
 		this.mKeyLabel = keyLabelResId > 0 ? resources.getString(keyLabelResId) : null;
@@ -53,6 +65,10 @@ public class QuickTextKey extends AddOnImpl {
 
 	public String[] getPopupListValues() {
 		return mPopupListValues;
+	}
+
+	public int[] getPopupListIconResIds() {
+		return mPopupListIconResIds;
 	}
 
 	public String getKeyOutputText() {
