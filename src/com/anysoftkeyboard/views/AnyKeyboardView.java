@@ -96,18 +96,18 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         setKeyboardLocal(newKeyboard);
     }
 
-    @Override
-    protected boolean onLongPress(Key key) {
-        int primaryCode = key.codes[0];
-        if (primaryCode == KEYCODE_OPTIONS) {
-            return invokeOnKey(KEYCODE_OPTIONS);
-        } else if (primaryCode == '0' && getKeyboard() == mPhoneKeyboard) {
-            // Long pressing on 0 in phone number keypad gives you a '+'.
-            return invokeOnKey('+');
-        } else {
-            return super.onLongPress(key);
-        }
-    }
+//    @Override
+//    protected boolean onLongPress(Key key) {
+//        int primaryCode = key.codes[0];
+//        if (primaryCode == KEYCODE_OPTIONS) {
+//            return invokeOnKey(KEYCODE_OPTIONS);
+//        } else if (primaryCode == '0' && getKeyboard() == mPhoneKeyboard) {
+//            // Long pressing on 0 in phone number keypad gives you a '+'.
+//            return invokeOnKey('+');
+//        } else {
+//            return super.onLongPress(key);
+//        }
+//    }
     
 	private Key findKeyByKeyCode(int keyCode) {
 		if (super.getKeyboard() == null) {
@@ -397,6 +397,30 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
             c.drawLine(mLastX, 0, mLastX, getHeight(), mPaint);
             c.drawLine(0, mLastY, getWidth(), mLastY, mPaint);
         }
+    }
+    
+    @Override
+    protected boolean onLongPressNonePopupKey(Key key)
+    {
+    	if (key != null && key.codes != null && key.codes.length > 0)
+    	{
+	    	if (key.codes[0] == 10) {
+	    		invokeOnKey(KEYCODE_OPTIONS);
+	    		return true;
+	    	} else if (key.codes[0] == AnyKeyboard.KEYCODE_QUICK_TEXT) {
+	    		invokeOnKey(KEYCODE_QUICK_TEXT_LONGPRESS);
+	    		return true;
+	    	}else if (key.codes[0] == AnyKeyboard.KEYCODE_LANG_CHANGE) {
+	    		invokeOnKey(AnyKeyboard.KEYCODE_LANG_CHANGE);
+	    		return true;
+	    	} else if (key.codes[0] == '0' && getKeyboard() == mPhoneKeyboard) {
+	    		// Long pressing on 0 in phone number keypad gives you a '+'.
+	    		invokeOnKey('+');
+	    		return true;
+	    	}
+    	}
+
+    	return super.onLongPressNonePopupKey(key);
     }
 //    
 //	/* Why make this so complex? Because if the popup keyboard layout came from another
