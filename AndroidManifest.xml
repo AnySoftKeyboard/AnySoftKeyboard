@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.menny.android.anysoftkeyboard"
-        android:versionCode="39" android:versionName="20110405-darker">
+        android:versionCode="38" android:versionName="20110405-darker">
 	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key"
 		android:name=".AnyApplication"  android:backupAgent=".backup.AnyBackupAgent">
 		<!-- used to backup the settings and SQL to the cloud -->
@@ -73,7 +73,7 @@
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
     <!-- REQUIRED FOR THE CONTACTS DICTIONARY -->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-	<uses-sdk android:minSdkVersion="3" android:targetSdkVersion="10"></uses-sdk>
+	<uses-sdk android:minSdkVersion="7" android:targetSdkVersion="10"></uses-sdk>
 	<!-- currently, only support touch screens -->
 	<uses-configuration android:reqTouchScreen="finger"/>
     <uses-configuration android:reqTouchScreen="stylus"/>

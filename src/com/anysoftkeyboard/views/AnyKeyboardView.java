@@ -26,6 +26,7 @@ import android.os.Message;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import java.util.List;
@@ -36,6 +37,7 @@ import com.menny.android.anysoftkeyboard.keyboards.GenericKeyboard;
 
 public class AnyKeyboardView extends AnyKeyboardBaseView {
 
+	private final static String TAG = "ASK AnyKeyboardView";
     public static final int KEYCODE_OPTIONS = -100;
     //static final int KEYCODE_OPTIONS_LONGPRESS = -101;
     public static final int KEYCODE_QUICK_TEXT_LONGPRESS = -102;
@@ -166,105 +168,105 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
      * @return true if the event was consumed, so that it doesn't continue to be handled by
      * KeyboardView.
      */
-    private boolean handleSuddenJump(MotionEvent me) {
-        final int action = me.getAction();
-        final int x = (int) me.getX();
-        final int y = (int) me.getY();
-        boolean result = false;
-
-        // Real multi-touch event? Stop looking for sudden jumps
-        if (me.getPointerCount() > 1) {
-            mDisableDisambiguation = true;
-        }
-        if (mDisableDisambiguation) {
-            // If UP, reset the multi-touch flag
-            if (action == MotionEvent.ACTION_UP) mDisableDisambiguation = false;
-            return false;
-        }
-
-        switch (action) {
-        case MotionEvent.ACTION_DOWN:
-            // Reset the "session"
-            mDroppingEvents = false;
-            mDisableDisambiguation = false;
-            break;
-        case MotionEvent.ACTION_MOVE:
-            // Is this a big jump?
-            final int distanceSquare = (mLastX - x) * (mLastX - x) + (mLastY - y) * (mLastY - y);
-            // Check the distance and also if the move is not entirely within the bottom row
-            // If it's only in the bottom row, it might be an intentional slide gesture
-            // for language switching
-            if (distanceSquare > mJumpThresholdSquare
-                    && (mLastY < mLastRowY || y < mLastRowY)) {
-                // If we're not yet dropping events, start dropping and send an UP event
-                if (!mDroppingEvents) {
-                    mDroppingEvents = true;
-                    // Send an up event
-                    MotionEvent translated = MotionEvent.obtain(me.getEventTime(), me.getEventTime(),
-                            MotionEvent.ACTION_UP,
-                            mLastX, mLastY, me.getMetaState());
-                    super.onTouchEvent(translated);
-                    translated.recycle();
-                }
-                result = true;
-            } else if (mDroppingEvents) {
-                // If moves are small and we're already dropping events, continue dropping
-                result = true;
-            }
-            break;
-        case MotionEvent.ACTION_UP:
-            if (mDroppingEvents) {
-                // Send a down event first, as we dropped a bunch of sudden jumps and assume that
-                // the user is releasing the touch on the second key.
-                MotionEvent translated = MotionEvent.obtain(me.getEventTime(), me.getEventTime(),
-                        MotionEvent.ACTION_DOWN,
-                        x, y, me.getMetaState());
-                super.onTouchEvent(translated);
-                translated.recycle();
-                mDroppingEvents = false;
-                // Let the up event get processed as well, result = false
-            }
-            break;
-        }
-        // Track the previous coordinate
-        mLastX = x;
-        mLastY = y;
-        return result;
-    }
-
+//    private boolean handleSuddenJump(MotionEvent me) {
+//        final int action = me.getAction();
+//        final int x = (int) me.getX();
+//        final int y = (int) me.getY();
+//        boolean result = false;
+//
+//        // Real multi-touch event? Stop looking for sudden jumps
+//        if (me.getPointerCount() > 1) {
+//            mDisableDisambiguation = true;
+//        }
+//        if (mDisableDisambiguation) {
+//            // If UP, reset the multi-touch flag
+//            if (action == MotionEvent.ACTION_UP) mDisableDisambiguation = false;
+//            return false;
+//        }
+//
+//        switch (action) {
+//        case MotionEvent.ACTION_DOWN:
+//            // Reset the "session"
+//            mDroppingEvents = false;
+//            mDisableDisambiguation = false;
+//            break;
+//        case MotionEvent.ACTION_MOVE:
+//            // Is this a big jump?
+//            final int distanceSquare = (mLastX - x) * (mLastX - x) + (mLastY - y) * (mLastY - y);
+//            // Check the distance and also if the move is not entirely within the bottom row
+//            // If it's only in the bottom row, it might be an intentional slide gesture
+//            // for language switching
+//            if (distanceSquare > mJumpThresholdSquare
+//                    && (mLastY < mLastRowY || y < mLastRowY)) {
+//            	// If we're not yet dropping events, start dropping and send an UP event
+//                if (!mDroppingEvents) {
+//                    mDroppingEvents = true;
+//                    // Send an up event
+//                    MotionEvent translated = MotionEvent.obtain(me.getEventTime(), me.getEventTime(),
+//                            MotionEvent.ACTION_UP,
+//                            mLastX, mLastY, me.getMetaState());
+//                    super.onTouchEvent(translated);
+//                    translated.recycle();
+//                }
+//                result = true;
+//            } else if (mDroppingEvents) {
+//                // If moves are small and we're already dropping events, continue dropping
+//                result = true;
+//            }
+//            break;
+//        case MotionEvent.ACTION_UP:
+//            if (mDroppingEvents) {
+//                // Send a down event first, as we dropped a bunch of sudden jumps and assume that
+//                // the user is releasing the touch on the second key.
+//                MotionEvent translated = MotionEvent.obtain(me.getEventTime(), me.getEventTime(),
+//                        MotionEvent.ACTION_DOWN,
+//                        x, y, me.getMetaState());
+//                super.onTouchEvent(translated);
+//                translated.recycle();
+//                mDroppingEvents = false;
+//                // Let the up event get processed as well, result = false
+//            }
+//            break;
+//        }
+//        // Track the previous coordinate
+//        mLastX = x;
+//        mLastY = y;
+//        return result;
+//    }
+/*
     @Override
     public boolean onTouchEvent(MotionEvent me) {
-//        AnyKeyboard keyboard = (AnyKeyboard) getKeyboard();
-//        if (DEBUG_LINE) {
-//            mLastX = (int) me.getX();
-//            mLastY = (int) me.getY();
-//            invalidate();
-//        }
+        AnyKeyboard keyboard = (AnyKeyboard) getKeyboard();
+        if (DEBUG_LINE) {
+            mLastX = (int) me.getX();
+            mLastY = (int) me.getY();
+            invalidate();
+        }
 
         // If there was a sudden jump, return without processing the actual motion event.
         if (handleSuddenJump(me))
             return true;
-//
-//        // Reset any bounding box controls in the keyboard
-//        if (me.getAction() == MotionEvent.ACTION_DOWN) {
-//            keyboard.keyReleased();
-//        }
-//
-//        if (me.getAction() == MotionEvent.ACTION_UP) {
-//            int languageDirection = keyboard.getLanguageChangeDirection();
-//            if (languageDirection != 0) {
-//                getOnKeyboardActionListener().onKey(
-//                        languageDirection == 1 ? KEYCODE_NEXT_LANGUAGE : KEYCODE_PREV_LANGUAGE,
-//                        null, mLastX, mLastY);
-//                me.setAction(MotionEvent.ACTION_CANCEL);
-//                keyboard.keyReleased();
-//                return super.onTouchEvent(me);
-//            }
-//        }
+
+        // Reset any bounding box controls in the keyboard
+        if (me.getAction() == MotionEvent.ACTION_DOWN) {
+            keyboard.keyReleased();
+        }
+
+        if (me.getAction() == MotionEvent.ACTION_UP) {
+            int languageDirection = keyboard.getLanguageChangeDirection();
+            if (languageDirection != 0) {
+                getOnKeyboardActionListener().onKey(
+                        languageDirection == 1 ? KEYCODE_NEXT_LANGUAGE : KEYCODE_PREV_LANGUAGE,
+                        null, mLastX, mLastY);
+                me.setAction(MotionEvent.ACTION_CANCEL);
+                keyboard.keyReleased();
+                return super.onTouchEvent(me);
+            }
+        }
 
         return super.onTouchEvent(me);
     }
-
+*/
     /****************************  INSTRUMENTATION  *******************************/
 
     static final boolean DEBUG_AUTO_PLAY = false;
