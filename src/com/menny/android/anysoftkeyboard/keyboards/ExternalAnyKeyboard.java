@@ -34,6 +34,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	private final HardKeyboardSequenceHandler mHardKeyboardTranslator;
 	private final HashSet<Character> mAdditionalIsLetterExceptions;
 
+	private int mExtensionResId; 
+	
 	private static final int[] qwertKeysequence = new int[] { 45,51,33,46,48 };
 	private static final int[] dotKeysequence = new int[] { 56,56,56,56 };
 	
@@ -69,10 +71,17 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 			for(int i=0;i<additionalIsLetterExceptions.length(); i++)
 				mAdditionalIsLetterExceptions.add(additionalIsLetterExceptions.charAt(i));
 		}
+		setExtension(R.xml.kbd_extension);
 	}
 	
+	protected void setExtension(int resId) {
+        mExtensionResId = resId;
+    }
 	
-
+	public int getExtension() {
+        return mExtensionResId;
+    }
+	
 	private HardKeyboardSequenceHandler createPhysicalTranslatorFromResourceId(Context context, int qwertyTranslationId) {
 		HardKeyboardSequenceHandler translator = new HardKeyboardSequenceHandler();
 		XmlPullParser parser = context.getResources().getXml(qwertyTranslationId);
