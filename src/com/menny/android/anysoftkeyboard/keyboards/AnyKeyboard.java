@@ -714,7 +714,6 @@ public abstract class AnyKeyboard extends Keyboard
 		mShiftKey.on = (mShiftState == SHIFT_LOCKED);
 		
 		return changed;
-        
 	}
 	
 	public boolean isShiftLocked() {
@@ -1000,6 +999,7 @@ public abstract class AnyKeyboard extends Keyboard
 	}
 
 	public void keyReleased() {
-		mShiftState = SHIFT_OFF;
+		setShifted(false);
+		setShiftLocked(false);
 	}
 }

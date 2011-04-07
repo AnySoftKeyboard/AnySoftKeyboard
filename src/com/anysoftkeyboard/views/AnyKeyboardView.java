@@ -231,40 +231,40 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         mLastY = y;
         return result;
     }
-/*
+
     @Override
     public boolean onTouchEvent(MotionEvent me) {
-        AnyKeyboard keyboard = (AnyKeyboard) getKeyboard();
-        if (DEBUG_LINE) {
-            mLastX = (int) me.getX();
-            mLastY = (int) me.getY();
-            invalidate();
-        }
+//        AnyKeyboard keyboard = (AnyKeyboard) getKeyboard();
+//        if (DEBUG_LINE) {
+//            mLastX = (int) me.getX();
+//            mLastY = (int) me.getY();
+//            invalidate();
+//        }
 
         // If there was a sudden jump, return without processing the actual motion event.
         if (handleSuddenJump(me))
             return true;
-
-        // Reset any bounding box controls in the keyboard
-        if (me.getAction() == MotionEvent.ACTION_DOWN) {
-            keyboard.keyReleased();
-        }
-
-        if (me.getAction() == MotionEvent.ACTION_UP) {
-            int languageDirection = keyboard.getLanguageChangeDirection();
-            if (languageDirection != 0) {
-                getOnKeyboardActionListener().onKey(
-                        languageDirection == 1 ? KEYCODE_NEXT_LANGUAGE : KEYCODE_PREV_LANGUAGE,
-                        null, mLastX, mLastY);
-                me.setAction(MotionEvent.ACTION_CANCEL);
-                keyboard.keyReleased();
-                return super.onTouchEvent(me);
-            }
-        }
+//
+//        // Reset any bounding box controls in the keyboard
+//        if (me.getAction() == MotionEvent.ACTION_DOWN) {
+//            keyboard.keyReleased();
+//        }
+//
+//        if (me.getAction() == MotionEvent.ACTION_UP) {
+//            int languageDirection = keyboard.getLanguageChangeDirection();
+//            if (languageDirection != 0) {
+//                getOnKeyboardActionListener().onKey(
+//                        languageDirection == 1 ? KEYCODE_NEXT_LANGUAGE : KEYCODE_PREV_LANGUAGE,
+//                        null, mLastX, mLastY);
+//                me.setAction(MotionEvent.ACTION_CANCEL);
+//                keyboard.keyReleased();
+//                return super.onTouchEvent(me);
+//            }
+//        }
 
         return super.onTouchEvent(me);
     }
-*/
+
     /****************************  INSTRUMENTATION  *******************************/
 
     static final boolean DEBUG_AUTO_PLAY = false;
