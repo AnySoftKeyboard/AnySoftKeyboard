@@ -2,7 +2,7 @@
 <!--
 /* 
 **
-** Copyright 2008, The Android Open Source Project
+** Copyright 2011, AnySoftKeyboard
 **
 ** Licensed under the Apache License, Version 2.0 (the "License"); 
 ** you may not use this file except in compliance with the License. 
@@ -21,4 +21,9 @@
 <resources>
     <dimen name="key_height">46dip</dimen>
     <dimen name="key_half_height">26dip</dimen>
+    
+    <dimen name="mini_keyboard_vertical_correction">-0.270in</dimen>
+    <dimen name="keyboard_bottom_padding">0.0in</dimen>
+    
+    <dimen name="mini_keyboard_slide_allowance">0.459in</dimen>
 </resources>

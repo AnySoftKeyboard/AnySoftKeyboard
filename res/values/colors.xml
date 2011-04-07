@@ -22,4 +22,7 @@
     <color name="candidate_recommended">#FFE35900</color>
     <color name="candidate_other">#ff808080</color>
     <color name="candidate_background">#bbffffff</color>
+    <color name="key_color_white">#FFFFFFFF</color>
+    <color name="key_color_black">#FF000000</color>
+    <color name="keyboard_transparent">#00000000</color>
 </resources>

@@ -25,4 +25,6 @@
 	
 	<string name="settings_default_portrait_keyboard_height_factor">1.0</string>
     <string name="settings_default_landscape_keyboard_height_factor">1.0</string>
+    
+    <bool name="config_swipeDisambiguation">true</bool>
 </resources>

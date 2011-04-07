@@ -63,6 +63,9 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 
+import com.anysoftkeyboard.views.AnyKeyboardBaseView.OnKeyboardActionListener;
+import com.anysoftkeyboard.views.AnyKeyboardView;
+import com.anysoftkeyboard.views.AnyKeyboardBaseView;
 import com.menny.android.anysoftkeyboard.KeyboardSwitcher.NextKeyboardType;
 import com.menny.android.anysoftkeyboard.backup.CloudBackupRequester;
 import com.menny.android.anysoftkeyboard.dictionary.AddableDictionary;
@@ -83,7 +86,7 @@ import com.menny.android.anysoftkeyboard.tutorials.TutorialsProvider;
  * Input method implementation for Qwerty'ish keyboard.
  */
 public class AnySoftKeyboard extends InputMethodService implements
-		AnyKeyboardView.OnAnyKeyboardActionListener,
+		OnKeyboardActionListener,
 		OnSharedPreferenceChangeListener, AnyKeyboardContextProvider {
 	private final static String TAG = "ASK";
 	
@@ -330,10 +333,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public View onCreateInputView() {
 		if (DEBUG) Log.v(TAG, "Creating Input View");
-		mInputView = (AnyKeyboardView) getLayoutInflater().inflate(
-				//the new layout will solve the "invalidateAllKeys" problem.
-				Workarounds.isDonut()? R.layout.input_donut : R.layout.input_cupcake
-				, null);
+//		mInputView = (AnyKeyboardView) getLayoutInflater().inflate(
+//				//the new layout will solve the "invalidateAllKeys" problem.
+//				Workarounds.isDonut()? R.layout.input_donut : R.layout.input_cupcake
+//				, null);
+		mInputView = (AnyKeyboardView) getLayoutInflater().inflate(R.layout.input_gingerbread, null);
 		//reseting token users
 		mOptionsDialog = null;
 		mQuickTextKeyDialog = null;
@@ -903,7 +907,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 							final int translatedChar = mHardKeyboardAction
 									.getKeyCode();
 							// typing my own.
-							onKey(translatedChar, new int[] { translatedChar });
+							onKey(translatedChar, new int[] { translatedChar }, 0, 0);
 							// my handling
 							// we are at a regular key press, so we'll update
 							// our meta-state member
@@ -1108,7 +1112,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				caps = ic.getCursorCapsMode(attr.inputType);
 			}
 			mInputView.setShifted(mCapsLock || caps != 0);
-			mInputView.requestShiftKeyRedraw();
+			//mInputView.requestShiftKeyRedraw();
 		}
 	}
 
@@ -1164,11 +1168,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 			return mKeyboardSwitcher.getCurrentKeyboard().isStartOfWordLetter((char) code);
 	}
 
-	// Implementation of KeyboardViewListener
 
-	public void onKey(int primaryCode, int[] keyCodes) {
-		
-		if (DEBUG)	Log.d("AnySoftKeyboard", "onKey " + primaryCode);
+	public void onKey(int primaryCode, int[] keyCodes, int x, int y) {
+		if (DEBUG)	Log.d(TAG, "onKey " + primaryCode);
 		
 		switch (primaryCode) {
 		case Keyboard.KEYCODE_DELETE:
@@ -1218,11 +1220,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 			if (printDefaultText) {
 				onText(quickTextKey.getKeyOutputText());
 			} else {
-				if (quickTextKey.isPopupKeyboardUsed()) {
-					showQuickTextKeyPopupKeyboard(quickTextKey);
-				} else {
+//				if (quickTextKey.isPopupKeyboardUsed()) {
+//					showQuickTextKeyPopupKeyboard(quickTextKey);
+//				} else {
 					showQuickTextKeyPopupList(quickTextKey);
-				}
+//				}
 			}
 			break;
 		case AnyKeyboardView.KEYCODE_QUICK_TEXT_LONGPRESS:
@@ -1230,11 +1232,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 			if (quickTextKey.getId().equals(SMILEY_PLUGIN_ID) && !mSmileyOnShortPress) {
 				onText(quickTextKey.getKeyOutputText());
 			} else {
-				if (quickTextKey.isPopupKeyboardUsed()) {
-					showQuickTextKeyPopupKeyboard(quickTextKey);
-				} else {
+//				if (quickTextKey.isPopupKeyboardUsed()) {
+//					showQuickTextKeyPopupKeyboard(quickTextKey);
+//				} else {
 					showQuickTextKeyPopupList(quickTextKey);
-				}
+//				}
 			}
 			break;
 		case Keyboard.KEYCODE_MODE_CHANGE:
@@ -1527,9 +1529,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 			updateShiftKeyState(getCurrentInputEditorInfo());
 			break;
 		}
-		if(mInputView != null){
-		    mInputView.requestShiftKeyRedraw();
-		}
+//		if(mInputView != null){
+//		    mInputView.requestShiftKeyRedraw();
+//		}
 	}
 
 	private void handleShift() {
@@ -1574,7 +1576,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mCapsLock = caps;
 			currentKeyboard.setShiftLocked(mCapsLock);
 			
-			mInputView.requestShiftKeyRedraw();
+			//mInputView.requestShiftKeyRedraw();
 		}
 	}
 
@@ -1920,14 +1922,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 		//nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
 		final int keyCode = mConfig.getSwipeRightKeyCode();
 		if (keyCode != 0)
-			onKey(keyCode, new int[]{keyCode});
+			onKey(keyCode, new int[]{keyCode}, -1, -1);
 	}
 
 	public void swipeLeft() {
 		//nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Symbols);
 		final int keyCode = mConfig.getSwipeLeftKeyCode();
 		if (keyCode != 0)
-			onKey(keyCode, new int[]{keyCode});
+			onKey(keyCode, new int[]{keyCode}, -1, -1);
 	}
 
 	private void nextAlterKeyboard(EditorInfo currentEditorInfo)
@@ -1986,13 +1988,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public void swipeDown() {
 		final int keyCode = mConfig.getSwipeDownKeyCode();
 		if (keyCode != 0)
-			onKey(keyCode, new int[]{keyCode});
+			onKey(keyCode, new int[]{keyCode}, -1, -1);
 	}
 
 	public void swipeUp() {
 		final int keyCode = mConfig.getSwipeUpKeyCode();
 		if (keyCode != 0)
-			onKey(keyCode, new int[]{keyCode});
+			onKey(keyCode, new int[]{keyCode}, -1, -1);
 	}
 
 	public void onPress(int primaryCode) {
@@ -2503,15 +2505,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}		
 	}
 
-	private void showQuickTextKeyPopupKeyboard(QuickTextKey quickTextKey) {
-		if (mInputView != null) {
-			if (quickTextKey.getPackageContext() == getApplicationContext()) {
-				mInputView.simulateLongPress(AnyKeyboard.KEYCODE_QUICK_TEXT);
-			} else {
-				mInputView.showQuickTextPopupKeyboard(quickTextKey.getPackageContext());
-			}
-		}
-	}
+//	private void showQuickTextKeyPopupKeyboard(QuickTextKey quickTextKey) {
+//		if (mInputView != null) {
+//			if (quickTextKey.getPackageContext() == getApplicationContext()) {
+//				mInputView.simulateLongPress(AnyKeyboard.KEYCODE_QUICK_TEXT);
+//			} else {
+//				mInputView.showQuickTextPopupKeyboard(quickTextKey.getPackageContext());
+//			}
+//		}
+//	}
 	
 	private void showQuickTextKeyPopupList(final QuickTextKey key) {
         if (mQuickTextKeyDialog == null) {
@@ -2609,4 +2611,9 @@ public class AnySoftKeyboard extends InputMethodService implements
                 || config.hardKeyboardHidden == Configuration.KEYBOARDHIDDEN_YES;
     }
 	
+	public void onCancel() {
+		//don't know what to do here.
+	}
+	
 }
+

@@ -197,6 +197,7 @@ public abstract class AnyKeyboard extends Keyboard
                 case AnyKeyboard.KEYCODE_QUICK_TEXT:
 					QuickTextKey quickKey = QuickTextKeyFactory.getCurrentQuickTextKey(getASKContext());
 					if (quickKey == null) { //No plugins. Weird, but we can't do anything
+						Log.w(TAG, "Could not locate any quick key plugins! Hopefully nothing will crash...");
 						break;
 					}
 
@@ -996,5 +997,9 @@ public abstract class AnyKeyboard extends Keyboard
 
 	public int getKeyboardMode() {
 		return mKeyboardMode;
+	}
+
+	public void keyReleased() {
+		mShiftState = SHIFT_OFF;
 	}
 }
