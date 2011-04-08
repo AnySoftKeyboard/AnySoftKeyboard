@@ -18,7 +18,7 @@
 */
 -->
 
-<com.anysoftkeyboard.views.AnyKeyboardView
+<com.anysoftkeyboard.keyboards.views.AnyKeyboardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/AnykeyboardBaseView"
         android:layout_alignParentBottom="true"

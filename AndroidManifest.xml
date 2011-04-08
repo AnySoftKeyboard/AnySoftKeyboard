@@ -1,19 +1,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.menny.android.anysoftkeyboard"
-        android:versionCode="38" android:versionName="20110405-darker">
+        android:versionCode="38" android:versionName="20110407-look-alike">
 	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key"
-		android:name=".AnyApplication"  android:backupAgent=".backup.AnyBackupAgent">
+		android:name="AnyApplication"  android:backupAgent="com.anysoftkeyboard.backup.AnyBackupAgent">
 		<!-- used to backup the settings and SQL to the cloud -->
 		<meta-data android:name="com.google.android.backup.api_key"
 			android:value="AEdPqrEAAAAILlrSpiqigog3iJt3BwYxzNXMUzqgGV_dJ1EPDQ" />
-			
-		<service android:permission="android.permission.BIND_INPUT_METHOD" android:name=".SoftKeyboard">
+		
+		<!-- this is the IME with the pointer to the settings ui (xml/method) -->
+		<service android:permission="android.permission.BIND_INPUT_METHOD" android:name="SoftKeyboard">
 	        <intent-filter>
 	            <action android:name="android.view.InputMethod" />
 	        </intent-filter>
 	        <meta-data android:name="android.view.im" android:resource="@xml/method" />
 	    </service>
-	    <receiver android:name=".receivers.PackagesChangedReceiver">
+	    
+	    <!-- receivers for outside events -->
+	    <receiver android:name="com.anysoftkeyboard.receivers.PackagesChangedReceiver">
 	    	<intent-filter>
 	    		<category android:name="android.intent.category.DEFAULT" />
 	    		<action android:name="android.intent.action.PACKAGE_CHANGED"/>
@@ -24,33 +27,34 @@
 	    		<data android:scheme="package" />
 	    	</intent-filter>	    	
 	    </receiver>
-	    <receiver android:name=".receivers.AnySoftKeyboardInstalledReceiver" android:exported="true">
+	    <receiver android:name="com.anysoftkeyboard.receivers.AnySoftKeyboardInstalledReceiver" android:exported="true">
 			<intent-filter>
 			    <action android:name="com.android.vending.INSTALL_REFERRER" />
 			</intent-filter>
 		</receiver>
-	    <activity android:name=".SoftKeyboardSettings" android:label="@string/ime_name">
+		
+		<!-- ui activities -->
+		<!-- settings ui activities -->
+	    <activity android:name="com.anysoftkeyboard.ui.settings.MainSettings" android:label="@string/ime_name">
 	    </activity>
-	    <activity android:name=".settings.MainSettings" android:label="@string/ime_name">
+	    <activity android:name="com.anysoftkeyboard.ui.settings.Tweaks" android:label="@string/tweaks_group">
 	    </activity>
-	    <activity android:name=".settings.Tweaks" android:label="@string/tweaks_group">
+	    <activity android:name="com.anysoftkeyboard.ui.settings.Keyboards" android:label="@string/keyboards_group">
 	    </activity>
-	    <activity android:name=".settings.Keyboards" android:label="@string/keyboards_group">
-	    </activity>
-		<activity android:name=".settings.QuickTextKeys"
+		<activity android:name="com.anysoftkeyboard.ui.settings.QuickTextKeys"
 				android:label="@string/quick_text_keys_group" />
-	    
-	    <activity android:name=".tutorials.TestersNoticeActivity" android:label="@string/testers_version">
+	    <!-- information ui activities -->
+	    <activity android:name="com.anysoftkeyboard.ui.tutorials.TestersNoticeActivity" android:label="@string/testers_version">
 	    </activity>
-	    <activity android:name=".tutorials.WelcomeHowToNoticeActivity" android:label="@string/how_to_pointer_title">
+	    <activity android:name="com.anysoftkeyboard.ui.tutorials.WelcomeHowToNoticeActivity" android:label="@string/how_to_pointer_title">
 	    </activity>
-	    <activity android:name=".tutorials.ChangeLogActivity" android:label="@string/changelog">
+	    <activity android:name="com.anysoftkeyboard.ui.tutorials.ChangeLogActivity" android:label="@string/changelog">
 	    </activity>
-	    
-	    <activity android:name=".SendBugReportUiActivity" android:label="@string/ime_name">
+	    <!-- ui when a crash happens -->
+	    <activity android:name="com.anysoftkeyboard.ui.SendBugReportUiActivity" android:label="@string/ime_name">
         </activity>
-	    
-	    <activity android:name=".MainForm"
+	    <!-- main help/about/stuff -->
+	    <activity android:name="com.anysoftkeyboard.ui.MainForm"
                   android:label="@string/ime_name">
 			<!-- don't want it anymore
             <intent-filter>
@@ -59,11 +63,7 @@
             </intent-filter>
              -->
         </activity>
-        <receiver android:exported="true" android:name=".KeyboardBroadcastReceiver">
-	    	<intent-filter>
-				<action android:name="com.menny.android.anysoftkeyboard.api.NOTIFY_LAYOUT_SWITCH" />
-			</intent-filter>
-		</receiver>
+        
         
 	</application>
 
@@ -73,7 +73,6 @@
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
     <!-- REQUIRED FOR THE CONTACTS DICTIONARY -->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-	<uses-sdk android:minSdkVersion="7" android:targetSdkVersion="10"></uses-sdk>
 	<!-- currently, only support touch screens -->
 	<uses-configuration android:reqTouchScreen="finger"/>
     <uses-configuration android:reqTouchScreen="stylus"/>
@@ -84,4 +83,6 @@
           android:smallScreens="true"
           android:anyDensity="true" />
           <!-- http://d.android.com/guide/practices/screens_support.html read about legacy. -->
+    
+    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="10"></uses-sdk>
 </manifest>

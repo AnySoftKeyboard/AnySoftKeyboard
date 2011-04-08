@@ -26,7 +26,7 @@
         android:paddingLeft="16dip"
         android:paddingRight="16dip"
         >
-    <com.anysoftkeyboard.views.AnyKeyboardBaseView
+    <com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView
             android:id="@+id/AnyKeyboardBaseView"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"

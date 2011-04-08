@@ -216,7 +216,7 @@ android:key="ime_settings">
 		    <intent
 		        android:action="android.intent.action.MAIN"
 		        android:targetPackage="com.menny.android.anysoftkeyboard"
-		        android:targetClass="com.menny.android.anysoftkeyboard.settings.Keyboards" />
+		        android:targetClass="com.anysoftkeyboard.ui.settings.Keyboards" />
 		</Preference>
 	</PreferenceCategory>
 	<PreferenceCategory android:key="quick_text_leys_group_cat"
@@ -226,7 +226,7 @@ android:key="ime_settings">
 		    <intent
 		        android:action="android.intent.action.MAIN"
 		        android:targetPackage="com.menny.android.anysoftkeyboard"
-		        android:targetClass="com.menny.android.anysoftkeyboard.settings.QuickTextKeys" />
+		        android:targetClass="com.anysoftkeyboard.ui.settings.QuickTextKeys" />
 		</Preference>
 	</PreferenceCategory>
 	<PreferenceCategory android:key="tweaks_group_cat" android:title="@string/tweaks_group">
@@ -235,7 +235,7 @@ android:key="ime_settings">
 		    <intent
 		        android:action="android.intent.action.MAIN"
 		        android:targetPackage="com.menny.android.anysoftkeyboard"
-		        android:targetClass="com.menny.android.anysoftkeyboard.settings.Tweaks" />
+		        android:targetClass="com.anysoftkeyboard.ui.settings.Tweaks" />
 		</Preference>
 	</PreferenceCategory>
 </PreferenceScreen>

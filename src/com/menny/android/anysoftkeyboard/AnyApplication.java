@@ -1,7 +1,8 @@
 package com.menny.android.anysoftkeyboard;
 
-import com.menny.android.anysoftkeyboard.backup.CloudBackupRequester;
-import com.menny.android.anysoftkeyboard.tutorials.TutorialsProvider;
+import com.anysoftkeyboard.AnySoftKeyboardConfiguration;
+import com.anysoftkeyboard.backup.CloudBackupRequester;
+import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 
 import android.app.Application;
 import android.util.Log;

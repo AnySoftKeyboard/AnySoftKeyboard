@@ -2,7 +2,7 @@
 <!--
 /* 
 **
-** Copyright 2008, The Android Open Source Project
+** Copyright 2011 AnySoftKeyboard
 **
 ** Licensed under the Apache License, Version 2.0 (the "License"); 
 ** you may not use this file except in compliance with the License. 
@@ -18,7 +18,7 @@
 */
 -->
 
-<com.menny.android.anysoftkeyboard.CandidateViewContainer
+<com.anysoftkeyboard.keyboards.views.CandidateViewContainer
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="horizontal"
         android:layout_width="fill_parent"
@@ -47,7 +47,7 @@
             />
     </LinearLayout>
     
-    <com.menny.android.anysoftkeyboard.CandidateView
+    <com.anysoftkeyboard.keyboards.views.CandidateView
         android:id="@+id/candidates"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
@@ -76,4 +76,4 @@
             />
     </LinearLayout>        
     
-</com.menny.android.anysoftkeyboard.CandidateViewContainer>
+</com.anysoftkeyboard.keyboards.views.CandidateViewContainer>

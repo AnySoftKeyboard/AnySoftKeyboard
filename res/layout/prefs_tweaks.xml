@@ -11,7 +11,7 @@ android:key="tweaks_group_screen">
 		android:summaryOn="@string/use_custom_sound_volume_on_summary"
 		android:summaryOff="@string/use_custom_sound_volume_off_summary"
 	/>
-	<com.menny.android.anysoftkeyboard.MySeekBarPreference
+	<com.anysoftkeyboard.ui.MySeekBarPreference
 		android:key="custom_sound_volume"
 		android:title="@string/custom_sound_volume"
 		android:dialogTitle="@string/custom_sound_volume"

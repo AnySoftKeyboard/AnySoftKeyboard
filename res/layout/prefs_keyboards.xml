@@ -16,14 +16,4 @@
 	<PreferenceCategory android:key="keyboard_addons_group"
 		android:title="@string/keyboards_group">
 	</PreferenceCategory>
-	<!-- 
-	<CheckBoxPreference
-	android:key="keyboard_c7535083-4fe6-49dc-81aa-c5438a1a343a"
-	android:title="@string/eng_keyboard"
-	android:persistent="true"
-	android:defaultValue="true"
-	android:summaryOn="QWERTY Latin keyboard"
-	android:summaryOff="QWERTY Latin keyboard"
-	/>
-	 -->
 </PreferenceScreen>
