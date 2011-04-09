@@ -191,7 +191,7 @@ public abstract class AnyKeyboard extends Keyboard
                     	((AnyKey)key).setFunctional(true);
                     	break;
                 	default:
-                		((AnyKey)key).setFunctional(false);
+                		((AnyKey)key).setFunctional((key.edgeFlags & Keyboard.EDGE_BOTTOM) != 0);
                     }
             	}
                 
