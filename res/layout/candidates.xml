@@ -2,7 +2,8 @@
 <!--
 /* 
 **
-** Copyright 2011 AnySoftKeyboard
+** Copyright 2008, The Android Open Source Project
+** Copyright 2011, AnySoftKeyboard
 **
 ** Licensed under the Apache License, Version 2.0 (the "License"); 
 ** you may not use this file except in compliance with the License. 
@@ -18,62 +19,21 @@
 */
 -->
 
-<com.anysoftkeyboard.keyboards.views.CandidateViewContainer
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/candidate_strip_height"
         android:background="@drawable/keyboard_suggest_strip"
         >
 
-    <LinearLayout
-            android:id="@+id/candidate_left_parent"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:orientation="horizontal">
-        <ImageButton
-            android:id="@+id/candidate_left"
-            android:background="@drawable/ic_suggest_scroll_background"
-            android:src="@drawable/ic_suggest_strip_scroll_left_arrow" 
-            android:layout_width="36dp"
-            android:layout_height="fill_parent"
-            android:clickable="true"
-            />
-        
-        <ImageView
-            android:src="@drawable/keyboard_suggest_strip_divider"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            />
-    </LinearLayout>
-    
     <com.anysoftkeyboard.keyboards.views.CandidateView
         android:id="@+id/candidates"
         android:layout_width="wrap_content"
-        android:layout_height="38dp"
+        android:layout_height="@dimen/candidate_strip_height"
         android:layout_weight="1"
+        android:fadingEdge="horizontal"
+        android:fadingEdgeLength="@dimen/candidate_strip_fading_edge_length"
         />
         
-    <LinearLayout
-            android:id="@+id/candidate_right_parent"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:clickable="true"
-            android:orientation="horizontal">
-        <ImageView
-            android:src="@drawable/keyboard_suggest_strip_divider"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            />
-        
-        <ImageButton
-            android:id="@+id/candidate_right"
-            android:background="@drawable/ic_suggest_scroll_background"
-            android:src="@drawable/ic_suggest_strip_scroll_right_arrow" 
-            android:layout_width="36dp"
-            android:layout_height="fill_parent"
-            android:clickable="true"
-            />
-    </LinearLayout>        
-    
-</com.anysoftkeyboard.keyboards.views.CandidateViewContainer>
+</LinearLayout>

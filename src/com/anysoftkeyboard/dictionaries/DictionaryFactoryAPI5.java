@@ -30,19 +30,19 @@ public class DictionaryFactoryAPI5 extends DictionaryFactory
 	
 
 
-	public void closeContactsDictionary() {
-	    if(mContactsDictionary != null){
-	        mContactsDictionary.close();
-	        mContactsDictionary = null;
-	    }
-	}
+//	public void closeContactsDictionary() {
+//	    if(mContactsDictionary != null){
+//	        mContactsDictionary.close();
+//	        mContactsDictionary = null;
+//	    }
+//	}
 	
-	@Override
-	public synchronized void close() {
-		super.close();
-        
-        if(mContactsDictionary != null){
-            mContactsDictionary.close();
-        }
-	}
+//	@Override
+//	public synchronized void close() {
+//		super.close();
+//        
+//        if(mContactsDictionary != null){
+//            mContactsDictionary.close();
+//        }
+//	}
 }

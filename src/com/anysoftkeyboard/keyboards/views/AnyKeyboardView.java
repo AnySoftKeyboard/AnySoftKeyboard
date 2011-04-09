@@ -63,7 +63,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     public void setPhoneKeyboard(Keyboard phoneKeyboard) {
         mPhoneKeyboard = phoneKeyboard;
     }
-
+/*
     @Override
     public void setPreviewEnabled(boolean previewEnabled) {
         if (getKeyboard() == mPhoneKeyboard) {
@@ -73,7 +73,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
             super.setPreviewEnabled(previewEnabled);
         }
     }
-
+*/
     @Override
     public void setKeyboard(Keyboard newKeyboard) {
         final Keyboard oldKeyboard = getKeyboard();
@@ -82,6 +82,17 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
             ((AnyKeyboard)oldKeyboard).keyReleased();
         }
         super.setKeyboard(newKeyboard);
+        if (newKeyboard == mPhoneKeyboard) {
+            // Phone keyboard never shows popup preview (except language switch).
+            super.setPreviewEnabled(false);
+        } else {
+        	//TODO: for now! This will be replace with the config getter
+            super.setPreviewEnabled(true);
+        }
+        //TODO: For now! should be a calculated value
+        //lots of key : true
+        //some keys: false
+        setProximityCorrectionEnabled(true);
         // One-seventh of the keyboard width seems like a reasonable threshold
         //mJumpThresholdSquare = newKeyboard.getMinWidth() / 7;
         //mJumpThresholdSquare *= mJumpThresholdSquare;

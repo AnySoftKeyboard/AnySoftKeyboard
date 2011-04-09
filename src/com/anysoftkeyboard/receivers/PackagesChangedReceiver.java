@@ -20,7 +20,7 @@ public class PackagesChangedReceiver extends BroadcastReceiver {
 		if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, new StringBuffer("Packages (").append(intent.getData())
 				.append(") have been changed.").toString());
 		
-		DictionaryFactory.getInstance().releaseAllDictionaries();
+		//DictionaryFactory.getInstance().releaseAllDictionaries();
 		AddOnsFactory.onPackageChanged(intent);
 	}
 }

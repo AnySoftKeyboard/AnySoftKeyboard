@@ -31,10 +31,13 @@
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/keyboard_transparent"
+            android:background="@drawable/keyboard_dark_background"
+            android:textStyle="bold"
 
+			keyTextStyle="bold"
             keyBackground="@drawable/btn_keyboard_key_gingerbread_popup"
             keyHysteresisDistance="0dip"
             verticalCorrection="@dimen/mini_keyboard_vertical_correction"
             />
+                    
 </LinearLayout>

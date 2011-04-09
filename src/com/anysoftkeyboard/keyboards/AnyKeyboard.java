@@ -170,7 +170,31 @@ public abstract class AnyKeyboard extends Keyboard
         	//Log.d(TAG, "Key x:"+key.x+" y:"+key.y+" width:"+key.width+" height:"+key.height);
             if ((key.codes != null) && (key.codes.length > 0))
             {
-                final int primaryCode = key.codes[0];
+            	final int primaryCode = key.codes[0];
+            	if (key instanceof AnyKey)
+            	{
+            		switch(primaryCode)
+                    {
+                    case AnyKeyboard.KEYCODE_DELETE:
+                    case AnyKeyboard.KEYCODE_CTRL:
+                    case AnyKeyboard.KEYCODE_LANG_CHANGE:
+                    case AnyKeyboard.KEYCODE_KEYBOARD_MODE_CHANGE:
+                    case AnyKeyboard.KEYCODE_KEYBOARD_CYCLE:
+                    case AnyKeyboard.KEYCODE_KEYBOARD_CYCLE_INSIDE_MODE:
+                    case AnyKeyboard.KEYCODE_KEYBOARD_REVERSE_CYCLE:
+                    case AnyKeyboard.KEYCODE_ALT:
+                    case AnyKeyboard.KEYCODE_MODE_CHANGE:
+                    case AnyKeyboard.KEYCODE_QUICK_TEXT:
+                    case AnyKeyboard.KEYCODE_DOMAIN:
+                    case 10://ENTER
+                    case 32://SPACE
+                    	((AnyKey)key).setFunctional(true);
+                    	break;
+                	default:
+                		((AnyKey)key).setFunctional(false);
+                    }
+            	}
+                
                 //detecting LTR languages
                 if (Workarounds.isRightToLeftCharacter((char)primaryCode))
                 	mRightToLeftLayout = true;//one is enough
@@ -216,6 +240,7 @@ public abstract class AnyKeyboard extends Keyboard
                 	key.popupResId = quickKey.getPopupKeyboardResId();
                     break;
             	case AnyKeyboard.KEYCODE_DOMAIN:
+            		((AnyKey)key).setFunctional(true);
             		//fixing icons
                 	//setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_key_domain, R.drawable.sym_keyboard_key_domain_wide, R.drawable.sym_keyboard_key_domain_preview);
                 	key.label = AnyApplication.getConfig().getDomainText().trim();
@@ -725,114 +750,25 @@ public abstract class AnyKeyboard extends Keyboard
 		
 	}
 	
-//	protected void setPopupKeyChars(Key aKey) 
-//	{
-//		if (aKey.popupResId > 0)
-//			return;//if the keyboard XML already specified the popup, then no need to override
-//		
-//		if ((aKey.codes != null) && (aKey.codes.length > 0))
-//        {
-//			switch(((char)aKey.codes[0]))
-//			{
-//			case '\''://in the generic bottom row
-//				aKey.popupResId = R.xml.popup;
-//				aKey.popupCharacters = "\"\u201e\u201d";
-//				break;
-//			case '-':
-//				aKey.popupResId = R.xml.popup;
-//				aKey.popupCharacters = "\u2013";
-//				break;
-//			case '.'://in the generic bottom row
-//				aKey.popupResId = R.xml.popup;
-//				aKey.popupCharacters = ";:-_\u00b7\u2026";
-//				break;
-//			case ','://in the generic bottom row
-//				aKey.popupResId = R.xml.popup;
-//				aKey.popupCharacters = "()";
-//				break;
-//			case '_':
-//				aKey.popupResId = R.xml.popup;
-//				aKey.popupCharacters = ",-";
-//				break;
-			//the two below are switched in regular and Internet mode
-//			case '?'://in the generic bottom row
-//				aKey.popupResId = R.xml.popup;
-//				aKey.popupCharacters = POPUP_FOR_QUESTION;
-//				break;
-//			case '@'://in the generic Internet mode
-//				aKey.popupResId = R.xml.popup;
-//				aKey.popupCharacters = POPUP_FOR_AT;
-//				break;
-//			}
-//        }
-//	}
-
-//	public void setTextVariation(Resources res, int inputType) 
-//	{
-//		if (mDebug)
-//    		Log.d(TAG, "setTextVariation");
-//		int variation = inputType &  EditorInfo.TYPE_MASK_VARIATION;
-//		
-//		switch (variation) {
-//	        case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
-//	        case EditorInfo.TYPE_TEXT_VARIATION_URI:
-//	        	if (mSwitchableKey != null)
-//	        	{
-//	        		//Log.d("AnySoftKeyboard", "Changing smiley key to domains.");
-//	        		setKeyIcons(mSwitchableKey, res, mDomainsIconId, R.drawable.sym_keyboard_key_domain_preview);
-//	        		mSwitchableKey.text = AnySoftKeyboardConfiguration.getInstance().getDomainText();
-//		        	mSwitchableKey.popupResId = R.xml.popup_domains;
-//	        	}
-//	        	if (mQuestionMarkKey != null)
-//	        	{
-//	        		//Log.d("AnySoftKeyboard", "Changing question mark key to AT.");
-//		        	mQuestionMarkKey.codes[0] = (int)'@';
-//		        	mQuestionMarkKey.label = "@";
-//		        	mQuestionMarkKey.popupCharacters = POPUP_FOR_AT;
-//	        	}
-//	        	break;
-//	        default:
-//	        	if (mSwitchableKey != null)
-//	        	{
-//	        		setKeyIcons(mSwitchableKey, res, R.drawable.sym_keyboard_smiley, R.drawable.sym_keyboard_smiley_feedback);
-//		        	mSwitchableKey.text = null;// ":-) ";
-//		        	mSwitchableKey.popupResId = R.xml.popup_smileys;
-//	        	}
-//	        	if (mQuestionMarkKey != null)
-//	        	{
-//	        		//Log.d("AnySoftKeyboard", "Changing question mark key to question.");
-//		        	mQuestionMarkKey.codes[0] = (int)'?';
-//		        	mQuestionMarkKey.label = "?";
-//		        	mQuestionMarkKey.popupCharacters = POPUP_FOR_QUESTION;
-//	        	}
-//	        	break;
-//        }
-//	}
-//	
-//	public int getShiftedKeyValue(int primaryCode) 
-//	{
-////		if ((primaryCode>0) && (primaryCode<Character.MAX_VALUE))
-////		{
-////			Character c = new Character((char)primaryCode);
-////			if (mSpecialShiftKeys.containsKey(c))
-////			{
-////				char shifted = mSpecialShiftKeys.get(c).ShiftCharacter;
-////				if (mDebug)
-////		        	Log.v(TAG, "Returned the shifted mapping ("+c+"->"+shifted+") from mSpecialShiftKeys.");
-////				return shifted;
-////			}
-////		}
-//		//else...best try.
-//		return Character.toUpperCase(primaryCode);
-//	}
-	
 	static class AnyKey extends Keyboard.Key {
+		private final int[] KEY_STATE_FUNCTIONAL_NORMAL = {
+                android.R.attr.state_single
+        };
+
+        // functional pressed state (with properties)
+        private final int[] KEY_STATE_FUNCTIONAL_PRESSED = {
+                android.R.attr.state_single,
+                android.R.attr.state_pressed
+        };
+        
+        private boolean mFunctionalKey;
 		private boolean mEnabled;
 		
         public AnyKey(Resources res, Keyboard.Row parent, int x, int y, 
                 XmlResourceParser parser) {
             super(res, parent, x, y, parser);
             mEnabled = true;
+            mFunctionalKey = false;
             if (popupCharacters != null && popupCharacters.length() == 0) {
                 // If there is a keyboard with no keys specified in popupCharacters
                 popupResId = 0;
@@ -840,8 +776,8 @@ public abstract class AnyKeyboard extends Keyboard
             parseCSV("");//TODO lado parseCSV is removed by proGuard if it here not set. I'm on it to leave this method
             //untasted without this call.
         }
-        
-        public void enable()
+
+		public void enable()
         {
         	mEnabled = true;
         }
@@ -889,6 +825,26 @@ public abstract class AnyKeyboard extends Keyboard
                 }
             }
             return values;
+        }
+        
+        public void setFunctional(boolean isFunctional) {
+        	mFunctionalKey = isFunctional;
+		}
+        
+        private boolean isFunctionalKey() {
+            return mFunctionalKey && !sticky;
+        }
+        
+        @Override
+        public int[] getCurrentDrawableState() {
+            if (isFunctionalKey()) {
+                if (pressed) {
+                    return KEY_STATE_FUNCTIONAL_PRESSED;
+                } else {
+                    return KEY_STATE_FUNCTIONAL_NORMAL;
+                }
+            }
+            return super.getCurrentDrawableState();
         }
 
         

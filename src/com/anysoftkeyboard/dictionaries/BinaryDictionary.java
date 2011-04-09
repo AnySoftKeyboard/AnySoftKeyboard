@@ -24,6 +24,7 @@ import java.util.Arrays;
 import com.anysoftkeyboard.WordComposer;
 
 import android.content.res.AssetFileDescriptor;
+import android.os.AsyncTask;
 import android.util.Log;
 
 /**
@@ -73,12 +74,22 @@ class BinaryDictionary extends Dictionary {
     }
 
     @Override
-    public void loadDictionary() throws Exception {
+    public void loadDictionary()
+    {
     	if (mAfd != null) {
-            loadDictionary(mAfd);
+    		new LoadDictionaryTask().execute();
+            
         }
     }
 
+    private class LoadDictionaryTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... v) {
+        	loadDictionary(mAfd);
+			return null;
+        }
+    }
+    
     private native int openNative(FileDescriptor fd, long offset, long length,
             int typedLetterMultiplier, int fullWordMultiplier);
     private native void closeNative(int dict);

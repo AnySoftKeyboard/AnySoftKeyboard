@@ -59,6 +59,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
@@ -82,7 +83,6 @@ import com.anysoftkeyboard.keyboards.physical.MyMetaKeyKeyListener;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView.OnKeyboardActionListener;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
-import com.anysoftkeyboard.keyboards.views.CandidateViewContainer;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.ui.settings.MainSettings;
@@ -134,7 +134,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private static final boolean DEBUG = AnySoftKeyboardConfiguration.DEBUG;
 
 	private AnyKeyboardView mInputView;
-	private CandidateViewContainer mCandidateViewContainer;
+	private LinearLayout mCandidateViewContainer;
 	private CandidateView mCandidateView;
 	private Suggest mSuggest;
 	private CompletionInfo[] mCompletions;
@@ -296,7 +296,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public void onDestroy() {
 		Log.i(TAG, "AnySoftKeyboard has been destroyed! Cleaning resources..");
-		DictionaryFactory.getInstance().close();
+		//DictionaryFactory.getInstance().close();
 
 		// unregisterReceiver(mReceiver);
 
@@ -367,9 +367,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public View onCreateCandidatesView() {
 		mKeyboardSwitcher.makeKeyboards(false);
-		mCandidateViewContainer = (CandidateViewContainer) getLayoutInflater()
+		mCandidateViewContainer = (LinearLayout) getLayoutInflater()
 				.inflate(R.layout.candidates, null);
-		mCandidateViewContainer.initViews();
 		mCandidateView = (CandidateView) mCandidateViewContainer
 				.findViewById(R.id.candidates);
 		mCandidateView.setService(this);
@@ -1081,19 +1080,20 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 	
 	
-	private void checkAddToDictionary(CharSequence suggestion, int frequencyDelta) {
-	        if(mAutoDictionary == null){
-	            return;
-	        }
-	        // Only auto-add to dictionary if auto-correct is ON. Otherwise we'll be
-	        // adding words in situations where the user or application really didn't
-	        // want corrections enabled or learned.
-	        //if (!(mCorrectionMode == Suggest.CORRECTION_FULL)) return;TODO lado make it configurable
-	        if (mAutoDictionary.isValidWord(suggestion)
-	                || (!mSuggest.isValidWord(suggestion.toString())
-	                    && !mSuggest.isValidWord(suggestion.toString().toLowerCase()))) {
-	            mAutoDictionary.addWord(suggestion.toString(), frequencyDelta);
-	        }
+	private boolean checkAddToDictionary(CharSequence suggestion, int frequencyDelta) {
+		if (mSuggest.isValidWord(suggestion.toString())
+            || mSuggest.isValidWord(suggestion.toString().toLowerCase())) {
+            return false;
+        }
+        // Only auto-add to dictionary if auto-correct is ON. Otherwise we'll be
+        // adding words in situations where the user or application really didn't
+        // want corrections enabled or learned.
+        //if (!(mCorrectionMode == Suggest.CORRECTION_FULL)) return;TODO lado make it configurable
+        if ((mAutoDictionary != null) && mAutoDictionary.isValidWord(suggestion))
+        {
+        	mAutoDictionary.addWord(suggestion.toString(), frequencyDelta);
+        }
+        return true;
 	}
 	
 	private void commitTyped(InputConnection inputConnection) {
@@ -1105,7 +1105,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				}
 				mCommittedLength = mComposing.length();
 				TextEntryState.acceptedTyped(mComposing);
-				 checkAddToDictionary(mComposing, AutoDictionary.FREQUENCY_FOR_TYPED);
+				checkAddToDictionary(mComposing, AutoDictionary.FREQUENCY_FOR_TYPED);
 			}
 			postUpdateSuggestionsNow();
 		}
@@ -1812,10 +1812,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	public CharSequence pickSuggestionManually(int index, CharSequence suggestion) {
+		final InputConnection ic = getCurrentInputConnection();
+		if (ic != null) {
+			ic.beginBatchEdit();
+		}
 		if (mCompletionOn && mCompletions != null && index >= 0
 				&& index < mCompletions.length) {
 			CompletionInfo ci = mCompletions[index];
-			InputConnection ic = getCurrentInputConnection();
 			if (ic != null) {
 				ic.commitCompletion(ci);
 			}
@@ -1828,9 +1831,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 		suggestion = pickSuggestion(suggestion);
 		// Add the word to the auto dictionary if it's not a known word
-        if (index == 0) {
-            checkAddToDictionary(suggestion, AutoDictionary.FREQUENCY_FOR_PICKED);
-        }
+		final boolean showAddHint;
+        if (index == 0)
+        	showAddHint = checkAddToDictionary(suggestion, AutoDictionary.FREQUENCY_FOR_PICKED);
+        else
+        	showAddHint = false;
 		TextEntryState.acceptedSuggestion(mComposing.toString(), suggestion);
 		// Follow it with a space
 		if (mAutoSpace) {
@@ -1840,6 +1845,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// Fool the state watcher so that a subsequent backspace will not do a
 		// revert
 		TextEntryState.typedCharacter((char) KEYCODE_SPACE, true);
+		if (ic != null)
+		{
+			ic.endBatchEdit();
+		}
+		
+		if (showAddHint)
+		{
+			mCandidateView.showAddToDictionaryHint(suggestion);
+		}
 		return suggestion;
 	}
 
@@ -2162,16 +2176,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 //		mSmileyPopupType = sp.getString(getString(R.string.settings_key_smiley_popup_type), getString(R.string.settings_default_smiley_popup_type));
 
 		((AnySoftKeyboardConfiguration.AnySoftKeyboardConfigurationImpl) mConfig).handleConfigurationChange(sp);
-
-		if (mInputView != null)
-			mInputView.setPreviewEnabled(mConfig.getShowKeyPreview());
 	}
 
 	/*package*/ void setMainDictionaryForCurrentKeyboard() {
 		if (mSuggest != null) {
 			if (!mShowSuggestions) {
 			    if (DEBUG)Log.d(TAG, "No suggestion is required. I'll try to release memory from the dictionary.");
-				DictionaryFactory.getInstance().releaseAllDictionaries();
+				//DictionaryFactory.getInstance().releaseAllDictionaries();
 				mSuggest.setMainDictionary(null);
 			} else {
 				// It null at the creation of the application.
@@ -2359,7 +2370,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         	Dictionary contactsDictionary = DictionaryFactory.getInstance().createContactsDictionary(this); 
             mSuggest.setContactsDictionary(contactsDictionary);
         } else{
-        	DictionaryFactory.getInstance().closeContactsDictionary();        	
+        	//DictionaryFactory.getInstance().closeContactsDictionary();        	
             mSuggest.setContactsDictionary(null);
         }
 	}
@@ -2369,7 +2380,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	        mAutoDictionary = DictionaryFactory.getInstance().createAutoDictionary(this, this, mKeyboardSwitcher.getCurrentKeyboard().getDefaultDictionaryLocale());
 	        mSuggest.setAutoDictionary(mAutoDictionary);
 	    } else {
-	    	DictionaryFactory.getInstance().closeAutoDictionary();
+	    	//DictionaryFactory.getInstance().closeAutoDictionary();
 	        mAutoDictionary = null;
 	        mSuggest.setAutoDictionary(null);
 	    }
@@ -2488,7 +2499,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public void onLowMemory() {
 		Log.w(TAG, "The OS has reported that it is low on memory!. I'll try to clear some cache.");
 		mKeyboardSwitcher.onLowMemory();
-		DictionaryFactory.getInstance().onLowMemory(mSuggest.getMainDictionary());
+		//DictionaryFactory.getInstance().onLowMemory(mSuggest.getMainDictionary());
 		super.onLowMemory();
 	}
 	

@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.dictionaries;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -29,11 +30,45 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
     	return msInstance.getAllAddOns(askContext);
     }
     
+    public static DictionaryAddOnAndBuilder getDictionaryBuilderById(String id, Context askContext)
+    {
+    	return msInstance.getAddOnById(id, askContext);
+    }
+    
+    public static DictionaryAddOnAndBuilder getDictionaryBuilderByLocale(String locale, Context askContext)
+    {
+    	return msInstance.getAddOnByLocale(locale, askContext);
+    }
+    
+    private final HashMap<String, DictionaryAddOnAndBuilder> mBuildersByLocale = new HashMap<String, DictionaryAddOnAndBuilder>();
+    
     private ExternalDictionaryFactory() {
 		super(TAG, "com.menny.android.anysoftkeyboard.DICTIONARY", "com.menny.android.anysoftkeyboard.dictionaries", 
 				"Dictionaries", "Dictionary",
 				R.xml.dictionaries);
 	}
+    
+    @Override
+    protected synchronized void clearAddOnList() {
+    	super.clearAddOnList();
+    	mBuildersByLocale.clear();
+    }
+    
+    @Override
+    protected void buildOtherDataBasedOnNewAddOns(
+    		ArrayList<DictionaryAddOnAndBuilder> newAddOns) {
+    	super.buildOtherDataBasedOnNewAddOns(newAddOns);
+    	for(DictionaryAddOnAndBuilder addOn : newAddOns)
+    		mBuildersByLocale.put(addOn.getLanguage(), addOn);
+    }
+    
+    public synchronized DictionaryAddOnAndBuilder getAddOnByLocale(String locale, Context askContext)
+    {
+    	if (mBuildersByLocale.size() == 0)
+    		loadAddOns(askContext);
+    	
+    	return mBuildersByLocale.get(locale);
+    }
 
 	@Override
 	protected DictionaryAddOnAndBuilder createConcreateAddOn(Context context,

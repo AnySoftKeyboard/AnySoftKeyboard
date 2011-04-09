@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -30,7 +31,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
 		for(AddOnsFactory<?> factory : mActiveInstances)
 		{
 			if (factory.isEventRequiresCacheRefresh(eventIntent))
-				factory.mAddOns.clear();
+				factory.clearAddOnList();
 		}
 	}
 	
@@ -49,7 +50,8 @@ public abstract class AddOnsFactory<E extends AddOn> {
      */
     private final String RECEIVER_META_DATA;
 
-    private final ArrayList<E> mAddOns;
+    private final ArrayList<E> mAddOns = new ArrayList<E>();
+    private final HashMap<String, E> mAddOnsById = new HashMap<String, E>();
     
     private final String ROOT_NODE_TAG;
     private final String ADDON_NODE_TAG;
@@ -69,8 +71,6 @@ public abstract class AddOnsFactory<E extends AddOn> {
     	ADDON_NODE_TAG = addonNodeTag;
     	mBuildInAddOnsResId = buildInAddonResId;
     	
-    	mAddOns = new ArrayList<E>();
-    	
     	mActiveInstances.add(this);
     }
 
@@ -78,86 +78,67 @@ public abstract class AddOnsFactory<E extends AddOn> {
 		return true;
 	}
 
-	public final ArrayList<E> getAllAddOns(final Context askContext) {
+    protected synchronized void clearAddOnList() {
+    	mAddOns.clear();
+    	mAddOnsById.clear();
+	}
+        
+    public synchronized E getAddOnById(String id, Context askContext)
+    {
+    	if (mAddOnsById.size() == 0)
+        {
+        	loadAddOns(askContext);
+        }
+    	return mAddOnsById.get(id);
+    }
+    
+	public synchronized final ArrayList<E> getAllAddOns(Context askContext) {
 
         if (mAddOns.size() == 0)
         {
-        	mAddOns.addAll(getAddOnsFromResId(askContext, mBuildInAddOnsResId));
-        	mAddOns.addAll(getExternalAddOns(askContext));
-            
-            //sorting the keyboards according to the requested
-            //sort order (from minimum to maximum)
-            Collections.sort(mAddOns, new Comparator<AddOn>()
-	            {
-	                public int compare(AddOn k1, AddOn k2)
-	                {
-	                	Context c1 = k1.getPackageContext();
-	                	Context c2 = k2.getPackageContext();
-	                	if (c1 == null)
-	                		c1 = askContext;
-	                	if (c2 == null)
-	                		c2 = askContext;
-	
-	                	if (c1 == c2)
-	                		return k1.getSortIndex() - k2.getSortIndex();
-	                	else if (c1 == askContext)//I want to make sure ASK packages are first
-	                		return -1;
-	                	else if (c2 == askContext)
-	                		return 1;
-	                	else
-	                		return c1.getPackageName().compareToIgnoreCase(c2.getPackageName());
-	                }
-	            });
+        	loadAddOns(askContext);
         }
         return mAddOns;
     }
-    /*
-    public ArrayList<E> getEnabledAddOns(AnyKeyboardContextProvider contextProvider)
-    {
-    	final ArrayList<E> allAddOns = getAllAddOns(contextProvider.getApplicationContext());
-        Log.i(TAG, "Creating enabled addons list. I have a total of "+ allAddOns.size()+" addons");
 
-        //getting shared prefs to determine which to create.
-        final SharedPreferences sharedPreferences = contextProvider.getSharedPreferences();
-        
-        final ArrayList<E> enabledAddOns = new ArrayList<E>();
-        for(int addOnIndex=0; addOnIndex<allAddOns.size(); addOnIndex++)
-        {
-            final E addOn = allAddOns.get(addOnIndex);
+	protected void loadAddOns(final Context askContext) {
+		clearAddOnList();
+		
+		mAddOns.addAll(getAddOnsFromResId(askContext, mBuildInAddOnsResId));
+		mAddOns.addAll(getExternalAddOns(askContext));
+		
+		buildOtherDataBasedOnNewAddOns(mAddOns);
+		
+		//sorting the keyboards according to the requested
+		//sort order (from minimum to maximum)
+		Collections.sort(mAddOns, new Comparator<AddOn>()
+		    {
+		        public int compare(AddOn k1, AddOn k2)
+		        {
+		        	Context c1 = k1.getPackageContext();
+		        	Context c2 = k2.getPackageContext();
+		        	if (c1 == null)
+		        		c1 = askContext;
+		        	if (c2 == null)
+		        		c2 = askContext;
 
-            final boolean addOnEnabled = sharedPreferences.getBoolean(addOn.getId(), isAddOnEnabledByDefault(addOn));
-
-            if (addOnEnabled)
-            {
-            	enabledAddOns.add(addOn);
-            }
-        }
-
-        // Fix: issue 219
-        // Check if there is any keyboards created if not, lets create a default english keyboard
-        if( enabledAddOns.size() == 0 ) {
-            final SharedPreferences.Editor editor = sharedPreferences.edit( );
-            final E addOn = allAddOns.get( 0 );
-            editor.putBoolean( addOn.getId( ) , true );
-            editor.commit( );
-            enabledAddOns.add( addOn );
-        }
-
-        if (AnySoftKeyboardConfiguration.DEBUG)
-        {
-	        for(final E addOn : enabledAddOns) {
-	            Log.d(TAG, "Factory provided addon: "+addOn.getId());
-	        }
-        }
-
-        return enabledAddOns;
-    }
-
-    protected boolean isAddOnEnabledByDefault(E addOn) {
-		return false;
+		        	if (c1 == c2)
+		        		return k1.getSortIndex() - k2.getSortIndex();
+		        	else if (c1 == askContext)//I want to make sure ASK packages are first
+		        		return -1;
+		        	else if (c2 == askContext)
+		        		return 1;
+		        	else
+		        		return c1.getPackageName().compareToIgnoreCase(c2.getPackageName());
+		        }
+		    });
 	}
-     */
 	
+	protected void buildOtherDataBasedOnNewAddOns(ArrayList<E> newAddOns) {
+		for(E addOn : newAddOns)
+			mAddOnsById.put(addOn.getId(), addOn);
+	}
+
 	private ArrayList<E> getExternalAddOns(Context context){
 
         final List<ResolveInfo> broadcastReceivers = 
@@ -211,7 +192,9 @@ public abstract class AddOnsFactory<E extends AddOn> {
                     	final AttributeSet attrs = Xml.asAttributeSet(xml);
                     	E addOn = createAddOnFromXmlAttributes(attrs, context);
                     	if (addOn != null)
+                    	{
                     		addOns.add(addOn);
+                    	}
                     }
                 } else if (event == XmlPullParser.END_TAG) {
                     if (ROOT_NODE_TAG.equals(tag)) {

@@ -86,17 +86,33 @@ public class Suggest implements Dictionary.WordCallback {
      * dictionary is consulted before the main dictionary, if set.
      */
     public void setUserDictionary(Dictionary userDictionary) {
+    	if (mUserDictionary != userDictionary && mUserDictionary != null)
+    		mUserDictionary.close();
+    	
         mUserDictionary = userDictionary;
     }
 
+    public void setMainDictionary(Dictionary dictionary) {
+        if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, "Suggest: Got main dictionary! Type: "
+                + ((dictionary == null) ? "NULL" : dictionary.toString()));
+        if (mMainDict != dictionary && mMainDict != null)
+        {
+        	mMainDict.close();
+        }
+        mMainDict = dictionary;
+    }
     /**
      * Sets an optional contacts dictionary resource to be loaded.
      */
     public void setContactsDictionary(Dictionary contactsDictionary) {
+    	if (mContactsDictionary != contactsDictionary && mContactsDictionary != null)
+    		mContactsDictionary.close();
         mContactsDictionary = contactsDictionary;
     }
 
     public void setAutoDictionary(Dictionary autoDictionary) {
+    	if (mAutoDictionary != autoDictionary && mAutoDictionary != null)
+    		mAutoDictionary.close();
         mAutoDictionary = autoDictionary;
     }
 
@@ -355,15 +371,9 @@ public class Suggest implements Dictionary.WordCallback {
         }
         mSuggestions.clear();
     }
-
-    public void setMainDictionary(Dictionary dictionary) {
-        if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, "Suggest: Got main dictionary! Type: "
-                + ((dictionary == null) ? "NULL" : dictionary.toString()));
-        mMainDict = dictionary;
-    }
     
-    public Dictionary getMainDictionary()
-    {
-    	return mMainDict;
-    }
+//    public Dictionary getMainDictionary()
+//    {
+//    	return mMainDict;
+//    }
 }

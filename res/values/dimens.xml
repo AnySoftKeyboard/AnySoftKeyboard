@@ -24,6 +24,10 @@
     <dimen name="candidate_font_height">16sp</dimen>
     <dimen name="candidate_vertical_padding">4sp</dimen>
     
+    <dimen name="candidate_strip_height">42dip</dimen>
+    <dimen name="candidate_strip_fading_edge_length">63dip</dimen>
+    <dimen name="candidate_min_touchable_width">0.3in</dimen>
+    
     <dimen name="key_hysteresis_distance">0.05in</dimen>
     <dimen name="key_preview_height">80sp</dimen>
     <dimen name="key_preview_offset">0.000in</dimen>

@@ -52,7 +52,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.WeakHashMap;
 
-import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy {
@@ -556,8 +555,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         mHasDistinctMultitouch = context.getPackageManager()
                 .hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN_MULTITOUCH_DISTINCT);
         mKeyRepeatInterval = 50;
-        
-        setPreviewEnabled(AnyApplication.getConfig().getShowKeyPreview());
     }
 
     public void setOnKeyboardActionListener(OnKeyboardActionListener listener) {
@@ -656,18 +653,18 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
      * @param previewEnabled whether or not to enable the key feedback popup
      * @see #isPreviewEnabled()
      */
-    public void setPreviewEnabled(boolean previewEnabled) {
-        mShowPreview = previewEnabled && (mPreviewText != null);
+    protected void setPreviewEnabled(boolean previewEnabled) {
+        mShowPreview = previewEnabled;
     }
 
-    /**
-     * Returns the enabled state of the key feedback popup.
-     * @return whether or not the key feedback popup is enabled
-     * @see #setPreviewEnabled(boolean)
-     */
-    public boolean isPreviewEnabled() {
-        return mShowPreview;
-    }
+//    /**
+//     * Returns the enabled state of the key feedback popup.
+//     * @return whether or not the key feedback popup is enabled
+//     * @see #setPreviewEnabled(boolean)
+//     */
+//    public boolean isPreviewEnabled() {
+//        return mShowPreview;
+//    }
 
     public int getSymbolColorScheme() {
         return mSymbolColorScheme;
