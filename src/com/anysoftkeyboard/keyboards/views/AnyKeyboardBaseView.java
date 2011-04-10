@@ -17,7 +17,6 @@ package com.anysoftkeyboard.keyboards.views;
 
 
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -549,16 +548,24 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
             }
         };
 
-        //final boolean ignoreMultitouch = true;
-        mGestureDetector = new GestureDetector(getContext(), listener, null/*, ignoreMultitouch*/);
+         mGestureDetector = createGestureDetector(listener);
         mGestureDetector.setIsLongpressEnabled(false);
 
-        mHasDistinctMultitouch = Workarounds.systemHasDistinctMultitouch(context);
+        mHasDistinctMultitouch = systemHasDistinctMultitouch(context);
         
         mKeyRepeatInterval = 50;
     }
 
-    public void setOnKeyboardActionListener(OnKeyboardActionListener listener) {
+    protected GestureDetector createGestureDetector(GestureDetector.SimpleOnGestureListener listener) {
+		//final boolean ignoreMultitouch = true;
+		return new GestureDetector(getContext(), listener, null/*, ignoreMultitouch*/);
+	}
+
+    protected boolean systemHasDistinctMultitouch(Context context) {
+    	return false;
+	}
+
+	public void setOnKeyboardActionListener(OnKeyboardActionListener listener) {
         mKeyboardActionListener = listener;
         for (PointerTracker tracker : mPointerTrackers) {
             tracker.setOnKeyboardActionListener(listener);

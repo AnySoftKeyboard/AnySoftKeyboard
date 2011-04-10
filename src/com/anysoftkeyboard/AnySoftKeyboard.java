@@ -2057,7 +2057,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 					// volume is between 0..8 (float)
 					//eclair
 					// volume is between 0..1 (float)
-					if (Workarounds.isEclair())
+					if (Workarounds.getApiLevel() >= 5)
 					{
 						fxVolume = ((float)volume)/((float)maxVolume);
 					}

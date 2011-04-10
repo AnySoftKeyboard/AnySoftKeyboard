@@ -14,7 +14,7 @@ public class DictionaryFactory
     
     static
     {
-    	if (!Workarounds.isEclair())
+    	if (Workarounds.getApiLevel() < 5)
     		msFactory = new DictionaryFactory();
     	else
     	{
