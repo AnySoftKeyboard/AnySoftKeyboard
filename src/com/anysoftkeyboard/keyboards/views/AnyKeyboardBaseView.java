@@ -1142,11 +1142,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         // both top and bottom edge flags set.
         return (edgeFlags & Keyboard.EDGE_TOP) != 0 && (edgeFlags & Keyboard.EDGE_BOTTOM) != 0;
     }
-    
-    protected boolean onLongPressNonePopupKey(Key key)
-    {
-    	return false;
-    }
 
     /**
      * Called when a key is long pressed. By default this will open any popup keyboard associated
@@ -1160,7 +1155,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         // mini keyboard.
 
         if (popupKey.popupResId == 0)
-            return onLongPressNonePopupKey(popupKey);
+            return false;
 
         View container = mMiniKeyboardCache.get(popupKey);
         if (container == null) {

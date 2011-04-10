@@ -405,7 +405,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     }
     
     @Override
-    protected boolean onLongPressNonePopupKey(Key key)
+    protected boolean onLongPress(Key key)
     {
     	if (key != null && key.codes != null && key.codes.length > 0)
     	{
@@ -425,7 +425,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	    	}
     	}
 
-    	return super.onLongPressNonePopupKey(key);
+    	return super.onLongPress(key);
     }
 //    
 //	/* Why make this so complex? Because if the popup keyboard layout came from another
