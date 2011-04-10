@@ -52,6 +52,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.WeakHashMap;
 
+import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.R;
 
 public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy {
@@ -548,12 +549,12 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
             }
         };
 
-        final boolean ignoreMultitouch = true;
-        mGestureDetector = new GestureDetector(getContext(), listener, null, ignoreMultitouch);
+        //final boolean ignoreMultitouch = true;
+        mGestureDetector = new GestureDetector(getContext(), listener, null/*, ignoreMultitouch*/);
         mGestureDetector.setIsLongpressEnabled(false);
 
-        mHasDistinctMultitouch = context.getPackageManager()
-                .hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN_MULTITOUCH_DISTINCT);
+        mHasDistinctMultitouch = Workarounds.systemHasDistinctMultitouch(context);
+        
         mKeyRepeatInterval = 50;
     }
 

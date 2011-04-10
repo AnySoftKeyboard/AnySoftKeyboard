@@ -5,6 +5,8 @@ import java.lang.reflect.Field;
 import com.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
@@ -176,5 +178,25 @@ public class Workarounds
 		}
 		
 		return false;
+	}
+
+	public static boolean systemHasDistinctMultitouch(Context context) {
+		if (ms_ApiLevel >= 8)
+		{
+			
+			PackageManager pkg = context.getPackageManager();
+			try
+			{
+				//.hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN_MULTITOUCH_DISTINCT);
+				return pkg.hasSystemFeature("android.hardware.touchscreen.multitouch.distinct");
+			}
+			catch (Exception e) {
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
 	}
 }
