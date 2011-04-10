@@ -20,9 +20,11 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
+import android.view.MotionEvent;
 
 public class AnyKeyboardViewV8 extends AnyKeyboardView {
 
+	
 	public AnyKeyboardViewV8(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 	}
@@ -30,6 +32,11 @@ public class AnyKeyboardViewV8 extends AnyKeyboardView {
 	public AnyKeyboardViewV8(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
+	
+	protected String getKeyboardViewNameForLogging()
+    {
+    	return "AnyKeyboardViewV8";
+    }
 	
 	protected GestureDetector createGestureDetector(GestureDetector.SimpleOnGestureListener listener) {
 		final boolean ignoreMultitouch = true;
@@ -41,4 +48,11 @@ public class AnyKeyboardViewV8 extends AnyKeyboardView {
 		return pkg.hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN_MULTITOUCH_DISTINCT);
 	}
 
+	protected int getPointerIndexForAction(MotionEvent me) {
+		return me.getActionIndex();
+	}
+
+	protected int getActionWithNoPointerInformation(MotionEvent me) {
+		return me.getActionMasked();
+	}
 }

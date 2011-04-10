@@ -554,8 +554,15 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         mHasDistinctMultitouch = systemHasDistinctMultitouch(context);
         
         mKeyRepeatInterval = 50;
+        
+        Log.i(getKeyboardViewNameForLogging(), "Created keyboard view");
     }
 
+    protected String getKeyboardViewNameForLogging()
+    {
+    	return "AnyKeyboardBaseView";
+    }
+    
     protected GestureDetector createGestureDetector(GestureDetector.SimpleOnGestureListener listener) {
 		//final boolean ignoreMultitouch = true;
 		return new GestureDetector(getContext(), listener, null/*, ignoreMultitouch*/);
@@ -1328,7 +1335,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
     	{
     		ime.startInputConnectionEdit();
     	
-    		final int action = me.getActionMasked();
+    		final int action = getActionWithNoPointerInformation(me);
 	        final int pointerCount = me.getPointerCount();
 	        final int oldPointerCount = mOldPointerCount;
 	        mOldPointerCount = pointerCount;
@@ -1352,7 +1359,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
 	        }
 	
 	        final long eventTime = me.getEventTime();
-	        final int index = me.getActionIndex();
+	        final int index = getPointerIndexForAction(me);
 	        final int id = me.getPointerId(index);
 	        final int x = (int)me.getX(index);
 	        final int y = (int)me.getY(index);
@@ -1438,6 +1445,14 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
     		ime.endInputConnectionEdit();
     	}
     }
+
+	protected int getPointerIndexForAction(MotionEvent me) {
+		return 1;
+	}
+
+	protected int getActionWithNoPointerInformation(MotionEvent me) {
+		return me.getAction();
+	}
 
     private void onDownEvent(PointerTracker tracker, int x, int y, long eventTime) {
         if (tracker.isOnModifierKey(x, y)) {

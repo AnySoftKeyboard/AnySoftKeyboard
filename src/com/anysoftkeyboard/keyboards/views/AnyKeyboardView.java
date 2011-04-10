@@ -63,6 +63,11 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     public void setPhoneKeyboard(Keyboard phoneKeyboard) {
         mPhoneKeyboard = phoneKeyboard;
     }
+    
+    protected String getKeyboardViewNameForLogging()
+    {
+    	return "AnyKeyboardView";
+    }
 /*
     @Override
     public void setPreviewEnabled(boolean previewEnabled) {
