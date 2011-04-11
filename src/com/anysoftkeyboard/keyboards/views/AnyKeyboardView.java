@@ -221,7 +221,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     public boolean onTouchEvent(MotionEvent me) {
     	// If the motion event is above the keyboard and it's not an UP event coming
         // even before the first MOVE event into the extension area
-        if (me.getY() < 0 && (mExtensionVisible || me.getAction() != MotionEvent.ACTION_UP)) {
+        if (me.getY() < -10 && (mExtensionVisible || me.getAction() != MotionEvent.ACTION_UP)) {
             if (mExtensionVisible) {
                 int action = me.getAction();
                 if (mFirstEvent) action = MotionEvent.ACTION_DOWN;
@@ -306,8 +306,8 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
             getLocationInWindow(windowLocation);
             // TODO: Fix the "- 30". 
             mExtension.setPopupOffset(0, -windowLocation[1] - 30);
-            mExtensionPopup.showAtLocation(this, 0, 0, -keyboard.getHeight()
-                    + windowLocation[1]);
+            mExtensionPopup.showAtLocation(this, 0, 0,
+            		windowLocation[1] - keyboard.getHeight());
         } else {
             mExtension.setVisibility(VISIBLE);
         }
