@@ -22,10 +22,16 @@ import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.Keyboard.Key;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.widget.PopupWindow;
 
+import com.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.keyboards.ExternalAnyKeyboard;
 import com.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.anysoftkeyboard.utils.IMEUtil;
+import com.menny.android.anysoftkeyboard.R;
 
 public class AnyKeyboardView extends AnyKeyboardBaseView {
 
@@ -40,6 +46,14 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 
     private Keyboard mPhoneKeyboard;
 
+    /** Whether the extension of this keyboard is visible */
+    private boolean mExtensionVisible;
+    /** The view that is shown as an extension of this keyboard view */
+    private AnyKeyboardBaseView mExtension;
+    /** The popup window that contains the extension of this keyboard */
+    private PopupWindow mExtensionPopup;
+    private boolean mFirstEvent;
+    
     /** Whether we've started dropping move events because we found a big jump */
     //private boolean mDroppingEvents;
     /**
@@ -165,216 +179,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         return false;
     }
 
-    /**
-     * This function checks to see if we need to handle any sudden jumps in the pointer location
-     * that could be due to a multi-touch being treated as a move by the firmware or hardware.
-     * Once a sudden jump is detected, all subsequent move events are discarded
-     * until an UP is received.<P>
-     * When a sudden jump is detected, an UP event is simulated at the last position and when
-     * the sudden moves subside, a DOWN event is simulated for the second key.
-     * @param me the motion event
-     * @return true if the event was consumed, so that it doesn't continue to be handled by
-     * KeyboardView.
-     */
-//    private boolean handleSuddenJump(MotionEvent me) {
-//        final int action = me.getAction();
-//        final int x = (int) me.getX();
-//        final int y = (int) me.getY();
-//        boolean result = false;
-//
-//        // Real multi-touch event? Stop looking for sudden jumps
-//        if (me.getPointerCount() > 1) {
-//            mDisableDisambiguation = true;
-//        }
-//        if (mDisableDisambiguation) {
-//            // If UP, reset the multi-touch flag
-//            if (action == MotionEvent.ACTION_UP) mDisableDisambiguation = false;
-//            return false;
-//        }
-//
-//        switch (action) {
-//        case MotionEvent.ACTION_DOWN:
-//            // Reset the "session"
-//            mDroppingEvents = false;
-//            mDisableDisambiguation = false;
-//            break;
-//        case MotionEvent.ACTION_MOVE:
-//            // Is this a big jump?
-//            final int distanceSquare = (mLastX - x) * (mLastX - x) + (mLastY - y) * (mLastY - y);
-//            // Check the distance and also if the move is not entirely within the bottom row
-//            // If it's only in the bottom row, it might be an intentional slide gesture
-//            // for language switching
-//            if (distanceSquare > mJumpThresholdSquare
-//                    && (mLastY < mLastRowY || y < mLastRowY)) {
-//            	// If we're not yet dropping events, start dropping and send an UP event
-//                if (!mDroppingEvents) {
-//                    mDroppingEvents = true;
-//                    // Send an up event
-//                    MotionEvent translated = MotionEvent.obtain(me.getEventTime(), me.getEventTime(),
-//                            MotionEvent.ACTION_UP,
-//                            mLastX, mLastY, me.getMetaState());
-//                    super.onTouchEvent(translated);
-//                    translated.recycle();
-//                }
-//                result = true;
-//            } else if (mDroppingEvents) {
-//                // If moves are small and we're already dropping events, continue dropping
-//                result = true;
-//            }
-//            break;
-//        case MotionEvent.ACTION_UP:
-//            if (mDroppingEvents) {
-//                // Send a down event first, as we dropped a bunch of sudden jumps and assume that
-//                // the user is releasing the touch on the second key.
-//                MotionEvent translated = MotionEvent.obtain(me.getEventTime(), me.getEventTime(),
-//                        MotionEvent.ACTION_DOWN,
-//                        x, y, me.getMetaState());
-//                super.onTouchEvent(translated);
-//                translated.recycle();
-//                mDroppingEvents = false;
-//                // Let the up event get processed as well, result = false
-//            }
-//            break;
-//        }
-//        // Track the previous coordinate
-//        mLastX = x;
-//        mLastY = y;
-//        return result;
-//    }
-/*
-    @Override
-    public boolean onTouchEvent(MotionEvent me) {
-        AnyKeyboard keyboard = (AnyKeyboard) getKeyboard();
-        if (DEBUG_LINE) {
-            mLastX = (int) me.getX();
-            mLastY = (int) me.getY();
-            invalidate();
-        }
-
-        // If there was a sudden jump, return without processing the actual motion event.
-        if (handleSuddenJump(me))
-            return true;
-
-        // Reset any bounding box controls in the keyboard
-        if (me.getAction() == MotionEvent.ACTION_DOWN) {
-            keyboard.keyReleased();
-        }
-
-        if (me.getAction() == MotionEvent.ACTION_UP) {
-            int languageDirection = keyboard.getLanguageChangeDirection();
-            if (languageDirection != 0) {
-                getOnKeyboardActionListener().onKey(
-                        languageDirection == 1 ? KEYCODE_NEXT_LANGUAGE : KEYCODE_PREV_LANGUAGE,
-                        null, mLastX, mLastY);
-                me.setAction(MotionEvent.ACTION_CANCEL);
-                keyboard.keyReleased();
-                return super.onTouchEvent(me);
-            }
-        }
-
-        return super.onTouchEvent(me);
-    }
-*/
-//    /****************************  INSTRUMENTATION  *******************************/
-//
-//    static final boolean DEBUG_AUTO_PLAY = false;
-//    static final boolean DEBUG_LINE = false;
-//    private static final int MSG_TOUCH_DOWN = 1;
-//    private static final int MSG_TOUCH_UP = 2;
-//
-//    Handler mHandler2;
-//
-//    private String mStringToPlay;
-//    private int mStringIndex;
-//    private boolean mDownDelivered;
-//    private Key[] mAsciiKeys = new Key[256];
-//    private boolean mPlaying;
-//    private int mLastX;
-//    private int mLastY;
-//    private Paint mPaint;
-//
-//    private void setKeyboardLocal(Keyboard k) {
-//        if (DEBUG_AUTO_PLAY) {
-//            findKeys();
-//            if (mHandler2 == null) {
-//                mHandler2 = new Handler() {
-//                    @Override
-//                    public void handleMessage(Message msg) {
-//                        removeMessages(MSG_TOUCH_DOWN);
-//                        removeMessages(MSG_TOUCH_UP);
-//                        if (mPlaying == false) return;
-//
-//                        switch (msg.what) {
-//                            case MSG_TOUCH_DOWN:
-//                                if (mStringIndex >= mStringToPlay.length()) {
-//                                    mPlaying = false;
-//                                    return;
-//                                }
-//                                char c = mStringToPlay.charAt(mStringIndex);
-//                                while (c > 255 || mAsciiKeys[c] == null) {
-//                                    mStringIndex++;
-//                                    if (mStringIndex >= mStringToPlay.length()) {
-//                                        mPlaying = false;
-//                                        return;
-//                                    }
-//                                    c = mStringToPlay.charAt(mStringIndex);
-//                                }
-//                                int x = mAsciiKeys[c].x + 10;
-//                                int y = mAsciiKeys[c].y + 26;
-//                                MotionEvent me = MotionEvent.obtain(SystemClock.uptimeMillis(),
-//                                        SystemClock.uptimeMillis(),
-//                                        MotionEvent.ACTION_DOWN, x, y, 0);
-//                                AnyKeyboardView.this.dispatchTouchEvent(me);
-//                                me.recycle();
-//                                sendEmptyMessageDelayed(MSG_TOUCH_UP, 500); // Deliver up in 500ms if nothing else
-//                                // happens
-//                                mDownDelivered = true;
-//                                break;
-//                            case MSG_TOUCH_UP:
-//                                char cUp = mStringToPlay.charAt(mStringIndex);
-//                                int x2 = mAsciiKeys[cUp].x + 10;
-//                                int y2 = mAsciiKeys[cUp].y + 26;
-//                                mStringIndex++;
-//
-//                                MotionEvent me2 = MotionEvent.obtain(SystemClock.uptimeMillis(),
-//                                        SystemClock.uptimeMillis(),
-//                                        MotionEvent.ACTION_UP, x2, y2, 0);
-//                                AnyKeyboardView.this.dispatchTouchEvent(me2);
-//                                me2.recycle();
-//                                sendEmptyMessageDelayed(MSG_TOUCH_DOWN, 500); // Deliver up in 500ms if nothing else
-//                                // happens
-//                                mDownDelivered = false;
-//                                break;
-//                        }
-//                    }
-//                };
-//
-//            }
-//        }
-//    }
-
-//    private void findKeys() {
-//        List<Key> keys = getKeyboard().getKeys();
-//        // Get the keys on this keyboard
-//        for (int i = 0; i < keys.size(); i++) {
-//            int code = keys.get(i).codes[0];
-//            if (code >= 0 && code <= 255) {
-//                mAsciiKeys[code] = keys.get(i);
-//            }
-//        }
-//    }
-//
-//    public void startPlaying(String s) {
-//        if (DEBUG_AUTO_PLAY) {
-//            if (s == null) return;
-//            mStringToPlay = s.toLowerCase();
-//            mPlaying = true;
-//            mDownDelivered = false;
-//            mStringIndex = 0;
-//            mHandler2.sendEmptyMessageDelayed(MSG_TOUCH_DOWN, 10);
-//        }
-//    }
-
     @Override
     public void draw(Canvas c) {
         IMEUtil.GCUtils.getInstance().reset();
@@ -387,28 +191,8 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
                 tryGC = IMEUtil.GCUtils.getInstance().tryGCOrWait("AnyKeyboardView", e);
             }
         }
-//        if (DEBUG_AUTO_PLAY) {
-//            if (mPlaying) {
-//                mHandler2.removeMessages(MSG_TOUCH_DOWN);
-//                mHandler2.removeMessages(MSG_TOUCH_UP);
-//                if (mDownDelivered) {
-//                    mHandler2.sendEmptyMessageDelayed(MSG_TOUCH_UP, 20);
-//                } else {
-//                    mHandler2.sendEmptyMessageDelayed(MSG_TOUCH_DOWN, 20);
-//                }
-//            }
-//        }
-//        if (DEBUG_LINE) {
-//            if (mPaint == null) {
-//                mPaint = new Paint();
-//                mPaint.setColor(0x80FFFFFF);
-//                mPaint.setAntiAlias(false);
-//            }
-//            c.drawLine(mLastX, 0, mLastX, getHeight(), mPaint);
-//            c.drawLine(0, mLastY, getWidth(), mLastY, mPaint);
-//        }
     }
-    
+        
     @Override
     protected boolean onLongPress(Key key)
     {
@@ -432,111 +216,158 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 
     	return super.onLongPress(key);
     }
-//    
-//	/* Why make this so complex? Because if the popup keyboard layout came from another
-//	 package, KeyboardView won't be able to find it. This is an almost complete substitution based
-//	 on Android 2.3 code. The only problem I detected right now is that the main keyboard
-//	 won't be dimmed when this keyboard is up. Unfortunately, I haven't found a way to fix this.
-//	 Also motion events are not handled by KeyboardView if popup is present. */
-//	public void showQuickTextPopupKeyboard(Context packageContext) {
-//		Key popupKey = findKeyByKeyCode(AnyKeyboard.KEYCODE_QUICK_TEXT);
-//		if (packageContext == getContext()) {
-//			super.onLongPress(popupKey);
-//		} else {
-//			int popupKeyboardId = popupKey.popupResId;
-//			if (mMiniKeyboardContainer == null) {
-//				LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(
-//						Context.LAYOUT_INFLATER_SERVICE);
-//				mMiniKeyboardContainer = inflater.inflate(R.layout.keyboard_popup_keyboard, null);
-//				mMiniKeyboard = (KeyboardView) mMiniKeyboardContainer.findViewById(
-//						android.R.id.keyboardView);
-//				View closeButton = mMiniKeyboardContainer.findViewById(
-//						android.R.id.closeButton);
-//				if (closeButton != null) {
-//					closeButton.setOnClickListener(this);
-//				}
-//				mMiniKeyboard.setOnKeyboardActionListener(new OnKeyboardActionListener() {
-//
-//					public void onKey(int primaryCode, int[] keyCodes) {
-//						getOnKeyboardActionListener().onKey(primaryCode, keyCodes);
-//						dismissQuickTextPopupKeyboard();
-//					}
-//
-//					public void onText(CharSequence text) {
-//						getOnKeyboardActionListener().onText(text);
-//						dismissQuickTextPopupKeyboard();
-//					}
-//
-//					public void swipeLeft() {}
-//					public void swipeRight() {}
-//					public void swipeUp() {}
-//					public void swipeDown() {}
-//
-//					public void onPress(int primaryCode) {
-//						getOnKeyboardActionListener().onPress(primaryCode);
-//					}
-//
-//					public void onRelease(int primaryCode) {
-//						getOnKeyboardActionListener().onRelease(primaryCode);
-//					}
-//				});
-//				Keyboard keyboard;
-//				if (popupKey.popupCharacters != null) { //TODO: is this branch used?
-//					keyboard = new Keyboard(packageContext, popupKeyboardId,
-//							popupKey.popupCharacters, -1, getPaddingLeft() + getPaddingRight());
-//				} else {
-//					keyboard = new Keyboard(packageContext, popupKeyboardId);
-//				}
-//				mMiniKeyboard.setKeyboard(keyboard);
-//				mMiniKeyboard.setPopupParent(this);
-//				mMiniKeyboardContainer.measure(
-//						MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.AT_MOST),
-//						MeasureSpec.makeMeasureSpec(getHeight(), MeasureSpec.AT_MOST));
-//			} else {
-//				mMiniKeyboard = (KeyboardView) mMiniKeyboardContainer.findViewById(
-//						android.R.id.keyboardView);
-//			}
-//			if (mWindowOffset == null) {
-//				mWindowOffset = new int[2];
-//				getLocationInWindow(mWindowOffset);
-//			}
-//			int mPopupX = popupKey.x + getPaddingLeft();
-//			int mPopupY = popupKey.y + getPaddingTop();
-//			mPopupX = mPopupX + popupKey.width - mMiniKeyboardContainer.getMeasuredWidth();
-//			mPopupY = mPopupY - mMiniKeyboardContainer.getMeasuredHeight();
-//			final int x = mPopupX + mMiniKeyboardContainer.getPaddingRight() + mWindowOffset[0];
-//			final int y = mPopupY + mMiniKeyboardContainer.getPaddingBottom() + mWindowOffset[1];
-//			mMiniKeyboard.setPopupOffset(x < 0 ? 0 : x, y);
-//			mMiniKeyboard.setShifted(isShifted());
-//			mQuickTextPopupKeyboard.setContentView(mMiniKeyboardContainer);
-//			mQuickTextPopupKeyboard.setWidth(mMiniKeyboardContainer.getMeasuredWidth());
-//			mQuickTextPopupKeyboard.setHeight(mMiniKeyboardContainer.getMeasuredHeight());
-//			mQuickTextPopupKeyboard.showAtLocation(this, Gravity.NO_GRAVITY, x, y);
-//			mQuickTextKeyboardOnScreen = true;
-//			requestSpecialKeysRedraw();
-//		}
-//	}
-//
-//	@Override
-//	public void onClick(View v) {
-//		dismissQuickTextPopupKeyboard();
-//		super.onClick(v);
-//	}
-//
-//	private void dismissQuickTextPopupKeyboard() {
-//       if (mQuickTextPopupKeyboard.isShowing()) {
-//           mQuickTextPopupKeyboard.dismiss();
-//           mQuickTextKeyboardOnScreen = false;
-//           requestSpecialKeysRedraw();
-//       }
-//   }
+    
+    @Override
+    public boolean onTouchEvent(MotionEvent me) {
+    	// If the motion event is above the keyboard and it's not an UP event coming
+        // even before the first MOVE event into the extension area
+        if (me.getY() < 0 && (mExtensionVisible || me.getAction() != MotionEvent.ACTION_UP)) {
+            if (mExtensionVisible) {
+                int action = me.getAction();
+                if (mFirstEvent) action = MotionEvent.ACTION_DOWN;
+                mFirstEvent = false;
+                MotionEvent translated = MotionEvent.obtain(me.getEventTime(), me.getEventTime(),
+                        action,
+                        me.getX(), me.getY() + mExtension.getHeight(), me.getMetaState());
+                boolean result = mExtension.onTouchEvent(translated);
+                translated.recycle();
+                if (me.getAction() == MotionEvent.ACTION_UP
+                        || me.getAction() == MotionEvent.ACTION_CANCEL) {
+                    closeExtension();
+                }
+                return result;
+            } else {
+                if (openExtension()) {
+                    MotionEvent cancel = MotionEvent.obtain(me.getDownTime(), me.getEventTime(),
+                            MotionEvent.ACTION_CANCEL, me.getX() - 100, me.getY() - 100, 0);
+                    super.onTouchEvent(cancel);
+                    cancel.recycle();
+                    if (mExtension.getHeight() > 0) {
+                        MotionEvent translated = MotionEvent.obtain(me.getEventTime(),
+                                me.getEventTime(),
+                                MotionEvent.ACTION_DOWN,
+                                me.getX(), me.getY() + mExtension.getHeight(),
+                                me.getMetaState());
+                        mExtension.onTouchEvent(translated);
+                        translated.recycle();
+                    } else {
+                        mFirstEvent = true;
+                    }
+                }
+                return true;
+            }
+        } else if (mExtensionVisible) {
+            closeExtension();
+            // Send a down event into the main keyboard first
+            MotionEvent down = MotionEvent.obtain(me.getEventTime(), me.getEventTime(),
+                    MotionEvent.ACTION_DOWN,
+                    me.getX(), me.getY(), me.getMetaState());
+            super.onTouchEvent(down);
+            down.recycle();
+            // Send the actual event
+            return super.onTouchEvent(me);
+        } else {
+            return super.onTouchEvent(me);
+        }
+    }
 
-//	@Override
-//	public boolean handleBack() {
-//       if (mQuickTextPopupKeyboard.isShowing()) {
-//           dismissQuickTextPopupKeyboard();
-//           return true;
-//       }
-//       return super.handleBack();
-//   }
+    private boolean openExtension() {
+        // If the current keyboard is not visible, don't show the popup
+        if (!isShown()) {
+            return false;
+        }
+        if (((ExternalAnyKeyboard) getKeyboard()).getExtension() == 0) return false;
+        makePopupWindow();
+        mExtensionVisible = true;
+        return true;
+    }
+
+    private void makePopupWindow() {
+        if (mExtensionPopup == null) {
+            int[] windowLocation = new int[2];
+            mExtensionPopup = new PopupWindow(getContext());
+            mExtensionPopup.setBackgroundDrawable(null);
+            LayoutInflater li = (LayoutInflater) getContext().getSystemService(
+                    Context.LAYOUT_INFLATER_SERVICE);
+            mExtension = (AnyKeyboardBaseView) li.inflate(R.layout.input_trans, null);
+            mExtension.setOnKeyboardActionListener(
+                    new ExtensionKeyboardListener(getOnKeyboardActionListener()));
+            mExtension.setPopupParent(this);
+            mExtension.setPopupOffset(0, -windowLocation[1]);
+            Keyboard keyboard= new GenericKeyboard((AnyKeyboardContextProvider)getContext(),
+                    ((ExternalAnyKeyboard) getKeyboard()).getExtension(), 
+                    R.string.ime_name, "keyboard_ex", 0);
+            
+            mExtension.setKeyboard(keyboard);
+            mExtensionPopup.setContentView(mExtension);
+            mExtensionPopup.setWidth(getWidth());
+            mExtensionPopup.setHeight(keyboard.getHeight());
+            mExtensionPopup.setAnimationStyle(-1);
+            getLocationInWindow(windowLocation);
+            // TODO: Fix the "- 30". 
+            mExtension.setPopupOffset(0, -windowLocation[1] - 30);
+            mExtensionPopup.showAtLocation(this, 0, 0, -keyboard.getHeight()
+                    + windowLocation[1]);
+        } else {
+            mExtension.setVisibility(VISIBLE);
+        }
+    }
+
+    @Override
+    public void closing() {
+        super.closing();
+        if (mExtensionPopup != null && mExtensionPopup.isShowing()) {
+            mExtensionPopup.dismiss();
+            mExtensionPopup = null;
+        }
+    }
+
+    private void closeExtension() {
+        mExtension.closing();
+        mExtension.setVisibility(INVISIBLE);
+        mExtensionVisible = false;
+    }
+
+    private static class ExtensionKeyboardListener implements OnKeyboardActionListener {
+        private OnKeyboardActionListener mTarget;
+        ExtensionKeyboardListener(OnKeyboardActionListener target) {
+            mTarget = target;
+        }
+		public void onKey(int primaryCode, int[] keyCodes, int x, int y) {
+			mTarget.onKey(primaryCode, keyCodes, x, y);
+		}
+        public void onPress(int primaryCode) {
+            mTarget.onPress(primaryCode);
+        }
+        public void onRelease(int primaryCode) {
+            mTarget.onRelease(primaryCode);
+        }
+        public void onText(CharSequence text) {
+            mTarget.onText(text);
+        }
+        public void swipeDown() {
+            // Don't pass through
+        }
+        public void swipeLeft() {
+            // Don't pass through
+        }
+        public void swipeRight() {
+            // Don't pass through
+        }
+        public void swipeUp() {
+            // Don't pass through
+        }
+		public void onCancel() {
+			// TODO Auto-generated method stub
+			
+		}
+		public void startInputConnectionEdit() {
+			// TODO Auto-generated method stub
+			
+		}
+		public void endInputConnectionEdit() {
+			// TODO Auto-generated method stub
+			
+		}
+    }
 }
