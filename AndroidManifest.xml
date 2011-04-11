@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.menny.android.anysoftkeyboard"
-        android:versionCode="38" android:versionName="20110410-look-alike">
+        android:versionCode="38" android:versionName="20110411-look-alike">
 	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key"
 		android:name="AnyApplication"  android:backupAgent="com.anysoftkeyboard.backup.AnyBackupAgent">
 		<!-- used to backup the settings and SQL to the cloud -->
@@ -35,13 +35,17 @@
 		
 		<!-- ui activities -->
 		<!-- settings ui activities -->
+		<activity android:name="com.menny.android.anysoftkeyboard.MainSettings" android:label="@string/ime_name">
+	    </activity>
 	    <activity android:name="com.anysoftkeyboard.ui.settings.MainSettings" android:label="@string/ime_name">
+	    </activity>
+	    <activity android:name="com.anysoftkeyboard.ui.settings.Dictionaries" android:label="@string/special_dictionaries_group">
 	    </activity>
 	    <activity android:name="com.anysoftkeyboard.ui.settings.Tweaks" android:label="@string/tweaks_group">
 	    </activity>
 	    <activity android:name="com.anysoftkeyboard.ui.settings.Keyboards" android:label="@string/keyboards_group">
 	    </activity>
-		<activity android:name="com.anysoftkeyboard.ui.settings.QuickTextKeys"
+	    <activity android:name="com.anysoftkeyboard.ui.settings.QuickTextKeys"
 				android:label="@string/quick_text_keys_group" />
 	    <!-- information ui activities -->
 	    <activity android:name="com.anysoftkeyboard.ui.tutorials.TestersNoticeActivity" android:label="@string/testers_version">
@@ -84,5 +88,5 @@
           android:anyDensity="true" />
           <!-- http://d.android.com/guide/practices/screens_support.html read about legacy. -->
     
-    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="10"></uses-sdk>
+    <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="10"></uses-sdk>
 </manifest>

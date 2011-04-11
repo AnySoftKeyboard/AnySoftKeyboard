@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+	android:key="special_dictionaries_group"
+	android:title="@string/special_dictionaries_group"
+	android:id="@+id/special_dictionaries_group">
+	
+	<CheckBoxPreference
+		android:key="@string/settings_key_use_user_dictionary"
+		android:title="@string/use_user_dictionary"
+		android:persistent="true"
+		android:defaultValue="@bool/settings_default_user_dictionary"
+		android:summaryOn="@string/use_user_dictionary_on_summary"
+		android:summaryOff="@string/use_user_dictionary_off_summary"/>
+	<CheckBoxPreference
+		android:key="@string/settings_key_use_auto_dictionary"
+		android:title="@string/use_auto_dictionary"
+		android:persistent="true"
+		android:defaultValue="@bool/settings_default_auto_dictionary"
+		android:summaryOn="@string/use_auto_dictionary_on_summary"
+		android:summaryOff="@string/use_auto_dictionary_off_summary"/>		
+</PreferenceScreen>

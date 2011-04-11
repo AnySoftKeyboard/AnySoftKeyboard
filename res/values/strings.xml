@@ -31,6 +31,7 @@
 	<!-- settings -->
 	<string name="license_title">License</string>
 	<string name="license_text">This software is licensed under Apache2 (c) 2011 Menny Even-Danan</string>
+	<string name="extrenal_addons_cat">External add-ons</string>
 	<!-- welcome -->
 	<string name="about">About</string>
 	<!-- changelog -->

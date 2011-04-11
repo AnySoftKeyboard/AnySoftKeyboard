@@ -17,12 +17,12 @@
 ** limitations under the License.
 */
 -->
-
-<com.anysoftkeyboard.keyboards.views.AnyKeyboardView
+<!-- this one supports multitouch -->
+<com.anysoftkeyboard.keyboards.views.AnyKeyboardViewV7
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/AnykeyboardBaseView"
         android:layout_alignParentBottom="true"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/keyboard_bottom_padding"
         android:background="@drawable/keyboard_dark_background"

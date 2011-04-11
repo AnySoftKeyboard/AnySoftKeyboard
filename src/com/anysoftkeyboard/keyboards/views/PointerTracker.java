@@ -260,11 +260,11 @@ public class PointerTracker {
             onMoveEvent(x, y, eventTime);
             break;
         case MotionEvent.ACTION_DOWN:
-        case MotionEvent.ACTION_POINTER_DOWN:
+        case 0x00000005://MotionEvent.ACTION_POINTER_DOWN:
             onDownEvent(x, y, eventTime);
             break;
         case MotionEvent.ACTION_UP:
-        case MotionEvent.ACTION_POINTER_UP:
+        case 0x00000006://MotionEvent.ACTION_POINTER_UP:
             onUpEvent(x, y, eventTime);
             break;
         case MotionEvent.ACTION_CANCEL:

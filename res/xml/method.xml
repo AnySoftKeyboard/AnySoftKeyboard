@@ -21,4 +21,4 @@
 <!-- for the Search Manager. -->
 
 <input-method xmlns:android="http://schemas.android.com/apk/res/android" 
-			  android:settingsActivity="com.anysoftkeyboard.ui.settings.MainSettings"/>
+	android:settingsActivity="com.menny.android.anysoftkeyboard.MainSettings"/>

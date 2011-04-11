@@ -96,14 +96,6 @@ android:key="ime_settings">
 	</PreferenceCategory>
 	<PreferenceCategory android:key="speacial_fetures_group"
 	android:title="@string/speacial_fetures_group">
-		<!-- <CheckBoxPreference
-		android:key="physical_keyboard_suggestions"
-		android:title="@string/physical_keyboard_suggestions"
-		android:summaryOn="@string/physical_keyboard_suggestions_summary"
-		android:summaryOff=""
-		android:persistent="true"
-		android:defaultValue="true"
-		/>-->
 		<CheckBoxPreference
 			android:key="switch_keyboard_on_space"
 			android:title="@string/switch_keyboard_on_space"
@@ -184,33 +176,16 @@ android:key="ime_settings">
 				android:summaryOn="@string/volume_key_for_left_right_support_on_summary"
 				android:summaryOff="@string/volume_key_for_left_right_support_off_summary"/>
 		</PreferenceScreen>
-		<PreferenceScreen android:key="special_dictionaries_group"
-			android:title="@string/special_dictionaries_group">
-			<CheckBoxPreference
-				android:key="@string/settings_key_use_user_dictionary"
-				android:title="@string/use_user_dictionary"
-				android:persistent="true"
-				android:defaultValue="@bool/settings_default_user_dictionary"
-				android:summaryOn="@string/use_user_dictionary_on_summary"
-				android:summaryOff="@string/use_user_dictionary_off_summary"/>
-			<CheckBoxPreference
-				android:key="@string/settings_key_use_auto_dictionary"
-				android:title="@string/use_auto_dictionary"
-				android:persistent="true"
-				android:defaultValue="@bool/settings_default_auto_dictionary"
-				android:summaryOn="@string/use_auto_dictionary_on_summary"
-				android:summaryOff="@string/use_auto_dictionary_off_summary"/>
-			<CheckBoxPreference
-				android:key="@string/settings_key_use_contacts_dictionary"
-				android:title="@string/use_contacts_dictionary"
-				android:persistent="true"
-				android:defaultValue="@bool/settings_default_contacts_dictionary"
-				android:summaryOn="@string/use_contacts_dictionary_on_summary"
-				android:summaryOff="@string/use_contacts_dictionary_off_summary"/>
-		</PreferenceScreen>
 	</PreferenceCategory>
-	<PreferenceCategory android:key="keyboards_group_cat"
-		android:title="@string/keyboards_group">
+	<PreferenceCategory android:key="extrenal_addons_cat"
+		android:title="@string/extrenal_addons_cat">
+		<Preference
+		    android:title="@string/special_dictionaries_group">
+		    <intent
+		        android:action="android.intent.action.MAIN"
+		        android:targetPackage="com.menny.android.anysoftkeyboard"
+		        android:targetClass="com.anysoftkeyboard.ui.settings.Dictionaries" />
+		</Preference>
 		<Preference
 		    android:title="@string/keyboards_group">
 		    <intent
@@ -218,9 +193,6 @@ android:key="ime_settings">
 		        android:targetPackage="com.menny.android.anysoftkeyboard"
 		        android:targetClass="com.anysoftkeyboard.ui.settings.Keyboards" />
 		</Preference>
-	</PreferenceCategory>
-	<PreferenceCategory android:key="quick_text_leys_group_cat"
-		android:title="@string/quick_text_keys_group">
 		<Preference
 		    android:title="@string/quick_text_keys_group">
 		    <intent
@@ -228,6 +200,8 @@ android:key="ime_settings">
 		        android:targetPackage="com.menny.android.anysoftkeyboard"
 		        android:targetClass="com.anysoftkeyboard.ui.settings.QuickTextKeys" />
 		</Preference>
+		<Preference android:key="search_for_external_packs" android:title="@string/search_market_for_addons"
+			android:persistent="false"/>
 	</PreferenceCategory>
 	<PreferenceCategory android:key="tweaks_group_cat" android:title="@string/tweaks_group">
 		<Preference

@@ -16,6 +16,12 @@
 package com.anysoftkeyboard.keyboards.views;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.WeakHashMap;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -45,17 +51,9 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.WeakHashMap;
-
-import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.R;
 
 public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy {
-    private static final String TAG = "ASK_BView";
     private static final boolean DEBUG = false;
 
     public static final int NOT_A_TOUCH_COORDINATE = -1;
@@ -548,14 +546,14 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
             }
         };
 
-         mGestureDetector = createGestureDetector(listener);
+        mGestureDetector = createGestureDetector(listener);
         mGestureDetector.setIsLongpressEnabled(false);
 
-        mHasDistinctMultitouch = systemHasDistinctMultitouch(context);
-        
+        mHasDistinctMultitouch = systemHasMultitouch(context);
+        Log.d(getKeyboardViewNameForLogging(), "mHasDistinctMultitouch : "+mHasDistinctMultitouch);
         mKeyRepeatInterval = 50;
         
-        Log.i(getKeyboardViewNameForLogging(), "Created keyboard view");
+        Log.i(getKeyboardViewNameForLogging(), "Created keyboard view of type "+getKeyboardViewNameForLogging());
     }
 
     protected String getKeyboardViewNameForLogging()
@@ -568,7 +566,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
 		return new GestureDetector(getContext(), listener, null/*, ignoreMultitouch*/);
 	}
 
-    protected boolean systemHasDistinctMultitouch(Context context) {
+    protected boolean systemHasMultitouch(Context context) {
     	return false;
 	}
 
@@ -1328,14 +1326,14 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent me) {
+    public boolean onTouchEvent(MotionEvent nativeMotionEvent) {
     	final OnKeyboardActionListener ime = (OnKeyboardActionListener)getOnKeyboardActionListener();
     	
     	try
     	{
     		ime.startInputConnectionEdit();
-    	
-    		final int action = getActionWithNoPointerInformation(me);
+    		WMotionEvent me = createMotionEventWrapper(nativeMotionEvent);
+    		final int action = me.getActionMasked();
 	        final int pointerCount = me.getPointerCount();
 	        final int oldPointerCount = mOldPointerCount;
 	        mOldPointerCount = pointerCount;
@@ -1348,18 +1346,18 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
 	        }
 	
 	        // Track the last few movements to look for spurious swipes.
-	        mSwipeTracker.addMovement(me);
+	        mSwipeTracker.addMovement(me.getNativeMotionEvent());
 	
 	        // Gesture detector must be enabled only when mini-keyboard is not on the screen.
 	        if (mMiniKeyboard == null
-	                && mGestureDetector != null && mGestureDetector.onTouchEvent(me)) {
+	                && mGestureDetector != null && mGestureDetector.onTouchEvent(me.getNativeMotionEvent())) {
 	            dismissKeyPreview();
 	            mHandler.cancelKeyTimers();
 	            return true;
 	        }
 	
 	        final long eventTime = me.getEventTime();
-	        final int index = getPointerIndexForAction(me);
+	        final int index = me.getActionIndex();
 	        final int id = me.getPointerId(index);
 	        final int x = (int)me.getX(index);
 	        final int y = (int)me.getY(index);
@@ -1410,7 +1408,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
 	            } else if (pointerCount == 1 && oldPointerCount == 1) {
 	                tracker.onTouchEvent(action, x, y, eventTime);
 	            } else {
-	                Log.w(TAG, "Unknown touch panel behavior: pointer count is " + pointerCount
+	                Log.w(getKeyboardViewNameForLogging(), "Unknown touch panel behavior: pointer count is " + pointerCount
 	                        + " (old " + oldPointerCount + ")");
 	            }
 	            return true;
@@ -1423,19 +1421,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
 	            }
 	        } else {
 	            PointerTracker tracker = getPointerTracker(id);
-	            switch (action) {
-	            case MotionEvent.ACTION_DOWN:
-	            case MotionEvent.ACTION_POINTER_DOWN:
-	                onDownEvent(tracker, x, y, eventTime);
-	                break;
-	            case MotionEvent.ACTION_UP:
-	            case MotionEvent.ACTION_POINTER_UP:
-	                onUpEvent(tracker, x, y, eventTime);
-	                break;
-	            case MotionEvent.ACTION_CANCEL:
-	                onCancelEvent(tracker, x, y, eventTime);
-	                break;
-	            }
+	            sendOnXEvent(action, eventTime, x, y, tracker);
 	        }
 	
 	        return true;
@@ -1446,15 +1432,28 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
     	}
     }
 
-	protected int getPointerIndexForAction(MotionEvent me) {
-		return 1;
+    private void sendOnXEvent(final int action, final long eventTime,
+			final int x, final int y, PointerTracker tracker) {
+		switch (action) {
+		case MotionEvent.ACTION_DOWN:
+		case 0x00000005://MotionEvent.ACTION_POINTER_DOWN:
+		    onDownEvent(tracker, x, y, eventTime);
+		    break;
+		case MotionEvent.ACTION_UP:
+		case 0x00000006://MotionEvent.ACTION_POINTER_UP:
+		    onUpEvent(tracker, x, y, eventTime);
+		    break;
+		case MotionEvent.ACTION_CANCEL:
+		    onCancelEvent(tracker, x, y, eventTime);
+		    break;
+		}
 	}
 
-	protected int getActionWithNoPointerInformation(MotionEvent me) {
-		return me.getAction();
+	protected WMotionEvent createMotionEventWrapper(MotionEvent nativeMotionEvent) {
+		return new WMotionEvent(nativeMotionEvent);
 	}
 
-    private void onDownEvent(PointerTracker tracker, int x, int y, long eventTime) {
+    protected void onDownEvent(PointerTracker tracker, int x, int y, long eventTime) {
         if (tracker.isOnModifierKey(x, y)) {
             // Before processing a down event of modifier key, all pointers already being tracked
             // should be released.
@@ -1474,7 +1473,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
             if (index >= 0) {
                 mPointerQueue.releaseAllPointersOlderThan(tracker, eventTime);
             } else {
-                Log.w(TAG, "onUpEvent: corresponding down event not found for pointer "
+                Log.w(getKeyboardViewNameForLogging(), "onUpEvent: corresponding down event not found for pointer "
                         + tracker.mPointerId);
             }
         }
