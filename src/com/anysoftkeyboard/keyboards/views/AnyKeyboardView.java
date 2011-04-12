@@ -206,6 +206,12 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         	}
         	else
         	{
+        		//telling the main keyboard that the last touch was canceled
+	        	MotionEvent cancel = MotionEvent.obtain(me.getDownTime(), me.getEventTime(),
+                        MotionEvent.ACTION_CANCEL, me.getX(), me.getY(), 0);
+                super.onTouchEvent(cancel);
+                cancel.recycle();
+                
         		mExtensionVisible = true;
 	        	if (mExtensionKey == null)
 	        	{
@@ -221,11 +227,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	        	onLongPress(getContext(), mExtensionKey);
 	        	//it is an extension..
 	        	mMiniKeyboard.setPreviewEnabled(true);
-	        	//telling the main keyboard that the last touch was canceled
-	        	MotionEvent cancel = MotionEvent.obtain(me.getDownTime(), me.getEventTime(),
-                        MotionEvent.ACTION_CANCEL, me.getX(), me.getY(), 0);
-                super.onTouchEvent(cancel);
-                cancel.recycle();
 	        	
 	        	return true;
         	}
