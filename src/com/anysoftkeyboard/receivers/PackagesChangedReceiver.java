@@ -7,7 +7,6 @@ import android.util.Log;
 
 import com.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.anysoftkeyboard.addons.AddOnsFactory;
-import com.anysoftkeyboard.dictionaries.DictionaryFactory;
 
 public class PackagesChangedReceiver extends BroadcastReceiver {
 

@@ -51,8 +51,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.anysoftkeyboard.keyboards.AnyKeyboard;
-import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.menny.android.anysoftkeyboard.R;
 
 public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy {

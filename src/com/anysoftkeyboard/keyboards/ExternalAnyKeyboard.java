@@ -6,7 +6,6 @@ import org.xmlpull.v1.XmlPullParser;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import android.inputmethodservice.Keyboard;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.Xml;
@@ -38,7 +37,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	private final HardKeyboardSequenceHandler mHardKeyboardTranslator;
 	private final HashSet<Character> mAdditionalIsLetterExceptions;
 
-	private Key mExtensionPopupKey; 
+	//private Key mExtensionPopupKey; 
+	private int mExtensionLayoutResId = 0;
 	
 	private static final int[] qwertKeysequence = new int[] { 45,51,33,46,48 };
 	private static final int[] dotKeysequence = new int[] { 56,56,56,56 };
@@ -75,9 +75,9 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 			for(int i=0;i<additionalIsLetterExceptions.length(); i++)
 				mAdditionalIsLetterExceptions.add(additionalIsLetterExceptions.charAt(i));
 		}
-		setExtension(R.xml.kbd_extension);
+		setExtensionResId(R.xml.kbd_extension);
 	}
-	
+	/*
 	protected void setExtension(int resId) {
 		if (resId > 0)
 		{
@@ -99,6 +99,15 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	
 	public Key getExtensionKey() {
         return mExtensionPopupKey;
+    }
+	*/
+	
+	protected void setExtensionResId(int resId) {
+		mExtensionLayoutResId = resId;
+    }
+	
+	public int getExtensionResId() {
+        return mExtensionLayoutResId;
     }
 	
 	private HardKeyboardSequenceHandler createPhysicalTranslatorFromResourceId(Context context, int qwertyTranslationId) {

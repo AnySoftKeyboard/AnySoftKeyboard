@@ -20,14 +20,12 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.Keyboard.Key;
+import android.inputmethodservice.Keyboard.Row;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
-import android.widget.PopupWindow;
 
-import com.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.ExternalAnyKeyboard;
 import com.anysoftkeyboard.keyboards.GenericKeyboard;
@@ -50,6 +48,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 
     private boolean mExtensionVisible = false;
     private final int mExtensionKeyboardPopupOffset;
+	private Key mExtensionKey;
     
     /** Whether we've started dropping move events because we found a big jump */
     //private boolean mDroppingEvents;
@@ -94,7 +93,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 */
     @Override
     public void setKeyboard(Keyboard newKeyboard) {
-    	
+    	mExtensionKey = null;
     	mExtensionVisible = false;
         
     	final Keyboard oldKeyboard = getKeyboard();
@@ -121,19 +120,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         //mLastRowY = (newKeyboard.getHeight() * 3) / 4;
         //setKeyboardLocal(newKeyboard);
     }
-
-//    @Override
-//    protected boolean onLongPress(Key key) {
-//        int primaryCode = key.codes[0];
-//        if (primaryCode == KEYCODE_OPTIONS) {
-//            return invokeOnKey(KEYCODE_OPTIONS);
-//        } else if (primaryCode == '0' && getKeyboard() == mPhoneKeyboard) {
-//            // Long pressing on 0 in phone number keypad gives you a '+'.
-//            return invokeOnKey('+');
-//        } else {
-//            return super.onLongPress(key);
-//        }
-//    }
     
 	public void simulateLongPress(int keyCode) {
 		Key key = findKeyByKeyCode(keyCode);
@@ -212,26 +198,38 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     public boolean onTouchEvent(MotionEvent me) {
     	// If the motion event is above the keyboard and it's not an UP event coming
         // even before the first MOVE event into the extension area
-    	Log.v(getKeyboardViewNameForLogging(), "onTouchEvent: Y "+me.getY());
         if (me.getY() < -mExtensionKeyboardPopupOffset && !isPopupShowing() && !mExtensionVisible && me.getAction() != MotionEvent.ACTION_UP) {
-        	Key extension = ((ExternalAnyKeyboard)getKeyboard()).getExtensionKey();
-        	if (extension == null)
+        	int extensionResId = ((ExternalAnyKeyboard)getKeyboard()).getExtensionResId();
+        	if (extensionResId <= 0)
         	{
-        		Log.v(getKeyboardViewNameForLogging(), "onTouchEvent: no extension key!");
         		return super.onTouchEvent(me);
         	}
         	else
         	{
-        		Log.v(getKeyboardViewNameForLogging(), "onTouchEvent: new extension key. Trying to invoke.");
-	        	mExtensionVisible = true;
-	        	onLongPress(getContext(), extension);
+        		mExtensionVisible = true;
+	        	if (mExtensionKey == null)
+	        	{
+		        	mExtensionKey = new Key(new Row(getKeyboard()));
+		        	mExtensionKey.codes = new int[]{0};
+		        	mExtensionKey.edgeFlags = Keyboard.EDGE_TOP;
+		        	mExtensionKey.height = 0;
+		        	mExtensionKey.width = 0;
+		        	mExtensionKey.popupResId = extensionResId;
+		        	mExtensionKey.x = getWidth()/2;
+		        	mExtensionKey.y = -mExtensionKeyboardPopupOffset;
+	        	}
+	        	onLongPress(getContext(), mExtensionKey);
 	        	//it is an extension..
 	        	mMiniKeyboard.setPreviewEnabled(true);
+	        	//telling the main keyboard that the last touch was canceled
+	        	MotionEvent cancel = MotionEvent.obtain(me.getDownTime(), me.getEventTime(),
+                        MotionEvent.ACTION_CANCEL, me.getX(), me.getY(), 0);
+                super.onTouchEvent(cancel);
+                cancel.recycle();
 	        	
 	        	return true;
         	}
         } else if (mExtensionVisible && me.getY() > mExtensionKeyboardPopupOffset) {
-        	Log.v(getKeyboardViewNameForLogging(), "onTouchEvent: trying to close extension.");
         	//closing the popup
         	dismissPopupKeyboard();
         	
