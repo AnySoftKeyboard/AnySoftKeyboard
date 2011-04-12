@@ -51,6 +51,8 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.menny.android.anysoftkeyboard.R;
 
 public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy {
@@ -1065,7 +1067,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         Key popupKey = tracker.getKey(keyIndex);
         if (popupKey == null)
             return false;
-        boolean result = onLongPress(popupKey);
+        boolean result = onLongPress(getContext(), popupKey);
         if (result) {
             dismissKeyPreview();
             mMiniKeyboardTrackerId = tracker.mPointerId;
@@ -1076,8 +1078,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         return result;
     }
 
-    private View inflateMiniKeyboardContainer(Key popupKey) {
-        int popupKeyboardId = popupKey.popupResId;
+    private View inflateMiniKeyboardContainer(Context packageContext, CharSequence popupCharacters, int popupKeyboardId) {
+        //int popupKeyboardId = popupKey.popupResId;
         LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
         View container = inflater.inflate(mPopupLayout, null);
@@ -1129,11 +1131,11 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         miniKeyboard.mGestureDetector = null;
 
         Keyboard keyboard;
-        if (popupKey.popupCharacters != null) {
-            keyboard = new Keyboard(getContext(), popupKeyboardId, popupKey.popupCharacters,
+        if (popupCharacters != null) {
+            keyboard = new Keyboard(packageContext, popupKeyboardId, popupCharacters,
                     -1, getPaddingLeft() + getPaddingRight());
         } else {
-            keyboard = new Keyboard(getContext(), popupKeyboardId);
+            keyboard = new Keyboard(packageContext, popupKeyboardId);
         }
         miniKeyboard.setKeyboard(keyboard);
         miniKeyboard.setPopupParent(this);
@@ -1163,7 +1165,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
      * @return true if the long press is handled, false otherwise. Subclasses should call the
      * method on the base class if the subclass doesn't wish to handle the call.
      */
-    protected boolean onLongPress(Key popupKey) {
+    protected boolean onLongPress(Context packageContext, Key popupKey) {
         // TODO if popupKey.popupCharacters has only one letter, send it as key without opening
         // mini keyboard.
 
@@ -1172,7 +1174,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
 
         View container = mMiniKeyboardCache.get(popupKey);
         if (container == null) {
-            container = inflateMiniKeyboardContainer(popupKey);
+            container = inflateMiniKeyboardContainer(packageContext, popupKey.popupCharacters, popupKey.popupResId);
             mMiniKeyboardCache.put(popupKey, container);
         }
         mMiniKeyboard = (AnyKeyboardBaseView)container.findViewById(R.id.AnyKeyboardBaseView);
@@ -1502,6 +1504,16 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         mKeyboardActionListener.swipeDown();
     }
 
+    protected Key findKeyByKeyCode(int keyCode) {
+		if (getKeyboard() == null) {
+			return null;
+		}
+	
+		for (Key key : getKeyboard().getKeys()) {
+			if (key.codes[0] == keyCode) return key;
+		}
+		return null;
+	}
     public void closing() {
         mPreviewPopup.dismiss();
         mHandler.cancelAllMessages();

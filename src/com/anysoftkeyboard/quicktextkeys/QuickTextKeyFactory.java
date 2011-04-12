@@ -91,6 +91,17 @@ public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey>
 		final int keyIconPreviewResId = attrs.getAttributeResourceValue(null,
 				XML_ICON_PREVIEW_RES_ID_ATTRIBUTE, -1);
 		
+		if (
+				((popupKeyboardResId == -1) && ((popupListTextResId == -1) || (popupListOutputResId == -1))) ||
+				((iconResId == -1) && (keyLabelResId == -1))||
+				(keyOutputTextResId == -1))
+		{
+			String detailMessage = String.format("Missing details for creating QuickTextKey! prefId %s\n"+
+					"popupKeyboardResId: %d, popupListTextResId: %d, popupListOutputResId: %d, (iconResId: %d, keyLabelResId: %d), keyOutputTextResId: %d", 
+					prefId, popupKeyboardResId, popupListTextResId, popupListOutputResId, iconResId, keyLabelResId, keyOutputTextResId);
+			
+			throw new RuntimeException(detailMessage);
+		}
 		return new QuickTextKey(context, prefId, nameResId, popupKeyboardResId,
 				popupListTextResId, popupListOutputResId, popupListIconsResId, iconResId,
 				keyLabelResId, keyOutputTextResId, keyIconPreviewResId, description, sortIndex);

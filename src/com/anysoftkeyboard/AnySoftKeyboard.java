@@ -1241,11 +1241,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 			if (quickTextKey.getId().equals(SMILEY_PLUGIN_ID) && !mSmileyOnShortPress) {
 				onText(quickTextKey.getKeyOutputText());
 			} else {
-//				if (quickTextKey.isPopupKeyboardUsed()) {
-//					showQuickTextKeyPopupKeyboard(quickTextKey);
-//				} else {
+				if (quickTextKey.isPopupKeyboardUsed()) {
+					showQuickTextKeyPopupKeyboard(quickTextKey);
+				} else {
 					showQuickTextKeyPopupList(quickTextKey);
-//				}
+				}
 			}
 			break;
 		case Keyboard.KEYCODE_MODE_CHANGE:
@@ -2525,15 +2525,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}		
 	}
 
-//	private void showQuickTextKeyPopupKeyboard(QuickTextKey quickTextKey) {
-//		if (mInputView != null) {
-//			if (quickTextKey.getPackageContext() == getApplicationContext()) {
-//				mInputView.simulateLongPress(AnyKeyboard.KEYCODE_QUICK_TEXT);
-//			} else {
-//				mInputView.showQuickTextPopupKeyboard(quickTextKey.getPackageContext());
-//			}
-//		}
-//	}
+	private void showQuickTextKeyPopupKeyboard(QuickTextKey quickTextKey) {
+		if (mInputView != null) {
+			if (quickTextKey.getPackageContext() == getApplicationContext()) {
+				mInputView.simulateLongPress(AnyKeyboard.KEYCODE_QUICK_TEXT);
+			} else {
+				mInputView.showQuickTextPopupKeyboard(quickTextKey.getPackageContext(), quickTextKey);
+			}
+		}
+	}
 	
 	private void showQuickTextKeyPopupList(final QuickTextKey key) {
         if (mQuickTextKeyDialog == null) {

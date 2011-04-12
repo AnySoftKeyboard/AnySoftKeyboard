@@ -769,6 +769,7 @@ public abstract class AnyKeyboard extends Keyboard
             super(res, parent, x, y, parser);
             mEnabled = true;
             mFunctionalKey = false;
+            
             if (popupCharacters != null && popupCharacters.length() == 0) {
                 // If there is a keyboard with no keys specified in popupCharacters
                 popupResId = 0;
@@ -776,7 +777,7 @@ public abstract class AnyKeyboard extends Keyboard
             parseCSV("");//TODO lado parseCSV is removed by proGuard if it here not set. I'm on it to leave this method
             //untasted without this call.
         }
-
+        
 		public void enable()
         {
         	mEnabled = true;

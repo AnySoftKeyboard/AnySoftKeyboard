@@ -19,8 +19,6 @@ package com.anysoftkeyboard.keyboards.views;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.util.AttributeSet;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 
 public class AnyKeyboardViewV7 extends AnyKeyboardViewV5 {
 

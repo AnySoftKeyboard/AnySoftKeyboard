@@ -30,6 +30,7 @@ import com.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.ExternalAnyKeyboard;
 import com.anysoftkeyboard.keyboards.GenericKeyboard;
+import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.utils.IMEUtil;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -133,20 +134,9 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 //        }
 //    }
     
-	private Key findKeyByKeyCode(int keyCode) {
-		if (super.getKeyboard() == null) {
-			return null;
-		}
-	
-		for (Key key : super.getKeyboard().getKeys()) {
-			if (key.codes[0] == keyCode) return key;
-		}
-		return null;
-	}
-	
 	public void simulateLongPress(int keyCode) {
 		Key key = findKeyByKeyCode(keyCode);
-		if (key != null) super.onLongPress(key);
+		if (key != null) super.onLongPress(getContext(), key);
 	}
 
     private boolean invokeOnKey(int primaryCode) {
@@ -194,7 +184,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     }
         
     @Override
-    protected boolean onLongPress(Key key)
+    protected boolean onLongPress(Context packageContext, Key key)
     {
     	if (key != null && key.codes != null && key.codes.length > 0)
     	{
@@ -214,7 +204,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	    	}
     	}
 
-    	return super.onLongPress(key);
+    	return super.onLongPress(packageContext, key);
     }
     
     @Override
@@ -370,4 +360,10 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 			
 		}
     }
+    
+    public void showQuickTextPopupKeyboard(Context packageContext, QuickTextKey key) {
+    	Key popupKey = findKeyByKeyCode(AnyKeyboard.KEYCODE_QUICK_TEXT);
+    	popupKey.popupResId = key.getPopupKeyboardResId();
+    	super.onLongPress(packageContext, popupKey);
+   }
 }
