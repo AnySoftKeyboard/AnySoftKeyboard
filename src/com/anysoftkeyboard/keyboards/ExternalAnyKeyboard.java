@@ -6,6 +6,7 @@ import org.xmlpull.v1.XmlPullParser;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.inputmethodservice.Keyboard;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.Xml;
@@ -18,6 +19,8 @@ import com.menny.android.anysoftkeyboard.R;
 
 public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTranslator {
 
+	public static final int KEYCODE_EXTENSION_KEYBOARD = -210;
+	
 	private final static String TAG = "ASK - EAK";
 	
 	private static final String XML_TRANSLATION_TAG = "PhysicalTranslation";
@@ -35,7 +38,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	private final HardKeyboardSequenceHandler mHardKeyboardTranslator;
 	private final HashSet<Character> mAdditionalIsLetterExceptions;
 
-	private int mExtensionResId; 
+	private Key mExtensionPopupKey; 
 	
 	private static final int[] qwertKeysequence = new int[] { 45,51,33,46,48 };
 	private static final int[] dotKeysequence = new int[] { 56,56,56,56 };
@@ -76,11 +79,25 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	}
 	
 	protected void setExtension(int resId) {
-        mExtensionResId = resId;
+		if (resId > 0)
+		{
+			mExtensionPopupKey = new Key(new Row(this));
+			mExtensionPopupKey.codes = new int[]{0};
+			mExtensionPopupKey.edgeFlags = Keyboard.EDGE_TOP;
+			mExtensionPopupKey.height = 0;
+			mExtensionPopupKey.width = 0;
+			mExtensionPopupKey.popupResId = resId;
+			mExtensionPopupKey.x = 0;
+			mExtensionPopupKey.y = 0;
+		}
+		else
+		{
+			mExtensionPopupKey = null;
+		}
     }
 	
-	public int getExtension() {
-        return mExtensionResId;
+	public Key getExtensionKey() {
+        return mExtensionPopupKey;
     }
 	
 	private HardKeyboardSequenceHandler createPhysicalTranslatorFromResourceId(Context context, int qwertyTranslationId) {

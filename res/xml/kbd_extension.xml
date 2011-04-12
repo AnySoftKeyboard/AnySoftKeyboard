@@ -39,7 +39,7 @@
         />
     </Row>
 
-    <Row>
+    <Row android:rowEdgeFlags="bottom">
         <Key android:codes="49" android:keyLabel="1" android:keyEdgeFlags="left"
         />
         <Key android:codes="50" android:keyLabel="2"
@@ -58,7 +58,4 @@
         <Key android:codes="48" android:keyLabel="0" 
                 android:keyEdgeFlags="right"/>
     </Row>
-    <Row android:rowEdgeFlags="bottom" android:keyHeight="20dip">
-        <!-- empty row for spacing -->
-    </Row>    
 </Keyboard>

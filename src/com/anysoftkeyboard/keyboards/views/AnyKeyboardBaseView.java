@@ -1530,7 +1530,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         closing();
     }
 
-    private void dismissPopupKeyboard() {
+    protected void dismissPopupKeyboard() {
         if (mMiniKeyboardPopup.isShowing()) {
             mMiniKeyboardPopup.dismiss();
             mMiniKeyboard = null;

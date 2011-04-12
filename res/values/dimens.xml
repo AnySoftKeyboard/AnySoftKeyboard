@@ -24,6 +24,8 @@
     <dimen name="candidate_font_height">16sp</dimen>
     <dimen name="candidate_vertical_padding">4sp</dimen>
     
+    <dimen name="extension_keyboard_popup_offset">20dip</dimen>
+    
     <dimen name="candidate_strip_height">42dip</dimen>
     <dimen name="candidate_strip_fading_edge_length">63dip</dimen>
     <dimen name="candidate_min_touchable_width">0.3in</dimen>

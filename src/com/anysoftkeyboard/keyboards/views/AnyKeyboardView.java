@@ -22,6 +22,7 @@ import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.Keyboard.Key;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.widget.PopupWindow;
@@ -47,13 +48,8 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 
     private Keyboard mPhoneKeyboard;
 
-    /** Whether the extension of this keyboard is visible */
-    private boolean mExtensionVisible;
-    /** The view that is shown as an extension of this keyboard view */
-    private AnyKeyboardBaseView mExtension;
-    /** The popup window that contains the extension of this keyboard */
-    private PopupWindow mExtensionPopup;
-    private boolean mFirstEvent;
+    private boolean mExtensionVisible = false;
+    private final int mExtensionKeyboardPopupOffset;
     
     /** Whether we've started dropping move events because we found a big jump */
     //private boolean mDroppingEvents;
@@ -73,6 +69,8 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 
     public AnyKeyboardView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        
+        mExtensionKeyboardPopupOffset = context.getResources().getDimensionPixelSize(R.dimen.extension_keyboard_popup_offset);
     }
 
     public void setPhoneKeyboard(Keyboard phoneKeyboard) {
@@ -96,7 +94,10 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 */
     @Override
     public void setKeyboard(Keyboard newKeyboard) {
-        final Keyboard oldKeyboard = getKeyboard();
+    	
+    	mExtensionVisible = false;
+        
+    	final Keyboard oldKeyboard = getKeyboard();
         if (oldKeyboard instanceof AnyKeyboard) {
             // Reset old keyboard state before switching to new keyboard.
             ((AnyKeyboard)oldKeyboard).keyReleased();
@@ -211,154 +212,31 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     public boolean onTouchEvent(MotionEvent me) {
     	// If the motion event is above the keyboard and it's not an UP event coming
         // even before the first MOVE event into the extension area
-        if (me.getY() < -10 && (mExtensionVisible || me.getAction() != MotionEvent.ACTION_UP)) {
-            if (mExtensionVisible) {
-                int action = me.getAction();
-                if (mFirstEvent) action = MotionEvent.ACTION_DOWN;
-                mFirstEvent = false;
-                MotionEvent translated = MotionEvent.obtain(me.getEventTime(), me.getEventTime(),
-                        action,
-                        me.getX(), me.getY() + mExtension.getHeight(), me.getMetaState());
-                boolean result = mExtension.onTouchEvent(translated);
-                translated.recycle();
-                if (me.getAction() == MotionEvent.ACTION_UP
-                        || me.getAction() == MotionEvent.ACTION_CANCEL) {
-                    closeExtension();
-                }
-                return result;
-            } else {
-                if (openExtension()) {
-                    MotionEvent cancel = MotionEvent.obtain(me.getDownTime(), me.getEventTime(),
-                            MotionEvent.ACTION_CANCEL, me.getX() - 100, me.getY() - 100, 0);
-                    super.onTouchEvent(cancel);
-                    cancel.recycle();
-                    if (mExtension.getHeight() > 0) {
-                        MotionEvent translated = MotionEvent.obtain(me.getEventTime(),
-                                me.getEventTime(),
-                                MotionEvent.ACTION_DOWN,
-                                me.getX(), me.getY() + mExtension.getHeight(),
-                                me.getMetaState());
-                        mExtension.onTouchEvent(translated);
-                        translated.recycle();
-                    } else {
-                        mFirstEvent = true;
-                    }
-                }
-                return true;
-            }
-        } else if (mExtensionVisible) {
-            closeExtension();
-            // Send a down event into the main keyboard first
-            MotionEvent down = MotionEvent.obtain(me.getEventTime(), me.getEventTime(),
-                    MotionEvent.ACTION_DOWN,
-                    me.getX(), me.getY(), me.getMetaState());
-            super.onTouchEvent(down);
-            down.recycle();
-            // Send the actual event
-            return super.onTouchEvent(me);
+    	Log.v(getKeyboardViewNameForLogging(), "onTouchEvent: Y "+me.getY());
+        if (me.getY() < -mExtensionKeyboardPopupOffset && !mExtensionVisible && me.getAction() != MotionEvent.ACTION_UP) {
+        	Key extension = ((ExternalAnyKeyboard)getKeyboard()).getExtensionKey();
+        	if (extension == null)
+        	{
+        		Log.v(getKeyboardViewNameForLogging(), "onTouchEvent: no extension key!");
+        		return super.onTouchEvent(me);
+        	}
+        	else
+        	{
+        		Log.v(getKeyboardViewNameForLogging(), "onTouchEvent: new extension key. Trying to invoke.");
+	        	mExtensionVisible = true;
+	        	onLongPress(getContext(), extension);
+	        	return true;
+        	}
+        } else if (mExtensionVisible && me.getY() > 0) {
+        	Log.v(getKeyboardViewNameForLogging(), "onTouchEvent: trying to close extension.");
+        	//closing the popup
+        	mExtensionVisible = false;
+        	dismissPopupKeyboard();
+        	
+        	return true;
         } else {
             return super.onTouchEvent(me);
         }
-    }
-
-    private boolean openExtension() {
-        // If the current keyboard is not visible, don't show the popup
-        if (!isShown()) {
-            return false;
-        }
-        if (((ExternalAnyKeyboard) getKeyboard()).getExtension() == 0) return false;
-        makePopupWindow();
-        mExtensionVisible = true;
-        return true;
-    }
-
-    private void makePopupWindow() {
-        if (mExtensionPopup == null) {
-            int[] windowLocation = new int[2];
-            mExtensionPopup = new PopupWindow(getContext());
-            mExtensionPopup.setBackgroundDrawable(null);
-            LayoutInflater li = (LayoutInflater) getContext().getSystemService(
-                    Context.LAYOUT_INFLATER_SERVICE);
-            mExtension = (AnyKeyboardBaseView) li.inflate(R.layout.input_trans, null);
-            mExtension.setOnKeyboardActionListener(
-                    new ExtensionKeyboardListener(getOnKeyboardActionListener()));
-            mExtension.setPopupParent(this);
-            mExtension.setPopupOffset(0, -windowLocation[1]);
-            Keyboard keyboard= new GenericKeyboard((AnyKeyboardContextProvider)getContext(),
-                    ((ExternalAnyKeyboard) getKeyboard()).getExtension(), 
-                    R.string.ime_name, "keyboard_ex", 0);
-            
-            mExtension.setKeyboard(keyboard);
-            mExtensionPopup.setContentView(mExtension);
-            mExtensionPopup.setWidth(getWidth());
-            mExtensionPopup.setHeight(keyboard.getHeight());
-            mExtensionPopup.setAnimationStyle(-1);
-            getLocationInWindow(windowLocation);
-            // TODO: Fix the "- 30". 
-            mExtension.setPopupOffset(0, -windowLocation[1] - 30);
-            mExtensionPopup.showAtLocation(this, 0, 0,
-            		windowLocation[1] - keyboard.getHeight());
-        } else {
-            mExtension.setVisibility(VISIBLE);
-        }
-    }
-
-    @Override
-    public void closing() {
-        super.closing();
-        if (mExtensionPopup != null && mExtensionPopup.isShowing()) {
-            mExtensionPopup.dismiss();
-            mExtensionPopup = null;
-        }
-    }
-
-    private void closeExtension() {
-        mExtension.closing();
-        mExtension.setVisibility(INVISIBLE);
-        mExtensionVisible = false;
-    }
-
-    private static class ExtensionKeyboardListener implements OnKeyboardActionListener {
-        private OnKeyboardActionListener mTarget;
-        ExtensionKeyboardListener(OnKeyboardActionListener target) {
-            mTarget = target;
-        }
-		public void onKey(int primaryCode, int[] keyCodes, int x, int y) {
-			mTarget.onKey(primaryCode, keyCodes, x, y);
-		}
-        public void onPress(int primaryCode) {
-            mTarget.onPress(primaryCode);
-        }
-        public void onRelease(int primaryCode) {
-            mTarget.onRelease(primaryCode);
-        }
-        public void onText(CharSequence text) {
-            mTarget.onText(text);
-        }
-        public void swipeDown() {
-            // Don't pass through
-        }
-        public void swipeLeft() {
-            // Don't pass through
-        }
-        public void swipeRight() {
-            // Don't pass through
-        }
-        public void swipeUp() {
-            // Don't pass through
-        }
-		public void onCancel() {
-			// TODO Auto-generated method stub
-			
-		}
-		public void startInputConnectionEdit() {
-			// TODO Auto-generated method stub
-			
-		}
-		public void endInputConnectionEdit() {
-			// TODO Auto-generated method stub
-			
-		}
     }
     
     public void showQuickTextPopupKeyboard(Context packageContext, QuickTextKey key) {
