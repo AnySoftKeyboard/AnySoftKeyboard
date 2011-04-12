@@ -213,7 +213,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     	// If the motion event is above the keyboard and it's not an UP event coming
         // even before the first MOVE event into the extension area
     	Log.v(getKeyboardViewNameForLogging(), "onTouchEvent: Y "+me.getY());
-        if (me.getY() < -mExtensionKeyboardPopupOffset && !mExtensionVisible && me.getAction() != MotionEvent.ACTION_UP) {
+        if (me.getY() < -mExtensionKeyboardPopupOffset && !isPopupShowing() && !mExtensionVisible && me.getAction() != MotionEvent.ACTION_UP) {
         	Key extension = ((ExternalAnyKeyboard)getKeyboard()).getExtensionKey();
         	if (extension == null)
         	{
@@ -225,18 +225,26 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         		Log.v(getKeyboardViewNameForLogging(), "onTouchEvent: new extension key. Trying to invoke.");
 	        	mExtensionVisible = true;
 	        	onLongPress(getContext(), extension);
+	        	//it is an extension..
+	        	mMiniKeyboard.setPreviewEnabled(true);
+	        	
 	        	return true;
         	}
-        } else if (mExtensionVisible && me.getY() > 0) {
+        } else if (mExtensionVisible && me.getY() > mExtensionKeyboardPopupOffset) {
         	Log.v(getKeyboardViewNameForLogging(), "onTouchEvent: trying to close extension.");
         	//closing the popup
-        	mExtensionVisible = false;
         	dismissPopupKeyboard();
         	
         	return true;
         } else {
             return super.onTouchEvent(me);
         }
+    }
+    
+    @Override
+    protected void dismissPopupKeyboard() {
+    	mExtensionVisible = false;
+    	super.dismissPopupKeyboard();
     }
     
     public void showQuickTextPopupKeyboard(Context packageContext, QuickTextKey key) {

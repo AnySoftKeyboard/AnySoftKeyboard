@@ -45,7 +45,7 @@ public class TutorialsProvider
 		for(final String ime : arrayOfIme)
 		{
 			if (AnySoftKeyboardConfiguration.DEBUG)
-				Log.d(TAG, "Is '"+ime+"' equals '"+key+"'?");
+				Log.d(TAG, "Is '"+ime+"' starts with '"+key+"'?");
 			//checking "startsWith" since the OS list is something like this:
 			//com.android.inputmethod.latin/.LatinIME:com.menny.android.anysoftkeyboard/.SoftKeyboard
 			if (ime.startsWith(key)) return true;

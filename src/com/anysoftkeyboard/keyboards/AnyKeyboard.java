@@ -90,13 +90,10 @@ public abstract class AnyKeyboard extends Keyboard
     private final Drawable mOffShiftFeedbackIcon;
     private final Drawable mOnShiftFeedbackIcon;
     private final int mKeyboardMode;
-   // private final int mDomainsIconId;
 
     private Key mShiftKey;
     private EnterKey mEnterKey;
     public Key langSwitch;
-	//private Key mSwitchableKey;
-	//private Key mQuestionMarkKey;
 
 	private boolean mRightToLeftLayout = false;//the "super" ctor will create keys, and we'll set the correct value there.
 	
@@ -122,27 +119,15 @@ public abstract class AnyKeyboard extends Keyboard
 
 		addGenericRows(askContext, context, mode);
 		
-        //in wide shifts, we'll use the shift with the Globe
+		//in wide shifts, we'll use the shift with the Globe
         Resources resources = askContext.getApplicationContext().getResources();
 		if (mShiftKey != null)
         {
-//	        Drawable shiftWithGlobes = resources.getDrawable(R.drawable.sym_keyboard_shift_with_globe);
-	        //Log.v(TAG, "Deciding which icon to use for the SHIFT. Shift key width is "+mShiftKey.width+" and sym_keyboard_shift_with_globe width is "+shiftWithGlobes.getMinimumWidth());
-	        
-//	        if (mShiftKey.width > (shiftWithGlobes.getMinimumWidth() * 1.2))
-//	        {
-//	        	mOnShiftIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_with_globes_on);
-//		        mOffShiftIcon = shiftWithGlobes;
-//		        mOnShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_with_globes_on_feedback);
-//		        mOffShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_with_globe_feedback);
-//	        }
-//	        else
-//	        {
-		        mOnShiftIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_on);
-		        mOffShiftIcon = resources.getDrawable(R.drawable.sym_keyboard_shift);
-		        mOnShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift_on);
-		        mOffShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift);
-//	        }
+	        mOnShiftIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_on);
+	        mOffShiftIcon = resources.getDrawable(R.drawable.sym_keyboard_shift);
+	        mOnShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift_on);
+	        mOffShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift);
+
 	        mOnShiftFeedbackIcon.setBounds(0, 0, 
 	        		mOnShiftFeedbackIcon.getIntrinsicWidth(), mOnShiftFeedbackIcon.getIntrinsicHeight());
 	        mOffShiftFeedbackIcon.setBounds(0, 0, 
@@ -157,7 +142,6 @@ public abstract class AnyKeyboard extends Keyboard
         	mOnShiftFeedbackIcon = null;
         	mOffShiftFeedbackIcon = null;
         	Log.v(TAG, "No shift key, so no handling images.");
-	        
         }
     }
     
@@ -166,7 +150,8 @@ public abstract class AnyKeyboard extends Keyboard
     	final Resources localResources = getASKContext().getApplicationContext().getResources();
         for(final Key key : getKeys())
         {
-        	if (key.y == 0) key.edgeFlags = Keyboard.EDGE_TOP;
+        	if (key.y == 0) key.edgeFlags |= Keyboard.EDGE_TOP;
+        	
         	//Log.d(TAG, "Key x:"+key.x+" y:"+key.y+" width:"+key.width+" height:"+key.height);
             if ((key.codes != null) && (key.codes.length > 0))
             {
@@ -480,6 +465,8 @@ public abstract class AnyKeyboard extends Keyboard
     protected Key createKeyFromXml(Resources res, Row parent, int x, int y, 
             XmlResourceParser parser) {
     	AnyKey key = new AnyKey(res, parent, x, y, parser);
+//    	if (mTopKey == null && (key.edgeFlags & Keyboard.EDGE_TOP) != 0)
+//    		mTopKey = key;
     	
         if ((key.codes != null) && (key.codes.length > 0))
         {
@@ -763,10 +750,12 @@ public abstract class AnyKeyboard extends Keyboard
         
         private boolean mFunctionalKey;
 		private boolean mEnabled;
+		public final Keyboard.Row row;
 		
         public AnyKey(Resources res, Keyboard.Row parent, int x, int y, 
                 XmlResourceParser parser) {
             super(res, parent, x, y, parser);
+            row = parent;
             mEnabled = true;
             mFunctionalKey = false;
             

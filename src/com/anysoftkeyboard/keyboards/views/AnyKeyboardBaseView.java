@@ -193,7 +193,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
 
     // Popup mini keyboard
     private PopupWindow mMiniKeyboardPopup;
-    private AnyKeyboardBaseView mMiniKeyboard;
+    protected AnyKeyboardBaseView mMiniKeyboard;
     private View mMiniKeyboardParent;
     private final WeakHashMap<Key, View> mMiniKeyboardCache = new WeakHashMap<Key, View>();
     private int mMiniKeyboardOriginX;
@@ -1194,14 +1194,14 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         final int miniKeyWidth = miniKeys.size() > 0 ? miniKeys.get(0).width : 0;
 
         // HACK: Have the leftmost number in the popup characters right above the key
-        boolean isNumberAtLeftmost =
-                hasMultiplePopupChars(popupKey) && isNumberAtLeftmostPopupChar(popupKey);
+//        boolean isNumberAtLeftmost =
+//                hasMultiplePopupChars(popupKey) && isNumberAtLeftmostPopupChar(popupKey);
         int popupX = popupKey.x + mWindowOffset[0];
         popupX += getPaddingLeft();
-        if (isNumberAtLeftmost) {
+        /*if (isNumberAtLeftmost) {
             popupX += popupKey.width - miniKeyWidth;  // adjustment for a) described above
             popupX -= container.getPaddingLeft();
-        } else {
+        } else*/ {
             popupX += miniKeyWidth;  // adjustment for b) described above
             popupX -= container.getMeasuredWidth();
             popupX += container.getPaddingRight();
@@ -1220,7 +1220,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
             adjustedX = getMeasuredWidth() - container.getMeasuredWidth();
         }
         mMiniKeyboardOriginX = adjustedX + container.getPaddingLeft() - mWindowOffset[0];
-        mMiniKeyboardOriginY = y + container.getPaddingTop() - mWindowOffset[1];
+        mMiniKeyboardOriginY = y + container.getPaddingBottom() - mWindowOffset[1];
         mMiniKeyboard.setPopupOffset(adjustedX, y);
         mMiniKeyboard.setShifted(isShifted());
         // Mini keyboard needs no pop-up key preview displayed.
@@ -1242,12 +1242,12 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         return true;
     }
 
-    private static boolean hasMultiplePopupChars(Key key) {
-        if (key.popupCharacters != null && key.popupCharacters.length() > 1) {
-            return true;
-        }
-        return false;
-    }
+//    private static boolean hasMultiplePopupChars(Key key) {
+//        if (key.popupCharacters != null && key.popupCharacters.length() > 1) {
+//            return true;
+//        }
+//        return false;
+//    }
 
     private boolean shouldDrawIconFully(Key key) {
         return isNumberAtEdgeOfPopupChars(key) /*|| isLatinF1Key(key)
@@ -1530,8 +1530,12 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         closing();
     }
 
+    protected boolean isPopupShowing()
+    {
+    	return mMiniKeyboardPopup != null && mMiniKeyboardPopup.isShowing();
+    }
     protected void dismissPopupKeyboard() {
-        if (mMiniKeyboardPopup.isShowing()) {
+        if (isPopupShowing()) {
             mMiniKeyboardPopup.dismiss();
             mMiniKeyboard = null;
             mMiniKeyboardOriginX = 0;

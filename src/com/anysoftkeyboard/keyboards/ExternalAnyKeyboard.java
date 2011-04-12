@@ -81,7 +81,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	protected void setExtension(int resId) {
 		if (resId > 0)
 		{
-			mExtensionPopupKey = new Key(new Row(this));
+			Row r = new Row(this);
+			mExtensionPopupKey = new Key(r);
 			mExtensionPopupKey.codes = new int[]{0};
 			mExtensionPopupKey.edgeFlags = Keyboard.EDGE_TOP;
 			mExtensionPopupKey.height = 0;
