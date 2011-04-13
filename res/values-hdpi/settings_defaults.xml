@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-	<!-- DO NOT TRANSLATE -->
-	<!-- Default settings values -->
-	
-	<string name="settings_default_portrait_keyboard_height_factor">1.0</string>
-    <string name="settings_default_landscape_keyboard_height_factor">0.82</string>
-</resources>
