@@ -58,7 +58,7 @@ public class AutoDictionary extends UserDictionaryBase {
 
     private AnySoftKeyboard mIme;
     // Locale for which this auto dictionary is storing words
-    private String mLocale;
+    private final String mLocale;
 
     private HashMap<String,Integer> mPendingWrites = new HashMap<String,Integer>();
     private final Object mPendingWritesLock = new Object();
@@ -90,22 +90,12 @@ public class AutoDictionary extends UserDictionaryBase {
         sDictProjectionMap.put(COLUMN_LOCALE, COLUMN_LOCALE);
     }
 
-    private static DatabaseHelper mOpenHelper = null;
+    private static DatabaseHelper msOpenHelper = null;
 
     public AutoDictionary(AnyKeyboardContextProvider context, AnySoftKeyboard ime, String locale) {
         super("Auto", context);
         mIme = ime;
-        mLocale = locale;
-        if (mOpenHelper == null) {
-            mOpenHelper = new DatabaseHelper(mContext);
-        }
-        if (mLocale != null && mLocale.length() > 1) {
-            try{
-            loadDictionary();
-            }catch(Exception ex){
-                Log.w(TAG, "Can not load AutoDictionary words from db.",ex);
-            }
-        }
+        mLocale = locale;        
     }
     
 
@@ -128,6 +118,10 @@ public class AutoDictionary extends UserDictionaryBase {
     @Override
    protected  void loadDictionaryAsync()
    {
+
+        if (msOpenHelper == null) {
+            msOpenHelper = new DatabaseHelper(mContext);
+        }
         // Load the words that correspond to the current input locale
         Cursor cursor = query(COLUMN_LOCALE + "=?", new String[] { mLocale });
         try {
@@ -182,7 +176,7 @@ public class AutoDictionary extends UserDictionaryBase {
             // Nothing pending? Return
             if (mPendingWrites.isEmpty()) return;
             // Create a background thread to write the pending entries
-            new UpdateDbTask(mContext, mOpenHelper, mPendingWrites, mLocale).execute();
+            new UpdateDbTask(mContext, msOpenHelper, mPendingWrites, mLocale).execute();
             // Create a new map for writing new entries into while the old one is written to db
             mPendingWrites = new HashMap<String, Integer>();
         }
@@ -222,7 +216,7 @@ public class AutoDictionary extends UserDictionaryBase {
         qb.setProjectionMap(sDictProjectionMap);
 
         // Get the database and run the query
-        SQLiteDatabase db = mOpenHelper.getReadableDatabase();
+        SQLiteDatabase db = msOpenHelper.getReadableDatabase();
         Cursor c = qb.query(db, null, selection, selectionArgs, null, null,
                 DEFAULT_SORT_ORDER);
         return c;

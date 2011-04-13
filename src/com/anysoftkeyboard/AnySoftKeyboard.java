@@ -283,12 +283,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// mLocale = locale;
 		mSuggest = new Suggest(this/* , R.raw.main */);
 		mSuggest.setCorrectionMode(mCorrectionMode);
-		handleContactsDictionaryMember();
-		handleAutoDictionaryMember();
-		setMainDictionaryForCurrentKeyboard();
-		// mWordSeparators = getResources().getString(R.string.word_separators);
-		// mSentenceSeparators =
-		// getResources().getString(R.string.sentence_separators);
+		setDictionariesForCurrentKeyboard();
 	}
 
 	@Override
@@ -2112,7 +2107,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mCapsLock = currentKeyboard.isShiftLocked();
 		mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_UNKNOWN;
 		// changing dictionary
-		setMainDictionaryForCurrentKeyboard();
+		setDictionariesForCurrentKeyboard();
 		// Notifying if needed
 		if ((mKeyboardChangeNotificationType
 				.equals(KEYBOARD_NOTIFICATION_ALWAYS))
@@ -2120,7 +2115,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 						.equals(KEYBOARD_NOTIFICATION_ON_PHYSICAL) && (type == NextKeyboardType.AlphabetSupportsPhysical))) {
 			notifyKeyboardChangeIfNeeded();
 		}
-		handleAutoDictionaryMember();
 	}
 
 	public void swipeDown() {
@@ -2271,7 +2265,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// why check that it is "false"? Because it starts as "false", so it is
 		// not 'changed'.
 		if (suggestionsChanged || (!mShowSuggestions))
-			setMainDictionaryForCurrentKeyboard();
+			setDictionariesForCurrentKeyboard();
 
 		mAutoComplete = sp.getBoolean("auto_complete", true) && mShowSuggestions;
 
@@ -2293,13 +2287,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 		((AnySoftKeyboardConfiguration.AnySoftKeyboardConfigurationImpl) mConfig).handleConfigurationChange(sp);
 	}
 
-	/*package*/ void setMainDictionaryForCurrentKeyboard() {
+	private void setDictionariesForCurrentKeyboard() {
 		if (mSuggest != null) {
 			if (!mShowSuggestions) {
 			    if (DEBUG)Log.d(TAG, "No suggestion is required. I'll try to release memory from the dictionary.");
 				//DictionaryFactory.getInstance().releaseAllDictionaries();
 				mSuggest.setMainDictionary(null);
 				mSuggest.setUserDictionary(null);
+				mSuggest.setAutoDictionary(null);
 			} else {
 				// It null at the creation of the application.
 				if ((mKeyboardSwitcher != null)
@@ -2329,6 +2324,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 					
 					mUserDictionary = DictionaryFactory.getInstance().createUserDictionary(this, defaultDictionary);
 					mSuggest.setUserDictionary(mUserDictionary);
+					
+					mAutoDictionary = DictionaryFactory.getInstance().createAutoDictionary(this, this, defaultDictionary);
+					mSuggest.setAutoDictionary(mAutoDictionary);
 				}
 			}
 		}
@@ -2414,7 +2412,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 					break;
 				}
 				editor.commit();
-				setMainDictionaryForCurrentKeyboard();
+				setDictionariesForCurrentKeyboard();
 			}
 		});
 
@@ -2478,29 +2476,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
         
 		super.onConfigurationChanged(newConfig);
-	}
-
-	private void handleContactsDictionaryMember(){
-        if(mConfig.useContactsDictionary()){
-        	Dictionary contactsDictionary = DictionaryFactory.getInstance().createContactsDictionary(this); 
-            mSuggest.setContactsDictionary(contactsDictionary);
-        } else{
-        	//DictionaryFactory.getInstance().closeContactsDictionary();        	
-            mSuggest.setContactsDictionary(null);
-        }
-	}
-	
-	private void handleAutoDictionaryMember(){
-	    if(mConfig.useAutoDictionary()){
-	        mAutoDictionary = DictionaryFactory.getInstance().createAutoDictionary(this, this, mKeyboardSwitcher.getCurrentKeyboard().getDefaultDictionaryLocale());
-	        mSuggest.setAutoDictionary(mAutoDictionary);
-	    } else {
-	    	//DictionaryFactory.getInstance().closeAutoDictionary();
-	        mAutoDictionary = null;
-	        mSuggest.setAutoDictionary(null);
-	    }
-	}
-	
+	}	
 	
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
 			String key) {
@@ -2512,20 +2488,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 		boolean isQuickTextKey = key.equals(getString(R.string.settings_key_active_quick_text_key));
 		if (isKeyboardKey || isDictionaryKey || isQuickTextKey) {
 			mKeyboardSwitcher.makeKeyboards(true);
-			//saving the orientation
-			//mOrientation = getResources().getConfiguration().orientation;
-			return;
 		} 
 		
 		loadSettings();
 
-		if (key.equals(getString(R.string.settings_key_use_contacts_dictionary)))
+		if (	isDictionaryKey ||
+				key.equals(getString(R.string.settings_key_use_contacts_dictionary)) ||
+				key.equals(getString(R.string.settings_key_use_auto_dictionary)))
 		{
-		    handleContactsDictionaryMember();
-		} 
-		else if (key.equals(getString(R.string.settings_key_use_auto_dictionary)))
-		{
-		    handleAutoDictionaryMember();
+		    setDictionariesForCurrentKeyboard();
 		} 
 		else  
 		{
@@ -2536,17 +2507,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 					key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key)))
 			{
 				mKeyboardSwitcher.makeKeyboards(true);
-				//saving the orientation
-				//mOrientation = getResources().getConfiguration().orientation;
 			}
 		}
 	}
 
 	public void appendCharactersToInput(CharSequence textToCommit) {
 		if (DEBUG)
-			Log
-					.d("AnySoftKeyboard", "appendCharactersToInput: "
-							+ textToCommit);
+			Log.d(TAG, "appendCharactersToInput: "+ textToCommit);
 		mWord.append(textToCommit);
 
 		mComposing.append(textToCommit);
@@ -2560,9 +2527,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	public void deleteLastCharactersFromInput(int countToDelete) {
-		if (DEBUG)
-			Log.d("AnySoftKeyboard", "deleteLastCharactersFromInput: "
-					+ countToDelete);
 		if (countToDelete == 0)
 			return;
 

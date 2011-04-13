@@ -5,6 +5,7 @@ import android.util.Log;
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.utils.Workarounds;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 
 public class DictionaryFactory
 {
@@ -83,6 +84,9 @@ public class DictionaryFactory
     
     public synchronized AutoDictionary createAutoDictionary(AnyKeyboardContextProvider context, AnySoftKeyboard ime, String currentAutoDictionaryLocale)
     {
+    	if (!AnyApplication.getConfig().useAutoDictionary())
+    		return null;
+    	
     	if (mAutoDictionary != null && equalsString(mAutoDictionary.getLocale(), currentAutoDictionaryLocale))
     	{
     		return mAutoDictionary;
