@@ -219,7 +219,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	};
 
-	private boolean mSpaceSent;
+	private boolean mJustAddedAutoSpace;
 
 	private static final int LAST_CHAR_SHIFT_STATE_UNKNOWN = 0;
 	private static final int LAST_CHAR_SHIFT_STATE_UNSHIFTED = 1;
@@ -528,7 +528,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (DEBUG)
 			Log.d(TAG, "onFinishInput()");
 		super.onFinishInput();
-
+        
 		if (mInputView != null) {
 			mInputView.closing();
 		}
@@ -577,9 +577,16 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 		}
 		else if (!mPredicting
-				&& !mJustAccepted
-				&& TextEntryState.getState() == TextEntryState.STATE_ACCEPTED_DEFAULT) {
-			TextEntryState.reset();
+				&& !mJustAccepted)
+		{
+			switch (TextEntryState.getState()) {
+            case ACCEPTED_DEFAULT:
+                TextEntryState.reset();
+                // fall through
+            case SPACE_AFTER_PICKED:
+                mJustAddedAutoSpace = false;  // The user moved the cursor.
+                break;
+			}
 		}
 		mJustAccepted = false;
 	}
@@ -617,7 +624,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public void hideWindow() {
 		if (TRACE_SDCARD)
 			Debug.stopMethodTracing();
-
+		
 		if (mOptionsDialog != null && mOptionsDialog.isShowing()) {
 			mOptionsDialog.dismiss();
 			mOptionsDialog = null;
@@ -664,7 +671,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 			if (DEBUG) Log.v(TAG, "Received completions: setting to suggestions view "+stringList.size()+ " completions.");
 			// CharSequence typedWord = mWord.getTypedWord();
-			mCandidateView.setSuggestions(stringList, true, true, true);
+			setSuggestions(stringList, true, true, true);
 			mBestWord = null;
 			//I mean, if I'm here, it must be shown...
 			setCandidatesViewShown(true);
@@ -681,7 +688,29 @@ public class AnySoftKeyboard extends InputMethodService implements
 		super.setCandidatesViewShown(shouldCandidatesStripBeShown() && shown);
 	}
 */
-	
+
+
+    private void clearSuggestions() {
+        setSuggestions(null, false, false, false);
+    }
+
+    private void setSuggestions(
+            List<CharSequence> suggestions,
+            boolean completions,
+            boolean typedWordValid,
+            boolean haveMinimalSuggestion) {
+
+//        if (mIsShowingHint) {
+//             setCandidatesView(mCandidateViewContainer);
+//             mIsShowingHint = false;
+//        }
+
+        if (mCandidateView != null) {
+            mCandidateView.setSuggestions(
+                    suggestions, completions, typedWordValid, haveMinimalSuggestion);
+        }
+    }
+    
 	@Override
 	public void onComputeInsets(InputMethodService.Insets outInsets) {
 		super.onComputeInsets(outInsets);
@@ -1079,22 +1108,40 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	}
 	
+	private void addToDictionaries(CharSequence suggestion, int frequencyDelta) {
+        checkAddToDictionary(suggestion, frequencyDelta/*, false*/);
+    }
 	
-	private boolean checkAddToDictionary(CharSequence suggestion, int frequencyDelta) {
-		if (mSuggest.isValidWord(suggestion.toString())
-            || mSuggest.isValidWord(suggestion.toString().toLowerCase())) {
-            return false;
-        }
+	/**
+     * Adds to the UserBigramDictionary and/or AutoDictionary
+     * @param addToBigramDictionary true if it should be added to bigram dictionary if possible
+     */
+    private void checkAddToDictionary(CharSequence suggestion, int frequencyDelta/*,
+            boolean addToBigramDictionary*/) {
+        if (suggestion == null || suggestion.length() < 1) return;
         // Only auto-add to dictionary if auto-correct is ON. Otherwise we'll be
         // adding words in situations where the user or application really didn't
         // want corrections enabled or learned.
-        //if (!(mCorrectionMode == Suggest.CORRECTION_FULL)) return;TODO lado make it configurable
-        if ((mAutoDictionary != null) && mAutoDictionary.isValidWord(suggestion))
-        {
-        	mAutoDictionary.addWord(suggestion.toString(), frequencyDelta);
+        if (!(mCorrectionMode == Suggest.CORRECTION_FULL/*
+                || mCorrectionMode == Suggest.CORRECTION_FULL_BIGRAM*/)) {
+            return;
         }
-        return true;
-	}
+        if (suggestion != null && mAutoDictionary != null) {
+            if (/*!addToBigramDictionary &&*/ mAutoDictionary.isValidWord(suggestion)
+                    || (!mSuggest.isValidWord(suggestion.toString())
+                    && !mSuggest.isValidWord(suggestion.toString().toLowerCase()))) {
+                mAutoDictionary.addWord(suggestion.toString(), frequencyDelta);
+            }
+            /*
+            if (mUserBigramDictionary != null) {
+                CharSequence prevWord = EditingUtil.getPreviousWord(getCurrentInputConnection(),
+                        mSentenceSeparators);
+                if (!TextUtils.isEmpty(prevWord)) {
+                    mUserBigramDictionary.addBigrams(prevWord.toString(), suggestion.toString());
+                }
+            }*/
+        }
+    }
 	
 	private void commitTyped(InputConnection inputConnection) {
 		if (mPredicting) {
@@ -1105,7 +1152,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				}
 				mCommittedLength = mComposing.length();
 				TextEntryState.acceptedTyped(mComposing);
-				checkAddToDictionary(mComposing, AutoDictionary.FREQUENCY_FOR_TYPED);
+				addToDictionaries(mComposing, AutoDictionary.FREQUENCY_FOR_TYPED);
 			}
 			postUpdateSuggestionsNow();
 		}
@@ -1296,7 +1343,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				
 				// reseting the mSpaceSent, which is set to true upon selecting
 				// candidate
-				mSpaceSent = false;
+				mJustAddedAutoSpace = false;
 			}
 			// Cancel the just reverted state
 			mJustRevertedSeparator = null;
@@ -1495,10 +1542,21 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 		
 		TextEntryState.backspace();
-		if (TextEntryState.getState() == TextEntryState.STATE_UNDO_COMMIT) {
+		if (TextEntryState.getState() == TextEntryState.State.UNDO_COMMIT) {
 			revertLastWord(deleteChar);
 			handleShiftStateAfterBackspace();
 		} else if (deleteChar) {
+			if (mCandidateView != null && mCandidateView.dismissAddToDictionaryHint()) {
+                // Go back to the suggestion mode if the user canceled the
+                // "Touch again to save".
+                // NOTE: In gerenal, we don't revert the word when backspacing
+                // from a manual suggestion pick.  We deliberately chose a
+                // different behavior only in the case of picking the first
+                // suggestion (typed word).  It's intentional to have made this
+                // inconsistent with backspacing after selecting other suggestions.
+                revertLastWord(deleteChar);
+            }
+			
 			final CharSequence beforeText = ic.getTextBeforeCursor(1, 0);
 			final int textLengthBeforeDelete = (TextUtils.isEmpty(beforeText))? 0 : beforeText.length();
 			if (textLengthBeforeDelete > 0)
@@ -1667,6 +1725,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void handleSeparator(int primaryCode) {
 		if(DEBUG) Log.d(TAG, "handleSeparator: "+primaryCode);
+		
+		// Should dismiss the "Touch again to save" message when handling separator
+        if (mCandidateView != null && mCandidateView.dismissAddToDictionaryHint()) {
+            postUpdateSuggestions();
+        }
+        
 		boolean pickedDefault = false;
 		// Handle separator
 		InputConnection ic = getCurrentInputConnection();
@@ -1695,8 +1759,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		sendKeyChar((char) primaryCode);
 
 		TextEntryState.typedCharacter((char) primaryCode, true);
-		if (TextEntryState.getState() == TextEntryState.STATE_PUNCTUATION_AFTER_ACCEPTED
-				&& primaryCode != KEYCODE_ENTER && mSpaceSent) {
+		if (TextEntryState.getState() == TextEntryState.State.PUNCTUATION_AFTER_ACCEPTED
+				&& primaryCode != KEYCODE_ENTER && mJustAddedAutoSpace) {
 			swapPunctuationAndSpace();
 		} else if (/*isPredictionOn() &&*/ primaryCode == ' ') {
 			// else if (TextEntryState.STATE_SPACE_AFTER_ACCEPTED) {
@@ -1807,57 +1871,107 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mJustAccepted = true;
 			pickSuggestion(mBestWord);
 			  // Add the word to the auto dictionary if it's not a known word
-            checkAddToDictionary(mBestWord, AutoDictionary.FREQUENCY_FOR_TYPED);
+            addToDictionaries(mBestWord, AutoDictionary.FREQUENCY_FOR_TYPED);
 		}
 	}
+	
+	private CharSequence pickSuggestion(CharSequence suggestion) {
+        if (mCapsLock) {
+                suggestion = suggestion.toString().toUpperCase();
+        } else if (preferCapitalization()
+                        || (mKeyboardSwitcher.isAlphabetMode() && (mInputView != null) && mInputView .isShifted())) {
+                suggestion = Character.toUpperCase(suggestion.charAt(0))
+                                + suggestion.subSequence(1, suggestion.length()).toString();
+        }
 
-	public CharSequence pickSuggestionManually(int index, CharSequence suggestion) {
+        InputConnection ic = getCurrentInputConnection();
+        if (ic != null) {
+                ic.commitText(suggestion, 1);
+        }
+        mPredicting = false;
+        mCommittedLength = suggestion.length();
+        if (mCandidateView != null) {
+                mCandidateView.setSuggestions(null, false, false, false);
+        }
+        updateShiftKeyState(getCurrentInputEditorInfo());
+
+        return suggestion;
+}
+
+	public void pickSuggestionManually(int index, CharSequence suggestion) {
+		
+		final boolean correcting = TextEntryState.isCorrecting();
 		final InputConnection ic = getCurrentInputConnection();
 		if (ic != null) {
 			ic.beginBatchEdit();
 		}
-		if (mCompletionOn && mCompletions != null && index >= 0
-				&& index < mCompletions.length) {
-			CompletionInfo ci = mCompletions[index];
-			if (ic != null) {
-				ic.commitCompletion(ci);
-			}
-			mCommittedLength = suggestion.length();
-			if (mCandidateView != null) {
-				mCandidateView.clear();
-			}
-			updateShiftKeyState(getCurrentInputEditorInfo());
-			return suggestion;
-		}
-		suggestion = pickSuggestion(suggestion);
-		// Add the word to the auto dictionary if it's not a known word
-		final boolean showAddHint;
-        if (index == 0)
-        	showAddHint = checkAddToDictionary(suggestion, AutoDictionary.FREQUENCY_FOR_PICKED);
-        else
-        	showAddHint = false;
-		TextEntryState.acceptedSuggestion(mComposing.toString(), suggestion);
-		// Follow it with a space
-		if (mAutoSpace) {
-			mSpaceSent = true;
-			sendSpace();
-		}
-		// Fool the state watcher so that a subsequent backspace will not do a
-		// revert
-		TextEntryState.typedCharacter((char) KEYCODE_SPACE, true);
-		if (ic != null)
+		try
 		{
-			ic.endBatchEdit();
-		}
+			if (mCompletionOn && mCompletions != null && index >= 0
+					&& index < mCompletions.length) {
+				CompletionInfo ci = mCompletions[index];
+				if (ic != null) {
+					ic.commitCompletion(ci);
+				}
+				mCommittedLength = suggestion.length();
+				if (mCandidateView != null) {
+					mCandidateView.clear();
+				}
+				updateShiftKeyState(getCurrentInputEditorInfo());
+				return;
+			}
+			pickSuggestion(suggestion, correcting);
+			// Add the word to the auto dictionary if it's not a known word
+	        if (index == 0) {
+	            addToDictionaries(suggestion, AutoDictionary.FREQUENCY_FOR_PICKED);
+	        }
+	        
+			TextEntryState.acceptedSuggestion(mComposing.toString(), suggestion);
+			// Follow it with a space
+			if (mAutoSpace && !correcting) {
+				mJustAddedAutoSpace = true;
+				sendSpace();
+			}
+			
+			final boolean showingAddToDictionaryHint = index == 0 && mCorrectionMode > 0
+			        && !mSuggest.isValidWord(suggestion)
+			        && !mSuggest.isValidWord(suggestion.toString().toLowerCase());
 		
-		if (showAddHint)
-		{
-			mCandidateView.showAddToDictionaryHint(suggestion);
+			if (!correcting) {
+	            // Fool the state watcher so that a subsequent backspace will not do a revert, unless
+	            // we just did a correction, in which case we need to stay in
+	            // TextEntryState.State.PICKED_SUGGESTION state.
+	            TextEntryState.typedCharacter((char) KEYCODE_SPACE, true);
+	            setNextSuggestions();
+	        } else if (!showingAddToDictionaryHint) {
+	            // If we're not showing the "Touch again to save", then show corrections again.
+	            // In case the cursor position doesn't change, make sure we show the suggestions again.
+	            clearSuggestions();
+	            //postUpdateOldSuggestions();
+	        }
+				
+			if (showingAddToDictionaryHint)	{
+				mCandidateView.showAddToDictionaryHint(suggestion);
+			}
 		}
-		return suggestion;
+		finally
+		{
+			if (ic != null)
+			{
+				ic.endBatchEdit();
+			}			
+		}
 	}
 
-	private CharSequence pickSuggestion(CharSequence suggestion) {
+	/**
+     * Commits the chosen word to the text field and saves it for later
+     * retrieval.
+     * @param suggestion the suggestion picked by the user to be committed to
+     *            the text field
+     * @param correcting whether this is due to a correction of an existing
+     *            word.
+     */
+    private void pickSuggestion(CharSequence suggestion, boolean correcting) {
 		if (mCapsLock) {
 			suggestion = suggestion.toString().toUpperCase();
 		} else if (preferCapitalization()
@@ -1875,9 +1989,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (mCandidateView != null) {
 			mCandidateView.setSuggestions(null, false, false, false);
 		}
+		// If we just corrected a word, then don't show punctuations
+        if (!correcting) {
+            setNextSuggestions();
+        }
+        
 		updateShiftKeyState(getCurrentInputEditorInfo());
-
-		return suggestion;
 	}
 
 	private boolean isCursorTouchingWord() {
@@ -1922,9 +2039,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	}
 
-	// protected String getWordSeparators() {
-	// return mWordSeparators;
-	// }
+    private void setNextSuggestions() {
+        setSuggestions(new ArrayList<CharSequence>(), false, false, false);
+    }
 
 	public boolean isWordSeparator(int code) {
 		// String separators = getWordSeparators();

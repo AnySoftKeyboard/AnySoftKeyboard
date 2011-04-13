@@ -655,7 +655,6 @@ public class KeyboardSwitcher
 			AnyApplication.getConfig().shouldShowPopupForLanguageSwitch();
 	}
 
-
 //    void toggleSymbols() {
 //        Keyboard current = mInputView.getKeyboard();
 //        if (mSymbolsKeyboard == null) {

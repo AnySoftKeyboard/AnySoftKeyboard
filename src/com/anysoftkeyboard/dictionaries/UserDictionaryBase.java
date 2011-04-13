@@ -146,6 +146,8 @@ public abstract class UserDictionaryBase extends AddableDictionary {
     	}
         // Safeguard against adding long words. Can cause stack overflow.
         if (word.length() >= MAX_WORD_LENGTH) return;
+        Log.e(TAG, "Adding word '"+word+"' to dictionary");
+        
         addWordRec(mRoots, word, 0, frequency);
 
         AddWordToStorage(word, frequency);
