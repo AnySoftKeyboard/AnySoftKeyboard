@@ -45,19 +45,23 @@ public class DictionaryFactory
     }
     
     private AutoDictionary mAutoDictionary = null;
+    private String mUserDictionaryLocale = null;
     private AddableDictionary mUserDictionary = null;
 
     protected DictionaryFactory()
     {
     }
     
-    public synchronized AddableDictionary createUserDictionary(AnyKeyboardContextProvider context)
+    public synchronized AddableDictionary createUserDictionary(AnyKeyboardContextProvider context, String locale)
     {
-        if (mUserDictionary != null){
+        if (mUserDictionary != null && equalsString(mUserDictionaryLocale, locale)){
             return mUserDictionary;
         }
         
-        mUserDictionary = new SafeUserDictionary(context);
+        mUserDictionary = new SafeUserDictionary(context, locale);
+        mUserDictionary.loadDictionary();
+        
+        mUserDictionaryLocale = locale;
         return mUserDictionary;
     }
     
@@ -86,6 +90,7 @@ public class DictionaryFactory
     	
     	Log.d(TAG, "Creating AutoDictionary for locale: "+currentAutoDictionaryLocale);
         mAutoDictionary = new AutoDictionary(context, ime, currentAutoDictionaryLocale);
+        mAutoDictionary.loadDictionary();
         
         return mAutoDictionary;
     }

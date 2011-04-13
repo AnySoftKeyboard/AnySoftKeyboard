@@ -3,9 +3,13 @@ package com.anysoftkeyboard.dictionaries;
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
 
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.database.ContentObserver;
 import android.database.Cursor;
+import android.net.Uri;
 import android.provider.UserDictionary.Words;
+import android.text.TextUtils;
+import android.util.Log;
 
 class AndroidUserDictionary extends UserDictionaryBase {
 
@@ -19,10 +23,12 @@ class AndroidUserDictionary extends UserDictionaryBase {
     private static final int INDEX_FREQUENCY = 2;
 
 	private ContentObserver mObserver;
-
-    public AndroidUserDictionary(AnyKeyboardContextProvider context)
+	private final String mLocale;
+	
+    public AndroidUserDictionary(AnyKeyboardContextProvider context, String locale)
     {
     	super("AndroidUserDictionary", context);
+    	mLocale = locale;
     }
 
 	protected void closeAllResources() {
@@ -39,9 +45,9 @@ class AndroidUserDictionary extends UserDictionaryBase {
 
 	protected void loadDictionaryAsync() {
 
-		Cursor cursor = mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION, null, null, null);
-			/*"(locale IS NULL) or (locale=?)",
-        	new String[] { Locale.getDefault().toString() }, null);*/
+		Cursor cursor = mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION,
+			"("+Words.LOCALE+" IS NULL) or ("+Words.LOCALE+"=?)",
+        	new String[] { mLocale }, null);
 		if (cursor == null)
 			throw new RuntimeException("No built-in Android dictionary!");
 		
@@ -73,9 +79,25 @@ class AndroidUserDictionary extends UserDictionaryBase {
             }
         }
         cursor.close();
+        
     }
 
 	protected void AddWordToStorage(String word, int frequency) {
-		Words.addWord(mContext, word, frequency, Words.LOCALE_TYPE_CURRENT);
+		if (TextUtils.isEmpty(word)) {
+			return;
+		}
+		
+		if (frequency < 0) frequency = 0;
+		if (frequency > 255) frequency = 255;
+		
+		ContentValues values = new ContentValues(4);
+		values.put(Words.WORD, word);
+		values.put(Words.FREQUENCY, frequency);
+		values.put(Words.LOCALE, mLocale);
+		values.put(Words.APP_ID, 0); // TODO: Get App UID
+		
+		Uri result = mContext.getContentResolver().insert(Words.CONTENT_URI, values );
+		Log.i(TAG, "Added the word '"+word+"' into Android's user dictionary. Result "+result);
+		//Words.addWord(mContext, word, frequency, Words.LOCALE_TYPE_CURRENT);
 	}
 }

@@ -133,7 +133,7 @@ public class ContactsDictionary extends UserDictionaryBase {
                                 	if (AnySoftKeyboardConfiguration.DEBUG)
                                 		Log.d(TAG, "Contact '"+word+"' will be added to contacts dictionary.");
                                 	loadedContacts++;
-                                    super.addWord(word, 128);
+                                	addWordFromStorage(word, 128);
                                 }
                             }
                         }

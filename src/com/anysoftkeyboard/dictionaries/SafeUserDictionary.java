@@ -14,9 +14,11 @@ public class SafeUserDictionary extends AddableDictionary {
 
 	private final Object mUpdatingLock = new Object();
 	private boolean mUpdatingDictionary = false;
+	private final String mLocale;
 	
-	protected SafeUserDictionary( AnyKeyboardContextProvider context) {
+	protected SafeUserDictionary( AnyKeyboardContextProvider context, String locale) {
 		super("SafeUserDictionary");
+		mLocale = locale;
 		mAnyContext = context;
 	}
 
@@ -56,9 +58,8 @@ public class SafeUserDictionary extends AddableDictionary {
 	private void loadDictionaryAsync() {
 		try
 		{
-			AndroidUserDictionary androidBuiltIn = new AndroidUserDictionary(mAnyContext);
+			AndroidUserDictionary androidBuiltIn = new AndroidUserDictionary(mAnyContext, mLocale);
 			androidBuiltIn.loadDictionary();
-			
 			mActualDictionary = androidBuiltIn;
 		}
 		catch(Exception e)
@@ -66,21 +67,17 @@ public class SafeUserDictionary extends AddableDictionary {
 			Log.w(TAG, "Failed to load Android's built-in user dictionary. No matter, I'll use a fallback.");
 			FallbackUserDictionary fallback = new FallbackUserDictionary(mAnyContext);
 			fallback.loadDictionary();
+			
+			mActualDictionary = fallback;
 		}
 	}
     
-    public void startDictionaryLoadingTaskLocked() {
-        if (!mUpdatingDictionary ) {
-            mUpdatingDictionary = true;
-            //mRequiresReload = false;
-            new LoadDictionaryTask().execute();
-        }
-    }
-
-    
     public void loadDictionary() {
         synchronized (mUpdatingLock) {
-            startDictionaryLoadingTaskLocked();
+        	if (!mUpdatingDictionary ) {
+                mUpdatingDictionary = true;
+                new LoadDictionaryTask().execute();
+            }
         }
     }
     

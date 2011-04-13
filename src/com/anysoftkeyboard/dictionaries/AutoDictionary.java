@@ -140,7 +140,7 @@ public class AutoDictionary extends UserDictionaryBase {
                     // Safeguard against adding really long words. Stack may overflow due
                     // to recursive lookup
                     if (word.length() < MAX_WORD_LENGTH) {
-                        super.addWord(word, frequency);
+                    	addWordFromStorage(word, frequency);
                     }
                     cursor.moveToNext();
                 }

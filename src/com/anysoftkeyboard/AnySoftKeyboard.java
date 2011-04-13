@@ -283,8 +283,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// mLocale = locale;
 		mSuggest = new Suggest(this/* , R.raw.main */);
 		mSuggest.setCorrectionMode(mCorrectionMode);
-		mUserDictionary = DictionaryFactory.getInstance().createUserDictionary(this);
-		mSuggest.setUserDictionary(mUserDictionary);
 		handleContactsDictionaryMember();
 		handleAutoDictionaryMember();
 		setMainDictionaryForCurrentKeyboard();
@@ -2301,39 +2299,39 @@ public class AnySoftKeyboard extends InputMethodService implements
 			    if (DEBUG)Log.d(TAG, "No suggestion is required. I'll try to release memory from the dictionary.");
 				//DictionaryFactory.getInstance().releaseAllDictionaries();
 				mSuggest.setMainDictionary(null);
+				mSuggest.setUserDictionary(null);
 			} else {
 				// It null at the creation of the application.
 				if ((mKeyboardSwitcher != null)
 						&& mKeyboardSwitcher.isAlphabetMode()) {
-					AnyKeyboard currentKeyobard = mKeyboardSwitcher
-							.getCurrentKeyboard();
-					Dictionary dictionary = getDictionaryForKeyboard(currentKeyobard);
+					AnyKeyboard currentKeyobard = mKeyboardSwitcher.getCurrentKeyboard();
+					
+					// if there is a mapping in the settings, we'll use that, else we'll
+					// return the default
+					String mappingSettingsKey = getDictionaryOverrideKey(currentKeyobard);
+					String defaultDictionary = currentKeyobard.getDefaultDictionaryLocale();
+					String dictionaryValue = getSharedPreferences().getString(mappingSettingsKey, null);
+					Dictionary dictionary = null;
 
+					if (dictionaryValue == null){
+						dictionary = DictionaryFactory.getInstance().getDictionaryByLanguage(currentKeyobard.getDefaultDictionaryLocale(), this);
+					} else {
+					        if (AnySoftKeyboardConfiguration.DEBUG)
+					        {
+					        	Log.d("AnySoftKeyboard", "Default dictionary '" + (defaultDictionary == null? "None" : defaultDictionary)
+					        			+ "' for keyboard '" + currentKeyobard.getKeyboardPrefId()
+					        			+ "' has been overriden to '" + dictionaryValue + "'");
+					        }
+							dictionary = DictionaryFactory.getInstance().getDictionaryById(dictionaryValue, this);
+					}
+					
 					mSuggest.setMainDictionary(dictionary);
+					
+					mUserDictionary = DictionaryFactory.getInstance().createUserDictionary(this, defaultDictionary);
+					mSuggest.setUserDictionary(mUserDictionary);
 				}
 			}
 		}
-	}
-
-	private Dictionary getDictionaryForKeyboard(AnyKeyboard currentKeyboard) {
-		// if there is a mapping in the settings, we'll use that, else we'll
-		// return the default
-		String mappingSettingsKey = getDictionaryOverrideKey(currentKeyboard);
-		String defaultDictionary = currentKeyboard.getDefaultDictionaryLocale();
-		String dictionaryValue = getSharedPreferences().getString(mappingSettingsKey, null);
-		Dictionary dictionary = null;
-
-		if (dictionaryValue == null){
-			dictionary = DictionaryFactory.getInstance().getDictionaryByLanguage(currentKeyboard.getDefaultDictionaryLocale(), this);
-		} else {
-		        if (AnySoftKeyboardConfiguration.DEBUG)
-				Log.d("AnySoftKeyboard", "Default dictionary '" + (defaultDictionary == null? "None" : defaultDictionary)
-						+ "' for keyboard '" + currentKeyboard.getKeyboardPrefId()
-						+ "' has been overriden to '" + dictionaryValue + "'");
-				dictionary = DictionaryFactory.getInstance().getDictionaryById(dictionaryValue, this);
-		}
-
-		return dictionary;
 	}
 
 	private String getDictionaryOverrideKey(AnyKeyboard currentKeyboard) {
@@ -2724,9 +2722,9 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
 	public void promoteToUserDictionary(String word, int frequency) {
-	        if (mUserDictionary.isValidWord(word)) return;
-	        mUserDictionary.addWord(word, frequency);
-	    }
+        if (mUserDictionary.isValidWord(word)) return;
+        mUserDictionary.addWord(word, frequency);
+    }
 
 	public WordComposer getCurrentWord() {
         return mWord;

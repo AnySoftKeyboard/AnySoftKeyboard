@@ -80,7 +80,7 @@ abstract public class Dictionary {
 
     public abstract void close();
 
-    public abstract void loadDictionary() throws Exception;
+    public abstract void loadDictionary();
     
     public String getDictionaryName() {return mDictionaryName;}
 }
