@@ -500,6 +500,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mComposing.setLength(0);
 		mPredicting = false;
 		// mDeleteCount = 0;
+        mJustAddedAutoSpace = false;
 		setCandidatesViewShown(false);
 		// loadSettings();
 
@@ -1178,6 +1179,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			ic.commitText(lastTwo.charAt(1) + " ", 1);
 			//ic.endBatchEdit();
 			updateShiftKeyState(getCurrentInputEditorInfo());
+            mJustAddedAutoSpace = true;
 		}
 	}
 
@@ -1198,8 +1200,20 @@ public class AnySoftKeyboard extends InputMethodService implements
 			ic.commitText(". ", 1);
 			//ic.endBatchEdit();
 			updateShiftKeyState(getCurrentInputEditorInfo());
+            mJustAddedAutoSpace = true;
 		}
 	}
+
+    private void removeTrailingSpace() {
+        final InputConnection ic = getCurrentInputConnection();
+        if (ic == null) return;
+
+        CharSequence lastOne = ic.getTextBeforeCursor(1, 0);
+        if (lastOne != null && lastOne.length() == 1
+                && lastOne.charAt(0) == KEYCODE_SPACE) {
+            ic.deleteSurroundingText(1, 0);
+        }
+    }
 
 	public boolean addWordToDictionary(String word) {
 		mUserDictionary.addWord(word, 32*1024);
@@ -1411,6 +1425,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		//ic.endBatchEdit();
 		updateShiftKeyState(getCurrentInputEditorInfo());
 		mJustRevertedSeparator = null;
+        mJustAddedAutoSpace = false;
 	}
 	
 	private static boolean isBackwordStopChar(int c) {
@@ -1742,12 +1757,20 @@ public class AnySoftKeyboard extends InputMethodService implements
 					&& (mJustRevertedSeparator == null
 							|| mJustRevertedSeparator.length() == 0
 							|| mJustRevertedSeparator.charAt(0) != primaryCode)) {
-				pickDefaultSuggestion();
-				pickedDefault = true;
+				pickedDefault = pickDefaultSuggestion();
+				// Picked the suggestion by the space key.  We consider this
+                // as "added an auto space".
+                if (primaryCode == KEYCODE_SPACE) {
+                    mJustAddedAutoSpace = true;
+                }
 			} else {
 				commitTyped(ic);
 			}
 		}
+        if (mJustAddedAutoSpace && primaryCode == KEYCODE_ENTER) {
+            removeTrailingSpace();
+            mJustAddedAutoSpace = false;
+        }
 
 		sendKeyChar((char) primaryCode);
 
@@ -1852,7 +1875,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		setCandidatesViewShown(shouldCandidatesStripBeShown() || mCompletionOn);
 	}
 
-	private void pickDefaultSuggestion() {
+	private boolean pickDefaultSuggestion() {
 		// Complete any pending candidate query first
 		if (mHandler.hasMessages(MSG_UPDATE_SUGGESTIONS)) {
 			mHandler.removeMessages(MSG_UPDATE_SUGGESTIONS);
@@ -1865,7 +1888,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 			pickSuggestion(mBestWord);
 			  // Add the word to the auto dictionary if it's not a known word
             addToDictionaries(mBestWord, AutoDictionary.FREQUENCY_FOR_TYPED);
+            return true;
 		}
+		return false;
 	}
 	
 	private CharSequence pickSuggestion(CharSequence suggestion) {
@@ -1922,8 +1947,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 			TextEntryState.acceptedSuggestion(mComposing.toString(), suggestion);
 			// Follow it with a space
 			if (mAutoSpace && !correcting) {
-				mJustAddedAutoSpace = true;
 				sendSpace();
+				mJustAddedAutoSpace = true;
 			}
 			
 			final boolean showingAddToDictionaryHint = index == 0 && mCorrectionMode > 0
