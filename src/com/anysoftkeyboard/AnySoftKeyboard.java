@@ -1742,9 +1742,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		boolean pickedDefault = false;
 		// Handle separator
 		InputConnection ic = getCurrentInputConnection();
-//		if (ic != null) {
-//			ic.beginBatchEdit();
-//		}
+		if (ic != null) {
+			ic.beginBatchEdit();
+		}
 		if (mPredicting) {
 			// In certain languages where single quote is a separator, it's
 			// better
@@ -1776,19 +1776,18 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		TextEntryState.typedCharacter((char) primaryCode, true);
 		if (TextEntryState.getState() == TextEntryState.State.PUNCTUATION_AFTER_ACCEPTED
-				&& primaryCode != KEYCODE_ENTER && mJustAddedAutoSpace) {
+				&& primaryCode != KEYCODE_ENTER) {
 			swapPunctuationAndSpace();
 		} else if (/*isPredictionOn() &&*/ primaryCode == ' ') {
-			// else if (TextEntryState.STATE_SPACE_AFTER_ACCEPTED) {
 			doubleSpace();
 		}
 		if (pickedDefault && mBestWord != null) {
 			TextEntryState.acceptedDefault(mWord.getTypedWord(), mBestWord);
 		}
 		updateShiftKeyState(getCurrentInputEditorInfo());
-//		if (ic != null) {
-//			ic.endBatchEdit();
-//		}
+		if (ic != null) {
+			ic.endBatchEdit();
+		}
 	}
 
 	private void handleClose() {
