@@ -194,54 +194,65 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     	return super.onLongPress(packageContext, key);
     }
     
+    private long mExtensionKeyboardAreaEntranceTime = -1;
     @Override
     public boolean onTouchEvent(MotionEvent me) {
     	// If the motion event is above the keyboard and it's not an UP event coming
         // even before the first MOVE event into the extension area
         if (me.getY() < -mExtensionKeyboardPopupOffset && !isPopupShowing() && !mExtensionVisible && me.getAction() != MotionEvent.ACTION_UP) {
-        	int extensionResId = ((ExternalAnyKeyboard)getKeyboard()).getExtensionResId();
-        	if (extensionResId <= 0)
+        	if (mExtensionKeyboardAreaEntranceTime <= 0)
+        		mExtensionKeyboardAreaEntranceTime = System.currentTimeMillis();
+        	
+        	if (System.currentTimeMillis() - mExtensionKeyboardAreaEntranceTime > 50)
         	{
-        		return super.onTouchEvent(me);
-        	}
-        	else
-        	{
-        		//telling the main keyboard that the last touch was canceled
-	        	MotionEvent cancel = MotionEvent.obtain(me.getDownTime(), me.getEventTime(),
-                        MotionEvent.ACTION_CANCEL, me.getX(), me.getY(), 0);
-                super.onTouchEvent(cancel);
-                cancel.recycle();
-                
-        		mExtensionVisible = true;
-	        	if (mExtensionKey == null)
+	        	int extensionResId = ((ExternalAnyKeyboard)getKeyboard()).getExtensionResId();
+	        	if (extensionResId <= 0)
 	        	{
-		        	mExtensionKey = new Key(new Row(getKeyboard()));
-		        	mExtensionKey.codes = new int[]{0};
-		        	mExtensionKey.edgeFlags = Keyboard.EDGE_TOP;
-		        	mExtensionKey.height = 0;
-		        	mExtensionKey.width = 0;
-		        	mExtensionKey.popupResId = extensionResId;
-		        	mExtensionKey.x = getWidth()/2;
-		        	mExtensionKey.y = -mExtensionKeyboardPopupOffset;
+	        		return super.onTouchEvent(me);
 	        	}
-	        	onLongPress(getContext(), mExtensionKey);
-	        	//it is an extension..
-	        	mMiniKeyboard.setPreviewEnabled(true);
-	        	
-	        	return true;
-        	}
+	        	else
+	        	{
+	        		//telling the main keyboard that the last touch was canceled
+		        	MotionEvent cancel = MotionEvent.obtain(me.getDownTime(), me.getEventTime(),
+	                        MotionEvent.ACTION_CANCEL, me.getX(), me.getY(), 0);
+	                super.onTouchEvent(cancel);
+	                cancel.recycle();
+	                
+	        		mExtensionVisible = true;
+		        	if (mExtensionKey == null)
+		        	{
+			        	mExtensionKey = new Key(new Row(getKeyboard()));
+			        	mExtensionKey.codes = new int[]{0};
+			        	mExtensionKey.edgeFlags = Keyboard.EDGE_TOP;
+			        	mExtensionKey.height = 0;
+			        	mExtensionKey.width = 0;
+			        	mExtensionKey.popupResId = extensionResId;
+			        	mExtensionKey.x = getWidth()/2;
+			        	mExtensionKey.y = -mExtensionKeyboardPopupOffset;
+		        	}
+		        	onLongPress(getContext(), mExtensionKey);
+		        	//it is an extension..
+		        	mMiniKeyboard.setPreviewEnabled(true);
+		        	
+		        	return true;
+	        	}
+        	} else {
+                return super.onTouchEvent(me);
+            }
         } else if (mExtensionVisible && me.getY() > mExtensionKeyboardPopupOffset) {
         	//closing the popup
         	dismissPopupKeyboard();
         	
         	return true;
         } else {
+        	mExtensionKeyboardAreaEntranceTime = -1;
             return super.onTouchEvent(me);
         }
     }
     
     @Override
     protected void dismissPopupKeyboard() {
+    	mExtensionKeyboardAreaEntranceTime = -1;
     	mExtensionVisible = false;
     	super.dismissPopupKeyboard();
     }
