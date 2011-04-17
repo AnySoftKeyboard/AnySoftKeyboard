@@ -460,6 +460,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
                     case 1:
                         mKeyTextStyle = Typeface.DEFAULT_BOLD;
                         break;
+                    case 2:
+                        mKeyTextStyle = Typeface.defaultFromStyle(Typeface.ITALIC);
+                        break;
                     default:
                         mKeyTextStyle = Typeface.defaultFromStyle(textStyle);
                         break;
@@ -485,7 +488,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         }
         mPreviewPopup.setTouchable(false);
         mPreviewPopup.setAnimationStyle(R.style.KeyPreviewAnimation);
-        mDelayBeforePreview = 0;
+        mDelayBeforePreview = 20;
         mDelayAfterPreview = 10;
 
         mMiniKeyboardParent = this;
