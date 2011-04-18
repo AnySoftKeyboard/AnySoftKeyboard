@@ -488,7 +488,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         }
         mPreviewPopup.setTouchable(false);
         mPreviewPopup.setAnimationStyle(R.style.KeyPreviewAnimation);
-        mDelayBeforePreview = 20;
+        mDelayBeforePreview = 0;
         mDelayAfterPreview = 10;
 
         mMiniKeyboardParent = this;
