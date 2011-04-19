@@ -97,10 +97,10 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     	mExtensionVisible = false;
         
     	final Keyboard oldKeyboard = getKeyboard();
-        if (oldKeyboard instanceof AnyKeyboard) {
-            // Reset old keyboard state before switching to new keyboard.
-            ((AnyKeyboard)oldKeyboard).keyReleased();
-        }
+//        if (oldKeyboard instanceof AnyKeyboard) {
+//            // Reset old keyboard state before switching to new keyboard.
+//            ((AnyKeyboard)oldKeyboard).keyReleased();
+//        }
         super.setKeyboard(newKeyboard);
         if (newKeyboard == mPhoneKeyboard) {
             // Phone keyboard never shows popup preview (except language switch).

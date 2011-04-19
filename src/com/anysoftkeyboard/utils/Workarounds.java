@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import com.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
@@ -21,8 +22,6 @@ public class Workarounds
 	static
 	{
 		//checking f/w API is a bit tricky, we need to do it by reflection
-//		boolean isDonut = false;
-//		boolean isEclair = false;
 		int sdkVersion = 1;
 		try
 		{
@@ -32,19 +31,15 @@ public class Workarounds
 				//NOTE: I can not use the field here, since this code MAY run in cupcake, and therefore
 				//fail in JIT compile. I need to perform this function with reflection...
 				sdkVersion = sdkInt.getInt(null);
-//				isDonut = (sdkVersion >= 4);
-//				isEclair = (sdkVersion >= 5);
 			}
 		}
 		catch(Exception ex)
 		{
 			sdkVersion = 3;
 		}
-//		ms_isDonut = isDonut;
-//		ms_isEclair = isEclair;
 		ms_ApiLevel = sdkVersion;
 		
-		boolean requiresRtlWorkaround = true;//all devices required this fix (in 2.1 it is still required)
+		boolean requiresRtlWorkaround = true;//all devices required this fix (in 2.3 it is still required)
 		
 		//from 2.1 we'll default to RTL supported!
 		//but there are many versions which patched it.
@@ -64,8 +59,6 @@ public class Workarounds
 				//no fix: 1251851795000
 				//fix: 1251970876000
 				//fix: 1261367883000
-	//			//final int buildInc = Integer.parseInt(android.os.Build.VERSION.INCREMENTAL);
-	//			//requiresRtlWorkaround = (buildInc < 20090831);
 				requiresRtlWorkaround =  (android.os.Build.TIME <= 1251851795000l);
 			}
 			else if (android.os.Build.DEVICE.toLowerCase().contains("spica"))
@@ -97,6 +90,9 @@ public class Workarounds
 	
 	public static CharSequence workaroundCorrectStringDirection(CharSequence suggestion) 
     {
+		if (TextUtils.isEmpty(suggestion))
+			return suggestion;
+		
 		//Hebrew letters are to be drawn in the other direction.
     	//Also, this is not valid for Galaxy (Israel's Cellcom Android)
     	if (!getRtlWorkaround())

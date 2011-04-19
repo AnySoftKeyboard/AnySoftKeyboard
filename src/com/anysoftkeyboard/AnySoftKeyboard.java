@@ -87,6 +87,7 @@ import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.ui.settings.MainSettings;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
+import com.anysoftkeyboard.utils.ModifierKeyState;
 import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -111,6 +112,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private static final int MSG_UPDATE_SUGGESTIONS = 0;
 	//private static final int MSG_START_TUTORIAL = 1;
+    private static final int MSG_UPDATE_SHIFT_STATE = 2;
 
 	public static final int KEYCODE_ENTER = 10;
 	public static final int KEYCODE_SPACE = ' ';
@@ -133,6 +135,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private final AnySoftKeyboardConfiguration mConfig;
 	private static final boolean DEBUG = AnySoftKeyboardConfiguration.DEBUG;
 
+	private ModifierKeyState mShiftKeyState = new ModifierKeyState();
+	
 	private AnyKeyboardView mInputView;
 	private LinearLayout mCandidateViewContainer;
 	private CandidateView mCandidateView;
@@ -215,16 +219,19 @@ public class AnySoftKeyboard extends InputMethodService implements
 			case MSG_UPDATE_SUGGESTIONS:
 				performUpdateSuggestions();
 				break;
+			case MSG_UPDATE_SHIFT_STATE:
+                updateShiftKeyState(getCurrentInputEditorInfo());
+                break;
 			}
 		}
 	};
 
 	private boolean mJustAddedAutoSpace;
 
-	private static final int LAST_CHAR_SHIFT_STATE_UNKNOWN = 0;
-	private static final int LAST_CHAR_SHIFT_STATE_UNSHIFTED = 1;
-	private static final int LAST_CHAR_SHIFT_STATE_SHIFTED = 2;
-	private int mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_UNKNOWN;
+//	private static final int LAST_CHAR_SHIFT_STATE_UNKNOWN = 0;
+//	private static final int LAST_CHAR_SHIFT_STATE_UNSHIFTED = 1;
+//	private static final int LAST_CHAR_SHIFT_STATE_SHIFTED = 2;
+//	private int mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_UNKNOWN;
 
 	public static AnySoftKeyboard getInstance() {
 		return INSTANCE;
@@ -607,7 +614,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		postUpdateSuggestionsNow();
 		TextEntryState.reset();
 		
-		mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_UNKNOWN;
+		//mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_UNKNOWN;
 	}
 
 	private void onPhysicalKeyboardKeyPressed() {
@@ -1152,19 +1159,28 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	}
 
-	public void updateShiftKeyState(EditorInfo attr) {
-		InputConnection ic = getCurrentInputConnection();
-		if (attr != null && mInputView != null
-				&& mKeyboardSwitcher.isAlphabetMode() && ic != null) {
-			int caps = 0;
-			EditorInfo ei = getCurrentInputEditorInfo();
-			if (mAutoCap && ei != null && ei.inputType != EditorInfo.TYPE_NULL) {
-				caps = ic.getCursorCapsMode(attr.inputType);
-			}
-			mInputView.setShifted(mCapsLock || caps != 0);
-			//mInputView.requestShiftKeyRedraw();
-		}
-	}
+	private void postUpdateShiftKeyState() {
+        mHandler.removeMessages(MSG_UPDATE_SHIFT_STATE);
+        // TODO: Should remove this 300ms delay?
+        mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_UPDATE_SHIFT_STATE), 300);
+    }
+
+    public void updateShiftKeyState(EditorInfo attr) {
+        InputConnection ic = getCurrentInputConnection();
+        if (ic != null && attr != null && mKeyboardSwitcher.isAlphabetMode()) {
+            mInputView.setShifted(mShiftKeyState.isMomentary() || mCapsLock
+                    || getCursorCapsMode(ic, attr) != 0);
+        }
+    }
+
+    private int getCursorCapsMode(InputConnection ic, EditorInfo attr) {
+        int caps = 0;
+        EditorInfo ei = getCurrentInputEditorInfo();
+        if (mAutoCap && ei != null && ei.inputType != EditorInfo.TYPE_NULL) {
+            caps = ic.getCursorCapsMode(attr.inputType);
+        }
+        return caps;
+    }
 
 	private void swapPunctuationAndSpace() {
 		final InputConnection ic = getCurrentInputConnection();
@@ -1240,7 +1256,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 			handleBackspace();
 			break;
 		case Keyboard.KEYCODE_SHIFT:
-			handleShift();
+			if (!mInputView.hasDistinctMultitouch())
+				handleShift(false);
 			break;
 		case AnyKeyboard.KEYCODE_CTRL:
 			//mCtrl = true;
@@ -1586,30 +1603,29 @@ public class AnySoftKeyboard extends InputMethodService implements
 //	}
 
 	private void handleShiftStateAfterBackspace() {
-		switch(mLastCharacterShiftState)
-		{
-			//this code will help use in the case that
-			//a double/triple tap occur while first one was shifted
-		case LAST_CHAR_SHIFT_STATE_SHIFTED:
-			if (mInputView != null)
-				mInputView.setShifted(true);
-			mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_UNKNOWN;
-			break;
-		case LAST_CHAR_SHIFT_STATE_UNSHIFTED:
-			if (mInputView != null)
-				mInputView.setShifted(false);
-			mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_UNKNOWN;
-			break;
-		default:
-			updateShiftKeyState(getCurrentInputEditorInfo());
-			break;
-		}
-//		if(mInputView != null){
-//		    mInputView.requestShiftKeyRedraw();
+//		switch(mLastCharacterShiftState)
+//		{
+//			//this code will help use in the case that
+//			//a double/triple tap occur while first one was shifted
+//		case LAST_CHAR_SHIFT_STATE_SHIFTED:
+//			if (mInputView != null)
+//				mInputView.setShifted(true);
+//			mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_UNKNOWN;
+//			break;
+//		case LAST_CHAR_SHIFT_STATE_UNSHIFTED:
+//			if (mInputView != null)
+//				mInputView.setShifted(false);
+//			mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_UNKNOWN;
+//			break;
+//		default:
+//			updateShiftKeyState(getCurrentInputEditorInfo());
+//			break;
 //		}
 	}
 
-	private void handleShift() {
+	private void handleShift(boolean reset) {
+		mHandler.removeMessages(MSG_UPDATE_SHIFT_STATE);
+		
 		if (mKeyboardSwitcher.isAlphabetMode()) {
 			//shift pressed and this is an alphabet keyboard
 			//we want to do:
@@ -1625,33 +1641,40 @@ public class AnySoftKeyboard extends InputMethodService implements
 					Log.e(TAG, "NOTE: view keyboard and switcher keyboard are not the same!");
 				}
 			}
+			
 			final boolean caps;
-			if (!mInputView.isShifted())
+			if (reset)
 			{
-				if (DEBUG) Log.d(TAG, "handleShift: current keyboard is un-shifted");
-				mInputView.setShifted(true);
+				if (DEBUG) Log.d(TAG, "handleShift: reset");
+				mInputView.setShifted(false);
 				caps = false;
 			}
 			else
 			{
-				if (currentKeyboard.isShiftLocked())
+				if (!mInputView.isShifted())
 				{
-					if (DEBUG) Log.d(TAG, "handleShift: current keyboard is CAPSLOCKED");
-					mInputView.setShifted(false);
+					if (DEBUG) Log.d(TAG, "handleShift: current keyboard is un-shifted");
+					mInputView.setShifted(true);
 					caps = false;
 				}
 				else
 				{
-					if (DEBUG) Log.d(TAG, "handleShift: current keyboard is shifted");
-					mInputView.setShifted(true);
-					caps = true;
+					if (currentKeyboard.isShiftLocked())
+					{
+						if (DEBUG) Log.d(TAG, "handleShift: current keyboard is CAPSLOCKED");
+						mInputView.setShifted(false);
+						caps = false;
+					}
+					else
+					{
+						if (DEBUG) Log.d(TAG, "handleShift: current keyboard is shifted");
+						mInputView.setShifted(true);
+						caps = true;
+					}
 				}
 			}
-			
 			mCapsLock = caps;
 			currentKeyboard.setShiftLocked(mCapsLock);
-			
-			//mInputView.requestShiftKeyRedraw();
 		}
 	}
 
@@ -1666,7 +1689,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 		}
 		if(mInputView != null){
-		    mLastCharacterShiftState = mInputView.isShifted()? LAST_CHAR_SHIFT_STATE_SHIFTED : LAST_CHAR_SHIFT_STATE_UNSHIFTED;
+		    //mLastCharacterShiftState = mInputView.isShifted()? LAST_CHAR_SHIFT_STATE_SHIFTED : LAST_CHAR_SHIFT_STATE_UNSHIFTED;
 		}
 		
 		final int primaryCodeForShow;
@@ -2129,7 +2152,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				+ currentKeyboard.getKeyboardName());
 		updateShiftKeyState(currentEditorInfo);
 		mCapsLock = currentKeyboard.isShiftLocked();
-		mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_UNKNOWN;
+		//mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_UNKNOWN;
 		// changing dictionary
 		setDictionariesForCurrentKeyboard();
 		// Notifying if needed
@@ -2158,6 +2181,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (mVibrationDuration > 0 && primaryCode!=0) {
 			mVibrator.vibrate(mVibrationDuration);
 		}
+		
+		final boolean distinctMultiTouch = mInputView.hasDistinctMultitouch();
+        if (distinctMultiTouch && primaryCode == Keyboard.KEYCODE_SHIFT) {
+            mShiftKeyState.onPress();
+            handleShift(false);
+        } else {
+            mShiftKeyState.onOtherKeyPressed();
+        }
+        
 		if (mSoundOn && (!mSilentMode) && primaryCode!=0) {
 			final int keyFX;
 			switch (primaryCode) {
@@ -2217,6 +2249,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public void onRelease(int primaryCode) {
 		if (DEBUG) Log.d(TAG, "onRelease:"+primaryCode);
 		// vibrate();
+		// Reset any drag flags in the keyboard
+        //((AnyKeyboard) mInputView.getKeyboard()).keyReleased();
+        //vibrate();
+        final boolean distinctMultiTouch = mInputView.hasDistinctMultitouch();
+        if (distinctMultiTouch && primaryCode == Keyboard.KEYCODE_SHIFT) {
+            if (mShiftKeyState.isMomentary())
+                handleShift(true);
+            mShiftKeyState.onRelease();
+        }
 	}
 
 	// receive ringer mode changes to detect silent mode

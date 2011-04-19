@@ -21,7 +21,9 @@ package com.anysoftkeyboard.dictionaries;
 import java.io.FileDescriptor;
 import java.util.Arrays;
 
+import com.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.anysoftkeyboard.WordComposer;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import android.content.res.AssetFileDescriptor;
 import android.os.AsyncTask;
@@ -158,12 +160,17 @@ class BinaryDictionary extends Dictionary {
     @Override
     public boolean isValidWord(CharSequence word) {
         if (word == null) return false;
-        char[] chars = word.toString().toLowerCase().toCharArray();
+        char[] chars = word.toString().toCharArray();
         return isValidWordNative(mNativeDict, chars, chars.length);
     }
 
     public synchronized void close() {
         if (mNativeDict != 0) {
+        	if (AnySoftKeyboardConfiguration.DEBUG)
+        	{
+        		Log.w(TAG, "Native Binary Dictionary has been closed!");
+        		Thread.dumpStack();
+        	}
             closeNative(mNativeDict);
             mNativeDict = 0;
         }

@@ -51,6 +51,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.R;
 
 public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy {
@@ -824,7 +825,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
 
             // Switch the character to uppercase if shift is pressed
             String label = key.label == null? null : adjustCase(key.label).toString();
-
+            label = (String)Workarounds.workaroundCorrectStringDirection(label);
+            
             final Rect bounds = keyBackground.getBounds();
             if (key.width != bounds.right || key.height != bounds.bottom) {
                 keyBackground.setBounds(0, 0, key.width, key.height);
