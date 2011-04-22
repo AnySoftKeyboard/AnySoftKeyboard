@@ -116,6 +116,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	public static final int KEYCODE_ENTER = 10;
 	public static final int KEYCODE_SPACE = ' ';
+	public static final int KEYCODE_PERIOD = '.';
+	
 	private static final int KEYBOARD_NOTIFICATION_ID = 1;
 	
 	private static final HashSet<Integer> SPACE_SWAP_CHARACTERS = new HashSet<Integer>(
@@ -228,10 +230,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private boolean mJustAddedAutoSpace;
 
-//	private static final int LAST_CHAR_SHIFT_STATE_UNKNOWN = 0;
-//	private static final int LAST_CHAR_SHIFT_STATE_UNSHIFTED = 1;
-//	private static final int LAST_CHAR_SHIFT_STATE_SHIFTED = 2;
-//	private int mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_UNKNOWN;
+	private static final int LAST_CHAR_SHIFT_STATE_DEFAULT = 0;
+	//private static final int LAST_CHAR_SHIFT_STATE_UNSHIFTED = 1;
+	private static final int LAST_CHAR_SHIFT_STATE_SHIFTED = 2;
+	private int mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_DEFAULT;
 
 	public static AnySoftKeyboard getInstance() {
 		return INSTANCE;
@@ -488,7 +490,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 					//we'll keep the previous mPredictionOn value
 				}
 				
-				updateShiftKeyState(attribute);
 				break;
 			default:
 				if (DEBUG) Log.d(TAG, "Setting MODE_TEXT as keyboard due to a default input.");
@@ -496,7 +497,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT, attribute);
 				mPredictionOn = false;
 				mAutoSpace = true;
-				updateShiftKeyState(attribute);
 			}
 		}
 		
@@ -510,6 +510,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         mJustAddedAutoSpace = false;
 		setCandidatesViewShown(false);
 		// loadSettings();
+		updateShiftKeyState(attribute);
 
 		if (mSuggest != null) {
 			mSuggest.setCorrectionMode(mCorrectionMode);
@@ -549,6 +550,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		System.gc();
 	}
 	
+	///this function is called EVERYTIME them selection is changed. This also includes the underlined
+	///suggestions.
 	@Override
 	public void onUpdateSelection(int oldSelStart, int oldSelEnd,
 			int newSelStart, int newSelEnd, int candidatesStart,
@@ -556,6 +559,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd,
 				candidatesStart, candidatesEnd);
 		
+		boolean shouldUpdateShift = false;
 		if (DEBUG)
 		{
 			Log.d(TAG, "mComposing.length():"+mComposing.length());
@@ -570,10 +574,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 			if ((candidatesEnd >= 0)//we have candidates underline
 					&& (newSelEnd != candidatesEnd)) //the candidate underline does not end at the new cursor position! User changed the cursor.
 			{
+				shouldUpdateShift = true;
 				resetComposing();
 			}
-			else if ((candidatesEnd < 0) || (candidatesStart <0))//the input cleared the underline
+			else if ((candidatesEnd < 0) || (candidatesStart < 0))//the input cleared the underline
 			{
+				shouldUpdateShift = true;
 				resetComposing();
 			}
 		}
@@ -585,22 +591,14 @@ public class AnySoftKeyboard extends InputMethodService implements
                 TextEntryState.reset();
                 // fall through
             case SPACE_AFTER_PICKED:
+            	shouldUpdateShift = true;
                 mJustAddedAutoSpace = false;  // The user moved the cursor.
                 break;
 			}
 		}
 		mJustAccepted = false;
-	}
-	
-	@Override
-	public boolean onTrackballEvent(MotionEvent event) {
-	    if(DEBUG)Log.d(TAG, "onTrackballEvent");
-		return super.onTrackballEvent(event);
-	}
-	@Override
-	public Context getApplicationContext() {
-		// TODO Auto-generated method stub
-		return super.getApplicationContext();
+		if (shouldUpdateShift)
+			postUpdateShiftKeyState();
 	}
 	
 	private void resetComposing() {
@@ -614,7 +612,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		postUpdateSuggestionsNow();
 		TextEntryState.reset();
 		
-		//mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_UNKNOWN;
+		mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_DEFAULT;
 	}
 
 	private void onPhysicalKeyboardKeyPressed() {
@@ -1162,10 +1160,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private void postUpdateShiftKeyState() {
         mHandler.removeMessages(MSG_UPDATE_SHIFT_STATE);
         // TODO: Should remove this 300ms delay?
-        mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_UPDATE_SHIFT_STATE), 300);
+        mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_UPDATE_SHIFT_STATE), 150);
     }
 
     public void updateShiftKeyState(EditorInfo attr) {
+		mHandler.removeMessages(MSG_UPDATE_SHIFT_STATE);
         InputConnection ic = getCurrentInputConnection();
         if (ic != null && attr != null && mKeyboardSwitcher.isAlphabetMode()) {
             mInputView.setShifted(mShiftKeyState.isMomentary() || mCapsLock
@@ -1198,6 +1197,22 @@ public class AnySoftKeyboard extends InputMethodService implements
             mJustAddedAutoSpace = true;
 		}
 	}
+
+    private void reswapPeriodAndSpace() {
+        final InputConnection ic = getCurrentInputConnection();
+        if (ic == null) return;
+        CharSequence lastThree = ic.getTextBeforeCursor(3, 0);
+        if (lastThree != null && lastThree.length() == 3
+                && lastThree.charAt(0) == KEYCODE_PERIOD
+                && lastThree.charAt(1) == KEYCODE_SPACE
+                && lastThree.charAt(2) == KEYCODE_PERIOD) {
+            ic.beginBatchEdit();
+            ic.deleteSurroundingText(3, 0);
+            ic.commitText(" ..", 1);
+            ic.endBatchEdit();
+            updateShiftKeyState(getCurrentInputEditorInfo());
+        }
+    }
 
 	private void doubleSpace() {
 		// if (!mAutoPunctuate) return;
@@ -1430,7 +1445,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	public void onText(CharSequence text) {
 		if (DEBUG)
-			Log.d("AnySoftKeyboard", "onText: " + text);
+			Log.d("AnySoftKeyboard", "onText: '" + text+"'");
 		InputConnection ic = getCurrentInputConnection();
 		if (ic == null)
 			return;
@@ -1565,7 +1580,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		} else {
 			deleteChar = true;
 		}
-		
+        
 		TextEntryState.backspace();
 		if (TextEntryState.getState() == TextEntryState.State.UNDO_COMMIT) {
 			revertLastWord(deleteChar);
@@ -1593,34 +1608,26 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 		handleShiftStateAfterBackspace();
 	}
-	
-//	@Override
-//	public void sendDownUpKeyEvents(int keyEventCode) {
-//		super.sendDownUpKeyEvents(keyEventCode);
-//		//since it happens in a different process (asynch)
-//		//we'll let the system settle.
-//		Thread.yield();//this is not a fix, but a bit relaxing..
-//	}
 
 	private void handleShiftStateAfterBackspace() {
-//		switch(mLastCharacterShiftState)
-//		{
-//			//this code will help use in the case that
-//			//a double/triple tap occur while first one was shifted
-//		case LAST_CHAR_SHIFT_STATE_SHIFTED:
-//			if (mInputView != null)
-//				mInputView.setShifted(true);
-//			mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_UNKNOWN;
-//			break;
+		switch(mLastCharacterShiftState)
+		{
+			//this code will help use in the case that
+			//a double/triple tap occur while first one was shifted
+		case LAST_CHAR_SHIFT_STATE_SHIFTED:
+			if (mInputView != null)
+				mInputView.setShifted(true);
+			mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_DEFAULT;
+			break;
 //		case LAST_CHAR_SHIFT_STATE_UNSHIFTED:
 //			if (mInputView != null)
 //				mInputView.setShifted(false);
-//			mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_UNKNOWN;
+//			mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_DEFAULT;
 //			break;
-//		default:
-//			updateShiftKeyState(getCurrentInputEditorInfo());
-//			break;
-//		}
+		default:
+			updateShiftKeyState(getCurrentInputEditorInfo());
+			break;
+		}
 	}
 
 	private void handleShift(boolean reset) {
@@ -1689,7 +1696,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 		}
 		if(mInputView != null){
-		    //mLastCharacterShiftState = mInputView.isShifted()? LAST_CHAR_SHIFT_STATE_SHIFTED : LAST_CHAR_SHIFT_STATE_UNSHIFTED;
+		    mLastCharacterShiftState = mInputView.isShifted()? LAST_CHAR_SHIFT_STATE_SHIFTED : LAST_CHAR_SHIFT_STATE_DEFAULT;
 		}
 		
 		final int primaryCodeForShow;
@@ -1716,10 +1723,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 						break;
 					}
 				}
-//				int[] tmp = new int[keyCodes.length+1];
-//			    tmp[0] = primaryCode;
-//			    System.arraycopy(keyCodes, 0, tmp, 1, keyCodes.length);
-//			    keyCodes = tmp;
 			}
 			if (mWord.add(primaryCodeForShow, keyCodes))
 			{
@@ -1797,6 +1800,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		sendKeyChar((char) primaryCode);
 
+		// Handle the case of ". ." -> " .." with auto-space if necessary
+        // before changing the TextEntryState.
+        if (TextEntryState.getState() == TextEntryState.State.PUNCTUATION_AFTER_ACCEPTED
+                && primaryCode == KEYCODE_PERIOD) {
+            reswapPeriodAndSpace();
+        }
+        
 		TextEntryState.typedCharacter((char) primaryCode, true);
 		if (TextEntryState.getState() == TextEntryState.State.PUNCTUATION_AFTER_ACCEPTED
 				&& primaryCode != KEYCODE_ENTER) {
@@ -2090,7 +2100,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	private void sendSpace() {
-		sendKeyChar(' ');
+		sendKeyChar((char)KEYCODE_SPACE);
 		updateShiftKeyState(getCurrentInputEditorInfo());
 	}
 
@@ -2152,7 +2162,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				+ currentKeyboard.getKeyboardName());
 		updateShiftKeyState(currentEditorInfo);
 		mCapsLock = currentKeyboard.isShiftLocked();
-		//mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_UNKNOWN;
+		mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_DEFAULT;
 		// changing dictionary
 		setDictionariesForCurrentKeyboard();
 		// Notifying if needed
@@ -2578,7 +2588,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	public void appendCharactersToInput(CharSequence textToCommit) {
 		if (DEBUG)
-			Log.d(TAG, "appendCharactersToInput: "+ textToCommit);
+			Log.d(TAG, "appendCharactersToInput: '"+ textToCommit+"'");
 		mWord.append(textToCommit);
 
 		mComposing.append(textToCommit);

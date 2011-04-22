@@ -86,9 +86,11 @@ public abstract class AnyKeyboard extends Keyboard
     //private final boolean mDebug;
 	
     private final Drawable mShiftIcon;
-    private final Drawable mLockedShiftIcon;
+    private final Drawable mShiftOnIcon;
+    private final Drawable mShiftLockedIcon;
     private final Drawable mShiftFeedbackIcon;
-    private final Drawable mLockedShiftFeedbackIcon;
+    private final Drawable mShiftOnFeedbackIcon;
+    private final Drawable mShiftLockedFeedbackIcon;
     private final int mKeyboardMode;
 
     private Key mShiftKey;
@@ -123,22 +125,28 @@ public abstract class AnyKeyboard extends Keyboard
         Resources resources = askContext.getApplicationContext().getResources();
 		if (mShiftKey != null)
         {
-	        mLockedShiftIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_locked);
+	        mShiftLockedIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_locked);
+	        mShiftOnIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_on);
 	        mShiftIcon = resources.getDrawable(R.drawable.sym_keyboard_shift);
-	        mLockedShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift_locked);
+	        mShiftLockedFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift_locked);
+	        mShiftOnFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift_on);
 	        mShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift);
 
-	        mLockedShiftFeedbackIcon.setBounds(0, 0, 
-	        		mLockedShiftFeedbackIcon.getIntrinsicWidth(), mLockedShiftFeedbackIcon.getIntrinsicHeight());
+	        mShiftLockedFeedbackIcon.setBounds(0, 0, 
+	        		mShiftLockedFeedbackIcon.getIntrinsicWidth(), mShiftLockedFeedbackIcon.getIntrinsicHeight());
+	        mShiftOnFeedbackIcon.setBounds(0, 0, 
+	        		mShiftOnFeedbackIcon.getIntrinsicWidth(), mShiftOnFeedbackIcon.getIntrinsicHeight());
 	        mShiftFeedbackIcon.setBounds(0, 0, 
 	        		mShiftFeedbackIcon.getIntrinsicWidth(), mShiftFeedbackIcon.getIntrinsicHeight());
 	        setShiftViewAsState();
         }
         else
         {
-        	mLockedShiftIcon = null;
+        	mShiftLockedIcon = null;
+        	mShiftOnIcon = null;
         	mShiftIcon = null;
-        	mLockedShiftFeedbackIcon = null;
+        	mShiftLockedFeedbackIcon = null;
+        	mShiftOnFeedbackIcon = null;
         	mShiftFeedbackIcon = null;
         	Log.v(TAG, "No shift key, so no handling images.");
         }
@@ -704,8 +712,21 @@ public abstract class AnyKeyboard extends Keyboard
 
 	private void setShiftViewAsState() {
 		mShiftKey.on = (mShiftState != SHIFT_OFF);
-		mShiftKey.icon = (mShiftState == SHIFT_LOCKED)? mLockedShiftIcon : mShiftIcon;
-		mShiftKey.iconPreview = (mShiftState == SHIFT_LOCKED)? mLockedShiftFeedbackIcon : mShiftFeedbackIcon;
+		switch(mShiftState)
+		{
+		case SHIFT_ON:
+			mShiftKey.icon = mShiftOnIcon;
+			mShiftKey.iconPreview = mShiftOnFeedbackIcon;
+			break;
+		case SHIFT_LOCKED:
+			mShiftKey.icon = mShiftLockedIcon;
+			mShiftKey.iconPreview = mShiftLockedFeedbackIcon;
+			break;
+		default:
+			mShiftKey.icon = mShiftIcon;
+			mShiftKey.iconPreview = mShiftFeedbackIcon;
+			break;
+		}
 	}
     
 	public boolean isShiftLocked() {
