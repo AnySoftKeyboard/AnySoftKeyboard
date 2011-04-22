@@ -23,7 +23,6 @@ import android.inputmethodservice.Keyboard.Key;
 import android.inputmethodservice.Keyboard.Row;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 
 import com.anysoftkeyboard.keyboards.AnyKeyboard;

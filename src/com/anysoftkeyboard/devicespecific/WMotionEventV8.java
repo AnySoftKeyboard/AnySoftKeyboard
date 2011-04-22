@@ -1,8 +1,8 @@
-package com.anysoftkeyboard.keyboards.views;
+package com.anysoftkeyboard.devicespecific;
 
 import android.view.MotionEvent;
 
-public class WMotionEventV8 extends WMotionEventV5 {
+class WMotionEventV8 extends WMotionEventV5 {
 
 	WMotionEventV8(MotionEvent nativeMotionEvent) {
 		super(nativeMotionEvent);

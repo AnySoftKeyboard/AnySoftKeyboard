@@ -2,7 +2,7 @@
 <!--
 /*
 **
-** Copyright 2010, The Android Open Source Project
+** Copyright 2011 AnySoftKeyboard
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -18,17 +18,9 @@
 */
 -->
 
-<com.anysoftkeyboard.keyboards.views.AnyKeyboardView
+<com.anysoftkeyboard.devicespecific.DeviceSpecific_V7
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/AnykeyboardBaseView"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/keyboard_bottom_padding"
-        android:background="@drawable/keyboard_dark_background"
-        android:textStyle="bold"
-
-
-        keyBackground="@drawable/btn_keyboard_key_gingerbread"
-        keyTextStyle="bold"
+        android:id="@+id/DeviceSpecific"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         />

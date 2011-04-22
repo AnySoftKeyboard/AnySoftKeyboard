@@ -1,11 +1,11 @@
-package com.anysoftkeyboard.keyboards.views;
+package com.anysoftkeyboard.devicespecific;
 
 import android.view.MotionEvent;
 
 public class WMotionEvent {
 	protected final MotionEvent mNativeMotionEvent;
 	
-	WMotionEvent(MotionEvent nativeMotionEvent)
+	public WMotionEvent(MotionEvent nativeMotionEvent)
 	{
 		mNativeMotionEvent = nativeMotionEvent;
 	}

@@ -1,10 +1,10 @@
-package com.anysoftkeyboard.keyboards.views;
+package com.anysoftkeyboard.devicespecific;
 
 import android.view.MotionEvent;
 
-public class WMotionEventV5 extends WMotionEvent {
+class WMotionEventV5 extends WMotionEvent {
 
-	WMotionEventV5(MotionEvent nativeMotionEvent) {
+	public WMotionEventV5(MotionEvent nativeMotionEvent) {
 		super(nativeMotionEvent);
 	}
 
