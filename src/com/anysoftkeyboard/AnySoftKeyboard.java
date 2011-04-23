@@ -80,6 +80,7 @@ import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher.NextKeyboardType;
 import com.anysoftkeyboard.keyboards.physical.HardKeyboardActionImpl;
 import com.anysoftkeyboard.keyboards.physical.MyMetaKeyKeyListener;
+import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView.OnKeyboardActionListener;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
@@ -99,6 +100,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		OnKeyboardActionListener,
 		OnSharedPreferenceChangeListener, AnyKeyboardContextProvider {
 	private final static String TAG = "ASK";
+	
+	private final static int SWIPE_CORD = -2;
 	
 	public final static String NOTIFY_LAYOUT_SWITCH  = "com.menny.android.anysoftkeyboard.api.NOTIFY_LAYOUT_SWITCH";
     //API
@@ -1271,7 +1274,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 			handleBackspace();
 			break;
 		case Keyboard.KEYCODE_SHIFT:
-			if (!mInputView.hasDistinctMultitouch())
+			if ((!mInputView.hasDistinctMultitouch()) 
+					|| ((x == SWIPE_CORD) && (y == SWIPE_CORD)))//the SWIPE_CORD is the case where onKey was called from swipeX
 				handleShift(false);
 			break;
 		case AnyKeyboard.KEYCODE_CTRL:
@@ -2112,14 +2116,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 		//nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
 		final int keyCode = mConfig.getSwipeRightKeyCode();
 		if (keyCode != 0)
-			onKey(keyCode, new int[]{keyCode}, -1, -1);
+			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
 	}
 
 	public void swipeLeft() {
 		//nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Symbols);
 		final int keyCode = mConfig.getSwipeLeftKeyCode();
 		if (keyCode != 0)
-			onKey(keyCode, new int[]{keyCode}, -1, -1);
+			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
 	}
 
 	private void nextAlterKeyboard(EditorInfo currentEditorInfo)
@@ -2177,13 +2181,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public void swipeDown() {
 		final int keyCode = mConfig.getSwipeDownKeyCode();
 		if (keyCode != 0)
-			onKey(keyCode, new int[]{keyCode}, -1, -1);
+			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
 	}
 
 	public void swipeUp() {
 		final int keyCode = mConfig.getSwipeUpKeyCode();
 		if (keyCode != 0)
-			onKey(keyCode, new int[]{keyCode}, -1, -1);
+			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
 	}
 
 	public void onPress(int primaryCode) {

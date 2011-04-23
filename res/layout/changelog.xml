@@ -60,7 +60,7 @@
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
-		        android:text="20110330 - 39"
+		        android:text="20110423 - 39"
 		        android:textStyle="bold"
 		        android:gravity="center"
 		        android:textSize="16sp"
@@ -76,7 +76,7 @@
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
-		        android:text="* Gingerbread look and feel!!!\n* Smiley list now support icons.\n* Backup-Agent support (Android 2.2+).\n* Better handling of external packs.\n* Bug fixes."
+		        android:text="* Gingerbread look and feel!!!\n* Multitouch support in supporting devices and OSes (Android 2.1+)\n* Smiley list now support icons.\n* Backup-Agent support (Android 2.2+).\n* Better handling of external packs.\n* Bug fixes."
 		        android:textSize="16sp"
 		        android:paddingTop="4dp"
 		        android:paddingLeft="12dp"

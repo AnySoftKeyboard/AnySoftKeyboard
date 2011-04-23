@@ -152,7 +152,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
     private final int mKeyRepeatInterval;
 
     // Miscellaneous constants
-    /* package */ static final int NOT_A_KEY = -1;
+    public static final int NOT_A_KEY = -1;
     
     private static final int[] LONG_PRESSABLE_STATE_SET = { android.R.attr.state_long_pressable };
     private static final int NUMBER_HINT_VERTICAL_ADJUSTMENT_PIXEL = -1;
@@ -186,7 +186,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
     private int[] mOffsetInWindow;
     private int mOldPreviewKeyIndex = NOT_A_KEY;
     private boolean mShowPreview = true;
-    private final boolean mShowTouchPoints = true;
+    private final boolean mShowTouchPoints = false;
     private int mPopupPreviewOffsetX;
     private int mPopupPreviewOffsetY;
     private int mWindowY;
