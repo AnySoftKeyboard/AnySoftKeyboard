@@ -284,8 +284,8 @@ public class CandidateView extends View {
             if (canvas != null) {
             	//(+)This is the trick to get RTL/LTR text correct
 				// no matter what: StaticLayout
-            	int textX = x - bgPadding.left - bgPadding.right  + (wordWidth / 2);
-            	int textY = y - bgPadding.bottom - bgPadding.top;
+            	float textX = x - bgPadding.left - bgPadding.right  + (wordWidth / 2);
+            	float textY = y - bgPadding.bottom - bgPadding.top;
             	
             	canvas.translate(textX , textY);	
         	    

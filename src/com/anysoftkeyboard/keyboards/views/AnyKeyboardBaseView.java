@@ -39,6 +39,9 @@ import android.inputmethodservice.Keyboard.Key;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.text.StaticLayout;
+import android.text.TextPaint;
+import android.text.Layout.Alignment;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
@@ -848,11 +851,29 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
 
                 // Draw a drop shadow for the text
                 paint.setShadowLayer(mShadowRadius, 0, 0, mShadowColor);
-                final int centerX = (key.width + padding.left - padding.right) / 2;
-                final int centerY = (key.height + padding.top - padding.bottom) / 2;
-                final float baseline = centerY
-                        + labelHeight * KEY_LABEL_VERTICAL_ADJUSTMENT_FACTOR;
-                canvas.drawText(label, centerX, baseline, paint);
+                final float centerX = (key.width + padding.left - padding.right) / 2;
+                //final float centerY = (key.height - padding.top - padding.bottom - labelHeight) / 2;
+                final float centerY = padding.top + ((key.height - - padding.bottom - padding.top) / 2);
+//                final float baseline = centerY
+//                        + labelHeight * KEY_LABEL_VERTICAL_ADJUSTMENT_FACTOR;
+                //(+)This is the trick to get RTL/LTR text correct
+				// no matter what: StaticLayout
+            	float textX = centerX;
+            	float textY = centerY - (labelHeight / 2) - paint.descent();
+            	
+            	canvas.translate(textX , textY);	
+        	    
+            	TextPaint labelPaint = new TextPaint(paint);
+            	StaticLayout labelText = 
+            		new StaticLayout(
+            				label, labelPaint, 
+            				key.width, Alignment.ALIGN_NORMAL, 
+            				1.0f, 1.0f, false);
+            	labelText.draw(canvas);
+            	
+        	    canvas.translate(-textX , -textY);
+//              canvas.drawText(label, centerX, baseline, paint);
+				//(-)               
                 
                 // Turn off drop shadow
                 paint.setShadowLayer(0, 0, 0, 0);
