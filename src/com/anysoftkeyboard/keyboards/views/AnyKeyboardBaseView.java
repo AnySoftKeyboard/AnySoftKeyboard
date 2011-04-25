@@ -851,15 +851,16 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
 
                 // Draw a drop shadow for the text
                 paint.setShadowLayer(mShadowRadius, 0, 0, mShadowColor);
-                final float centerX = (key.width + padding.left - padding.right) / 2;
-                //final float centerY = (key.height - padding.top - padding.bottom - labelHeight) / 2;
-                final float centerY = padding.top + ((key.height - - padding.bottom - padding.top) / 2);
-//                final float baseline = centerY
-//                        + labelHeight * KEY_LABEL_VERTICAL_ADJUSTMENT_FACTOR;
+                
+                
                 //(+)This is the trick to get RTL/LTR text correct
 				// no matter what: StaticLayout
-            	float textX = centerX;
-            	float textY = centerY - (labelHeight / 2) - paint.descent();
+                float textWidth =  paint.measureText(label);
+                final float centerX = textWidth/2;
+                final float centerY = padding.top + ((key.height - padding.bottom - padding.top) / 2);
+                
+                final float textX = centerX;
+            	final float textY = centerY - (labelHeight / 2) - paint.descent();
             	
             	canvas.translate(textX , textY);	
         	    
@@ -867,14 +868,19 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
             	StaticLayout labelText = 
             		new StaticLayout(
             				label, labelPaint, 
-            				key.width, Alignment.ALIGN_NORMAL, 
-            				1.0f, 1.0f, false);
+            				key.width, Alignment.ALIGN_CENTER, 
+            				0.0f, 0.0f, false);
             	labelText.draw(canvas);
             	
         	    canvas.translate(-textX , -textY);
-//              canvas.drawText(label, centerX, baseline, paint);
-				//(-)               
+//                final int centerX = (key.width + padding.left - padding.right) / 2;
+//                final int centerY = (key.height + padding.top - padding.bottom) / 2;
+//                final float baseline = centerY
+//                        + labelHeight * KEY_LABEL_VERTICAL_ADJUSTMENT_FACTOR;
+//                canvas.drawText(label, centerX, baseline, paint);
+				//(-)      
                 
+                                
                 // Turn off drop shadow
                 paint.setShadowLayer(0, 0, 0, 0);
 

@@ -20,6 +20,7 @@ package com.anysoftkeyboard.keyboards.views;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Rect;
@@ -263,7 +264,8 @@ public class CandidateView extends View {
             int wordWidth;
             if ((wordWidth = mWordWidth[i]) == 0) {
                 float textWidth =  paint.measureText(suggestion, 0, wordLength);
-                wordWidth = Math.max(mMinTouchableWidth, (int) textWidth + X_GAP * 2);
+                //wordWidth = Math.max(0, (int) textWidth + X_GAP * 2);
+                wordWidth = (int) textWidth + X_GAP * 2;
                 mWordWidth[i] = wordWidth;
             }
 
@@ -284,7 +286,7 @@ public class CandidateView extends View {
             if (canvas != null) {
             	//(+)This is the trick to get RTL/LTR text correct
 				// no matter what: StaticLayout
-            	float textX = x - bgPadding.left - bgPadding.right  + (wordWidth / 2);
+            	float textX = x + (wordWidth/2) - X_GAP;
             	float textY = y - bgPadding.bottom - bgPadding.top;
             	
             	canvas.translate(textX , textY);	
@@ -293,8 +295,8 @@ public class CandidateView extends View {
             	StaticLayout suggestionText = 
             		new StaticLayout(
             				suggestion, suggestionPaint, 
-            				wordWidth, Alignment.ALIGN_NORMAL, 
-            				1.0f, 1.0f, false);
+            				wordWidth, Alignment.ALIGN_CENTER, 
+            				0.0f, 0.0f, false);
             	suggestionText.draw(canvas);
             	
         	    canvas.translate(-textX , -textY);
