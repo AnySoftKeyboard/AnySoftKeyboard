@@ -3,14 +3,13 @@ package com.menny.android.anysoftkeyboard;
 import com.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.anysoftkeyboard.backup.CloudBackupRequester;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific;
+import com.anysoftkeyboard.devicespecific.FactoryViewBase;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 
 import android.app.Application;
-import android.app.Service;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 
 
 public class AnyApplication extends Application {
@@ -30,7 +29,9 @@ public class AnyApplication extends Application {
         LayoutInflater inflate =
             (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        msDeviceSpecific = (DeviceSpecific)inflate.inflate(R.layout.device_specific, null);
+        FactoryViewBase factory = (FactoryViewBase)inflate.inflate(R.layout.device_specific, null);
+        msDeviceSpecific = factory.createDeviceSpecific();
+        factory = null;//GC! Please clean this view!
         
 		CloudBackupRequester.createRequesterInstance(getPackageName());
 		

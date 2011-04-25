@@ -26,7 +26,7 @@
     
     <dimen name="extension_keyboard_popup_offset">20dip</dimen>
     
-    <dimen name="candidate_strip_height">42dip</dimen>
+    <dimen name="candidate_strip_height">40dip</dimen>
     <dimen name="candidate_strip_fading_edge_length">63dip</dimen>
     <dimen name="candidate_min_touchable_width">0.3in</dimen>
     

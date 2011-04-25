@@ -25,6 +25,9 @@ import android.graphics.Paint.Align;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.text.Layout.Alignment;
+import android.text.StaticLayout;
+import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.Gravity;
@@ -232,7 +235,6 @@ public class CandidateView extends View {
         final int scrollX = getScrollX();
         final boolean scrolled = mScrolled;
         final boolean typedWordValid = mTypedWordValid;
-        final int y = (int) (height + mPaint.getTextSize() - mDescent) / 2;
 
         //boolean existsAutoCompletion = false;
 
@@ -253,6 +255,11 @@ public class CandidateView extends View {
                 // there are multiple suggestions, such as the default punctuation list.
                 paint.setColor(mColorOther);
             }
+
+            //now that we set the typeFace, we can measure
+            //final int y = (int) (height + mPaint.getTextSize() - mDescent) / 2;
+            final int y = (int) (height - mPaint.getTextSize() - mDescent) / 2;
+            
             int wordWidth;
             if ((wordWidth = mWordWidth[i]) == 0) {
                 float textWidth =  paint.measureText(suggestion, 0, wordLength);
@@ -277,15 +284,21 @@ public class CandidateView extends View {
             if (canvas != null) {
             	//(+)This is the trick to get RTL/LTR text correct
 				// no matter what: StaticLayout
-            	//TODO: David Kohen to fix it.
-//            	TextPaint suggestionPaint = new TextPaint(paint);
-//            	StaticLayout suggestionText = new StaticLayout(suggestion, suggestionPaint, wordWidth, Alignment.ALIGN_CENTER,(float)0.0,(float)0.0,false);
-//            	if (suggestionText != null) {
-//            	    canvas.translate(x , y);
-//            	    suggestionText.draw(canvas);
-//            	    canvas.translate(-x , -y);
-//            	}
-                canvas.drawText(suggestion, 0, wordLength, x + wordWidth / 2, y, paint);
+            	int textX = x - bgPadding.left - bgPadding.right  + (wordWidth / 2);
+            	int textY = y - bgPadding.bottom - bgPadding.top;
+            	
+            	canvas.translate(textX , textY);	
+        	    
+            	TextPaint suggestionPaint = new TextPaint(paint);
+            	StaticLayout suggestionText = 
+            		new StaticLayout(
+            				suggestion, suggestionPaint, 
+            				wordWidth, Alignment.ALIGN_NORMAL, 
+            				1.0f, 1.0f, false);
+            	suggestionText.draw(canvas);
+            	
+        	    canvas.translate(-textX , -textY);
+//                canvas.drawText(suggestion, 0, wordLength, x + wordWidth / 2, y, paint);
 				//(-)
                 paint.setColor(mColorOther);
                 canvas.translate(x + wordWidth, 0);

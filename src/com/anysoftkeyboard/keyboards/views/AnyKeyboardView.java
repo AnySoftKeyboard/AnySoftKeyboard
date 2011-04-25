@@ -95,7 +95,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     	mExtensionKey = null;
     	mExtensionVisible = false;
         
-    	final Keyboard oldKeyboard = getKeyboard();
+//    	final Keyboard oldKeyboard = getKeyboard();
 //        if (oldKeyboard instanceof AnyKeyboard) {
 //            // Reset old keyboard state before switching to new keyboard.
 //            ((AnyKeyboard)oldKeyboard).keyReleased();

@@ -18,7 +18,7 @@
 */
 -->
 
-<com.anysoftkeyboard.devicespecific.DeviceSpecific_V3
+<com.anysoftkeyboard.devicespecific.FactoryView_V3
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/DeviceSpecific"
         android:layout_width="fill_parent"

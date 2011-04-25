@@ -554,10 +554,10 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
             }
         };
 
-        mGestureDetector = AnyApplication.getDeviceSpecific().createGestureDetector(listener);
+        mGestureDetector = AnyApplication.getDeviceSpecific().createGestureDetector(getContext(), listener);
         mGestureDetector.setIsLongpressEnabled(false);
 
-        MultiTouchSupportLevel multiTouchSupportLevel = AnyApplication.getDeviceSpecific().getMultiTouchSupportLevel();
+        MultiTouchSupportLevel multiTouchSupportLevel = AnyApplication.getDeviceSpecific().getMultiTouchSupportLevel(getContext());
         mHasDistinctMultitouch = (multiTouchSupportLevel == MultiTouchSupportLevel.Basic) || (multiTouchSupportLevel == MultiTouchSupportLevel.Distinct);
         mKeyRepeatInterval = 50;
     }
@@ -813,7 +813,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
 
             // Switch the character to uppercase if shift is pressed
             String label = key.label == null? null : adjustCase(key.label).toString();
-            label = (String)Workarounds.workaroundCorrectStringDirection(label);
+            //label = (String)Workarounds.workaroundCorrectStringDirection(label);
             
             final Rect bounds = keyBackground.getBounds();
             if (key.width != bounds.right || key.height != bounds.bottom) {
@@ -853,6 +853,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
                 final float baseline = centerY
                         + labelHeight * KEY_LABEL_VERTICAL_ADJUSTMENT_FACTOR;
                 canvas.drawText(label, centerX, baseline, paint);
+                
                 // Turn off drop shadow
                 paint.setShadowLayer(0, 0, 0, 0);
 

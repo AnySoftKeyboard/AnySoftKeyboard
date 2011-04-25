@@ -3,6 +3,7 @@
 /*
 **
 ** Copyright 2010, The Android Open Source Project
+** Copyright 2010, The Android Open Source Project
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -25,5 +26,5 @@
     <alpha
         android:fromAlpha="0.5"
         android:toAlpha="1.0"
-        android:duration="25" />
+        android:duration="20" />
 </set>
