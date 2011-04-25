@@ -17,6 +17,7 @@ public class AnyApplication extends Application {
 	private static final String TAG = "ASK_APP";
 	private static AnySoftKeyboardConfiguration msConfig;
 	private static DeviceSpecific msDeviceSpecific;
+	private static CloudBackupRequester msCloudBackuper;
 	
 	@Override
 	public void onCreate() {
@@ -33,7 +34,7 @@ public class AnyApplication extends Application {
         msDeviceSpecific = factory.createDeviceSpecific();
         factory = null;//GC! Please clean this view!
         
-		CloudBackupRequester.createRequesterInstance(getPackageName());
+        msCloudBackuper = msDeviceSpecific.createCloudBackupRequester(getPackageName());
 		
 		TutorialsProvider.ShowTutorialsIfNeeded(this);
 	}
@@ -46,6 +47,12 @@ public class AnyApplication extends Application {
 	public static DeviceSpecific getDeviceSpecific()
 	{
 		return msDeviceSpecific;
+	}
+	
+	public static void requestBackupToCloud()
+	{
+		if (msCloudBackuper != null)
+			msCloudBackuper.notifyBackupManager();
 	}
 	
 }

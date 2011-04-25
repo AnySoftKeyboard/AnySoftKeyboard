@@ -2,15 +2,15 @@ package com.anysoftkeyboard.backup;
 
 import android.app.backup.BackupManager;
 
-public class CloudBackupRequesterApi8 extends CloudBackupRequester {
+public class CloudBackupRequesterApi8 implements CloudBackupRequester {
 
+	private final String mPackageName;
 	public CloudBackupRequesterApi8(String packageName) {
-		super(packageName);
+		mPackageName = packageName;
 	}
 
-	@Override
-	void notifyBackupManager()
+	public void notifyBackupManager()
 	{
-		BackupManager.dataChanged(getPackageName());
+		BackupManager.dataChanged(mPackageName);
 	}
 }

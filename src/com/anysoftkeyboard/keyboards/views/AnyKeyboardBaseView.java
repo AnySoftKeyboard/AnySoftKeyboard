@@ -57,7 +57,6 @@ import android.widget.TextView;
 import com.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel;
 import com.anysoftkeyboard.devicespecific.WMotionEvent;
-import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -246,7 +245,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
     // This map caches key label text height in pixel as value and key label text size as map key.
     private final HashMap<Integer, Integer> mTextHeightCache = new HashMap<Integer, Integer>();
     // Distance from horizontal center of the key, proportional to key label text height.
-    private final float KEY_LABEL_VERTICAL_ADJUSTMENT_FACTOR = 0.55f;
+    //private final float KEY_LABEL_VERTICAL_ADJUSTMENT_FACTOR = 0.55f;
     private final String KEY_LABEL_HEIGHT_REFERENCE_CHAR = "H";
 
     private final UIHandler mHandler = new UIHandler();

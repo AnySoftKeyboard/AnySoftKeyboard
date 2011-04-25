@@ -1,5 +1,8 @@
 package com.anysoftkeyboard.devicespecific;
 
+import com.anysoftkeyboard.backup.CloudBackupRequester;
+import com.anysoftkeyboard.backup.CloudBackupRequesterApi8;
+
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.util.AttributeSet;
@@ -57,6 +60,11 @@ class FactoryView_V8 extends FactoryView_V7 {
 				SimpleOnGestureListener listener) {
 			final boolean ignoreMultitouch = true;
 			return new GestureDetector(appContext, listener, null, ignoreMultitouch);
+		}
+		
+		@Override
+		public CloudBackupRequester createCloudBackupRequester(String packageName) {
+			return new CloudBackupRequesterApi8(packageName);
 		}
 	}
 	

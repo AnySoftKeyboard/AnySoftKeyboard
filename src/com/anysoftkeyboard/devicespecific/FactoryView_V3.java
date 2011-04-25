@@ -1,6 +1,8 @@
 package com.anysoftkeyboard.devicespecific;
 
 
+import com.anysoftkeyboard.backup.CloudBackupRequester;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -50,6 +52,11 @@ class FactoryView_V3 extends FactoryViewBase {
 		public GestureDetector createGestureDetector(Context appContext, 
 				SimpleOnGestureListener listener) {
 			return new GestureDetector(appContext, listener, null);
+		}
+		
+		public CloudBackupRequester createCloudBackupRequester(
+				String packageName) {
+			return null;
 		}
 		
 	}

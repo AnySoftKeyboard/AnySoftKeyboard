@@ -62,8 +62,6 @@ import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
-
-import com.anysoftkeyboard.backup.CloudBackupRequester;
 import com.anysoftkeyboard.dictionaries.AddableDictionary;
 import com.anysoftkeyboard.dictionaries.AutoDictionary;
 import com.anysoftkeyboard.dictionaries.Dictionary;
@@ -2558,8 +2556,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
 			String key) {
 	    if (DEBUG)Log.d("AnySoftKeyboard", "onSharedPreferenceChanged - key:" + key);
-	    CloudBackupRequester.requestPrefsBackupToTheCloud();
-	    
+	    AnyApplication.requestBackupToCloud();
+
 		boolean isKeyboardKey = key.startsWith(KeyboardAddOnAndBuilder.KEYBOARD_PREF_PREFIX);
 		boolean isDictionaryKey = key.startsWith("dictionary_");
 		boolean isQuickTextKey = key.equals(getString(R.string.settings_key_active_quick_text_key));
