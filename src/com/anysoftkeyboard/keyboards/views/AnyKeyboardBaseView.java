@@ -42,6 +42,7 @@ import android.os.SystemClock;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.Layout.Alignment;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
@@ -704,10 +705,13 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         return mKeyDetector.isProximityCorrectionEnabled();
     }
 
-    protected CharSequence adjustCase(CharSequence label) {
-        if (mKeyboard.isShifted() && label != null && label.length() < 3
-                && Character.isLowerCase(label.charAt(0))) {
-            label = label.toString().toUpperCase();
+    private CharSequence adjustCase(CharSequence label) {
+//        if (mKeyboard.isShifted() && label != null && label.length() < 3
+//                && Character.isLowerCase(label.charAt(0))) {
+//            label = label.toString().toUpperCase();
+//        }
+    	if (mKeyboard.isShifted() && (!TextUtils.isEmpty(label)) && Character.isLowerCase(label.charAt(0))) {
+    		label = label.toString().toUpperCase();
         }
         return label;
     }
@@ -815,7 +819,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
 
             // Switch the character to uppercase if shift is pressed
             String label = key.label == null? null : adjustCase(key.label).toString();
-            //label = (String)Workarounds.workaroundCorrectStringDirection(label);
             
             final Rect bounds = keyBackground.getBounds();
             if (key.width != bounds.right || key.height != bounds.bottom) {

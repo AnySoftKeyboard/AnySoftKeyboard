@@ -132,18 +132,18 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         return true;
     }
 
-    @Override
-    protected CharSequence adjustCase(CharSequence label) {
-        Keyboard keyboard = getKeyboard();
-        if (keyboard.isShifted()
-                && keyboard instanceof AnyKeyboard
-                && (! (keyboard instanceof GenericKeyboard))
-                && !TextUtils.isEmpty(label) && label.length() < 3
-                && Character.isLowerCase(label.charAt(0))) {
-            label = label.toString().toUpperCase();
-        }
-        return label;
-    }
+//    @Override
+//    protected CharSequence adjustCase(CharSequence label) {
+//        Keyboard keyboard = getKeyboard();
+//        if (keyboard.isShifted()
+//                && keyboard instanceof AnyKeyboard
+//                && (! (keyboard instanceof GenericKeyboard))
+//                && !TextUtils.isEmpty(label) && label.length() < 3
+//                && Character.isLowerCase(label.charAt(0))) {
+//            label = label.toString().toUpperCase();
+//        }
+//        return label;
+//    }
 
     public boolean setShiftLocked(boolean shiftLocked) {
         Keyboard keyboard = getKeyboard();
