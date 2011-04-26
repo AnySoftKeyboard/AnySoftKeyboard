@@ -23,7 +23,6 @@ import java.util.Arrays;
 
 import com.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.anysoftkeyboard.WordComposer;
-import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import android.content.res.AssetFileDescriptor;
 import android.os.AsyncTask;

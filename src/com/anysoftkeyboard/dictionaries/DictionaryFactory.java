@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.anysoftkeyboard.AnySoftKeyboard;
-import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 public class DictionaryFactory

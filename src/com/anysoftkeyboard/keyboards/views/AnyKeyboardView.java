@@ -21,13 +21,11 @@ import android.graphics.Canvas;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.Keyboard.Key;
 import android.inputmethodservice.Keyboard.Row;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.ExternalAnyKeyboard;
-import com.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.utils.IMEUtil;
 import com.menny.android.anysoftkeyboard.R;

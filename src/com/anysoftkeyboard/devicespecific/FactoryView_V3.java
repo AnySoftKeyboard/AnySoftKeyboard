@@ -3,7 +3,6 @@ package com.anysoftkeyboard.devicespecific;
 
 import com.anysoftkeyboard.backup.CloudBackupRequester;
 import com.anysoftkeyboard.dictionaries.DictionaryFactory;
-import com.anysoftkeyboard.dictionaries.DictionaryFactoryAPI5;
 
 import android.content.Context;
 import android.util.AttributeSet;

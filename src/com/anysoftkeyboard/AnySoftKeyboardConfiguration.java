@@ -81,7 +81,7 @@ public abstract class AnySoftKeyboardConfiguration
 	static class AnySoftKeyboardConfigurationImpl extends AnySoftKeyboardConfiguration
 	{
 		private static final String CONFIGURATION_VERSION = "configurationVersion";
-		private static final String CUSTOMIZATION_LEVEL = "customizationLevel";
+		//private static final String CUSTOMIZATION_LEVEL = "customizationLevel";
 		private final Context mContext;
 		
 		private String mDomainText = ".com";
