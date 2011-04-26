@@ -19,4 +19,12 @@
 		android:defaultValue="@bool/settings_default_auto_dictionary"
 		android:summaryOn="@string/use_auto_dictionary_on_summary"
 		android:summaryOff="@string/use_auto_dictionary_off_summary"/>
+	<CheckBoxPreference
+		android:key="@string/settings_key_use_contacts_dictionary"
+		android:title="@string/use_contacts_dictionary"
+		android:persistent="true"
+		android:defaultValue="false"
+		android:summaryOn="@string/use_contacts_dictionary_not_supported_summary"
+		android:summaryOff="@string/use_contacts_dictionary_not_supported_summary"
+		android:clickable="false" android:selectable="false" android:enabled="false"/>
 </PreferenceScreen>

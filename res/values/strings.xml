@@ -168,6 +168,7 @@
     <string name="use_contacts_dictionary">Contacts dictionary</string>
     <string name="use_contacts_dictionary_on_summary">Suggest names from contacts list</string>
     <string name="use_contacts_dictionary_off_summary"></string>
+    <string name="use_contacts_dictionary_not_supported_summary">Unsupported under your OS version. Sorry.</string>
     
     <string name="tweaks_group">Tweaks</string>
     <string name="show_new_version_notifications_again">Show new version notifications</string>
