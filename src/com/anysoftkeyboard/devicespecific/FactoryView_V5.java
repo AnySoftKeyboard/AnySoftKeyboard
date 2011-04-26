@@ -1,5 +1,8 @@
 package com.anysoftkeyboard.devicespecific;
 
+import com.anysoftkeyboard.dictionaries.DictionaryFactory;
+import com.anysoftkeyboard.dictionaries.DictionaryFactoryAPI5;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -33,6 +36,11 @@ class FactoryView_V5 extends FactoryView_V3 {
 		@Override
 		public WMotionEvent createMotionEventWrapper(MotionEvent nativeMotionEvent) {
 			return new WMotionEventV5(nativeMotionEvent);
+		}
+		
+		@Override
+		public DictionaryFactory createDictionaryFactory() {
+			return new DictionaryFactoryAPI5();
 		}
 	}
 }

@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.devicespecific;
 
 import com.anysoftkeyboard.backup.CloudBackupRequester;
+import com.anysoftkeyboard.dictionaries.DictionaryFactory;
 
 import android.content.Context;
 import android.view.GestureDetector;
@@ -17,4 +18,6 @@ public interface DeviceSpecific {
 	public GestureDetector createGestureDetector(Context appContext, GestureDetector.SimpleOnGestureListener listener);
 
 	public CloudBackupRequester createCloudBackupRequester(String packageName);
+
+	public DictionaryFactory createDictionaryFactory();
 }

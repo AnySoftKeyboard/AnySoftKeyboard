@@ -2,6 +2,8 @@ package com.anysoftkeyboard.devicespecific;
 
 
 import com.anysoftkeyboard.backup.CloudBackupRequester;
+import com.anysoftkeyboard.dictionaries.DictionaryFactory;
+import com.anysoftkeyboard.dictionaries.DictionaryFactoryAPI5;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -54,11 +56,13 @@ class FactoryView_V3 extends FactoryViewBase {
 			return new GestureDetector(appContext, listener, null);
 		}
 		
-		public CloudBackupRequester createCloudBackupRequester(
-				String packageName) {
+		public CloudBackupRequester createCloudBackupRequester(String packageName) {
 			return null;
 		}
 		
+		public DictionaryFactory createDictionaryFactory() {
+			return new DictionaryFactory();
+		}
 	}
 	
 }

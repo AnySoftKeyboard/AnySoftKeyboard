@@ -15,29 +15,7 @@ public class DictionaryFactory
     
     static
     {
-    	if (Workarounds.getApiLevel() < 5)
-    		msFactory = new DictionaryFactory();
-    	else
-    	{
-    		//it seems that Contacts Dictionary can be used from OS 2.0 or higher....
-    		DictionaryFactory factory = null;
-    		
-			try {
-				Class<?> theClass = Class.forName("com.anysoftkeyboard.dictionaries.DictionaryFactoryAPI5");
-	    		factory = (DictionaryFactory)theClass.newInstance();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    		
-    		msFactory = (factory == null)? new DictionaryFactory() : factory;
-    	}
+    	msFactory = AnyApplication.getDeviceSpecific().createDictionaryFactory();
     }
     
     public static DictionaryFactory getInstance()
@@ -49,7 +27,7 @@ public class DictionaryFactory
     private String mUserDictionaryLocale = null;
     private AddableDictionary mUserDictionary = null;
 
-    protected DictionaryFactory()
+    public DictionaryFactory()
     {
     }
     
