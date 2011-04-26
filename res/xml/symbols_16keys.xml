@@ -10,8 +10,7 @@
         <Key android:codes="49" android:keyLabel="1" android:keyEdgeFlags="left"/>
         <Key android:codes="50" android:keyLabel="2"/>
         <Key android:codes="51" android:keyLabel="3"/>
-        <Key android:codes="-5"
-        	android:keyEdgeFlags="right" android:isRepeatable="true"/>
+        <Key android:codes="46" android:keyEdgeFlags="right"/>
     </Row>
     <Row>
         <Key android:codes="52" android:keyLabel="4" android:keyEdgeFlags="left"/>
@@ -24,7 +23,8 @@
         <Key android:codes="55" android:keyLabel="7" android:keyEdgeFlags="left"/>
         <Key android:codes="56" android:keyLabel="8"/>
         <Key android:codes="57" android:keyLabel="9"/>
-        <Key android:codes="46" android:keyEdgeFlags="right"/>
+        <Key android:codes="-5"
+        	android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     
     <Row android:rowEdgeFlags="bottom">
