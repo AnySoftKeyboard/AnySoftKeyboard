@@ -1252,7 +1252,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 
 	public void onKey(int primaryCode, int[] keyCodes, int x, int y) {
-		if (DEBUG)	Log.d(TAG, "onKey " + primaryCode);
+		if (DEBUG)
+		{
+			Log.d(TAG, "onKey " + primaryCode);
+			//Thread.dumpStack();
+		}
 		
 		switch (primaryCode) {
 		case Keyboard.KEYCODE_DELETE:
@@ -2098,14 +2102,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	public void swipeRight() {
-		//nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
 		final int keyCode = mConfig.getSwipeRightKeyCode();
 		if (keyCode != 0)
 			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
 	}
 
 	public void swipeLeft() {
-		//nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Symbols);
 		final int keyCode = mConfig.getSwipeLeftKeyCode();
 		if (keyCode != 0)
 			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);

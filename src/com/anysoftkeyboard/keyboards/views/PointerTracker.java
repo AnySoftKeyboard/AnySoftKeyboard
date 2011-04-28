@@ -162,7 +162,7 @@ public class PointerTracker {
         }
 
         public int onUpKey(int x, int y) {
-            return onMoveKeyInternal(x, y);
+        	return onMoveKeyInternal(x, y);
         }
     }
 
