@@ -1476,7 +1476,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         if (tracker.isOnModifierKey(x, y)) {
             // Before processing a down event of modifier key, all pointers already being tracked
             // should be released.
-            mPointerQueue.releaseAllPointersExcept(null, eventTime);
+            mPointerQueue.releaseAllPointersExcept(tracker, eventTime);
         }
         tracker.onDownEvent(x, y, eventTime);
         mPointerQueue.add(tracker);

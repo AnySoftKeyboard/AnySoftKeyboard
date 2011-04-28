@@ -132,6 +132,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 			SPACE_SWAP_CHARACTERS.add((int) src.charAt(i));
 	}
 
+    // Keep track of the last selection range to decide if we need to show word alternatives
+    private int     mLastSelectionStart;
+    private int     mLastSelectionEnd;
+
 	private final AnySoftKeyboardConfiguration mConfig;
 	private static final boolean DEBUG = AnySoftKeyboardConfiguration.DEBUG;
 
@@ -538,70 +542,150 @@ public class AnySoftKeyboard extends InputMethodService implements
 		System.gc();
 	}
 	
+	@Override
+    public void onUpdateSelection(int oldSelStart, int oldSelEnd,
+            int newSelStart, int newSelEnd,
+            int candidatesStart, int candidatesEnd) {
+        super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd,
+                candidatesStart, candidatesEnd);
+
+        if (DEBUG) {
+            Log.i(TAG, "onUpdateSelection: oss=" + oldSelStart
+                    + ", ose=" + oldSelEnd
+                    + ", nss=" + newSelStart
+                    + ", nse=" + newSelEnd
+                    + ", cs=" + candidatesStart
+                    + ", ce=" + candidatesEnd);
+        }
+
+//        if (mAfterVoiceInput) {
+//            mVoiceInput.setCursorPos(newSelEnd);
+//            mVoiceInput.setSelectionSpan(newSelEnd - newSelStart);
+//        }
+
+        // If the current selection in the text view changes, we should
+        // clear whatever candidate text we have.
+        if ((((mComposing.length() > 0 && mPredicting) /*|| mVoiceInputHighlighted*/)
+                && (newSelStart != candidatesEnd
+                    || newSelEnd != candidatesEnd)
+                && mLastSelectionStart != newSelStart)) {
+            mComposing.setLength(0);
+            mPredicting = false;
+            postUpdateSuggestions();
+            TextEntryState.reset();
+            InputConnection ic = getCurrentInputConnection();
+            if (ic != null) {
+                ic.finishComposingText();
+            }
+            //mVoiceInputHighlighted = false;
+        } else if (!mPredicting && !mJustAccepted) {
+            switch (TextEntryState.getState()) {
+                case ACCEPTED_DEFAULT:
+                    TextEntryState.reset();
+                    // fall through
+                case SPACE_AFTER_PICKED:
+                    mJustAddedAutoSpace = false;  // The user moved the cursor.
+                    break;
+            }
+        }
+        mJustAccepted = false;
+        postUpdateShiftKeyState();
+
+        // Make a note of the cursor position
+        mLastSelectionStart = newSelStart;
+        mLastSelectionEnd = newSelEnd;
+
+//        if (mReCorrectionEnabled) {
+//            // Don't look for corrections if the keyboard is not visible
+//            if (mKeyboardSwitcher != null && mKeyboardSwitcher.getInputView() != null
+//                    && mKeyboardSwitcher.getInputView().isShown()) {
+//                // Check if we should go in or out of correction mode.
+//                if (isPredictionOn()
+//                        && mJustRevertedSeparator == null
+//                        && (candidatesStart == candidatesEnd || newSelStart != oldSelStart
+//                                || TextEntryState.isCorrecting())
+//                                && (newSelStart < newSelEnd - 1 || (!mPredicting))
+//                                && !mVoiceInputHighlighted) {
+//                    if (isCursorTouchingWord() || mLastSelectionStart < mLastSelectionEnd) {
+//                        postUpdateOldSuggestions();
+//                    } else {
+//                        abortCorrection(false);
+//                        // Show the punctuation suggestions list if the current one is not
+//                        // and if not showing "Touch again to save".
+//                        if (mCandidateView != null
+//                                && !mSuggestPuncList.equals(mCandidateView.getSuggestions())
+//                                        && !mCandidateView.isShowingAddToDictionaryHint()) {
+//                            setNextSuggestions();
+//                        }
+//                    }
+//                }
+//            }
+//        }
+    }
 	///this function is called EVERYTIME them selection is changed. This also includes the underlined
 	///suggestions.
-	@Override
-	public void onUpdateSelection(int oldSelStart, int oldSelEnd,
-			int newSelStart, int newSelEnd, int candidatesStart,
-			int candidatesEnd) {
-		super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd,
-				candidatesStart, candidatesEnd);
-		
-		boolean shouldUpdateShift = false;
-		if (DEBUG)
-		{
-			Log.d(TAG, "mComposing.length():"+mComposing.length());
-			Log.d(TAG, "oldSelStart:"+oldSelStart+" oldSelEnd:"+oldSelEnd);
-			Log.d(TAG, "newSelStart:"+newSelStart+" newSelEnd:"+newSelEnd);
-			Log.d(TAG, "candidatesStart:"+candidatesStart+" candidatesEnd:"+candidatesEnd);
-		}
-		// If the current selection in the text view changes, we should
-		// clear whatever candidate text we have.
-		if (mComposing.length() > 0 && mPredicting)//OK we are in predicting state
-		{
-			if ((candidatesEnd >= 0)//we have candidates underline
-					&& (newSelEnd != candidatesEnd)) //the candidate underline does not end at the new cursor position! User changed the cursor.
-			{
-				shouldUpdateShift = true;
-				resetComposing();
-			}
-			else if ((candidatesEnd < 0) || (candidatesStart < 0))//the input cleared the underline
-			{
-				shouldUpdateShift = true;
-				resetComposing();
-			}
-		}
-		else if (!mPredicting
-				&& !mJustAccepted)
-		{
-			switch (TextEntryState.getState()) {
-            case ACCEPTED_DEFAULT:
-                TextEntryState.reset();
-                // fall through
-            case SPACE_AFTER_PICKED:
-            	shouldUpdateShift = true;
-                mJustAddedAutoSpace = false;  // The user moved the cursor.
-                break;
-			}
-		}
-		mJustAccepted = false;
-		if (shouldUpdateShift)
-			postUpdateShiftKeyState();
-	}
+//	@Override
+//	public void onUpdateSelection(int oldSelStart, int oldSelEnd,
+//			int newSelStart, int newSelEnd, int candidatesStart,
+//			int candidatesEnd) {
+//		super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd,
+//				candidatesStart, candidatesEnd);
+//		
+//		boolean shouldUpdateShift = false;
+//		if (DEBUG)
+//		{
+//			Log.d(TAG, "mComposing.length():"+mComposing.length());
+//			Log.d(TAG, "oldSelStart:"+oldSelStart+" oldSelEnd:"+oldSelEnd);
+//			Log.d(TAG, "newSelStart:"+newSelStart+" newSelEnd:"+newSelEnd);
+//			Log.d(TAG, "candidatesStart:"+candidatesStart+" candidatesEnd:"+candidatesEnd);
+//		}
+//		// If the current selection in the text view changes, we should
+//		// clear whatever candidate text we have.
+//		if (mComposing.length() > 0 && mPredicting)//OK we are in predicting state
+//		{
+//			if ((candidatesEnd >= 0)//we have candidates underline
+//					&& (newSelEnd != candidatesEnd)) //the candidate underline does not end at the new cursor position! User changed the cursor.
+//			{
+//				shouldUpdateShift = true;
+//				resetComposing();
+//			}
+//			else if ((candidatesEnd < 0) || (candidatesStart < 0))//the input cleared the underline
+//			{
+//				shouldUpdateShift = true;
+//				resetComposing();
+//			}
+//		}
+//		else if (!mPredicting
+//				&& !mJustAccepted)
+//		{
+//			switch (TextEntryState.getState()) {
+//            case ACCEPTED_DEFAULT:
+//                TextEntryState.reset();
+//                // fall through
+//            case SPACE_AFTER_PICKED:
+//            	shouldUpdateShift = true;
+//                mJustAddedAutoSpace = false;  // The user moved the cursor.
+//                break;
+//			}
+//		}
+//		mJustAccepted = false;
+//		if (shouldUpdateShift)
+//			postUpdateShiftKeyState();
+//	}
 	
-	private void resetComposing() {
-		InputConnection ic = getCurrentInputConnection();
-		if (ic != null) {
-			ic.finishComposingText();
-			commitTyped(ic);
-		}
-		mComposing.setLength(0);
-		mPredicting = false;
-		postUpdateSuggestionsNow();
-		TextEntryState.reset();
-		
-		mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_DEFAULT;
-	}
+//	private void resetComposing() {
+//		InputConnection ic = getCurrentInputConnection();
+//		if (ic != null) {
+//			ic.finishComposingText();
+//			commitTyped(ic);
+//		}
+//		mComposing.setLength(0);
+//		mPredicting = false;
+//		postUpdateSuggestionsNow();
+//		TextEntryState.reset();
+//		
+//		mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_DEFAULT;
+//	}
 
 	private void onPhysicalKeyboardKeyPressed() {
 		if (mConfig.hideSoftKeyboardWhenPhysicalKeyPressed()) hideWindow(); 
@@ -1442,6 +1526,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		InputConnection ic = getCurrentInputConnection();
 		if (ic == null)
 			return;
+        abortCorrection(false);
 		ic.beginBatchEdit();
 		if (mPredicting) {
 			commitTyped(ic);
@@ -1678,6 +1763,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	}
 
+    private void abortCorrection(boolean force) {
+        if (force || TextEntryState.isCorrecting()) {
+            getCurrentInputConnection().finishComposingText();
+            clearSuggestions();
+        }
+    }
+    
 	private void handleCharacter(final int primaryCode, int[] keyCodes) {
 		if(DEBUG) Log.d("AnySoftKeyboard", "handleCharacter: "+primaryCode+", isPredictionOn:"+isPredictionOn()+", mPredicting:"+mPredicting);
 		if (isAlphabet(primaryCode) && isPredictionOn()
@@ -1691,6 +1783,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if(mInputView != null){
 		    mLastCharacterShiftState = mInputView.isShifted()? LAST_CHAR_SHIFT_STATE_SHIFTED : LAST_CHAR_SHIFT_STATE_DEFAULT;
 		}
+        if (mLastSelectionStart == mLastSelectionEnd && TextEntryState.isCorrecting()) {
+            abortCorrection(false);
+        }
 		
 		final int primaryCodeForShow;
 		if (mInputView != null && mInputView.isShifted())
@@ -1763,6 +1858,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		InputConnection ic = getCurrentInputConnection();
 		if (ic != null) {
 			ic.beginBatchEdit();
+            abortCorrection(false);
 		}
 		if (mPredicting) {
 			// In certain languages where single quote is a separator, it's
@@ -2082,6 +2178,38 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	}
 
+//	private void setOldSuggestions() {
+//        //mShowingVoiceSuggestions = false;
+//        if (mCandidateView != null && mCandidateView.isShowingAddToDictionaryHint()) {
+//            return;
+//        }
+//        InputConnection ic = getCurrentInputConnection();
+//        if (ic == null) return;
+//        if (!mPredicting) {
+//            // Extract the selected or touching text
+//            EditingUtil.SelectedWord touching = EditingUtil.getWordAtCursorOrSelection(ic,
+//                    mLastSelectionStart, mLastSelectionEnd, mWordSeparators);
+//
+//            if (touching != null && touching.word.length() > 1) {
+//                ic.beginBatchEdit();
+//
+//                if (!applyVoiceAlternatives(touching) && !applyTypedAlternatives(touching)) {
+//                    abortCorrection(true);
+//                } else {
+//                    TextEntryState.selectedForCorrection();
+//                    EditingUtil.underlineWord(ic, touching);
+//                }
+//
+//                ic.endBatchEdit();
+//            } else {
+//                abortCorrection(true);
+//                setNextSuggestions();  // Show the punctuation suggestions list
+//            }
+//        } else {
+//            abortCorrection(true);
+//        }
+//    }
+	
     private void setNextSuggestions() {
         setSuggestions(new ArrayList<CharSequence>(), false, false, false);
     }
