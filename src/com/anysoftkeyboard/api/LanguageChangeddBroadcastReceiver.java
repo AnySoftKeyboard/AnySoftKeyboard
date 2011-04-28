@@ -1,4 +1,4 @@
-package com.menny.android.anysoftkeyboard.api;
+package com.anysoftkeyboard.api;
 
 
 

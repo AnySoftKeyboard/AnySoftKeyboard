@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<integer name="key_code_space">32</integer>
+	<integer name="key_code_enter">10</integer>
+	
+	<integer name="key_code_shift">32</integer>
+	<integer name="key_code_delete">10</integer>
+	<integer name="key_code_smiley">32</integer>
+	<integer name="key_code_domain">10</integer>
+	<integer name="key_code_settings">32</integer>
+</resources>
