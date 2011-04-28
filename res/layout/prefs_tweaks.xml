@@ -42,10 +42,10 @@ android:key="tweaks_group_screen">
 		android:summaryOff="@string/emoticon_long_press_opens_popup_off_summary"
 	/>
 	<CheckBoxPreference
-		android:key="key_press_preview_popup"
+		android:key="@string/settings_key_key_press_shows_preview_popup"
 		android:title="@string/key_press_preview_popup"
 		android:persistent="true"
-		android:defaultValue="true"
+		android:defaultValue="@bool/settings_default_key_press_shows_preview_popup"
 		android:summaryOn="@string/key_press_preview_popup_on_summary"
 		android:summaryOff="@string/key_press_preview_popup_off_summary"
 	/>
@@ -90,14 +90,6 @@ android:key="tweaks_group_screen">
 		android:summaryOn="@string/cycle_all_symbols_keyboards_on_summary"
 		android:summaryOff="@string/cycle_all_symbols_keyboards_off_summary"
 	/>
-	<ListPreference
-		android:key="rtl_workaround_detection"
-		android:title="@string/rtl_workaround_detection_title"
-		android:summary="@string/rtl_workaround_detection_summary"
-		android:entries="@array/rtl_workaround_detectionn_types"
-		android:entryValues="@array/rtl_workaround_detection_types_values"
-		android:defaultValue="auto"
-		android:dialogTitle="@string/rtl_workaround_detection_title"/>
 	<CheckBoxPreference
 		android:key="@string/settings_key_lang_key_shows_popup"
 		android:title="@string/lang_key_shows_popup"

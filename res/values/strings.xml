@@ -182,7 +182,7 @@
     <string name="emoticon_long_press_opens_popup_off_summary">Show emoticons popup on short-press</string>
    	<string name="emoticon_popup_type_title">Emoticon popup type</string>
    	<string name="emoticon_popup_type_summary">Select the type of popup to show for emoticon selection</string>
-    <string name="default_smiley_text">Smiley text</string>
+   	<string name="default_smiley_text">Smiley text</string>
     <string name="default_domain_text">Domain text</string>
     
     <string name="smiley_icon_on_smileys_key">Use icon for smiley key</string>
@@ -207,8 +207,6 @@
     <string name="cycle_all_symbols_keyboards_on_summary">Symbols key will cycle over all symbols keyboards</string>
     <string name="cycle_all_symbols_keyboards_off_summary">Symbols key will only show main symbols keyboard</string>
     
-    <string name="rtl_workaround_detection_title">RTL detection type</string>
-    <string name="rtl_workaround_detection_summary">Right-to-Left languages text fix</string>
     <string name="lang_key_shows_popup">Language switch by popup</string>
     <string name="lang_key_shows_popup_on_summary">Language key will pop-up a selection dialog</string>
     <string name="lang_key_shows_popup_off_summary">Language key will cycle languages</string>

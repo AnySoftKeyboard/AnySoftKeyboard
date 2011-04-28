@@ -28,6 +28,7 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.ExternalAnyKeyboard;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.utils.IMEUtil;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 public class AnyKeyboardView extends AnyKeyboardBaseView {
@@ -103,8 +104,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
             // Phone keyboard never shows popup preview (except language switch).
             super.setPreviewEnabled(false);
         } else {
-        	//TODO: for now! This will be replace with the config getter
-            super.setPreviewEnabled(true);
+            super.setPreviewEnabled(AnyApplication.getConfig().getShowKeyPreview());
         }
         //TODO: For now! should be a calculated value
         //lots of key : true

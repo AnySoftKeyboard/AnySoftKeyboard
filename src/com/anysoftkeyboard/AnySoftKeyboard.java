@@ -543,7 +543,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		    sendBroadcast(i);
 		}
 		// clearing any predications
-		//resetComposing();
+		resetComposing();
 		// releasing some memory. Dictionaries, completions, etc.
 		if (mAutoDictionary != null) mAutoDictionary.flushPendingWrites();
 		System.gc();
@@ -604,7 +604,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		InputConnection ic = getCurrentInputConnection();
 		if (ic != null) {
 			ic.finishComposingText();
-			// commitTyped(ic);
+			commitTyped(ic);
 		}
 		mComposing.setLength(0);
 		mPredicting = false;

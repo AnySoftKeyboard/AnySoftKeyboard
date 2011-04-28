@@ -213,7 +213,8 @@ public abstract class AnySoftKeyboardConfiguration
 			mDomainText = sp.getString("default_domain_text", ".com");
 			Log.i(TAG, "** mDomainText: "+mDomainText);
 			
-			mShowKeyPreview = sp.getBoolean("key_press_preview_popup", true);
+			mShowKeyPreview = sp.getBoolean(mContext.getString(R.string.settings_key_key_press_shows_preview_popup), 
+					mContext.getResources().getBoolean(R.bool.settings_default_key_press_shows_preview_popup));
 			Log.i(TAG, "** mShowKeyPreview: "+mShowKeyPreview);
 
 			mSwitchKeyboardOnSpace = sp.getBoolean("switch_keyboard_on_space", false);

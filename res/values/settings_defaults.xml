@@ -7,8 +7,6 @@
     <string name="settings_default_vibrate_on_key_press_duration">0</string>
     <bool name="settings_default_sound_on">false</bool>
     <bool name="settings_default_lang_key_shows_popup">false</bool>
-    <!-- <bool name="settings_default_smiley_icon_on_smileys_key">true</bool> -->
-	<eat-comment/>
     <bool name="settings_default_show_version_notification">true</bool>
     <bool name="settings_default_use_16_keys_symbols_keyboards">false</bool>
     <bool name="settings_default_landscape_fullscreen">true</bool>
@@ -22,6 +20,7 @@
     <bool name="settings_default_auto_dictionary">true</bool>
     <bool name="settings_default_user_dictionary">true</bool>
 	<bool name="settings_default_hide_soft_when_physical">true</bool>
+	<bool name="settings_default_key_press_shows_preview_popup">true</bool>
 	
 	<string name="settings_default_portrait_keyboard_height_factor">1.0</string>
     <string name="settings_default_landscape_keyboard_height_factor">1.0</string>

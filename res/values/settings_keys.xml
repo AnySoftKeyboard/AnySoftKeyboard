@@ -7,12 +7,14 @@
     <string name="settings_key_vibrate_on_key_press_duration">vibrate_on_key_press_duration</string>
     <string name="settings_key_sound_on">sound_on</string>
     
+    <string name="settings_key_key_press_shows_preview_popup">key_press_preview_popup</string>
+    
     <string name="settings_key_lang_key_shows_popup">lang_key_shows_popup</string>
     
-    <string name="settings_key_smiley_popup_type">settings_key_smiley_popup_type</string>
     <string name="settings_key_smiley_icon_on_smileys_key">settings_key_smiley_icon_on_smileys_key</string>
-    <string name="settings_key_emoticon_long_press_opens_popup">emoticon_long_press_opens_popup</string>
     
+    <string name="settings_key_emoticon_long_press_opens_popup">emoticon_long_press_opens_popup</string>
+     
     <string name="settings_key_show_version_notification">settings_key_show_version_notification</string>
     
     <string name="settings_key_use_16_keys_symbols_keyboards">settings_key_use_16_keys_symbols_keyboards</string>
