@@ -16,7 +16,6 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
-import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView.OnKeyboardActionListener;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView.UIHandler;
 
@@ -228,7 +227,7 @@ public class PointerTracker {
 
     public boolean isSpaceKey(int keyIndex) {
         Key key = getKey(keyIndex);
-        return key != null && key.codes[0] == AnySoftKeyboard.KEYCODE_SPACE;
+        return key != null && key.codes[0] == ' ';
     }
 
     public void updateKey(int keyIndex) {

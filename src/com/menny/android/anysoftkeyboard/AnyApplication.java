@@ -25,6 +25,7 @@ public class AnyApplication extends Application {
 		
 		if (AnySoftKeyboardConfiguration.DEBUG) Log.d(TAG, "** Starting application in DEBUG mode.");
 
+		
 		msConfig = AnySoftKeyboardConfiguration.createInstance(this);
 		
         LayoutInflater inflate =

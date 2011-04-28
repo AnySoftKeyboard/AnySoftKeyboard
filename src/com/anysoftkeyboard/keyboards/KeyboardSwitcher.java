@@ -22,6 +22,7 @@ import android.view.inputmethod.EditorInfo;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.AnySoftKeyboardConfiguration;
+import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -58,7 +59,8 @@ public class KeyboardSwitcher
 
     AnyKeyboardView mInputView;
     private final AnySoftKeyboard mContext;
-
+    private final KeyCodes mKeys;
+    
     private static final int SYMBOLS_KEYBOARD_REGULAR_INDEX = 0;
     private static final int SYMBOLS_KEYBOARD_ALT_INDEX = 1;
     private static final int SYMBOLS_KEYBOARD_ALT_NUMBERS_INDEX = 2;
@@ -92,6 +94,7 @@ public class KeyboardSwitcher
 	// Constructor hidden
     public KeyboardSwitcher(AnySoftKeyboard context) {
     	mContext = context;
+    	mKeys = new KeyCodes(mContext.getApplicationContext());
     	Resources res = mContext.getResources();
     	KEYBOARDMODE_NORMAL = res.getInteger(R.integer.keyboard_mode_normal);
     	KEYBOARDMODE_IM = res.getInteger(R.integer.keyboard_mode_im);
@@ -638,7 +641,7 @@ public class KeyboardSwitcher
 	}
 
 	public boolean isKeyRequireSwitchToAlphabet(int primaryCode) {
-		if (primaryCode == AnySoftKeyboard.KEYCODE_ENTER || primaryCode == AnySoftKeyboard.KEYCODE_SPACE)
+		if (primaryCode == mKeys.ENTER || primaryCode == mKeys.SPACE)
 		{
 			return (!isAlphabetMode()) && AnyApplication.getConfig().getSwitchKeyboardOnSpace();
 		}

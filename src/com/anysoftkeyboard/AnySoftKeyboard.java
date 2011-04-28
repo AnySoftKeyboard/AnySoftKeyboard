@@ -62,6 +62,7 @@ import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.dictionaries.AddableDictionary;
 import com.anysoftkeyboard.dictionaries.AutoDictionary;
 import com.anysoftkeyboard.dictionaries.Dictionary;
@@ -113,9 +114,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	//private static final int MSG_START_TUTORIAL = 1;
     private static final int MSG_UPDATE_SHIFT_STATE = 2;
 
-	public static final int KEYCODE_ENTER = 10;
-	public static final int KEYCODE_SPACE = ' ';
-	public static final int KEYCODE_PERIOD = '.';
+    private KeyCodes mKeys;
 	
 	private static final int KEYBOARD_NOTIFICATION_ID = 1;
 	
@@ -253,6 +252,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		Log.i("AnySoftKeyboard", "****** AnySoftKeyboard service started.");
 		Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(getApplication().getBaseContext(), null));
 		
+		mKeys = new KeyCodes(getApplicationContext());
 		// showToastMessage(R.string.toast_lengthy_start_up_operation, true);
 		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
@@ -336,8 +336,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 				.equals(KEYBOARD_NOTIFICATION_ALWAYS)) {
 			mNotificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
 		}
-
-		resetComposing();// clearing any predications
+        // Remove penging messages related to update suggestions
+        mHandler.removeMessages(MSG_UPDATE_SUGGESTIONS);
 	}
 
 	@Override
@@ -376,14 +376,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		setCandidatesViewShown(true);
 		return mCandidateViewContainer;
 	}
-	
-	@Override
-	public void onStartInput(EditorInfo attribute, boolean restarting) {
-		if (DEBUG)
-			Log.d(TAG, "onStartInput(EditorInfo:"+attribute+" restarting:"+restarting);
-		
-		super.onStartInput(attribute, restarting);
-	}
 
 	@Override
 	public void onStartInputView(EditorInfo attribute, boolean restarting) {
@@ -398,7 +390,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 
 		mKeyboardSwitcher.makeKeyboards(false);
-		resetComposing();// clearing any predications
 		TextEntryState.newSession(this);
 
 		if (!restarting) {
@@ -505,7 +496,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		
 		mComposing.setLength(0);
 		mPredicting = false;
-		// mDeleteCount = 0;
+		//mDeleteCount = 0;
         mJustAddedAutoSpace = false;
 		setCandidatesViewShown(false);
 		// loadSettings();
@@ -542,8 +533,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 			i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_PACKAGE, NOTIFY_LAYOUT_SWITCH);//dome summy package, so that everybody removes notification
 		    sendBroadcast(i);
 		}
-		// clearing any predications
-		resetComposing();
 		// releasing some memory. Dictionaries, completions, etc.
 		if (mAutoDictionary != null) mAutoDictionary.flushPendingWrites();
 		System.gc();
@@ -1186,7 +1175,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			return;
 		CharSequence lastTwo = ic.getTextBeforeCursor(2, 0);
 		if (lastTwo != null && lastTwo.length() == 2
-				&& lastTwo.charAt(0) == KEYCODE_SPACE
+				&& lastTwo.charAt(0) == mKeys.SPACE
 				&& SPACE_SWAP_CHARACTERS.contains((int)lastTwo.charAt(1))) {
 			//ic.beginBatchEdit();
 			ic.deleteSurroundingText(2, 0);
@@ -1202,12 +1191,12 @@ public class AnySoftKeyboard extends InputMethodService implements
         if (ic == null) return;
         CharSequence lastThree = ic.getTextBeforeCursor(3, 0);
         if (lastThree != null && lastThree.length() == 3
-                && lastThree.charAt(0) == KEYCODE_PERIOD
-                && lastThree.charAt(1) == KEYCODE_SPACE
-                && lastThree.charAt(2) == KEYCODE_PERIOD) {
+                && lastThree.charAt(0) == mKeys.PERIOD
+                && lastThree.charAt(1) == mKeys.SPACE
+                && lastThree.charAt(2) == mKeys.PERIOD) {
             ic.beginBatchEdit();
             ic.deleteSurroundingText(3, 0);
-            ic.commitText(" ..", 1);
+            ic.commitText(".. ", 1);
             ic.endBatchEdit();
             updateShiftKeyState(getCurrentInputEditorInfo());
         }
@@ -1223,12 +1212,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 		CharSequence lastThree = ic.getTextBeforeCursor(3, 0);
 		if (lastThree != null && lastThree.length() == 3
 				&& Character.isLetterOrDigit(lastThree.charAt(0))
-				&& lastThree.charAt(1) == KEYCODE_SPACE
-				&& lastThree.charAt(2) == KEYCODE_SPACE) {
-			//ic.beginBatchEdit();
+				&& lastThree.charAt(1) == mKeys.SPACE
+				&& lastThree.charAt(2) == mKeys.SPACE) {
+			ic.beginBatchEdit();
 			ic.deleteSurroundingText(2, 0);
 			ic.commitText(". ", 1);
-			//ic.endBatchEdit();
+			ic.endBatchEdit();
 			updateShiftKeyState(getCurrentInputEditorInfo());
             mJustAddedAutoSpace = true;
 		}
@@ -1240,7 +1229,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         CharSequence lastOne = ic.getTextBeforeCursor(1, 0);
         if (lastOne != null && lastOne.length() == 1
-                && lastOne.charAt(0) == KEYCODE_SPACE) {
+                && lastOne.charAt(0) == mKeys.SPACE) {
             ic.deleteSurroundingText(1, 0);
         }
     }
@@ -1449,12 +1438,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 		InputConnection ic = getCurrentInputConnection();
 		if (ic == null)
 			return;
-		//ic.beginBatchEdit();
+		ic.beginBatchEdit();
 		if (mPredicting) {
 			commitTyped(ic);
 		}
 		ic.commitText(text, 1);
-		//ic.endBatchEdit();
+		ic.endBatchEdit();
 		updateShiftKeyState(getCurrentInputEditorInfo());
 		mJustRevertedSeparator = null;
         mJustAddedAutoSpace = false;
@@ -1786,14 +1775,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 				pickedDefault = pickDefaultSuggestion();
 				// Picked the suggestion by the space key.  We consider this
                 // as "added an auto space".
-                if (primaryCode == KEYCODE_SPACE) {
+                if (primaryCode == mKeys.SPACE) {
                     mJustAddedAutoSpace = true;
                 }
 			} else {
 				commitTyped(ic);
 			}
 		}
-        if (mJustAddedAutoSpace && primaryCode == KEYCODE_ENTER) {
+        if (mJustAddedAutoSpace && primaryCode == mKeys.ENTER) {
             removeTrailingSpace();
             mJustAddedAutoSpace = false;
         }
@@ -1803,13 +1792,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// Handle the case of ". ." -> " .." with auto-space if necessary
         // before changing the TextEntryState.
         if (TextEntryState.getState() == TextEntryState.State.PUNCTUATION_AFTER_ACCEPTED
-                && primaryCode == KEYCODE_PERIOD) {
+                && primaryCode == mKeys.PERIOD) {
             reswapPeriodAndSpace();
         }
         
 		TextEntryState.typedCharacter((char) primaryCode, true);
 		if (TextEntryState.getState() == TextEntryState.State.PUNCTUATION_AFTER_ACCEPTED
-				&& primaryCode != KEYCODE_ENTER) {
+				&& primaryCode != mKeys.ENTER) {
 			swapPunctuationAndSpace();
 		} else if (/*isPredictionOn() &&*/ primaryCode == ' ') {
 			doubleSpace();
@@ -1991,7 +1980,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	            // Fool the state watcher so that a subsequent backspace will not do a revert, unless
 	            // we just did a correction, in which case we need to stay in
 	            // TextEntryState.State.PICKED_SUGGESTION state.
-	            TextEntryState.typedCharacter((char) KEYCODE_SPACE, true);
+	            TextEntryState.typedCharacter((char) mKeys.SPACE, true);
 	            setNextSuggestions();
 	        } else if (!showingAddToDictionaryHint) {
 	            // If we're not showing the "Touch again to save", then show corrections again.
@@ -2100,7 +2089,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	private void sendSpace() {
-		sendKeyChar((char)KEYCODE_SPACE);
+		sendKeyChar((char)mKeys.SPACE);
 		updateShiftKeyState(getCurrentInputEditorInfo());
 	}
 
