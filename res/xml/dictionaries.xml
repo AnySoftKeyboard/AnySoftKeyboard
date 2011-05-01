@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Dictionaries>
-	<Dictionary nameResId="@string/eng_dictionary" locale="en" id="8a678ccc-b62a-41e3-9d1b-0023bf710b2b" type="binary" dictionaryAssertName="en_binary.mp3" description=""/>
+	<Dictionary nameResId="@string/eng_dictionary" locale="en" id="8a678ccc-b62a-41e3-9d1b-0023bf710b2b" type="binary_resource" dictionaryResourceId="@raw/en_small" description=""/>
 </Dictionaries>
