@@ -13,8 +13,9 @@ LOCAL_SRC_FILES := \
 LOCAL_MODULE := oldanysoftkey_jni
 
 include $(BUILD_SHARED_LIBRARY)
+
 #next lib
-LOCAL_PATH := $(call my-dir)
+
 include $(CLEAR_VARS)
 
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/src
