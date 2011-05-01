@@ -10,7 +10,7 @@ LOCAL_SRC_FILES := \
         backward/com_anysoftkeyboard_dictionaries_BinaryDictionary.cpp \
         backward/dictionary.cpp
 
-LOCAL_MODULE := oldanysoftkey_jni
+LOCAL_MODULE := anysoftkey_jni
 
 include $(BUILD_SHARED_LIBRARY)
 
@@ -30,7 +30,7 @@ LOCAL_NDK_VERSION := 4
 LOCAL_SDK_VERSION := 8
 endif
 
-LOCAL_MODULE := anysoftkey_jni
+LOCAL_MODULE := anysoftkey2_jni
 
 LOCAL_MODULE_TAGS := user
 

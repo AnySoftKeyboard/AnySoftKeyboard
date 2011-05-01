@@ -61,7 +61,7 @@ public class BinaryDictionary extends Dictionary {
 
     static {
         try {
-            System.loadLibrary("jni_latinime");
+            System.loadLibrary("anysoftkey2_jni");
         } catch (UnsatisfiedLinkError ule) {
             Log.e("BinaryDictionary", "Could not load native library jni_latinime");
         }
