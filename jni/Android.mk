@@ -1,11 +1,25 @@
+
+#old native now (which handle AssetsFileDescriptor
+LOCAL_PATH := $(call my-dir)
+
+include $(CLEAR_VARS)
+
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/backward
+
+LOCAL_SRC_FILES := \
+        backward/com_anysoftkeyboard_dictionaries_BinaryDictionary.cpp \
+        backward/dictionary.cpp
+
+LOCAL_MODULE := oldanysoftkey_jni
+
+include $(BUILD_SHARED_LIBRARY)
+#next lib
 LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/src
 
 LOCAL_SRC_FILES := \
-	backward/com_anysoftkeyboard_dictionaries_BinaryDictionary.cpp \
-	backward/dictionary.cpp \
 	jni/com_anysoftkeyboard_dictionaries_RawBinaryDictionary.cpp \
 	src/dictionary.cpp \
 	src/char_utils.cpp
@@ -20,7 +34,4 @@ LOCAL_MODULE := anysoftkey_jni
 LOCAL_MODULE_TAGS := user
 
 include $(BUILD_SHARED_LIBRARY)
-
-LOCAL_PATH := $(call my-dir)
-include $(CLEAR_VARS)
 

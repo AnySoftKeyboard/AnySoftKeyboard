@@ -17,7 +17,7 @@
 #ifndef LATINIME_DICTIONARY_H
 #define LATINIME_DICTIONARY_H
 
-namespace latinime {
+namespace nativeime {
 
 // 22-bit address = ~4MB dictionary size limit, which on average would be about 200k-300k words
 #define ADDRESS_MASK 0x3FFFFF
@@ -101,6 +101,6 @@ private:
 
 // ----------------------------------------------------------------------------
 
-}; // namespace latinime
+}; // namespace nativeime
 
 #endif // LATINIME_DICTIONARY_H

@@ -16,7 +16,7 @@
 
 #include <stdlib.h>
 
-namespace latinime {
+namespace nativeime {
 
 struct LatinCapitalSmallPair {
   unsigned short capital;
@@ -896,4 +896,4 @@ unsigned short latin_tolower(unsigned short c) {
     return p ? p->small : c;
 }
 
-} // namespace latinime
+} // namespace nativeime

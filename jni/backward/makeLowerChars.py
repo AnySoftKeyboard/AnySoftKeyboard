@@ -20,3 +20,4 @@ for i in range(0, maxCode, stepBy):
 	print '0x%04x,' % ord(unichr(j).lower()),
 
 print '\n}'
+

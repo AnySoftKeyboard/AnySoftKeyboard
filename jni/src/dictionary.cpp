@@ -32,7 +32,7 @@
 #define DICTIONARY_HEADER_SIZE 2
 #define NOT_VALID_WORD -99
 
-namespace latinime {
+namespace nativeime {
 
 Dictionary::Dictionary(void *dict, int typedLetterMultiplier, int fullWordMultiplier)
 {
@@ -593,4 +593,4 @@ Dictionary::isValidWordRec(int pos, unsigned short *word, int offset, int length
 }
 
 
-} // namespace latinime
+} // namespace nativeime

@@ -45,3 +45,4 @@ print 'static unsigned char UNICODE_TO_ISO[] = {',
 printHexArray(unicodeToIso, 2, 12)
 print '};'
 
+

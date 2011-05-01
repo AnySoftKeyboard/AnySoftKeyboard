@@ -299,3 +299,4 @@ Dictionary::isValidWordRec(int pos, unsigned short *word, int offset, int length
 
 
 } // namespace nativeime
+
