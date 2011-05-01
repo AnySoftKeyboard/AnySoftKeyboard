@@ -21,7 +21,7 @@ include $(CLEAR_VARS)
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/src
 
 LOCAL_SRC_FILES := \
-	jni/com_anysoftkeyboard_dictionaries_RawBinaryDictionary.cpp \
+	jni/com_anysoftkeyboard_dictionaries_ResourceBinaryDictionary.cpp \
 	src/dictionary.cpp \
 	src/char_utils.cpp
 

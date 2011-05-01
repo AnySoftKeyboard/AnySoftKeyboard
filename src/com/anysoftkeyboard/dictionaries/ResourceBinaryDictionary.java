@@ -33,7 +33,7 @@ import android.util.Log;
 /**
  * Implements a static, compacted, binary dictionary of standard words.
  */
-public class RawBinaryDictionary extends Dictionary {
+public class ResourceBinaryDictionary extends Dictionary {
 
     /**
      * There is difference between what java and native code can handle.
@@ -86,7 +86,7 @@ public class RawBinaryDictionary extends Dictionary {
      * @param context application context for reading resources
      * @param resId the resource containing the raw binary dictionary
      */
-    public RawBinaryDictionary(String dictionaryName, Context context, int[] resId/*, int dicTypeId*/) {
+    public ResourceBinaryDictionary(String dictionaryName, Context context, int[] resId/*, int dicTypeId*/) {
     	super(dictionaryName);
 //        if (resId != null && resId.length > 0 && resId[0] != 0) {
 //            loadDictionary(context, resId);
