@@ -1382,21 +1382,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case AnyKeyboard.KEYCODE_QUICK_TEXT:
 			QuickTextKey quickTextKey = QuickTextKeyFactory.getCurrentQuickTextKey(this);
 
-			boolean printDefaultText;
-			if (quickTextKey.getId().equals(SMILEY_PLUGIN_ID)) {
-				printDefaultText = mSmileyOnShortPress;
-			} else {
-				printDefaultText = quickTextKey.getKeyOutputText() != null;
-			}
-
-			if (printDefaultText) {
+			if (mSmileyOnShortPress) {
 				onText(quickTextKey.getKeyOutputText());
 			} else {
-//				if (quickTextKey.isPopupKeyboardUsed()) {
-//					showQuickTextKeyPopupKeyboard(quickTextKey);
-//				} else {
+				if (quickTextKey.isPopupKeyboardUsed()) {
+					showQuickTextKeyPopupKeyboard(quickTextKey);
+				} else {
 					showQuickTextKeyPopupList(quickTextKey);
-//				}
+				}
 			}
 			break;
 		case AnyKeyboardView.KEYCODE_QUICK_TEXT_LONGPRESS:
