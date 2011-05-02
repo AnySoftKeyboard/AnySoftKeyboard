@@ -717,7 +717,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (DEBUG) {
 			Log.i(TAG, "Received completions:");
 			for (int i = 0; i < (completions != null ? completions.length : 0); i++) {
-				Log.i("AnySoftKeyboard", "  #" + i + ": " + completions[i]);
+				Log.i(TAG, "  #" + i + ": " + completions[i]);
 			}
 		}
 
@@ -1796,7 +1796,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (mPredicting) {
 			if ((mInputView != null) && mInputView.isShifted()
 					&& mComposing.length() == 0) {
-				mWord.setCapitalized(true);
+				mWord.setFirstCharCapitalized(true);
 			}
 			
 			mComposing.append((char) primaryCodeForShow);
@@ -1978,11 +1978,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// || mCorrectionMode == mSuggest.CORRECTION_FULL;
 		CharSequence typedWord = mWord.getTypedWord();
 		// If we're in basic correct
-		boolean typedWordValid = mSuggest.isValidWord(typedWord);
+		boolean typedWordValid = mSuggest.isValidWord(typedWord) ||
+         		(preferCapitalization() && mSuggest.isValidWord(typedWord.toString().toLowerCase()));
+		 
 		if (mCorrectionMode == Suggest.CORRECTION_FULL) {
 			correctionAvailable |= typedWordValid;
 		}
 
+		 // Don't auto-correct words with multiple capital letter
+        correctionAvailable &= !mWord.isMostlyCaps();
+        correctionAvailable &= !TextEntryState.isCorrecting();
+        
 		mCandidateView.setSuggestions(stringList, false, typedWordValid, correctionAvailable);
 		if (stringList.size() > 0) {
 			if (correctionAvailable && !typedWordValid && stringList.size() > 1) {
@@ -2226,7 +2232,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	public boolean preferCapitalization() {
-		return mWord.isCapitalized();
+		return mWord.isFirstCharCapitalized();
 	}
 
 	public void swipeRight() {
@@ -2708,7 +2714,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public void appendCharactersToInput(CharSequence textToCommit) {
 		if (DEBUG)
 			Log.d(TAG, "appendCharactersToInput: '"+ textToCommit+"'");
-		mWord.append(textToCommit);
+		for(int index=0; index<textToCommit.length(); index++)
+		{
+			final char c = textToCommit.charAt(index);
+			mWord.add(c, new int[]{c});
+		}
 
 		mComposing.append(textToCommit);
 		
@@ -2731,7 +2741,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 			if (currentLength > countToDelete) {
 				mComposing.delete(currentLength - countToDelete, currentLength);
 
-				mWord.deleteLast(countToDelete);
+			    int deletesLeft = countToDelete;
+		    	while(deletesLeft > 0)
+		    	{
+					mWord.deleteLast();
+		    		deletesLeft--;
+		    	}
 			} else {
 				mComposing.setLength(0);
 				mWord.reset();

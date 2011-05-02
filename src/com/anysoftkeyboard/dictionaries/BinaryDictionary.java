@@ -159,7 +159,7 @@ class BinaryDictionary extends Dictionary {
     @Override
     public boolean isValidWord(CharSequence word) {
         if (word == null) return false;
-        char[] chars = word.toString().toLowerCase().toCharArray();
+        char[] chars = word.toString().toCharArray();
         return isValidWordNative(mNativeDict, chars, chars.length);
     }
 
