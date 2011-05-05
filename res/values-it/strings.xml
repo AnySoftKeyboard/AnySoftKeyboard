@@ -23,11 +23,14 @@
   <string name="testers_version">Versione tester!</string>
   <string name="license_title">Licenza</string>
   <string name="license_text">Questo software è sotto licenza Apache2 (c) 2011 Menny Even-Danan</string>
+  <string name="extrenal_addons_cat">External add-ons</string>
   <string name="about">About</string>
   <string name="changelog">Changelog</string>
   <string name="search_market_for_addons">Cerca componenti aggiuntivi</string>
+  <string name="close_button">Close</string>
   <string name="how_to_active_text">Come attivare AnySoftKeyboard</string>
   <string name="added_word"><xliff:g id="word">%s</xliff:g> : Salvato</string>
+  <string name="hint_add_to_dictionary">\u2190 Touch again to save</string>
   <string name="menu_insert_smiley">Inserire emoticon</string>
   <string name="click_for_help">Aiuto</string>
   <string name="click_for_help_summary">Premi per l\' aiuto on-line</string>
@@ -117,6 +120,7 @@
   <string name="use_contacts_dictionary">Dizionario contatti</string>
   <string name="use_contacts_dictionary_on_summary">Suggerisci nomi dalla lista contatti</string>
   <string name="use_contacts_dictionary_off_summary">&lt;string name="use_contacts_dictionary_off_summary"/&gt;</string>
+  <string name="use_contacts_dictionary_not_supported_summary">Unsupported under your OS version. Sorry.</string>
   <string name="tweaks_group">Tweaks</string>
   <string name="show_new_version_notifications_again">Mostra notifiche nuova versione</string>
   <string name="show_new_version_notifications_again_on_summary">Dopo l\' installazione di una nuova versione verrà mostrato il change-log</string>

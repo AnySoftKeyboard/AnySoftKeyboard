@@ -33,6 +33,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 public class AnyKeyboardView extends AnyKeyboardBaseView {
 
+	private static final int DELAY_BEFORE_POPING_UP_EXTENSION_KBD = 35;//milliseconds
 	//private final static String TAG = "ASK AnyKeyboardView";
     public static final int KEYCODE_OPTIONS = -100;
     //static final int KEYCODE_OPTIONS_LONGPRESS = -101;
@@ -200,7 +201,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         	if (mExtensionKeyboardAreaEntranceTime <= 0)
         		mExtensionKeyboardAreaEntranceTime = System.currentTimeMillis();
         	
-        	if (System.currentTimeMillis() - mExtensionKeyboardAreaEntranceTime > 50)
+        	if (System.currentTimeMillis() - mExtensionKeyboardAreaEntranceTime > DELAY_BEFORE_POPING_UP_EXTENSION_KBD)
         	{
 	        	int extensionResId = ((ExternalAnyKeyboard)getKeyboard()).getExtensionResId();
 	        	if (extensionResId <= 0)

@@ -10,20 +10,20 @@
         <Key android:codes="49" android:keyIcon="@drawable/sym_keyboard_num1" android:keyEdgeFlags="left"/>
         <Key android:codes="50" android:keyIcon="@drawable/sym_keyboard_num2"/>
         <Key android:codes="51" android:keyIcon="@drawable/sym_keyboard_num3"/>
-        <Key android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+		<Key android:codes="32"/>
     </Row>
     <Row>
         <Key android:codes="52" android:keyIcon="@drawable/sym_keyboard_num4" android:keyEdgeFlags="left"/>
         <Key android:codes="53" android:keyIcon="@drawable/sym_keyboard_num5"/>
         <Key android:codes="54" android:keyIcon="@drawable/sym_keyboard_num6"/>
-        <Key android:codes="45" android:keyLabel="- ( )" android:popupCharacters="()./" android:keyEdgeFlags="right"/>
+        <Key android:codes="45" android:keyLabel="- . ( )" android:popupCharacters="()./" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row>
         <Key android:codes="55" android:keyIcon="@drawable/sym_keyboard_num7" android:keyEdgeFlags="left"/>
         <Key android:codes="56" android:keyIcon="@drawable/sym_keyboard_num8"/>
         <Key android:codes="57" android:keyIcon="@drawable/sym_keyboard_num9"/>
-		<Key android:codes="32"/>
+        <Key android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     
     <Row android:rowEdgeFlags="bottom">

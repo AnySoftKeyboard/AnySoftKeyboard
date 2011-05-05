@@ -23,11 +23,14 @@
   <string name="testers_version">Версія тестерів!</string>
   <string name="license_title">License</string>
   <string name="license_text">This software is licensed under Apache2 (c) 2011 Menny Even-Danan</string>
+  <string name="extrenal_addons_cat">External add-ons</string>
   <string name="about">About</string>
   <string name="changelog">Журнал змін</string>
   <string name="search_market_for_addons">Шукати додатки</string>
+  <string name="close_button">Close</string>
   <string name="how_to_active_text">How to active AnySoftKeyboard</string>
   <string name="added_word"><xliff:g id="word">%s</xliff:g> : Saved</string>
+  <string name="hint_add_to_dictionary">\u2190 Touch again to save</string>
   <string name="menu_insert_smiley">Вставити смайлик</string>
   <string name="click_for_help">Довідка</string>
   <string name="click_for_help_summary">Натисніть для отримання довідки</string>
@@ -117,6 +120,7 @@
   <string name="use_contacts_dictionary">Contacts dictionary</string>
   <string name="use_contacts_dictionary_on_summary">Suggest names from contacts list</string>
   <string name="use_contacts_dictionary_off_summary">&lt;string name="use_contacts_dictionary_off_summary"/&gt;</string>
+  <string name="use_contacts_dictionary_not_supported_summary">Unsupported under your OS version. Sorry.</string>
   <string name="tweaks_group">Тонкі налаштування</string>
   <string name="show_new_version_notifications_again">Show new version notifications</string>
   <string name="show_new_version_notifications_again_on_summary">Upon installing a new version, a change-log will be shown</string>

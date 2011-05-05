@@ -1,0 +1,7 @@
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <Button android:id="@+id/close_button"
+		android:layout_height="wrap_content" android:layout_width="0px" android:layout_weight="1" android:onClick="onCloseClicked"  android:padding="8dp"
+		android:gravity="center" android:layout_gravity="center" android:text="@string/close_button"/>
+</LinearLayout>

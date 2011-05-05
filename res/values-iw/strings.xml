@@ -23,10 +23,14 @@
   <string name="testers_version">גירסת בטא!</string>
   <string name="license_title">רשיון</string>
   <string name="license_text">This software is licensed under Apache2 (c) 2011 Menny Even-Danan</string>
+  <string name="extrenal_addons_cat">External add-ons</string>
   <string name="about">אודות</string>
   <string name="changelog">רשימת שינויים</string>
   <string name="search_market_for_addons">חיפוש תוספים</string>
+  <string name="close_button">Close</string>
   <string name="how_to_active_text">How to active AnySoftKeyboard</string>
+  <string name="added_word"><xliff:g id="word">%s</xliff:g> : Saved</string>
+  <string name="hint_add_to_dictionary">\u2190 Touch again to save</string>
   <string name="menu_insert_smiley">הכנס סמיילי</string>
   <string name="click_for_help">עזרה</string>
   <string name="click_for_help_summary">לחץ לקבלת עזרה באינטרנט</string>
@@ -116,6 +120,7 @@
   <string name="use_contacts_dictionary">מילון אנשי קשר</string>
   <string name="use_contacts_dictionary_on_summary">הצע שמות מרשימת אנשי הקשר</string>
   <string name="use_contacts_dictionary_off_summary">&lt;string name="use_contacts_dictionary_off_summary"/&gt;</string>
+  <string name="use_contacts_dictionary_not_supported_summary">Unsupported under your OS version. Sorry.</string>
   <string name="tweaks_group">הגדרות נוספות</string>
   <string name="show_new_version_notifications_again">הצג מידע על גירסאות חדשות</string>
   <string name="show_new_version_notifications_again_on_summary">בעת התקנת גירסה חדשה, יוצגו השינויים האחרונים</string>

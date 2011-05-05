@@ -23,11 +23,14 @@
   <string name="testers_version">Versão para teste!</string>
   <string name="license_title">Licença</string>
   <string name="license_text">Este software está sob a licença Apache2 (c) 2011 Menny Even-Danan</string>
+  <string name="extrenal_addons_cat">External add-ons</string>
   <string name="about">Sobre</string>
   <string name="changelog">Alterações</string>
   <string name="search_market_for_addons">Procurar extensões</string>
+  <string name="close_button">Close</string>
   <string name="how_to_active_text">Como activar o AnySoftKeyboard</string>
   <string name="added_word">&lt;xliff:g id="word"&gt; %s &lt;/xliff:g&gt; : Guardada</string>
+  <string name="hint_add_to_dictionary">\u2190 Touch again to save</string>
   <string name="menu_insert_smiley">Inserir emoticon</string>
   <string name="click_for_help">Ajuda</string>
   <string name="click_for_help_summary">Pressione para obter ajuda na internet</string>
@@ -117,6 +120,7 @@
   <string name="use_contacts_dictionary">Dicionário de contactos</string>
   <string name="use_contacts_dictionary_on_summary">Sugere nomes da lista de contactos</string>
   <string name="use_contacts_dictionary_off_summary">&lt;string name="use_contacts_dictionary_off_summary"/&gt;</string>
+  <string name="use_contacts_dictionary_not_supported_summary">Unsupported under your OS version. Sorry.</string>
   <string name="tweaks_group">Ajustes</string>
   <string name="show_new_version_notifications_again">Notificações de nova versão</string>
   <string name="show_new_version_notifications_again_on_summary">Permite ver alterações quando instalada nova versão</string>

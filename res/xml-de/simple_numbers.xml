@@ -10,13 +10,13 @@
         <Key android:codes="49" android:keyEdgeFlags="left"/>
         <Key android:codes="50"/>
         <Key android:codes="51"/>
-        <Key android:codes="58" android:keyEdgeFlags="right"/>
+        <Key android:codes="43" android:keyEdgeFlags="right"/>
     </Row>
     <Row>
         <Key android:codes="52" android:keyEdgeFlags="left"/>
         <Key android:codes="53"/>
         <Key android:codes="54"/>
-        <Key android:codes="47" android:keyEdgeFlags="right"/>
+        <Key android:codes="45" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row>
@@ -27,9 +27,9 @@
     </Row>
     
     <Row android:rowEdgeFlags="bottom">
-        <Key android:codes="45" android:keyEdgeFlags="left"/>
+        <Key android:codes="42" android:keyLabel="*" android:popupCharacters="/()%," android:keyEdgeFlags="left"/>
         <Key android:codes="48"/>
-        <Key android:codes="46"/>
+        <Key android:codes="44" android:popupCharacters="."/>
         <Key android:codes="10" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>
