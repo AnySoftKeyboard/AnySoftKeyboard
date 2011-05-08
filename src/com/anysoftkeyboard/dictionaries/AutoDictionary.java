@@ -32,6 +32,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.os.AsyncTask;
 import android.provider.BaseColumns;
+import android.text.TextUtils;
 import android.util.Log;
 
 /**
@@ -123,7 +124,9 @@ public class AutoDictionary extends UserDictionaryBase {
             msOpenHelper = new DatabaseHelper(mContext);
         }
         // Load the words that correspond to the current input locale
-        Cursor cursor = query(COLUMN_LOCALE + "=?", new String[] { mLocale });
+        Cursor cursor = TextUtils.isEmpty(mLocale)?
+        		query(null, null)
+        		: query(COLUMN_LOCALE + "=?", new String[] { mLocale });
         try {
             if (cursor.moveToFirst()) {
                 int wordIndex = cursor.getColumnIndex(COLUMN_WORD);

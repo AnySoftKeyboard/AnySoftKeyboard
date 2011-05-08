@@ -11,7 +11,7 @@ public class AnyBackupAgent extends BackupAgentHelper {
     // Allocate a helper and add it to the backup agent
     @Override
     public void onCreate() {
-        SharedPreferencesBackupHelper helper = new SharedPreferencesBackupHelper(this, DEFAULT_PREFS_FILE);
+        SharedPreferencesBackupHelper helper = new SharedPreferencesBackupHelper(getApplicationContext(), DEFAULT_PREFS_FILE);
         
         addHelper(PREFS_BACKUP_KEY, helper);
     }
