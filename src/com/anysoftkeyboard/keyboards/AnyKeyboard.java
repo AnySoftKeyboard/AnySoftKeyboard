@@ -110,6 +110,28 @@ public abstract class AnyKeyboard extends Keyboard
 	// max(generic row widths)
 	private int mMaxGenericRowsWidth = 0;
 	
+	//for the popup
+	protected AnyKeyboard(AnyKeyboardContextProvider askContext, Context context,//note: the context can be from a different package!
+    		int layoutTemplateResId, CharSequence popupCharacters, int columns, int horizontalPadding) 
+    {
+		super(context, layoutTemplateResId, popupCharacters, columns, horizontalPadding);
+		
+		mKeyboardMode = -1;
+        mKeyboardContext = context;
+        mASKContext = askContext;
+
+		addGenericRows(askContext, context, mKeyboardMode);
+		
+		//I assume no shift in popup
+		mShiftLockedIcon = null;
+    	mShiftOnIcon = null;
+    	mShiftIcon = null;
+    	mShiftLockedFeedbackIcon = null;
+    	mShiftOnFeedbackIcon = null;
+    	mShiftFeedbackIcon = null;
+		
+    }
+	//for the External and popup
     protected AnyKeyboard(AnyKeyboardContextProvider askContext, Context context,//note: the context can be from a different package!
     		int xmlLayoutResId, int mode) 
     {
@@ -119,7 +141,7 @@ public abstract class AnyKeyboard extends Keyboard
         mKeyboardContext = context;
         mASKContext = askContext;
 
-		addGenericRows(askContext, context, mode);
+		addGenericRows(mASKContext, mKeyboardContext, mKeyboardMode);
 		
 		//in wide shifts, we'll use the shift with the Globe
         Resources resources = askContext.getApplicationContext().getResources();

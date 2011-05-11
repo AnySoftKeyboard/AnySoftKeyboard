@@ -55,9 +55,11 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel;
 import com.anysoftkeyboard.devicespecific.WMotionEvent;
+import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -1153,10 +1155,10 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
 
         Keyboard keyboard;
         if (popupCharacters != null) {
-            keyboard = new Keyboard(packageContext, popupKeyboardId, popupCharacters,
+            keyboard = new AnyPopupKeyboard(AnySoftKeyboard.getInstance(), packageContext, popupKeyboardId, popupCharacters,
                     -1, getPaddingLeft() + getPaddingRight());
         } else {
-            keyboard = new Keyboard(packageContext, popupKeyboardId);
+            keyboard = new AnyPopupKeyboard(AnySoftKeyboard.getInstance(), packageContext, popupKeyboardId);
         }
         miniKeyboard.setKeyboard(keyboard);
         miniKeyboard.setPopupParent(this);
