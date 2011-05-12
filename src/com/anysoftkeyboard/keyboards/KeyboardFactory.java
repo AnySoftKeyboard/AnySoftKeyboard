@@ -8,8 +8,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
-import com.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.anysoftkeyboard.addons.AddOnsFactory;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 
@@ -67,7 +67,7 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder>
             enabledAddOns.add( addOn );
         }
 
-        if (AnySoftKeyboardConfiguration.DEBUG)
+        if (AnyApplication.DEBUG)
         {
 	        for(final KeyboardAddOnAndBuilder addOn : enabledAddOns) {
 	            Log.d(TAG, "Factory provided addon: "+addOn.getId());
@@ -111,7 +111,7 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder>
           Log.e(TAG, "External Keyboard does not include all mandatory details! Will not create keyboard.");
           return null;
       } else {
-          if (AnySoftKeyboardConfiguration.DEBUG) {
+          if (AnyApplication.DEBUG) {
               Log.d(TAG,
                       "External keyboard details: prefId:" + prefId + " nameId:"
                       + nameId + " resId:" + layoutResId

@@ -2,7 +2,6 @@ package com.anysoftkeyboard.ui.tutorials;
 
 import java.util.ArrayList;
 
-import com.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.anysoftkeyboard.ui.settings.MainSettings;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -39,19 +38,19 @@ public class TutorialsProvider
 	private static boolean linearSearch( String listOfIme, final String key )
 	{
 		String[] arrayOfIme = listOfIme.split(":");
-		if (AnySoftKeyboardConfiguration.DEBUG)
+		if (AnyApplication.DEBUG)
 			Log.d(TAG, "Currently these are the IME enabled in the OS: "+listOfIme);
 		
 		for(final String ime : arrayOfIme)
 		{
-			if (AnySoftKeyboardConfiguration.DEBUG)
+			if (AnyApplication.DEBUG)
 				Log.d(TAG, "Is '"+ime+"' starts with '"+key+"'?");
 			//checking "startsWith" since the OS list is something like this:
 			//com.android.inputmethod.latin/.LatinIME:com.menny.android.anysoftkeyboard/.SoftKeyboard
 			if (ime.startsWith(key)) return true;
 		}
 		
-		if (AnySoftKeyboardConfiguration.DEBUG)
+		if (AnyApplication.DEBUG)
 			Log.d(TAG, "'"+key+"' was not found in the list of IMEs!");
 		return false;
 	}
@@ -60,7 +59,7 @@ public class TutorialsProvider
 	{
 		Log.i(TAG, "TutorialsProvider::ShowTutorialsIfNeeded called");
 		
-		if (AnySoftKeyboardConfiguration.DEBUG && AnyApplication.getConfig().getShowVersionNotification())
+		if (AnyApplication.DEBUG && AnyApplication.getConfig().getShowVersionNotification())
 		{
 			Log.i(TAG, "TESTERS VERSION added");
 

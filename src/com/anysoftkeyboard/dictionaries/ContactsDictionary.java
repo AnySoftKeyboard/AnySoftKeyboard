@@ -17,7 +17,7 @@
 package com.anysoftkeyboard.dictionaries;
 
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
-import com.anysoftkeyboard.AnySoftKeyboardConfiguration;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import android.content.ContentResolver;
 import android.database.ContentObserver;
@@ -51,7 +51,7 @@ public class ContactsDictionary extends UserDictionaryBase {
         cres.registerContentObserver(Contacts.CONTENT_URI, true, mObserver = new ContentObserver(null) {
             @Override
             public void onChange(boolean self) {
-                if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, "Contacts list modified (self: "+self+"). Reloading...");
+                if (AnyApplication.DEBUG)Log.d(TAG, "Contacts list modified (self: "+self+"). Reloading...");
                 //mRequiresReload = true;
                 loadDictionaryAsync();
             }
@@ -94,7 +94,7 @@ public class ContactsDictionary extends UserDictionaryBase {
     	    return;
     	    
     	}
-    		if (AnySoftKeyboardConfiguration.DEBUG) Log.d(TAG, "Contacts will be reloaded since count or hash changed. New count "+newCount+" was("+mContactsCount+"), new hash "+newHash+" (was "+mContactsHash+").");
+    		if (AnyApplication.DEBUG) Log.d(TAG, "Contacts will be reloaded since count or hash changed. New count "+newCount+" was("+mContactsCount+"), new hash "+newHash+" (was "+mContactsHash+").");
     		mContactsCount = newCount;
     		mContactsHash = newHash;
     		
@@ -130,7 +130,7 @@ public class ContactsDictionary extends UserDictionaryBase {
                                 // capitalization of i.
                                 final int wordLen = word.length();
                                 if (wordLen < maxWordLength && wordLen > 1) {
-                                	if (AnySoftKeyboardConfiguration.DEBUG)
+                                	if (AnyApplication.DEBUG)
                                 		Log.d(TAG, "Contact '"+word+"' will be added to contacts dictionary.");
                                 	loadedContacts++;
                                 	addWordFromStorage(word, 128);

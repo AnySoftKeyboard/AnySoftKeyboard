@@ -1,6 +1,7 @@
 package com.menny.android.anysoftkeyboard;
 
-import com.anysoftkeyboard.AnySoftKeyboardConfiguration;
+import com.anysoftkeyboard.Configuration;
+import com.anysoftkeyboard.ConfigurationImpl;
 import com.anysoftkeyboard.backup.CloudBackupRequester;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific;
 import com.anysoftkeyboard.devicespecific.FactoryViewBase;
@@ -14,8 +15,10 @@ import android.view.LayoutInflater;
 
 public class AnyApplication extends Application {
 
+	public static final boolean DEBUG = true;
+	
 	private static final String TAG = "ASK_APP";
-	private static AnySoftKeyboardConfiguration msConfig;
+	private static Configuration msConfig;
 	private static DeviceSpecific msDeviceSpecific;
 	private static CloudBackupRequester msCloudBackuper;
 	
@@ -23,10 +26,9 @@ public class AnyApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		
-		if (AnySoftKeyboardConfiguration.DEBUG) Log.d(TAG, "** Starting application in DEBUG mode.");
-
+		if (DEBUG) Log.d(TAG, "** Starting application in DEBUG mode.");
 		
-		msConfig = AnySoftKeyboardConfiguration.createInstance(this);
+		msConfig = new ConfigurationImpl(this);
 		
         LayoutInflater inflate =
             (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -40,7 +42,7 @@ public class AnyApplication extends Application {
 		TutorialsProvider.ShowTutorialsIfNeeded(this);
 	}
 	
-	public static AnySoftKeyboardConfiguration getConfig()
+	public static Configuration getConfig()
 	{
 		return msConfig;
 	}

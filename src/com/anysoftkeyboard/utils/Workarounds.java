@@ -2,7 +2,7 @@ package com.anysoftkeyboard.utils;
 
 import java.lang.reflect.Field;
 
-import com.anysoftkeyboard.AnySoftKeyboardConfiguration;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
@@ -74,7 +74,7 @@ public class Workarounds
 			if (ms_ApiLevel <= 6 && ms_ApiLevel >=5 && editor.packageName.contentEquals("com.android.mms")
 					&& (editor.fieldId == 2131361817))
 			{
-			    if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, "Android Ecliar Messaging MESSAGE field");
+			    if (AnyApplication.DEBUG)Log.d(TAG, "Android Ecliar Messaging MESSAGE field");
 				return true;
 			}
 		}

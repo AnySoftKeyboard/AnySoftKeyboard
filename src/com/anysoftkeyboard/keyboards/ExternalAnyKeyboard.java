@@ -11,8 +11,8 @@ import android.util.Log;
 import android.util.Xml;
 
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
-import com.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 
@@ -61,7 +61,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 		mDefaultDictionary = defaultDictionary;
 		if (qwertyTranslationId != -1)
 		{
-		    if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, "Creating qwerty mapping:"+qwertyTranslationId);
+		    if (AnyApplication.DEBUG)Log.d(TAG, "Creating qwerty mapping:"+qwertyTranslationId);
 			mHardKeyboardTranslator = createPhysicalTranslatorFromResourceId(context, qwertyTranslationId);
 		}
 		else

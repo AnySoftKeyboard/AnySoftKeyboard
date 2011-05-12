@@ -56,7 +56,6 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
-import com.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel;
 import com.anysoftkeyboard.devicespecific.WMotionEvent;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
@@ -923,7 +922,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
             canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
         }
 
-        if (AnySoftKeyboardConfiguration.DEBUG) {
+        if (AnyApplication.DEBUG) {
             if (mShowTouchPoints) {
                 for (PointerTracker tracker : mPointerTrackers) {
                     int startX = tracker.getStartX();

@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.anysoftkeyboard.WordComposer;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import android.content.Context;
 import android.text.AutoText;
@@ -93,7 +93,7 @@ public class Suggest implements Dictionary.WordCallback {
     }
 
     public void setMainDictionary(Dictionary dictionary) {
-        if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, "Suggest: Got main dictionary! Type: "
+        if (AnyApplication.DEBUG)Log.d(TAG, "Suggest: Got main dictionary! Type: "
                 + ((dictionary == null) ? "NULL" : dictionary.toString()));
         if (mMainDict != dictionary && mMainDict != null)
         {
@@ -182,14 +182,14 @@ public class Suggest implements Dictionary.WordCallback {
         // Search the dictionary only if there are at least 2 characters
          if (wordComposer.size() > 1) {
         	 if (mContactsDictionary != null) {
-        		 if (AnySoftKeyboardConfiguration.DEBUG) 
+        		 if (AnyApplication.DEBUG) 
         			 Log.v(TAG, "getSuggestions from contacts-dictionary");
         		 
         		 mContactsDictionary.getWords(wordComposer, this);
         	 }
         	 
         	 if (mUserDictionary != null) {
-        		 if (AnySoftKeyboardConfiguration.DEBUG)
+        		 if (AnyApplication.DEBUG)
         			 Log.v(TAG, "getSuggestions from user-dictionary");
         		 
         		 mUserDictionary.getWords(wordComposer, this);
@@ -200,7 +200,7 @@ public class Suggest implements Dictionary.WordCallback {
              }
              
              if (mMainDict != null) {
-            	 if (AnySoftKeyboardConfiguration.DEBUG)
+            	 if (AnyApplication.DEBUG)
             		 Log.v(TAG, "getSuggestions from main-dictionary");
             	 mMainDict.getWords(wordComposer, this);
              }
@@ -284,14 +284,14 @@ public class Suggest implements Dictionary.WordCallback {
     }
 
     public boolean addWord(final char[] word, final int offset, final int length, final int freq) {
-        if (AnySoftKeyboardConfiguration.DEBUG)
+        if (AnyApplication.DEBUG)
             Log.v(TAG, "Suggest::addWord");
         int pos = 0;
         final int[] priorities = mPriorities;
         final int prefMaxSuggestions = mPrefMaxSuggestions;
         // Check if it's the same word, only caps are different
         if (compareCaseInsensitive(mLowerOriginalWord, word, offset, length)) {
-            if (AnySoftKeyboardConfiguration.DEBUG)
+            if (AnyApplication.DEBUG)
                 Log.v(TAG, "Suggest::addWord - same word as typed");
             pos = 0;
         } else {
@@ -329,7 +329,7 @@ public class Suggest implements Dictionary.WordCallback {
 
     public boolean isValidWord(final CharSequence word) {
         if (word == null || word.length() == 0) {
-			if (AnySoftKeyboardConfiguration.DEBUG)
+			if (AnyApplication.DEBUG)
                 Log.v(TAG, "Suggest::isValidWord - word is empty");
             return false;
         }
@@ -341,7 +341,7 @@ public class Suggest implements Dictionary.WordCallback {
 			final boolean validFromAuto = (mAutoDictionary != null && mAutoDictionary.isValidWord(word));
 			final boolean validFromContacts = (mContactsDictionary != null && mContactsDictionary.isValidWord(word));
 			
-			if (AnySoftKeyboardConfiguration.DEBUG)
+			if (AnyApplication.DEBUG)
                 Log.v(TAG, "Suggest::isValidWord("+word+") mCorrectionMode:"+mCorrectionMode
 					+" validFromMain:"+validFromMain
 					+" validFromUser:"+validFromUser

@@ -17,7 +17,6 @@ import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
-import com.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.utils.Workarounds;
@@ -567,7 +566,7 @@ public abstract class AnyKeyboard extends Keyboard
     	
     	//Log.d(TAG, "Row mode: "+aRow.mode);
     	
-    	AnySoftKeyboardConfiguration config = AnyApplication.getConfig();
+    	com.anysoftkeyboard.Configuration config = AnyApplication.getConfig();
 		final int orientation = config.getDeviceOrientation();
     	if (orientation != Configuration.ORIENTATION_LANDSCAPE)//I want to support other orientations too (like square)
     		aRow.defaultHeight = (int)(aRow.defaultHeight * config.getKeysHeightFactorInPortrait());
@@ -604,7 +603,7 @@ public abstract class AnyKeyboard extends Keyboard
      * appropriate label on the keyboard's enter key (if it has one).
      */
     public void setImeOptions(Resources res, EditorInfo editor) {
-    	if (AnySoftKeyboardConfiguration.DEBUG)
+    	if (AnyApplication.DEBUG)
     	{
 	    	if (editor == null)
 	    		Log.d(TAG, "AnyKeyboard.setImeOptions");
@@ -637,7 +636,7 @@ public abstract class AnyKeyboard extends Keyboard
         
     	final int action = (options&EditorInfo.IME_MASK_ACTION);
     	
-    	if (AnySoftKeyboardConfiguration.DEBUG) 
+    	if (AnyApplication.DEBUG) 
     		Log.d(TAG, "Input Connection ENTER key with action: "+action + " and NO_ACTION flag is: "+inNoEnterActionMode);
 
     	if (inNoEnterActionMode)

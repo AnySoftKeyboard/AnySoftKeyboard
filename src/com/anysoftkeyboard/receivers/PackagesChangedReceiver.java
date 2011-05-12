@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.anysoftkeyboard.addons.AddOnsFactory;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 
 public class PackagesChangedReceiver extends BroadcastReceiver {
 
@@ -16,7 +16,7 @@ public class PackagesChangedReceiver extends BroadcastReceiver {
 		if (intent == null || intent.getData() == null || context == null)
 			return;
 
-		if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, new StringBuffer("Packages (").append(intent.getData())
+		if (AnyApplication.DEBUG)Log.d(TAG, new StringBuffer("Packages (").append(intent.getData())
 				.append(") have been changed.").toString());
 		
 		//DictionaryFactory.getInstance().releaseAllDictionaries();

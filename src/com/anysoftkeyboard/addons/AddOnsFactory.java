@@ -10,7 +10,8 @@ import java.util.List;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import com.anysoftkeyboard.AnySoftKeyboardConfiguration;
+import com.menny.android.anysoftkeyboard.AnyApplication;
+
 
 import android.content.Context;
 import android.content.Intent;
@@ -234,7 +235,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
             Log.e(TAG, "External add-on does not include all mandatory details! Will not create add-on.");
             return null;
         } else {
-            if (AnySoftKeyboardConfiguration.DEBUG) {
+            if (AnyApplication.DEBUG) {
                 Log.d(TAG, "External addon details: prefId:" + prefId + " nameId:" + nameId);
             }
             return createConcreateAddOn(context, prefId, nameId, description, sortIndex, attrs);

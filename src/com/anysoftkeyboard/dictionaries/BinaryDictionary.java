@@ -21,8 +21,8 @@ package com.anysoftkeyboard.dictionaries;
 import java.io.FileDescriptor;
 import java.util.Arrays;
 
-import com.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.anysoftkeyboard.WordComposer;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import android.content.res.AssetFileDescriptor;
 import android.os.AsyncTask;
@@ -165,7 +165,7 @@ class BinaryDictionary extends Dictionary {
 
     public synchronized void close() {
         if (mNativeDict != 0) {
-        	if (AnySoftKeyboardConfiguration.DEBUG)
+        	if (AnyApplication.DEBUG)
         	{
         		Log.w(TAG, "Native Binary Dictionary has been closed!");
         		Thread.dumpStack();

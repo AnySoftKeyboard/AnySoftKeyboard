@@ -21,7 +21,6 @@ import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
-import com.anysoftkeyboard.AnySoftKeyboardConfiguration;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
@@ -192,10 +191,10 @@ public class KeyboardSwitcher
 
         if ((mAlphabetKeyboards.length == 0) || (mSymbolsKeyboardsArray.length == 0))
         {
-            if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, "makeKeyboards: force:"+force);
+            if (AnyApplication.DEBUG)Log.d(TAG, "makeKeyboards: force:"+force);
             if (mAlphabetKeyboards.length == 0)
             {
-            	if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, "makeKeyboards: creating alphabets");
+            	if (AnyApplication.DEBUG)Log.d(TAG, "makeKeyboards: creating alphabets");
 	        	mAlphabetKeyboardsCreators = KeyboardFactory.getEnabledKeyboards(mContext).toArray(new KeyboardAddOnAndBuilder[]{});
 	        	mLatinKeyboardIndex = findLatinKeyboardIndex();
 				mAlphabetKeyboards = new AnyKeyboard[mAlphabetKeyboardsCreators.length];
@@ -204,7 +203,7 @@ public class KeyboardSwitcher
             }
             if (mSymbolsKeyboardsArray.length == 0)
             {
-            	if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, "makeKeyboards: creating symbols");
+            	if (AnyApplication.DEBUG)Log.d(TAG, "makeKeyboards: creating symbols");
 		        	mSymbolsKeyboardsArray = new AnyKeyboard[SYMBOLS_KEYBOARDS_COUNT];
 	        	if (mLastSelectedSymbolsKeyboard >= mSymbolsKeyboardsArray.length)
 	        		mLastSelectedSymbolsKeyboard = 0;
@@ -232,7 +231,7 @@ public class KeyboardSwitcher
 	}
 
 	synchronized void resetKeyboardsCache() {
-		if (AnySoftKeyboardConfiguration.DEBUG)
+		if (AnyApplication.DEBUG)
 		{
 			Log.d(TAG, "Forcing Keyboards cache clear");
 			//Thread.dumpStack();
@@ -488,7 +487,7 @@ public class KeyboardSwitcher
 		if (keyboard == null || keyboard.getKeyboardMode() != mode)
 		{
 			KeyboardAddOnAndBuilder creator = mAlphabetKeyboardsCreators[index];
-			if (AnySoftKeyboardConfiguration.DEBUG)Log.d(TAG, "About to create keyboard: "+creator.getId());
+			if (AnyApplication.DEBUG)Log.d(TAG, "About to create keyboard: "+creator.getId());
 			keyboards[index] = creator.createKeyboard(mContext, mode);
 			keyboard = keyboards[index];
 			keyboard.initKeysMembers();
