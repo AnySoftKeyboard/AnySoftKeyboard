@@ -119,8 +119,8 @@ public abstract class AnyKeyboard extends Keyboard
 		mKeyboardMode = -1;
         mKeyboardContext = context;
         mASKContext = askContext;
-
-		addGenericRows(askContext, context, mKeyboardMode);
+        //no generic rows in popup
+		//addGenericRows(askContext, context, mKeyboardMode);
 		
 		//I assume no shift in popup
 		mShiftLockedIcon = null;
@@ -131,7 +131,28 @@ public abstract class AnyKeyboard extends Keyboard
     	mShiftFeedbackIcon = null;
 		
     }
-	//for the External and popup
+	
+	protected AnyKeyboard(AnyKeyboardContextProvider askContext, Context context,//note: the context can be from a different package!
+    		int xmlLayoutResId) 
+    {
+        //should use the package context for creating the layout
+        super(context, xmlLayoutResId, -1);
+        mKeyboardMode = -1;
+        mKeyboardContext = context;
+        mASKContext = askContext;
+        //no generic rows in popup
+		//addGenericRows(mASKContext, mKeyboardContext, mKeyboardMode);
+		
+        //I assume no shift in popup
+		mShiftLockedIcon = null;
+    	mShiftOnIcon = null;
+    	mShiftIcon = null;
+    	mShiftLockedFeedbackIcon = null;
+    	mShiftOnFeedbackIcon = null;
+    	mShiftFeedbackIcon = null;
+    }
+	
+	//for the External
     protected AnyKeyboard(AnyKeyboardContextProvider askContext, Context context,//note: the context can be from a different package!
     		int xmlLayoutResId, int mode) 
     {

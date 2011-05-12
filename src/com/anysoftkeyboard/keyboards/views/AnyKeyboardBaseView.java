@@ -253,7 +253,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
 
     private final UIHandler mHandler = new UIHandler();
 
-    class UIHandler extends Handler {
+	    class UIHandler extends Handler {
         private static final int MSG_POPUP_PREVIEW = 1;
         private static final int MSG_DISMISS_PREVIEW = 2;
         private static final int MSG_REPEAT_KEY = 3;
