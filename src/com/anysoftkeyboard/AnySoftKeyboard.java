@@ -136,8 +136,8 @@ public class AnySoftKeyboard extends InputMethodService implements
     private int     mLastSelectionStart;
     private int     mLastSelectionEnd;
 
-	private final AnySoftKeyboardConfiguration mConfig;
-	private static final boolean DEBUG = AnySoftKeyboardConfiguration.DEBUG;
+	private final com.anysoftkeyboard.Configuration mConfig;
+	private static final boolean DEBUG = AnyApplication.DEBUG;
 
 	private ModifierKeyState mShiftKeyState = new ModifierKeyState();
 	
@@ -383,8 +383,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	@Override
 	public void onStartInputView(EditorInfo attribute, boolean restarting) {
-		if (DEBUG)
-			Log.d(TAG, "onStartInputView(EditorInfo:"
+		if (DEBUG) Log.d(TAG, "onStartInputView(EditorInfo:"
 					+ attribute.imeOptions + "," + attribute.inputType
 					+ ", restarting:" + restarting + ")");
 		super.onStartInputView(attribute, restarting);
@@ -1238,7 +1237,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     public void updateShiftKeyState(EditorInfo attr) {
 		mHandler.removeMessages(MSG_UPDATE_SHIFT_STATE);
         InputConnection ic = getCurrentInputConnection();
-        if (ic != null && attr != null && mKeyboardSwitcher.isAlphabetMode()) {
+        if (ic != null && attr != null && mKeyboardSwitcher.isAlphabetMode() && (mInputView != null)) {
             mInputView.setShifted(mShiftKeyState.isMomentary() || mCapsLock
                     || getCursorCapsMode(ic, attr) != 0);
         }
@@ -1711,7 +1710,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			//2)if keyboard is shifted -> capslock keyboard
 			//3)if keyboard is capslocked -> unshift view and keyboard
 			final AnyKeyboard currentKeyboard = mKeyboardSwitcher.getCurrentKeyboard();
-			if (AnySoftKeyboardConfiguration.DEBUG)
+			if (DEBUG)
 			{
 				final AnyKeyboard viewKeyboard = (AnyKeyboard)mInputView.getKeyboard();
 				if (currentKeyboard != viewKeyboard)
@@ -2477,7 +2476,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mSmileyOnShortPress = sp.getBoolean(getString(R.string.settings_key_emoticon_long_press_opens_popup), getResources().getBoolean(R.bool.settings_default_emoticon_long_press_opens_popup));
 //		mSmileyPopupType = sp.getString(getString(R.string.settings_key_smiley_popup_type), getString(R.string.settings_default_smiley_popup_type));
 
-		((AnySoftKeyboardConfiguration.AnySoftKeyboardConfigurationImpl) mConfig).handleConfigurationChange(sp);
+		((ConfigurationImpl) mConfig).handleConfigurationChange(sp);
 	}
 
 	private void setDictionariesForCurrentKeyboard() {
@@ -2504,7 +2503,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 					if (dictionaryValue == null){
 						dictionary = DictionaryFactory.getInstance().getDictionaryByLanguage(currentKeyobard.getDefaultDictionaryLocale(), this);
 					} else {
-					        if (AnySoftKeyboardConfiguration.DEBUG)
+					        if (DEBUG)
 					        {
 					        	Log.d("AnySoftKeyboard", "Default dictionary '" + (defaultDictionary == null? "None" : defaultDictionary)
 					        			+ "' for keyboard '" + currentKeyobard.getKeyboardPrefId()
@@ -2575,26 +2574,19 @@ public class AnySoftKeyboard extends InputMethodService implements
 				Editor editor = getSharedPreferences().edit();
 				switch (position) {
 				case 0:
-				    if (AnySoftKeyboardConfiguration.DEBUG)
-					Log
-							.d("AnySoftKeyboard",
-									"Dictionary overriden disabled. User selected default.");
+				    if (DEBUG) Log.d(TAG, "Dictionary overriden disabled. User selected default.");
 					editor.remove(dictionaryOverridingKey);
 					showToastMessage(R.string.override_disabled, true);
 					break;
 				default:
 					if ((position < 0) || (position >= items.length)) {
-					    if (DEBUG)
-						Log.d("AnySoftKeyboard",
-								"Dictionary override dialog canceled.");
+					    if (DEBUG) Log.d(TAG, "Dictionary override dialog canceled.");
 					} else {
 						CharSequence id = ids[position];
 						String selectedDictionaryId = (id == null) ? null : id.toString();
 						String selectedLanguageString = items[position]
 								.toString();
-						if (DEBUG)
-						Log.d("AnySoftKeyboard",
-								"Dictionary override. User selected "
+						if (DEBUG) Log.d(TAG, "Dictionary override. User selected "
 										+ selectedLanguageString + " which corresponds to id "
 										+ ((selectedDictionaryId == null) ? "(null)" : selectedDictionaryId));
 						editor.putString(dictionaryOverridingKey,
