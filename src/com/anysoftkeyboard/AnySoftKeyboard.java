@@ -2087,7 +2087,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	            //postUpdateOldSuggestions();
 	        }
 				
-			if (showingAddToDictionaryHint)	{
+			if (showingAddToDictionaryHint && mCandidateView != null)	{
 				mCandidateView.showAddToDictionaryHint(suggestion);
 			}
 		}

@@ -1,6 +1,5 @@
 package com.anysoftkeyboard.keyboards;
 
-import android.R.xml;
 import android.content.Context;
 
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
