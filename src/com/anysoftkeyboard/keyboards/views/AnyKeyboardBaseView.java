@@ -858,12 +858,23 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
                 
                 //(+)This is the trick to get RTL/LTR text correct
 				// no matter what: StaticLayout
+                //this should be in the top left corner of the key
+            	
+            	
                 float textWidth =  paint.measureText(label);
+                /*
                 final float centerX = textWidth/2;
                 final float centerY = padding.top + ((key.height - padding.bottom - padding.top) / 2);
                 
                 final float textX = centerX;
             	final float textY = centerY - (labelHeight / 2) - paint.descent();
+            	*/
+                
+                final float centerX = padding.left + (key.width - padding.left - padding.right)/2;
+                final float centerY = padding.top + (key.height - padding.top - padding.bottom)/2;
+                
+                final float textX = centerX;
+            	final float textY = centerY - labelHeight + paint.descent();
             	
             	canvas.translate(textX , textY);	
         	    
@@ -871,7 +882,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
             	StaticLayout labelText = 
             		new StaticLayout(
             				label, labelPaint, 
-            				key.width, Alignment.ALIGN_CENTER, 
+            				(int)textWidth, Alignment.ALIGN_NORMAL, 
             				0.0f, 0.0f, false);
             	labelText.draw(canvas);
             	
