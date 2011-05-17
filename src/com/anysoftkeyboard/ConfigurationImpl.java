@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.inputmethodservice.Keyboard;
+import com.anysoftkeyboard.keyboards.Keyboard;
 import android.preference.PreferenceManager;
 import android.util.Log;
 

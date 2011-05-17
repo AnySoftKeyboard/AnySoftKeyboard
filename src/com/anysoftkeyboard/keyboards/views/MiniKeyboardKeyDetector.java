@@ -16,7 +16,7 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
-import android.inputmethodservice.Keyboard.Key;
+import com.anysoftkeyboard.keyboards.Keyboard.Key;
 
 class MiniKeyboardKeyDetector extends KeyDetector {
     private static final int MAX_NEARBY_KEYS = 1;

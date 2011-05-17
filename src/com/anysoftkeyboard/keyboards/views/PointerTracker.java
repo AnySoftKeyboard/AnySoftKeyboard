@@ -20,8 +20,8 @@ import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView.OnKeyboardActionL
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView.UIHandler;
 
 import android.content.res.Resources;
-import android.inputmethodservice.Keyboard;
-import android.inputmethodservice.Keyboard.Key;
+import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import android.util.Log;
 import android.view.MotionEvent;
 

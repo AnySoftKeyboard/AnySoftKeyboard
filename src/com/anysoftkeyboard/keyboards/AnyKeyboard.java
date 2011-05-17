@@ -11,7 +11,9 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
-import android.inputmethodservice.Keyboard;
+
+import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.keyboards.Keyboard;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
@@ -524,19 +526,19 @@ public abstract class AnyKeyboard extends Keyboard
         	//creating less sensitive keys if required
         	switch(primaryCode)
         	{
-        	case 0://disabled
+        	case KeyCodes.DISABLED://disabled
         		key.disable();
         		break;
-            case 10://enter
+            case KeyCodes.ENTER://enter
         		key = mEnterKey = new EnterKey(res, parent, x, y, parser);
         		break;
-        	case KEYCODE_SHIFT:
+        	case KeyCodes.SHIFT:
         		mShiftKey = key;//I want the reference used by the super.
         		break;
-        	case KEYCODE_DELETE://delete
+        	case KeyCodes.DELETE://delete
         		key = new LessSensitiveAnyKey(res, parent, x, y, parser);
         		break;
-        	case -99:
+        	case KeyCodes.MODE_ALPHABET:
         	    langSwitch = key;
         	    break;
 	        }

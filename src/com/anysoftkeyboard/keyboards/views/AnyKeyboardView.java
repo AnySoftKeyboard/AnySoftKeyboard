@@ -18,14 +18,14 @@ package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.inputmethodservice.Keyboard;
-import android.inputmethodservice.Keyboard.Key;
-import android.inputmethodservice.Keyboard.Row;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.ExternalAnyKeyboard;
+import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.keyboards.Keyboard.Key;
+import com.anysoftkeyboard.keyboards.Keyboard.Row;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.utils.IMEUtil;
 import com.menny.android.anysoftkeyboard.AnyApplication;

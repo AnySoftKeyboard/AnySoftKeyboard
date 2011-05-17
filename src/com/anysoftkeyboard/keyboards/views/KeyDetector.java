@@ -16,8 +16,8 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
-import android.inputmethodservice.Keyboard;
-import android.inputmethodservice.Keyboard.Key;
+import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.keyboards.Keyboard.Key;
 
 import java.util.Arrays;
 import java.util.List;

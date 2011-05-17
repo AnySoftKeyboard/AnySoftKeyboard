@@ -2,7 +2,7 @@ package com.anysoftkeyboard.keyboards;
 
 import java.security.InvalidParameterException;
 
-import android.inputmethodservice.Keyboard;
+import com.anysoftkeyboard.keyboards.Keyboard;
 import android.view.KeyEvent;
 
 import com.anysoftkeyboard.AnyKeyboardContextProvider;

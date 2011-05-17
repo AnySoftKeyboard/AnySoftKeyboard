@@ -16,6 +16,55 @@
 
 <resources>
 
+	<declare-styleable name="Keyboard">
+        <!-- Default width of a key, in pixels or percentage of display width. -->
+        <attr name="android:keyWidth"/>
+        <!-- Default height of a key, in pixels or percentage of display width. -->
+        <attr name="android:keyHeight"/>
+        <!-- Default horizontal gap between keys. -->
+        <attr name="android:horizontalGap"/>
+        <!-- Default vertical gap between rows of keys. -->
+        <attr name="android:verticalGap"/>
+    </declare-styleable>
+
+    <declare-styleable name="Keyboard_Row">
+        <!-- Row edge flags. -->
+        <attr name="android:rowEdgeFlags">
+        </attr>
+        <!-- Mode of the keyboard. If the mode doesn't match the
+             requested keyboard mode, the row will be skipped. -->
+        <attr name="android:keyboardMode"/>
+    </declare-styleable>
+
+    <declare-styleable name="Keyboard_Key">
+        <!-- The unicode value or comma-separated values that this key outputs. -->
+        <attr name="android:codes"/>
+        <!-- The XML keyboard layout of any popup keyboard. -->
+        <attr name="android:popupKeyboard" />
+        <!-- The characters to display in the popup keyboard. -->
+        <attr name="android:popupCharacters"/>
+        <!-- Key edge flags. -->
+        <attr name="android:keyEdgeFlags">
+        </attr>
+        <!-- Whether this is a modifier key such as Alt or Shift. -->
+        <attr name="android:isModifier"/>
+        <!-- Whether this is a toggle key. -->
+        <attr name="android:isSticky"/>
+        <!-- Whether long-pressing on this key will make it repeat. -->
+        <attr name="android:isRepeatable" />
+        <!-- The icon to show in the popup preview. -->
+        <attr name="android:iconPreview"/>
+        <!-- The string of characters to output when this key is pressed. -->
+        <attr name="android:keyOutputText"/>
+        <!-- The label to display on the key. -->
+        <attr name="android:keyLabel"/>
+        <!-- The icon to display on the key instead of the label. -->
+        <attr name="android:keyIcon"/>
+        <!-- Mode of the keyboard. If the mode doesn't match the
+             requested keyboard mode, the key will be skipped. -->
+        <attr name="android:keyboardMode" />
+    </declare-styleable>
+    
     <declare-styleable name="AnyKeyboardBaseView">
         <!-- Default KeyboardView style. -->
         <attr name="keyboardViewStyle" format="reference" />

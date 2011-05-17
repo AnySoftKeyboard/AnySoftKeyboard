@@ -34,8 +34,6 @@ import android.graphics.Rect;
 import android.graphics.Region.Op;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.inputmethodservice.Keyboard;
-import android.inputmethodservice.Keyboard.Key;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
@@ -59,6 +57,8 @@ import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel;
 import com.anysoftkeyboard.devicespecific.WMotionEvent;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
+import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 

@@ -17,13 +17,14 @@
 package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
-import android.inputmethodservice.Keyboard.Key;
 import android.text.format.DateFormat;
 import android.util.Log;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
+
+import com.anysoftkeyboard.keyboards.Keyboard.Key;
 
 public class TextEntryState {
     

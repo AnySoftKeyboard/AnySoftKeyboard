@@ -37,7 +37,7 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.InputMethodService;
-import android.inputmethodservice.Keyboard;
+import com.anysoftkeyboard.keyboards.Keyboard;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Debug;
@@ -113,8 +113,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private static final int MSG_UPDATE_SUGGESTIONS = 0;
 	//private static final int MSG_START_TUTORIAL = 1;
     private static final int MSG_UPDATE_SHIFT_STATE = 2;
-
-    private KeyCodes mKeys;
 	
 	private static final int KEYBOARD_NOTIFICATION_ID = 1;
 	
@@ -256,7 +254,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		Log.i("AnySoftKeyboard", "****** AnySoftKeyboard service started.");
 		Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(getApplication().getBaseContext(), null));
 		
-		mKeys = new KeyCodes(getApplicationContext());
 		// showToastMessage(R.string.toast_lengthy_start_up_operation, true);
 		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
@@ -1258,7 +1255,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			return;
 		CharSequence lastTwo = ic.getTextBeforeCursor(2, 0);
 		if (lastTwo != null && lastTwo.length() == 2
-				&& lastTwo.charAt(0) == mKeys.SPACE
+				&& lastTwo.charAt(0) == KeyCodes.SPACE
 				&& SPACE_SWAP_CHARACTERS.contains((int)lastTwo.charAt(1))) {
 			//ic.beginBatchEdit();
 			ic.deleteSurroundingText(2, 0);
@@ -1274,9 +1271,9 @@ public class AnySoftKeyboard extends InputMethodService implements
         if (ic == null) return;
         CharSequence lastThree = ic.getTextBeforeCursor(3, 0);
         if (lastThree != null && lastThree.length() == 3
-                && lastThree.charAt(0) == mKeys.PERIOD
-                && lastThree.charAt(1) == mKeys.SPACE
-                && lastThree.charAt(2) == mKeys.PERIOD) {
+                && lastThree.charAt(0) == '.'
+                && lastThree.charAt(1) == KeyCodes.SPACE
+                && lastThree.charAt(2) == '.') {
             ic.beginBatchEdit();
             ic.deleteSurroundingText(3, 0);
             ic.commitText(".. ", 1);
@@ -1295,8 +1292,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		CharSequence lastThree = ic.getTextBeforeCursor(3, 0);
 		if (lastThree != null && lastThree.length() == 3
 				&& Character.isLetterOrDigit(lastThree.charAt(0))
-				&& lastThree.charAt(1) == mKeys.SPACE
-				&& lastThree.charAt(2) == mKeys.SPACE) {
+				&& lastThree.charAt(1) == KeyCodes.SPACE
+				&& lastThree.charAt(2) == KeyCodes.SPACE) {
 			ic.beginBatchEdit();
 			ic.deleteSurroundingText(2, 0);
 			ic.commitText(". ", 1);
@@ -1312,7 +1309,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         CharSequence lastOne = ic.getTextBeforeCursor(1, 0);
         if (lastOne != null && lastOne.length() == 1
-                && lastOne.charAt(0) == mKeys.SPACE) {
+                && lastOne.charAt(0) == KeyCodes.SPACE) {
             ic.deleteSurroundingText(1, 0);
         }
     }
@@ -1867,14 +1864,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 				pickedDefault = pickDefaultSuggestion();
 				// Picked the suggestion by the space key.  We consider this
                 // as "added an auto space".
-                if (primaryCode == mKeys.SPACE) {
+                if (primaryCode == KeyCodes.SPACE) {
                     mJustAddedAutoSpace = true;
                 }
 			} else {
 				commitTyped(ic);
 			}
 		}
-        if (mJustAddedAutoSpace && primaryCode == mKeys.ENTER) {
+        if (mJustAddedAutoSpace && primaryCode == KeyCodes.ENTER) {
             removeTrailingSpace();
             mJustAddedAutoSpace = false;
         }
@@ -1884,13 +1881,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// Handle the case of ". ." -> " .." with auto-space if necessary
         // before changing the TextEntryState.
         if (TextEntryState.getState() == TextEntryState.State.PUNCTUATION_AFTER_ACCEPTED
-                && primaryCode == mKeys.PERIOD) {
+                && primaryCode == '.') {
             reswapPeriodAndSpace();
         }
         
 		TextEntryState.typedCharacter((char) primaryCode, true);
 		if (TextEntryState.getState() == TextEntryState.State.PUNCTUATION_AFTER_ACCEPTED
-				&& primaryCode != mKeys.ENTER) {
+				&& primaryCode != KeyCodes.ENTER) {
 			swapPunctuationAndSpace();
 		} else if (/*isPredictionOn() &&*/ primaryCode == ' ') {
 			doubleSpace();
@@ -2078,7 +2075,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	            // Fool the state watcher so that a subsequent backspace will not do a revert, unless
 	            // we just did a correction, in which case we need to stay in
 	            // TextEntryState.State.PICKED_SUGGESTION state.
-	            TextEntryState.typedCharacter((char) mKeys.SPACE, true);
+	            TextEntryState.typedCharacter((char) KeyCodes.SPACE, true);
 	            setNextSuggestions();
 	        } else if (!showingAddToDictionaryHint) {
 	            // If we're not showing the "Touch again to save", then show corrections again.
@@ -2219,7 +2216,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	private void sendSpace() {
-		sendKeyChar((char)mKeys.SPACE);
+		sendKeyChar((char)KeyCodes.SPACE);
 		updateShiftKeyState(getCurrentInputEditorInfo());
 	}
 

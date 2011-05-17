@@ -58,7 +58,6 @@ public class KeyboardSwitcher
 
     AnyKeyboardView mInputView;
     private final AnySoftKeyboard mContext;
-    private final KeyCodes mKeys;
     
     private static final int SYMBOLS_KEYBOARD_REGULAR_INDEX = 0;
     private static final int SYMBOLS_KEYBOARD_ALT_INDEX = 1;
@@ -93,7 +92,6 @@ public class KeyboardSwitcher
 	// Constructor hidden
     public KeyboardSwitcher(AnySoftKeyboard context) {
     	mContext = context;
-    	mKeys = new KeyCodes(mContext.getApplicationContext());
     	Resources res = mContext.getResources();
     	KEYBOARDMODE_NORMAL = res.getInteger(R.integer.keyboard_mode_normal);
     	KEYBOARDMODE_IM = res.getInteger(R.integer.keyboard_mode_im);
@@ -640,7 +638,7 @@ public class KeyboardSwitcher
 	}
 
 	public boolean isKeyRequireSwitchToAlphabet(int primaryCode) {
-		if (primaryCode == mKeys.ENTER || primaryCode == mKeys.SPACE)
+		if (primaryCode == KeyCodes.ENTER || primaryCode == KeyCodes.SPACE)
 		{
 			return (!isAlphabetMode()) && AnyApplication.getConfig().getSwitchKeyboardOnSpace();
 		}
