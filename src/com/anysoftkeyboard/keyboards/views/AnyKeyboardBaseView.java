@@ -1165,8 +1165,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
 
         Keyboard keyboard;
         if (popupCharacters != null) {
-            keyboard = new AnyPopupKeyboard(AnySoftKeyboard.getInstance(), packageContext, popupKeyboardId, popupCharacters,
-                    -1, getPaddingLeft() + getPaddingRight());
+            keyboard = new AnyPopupKeyboard(AnySoftKeyboard.getInstance(), popupCharacters);
         } else {
             keyboard = new AnyPopupKeyboard(AnySoftKeyboard.getInstance(), packageContext, popupKeyboardId);
         }

@@ -289,7 +289,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 		//if ((aKey.popupCharacters != null) && (aKey.popupCharacters.length() > 0)){
 		if (aKey.popupCharacters != null){
 		    if(aKey.popupCharacters.length() > 0){
-			aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
+		    	aKey.popupResId = com.menny.android.anysoftkeyboard.R.xml.popup;
 		    }
 			return;
 		}

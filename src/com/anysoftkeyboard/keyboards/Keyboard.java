@@ -32,9 +32,11 @@ package com.anysoftkeyboard.keyboards;
 
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
@@ -283,6 +285,8 @@ public class Keyboard {
         public boolean modifier;
         /** The keyboard that this key belongs to */
         private Keyboard keyboard;
+        
+        public final Row row;
         /** 
          * If this key pops up a mini keyboard, this is the resource id for the XML layout for that
          * keyboard.
@@ -321,6 +325,7 @@ public class Keyboard {
 
         /** Create an empty key with no attributes. */
         public Key(Row parent) {
+        	row = parent;
             keyboard = parent.parent;
             height = parent.defaultHeight;
             width = parent.defaultWidth;
@@ -539,6 +544,15 @@ public class Keyboard {
         mKeys = new ArrayList<Key>();
         mModifierKeys = new ArrayList<Key>();
         mKeyboardMode = modeId;
+        
+        //let's fix the height
+        com.anysoftkeyboard.Configuration config = AnyApplication.getConfig();
+		final int orientation = config.getDeviceOrientation();
+    	if (orientation != Configuration.ORIENTATION_LANDSCAPE)//I want to support other orientations too (like square)
+    		mDefaultHeight = (int)(mDefaultHeight * config.getKeysHeightFactorInPortrait());
+    	else
+    		mDefaultHeight = (int)(mDefaultHeight * config.getKeysHeightFactorInLandscape());
+        
         loadKeyboard(context, context.getResources().getXml(xmlLayoutResId));
     }
 
@@ -556,6 +570,7 @@ public class Keyboard {
      * number of keys that can fit in a row, it will be ignored. If this number is -1, the 
      * keyboard will fit as many keys as possible in each row.
      */
+/*    
     public Keyboard(Context context, int layoutTemplateResId, 
             CharSequence characters, int columns, int horizontalPadding) {
         this(context, layoutTemplateResId);
@@ -593,7 +608,7 @@ public class Keyboard {
         }
         mTotalHeight = y + mDefaultHeight; 
     }
-    
+    */
     public List<Key> getKeys() {
         return mKeys;
     }

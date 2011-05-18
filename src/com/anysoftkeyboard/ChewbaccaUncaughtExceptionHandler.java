@@ -30,51 +30,50 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 	
 	public void uncaughtException(Thread thread, Throwable ex) {
 		Log.e(TAG, "Caught an unhandled exception!!! ", ex);
-		//if (AnySoftKeyboardConfiguration.DEBUG)
-		//{
-			Notification notification = new Notification();
+		
+		Notification notification = new Notification();
 
-			Intent notificationIntent = new Intent();
-			notificationIntent = new Intent(mApp, SendBugReportUiActivity.class);
-			
-			String appName = mApp.getText(R.string.ime_name).toString();
-			try {
-				PackageInfo info = mApp.getPackageManager().getPackageInfo(mApp.getPackageName(), 0);
-				appName = appName + " v"+info.versionName+" release "+info.versionCode;
-			} catch (NameNotFoundException e) {
-				appName = "NA";
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			String logText = "Hi. It seems that we have crashed.... Here are some details:\n"+
-				"****** GMT Time: "+(new Date()).toGMTString()+"\n"+
-				"****** Application name: "+appName+"\n"+
-				"******************************\n"+
-				"****** Exception type: "+ex.getClass().getName()+"\n"+
-				"****** Exception message: "+ex.getMessage()+"\n"+
-				"****** Trace trace:\n"+getStackTrace(ex)+"\n"+
-				"******************************\n"+
-				"****** Logcat:\n"+getLogcat();
-			Log.e(TAG, "About to send a bug report:\n"+logText);
-	        
-			notificationIntent.putExtra(SendBugReportUiActivity.CRASH_REPORT_TEXT, logText);
-			
-			PendingIntent contentIntent = PendingIntent.getActivity(mApp, 0,
-					notificationIntent, 0);
+		Intent notificationIntent = new Intent();
+		notificationIntent = new Intent(mApp, SendBugReportUiActivity.class);
+		
+		String appName = mApp.getText(R.string.ime_name).toString();
+		try {
+			PackageInfo info = mApp.getPackageManager().getPackageInfo(mApp.getPackageName(), 0);
+			appName = appName + " v"+info.versionName+" release "+info.versionCode;
+		} catch (NameNotFoundException e) {
+			appName = "NA";
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String logText = "Hi. It seems that we have crashed.... Here are some details:\n"+
+			"****** GMT Time: "+(new Date()).toGMTString()+"\n"+
+			"****** Application name: "+appName+"\n"+
+			"******************************\n"+
+			"****** Exception type: "+ex.getClass().getName()+"\n"+
+			"****** Exception message: "+ex.getMessage()+"\n"+
+			"****** Trace trace:\n"+getStackTrace(ex)+"\n"+
+			"******************************\n"+
+			"****** Logcat:\n"+getLogcat();
+		Log.e(TAG, "About to send a bug report:\n"+logText);
+        
+		notificationIntent.putExtra(SendBugReportUiActivity.CRASH_REPORT_TEXT, logText);
+		
+		PendingIntent contentIntent = PendingIntent.getActivity(mApp, 0,
+				notificationIntent, 0);
 
-			notification.setLatestEventInfo(mApp, 
-					mApp.getText(R.string.ime_name), 
-					"Caught an unhandled exception!",
-					contentIntent);
-			notification.icon = R.drawable.icon_8_key;
-			notification.flags = Notification.FLAG_AUTO_CANCEL + Notification.FLAG_ONLY_ALERT_ONCE;
-			notification.defaults = Notification.DEFAULT_LIGHTS + Notification.DEFAULT_VIBRATE;
-			// notifying
-			NotificationManager notificationManager = (NotificationManager)mApp.getSystemService(Context.NOTIFICATION_SERVICE);
-			
-			notificationManager.notify(1, notification);
-		//}
+		notification.setLatestEventInfo(mApp, 
+				mApp.getText(R.string.ime_name), 
+				"Caught an unhandled exception!",
+				contentIntent);
+		notification.icon = R.drawable.notification_error_icon;
+		notification.flags = Notification.FLAG_AUTO_CANCEL + Notification.FLAG_ONLY_ALERT_ONCE;
+		notification.defaults = Notification.DEFAULT_LIGHTS + Notification.DEFAULT_VIBRATE;
+		// notifying
+		NotificationManager notificationManager = (NotificationManager)mApp.getSystemService(Context.NOTIFICATION_SERVICE);
+		
+		notificationManager.notify(1, notification);
+
 		//and sending to the OS
 		if (mOsDefaultHandler != null)
 		{

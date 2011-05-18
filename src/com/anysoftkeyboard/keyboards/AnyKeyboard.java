@@ -111,28 +111,6 @@ public abstract class AnyKeyboard extends Keyboard
 	// max(generic row widths)
 	private int mMaxGenericRowsWidth = 0;
 	
-	//for the popup
-	protected AnyKeyboard(AnyKeyboardContextProvider askContext, Context context,//note: the context can be from a different package!
-    		int layoutTemplateResId, CharSequence popupCharacters, int columns, int horizontalPadding) 
-    {
-		super(context, layoutTemplateResId, popupCharacters, columns, horizontalPadding);
-		
-		mKeyboardMode = -1;
-        mKeyboardContext = context;
-        mASKContext = askContext;
-        //no generic rows in popup
-		//addGenericRows(askContext, context, mKeyboardMode);
-		
-		//I assume no shift in popup
-		mShiftLockedIcon = null;
-    	mShiftOnIcon = null;
-    	mShiftIcon = null;
-    	mShiftLockedFeedbackIcon = null;
-    	mShiftOnFeedbackIcon = null;
-    	mShiftFeedbackIcon = null;
-		
-    }
-	
 	protected AnyKeyboard(AnyKeyboardContextProvider askContext, Context context,//note: the context can be from a different package!
     		int xmlLayoutResId) 
     {

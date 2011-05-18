@@ -4,4 +4,7 @@
 	android:horizontalGap="0px"
     android:verticalGap="5%p"
     android:keyHeight="@dimen/key_height">
+    <Row android:rowEdgeFlags="top|bottom" android:keyWidth="10%p" android:keyHeight="@dimen/key_height">
+    	<Key android:codes="0" android:keyEdgeFlags="left"/>
+	</Row>
 </Keyboard>
