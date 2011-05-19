@@ -2,10 +2,25 @@
 <resources>
 	<integer name="key_code_space">32</integer>
 	<integer name="key_code_enter">10</integer>
+	<integer name="key_code_delete">-5</integer>
 	
-	<integer name="key_code_shift">32</integer>
-	<integer name="key_code_delete">10</integer>
-	<integer name="key_code_smiley">32</integer>
-	<integer name="key_code_domain">10</integer>
-	<integer name="key_code_settings">32</integer>
+	<integer name="key_code_quick_text">-10</integer>
+	<integer name="key_code_quick_text_popup">-102</integer>
+	<integer name="key_code_domain">-9</integer>
+	
+	<integer name="key_code_shift">-1</integer>
+	<integer name="key_code_alt">-6</integer>
+	<integer name="key_code_ctrl">-11</integer>
+	
+	<integer name="key_code_mode_symbols">-2</integer>
+	<integer name="key_code_mode_alphabet">-99</integer>
+	
+	<integer name="key_code_arrow_left">-20</integer>
+	<integer name="key_code_arrow_right">-21</integer>
+	<integer name="key_code_arrow_up">-22</integer>
+	<integer name="key_code_arrow_down">-23</integer>
+	
+	<integer name="key_code_settings">-100</integer>
+	<integer name="key_code_clipboard">-12</integer>
+	<integer name="key_code_cancel">-3</integer>
 </resources>

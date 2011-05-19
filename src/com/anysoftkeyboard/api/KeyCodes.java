@@ -1,29 +1,31 @@
 package com.anysoftkeyboard.api;
 
-import android.content.Context;
-import android.content.res.Resources;
-
 public class KeyCodes {
-
-	public final int SPACE;
-	public final int PERIOD;
-	public final int ENTER;
-	public final int SHIFT;
-	public final int DELETE;
-	public final int SMILEY;
-	public final int DOMAIN;
-	public final int SETTINGS;
 	
-	public KeyCodes(Context appContext)
-	{
-		Resources res = appContext.getResources();
-		SPACE = res.getInteger(com.anysoftkeyboard.api.R.integer.key_code_space);
-		PERIOD = '.';
-		ENTER = res.getInteger(com.anysoftkeyboard.api.R.integer.key_code_enter);
-		SHIFT = res.getInteger(com.anysoftkeyboard.api.R.integer.key_code_shift);
-		DELETE = res.getInteger(com.anysoftkeyboard.api.R.integer.key_code_delete);
-		SMILEY = res.getInteger(com.anysoftkeyboard.api.R.integer.key_code_smiley);
-		DOMAIN = res.getInteger(com.anysoftkeyboard.api.R.integer.key_code_domain);
-		SETTINGS = res.getInteger(com.anysoftkeyboard.api.R.integer.key_code_settings);
-	}
+	public static final int SPACE = 32;
+	public static final int ENTER = 10;
+	public static final int DELETE = -5;
+	
+	public static final int QUICK_TEXT = -10;
+	public static final int QUICK_TEXT_POPUP = -102;
+	public static final int DOMAIN = -9;
+	
+	public static final int SHIFT = -1;
+	public static final int ALT = -6;
+	public static final int CTRL = -11;
+	
+	public static final int MODE_SYMOBLS = -2;
+	public static final int MODE_ALPHABET = -99;
+	
+	public static final int ARROW_LEFT = -20;
+	public static final int ARROW_RIGHT = -21;
+	public static final int ARROW_UP = -22;
+	public static final int ARROW_DOWN = -23;
+	
+	public static final int SETTINGS = -100;
+	public static final int CLIPBOARD = -12;
+	public static final int CANCEL = -3;
+	
+	public static final int DISABLED = 0;
+	
 }
