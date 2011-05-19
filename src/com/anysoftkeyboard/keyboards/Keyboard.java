@@ -32,6 +32,7 @@ package com.anysoftkeyboard.keyboards;
 
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -95,6 +96,9 @@ public class Keyboard {
     public static final int KEYCODE_DONE = -4;
     public static final int KEYCODE_DELETE = -5;
     public static final int KEYCODE_ALT = -6;
+    
+    protected final Context mKeyboardContext;
+    protected final AnyKeyboardContextProvider mASKContext;
     
     /** Keyboard label **/
     private CharSequence mLabel;
@@ -205,8 +209,14 @@ public class Keyboard {
                     R.styleable.Keyboard_android_keyWidth, 
                     parent.mDisplayWidth, parent.mDefaultWidth);
             defaultHeight = getDimensionOrFraction(a, 
-                    R.styleable.Keyboard_android_keyHeight, 
-                    parent.mDisplayHeight, parent.mDefaultHeight);
+                  R.styleable.Keyboard_android_keyHeight, 
+                  parent.mDisplayHeight, parent.mDefaultHeight);
+//            int defaultHeightType = getDimensionOrFraction(a, 
+//                    R.styleable.Keyboard_android_keyHeight, 
+//                    parent.mDisplayHeight, -1);
+//            Log.d(TAG, "ROW defaultHeightType "+defaultHeightType);
+//            defaultHeight = getActualHeight(defaultHeightType, parent.mASKContext.getApplicationContext());
+            
             defaultHorizontalGap = getDimensionOrFraction(a,
                     R.styleable.Keyboard_android_horizontalGap, 
                     parent.mDisplayWidth, parent.mDefaultHorizontalGap);
@@ -357,6 +367,12 @@ public class Keyboard {
             height = getDimensionOrFraction(a, 
                     R.styleable.Keyboard_android_keyHeight,
                     keyboard.mDisplayHeight, parent.defaultHeight);
+//            int heightType = getDimensionOrFraction(a, 
+//                    R.styleable.Keyboard_android_keyHeight, 
+//                    keyboard.mDisplayHeight, parent.defaultHeight);
+//            Log.d(TAG, "ROW defaultHeightType "+heightType);
+//            height = getActualHeight(heightType, keyboard.mASKContext.getApplicationContext());
+            
             gap = getDimensionOrFraction(a, 
                     R.styleable.Keyboard_android_horizontalGap,
                     keyboard.mDisplayWidth, parent.defaultHorizontalGap);
@@ -520,22 +536,37 @@ public class Keyboard {
      * @param context the application or service context
      * @param xmlLayoutResId the resource file that contains the keyboard layout and keys.
      */
-    public Keyboard(Context context, int xmlLayoutResId) {
-        this(context, xmlLayoutResId, 0);
+    public Keyboard(AnyKeyboardContextProvider askContext, Context context, int xmlLayoutResId) {
+        this(askContext, context, xmlLayoutResId, 0);
     }
     
-    /**
+//    protected static int getActualHeight(final int defaultHeightType, Context applicationContext) {
+//    	final Resources res = applicationContext.getResources();
+//		
+//    	switch(defaultHeightType)
+//		{
+//		case -2:
+//			return res.getDimensionPixelOffset(R.dimen.key_half_height);
+//		case -3:
+//			return res.getDimensionPixelOffset(R.dimen.key_half_height);
+//		default:
+//			return res.getDimensionPixelOffset(R.dimen.key_height);
+//		}
+//	}
+
+	/**
      * Creates a keyboard from the given xml key layout file. Weeds out rows
      * that have a keyboard mode defined but don't match the specified mode. 
      * @param context the application or service context
      * @param xmlLayoutResId the resource file that contains the keyboard layout and keys.
      * @param modeId keyboard mode identifier
      */
-    public Keyboard(Context context, int xmlLayoutResId, int modeId) {
+    public Keyboard(AnyKeyboardContextProvider askContext, Context context, int xmlLayoutResId, int modeId) {
+    	mASKContext = askContext;
+    	mKeyboardContext = context;
         DisplayMetrics dm = context.getResources().getDisplayMetrics();
         mDisplayWidth = dm.widthPixels;
         mDisplayHeight = dm.heightPixels;
-        //Log.v(TAG, "keyboard's display metrics:" + dm);
 
         mDefaultHorizontalGap = 0;
         mDefaultWidth = mDisplayWidth / 10;

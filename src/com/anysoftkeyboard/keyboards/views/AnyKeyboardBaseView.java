@@ -247,7 +247,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
     // This map caches key label text height in pixel as value and key label text size as map key.
     private final HashMap<Integer, Integer> mTextHeightCache = new HashMap<Integer, Integer>();
     // Distance from horizontal center of the key, proportional to key label text height.
-    //private final float KEY_LABEL_VERTICAL_ADJUSTMENT_FACTOR = 0.55f;
+    private final float KEY_LABEL_VERTICAL_ADJUSTMENT_FACTOR = 0.55f;
     private final String KEY_LABEL_HEIGHT_REFERENCE_CHAR = "H";
 
     private final UIHandler mHandler = new UIHandler();
@@ -776,6 +776,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
                 // Make sure our bitmap is at least 1x1
                 final int width = Math.max(1, getWidth());
                 final int height = Math.max(1, getHeight());
+                Log.d(TAG, "Buffer dimensions: w:"+width+" h:"+height);
                 mBuffer = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
                 mCanvas = new Canvas(mBuffer);
             }
@@ -812,6 +813,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         final int keyCount = keys.length;
         for (int i = 0; i < keyCount; i++) {
             final Key key = keys[i];
+    		
             if (drawSingleKey && invalidKey != key) {
                 continue;
             }
@@ -859,39 +861,37 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
                 //(+)This is the trick to get RTL/LTR text correct
 				// no matter what: StaticLayout
                 //this should be in the top left corner of the key
-            	
-            	
-                float textWidth =  paint.measureText(label);
-                /*
-                final float centerX = textWidth/2;
-                final float centerY = padding.top + ((key.height - padding.bottom - padding.top) / 2);
+            	float textWidth =  paint.measureText(label);
                 
-                final float textX = centerX;
-            	final float textY = centerY - (labelHeight / 2) - paint.descent();
-            	*/
-                
-                final float centerX = padding.left + (key.width - padding.left - padding.right)/2;
-                final float centerY = padding.top + (key.height - padding.top - padding.bottom)/2;
-                
-                final float textX = centerX;
-            	final float textY = centerY - labelHeight + paint.descent();
-            	
-            	canvas.translate(textX , textY);	
-        	    
-            	TextPaint labelPaint = new TextPaint(paint);
-            	StaticLayout labelText = 
-            		new StaticLayout(
-            				label, labelPaint, 
-            				(int)textWidth, Alignment.ALIGN_NORMAL, 
-            				0.0f, 0.0f, false);
-            	labelText.draw(canvas);
-            	
-        	    canvas.translate(-textX , -textY);
-//                final int centerX = (key.width + padding.left - padding.right) / 2;
-//                final int centerY = (key.height + padding.top - padding.bottom) / 2;
-//                final float baseline = centerY
-//                        + labelHeight * KEY_LABEL_VERTICAL_ADJUSTMENT_FACTOR;
-//                canvas.drawText(label, centerX, baseline, paint);
+                if (label.length() > 1)
+                {
+                	if (AnyApplication.DEBUG) Log.d(TAG, "Using RTL fix for key draw '"+label+"'");
+                	//RTL fix. But it costs, let do it when in need (more than 1 character)
+	                final float centerX = padding.left + (key.width - padding.left - padding.right)/2;
+	                final float centerY = padding.top + (key.height - padding.top - padding.bottom)/2;
+	                
+	                final float textX = centerX;
+	            	final float textY = centerY - labelHeight + paint.descent();
+	            	
+	            	canvas.translate(textX , textY);	
+	        	    
+	            	TextPaint labelPaint = new TextPaint(paint);
+	            	StaticLayout labelText = 
+	            		new StaticLayout(
+	            				label, labelPaint, 
+	            				(int)textWidth, Alignment.ALIGN_NORMAL, 
+	            				0.0f, 0.0f, false);
+	            	labelText.draw(canvas);
+	            	
+	        	    canvas.translate(-textX , -textY);
+                }
+                else
+                {
+					final int centerX = (key.width + padding.left - padding.right) / 2;
+					final int centerY = (key.height + padding.top - padding.bottom) / 2;
+					final float baseline = centerY + labelHeight * KEY_LABEL_VERTICAL_ADJUSTMENT_FACTOR;
+					canvas.drawText(label, centerX, baseline, paint);	
+                }
 				//(-)      
                 
                                 

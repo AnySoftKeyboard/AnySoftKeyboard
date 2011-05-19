@@ -3,12 +3,15 @@ package com.anysoftkeyboard.keyboards;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.R;
 
 public class AnyPopupKeyboard extends AnyKeyboard {
 
+	private int mAdditionalWidth = 0;
+	
 	public AnyPopupKeyboard(AnyKeyboardContextProvider askContext, Context context,//note: the context can be from a different package!
     		int xmlLayoutResId)
 	{
@@ -33,11 +36,18 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 			aKey.label = String.valueOf(popupCharacters.charAt(popupCharIndex));
 			aKey.x = x;
 			aKey.y = 0;
-			x += baseKey.width + row.defaultHorizontalGap;
+			final int xOffset = aKey.width + row.defaultHorizontalGap;
+			x += xOffset;
+			mAdditionalWidth += xOffset;
 			keys.add(aKey);
 		}
 		//adding edge flag to the last key
 		keys.get(keys.size() - 1).edgeFlags += EDGE_RIGHT;
+	}
+	
+	@Override
+	public int getMinWidth() {
+		return super.getMinWidth() + mAdditionalWidth;
 	}
 	
 	@Override

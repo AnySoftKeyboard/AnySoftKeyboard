@@ -100,9 +100,6 @@ public abstract class AnyKeyboard extends Keyboard
 
 	private boolean mRightToLeftLayout = false;//the "super" ctor will create keys, and we'll set the correct value there.
 	
-    private final Context mKeyboardContext;
-    private final AnyKeyboardContextProvider mASKContext;
-	
     private boolean mTopRowWasCreated;
 	private boolean mBottomRowWasCreated;
 	
@@ -115,10 +112,8 @@ public abstract class AnyKeyboard extends Keyboard
     		int xmlLayoutResId) 
     {
         //should use the package context for creating the layout
-        super(context, xmlLayoutResId, -1);
+        super(askContext, context, xmlLayoutResId, -1);
         mKeyboardMode = -1;
-        mKeyboardContext = context;
-        mASKContext = askContext;
         //no generic rows in popup
 		//addGenericRows(mASKContext, mKeyboardContext, mKeyboardMode);
 		
@@ -136,10 +131,8 @@ public abstract class AnyKeyboard extends Keyboard
     		int xmlLayoutResId, int mode) 
     {
         //should use the package context for creating the layout
-        super(context, xmlLayoutResId, mode);
+        super(askContext, context, xmlLayoutResId, mode);
         mKeyboardMode = mode;
-        mKeyboardContext = context;
-        mASKContext = askContext;
 
 		addGenericRows(mASKContext, mKeyboardContext, mKeyboardMode);
 		

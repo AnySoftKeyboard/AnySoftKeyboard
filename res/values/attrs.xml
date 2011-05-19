@@ -39,6 +39,9 @@
     <declare-styleable name="Keyboard_Key">
         <!-- The unicode value or comma-separated values that this key outputs. -->
         <attr name="android:codes"/>
+        
+        <attr name="shiftedCodes" format="integer|string"/>
+        
         <!-- The XML keyboard layout of any popup keyboard. -->
         <attr name="android:popupKeyboard" />
         <!-- The characters to display in the popup keyboard. -->
