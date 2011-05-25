@@ -22,6 +22,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
 import com.anysoftkeyboard.keyboards.ExternalAnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
@@ -231,7 +232,9 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 		        	onLongPress(getContext(), mExtensionKey);
 		        	//it is an extension..
 		        	mMiniKeyboard.setPreviewEnabled(true);
-		        	
+		        	Keyboard miniKeyboardObject = mMiniKeyboard.getKeyboard();
+		        	if (miniKeyboardObject instanceof AnyPopupKeyboard)
+		        		((AnyPopupKeyboard)miniKeyboardObject).setIsOnKeyEventPopup(false);
 		        	return true;
 	        	}
         	} else {

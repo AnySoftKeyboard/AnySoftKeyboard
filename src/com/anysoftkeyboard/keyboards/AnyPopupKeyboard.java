@@ -11,6 +11,7 @@ import com.menny.android.anysoftkeyboard.R;
 public class AnyPopupKeyboard extends AnyKeyboard {
 
 	private int mAdditionalWidth = 0;
+	private boolean mOneKeyPressPopup = true;
 	
 	public AnyPopupKeyboard(AnyKeyboardContextProvider askContext, Context context,//note: the context can be from a different package!
     		int xmlLayoutResId)
@@ -68,6 +69,15 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 	@Override
 	public String getKeyboardPrefId() {
 		return "keyboard_popup";
+	}
+
+	public boolean isOneKeyEventPopup() {
+		return mOneKeyPressPopup;
+	}
+	
+	public void setIsOnKeyEventPopup(boolean oneKey)
+	{
+		mOneKeyPressPopup = oneKey;
 	}
 
 }

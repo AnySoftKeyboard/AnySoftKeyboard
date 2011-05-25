@@ -1119,16 +1119,24 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         if (container == null)
             throw new NullPointerException();
 
+        final AnyPopupKeyboard keyboard;
+        if (popupCharacters != null) {
+            keyboard = new AnyPopupKeyboard(AnySoftKeyboard.getInstance(), popupCharacters);
+        } else {
+            keyboard = new AnyPopupKeyboard(AnySoftKeyboard.getInstance(), packageContext, popupKeyboardId);
+        }
+        
         AnyKeyboardBaseView miniKeyboard =
                 (AnyKeyboardBaseView)container.findViewById(R.id.AnyKeyboardBaseView);
         miniKeyboard.setOnKeyboardActionListener(new OnKeyboardActionListener() {
-            public void onKey(int primaryCode, int[] keyCodes, int x, int y) {
+        	
+        	public void onKey(int primaryCode, int[] keyCodes, int x, int y) {
                 mKeyboardActionListener.onKey(primaryCode, keyCodes, x, y);
-                dismissPopupKeyboard();
+                if (keyboard.isOneKeyEventPopup()) dismissPopupKeyboard();
             }
 
             public void onText(CharSequence text) {
-                mKeyboardActionListener.onText(text);
+            	if (keyboard.isOneKeyEventPopup()) mKeyboardActionListener.onText(text);
                 dismissPopupKeyboard();
             }
 
@@ -1163,12 +1171,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         // Remove gesture detector on mini-keyboard
         miniKeyboard.mGestureDetector = null;
 
-        Keyboard keyboard;
-        if (popupCharacters != null) {
-            keyboard = new AnyPopupKeyboard(AnySoftKeyboard.getInstance(), popupCharacters);
-        } else {
-            keyboard = new AnyPopupKeyboard(AnySoftKeyboard.getInstance(), packageContext, popupKeyboardId);
-        }
         miniKeyboard.setKeyboard(keyboard);
         miniKeyboard.setPopupParent(this);
 
