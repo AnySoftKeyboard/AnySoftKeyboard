@@ -154,8 +154,6 @@
   <string name="cycle_all_symbols_keyboards">Wechsle durch alle Symbole</string>
   <string name="cycle_all_symbols_keyboards_on_summary">Symboltasten wechseln durch alle Zeichentastaturen</string>
   <string name="cycle_all_symbols_keyboards_off_summary">Symboltasten zeigen nur die wichtigsten Zeichentastaturen</string>
-  <string name="rtl_workaround_detection_title">RTL Erkennungstyp</string>
-  <string name="rtl_workaround_detection_summary">Right-to-Left languages text fix</string>
   <string name="lang_key_shows_popup">Sprachwechsel über Popup</string>
   <string name="lang_key_shows_popup_on_summary">Sprachtaste öffnet Auswahldialog</string>
   <string name="lang_key_shows_popup_off_summary">Sprachtaste wechselt durch Sprachen</string>

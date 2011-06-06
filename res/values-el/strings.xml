@@ -154,8 +154,6 @@
   <string name="cycle_all_symbols_keyboards">Εμφάνιση όλων των συμβόλων</string>
   <string name="cycle_all_symbols_keyboards_on_summary">Το κλειδί του συμβόλου θα εμφανίζεται όλα τα πληκτρολόγια συμβόλων</string>
   <string name="cycle_all_symbols_keyboards_off_summary">Το κλειδί του συμβόλου θα προβάλλει μόνο τα κύρια σύμβολα του πληκτρολογίου</string>
-  <string name="rtl_workaround_detection_title">RTL τύπος ανίχνευσης</string>
-  <string name="rtl_workaround_detection_summary">Επιδιόρθωση κειμένου για γλώσσες από δεξιά προς τα αριστερά</string>
   <string name="lang_key_shows_popup">Επιλογή γλώσσας με popup</string>
   <string name="lang_key_shows_popup_on_summary">Το κλειδί της γλώσσας θα εμφανίσεις έναν διαλογο επιλογής</string>
   <string name="lang_key_shows_popup_off_summary">Το κλειδί της γλώσσας θα εναλλάσσει τις γλώσσες</string>

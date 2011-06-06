@@ -154,8 +154,6 @@
   <string name="cycle_all_symbols_keyboards">Кружи низ сите тастатури со симболи</string>
   <string name="cycle_all_symbols_keyboards_on_summary">Копчето за симболи ќе кружи низ сите тастатури со симболи</string>
   <string name="cycle_all_symbols_keyboards_off_summary">Копчето за симболи ќе ја прикажува само главната тастатура со симболи</string>
-  <string name="rtl_workaround_detection_title">RTL тип на детекција</string>
-  <string name="rtl_workaround_detection_summary">Десно-кон-Лево корекции</string>
   <string name="lang_key_shows_popup">Измена на јазик преку изборник</string>
   <string name="lang_key_shows_popup_on_summary">Притискање на копчето за јазик ќе го прикаже изборникот</string>
   <string name="lang_key_shows_popup_off_summary">Копчето за јазик ќе кружи низ сите јазици</string>

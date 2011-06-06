@@ -154,8 +154,6 @@
   <string name="cycle_all_symbols_keyboards">לעבור על כל הסימנים</string>
   <string name="cycle_all_symbols_keyboards_on_summary">Symbols key will cycle over all symbols keyboards</string>
   <string name="cycle_all_symbols_keyboards_off_summary">Symbols key will only show main symbols keyboard</string>
-  <string name="rtl_workaround_detection_title">RTL detection type</string>
-  <string name="rtl_workaround_detection_summary">Right-to-Left languages text fix</string>
   <string name="lang_key_shows_popup">Language switch by popup</string>
   <string name="lang_key_shows_popup_on_summary">Language key will pop-up a selection dialog</string>
   <string name="lang_key_shows_popup_off_summary">Language key will cycle languages</string>

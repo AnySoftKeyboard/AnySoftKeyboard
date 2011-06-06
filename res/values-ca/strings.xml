@@ -154,8 +154,6 @@
   <string name="cycle_all_symbols_keyboards">Roda entre tots els símbols</string>
   <string name="cycle_all_symbols_keyboards_on_summary">La tecla de símbol roda entre tots els teclats de símbols</string>
   <string name="cycle_all_symbols_keyboards_off_summary">La tecla de símbols només mostra el teclat de símbols principal</string>
-  <string name="rtl_workaround_detection_title">Tipus de detecció RTL</string>
-  <string name="rtl_workaround_detection_summary">Correcció de textos de llengües amb escritura de dreta a esquerra</string>
   <string name="lang_key_shows_popup">Finestra de canvi de llengua</string>
   <string name="lang_key_shows_popup_on_summary">La tecla de llengües mostra una finestra de selecció</string>
   <string name="lang_key_shows_popup_off_summary">La tecla de llnegües roda entre les llengües</string>

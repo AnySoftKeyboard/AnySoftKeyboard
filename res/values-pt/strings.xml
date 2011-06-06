@@ -154,8 +154,6 @@
   <string name="cycle_all_symbols_keyboards">Passar por todos os símbolos</string>
   <string name="cycle_all_symbols_keyboards_on_summary">Tecla de símbolos mostra todos os teclados de símbolos</string>
   <string name="cycle_all_symbols_keyboards_off_summary">Tecla de símbolos mostra apenas teclado de símbolos principal</string>
-  <string name="rtl_workaround_detection_title">Linguagens DPE</string>
-  <string name="rtl_workaround_detection_summary">Aplica correcção ao texto das linguagens escritas da direita para a esquerda</string>
   <string name="lang_key_shows_popup">Modo de selecção de linguagem</string>
   <string name="lang_key_shows_popup_on_summary">Lista de linguagens disponíveis</string>
   <string name="lang_key_shows_popup_off_summary">Alternar entre as várias linguagens disponíveis</string>

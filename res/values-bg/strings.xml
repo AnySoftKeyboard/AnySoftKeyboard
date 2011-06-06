@@ -154,8 +154,6 @@
   <string name="cycle_all_symbols_keyboards">Поред през всички символни клавиатури</string>
   <string name="cycle_all_symbols_keyboards_on_summary">Клавиша за символи ще сменя символните клавиатури поред</string>
   <string name="cycle_all_symbols_keyboards_off_summary">Клавиша за символи ще показва само главната символна клавиатура</string>
-  <string name="rtl_workaround_detection_title">Тип на откриването на RTL език</string>
-  <string name="rtl_workaround_detection_summary">Поправка на текст за езици писани отдясно-наляво</string>
   <string name="lang_key_shows_popup">Превключвай езиците от прозорец</string>
   <string name="lang_key_shows_popup_on_summary">Клавиша за език ще покаже диалог за избор</string>
   <string name="lang_key_shows_popup_off_summary">Клавиша за език ще променя подредбата поред</string>

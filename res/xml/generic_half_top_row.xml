@@ -2,7 +2,7 @@
 
 <Row xmlns:android="http://schemas.android.com/apk/res/android" android:rowEdgeFlags="top"
    android:keyWidth="35%p"
-   android:keyHeight="@dimen/key_half_height">
+   android:keyHeight="@integer/key_short_height">
    	<Key android:codes="-2"  android:keyLabel="@string/change_symbols_wide" android:keyEdgeFlags="left"/>
    	<Key android:codes="-20" android:keyWidth="15%p" android:keyLabel="←" android:isRepeatable="true" />
    	<Key android:codes="-21" android:keyWidth="15%p" android:keyLabel="→" android:isRepeatable="true" />

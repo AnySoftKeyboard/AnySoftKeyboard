@@ -154,8 +154,6 @@
   <string name="cycle_all_symbols_keyboards">Scorri tra tutti i simboli</string>
   <string name="cycle_all_symbols_keyboards_on_summary">Il tasto simboli scorrerà tutte le tastiere simboli</string>
   <string name="cycle_all_symbols_keyboards_off_summary">Il tasto simboli sarà mostrato solo per le tastiere simboli principali</string>
-  <string name="rtl_workaround_detection_title">Tipo di rilevazione RTL</string>
-  <string name="rtl_workaround_detection_summary">Right-to-Left languages text fix</string>
   <string name="lang_key_shows_popup">Cambia lingua dal popup</string>
   <string name="lang_key_shows_popup_on_summary">Il tasto lingua farà apparire una finestra popup di selezione</string>
   <string name="lang_key_shows_popup_off_summary">Il tasto lingua scorrerà le lingue</string>

@@ -19,9 +19,11 @@
 -->
 
 <resources>
-    <dimen name="key_height">46dip</dimen>
-    <dimen name="key_half_height">26dip</dimen>
-    
+	<dimen name="key_height">42dip</dimen>
+    <dimen name="key_half_height">32dip</dimen>
+    <dimen name="key_tall_height">55dip</dimen>
+    <dimen name="key_vertical_gap">2dip</dimen>
+        
     <dimen name="mini_keyboard_vertical_correction">-0.270in</dimen>
     <dimen name="keyboard_bottom_padding">0.0in</dimen>
     

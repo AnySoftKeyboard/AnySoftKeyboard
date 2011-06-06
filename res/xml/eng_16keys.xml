@@ -2,10 +2,7 @@
 
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
     android:keyWidth="25%p"
-    android:horizontalGap="0px"
-    android:verticalGap="0px"
-    android:keyHeight="@dimen/key_height"
-    >
+   android:keyHeight="@integer/key_normal_height">
      <Row android:rowEdgeFlags="top" android:keyboardMode="@integer/keyboard_mode_normal">
         <Key android:codes="46,44,63,33,8217,45,64,47,58" android:keyLabel=".,?!’" android:keyEdgeFlags="left"/>
         <Key android:codes="97,98,99" android:keyLabel="abc"/>

@@ -154,8 +154,6 @@
   <string name="cycle_all_symbols_keyboards">التنقل عبر كافة الرموز</string>
   <string name="cycle_all_symbols_keyboards_on_summary">مفتاح الرموز سوف يتنقل عبر جميع لوحات المفاتيح الرموز</string>
   <string name="cycle_all_symbols_keyboards_off_summary">مفتاح الرموز سوف يظهر فقط لوحة مفاتيح الرموز</string>
-  <string name="rtl_workaround_detection_title">نوع الكشف عن اليمين إلى اليسار</string>
-  <string name="rtl_workaround_detection_summary">إصلاح النص باللغات التي تكتب من اليمين لليسار</string>
   <string name="lang_key_shows_popup">تبديل اللغة بالعنصر المنبثق</string>
   <string name="lang_key_shows_popup_on_summary">مفتاح اللغة سوف يظهر مربع حوار التحديد</string>
   <string name="lang_key_shows_popup_off_summary">مفتاح اللغة سوف يتنقل بين اللغات</string>

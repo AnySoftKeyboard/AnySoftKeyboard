@@ -154,8 +154,6 @@
   <string name="cycle_all_symbols_keyboards">Cycle over all symbols</string>
   <string name="cycle_all_symbols_keyboards_on_summary">Symbols key will cycle over all symbols keyboards</string>
   <string name="cycle_all_symbols_keyboards_off_summary">Symbols key will only show main symbols keyboard</string>
-  <string name="rtl_workaround_detection_title">RTL detection type</string>
-  <string name="rtl_workaround_detection_summary">მარჯვნიდან-მარცხნივ ენების ტექსტის კორექცია</string>
   <string name="lang_key_shows_popup">Language switch by popup</string>
   <string name="lang_key_shows_popup_on_summary">Language key will pop-up a selection dialog</string>
   <string name="lang_key_shows_popup_off_summary">ენის კლავიში ამოირჩევს ენებს ციკლურად</string>

@@ -2,9 +2,7 @@
 
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
     android:keyWidth="15%p"
-    android:horizontalGap="0px"
-    android:verticalGap="5%p"
-    android:keyHeight="@dimen/key_height">
+    android:keyHeight="@integer/key_normal_height">
     	<Row android:rowEdgeFlags="top|bottom">
 		<Key android:keyLabel=".net" android:keyOutputText=".net" android:keyEdgeFlags="left"/>
 		<Key android:keyLabel=".org" android:keyOutputText=".org"/>

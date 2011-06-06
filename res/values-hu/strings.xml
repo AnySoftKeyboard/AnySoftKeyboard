@@ -154,8 +154,6 @@
   <string name="cycle_all_symbols_keyboards">Ciklusban az összes szimbólum</string>
   <string name="cycle_all_symbols_keyboards_on_summary">Szimbólum gombra az összes szimbólum billentyű</string>
   <string name="cycle_all_symbols_keyboards_off_summary">Szimbólum kulcsra csak a fő szimbólumok</string>
-  <string name="rtl_workaround_detection_title">RTL azonosítási típus</string>
-  <string name="rtl_workaround_detection_summary">Jobbról balra író nyelveknél szöveg-javítás</string>
   <string name="lang_key_shows_popup">Nyelvváltó ablak</string>
   <string name="lang_key_shows_popup_on_summary">Kiválasztó nyelvváltó ablak</string>
   <string name="lang_key_shows_popup_off_summary">Nyelvgombnál nyelvek változtatása</string>

@@ -352,7 +352,7 @@ public abstract class AnyKeyboard extends Keyboard
                     if (TAG_ROW.equals(tag)) {
                         inRow = true;
                         x = 0;
-                        currentRow = createRowFromXml(res, parser);
+                        currentRow = createRowFromXml(mASKContext, res, parser);
                         skipRow = currentRow.mode != 0 && currentRow.mode != mode;
                         if (skipRow) {
                         	currentRow = null;
@@ -376,7 +376,7 @@ public abstract class AnyKeyboard extends Keyboard
                         }
                    } else if (TAG_KEY.equals(tag)) {
                         inKey = true;
-                        key = createKeyFromXml(res, currentRow, x, y, parser);
+                        key = createKeyFromXml(mASKContext, res, currentRow, x, y, parser);
                         if (m.isTopRow)
                         	keys.add(m.keysCount, key);
                         else
@@ -484,9 +484,9 @@ public abstract class AnyKeyboard extends Keyboard
     
     //this function is called from within the super constructor.
     @Override
-    protected Key createKeyFromXml(Resources res, Row parent, int x, int y, 
+    protected Key createKeyFromXml(AnyKeyboardContextProvider askContext, Resources res, Row parent, int x, int y, 
             XmlResourceParser parser) {
-    	AnyKey key = new AnyKey(res, parent, x, y, parser);
+    	AnyKey key = new AnyKey(askContext, res, parent, x, y, parser);
 //    	if (mTopKey == null && (key.edgeFlags & Keyboard.EDGE_TOP) != 0)
 //    		mTopKey = key;
     	
@@ -501,13 +501,13 @@ public abstract class AnyKeyboard extends Keyboard
         		key.disable();
         		break;
             case KeyCodes.ENTER://enter
-        		key = mEnterKey = new EnterKey(res, parent, x, y, parser);
+        		key = mEnterKey = new EnterKey(mASKContext, res, parent, x, y, parser);
         		break;
         	case KeyCodes.SHIFT:
         		mShiftKey = key;//I want the reference used by the super.
         		break;
         	case KeyCodes.DELETE://delete
-        		key = new LessSensitiveAnyKey(res, parent, x, y, parser);
+        		key = new LessSensitiveAnyKey(mASKContext, res, parent, x, y, parser);
         		break;
         	case KeyCodes.MODE_ALPHABET:
         	    langSwitch = key;
@@ -531,9 +531,9 @@ public abstract class AnyKeyboard extends Keyboard
     }
 
     @Override
-    protected Row createRowFromXml(Resources res, XmlResourceParser parser) 
+    protected Row createRowFromXml(AnyKeyboardContextProvider askContext, Resources res, XmlResourceParser parser) 
     {
-    	Row aRow = super.createRowFromXml(res, parser);
+    	Row aRow = super.createRowFromXml(askContext, res, parser);
     	if (aRow.mode > 0)
     		aRow.mode = res.getInteger(aRow.mode);//switching to the mode!
     	
@@ -768,9 +768,9 @@ public abstract class AnyKeyboard extends Keyboard
 		private boolean mEnabled;
 		public final Keyboard.Row row;
 		
-        public AnyKey(Resources res, Keyboard.Row parent, int x, int y, 
+        public AnyKey(AnyKeyboardContextProvider askContext, Resources res, Keyboard.Row parent, int x, int y, 
                 XmlResourceParser parser) {
-            super(res, parent, x, y, parser);
+            super(askContext, res, parent, x, y, parser);
             row = parent;
             mEnabled = true;
             mFunctionalKey = false;
@@ -875,9 +875,9 @@ public abstract class AnyKeyboard extends Keyboard
 		private int mEndX;
 		private int mEndY;
 		
-        public LessSensitiveAnyKey(Resources res, Keyboard.Row parent, int x, int y, 
+        public LessSensitiveAnyKey(AnyKeyboardContextProvider askContext, Resources res, Keyboard.Row parent, int x, int y, 
                 XmlResourceParser parser) {
-            super(res, parent, x, y, parser);
+            super(askContext, res, parent, x, y, parser);
             resetSenitivity();
         }
         
@@ -928,9 +928,9 @@ public abstract class AnyKeyboard extends Keyboard
 	{
 		private final int mOriginalHeight;
 		
-		public EnterKey(Resources res, Row parent, int x, int y,
+		public EnterKey(AnyKeyboardContextProvider askContext, Resources res, Row parent, int x, int y,
 				XmlResourceParser parser) {
-			super(res, parent, x, y, parser);
+			super(askContext, res, parent, x, y, parser);
 			mOriginalHeight = this.height;
 		}
 		

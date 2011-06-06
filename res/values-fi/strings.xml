@@ -154,8 +154,6 @@
   <string name="cycle_all_symbols_keyboards">Näytä vuorotellen kaikki symbolit</string>
   <string name="cycle_all_symbols_keyboards_on_summary">Symbolinäppäin näyttää vuorotellen kaikki symbolinäppäimistöt</string>
   <string name="cycle_all_symbols_keyboards_off_summary">Symbolinäppäin näyttää ainoastaan pääsymbolinäppäimistön</string>
-  <string name="rtl_workaround_detection_title">Kirjoitussuunnan havaitsemismenetelmä</string>
-  <string name="rtl_workaround_detection_summary">Oikealta vasemalle tekstin tunnistus</string>
   <string name="lang_key_shows_popup">Kielen valitseminen ponnahtusikkunasta</string>
   <string name="lang_key_shows_popup_on_summary">Kielinäppäin avaa valintadialogin</string>
   <string name="lang_key_shows_popup_off_summary">Kielinäppäin näyttää vuorotellen kielet</string>
