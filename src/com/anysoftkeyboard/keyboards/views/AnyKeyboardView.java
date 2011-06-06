@@ -234,7 +234,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 		        	mMiniKeyboard.setPreviewEnabled(true);
 		        	Keyboard miniKeyboardObject = mMiniKeyboard.getKeyboard();
 		        	if (miniKeyboardObject instanceof AnyPopupKeyboard)
-		        		((AnyPopupKeyboard)miniKeyboardObject).setIsOnKeyEventPopup(false);
+		        		((AnyPopupKeyboard)miniKeyboardObject).setIsOneKeyEventPopup(!AnyApplication.getConfig().isStickyExtensionKeyboard());
 		        	return true;
 	        	}
         	} else {

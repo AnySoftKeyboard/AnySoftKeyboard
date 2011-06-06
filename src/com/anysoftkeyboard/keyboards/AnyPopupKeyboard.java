@@ -3,7 +3,6 @@ package com.anysoftkeyboard.keyboards;
 import java.util.List;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.R;
@@ -75,7 +74,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 		return mOneKeyPressPopup;
 	}
 	
-	public void setIsOnKeyEventPopup(boolean oneKey)
+	public void setIsOneKeyEventPopup(boolean oneKey)
 	{
 		mOneKeyPressPopup = oneKey;
 	}

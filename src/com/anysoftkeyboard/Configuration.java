@@ -56,4 +56,8 @@ public interface Configuration {
 	boolean useContactsDictionary();
 	
 	boolean useAutoDictionary();
+	
+	boolean isStickyExtensionKeyboard();
+	
+	boolean drawExtensionKeyboardAboveMainKeyboard();
 }

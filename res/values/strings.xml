@@ -171,6 +171,18 @@
     <string name="use_contacts_dictionary_not_supported_summary">Unsupported under your OS version. Sorry.</string>
     
     <string name="tweaks_group">Tweaks</string>
+    <string name="tweak_sound_group">Sound related tweaks</string>
+    <string name="tweak_physical_keyboard_group">Physical keyboard tweaks</string>
+    <string name="tweak_ui_ux_group">UI/UX tweaks</string>
+    
+    <string name="is_sticky_extesion_keyboard">Sticky extension keyboard</string>
+    <string name="is_sticky_extesion_keyboard_on_summary">Stays visible until explicitly closed</string>
+    <string name="is_sticky_extesion_keyboard_off_summary">Closes after key press</string>
+    
+    <string name="is_extesion_keyboard_above_keyboard">Top extension keyboard</string>
+    <string name="is_extesion_keyboard_above_keyboard_on_summary">Drawn above main keyboard</string>
+    <string name="is_extesion_keyboard_above_keyboard_off_summary">Drawn on main keyboard</string>
+    
     <string name="show_new_version_notifications_again">Show new version notifications</string>
     <string name="show_new_version_notifications_again_on_summary">Upon installing a new version, a change-log will be shown</string>
     <string name="show_new_version_notifications_again_off_summary">Will not notify you when a new version is installed</string>

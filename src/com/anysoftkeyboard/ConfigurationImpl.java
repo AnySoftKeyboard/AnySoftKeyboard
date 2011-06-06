@@ -49,6 +49,8 @@ public class ConfigurationImpl implements Configuration
 	private boolean mUseCameraKeyForBackspaceBackword = false;
 	private boolean mUseContactsDictionary = true;
 	private boolean mUseAutoDictionary = true;
+	private boolean mIsStickyExtensionKeyboard = false;
+	private boolean mDrawExtensionKeyboardAboveMainKeyboard = true;
 	
 	public ConfigurationImpl(Context context)
 	{
@@ -249,20 +251,27 @@ public class ConfigurationImpl implements Configuration
 		
 	    mUseCameraKeyForBackspaceBackword = sp.getBoolean(mContext.getString(R.string.settings_key_use_camera_key_for_backspace_backword),
                     mContext.getResources().getBoolean(R.bool.settings_default_use_camera_key_for_backspace_backword));
-            Log.i(TAG, "** mUseCameraKeyForBackspaceBackword: "+mUseCameraKeyForBackspaceBackword);
+	    Log.i(TAG, "** mUseCameraKeyForBackspaceBackword: "+mUseCameraKeyForBackspaceBackword);
             
         mUseVolumeKeyForLeftRight = sp.getBoolean(mContext.getString(R.string.settings_key_use_volume_key_for_left_right),
                     mContext.getResources().getBoolean(R.bool.settings_default_use_volume_key_for_left_right));
-            Log.i(TAG, "** mUseVolumeKeyForLeftRight: "+mUseVolumeKeyForLeftRight);
+        Log.i(TAG, "** mUseVolumeKeyForLeftRight: "+mUseVolumeKeyForLeftRight);
             
         mUseContactsDictionary = sp.getBoolean(mContext.getString(R.string.settings_key_use_contacts_dictionary),
                     mContext.getResources().getBoolean(R.bool.settings_default_contacts_dictionary));
-            Log.i(TAG, "** mUseContactsDictionary: " + mUseContactsDictionary);
+        Log.i(TAG, "** mUseContactsDictionary: " + mUseContactsDictionary);
 
         mUseAutoDictionary = sp.getBoolean(mContext.getString(R.string.settings_key_use_auto_dictionary),
                 mContext.getResources().getBoolean(R.bool.settings_default_auto_dictionary));
-		    Log.i(TAG, "** mUseAutoDictionary: " + mUseAutoDictionary);
+        Log.i(TAG, "** mUseAutoDictionary: " + mUseAutoDictionary);
 		    
+        mIsStickyExtensionKeyboard = sp.getBoolean(mContext.getString(R.string.settings_key_is_sticky_extesion_keyboard),
+                mContext.getResources().getBoolean(R.bool.settings_default_is_sticky_extesion_keyboard));
+        Log.i(TAG, "** mIsStickyExtensionKeyboard: " + mIsStickyExtensionKeyboard);
+        
+        mDrawExtensionKeyboardAboveMainKeyboard = sp.getBoolean(mContext.getString(R.string.settings_key_is_extesion_keyboard_above_keyboard),
+                mContext.getResources().getBoolean(R.bool.settings_default_is_extesion_keyboard_above_keyboard));
+        Log.i(TAG, "** mDrawExtensionKeyboardAboveMainKeyboard: " + mDrawExtensionKeyboardAboveMainKeyboard);
 	}
 	
 	private int getIntFromSwipeConfiguration(SharedPreferences sp, final String prefKey, final String defaultValue) {
@@ -425,4 +434,12 @@ public class ConfigurationImpl implements Configuration
     public boolean useAutoDictionary() {
         return mUseAutoDictionary;
     }	
+    
+    public boolean isStickyExtensionKeyboard() {
+    	return mIsStickyExtensionKeyboard;
+    }
+    
+    public boolean drawExtensionKeyboardAboveMainKeyboard() {
+    	return mDrawExtensionKeyboardAboveMainKeyboard;
+    }
 }
