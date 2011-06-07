@@ -19,9 +19,9 @@
 -->
 
 <resources>
-    <dimen name="key_height">45dip</dimen>
-    <dimen name="key_half_height">35dip</dimen>
-    <dimen name="key_tall_height">58dip</dimen>
+    <dimen name="key_height">48dip</dimen>
+    <dimen name="key_half_height">33dip</dimen>
+    <dimen name="key_tall_height">60dip</dimen>
     <dimen name="key_vertical_gap">3dip</dimen>
     
     <dimen name="candidate_font_height">16sp</dimen>

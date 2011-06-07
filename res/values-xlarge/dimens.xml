@@ -23,12 +23,4 @@
     <dimen name="key_half_height">31dip</dimen>
     <dimen name="key_tall_height">54dip</dimen>
     <dimen name="key_vertical_gap">1dip</dimen>
-        
-    <dimen name="mini_keyboard_vertical_correction">-0.270in</dimen>
-    <dimen name="keyboard_bottom_padding">0.0in</dimen>
-    
-    <dimen name="mini_keyboard_slide_allowance">0.459in</dimen>
-    
-    <dimen name="candidate_strip_height">38dip</dimen>
-    <dimen name="candidate_strip_fading_edge_length">63dip</dimen>
 </resources>
