@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.WeakHashMap;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -166,6 +167,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
     private int mKeyTextColor;
     private Typeface mKeyTextStyle = Typeface.DEFAULT;
     private int mLabelTextSize;
+    private boolean mInLandscape = false;
     private int mSymbolColorScheme = 0;
     private int mShadowColor;
     private float mShadowRadius;
@@ -406,6 +408,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
     public AnyKeyboardBaseView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
+        mInLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+        
         TypedArray a = context.obtainStyledAttributes(
                 attrs, R.styleable.AnyKeyboardBaseView, defStyle, R.style.AnyKeyboardBaseView);
         LayoutInflater inflate =
@@ -841,7 +845,10 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
                     labelSize = mKeyTextSize;
                     paint.setTypeface(mKeyTextStyle);
                 }
-                paint.setTextSize(labelSize);
+                if (mInLandscape)
+                	paint.setTextSize(labelSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape());
+                else
+                	paint.setTextSize(labelSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait());
 
                 Integer labelHeightValue = mTextHeightCache.get(labelSize);
                 final int labelHeight;

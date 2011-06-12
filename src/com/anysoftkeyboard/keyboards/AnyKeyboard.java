@@ -926,6 +926,16 @@ public abstract class AnyKeyboard extends Keyboard
 
 	private static class EnterKey extends LessSensitiveAnyKey
 	{
+		private final int[] KEY_STATE_ACTION_NORMAL = {
+				android.R.attr.state_first
+        };
+
+        // functional pressed state (with properties)
+        private final int[] KEY_STATE_ACTION_PRESSED = {
+        		android.R.attr.state_first,
+                android.R.attr.state_pressed
+        };
+        
 		private final int mOriginalHeight;
 		
 		public EnterKey(AnyKeyboardContextProvider askContext, Resources res, Row parent, int x, int y,
@@ -948,6 +958,15 @@ public abstract class AnyKeyboard extends Keyboard
 			this.height = mOriginalHeight;
 			super.enable();
 		}
+		
+		@Override
+        public int[] getCurrentDrawableState() {
+			if (pressed) {
+                return KEY_STATE_ACTION_PRESSED;
+            } else {
+                return KEY_STATE_ACTION_NORMAL;
+            }
+        }
 	}
 	
 	public abstract String getKeyboardPrefId();

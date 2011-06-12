@@ -128,7 +128,7 @@ public class ConfigurationImpl implements Configuration
 			e.commit();
 		}
 		
-		final int configurationVersion = sp.getInt(CONFIGURATION_VERSION, 0);
+		int configurationVersion = sp.getInt(CONFIGURATION_VERSION, 0);
 		if (configurationVersion < 1)
 		{
 			boolean oldLandscapeFullScreenValue = sp.getBoolean("fullscreen_input_connection_supported", 
@@ -139,6 +139,18 @@ public class ConfigurationImpl implements Configuration
 			e.remove("fullscreen_input_connection_supported");
 			//saving config level
 			e.putInt(CONFIGURATION_VERSION, 1);
+			configurationVersion= 1;
+			e.commit();
+		}
+		
+		if (configurationVersion < 2)
+		{
+			if (AnyApplication.DEBUG)Log.d(TAG, "Reseting key height factor...");
+			Editor e = sp.edit();
+			e.putString("zoom_factor_keys_in_portrait", mContext.getString(R.string.settings_default_portrait_keyboard_height_factor));
+			e.putString("zoom_factor_keys_in_landscape", mContext.getString(R.string.settings_default_landscape_keyboard_height_factor));
+			//saving config level
+			e.putInt(CONFIGURATION_VERSION, 2);
 			e.commit();
 		}
 	}

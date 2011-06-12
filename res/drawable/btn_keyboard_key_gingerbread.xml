@@ -16,6 +16,13 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Action key -->
+
+    <item android:state_first="true" android:state_pressed="true"
+          android:drawable="@drawable/btn_keyboard_key_action_pressed" />
+    <item android:state_first="true"
+          android:drawable="@drawable/btn_keyboard_key_action_normal" />
+
     <!-- Functional keys. -->
 
     <item android:state_single="true" android:state_pressed="true"
