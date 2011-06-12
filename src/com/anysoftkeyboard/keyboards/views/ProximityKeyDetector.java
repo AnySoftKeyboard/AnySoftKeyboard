@@ -21,7 +21,7 @@ import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import java.util.Arrays;
 
 class ProximityKeyDetector extends KeyDetector {
-    private static final int MAX_NEARBY_KEYS = 12;
+    private static final int MAX_NEARBY_KEYS = 24;
 
     // working area
     private int[] mDistances = new int[MAX_NEARBY_KEYS];
