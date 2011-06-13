@@ -23,4 +23,8 @@
     <dimen name="key_half_height">66dip</dimen>
     <dimen name="key_tall_height">120dip</dimen>
     <dimen name="key_vertical_gap">6dip</dimen>
+    <dimen name="key_text_size">42sp</dimen>
+    <dimen name="key_label_text_size">28sp</dimen>
+    <dimen name="candidate_strip_height">60dip</dimen>
+    <dimen name="candidate_font_height">32sp</dimen>
 </resources>
