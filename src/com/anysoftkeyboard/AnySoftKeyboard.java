@@ -377,6 +377,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 		setCandidatesViewShown(true);
 		return mCandidateViewContainer;
 	}
+	
+	@Override
+	public void onStartInput(EditorInfo attribute, boolean restarting) {
+		super.onStartInput(attribute, restarting);
+		
+		if (!restarting)
+			setDictionariesForCurrentKeyboard();
+	}
 
 	@Override
 	public void onStartInputView(EditorInfo attribute, boolean restarting) {
