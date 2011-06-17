@@ -43,6 +43,7 @@ import android.net.Uri;
 import android.os.Debug;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.text.AutoText;
@@ -142,6 +143,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private AnyKeyboardView mInputView;
 	private LinearLayout mCandidateViewContainer;
 	private CandidateView mCandidateView;
+	private static final long MINIMUM_REFRESH_TIME_FOR_DICTIONARIES = 30*1000;
+	private long mLastDictionaryRefresh = -1;
 	private Suggest mSuggest;
 	private CompletionInfo[] mCompletions;
 
@@ -379,14 +382,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 	
 	@Override
-	public void onStartInput(EditorInfo attribute, boolean restarting) {
-		super.onStartInput(attribute, restarting);
-		
-		if (!restarting)
-			setDictionariesForCurrentKeyboard();
-	}
-
-	@Override
 	public void onStartInputView(EditorInfo attribute, boolean restarting) {
 		if (DEBUG) Log.d(TAG, "onStartInputView(EditorInfo:"
 					+ attribute.imeOptions + "," + attribute.inputType
@@ -409,93 +404,92 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mCompletionOn = false;
 		mCompletions = null;
 		mCapsLock = false;
-		if (!restarting)
+		
+		switch (attribute.inputType & EditorInfo.TYPE_MASK_CLASS)
 		{
-			switch (attribute.inputType & EditorInfo.TYPE_MASK_CLASS)
+		case EditorInfo.TYPE_CLASS_DATETIME:
+			if (DEBUG) Log.d(TAG, "Setting MODE_DATETIME as keyboard due to a TYPE_CLASS_DATETIME input.");
+			mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_DATETIME, attribute);
+			break;
+		case EditorInfo.TYPE_CLASS_NUMBER:
+			if (DEBUG) Log.d(TAG, "Setting MODE_NUMBERS as keyboard due to a TYPE_CLASS_NUMBER input.");
+			mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_NUMBERS, attribute);
+			break;
+		case EditorInfo.TYPE_CLASS_PHONE:
+			if (DEBUG) Log.d(TAG, "Setting MODE_PHONE as keyboard due to a TYPE_CLASS_PHONE input.");
+			mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_PHONE, attribute);
+			break;
+		case EditorInfo.TYPE_CLASS_TEXT:
+			if (DEBUG) Log.d(TAG, "A TYPE_CLASS_TEXT input.");
+			final int variation = attribute.inputType & EditorInfo.TYPE_MASK_VARIATION;
+			switch(variation)
 			{
-			case EditorInfo.TYPE_CLASS_DATETIME:
-				if (DEBUG) Log.d(TAG, "Setting MODE_DATETIME as keyboard due to a TYPE_CLASS_DATETIME input.");
-				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_DATETIME, attribute);
+			case EditorInfo.TYPE_TEXT_VARIATION_PASSWORD:
+			case EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD:
+				if (DEBUG) Log.d(TAG, "A password TYPE_CLASS_TEXT input with no prediction");
+				mPredictionOn = false;
 				break;
-			case EditorInfo.TYPE_CLASS_NUMBER:
-				if (DEBUG) Log.d(TAG, "Setting MODE_NUMBERS as keyboard due to a TYPE_CLASS_NUMBER input.");
-				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_NUMBERS, attribute);
-				break;
-			case EditorInfo.TYPE_CLASS_PHONE:
-				if (DEBUG) Log.d(TAG, "Setting MODE_PHONE as keyboard due to a TYPE_CLASS_PHONE input.");
-				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_PHONE, attribute);
-				break;
-			case EditorInfo.TYPE_CLASS_TEXT:
-				if (DEBUG) Log.d(TAG, "A TYPE_CLASS_TEXT input.");
-				final int variation = attribute.inputType & EditorInfo.TYPE_MASK_VARIATION;
-				switch(variation)
-				{
-				case EditorInfo.TYPE_TEXT_VARIATION_PASSWORD:
-				case EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD:
-					if (DEBUG) Log.d(TAG, "A password TYPE_CLASS_TEXT input with no prediction");
-					mPredictionOn = false;
-					break;
-				default:
-					mPredictionOn = true;
-				}
-				
-				if (mConfig.getInsertSpaceAfterCandidatePick())
-				{
-					switch(variation)
-					{
-					case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
-					case EditorInfo.TYPE_TEXT_VARIATION_URI:
-						mAutoSpace = false;
-						break;
-					default:
-						mAutoSpace = true;
-					}
-				}
-				else
-				{
-					//some users don't want auto-space
-					mAutoSpace = false;
-				}
-				
+			default:
+				mPredictionOn = true;
+			}
+			
+			if (mConfig.getInsertSpaceAfterCandidatePick())
+			{
 				switch(variation)
 				{
 				case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
-					if (DEBUG) Log.d(TAG, "Setting MODE_EMAIL as keyboard due to a TYPE_TEXT_VARIATION_EMAIL_ADDRESS input.");
-					mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_EMAIL, attribute);
-					break;
 				case EditorInfo.TYPE_TEXT_VARIATION_URI:
-					if (DEBUG) Log.d(TAG, "Setting MODE_URL as keyboard due to a TYPE_TEXT_VARIATION_URI input.");
-					mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_URL, attribute);
-					break;
-				case EditorInfo.TYPE_TEXT_VARIATION_SHORT_MESSAGE:
-					if (DEBUG) Log.d(TAG, "Setting MODE_IM as keyboard due to a TYPE_TEXT_VARIATION_SHORT_MESSAGE input.");
-					mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_IM, attribute);
+					mAutoSpace = false;
 					break;
 				default:
-					if (DEBUG) Log.d(TAG, "Setting MODE_TEXT as keyboard due to a default input.");
-					mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT, attribute);
+					mAutoSpace = true;
 				}
-				
-				final int textFlag = attribute.inputType & EditorInfo.TYPE_MASK_FLAGS;
-				switch(textFlag)
-				{
-				case 0x00080000://FROM API 5: EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS:
-				case EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE:
-					if (DEBUG) Log.d(TAG, "Input requested NO_SUGGESTIONS, or it is AUTO_COMPLETE by itself.");
-					mPredictionOn = false;
-					break;
-				default:
-					//we'll keep the previous mPredictionOn value
-				}
-				
+			}
+			else
+			{
+				//some users don't want auto-space
+				mAutoSpace = false;
+			}
+			
+			switch(variation)
+			{
+			case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
+				if (DEBUG) Log.d(TAG, "Setting MODE_EMAIL as keyboard due to a TYPE_TEXT_VARIATION_EMAIL_ADDRESS input.");
+				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_EMAIL, attribute);
+				mPredictionOn = false;
+				break;
+			case EditorInfo.TYPE_TEXT_VARIATION_URI:
+				if (DEBUG) Log.d(TAG, "Setting MODE_URL as keyboard due to a TYPE_TEXT_VARIATION_URI input.");
+				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_URL, attribute);
+				break;
+			case EditorInfo.TYPE_TEXT_VARIATION_SHORT_MESSAGE:
+				if (DEBUG) Log.d(TAG, "Setting MODE_IM as keyboard due to a TYPE_TEXT_VARIATION_SHORT_MESSAGE input.");
+				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_IM, attribute);
 				break;
 			default:
 				if (DEBUG) Log.d(TAG, "Setting MODE_TEXT as keyboard due to a default input.");
-				//No class. Probably a console window, or no GUI input connection
 				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT, attribute);
-				mPredictionOn = false;
-				mAutoSpace = true;
 			}
+			
+			final int textFlag = attribute.inputType & EditorInfo.TYPE_MASK_FLAGS;
+			switch(textFlag)
+			{
+			case 0x00080000://FROM API 5: EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS:
+			case EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE:
+				if (DEBUG) Log.d(TAG, "Input requested NO_SUGGESTIONS, or it is AUTO_COMPLETE by itself.");
+				mPredictionOn = false;
+				break;
+			default:
+				//we'll keep the previous mPredictionOn value
+			}
+			
+			break;
+		default:
+			if (DEBUG) Log.d(TAG, "Setting MODE_TEXT as keyboard due to a default input.");
+			//No class. Probably a console window, or no GUI input connection
+			mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT, attribute);
+			mPredictionOn = false;
+			mAutoSpace = true;
 		}
 		
 		mInputView.closing();
@@ -518,7 +512,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		if (mCandidateView != null)
 			mCandidateView.setSuggestions(null, false, false, false);
-
+		
+		if (mPredictionOn)
+		{
+			if ((SystemClock.elapsedRealtime() - mLastDictionaryRefresh) > MINIMUM_REFRESH_TIME_FOR_DICTIONARIES)
+				setDictionariesForCurrentKeyboard();
+		}
+		else
+		{
+			//this will release memory
+			setDictionariesForCurrentKeyboard();
+		}
 		if (TRACE_SDCARD)
 			Debug.startMethodTracing("anysoftkeyboard_log.trace");
 	}
@@ -2486,13 +2490,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void setDictionariesForCurrentKeyboard() {
 		if (mSuggest != null) {
-			if (!mShowSuggestions) {
+			if (!mPredictionOn) {
 			    if (DEBUG)Log.d(TAG, "No suggestion is required. I'll try to release memory from the dictionary.");
 				//DictionaryFactory.getInstance().releaseAllDictionaries();
 				mSuggest.setMainDictionary(null);
 				mSuggest.setUserDictionary(null);
 				mSuggest.setAutoDictionary(null);
+				mLastDictionaryRefresh = -1;
 			} else {
+				mLastDictionaryRefresh = SystemClock.elapsedRealtime();
 				// It null at the creation of the application.
 				if ((mKeyboardSwitcher != null)
 						&& mKeyboardSwitcher.isAlphabetMode()) {
