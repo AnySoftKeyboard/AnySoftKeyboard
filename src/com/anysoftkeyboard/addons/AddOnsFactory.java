@@ -171,11 +171,15 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
     private ArrayList<E> getAddOnsFromResId(Context context, int addOnsResId) {
         final XmlPullParser xml = context.getResources().getXml(addOnsResId);
+        if (xml == null)
+        	return new ArrayList<E>();
         return parseAddOnsFromXml(context, xml);
     }
 
     private ArrayList<E> getAddOnsFromActivityInfo(Context context, ActivityInfo ai) {
         final XmlPullParser xml = ai.loadXmlMetaData(context.getPackageManager(), RECEIVER_META_DATA);
+        if (xml == null)//issue 718: maybe a bad package?
+        	return new ArrayList<E>();
         return parseAddOnsFromXml(context, xml);
     }
 

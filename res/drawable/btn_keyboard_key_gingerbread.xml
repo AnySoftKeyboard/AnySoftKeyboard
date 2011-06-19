@@ -19,9 +19,9 @@
     <!-- Action key -->
 
     <item android:state_first="true" android:state_pressed="true"
-          android:drawable="@drawable/btn_keyboard_key_action_pressed" />
+          android:drawable="@drawable/btn_keyboard_key_dark_pressed" />
     <item android:state_first="true"
-          android:drawable="@drawable/btn_keyboard_key_action_normal" />
+          android:drawable="@drawable/btn_keyboard_key_dark_normal" />
 
     <!-- Functional keys. -->
 
