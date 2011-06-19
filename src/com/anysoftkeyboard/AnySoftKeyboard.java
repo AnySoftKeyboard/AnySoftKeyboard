@@ -186,6 +186,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private static final String SMILEY_PLUGIN_ID = "0077b34d-770f-4083-83e4-081957e06c27";
 	private boolean mSmileyOnShortPress;
+	private String mOverrideQuickTextText = null;
 	private boolean mAutoCap;
 	private boolean mQuickFixes;
 	/*
@@ -1391,7 +1392,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 			QuickTextKey quickTextKey = QuickTextKeyFactory.getCurrentQuickTextKey(this);
 
 			if (mSmileyOnShortPress) {
-				onText(quickTextKey.getKeyOutputText());
+				if (TextUtils.isEmpty(mOverrideQuickTextText))
+					onText(quickTextKey.getKeyOutputText());
+				else
+					onText(mOverrideQuickTextText);
 			} else {
 				if (quickTextKey.isPopupKeyboardUsed()) {
 					showQuickTextKeyPopupKeyboard(quickTextKey);
@@ -1403,7 +1407,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case AnyKeyboardView.KEYCODE_QUICK_TEXT_LONGPRESS:
 			quickTextKey = QuickTextKeyFactory.getCurrentQuickTextKey(this);
 			if (quickTextKey.getId().equals(SMILEY_PLUGIN_ID) && !mSmileyOnShortPress) {
-				onText(quickTextKey.getKeyOutputText());
+				if (TextUtils.isEmpty(mOverrideQuickTextText))
+					onText(quickTextKey.getKeyOutputText());
+				else
+					onText(mOverrideQuickTextText);
 			} else {
 				if (quickTextKey.isPopupKeyboardUsed()) {
 					showQuickTextKeyPopupKeyboard(quickTextKey);
@@ -2484,7 +2491,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		mSmileyOnShortPress = sp.getBoolean(getString(R.string.settings_key_emoticon_long_press_opens_popup), getResources().getBoolean(R.bool.settings_default_emoticon_long_press_opens_popup));
 //		mSmileyPopupType = sp.getString(getString(R.string.settings_key_smiley_popup_type), getString(R.string.settings_default_smiley_popup_type));
-
+		mOverrideQuickTextText = sp.getString(getString(R.string.settings_key_emoticon_default_text), null);
+		
 		((ConfigurationImpl) mConfig).handleConfigurationChange(sp);
 	}
 
