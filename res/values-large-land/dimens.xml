@@ -19,10 +19,10 @@
 -->
 
 <resources>
-	<dimen name="key_height">58dip</dimen>
-    <dimen name="key_half_height">39dip</dimen>
-    <dimen name="key_tall_height">72dip</dimen>
-    <dimen name="key_vertical_gap">4dip</dimen>
+	<dimen name="key_height">55dip</dimen>
+    <dimen name="key_half_height">36dip</dimen>
+    <dimen name="key_tall_height">69dip</dimen>
+    <dimen name="key_vertical_gap">3dip</dimen>
     
     <dimen name="key_text_size">26sp</dimen>
     <dimen name="key_label_text_size">17sp</dimen>

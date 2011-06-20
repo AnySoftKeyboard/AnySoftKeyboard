@@ -540,8 +540,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		if (!mKeyboardChangeNotificationType
 				.equals(KEYBOARD_NOTIFICATION_ALWAYS)) {
-			NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-			notificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
+			mNotificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
 			Intent i = new Intent(NOTIFY_LAYOUT_SWITCH);
 			i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_PACKAGE, NOTIFY_LAYOUT_SWITCH);//dome summy package, so that everybody removes notification
 		    sendBroadcast(i);
@@ -1068,7 +1067,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			// creating the message
 			final String keyboardName = current.getKeyboardName();
 
-			Notification notification = new Notification();
+			Notification notification = new Notification(R.drawable.notification_icon, keyboardName, System.currentTimeMillis());
 
 			Intent notificationIntent = new Intent();
 			PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
@@ -1077,9 +1076,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 			notification.setLatestEventInfo(getApplicationContext(),
 					getText(R.string.ime_name), keyboardName,
 					contentIntent);
-			//this will not work. Need to find a way to show notification as a different package.
-			//notification.icon = current.getKeyboardIconResId();
-			notification.icon = R.drawable.notification_icon;
 
 			if (mKeyboardChangeNotificationType.equals("1")) {
 				notification.flags |= Notification.FLAG_ONGOING_EVENT;
@@ -1087,9 +1083,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 			} else {
 				notification.flags |= Notification.FLAG_AUTO_CANCEL;
 			}
-			notification.defaults = 0;// no sound, vibrate, etc.
 			// notifying
-			//mNotificationManager.notify(KEYBOARD_NOTIFICATION_ID, notification);
+			mNotificationManager.notify(KEYBOARD_NOTIFICATION_ID, notification);
 			Intent i = new Intent(NOTIFY_LAYOUT_SWITCH);
 			i.putExtra(NOTIFY_LAYOUT_SWITCH_NOTIFICATION_TITLE, getText(R.string.ime_name));
 			i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_RESID,   mKeyboardSwitcher.getCurrentKeyboard().getKeyboardIconResId());
@@ -2456,9 +2451,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		if (notificationChanged) {
 			// now clearing the notification, and it will be re-shown if needed
-			NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-			// now clearing the notification, and it will be re-shown if needed
-			notificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
+			mNotificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
 			// should it be always on?
 			if (mKeyboardChangeNotificationType
 					.equals(KEYBOARD_NOTIFICATION_ALWAYS))

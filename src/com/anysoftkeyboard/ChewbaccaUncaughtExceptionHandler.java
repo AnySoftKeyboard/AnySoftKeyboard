@@ -31,11 +31,6 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 	public void uncaughtException(Thread thread, Throwable ex) {
 		Log.e(TAG, "Caught an unhandled exception!!! ", ex);
 		
-		Notification notification = new Notification();
-
-		Intent notificationIntent = new Intent();
-		notificationIntent = new Intent(mApp, SendBugReportUiActivity.class);
-		
 		String appName = mApp.getText(R.string.ime_name).toString();
 		try {
 			PackageInfo info = mApp.getPackageManager().getPackageInfo(mApp.getPackageName(), 0);
@@ -57,18 +52,22 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 			"****** Logcat:\n"+getLogcat();
 		Log.e(TAG, "About to send a bug report:\n"+logText);
         
+		Notification notification = new Notification(R.drawable.notification_error_icon, "Caught an unhandled exception!", System.currentTimeMillis());
+
+		Intent notificationIntent = new Intent(mApp, SendBugReportUiActivity.class);
+		
 		notificationIntent.putExtra(SendBugReportUiActivity.CRASH_REPORT_TEXT, logText);
 		
-		PendingIntent contentIntent = PendingIntent.getActivity(mApp, 0,
-				notificationIntent, 0);
+		PendingIntent contentIntent = PendingIntent.getActivity(mApp, 0, notificationIntent, 0);
 
 		notification.setLatestEventInfo(mApp, 
 				mApp.getText(R.string.ime_name), 
 				"Caught an unhandled exception!",
 				contentIntent);
-		notification.icon = R.drawable.notification_error_icon;
-		notification.flags = Notification.FLAG_AUTO_CANCEL + Notification.FLAG_ONLY_ALERT_ONCE;
-		notification.defaults = Notification.DEFAULT_LIGHTS + Notification.DEFAULT_VIBRATE;
+		notification.flags |= Notification.FLAG_AUTO_CANCEL;
+		notification.flags |= Notification.FLAG_ONLY_ALERT_ONCE;
+		notification.defaults |= Notification.DEFAULT_LIGHTS;
+		notification.defaults |= Notification.DEFAULT_VIBRATE;
 		// notifying
 		NotificationManager notificationManager = (NotificationManager)mApp.getSystemService(Context.NOTIFICATION_SERVICE);
 		
