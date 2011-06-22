@@ -121,4 +121,8 @@
 
     </declare-styleable>
 
+	<declare-styleable name="keyBackgroundType">
+		<attr name="key_type_function" format="boolean" />
+		<attr name="key_type_action" format="boolean" />
+	</declare-styleable>
 </resources>

@@ -193,12 +193,12 @@ public abstract class AnyKeyboard extends Keyboard
                     case AnyKeyboard.KEYCODE_MODE_CHANGE:
                     case AnyKeyboard.KEYCODE_QUICK_TEXT:
                     case AnyKeyboard.KEYCODE_DOMAIN:
-                    case 10://ENTER
                     case 32://SPACE
                     	((AnyKey)key).setFunctional(true);
                     	break;
                 	default:
                 		((AnyKey)key).setFunctional((key.edgeFlags & Keyboard.EDGE_BOTTOM) != 0);
+                		break;
                     }
             	}
                 
@@ -755,12 +755,12 @@ public abstract class AnyKeyboard extends Keyboard
 	
 	static class AnyKey extends Keyboard.Key {
 		private final int[] KEY_STATE_FUNCTIONAL_NORMAL = {
-                android.R.attr.state_single
+				R.attr.key_type_function
         };
 
         // functional pressed state (with properties)
         private final int[] KEY_STATE_FUNCTIONAL_PRESSED = {
-                android.R.attr.state_single,
+                R.attr.key_type_function,
                 android.R.attr.state_pressed
         };
         
@@ -837,13 +837,9 @@ public abstract class AnyKeyboard extends Keyboard
         	mFunctionalKey = isFunctional;
 		}
         
-        private boolean isFunctionalKey() {
-            return mFunctionalKey && !sticky;
-        }
-        
         @Override
         public int[] getCurrentDrawableState() {
-            if (isFunctionalKey()) {
+            if (mFunctionalKey) {
                 if (pressed) {
                     return KEY_STATE_FUNCTIONAL_PRESSED;
                 } else {
@@ -927,12 +923,12 @@ public abstract class AnyKeyboard extends Keyboard
 	private static class EnterKey extends LessSensitiveAnyKey
 	{
 		private final int[] KEY_STATE_ACTION_NORMAL = {
-				android.R.attr.state_first
+				R.attr.key_type_action
         };
 
         // functional pressed state (with properties)
         private final int[] KEY_STATE_ACTION_PRESSED = {
-        		android.R.attr.state_first,
+        		R.attr.key_type_action,
                 android.R.attr.state_pressed
         };
         
