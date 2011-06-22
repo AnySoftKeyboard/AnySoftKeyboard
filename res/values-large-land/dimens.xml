@@ -19,12 +19,12 @@
 -->
 
 <resources>
-	<dimen name="key_height">55dip</dimen>
-    <dimen name="key_half_height">36dip</dimen>
-    <dimen name="key_tall_height">69dip</dimen>
+	<dimen name="key_height">53dip</dimen>
+    <dimen name="key_half_height">34dip</dimen>
+    <dimen name="key_tall_height">66dip</dimen>
     <dimen name="key_vertical_gap">3dip</dimen>
     
-    <dimen name="key_text_size">26sp</dimen>
+    <dimen name="key_text_size">25sp</dimen>
     <dimen name="key_label_text_size">17sp</dimen>
     <dimen name="candidate_strip_height">38dip</dimen>
     <dimen name="candidate_font_height">19sp</dimen>
