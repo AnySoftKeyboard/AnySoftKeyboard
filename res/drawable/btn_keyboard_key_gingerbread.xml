@@ -35,13 +35,13 @@
     <!-- Toggle keys. Use checkable/checked state. -->
 
     <item android:state_checkable="true" android:state_checked="true" android:state_pressed="true"
-          android:drawable="@drawable/btn_keyboard_key_dark_pressed" />
+          android:drawable="@drawable/btn_keyboard_key_dark_pressed_on" />
     <item android:state_checkable="true" android:state_pressed="true"
-          android:drawable="@drawable/btn_keyboard_key_dark_pressed" />
+          android:drawable="@drawable/btn_keyboard_key_dark_pressed_off" />
     <item android:state_checkable="true" android:state_checked="true"
-          android:drawable="@drawable/btn_keyboard_key_dark_normal" />
+          android:drawable="@drawable/btn_keyboard_key_dark_normal_on" />
     <item android:state_checkable="true"
-          android:drawable="@drawable/btn_keyboard_key_dark_normal" />
+          android:drawable="@drawable/btn_keyboard_key_dark_normal_off" />
 
     <!-- Normal keys -->
 
