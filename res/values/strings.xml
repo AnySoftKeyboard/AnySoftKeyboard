@@ -23,7 +23,7 @@
 	<string name="main_tab_credits_localization_by">Localization efforts by:</string>
 	<string name="main_tab_credits_GUI_by">UI images by:</string>
 	
-	<string name="how_to_simple_howto"> Android requires that you (the user) will manually enabled and activate external keyboards. Here is how:\n1) go to Android\'s Settings and select \'Locale &amp; text\' or \'Language &amp; keyboard\'.\n2) Turn on AnySoftKeyboard.\n*It will warn you about possible key-logging, don\'t worry, we do not keep data, and we do not send it anywere.\n\n To actually use AnySoftKeyboard, you\'ll need to activate it:\n1) Go to any text-box (e.g., Messagings TO field), and long-press it.\n2) A dialog will pop-up, select \'Input Method\' (usally the last option).\n3) Another dialog will popup - select AnySoftKeyboard.\nThat\'s it! Enjoy.</string>
+	<string name="how_to_simple_howto"> Android requires that you (the user) will manually enable and activate external keyboards. Here is how:\n 1) go to Android\'s Settings and select \'Language &amp; keyboard\' (or \'Locale &amp; text\' in some Android OSes).\n 2) Turn on AnySoftKeyboard.\n *It will warn you about possible key-logging, don\'t worry, we do not keep data, and we do not send it anywhere.\n \n To actually use AnySoftKeyboard, you\'ll need to activate it:\n 1) Go to any text-box (e.g., Messagings TO field), and long-press it.\n 2) A dialog will pop-up, select \'Input Method\' (usually the last option).\n 3) Another dialog will popup - select AnySoftKeyboard.\n That\'s it! Enjoy.</string>
 	<!-- notifications -->
 	<string name="notification_text">Welcome! Please, read me.</string>
 	<string name="testers_version">Testers version!</string>
