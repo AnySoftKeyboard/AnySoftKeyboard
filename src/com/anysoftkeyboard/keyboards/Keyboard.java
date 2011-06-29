@@ -430,9 +430,11 @@ public class Keyboard {
          */
         public void onReleased(boolean inside) {
             pressed = !pressed;
+            /*No need for this code, I handle this expicitly in setShifted code
             if (sticky) {
                 on = !on;
             }
+            */
         }
 
         int[] parseCSV(String value) {
