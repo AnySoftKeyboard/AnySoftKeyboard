@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
+<Keyboard 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard">
 	<!-- Generic bottom row -->
 	<Row android:keyboardMode="@integer/keyboard_mode_normal" android:rowEdgeFlags="bottom" android:keyWidth="10%p" android:keyHeight="@integer/key_normal_height">
-		<Key android:keyWidth="15%p" android:codes="-10" android:keyEdgeFlags="left"/>
+		<Key android:keyWidth="15%p" android:codes="-10" ask:longPressCode="-102" android:keyEdgeFlags="left"/>
 	    
 	    <Key android:codes="63" android:keyLabel="\?" android:popupCharacters="!/@\u0026\u00bf\u00a1"/>
 	    <Key android:codes="44" android:keyLabel="," android:popupCharacters="()"/>
@@ -13,11 +15,11 @@
 	    <Key android:codes="46" android:keyLabel="." android:popupCharacters=";:-_\u00b7\u2026"/>
 	    <Key android:codes="39" android:keyLabel="\'" android:popupCharacters="&#34;\u201e\u201d"/>
 	    
-	    <Key android:codes="10" android:keyWidth="15%p" android:keyEdgeFlags="right"/>
+	    <Key android:codes="10" android:keyWidth="15%p" android:keyEdgeFlags="right" ask:longPressCode="-100"/>
 	</Row>
 	<Row android:keyboardMode="@integer/keyboard_mode_im" android:rowEdgeFlags="bottom" android:keyWidth="10%p" 
    android:keyHeight="@integer/key_normal_height">
-		<Key android:keyWidth="15%p" android:codes="-10" android:keyEdgeFlags="left"/>
+		<Key android:keyWidth="15%p" android:codes="-10" ask:longPressCode="-102" android:keyEdgeFlags="left"/>
 	    
 	    <Key android:codes="63" android:keyLabel="\?" android:popupCharacters="!/@\u0026\u00bf\u00a1"/>
 	    <Key android:codes="44" android:keyLabel="," android:popupCharacters="()"/>
@@ -27,7 +29,7 @@
 	    <Key android:codes="46" android:keyLabel="." android:popupCharacters=";:-_\u00b7\u2026"/>
 	    <Key android:codes="39" android:keyLabel="\'" android:popupCharacters="&#34;\u201e\u201d"/>
 	    
-	    <Key android:codes="10" android:keyWidth="15%p" android:keyEdgeFlags="right"/>
+	    <Key android:codes="10" android:keyWidth="15%p" android:keyEdgeFlags="right" ask:longPressCode="-100"/>
 	</Row>
 	
 	<Row android:keyboardMode="@integer/keyboard_mode_url" android:rowEdgeFlags="bottom" android:keyWidth="10%p" 
@@ -43,7 +45,7 @@
 	    <Key android:codes="46" android:keyLabel="." android:popupCharacters=",-_"/>
 	    <Key android:codes="47" android:keyLabel="/"/>
 	    
-		<Key android:codes="10" android:keyWidth="15%p" android:keyEdgeFlags="right"/>
+		<Key android:codes="10" android:keyWidth="15%p" android:keyEdgeFlags="right" ask:longPressCode="-100"/>
 	</Row>
 	<Row android:keyboardMode="@integer/keyboard_mode_email" android:rowEdgeFlags="bottom" android:keyWidth="10%p" 
    android:keyHeight="@integer/key_normal_height">
@@ -57,6 +59,6 @@
 	    <Key android:codes="46" android:keyLabel="." android:popupCharacters=",()'-_"/>
 	    <Key android:codes="45" android:keyLabel="-"/>
 	    
-		<Key android:codes="10" android:keyWidth="15%p" android:keyEdgeFlags="right"/>
+		<Key android:codes="10" android:keyWidth="15%p" android:keyEdgeFlags="right" ask:longPressCode="-100"/>
 	</Row>
 </Keyboard>

@@ -1665,7 +1665,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		TextEntryState.backspace();
 		if (TextEntryState.getState() == TextEntryState.State.UNDO_COMMIT) {
 			revertLastWord(deleteChar);
-			handleShiftStateAfterBackspace();
 		} else if (deleteChar) {
 			if (mCandidateView != null && mCandidateView.dismissAddToDictionaryHint()) {
                 // Go back to the suggestion mode if the user canceled the

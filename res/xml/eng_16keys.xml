@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard"
     android:keyWidth="25%p"
-   android:keyHeight="@integer/key_normal_height">
+	android:keyHeight="@integer/key_normal_height">
      <Row android:rowEdgeFlags="top" android:keyboardMode="@integer/keyboard_mode_normal">
         <Key android:codes="46,44,63,33,8217,45,64,47,58" android:keyLabel=".,?!’" android:keyEdgeFlags="left"/>
         <Key android:codes="97,98,99" android:keyLabel="abc"/>
@@ -67,6 +68,6 @@
     <Row android:rowEdgeFlags="bottom">
         <Key android:codes="-1" android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
         <Key android:codes="32,48" android:keyWidth="50%p"/>
-        <Key android:codes="10" android:keyEdgeFlags="right"/>
+        <Key android:codes="10" android:keyEdgeFlags="right" ask:longPressCode="-100"/>
     </Row>
 </Keyboard>

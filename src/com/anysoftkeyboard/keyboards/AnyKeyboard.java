@@ -9,6 +9,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 
@@ -16,6 +17,8 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.TypedValue;
+import android.util.Xml;
 import android.view.inputmethod.EditorInfo;
 
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
@@ -753,7 +756,7 @@ public abstract class AnyKeyboard extends Keyboard
 		
 	}
 	
-	static class AnyKey extends Keyboard.Key {
+	public static class AnyKey extends Keyboard.Key {
 		private final int[] KEY_STATE_FUNCTIONAL_NORMAL = {
 				R.attr.key_type_function
         };
@@ -764,6 +767,8 @@ public abstract class AnyKeyboard extends Keyboard
                 android.R.attr.state_pressed
         };
         
+        public int[] shiftedCodes;
+        public int longPressCode;
         private boolean mFunctionalKey;
 		private boolean mEnabled;
 		public final Keyboard.Row row;
@@ -779,8 +784,36 @@ public abstract class AnyKeyboard extends Keyboard
                 // If there is a keyboard with no keys specified in popupCharacters
                 popupResId = 0;
             }
-            parseCSV("");//TODO lado parseCSV is removed by proGuard if it here not set. I'm on it to leave this method
-            //untasted without this call.
+            
+            TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser), R.styleable.Keyboard);
+            /*shifted codes support*/
+            TypedValue shiftedCodesValue = new TypedValue();
+            if (a.getValue(R.styleable.Keyboard_Key_shiftedCodes, shiftedCodesValue))
+            {
+	            if (shiftedCodesValue.type == TypedValue.TYPE_INT_DEC || shiftedCodesValue.type == TypedValue.TYPE_INT_HEX) {
+	                shiftedCodes = new int[] { shiftedCodesValue.data };
+	            } else if (shiftedCodesValue.type == TypedValue.TYPE_STRING) {
+	            	shiftedCodes = parseCSV(shiftedCodesValue.string.toString());
+	            }
+            }
+            else
+            {
+            	//shifted codes were not specified. Using char.toupper
+            	shiftedCodes = new int[codes.length];
+            	for(int i=0; i<codes.length; i++)
+            	{
+            		final int code = codes[i];
+            		if (Character.isLetter(code))
+            			shiftedCodes[i] = Character.toUpperCase(code);
+            		else
+            			shiftedCodes[i] = code;
+            	}
+            	                       
+            }
+            /*long press support*/
+            longPressCode = a.getInt(R.styleable.Keyboard_Key_longPressCode, 0);
+            
+            a.recycle();
         }
         
 		public void enable()
@@ -803,36 +836,6 @@ public abstract class AnyKeyboard extends Keyboard
 				return false;//disabled.
 		}
 		
-        //Issue 395
-        protected int[] parseCSV(String value) {
-            int count = 0;
-            int lastIndex = 0;
-            if (value.length() > 0) {
-                count++;
-                while ((lastIndex = value.indexOf(",", lastIndex + 1)) > 0) {
-                    count++;
-                }
-            }
-            int[] values = new int[count];
-            count = 0;
-            StringTokenizer st = new StringTokenizer(value, ",");
-            while (st.hasMoreTokens()) {
-            	String nextToken = st.nextToken();
-                try {
-                    //default behavior
-                	if(nextToken.length() != 1 ){
-                		values[count++] = Integer.parseInt(nextToken);
-                	}else {
-                		// length == 1, assume a char!
-                		values[count++] = (int)nextToken.charAt(0);
-                	}
-                } catch (NumberFormatException nfe) {
-                    Log.e(TAG, "Error parsing keycodes " + value);
-                }
-            }
-            return values;
-        }
-        
         public void setFunctional(boolean isFunctional) {
         	mFunctionalKey = isFunctional;
 		}

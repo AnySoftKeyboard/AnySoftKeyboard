@@ -20,6 +20,8 @@ import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView.OnKeyboardActionL
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView.UIHandler;
 
 import android.content.res.Resources;
+
+import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import android.util.Log;
@@ -524,11 +526,12 @@ public class PointerTracker {
     /**
      * Handle multi-tap keys by producing the key label for the current multi-tap state.
      */
-    public CharSequence getPreviewText(Key key) {
+    public CharSequence getPreviewText(Key key, boolean isUppercase) {
         if (mInMultiTap) {
             // Multi-tap
             mPreviewLabel.setLength(0);
-            mPreviewLabel.append((char) key.codes[mTapCount < 0 ? 0 : mTapCount]);
+            final int[] codes = (isUppercase && key instanceof AnyKey)? ((AnyKey)key).codes : key.codes;
+            mPreviewLabel.append((char)codes[mTapCount < 0 ? 0 : mTapCount]);
             return mPreviewLabel;
         } else {
             return key.label;

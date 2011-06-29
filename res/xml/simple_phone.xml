@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard"
     android:keyWidth="25%p"
     android:keyHeight="@integer/key_normal_height">
     <Row>
@@ -25,8 +26,8 @@
     
     <Row android:rowEdgeFlags="bottom">
         <Key android:codes="42" android:keyLabel="*" android:popupCharacters=",;N" android:keyEdgeFlags="left"/>
-        <Key android:codes="48" android:keyIcon="@drawable/sym_keyboard_num0"/>
+        <Key android:codes="48" android:keyIcon="@drawable/sym_keyboard_num0" ask:longPressCode="43" />
         <Key android:codes="35" android:popupCharacters=",;N" />
-        <Key android:codes="10" android:keyEdgeFlags="right"/>
+        <Key android:codes="10" android:keyEdgeFlags="right" ask:longPressCode="-100"/>
     </Row>
 </Keyboard>

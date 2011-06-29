@@ -436,7 +436,7 @@ public class Keyboard {
         }
 
         int[] parseCSV(String value) {
-            int count = 0;
+        	int count = 0;
             int lastIndex = 0;
             if (value.length() > 0) {
                 count++;
@@ -448,8 +448,16 @@ public class Keyboard {
             count = 0;
             StringTokenizer st = new StringTokenizer(value, ",");
             while (st.hasMoreTokens()) {
+            	String nextToken = st.nextToken();
                 try {
-                    values[count++] = Integer.parseInt(st.nextToken());
+                	//Issue 395
+                    //default behavior
+                	if(nextToken.length() != 1 ){
+                		values[count++] = Integer.parseInt(nextToken);
+                	}else {
+                		// length == 1, assume a char!
+                		values[count++] = (int)nextToken.charAt(0);
+                	}
                 } catch (NumberFormatException nfe) {
                     Log.e(TAG, "Error parsing keycodes " + value);
                 }

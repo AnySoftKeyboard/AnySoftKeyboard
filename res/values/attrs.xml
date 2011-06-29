@@ -40,8 +40,6 @@
         <!-- The unicode value or comma-separated values that this key outputs. -->
         <attr name="android:codes"/>
         
-        <attr name="shiftedCodes" format="integer|string"/>
-        
         <!-- The XML keyboard layout of any popup keyboard. -->
         <attr name="android:popupKeyboard" />
         <!-- The characters to display in the popup keyboard. -->
@@ -66,6 +64,10 @@
         <!-- Mode of the keyboard. If the mode doesn't match the
              requested keyboard mode, the key will be skipped. -->
         <attr name="android:keyboardMode" />
+        
+        <attr name="longPressCode" format="integer" />
+        
+        <attr name="shiftedCodes" format="integer|string"/>
     </declare-styleable>
     
     <declare-styleable name="AnyKeyboardBaseView">

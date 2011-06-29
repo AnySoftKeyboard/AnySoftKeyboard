@@ -22,6 +22,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
 import com.anysoftkeyboard.keyboards.ExternalAnyKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -172,22 +173,31 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     @Override
     protected boolean onLongPress(Context packageContext, Key key)
     {
-    	if (key != null && key.codes != null && key.codes.length > 0)
+//    	if (key != null && key.codes != null && key.codes.length > 0)
+//    	{
+//	    	if (key.codes[0] == 10) {
+//	    		invokeOnKey(KEYCODE_OPTIONS);
+//	    		return true;
+//	    	} else if (key.codes[0] == AnyKeyboard.KEYCODE_QUICK_TEXT) {
+//	    		invokeOnKey(KEYCODE_QUICK_TEXT_LONGPRESS);
+//	    		return true;
+//	    	}else if (key.codes[0] == AnyKeyboard.KEYCODE_LANG_CHANGE) {
+//	    		invokeOnKey(AnyKeyboard.KEYCODE_LANG_CHANGE);
+//	    		return true;
+//	    	} else if (key.codes[0] == '0' && getKeyboard() == mPhoneKeyboard) {
+//	    		// Long pressing on 0 in phone number keypad gives you a '+'.
+//	    		invokeOnKey('+');
+//	    		return true;
+//	    	}
+//    	}
+    	if (key != null && key instanceof AnyKey)
     	{
-	    	if (key.codes[0] == 10) {
-	    		invokeOnKey(KEYCODE_OPTIONS);
-	    		return true;
-	    	} else if (key.codes[0] == AnyKeyboard.KEYCODE_QUICK_TEXT) {
-	    		invokeOnKey(KEYCODE_QUICK_TEXT_LONGPRESS);
-	    		return true;
-	    	}else if (key.codes[0] == AnyKeyboard.KEYCODE_LANG_CHANGE) {
-	    		invokeOnKey(AnyKeyboard.KEYCODE_LANG_CHANGE);
-	    		return true;
-	    	} else if (key.codes[0] == '0' && getKeyboard() == mPhoneKeyboard) {
-	    		// Long pressing on 0 in phone number keypad gives you a '+'.
-	    		invokeOnKey('+');
-	    		return true;
-	    	}
+    		AnyKey anyKey = (AnyKey)key;
+    		if (anyKey.longPressCode != 0)
+    		{
+    			invokeOnKey(anyKey.longPressCode);
+    			return true;
+    		}
     	}
 
     	return super.onLongPress(packageContext, key);

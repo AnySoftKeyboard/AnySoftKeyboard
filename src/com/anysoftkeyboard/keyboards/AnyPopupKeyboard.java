@@ -26,6 +26,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 		Key baseKey = keys.get(0);
 		Row row = baseKey.row;
 		baseKey.codes = new int[]{(int)popupCharacters.charAt(0)};
+		baseKey.codes = new int[]{(int)popupCharacters.charAt(0)};
 		baseKey.edgeFlags = EDGE_LEFT;
 		baseKey.label = String.valueOf(popupCharacters.charAt(0));
 		int x = baseKey.width + row.defaultHorizontalGap;

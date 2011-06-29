@@ -1003,7 +1003,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
             mPreviewText.setText(null);
         } else {
             mPreviewText.setCompoundDrawables(null, null, null, null);
-            mPreviewText.setText(adjustCase(tracker.getPreviewText(key)));
+            mPreviewText.setText(adjustCase(tracker.getPreviewText(key, mKeyboard.isShifted())));
             if (key.label.length() > 1 && key.codes.length < 2) {
                 mPreviewText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mKeyTextSize);
                 mPreviewText.setTypeface(Typeface.DEFAULT_BOLD);
