@@ -2,7 +2,6 @@ package com.anysoftkeyboard.keyboards;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -729,7 +728,8 @@ public abstract class AnyKeyboard extends Keyboard
     }
 
 	private void setShiftViewAsState() {
-		mShiftKey.on = (mShiftState != SHIFT_OFF);
+		//the "on" led is just like the caps-lock led
+		mShiftKey.on = (mShiftState == SHIFT_LOCKED);
 		switch(mShiftState)
 		{
 		case SHIFT_ON:

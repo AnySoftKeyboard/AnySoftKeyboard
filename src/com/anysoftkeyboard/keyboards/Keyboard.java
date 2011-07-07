@@ -100,9 +100,6 @@ public class Keyboard {
     protected final Context mKeyboardContext;
     protected final AnyKeyboardContextProvider mASKContext;
     
-    /** Keyboard label **/
-    private CharSequence mLabel;
-
     /** Horizontal gap default for all rows */
     private int mDefaultHorizontalGap;
     
@@ -123,12 +120,6 @@ public class Keyboard {
     
     /** Key index for the shift key, if present */
     private int mShiftKeyIndex = -1;
-    
-    /** Current key width, while loading the keyboard */
-    private int mKeyWidth;
-    
-    /** Current key height, while loading the keyboard */
-    private int mKeyHeight;
     
     /** Total height of the keyboard, including the padding and keys */
     private int mTotalHeight;
@@ -785,7 +776,6 @@ public class Keyboard {
         boolean inKey = false;
         boolean inRow = false;
         boolean inUnknown = false;
-        boolean leftMostKey = false;
         int row = 0;
         int x = 0;
         int y = 0;
