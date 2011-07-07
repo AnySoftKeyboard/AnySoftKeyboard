@@ -31,6 +31,8 @@ public class ConfigurationImpl implements Configuration
 	private float mKeysHeightFactorInPortrait = 1.0f;
 	private float mKeysHeightFactorInLandscape = 1.0f;
 	private boolean mInsertSpaceAfterCandidatePick = true;
+	private int mSwipeDistanceThreshold = 240;
+	private int mSwipeVelocityThreshold = 400;
 	private int mSwipeUpKeyCode;
 	private int mSwipeDownKeyCode;
 	private int mSwipeLeftKeyCode;
@@ -284,6 +286,15 @@ public class ConfigurationImpl implements Configuration
         mDrawExtensionKeyboardAboveMainKeyboard = sp.getBoolean(mContext.getString(R.string.settings_key_is_extesion_keyboard_above_keyboard),
                 mContext.getResources().getBoolean(R.bool.settings_default_is_extesion_keyboard_above_keyboard));
         Log.i(TAG, "** mDrawExtensionKeyboardAboveMainKeyboard: " + mDrawExtensionKeyboardAboveMainKeyboard);
+        
+        mSwipeDistanceThreshold = getIntFromString(sp, 
+        		mContext.getString(R.string.settings_key_swipe_distance_threshold),
+                mContext.getString(R.string.settings_default_swipe_distance_threshold));
+        Log.i(TAG, "** mSwipeDistanceThreshold: " + mSwipeDistanceThreshold);
+        mSwipeVelocityThreshold = getIntFromString(sp, 
+        		mContext.getString(R.string.settings_key_swipe_velocity_threshold),
+                mContext.getString(R.string.settings_default_swipe_velocity_threshold));
+        Log.i(TAG, "** mSwipeVelocityThreshold: " + mSwipeVelocityThreshold);
 	}
 	
 	private int getIntFromSwipeConfiguration(SharedPreferences sp, final String prefKey, final String defaultValue) {
@@ -327,7 +338,33 @@ public class ConfigurationImpl implements Configuration
 		}
 		catch(Exception e)
 		{
-			return 1.0f;
+			try
+			{
+				return Float.parseFloat(defaultValue);
+			}
+			catch(Exception e2)
+			{
+				return 1.0f;
+			}
+		}
+	}
+	
+	private static int getIntFromString(SharedPreferences sp, String prefKey, String defaultValue) {
+		String intValue = sp.getString(prefKey, defaultValue);
+		try
+		{
+			return Integer.parseInt(intValue);
+		}
+		catch(Exception e)
+		{
+			try
+			{
+				return Integer.parseInt(defaultValue);
+			}
+			catch(Exception e2)
+			{
+				return 500;
+			}
 		}
 	}
 
@@ -453,5 +490,13 @@ public class ConfigurationImpl implements Configuration
     
     public boolean drawExtensionKeyboardAboveMainKeyboard() {
     	return mDrawExtensionKeyboardAboveMainKeyboard;
+    }
+    
+    public int getSwipeDistanceThreshold() {
+    	return mSwipeDistanceThreshold;
+    }
+    
+    public int getSwipeVelocityThreshold() {
+    	return mSwipeVelocityThreshold;
     }
 }

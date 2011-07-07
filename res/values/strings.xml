@@ -150,7 +150,26 @@
     <string name="swipe_action_name_cursor_left">Move cursor left</string>
     <string name="swipe_action_name_cursor_right">Move cursor right</string>
 	<string name="swipe_action_name_other_keyboards_mode">Switch layout mode</string>
-   
+   	
+   	<string name="settings_swipe_velocity_threshold_title">Swipe velocity threshold</string>
+   	<string name="settings_swipe_velocity_threshold_summary">The minimal swipe gesture speed</string>
+    <string-array name="settings_key_swipe_velocity_threshold_names">
+    	<item>Very slow</item>
+		<item>Slow</item>
+		<item>Normal</item>
+		<item>Fast</item>
+		<item>Very fast</item>
+    </string-array>
+    <string name="settings_swipe_distance_threshold_title">Swipe distance threshold</string>
+   	<string name="settings_swipe_distance_threshold_summary">The minimal swipe gesture distance</string>
+    <string-array name="settings_key_swipe_distance_threshold_names">
+    	<item>Very short</item>
+		<item>Short</item>
+		<item>Normal</item>
+		<item>Long</item>
+		<item>Very long</item>
+    </string-array>
+    
     <string name="hardware_keys_group">Hardware keys mapping</string>
     <string name="volume_key_for_left_right_support">Volume key for left/right</string>
     <string name="volume_key_for_left_right_support_on_summary">Disable left/right via volume up/down</string>

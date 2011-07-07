@@ -29,4 +29,7 @@
     <bool name="settings_default_is_extesion_keyboard_above_keyboard">true</bool>
     
     <bool name="config_swipeDisambiguation">true</bool>
+
+	<string name="settings_default_swipe_velocity_threshold">400</string>
+	<string name="settings_default_swipe_distance_threshold">240</string>
 </resources>

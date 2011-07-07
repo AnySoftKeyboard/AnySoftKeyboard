@@ -158,6 +158,27 @@ android:key="ime_settings">
 				android:entryValues="@array/swipe_action_types_values"
 				android:defaultValue="next_alphabet"
 				android:dialogTitle="@string/swipe_right_action_title"/>
+				
+			<ListPreference
+				android:key="@string/settings_key_swipe_velocity_threshold"
+				android:title="@string/settings_swipe_velocity_threshold_title"
+				android:summary="@string/settings_swipe_velocity_threshold_summary"
+				android:entries="@array/settings_key_swipe_velocity_threshold_names"
+				android:entryValues="@array/settings_key_swipe_velocity_threshold_values"
+				android:defaultValue="@string/settings_default_swipe_velocity_threshold"
+				android:dialogTitle="@string/settings_swipe_velocity_threshold_title"/>				
+			<ListPreference
+				android:key="@string/settings_key_swipe_distance_threshold"
+				android:title="@string/settings_swipe_distance_threshold_title"
+				android:summary="@string/settings_swipe_distance_threshold_summary"
+				android:entries="@array/settings_key_swipe_distance_threshold_names"
+				android:entryValues="@array/settings_key_swipe_distance_threshold_values"
+				android:defaultValue="@string/settings_default_swipe_distance_threshold"
+				android:dialogTitle="@string/settings_swipe_distance_threshold_title"/>				
+				
+			<EditTextPreference android:key="keyboards_sandbox_swipe_screen"
+				android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"
+				android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false"/>
 		</PreferenceScreen>
 		<PreferenceScreen android:key="hardware_keys_group"
 			android:title="@string/hardware_keys_group">

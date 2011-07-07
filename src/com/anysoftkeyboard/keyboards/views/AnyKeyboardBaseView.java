@@ -228,7 +228,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
     // Swipe gesture detector
     private GestureDetector mGestureDetector;
     private final SwipeTracker mSwipeTracker = new SwipeTracker();
-    private final int mSwipeThreshold;
+    private int mSwipeVelocityThreshold;
+    private int mSwipeXDistanceThreshold;
+    private int mSwipeYDistanceThreshold;
     private final boolean mDisambiguateSwipe;
 
     // Drawing
@@ -518,7 +520,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         mPadding = new Rect(0, 0, 0, 0);
         mKeyBackground.getPadding(mPadding);
 
-        mSwipeThreshold = (int) (500 * res.getDisplayMetrics().density);
+        reloadSwipeThresholdsSettings(res);
         
         mDisambiguateSwipe = res.getBoolean(R.bool.config_swipeDisambiguation);
         mMiniKeyboardSlideAllowance = res.getDimension(R.dimen.mini_keyboard_slide_allowance);
@@ -532,27 +534,25 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
                 final float absY = Math.abs(velocityY);
                 float deltaX = me2.getX() - me1.getX();
                 float deltaY = me2.getY() - me1.getY();
-                int travelX = getWidth() / 2; // Half the keyboard width
-                int travelY = getHeight() / 2; // Half the keyboard height
                 mSwipeTracker.computeCurrentVelocity(1000);
                 final float endingVelocityX = mSwipeTracker.getXVelocity();
                 final float endingVelocityY = mSwipeTracker.getYVelocity();
-                if (velocityX > mSwipeThreshold && absY < absX && deltaX > travelX) {
+                if (velocityX > mSwipeVelocityThreshold && absY < absX && deltaX > mSwipeXDistanceThreshold) {
                     if (mDisambiguateSwipe && endingVelocityX >= velocityX / 4) {
                         swipeRight();
                         return true;
                     }
-                } else if (velocityX < -mSwipeThreshold && absY < absX && deltaX < -travelX) {
+                } else if (velocityX < -mSwipeVelocityThreshold && absY < absX && deltaX < -mSwipeXDistanceThreshold) {
                     if (mDisambiguateSwipe && endingVelocityX <= velocityX / 4) {
                         swipeLeft();
                         return true;
                     }
-                } else if (velocityY < -mSwipeThreshold && absX < absY && deltaY < -travelY) {
+                } else if (velocityY < -mSwipeVelocityThreshold && absX < absY && deltaY < -mSwipeYDistanceThreshold) {
                     if (mDisambiguateSwipe && endingVelocityY <= velocityY / 4) {
                         swipeUp();
                         return true;
                     }
-                } else if (velocityY > mSwipeThreshold && absX < absY / 2 && deltaY > travelY) {
+                } else if (velocityY > mSwipeVelocityThreshold && absX < absY / 2 && deltaY > mSwipeYDistanceThreshold) {
                     if (mDisambiguateSwipe && endingVelocityY >= velocityY / 4) {
                         swipeDown();
                         return true;
@@ -569,6 +569,28 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         mHasDistinctMultitouch = (multiTouchSupportLevel == MultiTouchSupportLevel.Basic) || (multiTouchSupportLevel == MultiTouchSupportLevel.Distinct);
         mKeyRepeatInterval = 50;
     }
+
+	public void reloadSwipeThresholdsSettings(final Resources res) {
+		final float density = res.getDisplayMetrics().density;
+		mSwipeVelocityThreshold = (int) (AnyApplication.getConfig().getSwipeVelocityThreshold() * density);
+		mSwipeXDistanceThreshold = (int) (AnyApplication.getConfig().getSwipeDistanceThreshold() * density);
+		Keyboard kbd = getKeyboard();
+		if (kbd != null)
+		{
+			mSwipeYDistanceThreshold = (int) (mSwipeXDistanceThreshold * (((float)kbd.getHeight())/((float)getWidth())));
+		}
+		else
+		{
+			mSwipeYDistanceThreshold = 0;
+		}
+		if (mSwipeYDistanceThreshold == 0)
+			mSwipeYDistanceThreshold = mSwipeXDistanceThreshold;
+		
+		if (AnyApplication.DEBUG)
+		{
+			Log.d(TAG, String.format("Swipe thresholds: Velocity %d, X-Distance %d, Y-Distance %d", mSwipeVelocityThreshold, mSwipeXDistanceThreshold, mSwipeYDistanceThreshold));
+		}
+	}
 
 	public void setOnKeyboardActionListener(OnKeyboardActionListener listener) {
         mKeyboardActionListener = listener;

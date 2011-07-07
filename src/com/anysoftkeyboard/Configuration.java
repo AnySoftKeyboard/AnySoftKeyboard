@@ -60,4 +60,8 @@ public interface Configuration {
 	boolean isStickyExtensionKeyboard();
 	
 	boolean drawExtensionKeyboardAboveMainKeyboard();
+
+	int getSwipeVelocityThreshold();
+	
+	int getSwipeDistanceThreshold();
 }

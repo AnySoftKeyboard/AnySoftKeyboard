@@ -550,6 +550,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		System.gc();
 	}
 	
+	///this function is called EVERYTIME them selection is changed. This also includes the underlined
+	///suggestions.
 	@Override
     public void onUpdateSelection(int oldSelStart, int oldSelEnd,
             int newSelStart, int newSelEnd,
@@ -565,11 +567,6 @@ public class AnySoftKeyboard extends InputMethodService implements
                     + ", cs=" + candidatesStart
                     + ", ce=" + candidatesEnd);
         }
-
-//        if (mAfterVoiceInput) {
-//            mVoiceInput.setCursorPos(newSelEnd);
-//            mVoiceInput.setSelectionSpan(newSelEnd - newSelStart);
-//        }
 
         // If the current selection in the text view changes, we should
         // clear whatever candidate text we have.
@@ -603,97 +600,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         mLastSelectionStart = newSelStart;
         mLastSelectionEnd = newSelEnd;
 
-//        if (mReCorrectionEnabled) {
-//            // Don't look for corrections if the keyboard is not visible
-//            if (mKeyboardSwitcher != null && mKeyboardSwitcher.getInputView() != null
-//                    && mKeyboardSwitcher.getInputView().isShown()) {
-//                // Check if we should go in or out of correction mode.
-//                if (isPredictionOn()
-//                        && mJustRevertedSeparator == null
-//                        && (candidatesStart == candidatesEnd || newSelStart != oldSelStart
-//                                || TextEntryState.isCorrecting())
-//                                && (newSelStart < newSelEnd - 1 || (!mPredicting))
-//                                && !mVoiceInputHighlighted) {
-//                    if (isCursorTouchingWord() || mLastSelectionStart < mLastSelectionEnd) {
-//                        postUpdateOldSuggestions();
-//                    } else {
-//                        abortCorrection(false);
-//                        // Show the punctuation suggestions list if the current one is not
-//                        // and if not showing "Touch again to save".
-//                        if (mCandidateView != null
-//                                && !mSuggestPuncList.equals(mCandidateView.getSuggestions())
-//                                        && !mCandidateView.isShowingAddToDictionaryHint()) {
-//                            setNextSuggestions();
-//                        }
-//                    }
-//                }
-//            }
-//        }
     }
-	///this function is called EVERYTIME them selection is changed. This also includes the underlined
-	///suggestions.
-//	@Override
-//	public void onUpdateSelection(int oldSelStart, int oldSelEnd,
-//			int newSelStart, int newSelEnd, int candidatesStart,
-//			int candidatesEnd) {
-//		super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd,
-//				candidatesStart, candidatesEnd);
-//		
-//		boolean shouldUpdateShift = false;
-//		if (DEBUG)
-//		{
-//			Log.d(TAG, "mComposing.length():"+mComposing.length());
-//			Log.d(TAG, "oldSelStart:"+oldSelStart+" oldSelEnd:"+oldSelEnd);
-//			Log.d(TAG, "newSelStart:"+newSelStart+" newSelEnd:"+newSelEnd);
-//			Log.d(TAG, "candidatesStart:"+candidatesStart+" candidatesEnd:"+candidatesEnd);
-//		}
-//		// If the current selection in the text view changes, we should
-//		// clear whatever candidate text we have.
-//		if (mComposing.length() > 0 && mPredicting)//OK we are in predicting state
-//		{
-//			if ((candidatesEnd >= 0)//we have candidates underline
-//					&& (newSelEnd != candidatesEnd)) //the candidate underline does not end at the new cursor position! User changed the cursor.
-//			{
-//				shouldUpdateShift = true;
-//				resetComposing();
-//			}
-//			else if ((candidatesEnd < 0) || (candidatesStart < 0))//the input cleared the underline
-//			{
-//				shouldUpdateShift = true;
-//				resetComposing();
-//			}
-//		}
-//		else if (!mPredicting
-//				&& !mJustAccepted)
-//		{
-//			switch (TextEntryState.getState()) {
-//            case ACCEPTED_DEFAULT:
-//                TextEntryState.reset();
-//                // fall through
-//            case SPACE_AFTER_PICKED:
-//            	shouldUpdateShift = true;
-//                mJustAddedAutoSpace = false;  // The user moved the cursor.
-//                break;
-//			}
-//		}
-//		mJustAccepted = false;
-//		if (shouldUpdateShift)
-//			postUpdateShiftKeyState();
-//	}
-	
-//	private void resetComposing() {
-//		InputConnection ic = getCurrentInputConnection();
-//		if (ic != null) {
-//			ic.finishComposingText();
-//			commitTyped(ic);
-//		}
-//		mComposing.setLength(0);
-//		mPredicting = false;
-//		postUpdateSuggestionsNow();
-//		TextEntryState.reset();
-//		
-//		mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_DEFAULT;
-//	}
 
 	private void onPhysicalKeyboardKeyPressed() {
 		if (mConfig.hideSoftKeyboardWhenPhysicalKeyPressed()) hideWindow(); 
@@ -2693,18 +2600,22 @@ public class AnySoftKeyboard extends InputMethodService implements
 				key.equals(getString(R.string.settings_key_use_auto_dictionary)))
 		{
 		    setDictionariesForCurrentKeyboard();
-		} 
-		else  
+		}
+		else if (	
+				key.equals(getString(R.string.settings_key_top_keyboard_row_id)) ||
+				key.equals("zoom_factor_keys_in_portrait") ||
+				key.equals("zoom_factor_keys_in_landscape") ||
+				key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key)))
 		{
 			//in some cases we do want to force keyboards recreations
-			if (	key.equals(getString(R.string.settings_key_top_keyboard_row_id)) ||
-					key.equals("zoom_factor_keys_in_portrait") ||
-					key.equals("zoom_factor_keys_in_landscape") ||
-					key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key)))
-			{
-				mKeyboardSwitcher.makeKeyboards(true);
-			}
+			mKeyboardSwitcher.makeKeyboards(true);
 		}
+		else if (key.equals(getString(R.string.settings_key_swipe_distance_threshold)) ||
+				key.equals(getString(R.string.settings_key_swipe_velocity_threshold)))
+		{
+		    if (mInputView != null)
+		    	mInputView.reloadSwipeThresholdsSettings(getResources());
+		} 
 	}
 
 	public void appendCharactersToInput(CharSequence textToCommit) {
