@@ -736,12 +736,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 //						"isShown:"+mInputView.isShown()+"\n");
 //			}
 //		}
-		final boolean shouldTranslateSpecialKeys;
-		if(mInputView == null || !mInputView.isShown())
-			shouldTranslateSpecialKeys = false;
-		else
-			shouldTranslateSpecialKeys = true;
-		
+		final boolean shouldTranslateSpecialKeys = AnySoftKeyboard.getInstance().isInputViewShown();
+		if(DEBUG){
+			Log.d(TAG, "isInputViewShown="+shouldTranslateSpecialKeys);
+		}
 		InputConnection ic = getCurrentInputConnection();
 		if (!mPredictionLandscape) {
 			// For all other keys, if we want to do transformations on
@@ -773,25 +771,29 @@ public class AnySoftKeyboard extends InputMethodService implements
 		        handleBackword(getCurrentInputConnection());
 		        return true;
 		     }
-		     break;
+		     // DO NOT DELAY CAMERA KEY with unneeded checks in default mark
+		     return super.onKeyDown(keyCode, event);
 		case KeyEvent.KEYCODE_FOCUS:
 		     if(shouldTranslateSpecialKeys && mConfig.useCameraKeyForBackspaceBackword()){
 		    	 handleBackspace();
 		    	 return true;
 		     }
-		     break;
+		     // DO NOT DELAY FOCUS KEY with unneeded checks in default mark
+		     return super.onKeyDown(keyCode, event);
 		case KeyEvent.KEYCODE_VOLUME_UP:
              if(shouldTranslateSpecialKeys && mConfig.useVolumeKeyForLeftRight()){
             	 sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_LEFT);
 		     	return true;
-             }
-             break;
+             } 
+             // DO NOT DELAY VOLUME UP KEY with unneeded checks in default mark
+             return super.onKeyDown(keyCode, event);
 		case KeyEvent.KEYCODE_VOLUME_DOWN:
 	        if(shouldTranslateSpecialKeys && mConfig.useVolumeKeyForLeftRight()){
 				sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_RIGHT);
 				return true;
 	        }
-	        break;
+	        // DO NOT DELAY VOLUME DOWN KEY with unneeded checks in default mark
+	        return super.onKeyDown(keyCode, event);
         /**** END of SPEACIAL translated HW keys code section
 		 * 
 		 */
@@ -1010,9 +1012,10 @@ public class AnySoftKeyboard extends InputMethodService implements
         //Issue 248
 		case KeyEvent.KEYCODE_VOLUME_DOWN:
 	    case KeyEvent.KEYCODE_VOLUME_UP:
-	        if(mInputView == null || !mInputView.isShown()){
+	        if(AnySoftKeyboard.getInstance().isInputViewShown() == false){
 	            return super.onKeyUp(keyCode, event);
-	        }else if(mConfig.useVolumeKeyForLeftRight()){
+	        }
+	        if(mConfig.useVolumeKeyForLeftRight()){
 	            //no need of vol up/down sound
 	            return true;
 	        }
