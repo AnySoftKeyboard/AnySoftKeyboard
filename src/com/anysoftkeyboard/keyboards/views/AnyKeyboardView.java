@@ -18,6 +18,7 @@ package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
@@ -25,6 +26,7 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
 import com.anysoftkeyboard.keyboards.ExternalAnyKeyboard;
+import com.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.Keyboard.Row;
@@ -45,11 +47,10 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 //    static final int KEYCODE_NEXT_LANGUAGE = -104;
 //    static final int KEYCODE_PREV_LANGUAGE = -105;
 
-    private Keyboard mPhoneKeyboard;
-
     private boolean mExtensionVisible = false;
     private final int mExtensionKeyboardPopupOffset;
 	private Key mExtensionKey;
+	//private Rect mSpaceBarRect = null;
     
     /** Whether we've started dropping move events because we found a big jump */
     //private boolean mDroppingEvents;
@@ -71,10 +72,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         super(context, attrs, defStyle);
         
         mExtensionKeyboardPopupOffset = context.getResources().getDimensionPixelSize(R.dimen.extension_keyboard_popup_offset);
-    }
-
-    public void setPhoneKeyboard(Keyboard phoneKeyboard) {
-        mPhoneKeyboard = phoneKeyboard;
     }
     
     protected String getKeyboardViewNameForLogging()
@@ -102,8 +99,8 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 //            // Reset old keyboard state before switching to new keyboard.
 //            ((AnyKeyboard)oldKeyboard).keyReleased();
 //        }
-        super.setKeyboard(newKeyboard);
-        if (newKeyboard == mPhoneKeyboard) {
+    	super.setKeyboard(newKeyboard);
+        if (newKeyboard != null && newKeyboard instanceof GenericKeyboard && ((GenericKeyboard)newKeyboard).disableKeyPreviews()) {
             // Phone keyboard never shows popup preview (except language switch).
             super.setPreviewEnabled(false);
         } else {
