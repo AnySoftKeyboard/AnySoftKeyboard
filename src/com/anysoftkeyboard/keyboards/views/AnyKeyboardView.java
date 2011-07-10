@@ -52,6 +52,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	private Key mExtensionKey;
 	private Key mSpaceBarKey = null;
 	private Point mFirstTouchPoint = null;
+	private Boolean mCachedIsFirstDownEventInsideSpaceBar = null;
 
 	/** Whether we've started dropping move events because we found a big jump */
 	// private boolean mDroppingEvents;
@@ -136,8 +137,11 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 
 	@Override
 	final protected boolean isFirstDownEventInsideSpaceBar() {
-		return mSpaceBarKey != null && mFirstTouchPoint != null
+		if (mCachedIsFirstDownEventInsideSpaceBar != null) return mCachedIsFirstDownEventInsideSpaceBar.booleanValue();
+		mCachedIsFirstDownEventInsideSpaceBar = mSpaceBarKey != null && mFirstTouchPoint != null
 				&& mSpaceBarKey.isInside(mFirstTouchPoint.x, mFirstTouchPoint.y-(mSpaceBarKey.height/4));
+		
+		return mCachedIsFirstDownEventInsideSpaceBar.booleanValue(); 
 	}
 
 	public void simulateLongPress(int keyCode) {
@@ -196,6 +200,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     public boolean onTouchEvent(MotionEvent me) {
     	if (me.getAction() == MotionEvent.ACTION_DOWN)
     	{
+    		mCachedIsFirstDownEventInsideSpaceBar = null;
     		mFirstTouchPoint = new Point((int)me.getX(), (int)me.getY());
     		if (AnyApplication.DEBUG) Log.d(TAG, 
 					String.format("Created first down point x %d, y %d",

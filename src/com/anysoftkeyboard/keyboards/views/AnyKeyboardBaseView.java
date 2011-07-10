@@ -231,6 +231,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
     private int mSwipeVelocityThreshold;
     private int mSwipeXDistanceThreshold;
     private int mSwipeYDistanceThreshold;
+    private int mSwipeSpaceXDistanceThreshold;
     private final boolean mDisambiguateSwipe;
 
     // Drawing
@@ -536,12 +537,13 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
                 mSwipeTracker.computeCurrentVelocity(1000);
                 final float endingVelocityX = mSwipeTracker.getXVelocity();
                 final float endingVelocityY = mSwipeTracker.getYVelocity();
-                if (velocityX > mSwipeVelocityThreshold && absY < absX && deltaX > mSwipeXDistanceThreshold) {
+                final int swipeXDistance = isFirstDownEventInsideSpaceBar()? mSwipeSpaceXDistanceThreshold : mSwipeXDistanceThreshold;
+                if (velocityX > mSwipeVelocityThreshold && absY < absX && deltaX > swipeXDistance) {
                     if (mDisambiguateSwipe && endingVelocityX >= velocityX / 4) {
                         swipeRight(isFirstDownEventInsideSpaceBar());
                         return true;
                     }
-                } else if (velocityX < -mSwipeVelocityThreshold && absY < absX && deltaX < -mSwipeXDistanceThreshold) {
+                } else if (velocityX < -mSwipeVelocityThreshold && absY < absX && deltaX < -swipeXDistance) {
                     if (mDisambiguateSwipe && endingVelocityX <= velocityX / 4) {
                         swipeLeft(isFirstDownEventInsideSpaceBar());
                         return true;
@@ -584,6 +586,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
 		}
 		if (mSwipeYDistanceThreshold == 0)
 			mSwipeYDistanceThreshold = mSwipeXDistanceThreshold;
+		
+		mSwipeSpaceXDistanceThreshold = mSwipeXDistanceThreshold/2;
 		
 		if (AnyApplication.DEBUG)
 		{
