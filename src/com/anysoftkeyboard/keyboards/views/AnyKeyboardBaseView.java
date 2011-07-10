@@ -1496,7 +1496,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
     	}
     }
 
-	private boolean isFirstDownEventInsideSpaceBar() {
+	protected boolean isFirstDownEventInsideSpaceBar() {
 		return false;
 	}
 

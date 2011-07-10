@@ -2218,6 +2218,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	public void swipeUp(boolean onSpaceBar) {
+		if (DEBUG) Log.d(TAG, "swipeUp: started at spacebar? "+onSpaceBar);
 		final int keyCode = mConfig.getSwipeUpKeyCode();
 		if (keyCode != 0)
 			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
