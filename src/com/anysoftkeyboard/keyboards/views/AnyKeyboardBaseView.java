@@ -528,8 +528,20 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
 
         GestureDetector.SimpleOnGestureListener listener =
                 new GestureDetector.SimpleOnGestureListener() {
+        	
+        	@Override
+			public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        		if (AnyApplication.DEBUG) Log.d(TAG, String.format("onScroll Dx %f, Dy %f", distanceX, distanceY));
+        		final float v = Math.max(Math.abs(distanceX), Math.abs(distanceY));
+                if (v > 10) mPreviewPopup.dismiss();
+                
+				return super.onScroll(e1, e2, distanceX, distanceY);
+			}
+        	
             @Override
             public boolean onFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
+            	if (AnyApplication.DEBUG) Log.d(TAG, String.format("onFling vx %f, vy %f", velocityX, velocityY));
+            	
             	final float absX = Math.abs(velocityX);
                 final float absY = Math.abs(velocityY);
                 float deltaX = me2.getX() - me1.getX();
