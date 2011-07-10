@@ -2147,13 +2147,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 		return mWord.isFirstCharCapitalized();
 	}
 
-	public void swipeRight() {
+	public void swipeRight(boolean onSpaceBar) {
 		final int keyCode = mConfig.getSwipeRightKeyCode();
 		if (keyCode != 0)
 			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
 	}
 
-	public void swipeLeft() {
+	public void swipeLeft(boolean onSpaceBar) {
 		final int keyCode = mConfig.getSwipeLeftKeyCode();
 		if (keyCode != 0)
 			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
@@ -2211,13 +2211,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	}
 
-	public void swipeDown() {
+	public void swipeDown(boolean onSpaceBar) {
 		final int keyCode = mConfig.getSwipeDownKeyCode();
 		if (keyCode != 0)
 			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
 	}
 
-	public void swipeUp() {
+	public void swipeUp(boolean onSpaceBar) {
 		final int keyCode = mConfig.getSwipeUpKeyCode();
 		if (keyCode != 0)
 			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);

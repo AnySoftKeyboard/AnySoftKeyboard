@@ -131,23 +131,23 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
          * Called when the user quickly moves the finger from right to
          * left.
          */
-        void swipeLeft();
+        void swipeLeft(boolean onSpacebar);
 
         /**
          * Called when the user quickly moves the finger from left to
          * right.
          */
-        void swipeRight();
+        void swipeRight(boolean onSpacebar);
 
         /**
          * Called when the user quickly moves the finger from up to down.
          */
-        void swipeDown();
+        void swipeDown(boolean onSpacebar);
 
         /**
          * Called when the user quickly moves the finger from down to up.
          */
-        void swipeUp();
+        void swipeUp(boolean onSpacebar);
         
         void startInputConnectionEdit();
 		void endInputConnectionEdit();
@@ -528,9 +528,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         GestureDetector.SimpleOnGestureListener listener =
                 new GestureDetector.SimpleOnGestureListener() {
             @Override
-            public boolean onFling(MotionEvent me1, MotionEvent me2, float velocityX,
-                    float velocityY) {
-                final float absX = Math.abs(velocityX);
+            public boolean onFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
+            	final float absX = Math.abs(velocityX);
                 final float absY = Math.abs(velocityY);
                 float deltaX = me2.getX() - me1.getX();
                 float deltaY = me2.getY() - me1.getY();
@@ -539,22 +538,22 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
                 final float endingVelocityY = mSwipeTracker.getYVelocity();
                 if (velocityX > mSwipeVelocityThreshold && absY < absX && deltaX > mSwipeXDistanceThreshold) {
                     if (mDisambiguateSwipe && endingVelocityX >= velocityX / 4) {
-                        swipeRight();
+                        swipeRight(isFirstDownEventInsideSpaceBar());
                         return true;
                     }
                 } else if (velocityX < -mSwipeVelocityThreshold && absY < absX && deltaX < -mSwipeXDistanceThreshold) {
                     if (mDisambiguateSwipe && endingVelocityX <= velocityX / 4) {
-                        swipeLeft();
+                        swipeLeft(isFirstDownEventInsideSpaceBar());
                         return true;
                     }
                 } else if (velocityY < -mSwipeVelocityThreshold && absX < absY && deltaY < -mSwipeYDistanceThreshold) {
                     if (mDisambiguateSwipe && endingVelocityY <= velocityY / 4) {
-                        swipeUp();
+                        swipeUp(isFirstDownEventInsideSpaceBar());
                         return true;
                     }
                 } else if (velocityY > mSwipeVelocityThreshold && absX < absY / 2 && deltaY > mSwipeYDistanceThreshold) {
                     if (mDisambiguateSwipe && endingVelocityY >= velocityY / 4) {
-                        swipeDown();
+                        swipeDown(isFirstDownEventInsideSpaceBar());
                         return true;
                     }
                 }
@@ -1174,13 +1173,13 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
                 dismissPopupKeyboard();
             }
 
-            public void swipeLeft() {
+            public void swipeLeft(boolean onSpacebar) {
             }
-            public void swipeRight() {
+            public void swipeRight(boolean onSpacebar) {
             }
-            public void swipeUp() {
+            public void swipeUp(boolean onSpacebar) {
             }
-            public void swipeDown() {
+            public void swipeDown(boolean onSpacebar) {
             }
             public void onPress(int primaryCode) {
                 mKeyboardActionListener.onPress(primaryCode);
@@ -1497,6 +1496,10 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
     	}
     }
 
+	private boolean isFirstDownEventInsideSpaceBar() {
+		return false;
+	}
+
     private void sendOnXEvent(final int action, final long eventTime,
 			final int x, final int y, PointerTracker tracker) {
 		switch (action) {
@@ -1547,20 +1550,20 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         mPointerQueue.remove(tracker);
     }
 
-    protected void swipeRight() {
-        mKeyboardActionListener.swipeRight();
+    protected void swipeRight(boolean onSpacebar) {
+        mKeyboardActionListener.swipeRight(onSpacebar);
     }
 
-    protected void swipeLeft() {
-        mKeyboardActionListener.swipeLeft();
+    protected void swipeLeft(boolean onSpacebar) {
+        mKeyboardActionListener.swipeLeft(onSpacebar);
     }
 
-    protected void swipeUp() {
-        mKeyboardActionListener.swipeUp();
+    protected void swipeUp(boolean onSpacebar) {
+        mKeyboardActionListener.swipeUp(onSpacebar);
     }
 
-    protected void swipeDown() {
-        mKeyboardActionListener.swipeDown();
+    protected void swipeDown(boolean onSpacebar) {
+        mKeyboardActionListener.swipeDown(onSpacebar);
     }
 
     protected Key findKeyByKeyCode(int keyCode) {
