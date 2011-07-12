@@ -233,6 +233,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
     private int mSwipeYDistanceThreshold;
     private int mSwipeSpaceXDistanceThreshold;
     private final boolean mDisambiguateSwipe;
+    private boolean mInScrollGesture = false;
 
     // Drawing
     /** Whether the keyboard bitmap needs to be redrawn before it's blitted. **/
@@ -528,12 +529,12 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
 
         GestureDetector.SimpleOnGestureListener listener =
                 new GestureDetector.SimpleOnGestureListener() {
-        	
         	@Override
 			public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
         		if (AnyApplication.DEBUG) Log.d(TAG, String.format("onScroll Dx %f, Dy %f", distanceX, distanceY));
         		final float v = Math.max(Math.abs(distanceX), Math.abs(distanceY));
-                if (v > 10) mPreviewPopup.dismiss();
+                if (v > 10) {if (!mInScrollGesture) scrollGestureStarted(distanceX, distanceY);}
+                else {if (mInScrollGesture) scrollGestureEnded();}
                 
 				return super.onScroll(e1, e2, distanceX, distanceY);
 			}
@@ -1581,7 +1582,15 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
     protected void swipeDown(boolean onSpacebar) {
         mKeyboardActionListener.swipeDown(onSpacebar);
     }
+    
+    protected void scrollGestureStarted(float dX, float dY) {
+    	mInScrollGesture = true;
+    }
 
+    protected void scrollGestureEnded() {
+    	mInScrollGesture = false;
+    }
+    
     protected Key findKeyByKeyCode(int keyCode) {
 		if (getKeyboard() == null) {
 			return null;
