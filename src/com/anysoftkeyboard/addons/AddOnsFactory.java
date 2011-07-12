@@ -10,6 +10,7 @@ import java.util.List;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.anysoftkeyboard.AnySoftKeyboard;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 
@@ -29,11 +30,17 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
 	public static void onPackageChanged(Intent eventIntent)
 	{
+		boolean cleared = false;
 		for(AddOnsFactory<?> factory : mActiveInstances)
 		{
 			if (factory.isEventRequiresCacheRefresh(eventIntent))
+			{
+				cleared = true;
+				if (AnyApplication.DEBUG) Log.d("AddOnsFactory", factory.getClass().getName()+" will handle this package-changed event.");
 				factory.clearAddOnList();
+			}
 		}
+		if (cleared) AnySoftKeyboard.getInstance().forceKeyboardsRecreation();
 	}
 	
     protected final String TAG;

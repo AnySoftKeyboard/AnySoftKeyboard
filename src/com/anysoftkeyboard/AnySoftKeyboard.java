@@ -2585,9 +2585,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		super.onConfigurationChanged(newConfig);
 	}	
 	
-	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
-			String key) {
-	    if (DEBUG)Log.d("AnySoftKeyboard", "onSharedPreferenceChanged - key:" + key);
+	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+	    if (DEBUG)Log.d(TAG, "onSharedPreferenceChanged - key:" + key);
 	    AnyApplication.requestBackupToCloud();
 
 		boolean isKeyboardKey = key.startsWith(KeyboardAddOnAndBuilder.KEYBOARD_PREF_PREFIX);
@@ -2832,6 +2831,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 	
 	public void onCancel() {
 		//don't know what to do here.
+	}
+
+	public void forceKeyboardsRecreation() {
+		if (mKeyboardSwitcher != null) mKeyboardSwitcher.makeKeyboards(true);
 	}
 	
 }
