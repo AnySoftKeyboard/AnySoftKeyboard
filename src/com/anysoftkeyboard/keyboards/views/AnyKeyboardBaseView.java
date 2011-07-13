@@ -1415,10 +1415,13 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
     		ime.startInputConnectionEdit();
     		WMotionEvent me = AnyApplication.getDeviceSpecific().createMotionEventWrapper(nativeMotionEvent);
     		final int action = me.getActionMasked();
-	        final int pointerCount = me.getPointerCount();
+    		final int pointerCount = me.getPointerCount();
 	        final int oldPointerCount = mOldPointerCount;
 	        mOldPointerCount = pointerCount;
 	
+	        if (action == MotionEvent.ACTION_DOWN)
+    			mInScrollGesture = false;
+    		
 	        // TODO: cleanup this code into a multi-touch to single-touch event converter class?
 	        // If the device does not have distinct multi-touch support panel, ignore all multi-touch
 	        // events except a transition from/to single-touch.
