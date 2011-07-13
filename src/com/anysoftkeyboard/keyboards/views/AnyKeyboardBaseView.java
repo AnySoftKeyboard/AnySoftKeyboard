@@ -1430,8 +1430,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
 	        mSwipeTracker.addMovement(me.getNativeMotionEvent());
 	
 	        // Gesture detector must be enabled only when mini-keyboard is not on the screen.
-	        if (mMiniKeyboard == null
-	                && mGestureDetector != null && mGestureDetector.onTouchEvent(me.getNativeMotionEvent())) {
+	        if (mMiniKeyboard == null && mGestureDetector != null && (mGestureDetector.onTouchEvent(me.getNativeMotionEvent()) || mInScrollGesture)) {
 	            dismissKeyPreview();
 	            mHandler.cancelKeyTimers();
 	            return true;
@@ -1504,7 +1503,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
 	            PointerTracker tracker = getPointerTracker(id);
 	            sendOnXEvent(action, eventTime, x, y, tracker);
 	        }
-	
+	        
 	        return true;
     	}
     	finally
