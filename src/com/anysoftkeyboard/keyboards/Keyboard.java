@@ -140,7 +140,7 @@ public class Keyboard {
     private int mDisplayWidth;
 
     /** Height of the screen */
-    private int mDisplayHeight;
+    //private int mDisplayHeight;
 
     /** Keyboard mode, or zero, if none.  */
     private int mKeyboardMode;
@@ -208,7 +208,7 @@ public class Keyboard {
 //            verticalGap = getDimensionOrFraction(a, 
 //                    R.styleable.Keyboard_android_verticalGap, 
 //                    parent.mDisplayHeight, parent.mDefaultVerticalGap);
-            verticalGap = askRes.getDimensionPixelOffset(R.dimen.key_vertical_gap);
+            verticalGap = parent.getVerticalGap();
             
             a.recycle();
             a = res.obtainAttributes(Xml.asAttributeSet(parser),
@@ -572,11 +572,11 @@ public class Keyboard {
     	mKeyboardContext = context;
         DisplayMetrics dm = context.getResources().getDisplayMetrics();
         mDisplayWidth = dm.widthPixels;
-        mDisplayHeight = dm.heightPixels;
+        //mDisplayHeight = dm.heightPixels;
 
         mDefaultHorizontalGap = 0;
         mDefaultWidth = mDisplayWidth / 10;
-        mDefaultVerticalGap = 0;
+        //mDefaultVerticalGap = 0;
         mDefaultHeight = mDefaultWidth;
         mKeys = new ArrayList<Key>();
         mModifierKeys = new ArrayList<Key>();
@@ -665,11 +665,11 @@ public class Keyboard {
     protected int getVerticalGap() {
         return mDefaultVerticalGap;
     }
-
+/*
     protected void setVerticalGap(int gap) {
         mDefaultVerticalGap = gap;
     }
-
+*/
     protected int getKeyHeight() {
         return mDefaultHeight;
     }
@@ -783,6 +783,7 @@ public class Keyboard {
         Row currentRow = null;
         Resources res = context.getResources();
         boolean skipRow = false;
+        int lastVerticalGap = 0;
         
         try {
             int event;
@@ -825,6 +826,7 @@ public class Keyboard {
                         }
                     } else if (inRow) {
                         inRow = false;
+                        lastVerticalGap = currentRow.verticalGap;
                         y += currentRow.verticalGap;
                         y += currentRow.defaultHeight;
                         row++;
@@ -838,7 +840,7 @@ public class Keyboard {
             Log.e(TAG, "Parse error:" + e);
             e.printStackTrace();
         }
-        mTotalHeight = y - mDefaultVerticalGap;
+        mTotalHeight = y - lastVerticalGap;
     }
     
     
@@ -873,8 +875,7 @@ public class Keyboard {
         mDefaultHeight = getKeyHeight(askRes, res, a, askRes.getDimensionPixelOffset(R.dimen.key_height));
         mDefaultHorizontalGap = getDimensionOrFraction(a, R.styleable.Keyboard_android_horizontalGap,
                 mDisplayWidth, 0);
-        mDefaultVerticalGap = getDimensionOrFraction(a, R.styleable.Keyboard_android_verticalGap,
-                mDisplayHeight, 0);
+        mDefaultVerticalGap = askRes.getDimensionPixelOffset(R.dimen.key_vertical_gap);
         mProximityThreshold = (int) (mDefaultWidth * SEARCH_DISTANCE);
         mProximityThreshold = mProximityThreshold * mProximityThreshold; // Square it for comparison
         a.recycle();

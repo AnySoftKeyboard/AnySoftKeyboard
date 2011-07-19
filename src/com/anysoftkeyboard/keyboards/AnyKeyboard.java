@@ -276,7 +276,7 @@ public abstract class AnyKeyboard extends Keyboard
         }
     }
 
-	private void addGenericRows(AnyKeyboardContextProvider askContext, Context context, int mode) {
+	protected void addGenericRows(AnyKeyboardContextProvider askContext, Context context, int mode) {
 		final String keysMode = AnyApplication.getConfig().getChangeLayoutKeysSize();
 		final KeyboardMetadata topMd;
 		if (!mTopRowWasCreated)
@@ -317,7 +317,7 @@ public abstract class AnyKeyboard extends Keyboard
     			if (key instanceof LessSensitiveAnyKey)
             		((LessSensitiveAnyKey)key).resetSenitivity();//reseting cause the key may be offseted now (generic rows)
             }
-    	} else {
+    	}/* else {
     		// The height should not include any gap below that last row
     		// this corresponds to
     		// mTotalHeight = y - mDefaultVerticalGap;
@@ -326,7 +326,7 @@ public abstract class AnyKeyboard extends Keyboard
     		// Note that we are using keyboard default vertical gap (instead of row vertical gap)
     		// as this is done also in Android sources.
     		mGenericRowsHeight -= getVerticalGap();
-    	}
+    	}*/
 	}
 
 	private KeyboardMetadata addKeyboardRow(Context context, int rowResId, int mode) {

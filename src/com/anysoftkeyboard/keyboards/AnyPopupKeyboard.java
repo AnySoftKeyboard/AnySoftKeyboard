@@ -79,5 +79,10 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 	{
 		mOneKeyPressPopup = oneKey;
 	}
+	
+	@Override
+	protected void addGenericRows(AnyKeyboardContextProvider askContext, Context context, int mode) {
+		//no generic rows in popups, only in main keyboard
+	}
 
 }
