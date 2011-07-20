@@ -126,7 +126,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		for (int i = 0; i < src.length(); ++i)
 			PUNCTUATION_CHARACTERS.add((int) src.charAt(i));
 		
-		src = ".!?,:;@";
+		src = ".!?,:;";
 		for (int i = 0; i < src.length(); ++i)
 			SPACE_SWAP_CHARACTERS.add((int) src.charAt(i));
 	}
