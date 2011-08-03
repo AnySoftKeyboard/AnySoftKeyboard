@@ -233,7 +233,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
     private int mSwipeYDistanceThreshold;
     private int mSwipeSpaceXDistanceThreshold;
     private final boolean mDisambiguateSwipe;
-    private boolean mInScrollGesture = false;
+    //private boolean mInScrollGesture = false;
 
     // Drawing
     /** Whether the keyboard bitmap needs to be redrawn before it's blitted. **/
@@ -529,6 +529,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
 
         GestureDetector.SimpleOnGestureListener listener =
                 new GestureDetector.SimpleOnGestureListener() {
+        	/*
         	@Override
 			public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
         		if (AnyApplication.DEBUG) Log.d(TAG, String.format("onScroll Dx %f, Dy %f", distanceX, distanceY));
@@ -538,7 +539,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
                 
 				return super.onScroll(e1, e2, distanceX, distanceY);
 			}
-        	
+        	*/
             @Override
             public boolean onFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
             	if (AnyApplication.DEBUG) Log.d(TAG, String.format("onFling vx %f, vy %f", velocityX, velocityY));
@@ -580,7 +581,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         mGestureDetector.setIsLongpressEnabled(false);
 
         MultiTouchSupportLevel multiTouchSupportLevel = AnyApplication.getDeviceSpecific().getMultiTouchSupportLevel(getContext());
-        mHasDistinctMultitouch = (multiTouchSupportLevel == MultiTouchSupportLevel.Basic) || (multiTouchSupportLevel == MultiTouchSupportLevel.Distinct);
+        mHasDistinctMultitouch = /*(multiTouchSupportLevel == MultiTouchSupportLevel.Basic) ||*/(multiTouchSupportLevel == MultiTouchSupportLevel.Distinct);
         mKeyRepeatInterval = 50;
     }
 
@@ -1419,8 +1420,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
 	        final int oldPointerCount = mOldPointerCount;
 	        mOldPointerCount = pointerCount;
 	
-	        if (action == MotionEvent.ACTION_DOWN)
-    			mInScrollGesture = false;
+//	        if (action == MotionEvent.ACTION_DOWN)
+//    			mInScrollGesture = false;
     		
 	        // TODO: cleanup this code into a multi-touch to single-touch event converter class?
 	        // If the device does not have distinct multi-touch support panel, ignore all multi-touch
@@ -1433,7 +1434,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
 	        mSwipeTracker.addMovement(me.getNativeMotionEvent());
 	
 	        // Gesture detector must be enabled only when mini-keyboard is not on the screen.
-	        if (mMiniKeyboard == null && mGestureDetector != null && (mGestureDetector.onTouchEvent(me.getNativeMotionEvent()) || mInScrollGesture)) {
+	        if (mMiniKeyboard == null && mGestureDetector != null && (mGestureDetector.onTouchEvent(me.getNativeMotionEvent()) /*|| mInScrollGesture*/)) {
 	            dismissKeyPreview();
 	            mHandler.cancelKeyTimers();
 	            return true;
@@ -1584,7 +1585,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
     protected void swipeDown(boolean onSpacebar) {
         mKeyboardActionListener.swipeDown(onSpacebar);
     }
-    
+    /*
     protected void scrollGestureStarted(float dX, float dY) {
     	mInScrollGesture = true;
     }
@@ -1592,7 +1593,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
     protected void scrollGestureEnded() {
     	mInScrollGesture = false;
     }
-    
+    */
     protected Key findKeyByKeyCode(int keyCode) {
 		if (getKeyboard() == null) {
 			return null;
