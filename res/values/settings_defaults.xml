@@ -30,6 +30,6 @@
     
     <bool name="config_swipeDisambiguation">true</bool>
 
-	<string name="settings_default_swipe_velocity_threshold">400</string>
-	<string name="settings_default_swipe_distance_threshold">240</string>
+	<string name="settings_default_swipe_velocity_threshold">380</string>
+	<string name="settings_default_swipe_distance_threshold">160</string>
 </resources>
