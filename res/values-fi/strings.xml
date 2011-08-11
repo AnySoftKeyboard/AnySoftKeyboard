@@ -18,7 +18,7 @@
   <string name="main_tab_credits_additional_work_by">Lisäohjelmatyö:</string>
   <string name="main_tab_credits_localization_by">Lokaisointi:</string>
   <string name="main_tab_credits_GUI_by">UI kuvat:</string>
-  <string name="how_to_simple_howto"> Android edellyttää, että sinä (käyttäjä) otat manuaalisesti käyttöön ja aktivoit ulkoiset näppäimistöt. Toimi seuraavasti: \ n1) mene Android \ in valikkoon Asetukset ja valitse \ "lokalisoitu teksti \" tai \ "Kieli ja näppäimistö \". \ N2) Käynnistä AnySoftKeyboard. \ N * Se varoittaa mahdollisesti näppäintallennuksesta, ei hätää, emme tallenna tietoja, emmekä lähetä niitä minnekeään. \ n \ n Voidaksesi käyttää AnySoftKeyboard-ohjelmistoa, sinun on aktivoitava se: \ n1) Mene tekstiruutuun ( esim. Viestit- kenttään), ja paina sitä pitkään. \ n2) ikkuna ponnahtaa esiin, valitse \ "Syöttömenetelmä \" (yleensä viimeinen vaihtoehto). \ n3) Seuraava ikkuna ponnahtaa esiin - valitse AnySoftKeyboard. \ nSiinä kaikki! Ja eikun käyttämään.</string>
+  <string name="how_to_simple_howto"> Android requires that you (the user) will manually enable and activate external keyboards. Here is how:\n 1) go to Android\'s Settings and select \'Language &amp; keyboard\' (or \'Locale &amp; text\' in some Android OSes).\n 2) Turn on AnySoftKeyboard.\n *It will warn you about possible key-logging, don\'t worry, we do not keep data, and we do not send it anywhere.\n \n To actually use AnySoftKeyboard, you\'ll need to activate it:\n 1) Go to any text-box (e.g., Messagings TO field), and long-press it.\n 2) A dialog will pop-up, select \'Input Method\' (usually the last option).\n 3) Another dialog will popup - select AnySoftKeyboard.\n That\'s it! Enjoy.</string>
   <string name="notification_text">Tervetuloa! Ole hyvä, lue tämä.</string>
   <string name="testers_version">Testaajan versio!</string>
   <string name="license_title">Lisenssi</string>
@@ -103,6 +103,10 @@
   <string name="swipe_action_name_cursor_left">Siirrä kohdistinta vasemmalle</string>
   <string name="swipe_action_name_cursor_right">Siirrä kohdistinta oikealle</string>
   <string name="swipe_action_name_other_keyboards_mode">Vaihda asettelutilaa</string>
+  <string name="settings_swipe_velocity_threshold_title">Pyyhkäisyn nopeuden kynnys</string>
+  <string name="settings_swipe_velocity_threshold_summary">Minimaalisen pyyhkäisyn elenopeus</string>
+  <string name="settings_swipe_distance_threshold_title">Pyyhkäisyn etäisyyden kynnys</string>
+  <string name="settings_swipe_distance_threshold_summary">Minimaalisen pyyhkäisyn ele-etäisyys</string>
   <string name="hardware_keys_group">Laitteistonäppäinten asetukset</string>
   <string name="volume_key_for_left_right_support">Äänenvoimakkuus vasen/oikea-näppäimillä</string>
   <string name="volume_key_for_left_right_support_on_summary">Poista äänensäätö vasen/oikea</string>
@@ -113,12 +117,24 @@
   <string name="special_dictionaries_group">Erikoissanakirjat</string>
   <string name="use_user_dictionary">Käyttäjän sanakirja</string>
   <string name="use_user_dictionary_on_summary">Ehdota käyttäjän lisäämiä sanoja (pitkä painallus lisää ehdotuksen)</string>
+  <string name="use_user_dictionary_off_summary"/>
   <string name="use_auto_dictionary">Automaattinen sanasto</string>
   <string name="use_auto_dictionary_on_summary">Ehdota myös useimmin käytettyjä sanoja</string>
+  <string name="use_auto_dictionary_off_summary"/>
   <string name="use_contacts_dictionary">Yhteystietojen sanasto</string>
   <string name="use_contacts_dictionary_on_summary">Ehdota nimiä yhteystietoluettelosta</string>
+  <string name="use_contacts_dictionary_off_summary"/>
   <string name="use_contacts_dictionary_not_supported_summary">Käyttöjärjestelmäsi versiota ei tueta. Anteeksi.</string>
   <string name="tweaks_group">Hienosäädöt</string>
+  <string name="tweak_sound_group">Ääneen liittyvät hienosäädöt</string>
+  <string name="tweak_physical_keyboard_group">Fyysisen näppäimistön hienosäädöt</string>
+  <string name="tweak_ui_ux_group">UI/UX-hienosäädöt</string>
+  <string name="is_sticky_extesion_keyboard">Pysyvä laajennus-näppäimistö</string>
+  <string name="is_sticky_extesion_keyboard_on_summary">Pysyy näkyvissä, kunnes erikseen suljetaan</string>
+  <string name="is_sticky_extesion_keyboard_off_summary">Sulje painikkeen painalluksen jälkeen</string>
+  <string name="is_extesion_keyboard_above_keyboard">Top extension keyboard</string>
+  <string name="is_extesion_keyboard_above_keyboard_on_summary">Vetää päänäppäimistön yläpuolelle</string>
+  <string name="is_extesion_keyboard_above_keyboard_off_summary">Vetää päänäppäimistön päälle</string>
   <string name="show_new_version_notifications_again">Uusimman version lisätiedot</string>
   <string name="show_new_version_notifications_again_on_summary">Kun uusi version on asennettu, muutosloki näytetään</string>
   <string name="show_new_version_notifications_again_off_summary">Ei ilmoitusta uuden version asennuksesta</string>
@@ -130,7 +146,7 @@
   <string name="emoticon_long_press_opens_popup_off_summary">Näytä hymiöiden ponnahdusikkuna painettaessa lyhyesti</string>
   <string name="emoticon_popup_type_title">Hymiöiden ponnahdusikkunan tyyppi</string>
   <string name="emoticon_popup_type_summary">Valitse hymiöponnahdusikkunan tyyli</string>
-  <string name="default_smiley_text">Hymiö teksti</string>
+  <string name="default_smiley_text">Hymiöteksti</string>
   <string name="default_domain_text">Domain-teksti</string>
   <string name="smiley_icon_on_smileys_key">Käytä kuvaketta hymiönäppäimenä</string>
   <string name="smiley_icon_on_smileys_key_on_summary">Kuvake vedetään hymiönäppäimen päälle</string>
@@ -142,7 +158,7 @@
   <string name="zoom_factor_keys_in_landscape">Näppäinten korkeussäätö vaakasuunnassa</string>
   <string name="insert_space_after_word_suggestion_selection">Väli ehdotuksen valinnan jälkeen</string>
   <string name="insert_space_after_word_suggestion_selection_on_summary">Lisää väli valitun sanaehdotuksen perään</string>
-  <string name="insert_space_after_word_suggestion_selection_off_summary">lisää_väli_sana_ehdotus_valinnan_jälkeen_ulkopuolella_tiivistelmän</string>
+  <string name="insert_space_after_word_suggestion_selection_off_summary"/>
   <string name="double_space_to_period">Tuplavälilyönti pisteeksi</string>
   <string name="double_space_to_period_summary">Kaksoinvälilyönti muuttuu pisteeksi ja välilyönniksi</string>
   <string name="action_key_invisible_on_disable">Näkymätön toimintonäppäin</string>
@@ -151,8 +167,6 @@
   <string name="cycle_all_symbols_keyboards">Näytä vuorotellen kaikki symbolit</string>
   <string name="cycle_all_symbols_keyboards_on_summary">Symbolinäppäin näyttää vuorotellen kaikki symbolinäppäimistöt</string>
   <string name="cycle_all_symbols_keyboards_off_summary">Symbolinäppäin näyttää ainoastaan pääsymbolinäppäimistön</string>
-  <string name="rtl_workaround_detection_title">Kirjoitussuunnan havaitsemismenetelmä</string>
-  <string name="rtl_workaround_detection_summary">Oikealta vasemalle tekstin tunnistus</string>
   <string name="lang_key_shows_popup">Kielen valitseminen ponnahtusikkunasta</string>
   <string name="lang_key_shows_popup_on_summary">Kielinäppäin avaa valintadialogin</string>
   <string name="lang_key_shows_popup_off_summary">Kielinäppäin näyttää vuorotellen kielet</string>
@@ -174,7 +188,7 @@
   <string name="keyboards_group">Näppäimistöt</string>
   <string name="symbols_keyboard">Symbolit</string>
   <string name="eng_keyboard">englanti</string>
-  <string name="eng_keyboard_16keys">16 näppäimen anglant</string>
+  <string name="eng_keyboard_16keys">16 näppäimen Englanti</string>
   <string name="quick_text_keys_group">Pikatekstinäppäimet</string>
   <string name="quick_text_key_active">Aktiivinen pikatekstinäppäin</string>
   <string name="quick_text_key_dialog_title">Valitse näppäin</string>
@@ -214,5 +228,19 @@
     <item>Kevyt</item>
     <item>Keskikokoinen</item>
     <item>Vahva</item>
+  </string-array>
+  <string-array name="settings_key_swipe_velocity_threshold_names">
+    <item>Erittäin hidas</item>
+    <item>Hidas</item>
+    <item>Normaali</item>
+    <item>Nopea</item>
+    <item>Erittäin nopea</item>
+  </string-array>
+  <string-array name="settings_key_swipe_distance_threshold_names">
+    <item>Erittäin lyhyt</item>
+    <item>Lyhyt</item>
+    <item>Normaali</item>
+    <item>Pitkä</item>
+    <item>Erittäin pitkä</item>
   </string-array>
 </resources>

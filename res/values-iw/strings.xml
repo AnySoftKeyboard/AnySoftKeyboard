@@ -18,19 +18,18 @@
   <string name="main_tab_credits_additional_work_by">מתכנתים נוספים:</string>
   <string name="main_tab_credits_localization_by">תרגום:</string>
   <string name="main_tab_credits_GUI_by">גרפיקה:</string>
-  <string name="how_to_simple_howto"> Android requires that you (the user) will manually enabled and activate external keyboards. Here is how:\n1) go to Android\'s Settings and select \'Locale &amp; text\' or \'Language &amp; keyboard\'.\n2) Turn on AnySoftKeyboard.\n*It will warn you about possible key-logging, don\'t worry, we do not keep data, and we do not send it anywere.\n\n To actually use AnySoftKeyboard, you\'ll need to activate it:\n1) Go to any text-box (e.g., Messagings TO field), and long-press it.\n2) A dialog will pop-up, select \'Input Method\' (usally the last option).\n3) Another dialog will popup - select AnySoftKeyboard.\nThat\'s it! Enjoy.</string>
   <string name="notification_text">ברוכים הבאים!</string>
   <string name="testers_version">גירסת בטא!</string>
   <string name="license_title">רשיון</string>
   <string name="license_text">This software is licensed under Apache2 (c) 2011 Menny Even-Danan</string>
-  <string name="extrenal_addons_cat">External add-ons</string>
+  <string name="extrenal_addons_cat">תוספים חיצוניים</string>
   <string name="about">אודות</string>
   <string name="changelog">רשימת שינויים</string>
   <string name="search_market_for_addons">חיפוש תוספים</string>
-  <string name="close_button">Close</string>
+  <string name="close_button">סגור</string>
   <string name="how_to_active_text">How to active AnySoftKeyboard</string>
   <string name="added_word"><xliff:g id="word">%s</xliff:g> : Saved</string>
-  <string name="hint_add_to_dictionary">\u2190 Touch again to save</string>
+  <string name="hint_add_to_dictionary">לחץ שוב לשמירה \u2190</string>
   <string name="menu_insert_smiley">הכנס סמיילי</string>
   <string name="click_for_help">עזרה</string>
   <string name="click_for_help_summary">לחץ לקבלת עזרה באינטרנט</string>
@@ -89,21 +88,25 @@
   <string name="swipe_right_action">החלקה ימינה</string>
   <string name="swipe_right_action_summary">הגדר פעולה בהחלקה ימינה</string>
   <string name="swipe_right_action_title">בחר פעולה</string>
-  <string name="swipe_action_name_none">No action</string>
+  <string name="swipe_action_name_none">ללא פעולה</string>
   <string name="swipe_action_name_next_alphabet">Next alphabet keyboard</string>
   <string name="swipe_action_name_next_symbols">Next symbols keyboard</string>
   <string name="swipe_action_name_next_inside_mode">Next in current mode</string>
-  <string name="swipe_action_name_cycle_keyboards">Cycle through all keyboards</string>
-  <string name="swipe_action_name_reverse_cycle_keyboards">Reverse cycle through all keyboards</string>
+  <string name="swipe_action_name_cycle_keyboards">מעבר בין כל המקלדות</string>
+  <string name="swipe_action_name_reverse_cycle_keyboards">מעבר אחורה בין המקלדות</string>
   <string name="swipe_action_name_shift">Shift</string>
-  <string name="swipe_action_name_hide">Hide keyboard</string>
+  <string name="swipe_action_name_hide">הסתר מקלדת</string>
   <string name="swipe_action_name_backspace">Back-space</string>
-  <string name="swipe_action_name_cursor_up">Move cursor up</string>
-  <string name="swipe_action_name_cursor_down">Move cursor down</string>
-  <string name="swipe_action_name_cursor_left">Move cursor left</string>
-  <string name="swipe_action_name_cursor_right">Move cursor right</string>
+  <string name="swipe_action_name_cursor_up">הזזת הסמן מעלה</string>
+  <string name="swipe_action_name_cursor_down">הזזת הסמן מטה</string>
+  <string name="swipe_action_name_cursor_left">הזזת הסמן שמאלה</string>
+  <string name="swipe_action_name_cursor_right">הזזת הסמן ימינה</string>
   <string name="swipe_action_name_other_keyboards_mode">Switch layout mode</string>
-  <string name="hardware_keys_group">Hardware keys mapping</string>
+  <string name="settings_swipe_velocity_threshold_title">Swipe velocity threshold</string>
+  <string name="settings_swipe_velocity_threshold_summary">The minimal swipe gesture speed</string>
+  <string name="settings_swipe_distance_threshold_title">Swipe distance threshold</string>
+  <string name="settings_swipe_distance_threshold_summary">The minimal swipe gesture distance</string>
+  <string name="hardware_keys_group">מיפוי מקשי חומרה</string>
   <string name="volume_key_for_left_right_support">מקשי ווליום לניווט ימינה/שמאלה</string>
   <string name="volume_key_for_left_right_support_on_summary">ביטול ניווט בעזרת מקשי ווליום</string>
   <string name="volume_key_for_left_right_support_off_summary">Volume up turns cursor left, volume down turns cursor right</string>
@@ -113,15 +116,24 @@
   <string name="special_dictionaries_group">מילונים מיוחדים</string>
   <string name="use_user_dictionary">מילון משתמש</string>
   <string name="use_user_dictionary_on_summary">Suggest user added words (long press on suggestion to add)</string>
-  <string name="use_user_dictionary_off_summary">&lt;string name="use_user_dictionary_off_summary"/&gt;</string>
+  <string name="use_user_dictionary_off_summary"/>
   <string name="use_auto_dictionary">מילון אוטומטי</string>
   <string name="use_auto_dictionary_on_summary">הצע את המילים שנמצאות בשימוש תכוף</string>
-  <string name="use_auto_dictionary_off_summary">&lt;string name="use_auto_dictionary_off_summary"/&gt;</string>
+  <string name="use_auto_dictionary_off_summary"/>
   <string name="use_contacts_dictionary">מילון אנשי קשר</string>
   <string name="use_contacts_dictionary_on_summary">הצע שמות מרשימת אנשי הקשר</string>
-  <string name="use_contacts_dictionary_off_summary">&lt;string name="use_contacts_dictionary_off_summary"/&gt;</string>
-  <string name="use_contacts_dictionary_not_supported_summary">Unsupported under your OS version. Sorry.</string>
+  <string name="use_contacts_dictionary_off_summary"/>
+  <string name="use_contacts_dictionary_not_supported_summary">לא נתמך תחת גירסת מערכת ההפעלה שלך</string>
   <string name="tweaks_group">הגדרות נוספות</string>
+  <string name="tweak_sound_group">Sound related tweaks</string>
+  <string name="tweak_physical_keyboard_group">Physical keyboard tweaks</string>
+  <string name="tweak_ui_ux_group">UI/UX tweaks</string>
+  <string name="is_sticky_extesion_keyboard">Sticky extension keyboard</string>
+  <string name="is_sticky_extesion_keyboard_on_summary">Stays visible until explicitly closed</string>
+  <string name="is_sticky_extesion_keyboard_off_summary">Closes after key press</string>
+  <string name="is_extesion_keyboard_above_keyboard">Top extension keyboard</string>
+  <string name="is_extesion_keyboard_above_keyboard_on_summary">Drawn above main keyboard</string>
+  <string name="is_extesion_keyboard_above_keyboard_off_summary">Drawn on main keyboard</string>
   <string name="show_new_version_notifications_again">הצג מידע על גירסאות חדשות</string>
   <string name="show_new_version_notifications_again_on_summary">בעת התקנת גירסה חדשה, יוצגו השינויים האחרונים</string>
   <string name="show_new_version_notifications_again_off_summary">לא יידע אותך בעת התקנת גירסה חדשה</string>
@@ -145,7 +157,7 @@
   <string name="zoom_factor_keys_in_landscape">מקדם גובה מקשים במצב אופקי</string>
   <string name="insert_space_after_word_suggestion_selection">רווח לאחר בחירת מילה</string>
   <string name="insert_space_after_word_suggestion_selection_on_summary">הכנסת רווח אוטומטית לאחר בחירת מילה מוצעת</string>
-  <string name="insert_space_after_word_suggestion_selection_off_summary">&lt;string name="insert_space_after_word_suggestion_selection_off_summary"/&gt;</string>
+  <string name="insert_space_after_word_suggestion_selection_off_summary"/>
   <string name="double_space_to_period">רווח כפול ידפיס נקודה</string>
   <string name="double_space_to_period_summary">הקש על רווח פעמיים יהפוך לנקודה + רווח</string>
   <string name="action_key_invisible_on_disable">מקש פעולה בלתי נראה</string>
@@ -186,7 +198,7 @@
   <string name="label_go_key">לך</string>
   <string name="label_next_key">הבא</string>
   <string name="label_send_key">שלח</string>
-  <string name="label_done_key">Done</string>
+  <string name="label_done_key">סיים</string>
   <string name="change_lang_wide">→ ABC →</string>
   <string name="change_lang_regular">ABC</string>
   <string name="change_symbols_wide">← 123 ←</string>
@@ -215,5 +227,19 @@
     <item>קצר</item>
     <item>רגיל</item>
     <item>ארוך</item>
+  </string-array>
+  <string-array name="settings_key_swipe_velocity_threshold_names">
+    <item>Very slow</item>
+    <item>Slow</item>
+    <item>Normal</item>
+    <item>Fast</item>
+    <item>Very fast</item>
+  </string-array>
+  <string-array name="settings_key_swipe_distance_threshold_names">
+    <item>Very short</item>
+    <item>Short</item>
+    <item>Normal</item>
+    <item>Long</item>
+    <item>Very long</item>
   </string-array>
 </resources>
