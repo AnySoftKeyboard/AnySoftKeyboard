@@ -48,14 +48,14 @@
 	    <activity android:name="com.anysoftkeyboard.ui.settings.QuickTextKeys"
 				android:label="@string/quick_text_keys_group" />
 	    <!-- information ui activities -->
-	    <activity android:name="com.anysoftkeyboard.ui.tutorials.TestersNoticeActivity" android:label="@string/testers_version">
+	    <activity android:name="com.anysoftkeyboard.ui.tutorials.TestersNoticeActivity" android:theme="@style/Popup" android:label="@string/testers_version">
 	    </activity>
-	    <activity android:name="com.anysoftkeyboard.ui.tutorials.WelcomeHowToNoticeActivity" android:label="@string/how_to_pointer_title">
+	    <activity android:name="com.anysoftkeyboard.ui.tutorials.WelcomeHowToNoticeActivity" android:theme="@style/Popup.NoTitle" android:label="@string/how_to_pointer_title">
 	    </activity>
-	    <activity android:name="com.anysoftkeyboard.ui.tutorials.ChangeLogActivity" android:label="@string/changelog">
+	    <activity android:name="com.anysoftkeyboard.ui.tutorials.ChangeLogActivity" android:theme="@style/Popup.NoTitle" android:label="@string/changelog">
 	    </activity>
 	    <!-- ui when a crash happens -->
-	    <activity android:name="com.anysoftkeyboard.ui.SendBugReportUiActivity" android:label="@string/ime_name">
+	    <activity android:name="com.anysoftkeyboard.ui.SendBugReportUiActivity" android:label="@string/ime_name" android:theme="@style/Popup">
         </activity>
 	    <!-- main help/about/stuff -->
 	    <activity android:name="com.anysoftkeyboard.ui.MainForm"
