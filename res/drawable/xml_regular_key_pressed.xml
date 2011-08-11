@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inset
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/xml_regular_key_shape_pressed"
+    android:insetTop="4dp"
+    android:insetRight="3dp"
+    android:insetBottom="4dp"
+    android:insetLeft="3dp">
+</inset>

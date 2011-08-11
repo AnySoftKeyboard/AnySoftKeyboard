@@ -55,7 +55,6 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
-import com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel;
 import com.anysoftkeyboard.devicespecific.WMotionEvent;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -253,7 +252,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
     // This map caches key label text height in pixel as value and key label text size as map key.
     private final HashMap<Integer, Integer> mTextHeightCache = new HashMap<Integer, Integer>();
     // Distance from horizontal center of the key, proportional to key label text height.
-    private final float KEY_LABEL_VERTICAL_ADJUSTMENT_FACTOR = 0.55f;
+    private final float KEY_LABEL_VERTICAL_ADJUSTMENT_FACTOR = 0.5f;
     private final String KEY_LABEL_HEIGHT_REFERENCE_CHAR = "H";
 
     private final UIHandler mHandler = new UIHandler();
@@ -580,8 +579,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         mGestureDetector = AnyApplication.getDeviceSpecific().createGestureDetector(getContext(), listener);
         mGestureDetector.setIsLongpressEnabled(false);
 
-        MultiTouchSupportLevel multiTouchSupportLevel = AnyApplication.getDeviceSpecific().getMultiTouchSupportLevel(getContext());
-        mHasDistinctMultitouch = /*(multiTouchSupportLevel == MultiTouchSupportLevel.Basic) ||*/(multiTouchSupportLevel == MultiTouchSupportLevel.Distinct);
+        //MultiTouchSupportLevel multiTouchSupportLevel = AnyApplication.getDeviceSpecific().getMultiTouchSupportLevel(getContext());
+        mHasDistinctMultitouch = true;/*(multiTouchSupportLevel == MultiTouchSupportLevel.Basic) ||(multiTouchSupportLevel == MultiTouchSupportLevel.Distinct);*/
         mKeyRepeatInterval = 50;
     }
 
