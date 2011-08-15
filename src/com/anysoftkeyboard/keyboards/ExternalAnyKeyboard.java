@@ -40,8 +40,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	//private Key mExtensionPopupKey; 
 	private int mExtensionLayoutResId = 0;
 	
-	private static final int[] qwertKeysequence = new int[] { 45,51,33,46,48 };
-	private static final int[] dotKeysequence = new int[] { 56,56,56,56 };
+	//private static final int[] qwertKeysequence = new int[] { 45,51,33,46,48 };
+	//private static final int[] dotKeysequence = new int[] { 56,56,56,56 };
 	
 	public ExternalAnyKeyboard(AnyKeyboardContextProvider askContext, Context context,
 			int xmlLayoutResId,
@@ -128,10 +128,10 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                     	if (qwerty != null)
                     		translator.addQwertyTranslation(qwerty);
                     	
-                    	translator.addSequence(qwertKeysequence, AnyKeyboard.KEYCODE_LANG_CHANGE);
-                    	translator.addShiftSequence(qwertKeysequence, AnyKeyboard.KEYCODE_LANG_CHANGE);
-                    	translator.addSequence(dotKeysequence, AnyKeyboard.KEYCODE_LANG_CHANGE);
-                    	translator.addShiftSequence(dotKeysequence, AnyKeyboard.KEYCODE_LANG_CHANGE);
+                    	//translator.addSequence(qwertKeysequence, AnyKeyboard.KEYCODE_LANG_CHANGE);
+                    	//translator.addShiftSequence(qwertKeysequence, AnyKeyboard.KEYCODE_LANG_CHANGE);
+                    	//translator.addSequence(dotKeysequence, AnyKeyboard.KEYCODE_LANG_CHANGE);
+                    	//translator.addShiftSequence(dotKeysequence, AnyKeyboard.KEYCODE_LANG_CHANGE);
                     	//if (AnySoftKeyboardConfiguration.DEBUG) Log.d(TAG, "Starting parsing "+XML_TRANSLATION_TAG+". Qwerty:"+qwerty);
                     }
                     else if (inTranslations && XML_SEQUENCE_TAG.equals(tag))

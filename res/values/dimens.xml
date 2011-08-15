@@ -47,4 +47,11 @@
     <dimen name="mini_keyboard_vertical_correction">-30dp</dimen>
     <dimen name="keyboard_bottom_padding">4dp</dimen>
     <dimen name="mini_keyboard_slide_allowance">80dp</dimen>
+    
+    <dimen name="key_corner_radius">3dp</dimen>
+    
+    <dimen name="key_top_inset">3dp</dimen>
+    <dimen name="key_bottom_inset">3dp</dimen>
+    <dimen name="key_right_inset">2.5dp</dimen>
+    <dimen name="key_left_inset">2.5dp</dimen>
 </resources>

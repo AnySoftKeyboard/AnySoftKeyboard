@@ -17,7 +17,7 @@
 ** limitations under the License.
 */
 -->
-
+<!-- android:background="@drawable/keyboard_dark_background" -->
 <com.anysoftkeyboard.keyboards.views.AnyKeyboardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard"
@@ -26,10 +26,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/keyboard_bottom_padding"
-        android:background="@drawable/keyboard_dark_background"
+        android:background="@drawable/shape_background"
         android:textStyle="bold"
 
-
-        ask:keyBackground="@drawable/btn_keyboard_key_gingerbread"
+        ask:keyBackground="@drawable/btn_keyboard_key_shape_gingerbread"
         ask:keyTextStyle="bold"
         />
