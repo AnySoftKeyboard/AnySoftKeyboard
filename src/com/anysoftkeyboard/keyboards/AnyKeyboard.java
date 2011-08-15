@@ -195,6 +195,7 @@ public abstract class AnyKeyboard extends Keyboard
                     case AnyKeyboard.KEYCODE_MODE_CHANGE:
                     case AnyKeyboard.KEYCODE_QUICK_TEXT:
                     case AnyKeyboard.KEYCODE_DOMAIN:
+                    case AnyKeyboard.KEYCODE_CANCEL:
                     case 32://SPACE
                     	((AnyKey)key).setFunctional(true);
                     	break;
@@ -223,6 +224,9 @@ public abstract class AnyKeyboard extends Keyboard
                     break;
                 case 9://TAB
                 	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_tab, -1);
+                    break;
+                case AnyKeyboard.KEYCODE_CANCEL:
+                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_cancel, R.drawable.sym_keyboard_feedback_cancel);
                     break;
                 case AnyKeyboard.KEYCODE_LANG_CHANGE:
                 	setIconIfNeeded(key, localResources, R.drawable.globe, -1);
