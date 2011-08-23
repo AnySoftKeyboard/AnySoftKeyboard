@@ -29,6 +29,6 @@
         android:background="@drawable/shape_background"
         android:textStyle="bold"
 
-        ask:keyBackground="@drawable/btn_keyboard_key_shape_gingerbread"
+        ask:keyBackground="@drawable/btn_keyboard_key_gingerbread"
         ask:keyTextStyle="bold"
         />

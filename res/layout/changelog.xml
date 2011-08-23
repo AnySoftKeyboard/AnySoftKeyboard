@@ -59,7 +59,7 @@
 		    	android:id="@+id/changelog_latest_version_title"
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
-		        android:text="20110811 - 47"
+		        android:text="20110815 - 47"
 		        android:textStyle="bold"
 		        android:gravity="center"
 		        android:textSize="16sp"

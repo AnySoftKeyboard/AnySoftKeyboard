@@ -26,7 +26,7 @@
     <style name="AnyKeyboardBaseView">
         <item name="android:background">@drawable/keyboard_background</item>
 
-        <item name="keyBackground">@drawable/btn_keyboard_key_shape_gingerbread</item>
+        <item name="keyBackground">@drawable/btn_keyboard_key_gingerbread</item>
         <item name="keyTextSize">@dimen/key_text_size</item>
         <item name="keyTextColor">#FFFFFFFF</item>
         <item name="keyPreviewLayout">@layout/key_preview</item>
