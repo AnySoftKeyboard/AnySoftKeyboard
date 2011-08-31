@@ -32,4 +32,7 @@
 
 	<string name="settings_default_swipe_velocity_threshold">380</string>
 	<string name="settings_default_swipe_distance_threshold">160</string>
+	
+	<string name="settings_default_multitap_timeout">700</string>
+	<string name="settings_default_long_press_timeout">350</string>
 </resources>

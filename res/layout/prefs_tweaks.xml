@@ -43,8 +43,8 @@ android:key="tweaks_group_screen">
 			android:summaryOff="@string/hide_soft_when_physical_off_summary"/>
 	</PreferenceCategory>
 	
-	<PreferenceCategory android:key="tweak_ui_ux_group"
-		android:title="@string/tweak_ui_ux_group">
+	<PreferenceCategory android:key="tweak_ui_group"
+		android:title="@string/tweak_ui_group">
 		<CheckBoxPreference
 			android:key="@string/settings_key_key_press_shows_preview_popup"
 			android:title="@string/key_press_preview_popup"
@@ -53,6 +53,7 @@ android:key="tweaks_group_screen">
 			android:summaryOn="@string/key_press_preview_popup_on_summary"
 			android:summaryOff="@string/key_press_preview_popup_off_summary"
 		/>
+		
 		<EditTextPreference android:key="zoom_factor_keys_in_portrait"
 			android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none" android:inputType="numberDecimal"
 			android:title="@string/zoom_factor_keys_in_portrait" android:dialogTitle="@string/zoom_factor_keys_in_portrait" android:persistent="true"
@@ -63,6 +64,9 @@ android:key="tweaks_group_screen">
 			android:title="@string/zoom_factor_keys_in_landscape" android:dialogTitle="@string/zoom_factor_keys_in_landscape" android:persistent="true"
 			android:defaultValue="@string/settings_default_landscape_keyboard_height_factor"
 		/>
+		
+		<!--
+		
 		<CheckBoxPreference
 			android:key="action_key_invisible_on_disable"
 			android:title="@string/action_key_invisible_on_disable"
@@ -70,7 +74,43 @@ android:key="tweaks_group_screen">
 			android:defaultValue="false"
 			android:summaryOn="@string/action_key_invisible_on_disable_on_summary"
 			android:summaryOff="@string/action_key_invisible_on_disable_off_summary"
-		/>
+		/> 
+		 -->
+		 <CheckBoxPreference
+			android:key="@string/settings_key_is_sticky_extesion_keyboard"
+			android:title="@string/is_sticky_extesion_keyboard"
+			android:persistent="true"
+			android:defaultValue="@bool/settings_default_is_sticky_extesion_keyboard"
+			android:summaryOn="@string/is_sticky_extesion_keyboard_on_summary"
+			android:summaryOff="@string/is_sticky_extesion_keyboard_off_summary"/>
+		<CheckBoxPreference
+			android:key="@string/settings_key_is_extesion_keyboard_above_keyboard"
+			android:title="@string/is_extesion_keyboard_above_keyboard"
+			android:persistent="true"
+			android:defaultValue="@bool/settings_default_is_extesion_keyboard_above_keyboard"
+			android:summaryOn="@string/is_extesion_keyboard_above_keyboard_on_summary"
+			android:summaryOff="@string/is_extesion_keyboard_above_keyboard_off_summary"/>
+	</PreferenceCategory>
+	<PreferenceCategory android:key="tweak_ux_group"
+		android:title="@string/tweak_ux_group">
+		
+		<ListPreference
+			android:key="@string/settings_key_multitap_timeout"
+			android:title="@string/multitap_timeout_title"
+			android:summary="@string/multitap_timeout_summary"
+			android:entries="@array/settings_key_multitap_timeout_names"
+			android:entryValues="@array/settings_key_multitap_timeout_values"
+			android:defaultValue="@string/settings_default_multitap_timeout"
+			android:dialogTitle="@string/multitap_timeout_title"/>
+		<ListPreference
+			android:key="@string/settings_key_long_press_timeout"
+			android:title="@string/long_press_timeout_title"
+			android:summary="@string/long_press_timeout_summary"
+			android:entries="@array/settings_key_long_press_timeout_names"
+			android:entryValues="@array/settings_key_long_press_timeout_values"
+			android:defaultValue="@string/settings_default_long_press_timeout"
+			android:dialogTitle="@string/long_press_timeout_title"/>
+			
 		<CheckBoxPreference
 			android:key="@string/settings_key_lang_key_shows_popup"
 			android:title="@string/lang_key_shows_popup"
@@ -79,12 +119,12 @@ android:key="tweaks_group_screen">
 			android:summaryOn="@string/lang_key_shows_popup_on_summary"
 			android:summaryOff="@string/lang_key_shows_popup_off_summary"
 		/>
-		
 		<EditTextPreference android:key="default_domain_text"
 			android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none"
 			android:title="@string/default_domain_text" android:dialogTitle="@string/default_domain_text" android:persistent="true"
 			android:defaultValue=".com"
 		/>
+		
 		<CheckBoxPreference
 			android:key="@string/settings_key_emoticon_long_press_opens_popup"
 			android:title="@string/emoticon_long_press_opens_popup"
@@ -94,11 +134,12 @@ android:key="tweaks_group_screen">
 			android:summaryOff="@string/emoticon_long_press_opens_popup_off_summary"
 		/>
 		<EditTextPreference android:key="@string/settings_key_emoticon_default_text"
-        android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none"
-        android:title="@string/default_smiley_text" android:dialogTitle="@string/default_smiley_text" android:persistent="true"
-        android:defaultValue=""
+	        android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none"
+	        android:title="@string/default_smiley_text" android:dialogTitle="@string/default_smiley_text" android:persistent="true"
+	        android:defaultValue=""
         />
-		<CheckBoxPreference
+        
+        <CheckBoxPreference
 			android:key="insert_space_after_word_suggestion_selection"
 			android:title="@string/insert_space_after_word_suggestion_selection"
 			android:persistent="true"
@@ -123,23 +164,9 @@ android:key="tweaks_group_screen">
 			android:defaultValue="@bool/settings_default_use_backword"
 			android:summaryOn="@string/backword_support_on_summary"
 			android:summaryOff="@string/backword_support_off_summary"/>
-			
-		<CheckBoxPreference
-			android:key="@string/settings_key_is_sticky_extesion_keyboard"
-			android:title="@string/is_sticky_extesion_keyboard"
-			android:persistent="true"
-			android:defaultValue="@bool/settings_default_is_sticky_extesion_keyboard"
-			android:summaryOn="@string/is_sticky_extesion_keyboard_on_summary"
-			android:summaryOff="@string/is_sticky_extesion_keyboard_off_summary"/>
-		<CheckBoxPreference
-			android:key="@string/settings_key_is_extesion_keyboard_above_keyboard"
-			android:title="@string/is_extesion_keyboard_above_keyboard"
-			android:persistent="true"
-			android:defaultValue="@bool/settings_default_is_extesion_keyboard_above_keyboard"
-			android:summaryOn="@string/is_extesion_keyboard_above_keyboard_on_summary"
-			android:summaryOff="@string/is_extesion_keyboard_above_keyboard_off_summary"/>
 	</PreferenceCategory>
-	
+		
+		
 	<CheckBoxPreference
 		android:key="@string/settings_key_show_version_notification"
 		android:title="@string/show_new_version_notifications_again"

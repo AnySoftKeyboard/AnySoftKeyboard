@@ -64,4 +64,8 @@ public interface Configuration {
 	int getSwipeVelocityThreshold();
 	
 	int getSwipeDistanceThreshold();
+
+	int getLongPressTimeout();
+
+	int getMultiTapTimeout();
 }

@@ -60,7 +60,22 @@
 		<item>220</item>
 		<item>300</item>
 	</string-array>
-    <!-- template
-    <string name="settings_key_"></string>
-     -->
+	
+    <string name="settings_key_multitap_timeout">settings_key_multitap_timeout</string>
+	<string-array name="settings_key_multitap_timeout_values">
+		<item>500</item>
+		<item>600</item>
+		<item>700</item>
+		<item>800</item>
+		<item>1000</item>
+	</string-array>
+	
+	<string name="settings_key_long_press_timeout">settings_key_long_press_timeout</string>
+	<string-array name="settings_key_long_press_timeout_values">
+		<item>250</item>
+		<item>300</item>
+		<item>350</item>
+		<item>400</item>
+		<item>450</item>
+	</string-array>
 </resources>

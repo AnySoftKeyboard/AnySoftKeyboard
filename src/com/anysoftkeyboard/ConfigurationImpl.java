@@ -54,6 +54,9 @@ public class ConfigurationImpl implements Configuration
 	private boolean mIsStickyExtensionKeyboard = false;
 	private boolean mDrawExtensionKeyboardAboveMainKeyboard = true;
 	
+	private int mLongPressTimeout = 350;
+	private int mMultiTapTimeout = 700;
+	
 	public ConfigurationImpl(Context context)
 	{
 		mContext = context;
@@ -295,6 +298,16 @@ public class ConfigurationImpl implements Configuration
         		mContext.getString(R.string.settings_key_swipe_velocity_threshold),
                 mContext.getString(R.string.settings_default_swipe_velocity_threshold));
         Log.i(TAG, "** mSwipeVelocityThreshold: " + mSwipeVelocityThreshold);
+        
+        mLongPressTimeout = getIntFromString(sp, 
+        		mContext.getString(R.string.settings_key_long_press_timeout),
+                mContext.getString(R.string.settings_default_long_press_timeout));
+        Log.i(TAG, "** mLongPressTimeout: " + mLongPressTimeout);
+        
+        mMultiTapTimeout = getIntFromString(sp, 
+        		mContext.getString(R.string.settings_key_multitap_timeout),
+                mContext.getString(R.string.settings_default_multitap_timeout));
+        Log.i(TAG, "** mMultiTapTimeout: " + mMultiTapTimeout);
 	}
 	
 	private int getIntFromSwipeConfiguration(SharedPreferences sp, final String prefKey, final String defaultValue) {
@@ -498,5 +511,13 @@ public class ConfigurationImpl implements Configuration
     
     public int getSwipeVelocityThreshold() {
     	return mSwipeVelocityThreshold;
+    }
+    
+    public int getLongPressTimeout() {
+    	return mLongPressTimeout;
+    }
+    
+    public int getMultiTapTimeout() {
+    	return mMultiTapTimeout;
     }
 }

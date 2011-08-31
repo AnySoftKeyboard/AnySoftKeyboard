@@ -24,6 +24,8 @@ import android.content.res.Resources;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
+import com.menny.android.anysoftkeyboard.AnyApplication;
+
 import android.util.Log;
 import android.view.MotionEvent;
 
@@ -179,9 +181,9 @@ public class PointerTracker {
         //mKeyboardSwitcher = AnySoftKeyboard.
         mKeyState = new KeyState(keyDetector);
         mHasDistinctMultitouch = proxy.hasDistinctMultitouch();
-        mDelayBeforeKeyRepeatStart = 350;
-        mLongPressKeyTimeout = 350;
-        mMultiTapKeyTimeout = 700;
+        mDelayBeforeKeyRepeatStart = AnyApplication.getConfig().getLongPressTimeout();//350
+        mLongPressKeyTimeout = AnyApplication.getConfig().getLongPressTimeout();//350
+        mMultiTapKeyTimeout = AnyApplication.getConfig().getMultiTapTimeout();//350
         resetMultiTap();
     }
 
