@@ -182,7 +182,7 @@ public class KeyboardSwitcher
         	resetKeyboardsCache();
         }
 
-        if ((mAlphabetKeyboards.length == 0) || (mSymbolsKeyboardsArray.length == 0))
+        if ((force || mAlphabetKeyboards.length == 0) || (mSymbolsKeyboardsArray.length == 0))
         {
             if (AnyApplication.DEBUG)Log.d(TAG, "makeKeyboards: force:"+force);
             if (mAlphabetKeyboards.length == 0)

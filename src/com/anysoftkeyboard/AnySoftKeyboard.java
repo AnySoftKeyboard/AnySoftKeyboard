@@ -2608,9 +2608,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 				key.equals(getString(R.string.settings_key_top_keyboard_row_id)) ||
 				key.equals("zoom_factor_keys_in_portrait") ||
 				key.equals("zoom_factor_keys_in_landscape") ||
-				key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key)))
+				key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key)) ||
+				key.equals(getString(R.string.settings_key_long_press_timeout)) ||
+				key.equals(getString(R.string.settings_key_multitap_timeout)))
 		{
 			//in some cases we do want to force keyboards recreations
+			handleClose();
 			mKeyboardSwitcher.makeKeyboards(true);
 		}
 		else if (key.equals(getString(R.string.settings_key_swipe_distance_threshold)) ||

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-	<integer name="keyboard_mode_normal">1</integer>
-    <integer name="keyboard_mode_im">2</integer>
-    <integer name="keyboard_mode_url">3</integer>
-    <integer name="keyboard_mode_email">4</integer>
-</resources>
