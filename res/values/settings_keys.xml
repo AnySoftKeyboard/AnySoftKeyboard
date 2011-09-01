@@ -72,10 +72,10 @@
 	
 	<string name="settings_key_long_press_timeout">settings_key_long_press_timeout</string>
 	<string-array name="settings_key_long_press_timeout_values">
+		<item>150</item>
 		<item>250</item>
-		<item>300</item>
 		<item>350</item>
-		<item>400</item>
 		<item>450</item>
+		<item>550</item>
 	</string-array>
 </resources>
