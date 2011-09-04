@@ -59,6 +59,7 @@ import android.widget.TextView;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.devicespecific.WMotionEvent;
+import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
@@ -182,7 +183,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private int mPopupLayout;
 
     // Main keyboard
-    private Keyboard mKeyboard;
+    private AnyKeyboard mKeyboard;
     private Key[] mKeys;
     // TODO this attribute should be gotten from Keyboard.
     private int mKeyboardVerticalGap;
@@ -637,7 +638,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
      * @see #getKeyboard()
      * @param keyboard the keyboard to display in this view
      */
-    public void setKeyboard(Keyboard keyboard) {
+    public void setKeyboard(AnyKeyboard keyboard) {
         if (mKeyboard != null) {
             dismissKeyPreview();
         }
@@ -665,7 +666,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
      * @return the currently attached keyboard
      * @see #setKeyboard(Keyboard)
      */
-    public Keyboard getKeyboard() {
+    public AnyKeyboard getKeyboard() {
         return mKeyboard;
     }
 

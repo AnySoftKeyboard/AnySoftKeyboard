@@ -338,16 +338,16 @@ public class Suggest implements Dictionary.WordCallback {
 		{
 			final boolean validFromMain = (mCorrectionMode == CORRECTION_FULL && mMainDict != null && mMainDict.isValidWord(word));
 			final boolean validFromUser = (mUserDictionary != null && mUserDictionary.isValidWord(word));
-			final boolean validFromAuto = (mAutoDictionary != null && mAutoDictionary.isValidWord(word));
+			//final boolean validFromAuto = (mAutoDictionary != null && mAutoDictionary.isValidWord(word));
 			final boolean validFromContacts = (mContactsDictionary != null && mContactsDictionary.isValidWord(word));
 			
 			if (AnyApplication.DEBUG)
                 Log.v(TAG, "Suggest::isValidWord("+word+") mCorrectionMode:"+mCorrectionMode
 					+" validFromMain:"+validFromMain
 					+" validFromUser:"+validFromUser
-					+" validFromAuto:"+validFromAuto
+					//+" validFromAuto:"+validFromAuto
 					+" validFromContacts:"+validFromContacts);
-			return validFromMain || validFromUser || validFromAuto || validFromContacts;
+			return validFromMain || validFromUser || /*validFromAuto ||*/ validFromContacts;
 		}
 		else
 		{

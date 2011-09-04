@@ -1112,9 +1112,9 @@ public class AnySoftKeyboard extends InputMethodService implements
             return;
         }
         if (suggestion != null && mAutoDictionary != null) {
-            if (/*!addToBigramDictionary &&*/ mAutoDictionary.isValidWord(suggestion)
-                    || (!mSuggest.isValidWord(suggestion.toString())
-                    && !mSuggest.isValidWord(suggestion.toString().toLowerCase()))) {
+            if (/*!addToBigramDictionary &&*/ 
+            		mAutoDictionary.isValidWord(suggestion) || 
+            		(!mSuggest.isValidWord(suggestion.toString()) && !mSuggest.isValidWord(suggestion.toString().toLowerCase()))) {
                 mAutoDictionary.addWord(suggestion.toString(), frequencyDelta);
             }
             /*
@@ -1233,7 +1233,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
 	public boolean addWordToDictionary(String word) {
-		mUserDictionary.addWord(word, 32*1024);
+		mUserDictionary.addWord(word, 128);
 		return true;
 	}
 
@@ -1547,8 +1547,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		InputConnection ic = getCurrentInputConnection();	
 		if (ic == null)//if we don't want to do anything, lets check null first.
             return;
-		
-		if (mConfig.useBackword() && mInputView != null && mInputView.isShifted())
+		//we do backword if the shift is pressed while pressing backspace (like in a PC)
+		//but this is true ONLY if the device has multitouch, or the user specifically asked for it
+		if (mInputView != null && mInputView.isShifted() && !mInputView.getKeyboard().isShiftLocked() && (mInputView.hasDistinctMultitouch() || mConfig.useBackword()))
 		{
 			handleBackword(ic);
 			return;
@@ -1956,7 +1957,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 }
 
 	public void pickSuggestionManually(int index, CharSequence suggestion) {
-		
 		final boolean correcting = TextEntryState.isCorrecting();
 		final InputConnection ic = getCurrentInputConnection();
 		if (ic != null) {
@@ -2074,13 +2074,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (!mPredicting && length > 0) {
 			final InputConnection ic = getCurrentInputConnection();
 			mPredicting = true;
-			//ic.beginBatchEdit();
+			ic.beginBatchEdit();
 			mJustRevertedSeparator = ic.getTextBeforeCursor(1, 0);
 			if (deleteChar)
 				ic.deleteSurroundingText(1, 0);
 			int toDelete = mCommittedLength;
-			CharSequence toTheLeft = ic
-					.getTextBeforeCursor(mCommittedLength, 0);
+			CharSequence toTheLeft = ic.getTextBeforeCursor(mCommittedLength, 0);
 			if (toTheLeft != null && toTheLeft.length() > 0
 					&& isWordSeparator(toTheLeft.charAt(0))) {
 				toDelete--;
@@ -2088,7 +2087,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			ic.deleteSurroundingText(toDelete, 0);
 			ic.setComposingText(mComposing, 1);
 			TextEntryState.backspace();
-			//ic.endBatchEdit();
+			ic.endBatchEdit();
 			postUpdateSuggestions();
 		} else {
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);

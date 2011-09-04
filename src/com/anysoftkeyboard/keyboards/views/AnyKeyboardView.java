@@ -91,7 +91,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	 * { super.setPreviewEnabled(previewEnabled); } }
 	 */
 	@Override
-	public void setKeyboard(Keyboard newKeyboard) {
+	public void setKeyboard(AnyKeyboard newKeyboard) {
 		mExtensionKey = null;
 		mExtensionVisible = false;
 
