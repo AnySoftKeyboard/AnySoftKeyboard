@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.WeakHashMap;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -38,6 +40,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.Layout.Alignment;
@@ -62,7 +65,7 @@ import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
-public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy {
+public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy, OnSharedPreferenceChangeListener {
     private static final String TAG = "ASKKbdViewBase";
 
     public static final int NOT_A_TOUCH_COORDINATE = -1;
@@ -257,7 +260,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
 
     private final UIHandler mHandler = new UIHandler();
 
-	    class UIHandler extends Handler {
+    class UIHandler extends Handler {
         private static final int MSG_POPUP_PREVIEW = 1;
         private static final int MSG_DISMISS_PREVIEW = 2;
         private static final int MSG_REPEAT_KEY = 3;
@@ -287,6 +290,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
                 }
             }
         }
+        
+
 
         public void popupPreview(long delay, int keyIndex, PointerTracker tracker) {
             removeMessages(MSG_POPUP_PREVIEW);
@@ -582,9 +587,11 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
         //MultiTouchSupportLevel multiTouchSupportLevel = AnyApplication.getDeviceSpecific().getMultiTouchSupportLevel(getContext());
         mHasDistinctMultitouch = true;/*(multiTouchSupportLevel == MultiTouchSupportLevel.Basic) ||(multiTouchSupportLevel == MultiTouchSupportLevel.Distinct);*/
         mKeyRepeatInterval = 50;
+        
+        PreferenceManager.getDefaultSharedPreferences(getContext()).registerOnSharedPreferenceChangeListener(this);
     }
 
-	public void reloadSwipeThresholdsSettings(final Resources res) {
+	private void reloadSwipeThresholdsSettings(final Resources res) {
 		final float density = res.getDisplayMetrics().density;
 		mSwipeVelocityThreshold = (int) (AnyApplication.getConfig().getSwipeVelocityThreshold() * density);
 		mSwipeXDistanceThreshold = (int) (AnyApplication.getConfig().getSwipeDistanceThreshold() * density);
@@ -1616,13 +1623,33 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy 
     @Override
     public void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+        PreferenceManager.getDefaultSharedPreferences(getContext()).unregisterOnSharedPreferenceChangeListener(this);
         closing();
+    }
+    
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+    	Resources res = getResources();
+		
+    	if (
+    			key.equals(res.getString(R.string.settings_key_swipe_distance_threshold)) ||
+    			key.equals(res.getString(R.string.settings_key_swipe_velocity_threshold)))
+    	{
+        	reloadSwipeThresholdsSettings(res);
+    	}
+    	else if (
+    			key.equals(res.getString(R.string.settings_key_long_press_timeout)) ||
+    			key.equals(res.getString(R.string.settings_key_multitap_timeout)))
+    	{
+    		closing();
+    		mPointerTrackers.clear();
+    	}
     }
 
     protected boolean isPopupShowing()
     {
     	return mMiniKeyboardPopup != null && mMiniKeyboardPopup.isShowing();
     }
+    
     protected void dismissPopupKeyboard() {
         if (isPopupShowing()) {
             mMiniKeyboardPopup.dismiss();

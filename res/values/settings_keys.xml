@@ -63,19 +63,19 @@
 	
     <string name="settings_key_multitap_timeout">settings_key_multitap_timeout</string>
 	<string-array name="settings_key_multitap_timeout_values">
-		<item>500</item>
+		<item>450</item>
 		<item>600</item>
 		<item>700</item>
 		<item>800</item>
-		<item>1000</item>
+		<item>1050</item>
 	</string-array>
 	
 	<string name="settings_key_long_press_timeout">settings_key_long_press_timeout</string>
 	<string-array name="settings_key_long_press_timeout_values">
-		<item>150</item>
+		<item>100</item>
 		<item>250</item>
 		<item>350</item>
 		<item>450</item>
-		<item>550</item>
+		<item>600</item>
 	</string-array>
 </resources>

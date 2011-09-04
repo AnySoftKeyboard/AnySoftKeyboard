@@ -2616,12 +2616,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 			handleClose();
 			mKeyboardSwitcher.makeKeyboards(true);
 		}
-		else if (key.equals(getString(R.string.settings_key_swipe_distance_threshold)) ||
-				key.equals(getString(R.string.settings_key_swipe_velocity_threshold)))
-		{
-		    if (mInputView != null)
-		    	mInputView.reloadSwipeThresholdsSettings(getResources());
-		} 
 	}
 
 	public void appendCharactersToInput(CharSequence textToCommit) {
