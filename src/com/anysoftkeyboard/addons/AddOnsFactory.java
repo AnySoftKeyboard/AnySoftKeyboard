@@ -30,6 +30,9 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
 	public static void onPackageChanged(Intent eventIntent)
 	{
+    AnySoftKeyboard ask = AnySoftKeyboard.getInstance();
+    if (ask == null) return;//service is not running (issue 762)
+    
 		boolean cleared = false;
 		for(AddOnsFactory<?> factory : mActiveInstances)
 		{
@@ -40,7 +43,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
 				factory.clearAddOnList();
 			}
 		}
-		if (cleared) AnySoftKeyboard.getInstance().forceKeyboardsRecreation();
+		if (cleared) ask.forceKeyboardsRecreation();
 	}
 	
     protected final String TAG;
