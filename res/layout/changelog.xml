@@ -59,7 +59,7 @@
 		    	android:id="@+id/changelog_latest_version_title"
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
-		        android:text="20110831 - 48"
+		        android:text="20110907 - 49"
 		        android:textStyle="bold"
 		        android:gravity="center"
 		        android:textSize="16sp"
@@ -77,7 +77,7 @@
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
-		        android:text="* x86 support.\n* Bug fixes."
+		        android:text="* UI fixes for tablets.\n* x86 support.\n* Bug fixes."
 		        android:textSize="16sp"
 		        android:paddingTop="4dp"
 		        android:paddingLeft="12dp"
