@@ -288,7 +288,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	
 	@Override
 	public void onUnbindInput() {
-		Log.i(TAG, "onUnbindInput");
+		if (AnyApplication.DEBUG) Log.d(TAG, "onUnbindInput");
 		super.onUnbindInput();
 	}
 
@@ -310,8 +310,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				.getDefaultSharedPreferences(this);
 		sp.unregisterOnSharedPreferenceChangeListener(this);
 		if (mSoundOn) {
-			Log.i(TAG,
-					"Releasing sounds effects from AUDIO_SERVICE");
+			Log.i(TAG, "Releasing sounds effects from AUDIO_SERVICE");
 			mAudioManager.unloadSoundEffects();
 		}
         unregisterReceiver(mReceiver);
@@ -1356,6 +1355,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		        onText(cm.getText());
 		    }
 		    break;
+        case 9 /*Tab*/:
+            sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB);
+            break;
 		default:
 			// Issue 146: Right to left langs require reversed parenthesis
 			if (mKeyboardSwitcher.isRightToLeftMode())
