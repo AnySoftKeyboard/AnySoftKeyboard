@@ -23,10 +23,10 @@
         <Key android:codes="169" android:keyLabel="©"/>
         <Key android:codes="174" android:keyLabel="®"/>
         <Key android:codes="8226" android:keyLabel="•"/>
-        <Key android:codes="-20" android:keyLabel="←"/>
-        <Key android:codes="-22" android:keyLabel="↑"/>
-        <Key android:codes="-23" android:keyLabel="↓"/>
-        <Key android:codes="-21" android:keyLabel="→" android:keyEdgeFlags="right"/>
+        <Key android:codes="@integer/key_code_arrow_left" android:keyLabel="←"/>
+        <Key android:codes="@integer/key_code_arrow_up" android:keyLabel="↑"/>
+        <Key android:codes="@integer/key_code_arrow_down" android:keyLabel="↓"/>
+        <Key android:codes="@integer/key_code_arrow_right" android:keyLabel="→" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row>

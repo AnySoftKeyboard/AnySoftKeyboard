@@ -80,11 +80,12 @@ public abstract class AnyKeyboard extends Keyboard
 		public boolean isTopRow = false;
 	}
 	
-	private static final int SHIFT_OFF = 0;
-    private static final int SHIFT_ON = 1;
-    private static final int SHIFT_LOCKED = 2;
+	private static final int STICKY_KEY_OFF = 0;
+    private static final int STICKY_KEY_ON = 1;
+    private static final int STICKY_KEY_LOCKED = 2;
     
-    private int mShiftState = SHIFT_OFF;
+    private int mShiftState = STICKY_KEY_OFF;
+    private int mControlState = STICKY_KEY_OFF;
     
     //private final boolean mDebug;
 	
@@ -97,6 +98,7 @@ public abstract class AnyKeyboard extends Keyboard
     private final int mKeyboardMode;
 
     private Key mShiftKey;
+    private Key mControlKey;
     private EnterKey mEnterKey;
     public Key langSwitch;
 
@@ -512,6 +514,9 @@ public abstract class AnyKeyboard extends Keyboard
         	case KeyCodes.SHIFT:
         		mShiftKey = key;//I want the reference used by the super.
         		break;
+        	case AnyKeyboard.KEYCODE_CTRL:
+        		mControlKey = key;
+        		break;
         	case KeyCodes.DELETE://delete
         		key = new LessSensitiveAnyKey(mASKContext, res, parent, x, y, parser);
         		break;
@@ -692,9 +697,9 @@ public abstract class AnyKeyboard extends Keyboard
     public void setShiftLocked(boolean shiftLocked) {
         if (mShiftKey != null) {
             if (shiftLocked) {
-                mShiftState = SHIFT_LOCKED;
-            } else if (mShiftState == SHIFT_LOCKED) {
-                mShiftState = SHIFT_ON;
+                mShiftState = STICKY_KEY_LOCKED;
+            } else if (mShiftState == STICKY_KEY_LOCKED) {
+                mShiftState = STICKY_KEY_ON;
             }
             
             setShiftViewAsState();
@@ -704,7 +709,7 @@ public abstract class AnyKeyboard extends Keyboard
     @Override
     public boolean isShifted() {
         if (mShiftKey != null) {
-            return mShiftState != SHIFT_OFF;
+            return mShiftState != STICKY_KEY_OFF;
         } else {
             return false;
         }
@@ -715,12 +720,12 @@ public abstract class AnyKeyboard extends Keyboard
         boolean shiftChanged = false;
         if (mShiftKey != null) {
             if (shiftState == false) {
-                shiftChanged = mShiftState != SHIFT_OFF;
-                mShiftState = SHIFT_OFF;
+                shiftChanged = mShiftState != STICKY_KEY_OFF;
+                mShiftState = STICKY_KEY_OFF;
             } else {
-                if (mShiftState == SHIFT_OFF) {
-                    shiftChanged = mShiftState == SHIFT_OFF;
-                    mShiftState = SHIFT_ON;
+                if (mShiftState == STICKY_KEY_OFF) {
+                    shiftChanged = mShiftState == STICKY_KEY_OFF;
+                    mShiftState = STICKY_KEY_ON;
                 }
             }
             
@@ -733,14 +738,14 @@ public abstract class AnyKeyboard extends Keyboard
 
 	private void setShiftViewAsState() {
 		//the "on" led is just like the caps-lock led
-		mShiftKey.on = (mShiftState == SHIFT_LOCKED);
+		mShiftKey.on = (mShiftState == STICKY_KEY_LOCKED);
 		switch(mShiftState)
 		{
-		case SHIFT_ON:
+		case STICKY_KEY_ON:
 			mShiftKey.icon = mShiftOnIcon;
 			mShiftKey.iconPreview = mShiftOnFeedbackIcon;
 			break;
-		case SHIFT_LOCKED:
+		case STICKY_KEY_LOCKED:
 			mShiftKey.icon = mShiftLockedIcon;
 			mShiftKey.iconPreview = mShiftLockedFeedbackIcon;
 			break;
@@ -752,7 +757,71 @@ public abstract class AnyKeyboard extends Keyboard
 	}
     
 	public boolean isShiftLocked() {
-		return mShiftState == SHIFT_LOCKED;
+		return mShiftState == STICKY_KEY_LOCKED;
+	}
+    
+    public boolean isControl() {
+        if (mControlKey != null) {
+            return mControlState != STICKY_KEY_OFF;
+        } else {
+            return false;
+        }
+    }
+    
+    public boolean setControl(boolean control) {
+        boolean controlChanged = false;
+        if (mControlKey != null) {
+            if (control == false) {
+            	controlChanged = mControlState != STICKY_KEY_OFF;
+            	mControlState = STICKY_KEY_OFF;
+            } else {
+                if (mControlState == STICKY_KEY_OFF) {
+                	controlChanged = mControlState == STICKY_KEY_OFF;
+                	mControlState = STICKY_KEY_ON;
+                }
+            }
+            
+            setControlViewAsState();
+        } else {
+            return false;
+        }
+        return controlChanged;
+    }
+
+    public void setControlLocked(boolean controlLocked) {
+        if (mControlKey != null) {
+            if (controlLocked) {
+            	mControlState = STICKY_KEY_LOCKED;
+            } else if (mControlState == STICKY_KEY_LOCKED) {
+            	mControlState = STICKY_KEY_ON;
+            }
+            
+            setControlViewAsState();
+        }
+    }
+    
+	private void setControlViewAsState() {
+		//the "on" led is just like the caps-lock led
+		mControlKey.on = (mControlState == STICKY_KEY_LOCKED);
+		switch(mControlState)
+		{
+		case STICKY_KEY_ON:
+			mControlKey.icon = mShiftOnIcon;
+			mControlKey.iconPreview = mShiftOnFeedbackIcon;
+			break;
+		case STICKY_KEY_LOCKED:
+			mControlKey.icon = mShiftLockedIcon;
+			mControlKey.iconPreview = mShiftLockedFeedbackIcon;
+			break;
+		default:
+			mControlKey.icon = mShiftIcon;
+			mControlKey.iconPreview = mShiftFeedbackIcon;
+			break;
+		}
+	}
+    
+	public boolean isControlLocked() {
+		return mControlState == STICKY_KEY_LOCKED;
 	}
 	
 	protected void setPopupKeyChars(Key aKey)

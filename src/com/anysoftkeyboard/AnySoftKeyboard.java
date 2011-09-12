@@ -139,6 +139,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private static final boolean DEBUG = AnyApplication.DEBUG;
 
 	private ModifierKeyState mShiftKeyState = new ModifierKeyState();
+	private ModifierKeyState mControlKeyState = new ModifierKeyState();
 	
 	private AnyKeyboardView mInputView;
 	private LinearLayout mCandidateViewContainer;
@@ -183,7 +184,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private boolean mAutoSpace;
 	private boolean mAutoCorrectOn;
 	private boolean mCapsLock;
-
+	
 	private static final String SMILEY_PLUGIN_ID = "0077b34d-770f-4083-83e4-081957e06c27";
 	private boolean mSmileyOnShortPress;
 	private String mOverrideQuickTextText = null;
@@ -1260,14 +1261,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 			handleBackspace();
 			break;
 		case Keyboard.KEYCODE_SHIFT:
-			if ((!mInputView.hasDistinctMultitouch()) 
-					|| ((x == SWIPE_CORD) && (y == SWIPE_CORD)))//the SWIPE_CORD is the case where onKey was called from swipeX
+			if ((!mInputView.hasDistinctMultitouch()) || 
+				((x == SWIPE_CORD) && (y == SWIPE_CORD)))//the SWIPE_CORD is the case where onKey was called from swipeX
 				handleShift(false);
 			break;
 		case AnyKeyboard.KEYCODE_CTRL:
-			//mCtrl = true;
+			if ((!mInputView.hasDistinctMultitouch()) || 
+					((x == SWIPE_CORD) && (y == SWIPE_CORD)))//the SWIPE_CORD is the case where onKey was called from swipeX
+					handleControl(false);
 			break;
-
 		case AnyKeyboard.KEYCODE_LEFT:
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_LEFT);
 			break;
@@ -1621,6 +1623,27 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	}
 */
+	private void handleControl(boolean reset) {
+		if (reset)
+		{
+			if (DEBUG) Log.d(TAG, "handleControl: reset");
+			mInputView.setControl(false);
+		}
+		else
+		{
+			if (!mInputView.isControl())
+			{
+				if (DEBUG) Log.d(TAG, "handleControl: current keyboard is un-control");
+				mInputView.setControl(true);
+			}
+			else
+			{
+				if (DEBUG) Log.d(TAG, "handleControl: current keyboard is control");
+				mInputView.setControl(true);
+			}
+		}
+	}
+	
 	private void handleShift(boolean reset) {
 		mHandler.removeMessages(MSG_UPDATE_SHIFT_STATE);
 		
@@ -1701,8 +1724,21 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
 		
 		final int primaryCodeForShow;
-		if (mInputView != null && mInputView.isShifted())
-			primaryCodeForShow = Character.toUpperCase(primaryCode);
+		if (mInputView != null)
+		{
+			if (mInputView.isShifted())
+			{
+				primaryCodeForShow = Character.toUpperCase(primaryCode);
+			}
+			else if (mInputView.isControl())
+			{
+				//http://en.wikipedia.org/wiki/Control_character#How_control_characters_map_to_keyboards
+				primaryCodeForShow = primaryCode & 63;
+				if (AnyApplication.DEBUG) Log.d(TAG, "CONTROL state: Char was "+primaryCode+" and now it is "+primaryCodeForShow);
+			}
+			else
+				primaryCodeForShow = primaryCode;
+		}	
 		else
 			primaryCodeForShow = primaryCode;
 		
@@ -2237,6 +2273,13 @@ public class AnySoftKeyboard extends InputMethodService implements
             mShiftKeyState.onOtherKeyPressed();
         }
         
+        if (distinctMultiTouch && primaryCode == AnyKeyboard.KEYCODE_CTRL) {
+        	mControlKeyState.onPress();
+            handleControl(false);
+        } else {
+        	mControlKeyState.onOtherKeyPressed();
+        }
+        
 		if (mSoundOn && (!mSilentMode) && primaryCode!=0) {
 			final int keyFX;
 			switch (primaryCode) {
@@ -2304,6 +2347,11 @@ public class AnySoftKeyboard extends InputMethodService implements
             if (mShiftKeyState.isMomentary())
                 handleShift(true);
             mShiftKeyState.onRelease();
+        }
+        if (distinctMultiTouch && primaryCode == AnyKeyboard.KEYCODE_CTRL) {
+            if (mControlKeyState.isMomentary())
+                handleControl(true);
+            mControlKeyState.onRelease();
         }
 	}
 

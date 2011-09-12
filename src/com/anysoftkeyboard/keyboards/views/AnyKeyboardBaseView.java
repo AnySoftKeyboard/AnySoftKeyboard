@@ -705,6 +705,34 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         }
         return false;
     }
+    
+    /**
+     * Sets the state of the control key of the keyboard, if any.
+     * @param control whether or not to enable the state of the control key
+     * @return true if the control key state changed, false if there was no change
+     */
+    public boolean setControl(boolean control) {
+        if (mKeyboard != null) {
+            if (mKeyboard.setControl(control)) {
+                // The whole keyboard probably needs to be redrawn
+                invalidateAllKeys();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns the state of the shift key of the keyboard, if any.
+     * @return true if the shift is in a pressed state, false otherwise. If there is
+     * no shift key on the keyboard or there is no keyboard attached, it returns false.
+     */
+    public boolean isControl() {
+        if (mKeyboard != null) {
+            return mKeyboard.isControl();
+        }
+        return false;
+    }
 
     /**
      * Enables or disables the key feedback popup. This is a popup that shows a magnified
