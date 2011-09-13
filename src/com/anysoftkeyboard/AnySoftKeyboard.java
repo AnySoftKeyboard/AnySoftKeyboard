@@ -52,6 +52,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.CompletionInfo;
@@ -379,6 +380,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 				.findViewById(R.id.candidates);
 		mCandidateView.setService(this);
 		setCandidatesViewShown(true);
+		View closeIcon = mCandidateViewContainer.findViewById(R.id.close_suggestions_strip_icon);
+		if (closeIcon != null)
+		{
+			closeIcon.setOnClickListener(new OnClickListener() {
+				
+				public void onClick(View v) {
+					abortCorrection(true);
+
+				}
+			});
+		}
 		return mCandidateViewContainer;
 	}
 	
@@ -1701,8 +1713,20 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private void abortCorrection(boolean force) {
         if (force || TextEntryState.isCorrecting()) {
+
+			mHandler.removeMessages(MSG_UPDATE_SUGGESTIONS);
+			
             getCurrentInputConnection().finishComposingText();
             clearSuggestions();
+            
+            mComposing.setLength(0);
+    		mPredicting = false;
+    		mPredictionOn = false;
+            mJustAddedAutoSpace = false;
+    		setCandidatesViewShown(false);
+    		if (mSuggest != null) {
+    			mSuggest.setCorrectionMode(Suggest.CORRECTION_NONE);
+    		}
         }
     }
     

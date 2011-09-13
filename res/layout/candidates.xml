@@ -35,5 +35,9 @@
         android:fadingEdge="horizontal"
         android:fadingEdgeLength="@dimen/candidate_strip_fading_edge_length"
         />
-        
+    <ImageView android:id="@+id/close_suggestions_strip_icon"
+    	android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_margin="2dp"
+    	android:layout_gravity="right|center_vertical"
+    	android:src="@drawable/close_suggestions_strip_icon" android:scaleType="centerInside"/>
+    	
 </LinearLayout>
