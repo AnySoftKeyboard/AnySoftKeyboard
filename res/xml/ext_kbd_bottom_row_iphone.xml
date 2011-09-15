@@ -9,9 +9,11 @@
 	    
 	    <Key ask:isFunctional="true" android:keyWidth="10%p" android:codes="@integer/key_code_mode_alphabet"/>
 	    
-	    <Key android:keyWidth="55%p" android:codes="@integer/key_code_space"/>
+	    <Key android:keyWidth="50%p" android:codes="@integer/key_code_space"/>
 	    
-	    <Key ask:isFunctional="true" android:keyWidth="20%p" android:codes="@integer/key_code_enter" android:keyEdgeFlags="right" ask:longPressCode="-100"/>
+	    <Key android:keyWidth="10%p" android:codes="44" android:keyLabel="," android:popupCharacters=".!\?\u00bf\u00a1'&#34;"/>
+	    
+	    <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="@integer/key_code_enter" android:keyEdgeFlags="right" ask:longPressCode="-100"/>
 	</Row>
 	<Row android:keyboardMode="@integer/keyboard_mode_im" android:rowEdgeFlags="bottom" android:keyWidth="10%p" 
 		android:keyHeight="@integer/key_normal_height">
@@ -19,9 +21,11 @@
 	    
 	    <Key ask:isFunctional="true" android:keyWidth="10%p" android:codes="@integer/key_code_mode_alphabet"/>
 	    
-	    <Key android:keyWidth="50%p" android:codes="@integer/key_code_space"/>
-	    
 	    <Key ask:isFunctional="true" android:keyWidth="10%p" android:codes="@integer/key_code_quick_text" ask:longPressCode="-102" android:keyEdgeFlags="left"/>
+	    
+	    <Key android:keyWidth="40%p" android:codes="@integer/key_code_space"/>
+	    
+	    <Key android:keyWidth="10%p" android:codes="44" android:keyLabel="," android:popupCharacters=".!\?\u00bf\u00a1'&#34;"/>
 	    
 	    <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="@integer/key_code_enter" android:keyEdgeFlags="right" ask:longPressCode="-100"/>
 	</Row>
@@ -36,9 +40,9 @@
 	    
 	    <Key android:keyWidth="25%p" android:codes="@integer/key_code_space"/>
 	    
-	    <Key android:keyWidth="10%p" android:codes="46" android:keyLabel="."/>
+	    <Key android:keyWidth="10%p" android:codes="46" android:keyLabel="." android:popupCharacters="\?!@:,-_"/>
 	    
-	    <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="@integer/key_code_domain" android:keyEdgeFlags="left"/>
+	    <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="@integer/key_code_domain"/>
 	    
 	    <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="@integer/key_code_enter" android:keyEdgeFlags="right" ask:longPressCode="-100"/>
 	</Row>
@@ -52,9 +56,9 @@
 	    
 	    <Key android:keyWidth="25%p" android:codes="@integer/key_code_space"/>
 	    
-	    <Key android:keyWidth="10%p" android:codes="46" android:keyLabel="."/>
+	    <Key android:keyWidth="10%p" android:codes="46" android:keyLabel="." android:popupCharacters="/\?!:,-_"/>
 	    
-	    <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="@integer/key_code_domain" android:keyEdgeFlags="left"/>
+	    <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="@integer/key_code_domain"/>
 	    
 	    <Key ask:isFunctional="true" android:keyWidth="15%p" android:codes="@integer/key_code_enter" android:keyEdgeFlags="right" ask:longPressCode="-100"/>
 	</Row>
