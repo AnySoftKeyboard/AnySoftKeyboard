@@ -1,13 +1,17 @@
 package com.anysoftkeyboard.ui.tutorials;
 
 import com.anysoftkeyboard.ui.MainForm;
+import com.anysoftkeyboard.ui.settings.BottomRowSelector;
+import com.anysoftkeyboard.ui.settings.TopRowSelector;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.CheckBox;
 
 public class ChangeLogActivity extends BaseTutorialActivity implements OnClickListener{
@@ -20,12 +24,9 @@ public class ChangeLogActivity extends BaseTutorialActivity implements OnClickLi
 		//now to listen on all known buttons
 		for(View touchable : content.getTouchables())
 		{
-			switch(touchable.getId())
+			if (touchable instanceof Button)
 			{
-			case R.id.goto_settings_button:
-			case R.id.market_search_button:
 				touchable.setOnClickListener(this);
-				break;
 			}
 		}
 		
@@ -54,6 +55,16 @@ public class ChangeLogActivity extends BaseTutorialActivity implements OnClickLi
 			{
 				Log.e("ASK - Tutorial", "Failed to launch Market!", ex);
 			}
+			break;
+		case R.id.settings_bottom_row_button:
+			Intent bottomRowSettings = new Intent(this, BottomRowSelector.class);
+			bottomRowSettings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(bottomRowSettings);
+			break;
+		case R.id.settings_top_row_button:
+			Intent topRowSettings = new Intent(this, TopRowSelector.class);
+			topRowSettings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(topRowSettings);
 			break;
 		}
 	}

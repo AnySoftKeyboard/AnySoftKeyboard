@@ -59,6 +59,60 @@
 		    	android:id="@+id/changelog_latest_version_title"
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
+		        android:text="20110915 - 51"
+		        android:textStyle="bold"
+		        android:gravity="center"
+		        android:textSize="16sp"
+		        android:paddingTop="8dp"
+		        android:paddingLeft="8dp"
+		        android:paddingRight="8dp"
+		        android:textColor="#CCC"
+		        />
+		    <TextView 
+		    	android:id="@+id/changelog_latest_version_url"
+		    	android:text="http://s.evendanan.net/ask_r51" android:textSize="12sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content"
+		    	android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"/>
+		    <TextView
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:text="* It is possible to replace the bottom row:"
+		        android:textSize="16sp"
+		        android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"
+		        android:textColor="#AAA"
+		        />
+		    <Button android:id="@+id/settings_bottom_row_button" android:text="@string/bottom_row_addons_settings" android:layout_width="wrap_content" android:layout_height="wrap_content"
+		    	android:layout_gravity="center"/>
+		   	<TextView
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:text="* And, it is possible to replace the top row:"
+		        android:textSize="16sp"
+		        android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"
+		        android:textColor="#AAA"
+		        />
+		    <Button android:id="@+id/settings_top_row_button" android:text="@string/top_row_addons_settings" android:layout_width="wrap_content" android:layout_height="wrap_content"
+		    	android:layout_gravity="center"/>
+		   	<TextView
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:text="* Bug fixes."
+		        android:textSize="16sp"
+		        android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"
+		        android:textColor="#AAA"
+		        />
+		    	
+		    <TextView
+		    	android:id="@+id/changelog_latest_version_title"
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
 		        android:text="20110907 - 49"
 		        android:textStyle="bold"
 		        android:gravity="center"
