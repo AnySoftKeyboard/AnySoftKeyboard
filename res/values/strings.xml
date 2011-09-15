@@ -54,15 +54,7 @@
     
     <!-- settings - UI -->
     <string name="ui_group">User interface</string>
-    <string name="keyboard_layout_change_keys_size_title">Top row keys</string>
-    <string name="keyboard_layout_change_keys_size_summary">Sets the cap/number mode key size</string>
-    <string name="keyboard_layout_change_keys_size_dialog_title">Mode key size</string>
-    <string-array name="keyboard_layout_keys_size">
-        <item>None</item>
-        <item>Small</item>
-        <item>Large</item>
-    </string-array>
-    
+     
     <string name="physical_keyboard_change_notification_title">Keyboard layout notification</string>
     <string name="physical_keyboard_change_notification_summary">Type of notification about the active layout</string>
     <string name="physical_keyboard_change_notification_dialog_title">Select notification type</string>
@@ -272,6 +264,36 @@
 	<string name="quick_text_key_dialog_title">Select key</string>
 	<string name="quick_text_key_summary">Select quick text key to show on keyboards</string>
     
+    <!-- settings - extension keyboards -->
+	<string name="extension_keyboards_group">Extension keyboards</string>
+	<string name="extension_keyboards_summary">Select top, bottom rows or extension keyboard</string>
+	<!-- settings - top generic row -->
+	<string name="top_generic_row_group">Common top generic row</string>
+	<string name="top_generic_row_active">Active top row</string>
+	<string name="top_generic_row_dialog_title">Select row type</string>
+	<string name="top_generic_row_summary">Row type to put on keyboard top</string>
+	<!-- settings - bottom generic row -->
+	<string name="bottom_generic_row_group">Common bottom generic row</string>
+	<string name="bottom_generic_row_active">Active bottom row</string>
+	<string name="bottom_generic_row_dialog_title">Select row type</string>
+	<string name="bottom_generic_row_summary">Row type to put on keyboard bottom</string>
+	<!-- settings - extension keyboard -->
+	<string name="extension_keyboard_group">Extension keyboard</string>
+	<string name="extension_keyboard_active">Active extension keyboard</string>
+	<string name="extension_keyboard_dialog_title">Select keyboard</string>
+	<string name="extension_keyboard_summary">Keyboard type to use as extension</string>
+	
+	<!-- extension keyboard type -->
+	<string name="extension_kbd_top_none">No top row</string>
+	<string name="extension_kbd_top_small">Small keys</string>
+	<string name="extension_kbd_top_regular">Regular sized keys</string>
+	<string name="extension_kbd_top_small_numbers">Numbers keys</string>
+	
+	<string name="extension_kbd_top_regular">Regular</string>
+	<string name="extension_kbd_top_iphone">iPhone styled</string>
+	
+	<string name="extension_kbd_extension_numbers_symbols">Numbers and symbols</string>
+	
     <!-- Tutorials --> 
     <string name="show_tutorial_on_startup">Show this tutorial on startup</string>
     <string name="tutorial_swipe_title">Swipe for keyboard change</string>

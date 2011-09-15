@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionKeyboards>
+	<!-- top rows -->
+	<ExtensionKeyboard
+		id="82910c70-ded1-11e0-9572-0800200c9a66"
+		nameResId="@string/extension_kbd_top_none"
+		extensionKeyboardResId="-1" 
+		extensionKeyboardType="@integer/extension_keyboard_type_top_row"
+		defaultEnabled="false"
+		description=""
+		index="1"
+		/>
+	<ExtensionKeyboard
+		id="5d945f40-ded5-11e0-9572-0800200c9a66"
+		nameResId="@string/extension_kbd_top_small"
+		extensionKeyboardResId="@xml/ext_kbd_top_row_small" 
+		extensionKeyboardType="@integer/extension_keyboard_type_top_row"
+		defaultEnabled="true"
+		description=""
+		index="2"
+		/>
+	<ExtensionKeyboard
+		id="642e9690-ded5-11e0-9572-0800200c9a66"
+		nameResId="@string/extension_kbd_top_regular"
+		extensionKeyboardResId="@xml/ext_kbd_top_row_normal" 
+		extensionKeyboardType="@integer/extension_keyboard_type_top_row"
+		description=""
+		defaultEnabled="false"
+		index="3"
+		/>
+	<ExtensionKeyboard
+		id="1fae0220-ded6-11e0-9572-0800200c9a66"
+		nameResId="@string/extension_kbd_top_small_numbers"
+		extensionKeyboardResId="@xml/ext_kbd_top_row_numbers" 
+		extensionKeyboardType="@integer/extension_keyboard_type_top_row"
+		description=""
+		defaultEnabled="false"
+		index="4"
+		/>
+	<!-- bottom rows -->
+	<ExtensionKeyboard
+		id="09f8f280-dee2-11e0-9572-0800200c9a66"
+		nameResId="@string/extension_kbd_top_regular"
+		extensionKeyboardResId="@xml/ext_kbd_bottom_row_regular" 
+		extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
+		defaultEnabled="true"
+		description=""
+		index="1"
+		/>
+	<ExtensionKeyboard
+		id="3659b9e0-dee2-11e0-9572-0800200c9a66"
+		nameResId="@string/extension_kbd_top_iphone"
+		extensionKeyboardResId="@xml/ext_kbd_bottom_row_iphone" 
+		extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
+		defaultEnabled="false"
+		description=""
+		index="2"
+		/>
+	<!-- top extension keyboards -->
+	<ExtensionKeyboard
+		id="6f1ecea0-dee2-11e0-9572-0800200c9a66"
+		nameResId="@string/extension_kbd_extension_numbers_symbols"
+		extensionKeyboardResId="@xml/ext_kbd_ext_keyboard_numbers_symbols" 
+		extensionKeyboardType="@integer/extension_keyboard_type_extension_keyboard"
+		defaultEnabled="false"
+		description=""
+		index="2"
+		/>
+</ExtensionKeyboards>

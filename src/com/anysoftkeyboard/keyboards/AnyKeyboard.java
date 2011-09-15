@@ -13,6 +13,8 @@ import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
+import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import android.text.TextUtils;
 import android.util.Log;
@@ -283,21 +285,21 @@ public abstract class AnyKeyboard extends Keyboard
     }
 
 	protected void addGenericRows(AnyKeyboardContextProvider askContext, Context context, int mode) {
-		final String keysMode = AnyApplication.getConfig().getChangeLayoutKeysSize();
 		final KeyboardMetadata topMd;
 		if (!mTopRowWasCreated)
 		{
-	        if (keysMode.equals("None"))
+			final KeyboardExtension topRowPlugin = KeyboardExtensionFactory.getCurrentKeyboardExtension(getASKContext(), KeyboardExtension.TYPE_TOP);
+	        if (topRowPlugin == null || //no plugin found
+	        	topRowPlugin.getKeyboardResId() == -1 || //plugin specified to be empty
+	        	topRowPlugin.getKeyboardResId() == -2)//could not parse layout res id
 	        {
+	        	if (AnyApplication.DEBUG) Log.d(TAG, "No top row layout");
 	        	topMd = null;
-	        }
-	        else if (keysMode.equals("Big"))
-	        {
-	        	topMd = addKeyboardRow(askContext.getApplicationContext(), R.xml.generic_top_row, mode);
 	        }
 	        else
 	        {
-	        	topMd = addKeyboardRow(askContext.getApplicationContext(), R.xml.generic_half_top_row, mode);
+	        	if (AnyApplication.DEBUG) Log.d(TAG, "Top row layout id "+topRowPlugin.getId());
+	        	topMd = addKeyboardRow(topRowPlugin.getPackageContext(), topRowPlugin.getKeyboardResId(), mode);
 	        }
         
 			if (topMd != null)
@@ -305,7 +307,9 @@ public abstract class AnyKeyboard extends Keyboard
 		}
 		if (!mBottomRowWasCreated)
 		{
-			KeyboardMetadata bottomMd = addKeyboardRow(askContext.getApplicationContext(), R.xml.generic_bottom_row, mode);
+			final KeyboardExtension bottomRowPlugin = KeyboardExtensionFactory.getCurrentKeyboardExtension(getASKContext(), KeyboardExtension.TYPE_BOTTOM);
+			if (AnyApplication.DEBUG) Log.d(TAG, "Bottom row layout id "+bottomRowPlugin.getId());
+			KeyboardMetadata bottomMd = addKeyboardRow(bottomRowPlugin.getPackageContext(), bottomRowPlugin.getKeyboardResId(), mode);
 			fixKeyboardDueToGenericRow(bottomMd);
 		}
 	}

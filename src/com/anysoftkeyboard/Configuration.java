@@ -4,7 +4,7 @@ public interface Configuration {
 	
 	String getDomainText();
 	
-	String getChangeLayoutKeysSize();
+	//String getChangeLayoutKeysSize();
 	
 	boolean getShowKeyPreview();
 

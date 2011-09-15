@@ -22,6 +22,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
@@ -215,8 +216,8 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         	
         	if (System.currentTimeMillis() - mExtensionKeyboardAreaEntranceTime > DELAY_BEFORE_POPING_UP_EXTENSION_KBD)
         	{
-	        	int extensionResId = ((ExternalAnyKeyboard)getKeyboard()).getExtensionResId();
-	        	if (extensionResId <= 0)
+        		KeyboardExtension extKbd = ((ExternalAnyKeyboard)getKeyboard()).getExtensionLayout();
+	        	if (extKbd == null || extKbd.getKeyboardResId() == -1)
 	        	{
 	        		return super.onTouchEvent(me);
 	        	}
@@ -236,7 +237,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 			        	mExtensionKey.edgeFlags = Keyboard.EDGE_TOP;
 			        	mExtensionKey.height = 0;
 			        	mExtensionKey.width = 0;
-			        	mExtensionKey.popupResId = extensionResId;
+			        	mExtensionKey.popupResId = extKbd.getKeyboardResId();
 			        	mExtensionKey.x = getWidth()/2;
 			        	mExtensionKey.y = -mExtensionKeyboardPopupOffset;
 		        	}

@@ -2,13 +2,13 @@
         package="com.menny.android.anysoftkeyboard"
         android:versionName="20110913-looks-like-a-rock" android:versionCode="50">
 	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key"
-		android:name="AnyApplication"  android:backupAgent="com.anysoftkeyboard.backup.AnyBackupAgent" android:restoreAnyVersion="true">
+		android:name=".AnyApplication"  android:backupAgent="com.anysoftkeyboard.backup.AnyBackupAgent" android:restoreAnyVersion="true">
 		<!-- used to backup the settings and SQL to the cloud -->
 		<meta-data android:name="com.google.android.backup.api_key"
 			android:value="AEdPqrEAAAAILlrSpiqigog3iJt3BwYxzNXMUzqgGV_dJ1EPDQ" />
 		
 		<!-- this is the IME with the pointer to the settings ui (xml/method) -->
-		<service android:permission="android.permission.BIND_INPUT_METHOD" android:name="SoftKeyboard">
+		<service android:permission="android.permission.BIND_INPUT_METHOD" android:name=".SoftKeyboard">
 	        <intent-filter>
 	            <action android:name="android.view.InputMethod" />
 	        </intent-filter>
