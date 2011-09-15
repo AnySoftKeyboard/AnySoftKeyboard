@@ -67,6 +67,8 @@
         
         <attr name="longPressCode" format="integer" />
         
+        <attr name="isFunctional" format="boolean" />
+        
         <attr name="shiftedCodes" format="integer|string"/>
     </declare-styleable>
     
