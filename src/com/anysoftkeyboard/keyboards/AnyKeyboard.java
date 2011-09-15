@@ -200,12 +200,12 @@ public abstract class AnyKeyboard extends Keyboard
                     case AnyKeyboard.KEYCODE_QUICK_TEXT:
                     case AnyKeyboard.KEYCODE_DOMAIN:
                     case AnyKeyboard.KEYCODE_CANCEL:
-                    case 32://SPACE
-                    	((AnyKey)key).setFunctional(true);
+                    	((AnyKey)key).setAsFunctional();
                     	break;
-                	default:
-                		((AnyKey)key).setFunctional((key.edgeFlags & Keyboard.EDGE_BOTTOM) != 0);
-                		break;
+//                	default:
+//                		if ((key.edgeFlags & Keyboard.EDGE_BOTTOM) != 0)
+//                			((AnyKey)key).setAsFunctional();
+//                		break;
                     }
             	}
                 
@@ -257,7 +257,6 @@ public abstract class AnyKeyboard extends Keyboard
                 	key.popupResId = quickKey.getPopupKeyboardResId();
                     break;
             	case AnyKeyboard.KEYCODE_DOMAIN:
-            		((AnyKey)key).setFunctional(true);
             		//fixing icons
                 	//setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_key_domain, R.drawable.sym_keyboard_key_domain_wide, R.drawable.sym_keyboard_key_domain_preview);
                 	key.label = AnyApplication.getConfig().getDomainText().trim();
@@ -889,6 +888,7 @@ public abstract class AnyKeyboard extends Keyboard
             }
             /*long press support*/
             longPressCode = a.getInt(R.styleable.Keyboard_Key_longPressCode, 0);
+            mFunctionalKey = a.getBoolean(R.styleable.Keyboard_Key_isFunctional, false);
             
             a.recycle();
         }
@@ -913,8 +913,8 @@ public abstract class AnyKeyboard extends Keyboard
 				return false;//disabled.
 		}
 		
-        public void setFunctional(boolean isFunctional) {
-        	mFunctionalKey = isFunctional;
+        public void setAsFunctional() {
+        	mFunctionalKey = true;
 		}
         
         @Override
