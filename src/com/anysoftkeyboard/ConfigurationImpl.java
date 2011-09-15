@@ -22,7 +22,7 @@ public class ConfigurationImpl implements Configuration
 	private final Context mContext;
 	
 	private String mDomainText = ".com";
-	private String mLayoutChangeKeysSize = "Small";
+	//private String mLayoutChangeKeysSize = "Small";
 	private boolean mShowKeyPreview = true;
 	private boolean mSwitchKeyboardOnSpace = true;
 	private boolean mUseFullScreenInputInLandscape = true;
@@ -122,16 +122,16 @@ public class ConfigurationImpl implements Configuration
 
 	private void upgradeSettingsValues(SharedPreferences sp) {
 	    if (AnyApplication.DEBUG)Log.d(TAG, "Checking if configuration upgrade is needed.");
-		String topRowNewIdValue = sp.getString(mContext.getString(R.string.settings_key_top_keyboard_row_id), null);
-		String topRowOldIdValue = sp.getString("keyboard_layout_change_method", null);
-		if (topRowNewIdValue == null && topRowOldIdValue != null)
-		{
-		    if (AnyApplication.DEBUG)Log.d(TAG, "Top row type is using the old configuration key. Switching...");
-			Editor e = sp.edit();
-			e.putString(mContext.getString(R.string.settings_key_top_keyboard_row_id), topRowOldIdValue);
-			e.remove("keyboard_layout_change_method");
-			e.commit();
-		}
+//		String topRowNewIdValue = sp.getString(mContext.getString(R.string.settings_key_top_keyboard_row_id), null);
+//		String topRowOldIdValue = sp.getString("keyboard_layout_change_method", null);
+//		if (topRowNewIdValue == null && topRowOldIdValue != null)
+//		{
+//		    if (AnyApplication.DEBUG)Log.d(TAG, "Top row type is using the old configuration key. Switching...");
+//			Editor e = sp.edit();
+//			e.putString(mContext.getString(R.string.settings_key_top_keyboard_row_id), topRowOldIdValue);
+//			e.remove("keyboard_layout_change_method");
+//			e.commit();
+//		}
 		
 		int configurationVersion = sp.getInt(CONFIGURATION_VERSION, 0);
 		if (configurationVersion < 1)
@@ -163,8 +163,8 @@ public class ConfigurationImpl implements Configuration
 	public void handleConfigurationChange(SharedPreferences sp)
 	{
 		Log.i(TAG, "**** handleConfigurationChange: ");
-		mLayoutChangeKeysSize = sp.getString(mContext.getString(R.string.settings_key_top_keyboard_row_id), mContext.getString(R.string.settings_default_top_keyboard_row_id));
-		Log.i(TAG, "** mChangeKeysMode: "+mLayoutChangeKeysSize);
+//		mLayoutChangeKeysSize = sp.getString(mContext.getString(R.string.settings_key_top_keyboard_row_id), mContext.getString(R.string.settings_default_top_keyboard_row_id));
+//		Log.i(TAG, "** mChangeKeysMode: "+mLayoutChangeKeysSize);
 		
 		mDomainText = sp.getString("default_domain_text", ".com");
 		Log.i(TAG, "** mDomainText: "+mDomainText);
@@ -385,10 +385,10 @@ public class ConfigurationImpl implements Configuration
 		return mDomainText;
 	}
 
-	public String getChangeLayoutKeysSize() {
-		return mLayoutChangeKeysSize;
-	}
-	
+//	public String getChangeLayoutKeysSize() {
+//		return mLayoutChangeKeysSize;
+//	}
+//	
 	public boolean getShowKeyPreview()
 	{
 		return mShowKeyPreview;

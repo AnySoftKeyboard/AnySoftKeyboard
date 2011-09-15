@@ -258,6 +258,7 @@
     <string name="eng_keyboard">English</string>
     <string name="eng_keyboard_16keys">16 Keys English</string>
 
+	<string name="additional_addons_group">Additional add-ons</string>
 	<!-- settings - quick text keys -->
 	<string name="quick_text_keys_group">Quick text keys</string>
 	<string name="quick_text_key_active">Active quick text key</string>
@@ -272,16 +273,19 @@
 	<string name="top_generic_row_active">Active top row</string>
 	<string name="top_generic_row_dialog_title">Select row type</string>
 	<string name="top_generic_row_summary">Row type to put on keyboard top</string>
+	<string name="top_generic_row_list_title">Select row type</string>
 	<!-- settings - bottom generic row -->
 	<string name="bottom_generic_row_group">Common bottom generic row</string>
 	<string name="bottom_generic_row_active">Active bottom row</string>
 	<string name="bottom_generic_row_dialog_title">Select row type</string>
 	<string name="bottom_generic_row_summary">Row type to put on keyboard bottom</string>
+	<string name="bottom_generic_row_list_title">Select row type</string>
 	<!-- settings - extension keyboard -->
 	<string name="extension_keyboard_group">Extension keyboard</string>
 	<string name="extension_keyboard_active">Active extension keyboard</string>
 	<string name="extension_keyboard_dialog_title">Select keyboard</string>
 	<string name="extension_keyboard_summary">Keyboard type to use as extension</string>
+	<string name="extension_keyboard_list_title">Select keyboard</string>
 	
 	<!-- extension keyboard type -->
 	<string name="extension_kbd_top_none">No top row</string>

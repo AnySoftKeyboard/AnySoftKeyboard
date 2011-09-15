@@ -2,7 +2,9 @@
 <resources>
 	<!-- DO NOT TRANSLATE -->
 	<!-- Default settings values -->
+	<!-- 
     <string name="settings_default_top_keyboard_row_id">Small</string>
+     -->
     <string name="settings_default_physical_keyboard_change_notification_type">2</string>
     <string name="settings_default_vibrate_on_key_press_duration">0</string>
     <bool name="settings_default_sound_on">false</bool>

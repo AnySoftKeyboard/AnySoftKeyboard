@@ -36,7 +36,7 @@ public class Keyboards extends PreferenceActivity {
 				{
 					try
 					{
-						MainForm.searchMarketForAddons(Keyboards.this.getApplicationContext());
+						MainForm.searchMarketForAddons(Keyboards.this.getApplicationContext(), " language");
 					}
 					catch(Exception ex)
 					{

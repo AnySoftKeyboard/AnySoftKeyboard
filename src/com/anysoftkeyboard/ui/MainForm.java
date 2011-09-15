@@ -62,7 +62,7 @@ public class MainForm extends TabActivity implements OnClickListener {
 		case R.id.market_search_button:
 			try
 			{
-				searchMarketForAddons(getApplicationContext());
+				searchMarketForAddons(getApplicationContext(), "");
 			}
 			catch(Exception ex)
 			{
@@ -75,9 +75,9 @@ public class MainForm extends TabActivity implements OnClickListener {
 		}
 	}
 	
-	public static void searchMarketForAddons(Context applicationContext) throws android.content.ActivityNotFoundException {
+	public static void searchMarketForAddons(Context applicationContext, String additionalQueryString) throws android.content.ActivityNotFoundException {
 		Intent search = new Intent(Intent.ACTION_VIEW);
-		search.setData(Uri.parse("market://search?q=AnySoftKeyboard"));
+		search.setData(Uri.parse("market://search?q=AnySoftKeyboard"+additionalQueryString));
 		search.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		applicationContext.startActivity(search);
 	}

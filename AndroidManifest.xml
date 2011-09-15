@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.menny.android.anysoftkeyboard"
-        android:versionName="20110913-looks-like-a-rock" android:versionCode="50">
+        android:versionName="20110915-looks-like-a-rock" android:versionCode="50">
 	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key"
 		android:name=".AnyApplication"  android:backupAgent="com.anysoftkeyboard.backup.AnyBackupAgent" android:restoreAnyVersion="true">
 		<!-- used to backup the settings and SQL to the cloud -->
@@ -45,8 +45,11 @@
 	    </activity>
 	    <activity android:name="com.anysoftkeyboard.ui.settings.Keyboards" android:label="@string/keyboards_group">
 	    </activity>
-	    <activity android:name="com.anysoftkeyboard.ui.settings.QuickTextKeys"
-				android:label="@string/quick_text_keys_group" />
+	    <activity android:name="com.anysoftkeyboard.ui.settings.QuickTextKeys" android:label="@string/quick_text_keys_group" />
+		
+		<activity android:name="com.anysoftkeyboard.ui.settings.TopRowSelector" android:label="@string/top_generic_row_group" />
+		<activity android:name="com.anysoftkeyboard.ui.settings.BottomRowSelector" android:label="@string/bottom_generic_row_group" />
+		<activity android:name="com.anysoftkeyboard.ui.settings.ExtensionKeyboardSelector" android:label="@string/extension_keyboard_group" />
 	    <!-- information ui activities -->
 	    <activity android:name="com.anysoftkeyboard.ui.tutorials.TestersNoticeActivity" android:theme="@style/Popup" android:label="@string/testers_version">
 	    </activity>

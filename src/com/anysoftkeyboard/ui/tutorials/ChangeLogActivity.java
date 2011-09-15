@@ -48,7 +48,7 @@ public class ChangeLogActivity extends BaseTutorialActivity implements OnClickLi
 		case R.id.market_search_button:
 			try
 			{
-				MainForm.searchMarketForAddons(getApplicationContext());
+				MainForm.searchMarketForAddons(getApplicationContext(), "");
 			}
 			catch(Exception ex)
 			{

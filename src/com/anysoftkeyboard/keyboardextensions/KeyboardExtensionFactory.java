@@ -29,10 +29,10 @@ public class KeyboardExtensionFactory extends AddOnsFactory<KeyboardExtension>
          switch(type)
          {
          case KeyboardExtension.TYPE_BOTTOM:
-        	 settingKey = contextProvider.getApplicationContext().getString(R.string.settings_key_ext_kbd_top_row_key);
+        	 settingKey = contextProvider.getApplicationContext().getString(R.string.settings_key_ext_kbd_bottom_row_key);
         	 break;
          case KeyboardExtension.TYPE_TOP:
-        	 settingKey = contextProvider.getApplicationContext().getString(R.string.settings_key_ext_kbd_bottom_row_key);
+        	 settingKey = contextProvider.getApplicationContext().getString(R.string.settings_key_ext_kbd_top_row_key);
         	 break;
          case KeyboardExtension.TYPE_EXTENSION:
         	 settingKey = contextProvider.getApplicationContext().getString(R.string.settings_key_ext_kbd_ext_ketboard_key);

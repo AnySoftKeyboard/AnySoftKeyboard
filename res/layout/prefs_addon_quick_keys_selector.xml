@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-	android:key="prefs_quick_text_keys_screen"
-	android:title="@string/quick_text_keys_group"
-	android:id="@+id/prefs_quick_text_keys_screen">
+	android:key="prefs_addons_screen"
+	android:title="@string/quick_text_keys_group">
 
 	<EditTextPreference android:key="keyboards_sandbox_3"
 	android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"
 	android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false">
 	</EditTextPreference>
 
-	<Preference android:key="search_for_quick_text_keys_packs" android:title="@string/search_market_for_addons"
+	<Preference android:key="search_for_addon_packs_at_market" android:title="@string/search_market_for_addons"
 	android:persistent="false"/>
 
-	<PreferenceCategory android:key="quick_text_key_addons_group"
+	<PreferenceCategory android:key="category_addons_group"
 		android:title="@string/quick_text_keys_group">
 			<ListPreference
 				android:key="@string/settings_key_active_quick_text_key"
