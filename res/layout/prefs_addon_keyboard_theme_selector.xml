@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+	android:key="prefs_addons_screen"
+	android:title="@string/keyboard_theme_group">
+
+	<EditTextPreference android:key="keyboards_sandbox_3"
+	android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"
+	android:title="@string/keyboard_sandbox" android:dialogTitle="@string/keyboard_sandbox_title" android:persistent="false">
+	</EditTextPreference>
+
+	<Preference android:key="search_for_addon_packs_at_market" android:title="@string/search_market_for_addons"
+	android:persistent="false"/>
+
+	<PreferenceCategory android:key="category_addons_group"
+		android:title="@string/keyboard_theme_group">
+			<ListPreference
+				android:key="@string/settings_key_keyboard_theme_key"
+				android:title="@string/keyboard_theme_list_title"
+				android:persistent="true"
+				android:dialogTitle="@string/keyboard_theme_dialog_title"
+				android:summary="@string/keyboard_theme_summary"/>
+	</PreferenceCategory>
+</PreferenceScreen>

@@ -2681,6 +2681,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				key.equals(getString(R.string.settings_key_ext_kbd_top_row_key)) ||
 				key.equals(getString(R.string.settings_key_ext_kbd_ext_ketboard_key)) ||
 				key.equals(getString(R.string.settings_key_ext_kbd_hidden_bottom_row_key)) ||
+				key.equals(getString(R.string.settings_key_keyboard_theme_key)) ||
 				key.equals("zoom_factor_keys_in_portrait") ||
 				key.equals("zoom_factor_keys_in_landscape") ||
 				key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key)) ||
@@ -2690,6 +2691,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 			//in some cases we do want to force keyboards recreations
 			handleClose();
 			mKeyboardSwitcher.makeKeyboards(true);
+			if (key.equals(getString(R.string.settings_key_keyboard_theme_key)))
+			{
+				//also recreate keyboard view
+				setInputView(onCreateInputView());
+			}
 		}
 	}
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<KeyboardThemes>
+	<KeyboardTheme
+        id="48fa4f73-09aa-4eff-bd3b-c2c54d94159d"
+        nameResId="@string/gingerbread_keyboard_theme_name"
+        themeRes="@style/AnyKeyboardBaseView"
+        description="@string/gingerbread_keyboard_theme_description"
+        index="1"/>
+	<KeyboardTheme
+        id="55d9797c-850c-40a8-9a5d-7467b55bd537"
+        nameResId="@string/rounder_gingerbread_keyboard_theme_name"
+        themeRes="@style/RounderAnyKeyboardBaseView"
+        description="@string/rounder_gingerbread_keyboard_theme_description"
+        index="2"/>
+</KeyboardThemes>

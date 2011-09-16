@@ -44,6 +44,8 @@
 	<string name="settings_key_ext_kbd_ext_ketboard_key">settings_key_ext_kbd_ext_ketboard_key</string>
 	<string name="settings_key_ext_kbd_hidden_bottom_row_key">settings_key_ext_kbd_hidden_bottom_row_key</string>
 	
+	<string name="settings_key_keyboard_theme_key">settings_key_keyboard_theme_key</string>
+	
 	<string name="settings_key_hide_soft_when_physical">settings_key_hide_soft_when_physical</string>
 	
 	<string name="settings_key_is_sticky_extesion_keyboard">settings_key_is_sticky_extesion_keyboard</string>

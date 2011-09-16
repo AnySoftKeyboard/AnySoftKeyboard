@@ -63,6 +63,8 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
+import com.anysoftkeyboard.theme.KeyboardTheme;
+import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -419,8 +421,10 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
         mInLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
         
-        TypedArray a = context.obtainStyledAttributes(
-                attrs, R.styleable.AnyKeyboardBaseView, defStyle, R.style.AnyKeyboardBaseView);
+        KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(AnySoftKeyboard.getInstance());
+        Log.d(TAG, "Will use keyboard theme "+theme.getName()+" id "+theme.getId()+" res "+theme.getThemeResId());
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AnyKeyboardBaseView, defStyle, 
+        		/*R.style.AnyKeyboardBaseView*/ theme.getThemeResId());
         LayoutInflater inflate =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         int previewLayout = 0;
@@ -432,6 +436,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             int attr = a.getIndex(i);
 
             switch (attr) {
+            case R.styleable.AnyKeyboardBaseView_android_background:
+            	super.setBackgroundDrawable(a.getDrawable(attr));
+            	break;
             case R.styleable.AnyKeyboardBaseView_keyBackground:
                 mKeyBackground = a.getDrawable(attr);
                 break;

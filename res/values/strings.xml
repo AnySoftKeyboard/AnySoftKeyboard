@@ -290,6 +290,18 @@
 	<string name="extension_keyboard_summary">Keyboard type to use as extension</string>
 	<string name="extension_keyboard_list_title">Select keyboard</string>
 	
+	
+	<string name="keyboard_theme_group">Keyboard themes</string>
+	<string name="keyboard_theme_active">Active keyboard theme</string>
+	<string name="keyboard_theme_dialog_title">Select theme</string>
+	<string name="keyboard_theme_summary">Keyboard theme (skin/style) to use</string>
+	<string name="keyboard_theme_list_title">Select theme</string>
+	
+	<string name="gingerbread_keyboard_theme_name">Gingerbread styled</string>
+	<string name="gingerbread_keyboard_theme_description">Gingerbread (Android 2.3) styled buttons and colors</string>
+	<string name="rounder_gingerbread_keyboard_theme_name">Rounder Gingerbread styled</string>
+	<string name="rounder_gingerbread_keyboard_theme_description">Gingerbread (Android 2.3) styled with round buttons and colors</string>
+	
 	<!-- extension keyboard type -->
 	<string name="extension_kbd_top_none">No top row</string>
 	<string name="extension_kbd_top_small">Small keys</string>
