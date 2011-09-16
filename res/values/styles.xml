@@ -46,6 +46,10 @@
     <style name="RounderAnyKeyboardBaseView" parent="@style/AnyKeyboardBaseView">
     	<item name="keyBackground">@drawable/btn_keyboard_key_shape_gingerbread</item>
     </style>
+    <style name="LightColorRounderAnyKeyboardBaseView" parent="@style/AnyKeyboardBaseView">
+    	<item name="keyBackground">@drawable/btn_keyboard_key_shape_gingerbread</item>
+    	<item name="android:background">@drawable/shape_lighter_background</item>
+    </style>
     
     <style name="KeyPreviewAnimation">
         <item name="android:windowEnterAnimation">@anim/key_preview_fadein</item>

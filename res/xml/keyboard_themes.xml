@@ -8,8 +8,15 @@
         index="1"/>
 	<KeyboardTheme
         id="55d9797c-850c-40a8-9a5d-7467b55bd537"
-        nameResId="@string/rounder_gingerbread_keyboard_theme_name"
+        nameResId="@string/rounder_keyboard_theme_name"
         themeRes="@style/RounderAnyKeyboardBaseView"
-        description="@string/rounder_gingerbread_keyboard_theme_description"
+        description="@string/rounder_keyboard_theme_description"
         index="2"/>
+	<KeyboardTheme
+        id="aa7ae2f0-a766-4e32-b159-37ad25d87783"
+        nameResId="@string/rounder_light_keyboard_theme_name"
+        themeRes="@style/LightColorRounderAnyKeyboardBaseView"
+        description="@string/rounder_light_keyboard_theme_description"
+        index="2"/>
+        
 </KeyboardThemes>
