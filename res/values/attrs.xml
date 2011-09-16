@@ -123,6 +123,7 @@
             <flag name="black" value="1" />
         </attr>
 
+		<attr name="android:background"/>
     </declare-styleable>
 
 	<declare-styleable name="keyBackgroundType">
