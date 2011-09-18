@@ -182,7 +182,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private float mVerticalCorrection;
     private int mPreviewOffset;
     private int mPreviewHeight;
-    private final int mPopupLayout = R.layout.keyboard_popup;
+    //private final int mPopupLayout = R.layout.keyboard_popup;
 
     // Main keyboard
     private AnyKeyboard mKeyboard;
@@ -209,7 +209,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private PopupWindow mMiniKeyboardPopup;
     protected AnyKeyboardBaseView mMiniKeyboard;
     private View mMiniKeyboardParent;
-    private final WeakHashMap<Key, View> mMiniKeyboardCache = new WeakHashMap<Key, View>();
+    private final WeakHashMap<Key, AnyKeyboardBaseView> mMiniKeyboardCache = new WeakHashMap<Key, AnyKeyboardBaseView>();
     private int mMiniKeyboardOriginX;
     private int mMiniKeyboardOriginY;
     private long mMiniKeyboardPopupTime;
@@ -422,15 +422,17 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         mInLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
         
         KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(AnySoftKeyboard.getInstance());
-        Log.d(TAG, "Will use keyboard theme "+theme.getName()+" id "+theme.getId()+" res "+theme.getThemeResId());
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AnyKeyboardBaseView, defStyle, 
-        		/*R.style.AnyKeyboardBaseView*/ theme.getThemeResId());
-        LayoutInflater inflate =
-                (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final int keyboardThemeStyleResId = getKeyboardStyleResId(theme);
+        Log.d(TAG, "Will use keyboard theme "+theme.getName()+" id "+theme.getId()+" res "+keyboardThemeStyleResId);
+        TypedArray a = theme.getPackageContext().obtainStyledAttributes(attrs, R.styleable.AnyKeyboardBaseView, defStyle, keyboardThemeStyleResId);
+        LayoutInflater inflate = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         int previewLayout = 0;
         int keyTextSize = 0;
 
         final int n = a.getIndexCount();
+
+        //super.setPadding(left, top, right, bottom);
+        final int[] padding = new int[] { 0,0,0,0 };
 
         for (int i = 0; i < n; i++) {
             int attr = a.getIndex(i);
@@ -438,6 +440,18 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             switch (attr) {
             case R.styleable.AnyKeyboardBaseView_android_background:
             	super.setBackgroundDrawable(a.getDrawable(attr));
+            	break;
+            case R.styleable.AnyKeyboardBaseView_android_paddingLeft:
+            	padding[0] = a.getDimensionPixelSize(attr, 0);
+            	break;
+            case R.styleable.AnyKeyboardBaseView_android_paddingTop:
+            	padding[1] = a.getDimensionPixelSize(attr, 0);
+            	break;
+            case R.styleable.AnyKeyboardBaseView_android_paddingRight:
+            	padding[2] = a.getDimensionPixelSize(attr, 0);
+            	break;
+            case R.styleable.AnyKeyboardBaseView_android_paddingBottom:
+            	padding[3] = a.getDimensionPixelSize(attr, 0);
             	break;
             case R.styleable.AnyKeyboardBaseView_keyBackground:
                 mKeyBackground = a.getDrawable(attr);
@@ -503,6 +517,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             }
         }
 
+        super.setPadding(padding[0], padding[1], padding[2], padding[3]);
+        
         final Resources res = getResources();
 
         mPreviewPopup = new PopupWindow(context);
@@ -598,6 +614,10 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         
         PreferenceManager.getDefaultSharedPreferences(getContext()).registerOnSharedPreferenceChangeListener(this);
     }
+
+	protected int getKeyboardStyleResId(KeyboardTheme theme) {
+		return theme.getPopupThemeResId();
+	}
 
 	private void reloadSwipeThresholdsSettings(final Resources res) {
 		final float density = res.getDisplayMetrics().density;
@@ -1180,11 +1200,12 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     }
 
     private boolean openPopupIfRequired(int keyIndex, PointerTracker tracker) {
+    	/*this is a uselss code..
         // Check if we have a popup layout specified first.
         if (mPopupLayout == 0) {
             return false;
         }
-
+    	 */
         Key popupKey = tracker.getKey(keyIndex);
         if (popupKey == null)
             return false;
@@ -1199,12 +1220,12 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         return result;
     }
 
-    private View inflateMiniKeyboardContainer(Context packageContext, CharSequence popupCharacters, int popupKeyboardId) {
+    private AnyKeyboardBaseView inflateMiniKeyboardContainer(Context packageContext, CharSequence popupCharacters, int popupKeyboardId) {
         //int popupKeyboardId = popupKey.popupResId;
         LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
-        View container = inflater.inflate(mPopupLayout, null);
-        if (container == null)
+        AnyKeyboardBaseView miniKeyboard = (AnyKeyboardBaseView)inflater.inflate(R.layout.popup_keyboard_layout, null);
+        if (miniKeyboard == null)
             throw new NullPointerException();
 
         final AnyPopupKeyboard keyboard;
@@ -1214,8 +1235,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             keyboard = new AnyPopupKeyboard(AnySoftKeyboard.getInstance(), packageContext, popupKeyboardId);
         }
         
-        AnyKeyboardBaseView miniKeyboard =
-                (AnyKeyboardBaseView)container.findViewById(R.id.AnyKeyboardBaseView);
         miniKeyboard.setOnKeyboardActionListener(new OnKeyboardActionListener() {
         	
         	public void onKey(int primaryCode, int[] keyCodes, int x, int y) {
@@ -1262,10 +1281,10 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         miniKeyboard.setKeyboard(keyboard);
         miniKeyboard.setPopupParent(this);
 
-        container.measure(MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.AT_MOST),
+        miniKeyboard.measure(MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.AT_MOST),
                 MeasureSpec.makeMeasureSpec(getHeight(), MeasureSpec.AT_MOST));
 
-        return container;
+        return miniKeyboard;
     }
 
     private static boolean isOneRowKeys(List<Key> keys) {
@@ -1294,12 +1313,12 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         if (popupKey.popupResId == 0)
             return false;
 
-        View container = mMiniKeyboardCache.get(popupKey);
-        if (container == null) {
-            container = inflateMiniKeyboardContainer(packageContext, popupKey.popupCharacters, popupKey.popupResId);
-            mMiniKeyboardCache.put(popupKey, container);
+        AnyKeyboardBaseView miniKeyboardView = mMiniKeyboardCache.get(popupKey);
+        if (miniKeyboardView == null) {
+        	miniKeyboardView = inflateMiniKeyboardContainer(packageContext, popupKey.popupCharacters, popupKey.popupResId);
+            mMiniKeyboardCache.put(popupKey, miniKeyboardView);
         }
-        mMiniKeyboard = (AnyKeyboardBaseView)container.findViewById(R.id.AnyKeyboardBaseView);
+        mMiniKeyboard = miniKeyboardView;
         if (mWindowOffset == null) {
             mWindowOffset = new int[2];
             getLocationInWindow(mWindowOffset);
@@ -1325,31 +1344,31 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             popupX -= container.getPaddingLeft();
         } else*/ {
             popupX += miniKeyWidth;  // adjustment for b) described above
-            popupX -= container.getMeasuredWidth();
-            popupX += container.getPaddingRight();
+            popupX -= mMiniKeyboard.getMeasuredWidth();
+            popupX += mMiniKeyboard.getPaddingRight();
         }
         int popupY = popupKey.y + mWindowOffset[1];
         popupY += getPaddingTop();
-        popupY -= container.getMeasuredHeight();
-        popupY += container.getPaddingBottom();
+        popupY -= mMiniKeyboard.getMeasuredHeight();
+        popupY += mMiniKeyboard.getPaddingBottom();
         final int x = popupX;
         final int y = mShowPreview && isOneRowKeys(miniKeys) ? mPopupPreviewDisplayedY : popupY;
 
         int adjustedX = x;
         if (x < 0) {
             adjustedX = 0;
-        } else if (x > (getMeasuredWidth() - container.getMeasuredWidth())) {
-            adjustedX = getMeasuredWidth() - container.getMeasuredWidth();
+        } else if (x > (getMeasuredWidth() - mMiniKeyboard.getMeasuredWidth())) {
+            adjustedX = getMeasuredWidth() - mMiniKeyboard.getMeasuredWidth();
         }
-        mMiniKeyboardOriginX = adjustedX + container.getPaddingLeft() - mWindowOffset[0];
-        mMiniKeyboardOriginY = y + container.getPaddingBottom() - mWindowOffset[1];
+        mMiniKeyboardOriginX = adjustedX + mMiniKeyboard.getPaddingLeft() - mWindowOffset[0];
+        mMiniKeyboardOriginY = y + mMiniKeyboard.getPaddingBottom() - mWindowOffset[1];
         mMiniKeyboard.setPopupOffset(adjustedX, y);
         mMiniKeyboard.setShifted(isShifted());
         // Mini keyboard needs no pop-up key preview displayed.
         mMiniKeyboard.setPreviewEnabled(false);
-        mMiniKeyboardPopup.setContentView(container);
-        mMiniKeyboardPopup.setWidth(container.getMeasuredWidth());
-        mMiniKeyboardPopup.setHeight(container.getMeasuredHeight());
+        mMiniKeyboardPopup.setContentView(mMiniKeyboard);
+        mMiniKeyboardPopup.setWidth(mMiniKeyboard.getMeasuredWidth());
+        mMiniKeyboardPopup.setHeight(mMiniKeyboard.getMeasuredHeight());
         mMiniKeyboardPopup.showAtLocation(this, Gravity.NO_GRAVITY, x, y);
 
         // Inject down event on the key to mini keyboard.

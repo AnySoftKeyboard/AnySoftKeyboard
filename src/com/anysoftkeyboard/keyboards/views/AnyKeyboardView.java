@@ -16,6 +16,7 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.util.AttributeSet;
@@ -32,6 +33,7 @@ import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.Keyboard.Row;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
+import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.utils.IMEUtil;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -136,6 +138,11 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 		}
 	}
 
+	@Override
+	protected int getKeyboardStyleResId(KeyboardTheme theme) {
+		return theme.getThemeResId();
+	}
+	
 	@Override
 	final protected boolean isFirstDownEventInsideSpaceBar() {
 		if (mCachedIsFirstDownEventInsideSpaceBar != null) return mCachedIsFirstDownEventInsideSpaceBar.booleanValue();

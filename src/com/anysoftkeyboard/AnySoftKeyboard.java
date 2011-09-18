@@ -353,7 +353,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 //				//the new layout will solve the "invalidateAllKeys" problem.
 //				Workarounds.isDonut()? R.layout.input_donut : R.layout.input_cupcake
 //				, null);
-		mInputView = (AnyKeyboardView) getLayoutInflater().inflate(R.layout.input_gingerbread, null);
+		mInputView = (AnyKeyboardView) getLayoutInflater().inflate(R.layout.main_keyboard_layout, null);
 		//reseting token users
 		mOptionsDialog = null;
 		mQuickTextKeyDialog = null;

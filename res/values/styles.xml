@@ -35,7 +35,6 @@
         <item name="keyPreviewOffset">@dimen/key_preview_offset</item>
         <item name="keyPreviewHeight">@dimen/key_preview_height</item>
         <item name="labelTextSize">@dimen/key_label_text_size</item>
-        <item name="popupKeyboardTheme">@style/AnyKeyboardBaseTheme</item>
         
         <item name="keyHysteresisDistance">@dimen/key_hysteresis_distance</item>
         <item name="verticalCorrection">@dimen/keyboard_vertical_correction</item>
@@ -44,29 +43,54 @@
         <item name="shadowRadius">2.75</item>
         <item name="backgroundDimAmount">0.5</item>
         <item name="symbolColorScheme">white</item>
+        
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:paddingBottom">6dp</item>
     </style>
     <style name="AnyKeyboardPopupBaseTheme" parent="@style/AnyKeyboardBaseTheme">
-        <item name="android:background">@drawable/keyboard_popup_panel_background</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
     </style>
     
     <style name="Gingerbread" parent="@style/AnyKeyboardBaseTheme">
         <item name="android:background">@drawable/dark_background</item>
-    	<item name="keyBackground">@drawable/dark_btn_key</item>
+    	<item name="keyBackground">@drawable/btn_keyboard_key_gingerbread</item>
     </style>
+    <style name="GingerbreadPopup" parent="@style/AnyKeyboardPopupBaseTheme">
+        <item name="android:background">@drawable/keyboard_popup_panel_background</item>
+    	<item name="keyBackground">@drawable/btn_keyboard_key_gingerbread_popup</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingBottom">16dp</item>
+    </style>
+    
     <style name="PlainDarkAnySoftKeyboard" parent="@style/AnyKeyboardBaseTheme">
         <item name="android:background">@drawable/dark_background</item>
     	<item name="keyBackground">@drawable/dark_btn_key</item>
     </style>
+    <style name="PlainDarkAnySoftKeyboardPopup" parent="@style/AnyKeyboardPopupBaseTheme">
+        <item name="android:background">@drawable/dark_background_popup</item>
+    	<item name="keyBackground">@drawable/dark_btn_key</item>
+    </style>
+    
     <style name="PlainLightAnySoftKeyboard" parent="@style/AnyKeyboardBaseTheme">
         <item name="android:background">@drawable/light_background</item>
     	<item name="keyBackground">@drawable/light_btn_key</item>
         <item name="keyTextColor">#000</item>
         <item name="backgroundDimAmount">0.7</item>
         <item name="shadowRadius">0</item>
-        <item name="popupKeyboardTheme">@style/PlainLightAnySoftKeyboardPopup</item>
     </style>
     <style name="PlainLightAnySoftKeyboardPopup" parent="@style/AnyKeyboardPopupBaseTheme">
-        <item name="android:background">@drawable/light_background</item>
+        <item name="android:background">@drawable/light_background_popup</item>
+    	<item name="keyBackground">@drawable/light_btn_key</item>
+        <item name="keyTextColor">#000</item>
+        <item name="backgroundDimAmount">0.35</item>
+        <item name="shadowRadius">0</item>
     </style>
     
     <style name="KeyPreviewAnimation">

@@ -58,6 +58,7 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme>
 	}
 
 	private static final String XML_POPUP_KEYBOARD_THEME_RES_ID_ATTRIBUTE = "themeRes";
+	private static final String XML_POPUP_KEYBOARD_POPUP_THEME_RES_ID_ATTRIBUTE = "popupThemeRes";
 	private static final String XML_POPUP_KEYBOARD_THEME_SCREENSHOT_RES_ID_ATTRIBUTE = "themeScreenshot";
 	
 	private KeyboardThemeFactory() {
@@ -71,6 +72,8 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme>
 			String description, int sortIndex, AttributeSet attrs) {
 		final int keyboardThemeResId = attrs.getAttributeResourceValue(null,
 				XML_POPUP_KEYBOARD_THEME_RES_ID_ATTRIBUTE, -1);
+		final int popupKeyboardThemeResId = attrs.getAttributeResourceValue(null,
+				XML_POPUP_KEYBOARD_POPUP_THEME_RES_ID_ATTRIBUTE, -1);
 		final int keyboardThemeScreenshotResId = attrs.getAttributeResourceValue(null,
 				XML_POPUP_KEYBOARD_THEME_SCREENSHOT_RES_ID_ATTRIBUTE, -1);
 		
@@ -82,7 +85,8 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme>
 			
 			throw new RuntimeException(detailMessage);
 		}
-		return new KeyboardTheme(context, prefId, nameResId, keyboardThemeResId,
+		return new KeyboardTheme(context, prefId, nameResId, 
+				keyboardThemeResId, popupKeyboardThemeResId,
 				keyboardThemeScreenshotResId, description, sortIndex);
 	}
 }
