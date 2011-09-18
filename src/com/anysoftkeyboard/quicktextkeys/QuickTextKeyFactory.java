@@ -68,7 +68,7 @@ public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey>
 	private QuickTextKeyFactory() {
 		super("ASK_QKF", "com.anysoftkeyboard.plugin.QUICK_TEXT_KEY", "com.anysoftkeyboard.plugindata.quicktextkeys", 
 				"QuickTextKeys", "QuickTextKey", 
-				R.xml.quick_text_keys);
+				R.xml.quick_text_keys, true);
 	}
 
 	@Override

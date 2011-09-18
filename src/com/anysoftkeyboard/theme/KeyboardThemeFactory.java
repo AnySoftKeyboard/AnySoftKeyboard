@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources.Theme;
 import android.util.AttributeSet;
 
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
@@ -64,7 +63,7 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme>
 	private KeyboardThemeFactory() {
 		super("ASK_KT", "com.anysoftkeyboard.plugin.KEYBOARD_THEME", "com.anysoftkeyboard.plugindata.keyboardtheme", 
 				"KeyboardThemes", "KeyboardTheme", 
-				R.xml.keyboard_themes);
+				R.xml.keyboard_themes, false);//at this time I do not allow external themes.
 	}
 
 	@Override

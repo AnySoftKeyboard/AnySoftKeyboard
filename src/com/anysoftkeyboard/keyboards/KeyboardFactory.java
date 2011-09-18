@@ -80,7 +80,7 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder>
 	private KeyboardFactory() {
 		super(TAG, "com.menny.android.anysoftkeyboard.KEYBOARD", "com.menny.android.anysoftkeyboard.keyboards", 
 				"Keyboards", "Keyboard",
-				R.xml.keyboards);
+				R.xml.keyboards, true);
 	}
 
 	@Override

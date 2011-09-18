@@ -39,7 +39,6 @@
     <dimen name="key_hysteresis_distance">10dp</dimen>
     <dimen name="key_preview_height">80sp</dimen>
     <dimen name="key_preview_offset">0dp</dimen>
-    <dimen name="keyboard_vertical_correction">-0.05in</dimen>
     
     <dimen name="key_preview_text_size_large">28sp</dimen>
     <dimen name="key_bottom_gap">2dp</dimen>

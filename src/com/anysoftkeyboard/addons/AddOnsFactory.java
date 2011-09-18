@@ -64,6 +64,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
     private final ArrayList<E> mAddOns = new ArrayList<E>();
     private final HashMap<String, E> mAddOnsById = new HashMap<String, E>();
     
+    private final boolean mReadExternalPacksToo;
     private final String ROOT_NODE_TAG;
     private final String ADDON_NODE_TAG;
     private final int mBuildInAddOnsResId;
@@ -73,7 +74,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
     private static final String XML_DESCRIPTION_ATTRIBUTE = "description";
     private static final String XML_SORT_INDEX_ATTRIBUTE = "index";
     
-    protected AddOnsFactory(String tag, String receiverInterface, String receiverMetaData, String rootNodeTag, String addonNodeTag, int buildInAddonResId)
+    protected AddOnsFactory(String tag, String receiverInterface, String receiverMetaData, String rootNodeTag, String addonNodeTag, int buildInAddonResId, boolean readExternalPacksToo)
     {
     	TAG = tag;
     	RECEIVER_INTERFACE = receiverInterface;
@@ -81,6 +82,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
     	ROOT_NODE_TAG = rootNodeTag;
     	ADDON_NODE_TAG = addonNodeTag;
     	mBuildInAddOnsResId = buildInAddonResId;
+    	mReadExternalPacksToo = readExternalPacksToo;
     	
     	mActiveInstances.add(this);
     }
@@ -151,11 +153,15 @@ public abstract class AddOnsFactory<E extends AddOn> {
 	}
 
 	private ArrayList<E> getExternalAddOns(Context context){
-
+		final ArrayList<E> externalAddOns = new ArrayList<E>();
+		
+		if (!mReadExternalPacksToo)//this will disable external packs (API careful stage)
+			return externalAddOns;
+		
         final List<ResolveInfo> broadcastReceivers = 
         	context.getPackageManager().queryBroadcastReceivers(new Intent(RECEIVER_INTERFACE), PackageManager.GET_META_DATA);
 
-        final ArrayList<E> externalAddOns = new ArrayList<E>();
+        
         for(final ResolveInfo receiver : broadcastReceivers){
             if (receiver.activityInfo == null) {
                 Log.e(TAG, "BroadcastReceiver has null ActivityInfo. Receiver's label is "

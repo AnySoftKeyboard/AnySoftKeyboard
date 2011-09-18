@@ -46,7 +46,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
     private ExternalDictionaryFactory() {
 		super(TAG, "com.menny.android.anysoftkeyboard.DICTIONARY", "com.menny.android.anysoftkeyboard.dictionaries", 
 				"Dictionaries", "Dictionary",
-				R.xml.dictionaries);
+				R.xml.dictionaries, true);
 	}
     
     @Override

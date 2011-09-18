@@ -201,7 +201,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private int mPopupPreviewOffsetX;
     private int mPopupPreviewOffsetY;
     private int mWindowY;
-    private int mPopupPreviewDisplayedY;
+//    private int mPopupPreviewDisplayedY;
     private final int mDelayBeforePreview;
     private final int mDelayAfterPreview;
 
@@ -489,11 +489,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             case R.styleable.AnyKeyboardBaseView_shadowRadius:
                 mShadowRadius = a.getFloat(attr, 0f);
                 break;
-            // TODO: Use Theme (android.R.styleable.Theme_backgroundDimAmount)
             case R.styleable.AnyKeyboardBaseView_backgroundDimAmount:
                 mBackgroundDimAmount = a.getFloat(attr, 0.5f);
                 break;
-            //case android.R.styleable.
             case R.styleable.AnyKeyboardBaseView_keyTextStyle:
                 int textStyle = a.getInt(attr, 0);
                 switch (textStyle) {
@@ -1164,7 +1162,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                     popupPreviewX, popupPreviewY);
         }
         // Record popup preview position to display mini-keyboard later at the same positon
-        mPopupPreviewDisplayedY = popupPreviewY;
+//        mPopupPreviewDisplayedY = popupPreviewY;
         mPreviewText.setVisibility(VISIBLE);
     }
 
@@ -1286,7 +1284,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
         return miniKeyboard;
     }
-
+/*
     private static boolean isOneRowKeys(List<Key> keys) {
         if (keys.size() == 0) return false;
         final int edgeFlags = keys.get(0).edgeFlags;
@@ -1298,7 +1296,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         // both top and bottom edge flags set.
         return (edgeFlags & Keyboard.EDGE_TOP) != 0 && (edgeFlags & Keyboard.EDGE_BOTTOM) != 0;
     }
-
+*/
     /**
      * Called when a key is long pressed. By default this will open any popup keyboard associated
      * with this key through the attributes popupLayout and popupCharacters.
@@ -1350,10 +1348,11 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         int popupY = popupKey.y + mWindowOffset[1];
         popupY += getPaddingTop();
         popupY -= mMiniKeyboard.getMeasuredHeight();
-        popupY += mMiniKeyboard.getPaddingBottom();
+        //popupY += mMiniKeyboard.getPaddingBottom();
         final int x = popupX;
-        final int y = mShowPreview && isOneRowKeys(miniKeys) ? mPopupPreviewDisplayedY : popupY;
-
+        //final int y = mShowPreview && isOneRowKeys(miniKeys) ? mPopupPreviewDisplayedY : popupY;
+        final int y = popupY;
+        
         int adjustedX = x;
         if (x < 0) {
             adjustedX = 0;
@@ -1361,7 +1360,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             adjustedX = getMeasuredWidth() - mMiniKeyboard.getMeasuredWidth();
         }
         mMiniKeyboardOriginX = adjustedX + mMiniKeyboard.getPaddingLeft() - mWindowOffset[0];
-        mMiniKeyboardOriginY = y + mMiniKeyboard.getPaddingBottom() - mWindowOffset[1];
+        mMiniKeyboardOriginY = y + mMiniKeyboard.getPaddingBottom() + mMiniKeyboard.getPaddingBottom()/* - mWindowOffset[1]*/;
         mMiniKeyboard.setPopupOffset(adjustedX, y);
         mMiniKeyboard.setShifted(isShifted());
         // Mini keyboard needs no pop-up key preview displayed.
