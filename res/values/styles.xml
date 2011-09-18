@@ -37,7 +37,7 @@
         <item name="labelTextSize">@dimen/key_label_text_size</item>
         
         <item name="keyHysteresisDistance">@dimen/key_hysteresis_distance</item>
-        <item name="verticalCorrection">-16dp</item>
+        <item name="verticalCorrection">-32dp</item>
         
         <item name="shadowColor">#BB000000</item>
         <item name="shadowRadius">2.75</item>

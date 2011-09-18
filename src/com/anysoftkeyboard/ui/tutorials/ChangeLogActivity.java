@@ -2,6 +2,7 @@ package com.anysoftkeyboard.ui.tutorials;
 
 import com.anysoftkeyboard.ui.MainForm;
 import com.anysoftkeyboard.ui.settings.BottomRowSelector;
+import com.anysoftkeyboard.ui.settings.KeyboardThemeSelector;
 import com.anysoftkeyboard.ui.settings.TopRowSelector;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -65,6 +66,11 @@ public class ChangeLogActivity extends BaseTutorialActivity implements OnClickLi
 			Intent topRowSettings = new Intent(this, TopRowSelector.class);
 			topRowSettings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(topRowSettings);
+			break;
+		case R.id.settings_keyboard_theme_button:
+			Intent themeSelector = new Intent(this, KeyboardThemeSelector.class);
+			themeSelector.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(themeSelector);
 			break;
 		}
 	}

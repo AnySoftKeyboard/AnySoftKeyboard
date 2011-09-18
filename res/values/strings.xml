@@ -37,6 +37,7 @@
 	<!-- changelog -->
 	<string name="changelog">Changelog</string>
 	<string name="search_market_for_addons">Search for add-ons</string>
+	<string name="theme_addons_settings">Keyboard theme settings</string>
 	<string name="bottom_row_addons_settings">Bottom row settings</string>
 	<string name="top_row_addons_settings">Top row settings</string>
 	
