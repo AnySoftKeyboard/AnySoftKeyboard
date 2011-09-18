@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <inset
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:drawable="@drawable/shape_pressed"
+    android:drawable="@drawable/light_btn_key__base_action_pressed"
     android:insetTop="@dimen/key_top_inset"
     android:insetRight="@dimen/key_right_inset"
     android:insetBottom="@dimen/key_bottom_inset"

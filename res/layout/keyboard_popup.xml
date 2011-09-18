@@ -22,22 +22,16 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@drawable/keyboard_popup_panel_background"
         android:paddingLeft="16dip"
         android:paddingRight="16dip"
         >
-        <!-- android:background="@drawable/keyboard_dark_background" -->
     <com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView
             android:id="@+id/AnyKeyboardBaseView"
             android:layout_alignParentBottom="true"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/shape_popup_background"
-            android:textStyle="bold"
-
-			keyTextStyle="bold"
-            keyBackground="@drawable/btn_keyboard_key_gingerbread_popup"
-            keyHysteresisDistance="0dip"
+            
+            keyHysteresisDistance="20dip"
             verticalCorrection="@dimen/mini_keyboard_vertical_correction"
             />
                     

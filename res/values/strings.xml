@@ -299,10 +299,10 @@
 	
 	<string name="gingerbread_keyboard_theme_name">Gingerbread styled</string>
 	<string name="gingerbread_keyboard_theme_description">Gingerbread (Android 2.3) styled buttons and colors</string>
-	<string name="rounder_keyboard_theme_name">Dark, round keys</string>
-	<string name="rounder_keyboard_theme_description">Gingerbread (Android 2.3) styled with round buttons and colors</string>
-	<string name="rounder_light_keyboard_theme_name">Light colored, rounded</string>
-	<string name="rounder_light_keyboard_theme_description">Light color, rounded buttons</string>
+	<string name="dark_plain_keyboard_theme_name">Plain dark theme</string>
+	<string name="dark_plain_keyboard_theme_description">Dark colors, simple graphics</string>
+	<string name="light_plain_keyboard_theme_name">Plain light theme</string>
+	<string name="light_plain_keyboard_theme_description">Light colors, simple graphics</string>
 	
 	<!-- extension keyboard type -->
 	<string name="extension_kbd_top_none">No top row</string>

@@ -21,30 +21,30 @@
     <!-- Action key -->
 
     <item ask:key_type_action="true" android:state_pressed="true"
-          android:drawable="@drawable/inset_shape_action_pressed" />
+          android:drawable="@drawable/light_btn_key_action_pressed" />
     <item ask:key_type_action="true"
-          android:drawable="@drawable/inset_shape_action" />
+    	android:drawable="@drawable/light_btn_key_action" />
 
     <!-- Functional keys. -->
 
     <item ask:key_type_function="true" android:state_pressed="true"
-          android:drawable="@drawable/inset_shape_function_pressed" />
+          android:drawable="@drawable/light_btn_key_function_pressed" />
     <item ask:key_type_function="true"
-          android:drawable="@drawable/inset_shape_function" />
+          android:drawable="@drawable/light_btn_key_function" />
 
     <!-- Toggle keys. Use checkable/checked state. -->
 
     <item android:state_checkable="true" android:state_checked="true" android:state_pressed="true"
-          android:drawable="@drawable/inset_shape_function_pressed" />
+          android:drawable="@drawable/light_btn_key_function_pressed" />
     <item android:state_checkable="true" android:state_pressed="true"
-          android:drawable="@drawable/inset_shape_function_pressed" />
+          android:drawable="@drawable/light_btn_key_function_pressed" />
     <item android:state_checkable="true" android:state_checked="true"
-          android:drawable="@drawable/inset_shape_function" />
+          android:drawable="@drawable/light_btn_key_function" />
     <item android:state_checkable="true"
-          android:drawable="@drawable/inset_shape_function" />
+          android:drawable="@drawable/light_btn_key_function" />
 
     <!-- Normal keys -->
 	<item android:state_pressed="true"
-          android:drawable="@drawable/inset_shape_pressed" />
-    <item android:drawable="@drawable/inset_shape" />
+          android:drawable="@drawable/light_btn_key_normal_pressed" />
+    <item android:drawable="@drawable/light_btn_key_normal" />
 </selector>

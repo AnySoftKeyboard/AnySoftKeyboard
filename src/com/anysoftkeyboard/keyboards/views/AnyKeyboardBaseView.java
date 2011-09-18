@@ -182,7 +182,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private float mVerticalCorrection;
     private int mPreviewOffset;
     private int mPreviewHeight;
-    private int mPopupLayout;
+    private final int mPopupLayout = R.layout.keyboard_popup;
 
     // Main keyboard
     private AnyKeyboard mKeyboard;
@@ -430,7 +430,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         int previewLayout = 0;
         int keyTextSize = 0;
 
-        int n = a.getIndexCount();
+        final int n = a.getIndexCount();
 
         for (int i = 0; i < n; i++) {
             int attr = a.getIndex(i);
@@ -466,9 +466,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             case R.styleable.AnyKeyboardBaseView_labelTextSize:
                 mLabelTextSize = a.getDimensionPixelSize(attr, 14);
                 break;
-            case R.styleable.AnyKeyboardBaseView_popupLayout:
-                mPopupLayout = a.getResourceId(attr, 0);
-                break;
+//            case R.styleable.AnyKeyboardBaseView_popupLayout:
+//                mPopupLayout = a.getResourceId(attr, 0);
+//                break;
             case R.styleable.AnyKeyboardBaseView_shadowColor:
                 mShadowColor = a.getColor(attr, 0);
                 break;

@@ -3,20 +3,20 @@
 	<KeyboardTheme
         id="48fa4f73-09aa-4eff-bd3b-c2c54d94159d"
         nameResId="@string/gingerbread_keyboard_theme_name"
-        themeRes="@style/AnyKeyboardBaseView"
+        themeRes="@style/Gingerbread"
         description="@string/gingerbread_keyboard_theme_description"
         index="1"/>
 	<KeyboardTheme
         id="55d9797c-850c-40a8-9a5d-7467b55bd537"
-        nameResId="@string/rounder_keyboard_theme_name"
-        themeRes="@style/RounderAnyKeyboardBaseView"
-        description="@string/rounder_keyboard_theme_description"
+        nameResId="@string/dark_plain_keyboard_theme_name"
+        themeRes="@style/PlainDarkAnySoftKeyboard"
+        description="@string/dark_plain_keyboard_theme_description"
         index="2"/>
 	<KeyboardTheme
-        id="aa7ae2f0-a766-4e32-b159-37ad25d87783"
-        nameResId="@string/rounder_light_keyboard_theme_name"
-        themeRes="@style/LightColorRounderAnyKeyboardBaseView"
-        description="@string/rounder_light_keyboard_theme_description"
-        index="2"/>
+        id="79809d30-2919-4ae6-a9ec-94fd4bb6bd92"
+        nameResId="@string/light_plain_keyboard_theme_name"
+        themeRes="@style/PlainLightAnySoftKeyboard"
+        description="@string/light_plain_keyboard_theme_description"
+        index="3"/>
         
 </KeyboardThemes>
