@@ -105,9 +105,8 @@
         <!-- Amount to offset the touch Y coordinate by, for bias correction. -->
         <attr name="verticalCorrection" format="dimension" />
 
-        <!-- Layout resource for popup keyboards. -->
-        <attr name="popupLayout" format="reference" />
-
+        <attr name="popupKeyboardTheme" format="reference" />
+		
         <attr name="shadowColor" format="color" />
         <attr name="shadowRadius" format="float" />
         <attr name="backgroundDimAmount" format="float" />
@@ -124,6 +123,7 @@
         </attr>
 
 		<attr name="android:background"/>
+		
     </declare-styleable>
 
 	<declare-styleable name="keyBackgroundType">
