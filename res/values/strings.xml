@@ -254,7 +254,8 @@
     <string name="auto_dict">Auto dictionary</string>
     <string name="auto_dict_summary">Add commonly used or selected words automatically to the dictionary</string>
     
-    
+    <string name="no_extrenal_packs_support_title">Unsupported</string>
+    <string name="no_extrenal_packs_support_message">For now, AnySoftKeyboard does not allow external packs of this type.\nOnce API specifications have been determined, this feature will be opened.\nStay tuned.</string>
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Keyboards</string>
     <string name="symbols_keyboard">Symbols</string>

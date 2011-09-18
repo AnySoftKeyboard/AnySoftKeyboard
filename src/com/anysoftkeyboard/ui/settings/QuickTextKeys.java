@@ -27,4 +27,9 @@ public class QuickTextKeys extends AddOnSelector<QuickTextKey> {
 	protected List<QuickTextKey> getAllAvailableAddOns() {
 		return QuickTextKeyFactory.getAllAvailableQuickKeys(getApplicationContext());
 	}
+	
+	@Override
+	protected boolean allowExternalPacks() {
+		return true;
+	}
 }

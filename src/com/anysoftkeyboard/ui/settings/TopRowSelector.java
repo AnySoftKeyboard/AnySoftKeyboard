@@ -27,4 +27,9 @@ public class TopRowSelector extends AddOnSelector<KeyboardExtension> {
 	protected int getAddonsListPrefKeyResId() {
 		return R.string.settings_key_ext_kbd_top_row_key;
 	}
+	
+	@Override
+	protected boolean allowExternalPacks() {
+		return false;
+	}
 }

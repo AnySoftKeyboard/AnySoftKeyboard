@@ -27,4 +27,9 @@ public class BottomRowSelector extends AddOnSelector<KeyboardExtension> {
 	protected List<KeyboardExtension> getAllAvailableAddOns() {
 		return KeyboardExtensionFactory.getAllAvailableExtensions(getApplicationContext(), KeyboardExtension.TYPE_BOTTOM);
 	}
+	
+	@Override
+	protected boolean allowExternalPacks() {
+		return false;
+	}
 }

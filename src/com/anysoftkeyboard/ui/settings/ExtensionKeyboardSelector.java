@@ -27,4 +27,9 @@ public class ExtensionKeyboardSelector extends AddOnSelector<KeyboardExtension> 
 	protected int getPrefsLayoutResId() {
 		return R.layout.prefs_addon_extension_keyboard_selector;
 	}
+	
+	@Override
+	protected boolean allowExternalPacks() {
+		return false;
+	}
 }

@@ -27,4 +27,9 @@ public class KeyboardThemeSelector extends AddOnSelector<KeyboardTheme> {
 	protected List<KeyboardTheme> getAllAvailableAddOns() {
 		return KeyboardThemeFactory.getAllAvailableQuickKeys(getApplicationContext());
 	}
+	
+	@Override
+	protected boolean allowExternalPacks() {
+		return false;
+	}
 }
