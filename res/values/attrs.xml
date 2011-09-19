@@ -73,9 +73,6 @@
     </declare-styleable>
     
     <declare-styleable name="AnyKeyboardBaseView">
-        <!-- Default KeyboardView style. -->
-        <attr name="keyboardViewStyle" format="reference" />
-
         <!-- Image for the key. This image needs to be a StateListDrawable, with the following
              possible states: normal, pressed, checkable, checkable+pressed, checkable+checked,
              checkable+checked+pressed. -->
@@ -90,23 +87,27 @@
         <!-- Color to use for the label in a key. -->
         <attr name="keyTextColor" format="color" />
 
-        <!-- Layout resource for key press feedback.-->
+		<!-- Layout resource for key press feedback.-->
+        <!-- 
         <attr name="keyPreviewLayout" format="reference" />
-
+		 -->
+		 
         <!-- Vertical offset of the key press feedback from the key. -->
         <attr name="keyPreviewOffset" format="dimension" />
-
+        <attr name="keyPreviewBackground" format="reference" />
+        <attr name="keyPreviewTextSize" format="dimension" />
+        <attr name="keyPreviewTextColor" format="color" />
+        <attr name="keyPreviewLabelTextSize" format="dimension" />
         <!-- Height of the key press feedback popup. -->
+        <!-- 
         <attr name="keyPreviewHeight" format="dimension" />
-
+		 -->
         <!-- Hysteresis distance for key debouncing -->
         <attr name="keyHysteresisDistance" format="dimension" />
 
         <!-- Amount to offset the touch Y coordinate by, for bias correction. -->
         <attr name="verticalCorrection" format="dimension" />
 
-        <attr name="popupKeyboardTheme" format="reference" />
-		
         <attr name="shadowColor" format="color" />
         <attr name="shadowRadius" format="float" />
         <attr name="backgroundDimAmount" format="float" />
@@ -116,18 +117,22 @@
             <flag name="bold" value="1" />
             <flag name="italic" value="2" />
         </attr>
-
+		
         <attr name="symbolColorScheme">
             <flag name="white" value="0" />
             <flag name="black" value="1" />
         </attr>
 
 		<attr name="android:background"/>
-		
+		<attr name="android:paddingLeft"/>
+		<attr name="android:paddingTop"/>
+		<attr name="android:paddingRight"/>
+		<attr name="android:paddingBottom"/>
     </declare-styleable>
 
-	<declare-styleable name="keyBackgroundType">
+	<declare-styleable name="keyType">
 		<attr name="key_type_function" format="boolean" />
 		<attr name="key_type_action" format="boolean" />
+		<attr name="key_type_feedback" format="boolean" />
 	</declare-styleable>
 </resources>
