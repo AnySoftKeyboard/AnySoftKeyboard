@@ -399,6 +399,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (DEBUG) Log.d(TAG, "onStartInputView(EditorInfo:"
 					+ attribute.imeOptions + "," + attribute.inputType
 					+ ", restarting:" + restarting + ")");
+		
 		super.onStartInputView(attribute, restarting);
 
 		if (mInputView == null) {

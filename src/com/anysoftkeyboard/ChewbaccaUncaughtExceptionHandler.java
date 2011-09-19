@@ -52,7 +52,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 			"****** Logcat:\n"+getLogcat();
 		Log.e(TAG, "About to send a bug report:\n"+logText);
         
-		Notification notification = new Notification(R.drawable.notification_error_icon, "Caught an unhandled exception!", System.currentTimeMillis());
+		Notification notification = new Notification(R.drawable.notification_error_icon, "Oops! Didn't see that coming, I crashed.", System.currentTimeMillis());
 
 		Intent notificationIntent = new Intent(mApp, SendBugReportUiActivity.class);
 		
@@ -62,7 +62,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 
 		notification.setLatestEventInfo(mApp, 
 				mApp.getText(R.string.ime_name), 
-				"Caught an unhandled exception!",
+				"Oops! Didn't see that coming, I crashed.",
 				contentIntent);
 		notification.flags |= Notification.FLAG_AUTO_CANCEL;
 		notification.flags |= Notification.FLAG_ONLY_ALERT_ONCE;

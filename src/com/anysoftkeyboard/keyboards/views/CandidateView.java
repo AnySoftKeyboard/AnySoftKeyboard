@@ -17,6 +17,10 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -30,17 +34,8 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.PopupWindow;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
@@ -48,7 +43,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 public class CandidateView extends View {
 
-    private static final int OUT_OF_BOUNDS_WORD_INDEX = -1;
+    //private static final int OUT_OF_BOUNDS_WORD_INDEX = -1;
     private static final int OUT_OF_BOUNDS_X_COORD = -1;
 
     private AnySoftKeyboard mService;
@@ -64,9 +59,9 @@ public class CandidateView extends View {
     
     private Rect mBgPadding;
 
-    private final TextView mPreviewText;
-    private final PopupWindow mPreviewPopup;
-    private int mCurrentWordIndex;
+//    private final TextView mPreviewText;
+//    private final PopupWindow mPreviewPopup;
+    //private int mCurrentWordIndex;
     private Drawable mDivider;
     
     private static final int MAX_SUGGESTIONS = 32;
@@ -74,8 +69,8 @@ public class CandidateView extends View {
     
     private final int[] mWordWidth = new int[MAX_SUGGESTIONS];
     private final int[] mWordX = new int[MAX_SUGGESTIONS];
-    private int mPopupPreviewX;
-    private int mPopupPreviewY;
+    //private int mPopupPreviewX;
+    //private int mPopupPreviewY;
 
     private static final int X_GAP = 10;
     
@@ -83,7 +78,7 @@ public class CandidateView extends View {
     private final int mColorRecommended;
     private final int mColorOther;
     private final Paint mPaint;
-    private final int mDescent;
+    //private final int mDescent;
     private boolean mScrolled;
     private boolean mShowingAddToDictionary;
     private CharSequence mAddToDictionaryHint;
@@ -103,32 +98,35 @@ public class CandidateView extends View {
      */
     public CandidateView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mSelectionHighlight = context.getResources().getDrawable(
-                R.drawable.list_selector_background_pressed);
+        mSelectionHighlight = context.getResources().getDrawable(R.drawable.list_selector_background_pressed);
 
-        LayoutInflater inflate =
-            (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        LayoutInflater inflate = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         Resources res = context.getResources();
-        mPreviewPopup = new PopupWindow(context);
-        mPreviewText = (TextView) inflate.inflate(R.layout.candidate_preview, null);
-        mPreviewPopup.setWindowLayoutMode(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        mPreviewPopup.setContentView(mPreviewText);
-        mPreviewPopup.setBackgroundDrawable(null);
-        mPreviewPopup.setAnimationStyle(R.style.KeyPreviewAnimation);
+//        mPreviewPopup = new PopupWindow(context);
+//        mPreviewText = (TextView) inflate.inflate(R.layout.candidate_preview, null);
+//        mPreviewPopup.setWindowLayoutMode(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+//        mPreviewPopup.setContentView(mPreviewText);
+//        mPreviewPopup.setBackgroundDrawable(null);
+//        mPreviewPopup.setAnimationStyle(R.style.KeyPreviewAnimation);
+        mAddToDictionaryHint = res.getString(R.string.hint_add_to_dictionary);
+        //themed
         mColorNormal = res.getColor(R.color.candidate_normal);
         mColorRecommended = res.getColor(R.color.candidate_recommended);
         mColorOther = res.getColor(R.color.candidate_other);
         mDivider = res.getDrawable(R.drawable.keyboard_suggest_strip_divider);
-        mAddToDictionaryHint = res.getString(R.string.hint_add_to_dictionary);
-
+        //mPreviewText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        setBackgroundColor(0);
+        //setBackgroundResource(R.drawable.keyboard_suggest_strip);
+        //mPreviewText.setBackgroundResource(R.drawable.candidate_feedback_background);
+        //end of themed
+        
         mPaint = new Paint();
         mPaint.setColor(mColorNormal);
         mPaint.setAntiAlias(true);
-        mPaint.setTextSize(mPreviewText.getTextSize());
+        mPaint.setTextSize(res.getDimensionPixelSize(R.dimen.candidate_font_height));
         mPaint.setStrokeWidth(0);
         mPaint.setTextAlign(Align.CENTER);
-        mDescent = (int) mPaint.descent();
+        //mDescent = (int) mPaint.descent();
         mMinTouchableWidth = (int)res.getDimension(R.dimen.candidate_min_touchable_width);
         
         mGestureDetector = new GestureDetector(
@@ -146,7 +144,7 @@ public class CandidateView extends View {
             // Slightly reluctant to scroll to be able to easily choose the suggestion
             mTouchSlopSquare = touchSlop * touchSlop;
         }
-
+/*
         @Override
         public void onLongPress(MotionEvent me) {
             if (mSuggestions.size() > 0) {
@@ -155,7 +153,7 @@ public class CandidateView extends View {
                 }
             }
         }
-
+*/
         @Override
         public boolean onDown(MotionEvent e) {
             mScrolled = false;
@@ -188,7 +186,7 @@ public class CandidateView extends View {
             }
             mTargetScrollX = scrollX;
             scrollTo(scrollX, getScrollY());
-            hidePreview();
+            //hidePreview();
             invalidate();
             return true;
         }
@@ -258,7 +256,7 @@ public class CandidateView extends View {
 
             //now that we set the typeFace, we can measure
             //final int y = (int) (height + mPaint.getTextSize() - mDescent) / 2;
-            final int y = (int) (height - mPaint.getTextSize() - mDescent) / 2;
+            final int y = (int) (height - mPaint.getTextSize() + mPaint.descent()) / 2;
             
             int wordWidth;
             if ((wordWidth = mWordWidth[i]) == 0) {
@@ -304,7 +302,7 @@ public class CandidateView extends View {
                 paint.setColor(mColorOther);
                 canvas.translate(x + wordWidth, 0);
                 // Draw a divider unless it's after the hint
-                if (!(mShowingAddToDictionary && i == 1)) {
+                if (count > 1 && (!mShowingAddToDictionary)) {
                     mDivider.draw(canvas);
                 }
                 canvas.translate(-x - wordWidth, 0);
@@ -438,7 +436,7 @@ public class CandidateView extends View {
             if (!mScrolled) {
                 if (mSelectedString != null) {
                     if (mShowingAddToDictionary) {
-                        longPressFirstWord();
+                        //longPressFirstWord();
                         clear();
                     } else {
                         if (!mShowingCompletions) {
@@ -452,13 +450,14 @@ public class CandidateView extends View {
             mSelectedString = null;
             mSelectedIndex = -1;
             requestLayout();
-            hidePreview();
+            //hidePreview();
             invalidate();
             break;
         }
         return true;
     }
 
+    /*
     private void hidePreview() {
         mTouchX = OUT_OF_BOUNDS_X_COORD;
         mCurrentWordIndex = OUT_OF_BOUNDS_WORD_INDEX;
@@ -500,7 +499,6 @@ public class CandidateView extends View {
             }
         }
     }
-
     private void longPressFirstWord() {
         CharSequence word = mSuggestions.get(0);
         if (word.length() < 2) return;
@@ -508,10 +506,10 @@ public class CandidateView extends View {
             showPreview(0, getContext().getResources().getString(R.string.added_word, word));
         }
     }
-    
     @Override
     public void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         hidePreview();
     }
+    */
 }

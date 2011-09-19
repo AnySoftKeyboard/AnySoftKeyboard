@@ -51,11 +51,15 @@
         <item name="android:paddingRight">0dp</item>
         <item name="android:paddingBottom">6dp</item>
         
+        <!-- key preview (feeback) -->
         <item name="keyPreviewBackground">@drawable/keyboard_key_feedback</item>
     	<item name="keyPreviewTextColor">#FFFFFFFF</item>
     	<item name="keyPreviewTextSize">28sp</item>
     	<item name="keyPreviewLabelTextSize">18sp</item>
     	<item name="keyPreviewOffset">@dimen/key_preview_offset</item>
+    	
+    	<!-- suggestion strip -->
+    	
     </style>
     <style name="AnyKeyboardPopupBaseTheme" parent="@style/AnyKeyboardBaseTheme">
         <item name="android:paddingLeft">8dp</item>
@@ -110,6 +114,10 @@
         
     </style>
     
+    <style name="MainKeyboardAnimation">
+        <item name="android:windowEnterAnimation">@anim/input_method_fancy_enter</item>
+        <item name="android:windowExitAnimation">@anim/input_method_fancy_exit</item>
+    </style>
     <style name="KeyPreviewAnimation">
         <item name="android:windowEnterAnimation">@anim/key_preview_fadein</item>
         <item name="android:windowExitAnimation">@anim/key_preview_fadeout</item>

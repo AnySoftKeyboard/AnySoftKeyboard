@@ -26,7 +26,7 @@
     
     <dimen name="key_text_size">21sp</dimen>
     <dimen name="key_label_text_size">14sp</dimen>
-    <dimen name="candidate_strip_height">40dip</dimen>
+    <dimen name="candidate_strip_height">32dip</dimen>
     <dimen name="candidate_font_height">16sp</dimen>
    
     <dimen name="candidate_vertical_padding">4sp</dimen>

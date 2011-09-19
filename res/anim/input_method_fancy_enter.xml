@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-/* 
+/* //device/apps/common/res/anim/fade_in.xml
 **
-** Copyright 2011 AnySoftKeyboard
+** Copyright 2007, The Android Open Source Project
 **
 ** Licensed under the Apache License, Version 2.0 (the "License"); 
 ** you may not use this file except in compliance with the License. 
@@ -18,13 +18,12 @@
 */
 -->
 
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content" 
-    android:layout_height="wrap_content"
-    android:textSize="18sp"
-    android:textColor="?android:attr/textColorPrimaryInverse"
-    android:minWidth="32dip"
-    android:gravity="center"
-    android:background="@drawable/candidate_feedback_background"
-    />
-
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+        android:interpolator="@android:anim/decelerate_interpolator">
+    <scale android:fromXScale="2.0" android:toXScale="1.0"
+           android:fromYScale="2.0" android:toYScale="1.0"
+           android:pivotX="50%" android:pivotY="50%"
+           android:duration="@android:integer/config_longAnimTime" />
+    <translate android:fromYDelta="100%" android:toYDelta="0"
+            android:duration="@android:integer/config_longAnimTime"/>
+</set>
