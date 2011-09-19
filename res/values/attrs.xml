@@ -87,10 +87,6 @@
         <!-- Color to use for the label in a key. -->
         <attr name="keyTextColor" format="color" />
 
-		<!-- Layout resource for key press feedback.-->
-        <!-- 
-        <attr name="keyPreviewLayout" format="reference" />
-		 -->
 		 
         <!-- Vertical offset of the key press feedback from the key. -->
         <attr name="keyPreviewOffset" format="dimension" />
@@ -98,10 +94,7 @@
         <attr name="keyPreviewTextSize" format="dimension" />
         <attr name="keyPreviewTextColor" format="color" />
         <attr name="keyPreviewLabelTextSize" format="dimension" />
-        <!-- Height of the key press feedback popup. -->
-        <!-- 
-        <attr name="keyPreviewHeight" format="dimension" />
-		 -->
+        
         <!-- Hysteresis distance for key debouncing -->
         <attr name="keyHysteresisDistance" format="dimension" />
 
@@ -128,6 +121,13 @@
 		<attr name="android:paddingTop"/>
 		<attr name="android:paddingRight"/>
 		<attr name="android:paddingBottom"/>
+		
+		
+		<attr name="suggestionNormalTextColor" format="color" />
+		<attr name="suggestionRecommendedTextColor" format="color" />
+		<attr name="suggestionOtherTextColor" format="color" />
+		<attr name="suggestionTextSize" format="dimension" />
+		<attr name="suggestionBackground" format="reference" />
     </declare-styleable>
 
 	<declare-styleable name="keyType">
