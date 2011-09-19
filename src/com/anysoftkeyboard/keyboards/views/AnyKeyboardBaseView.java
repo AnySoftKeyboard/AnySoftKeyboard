@@ -25,11 +25,13 @@ import java.util.WeakHashMap;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.PorterDuff;
@@ -169,7 +171,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
     // XML attribute
     private int mKeyTextSize;
-    private int mKeyTextColor;
+    private ColorStateList mKeyTextColor;
     private Typeface mKeyTextStyle = Typeface.DEFAULT;
     private int mLabelTextSize;
     private boolean mInLandscape = false;
@@ -475,7 +477,12 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 mKeyTextSize = a.getDimensionPixelSize(attr, 18);
                 break;
             case R.styleable.AnyKeyboardBaseView_keyTextColor:
-                mKeyTextColor = a.getColor(attr, 0xFF000000);
+            	mKeyTextColor = a.getColorStateList(attr);
+            	if (mKeyTextColor == null)
+            	{
+            		Log.d(TAG, "Creating an empty ColorStateList");
+            		mKeyTextColor = new ColorStateList(new int[][]{{0}}, new int[]{a.getColor(attr, 0xFF000000)});
+            	}
                 break;
             case R.styleable.AnyKeyboardBaseView_labelTextSize:
                 mLabelTextSize = a.getDimensionPixelSize(attr, 14);
@@ -900,7 +907,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         final Key[] keys = mKeys;
         final Key invalidKey = mInvalidatedKey;
 
-        paint.setColor(mKeyTextColor);
         boolean drawSingleKey = false;
         if (invalidKey != null && canvas.getClipBounds(clipRegion)) {
             // TODO we should use Rect.inset and Rect.contains here.
@@ -921,6 +927,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 continue;
             }
             int[] drawableState = key.getCurrentDrawableState();
+            
+            paint.setColor(mKeyTextColor.getColorForState(drawableState, 0xFF000000));
             keyBackground.setState(drawableState);
 
             // Switch the character to uppercase if shift is pressed

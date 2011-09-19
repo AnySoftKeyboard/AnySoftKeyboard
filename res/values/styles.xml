@@ -84,14 +84,14 @@
     <style name="PlainLightAnySoftKeyboard" parent="@style/AnyKeyboardBaseTheme">
         <item name="android:background">@drawable/light_background</item>
     	<item name="keyBackground">@drawable/light_btn_key</item>
-        <item name="keyTextColor">#000</item>
+        <item name="keyTextColor">@color/light_btn_key_text_color</item>
         <item name="backgroundDimAmount">0.2</item>
         <item name="shadowRadius">0</item>
     </style>
     <style name="PlainLightAnySoftKeyboardPopup" parent="@style/AnyKeyboardPopupBaseTheme">
         <item name="android:background">@drawable/light_background_popup</item>
     	<item name="keyBackground">@drawable/light_btn_key</item>
-        <item name="keyTextColor">#000</item>
+        <item name="keyTextColor">@color/light_btn_key_text_color</item>
         <item name="shadowRadius">0</item>
     </style>
     
