@@ -58,8 +58,9 @@
         <item name="verticalCorrection">-4dp</item>
     </style>
     
+    
     <style name="Gingerbread" parent="@style/AnyKeyboardBaseTheme">
-        <item name="android:background">@drawable/dark_background</item>
+        <item name="android:background">@drawable/gingerbread_main_background</item>
     	<item name="keyBackground">@drawable/btn_keyboard_key_gingerbread</item>
     </style>
     <style name="GingerbreadPopup" parent="@style/AnyKeyboardPopupBaseTheme">
