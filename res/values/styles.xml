@@ -13,7 +13,12 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
+<!-- 
 
+        <item name="keyPreviewLayout">@layout/key_preview</item>
+        <item name="keyPreviewOffset">@dimen/key_preview_offset</item>
+        <item name="keyPreviewHeight">@dimen/key_preview_height</item>
+-->
 <resources>
     <style name="Popup" parent="@android:style/Theme.Dialog">
    		<item name="android:windowContentOverlay">@null</item>
@@ -28,12 +33,8 @@
     	<item name="keyBackground">@drawable/dark_btn_key</item>
     	
         <item name="keyTextSize">@dimen/key_text_size</item>
-        <item name="android:textStyle">bold</item>
         <item name="keyTextStyle">bold</item>
         <item name="keyTextColor">#FFFFFFFF</item>
-        <item name="keyPreviewLayout">@layout/key_preview</item>
-        <item name="keyPreviewOffset">@dimen/key_preview_offset</item>
-        <item name="keyPreviewHeight">@dimen/key_preview_height</item>
         <item name="labelTextSize">@dimen/key_label_text_size</item>
         
         <item name="keyHysteresisDistance">@dimen/key_hysteresis_distance</item>
@@ -49,6 +50,12 @@
         <item name="android:paddingTop">2dp</item>
         <item name="android:paddingRight">0dp</item>
         <item name="android:paddingBottom">6dp</item>
+        
+        <item name="keyPreviewBackground">@drawable/keyboard_key_feedback</item>
+    	<item name="keyPreviewTextColor">#FFFFFFFF</item>
+    	<item name="keyPreviewTextSize">28sp</item>
+    	<item name="keyPreviewLabelTextSize">18sp</item>
+    	<item name="keyPreviewOffset">@dimen/key_preview_offset</item>
     </style>
     <style name="AnyKeyboardPopupBaseTheme" parent="@style/AnyKeyboardBaseTheme">
         <item name="android:paddingLeft">8dp</item>
@@ -56,12 +63,15 @@
         <item name="android:paddingRight">8dp</item>
         <item name="android:paddingBottom">8dp</item>
         <item name="verticalCorrection">-4dp</item>
+        <!-- this will say "no preview" -->
+    	<item name="keyPreviewTextSize">0px</item>
     </style>
     
     
     <style name="Gingerbread" parent="@style/AnyKeyboardBaseTheme">
         <item name="android:background">@drawable/gingerbread_main_background</item>
     	<item name="keyBackground">@drawable/btn_keyboard_key_gingerbread</item>
+    	<item name="keyPreviewBackground">@drawable/keyboard_key_feedback</item>
     </style>
     <style name="GingerbreadPopup" parent="@style/AnyKeyboardPopupBaseTheme">
         <item name="android:background">@drawable/keyboard_popup_panel_background</item>
@@ -75,6 +85,7 @@
     <style name="PlainDarkAnySoftKeyboard" parent="@style/AnyKeyboardBaseTheme">
         <item name="android:background">@drawable/dark_background</item>
     	<item name="keyBackground">@drawable/dark_btn_key</item>
+    	<item name="keyPreviewBackground">@drawable/dark_background_popup</item>
     </style>
     <style name="PlainDarkAnySoftKeyboardPopup" parent="@style/AnyKeyboardPopupBaseTheme">
         <item name="android:background">@drawable/dark_background_popup</item>
@@ -87,12 +98,16 @@
         <item name="keyTextColor">@color/light_btn_key_text_color</item>
         <item name="backgroundDimAmount">0.2</item>
         <item name="shadowRadius">0</item>
+        
+        <item name="keyPreviewBackground">@drawable/light_background_popup</item>
+        <item name="keyPreviewTextColor">#FF000000</item>
     </style>
     <style name="PlainLightAnySoftKeyboardPopup" parent="@style/AnyKeyboardPopupBaseTheme">
         <item name="android:background">@drawable/light_background_popup</item>
     	<item name="keyBackground">@drawable/light_btn_key</item>
         <item name="keyTextColor">@color/light_btn_key_text_color</item>
         <item name="shadowRadius">0</item>
+        
     </style>
     
     <style name="KeyPreviewAnimation">

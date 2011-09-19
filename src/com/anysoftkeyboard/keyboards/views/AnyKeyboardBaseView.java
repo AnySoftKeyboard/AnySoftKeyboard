@@ -31,7 +31,6 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.PorterDuff;
@@ -55,7 +54,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -183,7 +181,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private float mKeyHysteresisDistance;
     private float mVerticalCorrection;
     private int mPreviewOffset;
-    private int mPreviewHeight;
+    //private int mPreviewHeight;
     //private final int mPopupLayout = R.layout.keyboard_popup;
 
     // Main keyboard
@@ -195,7 +193,11 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     // Key preview popup
     private TextView mPreviewText;
     private PopupWindow mPreviewPopup;
-    private int mPreviewTextSizeLarge;
+    private int mPreviewKeyTextSize;
+	private int mPreviewLabelTextSize;
+	private int mPreviewPaddingWidth = -1;
+	private int mPreviewPaddingHeight = -1;
+    //private int mPreviewTextSizeLarge;
     private int[] mOffsetInWindow;
     private int mOldPreviewKeyIndex = NOT_A_KEY;
     private boolean mShowPreview = true;
@@ -265,7 +267,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
     private final UIHandler mHandler = new UIHandler();
 
-    class UIHandler extends Handler {
+	class UIHandler extends Handler {
         private static final int MSG_POPUP_PREVIEW = 1;
         private static final int MSG_DISMISS_PREVIEW = 2;
         private static final int MSG_REPEAT_KEY = 3;
@@ -415,7 +417,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     }
 
     public AnyKeyboardBaseView(Context context, AttributeSet attrs) {
-        this(context, attrs, R.attr.keyboardViewStyle);
+        this(context, attrs, R.style.Gingerbread);
     }
 
     public AnyKeyboardBaseView(Context context, AttributeSet attrs, int defStyle) {
@@ -428,7 +430,11 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         Log.d(TAG, "Will use keyboard theme "+theme.getName()+" id "+theme.getId()+" res "+keyboardThemeStyleResId);
         TypedArray a = theme.getPackageContext().obtainStyledAttributes(attrs, R.styleable.AnyKeyboardBaseView, defStyle, keyboardThemeStyleResId);
         LayoutInflater inflate = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        int previewLayout = 0;
+        //int previewLayout = 0;
+        mPreviewKeyTextSize = 0;
+        mPreviewLabelTextSize = 0;
+        Drawable previewKeyBackground = null;
+        int previewKeyTextColor = 0xFFF;
         int keyTextSize = 0;
 
         final int n = a.getIndexCount();
@@ -464,15 +470,24 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             case R.styleable.AnyKeyboardBaseView_verticalCorrection:
                 mVerticalCorrection = a.getDimensionPixelOffset(attr, 0);
                 break;
-            case R.styleable.AnyKeyboardBaseView_keyPreviewLayout:
-                previewLayout = a.getResourceId(attr, 0);
-                break;
+            case R.styleable.AnyKeyboardBaseView_keyPreviewBackground:
+				previewKeyBackground = a.getDrawable(attr);
+				break;
+            case R.styleable.AnyKeyboardBaseView_keyPreviewTextColor:
+				previewKeyTextColor = a.getColor(attr, 0xFFF);
+				break;
+            case R.styleable.AnyKeyboardBaseView_keyPreviewTextSize:
+            	mPreviewKeyTextSize = a.getDimensionPixelSize(attr, 0);
+				break;
+            case R.styleable.AnyKeyboardBaseView_keyPreviewLabelTextSize:
+            	mPreviewLabelTextSize = a.getDimensionPixelSize(attr, 0);
+				break;
             case R.styleable.AnyKeyboardBaseView_keyPreviewOffset:
                 mPreviewOffset = a.getDimensionPixelOffset(attr, 0);
                 break;
-            case R.styleable.AnyKeyboardBaseView_keyPreviewHeight:
-                mPreviewHeight = a.getDimensionPixelSize(attr, 80);
-                break;
+//            case R.styleable.AnyKeyboardBaseView_keyPreviewHeight:
+//                mPreviewHeight = a.getDimensionPixelSize(attr, 80);
+//                break;
             case R.styleable.AnyKeyboardBaseView_keyTextSize:
                 mKeyTextSize = a.getDimensionPixelSize(attr, 18);
                 break;
@@ -527,11 +542,13 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         final Resources res = getResources();
 
         mPreviewPopup = new PopupWindow(context);
-        if (previewLayout != 0) {
-            mPreviewText = (TextView) inflate.inflate(previewLayout, null);
-            mPreviewTextSizeLarge = (int) res.getDimension(R.dimen.key_preview_text_size_large);
+        if (mPreviewLabelTextSize != 0) {
+        	if (mPreviewLabelTextSize == 0) mPreviewLabelTextSize = mPreviewKeyTextSize;
+            mPreviewText = (TextView) inflate.inflate(R.layout.key_preview, null);
+            mPreviewText.setTextColor(previewKeyTextColor);
+            mPreviewText.setTypeface(mKeyTextStyle);
+            mPreviewPopup.setBackgroundDrawable(previewKeyBackground);
             mPreviewPopup.setContentView(mPreviewText);
-            mPreviewPopup.setBackgroundDrawable(null);
         } else {
         	mPreviewText = null;
             mShowPreview = false;
@@ -1101,7 +1118,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
     private void showKey(final int keyIndex, PointerTracker tracker) {
         Key key = tracker.getKey(keyIndex);
-        if (key == null)
+        if (key == null || !mShowPreview)
             return;
         // Should not draw hint icon in key preview
         if (key.icon != null && !shouldDrawLabelAndIcon(key)) {
@@ -1112,24 +1129,37 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             mPreviewText.setCompoundDrawables(null, null, null, null);
             mPreviewText.setText(adjustCase(tracker.getPreviewText(key, mKeyboard.isShifted())));
             if (key.label.length() > 1 && key.codes.length < 2) {
-                mPreviewText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mKeyTextSize);
-                mPreviewText.setTypeface(Typeface.DEFAULT_BOLD);
+                mPreviewText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mPreviewLabelTextSize);
             } else {
-                mPreviewText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mPreviewTextSizeLarge);
-                mPreviewText.setTypeface(mKeyTextStyle);
+                mPreviewText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mPreviewKeyTextSize);
             }
         }
+        
         mPreviewText.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
                 MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
-        int popupWidth = Math.max(mPreviewText.getMeasuredWidth(), key.width
-                + mPreviewText.getPaddingLeft() + mPreviewText.getPaddingRight());
-        final int popupHeight = mPreviewHeight;
-        LayoutParams lp = mPreviewText.getLayoutParams();
+        if (mPreviewPaddingHeight < 0)
+        {
+        	mPreviewPaddingWidth = mPreviewText.getPaddingLeft() + mPreviewText.getPaddingRight();
+        	mPreviewPaddingHeight = mPreviewText.getPaddingTop() + mPreviewText.getPaddingBottom();
+        	
+        	Drawable popupDrawable = mPreviewPopup.getBackground();
+        	if (popupDrawable != null)
+        	{
+        		Rect padding = new Rect();
+        		popupDrawable.getPadding(padding);
+        		mPreviewPaddingWidth += (padding.left + padding.right);
+        		mPreviewPaddingHeight += (padding.top + padding.bottom);
+        	}
+        }
+        int popupWidth = Math.max(mPreviewText.getMeasuredWidth(), key.width + mPreviewPaddingWidth);
+        final int popupHeight = Math.max(mPreviewText.getMeasuredHeight(), key.height + mPreviewPaddingHeight);
+        /*LayoutParams lp = mPreviewText.getLayoutParams();
         if (lp != null) {
             lp.width = popupWidth;
             lp.height = popupHeight;
         }
-
+        mPreviewText.requestLayout();*/
+        
         int popupPreviewX = key.x - (popupWidth - key.width) / 2;
         int popupPreviewY = key.y - popupHeight + mPreviewOffset;
 
@@ -1144,8 +1174,12 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             mWindowY = windowLocation[1];
         }
         // Set the preview background state
-        mPreviewText.getBackground().setState(
+        Drawable keyPreviewBackground = mPreviewPopup.getBackground();
+        if (keyPreviewBackground != null)
+        {
+        	keyPreviewBackground.setState(
                 key.popupResId != 0 ? LONG_PRESSABLE_STATE_SET : EMPTY_STATE_SET);
+        }
         popupPreviewX += mOffsetInWindow[0];
         popupPreviewY += mOffsetInWindow[1];
 
