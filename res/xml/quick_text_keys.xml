@@ -7,7 +7,6 @@
         keyIcon="@drawable/sym_keyboard_smiley"
         keyLabel="@string/smiley_key_label"
         keyOutputText="@string/smiley_key_default_output"
-        iconPreview="@drawable/sym_keyboard_smiley_feedback"
         description=""
         index="1"/>
 </QuickTextKeys>

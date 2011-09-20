@@ -54,6 +54,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -165,7 +167,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     public static final int NOT_A_KEY = -1;
     
     private static final int[] LONG_PRESSABLE_STATE_SET = { android.R.attr.state_long_pressable };
-    private static final int NUMBER_HINT_VERTICAL_ADJUSTMENT_PIXEL = -1;
+    //private static final int NUMBER_HINT_VERTICAL_ADJUSTMENT_PIXEL = -1;
 
     // XML attribute
     private int mKeyTextSize;
@@ -192,6 +194,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
     // Key preview popup
     private TextView mPreviewText;
+    private ImageView mPreviewIcon;
     private PopupWindow mPreviewPopup;
     private int mPreviewKeyTextSize;
 	private int mPreviewLabelTextSize;
@@ -478,6 +481,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 				break;
             case R.styleable.AnyKeyboardBaseView_keyPreviewTextSize:
             	mPreviewKeyTextSize = a.getDimensionPixelSize(attr, 0);
+            	if (AnyApplication.DEBUG) Log.d(TAG, "mPreviewKeyTextSize of "+getClass().getName()+" is "+mPreviewKeyTextSize);
 				break;
             case R.styleable.AnyKeyboardBaseView_keyPreviewLabelTextSize:
             	mPreviewLabelTextSize = a.getDimensionPixelSize(attr, 0);
@@ -485,9 +489,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             case R.styleable.AnyKeyboardBaseView_keyPreviewOffset:
                 mPreviewOffset = a.getDimensionPixelOffset(attr, 0);
                 break;
-//            case R.styleable.AnyKeyboardBaseView_keyPreviewHeight:
-//                mPreviewHeight = a.getDimensionPixelSize(attr, 80);
-//                break;
             case R.styleable.AnyKeyboardBaseView_keyTextSize:
                 mKeyTextSize = a.getDimensionPixelSize(attr, 18);
                 break;
@@ -542,13 +543,15 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         final Resources res = getResources();
 
         mPreviewPopup = new PopupWindow(context);
-        if (mPreviewKeyTextSize != 0) {
-        	if (mPreviewLabelTextSize == 0) mPreviewLabelTextSize = mPreviewKeyTextSize;
-            mPreviewText = (TextView) inflate.inflate(R.layout.key_preview, null);
+        if (mPreviewKeyTextSize > 0) {
+        	if (mPreviewLabelTextSize <= 0) mPreviewLabelTextSize = mPreviewKeyTextSize;
+        	ViewGroup keyPreview = (ViewGroup) inflate.inflate(R.layout.key_preview, null);
+            mPreviewText = (TextView) keyPreview.findViewById(R.id.key_preview_text);
             mPreviewText.setTextColor(previewKeyTextColor);
             mPreviewText.setTypeface(mKeyTextStyle);
+            mPreviewIcon = (ImageView) keyPreview.findViewById(R.id.key_preview_icon);
             mPreviewPopup.setBackgroundDrawable(previewKeyBackground);
-            mPreviewPopup.setContentView(mPreviewText);
+            mPreviewPopup.setContentView(keyPreview);
             mShowPreview = true;
         } else {
         	mPreviewText = null;
@@ -959,7 +962,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             canvas.translate(key.x + kbdPaddingLeft, key.y + kbdPaddingTop);
             keyBackground.draw(canvas);
 
-            boolean shouldDrawIcon = true;
+            //boolean shouldDrawIcon = true;
             if (label != null) {
                 // For characters, use large font. For labels like "Done", use small font.
                 final int labelSize;
@@ -1032,20 +1035,20 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
                 // Usually don't draw icon if label is not null, but we draw icon for the number
                 // hint and popup hint.
-                shouldDrawIcon = shouldDrawLabelAndIcon(key);
+                //shouldDrawIcon = shouldDrawLabelAndIcon(key);
             }
-            if (key.icon != null && shouldDrawIcon) {
+            if (key.icon != null/* && shouldDrawIcon*/) {
                 // Special handing for the upper-right number hint icons
                 final int drawableWidth;
                 final int drawableHeight;
                 final int drawableX;
                 final int drawableY;
-                if (shouldDrawIconFully(key)) {
+                /*if (shouldDrawIconFully(key)) {
                     drawableWidth = key.width;
                     drawableHeight = key.height;
                     drawableX = 0;
                     drawableY = NUMBER_HINT_VERTICAL_ADJUSTMENT_PIXEL;
-                } else {
+                } else*/ {
                     drawableWidth = key.icon.getIntrinsicWidth();
                     drawableHeight = key.icon.getIntrinsicHeight();
                     drawableX = (key.width + padding.left - padding.right - drawableWidth) / 2;
@@ -1121,23 +1124,33 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         Key key = tracker.getKey(keyIndex);
         if (key == null || !mShowPreview)
             return;
+        int popupWidth = 0;
+        int popupHeight = 0;
         // Should not draw hint icon in key preview
-        if (key.icon != null && !shouldDrawLabelAndIcon(key)) {
-            mPreviewText.setCompoundDrawables(null, null, null,
-                    key.iconPreview != null ? key.iconPreview : key.icon);
+        if (key.icon != null/* && !shouldDrawLabelAndIcon(key)*/) {
+            //mPreviewText.setCompoundDrawables(null, null, null, key.iconPreview != null ? key.iconPreview : key.icon);
+        	mPreviewIcon.setImageDrawable(key.iconPreview != null ? key.iconPreview : key.icon);
             mPreviewText.setText(null);
+            mPreviewIcon.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+            popupWidth = Math.max(mPreviewIcon.getMeasuredWidth(), key.width);
+            popupHeight = Math.max(mPreviewIcon.getMeasuredHeight(), key.height);
+            
         } else {
-            mPreviewText.setCompoundDrawables(null, null, null, null);
+            //mPreviewText.setCompoundDrawables(null, null, null, null);
+        	mPreviewIcon.setImageDrawable(null);
             mPreviewText.setText(adjustCase(tracker.getPreviewText(key, mKeyboard.isShifted())));
             if (key.label.length() > 1 && key.codes.length < 2) {
                 mPreviewText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mPreviewLabelTextSize);
             } else {
                 mPreviewText.setTextSize(TypedValue.COMPLEX_UNIT_PX, mPreviewKeyTextSize);
             }
+            
+            mPreviewText.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+            popupWidth = Math.max(mPreviewText.getMeasuredWidth(), key.width);
+            popupHeight = Math.max(mPreviewText.getMeasuredHeight(), key.height);
         }
         
-        mPreviewText.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
-                MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+        
         if (mPreviewPaddingHeight < 0)
         {
         	mPreviewPaddingWidth = mPreviewText.getPaddingLeft() + mPreviewText.getPaddingRight();
@@ -1152,8 +1165,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         		mPreviewPaddingHeight += (padding.top + padding.bottom);
         	}
         }
-        int popupWidth = Math.max(mPreviewText.getMeasuredWidth(), key.width + mPreviewPaddingWidth);
-        final int popupHeight = Math.max(mPreviewText.getMeasuredHeight(), key.height + mPreviewPaddingHeight);
+        popupWidth += mPreviewPaddingWidth;
+        popupHeight += mPreviewPaddingHeight;
         /*LayoutParams lp = mPreviewText.getLayoutParams();
         if (lp != null) {
             lp.width = popupWidth;
@@ -1161,13 +1174,14 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         }
         mPreviewText.requestLayout();*/
         
-        int popupPreviewX = key.x - (popupWidth - key.width) / 2;
-        int popupPreviewY = key.y - popupHeight + mPreviewOffset;
+        int popupPreviewX = key.x - ((popupWidth - key.width) / 2);
+        int popupPreviewY = key.y - popupHeight - mPreviewOffset;
 
         mHandler.cancelDismissPreview();
         if (mOffsetInWindow == null) {
-            mOffsetInWindow = new int[2];
+            mOffsetInWindow = new int[]{0,0};
             getLocationInWindow(mOffsetInWindow);
+            if (AnyApplication.DEBUG) Log.d(TAG, "mOffsetInWindow "+mOffsetInWindow[0]+", "+mOffsetInWindow[1]);
             mOffsetInWindow[0] += mPopupPreviewOffsetX; // Offset may be zero
             mOffsetInWindow[1] += mPopupPreviewOffsetY; // Offset may be zero
             int[] windowLocation = new int[2];
@@ -1183,6 +1197,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         }
         popupPreviewX += mOffsetInWindow[0];
         popupPreviewY += mOffsetInWindow[1];
+        
 
         // If the popup cannot be shown above the key, put it on the side
         if (popupPreviewY + mWindowY < 0) {
@@ -1432,15 +1447,15 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 //        return false;
 //    }
 
-    private boolean shouldDrawIconFully(Key key) {
-        return isNumberAtEdgeOfPopupChars(key) /*|| isLatinF1Key(key)
-                || LatinKeyboard.hasPuncOrSmileysPopup(key)*/;
-    }
-
-    private boolean shouldDrawLabelAndIcon(Key key) {
-        return isNumberAtEdgeOfPopupChars(key) /*|| isNonMicLatinF1Key(key)
-                || AnyKeyboard.hasPuncOrSmileysPopup(key)*/;
-    }
+//    private boolean shouldDrawIconFully(Key key) {
+//        return isNumberAtEdgeOfPopupChars(key) /*|| isLatinF1Key(key)
+//                || LatinKeyboard.hasPuncOrSmileysPopup(key)*/;
+//    }
+//
+//    private boolean shouldDrawLabelAndIcon(Key key) {
+//        return isNumberAtEdgeOfPopupChars(key) /*|| isNonMicLatinF1Key(key)
+//                || AnyKeyboard.hasPuncOrSmileysPopup(key)*/;
+//    }
 
 //    private boolean isLatinF1Key(Key key) {
 //        return (mKeyboard instanceof AnyKeyboard) && ((AnyKeyboard)mKeyboard).isF1Key(key);
@@ -1450,29 +1465,29 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 //        return isLatinF1Key(key) && key.label != null;
 //    }
 
-    private static boolean isNumberAtEdgeOfPopupChars(Key key) {
-        return isNumberAtLeftmostPopupChar(key) || isNumberAtRightmostPopupChar(key);
-    }
+//    private static boolean isNumberAtEdgeOfPopupChars(Key key) {
+//        return isNumberAtLeftmostPopupChar(key) || isNumberAtRightmostPopupChar(key);
+//    }
 
-    /* package */ static boolean isNumberAtLeftmostPopupChar(Key key) {
-        if (key.popupCharacters != null && key.popupCharacters.length() > 0
-                && isAsciiDigit(key.popupCharacters.charAt(0))) {
-            return true;
-        }
-        return false;
-    }
+//    /* package */ static boolean isNumberAtLeftmostPopupChar(Key key) {
+//        if (key.popupCharacters != null && key.popupCharacters.length() > 0
+//                && isAsciiDigit(key.popupCharacters.charAt(0))) {
+//            return true;
+//        }
+//        return false;
+//    }
 
-    /* package */ static boolean isNumberAtRightmostPopupChar(Key key) {
-        if (key.popupCharacters != null && key.popupCharacters.length() > 0
-                && isAsciiDigit(key.popupCharacters.charAt(key.popupCharacters.length() - 1))) {
-            return true;
-        }
-        return false;
-    }
-
-    private static boolean isAsciiDigit(char c) {
-        return (c < 0x80) && Character.isDigit(c);
-    }
+//    /* package */ static boolean isNumberAtRightmostPopupChar(Key key) {
+//        if (key.popupCharacters != null && key.popupCharacters.length() > 0
+//                && isAsciiDigit(key.popupCharacters.charAt(key.popupCharacters.length() - 1))) {
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    private static boolean isAsciiDigit(char c) {
+//        return (c < 0x80) && Character.isDigit(c);
+//    }
 
     private MotionEvent generateMiniKeyboardMotionEvent(int action, int x, int y, long eventTime) {
         return MotionEvent.obtain(mMiniKeyboardPopupTime, eventTime, action,

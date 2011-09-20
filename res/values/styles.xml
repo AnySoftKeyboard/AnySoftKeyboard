@@ -52,7 +52,7 @@
         <item name="android:paddingBottom">6dp</item>
         
         <!-- key preview (feeback) -->
-        <item name="keyPreviewBackground">@drawable/keyboard_key_feedback</item>
+        <item name="keyPreviewBackground">@drawable/dark_btn_key_preview_background</item>
     	<item name="keyPreviewTextColor">#FFFFFFFF</item>
     	<item name="keyPreviewTextSize">28sp</item>
     	<item name="keyPreviewLabelTextSize">18sp</item>
@@ -76,7 +76,7 @@
     <style name="Gingerbread" parent="@style/AnyKeyboardBaseTheme">
         <item name="android:background">@drawable/gingerbread_main_background</item>
     	<item name="keyBackground">@drawable/btn_keyboard_key_gingerbread</item>
-    	<item name="keyPreviewBackground">@drawable/keyboard_key_feedback</item>
+    	<item name="keyPreviewBackground">@drawable/gingerbread_btn_key_preview_background</item>
     </style>
     <style name="GingerbreadPopup" parent="@style/AnyKeyboardPopupBaseTheme">
         <item name="android:background">@drawable/keyboard_popup_panel_background</item>
@@ -86,7 +86,7 @@
     <style name="PlainDarkAnySoftKeyboard" parent="@style/AnyKeyboardBaseTheme">
         <item name="android:background">@drawable/dark_background</item>
     	<item name="keyBackground">@drawable/dark_btn_key</item>
-    	<item name="keyPreviewBackground">@drawable/dark_background_popup</item>
+    	<item name="keyPreviewBackground">@drawable/dark_btn_key_preview_background</item>
     </style>
     <style name="PlainDarkAnySoftKeyboardPopup" parent="@style/AnyKeyboardPopupBaseTheme">
         <item name="android:background">@drawable/dark_background_popup</item>
@@ -100,7 +100,7 @@
         <item name="backgroundDimAmount">0.2</item>
         <item name="shadowRadius">0</item>
         
-        <item name="keyPreviewBackground">@drawable/light_background_popup</item>
+        <item name="keyPreviewBackground">@drawable/light_btn_key_preview_background</item>
         <item name="keyPreviewTextColor">#FF000000</item>
     </style>
     <style name="PlainLightAnySoftKeyboardPopup" parent="@style/AnyKeyboardPopupBaseTheme">

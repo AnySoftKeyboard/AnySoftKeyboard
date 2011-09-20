@@ -107,10 +107,9 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 				&& ((GenericKeyboard) newKeyboard).disableKeyPreviews()) {
 			// Phone keyboard never shows popup preview (except language
 			// switch).
-			super.setPreviewEnabled(false);
+			setPreviewEnabled(false);
 		} else {
-			super.setPreviewEnabled(AnyApplication.getConfig()
-					.getShowKeyPreview());
+			setPreviewEnabled(AnyApplication.getConfig().getShowKeyPreview());
 		}
 		// TODO: For now! should be a calculated value
 		// lots of key : true

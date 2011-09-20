@@ -94,9 +94,9 @@ public abstract class AnyKeyboard extends Keyboard
     private final Drawable mShiftIcon;
     private final Drawable mShiftOnIcon;
     private final Drawable mShiftLockedIcon;
-    private final Drawable mShiftFeedbackIcon;
-    private final Drawable mShiftOnFeedbackIcon;
-    private final Drawable mShiftLockedFeedbackIcon;
+    //private final Drawable mShiftFeedbackIcon;
+    //private final Drawable mShiftOnFeedbackIcon;
+    //private final Drawable mShiftLockedFeedbackIcon;
     private final int mKeyboardMode;
 
     private Key mShiftKey;
@@ -127,9 +127,9 @@ public abstract class AnyKeyboard extends Keyboard
 		mShiftLockedIcon = null;
     	mShiftOnIcon = null;
     	mShiftIcon = null;
-    	mShiftLockedFeedbackIcon = null;
-    	mShiftOnFeedbackIcon = null;
-    	mShiftFeedbackIcon = null;
+    	//mShiftLockedFeedbackIcon = null;
+    	//mShiftOnFeedbackIcon = null;
+    	//mShiftFeedbackIcon = null;
     }
 	
 	//for the External
@@ -149,7 +149,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        mShiftLockedIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_locked);
 	        mShiftOnIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_on);
 	        mShiftIcon = resources.getDrawable(R.drawable.sym_keyboard_shift);
-	        mShiftLockedFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift_locked);
+	        /*mShiftLockedFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift_locked);
 	        mShiftOnFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift_on);
 	        mShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift);
 
@@ -158,7 +158,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        mShiftOnFeedbackIcon.setBounds(0, 0, 
 	        		mShiftOnFeedbackIcon.getIntrinsicWidth(), mShiftOnFeedbackIcon.getIntrinsicHeight());
 	        mShiftFeedbackIcon.setBounds(0, 0, 
-	        		mShiftFeedbackIcon.getIntrinsicWidth(), mShiftFeedbackIcon.getIntrinsicHeight());
+	        		mShiftFeedbackIcon.getIntrinsicWidth(), mShiftFeedbackIcon.getIntrinsicHeight());*/
 	        setShiftViewAsState();
         }
         else
@@ -166,9 +166,9 @@ public abstract class AnyKeyboard extends Keyboard
         	mShiftLockedIcon = null;
         	mShiftOnIcon = null;
         	mShiftIcon = null;
-        	mShiftLockedFeedbackIcon = null;
-        	mShiftOnFeedbackIcon = null;
-        	mShiftFeedbackIcon = null;
+//        	mShiftLockedFeedbackIcon = null;
+//        	mShiftOnFeedbackIcon = null;
+//        	mShiftFeedbackIcon = null;
         	Log.v(TAG, "No shift key, so no handling images.");
         }
     }
@@ -215,7 +215,7 @@ public abstract class AnyKeyboard extends Keyboard
                 switch(primaryCode)
                 {
                 case AnyKeyboard.KEYCODE_DELETE:
-                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_delete , R.drawable.sym_keyboard_feedback_delete);
+                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_delete , -1/*R.drawable.sym_keyboard_feedback_delete*/);
                     break;
 //                case AnyKeyboard.KEYCODE_SHIFT:
 //                	key.icon = localResources.getDrawable(R.drawable.sym_keyboard_shift);
@@ -224,13 +224,13 @@ public abstract class AnyKeyboard extends Keyboard
                 	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_ctrl, -1);
                     break;
                 case 32://SPACE
-                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_space, R.drawable.sym_keyboard_feedback_space);
+                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_space, -1/*R.drawable.sym_keyboard_feedback_space*/);
                     break;
                 case 9://TAB
                 	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_tab, -1);
                     break;
                 case AnyKeyboard.KEYCODE_CANCEL:
-                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_cancel, R.drawable.sym_keyboard_feedback_cancel);
+                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_cancel, -1/*R.drawable.sym_keyboard_cancel_black*/);
                     break;
                 case AnyKeyboard.KEYCODE_LANG_CHANGE:
                 	setIconIfNeeded(key, localResources, R.drawable.globe, -1);
@@ -630,7 +630,7 @@ public abstract class AnyKeyboard extends Keyboard
     	{
     		//this means that the ENTER should not be replaced with a custom action.
     		//maybe in future ASK releases, we'll add the custom action key.
-    		setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_return, R.drawable.sym_keyboard_feedback_return);
+    		setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_return, -1/*R.drawable.sym_keyboard_feedback_return*/);
     	}
     	else
     	{
@@ -650,10 +650,10 @@ public abstract class AnyKeyboard extends Keyboard
 //	                mEnterKey.icon = null;
 //	                //there is a problem with LTR languages
 //	                mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_done_key));
-	            	setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_done, R.drawable.sym_keyboard_done_feedback);
+	            	setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_done, -1/*R.drawable.sym_keyboard_done_black*/);
 	            	break;
 	            case EditorInfo.IME_ACTION_SEARCH:
-	            	setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_search, R.drawable.sym_keyboard_feedback_search);
+	            	setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_search, -1/*R.drawable.sym_keyboard_feedback_search*/);
 	                break;
 	            case EditorInfo.IME_ACTION_SEND:
 	            	mEnterKey.iconPreview = null;
@@ -674,7 +674,7 @@ public abstract class AnyKeyboard extends Keyboard
 //	            	}
 //	            	else
 //	            	{
-	            		setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_return, R.drawable.sym_keyboard_feedback_return);
+	            		setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_return, -1/*R.drawable.sym_keyboard_feedback_return*/);
 //	            	}
 	            	break;
 	        }
@@ -746,15 +746,15 @@ public abstract class AnyKeyboard extends Keyboard
 		{
 		case STICKY_KEY_ON:
 			mShiftKey.icon = mShiftOnIcon;
-			mShiftKey.iconPreview = mShiftOnFeedbackIcon;
+			//mShiftKey.iconPreview = mShiftOnFeedbackIcon;
 			break;
 		case STICKY_KEY_LOCKED:
 			mShiftKey.icon = mShiftLockedIcon;
-			mShiftKey.iconPreview = mShiftLockedFeedbackIcon;
+			//mShiftKey.iconPreview = mShiftLockedFeedbackIcon;
 			break;
 		default:
 			mShiftKey.icon = mShiftIcon;
-			mShiftKey.iconPreview = mShiftFeedbackIcon;
+			//mShiftKey.iconPreview = mShiftFeedbackIcon;
 			break;
 		}
 	}
@@ -810,15 +810,15 @@ public abstract class AnyKeyboard extends Keyboard
 		{
 		case STICKY_KEY_ON:
 			mControlKey.icon = mShiftOnIcon;
-			mControlKey.iconPreview = mShiftOnFeedbackIcon;
+			//mControlKey.iconPreview = mShiftOnFeedbackIcon;
 			break;
 		case STICKY_KEY_LOCKED:
 			mControlKey.icon = mShiftLockedIcon;
-			mControlKey.iconPreview = mShiftLockedFeedbackIcon;
+			//mControlKey.iconPreview = mShiftLockedFeedbackIcon;
 			break;
 		default:
 			mControlKey.icon = mShiftIcon;
-			mControlKey.iconPreview = mShiftFeedbackIcon;
+			//mControlKey.iconPreview = mShiftFeedbackIcon;
 			break;
 		}
 	}
