@@ -477,8 +477,10 @@ public abstract class AnyKeyboard extends Keyboard
     		preview.setBounds(0, 0, 
     				preview.getIntrinsicWidth(), preview.getIntrinsicHeight());
     		key.iconPreview = preview;
-    		key.label = null;
 		}
+		
+		if (key.icon != null)
+			key.label = null;
 	}
 
 	protected AnyKeyboardContextProvider getASKContext()
