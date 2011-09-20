@@ -113,7 +113,7 @@ public class CandidateView extends View {
         mColorNormal = res.getColor(R.color.candidate_normal);
         mColorRecommended = res.getColor(R.color.candidate_recommended);
         mColorOther = res.getColor(R.color.candidate_other);
-        mDivider = res.getDrawable(R.drawable.keyboard_suggest_strip_divider);
+        mDivider = res.getDrawable(R.drawable.dark_suggestions_divider);
         //mPreviewText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
         setBackgroundColor(0);
         //setBackgroundResource(R.drawable.keyboard_suggest_strip);
@@ -226,6 +226,7 @@ public class CandidateView extends View {
                     mDivider.getIntrinsicHeight());
         }
 
+        final int dividerYOffest = (height - mDivider.getMinimumHeight()) / 2;
         final int count = mSuggestions.size();
         final Rect bgPadding = mBgPadding;
         final Paint paint = mPaint;
@@ -303,7 +304,9 @@ public class CandidateView extends View {
                 canvas.translate(x + wordWidth, 0);
                 // Draw a divider unless it's after the hint
                 if (count > 1 && (!mShowingAddToDictionary)) {
+                	canvas.translate(0, dividerYOffest);
                     mDivider.draw(canvas);
+                    canvas.translate(0, -dividerYOffest);
                 }
                 canvas.translate(-x - wordWidth, 0);
             }
