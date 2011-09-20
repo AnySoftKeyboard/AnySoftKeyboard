@@ -16,6 +16,7 @@
 		android:title="@string/bottom_generic_row_group">
 			<ListPreference
 				android:key="@string/settings_key_ext_kbd_bottom_row_key"
+				android:defaultValue="@string/settings_default_ext_kbd_bottom_row_key"
 				android:title="@string/bottom_generic_row_list_title"
 				android:persistent="true"
 				android:dialogTitle="@string/bottom_generic_row_dialog_title"

@@ -312,8 +312,8 @@
 	<string name="extension_kbd_top_regular">Regular sized keys</string>
 	<string name="extension_kbd_top_small_numbers">Numbers keys</string>
 	
-	<string name="extension_kbd_top_regular">Regular</string>
-	<string name="extension_kbd_top_iphone">iPhone styled</string>
+	<string name="extension_kbd_bottom_regular">Regular</string>
+	<string name="extension_kbd_bottom_iphone">iPhone styled</string>
 	
 	<string name="extension_kbd_extension_numbers_symbols">Numbers and symbols</string>
 	

@@ -19,6 +19,7 @@
 				android:title="@string/quick_text_key_active"
 				android:persistent="true"
 				android:dialogTitle="@string/quick_text_key_dialog_title"
+				android:defaultValue="@string/settings_default_quick_text_key"
 				android:summary="@string/quick_text_key_summary"/>
 	</PreferenceCategory>
 </PreferenceScreen>

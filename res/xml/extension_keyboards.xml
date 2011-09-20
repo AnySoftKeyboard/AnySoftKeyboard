@@ -49,7 +49,7 @@
 		/>
 	<ExtensionKeyboard
 		id="3659b9e0-dee2-11e0-9572-0800200c9a66"
-		nameResId="@string/extension_kbd_top_iphone"
+		nameResId="@string/extension_kbd_bottom_iphone"
 		extensionKeyboardResId="@xml/ext_kbd_bottom_row_iphone" 
 		extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
 		defaultEnabled="false"
