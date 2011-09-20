@@ -66,7 +66,8 @@
         <item name="android:paddingTop">8dp</item>
         <item name="android:paddingRight">8dp</item>
         <item name="android:paddingBottom">8dp</item>
-        <item name="verticalCorrection">-4dp</item>
+        <!-- Since we do not have key preview in popup keyboard we'll set the selected key be the one ABOVE the finger -->
+        <item name="verticalCorrection">2dp</item>
         <!-- this will say "no preview" -->
     	<item name="keyPreviewTextSize">0px</item>
     </style>
@@ -80,10 +81,6 @@
     <style name="GingerbreadPopup" parent="@style/AnyKeyboardPopupBaseTheme">
         <item name="android:background">@drawable/keyboard_popup_panel_background</item>
     	<item name="keyBackground">@drawable/btn_keyboard_key_gingerbread_popup</item>
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingRight">8dp</item>
-        <item name="android:paddingBottom">16dp</item>
     </style>
     
     <style name="PlainDarkAnySoftKeyboard" parent="@style/AnyKeyboardBaseTheme">

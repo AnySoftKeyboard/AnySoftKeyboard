@@ -542,13 +542,14 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         final Resources res = getResources();
 
         mPreviewPopup = new PopupWindow(context);
-        if (mPreviewLabelTextSize != 0) {
+        if (mPreviewKeyTextSize != 0) {
         	if (mPreviewLabelTextSize == 0) mPreviewLabelTextSize = mPreviewKeyTextSize;
             mPreviewText = (TextView) inflate.inflate(R.layout.key_preview, null);
             mPreviewText.setTextColor(previewKeyTextColor);
             mPreviewText.setTypeface(mKeyTextStyle);
             mPreviewPopup.setBackgroundDrawable(previewKeyBackground);
             mPreviewPopup.setContentView(mPreviewText);
+            mShowPreview = true;
         } else {
         	mPreviewText = null;
             mShowPreview = false;
@@ -790,7 +791,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
      * @see #isPreviewEnabled()
      */
     protected void setPreviewEnabled(boolean previewEnabled) {
-        mShowPreview = previewEnabled;
+        mShowPreview = mPreviewText != null && previewEnabled;
     }
 
 //    /**
