@@ -94,7 +94,7 @@
     </style>
     
     <style name="PlainLightAnySoftKeyboard" parent="@style/AnyKeyboardBaseTheme">
-        <item name="android:background">@drawable/light_background</item>
+        <item name="android:background">@drawable/light_background_tiled</item>
     	<item name="keyBackground">@drawable/light_btn_key</item>
         <item name="keyTextColor">@color/light_btn_key_text_color</item>
         <item name="backgroundDimAmount">0.2</item>
