@@ -10,8 +10,8 @@
 			<TextView android:text="@string/how_to_pointer_title" android:textSize="16sp" android:layout_width="fill_parent" android:layout_height="wrap_content"
 				android:textStyle="bold" android:textColor="@android:color/white" android:gravity="center"></TextView>
 			<LinearLayout android:layout_margin="5dp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:weightSum="10">
-				<ImageView android:layout_height="wrap_content" android:src="@drawable/welcome_keyboard_image" android:layout_width="0px" android:layout_weight="6" android:scaleType="centerInside"></ImageView>
-				<TextView android:text="@string/how_to_pointer_not_app" android:textSize="15sp" android:layout_width="0px" android:layout_weight="4" android:layout_height="wrap_content"></TextView>
+				<ImageView android:layout_margin="4dp" android:layout_height="wrap_content" android:src="@drawable/light_theme_screenshot" android:layout_width="0px" android:layout_weight="3" android:scaleType="centerInside" android:adjustViewBounds="true"></ImageView>
+				<TextView android:layout_margin="4dp" android:text="@string/how_to_pointer_not_app" android:textSize="15sp" android:layout_width="0px" android:layout_weight="7" android:layout_height="wrap_content"></TextView>
 			</LinearLayout>
 			<TextView android:layout_marginTop="6dp" android:layout_marginLeft="4dp" android:layout_marginRight="4dp" android:text="@string/how_to_active_text" android:textSize="15sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:gravity="center" android:textStyle="bold" android:textColor="@android:color/white"/>
 			<TextView android:layout_marginTop="3dp" android:layout_marginLeft="4dp" android:layout_marginRight="4dp" android:text="@string/how_to_simple_howto" android:textSize="14sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>

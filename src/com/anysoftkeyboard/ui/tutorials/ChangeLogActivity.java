@@ -41,6 +41,11 @@ public class ChangeLogActivity extends BaseTutorialActivity implements OnClickLi
 		});
 	}
 
+	public void onCloseClicked(View v)
+	{
+		finish();
+	}
+	
 	public void onClick(View v) {
 		switch(v.getId())
 		{
@@ -71,6 +76,9 @@ public class ChangeLogActivity extends BaseTutorialActivity implements OnClickLi
 			Intent themeSelector = new Intent(this, KeyboardThemeSelector.class);
 			themeSelector.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(themeSelector);
+			break;
+		case R.id.close_button:
+			onCloseClicked(v);
 			break;
 		}
 	}
