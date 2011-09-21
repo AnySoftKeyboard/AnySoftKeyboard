@@ -431,7 +431,11 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(AnySoftKeyboard.getInstance());
         final int keyboardThemeStyleResId = getKeyboardStyleResId(theme);
         Log.d(TAG, "Will use keyboard theme "+theme.getName()+" id "+theme.getId()+" res "+keyboardThemeStyleResId);
-        TypedArray a = theme.getPackageContext().obtainStyledAttributes(attrs, R.styleable.AnyKeyboardBaseView, defStyle, keyboardThemeStyleResId);
+        TypedArray a = theme.getPackageContext().obtainStyledAttributes(
+        		attrs, 
+        		R.styleable.AnyKeyboardBaseView, 
+        		0, 
+        		keyboardThemeStyleResId);
         LayoutInflater inflate = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         //int previewLayout = 0;
         mPreviewKeyTextSize = 0;

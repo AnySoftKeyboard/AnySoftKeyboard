@@ -95,7 +95,7 @@ public class CandidateView extends View {
     private final GestureDetector mGestureDetector;
 
     public CandidateView(Context context, AttributeSet attrs) {
-        this(context, attrs, R.style.PlainLightAnySoftKeyboard);
+        this(context, attrs, 0);
     }
 
     /**
@@ -110,7 +110,7 @@ public class CandidateView extends View {
         mAddToDictionaryHint = context.getString(R.string.hint_add_to_dictionary);
         //themed
         final KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(AnySoftKeyboard.getInstance());
-        final TypedArray a = theme.getPackageContext().obtainStyledAttributes(attrs, R.styleable.AnyKeyboardBaseView, defStyle, theme.getThemeResId());
+        final TypedArray a = theme.getPackageContext().obtainStyledAttributes(attrs, R.styleable.AnyKeyboardBaseView, 0, theme.getThemeResId());
         mColorNormal = a.getColor(R.styleable.AnyKeyboardBaseView_suggestionNormalTextColor, context.getResources().getColor(R.color.candidate_normal));
         mColorRecommended = a.getColor(R.styleable.AnyKeyboardBaseView_suggestionRecommendedTextColor, context.getResources().getColor(R.color.candidate_recommended));
         mColorOther = a.getColor(R.styleable.AnyKeyboardBaseView_suggestionOthersTextColor, context.getResources().getColor(R.color.candidate_other));
@@ -122,6 +122,7 @@ public class CandidateView extends View {
         else 
         	setBackgroundDrawable(stripImage);
         final float fontSizePixel = a.getDimension(R.styleable.AnyKeyboardBaseView_suggestionTextSize, context.getResources().getDimensionPixelSize(R.dimen.candidate_font_height));
+        a.recycle();
         //end of themed
         
         mPaint = new Paint();

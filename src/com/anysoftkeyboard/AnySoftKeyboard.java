@@ -2693,6 +2693,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 			{
 				//also recreate keyboard view
 				setInputView(onCreateInputView());
+				setCandidatesView(onCreateCandidatesView());
+				setCandidatesViewShown(false);
 			}
 		}
 	}
