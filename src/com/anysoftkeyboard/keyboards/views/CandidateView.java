@@ -22,8 +22,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.content.Context;
-import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Rect;
@@ -39,6 +40,8 @@ import android.view.View;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
+import com.anysoftkeyboard.theme.KeyboardTheme;
+import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.menny.android.anysoftkeyboard.R;
 
 public class CandidateView extends View {
@@ -91,43 +94,44 @@ public class CandidateView extends View {
     
     private final GestureDetector mGestureDetector;
 
+    public CandidateView(Context context, AttributeSet attrs) {
+        this(context, attrs, R.style.PlainLightAnySoftKeyboard);
+    }
+
     /**
      * Construct a CandidateView for showing suggested words for completion.
      * @param context
      * @param attrs
      */
-    public CandidateView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+    public CandidateView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
         mSelectionHighlight = context.getResources().getDrawable(R.drawable.list_selector_background_pressed);
 
-//        LayoutInflater inflate = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        Resources res = context.getResources();
-//        mPreviewPopup = new PopupWindow(context);
-//        mPreviewText = (TextView) inflate.inflate(R.layout.candidate_preview, null);
-//        mPreviewPopup.setWindowLayoutMode(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-//        mPreviewPopup.setContentView(mPreviewText);
-//        mPreviewPopup.setBackgroundDrawable(null);
-//        mPreviewPopup.setAnimationStyle(R.style.KeyPreviewAnimation);
-        mAddToDictionaryHint = res.getString(R.string.hint_add_to_dictionary);
+        mAddToDictionaryHint = context.getString(R.string.hint_add_to_dictionary);
         //themed
-        mColorNormal = res.getColor(R.color.candidate_normal);
-        mColorRecommended = res.getColor(R.color.candidate_recommended);
-        mColorOther = res.getColor(R.color.candidate_other);
-        mDivider = res.getDrawable(R.drawable.dark_suggestions_divider);
-        //mPreviewText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-        setBackgroundColor(0);
-        //setBackgroundResource(R.drawable.keyboard_suggest_strip);
-        //mPreviewText.setBackgroundResource(R.drawable.candidate_feedback_background);
+        final KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(AnySoftKeyboard.getInstance());
+        final TypedArray a = theme.getPackageContext().obtainStyledAttributes(attrs, R.styleable.AnyKeyboardBaseView, defStyle, theme.getThemeResId());
+        mColorNormal = a.getColor(R.styleable.AnyKeyboardBaseView_suggestionNormalTextColor, context.getResources().getColor(R.color.candidate_normal));
+        mColorRecommended = a.getColor(R.styleable.AnyKeyboardBaseView_suggestionRecommendedTextColor, context.getResources().getColor(R.color.candidate_recommended));
+        mColorOther = a.getColor(R.styleable.AnyKeyboardBaseView_suggestionOthersTextColor, context.getResources().getColor(R.color.candidate_other));
+        mDivider = a.getDrawable(R.styleable.AnyKeyboardBaseView_suggestionDividerImage);
+        if (mDivider == null) mDivider = context.getResources().getDrawable(R.drawable.dark_suggestions_divider);
+        final Drawable stripImage = a.getDrawable(R.styleable.AnyKeyboardBaseView_suggestionBackgroundImage);
+        if (stripImage == null) 
+        	setBackgroundColor(Color.BLACK);
+        else 
+        	setBackgroundDrawable(stripImage);
+        final float fontSizePixel = a.getDimension(R.styleable.AnyKeyboardBaseView_suggestionTextSize, context.getResources().getDimensionPixelSize(R.dimen.candidate_font_height));
         //end of themed
         
         mPaint = new Paint();
         mPaint.setColor(mColorNormal);
         mPaint.setAntiAlias(true);
-        mPaint.setTextSize(res.getDimensionPixelSize(R.dimen.candidate_font_height));
+        mPaint.setTextSize(fontSizePixel);
         mPaint.setStrokeWidth(0);
         mPaint.setTextAlign(Align.CENTER);
         //mDescent = (int) mPaint.descent();
-        mMinTouchableWidth = (int)res.getDimension(R.dimen.candidate_min_touchable_width);
+        mMinTouchableWidth = (int)context.getResources().getDimension(R.dimen.candidate_min_touchable_width);
         
         mGestureDetector = new GestureDetector(
                 new CandidateStripGestureListener(mMinTouchableWidth));

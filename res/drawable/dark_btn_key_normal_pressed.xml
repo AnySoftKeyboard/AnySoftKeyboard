@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<inset
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:drawable="@drawable/dark_btn_key__base_normal_pressed"
-    android:insetTop="@dimen/key_top_inset"
-    android:insetRight="@dimen/key_right_inset"
-    android:insetBottom="@dimen/key_bottom_inset"
-    android:insetLeft="@dimen/key_left_inset">
-</inset>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+	<item 
+		android:top="@dimen/key_top_inset"
+	    android:right="@dimen/key_right_inset"
+	    android:bottom="@dimen/key_bottom_inset"
+	    android:left="@dimen/key_left_inset">
+		<shape
+		    android:shape="rectangle">
+    <solid android:color="#8c8c8c"/>
+    <stroke android:width="2px" android:color="#222"/>
+    <corners android:radius="@dimen/key_corner_radius"/>
+		</shape>
+	</item>
+</layer-list>

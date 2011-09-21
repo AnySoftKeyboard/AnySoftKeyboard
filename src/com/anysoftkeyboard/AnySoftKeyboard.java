@@ -52,6 +52,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
@@ -60,7 +61,6 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
@@ -143,7 +143,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private ModifierKeyState mControlKeyState = new ModifierKeyState();
 	
 	private AnyKeyboardView mInputView;
-	private LinearLayout mCandidateViewContainer;
 	private CandidateView mCandidateView;
 	private static final long MINIMUM_REFRESH_TIME_FOR_DICTIONARIES = 30*1000;
 	private long mLastDictionaryRefresh = -1;
@@ -374,13 +373,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public View onCreateCandidatesView() {
 		mKeyboardSwitcher.makeKeyboards(false);
-		mCandidateViewContainer = (LinearLayout) getLayoutInflater()
-				.inflate(R.layout.candidates, null);
-		mCandidateView = (CandidateView) mCandidateViewContainer
-				.findViewById(R.id.candidates);
+		ViewGroup candidateViewContainer = (ViewGroup) getLayoutInflater().inflate(R.layout.candidates, null);
+		mCandidateView = (CandidateView) candidateViewContainer.findViewById(R.id.candidates);
 		mCandidateView.setService(this);
 		setCandidatesViewShown(true);
-		View closeIcon = mCandidateViewContainer.findViewById(R.id.close_suggestions_strip_icon);
+		View closeIcon = candidateViewContainer.findViewById(R.id.close_suggestions_strip_icon);
 		if (closeIcon != null)
 		{
 			closeIcon.setOnClickListener(new OnClickListener() {
@@ -391,7 +388,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				}
 			});
 		}
-		return mCandidateViewContainer;
+		return candidateViewContainer;
 	}
 	
 	@Override

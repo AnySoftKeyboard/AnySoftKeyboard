@@ -420,7 +420,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     }
 
     public AnyKeyboardBaseView(Context context, AttributeSet attrs) {
-        this(context, attrs, R.style.Gingerbread);
+        this(context, attrs, R.style.PlainLightAnySoftKeyboard);
     }
 
     public AnyKeyboardBaseView(Context context, AttributeSet attrs, int defStyle) {
