@@ -125,9 +125,11 @@
 		
 		<attr name="suggestionNormalTextColor" format="color" />
 		<attr name="suggestionRecommendedTextColor" format="color" />
-		<attr name="suggestionOtherTextColor" format="color" />
+		<attr name="suggestionOthersTextColor" format="color" />
 		<attr name="suggestionTextSize" format="dimension" />
-		<attr name="suggestionBackground" format="reference" />
+		<attr name="suggestionBackgroundImage" format="reference" />
+		<attr name="suggestionDividerImage" format="reference" />
+		<attr name="suggestionStripHeight" format="dimension" />
     </declare-styleable>
 
 	<declare-styleable name="keyType">
