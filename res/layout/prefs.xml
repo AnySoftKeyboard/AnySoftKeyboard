@@ -17,6 +17,23 @@ android:key="ime_settings">
 	android:title="@string/click_for_help"
 	android:summary="@string/click_for_help_summary">
 	</Preference>
+	<PreferenceCategory android:key="languages_cat"
+		android:title="@string/languages_cat">
+		<Preference
+		    android:title="@string/keyboards_group">
+		    <intent
+		        android:action="android.intent.action.MAIN"
+		        android:targetPackage="com.menny.android.anysoftkeyboard"
+		        android:targetClass="com.anysoftkeyboard.ui.settings.Keyboards" />
+		</Preference>
+		<Preference
+		    android:title="@string/special_dictionaries_group">
+		    <intent
+		        android:action="android.intent.action.MAIN"
+		        android:targetPackage="com.menny.android.anysoftkeyboard"
+		        android:targetClass="com.anysoftkeyboard.ui.settings.Dictionaries" />
+		</Preference>
+	</PreferenceCategory>
 	<PreferenceCategory android:key="ui_group"
 	android:title="@string/ui_group">
 		<Preference
@@ -25,6 +42,34 @@ android:key="ime_settings">
 		        android:action="android.intent.action.MAIN"
 		        android:targetPackage="com.menny.android.anysoftkeyboard"
 		        android:targetClass="com.anysoftkeyboard.ui.settings.KeyboardThemeSelector" />
+		</Preference>
+		<Preference
+		    android:title="@string/quick_text_keys_group">
+		    <intent
+		        android:action="android.intent.action.MAIN"
+		        android:targetPackage="com.menny.android.anysoftkeyboard"
+		        android:targetClass="com.anysoftkeyboard.ui.settings.QuickTextKeys" />
+		</Preference>
+		<Preference
+		    android:title="@string/top_generic_row_group">
+		    <intent
+		        android:action="android.intent.action.MAIN"
+		        android:targetPackage="com.menny.android.anysoftkeyboard"
+		        android:targetClass="com.anysoftkeyboard.ui.settings.TopRowSelector" />
+		</Preference>
+		<Preference
+		    android:title="@string/bottom_generic_row_group">
+		    <intent
+		        android:action="android.intent.action.MAIN"
+		        android:targetPackage="com.menny.android.anysoftkeyboard"
+		        android:targetClass="com.anysoftkeyboard.ui.settings.BottomRowSelector" />
+		</Preference>
+		<Preference
+		    android:title="@string/extension_keyboard_group">
+		    <intent
+		        android:action="android.intent.action.MAIN"
+		        android:targetPackage="com.menny.android.anysoftkeyboard"
+		        android:targetClass="com.anysoftkeyboard.ui.settings.ExtensionKeyboardSelector" />
 		</Preference>
 		<ListPreference
 			android:key="@string/settings_key_physical_keyboard_change_notification_type"
@@ -109,20 +154,6 @@ android:key="ime_settings">
 			android:summaryOff=""
 			android:persistent="true"
 			android:defaultValue="true"/>
-		<CheckBoxPreference
-			android:key="@string/settings_key_portrait_fullscreen"
-			android:title="@string/fullscreen_portrait_input_connection_supported"
-			android:persistent="true"
-			android:defaultValue="@bool/settings_default_portrait_fullscreen"
-			android:summaryOn="@string/fullscreen_portrait_input_connection_supported_on_summary"
-			android:summaryOff="@string/fullscreen_portrait_input_connection_supported_off_summary"/>
-		<CheckBoxPreference
-			android:key="@string/settings_key_landscape_fullscreen"
-			android:title="@string/fullscreen_input_connection_supported"
-			android:persistent="true"
-			android:defaultValue="@bool/settings_default_landscape_fullscreen"
-			android:summaryOn="@string/fullscreen_input_connection_supported_on_summary"
-			android:summaryOff="@string/fullscreen_input_connection_supported_off_summary"/>
 		<PreferenceScreen android:key="swipe_tweak_group"
 			android:title="@string/swipe_tweak_group">
 			<ListPreference
@@ -196,56 +227,6 @@ android:key="ime_settings">
 				android:summaryOn="@string/volume_key_for_left_right_support_on_summary"
 				android:summaryOff="@string/volume_key_for_left_right_support_off_summary"/>
 		</PreferenceScreen>
-	</PreferenceCategory>
-	<PreferenceCategory android:key="extrenal_addons_cat"
-		android:title="@string/extrenal_addons_cat">
-		<Preference
-		    android:title="@string/special_dictionaries_group">
-		    <intent
-		        android:action="android.intent.action.MAIN"
-		        android:targetPackage="com.menny.android.anysoftkeyboard"
-		        android:targetClass="com.anysoftkeyboard.ui.settings.Dictionaries" />
-		</Preference>
-		<Preference
-		    android:title="@string/keyboards_group">
-		    <intent
-		        android:action="android.intent.action.MAIN"
-		        android:targetPackage="com.menny.android.anysoftkeyboard"
-		        android:targetClass="com.anysoftkeyboard.ui.settings.Keyboards" />
-		</Preference>
-		<PreferenceScreen android:key="additional_addons_group"
-			android:title="@string/additional_addons_group">
-			<Preference
-			    android:title="@string/quick_text_keys_group">
-			    <intent
-			        android:action="android.intent.action.MAIN"
-			        android:targetPackage="com.menny.android.anysoftkeyboard"
-			        android:targetClass="com.anysoftkeyboard.ui.settings.QuickTextKeys" />
-			</Preference>
-			<Preference
-			    android:title="@string/top_generic_row_group">
-			    <intent
-			        android:action="android.intent.action.MAIN"
-			        android:targetPackage="com.menny.android.anysoftkeyboard"
-			        android:targetClass="com.anysoftkeyboard.ui.settings.TopRowSelector" />
-			</Preference>
-			<Preference
-			    android:title="@string/bottom_generic_row_group">
-			    <intent
-			        android:action="android.intent.action.MAIN"
-			        android:targetPackage="com.menny.android.anysoftkeyboard"
-			        android:targetClass="com.anysoftkeyboard.ui.settings.BottomRowSelector" />
-			</Preference>
-			<Preference
-			    android:title="@string/extension_keyboard_group">
-			    <intent
-			        android:action="android.intent.action.MAIN"
-			        android:targetPackage="com.menny.android.anysoftkeyboard"
-			        android:targetClass="com.anysoftkeyboard.ui.settings.ExtensionKeyboardSelector" />
-			</Preference>
-		</PreferenceScreen>
-		<Preference android:key="search_for_external_packs" android:title="@string/search_market_for_addons"
-			android:persistent="false"/>
 	</PreferenceCategory>
 	<PreferenceCategory android:key="tweaks_group_cat" android:title="@string/tweaks_group">
 		<Preference

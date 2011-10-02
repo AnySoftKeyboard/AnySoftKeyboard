@@ -19,6 +19,10 @@
 				android:title="@string/keyboard_theme_list_title"
 				android:persistent="true"
 				android:dialogTitle="@string/keyboard_theme_dialog_title"
+				
+				android:entries="@array/pref_list_empty_types"
+				android:entryValues="@array/pref_list_empty_values"
+				
 				android:defaultValue="@string/settings_default_keyboard_theme_key"
 				android:summary="@string/keyboard_theme_summary"/>
 	</PreferenceCategory>

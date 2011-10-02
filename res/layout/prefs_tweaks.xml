@@ -90,6 +90,22 @@ android:key="tweaks_group_screen">
 			android:defaultValue="@bool/settings_default_is_extesion_keyboard_above_keyboard"
 			android:summaryOn="@string/is_extesion_keyboard_above_keyboard_on_summary"
 			android:summaryOff="@string/is_extesion_keyboard_above_keyboard_off_summary"/>
+			
+		<CheckBoxPreference
+			android:key="@string/settings_key_portrait_fullscreen"
+			android:title="@string/fullscreen_portrait_input_connection_supported"
+			android:persistent="true"
+			android:defaultValue="@bool/settings_default_portrait_fullscreen"
+			android:summaryOn="@string/fullscreen_portrait_input_connection_supported_on_summary"
+			android:summaryOff="@string/fullscreen_portrait_input_connection_supported_off_summary"/>
+		<CheckBoxPreference
+			android:key="@string/settings_key_landscape_fullscreen"
+			android:title="@string/fullscreen_input_connection_supported"
+			android:persistent="true"
+			android:defaultValue="@bool/settings_default_landscape_fullscreen"
+			android:summaryOn="@string/fullscreen_input_connection_supported_on_summary"
+			android:summaryOff="@string/fullscreen_input_connection_supported_off_summary"/>
+			
 	</PreferenceCategory>
 	<PreferenceCategory android:key="tweak_ux_group"
 		android:title="@string/tweak_ux_group">

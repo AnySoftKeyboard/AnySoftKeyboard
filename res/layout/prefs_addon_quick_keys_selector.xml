@@ -20,6 +20,10 @@
 				android:persistent="true"
 				android:dialogTitle="@string/quick_text_key_dialog_title"
 				android:defaultValue="@string/settings_default_quick_text_key"
+				
+				android:entries="@array/pref_list_empty_types"
+				android:entryValues="@array/pref_list_empty_values"
+				
 				android:summary="@string/quick_text_key_summary"/>
 	</PreferenceCategory>
 </PreferenceScreen>

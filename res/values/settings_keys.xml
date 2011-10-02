@@ -87,4 +87,10 @@
 		<item>450</item>
 		<item>600</item>
 	</string-array>
+	
+	<string-array name="pref_list_empty_types">
+	</string-array>
+	<string-array name="pref_list_empty_values">
+	</string-array>
+	
 </resources>
