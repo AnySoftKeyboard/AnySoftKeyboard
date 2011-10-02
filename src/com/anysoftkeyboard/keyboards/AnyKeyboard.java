@@ -294,6 +294,13 @@ public abstract class AnyKeyboard extends Keyboard
 	        {
 	        	if (AnyApplication.DEBUG) Log.d(TAG, "No top row layout");
 	        	topMd = null;
+	        	//adding EDGE_TOP to top keys. See issue 775
+	        	List<Key> keys = getKeys();
+	    		for(int keyIndex = 0; keyIndex < keys.size(); keyIndex++)
+	            {
+	    			final Key key = keys.get(keyIndex);
+	    			if (key.y == 0) key.edgeFlags = key.edgeFlags | Keyboard.EDGE_TOP;
+	            }
 	        }
 	        else
 	        {
