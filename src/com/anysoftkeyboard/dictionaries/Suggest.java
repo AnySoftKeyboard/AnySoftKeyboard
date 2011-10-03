@@ -61,6 +61,10 @@ public class Suggest implements Dictionary.WordCallback {
     private boolean mHaveCorrection;
     private CharSequence mOriginalWord;
     private String mLowerOriginalWord;
+    
+    // TODO: Remove these member variables by passing more context to addWord() callback method
+    private boolean mIsFirstCharCapitalized;
+    private boolean mIsAllUpperCase;
 
     private int mCorrectionMode = CORRECTION_FULL;
 
@@ -167,6 +171,8 @@ public class Suggest implements Dictionary.WordCallback {
     public List<CharSequence> getSuggestions(View view, WordComposer wordComposer,
             boolean includeTypedWordIfValid) {
         mHaveCorrection = false;
+        mIsFirstCharCapitalized = wordComposer.isFirstCharCapitalized();
+        mIsAllUpperCase = wordComposer.isAllUpperCase();
         collectGarbage();
         Arrays.fill(mPriorities, 0);
         // mIncludeTypedWordIfValid = includeTypedWordIfValid;
@@ -316,7 +322,16 @@ public class Suggest implements Dictionary.WordCallback {
         StringBuilder sb = poolSize > 0 ? (StringBuilder) mStringPool.remove(poolSize - 1)
                 : new StringBuilder(32);
         sb.setLength(0);
-        sb.append(word, offset, length);
+        if (mIsAllUpperCase) {
+            sb.append(new String(word, offset, length).toUpperCase());
+        } else if (mIsFirstCharCapitalized) {
+            sb.append(Character.toUpperCase(word[offset]));
+            if (length > 1) {
+                sb.append(word, offset + 1, length - 1);
+            }
+        } else {
+            sb.append(word, offset, length);
+        }
         mSuggestions.add(pos, sb);
         if (mSuggestions.size() > prefMaxSuggestions) {
             CharSequence garbage = mSuggestions.remove(prefMaxSuggestions);
