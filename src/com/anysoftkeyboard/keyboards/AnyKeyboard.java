@@ -54,6 +54,8 @@ public abstract class AnyKeyboard extends Keyboard
 	
 	public static final int KEYCODE_CLIPBOARD = -12;
 	
+	public static final int KEYCODE_CLEAR_INPUT = -13; 
+	
 	public interface HardKeyboardAction
 	{
 		int getKeyCode();

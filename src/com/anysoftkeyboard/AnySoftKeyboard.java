@@ -1270,6 +1270,16 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case Keyboard.KEYCODE_DELETE:
 			handleBackspace();
 			break;
+		case AnyKeyboard.KEYCODE_CLEAR_INPUT:
+			InputConnection ic = getCurrentInputConnection();
+			if (ic != null)
+			{
+				ic.beginBatchEdit();
+				commitTyped(ic);
+				ic.deleteSurroundingText(Integer.MAX_VALUE, Integer.MAX_VALUE);
+				ic.endBatchEdit();
+			}
+			break;
 		case Keyboard.KEYCODE_SHIFT:
 			if ((!mInputView.hasDistinctMultitouch()) || 
 				((x == SWIPE_CORD) && (y == SWIPE_CORD)))//the SWIPE_CORD is the case where onKey was called from swipeX
@@ -1449,7 +1459,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	public void onText(CharSequence text) {
 		if (DEBUG)
-			Log.d("AnySoftKeyboard", "onText: '" + text+"'");
+			Log.d(TAG, "onText: '" + text+"'");
 		InputConnection ic = getCurrentInputConnection();
 		if (ic == null)
 			return;
@@ -1558,7 +1568,8 @@ public class AnySoftKeyboard extends InputMethodService implements
             return;
 		//we do backword if the shift is pressed while pressing backspace (like in a PC)
 		//but this is true ONLY if the device has multitouch, or the user specifically asked for it
-		if (mInputView != null && mInputView.isShifted() && !mInputView.getKeyboard().isShiftLocked() && (mInputView.hasDistinctMultitouch() || mConfig.useBackword()))
+		if (mInputView != null && mInputView.isShifted() && !mInputView.getKeyboard().isShiftLocked() && 
+				((mInputView.hasDistinctMultitouch() && mShiftKeyState.isMomentary()) || mConfig.useBackword()))
 		{
 			handleBackword(ic);
 			return;
@@ -1712,7 +1723,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     private void abortCorrection(boolean force) {
         if (force || TextEntryState.isCorrecting()) {
 
-			mHandler.removeMessages(MSG_UPDATE_SUGGESTIONS);
+        	mHandler.removeMessages(MSG_UPDATE_SUGGESTIONS);
 			
             getCurrentInputConnection().finishComposingText();
             clearSuggestions();

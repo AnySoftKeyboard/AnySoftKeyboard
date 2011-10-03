@@ -141,6 +141,7 @@
     <string name="swipe_action_name_shift">Shift</string>
     <string name="swipe_action_name_hide">Hide keyboard</string>
     <string name="swipe_action_name_backspace">Back-space</string>
+    <string name="swipe_action_name_clear_input">Clear entire text</string>
     <string name="swipe_action_name_cursor_up">Move cursor up</string>
     <string name="swipe_action_name_cursor_down">Move cursor down</string>
     <string name="swipe_action_name_cursor_left">Move cursor left</string>

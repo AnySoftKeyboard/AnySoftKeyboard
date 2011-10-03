@@ -327,6 +327,8 @@ public class ConfigurationImpl implements Configuration
 			return Keyboard.KEYCODE_CANCEL;
 		else if (keyValue.equalsIgnoreCase("backspace"))
 			return Keyboard.KEYCODE_DELETE;
+		else if (keyValue.equalsIgnoreCase("clear_input"))
+			return AnyKeyboard.KEYCODE_CLEAR_INPUT;
 		else if (keyValue.equalsIgnoreCase("cursor_up"))
 			return AnyKeyboard.KEYCODE_UP;
 		else if (keyValue.equalsIgnoreCase("cursor_down"))
