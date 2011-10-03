@@ -500,7 +500,8 @@ public class PointerTracker {
                 // Multi-tap
                 if (mInMultiTap) {
                     if (mTapCount != -1) {
-                        mListener.onKey(Keyboard.KEYCODE_DELETE, KEY_DELETE, x, y);
+                    	mListener.onMultiTap();
+                        //mListener.onKey(Keyboard.KEYCODE_DELETE, KEY_DELETE, x, y);
                     } else {
                         mTapCount = 0;
                     }

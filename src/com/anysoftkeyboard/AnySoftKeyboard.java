@@ -785,7 +785,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		     return super.onKeyDown(keyCode, event);
 		case KeyEvent.KEYCODE_FOCUS:
 		     if(shouldTranslateSpecialKeys && mConfig.useCameraKeyForBackspaceBackword()){
-		    	 handleBackspace();
+		    	 handleDeleteLastCharacter(false);
 		    	 return true;
 		     }
 		     // DO NOT DELAY FOCUS KEY with unneeded checks in default mark
@@ -1258,6 +1258,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 			return mKeyboardSwitcher.getCurrentKeyboard().isStartOfWordLetter((char) code);
 	}
 
+	public void onMultiTap() {
+		if (DEBUG) Log.d(TAG, "onMultiTap");
+		handleDeleteLastCharacter(true);
+	}
 
 	public void onKey(int primaryCode, int[] keyCodes, int x, int y) {
 		if (DEBUG)
@@ -1265,13 +1269,25 @@ public class AnySoftKeyboard extends InputMethodService implements
 			Log.d(TAG, "onKey " + primaryCode);
 			//Thread.dumpStack();
 		}
+		final InputConnection ic = getCurrentInputConnection();
 		
 		switch (primaryCode) {
 		case Keyboard.KEYCODE_DELETE:
-			handleBackspace();
+			if (ic == null)//if we don't want to do anything, lets check null first.
+	            break;
+			//we do backword if the shift is pressed while pressing backspace (like in a PC)
+			//but this is true ONLY if the device has multitouch, or the user specifically asked for it
+			if (mInputView != null && mInputView.isShifted() && !mInputView.getKeyboard().isShiftLocked() && 
+					((mInputView.hasDistinctMultitouch() && mShiftKeyState.isMomentary()) || mConfig.useBackword()))
+			{
+				handleBackword(ic);
+			}
+			else
+			{
+				handleDeleteLastCharacter(false);
+			}
 			break;
 		case AnyKeyboard.KEYCODE_CLEAR_INPUT:
-			InputConnection ic = getCurrentInputConnection();
 			if (ic != null)
 			{
 				ic.beginBatchEdit();
@@ -1562,18 +1578,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 	
 
-	private void handleBackspace() {
+	private void handleDeleteLastCharacter(boolean forMultitap) {
 		InputConnection ic = getCurrentInputConnection();	
-		if (ic == null)//if we don't want to do anything, lets check null first.
-            return;
-		//we do backword if the shift is pressed while pressing backspace (like in a PC)
-		//but this is true ONLY if the device has multitouch, or the user specifically asked for it
-		if (mInputView != null && mInputView.isShifted() && !mInputView.getKeyboard().isShiftLocked() && 
-				((mInputView.hasDistinctMultitouch() && mShiftKeyState.isMomentary()) || mConfig.useBackword()))
-		{
-			handleBackword(ic);
-			return;
-		}
 		
 	    boolean deleteChar = false;
 		if (mPredicting) {
@@ -1598,7 +1604,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 			revertLastWord(deleteChar);
 			return;
 		} else if (deleteChar) {
-			Log.d(TAG, "deleteChar");
 			if (mCandidateView != null && mCandidateView.dismissAddToDictionaryHint()) {
 				// Go back to the suggestion mode if the user canceled the
                 // "Touch again to save".
@@ -1611,12 +1616,22 @@ public class AnySoftKeyboard extends InputMethodService implements
             }
 			else
 			{
-				final CharSequence beforeText = ic.getTextBeforeCursor(1, 0);
-				final int textLengthBeforeDelete = (TextUtils.isEmpty(beforeText))? 0 : beforeText.length();
-				if (textLengthBeforeDelete > 0)
-					ic.deleteSurroundingText(1, 0);
-				else
+				if (!forMultitap)
+				{
 					sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+				}
+				else
+				{
+					//this code tries to delete the text in a different way, because of  multi-tap stuff
+					//using "deleteSurroundingText" will actually get the input updated faster!
+					//but will not handle "delete all selected text" feature, hence the "if (!forMultitap)" above
+					final CharSequence beforeText = ic.getTextBeforeCursor(1, 0);
+					final int textLengthBeforeDelete = (TextUtils.isEmpty(beforeText))? 0 : beforeText.length();
+					if (textLengthBeforeDelete > 0)
+						ic.deleteSurroundingText(1, 0);
+					else
+						sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+				}
 			}
 		}
 		mJustRevertedSeparator = null;

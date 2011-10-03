@@ -120,7 +120,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
          *            the value should be NOT_A_TOUCH_COORDINATE.
          */
         void onKey(int primaryCode, int[] keyCodes, int x, int y);
-
+        
+        void onMultiTap();
+        
         /**
          * Sends a sequence of characters to the listener.
          *
@@ -1301,6 +1303,10 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 mKeyboardActionListener.onKey(primaryCode, keyCodes, x, y);
                 if (keyboard.isOneKeyEventPopup()) dismissPopupKeyboard();
             }
+        	
+        	public void onMultiTap() {
+        		mKeyboardActionListener.onMultiTap();
+        	}
 
             public void onText(CharSequence text) {
             	if (keyboard.isOneKeyEventPopup()) mKeyboardActionListener.onText(text);
