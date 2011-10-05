@@ -310,10 +310,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		SharedPreferences sp = PreferenceManager
 				.getDefaultSharedPreferences(this);
 		sp.unregisterOnSharedPreferenceChangeListener(this);
-		if (mSoundOn) {
-			Log.i(TAG, "Releasing sounds effects from AUDIO_SERVICE");
-			mAudioManager.unloadSoundEffects();
-		}
+		
         unregisterReceiver(mReceiver);
 
 		mNotificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
@@ -2355,7 +2352,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 					volume = mSoundVolume;
 					maxVolume = 100;
 					if (DEBUG)
-						Log.d("AnySoftKeyboard", "Sound on key-pressed. Taking custom volume: "+volume+" out of "+maxVolume);
+						Log.d(TAG, "Sound on key-pressed. Taking custom volume: "+volume+" out of "+maxVolume);
 					//pre-eclair
 					// volume is between 0..8 (float)
 					//eclair
@@ -2376,8 +2373,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				
 			}
 
-			if (DEBUG)
-				Log.d("AnySoftKeyboard", "Sound on key-pressed. Sound ID:"
+			if (DEBUG) Log.d(TAG, "Sound on key-pressed. Sound ID:"
 						+ keyFX + " with volume " + fxVolume);
 
 			mAudioManager.playSoundEffect(keyFX, fxVolume);
@@ -2430,9 +2426,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (mSoundOn) {
 			Log.i(TAG, "Loading sounds effects from AUDIO_SERVICE due to configuration change.");
 			mAudioManager.loadSoundEffects();
-		} else {
-			Log.i(TAG, "Releasing sounds effects from AUDIO_SERVICE due to configuration change.");
-			mAudioManager.unloadSoundEffects();
 		}
 		// checking the volume
 		boolean customVolume = sp.getBoolean("use_custom_sound_volume", false);
