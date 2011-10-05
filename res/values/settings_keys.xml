@@ -60,6 +60,14 @@
 		<item>460</item>
 		<item>540</item>
 	</string-array>
+   	
+    <string-array name="settings_key_swipe_velocity_threshold_names">
+    	<item>@string/settings_swipe_velocity_very_slow</item>
+		<item>@string/settings_swipe_velocity_slow</item>
+		<item>@string/settings_swipe_velocity_normal</item>
+		<item>@string/settings_swipe_velocity_fast</item>
+		<item>@string/settings_swipe_velocity_very_fast</item>
+    </string-array>
 	
 	<string name="settings_key_swipe_distance_threshold">settings_key_swipe_distance_threshold</string>
 	<string-array name="settings_key_swipe_distance_threshold_values">
@@ -69,6 +77,13 @@
 		<item>220</item>
 		<item>300</item>
 	</string-array>
+    <string-array name="settings_key_swipe_distance_threshold_names">
+    	<item>@string/settings_swipe_distance_very_short</item>
+		<item>@string/settings_swipe_distance_short</item>
+		<item>@string/settings_swipe_distance_normal</item>
+		<item>@string/settings_swipe_distance_long</item>
+		<item>@string/settings_swipe_distance_very_long</item>
+    </string-array>
 	
     <string name="settings_key_multitap_timeout">settings_key_multitap_timeout</string>
 	<string-array name="settings_key_multitap_timeout_values">
@@ -77,6 +92,15 @@
 		<item>700</item>
 		<item>800</item>
 		<item>1050</item>
+		<item>1000000</item>
+	</string-array>
+	<string-array name="settings_key_multitap_timeout_names">
+		<item>@string/settings_multitap_timeout_faster</item>
+		<item>@string/settings_multitap_timeout_fast</item>
+		<item>@string/settings_multitap_timeout_normal</item>
+		<item>@string/settings_multitap_timeout_slow</item>
+		<item>@string/settings_multitap_timeout_slower</item>
+		<item>@string/settings_multitap_timeout_never</item>
 	</string-array>
 	
 	<string name="settings_key_long_press_timeout">settings_key_long_press_timeout</string>
@@ -86,6 +110,15 @@
 		<item>350</item>
 		<item>450</item>
 		<item>600</item>
+		<item>1000000</item>
+	</string-array>
+	<string-array name="settings_key_long_press_timeout_names">
+		<item>@string/settings_long_press_timeout_faster</item>
+		<item>@string/settings_long_press_timeout_fast</item>
+		<item>@string/settings_long_press_timeout_normal</item>
+		<item>@string/settings_long_press_timeout_slow</item>
+		<item>@string/settings_long_press_timeout_slower</item>
+		<item>@string/settings_long_press_timeout_never</item>
 	</string-array>
 	
 	<string-array name="pref_list_empty_types">

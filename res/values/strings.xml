@@ -150,22 +150,21 @@
    	
    	<string name="settings_swipe_velocity_threshold_title">Swipe velocity threshold</string>
    	<string name="settings_swipe_velocity_threshold_summary">The minimal swipe gesture speed</string>
-    <string-array name="settings_key_swipe_velocity_threshold_names">
-    	<item>Very slow</item>
-		<item>Slow</item>
-		<item>Normal</item>
-		<item>Fast</item>
-		<item>Very fast</item>
-    </string-array>
+   	
+   	<string name="settings_swipe_velocity_very_slow">Very slow</string>
+   	<string name="settings_swipe_velocity_slow">Slow</string>
+   	<string name="settings_swipe_velocity_normal">Normal</string>
+   	<string name="settings_swipe_velocity_fast">Fast</string>
+   	<string name="settings_swipe_velocity_very_fast">Very fast</string>
+    
     <string name="settings_swipe_distance_threshold_title">Swipe distance threshold</string>
    	<string name="settings_swipe_distance_threshold_summary">The minimal swipe gesture distance</string>
-    <string-array name="settings_key_swipe_distance_threshold_names">
-    	<item>Very short</item>
-		<item>Short</item>
-		<item>Normal</item>
-		<item>Long</item>
-		<item>Very long</item>
-    </string-array>
+   	
+   	<string name="settings_swipe_distance_very_short">Very short</string>
+   	<string name="settings_swipe_distance_short">Short</string>
+   	<string name="settings_swipe_distance_normal">Normal</string>
+   	<string name="settings_swipe_distance_long">Long</string>
+   	<string name="settings_swipe_distance_very_long">Very long</string>
     
     <string name="hardware_keys_group">Hardware keys mapping</string>
     <string name="volume_key_for_left_right_support">Volume key for left/right</string>
@@ -348,22 +347,20 @@
 	<string name="smiley_key_default_output">:-) </string>
 	
 	<string name="multitap_timeout_title">Multi-tap timeout</string>
-	<string name="multitap_timeout_summary">Timeout between key taps</string>
-	<string-array name="settings_key_multitap_timeout_names">
-		<item>Faster</item>
-		<item>Fast</item>
-		<item>Normal</item>
-		<item>Slow</item>
-		<item>Slower</item>
-	</string-array>
+	<string name="multitap_timeout_summary">Timeout between key taps</string>	
+	<string name="settings_multitap_timeout_faster">Faster</string>
+	<string name="settings_multitap_timeout_fast">Fast</string>
+	<string name="settings_multitap_timeout_normal">Normal</string>
+	<string name="settings_multitap_timeout_slow">Slow</string>
+	<string name="settings_multitap_timeout_slower">Slower</string>
+	<string name="settings_multitap_timeout_never">Never</string>
 	
 	<string name="long_press_timeout_title">Long-press time</string>
 	<string name="long_press_timeout_summary">Key press time to be considered as long-press</string>
-	<string-array name="settings_key_long_press_timeout_names">
-		<item>Faster</item>
-		<item>Fast</item>
-		<item>Normal</item>
-		<item>Slow</item>
-		<item>Slower</item>
-	</string-array>
+	<string name="settings_long_press_timeout_faster">Faster</string>
+	<string name="settings_long_press_timeout_fast">Fast</string>
+	<string name="settings_long_press_timeout_normal">Normal</string>
+	<string name="settings_long_press_timeout_slow">Slow</string>
+	<string name="settings_long_press_timeout_slower">Slower</string>
+	<string name="settings_long_press_timeout_never">Never</string>
 </resources>
