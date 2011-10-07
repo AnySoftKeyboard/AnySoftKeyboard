@@ -1004,7 +1004,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 //this should be in the top left corner of the key
             	float textWidth =  paint.measureText(label);
                 
-                if (label.length() > 1)
+                if (label.length() > 1 && !AnyApplication.getConfig().workaround_alwaysUseDrawText())
                 {
                 	if (AnyApplication.DEBUG) Log.d(TAG, "Using RTL fix for key draw '"+label+"'");
                 	//RTL fix. But it costs, let do it when in need (more than 1 character)

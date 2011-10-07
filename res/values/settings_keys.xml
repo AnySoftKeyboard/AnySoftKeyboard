@@ -126,4 +126,6 @@
 	<string-array name="pref_list_empty_values">
 	</string-array>
 	
+	<string name="settings_key_workaround_disable_rtl_fix">settings_key_workaround_disable_rtl_fix</string>
+	
 </resources>

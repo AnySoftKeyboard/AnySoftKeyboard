@@ -182,7 +182,17 @@ android:key="tweaks_group_screen">
 			android:summaryOff="@string/backword_support_off_summary"/>
 	</PreferenceCategory>
 		
-		
+	<PreferenceCategory android:key="tweak_workarounds_group"
+		android:title="@string/tweak_workarounds_group">
+		<CheckBoxPreference
+			android:key="@string/settings_key_workaround_disable_rtl_fix"
+			android:title="@string/workaround_disable_rtl_fix"
+			android:persistent="true"
+			android:defaultValue="@bool/settings_default_workaround_disable_rtl_fix"
+			android:summaryOn="@string/workaround_disable_rtl_fix_summary_on"
+			android:summaryOff="@string/workaround_disable_rtl_fix_summary_off"
+		/>
+	</PreferenceCategory>
 	<CheckBoxPreference
 		android:key="@string/settings_key_show_version_notification"
 		android:title="@string/show_new_version_notifications_again"

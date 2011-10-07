@@ -363,4 +363,9 @@
 	<string name="settings_long_press_timeout_slow">Slow</string>
 	<string name="settings_long_press_timeout_slower">Slower</string>
 	<string name="settings_long_press_timeout_never">Never</string>
+	
+	<string name="tweak_workarounds_group">Workarounds</string>
+	<string name="workaround_disable_rtl_fix">Disable Right-to-Left handling</string>
+	<string name="workaround_disable_rtl_fix_summary_on">Use OS RTL handling (for SE phones)</string>
+	<string name="workaround_disable_rtl_fix_summary_off">Use AnySoftKeyboard RTL handling</string>
 </resources>

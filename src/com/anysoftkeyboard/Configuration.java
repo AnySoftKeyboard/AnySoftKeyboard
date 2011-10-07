@@ -31,7 +31,7 @@ public interface Configuration {
 	
 	int getDeviceOrientation();
 	
-	String getRtlWorkaroundConfiguration();
+	//String getRtlWorkaroundConfiguration();
 	
 	boolean isDoubleSpaceChangesToPeriod();
 	
@@ -68,4 +68,6 @@ public interface Configuration {
 	int getLongPressTimeout();
 
 	int getMultiTapTimeout();
+	
+	boolean workaround_alwaysUseDrawText();
 }

@@ -38,7 +38,7 @@ public class ConfigurationImpl implements Configuration
 	private int mSwipeLeftKeyCode;
 	private int mSwipeRightKeyCode;
 	private boolean mActionKeyInvisibleWhenRequested = false;
-	private String mRtlWorkaround ="auto";
+	//private String mRtlWorkaround ="auto";
 	private boolean mIsDoubleSpaceChangesToPeroid = true;
 	private boolean mShouldPopupForLanguageSwitch = false;
 	private boolean mHideSoftKeyboardWhenPhysicalKeyPressed = true;
@@ -56,6 +56,8 @@ public class ConfigurationImpl implements Configuration
 	
 	private int mLongPressTimeout = 350;
 	private int mMultiTapTimeout = 700;
+	
+	private boolean mWorkaround_alwaysUseDrawText = false;
 	
 	public ConfigurationImpl(Context context)
 	{
@@ -231,9 +233,9 @@ public class ConfigurationImpl implements Configuration
 		mActionKeyInvisibleWhenRequested = sp.getBoolean("action_key_invisible_on_disable", false);
 		Log.i(TAG, "** mActionKeyInvisibleWhenRequested: "+mActionKeyInvisibleWhenRequested);
 		
-		mRtlWorkaround = sp.getString("rtl_workaround_detection", "auto");
+		/*mRtlWorkaround = sp.getString("rtl_workaround_detection", "auto");
 		Log.i(TAG, "** mRtlWorkaround: "+mRtlWorkaround);
-		
+		*/
 		mIsDoubleSpaceChangesToPeroid = sp.getBoolean("double_space_to_period", true);
 		Log.i(TAG, "** mIsDoubleSpaceChangesToPeroid: "+mIsDoubleSpaceChangesToPeroid);
 		
@@ -308,6 +310,11 @@ public class ConfigurationImpl implements Configuration
         		mContext.getString(R.string.settings_key_multitap_timeout),
                 mContext.getString(R.string.settings_default_multitap_timeout));
         Log.i(TAG, "** mMultiTapTimeout: " + mMultiTapTimeout);
+        
+        mWorkaround_alwaysUseDrawText = sp.getBoolean(mContext.getString(R.string.settings_key_workaround_disable_rtl_fix),
+                mContext.getResources().getBoolean(R.bool.settings_default_workaround_disable_rtl_fix));
+        Log.i(TAG, "** mWorkaround_alwaysUseDrawText: " + mWorkaround_alwaysUseDrawText);
+        
 	}
 	
 	private int getIntFromSwipeConfiguration(SharedPreferences sp, final String prefKey, final String defaultValue) {
@@ -437,11 +444,11 @@ public class ConfigurationImpl implements Configuration
 	public int getDeviceOrientation() {
 		return mContext.getApplicationContext().getResources().getConfiguration().orientation;
 	}
-
+/*
 	public String getRtlWorkaroundConfiguration() {
 		return mRtlWorkaround;
 	}
-
+*/
 	public boolean isDoubleSpaceChangesToPeriod() {
 		return mIsDoubleSpaceChangesToPeroid;
 	}
@@ -521,5 +528,9 @@ public class ConfigurationImpl implements Configuration
     
     public int getMultiTapTimeout() {
     	return mMultiTapTimeout;
+    }
+    
+    public boolean workaround_alwaysUseDrawText() {
+    	return mWorkaround_alwaysUseDrawText;
     }
 }
