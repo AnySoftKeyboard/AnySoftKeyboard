@@ -256,10 +256,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public void onCreate() {
 		super.onCreate();
 		// super.showStatusIcon(R.drawable.icon_8_key);
-		Log.i("AnySoftKeyboard", "****** AnySoftKeyboard service started.");
+		Log.i(TAG, "****** AnySoftKeyboard service started.");
 		Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(getApplication().getBaseContext(), null));
-		
-		// showToastMessage(R.string.toast_lengthy_start_up_operation, true);
 		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         updateRingerMode();
@@ -345,24 +343,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public View onCreateInputView() {
 		if (DEBUG) Log.v(TAG, "Creating Input View");
-//		mInputView = (AnyKeyboardView) getLayoutInflater().inflate(
-//				//the new layout will solve the "invalidateAllKeys" problem.
-//				Workarounds.isDonut()? R.layout.input_donut : R.layout.input_cupcake
-//				, null);
 		mInputView = (AnyKeyboardView) getLayoutInflater().inflate(R.layout.main_keyboard_layout, null);
 		//reseting token users
 		mOptionsDialog = null;
 		mQuickTextKeyDialog = null;
 		
-		//mKeyboardSwitcher.resetKeyboardsCache();
-		//saving the orientation now, since the GUI is correct (we created that a second ago)
-		//and the keyboard are empty
-		//mOrientation = getResources().getConfiguration().orientation;
-		
 		mKeyboardSwitcher.setInputView(mInputView);
-		//mKeyboardSwitcher.makeKeyboards(false);
 		mInputView.setOnKeyboardActionListener(this);
-		//mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_TEXT, null);
 
 		return mInputView;
 	}
@@ -378,10 +365,25 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (closeIcon != null)
 		{
 			closeIcon.setOnClickListener(new OnClickListener() {
+				private final static long DOUBLE_TAP_TIMEOUT = 2 * 1000;//two seconds is enough
+				private long mFirstClickTime = 0;
+				private final CharSequence mHintText = getResources().getText(R.string.hint_double_tap_to_close);
 				
 				public void onClick(View v) {
-					abortCorrection(true);
-
+					final long currentTime = SystemClock.elapsedRealtime();
+					if (currentTime - mFirstClickTime < DOUBLE_TAP_TIMEOUT)
+					{
+						abortCorrection(true);
+					}
+					else
+					{
+					//	Toast.makeText(getApplicationContext(), "Press close icon again to dismiss suggestions", Toast.LENGTH_SHORT).show();
+						List<CharSequence> l = new ArrayList<CharSequence>();
+						l.add(mHintText);
+						mCandidateView.setSuggestions(l, false, false, false);
+						postUpdateSuggestions(DOUBLE_TAP_TIMEOUT - 50);
+					}
+					mFirstClickTime = currentTime;
 				}
 			});
 		}
@@ -1921,13 +1923,19 @@ public class AnySoftKeyboard extends InputMethodService implements
 //	}
 
 	private void postUpdateSuggestions() {
+		postUpdateSuggestions(100);
+	}
+	
+	private void postUpdateSuggestions(long delay) {
 		mHandler.removeMessages(MSG_UPDATE_SUGGESTIONS);
-		mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_UPDATE_SUGGESTIONS), 100);
+		if (delay > 0)
+			mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_UPDATE_SUGGESTIONS), delay);
+		else
+			mHandler.sendMessage(mHandler.obtainMessage(MSG_UPDATE_SUGGESTIONS));
 	}
 	
 	private void postUpdateSuggestionsNow() {
-		mHandler.removeMessages(MSG_UPDATE_SUGGESTIONS);
-		mHandler.sendMessage(mHandler.obtainMessage(MSG_UPDATE_SUGGESTIONS));
+		postUpdateSuggestions(0);
 	}
 
 	private boolean isPredictionOn() {

@@ -456,7 +456,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
             switch (attr) {
             case R.styleable.AnyKeyboardBaseView_android_background:
-            	super.setBackgroundDrawable(a.getDrawable(attr));
+            	Drawable keyboardBackground = a.getDrawable(attr);
+            	super.setBackgroundDrawable(keyboardBackground);
             	break;
             case R.styleable.AnyKeyboardBaseView_android_paddingLeft:
             	padding[0] = a.getDimensionPixelSize(attr, 0);
@@ -718,6 +719,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         invalidateAllKeys();
         computeProximityThreshold(keyboard);
         mMiniKeyboardCache.clear();
+        super.invalidate();
     }
 
     /**
@@ -916,6 +918,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 Log.d(TAG, "Buffer dimensions: w:"+width+" h:"+height);
                 mBuffer = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
                 mCanvas = new Canvas(mBuffer);
+                /*Drawable background = super.getBackground();
+                background.setBounds(0, 0, width, height);
+                background.draw(mCanvas);*/
             }
             invalidateAllKeys();
             mKeyboardChanged = false;

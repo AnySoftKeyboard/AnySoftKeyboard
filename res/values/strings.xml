@@ -49,6 +49,7 @@
     <!-- Indicates that a word has been added to the dictionary -->
     <string name="added_word"><xliff:g id="word">%s</xliff:g> : Saved</string>
     <string name="hint_add_to_dictionary">\u2190 Touch again to save</string>
+    <string name="hint_double_tap_to_close">Again to remove suggestions \u2192</string>
     
     <string name="menu_insert_smiley">Insert emoticon</string>
     
