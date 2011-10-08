@@ -31,6 +31,7 @@
 	        android:layout_below="@id/changelog_app_name"
 	        android:textColor="#FFF"/>
 		<TextView
+			android:id="@+id/changelog_web_url"
 	        android:layout_height="wrap_content"
 	        android:layout_width="fill_parent"
 	        android:gravity="center"
@@ -40,6 +41,21 @@
 	        android:layout_toRightOf="@id/changelog_icon"
 	        android:layout_below="@id/changelog_label"
 	        android:textColor="#BBB"/>
+		<LinearLayout android:id="@+id/changelog_gplus" 
+			android:layout_toRightOf="@id/changelog_icon"
+	        android:layout_below="@id/changelog_web_url"
+			android:layout_margin="4dp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+			<ImageView android:layout_height="wrap_content" android:src="@drawable/gplus" android:layout_width="wrap_content"></ImageView>
+			<TextView android:layout_marginLeft="4dp" android:text="http://gplus.to/menny" android:autoLink="web" android:textSize="12sp" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+		</LinearLayout>
+		<LinearLayout android:id="@+id/changelog_twitter"
+			android:layout_toRightOf="@id/changelog_icon"
+	        android:layout_below="@id/changelog_gplus"
+			android:layout_margin="4dp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+			<ImageView android:layout_height="wrap_content" android:src="@drawable/twitter" android:layout_width="wrap_content"></ImageView>
+			<TextView android:layout_marginLeft="4dp" android:text="http://twitter.com/anysoftkeyboard" android:autoLink="web" android:textSize="12sp" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+		</LinearLayout>
+						
     </RelativeLayout>
 
 	<LinearLayout android:id="@+id/close_button_layout" android:layout_width="fill_parent" android:layout_alignParentBottom="true"

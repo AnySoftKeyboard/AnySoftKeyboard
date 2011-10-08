@@ -49,7 +49,7 @@ public class PointerTracker {
 
     // Miscellaneous constants
     private static final int NOT_A_KEY = AnyKeyboardBaseView.NOT_A_KEY;
-    private static final int[] KEY_DELETE = { Keyboard.KEYCODE_DELETE };
+    //private static final int[] KEY_DELETE = { Keyboard.KEYCODE_DELETE };
 
     private final UIProxy mProxy;
     private final UIHandler mHandler;
