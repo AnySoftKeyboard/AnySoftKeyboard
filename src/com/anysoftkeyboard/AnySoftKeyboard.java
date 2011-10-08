@@ -35,6 +35,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.InputMethodService;
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -50,6 +51,7 @@ import android.text.AutoText;
 import android.text.ClipboardManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +64,7 @@ import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anysoftkeyboard.api.KeyCodes;
@@ -85,6 +88,8 @@ import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
+import com.anysoftkeyboard.theme.KeyboardTheme;
+import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.settings.MainSettings;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 import com.anysoftkeyboard.utils.ModifierKeyState;
@@ -357,17 +362,26 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public View onCreateCandidatesView() {
 		mKeyboardSwitcher.makeKeyboards(false);
-		ViewGroup candidateViewContainer = (ViewGroup) getLayoutInflater().inflate(R.layout.candidates, null);
+		final ViewGroup candidateViewContainer = (ViewGroup) getLayoutInflater().inflate(R.layout.candidates, null);
 		mCandidateView = (CandidateView) candidateViewContainer.findViewById(R.id.candidates);
 		mCandidateView.setService(this);
 		setCandidatesViewShown(true);
+		
+		final KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(AnySoftKeyboard.getInstance());
+        final TypedArray a = theme.getPackageContext().obtainStyledAttributes(null, R.styleable.AnyKeyboardBaseView, 0, theme.getThemeResId());
+        final int closeTextColor = a.getColor(R.styleable.AnyKeyboardBaseView_suggestionOthersTextColor, getResources().getColor(R.color.candidate_other));
+        final float fontSizePixel = a.getDimension(R.styleable.AnyKeyboardBaseView_suggestionTextSize, getResources().getDimensionPixelSize(R.dimen.candidate_font_height));
+        a.recycle();
+        
+		mCandidateCloseText = (TextView)candidateViewContainer.findViewById(R.id.close_suggestions_strip_text);
+		mCandidateCloseText.setTextColor(closeTextColor);
+		mCandidateCloseText.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSizePixel);
 		View closeIcon = candidateViewContainer.findViewById(R.id.close_suggestions_strip_icon);
 		if (closeIcon != null)
 		{
 			closeIcon.setOnClickListener(new OnClickListener() {
 				private final static long DOUBLE_TAP_TIMEOUT = 2 * 1000;//two seconds is enough
 				private long mFirstClickTime = 0;
-				private final CharSequence mHintText = getResources().getText(R.string.hint_double_tap_to_close);
 				
 				public void onClick(View v) {
 					final long currentTime = SystemClock.elapsedRealtime();
@@ -378,9 +392,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 					else
 					{
 					//	Toast.makeText(getApplicationContext(), "Press close icon again to dismiss suggestions", Toast.LENGTH_SHORT).show();
-						List<CharSequence> l = new ArrayList<CharSequence>();
+					/*	List<CharSequence> l = new ArrayList<CharSequence>();
 						l.add(mHintText);
-						mCandidateView.setSuggestions(l, false, false, false);
+						mCandidateView.setSuggestions(l, false, false, false);*/
+						mCandidateView.setSuggestions(null, false, false, false);
+						if (mCandidateCloseText != null) mCandidateCloseText.setVisibility(View.VISIBLE);
 						postUpdateSuggestions(DOUBLE_TAP_TIMEOUT - 50);
 					}
 					mFirstClickTime = currentTime;
@@ -1969,6 +1985,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 //		final boolean showSuggestions = (mCandidateView != null && mPredicting
 //				&& isPredictionOn() && shouldCandidatesStripBeShown());
 
+		if (mCandidateCloseText != null) mCandidateCloseText.setVisibility(View.GONE);
+		
 		if (!mPredicting) {
 			if (mCandidateView != null)
 				mCandidateView.setSuggestions(null, false, false, false);
@@ -2807,6 +2825,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 	
 	private InputConnection mEditingInput = null;
+
+	private TextView mCandidateCloseText;
 	public void startInputConnectionEdit() {
 		mEditingInput = getCurrentInputConnection();
 		if (mEditingInput != null)

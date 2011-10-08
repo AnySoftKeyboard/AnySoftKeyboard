@@ -37,6 +37,7 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
@@ -140,6 +141,8 @@ public class CandidateView extends View {
         setHorizontalScrollBarEnabled(false);
         setVerticalScrollBarEnabled(false);
         scrollTo(0, getScrollY());
+        
+        TextView closeText = (TextView)findViewById(R.id.close_suggestions_strip_text);
     }
 
     private class CandidateStripGestureListener extends GestureDetector.SimpleOnGestureListener {
