@@ -41,6 +41,7 @@
     	android:layout_alignParentRight="true"
     	android:layout_centerVertical="true"
     	android:paddingLeft="8dp" android:paddingRight="4dp"
+    	android:background="@android:color/transparent"
     	android:src="@drawable/close_suggestions_strip_icon" android:scaleType="centerInside"/>
     
     <TextView android:id="@+id/close_suggestions_strip_text"
@@ -48,6 +49,7 @@
     	android:layout_toLeftOf="@id/close_suggestions_strip_icon"
     	android:layout_centerVertical="true"
     	android:visibility="gone"
+    	android:background="@android:color/transparent"
     	android:text="@string/hint_double_tap_to_close"/>
     	
 </RelativeLayout>
