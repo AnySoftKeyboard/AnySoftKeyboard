@@ -42,6 +42,7 @@ import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 public class CandidateView extends View {
@@ -261,9 +262,6 @@ public class CandidateView extends View {
             }
 
             //now that we set the typeFace, we can measure
-            //final int y = (int) (height + mPaint.getTextSize() - mDescent) / 2;
-            final int y = (int) (height - mPaint.getTextSize() + mPaint.descent()) / 2;
-            
             int wordWidth;
             if ((wordWidth = mWordWidth[i]) == 0) {
                 float textWidth =  paint.measureText(suggestion, 0, wordLength);
@@ -288,22 +286,30 @@ public class CandidateView extends View {
 
             if (canvas != null) {
             	//(+)This is the trick to get RTL/LTR text correct
-				// no matter what: StaticLayout
-            	float textX = x + (wordWidth/2) - X_GAP;
-            	float textY = y - bgPadding.bottom - bgPadding.top;
-            	
-            	canvas.translate(textX , textY);	
-        	    
-            	TextPaint suggestionPaint = new TextPaint(paint);
-            	StaticLayout suggestionText = 
-            		new StaticLayout(
-            				suggestion, suggestionPaint, 
-            				wordWidth, Alignment.ALIGN_CENTER, 
-            				0.0f, 0.0f, false);
-            	suggestionText.draw(canvas);
-            	
-        	    canvas.translate(-textX , -textY);
-//                canvas.drawText(suggestion, 0, wordLength, x + wordWidth / 2, y, paint);
+            	if (AnyApplication.getConfig().workaround_alwaysUseDrawText())
+            	{
+            		final int y = (int) (height + mPaint.getTextSize() - mPaint.descent()) / 2;
+            		canvas.drawText(suggestion, 0, wordLength, x + wordWidth / 2, y, paint);
+            	}
+            	else
+            	{
+            		final int y = (int) (height - mPaint.getTextSize() + mPaint.descent()) / 2;
+                    // no matter what: StaticLayout
+	            	float textX = x + (wordWidth/2) - X_GAP;
+	            	float textY = y - bgPadding.bottom - bgPadding.top;
+	            	
+	            	canvas.translate(textX , textY);	
+	        	    
+	            	TextPaint suggestionPaint = new TextPaint(paint);
+	            	StaticLayout suggestionText = 
+	            		new StaticLayout(
+	            				suggestion, suggestionPaint, 
+	            				wordWidth, Alignment.ALIGN_CENTER, 
+	            				0.0f, 0.0f, false);
+	            	suggestionText.draw(canvas);
+	            	
+	        	    canvas.translate(-textX , -textY);
+            	}
 				//(-)
                 paint.setColor(mColorOther);
                 canvas.translate(x + wordWidth, 0);

@@ -54,8 +54,8 @@
         <!-- key preview (feeback) -->
         <item name="keyPreviewBackground">@drawable/dark_btn_key_preview_background</item>
     	<item name="keyPreviewTextColor">#FFFFFFFF</item>
-    	<item name="keyPreviewTextSize">28sp</item>
-    	<item name="keyPreviewLabelTextSize">18sp</item>
+    	<item name="keyPreviewTextSize">32sp</item>
+    	<item name="keyPreviewLabelTextSize">22sp</item>
     	<item name="keyPreviewOffset">@dimen/key_preview_offset</item>
     	
     	<!-- suggestion strip -->
@@ -122,7 +122,6 @@
     	<item name="keyBackground">@drawable/light_btn_key</item>
         <item name="keyTextColor">@color/light_btn_key_text_color</item>
         <item name="shadowRadius">0</item>
-        
     </style>
     
     <style name="MainKeyboardAnimation">
