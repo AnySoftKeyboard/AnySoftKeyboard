@@ -17,10 +17,12 @@
 			<TextView android:layout_marginTop="3dp" android:layout_marginLeft="4dp" android:layout_marginRight="4dp" android:text="@string/how_to_simple_howto" android:textSize="14sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
 		</LinearLayout>
 	</ScrollView>
-	<LinearLayout android:layout_width="fill_parent"
+	<LinearLayout android:id="@+id/close_button_layout" android:layout_width="fill_parent"
 	    android:layout_height="wrap_content" android:padding="4dp"
 	    android:orientation="horizontal" android:weightSum="2" android:background="#555">
-		<include layout="@layout/close_button"/>
+	    <Button android:id="@+id/close_button"
+			android:layout_height="wrap_content" android:layout_width="0px" android:layout_weight="1" android:padding="8dp"
+			android:gravity="center" android:layout_gravity="center" android:text="@string/close_button"/>
 	</LinearLayout>
 </LinearLayout>
 

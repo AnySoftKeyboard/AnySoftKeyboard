@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.menny.android.anysoftkeyboard"
-        android:versionCode="50" android:versionName="20111007-internal-chamaeleon">
+        android:versionCode="50" android:versionName="20111009-internal-chamaeleon">
 	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key"
 		android:name=".AnyApplication"  android:backupAgent="com.anysoftkeyboard.backup.AnyBackupAgent" android:restoreAnyVersion="true">
 		<!-- used to backup the settings and SQL to the cloud -->

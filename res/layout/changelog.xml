@@ -61,7 +61,9 @@
 	<LinearLayout android:id="@+id/close_button_layout" android:layout_width="fill_parent" android:layout_alignParentBottom="true"
 	    android:layout_height="wrap_content" android:padding="4dp"
 	    android:orientation="horizontal" android:weightSum="2" android:background="#555">
-	    <include layout="@layout/close_button"/>
+	    <Button android:id="@+id/close_button"
+			android:layout_height="wrap_content" android:layout_width="0px" android:layout_weight="1" android:padding="8dp"
+			android:gravity="center" android:layout_gravity="center" android:text="@string/close_button"/>
 	</LinearLayout>
 	
 	<CheckBox android:id="@+id/show_notifications_next_time" android:layout_above="@id/close_button_layout" android:text="@string/show_new_version_notifications_again" android:layout_width="fill_parent" android:layout_height="wrap_content"/>

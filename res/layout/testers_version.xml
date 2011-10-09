@@ -5,13 +5,6 @@
 
 	<!-- No need to localize. It is for testers. -->
     <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:gravity="center"
-        android:text="Testers version!" />
-    <TextView
     	android:layout_height="0px"
     	android:layout_weight="1"
         android:layout_width="fill_parent"
@@ -21,9 +14,11 @@
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         />
-	<LinearLayout android:layout_width="fill_parent"
+	<LinearLayout android:id="@+id/close_button_layout" android:layout_width="fill_parent"
 	    android:layout_height="wrap_content" android:padding="4dp"
 	    android:orientation="horizontal" android:weightSum="2" android:background="#555">
-		<include layout="@layout/close_button"/>
+	    <Button android:id="@+id/close_button"
+			android:layout_height="wrap_content" android:layout_width="0px" android:layout_weight="1" android:padding="8dp"
+			android:gravity="center" android:layout_gravity="center" android:text="@string/close_button"/>
 	</LinearLayout>
 </LinearLayout>
