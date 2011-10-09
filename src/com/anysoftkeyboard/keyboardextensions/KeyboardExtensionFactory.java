@@ -26,25 +26,30 @@ public class KeyboardExtensionFactory extends AddOnsFactory<KeyboardExtension>
 	{
 		 SharedPreferences sharedPreferences = contextProvider.getSharedPreferences();
 		 final String settingKey;
+		 final String defaultValue;
          switch(type)
          {
          case KeyboardExtension.TYPE_BOTTOM:
         	 settingKey = contextProvider.getApplicationContext().getString(R.string.settings_key_ext_kbd_bottom_row_key);
+        	 defaultValue = contextProvider.getApplicationContext().getString(R.string.settings_default_ext_kbd_bottom_row_key);
         	 break;
          case KeyboardExtension.TYPE_TOP:
         	 settingKey = contextProvider.getApplicationContext().getString(R.string.settings_key_ext_kbd_top_row_key);
+        	 defaultValue = contextProvider.getApplicationContext().getString(R.string.settings_default_top_row_key);
         	 break;
          case KeyboardExtension.TYPE_EXTENSION:
         	 settingKey = contextProvider.getApplicationContext().getString(R.string.settings_key_ext_kbd_ext_ketboard_key);
+        	 defaultValue = contextProvider.getApplicationContext().getString(R.string.settings_default_ext_keyboard_key);
         	 break;
          case KeyboardExtension.TYPE_HIDDEN_BOTTOM:
         	 settingKey = contextProvider.getApplicationContext().getString(R.string.settings_key_ext_kbd_hidden_bottom_row_key);
+        	 defaultValue = "";
         	 break;
     	 default:
     		 throw new RuntimeException("No such extension keyboard type: "+type);
          }
          
-         String selectedKeyId = sharedPreferences.getString(settingKey, null);
+         String selectedKeyId = sharedPreferences.getString(settingKey, defaultValue);
          KeyboardExtension selectedKeyboard = null;
          ArrayList<KeyboardExtension> keys = msInstance.getAllAddOns(contextProvider.getApplicationContext());
          
@@ -57,12 +62,12 @@ public class KeyboardExtensionFactory extends AddOnsFactory<KeyboardExtension>
                  }
              }
          }
-
+         
          if (selectedKeyboard == null) {
         	 //still can't find the keyboard. Taking default.
         	 for (KeyboardExtension aKey : keys) {
             	 if (aKey.getExtensionType() != type) continue;
-            	 selectedKeyboard = aKey;
+            	 selectedKeyboard = aKey;//this is to make sure I have at least one keyboard
             	 break;
              }
              SharedPreferences.Editor editor = sharedPreferences.edit();
