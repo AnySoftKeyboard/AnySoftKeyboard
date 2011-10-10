@@ -102,7 +102,10 @@
         <attr name="verticalCorrection" format="dimension" />
 
         <attr name="shadowColor" format="color" />
-        <attr name="shadowRadius" format="float" />
+        <attr name="shadowRadius" format="dimension" />
+        <attr name="shadowOffsetX" format="dimension" />
+        <attr name="shadowOffsetY" format="dimension" />
+        
         <attr name="backgroundDimAmount" format="float" />
 
         <attr name="keyTextStyle">
