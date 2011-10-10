@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.keyboards;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -596,6 +597,9 @@ public abstract class AnyKeyboard extends Keyboard
     {
     	return Character.isLetter(keyValue) || (keyValue == '\'');
     }
+    
+    public abstract HashSet<Character> getSentenceSeparators();
+    
 	/**
      * This looks at the ime options given by the current editor, to set the
      * appropriate label on the keyboard's enter key (if it has one).

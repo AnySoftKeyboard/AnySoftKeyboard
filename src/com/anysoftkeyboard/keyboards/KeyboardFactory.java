@@ -22,6 +22,8 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder>
 	private static final String XML_ICON_RES_ID_ATTRIBUTE = "iconResId";
 	private static final String XML_DICTIONARY_NAME_ATTRIBUTE = "defaultDictionaryLocale";
 	private static final String XML_ADDITIONAL_IS_LETTER_EXCEPTIONS_ATTRIBUTE = "additionalIsLetterExceptions";
+	private static final String XML_SENTENCE_SEPARATOR_CHARACTERS_ATTRIBUTE = "sentenceSeparators";
+	private static final String DEFAULT_SENTENCE_SEPARATORS = ".,!?)";
 	private static final String XML_PHYSICAL_TRANSLATION_RES_ID_ATTRIBUTE = "physicalKeyboardMappingResId";
 	private static final String XML_DEFAULT_ATTRIBUTE = "defaultEnabled";
 	
@@ -99,6 +101,10 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder>
               XML_DICTIONARY_NAME_ATTRIBUTE);
       final String additionalIsLetterExceptions = attrs.getAttributeValue(null,
               XML_ADDITIONAL_IS_LETTER_EXCEPTIONS_ATTRIBUTE);
+      String sentenceSeparators = attrs.getAttributeValue(null, 
+    		  XML_SENTENCE_SEPARATOR_CHARACTERS_ATTRIBUTE);
+      if (sentenceSeparators == null)
+    	  sentenceSeparators = DEFAULT_SENTENCE_SEPARATORS;
       final int physicalTranslationResId = attrs.getAttributeResourceValue(null,
               XML_PHYSICAL_TRANSLATION_RES_ID_ATTRIBUTE, -1);
       
@@ -122,7 +128,7 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder>
           final KeyboardAddOnAndBuilder creator = new KeyboardAddOnAndBuilder(context,
                   prefId, nameId, layoutResId, landscapeLayoutResId,
                   defaultDictionary, iconResId, physicalTranslationResId,
-                  additionalIsLetterExceptions, description, sortIndex,
+                  additionalIsLetterExceptions, sentenceSeparators, description, sortIndex,
                   keyboardDefault );
 
           return creator;

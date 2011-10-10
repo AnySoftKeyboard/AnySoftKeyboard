@@ -1,5 +1,6 @@
 package com.anysoftkeyboard.keyboards;
 
+import java.util.HashSet;
 import java.util.List;
 
 import android.content.Context;
@@ -44,6 +45,11 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 		}
 		//adding edge flag to the last key
 		keys.get(keys.size() - 1).edgeFlags += EDGE_RIGHT;
+	}
+	
+	@Override
+	public HashSet<Character> getSentenceSeparators() {
+		return null;
 	}
 	
 	@Override

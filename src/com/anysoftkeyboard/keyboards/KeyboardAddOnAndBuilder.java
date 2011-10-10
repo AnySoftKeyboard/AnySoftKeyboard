@@ -15,6 +15,7 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
     private final String mDefaultDictionary;
     private final int mQwertyTranslationId;
     private final String mAdditionalIsLetterExceptions;
+    private final String mSentenceSeparators;
     private final boolean mKeyboardDefaultEnabled;
     
     public KeyboardAddOnAndBuilder(Context packageContext, String id, int nameResId,
@@ -22,6 +23,7 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
             String defaultDictionary, int iconResId,
             int physicalTranslationResId,
             String additionalIsLetterExceptions,
+            String sentenceSeparators,
             String description,
             int keyboardIndex,
             boolean keyboardDefaultEnabled) {
@@ -37,6 +39,7 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
         mDefaultDictionary = defaultDictionary;
         mIconResId = iconResId;
         mAdditionalIsLetterExceptions = additionalIsLetterExceptions;
+        mSentenceSeparators = sentenceSeparators;
         mQwertyTranslationId = physicalTranslationResId;
         mKeyboardDefaultEnabled = keyboardDefaultEnabled;
 	}
@@ -46,6 +49,6 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
     }
     
     public AnyKeyboard createKeyboard(AnyKeyboardContextProvider askContext, int mode) {
-        return new ExternalAnyKeyboard(askContext, getPackageContext(), mResId, mLandscapeResId, getId(), getNameResId(), mIconResId, mQwertyTranslationId, mDefaultDictionary, mAdditionalIsLetterExceptions, mode);
+        return new ExternalAnyKeyboard(askContext, getPackageContext(), mResId, mLandscapeResId, getId(), getNameResId(), mIconResId, mQwertyTranslationId, mDefaultDictionary, mAdditionalIsLetterExceptions, mSentenceSeparators, mode);
     }
 }

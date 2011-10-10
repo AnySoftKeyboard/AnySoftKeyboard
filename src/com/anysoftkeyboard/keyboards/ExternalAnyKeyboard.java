@@ -37,7 +37,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	private final String mDefaultDictionary;
 	private final HardKeyboardSequenceHandler mHardKeyboardTranslator;
 	private final HashSet<Character> mAdditionalIsLetterExceptions;
-
+	private final HashSet<Character> mSentenceSeparators;
+	
 	//private Key mExtensionPopupKey; 
 	private KeyboardExtension mExtensionLayout = null;
 	
@@ -53,6 +54,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 			int qwertyTranslationId,
 			String defaultDictionary,
 			String additionalIsLetterExceptions,
+			String sentenceSeparators,
 			int mode) 
 	{
 		super(askContext, context, getKeyboardId(askContext.getApplicationContext(), xmlLayoutResId, xmlLandscapeResId), mode);
@@ -75,6 +77,12 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 		{
 			for(int i=0;i<additionalIsLetterExceptions.length(); i++)
 				mAdditionalIsLetterExceptions.add(additionalIsLetterExceptions.charAt(i));
+		}
+		mSentenceSeparators = new HashSet<Character>();
+		if (sentenceSeparators != null)
+		{
+			for(int i=0;i<sentenceSeparators.length(); i++)
+				mSentenceSeparators.add(sentenceSeparators.charAt(i));
 		}
 		setExtensionLayout(KeyboardExtensionFactory.getCurrentKeyboardExtension(askContext, KeyboardExtension.TYPE_EXTENSION));
 	}
@@ -279,6 +287,11 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 	@Override
 	public boolean isInnerWordLetter(char keyValue) {
 		return super.isInnerWordLetter(keyValue) || mAdditionalIsLetterExceptions.contains(keyValue);
+	}
+	
+	@Override
+	public HashSet<Character> getSentenceSeparators() {
+		return mSentenceSeparators;
 	}
 
 	protected void setPopupKeyChars(Key aKey)
