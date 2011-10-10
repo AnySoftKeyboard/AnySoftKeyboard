@@ -42,7 +42,9 @@
         <item name="verticalCorrection">-0.05in</item>
         
         <item name="shadowColor">#BB000000</item>
-        <item name="shadowRadius">2.75</item>
+        <item name="shadowRadius">0px</item>
+        <item name="shadowOffsetX">0px</item>
+        <item name="shadowOffsetY">0px</item>
         <item name="backgroundDimAmount">0.5</item>
         <item name="symbolColorScheme">white</item>
         
@@ -83,10 +85,14 @@
         <item name="android:background">@drawable/gingerbread_main_background</item>
     	<item name="keyBackground">@drawable/btn_keyboard_key_gingerbread</item>
     	<item name="keyPreviewBackground">@drawable/gingerbread_btn_key_preview_background</item>
+    	
+        <item name="shadowRadius">5px</item>
     </style>
     <style name="GingerbreadPopup" parent="@style/AnyKeyboardPopupBaseTheme">
         <item name="android:background">@drawable/keyboard_popup_panel_background</item>
     	<item name="keyBackground">@drawable/btn_keyboard_key_gingerbread_popup</item>
+    	
+    	<item name="shadowRadius">5px</item>
     </style>
     
     <style name="PlainDarkAnySoftKeyboard" parent="@style/AnyKeyboardBaseTheme">
@@ -104,7 +110,6 @@
     	<item name="keyBackground">@drawable/light_btn_key</item>
         <item name="keyTextColor">@color/light_btn_key_text_color</item>
         <item name="backgroundDimAmount">0.2</item>
-        <item name="shadowRadius">0</item>
         
         <item name="keyPreviewBackground">@drawable/light_btn_key_preview_background</item>
         <item name="keyPreviewTextColor">#FF000000</item>
@@ -121,7 +126,6 @@
         <item name="android:background">@drawable/light_background_popup</item>
     	<item name="keyBackground">@drawable/light_btn_key</item>
         <item name="keyTextColor">@color/light_btn_key_text_color</item>
-        <item name="shadowRadius">0</item>
     </style>
     
     <style name="MainKeyboardAnimation">

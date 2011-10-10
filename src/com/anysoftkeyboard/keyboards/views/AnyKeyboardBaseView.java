@@ -179,7 +179,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private boolean mInLandscape = false;
     private int mSymbolColorScheme = 0;
     private int mShadowColor;
-    private float mShadowRadius;
+    private int mShadowRadius;
+    private int mShadowOffsetX;
+    private int mShadowOffsetY;
     private Drawable mKeyBackground;
     private float mBackgroundDimAmount;
     private float mKeyHysteresisDistance;
@@ -517,7 +519,13 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 mShadowColor = a.getColor(attr, 0);
                 break;
             case R.styleable.AnyKeyboardBaseView_shadowRadius:
-                mShadowRadius = a.getFloat(attr, 0f);
+                mShadowRadius = a.getDimensionPixelOffset(attr, 0);
+                break;
+            case R.styleable.AnyKeyboardBaseView_shadowOffsetX:
+            	mShadowOffsetX = a.getDimensionPixelOffset(attr, 0);
+                break;
+            case R.styleable.AnyKeyboardBaseView_shadowOffsetY:
+            	mShadowOffsetY = a.getDimensionPixelOffset(attr, 0);
                 break;
             case R.styleable.AnyKeyboardBaseView_backgroundDimAmount:
                 mBackgroundDimAmount = a.getFloat(attr, 0.5f);
@@ -1001,7 +1009,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 }
 
                 // Draw a drop shadow for the text
-                paint.setShadowLayer(mShadowRadius, mShadowLayerDx, mShadowLayerDy, mShadowColor);
+                paint.setShadowLayer(mShadowRadius, mShadowOffsetX, mShadowOffsetY, mShadowColor);
                 
                 
                 //(+)This is the trick to get RTL/LTR text correct
