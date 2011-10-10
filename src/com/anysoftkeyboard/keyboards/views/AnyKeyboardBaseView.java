@@ -1001,7 +1001,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 }
 
                 // Draw a drop shadow for the text
-                paint.setShadowLayer(mShadowRadius, 0, 0, mShadowColor);
+                paint.setShadowLayer(mShadowRadius, mShadowLayerDx, mShadowLayerDy, mShadowColor);
                 
                 
                 //(+)This is the trick to get RTL/LTR text correct
