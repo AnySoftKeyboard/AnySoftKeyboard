@@ -18,7 +18,8 @@
     </Row>
     
     <Row>
-        <Key android:horizontalGap="5%p" android:codes="161" android:keyLabel="¡" android:keyEdgeFlags="left"/>
+        <Key android:codes="9829" android:keyLabel="&#9829;" android:keyEdgeFlags="left"/>
+        <Key android:codes="161" android:keyLabel="¡"/>
         <Key android:codes="191" android:keyLabel="¿"/>
         <Key android:codes="169" android:keyLabel="©"/>
         <Key android:codes="174" android:keyLabel="®"/>

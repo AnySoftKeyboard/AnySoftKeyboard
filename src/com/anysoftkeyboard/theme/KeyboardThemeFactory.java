@@ -25,7 +25,7 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme>
 		 SharedPreferences sharedPreferences = contextProvider.getSharedPreferences();
          String settingKey = contextProvider.getApplicationContext().getString(R.string.settings_key_keyboard_theme_key);
          
-         String selectedThemeId = sharedPreferences.getString(settingKey, null);
+         String selectedThemeId = sharedPreferences.getString(settingKey, contextProvider.getApplicationContext().getString(R.string.settings_default_keyboard_theme_key));
          KeyboardTheme selectedTheme = null;
          ArrayList<KeyboardTheme> themes = msInstance.getAllAddOns(contextProvider.getApplicationContext());
          if (selectedThemeId != null) {
