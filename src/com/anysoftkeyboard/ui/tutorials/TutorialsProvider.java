@@ -16,6 +16,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.provider.Settings.Secure;
+import android.text.TextUtils;
 import android.util.Log;
 
 public class TutorialsProvider 
@@ -39,12 +40,17 @@ public class TutorialsProvider
 	 */
 	private static boolean linearSearch( String listOfIme, final String key )
 	{
-		String[] arrayOfIme = listOfIme.split(":");
+		if (TextUtils.isEmpty(listOfIme) || TextUtils.isEmpty(key))
+			return false;
 		if (AnyApplication.DEBUG)
 			Log.d(TAG, "Currently these are the IME enabled in the OS: "+listOfIme);
+		String[] arrayOfIme = listOfIme.split(":");
+		if (arrayOfIme == null)
+			return false;
 		
 		for(final String ime : arrayOfIme)
 		{
+			if (TextUtils.isEmpty(ime)) continue;
 			if (AnyApplication.DEBUG)
 				Log.d(TAG, "Is '"+ime+"' starts with '"+key+"'?");
 			//checking "startsWith" since the OS list is something like this:
