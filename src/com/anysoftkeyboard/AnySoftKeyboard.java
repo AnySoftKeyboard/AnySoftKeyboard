@@ -42,6 +42,7 @@ import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Debug;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.os.SystemClock;
 import android.os.Vibrator;
@@ -248,6 +249,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private static final int LAST_CHAR_SHIFT_STATE_SHIFTED = 2;
 	private int mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_DEFAULT;
 
+	protected IBinder mImeToken = null;
+
+	private InputMethodManager mInputMethodManager;
+
 	public static AnySoftKeyboard getInstance() {
 		return INSTANCE;
 	}
@@ -259,6 +264,18 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mHardKeyboardAction = new HardKeyboardActionImpl();
 		INSTANCE = this;
 	}
+	
+	@Override
+	public AbstractInputMethodImpl onCreateInputMethodInterface() {
+		return new InputMethodImpl()
+		{
+			@Override
+			public void attachToken(IBinder token) {
+				super.attachToken(token);
+				mImeToken  = token;
+			}
+		};
+	}
 
 	@Override
 	public void onCreate() {
@@ -266,6 +283,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// super.showStatusIcon(R.drawable.icon_8_key);
 		Log.i(TAG, "****** AnySoftKeyboard service started.");
 		Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(getApplication().getBaseContext(), null));
+		mInputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
 		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         updateRingerMode();
@@ -278,14 +296,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		loadSettings();
 		mKeyboardSwitcher = new KeyboardSwitcher(this);
 		
-		if (mSuggest == null) {
-			// should it be always on?
-			if (mKeyboardChangeNotificationType
-					.equals(KEYBOARD_NOTIFICATION_ALWAYS))
-				notifyKeyboardChangeIfNeeded();
-			initSuggest(/* getResources().getConfiguration().locale.toString() */);
-		}
-
 		mOrientation = getResources().getConfiguration().orientation;
 
 		SharedPreferences sp = PreferenceManager
@@ -294,6 +304,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 		
 		mCurrentKeyboard = mKeyboardSwitcher.getCurrentKeyboard();
 		mSentenceSeparators = mCurrentKeyboard.getSentenceSeparators();
+		
+		if (mSuggest == null) {
+			initSuggest(/* getResources().getConfiguration().locale.toString() */);
+		}
+
+		if (mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS))// should it be always on?
+			notifyKeyboardChangeIfNeeded();
 	}
 	
 	@Override
@@ -1005,34 +1022,34 @@ public class AnySoftKeyboard extends InputMethodService implements
 			//AnyKeyboard current = mKeyboardSwitcher.getCurrentKeyboard();
 			// notifying the user about the keyboard.
 			// creating the message
-			final String keyboardName = mCurrentKeyboard.getKeyboardName();
-
-			Notification notification = new Notification(R.drawable.notification_icon, keyboardName, System.currentTimeMillis());
-
-			Intent notificationIntent = new Intent();
-			PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-					notificationIntent, 0);
-
-			notification.setLatestEventInfo(getApplicationContext(),
-					getText(R.string.ime_name), keyboardName,
-					contentIntent);
-
-			if (mKeyboardChangeNotificationType.equals("1")) {
-				notification.flags |= Notification.FLAG_ONGOING_EVENT;
-				notification.flags |= Notification.FLAG_NO_CLEAR;
-			} else {
-				notification.flags |= Notification.FLAG_AUTO_CANCEL;
-			}
-			// notifying
-			mNotificationManager.notify(KEYBOARD_NOTIFICATION_ID, notification);
-			Intent i = new Intent(NOTIFY_LAYOUT_SWITCH);
-			i.putExtra(NOTIFY_LAYOUT_SWITCH_NOTIFICATION_TITLE, getText(R.string.ime_name));
-			i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_RESID,   mCurrentKeyboard.getKeyboardIconResId());
-			i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_NAME,    mCurrentKeyboard.getKeyboardName());
-			i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_PACKAGE, mCurrentKeyboard.getKeyboardContext().getPackageName());
-			i.putExtra(NOTIFY_LAYOUT_SWITCH_NOTIFICATION_FLAGS, notification.flags);
-			sendBroadcast(i);
-			
+//			final String keyboardName = mCurrentKeyboard.getKeyboardName();
+//
+//			Notification notification = new Notification(R.drawable.notification_icon, keyboardName, System.currentTimeMillis());
+//
+//			Intent notificationIntent = new Intent();
+//			PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+//					notificationIntent, 0);
+//
+//			notification.setLatestEventInfo(getApplicationContext(),
+//					getText(R.string.ime_name), keyboardName,
+//					contentIntent);
+//
+//			if (mKeyboardChangeNotificationType.equals("1")) {
+//				notification.flags |= Notification.FLAG_ONGOING_EVENT;
+//				notification.flags |= Notification.FLAG_NO_CLEAR;
+//			} else {
+//				notification.flags |= Notification.FLAG_AUTO_CANCEL;
+//			}
+//			// notifying
+//			mNotificationManager.notify(KEYBOARD_NOTIFICATION_ID, notification);
+//			Intent i = new Intent(NOTIFY_LAYOUT_SWITCH);
+//			i.putExtra(NOTIFY_LAYOUT_SWITCH_NOTIFICATION_TITLE, getText(R.string.ime_name));
+//			i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_RESID,   mCurrentKeyboard.getKeyboardIconResId());
+//			i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_NAME,    mCurrentKeyboard.getKeyboardName());
+//			i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_PACKAGE, mCurrentKeyboard.getKeyboardContext().getPackageName());
+//			i.putExtra(NOTIFY_LAYOUT_SWITCH_NOTIFICATION_FLAGS, notification.flags);
+//			sendBroadcast(i);
+			mInputMethodManager.showStatusIcon(mImeToken, mCurrentKeyboard.getKeyboardContext().getPackageName(), mCurrentKeyboard.getKeyboardIconResId());
 		}
 	}
 
