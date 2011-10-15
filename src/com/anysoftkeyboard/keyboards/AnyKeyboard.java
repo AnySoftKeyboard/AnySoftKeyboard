@@ -324,7 +324,8 @@ public abstract class AnyKeyboard extends Keyboard
 	}
 
     private void fixKeyboardDueToGenericRow(KeyboardMetadata md) {
-    	mGenericRowsHeight += md.rowHeight + md.verticalGap;
+    	final int additionalPixels = (md.rowHeight + md.verticalGap);
+    	mGenericRowsHeight += additionalPixels;
     	if (md.isTopRow)
     	{
     		mTopRowKeysCount += md.keysCount;
@@ -332,7 +333,7 @@ public abstract class AnyKeyboard extends Keyboard
     		for(int keyIndex = md.keysCount; keyIndex < keys.size(); keyIndex++)
             {
     			final Key key = keys.get(keyIndex);
-    			key.y += md.rowHeight + md.verticalGap;
+    			key.y += additionalPixels;
     			if (key instanceof LessSensitiveAnyKey)
             		((LessSensitiveAnyKey)key).resetSenitivity();//reseting cause the key may be offseted now (generic rows)
             }
@@ -392,7 +393,7 @@ public abstract class AnyKeyboard extends Keyboard
 	                        	// is just fixed so that it includes the first generic row.
 	                        	y = getHeight() + getVerticalGap();
 	                        }
-	                        m.rowHeight = currentRow.defaultHeight;
+	                        m.rowHeight = Math.max(currentRow.defaultHeight, m.rowHeight);
 	                        m.verticalGap = currentRow.verticalGap;
                         }
                    } else if (TAG_KEY.equals(tag)) {
@@ -403,6 +404,8 @@ public abstract class AnyKeyboard extends Keyboard
                         else
                         	keys.add(key);
                         m.keysCount++;
+                        
+                        m.rowHeight = Math.max(key.height, m.rowHeight);
                     }
                 } else if (event == XmlResourceParser.END_TAG) {
                     if (inKey) {
@@ -416,7 +419,7 @@ public abstract class AnyKeyboard extends Keyboard
                     } else if (inRow) {
                         inRow = false;
                         y += currentRow.verticalGap;
-                        y += currentRow.defaultHeight;
+                        y += m.rowHeight;
                         row++;
                     } else {
                         // TODO: error or extend?
