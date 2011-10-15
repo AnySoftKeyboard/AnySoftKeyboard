@@ -23,9 +23,6 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.AlertDialog;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -108,7 +105,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private final static String TAG = "ASK";
 	
 	private final static int SWIPE_CORD = -2;
-	
+	/*
 	public final static String NOTIFY_LAYOUT_SWITCH  = "com.menny.android.anysoftkeyboard.api.NOTIFY_LAYOUT_SWITCH";
     //API
     private static final String NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_RESID = "current_layout_resid";
@@ -116,14 +113,14 @@ public class AnySoftKeyboard extends InputMethodService implements
     private static final String NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_PACKAGE = "current_layout_package";
     private static final String NOTIFY_LAYOUT_SWITCH_NOTIFICATION_FLAGS = "notification_flags";
     private static final String NOTIFY_LAYOUT_SWITCH_NOTIFICATION_TITLE = "notification_title";
-
+	*/
 	private final boolean TRACE_SDCARD = false;
 
 	private static final int MSG_UPDATE_SUGGESTIONS = 0;
 	//private static final int MSG_START_TUTORIAL = 1;
     private static final int MSG_UPDATE_SHIFT_STATE = 2;
 	
-	private static final int KEYBOARD_NOTIFICATION_ID = 1;
+	//private static final int KEYBOARD_NOTIFICATION_ID = 1;
 	/*
 	private static final HashSet<Integer> SPACE_SWAP_CHARACTERS = new HashSet<Integer>(
 			6);
@@ -224,7 +221,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private Vibrator mVibrator;
 	private int mVibrationDuration;
 	
-	private NotificationManager mNotificationManager;
+	//private NotificationManager mNotificationManager;
 
 	private static AnySoftKeyboard INSTANCE;
 
@@ -284,7 +281,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		Log.i(TAG, "****** AnySoftKeyboard service started.");
 		Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(getApplication().getBaseContext(), null));
 		mInputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		//mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         updateRingerMode();
 		// register to receive ringer mode changes for silent mode
@@ -339,14 +336,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 		
         unregisterReceiver(mReceiver);
 
-		mNotificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
+        mInputMethodManager.hideStatusIcon(mImeToken);
+		//mNotificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
 		
-		
+		/*
 		Intent i = new Intent(NOTIFY_LAYOUT_SWITCH);
 		//dome summy package, so that everybody removes notification
         i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_PACKAGE, "NO_SUCH_PACKAGE");
         sendBroadcast(i);
-
+		*/
 		TutorialsProvider.onServiceDestroy();
 
 		super.onDestroy();
@@ -362,7 +360,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		
 		if (!mKeyboardChangeNotificationType
 				.equals(KEYBOARD_NOTIFICATION_ALWAYS)) {
-			mNotificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
+			mInputMethodManager.hideStatusIcon(mImeToken);
+			//mNotificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
 		}
         // Remove penging messages related to update suggestions
         mHandler.removeMessages(MSG_UPDATE_SUGGESTIONS);
@@ -588,10 +587,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		if (!mKeyboardChangeNotificationType
 				.equals(KEYBOARD_NOTIFICATION_ALWAYS)) {
-			mNotificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
-			Intent i = new Intent(NOTIFY_LAYOUT_SWITCH);
-			i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_PACKAGE, NOTIFY_LAYOUT_SWITCH);//dome summy package, so that everybody removes notification
-		    sendBroadcast(i);
+			mInputMethodManager.hideStatusIcon(mImeToken);
+			//mNotificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
+//			Intent i = new Intent(NOTIFY_LAYOUT_SWITCH);
+//			i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_PACKAGE, NOTIFY_LAYOUT_SWITCH);//dome summy package, so that everybody removes notification
+//		    sendBroadcast(i);
 		}
 		// releasing some memory. Dictionaries, completions, etc.
 		if (mAutoDictionary != null) mAutoDictionary.flushPendingWrites();
@@ -2499,21 +2499,16 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mSoundVolume = newVolume;
 
 		// in order to support the old type of configuration
-		String newKeyboardChangeNotificationType = sp.getString(
+		mKeyboardChangeNotificationType = sp.getString(
 				getString(R.string.settings_key_physical_keyboard_change_notification_type),
 				getString(R.string.settings_default_physical_keyboard_change_notification_type));
-		boolean notificationChanged = (!newKeyboardChangeNotificationType
-				.equalsIgnoreCase(mKeyboardChangeNotificationType));
-		mKeyboardChangeNotificationType = newKeyboardChangeNotificationType;
 
-		if (notificationChanged) {
-			// now clearing the notification, and it will be re-shown if needed
-			mNotificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
-			// should it be always on?
-			if (mKeyboardChangeNotificationType
-					.equals(KEYBOARD_NOTIFICATION_ALWAYS))
-				notifyKeyboardChangeIfNeeded();
-		}
+		// now clearing the notification, and it will be re-shown if needed
+		mInputMethodManager.hideStatusIcon(mImeToken);
+		//mNotificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
+		// should it be always on?
+		if (mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS))
+			notifyKeyboardChangeIfNeeded();
 
 		mAutoCap = sp.getBoolean("auto_caps", true);
 
