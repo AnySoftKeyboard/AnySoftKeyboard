@@ -451,7 +451,13 @@ public class CandidateView extends View {
                 if (mSelectedString != null) {
                     if (mShowingAddToDictionary) {
                         //longPressFirstWord();
-                        clear();
+                    	CharSequence word = mSuggestions.get(0);
+                        if (word.length() >= 2 && mService.addWordToDictionary(word.toString())) {
+                            //showPreview(0, getContext().getResources().getString(R.string.added_word, word));
+                        	ArrayList<CharSequence> notice = new ArrayList<CharSequence>(1);
+                        	notice.add(getContext().getResources().getString(R.string.added_word, word));
+                        	setSuggestions(notice, false, true, false);
+                        }
                     } else {
                         if (!mShowingCompletions) {
                             TextEntryState.acceptedSuggestion(mSuggestions.get(0),
@@ -513,6 +519,7 @@ public class CandidateView extends View {
             }
         }
     }
+    
     private void longPressFirstWord() {
         CharSequence word = mSuggestions.get(0);
         if (word.length() < 2) return;
