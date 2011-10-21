@@ -118,7 +118,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private static final int MSG_UPDATE_SUGGESTIONS = 0;
 	//private static final int MSG_START_TUTORIAL = 1;
-    private static final int MSG_UPDATE_SHIFT_STATE = 2;
+    //private static final int MSG_UPDATE_SHIFT_STATE = 2;
 	
 	//private static final int KEYBOARD_NOTIFICATION_ID = 1;
 	/*
@@ -232,9 +232,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 			case MSG_UPDATE_SUGGESTIONS:
 				performUpdateSuggestions();
 				break;
-			case MSG_UPDATE_SHIFT_STATE:
-                updateShiftKeyState(getCurrentInputEditorInfo());
-                break;
+//			case MSG_UPDATE_SHIFT_STATE:
+//                updateShiftKeyState(getCurrentInputEditorInfo());
+//                break;
+			default:
+				super.handleMessage(msg);
 			}
 		}
 	};
@@ -642,7 +644,8 @@ public class AnySoftKeyboard extends InputMethodService implements
             }
         }
         mJustAccepted = false;
-        postUpdateShiftKeyState();
+        //postUpdateShiftKeyState();
+        updateShiftKeyState(getCurrentInputEditorInfo());
 
         // Make a note of the cursor position
         mLastSelectionStart = newSelStart;
@@ -1060,11 +1063,12 @@ public class AnySoftKeyboard extends InputMethodService implements
         //Issue 248
 		case KeyEvent.KEYCODE_VOLUME_DOWN:
 	    case KeyEvent.KEYCODE_VOLUME_UP:
-	        if(AnySoftKeyboard.getInstance().isInputViewShown() == false){
+	        if(isInputViewShown() == false){
 	            return super.onKeyUp(keyCode, event);
 	        }
 	        if(mConfig.useVolumeKeyForLeftRight()){
 	            //no need of vol up/down sound
+	        	updateShiftKeyState(getCurrentInputEditorInfo());
 	            return true;
 	        }
 		case KeyEvent.KEYCODE_DPAD_DOWN:
@@ -1086,6 +1090,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 				InputConnection ic = getCurrentInputConnection();
 				if (ic != null)
 					ic.sendKeyEvent(event);
+				
+				updateShiftKeyState(getCurrentInputEditorInfo());
 				return true;
 			}
 			break;
@@ -1101,7 +1107,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 			setInputConnectionMetaStateAsCurrentMetaKeyKeyListenerState();
 			break;
 		}
-		return super.onKeyUp(keyCode, event);
+		boolean r = super.onKeyUp(keyCode, event);
+		updateShiftKeyState(getCurrentInputEditorInfo());
+		return r;
 	}
 
 	private String getMetaKeysStates(String place) {
@@ -1191,14 +1199,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	}
 
-	private void postUpdateShiftKeyState() {
+	/*private void postUpdateShiftKeyState() {
         mHandler.removeMessages(MSG_UPDATE_SHIFT_STATE);
         // TODO: Should remove this 300ms delay?
         mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_UPDATE_SHIFT_STATE), 150);
-    }
+    }*/
 
     public void updateShiftKeyState(EditorInfo attr) {
-		mHandler.removeMessages(MSG_UPDATE_SHIFT_STATE);
+		//mHandler.removeMessages(MSG_UPDATE_SHIFT_STATE);
         InputConnection ic = getCurrentInputConnection();
         if (ic != null && attr != null && mKeyboardSwitcher.isAlphabetMode() && (mInputView != null)) {
             mInputView.setShifted(mShiftKeyState.isMomentary() || mCapsLock
@@ -1726,7 +1734,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 	
 	private void handleShift(boolean reset) {
-		mHandler.removeMessages(MSG_UPDATE_SHIFT_STATE);
+		//mHandler.removeMessages(MSG_UPDATE_SHIFT_STATE);
 		
 		if (mKeyboardSwitcher.isAlphabetMode()) {
 			//shift pressed and this is an alphabet keyboard
@@ -2456,6 +2464,9 @@ public class AnySoftKeyboard extends InputMethodService implements
                 handleControl(true);
             mControlKeyState.onRelease();
         }
+        //the user lifted the finger, let's handle the shift
+        if (primaryCode != Keyboard.KEYCODE_SHIFT)
+        	updateShiftKeyState(getCurrentInputEditorInfo());
 	}
 
 	// receive ringer mode changes to detect silent mode
