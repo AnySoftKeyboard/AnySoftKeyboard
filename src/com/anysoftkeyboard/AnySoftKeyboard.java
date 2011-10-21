@@ -1769,7 +1769,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				}
 				else
 				{
-					if (mCurrentKeyboard.isShiftLocked())
+					if (mInputView.isShiftLocked())
 					{
 						if (DEBUG) Log.d(TAG, "handleShift: current keyboard is CAPSLOCKED");
 						mInputView.setShifted(false);
@@ -1784,7 +1784,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				}
 			}
 			mCapsLock = caps;
-			mCurrentKeyboard.setShiftLocked(mCapsLock);
+			mInputView.setShiftLocked(mCapsLock);
 		}
 	}
 

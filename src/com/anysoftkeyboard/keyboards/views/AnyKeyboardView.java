@@ -162,11 +162,22 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 				AnyKeyboardBaseView.NOT_A_TOUCH_COORDINATE);
 		return true;
 	}
+	
+	public boolean isShiftLocked()
+	{
+		AnyKeyboard keyboard = getKeyboard();
+		if (keyboard != null)
+		{
+            return keyboard.isShiftLocked();
+        }
+        return false;
+	}
 
 	public boolean setShiftLocked(boolean shiftLocked) {
-		Keyboard keyboard = getKeyboard();
-		if (keyboard instanceof AnyKeyboard) {
-			((AnyKeyboard) keyboard).setShiftLocked(shiftLocked);
+		AnyKeyboard keyboard = getKeyboard();
+		if (keyboard != null)
+		{
+			keyboard.setShiftLocked(shiftLocked);
 			invalidateAllKeys();
 			return true;
 		}

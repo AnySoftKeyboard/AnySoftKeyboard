@@ -95,7 +95,7 @@
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
-		        android:text="* Shift erratic behavior fix.\n* User dictionay saving issue fixed"
+		        android:text="* Shift erratic behavior fix.\n* User dictionay saving issue fixed\n* Revisited iPhone bottom row."
 		        android:textSize="16sp"
 		        android:paddingTop="4dp"
 		        android:paddingLeft="12dp"
