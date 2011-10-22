@@ -22,7 +22,7 @@
 	    
 	    <Key ask:isFunctional="true" android:keyWidth="10%p" android:codes="@integer/key_code_mode_alphabet"/>
 	    
-	    <Key ask:isFunctional="true" android:keyWidth="10%p" android:codes="@integer/key_code_quick_text" ask:longPressCode="-102" android:keyEdgeFlags="left"/>
+	    <Key ask:isFunctional="true" android:keyWidth="10%p" android:codes="@integer/key_code_quick_text" ask:longPressCode="-102"/>
 	    
 	    <Key android:keyWidth="30%p" android:codes="@integer/key_code_space"/>
 	    

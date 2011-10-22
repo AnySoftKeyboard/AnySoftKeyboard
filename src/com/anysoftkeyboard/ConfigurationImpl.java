@@ -312,9 +312,16 @@ public class ConfigurationImpl implements Configuration
         Log.i(TAG, "** mMultiTapTimeout: " + mMultiTapTimeout);
         
         mWorkaround_alwaysUseDrawText = sp.getBoolean(mContext.getString(R.string.settings_key_workaround_disable_rtl_fix),
-                mContext.getResources().getBoolean(R.bool.settings_default_workaround_disable_rtl_fix));
+                getAlwaysUseDrawTextDefault());
         Log.i(TAG, "** mWorkaround_alwaysUseDrawText: " + mWorkaround_alwaysUseDrawText);
         
+	}
+
+	private boolean getAlwaysUseDrawTextDefault() {
+		if (android.os.Build.BRAND.contains("SEMC")) 
+			return true;
+		else
+			return mContext.getResources().getBoolean(R.bool.settings_default_workaround_disable_rtl_fix);
 	}
 	
 	private int getIntFromSwipeConfiguration(SharedPreferences sp, final String prefKey, final String defaultValue) {
