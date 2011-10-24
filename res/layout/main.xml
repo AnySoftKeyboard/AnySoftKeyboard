@@ -92,7 +92,8 @@
             			<TextView android:text="Joan Montané" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
             			<TextView android:text="Johann Dirry" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
             			<TextView android:text="Ayman Alsanad" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
-            			<TextView android:text="And a great team at http://ask_translate.evendanan.net" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+				<TextView android:text="Benny Beat" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:text="And the great translators team at http://ask_translate.evendanan.net" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
             		</LinearLayout>
             	</ScrollView>
 			</LinearLayout>

@@ -1,6 +1,0 @@
-sdk.dir=/opt/android-sdk-update-manager
-
-key.store=<PATH TO KEYSTORE>
-key.alias=<KEYSTORE ALIAS>
-key.store.password=<STORE PASS>
-key.alias.password=<ALIAS PASS>
