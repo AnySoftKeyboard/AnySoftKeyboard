@@ -242,12 +242,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 	};
 
 	private boolean mJustAddedAutoSpace;
-
-	private static final int LAST_CHAR_SHIFT_STATE_DEFAULT = 0;
-	//private static final int LAST_CHAR_SHIFT_STATE_UNSHIFTED = 1;
-	private static final int LAST_CHAR_SHIFT_STATE_SHIFTED = 2;
-	private int mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_DEFAULT;
-
+	
+	private boolean mLastCharacterWasShifted = false;
+	
 	protected IBinder mImeToken = null;
 
 	private InputMethodManager mInputMethodManager;
@@ -1312,8 +1309,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	public void onMultiTap() {
-		if (DEBUG) Log.d(TAG, "onMultiTap");
 		handleDeleteLastCharacter(true);
+		if (mInputView != null) mInputView.setShifted(mLastCharacterWasShifted);
 	}
 
 	public void onKey(int primaryCode, int[] keyCodes, int x, int y) {
@@ -1817,10 +1814,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 				mWord.reset();
 			}
 		}
-		if(mInputView != null){
-		    mLastCharacterShiftState = mInputView.isShifted()? LAST_CHAR_SHIFT_STATE_SHIFTED : LAST_CHAR_SHIFT_STATE_DEFAULT;
-		}
-        if (mLastSelectionStart == mLastSelectionEnd && TextEntryState.isCorrecting()) {
+		
+		mLastCharacterWasShifted = (mInputView != null) && mInputView.isShifted();
+		
+		if (mLastSelectionStart == mLastSelectionEnd && TextEntryState.isCorrecting()) {
             abortCorrection(false);
         }
 		
@@ -2346,7 +2343,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 				+ currentKeyboard.getKeyboardName());
 		updateShiftKeyState(currentEditorInfo);
 		mCapsLock = currentKeyboard.isShiftLocked();
-		mLastCharacterShiftState = LAST_CHAR_SHIFT_STATE_DEFAULT;
 		// changing dictionary
 		setDictionariesForCurrentKeyboard();
 		// Notifying if needed

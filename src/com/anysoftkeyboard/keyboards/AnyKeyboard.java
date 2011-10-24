@@ -740,14 +740,15 @@ public abstract class AnyKeyboard extends Keyboard
     public boolean setShifted(boolean shiftState) {
         boolean shiftChanged = false;
         if (mShiftKey != null) {
-            if (shiftState == false) {
-                shiftChanged = mShiftState != STICKY_KEY_OFF;
-                mShiftState = STICKY_KEY_OFF;
-            } else {
-                if (mShiftState == STICKY_KEY_OFF) {
+            if (shiftState) {
+            	if (mShiftState == STICKY_KEY_OFF) {
                     shiftChanged = mShiftState == STICKY_KEY_OFF;
                     mShiftState = STICKY_KEY_ON;
                 }
+            	//else this is already ON, or at caps lock.
+            } else {
+            	shiftChanged = mShiftState != STICKY_KEY_OFF;
+                mShiftState = STICKY_KEY_OFF;
             }
             
             setShiftViewAsState();
