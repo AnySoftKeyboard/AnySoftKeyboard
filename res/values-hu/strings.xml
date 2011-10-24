@@ -19,25 +19,29 @@
   <string name="main_tab_credits_localization_by">Honosítás:</string>
   <string name="main_tab_credits_GUI_by">UI képek:</string>
   <string name="how_to_simple_howto"> Android requires that you (the user) will manually enable and activate external keyboards. Here is how:\n 1) go to Android\'s Settings and select \'Language &amp; keyboard\' (or \'Locale &amp; text\' in some Android OSes).\n 2) Turn on AnySoftKeyboard.\n *It will warn you about possible key-logging, don\'t worry, we do not keep data, and we do not send it anywhere.\n \n To actually use AnySoftKeyboard, you\'ll need to activate it:\n 1) Go to any text-box (e.g., Messagings TO field), and long-press it.\n 2) A dialog will pop-up, select \'Input Method\' (usually the last option).\n 3) Another dialog will popup - select AnySoftKeyboard.\n That\'s it! Enjoy.</string>
-  <string name="notification_text">Üdvözlet! Kérlek ezt olvasd el!</string>
+  <string name="notification_text_testers">This is a beta version!</string>
+  <string name="notification_text_changelog">Nézze meg, mik az újdonságok</string>
+  <string name="notification_title_how_to_enable">Üdvözli az AnySoftKeyboard</string>
+  <string name="notification_text_how_to_enable">Az engedélyezéséről</string>
   <string name="testers_version">Teszt verzió!</string>
   <string name="license_title">Licensz</string>
   <string name="license_text">Ez a szoftver az Apache2 (c) 2011 Menny Even-Danan licensz alatt áll</string>
-  <string name="extrenal_addons_cat">Külső bővítmények</string>
+  <string name="languages_cat">Nyelvek</string>
   <string name="about">Névjegy</string>
   <string name="changelog">Változások</string>
   <string name="search_market_for_addons">Kiegészítők keresése</string>
+  <string name="theme_addons_settings">Billentyűzet téma beállításai</string>
+  <string name="bottom_row_addons_settings">Alsó sor beállítások</string>
+  <string name="top_row_addons_settings">Felső sor beállítások</string>
   <string name="close_button">Bezárás</string>
   <string name="how_to_active_text">Hogyan aktiváljuk az AnySoftKeyboardot?</string>
   <string name="added_word"><xliff:g id="word"> %s </xliff:g> : Mentve</string>
   <string name="hint_add_to_dictionary">\u2190 A mentéshez érintsd meg újra</string>
+  <string name="hint_double_tap_to_close">Again to remove suggestions \u2192</string>
   <string name="menu_insert_smiley">Hangulatjel beszúrása</string>
   <string name="click_for_help">Súgó</string>
   <string name="click_for_help_summary">Online segítség</string>
   <string name="ui_group">Felhasználói felület</string>
-  <string name="keyboard_layout_change_keys_size_title">Felső sori gombok</string>
-  <string name="keyboard_layout_change_keys_size_summary">Billentyű méret beállítása</string>
-  <string name="keyboard_layout_change_keys_size_dialog_title">Mód gomb mérete</string>
   <string name="physical_keyboard_change_notification_title">Billentyűzet elrendezés-értesítés</string>
   <string name="physical_keyboard_change_notification_summary">Az aktív elrendezési értesítés típusa</string>
   <string name="physical_keyboard_change_notification_dialog_title">Válaszd ki az értesítés típusát</string>
@@ -98,6 +102,7 @@
   <string name="swipe_action_name_shift">Shift</string>
   <string name="swipe_action_name_hide">Billentyűzet elrejtése</string>
   <string name="swipe_action_name_backspace">Backspace</string>
+  <string name="swipe_action_name_clear_input">Clear entire text</string>
   <string name="swipe_action_name_cursor_up">Kurzor mozgatása felfelé</string>
   <string name="swipe_action_name_cursor_down">Kurzor mozgatása lefelé</string>
   <string name="swipe_action_name_cursor_left">Kurzor mozgatása balra</string>
@@ -105,8 +110,18 @@
   <string name="swipe_action_name_other_keyboards_mode">Elrendezés mód váltása</string>
   <string name="settings_swipe_velocity_threshold_title">Swipe velocity threshold</string>
   <string name="settings_swipe_velocity_threshold_summary">The minimal swipe gesture speed</string>
+  <string name="settings_swipe_velocity_very_slow">Nagyon lassú</string>
+  <string name="settings_swipe_velocity_slow">Lassú</string>
+  <string name="settings_swipe_velocity_normal">Normál</string>
+  <string name="settings_swipe_velocity_fast">Gyors</string>
+  <string name="settings_swipe_velocity_very_fast">Nagyon gyors</string>
   <string name="settings_swipe_distance_threshold_title">Swipe distance threshold</string>
   <string name="settings_swipe_distance_threshold_summary">The minimal swipe gesture distance</string>
+  <string name="settings_swipe_distance_very_short">Nagyon rövid</string>
+  <string name="settings_swipe_distance_short">Rövid</string>
+  <string name="settings_swipe_distance_normal">Normál</string>
+  <string name="settings_swipe_distance_long">Hosszú</string>
+  <string name="settings_swipe_distance_very_long">Nagyon hosszú</string>
   <string name="hardware_keys_group">Hardver gombok feltérképezése</string>
   <string name="volume_key_for_left_right_support">Balra/jobbra a hangerő gomb</string>
   <string name="volume_key_for_left_right_support_on_summary">Tiltása bal / jobb via hangerő fel / le</string>
@@ -117,18 +132,19 @@
   <string name="special_dictionaries_group">Speciális szótárak</string>
   <string name="use_user_dictionary">Felhasználói szótár</string>
   <string name="use_user_dictionary_on_summary">Felhasználó által hozzáadott szavakat javasol (hosszan lenyomva adja ki a javaslatot)</string>
-  <string name="use_user_dictionary_off_summary"/>
+  <string name="use_user_dictionary_off_summary"> </string>
   <string name="use_auto_dictionary">Automatikus szótár</string>
   <string name="use_auto_dictionary_on_summary">Gyakran használt szavakat is javasol</string>
-  <string name="use_auto_dictionary_off_summary"/>
+  <string name="use_auto_dictionary_off_summary"> </string>
   <string name="use_contacts_dictionary">Kapcsolatok szótár</string>
   <string name="use_contacts_dictionary_on_summary">Javasolt nevek a névjegyzékből</string>
-  <string name="use_contacts_dictionary_off_summary"/>
+  <string name="use_contacts_dictionary_off_summary"> </string>
   <string name="use_contacts_dictionary_not_supported_summary">Nem támogatjuk az operációs rendszered verzióját.</string>
   <string name="tweaks_group">Tweaks</string>
   <string name="tweak_sound_group">Sound related tweaks</string>
   <string name="tweak_physical_keyboard_group">Physical keyboard tweaks</string>
-  <string name="tweak_ui_ux_group">UI/UX tweaks</string>
+  <string name="tweak_ui_group">Graphical tweaks</string>
+  <string name="tweak_ux_group">Behavior tweaks</string>
   <string name="is_sticky_extesion_keyboard">Sticky extension keyboard</string>
   <string name="is_sticky_extesion_keyboard_on_summary">Stays visible until explicitly closed</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Closes after key press</string>
@@ -158,7 +174,7 @@
   <string name="zoom_factor_keys_in_landscape">Gombok magassága tájkép módban</string>
   <string name="insert_space_after_word_suggestion_selection">Kijelölés után szóköz</string>
   <string name="insert_space_after_word_suggestion_selection_on_summary">Szóköz használata szójavaslat után</string>
-  <string name="insert_space_after_word_suggestion_selection_off_summary"/>
+  <string name="insert_space_after_word_suggestion_selection_off_summary"> </string>
   <string name="double_space_to_period">Dupla szóköz</string>
   <string name="double_space_to_period_summary">Dupla szóköz érintésre</string>
   <string name="action_key_invisible_on_disable">Láthatatlan műveletgomb</string>
@@ -185,14 +201,52 @@
   <string name="contacts_dict_summary">Kapcsolatok neveit tartalmazza a javaslatoknál</string>
   <string name="auto_dict">Automatikus szótár</string>
   <string name="auto_dict_summary">A gyakran használt vagy kijelölt szavak automatikusan a szótárba kerülnek</string>
+  <string name="no_extrenal_packs_support_title">Nem támogatott</string>
+  <string name="no_extrenal_packs_support_message">For now, AnySoftKeyboard does not allow external packs of this type.\nOnce API specifications have been determined, this feature will be opened.\nStay tuned.</string>
   <string name="keyboards_group">Billentyűzet</string>
   <string name="symbols_keyboard">Szimbólumok</string>
   <string name="eng_keyboard">Angol</string>
   <string name="eng_keyboard_16keys">16 billentyűs angol</string>
+  <string name="additional_addons_group">Additional add-ons</string>
   <string name="quick_text_keys_group">Gyors gombok</string>
   <string name="quick_text_key_active">Gyors-gomb szöveg bekapcsolása</string>
   <string name="quick_text_key_dialog_title">Gomb kiválasztása</string>
   <string name="quick_text_key_summary">Gyors szöveg-gomb kiválasztása a billentyűzeten</string>
+  <string name="extension_keyboards_group">Extension keyboards</string>
+  <string name="extension_keyboards_summary">Select top, bottom rows or extension keyboard</string>
+  <string name="top_generic_row_group">Common top generic row</string>
+  <string name="top_generic_row_active">Aktív, felső sor</string>
+  <string name="top_generic_row_dialog_title">Válassza ki a sort típusát</string>
+  <string name="top_generic_row_summary">Row type to put on keyboard top</string>
+  <string name="top_generic_row_list_title">Válassza ki a sort típust</string>
+  <string name="bottom_generic_row_group">Common bottom generic row</string>
+  <string name="bottom_generic_row_active">Active bottom row</string>
+  <string name="bottom_generic_row_dialog_title">Select row type</string>
+  <string name="bottom_generic_row_summary">Row type to put on keyboard bottom</string>
+  <string name="bottom_generic_row_list_title">Select row type</string>
+  <string name="extension_keyboard_group">Extension keyboard</string>
+  <string name="extension_keyboard_active">Active extension keyboard</string>
+  <string name="extension_keyboard_dialog_title">Select keyboard</string>
+  <string name="extension_keyboard_summary">Keyboard type to use as extension</string>
+  <string name="extension_keyboard_list_title">Select keyboard</string>
+  <string name="keyboard_theme_group">Billentyűzet témák</string>
+  <string name="keyboard_theme_active">Aktív billentyűzet téma</string>
+  <string name="keyboard_theme_dialog_title">Téma kiválasztása</string>
+  <string name="keyboard_theme_summary">Keyboard theme (skin/style) to use</string>
+  <string name="keyboard_theme_list_title">Téma kiválasztása</string>
+  <string name="gingerbread_keyboard_theme_name">Gingerbread stílusú</string>
+  <string name="gingerbread_keyboard_theme_description">Gingerbread (Android 2.3) stílusú gombok és színek</string>
+  <string name="dark_plain_keyboard_theme_name">Sima sötét téma</string>
+  <string name="dark_plain_keyboard_theme_description">Dark colors, simple graphics</string>
+  <string name="light_plain_keyboard_theme_name">Plain light theme</string>
+  <string name="light_plain_keyboard_theme_description">Light colors, simple graphics</string>
+  <string name="extension_kbd_top_none">Nincs felső sor</string>
+  <string name="extension_kbd_top_small">Kis billentyűk</string>
+  <string name="extension_kbd_top_regular">Regular sized keys</string>
+  <string name="extension_kbd_top_small_numbers">Szám billentyűk</string>
+  <string name="extension_kbd_bottom_regular">Rendszeres</string>
+  <string name="extension_kbd_bottom_iphone">iPhone stílusú</string>
+  <string name="extension_kbd_extension_numbers_symbols">Számok és szimbólumok</string>
   <string name="show_tutorial_on_startup">Ennek a bevezetőnek a megjelenítése indításkor</string>
   <string name="tutorial_swipe_title">Gesztus a billentyűzet váltásra</string>
   <string name="tutorial_swipe_text">Billentyűzetet lehet gesztussal is cserélni. Érintsd meg a képernyőt balról jobbra a nyelvváltáshoz, majd balról jobbra a szimbólumokhoz.</string>
@@ -213,11 +267,26 @@
   <string name="simley_key_name">Szmájli gomb</string>
   <string name="smiley_key_label">:-)</string>
   <string name="smiley_key_default_output">:-) </string>
-  <string-array name="keyboard_layout_keys_size">
-    <item>Nincs</item>
-    <item>Kicsi</item>
-    <item>Nagy</item>
-  </string-array>
+  <string name="multitap_timeout_title">Multi-tap timeout</string>
+  <string name="multitap_timeout_summary">Timeout between key taps</string>
+  <string name="settings_multitap_timeout_faster">Gyorsabb</string>
+  <string name="settings_multitap_timeout_fast">Gyors</string>
+  <string name="settings_multitap_timeout_normal">Normál</string>
+  <string name="settings_multitap_timeout_slow">Lassú</string>
+  <string name="settings_multitap_timeout_slower">Lassabb</string>
+  <string name="settings_multitap_timeout_never">Soha</string>
+  <string name="long_press_timeout_title">Long-press time</string>
+  <string name="long_press_timeout_summary">Key press time to be considered as long-press</string>
+  <string name="settings_long_press_timeout_faster">Gyorsabb</string>
+  <string name="settings_long_press_timeout_fast">Gyors</string>
+  <string name="settings_long_press_timeout_normal">Normál</string>
+  <string name="settings_long_press_timeout_slow">Lassú</string>
+  <string name="settings_long_press_timeout_slower">Lassabb</string>
+  <string name="settings_long_press_timeout_never">Soha</string>
+  <string name="tweak_workarounds_group">Lehetséges megoldások</string>
+  <string name="workaround_disable_rtl_fix">Disable Right-to-Left handling</string>
+  <string name="workaround_disable_rtl_fix_summary_on">Use OS RTL handling (for SE phones)</string>
+  <string name="workaround_disable_rtl_fix_summary_off">Use AnySoftKeyboard RTL handling</string>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Elrendezés ikon mindig legyen látható</item>
     <item>Fizikai billentyűzet változtatásakor</item>
@@ -228,19 +297,5 @@
     <item>Enyhe</item>
     <item>Közepes</item>
     <item>Erős</item>
-  </string-array>
-  <string-array name="settings_key_swipe_velocity_threshold_names">
-    <item>Nagyon lassú</item>
-    <item>Lassú</item>
-    <item>Normál</item>
-    <item>Gyors</item>
-    <item>Nagyon gyors</item>
-  </string-array>
-  <string-array name="settings_key_swipe_distance_threshold_names">
-    <item>Nagyon rövid</item>
-    <item>Rövid</item>
-    <item>Normál</item>
-    <item>Hosszú</item>
-    <item>Nagyon hosszú</item>
   </string-array>
 </resources>
