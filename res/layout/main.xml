@@ -81,7 +81,7 @@
 						
             			<TextView android:text="@string/main_tab_credits_GUI_by" android:textSize="15sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp" android:textStyle="bold"></TextView>
             			<TextView android:text="Roy Barina" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
-            			
+
             			<TextView android:text="@string/main_tab_credits_localization_by" android:textSize="15sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp" android:textStyle="bold"></TextView>
             			<TextView android:text="Dmitry Briskin" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
             			<TextView android:text="Alexander Jordanov" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
@@ -93,7 +93,7 @@
             			<TextView android:text="Johann Dirry" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
             			<TextView android:text="Ayman Alsanad" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
 				<TextView android:text="Benny Beat" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
-            			<TextView android:text="And the great translators team at http://ask_translate.evendanan.net" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:autoLink="web" android:text="And the great translators team at http://ask_translate.evendanan.net" android:textSize="13.5sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
             		</LinearLayout>
             	</ScrollView>
 			</LinearLayout>
