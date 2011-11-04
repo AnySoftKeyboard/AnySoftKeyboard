@@ -22,10 +22,12 @@ public interface Configuration {
 	
 	boolean getInsertSpaceAfterCandidatePick();
 	
-	int getSwipeUpKeyCode();
-	int getSwipeDownKeyCode();
-	int getSwipeLeftKeyCode();
-	int getSwipeRightKeyCode();
+	int getGestureSwipeUpKeyCode();
+	int getGestureSwipeDownKeyCode();
+	int getGestureSwipeLeftKeyCode();
+	int getGestureSwipeRightKeyCode();
+	int getGesturePinchKeyCode();
+	int getGestureSeparateKeyCode();
 	
 	boolean getActionKeyInvisibleWhenRequested();
 	

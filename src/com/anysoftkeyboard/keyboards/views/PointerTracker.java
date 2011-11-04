@@ -16,13 +16,13 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
+import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView.OnKeyboardActionListener;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView.UIHandler;
 
 import android.content.res.Resources;
 
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
-import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
@@ -217,8 +217,8 @@ public class PointerTracker {
         if (key == null)
             return false;
         int primaryCode = key.codes[0];
-        return primaryCode == Keyboard.KEYCODE_SHIFT
-                || primaryCode == Keyboard.KEYCODE_MODE_CHANGE;
+        return primaryCode == KeyCodes.SHIFT
+                || primaryCode == KeyCodes.MODE_ALPHABET;
     }
 
     public boolean isModifier() {

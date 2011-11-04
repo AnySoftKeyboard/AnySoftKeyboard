@@ -22,6 +22,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
@@ -41,9 +42,9 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 
 	private static final int DELAY_BEFORE_POPING_UP_EXTENSION_KBD = 35;// milliseconds
 	private final static String TAG = "AnyKeyboardView";
-	public static final int KEYCODE_OPTIONS = -100;
+	//public static final int KEYCODE_OPTIONS = -100;
 	// static final int KEYCODE_OPTIONS_LONGPRESS = -101;
-	public static final int KEYCODE_QUICK_TEXT_LONGPRESS = -102;
+	//public static final int KEYCODE_QUICK_TEXT_LONGPRESS = -102;
 
 	// static final int KEYCODE_F1 = -103;
 	// static final int KEYCODE_NEXT_LANGUAGE = -104;
@@ -288,7 +289,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 
 	public void showQuickTextPopupKeyboard(Context packageContext,
 			QuickTextKey key) {
-		Key popupKey = findKeyByKeyCode(AnyKeyboard.KEYCODE_QUICK_TEXT);
+		Key popupKey = findKeyByKeyCode(KeyCodes.QUICK_TEXT);
 		popupKey.popupResId = key.getPopupKeyboardResId();
 		super.onLongPress(packageContext, popupKey);
 	}

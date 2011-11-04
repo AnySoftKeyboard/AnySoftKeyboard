@@ -33,6 +33,7 @@ package com.anysoftkeyboard.keyboards;
 import org.xmlpull.v1.XmlPullParserException;
 
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
+import com.anysoftkeyboard.api.KeyCodes;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -90,12 +91,7 @@ public class Keyboard {
     public static final int EDGE_TOP = 0x04;
     public static final int EDGE_BOTTOM = 0x08;
 
-    public static final int KEYCODE_SHIFT = -1;
-    public static final int KEYCODE_MODE_CHANGE = -2;
-    public static final int KEYCODE_CANCEL = -3;
-    public static final int KEYCODE_DONE = -4;
-    public static final int KEYCODE_DELETE = -5;
-    public static final int KEYCODE_ALT = -6;
+    
     
     protected final Context mKeyboardContext;
     protected final AnyKeyboardContextProvider mASKContext;
@@ -803,11 +799,11 @@ public class Keyboard {
                         inKey = true;
                         key = createKeyFromXml(mASKContext, res, currentRow, x, y, parser);
                         mKeys.add(key);
-                        if (key.codes[0] == KEYCODE_SHIFT) {
+                        if (key.codes[0] == KeyCodes.SHIFT) {
                             mShiftKey = key;
                             mShiftKeyIndex = mKeys.size()-1;
                             mModifierKeys.add(key);
-                        } else if (key.codes[0] == KEYCODE_ALT) {
+                        } else if (key.codes[0] == KeyCodes.ALT) {
                             mModifierKeys.add(key);
                         }
                     } else if (TAG_KEYBOARD.equals(tag)) {

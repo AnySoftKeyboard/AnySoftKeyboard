@@ -11,6 +11,7 @@ import android.util.Log;
 import android.util.Xml;
 
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
+import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
@@ -271,10 +272,10 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 		{
 			final int translated;
 			if (action.isAltActive())
-				if (!mHardKeyboardTranslator.addSpecialKey(AnyKeyboard.KEYCODE_ALT))
+				if (!mHardKeyboardTranslator.addSpecialKey(KeyCodes.ALT))
 					return;					
 			if (action.isShiftActive())
-				if (!mHardKeyboardTranslator.addSpecialKey(AnyKeyboard.KEYCODE_SHIFT))
+				if (!mHardKeyboardTranslator.addSpecialKey(KeyCodes.SHIFT))
 					return;
 
 			translated = mHardKeyboardTranslator.getCurrentCharacter(action.getKeyCode(), getASKContext());

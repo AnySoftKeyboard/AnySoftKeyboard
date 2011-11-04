@@ -10,8 +10,7 @@ com.anysoftkeyboard.AnySoftKeyboard:
     private static final java.lang.String KEYBOARD_NOTIFICATION_ALWAYS
     private static final java.lang.String KEYBOARD_NOTIFICATION_ON_PHYSICAL
     private static final java.lang.String KEYBOARD_NOTIFICATION_NEVER
-    1113:1120:private java.lang.String getMetaKeysStates(java.lang.String)
-    2785:2799:public void appendCharactersToInput(java.lang.CharSequence)
+    2787:2802:public void appendCharactersToInput(java.lang.CharSequence)
 com.anysoftkeyboard.AnySoftKeyboard$4:
     private static final long DOUBLE_TAP_TIMEOUT
 com.anysoftkeyboard.ChewbaccaUncaughtExceptionHandler:
@@ -320,7 +319,6 @@ com.anysoftkeyboard.keyboards.physical.MyMetaKeyKeyListener:
     284:288:public static void clearMetaKeyState(android.text.Editable,int)
     295:298:public static long resetLockedMeta(long)
     302:305:private static long resetLock(long,int,long)
-    321:321:public static final int getMetaState(long)
     445:451:public long clearMetaKeyState(long,int)
 com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView:
     private static final java.lang.String TAG
@@ -409,7 +407,6 @@ com.anysoftkeyboard.ui.tutorials.TutorialsProvider:
     private static final java.lang.String ASK_HAS_BEEN_ENABLED_BEFORE
     private static final java.lang.String TAG
     private static final int TUTORIALS_NOTIFICATION_ID
-    131:147:private static boolean firstTestersTimeVersionLoaded(android.content.Context)
 com.anysoftkeyboard.utils.IMEUtil:
     38:41:public static void cancelTask(android.os.AsyncTask,boolean)
     82:82:public static boolean hasMultipleEnabledIMEs(android.content.Context)

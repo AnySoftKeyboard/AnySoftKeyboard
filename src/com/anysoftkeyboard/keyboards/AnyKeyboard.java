@@ -32,30 +32,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 public abstract class AnyKeyboard extends Keyboard 
 {
-	//public static final String POPUP_FOR_QUESTION = "!/@\u0026\u00bf\u00a1";
-	//public static final String POPUP_FOR_AT = "!/?\u0026\u00bf\u00a1";
 	private final static String TAG = "ASK - AK";
-	
-	public final static int KEYCODE_LANG_CHANGE = -99;
-	//public final static int KEYCODE_ALTER_LAYOUT = -98;
-	public final static int KEYCODE_KEYBOARD_CYCLE = -97;
-	public final static int KEYCODE_KEYBOARD_REVERSE_CYCLE = -96;
-	public final static int KEYCODE_KEYBOARD_CYCLE_INSIDE_MODE = -95;
-	public final static int KEYCODE_KEYBOARD_MODE_CHANGE = -94;
-	
-	public final static int KEYCODE_QUICK_TEXT = -10;
-	public final static int KEYCODE_DOMAIN = -9;
-	
-	public static final int KEYCODE_LEFT = -20;
-	public static final int KEYCODE_RIGHT = -21;
-	public static final int KEYCODE_UP = -22;
-	public static final int KEYCODE_DOWN = -23;
-	
-	public static final int	KEYCODE_CTRL = -11;
-	
-	public static final int KEYCODE_CLIPBOARD = -12;
-	
-	public static final int KEYCODE_CLEAR_INPUT = -13; 
 	
 	public interface HardKeyboardAction
 	{
@@ -191,18 +168,18 @@ public abstract class AnyKeyboard extends Keyboard
             	{
             		switch(primaryCode)
                     {
-                    case AnyKeyboard.KEYCODE_DELETE:
-                    case AnyKeyboard.KEYCODE_CTRL:
-                    case AnyKeyboard.KEYCODE_LANG_CHANGE:
-                    case AnyKeyboard.KEYCODE_KEYBOARD_MODE_CHANGE:
-                    case AnyKeyboard.KEYCODE_KEYBOARD_CYCLE:
-                    case AnyKeyboard.KEYCODE_KEYBOARD_CYCLE_INSIDE_MODE:
-                    case AnyKeyboard.KEYCODE_KEYBOARD_REVERSE_CYCLE:
-                    case AnyKeyboard.KEYCODE_ALT:
-                    case AnyKeyboard.KEYCODE_MODE_CHANGE:
-                    case AnyKeyboard.KEYCODE_QUICK_TEXT:
-                    case AnyKeyboard.KEYCODE_DOMAIN:
-                    case AnyKeyboard.KEYCODE_CANCEL:
+                    case KeyCodes.DELETE:
+                    case KeyCodes.CTRL:
+                    case KeyCodes.MODE_ALPHABET:
+                    case KeyCodes.KEYBOARD_MODE_CHANGE:
+                    case KeyCodes.KEYBOARD_CYCLE:
+                    case KeyCodes.KEYBOARD_CYCLE_INSIDE_MODE:
+                    case KeyCodes.KEYBOARD_REVERSE_CYCLE:
+                    case KeyCodes.ALT:
+                    case KeyCodes.MODE_SYMOBLS:
+                    case KeyCodes.QUICK_TEXT:
+                    case KeyCodes.DOMAIN:
+                    case KeyCodes.CANCEL:
                     	((AnyKey)key).setAsFunctional();
                     	break;
 //                	default:
@@ -217,28 +194,28 @@ public abstract class AnyKeyboard extends Keyboard
                 	mRightToLeftLayout = true;//one is enough
                 switch(primaryCode)
                 {
-                case AnyKeyboard.KEYCODE_DELETE:
+                case KeyCodes.DELETE:
                 	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_delete , -1/*R.drawable.sym_keyboard_feedback_delete*/);
                     break;
 //                case AnyKeyboard.KEYCODE_SHIFT:
 //                	key.icon = localResources.getDrawable(R.drawable.sym_keyboard_shift);
 //                    break;
-                case AnyKeyboard.KEYCODE_CTRL:
+                case KeyCodes.CTRL:
                 	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_ctrl, -1);
                     break;
-                case 32://SPACE
+                case KeyCodes.SPACE://SPACE
                 	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_space, -1/*R.drawable.sym_keyboard_feedback_space*/);
                     break;
-                case 9://TAB
+                case KeyCodes.TAB://TAB
                 	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_tab, -1);
                     break;
-                case AnyKeyboard.KEYCODE_CANCEL:
+                case KeyCodes.CANCEL:
                 	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_cancel, -1/*R.drawable.sym_keyboard_cancel_black*/);
                     break;
-                case AnyKeyboard.KEYCODE_LANG_CHANGE:
+                case KeyCodes.MODE_ALPHABET:
                 	setIconIfNeeded(key, localResources, R.drawable.globe, -1);
                     break;
-                case AnyKeyboard.KEYCODE_QUICK_TEXT:
+                case KeyCodes.QUICK_TEXT:
 					QuickTextKey quickKey = QuickTextKeyFactory.getCurrentQuickTextKey(getASKContext());
 					if (quickKey == null) { //No plugins. Weird, but we can't do anything
 						Log.w(TAG, "Could not locate any quick key plugins! Hopefully nothing will crash...");
@@ -259,7 +236,7 @@ public abstract class AnyKeyboard extends Keyboard
 					the key is long-pressed! */
                 	key.popupResId = quickKey.getPopupKeyboardResId();
                     break;
-            	case AnyKeyboard.KEYCODE_DOMAIN:
+            	case KeyCodes.DOMAIN:
             		//fixing icons
                 	//setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_key_domain, R.drawable.sym_keyboard_key_domain_wide, R.drawable.sym_keyboard_key_domain_preview);
                 	key.label = AnyApplication.getConfig().getDomainText().trim();
@@ -532,7 +509,7 @@ public abstract class AnyKeyboard extends Keyboard
         	case KeyCodes.SHIFT:
         		mShiftKey = key;//I want the reference used by the super.
         		break;
-        	case AnyKeyboard.KEYCODE_CTRL:
+        	case KeyCodes.CTRL:
         		mControlKey = key;
         		break;
         	case KeyCodes.DELETE://delete

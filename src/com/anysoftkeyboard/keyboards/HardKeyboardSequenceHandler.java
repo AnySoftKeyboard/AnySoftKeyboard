@@ -2,7 +2,7 @@ package com.anysoftkeyboard.keyboards;
 
 import java.security.InvalidParameterException;
 
-import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.api.KeyCodes;
 import android.view.KeyEvent;
 
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
@@ -37,7 +37,7 @@ public class HardKeyboardSequenceHandler
 			char otherCharacter = targetCharacters.charAt(qwertyIndex);
 			if (otherCharacter > 0) {
 				this.addSequence(new int[] { latinCharacter }, otherCharacter);
-				this.addSequence(new int[] { Keyboard.KEYCODE_SHIFT, latinCharacter }, Character.toUpperCase(otherCharacter) );
+				this.addSequence(new int[] { KeyCodes.SHIFT, latinCharacter }, Character.toUpperCase(otherCharacter) );
 			}
 		}
 	}
@@ -47,11 +47,11 @@ public class HardKeyboardSequenceHandler
 	}
 	
 	public void addShiftSequence(int[] sequence, int result) {
-		this.mCurrentSequence.addSpecialKeySequence(sequence, AnyKeyboard.KEYCODE_SHIFT, result);
+		this.mCurrentSequence.addSpecialKeySequence(sequence, KeyCodes.SHIFT, result);
 	}
 
 	public void addAltSequence(int[] sequence, int result) {
-		this.mCurrentSequence.addSpecialKeySequence(sequence, AnyKeyboard.KEYCODE_ALT, result);
+		this.mCurrentSequence.addSpecialKeySequence(sequence, KeyCodes.ALT, result);
 	}
 	
 	

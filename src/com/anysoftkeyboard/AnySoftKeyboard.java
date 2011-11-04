@@ -76,7 +76,6 @@ import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.keyboards.GenericKeyboard;
-import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher.NextKeyboardType;
@@ -1322,7 +1321,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		final InputConnection ic = getCurrentInputConnection();
 		
 		switch (primaryCode) {
-		case Keyboard.KEYCODE_DELETE:
+		case KeyCodes.DELETE:
 			if (ic == null)//if we don't want to do anything, lets check null first.
 	            break;
 			//we do backword if the shift is pressed while pressing backspace (like in a PC)
@@ -1337,7 +1336,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				handleDeleteLastCharacter(false);
 			}
 			break;
-		case AnyKeyboard.KEYCODE_CLEAR_INPUT:
+		case KeyCodes.CLEAR_INPUT:
 			if (ic != null)
 			{
 				ic.beginBatchEdit();
@@ -1346,41 +1345,41 @@ public class AnySoftKeyboard extends InputMethodService implements
 				ic.endBatchEdit();
 			}
 			break;
-		case Keyboard.KEYCODE_SHIFT:
+		case KeyCodes.SHIFT:
 			if ((!mInputView.hasDistinctMultitouch()) || 
 				((x == SWIPE_CORD) && (y == SWIPE_CORD)))//the SWIPE_CORD is the case where onKey was called from swipeX
 				handleShift(false);
 			break;
-		case AnyKeyboard.KEYCODE_CTRL:
+		case KeyCodes.CTRL:
 			if ((!mInputView.hasDistinctMultitouch()) || 
 					((x == SWIPE_CORD) && (y == SWIPE_CORD)))//the SWIPE_CORD is the case where onKey was called from swipeX
 					handleControl(false);
 			break;
-		case AnyKeyboard.KEYCODE_LEFT:
+		case KeyCodes.ARROW_LEFT:
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_LEFT);
 			break;
-		case AnyKeyboard.KEYCODE_RIGHT:
+		case KeyCodes.ARROW_RIGHT:
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_RIGHT);
 			break;
-		case AnyKeyboard.KEYCODE_UP:
+		case KeyCodes.ARROW_UP:
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_UP);
 			break;
-		case AnyKeyboard.KEYCODE_DOWN:
+		case KeyCodes.ARROW_DOWN:
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_DOWN);
 			break;
 
-		case Keyboard.KEYCODE_CANCEL:
+		case KeyCodes.CANCEL:
 			if (mOptionsDialog == null || !mOptionsDialog.isShowing()) {
 				handleClose();
 			}
 			break;
-		case AnyKeyboardView.KEYCODE_OPTIONS:
+		case KeyCodes.SETTINGS:
 			showOptionsMenu();
 			break;
-		case AnyKeyboard.KEYCODE_DOMAIN:
+		case KeyCodes.DOMAIN:
 			onText(mConfig.getDomainText());
 			break;
-		case AnyKeyboard.KEYCODE_QUICK_TEXT:
+		case KeyCodes.QUICK_TEXT:
 			QuickTextKey quickTextKey = QuickTextKeyFactory.getCurrentQuickTextKey(this);
 
 			if (mSmileyOnShortPress) {
@@ -1396,7 +1395,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				}
 			}
 			break;
-		case AnyKeyboardView.KEYCODE_QUICK_TEXT_LONGPRESS:
+		case KeyCodes.QUICK_TEXT_POPUP:
 			quickTextKey = QuickTextKeyFactory.getCurrentQuickTextKey(this);
 			if (quickTextKey.getId().equals(SMILEY_PLUGIN_ID) && !mSmileyOnShortPress) {
 				if (TextUtils.isEmpty(mOverrideQuickTextText))
@@ -1411,10 +1410,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 				}
 			}
 			break;
-		case Keyboard.KEYCODE_MODE_CHANGE:
+		case KeyCodes.MODE_SYMOBLS:
 			nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Symbols);
 			break;
-		case AnyKeyboard.KEYCODE_LANG_CHANGE:
+		case KeyCodes.MODE_ALPHABET:
 			if (mKeyboardSwitcher.shouldPopupForLanguageSwitch())
 			{
 				showLanguageSelectionDialog();
@@ -1422,22 +1421,22 @@ public class AnySoftKeyboard extends InputMethodService implements
 			else
 				nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
 			break;
-		case Keyboard.KEYCODE_ALT:
+		case KeyCodes.ALT:
 			nextAlterKeyboard(getCurrentInputEditorInfo());
 			break;
-		case AnyKeyboard.KEYCODE_KEYBOARD_CYCLE:
+		case KeyCodes.KEYBOARD_CYCLE:
 		    nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Any);
             break;
-		case AnyKeyboard.KEYCODE_KEYBOARD_REVERSE_CYCLE:
+		case KeyCodes.KEYBOARD_REVERSE_CYCLE:
 		    nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.PreviousAny);
             break;
-		case AnyKeyboard.KEYCODE_KEYBOARD_CYCLE_INSIDE_MODE:
+		case KeyCodes.KEYBOARD_CYCLE_INSIDE_MODE:
 			nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.AnyInsideMode);
 			break;
-		case AnyKeyboard.KEYCODE_KEYBOARD_MODE_CHANGE:
+		case KeyCodes.KEYBOARD_MODE_CHANGE:
 			nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.OtherMode);
 			break;
-		case AnyKeyboard.KEYCODE_CLIPBOARD:
+		case KeyCodes.CLIPBOARD:
 		    ClipboardManager cm = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
 		    if(cm.hasText()){
 		        onText(cm.getText());
@@ -2288,18 +2287,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		return mWord.isFirstCharCapitalized();
 	}
 
-	public void swipeRight(boolean onSpaceBar) {
-		final int keyCode = mConfig.getSwipeRightKeyCode();
-		if (keyCode != 0)
-			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
-	}
-
-	public void swipeLeft(boolean onSpaceBar) {
-		final int keyCode = mConfig.getSwipeLeftKeyCode();
-		if (keyCode != 0)
-			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
-	}
-
 	private void nextAlterKeyboard(EditorInfo currentEditorInfo)
 	{
 		if(DEBUG)Log.d(TAG, "nextAlterKeyboard: currentEditorInfo.inputType="
@@ -2354,17 +2341,44 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	}
 
-	public void swipeDown(boolean onSpaceBar) {
-		final int keyCode = mConfig.getSwipeDownKeyCode();
+	public void onSwipeRight(boolean onSpaceBar) {
+		final int keyCode = mConfig.getGestureSwipeRightKeyCode();
+		if(DEBUG)Log.d(TAG, "onSwipeRight " + ((onSpaceBar)? " + space" : "") +" => code "+ keyCode);
 		if (keyCode != 0)
 			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
 	}
 
-	public void swipeUp(boolean onSpaceBar) {
-		if (DEBUG) Log.d(TAG, "swipeUp: started at spacebar? "+onSpaceBar);
-		final int keyCode = mConfig.getSwipeUpKeyCode();
+	public void onSwipeLeft(boolean onSpaceBar) {
+		final int keyCode = mConfig.getGestureSwipeLeftKeyCode();
+		if(DEBUG)Log.d(TAG, "onSwipeLeft " + ((onSpaceBar)? " + space" : "") +" => code "+ keyCode);
 		if (keyCode != 0)
 			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
+	}
+	
+	public void onSwipeDown(boolean onSpaceBar) {
+		final int keyCode = mConfig.getGestureSwipeDownKeyCode();
+		if(DEBUG)Log.d(TAG, "onSwipeDown " + ((onSpaceBar)? " + space" : "") +" => code "+ keyCode);
+		if (keyCode != 0)
+			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
+	}
+
+	public void onSwipeUp(boolean onSpaceBar) {
+		final int keyCode = mConfig.getGestureSwipeUpKeyCode();
+		if(DEBUG)Log.d(TAG, "onSwipeUp " + ((onSpaceBar)? " + space" : "") +" => code "+ keyCode);
+		if (keyCode != 0)
+			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
+	}
+	
+	public void onPinch() {
+		final int keyCode = mConfig.getGesturePinchKeyCode();
+		if(DEBUG)Log.d(TAG, "onSeparate => code "+ keyCode);
+		
+	}
+	
+	public void onSeparate() {
+		final int keyCode = mConfig.getGestureSeparateKeyCode();
+		if(DEBUG)Log.d(TAG, "onSeparate => code "+ keyCode);
+		
 	}
 
 	public void onPress(int primaryCode) {
@@ -2374,14 +2388,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 		
 		final boolean distinctMultiTouch = mInputView.hasDistinctMultitouch();
-        if (distinctMultiTouch && primaryCode == Keyboard.KEYCODE_SHIFT) {
+        if (distinctMultiTouch && primaryCode == KeyCodes.SHIFT) {
             mShiftKeyState.onPress();
             handleShift(false);
         } else {
             mShiftKeyState.onOtherKeyPressed();
         }
         
-        if (distinctMultiTouch && primaryCode == AnyKeyboard.KEYCODE_CTRL) {
+        if (distinctMultiTouch && primaryCode == KeyCodes.CTRL) {
         	mControlKeyState.onPress();
             handleControl(false);
         } else {
@@ -2392,13 +2406,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 			final int keyFX;
 			switch (primaryCode) {
 			case 13:
-			case 10:
+			case KeyCodes.ENTER:
 				keyFX = AudioManager.FX_KEYPRESS_RETURN;
 				break;
-			case Keyboard.KEYCODE_DELETE:
+			case KeyCodes.DELETE:
 				keyFX = AudioManager.FX_KEYPRESS_DELETE;
 				break;
-			case 32:
+			case KeyCodes.SPACE:
 				keyFX = AudioManager.FX_KEYPRESS_SPACEBAR;
 				break;
 			default:
@@ -2450,18 +2464,18 @@ public class AnySoftKeyboard extends InputMethodService implements
         //((AnyKeyboard) mInputView.getKeyboard()).keyReleased();
         //vibrate();
         final boolean distinctMultiTouch = mInputView.hasDistinctMultitouch();
-        if (distinctMultiTouch && primaryCode == Keyboard.KEYCODE_SHIFT) {
+        if (distinctMultiTouch && primaryCode == KeyCodes.SHIFT) {
             if (mShiftKeyState.isMomentary())
                 handleShift(true);
             mShiftKeyState.onRelease();
         }
-        if (distinctMultiTouch && primaryCode == AnyKeyboard.KEYCODE_CTRL) {
+        if (distinctMultiTouch && primaryCode == KeyCodes.CTRL) {
             if (mControlKeyState.isMomentary())
                 handleControl(true);
             mControlKeyState.onRelease();
         }
         //the user lifted the finger, let's handle the shift
-        if (primaryCode != Keyboard.KEYCODE_SHIFT)
+        if (primaryCode != KeyCodes.SHIFT)
         	updateShiftKeyState(getCurrentInputEditorInfo());
 	}
 
@@ -2886,7 +2900,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private void showQuickTextKeyPopupKeyboard(QuickTextKey quickTextKey) {
 		if (mInputView != null) {
 			if (quickTextKey.getPackageContext() == getApplicationContext()) {
-				mInputView.simulateLongPress(AnyKeyboard.KEYCODE_QUICK_TEXT);
+				mInputView.simulateLongPress(KeyCodes.QUICK_TEXT);
 			} else {
 				mInputView.showQuickTextPopupKeyboard(quickTextKey.getPackageContext(), quickTextKey);
 			}

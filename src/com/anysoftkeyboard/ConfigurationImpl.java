@@ -5,11 +5,11 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import com.anysoftkeyboard.keyboards.Keyboard;
+
+import com.anysoftkeyboard.api.KeyCodes;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -37,6 +37,8 @@ public class ConfigurationImpl implements Configuration
 	private int mSwipeDownKeyCode;
 	private int mSwipeLeftKeyCode;
 	private int mSwipeRightKeyCode;
+	private int mPinchKeyCode;
+	private int mSeparateKeyCode;
 	private boolean mActionKeyInvisibleWhenRequested = false;
 	//private String mRtlWorkaround ="auto";
 	private boolean mIsDoubleSpaceChangesToPeroid = true;
@@ -230,6 +232,12 @@ public class ConfigurationImpl implements Configuration
 		mSwipeRightKeyCode = getIntFromSwipeConfiguration(sp, "swipe_right_action", "next_alphabet");
 		Log.i(TAG, "** mSwipeRightKeyCode: "+mSwipeRightKeyCode);
 		
+		mPinchKeyCode = getIntFromSwipeConfiguration(sp, "pinch_gesture_action", "merge_layout");
+		Log.i(TAG, "** mPinchKeyCode: "+mPinchKeyCode);
+		
+		mSeparateKeyCode = getIntFromSwipeConfiguration(sp, "separate_gesture_action", "split_layout");
+		Log.i(TAG, "** mSeparateKeyCode: "+mSeparateKeyCode);
+		
 		mActionKeyInvisibleWhenRequested = sp.getBoolean("action_key_invisible_on_disable", false);
 		Log.i(TAG, "** mActionKeyInvisibleWhenRequested: "+mActionKeyInvisibleWhenRequested);
 		
@@ -328,33 +336,37 @@ public class ConfigurationImpl implements Configuration
 		final String keyValue = sp.getString(prefKey, defaultValue);
 		
 		if (keyValue.equalsIgnoreCase("next_alphabet"))
-			return AnyKeyboard.KEYCODE_LANG_CHANGE;
+			return KeyCodes.MODE_ALPHABET;
 		else if (keyValue.equalsIgnoreCase("next_symbols"))
-			return Keyboard.KEYCODE_MODE_CHANGE;
+			return KeyCodes.MODE_SYMOBLS;
 		else if (keyValue.equalsIgnoreCase("cycle_keyboards"))
-			return AnyKeyboard.KEYCODE_KEYBOARD_CYCLE;
+			return KeyCodes.KEYBOARD_CYCLE;
 		else if (keyValue.equalsIgnoreCase("reverse_cycle_keyboards"))
-            return AnyKeyboard.KEYCODE_KEYBOARD_REVERSE_CYCLE;
+            return KeyCodes.KEYBOARD_REVERSE_CYCLE;
 		else if (keyValue.equalsIgnoreCase("shift"))
-			return Keyboard.KEYCODE_SHIFT;
+			return KeyCodes.SHIFT;
 		else if (keyValue.equalsIgnoreCase("hide"))
-			return Keyboard.KEYCODE_CANCEL;
+			return KeyCodes.CANCEL;
 		else if (keyValue.equalsIgnoreCase("backspace"))
-			return Keyboard.KEYCODE_DELETE;
+			return KeyCodes.DELETE;
 		else if (keyValue.equalsIgnoreCase("clear_input"))
-			return AnyKeyboard.KEYCODE_CLEAR_INPUT;
+			return KeyCodes.CLEAR_INPUT;
 		else if (keyValue.equalsIgnoreCase("cursor_up"))
-			return AnyKeyboard.KEYCODE_UP;
+			return KeyCodes.ARROW_UP;
 		else if (keyValue.equalsIgnoreCase("cursor_down"))
-			return AnyKeyboard.KEYCODE_DOWN;
+			return KeyCodes.ARROW_DOWN;
 		else if (keyValue.equalsIgnoreCase("cursor_left"))
-			return AnyKeyboard.KEYCODE_LEFT;
+			return KeyCodes.ARROW_LEFT;
 		else if (keyValue.equalsIgnoreCase("cursor_right"))
-			return AnyKeyboard.KEYCODE_RIGHT;
+			return KeyCodes.ARROW_RIGHT;
 		else if (keyValue.equalsIgnoreCase("next_inside_mode"))
-			return AnyKeyboard.KEYCODE_KEYBOARD_CYCLE_INSIDE_MODE;
+			return KeyCodes.KEYBOARD_CYCLE_INSIDE_MODE;
 		else if (keyValue.equalsIgnoreCase("other_keyboards_mode"))
-			return AnyKeyboard.KEYCODE_KEYBOARD_MODE_CHANGE;
+			return KeyCodes.KEYBOARD_MODE_CHANGE;
+		else if (keyValue.equalsIgnoreCase("split_layout"))
+			return KeyCodes.SPLIT_LAYOUT;
+		else if (keyValue.equalsIgnoreCase("merge_layout"))
+			return KeyCodes.MERGE_LAYOUT;
 		
 		return 0;//0 means no action
 	}
@@ -439,10 +451,12 @@ public class ConfigurationImpl implements Configuration
 		return mInsertSpaceAfterCandidatePick;
 	}
 	
-	public int getSwipeUpKeyCode() {return mSwipeUpKeyCode;}
-	public int getSwipeDownKeyCode() {return mSwipeDownKeyCode;}
-	public int getSwipeLeftKeyCode() {return mSwipeLeftKeyCode;}
-	public int getSwipeRightKeyCode() {return mSwipeRightKeyCode;}
+	public int getGestureSwipeUpKeyCode() {return mSwipeUpKeyCode;}
+	public int getGestureSwipeDownKeyCode() {return mSwipeDownKeyCode;}
+	public int getGestureSwipeLeftKeyCode() {return mSwipeLeftKeyCode;}
+	public int getGestureSwipeRightKeyCode() {return mSwipeRightKeyCode;}
+	public int getGesturePinchKeyCode() {return mPinchKeyCode;}
+	public int getGestureSeparateKeyCode() {return mSeparateKeyCode;}
 	
 	public boolean getActionKeyInvisibleWhenRequested() {
 		return mActionKeyInvisibleWhenRequested;
