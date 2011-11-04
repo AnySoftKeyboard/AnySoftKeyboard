@@ -2371,14 +2371,16 @@ public class AnySoftKeyboard extends InputMethodService implements
 	
 	public void onPinch() {
 		final int keyCode = mConfig.getGesturePinchKeyCode();
-		if(DEBUG)Log.d(TAG, "onSeparate => code "+ keyCode);
-		
+		if(DEBUG)Log.d(TAG, "onPinch => code "+ keyCode);
+		if (keyCode != 0)
+			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
 	}
 	
 	public void onSeparate() {
 		final int keyCode = mConfig.getGestureSeparateKeyCode();
 		if(DEBUG)Log.d(TAG, "onSeparate => code "+ keyCode);
-		
+		if (keyCode != 0)
+			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
 	}
 
 	public void onPress(int primaryCode) {

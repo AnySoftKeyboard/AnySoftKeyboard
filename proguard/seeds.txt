@@ -11,6 +11,8 @@ com.anysoftkeyboard.dictionaries.ResourceBinaryDictionary: int getSuggestionsNat
 com.anysoftkeyboard.dictionaries.ResourceBinaryDictionary: int getBigramsNative(int,char[],int,int[],int,char[],int[],int,int,int)
 com.anysoftkeyboard.ui.MySeekBarPreference
 com.anysoftkeyboard.ui.MySeekBarPreference: MySeekBarPreference(android.content.Context,android.util.AttributeSet)
+com.anysoftkeyboard.keyboards.views.CandidateView
+com.anysoftkeyboard.keyboards.views.CandidateView: CandidateView(android.content.Context,android.util.AttributeSet)
 com.anysoftkeyboard.devicespecific.FactoryView_V5
 com.anysoftkeyboard.devicespecific.FactoryView_V5: FactoryView_V5(android.content.Context,android.util.AttributeSet)
 com.anysoftkeyboard.devicespecific.FactoryView_V3: FactoryView_V3(android.content.Context,android.util.AttributeSet)
@@ -25,13 +27,13 @@ com.anysoftkeyboard.devicespecific.FactoryView_V8: FactoryView_V8(android.conten
 com.anysoftkeyboard.devicespecific.FactoryView_V7: FactoryView_V7(android.content.Context,android.util.AttributeSet)
 com.anysoftkeyboard.devicespecific.FactoryView_V5: FactoryView_V5(android.content.Context,android.util.AttributeSet)
 com.anysoftkeyboard.devicespecific.FactoryView_V3: FactoryView_V3(android.content.Context,android.util.AttributeSet)
-com.anysoftkeyboard.keyboards.views.CandidateView
-com.anysoftkeyboard.keyboards.views.CandidateView: CandidateView(android.content.Context,android.util.AttributeSet)
 com.anysoftkeyboard.keyboards.views.AnyKeyboardView
 com.anysoftkeyboard.keyboards.views.AnyKeyboardView: AnyKeyboardView(android.content.Context,android.util.AttributeSet)
 com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView: AnyKeyboardBaseView(android.content.Context,android.util.AttributeSet)
 com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView
 com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView: AnyKeyboardBaseView(android.content.Context,android.util.AttributeSet)
+com.anysoftkeyboard.keyboards.views.CandidateView
+com.anysoftkeyboard.keyboards.views.CandidateView: CandidateView(android.content.Context,android.util.AttributeSet,int)
 com.anysoftkeyboard.devicespecific.FactoryView_V5
 com.anysoftkeyboard.devicespecific.FactoryView_V5: FactoryView_V5(android.content.Context,android.util.AttributeSet,int)
 com.anysoftkeyboard.devicespecific.FactoryView_V3: FactoryView_V3(android.content.Context,android.util.AttributeSet,int)
@@ -46,25 +48,23 @@ com.anysoftkeyboard.devicespecific.FactoryView_V8: FactoryView_V8(android.conten
 com.anysoftkeyboard.devicespecific.FactoryView_V7: FactoryView_V7(android.content.Context,android.util.AttributeSet,int)
 com.anysoftkeyboard.devicespecific.FactoryView_V5: FactoryView_V5(android.content.Context,android.util.AttributeSet,int)
 com.anysoftkeyboard.devicespecific.FactoryView_V3: FactoryView_V3(android.content.Context,android.util.AttributeSet,int)
-com.anysoftkeyboard.keyboards.views.CandidateView
-com.anysoftkeyboard.keyboards.views.CandidateView: CandidateView(android.content.Context,android.util.AttributeSet,int)
 com.anysoftkeyboard.keyboards.views.AnyKeyboardView
 com.anysoftkeyboard.keyboards.views.AnyKeyboardView: AnyKeyboardView(android.content.Context,android.util.AttributeSet,int)
 com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView: AnyKeyboardBaseView(android.content.Context,android.util.AttributeSet,int)
 com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView
 com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView: AnyKeyboardBaseView(android.content.Context,android.util.AttributeSet,int)
-com.anysoftkeyboard.dictionaries.TextEntryState$State: com.anysoftkeyboard.dictionaries.TextEntryState$State[] values()
-com.anysoftkeyboard.dictionaries.TextEntryState$State: com.anysoftkeyboard.dictionaries.TextEntryState$State valueOf(java.lang.String)
-com.anysoftkeyboard.keyboards.KeyboardSwitcher$NextKeyboardType: com.anysoftkeyboard.keyboards.KeyboardSwitcher$NextKeyboardType[] values()
-com.anysoftkeyboard.keyboards.KeyboardSwitcher$NextKeyboardType: com.anysoftkeyboard.keyboards.KeyboardSwitcher$NextKeyboardType valueOf(java.lang.String)
 com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel: com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel[] values()
 com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel: com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel valueOf(java.lang.String)
 com.anysoftkeyboard.keyboards.KeyEventStateMachine$State: com.anysoftkeyboard.keyboards.KeyEventStateMachine$State[] values()
 com.anysoftkeyboard.keyboards.KeyEventStateMachine$State: com.anysoftkeyboard.keyboards.KeyEventStateMachine$State valueOf(java.lang.String)
+com.anysoftkeyboard.dictionaries.TextEntryState$State: com.anysoftkeyboard.dictionaries.TextEntryState$State[] values()
+com.anysoftkeyboard.dictionaries.TextEntryState$State: com.anysoftkeyboard.dictionaries.TextEntryState$State valueOf(java.lang.String)
+com.anysoftkeyboard.keyboards.KeyboardSwitcher$NextKeyboardType: com.anysoftkeyboard.keyboards.KeyboardSwitcher$NextKeyboardType[] values()
+com.anysoftkeyboard.keyboards.KeyboardSwitcher$NextKeyboardType: com.anysoftkeyboard.keyboards.KeyboardSwitcher$NextKeyboardType valueOf(java.lang.String)
 com.anysoftkeyboard.api.InfoActivity
 com.anysoftkeyboard.ui.tutorials.BaseTutorialActivity
-com.anysoftkeyboard.ui.tutorials.WelcomeHowToNoticeActivity
 com.anysoftkeyboard.ui.tutorials.ChangeLogActivity
+com.anysoftkeyboard.ui.tutorials.WelcomeHowToNoticeActivity
 com.anysoftkeyboard.ui.tutorials.TestersNoticeActivity
 com.anysoftkeyboard.ui.SendBugReportUiActivity
 com.anysoftkeyboard.ui.MainForm
@@ -82,10 +82,10 @@ com.anysoftkeyboard.ui.settings.Keyboards
 com.menny.android.anysoftkeyboard.AnyApplication
 com.anysoftkeyboard.AnySoftKeyboard
 com.menny.android.anysoftkeyboard.SoftKeyboard
-com.anysoftkeyboard.receivers.PackagesChangedReceiver
 com.anysoftkeyboard.api.LanguageChangeddBroadcastReceiver
 com.anysoftkeyboard.receivers.AnySoftKeyboardInstalledReceiver
 com.anysoftkeyboard.api.LayoutChangedBroadcastReceiver
+com.anysoftkeyboard.receivers.PackagesChangedReceiver
 com.anysoftkeyboard.backup.AnyBackupAgent
 com.anysoftkeyboard.ui.MySeekBarPreference
 com.anysoftkeyboard.ui.tutorials.BaseTutorialActivity: void onCloseClicked(android.view.View)

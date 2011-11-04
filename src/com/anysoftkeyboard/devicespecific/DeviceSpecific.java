@@ -15,7 +15,7 @@ public interface DeviceSpecific {
 	
 	public MultiTouchSupportLevel getMultiTouchSupportLevel(Context appContext);
 	
-	public GestureDetector createGestureDetector(Context appContext, GestureDetector.SimpleOnGestureListener listener);
+	public GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener);
 
 	public CloudBackupRequester createCloudBackupRequester(String packageName);
 

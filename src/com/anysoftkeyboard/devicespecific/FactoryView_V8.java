@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
+import android.view.ScaleGestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 
@@ -57,9 +58,18 @@ class FactoryView_V8 extends FactoryView_V7 {
 	
 		@Override
 		public GestureDetector createGestureDetector(Context appContext,
-				SimpleOnGestureListener listener) {
+				AskOnGestureListener listener) {
 			final boolean ignoreMultitouch = true;
-			return new GestureDetector(appContext, listener, null, ignoreMultitouch);
+			return new AskV8GestureDetector(appContext, listener, null, ignoreMultitouch);
+//			return new GestureDetector(appContext, listener, null, ignoreMultitouch)
+//			{
+//				private final ScaleGestureDetector mScaleDetector;
+//				
+//				public GestureDetector()
+//				{
+//					super(appContext, listener, handler, ingnoreMultitouch);
+//				}
+//			}
 		}
 		
 		@Override

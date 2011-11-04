@@ -135,6 +135,12 @@
     <string name="swipe_right_action">Swipe right</string>
     <string name="swipe_right_action_summary">Define the swipe right gesture action</string>
     <string name="swipe_right_action_title">Select swipe right action</string>
+    <string name="pinch_gesture_action">Pinch gesture</string>
+    <string name="pinch_gesture_action_title">Select pinch gesture action</string>
+    <string name="pinch_gesture_action_summary">Define the pinch gesture action</string>
+    <string name="separate_gesture_action">Separate gesture</string>
+    <string name="separate_gesture_action_title">Select separate gesture action</string>
+    <string name="separate_gesture_action_summary">Define the separate gesture action</string>
     
     <string name="swipe_action_name_none">No action</string>
    	<string name="swipe_action_name_next_alphabet">Next alphabet keyboard</string>
@@ -151,6 +157,8 @@
     <string name="swipe_action_name_cursor_left">Move cursor left</string>
     <string name="swipe_action_name_cursor_right">Move cursor right</string>
 	<string name="swipe_action_name_other_keyboards_mode">Switch layout mode</string>
+	<string name="swipe_action_name_split_layout">Split layout</string>
+	<string name="swipe_action_name_merge_layout">Merge layout</string>
    	
    	<string name="settings_swipe_velocity_threshold_title">Swipe velocity threshold</string>
    	<string name="settings_swipe_velocity_threshold_summary">The minimal swipe gesture speed</string>

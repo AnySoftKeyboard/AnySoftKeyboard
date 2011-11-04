@@ -60,6 +60,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
+import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
 import com.anysoftkeyboard.devicespecific.WMotionEvent;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
@@ -607,21 +608,15 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         mDisambiguateSwipe = res.getBoolean(R.bool.config_swipeDisambiguation);
         mMiniKeyboardSlideAllowance = res.getDimension(R.dimen.mini_keyboard_slide_allowance);
 
-        GestureDetector.SimpleOnGestureListener listener =
-                new GestureDetector.SimpleOnGestureListener() {
-        	/*
-        	@Override
-			public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        		if (AnyApplication.DEBUG) Log.d(TAG, String.format("onScroll Dx %f, Dy %f", distanceX, distanceY));
-        		final float v = Math.max(Math.abs(distanceX), Math.abs(distanceY));
-                if (v > 10) {if (!mInScrollGesture) scrollGestureStarted(distanceX, distanceY);}
-                else {if (mInScrollGesture) scrollGestureEnded();}
-                
-				return super.onScroll(e1, e2, distanceX, distanceY);
-			}
-        	*/
-            @Override
-            public boolean onFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
+        AskOnGestureListener listener =
+                new AskOnGestureListener() {
+        	
+        	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        		if (AnyApplication.DEBUG) Log.d(TAG, String.format("onScroll dx %f, dy %f", distanceX, distanceY));
+        		return Math.abs(distanceX) > 10 || Math.abs(distanceY) > 10;
+        	}
+            
+        	public boolean onFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
             	if (AnyApplication.DEBUG) Log.d(TAG, String.format("onFling vx %f, vy %f", velocityX, velocityY));
             	
             	final float absX = Math.abs(velocityX);
@@ -655,6 +650,27 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 }
                 return false;
             }
+            
+            public void onPinch(float factor) {
+            	if (factor < 0.5)
+            	{
+            		//mPointerQueue.releaseAllPointersExcept(null, System.currentTimeMillis());
+            		mKeyboardActionListener.onPinch();
+            	}
+            }
+            
+            public void onSeparate(float factor) {
+            	if (factor > 1.5)
+            	{
+            		//mPointerQueue.releaseAllPointersExcept(null, System.currentTimeMillis());
+            		mKeyboardActionListener.onSeparate();
+            	}
+            }
+            
+            public boolean onDown(MotionEvent e) {return false;}
+            public void onLongPress(MotionEvent e) {}
+            public void onShowPress(MotionEvent e) {}
+            public boolean onSingleTapUp(MotionEvent e) {return false;}
         };
 
         mGestureDetector = AnyApplication.getDeviceSpecific().createGestureDetector(getContext(), listener);
@@ -1595,6 +1611,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 	        if (mMiniKeyboard == null && mGestureDetector != null && (mGestureDetector.onTouchEvent(me.getNativeMotionEvent()) /*|| mInScrollGesture*/)) {
 	            dismissKeyPreview();
 	            mHandler.cancelKeyTimers();
+	            //mPointerQueue.releaseAllPointersExcept(null, me.getEventTime());
 	            return true;
 	        }
 	

@@ -10,7 +10,7 @@ com.anysoftkeyboard.AnySoftKeyboard:
     private static final java.lang.String KEYBOARD_NOTIFICATION_ALWAYS
     private static final java.lang.String KEYBOARD_NOTIFICATION_ON_PHYSICAL
     private static final java.lang.String KEYBOARD_NOTIFICATION_NEVER
-    2787:2802:public void appendCharactersToInput(java.lang.CharSequence)
+    2800:2815:public void appendCharactersToInput(java.lang.CharSequence)
 com.anysoftkeyboard.AnySoftKeyboard$4:
     private static final long DOUBLE_TAP_TIMEOUT
 com.anysoftkeyboard.ChewbaccaUncaughtExceptionHandler:
@@ -21,8 +21,8 @@ com.anysoftkeyboard.Configuration:
 com.anysoftkeyboard.ConfigurationImpl:
     static final java.lang.String TAG
     private static final java.lang.String CONFIGURATION_VERSION
-    509:509:public boolean useContactsDictionary()
-    521:521:public boolean drawExtensionKeyboardAboveMainKeyboard()
+    523:523:public boolean useContactsDictionary()
+    535:535:public boolean drawExtensionKeyboardAboveMainKeyboard()
 com.anysoftkeyboard.WordComposer:
     private static final java.lang.String CHEWBACCAONTHEDRUMS
     52:59:WordComposer(com.anysoftkeyboard.WordComposer)
@@ -68,6 +68,8 @@ com.anysoftkeyboard.api.R$xml
 com.anysoftkeyboard.backup.AnyBackupAgent:
     static final java.lang.String DEFAULT_PREFS_FILE
     static final java.lang.String PREFS_BACKUP_KEY
+com.anysoftkeyboard.devicespecific.AskV8GestureDetector:
+    private static final java.lang.String TAG
 com.anysoftkeyboard.devicespecific.DeviceSpecific:
     public abstract java.lang.String getApiLevel()
     public abstract com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel getMultiTouchSupportLevel(android.content.Context)
@@ -76,7 +78,7 @@ com.anysoftkeyboard.devicespecific.FactoryView_V3$DeviceSpecific_V3:
 com.anysoftkeyboard.devicespecific.FactoryView_V7$DeviceSpecific_V7:
     36:42:public com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel getMultiTouchSupportLevel(android.content.Context)
 com.anysoftkeyboard.devicespecific.FactoryView_V8$DeviceSpecific_V8:
-    46:55:public com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel getMultiTouchSupportLevel(android.content.Context)
+    47:56:public com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel getMultiTouchSupportLevel(android.content.Context)
 com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel
 com.anysoftkeyboard.dictionaries.AndroidUserDictionary:
     private static final int INDEX_WORD
@@ -174,29 +176,15 @@ com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory:
     private static final java.lang.String XML_EXT_KEYBOARD_TYPE_ATTRIBUTE
 com.anysoftkeyboard.keyboards.AnyKeyboard:
     private static final java.lang.String TAG
-    public static final int KEYCODE_LANG_CHANGE
-    public static final int KEYCODE_KEYBOARD_CYCLE
-    public static final int KEYCODE_KEYBOARD_REVERSE_CYCLE
-    public static final int KEYCODE_KEYBOARD_CYCLE_INSIDE_MODE
-    public static final int KEYCODE_KEYBOARD_MODE_CHANGE
-    public static final int KEYCODE_QUICK_TEXT
-    public static final int KEYCODE_DOMAIN
-    public static final int KEYCODE_LEFT
-    public static final int KEYCODE_RIGHT
-    public static final int KEYCODE_UP
-    public static final int KEYCODE_DOWN
-    public static final int KEYCODE_CTRL
-    public static final int KEYCODE_CLIPBOARD
-    public static final int KEYCODE_CLEAR_INPUT
     private static final java.lang.String TAG_ROW
     private static final java.lang.String TAG_KEY
     private static final int STICKY_KEY_OFF
     private static final int STICKY_KEY_ON
     private static final int STICKY_KEY_LOCKED
-    462:462:public int getShiftKeyIndex()
-    814:823:public void setControlLocked(boolean)
-    846:846:public boolean isControlLocked()
-    1070:1070:public boolean requiresProximityCorrection()
+    439:439:public int getShiftKeyIndex()
+    791:800:public void setControlLocked(boolean)
+    823:823:public boolean isControlLocked()
+    1047:1047:public boolean requiresProximityCorrection()
 com.anysoftkeyboard.keyboards.DefaultDictionarySelector
 com.anysoftkeyboard.keyboards.DictionarySelector
 com.anysoftkeyboard.keyboards.ExternalAnyKeyboard:
@@ -224,23 +212,17 @@ com.anysoftkeyboard.keyboards.Keyboard:
     public static final int EDGE_RIGHT
     public static final int EDGE_TOP
     public static final int EDGE_BOTTOM
-    public static final int KEYCODE_SHIFT
-    public static final int KEYCODE_MODE_CHANGE
-    public static final int KEYCODE_CANCEL
-    public static final int KEYCODE_DONE
-    public static final int KEYCODE_DELETE
-    public static final int KEYCODE_ALT
     private static final int GRID_WIDTH
     private static final int GRID_HEIGHT
     private static final int GRID_SIZE
-    654:654:public java.util.List getModifierKeys()
-    658:658:protected int getHorizontalGap()
-    662:663:protected void setHorizontalGap(int)
-    674:674:protected int getKeyHeight()
-    678:679:protected void setKeyHeight(int)
-    682:682:protected int getKeyWidth()
-    686:687:protected void setKeyWidth(int)
-    717:717:public int getShiftKeyIndex()
+    650:650:public java.util.List getModifierKeys()
+    654:654:protected int getHorizontalGap()
+    658:659:protected void setHorizontalGap(int)
+    670:670:protected int getKeyHeight()
+    674:675:protected void setKeyHeight(int)
+    678:678:protected int getKeyWidth()
+    682:683:protected void setKeyWidth(int)
+    713:713:public int getShiftKeyIndex()
 com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder:
     public static final java.lang.String KEYBOARD_PREF_PREFIX
 com.anysoftkeyboard.keyboards.KeyboardFactory:
@@ -324,12 +306,12 @@ com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView:
     private static final java.lang.String TAG
     public static final int NOT_A_TOUCH_COORDINATE
     public static final int NOT_A_KEY
-    826:826:public int getSymbolColorScheme()
-    853:853:public boolean isProximityCorrectionEnabled()
-    1540:1543:public boolean isInSlidingKeyInput()
-    1548:1548:public int getPointerCount()
+    853:853:public int getSymbolColorScheme()
+    880:880:public boolean isProximityCorrectionEnabled()
+    1573:1576:public boolean isInSlidingKeyInput()
+    1581:1581:public int getPointerCount()
 com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView$PointerQueue:
-    418:422:public boolean isInSlidingKeyInput()
+    430:434:public boolean isInSlidingKeyInput()
 com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView$UIHandler:
     private static final int MSG_POPUP_PREVIEW
     private static final int MSG_DISMISS_PREVIEW
@@ -338,9 +320,7 @@ com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView$UIHandler:
 com.anysoftkeyboard.keyboards.views.AnyKeyboardView:
     private static final int DELAY_BEFORE_POPING_UP_EXTENSION_KBD
     private static final java.lang.String TAG
-    public static final int KEYCODE_OPTIONS
-    public static final int KEYCODE_QUICK_TEXT_LONGPRESS
-    86:86:protected java.lang.String getKeyboardViewNameForLogging()
+    87:87:protected java.lang.String getKeyboardViewNameForLogging()
 com.anysoftkeyboard.keyboards.views.CandidateView:
     private static final int OUT_OF_BOUNDS_X_COORD
     private static final int MAX_SUGGESTIONS

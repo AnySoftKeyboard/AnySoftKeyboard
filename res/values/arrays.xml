@@ -39,6 +39,8 @@
         <item>cursor_down</item>
         <item>cursor_left</item>
         <item>cursor_right</item>
+        <item>split_layout</item>
+        <item>merge_layout</item>
     </string-array>
     
     <string-array name="swipe_action_types_names">
@@ -57,5 +59,7 @@
         <item>@string/swipe_action_name_cursor_down</item>
         <item>@string/swipe_action_name_cursor_left</item>
         <item>@string/swipe_action_name_cursor_right</item>
+        <item>@string/swipe_action_name_split_layout</item>
+        <item>@string/swipe_action_name_merge_layout</item>
     </string-array>
 </resources>

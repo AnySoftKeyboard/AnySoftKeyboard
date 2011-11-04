@@ -51,7 +51,7 @@ class FactoryView_V3 extends FactoryViewBase {
 		}
 
 		public GestureDetector createGestureDetector(Context appContext, 
-				SimpleOnGestureListener listener) {
+				AskOnGestureListener listener) {
 			return new GestureDetector(appContext, listener, null);
 		}
 		
