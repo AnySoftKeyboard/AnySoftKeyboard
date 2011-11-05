@@ -306,12 +306,12 @@ com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView:
     private static final java.lang.String TAG
     public static final int NOT_A_TOUCH_COORDINATE
     public static final int NOT_A_KEY
-    853:853:public int getSymbolColorScheme()
-    880:880:public boolean isProximityCorrectionEnabled()
-    1573:1576:public boolean isInSlidingKeyInput()
-    1581:1581:public int getPointerCount()
+    866:866:public int getSymbolColorScheme()
+    893:893:public boolean isProximityCorrectionEnabled()
+    1586:1589:public boolean isInSlidingKeyInput()
+    1594:1594:public int getPointerCount()
 com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView$PointerQueue:
-    430:434:public boolean isInSlidingKeyInput()
+    432:436:public boolean isInSlidingKeyInput()
 com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView$UIHandler:
     private static final int MSG_POPUP_PREVIEW
     private static final int MSG_DISMISS_PREVIEW

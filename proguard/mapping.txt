@@ -1141,20 +1141,22 @@ com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView -> com.anysoftkeyboard.k
     int mSwipeXDistanceThreshold -> ad
     int mSwipeYDistanceThreshold -> ae
     int mSwipeSpaceXDistanceThreshold -> af
-    boolean mDisambiguateSwipe -> ag
-    boolean mDrawPending -> ah
-    android.graphics.Rect mDirtyRect -> ai
-    android.graphics.Bitmap mBuffer -> aj
-    boolean mKeyboardChanged -> ak
-    com.anysoftkeyboard.keyboards.Keyboard$Key mInvalidatedKey -> al
-    android.graphics.Canvas mCanvas -> am
-    android.graphics.Paint mPaint -> an
-    android.graphics.Rect mPadding -> ao
-    android.graphics.Rect mClipRegion -> ap
-    java.util.HashMap mTextHeightCache -> aq
-    float KEY_LABEL_VERTICAL_ADJUSTMENT_FACTOR -> ar
-    java.lang.String KEY_LABEL_HEIGHT_REFERENCE_CHAR -> as
-    com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView$UIHandler mHandler -> at
+    int mScrollXDistanceThreshold -> ag
+    int mScrollYDistanceThreshold -> ah
+    boolean mDisambiguateSwipe -> ai
+    boolean mDrawPending -> aj
+    android.graphics.Rect mDirtyRect -> ak
+    android.graphics.Bitmap mBuffer -> al
+    boolean mKeyboardChanged -> am
+    com.anysoftkeyboard.keyboards.Keyboard$Key mInvalidatedKey -> an
+    android.graphics.Canvas mCanvas -> ao
+    android.graphics.Paint mPaint -> ap
+    android.graphics.Rect mPadding -> aq
+    android.graphics.Rect mClipRegion -> ar
+    java.util.HashMap mTextHeightCache -> as
+    float KEY_LABEL_VERTICAL_ADJUSTMENT_FACTOR -> at
+    java.lang.String KEY_LABEL_HEIGHT_REFERENCE_CHAR -> au
+    com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView$UIHandler mHandler -> av
     int getKeyboardStyleResId(com.anysoftkeyboard.theme.KeyboardTheme) -> a
     void reloadSwipeThresholdsSettings(android.content.res.Resources) -> a
     void setOnKeyboardActionListener(com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView$OnKeyboardActionListener) -> a
@@ -1193,13 +1195,16 @@ com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView -> com.anysoftkeyboard.k
     android.widget.PopupWindow access$1(com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView) -> a
     int access$2(com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView) -> b
     boolean access$3(com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView,int,com.anysoftkeyboard.keyboards.views.PointerTracker) -> b
-    com.anysoftkeyboard.keyboards.views.SwipeTracker access$5(com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView) -> c
+    int access$5(com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView) -> c
     int access$6(com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView) -> d
-    int access$7(com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView) -> e
+    com.anysoftkeyboard.keyboards.views.SwipeTracker access$7(com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView) -> e
     int access$8(com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView) -> f
-    boolean access$9(com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView) -> g
-    com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView$OnKeyboardActionListener access$10(com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView) -> h
-    int access$11(com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView) -> i
+    int access$9(com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView) -> g
+    int access$10(com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView) -> h
+    boolean access$11(com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView) -> i
+    com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView$OnKeyboardActionListener access$12(com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView) -> j
+    int access$13(com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView) -> k
+    com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView$PointerQueue access$14(com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView) -> l
 com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView$1 -> com.anysoftkeyboard.keyboards.views.g:
     com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView this$0 -> a
     boolean onScroll(android.view.MotionEvent,android.view.MotionEvent,float,float) -> onScroll
@@ -1249,6 +1254,7 @@ com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView$PointerQueue -> com.anys
     void releaseAllPointersOlderThan(com.anysoftkeyboard.keyboards.views.PointerTracker,long) -> a
     void releaseAllPointersExcept(com.anysoftkeyboard.keyboards.views.PointerTracker,long) -> b
     void remove(com.anysoftkeyboard.keyboards.views.PointerTracker) -> c
+    void cancelAllTrackers() -> a
 com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView$UIHandler -> com.anysoftkeyboard.keyboards.views.m:
     boolean mInKeyRepeat -> b
     com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView this$0 -> a

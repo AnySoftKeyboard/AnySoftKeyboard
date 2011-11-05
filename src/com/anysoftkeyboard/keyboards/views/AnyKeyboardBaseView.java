@@ -260,6 +260,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private int mSwipeXDistanceThreshold;
     private int mSwipeYDistanceThreshold;
     private int mSwipeSpaceXDistanceThreshold;
+    private int mScrollXDistanceThreshold;
+    private int mScrollYDistanceThreshold;
     private final boolean mDisambiguateSwipe;
     //private boolean mInScrollGesture = false;
 
@@ -432,6 +434,15 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                     return true;
             }
             return false;
+        }
+        
+        public void cancelAllTrackers()
+        {
+        	final long time = System.currentTimeMillis();
+        	for (PointerTracker t : mQueue) {
+                t.onCancelEvent(NOT_A_TOUCH_COORDINATE, NOT_A_TOUCH_COORDINATE, time);
+            }
+            mQueue.clear();
         }
     }
 
@@ -612,8 +623,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 new AskOnGestureListener() {
         	
         	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        		if (AnyApplication.DEBUG) Log.d(TAG, String.format("onScroll dx %f, dy %f", distanceX, distanceY));
-        		return Math.abs(distanceX) > 10 || Math.abs(distanceY) > 10;
+        		//if (AnyApplication.DEBUG) Log.d(TAG, String.format("onScroll dx %f, dy %f", distanceX, distanceY));
+        		return Math.abs(distanceX) > mScrollXDistanceThreshold || Math.abs(distanceY) > mScrollYDistanceThreshold;
         	}
             
         	public boolean onFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
@@ -654,15 +665,15 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             public void onPinch(float factor) {
             	if (factor < 0.5)
             	{
-            		//mPointerQueue.releaseAllPointersExcept(null, System.currentTimeMillis());
-            		mKeyboardActionListener.onPinch();
+            		mPointerQueue.cancelAllTrackers();
+    	            mKeyboardActionListener.onPinch();
             	}
             }
             
             public void onSeparate(float factor) {
             	if (factor > 1.5)
             	{
-            		//mPointerQueue.releaseAllPointersExcept(null, System.currentTimeMillis());
+            		mPointerQueue.cancelAllTrackers();
             		mKeyboardActionListener.onSeparate();
             	}
             }
@@ -705,6 +716,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 		
 		mSwipeSpaceXDistanceThreshold = mSwipeXDistanceThreshold/2;
 		
+		mScrollXDistanceThreshold = mSwipeXDistanceThreshold / 8;
+		mScrollYDistanceThreshold = mSwipeYDistanceThreshold / 8;
 		if (AnyApplication.DEBUG)
 		{
 			Log.d(TAG, String.format("Swipe thresholds: Velocity %d, X-Distance %d, Y-Distance %d", mSwipeVelocityThreshold, mSwipeXDistanceThreshold, mSwipeYDistanceThreshold));
@@ -1593,9 +1606,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     		final int pointerCount = me.getPointerCount();
 	        final int oldPointerCount = mOldPointerCount;
 	        mOldPointerCount = pointerCount;
-	
-//	        if (action == MotionEvent.ACTION_DOWN)
-//    			mInScrollGesture = false;
     		
 	        // TODO: cleanup this code into a multi-touch to single-touch event converter class?
 	        // If the device does not have distinct multi-touch support panel, ignore all multi-touch
@@ -1611,7 +1621,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 	        if (mMiniKeyboard == null && mGestureDetector != null && (mGestureDetector.onTouchEvent(me.getNativeMotionEvent()) /*|| mInScrollGesture*/)) {
 	            dismissKeyPreview();
 	            mHandler.cancelKeyTimers();
-	            //mPointerQueue.releaseAllPointersExcept(null, me.getEventTime());
 	            return true;
 	        }
 	
@@ -1734,6 +1743,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             } else {
                 Log.w(TAG, "onUpEvent: corresponding down event not found for pointer "
                         + tracker.mPointerId);
+                return;
             }
         }
         tracker.onUpEvent(x, y, eventTime);
