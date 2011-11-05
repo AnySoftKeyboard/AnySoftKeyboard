@@ -1,8 +1,10 @@
 package com.anysoftkeyboard.keyboards;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -1049,6 +1051,33 @@ public abstract class AnyKeyboard extends Keyboard
 
 	public int getKeyboardMode() {
 		return mKeyboardMode;
+	}
+	
+	private static class KeySize
+	{
+		public final int width;
+		public final int height;
+		
+		public KeySize(int w, int h){width = w; height = h;}
+	}
+	
+	private boolean mKeyboardCondensed = false;
+	private Map<Integer, KeySize> mKeySizesMap = new HashMap<Integer, KeySize>();
+	public void setCondensedKeys(boolean condensed)
+	{
+		if (condensed == mKeyboardCondensed) return;
+		
+		if (condensed)
+		{
+			//first, store the original values
+			
+		}
+		else
+		{
+			//restoring sizes
+		}
+		
+		mKeyboardCondensed = condensed;
 	}
 
 //	public void keyReleased() {
