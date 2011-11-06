@@ -14,6 +14,7 @@ public class AskV8GestureDetector extends GestureDetector {
 	
 	private final ScaleGestureDetector mScaleGestureDetector;
 	private final AskOnGestureListener mListener;
+	private boolean mScaleEventHandled = false;
 	
 	public AskV8GestureDetector(Context context, AskOnGestureListener listener,
 			Handler handler, boolean ignoreMultitouch) {
@@ -27,9 +28,9 @@ public class AskV8GestureDetector extends GestureDetector {
 				if (AnyApplication.DEBUG) Log.d(TAG, "onScaleEnd factor "+factor);
 				
 				if (factor > 1.1)
-					mListener.onSeparate(factor);
+					mScaleEventHandled = mListener.onSeparate(factor);
 				else if (factor < 0.9)
-					mListener.onPinch(factor);
+					mScaleEventHandled = mListener.onPinch(factor);
 			}
 		});
 	}
@@ -37,7 +38,9 @@ public class AskV8GestureDetector extends GestureDetector {
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
 		mScaleGestureDetector.onTouchEvent(ev);
-		return super.onTouchEvent(ev) || mScaleGestureDetector.isInProgress();
+		final boolean scaleEventHandled = mScaleEventHandled;
+		mScaleEventHandled = false;
+		return super.onTouchEvent(ev) || scaleEventHandled;
 	}
 
 }

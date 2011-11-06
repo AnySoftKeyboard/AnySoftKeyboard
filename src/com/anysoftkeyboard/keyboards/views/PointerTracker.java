@@ -17,7 +17,6 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import com.anysoftkeyboard.api.KeyCodes;
-import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView.OnKeyboardActionListener;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView.UIHandler;
 
 import android.content.res.Resources;

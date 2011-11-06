@@ -72,106 +72,9 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy, OnSharedPreferenceChangeListener {
-    private static final String TAG = "ASKKbdViewBase";
+    static final String TAG = "ASKKbdViewBase";
 
     public static final int NOT_A_TOUCH_COORDINATE = -1;
-
-    public interface OnKeyboardActionListener {
-
-        /**
-         * Called when the user presses a key. This is sent before the
-         * {@link #onKey} is called. For keys that repeat, this is only
-         * called once.
-         *
-         * @param primaryCode
-         *            the unicode of the key being pressed. If the touch is
-         *            not on a valid key, the value will be zero.
-         */
-        void onPress(int primaryCode);
-
-        /**
-         * Called when the user releases a key. This is sent after the
-         * {@link #onKey} is called. For keys that repeat, this is only
-         * called once.
-         *
-         * @param primaryCode
-         *            the code of the key that was released
-         */
-        void onRelease(int primaryCode);
-
-        /**
-         * Send a key press to the listener.
-         *
-         * @param primaryCode
-         *            this is the key that was pressed
-         * @param keyCodes
-         *            the codes for all the possible alternative keys with
-         *            the primary code being the first. If the primary key
-         *            code is a single character such as an alphabet or
-         *            number or symbol, the alternatives will include other
-         *            characters that may be on the same key or adjacent
-         *            keys. These codes are useful to correct for
-         *            accidental presses of a key adjacent to the intended
-         *            key.
-         * @param x
-         *            x-coordinate pixel of touched event. If onKey is not called by onTouchEvent,
-         *            the value should be NOT_A_TOUCH_COORDINATE.
-         * @param y
-         *            y-coordinate pixel of touched event. If onKey is not called by onTouchEvent,
-         *            the value should be NOT_A_TOUCH_COORDINATE.
-         */
-        void onKey(int primaryCode, int[] keyCodes, int x, int y);
-        
-        void onMultiTap();
-        
-        /**
-         * Sends a sequence of characters to the listener.
-         *
-         * @param text
-         *            the sequence of characters to be displayed.
-         */
-        void onText(CharSequence text);
-
-        /**
-         * Called when user released a finger outside any key.
-         */
-        void onCancel();
-
-        /**
-         * Called when the user quickly moves the finger from right to
-         * left.
-         */
-        void onSwipeLeft(boolean onSpacebar);
-
-        /**
-         * Called when the user quickly moves the finger from left to
-         * right.
-         */
-        void onSwipeRight(boolean onSpacebar);
-
-        /**
-         * Called when the user quickly moves the finger from up to down.
-         */
-        void onSwipeDown(boolean onSpacebar);
-
-        /**
-         * Called when the user quickly moves the finger from down to up.
-         */
-        void onSwipeUp(boolean onSpacebar);
-        
-        /**
-         * Called when the user perform 'pinch' gesture with two fingers.
-         */
-        void onPinch();
-        
-        /**
-         * Called when the user perform 'separate' gesture with two fingers.
-         */
-        void onSeparate();
-        
-        void startInputConnectionEdit();
-		void endInputConnectionEdit();
-    }
 
     // Timing constants
     private final int mKeyRepeatInterval;
@@ -240,12 +143,12 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private int mMiniKeyboardTrackerId;
 
     /** Listener for {@link OnKeyboardActionListener}. */
-    private OnKeyboardActionListener mKeyboardActionListener;
+    OnKeyboardActionListener mKeyboardActionListener;
 
     private final ArrayList<PointerTracker> mPointerTrackers = new ArrayList<PointerTracker>();
 
     // TODO: Let the PointerTracker class manage this pointer queue
-    private final PointerQueue mPointerQueue = new PointerQueue();
+    final PointerQueue mPointerQueue = new PointerQueue();
 
     private final boolean mHasDistinctMultitouch;
     private int mOldPointerCount = 1;
@@ -256,13 +159,13 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private GestureDetector mGestureDetector;
     
     private final SwipeTracker mSwipeTracker = new SwipeTracker();
-    private int mSwipeVelocityThreshold;
-    private int mSwipeXDistanceThreshold;
-    private int mSwipeYDistanceThreshold;
-    private int mSwipeSpaceXDistanceThreshold;
-    private int mScrollXDistanceThreshold;
-    private int mScrollYDistanceThreshold;
-    private final boolean mDisambiguateSwipe;
+    int mSwipeVelocityThreshold;
+    int mSwipeXDistanceThreshold;
+    int mSwipeYDistanceThreshold;
+    int mSwipeSpaceXDistanceThreshold;
+    int mScrollXDistanceThreshold;
+    int mScrollYDistanceThreshold;
+    final boolean mDisambiguateSwipe;
     //private boolean mInScrollGesture = false;
 
     // Drawing
@@ -619,70 +522,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         mDisambiguateSwipe = res.getBoolean(R.bool.config_swipeDisambiguation);
         mMiniKeyboardSlideAllowance = res.getDimension(R.dimen.mini_keyboard_slide_allowance);
 
-        AskOnGestureListener listener =
-                new AskOnGestureListener() {
-        	
-        	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        		//if (AnyApplication.DEBUG) Log.d(TAG, String.format("onScroll dx %f, dy %f", distanceX, distanceY));
-        		return Math.abs(distanceX) > mScrollXDistanceThreshold || Math.abs(distanceY) > mScrollYDistanceThreshold;
-        	}
-            
-        	public boolean onFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
-            	if (AnyApplication.DEBUG) Log.d(TAG, String.format("onFling vx %f, vy %f", velocityX, velocityY));
-            	
-            	final float absX = Math.abs(velocityX);
-                final float absY = Math.abs(velocityY);
-                float deltaX = me2.getX() - me1.getX();
-                float deltaY = me2.getY() - me1.getY();
-                mSwipeTracker.computeCurrentVelocity(1000);
-                final float endingVelocityX = mSwipeTracker.getXVelocity();
-                final float endingVelocityY = mSwipeTracker.getYVelocity();
-                final int swipeXDistance = isFirstDownEventInsideSpaceBar()? mSwipeSpaceXDistanceThreshold : mSwipeXDistanceThreshold;
-                if (velocityX > mSwipeVelocityThreshold && absY < absX && deltaX > swipeXDistance) {
-                    if (mDisambiguateSwipe && endingVelocityX >= velocityX / 4) {
-                    	mKeyboardActionListener.onSwipeRight(isFirstDownEventInsideSpaceBar());
-                        return true;
-                    }
-                } else if (velocityX < -mSwipeVelocityThreshold && absY < absX && deltaX < -swipeXDistance) {
-                    if (mDisambiguateSwipe && endingVelocityX <= velocityX / 4) {
-                    	mKeyboardActionListener.onSwipeLeft(isFirstDownEventInsideSpaceBar());
-                        return true;
-                    }
-                } else if (velocityY < -mSwipeVelocityThreshold && absX < absY && deltaY < -mSwipeYDistanceThreshold) {
-                    if (mDisambiguateSwipe && endingVelocityY <= velocityY / 4) {
-                    	mKeyboardActionListener.onSwipeUp(isFirstDownEventInsideSpaceBar());
-                        return true;
-                    }
-                } else if (velocityY > mSwipeVelocityThreshold && absX < absY / 2 && deltaY > mSwipeYDistanceThreshold) {
-                    if (mDisambiguateSwipe && endingVelocityY >= velocityY / 4) {
-                    	mKeyboardActionListener.onSwipeDown(isFirstDownEventInsideSpaceBar());
-                        return true;
-                    }
-                }
-                return false;
-            }
-            
-            public void onPinch(float factor) {
-            	if (factor < 0.5)
-            	{
-            		mPointerQueue.cancelAllTrackers();
-    	            mKeyboardActionListener.onPinch();
-            	}
-            }
-            
-            public void onSeparate(float factor) {
-            	if (factor > 1.5)
-            	{
-            		mPointerQueue.cancelAllTrackers();
-            		mKeyboardActionListener.onSeparate();
-            	}
-            }
-            
-            public boolean onDown(MotionEvent e) {return false;}
-            public void onLongPress(MotionEvent e) {}
-            public void onShowPress(MotionEvent e) {}
-            public boolean onSingleTapUp(MotionEvent e) {return false;}
-        };
+        AskOnGestureListener listener = new AskGestureEventsListener(this, mSwipeTracker);
 
         mGestureDetector = AnyApplication.getDeviceSpecific().createGestureDetector(getContext(), listener);
         mGestureDetector.setIsLongpressEnabled(false);
@@ -1151,7 +991,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     }
 
     // TODO: clean up this method.
-    private void dismissKeyPreview() {
+    void dismissKeyPreview() {
         for (PointerTracker tracker : mPointerTrackers)
             tracker.updateKey(NOT_A_KEY);
         showPreview(NOT_A_KEY, null);
@@ -1619,8 +1459,10 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 	
 	        // Gesture detector must be enabled only when mini-keyboard is not on the screen.
 	        if (mMiniKeyboard == null && mGestureDetector != null && (mGestureDetector.onTouchEvent(me.getNativeMotionEvent()) /*|| mInScrollGesture*/)) {
+	        	if (AnyApplication.DEBUG) Log.d(TAG, "Gesture detected!");
+	        	//mHandler.cancelAllMessages();
+	        	mHandler.cancelKeyTimers();
 	            dismissKeyPreview();
-	            mHandler.cancelKeyTimers();
 	            return true;
 	        }
 	

@@ -181,10 +181,12 @@ com.anysoftkeyboard.keyboards.AnyKeyboard:
     private static final int STICKY_KEY_OFF
     private static final int STICKY_KEY_ON
     private static final int STICKY_KEY_LOCKED
-    439:439:public int getShiftKeyIndex()
-    791:800:public void setControlLocked(boolean)
-    823:823:public boolean isControlLocked()
-    1047:1047:public boolean requiresProximityCorrection()
+    441:441:public int getShiftKeyIndex()
+    793:802:public void setControlLocked(boolean)
+    825:825:public boolean isControlLocked()
+    1049:1049:public boolean requiresProximityCorrection()
+    1068:1081:public void setCondensedKeys(boolean)
+com.anysoftkeyboard.keyboards.AnyKeyboard$KeySize
 com.anysoftkeyboard.keyboards.DefaultDictionarySelector
 com.anysoftkeyboard.keyboards.DictionarySelector
 com.anysoftkeyboard.keyboards.ExternalAnyKeyboard:
@@ -303,15 +305,15 @@ com.anysoftkeyboard.keyboards.physical.MyMetaKeyKeyListener:
     302:305:private static long resetLock(long,int,long)
     445:451:public long clearMetaKeyState(long,int)
 com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView:
-    private static final java.lang.String TAG
+    static final java.lang.String TAG
     public static final int NOT_A_TOUCH_COORDINATE
     public static final int NOT_A_KEY
-    866:866:public int getSymbolColorScheme()
-    893:893:public boolean isProximityCorrectionEnabled()
-    1586:1589:public boolean isInSlidingKeyInput()
-    1594:1594:public int getPointerCount()
+    706:706:public int getSymbolColorScheme()
+    733:733:public boolean isProximityCorrectionEnabled()
+    1426:1429:public boolean isInSlidingKeyInput()
+    1434:1434:public int getPointerCount()
 com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView$PointerQueue:
-    432:436:public boolean isInSlidingKeyInput()
+    335:339:public boolean isInSlidingKeyInput()
 com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView$UIHandler:
     private static final int MSG_POPUP_PREVIEW
     private static final int MSG_DISMISS_PREVIEW
@@ -337,15 +339,15 @@ com.anysoftkeyboard.keyboards.views.PointerTracker:
     private static final boolean DEBUG
     private static final boolean DEBUG_MOVE
     private static final int NOT_A_KEY
-    204:204:public boolean isInSlidingKeyInput()
-    425:425:public long getDownTime()
-    430:430:int getStartX()
-    434:434:int getStartY()
-    574:586:private void debugLog(java.lang.String,int,int)
+    203:203:public boolean isInSlidingKeyInput()
+    424:424:public long getDownTime()
+    429:429:int getStartX()
+    433:433:int getStartY()
+    573:585:private void debugLog(java.lang.String,int,int)
 com.anysoftkeyboard.keyboards.views.PointerTracker$KeyState:
-    124:124:public int getStartX()
-    128:128:public int getStartY()
-    132:132:public long getDownTime()
+    123:123:public int getStartX()
+    127:127:public int getStartY()
+    131:131:public long getDownTime()
 com.anysoftkeyboard.keyboards.views.ProximityKeyDetector:
     private static final int MAX_NEARBY_KEYS
 com.anysoftkeyboard.keyboards.views.SwipeTracker:
