@@ -1376,6 +1376,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case KeyCodes.SETTINGS:
 			showOptionsMenu();
 			break;
+		case KeyCodes.SPLIT_LAYOUT:
+		case KeyCodes.MERGE_LAYOUT:
+			if (mCurrentKeyboard != null && mInputView != null)
+			{
+				mCurrentKeyboard.setCondensedKeys(KeyCodes.SPLIT_LAYOUT == primaryCode);
+				mInputView.setKeyboard(mCurrentKeyboard);
+			}
+			break;
 		case KeyCodes.DOMAIN:
 			onText(mConfig.getDomainText());
 			break;
@@ -2294,14 +2302,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		//AnyKeyboard currentKeyboard = mKeyboardSwitcher.getCurrentKeyboard();
 		if (mCurrentKeyboard == null) {
-			if (DEBUG) Log.d("AnySoftKeyboard", "nextKeyboard: Looking for next keyboard. No current keyboard.");
+			if (DEBUG) Log.d(TAG, "nextKeyboard: Looking for next keyboard. No current keyboard.");
 		} else {
-			if (DEBUG) Log.d("AnySoftKeyboard", "nextKeyboard: Looking for next keyboard. Current keyboard is:"
+			if (DEBUG) Log.d(TAG, "nextKeyboard: Looking for next keyboard. Current keyboard is:"
 								+ mCurrentKeyboard.getKeyboardName());
 		}
 
 		mCurrentKeyboard = mKeyboardSwitcher.nextAlterKeyboard(currentEditorInfo);
-
+		
 		Log.i(TAG, "nextAlterKeyboard: Setting next keyboard to: "
 				+ mCurrentKeyboard.getKeyboardName());
 	}
