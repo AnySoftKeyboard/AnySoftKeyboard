@@ -29,4 +29,6 @@
     
     <dimen name="candidate_strip_height">40dip</dimen>
     <dimen name="candidate_font_height">23sp</dimen>
+    
+	<integer name="condensing_precentage">85</integer>
 </resources>

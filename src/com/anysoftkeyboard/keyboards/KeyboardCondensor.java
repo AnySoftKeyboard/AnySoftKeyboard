@@ -9,6 +9,7 @@ import android.util.Log;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.R;
 
 public class KeyboardCondensor {
 	
@@ -39,8 +40,9 @@ public class KeyboardCondensor {
 		{
 			mKeySizesMap.clear();
 			
-			final float CONDENSING_FACTOR = 0.9f;// mKeyboard.getASKContext().getApplicationContext().getResources().getFraction(R.dimen.condense_factor, 1, 1);
-			
+			final float CONDENSING_FACTOR = 0.80f;
+				/*100f / ((float)mKeyboard.getASKContext().getApplicationContext().getResources().getInteger(R.integer.condensing_precentage));*/
+			if (AnyApplication.DEBUG) Log.d(TAG, "Condensing factor is "+CONDENSING_FACTOR);
 			//now to determine the watershed line: keys will be align to the edges
 			final int keyboardWidth = mKeyboard.getMinWidth();
 			final int watershedLineX = keyboardWidth / 2;

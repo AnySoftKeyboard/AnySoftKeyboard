@@ -36,4 +36,6 @@
     <dimen name="key_bottom_inset">4dp</dimen>
     <dimen name="key_right_inset">5dp</dimen>
     <dimen name="key_left_inset">5dp</dimen>
+    
+	<integer name="condensing_precentage">90</integer>
 </resources>

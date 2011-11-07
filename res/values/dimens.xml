@@ -54,4 +54,6 @@
     <dimen name="key_bottom_inset">3dp</dimen>
     <dimen name="key_right_inset">2.5dp</dimen>
     <dimen name="key_left_inset">2.5dp</dimen>
+    
+	<integer name="condensing_precentage">100</integer>
 </resources>
