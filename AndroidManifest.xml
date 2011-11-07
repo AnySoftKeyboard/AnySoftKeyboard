@@ -3,15 +3,15 @@
 	package="com.anysoftkeyboard.api" android:versionCode="2"
 	android:versionName="1.0">
 	<application android:icon="@drawable/icon_8_key" android:label="AnySoftKeyboard API">
-	<!-- 
-		<activity android:name=".InfoActivity" android:icon="@drawable/icon_8_key"
-			android:theme="@android:style/Theme.Translucent.NoTitleBar">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.INFO" />
-			</intent-filter>
-		</activity>
-	 -->
+
 	</application>
+	
+    <supports-screens
+         android:largeScreens="true"
+         android:normalScreens="true"
+         android:smallScreens="true"
+         android:anyDensity="true" />
+         <!-- http://d.android.com/guide/practices/screens_support.html read about legacy. -->
+          
 	<uses-sdk android:minSdkVersion="3" android:targetSdkVersion="10" />
 </manifest>
