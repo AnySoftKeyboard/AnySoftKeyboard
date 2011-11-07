@@ -1,11 +1,8 @@
 package com.anysoftkeyboard.keyboards;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Stack;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -15,11 +12,6 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
-
-import com.anysoftkeyboard.api.KeyCodes;
-import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
-import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
-import com.anysoftkeyboard.keyboards.Keyboard;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -27,6 +19,9 @@ import android.util.Xml;
 import android.view.inputmethod.EditorInfo;
 
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
+import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
+import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.utils.Workarounds;
@@ -97,6 +92,9 @@ public abstract class AnyKeyboard extends Keyboard
 	// max(generic row widths)
 	private int mMaxGenericRowsWidth = 0;
 	
+	private KeyboardCondensor mKeyboardCondensor;
+	
+	//for popup keyboard
 	protected AnyKeyboard(AnyKeyboardContextProvider askContext, Context context,//note: the context can be from a different package!
     		int xmlLayoutResId) 
     {
@@ -264,6 +262,8 @@ public abstract class AnyKeyboard extends Keyboard
                 }
             }
         }
+		
+		mKeyboardCondensor = new KeyboardCondensor(this);
     }
 
 	protected void addGenericRows(AnyKeyboardContextProvider askContext, Context context, int mode) {
@@ -1054,106 +1054,9 @@ public abstract class AnyKeyboard extends Keyboard
 		return mKeyboardMode;
 	}
 	
-	private static class KeySize
-	{
-		public final int width;
-		public final int height;
-		public final int X;
-		public final int Y;
-		public KeySize(int w, int h, int x, int y){width = w; height = h; X = x; Y=y;}
-	}
-	
-	private boolean mKeyboardCondensed = false;
-	private Map<Integer, KeySize> mKeySizesMap = new HashMap<Integer, KeySize>();
 	public void setCondensedKeys(boolean condensed)
 	{
-		if (AnyApplication.DEBUG) Log.d(TAG, "setCondensedKeys set to "+condensed+" (was "+mKeyboardCondensed+")");
-		if (condensed == mKeyboardCondensed) return;
-		
-		if (condensed)
-		{
-			//first, store the original values
-			mKeySizesMap.clear();
-			int i = 0;
-			for(Key k : getKeys())
-			{
-				mKeySizesMap.put(new Integer(i), new KeySize(k.width, k.height, k.x, k.y));
-				i++;
-			}
-			
-			final float CONDENSING_FACTOR = 0.7f;
-			
-			//now to determine the watershed line: keys will be align to the edges
-			final int watershedLineX = getMinWidth() / 2;
-			int currentLeftX = 0;
-			int currentRightX = watershedLineX;
-			int currentY = 0;
-			Stack<Key> rightKeys = new Stack<Key>();
-			for(Key k : getKeys())
-			{
-				if (currentY != k.y)
-				{
-					//currentRightX holds the rightest x+width point. condensing a bit
-					currentRightX = (int)(getMinWidth() - ((getMinWidth() - currentRightX)*CONDENSING_FACTOR));
-					while(!rightKeys.isEmpty())
-					{
-						Key rightKey = rightKeys.pop();
-						
-						currentRightX -= rightKey.width;//already holds the new width
-						rightKey.x = currentRightX;
-						currentRightX -= (rightKey.gap * CONDENSING_FACTOR);
-					}
-					
-					currentLeftX = 0;
-					currentRightX = watershedLineX;
-					currentY = k.y;
-					rightKeys.clear();
-				}
-				if (AnyApplication.DEBUG) Log.d(TAG, "Condesing key "+k.codes[0]+" x,y "+k.x+","+k.y+" w,h "+k.width+","+k.height);
-				int targetWidth = (int)(k.width*CONDENSING_FACTOR);
-				if ((k.gap + k.x + (k.width/2)) < watershedLineX)
-				{
-					currentLeftX += (k.gap * CONDENSING_FACTOR);
-					k.x = currentLeftX;
-					k.width = targetWidth;
-					currentLeftX += k.width;
-				}
-				else
-				{
-					rightKeys.push(k);//to handle later. I need to find the last gap
-					currentRightX = k.x+k.width;
-					k.width = targetWidth;
-				}
-				
-				if (AnyApplication.DEBUG) Log.d(TAG, "Condesed key "+k.codes[0]+" x,y "+k.x+","+k.y+" w,h "+k.width+","+k.height);
-			}
-			//currentRightX holds the rightest x+width point. condensing a bit
-			currentRightX = (int)(getMinWidth() - ((getMinWidth() - currentRightX)*CONDENSING_FACTOR));
-			while(!rightKeys.isEmpty())
-			{
-				Key rightKey = rightKeys.pop();
-				
-				currentRightX -= rightKey.width;//already holds the new width
-				rightKey.x = currentRightX;
-				currentRightX -= (rightKey.gap * CONDENSING_FACTOR);
-			}
-		}
-		else
-		{
-			//restoring sizes
-			int i = 0;
-			for(Key k : getKeys())
-			{
-				KeySize originalSize = mKeySizesMap.get(new Integer(i));
-				k.width = originalSize.width;
-				k.height = originalSize.height;
-				k.x = originalSize.X;
-				k.y = originalSize.Y;
-				i++;
-			}
-		}
-		
-		mKeyboardCondensed = condensed;
+		mKeyboardCondensor.setCondensedKeys(condensed);
 	}
 
 //	public void keyReleased() {
