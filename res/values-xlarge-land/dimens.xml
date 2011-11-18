@@ -30,5 +30,5 @@
     <dimen name="candidate_strip_height">40dip</dimen>
     <dimen name="candidate_font_height">24sp</dimen>
 	
-	<integer name="condensing_precentage">70</integer>
+	<integer name="condensing_precentage">55</integer>
 </resources>

@@ -32,5 +32,5 @@
     <dimen name="candidate_strip_height">38dip</dimen>
     <dimen name="candidate_strip_fading_edge_length">63dip</dimen>
     
-	<integer name="condensing_precentage">90</integer>
+	<integer name="condensing_precentage">80</integer>
 </resources>
