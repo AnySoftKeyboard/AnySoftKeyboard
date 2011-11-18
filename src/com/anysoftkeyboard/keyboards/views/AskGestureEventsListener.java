@@ -64,7 +64,7 @@ final class AskGestureEventsListener implements
 		if (factor < 0.5)
 		{
 			//mKeyboardView.dismissKeyPreview();
-			mKeyboardView.mPointerQueue.cancelAllTrackers();
+			//mKeyboardView.mPointerQueue.cancelAllTrackers();
 	        mKeyboardView.mKeyboardActionListener.onPinch();
 	        return true;
 		}
@@ -75,7 +75,7 @@ final class AskGestureEventsListener implements
 		if (factor > 1.5)
 		{
 			//mKeyboardView.dismissKeyPreview();
-			mKeyboardView.mPointerQueue.cancelAllTrackers();
+			//mKeyboardView.mPointerQueue.cancelAllTrackers();
 			mKeyboardView.mKeyboardActionListener.onSeparate();
 			return true;
 		}
