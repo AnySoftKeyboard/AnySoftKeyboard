@@ -158,7 +158,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	KeyboardSwitcher mKeyboardSwitcher;
 	private final HardKeyboardActionImpl mHardKeyboardAction;
 	private long mMetaState;
-	private AnyKeyboard mCurrentKeyboard = null;
+	//private AnyKeyboard getCurrentKeyboard() = null;
 	private HashSet<Character> mSentenceSeparators = new HashSet<Character>();
 
 	//private UserDictionaryBase mContactsDictionary;
@@ -297,8 +297,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				.getDefaultSharedPreferences(this);
 		sp.registerOnSharedPreferenceChangeListener(this);
 		
-		mCurrentKeyboard = mKeyboardSwitcher.getCurrentKeyboard();
-		mSentenceSeparators = mCurrentKeyboard.getSentenceSeparators();
+		mSentenceSeparators = getCurrentKeyboard().getSentenceSeparators();
 		
 		if (mSuggest == null) {
 			initSuggest(/* getResources().getConfiguration().locale.toString() */);
@@ -1021,7 +1020,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			//AnyKeyboard current = mKeyboardSwitcher.getCurrentKeyboard();
 			// notifying the user about the keyboard.
 			// creating the message
-//			final String keyboardName = mCurrentKeyboard.getKeyboardName();
+//			final String keyboardName = getCurrentKeyboard().getKeyboardName();
 //
 //			Notification notification = new Notification(R.drawable.notification_icon, keyboardName, System.currentTimeMillis());
 //
@@ -1043,14 +1042,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 //			mNotificationManager.notify(KEYBOARD_NOTIFICATION_ID, notification);
 //			Intent i = new Intent(NOTIFY_LAYOUT_SWITCH);
 //			i.putExtra(NOTIFY_LAYOUT_SWITCH_NOTIFICATION_TITLE, getText(R.string.ime_name));
-//			i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_RESID,   mCurrentKeyboard.getKeyboardIconResId());
-//			i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_NAME,    mCurrentKeyboard.getKeyboardName());
-//			i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_PACKAGE, mCurrentKeyboard.getKeyboardContext().getPackageName());
+//			i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_RESID,   getCurrentKeyboard().getKeyboardIconResId());
+//			i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_NAME,    getCurrentKeyboard().getKeyboardName());
+//			i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_PACKAGE, getCurrentKeyboard().getKeyboardContext().getPackageName());
 //			i.putExtra(NOTIFY_LAYOUT_SWITCH_NOTIFICATION_FLAGS, notification.flags);
 //			sendBroadcast(i);
-			mInputMethodManager.showStatusIcon(mImeToken, mCurrentKeyboard.getKeyboardContext().getPackageName(), mCurrentKeyboard.getKeyboardIconResId());
+			mInputMethodManager.showStatusIcon(mImeToken, getCurrentKeyboard()
+					.getKeyboardContext().getPackageName(), getCurrentKeyboard().getKeyboardIconResId());
 		}
 	}
+
+	public AnyKeyboard getCurrentKeyboard(){return mKeyboardSwitcher.getCurrentKeyboard();}
 
 	
 	@Override
@@ -1302,9 +1304,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private boolean isAlphabet(int code) {
 		//inner letters have more options: ' in English. " in Hebrew, and more.
 		if (mPredicting)
-			return mCurrentKeyboard.isInnerWordLetter((char) code);
+			return getCurrentKeyboard().isInnerWordLetter((char) code);
 		else
-			return mCurrentKeyboard.isStartOfWordLetter((char) code);
+			return getCurrentKeyboard().isStartOfWordLetter((char) code);
 	}
 
 	public void onMultiTap() {
@@ -1378,10 +1380,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 			break;
 		case KeyCodes.SPLIT_LAYOUT:
 		case KeyCodes.MERGE_LAYOUT:
-			if (mCurrentKeyboard != null && mInputView != null)
+			if (getCurrentKeyboard() != null && mInputView != null)
 			{
-				mCurrentKeyboard.setCondensedKeys(KeyCodes.SPLIT_LAYOUT == primaryCode);
-				mInputView.setKeyboard(mCurrentKeyboard);
+				getCurrentKeyboard().setCondensedKeys(KeyCodes.SPLIT_LAYOUT == primaryCode);
+				mInputView.setKeyboard(getCurrentKeyboard());
 			}
 			break;
 		case KeyCodes.DOMAIN:
@@ -1750,7 +1752,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			if (DEBUG)
 			{
 				final AnyKeyboard viewKeyboard = (AnyKeyboard)mInputView.getKeyboard();
-				if (mCurrentKeyboard != viewKeyboard)
+				if (getCurrentKeyboard() != viewKeyboard)
 				{
 					Log.e(TAG, "NOTE: view keyboard and switcher keyboard are not the same!");
 				}
@@ -2301,17 +2303,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 				+ currentEditorInfo.inputType);
 
 		//AnyKeyboard currentKeyboard = mKeyboardSwitcher.getCurrentKeyboard();
-		if (mCurrentKeyboard == null) {
+		if (getCurrentKeyboard() == null) {
 			if (DEBUG) Log.d(TAG, "nextKeyboard: Looking for next keyboard. No current keyboard.");
 		} else {
 			if (DEBUG) Log.d(TAG, "nextKeyboard: Looking for next keyboard. Current keyboard is:"
-								+ mCurrentKeyboard.getKeyboardName());
+								+ getCurrentKeyboard().getKeyboardName());
 		}
 
-		mCurrentKeyboard = mKeyboardSwitcher.nextAlterKeyboard(currentEditorInfo);
+		mKeyboardSwitcher.nextAlterKeyboard(currentEditorInfo);
 		
 		Log.i(TAG, "nextAlterKeyboard: Setting next keyboard to: "
-				+ mCurrentKeyboard.getKeyboardName());
+				+ getCurrentKeyboard().getKeyboardName());
 	}
 
 	private void nextKeyboard(EditorInfo currentEditorInfo,
@@ -2324,12 +2326,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// so no need to look for the next keyboard, 'mLastSelectedKeyboard'
 		// holds the last
 		// keyboard used.
-	    mCurrentKeyboard = mKeyboardSwitcher.nextKeyboard(currentEditorInfo, type);
+	    AnyKeyboard keyboard = mKeyboardSwitcher.nextKeyboard(currentEditorInfo, type);
 
-	    if (!(mCurrentKeyboard instanceof GenericKeyboard))
-	    	mSentenceSeparators = mCurrentKeyboard.getSentenceSeparators();
+	    if (!(keyboard instanceof GenericKeyboard))
+	    	mSentenceSeparators = keyboard.getSentenceSeparators();
 	    
-		setKeyboardStuff(currentEditorInfo, type, mCurrentKeyboard);
+		setKeyboardStuff(currentEditorInfo, type, keyboard);
 	}
 
 	private void setKeyboardStuff(EditorInfo currentEditorInfo,
@@ -2635,13 +2637,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void launchDictionaryOverriding() {
 		//AnyKeyboard currentKeyboard = mKeyboardSwitcher.getCurrentKeyboard();
-		final String dictionaryOverridingKey = getDictionaryOverrideKey(mCurrentKeyboard);
+		final String dictionaryOverridingKey = getDictionaryOverrideKey(getCurrentKeyboard());
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setCancelable(true);
 		builder.setIcon(R.drawable.icon_8_key);
 		builder.setTitle(getResources().getString(
 				R.string.override_dictionary_title,
-				mCurrentKeyboard.getKeyboardName()));
+				getCurrentKeyboard().getKeyboardName()));
 		builder.setNegativeButton(android.R.string.cancel, null);
 		ArrayList<CharSequence> dictionaryIds = new ArrayList<CharSequence>();
 		ArrayList<CharSequence> dictionaries = new ArrayList<CharSequence>();
@@ -2753,8 +2755,13 @@ public class AnySoftKeyboard extends InputMethodService implements
             mOrientation = newConfig.orientation;
             
             mKeyboardSwitcher.makeKeyboards(true);
+            //new WxH. need new object.
+            mSentenceSeparators = getCurrentKeyboard().getSentenceSeparators();
+    		
+    		if (mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS))// should it be always on?
+    			notifyKeyboardChangeIfNeeded();
         }
-        
+		
 		super.onConfigurationChanged(newConfig);
 	}	
 	

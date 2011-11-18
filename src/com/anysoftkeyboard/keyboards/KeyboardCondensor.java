@@ -9,7 +9,6 @@ import android.util.Log;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.menny.android.anysoftkeyboard.AnyApplication;
-import com.menny.android.anysoftkeyboard.R;
 
 public class KeyboardCondensor {
 	
