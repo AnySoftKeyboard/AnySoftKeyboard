@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.util.AttributeSet;
 
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
+import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -63,7 +64,7 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme>
 	private KeyboardThemeFactory() {
 		super("ASK_KT", "com.anysoftkeyboard.plugin.KEYBOARD_THEME", "com.anysoftkeyboard.plugindata.keyboardtheme", 
 				"KeyboardThemes", "KeyboardTheme", 
-				R.xml.keyboard_themes, false);//at this time I do not allow external themes.
+				R.xml.keyboard_themes, true);
 	}
 
 	@Override
@@ -87,5 +88,22 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme>
 		return new KeyboardTheme(context, prefId, nameResId, 
 				keyboardThemeResId, popupKeyboardThemeResId,
 				keyboardThemeScreenshotResId, description, sortIndex);
+	}
+
+
+
+	public static KeyboardTheme getFallbackTheme(AnySoftKeyboard instance) {
+		final String defaultThemeId = instance.getApplicationContext().getString(R.string.settings_default_keyboard_theme_key);
+		ArrayList<KeyboardTheme> themes = msInstance.getAllAddOns(instance.getApplicationContext());
+        if (defaultThemeId != null) {
+       	 //Find the builder in the array by id. Mayne would've been better off with a HashSet
+            for (KeyboardTheme aTheme : themes) {
+                if (aTheme.getId().equals(defaultThemeId)) {
+                	return aTheme;
+                }
+            }
+        }
+        
+        return getCurrentKeyboardTheme(instance);
 	}
 }

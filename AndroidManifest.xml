@@ -86,10 +86,11 @@
     <uses-configuration android:reqTouchScreen="stylus"/>
     
 	<supports-screens
-          android:largeScreens="true"
-          android:normalScreens="true"
-          android:smallScreens="true"
-          android:anyDensity="true" />
+	    android:xlargeScreens="true"
+		android:largeScreens="true"
+		android:normalScreens="true"
+		android:smallScreens="true"
+		android:anyDensity="true" />
           <!-- http://d.android.com/guide/practices/screens_support.html read about legacy. -->
     
     <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="10"></uses-sdk>

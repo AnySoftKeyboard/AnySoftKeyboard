@@ -30,6 +30,6 @@ public class KeyboardThemeSelector extends AddOnSelector<KeyboardTheme> {
 	
 	@Override
 	protected boolean allowExternalPacks() {
-		return false;
+		return true;
 	}
 }
