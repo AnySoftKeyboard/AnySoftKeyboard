@@ -48,6 +48,7 @@ import android.text.TextPaint;
 import android.text.Layout.Alignment;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
@@ -107,6 +108,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
     // Main keyboard
     private AnyKeyboard mKeyboard;
+    private int mMaxKeyboardWidth = 0;
     private Key[] mKeys;
     // TODO this attribute should be gotten from Keyboard.
     private int mKeyboardVerticalGap;
@@ -363,7 +365,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
         mInLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
         
-        
         LayoutInflater inflate = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         //int previewLayout = 0;
         mPreviewKeyTextSize = -1;
@@ -412,6 +413,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         
         final Resources res = getResources();
 
+        mMaxKeyboardWidth = res.getDisplayMetrics().widthPixels - padding[0] - padding[2];
+        
         mPreviewPopup = new PopupWindow(context);
         if (mPreviewKeyTextSize > 0) {
         	if (mPreviewLabelTextSize <= 0) mPreviewLabelTextSize = mPreviewKeyTextSize;
@@ -588,6 +591,11 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 		return theme.getPopupThemeResId();
 	}
 
+	public int getKeyboardMaxWidth()
+	{
+		return mMaxKeyboardWidth;
+	}
+	
 	private void reloadSwipeThresholdsSettings(final Resources res) {
 		final float density = res.getDisplayMetrics().density;
 		mSwipeVelocityThreshold = (int) (AnyApplication.getConfig().getSwipeVelocityThreshold() * density);
@@ -1235,9 +1243,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
         final AnyPopupKeyboard keyboard;
         if (popupCharacters != null) {
-            keyboard = new AnyPopupKeyboard(AnySoftKeyboard.getInstance(), popupCharacters);
+            keyboard = new AnyPopupKeyboard(AnySoftKeyboard.getInstance(), popupCharacters, miniKeyboard.getKeyboardMaxWidth());
         } else {
-            keyboard = new AnyPopupKeyboard(AnySoftKeyboard.getInstance(), packageContext, popupKeyboardId);
+            keyboard = new AnyPopupKeyboard(AnySoftKeyboard.getInstance(), packageContext, popupKeyboardId, miniKeyboard.getKeyboardMaxWidth());
         }
         
         miniKeyboard.setOnKeyboardActionListener(new OnKeyboardActionListener() {

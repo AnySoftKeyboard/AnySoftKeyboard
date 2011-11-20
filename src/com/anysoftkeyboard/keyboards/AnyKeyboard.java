@@ -75,8 +75,7 @@ public abstract class AnyKeyboard extends Keyboard
     //private final Drawable mShiftFeedbackIcon;
     //private final Drawable mShiftOnFeedbackIcon;
     //private final Drawable mShiftLockedFeedbackIcon;
-    private final int mKeyboardMode;
-
+    
     private Key mShiftKey;
     private Key mControlKey;
     private EnterKey mEnterKey;
@@ -100,7 +99,6 @@ public abstract class AnyKeyboard extends Keyboard
     {
         //should use the package context for creating the layout
         super(askContext, context, xmlLayoutResId, -1);
-        mKeyboardMode = -1;
         //no generic rows in popup
 		//addGenericRows(mASKContext, mKeyboardContext, mKeyboardMode);
 		
@@ -119,11 +117,7 @@ public abstract class AnyKeyboard extends Keyboard
     {
         //should use the package context for creating the layout
         super(askContext, context, xmlLayoutResId, mode);
-        mKeyboardMode = mode;
-
-		addGenericRows(mASKContext, mKeyboardContext, mKeyboardMode);
-		
-		//in wide shifts, we'll use the shift with the Globe
+      //in wide shifts, we'll use the shift with the Globe
         Resources resources = askContext.getApplicationContext().getResources();
 		if (mShiftKey != null)
         {
@@ -154,7 +148,14 @@ public abstract class AnyKeyboard extends Keyboard
         }
     }
     
-    public void initKeysMembers()
+    public void loadKeyboard(int maxWidth) {
+    	super.loadKeyboard(maxWidth);
+    	
+    	addGenericRows(mASKContext, mKeyboardContext, mKeyboardMode);
+		initKeysMembers();
+    };
+    
+    private void initKeysMembers()
     {
     	final Resources localResources = getASKContext().getApplicationContext().getResources();
         for(final Key key : getKeys())

@@ -14,14 +14,19 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 	private boolean mOneKeyPressPopup = true;
 	
 	public AnyPopupKeyboard(AnyKeyboardContextProvider askContext, Context context,//note: the context can be from a different package!
-    		int xmlLayoutResId)
+    		int xmlLayoutResId, 
+    		int maxWidth)
 	{
 		super(askContext, context, xmlLayoutResId, -1);
+		loadKeyboard(maxWidth);
 	}
 	
-	public AnyPopupKeyboard(AnyKeyboardContextProvider askContext, CharSequence popupCharacters)
+	public AnyPopupKeyboard(AnyKeyboardContextProvider askContext, CharSequence popupCharacters, 
+    		int maxWidth)
 	{
 		super(askContext, askContext.getApplicationContext(), R.xml.popup);
+		loadKeyboard(maxWidth);
+		
 		List<Key> keys = getKeys();
 		//now adding the popups
 		Key baseKey = keys.get(0);
@@ -45,6 +50,11 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 		}
 		//adding edge flag to the last key
 		keys.get(keys.size() - 1).edgeFlags += EDGE_RIGHT;
+	}
+	
+	@Override
+	public void loadKeyboard(int maxWidth) {
+		super.loadKeyboard(maxWidth);
 	}
 	
 	@Override

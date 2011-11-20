@@ -148,7 +148,7 @@ public class KeyboardSwitcher
 	    	}
 	    	mSymbolsKeyboardsArray[keyboardIndex] = keyboard;
 	    	mLastSelectedSymbolsKeyboard = keyboardIndex;
-	    	keyboard.initKeysMembers();
+	    	keyboard.loadKeyboard(getKeyboardMaxWidth());
 	    	//new keyboard. let's set it.
 			if (mInputView != null)
 				mInputView.setKeyboard(keyboard);
@@ -465,7 +465,7 @@ public class KeyboardSwitcher
 	public AnyKeyboard getCurrentKeyboard()
 	{
 		if (isAlphabetMode())
-			return getAlphabetKeyboard(mLastSelectedKeyboard, mLastKeyboardMode );
+			return getAlphabetKeyboard(mLastSelectedKeyboard, mLastKeyboardMode);
 		else
 			return getSymbolsKeyboard(mLastSelectedSymbolsKeyboard, mLastKeyboardMode);
 	}
@@ -483,7 +483,7 @@ public class KeyboardSwitcher
 			if (AnyApplication.DEBUG)Log.d(TAG, "About to create keyboard: "+creator.getId());
 			keyboards[index] = creator.createKeyboard(mContext, mode);
 			keyboard = keyboards[index];
-			keyboard.initKeysMembers();
+			keyboard.loadKeyboard(getKeyboardMaxWidth());
 			//new keyboard. let's set it.
 			if (mInputView != null)
 				mInputView.setKeyboard(keyboard);
@@ -494,6 +494,15 @@ public class KeyboardSwitcher
 //			Log.w(TAG, "NOTE: The returned keyboard has the wrong width! Keyboard width: "+keyboard.getMinWidth()+", device width:"+mContext.getMaxWidth());
 //		}
 		return keyboard;
+	}
+
+	public int getKeyboardMaxWidth() {
+		if (mInputView != null)
+			return mInputView.getKeyboardMaxWidth();
+		else
+		{
+			return mContext.getResources().getDisplayMetrics().widthPixels;
+		}
 	}
 
 //	private boolean requiredToRecreateKeyboard(AnyKeyboard keyboard) {

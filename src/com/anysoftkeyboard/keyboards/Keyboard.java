@@ -47,7 +47,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.util.Xml;
-import android.util.DisplayMetrics;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -95,6 +94,7 @@ public class Keyboard {
     
     protected final Context mKeyboardContext;
     protected final AnyKeyboardContextProvider mASKContext;
+    protected final int mLayoutResId;
     
     /** Horizontal gap default for all rows */
     private int mDefaultHorizontalGap;
@@ -139,7 +139,7 @@ public class Keyboard {
     //private int mDisplayHeight;
 
     /** Keyboard mode, or zero, if none.  */
-    private int mKeyboardMode;
+    protected final int mKeyboardMode;
 
     // Variables for pre-computing nearest keys.
     
@@ -566,27 +566,14 @@ public class Keyboard {
     public Keyboard(AnyKeyboardContextProvider askContext, Context context, int xmlLayoutResId, int modeId) {
     	mASKContext = askContext;
     	mKeyboardContext = context;
-        DisplayMetrics dm = context.getResources().getDisplayMetrics();
-        mDisplayWidth = dm.widthPixels;
-        //mDisplayHeight = dm.heightPixels;
-
-        mDefaultHorizontalGap = 0;
-        mDefaultWidth = mDisplayWidth / 10;
-        //mDefaultVerticalGap = 0;
-        mDefaultHeight = mDefaultWidth;
+    	mLayoutResId = xmlLayoutResId;
+    	mKeyboardMode = modeId;
+    	
         mKeys = new ArrayList<Key>();
         mModifierKeys = new ArrayList<Key>();
-        mKeyboardMode = modeId;
         
-        //let's fix the height
-        com.anysoftkeyboard.Configuration config = AnyApplication.getConfig();
-		final int orientation = config.getDeviceOrientation();
-    	if (orientation != Configuration.ORIENTATION_LANDSCAPE)//I want to support other orientations too (like square)
-    		mDefaultHeight = (int)(mDefaultHeight * config.getKeysHeightFactorInPortrait());
-    	else
-    		mDefaultHeight = (int)(mDefaultHeight * config.getKeysHeightFactorInLandscape());
-        
-        loadKeyboard(context, context.getResources().getXml(xmlLayoutResId));
+        //DisplayMetrics dm = askContext.getApplicationContext().getResources().getDisplayMetrics();
+        //loadKeyboard(dm.widthPixels);
     }
 
     /**
@@ -768,7 +755,23 @@ public class Keyboard {
         return new Key(askContext, res, parent, x, y, parser);
     }
 
-    private void loadKeyboard(Context context, XmlResourceParser parser) {
+    public void loadKeyboard(int maxWidth) {
+    	mDisplayWidth = maxWidth;
+        //mDisplayHeight = dm.heightPixels;
+
+        mDefaultHorizontalGap = 0;
+        mDefaultWidth = mDisplayWidth / 10;
+        //mDefaultVerticalGap = 0;
+        mDefaultHeight = mDefaultWidth;
+        //let's fix the height
+        com.anysoftkeyboard.Configuration config = AnyApplication.getConfig();
+		final int orientation = config.getDeviceOrientation();
+    	if (orientation != Configuration.ORIENTATION_LANDSCAPE)//I want to support other orientations too (like square)
+    		mDefaultHeight = (int)(mDefaultHeight * config.getKeysHeightFactorInPortrait());
+    	else
+    		mDefaultHeight = (int)(mDefaultHeight * config.getKeysHeightFactorInLandscape());
+    	
+    	XmlResourceParser parser = mKeyboardContext.getResources().getXml(mLayoutResId);
         boolean inKey = false;
         boolean inRow = false;
         boolean inUnknown = false;
@@ -777,7 +780,7 @@ public class Keyboard {
         int y = 0;
         Key key = null;
         Row currentRow = null;
-        Resources res = context.getResources();
+        Resources res = mKeyboardContext.getResources();
         boolean skipRow = false;
         int lastVerticalGap = 0;
         
@@ -811,7 +814,7 @@ public class Keyboard {
                     } else
                     {
                     	inUnknown = true;
-                    	onUnknownTagStart(context, res, tag, parser);
+                    	onUnknownTagStart(mKeyboardContext, res, tag, parser);
                     }
                 } else if (event == XmlResourceParser.END_TAG) {
                     if (inKey) {
