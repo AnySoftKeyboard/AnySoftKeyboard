@@ -86,8 +86,15 @@
 
         <!-- Color to use for the label in a key. -->
         <attr name="keyTextColor" format="color" />
-
-		 
+		
+        <!-- size of different keys height -->
+        <attr name="keyNormalHeight" format="dimension" />
+        <attr name="keySmallHeight" format="dimension" />
+        <attr name="keyLargeHeight" format="dimension" />
+        
+        <attr name="keyHorizontalGap" format="dimension" />
+        <attr name="keyVerticalGap" format="dimension" />
+        
         <!-- Vertical offset of the key press feedback from the key. -->
         <attr name="keyPreviewOffset" format="dimension" />
         <attr name="keyPreviewBackground" format="reference" />
@@ -124,7 +131,6 @@
 		<attr name="android:paddingTop"/>
 		<attr name="android:paddingRight"/>
 		<attr name="android:paddingBottom"/>
-		
 		
 		<attr name="suggestionNormalTextColor" format="color" />
 		<attr name="suggestionRecommendedTextColor" format="color" />
