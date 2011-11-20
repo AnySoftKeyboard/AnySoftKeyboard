@@ -42,7 +42,8 @@ public class Suggest implements Dictionary.WordCallback {
 	private static final String TAG = "ASK Suggest";
 
 	private Dictionary mMainDict;
-
+	private AutoText mAutoText;
+	
 	private Dictionary mUserDictionary;
 
 	private Dictionary mAutoDictionary;
@@ -95,14 +96,30 @@ public class Suggest implements Dictionary.WordCallback {
 		mUserDictionary = userDictionary;
 	}
 
-	public void setMainDictionary(Dictionary dictionary) {
+	public void setMainDictionary(DictionaryAddOnAndBuilder dictionaryBuilder) {
 		if (AnyApplication.DEBUG)
 			Log.d(TAG, "Suggest: Got main dictionary! Type: "
-					+ ((dictionary == null) ? "NULL" : dictionary.toString()));
-		if (mMainDict != dictionary && mMainDict != null) {
+					+ ((dictionaryBuilder == null) ? "NULL" : dictionaryBuilder.getName()));
+		if (mMainDict != null) {
 			mMainDict.close();
 		}
-		mMainDict = dictionary;
+		
+		if (dictionaryBuilder == null)
+		{
+			mMainDict = null;
+			mAutoText = null;
+		}
+		else
+		{
+			try
+			{
+				mMainDict = dictionaryBuilder.createDictionary();
+				mMainDict.loadDictionary();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			mAutoText = dictionaryBuilder.createAutoText();
+		}
 	}
 
 	/**
@@ -259,7 +276,8 @@ public class Suggest implements Dictionary.WordCallback {
         while (i < mSuggestions.size() && i < max) {
             String suggestedWord = mSuggestions.get(i).toString().toLowerCase();
             
-            CharSequence autoText = AutoText.get(suggestedWord, 0, suggestedWord.length(), view);
+            CharSequence autoText = mAutoText != null?
+            		mAutoText.lookup(suggestedWord, 0, suggestedWord.length()) : null;
             // Is there an AutoText correction?
             boolean canAdd = autoText != null;
             // Is that correction already the current prediction (or original

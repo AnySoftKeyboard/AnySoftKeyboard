@@ -44,7 +44,6 @@ import android.os.Message;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-import android.text.AutoText;
 import android.text.ClipboardManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -67,7 +66,6 @@ import android.widget.Toast;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.dictionaries.AddableDictionary;
 import com.anysoftkeyboard.dictionaries.AutoDictionary;
-import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.dictionaries.DictionaryFactory;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
@@ -538,8 +536,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 		
 		mInputView.closing();
-		if (AutoText.getSize(mInputView) < 1)
-			mQuickFixes = true;
 		
 		mComposing.setLength(0);
 		mPredicting = false;
@@ -2595,21 +2591,21 @@ public class AnySoftKeyboard extends InputMethodService implements
 					String mappingSettingsKey = getDictionaryOverrideKey(currentKeyobard);
 					String defaultDictionary = currentKeyobard.getDefaultDictionaryLocale();
 					String dictionaryValue = getSharedPreferences().getString(mappingSettingsKey, null);
-					Dictionary dictionary = null;
-
+					DictionaryAddOnAndBuilder dictionaryBuilder = null;
+					
 					if (dictionaryValue == null){
-						dictionary = DictionaryFactory.getInstance().getDictionaryByLanguage(currentKeyobard.getDefaultDictionaryLocale(), this);
+						dictionaryBuilder = ExternalDictionaryFactory.getDictionaryBuilderByLocale(currentKeyobard.getDefaultDictionaryLocale(), this);
 					} else {
 					        if (DEBUG)
 					        {
-					        	Log.d("AnySoftKeyboard", "Default dictionary '" + (defaultDictionary == null? "None" : defaultDictionary)
+					        	Log.d(TAG, "Default dictionary '" + (defaultDictionary == null? "None" : defaultDictionary)
 					        			+ "' for keyboard '" + currentKeyobard.getKeyboardPrefId()
 					        			+ "' has been overriden to '" + dictionaryValue + "'");
 					        }
-							dictionary = DictionaryFactory.getInstance().getDictionaryById(dictionaryValue, this);
+					        dictionaryBuilder = ExternalDictionaryFactory.getDictionaryBuilderById(dictionaryValue, this);
 					}
 					
-					mSuggest.setMainDictionary(dictionary);
+					mSuggest.setMainDictionary(dictionaryBuilder);
 					
 					mUserDictionary = DictionaryFactory.getInstance().createUserDictionary(this, defaultDictionary);
 					mSuggest.setUserDictionary(mUserDictionary);

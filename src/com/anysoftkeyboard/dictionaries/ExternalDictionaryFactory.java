@@ -18,6 +18,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
     private static final String XML_LANGUAGE_ATTRIBUTE = "locale";
     private static final String XML_ASSETS_ATTRIBUTE = "dictionaryAssertName";
     private static final String XML_RESOURCE_ATTRIBUTE = "dictionaryResourceId";
+    private static final String XML_AUTO_TEXT_RESOURCE_ATTRIBUTE = "autoTextResourceId";
     
     
     private static final ExternalDictionaryFactory msInstance;
@@ -79,7 +80,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
 		final String language = attrs.getAttributeValue(null, XML_LANGUAGE_ATTRIBUTE);
 		final String assets = attrs.getAttributeValue(null, XML_ASSETS_ATTRIBUTE);
 		final int dictionaryResourceId = attrs.getAttributeResourceValue(null, XML_RESOURCE_ATTRIBUTE, -1);
-
+		final int autoTextResId = attrs.getAttributeResourceValue(null, XML_AUTO_TEXT_RESOURCE_ATTRIBUTE, -1);
 		//asserting
 		if (TextUtils.isEmpty(prefId) ||(language == null) || (nameId == -1) || ((assets == null) && (dictionaryResourceId == -1)))
 		{
@@ -92,7 +93,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
 			if (dictionaryResourceId == -1)
 				creator = new DictionaryAddOnAndBuilder(context, prefId, nameId, description, sortIndex, language, assets);
 			else
-				creator = new DictionaryAddOnAndBuilder(context, prefId, nameId, description, sortIndex, language, dictionaryResourceId);
+				creator = new DictionaryAddOnAndBuilder(context, prefId, nameId, description, sortIndex, language, dictionaryResourceId, autoTextResId);
 				
 			return creator;
 		}

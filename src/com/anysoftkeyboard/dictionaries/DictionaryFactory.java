@@ -75,31 +75,4 @@ public class DictionaryFactory
         
         return mAutoDictionary;
     }
-    
-    private Dictionary makeDictionaryFromBuilder(
-			DictionaryAddOnAndBuilder builder) {
-		if (builder != null)
-        {
-			try {
-				Dictionary dict = builder.createDictionary();
-				dict.loadDictionary();
-				return dict;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-        }
-        
-		return null;
-	}
-    
-    public synchronized Dictionary getDictionaryByLanguage(final String language, AnyKeyboardContextProvider context){
-    	DictionaryAddOnAndBuilder builder = ExternalDictionaryFactory.getDictionaryBuilderByLocale(language, context.getApplicationContext());
-        return makeDictionaryFromBuilder(builder);	
-    }
-
-	public synchronized Dictionary getDictionaryById(final String id, AnyKeyboardContextProvider context){
-    	DictionaryAddOnAndBuilder builder = ExternalDictionaryFactory.getDictionaryBuilderById(id, context.getApplicationContext());
-        return makeDictionaryFromBuilder(builder);	
-    }
-
 }

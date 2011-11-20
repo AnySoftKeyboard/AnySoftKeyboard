@@ -17,21 +17,14 @@
 package com.anysoftkeyboard.dictionaries;
 
 import java.io.IOException;
-import java.util.Locale;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import android.content.res.AssetManager;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
-import android.util.DisplayMetrics;
-import android.view.View;
 
-import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.utils.XmlUtils;
-import com.menny.android.anysoftkeyboard.R;
 
 /**
  * This class accesses a dictionary of corrections to frequent misspellings.
@@ -59,8 +52,8 @@ public class AutoText {
 
     private static final int RIGHT = 9300; // Size of 'right' 13 Aug 2007
 
-    private static AutoText sInstance =  null;//new AutoText(Resources.getSystem());
-    private static Object sLock = new Object();
+//    private static AutoText sInstance =  null;//new AutoText(Resources.getSystem());
+//    private static final Object sLock = new Object();
 
     // TODO:
     //
@@ -74,67 +67,113 @@ public class AutoText {
     private char[] mTrie;
     private char mTrieUsed;
     private String mText;
-    private Locale mLocale;
+    //private Locale mLocale;
     private int mSize;
 
-    private AutoText(Resources resources, Locale locale) {
-        mLocale = locale;
-        init(resources);
-    }
+    AutoText(Resources resources, int resId) {
+        //mLocale = locale;
+        //init(resources);
+    	
+    	XmlResourceParser parser = resources.getXml(resId);
 
-    /**
-     * Returns the instance of AutoText. If the locale has changed, it will create a new
-     * instance of AutoText for the locale.
-     * @param view to get the resources from
-     * @return the single instance of AutoText
-     */
-    private static AutoText getInstance(View view) {
-    	Locale locale = new Locale(AnySoftKeyboard.getInstance().getCurrentKeyboard().getDefaultDictionaryLocale());
-        Resources res = view.getContext().getResources();
-        //Locale locale = res.getConfiguration().locale;
-        AutoText instance;
+        StringBuilder right = new StringBuilder(RIGHT);
+        mTrie = new char[DEFAULT];
+        mTrie[TRIE_ROOT] = TRIE_NULL;
+        mTrieUsed = TRIE_ROOT + 1;
 
-        synchronized (sLock) {
-            instance = sInstance;
+        try {
+            XmlUtils.beginDocument(parser, "words");
+            String odest = "";
+            char ooff = 0;
 
-            if (instance == null || !locale.equals(instance.mLocale)) {
-                instance = new AutoText(res, locale);
-                sInstance = instance;
+            while (true) {
+                XmlUtils.nextElement(parser);
+
+                String element = parser.getName(); 
+                if (element == null || !(element.equals("word"))) {
+                    break;
+                }
+
+                String src = parser.getAttributeValue(null, "src");
+                if (parser.next() == XmlPullParser.TEXT) {
+                    String dest = parser.getText();
+                    char off;
+
+                    if (dest.equals(odest)) {
+                        off = ooff;
+                    } else {
+                        off = (char) right.length();
+                        right.append((char) dest.length());
+                        right.append(dest);
+                    }
+
+                    add(src, off);
+                }
             }
+        } catch (XmlPullParserException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            parser.close();
         }
-        
-        return instance;
+    	
+        mText = right.toString();
     }
+
+//    /**
+//     * Returns the instance of AutoText. If the locale has changed, it will create a new
+//     * instance of AutoText for the locale.
+//     * @param view to get the resources from
+//     * @return the single instance of AutoText
+//     */
+//    private static AutoText getInstance(View view) {
+//    	Locale locale = new Locale(AnySoftKeyboard.getInstance().getCurrentKeyboard().getDefaultDictionaryLocale());
+//        Resources res = view.getContext().getResources();
+//        //Locale locale = res.getConfiguration().locale;
+//        AutoText instance;
+//
+//        synchronized (sLock) {
+//            instance = sInstance;
+//
+//            if (instance == null || !locale.equals(instance.mLocale)) {
+//                instance = new AutoText(res, locale);
+//                sInstance = instance;
+//            }
+//        }
+//        
+//        return instance;
+//    }
     
-    /**
-     * Retrieves a possible spelling correction for the specified range
-     * of text.  Returns null if no correction can be found.
-     * The View is used to get the current Locale and Resources.
-     */
-    public static String get(CharSequence src, final int start, final int end,
-                             View view) {
-        return getInstance(view).lookup(src, start, end);
-    }
+//    /**
+//     * Retrieves a possible spelling correction for the specified range
+//     * of text.  Returns null if no correction can be found.
+//     * The View is used to get the current Locale and Resources.
+//     */
+//    public static String get(CharSequence src, final int start, final int end,
+//                             View view) {
+//        return getInstance(view).lookup(src, start, end);
+//    }
+//
+//    /**
+//     * Returns the size of the auto text dictionary. The return value can be zero if there is
+//     * no auto correction data available for the current locale.
+//     * @param view used to retrieve the current Locale and Resources.
+//     * @return the number of entries in the auto text dictionary
+//     */
+//    public static int getSize(View view) {
+//
+//        return getInstance(view).getSize(); 
+//    }
 
-    /**
-     * Returns the size of the auto text dictionary. The return value can be zero if there is
-     * no auto correction data available for the current locale.
-     * @param view used to retrieve the current Locale and Resources.
-     * @return the number of entries in the auto text dictionary
-     */
-    public static int getSize(View view) {
+//    /**
+//     * Returns the size of the dictionary.
+//     */
+//    private int getSize() {
+//        return mSize;
+//    }
 
-        return getInstance(view).getSize(); 
-    }
-
-    /**
-     * Returns the size of the dictionary.
-     */
-    private int getSize() {
-        return mSize;
-    }
-
-    private String lookup(CharSequence src, final int start, final int end) {
+    public String lookup(CharSequence src, final int start, final int end) {
         int here = mTrie[TRIE_ROOT];
 
         for (int i = start; i < end; i++) {
@@ -189,64 +228,64 @@ public class AutoText {
 //        mTrie[TRIE_ROOT] = TRIE_NULL;
 //        mTrieUsed = TRIE_ROOT + 1;
 
-    private void init(Resources r) {
-    	//http://stackoverflow.com/questions/5244889/load-language-specific-string-from-resource
-    	Resources standardResources = r;
-    	AssetManager assets = standardResources.getAssets();
-    	DisplayMetrics metrics = standardResources.getDisplayMetrics();
-    	Configuration config = new Configuration(standardResources.getConfiguration());
-    	config.locale = mLocale;
-    	r = new Resources(assets, metrics, config);
-
-    	XmlResourceParser parser = r.getXml(R.xml.autotext);
-
-        StringBuilder right = new StringBuilder(RIGHT);
-        mTrie = new char[DEFAULT];
-        mTrie[TRIE_ROOT] = TRIE_NULL;
-        mTrieUsed = TRIE_ROOT + 1;
-
-        try {
-            XmlUtils.beginDocument(parser, "words");
-            String odest = "";
-            char ooff = 0;
-
-            while (true) {
-                XmlUtils.nextElement(parser);
-
-                String element = parser.getName(); 
-                if (element == null || !(element.equals("word"))) {
-                    break;
-                }
-
-                String src = parser.getAttributeValue(null, "src");
-                if (parser.next() == XmlPullParser.TEXT) {
-                    String dest = parser.getText();
-                    char off;
-
-                    if (dest.equals(odest)) {
-                        off = ooff;
-                    } else {
-                        off = (char) right.length();
-                        right.append((char) dest.length());
-                        right.append(dest);
-                    }
-
-                    add(src, off);
-                }
-            }
-
-            // Don't let Resources cache a copy of all these strings.
-            r.flushLayoutCache();
-        } catch (XmlPullParserException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
-            parser.close();
-        }
-    	
-        mText = right.toString();
-    }
+//    private void init(Resources r) {
+//    	//http://stackoverflow.com/questions/5244889/load-language-specific-string-from-resource
+//    	Resources standardResources = r;
+//    	AssetManager assets = standardResources.getAssets();
+//    	DisplayMetrics metrics = standardResources.getDisplayMetrics();
+//    	Configuration config = new Configuration(standardResources.getConfiguration());
+//    	config.locale = mLocale;
+//    	r = new Resources(assets, metrics, config);
+//
+//    	XmlResourceParser parser = r.getXml(R.xml.autotext);
+//
+//        StringBuilder right = new StringBuilder(RIGHT);
+//        mTrie = new char[DEFAULT];
+//        mTrie[TRIE_ROOT] = TRIE_NULL;
+//        mTrieUsed = TRIE_ROOT + 1;
+//
+//        try {
+//            XmlUtils.beginDocument(parser, "words");
+//            String odest = "";
+//            char ooff = 0;
+//
+//            while (true) {
+//                XmlUtils.nextElement(parser);
+//
+//                String element = parser.getName(); 
+//                if (element == null || !(element.equals("word"))) {
+//                    break;
+//                }
+//
+//                String src = parser.getAttributeValue(null, "src");
+//                if (parser.next() == XmlPullParser.TEXT) {
+//                    String dest = parser.getText();
+//                    char off;
+//
+//                    if (dest.equals(odest)) {
+//                        off = ooff;
+//                    } else {
+//                        off = (char) right.length();
+//                        right.append((char) dest.length());
+//                        right.append(dest);
+//                    }
+//
+//                    add(src, off);
+//                }
+//            }
+//
+//            // Don't let Resources cache a copy of all these strings.
+//            r.flushLayoutCache();
+//        } catch (XmlPullParserException e) {
+//            throw new RuntimeException(e);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        } finally {
+//            parser.close();
+//        }
+//    	
+//        mText = right.toString();
+//    }
 
     private void add(String src, char off) {
         int slen = src.length();
