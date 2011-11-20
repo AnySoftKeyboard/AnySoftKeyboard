@@ -20,14 +20,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.anysoftkeyboard.WordComposer;
-import com.menny.android.anysoftkeyboard.AnyApplication;
-
 import android.content.Context;
-import android.text.AutoText;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+
+import com.anysoftkeyboard.WordComposer;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 
 
 /**
@@ -239,33 +237,33 @@ public class Suggest implements Dictionary.WordCallback {
             }
         }
 
-        if (view == null)
-            return mSuggestions;
+        //if (view == null)
+          //  return mSuggestions;
 
-        int i = 0;
-        int max = 6;
+        //int i = 0;
+        //int max = 6;
         // Don't autotext the suggestions from the dictionaries
-        if (mCorrectionMode == CORRECTION_BASIC)
-            max = 1;
-        while (i < mSuggestions.size() && i < max) {
-            String suggestedWord = mSuggestions.get(i).toString().toLowerCase();
-            CharSequence autoText = AutoText.get(suggestedWord, 0, suggestedWord.length(), view);
-            // Is there an AutoText correction?
-            boolean canAdd = autoText != null;
-            // Is that correction already the current prediction (or original
-            // word)?
-            canAdd &= !TextUtils.equals(autoText, mSuggestions.get(i));
-            // Is that correction already the next predicted word?
-            if (canAdd && i + 1 < mSuggestions.size() && mCorrectionMode != CORRECTION_BASIC) {
-                canAdd &= !TextUtils.equals(autoText, mSuggestions.get(i + 1));
-            }
-            if (canAdd) {
-                mHaveCorrection = true;
-                mSuggestions.add(i + 1, autoText);
-                i++;
-            }
-            i++;
-        }
+//        if (mCorrectionMode == CORRECTION_BASIC)
+//            max = 1;
+//        while (i < mSuggestions.size() && i < max) {
+//            String suggestedWord = mSuggestions.get(i).toString().toLowerCase();
+//            //CharSequence autoText = AutoText.get(suggestedWord, 0, suggestedWord.length(), view);
+//            // Is there an AutoText correction?
+//            boolean canAdd = autoText != null;
+//            // Is that correction already the current prediction (or original
+//            // word)?
+//            canAdd &= !TextUtils.equals(autoText, mSuggestions.get(i));
+//            // Is that correction already the next predicted word?
+//            if (canAdd && i + 1 < mSuggestions.size() && mCorrectionMode != CORRECTION_BASIC) {
+//                canAdd &= !TextUtils.equals(autoText, mSuggestions.get(i + 1));
+//            }
+//            if (canAdd) {
+//                mHaveCorrection = true;
+//                mSuggestions.add(i + 1, autoText);
+//                i++;
+//            }
+//            i++;
+//        }
 
         return mSuggestions;
     }
