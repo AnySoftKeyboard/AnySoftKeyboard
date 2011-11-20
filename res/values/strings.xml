@@ -29,7 +29,7 @@
 	<string name="notification_text_changelog">Click to learn what\'s new.</string>
 	<string name="notification_title_how_to_enable">Welcome to AnySoftKeyboard</string>
 	<string name="notification_text_how_to_enable">Learn how to enable</string>
-	<string name="testers_version">Testers version!</string>
+	<string name="testers_version">Testers build!</string>
 	
 	<!-- settings -->
 	<string name="license_title">License</string>

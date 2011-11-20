@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-    android:keyWidth="15%p"
-    android:horizontalGap="0px"
-    android:verticalGap="5%p"
-    android:keyHeight="@dimen/key_height">
+    android:keyWidth="15%p">
     <Row android:rowEdgeFlags="top">
 		<Key android:keyLabel=".cat" android:keyOutputText=".cat" android:keyEdgeFlags="left"/>
 		<Key android:keyLabel=".com" android:keyOutputText=".com"/>

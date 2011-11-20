@@ -46,7 +46,7 @@
 	        android:layout_below="@id/changelog_web_url"
 			android:layout_margin="4dp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
 			<ImageView android:layout_height="wrap_content" android:src="@drawable/gplus" android:layout_width="wrap_content"></ImageView>
-			<TextView android:layout_marginLeft="4dp" android:text="http://gplus.to/menny" android:autoLink="web" android:textSize="12sp" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+			<TextView android:layout_marginLeft="4dp" android:text="http://gplus.to/anysoftkeyboard" android:autoLink="web" android:textSize="12sp" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
 		</LinearLayout>
 		<LinearLayout android:id="@+id/changelog_twitter"
 			android:layout_toRightOf="@id/changelog_icon"
@@ -77,6 +77,49 @@
 		    	android:id="@+id/changelog_latest_version_title"
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
+		        android:text="20111120 - 57"
+		        android:textStyle="bold"
+		        android:gravity="center"
+		        android:textSize="16sp"
+		        android:paddingTop="8dp"
+		        android:paddingLeft="8dp"
+		        android:paddingRight="8dp"
+		        android:textColor="#CCC"
+		        />		    
+		    <TextView 
+		    	android:id="@+id/changelog_latest_version_url"
+		    	android:text="http://s.evendanan.net/ask_r57" android:textSize="12sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content"
+		    	android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"/>
+		    <TextView
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:text="* External themes (skins) support! Choose one:"
+		        android:textSize="16sp"
+		        android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"
+		        android:textColor="#AAA"
+		        />
+		    <Button android:id="@+id/settings_keyboard_theme_button" android:text="@string/theme_addons_settings" android:layout_width="wrap_content" android:layout_height="wrap_content"
+		    	android:layout_gravity="center"/>
+		    <TextView
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:text="* Split/Merge keyboard! Use two-fingers gestures separate and pinch to split or merge back current keyboard (works in landscape).\n* Some bug fixes.\n* New translations: CA, DA, DE, HE, HU (Thanks http://crowdin.net !)"
+		        android:textSize="16sp"
+		        android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"
+		        android:textColor="#AAA"
+		        android:autoLink="web" 
+		        />
+		        
+		    <TextView
+		    	android:id="@+id/changelog_latest_version_title"
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
 		        android:text="20111024 - 55"
 		        android:textStyle="bold"
 		        android:gravity="center"
@@ -86,7 +129,7 @@
 		        android:paddingRight="8dp"
 		        android:textColor="#CCC"
 		        />
-		    <TextView 
+			<TextView 
 		    	android:id="@+id/changelog_latest_version_url"
 		    	android:text="http://s.evendanan.net/ask_r55" android:textSize="12sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content"
 		    	android:paddingTop="4dp"

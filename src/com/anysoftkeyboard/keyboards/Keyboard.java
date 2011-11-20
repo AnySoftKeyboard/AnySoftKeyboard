@@ -528,7 +528,7 @@ public class Keyboard {
     public Keyboard(AnyKeyboardContextProvider askContext, Context context, int xmlLayoutResId) {
         this(askContext, context, xmlLayoutResId, 0);
     }
-
+    
 	protected static int getKeyHeight(Resources askRes, Resources res, TypedArray a, int defaultHeight) {
 		
 		TypedValue value = a.peekValue(R.styleable.Keyboard_android_keyHeight);
@@ -542,17 +542,17 @@ public class Keyboard {
         	case 0:
         		return 0;
         	case -2:
-        		return askRes.getDimensionPixelOffset(R.dimen.key_half_height);
+        		return askRes.getDimensionPixelOffset(R.dimen.default_key_half_height);
         	case -3:
-        		return askRes.getDimensionPixelOffset(R.dimen.key_tall_height);
+        		return askRes.getDimensionPixelOffset(R.dimen.default_key_tall_height);
     		default:
-    			return askRes.getDimensionPixelOffset(R.dimen.key_height);
+    			return askRes.getDimensionPixelOffset(R.dimen.default_key_height);
         	}
         }
         else
         {
         	Log.w(TAG, "Key height attribute is incorrectly set! Defaulting to regular height.");
-        	return askRes.getDimensionPixelOffset(R.dimen.key_height);
+        	return askRes.getDimensionPixelOffset(R.dimen.default_key_height);
         }
 	}
 
@@ -868,10 +868,10 @@ public class Keyboard {
 //        mDefaultHeight = getDimensionOrFraction(a, R.styleable.Keyboard_android_keyHeight,
 //                mDisplayHeight, 50);
         Resources askRes = askContext.getApplicationContext().getResources();
-        mDefaultHeight = getKeyHeight(askRes, res, a, askRes.getDimensionPixelOffset(R.dimen.key_height));
+        mDefaultHeight = getKeyHeight(askRes, res, a, askRes.getDimensionPixelOffset(R.dimen.default_key_height));
         mDefaultHorizontalGap = getDimensionOrFraction(a, R.styleable.Keyboard_android_horizontalGap,
                 mDisplayWidth, 0);
-        mDefaultVerticalGap = askRes.getDimensionPixelOffset(R.dimen.key_vertical_gap);
+        mDefaultVerticalGap = askRes.getDimensionPixelOffset(R.dimen.default_key_vertical_gap);
         mProximityThreshold = (int) (mDefaultWidth * SEARCH_DISTANCE);
         mProximityThreshold = mProximityThreshold * mProximityThreshold; // Square it for comparison
         a.recycle();
