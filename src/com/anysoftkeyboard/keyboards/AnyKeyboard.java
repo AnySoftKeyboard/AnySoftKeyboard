@@ -69,9 +69,9 @@ public abstract class AnyKeyboard extends Keyboard
     
     //private final boolean mDebug;
 	
-    private final Drawable mShiftIcon;
-    private final Drawable mShiftOnIcon;
-    private final Drawable mShiftLockedIcon;
+//    private final Drawable mShiftIcon;
+//    private final Drawable mShiftOnIcon;
+//    private final Drawable mShiftLockedIcon;
     //private final Drawable mShiftFeedbackIcon;
     //private final Drawable mShiftOnFeedbackIcon;
     //private final Drawable mShiftLockedFeedbackIcon;
@@ -100,15 +100,6 @@ public abstract class AnyKeyboard extends Keyboard
         //should use the package context for creating the layout
         super(askContext, context, xmlLayoutResId, -1);
         //no generic rows in popup
-		//addGenericRows(mASKContext, mKeyboardContext, mKeyboardMode);
-		
-        //I assume no shift in popup
-		mShiftLockedIcon = null;
-    	mShiftOnIcon = null;
-    	mShiftIcon = null;
-    	//mShiftLockedFeedbackIcon = null;
-    	//mShiftOnFeedbackIcon = null;
-    	//mShiftFeedbackIcon = null;
     }
 	
 	//for the External
@@ -117,35 +108,35 @@ public abstract class AnyKeyboard extends Keyboard
     {
         //should use the package context for creating the layout
         super(askContext, context, xmlLayoutResId, mode);
-      //in wide shifts, we'll use the shift with the Globe
-        Resources resources = askContext.getApplicationContext().getResources();
-		if (mShiftKey != null)
-        {
-	        mShiftLockedIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_locked);
-	        mShiftOnIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_on);
-	        mShiftIcon = resources.getDrawable(R.drawable.sym_keyboard_shift);
-	        /*mShiftLockedFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift_locked);
-	        mShiftOnFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift_on);
-	        mShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift);
-
-	        mShiftLockedFeedbackIcon.setBounds(0, 0, 
-	        		mShiftLockedFeedbackIcon.getIntrinsicWidth(), mShiftLockedFeedbackIcon.getIntrinsicHeight());
-	        mShiftOnFeedbackIcon.setBounds(0, 0, 
-	        		mShiftOnFeedbackIcon.getIntrinsicWidth(), mShiftOnFeedbackIcon.getIntrinsicHeight());
-	        mShiftFeedbackIcon.setBounds(0, 0, 
-	        		mShiftFeedbackIcon.getIntrinsicWidth(), mShiftFeedbackIcon.getIntrinsicHeight());*/
-	        setShiftViewAsState();
-        }
-        else
-        {
-        	mShiftLockedIcon = null;
-        	mShiftOnIcon = null;
-        	mShiftIcon = null;
-//        	mShiftLockedFeedbackIcon = null;
-//        	mShiftOnFeedbackIcon = null;
-//        	mShiftFeedbackIcon = null;
-        	Log.v(TAG, "No shift key, so no handling images.");
-        }
+//        //in wide shifts, we'll use the shift with the Globe
+//        Resources resources = askContext.getApplicationContext().getResources();
+//		if (mShiftKey != null)
+//        {
+//	        mShiftLockedIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_locked);
+//	        mShiftOnIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_on);
+//	        mShiftIcon = resources.getDrawable(R.drawable.sym_keyboard_shift);
+//	        /*mShiftLockedFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift_locked);
+//	        mShiftOnFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift_on);
+//	        mShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift);
+//
+//	        mShiftLockedFeedbackIcon.setBounds(0, 0, 
+//	        		mShiftLockedFeedbackIcon.getIntrinsicWidth(), mShiftLockedFeedbackIcon.getIntrinsicHeight());
+//	        mShiftOnFeedbackIcon.setBounds(0, 0, 
+//	        		mShiftOnFeedbackIcon.getIntrinsicWidth(), mShiftOnFeedbackIcon.getIntrinsicHeight());
+//	        mShiftFeedbackIcon.setBounds(0, 0, 
+//	        		mShiftFeedbackIcon.getIntrinsicWidth(), mShiftFeedbackIcon.getIntrinsicHeight());*/
+//	        setShiftViewAsState();
+//        }
+//        else
+//        {
+//        	mShiftLockedIcon = null;
+//        	mShiftOnIcon = null;
+//        	mShiftIcon = null;
+////        	mShiftLockedFeedbackIcon = null;
+////        	mShiftOnFeedbackIcon = null;
+////        	mShiftFeedbackIcon = null;
+//        	Log.v(TAG, "No shift key, so no handling images.");
+//        }
     }
     
     public void loadKeyboard(int maxWidth) {
@@ -157,8 +148,7 @@ public abstract class AnyKeyboard extends Keyboard
     
     private void initKeysMembers()
     {
-    	final Resources localResources = getASKContext().getApplicationContext().getResources();
-        for(final Key key : getKeys())
+    	for(final Key key : getKeys())
         {
         	if (key.y == 0) key.edgeFlags |= Keyboard.EDGE_TOP;
         	
@@ -184,10 +174,6 @@ public abstract class AnyKeyboard extends Keyboard
                     case KeyCodes.CANCEL:
                     	((AnyKey)key).setAsFunctional();
                     	break;
-//                	default:
-//                		if ((key.edgeFlags & Keyboard.EDGE_BOTTOM) != 0)
-//                			((AnyKey)key).setAsFunctional();
-//                		break;
                     }
             	}
                 
@@ -196,27 +182,6 @@ public abstract class AnyKeyboard extends Keyboard
                 	mRightToLeftLayout = true;//one is enough
                 switch(primaryCode)
                 {
-                case KeyCodes.DELETE:
-                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_delete , -1/*R.drawable.sym_keyboard_feedback_delete*/);
-                    break;
-//                case AnyKeyboard.KEYCODE_SHIFT:
-//                	key.icon = localResources.getDrawable(R.drawable.sym_keyboard_shift);
-//                    break;
-                case KeyCodes.CTRL:
-                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_ctrl, -1);
-                    break;
-                case KeyCodes.SPACE://SPACE
-                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_space, -1/*R.drawable.sym_keyboard_feedback_space*/);
-                    break;
-                case KeyCodes.TAB://TAB
-                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_tab, -1);
-                    break;
-                case KeyCodes.CANCEL:
-                	setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_cancel, -1/*R.drawable.sym_keyboard_cancel_black*/);
-                    break;
-                case KeyCodes.MODE_ALPHABET:
-                	setIconIfNeeded(key, localResources, R.drawable.globe, -1);
-                    break;
                 case KeyCodes.QUICK_TEXT:
 					QuickTextKey quickKey = QuickTextKeyFactory.getCurrentQuickTextKey(getASKContext());
 					if (quickKey == null) { //No plugins. Weird, but we can't do anything
@@ -240,26 +205,19 @@ public abstract class AnyKeyboard extends Keyboard
                     break;
             	case KeyCodes.DOMAIN:
             		//fixing icons
-                	//setIconIfNeeded(key, localResources, R.drawable.sym_keyboard_key_domain, R.drawable.sym_keyboard_key_domain_wide, R.drawable.sym_keyboard_key_domain_preview);
                 	key.label = AnyApplication.getConfig().getDomainText().trim();
             		key.popupResId = R.xml.popup_domains;
                 	break;
-//                case 63:
-//                    if ((key.edgeFlags & Keyboard.EDGE_BOTTOM) != 0)
-//                    {
-//                    	mQuestionMarkKey = key;
-//                    }
-//                    break;
                default:
-                        //setting the character label
-                        if (isAlphabetKey(key) && (key.label == null || key.label.length() == 0) && (key.icon == null))
-                        {
-                        	final char code = (char)key.codes[0];
-                        	if (code > 0 && !Character.isWhitespace(code))
-                        		key.label = ""+code;
-                        	else
-                        		key.label = " ";
-                        }
+	                //setting the character label
+	                if (isAlphabetKey(key) && (key.label == null || key.label.length() == 0) && (key.icon == null))
+	                {
+	                	final char code = (char)key.codes[0];
+	                	if (code > 0 && !Character.isWhitespace(code))
+	                		key.label = ""+code;
+	                	else
+	                		key.label = " ";
+	                }
                 }
             }
         }
@@ -454,16 +412,14 @@ public abstract class AnyKeyboard extends Keyboard
 		
 		setKeyIcons(key, localResources, iconId, iconFeedbackId);
 	}
-	*/
-    
+
 	private void setIconIfNeeded(Key key, Resources localResources, int iconId, int iconFeedbackId) {
 		if ((key.icon != null) || (!TextUtils.isEmpty(key.label)))
 			return;
 		setKeyIcons(key, localResources, iconId, iconFeedbackId);
 	}
-
-	private void setKeyIcons(Key key, Resources localResources, int iconId,
-			int iconFeedbackId) {
+*/
+	private void setKeyIcons(Key key, Resources localResources, int iconId, int iconFeedbackId) {
 		key.icon = localResources.getDrawable(iconId);
 		if (iconFeedbackId > 0)
 		{
@@ -494,8 +450,6 @@ public abstract class AnyKeyboard extends Keyboard
     protected Key createKeyFromXml(AnyKeyboardContextProvider askContext, Resources res, Row parent, int x, int y, 
             XmlResourceParser parser) {
     	AnyKey key = new AnyKey(askContext, res, parent, x, y, parser);
-//    	if (mTopKey == null && (key.edgeFlags & Keyboard.EDGE_TOP) != 0)
-//    		mTopKey = key;
     	
         if ((key.codes != null) && (key.codes.length > 0))
         {
@@ -519,18 +473,8 @@ public abstract class AnyKeyboard extends Keyboard
         	case KeyCodes.DELETE://delete
         		key = new LessSensitiveAnyKey(mASKContext, res, parent, x, y, parser);
         		break;
-        	/*case KeyCodes.MODE_ALPHABET:
-        	    langSwitch = key;
-        	    break;*/
 	        }
         }
-        
-//        if (mDebug)
-//        {
-//        	final int primaryKey = ((key.codes != null) && key.codes.length > 0)?
-//        			key.codes[0] : -1;
-//        	Log.v(TAG, "Key '"+primaryKey+"' will have - width: "+key.width+", height:"+key.height+", text: '"+key.label+"'.");
-//        }
         
         setPopupKeyChars(key);
         
@@ -645,10 +589,6 @@ public abstract class AnyKeyboard extends Keyboard
 	                mEnterKey.label = res.getText(R.string.label_next_key);
 	            	break;
 	            case EditorInfo.IME_ACTION_DONE:
-//	            	mEnterKey.iconPreview = null;
-//	                mEnterKey.icon = null;
-//	                //there is a problem with LTR languages
-//	                mEnterKey.label = Workarounds.workaroundCorrectStringDirection(res.getText(R.string.label_done_key));
 	            	setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_done, -1/*R.drawable.sym_keyboard_done_black*/);
 	            	break;
 	            case EditorInfo.IME_ACTION_SEARCH:
@@ -742,21 +682,6 @@ public abstract class AnyKeyboard extends Keyboard
 	private void setShiftViewAsState() {
 		//the "on" led is just like the caps-lock led
 		mShiftKey.on = (mShiftState == STICKY_KEY_LOCKED);
-		switch(mShiftState)
-		{
-		case STICKY_KEY_ON:
-			mShiftKey.icon = mShiftOnIcon;
-			//mShiftKey.iconPreview = mShiftOnFeedbackIcon;
-			break;
-		case STICKY_KEY_LOCKED:
-			mShiftKey.icon = mShiftLockedIcon;
-			//mShiftKey.iconPreview = mShiftLockedFeedbackIcon;
-			break;
-		default:
-			mShiftKey.icon = mShiftIcon;
-			//mShiftKey.iconPreview = mShiftFeedbackIcon;
-			break;
-		}
 	}
     
 	public boolean isShiftLocked() {
@@ -806,21 +731,6 @@ public abstract class AnyKeyboard extends Keyboard
 	private void setControlViewAsState() {
 		//the "on" led is just like the caps-lock led
 		mControlKey.on = (mControlState == STICKY_KEY_LOCKED);
-		switch(mControlState)
-		{
-		case STICKY_KEY_ON:
-			mControlKey.icon = mShiftOnIcon;
-			//mControlKey.iconPreview = mShiftOnFeedbackIcon;
-			break;
-		case STICKY_KEY_LOCKED:
-			mControlKey.icon = mShiftLockedIcon;
-			//mControlKey.iconPreview = mShiftLockedFeedbackIcon;
-			break;
-		default:
-			mControlKey.icon = mShiftIcon;
-			//mControlKey.iconPreview = mShiftFeedbackIcon;
-			break;
-		}
 	}
     
 	public boolean isControlLocked() {

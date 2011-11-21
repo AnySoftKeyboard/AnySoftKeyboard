@@ -48,7 +48,6 @@ import android.text.TextPaint;
 import android.text.Layout.Alignment;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
@@ -62,6 +61,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
+import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
 import com.anysoftkeyboard.devicespecific.WMotionEvent;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -99,6 +99,23 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private int mShadowOffsetX;
     private int mShadowOffsetY;
     private Drawable mKeyBackground;
+    /*keys icons*/
+    private Drawable mShiftIcon;
+    private Drawable mShiftOnIcon;
+    private Drawable mShiftLockedIcon;
+    
+    /*this is not ready just yet
+    private Drawable mActionEnterKeyIcon;
+    private Drawable mActionDoneKeyIcon;
+    private Drawable mActionSearchKeyIcon;
+    */
+    private Drawable mControlIcon;
+    private Drawable mDeleteKeyIcon;
+    private Drawable mSpaceKeyIcon;
+    private Drawable mTabKeyIcon;
+    private Drawable mCancelKeyIcon;
+    private Drawable mGlobeKeyIcon;
+    
     private float mBackgroundDimAmount;
     private float mKeyHysteresisDistance;
     private float mVerticalCorrection;
@@ -412,7 +429,16 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         super.setPadding(padding[0], padding[1], padding[2], padding[3]);
         
         final Resources res = getResources();
-
+        mShiftLockedIcon = res.getDrawable(R.drawable.sym_keyboard_shift_locked);
+        mShiftOnIcon = res.getDrawable(R.drawable.sym_keyboard_shift_on);
+        mShiftIcon = res.getDrawable(R.drawable.sym_keyboard_shift);
+        mDeleteKeyIcon = res.getDrawable(R.drawable.sym_keyboard_delete);
+        mControlIcon = res.getDrawable(R.drawable.sym_keyboard_ctrl);
+        mSpaceKeyIcon = res.getDrawable(R.drawable.sym_keyboard_space);
+        mTabKeyIcon = res.getDrawable(R.drawable.sym_keyboard_tab);
+        mCancelKeyIcon = res.getDrawable(R.drawable.sym_keyboard_cancel);
+        mGlobeKeyIcon = res.getDrawable(R.drawable.globe);        
+        
         mMaxKeyboardWidth = res.getDisplayMetrics().widthPixels - padding[0] - padding[2];
         
         mPreviewPopup = new PopupWindow(context);
@@ -994,7 +1020,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 // hint and popup hint.
                 //shouldDrawIcon = shouldDrawLabelAndIcon(key);
             }
-            if (key.icon != null/* && shouldDrawIcon*/) {
+            Drawable iconToDraw = getIconToDrawForKey(key);
+            if (iconToDraw != null/* && shouldDrawIcon*/) {
                 // Special handing for the upper-right number hint icons
                 final int drawableWidth;
                 final int drawableHeight;
@@ -1006,14 +1033,14 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                     drawableX = 0;
                     drawableY = NUMBER_HINT_VERTICAL_ADJUSTMENT_PIXEL;
                 } else*/ {
-                    drawableWidth = key.icon.getIntrinsicWidth();
-                    drawableHeight = key.icon.getIntrinsicHeight();
+                    drawableWidth = iconToDraw.getIntrinsicWidth();
+                    drawableHeight = iconToDraw.getIntrinsicHeight();
                     drawableX = (key.width + padding.left - padding.right - drawableWidth) / 2;
                     drawableY = (key.height + padding.top - padding.bottom - drawableHeight) / 2;
                 }
                 canvas.translate(drawableX, drawableY);
-                key.icon.setBounds(0, 0, drawableWidth, drawableHeight);
-                key.icon.draw(canvas);
+                iconToDraw.setBounds(0, 0, drawableWidth, drawableHeight);
+                iconToDraw.draw(canvas);
                 canvas.translate(-drawableX, -drawableY);
             }
             canvas.translate(-key.x - kbdPaddingLeft, -key.y - kbdPaddingTop);
@@ -1048,7 +1075,48 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         mDirtyRect.setEmpty();
     }
 
-    // TODO: clean up this method.
+    private Drawable getIconToDrawForKey(Key key) {
+    	if (key.icon != null)//maybe an override..
+    		return key.icon;
+    	
+    	switch(key.codes[0])
+    	{
+    	case KeyCodes.DELETE:
+    		return mDeleteKeyIcon;
+    	case KeyCodes.SPACE:
+    		return mSpaceKeyIcon;
+    	case KeyCodes.SHIFT:
+    		if (mKeyboard.isShiftLocked())
+				return mShiftLockedIcon;
+			else if (mKeyboard.isShifted())
+				return mShiftOnIcon;
+			else
+				return mShiftIcon;
+    	case KeyCodes.CANCEL:
+    		return mCancelKeyIcon;
+    	case KeyCodes.MODE_ALPHABET:
+    		if (key.label == null)
+    			return mGlobeKeyIcon;
+    		else
+    			return null;
+		case KeyCodes.CTRL:
+    		return mControlIcon;
+    	case KeyCodes.TAB:
+    		return mTabKeyIcon;
+    	default:
+			return null;
+    	} 
+	}
+    /*
+     * ;
+    private Drawable ;
+    private Drawable ;
+    private Drawable ;
+    private Drawable ;
+    private Drawable mGlobeKeyIcon;
+     */
+
+	// TODO: clean up this method.
     void dismissKeyPreview() {
         for (PointerTracker tracker : mPointerTrackers)
             tracker.updateKey(NOT_A_KEY);
@@ -1084,14 +1152,14 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         int popupWidth = 0;
         int popupHeight = 0;
         // Should not draw hint icon in key preview
-        if (key.icon != null/* && !shouldDrawLabelAndIcon(key)*/) {
+        Drawable iconToDraw = getIconToDrawForKey(key);
+        if (iconToDraw != null/* && !shouldDrawLabelAndIcon(key)*/) {
             //mPreviewText.setCompoundDrawables(null, null, null, key.iconPreview != null ? key.iconPreview : key.icon);
-        	mPreviewIcon.setImageDrawable(key.iconPreview != null ? key.iconPreview : key.icon);
+        	mPreviewIcon.setImageDrawable(key.iconPreview != null ? key.iconPreview : iconToDraw);
             mPreviewText.setText(null);
             mPreviewIcon.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
             popupWidth = Math.max(mPreviewIcon.getMeasuredWidth(), key.width);
             popupHeight = Math.max(mPreviewIcon.getMeasuredHeight(), key.height);
-            
         } else {
             //mPreviewText.setCompoundDrawables(null, null, null, null);
         	mPreviewIcon.setImageDrawable(null);
