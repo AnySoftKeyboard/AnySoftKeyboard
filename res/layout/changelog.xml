@@ -77,7 +77,7 @@
 		    	android:id="@+id/changelog_latest_version_title"
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
-		        android:text="20111120 - 57"
+		        android:text="20111121 - 57"
 		        android:textStyle="bold"
 		        android:gravity="center"
 		        android:textSize="16sp"
