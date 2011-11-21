@@ -105,6 +105,7 @@ public class KeyboardSwitcher
         if(inputView == null){
             return;
         }
+        makeKeyboards(true);
     }
 
     private synchronized AnyKeyboard getSymbolsKeyboard(int keyboardIndex, int mode)
