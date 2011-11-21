@@ -45,7 +45,6 @@
      -->
     <dimen name="key_bottom_gap">2dp</dimen>
      
-    <dimen name="mini_keyboard_vertical_correction">-30dp</dimen>
     <dimen name="keyboard_bottom_padding">4dp</dimen>
     <dimen name="mini_keyboard_slide_allowance">80dp</dimen>
     
