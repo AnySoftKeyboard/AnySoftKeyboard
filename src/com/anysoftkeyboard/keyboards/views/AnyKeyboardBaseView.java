@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.WeakHashMap;
 
 import android.content.Context;
@@ -1435,30 +1434,16 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             mWindowOffset = new int[2];
             getLocationInWindow(mWindowOffset);
         }
+        //final List<Key> miniKeys = mMiniKeyboard.getKeyboard().getKeys();
+        //final int miniKeyWidth = miniKeys.size() > 0 ? miniKeys.get(0).width : 0;
 
-        // Get width of a key in the mini popup keyboard = "miniKeyWidth".
-        // On the other hand, "popupKey.width" is width of the pressed key on the main keyboard.
-        // We adjust the position of mini popup keyboard with the edge key in it:
-        //  a) When we have the leftmost key in popup keyboard directly above the pressed key
-        //     Right edges of both keys should be aligned for consistent default selection
-        //  b) When we have the rightmost key in popup keyboard directly above the pressed key
-        //     Left edges of both keys should be aligned for consistent default selection
-        final List<Key> miniKeys = mMiniKeyboard.getKeyboard().getKeys();
-        final int miniKeyWidth = miniKeys.size() > 0 ? miniKeys.get(0).width : 0;
-
-        // HACK: Have the leftmost number in the popup characters right above the key
-//        boolean isNumberAtLeftmost =
-//                hasMultiplePopupChars(popupKey) && isNumberAtLeftmostPopupChar(popupKey);
         int popupX = popupKey.x + mWindowOffset[0];
         popupX += getPaddingLeft();
-        /*if (isNumberAtLeftmost) {
-            popupX += popupKey.width - miniKeyWidth;  // adjustment for a) described above
-            popupX -= container.getPaddingLeft();
-        } else*/ {
-            popupX += miniKeyWidth;  // adjustment for b) described above
-            popupX -= mMiniKeyboard.getMeasuredWidth();
-            popupX += mMiniKeyboard.getPaddingRight();
-        }
+        /*
+        popupX += miniKeyWidth;
+        popupX -= mMiniKeyboard.getMeasuredWidth();
+        popupX += mMiniKeyboard.getPaddingRight();
+        */
         int popupY = popupKey.y + mWindowOffset[1];
         popupY += getPaddingTop();
         popupY -= mMiniKeyboard.getMeasuredHeight();
@@ -1484,7 +1469,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         mMiniKeyboardPopup.setContentView(mMiniKeyboard);
         mMiniKeyboardPopup.setWidth(mMiniKeyboard.getMeasuredWidth());
         mMiniKeyboardPopup.setHeight(mMiniKeyboard.getMeasuredHeight());
-        mMiniKeyboardPopup.showAtLocation(this, Gravity.NO_GRAVITY, x, y);
+        mMiniKeyboardPopup.showAtLocation(this, Gravity.NO_GRAVITY, adjustedX, y);
 
         // Inject down event on the key to mini keyboard.
         long eventTime = SystemClock.uptimeMillis();
