@@ -186,6 +186,15 @@ public class Keyboard {
 
         public Row(Keyboard parent) {
             this.parent = parent;
+            
+            defaultWidth = parent.mDefaultWidth;
+            defaultHeight =parent.mDefaultHeight;
+            	
+            defaultHorizontalGap = parent.mDefaultHorizontalGap;
+            verticalGap = parent.getVerticalGap();
+            
+            rowEdgeFlags = EDGE_TOP+EDGE_BOTTOM;
+            mode = parent.mKeyboardMode;
         }
         
         public Row(AnyKeyboardContextProvider askContext, Resources res, Keyboard parent, XmlResourceParser parser) {
@@ -800,7 +809,9 @@ public class Keyboard {
                         }
                    } else if (TAG_KEY.equals(tag)) {
                         inKey = true;
+                        x += (keyHorizontalGap/2);
                         key = createKeyFromXml(mASKContext, res, currentRow, x, y, parser);
+                        key.width -= keyHorizontalGap;//the gap is on both sides
                         mKeys.add(key);
                         if (key.codes[0] == KeyCodes.SHIFT) {
                             mShiftKey = key;
@@ -820,6 +831,7 @@ public class Keyboard {
                     if (inKey) {
                         inKey = false;
                         x += key.gap + key.width;
+                        x += (keyHorizontalGap/2);
                         if (x > mTotalWidth) {
                             mTotalWidth = x;
                         }

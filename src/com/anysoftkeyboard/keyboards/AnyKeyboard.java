@@ -108,41 +108,12 @@ public abstract class AnyKeyboard extends Keyboard
     {
         //should use the package context for creating the layout
         super(askContext, context, xmlLayoutResId, mode);
-//        //in wide shifts, we'll use the shift with the Globe
-//        Resources resources = askContext.getApplicationContext().getResources();
-//		if (mShiftKey != null)
-//        {
-//	        mShiftLockedIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_locked);
-//	        mShiftOnIcon = resources.getDrawable(R.drawable.sym_keyboard_shift_on);
-//	        mShiftIcon = resources.getDrawable(R.drawable.sym_keyboard_shift);
-//	        /*mShiftLockedFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift_locked);
-//	        mShiftOnFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift_on);
-//	        mShiftFeedbackIcon = resources.getDrawable(R.drawable.sym_keyboard_feedback_shift);
-//
-//	        mShiftLockedFeedbackIcon.setBounds(0, 0, 
-//	        		mShiftLockedFeedbackIcon.getIntrinsicWidth(), mShiftLockedFeedbackIcon.getIntrinsicHeight());
-//	        mShiftOnFeedbackIcon.setBounds(0, 0, 
-//	        		mShiftOnFeedbackIcon.getIntrinsicWidth(), mShiftOnFeedbackIcon.getIntrinsicHeight());
-//	        mShiftFeedbackIcon.setBounds(0, 0, 
-//	        		mShiftFeedbackIcon.getIntrinsicWidth(), mShiftFeedbackIcon.getIntrinsicHeight());*/
-//	        setShiftViewAsState();
-//        }
-//        else
-//        {
-//        	mShiftLockedIcon = null;
-//        	mShiftOnIcon = null;
-//        	mShiftIcon = null;
-////        	mShiftLockedFeedbackIcon = null;
-////        	mShiftOnFeedbackIcon = null;
-////        	mShiftFeedbackIcon = null;
-//        	Log.v(TAG, "No shift key, so no handling images.");
-//        }
     }
     
     public void loadKeyboard(final int maxWidth, final int keyHorizontalGap, final int rowVerticalGap) {
     	super.loadKeyboard(maxWidth, keyHorizontalGap, rowVerticalGap);
     	
-    	addGenericRows(mASKContext, mKeyboardContext, mKeyboardMode);
+    	addGenericRows(mASKContext, mKeyboardContext, mKeyboardMode, keyHorizontalGap, rowVerticalGap);
 		initKeysMembers();
     };
     
@@ -225,7 +196,7 @@ public abstract class AnyKeyboard extends Keyboard
 		mKeyboardCondensor = new KeyboardCondensor(this);
     }
 
-	protected void addGenericRows(AnyKeyboardContextProvider askContext, Context context, int mode) {
+	protected void addGenericRows(AnyKeyboardContextProvider askContext, Context context, int mode, final int keyHorizontalGap, final int rowVerticalGap) {
 		final KeyboardMetadata topMd;
 		if (!mTopRowWasCreated)
 		{
@@ -247,7 +218,7 @@ public abstract class AnyKeyboard extends Keyboard
 	        else
 	        {
 	        	if (AnyApplication.DEBUG) Log.d(TAG, "Top row layout id "+topRowPlugin.getId());
-	        	topMd = addKeyboardRow(topRowPlugin.getPackageContext(), topRowPlugin.getKeyboardResId(), mode);
+	        	topMd = addKeyboardRow(topRowPlugin.getPackageContext(), topRowPlugin.getKeyboardResId(), mode, keyHorizontalGap, rowVerticalGap);
 	        }
         
 			if (topMd != null)
@@ -257,7 +228,7 @@ public abstract class AnyKeyboard extends Keyboard
 		{
 			final KeyboardExtension bottomRowPlugin = KeyboardExtensionFactory.getCurrentKeyboardExtension(getASKContext(), KeyboardExtension.TYPE_BOTTOM);
 			if (AnyApplication.DEBUG) Log.d(TAG, "Bottom row layout id "+bottomRowPlugin.getId());
-			KeyboardMetadata bottomMd = addKeyboardRow(bottomRowPlugin.getPackageContext(), bottomRowPlugin.getKeyboardResId(), mode);
+			KeyboardMetadata bottomMd = addKeyboardRow(bottomRowPlugin.getPackageContext(), bottomRowPlugin.getKeyboardResId(), mode, keyHorizontalGap, rowVerticalGap);
 			fixKeyboardDueToGenericRow(bottomMd);
 		}
 	}
@@ -288,7 +259,7 @@ public abstract class AnyKeyboard extends Keyboard
     	}*/
 	}
 
-	private KeyboardMetadata addKeyboardRow(Context context, int rowResId, int mode) {
+	private KeyboardMetadata addKeyboardRow(Context context, int rowResId, int mode, final int keyHorizontalGap, final int rowVerticalGap) {
 		XmlResourceParser parser = context.getResources().getXml(rowResId);
     	List<Key> keys = getKeys();
         boolean inKey = false;
@@ -298,7 +269,7 @@ public abstract class AnyKeyboard extends Keyboard
 
         int row = 0;
         int x = 0;
-        int y = 0;
+        int y = rowVerticalGap;
         Key key = null;
         Row currentRow = null;
         Resources res = context.getResources();
@@ -337,7 +308,9 @@ public abstract class AnyKeyboard extends Keyboard
                         }
                    } else if (TAG_KEY.equals(tag)) {
                         inKey = true;
+                        x += (keyHorizontalGap/2);
                         key = createKeyFromXml(mASKContext, res, currentRow, x, y, parser);
+                        key.width -= keyHorizontalGap;//the gap is on both sides
                         if (m.isTopRow)
                         	keys.add(m.keysCount, key);
                         else
@@ -350,6 +323,7 @@ public abstract class AnyKeyboard extends Keyboard
                     if (inKey) {
                         inKey = false;
                         x += (key.gap + key.width);
+                        x += (keyHorizontalGap/2);
                         if (x > m.rowWidth) {
                         	m.rowWidth = x;
                         	// We keep generic row max width updated
@@ -359,6 +333,7 @@ public abstract class AnyKeyboard extends Keyboard
                         inRow = false;
                         y += currentRow.verticalGap;
                         y += m.rowHeight;
+                        y += rowVerticalGap;
                         row++;
                     } else {
                         // TODO: error or extend?
