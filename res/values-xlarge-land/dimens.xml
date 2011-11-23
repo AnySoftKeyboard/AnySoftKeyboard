@@ -19,9 +19,9 @@
 -->
 
 <resources>
-    <dimen name="default_key_height">57dip</dimen>
-    <dimen name="default_key_half_height">40dip</dimen>
-    <dimen name="default_key_tall_height">69dip</dimen>
+    <dimen name="default_key_height">50dip</dimen>
+    <dimen name="default_key_half_height">38dip</dimen>
+    <dimen name="default_key_tall_height">62dip</dimen>
     <dimen name="default_key_vertical_gap">2dip</dimen>
     
     <dimen name="key_text_size">27sp</dimen>

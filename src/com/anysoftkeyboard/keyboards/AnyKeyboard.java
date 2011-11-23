@@ -139,8 +139,8 @@ public abstract class AnyKeyboard extends Keyboard
 //        }
     }
     
-    public void loadKeyboard(int maxWidth) {
-    	super.loadKeyboard(maxWidth);
+    public void loadKeyboard(final int maxWidth, final int keyHorizontalGap, final int rowVerticalGap) {
+    	super.loadKeyboard(maxWidth, keyHorizontalGap, rowVerticalGap);
     	
     	addGenericRows(mASKContext, mKeyboardContext, mKeyboardMode);
 		initKeysMembers();

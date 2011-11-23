@@ -755,7 +755,7 @@ public class Keyboard {
         return new Key(askContext, res, parent, x, y, parser);
     }
 
-    public void loadKeyboard(int maxWidth) {
+    public void loadKeyboard(final int maxWidth, final int keyHorizontalGap, final int rowVerticalGap) {
     	mDisplayWidth = maxWidth;
         //mDisplayHeight = dm.heightPixels;
 
@@ -777,7 +777,7 @@ public class Keyboard {
         boolean inUnknown = false;
         int row = 0;
         int x = 0;
-        int y = 0;
+        int y = rowVerticalGap;//starts with a gap
         Key key = null;
         Row currentRow = null;
         Resources res = mKeyboardContext.getResources();
@@ -828,6 +828,7 @@ public class Keyboard {
                         lastVerticalGap = currentRow.verticalGap;
                         y += currentRow.verticalGap;
                         y += currentRow.defaultHeight;
+                        y += rowVerticalGap;
                         row++;
                     } else if (inUnknown) {
                     	inUnknown = false;

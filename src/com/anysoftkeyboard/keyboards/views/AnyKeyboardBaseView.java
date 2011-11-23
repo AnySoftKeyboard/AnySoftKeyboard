@@ -126,6 +126,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     // Main keyboard
     private AnyKeyboard mKeyboard;
     private int mMaxKeyboardWidth = 0;
+    private int mThemeVerticalRowGap = 0;
+    private int mThemeHorizotalKeyGap = 0;
+    
     private Key[] mKeys;
     // TODO this attribute should be gotten from Keyboard.
     private int mKeyboardVerticalGap;
@@ -610,6 +613,14 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 			mSymbolColorScheme = a.getInt(attr, 0);
 			if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_symbolColorScheme "+mSymbolColorScheme);
 			break;
+		case R.styleable.AnyKeyboardBaseView_keyHorizontalGap:
+			mThemeHorizotalKeyGap = a.getDimensionPixelOffset(attr, 0);
+			if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_keyHorizontalGap "+mThemeHorizotalKeyGap);
+			break;
+		case R.styleable.AnyKeyboardBaseView_keyVerticalGap:
+			mThemeVerticalRowGap = a.getDimensionPixelOffset(attr, 0);
+			if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_keyVerticalGap "+mThemeVerticalRowGap);
+			break;
 		}
 	}
 
@@ -620,6 +631,16 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 	public int getKeyboardMaxWidth()
 	{
 		return mMaxKeyboardWidth;
+	}
+	
+	public int getThemeVerticalRowGap()
+	{
+		return mThemeVerticalRowGap;
+	}
+	
+	public int getThemeHorizontalKeyGap()
+	{
+		return mThemeHorizotalKeyGap;
 	}
 	
 	private void reloadSwipeThresholdsSettings(final Resources res) {
@@ -1311,9 +1332,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
         final AnyPopupKeyboard keyboard;
         if (popupCharacters != null) {
-            keyboard = new AnyPopupKeyboard(AnySoftKeyboard.getInstance(), popupCharacters, miniKeyboard.getKeyboardMaxWidth());
+            keyboard = new AnyPopupKeyboard(AnySoftKeyboard.getInstance(), popupCharacters, miniKeyboard.getKeyboardMaxWidth(), miniKeyboard.getThemeHorizontalKeyGap(), miniKeyboard.getThemeVerticalRowGap());
         } else {
-            keyboard = new AnyPopupKeyboard(AnySoftKeyboard.getInstance(), packageContext, popupKeyboardId, miniKeyboard.getKeyboardMaxWidth());
+            keyboard = new AnyPopupKeyboard(AnySoftKeyboard.getInstance(), packageContext, popupKeyboardId, miniKeyboard.getKeyboardMaxWidth(), miniKeyboard.getThemeHorizontalKeyGap(), miniKeyboard.getThemeVerticalRowGap());
         }
         
         miniKeyboard.setOnKeyboardActionListener(new OnKeyboardActionListener() {

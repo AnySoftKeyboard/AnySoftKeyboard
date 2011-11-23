@@ -15,17 +15,17 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 	
 	public AnyPopupKeyboard(AnyKeyboardContextProvider askContext, Context context,//note: the context can be from a different package!
     		int xmlLayoutResId, 
-    		int maxWidth)
+    		final int maxWidth, final int keyHorizontalGap, final int rowVerticalGap)
 	{
 		super(askContext, context, xmlLayoutResId, -1);
-		loadKeyboard(maxWidth);
+		loadKeyboard(maxWidth, keyHorizontalGap, rowVerticalGap);
 	}
 	
 	public AnyPopupKeyboard(AnyKeyboardContextProvider askContext, CharSequence popupCharacters, 
-    		int maxWidth)
+			final int maxWidth, final int keyHorizontalGap, final int rowVerticalGap)
 	{
 		super(askContext, askContext.getApplicationContext(), R.xml.popup);
-		loadKeyboard(maxWidth);
+		loadKeyboard(maxWidth, keyHorizontalGap, rowVerticalGap);
 		
 		List<Key> keys = getKeys();
 		//now adding the popups
@@ -50,11 +50,6 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 		}
 		//adding edge flag to the last key
 		keys.get(keys.size() - 1).edgeFlags += EDGE_RIGHT;
-	}
-	
-	@Override
-	public void loadKeyboard(int maxWidth) {
-		super.loadKeyboard(maxWidth);
 	}
 	
 	@Override
