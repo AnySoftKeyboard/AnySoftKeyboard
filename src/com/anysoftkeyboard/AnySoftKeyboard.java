@@ -1427,6 +1427,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 			else
 				nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
 			break;
+		case KeyCodes.MODE_ALPHABET_POPUP:
+			showLanguageSelectionDialog();
+			break;
 		case KeyCodes.ALT:
 			nextAlterKeyboard(getCurrentInputEditorInfo());
 			break;
