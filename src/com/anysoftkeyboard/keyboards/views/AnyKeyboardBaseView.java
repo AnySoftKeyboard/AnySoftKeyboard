@@ -1453,7 +1453,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             adjustedX = getMeasuredWidth() - mMiniKeyboard.getMeasuredWidth();
         }
         mMiniKeyboardOriginX = adjustedX + mMiniKeyboard.getPaddingLeft() - mWindowOffset[0];
-        mMiniKeyboardOriginY = y + mMiniKeyboard.getPaddingTop() - mWindowOffset[1];
+        //mMiniKeyboardOriginY = y + mMiniKeyboard.getPaddingTop() - mWindowOffset[1];
+        mMiniKeyboardOriginY = y + mMiniKeyboard.getPaddingTop() + mMiniKeyboard.getPaddingBottom();
+        
         mMiniKeyboard.setPopupOffset(adjustedX, y);
         mMiniKeyboard.setShifted(isShifted());
         // Mini keyboard needs no pop-up key preview displayed.
