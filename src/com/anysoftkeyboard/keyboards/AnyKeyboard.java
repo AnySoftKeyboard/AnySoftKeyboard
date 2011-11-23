@@ -222,19 +222,19 @@ public abstract class AnyKeyboard extends Keyboard
 	        }
         
 			if (topMd != null)
-				fixKeyboardDueToGenericRow(topMd);
+				fixKeyboardDueToGenericRow(topMd, rowVerticalGap);
 		}
 		if (!mBottomRowWasCreated)
 		{
 			final KeyboardExtension bottomRowPlugin = KeyboardExtensionFactory.getCurrentKeyboardExtension(getASKContext(), KeyboardExtension.TYPE_BOTTOM);
 			if (AnyApplication.DEBUG) Log.d(TAG, "Bottom row layout id "+bottomRowPlugin.getId());
 			KeyboardMetadata bottomMd = addKeyboardRow(bottomRowPlugin.getPackageContext(), bottomRowPlugin.getKeyboardResId(), mode, keyHorizontalGap, rowVerticalGap);
-			fixKeyboardDueToGenericRow(bottomMd);
+			fixKeyboardDueToGenericRow(bottomMd, rowVerticalGap);
 		}
 	}
 
-    private void fixKeyboardDueToGenericRow(KeyboardMetadata md) {
-    	final int additionalPixels = (md.rowHeight + md.verticalGap);
+    private void fixKeyboardDueToGenericRow(KeyboardMetadata md, int rowVerticalGap) {
+    	final int additionalPixels = (md.rowHeight + md.verticalGap + rowVerticalGap);
     	mGenericRowsHeight += additionalPixels;
     	if (md.isTopRow)
     	{
