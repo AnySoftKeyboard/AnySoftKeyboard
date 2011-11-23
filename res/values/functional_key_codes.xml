@@ -15,6 +15,7 @@
 	
 	<integer name="key_code_mode_symbols">-2</integer>
 	<integer name="key_code_mode_alphabet">-99</integer>
+	<integer name="key_code_mode_alphabet_popup">-98</integer>
 	
 	<integer name="key_code_arrow_left">-20</integer>
 	<integer name="key_code_arrow_right">-21</integer>

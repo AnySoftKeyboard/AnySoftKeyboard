@@ -17,6 +17,7 @@ public class KeyCodes {
 	
 	public static final int MODE_SYMOBLS = -2;
 	public static final int MODE_ALPHABET = -99;
+	public static final int MODE_ALPHABET_POPUP = -98;
 	public static final int KEYBOARD_CYCLE = -97;
 	public static final int KEYBOARD_REVERSE_CYCLE = -96;
 	public static final int KEYBOARD_CYCLE_INSIDE_MODE = -95;
