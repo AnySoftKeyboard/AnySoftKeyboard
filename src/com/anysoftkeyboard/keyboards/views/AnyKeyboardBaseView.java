@@ -31,6 +31,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.PorterDuff;
@@ -64,6 +65,7 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
 import com.anysoftkeyboard.devicespecific.WMotionEvent;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
@@ -207,6 +209,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private final Rect mClipRegion = new Rect(0, 0, 0, 0);
     // This map caches key label text height in pixel as value and key label text size as map key.
     private final HashMap<Integer, Integer> mTextHeightCache = new HashMap<Integer, Integer>();
+    private final HashMap<Integer, Integer> mTextWidthCache = new HashMap<Integer, Integer>();
     // Distance from horizontal center of the key, proportional to key label text height.
     private final float KEY_LABEL_VERTICAL_ADJUSTMENT_FACTOR = 0.5f;
     private final String KEY_LABEL_HEIGHT_REFERENCE_CHAR = "H";
@@ -945,7 +948,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         canvas.drawColor(0x00000000, PorterDuff.Mode.CLEAR);
         final int keyCount = keys.length;
         for (int i = 0; i < keyCount; i++) {
-            final Key key = keys[i];
+            final AnyKey key = (AnyKey)keys[i];
     		
             if (drawSingleKey && invalidKey != key) {
                 continue;
@@ -981,16 +984,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 else
                 	paint.setTextSize(labelSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait());
 
-                Integer labelHeightValue = mTextHeightCache.get(labelSize);
-                final int labelHeight;
-                if (labelHeightValue != null) {
-                    labelHeight = labelHeightValue;
-                } else {
-                    Rect textBounds = new Rect();
-                    paint.getTextBounds(KEY_LABEL_HEIGHT_REFERENCE_CHAR, 0, 1, textBounds);
-                    labelHeight = textBounds.height();
-                    mTextHeightCache.put(labelSize, labelHeight);
-                }
+                final int labelHeight = getTextCanvasHeight(paint, labelSize);
 
                 // Draw a drop shadow for the text
                 paint.setShadowLayer(mShadowRadius, mShadowOffsetX, mShadowOffsetY, mShadowColor);
@@ -1036,6 +1030,24 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 // Turn off drop shadow
                 paint.setShadowLayer(0, 0, 0, 0);
 
+                //now to draw hints
+                if ((key.popupCharacters != null && key.popupCharacters.length() > 0) || (key.popupResId != 0) || (key.longPressCode != 0))
+                {
+                	//draw three dots
+                	paint.setTypeface(Typeface.DEFAULT);
+                	paint.setColor(Color.GRAY);
+                	paint.setTextSize(mLabelTextSize/1.5f);
+                	final int hintX;
+                	final int hintY;
+                	final int hintHeight = getTextCanvasHeight(paint, 3);
+                	final int hintWidth = getTextCanvasWidth(paint, 1);
+                	hintX = key.width + padding.left - hintWidth;
+                	hintY = padding.top + key.height - hintHeight;
+            		
+            		//baseline = hintY + oneLetterHeight * KEY_LABEL_VERTICAL_ADJUSTMENT_FACTOR;
+            		
+            		canvas.drawText("...", hintX, hintY, paint);
+                }
                 // Usually don't draw icon if label is not null, but we draw icon for the number
                 // hint and popup hint.
                 //shouldDrawIcon = shouldDrawLabelAndIcon(key);
@@ -1094,6 +1106,34 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         mDrawPending = false;
         mDirtyRect.setEmpty();
     }
+
+	int getTextCanvasHeight(final Paint paint, final int labelSize) {
+		Integer labelHeightValue = mTextHeightCache.get(labelSize);
+		final int labelHeight;
+		if (labelHeightValue != null) {
+		    labelHeight = labelHeightValue;
+		} else {
+		    Rect textBounds = new Rect();
+		    paint.getTextBounds(KEY_LABEL_HEIGHT_REFERENCE_CHAR, 0, 1, textBounds);
+		    labelHeight = textBounds.height();
+		    mTextHeightCache.put(labelSize, labelHeight);
+		}
+		return labelHeight;
+	}
+
+	int getTextCanvasWidth(final Paint paint, final int labelSize) {
+		Integer labelWidthValue = mTextWidthCache.get(labelSize);
+		final int labelWidth;
+		if (labelWidthValue != null) {
+		    labelWidth = labelWidthValue;
+		} else {
+		    Rect textBounds = new Rect();
+		    paint.getTextBounds(KEY_LABEL_HEIGHT_REFERENCE_CHAR, 0, 1, textBounds);
+		    labelWidth = textBounds.height();
+		    mTextWidthCache.put(labelSize, labelWidth);
+		}
+		return labelWidth;
+	}
 
     private Drawable getIconToDrawForKey(Key key) {
     	if (key.icon != null)//maybe an override..
