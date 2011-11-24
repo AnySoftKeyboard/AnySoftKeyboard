@@ -81,8 +81,7 @@
         <item name="android:paddingTop">8dp</item>
         <item name="android:paddingRight">8dp</item>
         <item name="android:paddingBottom">8dp</item>
-        <!-- Since we do not have key preview in popup keyboard we'll set the selected key be the one ABOVE the finger -->
-        <item name="verticalCorrection">2dp</item>
+        <item name="verticalCorrection">0px</item>
         <!-- this will say "no preview" -->
     	<item name="keyPreviewTextSize">0px</item>
     </style>

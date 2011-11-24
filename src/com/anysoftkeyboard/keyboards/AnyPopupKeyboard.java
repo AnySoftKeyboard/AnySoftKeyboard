@@ -15,14 +15,14 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 	
 	public AnyPopupKeyboard(AnyKeyboardContextProvider askContext, Context context,//note: the context can be from a different package!
     		int xmlLayoutResId, 
-    		final int maxWidth, final int keyHorizontalGap, final int rowVerticalGap)
+    		final int maxWidth, final float keyHorizontalGap, final float rowVerticalGap)
 	{
 		super(askContext, context, xmlLayoutResId, -1);
 		loadKeyboard(maxWidth, keyHorizontalGap, rowVerticalGap);
 	}
 	
 	public AnyPopupKeyboard(AnyKeyboardContextProvider askContext, CharSequence popupCharacters, 
-			final int maxWidth, final int keyHorizontalGap, final int rowVerticalGap)
+			final int maxWidth, final float keyHorizontalGap, final float rowVerticalGap)
 	{
 		super(askContext, askContext.getApplicationContext(), R.xml.popup);
 		loadKeyboard(maxWidth, keyHorizontalGap, rowVerticalGap);
@@ -48,13 +48,13 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 		}
 		mAdditionalWidth = x;
 		*/
-		final int y = rowVerticalGap;
+		final float y = rowVerticalGap;
 		Key baseKey = keys.get(0);
 		Row row = baseKey.row;
 		baseKey.codes = new int[]{(int)popupCharacters.charAt(0)};
 		baseKey.edgeFlags += EDGE_LEFT;
 		baseKey.label = String.valueOf(popupCharacters.charAt(0));
-		int x = baseKey.width + row.defaultHorizontalGap;
+		float x = baseKey.width + row.defaultHorizontalGap;
 		for(int popupCharIndex=1;popupCharIndex<popupCharacters.length();popupCharIndex++)
 		{
 			x += (keyHorizontalGap/2);
@@ -62,10 +62,10 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 			Key aKey = new Key(row);
 			aKey.codes = new int[]{(int)popupCharacters.charAt(popupCharIndex)};
 			aKey.label = String.valueOf(popupCharacters.charAt(popupCharIndex));
-			aKey.x = x;
+			aKey.x = (int)x;
 			aKey.width -= keyHorizontalGap;//the gap is on both sides
-			aKey.y = y;
-			final int xOffset = aKey.width + row.defaultHorizontalGap + (keyHorizontalGap/2);
+			aKey.y = (int)y;
+			final int xOffset = (int)(aKey.width + row.defaultHorizontalGap + (keyHorizontalGap/2));
 			x += xOffset;
 			mAdditionalWidth += xOffset;
 			keys.add(aKey);
@@ -115,7 +115,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 	}
 	
 	@Override
-	protected void addGenericRows(AnyKeyboardContextProvider askContext, Context context, int mode, int keyHorizontalGap, int rowVerticalGap) {
+	protected void addGenericRows(AnyKeyboardContextProvider askContext, Context context, int mode, float keyHorizontalGap, float rowVerticalGap) {
 		//no generic rows in popups, only in main keyboard
 	}
 

@@ -1460,7 +1460,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         }
         mMiniKeyboardOriginX = adjustedX + mMiniKeyboard.getPaddingLeft() - mWindowOffset[0];
         //mMiniKeyboardOriginY = y + mMiniKeyboard.getPaddingTop() - mWindowOffset[1];
-        mMiniKeyboardOriginY = y + mMiniKeyboard.getPaddingTop() + mMiniKeyboard.getPaddingBottom();
+        mMiniKeyboardOriginY = y;
         
         mMiniKeyboard.setPopupOffset(adjustedX, y);
         mMiniKeyboard.setShifted(isShifted());

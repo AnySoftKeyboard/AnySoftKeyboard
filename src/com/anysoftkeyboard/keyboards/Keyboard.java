@@ -764,7 +764,7 @@ public class Keyboard {
         return new Key(askContext, res, parent, x, y, parser);
     }
 
-    public void loadKeyboard(final int maxWidth, final int keyHorizontalGap, final int rowVerticalGap) {
+    public void loadKeyboard(final int maxWidth, final float keyHorizontalGap, final float rowVerticalGap) {
     	mDisplayWidth = maxWidth;
         //mDisplayHeight = dm.heightPixels;
 
@@ -785,8 +785,8 @@ public class Keyboard {
         boolean inRow = false;
         boolean inUnknown = false;
         int row = 0;
-        int x = 0;
-        int y = rowVerticalGap;//starts with a gap
+        float x = 0;
+        float y = rowVerticalGap;//starts with a gap
         Key key = null;
         Row currentRow = null;
         Resources res = mKeyboardContext.getResources();
@@ -810,7 +810,7 @@ public class Keyboard {
                    } else if (TAG_KEY.equals(tag)) {
                         inKey = true;
                         x += (keyHorizontalGap/2);
-                        key = createKeyFromXml(mASKContext, res, currentRow, x, y, parser);
+                        key = createKeyFromXml(mASKContext, res, currentRow, (int)x, (int)y, parser);
                         key.width -= keyHorizontalGap;//the gap is on both sides
                         mKeys.add(key);
                         if (key.codes[0] == KeyCodes.SHIFT) {
@@ -833,7 +833,7 @@ public class Keyboard {
                         x += key.gap + key.width;
                         x += (keyHorizontalGap/2);
                         if (x > mTotalWidth) {
-                            mTotalWidth = x;
+                            mTotalWidth = (int)x;
                         }
                     } else if (inRow) {
                         inRow = false;
@@ -852,7 +852,7 @@ public class Keyboard {
             Log.e(TAG, "Parse error:" + e);
             e.printStackTrace();
         }
-        mTotalHeight = y - lastVerticalGap;
+        mTotalHeight = (int)(y - lastVerticalGap);
     }
     
     

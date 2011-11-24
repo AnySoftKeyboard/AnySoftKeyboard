@@ -22,7 +22,9 @@
 	<dimen name="default_key_height">46dip</dimen>
     <dimen name="default_key_half_height">34dip</dimen>
     <dimen name="default_key_tall_height">58dip</dimen>
+    
     <dimen name="default_key_vertical_gap">2dip</dimen>
+    <dimen name="default_key_horizontal_gap">2dp</dimen>
     
     <dimen name="key_text_size">24sp</dimen>
     <dimen name="key_label_text_size">16sp</dimen>

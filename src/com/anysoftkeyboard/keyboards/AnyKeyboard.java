@@ -196,7 +196,7 @@ public abstract class AnyKeyboard extends Keyboard
 		mKeyboardCondensor = new KeyboardCondensor(this);
     }
 
-	protected void addGenericRows(AnyKeyboardContextProvider askContext, Context context, int mode, final int keyHorizontalGap, final int rowVerticalGap) {
+	protected void addGenericRows(AnyKeyboardContextProvider askContext, Context context, int mode, final float keyHorizontalGap, final float rowVerticalGap) {
 		final KeyboardMetadata topMd;
 		if (!mTopRowWasCreated)
 		{
@@ -222,14 +222,14 @@ public abstract class AnyKeyboard extends Keyboard
 	        }
         
 			if (topMd != null)
-				fixKeyboardDueToGenericRow(topMd, rowVerticalGap);
+				fixKeyboardDueToGenericRow(topMd, (int)rowVerticalGap);
 		}
 		if (!mBottomRowWasCreated)
 		{
 			final KeyboardExtension bottomRowPlugin = KeyboardExtensionFactory.getCurrentKeyboardExtension(getASKContext(), KeyboardExtension.TYPE_BOTTOM);
 			if (AnyApplication.DEBUG) Log.d(TAG, "Bottom row layout id "+bottomRowPlugin.getId());
 			KeyboardMetadata bottomMd = addKeyboardRow(bottomRowPlugin.getPackageContext(), bottomRowPlugin.getKeyboardResId(), mode, keyHorizontalGap, rowVerticalGap);
-			fixKeyboardDueToGenericRow(bottomMd, rowVerticalGap);
+			fixKeyboardDueToGenericRow(bottomMd, (int)rowVerticalGap);
 		}
 	}
 
@@ -259,7 +259,7 @@ public abstract class AnyKeyboard extends Keyboard
     	}*/
 	}
 
-	private KeyboardMetadata addKeyboardRow(Context context, int rowResId, int mode, final int keyHorizontalGap, final int rowVerticalGap) {
+	private KeyboardMetadata addKeyboardRow(Context context, int rowResId, int mode, final float keyHorizontalGap, final float rowVerticalGap) {
 		XmlResourceParser parser = context.getResources().getXml(rowResId);
     	List<Key> keys = getKeys();
         boolean inKey = false;
@@ -268,8 +268,8 @@ public abstract class AnyKeyboard extends Keyboard
         boolean skipRow = false;
 
         int row = 0;
-        int x = 0;
-        int y = rowVerticalGap;
+        float x = 0;
+        float y = rowVerticalGap;
         Key key = null;
         Row currentRow = null;
         Resources res = context.getResources();
@@ -309,7 +309,7 @@ public abstract class AnyKeyboard extends Keyboard
                    } else if (TAG_KEY.equals(tag)) {
                         inKey = true;
                         x += (keyHorizontalGap/2);
-                        key = createKeyFromXml(mASKContext, res, currentRow, x, y, parser);
+                        key = createKeyFromXml(mASKContext, res, currentRow, (int)x, (int)y, parser);
                         key.width -= keyHorizontalGap;//the gap is on both sides
                         if (m.isTopRow)
                         	keys.add(m.keysCount, key);
@@ -325,7 +325,7 @@ public abstract class AnyKeyboard extends Keyboard
                         x += (key.gap + key.width);
                         x += (keyHorizontalGap/2);
                         if (x > m.rowWidth) {
-                        	m.rowWidth = x;
+                        	m.rowWidth = (int)x;
                         	// We keep generic row max width updated
                     		mMaxGenericRowsWidth = Math.max(mMaxGenericRowsWidth, m.rowWidth);
                         }
