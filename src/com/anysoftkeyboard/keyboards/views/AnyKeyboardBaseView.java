@@ -31,7 +31,6 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.PorterDuff;
@@ -1031,6 +1030,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 paint.setShadowLayer(0, 0, 0, 0);
 
                 //now to draw hints
+                /*NEXT VERSION
                 if ((key.popupCharacters != null && key.popupCharacters.length() > 0) || (key.popupResId != 0) || (key.longPressCode != 0))
                 {
                 	//draw three dots
@@ -1048,6 +1048,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             		
             		canvas.drawText("...", hintX, hintY, paint);
                 }
+                */
                 // Usually don't draw icon if label is not null, but we draw icon for the number
                 // hint and popup hint.
                 //shouldDrawIcon = shouldDrawLabelAndIcon(key);
