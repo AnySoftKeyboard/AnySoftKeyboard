@@ -487,14 +487,18 @@ public class Keyboard {
         }
 
         /**
-         * Returns the square of the distance between the center of the key and the given point.
+         * Returns the square of the distance between the closest point inside the key and the given point.
          * @param x the x-coordinate of the point
          * @param y the y-coordinate of the point
-         * @return the square of the distance of the point from the center of the key
+         * @return the square of the distance of the point from and the key
          */
         public int squaredDistanceFrom(int x, int y) {
-            int xDist = this.x + width / 2 - x;
-            int yDist = this.y + height / 2 - y;
+        	final int closestX = (x < this.x)? this.x : (x > (this.x + this.width))? (this.x + this.width) : x;
+        	final int closestY = (y < this.y)? this.y : (y > (this.y + this.height))? (this.y + this.height) : y;
+        	final int xDist = closestX - x;
+        	final int yDist = closestY - y;
+            /*int xDist = this.x + width / 2 - x;
+            int yDist = this.y + height / 2 - y;*/
             return xDist * xDist + yDist * yDist;
         }
         
@@ -709,7 +713,8 @@ public class Keyboard {
         return mShiftKeyIndex;
     }
     
-    private void computeNearestNeighbors() {
+    protected final void computeNearestNeighbors() {
+    	Log.d("ASK_DEBUG", "computeNearestNeighbors");
         // Round-up so we don't have any pixels outside the grid
         mCellWidth = (getMinWidth() + GRID_WIDTH - 1) / GRID_WIDTH;
         mCellHeight = (getHeight() + GRID_HEIGHT - 1) / GRID_HEIGHT;

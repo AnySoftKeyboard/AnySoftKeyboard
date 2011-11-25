@@ -244,8 +244,8 @@ public abstract class AnyKeyboard extends Keyboard
             {
     			final Key key = keys.get(keyIndex);
     			key.y += additionalPixels;
-    			if (key instanceof LessSensitiveAnyKey)
-            		((LessSensitiveAnyKey)key).resetSenitivity();//reseting cause the key may be offseted now (generic rows)
+//    			if (key instanceof LessSensitiveAnyKey)
+//            		((LessSensitiveAnyKey)key).resetSenitivity();//reseting cause the key may be offseted now (generic rows)
             }
     	}/* else {
     		// The height should not include any gap below that last row
@@ -445,9 +445,9 @@ public abstract class AnyKeyboard extends Keyboard
         	case KeyCodes.CTRL:
         		mControlKey = key;
         		break;
-        	case KeyCodes.DELETE://delete
-        		key = new LessSensitiveAnyKey(mASKContext, res, parent, x, y, parser);
-        		break;
+//        	case KeyCodes.DELETE://delete
+//        		key = new LessSensitiveAnyKey(mASKContext, res, parent, x, y, parser);
+//        		break;
 	        }
         }
         
@@ -829,63 +829,63 @@ public abstract class AnyKeyboard extends Keyboard
 //        }
     }
 	
-	protected static class LessSensitiveAnyKey extends AnyKey {
-        
-		private int mStartX;
-		private int mStartY;
-		private int mEndX;
-		private int mEndY;
-		
-        public LessSensitiveAnyKey(AnyKeyboardContextProvider askContext, Resources res, Keyboard.Row parent, int x, int y, 
-                XmlResourceParser parser) {
-            super(askContext, res, parent, x, y, parser);
-            resetSenitivity();
-        }
-        
-        void resetSenitivity()
-        {
-        	mStartX = this.x;
-            mStartY = this.y;
-            mEndX = this.width + this.x;
-            mEndY = this.height + this.y;
-        	
-            if ((this.edgeFlags & Keyboard.EDGE_BOTTOM) != 0)
-            {//the enter key!
-            	//we want to "click" it only if it in the lower
-        		mStartY += (this.height * 0.15);
-            }
-            else
-            {
-	            if ((this.edgeFlags & Keyboard.EDGE_LEFT) != 0)
-	            {//usually, shift
-	            	mEndX -= (this.width * 0.1);
-	            }
-	            
-	            if ((this.edgeFlags & Keyboard.EDGE_RIGHT) != 0)
-	            {//usually, delete
-	            	//this is below the ENTER.. We want to be careful with this.
-	            	mStartY += (this.height * 0.05);
-	        		mEndY -= (this.height * 0.05);
-	        		mStartX += (this.width * 0.15);
-	            }
-            }
-        }
-        
-        
-         /**
-         * Overriding this method so that we can reduce the target area for certain keys.
-         */
-        @Override
-        public boolean isInside(int clickedX, int clickedY) 
-        {
-        	return 	clickedX >= mStartX &&
-				clickedX <= mEndX &&
-				clickedY >= mStartY &&
-				clickedY <= mEndY;
-        }
-    }
-
-	private static class EnterKey extends LessSensitiveAnyKey
+//	protected static class LessSensitiveAnyKey extends AnyKey {
+//        
+//		private int mStartX;
+//		private int mStartY;
+//		private int mEndX;
+//		private int mEndY;
+//		
+//        public LessSensitiveAnyKey(AnyKeyboardContextProvider askContext, Resources res, Keyboard.Row parent, int x, int y, 
+//                XmlResourceParser parser) {
+//            super(askContext, res, parent, x, y, parser);
+//            resetSenitivity();
+//        }
+//        
+//        void resetSenitivity()
+//        {
+//        	mStartX = this.x;
+//            mStartY = this.y;
+//            mEndX = this.width + this.x;
+//            mEndY = this.height + this.y;
+//        	
+//            if ((this.edgeFlags & Keyboard.EDGE_BOTTOM) != 0)
+//            {//the enter key!
+//            	//we want to "click" it only if it in the lower
+//        		mStartY += (this.height * 0.15);
+//            }
+//            else
+//            {
+//	            if ((this.edgeFlags & Keyboard.EDGE_LEFT) != 0)
+//	            {//usually, shift
+//	            	mEndX -= (this.width * 0.1);
+//	            }
+//	            
+//	            if ((this.edgeFlags & Keyboard.EDGE_RIGHT) != 0)
+//	            {//usually, delete
+//	            	//this is below the ENTER.. We want to be careful with this.
+//	            	mStartY += (this.height * 0.05);
+//	        		mEndY -= (this.height * 0.05);
+//	        		mStartX += (this.width * 0.15);
+//	            }
+//            }
+//        }
+//        
+//        
+//         /**
+//         * Overriding this method so that we can reduce the target area for certain keys.
+//         */
+//        @Override
+//        public boolean isInside(int clickedX, int clickedY) 
+//        {
+//        	return 	clickedX >= mStartX &&
+//				clickedX <= mEndX &&
+//				clickedY >= mStartY &&
+//				clickedY <= mEndY;
+//        }
+//    }
+	
+	private static class EnterKey extends /*LessSensitive*/AnyKey
 	{
 		private final int[] KEY_STATE_ACTION_NORMAL = {
 				R.attr.key_type_action
@@ -941,8 +941,9 @@ public abstract class AnyKeyboard extends Keyboard
 	}
 	
 	public void setCondensedKeys(boolean condensed)
-	{
+	{		
 		mKeyboardCondensor.setCondensedKeys(condensed);
+		computeNearestNeighbors();
 	}
 
 //	public void keyReleased() {
