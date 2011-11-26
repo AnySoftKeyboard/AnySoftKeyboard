@@ -59,7 +59,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 		{
 			x += (keyHorizontalGap/2);
 			
-			Key aKey = new Key(row);
+			Key aKey = new AnyKey(row);
 			aKey.codes = new int[]{(int)popupCharacters.charAt(popupCharIndex)};
 			aKey.label = String.valueOf(popupCharacters.charAt(popupCharIndex));
 			aKey.x = (int)x;

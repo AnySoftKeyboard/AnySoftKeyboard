@@ -76,7 +76,7 @@ import java.util.StringTokenizer;
  * @attr ref android.R.styleable#Keyboard_horizontalGap
  * @attr ref android.R.styleable#Keyboard_verticalGap
  */
-public class Keyboard {
+public abstract class Keyboard {
 
     static final String TAG = "Keyboard";
     
@@ -241,7 +241,7 @@ public class Keyboard {
      * @attr ref android.R.styleable#Keyboard_Key_keyOutputText
      * @attr ref android.R.styleable#Keyboard_Key_keyEdgeFlags
      */
-    public static class Key {
+    public static abstract class Key {
         /** 
          * All the key codes (unicode or custom code) that this key could generate, zero'th 
          * being the most important.
@@ -764,10 +764,10 @@ public class Keyboard {
         return new Row(askContext, res, this, parser);
     }
     
-    protected Key createKeyFromXml(AnyKeyboardContextProvider askContext, Resources res, Row parent, int x, int y, 
-            XmlResourceParser parser) {
+    protected abstract Key createKeyFromXml(AnyKeyboardContextProvider askContext, Resources res, Row parent, int x, int y, 
+            XmlResourceParser parser);/* {
         return new Key(askContext, res, parent, x, y, parser);
-    }
+    }*/
 
     public void loadKeyboard(final int maxWidth, final float keyHorizontalGap, final float rowVerticalGap) {
     	mDisplayWidth = maxWidth;

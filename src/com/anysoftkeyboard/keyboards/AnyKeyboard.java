@@ -732,12 +732,15 @@ public abstract class AnyKeyboard extends Keyboard
         public int longPressCode;
         private boolean mFunctionalKey;
 		private boolean mEnabled;
-		public final Keyboard.Row row;
+		
+		public AnyKey(Row row)
+		{
+			super(row);
+		}
 		
         public AnyKey(AnyKeyboardContextProvider askContext, Resources res, Keyboard.Row parent, int x, int y, 
                 XmlResourceParser parser) {
             super(askContext, res, parent, x, y, parser);
-            row = parent;
             mEnabled = true;
             mFunctionalKey = false;
             
