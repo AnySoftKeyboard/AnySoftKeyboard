@@ -19,7 +19,7 @@
 -->
 
 <resources>
-	<dimen name="default_key_height">34dip</dimen>
+	<dimen name="default_key_height">35dip</dimen>
     <dimen name="default_key_half_height">27dip</dimen>
     <dimen name="default_key_tall_height">44dip</dimen>
     
