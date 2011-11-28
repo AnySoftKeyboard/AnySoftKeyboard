@@ -34,8 +34,8 @@
         <Key android:keyWidth="15%p" android:codes="-6" android:keyLabel="..." android:keyEdgeFlags="left"/>
         <Key android:codes="27" android:keyLabel="ESC"/>
         <Key android:codes="9" android:keyIcon="@drawable/sym_keyboard_tab" />
-        <Key android:codes="96" android:keyLabel="`"/>
-        <Key android:codes="180" android:keyLabel="´"/>        
+        <Key android:codes="96" android:keyLabel="`" android:popupCharacters="´"/>
+        <Key android:codes="95" android:keyLabel="_"/>        
         <Key android:codes="92" android:keyLabel="\\" />
         <Key android:codes="60" android:keyLabel="&lt;"/>
         <Key android:codes="62" android:keyLabel="&gt;"/>

@@ -113,6 +113,8 @@ public class Suggest implements Dictionary.WordCallback {
 		{
 			try
 			{
+				System.gc();
+				
 				mMainDict = dictionaryBuilder.createDictionary();
 				mMainDict.loadDictionary();
 			} catch (Exception e) {

@@ -25,6 +25,7 @@ import java.nio.channels.Channels;
 import java.util.Arrays;
 
 import com.anysoftkeyboard.WordComposer;
+import com.anysoftkeyboard.utils.IMEUtil;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -43,7 +44,7 @@ public class ResourceBinaryDictionary extends Dictionary {
      */
     protected static final int MAX_WORD_LENGTH = 48;
 
-    private static final String TAG = "BinaryDictionary";
+    private static final String TAG = "ASK_ResBinDict";
     private static final int MAX_ALTERNATIVES = 16;
     private static final int MAX_WORDS = 18;
     private static final int MAX_BIGRAMS = 60;
@@ -138,7 +139,19 @@ public class ResourceBinaryDictionary extends Dictionary {
     private class LoadDictionaryTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... v) {
-        	loadDictionary(mAppContext, mDictResId);
+        	IMEUtil.GCUtils.getInstance().reset();
+    		boolean tryGC = true;
+    		
+        	for (int i = 0; i < IMEUtil.GCUtils.GC_TRY_LOOP_MAX && tryGC; ++i) {
+    			try {
+    				
+    				loadDictionary(mAppContext, mDictResId);
+    				
+    				tryGC = false;
+    			} catch (OutOfMemoryError e) {
+    				tryGC = IMEUtil.GCUtils.getInstance().tryGCOrWait(TAG, e);
+    			}
+    		}
 			return null;
         }
     }
@@ -151,7 +164,9 @@ public class ResourceBinaryDictionary extends Dictionary {
             is = new InputStream[resId.length];
             for (int i = 0; i < resId.length; i++) {
                 is[i] = context.getResources().openRawResource(resId[i]);
-                total += is[i].available();
+                final int dictSize = is[i].available();
+                Log.d(TAG, "Will load a resource dictionary id "+resId[i]+" whose size is "+dictSize+" bytes.");
+                total += dictSize;
             }
 
             mNativeDictDirectBuffer =
@@ -168,7 +183,7 @@ public class ResourceBinaryDictionary extends Dictionary {
                 mDictLength = total;
             }
         } catch (IOException e) {
-            Log.w(TAG, "No available memory for binary dictionary");
+            Log.w(TAG, "No available memory for binary dictionary: "+e.getMessage());
         } finally {
             try {
                 if (is != null) {

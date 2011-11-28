@@ -16,8 +16,6 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
-import android.util.Log;
-
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 
 import java.util.Arrays;
@@ -54,8 +52,6 @@ class ProximityKeyDetector extends KeyDetector {
                 primaryIndex = nearestKeyIndices[i];
             }
             
-            Log.d("ASK_DEBUG", "Nearest key index "+i+" code "+key.codes[0]+" isInside "+isInside);
-            
             if (((mProximityCorrectOn
                     && (dist = key.squaredDistanceFrom(touchX, touchY)) < mProximityThresholdSquare)
                     || isInside)
@@ -87,7 +83,6 @@ class ProximityKeyDetector extends KeyDetector {
             primaryIndex = closestKey;
         }
         
-        Log.d("ASK_DEBUG", "Nearest key primary index "+primaryIndex);
         return primaryIndex;
     }
 }

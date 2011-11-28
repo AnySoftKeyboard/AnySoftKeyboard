@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QuickTextKeys>
 	<QuickTextKey
+        id="698b8c20-19df-11e1-bddb-0800200c9a66"
+        nameResId="@string/default_quick_text_key_name"
+        popupKeyboard="@xml/popup_default_quick_text"
+        keyIcon="@drawable/sym_keyboard_smiley"
+        keyLabel="@string/smiley_key_label"
+        keyOutputText="@string/smiley_key_default_output"
+        description=""
+        index="1"/>
+	<QuickTextKey
         id="0077b34d-770f-4083-83e4-081957e06c27"
         nameResId="@string/simley_key_name"
         popupKeyboard="@xml/popup_smileys"
@@ -8,5 +17,5 @@
         keyLabel="@string/smiley_key_label"
         keyOutputText="@string/smiley_key_default_output"
         description=""
-        index="1"/>
+        index="2"/>
 </QuickTextKeys>

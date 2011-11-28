@@ -357,6 +357,7 @@
     <string name="simley_key_name">Smiley key</string>
 	<string name="smiley_key_label">:-)</string>
 	<string name="smiley_key_default_output">:-) </string>
+	<string name="default_quick_text_key_name">Simple Emoticons</string>
 	
 	<string name="multitap_timeout_title">Multi-tap timeout</string>
 	<string name="multitap_timeout_summary">Timeout between key taps</string>	
