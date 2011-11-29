@@ -28,6 +28,8 @@ import com.anysoftkeyboard.WordComposer;
 import com.anysoftkeyboard.utils.IMEUtil;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -60,7 +62,7 @@ public class ResourceBinaryDictionary extends Dictionary {
     private char[] mOutputChars_bigrams = new char[MAX_WORD_LENGTH * MAX_BIGRAMS];
     private int[] mFrequencies = new int[MAX_WORDS];
     private final Context mAppContext;
-    private final int[] mDictResId;
+    private final int mDictResId;
     //private int[] mFrequencies_bigrams = new int[MAX_BIGRAMS];
     // Keep a reference to the native dict direct buffer in Java to avoid
     // unexpected deallocation of the direct buffer.
@@ -87,7 +89,7 @@ public class ResourceBinaryDictionary extends Dictionary {
      * @param context application context for reading resources
      * @param resId the resource containing the raw binary dictionary
      */
-    public ResourceBinaryDictionary(String dictionaryName, Context context, int[] resId/*, int dicTypeId*/) {
+    public ResourceBinaryDictionary(String dictionaryName, Context context, int resId/*, int dicTypeId*/) {
     	super(dictionaryName);
 //        if (resId != null && resId.length > 0 && resId[0] != 0) {
 //            loadDictionary(context, resId);
@@ -142,10 +144,27 @@ public class ResourceBinaryDictionary extends Dictionary {
         	IMEUtil.GCUtils.getInstance().reset();
     		boolean tryGC = true;
     		
+    		Resources pkgRes = mAppContext.getResources();
+    		int[] resId;
+    		//is it an array of dictionaries? Or a ref to raw?
+    		final String dictResType = pkgRes.getResourceTypeName(mDictResId);
+    		if (dictResType.equalsIgnoreCase("raw"))
+    		{
+    			resId = new int[]{mDictResId};
+    		}
+    		else
+    		{
+	    		Log.d(TAG, "type "+dictResType);
+	    		TypedArray a = pkgRes.obtainTypedArray(mDictResId);
+	    		resId = new int[a.length()];
+	    		for(int index=0; index<a.length(); index++)
+	    			resId[index] = a.getResourceId(index, 0);
+    		}
+    		
         	for (int i = 0; i < IMEUtil.GCUtils.GC_TRY_LOOP_MAX && tryGC; ++i) {
     			try {
     				
-    				loadDictionary(mAppContext, mDictResId);
+    				loadDictionary(mAppContext, resId);
     				
     				tryGC = false;
     			} catch (OutOfMemoryError e) {
@@ -163,6 +182,8 @@ public class ResourceBinaryDictionary extends Dictionary {
             int total = 0;
             is = new InputStream[resId.length];
             for (int i = 0; i < resId.length; i++) {
+            	//http://ponystyle.com/blog/2010/03/26/dealing-with-asset-compression-in-android-apps/
+            	//NOTE: the resource file can not be larger than 1MB
                 is[i] = context.getResources().openRawResource(resId[i]);
                 final int dictSize = is[i].available();
                 Log.d(TAG, "Will load a resource dictionary id "+resId[i]+" whose size is "+dictSize+" bytes.");

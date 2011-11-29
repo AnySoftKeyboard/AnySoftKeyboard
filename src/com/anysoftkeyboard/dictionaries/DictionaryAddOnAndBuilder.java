@@ -51,7 +51,7 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
 		if (mDictionaryResId == INVALID_RES_ID)
 			return new BinaryDictionary(getName(), getPackageContext().getAssets().openFd(mAssetsFilename));
 		else
-			return new ResourceBinaryDictionary(getName(), getPackageContext(), new int[]{mDictionaryResId});
+			return new ResourceBinaryDictionary(getName(), getPackageContext(), mDictionaryResId);
 	}
 	
 	public AutoText createAutoText()
