@@ -7,7 +7,7 @@
   <string name="main_tab_credits">Crèdits</string>
   <string name="how_to_pointer_title">Us donem la benvinguda a AnySoftKeyboard</string>
   <string name="how_to_pointer_version_prefix">Versió: </string>
-  <string name="how_to_pointer_not_app">AnySoftKeyboard és un substitut avançat del teclat en pantalla.</string>
+  <string name="how_to_pointer_not_app">L\'AnySoftKeyboard és un substitut avançat del teclat en pantalla.</string>
   <string name="how_to_pointer_go_to_links">Teniu més informació a la pestanya «Enllaços»</string>
   <string name="how_to_pointer_how_to_url">Informació quant a l\'ús d\'aquest teclat:</string>
   <string name="how_to_pointer_site">Informació del projecte:</string>
@@ -23,7 +23,6 @@
   <string name="notification_text_changelog">Toqueu per obtenir més informació</string>
   <string name="notification_title_how_to_enable">Us donem la benvinguda a AnySoftKeyboard</string>
   <string name="notification_text_how_to_enable">Aprengueu com activar-ho</string>
-  <string name="testers_version">Versió de desenvolupament!</string>
   <string name="license_title">Llicència</string>
   <string name="license_text">Aplicació sota llicencia Apache2 - © 2011 Menny Even-Danan</string>
   <string name="languages_cat">Idiomes</string>

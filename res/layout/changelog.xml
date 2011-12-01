@@ -77,7 +77,7 @@
 		    	android:id="@+id/changelog_latest_version_title"
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
-		        android:text="20111129 - 57"
+		        android:text="20111201 - 57"
 		        android:textStyle="bold"
 		        android:gravity="center"
 		        android:textSize="16sp"
@@ -107,7 +107,7 @@
 		    <TextView
 		    	android:layout_height="wrap_content"
 		        android:layout_width="fill_parent"
-		        android:text="* Split/Merge keyboard! Use two-fingers gestures separate and pinch to split or merge back current keyboard (works in landscape).\n* Popup keys offset fix.\n* Suppport for really big dictionaries (wait for it).\n* Additional bug fixes.\n* New translations: XXXXXXXX (Thanks http://crowdin.net !)"
+		        android:text="* Split/Merge keyboard! Use two-fingers gestures separate and pinch to split or merge back current keyboard (works in landscape).\n* Popup keys offset fix.\n* Suppport for really big dictionaries (wait for it).\n* Additional bug fixes.\n* New translations: IT, TH, and CA (Thanks http://crowdin.net !)"
 		        android:textSize="16sp"
 		        android:paddingTop="4dp"
 		        android:paddingLeft="12dp"

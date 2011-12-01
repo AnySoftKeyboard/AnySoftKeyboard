@@ -18,26 +18,25 @@
   <string name="main_tab_credits_additional_work_by">Ulteriori lavori di codifica di:</string>
   <string name="main_tab_credits_localization_by">Attività di localizzazione di:</string>
   <string name="main_tab_credits_GUI_by">Immagini dell\' interfaccia utente:</string>
-  <string name="how_to_simple_howto"> Android requires that you (the user) will manually enabled and activate external keyboards. Here is how:\n1) go to Android\'s Settings and select \'Locale &amp; text\' or \'Language &amp; keyboard\'.\n2) Turn on AnySoftKeyboard.\n*It will warn you about possible key-logging, don\'t worry, we do not keep data, and we do not send it anywere.\n\n To actually use AnySoftKeyboard, you\'ll need to activate it:\n1) Go to any text-box (e.g., Messagings TO field), and long-press it.\n2) A dialog will pop-up, select \'Input Method\' (usally the last option).\n3) Another dialog will popup - select AnySoftKeyboard.\nThat\'s it! Enjoy.</string>
-  <string name="notification_text">Benvenuti! Per favore, leggimi.</string>
-  <string name="testers_version">Versione tester!</string>
+  <string name="notification_text_changelog">Clicca per vedere le novità.</string>
+  <string name="notification_title_how_to_enable">Benvenuti in AnySoftKeyboard</string>
   <string name="license_title">Licenza</string>
   <string name="license_text">Questo software è sotto licenza Apache2 (c) 2011 Menny Even-Danan</string>
-  <string name="extrenal_addons_cat">External add-ons</string>
+  <string name="languages_cat">Lingue</string>
   <string name="about">About</string>
   <string name="changelog">Changelog</string>
   <string name="search_market_for_addons">Cerca componenti aggiuntivi</string>
-  <string name="close_button">Close</string>
+  <string name="theme_addons_settings">Impostazioni tema tastiera</string>
+  <string name="top_row_addons_settings">Impostazioni riga superiore</string>
+  <string name="close_button">Chiudi</string>
   <string name="how_to_active_text">Come attivare AnySoftKeyboard</string>
   <string name="added_word"><xliff:g id="word">%s</xliff:g> : Salvato</string>
-  <string name="hint_add_to_dictionary">\u2190 Touch again to save</string>
+  <string name="hint_add_to_dictionary">\u2190 Tocca di nuovo per salvare</string>
+  <string name="hint_double_tap_to_close">Rimuovi nuovamente i suggerimenti \u2192</string>
   <string name="menu_insert_smiley">Inserire emoticon</string>
   <string name="click_for_help">Aiuto</string>
   <string name="click_for_help_summary">Premi per l\' aiuto on-line</string>
   <string name="ui_group">Interfaccia utente</string>
-  <string name="keyboard_layout_change_keys_size_title">Tasti riga in alto</string>
-  <string name="keyboard_layout_change_keys_size_summary">Imposta dimensione tasto modalità per cap/numero</string>
-  <string name="keyboard_layout_change_keys_size_dialog_title">Modalità dimensione tasto</string>
   <string name="physical_keyboard_change_notification_title">Notifica layout tastiera</string>
   <string name="physical_keyboard_change_notification_summary">Tipo di notifica relativa al layout attivo</string>
   <string name="physical_keyboard_change_notification_dialog_title">Seleziona tipo di notifica</string>
@@ -64,11 +63,11 @@
   <string name="switch_keyboard_on_space">Lo spazio scambia le tastiere</string>
   <string name="switch_keyboard_on_space_on_summary">Passa da simboli/numeri all\' alfabeto quando si preme spazio</string>
   <string name="switch_keyboard_on_space_off_summary">Non passare da simboli/numeri all\' alfabeto quando si preme lo spazio</string>
-  <string name="hide_soft_when_physical">Hide keyboard on physical key</string>
+  <string name="hide_soft_when_physical">Nascondi tastiera sul tasto fisico</string>
   <string name="hide_soft_when_physical_on_summary">Nascondi tastiera virtuale quando viene utilizzata la tastiera fisica</string>
   <string name="hide_soft_when_physical_off_summary">Nascondi tastiera virtuale quando viene utilizzata la tastiera fisica</string>
-  <string name="fullscreen_input_connection_supported">Use landscape full-screen</string>
-  <string name="fullscreen_input_connection_supported_on_summary">Full-screen input in landscape</string>
+  <string name="fullscreen_input_connection_supported">Utilizza landscape a tutto schermo</string>
+  <string name="fullscreen_input_connection_supported_on_summary">Input a tutto schermo in landscape</string>
   <string name="fullscreen_input_connection_supported_off_summary">Non utilizzare input a schermo intero in landscape</string>
   <string name="fullscreen_portrait_input_connection_supported">Utilizza tutto schermo verticale</string>
   <string name="fullscreen_portrait_input_connection_supported_on_summary">Input a tutto schermo in verticale</string>
@@ -90,19 +89,34 @@
   <string name="swipe_right_action_summary">Definisci gesto azione swipe a destra</string>
   <string name="swipe_right_action_title">Seleziona azione swipe a destra</string>
   <string name="swipe_action_name_none">Nessuna azione</string>
-  <string name="swipe_action_name_next_alphabet">Next alphabet keyboard</string>
-  <string name="swipe_action_name_next_symbols">Next symbols keyboard</string>
+  <string name="swipe_action_name_next_alphabet">Prossima tastiera alfabetica</string>
+  <string name="swipe_action_name_next_symbols">Prossima tastiera simbolica</string>
   <string name="swipe_action_name_next_inside_mode">Successiva in modalità attuale</string>
   <string name="swipe_action_name_cycle_keyboards">Scorri fra tutte le tastiere</string>
   <string name="swipe_action_name_reverse_cycle_keyboards">Inverti il ciclo di scorrimento fra tutte le tastiere</string>
   <string name="swipe_action_name_shift">Shift</string>
   <string name="swipe_action_name_hide">Nascondi tastiera</string>
   <string name="swipe_action_name_backspace">Back-space</string>
+  <string name="swipe_action_name_clear_input">Cancella tutto il testo</string>
   <string name="swipe_action_name_cursor_up">Sposta cursore verso l\' alto</string>
   <string name="swipe_action_name_cursor_down">Sposta cursore verso il basso</string>
   <string name="swipe_action_name_cursor_left">Sposta cursore a sinistra</string>
   <string name="swipe_action_name_cursor_right">Sposta cursore a destra</string>
   <string name="swipe_action_name_other_keyboards_mode">Scambia modalità layout</string>
+  <string name="settings_swipe_velocity_threshold_title">Soglia velocità swipe</string>
+  <string name="settings_swipe_velocity_threshold_summary">La velocità minima della gesture swipe</string>
+  <string name="settings_swipe_velocity_very_slow">Molto lento</string>
+  <string name="settings_swipe_velocity_slow">Lenta</string>
+  <string name="settings_swipe_velocity_normal">Normale</string>
+  <string name="settings_swipe_velocity_fast">Veloce</string>
+  <string name="settings_swipe_velocity_very_fast">Molto veloce</string>
+  <string name="settings_swipe_distance_threshold_title">Soglia distanza swipe</string>
+  <string name="settings_swipe_distance_threshold_summary">Distanza minima gesture swipe</string>
+  <string name="settings_swipe_distance_very_short">Molto breve</string>
+  <string name="settings_swipe_distance_short">Breve</string>
+  <string name="settings_swipe_distance_normal">Normale</string>
+  <string name="settings_swipe_distance_long">Lungo</string>
+  <string name="settings_swipe_distance_very_long">Molto lungo</string>
   <string name="hardware_keys_group">Mappatura tasti hardware</string>
   <string name="volume_key_for_left_right_support">Tasto volume per sinistra/destra</string>
   <string name="volume_key_for_left_right_support_on_summary">Disabilita sinistra/destra attraverso volume su/giù</string>
@@ -113,15 +127,18 @@
   <string name="special_dictionaries_group">Dizionari speciali</string>
   <string name="use_user_dictionary">Dizionario utente</string>
   <string name="use_user_dictionary_on_summary">Suggerisci parole aggiunte dall\' utente (pressione prolungata sul suggerimento da aggiungere)</string>
-  <string name="use_user_dictionary_off_summary">&lt;string name="use_user_dictionary_off_summary"/&gt;</string>
   <string name="use_auto_dictionary">Dizionario automatico</string>
   <string name="use_auto_dictionary_on_summary">Suggerisci anche parole usate frequentemente</string>
-  <string name="use_auto_dictionary_off_summary">&lt;string name="use_auto_dictionary_off_summary"/&gt;</string>
   <string name="use_contacts_dictionary">Dizionario contatti</string>
   <string name="use_contacts_dictionary_on_summary">Suggerisci nomi dalla lista contatti</string>
-  <string name="use_contacts_dictionary_off_summary">&lt;string name="use_contacts_dictionary_off_summary"/&gt;</string>
-  <string name="use_contacts_dictionary_not_supported_summary">Unsupported under your OS version. Sorry.</string>
+  <string name="use_contacts_dictionary_not_supported_summary">Non supportata dalla versione dell\' OS. Ci spiace.</string>
   <string name="tweaks_group">Tweaks</string>
+  <string name="tweak_ui_group">Ritocchi grafici</string>
+  <string name="is_sticky_extesion_keyboard_on_summary">Rimani visibile fino alla chiusura esplicita</string>
+  <string name="is_sticky_extesion_keyboard_off_summary">Si chiude dopo la pressione di un tasto</string>
+  <string name="is_extesion_keyboard_above_keyboard">Estensione della tastiera in alto</string>
+  <string name="is_extesion_keyboard_above_keyboard_on_summary">Disegnato sopra la tastiera principale</string>
+  <string name="is_extesion_keyboard_above_keyboard_off_summary">Disegnato sulla tastiera principale</string>
   <string name="show_new_version_notifications_again">Mostra notifiche nuova versione</string>
   <string name="show_new_version_notifications_again_on_summary">Dopo l\' installazione di una nuova versione verrà mostrato il change-log</string>
   <string name="show_new_version_notifications_again_off_summary">Non notificare quando viene installata una nuova versione</string>
@@ -145,7 +162,6 @@
   <string name="zoom_factor_keys_in_landscape">Fattore altezza tasti in modalità orizzontale</string>
   <string name="insert_space_after_word_suggestion_selection">Spazio dopo la scelta del candidato</string>
   <string name="insert_space_after_word_suggestion_selection_on_summary">Inserisci spazio dopo selezione suggerimento parola</string>
-  <string name="insert_space_after_word_suggestion_selection_off_summary">&lt;string name="insert_space_after_word_suggestion_selection_off_summary"/&gt;</string>
   <string name="double_space_to_period">Doppio spazio per periodo</string>
   <string name="double_space_to_period_summary">La pressione del doppio spazio diventerà periodo+spazio</string>
   <string name="action_key_invisible_on_disable">Tasto azione invisibile</string>
@@ -172,14 +188,32 @@
   <string name="contacts_dict_summary">Includi i nomi dei contatti ai suggerimenti</string>
   <string name="auto_dict">Dizionario automatico</string>
   <string name="auto_dict_summary">Aggiungi parole di uso comune o selezionate automaticamente al dizionario</string>
+  <string name="no_extrenal_packs_support_title">Non supportato</string>
   <string name="keyboards_group">Tastiere</string>
   <string name="symbols_keyboard">Simboli</string>
   <string name="eng_keyboard">Inglese</string>
   <string name="eng_keyboard_16keys">16 Tasti Inglese</string>
+  <string name="additional_addons_group">Ulteriori add-on</string>
   <string name="quick_text_keys_group">Tasti testo rapido</string>
   <string name="quick_text_key_active">Attiva tasto testo rapido</string>
   <string name="quick_text_key_dialog_title">Seleziona tasto</string>
-  <string name="quick_text_key_summary">Select quick text key to show on keyboards</string>
+  <string name="extension_keyboards_group">Estensione tastiere</string>
+  <string name="extension_keyboard_group">Estensione tastiera</string>
+  <string name="extension_keyboard_dialog_title">Seleziona tastiera</string>
+  <string name="extension_keyboard_list_title">Seleziona tastiera</string>
+  <string name="keyboard_theme_group">Temi tastiera</string>
+  <string name="keyboard_theme_active">Attiva tema tastiera</string>
+  <string name="keyboard_theme_dialog_title">Seleziona tema</string>
+  <string name="keyboard_theme_summary">Tema tastiera (skin/stile) da utilizzare</string>
+  <string name="keyboard_theme_list_title">Seleziona tema</string>
+  <string name="gingerbread_keyboard_theme_name">Stile Gingerbread</string>
+  <string name="extension_kbd_top_none">Nessuna riga superiore</string>
+  <string name="extension_kbd_top_small">Tasti piccoli</string>
+  <string name="extension_kbd_top_regular">Tasti di dimensioni regolari</string>
+  <string name="extension_kbd_top_small_numbers">Tasti numerici</string>
+  <string name="extension_kbd_bottom_regular">Regolare</string>
+  <string name="extension_kbd_bottom_iphone">Stile iPhone</string>
+  <string name="extension_kbd_extension_numbers_symbols">Numeri e simboli</string>
   <string name="show_tutorial_on_startup">Mostra questo tutorial all\' avvio</string>
   <string name="tutorial_swipe_title">Swipe per il cambiamento della tastiera</string>
   <string name="tutorial_swipe_text">Il layout della tastiera può essere cambiato facendo scorrere il dito sulla tastiera. Swipe da sinistra a destra per cambiare lingua, swipe da destra a sinistra per cambiarla in simboli.</string>
@@ -200,11 +234,21 @@
   <string name="simley_key_name">Tasto faccine</string>
   <string name="smiley_key_label">:-)</string>
   <string name="smiley_key_default_output">:-) </string>
-  <string-array name="keyboard_layout_keys_size">
-    <item>Nessuna</item>
-    <item>Piccola</item>
-    <item>Grande</item>
-  </string-array>
+  <string name="settings_multitap_timeout_faster">Più veloce</string>
+  <string name="settings_multitap_timeout_fast">Veloce</string>
+  <string name="settings_multitap_timeout_normal">Normale</string>
+  <string name="settings_multitap_timeout_slow">Lento</string>
+  <string name="settings_multitap_timeout_slower">Più lento</string>
+  <string name="settings_multitap_timeout_never">Mai</string>
+  <string name="settings_long_press_timeout_faster">Più veloce</string>
+  <string name="settings_long_press_timeout_fast">Veloce</string>
+  <string name="settings_long_press_timeout_normal">Normale</string>
+  <string name="settings_long_press_timeout_slow">Lento</string>
+  <string name="settings_long_press_timeout_slower">Più lento</string>
+  <string name="settings_long_press_timeout_never">Mai</string>
+  <string name="tweak_workarounds_group">Soluzioni alternative</string>
+  <string name="workaround_disable_rtl_fix_summary_on">Utilizza gestione OS RTL (per telefoni SE)</string>
+  <string name="workaround_disable_rtl_fix_summary_off">Usa gestione RTL AnySoftKeyboard</string>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Mostra sempre l\' icona layout</item>
     <item>Su cambiamento di tastiera fisica</item>
