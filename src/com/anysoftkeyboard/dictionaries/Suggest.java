@@ -23,7 +23,6 @@ import java.util.List;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 
 import com.anysoftkeyboard.WordComposer;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -36,9 +35,9 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
  */
 public class Suggest implements Dictionary.WordCallback {
 
-	public static final int CORRECTION_NONE = 0;
-	public static final int CORRECTION_BASIC = 1;
-	public static final int CORRECTION_FULL = 2;
+//	public static final int CORRECTION_NONE = 0;
+//	public static final int CORRECTION_BASIC = 1;
+//	public static final int CORRECTION_FULL = 2;
 	private static final String TAG = "ASK Suggest";
 
 	private Dictionary mMainDict;
@@ -66,7 +65,9 @@ public class Suggest implements Dictionary.WordCallback {
 	private boolean mIsFirstCharCapitalized;
 	private boolean mIsAllUpperCase;
 
-	private int mCorrectionMode = CORRECTION_FULL;
+	//private int mCorrectionMode = CORRECTION_FULL;
+	private boolean mAutoTextEnabled = true;
+	private boolean mMainDictioanryEnabled = true;
 
 	public Suggest(Context context/* , int dictionaryResId */) {
 		// mContext = context;
@@ -76,13 +77,15 @@ public class Suggest implements Dictionary.WordCallback {
 			mStringPool.add(sb);
 		}
 	}
-
+/*
 	public int getCorrectionMode() {
 		return mCorrectionMode;
 	}
-
-	public void setCorrectionMode(int mode) {
-		mCorrectionMode = mode;
+*/
+	public void setCorrectionMode(boolean autoText, boolean mainDictionary) {
+		//mCorrectionMode = mode;
+		mAutoTextEnabled = autoText;
+		mMainDictioanryEnabled = mainDictionary;
 	}
 
 	/**
@@ -193,7 +196,7 @@ public class Suggest implements Dictionary.WordCallback {
 	 *            index 0 in the array has the highest probability.
 	 * @return list of suggestions.
 	 */
-	public List<CharSequence> getSuggestions(View view, WordComposer wordComposer,
+	public List<CharSequence> getSuggestions(/*View view,*/ WordComposer wordComposer,
             boolean includeTypedWordIfValid) {
         mHaveCorrection = false;
         mIsFirstCharCapitalized = wordComposer.isFirstCharCapitalized();
@@ -236,7 +239,7 @@ public class Suggest implements Dictionary.WordCallback {
             	 mMainDict.getWords(wordComposer, this);
              }
 
-             if (mCorrectionMode == CORRECTION_FULL && mSuggestions.size() > 0) {
+             if (mMainDictioanryEnabled && mSuggestions.size() > 0) {
                  mHaveCorrection = true;
              }
          }
@@ -246,7 +249,7 @@ public class Suggest implements Dictionary.WordCallback {
         }
         // Check if the first suggestion has a minimum number of characters in
         // common
-        if (mCorrectionMode == CORRECTION_FULL && mSuggestions.size() > 1) {
+        if (mMainDictioanryEnabled && mSuggestions.size() > 1) {
             // //will check if the original typed word is in the suggestions
             // final int maxIndex = Math.min(4, mSuggestions.size());
             // for(int suggestionIndex=1; suggestionIndex<maxIndex;
@@ -264,13 +267,13 @@ public class Suggest implements Dictionary.WordCallback {
             }
         }
 
-        if (view == null)
-            return mSuggestions;
+//        if (view == null)
+//            return mSuggestions;
 
         int i = 0;
         int max = 6;
         // Don't autotext the suggestions from the dictionaries
-        if (mCorrectionMode == CORRECTION_BASIC)
+        if (!mMainDictioanryEnabled && mAutoTextEnabled)
             max = 1;
         //Locale old = view.getResources().getConfiguration().locale;
         //view.getResources().getConfiguration().locale = new Locale(AnySoftKeyboard.getInstance().getCurrentKeyboard().getDefaultDictionaryLocale());
@@ -278,7 +281,7 @@ public class Suggest implements Dictionary.WordCallback {
         while (i < mSuggestions.size() && i < max) {
             String suggestedWord = mSuggestions.get(i).toString().toLowerCase();
             
-            CharSequence autoText = mAutoText != null?
+            CharSequence autoText = mAutoTextEnabled && mAutoText != null?
             		mAutoText.lookup(suggestedWord, 0, suggestedWord.length()) : null;
             // Is there an AutoText correction?
             boolean canAdd = autoText != null;
@@ -286,7 +289,7 @@ public class Suggest implements Dictionary.WordCallback {
             // word)?
             canAdd &= !TextUtils.equals(autoText, mSuggestions.get(i));
             // Is that correction already the next predicted word?
-            if (canAdd && i + 1 < mSuggestions.size() && mCorrectionMode != CORRECTION_BASIC) {
+            if (canAdd && i + 1 < mSuggestions.size() && mMainDictioanryEnabled) {
                 canAdd &= !TextUtils.equals(autoText, mSuggestions.get(i + 1));
             }
             if (canAdd) {
@@ -387,8 +390,8 @@ public class Suggest implements Dictionary.WordCallback {
 			return false;
 		}
 
-		if (mCorrectionMode > CORRECTION_NONE) {
-			final boolean validFromMain = (mCorrectionMode == CORRECTION_FULL
+		if (mMainDictioanryEnabled || mAutoTextEnabled) {
+			final boolean validFromMain = (mMainDictioanryEnabled
 					&& mMainDict != null && mMainDict.isValidWord(word));
 			final boolean validFromUser = (mUserDictionary != null && mUserDictionary
 					.isValidWord(word));
@@ -399,7 +402,7 @@ public class Suggest implements Dictionary.WordCallback {
 
 			if (AnyApplication.DEBUG)
 				Log.v(TAG, "Suggest::isValidWord(" + word
-						+ ") mCorrectionMode:" + mCorrectionMode
+						+ ") mMainDictioanryEnabled:" + mMainDictioanryEnabled+" mAutoTextEnabled:"+mAutoTextEnabled
 						+ " validFromMain:" + validFromMain + " validFromUser:"
 						+ validFromUser
 						// +" validFromAuto:"+validFromAuto

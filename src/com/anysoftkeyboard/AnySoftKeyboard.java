@@ -199,7 +199,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private boolean mShowSuggestions = false;
 	
 	private boolean mAutoComplete;
-	private int mCorrectionMode;
+	//private int mCorrectionMode;
 	private String mKeyboardChangeNotificationType;
 	private static final String KEYBOARD_NOTIFICATION_ALWAYS = "1";
 	private static final String KEYBOARD_NOTIFICATION_ON_PHYSICAL = "2";
@@ -314,7 +314,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private void initSuggest(/* String locale */) {
 		// mLocale = locale;
 		mSuggest = new Suggest(this/* , R.raw.main */);
-		mSuggest.setCorrectionMode(mCorrectionMode);
+		mSuggest.setCorrectionMode(mQuickFixes, mShowSuggestions);
 		setDictionariesForCurrentKeyboard();
 	}
 
@@ -546,10 +546,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 		updateShiftKeyState(attribute);
 
 		if (mSuggest != null) {
-			mSuggest.setCorrectionMode(mCorrectionMode);
+			mSuggest.setCorrectionMode(mQuickFixes, mShowSuggestions);
 		}
 
-		mPredictionOn = mPredictionOn && mCorrectionMode > 0;
+		mPredictionOn = mPredictionOn && (mShowSuggestions || mQuickFixes);
 
 		if (mCandidateView != null)
 			mCandidateView.setSuggestions(null, false, false, false);
@@ -1157,10 +1157,8 @@ public class AnySoftKeyboard extends InputMethodService implements
         // Only auto-add to dictionary if auto-correct is ON. Otherwise we'll be
         // adding words in situations where the user or application really didn't
         // want corrections enabled or learned.
-        if (!(mCorrectionMode == Suggest.CORRECTION_FULL/*
-                || mCorrectionMode == Suggest.CORRECTION_FULL_BIGRAM*/)) {
-            return;
-        }
+        if (!mQuickFixes && !mShowSuggestions) return;
+        
         if (suggestion != null && mAutoDictionary != null) {
             if (/*!addToBigramDictionary &&*/ 
             		mAutoDictionary.isValidWord(suggestion) || 
@@ -1807,7 +1805,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             mJustAddedAutoSpace = false;
     		setCandidatesViewShown(false);
     		if (mSuggest != null) {
-    			mSuggest.setCorrectionMode(Suggest.CORRECTION_NONE);
+    			mSuggest.setCorrectionMode(false, false);
     		}
         }
     }
@@ -2019,7 +2017,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			Log.d(TAG, "performUpdateSuggestions: has mSuggest:"
 					+ (mSuggest != null) + ", isPredictionOn:"
 					+ isPredictionOn() + ", mPredicting:" + mPredicting
-					+ ", mCorrectionMode:" + mCorrectionMode);
+					+ ", mQuickFixes:" + mQuickFixes+" mShowSuggestions:"+mShowSuggestions);
 		// Check if we have a suggestion engine attached.
 		if (mSuggest == null) {
 			return;
@@ -2036,7 +2034,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			return;
 		}
 
-		List<CharSequence> stringList = mSuggest.getSuggestions(mInputView, mWord, false);
+		List<CharSequence> stringList = mSuggest.getSuggestions(/*mInputView,*/ mWord, false);
 		boolean correctionAvailable = mSuggest.hasMinimalCorrection();
 		// || mCorrectionMode == mSuggest.CORRECTION_FULL;
 		CharSequence typedWord = mWord.getTypedWord();
@@ -2044,7 +2042,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		boolean typedWordValid = mSuggest.isValidWord(typedWord) ||
          		(preferCapitalization() && mSuggest.isValidWord(typedWord.toString().toLowerCase()));
 		 
-		if (mCorrectionMode == Suggest.CORRECTION_FULL) {
+		if (mShowSuggestions || mQuickFixes) {
 			correctionAvailable |= typedWordValid;
 		}
 
@@ -2140,7 +2138,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				mJustAddedAutoSpace = true;
 			}
 			
-			final boolean showingAddToDictionaryHint = index == 0 && mCorrectionMode > 0
+			final boolean showingAddToDictionaryHint = index == 0 && (mQuickFixes || mShowSuggestions)
 			        && !mSuggest.isValidWord(suggestion)
 			        && !mSuggest.isValidWord(suggestion.toString().toLowerCase());
 		
@@ -2563,8 +2561,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 												 */
 								(mAutoComplete || mQuickFixes);
 		
-		mCorrectionMode = mAutoComplete ? 2
-				: (mShowSuggestions/* mQuickFixes */? 1 : 0);
+//		mCorrectionMode = mAutoComplete ? 2
+//				: (/*mShowSuggestions*/ mQuickFixes ? 1 : 0);
 
 		mSmileyOnShortPress = sp.getBoolean(getString(R.string.settings_key_emoticon_long_press_opens_popup), getResources().getBoolean(R.bool.settings_default_emoticon_long_press_opens_popup));
 //		mSmileyPopupType = sp.getString(getString(R.string.settings_key_smiley_popup_type), getString(R.string.settings_default_smiley_popup_type));
