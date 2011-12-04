@@ -218,6 +218,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private Vibrator mVibrator;
 	private int mVibrationDuration;
 	
+	private boolean mKeyboardInCondensedMode = false;
+	
 	//private NotificationManager mNotificationManager;
 
 	private static AnySoftKeyboard INSTANCE;
@@ -1376,7 +1378,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case KeyCodes.MERGE_LAYOUT:
 			if (getCurrentKeyboard() != null && mInputView != null)
 			{
-				getCurrentKeyboard().setCondensedKeys(KeyCodes.SPLIT_LAYOUT == primaryCode);
+				mKeyboardInCondensedMode = KeyCodes.SPLIT_LAYOUT == primaryCode;
+				getCurrentKeyboard().setCondensedKeys(mKeyboardInCondensedMode);
 				mInputView.setKeyboard(getCurrentKeyboard());
 			}
 			break;
@@ -2346,6 +2349,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 						.equals(KEYBOARD_NOTIFICATION_ON_PHYSICAL) && (type == NextKeyboardType.AlphabetSupportsPhysical))) {
 			notifyKeyboardChangeIfNeeded();
 		}
+		currentKeyboard.setCondensedKeys(mKeyboardInCondensedMode);
 	}
 
 	public void onSwipeRight(boolean onSpaceBar) {
@@ -2748,6 +2752,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         // If orientation changed while predicting, commit the change
         if (newConfig.orientation != mOrientation) {
+        	mKeyboardInCondensedMode = false;
+        	
             commitTyped(getCurrentInputConnection());
             mOrientation = newConfig.orientation;
             
