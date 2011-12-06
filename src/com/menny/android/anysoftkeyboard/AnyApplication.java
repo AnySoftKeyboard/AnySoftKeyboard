@@ -24,6 +24,17 @@ public class AnyApplication extends Application {
 	
 	@Override
 	public void onCreate() {
+//		if (DEBUG) {
+//			StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+//				.detectAll()
+//				.penaltyLog()
+//				.build()),
+//			StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+//				.detectAll()
+//				.penaltyLog()
+//				.penaltyDeath()
+//				.build());
+//		}
 		super.onCreate();
 		
 		if (DEBUG) Log.d(TAG, "** Starting application in DEBUG mode.");
