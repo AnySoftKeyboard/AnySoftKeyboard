@@ -68,6 +68,7 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
+import com.anysoftkeyboard.keyboards.KeyboardDimens;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -125,14 +126,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
     // Main keyboard
     private AnyKeyboard mKeyboard;
-    private int mMaxKeyboardWidth = 0;
-    private int mThemeVerticalRowGap = 0;
-    private int mThemeHorizotalKeyGap = 0;
     
     private Key[] mKeys;
-    // TODO this attribute should be gotten from Keyboard.
-    private int mKeyboardVerticalGap;
-
+    
     // Key preview popup
     private TextView mPreviewText;
     private ImageView mPreviewIcon;
@@ -218,6 +214,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 	private Drawable mPreviewKeyBackground;
 
 	private int mPreviewKeyTextColor;
+
+	private final KeyboardDimensFromTheme mKeyboardDimens = new KeyboardDimensFromTheme();
 
 	class UIHandler extends Handler {
         private static final int MSG_POPUP_PREVIEW = 1;
@@ -443,7 +441,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         mCancelKeyIcon = res.getDrawable(R.drawable.sym_keyboard_cancel);
         mGlobeKeyIcon = res.getDrawable(R.drawable.globe);        
         
-        mMaxKeyboardWidth = res.getDisplayMetrics().widthPixels - padding[0] - padding[2];
+        mKeyboardDimens.setKeyboardMaxWidth(res.getDisplayMetrics().widthPixels - padding[0] - padding[2]);
         
         mPreviewPopup = new PopupWindow(context);
         if (mPreviewKeyTextSize > 0) {
@@ -615,12 +613,29 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 			if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_symbolColorScheme "+mSymbolColorScheme);
 			break;
 		case R.styleable.AnyKeyboardBaseView_keyHorizontalGap:
-			mThemeHorizotalKeyGap = a.getDimensionPixelOffset(attr, 0);
-			if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_keyHorizontalGap "+mThemeHorizotalKeyGap);
+			float themeHorizotalKeyGap = a.getDimensionPixelOffset(attr, 0);
+			mKeyboardDimens.setHorizontalKeyGap(themeHorizotalKeyGap);
+			if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_keyHorizontalGap "+themeHorizotalKeyGap);
 			break;
 		case R.styleable.AnyKeyboardBaseView_keyVerticalGap:
-			mThemeVerticalRowGap = a.getDimensionPixelOffset(attr, 0);
-			if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_keyVerticalGap "+mThemeVerticalRowGap);
+			float themeVerticalRowGap = a.getDimensionPixelOffset(attr, 0);
+			mKeyboardDimens.setVerticalRowGap(themeVerticalRowGap);
+			if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_keyVerticalGap "+themeVerticalRowGap);
+			break;
+		case R.styleable.AnyKeyboardBaseView_keyNormalHeight:
+			float themeNormalKeyHeight = a.getDimensionPixelOffset(attr, 0);
+			mKeyboardDimens.setNormalKeyHeight(themeNormalKeyHeight);
+			if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_keyNormalHeight "+themeNormalKeyHeight);
+			break;
+		case R.styleable.AnyKeyboardBaseView_keyLargeHeight:
+			float themeLargeKeyHeight = a.getDimensionPixelOffset(attr, 0);
+			mKeyboardDimens.setLargeKeyHeight(themeLargeKeyHeight);
+			if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_keyLargeHeight "+themeLargeKeyHeight);
+			break;
+		case R.styleable.AnyKeyboardBaseView_keySmallHeight:
+			float themeSmallKeyHeight = a.getDimensionPixelOffset(attr, 0);
+			mKeyboardDimens.setSmallKeyHeight(themeSmallKeyHeight);
+			if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_keySmallHeight "+themeSmallKeyHeight);
 			break;
 		}
 	}
@@ -628,7 +643,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 	protected int getKeyboardStyleResId(KeyboardTheme theme) {
 		return theme.getPopupThemeResId();
 	}
-
+/*
 	public int getKeyboardMaxWidth()
 	{
 		return mMaxKeyboardWidth;
@@ -643,7 +658,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 	{
 		return mThemeHorizotalKeyGap;
 	}
-	
+*/	
 	private void reloadSwipeThresholdsSettings(final Resources res) {
 		final float density = res.getDisplayMetrics().density;
 		mSwipeVelocityThreshold = (int) (AnyApplication.getConfig().getSwipeVelocityThreshold() * density);
@@ -703,7 +718,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         //ImeLogger.onSetKeyboard(keyboard);
         mKeys = mKeyDetector.setKeyboard(keyboard, -getPaddingLeft(),
                 -getPaddingTop() + mVerticalCorrection);
-        mKeyboardVerticalGap = (int)getResources().getDimension(R.dimen.key_bottom_gap);
+        //mKeyboardVerticalGap = (int)getResources().getDimension(R.dimen.key_bottom_gap);
         for (PointerTracker tracker : mPointerTrackers) {
             tracker.setKeyboard(mKeys, mKeyHysteresisDistance);
         }
@@ -880,7 +895,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         int dimensionSum = 0;
         for (int i = 0; i < length; i++) {
             Key key = keys[i];
-            dimensionSum += Math.min(key.width, key.height + mKeyboardVerticalGap) + key.gap;
+            dimensionSum += Math.min(key.width, key.height/* + mKeyboardVerticalGap*/) + key.gap;
         }
         if (dimensionSum < 0 || length == 0) return;
         mKeyDetector.setProximityThreshold((int) (dimensionSum * 1.4f / length));
@@ -1372,9 +1387,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
         final AnyPopupKeyboard keyboard;
         if (popupCharacters != null) {
-            keyboard = new AnyPopupKeyboard(AnySoftKeyboard.getInstance(), popupCharacters, miniKeyboard.getKeyboardMaxWidth(), miniKeyboard.getThemeHorizontalKeyGap(), miniKeyboard.getThemeVerticalRowGap());
+            keyboard = new AnyPopupKeyboard(AnySoftKeyboard.getInstance(), popupCharacters, miniKeyboard.getThemedKeyboardDimens());
         } else {
-            keyboard = new AnyPopupKeyboard(AnySoftKeyboard.getInstance(), packageContext, popupKeyboardId, miniKeyboard.getKeyboardMaxWidth(), miniKeyboard.getThemeHorizontalKeyGap(), miniKeyboard.getThemeVerticalRowGap());
+            keyboard = new AnyPopupKeyboard(AnySoftKeyboard.getInstance(), packageContext, popupKeyboardId, miniKeyboard.getThemedKeyboardDimens());
         }
         
         miniKeyboard.setOnKeyboardActionListener(new OnKeyboardActionListener() {
@@ -1438,6 +1453,11 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
         return miniKeyboard;
     }
+    
+	public KeyboardDimens getThemedKeyboardDimens() {
+		return mKeyboardDimens;
+	}
+
 /*
     private static boolean isOneRowKeys(List<Key> keys) {
         if (keys.size() == 0) return false;

@@ -9,13 +9,14 @@ import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 
 
 public class AnyApplication extends Application {
 
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 	
 	private static final String TAG = "ASK_APP";
 	private static Configuration msConfig;
@@ -24,17 +25,17 @@ public class AnyApplication extends Application {
 	
 	@Override
 	public void onCreate() {
-//		if (DEBUG) {
-//			StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-//				.detectAll()
-//				.penaltyLog()
-//				.build()),
-//			StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-//				.detectAll()
-//				.penaltyLog()
-//				.penaltyDeath()
-//				.build());
-//		}
+		if (DEBUG) {
+			StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+				.detectAll()
+				.penaltyLog()
+				.build());
+			StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+				.detectAll()
+				.penaltyLog()
+				.penaltyDeath()
+				.build());
+		}
 		super.onCreate();
 		
 		if (DEBUG) Log.d(TAG, "** Starting application in DEBUG mode.");

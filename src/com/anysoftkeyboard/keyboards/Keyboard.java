@@ -103,7 +103,7 @@ public abstract class Keyboard {
     private int mDefaultWidth;
 
     /** Default key height */
-    private int mDefaultHeight;
+    private int mDefaultHeightCode;
 
     /** Default gap between rows */
     private int mDefaultVerticalGap;
@@ -168,7 +168,7 @@ public abstract class Keyboard {
         /** Default width of a key in this row. */
         public int defaultWidth;
         /** Default height of a key in this row. */
-        public int defaultHeight;
+        public int defaultHeightCode;
         /** Default horizontal gap between keys in this row. */
         public int defaultHorizontalGap;
         /** Vertical gap following this row. */
@@ -188,7 +188,7 @@ public abstract class Keyboard {
             this.parent = parent;
             
             defaultWidth = parent.mDefaultWidth;
-            defaultHeight =parent.mDefaultHeight;
+            defaultHeightCode = parent.mDefaultHeightCode;
             	
             defaultHorizontalGap = parent.mDefaultHorizontalGap;
             verticalGap = parent.getVerticalGap();
@@ -205,7 +205,7 @@ public abstract class Keyboard {
             defaultWidth = getDimensionOrFraction(a, 
                     R.styleable.Keyboard_android_keyWidth, 
                     parent.mDisplayWidth, parent.mDefaultWidth);
-            defaultHeight = getKeyHeight(askRes, res, a, parent.mDefaultHeight);
+            defaultHeightCode = getKeyHeightCode(askRes, res, a, parent.mDefaultHeightCode);
             	
             defaultHorizontalGap = getDimensionOrFraction(a,
                     R.styleable.Keyboard_android_horizontalGap, 
@@ -326,10 +326,10 @@ public abstract class Keyboard {
         };
 
         /** Create an empty key with no attributes. */
-        public Key(Row parent) {
+        public Key(Row parent, KeyboardDimens keyboardDimens) {
         	row = parent;
             keyboard = parent.parent;
-            height = parent.defaultHeight;
+            height = keyboardDimens.getNormalKeyHeight();
             width = parent.defaultWidth;
             gap = parent.defaultHorizontalGap;
             edgeFlags = parent.rowEdgeFlags;
@@ -344,8 +344,8 @@ public abstract class Keyboard {
          * @param y the y coordinate of the top-left
          * @param parser the XML parser containing the attributes for this key
          */
-        public Key(AnyKeyboardContextProvider askContext, Resources res, Row parent, int x, int y, XmlResourceParser parser) {
-            this(parent);
+        public Key(AnyKeyboardContextProvider askContext, Resources res, Row parent, KeyboardDimens keyboardDimens, int x, int y, XmlResourceParser parser) {
+            this(parent, keyboardDimens);
 
             this.x = x;
             this.y = y;
@@ -359,7 +359,27 @@ public abstract class Keyboard {
 //            height = getDimensionOrFraction(a, 
 //                    R.styleable.Keyboard_android_keyHeight,
 //                    keyboard.mDisplayHeight, parent.defaultHeight);
-            height = getKeyHeight(askContext.getApplicationContext().getResources(), res, a, parent.defaultHeight);
+            final Resources askResources = askContext.getApplicationContext().getResources();
+            final int heightCode = getKeyHeightCode(askResources, res, a, parent.defaultHeightCode);
+            switch (heightCode)
+            {
+            case 0:
+            	height = 0;
+            	break;
+            case -2:
+            	height = keyboardDimens.getSmallKeyHeight();
+            	break;
+            case -3:
+            	height = keyboardDimens.getLargeKeyHeight();
+            	break;
+            default://-1
+            	height = keyboardDimens.getNormalKeyHeight();
+            	break;
+            }
+            if (askResources.getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+            	height = (int) (height * AnyApplication.getConfig().getKeysHeightFactorInLandscape());
+            else
+            	height = (int) (height * AnyApplication.getConfig().getKeysHeightFactorInPortrait());
             
             gap = getDimensionOrFraction(a, 
                     R.styleable.Keyboard_android_horizontalGap,
@@ -542,31 +562,32 @@ public abstract class Keyboard {
         this(askContext, context, xmlLayoutResId, 0);
     }
     
-	protected static int getKeyHeight(Resources askRes, Resources res, TypedArray a, int defaultHeight) {
-		
+	protected static int getKeyHeightCode(Resources askRes, Resources res, TypedArray a, int defaultHeightCode) {
+		int heightCode = -1;
 		TypedValue value = a.peekValue(R.styleable.Keyboard_android_keyHeight);
-        if (value == null)//means that it was not provided 
-        	return defaultHeight;
-        
-        if (value.type >= TypedValue.TYPE_FIRST_INT && value.type <= TypedValue.TYPE_LAST_INT)
+        if (value == null)//means that it was not provided. So I take my parent's
+        {
+        	heightCode = defaultHeightCode;
+        }
+        else if (value.type >= TypedValue.TYPE_FIRST_INT && value.type <= TypedValue.TYPE_LAST_INT)
         {
         	switch(value.data)
         	{
         	case 0:
-        		return 0;
         	case -2:
-        		return askRes.getDimensionPixelOffset(R.dimen.default_key_half_height);
         	case -3:
-        		return askRes.getDimensionPixelOffset(R.dimen.default_key_tall_height);
+        		return value.data;
     		default:
-    			return askRes.getDimensionPixelOffset(R.dimen.default_key_height);
+    			return -1;
         	}
         }
         else
         {
         	Log.w(TAG, "Key height attribute is incorrectly set! Defaulting to regular height.");
-        	return askRes.getDimensionPixelOffset(R.dimen.default_key_height);
+        	return heightCode = -1;
         }
+        
+        return heightCode;
 	}
 
 	/**
@@ -665,7 +686,7 @@ public abstract class Keyboard {
     protected void setVerticalGap(int gap) {
         mDefaultVerticalGap = gap;
     }
-*/
+
     protected int getKeyHeight() {
         return mDefaultHeight;
     }
@@ -673,7 +694,6 @@ public abstract class Keyboard {
     protected void setKeyHeight(int height) {
         mDefaultHeight = height;
     }
-
     protected int getKeyWidth() {
         return mDefaultWidth;
     }
@@ -681,6 +701,7 @@ public abstract class Keyboard {
     protected void setKeyWidth(int width) {
         mDefaultWidth = width;
     }
+*/
 
     /**
      * Returns the total height of the keyboard
@@ -764,27 +785,22 @@ public abstract class Keyboard {
         return new Row(askContext, res, this, parser);
     }
     
-    protected abstract Key createKeyFromXml(AnyKeyboardContextProvider askContext, Resources res, Row parent, int x, int y, 
+    protected abstract Key createKeyFromXml(AnyKeyboardContextProvider askContext, Resources res, Row parent, KeyboardDimens keyboardDimens, int x, int y, 
             XmlResourceParser parser);/* {
         return new Key(askContext, res, parent, x, y, parser);
     }*/
 
-    public void loadKeyboard(final int maxWidth, final float keyHorizontalGap, final float rowVerticalGap) {
-    	mDisplayWidth = maxWidth;
+    public void loadKeyboard(final KeyboardDimens keyboardDimens) {
+    	mDisplayWidth = keyboardDimens.getKeyboardMaxWidth();
+    	final float rowVerticalGap = keyboardDimens.getRowVerticalGap();
+    	final float keyHorizontalGap = keyboardDimens.getKeyHorizontalGap();
         //mDisplayHeight = dm.heightPixels;
 
         mDefaultHorizontalGap = 0;
         mDefaultWidth = mDisplayWidth / 10;
         //mDefaultVerticalGap = 0;
-        mDefaultHeight = mDefaultWidth;
-        //let's fix the height
-        com.anysoftkeyboard.Configuration config = AnyApplication.getConfig();
-		final int orientation = config.getDeviceOrientation();
-    	if (orientation != Configuration.ORIENTATION_LANDSCAPE)//I want to support other orientations too (like square)
-    		mDefaultHeight = (int)(mDefaultHeight * config.getKeysHeightFactorInPortrait());
-    	else
-    		mDefaultHeight = (int)(mDefaultHeight * config.getKeysHeightFactorInLandscape());
-    	
+        mDefaultHeightCode = -1;
+        
     	XmlResourceParser parser = mKeyboardContext.getResources().getXml(mLayoutResId);
         boolean inKey = false;
         boolean inRow = false;
@@ -792,6 +808,7 @@ public abstract class Keyboard {
         int row = 0;
         float x = 0;
         float y = rowVerticalGap;//starts with a gap
+        int rowHeight = 0;
         Key key = null;
         Row currentRow = null;
         Resources res = mKeyboardContext.getResources();
@@ -806,6 +823,7 @@ public abstract class Keyboard {
                     if (TAG_ROW.equals(tag)) {
                         inRow = true;
                         x = 0;
+                        rowHeight = 0;
                         currentRow = createRowFromXml(mASKContext, res, parser);
                         skipRow = currentRow.mode != 0 && currentRow.mode != mKeyboardMode;
                         if (skipRow) {
@@ -815,7 +833,8 @@ public abstract class Keyboard {
                    } else if (TAG_KEY.equals(tag)) {
                         inKey = true;
                         x += (keyHorizontalGap/2);
-                        key = createKeyFromXml(mASKContext, res, currentRow, (int)x, (int)y, parser);
+                        key = createKeyFromXml(mASKContext, res, currentRow, keyboardDimens, (int)x, (int)y, parser);
+                        rowHeight = Math.max(rowHeight, key.height);
                         key.width -= keyHorizontalGap;//the gap is on both sides
                         mKeys.add(key);
                         if (key.codes[0] == KeyCodes.SHIFT) {
@@ -844,7 +863,7 @@ public abstract class Keyboard {
                         inRow = false;
                         lastVerticalGap = currentRow.verticalGap;
                         y += currentRow.verticalGap;
-                        y += currentRow.defaultHeight;
+                        y += rowHeight;
                         y += rowVerticalGap;
                         row++;
                     } else if (inUnknown) {
@@ -889,7 +908,7 @@ public abstract class Keyboard {
 //        mDefaultHeight = getDimensionOrFraction(a, R.styleable.Keyboard_android_keyHeight,
 //                mDisplayHeight, 50);
         Resources askRes = askContext.getApplicationContext().getResources();
-        mDefaultHeight = getKeyHeight(askRes, res, a, askRes.getDimensionPixelOffset(R.dimen.default_key_height));
+        mDefaultHeightCode = getKeyHeightCode(askRes, res, a, -1);
         mDefaultHorizontalGap = getDimensionOrFraction(a, R.styleable.Keyboard_android_horizontalGap,
                 mDisplayWidth, 0);
         mDefaultVerticalGap = askRes.getDimensionPixelOffset(R.dimen.default_key_vertical_gap);

@@ -249,7 +249,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	        		mExtensionVisible = true;
 		        	if (mExtensionKey == null)
 		        	{
-			        	mExtensionKey = new AnyKey(new Row(getKeyboard()));
+			        	mExtensionKey = new AnyKey(new Row(getKeyboard()), getThemedKeyboardDimens());
 			        	mExtensionKey.codes = new int[]{0};
 			        	mExtensionKey.edgeFlags = Keyboard.EDGE_TOP;
 			        	mExtensionKey.height = 0;

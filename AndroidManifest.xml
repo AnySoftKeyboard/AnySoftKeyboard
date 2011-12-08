@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.menny.android.anysoftkeyboard"
-        android:versionCode="57" android:versionName="20111204-external-chamaeleon">
+        android:versionCode="58" android:versionName="20111207-external-chamaeleon">
 	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key"
+	    android:hardwareAccelerated="true"
 		android:name=".AnyApplication"  android:backupAgent="com.anysoftkeyboard.backup.AnyBackupAgent" android:restoreAnyVersion="true">
 		<!-- used to backup the settings and SQL to the cloud -->
 		<meta-data android:name="com.google.android.backup.api_key"

@@ -29,7 +29,8 @@ import com.menny.android.anysoftkeyboard.R;
 
 public class KeyboardSwitcher
 {
-    
+	private static String TAG = "ASK_KeySwitcher";
+
     public static final AnyKeyboard[] EMPTY_AnyKeyboards = new AnyKeyboard[]{};
     
 	public enum NextKeyboardType
@@ -87,12 +88,39 @@ public class KeyboardSwitcher
     private boolean mAlphabetMode = true;
 	private int mLastKeyboardMode;
 	private int mLatinKeyboardIndex;
-	private static String TAG = "ASK_KeySwitcher";
 
+	private final KeyboardDimens mKeyboardDimens;
+	
 	// Constructor hidden
     public KeyboardSwitcher(AnySoftKeyboard context) {
     	mContext = context;
-    	Resources res = mContext.getResources();
+    	final Resources res = mContext.getResources();
+    	mKeyboardDimens = new KeyboardDimens() {
+			
+			public int getSmallKeyHeight() {
+				return (int)res.getDimensionPixelOffset(R.dimen.default_key_half_height);
+			}
+			
+			public float getRowVerticalGap() {
+				return (int)res.getDimensionPixelOffset(R.dimen.default_key_vertical_gap);
+			}
+			
+			public int getNormalKeyHeight() {
+				return (int)res.getDimensionPixelOffset(R.dimen.default_key_height);
+			}
+			
+			public int getLargeKeyHeight() {
+				return (int)res.getDimensionPixelOffset(R.dimen.default_key_tall_height);
+			}
+			
+			public int getKeyboardMaxWidth() {
+				return mContext.getResources().getDisplayMetrics().widthPixels;
+			}
+			
+			public float getKeyHorizontalGap() {
+				return (int)res.getDimensionPixelOffset(R.dimen.default_key_horizontal_gap);
+			}
+		};
     	KEYBOARDMODE_NORMAL = res.getInteger(R.integer.keyboard_mode_normal);
     	KEYBOARDMODE_IM = res.getInteger(R.integer.keyboard_mode_im);
     	KEYBOARDMODE_URL = res.getInteger(R.integer.keyboard_mode_url);
@@ -151,12 +179,12 @@ public class KeyboardSwitcher
 	    	mLastSelectedSymbolsKeyboard = keyboardIndex;
 	    	if (mInputView != null)
 	    	{
-	    		keyboard.loadKeyboard(mInputView.getKeyboardMaxWidth(), mInputView.getThemeHorizontalKeyGap(), mInputView.getThemeVerticalRowGap());
+	    		keyboard.loadKeyboard(mInputView.getThemedKeyboardDimens());
 				mInputView.setKeyboard(keyboard);
 	    	}
 			else
 			{
-				keyboard.loadKeyboard(mContext.getResources().getDisplayMetrics().widthPixels, 0, 0);
+				keyboard.loadKeyboard(mKeyboardDimens);
 			}
     	}
 
@@ -486,12 +514,12 @@ public class KeyboardSwitcher
 			keyboard = keyboards[index];
 			if (mInputView != null)
 	    	{
-	    		keyboard.loadKeyboard(mInputView.getKeyboardMaxWidth(), mInputView.getThemeHorizontalKeyGap(), mInputView.getThemeVerticalRowGap());
+	    		keyboard.loadKeyboard(mInputView.getThemedKeyboardDimens());
 				mInputView.setKeyboard(keyboard);
 	    	}
 			else
 			{
-				keyboard.loadKeyboard(mContext.getResources().getDisplayMetrics().widthPixels, 0, 0);
+				keyboard.loadKeyboard(mKeyboardDimens);
 			}
 		}
 		return keyboard;
