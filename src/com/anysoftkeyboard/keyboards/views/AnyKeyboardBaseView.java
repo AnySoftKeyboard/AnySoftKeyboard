@@ -55,6 +55,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -1257,23 +1258,22 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         	mPreviewPaddingWidth = mPreviewText.getPaddingLeft() + mPreviewText.getPaddingRight();
         	mPreviewPaddingHeight = mPreviewText.getPaddingTop() + mPreviewText.getPaddingBottom();
         	
-        	Drawable popupDrawable = mPreviewPopup.getBackground();
-        	if (popupDrawable != null)
+        	if (mPreviewKeyBackground != null)
         	{
         		Rect padding = new Rect();
-        		popupDrawable.getPadding(padding);
+        		mPreviewKeyBackground.getPadding(padding);
         		mPreviewPaddingWidth += (padding.left + padding.right);
         		mPreviewPaddingHeight += (padding.top + padding.bottom);
         	}
         }
         popupWidth += mPreviewPaddingWidth;
         popupHeight += mPreviewPaddingHeight;
-        /*LayoutParams lp = mPreviewText.getLayoutParams();
+        
+        LayoutParams lp = mPreviewText.getLayoutParams();
         if (lp != null) {
             lp.width = popupWidth;
             lp.height = popupHeight;
         }
-        mPreviewText.requestLayout();*/
         
         int popupPreviewX = key.x - ((popupWidth - key.width) / 2);
         int popupPreviewY = key.y - popupHeight - mPreviewOffset;
@@ -1290,11 +1290,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             mWindowY = windowLocation[1];
         }
         // Set the preview background state
-        Drawable keyPreviewBackground = mPreviewPopup.getBackground();
-        if (keyPreviewBackground != null)
+        if (mPreviewKeyBackground != null)
         {
-        	keyPreviewBackground.setState(
-                key.popupResId != 0 ? LONG_PRESSABLE_STATE_SET : EMPTY_STATE_SET);
+        	mPreviewKeyBackground.setState(key.popupResId != 0 ? LONG_PRESSABLE_STATE_SET : EMPTY_STATE_SET);
         }
         popupPreviewX += mOffsetInWindow[0];
         popupPreviewY += mOffsetInWindow[1];
