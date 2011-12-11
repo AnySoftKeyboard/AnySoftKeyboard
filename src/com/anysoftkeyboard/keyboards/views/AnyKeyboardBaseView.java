@@ -145,7 +145,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private int mPopupPreviewOffsetX;
     private int mPopupPreviewOffsetY;
     private int mWindowY;
-//    private int mPopupPreviewDisplayedY;
+    private int mPopupPreviewDisplayedY;
     private final int mDelayBeforePreview;
     private final int mDelayAfterPreview;
 
@@ -1321,7 +1321,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                     popupPreviewX, popupPreviewY);
         }
         // Record popup preview position to display mini-keyboard later at the same positon
-//        mPopupPreviewDisplayedY = popupPreviewY;
+        mPopupPreviewDisplayedY = popupPreviewY;
         mPreviewText.setVisibility(VISIBLE);
     }
 
@@ -1507,8 +1507,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         popupY -= mMiniKeyboard.getMeasuredHeight();
         popupY += mMiniKeyboard.getPaddingBottom();
         final int x = popupX;
-        //final int y = mShowPreview && isOneRowKeys(miniKeys) ? mPopupPreviewDisplayedY : popupY;
-        final int y = popupY;
+        final int y = mShowPreview ? mPopupPreviewDisplayedY : popupY;
+        //final int y = popupY;
         
         int adjustedX = x;
         if (x < 0) {
