@@ -551,7 +551,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mSuggest.setCorrectionMode(mQuickFixes, mShowSuggestions);
 		}
 
-		mPredictionOn = mPredictionOn && (mShowSuggestions || mQuickFixes);
+		mPredictionOn = mPredictionOn && (mShowSuggestions/* || mQuickFixes*/);
 
 		if (mCandidateView != null)
 			mCandidateView.setSuggestions(null, false, false, false);
@@ -2012,7 +2012,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 //		return shown;
 //		return true;
 //		return isPredictionOn() || isFullscreenMode();
-		return true;
+		return mShowSuggestions;
 	}
 
 	private void performUpdateSuggestions() {
@@ -2546,13 +2546,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		mAutoCap = sp.getBoolean("auto_caps", true);
 
-		boolean newShowSuggestions = sp.getBoolean("candidates_on", true);
-		boolean suggestionsChanged = (newShowSuggestions != mShowSuggestions);
-		mShowSuggestions = newShowSuggestions;
-		// why check that it is "false"? Because it starts as "false", so it is
-		// not 'changed'.
-		if (suggestionsChanged || (!mShowSuggestions))
-			setDictionariesForCurrentKeyboard();
+		mShowSuggestions = sp.getBoolean("candidates_on", true);
+		
+		setDictionariesForCurrentKeyboard();
 
 		mAutoComplete = sp.getBoolean("auto_complete", true) && mShowSuggestions;
 
@@ -2563,7 +2559,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 												 * maybe not at the moment, but
 												 * shortly
 												 */
-								(mAutoComplete || mQuickFixes);
+								(mAutoComplete/* || mQuickFixes*/);
 		
 //		mCorrectionMode = mAutoComplete ? 2
 //				: (/*mShowSuggestions*/ mQuickFixes ? 1 : 0);

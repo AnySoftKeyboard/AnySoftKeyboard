@@ -119,6 +119,7 @@ android:key="ime_settings">
 		android:summaryOff=""
 		android:persistent="true"
 		android:defaultValue="true"
+		android:dependency="candidates_on"
 		/>
 		<CheckBoxPreference
 		android:key="quick_fix"
@@ -127,6 +128,7 @@ android:key="ime_settings">
 		android:summaryOff=""
 		android:persistent="true"
 		android:defaultValue="true"
+		android:dependency="candidates_on"
 		/>		
 	</PreferenceCategory>
 	<PreferenceCategory android:key="speacial_fetures_group"
