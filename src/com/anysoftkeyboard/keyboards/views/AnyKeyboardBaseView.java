@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.WeakHashMap;
 
 import android.content.Context;
@@ -1207,8 +1208,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         // We should re-draw popup preview when 1) we need to hide the preview, 2) we will show
         // the space key preview and 3) pointer moves off the space key to other letter key, we
         // should hide the preview of the previous key.
-        final boolean hidePreviewOrShowSpaceKeyPreview = (tracker == null)
-                || tracker.isSpaceKey(keyIndex) || tracker.isSpaceKey(oldKeyIndex);
+        final boolean hidePreviewOrShowSpaceKeyPreview = (tracker == null)/*
+                || tracker.isSpaceKey(keyIndex) || tracker.isSpaceKey(oldKeyIndex)*/;
         // If key changed and preview is on or the key is space (language switch is enabled)
         if (oldKeyIndex != keyIndex
                 && (mShowPreview
@@ -1268,12 +1269,12 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         }
         popupWidth += mPreviewPaddingWidth;
         popupHeight += mPreviewPaddingHeight;
-        
+        /*
         LayoutParams lp = mPreviewText.getLayoutParams();
         if (lp != null) {
             lp.width = popupWidth;
             lp.height = popupHeight;
-        }
+        }*/
         
         int popupPreviewX = key.x - ((popupWidth - key.width) / 2);
         int popupPreviewY = key.y - popupHeight - mPreviewOffset;
@@ -1311,13 +1312,14 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         }
 
         if (mPreviewPopup.isShowing()) {
-            mPreviewPopup.update(popupPreviewX, popupPreviewY, popupWidth, popupHeight);
+        	mPreviewPopup.update(popupPreviewX, popupPreviewY, popupWidth, popupHeight);
         } else {
             mPreviewPopup.setWidth(popupWidth);
             mPreviewPopup.setHeight(popupHeight);
             mPreviewPopup.showAtLocation(mMiniKeyboardParent, Gravity.NO_GRAVITY,
                     popupPreviewX, popupPreviewY);
         }
+        mPreviewPopup.update(popupPreviewX, popupPreviewY, popupWidth, popupHeight);
         // Record popup preview position to display mini-keyboard later at the same positon
         mPopupPreviewDisplayedY = popupPreviewY;
         mPreviewText.setVisibility(VISIBLE);
@@ -1494,7 +1496,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         //final int miniKeyWidth = miniKeys.size() > 0 ? miniKeys.get(0).width : 0;
 
         int popupX = popupKey.x + mWindowOffset[0];
-        popupX += getPaddingLeft();
+        popupX -= mMiniKeyboard.getPaddingLeft();
         /*
         popupX += miniKeyWidth;
         popupX -= mMiniKeyboard.getMeasuredWidth();
@@ -1503,9 +1505,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         int popupY = popupKey.y + mWindowOffset[1];
         popupY += getPaddingTop();
         popupY -= mMiniKeyboard.getMeasuredHeight();
-        popupY += mMiniKeyboard.getPaddingBottom();
+        popupY -= mMiniKeyboard.getPaddingBottom();
         final int x = popupX;
-        final int y = mShowPreview ? mPopupPreviewDisplayedY : popupY;
+        final int y = mShowPreview && isOneRowKeys(mMiniKeyboard.getKeyboard().getKeys()) ? mPopupPreviewDisplayedY : popupY;
         //final int y = popupY;
         
         int adjustedX = x;
@@ -1539,6 +1541,17 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         return true;
     }
 
+    private static boolean isOneRowKeys(List<Key> keys) {
+        if (keys.size() == 0) return false;
+        final int edgeFlags = keys.get(0).edgeFlags;
+        // HACK: The first key of mini keyboard which was inflated from xml and has multiple rows,
+        // does not have both top and bottom edge flags on at the same time.  On the other hand,
+        // the first key of mini keyboard that was created with popupCharacters must have both top
+        // and bottom edge flags on.
+        // When you want to use one row mini-keyboard from xml file, make sure that the row has
+        // both top and bottom edge flags set.
+        return (edgeFlags & Keyboard.EDGE_TOP) != 0 && (edgeFlags & Keyboard.EDGE_BOTTOM) != 0;
+    }
 //    private static boolean hasMultiplePopupChars(Key key) {
 //        if (key.popupCharacters != null && key.popupCharacters.length() > 1) {
 //            return true;
