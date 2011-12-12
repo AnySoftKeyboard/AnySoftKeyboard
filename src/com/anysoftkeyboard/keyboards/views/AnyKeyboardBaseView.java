@@ -132,6 +132,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private Key[] mKeys;
     
     // Key preview popup
+    private ViewGroup mPreviewLayut;
     private TextView mPreviewText;
     private ImageView mPreviewIcon;
     private PopupWindow mPreviewPopup;
@@ -254,7 +255,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
         public void popupPreview(long delay, int keyIndex, PointerTracker tracker) {
             removeMessages(MSG_POPUP_PREVIEW);
-            if (mPreviewPopup.isShowing() && mPreviewText.getVisibility() == VISIBLE) {
+            if (mPreviewPopup.isShowing() && mPreviewLayut.getVisibility() == VISIBLE) {
                 // Show right away, if it's already visible and finger is moving around
                 showKey(keyIndex, tracker);
             } else {
@@ -448,15 +449,16 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         mPreviewPopup = new PopupWindow(context);
         if (mPreviewKeyTextSize > 0) {
         	if (mPreviewLabelTextSize <= 0) mPreviewLabelTextSize = mPreviewKeyTextSize;
-        	ViewGroup keyPreview = (ViewGroup) inflate.inflate(R.layout.key_preview, null);
-            mPreviewText = (TextView) keyPreview.findViewById(R.id.key_preview_text);
+        	mPreviewLayut = (ViewGroup) inflate.inflate(R.layout.key_preview, null);
+            mPreviewText = (TextView) mPreviewLayut.findViewById(R.id.key_preview_text);
             mPreviewText.setTextColor(mPreviewKeyTextColor);
             mPreviewText.setTypeface(mKeyTextStyle);
-            mPreviewIcon = (ImageView) keyPreview.findViewById(R.id.key_preview_icon);
+            mPreviewIcon = (ImageView) mPreviewLayut.findViewById(R.id.key_preview_icon);
             mPreviewPopup.setBackgroundDrawable(mPreviewKeyBackground);
-            mPreviewPopup.setContentView(keyPreview);
+            mPreviewPopup.setContentView(mPreviewLayut);
             mShowPreview = true;
         } else {
+        	mPreviewLayut = null;
         	mPreviewText = null;
             mShowPreview = false;
         }
@@ -1256,8 +1258,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         
         if (mPreviewPaddingHeight < 0)
         {
-        	mPreviewPaddingWidth = mPreviewText.getPaddingLeft() + mPreviewText.getPaddingRight();
-        	mPreviewPaddingHeight = mPreviewText.getPaddingTop() + mPreviewText.getPaddingBottom();
+        	mPreviewPaddingWidth = mPreviewLayut.getPaddingLeft() + mPreviewLayut.getPaddingRight();
+        	mPreviewPaddingHeight = mPreviewLayut.getPaddingTop() + mPreviewLayut.getPaddingBottom();
         	
         	if (mPreviewKeyBackground != null)
         	{
@@ -1269,12 +1271,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         }
         popupWidth += mPreviewPaddingWidth;
         popupHeight += mPreviewPaddingHeight;
-        /*
-        LayoutParams lp = mPreviewText.getLayoutParams();
-        if (lp != null) {
-            lp.width = popupWidth;
-            lp.height = popupHeight;
-        }*/
         
         int popupPreviewX = key.x - ((popupWidth - key.width) / 2);
         int popupPreviewY = key.y - popupHeight - mPreviewOffset;
@@ -1314,16 +1310,19 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             mPreviewPopup.showAtLocation(mMiniKeyboardParent, Gravity.NO_GRAVITY,
                     popupPreviewX, popupPreviewY);
         }
-        mPreviewPopup.getContentView().invalidate();
+        //mPreviewPopup.getContentView().invalidate();
         // Record popup preview position to display mini-keyboard later at the same positon
         mPopupPreviewDisplayedY = popupPreviewY;
-        mPreviewText.setVisibility(VISIBLE);
+        mPreviewLayut.setVisibility(VISIBLE);
         
-     // Set the preview background state
+        // Set the preview background state
         if (mPreviewKeyBackground != null)
         {
         	mPreviewKeyBackground.setState(key.popupResId != 0 ? LONG_PRESSABLE_STATE_SET : EMPTY_STATE_SET);
         }
+        
+        //LayoutParams lp = mPreviewLayut.getLayoutParams();
+        //lp.width = popupWidth;
     }
 
     /**

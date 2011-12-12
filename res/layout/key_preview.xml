@@ -24,7 +24,7 @@
     android:padding="0px">
     <TextView
     	android:id="@+id/key_preview_text"
-	    android:layout_width="wrap_content"
+	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_margin="0px"
 	    android:padding="0px"
@@ -32,7 +32,7 @@
 	    android:layout_centerInParent="true"
 	    />
 	<ImageView android:id="@+id/key_preview_icon"
-	    android:layout_width="wrap_content"
+	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_margin="0px"
 	    android:padding="0px"
