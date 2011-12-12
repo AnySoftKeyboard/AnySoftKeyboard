@@ -67,7 +67,6 @@ com.anysoftkeyboard.ui.tutorials.ChangeLogActivity
 com.anysoftkeyboard.ui.tutorials.WelcomeHowToNoticeActivity
 com.anysoftkeyboard.ui.tutorials.TestersNoticeActivity
 com.anysoftkeyboard.ui.SendBugReportUiActivity
-com.anysoftkeyboard.ui.MainForm
 com.anysoftkeyboard.ui.settings.MainSettings
 com.menny.android.anysoftkeyboard.MainSettings
 com.anysoftkeyboard.ui.settings.Tweaks
@@ -79,6 +78,7 @@ com.anysoftkeyboard.ui.settings.TopRowSelector
 com.anysoftkeyboard.ui.settings.ExtensionKeyboardSelector
 com.anysoftkeyboard.ui.settings.Dictionaries
 com.anysoftkeyboard.ui.settings.Keyboards
+com.anysoftkeyboard.ui.MainForm
 com.menny.android.anysoftkeyboard.AnyApplication
 com.anysoftkeyboard.AnySoftKeyboard
 com.menny.android.anysoftkeyboard.SoftKeyboard
