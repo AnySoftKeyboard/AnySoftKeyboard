@@ -1290,11 +1290,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             getLocationOnScreen(windowLocation);
             mWindowY = windowLocation[1];
         }
-        // Set the preview background state
-        if (mPreviewKeyBackground != null)
-        {
-        	mPreviewKeyBackground.setState(key.popupResId != 0 ? LONG_PRESSABLE_STATE_SET : EMPTY_STATE_SET);
-        }
         popupPreviewX += mOffsetInWindow[0];
         popupPreviewY += mOffsetInWindow[1];
         
@@ -1319,10 +1314,16 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             mPreviewPopup.showAtLocation(mMiniKeyboardParent, Gravity.NO_GRAVITY,
                     popupPreviewX, popupPreviewY);
         }
-        mPreviewPopup.update(popupPreviewX, popupPreviewY, popupWidth, popupHeight);
+        mPreviewPopup.getContentView().invalidate();
         // Record popup preview position to display mini-keyboard later at the same positon
         mPopupPreviewDisplayedY = popupPreviewY;
         mPreviewText.setVisibility(VISIBLE);
+        
+     // Set the preview background state
+        if (mPreviewKeyBackground != null)
+        {
+        	mPreviewKeyBackground.setState(key.popupResId != 0 ? LONG_PRESSABLE_STATE_SET : EMPTY_STATE_SET);
+        }
     }
 
     /**
