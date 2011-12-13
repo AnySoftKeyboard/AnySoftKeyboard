@@ -1254,7 +1254,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             popupHeight = Math.max(mPreviewText.getMeasuredHeight(), key.height);
         }
         
-        
         if (mPreviewPaddingHeight < 0)
         {
         	mPreviewPaddingWidth = mPreviewLayut.getPaddingLeft() + mPreviewLayut.getPaddingRight();
@@ -1270,6 +1269,14 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         }
         popupWidth += mPreviewPaddingWidth;
         popupHeight += mPreviewPaddingHeight;
+        
+        //and checking that the width and height are big enough for the background.
+        if (mPreviewKeyBackground != null)
+        {
+        	popupWidth = Math.max(mPreviewKeyBackground.getMinimumWidth(), popupWidth);
+        	popupHeight = Math.max(mPreviewKeyBackground.getMinimumHeight(), popupHeight);
+        }
+
         
         int popupPreviewX = key.x - ((popupWidth - key.width) / 2);
         int popupPreviewY = key.y - popupHeight - mPreviewOffset;
