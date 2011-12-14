@@ -139,6 +139,27 @@
 		<attr name="suggestionBackgroundImage" format="reference" />
 		<attr name="suggestionDividerImage" format="reference" />
 		<attr name="suggestionStripHeight" format="dimension" />
+		
+		<!-- should support normal, feedback, pressed, pressed+feedback, locked, locked+feedback -->
+		<attr name="iconKeyShift" format="reference" />
+		<!-- should support normal, feedback, pressed, pressed+feedback, locked, locked+feedback -->
+		<attr name="iconKeyControl" format="reference" />
+		<!-- should support normal, feedback -->
+		<attr name="iconKeyBackspace" format="reference" />
+		<!-- should support normal, feedback -->
+		<attr name="iconKeySpace" format="reference" />
+		<!-- should support normal, feedback -->
+		<attr name="iconKeyTab" format="reference" />
+		<!-- should support normal, feedback -->
+		<attr name="iconKeyCancel" format="reference" />
+		<!-- should support normal, feedback -->
+		<attr name="iconKeyGlobe" format="reference" />
+		<!-- should support normal, feedback -->
+		<attr name="iconKeyEnter" format="reference" />
+		<!-- should support normal, feedback -->
+		<attr name="iconKeyDone" format="reference" />
+		<!-- should support normal, feedback -->
+		<attr name="iconKeySearch" format="reference" />
     </declare-styleable>
 
 	<declare-styleable name="keyType">
