@@ -1840,14 +1840,21 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 		}
 		return null;
 	}
-    public void closing() {
+    public boolean closing() {
         mPreviewPopup.dismiss();
         mHandler.cancelAllMessages();
 
-        dismissPopupKeyboard();
-        mBuffer = null;
-        mCanvas = null;
-        mMiniKeyboardCache.clear();
+        if (!dismissPopupKeyboard())
+        {
+	        mBuffer = null;
+	        mCanvas = null;
+	        mMiniKeyboardCache.clear();
+	        return true;
+        }
+        else
+        {
+        	return false;
+        }
     }
 
     @Override
@@ -1880,14 +1887,17 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     	return mMiniKeyboardPopup != null && mMiniKeyboardPopup.isShowing();
     }
     
-    protected void dismissPopupKeyboard() {
+    protected boolean dismissPopupKeyboard() {
         if (isPopupShowing()) {
             mMiniKeyboardPopup.dismiss();
             mMiniKeyboard = null;
             mMiniKeyboardOriginX = 0;
             mMiniKeyboardOriginY = 0;
             invalidateAllKeys();
+            return true;
         }
+        else
+        	return false;
     }
 
     public boolean handleBack() {

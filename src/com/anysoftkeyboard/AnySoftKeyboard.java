@@ -1430,6 +1430,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 			else
 				nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
 			break;
+		case KeyCodes.UTILITY_KEYBOARD:
+			mInputView.openUtilityKeyboard();
+			break;
 		case KeyCodes.MODE_ALPHABET_POPUP:
 			showLanguageSelectionDialog();
 			break;
@@ -1975,11 +1978,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	private void handleClose() {
-		commitTyped(getCurrentInputConnection());
-		requestHideSelf(0);
+		boolean closeSelf = true;
+		
 		if (mInputView != null)
-			mInputView.closing();
-		TextEntryState.endSession();
+			closeSelf = mInputView.closing();
+		
+		if (closeSelf)
+		{
+			commitTyped(getCurrentInputConnection());
+			requestHideSelf(0);
+			TextEntryState.endSession();
+		}
 	}
 
 //	private void checkToggleCapsLock() {
@@ -2380,7 +2389,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 		final int keyCode = mConfig.getGestureSwipeUpKeyCode();
 		if(DEBUG)Log.d(TAG, "onSwipeUp " + ((onSpaceBar)? " + space" : "") +" => code "+ keyCode);
 		if (keyCode != 0)
-			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
+		{
+			if (onSpaceBar)
+				onKey(KeyCodes.UTILITY_KEYBOARD, new int[]{KeyCodes.UTILITY_KEYBOARD}, SWIPE_CORD, SWIPE_CORD);
+			else
+				onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
+		}
 	}
 	
 	public void onPinch() {

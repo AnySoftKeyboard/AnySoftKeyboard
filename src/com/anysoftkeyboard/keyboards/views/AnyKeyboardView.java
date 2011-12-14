@@ -53,6 +53,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	private boolean mExtensionVisible = false;
 	private final int mExtensionKeyboardPopupOffset;
 	private Key mExtensionKey;
+	private Key mUtilityKey;
 	private Key mSpaceBarKey = null;
 	private Point mFirstTouchPoint = null;
 	private Boolean mCachedIsFirstDownEventInsideSpaceBar = null;
@@ -98,6 +99,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 		mExtensionKey = null;
 		mExtensionVisible = false;
 
+		mUtilityKey = null;
 		// final Keyboard oldKeyboard = getKeyboard();
 		// if (oldKeyboard instanceof AnyKeyboard) {
 		// // Reset old keyboard state before switching to new keyboard.
@@ -281,10 +283,10 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     }
 
 	@Override
-	protected void dismissPopupKeyboard() {
+	protected boolean dismissPopupKeyboard() {
 		mExtensionKeyboardAreaEntranceTime = -1;
 		mExtensionVisible = false;
-		super.dismissPopupKeyboard();
+		return super.dismissPopupKeyboard();
 	}
 
 	public void showQuickTextPopupKeyboard(Context packageContext,
@@ -292,5 +294,24 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 		Key popupKey = findKeyByKeyCode(KeyCodes.QUICK_TEXT);
 		popupKey.popupResId = key.getPopupKeyboardResId();
 		super.onLongPress(packageContext, popupKey);
+	}
+
+	public void openUtilityKeyboard() {
+		if (mUtilityKey == null)
+    	{
+			mUtilityKey = new AnyKey(new Row(getKeyboard()), getThemedKeyboardDimens());
+			mUtilityKey.codes = new int[]{0};
+			mUtilityKey.edgeFlags = Keyboard.EDGE_BOTTOM;
+			mUtilityKey.height = 0;
+			mUtilityKey.width = 0;
+			mUtilityKey.popupResId = R.xml.ext_kbd_utility_utility;
+			mUtilityKey.x = getWidth()/2;
+			mUtilityKey.y = getHeight()/2;
+    	}
+    	onLongPress(getContext(), mUtilityKey);
+    	mMiniKeyboard.setPreviewEnabled(true);
+    	Keyboard miniKeyboardObject = mMiniKeyboard.getKeyboard();
+    	if (miniKeyboardObject instanceof AnyPopupKeyboard)
+    		((AnyPopupKeyboard)miniKeyboardObject).setIsOneKeyEventPopup(false);
 	}
 }
