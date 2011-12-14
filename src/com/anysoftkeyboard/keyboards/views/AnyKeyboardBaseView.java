@@ -1411,8 +1411,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         	}
 
             public void onText(CharSequence text) {
-            	if (keyboard.isOneKeyEventPopup()) mKeyboardActionListener.onText(text);
-                dismissPopupKeyboard();
+            	mKeyboardActionListener.onText(text);
+            	if (keyboard.isOneKeyEventPopup()) dismissPopupKeyboard();
             }
 
             public void onCancel() {
