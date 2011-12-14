@@ -1823,7 +1823,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
     
 	private void handleCharacter(final int primaryCode, int[] keyCodes) {
-		if(DEBUG) Log.d("AnySoftKeyboard", "handleCharacter: "+primaryCode+", isPredictionOn:"+isPredictionOn()+", mPredicting:"+mPredicting);
+		if(DEBUG) Log.d(TAG, "handleCharacter: "+primaryCode+", isPredictionOn:"+isPredictionOn()+", mPredicting:"+mPredicting);
 		if (isAlphabet(primaryCode) && isPredictionOn()
 				&& !isCursorTouchingWord()) {
 			if (!mPredicting) {
@@ -1879,7 +1879,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 			if (mWord.add(primaryCodeForShow, keyCodes))
 			{
-				Toast note = Toast.makeText(this, "Check the logcat for a note from AnySoftKeyboard developers!", Toast.LENGTH_LONG);
+				Toast note = Toast.makeText(getApplicationContext(), "Check the logcat for a note from AnySoftKeyboard developers!", Toast.LENGTH_LONG);
 				note.show();
 				
 				Log.i(TAG, "*******************"
