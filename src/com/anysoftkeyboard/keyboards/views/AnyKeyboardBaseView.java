@@ -679,6 +679,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 			mSwipeYDistanceThreshold = mSwipeXDistanceThreshold;
 		
 		mSwipeSpaceXDistanceThreshold = mSwipeXDistanceThreshold/2;
+		mSwipeYDistanceThreshold = mSwipeYDistanceThreshold/2;
 		
 		mScrollXDistanceThreshold = mSwipeXDistanceThreshold / 8;
 		mScrollYDistanceThreshold = mSwipeYDistanceThreshold / 8;
@@ -1371,7 +1372,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         Key popupKey = tracker.getKey(keyIndex);
         if (popupKey == null)
             return false;
-        boolean result = onLongPress(getContext(), popupKey, false);
+        boolean result = onLongPress(getContext(), popupKey, false, true);
         if (result) {
             dismissKeyPreview();
             mMiniKeyboardTrackerId = tracker.mPointerId;
@@ -1484,7 +1485,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
      * @return true if the long press is handled, false otherwise. Subclasses should call the
      * method on the base class if the subclass doesn't wish to handle the call.
      */
-    protected boolean onLongPress(Context packageContext, Key popupKey, boolean isSticky) {
+    protected boolean onLongPress(Context packageContext, Key popupKey, boolean isSticky, boolean requireSlideInto) {
         if (popupKey.popupResId == 0)
             return false;
 
@@ -1535,7 +1536,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         mMiniKeyboardPopup.setHeight(mMiniKeyboard.getMeasuredHeight());
         mMiniKeyboardPopup.showAtLocation(this, Gravity.NO_GRAVITY, adjustedX, y);
 
-        if (!isSticky)
+        if (requireSlideInto)
         {
 	        // Inject down event on the key to mini keyboard.
 	        long eventTime = SystemClock.uptimeMillis();

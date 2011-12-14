@@ -156,7 +156,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	public void simulateLongPress(int keyCode) {
 		Key key = findKeyByKeyCode(keyCode);
 		if (key != null)
-			super.onLongPress(getContext(), key, false);
+			super.onLongPress(getContext(), key, false, true);
 	}
 
 	private boolean invokeOnKey(int primaryCode) {
@@ -202,7 +202,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	}
 
 	@Override
-	protected boolean onLongPress(Context packageContext, Key key, boolean isSticky) {
+	protected boolean onLongPress(Context packageContext, Key key, boolean isSticky, boolean requireSlideInto) {
 		if (key != null && key instanceof AnyKey) {
 			AnyKey anyKey = (AnyKey) key;
 			if (anyKey.longPressCode != 0) {
@@ -211,7 +211,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 			}
 		}
 
-		return super.onLongPress(packageContext, key, isSticky);
+		return super.onLongPress(packageContext, key, isSticky, requireSlideInto);
 	}
 
 	private long mExtensionKeyboardAreaEntranceTime = -1;
@@ -261,7 +261,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 			        	mExtensionKey.x = getWidth()/2;
 			        	mExtensionKey.y = -mExtensionKeyboardPopupOffset;
 		        	}
-		        	super.onLongPress(getContext(), mExtensionKey, AnyApplication.getConfig().isStickyExtensionKeyboard());
+		        	super.onLongPress(getContext(), mExtensionKey, AnyApplication.getConfig().isStickyExtensionKeyboard(), !AnyApplication.getConfig().isStickyExtensionKeyboard());
 		        	//it is an extension..
 		        	mMiniKeyboard.setPreviewEnabled(true);
 		        	return true;
@@ -291,7 +291,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 			QuickTextKey key) {
 		Key popupKey = findKeyByKeyCode(KeyCodes.QUICK_TEXT);
 		popupKey.popupResId = key.getPopupKeyboardResId();
-		super.onLongPress(packageContext, popupKey, false);
+		super.onLongPress(packageContext, popupKey, false, true);
 	}
 
 	public void openUtilityKeyboard() {
@@ -305,9 +305,9 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 			mUtilityKey.width = 0;
 			mUtilityKey.popupResId = R.xml.ext_kbd_utility_utility;
 			mUtilityKey.x = getWidth()/2;
-			mUtilityKey.y = getHeight();
+			mUtilityKey.y = getHeight() - getThemedKeyboardDimens().getSmallKeyHeight();
     	}
-    	super.onLongPress(getContext(), mUtilityKey, true);
+    	super.onLongPress(getContext(), mUtilityKey, true, false);
     	mMiniKeyboard.setPreviewEnabled(true);
 	}
 }
