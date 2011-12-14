@@ -21,10 +21,12 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_margin="0px"
+    android:gravity="center"
+    android:layout_gravity="center"
     android:padding="0px">
     <TextView
     	android:id="@+id/key_preview_text"
-	    android:layout_width="fill_parent"
+	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_margin="0px"
 	    android:padding="0px"
