@@ -102,6 +102,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private final static String TAG = "ASK";
 	
 	private final static int SWIPE_CORD = -2;
+	
 	/*
 	public final static String NOTIFY_LAYOUT_SWITCH  = "com.menny.android.anysoftkeyboard.api.NOTIFY_LAYOUT_SWITCH";
     //API
@@ -386,7 +387,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mCandidateView.setService(this);
 		setCandidatesViewShown(true);
 		
-		final KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(AnySoftKeyboard.getInstance());
+		final KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(getApplicationContext());
         final TypedArray a = theme.getPackageContext().obtainStyledAttributes(null, R.styleable.AnyKeyboardBaseView, 0, theme.getThemeResId());
         final int closeTextColor = a.getColor(R.styleable.AnyKeyboardBaseView_suggestionOthersTextColor, getResources().getColor(R.color.candidate_other));
         final float fontSizePixel = a.getDimension(R.styleable.AnyKeyboardBaseView_suggestionTextSize, getResources().getDimensionPixelSize(R.dimen.candidate_font_height));
@@ -780,7 +781,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 //						"isShown:"+mInputView.isShown()+"\n");
 //			}
 //		}
-		final boolean shouldTranslateSpecialKeys = AnySoftKeyboard.getInstance().isInputViewShown();
+		final boolean shouldTranslateSpecialKeys = isInputViewShown();
 		if(DEBUG){
 			Log.d(TAG, "isInputViewShown="+shouldTranslateSpecialKeys);
 		}
@@ -1379,8 +1380,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 			if (getCurrentKeyboard() != null && mInputView != null)
 			{
 				mKeyboardInCondensedMode = KeyCodes.SPLIT_LAYOUT == primaryCode;
-				getCurrentKeyboard().setCondensedKeys(mKeyboardInCondensedMode);
-				mInputView.setKeyboard(getCurrentKeyboard());
+				AnyKeyboard currentKeyboard = getCurrentKeyboard();
+				setKeyboardStuffBeforeSetToView(currentKeyboard);
+				mInputView.setKeyboard(currentKeyboard);
 			}
 			break;
 		case KeyCodes.DOMAIN:
@@ -1484,6 +1486,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	}
 
+	public void setKeyboardStuffBeforeSetToView(AnyKeyboard currentKeyboard) {
+		currentKeyboard.setCondensedKeys(mKeyboardInCondensedMode);
+	}
+
 	private void showLanguageSelectionDialog() {
 		KeyboardAddOnAndBuilder[] builders = mKeyboardSwitcher.getEnabledKeyboardsBuilders();
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -1517,7 +1523,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 					if (DEBUG)Log.d(TAG, "User selected "+items[position]+" with id "+id);
 					EditorInfo currentEditorInfo = getCurrentInputEditorInfo();
 					AnyKeyboard currentKeyboard = mKeyboardSwitcher.nextAlphabetKeyboard(currentEditorInfo, id.toString());
-					setKeyboardStuff(currentEditorInfo, NextKeyboardType.Alphabet, currentKeyboard);
+					setKeyboardFinalStuff(currentEditorInfo, NextKeyboardType.Alphabet, currentKeyboard);
 				}
 			}
 		});
@@ -2331,13 +2337,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 	    if (!(keyboard instanceof GenericKeyboard))
 	    	mSentenceSeparators = keyboard.getSentenceSeparators();
 	    
-		setKeyboardStuff(currentEditorInfo, type, keyboard);
+		setKeyboardFinalStuff(currentEditorInfo, type, keyboard);
 	}
 
-	private void setKeyboardStuff(EditorInfo currentEditorInfo,
+	private void setKeyboardFinalStuff(EditorInfo currentEditorInfo,
 			KeyboardSwitcher.NextKeyboardType type, AnyKeyboard currentKeyboard) {
-		Log.i(TAG, "nextKeyboard: Setting next keyboard to: "
-				+ currentKeyboard.getKeyboardName());
 		updateShiftKeyState(currentEditorInfo);
 		mCapsLock = currentKeyboard.isShiftLocked();
 		// changing dictionary
@@ -2349,7 +2353,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 						.equals(KEYBOARD_NOTIFICATION_ON_PHYSICAL) && (type == NextKeyboardType.AlphabetSupportsPhysical))) {
 			notifyKeyboardChangeIfNeeded();
 		}
-		currentKeyboard.setCondensedKeys(mKeyboardInCondensedMode);
 	}
 
 	public void onSwipeRight(boolean onSpaceBar) {
@@ -2511,6 +2514,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// Get the settings preferences
 		SharedPreferences sp = PreferenceManager
 				.getDefaultSharedPreferences(this);
+
+		((ConfigurationImpl) mConfig).handleConfigurationChange(sp);
+		
 		mVibrationDuration = Integer.parseInt(sp.getString(
 				getString(R.string.settings_key_vibrate_on_key_press_duration),
 				getString(R.string.settings_default_vibrate_on_key_press_duration)));
@@ -2568,7 +2574,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 //		mSmileyPopupType = sp.getString(getString(R.string.settings_key_smiley_popup_type), getString(R.string.settings_default_smiley_popup_type));
 		mOverrideQuickTextText = sp.getString(getString(R.string.settings_key_emoticon_default_text), null);
 		
-		((ConfigurationImpl) mConfig).handleConfigurationChange(sp);
+		setInitialCondensedState(getResources().getConfiguration());
 	}
 
 	private void setDictionariesForCurrentKeyboard() {
@@ -2748,7 +2754,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         // If orientation changed while predicting, commit the change
         if (newConfig.orientation != mOrientation) {
-        	mKeyboardInCondensedMode = false;
+        	
+        	setInitialCondensedState(newConfig);
         	
             commitTyped(getCurrentInputConnection());
             mOrientation = newConfig.orientation;
@@ -2762,6 +2769,28 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
 		
 		super.onConfigurationChanged(newConfig);
+	}
+
+	private void setInitialCondensedState(Configuration newConfig) {
+		final String defaultCondensed = mConfig.getInitialKeyboardSplitState();
+		mKeyboardInCondensedMode = false;
+		if (defaultCondensed.equals("merged_always"))
+		{
+			mKeyboardInCondensedMode = false;
+		}
+		else if (defaultCondensed.equals("split_always"))
+		{
+			mKeyboardInCondensedMode = true;
+		}
+		else if (defaultCondensed.equals("split_in_landscape"))
+		{
+			if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
+				mKeyboardInCondensedMode = true;
+			else
+				mKeyboardInCondensedMode = false;
+		}
+		
+		if (DEBUG) Log.d(TAG, "setInitialCondensedState: defaultCondensed is "+defaultCondensed+" and mKeyboardInCondensedMode is "+mKeyboardInCondensedMode);
 	}	
 	
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -2794,7 +2823,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 				key.equals("zoom_factor_keys_in_landscape") ||
 				key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key)) ||
 				key.equals(getString(R.string.settings_key_long_press_timeout)) ||
-				key.equals(getString(R.string.settings_key_multitap_timeout)))
+				key.equals(getString(R.string.settings_key_multitap_timeout)) ||
+				key.equals(getString(R.string.settings_key_default_split_state)))
 		{
 			//in some cases we do want to force keyboards recreations
 			handleClose();

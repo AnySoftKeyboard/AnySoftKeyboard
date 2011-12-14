@@ -395,7 +395,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         final int[] padding = new int[] { -1,-1,-1,-1 };
 
         HashSet<Integer> doneStylesIndexes = new HashSet<Integer>();
-        KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(AnySoftKeyboard.getInstance());
+        KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(context.getApplicationContext());
         final int keyboardThemeStyleResId = getKeyboardStyleResId(theme);
         Log.d(TAG, "Will use keyboard theme "+theme.getName()+" id "+theme.getId()+" res "+keyboardThemeStyleResId);
         TypedArray a = theme.getPackageContext().obtainStyledAttributes(
@@ -412,7 +412,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         }
         a.recycle();
         //filling what's missing
-        KeyboardTheme fallbackTheme = KeyboardThemeFactory.getFallbackTheme(AnySoftKeyboard.getInstance());
+        KeyboardTheme fallbackTheme = KeyboardThemeFactory.getFallbackTheme(context.getApplicationContext());
         final int keyboardFallbackThemeStyleResId = getKeyboardStyleResId(fallbackTheme);
         Log.d(TAG, "Will use keyboard fallback theme "+fallbackTheme.getName()+" id "+fallbackTheme.getId()+" res "+keyboardFallbackThemeStyleResId);
         a = fallbackTheme.getPackageContext().obtainStyledAttributes(
@@ -1276,7 +1276,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         	popupWidth = Math.max(mPreviewKeyBackground.getMinimumWidth(), popupWidth);
         	popupHeight = Math.max(mPreviewKeyBackground.getMinimumHeight(), popupHeight);
         }
-
         
         int popupPreviewX = key.x - ((popupWidth - key.width) / 2);
         int popupPreviewY = key.y - popupHeight - mPreviewOffset;

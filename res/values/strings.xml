@@ -381,4 +381,10 @@
 	<string name="workaround_disable_rtl_fix">Disable Right-to-Left handling</string>
 	<string name="workaround_disable_rtl_fix_summary_on">Use OS RTL handling (for SE phones)</string>
 	<string name="workaround_disable_rtl_fix_summary_off">Use AnySoftKeyboard RTL handling</string>
+	
+	<string name="settings_split_state_title">Split/Merge initial state</string>
+	<string name="settings_split_state_summary">Define whether the keyboard is split as default</string>
+	<string name="settings_split_state_merged_always">Start regular</string>
+	<string name="settings_split_state_split_in_landscape">Start split in landscape</string>
+	<string name="settings_split_state_split_always">Start split</string>
 </resources>

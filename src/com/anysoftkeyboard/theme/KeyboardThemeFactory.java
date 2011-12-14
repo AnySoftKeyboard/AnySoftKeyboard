@@ -4,10 +4,9 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 
-import com.anysoftkeyboard.AnyKeyboardContextProvider;
-import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -21,14 +20,14 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme>
 		msInstance = new KeyboardThemeFactory();
 	}
 	
-	public static KeyboardTheme getCurrentKeyboardTheme(AnyKeyboardContextProvider contextProvider)
+	public static KeyboardTheme getCurrentKeyboardTheme(Context appContext)
 	{
-		 SharedPreferences sharedPreferences = contextProvider.getSharedPreferences();
-         String settingKey = contextProvider.getApplicationContext().getString(R.string.settings_key_keyboard_theme_key);
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(appContext);
+		 String settingKey = appContext.getString(R.string.settings_key_keyboard_theme_key);
          
-         String selectedThemeId = sharedPreferences.getString(settingKey, contextProvider.getApplicationContext().getString(R.string.settings_default_keyboard_theme_key));
+         String selectedThemeId = sharedPreferences.getString(settingKey, appContext.getString(R.string.settings_default_keyboard_theme_key));
          KeyboardTheme selectedTheme = null;
-         ArrayList<KeyboardTheme> themes = msInstance.getAllAddOns(contextProvider.getApplicationContext());
+         ArrayList<KeyboardTheme> themes = msInstance.getAllAddOns(appContext);
          if (selectedThemeId != null) {
         	 //Find the builder in the array by id. Mayne would've been better off with a HashSet
              for (KeyboardTheme aTheme : themes) {
@@ -92,9 +91,9 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme>
 
 
 
-	public static KeyboardTheme getFallbackTheme(AnySoftKeyboard instance) {
-		final String defaultThemeId = instance.getApplicationContext().getString(R.string.settings_default_keyboard_theme_key);
-		ArrayList<KeyboardTheme> themes = msInstance.getAllAddOns(instance.getApplicationContext());
+	public static KeyboardTheme getFallbackTheme(Context appContext) {
+		final String defaultThemeId = appContext.getString(R.string.settings_default_keyboard_theme_key);
+		ArrayList<KeyboardTheme> themes = msInstance.getAllAddOns(appContext);
         if (defaultThemeId != null) {
        	 //Find the builder in the array by id. Mayne would've been better off with a HashSet
             for (KeyboardTheme aTheme : themes) {
@@ -104,6 +103,6 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme>
             }
         }
         
-        return getCurrentKeyboardTheme(instance);
+        return getCurrentKeyboardTheme(appContext);
 	}
 }

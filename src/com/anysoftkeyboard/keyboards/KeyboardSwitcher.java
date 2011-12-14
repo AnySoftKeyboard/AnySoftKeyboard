@@ -180,6 +180,7 @@ public class KeyboardSwitcher
 	    	if (mInputView != null)
 	    	{
 	    		keyboard.loadKeyboard(mInputView.getThemedKeyboardDimens());
+	    		mContext.setKeyboardStuffBeforeSetToView(keyboard);
 				mInputView.setKeyboard(keyboard);
 	    	}
 			else
@@ -305,6 +306,7 @@ public class KeyboardSwitcher
         keyboard.setImeOptions(mContext.getResources(), attr);
         //keyboard.setTextVariation(mContext.getResources(), (attr == null)? 0 : attr.inputType);
         //now show
+        mContext.setKeyboardStuffBeforeSetToView(keyboard);
         if (mInputView != null)
         {
         	mInputView.setKeyboard(keyboard);
@@ -485,6 +487,7 @@ public class KeyboardSwitcher
     	//current.setTextVariation(mContext.getResources(), currentEditorInfo.inputType);
 
     	//now show
+    	mContext.setKeyboardStuffBeforeSetToView(current);
 		if (mInputView != null)
 			mInputView.setKeyboard(current);
 
@@ -515,6 +518,7 @@ public class KeyboardSwitcher
 			if (mInputView != null)
 	    	{
 	    		keyboard.loadKeyboard(mInputView.getThemedKeyboardDimens());
+	    		mContext.setKeyboardStuffBeforeSetToView(keyboard);
 				mInputView.setKeyboard(keyboard);
 	    	}
 			else

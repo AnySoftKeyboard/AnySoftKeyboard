@@ -15,7 +15,7 @@ import android.view.LayoutInflater;
 
 public class AnyApplication extends Application {
 
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 	
 	private static final String TAG = "ASK_APP";
 	private static Configuration msConfig;

@@ -110,7 +110,7 @@ public class CandidateView extends View {
 
         mAddToDictionaryHint = context.getString(R.string.hint_add_to_dictionary);
         //themed
-        final KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(AnySoftKeyboard.getInstance());
+        final KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(context);
         final TypedArray a = theme.getPackageContext().obtainStyledAttributes(attrs, R.styleable.AnyKeyboardBaseView, 0, theme.getThemeResId());
         mColorNormal = a.getColor(R.styleable.AnyKeyboardBaseView_suggestionNormalTextColor, context.getResources().getColor(R.color.candidate_normal));
         mColorRecommended = a.getColor(R.styleable.AnyKeyboardBaseView_suggestionRecommendedTextColor, context.getResources().getColor(R.color.candidate_recommended));

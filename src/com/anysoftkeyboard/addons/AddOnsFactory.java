@@ -30,9 +30,9 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
 	public static void onPackageChanged(Intent eventIntent)
 	{
-    AnySoftKeyboard ask = AnySoftKeyboard.getInstance();
-    if (ask == null) return;//service is not running (issue 762)
-    
+	    AnySoftKeyboard ask = AnySoftKeyboard.getInstance();
+	    if (ask == null) return;//service is not running (issue 762)
+	    
 		boolean cleared = false;
 		for(AddOnsFactory<?> factory : mActiveInstances)
 		{

@@ -147,6 +147,14 @@ android:key="ime_settings">
 			android:summaryOff=""
 			android:persistent="true"
 			android:defaultValue="true"/>
+		<ListPreference
+			android:key="@string/settings_key_default_split_state"
+			android:title="@string/settings_split_state_title"
+			android:summary="@string/settings_split_state_summary"
+			android:entries="@array/settings_key_default_split_state_names"
+			android:entryValues="@array/settings_key_default_split_state_values"
+			android:defaultValue="@string/settings_default_default_split_state"
+			android:dialogTitle="@string/settings_split_state_title"/>
 		<PreferenceScreen android:key="swipe_tweak_group"
 			android:title="@string/swipe_tweak_group">
 			<ListPreference

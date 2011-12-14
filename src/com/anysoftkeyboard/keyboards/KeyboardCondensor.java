@@ -44,6 +44,8 @@ public class KeyboardCondensor {
 			final float CONDENSING_FACTOR = 
 				((float)mKeyboard.getASKContext().getApplicationContext().getResources().getInteger(R.integer.condensing_precentage)) / 100f;
 			if (AnyApplication.DEBUG) Log.d(TAG, "Condensing factor is "+CONDENSING_FACTOR);
+			if (CONDENSING_FACTOR > 0.97f) return;
+			
 			//now to determine the watershed line: keys will be align to the edges
 			final int keyboardWidth = mKeyboard.getMinWidth();
 			final int watershedLineX = keyboardWidth / 2;

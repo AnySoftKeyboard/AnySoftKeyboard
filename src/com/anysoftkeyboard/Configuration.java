@@ -72,4 +72,6 @@ public interface Configuration {
 	int getMultiTapTimeout();
 	
 	boolean workaround_alwaysUseDrawText();
+	
+	String getInitialKeyboardSplitState();
 }

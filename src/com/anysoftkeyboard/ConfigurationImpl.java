@@ -61,6 +61,8 @@ public class ConfigurationImpl implements Configuration
 	
 	private boolean mWorkaround_alwaysUseDrawText = false;
 	
+	private String mInitialKeyboardSplitState = "merged_always";
+	
 	public ConfigurationImpl(Context context)
 	{
 		mContext = context;
@@ -323,6 +325,10 @@ public class ConfigurationImpl implements Configuration
                 getAlwaysUseDrawTextDefault());
         Log.i(TAG, "** mWorkaround_alwaysUseDrawText: " + mWorkaround_alwaysUseDrawText);
         
+        mInitialKeyboardSplitState = sp.getString(mContext.getString(R.string.settings_key_default_split_state), 
+        		mContext.getString(R.string.settings_default_default_split_state));
+        Log.i(TAG, "** mInitialKeyboardSplitState: " + mInitialKeyboardSplitState);
+        
 	}
 
 	private boolean getAlwaysUseDrawTextDefault() {
@@ -553,5 +559,9 @@ public class ConfigurationImpl implements Configuration
     
     public boolean workaround_alwaysUseDrawText() {
     	return mWorkaround_alwaysUseDrawText;
+    }
+    
+    public String getInitialKeyboardSplitState() {
+    	return mInitialKeyboardSplitState;
     }
 }
