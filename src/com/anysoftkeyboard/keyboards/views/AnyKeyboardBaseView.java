@@ -1371,7 +1371,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         Key popupKey = tracker.getKey(keyIndex);
         if (popupKey == null)
             return false;
-        boolean result = onLongPress(getContext(), popupKey);
+        boolean result = onLongPress(getContext(), popupKey, false);
         if (result) {
             dismissKeyPreview();
             mMiniKeyboardTrackerId = tracker.mPointerId;
@@ -1382,7 +1382,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         return result;
     }
 
-    private AnyKeyboardBaseView inflateMiniKeyboardContainer(Context packageContext, CharSequence popupCharacters, int popupKeyboardId) {
+    private AnyKeyboardBaseView inflateMiniKeyboardContainer(Context packageContext, CharSequence popupCharacters, int popupKeyboardId, boolean isSticky) {
         //int popupKeyboardId = popupKey.popupResId;
         LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
@@ -1396,6 +1396,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         } else {
             keyboard = new AnyPopupKeyboard(AnySoftKeyboard.getInstance(), packageContext, popupKeyboardId, miniKeyboard.getThemedKeyboardDimens());
         }
+        keyboard.setIsOneKeyEventPopup(!isSticky);
         
         miniKeyboard.setOnKeyboardActionListener(new OnKeyboardActionListener() {
         	
@@ -1483,13 +1484,13 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
      * @return true if the long press is handled, false otherwise. Subclasses should call the
      * method on the base class if the subclass doesn't wish to handle the call.
      */
-    protected boolean onLongPress(Context packageContext, Key popupKey) {
+    protected boolean onLongPress(Context packageContext, Key popupKey, boolean isSticky) {
         if (popupKey.popupResId == 0)
             return false;
 
         AnyKeyboardBaseView miniKeyboardView = mMiniKeyboardCache.get(popupKey);
         if (miniKeyboardView == null) {
-        	miniKeyboardView = inflateMiniKeyboardContainer(packageContext, popupKey.popupCharacters, popupKey.popupResId);
+        	miniKeyboardView = inflateMiniKeyboardContainer(packageContext, popupKey.popupCharacters, popupKey.popupResId, isSticky);
             mMiniKeyboardCache.put(popupKey, miniKeyboardView);
         }
         mMiniKeyboard = miniKeyboardView;
@@ -1512,7 +1513,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         popupY -= mMiniKeyboard.getMeasuredHeight();
         popupY -= mMiniKeyboard.getPaddingBottom();
         final int x = popupX;
-        final int y = mShowPreview && isOneRowKeys(mMiniKeyboard.getKeyboard().getKeys()) ? mPopupPreviewDisplayedY : popupY;
+        final int y = mShowPreview && mOldPreviewKeyIndex != NOT_A_KEY  && isOneRowKeys(mMiniKeyboard.getKeyboard().getKeys()) ? mPopupPreviewDisplayedY : popupY;
         //final int y = popupY;
         
         int adjustedX = x;
@@ -1534,13 +1535,16 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         mMiniKeyboardPopup.setHeight(mMiniKeyboard.getMeasuredHeight());
         mMiniKeyboardPopup.showAtLocation(this, Gravity.NO_GRAVITY, adjustedX, y);
 
-        // Inject down event on the key to mini keyboard.
-        long eventTime = SystemClock.uptimeMillis();
-        mMiniKeyboardPopupTime = eventTime;
-        MotionEvent downEvent = generateMiniKeyboardMotionEvent(MotionEvent.ACTION_DOWN, popupKey.x
-                + popupKey.width / 2, popupKey.y + popupKey.height / 2, eventTime);
-        mMiniKeyboard.onTouchEvent(downEvent);
-        downEvent.recycle();
+        if (!isSticky)
+        {
+	        // Inject down event on the key to mini keyboard.
+	        long eventTime = SystemClock.uptimeMillis();
+	        mMiniKeyboardPopupTime = eventTime;
+	        MotionEvent downEvent = generateMiniKeyboardMotionEvent(MotionEvent.ACTION_DOWN, popupKey.x
+	                + popupKey.width / 2, popupKey.y + popupKey.height / 2, eventTime);
+	        mMiniKeyboard.onTouchEvent(downEvent);
+	        downEvent.recycle();
+        }
 
         invalidateAllKeys();
         return true;

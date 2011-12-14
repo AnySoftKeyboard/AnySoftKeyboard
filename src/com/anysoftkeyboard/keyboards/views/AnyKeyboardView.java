@@ -156,7 +156,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	public void simulateLongPress(int keyCode) {
 		Key key = findKeyByKeyCode(keyCode);
 		if (key != null)
-			super.onLongPress(getContext(), key);
+			super.onLongPress(getContext(), key, false);
 	}
 
 	private boolean invokeOnKey(int primaryCode) {
@@ -202,7 +202,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	}
 
 	@Override
-	protected boolean onLongPress(Context packageContext, Key key) {
+	protected boolean onLongPress(Context packageContext, Key key, boolean isSticky) {
 		if (key != null && key instanceof AnyKey) {
 			AnyKey anyKey = (AnyKey) key;
 			if (anyKey.longPressCode != 0) {
@@ -211,7 +211,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 			}
 		}
 
-		return super.onLongPress(packageContext, key);
+		return super.onLongPress(packageContext, key, isSticky);
 	}
 
 	private long mExtensionKeyboardAreaEntranceTime = -1;
@@ -249,6 +249,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	                cancel.recycle();
 	                
 	        		mExtensionVisible = true;
+	        		dismissKeyPreview();
 		        	if (mExtensionKey == null)
 		        	{
 			        	mExtensionKey = new AnyKey(new Row(getKeyboard()), getThemedKeyboardDimens());
@@ -260,12 +261,9 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 			        	mExtensionKey.x = getWidth()/2;
 			        	mExtensionKey.y = -mExtensionKeyboardPopupOffset;
 		        	}
-		        	onLongPress(getContext(), mExtensionKey);
+		        	super.onLongPress(getContext(), mExtensionKey, AnyApplication.getConfig().isStickyExtensionKeyboard());
 		        	//it is an extension..
 		        	mMiniKeyboard.setPreviewEnabled(true);
-		        	Keyboard miniKeyboardObject = mMiniKeyboard.getKeyboard();
-		        	if (miniKeyboardObject instanceof AnyPopupKeyboard)
-		        		((AnyPopupKeyboard)miniKeyboardObject).setIsOneKeyEventPopup(!AnyApplication.getConfig().isStickyExtensionKeyboard());
 		        	return true;
 	        	}
         	} else {
@@ -293,10 +291,11 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 			QuickTextKey key) {
 		Key popupKey = findKeyByKeyCode(KeyCodes.QUICK_TEXT);
 		popupKey.popupResId = key.getPopupKeyboardResId();
-		super.onLongPress(packageContext, popupKey);
+		super.onLongPress(packageContext, popupKey, false);
 	}
 
 	public void openUtilityKeyboard() {
+		dismissKeyPreview();
 		if (mUtilityKey == null)
     	{
 			mUtilityKey = new AnyKey(new Row(getKeyboard()), getThemedKeyboardDimens());
@@ -306,12 +305,9 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 			mUtilityKey.width = 0;
 			mUtilityKey.popupResId = R.xml.ext_kbd_utility_utility;
 			mUtilityKey.x = getWidth()/2;
-			mUtilityKey.y = getHeight()/2;
+			mUtilityKey.y = getHeight();
     	}
-    	onLongPress(getContext(), mUtilityKey);
+    	super.onLongPress(getContext(), mUtilityKey, true);
     	mMiniKeyboard.setPreviewEnabled(true);
-    	Keyboard miniKeyboardObject = mMiniKeyboard.getKeyboard();
-    	if (miniKeyboardObject instanceof AnyPopupKeyboard)
-    		((AnyPopupKeyboard)miniKeyboardObject).setIsOneKeyEventPopup(false);
 	}
 }
