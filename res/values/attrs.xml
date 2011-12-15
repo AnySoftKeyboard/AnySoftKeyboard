@@ -140,31 +140,34 @@
 		<attr name="suggestionDividerImage" format="reference" />
 		<attr name="suggestionStripHeight" format="dimension" />
 		
-		<!-- should support normal, feedback, pressed, pressed+feedback, locked, locked+feedback -->
+		<!-- should support normal, android:state_pressed, key_type_feedback, android:state_pressed+key_type_feedback, android:state_checked, state_checked+key_type_feedback -->
 		<attr name="iconKeyShift" format="reference" />
-		<!-- should support normal, feedback, pressed, pressed+feedback, locked, locked+feedback -->
+		<!-- should support normal, android:state_pressed, key_type_feedback, android:state_pressed+key_type_feedback, android:state_checked, state_checked+key_type_feedback -->
 		<attr name="iconKeyControl" format="reference" />
-		<!-- should support normal, feedback -->
+		<!-- should support normal, key_type_feedback -->
 		<attr name="iconKeyBackspace" format="reference" />
-		<!-- should support normal, feedback -->
+		<!-- should support normal, key_type_feedback -->
 		<attr name="iconKeySpace" format="reference" />
-		<!-- should support normal, feedback -->
+		<!-- should support normal, key_type_feedback -->
 		<attr name="iconKeyTab" format="reference" />
-		<!-- should support normal, feedback -->
+		<!-- should support normal, key_type_feedback -->
 		<attr name="iconKeyCancel" format="reference" />
-		<!-- should support normal, feedback -->
+		<!-- should support normal, key_type_feedback -->
 		<attr name="iconKeyGlobe" format="reference" />
-		<!-- should support normal, feedback -->
-		<attr name="iconKeyEnter" format="reference" />
-		<!-- should support normal, feedback -->
-		<attr name="iconKeyDone" format="reference" />
-		<!-- should support normal, feedback -->
-		<attr name="iconKeySearch" format="reference" />
+		<!-- should support normal, key_type_feedback, action_done, action_done+key_type_feedback, action_search, action_search+key_type_feedback, action_go, action_go+key_type_feedback  -->
+		<attr name="iconKeyAction" format="reference" />
     </declare-styleable>
 
 	<declare-styleable name="keyType">
 		<attr name="key_type_function" format="boolean" />
 		<attr name="key_type_action" format="boolean" />
 		<attr name="key_type_feedback" format="boolean" />
+	</declare-styleable>
+	
+	<declare-styleable name="keyActionType">
+		<attr name="action_done" format="boolean" />
+		<attr name="action_search" format="boolean" />
+		<attr name="action_go" format="boolean" />
+		<attr name="action_send" format="boolean" />
 	</declare-styleable>
 </resources>
