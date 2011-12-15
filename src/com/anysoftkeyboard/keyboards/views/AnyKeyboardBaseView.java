@@ -1104,36 +1104,18 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 {
 	                if ((key.popupCharacters != null && key.popupCharacters.length() > 0) || (key.popupResId != 0) || (key.longPressCode != 0))
 	                {
-	                	String hintText;
-	                	 
+	                	String hintText = "... ";
 	                	if (key.longPressCode != 0)
 	                	{
 	                		if (Character.isLetterOrDigit(key.longPressCode))
 	                			hintText = Character.toString((char)key.longPressCode);
-	                		else
-	                			hintText = "... ";
 	                	}
-	                	else if (key.popupCharacters != null && key.popupCharacters.length() > 0)
+	                	else if (key.popupCharacters != null && key.popupCharacters.length() > 0 && key.popupCharacters.length() < 3)
 	                	{
-	                		final int numOfPopups = key.popupCharacters.length();
-	                		switch(numOfPopups)
-	                		{
-	                		case 1:
-	                			hintText = key.popupCharacters.toString();
-	                			break;
-	                		case 2:
-	                			hintText = "..";
-	                			break;
-	                		default:
-	                			hintText = "... ";
-	                			break;
-	                		}
-	                	}
-	                	else
-	                	{
-	                		hintText = "... ";
+	                		hintText = key.popupCharacters.toString();
 	                	}
 	                	if (mKeyboard.isShifted()) hintText = hintText.toUpperCase();
+	                	
 	                	//draw hint
 	                	paint.setTypeface(Typeface.DEFAULT);
 	                	paint.setColor(Color.GRAY);
