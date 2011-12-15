@@ -75,6 +75,23 @@
     	
 		<item name="keyHorizontalGap">@dimen/default_key_horizontal_gap</item>
 		<item name="keyVerticalGap">@dimen/default_key_vertical_gap</item>
+		
+		<!-- should support normal, android:state_pressed, feedback, android:state_pressed+feedback, android:state_checked, state_checked+feedback -->
+		<item name="iconKeyShift">@drawable/dark_key_shift_set</item>
+		<!-- should support normal, android:state_pressed, feedback, android:state_pressed+feedback, android:state_checked, state_checked+feedback -->
+		<item name="iconKeyControl">@drawable/dark_key_control_set</item>
+		<!-- should support normal, feedback -->
+		<item name="iconKeyBackspace">@drawable/dark_key_delete_set</item>
+		<!-- should support normal, feedback -->
+		<item name="iconKeySpace">@drawable/dark_key_space_set</item>
+		<!-- should support normal, feedback -->
+		<item name="iconKeyTab">@drawable/dark_key_tab_set</item>
+		<!-- should support normal, feedback -->
+		<item name="iconKeyCancel">@drawable/dark_key_cancel_set</item>
+		<!-- should support normal, feedback -->
+		<item name="iconKeyGlobe">@drawable/dark_key_globe_set</item>
+		<!-- should support normal, key_type_feedback, action_done, action_done+key_type_feedback, action_search, action_search+key_type_feedback, action_go, action_go+key_type_feedback  -->
+		<item name="iconKeyAction">@drawable/dark_key_action_set</item>
     </style>
     <style name="AnyKeyboardPopupBaseTheme" parent="@style/AnyKeyboardBaseTheme">
         <item name="android:paddingLeft">8dp</item>

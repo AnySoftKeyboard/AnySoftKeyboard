@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 public class AnyApplication extends Application {
 
 	public static final boolean DEBUG = true;
+	public static final boolean BLEEDING_EDGE = true;
 	
 	private static final String TAG = "ASK_APP";
 	private static Configuration msConfig;

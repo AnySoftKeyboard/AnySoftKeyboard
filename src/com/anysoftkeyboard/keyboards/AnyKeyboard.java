@@ -91,6 +91,7 @@ public abstract class AnyKeyboard extends Keyboard
 	private int mMaxGenericRowsWidth = 0;
 	
 	private KeyboardCondensor mKeyboardCondensor;
+	private int mKeyboardActionType = EditorInfo.IME_ACTION_NONE;
 	
 	//for popup keyboard
 	protected AnyKeyboard(AnyKeyboardContextProvider askContext, Context context,//note: the context can be from a different package!
@@ -540,35 +541,35 @@ public abstract class AnyKeyboard extends Keyboard
     	{
     		//this means that the ENTER should not be replaced with a custom action.
     		//maybe in future ASK releases, we'll add the custom action key.
-    		setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_return, -1/*R.drawable.sym_keyboard_feedback_return*/);
+    		//setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_return, -1/*R.drawable.sym_keyboard_feedback_return*/);
+    		mKeyboardActionType = EditorInfo.IME_ACTION_NONE;
     	}
     	else
     	{
+    		mKeyboardActionType  = action;
 	        switch (action) {
 	            case EditorInfo.IME_ACTION_GO:
-	                mEnterKey.iconPreview = null;
-	                mEnterKey.icon = null;
 	                mEnterKey.label = res.getText(R.string.label_go_key);
 	            	break;
 	            case EditorInfo.IME_ACTION_NEXT:
-	                mEnterKey.iconPreview = null;
-	                mEnterKey.icon = null;
 	                mEnterKey.label = res.getText(R.string.label_next_key);
 	            	break;
 	            case EditorInfo.IME_ACTION_DONE:
-	            	setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_done, -1/*R.drawable.sym_keyboard_done_black*/);
+	            	mEnterKey.label = null;
+	            	//setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_done, -1/*R.drawable.sym_keyboard_done_black*/);
 	            	break;
 	            case EditorInfo.IME_ACTION_SEARCH:
-	            	setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_search, -1/*R.drawable.sym_keyboard_feedback_search*/);
+	            	mEnterKey.label = null;
+	            	//setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_search, -1/*R.drawable.sym_keyboard_feedback_search*/);
 	                break;
 	            case EditorInfo.IME_ACTION_SEND:
-	            	mEnterKey.iconPreview = null;
-		            mEnterKey.icon = null;
-		            mEnterKey.label = res.getText(R.string.label_send_key);
+	            	mEnterKey.label = res.getText(R.string.label_send_key);
 	            	break;
 	            case EditorInfo.IME_ACTION_NONE:
 	            case EditorInfo.IME_ACTION_UNSPECIFIED:
 	            default:
+	            	mEnterKey.label = null;
+	            	mKeyboardActionType = EditorInfo.IME_ACTION_UNSPECIFIED;
 	            	//TODO: Maybe someday we will support this functionality
 //	            	if ((imeLabel != null) && (imeLabel.length() > 0) && (imeActionId > 0))
 //	            	{
@@ -580,7 +581,7 @@ public abstract class AnyKeyboard extends Keyboard
 //	            	}
 //	            	else
 //	            	{
-	            		setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_return, -1/*R.drawable.sym_keyboard_feedback_return*/);
+//	            		setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_return, -1/*R.drawable.sym_keyboard_feedback_return*/);
 //	            	}
 	            	break;
 	        }
@@ -709,6 +710,10 @@ public abstract class AnyKeyboard extends Keyboard
 		
 	}
 	
+	public int getKeyboardActionType() {
+		return mKeyboardActionType;
+	}
+	
 	public static class AnyKey extends Keyboard.Key {
 		private final int[] KEY_STATE_FUNCTIONAL_NORMAL = {
 				R.attr.key_type_function
@@ -822,7 +827,7 @@ public abstract class AnyKeyboard extends Keyboard
 //                pressed = !pressed;
 //            }
 //        }
-    }
+    }	
 	
 //	protected static class LessSensitiveAnyKey extends AnyKey {
 //        
