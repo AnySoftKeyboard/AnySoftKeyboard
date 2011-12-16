@@ -17,7 +17,6 @@ package com.anysoftkeyboard.keyboards.views;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -45,9 +44,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
+import android.text.Layout.Alignment;
 import android.text.StaticLayout;
 import android.text.TextPaint;
-import android.text.Layout.Alignment;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -114,15 +113,14 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 	};
 
     // XML attribute
-    private int mKeyTextSize;
+    private float mKeyTextSize;
     private FontMetrics mTextFM;
     private ColorStateList mKeyTextColor;
     private Typeface mKeyTextStyle = Typeface.DEFAULT;
-    private int mLabelTextSize;
+    private float mLabelTextSize;
     private FontMetrics mLabelFM;
-    private int mHintTextSize;
+    private float mHintTextSize;
     private FontMetrics mHintTextFM;
-    private boolean mInLandscape = false;
     private int mSymbolColorScheme = 0;
     private int mShadowColor;
     private int mShadowRadius;
@@ -238,7 +236,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     
     // Distance from horizontal center of the key, proportional to key label text height.
     //private final float KEY_LABEL_VERTICAL_ADJUSTMENT_FACTOR = 0.5f;
-    private final String KEY_LABEL_HEIGHT_REFERENCE_CHAR = Character.toString('\u2588');//Full block
+    //private final String KEY_LABEL_HEIGHT_REFERENCE_CHAR = Character.toString('\u2588');//Full block
 
     private final UIHandler mHandler = new UIHandler();
 
@@ -412,8 +410,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
     public AnyKeyboardBaseView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-
-        mInLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
         
         LayoutInflater inflate = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         //int previewLayout = 0;
@@ -616,7 +612,11 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 			break;
 		case R.styleable.AnyKeyboardBaseView_keyTextSize:
 			mKeyTextSize = a.getDimensionPixelSize(attr, 18);
-			if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_keyTextSize "+mKeyTextSize);
+			if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+				mKeyTextSize = mKeyTextSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape();
+            else
+            	mKeyTextSize = mKeyTextSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
+            if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_keyTextSize "+mKeyTextSize);
 			break;
 		case R.styleable.AnyKeyboardBaseView_keyTextColor:
 			mKeyTextColor = a.getColorStateList(attr);
@@ -629,7 +629,12 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 			break;
 		case R.styleable.AnyKeyboardBaseView_labelTextSize:
 			mLabelTextSize = a.getDimensionPixelSize(attr, 14);
-		    if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_labelTextSize "+mLabelTextSize);
+			if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+				mLabelTextSize = mLabelTextSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape();
+            else
+            	mLabelTextSize = mLabelTextSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
+			mHintTextSize = mLabelTextSize/1.5f;
+            if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_labelTextSize "+mLabelTextSize);
 			break;
 //            case R.styleable.AnyKeyboardBaseView_popupLayout:
 //                mPopupLayout = a.getResourceId(attr, 0);
@@ -1102,22 +1107,21 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             //boolean shouldDrawIcon = true;
             if (label != null) {
                 // For characters, use large font. For labels like "Done", use small font.
-                final int labelSize;
+            	final FontMetrics fm;
                 if (label.length() > 1 && key.codes.length < 2) {
-                    labelSize = mLabelTextSize;
+                	paint.setTextSize(mLabelTextSize);
                     paint.setTypeface(Typeface.DEFAULT_BOLD);
+                    if (mLabelFM == null) mLabelFM = paint.getFontMetrics();
+                    fm = mLabelFM;
                 } else {
-                    labelSize = mKeyTextSize;
+                	paint.setTextSize(mKeyTextSize);
                     paint.setTypeface(mKeyTextStyle);
+                    if (mTextFM == null) mTextFM = paint.getFontMetrics();
+                    fm = mTextFM;
                 }
-                if (mInLandscape)
-                	paint.setTextSize(labelSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape());
-                else
-                	paint.setTextSize(labelSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait());
-                
                 
                 //final int labelHeight = getTextCanvasHeight(paint, labelSize);
-                final float labelHeight = -paint.getFontMetrics().top;
+                final float labelHeight = -fm.top;
                 // Draw a drop shadow for the text
                 paint.setShadowLayer(mShadowRadius, mShadowOffsetX, mShadowOffsetY, mShadowColor);
                 
@@ -1181,14 +1185,13 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 	                	//draw hint
 	                	paint.setTypeface(Typeface.DEFAULT);
 	                	paint.setColor(Color.GRAY);
-	                	paint.setTextSize(mLabelTextSize/1.5f);
-	                	FontMetrics fm = paint.getFontMetrics();
-	                	Log.d(TAG, "**** FontMetrics ascent:"+fm.ascent+" bottom:"+fm.bottom+" descent:"+fm.descent+" leading:"+fm.leading+" top:"+fm.top);
+	                	paint.setTextSize(mHintTextSize);
+	                	if (mHintTextFM == null) mHintTextFM = paint.getFontMetrics();
 	                	final float hintX;
 	                	final float hintY;
 	                	final float hintWidth = paint.measureText(hintText);
 	                	hintX = key.width - hintWidth/2 - mKeyBackgroundPadding.right - 1;
-	                	hintY = key.height - fm.bottom - mKeyBackgroundPadding.bottom - 1;
+	                	hintY = key.height - mHintTextFM.bottom - mKeyBackgroundPadding.bottom - 1;
 	            		
 	            		canvas.drawText(hintText, hintX, hintY, paint);
 	                }
