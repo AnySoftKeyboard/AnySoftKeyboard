@@ -34,19 +34,21 @@ public abstract class AddOnsFactory<E extends AddOn> {
 	    if (ask == null) return;//service is not running (issue 762)
 	    
 		boolean cleared = false;
+		boolean recreateView = false;
 		for(AddOnsFactory<?> factory : mActiveInstances)
 		{
 			if (factory.isEventRequiresCacheRefresh(eventIntent))
 			{
 				cleared = true;
-				if (AnyApplication.DEBUG) Log.d("AddOnsFactory", factory.getClass().getName()+" will handle this package-changed event.");
+				if (factory.isEventRequiresViewReset(eventIntent)) recreateView = true;
+				if (AnyApplication.DEBUG) Log.d("AddOnsFactory", factory.getClass().getName()+" will handle this package-changed event. Also recreate view? "+recreateView);
 				factory.clearAddOnList();
 			}
 		}
-		if (cleared) ask.forceKeyboardsRecreation();
+		if (cleared) ask.resetKeyboardView(recreateView);
 	}
-	
-    protected final String TAG;
+
+	protected final String TAG;
 
     /**
      * This is the interface name that a broadcast receiver implementing an
@@ -89,6 +91,10 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
     protected boolean isEventRequiresCacheRefresh(Intent eventIntent) {
 		return true;
+	}
+    	
+    protected boolean isEventRequiresViewReset(Intent eventIntent) {
+		return false;
 	}
 
     protected synchronized void clearAddOnList() {

@@ -2841,15 +2841,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				key.equals(getString(R.string.settings_key_default_split_state)))
 		{
 			//in some cases we do want to force keyboards recreations
-			handleClose();
-			mKeyboardSwitcher.makeKeyboards(true);
-			if (key.equals(getString(R.string.settings_key_keyboard_theme_key)))
-			{
-				//also recreate keyboard view
-				setInputView(onCreateInputView());
-				setCandidatesView(onCreateCandidatesView());
-				setCandidatesViewShown(false);
-			}
+			resetKeyboardView(key.equals(getString(R.string.settings_key_keyboard_theme_key)));
 		}
 	}
 
@@ -3067,8 +3059,16 @@ public class AnySoftKeyboard extends InputMethodService implements
 		//don't know what to do here.
 	}
 
-	public void forceKeyboardsRecreation() {
+	public void resetKeyboardView(boolean recreateView) {
+		handleClose();
 		if (mKeyboardSwitcher != null) mKeyboardSwitcher.makeKeyboards(true);
+		if (recreateView)
+		{
+			//also recreate keyboard view
+			setInputView(onCreateInputView());
+			setCandidatesView(onCreateCandidatesView());
+			setCandidatesViewShown(false);
+		}
 	}
 	
 }

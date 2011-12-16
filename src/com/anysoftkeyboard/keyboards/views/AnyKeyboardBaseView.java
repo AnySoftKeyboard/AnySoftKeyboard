@@ -134,6 +134,11 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private Drawable mCancelKeyIcon;
     private Drawable mGlobeKeyIcon;
     
+    private Drawable mArrowRightKeyIcon;
+    private Drawable mArrowLeftKeyIcon;
+    private Drawable mArrowUpKeyIcon;
+    private Drawable mArrowDownKeyIcon;
+    
     private float mBackgroundDimAmount;
     private float mKeyHysteresisDistance;
     private float mVerticalCorrection;
@@ -429,7 +434,24 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             doneStylesIndexes.add(new Integer(attr));
             setValueFromTheme(a, padding, attr);
         }
+        int iconSetStyleRes = a.getResourceId(R.styleable.AnyKeyboardBaseView_keyIconsStyle, 0);
         a.recycle();
+        //taking icons
+        HashSet<Integer> doneIconsStylesIndexes = new HashSet<Integer>();
+        if (iconSetStyleRes != 0)
+        {
+	        a = theme.getPackageContext().obtainStyledAttributes(
+	        		attrs, 
+	        		R.styleable.AnySoftKeyboardKeyIcons, 
+	        		0, 
+	        		iconSetStyleRes);
+	        final int iconsCount = a.getIndexCount();
+	        for (int i = 0; i < iconsCount; i++) {
+	            final int attr = a.getIndex(i);
+	            doneIconsStylesIndexes.add(new Integer(attr));
+	            setKeyIconValueFromTheme(a, attr);
+	        }
+        }
         //filling what's missing
         KeyboardTheme fallbackTheme = KeyboardThemeFactory.getFallbackTheme(context.getApplicationContext());
         final int keyboardFallbackThemeStyleResId = getKeyboardStyleResId(fallbackTheme);
@@ -447,7 +469,22 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             if (AnyApplication.DEBUG) Log.d(TAG, "Falling back theme res ID "+attr);
             setValueFromTheme(a, padding, attr);
         }
+        int fallbackIconSetStyleId = a.getResourceId(R.styleable.AnyKeyboardBaseView_keyIconsStyle, 0);
         a.recycle();
+        //taking missing icons
+        a = fallbackTheme.getPackageContext().obtainStyledAttributes(
+        		attrs, 
+        		R.styleable.AnySoftKeyboardKeyIcons, 
+        		0, 
+        		fallbackIconSetStyleId);
+        
+        final int fallbackIconsCount = a.getIndexCount();
+        for (int i = 0; i < fallbackIconsCount; i++) {
+        	final int attr = a.getIndex(i);
+            if (doneIconsStylesIndexes.contains(new Integer(attr))) continue;
+            if (AnyApplication.DEBUG) Log.d(TAG, "Falling back icon res ID "+attr);
+            setKeyIconValueFromTheme(a, attr);
+        }
         //settings
         super.setPadding(padding[0], padding[1], padding[2], padding[3]);
         
@@ -517,8 +554,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         PreferenceManager.getDefaultSharedPreferences(getContext()).registerOnSharedPreferenceChangeListener(this);
     }
 
-	public void setValueFromTheme(TypedArray a, final int[] padding,
-			final int attr) {
+	public void setValueFromTheme(TypedArray a, final int[] padding, final int attr) {
 		switch (attr) {
 		case R.styleable.AnyKeyboardBaseView_android_background:
 			Drawable keyboardBackground = a.getDrawable(attr);
@@ -660,41 +696,62 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 			mKeyboardDimens.setSmallKeyHeight(themeSmallKeyHeight);
 			if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_keySmallHeight "+themeSmallKeyHeight);
 			break;
-		case R.styleable.AnyKeyboardBaseView_iconKeyShift:
+		}
+	}
+	
+	public void setKeyIconValueFromTheme(TypedArray a, final int attr) {
+		switch (attr) {
+		case R.styleable.AnySoftKeyboardKeyIcons_iconKeyShift:
 			mShiftIcon = a.getDrawable(attr);
 			if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_iconKeyShift "+(mShiftIcon!=null));
 			break;
-		case R.styleable.AnyKeyboardBaseView_iconKeyControl:
+		case R.styleable.AnySoftKeyboardKeyIcons_iconKeyControl:
 			mControlIcon = a.getDrawable(attr);
 			if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_iconKeyControl "+(mControlIcon!=null));
 			break;
-		case R.styleable.AnyKeyboardBaseView_iconKeyAction:
+		case R.styleable.AnySoftKeyboardKeyIcons_iconKeyAction:
 			mActionKeyIcon = a.getDrawable(attr);
 			if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_iconKeyAction "+(mActionKeyIcon!=null));
 			break;
-		case R.styleable.AnyKeyboardBaseView_iconKeyBackspace:
+		case R.styleable.AnySoftKeyboardKeyIcons_iconKeyBackspace:
 			mDeleteKeyIcon = a.getDrawable(attr);
 			if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_iconKeyBackspace "+(mDeleteKeyIcon!=null));
 			break;
-		case R.styleable.AnyKeyboardBaseView_iconKeyCancel:
+		case R.styleable.AnySoftKeyboardKeyIcons_iconKeyCancel:
 			mCancelKeyIcon = a.getDrawable(attr);
 			if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_iconKeyCancel "+(mCancelKeyIcon!=null));
 			break;
-		case R.styleable.AnyKeyboardBaseView_iconKeyGlobe:
+		case R.styleable.AnySoftKeyboardKeyIcons_iconKeyGlobe:
 			mGlobeKeyIcon = a.getDrawable(attr);
 			if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_iconKeyGlobe "+(mGlobeKeyIcon!=null));
 			break;
-		case R.styleable.AnyKeyboardBaseView_iconKeySpace:
+		case R.styleable.AnySoftKeyboardKeyIcons_iconKeySpace:
 			mSpaceKeyIcon = a.getDrawable(attr);
 			if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_iconKeySpace "+(mSpaceKeyIcon!=null));
 			break;
-		case R.styleable.AnyKeyboardBaseView_iconKeyTab:
+		case R.styleable.AnySoftKeyboardKeyIcons_iconKeyTab:
 			mTabKeyIcon = a.getDrawable(attr);
 			if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_iconKeyTab "+(mTabKeyIcon!=null));
 			break;
+		case R.styleable.AnySoftKeyboardKeyIcons_iconKeyArrowDown:
+			mArrowDownKeyIcon = a.getDrawable(attr);
+			if (AnyApplication.DEBUG) Log.d(TAG, "AnySoftKeyboardKeyIcons_iconKeyArrowDown "+(mArrowDownKeyIcon!=null));
+			break;
+		case R.styleable.AnySoftKeyboardKeyIcons_iconKeyArrowLeft:
+			mArrowLeftKeyIcon = a.getDrawable(attr);
+			if (AnyApplication.DEBUG) Log.d(TAG, "AnySoftKeyboardKeyIcons_iconKeyArrowLeft "+(mArrowLeftKeyIcon!=null));
+			break;
+		case R.styleable.AnySoftKeyboardKeyIcons_iconKeyArrowRight:
+			mArrowRightKeyIcon = a.getDrawable(attr);
+			if (AnyApplication.DEBUG) Log.d(TAG, "AnySoftKeyboardKeyIcons_iconKeyArrowRight "+(mArrowRightKeyIcon!=null));
+			break;
+		case R.styleable.AnySoftKeyboardKeyIcons_iconKeyArrowUp:
+			mArrowUpKeyIcon = a.getDrawable(attr);
+			if (AnyApplication.DEBUG) Log.d(TAG, "AnySoftKeyboardKeyIcons_iconKeyArrowUp "+(mArrowUpKeyIcon!=null));
+			break;
 		}
 	}
-
+	
 	protected int getKeyboardStyleResId(KeyboardTheme theme) {
 		return theme.getPopupThemeResId();
 	}
@@ -1297,6 +1354,14 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     		return mControlIcon;
     	case KeyCodes.TAB:
     		return mTabKeyIcon;
+    	case KeyCodes.ARROW_DOWN:
+    		return mArrowDownKeyIcon;
+    	case KeyCodes.ARROW_LEFT:
+    		return mArrowLeftKeyIcon;
+    	case KeyCodes.ARROW_RIGHT:
+    		return mArrowRightKeyIcon;
+    	case KeyCodes.ARROW_UP:
+    		return mArrowUpKeyIcon;
     	default:
 			return null;
     	} 

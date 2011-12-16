@@ -3,6 +3,7 @@ package com.anysoftkeyboard.theme;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
@@ -104,5 +105,10 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme>
         }
         
         return getCurrentKeyboardTheme(appContext);
+	}
+	
+	@Override
+	protected boolean isEventRequiresViewReset(Intent eventIntent) {
+		return true;
 	}
 }
