@@ -186,8 +186,6 @@ public abstract class AnyKeyboard extends Keyboard
 	                	final char code = (char)key.codes[0];
 	                	if (code > 0 && !Character.isWhitespace(code))
 	                		key.label = ""+code;
-	                	else
-	                		key.label = " ";
 	                }
                 }
             }

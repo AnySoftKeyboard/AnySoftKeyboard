@@ -35,6 +35,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
+import android.graphics.Paint.FontMetrics;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.Region.Op;
@@ -114,9 +115,13 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
     // XML attribute
     private int mKeyTextSize;
+    private FontMetrics mTextFM;
     private ColorStateList mKeyTextColor;
     private Typeface mKeyTextStyle = Typeface.DEFAULT;
     private int mLabelTextSize;
+    private FontMetrics mLabelFM;
+    private int mHintTextSize;
+    private FontMetrics mHintTextFM;
     private boolean mInLandscape = false;
     private int mSymbolColorScheme = 0;
     private int mShadowColor;
@@ -226,14 +231,14 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private final Rect mKeyBackgroundPadding;
     private final Rect mClipRegion = new Rect(0, 0, 0, 0);
     // This map caches key label text height in pixel as value and key label text size as map key.
-    private final HashMap<Integer, Integer> mTextHeightCache = new HashMap<Integer, Integer>();
-    private final HashMap<Integer, Integer> mHintTextHeightCache = new HashMap<Integer, Integer>();
+    //private final HashMap<Integer, Integer> mTextHeightCache = new HashMap<Integer, Integer>();
+    //private final HashMap<Integer, Integer> mHintTextHeightCache = new HashMap<Integer, Integer>();
     //private final HashMap<Integer, Integer> mTextWidthCache = new HashMap<Integer, Integer>();
-    private final HashMap<Integer, Integer> mHintTextWidthCache = new HashMap<Integer, Integer>();
+    //private final HashMap<Integer, Integer> mHintTextWidthCache = new HashMap<Integer, Integer>();
     
     // Distance from horizontal center of the key, proportional to key label text height.
-    private final float KEY_LABEL_VERTICAL_ADJUSTMENT_FACTOR = 0.5f;
-    private final String KEY_LABEL_HEIGHT_REFERENCE_CHAR = "H";
+    //private final float KEY_LABEL_VERTICAL_ADJUSTMENT_FACTOR = 0.5f;
+    private final String KEY_LABEL_HEIGHT_REFERENCE_CHAR = Character.toString('\u2588');//Full block
 
     private final UIHandler mHandler = new UIHandler();
 
@@ -1109,9 +1114,10 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 	paint.setTextSize(labelSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape());
                 else
                 	paint.setTextSize(labelSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait());
-
-                final int labelHeight = getTextCanvasHeight(paint, labelSize);
-
+                
+                
+                //final int labelHeight = getTextCanvasHeight(paint, labelSize);
+                final float labelHeight = -paint.getFontMetrics().top;
                 // Draw a drop shadow for the text
                 paint.setShadowLayer(mShadowRadius, mShadowOffsetX, mShadowOffsetY, mShadowColor);
                 
@@ -1121,18 +1127,17 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 //this should be in the top left corner of the key
             	float textWidth =  paint.measureText(label);
                 
-                if (label.length() > 1 && !AnyApplication.getConfig().workaround_alwaysUseDrawText())
+            	final float centerX = mKeyBackgroundPadding.left + (key.width - mKeyBackgroundPadding.left - mKeyBackgroundPadding.right)/2;
+                final float centerY = mKeyBackgroundPadding.top + (key.height - mKeyBackgroundPadding.top - mKeyBackgroundPadding.bottom)/2;
+                
+                final float textX = centerX;
+                final float textY;
+            	if (label.length() > 1 && !AnyApplication.getConfig().workaround_alwaysUseDrawText())
                 {
-                	if (AnyApplication.DEBUG) Log.d(TAG, "Using RTL fix for key draw '"+label+"'");
+            		textY = centerY - ((labelHeight - paint.descent())/2);
+                	canvas.translate(textX , textY);
+                    if (AnyApplication.DEBUG) Log.d(TAG, "Using RTL fix for key draw '"+label+"'");
                 	//RTL fix. But it costs, let do it when in need (more than 1 character)
-	                final float centerX = mKeyBackgroundPadding.left + (key.width - mKeyBackgroundPadding.left - mKeyBackgroundPadding.right)/2;
-	                final float centerY = mKeyBackgroundPadding.top + (key.height - mKeyBackgroundPadding.top - mKeyBackgroundPadding.bottom)/2;
-	                
-	                final float textX = centerX;
-	            	final float textY = centerY - labelHeight + paint.descent();
-	            	
-	            	canvas.translate(textX , textY);	
-	        	    
 	            	TextPaint labelPaint = new TextPaint(paint);
 	            	StaticLayout labelText = 
 	            		new StaticLayout(
@@ -1140,18 +1145,18 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 	            				(int)textWidth, Alignment.ALIGN_NORMAL, 
 	            				0.0f, 0.0f, false);
 	            	labelText.draw(canvas);
-	            	
-	        	    canvas.translate(-textX , -textY);
                 }
                 else
                 {
-					final int centerX = (key.width + mKeyBackgroundPadding.left - mKeyBackgroundPadding.right) / 2;
-					final int centerY = (key.height + mKeyBackgroundPadding.top - mKeyBackgroundPadding.bottom) / 2;
-					final float baseline = centerY + labelHeight * KEY_LABEL_VERTICAL_ADJUSTMENT_FACTOR;
-					canvas.drawText(label, centerX, baseline, paint);	
+					//final int centerX = (key.width + mKeyBackgroundPadding.left - mKeyBackgroundPadding.right) / 2;
+					//final int centerY = (key.height + mKeyBackgroundPadding.top - mKeyBackgroundPadding.bottom) / 2;
+					//final float baseline = centerY + ((labelHeight - paint.descent())/2)/* * KEY_LABEL_VERTICAL_ADJUSTMENT_FACTOR*/;
+                	textY = centerY + ((labelHeight - paint.descent())/2);
+                	canvas.translate(textX , textY);
+                    canvas.drawText(label, 0, 0, paint);	
                 }
-				//(-)      
-                
+                canvas.translate(-textX , -textY);
+				//(-)
                                 
                 // Turn off drop shadow
                 paint.setShadowLayer(0, 0, 0, 0);
@@ -1161,7 +1166,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 {
 	                if ((key.popupCharacters != null && key.popupCharacters.length() > 0) || (key.popupResId != 0) || (key.longPressCode != 0))
 	                {
-	                	String hintText = "... ";
+	                	String hintText = "...";
 	                	if (key.longPressCode != 0)
 	                	{
 	                		if (Character.isLetterOrDigit(key.longPressCode))
@@ -1177,12 +1182,13 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 	                	paint.setTypeface(Typeface.DEFAULT);
 	                	paint.setColor(Color.GRAY);
 	                	paint.setTextSize(mLabelTextSize/1.5f);
-	                	final int hintX;
-	                	final int hintY;
-	                	final int hintHeight = getHintTextCanvasHeight(paint, hintText.length());
-	                	final int hintWidth = getHintTextCanvasWidth(paint, hintText.length());
-	                	hintX = key.width - hintWidth;
-	                	hintY = key.height - hintHeight + 2;
+	                	FontMetrics fm = paint.getFontMetrics();
+	                	Log.d(TAG, "**** FontMetrics ascent:"+fm.ascent+" bottom:"+fm.bottom+" descent:"+fm.descent+" leading:"+fm.leading+" top:"+fm.top);
+	                	final float hintX;
+	                	final float hintY;
+	                	final float hintWidth = paint.measureText(hintText);
+	                	hintX = key.width - hintWidth/2 - mKeyBackgroundPadding.right - 1;
+	                	hintY = key.height - fm.bottom - mKeyBackgroundPadding.bottom - 1;
 	            		
 	            		canvas.drawText(hintText, hintX, hintY, paint);
 	                }
@@ -1243,7 +1249,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         mDrawPending = false;
         mDirtyRect.setEmpty();
     }
-
+/*
 	int getTextCanvasHeight(final Paint paint, final int labelSize) {
 		Integer labelHeightValue = mTextHeightCache.get(labelSize);
 		final int labelHeight;
@@ -1280,11 +1286,12 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 		} else {
 		    Rect textBounds = new Rect();
 		    paint.getTextBounds(KEY_LABEL_HEIGHT_REFERENCE_CHAR, 0, 1, textBounds);
-		    labelWidth = textBounds.height();
+		    labelWidth = textBounds.width();
 		    mHintTextWidthCache.put(labelSize, labelWidth);
 		}
 		return labelWidth;
 	}
+	*/
 /*
 	int getTextCanvasWidth(final Paint paint, final int labelSize) {
 		Integer labelWidthValue = mTextWidthCache.get(labelSize);

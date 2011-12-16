@@ -6,7 +6,7 @@
    android:keyWidth="35%p"
    android:keyHeight="@integer/key_normal_height">
    	<Key android:codes="-2" android:keyLabel="@string/change_symbols_regular" android:keyEdgeFlags="left"/>
-   	<Key android:codes="-20" android:keyWidth="15%p" android:keyLabel="←" android:isRepeatable="true"/>
-   	<Key android:codes="-21" android:keyWidth="15%p" android:keyLabel="→" android:isRepeatable="true"/>
+   	<Key android:codes="-20" android:keyWidth="15%p" android:isRepeatable="true"/>
+   	<Key android:codes="-21" android:keyWidth="15%p" android:isRepeatable="true"/>
 	<Key android:codes="-99" ask:longPressCode="-98" android:keyLabel="@string/change_lang_regular" android:keyEdgeFlags="right"/>
 </Row>
