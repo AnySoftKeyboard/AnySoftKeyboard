@@ -63,6 +63,10 @@
         <item name="keyTextColor">#FFFFFFFF</item>
         <item name="labelTextSize">@dimen/key_label_text_size</item>
         
+        <item name="hintTextSize">@dimen/key_hint_text_size</item>
+        <item name="hintTextColor">#FFFFFFFF</item>
+            
+            
         <item name="keyHysteresisDistance">@dimen/key_hysteresis_distance</item>
         <!-- this is what Android team figured verticalCorrection should be -->
         <item name="verticalCorrection">-0.05in</item>
