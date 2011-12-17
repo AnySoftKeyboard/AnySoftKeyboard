@@ -86,6 +86,12 @@
 
         <!-- Color to use for the label in a key. -->
         <attr name="keyTextColor" format="color" />
+        
+        <!-- Size of the text for hinting about long press output. -->
+        <attr name="hintTextSize" format="dimension" />
+
+        <!-- Color to use for hint text. -->
+        <attr name="hintTextColor" format="color" />
 		
         <!-- size of different keys height -->
         <attr name="keyNormalHeight" format="dimension" />
