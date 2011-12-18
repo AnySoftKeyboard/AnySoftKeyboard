@@ -64,7 +64,7 @@
         <item name="labelTextSize">@dimen/key_label_text_size</item>
         
         <item name="hintTextSize">@dimen/key_hint_text_size</item>
-        <item name="hintTextColor">#FFFFFFFF</item>
+        <item name="hintTextColor">#FFBBBBBB</item>
             
             
         <item name="keyHysteresisDistance">@dimen/key_hysteresis_distance</item>
@@ -124,6 +124,7 @@
     	<item name="keyBackground">@drawable/btn_keyboard_key_gingerbread</item>
     	<item name="keyPreviewBackground">@drawable/gingerbread_btn_key_preview_background</item>
     	
+    	
         <item name="shadowRadius">5px</item>
     </style>
     <style name="GingerbreadPopup" parent="@style/AnyKeyboardPopupBaseTheme">
@@ -147,6 +148,7 @@
         <item name="android:background">@drawable/light_background_tiled</item>
     	<item name="keyBackground">@drawable/light_btn_key</item>
         <item name="keyTextColor">@color/light_btn_key_text_color</item>
+        <item name="hintTextColor">#FF222222</item>
         <item name="backgroundDimAmount">0.2</item>
         
         <item name="keyPreviewBackground">@drawable/light_btn_key_preview_background</item>

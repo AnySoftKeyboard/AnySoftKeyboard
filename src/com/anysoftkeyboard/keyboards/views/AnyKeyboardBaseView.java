@@ -31,7 +31,6 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.FontMetrics;
@@ -120,6 +119,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private float mLabelTextSize;
     private FontMetrics mLabelFM;
     private float mHintTextSize;
+    private ColorStateList mHintTextColor;
     private FontMetrics mHintTextFM;
     private int mSymbolColorScheme = 0;
     private int mShadowColor;
@@ -432,8 +432,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         final int n = a.getIndexCount();
         for (int i = 0; i < n; i++) {
             final int attr = a.getIndex(i);
-            doneStylesIndexes.add(new Integer(attr));
-            setValueFromTheme(a, padding, attr);
+            if (setValueFromTheme(a, padding, attr)) doneStylesIndexes.add(new Integer(attr));
         }
         int iconSetStyleRes = a.getResourceId(R.styleable.AnyKeyboardBaseView_keyIconsStyle, 0);
         a.recycle();
@@ -449,8 +448,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 	        final int iconsCount = a.getIndexCount();
 	        for (int i = 0; i < iconsCount; i++) {
 	            final int attr = a.getIndex(i);
-	            doneIconsStylesIndexes.add(new Integer(attr));
-	            setKeyIconValueFromTheme(a, attr);
+	            if (setKeyIconValueFromTheme(a, attr)) doneIconsStylesIndexes.add(new Integer(attr));
 	        }
         }
         //filling what's missing
@@ -555,7 +553,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         PreferenceManager.getDefaultSharedPreferences(getContext()).registerOnSharedPreferenceChangeListener(this);
     }
 
-	public void setValueFromTheme(TypedArray a, final int[] padding, final int attr) {
+	public boolean setValueFromTheme(TypedArray a, final int[] padding, final int attr) {
 		try
 		{
 			switch (attr) {
@@ -624,7 +622,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 				mKeyTextColor = a.getColorStateList(attr);
 				if (mKeyTextColor == null)
 				{
-					if (AnyApplication.DEBUG) Log.d(TAG, "Creating an empty ColorStateList");
+					if (AnyApplication.DEBUG) Log.d(TAG, "Creating an empty ColorStateList for mKeyTextColor");
 					mKeyTextColor = new ColorStateList(new int[][]{{0}}, new int[]{a.getColor(attr, 0xFF000000)});
 				}
 				if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_keyTextColor "+mKeyTextColor);
@@ -644,6 +642,15 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 	            else
 	            	mHintTextSize = mHintTextSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
 	            if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_labelTextSize "+mLabelTextSize);
+				break;
+			case R.styleable.AnyKeyboardBaseView_hintTextColor:
+				mHintTextColor = a.getColorStateList(attr);
+				if (mHintTextColor == null)
+				{
+					if (AnyApplication.DEBUG) Log.d(TAG, "Creating an empty ColorStateList for mHintTextColor");
+					mHintTextColor = new ColorStateList(new int[][]{{0}}, new int[]{a.getColor(attr, 0xFF000000)});
+				}
+				if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_hintTextColor "+mHintTextColor);
 				break;
 	//            case R.styleable.AnyKeyboardBaseView_popupLayout:
 	//                mPopupLayout = a.getResourceId(attr, 0);
@@ -716,15 +723,17 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 				if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_keySmallHeight "+themeSmallKeyHeight);
 				break;
 			}
+			return true;
 		}
 		catch(Exception e)
 		{
 			//on API changes, so the incompatible themes wont crash me.. 
 			e.printStackTrace();
+			return false;
 		}
 	}
 	
-	public void setKeyIconValueFromTheme(TypedArray a, final int attr) {
+	public boolean setKeyIconValueFromTheme(TypedArray a, final int attr) {
 		try
 		{
 			switch (attr) {
@@ -777,10 +786,12 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 				if (AnyApplication.DEBUG) Log.d(TAG, "AnySoftKeyboardKeyIcons_iconKeyArrowUp "+(mArrowUpKeyIcon!=null));
 				break;
 			}
+			return true;
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
+			return false;
 		}
 	}
 	
@@ -1206,7 +1217,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 	                	
 	                	//draw hint
 	                	paint.setTypeface(Typeface.DEFAULT);
-	                	//paint.setColor(Color.GRAY);
+	                	paint.setColor(mHintTextColor.getColorForState(drawableState, 0xFF000000));
 	                	paint.setTextSize(mHintTextSize);
 	                	if (mHintTextFM == null) mHintTextFM = paint.getFontMetrics();
 	                	final float hintX;

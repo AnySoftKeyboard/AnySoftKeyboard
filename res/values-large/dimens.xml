@@ -28,7 +28,7 @@
     
     <dimen name="key_text_size">24sp</dimen>
     <dimen name="key_label_text_size">17sp</dimen>
-    <dimen name="key_hint_text_size">12sp</dimen>
+    <dimen name="key_hint_text_size">10sp</dimen>
     
     <dimen name="candidate_strip_height">44sp</dimen>
     <dimen name="candidate_font_height">24sp</dimen>

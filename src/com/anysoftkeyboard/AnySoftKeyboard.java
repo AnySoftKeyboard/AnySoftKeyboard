@@ -389,8 +389,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 		
 		final KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(getApplicationContext());
         final TypedArray a = theme.getPackageContext().obtainStyledAttributes(null, R.styleable.AnyKeyboardBaseView, 0, theme.getThemeResId());
-        final int closeTextColor = a.getColor(R.styleable.AnyKeyboardBaseView_suggestionOthersTextColor, getResources().getColor(R.color.candidate_other));
-        final float fontSizePixel = a.getDimension(R.styleable.AnyKeyboardBaseView_suggestionTextSize, getResources().getDimensionPixelSize(R.dimen.candidate_font_height));
+        int closeTextColor = getResources().getColor(R.color.candidate_other);
+        float fontSizePixel = getResources().getDimensionPixelSize(R.dimen.candidate_font_height);
+        try
+        {
+        	closeTextColor = a.getColor(R.styleable.AnyKeyboardBaseView_suggestionOthersTextColor, closeTextColor);
+            fontSizePixel = a.getDimension(R.styleable.AnyKeyboardBaseView_suggestionTextSize, fontSizePixel);
+        }
+        catch(Exception e)
+        {
+        	e.printStackTrace();
+        }
         a.recycle();
         
 		mCandidateCloseText = (TextView)candidateViewContainer.findViewById(R.id.close_suggestions_strip_text);
