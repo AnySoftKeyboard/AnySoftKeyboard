@@ -2730,8 +2730,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	private void launchDictionaryOverriding() {
-		//AnyKeyboard currentKeyboard = mKeyboardSwitcher.getCurrentKeyboard();
 		final String dictionaryOverridingKey = getDictionaryOverrideKey(getCurrentKeyboard());
+		final String dictionaryOverrideValue = getSharedPreferences().getString(dictionaryOverridingKey, null);
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setCancelable(true);
 		builder.setIcon(R.drawable.icon_8_key);
@@ -2743,15 +2743,25 @@ public class AnySoftKeyboard extends InputMethodService implements
 		ArrayList<CharSequence> dictionaries = new ArrayList<CharSequence>();
 		// null dictionary is handled as the default for the keyboard
 		dictionaryIds.add(null);
-		dictionaries.add(getString(R.string.override_dictionary_default));
+		final String SELECTED = "\u2714 ";
+		final String NOT_SELECTED = "- ";
+		if (dictionaryOverrideValue == null)
+			dictionaries.add(SELECTED+getString(R.string.override_dictionary_default));
+		else
+			dictionaries.add(NOT_SELECTED+getString(R.string.override_dictionary_default));
 		//going over all installed dictionaries
 		for (DictionaryAddOnAndBuilder dictionaryBuilder : ExternalDictionaryFactory.getAllAvailableExternalDictionaries(this)) {
 			dictionaryIds.add(dictionaryBuilder.getId());
-			String description = dictionaryBuilder.getDescription();
-			if(description != null && description.length() != 0) {
-				description = " (" + description + ")";
+			String description;
+			if (dictionaryOverrideValue != null && dictionaryBuilder.getId().equals(dictionaryOverrideValue))
+				description = SELECTED;
+			else
+				description = NOT_SELECTED;
+			description += dictionaryBuilder.getName();
+			if(!TextUtils.isEmpty(dictionaryBuilder.getDescription())) {
+				description += " (" + dictionaryBuilder.getDescription() + ")";
 			}
-			dictionaries.add(dictionaryBuilder.getName() + description);
+			dictionaries.add(description);
 		}
 
 		final CharSequence[] ids = new CharSequence[dictionaryIds.size()];
