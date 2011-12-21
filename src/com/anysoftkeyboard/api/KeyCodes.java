@@ -4,7 +4,9 @@ public class KeyCodes {
 	
 	public static final int SPACE = 32;
 	public static final int ENTER = 10;
-	public static final int TAB = 6;
+	public static final int TAB = 9;
+	public static final int ESCAPE = 27;
+	
 	public static final int DELETE = -5;
 	
 	public static final int QUICK_TEXT = -10;
