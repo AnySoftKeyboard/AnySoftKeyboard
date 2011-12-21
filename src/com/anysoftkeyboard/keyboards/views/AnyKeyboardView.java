@@ -51,7 +51,9 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	// static final int KEYCODE_PREV_LANGUAGE = -105;
 
 	private boolean mExtensionVisible = false;
+	private final int mExtensionKeyboardYActivationPoint;
 	private final int mExtensionKeyboardPopupOffset;
+	private final int mExtensionKeyboardYDismissPoint;
 	private Key mExtensionKey;
 	private Key mUtilityKey;
 	private Key mSpaceBarKey = null;
@@ -80,8 +82,9 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	public AnyKeyboardView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 
-		mExtensionKeyboardPopupOffset = context.getResources()
-				.getDimensionPixelSize(R.dimen.extension_keyboard_popup_offset);
+		mExtensionKeyboardPopupOffset = 0;
+		mExtensionKeyboardYActivationPoint = -5;
+		mExtensionKeyboardYDismissPoint = getThemedKeyboardDimens().getNormalKeyHeight();
 	}
 
 	protected String getKeyboardViewNameForLogging() {
@@ -229,7 +232,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     	}
     	// If the motion event is above the keyboard and it's not an UP event coming
         // even before the first MOVE event into the extension area
-        if (me.getY() < -mExtensionKeyboardPopupOffset && !isPopupShowing() && !mExtensionVisible && me.getAction() != MotionEvent.ACTION_UP) {
+    	if (me.getY() < mExtensionKeyboardYActivationPoint && !isPopupShowing() && !mExtensionVisible && me.getAction() != MotionEvent.ACTION_UP) {
         	if (mExtensionKeyboardAreaEntranceTime <= 0)
         		mExtensionKeyboardAreaEntranceTime = System.currentTimeMillis();
         	
@@ -254,12 +257,12 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 		        	{
 			        	mExtensionKey = new AnyKey(new Row(getKeyboard()), getThemedKeyboardDimens());
 			        	mExtensionKey.codes = new int[]{0};
-			        	mExtensionKey.edgeFlags = Keyboard.EDGE_TOP;
-			        	mExtensionKey.height = 0;
-			        	mExtensionKey.width = 0;
+			        	mExtensionKey.edgeFlags = 0;
+			        	mExtensionKey.height = 1;
+			        	mExtensionKey.width = 1;
 			        	mExtensionKey.popupResId = extKbd.getKeyboardResId();
 			        	mExtensionKey.x = getWidth()/2;
-			        	mExtensionKey.y = -mExtensionKeyboardPopupOffset;
+			        	mExtensionKey.y = mExtensionKeyboardPopupOffset;
 		        	}
 		        	super.onLongPress(getContext(), mExtensionKey, AnyApplication.getConfig().isStickyExtensionKeyboard(), !AnyApplication.getConfig().isStickyExtensionKeyboard());
 		        	//it is an extension..
@@ -269,13 +272,12 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         	} else {
                 return super.onTouchEvent(me);
             }
-        } else if (mExtensionVisible && me.getY() > mExtensionKeyboardPopupOffset) {
+        } else if (mExtensionVisible && me.getY() > mExtensionKeyboardYDismissPoint) {
         	//closing the popup
         	dismissPopupKeyboard();
         	
         	return true;
         } else {
-        	mExtensionKeyboardAreaEntranceTime = -1;
             return super.onTouchEvent(me);
         }
     }
