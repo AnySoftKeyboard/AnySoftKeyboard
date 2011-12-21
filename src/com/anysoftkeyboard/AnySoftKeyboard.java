@@ -249,6 +249,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private InputMethodManager mInputMethodManager;
 
+	private final boolean mConnectbotTabHack = true;
+
 	public static AnySoftKeyboard getInstance() {
 		return INSTANCE;
 	}
@@ -1466,9 +1468,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 		        onText(cm.getText());
 		    }
 		    break;
-        case 9 /*Tab*/:
-            sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB);
+        case KeyCodes.TAB/*Tab*/:
+            sendTab();
             break;
+        case KeyCodes.ESCAPE:
+        	sendEscape();
+        	break;
 		default:
 			// Issue 146: Right to left langs require reversed parenthesis
 			if (mKeyboardSwitcher.isRightToLeftMode())
@@ -1481,7 +1486,20 @@ public class AnySoftKeyboard extends InputMethodService implements
 			if (isWordSeparator(primaryCode)) {
 				handleSeparator(primaryCode);
 			} else {
-				handleCharacter(primaryCode, keyCodes);
+
+				if (mInputView.isControl() && primaryCode >= 32 && primaryCode < 127)
+				{
+					//http://en.wikipedia.org/wiki/Control_character#How_control_characters_map_to_keyboards
+					int controlCode = primaryCode & 31;
+					if (AnyApplication.DEBUG) Log.d(TAG, "CONTROL state: Char was "+primaryCode+" and now it is "+controlCode);
+	                if (controlCode == 9) {
+	                    sendTab();
+	                } else {
+	                    ic.commitText(Character.toString((char) controlCode), 1);
+	                }
+				}
+				else
+					handleCharacter(primaryCode, keyCodes);
 				
 				// reseting the mSpaceSent, which is set to true upon selecting
 				// candidate
@@ -1497,7 +1515,49 @@ public class AnySoftKeyboard extends InputMethodService implements
 			break;
 		}
 	}
+	
+    private boolean isConnectbot() {
+        EditorInfo ei = getCurrentInputEditorInfo();
+        String pkg = ei.packageName;
+        return ((pkg.equalsIgnoreCase("org.connectbot")
+            || pkg.equalsIgnoreCase("org.woltage.irssiconnectbot")
+            || pkg.equalsIgnoreCase("com.pslib.connectbot")
+        ) && ei.inputType == 0); // FIXME
+    }
 
+	private void sendTab() {
+        InputConnection ic = getCurrentInputConnection();
+        boolean tabHack = isConnectbot() && mConnectbotTabHack ;
+
+        // FIXME: tab and ^I don't work in connectbot, hackish workaround
+        if (tabHack) {
+            ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN,
+                    KeyEvent.KEYCODE_DPAD_CENTER));
+            ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP,
+                    KeyEvent.KEYCODE_DPAD_CENTER));
+            ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN,
+                    KeyEvent.KEYCODE_I));
+            ic
+                    .sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP,
+                            KeyEvent.KEYCODE_I));
+        } else {
+            ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN,
+                    KeyEvent.KEYCODE_TAB));
+            ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP,
+                    KeyEvent.KEYCODE_TAB));
+        }
+    }
+	
+	private void sendEscape() {
+        InputConnection ic = getCurrentInputConnection();
+        if (isConnectbot()) {
+            sendKeyChar((char) 27);
+        } else {
+            ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, 111 /* KEYCODE_ESCAPE */));
+            ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, 111 /* KEYCODE_ESCAPE */));
+        }
+    }
+	
 	public void setKeyboardStuffBeforeSetToView(AnyKeyboard currentKeyboard) {
 		currentKeyboard.setCondensedKeys(mKeyboardInCondensedMode);
 	}
@@ -1854,12 +1914,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 			if (mInputView.isShifted())
 			{
 				primaryCodeForShow = Character.toUpperCase(primaryCode);
-			}
-			else if (mInputView.isControl())
-			{
-				//http://en.wikipedia.org/wiki/Control_character#How_control_characters_map_to_keyboards
-				primaryCodeForShow = primaryCode & 63;
-				if (AnyApplication.DEBUG) Log.d(TAG, "CONTROL state: Char was "+primaryCode+" and now it is "+primaryCodeForShow);
 			}
 			else
 				primaryCodeForShow = primaryCode;
@@ -2419,8 +2473,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (keyCode != 0)
 			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
 	}
+	
+	private void sendKeyDown(InputConnection ic, int key) {
+    	if (ic != null) ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, key));
+    }
+
+    private void sendKeyUp(InputConnection ic, int key) {
+    	if (ic != null) ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, key));
+    }
 
 	public void onPress(int primaryCode) {
+		InputConnection ic = getCurrentInputConnection();
 		if (DEBUG) Log.d(TAG, "onPress:"+primaryCode);
 		if (mVibrationDuration > 0 && primaryCode!=0) {
 			mVibrator.vibrate(mVibrationDuration);
@@ -2437,6 +2500,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         if (distinctMultiTouch && primaryCode == KeyCodes.CTRL) {
         	mControlKeyState.onPress();
             handleControl(false);
+            sendKeyDown(ic, 113); // KeyEvent.KEYCODE_CTRL_LEFT (API 11 and up)
         } else {
         	mControlKeyState.onOtherKeyPressed();
         }
@@ -2497,6 +2561,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	public void onRelease(int primaryCode) {
+		InputConnection ic = getCurrentInputConnection();
 		if (DEBUG) Log.d(TAG, "onRelease:"+primaryCode);
 		// vibrate();
 		// Reset any drag flags in the keyboard
@@ -2510,7 +2575,10 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
         if (distinctMultiTouch && primaryCode == KeyCodes.CTRL) {
             if (mControlKeyState.isMomentary())
+            {
                 handleControl(true);
+            }
+            sendKeyUp(ic, 113); // KeyEvent.KEYCODE_CTRL_LEFT
             mControlKeyState.onRelease();
         }
         //the user lifted the finger, let's handle the shift

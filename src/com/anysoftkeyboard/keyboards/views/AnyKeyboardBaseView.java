@@ -1137,7 +1137,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             canvas.translate(key.x + kbdPaddingLeft, key.y + kbdPaddingTop);
             keyBackground.draw(canvas);
 
-            //boolean shouldDrawIcon = true;
             if (label != null) {
                 // For characters, use large font. For labels like "Done", use small font.
             	final FontMetrics fm;
@@ -1153,7 +1152,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                     fm = mTextFM;
                 }
                 
-                //final int labelHeight = getTextCanvasHeight(paint, labelSize);
                 final float labelHeight = -fm.top;
                 // Draw a drop shadow for the text
                 paint.setShadowLayer(mShadowRadius, mShadowOffsetX, mShadowOffsetY, mShadowColor);
@@ -1185,9 +1183,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 }
                 else
                 {
-					//final int centerX = (key.width + mKeyBackgroundPadding.left - mKeyBackgroundPadding.right) / 2;
-					//final int centerY = (key.height + mKeyBackgroundPadding.top - mKeyBackgroundPadding.bottom) / 2;
-					//final float baseline = centerY + ((labelHeight - paint.descent())/2)/* * KEY_LABEL_VERTICAL_ADJUSTMENT_FACTOR*/;
                 	textY = centerY + ((labelHeight - paint.descent())/2);
                 	canvas.translate(textX , textY);
                     canvas.drawText(label, 0, 0, paint);	
@@ -1199,39 +1194,33 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 paint.setShadowLayer(0, 0, 0, 0);
 
                 //now to draw hints
-                if (AnyApplication.BLEEDING_EDGE)
+                if ((key.popupCharacters != null && key.popupCharacters.length() > 0) || (key.popupResId != 0) || (key.longPressCode != 0))
                 {
-	                if ((key.popupCharacters != null && key.popupCharacters.length() > 0) || (key.popupResId != 0) || (key.longPressCode != 0))
-	                {
-	                	String hintText = "...";
-	                	if (key.longPressCode != 0)
-	                	{
-	                		if (Character.isLetterOrDigit(key.longPressCode))
-	                			hintText = Character.toString((char)key.longPressCode);
-	                	}
-	                	else if (key.popupCharacters != null && key.popupCharacters.length() > 0 && key.popupCharacters.length() < 3)
-	                	{
-	                		hintText = key.popupCharacters.toString();
-	                	}
-	                	if (mKeyboard.isShifted()) hintText = hintText.toUpperCase();
-	                	
-	                	//draw hint
-	                	paint.setTypeface(Typeface.DEFAULT);
-	                	paint.setColor(mHintTextColor.getColorForState(drawableState, 0xFF000000));
-	                	paint.setTextSize(mHintTextSize);
-	                	if (mHintTextFM == null) mHintTextFM = paint.getFontMetrics();
-	                	final float hintX;
-	                	final float hintY;
-	                	final float hintWidth = paint.measureText(hintText);
-	                	hintX = key.width - hintWidth/2 - mKeyBackgroundPadding.right - 1;
-	                	hintY = key.height - mHintTextFM.bottom - mKeyBackgroundPadding.bottom - 1;
-	            		
-	            		canvas.drawText(hintText, hintX, hintY, paint);
-	                }
+                	String hintText = "...";
+                	if (key.longPressCode != 0)
+                	{
+                		if (Character.isLetterOrDigit(key.longPressCode))
+                			hintText = Character.toString((char)key.longPressCode);
+                	}
+                	else if (key.popupCharacters != null && key.popupCharacters.length() > 0 && key.popupCharacters.length() < 3)
+                	{
+                		hintText = key.popupCharacters.toString();
+                	}
+                	if (mKeyboard.isShifted()) hintText = hintText.toUpperCase();
+                	
+                	//draw hint
+                	paint.setTypeface(Typeface.DEFAULT);
+                	paint.setColor(mHintTextColor.getColorForState(drawableState, 0xFF000000));
+                	paint.setTextSize(mHintTextSize);
+                	if (mHintTextFM == null) mHintTextFM = paint.getFontMetrics();
+                	final float hintX;
+                	final float hintY;
+                	final float hintWidth = paint.measureText(hintText);
+                	hintX = key.width - hintWidth/2 - mKeyBackgroundPadding.right - 1;
+                	hintY = key.height - mHintTextFM.bottom - mKeyBackgroundPadding.bottom - 1;
+            		
+            		canvas.drawText(hintText, hintX, hintY, paint);
                 }
-                // Usually don't draw icon if label is not null, but we draw icon for the number
-                // hint and popup hint.
-                //shouldDrawIcon = shouldDrawLabelAndIcon(key);
             }
             else
             {

@@ -9,12 +9,12 @@
         <Key android:codes="50" android:keyLabel="2" android:popupCharacters="½²"/>
         <Key android:codes="51" android:keyLabel="3" android:popupCharacters="⅓⅔³π"/>
         <Key android:codes="52" android:keyLabel="4" android:popupCharacters="¼¾"/>
-        <Key android:codes="53" android:keyLabel="5" android:popupCharacters="⅕⅖⅗⅘"/>
-        <Key android:codes="54" android:keyLabel="6" android:popupCharacters="⅙⅚"/>
-        <Key android:codes="55" android:keyLabel="7" android:popupCharacters="⅐"/>
+        <Key android:codes="53" android:keyLabel="5"/>
+        <Key android:codes="54" android:keyLabel="6"/>
+        <Key android:codes="55" android:keyLabel="7"/>
         <Key android:codes="56" android:keyLabel="8" android:popupCharacters="⅛⅜⅞"/>
-        <Key android:codes="57" android:keyLabel="9" android:popupCharacters="⅑"/>
-        <Key android:codes="48" android:keyLabel="0" android:popupCharacters="⅒°" android:keyEdgeFlags="right"/>
+        <Key android:codes="57" android:keyLabel="9"/>
+        <Key android:codes="48" android:keyLabel="0" android:popupCharacters="°" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row>
