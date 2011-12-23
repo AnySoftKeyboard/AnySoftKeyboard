@@ -5,6 +5,7 @@
         nameResId="@string/light_plain_keyboard_theme_name"
         themeRes="@style/PlainLightAnySoftKeyboard"
         popupThemeRes="@style/PlainLightAnySoftKeyboardPopup"
+        iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
         themeScreenshot="@drawable/light_theme_screenshot"
         description="@string/light_plain_keyboard_theme_description"
         index="1"/>
@@ -13,6 +14,7 @@
         nameResId="@string/gingerbread_keyboard_theme_name"
         themeRes="@style/Gingerbread"
         popupThemeRes="@style/GingerbreadPopup"
+        iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
         themeScreenshot="@drawable/gingerbread_theme_screenshot"
         description="@string/gingerbread_keyboard_theme_description"
         index="2"/>
@@ -21,6 +23,7 @@
         nameResId="@string/dark_plain_keyboard_theme_name"
         themeRes="@style/PlainDarkAnySoftKeyboard"
         popupThemeRes="@style/PlainDarkAnySoftKeyboardPopup"
+        iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
         themeScreenshot="@drawable/dark_theme_screenshot"
         description="@string/dark_plain_keyboard_theme_description"
         index="3"/>

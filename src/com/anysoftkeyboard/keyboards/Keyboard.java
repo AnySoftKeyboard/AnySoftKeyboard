@@ -735,8 +735,7 @@ public abstract class Keyboard {
     }
     
     protected final void computeNearestNeighbors() {
-    	Log.d("ASK_DEBUG", "computeNearestNeighbors");
-        // Round-up so we don't have any pixels outside the grid
+    	// Round-up so we don't have any pixels outside the grid
         mCellWidth = (getMinWidth() + GRID_WIDTH - 1) / GRID_WIDTH;
         mCellHeight = (getHeight() + GRID_HEIGHT - 1) / GRID_HEIGHT;
         mGridNeighbors = new int[GRID_SIZE][];

@@ -417,12 +417,12 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         mPreviewLabelTextSize = -1;
         mPreviewKeyBackground = null;
         mPreviewKeyTextColor = 0xFFF;
-        final int[] padding = new int[] { -1,-1,-1,-1 };
+        final int[] padding = new int[] { 0,0,0,0 };
 
-        HashSet<Integer> doneStylesIndexes = new HashSet<Integer>();
         KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(context.getApplicationContext());
         final int keyboardThemeStyleResId = getKeyboardStyleResId(theme);
         Log.d(TAG, "Will use keyboard theme "+theme.getName()+" id "+theme.getId()+" res "+keyboardThemeStyleResId);
+        HashSet<Integer> doneStylesIndexes = new HashSet<Integer>();
         TypedArray a = theme.getPackageContext().obtainStyledAttributes(
         		attrs, 
         		R.styleable.AnyKeyboardBaseView, 
@@ -434,10 +434,24 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             final int attr = a.getIndex(i);
             if (setValueFromTheme(a, padding, attr)) doneStylesIndexes.add(new Integer(attr));
         }
-        int iconSetStyleRes = a.getResourceId(R.styleable.AnyKeyboardBaseView_keyIconsStyle, 0);
+        a.recycle();
+        HashSet<Integer> doneStylesIndexes2 = new HashSet<Integer>();
+        a = theme.getPackageContext().obtainStyledAttributes(
+        		attrs, 
+        		R.styleable.AnyKeyboardBaseViewV2, 
+        		0, 
+        		keyboardThemeStyleResId);
+        
+        final int n2 = a.getIndexCount();
+        for (int i = 0; i < n2; i++) {
+            final int attr = a.getIndex(i);
+            if (setValueFromTheme_v2(a, attr)) doneStylesIndexes2.add(new Integer(attr));
+        }
         a.recycle();
         //taking icons
+        int iconSetStyleRes = theme.getIconsThemeResId();
         HashSet<Integer> doneIconsStylesIndexes = new HashSet<Integer>();
+        Log.d(TAG, "Will use keyboard icons theme "+theme.getName()+" id "+theme.getId()+" res "+iconSetStyleRes);
         if (iconSetStyleRes != 0)
         {
 	        a = theme.getPackageContext().obtainStyledAttributes(
@@ -450,6 +464,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 	            final int attr = a.getIndex(i);
 	            if (setKeyIconValueFromTheme(a, attr)) doneIconsStylesIndexes.add(new Integer(attr));
 	        }
+	        a.recycle();
         }
         //filling what's missing
         KeyboardTheme fallbackTheme = KeyboardThemeFactory.getFallbackTheme(context.getApplicationContext());
@@ -468,9 +483,24 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             if (AnyApplication.DEBUG) Log.d(TAG, "Falling back theme res ID "+attr);
             setValueFromTheme(a, padding, attr);
         }
-        int fallbackIconSetStyleId = a.getResourceId(R.styleable.AnyKeyboardBaseView_keyIconsStyle, 0);
+        a.recycle();
+        a = fallbackTheme.getPackageContext().obtainStyledAttributes(
+        		attrs, 
+        		R.styleable.AnyKeyboardBaseViewV2, 
+        		0, 
+        		keyboardFallbackThemeStyleResId);
+        
+        final int fallbackCount2 = a.getIndexCount();
+        for (int i = 0; i < fallbackCount2; i++) {
+        	final int attr = a.getIndex(i);
+            if (doneStylesIndexes2.contains(new Integer(attr))) continue;
+            if (AnyApplication.DEBUG) Log.d(TAG, "Falling back theme res ID "+attr);
+            setValueFromTheme_v2(a, attr);
+        }
         a.recycle();
         //taking missing icons
+        int fallbackIconSetStyleId = fallbackTheme.getIconsThemeResId();
+        Log.d(TAG, "Will use keyboard fallback icons theme "+fallbackTheme.getName()+" id "+fallbackTheme.getId()+" res "+fallbackIconSetStyleId);
         a = fallbackTheme.getPackageContext().obtainStyledAttributes(
         		attrs, 
         		R.styleable.AnySoftKeyboardKeyIcons, 
@@ -484,6 +514,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             if (AnyApplication.DEBUG) Log.d(TAG, "Falling back icon res ID "+attr);
             setKeyIconValueFromTheme(a, attr);
         }
+        a.recycle();
         //settings
         super.setPadding(padding[0], padding[1], padding[2], padding[3]);
         
@@ -635,26 +666,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 	            	mLabelTextSize = mLabelTextSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
 	            if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_labelTextSize "+mLabelTextSize);
 				break;
-			case R.styleable.AnyKeyboardBaseView_hintTextSize:
-				mHintTextSize = a.getDimensionPixelSize(attr, 14);
-				if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-					mHintTextSize = mHintTextSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape();
-	            else
-	            	mHintTextSize = mHintTextSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
-	            if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_labelTextSize "+mLabelTextSize);
-				break;
-			case R.styleable.AnyKeyboardBaseView_hintTextColor:
-				mHintTextColor = a.getColorStateList(attr);
-				if (mHintTextColor == null)
-				{
-					if (AnyApplication.DEBUG) Log.d(TAG, "Creating an empty ColorStateList for mHintTextColor");
-					mHintTextColor = new ColorStateList(new int[][]{{0}}, new int[]{a.getColor(attr, 0xFF000000)});
-				}
-				if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_hintTextColor "+mHintTextColor);
-				break;
-	//            case R.styleable.AnyKeyboardBaseView_popupLayout:
-	//                mPopupLayout = a.getResourceId(attr, 0);
-	//                break;
 			case R.styleable.AnyKeyboardBaseView_shadowColor:
 				mShadowColor = a.getColor(attr, 0);
 				if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_shadowColor "+mShadowColor);
@@ -721,6 +732,38 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 				float themeSmallKeyHeight = a.getDimensionPixelOffset(attr, 0);
 				mKeyboardDimens.setSmallKeyHeight(themeSmallKeyHeight);
 				if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseView_keySmallHeight "+themeSmallKeyHeight);
+				break;
+			}
+			return true;
+		}
+		catch(Exception e)
+		{
+			//on API changes, so the incompatible themes wont crash me.. 
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean setValueFromTheme_v2(TypedArray a, final int attr) {
+		try
+		{
+			switch (attr) {
+			case R.styleable.AnyKeyboardBaseViewV2_hintTextSize:
+				mHintTextSize = a.getDimensionPixelSize(attr, 14);
+				if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+					mHintTextSize = mHintTextSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape();
+	            else
+	            	mHintTextSize = mHintTextSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
+	            if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseViewV2_hintTextSize "+mLabelTextSize);
+				break;
+			case R.styleable.AnyKeyboardBaseViewV2_hintTextColor:
+				mHintTextColor = a.getColorStateList(attr);
+				if (mHintTextColor == null)
+				{
+					if (AnyApplication.DEBUG) Log.d(TAG, "Creating an empty ColorStateList for mHintTextColor");
+					mHintTextColor = new ColorStateList(new int[][]{{0}}, new int[]{a.getColor(attr, 0xFF000000)});
+				}
+				if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseViewV2_hintTextColor "+mHintTextColor);
 				break;
 			}
 			return true;

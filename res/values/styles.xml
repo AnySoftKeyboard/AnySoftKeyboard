@@ -61,11 +61,7 @@
         <item name="keyTextSize">@dimen/key_text_size</item>
         <item name="keyTextStyle">bold</item>
         <item name="keyTextColor">#FFFFFFFF</item>
-        <item name="labelTextSize">@dimen/key_label_text_size</item>
-        
-        <item name="hintTextSize">@dimen/key_hint_text_size</item>
-        <item name="hintTextColor">#FFBBBBBB</item>
-            
+        <item name="labelTextSize">@dimen/key_label_text_size</item>            
             
         <item name="keyHysteresisDistance">@dimen/key_hysteresis_distance</item>
         <!-- this is what Android team figured verticalCorrection should be -->
@@ -106,7 +102,10 @@
 		<item name="keyHorizontalGap">@dimen/default_key_horizontal_gap</item>
 		<item name="keyVerticalGap">@dimen/default_key_vertical_gap</item>
 		
-		<item name="keyIconsStyle">@style/AnyKeyboardBaseKeyIconTheme</item>
+		<!-- V2 -->
+        <item name="hintTextSize">@dimen/key_hint_text_size</item>
+        <item name="hintTextColor">#FFBBBBBB</item>
+        
     </style>
     <style name="AnyKeyboardPopupBaseTheme" parent="@style/AnyKeyboardBaseTheme">
         <item name="android:paddingLeft">8dp</item>
@@ -118,6 +117,7 @@
         <!-- this will say "no preview" -->
     	<item name="keyPreviewTextSize">0px</item>
     </style>
+    
         
     <style name="Gingerbread" parent="@style/AnyKeyboardBaseTheme">
         <item name="android:background">@drawable/gingerbread_main_background</item>
