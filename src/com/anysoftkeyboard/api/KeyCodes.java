@@ -34,7 +34,7 @@ public class KeyCodes {
 	public static final int CLIPBOARD = -12;
 	public static final int CANCEL = -3;
 	public static final int CLEAR_INPUT = -13; 
-	public static final int DONE = -4;
+	public static final int VOICE_INPUT = -4;
 	
 	public static final int DISABLED = 0;
 	
