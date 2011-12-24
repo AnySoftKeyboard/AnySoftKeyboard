@@ -2,8 +2,10 @@ package com.anysoftkeyboard.devicespecific;
 
 import com.anysoftkeyboard.backup.CloudBackupRequester;
 import com.anysoftkeyboard.dictionaries.DictionaryFactory;
+import com.anysoftkeyboard.voice.VoiceInput;
 
 import android.content.Context;
+import android.inputmethodservice.InputMethodService;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
@@ -20,4 +22,6 @@ public interface DeviceSpecific {
 	public CloudBackupRequester createCloudBackupRequester(String packageName);
 
 	public DictionaryFactory createDictionaryFactory();
+
+	public VoiceInput createVoiceInput(InputMethodService ime);
 }

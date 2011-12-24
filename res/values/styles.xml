@@ -53,6 +53,8 @@
 		<item name="iconKeyArrowUp">@drawable/dark_key_arrow_up_set</item>
 		<!-- should support normal, feedback -->
 		<item name="iconKeyArrowDown">@drawable/dark_key_arrow_down_set</item>
+		<!-- should support normal, feedback -->
+		<item name="iconKeyMic">@drawable/dark_key_mic_set</item>
     </style>
     <style name="AnyKeyboardBaseTheme">
         <item name="android:background">@drawable/dark_background</item>

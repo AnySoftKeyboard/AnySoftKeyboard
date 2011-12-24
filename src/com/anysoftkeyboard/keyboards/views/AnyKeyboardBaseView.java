@@ -136,6 +136,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private Drawable mTabKeyIcon;
     private Drawable mCancelKeyIcon;
     private Drawable mGlobeKeyIcon;
+    private Drawable mMicKeyIcon;
     
     private Drawable mArrowRightKeyIcon;
     private Drawable mArrowLeftKeyIcon;
@@ -828,6 +829,10 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 				mArrowUpKeyIcon = a.getDrawable(attr);
 				if (AnyApplication.DEBUG) Log.d(TAG, "AnySoftKeyboardKeyIcons_iconKeyArrowUp "+(mArrowUpKeyIcon!=null));
 				break;
+			case R.styleable.AnySoftKeyboardKeyIcons_iconKeyMic:
+				mMicKeyIcon = a.getDrawable(attr);
+				if (AnyApplication.DEBUG) Log.d(TAG, "AnySoftKeyboardKeyIcons_iconKeyMic "+(mMicKeyIcon!=null));
+				break;
 			}
 			return true;
 		}
@@ -1437,6 +1442,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     		return mArrowRightKeyIcon;
     	case KeyCodes.ARROW_UP:
     		return mArrowUpKeyIcon;
+    	case KeyCodes.VOICE_INPUT:
+    		return mMicKeyIcon;
     	default:
 			return null;
     	} 

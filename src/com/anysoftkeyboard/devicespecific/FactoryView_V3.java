@@ -3,12 +3,16 @@ package com.anysoftkeyboard.devicespecific;
 
 import com.anysoftkeyboard.backup.CloudBackupRequester;
 import com.anysoftkeyboard.dictionaries.DictionaryFactory;
+import com.anysoftkeyboard.voice.VoiceInput;
+import com.menny.android.anysoftkeyboard.R;
 
 import android.content.Context;
+import android.inputmethodservice.InputMethodService;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.widget.Toast;
 
 class FactoryView_V3 extends FactoryViewBase {
 
@@ -60,6 +64,19 @@ class FactoryView_V3 extends FactoryViewBase {
 		
 		public DictionaryFactory createDictionaryFactory() {
 			return new DictionaryFactory();
+		}
+		
+		public VoiceInput createVoiceInput(InputMethodService ime) {
+			final Context appContext = ime.getApplicationContext();
+			return new VoiceInput() {
+				public void startVoiceRecognition(String language) {
+					Toast.makeText(appContext, appContext.getText(R.string.voice_input_not_support_in_this_os_version), Toast.LENGTH_LONG).show();
+				}
+				
+				public void onStartInputView() {
+					
+				}
+			};
 		}
 	}
 	

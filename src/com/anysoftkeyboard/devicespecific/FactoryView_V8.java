@@ -2,9 +2,12 @@ package com.anysoftkeyboard.devicespecific;
 
 import com.anysoftkeyboard.backup.CloudBackupRequester;
 import com.anysoftkeyboard.backup.CloudBackupRequesterApi8;
+import com.anysoftkeyboard.voice.VoiceInput;
+import com.anysoftkeyboard.voice.VoiceRecognitionTrigger;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.inputmethodservice.InputMethodService;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -73,6 +76,11 @@ class FactoryView_V8 extends FactoryView_V7 {
 		@Override
 		public CloudBackupRequester createCloudBackupRequester(String packageName) {
 			return new CloudBackupRequesterApi8(packageName);
+		}
+		
+		@Override
+		public VoiceInput createVoiceInput(InputMethodService ime) {
+			return new VoiceRecognitionTrigger(ime);
 		}
 	}
 	

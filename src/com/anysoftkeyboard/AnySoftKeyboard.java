@@ -90,6 +90,7 @@ import com.anysoftkeyboard.ui.settings.MainSettings;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 import com.anysoftkeyboard.utils.ModifierKeyState;
 import com.anysoftkeyboard.utils.Workarounds;
+import com.anysoftkeyboard.voice.VoiceInput;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -251,6 +252,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private final boolean mConnectbotTabHack = true;
 
+	private VoiceInput mVoiceRecognitionTrigger;
+
 	public static AnySoftKeyboard getInstance() {
 		return INSTANCE;
 	}
@@ -308,8 +311,25 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		if (mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS))// should it be always on?
 			notifyKeyboardChangeIfNeeded();
+		
+		mVoiceRecognitionTrigger = AnyApplication.getDeviceSpecific().createVoiceInput(this);
+		//new VoiceRecognitionTrigger(this);
+//		mVoiceRecognitionTrigger.register(new VoiceRecognitionTrigger.Listener() {
+//			public void onVoiceImeEnabledStatusChange() {
+//		    	updateVoiceImeStatus();
+//		    }
+//		});
 	}
-	
+	/*
+	private void updateVoiceImeStatus() {
+		if (mVoiceRecognitionTrigger.isInstalled()) {
+			if (mVoiceRecognitionTrigger.isEnabled()) {
+		    } else {
+		    }
+		  } else {
+		  }
+		}
+	*/
 	@Override
 	public void onUnbindInput() {
 		if (AnyApplication.DEBUG) Log.d(TAG, "onUnbindInput");
@@ -346,7 +366,11 @@ public class AnySoftKeyboard extends InputMethodService implements
         sendBroadcast(i);
 		*/
 		TutorialsProvider.onServiceDestroy();
-
+/*
+		if (mVoiceRecognitionTrigger != null) {
+			mVoiceRecognitionTrigger.unregister(this);
+		}
+		*/
 		super.onDestroy();
 	}
 
@@ -445,6 +469,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 		
 		super.onStartInputView(attribute, restarting);
 
+		if (mVoiceRecognitionTrigger != null) {
+			mVoiceRecognitionTrigger.onStartInputView();
+		}
+		
 		if (mInputView == null) {
 			return;
 		}
@@ -1377,7 +1405,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case KeyCodes.ARROW_DOWN:
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_DOWN);
 			break;
-
+		case KeyCodes.VOICE_INPUT:
+			if (mVoiceRecognitionTrigger != null)
+				mVoiceRecognitionTrigger.startVoiceRecognition(getCurrentKeyboard().getDefaultDictionaryLocale());
+			break;
 		case KeyCodes.CANCEL:
 			if (mOptionsDialog == null || !mOptionsDialog.isShowing()) {
 				handleClose();

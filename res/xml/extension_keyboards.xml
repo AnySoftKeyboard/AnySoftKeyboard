@@ -36,11 +36,19 @@
 	<!-- bottom rows -->
 	<ExtensionKeyboard
 		id="09f8f280-dee2-11e0-9572-0800200c9a66"
+		nameResId="@string/extension_kbd_bottom_regular_with_voice"
+		extensionKeyboardResId="@xml/ext_kbd_bottom_row_regular_with_voice" 
+		extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
+		description=""
+		index="1"
+		/>
+	<ExtensionKeyboard
+		id="09f8f280-dee2-11e0-9572-0800200c9a55"
 		nameResId="@string/extension_kbd_bottom_regular"
 		extensionKeyboardResId="@xml/ext_kbd_bottom_row_regular" 
 		extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
 		description=""
-		index="1"
+		index="2"
 		/>
 	<ExtensionKeyboard
 		id="3659b9e0-dee2-11e0-9572-0800200c9a66"
@@ -48,7 +56,7 @@
 		extensionKeyboardResId="@xml/ext_kbd_bottom_row_iphone" 
 		extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
 		description=""
-		index="2"
+		index="3"
 		/>
 	<!-- top extension keyboards -->
 	<ExtensionKeyboard
