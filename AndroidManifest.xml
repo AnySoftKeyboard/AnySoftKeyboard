@@ -85,8 +85,9 @@
 	</application>
 
 	<!-- helps to determine whether I can use online voice to text -->
+	<!-- 
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-	
+	 -->
 	<uses-permission android:name="android.permission.VIBRATE" />
 	<!-- required for the user dictionary (long press a word in the suggestions bar) -->
     <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
