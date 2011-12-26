@@ -16,17 +16,9 @@
 
 package com.anysoftkeyboard.voice;
 
-import com.menny.android.anysoftkeyboard.R;
-
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.inputmethodservice.InputMethodService;
-import android.net.Uri;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * Triggers a voice recognition by using {@link ImeTrigger} or

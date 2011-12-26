@@ -23,6 +23,7 @@ public interface Configuration {
 	boolean getInsertSpaceAfterCandidatePick();
 	
 	int getGestureSwipeUpKeyCode();
+	int getGestureSwipeUpFromSpacebarKeyCode();
 	int getGestureSwipeDownKeyCode();
 	int getGestureSwipeLeftKeyCode();
 	int getGestureSwipeRightKeyCode();

@@ -34,6 +34,7 @@ public class ConfigurationImpl implements Configuration
 	private int mSwipeDistanceThreshold = 240;
 	private int mSwipeVelocityThreshold = 400;
 	private int mSwipeUpKeyCode;
+	private int mSwipeUpFromSpacebarKeyCode;
 	private int mSwipeDownKeyCode;
 	private int mSwipeLeftKeyCode;
 	private int mSwipeRightKeyCode;
@@ -225,6 +226,9 @@ public class ConfigurationImpl implements Configuration
 		mSwipeUpKeyCode = getIntFromSwipeConfiguration(sp, "swipe_up_action", "shift");
 		Log.i(TAG, "** mSwipeUpKeyCode: "+mSwipeUpKeyCode);
 		
+		mSwipeUpFromSpacebarKeyCode = getIntFromSwipeConfiguration(sp, "swipe_up_from_spacebar_action", "utility_keyboard");
+		Log.i(TAG, "** mSwipeUpFromSpacebarKeyCode: "+mSwipeUpFromSpacebarKeyCode);
+		
 		mSwipeDownKeyCode = getIntFromSwipeConfiguration(sp, "swipe_down_action", "hide");
 		Log.i(TAG, "** mSwipeDownKeyCode: "+mSwipeDownKeyCode);
 		
@@ -373,6 +377,8 @@ public class ConfigurationImpl implements Configuration
 			return KeyCodes.SPLIT_LAYOUT;
 		else if (keyValue.equalsIgnoreCase("merge_layout"))
 			return KeyCodes.MERGE_LAYOUT;
+		else if (keyValue.equalsIgnoreCase("utility_keyboard"))
+			return KeyCodes.UTILITY_KEYBOARD;
 		
 		return 0;//0 means no action
 	}
@@ -463,6 +469,7 @@ public class ConfigurationImpl implements Configuration
 	public int getGestureSwipeRightKeyCode() {return mSwipeRightKeyCode;}
 	public int getGesturePinchKeyCode() {return mPinchKeyCode;}
 	public int getGestureSeparateKeyCode() {return mSeparateKeyCode;}
+	public int getGestureSwipeUpFromSpacebarKeyCode() {return mSwipeUpFromSpacebarKeyCode;}
 	
 	public boolean getActionKeyInvisibleWhenRequested() {
 		return mActionKeyInvisibleWhenRequested;

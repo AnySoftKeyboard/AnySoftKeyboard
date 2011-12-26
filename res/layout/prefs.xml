@@ -190,6 +190,14 @@ android:key="ime_settings">
 				android:defaultValue="next_alphabet"
 				android:dialogTitle="@string/swipe_right_action_title"/>
 			<ListPreference
+				android:key="swipe_up_from_spacebar_action"
+				android:title="@string/swipe_up_from_spacebar_action"
+				android:summary="@string/swipe_up_from_spacebar_action_summary"
+				android:entries="@array/swipe_action_types_names"
+				android:entryValues="@array/swipe_action_types_values"
+				android:defaultValue="utility_keyboard"
+				android:dialogTitle="@string/swipe_up_from_spacebar_action_title"/>
+			<ListPreference
 				android:key="pinch_gesture_action"
 				android:title="@string/pinch_gesture_action"
 				android:summary="@string/pinch_gesture_action_summary"

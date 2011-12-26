@@ -133,6 +133,9 @@
     <string name="swipe_up_action">Swipe up</string>
     <string name="swipe_up_action_summary">Define the swipe up gesture action</string>
     <string name="swipe_up_action_title">Select swipe up action</string>
+    <string name="swipe_up_from_spacebar_action">Swipe spacebar up</string>
+    <string name="swipe_up_from_spacebar_action_summary">Define the swipe up from spacebar gesture action</string>
+    <string name="swipe_up_from_spacebar_action_title">Select swipe spacebar up action</string>
     <string name="swipe_down_action">Swipe down</string>
     <string name="swipe_down_action_summary">Define the swipe down gesture action</string>
     <string name="swipe_down_action_title">Select swipe down action</string>
@@ -166,6 +169,7 @@
 	<string name="swipe_action_name_other_keyboards_mode">Switch layout mode</string>
 	<string name="swipe_action_name_split_layout">Split layout</string>
 	<string name="swipe_action_name_merge_layout">Merge layout</string>
+	<string name="swipe_action_name_utility_keyboard">Show utility keyboard</string>
    	
    	<string name="settings_swipe_velocity_threshold_title">Swipe velocity threshold</string>
    	<string name="settings_swipe_velocity_threshold_summary">The minimal swipe gesture speed</string>

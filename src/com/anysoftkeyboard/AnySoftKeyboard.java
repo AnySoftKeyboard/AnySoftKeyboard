@@ -2480,14 +2480,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	public void onSwipeUp(boolean onSpaceBar) {
-		final int keyCode = mConfig.getGestureSwipeUpKeyCode();
+		final int keyCode = onSpaceBar? mConfig.getGestureSwipeUpFromSpacebarKeyCode() : mConfig.getGestureSwipeUpKeyCode();
 		if(DEBUG)Log.d(TAG, "onSwipeUp " + ((onSpaceBar)? " + space" : "") +" => code "+ keyCode);
 		if (keyCode != 0)
 		{
-			if (onSpaceBar)
-				onKey(KeyCodes.UTILITY_KEYBOARD, new int[]{KeyCodes.UTILITY_KEYBOARD}, SWIPE_CORD, SWIPE_CORD);
-			else
-				onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
+			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
 		}
 	}
 	
