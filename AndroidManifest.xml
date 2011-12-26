@@ -74,6 +74,9 @@
         </activity>
         
         <!-- for voice -->
+        <activity android:name="com.anysoftkeyboard.voice.VoiceInputNotInstalledActivity"
+             android:label="@string/ime_name" android:theme="@style/Popup.NoTitle"/>
+        
         <service android:name="com.anysoftkeyboard.voice.ServiceHelper" />
 	    <activity
 	        android:name="com.anysoftkeyboard.voice.ActivityHelper"

@@ -18,7 +18,14 @@ package com.anysoftkeyboard.voice;
 
 import com.menny.android.anysoftkeyboard.R;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.inputmethodservice.InputMethodService;
+import android.net.Uri;
+import android.util.Log;
 import android.widget.Toast;
 
 /**
@@ -26,43 +33,30 @@ import android.widget.Toast;
  * {@link IntentApiTrigger}.
  */
 public class VoiceRecognitionTrigger implements VoiceInput {
-
-    private final InputMethodService mInputMethodService;
+    private static final String TAG = "ASK_VoiceRecognitionTrigger";
+    
+	protected final InputMethodService mInputMethodService;
 /*
     private BroadcastReceiver mReceiver;
 */
     private Trigger mTrigger;
-
-    private ImeTrigger mImeTrigger;
-    private IntentApiTrigger mIntentApiTrigger;
 
     public VoiceRecognitionTrigger(InputMethodService inputMethodService) {
         mInputMethodService = inputMethodService;
         mTrigger = getTrigger();
     }
 
-    private Trigger getTrigger() {
-        if (ImeTrigger.isInstalled(mInputMethodService)) {
-            return getImeTrigger();
-        } else if (IntentApiTrigger.isInstalled(mInputMethodService)) {
+    protected Trigger getTrigger() {
+        if (IntentApiTrigger.isInstalled(mInputMethodService)) {
             return getIntentTrigger();
         } else {
+        	Log.d(TAG, "IntentApiTrigger is not installed");
             return null;
         }
     }
 
     private Trigger getIntentTrigger() {
-        if (mIntentApiTrigger == null) {
-            mIntentApiTrigger = new IntentApiTrigger(mInputMethodService);
-        }
-        return mIntentApiTrigger;
-    }
-
-    private Trigger getImeTrigger() {
-        if (mImeTrigger == null) {
-            mImeTrigger = new ImeTrigger(mInputMethodService);
-        }
-        return mImeTrigger;
+        return new IntentApiTrigger(mInputMethodService);
     }
 /*
     public boolean isInstalled() {
@@ -79,21 +73,23 @@ public class VoiceRecognitionTrigger implements VoiceInput {
      * the voice search language settings, or the locale of the calling IME.
      */
     public void startVoiceRecognition() {
-        startVoiceRecognition(null);
+    	startVoiceRecognition(null);
     }
 
     /* (non-Javadoc)
 	 * @see com.anysoftkeyboard.voice.VoiceInput#startVoiceRecognition(java.lang.String)
 	 */
     public void startVoiceRecognition(String language) {
+        // The trigger is refreshed as the system may have changed in the meanwhile.
+    	mTrigger = getTrigger();
         if (mTrigger != null) {
             mTrigger.startVoiceRecognition(language);
         }
         else
         {
-        	//not installed!
-        	//TODO: Move user to install voice input
-        	Toast.makeText(mInputMethodService.getApplicationContext(), mInputMethodService.getText(R.string.voice_input_not_installed), Toast.LENGTH_LONG).show();
+        	Intent notInstalledActivity = new Intent(mInputMethodService.getApplicationContext(), VoiceInputNotInstalledActivity.class);
+        	notInstalledActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        	mInputMethodService.getApplicationContext().startActivity(notInstalledActivity);
         }
     }
 
@@ -104,9 +100,6 @@ public class VoiceRecognitionTrigger implements VoiceInput {
         if (mTrigger != null) {
             mTrigger.onStartInputView();
         }
-
-        // The trigger is refreshed as the system may have changed in the meanwhile.
-        mTrigger = getTrigger();
     }
 /*
     private boolean isNetworkAvailable() {

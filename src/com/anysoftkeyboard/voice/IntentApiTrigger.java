@@ -35,6 +35,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.menny.android.anysoftkeyboard.AnyApplication;
+
 /**
  * Triggers a voice recognition using the Intent api.
  */
@@ -83,6 +85,14 @@ class IntentApiTrigger implements Trigger {
         PackageManager pm = inputMethodService.getPackageManager();
         List<ResolveInfo> activities = pm.queryIntentActivities(
                 new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
+        if (AnyApplication.DEBUG)
+        {
+        	for(ResolveInfo ri : activities)
+        	{
+        		Log.d(TAG, "Found IntentApiTrigger ACTION_RECOGNIZE_SPEECH handler: "+ri.activityInfo.targetActivity+" @ "+
+        				ri.activityInfo.packageName);
+        	}
+        }
         return activities.size() > 0;
     }
 

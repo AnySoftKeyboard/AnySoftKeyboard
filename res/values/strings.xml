@@ -77,7 +77,11 @@
     
     <!-- voice -->
     <string name="voice_input_not_support_in_this_os_version">Voice input is supported in Android 2.2+</string>
-    <string name="voice_input_not_installed">Please install Voice Input from the Market first</string>
+    <string name="voice_input_not_installed_title">Voice input not installed</string>
+    <string name="voice_input_not_installed_text">It is required to install Google\'s Voice Input from the Market before using this feature.</string>
+    <string name="voice_input_not_installed_action_install">Install</string>
+    <string name="voice_input_not_installed_action_do_not_install">No</string>
+    
     <!-- Options menu -->
     <string name="change_ime">Change input method</string>
     <string name="override_dictionary">Override default dictionary</string>

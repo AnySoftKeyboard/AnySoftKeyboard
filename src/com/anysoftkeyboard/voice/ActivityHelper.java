@@ -75,7 +75,7 @@ public class ActivityHelper extends Activity {
 
     private Dialog createResultDialog(final String[] recognitionResults) {
         AlertDialog.Builder builder;
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+        if (Build.VERSION.SDK_INT < 11/*Build.VERSION_CODES.HONEYCOMB*/) {
             builder = new AlertDialog.Builder(this);
         } else {
             builder = new AlertDialog.Builder(this,

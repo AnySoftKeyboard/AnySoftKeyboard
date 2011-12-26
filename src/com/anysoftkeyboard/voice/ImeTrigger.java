@@ -98,7 +98,7 @@ class ImeTrigger implements Trigger {
      * Returns true if an implementation of Voice IME is installed.
      */
     public static boolean isInstalled(InputMethodService inputMethodService) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+        if (Build.VERSION.SDK_INT < 14/* Build.VERSION_CODES.ICE_CREAM_SANDWICH*/) {
             return false;
         }
 
