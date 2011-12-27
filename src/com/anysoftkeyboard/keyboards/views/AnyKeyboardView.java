@@ -151,7 +151,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	final protected boolean isFirstDownEventInsideSpaceBar() {
 		if (mCachedIsFirstDownEventInsideSpaceBar != null) return mCachedIsFirstDownEventInsideSpaceBar.booleanValue();
 		mCachedIsFirstDownEventInsideSpaceBar = mSpaceBarKey != null && mFirstTouchPoint != null
-				&& mSpaceBarKey.isInside(mFirstTouchPoint.x, mFirstTouchPoint.y-(mSpaceBarKey.height/4));
+				&& mSpaceBarKey.isInside(mFirstTouchPoint.x, mFirstTouchPoint.y-(mSpaceBarKey.height/3));
 		
 		return mCachedIsFirstDownEventInsideSpaceBar.booleanValue(); 
 	}

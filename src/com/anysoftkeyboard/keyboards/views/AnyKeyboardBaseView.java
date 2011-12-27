@@ -137,6 +137,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private Drawable mCancelKeyIcon;
     private Drawable mGlobeKeyIcon;
     private Drawable mMicKeyIcon;
+    private Drawable mSettingsKeyIcon;
     
     private Drawable mArrowRightKeyIcon;
     private Drawable mArrowLeftKeyIcon;
@@ -833,6 +834,10 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 				mMicKeyIcon = a.getDrawable(attr);
 				if (AnyApplication.DEBUG) Log.d(TAG, "AnySoftKeyboardKeyIcons_iconKeyMic "+(mMicKeyIcon!=null));
 				break;
+			case R.styleable.AnySoftKeyboardKeyIcons_iconKeySettings:
+				mSettingsKeyIcon = a.getDrawable(attr);
+				if (AnyApplication.DEBUG) Log.d(TAG, "AnySoftKeyboardKeyIcons_iconKeySettings "+(mSettingsKeyIcon!=null));
+				break;
 			}
 			return true;
 		}
@@ -912,6 +917,10 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
      * @param keyboard the keyboard to display in this view
      */
     public void setKeyboard(AnyKeyboard keyboard) {
+    	setKeyboard(keyboard, mVerticalCorrection);
+    }
+    
+    public void setKeyboard(AnyKeyboard keyboard, float verticalCorrection) {
         if (mKeyboard != null) {
             dismissKeyPreview();
         }
@@ -920,8 +929,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         mHandler.cancelPopupPreview();
         mKeyboard = keyboard;
         //ImeLogger.onSetKeyboard(keyboard);
-        mKeys = mKeyDetector.setKeyboard(keyboard, -getPaddingLeft(),
-                -getPaddingTop() + mVerticalCorrection);
+        mKeys = mKeyDetector.setKeyboard(keyboard);
+        mKeyDetector.setCorrection(-getPaddingLeft(), -getPaddingTop() + verticalCorrection);
         //mKeyboardVerticalGap = (int)getResources().getDimension(R.dimen.key_bottom_gap);
         for (PointerTracker tracker : mPointerTrackers) {
             tracker.setKeyboard(mKeys, mKeyHysteresisDistance);
@@ -1444,6 +1453,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     		return mArrowUpKeyIcon;
     	case KeyCodes.VOICE_INPUT:
     		return mMicKeyIcon;
+    	case KeyCodes.SETTINGS:
+    		return mSettingsKeyIcon;
     	default:
 			return null;
     	} 
@@ -1708,7 +1719,10 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         // Remove gesture detector on mini-keyboard
         miniKeyboard.mGestureDetector = null;
 
-        miniKeyboard.setKeyboard(keyboard);
+        if (isSticky)
+        	miniKeyboard.setKeyboard(keyboard, mVerticalCorrection);
+        else
+        	miniKeyboard.setKeyboard(keyboard);
         miniKeyboard.setPopupParent(this);
 
         miniKeyboard.measure(MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.AT_MOST),
@@ -1781,8 +1795,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         }
         mMiniKeyboardOriginX = adjustedX + mMiniKeyboard.getPaddingLeft() - mWindowOffset[0];
         mMiniKeyboardOriginY = y + mMiniKeyboard.getPaddingTop() - mWindowOffset[1];
-        //mMiniKeyboardOriginY = y;
-        
         mMiniKeyboard.setPopupOffset(adjustedX, y);
         mMiniKeyboard.setShifted(isShifted());
         // Mini keyboard needs no pop-up key preview displayed.

@@ -35,16 +35,19 @@ abstract class KeyDetector {
 
     protected int mProximityThresholdSquare;
 
-    public Key[] setKeyboard(Keyboard keyboard, float correctionX, float correctionY) {
+    public Key[] setKeyboard(Keyboard keyboard) {
         if (keyboard == null)
             throw new NullPointerException();
-        mCorrectionX = (int)correctionX;
-        mCorrectionY = (int)correctionY;
         mKeyboard = keyboard;
         List<Key> keys = mKeyboard.getKeys();
         Key[] array = keys.toArray(new Key[keys.size()]);
         mKeys = array;
         return array;
+    }
+    
+    public void setCorrection(float correctionX, float correctionY){
+    	mCorrectionX = (int)correctionX;
+        mCorrectionY = (int)correctionY;
     }
 
     protected int getTouchX(int x) {
