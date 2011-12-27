@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-	<item 
-		android:top="@dimen/key_top_inset"
-	    android:right="@dimen/key_right_inset"
-	    android:bottom="@dimen/key_bottom_inset"
-	    android:left="@dimen/key_left_inset">
+	<item>
 		<shape
 		    android:shape="rectangle">
+		    <padding android:top="@dimen/key_top_inset"
+			    android:right="@dimen/key_right_inset"
+			    android:bottom="@dimen/key_bottom_inset"
+			    android:left="@dimen/key_left_inset"/>
 		    <solid android:color="#4B8EF9"/>
 		    <stroke android:width="1px" android:color="#000"/>
 		    <corners android:radius="@dimen/key_corner_radius"/>

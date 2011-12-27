@@ -323,10 +323,13 @@
 	<string name="keyboard_theme_list_title">Select theme</string>
 	
 	<string name="gingerbread_keyboard_theme_name">Gingerbread styled</string>
+	<string name="gingerbread_no_hint_keyboard_theme_name">Gingerbread styled (no hints text)</string>
 	<string name="gingerbread_keyboard_theme_description">Gingerbread (Android 2.3) styled buttons and colors</string>
 	<string name="dark_plain_keyboard_theme_name">Plain dark theme</string>
+	<string name="dark_plain_no_hint_keyboard_theme_name">Plain dark theme (no hints text)</string>
 	<string name="dark_plain_keyboard_theme_description">Dark colors, simple graphics</string>
 	<string name="light_plain_keyboard_theme_name">Plain light theme</string>
+	<string name="light_plain_no_hint_keyboard_theme_name">Plain light theme (no hints text)</string>
 	<string name="light_plain_keyboard_theme_description">Light colors, simple graphics</string>
 	
 	<!-- extension keyboard type -->

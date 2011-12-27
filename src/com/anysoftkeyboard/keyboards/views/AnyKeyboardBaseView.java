@@ -751,12 +751,12 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 		{
 			switch (attr) {
 			case R.styleable.AnyKeyboardBaseViewV2_hintTextSize:
-				mHintTextSize = a.getDimensionPixelSize(attr, 14);
+				mHintTextSize = a.getDimensionPixelSize(attr, 0);
 				if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
 					mHintTextSize = mHintTextSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape();
 	            else
 	            	mHintTextSize = mHintTextSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
-	            if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseViewV2_hintTextSize "+mLabelTextSize);
+	            if (AnyApplication.DEBUG) Log.d(TAG, "AnyKeyboardBaseViewV2_hintTextSize "+mHintTextSize);
 				break;
 			case R.styleable.AnyKeyboardBaseViewV2_hintTextColor:
 				mHintTextColor = a.getColorStateList(attr);
@@ -1249,8 +1249,31 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                                 
                 // Turn off drop shadow
                 paint.setShadowLayer(0, 0, 0, 0);
+            }
+            else
+            {
+	            Drawable iconToDraw = getIconToDrawForKey(key, false);
+	            if (iconToDraw != null/* && shouldDrawIcon*/) {
+	                // Special handing for the upper-right number hint icons
+	                final int drawableWidth;
+	                final int drawableHeight;
+	                final int drawableX;
+	                final int drawableY;
+	                
+	                drawableWidth = iconToDraw.getIntrinsicWidth();
+	                drawableHeight = iconToDraw.getIntrinsicHeight();
+	                drawableX = (key.width + mKeyBackgroundPadding.left - mKeyBackgroundPadding.right - drawableWidth) / 2;
+	                drawableY = (key.height + mKeyBackgroundPadding.top - mKeyBackgroundPadding.bottom - drawableHeight) / 2;
 
-                //now to draw hints
+	                canvas.translate(drawableX, drawableY);
+	                iconToDraw.setBounds(0, 0, drawableWidth, drawableHeight);
+	                iconToDraw.draw(canvas);
+	                canvas.translate(-drawableX, -drawableY);
+	            }
+            }
+            //now to draw hints
+            if (mHintTextSize > 1)
+            {
                 if ((key.popupCharacters != null && key.popupCharacters.length() > 0) || (key.popupResId != 0) || (key.longPressCode != 0))
                 {
                 	String hintText = "...";
@@ -1278,27 +1301,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             		
             		canvas.drawText(hintText, hintX, hintY, paint);
                 }
-            }
-            else
-            {
-	            Drawable iconToDraw = getIconToDrawForKey(key, false);
-	            if (iconToDraw != null/* && shouldDrawIcon*/) {
-	                // Special handing for the upper-right number hint icons
-	                final int drawableWidth;
-	                final int drawableHeight;
-	                final int drawableX;
-	                final int drawableY;
-	                
-	                drawableWidth = iconToDraw.getIntrinsicWidth();
-	                drawableHeight = iconToDraw.getIntrinsicHeight();
-	                drawableX = (key.width + mKeyBackgroundPadding.left - mKeyBackgroundPadding.right - drawableWidth) / 2;
-	                drawableY = (key.height + mKeyBackgroundPadding.top - mKeyBackgroundPadding.bottom - drawableHeight) / 2;
-
-	                canvas.translate(drawableX, drawableY);
-	                iconToDraw.setBounds(0, 0, drawableWidth, drawableHeight);
-	                iconToDraw.draw(canvas);
-	                canvas.translate(-drawableX, -drawableY);
-	            }
             }
             canvas.translate(-key.x - kbdPaddingLeft, -key.y - kbdPaddingTop);
         }
