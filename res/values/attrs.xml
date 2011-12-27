@@ -189,5 +189,7 @@
 		<attr name="iconKeyArrowDown" format="reference" />
 		<!-- should support normal, key_type_feedback -->
 		<attr name="iconKeyMic" format="reference" />
+		<!-- should support normal, key_type_feedback -->
+		<attr name="iconKeySettings" format="reference" />
 	</declare-styleable>
 </resources>
