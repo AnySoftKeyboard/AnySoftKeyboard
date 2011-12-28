@@ -49,13 +49,13 @@ public class SendBugReportUiActivity extends Activity {
 		Intent sendMail = new Intent();
 		sendMail.setAction(Intent.ACTION_SEND);
 		sendMail.setType("plain/text");
-		sendMail.putExtra(Intent.EXTRA_EMAIL, "mennyed@gmail.com");
+		sendMail.putExtra(Intent.EXTRA_EMAIL, new String[]{ "ask+crash@evendanan.net" });
 		sendMail.putExtra(Intent.EXTRA_SUBJECT, getText(R.string.ime_name) + " crashed!");
 		sendMail.putExtra(Intent.EXTRA_TEXT, callingIntent.getStringExtra(CRASH_REPORT_TEXT));
 		
 		try {
 			Intent sender = Intent.createChooser(sendMail, "Send bug report");
-			sender.putExtra(Intent.EXTRA_EMAIL, "mennyed@gmail.com");
+			sender.putExtra(Intent.EXTRA_EMAIL, new String[]{ "ask+crash@evendanan.net" });
 			sender.putExtra(Intent.EXTRA_SUBJECT, getText(R.string.ime_name) + " crashed!");
 			sender.putExtra(Intent.EXTRA_TEXT, callingIntent.getStringExtra(CRASH_REPORT_TEXT));
 			
