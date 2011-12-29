@@ -191,5 +191,15 @@
 		<attr name="iconKeyMic" format="reference" />
 		<!-- should support normal, key_type_feedback -->
 		<attr name="iconKeySettings" format="reference" />
+		<!-- should support normal, key_type_feedback -->
+		<attr name="iconKeyInputClear" format="reference" />
+		<!-- should support normal, key_type_feedback -->
+		<attr name="iconKeyInputSelectAll" format="reference" />
+		<!-- should support normal, key_type_feedback -->
+		<attr name="iconKeyInputClipboardCopy" format="reference" />
+		<!-- should support normal, key_type_feedback -->
+		<attr name="iconKeyInputClipboardCut" format="reference" />
+		<!-- should support normal, key_type_feedback -->
+		<attr name="iconKeyInputClipboardPaste" format="reference" />
 	</declare-styleable>
 </resources>
