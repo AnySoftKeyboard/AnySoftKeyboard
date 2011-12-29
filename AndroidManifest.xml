@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.menny.android.anysoftkeyboard"
-        android:versionCode="61" android:versionName="20111223-external-chamaeleon">
+        android:versionCode="62" android:versionName="20111229-chamaeleon">
 	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key"
 	    android:hardwareAccelerated="true"
 		android:name=".AnyApplication"  android:backupAgent="com.anysoftkeyboard.backup.AnyBackupAgent" android:restoreAnyVersion="true">

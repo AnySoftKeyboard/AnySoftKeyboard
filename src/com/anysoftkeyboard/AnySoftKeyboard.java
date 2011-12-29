@@ -1518,7 +1518,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				handleSeparator(primaryCode);
 			} else {
 
-				if (mInputView.isControl() && primaryCode >= 32 && primaryCode < 127)
+				if (mInputView != null && mInputView.isControl() && primaryCode >= 32 && primaryCode < 127)
 				{
 					//http://en.wikipedia.org/wiki/Control_character#How_control_characters_map_to_keyboards
 					int controlCode = primaryCode & 31;
@@ -1558,6 +1558,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void sendTab() {
         InputConnection ic = getCurrentInputConnection();
+        if (ic == null) return;
         boolean tabHack = isConnectbot() && mConnectbotTabHack ;
 
         // FIXME: tab and ^I don't work in connectbot, hackish workaround
@@ -1581,6 +1582,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	
 	private void sendEscape() {
         InputConnection ic = getCurrentInputConnection();
+        if (ic == null) return;
         if (isConnectbot()) {
             sendKeyChar((char) 27);
         } else {
