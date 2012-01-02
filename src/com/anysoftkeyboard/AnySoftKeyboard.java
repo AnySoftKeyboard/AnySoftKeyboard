@@ -313,12 +313,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 			notifyKeyboardChangeIfNeeded();
 		
 		mVoiceRecognitionTrigger = AnyApplication.getDeviceSpecific().createVoiceInput(this);
-		//new VoiceRecognitionTrigger(this);
-//		mVoiceRecognitionTrigger.register(new VoiceRecognitionTrigger.Listener() {
-//			public void onVoiceImeEnabledStatusChange() {
-//		    	updateVoiceImeStatus();
-//		    }
-//		});
+		
+		TutorialsProvider.showChangeLogIfNeeded(getApplicationContext());
 	}
 	/*
 	private void updateVoiceImeStatus() {
@@ -357,20 +353,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         unregisterReceiver(mReceiver);
 
         mInputMethodManager.hideStatusIcon(mImeToken);
-		//mNotificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
-		
-		/*
-		Intent i = new Intent(NOTIFY_LAYOUT_SWITCH);
-		//dome summy package, so that everybody removes notification
-        i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_PACKAGE, "NO_SUCH_PACKAGE");
-        sendBroadcast(i);
-		*/
-		TutorialsProvider.onServiceDestroy();
-/*
-		if (mVoiceRecognitionTrigger != null) {
-			mVoiceRecognitionTrigger.unregister(this);
-		}
-		*/
+        
 		super.onDestroy();
 	}
 

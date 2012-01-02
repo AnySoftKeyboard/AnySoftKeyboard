@@ -1,7 +1,5 @@
 package com.anysoftkeyboard.ui.tutorials;
 
-import java.util.ArrayList;
-
 import com.anysoftkeyboard.ui.settings.MainSettings;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -27,10 +25,8 @@ public class TutorialsProvider
 
 	private static final String TAG = "ASK Turorial";
 
-	private static final int TUTORIALS_NOTIFICATION_ID = 102431;
+	private static final int TUTORIALS_NOTIFICATION_ID_BASE = 102431;
 
-	private static ArrayList<IntentToLaunch> msActivitiesToShow = new ArrayList<IntentToLaunch>();
-	
 	/**
 	 * Search array for an entry BEGINNING with key.
 	 * 
@@ -63,10 +59,8 @@ public class TutorialsProvider
 		return false;
 	}
 	
-	public static void ShowTutorialsIfNeeded(Context context)
+	public static void showDragonsIfNeeded(Context context)
 	{
-		Log.d(TAG, "TutorialsProvider::ShowTutorialsIfNeeded called");
-		
 		if (AnyApplication.DEBUG && firstTestersTimeVersionLoaded(context))
 		{
 			Log.i(TAG, "TESTERS VERSION added");
@@ -74,9 +68,14 @@ public class TutorialsProvider
 			Intent i = new Intent(context, TestersNoticeActivity.class);
 			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			
-			msActivitiesToShow.add(new IntentToLaunch(i, R.drawable.notification_icon, R.string.ime_name, R.string.notification_text_testers));
+			showNotificationIcon(context, new IntentToLaunch(
+						TUTORIALS_NOTIFICATION_ID_BASE+1, i, R.drawable.notification_icon, 
+						R.string.ime_name, R.string.notification_text_testers));
 		}
-		
+	}
+	
+	public static void showHowToActivateIfNeeded(Context context)
+	{
 		if (!linearSearch( Secure.getString(context.getContentResolver(), Secure.ENABLED_INPUT_METHODS),
 				context.getPackageName() ) )
 		{
@@ -89,11 +88,15 @@ public class TutorialsProvider
 				Intent i = new Intent(context, WelcomeHowToNoticeActivity.class);
 				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				
-				msActivitiesToShow.add(new IntentToLaunch(i, R.drawable.notification_icon, R.string.notification_title_how_to_enable, R.string.notification_text_how_to_enable));
+				showNotificationIcon(context, new IntentToLaunch(
+								TUTORIALS_NOTIFICATION_ID_BASE+2, i, R.drawable.notification_icon, 
+								R.string.notification_title_how_to_enable, R.string.notification_text_how_to_enable));
 			}
 		}
-		
-		
+	}
+	
+	public static void showChangeLogIfNeeded(Context context)
+	{
 		if (AnyApplication.getConfig().getShowVersionNotification() && firstTimeVersionLoaded(context))
 		{
 			Log.i(TAG, "changelog added");
@@ -101,15 +104,10 @@ public class TutorialsProvider
 			Intent i = new Intent(context, ChangeLogActivity.class);
 			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			
-			msActivitiesToShow.add(new IntentToLaunch(i, R.drawable.notification_icon, R.string.ime_name, R.string.notification_text_changelog));
+			showNotificationIcon(context, new IntentToLaunch(
+							TUTORIALS_NOTIFICATION_ID_BASE+3, i, R.drawable.notification_icon, 
+							R.string.ime_name, R.string.notification_text_changelog));
 		}
-		
-		showNotificationIcon(context);
-	}
-	
-	public static void onServiceDestroy()
-	{
-		msActivitiesToShow.clear();
 	}
 
 	private static boolean hasWelcomeActivityShown(Context context) {
@@ -170,30 +168,22 @@ public class TutorialsProvider
 		}
 	}
 
-	public synchronized static void showNotificationIcon(Context context) {
-		if (msActivitiesToShow.size() > 0)
-		{
-			IntentToLaunch notificationData = msActivitiesToShow.get(0);
-			
-			Notification notification = new Notification(notificationData.NotificationIcon, context.getText(notificationData.NotificationText), System.currentTimeMillis());
+	public synchronized static void showNotificationIcon(Context context, IntentToLaunch notificationData) {
+		final NotificationManager mngr = ((NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE));
+		
+		Notification notification = new Notification(notificationData.NotificationIcon, context.getText(notificationData.NotificationText), System.currentTimeMillis());
             
-            PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationData.IntentToStart, 0);
-            
-            notification.setLatestEventInfo(context,
-                            context.getText(notificationData.NotificationTitle), context.getText(notificationData.NotificationText),
-                            contentIntent);
-            notification.defaults = 0;// no sound, vibrate, etc.
-            //Cancel on click
-            notification.flags = Notification.FLAG_AUTO_CANCEL;
-            //shows the number on the icon
-            if (msActivitiesToShow.size() > 1)
-            	notification.number = msActivitiesToShow.size();
-            // notifying
-            //need different id for each notification, so we can cancel easily
-            ((NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE)).notify(TUTORIALS_NOTIFICATION_ID, notification);
-            
-            //removes this notification
-            msActivitiesToShow.remove(0);
-		}
+        PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationData.IntentToStart, 0);
+        
+        notification.setLatestEventInfo(context,
+                        context.getText(notificationData.NotificationTitle), context.getText(notificationData.NotificationText),
+                        contentIntent);
+        notification.defaults = 0;// no sound, vibrate, etc.
+        //Cancel on click
+        notification.flags = Notification.FLAG_AUTO_CANCEL;
+        // notifying
+        //need different id for each notification, so we can cancel easily
+        mngr.notify(notificationData.NotificationID, notification);
 	}
+
 }

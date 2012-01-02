@@ -44,14 +44,6 @@ public abstract class BaseTutorialActivity extends Activity implements OnClickLi
 		finish();
 	}
 	
-	@Override
-	protected void onPause() {
-		super.onPause();
-		finish();
-		
-		TutorialsProvider.showNotificationIcon(this.getApplicationContext());
-	}
-	
 	public void onClick(View v) {
 		switch(v.getId())
 		{

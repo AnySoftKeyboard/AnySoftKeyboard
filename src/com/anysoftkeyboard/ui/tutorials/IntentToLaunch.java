@@ -8,9 +8,11 @@ class IntentToLaunch
 	public final int NotificationIcon;
 	public final int NotificationTitle;
 	public final int NotificationText;
+	public final int NotificationID;
 	
-	public IntentToLaunch(Intent intent, int icon, int title, int text)
+	public IntentToLaunch(int id, Intent intent, int icon, int title, int text)
 	{
+		NotificationID = id;
 		IntentToStart = intent;
 		NotificationIcon = icon;
 		NotificationTitle = title;
