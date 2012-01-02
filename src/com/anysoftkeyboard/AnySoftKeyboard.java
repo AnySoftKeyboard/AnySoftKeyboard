@@ -411,7 +411,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		final ViewGroup candidateViewContainer = (ViewGroup) getLayoutInflater().inflate(R.layout.candidates, null);
 		mCandidateView = (CandidateView) candidateViewContainer.findViewById(R.id.candidates);
 		mCandidateView.setService(this);
-		setCandidatesViewShown(true);
+		setCandidatesViewShown(false);
 		
 		final KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(getApplicationContext());
         final TypedArray a = theme.getPackageContext().obtainStyledAttributes(null, R.styleable.AnyKeyboardBaseView, 0, theme.getThemeResId());
