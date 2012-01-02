@@ -69,7 +69,7 @@ public class TutorialsProvider
 			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			
 			showNotificationIcon(context, new IntentToLaunch(
-						TUTORIALS_NOTIFICATION_ID_BASE+1, i, R.drawable.notification_icon, 
+						TUTORIALS_NOTIFICATION_ID_BASE+1, i, R.drawable.notification_icon_dragons, 
 						R.string.ime_name, R.string.notification_text_testers));
 		}
 	}
@@ -89,7 +89,7 @@ public class TutorialsProvider
 				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				
 				showNotificationIcon(context, new IntentToLaunch(
-								TUTORIALS_NOTIFICATION_ID_BASE+2, i, R.drawable.notification_icon, 
+								TUTORIALS_NOTIFICATION_ID_BASE+2, i, R.drawable.notification_icon_how_to, 
 								R.string.notification_title_how_to_enable, R.string.notification_text_how_to_enable));
 			}
 		}
@@ -105,7 +105,7 @@ public class TutorialsProvider
 			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			
 			showNotificationIcon(context, new IntentToLaunch(
-							TUTORIALS_NOTIFICATION_ID_BASE+3, i, R.drawable.notification_icon, 
+							TUTORIALS_NOTIFICATION_ID_BASE+3, i, R.drawable.notification_icon_changelog, 
 							R.string.ime_name, R.string.notification_text_changelog));
 		}
 	}
