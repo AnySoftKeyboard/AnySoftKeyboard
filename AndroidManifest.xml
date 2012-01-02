@@ -1,6 +1,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.menny.android.anysoftkeyboard"
         android:versionCode="62" android:versionName="20111229-chamaeleon">
+    
+	<supports-screens
+	    android:xlargeScreens="true"
+		android:largeScreens="true"
+		android:normalScreens="true"
+		android:smallScreens="true"
+		android:anyDensity="true" />
+          <!-- http://d.android.com/guide/practices/screens_support.html read about legacy. -->
+    
+    <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="10"></uses-sdk>
+    
 	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key"
 	    android:hardwareAccelerated="true"
 		android:name=".AnyApplication"  android:backupAgent="com.anysoftkeyboard.backup.AnyBackupAgent" android:restoreAnyVersion="true">
@@ -100,14 +111,4 @@
 	<!-- currently, only support touch screens -->
 	<uses-configuration android:reqTouchScreen="finger"/>
     <uses-configuration android:reqTouchScreen="stylus"/>
-    
-	<supports-screens
-	    android:xlargeScreens="true"
-		android:largeScreens="true"
-		android:normalScreens="true"
-		android:smallScreens="true"
-		android:anyDensity="true" />
-          <!-- http://d.android.com/guide/practices/screens_support.html read about legacy. -->
-    
-    <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="10"></uses-sdk>
 </manifest>

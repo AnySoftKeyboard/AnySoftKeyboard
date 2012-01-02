@@ -13,6 +13,11 @@ com.anysoftkeyboard.ui.MySeekBarPreference
 com.anysoftkeyboard.ui.MySeekBarPreference: MySeekBarPreference(android.content.Context,android.util.AttributeSet)
 com.anysoftkeyboard.keyboards.views.CandidateView
 com.anysoftkeyboard.keyboards.views.CandidateView: CandidateView(android.content.Context,android.util.AttributeSet)
+com.anysoftkeyboard.devicespecific.FactoryView_V11
+com.anysoftkeyboard.devicespecific.FactoryView_V11: FactoryView_V11(android.content.Context,android.util.AttributeSet)
+com.anysoftkeyboard.devicespecific.FactoryView_V7: FactoryView_V7(android.content.Context,android.util.AttributeSet)
+com.anysoftkeyboard.devicespecific.FactoryView_V5: FactoryView_V5(android.content.Context,android.util.AttributeSet)
+com.anysoftkeyboard.devicespecific.FactoryView_V3: FactoryView_V3(android.content.Context,android.util.AttributeSet)
 com.anysoftkeyboard.devicespecific.FactoryView_V5
 com.anysoftkeyboard.devicespecific.FactoryView_V5: FactoryView_V5(android.content.Context,android.util.AttributeSet)
 com.anysoftkeyboard.devicespecific.FactoryView_V3: FactoryView_V3(android.content.Context,android.util.AttributeSet)
@@ -34,6 +39,11 @@ com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView
 com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView: AnyKeyboardBaseView(android.content.Context,android.util.AttributeSet)
 com.anysoftkeyboard.keyboards.views.CandidateView
 com.anysoftkeyboard.keyboards.views.CandidateView: CandidateView(android.content.Context,android.util.AttributeSet,int)
+com.anysoftkeyboard.devicespecific.FactoryView_V11
+com.anysoftkeyboard.devicespecific.FactoryView_V11: FactoryView_V11(android.content.Context,android.util.AttributeSet,int)
+com.anysoftkeyboard.devicespecific.FactoryView_V7: FactoryView_V7(android.content.Context,android.util.AttributeSet,int)
+com.anysoftkeyboard.devicespecific.FactoryView_V5: FactoryView_V5(android.content.Context,android.util.AttributeSet,int)
+com.anysoftkeyboard.devicespecific.FactoryView_V3: FactoryView_V3(android.content.Context,android.util.AttributeSet,int)
 com.anysoftkeyboard.devicespecific.FactoryView_V5
 com.anysoftkeyboard.devicespecific.FactoryView_V5: FactoryView_V5(android.content.Context,android.util.AttributeSet,int)
 com.anysoftkeyboard.devicespecific.FactoryView_V3: FactoryView_V3(android.content.Context,android.util.AttributeSet,int)
@@ -67,6 +77,8 @@ com.anysoftkeyboard.ui.tutorials.ChangeLogActivity
 com.anysoftkeyboard.ui.tutorials.WelcomeHowToNoticeActivity
 com.anysoftkeyboard.ui.tutorials.TestersNoticeActivity
 com.anysoftkeyboard.ui.SendBugReportUiActivity
+com.anysoftkeyboard.voice.VoiceInputNotInstalledActivity
+com.anysoftkeyboard.voice.ActivityHelper
 com.anysoftkeyboard.ui.settings.MainSettings
 com.menny.android.anysoftkeyboard.MainSettings
 com.anysoftkeyboard.ui.settings.Tweaks
@@ -80,6 +92,7 @@ com.anysoftkeyboard.ui.settings.Dictionaries
 com.anysoftkeyboard.ui.settings.Keyboards
 com.anysoftkeyboard.ui.MainForm
 com.menny.android.anysoftkeyboard.AnyApplication
+com.anysoftkeyboard.voice.ServiceHelper
 com.anysoftkeyboard.AnySoftKeyboard
 com.menny.android.anysoftkeyboard.SoftKeyboard
 com.anysoftkeyboard.api.LanguageChangeddBroadcastReceiver
@@ -96,4 +109,5 @@ com.anysoftkeyboard.ui.tutorials.BaseTutorialActivity: void onCloseClicked(andro
 com.anysoftkeyboard.ui.tutorials.BaseTutorialActivity: void onClick(android.view.View)
 com.anysoftkeyboard.ui.tutorials.BaseTutorialActivity: void onCloseClicked(android.view.View)
 com.anysoftkeyboard.ui.tutorials.BaseTutorialActivity: void onClick(android.view.View)
+com.anysoftkeyboard.voice.VoiceInputNotInstalledActivity: void onClick(android.view.View)
 com.anysoftkeyboard.ui.MainForm: void onClick(android.view.View)

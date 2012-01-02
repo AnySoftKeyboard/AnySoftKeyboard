@@ -7,7 +7,10 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.utils.Workarounds;
+
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -151,7 +154,6 @@ public class ConfigurationImpl implements Configuration
 			e.remove("fullscreen_input_connection_supported");
 			//saving config level
 			e.putInt(CONFIGURATION_VERSION, 1);
-			configurationVersion= 1;
 			e.commit();
 		}
 		
@@ -163,6 +165,34 @@ public class ConfigurationImpl implements Configuration
 			e.putString("zoom_factor_keys_in_landscape", mContext.getString(R.string.settings_default_landscape_keyboard_height_factor));
 			//saving config level
 			e.putInt(CONFIGURATION_VERSION, 2);
+			e.commit();
+		}
+		
+		if (configurationVersion < 3)
+		{
+			Editor e = sp.edit();
+			if (Workarounds.getApiLevel() <= 7)
+			{
+				if (AnyApplication.DEBUG)Log.d(TAG, "In API7 or lower, bottom row needs to be changed to not include mic...");
+				final String bottomRowKey = mContext.getString(R.string.settings_key_ext_kbd_bottom_row_key);
+				String currentBottomRowId = sp.getString(bottomRowKey, mContext.getString(R.string.settings_default_ext_kbd_bottom_row_key));
+				String newBottomRowId = "";
+				if (currentBottomRowId.equals("09f8f280-dee2-11e0-9572-0800200c9a66"))
+				{
+					newBottomRowId = "09f8f280-dee2-11e0-9572-0800200c9a55";
+				}
+				else if (currentBottomRowId.equals("3659b9e0-dee2-11e0-9572-0800200c9a66"))
+				{
+					newBottomRowId = "3659b9e0-dee2-11e0-9572-0800200c9a55";
+				}
+				if (!TextUtils.isEmpty(newBottomRowId))
+				{
+					Log.i(TAG, "Detected API7 (or lower). Switching bottom row from "+currentBottomRowId+" to "+newBottomRowId+"...");
+					e.putString(bottomRowKey, newBottomRowId);
+				}
+			}
+			//saving config level
+			e.putInt(CONFIGURATION_VERSION, 3);
 			e.commit();
 		}
 	}

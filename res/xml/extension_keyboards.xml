@@ -52,11 +52,19 @@
 		/>
 	<ExtensionKeyboard
 		id="3659b9e0-dee2-11e0-9572-0800200c9a66"
+		nameResId="@string/extension_kbd_bottom_iphone_with_voice"
+		extensionKeyboardResId="@xml/ext_kbd_bottom_row_iphone_with_mic" 
+		extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
+		description=""
+		index="3"
+		/>
+	<ExtensionKeyboard
+		id="3659b9e0-dee2-11e0-9572-0800200c9a55"
 		nameResId="@string/extension_kbd_bottom_iphone"
 		extensionKeyboardResId="@xml/ext_kbd_bottom_row_iphone" 
 		extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
 		description=""
-		index="3"
+		index="4"
 		/>
 	<!-- top extension keyboards -->
 	<ExtensionKeyboard
