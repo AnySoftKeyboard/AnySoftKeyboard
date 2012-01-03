@@ -69,8 +69,8 @@ public class TutorialsProvider
 			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			
 			showNotificationIcon(context, new IntentToLaunch(
-						TUTORIALS_NOTIFICATION_ID_BASE+1, i, R.drawable.notification_icon_dragons, 
-						R.string.ime_name, R.string.notification_text_testers));
+						TUTORIALS_NOTIFICATION_ID_BASE+1, i, R.drawable.notification_icon_beta_version, 
+						R.string.ime_name_beta, R.string.notification_text_testers));
 		}
 	}
 	
