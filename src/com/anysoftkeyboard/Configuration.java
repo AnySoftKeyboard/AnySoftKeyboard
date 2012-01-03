@@ -7,6 +7,8 @@ public interface Configuration {
 	//String getChangeLayoutKeysSize();
 	
 	boolean getShowKeyPreview();
+	
+	boolean getShowHintTextOnKeys();
 
 	boolean getSwitchKeyboardOnSpace();
 	

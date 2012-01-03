@@ -54,6 +54,15 @@ android:key="tweaks_group_screen">
 			android:summaryOff="@string/key_press_preview_popup_off_summary"
 		/>
 		
+		<CheckBoxPreference
+			android:key="@string/settings_key_show_hint_text_key"
+			android:title="@string/show_hint_text"
+			android:persistent="true"
+			android:defaultValue="@bool/settings_default_show_hint_text_value"
+			android:summaryOn="@string/show_hint_text_on_summary"
+			android:summaryOff="@string/show_hint_text_off_summary"
+		/>
+		
 		<EditTextPreference android:key="zoom_factor_keys_in_portrait"
 			android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none" android:inputType="numberDecimal"
 			android:title="@string/zoom_factor_keys_in_portrait" android:dialogTitle="@string/zoom_factor_keys_in_portrait" android:persistent="true"

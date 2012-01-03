@@ -216,6 +216,10 @@
     <string name="tweak_ui_group">Graphical tweaks</string>
     <string name="tweak_ux_group">Behavior tweaks</string>
     
+    <string name="show_hint_text">Show hint text</string>
+    <string name="show_hint_text_on_summary">Show hints on keys, if theme supports</string>
+    <string name="show_hint_text_off_summary">Never show hints on keys</string>
+    
     <string name="is_sticky_extesion_keyboard">Sticky extension keyboard</string>
     <string name="is_sticky_extesion_keyboard_on_summary">Stays visible until explicitly closed</string>
     <string name="is_sticky_extesion_keyboard_off_summary">Closes after key press</string>
@@ -325,13 +329,10 @@
 	<string name="keyboard_theme_list_title">Select theme</string>
 	
 	<string name="gingerbread_keyboard_theme_name">Gingerbread styled</string>
-	<string name="gingerbread_no_hint_keyboard_theme_name">Gingerbread styled (no hints text)</string>
 	<string name="gingerbread_keyboard_theme_description">Gingerbread (Android 2.3) styled buttons and colors</string>
 	<string name="dark_plain_keyboard_theme_name">Plain dark theme</string>
-	<string name="dark_plain_no_hint_keyboard_theme_name">Plain dark theme (no hints text)</string>
 	<string name="dark_plain_keyboard_theme_description">Dark colors, simple graphics</string>
 	<string name="light_plain_keyboard_theme_name">Plain light theme</string>
-	<string name="light_plain_no_hint_keyboard_theme_name">Plain light theme (no hints text)</string>
 	<string name="light_plain_keyboard_theme_description">Light colors, simple graphics</string>
 	
 	<!-- extension keyboard type -->

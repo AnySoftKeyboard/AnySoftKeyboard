@@ -27,6 +27,7 @@ public class ConfigurationImpl implements Configuration
 	private String mDomainText = ".com";
 	//private String mLayoutChangeKeysSize = "Small";
 	private boolean mShowKeyPreview = true;
+	private boolean mShowHintTextOnKeys = true;
 	private boolean mSwitchKeyboardOnSpace = true;
 	private boolean mUseFullScreenInputInLandscape = true;
 	private boolean mUseFullScreenInputInPortrait = false;
@@ -210,6 +211,10 @@ public class ConfigurationImpl implements Configuration
 				mContext.getResources().getBoolean(R.bool.settings_default_key_press_shows_preview_popup));
 		Log.i(TAG, "** mShowKeyPreview: "+mShowKeyPreview);
 
+		mShowHintTextOnKeys = sp.getBoolean(mContext.getString(R.string.settings_key_show_hint_text_key), 
+				mContext.getResources().getBoolean(R.bool.settings_default_show_hint_text_value));
+		Log.i(TAG, "** mShowHintTextOnKeys: "+mShowHintTextOnKeys);
+		
 		mSwitchKeyboardOnSpace = sp.getBoolean("switch_keyboard_on_space", false);
 		Log.i(TAG, "** mSwitchKeyboardOnSpace: "+mSwitchKeyboardOnSpace);
 		
@@ -600,5 +605,9 @@ public class ConfigurationImpl implements Configuration
     
     public String getInitialKeyboardSplitState() {
     	return mInitialKeyboardSplitState;
+    }
+    
+    public boolean getShowHintTextOnKeys() {
+    	return mShowHintTextOnKeys;
     }
 }

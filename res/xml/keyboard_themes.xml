@@ -9,15 +9,6 @@
         themeScreenshot="@drawable/light_theme_screenshot"
         description="@string/light_plain_keyboard_theme_description"
         index="1"/>
-    <KeyboardTheme
-        id="79809d30-2919-4ae6-a9ec-94fd4bb6bd93"
-        nameResId="@string/light_plain_no_hint_keyboard_theme_name"
-        themeRes="@style/PlainLightAnySoftKeyboardNoHint"
-        popupThemeRes="@style/PlainLightAnySoftKeyboardPopup"
-        iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
-        themeScreenshot="@drawable/light_theme_screenshot"
-        description="@string/light_plain_keyboard_theme_description"
-        index="2"/>
 	<KeyboardTheme
         id="48fa4f73-09aa-4eff-bd3b-c2c54d94159d"
         nameResId="@string/gingerbread_keyboard_theme_name"
@@ -26,16 +17,7 @@
         iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
         themeScreenshot="@drawable/gingerbread_theme_screenshot"
         description="@string/gingerbread_keyboard_theme_description"
-        index="3"/>
-    <KeyboardTheme
-        id="48fa4f73-09aa-4eff-bd3b-c2c54d94159e"
-        nameResId="@string/gingerbread_no_hint_keyboard_theme_name"
-        themeRes="@style/GingerbreadNoHint"
-        popupThemeRes="@style/GingerbreadPopup"
-        iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
-        themeScreenshot="@drawable/gingerbread_theme_screenshot"
-        description="@string/gingerbread_keyboard_theme_description"
-        index="4"/>
+        index="2"/>
 	<KeyboardTheme
         id="55d9797c-850c-40a8-9a5d-7467b55bd537"
         nameResId="@string/dark_plain_keyboard_theme_name"
@@ -44,14 +26,5 @@
         iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
         themeScreenshot="@drawable/dark_theme_screenshot"
         description="@string/dark_plain_keyboard_theme_description"
-        index="5"/>
-    <KeyboardTheme
-        id="55d9797c-850c-40a8-9a5d-7467b55bd538"
-        nameResId="@string/dark_plain_no_hint_keyboard_theme_name"
-        themeRes="@style/PlainDarkAnySoftKeyboardNoHint"
-        popupThemeRes="@style/PlainDarkAnySoftKeyboardPopup"
-        iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
-        themeScreenshot="@drawable/dark_theme_screenshot"
-        description="@string/dark_plain_keyboard_theme_description"
-        index="6"/>
+        index="3"/>
 </KeyboardThemes>

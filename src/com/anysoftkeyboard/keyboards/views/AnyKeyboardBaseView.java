@@ -1152,6 +1152,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
         if (mKeyboard == null) return;
 
+        final boolean drawHintText = mHintTextSize > 1 && AnyApplication.getConfig().getShowHintTextOnKeys();
         final Paint paint = mPaint;
         final Drawable keyBackground = mKeyBackground;
         final Rect clipRegion = mClipRegion;
@@ -1272,7 +1273,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 	            }
             }
             //now to draw hints
-            if (mHintTextSize > 1)
+            if (drawHintText)
             {
                 if ((key.popupCharacters != null && key.popupCharacters.length() > 0) || (key.popupResId != 0) || (key.longPressCode != 0))
                 {

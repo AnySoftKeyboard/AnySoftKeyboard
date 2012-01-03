@@ -23,6 +23,7 @@
     <bool name="settings_default_user_dictionary">true</bool>
 	<bool name="settings_default_hide_soft_when_physical">true</bool>
 	<bool name="settings_default_key_press_shows_preview_popup">true</bool>
+	<bool name="settings_default_show_hint_text_value">true</bool>
 	
 	<string name="settings_default_portrait_keyboard_height_factor">1.0</string>
     <string name="settings_default_landscape_keyboard_height_factor">1.0</string>
