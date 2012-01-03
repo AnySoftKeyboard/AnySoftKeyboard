@@ -23,7 +23,6 @@
   <string name="testers_version">Версия для тестеров!</string>
   <string name="license_title">Лицензия</string>
   <string name="license_text">Данная программа лицензируется на условиях Apache2 (c) 2011 Menny Even-Danan</string>
-  <string name="extrenal_addons_cat">Внешние дополнения</string>
   <string name="about">О программе</string>
   <string name="changelog">Список изменений</string>
   <string name="search_market_for_addons">Поиск дополнений</string>

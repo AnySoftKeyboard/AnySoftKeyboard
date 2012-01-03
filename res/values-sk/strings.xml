@@ -22,8 +22,7 @@
   <string name="notification_text">Welcome! Please, read me.</string>
   <string name="testers_version">Testers version!</string>
   <string name="license_title">License</string>
-  <string name="license_text">This software is licensed under Apache2 (c) 2011 Menny Even-Danan</string>
-  <string name="extrenal_addons_cat">External add-ons</string>
+  <string name="license_text">This software is licensed under Apache2 (c) 2012 Menny Even-Danan</string>
   <string name="about">About</string>
   <string name="changelog">Changelog</string>
   <string name="search_market_for_addons">Search for add-ons</string>
