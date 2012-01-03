@@ -25,13 +25,12 @@
     <Row android:rowEdgeFlags="top">
         <Key android:horizontalGap="15%p" android:codes="@integer/key_code_arrow_up"/>
         <Key android:horizontalGap="15%p" android:keyWidth="10%p" android:codes="@integer/key_code_voice_input"/>
-        <Key android:horizontalGap="10%p" android:keyWidth="10%p" android:codes="@integer/key_code_clear_input" android:keyEdgeFlags="right"/>
+        <Key android:horizontalGap="2.5%p" android:keyWidth="10%p" android:codes="@integer/key_code_settings" android:keyEdgeFlags="right"/>
     </Row>
     <Row android:rowEdgeFlags="bottom">
         <Key android:codes="@integer/key_code_arrow_left" android:keyEdgeFlags="left"/>
         <Key android:codes="@integer/key_code_arrow_down"/>
         <Key android:codes="@integer/key_code_arrow_right"/>
-        <Key android:keyWidth="10%p" android:horizontalGap="10%p" android:codes="@integer/key_code_settings"/>
-        <Key android:keyWidth="15%p" android:codes="@integer/key_code_cancel" android:keyEdgeFlags="right"/>
+        <Key android:keyWidth="15%p" android:horizontalGap="10%p" android:codes="@integer/key_code_cancel" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>
