@@ -23,14 +23,14 @@
     android:keyWidth="15%p"
     android:keyHeight="@integer/key_normal_height">
     <Row android:rowEdgeFlags="top">
-        <Key android:horizontalGap="15%p" android:codes="@integer/key_code_arrow_up"/>
+        <Key android:horizontalGap="15%p" android:isRepeatable="true" android:codes="@integer/key_code_arrow_up"/>
         <Key android:horizontalGap="15%p" android:keyWidth="10%p" android:codes="@integer/key_code_voice_input"/>
         <Key android:horizontalGap="2.5%p" android:keyWidth="10%p" android:codes="@integer/key_code_settings" android:keyEdgeFlags="right"/>
     </Row>
     <Row android:rowEdgeFlags="bottom">
-        <Key android:codes="@integer/key_code_arrow_left" android:keyEdgeFlags="left"/>
-        <Key android:codes="@integer/key_code_arrow_down"/>
-        <Key android:codes="@integer/key_code_arrow_right"/>
+        <Key android:codes="@integer/key_code_arrow_left" android:isRepeatable="true" android:keyEdgeFlags="left"/>
+        <Key android:codes="@integer/key_code_arrow_down" android:isRepeatable="true"/>
+        <Key android:codes="@integer/key_code_arrow_right" android:isRepeatable="true"/>
         <Key android:keyWidth="15%p" android:horizontalGap="10%p" android:codes="@integer/key_code_cancel" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>
