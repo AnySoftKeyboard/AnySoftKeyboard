@@ -61,7 +61,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.anysoftkeyboard.AnySoftKeyboard;
+import com.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
 import com.anysoftkeyboard.devicespecific.WMotionEvent;
@@ -230,15 +230,10 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private final Paint mPaint;
     private final Rect mKeyBackgroundPadding;
     private final Rect mClipRegion = new Rect(0, 0, 0, 0);
-    // This map caches key label text height in pixel as value and key label text size as map key.
-    //private final HashMap<Integer, Integer> mTextHeightCache = new HashMap<Integer, Integer>();
-    //private final HashMap<Integer, Integer> mHintTextHeightCache = new HashMap<Integer, Integer>();
-    //private final HashMap<Integer, Integer> mTextWidthCache = new HashMap<Integer, Integer>();
-    //private final HashMap<Integer, Integer> mHintTextWidthCache = new HashMap<Integer, Integer>();
-    
-    // Distance from horizontal center of the key, proportional to key label text height.
-    //private final float KEY_LABEL_VERTICAL_ADJUSTMENT_FACTOR = 0.5f;
-    //private final String KEY_LABEL_HEIGHT_REFERENCE_CHAR = Character.toString('\u2588');//Full block
+    /*
+     * NOTE: this field EXISTS ONLY AFTER THE CTOR IS FINISHED!
+     */
+	private AnyKeyboardContextProvider mAskContext;
 
     private final UIHandler mHandler = new UIHandler();
 
@@ -291,7 +286,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                         delay);
             }
         }
-
+    	
         public void cancelPopupPreview() {
             removeMessages(MSG_POPUP_PREVIEW);
         }
@@ -585,6 +580,10 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         
         PreferenceManager.getDefaultSharedPreferences(getContext()).registerOnSharedPreferenceChangeListener(this);
     }
+
+	public void setAnySoftKeyboardContext(AnyKeyboardContextProvider askContext) {
+		mAskContext = askContext;
+	}
 
 	public boolean setValueFromTheme(TypedArray a, final int[] padding, final int attr) {
 		try
@@ -1663,9 +1662,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
         final AnyPopupKeyboard keyboard;
         if (popupCharacters != null) {
-            keyboard = new AnyPopupKeyboard(AnySoftKeyboard.getInstance(), popupCharacters, miniKeyboard.getThemedKeyboardDimens());
+            keyboard = new AnyPopupKeyboard(mAskContext, popupCharacters, miniKeyboard.getThemedKeyboardDimens());
         } else {
-            keyboard = new AnyPopupKeyboard(AnySoftKeyboard.getInstance(), packageContext, popupKeyboardId, miniKeyboard.getThemedKeyboardDimens());
+            keyboard = new AnyPopupKeyboard(mAskContext, packageContext, popupKeyboardId, miniKeyboard.getThemedKeyboardDimens());
         }
         keyboard.setIsOneKeyEventPopup(!isSticky);
         

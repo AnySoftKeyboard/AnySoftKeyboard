@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.menny.android.anysoftkeyboard"
-        android:versionCode="62" android:versionName="20120103-chamaeleon">
+        android:versionCode="62" android:versionName="20120104-chamaeleon">
     
 	<supports-screens
 	    android:xlargeScreens="true"
@@ -28,17 +28,7 @@
 	    </service>
 	    
 	    <!-- receivers for outside events -->
-	    <receiver android:name="com.anysoftkeyboard.receivers.PackagesChangedReceiver">
-	    	<intent-filter>
-	    		<category android:name="android.intent.category.DEFAULT" />
-	    		<action android:name="android.intent.action.PACKAGE_CHANGED"/>
-	    		<action android:name="android.intent.action.PACKAGE_REMOVED"/>
-	    		<action android:name="android.intent.action.PACKAGE_ADDED"/>
-	    		<action android:name="android.intent.action.PACKAGE_INSTALL"/>
-	    		<action android:name="android.intent.action.PACKAGE_REPLACED"/>
-	    		<data android:scheme="package" />
-	    	</intent-filter>	    	
-	    </receiver>
+	     <!-- this is used for showing HOW-TO after Market install -->
 	    <receiver android:name="com.anysoftkeyboard.receivers.AnySoftKeyboardInstalledReceiver" android:exported="true">
 			<intent-filter>
 			    <action android:name="com.android.vending.INSTALL_REFERRER" />

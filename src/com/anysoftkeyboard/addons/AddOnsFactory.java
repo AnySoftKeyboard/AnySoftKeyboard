@@ -28,9 +28,9 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
 	private final static ArrayList<AddOnsFactory<?> > mActiveInstances = new  ArrayList<AddOnsFactory<?> >();
 
-	public static void onPackageChanged(Intent eventIntent)
+	public static void onPackageChanged(Intent eventIntent, AnySoftKeyboard mIme)
 	{
-	    AnySoftKeyboard ask = AnySoftKeyboard.getInstance();
+	    final AnySoftKeyboard ask = mIme;
 	    if (ask == null) return;//service is not running (issue 762)
 	    
 		boolean cleared = false;

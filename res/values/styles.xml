@@ -140,6 +140,7 @@
         <item name="android:background">@drawable/dark_background</item>
     	<item name="keyBackground">@drawable/dark_btn_key</item>
     	<item name="keyPreviewBackground">@drawable/dark_btn_key_preview_background</item>
+		<item name="keyHorizontalGap">@dimen/plain_theme_key_horizontal_gap</item>
     </style>
     <style name="PlainDarkAnySoftKeyboardPopup" parent="@style/AnyKeyboardPopupBaseTheme">
         <item name="android:background">@drawable/dark_background_popup</item>
@@ -163,6 +164,8 @@
     	<item name="suggestionBackgroundImage">@drawable/light_background_suggestions</item>
     	<item name="suggestionDividerImage">@drawable/dark_suggestions_divider</item>
     	<item name="suggestionStripHeight">@dimen/candidate_strip_height</item>
+    	
+    	<item name="keyHorizontalGap">@dimen/plain_theme_key_horizontal_gap</item>
     </style>
     <style name="PlainLightAnySoftKeyboardPopup" parent="@style/AnyKeyboardPopupBaseTheme">
         <item name="android:background">@drawable/light_background_popup</item>

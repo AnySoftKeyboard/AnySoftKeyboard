@@ -3,16 +3,25 @@ package com.anysoftkeyboard.receivers;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.util.Log;
 
+import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 public class PackagesChangedReceiver extends BroadcastReceiver {
-
+	
 	private static final String TAG = "ASK PkgChanged";
 	
+	private final AnySoftKeyboard mIme;
 	private final StringBuffer mSB = new StringBuffer();
+	
+	public PackagesChangedReceiver(AnySoftKeyboard ime)
+	{
+		mIme = ime;
+	}
+	
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		if (intent == null || intent.getData() == null || context == null)
@@ -25,6 +34,34 @@ public class PackagesChangedReceiver extends BroadcastReceiver {
 			Log.d(TAG, text);
 		}
 		
-		AddOnsFactory.onPackageChanged(intent);
+		AddOnsFactory.onPackageChanged(intent, mIme);
+	}
+
+	public IntentFilter createFilterToRegisterOn() {
+		/*
+		receiver android:name="com.anysoftkeyboard.receivers.PackagesChangedReceiver">
+	    	<intent-filter>
+	    		<category android:name="android.intent.category.DEFAULT" />
+	    		<action android:name="android.intent.action.PACKAGE_CHANGED"/>
+	    		<action android:name="android.intent.action.PACKAGE_REMOVED"/>
+	    		<action android:name="android.intent.action.PACKAGE_ADDED"/>
+	    		<action android:name="android.intent.action.PACKAGE_INSTALL"/>
+	    		<action android:name="android.intent.action.PACKAGE_REPLACED"/>
+	    		<data android:scheme="package" />
+	    	</intent-filter>	    	
+	    </receiver>
+		 */
+		IntentFilter filter = new IntentFilter();
+		filter.addCategory(Intent.CATEGORY_DEFAULT);
+		
+		filter.addAction(Intent.ACTION_PACKAGE_CHANGED);
+		filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+		filter.addAction(Intent.ACTION_PACKAGE_ADDED);
+		filter.addAction(Intent.ACTION_PACKAGE_INSTALL);
+		filter.addAction(Intent.ACTION_PACKAGE_REPLACED);
+		
+		filter.addDataScheme("package");
+		
+		return filter;
 	}
 }

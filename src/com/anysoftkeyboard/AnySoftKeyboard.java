@@ -84,6 +84,9 @@ import com.anysoftkeyboard.keyboards.views.CandidateView;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
+import com.anysoftkeyboard.receivers.PackagesChangedReceiver;
+import com.anysoftkeyboard.receivers.SoundPreferencesChangedReceiver;
+import com.anysoftkeyboard.receivers.SoundPreferencesChangedReceiver.SoundPreferencesChangedListener;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.settings.MainSettings;
@@ -99,7 +102,7 @@ import com.menny.android.anysoftkeyboard.R;
  */
 public class AnySoftKeyboard extends InputMethodService implements
 		OnKeyboardActionListener,
-		OnSharedPreferenceChangeListener, AnyKeyboardContextProvider {
+		OnSharedPreferenceChangeListener, AnyKeyboardContextProvider, SoundPreferencesChangedListener {
 	private final static String TAG = "ASK";
 	
 	private final static int SWIPE_CORD = -2;
@@ -224,7 +227,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	
 	//private NotificationManager mNotificationManager;
 
-	private static AnySoftKeyboard INSTANCE;
+	//private static AnySoftKeyboard INSTANCE;
 
 	Handler mHandler = new Handler() {
 		@Override
@@ -253,17 +256,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private final boolean mConnectbotTabHack = true;
 
 	private VoiceInput mVoiceRecognitionTrigger;
-
+/*
 	public static AnySoftKeyboard getInstance() {
 		return INSTANCE;
 	}
-
+*/
 	public AnySoftKeyboard() {
 		// mGenericKeyboardTranslator = new
 		// GenericPhysicalKeyboardTranslator(this);
 		mConfig = AnyApplication.getConfig();
 		mHardKeyboardAction = new HardKeyboardActionImpl();
-		INSTANCE = this;
+		//INSTANCE = this;
 	}
 	
 	@Override
@@ -289,8 +292,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         updateRingerMode();
 		// register to receive ringer mode changes for silent mode
-        IntentFilter filter = new IntentFilter(AudioManager.RINGER_MODE_CHANGED_ACTION);
-        registerReceiver(mReceiver, filter);
+        registerReceiver(mSoundPreferencesChangedReceiver, mSoundPreferencesChangedReceiver.createFilterToRegisterOn());
+        //register to receive packages changes
+        registerReceiver(mPackagesChangedReceiver, mPackagesChangedReceiver.createFilterToRegisterOn());
         
 		mVibrator = ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE));
 		// setStatusIcon(R.drawable.ime_qwerty);
@@ -342,6 +346,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public void onDestroy() {
 		Log.i(TAG, "AnySoftKeyboard has been destroyed! Cleaning resources..");
+		//INSTANCE = null;
 		//DictionaryFactory.getInstance().close();
 
 		// unregisterReceiver(mReceiver);
@@ -350,8 +355,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 				.getDefaultSharedPreferences(this);
 		sp.unregisterOnSharedPreferenceChangeListener(this);
 		
-        unregisterReceiver(mReceiver);
-
+        unregisterReceiver(mSoundPreferencesChangedReceiver);
+        unregisterReceiver(mPackagesChangedReceiver);
+        
         mInputMethodManager.hideStatusIcon(mImeToken);
         
 		super.onDestroy();
@@ -378,6 +384,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public View onCreateInputView() {
 		if (DEBUG) Log.v(TAG, "Creating Input View");
 		mInputView = (AnyKeyboardView) getLayoutInflater().inflate(R.layout.main_keyboard_layout, null);
+		mInputView.setAnySoftKeyboardContext(this);
 		//reseting token users
 		mOptionsDialog = null;
 		mQuickTextKeyDialog = null;
@@ -2600,15 +2607,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	// receive ringer mode changes to detect silent mode
-    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            updateRingerMode();
-        }
-    };
+    private final SoundPreferencesChangedReceiver mSoundPreferencesChangedReceiver = new SoundPreferencesChangedReceiver(this);
+    private final PackagesChangedReceiver mPackagesChangedReceiver = new PackagesChangedReceiver(this);
     
- // update flags for silent mode
-    private void updateRingerMode() {
+    // update flags for silent mode
+    public void updateRingerMode() {
         mSilentMode = (mAudioManager.getRingerMode() != AudioManager.RINGER_MODE_NORMAL);
     }
     
