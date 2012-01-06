@@ -18,6 +18,8 @@
   <string name="main_tab_credits_additional_work_by">Ulteriori lavori di codifica di:</string>
   <string name="main_tab_credits_localization_by">Attività di localizzazione di:</string>
   <string name="main_tab_credits_GUI_by">Immagini dell\' interfaccia utente:</string>
+  <string name="ime_name_beta">AnySoftKeyboard BETA</string>
+  <string name="notification_text_testers">Questa è una versione beta. Utilizzare con cautela!</string>
   <string name="notification_text_changelog">Clicca per vedere le novità.</string>
   <string name="notification_title_how_to_enable">Benvenuti in AnySoftKeyboard</string>
   <string name="license_title">Licenza</string>
@@ -211,8 +213,7 @@
   <string name="extension_kbd_top_small">Tasti piccoli</string>
   <string name="extension_kbd_top_regular">Tasti di dimensioni regolari</string>
   <string name="extension_kbd_top_small_numbers">Tasti numerici</string>
-  <string name="extension_kbd_bottom_regular">Regolare</string>
-  <string name="extension_kbd_bottom_iphone">Stile iPhone</string>
+  <string name="extension_kbd_bottom_iphone_with_voice">Stile iPhone con mic</string>
   <string name="extension_kbd_extension_numbers_symbols">Numeri e simboli</string>
   <string name="show_tutorial_on_startup">Mostra questo tutorial all\' avvio</string>
   <string name="tutorial_swipe_title">Swipe per il cambiamento della tastiera</string>

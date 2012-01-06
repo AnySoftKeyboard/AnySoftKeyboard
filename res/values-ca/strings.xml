@@ -19,10 +19,12 @@
   <string name="main_tab_credits_localization_by">Tasques de traducció:</string>
   <string name="main_tab_credits_GUI_by">Imatges de la interfície gràfica:</string>
   <string name="how_to_simple_howto">Android requereix que l\'usuari (vós) activi de forma manual un teclat de la seva elecció. Aquí es mostra com fer-ho:\n 1) Aneu a les opcions de configuració i seleccioneu «Idioma i teclat» (o «Text i idioma» en algunes versions).\n 2) Marqueu l\'ús d\'AnySoftKeyboard.\n *No us amoïneu pel missatge quant a la captura d\'informació; el codi font està a l\'abast de tothom qui vulgui consultar-ho.\n \n Per poder utilitzar l\'AnySoftKeyboard, abans heu d\'activar-ho:\n 1) Aneu a qualsevol aplicació que permeti l\'inserció de text (p. ex. qualsevol camp de text d\'una aplicació de missatgeria) i mantingueu premuda la pantalla a sobre d\'aquest quadre.\n 2) A la finestra nova que si us mostrarà seleccioneu «Canvia el mètode d\'entrada» (normalment la darrera opció).\n 3) Finalment seleccioneu «AnySoftKeyboard».\n Això és tot! Bufar i fer ampolles ;)</string>
-  <string name="notification_text_testers">Això és una versió Beta!</string>
+  <string name="ime_name_beta">AnySoftKeyboard BETA</string>
+  <string name="notification_text_testers">Esteu emprant una versió Beta. Aneu amb cura!</string>
   <string name="notification_text_changelog">Toqueu per obtenir més informació</string>
   <string name="notification_title_how_to_enable">Us donem la benvinguda a AnySoftKeyboard</string>
   <string name="notification_text_how_to_enable">Aprengueu com activar-ho</string>
+  <string name="testers_version">Edició de proves!</string>
   <string name="license_title">Llicència</string>
   <string name="license_text">Aplicació sota llicencia Apache2 - © 2011 Menny Even-Danan</string>
   <string name="languages_cat">Idiomes</string>
@@ -46,6 +48,11 @@
   <string name="physical_keyboard_change_notification_dialog_title">Trieu el tipus de notificació</string>
   <string name="lengthy_operations_toast_notification">Notifica les operacions de llarga durada</string>
   <string name="lengthy_operations_toast_notification_summary">Mostra notificacions breus en operacions de llarga durada</string>
+  <string name="voice_input_not_support_in_this_os_version">El reconeixement vocal es suporta a l\'Android v.2.2+</string>
+  <string name="voice_input_not_installed_title">No està instal·lat el reconeixement vocal</string>
+  <string name="voice_input_not_installed_text">Heu d\'instal·lar Google Voice des del Market abans d\'emprar aquesta característica.</string>
+  <string name="voice_input_not_installed_action_install">Instal·la</string>
+  <string name="voice_input_not_installed_action_do_not_install">No instal·lis</string>
   <string name="change_ime">Canvia el mètode d\'entrada</string>
   <string name="override_dictionary">No facis servir el diccionari predeterminat</string>
   <string name="override_dictionary_title">Suprimeix <xliff:g id="word">%s</xliff:g> del diccionari</string>
@@ -83,6 +90,9 @@
   <string name="swipe_up_action">En lliscar amunt...</string>
   <string name="swipe_up_action_summary">Defineix l\'acció associada en lliscar amunt el teclat</string>
   <string name="swipe_up_action_title">Trieu una acció per associar al moviment</string>
+  <string name="swipe_up_from_spacebar_action">Canvia la barra d\'espai a dalt</string>
+  <string name="swipe_up_from_spacebar_action_summary">Defineix l\'acció associada a la barra d\'espai</string>
+  <string name="swipe_up_from_spacebar_action_title">Trieu una acció per associar a la barra d\'espai</string>
   <string name="swipe_down_action">En lliscar avall...</string>
   <string name="swipe_down_action_summary">Defineix l\'acció associada en lliscar avall el teclat</string>
   <string name="swipe_down_action_title">Trieu una acció per associar al moviment</string>
@@ -92,6 +102,12 @@
   <string name="swipe_right_action">En lliscar a la dreta...</string>
   <string name="swipe_right_action_summary">Defineix l\'acció associada en lliscar a la dreta el teclat</string>
   <string name="swipe_right_action_title">Trieu una acció per associar al moviment</string>
+  <string name="pinch_gesture_action">En pessigar la pantalla...</string>
+  <string name="pinch_gesture_action_title">Trieu una acció per associar al moviment</string>
+  <string name="pinch_gesture_action_summary">Associa un gest a l\'acció</string>
+  <string name="separate_gesture_action">En fer un gest...</string>
+  <string name="separate_gesture_action_title">Trieu una acció per associar al moviment</string>
+  <string name="separate_gesture_action_summary">Associa un gest a l\'acció</string>
   <string name="swipe_action_name_none">No associïs</string>
   <string name="swipe_action_name_next_alphabet">Següent lletra del teclat</string>
   <string name="swipe_action_name_next_symbols">Següent caràcter del teclat</string>
@@ -107,6 +123,9 @@
   <string name="swipe_action_name_cursor_left">Mou el cursor a l\'esquerra</string>
   <string name="swipe_action_name_cursor_right">Mou el cursor a la dreta</string>
   <string name="swipe_action_name_other_keyboards_mode">Canvia la disposició del teclat</string>
+  <string name="swipe_action_name_split_layout">Canvia al teclat ergonòmic</string>
+  <string name="swipe_action_name_merge_layout">Canvia al teclat normal</string>
+  <string name="swipe_action_name_utility_keyboard">Mostra l\'ajuda al teclat</string>
   <string name="settings_swipe_velocity_threshold_title">Reconeixement de gestos</string>
   <string name="settings_swipe_velocity_threshold_summary">Velocitat mínima d\'inserció de gestos</string>
   <string name="settings_swipe_velocity_very_slow">Molt lenta</string>
@@ -144,6 +163,9 @@
   <string name="tweak_physical_keyboard_group">Opcions del teclat físic</string>
   <string name="tweak_ui_group">Comportament gràfic</string>
   <string name="tweak_ux_group">Opcions de comportament</string>
+  <string name="show_hint_text">Mostra l\'ajuda</string>
+  <string name="show_hint_text_on_summary">Si la interfície ho suporta, mostra el text d\'ajuda a les tecles</string>
+  <string name="show_hint_text_off_summary">No mostris l\'ajuda</string>
   <string name="is_sticky_extesion_keyboard">Teclat ampliat</string>
   <string name="is_sticky_extesion_keyboard_on_summary">Mostra\'l fins no ho tanqui expressament </string>
   <string name="is_sticky_extesion_keyboard_off_summary">Tanca\'l en prémer un caràcter</string>
@@ -243,8 +265,10 @@
   <string name="extension_kbd_top_small">Tecles petites</string>
   <string name="extension_kbd_top_regular">Tecles normals</string>
   <string name="extension_kbd_top_small_numbers">Teclat numèric</string>
-  <string name="extension_kbd_bottom_regular">Normal</string>
-  <string name="extension_kbd_bottom_iphone">Estil iPhone</string>
+  <string name="extension_kbd_bottom_regular_with_voice">Clàssic</string>
+  <string name="extension_kbd_bottom_regular">Clàssic (sense micròfon)</string>
+  <string name="extension_kbd_bottom_iphone">Estil iPhone (sense micròfon)</string>
+  <string name="extension_kbd_bottom_iphone_with_voice">Estil iPhone amb micròfon</string>
   <string name="extension_kbd_extension_numbers_symbols">Numèric i simbòlic</string>
   <string name="show_tutorial_on_startup">Mostra aquest tutorial a l\'inici</string>
   <string name="tutorial_swipe_title">Llisca i canvia</string>
@@ -266,6 +290,7 @@
   <string name="simley_key_name">Mostra les emoticones</string>
   <string name="smiley_key_label">:-)</string>
   <string name="smiley_key_default_output">:-)</string>
+  <string name="default_quick_text_key_name">Emoticones bàsiques</string>
   <string name="multitap_timeout_title">Multi toc</string>
   <string name="multitap_timeout_summary">Temps d\'espera entre pulsacions</string>
   <string name="settings_multitap_timeout_faster">Molt ràpida</string>
@@ -286,6 +311,11 @@
   <string name="workaround_disable_rtl_fix">Escriptura «dreta a esquerra»</string>
   <string name="workaround_disable_rtl_fix_summary_on">Escriptura gestionada pel sistema (telèfons suportats)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Escriptura gestionada per l\'AnySoftKeyboard</string>
+  <string name="settings_split_state_title">Disposició del teclat</string>
+  <string name="settings_split_state_summary">Permet triar entre un teclat clàssic o ergonòmic</string>
+  <string name="settings_split_state_merged_always">Teclat clàssic</string>
+  <string name="settings_split_state_split_in_landscape">Teclat ergonòmic en mode apaïsat</string>
+  <string name="settings_split_state_split_always">Teclat ergonòmic</string>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Mostra sempre la icona del teclat actiu</item>
     <item>Mostra només en activar el teclat físic</item>

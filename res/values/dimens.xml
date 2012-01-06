@@ -26,6 +26,7 @@
     <dimen name="default_key_vertical_gap">2dip</dimen>
     <dimen name="default_key_horizontal_gap">1dp</dimen>
     <dimen name="plain_theme_key_horizontal_gap">3dp</dimen>
+    <dimen name="plain_theme_key_vertical_gap">3dp</dimen>
     
     <dimen name="key_text_size">21sp</dimen>
     <dimen name="key_label_text_size">14sp</dimen>
