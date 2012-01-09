@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2012 AnySoftKeyboard
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
+	<ScrollView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1">
+		<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical"
+            			android:layout_marginLeft="5dp"
+				        android:layout_marginRight="5dp">
+            			<TextView android:text="@string/main_tab_credits_title" android:textSize="16sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:gravity="center_horizontal" android:textStyle="bold"></TextView>
+            			
+            			<TextView android:text="@string/main_tab_credits_created_by" android:textSize="15sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp" android:textStyle="bold"></TextView>
+            			<TextView android:text="Menny Even Danan" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			
+            			<TextView android:text="@string/main_tab_credits_additional_work_by" android:textSize="15sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp" android:textStyle="bold"></TextView>
+            			<TextView android:text="Hezi Cohen" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:text="Hugo Lopes" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+						<TextView android:text="Henrik Andersson" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+						<TextView android:text="Sami Salonen" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+						<TextView android:text="Lado Kumsiashvili" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+						<TextView android:text="Alexander Gazarov" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+						<TextView android:text="David Kohen" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+						
+            			<TextView android:text="@string/main_tab_credits_GUI_by" android:textSize="15sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp" android:textStyle="bold"></TextView>
+            			<TextView android:text="Roy Barina" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+
+            			<TextView android:text="@string/main_tab_credits_localization_by" android:textSize="15sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp" android:textStyle="bold"></TextView>
+            			<TextView android:text="Dmitry Briskin" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:text="Alexander Jordanov" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:text="Andrej Živec" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:text="Dror Buhnik" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:text="Alex Buloichik" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:text="Radostin Radnev" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:text="Joan Montané" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:text="Johann Dirry" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:text="Ayman Alsanad" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+						<TextView android:text="Benny Beat" android:textSize="13sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:autoLink="web" android:text="And the great translators team at http://ask_translate.evendanan.net" android:textSize="13.5sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            		</LinearLayout>
+ 	</ScrollView>
+</LinearLayout>
