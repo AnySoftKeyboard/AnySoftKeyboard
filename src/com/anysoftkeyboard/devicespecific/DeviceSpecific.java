@@ -24,4 +24,6 @@ public interface DeviceSpecific {
 	public DictionaryFactory createDictionaryFactory();
 
 	public VoiceInput createVoiceInput(InputMethodService ime);
+	
+	public Clipboard getClipboard(Context appContext);
 }

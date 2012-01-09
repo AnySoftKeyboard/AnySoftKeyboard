@@ -8,12 +8,14 @@ import com.menny.android.anysoftkeyboard.R;
 
 import android.content.Context;
 import android.inputmethodservice.InputMethodService;
+import android.text.ClipboardManager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
+@SuppressWarnings("deprecation")
 class FactoryView_V3 extends FactoryViewBase {
 
 	public FactoryView_V3(Context context) {
@@ -77,6 +79,23 @@ class FactoryView_V3 extends FactoryViewBase {
 					
 				}
 			};
+		}
+		
+		public Clipboard getClipboard(Context appContext) {
+			final ClipboardManager cbV3 = (ClipboardManager)appContext.getSystemService(Context.CLIPBOARD_SERVICE);
+			return new Clipboard() {
+				
+				public void setText(CharSequence text) {
+					cbV3.setText(text);
+				}
+				
+				public CharSequence getText() {
+					if (cbV3.hasText())
+						return cbV3.getText();
+					else
+						return null;
+				}
+			}; 
 		}
 	}
 	

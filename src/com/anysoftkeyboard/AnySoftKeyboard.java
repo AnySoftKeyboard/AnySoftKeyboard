@@ -23,11 +23,9 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -44,7 +42,6 @@ import android.os.Message;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-import android.text.ClipboardManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
@@ -64,6 +61,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.devicespecific.Clipboard;
 import com.anysoftkeyboard.dictionaries.AddableDictionary;
 import com.anysoftkeyboard.dictionaries.AutoDictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
@@ -1484,9 +1482,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 			nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.OtherMode);
 			break;
 		case KeyCodes.CLIPBOARD:
-		    ClipboardManager cm = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
-		    if(cm.hasText()){
-		        onText(cm.getText());
+			Clipboard cp = AnyApplication.getDeviceSpecific().getClipboard(getApplicationContext());
+		    CharSequence clipboardText = cp.getText();
+		    if(!TextUtils.isEmpty(clipboardText)){
+		        onText(clipboardText);
 		    }
 		    break;
         case KeyCodes.TAB/*Tab*/:
