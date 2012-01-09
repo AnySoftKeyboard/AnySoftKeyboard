@@ -24,7 +24,16 @@
 	<string name="main_tab_credits_localization_by">Localization efforts by:</string>
 	<string name="main_tab_credits_GUI_by">UI images by:</string>
 	
-	<string name="how_to_simple_howto"> Android requires that you (the user) will manually enable and activate external keyboards. Here is how:\n 1) go to Android\'s Settings and select \'Language &amp; keyboard\' (or \'Locale &amp; text\' in some Android OSes).\n 2) Turn on AnySoftKeyboard.\n *It will warn you about possible key-logging, don\'t worry, we do not keep data, and we do not send it anywhere.\n \n To actually use AnySoftKeyboard, you\'ll need to activate it:\n 1) Go to any text-box (e.g., Messagings TO field), and long-press it.\n 2) A dialog will pop-up, select \'Input Method\' (usually the last option).\n 3) Another dialog will popup - select AnySoftKeyboard.\n That\'s it! Enjoy.</string>
+	<string name="how_to_simple_howto_preface">Android requires that you (the user) will manually enable and activate external keyboards. Here is how:</string>
+	<string name="how_to_simple_howto_enable_ask">Step 1: Enable AnySoftKeyboard (it will warn you about possible key-logging, don\'t worry, we do not keep data, and we do not send it anywhere):</string>
+	<string name="how_to_simple_howto_enable_ask_button">Enable AnySoftKeyboard</string>
+	<string name="how_to_simple_howto_press_back_to_return_tip">Press BACK once done, to get back to activation instructions</string>
+	<string name="how_to_simple_howto_switch_to_ask">Step 2: Select AnySoftKeyboard as your active Input Method:</string>
+	<string name="how_to_simple_howto_switch_to_ask_button_after_step_1">Switch to AnySoftKeyboard</string>
+	<string name="how_to_simple_howto_switch_to_ask_button_before_step_1">First do step 1</string>
+	<string name="how_to_simple_howto_go_to_settings">Step 3 (optional): AnySoftKeyboard is very customizable. Change stuff! You can do that later by long-press the ENTER key.</string>
+	<string name="how_to_simple_howto_go_to_settings_button">AnySoftKeyboard\'s settings</string>
+	
 	<!-- notifications -->
 	<string name="ime_name_beta">AnySoftKeyboard BETA</string>
 	<string name="notification_text_testers">This is a beta version. Use with caution!</string>

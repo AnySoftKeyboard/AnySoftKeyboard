@@ -73,6 +73,36 @@
 		    android:layout_width="fill_parent"
 		    android:layout_height="fill_parent"
 		    android:orientation="vertical">
+			
+			<TextView
+		    	android:id="@+id/changelog_latest_version_title"
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:text="20120109 - 65"
+		        android:textStyle="bold"
+		        android:gravity="center"
+		        android:textSize="16sp"
+		        android:paddingTop="8dp"
+		        android:paddingLeft="8dp"
+		        android:paddingRight="8dp"
+		        android:textColor="#CCC"
+		        />		    
+		    <TextView 
+		    	android:id="@+id/changelog_latest_version_url"
+		    	android:text="http://s.evendanan.net/ask_r65" android:textSize="12sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content"
+		    	android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"/>
+		    <TextView
+		    	android:layout_height="wrap_content"
+		        android:layout_width="fill_parent"
+		        android:text="* UX changes."
+		        android:textSize="16sp"
+		        android:paddingTop="4dp"
+		        android:paddingLeft="12dp"
+		        android:paddingRight="12dp"
+		        android:textColor="#AAA"/>
+		    
 			<TextView
 		    	android:id="@+id/changelog_latest_version_title"
 		    	android:layout_height="wrap_content"
