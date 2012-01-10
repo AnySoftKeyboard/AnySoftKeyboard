@@ -22,7 +22,7 @@ import com.anysoftkeyboard.ui.tutorials.ChangeLogActivity;
 import com.anysoftkeyboard.ui.tutorials.WelcomeHowToNoticeActivity;
 import com.menny.android.anysoftkeyboard.R;
 
-public class MainForm extends FragmentActivity implements OnClickListener {
+public class MainForm extends FragmentActivity {
 
 	private static final int NUM_ITEMS = 3; 
 	MyAdapter mAdapter;
@@ -39,7 +39,6 @@ public class MainForm extends FragmentActivity implements OnClickListener {
         mTabHost.setup();
         
         mPager = (ViewPager)findViewById(R.id.main_pager);
-        
         mAdapter = new MyAdapter(getSupportFragmentManager(), mTabHost, mPager);
         
         mTabHost.addTab(mTabHost.newTabSpec("tab1").setIndicator(getString(R.string.main_tab_welcome)).setContent(new DummyTabFactory(getApplicationContext())));
@@ -48,32 +47,7 @@ public class MainForm extends FragmentActivity implements OnClickListener {
         
         if (savedInstanceState != null) {
             mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab"));
-        }
-        /*
-        String version = "";
-        try {
-			PackageInfo info = super.getApplication().getPackageManager().getPackageInfo(getApplication().getPackageName(), 0);
-			version = info.versionName + " (release "+info.versionCode+")";
-		} catch (NameNotFoundException e) {
-			Log.e("AnySoftKeyboard", "Failed to locate package information! This is very weird... I'm installed.");
-		}
-		
-		TextView label = (TextView)super.findViewById(R.id.main_title_version);
-		label.setText(version);
-		
-		TabHost mTabHost = getTabHost();
-	    
-	    mTabHost.addTab(mTabHost.newTabSpec("tab_test1").setIndicator(getString(R.string.main_tab_welcome)).setContent(R.id.main_tab1));
-	    mTabHost.addTab(mTabHost.newTabSpec("tab_test2").setIndicator(getString(R.string.main_tab_links)).setContent(R.id.main_tab2));
-	    mTabHost.addTab(mTabHost.newTabSpec("tab_test3").setIndicator(getString(R.string.main_tab_credits)).setContent(R.id.main_tab3));
-	    
-	    mTabHost.setCurrentTab(0);
-	    
-		super.findViewById(R.id.goto_settings_button).setOnClickListener(this);
-		super.findViewById(R.id.goto_changelog_button).setOnClickListener(this);
-		super.findViewById(R.id.goto_howto_form).setOnClickListener(this);
-		*/
-        
+        }        
     }
 	
     @Override
@@ -81,32 +55,6 @@ public class MainForm extends FragmentActivity implements OnClickListener {
         super.onSaveInstanceState(outState);
         outState.putString("tab", mTabHost.getCurrentTabTag());
     }
-
-	public void onClick(View v) {
-		switch(v.getId())
-		{
-		case R.id.goto_howto_form:
-			Intent i = new Intent(getApplicationContext(), WelcomeHowToNoticeActivity.class);
-			startActivity(i);
-			break;
-		case R.id.goto_settings_button:
-			startSettings(getApplicationContext());
-			break;
-		case R.id.market_search_button:
-			try
-			{
-				searchMarketForAddons(getApplicationContext(), "");
-			}
-			catch(Exception ex)
-			{
-				Log.e("MainForm", "Failed to launch Market! ", ex);
-			}
-			break;
-		case R.id.goto_changelog_button:
-			showChangelog(getApplicationContext());
-			break;
-		}
-	}
 	
 	static class DummyTabFactory implements TabHost.TabContentFactory {
         private final Context mContext;
@@ -123,7 +71,7 @@ public class MainForm extends FragmentActivity implements OnClickListener {
         }
     }
 	
-    public static class MyAdapter extends FragmentPagerAdapter
+    static class MyAdapter extends FragmentPagerAdapter
     	implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener
     {
     	private final TabHost mTabHost;
@@ -175,7 +123,7 @@ public class MainForm extends FragmentActivity implements OnClickListener {
         }
     }
 
-    public static class MainFormFragment extends Fragment {
+    static class MainFormFragment extends Fragment implements OnClickListener {
     	static MainFormFragment newInstance(int position) {
         	MainFormFragment f = new MainFormFragment();
         	Bundle args = new Bundle();
@@ -212,8 +160,49 @@ public class MainForm extends FragmentActivity implements OnClickListener {
         	
             View v = inflater.inflate(mLayoutResId, container, false);
 
+            if (mLayoutResId == R.layout.main_fragment_1)
+            {
+            	ViewGroup buttonsContainer = (ViewGroup) v;
+            	buttonsContainer.findViewById(R.id.goto_settings_button).setOnClickListener(this);
+            	buttonsContainer.findViewById(R.id.goto_changelog_button).setOnClickListener(this);
+            	buttonsContainer.findViewById(R.id.goto_howto_form).setOnClickListener(this);
+            }
             return v;
         }
+        
+        @Override
+        public void onSaveInstanceState(Bundle outState) {
+        	//first saving my state, so the bundle wont be empty.
+        	//http://code.google.com/p/android/issues/detail?id=19917
+        	outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
+        	super.onSaveInstanceState(outState);
+        }
+
+    	public void onClick(View v) {
+    		switch(v.getId())
+    		{
+    		case R.id.goto_howto_form:
+    			Intent i = new Intent(getActivity().getApplicationContext(), WelcomeHowToNoticeActivity.class);
+    			startActivity(i);
+    			break;
+    		case R.id.goto_settings_button:
+    			startSettings(getActivity().getApplicationContext());
+    			break;
+    		case R.id.market_search_button:
+    			try
+    			{
+    				searchMarketForAddons(getActivity().getApplicationContext(), "");
+    			}
+    			catch(Exception ex)
+    			{
+    				Log.e("MainForm", "Failed to launch Market! ", ex);
+    			}
+    			break;
+    		case R.id.goto_changelog_button:
+    			showChangelog(getActivity().getApplicationContext());
+    			break;
+    		}
+    	}
     }
     
 	public static void searchMarketForAddons(Context applicationContext, String additionalQueryString) throws android.content.ActivityNotFoundException {
