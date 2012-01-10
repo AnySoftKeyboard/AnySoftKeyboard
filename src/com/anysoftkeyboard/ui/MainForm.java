@@ -2,7 +2,6 @@ package com.anysoftkeyboard.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,13 +9,13 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.TabHost;
+import android.widget.TabWidget;
 
 import com.anysoftkeyboard.ui.settings.MainSettings;
 import com.anysoftkeyboard.ui.tutorials.ChangeLogActivity;
@@ -28,40 +27,28 @@ public class MainForm extends FragmentActivity implements OnClickListener {
 	private static final int NUM_ITEMS = 3; 
 	MyAdapter mAdapter;
     ViewPager mPager;
-	private Drawable mSelectedTabBottomDrawable;
+
+	private TabHost mTabHost;
     
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_fragment);
 
-        mSelectedTabBottomDrawable =  getResources().getDrawable(R.drawable.selected_tab);
-        mSelectedTabBottomDrawable.setBounds(0, 0, getWindowManager().getDefaultDisplay().getWidth(), 8);
-        
-        mAdapter = new MyAdapter(getSupportFragmentManager());
+        mTabHost = (TabHost)findViewById(android.R.id.tabhost);
+        mTabHost.setup();
         
         mPager = (ViewPager)findViewById(R.id.main_pager);
-        mPager.setAdapter(mAdapter);
-
-        mPager.setOnPageChangeListener(new OnPageChangeListener() {
-			
-			public void onPageSelected(int arg0) {
-				setSelectedTab(arg0);
-			}
-			
-			public void onPageScrolled(int arg0, float arg1, int arg2) {
-			}
-			
-			public void onPageScrollStateChanged(int arg0) {
-			}
-		});
         
-		setSelectedTab(0);
+        mAdapter = new MyAdapter(getSupportFragmentManager(), mTabHost, mPager);
         
-        findViewById(R.id.main_tab_text_1).setOnClickListener(this);
-        findViewById(R.id.main_tab_text_2).setOnClickListener(this);
-        findViewById(R.id.main_tab_text_3).setOnClickListener(this);
+        mTabHost.addTab(mTabHost.newTabSpec("tab1").setIndicator(getString(R.string.main_tab_welcome)).setContent(new DummyTabFactory(getApplicationContext())));
+        mTabHost.addTab(mTabHost.newTabSpec("tab2").setIndicator(getString(R.string.main_tab_links)).setContent(new DummyTabFactory(getApplicationContext())));
+        mTabHost.addTab(mTabHost.newTabSpec("tab3").setIndicator(getString(R.string.main_tab_credits)).setContent(new DummyTabFactory(getApplicationContext())));
         
+        if (savedInstanceState != null) {
+            mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab"));
+        }
         /*
         String version = "";
         try {
@@ -88,19 +75,16 @@ public class MainForm extends FragmentActivity implements OnClickListener {
 		*/
         
     }
+	
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("tab", mTabHost.getCurrentTabTag());
+    }
 
 	public void onClick(View v) {
 		switch(v.getId())
 		{
-		case R.id.main_tab_text_1:
-			setSelectedTab(0);
-			break;
-		case R.id.main_tab_text_2:
-			setSelectedTab(1);
-			break;
-		case R.id.main_tab_text_3:
-			setSelectedTab(2);
-			break;
 		case R.id.goto_howto_form:
 			Intent i = new Intent(getApplicationContext(), WelcomeHowToNoticeActivity.class);
 			startActivity(i);
@@ -123,16 +107,35 @@ public class MainForm extends FragmentActivity implements OnClickListener {
 			break;
 		}
 	}
-
-	void setSelectedTab(int index) {
-		((TextView)findViewById(R.id.main_tab_text_1)).setCompoundDrawables(null, null, null, index == 0? mSelectedTabBottomDrawable : null);
-		((TextView)findViewById(R.id.main_tab_text_2)).setCompoundDrawables(null, null, null, index == 1? mSelectedTabBottomDrawable : null);
-		((TextView)findViewById(R.id.main_tab_text_3)).setCompoundDrawables(null, null, null, index == 2? mSelectedTabBottomDrawable : null);
-	}
 	
-    public static class MyAdapter extends FragmentPagerAdapter {
-        public MyAdapter(FragmentManager fm) {
+	static class DummyTabFactory implements TabHost.TabContentFactory {
+        private final Context mContext;
+
+        public DummyTabFactory(Context context) {
+            mContext = context;
+        }
+
+        public View createTabContent(String tag) {
+            View v = new View(mContext);
+            v.setMinimumWidth(0);
+            v.setMinimumHeight(0);
+            return v;
+        }
+    }
+	
+    public static class MyAdapter extends FragmentPagerAdapter
+    	implements TabHost.OnTabChangeListener, ViewPager.OnPageChangeListener
+    {
+    	private final TabHost mTabHost;
+        private final ViewPager mViewPager;
+        
+        public MyAdapter(FragmentManager fm, TabHost tabHost, ViewPager pager) {
             super(fm);
+            mTabHost = tabHost;
+            mViewPager = pager;
+            tabHost.setOnTabChangedListener(this);
+            pager.setAdapter(this);
+            pager.setOnPageChangeListener(this);
         }
 
         @Override
@@ -144,13 +147,36 @@ public class MainForm extends FragmentActivity implements OnClickListener {
         public Fragment getItem(int position) {
         	return MainFormFragment.newInstance(position);
         }
+        
+        public void onPageScrolled(int arg0, float arg1, int arg2) {
+        	// TODO Auto-generated method stub
+        	
+        }
+        public void onPageScrollStateChanged(int arg0) {
+        	// TODO Auto-generated method stub
+        	
+        }
+        public void onPageSelected(int position) {
+        	// Unfortunately when TabHost changes the current tab, it kindly
+            // also takes care of putting focus on it when not in touch mode.
+            // The jerk.
+            // This hack tries to prevent this from pulling focus out of our
+            // ViewPager.
+            TabWidget widget = mTabHost.getTabWidget();
+            int oldFocusability = widget.getDescendantFocusability();
+            widget.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
+            mTabHost.setCurrentTab(position);
+            widget.setDescendantFocusability(oldFocusability);
+        }
+        
+        public void onTabChanged(String tabId) {
+        	 int position = mTabHost.getCurrentTab();
+             mViewPager.setCurrentItem(position);
+        }
     }
 
     public static class MainFormFragment extends Fragment {
-        private int mLayoutResId;
-        private int mPosition;
-
-        static MainFormFragment newInstance(int position) {
+    	static MainFormFragment newInstance(int position) {
         	MainFormFragment f = new MainFormFragment();
         	Bundle args = new Bundle();
         	args.putInt("position", position);
@@ -159,14 +185,15 @@ public class MainForm extends FragmentActivity implements OnClickListener {
         	return f;
         }
 
+    	private int mLayoutResId;
         /**
          * When creating, retrieve this instance's number from its arguments.
          */
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            mPosition = getArguments() != null ? getArguments().getInt("position") : 0;
-            switch(mPosition)
+            final int position = getArguments() != null ? getArguments().getInt("position") : 0;
+            switch(position)
             {
             case 1:
             	mLayoutResId = R.layout.main_fragment_2;
