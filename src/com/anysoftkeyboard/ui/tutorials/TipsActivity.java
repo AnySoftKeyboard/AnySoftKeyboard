@@ -18,6 +18,7 @@ import com.menny.android.anysoftkeyboard.R;
 public class TipsActivity extends BaseTutorialActivity {
 
 	private static final String TAG = "ASK TIPS";
+	public static final String EXTRA_SHOW_ALL_TIPS = "EXTRA_SHOW_ALL_TIPS";
 	private final ArrayList<Integer> mLayoutsToShow = new ArrayList<Integer>();
 	private int mCurrentTipIndex = 0;
 	
@@ -58,6 +59,7 @@ public class TipsActivity extends BaseTutorialActivity {
 		super.onResume();
 		
 		//looking for tips to show
+		final boolean showAllTips = getIntent().getBooleanExtra(EXTRA_SHOW_ALL_TIPS, false);
 		boolean haveMore = true;
 		mLayoutsToShow.clear();
 		Resources res = getResources();
@@ -70,7 +72,7 @@ public class TipsActivity extends BaseTutorialActivity {
 			haveMore = (resId != 0);
 			if (resId != 0)
 			{
-				if (!mAppPrefs.getBoolean(layoutResourceName, false))
+				if (showAllTips || !mAppPrefs.getBoolean(layoutResourceName, false))
 				{
 					Log.d(TAG, "Got a tip #"+currentTipLoadingIndex+" which is "+layoutResourceName);
 					mLayoutsToShow.add(new Integer(resId));

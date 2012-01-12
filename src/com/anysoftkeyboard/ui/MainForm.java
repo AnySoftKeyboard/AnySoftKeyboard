@@ -14,6 +14,7 @@ import android.widget.ViewFlipper;
 
 import com.anysoftkeyboard.ui.settings.MainSettings;
 import com.anysoftkeyboard.ui.tutorials.ChangeLogActivity;
+import com.anysoftkeyboard.ui.tutorials.TipsActivity;
 import com.anysoftkeyboard.ui.tutorials.WelcomeHowToNoticeActivity;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -36,7 +37,7 @@ public class MainForm extends Activity implements OnClickListener {
         findViewById(R.id.main_tab_text_2).setOnClickListener(this);
         findViewById(R.id.main_tab_text_3).setOnClickListener(this);
 	    
-		findViewById(R.id.goto_settings_button).setOnClickListener(this);
+		findViewById(R.id.goto_tips_form).setOnClickListener(this);
 		findViewById(R.id.goto_changelog_button).setOnClickListener(this);
 		findViewById(R.id.goto_howto_form).setOnClickListener(this);
         
@@ -69,8 +70,10 @@ public class MainForm extends Activity implements OnClickListener {
 			Intent i = new Intent(getApplicationContext(), WelcomeHowToNoticeActivity.class);
 			startActivity(i);
 			break;
-		case R.id.goto_settings_button:
-			startSettings(getApplicationContext());
+		case R.id.goto_tips_form:
+			Intent tipActivity= new Intent(getApplicationContext(), TipsActivity.class);
+			tipActivity.putExtra(TipsActivity.EXTRA_SHOW_ALL_TIPS, true);
+			startActivity(tipActivity);
 			break;
 		case R.id.market_search_button:
 			try

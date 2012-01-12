@@ -8,7 +8,7 @@
 	    android:text="@string/tips_title" android:gravity="center"
 	    style="@android:style/TextAppearance.Large"/>
 	
-	<ScrollView android:id="@+id/tips_scroller" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1"
+	<ScrollView android:id="@+id/tips_scroller" android:layout_width="fill_parent" android:layout_height="320dp"
 	    android:paddingTop="4dp">
 		<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical"
 			android:layout_marginLeft="10dp" android:layout_marginRight="10dp"
@@ -22,7 +22,7 @@
 	    <Button android:id="@+id/previous_tip_button"
 			android:layout_height="wrap_content" android:layout_width="wrap_content"
 			android:paddingLeft="8dp" android:paddingRight="8dp"
-			android:gravity="center" android:text="@string/previous_tip_button"/>
+			android:gravity="center" android:text="@string/previous_tip_button" android:drawableStart="@android:drawable/ic_media_previous"/>
 	    <View android:layout_width="0px" android:layout_height="1px" android:layout_weight="1"/>
 	    
 	    <Button android:id="@+id/close_button"
@@ -35,7 +35,7 @@
 	    <Button android:id="@+id/next_tip_button"
 			android:layout_height="wrap_content" android:layout_width="wrap_content"
 			android:paddingLeft="8dp" android:paddingRight="8dp"
-			android:gravity="center" android:text="@string/next_tip_button"/>
+			android:gravity="center" android:text="@string/next_tip_button" android:drawableStart="@android:drawable/ic_media_next"/>
 	</LinearLayout>
 </LinearLayout>
 
