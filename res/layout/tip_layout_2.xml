@@ -22,4 +22,6 @@
 	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
 	    android:text="@string/tip_2_gestures_tip"
 	    style="@android:style/TextAppearance.Medium"/>
+	<ImageView android:layout_marginTop="10dp" android:layout_height="wrap_content" android:layout_width="fill_parent" android:scaleType="centerInside"
+	    android:layout_gravity="center" android:src="@drawable/tip_2_gestures"/>
 </LinearLayout>

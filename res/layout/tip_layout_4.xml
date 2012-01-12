@@ -21,6 +21,10 @@
 	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
 	    android:text="@string/tip_4_top_generic_row_tip"
 	    style="@android:style/TextAppearance.Medium"/>
+	
+	<ImageView android:layout_height="wrap_content" android:layout_width="fill_parent" android:scaleType="centerInside"
+	    android:layout_marginTop="4dp" android:layout_gravity="center" android:src="@drawable/tip_4_rows" android:adjustViewBounds="true" android:padding="0px" android:layout_margin="0px"/>
+	
 	<Button android:id="@+id/tips_goto_top_row_settings" android:layout_width="wrap_content" android:layout_height="wrap_content"
 	    android:text="@string/tip_4_top_generic_row_go_to_top_row_settings" android:paddingLeft="8dp" android:paddingRight="8dp"
 	    android:layout_marginTop="4dp"
