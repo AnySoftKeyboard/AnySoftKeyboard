@@ -19,10 +19,10 @@
 	<LinearLayout android:id="@+id/buttons_layout" android:layout_width="fill_parent"
 	    android:layout_height="wrap_content" android:padding="4dp"
 	    android:orientation="horizontal" android:weightSum="2" android:background="#555">
-	    <Button android:id="@+id/previous_tip_button"
-			android:layout_height="wrap_content" android:layout_width="wrap_content"
-			android:paddingLeft="8dp" android:paddingRight="8dp"
-			android:gravity="center" android:text="@string/previous_tip_button" android:drawableStart="@android:drawable/ic_media_previous"/>
+	    <ImageButton android:id="@+id/previous_tip_button"
+			android:layout_height="wrap_content" android:layout_width="wrap_content" android:padding="8dp"
+			android:gravity="center" android:src="@android:drawable/ic_media_previous" android:scaleType="centerInside"/>
+	    
 	    <View android:layout_width="0px" android:layout_height="1px" android:layout_weight="1"/>
 	    
 	    <Button android:id="@+id/close_button"
@@ -32,10 +32,9 @@
 	    
 	    <View android:layout_width="0px" android:layout_height="1px" android:layout_weight="1"/>
 	    
-	    <Button android:id="@+id/next_tip_button"
-			android:layout_height="wrap_content" android:layout_width="wrap_content"
-			android:paddingLeft="8dp" android:paddingRight="8dp"
-			android:gravity="center" android:text="@string/next_tip_button" android:drawableStart="@android:drawable/ic_media_next"/>
+	    <ImageButton android:id="@+id/next_tip_button"
+			android:layout_height="wrap_content" android:layout_width="wrap_content" android:padding="8dp"
+			android:gravity="center" android:src="@android:drawable/ic_media_next" android:scaleType="centerInside"/>
 	</LinearLayout>
 </LinearLayout>
 

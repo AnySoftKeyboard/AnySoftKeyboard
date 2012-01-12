@@ -10,7 +10,7 @@
 		android:anyDensity="true" />
           <!-- http://d.android.com/guide/practices/screens_support.html read about legacy. -->
     
-    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="10"></uses-sdk>
+    <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="10"></uses-sdk>
     
 	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key"
 	    android:hardwareAccelerated="true"

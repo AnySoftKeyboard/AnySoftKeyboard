@@ -5,8 +5,6 @@
     
     <!-- tips -->
     <string name="tips_title"><b>AnySoftKeyboard tips</b></string>
-    <string name="previous_tip_button"></string>
-    <string name="next_tip_button"></string>
     <!-- tip 1 -->
     <string name="tip_1_welcome_to_ask"><b>Welcome to AnySoftKeyboard!</b></string>
     <string name="tip_1_how_to_access_settings">To access my Settings; long press the ENTER key. You\'ll find a world of customizations there!</string>

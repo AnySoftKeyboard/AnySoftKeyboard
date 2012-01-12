@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -60,10 +59,10 @@ public class MainForm extends Activity implements OnClickListener {
 		case R.id.main_tab_text_1:
             setSelectedTab(0);
             break;
-    case R.id.main_tab_text_2:
-            setSelectedTab(1);
-            break;
-    case R.id.main_tab_text_3:
+	    case R.id.main_tab_text_2:
+	            setSelectedTab(1);
+	            break;
+	    case R.id.main_tab_text_3:
             setSelectedTab(2);
             break;
 		case R.id.goto_howto_form:
@@ -75,18 +74,10 @@ public class MainForm extends Activity implements OnClickListener {
 			tipActivity.putExtra(TipsActivity.EXTRA_SHOW_ALL_TIPS, true);
 			startActivity(tipActivity);
 			break;
-		case R.id.market_search_button:
-			try
-			{
-				searchMarketForAddons(getApplicationContext(), "");
-			}
-			catch(Exception ex)
-			{
-				Log.e("MainForm", "Failed to launch Market! ", ex);
-			}
-			break;
 		case R.id.goto_changelog_button:
-			showChangelog(getApplicationContext());
+			Intent changelog = new Intent(this, ChangeLogActivity.class);
+			changelog.putExtra(ChangeLogActivity.EXTRA_SHOW_ALL_LOGS, true);
+			startActivity(changelog);
 			break;
 		}
 	}
@@ -96,12 +87,6 @@ public class MainForm extends Activity implements OnClickListener {
 		search.setData(Uri.parse("market://search?q=AnySoftKeyboard"+additionalQueryString));
 		search.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		applicationContext.startActivity(search);
-	}
-	
-	public static void showChangelog(Context applicationContext) {
-		Intent intent = new Intent(applicationContext, ChangeLogActivity.class);
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		applicationContext.startActivity(intent);
 	}
 	
 	public static void startSettings(Context applicationContext) {

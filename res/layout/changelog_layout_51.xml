@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2012 AnySoftKeyboard
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:tag="20111010"
+        android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
+	    android:text="* Themes (skins) support! Choose one:"
+        style="@android:style/TextAppearance.Small"/>
+	 <Button android:id="@+id/settings_keyboard_theme_button" android:text="@string/theme_addons_settings" android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_gravity="center"/>
+	 
+	 <TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
+	    android:text="* And, It is possible to replace the bottom row:"
+        style="@android:style/TextAppearance.Small"/>
+	 <Button android:id="@+id/settings_bottom_row_button" android:text="@string/bottom_row_addons_settings" android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_gravity="center"/>
+	 
+	 <TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
+	    android:text="* And, it is possible to replace the top row:"
+        style="@android:style/TextAppearance.Small"/>
+	 <Button android:id="@+id/settings_top_row_button" android:text="@string/top_row_addons_settings"  android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_gravity="center"/>
+	 
+	 <TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
+	    android:text="* Translations: CA, DE, FI, HE.\n* Bug fixes."
+	    style="@android:style/TextAppearance.Small"/>
+</LinearLayout>
