@@ -146,6 +146,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private ModifierKeyState mShiftKeyState = new ModifierKeyState();
 	private ModifierKeyState mControlKeyState = new ModifierKeyState();
 	
+	private boolean mTipsCalled = false;
+	
 	private AnyKeyboardView mInputView;
 	private CandidateView mCandidateView;
 	private static final long MINIMUM_REFRESH_TIME_FOR_DICTIONARIES = 30*1000;
@@ -596,6 +598,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 		if (TRACE_SDCARD)
 			Debug.startMethodTracing("anysoftkeyboard_log.trace");
+		
+		if (!mTipsCalled)
+			TutorialsProvider.showTips(getApplicationContext());
+		mTipsCalled = true;
 	}
 
 	@Override

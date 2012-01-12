@@ -3,7 +3,25 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ime_name">AnySoftKeyboard</string>
     
+    <!-- tips -->
+    <string name="tips_title"><b>AnySoftKeyboard tips</b></string>
+    <string name="previous_tip_button"> &lt;&lt; </string>
+    <string name="next_tip_button"> &gt;&gt; </string>
+    <!-- tip 1 -->
+    <string name="tip_1_welcome_to_ask"><b>Welcome to AnySoftKeyboard!</b></string>
+    <string name="tip_1_how_to_access_settings">To access my Settings; long press the ENTER key. You\'ll find a world of customizations there!</string>
+    <!-- tip 2 -->
+    <string name="tip_2_gestures"><b>We support gestures!</b></string>
+    <string name="tip_2_gestures_tip">With a swipe, you can do a lot! Swipe from left to right will switch languages, swiping to the left will switch to symbols layout, swiping from the spacebar up will show up a utility keyboard, and swiping down will hide the keyboard.\nIt is configurable in the settings (remember? Long pressing the ENTER key).</string>
+    <!-- tip 3 -->
+    <string name="tip_3_hidden_kbds"><b>Hidden gems</b></string>
+    <string name="tip_3_hidden_kbds_tip">We have some hidden keyboards:\n1) Swipe your finger from the spacebar and up, you\'ll get a utility keyboard with arrows and microphone (for voice input).\n2) Swipe your finger up outside the keyboard, and keep it pressed. This is the extension keyboard, with numbers and symbols.</string>
+    <!-- tip 4 -->
+    <string name="tip_4_top_generic_row"><b>Top row</b></string>
+    <string name="tip_4_top_generic_row_tip">The top row is the same on all layouts, and it can be changed! The default top row includes symbols key (<i>123</i>), left and right arrow keys, and language key (<i>ABC</i>). You can replace this row in settings.</string>
+    <string name="tip_4_top_generic_row_go_to_top_row_settings">Change top row now</string>
     
+    <!-- main form -->
     <string name="main_tab_welcome">Welcome</string>
     <string name="main_tab_links">Links</string>
     <string name="main_tab_credits">Credits</string>

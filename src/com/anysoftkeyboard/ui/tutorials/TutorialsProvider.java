@@ -74,6 +74,14 @@ public class TutorialsProvider
 		}
 	}
 	
+	public static void showTips(Context context)
+	{
+		Intent i = new Intent(context, TipsActivity.class);
+		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		
+		context.startActivity(i);
+	}
+	
 	public static void showHowToActivateIfNeeded(Context context)
 	{
 		if (!linearSearch( Secure.getString(context.getContentResolver(), Secure.ENABLED_INPUT_METHODS),

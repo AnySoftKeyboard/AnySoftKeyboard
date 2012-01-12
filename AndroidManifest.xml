@@ -54,6 +54,8 @@
 		<activity android:name="com.anysoftkeyboard.ui.settings.BottomRowSelector" android:label="@string/bottom_generic_row_group" />
 		<activity android:name="com.anysoftkeyboard.ui.settings.ExtensionKeyboardSelector" android:label="@string/extension_keyboard_group" />
 	    <!-- information ui activities -->
+	    <activity android:name="com.anysoftkeyboard.ui.tutorials.TipsActivity" android:theme="@style/Popup.NoTitle" android:label="@string/tips_title">
+	    </activity>
 	    <activity android:name="com.anysoftkeyboard.ui.tutorials.TestersNoticeActivity" android:theme="@style/Popup" android:label="@string/testers_version">
 	    </activity>
 	    <activity android:name="com.anysoftkeyboard.ui.tutorials.WelcomeHowToNoticeActivity" android:theme="@style/Popup.NoTitle" android:label="@string/how_to_pointer_title">

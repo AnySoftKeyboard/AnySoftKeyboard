@@ -2,7 +2,6 @@ package com.anysoftkeyboard.ui.tutorials;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ScrollView;
@@ -21,14 +20,6 @@ public class WelcomeHowToNoticeActivity extends BaseTutorialActivity {
 	@Override
 	protected int getTitleResId() {
 		return R.string.how_to_pointer_title;
-	}
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		findViewById(R.id.howto_button_configure_imes).setOnClickListener(this);
-		findViewById(R.id.howto_button_switch_to_ask).setOnClickListener(this);
-		findViewById(R.id.howto_button_goto_ask_settings).setOnClickListener(this);
 	}
 	
 	@Override

@@ -26,6 +26,10 @@ public abstract class BaseTutorialActivity extends Activity implements OnClickLi
 
 		View content = getWindow().getDecorView();
 		//now to listen on all known buttons
+		setClickHandler(content);
+	}
+
+	protected void setClickHandler(View content) {
 		for(View touchable : content.getTouchables())
 		{
 			if (touchable instanceof Button)
