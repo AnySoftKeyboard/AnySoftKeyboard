@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 
 import com.menny.android.anysoftkeyboard.R;
@@ -25,11 +27,18 @@ public abstract class BaseTutorialActivity extends Activity implements OnClickLi
 	}
 
 	protected void setClickHandler(View content) {
-		for(View touchable : content.getTouchables())
+		if (content instanceof ViewGroup)
 		{
-			if ((touchable instanceof Button) || (touchable instanceof ImageButton))
+			for(View touchable : content.getTouchables())
 			{
-				touchable.setOnClickListener(this);
+				setClickHandler(touchable);
+			}
+		}
+		else
+		{
+			if ((content instanceof Button) || (content instanceof ImageButton))
+			{
+				content.setOnClickListener(this);
 			}
 		}
 	}

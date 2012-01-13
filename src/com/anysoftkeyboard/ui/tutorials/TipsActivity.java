@@ -11,11 +11,15 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
+import com.anysoftkeyboard.ui.settings.BottomRowSelector;
 import com.anysoftkeyboard.ui.settings.TopRowSelector;
 import com.menny.android.anysoftkeyboard.R;
 
-public class TipsActivity extends BaseTutorialActivity {
+public class TipsActivity extends BaseTutorialActivity implements OnCheckedChangeListener {
 
 	private static final String TAG = "ASK TIPS";
 	public static final String EXTRA_SHOW_ALL_TIPS = "EXTRA_SHOW_ALL_TIPS";
@@ -114,6 +118,51 @@ public class TipsActivity extends BaseTutorialActivity {
 	}
 	
 	@Override
+	protected void setClickHandler(View content) {
+		Log.d(TAG, "v is "+content.getClass().getName());
+		if (content instanceof CheckBox)
+		{
+			CheckBox checkBox = (CheckBox)content;
+			switch(checkBox.getId())
+			{
+			case R.id.settings_key_press_vibration:
+				Log.d(TAG, "Vib listener");
+				int vibrationDuration = Integer.parseInt(mAppPrefs.getString(
+						getString(R.string.settings_key_vibrate_on_key_press_duration),
+						getString(R.string.settings_default_vibrate_on_key_press_duration)));
+				checkBox.setChecked(vibrationDuration > 0);
+				checkBox.setOnCheckedChangeListener(this);
+				break;
+			case R.id.settings_key_press_sound:
+				Log.d(TAG, "Sound listener");
+				boolean soundOn = mAppPrefs.getBoolean(getString(R.string.settings_key_sound_on), getResources().getBoolean(R.bool.settings_default_sound_on));
+				checkBox.setChecked(soundOn);
+				checkBox.setOnCheckedChangeListener(this);
+				break;
+			}
+		}
+		else
+			super.setClickHandler(content);
+	}
+	
+	public void onCheckedChanged(CompoundButton checkBox, boolean isChecked) {
+		Editor e = mAppPrefs.edit();
+		switch(checkBox.getId())
+		{
+		case R.id.settings_key_press_vibration:
+			Log.d(TAG, "Vib touched: "+isChecked);
+			e.putString(getString(R.string.settings_key_vibrate_on_key_press_duration), 
+					isChecked? "30" : "0");
+			break;
+		case R.id.settings_key_press_sound:
+			Log.d(TAG, "Sound touched: "+isChecked);
+			e.putBoolean(getString(R.string.settings_key_sound_on), isChecked);
+			break;
+		}
+		e.commit();
+	}
+	
+	@Override
 	public void onClick(View v) {
 		switch(v.getId())
 		{
@@ -129,6 +178,10 @@ public class TipsActivity extends BaseTutorialActivity {
 		case R.id.tips_goto_top_row_settings:
 			Intent startTopRowSettingsIntent = new Intent(this, TopRowSelector.class);
 			startActivity(startTopRowSettingsIntent);
+			break;
+		case R.id.tips_goto_bottom_row_settings:
+			Intent startBottomRowSettingsIntent = new Intent(this, BottomRowSelector.class);
+			startActivity(startBottomRowSettingsIntent);
 			break;
 		//super
 		default:
