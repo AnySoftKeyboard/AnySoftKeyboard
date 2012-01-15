@@ -47,17 +47,15 @@ public class ActivityHelper extends Activity {
 
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getClass().getPackage().getName());
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5);
 
         // Specify the recognition language if provided.
-        if (bundle != null) {
-            String languageLocale = bundle.getString(RecognizerIntent.EXTRA_LANGUAGE);
-            if (languageLocale != null) {
-                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, languageLocale);
-            }
+        String languageLocale = getIntent().getStringExtra(RecognizerIntent.EXTRA_LANGUAGE);
+        if (languageLocale != null) {
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, languageLocale);
         }
+        
         startActivityForResult(intent, RECOGNITION_REQUEST);
     }
 

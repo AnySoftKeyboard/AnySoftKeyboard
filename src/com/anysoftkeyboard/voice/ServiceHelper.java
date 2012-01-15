@@ -20,6 +20,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.speech.RecognizerIntent;
 import android.util.Log;
 
 /**
@@ -55,6 +56,7 @@ public class ServiceHelper extends Service {
         Log.i(TAG, "#startRecognition");
         mCallback = callback;
         Intent intent = new Intent(this, ActivityHelper.class);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, languageLocale);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
