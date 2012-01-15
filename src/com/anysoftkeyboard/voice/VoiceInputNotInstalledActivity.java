@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 public class VoiceInputNotInstalledActivity extends Activity implements android.view.View.OnClickListener {
 	
@@ -25,7 +26,14 @@ public class VoiceInputNotInstalledActivity extends Activity implements android.
 			Intent search = new Intent(Intent.ACTION_VIEW);
 			search.setData(Uri.parse("market://search?q=pname:com.google.android.voicesearch"));
 			search.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			getApplicationContext().startActivity(search);
+			try
+			{
+				getApplicationContext().startActivity(search);
+			}
+			catch(Exception e)
+			{
+				Toast.makeText(getApplicationContext(), getText(R.string.voice_input_not_voice_pack_in_market), Toast.LENGTH_LONG).show();
+			}
 			break;
 		}
 		

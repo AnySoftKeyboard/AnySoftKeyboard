@@ -120,7 +120,7 @@
     <string name="voice_input_not_installed_text">It is required to install Google\'s Voice Input from the Market before using this feature.</string>
     <string name="voice_input_not_installed_action_install">Install</string>
     <string name="voice_input_not_installed_action_do_not_install">No</string>
-    
+    <string name="voice_input_not_voice_pack_in_market">I can not find voice input (com.google.android.voicesearch) in the Market. Sorry, voice input will not work on your device.</string>
     <!-- Options menu -->
     <string name="change_ime">Change input method</string>
     <string name="override_dictionary">Override default dictionary</string>
