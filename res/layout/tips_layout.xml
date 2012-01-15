@@ -6,14 +6,13 @@
 	android:layout_marginTop="0dp">
 	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
 	    android:text="@string/tips_title" android:gravity="center"
-	    style="@android:style/TextAppearance.Large"/>
+	    style="@android:style/TextAppearance.Large" android:textStyle="bold"/>
 	
 	<ScrollView android:id="@+id/tips_scroller" android:layout_width="fill_parent" android:layout_height="320dp"
 	    android:paddingTop="4dp">
 		<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical"
 			android:layout_marginLeft="10dp" android:layout_marginRight="10dp"
 			android:id="@+id/tips_layout_container">
-			
 		</LinearLayout>
 	</ScrollView>
 	<LinearLayout android:id="@+id/buttons_layout" android:layout_width="fill_parent"

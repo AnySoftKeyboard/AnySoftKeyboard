@@ -16,16 +16,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
 	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-	    android:text="@string/tip_6_voice_input" android:gravity="center"
-	    style="@android:style/TextAppearance.Medium"/>
+	    android:text="@string/tip_6_bottom_rows" android:gravity="center"
+	    style="@android:style/TextAppearance.Medium" android:textStyle="bold"/>
 	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-	    android:text="@string/tip_6_voice_input_tip"
+	    android:text="@string/tip_6_bottom_rows_tip"
 	    style="@android:style/TextAppearance.Medium"/>
 	
-	<ImageView android:layout_height="wrap_content" android:layout_width="fill_parent" android:scaleType="centerInside" android:padding="0px" android:layout_margin="0px"
-	    android:layout_marginTop="4dp" android:layout_marginBottom="4dp" android:layout_gravity="center" android:src="@drawable/sym_keyboard_mic" android:adjustViewBounds="true"/>
+	<ImageView android:layout_height="wrap_content" android:layout_width="fill_parent" android:scaleType="centerInside"
+	    android:layout_marginTop="4dp" android:layout_gravity="center" android:src="@drawable/tip_6_rows" android:adjustViewBounds="true" android:padding="0px" android:layout_margin="0px"/>
 	
-	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-	    android:text="@string/tip_6_voice_input_tip_note"
-	    style="@android:style/TextAppearance.Small"/>
+	<Button android:id="@+id/tips_goto_bottom_row_settings" android:layout_width="wrap_content" android:layout_height="wrap_content"
+	    android:text="@string/tip_6_top_generic_row_go_to_bottom_row_settings" android:paddingLeft="8dp" android:paddingRight="8dp"
+	    android:layout_marginTop="4dp"
+	    android:layout_gravity="center_horizontal"/>
 </LinearLayout>

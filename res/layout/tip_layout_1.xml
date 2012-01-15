@@ -18,7 +18,7 @@
         android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
 	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
 	    android:text="@string/tip_1_welcome_to_ask" android:gravity="center"
-	    style="@android:style/TextAppearance.Medium"/>
+	    style="@android:style/TextAppearance.Medium" android:textStyle="bold"/>
 	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
 	    android:text="@string/tip_1_how_to_access_settings"
 	    style="@android:style/TextAppearance.Medium"/>

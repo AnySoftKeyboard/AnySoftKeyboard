@@ -4,18 +4,18 @@
     <string name="ime_name">AnySoftKeyboard</string>
     
     <!-- tips -->
-    <string name="tips_title"><b>AnySoftKeyboard tips</b></string>
+    <string name="tips_title">AnySoftKeyboard tips</string>
     <!-- tip 1 -->
-    <string name="tip_1_welcome_to_ask"><b>Welcome to AnySoftKeyboard!</b></string>
+    <string name="tip_1_welcome_to_ask">Welcome to AnySoftKeyboard!</string>
     <string name="tip_1_how_to_access_settings">To access my Settings; long press the ENTER key. You\'ll find a world of customizations there!</string>
     <!-- tip 2 -->
-    <string name="tip_2_gestures"><b>We support gestures!</b></string>
+    <string name="tip_2_gestures">We support gestures!</string>
     <string name="tip_2_gestures_tip">With a swipe, you can do a lot! Swipe from left to right will switch languages, swiping to the left will switch to symbols layout, swiping from the spacebar up will show up a utility keyboard, and swiping down will hide the keyboard.\nIt is configurable in the settings (remember? Long pressing the ENTER key).</string>
     <!-- tip 3 -->
-    <string name="tip_3_hidden_kbds"><b>Hidden gems</b></string>
+    <string name="tip_3_hidden_kbds">Hidden gems</string>
     <string name="tip_3_hidden_kbds_tip">We have some hidden keyboards:\n1) Swipe your finger from the spacebar and up, you\'ll get a utility keyboard with arrows and microphone (for voice input).\n2) Swipe your finger up outside the keyboard, and keep it pressed. This is the extension keyboard, with numbers and symbols.</string>
     <!-- tip 4 -->
-    <string name="tip_4_top_generic_row"><b>Top row</b></string>
+    <string name="tip_4_top_generic_row">Top row</string>
     <string name="tip_4_top_generic_row_tip">The top row is the same on all layouts, and it can be changed! The default top row includes symbols key (<i>123</i>), left and right arrow keys, and language key (<i>ABC</i>). You can replace this row in settings.</string>
     <string name="tip_4_top_generic_row_go_to_top_row_settings">Change top row now</string>
     <!-- tip 5 -->
@@ -23,14 +23,15 @@
     <string name="tip_5_key_feedback_tip">Sometimes it is nice to get a non-visual feedback about key presses. We support that. So here you go, you can have vibration or sound, or both.</string>
     <string name="tip_5_key_feedback_test">Want to test the feedback?</string>
     <!-- tip 6 -->
-    <string name="tip_6_voice_input">We listen*</string>
-    <string name="tip_6_voice_input_tip">Typing is nice, but we also support voice input! Want to dictate the text? Click the microphone key, and talk away!\nThis feature uses Google\'s state-of-the-art voice recognition technology, so be sure it works :)</string>
-    <string name="tip_6_voice_input_tip_note">* Requires Android 2.2+ and Internet connection to work.</string>
-    <!-- tip 7 -->
-    <string name="tip_7_bottom_rows">Bottom row</string>
-    <string name="tip_7_bottom_rows_tip">As the top row, the bottom row can also be replaced. We have several types - with or without a mic, iPhone style, etc.</string>
-	<string name="tip_7_top_generic_row_go_to_bottom_row_settings">Change bottom row now</string>   
-   	<!-- main form -->
+    <string name="tip_6_bottom_rows">Bottom row</string>
+    <string name="tip_6_bottom_rows_tip">As the top row, the bottom row can also be replaced. We have several types - with or without a mic, iPhone style, etc.</string>
+	<string name="tip_6_top_generic_row_go_to_bottom_row_settings">Change bottom row now</string>   
+   	<!-- tip 7 -->
+    <string name="tip_7_voice_input">We listen*</string>
+    <string name="tip_7_voice_input_tip">Typing is nice, but we also support voice input! Want to dictate the text? Click the microphone key, and talk away!\nThis feature uses Google\'s state-of-the-art voice recognition technology, so be sure it works :)</string>
+    <string name="tip_7_voice_input_tip_dont_forget_bottom_row">If you want to always have the mic icon, make sure you have the correct bottom row (previous tip, remember?).\nAnyway, mic is always accessible via the hidden utility keyboard (swipe up from the spacebar).</string>
+    <string name="tip_7_voice_input_tip_note">* Requires Android 2.2+ and Internet connection to work.</string>
+    <!-- main form -->
     <string name="main_tab_welcome">Welcome</string>
     <string name="main_tab_links">Links</string>
     <string name="main_tab_credits">Credits</string>
