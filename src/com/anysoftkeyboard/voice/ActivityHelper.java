@@ -78,8 +78,8 @@ public class ActivityHelper extends Activity {
         if (Build.VERSION.SDK_INT < 11/*Build.VERSION_CODES.HONEYCOMB*/) {
             builder = new AlertDialog.Builder(this);
         } else {
-            builder = new AlertDialog.Builder(this,
-                    android.R.style.Theme_Holo_Dialog_NoActionBar);
+            builder = new AlertDialog.Builder(this, 0x1030071/*
+                    android.R.style.Theme_Holo_Dialog_NoActionBar*/);
         }
 
         builder.setItems(recognitionResults, new DialogInterface.OnClickListener() {
