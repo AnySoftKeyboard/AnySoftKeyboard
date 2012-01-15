@@ -152,7 +152,7 @@ public class TipsActivity extends BaseTutorialActivity implements OnCheckedChang
 		case R.id.settings_key_press_vibration:
 			Log.d(TAG, "Vib touched: "+isChecked);
 			e.putString(getString(R.string.settings_key_vibrate_on_key_press_duration), 
-					isChecked? "30" : "0");
+					isChecked? "17" : "0");
 			break;
 		case R.id.settings_key_press_sound:
 			Log.d(TAG, "Sound touched: "+isChecked);
