@@ -21,7 +21,6 @@
 <resources>
     <dimen name="window_popup_corner_radius">5dp</dimen>
     
-    <dimen name="tab_text_size">18sp</dimen>
     <dimen name="selected_tab_drawable_height">8px</dimen>
     <dimen name="unselected_tab_drawable_height">1px</dimen>
     

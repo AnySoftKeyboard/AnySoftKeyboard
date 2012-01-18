@@ -20,14 +20,14 @@
 		<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical"
 			android:layout_marginLeft="5dp"
 	        android:layout_marginRight="5dp">
-			<TextView android:text="@string/how_to_pointer_how_to_url" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
-			<TextView android:text="http://s.evendanan.net/ask_howto" android:textSize="12sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
-			<TextView android:text="@string/how_to_pointer_site" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
-			<TextView android:text="http://s.evendanan.net/ask" android:textSize="12sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
-			<TextView android:text="@string/how_to_pointer_changelog" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
-			<TextView android:text="http://s.evendanan.net/ask_changelog" android:textSize="12sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
-			<TextView android:text="@string/how_to_pointer_issues" android:textSize="12sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
-			<TextView android:text="http://s.evendanan.net/ask_issues" android:textSize="12sp" android:autoLink="web" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
+			<TextView android:text="@string/how_to_pointer_how_to_url" style="@android:style/TextAppearance.Medium" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
+			<TextView android:text="http://s.evendanan.net/ask_howto" style="@android:style/TextAppearance.Small" android:autoLink="web" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingTop="5dp" android:layout_gravity="center"></TextView>
+			<TextView android:text="@string/how_to_pointer_site" style="@android:style/TextAppearance.Medium" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
+			<TextView android:text="http://s.evendanan.net/ask" style="@android:style/TextAppearance.Small" android:autoLink="web" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingTop="5dp" android:layout_gravity="center"></TextView>
+			<TextView android:text="@string/how_to_pointer_changelog" style="@android:style/TextAppearance.Medium" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
+			<TextView android:text="http://s.evendanan.net/ask_changelog" style="@android:style/TextAppearance.Small" android:autoLink="web" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingTop="5dp" android:layout_gravity="center"></TextView>
+			<TextView android:text="@string/how_to_pointer_issues" style="@android:style/TextAppearance.Medium" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingTop="5dp"></TextView>
+			<TextView android:text="http://s.evendanan.net/ask_issues" style="@android:style/TextAppearance.Small" android:autoLink="web" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingTop="5dp" android:layout_gravity="center"></TextView>
 		</LinearLayout>
  	</ScrollView>
 </LinearLayout>

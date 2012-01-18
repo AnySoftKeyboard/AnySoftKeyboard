@@ -7,23 +7,23 @@
 	<ScrollView android:id="@+id/howto_scroller" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1">
 		<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical"
 			android:layout_marginLeft="5dp" android:layout_marginRight="5dp">
-			<TextView android:text="@string/how_to_pointer_title" android:textSize="16sp" android:layout_width="fill_parent" android:layout_height="wrap_content"
+			<TextView android:text="@string/how_to_pointer_title" style="@android:style/TextAppearance.Large" android:layout_width="fill_parent" android:layout_height="wrap_content"
 				android:textStyle="bold" android:textColor="@android:color/white" android:gravity="center"></TextView>
 			<LinearLayout android:layout_margin="5dp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:weightSum="10">
 				<ImageView android:layout_margin="4dp" android:layout_height="wrap_content" android:src="@drawable/light_theme_screenshot" android:layout_width="0px" android:layout_weight="3" android:scaleType="centerInside" android:adjustViewBounds="true"></ImageView>
-				<TextView android:layout_margin="4dp" android:text="@string/how_to_pointer_not_app" android:textSize="15sp" android:layout_width="0px" android:layout_weight="7" android:layout_height="wrap_content"></TextView>
+				<TextView android:layout_margin="4dp" android:text="@string/how_to_pointer_not_app" style="@android:style/TextAppearance.Small" android:layout_width="0px" android:layout_weight="7" android:layout_height="wrap_content"></TextView>
 			</LinearLayout>
-			<TextView android:layout_margin="6dp" android:text="@string/how_to_active_text" android:textSize="15sp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:gravity="center" android:textStyle="bold" android:textColor="@android:color/white"/>
+			<TextView android:layout_margin="6dp" android:text="@string/how_to_active_text" style="@android:style/TextAppearance.Medium" android:layout_width="fill_parent" android:layout_height="wrap_content" android:gravity="center" android:textStyle="bold" android:textColor="@android:color/white"/>
 			
-			<TextView android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:text="@string/how_to_simple_howto_preface" android:textSize="14sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+			<TextView android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:text="@string/how_to_simple_howto_preface" style="@android:style/TextAppearance.Small" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
 			<!-- enable -->
-			<TextView android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginTop="6dp" android:text="@string/how_to_simple_howto_enable_ask" android:textSize="14sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+			<TextView android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginTop="6dp" android:text="@string/how_to_simple_howto_enable_ask" style="@android:style/TextAppearance.Small" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
 			<Button android:id="@+id/howto_button_configure_imes" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="4dp" android:text="@string/how_to_simple_howto_enable_ask_button"/>
 			<!-- switch to ASK -->
-			<TextView android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginTop="6dp" android:text="@string/how_to_simple_howto_switch_to_ask" android:textSize="14sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+			<TextView android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginTop="6dp" android:text="@string/how_to_simple_howto_switch_to_ask" style="@android:style/TextAppearance.Small" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
 			<Button android:id="@+id/howto_button_switch_to_ask" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="4dp" android:text="@string/how_to_simple_howto_switch_to_ask_button_after_step_1"/>
 			<!-- go to settings -->
-			<TextView android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginTop="6dp" android:text="@string/how_to_simple_howto_go_to_settings" android:textSize="14sp" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+			<TextView android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginTop="6dp" android:text="@string/how_to_simple_howto_go_to_settings" style="@android:style/TextAppearance.Small" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
 			<Button android:id="@+id/howto_button_goto_ask_settings" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="4dp" android:text="@string/how_to_simple_howto_go_to_settings_button"/>
 		</LinearLayout>
 	</ScrollView>

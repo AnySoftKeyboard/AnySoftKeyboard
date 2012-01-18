@@ -7,18 +7,19 @@
     	android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:text="@string/voice_input_not_installed_title"
-        android:textSize="20sp"
+        style="@android:style/TextAppearance.Medium"
         android:paddingTop="12dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:paddingBottom="6dp"
+        android:gravity="center"
         />
 	
     <TextView
     	android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:text="@string/voice_input_not_installed_text"
-        android:textSize="16sp"
+        style="@android:style/TextAppearance.Small"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:paddingBottom="12dp"
