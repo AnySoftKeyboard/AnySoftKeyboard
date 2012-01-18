@@ -253,6 +253,9 @@
     <string name="tweak_ui_group">Graphical tweaks</string>
     <string name="tweak_ux_group">Behavior tweaks</string>
     
+    <string name="tweak_dictionary_group">Dictionary tweaks</string>
+    <string name="settings_min_length_for_word_correction">Minimum word length for correction</string>
+    
     <string name="show_hint_text">Show hint text</string>
     <string name="show_hint_text_on_summary">Show hints on keys, if theme supports</string>
     <string name="show_hint_text_off_summary">Never show hints on keys</string>

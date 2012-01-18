@@ -1,0 +1,20 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+	android:layout_width="fill_parent" android:layout_height="wrap_content"
+	android:padding="6dp">
+	
+	<TextView android:id="@+id/pref_title" android:layout_width="fill_parent" android:layout_height="wrap_content" style="@android:style/TextAppearance.Medium"/>
+	
+	<LinearLayout android:orientation="horizontal" android:paddingTop="8dp"
+	    android:layout_width="fill_parent" android:layout_height="wrap_content" android:weightSum="3">
+	    <TextView android:id="@+id/pref_min_value" android:text="0" android:layout_width="0px" android:layout_weight="1" android:layout_height="wrap_content"
+	        android:layout_gravity="center_vertical" android:gravity="left" style="@android:style/TextAppearance.Small"/>
+	    
+	    <TextView android:id="@+id/pref_current_value" android:text="0" android:layout_width="0px" android:layout_weight="1" android:layout_height="wrap_content"
+	        android:layout_gravity="center_vertical" android:gravity="center" style="@android:style/TextAppearance.Medium"/>
+	    
+	    <TextView android:id="@+id/pref_max_value" android:text="0" android:layout_width="0px" android:layout_weight="1" android:layout_height="wrap_content"
+	        android:layout_gravity="center_vertical" android:gravity="right" style="@android:style/TextAppearance.Small"/>
+	</LinearLayout>
+	<SeekBar android:id="@+id/pref_seekbar" android:layout_width="fill_parent" android:layout_height="wrap_content"/>
+</LinearLayout>

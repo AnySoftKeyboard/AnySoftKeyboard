@@ -16,11 +16,22 @@ android:key="tweaks_group_screen">
 		<com.anysoftkeyboard.ui.MySeekBarPreference
 			android:key="custom_sound_volume"
 			android:title="@string/custom_sound_volume"
-			android:dialogTitle="@string/custom_sound_volume"
 			android:persistent="true"
 			android:defaultValue="50"
 			android:max="100"
 			android:dependency="use_custom_sound_volume"
+		/>	
+	</PreferenceCategory>
+	
+	
+	<PreferenceCategory android:key="tweak_dictionary_group"
+		android:title="@string/tweak_dictionary_group">
+		<com.anysoftkeyboard.ui.MySeekBarPreference
+			android:key="@string/settings_key_min_length_for_word_correction"
+			android:title="@string/settings_min_length_for_word_correction"
+			android:persistent="true"
+			android:defaultValue="@integer/settings_default_min_length_for_word_correction"
+			android:max="10"
 		/>	
 	</PreferenceCategory>
 	

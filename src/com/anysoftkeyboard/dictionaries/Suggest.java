@@ -43,6 +43,8 @@ public class Suggest implements Dictionary.WordCallback {
 	private Dictionary mMainDict;
 	private AutoText mAutoText;
 	
+	private int mMinimumWordSizeToStartCorrecting = 2;
+	
 	private Dictionary mUserDictionary;
 
 	private Dictionary mAutoDictionary;
@@ -213,8 +215,8 @@ public class Suggest implements Dictionary.WordCallback {
         } else {
             mLowerOriginalWord = "";
         }
-        // Search the dictionary only if there are at least 2 characters
-         if (wordComposer.size() > 1) {
+        // Search the dictionary only if there are at least 2 (configurable) characters
+         if (wordComposer.size() >= mMinimumWordSizeToStartCorrecting) {
         	 if (mContactsDictionary != null) {
         		 if (AnyApplication.DEBUG) 
         			 Log.v(TAG, "getSuggestions from contacts-dictionary");
@@ -391,14 +393,11 @@ public class Suggest implements Dictionary.WordCallback {
 		}
 
 		if (mMainDictioanryEnabled || mAutoTextEnabled) {
-			final boolean validFromMain = (mMainDictioanryEnabled
-					&& mMainDict != null && mMainDict.isValidWord(word));
-			final boolean validFromUser = (mUserDictionary != null && mUserDictionary
-					.isValidWord(word));
+			final boolean validFromMain = (mMainDictioanryEnabled && mMainDict != null && mMainDict.isValidWord(word));
+			final boolean validFromUser = (mUserDictionary != null && mUserDictionary.isValidWord(word));
 			// final boolean validFromAuto = (mAutoDictionary != null &&
 			// mAutoDictionary.isValidWord(word));
-			final boolean validFromContacts = (mContactsDictionary != null && mContactsDictionary
-					.isValidWord(word));
+			final boolean validFromContacts = (mContactsDictionary != null && mContactsDictionary.isValidWord(word));
 
 			if (AnyApplication.DEBUG)
 				Log.v(TAG, "Suggest::isValidWord(" + word
@@ -429,6 +428,12 @@ public class Suggest implements Dictionary.WordCallback {
 			Log.w(TAG, "String pool got too big: " + poolSize);
 		}
 		mSuggestions.clear();
+	}
+	
+	public void setMinimumWordLengthForCorrection(int minLength)
+	{
+		//making sure it is not negative or zero
+		mMinimumWordSizeToStartCorrecting = Math.max(1, minLength);
 	}
 
 	// public Dictionary getMainDictionary()

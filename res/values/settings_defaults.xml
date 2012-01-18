@@ -47,4 +47,6 @@
 	
 	<bool name="settings_default_workaround_disable_rtl_fix">false</bool>
 	<string name="settings_default_default_split_state">merged_always</string>
+	
+	<integer name="settings_default_min_length_for_word_correction">2</integer>
 </resources>

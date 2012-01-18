@@ -144,4 +144,6 @@
 		<item>@string/settings_split_state_split_in_landscape</item>
 		<item>@string/settings_split_state_split_always</item>
 	</string-array>
+	
+	<string name="settings_key_min_length_for_word_correction">settings_key_min_length_for_word_correction</string>
 </resources>

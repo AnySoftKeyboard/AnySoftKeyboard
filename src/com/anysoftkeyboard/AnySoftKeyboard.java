@@ -152,6 +152,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private CandidateView mCandidateView;
 	private static final long MINIMUM_REFRESH_TIME_FOR_DICTIONARIES = 30*1000;
 	private long mLastDictionaryRefresh = -1;
+	private int mMinimumWordCorrectionLength = 2;
 	private Suggest mSuggest;
 	private CompletionInfo[] mCompletions;
 
@@ -340,6 +341,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// mLocale = locale;
 		mSuggest = new Suggest(this/* , R.raw.main */);
 		mSuggest.setCorrectionMode(mQuickFixes, mShowSuggestions);
+		mSuggest.setMinimumWordLengthForCorrection(mMinimumWordCorrectionLength);
 		setDictionariesForCurrentKeyboard();
 	}
 
@@ -2686,6 +2688,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 //		mSmileyPopupType = sp.getString(getString(R.string.settings_key_smiley_popup_type), getString(R.string.settings_default_smiley_popup_type));
 		mOverrideQuickTextText = sp.getString(getString(R.string.settings_key_emoticon_default_text), null);
 		
+		mMinimumWordCorrectionLength = sp.getInt(getString(R.string.settings_key_min_length_for_word_correction), getResources().getInteger(R.integer.settings_default_min_length_for_word_correction));
+		if (mSuggest != null) mSuggest.setMinimumWordLengthForCorrection(mMinimumWordCorrectionLength);
+		
 		setInitialCondensedState(getResources().getConfiguration());
 	}
 
@@ -3036,6 +3041,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private InputConnection mEditingInput = null;
 
 	private TextView mCandidateCloseText;
+	
 	public void startInputConnectionEdit() {
 		mEditingInput = getCurrentInputConnection();
 		if (mEditingInput != null)
