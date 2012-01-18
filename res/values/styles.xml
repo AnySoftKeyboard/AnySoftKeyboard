@@ -23,6 +23,7 @@
     <style name="Popup" parent="@android:style/Theme.Dialog">
    		<item name="android:windowContentOverlay">@null</item>
    		<item name="android:maxWidth">320dp</item>
+   		<item name="android:windowBackground">@drawable/window_popup_background</item>
     </style>
     <style name="Popup.NoTitle" parent="@style/Popup">
     	<item name="android:windowNoTitle">true</item>

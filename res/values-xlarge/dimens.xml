@@ -19,6 +19,8 @@
 -->
 
 <resources>
+    <dimen name="window_popup_corner_radius">9dp</dimen>
+    
     <dimen name="default_key_height">67dip</dimen>
     <dimen name="default_key_half_height">52dip</dimen>
     <dimen name="default_key_tall_height">80dip</dimen>
