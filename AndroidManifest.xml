@@ -43,6 +43,8 @@
 	    </activity>
 	    <activity android:name="com.anysoftkeyboard.ui.settings.Dictionaries" android:label="@string/special_dictionaries_group">
 	    </activity>
+	    <activity android:name="com.anysoftkeyboard.ui.settings.UserDictionaryEditorActivity" android:label="@string/user_dict_settings_titlebar">
+	    </activity>
 	    <activity android:name="com.anysoftkeyboard.ui.settings.Tweaks" android:label="@string/tweaks_group">
 	    </activity>
 	    <activity android:name="com.anysoftkeyboard.ui.settings.Keyboards" android:label="@string/keyboards_group">

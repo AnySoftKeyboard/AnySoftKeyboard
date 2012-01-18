@@ -12,6 +12,12 @@
 		android:defaultValue="@bool/settings_default_user_dictionary"
 		android:summaryOn="@string/use_user_dictionary_on_summary"
 		android:summaryOff="@string/use_user_dictionary_off_summary"/>
+	<Preference android:title="@string/user_dict_editor">
+	    <intent
+	        android:action="android.intent.action.MAIN"
+	        android:targetPackage="com.menny.android.anysoftkeyboard"
+	        android:targetClass="com.anysoftkeyboard.ui.settings.UserDictionaryEditorActivity" />
+	</Preference>
 	<CheckBoxPreference
 		android:key="@string/settings_key_use_auto_dictionary"
 		android:title="@string/use_auto_dictionary"
@@ -19,6 +25,7 @@
 		android:defaultValue="@bool/settings_default_auto_dictionary"
 		android:summaryOn="@string/use_auto_dictionary_on_summary"
 		android:summaryOff="@string/use_auto_dictionary_off_summary"/>
+	
 	<CheckBoxPreference
 		android:key="@string/settings_key_use_contacts_dictionary"
 		android:title="@string/use_contacts_dictionary"
