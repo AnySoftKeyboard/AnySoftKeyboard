@@ -31,15 +31,17 @@ import android.os.Bundle;
 import android.provider.UserDictionary;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.AdapterView;
 import android.widget.AlphabetIndexer;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SectionIndexer;
 import android.widget.SimpleCursorAdapter;
@@ -47,11 +49,38 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
-import com.anysoftkeyboard.dictionaries.DictionaryFactory;
+import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
+import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.menny.android.anysoftkeyboard.R;
 
-public class UserDictionaryEditorActivity extends ListActivity {
+public class UserDictionaryEditorActivity extends ListActivity implements OnItemSelectedListener {
 
+	private abstract class MyAsyncTask extends AsyncTask<Void, Void, String[]>
+	{
+		private ProgressDialog progresDialog;
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			
+			progresDialog = new ProgressDialog(UserDictionaryEditorActivity.this); 
+			progresDialog.setTitle("");
+			progresDialog.setMessage(getText(R.string.user_dictionary_read_please_wait));
+			progresDialog.setCancelable(false);
+			progresDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			
+			progresDialog.setOwnerActivity(UserDictionaryEditorActivity.this);
+			
+			progresDialog.show();
+		}
+		
+		protected void onPostExecute(String[] result) {
+			progresDialog.dismiss();
+			applyResults(result);
+		}
+
+		protected abstract void applyResults(String[] result);
+	}
+	
     private static final String INSTANCE_KEY_DIALOG_EDITING_WORD = "DIALOG_EDITING_WORD";
     private static final String INSTANCE_KEY_ADDED_WORD = "DIALOG_ADDED_WORD";
 
@@ -74,6 +103,7 @@ public class UserDictionaryEditorActivity extends ListActivity {
     private static final int OPTIONS_MENU_ADD = Menu.FIRST;
 
     private static final int DIALOG_ADD_OR_EDIT = 0;
+	private static final String TAG = "ASK_UDE";
     
     /** The word being edited in the dialog (null means the user is adding a word). */
     private String mDialogEditingWord;
@@ -81,6 +111,7 @@ public class UserDictionaryEditorActivity extends ListActivity {
     private Spinner mLangs;
     
     private Cursor mCursor;
+    private String mSelectedLocale = null;
     
     private boolean mAddedWordAlready;
     private boolean mAutoReturn;
@@ -92,6 +123,8 @@ public class UserDictionaryEditorActivity extends ListActivity {
         setContentView(R.layout.list_content_with_empty_view);
         
         mLangs = (Spinner)findViewById(R.id.user_dictionay_langs);
+        mLangs.setOnItemSelectedListener(this);
+        
         TextView emptyView = (TextView) findViewById(R.id.empty_user_dictionary);
         
         ListView listView = getListView();
@@ -99,8 +132,6 @@ public class UserDictionaryEditorActivity extends ListActivity {
         listView.setEmptyView(emptyView);
 
         registerForContextMenu(listView);
-        
-        
     }
     
     @Override
@@ -123,24 +154,8 @@ public class UserDictionaryEditorActivity extends ListActivity {
     
     
     private void fillLangsSpinner() {
-    	new AsyncTask<Void, Void, String[]>()
+    	new MyAsyncTask()
     	{
-    		private ProgressDialog progresDialog;
-    		@Override
-    		protected void onPreExecute() {
-    			super.onPreExecute();
-    			
-    			progresDialog = new ProgressDialog(UserDictionaryEditorActivity.this); 
-    			progresDialog.setTitle("");
-    			progresDialog.setMessage(getText(R.string.user_dictionary_read_please_wait));
-    			progresDialog.setCancelable(false);
-    			progresDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-    			
-    			progresDialog.setOwnerActivity(UserDictionaryEditorActivity.this);
-    			
-    			progresDialog.show();
-    		}
-    		
     		@Override
     		protected String[] doInBackground(Void... params) {
     			try
@@ -157,9 +172,21 @@ public class UserDictionaryEditorActivity extends ListActivity {
     					langsCursor.moveToNext();
     					if (TextUtils.isEmpty(locale)) continue;
     					if (langs.contains(locale)) continue;
+    					Log.d(TAG, "Adding locale "+locale+" to editor.");
     					langs.add(locale);
     				}
     				
+    				langsCursor.close();
+    				//now to add all layouts locales
+    				ArrayList<KeyboardAddOnAndBuilder> keyboards = KeyboardFactory.getAllAvailableKeyboards(getApplicationContext());
+    				for(KeyboardAddOnAndBuilder kbd : keyboards)
+    				{
+    					String locale = kbd.getKeyboardLocale();
+    					if (TextUtils.isEmpty(locale)) continue;
+    					if (langs.contains(locale)) continue;
+    					Log.d(TAG, "Adding locale "+locale+" to editor.");
+    					langs.add(locale);
+    				}
     				return langs.toArray(new String[langs.size()]);
     			}
     			catch(Exception e)
@@ -168,11 +195,11 @@ public class UserDictionaryEditorActivity extends ListActivity {
     				e.printStackTrace();
     			}
     			
-    			return new String[]{"en"};
+    			return new String[]{};
     		}
     		
-    		protected void onPostExecute(String[] result) {
-    			progresDialog.dismiss();
+    		@Override
+    		protected void applyResults(String[] result) {
     			ArrayAdapter <CharSequence> adapter = new ArrayAdapter <CharSequence> (UserDictionaryEditorActivity.this, android.R.layout.simple_spinner_item );
     			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     			for(String lang : result)
@@ -181,9 +208,45 @@ public class UserDictionaryEditorActivity extends ListActivity {
     			mLangs.setAdapter(adapter);
     		};
     	}.execute();
-		
 	}
+    
+    public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+    	mSelectedLocale = arg0.getItemAtPosition(arg2).toString();
+    	
+    	new MyAsyncTask()
+    	{
+    		@Override
+    		protected String[] doInBackground(Void... params) {
+    			try
+    			{
+    				mCursor = getContentResolver().query(UserDictionary.Words.CONTENT_URI, QUERY_PROJECTION,
+    		                QUERY_SELECTION, new String[] { mSelectedLocale },
+    		                "UPPER(" + UserDictionary.Words.WORD + ")");
+    			}
+    			catch(Exception e)
+    			{
+    				//TODO: Use ASK fallback
+    				e.printStackTrace();
+    			}
+    			
+    			return null;
+    		}
+    		
+    		@Override
+    		protected void applyResults(String[] result) {
+    			MyAdapter adapter = new MyAdapter(UserDictionaryEditorActivity.this,
+    	                android.R.layout.simple_list_item_1, mCursor,
+    	                new String[] { UserDictionary.Words.WORD },
+    	                new int[] { android.R.id.text1 });
+    			setListAdapter(adapter);
+    		};
+    	}.execute();
+    }
 
+    public void onNothingSelected(AdapterView<?> arg0) {
+    	mSelectedLocale = null;
+    }
+    
 	@Override
     protected void onRestoreInstanceState(Bundle state) {
         super.onRestoreInstanceState(state);
@@ -196,20 +259,6 @@ public class UserDictionaryEditorActivity extends ListActivity {
         super.onSaveInstanceState(outState);
         outState.putString(INSTANCE_KEY_DIALOG_EDITING_WORD, mDialogEditingWord);
         outState.putBoolean(INSTANCE_KEY_ADDED_WORD, mAddedWordAlready);
-    }
-
-    private Cursor createCursor(String locale) {
-        // Case-insensitive sort
-        return managedQuery(UserDictionary.Words.CONTENT_URI, QUERY_PROJECTION,
-                QUERY_SELECTION, new String[] { locale },
-                "UPPER(" + UserDictionary.Words.WORD + ")");
-    }
-
-    private ListAdapter createAdapter() {
-        return new MyAdapter(this,
-                android.R.layout.simple_list_item_1, mCursor,
-                new String[] { UserDictionary.Words.WORD },
-                new int[] { android.R.id.text1 });
     }
     
     @Override

@@ -48,6 +48,11 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
     	return mKeyboardDefaultEnabled;
     }
     
+    public String getKeyboardLocale()
+    {
+    	return mDefaultDictionary;
+    }
+    
     public AnyKeyboard createKeyboard(AnyKeyboardContextProvider askContext, int mode) {
         return new ExternalAnyKeyboard(askContext, getPackageContext(), mResId, mLandscapeResId, getId(), getNameResId(), mIconResId, mQwertyTranslationId, mDefaultDictionary, mAdditionalIsLetterExceptions, mSentenceSeparators, mode);
     }
