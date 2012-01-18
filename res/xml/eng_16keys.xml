@@ -8,13 +8,13 @@
         <Key android:codes="46,44,63,33,8217,45,64,47,58" android:keyLabel=".,?!’" android:keyEdgeFlags="left"/>
         <Key android:codes="97,98,99" android:keyLabel="abc"/>
         <Key android:codes="100,101,102" android:keyLabel="def"/>
-        <Key android:codes="-10" android:keyEdgeFlags="right"/>        
+        <Key android:codes="-10" ask:longPressCode="-102" android:keyEdgeFlags="right"/>        
     </Row>
     <Row android:rowEdgeFlags="top" android:keyboardMode="@integer/keyboard_mode_im">
         <Key android:codes="46,44,63,33,8217,45,64,47,58" android:keyLabel=".,?!’" android:keyEdgeFlags="left"/>
         <Key android:codes="97,98,99" android:keyLabel="abc"/>
         <Key android:codes="100,101,102" android:keyLabel="def"/>
-        <Key android:codes="-10" android:keyEdgeFlags="right"/>
+        <Key android:codes="-10" ask:longPressCode="-102" android:keyEdgeFlags="right"/>
     </Row>
     <Row android:rowEdgeFlags="top" android:keyboardMode="@integer/keyboard_mode_url">
         <Key android:codes="46,47,64,63,33,95" android:keyLabel="./\@?!_" android:keyEdgeFlags="left"/>
