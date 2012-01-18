@@ -89,6 +89,7 @@
 	
     <string name="settings_key_multitap_timeout">settings_key_multitap_timeout</string>
 	<string-array name="settings_key_multitap_timeout_values">
+	    <item>0</item>
 		<item>450</item>
 		<item>600</item>
 		<item>700</item>
@@ -97,6 +98,7 @@
 		<item>1000000</item>
 	</string-array>
 	<string-array name="settings_key_multitap_timeout_names">
+	    <item>@string/settings_multitap_timeout_disabled</item>
 		<item>@string/settings_multitap_timeout_faster</item>
 		<item>@string/settings_multitap_timeout_fast</item>
 		<item>@string/settings_multitap_timeout_normal</item>
@@ -114,6 +116,7 @@
 		<item>600</item>
 		<item>1000000</item>
 	</string-array>
+	
 	<string-array name="settings_key_long_press_timeout_names">
 		<item>@string/settings_long_press_timeout_faster</item>
 		<item>@string/settings_long_press_timeout_fast</item>

@@ -417,12 +417,13 @@
 	
 	<string name="multitap_timeout_title">Multi-tap timeout</string>
 	<string name="multitap_timeout_summary">Timeout between key taps</string>	
+	<string name="settings_multitap_timeout_disabled">Disabled</string>
 	<string name="settings_multitap_timeout_faster">Faster</string>
 	<string name="settings_multitap_timeout_fast">Fast</string>
 	<string name="settings_multitap_timeout_normal">Normal</string>
 	<string name="settings_multitap_timeout_slow">Slow</string>
 	<string name="settings_multitap_timeout_slower">Slower</string>
-	<string name="settings_multitap_timeout_never">Never</string>
+	<string name="settings_multitap_timeout_never">Wait forever</string>
 	
 	<string name="long_press_timeout_title">Long-press time</string>
 	<string name="long_press_timeout_summary">Key press time to be considered as long-press</string>
