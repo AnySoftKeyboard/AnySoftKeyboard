@@ -18,6 +18,7 @@ package com.anysoftkeyboard.dictionaries;
 
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.anysoftkeyboard.WordComposer;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -92,7 +93,16 @@ public abstract class UserDictionaryBase extends AddableDictionary {
     private class LoadDictionaryTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... v) {
-            loadDictionaryAsync();
+        	try
+        	{
+        		loadDictionaryAsync();
+        	}
+        	catch(RuntimeException e)
+        	{
+        		Log.w(TAG, "Failed to load dictionary! Message: "+e.getMessage());
+        		e.printStackTrace();
+        		if (AnyApplication.DEBUG) throw e;
+        	}
      
             synchronized (mUpdatingLock) {
                 mUpdatingDictionary = false;

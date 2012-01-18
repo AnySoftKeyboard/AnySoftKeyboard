@@ -36,6 +36,7 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
 		public int getFrequency() {return mFrequency;}
 	}
 
+	private final String mDBFile;
 	protected final String mTableName;
 	protected final String mWordsColumnName;
 	protected final String mFrequencyColumnName;
@@ -43,6 +44,7 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
 
 	public DictionarySQLiteConnection(Context context, String dbName, String tableName, String wordsColumnName, String frequencyColumnName) {
 		super(context, dbName, null, 3);
+		mDBFile = dbName;
 		mContext = context;
 		mTableName = tableName;
 		mWordsColumnName = wordsColumnName;
@@ -104,5 +106,10 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
     	}
 
     	return words;
+    }
+    
+    String getDatabaseFile()
+    {
+    	return mDBFile;
     }
 }
