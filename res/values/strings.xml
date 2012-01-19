@@ -31,6 +31,10 @@
     <string name="tip_7_voice_input_tip">Typing is nice, but we also support voice input! Want to dictate the text? Click the microphone key, and talk away!\nThis feature uses Google\'s state-of-the-art voice recognition technology, so be sure it works :)</string>
     <string name="tip_7_voice_input_tip_dont_forget_bottom_row">If you want to always have the mic icon, make sure you have the correct bottom row (previous tip, remember?).\nAnyway, mic is always accessible via the hidden utility keyboard (swipe up from the spacebar).</string>
     <string name="tip_7_voice_input_tip_note">* Requires Android 2.2+ and Internet connection to work.</string>
+    <!-- tip 8 -->
+    <string name="tip_8_suggestions">I complete you</string>
+    <string name="tip_8_suggestions_tip">Depending on you language support level, AnySoftKeyboard can help you finish you words and correct your typos. As you start typing, AnySoftKeyboard will suggest words based on what you already typed.</string>
+    <string name="tip_8_suggestions_editor">If we don\'t know a word, you can teach us! Type that word, and click it in the suggestions strip. I\'ll remember it.\nYou can also edit those User-Words in our built-in editor. Look for the editor in AnySoftKeyboard Dictionary Settings.</string>
     <!-- main form -->
     <string name="main_tab_welcome">Welcome</string>
     <string name="main_tab_links">Links</string>
