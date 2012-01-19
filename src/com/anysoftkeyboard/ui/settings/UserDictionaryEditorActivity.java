@@ -53,7 +53,7 @@ import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.menny.android.anysoftkeyboard.R;
 
-public class UserDictionaryEditorActivity extends ListActivity implements OnItemSelectedListener {
+public class UserDictionaryEditorActivity extends ListActivity {
 
 	private abstract class MyAsyncTask extends AsyncTask<Void, Void, Void >
 	{
@@ -124,7 +124,54 @@ public class UserDictionaryEditorActivity extends ListActivity implements OnItem
         setContentView(R.layout.user_dictionary_editor);
         
         mLangs = (Spinner)findViewById(R.id.user_dictionay_langs);
-        mLangs.setOnItemSelectedListener(this);
+        mLangs.setOnItemSelectedListener(new OnItemSelectedListener() {
+        	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+        		mSelectedLocale = arg0.getItemAtPosition(arg2).toString();
+        		Log.d(TAG, "Selected locale is "+mSelectedLocale);
+        		new MyAsyncTask()
+            	{
+
+        			@Override
+            		protected Void doInBackground(Void... params) {
+            			try
+            			{
+            				try
+            				{
+            					AndroidUserDictionary androidBuiltIn = new AndroidUserDictionary(getApplicationContext(), mSelectedLocale);
+            					androidBuiltIn.loadDictionary();
+            					mCurrentDictionary = androidBuiltIn;
+            				}
+            				catch(Exception e)
+            				{
+            					Log.w(TAG, "Failed to load Android's built-in user dictionary. No matter, I'll use a fallback.");
+            					FallbackUserDictionary fallback = new FallbackUserDictionary(getApplicationContext(), mSelectedLocale);
+            					fallback.loadDictionary();
+            					
+            					mCurrentDictionary = fallback;
+            				}
+            				mCursor = mCurrentDictionary.getWordsCursor();
+            			}
+            			catch(Exception e)
+            			{
+            				e.printStackTrace();
+            			}
+            			
+            			return null;
+            		}
+            		
+            		@Override
+            		protected void applyResults(Void result) {
+            			MyAdapter adapter = new MyAdapter(UserDictionaryEditorActivity.this,
+            	                R.layout.user_dictionary_word_row, mCursor);
+            			setListAdapter(adapter);
+            		};
+            	}.execute();
+        	}
+        	public void onNothingSelected(AdapterView<?> arg0) {
+        		Log.d(TAG, "No locale selected");
+        		mSelectedLocale = null;
+        	}
+		});
         
         findViewById(R.id.add_user_word).setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -137,8 +184,6 @@ public class UserDictionaryEditorActivity extends ListActivity implements OnItem
         ListView listView = getListView();
         listView.setFastScrollEnabled(true);
         listView.setEmptyView(emptyView);
-/*
-        registerForContextMenu(listView);*/
     }
     
     @Override
@@ -189,52 +234,6 @@ public class UserDictionaryEditorActivity extends ListActivity implements OnItem
     	}.execute();
 	}
     
-    public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-    	
-    	new MyAsyncTask()
-    	{
-
-			@Override
-    		protected Void doInBackground(Void... params) {
-    			try
-    			{
-    				try
-    				{
-    					AndroidUserDictionary androidBuiltIn = new AndroidUserDictionary(getApplicationContext(), mSelectedLocale);
-    					androidBuiltIn.loadDictionary();
-    					mCurrentDictionary = androidBuiltIn;
-    				}
-    				catch(Exception e)
-    				{
-    					Log.w(TAG, "Failed to load Android's built-in user dictionary. No matter, I'll use a fallback.");
-    					FallbackUserDictionary fallback = new FallbackUserDictionary(getApplicationContext());
-    					fallback.loadDictionary();
-    					
-    					mCurrentDictionary = fallback;
-    				}
-    				mCursor = mCurrentDictionary.getWordsCursor();
-    			}
-    			catch(Exception e)
-    			{
-    				e.printStackTrace();
-    			}
-    			
-    			return null;
-    		}
-    		
-    		@Override
-    		protected void applyResults(Void result) {
-    			MyAdapter adapter = new MyAdapter(UserDictionaryEditorActivity.this,
-    	                R.layout.user_dictionary_word_row, mCursor);
-    			setListAdapter(adapter);
-    		};
-    	}.execute();
-    }
-
-    public void onNothingSelected(AdapterView<?> arg0) {
-    	mSelectedLocale = null;
-    }
-    
 	@Override
     protected void onRestoreInstanceState(Bundle state) {
         super.onRestoreInstanceState(state);
@@ -249,65 +248,10 @@ public class UserDictionaryEditorActivity extends ListActivity implements OnItem
         outState.putBoolean(INSTANCE_KEY_ADDED_WORD, mAddedWordAlready);
     }
     
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        openContextMenu(v);
-    }
-/*
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        if (!(menuInfo instanceof AdapterContextMenuInfo)) return;
-        
-        AdapterContextMenuInfo adapterMenuInfo = (AdapterContextMenuInfo) menuInfo;
-        menu.setHeaderTitle(getWord(adapterMenuInfo.position));
-        menu.add(0, CONTEXT_MENU_EDIT, 0, R.string.user_dict_settings_context_menu_edit_title);
-        menu.add(0, CONTEXT_MENU_DELETE, 0, R.string.user_dict_settings_context_menu_delete_title);
-    }
-    
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        ContextMenuInfo menuInfo = item.getMenuInfo();
-        if (!(menuInfo instanceof AdapterContextMenuInfo)) return false;
-        
-        AdapterContextMenuInfo adapterMenuInfo = (AdapterContextMenuInfo) menuInfo;
-        String word = getWord(adapterMenuInfo.position);
-        
-        switch (item.getItemId()) {
-            case CONTEXT_MENU_DELETE:
-                deleteWord(word);
-                return true;
-                
-            case CONTEXT_MENU_EDIT:
-                showAddOrEditDialog(word);
-                return true;
-        }
-        
-        return false;
-    }
-    */
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(0, OPTIONS_MENU_ADD, 0, R.string.user_dict_settings_add_menu_title).setIcon(android.R.drawable.ic_menu_add);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        showAddOrEditDialog(null);
-        return true;
-    }
-*/
     private void showAddOrEditDialog(String editingWord) {
         mDialogEditingWord = editingWord;
         showDialog(DIALOG_ADD_OR_EDIT);
     }
-    /*
-    private String getWord(int position) {
-        mCursor.moveToPosition(position);
-        return mCursor.getString(
-                mCursor.getColumnIndexOrThrow(UserDictionary.Words.WORD));
-    }*/
     
     @Override
     protected Dialog onCreateDialog(int id) {
@@ -352,9 +296,8 @@ public class UserDictionaryEditorActivity extends ListActivity implements OnItem
         // Disallow duplicates
         deleteWord(word);
         
-        // TODO: present UI for picking whether to add word to all locales, or current.
-        UserDictionary.Words.addWord(this, word.toString(),
-                250, UserDictionary.Words.LOCALE_TYPE_ALL);
+        mCurrentDictionary.addWord(word, 128);
+        
         mCursor.requery();
         mAddedWordAlready = true;
     }

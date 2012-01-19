@@ -65,7 +65,7 @@ public class SafeUserDictionary extends AddableDictionary {
 		catch(Exception e)
 		{
 			Log.w(TAG, "Failed to load Android's built-in user dictionary. No matter, I'll use a fallback.");
-			FallbackUserDictionary fallback = new FallbackUserDictionary(mContext);
+			FallbackUserDictionary fallback = new FallbackUserDictionary(mContext, mLocale);
 			fallback.loadDictionary();
 			
 			mActualDictionary = fallback;

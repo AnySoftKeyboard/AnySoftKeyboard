@@ -40,15 +40,19 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
 	protected final String mTableName;
 	protected final String mWordsColumnName;
 	protected final String mFrequencyColumnName;
+	protected final String mLocaleColumnName;
 	protected final Context mContext;
+	private final String mCurrentLocale;
 
-	public DictionarySQLiteConnection(Context context, String dbName, String tableName, String wordsColumnName, String frequencyColumnName) {
-		super(context, dbName, null, 3);
+	public DictionarySQLiteConnection(Context context, String dbName, String tableName, String wordsColumnName, String frequencyColumnName, String localeColumnName, String currentLocale) {
+		super(context, dbName, null, 4);
 		mDBFile = dbName;
 		mContext = context;
 		mTableName = tableName;
 		mWordsColumnName = wordsColumnName;
 		mFrequencyColumnName =frequencyColumnName;
+		mLocaleColumnName = localeColumnName;
+		mCurrentLocale = currentLocale;
 	}
 
 	@Override
@@ -56,14 +60,17 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
         db.execSQL("CREATE TABLE " + mTableName + " ("
                 + "Id INTEGER PRIMARY KEY,"
                 + mWordsColumnName+" TEXT,"
-                + mFrequencyColumnName+" INTEGER"
+                + mFrequencyColumnName+" INTEGER,"
+                + mLocaleColumnName+" TEXT"
                 + ");");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS "+mTableName);
-        onCreate(db);
+        if (oldVersion < 4)
+        {
+        	db.execSQL("ALTER TABLE "+mTableName+" ADD COLUMN "+mLocaleColumnName+" TEXT;");
+        }
     }
 
     public synchronized void addWord(String word, int freq)
@@ -74,6 +81,7 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
     	values.put("Id", word.hashCode());//ensuring that any word is inserted once
     	values.put(mWordsColumnName, word);
     	values.put(mFrequencyColumnName, freq);
+    	values.put(mLocaleColumnName, mCurrentLocale);
 		long res = db.insert(mTableName, null, values);
 		if (res < 0)
 		{
@@ -89,7 +97,9 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
     
     public Cursor getWordsCursor(){
     	SQLiteDatabase db = getReadableDatabase();
-    	Cursor c = db.query(mTableName, new String[]{mWordsColumnName, mFrequencyColumnName}, null, null, null, null, null);
+    	Cursor c = db.query(mTableName, new String[]{mWordsColumnName, mFrequencyColumnName}, 
+	    		"("+mLocaleColumnName+" IS NULL) or ("+mLocaleColumnName+"=?)", new String[] { mCurrentLocale },
+	    		null,null,null);
     	db.close();
     	return c;
     }

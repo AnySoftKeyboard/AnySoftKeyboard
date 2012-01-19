@@ -62,6 +62,7 @@ public class AndroidUserDictionary extends UserDictionaryBase {
 	}
 
 	public Cursor getWordsCursor() {
+		Log.d(TAG, "Locale is "+mLocale);
 		Cursor cursor = TextUtils.isEmpty(mLocale)?
 				mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION, null, null, null)
 			    : mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION,
@@ -93,7 +94,7 @@ public class AndroidUserDictionary extends UserDictionaryBase {
 			return;
 		}
 		
-		if (frequency < 0) frequency = 0;
+		if (frequency < 1) frequency = 1;
 		if (frequency > 255) frequency = 255;
 		
 		ContentValues values = new ContentValues(4);
@@ -103,7 +104,7 @@ public class AndroidUserDictionary extends UserDictionaryBase {
 		values.put(Words.APP_ID, 0); // TODO: Get App UID
 		
 		Uri result = mContext.getContentResolver().insert(Words.CONTENT_URI, values );
-		Log.i(TAG, "Added the word '"+word+"' into Android's user dictionary. Result "+result);
+		Log.i(TAG, "Added the word '"+word+"' at locale "+mLocale+" into Android's user dictionary. Result "+result);
 		//Words.addWord(mContext, word, frequency, Words.LOCALE_TYPE_CURRENT);
 	}
 }

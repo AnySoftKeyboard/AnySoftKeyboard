@@ -10,19 +10,23 @@ public class FallbackUserDictionary extends SQLiteUserDictionaryBase {
 		private static final String TABLE_NAME = "FALL_BACK_USER_DICTIONARY";
 		private static final String WORD_COL = "Word";
 		private static final String FREQ_COL = "Freq";
+		private static final String LOCALE_COL = "locale";
 
-		public FallBackSQLite(Context context) {
-			super(context, DB_NAME, TABLE_NAME, WORD_COL, FREQ_COL);
+		public FallBackSQLite(Context context, String currentLocale) {
+			super(context, DB_NAME, TABLE_NAME, WORD_COL, FREQ_COL, LOCALE_COL, currentLocale);
 		}
 	}
 
-	public FallbackUserDictionary(Context context){
+	private final String mLocale;
+	
+	public FallbackUserDictionary(Context context, String locale){
 		super("FallbackUserDictionary", context);
+		mLocale = locale;
 	}
 
 	@Override
 	protected DictionarySQLiteConnection createStorage() {
-		return new FallBackSQLite(super.mContext);
+		return new FallBackSQLite(super.mContext, mLocale);
 	}
 	
 	@Override
