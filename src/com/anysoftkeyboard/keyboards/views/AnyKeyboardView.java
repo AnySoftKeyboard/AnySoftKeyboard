@@ -211,6 +211,11 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 				invokeOnKey(anyKey.longPressCode);
 				return true;
 			}
+			else if (anyKey.codes[0] == KeyCodes.QUICK_TEXT)
+			{
+				invokeOnKey(KeyCodes.QUICK_TEXT_POPUP);
+				return true;
+			}
 		}
 
 		return super.onLongPress(packageContext, key, isSticky, requireSlideInto);
