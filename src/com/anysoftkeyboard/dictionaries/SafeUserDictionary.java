@@ -1,25 +1,25 @@
 package com.anysoftkeyboard.dictionaries;
 
-import com.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.anysoftkeyboard.WordComposer;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
 public class SafeUserDictionary extends AddableDictionary {
 
 	private static final String TAG = "ASK_SUD";
-	private final AnyKeyboardContextProvider mAnyContext;
+	private final Context mContext;
 	private UserDictionaryBase mActualDictionary;
 
 	private final Object mUpdatingLock = new Object();
 	private boolean mUpdatingDictionary = false;
 	private final String mLocale;
 	
-	protected SafeUserDictionary( AnyKeyboardContextProvider context, String locale) {
+	protected SafeUserDictionary(Context context, String locale) {
 		super("SafeUserDictionary");
 		mLocale = locale;
-		mAnyContext = context;
+		mContext = context;
 	}
 
 	@Override
@@ -58,14 +58,14 @@ public class SafeUserDictionary extends AddableDictionary {
 	private void loadDictionaryAsync() {
 		try
 		{
-			AndroidUserDictionary androidBuiltIn = new AndroidUserDictionary(mAnyContext, mLocale);
+			AndroidUserDictionary androidBuiltIn = new AndroidUserDictionary(mContext, mLocale);
 			androidBuiltIn.loadDictionary();
 			mActualDictionary = androidBuiltIn;
 		}
 		catch(Exception e)
 		{
 			Log.w(TAG, "Failed to load Android's built-in user dictionary. No matter, I'll use a fallback.");
-			FallbackUserDictionary fallback = new FallbackUserDictionary(mAnyContext);
+			FallbackUserDictionary fallback = new FallbackUserDictionary(mContext);
 			fallback.loadDictionary();
 			
 			mActualDictionary = fallback;

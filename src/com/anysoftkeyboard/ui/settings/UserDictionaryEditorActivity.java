@@ -32,13 +32,11 @@ import android.provider.UserDictionary;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.widget.AdapterView.OnItemSelectedListener;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.AlphabetIndexer;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -47,15 +45,17 @@ import android.widget.SectionIndexer;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 
+import com.anysoftkeyboard.dictionaries.AndroidUserDictionary;
+import com.anysoftkeyboard.dictionaries.FallbackUserDictionary;
+import com.anysoftkeyboard.dictionaries.UserDictionaryBase;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.menny.android.anysoftkeyboard.R;
 
 public class UserDictionaryEditorActivity extends ListActivity implements OnItemSelectedListener {
 
-	private abstract class MyAsyncTask extends AsyncTask<Void, Void, String[]>
+	private abstract class MyAsyncTask extends AsyncTask<Void, Void, Void >
 	{
 		private ProgressDialog progresDialog;
 		@Override
@@ -73,34 +73,34 @@ public class UserDictionaryEditorActivity extends ListActivity implements OnItem
 			progresDialog.show();
 		}
 		
-		protected void onPostExecute(String[] result) {
+		protected void onPostExecute(Void result) {
 			progresDialog.dismiss();
 			applyResults(result);
 		}
 
-		protected abstract void applyResults(String[] result);
+		protected abstract void applyResults(Void result);
 	}
 	
     private static final String INSTANCE_KEY_DIALOG_EDITING_WORD = "DIALOG_EDITING_WORD";
     private static final String INSTANCE_KEY_ADDED_WORD = "DIALOG_ADDED_WORD";
 
-    private static final String[] QUERY_PROJECTION = {
-        UserDictionary.Words._ID, UserDictionary.Words.WORD
-    };
-    
-    // Either the locale is empty (means the word is applicable to all locales)
-    // or the word equals our current locale
-    private static final String QUERY_SELECTION = UserDictionary.Words.LOCALE + "=? OR "
-            + UserDictionary.Words.LOCALE + " is null";
+//    private static final String[] QUERY_PROJECTION = {
+//        UserDictionary.Words._ID, UserDictionary.Words.WORD
+//    };
+//    
+//    // Either the locale is empty (means the word is applicable to all locales)
+//    // or the word equals our current locale
+//    private static final String QUERY_SELECTION = UserDictionary.Words.LOCALE + "=? OR "
+//            + UserDictionary.Words.LOCALE + " is null";
 
     private static final String DELETE_SELECTION = UserDictionary.Words.WORD + "=?";
 
     private static final String EXTRA_WORD = "word";
     
-    private static final int CONTEXT_MENU_EDIT = Menu.FIRST;
-    private static final int CONTEXT_MENU_DELETE = Menu.FIRST + 1;
+    //private static final int CONTEXT_MENU_EDIT = Menu.FIRST;
+    //private static final int CONTEXT_MENU_DELETE = Menu.FIRST + 1;
     
-    private static final int OPTIONS_MENU_ADD = Menu.FIRST;
+    //private static final int OPTIONS_MENU_ADD = Menu.FIRST;
 
     private static final int DIALOG_ADD_OR_EDIT = 0;
 	private static final String TAG = "ASK_UDE";
@@ -112,6 +112,7 @@ public class UserDictionaryEditorActivity extends ListActivity implements OnItem
     
     private Cursor mCursor;
     private String mSelectedLocale = null;
+	private UserDictionaryBase mCurrentDictionary;
     
     private boolean mAddedWordAlready;
     private boolean mAutoReturn;
@@ -120,18 +121,24 @@ public class UserDictionaryEditorActivity extends ListActivity implements OnItem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.list_content_with_empty_view);
+        setContentView(R.layout.user_dictionary_editor);
         
         mLangs = (Spinner)findViewById(R.id.user_dictionay_langs);
         mLangs.setOnItemSelectedListener(this);
+        
+        findViewById(R.id.add_user_word).setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				showAddOrEditDialog(null);
+			}
+		});
         
         TextView emptyView = (TextView) findViewById(R.id.empty_user_dictionary);
         
         ListView listView = getListView();
         listView.setFastScrollEnabled(true);
         listView.setEmptyView(emptyView);
-
-        registerForContextMenu(listView);
+/*
+        registerForContextMenu(listView);*/
     }
     
     @Override
@@ -147,62 +154,34 @@ public class UserDictionaryEditorActivity extends ListActivity implements OnItem
         }
         
         fillLangsSpinner();
-        
-        //mCursor = createCursor();
-        //setListAdapter(createAdapter());
     }
     
     
     private void fillLangsSpinner() {
     	new MyAsyncTask()
     	{
+    		private ArrayList<String> mLangsList;
     		@Override
-    		protected String[] doInBackground(Void... params) {
-    			try
-    			{
-    				Cursor langsCursor = getContentResolver().query(UserDictionary.Words.CONTENT_URI, 
-    						new String[]{UserDictionary.Words.LOCALE},
-    						null, null, null);
-    				if (langsCursor == null) throw new NullPointerException("No device-wide user dictionary");
-    				langsCursor.moveToFirst();
-    				ArrayList<String> langs = new ArrayList<String>();
-    				while(!langsCursor.isAfterLast())
-    				{
-    					String locale = langsCursor.getString(0);
-    					langsCursor.moveToNext();
-    					if (TextUtils.isEmpty(locale)) continue;
-    					if (langs.contains(locale)) continue;
-    					Log.d(TAG, "Adding locale "+locale+" to editor.");
-    					langs.add(locale);
-    				}
-    				
-    				langsCursor.close();
-    				//now to add all layouts locales
-    				ArrayList<KeyboardAddOnAndBuilder> keyboards = KeyboardFactory.getAllAvailableKeyboards(getApplicationContext());
-    				for(KeyboardAddOnAndBuilder kbd : keyboards)
-    				{
-    					String locale = kbd.getKeyboardLocale();
-    					if (TextUtils.isEmpty(locale)) continue;
-    					if (langs.contains(locale)) continue;
-    					Log.d(TAG, "Adding locale "+locale+" to editor.");
-    					langs.add(locale);
-    				}
-    				return langs.toArray(new String[langs.size()]);
-    			}
-    			catch(Exception e)
-    			{
-    				//TODO: Use ASK fallback
-    				e.printStackTrace();
-    			}
+    		protected Void doInBackground(Void... params) {
+    			mLangsList = new ArrayList<String>();
     			
-    			return new String[]{};
+				ArrayList<KeyboardAddOnAndBuilder> keyboards = KeyboardFactory.getAllAvailableKeyboards(getApplicationContext());
+				for(KeyboardAddOnAndBuilder kbd : keyboards)
+				{
+					String locale = kbd.getKeyboardLocale();
+					if (TextUtils.isEmpty(locale)) continue;
+					if (mLangsList.contains(locale)) continue;
+					Log.d(TAG, "Adding locale "+locale+" to editor.");
+					mLangsList.add(locale);
+				}
+				return null;
     		}
     		
     		@Override
-    		protected void applyResults(String[] result) {
+    		protected void applyResults(Void result) {
     			ArrayAdapter <CharSequence> adapter = new ArrayAdapter <CharSequence> (UserDictionaryEditorActivity.this, android.R.layout.simple_spinner_item );
     			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    			for(String lang : result)
+    			for(String lang : mLangsList)
     				adapter.add(lang);
     			
     			mLangs.setAdapter(adapter);
@@ -211,21 +190,32 @@ public class UserDictionaryEditorActivity extends ListActivity implements OnItem
 	}
     
     public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-    	mSelectedLocale = arg0.getItemAtPosition(arg2).toString();
     	
     	new MyAsyncTask()
     	{
-    		@Override
-    		protected String[] doInBackground(Void... params) {
+
+			@Override
+    		protected Void doInBackground(Void... params) {
     			try
     			{
-    				mCursor = getContentResolver().query(UserDictionary.Words.CONTENT_URI, QUERY_PROJECTION,
-    		                QUERY_SELECTION, new String[] { mSelectedLocale },
-    		                "UPPER(" + UserDictionary.Words.WORD + ")");
+    				try
+    				{
+    					AndroidUserDictionary androidBuiltIn = new AndroidUserDictionary(getApplicationContext(), mSelectedLocale);
+    					androidBuiltIn.loadDictionary();
+    					mCurrentDictionary = androidBuiltIn;
+    				}
+    				catch(Exception e)
+    				{
+    					Log.w(TAG, "Failed to load Android's built-in user dictionary. No matter, I'll use a fallback.");
+    					FallbackUserDictionary fallback = new FallbackUserDictionary(getApplicationContext());
+    					fallback.loadDictionary();
+    					
+    					mCurrentDictionary = fallback;
+    				}
+    				mCursor = mCurrentDictionary.getWordsCursor();
     			}
     			catch(Exception e)
     			{
-    				//TODO: Use ASK fallback
     				e.printStackTrace();
     			}
     			
@@ -233,11 +223,9 @@ public class UserDictionaryEditorActivity extends ListActivity implements OnItem
     		}
     		
     		@Override
-    		protected void applyResults(String[] result) {
+    		protected void applyResults(Void result) {
     			MyAdapter adapter = new MyAdapter(UserDictionaryEditorActivity.this,
-    	                android.R.layout.simple_list_item_1, mCursor,
-    	                new String[] { UserDictionary.Words.WORD },
-    	                new int[] { android.R.id.text1 });
+    	                R.layout.user_dictionary_word_row, mCursor);
     			setListAdapter(adapter);
     		};
     	}.execute();
@@ -265,7 +253,7 @@ public class UserDictionaryEditorActivity extends ListActivity implements OnItem
     protected void onListItemClick(ListView l, View v, int position, long id) {
         openContextMenu(v);
     }
-
+/*
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
         if (!(menuInfo instanceof AdapterContextMenuInfo)) return;
@@ -296,7 +284,8 @@ public class UserDictionaryEditorActivity extends ListActivity implements OnItem
         
         return false;
     }
-
+    */
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(0, OPTIONS_MENU_ADD, 0, R.string.user_dict_settings_add_menu_title).setIcon(android.R.drawable.ic_menu_add);
@@ -308,17 +297,17 @@ public class UserDictionaryEditorActivity extends ListActivity implements OnItem
         showAddOrEditDialog(null);
         return true;
     }
-
+*/
     private void showAddOrEditDialog(String editingWord) {
         mDialogEditingWord = editingWord;
         showDialog(DIALOG_ADD_OR_EDIT);
     }
-    
+    /*
     private String getWord(int position) {
         mCursor.moveToPosition(position);
         return mCursor.getString(
                 mCursor.getColumnIndexOrThrow(UserDictionary.Words.WORD));
-    }
+    }*/
     
     @Override
     protected Dialog onCreateDialog(int id) {
@@ -375,15 +364,18 @@ public class UserDictionaryEditorActivity extends ListActivity implements OnItem
                 new String[] { word });
     }
     
-    private static class MyAdapter extends SimpleCursorAdapter implements SectionIndexer {
+    private class MyAdapter extends SimpleCursorAdapter implements SectionIndexer {
         private AlphabetIndexer mIndexer;        
+        private final int mWordColumnIndex;
         
-        public MyAdapter(Context context, int layout, Cursor c, String[] from, int[] to) {
-            super(context, layout, c, from, to);
+        public MyAdapter(Context context, int layout, Cursor c) {
+            super(context, layout, c,
+	                new String[] { UserDictionary.Words.WORD },
+	                new int[] { android.R.id.text1 });
 
-            int wordColIndex = c.getColumnIndexOrThrow(UserDictionary.Words.WORD);
+            mWordColumnIndex = c.getColumnIndexOrThrow(UserDictionary.Words.WORD);
             String alphabet = context.getString(R.string.fast_scroll_alphabet);
-            mIndexer = new AlphabetIndexer(c, wordColIndex, alphabet); 
+            mIndexer = new AlphabetIndexer(c, mWordColumnIndex, alphabet); 
         }
 
         public int getPositionForSection(int section) {
@@ -396,6 +388,26 @@ public class UserDictionaryEditorActivity extends ListActivity implements OnItem
 
         public Object[] getSections() {
             return mIndexer.getSections();
+        }
+        
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+        	ViewGroup v = (ViewGroup)super.getView(position, convertView, parent);
+        	final String word = ((Cursor)getItem(position)).getString(mWordColumnIndex);
+        	
+        	v.findViewById(R.id.edit_user_word).setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {
+					showAddOrEditDialog(word);
+				}
+			});
+        	
+        	v.findViewById(R.id.delete_user_word).setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {
+					deleteWord(word);
+				}
+			});
+        	
+        	return v;
         }
     }
 }

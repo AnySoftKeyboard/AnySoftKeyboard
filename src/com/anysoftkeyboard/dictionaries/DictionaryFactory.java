@@ -1,8 +1,8 @@
 package com.anysoftkeyboard.dictionaries;
 
+import android.content.Context;
 import android.util.Log;
 
-import com.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
@@ -30,7 +30,7 @@ public class DictionaryFactory
     {
     }
     
-    public synchronized AddableDictionary createUserDictionary(AnyKeyboardContextProvider context, String locale)
+    public synchronized AddableDictionary createUserDictionary(Context context, String locale)
     {
         if (mUserDictionary != null && equalsString(mUserDictionaryLocale, locale)){
             return mUserDictionary;
@@ -43,7 +43,7 @@ public class DictionaryFactory
         return mUserDictionary;
     }
     
-    public synchronized AddableDictionary createContactsDictionary(AnyKeyboardContextProvider context)
+    public synchronized AddableDictionary createContactsDictionary(Context context)
     {
           return null;
     }
@@ -59,7 +59,7 @@ public class DictionaryFactory
     }
     
     
-    public synchronized AutoDictionary createAutoDictionary(AnyKeyboardContextProvider context, AnySoftKeyboard ime, String currentAutoDictionaryLocale)
+    public synchronized AutoDictionary createAutoDictionary(Context context, AnySoftKeyboard ime, String currentAutoDictionaryLocale)
     {
     	if (!AnyApplication.getConfig().useAutoDictionary())
     		return null;

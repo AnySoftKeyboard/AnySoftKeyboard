@@ -1,10 +1,8 @@
 package com.anysoftkeyboard.dictionaries;
 
-import com.anysoftkeyboard.AnyKeyboardContextProvider;
-
 import android.content.Context;
 
-class FallbackUserDictionary extends SQLiteUserDictionaryBase {
+public class FallbackUserDictionary extends SQLiteUserDictionaryBase {
 
 	private static class FallBackSQLite extends DictionarySQLiteConnection
 	{
@@ -18,7 +16,7 @@ class FallbackUserDictionary extends SQLiteUserDictionaryBase {
 		}
 	}
 
-	public FallbackUserDictionary(AnyKeyboardContextProvider context){
+	public FallbackUserDictionary(Context context){
 		super("FallbackUserDictionary", context);
 	}
 

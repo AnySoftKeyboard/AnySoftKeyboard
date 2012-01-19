@@ -16,11 +16,11 @@
 
 package com.anysoftkeyboard.dictionaries;
 
-import com.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.anysoftkeyboard.WordComposer;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -28,7 +28,7 @@ public abstract class UserDictionaryBase extends AddableDictionary {
 
     private static final char QUOTE = '\'';
 
-    protected final AnyKeyboardContextProvider mAnyContext;
+    //protected final AnyKeyboardContextProvider mAnyContext;
     protected final Context mContext;
     private  NodeArray mRoots;
     private int mMaxDepth;
@@ -75,10 +75,10 @@ public abstract class UserDictionaryBase extends AddableDictionary {
 
     protected boolean mRequiresReload;
 
-    protected UserDictionaryBase(String dictionaryName, AnyKeyboardContextProvider anyContext) {
+    protected UserDictionaryBase(String dictionaryName, Context context) {
     	super(dictionaryName);
-    	mContext = anyContext.getApplicationContext();
-    	mAnyContext = anyContext;
+    	mContext = context;
+    	//mAnyContext = anyContext;
     	mRoots = new NodeArray();
     }
 
@@ -166,6 +166,8 @@ public abstract class UserDictionaryBase extends AddableDictionary {
         mRequiresReload = false;
     }
 
+    public abstract Cursor getWordsCursor();
+    
 	protected abstract void AddWordToStorage(String word, int frequency);
 
     @Override

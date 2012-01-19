@@ -16,10 +16,10 @@
 
 package com.anysoftkeyboard.dictionaries;
 
-import com.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.provider.ContactsContract.Contacts;
@@ -42,7 +42,7 @@ public class ContactsDictionary extends UserDictionaryBase {
 
 	private long mContactsHash = 0;
     
-    public ContactsDictionary(AnyKeyboardContextProvider context) throws Exception {
+    public ContactsDictionary(Context context) throws Exception {
         super("ContactsDictionary",context);
         // Perform a managed query. The Activity will handle closing and requerying the cursor
         // when needed.
@@ -62,10 +62,10 @@ public class ContactsDictionary extends UserDictionaryBase {
     @Override
     protected void loadDictionaryAsync() {
     	try{
-        Cursor cursor = mContext.getContentResolver()
-                .query(Contacts.CONTENT_URI, PROJECTION, Contacts.IN_VISIBLE_GROUP+"="+1, null, null);
+        Cursor cursor = getWordsCursor();
         if (cursor != null) {
             addWords(cursor);
+            cursor.close();
         }
         } catch(IllegalStateException e) {
             Log.e(TAG, "Contacts DB is having problems");
@@ -90,63 +90,59 @@ public class ContactsDictionary extends UserDictionaryBase {
     	
     	if (newCount == mContactsCount  && newHash == mContactsHash )
     	{
-    	    cursor.close();
     	    return;
-    	    
     	}
-    		if (AnyApplication.DEBUG) Log.d(TAG, "Contacts will be reloaded since count or hash changed. New count "+newCount+" was("+mContactsCount+"), new hash "+newHash+" (was "+mContactsHash+").");
-    		mContactsCount = newCount;
-    		mContactsHash = newHash;
-    		
-    		clearDictionary();
-            int loadedContacts = 0;
-            final int maxWordLength = MAX_WORD_LENGTH;
-            if (cursor.moveToFirst()) {
-                while (!cursor.isAfterLast()) {
-                    String name = cursor.getString(INDEX_NAME);
+    	
+		if (AnyApplication.DEBUG) Log.d(TAG, "Contacts will be reloaded since count or hash changed. New count "+newCount+" was("+mContactsCount+"), new hash "+newHash+" (was "+mContactsHash+").");
+		mContactsCount = newCount;
+		mContactsHash = newHash;
+		
+		clearDictionary();
+        int loadedContacts = 0;
+        final int maxWordLength = MAX_WORD_LENGTH;
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                String name = cursor.getString(INDEX_NAME);
 
-                    if (name != null) {
-                        int len = name.length();
+                if (name != null) {
+                    int len = name.length();
 
-                        // TODO: Better tokenization for non-Latin writing systems
-                        for (int i = 0; i < len; i++) {
-                            if (Character.isLetter(name.charAt(i))) {
-                                int j;
-                                for (j = i + 1; j < len; j++) {
-                                    char c = name.charAt(j);
+                    // TODO: Better tokenization for non-Latin writing systems
+                    for (int i = 0; i < len; i++) {
+                        if (Character.isLetter(name.charAt(i))) {
+                            int j;
+                            for (j = i + 1; j < len; j++) {
+                                char c = name.charAt(j);
 
-                                    if (!(c == '-' || c == '\'' ||
-                                          Character.isLetter(c))) {
-                                        break;
-                                    }
+                                if (!(c == '-' || c == '\'' ||
+                                      Character.isLetter(c))) {
+                                    break;
                                 }
+                            }
 
-                                String word = name.substring(i, j);
-                                i = j - 1;
+                            String word = name.substring(i, j);
+                            i = j - 1;
 
-                                // Safeguard against adding really long words. Stack
-                                // may overflow due to recursion
-                                // Also don't add single letter words, possibly confuses
-                                // capitalization of i.
-                                final int wordLen = word.length();
-                                if (wordLen < maxWordLength && wordLen > 1) {
-                                	if (AnyApplication.DEBUG)
-                                		Log.d(TAG, "Contact '"+word+"' will be added to contacts dictionary.");
-                                	loadedContacts++;
-                                	addWordFromStorage(word, 128);
-                                }
+                            // Safeguard against adding really long words. Stack
+                            // may overflow due to recursion
+                            // Also don't add single letter words, possibly confuses
+                            // capitalization of i.
+                            final int wordLen = word.length();
+                            if (wordLen < maxWordLength && wordLen > 1) {
+                            	if (AnyApplication.DEBUG)
+                            		Log.d(TAG, "Contact '"+word+"' will be added to contacts dictionary.");
+                            	loadedContacts++;
+                            	addWordFromStorage(word, 128);
                             }
                         }
                     }
-
-                    cursor.moveToNext();
                 }
+
+                cursor.moveToNext();
             }
-            
-            Log.i(TAG, "Loaded "+loadedContacts+" contacts");
-    	
+        }
         
-        cursor.close();
+        Log.i(TAG, "Loaded "+loadedContacts+" contacts");
     }
 
     
@@ -161,6 +157,11 @@ public class ContactsDictionary extends UserDictionaryBase {
     @Override
     protected void AddWordToStorage(String word, int frequency) {
         
+    }
+    
+    @Override
+    public Cursor getWordsCursor() {
+    	return mContext.getContentResolver().query(Contacts.CONTENT_URI, PROJECTION, Contacts.IN_VISIBLE_GROUP+"="+1, null, null);
     }
 
 }

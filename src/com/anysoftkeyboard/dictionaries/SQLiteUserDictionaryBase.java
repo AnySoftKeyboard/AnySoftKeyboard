@@ -2,10 +2,11 @@ package com.anysoftkeyboard.dictionaries;
 
 import java.util.List;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
-import com.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.anysoftkeyboard.dictionaries.DictionarySQLiteConnection.DictionaryWord;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
@@ -14,8 +15,8 @@ public abstract class SQLiteUserDictionaryBase extends UserDictionaryBase {
 	private DictionarySQLiteConnection mStorage;
 	private boolean mInDatabaseFileRecovery = false;
 	
-	protected SQLiteUserDictionaryBase(String dictionaryName, AnyKeyboardContextProvider anyContext) {
-		super(dictionaryName, anyContext);
+	protected SQLiteUserDictionaryBase(String dictionaryName, Context context) {
+		super(dictionaryName, context);
 	}
 
 	@Override
@@ -57,6 +58,13 @@ public abstract class SQLiteUserDictionaryBase extends UserDictionaryBase {
 				loadDictionaryAsync();
 			}
 		}
+	}
+	
+	@Override
+	public Cursor getWordsCursor() {
+		if (mStorage == null)
+			mStorage = createStorage();
+		return mStorage.getWordsCursor();
 	}
 
 	protected abstract DictionarySQLiteConnection createStorage();

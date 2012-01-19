@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="horizontal"
+    android:layout_width="fill_parent" android:layout_height="wrap_content" android:weightSum="1"
+    android:paddingLeft="8dp" android:paddingRight="8dp">
+	<TextView 
+	    android:id="@android:id/text1" android:layout_width="0px" android:layout_weight="1" android:layout_height="wrap_content" 
+	    android:textAppearance="?android:attr/textAppearanceMedium" 
+	    android:gravity="center_vertical" android:minHeight="?android:attr/listPreferredItemHeight"/>
+	<ImageView android:id="@+id/edit_user_word" android:layout_width="wrap_content" android:layout_height="wrap_content"
+	    android:src="@android:drawable/ic_menu_edit" android:scaleType="centerInside" android:adjustViewBounds="true"
+	    android:layout_marginLeft="8dp"
+	    android:layout_gravity="center_vertical"/>
+	<ImageView android:id="@+id/delete_user_word" android:layout_width="wrap_content" android:layout_height="wrap_content"
+	    android:src="@android:drawable/ic_menu_delete" android:scaleType="centerInside" android:adjustViewBounds="true"
+	    android:layout_marginLeft="8dp"
+	    android:layout_gravity="center_vertical"/>
+</LinearLayout>

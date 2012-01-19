@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.Map.Entry;
 
-import com.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.anysoftkeyboard.AnySoftKeyboard;
 
 import android.content.ContentValues;
@@ -93,7 +92,7 @@ public class AutoDictionary extends UserDictionaryBase {
 
     private static DatabaseHelper msOpenHelper = null;
 
-    public AutoDictionary(AnyKeyboardContextProvider context, AnySoftKeyboard ime, String locale) {
+    public AutoDictionary(Context context, AnySoftKeyboard ime, String locale) {
         super("Auto", context);
         mIme = ime;
         mLocale = locale;        
@@ -124,9 +123,7 @@ public class AutoDictionary extends UserDictionaryBase {
             msOpenHelper = new DatabaseHelper(mContext);
         }
         // Load the words that correspond to the current input locale
-        Cursor cursor = TextUtils.isEmpty(mLocale)?
-        		query(null, null)
-        		: query(COLUMN_LOCALE + "=?", new String[] { mLocale });
+        Cursor cursor = getWordsCursor();
         try {
             if (cursor.moveToFirst()) {
                 int wordIndex = cursor.getColumnIndex(COLUMN_WORD);
@@ -278,5 +275,13 @@ public class AutoDictionary extends UserDictionaryBase {
 
     @Override
     protected void AddWordToStorage(String word, int frequency) {
+    }
+    
+    @Override
+    public Cursor getWordsCursor() {
+    	 if (TextUtils.isEmpty(mLocale))
+         	return query(null, null);
+    	 else
+         	return query(COLUMN_LOCALE + "=?", new String[] { mLocale });
     }
 }

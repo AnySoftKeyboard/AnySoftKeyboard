@@ -1,9 +1,8 @@
 package com.anysoftkeyboard.dictionaries;
 
-import com.anysoftkeyboard.AnyKeyboardContextProvider;
-
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
@@ -11,7 +10,7 @@ import android.provider.UserDictionary.Words;
 import android.text.TextUtils;
 import android.util.Log;
 
-class AndroidUserDictionary extends UserDictionaryBase {
+public class AndroidUserDictionary extends UserDictionaryBase {
 
 	private static final String[] PROJECTION = {
         Words._ID,
@@ -25,7 +24,7 @@ class AndroidUserDictionary extends UserDictionaryBase {
 	private ContentObserver mObserver;
 	private final String mLocale;
 	
-    public AndroidUserDictionary(AnyKeyboardContextProvider context, String locale)
+    public AndroidUserDictionary(Context context, String locale)
     {
     	super("AndroidUserDictionary", context);
     	mLocale = locale;
@@ -44,16 +43,11 @@ class AndroidUserDictionary extends UserDictionaryBase {
 	}
 
 	protected void loadDictionaryAsync() {
-		Cursor cursor = TextUtils.isEmpty(mLocale)?
-				mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION, null, null, null)
-			    : mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION,
-			    		"("+Words.LOCALE+" IS NULL) or ("+Words.LOCALE+"=?)",
-			    		new String[] { mLocale }, null);
-				
-		if (cursor == null)
-			throw new RuntimeException("No built-in Android dictionary!");
+		Cursor cursor = getWordsCursor();
 		
 		addWords(cursor);
+		
+        cursor.close();
 		
 		// Perform a managed query. The Activity will handle closing and requerying the cursor
         // when needed.
@@ -65,6 +59,18 @@ class AndroidUserDictionary extends UserDictionaryBase {
                 mRequiresReload = true;
             }
         });
+	}
+
+	public Cursor getWordsCursor() {
+		Cursor cursor = TextUtils.isEmpty(mLocale)?
+				mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION, null, null, null)
+			    : mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION,
+			    		"("+Words.LOCALE+" IS NULL) or ("+Words.LOCALE+"=?)",
+			    		new String[] { mLocale }, null);
+				
+		if (cursor == null)
+			throw new RuntimeException("No built-in Android dictionary!");
+		return cursor;
 	}
 
 	private void addWords(Cursor cursor) {
@@ -80,8 +86,6 @@ class AndroidUserDictionary extends UserDictionaryBase {
                 cursor.moveToNext();
             }
         }
-        cursor.close();
-        
     }
 
 	protected void AddWordToStorage(String word, int frequency) {

@@ -66,9 +66,9 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
         onCreate(db);
     }
 
-    public void addWord(String word, int freq)
+    public synchronized void addWord(String word, int freq)
     {
-    	SQLiteDatabase db = super.getWritableDatabase();
+    	SQLiteDatabase db = getWritableDatabase();
 
     	ContentValues values = new ContentValues();
     	values.put("Id", word.hashCode());//ensuring that any word is inserted once
@@ -83,17 +83,24 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
 		{
 		    if (AnyApplication.DEBUG)Log.d(TAG, "Inserted '"+word+"' to the fall-back dictionary. Id:"+res);
 		}
+		
+		db.close();
     }
-
-    public List<DictionaryWord> getAllWords()
-    {
-    	//starting with a big storage
-    	List<DictionaryWord> words = new ArrayList<DictionaryWord>(5000);
+    
+    public Cursor getWordsCursor(){
     	SQLiteDatabase db = getReadableDatabase();
     	Cursor c = db.query(mTableName, new String[]{mWordsColumnName, mFrequencyColumnName}, null, null, null, null, null);
+    	db.close();
+    	return c;
+    }
+
+    public synchronized List<DictionaryWord> getAllWords()
+    {
+    	Cursor c = getWordsCursor();
 
     	if (c != null)
     	{
+    		List<DictionaryWord> words = new ArrayList<DictionaryWord>(c.getCount());
         	if (c.moveToFirst()) {
                 while (!c.isAfterLast()) {
                     String word = c.getString(0);
@@ -103,9 +110,10 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
                 }
             }
         	c.close();
+        	return words;
     	}
-
-    	return words;
+    	else
+    		return new ArrayList<DictionaryWord>(0);
     }
     
     String getDatabaseFile()

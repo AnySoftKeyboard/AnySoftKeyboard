@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.dictionaries;
 
-import com.anysoftkeyboard.AnyKeyboardContextProvider;
-
+import android.content.Context;
 import android.util.Log;
 
 public class DictionaryFactoryAPI5 extends DictionaryFactory
@@ -11,7 +10,7 @@ public class DictionaryFactoryAPI5 extends DictionaryFactory
 	private AddableDictionary mContactsDictionary;
     
 	@Override
-	public synchronized AddableDictionary createContactsDictionary(AnyKeyboardContextProvider context)
+	public synchronized AddableDictionary createContactsDictionary(Context context)
     {
           if(mContactsDictionary != null){
               return mContactsDictionary;
@@ -27,22 +26,4 @@ public class DictionaryFactoryAPI5 extends DictionaryFactory
         }
         return mContactsDictionary;
     }
-	
-
-
-//	public void closeContactsDictionary() {
-//	    if(mContactsDictionary != null){
-//	        mContactsDictionary.close();
-//	        mContactsDictionary = null;
-//	    }
-//	}
-	
-//	@Override
-//	public synchronized void close() {
-//		super.close();
-//        
-//        if(mContactsDictionary != null){
-//            mContactsDictionary.close();
-//        }
-//	}
 }
