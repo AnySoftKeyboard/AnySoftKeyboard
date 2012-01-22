@@ -16,7 +16,6 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -33,7 +32,6 @@ import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.Keyboard.Row;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.theme.KeyboardTheme;
-import com.anysoftkeyboard.utils.IMEUtil;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -188,7 +186,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 		}
 		return false;
 	}
-
+/*
 	@Override
 	public void draw(Canvas c) {
 		IMEUtil.GCUtils.getInstance().reset();
@@ -202,7 +200,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 			}
 		}
 	}
-
+*/
 	@Override
 	protected boolean onLongPress(Context packageContext, Key key, boolean isSticky, boolean requireSlideInto) {
 		if (key != null && key instanceof AnyKey) {

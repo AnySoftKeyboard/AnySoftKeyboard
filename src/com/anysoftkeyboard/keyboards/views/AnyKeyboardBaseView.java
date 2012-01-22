@@ -73,6 +73,7 @@ import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
+import com.anysoftkeyboard.utils.IMEUtil;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -1124,10 +1125,24 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (mDrawPending || mBuffer == null || mKeyboardChanged) {
-            onBufferDraw();
+        	doOnBufferDrawWithMemProtection();
         }
         canvas.drawBitmap(mBuffer, 0, 0, null);
     }
+
+	private void doOnBufferDrawWithMemProtection() {
+		IMEUtil.GCUtils.getInstance().reset();
+		boolean tryGC = true;
+		for (int i = 0; i < IMEUtil.GCUtils.GC_TRY_LOOP_MAX && tryGC; ++i) {
+			try {
+				onBufferDraw();
+				tryGC = false;
+			} catch (OutOfMemoryError e) {
+				Log.w(TAG, "WOW! No memory to paint stuff... I'll try to release some.");
+				tryGC = IMEUtil.GCUtils.getInstance().tryGCOrWait(TAG, e);
+			}
+		}
+	}
 
     private void onBufferDraw() {
         if (mBuffer == null || mKeyboardChanged) {
@@ -1626,7 +1641,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         // TODO we should clean up this and record key's region to use in onBufferDraw.
         mDirtyRect.union(key.x + getPaddingLeft(), key.y + getPaddingTop(),
                 key.x + key.width + getPaddingLeft(), key.y + key.height + getPaddingTop());
-        onBufferDraw();
+        doOnBufferDrawWithMemProtection();
         invalidate(key.x + getPaddingLeft(), key.y + getPaddingTop(),
                 key.x + key.width + getPaddingLeft(), key.y + key.height + getPaddingTop());
     }
