@@ -17,6 +17,7 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
@@ -37,12 +38,16 @@ public abstract class AddOnsFactory<E extends AddOn> {
 		boolean recreateView = false;
 		for(AddOnsFactory<?> factory : mActiveInstances)
 		{
-			if (factory.isEventRequiresCacheRefresh(eventIntent))
-			{
-				cleared = true;
-				if (factory.isEventRequiresViewReset(eventIntent)) recreateView = true;
-				if (AnyApplication.DEBUG) Log.d("AddOnsFactory", factory.getClass().getName()+" will handle this package-changed event. Also recreate view? "+recreateView);
-				factory.clearAddOnList();
+			try {
+				if (factory.isEventRequiresCacheRefresh(eventIntent, mIme.getApplicationContext()))
+				{
+					cleared = true;
+					if (factory.isEventRequiresViewReset(eventIntent, mIme.getApplicationContext())) recreateView = true;
+					if (AnyApplication.DEBUG) Log.d("AddOnsFactory", factory.getClass().getName()+" will handle this package-changed event. Also recreate view? "+recreateView);
+					factory.clearAddOnList();
+				}
+			} catch (NameNotFoundException e) {
+				e.printStackTrace();
 			}
 		}
 		if (cleared) ask.resetKeyboardView(recreateView);
@@ -89,11 +94,82 @@ public abstract class AddOnsFactory<E extends AddOn> {
     	mActiveInstances.add(this);
     }
 
-    protected boolean isEventRequiresCacheRefresh(Intent eventIntent) {
-		return true;
+    protected boolean isEventRequiresCacheRefresh(Intent eventIntent, Context context) throws NameNotFoundException {
+    	String action = eventIntent.getAction();
+    	String packageNameSchemePart = eventIntent.getData().getSchemeSpecificPart();
+		if (Intent.ACTION_PACKAGE_ADDED.equals(action))
+		{
+			//will reset only if the new package has my addons
+			boolean hasAddon = isPackageContainAnAddon(context, packageNameSchemePart);
+			if (hasAddon)
+			{
+				Log.d(TAG, "It seems that an addon exists in a newly installed package "+packageNameSchemePart+". I need to reload stuff.");
+				return true;
+			}
+		}
+		else if (Intent.ACTION_PACKAGE_CHANGED.equals(action))
+		{
+			//If I'm managing OR it contains an addon (could be new feature in the package), I want to reset.
+			boolean isPackagedManaged = isPackageManaged(packageNameSchemePart);
+			if (isPackagedManaged)
+			{
+				Log.d(TAG, "It seems that an addon I use (in package "+packageNameSchemePart+") has been changed. I need to reload stuff.");
+				return true;
+			}
+			else
+			{
+				boolean hasAddon = isPackageContainAnAddon(context, packageNameSchemePart);
+				if (hasAddon)
+				{
+					Log.d(TAG, "It seems that an addon exists in an updated package "+packageNameSchemePart+". I need to reload stuff.");
+					return true;
+				}
+			}
+		}
+		else 
+		{
+			//so only if I manage this package, I want to reset
+			boolean isPackagedManaged = isPackageManaged(packageNameSchemePart);
+			if (isPackagedManaged)
+			{
+				Log.d(TAG, "It seems that an addon I use (in package "+packageNameSchemePart+") has been removed. I need to reload stuff.");
+				return true;
+			}
+		}
+		return false;
 	}
     	
-    protected boolean isEventRequiresViewReset(Intent eventIntent) {
+    protected boolean isPackageManaged(String packageNameSchemePart) {
+    	for (AddOn addOn : mAddOns)
+		{
+			if (addOn.getPackageContext().getPackageName().equals(packageNameSchemePart))
+			{
+				return true;
+			}
+		}
+    	
+    	return false;
+	}
+
+    protected boolean isPackageContainAnAddon(Context context, String packageNameSchemePart) throws NameNotFoundException {
+    	PackageInfo newPackage = context.getPackageManager().getPackageInfo(packageNameSchemePart, PackageManager.GET_RECEIVERS);
+		if (newPackage.receivers != null)
+		{
+			ActivityInfo[] receivers = newPackage.receivers;
+			for(ActivityInfo aReceiver : receivers)
+			{
+				final XmlPullParser xml = aReceiver.loadXmlMetaData(context.getPackageManager(), RECEIVER_META_DATA);
+				if (xml != null)
+				{
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+
+	protected boolean isEventRequiresViewReset(Intent eventIntent, Context context) {
 		return false;
 	}
 

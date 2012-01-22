@@ -33,7 +33,6 @@ public class PackagesChangedReceiver extends BroadcastReceiver {
 			String text = mSB.append("Package '").append(intent.getData()).append("' have been changed.").toString();
 			Log.d(TAG, text);
 		}
-		
 		AddOnsFactory.onPackageChanged(intent, mIme);
 	}
 
@@ -54,10 +53,9 @@ public class PackagesChangedReceiver extends BroadcastReceiver {
 		IntentFilter filter = new IntentFilter();
 		filter.addCategory(Intent.CATEGORY_DEFAULT);
 		
-		filter.addAction(Intent.ACTION_PACKAGE_CHANGED);
+		//filter.addAction(Intent.ACTION_PACKAGE_CHANGED);
 		filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
 		filter.addAction(Intent.ACTION_PACKAGE_ADDED);
-		filter.addAction(Intent.ACTION_PACKAGE_INSTALL);
 		filter.addAction(Intent.ACTION_PACKAGE_REPLACED);
 		
 		filter.addDataScheme("package");

@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.Log;
 
-import com.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -23,27 +23,27 @@ public class KeyboardExtensionFactory extends AddOnsFactory<KeyboardExtension>
 		msInstance = new KeyboardExtensionFactory();
 	}
 	
-	public static KeyboardExtension getCurrentKeyboardExtension(AnyKeyboardContextProvider contextProvider, final int type)
+	public static KeyboardExtension getCurrentKeyboardExtension(Context context, final int type)
 	{
-		 SharedPreferences sharedPreferences = contextProvider.getSharedPreferences();
+		 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 		 final String settingKey;
 		 final String defaultValue;
          switch(type)
          {
          case KeyboardExtension.TYPE_BOTTOM:
-        	 settingKey = contextProvider.getApplicationContext().getString(R.string.settings_key_ext_kbd_bottom_row_key);
-        	 defaultValue = contextProvider.getApplicationContext().getString(R.string.settings_default_ext_kbd_bottom_row_key);
+        	 settingKey = context.getString(R.string.settings_key_ext_kbd_bottom_row_key);
+        	 defaultValue = context.getString(R.string.settings_default_ext_kbd_bottom_row_key);
         	 break;
          case KeyboardExtension.TYPE_TOP:
-        	 settingKey = contextProvider.getApplicationContext().getString(R.string.settings_key_ext_kbd_top_row_key);
-        	 defaultValue = contextProvider.getApplicationContext().getString(R.string.settings_default_top_row_key);
+        	 settingKey = context.getString(R.string.settings_key_ext_kbd_top_row_key);
+        	 defaultValue = context.getString(R.string.settings_default_top_row_key);
         	 break;
          case KeyboardExtension.TYPE_EXTENSION:
-        	 settingKey = contextProvider.getApplicationContext().getString(R.string.settings_key_ext_kbd_ext_ketboard_key);
-        	 defaultValue = contextProvider.getApplicationContext().getString(R.string.settings_default_ext_keyboard_key);
+        	 settingKey = context.getString(R.string.settings_key_ext_kbd_ext_ketboard_key);
+        	 defaultValue = context.getString(R.string.settings_default_ext_keyboard_key);
         	 break;
          case KeyboardExtension.TYPE_HIDDEN_BOTTOM:
-        	 settingKey = contextProvider.getApplicationContext().getString(R.string.settings_key_ext_kbd_hidden_bottom_row_key);
+        	 settingKey = context.getString(R.string.settings_key_ext_kbd_hidden_bottom_row_key);
         	 defaultValue = "";
         	 break;
     	 default:
@@ -52,7 +52,7 @@ public class KeyboardExtensionFactory extends AddOnsFactory<KeyboardExtension>
          
          String selectedKeyId = sharedPreferences.getString(settingKey, defaultValue);
          KeyboardExtension selectedKeyboard = null;
-         ArrayList<KeyboardExtension> keys = msInstance.getAllAddOns(contextProvider.getApplicationContext());
+         ArrayList<KeyboardExtension> keys = msInstance.getAllAddOns(context);
          
          if (selectedKeyId != null) {
              for (KeyboardExtension aKey : keys) {
@@ -134,7 +134,18 @@ public class KeyboardExtensionFactory extends AddOnsFactory<KeyboardExtension>
 	}
 	
 	@Override
-	protected boolean isEventRequiresViewReset(Intent eventIntent) {
-		return true;
+	protected boolean isEventRequiresViewReset(Intent eventIntent, Context context) {
+		//will reset ONLY if this is the active extension keyboard
+		final int[] types = new int[]{KeyboardExtension.TYPE_BOTTOM, KeyboardExtension.TYPE_EXTENSION, KeyboardExtension.TYPE_HIDDEN_BOTTOM, KeyboardExtension.TYPE_TOP};
+		for(int type : types)
+		{
+			KeyboardExtension selectedExtension = getCurrentKeyboardExtension(context, type);
+			if ((selectedExtension != null) && (selectedExtension.getPackageContext().getPackageName().equals(eventIntent.getData().getSchemeSpecificPart())))
+			{
+				Log.d(TAG, "It seems that selected keyboard extension has been changed. I need to reload view!");
+				return true;
+			}
+		}
+		return false;
 	}
 }

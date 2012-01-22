@@ -85,7 +85,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 			for(int i=0;i<sentenceSeparators.length(); i++)
 				mSentenceSeparators.add(sentenceSeparators.charAt(i));
 		}
-		setExtensionLayout(KeyboardExtensionFactory.getCurrentKeyboardExtension(askContext, KeyboardExtension.TYPE_EXTENSION));
+		setExtensionLayout(KeyboardExtensionFactory.getCurrentKeyboardExtension(askContext.getApplicationContext(), KeyboardExtension.TYPE_EXTENSION));
 	}
 	/*
 	protected void setExtension(int resId) {

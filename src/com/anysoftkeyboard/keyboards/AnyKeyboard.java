@@ -198,7 +198,7 @@ public abstract class AnyKeyboard extends Keyboard
 		final KeyboardMetadata topMd;
 		if (!mTopRowWasCreated)
 		{
-			final KeyboardExtension topRowPlugin = KeyboardExtensionFactory.getCurrentKeyboardExtension(getASKContext(), KeyboardExtension.TYPE_TOP);
+			final KeyboardExtension topRowPlugin = KeyboardExtensionFactory.getCurrentKeyboardExtension(getASKContext().getApplicationContext(), KeyboardExtension.TYPE_TOP);
 	        if (topRowPlugin == null || //no plugin found
 	        	topRowPlugin.getKeyboardResId() == -1 || //plugin specified to be empty
 	        	topRowPlugin.getKeyboardResId() == -2)//could not parse layout res id
@@ -224,7 +224,7 @@ public abstract class AnyKeyboard extends Keyboard
 		}
 		if (!mBottomRowWasCreated)
 		{
-			final KeyboardExtension bottomRowPlugin = KeyboardExtensionFactory.getCurrentKeyboardExtension(getASKContext(), KeyboardExtension.TYPE_BOTTOM);
+			final KeyboardExtension bottomRowPlugin = KeyboardExtensionFactory.getCurrentKeyboardExtension(getASKContext().getApplicationContext(), KeyboardExtension.TYPE_BOTTOM);
 			if (AnyApplication.DEBUG) Log.d(TAG, "Bottom row layout id "+bottomRowPlugin.getId());
 			KeyboardMetadata bottomMd = addKeyboardRow(bottomRowPlugin.getPackageContext(), bottomRowPlugin.getKeyboardResId(), mode, keyboardDimens);
 			fixKeyboardDueToGenericRow(bottomMd, (int)keyboardDimens.getRowVerticalGap());

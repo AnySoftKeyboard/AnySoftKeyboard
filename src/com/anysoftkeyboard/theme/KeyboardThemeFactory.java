@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.menny.android.anysoftkeyboard.R;
@@ -24,31 +25,31 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme>
 	public static KeyboardTheme getCurrentKeyboardTheme(Context appContext)
 	{
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(appContext);
-		 String settingKey = appContext.getString(R.string.settings_key_keyboard_theme_key);
+		String settingKey = appContext.getString(R.string.settings_key_keyboard_theme_key);
          
-         String selectedThemeId = sharedPreferences.getString(settingKey, appContext.getString(R.string.settings_default_keyboard_theme_key));
-         KeyboardTheme selectedTheme = null;
-         ArrayList<KeyboardTheme> themes = msInstance.getAllAddOns(appContext);
-         if (selectedThemeId != null) {
-        	 //Find the builder in the array by id. Mayne would've been better off with a HashSet
-             for (KeyboardTheme aTheme : themes) {
-                 if (aTheme.getId().equals(selectedThemeId)) {
-                	 selectedTheme = aTheme;
-                     break;
-                 }
-             }
-         }
+		String selectedThemeId = sharedPreferences.getString(settingKey, appContext.getString(R.string.settings_default_keyboard_theme_key));
+		KeyboardTheme selectedTheme = null;
+		ArrayList<KeyboardTheme> themes = msInstance.getAllAddOns(appContext);
+		if (selectedThemeId != null) {
+			//Find the builder in the array by id. Mayne would've been better off with a HashSet
+			for (KeyboardTheme aTheme : themes) {
+				if (aTheme.getId().equals(selectedThemeId)) {
+					selectedTheme = aTheme;
+					break;
+				}
+			}
+		}
 
-         if (selectedTheme == null) {
-        	 //Haven't found a builder or no preference is stored, so we use the default one
-        	 selectedTheme = themes.get(0);
+		if (selectedTheme == null) {
+			//Haven't found a builder or no preference is stored, so we use the default one
+			selectedTheme = themes.get(0);
 
-             SharedPreferences.Editor editor = sharedPreferences.edit();
-             editor.putString(settingKey, selectedTheme.getId());
-             editor.commit();
-         }
+			SharedPreferences.Editor editor = sharedPreferences.edit();
+			editor.putString(settingKey, selectedTheme.getId());
+			editor.commit();
+		}
 
-         return selectedTheme;
+		return selectedTheme;
 	}
 	
 
@@ -99,7 +100,7 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme>
 		final String defaultThemeId = appContext.getString(R.string.settings_default_keyboard_theme_key);
 		ArrayList<KeyboardTheme> themes = msInstance.getAllAddOns(appContext);
         if (defaultThemeId != null) {
-       	 //Find the builder in the array by id. Mayne would've been better off with a HashSet
+       	 //Find the builder in the array by id. Maybe would've been better off with a HashSet
             for (KeyboardTheme aTheme : themes) {
                 if (aTheme.getId().equals(defaultThemeId)) {
                 	return aTheme;
@@ -111,7 +112,14 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme>
 	}
 	
 	@Override
-	protected boolean isEventRequiresViewReset(Intent eventIntent) {
-		return true;
+	protected boolean isEventRequiresViewReset(Intent eventIntent, Context context) {
+		//will reset ONLY if this is the active theme
+		KeyboardTheme selectedTheme = getCurrentKeyboardTheme(context);
+		if ((selectedTheme != null) && (selectedTheme.getPackageContext().getPackageName().equals(eventIntent.getData().getSchemeSpecificPart())))
+		{
+			Log.d(TAG, "It seems that selected keyboard theme has been changed. I need to reload view!");
+			return true;
+		}
+		return false;
 	}
 }
