@@ -107,7 +107,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
 				return true;
 			}
 		}
-		else if (Intent.ACTION_PACKAGE_CHANGED.equals(action))
+		else if (Intent.ACTION_PACKAGE_RESTARTED.equals(action))
 		{
 			//If I'm managing OR it contains an addon (could be new feature in the package), I want to reset.
 			boolean isPackagedManaged = isPackageManaged(packageNameSchemePart);
