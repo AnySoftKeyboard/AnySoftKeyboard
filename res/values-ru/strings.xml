@@ -18,14 +18,13 @@
   <string name="main_tab_credits_additional_work_by">Программисты:</string>
   <string name="main_tab_credits_localization_by">Переводчики:</string>
   <string name="main_tab_credits_GUI_by">Художники:</string>
-  <string name="how_to_simple_howto">Android требует чтобы внешние клавиатуры были вручную включены и активированы пользователем следующим путем:\n 1) Зайдите в системные настройки и выберите \'Язык и клавиатура\' (или \'Регион и текст\' в некоторых версиях.)\n 2) Включите AnySoftKeyboard, пометив ее галкой.\n *Система предупредит вас о возможных вирусах, но не беспокойтесь - мы не сохраняем и никуда не отправляем ваши данные.\n\n Далее перед использованием AnySoftKeyboard, клавиатуру необходимо активировать:\n 1) Найдите любое текстовое поле (например \"Адресат\" в программе SMS) и долго нажмите его.\n 2) На всплывшем диалоговом окне выберите \'Метод Ввода\' (обычно последний вариант).\n 3) В следующем диалоговом окне выберите AnySoftKeyboard.  Вот и все, пользуйтесь на здоровье!</string>
-  <string name="notification_text">Добро пожаловать! Пожалуйста, прочтите.</string>
-  <string name="testers_version">Версия для тестеров!</string>
   <string name="license_title">Лицензия</string>
-  <string name="license_text">Данная программа лицензируется на условиях Apache2 (c) 2011 Menny Even-Danan</string>
+  <string name="languages_cat">Языки</string>
   <string name="about">О программе</string>
   <string name="changelog">Список изменений</string>
   <string name="search_market_for_addons">Поиск дополнений</string>
+  <string name="theme_addons_settings">Настройки темы клавиатуры</string>
+  <string name="bottom_row_addons_settings">Настройки нижней строки</string>
   <string name="close_button">Закрыть</string>
   <string name="how_to_active_text">Как активировать AnySoftKeyboard</string>
   <string name="added_word"><xliff:g id="word">%s</xliff:g>: сохранено</string>
@@ -34,9 +33,6 @@
   <string name="click_for_help">Помощь</string>
   <string name="click_for_help_summary">Нажмите для помощи по интернету</string>
   <string name="ui_group">Пользовательский Интерфейс</string>
-  <string name="keyboard_layout_change_keys_size_title">Кнопки изменения формата</string>
-  <string name="keyboard_layout_change_keys_size_summary">Кнопки изменения формата на виртуальной клавиатуре</string>
-  <string name="keyboard_layout_change_keys_size_dialog_title">Размер Кнопок</string>
   <string name="physical_keyboard_change_notification_title">Уведомления</string>
   <string name="physical_keyboard_change_notification_summary">Метод уведомления о выбранной раскладке</string>
   <string name="physical_keyboard_change_notification_dialog_title">Выбор Уведомления</string>
@@ -71,7 +67,7 @@
   <string name="fullscreen_input_connection_supported_off_summary">Не использовать полноэкранный ввод в горизонтальном положении</string>
   <string name="fullscreen_portrait_input_connection_supported">Использовать полноэкранный ввод в горизонтальном расположении</string>
   <string name="fullscreen_portrait_input_connection_supported_on_summary">Полноэкранный ввод в вертикале</string>
-  <string name="fullscreen_portrait_input_connection_supported_off_summary">Не использовать полноэкранный ввод в вертикальном расположении</string>
+  <string name="fullscreen_portrait_input_connection_supported_off_summary">Не использовать полноэкранный ввод в вертикальном положении</string>
   <string name="backword_support">Удаление полного слова</string>
   <string name="backword_support_on_summary">Нажатие кнопки возврата в верхнем регистре удалит последнее слово</string>
   <string name="backword_support_off_summary">Нажатие кнопки возврата в верхнем регистре удалит последний символ</string>
@@ -88,6 +84,7 @@
   <string name="swipe_right_action">Жест вправо</string>
   <string name="swipe_right_action_summary">Определить жест действия пальцем вправо</string>
   <string name="swipe_right_action_title">Выбрать действие</string>
+  <string name="pinch_gesture_action_summary">Задайте действие по жесту "щипок"</string>
   <string name="swipe_action_name_none">Никаких действий</string>
   <string name="swipe_action_name_next_alphabet">Следующая алфавитная клавиатура</string>
   <string name="swipe_action_name_next_symbols">Следующая символьная клавиатура</string>
@@ -115,10 +112,10 @@
   <string name="camera_key_for_backspace_backword_support_off_summary">Полу-нажатие кнопки камеры удаляет последний символ, полное нажатие удаляет последнее слово</string>
   <string name="special_dictionaries_group">Специальные словари</string>
   <string name="use_user_dictionary">Пользовательский словарь</string>
-  <string name="use_user_dictionary_on_summary">Предлогать слова из пользовательского словаря (нажмите долго на предложение чтобы добавить)</string>
+  <string name="use_user_dictionary_on_summary">Предлагать слова из пользовательского словаря (для добавления - долгое нажатие на вариант)</string>
   <string name="use_user_dictionary_off_summary"> </string>
   <string name="use_auto_dictionary">Автоматический словарь</string>
-  <string name="use_auto_dictionary_on_summary">Так же предлогать часто употребляемые слова</string>
+  <string name="use_auto_dictionary_on_summary">Также предлагать часто употребляемые слова</string>
   <string name="use_auto_dictionary_off_summary"> </string>
   <string name="use_contacts_dictionary">Словарь из контактов</string>
   <string name="use_contacts_dictionary_on_summary">Предлагать имена из списка контактов</string>
@@ -127,7 +124,7 @@
   <string name="tweaks_group">Настройки</string>
   <string name="tweak_sound_group">Настройки звука</string>
   <string name="tweak_physical_keyboard_group">Настройки аппаратурной клавиатуры</string>
-  <string name="tweak_ui_ux_group">Настройки пользовательского интерфейса</string>
+  <string name="tweak_ux_group">Настройки поведения</string>
   <string name="is_sticky_extesion_keyboard">Прилепленная расширенная клавиатура</string>
   <string name="is_sticky_extesion_keyboard_on_summary">Остается видимой, пока не закрыто пользователем</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Закрывается после нажатия клавиши</string>
@@ -184,6 +181,8 @@
   <string name="contacts_dict_summary">Включать имена контактов в предложения</string>
   <string name="auto_dict">Автоматический словарь</string>
   <string name="auto_dict_summary">Автоматически добавлять часто используюемые или отмеченные слова в словарь</string>
+  <string name="no_extrenal_packs_support_title">Не поддерживается</string>
+  <string name="no_extrenal_packs_support_message">﻿В настоящее время, AnySoftKeyboard не допускает  внешние пакеты такого типа.\nКогда API спецификации станут известны, эта функция будет открыта.\nОставайтесь на связи.</string>
   <string name="keyboards_group">Языки Раскладок</string>
   <string name="symbols_keyboard">Символы</string>
   <string name="eng_keyboard">Английский</string>
@@ -192,12 +191,13 @@
   <string name="quick_text_key_active">Текущая клавиша быстрого текста</string>
   <string name="quick_text_key_dialog_title">Выберите клавишу</string>
   <string name="quick_text_key_summary">Выберите клавишу быстрого текста для отображения на клавиатуре</string>
+  <string name="extension_kbd_top_none">Без верхней строки</string>
   <string name="show_tutorial_on_startup">Показывать помощь при запуске</string>
   <string name="tutorial_swipe_title">Провод пальцем для изменения раскладки</string>
   <string name="tutorial_swipe_text">Раскладку можно поменять, проведя пальцем по виртуальной клавиатуре. Проведите с лева на право для изменения языка, и с права на лево для вызова символов.</string>
   <string name="label_go_key">Пуск</string>
   <string name="label_next_key">Следующий</string>
-  <string name="label_send_key">Послать</string>
+  <string name="label_send_key">Отправить</string>
   <string name="label_done_key">Закончено</string>
   <string name="change_lang_wide">→ АБВ →</string>
   <string name="change_lang_regular">АБВ</string>
@@ -212,11 +212,6 @@
   <string name="simley_key_name">Кнопка смайликов</string>
   <string name="smiley_key_label">:-)</string>
   <string name="smiley_key_default_output">:-)</string>
-  <string-array name="keyboard_layout_keys_size">
-    <item>Без Кнопок</item>
-    <item>Маленькие</item>
-    <item>Большие</item>
-  </string-array>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Всегда показывать иконку</item>
     <item>При изменении встроенной клавиатуре</item>
@@ -227,19 +222,5 @@
     <item>Мягко</item>
     <item>Средне</item>
     <item>Сильно</item>
-  </string-array>
-  <string-array name="settings_key_swipe_velocity_threshold_names">
-    <item>Очень медленная</item>
-    <item>Медленная</item>
-    <item>Нормальная</item>
-    <item>Быстрая</item>
-    <item>Очень быстрая</item>
-  </string-array>
-  <string-array name="settings_key_swipe_distance_threshold_names">
-    <item>Очень короткая</item>
-    <item>Короткая</item>
-    <item>Нормальная</item>
-    <item>Длинная</item>
-    <item>Очень длинная</item>
   </string-array>
 </resources>

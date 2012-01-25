@@ -18,14 +18,13 @@
   <string name="main_tab_credits_additional_work_by">Weitere Programmierung durch:</string>
   <string name="main_tab_credits_localization_by">Übersetzung durch:</string>
   <string name="main_tab_credits_GUI_by">Interface-Grafiken von:</string>
-  <string name="how_to_simple_howto"> Android requires that you (the user) will manually enable and activate external keyboards. Here is how:\n 1) go to Android\'s Settings and select \'Language &amp; keyboard\' (or \'Locale &amp; text\' in some Android OSes).\n 2) Turn on AnySoftKeyboard.\n *It will warn you about possible key-logging, don\'t worry, we do not keep data, and we do not send it anywhere.\n \n To actually use AnySoftKeyboard, you\'ll need to activate it:\n 1) Go to any text-box (e.g., Messagings TO field), and long-press it.\n 2) A dialog will pop-up, select \'Input Method\' (usually the last option).\n 3) Another dialog will popup - select AnySoftKeyboard.\n That\'s it! Enjoy.</string>
-  <string name="notification_text_testers">Dies ist eine Betaversion!</string>
+  <string name="ime_name_beta">AnySoftKeyboard BETA</string>
+  <string name="notification_text_testers">Dies ist eine Beta-Version. Verwenden Sie diese mit Vorsicht!</string>
   <string name="notification_text_changelog">Klicken Sie, um zu sehen was neu ist.</string>
   <string name="notification_title_how_to_enable">Willkommen bei AnySoftKeyboard</string>
   <string name="notification_text_how_to_enable">Lernen Sie, wie man es aktivieren kann.</string>
-  <string name="testers_version">Version für Tester!</string>
+  <string name="testers_version">Testversion erstellen!</string>
   <string name="license_title">Lizenz</string>
-  <string name="license_text">Diese Software ist unter Apache2 lizenziert(c)2011 Menny Even-Danan </string>
   <string name="languages_cat">Sprachen</string>
   <string name="about">Über</string>
   <string name="changelog">Änderungsprotokoll</string>
@@ -47,6 +46,10 @@
   <string name="physical_keyboard_change_notification_dialog_title">Benachrichtigungsart auswählen</string>
   <string name="lengthy_operations_toast_notification">Benachrichtigung bei zeitintensiven Operationen</string>
   <string name="lengthy_operations_toast_notification_summary">Zeige kurze Benachrichtigung bei zeitintensiven Operationen</string>
+  <string name="voice_input_not_support_in_this_os_version">Spracheingabe wird in Android 2.2 + unterstützt</string>
+  <string name="voice_input_not_installed_title">Spracheingabe ist nicht installiert</string>
+  <string name="voice_input_not_installed_action_install">Installieren</string>
+  <string name="voice_input_not_installed_action_do_not_install">Nein</string>
   <string name="change_ime">Eingabemethode ändern</string>
   <string name="override_dictionary">Standardwörterbuch überschreiben</string>
   <string name="override_dictionary_title">Überschreiben von <xliff:g id="word"> %s </xliff:g> Wörterbuch</string>
@@ -84,6 +87,7 @@
   <string name="swipe_up_action">Streichen nach oben</string>
   <string name="swipe_up_action_summary">Definiere Aktion für das Streichen nach oben</string>
   <string name="swipe_up_action_title">Wähle Aktion für das Streichen nach oben</string>
+  <string name="swipe_up_from_spacebar_action">Schiebe die Leertaste hoch</string>
   <string name="swipe_down_action">Streichen nach unten</string>
   <string name="swipe_down_action_summary">Definiere Aktion für das Streichen nach unten</string>
   <string name="swipe_down_action_title">Wähle Aktion für das Streichen nach unten</string>
@@ -93,6 +97,7 @@
   <string name="swipe_right_action">Streichen nach rechts</string>
   <string name="swipe_right_action_summary">Definiere Aktion für das Streichen nach rechts</string>
   <string name="swipe_right_action_title">Wähle Aktion für das Streichen nach rechts</string>
+  <string name="separate_gesture_action">Separate Geste</string>
   <string name="swipe_action_name_none">Keine Aktion</string>
   <string name="swipe_action_name_next_alphabet">Nächste Alphabetische-Tastatur</string>
   <string name="swipe_action_name_next_symbols">Nächste Symbole Tastatur</string>
@@ -108,6 +113,9 @@
   <string name="swipe_action_name_cursor_left">Bewegt Cursor nach links</string>
   <string name="swipe_action_name_cursor_right">Bewegt Cursor rechts</string>
   <string name="swipe_action_name_other_keyboards_mode">Schalten des Layout-Modus</string>
+  <string name="swipe_action_name_split_layout">Layout aufteilen</string>
+  <string name="swipe_action_name_merge_layout">Layout zusammenführen</string>
+  <string name="swipe_action_name_utility_keyboard">zeige die Utility Tastatur</string>
   <string name="settings_swipe_velocity_threshold_title">Streich-Geschwindigkeits-Schwellenwert</string>
   <string name="settings_swipe_velocity_threshold_summary">Die minimale Wisch-Gesten Geschwindigkeit</string>
   <string name="settings_swipe_velocity_very_slow">Sehr langsam</string>
@@ -142,6 +150,9 @@
   <string name="tweak_physical_keyboard_group">Physikalische Tastatur Tweaks</string>
   <string name="tweak_ui_group">Grafische Verbesserungen</string>
   <string name="tweak_ux_group">Verhaltensverbesserungen</string>
+  <string name="show_hint_text">Hinweistext anzeigen</string>
+  <string name="show_hint_text_on_summary">Hinweise zu Tasten anzeigen, wenn es Hilfen dazu gibt</string>
+  <string name="show_hint_text_off_summary">Nie Hinweise zu Tasten anzeigen</string>
   <string name="is_sticky_extesion_keyboard">Feststellen der Erweiterungs Tastatur</string>
   <string name="is_sticky_extesion_keyboard_on_summary">Bleibt sichtbar, bis Sie explizit geschlossen wird</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Schließt nach Drücken einer Taste</string>
@@ -213,12 +224,12 @@
   <string name="top_generic_row_group">Allgemeine oberste generische Reihe</string>
   <string name="top_generic_row_active">Aktive oberste Zeile</string>
   <string name="top_generic_row_dialog_title">Wählen Sie den Zeilentyp</string>
-  <string name="top_generic_row_summary">Row type to put on keyboard top</string>
+  <string name="top_generic_row_summary">Zeilentyp auf der Tastatur nach oben setzen</string>
   <string name="top_generic_row_list_title">Wählen Sie den Zeilentyp</string>
   <string name="bottom_generic_row_group">Allgemeine untere generische Reihe</string>
   <string name="bottom_generic_row_active">Aktive unteren Zeile</string>
   <string name="bottom_generic_row_dialog_title">Wählen Sie den Zeilentyp</string>
-  <string name="bottom_generic_row_summary">Row type to put on keyboard bottom</string>
+  <string name="bottom_generic_row_summary">Zeilentyp auf Tastatur nach unten setzen</string>
   <string name="bottom_generic_row_list_title">Zeilentyp wählen </string>
   <string name="extension_keyboard_group">Erweiterungstastatur</string>
   <string name="extension_keyboard_active">Aktive Erweiterung der Tastatur</string>
@@ -240,8 +251,10 @@
   <string name="extension_kbd_top_small">Kleine Tasten</string>
   <string name="extension_kbd_top_regular">Normale große Tasten</string>
   <string name="extension_kbd_top_small_numbers">Nummern-Tasten</string>
-  <string name="extension_kbd_bottom_regular">Normal</string>
-  <string name="extension_kbd_bottom_iphone">iPhone Stil</string>
+  <string name="extension_kbd_bottom_regular_with_voice">Normal</string>
+  <string name="extension_kbd_bottom_regular">Klassisch (keine Mikrofon)</string>
+  <string name="extension_kbd_bottom_iphone">iPhone Stil (ohne Mikrofon)</string>
+  <string name="extension_kbd_bottom_iphone_with_voice">iPhone Stil mit Mikrofon</string>
   <string name="extension_kbd_extension_numbers_symbols">Zahlen und Symbole</string>
   <string name="show_tutorial_on_startup">Zeige diese Einfühung beim Start</string>
   <string name="tutorial_swipe_title">Wischen für Tastaturwechsel</string>
@@ -263,16 +276,15 @@
   <string name="simley_key_name">Smiley-Taste</string>
   <string name="smiley_key_label">:-)</string>
   <string name="smiley_key_default_output">:-)</string>
-  <string name="multitap_timeout_title">Multi-tap timeout</string>
+  <string name="default_quick_text_key_name">Einfache Emoticons</string>
+  <string name="multitap_timeout_title">Multi-Tap-Timeout</string>
   <string name="multitap_timeout_summary">Timeout zwischen den Tippvorgängen</string>
   <string name="settings_multitap_timeout_faster">Schneller</string>
   <string name="settings_multitap_timeout_fast">Schnell</string>
   <string name="settings_multitap_timeout_normal">Normal</string>
   <string name="settings_multitap_timeout_slow">Langsam</string>
   <string name="settings_multitap_timeout_slower">Langsamer</string>
-  <string name="settings_multitap_timeout_never">Niemals</string>
   <string name="long_press_timeout_title">Zeitdauer für langes Drücken</string>
-  <string name="long_press_timeout_summary">Key press time to be considered as long-press</string>
   <string name="settings_long_press_timeout_faster">Schneller</string>
   <string name="settings_long_press_timeout_fast">Schnell</string>
   <string name="settings_long_press_timeout_normal">Normal</string>
@@ -283,6 +295,7 @@
   <string name="workaround_disable_rtl_fix">Deaktivieren der Rechts nach Links Handhabung</string>
   <string name="workaround_disable_rtl_fix_summary_on">Verwende OS RTL Handling (SE-Telefone)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Verwenden Sie AnySoftKeyboard RTL Handling</string>
+  <string name="settings_split_state_merged_always">Normaler Start</string>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Zeige das Layout-Symbol immer</item>
     <item>Nur beim Wechsel des Tastaturlayouts</item>
