@@ -201,5 +201,9 @@
 		<attr name="iconKeyInputClipboardCut" format="reference" />
 		<!-- should support normal, key_type_feedback -->
 		<attr name="iconKeyInputClipboardPaste" format="reference" />
+		<!-- should support normal, key_type_feedback -->
+		<attr name="iconKeyInputMoveEnd" format="reference" />
+		<!-- should support normal, key_type_feedback -->
+		<attr name="iconKeyInputMoveHome" format="reference" />
 	</declare-styleable>
 </resources>

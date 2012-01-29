@@ -29,6 +29,8 @@ public class KeyCodes {
 	public static final int ARROW_RIGHT = -21;
 	public static final int ARROW_UP = -22;
 	public static final int ARROW_DOWN = -23;
+	public static final int MOVE_HOME = -24;
+	public static final int MOVE_END = -25;
 	
 	public static final int SETTINGS = -100;
 	public static final int CLIPBOARD = -12;

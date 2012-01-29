@@ -22,6 +22,8 @@
 	<integer name="key_code_arrow_right">-21</integer>
 	<integer name="key_code_arrow_up">-22</integer>
 	<integer name="key_code_arrow_down">-23</integer>
+	<integer name="key_code_move_home">-24</integer>
+	<integer name="key_code_move_end">-25</integer>
 	
 	<integer name="key_code_settings">-100</integer>
 	<integer name="key_code_clipboard">-12</integer>
