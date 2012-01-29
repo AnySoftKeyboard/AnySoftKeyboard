@@ -25,7 +25,7 @@
     </Row>
     
     <Row android:rowEdgeFlags="bottom">
-        <Key android:codes="42" android:keyLabel="*" android:popupCharacters="/()%," android:keyEdgeFlags="left"/>
+        <Key android:codes="42" android:keyLabel="*" android:popupCharacters="/()%" android:keyEdgeFlags="left"/>
         <Key android:codes="48"/>
         <Key android:codes="46" android:popupCharacters=","/>
         <Key android:codes="10" android:keyEdgeFlags="right" ask:longPressCode="-100"/>
