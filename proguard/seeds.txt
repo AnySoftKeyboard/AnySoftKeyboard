@@ -32,6 +32,8 @@ com.anysoftkeyboard.devicespecific.FactoryView_V8: FactoryView_V8(android.conten
 com.anysoftkeyboard.devicespecific.FactoryView_V7: FactoryView_V7(android.content.Context,android.util.AttributeSet)
 com.anysoftkeyboard.devicespecific.FactoryView_V5: FactoryView_V5(android.content.Context,android.util.AttributeSet)
 com.anysoftkeyboard.devicespecific.FactoryView_V3: FactoryView_V3(android.content.Context,android.util.AttributeSet)
+com.anysoftkeyboard.ui.FixedViewFlipper
+com.anysoftkeyboard.ui.FixedViewFlipper: FixedViewFlipper(android.content.Context,android.util.AttributeSet)
 com.anysoftkeyboard.keyboards.views.AnyKeyboardView
 com.anysoftkeyboard.keyboards.views.AnyKeyboardView: AnyKeyboardView(android.content.Context,android.util.AttributeSet)
 com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView: AnyKeyboardBaseView(android.content.Context,android.util.AttributeSet)
@@ -73,12 +75,15 @@ com.anysoftkeyboard.keyboards.KeyboardSwitcher$NextKeyboardType: com.anysoftkeyb
 com.anysoftkeyboard.keyboards.KeyboardSwitcher$NextKeyboardType: com.anysoftkeyboard.keyboards.KeyboardSwitcher$NextKeyboardType valueOf(java.lang.String)
 com.anysoftkeyboard.api.InfoActivity
 com.anysoftkeyboard.ui.tutorials.BaseTutorialActivity
+com.anysoftkeyboard.ui.tutorials.TipsActivity
 com.anysoftkeyboard.ui.tutorials.ChangeLogActivity
 com.anysoftkeyboard.ui.tutorials.WelcomeHowToNoticeActivity
 com.anysoftkeyboard.ui.tutorials.TestersNoticeActivity
+com.anysoftkeyboard.ui.MainForm
 com.anysoftkeyboard.ui.SendBugReportUiActivity
 com.anysoftkeyboard.voice.VoiceInputNotInstalledActivity
 com.anysoftkeyboard.voice.ActivityHelper
+com.anysoftkeyboard.ui.settings.UserDictionaryEditorActivity
 com.anysoftkeyboard.ui.settings.MainSettings
 com.menny.android.anysoftkeyboard.MainSettings
 com.anysoftkeyboard.ui.settings.Tweaks
@@ -90,7 +95,6 @@ com.anysoftkeyboard.ui.settings.TopRowSelector
 com.anysoftkeyboard.ui.settings.ExtensionKeyboardSelector
 com.anysoftkeyboard.ui.settings.Dictionaries
 com.anysoftkeyboard.ui.settings.Keyboards
-com.anysoftkeyboard.ui.MainForm
 com.menny.android.anysoftkeyboard.AnyApplication
 com.anysoftkeyboard.voice.ServiceHelper
 com.anysoftkeyboard.AnySoftKeyboard
@@ -99,15 +103,21 @@ com.anysoftkeyboard.api.LanguageChangeddBroadcastReceiver
 com.anysoftkeyboard.receivers.AnySoftKeyboardInstalledReceiver
 com.anysoftkeyboard.api.LayoutChangedBroadcastReceiver
 com.anysoftkeyboard.receivers.PackagesChangedReceiver
+com.anysoftkeyboard.receivers.SoundPreferencesChangedReceiver
 com.anysoftkeyboard.backup.AnyBackupAgent
 com.anysoftkeyboard.ui.MySeekBarPreference
 com.anysoftkeyboard.ui.tutorials.BaseTutorialActivity: void onCloseClicked(android.view.View)
 com.anysoftkeyboard.ui.tutorials.BaseTutorialActivity: void onClick(android.view.View)
+com.anysoftkeyboard.ui.tutorials.TipsActivity: void onClick(android.view.View)
+com.anysoftkeyboard.ui.tutorials.BaseTutorialActivity: void onCloseClicked(android.view.View)
+com.anysoftkeyboard.ui.tutorials.BaseTutorialActivity: void onClick(android.view.View)
+com.anysoftkeyboard.ui.tutorials.ChangeLogActivity: void onClick(android.view.View)
+com.anysoftkeyboard.ui.tutorials.BaseTutorialActivity: void onCloseClicked(android.view.View)
+com.anysoftkeyboard.ui.tutorials.BaseTutorialActivity: void onClick(android.view.View)
+com.anysoftkeyboard.ui.tutorials.WelcomeHowToNoticeActivity: void onClick(android.view.View)
 com.anysoftkeyboard.ui.tutorials.BaseTutorialActivity: void onCloseClicked(android.view.View)
 com.anysoftkeyboard.ui.tutorials.BaseTutorialActivity: void onClick(android.view.View)
 com.anysoftkeyboard.ui.tutorials.BaseTutorialActivity: void onCloseClicked(android.view.View)
 com.anysoftkeyboard.ui.tutorials.BaseTutorialActivity: void onClick(android.view.View)
-com.anysoftkeyboard.ui.tutorials.BaseTutorialActivity: void onCloseClicked(android.view.View)
-com.anysoftkeyboard.ui.tutorials.BaseTutorialActivity: void onClick(android.view.View)
-com.anysoftkeyboard.voice.VoiceInputNotInstalledActivity: void onClick(android.view.View)
 com.anysoftkeyboard.ui.MainForm: void onClick(android.view.View)
+com.anysoftkeyboard.voice.VoiceInputNotInstalledActivity: void onClick(android.view.View)

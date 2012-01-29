@@ -10,8 +10,8 @@ com.anysoftkeyboard.AnySoftKeyboard:
     private static final java.lang.String KEYBOARD_NOTIFICATION_ALWAYS
     private static final java.lang.String KEYBOARD_NOTIFICATION_ON_PHYSICAL
     private static final java.lang.String KEYBOARD_NOTIFICATION_NEVER
-    2967:2982:public void appendCharactersToInput(java.lang.CharSequence)
-com.anysoftkeyboard.AnySoftKeyboard$4:
+    2999:3014:public void appendCharactersToInput(java.lang.CharSequence)
+com.anysoftkeyboard.AnySoftKeyboard$3:
     private static final long DOUBLE_TAP_TIMEOUT
 com.anysoftkeyboard.ChewbaccaUncaughtExceptionHandler:
     private static final java.lang.String TAG
@@ -22,9 +22,9 @@ com.anysoftkeyboard.Configuration:
 com.anysoftkeyboard.ConfigurationImpl:
     static final java.lang.String TAG
     private static final java.lang.String CONFIGURATION_VERSION
-    479:479:public int getDeviceOrientation()
-    536:536:public boolean useContactsDictionary()
-    548:548:public boolean drawExtensionKeyboardAboveMainKeyboard()
+    514:514:public int getDeviceOrientation()
+    571:571:public boolean useContactsDictionary()
+    583:583:public boolean drawExtensionKeyboardAboveMainKeyboard()
 com.anysoftkeyboard.WordComposer:
     private static final java.lang.String CHEWBACCAONTHEDRUMS
     52:59:WordComposer(com.anysoftkeyboard.WordComposer)
@@ -72,11 +72,18 @@ com.anysoftkeyboard.backup.AnyBackupAgent:
     static final java.lang.String PREFS_BACKUP_KEY
 com.anysoftkeyboard.devicespecific.AskV8GestureDetector:
     private static final java.lang.String TAG
+com.anysoftkeyboard.devicespecific.Clipboard:
+    public abstract void setText(java.lang.CharSequence)
 com.anysoftkeyboard.devicespecific.DeviceSpecific:
     public abstract java.lang.String getApiLevel()
     public abstract com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel getMultiTouchSupportLevel(android.content.Context)
+com.anysoftkeyboard.devicespecific.FactoryView_V11:
+    48:49:public com.anysoftkeyboard.devicespecific.Clipboard getClipboard(android.content.Context)
+com.anysoftkeyboard.devicespecific.FactoryView_V11$1
 com.anysoftkeyboard.devicespecific.FactoryView_V3$DeviceSpecific_V3:
-    53:53:public com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel getMultiTouchSupportLevel(android.content.Context)
+    55:55:public com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel getMultiTouchSupportLevel(android.content.Context)
+com.anysoftkeyboard.devicespecific.FactoryView_V3$DeviceSpecific_V3$2:
+    89:90:public void setText(java.lang.CharSequence)
 com.anysoftkeyboard.devicespecific.FactoryView_V7$DeviceSpecific_V7:
     36:42:public com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel getMultiTouchSupportLevel(android.content.Context)
 com.anysoftkeyboard.devicespecific.FactoryView_V8$DeviceSpecific_V8:
@@ -130,11 +137,11 @@ com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder:
     46:46:public int getAutoTextResId()
 com.anysoftkeyboard.dictionaries.DictionaryFactory:
     private static final java.lang.String TAG
-    48:48:public synchronized com.anysoftkeyboard.dictionaries.AddableDictionary createContactsDictionary(com.anysoftkeyboard.AnyKeyboardContextProvider)
+    48:48:public synchronized com.anysoftkeyboard.dictionaries.AddableDictionary createContactsDictionary(android.content.Context)
 com.anysoftkeyboard.dictionaries.DictionaryFactoryAPI5:
     private static final java.lang.String TAG
     private com.anysoftkeyboard.dictionaries.AddableDictionary mContactsDictionary
-    16:28:public synchronized com.anysoftkeyboard.dictionaries.AddableDictionary createContactsDictionary(com.anysoftkeyboard.AnyKeyboardContextProvider)
+    15:27:public synchronized com.anysoftkeyboard.dictionaries.AddableDictionary createContactsDictionary(android.content.Context)
 com.anysoftkeyboard.dictionaries.DictionarySQLiteConnection:
     private static final java.lang.String TAG
 com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory:
@@ -148,6 +155,7 @@ com.anysoftkeyboard.dictionaries.FallbackUserDictionary$FallBackSQLite:
     private static final java.lang.String TABLE_NAME
     private static final java.lang.String WORD_COL
     private static final java.lang.String FREQ_COL
+    private static final java.lang.String LOCALE_COL
 com.anysoftkeyboard.dictionaries.ResourceBinaryDictionary:
     protected static final int MAX_WORD_LENGTH
     private static final java.lang.String TAG
@@ -157,13 +165,13 @@ com.anysoftkeyboard.dictionaries.ResourceBinaryDictionary:
     private static final int TYPED_LETTER_MULTIPLIER
     private static final boolean ENABLE_MISSED_CHARACTERS
     private native int getBigramsNative(int,char[],int,int[],int,char[],int[],int,int,int)
-    315:315:public int getSize()
+    322:322:public int getSize()
 com.anysoftkeyboard.dictionaries.SafeUserDictionary:
     private static final java.lang.String TAG
 com.anysoftkeyboard.dictionaries.Suggest:
     private static final java.lang.String TAG
-    134:138:public void setContactsDictionary(com.anysoftkeyboard.dictionaries.Dictionary)
-    155:166:public void setMaxSuggestions(int)
+    136:140:public void setContactsDictionary(com.anysoftkeyboard.dictionaries.Dictionary)
+    157:168:public void setMaxSuggestions(int)
 com.anysoftkeyboard.dictionaries.TextEntryState:
     private static final boolean DBG
     private static final java.lang.String TAG
@@ -174,7 +182,7 @@ com.anysoftkeyboard.dictionaries.UserDictionaryBase:
     private static final char QUOTE
     public static final int MAX_WORD_LENGTH
     protected static final java.lang.String TAG
-    352:353:protected void clearDictionary()
+    364:365:protected void clearDictionary()
 com.anysoftkeyboard.dictionaries.UserDictionaryBase$NodeArray:
     private static final int INCREMENT
 com.anysoftkeyboard.keyboardextensions.KeyboardExtension:
@@ -314,13 +322,13 @@ com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView:
     static final java.lang.String TAG
     public static final int NOT_A_TOUCH_COORDINATE
     public static final int NOT_A_KEY
-    1040:1040:public int getSymbolColorScheme()
-    1067:1067:public boolean isProximityCorrectionEnabled()
-    1909:1912:public boolean isInSlidingKeyInput()
-    1917:1917:public int getPointerCount()
+    1051:1051:public int getSymbolColorScheme()
+    1078:1078:public boolean isProximityCorrectionEnabled()
+    1924:1927:public boolean isInSlidingKeyInput()
+    1932:1932:public int getPointerCount()
 com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView$PointerQueue:
-    392:396:public boolean isInSlidingKeyInput()
-    401:406:public void cancelAllTrackers()
+    391:395:public boolean isInSlidingKeyInput()
+    400:405:public void cancelAllTrackers()
 com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView$UIHandler:
     private static final int MSG_POPUP_PREVIEW
     private static final int MSG_DISMISS_PREVIEW
@@ -329,7 +337,7 @@ com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView$UIHandler:
 com.anysoftkeyboard.keyboards.views.AnyKeyboardView:
     private static final int DELAY_BEFORE_POPING_UP_EXTENSION_KBD
     private static final java.lang.String TAG
-    91:91:protected java.lang.String getKeyboardViewNameForLogging()
+    88:88:protected java.lang.String getKeyboardViewNameForLogging()
 com.anysoftkeyboard.keyboards.views.CandidateView:
     private static final int OUT_OF_BOUNDS_X_COORD
     private static final int MAX_SUGGESTIONS
@@ -383,21 +391,34 @@ com.anysoftkeyboard.theme.KeyboardThemeFactory:
     private static final java.lang.String XML_POPUP_KEYBOARD_THEME_SCREENSHOT_RES_ID_ATTRIBUTE
 com.anysoftkeyboard.ui.MySeekBarPreference:
     private static final java.lang.String androidns
-    79:79:public void setMax(int)
-    80:80:public int getMax()
-    83:86:public void setProgress(int)
-    88:88:public int getProgress()
+    121:121:public void setMax(int)
+    122:122:public int getMax()
+    125:131:public void setProgress(int)
+    133:133:public int getProgress()
 com.anysoftkeyboard.ui.SendBugReportUiActivity:
     public static final java.lang.String CRASH_REPORT_TEXT
     private static final java.lang.String TAG
 com.anysoftkeyboard.ui.settings.AddOnSelector:
     private static final java.lang.String SEARCH_MARKET_PACKS_PREF_KEY
     private static final int DIALOG_NO_EXTERNAL_PACKS_FOR_NOW
+com.anysoftkeyboard.ui.settings.UserDictionaryEditorActivity:
+    private static final java.lang.String INSTANCE_KEY_DIALOG_EDITING_WORD
+    private static final java.lang.String INSTANCE_KEY_ADDED_WORD
+    private static final java.lang.String DELETE_SELECTION
+    private static final java.lang.String EXTRA_WORD
+    private static final int DIALOG_ADD_OR_EDIT
+    private static final java.lang.String TAG
+com.anysoftkeyboard.ui.tutorials.ChangeLogActivity:
+    public static final java.lang.String EXTRA_SHOW_ALL_LOGS
+    private static final java.lang.String TAG
+com.anysoftkeyboard.ui.tutorials.TipsActivity:
+    private static final java.lang.String TAG
+    public static final java.lang.String EXTRA_SHOW_ALL_TIPS
 com.anysoftkeyboard.ui.tutorials.TutorialsProvider:
     private static final java.lang.String TUTORIALS_SP_FILENAME
     private static final java.lang.String ASK_HAS_BEEN_ENABLED_BEFORE
     private static final java.lang.String TAG
-    private static final int TUTORIALS_NOTIFICATION_ID
+    private static final int TUTORIALS_NOTIFICATION_ID_BASE
 com.anysoftkeyboard.utils.IMEUtil:
     38:41:public static void cancelTask(android.os.AsyncTask,boolean)
     82:82:public static boolean hasMultipleEnabledIMEs(android.content.Context)
@@ -450,7 +471,7 @@ com.anysoftkeyboard.voice.ServiceHelper:
     private static final java.lang.String TAG
 com.anysoftkeyboard.voice.VoiceRecognitionTrigger:
     private static final java.lang.String TAG
-    68:69:public void startVoiceRecognition()
+    57:58:public void startVoiceRecognition()
 com.anysoftkeyboard.voice.VoiceRecognitionTriggerV11:
     private static final java.lang.String TAG
 com.menny.android.anysoftkeyboard.AnyApplication:
@@ -521,6 +542,8 @@ com.menny.android.anysoftkeyboard.R$styleable:
     public static final int AnySoftKeyboardKeyIcons_iconKeyInputClipboardCopy
     public static final int AnySoftKeyboardKeyIcons_iconKeyInputClipboardCut
     public static final int AnySoftKeyboardKeyIcons_iconKeyInputClipboardPaste
+    public static final int AnySoftKeyboardKeyIcons_iconKeyInputMoveEnd
+    public static final int AnySoftKeyboardKeyIcons_iconKeyInputMoveHome
     public static final int AnySoftKeyboardKeyIcons_iconKeyInputSelectAll
     public static final int AnySoftKeyboardKeyIcons_iconKeyMic
     public static final int AnySoftKeyboardKeyIcons_iconKeySettings
