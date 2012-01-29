@@ -163,8 +163,15 @@ public class ResourceBinaryDictionary extends Dictionary {
     		
         	for (int i = 0; i < IMEUtil.GCUtils.GC_TRY_LOOP_MAX && tryGC; ++i) {
     			try {
-    				
-    				loadDictionary(mAppContext, resId);
+    				//The try-catch is for issue 878: http://code.google.com/p/softkeyboard/issues/detail?id=878
+    				try
+    				{
+    					loadDictionary(mAppContext, resId);
+    				}
+    				catch(UnsatisfiedLinkError ex)
+    				{
+    					Log.w(TAG, "Failed to load binary JNI connection! Error: "+ex.getMessage());
+    				}
     				
     				tryGC = false;
     			} catch (OutOfMemoryError e) {
