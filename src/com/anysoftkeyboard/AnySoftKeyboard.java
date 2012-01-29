@@ -897,63 +897,28 @@ public class AnySoftKeyboard extends InputMethodService implements
 				 */
 			}
 			break;
+		case KeyEvent.KEYCODE_SPACE:
+			if ((event.isAltPressed() && !Workarounds.isAltSpaceLangSwitchNotPossible()) || event.isShiftPressed()) {
+			    switchToNextPhysicalKeyboard(ic);
+				return true;
+			}
+		case 0x000000cc://API 14: KeyEvent.KEYCODE_LANGUAGE_SWITCH
+			switchToNextPhysicalKeyboard(ic);
+            return true;
 		case KeyEvent.KEYCODE_SHIFT_LEFT:
         case KeyEvent.KEYCODE_SHIFT_RIGHT:
             if (event.isAltPressed() && Workarounds.isAltSpaceLangSwitchNotPossible()) {
-                if(DEBUG)    Log.d(TAG,
-                                "User pressed ALT+SHIFT on motorola milestone, moving to next physical keyboard.");
-                // consuming the meta keys
-                // mHardKeyboardAction.resetMetaState();
-                if (ic != null) {
-                    ic.clearMetaKeyStates(Integer.MAX_VALUE);// translated, so
-                    // we also take
-                    // care of the
-                    // metakeys.
-                }
-                mMetaState = 0;
-                // only physical keyboard
-                nextKeyboard(getCurrentInputEditorInfo(),
-                        NextKeyboardType.AlphabetSupportsPhysical);
+                switchToNextPhysicalKeyboard(ic);
                 return true;
             }
             //NOTE: letting it fallthru to the other meta-keys
 		case KeyEvent.KEYCODE_ALT_LEFT:
 		case KeyEvent.KEYCODE_ALT_RIGHT:
 		case KeyEvent.KEYCODE_SYM:
-			if (DEBUG)
-				Log.d(TAG+"-meta-key",
-						getMetaKeysStates("onKeyDown before handle"));
-			mMetaState = MyMetaKeyKeyListener.handleKeyDown(mMetaState,
-					keyCode, event);
-			if (DEBUG)
-				Log.d(TAG+"-meta-key",
-						getMetaKeysStates("onKeyDown after handle"));
+			if (DEBUG) Log.d(TAG+"-meta-key", getMetaKeysStates("onKeyDown before handle"));
+			mMetaState = MyMetaKeyKeyListener.handleKeyDown(mMetaState, keyCode, event);
+			if (DEBUG) Log.d(TAG+"-meta-key", getMetaKeysStates("onKeyDown after handle"));
 			break;
-		case KeyEvent.KEYCODE_SPACE:
-			if ((event.isAltPressed() && !Workarounds.isAltSpaceLangSwitchNotPossible()) || event.isShiftPressed()) {
-			    if(DEBUG)
-			    	if(event.isAltPressed()){
-				Log.d(TAG,
-								"User pressed ALT+SPACE, moving to next physical keyboard.");
-			    	} else {
-						Log.d(TAG,
-						"User pressed SHIFT+SPACE, moving to next physical keyboard.");
-			    	}
-				// consuming the meta keys
-				// mHardKeyboardAction.resetMetaState();
-				if (ic != null) {
-					ic.clearMetaKeyStates(Integer.MAX_VALUE);// translated, so
-					// we also take
-					// care of the
-					// metakeys.
-				}
-				mMetaState = 0;
-				// only physical keyboard
-				nextKeyboard(getCurrentInputEditorInfo(),
-						NextKeyboardType.AlphabetSupportsPhysical);
-
-				return true;
-			}
 			//NOTE:
 			// letting it fall through to the "default"
 		default:
@@ -1040,6 +1005,20 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+
+	private void switchToNextPhysicalKeyboard(InputConnection ic) {
+		// consuming the meta keys
+		if (ic != null) {
+			ic.clearMetaKeyStates(Integer.MAX_VALUE);// translated, so
+			// we also take
+			// care of the
+			// metakeys.
+		}
+		mMetaState = 0;
+		// only physical keyboard
+		nextKeyboard(getCurrentInputEditorInfo(),
+				NextKeyboardType.AlphabetSupportsPhysical);
 	}
 
 	private void notifyKeyboardChangeIfNeeded() {
@@ -1400,6 +1379,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 			break;
 		case KeyCodes.ARROW_DOWN:
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_DOWN);
+			break;
+		case KeyCodes.MOVE_HOME:
+			sendDownUpKeyEvents(KeyEvent.KEYCODE_MOVE_HOME);
+			break;
+		case KeyCodes.MOVE_END:
+			sendDownUpKeyEvents(KeyEvent.KEYCODE_MOVE_END);
 			break;
 		case KeyCodes.VOICE_INPUT:
 			if (mVoiceRecognitionTrigger != null)

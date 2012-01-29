@@ -144,6 +144,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private Drawable mArrowLeftKeyIcon;
     private Drawable mArrowUpKeyIcon;
     private Drawable mArrowDownKeyIcon;
+
+    private Drawable mMoveHomeKeyIcon;
+    private Drawable mMoveEndKeyIcon;
     
     private float mBackgroundDimAmount;
     private float mKeyHysteresisDistance;
@@ -830,6 +833,14 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 				mArrowUpKeyIcon = a.getDrawable(attr);
 				if (AnyApplication.DEBUG) Log.d(TAG, "AnySoftKeyboardKeyIcons_iconKeyArrowUp "+(mArrowUpKeyIcon!=null));
 				break;
+			case R.styleable.AnySoftKeyboardKeyIcons_iconKeyInputMoveHome:
+				mMoveHomeKeyIcon = a.getDrawable(attr);
+				if (AnyApplication.DEBUG) Log.d(TAG, "AnySoftKeyboardKeyIcons_iconKeyInputMoveHome "+(mMoveHomeKeyIcon!=null));
+				break;
+			case R.styleable.AnySoftKeyboardKeyIcons_iconKeyInputMoveEnd:
+				mMoveEndKeyIcon = a.getDrawable(attr);
+				if (AnyApplication.DEBUG) Log.d(TAG, "AnySoftKeyboardKeyIcons_iconKeyInputMoveEnd "+(mMoveEndKeyIcon!=null));
+				break;
 			case R.styleable.AnySoftKeyboardKeyIcons_iconKeyMic:
 				mMicKeyIcon = a.getDrawable(attr);
 				if (AnyApplication.DEBUG) Log.d(TAG, "AnySoftKeyboardKeyIcons_iconKeyMic "+(mMicKeyIcon!=null));
@@ -1209,6 +1220,35 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             canvas.translate(key.x + kbdPaddingLeft, key.y + kbdPaddingTop);
             keyBackground.draw(canvas);
 
+            if (label == null) {
+            	Drawable iconToDraw = getIconToDrawForKey(key, false);
+	            if (iconToDraw != null/* && shouldDrawIcon*/) {
+	                // Special handing for the upper-right number hint icons
+	                final int drawableWidth;
+	                final int drawableHeight;
+	                final int drawableX;
+	                final int drawableY;
+	                
+	                drawableWidth = iconToDraw.getIntrinsicWidth();
+	                drawableHeight = iconToDraw.getIntrinsicHeight();
+	                drawableX = (key.width + mKeyBackgroundPadding.left - mKeyBackgroundPadding.right - drawableWidth) / 2;
+	                drawableY = (key.height + mKeyBackgroundPadding.top - mKeyBackgroundPadding.bottom - drawableHeight) / 2;
+
+	                canvas.translate(drawableX, drawableY);
+	                iconToDraw.setBounds(0, 0, drawableWidth, drawableHeight);
+	                iconToDraw.draw(canvas);
+	                canvas.translate(-drawableX, -drawableY);
+	            }
+	            else
+	            {
+	            	//ho... no icon.
+	            	//I'll try to guess the text
+	            	key.label = guessLabelForKey(key);
+	            	
+	            	label = key.label == null? null : adjustCase(key.label).toString();
+	            }
+            }
+            
             if (label != null) {
                 // For characters, use large font. For labels like "Done", use small font.
             	final FontMetrics fm;
@@ -1264,27 +1304,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                                 
                 // Turn off drop shadow
                 paint.setShadowLayer(0, 0, 0, 0);
-            }
-            else
-            {
-	            Drawable iconToDraw = getIconToDrawForKey(key, false);
-	            if (iconToDraw != null/* && shouldDrawIcon*/) {
-	                // Special handing for the upper-right number hint icons
-	                final int drawableWidth;
-	                final int drawableHeight;
-	                final int drawableX;
-	                final int drawableY;
-	                
-	                drawableWidth = iconToDraw.getIntrinsicWidth();
-	                drawableHeight = iconToDraw.getIntrinsicHeight();
-	                drawableX = (key.width + mKeyBackgroundPadding.left - mKeyBackgroundPadding.right - drawableWidth) / 2;
-	                drawableY = (key.height + mKeyBackgroundPadding.top - mKeyBackgroundPadding.bottom - drawableHeight) / 2;
-
-	                canvas.translate(drawableX, drawableY);
-	                iconToDraw.setBounds(0, 0, drawableWidth, drawableHeight);
-	                iconToDraw.draw(canvas);
-	                canvas.translate(-drawableX, -drawableY);
-	            }
             }
             //now to draw hints
             if (drawHintText)
@@ -1348,64 +1367,41 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         mDrawPending = false;
         mDirtyRect.setEmpty();
     }
-/*
-	int getTextCanvasHeight(final Paint paint, final int labelSize) {
-		Integer labelHeightValue = mTextHeightCache.get(labelSize);
-		final int labelHeight;
-		if (labelHeightValue != null) {
-		    labelHeight = labelHeightValue;
-		} else {
-		    Rect textBounds = new Rect();
-		    paint.getTextBounds(KEY_LABEL_HEIGHT_REFERENCE_CHAR, 0, 1, textBounds);
-		    labelHeight = textBounds.height();
-		    mTextHeightCache.put(labelSize, labelHeight);
-		}
-		return labelHeight;
+    
+    private CharSequence guessLabelForKey(AnyKey key) {
+    	switch(key.codes[0])
+    	{
+    	case KeyCodes.ENTER:
+    		switch(mKeyboard.getKeyboardActionType())
+    		{
+    		case EditorInfo.IME_ACTION_DONE:
+    			return getContext().getText(R.string.label_done_key);
+    		case EditorInfo.IME_ACTION_GO:
+    			return getContext().getText(R.string.label_go_key);
+    		case EditorInfo.IME_ACTION_NEXT:
+    			return getContext().getText(R.string.label_next_key);
+    		case 0x00000007://API 11: EditorInfo.IME_ACTION_PREVIOUS:
+    			return getContext().getText(R.string.label_previous_key);
+    		case EditorInfo.IME_ACTION_SEARCH:
+    			return getContext().getText(R.string.label_search_key);
+    		case EditorInfo.IME_ACTION_SEND:
+    			return getContext().getText(R.string.label_send_key);
+    		default:
+    			return "";
+    		}
+    	case KeyCodes.MODE_ALPHABET:
+    		return getContext().getText(R.string.change_lang_regular);
+		case KeyCodes.TAB:
+			return getContext().getText(R.string.label_tab_key);
+    	case KeyCodes.MOVE_HOME:
+    		return getContext().getText(R.string.label_home_key);
+    	case KeyCodes.MOVE_END:
+    		return getContext().getText(R.string.label_end_key);
+    	default:
+			return null;
+    	} 
 	}
-	
-	int getHintTextCanvasHeight(final Paint paint, final int labelSize) {
-		Integer labelHeightValue = mHintTextHeightCache.get(labelSize);
-		final int labelHeight;
-		if (labelHeightValue != null) {
-		    labelHeight = labelHeightValue;
-		} else {
-		    Rect textBounds = new Rect();
-		    paint.getTextBounds(KEY_LABEL_HEIGHT_REFERENCE_CHAR, 0, 1, textBounds);
-		    labelHeight = textBounds.height();
-		    mHintTextHeightCache.put(labelSize, labelHeight);
-		}
-		return labelHeight;
-	}
-
-	int getHintTextCanvasWidth(final Paint paint, final int labelSize) {
-		Integer labelWidthValue = mHintTextWidthCache.get(labelSize);
-		final int labelWidth;
-		if (labelWidthValue != null) {
-		    labelWidth = labelWidthValue;
-		} else {
-		    Rect textBounds = new Rect();
-		    paint.getTextBounds(KEY_LABEL_HEIGHT_REFERENCE_CHAR, 0, 1, textBounds);
-		    labelWidth = textBounds.width();
-		    mHintTextWidthCache.put(labelSize, labelWidth);
-		}
-		return labelWidth;
-	}
-	*/
-/*
-	int getTextCanvasWidth(final Paint paint, final int labelSize) {
-		Integer labelWidthValue = mTextWidthCache.get(labelSize);
-		final int labelWidth;
-		if (labelWidthValue != null) {
-		    labelWidth = labelWidthValue;
-		} else {
-		    Rect textBounds = new Rect();
-		    paint.getTextBounds(KEY_LABEL_HEIGHT_REFERENCE_CHAR, 0, 1, textBounds);
-		    labelWidth = textBounds.height();
-		    mTextWidthCache.put(labelSize, labelWidth);
-		}
-		return labelWidth;
-	}
-*/
+    
     private Drawable getIconToDrawForKey(Key key, boolean feedback) {
     	if (feedback && key.iconPreview != null)
     		return key.iconPreview;
@@ -1468,6 +1464,10 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     		return mArrowRightKeyIcon;
     	case KeyCodes.ARROW_UP:
     		return mArrowUpKeyIcon;
+    	case KeyCodes.MOVE_HOME:
+    		return mMoveHomeKeyIcon;
+    	case KeyCodes.MOVE_END:
+    		return mMoveEndKeyIcon;
     	case KeyCodes.VOICE_INPUT:
     		return mMicKeyIcon;
     	case KeyCodes.SETTINGS:

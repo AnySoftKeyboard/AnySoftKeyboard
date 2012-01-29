@@ -400,8 +400,14 @@
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Go</string>
     <string name="label_next_key">Next</string>
+    <string name="label_previous_key">Prev.</string>
     <string name="label_send_key">Send</string>
+    <string name="label_search_key">Search</string>
     <string name="label_done_key">Done</string>
+    
+    <string name="label_tab_key">Tab</string>
+    <string name="label_home_key">Home</string>
+    <string name="label_end_key">End</string>
     
     <string name="change_lang_wide">&#8594; ABC &#8594;</string>
     <string name="change_lang_regular">ABC</string>

@@ -23,8 +23,10 @@
     android:keyWidth="15%p"
     android:keyHeight="@integer/key_normal_height">
     <Row android:rowEdgeFlags="top">
-        <Key android:horizontalGap="15%p" android:isRepeatable="true" android:codes="@integer/key_code_arrow_up"/>
-        <Key android:horizontalGap="15%p" android:keyWidth="10%p" android:codes="@integer/key_code_voice_input"/>
+    	<Key android:codes="@integer/key_code_move_home"/>
+        <Key android:isRepeatable="true" android:codes="@integer/key_code_arrow_up"/>
+        <Key android:codes="@integer/key_code_move_end"/>
+        <Key android:keyWidth="10%p" android:codes="@integer/key_code_voice_input"/>
         <Key android:horizontalGap="2.5%p" android:keyWidth="10%p" android:codes="@integer/key_code_settings" android:keyEdgeFlags="right"/>
     </Row>
     <Row android:rowEdgeFlags="bottom">
