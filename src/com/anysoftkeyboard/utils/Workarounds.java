@@ -27,7 +27,7 @@ public class Workarounds
 			if (sdkInt != null)
 			{
 				//NOTE: I can not use the field here, since this code MAY run in cupcake, and therefore
-				//fail in JIT compile. I need to perform this function with reflection...
+				//fail in JIT compile. I need to perform this function using reflection...
 				sdkVersion = sdkInt.getInt(null);
 			}
 		}

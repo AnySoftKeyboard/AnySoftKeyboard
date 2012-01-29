@@ -1381,10 +1381,61 @@ public class AnySoftKeyboard extends InputMethodService implements
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_DOWN);
 			break;
 		case KeyCodes.MOVE_HOME:
-			sendDownUpKeyEvents(KeyEvent.KEYCODE_MOVE_HOME);
+			if (Workarounds.getApiLevel() >= 11)
+			{
+				sendDownUpKeyEvents(0x0000007a/*API 11: KeyEvent.KEYCODE_MOVE_HOME*/);
+			}
+			else
+			{
+				if (ic != null)
+				{
+					CharSequence textBefore = ic.getTextBeforeCursor(1024, 0);
+					if (!TextUtils.isEmpty(textBefore))
+					{
+						int newPosition = textBefore.length()-1;
+						while(newPosition > 0)
+						{
+							char chatAt = textBefore.charAt(newPosition-1);
+							if (chatAt == '\n' || chatAt == '\r')
+							{
+								break;
+							}
+							newPosition--;
+						}
+						if (newPosition < 0) newPosition = 0;
+						ic.setSelection(newPosition, newPosition);
+					}
+				}
+			}
 			break;
 		case KeyCodes.MOVE_END:
-			sendDownUpKeyEvents(KeyEvent.KEYCODE_MOVE_END);
+			if (Workarounds.getApiLevel() >= 11)
+			{
+				sendDownUpKeyEvents(0x0000007b/*API 11: KeyEvent.KEYCODE_MOVE_END*/);
+			}
+			else
+			{
+				if (ic != null)
+				{
+					CharSequence textAfter = ic.getTextAfterCursor(1024, 0);
+					if (!TextUtils.isEmpty(textAfter))
+					{
+						int newPosition = 1;
+						while(newPosition < textAfter.length())
+						{
+							char chatAt = textAfter.charAt(newPosition);
+							if (chatAt == '\n' || chatAt == '\r')
+							{
+								break;
+							}
+							newPosition++;
+						}
+						if (newPosition > textAfter.length()) newPosition = textAfter.length();
+						CharSequence textBefore = ic.getTextBeforeCursor(Integer.MAX_VALUE, 0);
+						ic.setSelection(newPosition + textBefore.length(), newPosition + textBefore.length());
+					}
+				}
+			}
 			break;
 		case KeyCodes.VOICE_INPUT:
 			if (mVoiceRecognitionTrigger != null)
