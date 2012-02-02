@@ -2,6 +2,7 @@ package com.anysoftkeyboard.ui.tutorials;
 
 import java.util.ArrayList;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -64,26 +65,8 @@ public class TipsActivity extends BaseTutorialActivity implements OnCheckedChang
 		
 		//looking for tips to show
 		final boolean showAllTips = getIntent().getBooleanExtra(EXTRA_SHOW_ALL_TIPS, false);
-		boolean haveMore = true;
 		mLayoutsToShow.clear();
-		Resources res = getResources();
-		int currentTipLoadingIndex = 1;
-		while(haveMore)
-		{
-			final String layoutResourceName = "tip_layout_"+currentTipLoadingIndex;
-			Log.d(TAG, "Looking for tip "+layoutResourceName);
-			final int resId = res.getIdentifier(layoutResourceName, "layout", getPackageName());
-			haveMore = (resId != 0);
-			if (resId != 0)
-			{
-				if (showAllTips || !mAppPrefs.getBoolean(layoutResourceName, false))
-				{
-					Log.d(TAG, "Got a tip #"+currentTipLoadingIndex+" which is "+layoutResourceName);
-					mLayoutsToShow.add(new Integer(resId));
-				}
-			}
-			currentTipLoadingIndex++;
-		}
+		getTipsLayouts(getApplicationContext(), showAllTips, mLayoutsToShow, mAppPrefs);
 		
 		if (mLayoutsToShow.size() == 0)
 		{
@@ -92,6 +75,28 @@ public class TipsActivity extends BaseTutorialActivity implements OnCheckedChang
 		else
 		{
 			showTip();
+		}
+	}
+
+	public static void getTipsLayouts(Context appContext, final boolean showAllTips, ArrayList<Integer> layoutsToShow, SharedPreferences appPrefs) {
+		Resources res = appContext.getResources();
+		int currentTipLoadingIndex = 1;
+		boolean haveMore = true;
+		while(haveMore)
+		{
+			final String layoutResourceName = "tip_layout_"+currentTipLoadingIndex;
+			Log.d(TAG, "Looking for tip "+layoutResourceName);
+			final int resId = res.getIdentifier(layoutResourceName, "layout", appContext.getPackageName());
+			haveMore = (resId != 0);
+			if (resId != 0)
+			{
+				if (showAllTips || !appPrefs.getBoolean(layoutResourceName, false))
+				{
+					Log.d(TAG, "Got a tip #"+currentTipLoadingIndex+" which is "+layoutResourceName);
+					layoutsToShow.add(new Integer(resId));
+				}
+			}
+			currentTipLoadingIndex++;
 		}
 	}
 

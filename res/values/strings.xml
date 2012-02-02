@@ -4,6 +4,7 @@
     <string name="ime_name">AnySoftKeyboard</string>
     
     <!-- tips -->
+    <string name="tips_notification_text">Click for tips!</string>
     <string name="tips_button">AnySoftKeyboard tips</string>
     <string name="tips_button_description">Clicks for tips about AnySoftKeyboard</string>
     <string name="tips_title">AnySoftKeyboard tips</string>

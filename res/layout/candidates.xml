@@ -49,5 +49,17 @@
     	android:visibility="gone"
     	android:background="@android:color/transparent"
     	android:text="@string/hint_double_tap_to_close"/>
-    	
+
+    <TextView android:id="@+id/tips_notification_on_candidates"
+        android:visibility="gone"
+        style="@android:style/TextAppearance.Small.Inverse"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+	    android:text="@string/tips_notification_text"
+	    android:layout_alignParentRight="true"
+    	android:layout_centerVertical="true"
+    	android:layout_width="wrap_content" android:layout_height="wrap_content"
+	    android:background="@drawable/tips_notification_background"
+	    android:layout_margin="@dimen/key_corner_radius"
+	    android:padding="@dimen/key_corner_radius"/>
 </RelativeLayout>

@@ -438,10 +438,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 					}
 					else
 					{
-					//	Toast.makeText(getApplicationContext(), "Press close icon again to dismiss suggestions", Toast.LENGTH_SHORT).show();
-					/*	List<CharSequence> l = new ArrayList<CharSequence>();
-						l.add(mHintText);
-						mCandidateView.setSuggestions(l, false, false, false);*/
 						mCandidateView.setSuggestions(null, false, false, false);
 						if (mCandidateCloseText != null) mCandidateCloseText.setVisibility(View.VISIBLE);
 						postUpdateSuggestions(DOUBLE_TAP_TIMEOUT - 50);
@@ -450,6 +446,26 @@ public class AnySoftKeyboard extends InputMethodService implements
 				}
 			});
 		}
+		
+
+		
+		if (!mTipsCalled && TutorialsProvider.shouldShowTips(getApplicationContext()))
+		{
+			View tipsNotification = candidateViewContainer.findViewById(R.id.tips_notification_on_candidates);
+			if (tipsNotification != null)
+			{
+				tipsNotification.setVisibility(View.VISIBLE);
+				tipsNotification.setOnClickListener(new OnClickListener() {
+					
+					public void onClick(View v) {
+						v.setVisibility(View.GONE);
+						mTipsCalled = true;
+						TutorialsProvider.showTips(getApplicationContext());
+					}
+				});
+			}
+		}
+		
 		return candidateViewContainer;
 	}
 	
@@ -600,10 +616,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 		if (TRACE_SDCARD)
 			Debug.startMethodTracing("anysoftkeyboard_log.trace");
-		
-		if (!mTipsCalled)
-			TutorialsProvider.showTips(getApplicationContext());
-		mTipsCalled = true;
 	}
 
 	@Override

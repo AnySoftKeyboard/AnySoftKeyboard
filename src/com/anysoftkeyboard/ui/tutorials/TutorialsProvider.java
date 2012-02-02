@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.ui.tutorials;
 
+import java.util.ArrayList;
+
 import com.anysoftkeyboard.ui.settings.MainSettings;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -13,6 +15,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.preference.PreferenceManager;
 import android.provider.Settings.Secure;
 import android.text.TextUtils;
 import android.util.Log;
@@ -192,6 +195,13 @@ public class TutorialsProvider
         // notifying
         //need different id for each notification, so we can cancel easily
         mngr.notify(notificationData.NotificationID, notification);
+	}
+
+	public static boolean shouldShowTips(Context applicationContext) {
+		ArrayList<Integer> layoutsToShow = new ArrayList<Integer>();
+		SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(applicationContext);
+		TipsActivity.getTipsLayouts(applicationContext, false, layoutsToShow , appPrefs);
+		return layoutsToShow.size() > 0;
 	}
 
 }
