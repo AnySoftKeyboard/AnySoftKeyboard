@@ -4,6 +4,8 @@
     <string name="ime_name">AnySoftKeyboard</string>
     
     <!-- tips -->
+    <string name="tips_button">AnySoftKeyboard tips</string>
+    <string name="tips_button_description">Clicks for tips about AnySoftKeyboard</string>
     <string name="tips_title">AnySoftKeyboard tips</string>
     <!-- tip 1 -->
     <string name="tip_1_welcome_to_ask">Welcome to AnySoftKeyboard!</string>
@@ -100,7 +102,7 @@
     <string name="menu_insert_smiley">Insert emoticon</string>
     
     <string name="click_for_help">Help</string>
-    <string name="click_for_help_summary">Press for on-line help</string>
+    <string name="click_for_help_summary">Press for additional help</string>
     
     
     <!-- settings - UI -->

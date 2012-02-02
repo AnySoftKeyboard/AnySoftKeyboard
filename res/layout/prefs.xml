@@ -12,10 +12,23 @@ android:key="ime_settings">
 	android:persistent="false"
 	android:title="@string/license_title"
 	android:summary="@string/license_text"/>
-	<Preference android:key="prefs_help_key" android:selectable="true" android:enabled="true"
-	android:persistent="false"
+	<Preference
 	android:title="@string/click_for_help"
 	android:summary="@string/click_for_help_summary">
+		<intent
+		        android:action="android.intent.action.MAIN"
+		        android:targetPackage="com.menny.android.anysoftkeyboard"
+		        android:targetClass="com.anysoftkeyboard.ui.MainForm" />
+	</Preference>
+	<Preference
+	android:title="@string/tips_button"
+	android:summary="@string/tips_button_description">
+		<intent
+		        android:action="android.intent.action.MAIN"
+		        android:targetPackage="com.menny.android.anysoftkeyboard"
+		        android:targetClass="com.anysoftkeyboard.ui.tutorials.TipsActivity">
+		        <extra android:name="EXTRA_SHOW_ALL_TIPS" android:value="true" />
+		</intent>
 	</Preference>
 	<PreferenceCategory android:key="languages_cat"
 		android:title="@string/languages_cat">
