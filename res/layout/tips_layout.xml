@@ -16,7 +16,7 @@
 	</ScrollView>
 	<LinearLayout android:id="@+id/buttons_layout" android:layout_width="fill_parent"
 	    android:layout_height="wrap_content" android:padding="4dp"
-	    android:orientation="horizontal" android:weightSum="2" android:background="#555">
+	    android:orientation="horizontal" android:weightSum="2" android:background="@drawable/tips_bottom_background">
 	    <ImageButton android:id="@+id/previous_tip_button"
 			android:layout_height="wrap_content" android:layout_width="wrap_content" android:padding="8dp"
 			android:gravity="center" android:src="@android:drawable/ic_media_previous" android:scaleType="centerInside"/>

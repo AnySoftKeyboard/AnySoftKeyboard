@@ -29,7 +29,7 @@
 	</ScrollView>
 	<LinearLayout android:id="@+id/close_button_layout" android:layout_width="fill_parent"
 	    android:layout_height="wrap_content" android:padding="4dp"
-	    android:orientation="horizontal" android:weightSum="2" android:background="#555">
+	    android:orientation="horizontal" android:weightSum="2" android:background="@drawable/tips_bottom_background">
 	    <Button android:id="@+id/close_button"
 			android:layout_height="wrap_content" android:layout_width="0px" android:layout_weight="1" android:padding="8dp"
 			android:gravity="center" android:layout_gravity="center" android:text="@string/close_button"/>
