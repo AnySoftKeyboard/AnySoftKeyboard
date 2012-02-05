@@ -197,6 +197,18 @@ public class ConfigurationImpl implements Configuration
 			e.putInt(CONFIGURATION_VERSION, 3);
 			e.commit();
 		}
+		
+		if (configurationVersion < 4)
+		{
+			Editor e = sp.edit();
+			if (AnyApplication.DEBUG)Log.d(TAG, "Reseting key landscape fullscreen...");
+			//this is done since some people have phones (which are full-screen ON) and tablets (which are full-screen OFF),
+			//and the settings get overriden by BackupAgent
+			e.putBoolean(mContext.getString(R.string.settings_key_landscape_fullscreen), mContext.getResources().getBoolean(R.bool.settings_default_landscape_fullscreen));
+			//saving config level
+			e.putInt(CONFIGURATION_VERSION, 4);
+			e.commit();
+		}
 	}
 	
 	public void handleConfigurationChange(SharedPreferences sp)

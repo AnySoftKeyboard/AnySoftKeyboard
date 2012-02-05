@@ -19,7 +19,7 @@ public interface DeviceSpecific {
 	
 	public GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener);
 
-	public CloudBackupRequester createCloudBackupRequester(String packageName);
+	public CloudBackupRequester createCloudBackupRequester(Context appContext);
 
 	public DictionaryFactory createDictionaryFactory();
 

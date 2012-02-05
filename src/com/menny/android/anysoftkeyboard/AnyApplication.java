@@ -49,7 +49,7 @@ public class AnyApplication extends Application {
         msDeviceSpecific = factory.createDeviceSpecific();
         factory = null;//GC! Please clean this view!
         
-        msCloudBackuper = msDeviceSpecific.createCloudBackupRequester(getPackageName());
+        msCloudBackuper = msDeviceSpecific.createCloudBackupRequester(getApplicationContext());
 		
 		TutorialsProvider.showDragonsIfNeeded(getApplicationContext());
 		TutorialsProvider.showHowToActivateIfNeeded(getApplicationContext());

@@ -304,8 +304,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		
 		mOrientation = getResources().getConfiguration().orientation;
 
-		SharedPreferences sp = PreferenceManager
-				.getDefaultSharedPreferences(this);
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 		sp.registerOnSharedPreferenceChangeListener(this);
 		
 		mSentenceSeparators = getCurrentKeyboard().getSentenceSeparators();

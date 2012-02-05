@@ -74,8 +74,8 @@ class FactoryView_V8 extends FactoryView_V7 {
 		}
 		
 		@Override
-		public CloudBackupRequester createCloudBackupRequester(String packageName) {
-			return new CloudBackupRequesterApi8(packageName);
+		public CloudBackupRequester createCloudBackupRequester(Context appContext) {
+			return new CloudBackupRequesterApi8(appContext);
 		}
 		
 		@Override

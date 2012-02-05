@@ -60,7 +60,7 @@ class FactoryView_V3 extends FactoryViewBase {
 			return new GestureDetector(appContext, listener, null);
 		}
 		
-		public CloudBackupRequester createCloudBackupRequester(String packageName) {
+		public CloudBackupRequester createCloudBackupRequester(Context appContext) {
 			return null;
 		}
 		
