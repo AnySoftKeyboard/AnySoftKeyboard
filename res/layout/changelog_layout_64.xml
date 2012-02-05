@@ -15,7 +15,7 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:tag="20120124-friendly-chamaeleon"
+    	android:tag="20120205-friendly-chamaeleon"
         android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
 	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
 	    android:text="* UX changes, e.g., tips, new user activation guide, etc.\n* User dictionary editor (accessible next to User Dictionary settings).\n* Several crashes fix (User dictionay, Long-press smiley).\n* Translations: CA, DE, EL, FR, HU, IT, PT, RU.\n* Other bug fixes." style="@android:style/TextAppearance.Small"/>
