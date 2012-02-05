@@ -22,6 +22,8 @@
      
     <string name="settings_key_show_version_notification">settings_key_show_version_notification</string>
     
+    <string name="settings_key_show_tips_notification">settings_key_show_tips_notification</string>
+    
     <string name="settings_key_use_16_keys_symbols_keyboards">settings_key_use_16_keys_symbols_keyboards</string>
     
     <string name="settings_key_landscape_fullscreen">settings_key_landscape_fullscreen</string>

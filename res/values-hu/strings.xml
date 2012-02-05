@@ -311,8 +311,13 @@
   <string name="tutorial_swipe_text">Lehet gesztussokkal is billentyűzet kiosztást váltani. Húzd az ujjad  balról jobbra az elrendezés váltásához, vagy jobbról balra a szimbólumokhoz.</string>
   <string name="label_go_key">Menj</string>
   <string name="label_next_key">Köv.</string>
+  <string name="label_previous_key">Előző</string>
   <string name="label_send_key">Küld</string>
+  <string name="label_search_key">Keres</string>
   <string name="label_done_key">Kész</string>
+  <string name="label_tab_key">Tab</string>
+  <string name="label_home_key">Home</string>
+  <string name="label_end_key">End</string>
   <string name="change_lang_wide">→ ABC →</string>
   <string name="change_lang_regular">ABC</string>
   <string name="change_symbols_wide">← 123 ←</string>

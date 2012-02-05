@@ -5,6 +5,9 @@
   <string name="tips_title">Suggerimenti AnySoftKeyboard</string>
   <string name="tip_1_welcome_to_ask">Benvenuti in AnySoftKeyboard!</string>
   <string name="tip_2_gestures">Supportiamo le gesture!</string>
+  <string name="tip_3_hidden_kbds">Gemme nascoste</string>
+  <string name="tip_5_key_feedback">Feedback</string>
+  <string name="tip_5_key_feedback_test">Vuoi testare il feedback?</string>
   <string name="main_tab_welcome">Benvenuti</string>
   <string name="main_tab_links">Collegamenti</string>
   <string name="main_tab_credits">Crediti</string>
@@ -21,6 +24,8 @@
   <string name="main_tab_credits_additional_work_by">Ulteriori lavori di codifica di:</string>
   <string name="main_tab_credits_localization_by">Attività di localizzazione di:</string>
   <string name="main_tab_credits_GUI_by">Immagini dell\' interfaccia utente:</string>
+  <string name="how_to_simple_howto_enable_ask_button">Attiva AnySoftKeyboard</string>
+  <string name="how_to_simple_howto_switch_to_ask_button_after_step_1">Passa a AnySoftKeyboard</string>
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
   <string name="notification_text_testers">Questa è una versione beta. Utilizzare con cautela!</string>
   <string name="notification_text_changelog">Clicca per vedere le novità.</string>
@@ -114,6 +119,7 @@
   <string name="swipe_action_name_other_keyboards_mode">Scambia modalità layout</string>
   <string name="swipe_action_name_split_layout">Dividi layout</string>
   <string name="swipe_action_name_merge_layout">Unisci layout</string>
+  <string name="swipe_action_name_utility_keyboard">Mostra utility tastiera</string>
   <string name="settings_swipe_velocity_threshold_title">Soglia velocità swipe</string>
   <string name="settings_swipe_velocity_threshold_summary">La velocità minima della gesture swipe</string>
   <string name="settings_swipe_velocity_very_slow">Molto lento</string>
@@ -145,6 +151,7 @@
   <string name="use_contacts_dictionary_not_supported_summary">Non supportata dalla versione dell\' OS. Ci spiace.</string>
   <string name="tweaks_group">Tweaks</string>
   <string name="tweak_ui_group">Ritocchi grafici</string>
+  <string name="tweak_dictionary_group">Tweaks dizionario</string>
   <string name="show_hint_text">Mostra testo suggerimento</string>
   <string name="is_sticky_extesion_keyboard_on_summary">Rimani visibile fino alla chiusura esplicita</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Si chiude dopo la pressione di un tasto</string>
@@ -239,8 +246,13 @@
   <string name="tutorial_swipe_text">Il layout della tastiera può essere cambiato facendo scorrere il dito sulla tastiera. Swipe da sinistra a destra per cambiare lingua, swipe da destra a sinistra per cambiarla in simboli.</string>
   <string name="label_go_key">Vai</string>
   <string name="label_next_key">Successiva</string>
+  <string name="label_previous_key">Prec.</string>
   <string name="label_send_key">Invia</string>
+  <string name="label_search_key">Cerca</string>
   <string name="label_done_key">Fatto</string>
+  <string name="label_tab_key">Scheda</string>
+  <string name="label_home_key">Home</string>
+  <string name="label_end_key">Fine</string>
   <string name="change_lang_wide">→ ABC →</string>
   <string name="change_lang_regular">ABC</string>
   <string name="change_symbols_wide">← 123 ←</string>
@@ -256,6 +268,7 @@
   <string name="smiley_key_default_output">:-) </string>
   <string name="default_quick_text_key_name">Simple Emoticon</string>
   <string name="multitap_timeout_title">Timeout multi-tap</string>
+  <string name="settings_multitap_timeout_disabled">Disattivato</string>
   <string name="settings_multitap_timeout_faster">Più veloce</string>
   <string name="settings_multitap_timeout_fast">Veloce</string>
   <string name="settings_multitap_timeout_normal">Normale</string>
@@ -272,6 +285,17 @@
   <string name="workaround_disable_rtl_fix_summary_off">Usa gestione RTL AnySoftKeyboard</string>
   <string name="settings_split_state_split_in_landscape">Avvia divisione in landscape</string>
   <string name="settings_split_state_split_always">Avvia divisione</string>
+  <string name="user_dictionary_select_locale">Lingua:</string>
+  <string name="user_dictionary_read_please_wait">Lettura parole...</string>
+  <string name="user_dict_settings_titlebar">Dizionario utente</string>
+  <string name="user_dict_editor">Editor parole</string>
+  <string name="user_dict_settings_title">Dizionario utente</string>
+  <string name="user_dict_settings_add_menu_title">Aggiungi</string>
+  <string name="user_dict_settings_add_dialog_title">Aggiungi al dizionario</string>
+  <string name="user_dict_settings_edit_dialog_title">Modifica parola</string>
+  <string name="user_dict_settings_context_menu_edit_title">Modifica</string>
+  <string name="user_dict_settings_context_menu_delete_title">Cancella</string>
+  <string name="fast_scroll_alphabet"> ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Mostra sempre l\' icona layout</item>
     <item>Su cambiamento di tastiera fisica</item>

@@ -449,7 +449,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		
 
 		
-		if (!mTipsCalled && TutorialsProvider.shouldShowTips(getApplicationContext()))
+		if (!mTipsCalled && mConfig.getShowTipsNotification() && TutorialsProvider.shouldShowTips(getApplicationContext()))
 		{
 			View tipsNotification = candidateViewContainer.findViewById(R.id.tips_notification_on_candidates);
 			if (tipsNotification != null)

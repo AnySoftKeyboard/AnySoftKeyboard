@@ -12,12 +12,14 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.anysoftkeyboard.ui.settings.BottomRowSelector;
 import com.anysoftkeyboard.ui.settings.TopRowSelector;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 public class TipsActivity extends BaseTutorialActivity implements OnCheckedChangeListener {
@@ -51,6 +53,15 @@ public class TipsActivity extends BaseTutorialActivity implements OnCheckedChang
 		mTipContainer = (ViewGroup)findViewById(R.id.tips_layout_container);
 		
 		mAppPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		
+		final CheckBox showNotifications = (CheckBox)findViewById(R.id.show_tips_next_time);
+		showNotifications.setChecked(AnyApplication.getConfig().getShowTipsNotification());
+		
+		showNotifications.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				AnyApplication.getConfig().setShowTipsNotification(!AnyApplication.getConfig().getShowTipsNotification());
+			}
+		});
 	}
 	
 	@Override

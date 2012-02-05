@@ -18,9 +18,12 @@
   <string name="main_tab_credits_additional_work_by">מתכנתים נוספים:</string>
   <string name="main_tab_credits_localization_by">תרגום:</string>
   <string name="main_tab_credits_GUI_by">גרפיקה:</string>
+  <string name="ime_name_beta">AnySoftKeyboard ביתא</string>
+  <string name="notification_text_testers">זוהי גירסת ביתא. השתמש בזהירות!</string>
   <string name="notification_text_changelog">לחץ כדי ללמוד מה חדש.</string>
   <string name="notification_title_how_to_enable">ברוכים הבאים ל-AnySoftKeyboard</string>
   <string name="notification_text_how_to_enable">למד כיצד להפוך לזמין</string>
+  <string name="testers_version">גירסת בדיקה!</string>
   <string name="license_title">רשיון</string>
   <string name="languages_cat">שפות</string>
   <string name="about">אודות</string>
@@ -32,6 +35,7 @@
   <string name="close_button">סגור</string>
   <string name="how_to_active_text">כיצד להפעיל את AnySoftKeyboard</string>
   <string name="hint_add_to_dictionary">לחץ שוב לשמירה \u2190</string>
+  <string name="hint_double_tap_to_close">לחץ שוב על מנת לסגור</string>
   <string name="menu_insert_smiley">הכנס סמיילי</string>
   <string name="click_for_help">עזרה</string>
   <string name="click_for_help_summary">לחץ לקבלת עזרה באינטרנט</string>
@@ -41,6 +45,9 @@
   <string name="physical_keyboard_change_notification_dialog_title">בחר את סוג ההתראה</string>
   <string name="lengthy_operations_toast_notification">התראה על פעולות ממושכות</string>
   <string name="lengthy_operations_toast_notification_summary">הראה הודעה בביצוע פעולות ארוכות</string>
+  <string name="voice_input_not_support_in_this_os_version">﻿קלט קול נתמך ב- 2.2 אנדרואיד +</string>
+  <string name="voice_input_not_installed_title">﻿קלט קול אינו מותקן</string>
+  <string name="voice_input_not_installed_text">יש להתקין את תוסף זיהוי הקול של גוגל לפני השימוש במיקרופון.</string>
   <string name="voice_input_not_installed_action_install">התקן</string>
   <string name="voice_input_not_installed_action_do_not_install">אל תתקין</string>
   <string name="change_ime">החלף IME</string>
@@ -78,6 +85,7 @@
   <string name="swipe_up_action">החלקה מעלה</string>
   <string name="swipe_up_action_summary">הגדר פעולה בהחלקה מעלה</string>
   <string name="swipe_up_action_title">בחר פעולה</string>
+  <string name="swipe_up_from_spacebar_action">החלק ממקש הרווח כלפי מעלה</string>
   <string name="swipe_down_action">החלקה מטה</string>
   <string name="swipe_down_action_summary">הגדר פעולה בהחלקה מטה</string>
   <string name="swipe_down_action_title">בחר פעולה</string>
@@ -87,6 +95,10 @@
   <string name="swipe_right_action">החלקה ימינה</string>
   <string name="swipe_right_action_summary">הגדר פעולה בהחלקה ימינה</string>
   <string name="swipe_right_action_title">בחר פעולה</string>
+  <string name="pinch_gesture_action">מחוות צביטה</string>
+  <string name="pinch_gesture_action_title">בחר פעולה למחוות צביטה</string>
+  <string name="separate_gesture_action">מחוות הפרדה</string>
+  <string name="separate_gesture_action_title">בחר פעולה למחוות הפרדה</string>
   <string name="swipe_action_name_none">ללא פעולה</string>
   <string name="swipe_action_name_next_alphabet">מקלדת אלפבית הבאה</string>
   <string name="swipe_action_name_next_symbols">מקלדת סימנים הבאה</string>
@@ -99,6 +111,8 @@
   <string name="swipe_action_name_cursor_down">הזזת הסמן מטה</string>
   <string name="swipe_action_name_cursor_left">הזזת הסמן שמאלה</string>
   <string name="swipe_action_name_cursor_right">הזזת הסמן ימינה</string>
+  <string name="swipe_action_name_split_layout">פצל מקלדת</string>
+  <string name="swipe_action_name_merge_layout">אחד מקלדת</string>
   <string name="settings_swipe_velocity_very_slow">איטי מאוד</string>
   <string name="settings_swipe_velocity_slow">איטי</string>
   <string name="settings_swipe_velocity_normal">רגיל</string>
@@ -174,6 +188,7 @@
   <string name="auto_dict">מילון אוטומטי</string>
   <string name="auto_dict_summary">הוספת מילים נפוצות או נבחרות למילון אוטומטית</string>
   <string name="no_extrenal_packs_support_title">לא נתמך</string>
+  <string name="no_extrenal_packs_support_message">אין אפשרות להשתמש בחבילות חיצוניות ברגע זה.</string>
   <string name="keyboards_group">מקלדות</string>
   <string name="symbols_keyboard">סימנים</string>
   <string name="eng_keyboard">אנגלית</string>
@@ -183,14 +198,20 @@
   <string name="quick_text_key_active">לחצני טקסט מהיר פעילים</string>
   <string name="quick_text_key_dialog_title">בחר סוג</string>
   <string name="quick_text_key_summary">בחר לחצן טקסט מהיר להצגה במקלדת</string>
+  <string name="extension_keyboards_group">מקלדות הרחבה</string>
+  <string name="extension_keyboards_summary">בחר הרחבות למקלדת</string>
   <string name="top_generic_row_group">שורת מקשים עליונה</string>
+  <string name="top_generic_row_active">שורה עליונה בחורה</string>
   <string name="top_generic_row_dialog_title">סגנון המקשים בשורה</string>
   <string name="top_generic_row_summary">בחר את סוגי המקשים לשורה העליונה</string>
   <string name="top_generic_row_list_title">בחר סוג מקשים</string>
   <string name="bottom_generic_row_group">שורת מקשים תחתונה</string>
+  <string name="bottom_generic_row_active">שורה תחתונה בחורה</string>
   <string name="bottom_generic_row_dialog_title">סגנון המקשים בשורה</string>
   <string name="bottom_generic_row_summary">בחר את סוגי המקשים לשורה התחתונה</string>
   <string name="bottom_generic_row_list_title">בחר סוג מקשים</string>
+  <string name="extension_keyboard_group">מקלדת הרחבה</string>
+  <string name="extension_keyboard_active">מקלדת הרחבה בחורה</string>
   <string name="extension_keyboard_dialog_title">בחר מקלדת</string>
   <string name="extension_keyboard_list_title">בחר מקלדת</string>
   <string name="keyboard_theme_group">ערכות נושא למקלדות</string>
@@ -236,7 +257,6 @@
   <string name="settings_multitap_timeout_normal">רגיל</string>
   <string name="settings_multitap_timeout_slow">איטי</string>
   <string name="settings_multitap_timeout_slower">איטי יותר</string>
-  <string name="settings_multitap_timeout_never">אף פעם</string>
   <string name="long_press_timeout_title">זמן לחיצה ארוכה</string>
   <string name="long_press_timeout_summary">זמן הלחיצה על מקש המהווה לחיצה ארוכה</string>
   <string name="settings_long_press_timeout_faster">מהר יותר</string>

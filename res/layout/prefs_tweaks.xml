@@ -219,8 +219,14 @@ android:key="tweaks_group_screen">
 		android:persistent="true"
 		android:defaultValue="@bool/settings_default_show_version_notification"
 		android:summaryOn="@string/show_new_version_notifications_again_on_summary"
-		android:summaryOff="@string/show_new_version_notifications_again_off_summary"
-	/>
+		android:summaryOff="@string/show_new_version_notifications_again_off_summary"/>
+	<CheckBoxPreference
+		android:key="@string/settings_key_show_tips_notification"
+		android:title="@string/show_new_tips_notifications_again"
+		android:persistent="true"
+		android:defaultValue="@bool/settings_default_show_tips_notification"
+		android:summaryOn="@string/show_new_tips_notifications_again_on_summary"
+		android:summaryOff="@string/show_new_tips_notifications_again_off_summary"/>
 		
 	<EditTextPreference android:key="keyboards_sandbox" 
 		android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"

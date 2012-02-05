@@ -48,6 +48,10 @@ public interface Configuration {
 	
 	void setShowVersionNotification(boolean show);
 	
+	boolean getShowTipsNotification();
+	
+	void setShowTipsNotification(boolean show);
+	
 	boolean use16KeysSymbolsKeyboards();
 	
 	boolean useBackword();

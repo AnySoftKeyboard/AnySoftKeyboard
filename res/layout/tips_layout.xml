@@ -14,25 +14,30 @@
 			android:id="@+id/tips_layout_container">
 		</LinearLayout>
 	</ScrollView>
-	<LinearLayout android:id="@+id/buttons_layout" android:layout_width="fill_parent"
-	    android:layout_height="wrap_content" android:padding="4dp"
-	    android:orientation="horizontal" android:weightSum="2" android:background="@drawable/tips_bottom_background">
-	    <ImageButton android:id="@+id/previous_tip_button"
-			android:layout_height="wrap_content" android:layout_width="wrap_content" android:padding="8dp"
-			android:gravity="center" android:src="@android:drawable/ic_media_previous" android:scaleType="centerInside"/>
-	    
-	    <View android:layout_width="0px" android:layout_height="1px" android:layout_weight="1"/>
-	    
-	    <Button android:id="@+id/close_button"
-			android:layout_height="wrap_content" android:layout_width="wrap_content"
-			android:paddingLeft="20dp" android:paddingRight="20dp"
-			android:gravity="center" android:text="@string/close_button"/>
-	    
-	    <View android:layout_width="0px" android:layout_height="1px" android:layout_weight="1"/>
-	    
-	    <ImageButton android:id="@+id/next_tip_button"
-			android:layout_height="wrap_content" android:layout_width="wrap_content" android:padding="8dp"
-			android:gravity="center" android:src="@android:drawable/ic_media_next" android:scaleType="centerInside"/>
+	<LinearLayout android:orientation="vertical"
+	    android:layout_width="fill_parent" android:layout_height="wrap_content"
+	    android:background="@drawable/tips_bottom_background">
+	    <LinearLayout android:id="@+id/buttons_layout" android:layout_width="fill_parent"
+		    android:layout_height="wrap_content" android:padding="4dp"
+		    android:orientation="horizontal" android:weightSum="2">
+		    <ImageButton android:id="@+id/previous_tip_button" android:contentDescription="@string/click_for_previous_tip"
+				android:layout_height="wrap_content" android:layout_width="wrap_content" android:padding="8dp"
+				android:gravity="center" android:src="@android:drawable/ic_media_previous" android:scaleType="centerInside"/>
+		    
+		    <View android:layout_width="0px" android:layout_height="1px" android:layout_weight="1"/>
+		    
+		    <Button android:id="@+id/close_button"
+				android:layout_height="wrap_content" android:layout_width="wrap_content"
+				android:paddingLeft="20dp" android:paddingRight="20dp"
+				android:gravity="center" android:text="@string/close_button"/>
+		    
+		    <View android:layout_width="0px" android:layout_height="1px" android:layout_weight="1"/>
+		    
+		    <ImageButton android:id="@+id/next_tip_button" android:contentDescription="@string/click_for_next_tip"
+				android:layout_height="wrap_content" android:layout_width="wrap_content" android:padding="8dp"
+				android:gravity="center" android:src="@android:drawable/ic_media_next" android:scaleType="centerInside"/>
+		</LinearLayout>
+		<CheckBox android:id="@+id/show_tips_next_time" android:text="@string/show_new_tips_notifications_again" android:layout_width="fill_parent" android:layout_height="wrap_content"/>
 	</LinearLayout>
 </LinearLayout>
 

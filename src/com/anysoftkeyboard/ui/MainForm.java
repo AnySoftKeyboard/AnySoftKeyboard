@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
@@ -15,6 +16,7 @@ import com.anysoftkeyboard.ui.settings.MainSettings;
 import com.anysoftkeyboard.ui.tutorials.ChangeLogActivity;
 import com.anysoftkeyboard.ui.tutorials.TipsActivity;
 import com.anysoftkeyboard.ui.tutorials.WelcomeHowToNoticeActivity;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 public class MainForm extends Activity implements OnClickListener {
@@ -40,6 +42,14 @@ public class MainForm extends Activity implements OnClickListener {
 		findViewById(R.id.goto_changelog_button).setOnClickListener(this);
 		findViewById(R.id.goto_howto_form).setOnClickListener(this);
         
+		CheckBox showTipsNotifications = (CheckBox) findViewById(R.id.show_tips_next_time);
+		showTipsNotifications.setChecked(AnyApplication.getConfig().getShowTipsNotification());
+		showTipsNotifications.setOnClickListener(this);
+		
+		CheckBox showVersionNotifications = (CheckBox) findViewById(R.id.show_notifications_next_time);
+		showVersionNotifications.setChecked(AnyApplication.getConfig().getShowVersionNotification());
+		showVersionNotifications.setOnClickListener(this);
+		
         setSelectedTab(0);
     }
 	
@@ -78,6 +88,12 @@ public class MainForm extends Activity implements OnClickListener {
 			Intent changelog = new Intent(this, ChangeLogActivity.class);
 			changelog.putExtra(ChangeLogActivity.EXTRA_SHOW_ALL_LOGS, true);
 			startActivity(changelog);
+			break;
+		case R.id.show_tips_next_time:
+			AnyApplication.getConfig().setShowTipsNotification(!AnyApplication.getConfig().getShowTipsNotification());
+			break;
+		case R.id.show_notifications_next_time:
+			AnyApplication.getConfig().setShowVersionNotification(!AnyApplication.getConfig().getShowVersionNotification());
 			break;
 		}
 	}

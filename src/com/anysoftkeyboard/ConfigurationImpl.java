@@ -50,6 +50,7 @@ public class ConfigurationImpl implements Configuration
 	private boolean mShouldPopupForLanguageSwitch = false;
 	private boolean mHideSoftKeyboardWhenPhysicalKeyPressed = true;
 	private boolean mShowVersionNotification = true;
+	private boolean mShowTipsNotification = true;
 	private boolean mUse16KeysSymbolsKeyboard = false;
 	private boolean mUseBackword = true;
 //		private boolean mShowIconForSmileyKey = false;
@@ -300,6 +301,10 @@ public class ConfigurationImpl implements Configuration
 				mContext.getResources().getBoolean(R.bool.settings_default_show_version_notification));
 		Log.i(TAG, "** mShowVersionNotification: "+mShowVersionNotification);
 		
+		mShowTipsNotification = sp.getBoolean(mContext.getString(R.string.settings_key_show_tips_notification),
+				mContext.getResources().getBoolean(R.bool.settings_default_show_tips_notification));
+		Log.i(TAG, "** mShowTipsNotification: "+mShowTipsNotification);
+		
 		mUse16KeysSymbolsKeyboard = sp.getBoolean(mContext.getString(R.string.settings_key_use_16_keys_symbols_keyboards),
 				mContext.getResources().getBoolean(R.bool.settings_default_use_16_keys_symbols_keyboards));
 		Log.i(TAG, "** mUse16KeysSymbolsKeyboard: "+mUse16KeysSymbolsKeyboard);
@@ -541,6 +546,20 @@ public class ConfigurationImpl implements Configuration
 		mShowVersionNotification = show;
 		e.commit();
 	}
+	
+	public boolean getShowTipsNotification() {
+		return mShowTipsNotification;
+	}
+	
+	public void setShowTipsNotification(boolean show) {
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
+		Editor e = sp.edit();
+		e.putBoolean(mContext.getString(R.string.settings_key_show_tips_notification), show);
+		mShowTipsNotification = show;
+		e.commit();
+	}
+	
+	
 
 	public boolean use16KeysSymbolsKeyboards() {
 		return mUse16KeysSymbolsKeyboard;

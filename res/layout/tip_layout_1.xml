@@ -24,4 +24,15 @@
 	    style="@android:style/TextAppearance.Medium"/>
 	<ImageView android:layout_marginTop="10dp" android:layout_height="wrap_content" android:layout_width="fill_parent" android:scaleType="centerInside"
 	    android:layout_gravity="center" android:src="@drawable/tip_1_ask_settings"/>
+	<LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="fill_parent"
+	    android:weightSum="1" android:gravity="bottom"
+	    android:layout_marginTop="40dp">
+	    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content"
+		    android:text="@string/click_for_previous_tip"
+		    style="@android:style/TextAppearance.Large" android:textStyle="bold"/>
+	    <View android:layout_height="1px" android:layout_width="0px" android:layout_weight="1"/>
+	    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content"
+		    android:text="@string/click_for_next_tip"
+		    style="@android:style/TextAppearance.Large" android:textStyle="bold"/>
+	</LinearLayout>
 </LinearLayout>

@@ -39,7 +39,9 @@
 			<TextView android:layout_marginTop="3dp" android:text="@string/how_to_pointer_go_to_links" style="@android:style/TextAppearance.Small" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
 			<Button android:id="@+id/goto_howto_form" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/how_to_active_text" android:layout_gravity="center"/>
 			<Button android:id="@+id/goto_tips_form" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/tips_title" android:layout_gravity="center"/>
+			<CheckBox android:id="@+id/show_tips_next_time" android:text="@string/show_new_tips_notifications_again" android:layout_width="fill_parent" android:layout_height="wrap_content"/>
 			<Button android:id="@+id/goto_changelog_button" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/changelog" android:layout_gravity="center"/>
+			<CheckBox android:id="@+id/show_notifications_next_time" android:text="@string/show_new_version_notifications_again" android:layout_width="fill_parent" android:layout_height="wrap_content"/>
 		</LinearLayout>
  	</ScrollView>
 </LinearLayout>

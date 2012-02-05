@@ -309,8 +309,13 @@
   <string name="tutorial_swipe_text">Podeu canviar la distribució del teclat lliscant el dit per sobre. D\'esquerra a dreta canvia l\'idioma i de dreta a esquerra canvia al teclat simbòlic.</string>
   <string name="label_go_key">Vés</string>
   <string name="label_next_key">Endavant</string>
+  <string name="label_previous_key">Ant.</string>
   <string name="label_send_key">Envia</string>
+  <string name="label_search_key">Cerca</string>
   <string name="label_done_key">Fet</string>
+  <string name="label_tab_key">Pestanya</string>
+  <string name="label_home_key">Inici</string>
+  <string name="label_end_key">Fi</string>
   <string name="change_lang_wide">→ ABC →</string>
   <string name="change_lang_regular">ABC</string>
   <string name="change_symbols_wide">← 123 ←</string>
