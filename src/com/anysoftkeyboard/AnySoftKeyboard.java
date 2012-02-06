@@ -908,11 +908,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 				 */
 			}
 			break;
-		case KeyEvent.KEYCODE_SPACE:
-			if ((event.isAltPressed() && !Workarounds.isAltSpaceLangSwitchNotPossible()) || event.isShiftPressed()) {
-			    switchToNextPhysicalKeyboard(ic);
-				return true;
-			}
 		case 0x000000cc://API 14: KeyEvent.KEYCODE_LANGUAGE_SWITCH
 			switchToNextPhysicalKeyboard(ic);
             return true;
@@ -930,6 +925,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mMetaState = MyMetaKeyKeyListener.handleKeyDown(mMetaState, keyCode, event);
 			if (DEBUG) Log.d(TAG+"-meta-key", getMetaKeysStates("onKeyDown after handle"));
 			break;
+		case KeyEvent.KEYCODE_SPACE:
+			if ((event.isAltPressed() && !Workarounds.isAltSpaceLangSwitchNotPossible()) || event.isShiftPressed()) {
+			    switchToNextPhysicalKeyboard(ic);
+				return true;
+			}
 			//NOTE:
 			// letting it fall through to the "default"
 		default:
