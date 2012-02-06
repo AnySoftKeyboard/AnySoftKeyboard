@@ -2735,7 +2735,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 //		mSmileyPopupType = sp.getString(getString(R.string.settings_key_smiley_popup_type), getString(R.string.settings_default_smiley_popup_type));
 		mOverrideQuickTextText = sp.getString(getString(R.string.settings_key_emoticon_default_text), null);
 		
-		mMinimumWordCorrectionLength = sp.getInt(getString(R.string.settings_key_min_length_for_word_correction), getResources().getInteger(R.integer.settings_default_min_length_for_word_correction));
+		mMinimumWordCorrectionLength = sp.getInt(getString(R.string.settings_key_min_length_for_word_correction__), 2);
 		if (mSuggest != null) mSuggest.setMinimumWordLengthForCorrection(mMinimumWordCorrectionLength);
 		
 		setInitialCondensedState(getResources().getConfiguration());

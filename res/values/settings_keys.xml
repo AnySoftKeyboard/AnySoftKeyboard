@@ -146,6 +146,6 @@
 		<item>@string/settings_split_state_split_in_landscape</item>
 		<item>@string/settings_split_state_split_always</item>
 	</string-array>
-	
-	<string name="settings_key_min_length_for_word_correction">settings_key_min_length_for_word_correction</string>
+	<!-- added a _ to handle a preference tpye change from int to string -->
+	<string name="settings_key_min_length_for_word_correction__">settings_key_min_length_for_word_correction__</string>
 </resources>

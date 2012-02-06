@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard"
 android:title="@string/tweaks_group"
 android:key="tweaks_group_screen">
 	<PreferenceCategory android:key="tweak_sound_group"
@@ -27,11 +28,12 @@ android:key="tweaks_group_screen">
 	<PreferenceCategory android:key="tweak_dictionary_group"
 		android:title="@string/tweak_dictionary_group">
 		<com.anysoftkeyboard.ui.MySeekBarPreference
-			android:key="@string/settings_key_min_length_for_word_correction"
+			android:key="@string/settings_key_min_length_for_word_correction__"
 			android:title="@string/settings_min_length_for_word_correction"
 			android:persistent="true"
-			android:defaultValue="@integer/settings_default_min_length_for_word_correction"
+			android:defaultValue="2"
 			android:max="10"
+			ask:min="1"
 		/>	
 	</PreferenceCategory>
 	
