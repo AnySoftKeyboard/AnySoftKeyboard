@@ -10,7 +10,8 @@ com.anysoftkeyboard.AnySoftKeyboard:
     private static final java.lang.String KEYBOARD_NOTIFICATION_ALWAYS
     private static final java.lang.String KEYBOARD_NOTIFICATION_ON_PHYSICAL
     private static final java.lang.String KEYBOARD_NOTIFICATION_NEVER
-    2999:3014:public void appendCharactersToInput(java.lang.CharSequence)
+    1138:1145:private java.lang.String getMetaKeysStates(java.lang.String)
+    3011:3025:public void appendCharactersToInput(java.lang.CharSequence)
 com.anysoftkeyboard.AnySoftKeyboard$3:
     private static final long DOUBLE_TAP_TIMEOUT
 com.anysoftkeyboard.ChewbaccaUncaughtExceptionHandler:
@@ -22,9 +23,9 @@ com.anysoftkeyboard.Configuration:
 com.anysoftkeyboard.ConfigurationImpl:
     static final java.lang.String TAG
     private static final java.lang.String CONFIGURATION_VERSION
-    514:514:public int getDeviceOrientation()
-    571:571:public boolean useContactsDictionary()
-    583:583:public boolean drawExtensionKeyboardAboveMainKeyboard()
+    531:531:public int getDeviceOrientation()
+    602:602:public boolean useContactsDictionary()
+    614:614:public boolean drawExtensionKeyboardAboveMainKeyboard()
 com.anysoftkeyboard.WordComposer:
     private static final java.lang.String CHEWBACCAONTHEDRUMS
     52:59:WordComposer(com.anysoftkeyboard.WordComposer)
@@ -317,6 +318,7 @@ com.anysoftkeyboard.keyboards.physical.MyMetaKeyKeyListener:
     284:288:public static void clearMetaKeyState(android.text.Editable,int)
     295:298:public static long resetLockedMeta(long)
     302:305:private static long resetLock(long,int,long)
+    321:321:public static final int getMetaState(long)
     445:451:public long clearMetaKeyState(long,int)
 com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView:
     static final java.lang.String TAG
@@ -391,16 +393,21 @@ com.anysoftkeyboard.theme.KeyboardThemeFactory:
     private static final java.lang.String XML_POPUP_KEYBOARD_THEME_SCREENSHOT_RES_ID_ATTRIBUTE
 com.anysoftkeyboard.ui.MySeekBarPreference:
     private static final java.lang.String androidns
-    121:121:public void setMax(int)
-    122:122:public int getMax()
-    125:131:public void setProgress(int)
-    133:133:public int getProgress()
+    private static final java.lang.String askns
+    142:142:public void setMax(int)
+    143:143:public int getMax()
+    144:144:public void setMin(int)
+    145:145:public int getMin()
+    148:157:public void setProgress(int)
+    159:159:public int getProgress()
 com.anysoftkeyboard.ui.SendBugReportUiActivity:
     public static final java.lang.String CRASH_REPORT_TEXT
     private static final java.lang.String TAG
 com.anysoftkeyboard.ui.settings.AddOnSelector:
     private static final java.lang.String SEARCH_MARKET_PACKS_PREF_KEY
     private static final int DIALOG_NO_EXTERNAL_PACKS_FOR_NOW
+com.anysoftkeyboard.ui.settings.MainSettings:
+    private static final java.lang.String TAG
 com.anysoftkeyboard.ui.settings.UserDictionaryEditorActivity:
     private static final java.lang.String INSTANCE_KEY_DIALOG_EDITING_WORD
     private static final java.lang.String INSTANCE_KEY_ADDED_WORD
@@ -419,6 +426,7 @@ com.anysoftkeyboard.ui.tutorials.TutorialsProvider:
     private static final java.lang.String ASK_HAS_BEEN_ENABLED_BEFORE
     private static final java.lang.String TAG
     private static final int TUTORIALS_NOTIFICATION_ID_BASE
+    140:156:private static boolean firstTestersTimeVersionLoaded(android.content.Context)
 com.anysoftkeyboard.utils.IMEUtil:
     38:41:public static void cancelTask(android.os.AsyncTask,boolean)
     82:82:public static boolean hasMultipleEnabledIMEs(android.content.Context)
@@ -476,7 +484,6 @@ com.anysoftkeyboard.voice.VoiceRecognitionTriggerV11:
     private static final java.lang.String TAG
 com.menny.android.anysoftkeyboard.AnyApplication:
     public static final boolean DEBUG
-    public static final boolean BLEEDING_EDGE
     private static final java.lang.String TAG
 com.menny.android.anysoftkeyboard.R$anim
 com.menny.android.anysoftkeyboard.R$array
