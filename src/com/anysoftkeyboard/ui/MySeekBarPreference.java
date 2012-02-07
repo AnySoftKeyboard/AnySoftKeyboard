@@ -55,9 +55,6 @@ public class MySeekBarPreference extends /*Dialog*/Preference implements SeekBar
 		if (shouldPersist())
 			mValue = getPersistedInt(mDefault);
 
-		mSeekBar.setMax(mMax);
-		mSeekBar.setProgress(mValue);
-		mSeekBar.setOnSeekBarChangeListener(this);
 		mCurrentValue = (TextView)mySeekBarLayout.findViewById(R.id.pref_current_value);
 		mMaxValue = (TextView)mySeekBarLayout.findViewById(R.id.pref_max_value);
 		mMinValue = (TextView)mySeekBarLayout.findViewById(R.id.pref_min_value);
@@ -66,44 +63,19 @@ public class MySeekBarPreference extends /*Dialog*/Preference implements SeekBar
 		
 		writeBoundaries();
 		
+		mSeekBar.setMax(mMax-mMin);
+		mSeekBar.setProgress(mValue-mMin);
+		mSeekBar.setOnSeekBarChangeListener(this);
+		
 	    return mySeekBarLayout;
 	}
-  /*
-  @Override 
-  protected View onCreateDialogView() {
-	  LayoutInflater inflator = (LayoutInflater)mContext.getSystemService(Service.LAYOUT_INFLATER_SERVICE);
-	  ViewGroup mySeekBarLayout = (ViewGroup)inflator.inflate(R.layout.my_seek_bar_pref, null);
-	  mSeekBar = (SeekBar) mySeekBarLayout.findViewById(R.id.pref_seekbar);
-	  if (shouldPersist())
-		  mValue = getPersistedInt(mDefault);
-
-	  mSeekBar.setMax(mMax);
-	  mSeekBar.setProgress(mValue);
-	  mSeekBar.setOnSeekBarChangeListener(this);
-	  mCurrentValue = (TextView)mySeekBarLayout.findViewById(R.id.pref_current_value);
-	  mMaxValue = (TextView)mySeekBarLayout.findViewById(R.id.pref_max_value);
-	  mCurrentValue.setText(Integer.toString(mValue));
-	  mMaxValue.setText(Integer.toString(mMax));
-    
-    return mySeekBarLayout;
-  }
-  
-	@Override 
-	protected void onBindDialogView(View v) {
-		super.onBindDialogView(v);
-		mSeekBar.setMax(mMax);
-		mMaxValue.setText(Integer.toString(mMax));
-		mSeekBar.setProgress(mValue);
-		mCurrentValue.setText(Integer.toString(mValue));
-	}*/
 
 	@Override
 	protected void onSetInitialValue(boolean restore, Object defaultValue)  
 	{
-		Log.d("************", "onSetInitialValue restore "+restore+" default "+defaultValue+" of type "+defaultValue.getClass().getName());
 		super.onSetInitialValue(restore, defaultValue);
 		if (restore) 
-			mValue = shouldPersist() ? getPersistedInt(mDefault) : 0;
+			mValue = shouldPersist() ? getPersistedInt(mDefault) : mMin;
 		else 
 			mValue = (Integer)defaultValue;
 		
@@ -116,7 +88,7 @@ public class MySeekBarPreference extends /*Dialog*/Preference implements SeekBar
 
   public void onProgressChanged(SeekBar seek, int value, boolean fromTouch)
   {
-	  mValue = value;
+	  mValue = value+mMin;
 	  if (mValue > mMax) mValue=mMax;
 	  if (mValue < mMin) mValue=mMin;
 	  
@@ -151,7 +123,7 @@ public class MySeekBarPreference extends /*Dialog*/Preference implements SeekBar
 	  
 	  if (mSeekBar != null)
 	  {
-		  mSeekBar.setProgress(progress);
+		  mSeekBar.setProgress(progress-mMin);
 		  mCurrentValue.setText(Integer.toString(mValue));
 	  }
   }
