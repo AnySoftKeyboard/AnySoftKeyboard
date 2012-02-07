@@ -2777,11 +2777,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 					}
 					
 					mSuggest.setMainDictionary(dictionaryBuilder);
-					
-					mUserDictionary = DictionaryFactory.getInstance().createUserDictionary(this, defaultDictionary);
+					String localeForSupportingDictionaries = dictionaryBuilder != null? dictionaryBuilder.getLanguage() : defaultDictionary;
+					mUserDictionary = DictionaryFactory.getInstance().createUserDictionary(this, localeForSupportingDictionaries);
 					mSuggest.setUserDictionary(mUserDictionary);
 					
-					mAutoDictionary = DictionaryFactory.getInstance().createAutoDictionary(this, this, defaultDictionary);
+					mAutoDictionary = DictionaryFactory.getInstance().createAutoDictionary(this, this, localeForSupportingDictionaries);
 					mSuggest.setAutoDictionary(mAutoDictionary);
 				}
 			}
