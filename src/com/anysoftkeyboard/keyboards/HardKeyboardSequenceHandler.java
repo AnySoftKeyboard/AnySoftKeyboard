@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.anysoftkeyboard.keyboards.KeyEventStateMachine.State;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 
 public class HardKeyboardSequenceHandler
 {
@@ -17,7 +18,7 @@ public class HardKeyboardSequenceHandler
 	};
 	
 	//See 'getSequenceCharacter' function for usage for msSequenceLivingTime and mLastTypedKeyEventTime.
-	private static final long msSequenceLivingTime = 600;
+	//private static final long msSequenceLivingTime = 600;
 	private long mLastTypedKeyEventTime;
 	private final KeyEventStateMachine mCurrentSequence;
 	
@@ -59,7 +60,7 @@ public class HardKeyboardSequenceHandler
 		//sequence does not live forever!
 		//I say, let it live for msSequenceLivingTime milliseconds.
 		long currentTime = System.currentTimeMillis();
-		if ((currentTime - mLastTypedKeyEventTime) >= msSequenceLivingTime)
+		if ((currentTime - mLastTypedKeyEventTime) >= AnyApplication.getConfig().getMultiTapTimeout())
 			mCurrentSequence.reset();
 		mLastTypedKeyEventTime = currentTime;
 		return mCurrentSequence.addKeyCode(currentKeyEvent);
