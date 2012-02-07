@@ -961,12 +961,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 						{
 							final String keyboardName = current.getKeyboardName();
 
-							Log.d(TAG, "Asking '" + keyboardName
-									+ "' to translate key: " + keyCode);
-							Log.v(TAG,
-									"Hard Keyboard Action before translation: Shift: "
-											+ mHardKeyboardAction
-													.isShiftActive()
+							Log.d(TAG, "Asking '" + keyboardName + "' to translate key: " + keyCode);
+							Log.v(TAG, "Hard Keyboard Action before translation: Shift: "
+											+ mHardKeyboardAction.isShiftActive()
 											+ ", Alt: "
 											+ mHardKeyboardAction.isAltActive()
 											+ ", Key code: "
@@ -977,13 +974,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 						keyTranslator.translatePhysicalCharacter(mHardKeyboardAction);
 
-						if (DEBUG)
-							Log.v(TAG,
-									"Hard Keyboard Action after translation: Key code: "
+						if (DEBUG) Log.v(TAG, "Hard Keyboard Action after translation: Key code: "
 											+ mHardKeyboardAction.getKeyCode()
 											+ ", changed: "
-											+ mHardKeyboardAction
-													.getKeyCodeWasChanged());
+											+ mHardKeyboardAction.getKeyCodeWasChanged());
 						if (mHardKeyboardAction.getKeyCodeWasChanged()) {
 							final int translatedChar = mHardKeyboardAction
 									.getKeyCode();
@@ -992,11 +986,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 							// my handling
 							// we are at a regular key press, so we'll update
 							// our meta-state member
-							mMetaState = MyMetaKeyKeyListener
-									.adjustMetaAfterKeypress(mMetaState);
-							if (DEBUG)
-								Log.d(TAG+"-meta-key",
-												getMetaKeysStates("onKeyDown after adjust - translated"));
+							mMetaState = MyMetaKeyKeyListener.adjustMetaAfterKeypress(mMetaState);
+							if (DEBUG) Log.d(TAG+"-meta-key", getMetaKeysStates("onKeyDown after adjust - translated"));
 							return true;
 						}
 					}
@@ -1008,11 +999,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 			if (event.isPrintingKey()) {
 				// we are at a regular key press, so we'll update our meta-state
 				// member
-				mMetaState = MyMetaKeyKeyListener
-						.adjustMetaAfterKeypress(mMetaState);
-				if (DEBUG)
-					Log.d(TAG+"-meta-key",
-							getMetaKeysStates("onKeyDown after adjust"));
+				mMetaState = MyMetaKeyKeyListener.adjustMetaAfterKeypress(mMetaState);
+				if (DEBUG) Log.d(TAG+"-meta-key", getMetaKeysStates("onKeyDown after adjust"));
 			}
 		}
 		return super.onKeyDown(keyCode, event);
