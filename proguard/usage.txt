@@ -10,8 +10,8 @@ com.anysoftkeyboard.AnySoftKeyboard:
     private static final java.lang.String KEYBOARD_NOTIFICATION_ALWAYS
     private static final java.lang.String KEYBOARD_NOTIFICATION_ON_PHYSICAL
     private static final java.lang.String KEYBOARD_NOTIFICATION_NEVER
-    1138:1145:private java.lang.String getMetaKeysStates(java.lang.String)
-    3011:3025:public void appendCharactersToInput(java.lang.CharSequence)
+    1126:1133:private java.lang.String getMetaKeysStates(java.lang.String)
+    2999:3013:public void appendCharactersToInput(java.lang.CharSequence)
 com.anysoftkeyboard.AnySoftKeyboard$3:
     private static final long DOUBLE_TAP_TIMEOUT
 com.anysoftkeyboard.ChewbaccaUncaughtExceptionHandler:
@@ -217,8 +217,6 @@ com.anysoftkeyboard.keyboards.ExternalAnyKeyboard:
     private static final java.lang.String XML_SHIFT_ATTRIBUTE
     private static final java.lang.String XML_TARGET_ATTRIBUTE
     private static final java.lang.String XML_TARGET_CHAR_CODE_ATTRIBUTE
-com.anysoftkeyboard.keyboards.HardKeyboardSequenceHandler:
-    private static final long msSequenceLivingTime
 com.anysoftkeyboard.keyboards.KeyEventStateMachine:
     public static final int KEYCODE_FIRST_CHAR
     private static final int MAX_NFA_DIVIDES
@@ -394,12 +392,12 @@ com.anysoftkeyboard.theme.KeyboardThemeFactory:
 com.anysoftkeyboard.ui.MySeekBarPreference:
     private static final java.lang.String androidns
     private static final java.lang.String askns
-    142:142:public void setMax(int)
-    143:143:public int getMax()
-    144:144:public void setMin(int)
-    145:145:public int getMin()
-    148:157:public void setProgress(int)
-    159:159:public int getProgress()
+    114:114:public void setMax(int)
+    115:115:public int getMax()
+    116:116:public void setMin(int)
+    117:117:public int getMin()
+    120:129:public void setProgress(int)
+    131:131:public int getProgress()
 com.anysoftkeyboard.ui.SendBugReportUiActivity:
     public static final java.lang.String CRASH_REPORT_TEXT
     private static final java.lang.String TAG
