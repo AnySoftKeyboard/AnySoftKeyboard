@@ -9,7 +9,7 @@
   <string name="click_for_previous_tip">↓ Előző tipp</string>
   <string name="click_for_next_tip">Következő tipp ↓</string>
   <string name="tip_1_welcome_to_ask">Üdvözöl az AnySoftKeyboard!</string>
-  <string name="tip_1_how_to_access_settings">A beállítások eléréséhez tartsa nyomva hosszan a SOREMELÉS gombot! Rengeteg dologot lehet személyre szabni!</string>
+  <string name="tip_1_how_to_access_settings">A beállítások eléréséhez tartsd nyomva hosszan a SOREMELÉS gombot! Rengeteg dologot lehet személyre szabni!</string>
   <string name="tip_2_gestures">Támogatjuk a gesztusokat!</string>
   <string name="tip_2_gestures_tip">Egy ujjmozdulattal rengeteg mindent elérhetünk! Húzd balról jobbra az ujjad nyelvváltáshoz, jobbról balra a szimbólumok eléréséhez. A szóközről felfelé húzva egy segéd billentyűzetet kapunk, míg lefelé húzva bezárhatjuk a billentyűzetet.\nMindez konfigurálható a beállításokban (tartsd hosszan nyomva a SOREMELÉS gombot).</string>
   <string name="tip_3_hidden_kbds">Rejtett funkciók</string>
@@ -25,7 +25,7 @@
   <string name="tip_6_bottom_rows">Alsó sor</string>
   <string name="tip_6_bottom_rows_tip">Akárcsak a felső sort, az alsót is le lehet cserélni. Számos alsó sor típusból lehet választani.</string>
   <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Az alsó sor lecserélése</string>
-  <string name="tip_7_voice_input">Halgatódzunk*</string>
+  <string name="tip_7_voice_input">Beszélj hozzám*</string>
   <string name="tip_7_voice_input_tip">Pötyögni jó, de támogatjuk a beszédfelismerést is! Diktálni szeretnél? Bökj a mikrofon ikonra és már beszélhetsz is!\nEz a funkció a Goolge hangfelismerő rendszerét használja így jelenleg magyarul nem érhető el.</string>
   <string name="tip_7_voice_input_tip_dont_forget_bottom_row">Ha állandóan szeretnéd látni a mikrofont, állítsd be a megfelelő asló sor típust. (Lásd az elősző tippet!)\nA mikrofon egyébként bármikor elérhető egy rejtett segéd billentyűzetről (csúsztasd az ujjad felfelé a szóköz billentyűről).</string>
   <string name="tip_7_voice_input_tip_note">* Android 2.2+ és internet kapcsolat szükséges hozzá.</string>
@@ -213,7 +213,7 @@
   <string name="is_extesion_keyboard_above_keyboard">Felső kiegészítő billentyűzet</string>
   <string name="is_extesion_keyboard_above_keyboard_on_summary">Megjelenítés a fő billentyűzet felett</string>
   <string name="is_extesion_keyboard_above_keyboard_off_summary">Megjelenítés a fő billentyűzeten</string>
-  <string name="show_new_tips_notifications_again">Mutass új tippeket</string>
+  <string name="show_new_tips_notifications_again">Mutasd a tippeket</string>
   <string name="show_new_tips_notifications_again_on_summary">Megjeleníti a legújabb tippeket</string>
   <string name="show_new_tips_notifications_again_off_summary">Nem fog szólni, ha új tippek vannak a program használatóhoz</string>
   <string name="show_new_version_notifications_again">Új verzióknál értesítés</string>
