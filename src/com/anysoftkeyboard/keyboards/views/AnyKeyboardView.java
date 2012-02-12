@@ -160,9 +160,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	}
 
 	private boolean invokeOnKey(int primaryCode) {
-		getOnKeyboardActionListener().onKey(primaryCode, null,
-				AnyKeyboardBaseView.NOT_A_TOUCH_COORDINATE,
-				AnyKeyboardBaseView.NOT_A_TOUCH_COORDINATE);
+		getOnKeyboardActionListener().onKey(primaryCode, null, false);
 		return true;
 	}
 	

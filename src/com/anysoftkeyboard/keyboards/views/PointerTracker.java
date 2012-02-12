@@ -516,7 +516,7 @@ public class PointerTracker {
                     codes[0] = code;
                 }
                 if (listener != null) {
-                    listener.onKey(code, codes, x, y);
+                    listener.onKey(code, codes, x>=0 || y>=0);
                     listener.onRelease(code);
                 }
             }

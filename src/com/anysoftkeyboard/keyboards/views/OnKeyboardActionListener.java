@@ -37,14 +37,10 @@ public interface OnKeyboardActionListener {
      *            keys. These codes are useful to correct for
      *            accidental presses of a key adjacent to the intended
      *            key.
-     * @param x
-     *            x-coordinate pixel of touched event. If onKey is not called by onTouchEvent,
-     *            the value should be NOT_A_TOUCH_COORDINATE.
-     * @param y
-     *            y-coordinate pixel of touched event. If onKey is not called by onTouchEvent,
-     *            the value should be NOT_A_TOUCH_COORDINATE.
+     * @param fromUI
+     *            true, if the user initiated this onKey from the view
      */
-    void onKey(int primaryCode, int[] keyCodes, int x, int y);
+    void onKey(int primaryCode, int[] keyCodes, boolean fromUI);
     
     void onMultiTap();
     

@@ -17,7 +17,6 @@
 package com.anysoftkeyboard;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -106,7 +105,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		OnSharedPreferenceChangeListener, AnyKeyboardContextProvider, SoundPreferencesChangedListener {
 	private final static String TAG = "ASK";
 	
-	private final static int SWIPE_CORD = -2;
+	//private final static int SWIPE_CORD = -2;
 	
 	/*
 	public final static String NOTIFY_LAYOUT_SWITCH  = "com.menny.android.anysoftkeyboard.api.NOTIFY_LAYOUT_SWITCH";
@@ -987,7 +986,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 							final int translatedChar = mHardKeyboardAction
 									.getKeyCode();
 							// typing my own.
-							onKey(translatedChar, new int[] { translatedChar }, 0, 0);
+							onKey(translatedChar, new int[] { translatedChar }, true/*simualting fromUI*/);
 							// my handling
 							// we are at a regular key press, so we'll update
 							// our meta-state member
@@ -1353,7 +1352,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		return key;
 	}
 
-	public void onKey(int primaryCode, int[] keyCodes, int x, int y) {
+	public void onKey(int primaryCode, int[] keyCodes, boolean fromUI) {
 		if (DEBUG)
 		{
 			Log.d(TAG, "onKey " + primaryCode);
@@ -1387,13 +1386,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 			break;
 		case KeyCodes.SHIFT:
-			if ((!mInputView.hasDistinctMultitouch()) || 
-				((x == SWIPE_CORD) && (y == SWIPE_CORD)))//the SWIPE_CORD is the case where onKey was called from swipeX
+			if ((!mInputView.hasDistinctMultitouch()) ||  !fromUI)//the SWIPE_CORD is the case where onKey was called from swipeX
 				handleShift(false);
 			break;
 		case KeyCodes.CTRL:
-			if ((!mInputView.hasDistinctMultitouch()) || 
-					((x == SWIPE_CORD) && (y == SWIPE_CORD)))//the SWIPE_CORD is the case where onKey was called from swipeX
+			if ((!mInputView.hasDistinctMultitouch()) || !fromUI)//the SWIPE_CORD is the case where onKey was called from swipeX
 					handleControl(false);
 			break;
 		case KeyCodes.ARROW_LEFT:
@@ -2540,21 +2537,21 @@ public class AnySoftKeyboard extends InputMethodService implements
 		final int keyCode = mConfig.getGestureSwipeRightKeyCode();
 		if(DEBUG)Log.d(TAG, "onSwipeRight " + ((onSpaceBar)? " + space" : "") +" => code "+ keyCode);
 		if (keyCode != 0)
-			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
+			onKey(keyCode, new int[]{keyCode}, false);
 	}
 
 	public void onSwipeLeft(boolean onSpaceBar) {
 		final int keyCode = mConfig.getGestureSwipeLeftKeyCode();
 		if(DEBUG)Log.d(TAG, "onSwipeLeft " + ((onSpaceBar)? " + space" : "") +" => code "+ keyCode);
 		if (keyCode != 0)
-			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
+			onKey(keyCode, new int[]{keyCode}, false);
 	}
 	
 	public void onSwipeDown(boolean onSpaceBar) {
 		final int keyCode = mConfig.getGestureSwipeDownKeyCode();
 		if(DEBUG)Log.d(TAG, "onSwipeDown " + ((onSpaceBar)? " + space" : "") +" => code "+ keyCode);
 		if (keyCode != 0)
-			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
+			onKey(keyCode, new int[]{keyCode}, false);
 	}
 
 	public void onSwipeUp(boolean onSpaceBar) {
@@ -2562,7 +2559,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if(DEBUG)Log.d(TAG, "onSwipeUp " + ((onSpaceBar)? " + space" : "") +" => code "+ keyCode);
 		if (keyCode != 0)
 		{
-			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
+			onKey(keyCode, new int[]{keyCode}, false);
 		}
 	}
 	
@@ -2570,14 +2567,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 		final int keyCode = mConfig.getGesturePinchKeyCode();
 		if(DEBUG)Log.d(TAG, "onPinch => code "+ keyCode);
 		if (keyCode != 0)
-			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
+			onKey(keyCode, new int[]{keyCode}, false);
 	}
 	
 	public void onSeparate() {
 		final int keyCode = mConfig.getGestureSeparateKeyCode();
 		if(DEBUG)Log.d(TAG, "onSeparate => code "+ keyCode);
 		if (keyCode != 0)
-			onKey(keyCode, new int[]{keyCode}, SWIPE_CORD, SWIPE_CORD);
+			onKey(keyCode, new int[]{keyCode}, false);
 	}
 	
 	private void sendKeyDown(InputConnection ic, int key) {

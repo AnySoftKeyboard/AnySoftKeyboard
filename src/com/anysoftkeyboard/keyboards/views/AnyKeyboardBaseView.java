@@ -1706,8 +1706,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         
         miniKeyboard.setOnKeyboardActionListener(new OnKeyboardActionListener() {
         	
-        	public void onKey(int primaryCode, int[] keyCodes, int x, int y) {
-                mKeyboardActionListener.onKey(primaryCode, keyCodes, x, y);
+        	public void onKey(int primaryCode, int[] keyCodes, boolean fromUI) {
+                mKeyboardActionListener.onKey(primaryCode, keyCodes, fromUI);
                 if (keyboard.isOneKeyEventPopup()) dismissPopupKeyboard();
             }
         	
