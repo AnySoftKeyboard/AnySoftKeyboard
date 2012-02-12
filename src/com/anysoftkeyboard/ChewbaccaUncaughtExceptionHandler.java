@@ -4,6 +4,7 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.Date;
 
 import com.anysoftkeyboard.ui.SendBugReportUiActivity;
+import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.R;
 
 import android.app.Notification;
@@ -48,6 +49,8 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 			"****** Exception type: "+ex.getClass().getName()+"\n"+
 			"****** Exception message: "+ex.getMessage()+"\n"+
 			"****** Trace trace:\n"+getStackTrace(ex)+"\n"+
+			"******************************\n"+
+			"****** Device information:\n"+getSysInfo()+
 			"******************************\n"+
 			"****** Logcat:\n"+getLogcat();
 		Log.e(TAG, "About to send a bug report:\n"+logText);
@@ -113,4 +116,19 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 		}
 	}
 
+	private static String getSysInfo() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("BRAND:").append(android.os.Build.BRAND).append("\n");
+		sb.append("DEVICE:").append(android.os.Build.DEVICE).append("\n");
+		sb.append("Build ID:").append(android.os.Build.DISPLAY).append("\n");
+		sb.append("changelist number:").append(android.os.Build.ID).append("\n");
+		sb.append("MODEL:").append(android.os.Build.MODEL).append("\n");
+		sb.append("PRODUCT:").append(android.os.Build.PRODUCT).append("\n");
+		sb.append("TAGS:").append(android.os.Build.TAGS).append("\n");
+		sb.append("VERSION.INCREMENTAL:").append(android.os.Build.VERSION.INCREMENTAL).append("\n");
+		sb.append("VERSION.RELEASE:").append(android.os.Build.VERSION.RELEASE).append("\n");
+		sb.append("VERSION.SDK_INT:").append(Workarounds.getApiLevel()).append("\n");
+		sb.append("That's all I know.\n");
+		return sb.toString();
+	}
 }
