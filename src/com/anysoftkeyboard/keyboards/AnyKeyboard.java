@@ -776,7 +776,7 @@ public abstract class AnyKeyboard extends Keyboard
             	                       
             }
             /*Shift label support*/
-            shiftedKeyLabel = a.getString(R.styleable.Keyboard_Key_shiftedKeyLabel);
+            shiftedKeyLabel = a.getString(R.styleable.Keyboard_Key_v2_shiftedKeyLabel);
             
             /*long press support*/
             longPressCode = a.getInt(R.styleable.Keyboard_Key_longPressCode, 0);
