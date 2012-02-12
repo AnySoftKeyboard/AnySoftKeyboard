@@ -152,8 +152,8 @@ public abstract class AddOnsFactory<E extends AddOn> {
 	}
 
     protected boolean isPackageContainAnAddon(Context context, String packageNameSchemePart) throws NameNotFoundException {
-    	PackageInfo newPackage = context.getPackageManager().getPackageInfo(packageNameSchemePart, PackageManager.GET_RECEIVERS);
-		if (newPackage.receivers != null)
+    	PackageInfo newPackage = context.getPackageManager().getPackageInfo(packageNameSchemePart, PackageManager.GET_RECEIVERS+PackageManager.GET_META_DATA);
+    	if (newPackage.receivers != null)
 		{
 			ActivityInfo[] receivers = newPackage.receivers;
 			for(ActivityInfo aReceiver : receivers)
