@@ -602,8 +602,9 @@ public abstract class AnyKeyboard extends Keyboard
     
 
 
-    public void setShiftLocked(boolean shiftLocked) {
+    public boolean setShiftLocked(boolean shiftLocked) {
         if (mShiftKey != null) {
+        	final int initialState = mShiftState;
             if (shiftLocked) {
                 mShiftState = STICKY_KEY_LOCKED;
             } else if (mShiftState == STICKY_KEY_LOCKED) {
@@ -611,7 +612,10 @@ public abstract class AnyKeyboard extends Keyboard
             }
             
             setShiftViewAsState();
+            return initialState != mShiftState;
         }
+        
+        return false;
     }
     
     @Override
@@ -625,24 +629,22 @@ public abstract class AnyKeyboard extends Keyboard
     
     @Override
     public boolean setShifted(boolean shiftState) {
-        boolean shiftChanged = false;
         if (mShiftKey != null) {
+        	final int initialState = mShiftState;
             if (shiftState) {
             	if (mShiftState == STICKY_KEY_OFF) {
-                    shiftChanged = mShiftState == STICKY_KEY_OFF;
                     mShiftState = STICKY_KEY_ON;
                 }
             	//else this is already ON, or at caps lock.
             } else {
-            	shiftChanged = mShiftState != STICKY_KEY_OFF;
                 mShiftState = STICKY_KEY_OFF;
             }
-            
+
             setShiftViewAsState();
+            return mShiftState != initialState;
         } else {
             return super.setShifted(shiftState);
         }
-        return shiftChanged;
     }
 
 	private void setShiftViewAsState() {

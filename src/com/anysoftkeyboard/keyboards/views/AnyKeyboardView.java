@@ -178,9 +178,11 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 		AnyKeyboard keyboard = getKeyboard();
 		if (keyboard != null)
 		{
-			keyboard.setShiftLocked(shiftLocked);
-			invalidateAllKeys();
-			return true;
+			if (keyboard.setShiftLocked(shiftLocked))
+			{
+				invalidateAllKeys();
+				return true;
+			}
 		}
 		return false;
 	}

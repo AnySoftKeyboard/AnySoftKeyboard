@@ -34,9 +34,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.FontMetrics;
-import android.graphics.PorterDuff;
 import android.graphics.Rect;
-import android.graphics.Region.Op;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
@@ -230,7 +228,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private boolean mKeyboardChanged;
     private Key mInvalidatedKey;
     /** The canvas for the above mutable keyboard bitmap */
-    private Canvas mCanvas;
+    //private Canvas mCanvas;
     private final Paint mPaint;
     private final Rect mKeyBackgroundPadding;
     private final Rect mClipRegion = new Rect(0, 0, 0, 0);
@@ -1156,18 +1154,20 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        //mCanvas = canvas;
         if (mDrawPending || mBuffer == null || mKeyboardChanged) {
-        	doOnBufferDrawWithMemProtection();
+        	doOnBufferDrawWithMemProtection(canvas);
         }
-        canvas.drawBitmap(mBuffer, 0, 0, null);
+        //maybe there is no buffer, since drawing was not done.
+        if (mBuffer != null) canvas.drawBitmap(mBuffer, 0, 0, null);
     }
 
-	private void doOnBufferDrawWithMemProtection() {
+	private void doOnBufferDrawWithMemProtection(Canvas canvas) {
 		IMEUtil.GCUtils.getInstance().reset();
 		boolean tryGC = true;
 		for (int i = 0; i < IMEUtil.GCUtils.GC_TRY_LOOP_MAX && tryGC; ++i) {
 			try {
-				onBufferDraw();
+				onBufferDraw(canvas);
 				tryGC = false;
 			} catch (OutOfMemoryError e) {
 				Log.w(TAG, "WOW! No memory to paint stuff... I'll try to release some.");
@@ -1176,26 +1176,27 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 		}
 	}
 
-    private void onBufferDraw() {
-        if (mBuffer == null || mKeyboardChanged) {
-            if (mBuffer == null || mKeyboardChanged &&
-                    (mBuffer.getWidth() != getWidth() || mBuffer.getHeight() != getHeight())) {
-                // Make sure our bitmap is at least 1x1
-                final int width = Math.max(1, getWidth());
-                final int height = Math.max(1, getHeight());
-                Log.d(TAG, "Buffer dimensions: w:"+width+" h:"+height);
-                mBuffer = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-                mCanvas = new Canvas(mBuffer);
-                /*Drawable background = super.getBackground();
-                background.setBounds(0, 0, width, height);
-                background.draw(mCanvas);*/
-            }
+    private void onBufferDraw(Canvas canvas) {
+        if (/*mBuffer == null ||*/ mKeyboardChanged) {
+//            if (mBuffer == null || mKeyboardChanged &&
+//                    (mBuffer.getWidth() != getWidth() || mBuffer.getHeight() != getHeight())) {
+//                // Make sure our bitmap is at least 1x1
+//                final int width = Math.max(1, getWidth());
+//                final int height = Math.max(1, getHeight());
+//                Log.d(TAG, "Buffer dimensions: w:"+width+" h:"+height);
+//                mBuffer = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+//                mCanvas = new Canvas(mBuffer);
+//                /*Drawable background = super.getBackground();
+//                background.setBounds(0, 0, width, height);
+//                background.draw(mCanvas);*/
+//            }
             invalidateAllKeys();
             mKeyboardChanged = false;
         }
-        final Canvas canvas = mCanvas;
-        canvas.clipRect(mDirtyRect, Op.REPLACE);
-
+        //final Canvas canvas = mCanvas;
+        //canvas.clipRect(mDirtyRect, Op.REPLACE);
+        canvas.getClipBounds(mDirtyRect);
+        
         if (mKeyboard == null) return;
 
         final boolean drawHintText = mHintTextSize > 1 && AnyApplication.getConfig().getShowHintTextOnKeys();
@@ -1218,12 +1219,19 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 drawSingleKey = true;
             }
         }
-        canvas.drawColor(0x00000000, PorterDuff.Mode.CLEAR);
+        //canvas.drawColor(0x00000000, PorterDuff.Mode.CLEAR);
         final int keyCount = keys.length;
         for (int i = 0; i < keyCount; i++) {
             final AnyKey key = (AnyKey)keys[i];
     		
             if (drawSingleKey && invalidKey != key) {
+                continue;
+            }
+            if (!mDirtyRect.intersects(
+                    key.x + kbdPaddingLeft,
+                    key.y + kbdPaddingTop,
+                    key.x + key.width + kbdPaddingLeft,
+                    key.y + key.height + kbdPaddingTop)) {
                 continue;
             }
             int[] drawableState = key.getCurrentDrawableState();
@@ -1662,7 +1670,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         // TODO we should clean up this and record key's region to use in onBufferDraw.
         mDirtyRect.union(key.x + getPaddingLeft(), key.y + getPaddingTop(),
                 key.x + key.width + getPaddingLeft(), key.y + key.height + getPaddingTop());
-        doOnBufferDrawWithMemProtection();
+        //doOnBufferDrawWithMemProtection(mCanvas);
         invalidate(key.x + getPaddingLeft(), key.y + getPaddingTop(),
                 key.x + key.width + getPaddingLeft(), key.y + key.height + getPaddingTop());
     }
@@ -2157,8 +2165,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
         if (!dismissPopupKeyboard())
         {
-	        mBuffer = null;
-	        mCanvas = null;
+	        //mBuffer = null;
+	        //mCanvas = null;
 	        mMiniKeyboardCache.clear();
 	        return true;
         }
