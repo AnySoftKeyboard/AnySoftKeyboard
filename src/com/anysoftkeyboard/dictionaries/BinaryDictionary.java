@@ -86,7 +86,15 @@ class BinaryDictionary extends Dictionary {
     private class LoadDictionaryTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... v) {
-        	loadDictionary(mAfd);
+        	//The try-catch is for issue 878: http://code.google.com/p/softkeyboard/issues/detail?id=878
+			try
+			{
+				loadDictionary(mAfd);
+			}
+			catch(UnsatisfiedLinkError ex)
+			{
+				Log.w(TAG, "Failed to load binary JNI connection! Error: "+ex.getMessage());
+			}
 			return null;
         }
     }
