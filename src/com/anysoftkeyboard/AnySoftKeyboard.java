@@ -1352,7 +1352,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		return key;
 	}
 
-	public void onKey(int primaryCode, int[] keyCodes, boolean fromUI) {
+	public void onKey(int primaryCode, int[] nearByKeyCodes, boolean fromUI) {
 		if (DEBUG)
 		{
 			Log.d(TAG, "onKey " + primaryCode);
@@ -1589,7 +1589,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	                }
 				}
 				else
-					handleCharacter(primaryCode, keyCodes);
+					handleCharacter(primaryCode, nearByKeyCodes);
 				//AnyKey s = mKeyboardSwitcher.getCurrentKeyboard().getKeys().
 				
 				// reseting the mSpaceSent, which is set to true upon selecting
@@ -1984,7 +1984,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
     }
     
-	private void handleCharacter(final int primaryCode, int[] keyCodes) {
+	private void handleCharacter(final int primaryCode, int[] nearByKeyCodes) {
 		if(DEBUG) Log.d(TAG, "handleCharacter: "+primaryCode+", isPredictionOn:"+isPredictionOn()+", mPredicting:"+mPredicting);
 		if (isAlphabet(primaryCode) && isPredictionOn()
 				&& !isCursorTouchingWord()) {
@@ -2034,19 +2034,19 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 			
 			mComposing.append((char) primaryCodeForShow);
-			if(keyCodes != null && keyCodes.length > 1 && primaryCode != keyCodes[0]){
-				int swapedItem = keyCodes[0];
-				keyCodes[0] = primaryCode;
-				for(int i=1;i<keyCodes.length; i++)
+			if(nearByKeyCodes != null && nearByKeyCodes.length > 1 && primaryCode != nearByKeyCodes[0]){
+				int swapedItem = nearByKeyCodes[0];
+				nearByKeyCodes[0] = primaryCode;
+				for(int i=1;i<nearByKeyCodes.length; i++)
 				{
-					if (keyCodes[i] == primaryCode)
+					if (nearByKeyCodes[i] == primaryCode)
 					{
-						keyCodes[i] = swapedItem;
+						nearByKeyCodes[i] = swapedItem;
 						break;
 					}
 				}
 			}
-			if (mWord.add(primaryCodeForShow, keyCodes))
+			if (mWord.add(primaryCodeForShow, nearByKeyCodes))
 			{
 				Toast note = Toast.makeText(getApplicationContext(), "Check the logcat for a note from AnySoftKeyboard developers!", Toast.LENGTH_LONG);
 				note.show();

@@ -40,7 +40,7 @@ public interface OnKeyboardActionListener {
      * @param fromUI
      *            true, if the user initiated this onKey from the view
      */
-    void onKey(int primaryCode, int[] keyCodes, boolean fromUI);
+    void onKey(int primaryCode, int[] nearByKeyCodes, boolean fromUI);
     
     void onMultiTap();
     

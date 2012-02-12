@@ -494,8 +494,8 @@ public class PointerTracker {
                 }
             } else {
                 int code = key.codes[0];
-                int[] codes = mKeyDetector.newCodeArray();
-                mKeyDetector.getKeyIndexAndNearbyCodes(x, y, codes);
+                int[] nearByKeyCodes = mKeyDetector.newCodeArray();
+                mKeyDetector.getKeyIndexAndNearbyCodes(x, y, nearByKeyCodes);
                 // Multi-tap
                 if (mInMultiTap) {
                     if (mTapCount != -1) {
@@ -511,12 +511,12 @@ public class PointerTracker {
                  * the first value but the second value in the array. This happens when key
                  * debouncing is in effect.
                  */
-                if (codes.length >= 2 && codes[0] != code && codes[1] == code) {
-                    codes[1] = codes[0];
-                    codes[0] = code;
+                if (nearByKeyCodes.length >= 2 && nearByKeyCodes[0] != code && nearByKeyCodes[1] == code) {
+                    nearByKeyCodes[1] = nearByKeyCodes[0];
+                    nearByKeyCodes[0] = code;
                 }
                 if (listener != null) {
-                    listener.onKey(code, codes, x>=0 || y>=0);
+                    listener.onKey(code, nearByKeyCodes, x>=0 || y>=0);
                     listener.onRelease(code);
                 }
             }
