@@ -516,7 +516,7 @@ public class PointerTracker {
                     nearByKeyCodes[0] = code;
                 }
                 if (listener != null) {
-                    listener.onKey(code, nearByKeyCodes, x>=0 || y>=0);
+                    listener.onKey(code, key, mTapCount, nearByKeyCodes, x>=0 || y>=0);
                     listener.onRelease(code);
                 }
             }

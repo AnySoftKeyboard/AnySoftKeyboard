@@ -159,8 +159,8 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 			super.onLongPress(getContext(), key, false, true);
 	}
 
-	private boolean invokeOnKey(int primaryCode) {
-		getOnKeyboardActionListener().onKey(primaryCode, null, false);
+	private boolean invokeOnKey(int primaryCode, Key key, int multiTapIndex) {
+		getOnKeyboardActionListener().onKey(primaryCode, key, multiTapIndex, null, false);
 		return true;
 	}
 	
@@ -206,12 +206,12 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 		if (key != null && key instanceof AnyKey) {
 			AnyKey anyKey = (AnyKey) key;
 			if (anyKey.longPressCode != 0) {
-				invokeOnKey(anyKey.longPressCode);
+				invokeOnKey(anyKey.longPressCode, null, 0);
 				return true;
 			}
 			else if (anyKey.codes[0] == KeyCodes.QUICK_TEXT)
 			{
-				invokeOnKey(KeyCodes.QUICK_TEXT_POPUP);
+				invokeOnKey(KeyCodes.QUICK_TEXT_POPUP, null, 0);
 				return true;
 			}
 		}

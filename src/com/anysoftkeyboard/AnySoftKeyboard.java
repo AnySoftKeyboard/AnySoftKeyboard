@@ -228,7 +228,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	
 	private boolean mKeyboardInCondensedMode = false;
 	
-	private int mKeyCodePosition;
+	//private int mKeyCodePosition;
 	
 	//private NotificationManager mNotificationManager;
 
@@ -986,7 +986,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 							final int translatedChar = mHardKeyboardAction
 									.getKeyCode();
 							// typing my own.
-							onKey(translatedChar, new int[] { translatedChar }, true/*simualting fromUI*/);
+							onKey(translatedChar, null, -1, new int[] { translatedChar }, true/*simualting fromUI*/);
 							// my handling
 							// we are at a regular key press, so we'll update
 							// our meta-state member
@@ -1334,25 +1334,22 @@ public class AnySoftKeyboard extends InputMethodService implements
 	 * So, to access Key of it, we need to find Key which contains it.
 	 * 
 	 */
-	private AnyKey getKeyFromPrimaryKey(int primaryCode){
-		AnyKey key = null;
-		
-		for (Key k : mInputView.getKeyboard().getKeys()){
-			AnyKey ck = (AnyKey)k;
-//			if (Arrays.asList(ck.codes).contains(primaryCode)
-//					|| Arrays.asList(ck.shiftedCodes).contains(primaryCode)
-//					)
-			for (int i = 0; i < ck.codes.length; ++i)
-				if (ck.codes[i] == primaryCode) {
-					mKeyCodePosition = i;
-					return ck;
-				}
-		}
-		
-		return key;
-	}
+//	private AnyKey getKeyFromPrimaryKey(int primaryCode){
+//		AnyKey key = null;
+//		
+//		for (Key k : mInputView.getKeyboard().getKeys()){
+//			AnyKey ck = (AnyKey)k;
+//			for (int i = 0; i < ck.codes.length; ++i)
+//				if (ck.codes[i] == primaryCode) {
+//					mKeyCodePosition = i;
+//					return ck;
+//				}
+//		}
+//		
+//		return key;
+//	}
 
-	public void onKey(int primaryCode, int[] nearByKeyCodes, boolean fromUI) {
+	public void onKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
 		if (DEBUG)
 		{
 			Log.d(TAG, "onKey " + primaryCode);
@@ -1589,7 +1586,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	                }
 				}
 				else
-					handleCharacter(primaryCode, nearByKeyCodes);
+					handleCharacter(primaryCode, key, multiTapIndex, nearByKeyCodes);
 				//AnyKey s = mKeyboardSwitcher.getCurrentKeyboard().getKeys().
 				
 				// reseting the mSpaceSent, which is set to true upon selecting
@@ -1600,8 +1597,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mJustRevertedSeparator = null;
 			if (mKeyboardSwitcher.isKeyRequireSwitchToAlphabet(primaryCode))
 			{
-				mKeyboardSwitcher.nextKeyboard(getCurrentInputEditorInfo(),
-						NextKeyboardType.Alphabet);
+				mKeyboardSwitcher.nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
 			}
 			break;
 		}
@@ -1984,7 +1980,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
     }
     
-	private void handleCharacter(final int primaryCode, int[] nearByKeyCodes) {
+	private void handleCharacter(final int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes) {
 		if(DEBUG) Log.d(TAG, "handleCharacter: "+primaryCode+", isPredictionOn:"+isPredictionOn()+", mPredicting:"+mPredicting);
 		if (isAlphabet(primaryCode) && isPredictionOn()
 				&& !isCursorTouchingWord()) {
@@ -2006,15 +2002,19 @@ public class AnySoftKeyboard extends InputMethodService implements
 		{
 			if (mInputView.isShifted())
 			{
-				Log.w("Shift-code", "Start");
+				//Log.w("Shift-code", "Start");
 				// TODO: Change code for get ShiftKeyCodes
-				mKeyCodePosition = -1;
-				AnyKey key = getKeyFromPrimaryKey(primaryCode);
+				//mKeyCodePosition = -1;
+				//AnyKey key = getKeyFromPrimaryKey(primaryCode);
 				//Log.w("Shift-code", (char)Character.toUpperCase(primaryCode) + " : " + keyCodes.length + " : " + mKeyCodePosition);
-				if (key != null)
+				if (key != null && key instanceof AnyKey)
 				{
-					primaryCodeForShow = TextUtils.isEmpty(key.shiftedKeyLabel) ? 
-						Character.toUpperCase(primaryCode) : key.shiftedCodes[mKeyCodePosition];
+					AnyKey anyKey = (AnyKey)key;
+//					primaryCodeForShow = TextUtils.isEmpty(anyKey.shiftedKeyLabel) ? 
+//						Character.toUpperCase(primaryCode) : anyKey.shiftedCodes[multiTapIndex];
+					int[] shiftCodes = anyKey.shiftedCodes;
+					primaryCodeForShow = shiftCodes != null && shiftCodes.length > multiTapIndex?
+							shiftCodes[multiTapIndex] : Character.toUpperCase(primaryCode);
 					//Log.w("Shift-code", (char)Character.toUpperCase(primaryCodeForShow) + "");
 				}
 				else
@@ -2537,21 +2537,21 @@ public class AnySoftKeyboard extends InputMethodService implements
 		final int keyCode = mConfig.getGestureSwipeRightKeyCode();
 		if(DEBUG)Log.d(TAG, "onSwipeRight " + ((onSpaceBar)? " + space" : "") +" => code "+ keyCode);
 		if (keyCode != 0)
-			onKey(keyCode, new int[]{keyCode}, false);
+			onKey(keyCode, null, -1, new int[]{keyCode}, false);
 	}
 
 	public void onSwipeLeft(boolean onSpaceBar) {
 		final int keyCode = mConfig.getGestureSwipeLeftKeyCode();
 		if(DEBUG)Log.d(TAG, "onSwipeLeft " + ((onSpaceBar)? " + space" : "") +" => code "+ keyCode);
 		if (keyCode != 0)
-			onKey(keyCode, new int[]{keyCode}, false);
+			onKey(keyCode, null, -1, new int[]{keyCode}, false);
 	}
 	
 	public void onSwipeDown(boolean onSpaceBar) {
 		final int keyCode = mConfig.getGestureSwipeDownKeyCode();
 		if(DEBUG)Log.d(TAG, "onSwipeDown " + ((onSpaceBar)? " + space" : "") +" => code "+ keyCode);
 		if (keyCode != 0)
-			onKey(keyCode, new int[]{keyCode}, false);
+			onKey(keyCode, null, -1, new int[]{keyCode}, false);
 	}
 
 	public void onSwipeUp(boolean onSpaceBar) {
@@ -2559,7 +2559,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if(DEBUG)Log.d(TAG, "onSwipeUp " + ((onSpaceBar)? " + space" : "") +" => code "+ keyCode);
 		if (keyCode != 0)
 		{
-			onKey(keyCode, new int[]{keyCode}, false);
+			onKey(keyCode, null, -1, new int[]{keyCode}, false);
 		}
 	}
 	
@@ -2567,14 +2567,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 		final int keyCode = mConfig.getGesturePinchKeyCode();
 		if(DEBUG)Log.d(TAG, "onPinch => code "+ keyCode);
 		if (keyCode != 0)
-			onKey(keyCode, new int[]{keyCode}, false);
+			onKey(keyCode, null, -1, new int[]{keyCode}, false);
 	}
 	
 	public void onSeparate() {
 		final int keyCode = mConfig.getGestureSeparateKeyCode();
 		if(DEBUG)Log.d(TAG, "onSeparate => code "+ keyCode);
 		if (keyCode != 0)
-			onKey(keyCode, new int[]{keyCode}, false);
+			onKey(keyCode, null, -1, new int[]{keyCode}, false);
 	}
 	
 	private void sendKeyDown(InputConnection ic, int key) {

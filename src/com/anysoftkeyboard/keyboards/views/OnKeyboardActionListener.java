@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.keyboards.views;
 
+import com.anysoftkeyboard.keyboards.Keyboard.Key;
+
 public interface OnKeyboardActionListener {
 
     /**
@@ -28,7 +30,7 @@ public interface OnKeyboardActionListener {
      *
      * @param primaryCode
      *            this is the key that was pressed
-     * @param keyCodes
+     * @param nearByKeyCodes
      *            the codes for all the possible alternative keys with
      *            the primary code being the first. If the primary key
      *            code is a single character such as an alphabet or
@@ -40,7 +42,7 @@ public interface OnKeyboardActionListener {
      * @param fromUI
      *            true, if the user initiated this onKey from the view
      */
-    void onKey(int primaryCode, int[] nearByKeyCodes, boolean fromUI);
+    void onKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI);
     
     void onMultiTap();
     

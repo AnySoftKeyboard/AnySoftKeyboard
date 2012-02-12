@@ -181,11 +181,24 @@ public abstract class AnyKeyboard extends Keyboard
                 	break;
                default:
 	                //setting the character label
-	                if (isAlphabetKey(key) && (key.label == null || key.label.length() == 0) && (key.icon == null))
+	                if (isAlphabetKey(key) && (key.icon == null))
 	                {
-	                	final char code = (char)key.codes[0];
-	                	if (code > 0 && !Character.isWhitespace(code))
-	                		key.label = ""+code;
+	                	if (TextUtils.isEmpty(key.label))
+	                	{
+		                	final char code = (char)key.codes[0];
+		                	if (code > 0 && !Character.isWhitespace(code))
+		                		key.label = ""+code;
+	                	}
+	                	if (key instanceof AnyKey)
+	                	{
+	                		AnyKey anyKey = (AnyKey)key;
+		                	if (TextUtils.isEmpty(anyKey.shiftedKeyLabel))
+		                	{
+			                	final char code = (char)anyKey.shiftedCodes[0];
+			                	if (code > 0 && !Character.isWhitespace(code))
+			                		anyKey.shiftedKeyLabel = ""+code;
+		                	}
+	                	}
 	                }
                 }
             }
@@ -726,7 +739,7 @@ public abstract class AnyKeyboard extends Keyboard
         };
         
         public int[] shiftedCodes;
-        public String shiftedKeyLabel;
+        public CharSequence shiftedKeyLabel;
         public int longPressCode;
         private boolean mFunctionalKey;
 		private boolean mEnabled;
@@ -763,17 +776,25 @@ public abstract class AnyKeyboard extends Keyboard
             else
             {
             	//shifted codes were not specified. Using char.toupper
+            	shiftedCodes = new int[0];
+            	//I'll let the IF below fix the shiftedCodes array
+            }
+            //ensuring codes and shiftedCodes are the same size
+            if (shiftedCodes.length != codes.length)
+            {
+            	int[] wrongSizedShiftCodes = shiftedCodes;
             	shiftedCodes = new int[codes.length];
-            	for(int i=0; i<codes.length; i++)
+            	int i=0;
+            	for(i=0;i<wrongSizedShiftCodes.length&&i<codes.length;i++)
+            		shiftedCodes[i] = wrongSizedShiftCodes[i];
+            	for(/*starting from where i finished above*/;i<codes.length;i++)
             	{
             		final int code = codes[i];
             		if (Character.isLetter(code))
             			shiftedCodes[i] = Character.toUpperCase(code);
             		else
             			shiftedCodes[i] = code;
-            		
             	}
-            	                       
             }
             /*Shift label support*/
             shiftedKeyLabel = a.getString(R.styleable.Keyboard_Key_v2_shiftedKeyLabel);
