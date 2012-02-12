@@ -17,6 +17,7 @@
 package com.anysoftkeyboard;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -70,8 +71,10 @@ import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.keyboards.GenericKeyboard;
+import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher.NextKeyboardType;
@@ -225,6 +228,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private int mVibrationDuration;
 	
 	private boolean mKeyboardInCondensedMode = false;
+	
+	private int mKeyCodePosition;
 	
 	//private NotificationManager mNotificationManager;
 
@@ -1323,6 +1328,30 @@ public class AnySoftKeyboard extends InputMethodService implements
 		handleDeleteLastCharacter(true);
 		if (mInputView != null) mInputView.setShifted(mLastCharacterWasShifted);
 	}
+	
+	/**
+	 * Get Key from primary code.
+	 * on onKey event, it only gets primary key.
+	 * So, to access Key of it, we need to find Key which contains it.
+	 * 
+	 */
+	private AnyKey getKeyFromPrimaryKey(int primaryCode){
+		AnyKey key = null;
+		
+		for (Key k : mInputView.getKeyboard().getKeys()){
+			AnyKey ck = (AnyKey)k;
+//			if (Arrays.asList(ck.codes).contains(primaryCode)
+//					|| Arrays.asList(ck.shiftedCodes).contains(primaryCode)
+//					)
+			for (int i = 0; i < ck.codes.length; ++i)
+				if (ck.codes[i] == primaryCode) {
+					mKeyCodePosition = i;
+					return ck;
+				}
+		}
+		
+		return key;
+	}
 
 	public void onKey(int primaryCode, int[] keyCodes, int x, int y) {
 		if (DEBUG)
@@ -1546,6 +1575,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				else if (primaryCode == (int)'(')
 					primaryCode = (int)')';
 			}
+			
 			if (isWordSeparator(primaryCode)) {
 				handleSeparator(primaryCode);
 			} else {
@@ -1563,6 +1593,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				}
 				else
 					handleCharacter(primaryCode, keyCodes);
+				//AnyKey s = mKeyboardSwitcher.getCurrentKeyboard().getKeys().
 				
 				// reseting the mSpaceSent, which is set to true upon selecting
 				// candidate
@@ -1978,7 +2009,20 @@ public class AnySoftKeyboard extends InputMethodService implements
 		{
 			if (mInputView.isShifted())
 			{
-				primaryCodeForShow = Character.toUpperCase(primaryCode);
+				Log.w("Shift-code", "Start");
+				// TODO: Change code for get ShiftKeyCodes
+				mKeyCodePosition = -1;
+				AnyKey key = getKeyFromPrimaryKey(primaryCode);
+				//Log.w("Shift-code", (char)Character.toUpperCase(primaryCode) + " : " + keyCodes.length + " : " + mKeyCodePosition);
+				if (key != null)
+				{
+					primaryCodeForShow = TextUtils.isEmpty(key.shiftedKeyLabel) ? 
+						Character.toUpperCase(primaryCode) : key.shiftedCodes[mKeyCodePosition];
+					//Log.w("Shift-code", (char)Character.toUpperCase(primaryCodeForShow) + "");
+				}
+				else
+					primaryCodeForShow = primaryCode;
+							
 			}
 			else
 				primaryCodeForShow = primaryCode;

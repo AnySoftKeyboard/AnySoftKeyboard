@@ -391,6 +391,7 @@ public abstract class Keyboard {
             TypedValue codesValue = new TypedValue();
             a.getValue(R.styleable.Keyboard_Key_android_codes, 
                     codesValue);
+
             if (codesValue.type == TypedValue.TYPE_INT_DEC 
                     || codesValue.type == TypedValue.TYPE_INT_HEX) {
                 codes = new int[] { codesValue.data };

@@ -724,6 +724,7 @@ public abstract class AnyKeyboard extends Keyboard
         };
         
         public int[] shiftedCodes;
+        public String shiftedKeyLabel;
         public int longPressCode;
         private boolean mFunctionalKey;
 		private boolean mEnabled;
@@ -747,9 +748,11 @@ public abstract class AnyKeyboard extends Keyboard
             TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser), R.styleable.Keyboard);
             /*shifted codes support*/
             TypedValue shiftedCodesValue = new TypedValue();
+            
             if (a.getValue(R.styleable.Keyboard_Key_shiftedCodes, shiftedCodesValue))
             {
-	            if (shiftedCodesValue.type == TypedValue.TYPE_INT_DEC || shiftedCodesValue.type == TypedValue.TYPE_INT_HEX) {
+	            if (shiftedCodesValue.type == TypedValue.TYPE_INT_DEC 
+	            		|| shiftedCodesValue.type == TypedValue.TYPE_INT_HEX) {
 	                shiftedCodes = new int[] { shiftedCodesValue.data };
 	            } else if (shiftedCodesValue.type == TypedValue.TYPE_STRING) {
 	            	shiftedCodes = parseCSV(shiftedCodesValue.string.toString());
@@ -766,9 +769,13 @@ public abstract class AnyKeyboard extends Keyboard
             			shiftedCodes[i] = Character.toUpperCase(code);
             		else
             			shiftedCodes[i] = code;
+            		
             	}
             	                       
             }
+            /*Shift label support*/
+            shiftedKeyLabel = a.getString(R.styleable.Keyboard_Key_shiftedKeyLabel);
+            
             /*long press support*/
             longPressCode = a.getInt(R.styleable.Keyboard_Key_longPressCode, 0);
             mFunctionalKey = a.getBoolean(R.styleable.Keyboard_Key_isFunctional, false);

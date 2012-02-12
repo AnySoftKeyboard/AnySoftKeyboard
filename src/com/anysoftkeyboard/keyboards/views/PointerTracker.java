@@ -532,7 +532,7 @@ public class PointerTracker {
         if (mInMultiTap) {
             // Multi-tap
             mPreviewLabel.setLength(0);
-            final int[] codes = (isUppercase && key instanceof AnyKey)? ((AnyKey)key).codes : key.codes;
+            final int[] codes = (isUppercase && key instanceof AnyKey)? ((AnyKey)key).shiftedCodes : key.codes;
             mPreviewLabel.append((char)codes[mTapCount < 0 ? 0 : mTapCount]);
             return mPreviewLabel;
         } else {

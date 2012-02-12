@@ -1078,6 +1078,27 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         return mKeyDetector.isProximityCorrectionEnabled();
     }
 
+    private CharSequence adjustCase(AnyKey key) {
+//        if (mKeyboard.isShifted() && label != null && label.length() < 3
+//                && Character.isLowerCase(label.charAt(0))) {
+//            label = label.toString().toUpperCase();
+//        }
+    	CharSequence label = key.label;
+//    	if (mKeyboard.isShifted() && 
+//    			(!TextUtils.isEmpty(label)) && 
+//    			Character.isLowerCase(label.charAt(0))) {
+//    		label = label.toString().toUpperCase();
+//        }
+    	if (mKeyboard.isShifted()) {
+    		if (!TextUtils.isEmpty(key.shiftedKeyLabel))
+    			label = key.shiftedKeyLabel;
+    		else if (!TextUtils.isEmpty(label) && 
+        			Character.isLowerCase(label.charAt(0)))
+        		label = label.toString().toUpperCase();
+    	}
+        return label;
+    }
+
     private CharSequence adjustCase(CharSequence label) {
 //        if (mKeyboard.isShifted() && label != null && label.length() < 3
 //                && Character.isLowerCase(label.charAt(0))) {
@@ -1088,7 +1109,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         }
         return label;
     }
-
+    
     @Override
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         // Round up a little
@@ -1211,8 +1232,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             keyBackground.setState(drawableState);
 
             // Switch the character to uppercase if shift is pressed
-            String label = key.label == null? null : adjustCase(key.label).toString();
-            
+            String label = key.label == null? null : adjustCase(key).toString();
+           
             final Rect bounds = keyBackground.getBounds();
             if (key.width != bounds.right || key.height != bounds.bottom) {
                 keyBackground.setBounds(0, 0, key.width, key.height);
@@ -1245,7 +1266,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 	            	//I'll try to guess the text
 	            	key.label = guessLabelForKey(key);
 	            	
-	            	label = key.label == null? null : adjustCase(key.label).toString();
+	            	label = key.label == null? null : adjustCase(key).toString();
 	            }
             }
             

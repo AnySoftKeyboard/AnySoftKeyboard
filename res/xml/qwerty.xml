@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard"
     android:keyWidth="10%p"
     android:keyHeight="@integer/key_normal_height">
     
     <Row>
-        <Key android:codes="113" android:keyLabel="q" android:keyEdgeFlags="left"/>
-        <Key android:codes="119" android:keyLabel="w"/>
-        <Key android:codes="101" android:keyLabel="e"/>
-        <Key android:codes="114" android:keyLabel="r"/>
-        <Key android:codes="116" android:keyLabel="t"/>
-        <Key android:codes="121" android:keyLabel="y"/>
-        <Key android:codes="117" android:keyLabel="u"/>
-        <Key android:codes="105" android:keyLabel="i"/>
-        <Key android:codes="111" android:keyLabel="o"/>
-        <Key android:codes="112" android:keyLabel="p" android:keyEdgeFlags="right"/>
+        <Key android:codes="113" android:keyLabel="q" ask:shiftedCodes="81" ask:shiftedKeyLabel="Q" android:keyEdgeFlags="left"/>
+        <Key android:codes="119" android:keyLabel="w" ask:shiftedCodes="87" ask:shiftedKeyLabel="W"/>
+        <Key android:codes="101" android:keyLabel="e" ask:shiftedCodes="69" ask:shiftedKeyLabel="E"/>
+        <Key android:codes="114" android:keyLabel="r" ask:shiftedCodes="82" ask:shiftedKeyLabel="R"/>
+        <Key android:codes="116" android:keyLabel="t" ask:shiftedCodes="84" ask:shiftedKeyLabel="T"/>
+        <Key android:codes="121" android:keyLabel="y" ask:shiftedCodes="89" ask:shiftedKeyLabel="Y"/>
+        <Key android:codes="117" android:keyLabel="u" ask:shiftedCodes="85" ask:shiftedKeyLabel="U"/>
+        <Key android:codes="105" android:keyLabel="i" ask:shiftedCodes="73" ask:shiftedKeyLabel="I"/>
+        <Key android:codes="111" android:keyLabel="o" ask:shiftedCodes="79" ask:shiftedKeyLabel="O"/>
+        <Key android:codes="112" android:keyLabel="p" ask:shiftedCodes="80" ask:shiftedKeyLabel="P" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row>
