@@ -70,7 +70,6 @@
         <attr name="isFunctional" format="boolean" />
         
         <attr name="shiftedCodes" format="integer|string"/>
-        <attr name="shiftedKeyLabel" format="string"/>
     </declare-styleable>
     
     <declare-styleable name="AnyKeyboardBaseView">
@@ -207,4 +206,9 @@
 		<!-- should support normal, key_type_feedback -->
 		<attr name="iconKeyInputMoveHome" format="reference" />
 	</declare-styleable>
+	
+	<!-- for backword compatibility, it is required to be defined at the end... -->
+    <declare-styleable name="Keyboard_Key_v2">
+        <attr name="shiftedKeyLabel" format="string"/>
+    </declare-styleable>
 </resources>
