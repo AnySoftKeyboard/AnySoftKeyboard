@@ -70,6 +70,7 @@
         <attr name="isFunctional" format="boolean" />
         
         <attr name="shiftedCodes" format="integer|string"/>
+        <attr name="shiftedKeyLabel" format="string"/>
     </declare-styleable>
     
     <declare-styleable name="AnyKeyboardBaseView">
