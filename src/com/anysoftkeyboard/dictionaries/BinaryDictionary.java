@@ -22,7 +22,6 @@ import java.io.FileDescriptor;
 import java.util.Arrays;
 
 import com.anysoftkeyboard.WordComposer;
-import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import android.content.res.AssetFileDescriptor;
 import android.os.AsyncTask;
@@ -89,6 +88,7 @@ class BinaryDictionary extends Dictionary {
         	//The try-catch is for issue 878: http://code.google.com/p/softkeyboard/issues/detail?id=878
 			try
 			{
+				mNativeDict = 0;
 				loadDictionary(mAfd);
 			}
 			catch(UnsatisfiedLinkError ex)
@@ -117,6 +117,7 @@ class BinaryDictionary extends Dictionary {
 
     @Override
     public void getWords(final WordComposer codes, final WordCallback callback) {
+    	if (mNativeDict == 0) return;
         final int codesSize = codes.size();
         // Wont deal with really long words.
         if (codesSize > MAX_WORD_LENGTH - 1) return;
@@ -166,18 +167,13 @@ class BinaryDictionary extends Dictionary {
 
     @Override
     public boolean isValidWord(CharSequence word) {
-        if (word == null) return false;
+        if (word == null || mNativeDict == 0) return false;
         char[] chars = word.toString().toCharArray();
         return isValidWordNative(mNativeDict, chars, chars.length);
     }
 
     public synchronized void close() {
         if (mNativeDict != 0) {
-        	if (AnyApplication.DEBUG)
-        	{
-        		Log.w(TAG, "Native Binary Dictionary has been closed!");
-        		Thread.dumpStack();
-        	}
             closeNative(mNativeDict);
             mNativeDict = 0;
         }

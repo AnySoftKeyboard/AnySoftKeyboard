@@ -91,38 +91,11 @@ public class ResourceBinaryDictionary extends Dictionary {
      */
     public ResourceBinaryDictionary(String dictionaryName, Context context, int resId/*, int dicTypeId*/) {
     	super(dictionaryName);
-//        if (resId != null && resId.length > 0 && resId[0] != 0) {
-//            loadDictionary(context, resId);
-//        }
-//        mDicTypeId = dicTypeId;
     	mAppContext = context;
     	mDictResId = resId;
     }
 
-    /**
-     * Create a dictionary from a byte buffer. This is used for testing.
-     * @param context application context for reading resources
-     * @param byteBuffer a ByteBuffer containing the binary dictionary
-     */
-//    public RawBinaryDictionary(String dictionaryName, Context context, ByteBuffer byteBuffer, int dicTypeId) {
-//    	super(dictionaryName);
-//        if (byteBuffer != null) {
-//            if (byteBuffer.isDirect()) {
-//                mNativeDictDirectBuffer = byteBuffer;
-//            } else {
-//                mNativeDictDirectBuffer = ByteBuffer.allocateDirect(byteBuffer.capacity());
-//                byteBuffer.rewind();
-//                mNativeDictDirectBuffer.put(byteBuffer);
-//            }
-//            mDictLength = byteBuffer.capacity();
-//            mNativeDict = openNative(mNativeDictDirectBuffer,
-//                    TYPED_LETTER_MULTIPLIER, FULL_WORD_FREQ_MULTIPLIER);
-//        }
-//        mDicTypeId = dicTypeId;
-//    }
-
-    private native int openNative(ByteBuffer bb, int typedLetterMultiplier,
-            int fullWordMultiplier);
+    private native int openNative(ByteBuffer bb, int typedLetterMultiplier, int fullWordMultiplier);
     private native void closeNative(int dict);
     private native boolean isValidWordNative(int nativeData, char[] word, int wordLength);
     private native int getSuggestionsNative(int dict, int[] inputCodes, int codesSize, 
@@ -166,6 +139,7 @@ public class ResourceBinaryDictionary extends Dictionary {
     				//The try-catch is for issue 878: http://code.google.com/p/softkeyboard/issues/detail?id=878
     				try
     				{
+        				mNativeDict = 0;
     					loadDictionary(mAppContext, resId);
     				}
     				catch(UnsatisfiedLinkError ex)
@@ -224,43 +198,11 @@ public class ResourceBinaryDictionary extends Dictionary {
             }
         }
     }
-
-
-//    @Override
-//    public void getBigrams(final WordComposer codes, final CharSequence previousWord,
-//            final WordCallback callback, int[] nextLettersFrequencies) {
-//
-//        char[] chars = previousWord.toString().toCharArray();
-//        Arrays.fill(mOutputChars_bigrams, (char) 0);
-//        Arrays.fill(mFrequencies_bigrams, 0);
-//
-//        int codesSize = codes.size();
-//        Arrays.fill(mInputCodes, -1);
-//        int[] alternatives = codes.getCodesAt(0);
-//        System.arraycopy(alternatives, 0, mInputCodes, 0,
-//                Math.min(alternatives.length, MAX_ALTERNATIVES));
-//
-//        int count = getBigramsNative(mNativeDict, chars, chars.length, mInputCodes, codesSize,
-//                mOutputChars_bigrams, mFrequencies_bigrams, MAX_WORD_LENGTH, MAX_BIGRAMS,
-//                MAX_ALTERNATIVES);
-//
-//        for (int j = 0; j < count; j++) {
-//            if (mFrequencies_bigrams[j] < 1) break;
-//            int start = j * MAX_WORD_LENGTH;
-//            int len = 0;
-//            while (mOutputChars_bigrams[start + len] != 0) {
-//                len++;
-//            }
-//            if (len > 0) {
-//                callback.addWord(mOutputChars_bigrams, start, len, mFrequencies_bigrams[j],
-//                        mDicTypeId, DataType.BIGRAM);
-//            }
-//        }
-//    }
     
     @Override
     public void getWords(final WordComposer codes, final WordCallback callback/*,
             int[] nextLettersFrequencies*/) {
+    	if (mNativeDict == 0) return;
         final int codesSize = codes.size();
         // Won't deal with really long words.
         if (codesSize > MAX_WORD_LENGTH - 1) return;
@@ -313,7 +255,7 @@ public class ResourceBinaryDictionary extends Dictionary {
 
     @Override
     public boolean isValidWord(CharSequence word) {
-        if (word == null) return false;
+        if (word == null || mNativeDict == 0) return false;
         char[] chars = word.toString().toCharArray();
         return isValidWordNative(mNativeDict, chars, chars.length);
     }
