@@ -2812,6 +2812,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 					
 					mAutoDictionary = DictionaryFactory.getInstance().createAutoDictionary(this, this, localeForSupportingDictionaries);
 					mSuggest.setAutoDictionary(mAutoDictionary);
+					
+					mSuggest.setContactsDictionary(DictionaryFactory.getInstance().createContactsDictionary(getApplicationContext()));
 				}
 			}
 		}

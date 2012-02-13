@@ -133,8 +133,7 @@ public class Suggest implements Dictionary.WordCallback {
 	 * Sets an optional contacts dictionary resource to be loaded.
 	 */
 	public void setContactsDictionary(Dictionary contactsDictionary) {
-		if (mContactsDictionary != contactsDictionary
-				&& mContactsDictionary != null)
+		if (mContactsDictionary != contactsDictionary && mContactsDictionary != null)
 			mContactsDictionary.close();
 		mContactsDictionary = contactsDictionary;
 	}
