@@ -1240,7 +1240,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             keyBackground.setState(drawableState);
 
             // Switch the character to uppercase if shift is pressed
-            String label = key.label == null? null : adjustCase(key).toString();
+            CharSequence label = key.label == null? null : adjustCase(key).toString();
            
             final Rect bounds = keyBackground.getBounds();
             if (key.width != bounds.right || key.height != bounds.bottom) {
@@ -1272,9 +1272,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 	            {
 	            	//ho... no icon.
 	            	//I'll try to guess the text
-	            	key.label = guessLabelForKey(key);
-	            	
-	            	label = key.label == null? null : adjustCase(key).toString();
+	            	label = guessLabelForKey(key);
 	            }
             }
             
@@ -1301,7 +1299,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 //(+)This is the trick to get RTL/LTR text correct
 				// no matter what: StaticLayout
                 //this should be in the top left corner of the key
-            	float textWidth =  paint.measureText(label);
+            	float textWidth =  paint.measureText(label, 0, label.length());
                 
             	final float centerX = mKeyBackgroundPadding.left + (key.width - mKeyBackgroundPadding.left - mKeyBackgroundPadding.right)/2;
                 final float centerY = mKeyBackgroundPadding.top + (key.height - mKeyBackgroundPadding.top - mKeyBackgroundPadding.bottom)/2;
@@ -1326,7 +1324,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 {
                 	textY = centerY + ((labelHeight - paint.descent())/2);
                 	canvas.translate(textX , textY);
-                    canvas.drawText(label, 0, 0, paint);	
+                    canvas.drawText(label, 0, label.length(), 0, 0, paint);	
                 }
                 canvas.translate(-textX , -textY);
 				//(-)

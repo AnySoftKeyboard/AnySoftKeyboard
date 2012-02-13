@@ -132,7 +132,6 @@ public abstract class AnyKeyboard extends Keyboard
             		switch(primaryCode)
                     {
                     case KeyCodes.DELETE:
-                    case KeyCodes.CTRL:
                     case KeyCodes.MODE_ALPHABET:
                     case KeyCodes.KEYBOARD_MODE_CHANGE:
                     case KeyCodes.KEYBOARD_CYCLE:

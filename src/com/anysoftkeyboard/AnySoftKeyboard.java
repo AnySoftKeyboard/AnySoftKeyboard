@@ -1374,12 +1374,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 			break;
 		case KeyCodes.SHIFT:
-			if ((!mInputView.hasDistinctMultitouch()) ||  !fromUI)//the SWIPE_CORD is the case where onKey was called from swipeX
+			if ((!mInputView.hasDistinctMultitouch()) || !fromUI)
 				handleShift(false);
 			break;
 		case KeyCodes.CTRL:
-			if ((!mInputView.hasDistinctMultitouch()) || !fromUI)//the SWIPE_CORD is the case where onKey was called from swipeX
-					handleControl(false);
+			if ((!mInputView.hasDistinctMultitouch()) || !fromUI)
+				handleControl(false);
 			break;
 		case KeyCodes.ARROW_LEFT:
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_LEFT);

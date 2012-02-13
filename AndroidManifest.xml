@@ -28,7 +28,9 @@
 	    </service>
 	    
 	    <!-- receivers for outside events -->
-	     <!-- this is used for showing HOW-TO after Market install -->
+	     <!-- this is used for showing HOW-TO after Market install
+	     Probably does not work anymore. It seems that Market v3 will only call this broadcast
+	     on first app activation. Which is a good security fix, but bad for me :) -->
 	    <receiver android:name="com.anysoftkeyboard.receivers.AnySoftKeyboardInstalledReceiver" android:exported="true">
 			<intent-filter>
 			    <action android:name="com.android.vending.INSTALL_REFERRER" />
@@ -37,15 +39,13 @@
 		
 		<!-- ui activities -->
 		<!-- settings ui activities -->
-		<activity android:name="com.menny.android.anysoftkeyboard.MainSettings" android:label="@string/ime_name" android:icon="@drawable/ic_launcher_settings">
-		    <!-- don't want it anymore
-            <intent-filter>
+		<activity android:name="com.menny.android.anysoftkeyboard.MainSettings" android:label="@string/settings_app_name" android:icon="@drawable/ic_launcher_settings">
+		    <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-             -->
 	    </activity>
-	    <activity android:name="com.anysoftkeyboard.ui.settings.MainSettings" android:label="@string/ime_name" android:icon="@drawable/ic_launcher_settings">
+	    <activity android:name="com.anysoftkeyboard.ui.settings.MainSettings" android:label="@string/settings_app_name" android:icon="@drawable/ic_launcher_settings">
 	    </activity>
 	    <activity android:name="com.anysoftkeyboard.ui.settings.Dictionaries" android:label="@string/special_dictionaries_group" android:icon="@drawable/ic_launcher_settings">
 	    </activity>
@@ -76,12 +76,6 @@
 	    <!-- main help/about/stuff -->
 	    <activity android:name="com.anysoftkeyboard.ui.MainForm"
                   android:label="@string/ime_name">
-			<!-- don't want it anymore
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-             -->
         </activity>
         
         <!-- for voice -->
