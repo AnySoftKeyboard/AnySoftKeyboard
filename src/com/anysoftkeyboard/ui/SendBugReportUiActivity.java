@@ -22,7 +22,7 @@ public class SendBugReportUiActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		final AlertDialog dialog = new AlertDialog.Builder(this)
-			.setIcon(R.drawable.icon_8_key)
+			.setIcon(R.drawable.ic_launcher)
 			.setTitle(R.string.ime_name)
 			.setMessage("Oops, didn't see that coming...")
 			.setPositiveButton("Send :)", new OnClickListener() {

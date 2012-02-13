@@ -87,30 +87,6 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 		}
 		setExtensionLayout(KeyboardExtensionFactory.getCurrentKeyboardExtension(askContext.getApplicationContext(), KeyboardExtension.TYPE_EXTENSION));
 	}
-	/*
-	protected void setExtension(int resId) {
-		if (resId > 0)
-		{
-			Row r = new Row(this);
-			mExtensionPopupKey = new Key(r);
-			mExtensionPopupKey.codes = new int[]{0};
-			mExtensionPopupKey.edgeFlags = Keyboard.EDGE_TOP;
-			mExtensionPopupKey.height = 0;
-			mExtensionPopupKey.width = 0;
-			mExtensionPopupKey.popupResId = resId;
-			mExtensionPopupKey.x = 0;
-			mExtensionPopupKey.y = 0;
-		}
-		else
-		{
-			mExtensionPopupKey = null;
-		}
-    }
-	
-	public Key getExtensionKey() {
-        return mExtensionPopupKey;
-    }
-	*/
 	
 	protected void setExtensionLayout(KeyboardExtension extKbd) {
 		mExtensionLayout = extKbd;
@@ -137,12 +113,6 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                     	final String qwerty = attrs.getAttributeValue(null, XML_QWERTY_ATTRIBUTE);
                     	if (qwerty != null)
                     		translator.addQwertyTranslation(qwerty);
-                    	
-                    	//translator.addSequence(qwertKeysequence, AnyKeyboard.KEYCODE_LANG_CHANGE);
-                    	//translator.addShiftSequence(qwertKeysequence, AnyKeyboard.KEYCODE_LANG_CHANGE);
-                    	//translator.addSequence(dotKeysequence, AnyKeyboard.KEYCODE_LANG_CHANGE);
-                    	//translator.addShiftSequence(dotKeysequence, AnyKeyboard.KEYCODE_LANG_CHANGE);
-                    	//if (AnySoftKeyboardConfiguration.DEBUG) Log.d(TAG, "Starting parsing "+XML_TRANSLATION_TAG+". Qwerty:"+qwerty);
                     }
                     else if (inTranslations && XML_SEQUENCE_TAG.equals(tag))
                     {
@@ -204,15 +174,6 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 		return translator;
 	}
 
-	/*
-	private String printInts(int[] keyCodes) {
-		String r = "";
-		for(int code : keyCodes)
-			r += (Integer.toString(code)+",");
-
-		return r;
-	}
-*/
 	private int[] getKeyCodesFromPhysicalSequence(String keyCodesArray) {
 		String[] splitted = keyCodesArray.split(",");
 		int[] keyCodes = new int[splitted.length];

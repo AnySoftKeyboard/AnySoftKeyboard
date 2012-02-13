@@ -4,7 +4,7 @@
 	xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard"
     android:keyWidth="10%p"
     android:keyHeight="@integer/key_normal_height">
-    <!-- for testing shiftCodes -->
+    <!-- for testing shiftCodes 
     <Row>
         <Key android:codes="113" android:keyLabel="q" ask:shiftedCodes="80" android:keyEdgeFlags="left"/>
         <Key android:codes="119" android:keyLabel="w" ask:shiftedCodes="86" ask:shiftedKeyLabel="V"/>
@@ -17,28 +17,29 @@
         <Key android:codes="111" android:keyLabel="o" ask:shiftedCodes="78" ask:shiftedKeyLabel="M"/>
         <Key android:codes="112" android:keyLabel="p" ask:shiftedCodes="80" ask:shiftedKeyLabel="P" android:keyEdgeFlags="right"/>
     </Row>
-    <!-- original
+    -->
+    <!-- original -->
     <Row>
-        <Key android:codes="113" android:keyEdgeFlags="left"/>
-        <Key android:codes="119"/>
-        <Key android:codes="101" />
-        <Key android:codes="114" />
-        <Key android:codes="116"/>
-        <Key android:codes="121" />
-        <Key android:codes="117" />
-        <Key android:codes="105" />
-        <Key android:codes="111" />
-        <Key android:codes="112" android:keyEdgeFlags="right"/>
+        <Key android:codes="113" android:popupCharacters="1" android:keyEdgeFlags="left"/>
+        <Key android:codes="119" android:popupCharacters="2"/>
+        <Key android:codes="101" android:popupCharacters="3èéêëęē€"/>
+        <Key android:codes="114" android:popupCharacters="4" />
+        <Key android:codes="116" android:popupCharacters="5"/>
+        <Key android:codes="121" android:popupCharacters="6ýÿ" />
+        <Key android:codes="117" android:popupCharacters="7ùúûüŭűū" />
+        <Key android:codes="105" android:popupCharacters="8ìíîïłī" />
+        <Key android:codes="111" android:popupCharacters="9òóôõöøőœō" />
+        <Key android:codes="112" android:popupCharacters="0" android:keyEdgeFlags="right"/>
     </Row>
-     -->
+     
     <Row>
-        <Key android:horizontalGap="5%p" android:codes="97" android:keyLabel="a" android:keyEdgeFlags="left"/>
-        <Key android:codes="115" android:keyLabel="s"/>
-        <Key android:codes="100" android:keyLabel="d"/>
+        <Key android:horizontalGap="5%p" android:codes="97" android:keyLabel="a" android:popupCharacters="àáâãäåæą" android:keyEdgeFlags="left"/>
+        <Key android:codes="115" android:keyLabel="s" android:popupCharacters="§ßśŝš"/>
+        <Key android:codes="100" android:keyLabel="d" android:popupCharacters="đ"/>
         <Key android:codes="102" android:keyLabel="f"/>
-        <Key android:codes="103" android:keyLabel="g"/>
-        <Key android:codes="104" android:keyLabel="h"/>
-        <Key android:codes="106" android:keyLabel="j"/>
+        <Key android:codes="103" android:keyLabel="g" android:popupCharacters="ĝ"/>
+        <Key android:codes="104" android:keyLabel="h" android:popupCharacters="ĥ"/>
+        <Key android:codes="106" android:keyLabel="j" android:popupCharacters="ĵ"/>
         <Key android:codes="107" android:keyLabel="k"/>
         <Key android:codes="108" android:keyLabel="l" android:keyEdgeFlags="right"/>
     </Row>
@@ -46,12 +47,12 @@
     <Row>
         <Key android:codes="-1" android:keyWidth="15%p"
                 android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
-        <Key android:codes="122" android:keyLabel="z"/>
+        <Key android:codes="122" android:keyLabel="z" android:popupCharacters="żžź"/>
         <Key android:codes="120" android:keyLabel="x"/>
-        <Key android:codes="99" android:keyLabel="c"/>
+        <Key android:codes="99" android:keyLabel="c" android:popupCharacters="çćĉč"/>
         <Key android:codes="118" android:keyLabel="v"/>
         <Key android:codes="98" android:keyLabel="b"/>
-        <Key android:codes="110" android:keyLabel="n"/>
+        <Key android:codes="110" android:keyLabel="n" android:popupCharacters="ñ"/>
         <Key android:codes="109" android:keyLabel="m"/>
         <Key android:keyWidth="15%p" android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>

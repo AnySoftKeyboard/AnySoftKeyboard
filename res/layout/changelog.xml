@@ -5,7 +5,7 @@
 		android:layout_alignParentTop="true"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content">
-    	<ImageView android:src="@drawable/icon_8_key" android:layout_width="wrap_content" android:layout_margin="10dp" android:layout_height="wrap_content" android:id="@+id/changelog_icon" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" android:scaleType="centerInside"/>
+    	<ImageView android:src="@drawable/ic_launcher" android:layout_width="wrap_content" android:layout_margin="10dp" android:layout_height="wrap_content" android:id="@+id/changelog_icon" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" android:scaleType="centerInside"/>
     	<TextView
 	    	android:id="@+id/changelog_app_name"
 	        android:layout_height="wrap_content"

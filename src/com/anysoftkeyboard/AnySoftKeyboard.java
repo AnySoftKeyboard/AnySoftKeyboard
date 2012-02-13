@@ -1655,7 +1655,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		KeyboardAddOnAndBuilder[] builders = mKeyboardSwitcher.getEnabledKeyboardsBuilders();
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setCancelable(true);
-		builder.setIcon(R.drawable.icon_8_key);
+		builder.setIcon(R.drawable.ic_launcher_settings);
 		builder.setTitle(getResources().getString(R.string.select_keyboard_popup_title));
 		builder.setNegativeButton(android.R.string.cancel, null);
 		ArrayList<CharSequence> keyboardsIds = new ArrayList<CharSequence>();
@@ -2836,7 +2836,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		final String dictionaryOverrideValue = getSharedPreferences().getString(dictionaryOverridingKey, null);
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setCancelable(true);
-		builder.setIcon(R.drawable.icon_8_key);
+		builder.setIcon(R.drawable.ic_launcher_settings);
 		builder.setTitle(getResources().getString(
 				R.string.override_dictionary_title,
 				getCurrentKeyboard().getKeyboardName()));
@@ -2917,7 +2917,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private void showOptionsMenu() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setCancelable(true);
-		builder.setIcon(R.drawable.icon_8_key);
+		builder.setIcon(R.drawable.ic_launcher_settings);
 		builder.setNegativeButton(android.R.string.cancel, null);
 		CharSequence itemSettings = getString(R.string.ime_settings);
 		CharSequence itemOverrideDictionary = getString(R.string.override_dictionary);

@@ -12,7 +12,7 @@
     
     <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="10"></uses-sdk>
     
-	<application android:label="@string/ime_name" android:icon="@drawable/icon_8_key"
+	<application android:label="@string/ime_name" android:icon="@drawable/ic_launcher"
 	    android:hardwareAccelerated="true"
 		android:name=".AnyApplication"  android:backupAgent="com.anysoftkeyboard.backup.AnyBackupAgent" android:restoreAnyVersion="true">
 		<!-- used to backup the settings and SQL to the cloud -->
@@ -37,24 +37,30 @@
 		
 		<!-- ui activities -->
 		<!-- settings ui activities -->
-		<activity android:name="com.menny.android.anysoftkeyboard.MainSettings" android:label="@string/ime_name">
+		<activity android:name="com.menny.android.anysoftkeyboard.MainSettings" android:label="@string/ime_name" android:icon="@drawable/ic_launcher_settings">
+		    <!-- don't want it anymore
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+             -->
 	    </activity>
-	    <activity android:name="com.anysoftkeyboard.ui.settings.MainSettings" android:label="@string/ime_name">
+	    <activity android:name="com.anysoftkeyboard.ui.settings.MainSettings" android:label="@string/ime_name" android:icon="@drawable/ic_launcher_settings">
 	    </activity>
-	    <activity android:name="com.anysoftkeyboard.ui.settings.Dictionaries" android:label="@string/special_dictionaries_group">
+	    <activity android:name="com.anysoftkeyboard.ui.settings.Dictionaries" android:label="@string/special_dictionaries_group" android:icon="@drawable/ic_launcher_settings">
 	    </activity>
-	    <activity android:name="com.anysoftkeyboard.ui.settings.UserDictionaryEditorActivity" android:label="@string/user_dict_settings_titlebar">
+	    <activity android:name="com.anysoftkeyboard.ui.settings.UserDictionaryEditorActivity" android:label="@string/user_dict_settings_titlebar" android:icon="@drawable/ic_launcher_settings">
 	    </activity>
-	    <activity android:name="com.anysoftkeyboard.ui.settings.Tweaks" android:label="@string/tweaks_group">
+	    <activity android:name="com.anysoftkeyboard.ui.settings.Tweaks" android:label="@string/tweaks_group" android:icon="@drawable/ic_launcher_settings">
 	    </activity>
-	    <activity android:name="com.anysoftkeyboard.ui.settings.Keyboards" android:label="@string/keyboards_group">
+	    <activity android:name="com.anysoftkeyboard.ui.settings.Keyboards" android:label="@string/keyboards_group" android:icon="@drawable/ic_launcher_settings">
 	    </activity>
 	    
-	    <activity android:name="com.anysoftkeyboard.ui.settings.KeyboardThemeSelector" android:label="@string/keyboard_theme_group" />
-		<activity android:name="com.anysoftkeyboard.ui.settings.QuickTextKeys" android:label="@string/quick_text_keys_group" />
-		<activity android:name="com.anysoftkeyboard.ui.settings.TopRowSelector" android:label="@string/top_generic_row_group" />
-		<activity android:name="com.anysoftkeyboard.ui.settings.BottomRowSelector" android:label="@string/bottom_generic_row_group" />
-		<activity android:name="com.anysoftkeyboard.ui.settings.ExtensionKeyboardSelector" android:label="@string/extension_keyboard_group" />
+	    <activity android:name="com.anysoftkeyboard.ui.settings.KeyboardThemeSelector" android:label="@string/keyboard_theme_group" android:icon="@drawable/ic_launcher_settings"/>
+		<activity android:name="com.anysoftkeyboard.ui.settings.QuickTextKeys" android:label="@string/quick_text_keys_group" android:icon="@drawable/ic_launcher_settings"/>
+		<activity android:name="com.anysoftkeyboard.ui.settings.TopRowSelector" android:label="@string/top_generic_row_group" android:icon="@drawable/ic_launcher_settings"/>
+		<activity android:name="com.anysoftkeyboard.ui.settings.BottomRowSelector" android:label="@string/bottom_generic_row_group" android:icon="@drawable/ic_launcher_settings"/>
+		<activity android:name="com.anysoftkeyboard.ui.settings.ExtensionKeyboardSelector" android:label="@string/extension_keyboard_group" android:icon="@drawable/ic_launcher_settings"/>
 	    <!-- information ui activities -->
 	    <activity android:name="com.anysoftkeyboard.ui.tutorials.TipsActivity" android:theme="@style/Popup.NoTitle" android:label="@string/tips_title">
 	    </activity>
