@@ -324,16 +324,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		
 		TutorialsProvider.showChangeLogIfNeeded(getApplicationContext());
 	}
-	/*
-	private void updateVoiceImeStatus() {
-		if (mVoiceRecognitionTrigger.isInstalled()) {
-			if (mVoiceRecognitionTrigger.isEnabled()) {
-		    } else {
-		    }
-		  } else {
-		  }
-		}
-	*/
+
 	@Override
 	public void onUnbindInput() {
 		if (AnyApplication.DEBUG) Log.d(TAG, "onUnbindInput");
@@ -2745,7 +2736,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mShowSuggestions = sp.getBoolean("candidates_on", true);
 		
 		setDictionariesForCurrentKeyboard();
-
+		
 		mAutoComplete = sp.getBoolean("auto_complete", true) && mShowSuggestions;
 
 		mQuickFixes = sp.getBoolean("quick_fix", true);
@@ -2778,6 +2769,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				mSuggest.setMainDictionary(null);
 				mSuggest.setUserDictionary(null);
 				mSuggest.setAutoDictionary(null);
+				mSuggest.setContactsDictionary(null);
 				mLastDictionaryRefresh = -1;
 			} else {
 				mLastDictionaryRefresh = SystemClock.elapsedRealtime();
@@ -2812,8 +2804,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 					
 					mAutoDictionary = DictionaryFactory.getInstance().createAutoDictionary(this, this, localeForSupportingDictionaries);
 					mSuggest.setAutoDictionary(mAutoDictionary);
-					
-					mSuggest.setContactsDictionary(DictionaryFactory.getInstance().createContactsDictionary(getApplicationContext()));
+
+					if (mConfig.useContactsDictionary())
+						mSuggest.setContactsDictionary(DictionaryFactory.getInstance().createContactsDictionary(getApplicationContext()));
+					else
+						mSuggest.setContactsDictionary(null);
 				}
 			}
 		}
