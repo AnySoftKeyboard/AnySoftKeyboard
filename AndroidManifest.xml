@@ -13,7 +13,7 @@
     <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="10"></uses-sdk>
     
 	<application android:label="@string/ime_name" android:icon="@drawable/ic_launcher"
-	    android:hardwareAccelerated="true"
+	    android:hardwareAccelerated="true" android:installLocation="internalOnly"
 		android:name=".AnyApplication"  android:backupAgent="com.anysoftkeyboard.backup.AnyBackupAgent" android:restoreAnyVersion="true">
 		<!-- used to backup the settings and SQL to the cloud -->
 		<meta-data android:name="com.google.android.backup.api_key"
