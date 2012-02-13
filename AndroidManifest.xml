@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.anysoftkeyboard.api" android:versionCode="2"
 	android:versionName="1.0">
-	<application android:icon="@drawable/icon_8_key" android:label="AnySoftKeyboard API">
+	<application android:icon="@drawable/ic_launcher" android:label="AnySoftKeyboard API">
 
 	</application>
 	
