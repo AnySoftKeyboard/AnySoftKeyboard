@@ -1877,23 +1877,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 */
 	private void handleControl(boolean reset) {
+		if (mInputView == null) return;
 		if (reset)
 		{
-			if (DEBUG) Log.d(TAG, "handleControl: reset");
 			mInputView.setControl(false);
 		}
 		else
 		{
-			if (!mInputView.isControl())
-			{
-				if (DEBUG) Log.d(TAG, "handleControl: current keyboard is un-control");
-				mInputView.setControl(true);
-			}
-			else
-			{
-				if (DEBUG) Log.d(TAG, "handleControl: current keyboard is control");
-				mInputView.setControl(true);
-			}
+			mInputView.setControl(!mInputView.isControl());
 		}
 	}
 	
@@ -1907,14 +1898,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 			//2)if keyboard is shifted -> capslock keyboard
 			//3)if keyboard is capslocked -> unshift view and keyboard
 			//final AnyKeyboard currentKeyboard = mKeyboardSwitcher.getCurrentKeyboard();
-			if (DEBUG)
-			{
-				final AnyKeyboard viewKeyboard = (AnyKeyboard)mInputView.getKeyboard();
-				if (getCurrentKeyboard() != viewKeyboard)
-				{
-					Log.e(TAG, "NOTE: view keyboard and switcher keyboard are not the same!");
-				}
-			}
 			
 			final boolean caps;
 			if (reset)
@@ -2669,15 +2652,15 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
         if (distinctMultiTouch && primaryCode == KeyCodes.CTRL) {
             if (mControlKeyState.isMomentary())
-            {
                 handleControl(true);
-            }
             sendKeyUp(ic, 113); // KeyEvent.KEYCODE_CTRL_LEFT
             mControlKeyState.onRelease();
         }
         //the user lifted the finger, let's handle the shift
         if (primaryCode != KeyCodes.SHIFT)
         	updateShiftKeyState(getCurrentInputEditorInfo());
+        if (primaryCode != KeyCodes.CTRL)
+        	 mInputView.setControl(mControlKeyState.isMomentary());
 	}
 
 	// receive ringer mode changes to detect silent mode
