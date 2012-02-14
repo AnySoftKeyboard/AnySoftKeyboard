@@ -16,7 +16,6 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
-import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView.UIHandler;
 
 import android.content.res.Resources;
@@ -215,9 +214,10 @@ public class PointerTracker {
         Key key = getKey(keyIndex);
         if (key == null)
             return false;
-        int primaryCode = key.codes[0];
+        /*int primaryCode = key.codes[0];
         return primaryCode == KeyCodes.SHIFT
-                || primaryCode == KeyCodes.MODE_ALPHABET;
+                || primaryCode == KeyCodes.MODE_ALPHABET;*/
+        return key.modifier;
     }
 
     public boolean isModifier() {
