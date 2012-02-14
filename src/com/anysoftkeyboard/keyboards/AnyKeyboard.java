@@ -185,7 +185,8 @@ public abstract class AnyKeyboard extends Keyboard
 	                	if (TextUtils.isEmpty(key.label))
 	                	{
 		                	final char code = (char)key.codes[0];
-		                	if (code > 0 && !Character.isWhitespace(code))
+		                	//check the ASCII table, everything below 32, is not printable
+		                	if (code > 31 && !Character.isWhitespace(code))
 		                		key.label = ""+code;
 	                	}
 	                	if (key instanceof AnyKey)
@@ -194,7 +195,8 @@ public abstract class AnyKeyboard extends Keyboard
 		                	if (TextUtils.isEmpty(anyKey.shiftedKeyLabel))
 		                	{
 			                	final char code = (char)anyKey.shiftedCodes[0];
-			                	if (code > 0 && !Character.isWhitespace(code))
+			                	//check the ASCII table, everything below 32, is not printable
+			                	if (code > 31 && !Character.isWhitespace(code))
 			                		anyKey.shiftedKeyLabel = ""+code;
 		                	}
 	                	}
@@ -795,13 +797,16 @@ public abstract class AnyKeyboard extends Keyboard
             			shiftedCodes[i] = code;
             	}
             }
-            /*Shift label support*/
-            shiftedKeyLabel = a.getString(R.styleable.Keyboard_Key_v2_shiftedKeyLabel);
             
             /*long press support*/
             longPressCode = a.getInt(R.styleable.Keyboard_Key_longPressCode, 0);
             mFunctionalKey = a.getBoolean(R.styleable.Keyboard_Key_isFunctional, false);
             
+            a.recycle();
+            
+            /*Shift label support*/
+            a = res.obtainAttributes(Xml.asAttributeSet(parser), R.styleable.Keyboard_Key_v2);
+            shiftedKeyLabel = a.getString(R.styleable.Keyboard_Key_v2_shiftedKeyLabel);
             a.recycle();
         }
         
