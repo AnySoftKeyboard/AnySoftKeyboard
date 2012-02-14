@@ -186,6 +186,29 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 		}
 		return false;
 	}
+	/*
+	public boolean isControlLocked()
+	{
+		AnyKeyboard keyboard = getKeyboard();
+		if (keyboard != null)
+		{
+            return keyboard.isControlLocked();
+        }
+        return false;
+	}
+
+	public boolean setControlLocked(boolean locked) {
+		AnyKeyboard keyboard = getKeyboard();
+		if (keyboard != null)
+		{
+			if (keyboard.setControlLocked(locked))
+			{
+				invalidateAllKeys();
+				return true;
+			}
+		}
+		return false;
+	}*/
 /*
 	@Override
 	public void draw(Canvas c) {

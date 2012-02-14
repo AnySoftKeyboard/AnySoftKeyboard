@@ -142,6 +142,7 @@ public abstract class AnyKeyboard extends Keyboard
                     case KeyCodes.QUICK_TEXT:
                     case KeyCodes.DOMAIN:
                     case KeyCodes.CANCEL:
+                    case KeyCodes.CTRL:
                     	((AnyKey)key).setAsFunctional();
                     	break;
                     }
@@ -614,8 +615,6 @@ public abstract class AnyKeyboard extends Keyboard
     
     public abstract int getKeyboardIconResId();
     
-
-
     public boolean setShiftLocked(boolean shiftLocked) {
         if (mShiftKey != null) {
         	final int initialState = mShiftState;
@@ -646,7 +645,7 @@ public abstract class AnyKeyboard extends Keyboard
         if (mShiftKey != null) {
         	final int initialState = mShiftState;
             if (shiftState) {
-            	if (mShiftState == STICKY_KEY_OFF) {
+            	if (mShiftState == STICKY_KEY_OFF) {//so it is not LOCKED
                     mShiftState = STICKY_KEY_ON;
                 }
             	//else this is already ON, or at caps lock.
@@ -679,27 +678,27 @@ public abstract class AnyKeyboard extends Keyboard
     }
     
     public boolean setControl(boolean control) {
-        boolean controlChanged = false;
-        if (mControlKey != null) {
-            if (control == false) {
-            	controlChanged = mControlState != STICKY_KEY_OFF;
-            	mControlState = STICKY_KEY_OFF;
-            } else {
-                if (mControlState == STICKY_KEY_OFF) {
-                	controlChanged = mControlState == STICKY_KEY_OFF;
-                	mControlState = STICKY_KEY_ON;
+    	if (mControlKey != null) {
+        	final int initialState = mControlState;
+            if (control) {
+            	if (mControlState == STICKY_KEY_OFF) {//so it is not LOCKED
+            		mControlState = STICKY_KEY_ON;
                 }
+            	//else this is already ON, or at caps lock.
+            } else {
+            	mControlState = STICKY_KEY_OFF;
             }
-            
+
             setControlViewAsState();
+            return mControlState != initialState;
         } else {
             return false;
         }
-        return controlChanged;
     }
-
-    public void setControlLocked(boolean controlLocked) {
-        if (mControlKey != null) {
+/*
+    public boolean setControlLocked(boolean controlLocked) {
+    	if (mControlKey != null) {
+        	final int initialState = mControlState;
             if (controlLocked) {
             	mControlState = STICKY_KEY_LOCKED;
             } else if (mControlState == STICKY_KEY_LOCKED) {
@@ -707,18 +706,21 @@ public abstract class AnyKeyboard extends Keyboard
             }
             
             setControlViewAsState();
+            return initialState != mControlState;
         }
+        
+        return false;
     }
-    
+    */
 	private void setControlViewAsState() {
 		//the "on" led is just like the caps-lock led
 		mControlKey.on = (mControlState == STICKY_KEY_LOCKED);
 	}
-    
+    /*
 	public boolean isControlLocked() {
 		return mControlState == STICKY_KEY_LOCKED;
 	}
-	
+	*/
 	protected void setPopupKeyChars(Key aKey)
 	{
 		

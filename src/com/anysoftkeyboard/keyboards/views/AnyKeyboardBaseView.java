@@ -1474,9 +1474,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     		else
     			return null;
 		case KeyCodes.CTRL:
-			if (mKeyboard.isControlLocked())
+			/*if (mKeyboard.isControlLocked())
 				mControlIcon.setState(DRAWABLE_STATE_MODIFIER_LOCKED);
-			else if (mKeyboard.isControl())
+			else*/ if (mKeyboard.isControl())
 				mControlIcon.setState(DRAWABLE_STATE_MODIFIER_PRESSED);
 			else
 				mControlIcon.setState(DRAWABLE_STATE_MODIFIER_NORMAL);
