@@ -287,6 +287,10 @@
     <string name="show_new_tips_notifications_again_on_summary">When new tips are available, they will be shown</string>
     <string name="show_new_tips_notifications_again_off_summary">Will not notify you when a new tip is available</string>
     
+    <string name="show_settings_app_in_launcher">Settings app</string>
+    <string name="settings_key_show_settings_app_on_summary">Settings app will be visible in the launcher</string>
+    <string name="settings_key_show_settings_app_off_summary">Hide Settings app</string>
+    
     <string name="show_new_version_notifications_again">Show new version notifications</string>
     <string name="show_new_version_notifications_again_on_summary">Upon installing a new version, a change-log will be shown</string>
     <string name="show_new_version_notifications_again_off_summary">Will not notify you when a new version is installed</string>

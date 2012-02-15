@@ -2742,6 +2742,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (mSuggest != null) mSuggest.setMinimumWordLengthForCorrection(mMinimumWordCorrectionLength);
 		
 		setInitialCondensedState(getResources().getConfiguration());
+		
+		 
 	}
 
 	private void setDictionariesForCurrentKeyboard() {
