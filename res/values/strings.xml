@@ -62,6 +62,11 @@
 	<string name="main_tab_credits_localization_by">Localization efforts by:</string>
 	<string name="main_tab_credits_GUI_by">UI images by:</string>
 	
+	<string name="how_to_enable_dialog_title">Enable AnySoftKeyboard\?</string>
+	<string name="how_to_enable_dialog_text">AnySoftKeyboard is not activated yet. Do you want me to show you how to activate?</string>
+	<string name="how_to_enable_dialog_show_me">Show me!</string>
+	<string name="how_to_enable_dialog_dont_show_me">Later</string>
+	
 	<string name="how_to_simple_howto_preface">Android requires that you (the user) will manually enable and activate external keyboards. Here is how:</string>
 	<string name="how_to_simple_howto_enable_ask">Step 1: Enable AnySoftKeyboard (it will warn you about possible key-logging, don\'t worry, AnySoftKeyboard do not keep data, and do not send it anywhere) :</string>
 	<string name="how_to_simple_howto_enable_ask_button">Enable AnySoftKeyboard</string>

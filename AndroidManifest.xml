@@ -27,16 +27,6 @@
 	        <meta-data android:name="android.view.im" android:resource="@xml/method" />
 	    </service>
 	    
-	    <!-- receivers for outside events -->
-	     <!-- this is used for showing HOW-TO after Market install
-	     Probably does not work anymore. It seems that Market v3 will only call this broadcast
-	     on first app activation. Which is a good security fix, but bad for me :) -->
-	    <receiver android:name="com.anysoftkeyboard.receivers.AnySoftKeyboardInstalledReceiver" android:exported="true">
-			<intent-filter>
-			    <action android:name="com.android.vending.INSTALL_REFERRER" />
-			</intent-filter>
-		</receiver>
-		
 		<!-- ui activities -->
 		<!-- settings ui activities -->
 		<activity android:name="com.menny.android.anysoftkeyboard.MainSettings" android:label="@string/settings_app_name" android:icon="@drawable/ic_launcher_settings">

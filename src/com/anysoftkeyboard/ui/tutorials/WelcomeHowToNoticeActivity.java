@@ -2,6 +2,8 @@ package com.anysoftkeyboard.ui.tutorials;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ScrollView;
@@ -11,6 +13,8 @@ import com.anysoftkeyboard.ui.MainForm;
 import com.menny.android.anysoftkeyboard.R;
 
 public class WelcomeHowToNoticeActivity extends BaseTutorialActivity {
+
+	private static final String ASK_HAS_BEEN_ENABLED_BEFORE = "ask_has_been_enabled_before";
 
 	@Override
 	protected int getLayoutResId() {
@@ -25,7 +29,7 @@ public class WelcomeHowToNoticeActivity extends BaseTutorialActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		TutorialsProvider.markWelcomeActivityAsShown(getApplicationContext());
+		markWelcomeActivityAsShown(getApplicationContext());
 	}
 	
 	@Override
@@ -48,5 +52,19 @@ public class WelcomeHowToNoticeActivity extends BaseTutorialActivity {
 		default:
 			super.onClick(v);
 		}
+	}
+
+	public static boolean hasWelcomeActivityShown(Context context) {
+		SharedPreferences sp = context.getSharedPreferences(TutorialsProvider.TUTORIALS_SP_FILENAME, 0);//private
+		final boolean hasBeenLoaded = sp.getBoolean(ASK_HAS_BEEN_ENABLED_BEFORE, false);
+		
+		return hasBeenLoaded;
+	}
+
+	private static void markWelcomeActivityAsShown(Context context) {
+		SharedPreferences sp = context.getSharedPreferences(TutorialsProvider.TUTORIALS_SP_FILENAME, 0);//private
+		Editor e = sp.edit();
+		e.putBoolean(ASK_HAS_BEEN_ENABLED_BEFORE, true);
+		e.commit();
 	}
 }

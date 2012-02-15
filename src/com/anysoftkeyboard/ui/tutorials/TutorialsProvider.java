@@ -16,51 +16,17 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.preference.PreferenceManager;
-import android.provider.Settings.Secure;
-import android.text.TextUtils;
 import android.util.Log;
 
 public class TutorialsProvider 
 {
-	private static final String TUTORIALS_SP_FILENAME = "tutorials";
-
-	private static final String ASK_HAS_BEEN_ENABLED_BEFORE = "ask_has_been_enabled_before";
+	public static final String TUTORIALS_SP_FILENAME = "tutorials";
 
 	private static final String TAG = "ASK Turorial";
 
 	private static final int TUTORIALS_NOTIFICATION_ID_BASE = 102431;
 
-	/**
-	 * Search array for an entry BEGINNING with key.
-	 * 
-	 * @param array the array to search over
-	 * @param key the string to search for
-	 * @return true if the key was found in the array
-	 */
-	private static boolean linearSearch( String listOfIme, final String key )
-	{
-		if (TextUtils.isEmpty(listOfIme) || TextUtils.isEmpty(key))
-			return false;
-		if (AnyApplication.DEBUG)
-			Log.d(TAG, "Currently these are the IME enabled in the OS: "+listOfIme);
-		String[] arrayOfIme = listOfIme.split(":");
-		if (arrayOfIme == null)
-			return false;
-		
-		for(final String ime : arrayOfIme)
-		{
-			if (TextUtils.isEmpty(ime)) continue;
-			if (AnyApplication.DEBUG)
-				Log.d(TAG, "Is '"+ime+"' starts with '"+key+"'?");
-			//checking "startsWith" since the OS list is something like this:
-			//com.android.inputmethod.latin/.LatinIME:com.menny.android.anysoftkeyboard/.SoftKeyboard
-			if (ime.startsWith(key)) return true;
-		}
-		
-		if (AnyApplication.DEBUG)
-			Log.d(TAG, "'"+key+"' was not found in the list of IMEs!");
-		return false;
-	}
+	
 	
 	public static void showDragonsIfNeeded(Context context)
 	{
@@ -84,7 +50,7 @@ public class TutorialsProvider
 		
 		context.startActivity(i);
 	}
-	
+	/*
 	public static void showHowToActivateIfNeeded(Context context)
 	{
 		if (!linearSearch( Secure.getString(context.getContentResolver(), Secure.ENABLED_INPUT_METHODS),
@@ -104,7 +70,7 @@ public class TutorialsProvider
 								R.string.notification_title_how_to_enable, R.string.notification_text_how_to_enable));
 			}
 		}
-	}
+	}*/
 	
 	public static void showChangeLogIfNeeded(Context context)
 	{
@@ -119,20 +85,6 @@ public class TutorialsProvider
 							TUTORIALS_NOTIFICATION_ID_BASE+3, i, R.drawable.notification_icon_changelog, 
 							R.string.ime_name, R.string.notification_text_changelog));
 		}
-	}
-
-	private static boolean hasWelcomeActivityShown(Context context) {
-		SharedPreferences sp = context.getSharedPreferences(TUTORIALS_SP_FILENAME, 0);//private
-		final boolean hasBeenLoaded = sp.getBoolean(ASK_HAS_BEEN_ENABLED_BEFORE, false);
-		
-		return hasBeenLoaded;
-	}
-
-	public static void markWelcomeActivityAsShown(Context context) {
-		SharedPreferences sp = context.getSharedPreferences(TUTORIALS_SP_FILENAME, 0);//private
-		Editor e = sp.edit();
-		e.putBoolean(ASK_HAS_BEEN_ENABLED_BEFORE, true);
-		e.commit();
 	}
 	
 	private static boolean firstTestersTimeVersionLoaded(Context context)
