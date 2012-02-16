@@ -53,7 +53,7 @@ public class PackagesChangedReceiver extends BroadcastReceiver {
 		IntentFilter filter = new IntentFilter();
 		filter.addCategory(Intent.CATEGORY_DEFAULT);
 		
-		//filter.addAction(Intent.ACTION_PACKAGE_CHANGED);
+		filter.addAction(Intent.ACTION_PACKAGE_CHANGED);
 		filter.addAction(Intent.ACTION_PACKAGE_REMOVED);
 		filter.addAction(Intent.ACTION_PACKAGE_ADDED);
 		filter.addAction(Intent.ACTION_PACKAGE_REPLACED);

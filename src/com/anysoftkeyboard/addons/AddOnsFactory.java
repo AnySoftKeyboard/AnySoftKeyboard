@@ -107,7 +107,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
 				return true;
 			}
 		}
-		else if (Intent.ACTION_PACKAGE_REPLACED.equals(action))
+		else if (Intent.ACTION_PACKAGE_REPLACED.equals(action) || Intent.ACTION_PACKAGE_CHANGED.equals(action))
 		{
 			//If I'm managing OR it contains an addon (could be new feature in the package), I want to reset.
 			boolean isPackagedManaged = isPackageManaged(packageNameSchemePart);
@@ -158,6 +158,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
 			ActivityInfo[] receivers = newPackage.receivers;
 			for(ActivityInfo aReceiver : receivers)
 			{
+				if (!aReceiver.isEnabled()) continue;
 				final XmlPullParser xml = aReceiver.loadXmlMetaData(context.getPackageManager(), RECEIVER_META_DATA);
 				if (xml != null)
 				{
@@ -252,6 +253,8 @@ public abstract class AddOnsFactory<E extends AddOn> {
                 // Skip to next receiver
                 continue;
             }
+            
+            if (!receiver.activityInfo.isEnabled()) continue;
 
             try {
                 final Context externalPackageContext = context.createPackageContext(receiver.activityInfo.packageName, PackageManager.GET_META_DATA);
