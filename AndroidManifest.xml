@@ -35,6 +35,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 	    </activity>
+	    
+	    <activity android:name="com.menny.android.anysoftkeyboard.MainSettings" android:label="@string/settings_app_name" android:icon="@drawable/ic_launcher_settings">
+	    </activity>
 	    <activity android:name="com.anysoftkeyboard.ui.settings.MainSettings" android:label="@string/settings_app_name" android:icon="@drawable/ic_launcher_settings">
 	    </activity>
 	    <activity android:name="com.anysoftkeyboard.ui.settings.Dictionaries" android:label="@string/special_dictionaries_group" android:icon="@drawable/ic_launcher_settings">

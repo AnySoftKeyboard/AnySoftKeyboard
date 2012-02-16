@@ -158,7 +158,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
 			ActivityInfo[] receivers = newPackage.receivers;
 			for(ActivityInfo aReceiver : receivers)
 			{
-				if (!aReceiver.isEnabled()) continue;
+				if (!aReceiver.enabled || !aReceiver.applicationInfo.enabled) continue;
 				final XmlPullParser xml = aReceiver.loadXmlMetaData(context.getPackageManager(), RECEIVER_META_DATA);
 				if (xml != null)
 				{
@@ -253,8 +253,8 @@ public abstract class AddOnsFactory<E extends AddOn> {
                 // Skip to next receiver
                 continue;
             }
-            
-            if (!receiver.activityInfo.isEnabled()) continue;
+
+            if (!receiver.activityInfo.enabled || !receiver.activityInfo.applicationInfo.enabled) continue;
 
             try {
                 final Context externalPackageContext = context.createPackageContext(receiver.activityInfo.packageName, PackageManager.GET_META_DATA);
