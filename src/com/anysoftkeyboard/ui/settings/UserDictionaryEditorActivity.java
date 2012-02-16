@@ -84,23 +84,9 @@ public class UserDictionaryEditorActivity extends ListActivity {
     private static final String INSTANCE_KEY_DIALOG_EDITING_WORD = "DIALOG_EDITING_WORD";
     private static final String INSTANCE_KEY_ADDED_WORD = "DIALOG_ADDED_WORD";
 
-//    private static final String[] QUERY_PROJECTION = {
-//        UserDictionary.Words._ID, UserDictionary.Words.WORD
-//    };
-//    
-//    // Either the locale is empty (means the word is applicable to all locales)
-//    // or the word equals our current locale
-//    private static final String QUERY_SELECTION = UserDictionary.Words.LOCALE + "=? OR "
-//            + UserDictionary.Words.LOCALE + " is null";
-
     private static final String DELETE_SELECTION = UserDictionary.Words.WORD + "=?";
 
     private static final String EXTRA_WORD = "word";
-    
-    //private static final int CONTEXT_MENU_EDIT = Menu.FIRST;
-    //private static final int CONTEXT_MENU_DELETE = Menu.FIRST + 1;
-    
-    //private static final int OPTIONS_MENU_ADD = Menu.FIRST;
 
     private static final int DIALOG_ADD_OR_EDIT = 0;
 	private static final String TAG = "ASK_UDE";

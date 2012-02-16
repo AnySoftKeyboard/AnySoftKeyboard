@@ -45,7 +45,7 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
 	private final String mCurrentLocale;
 
 	public DictionarySQLiteConnection(Context context, String dbName, String tableName, String wordsColumnName, String frequencyColumnName, String localeColumnName, String currentLocale) {
-		super(context, dbName, null, 4);
+		super(context, dbName, null, 5);
 		mDBFile = dbName;
 		mContext = context;
 		mTableName = tableName;
@@ -58,7 +58,7 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
 	@Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + mTableName + " ("
-                + "Id INTEGER PRIMARY KEY,"
+                + "_id INTEGER PRIMARY KEY,"
                 + mWordsColumnName+" TEXT,"
                 + mFrequencyColumnName+" INTEGER,"
                 + mLocaleColumnName+" TEXT"
@@ -71,6 +71,11 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
         {
         	db.execSQL("ALTER TABLE "+mTableName+" ADD COLUMN "+mLocaleColumnName+" TEXT;");
         }
+        if (oldVersion < 5)
+        {
+        	db.execSQL("ALTER TABLE "+mTableName+" ADD COLUMN _id TEXT;");
+        	db.execSQL("UPDATE "+mTableName+" SET _id=Id;");
+        }
     }
 
     public synchronized void addWord(String word, int freq)
@@ -78,7 +83,7 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
     	SQLiteDatabase db = getWritableDatabase();
 
     	ContentValues values = new ContentValues();
-    	values.put("Id", word.hashCode());//ensuring that any word is inserted once
+    	values.put("_id", word.hashCode());//ensuring that any word is inserted once
     	values.put(mWordsColumnName, word);
     	values.put(mFrequencyColumnName, freq);
     	values.put(mLocaleColumnName, mCurrentLocale);
