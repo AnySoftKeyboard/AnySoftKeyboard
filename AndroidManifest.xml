@@ -29,7 +29,7 @@
 	    
 		<!-- ui activities -->
 		<!-- settings ui activities -->
-		<activity android:name="com.menny.android.anysoftkeyboard.MainSettings" android:label="@string/settings_app_name" android:icon="@drawable/ic_launcher_settings">
+		<activity android:name="com.menny.android.anysoftkeyboard.LauncherSettingsActivity" android:label="@string/settings_app_name" android:icon="@drawable/ic_launcher_settings">
 		    <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

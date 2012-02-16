@@ -304,12 +304,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mVibrator = ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE));
 		// setStatusIcon(R.drawable.ime_qwerty);
 		loadSettings();
+		mConfig.addChangedListener(this);
 		mKeyboardSwitcher = new KeyboardSwitcher(this);
 		
 		mOrientation = getResources().getConfiguration().orientation;
-
-		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-		sp.registerOnSharedPreferenceChangeListener(this);
 		
 		mSentenceSeparators = getCurrentKeyboard().getSentenceSeparators();
 		
@@ -342,14 +340,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public void onDestroy() {
 		Log.i(TAG, "AnySoftKeyboard has been destroyed! Cleaning resources..");
-		//INSTANCE = null;
-		//DictionaryFactory.getInstance().close();
-
-		// unregisterReceiver(mReceiver);
-
-		SharedPreferences sp = PreferenceManager
-				.getDefaultSharedPreferences(this);
-		sp.unregisterOnSharedPreferenceChangeListener(this);
+		
+		mConfig.removeChangedListener(this);
 		
         unregisterReceiver(mSoundPreferencesChangedReceiver);
         unregisterReceiver(mPackagesChangedReceiver);
@@ -379,6 +371,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public View onCreateInputView() {
 		if (DEBUG) Log.v(TAG, "Creating Input View");
+		
 		mInputView = (AnyKeyboardView) getLayoutInflater().inflate(R.layout.main_keyboard_layout, null);
 		mInputView.setAnySoftKeyboardContext(this);
 		//reseting token users
@@ -387,7 +380,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		
 		mKeyboardSwitcher.setInputView(mInputView);
 		mInputView.setOnKeyboardActionListener(this);
-
+		
 		return mInputView;
 	}
 
@@ -2676,10 +2669,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// setting all values to default
 		PreferenceManager.setDefaultValues(this, R.layout.prefs, false);
 		// Get the settings preferences
-		SharedPreferences sp = PreferenceManager
-				.getDefaultSharedPreferences(this);
-
-		((ConfigurationImpl) mConfig).handleConfigurationChange(sp);
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 		
 		mVibrationDuration = Integer.parseInt(sp.getString(
 				getString(R.string.settings_key_vibrate_on_key_press_duration),
@@ -2742,8 +2732,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (mSuggest != null) mSuggest.setMinimumWordLengthForCorrection(mMinimumWordCorrectionLength);
 		
 		setInitialCondensedState(getResources().getConfiguration());
-		
-		 
 	}
 
 	private void setDictionariesForCurrentKeyboard() {

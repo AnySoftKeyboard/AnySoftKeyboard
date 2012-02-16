@@ -1,5 +1,7 @@
 package com.anysoftkeyboard;
 
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+
 public interface Configuration {
 	
 	String getDomainText();
@@ -81,4 +83,8 @@ public interface Configuration {
 	boolean workaround_alwaysUseDrawText();
 	
 	String getInitialKeyboardSplitState();
+	
+	void addChangedListener(OnSharedPreferenceChangeListener listener);
+	
+	void removeChangedListener(OnSharedPreferenceChangeListener listener);
 }

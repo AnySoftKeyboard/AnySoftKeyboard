@@ -1,8 +1,11 @@
 package com.anysoftkeyboard;
 
+import java.util.LinkedList;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 
@@ -16,7 +19,7 @@ import android.util.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
-public class ConfigurationImpl implements Configuration
+public class ConfigurationImpl implements Configuration, OnSharedPreferenceChangeListener
 {
 	static final String TAG = "ASK_Cfg";
 
@@ -69,6 +72,8 @@ public class ConfigurationImpl implements Configuration
 	
 	private String mInitialKeyboardSplitState = "merged_always";
 	
+	private final LinkedList<OnSharedPreferenceChangeListener> mPreferencesChangedListeners = new LinkedList<SharedPreferences.OnSharedPreferenceChangeListener>();
+	
 	public ConfigurationImpl(Context context)
 	{
 		mContext = context;
@@ -92,7 +97,7 @@ public class ConfigurationImpl implements Configuration
 		customizeSettingValues(mContext.getApplicationContext(), sp);
 		upgradeSettingsValues(sp);
 		
-		handleConfigurationChange(sp);
+		onSharedPreferenceChanged(sp, "");
 	}
 	
 	private void customizeSettingValues(Context context, SharedPreferences sp) {
@@ -211,11 +216,16 @@ public class ConfigurationImpl implements Configuration
 		}
 	}
 	
-	public void handleConfigurationChange(SharedPreferences sp)
-	{
-		Log.i(TAG, "**** handleConfigurationChange: ");
-//		mLayoutChangeKeysSize = sp.getString(mContext.getString(R.string.settings_key_top_keyboard_row_id), mContext.getString(R.string.settings_default_top_keyboard_row_id));
-//		Log.i(TAG, "** mChangeKeysMode: "+mLayoutChangeKeysSize);
+	public void addChangedListener(OnSharedPreferenceChangeListener listener) {
+		mPreferencesChangedListeners.add(listener);
+	}
+	
+	public void removeChangedListener(OnSharedPreferenceChangeListener listener) {
+		mPreferencesChangedListeners.remove(listener);
+	}
+	
+	public void onSharedPreferenceChanged(SharedPreferences sp, String key) {
+		Log.i(TAG, "**** onSharedPreferenceChanged: ");
 		
 		mDomainText = sp.getString("default_domain_text", ".com");
 		Log.i(TAG, "** mDomainText: "+mDomainText);
@@ -385,6 +395,12 @@ public class ConfigurationImpl implements Configuration
         		mContext.getString(R.string.settings_default_default_split_state));
         Log.i(TAG, "** mInitialKeyboardSplitState: " + mInitialKeyboardSplitState);
         
+
+		
+		for(OnSharedPreferenceChangeListener listener : mPreferencesChangedListeners)
+		{
+			listener.onSharedPreferenceChanged(sp, key);
+		}
 	}
 
 	private boolean getAlwaysUseDrawTextDefault() {

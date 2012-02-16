@@ -8,12 +8,17 @@ import com.anysoftkeyboard.devicespecific.FactoryViewBase;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 
 import android.app.Application;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.pm.PackageManager;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 
 
-public class AnyApplication extends Application {
+public class AnyApplication extends Application implements OnSharedPreferenceChangeListener {
 
 	public static final boolean DEBUG = true;
 	//public static final boolean BLEEDING_EDGE = false;
@@ -41,9 +46,11 @@ public class AnyApplication extends Application {
 		if (DEBUG) Log.d(TAG, "** Starting application in DEBUG mode.");
 		
 		msConfig = new ConfigurationImpl(this);
-		
-        LayoutInflater inflate =
-            (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		sp.registerOnSharedPreferenceChangeListener(this);
+
+        LayoutInflater inflate = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         FactoryViewBase factory = (FactoryViewBase)inflate.inflate(R.layout.device_specific, null);
         msDeviceSpecific = factory.createDeviceSpecific();
@@ -53,6 +60,21 @@ public class AnyApplication extends Application {
 		
 		TutorialsProvider.showDragonsIfNeeded(getApplicationContext());
 	}
+	
+	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+		((ConfigurationImpl) msConfig).onSharedPreferenceChanged(sharedPreferences, key);
+		//should we disable the Settings App? com.menny.android.anysoftkeyboard.LauncherSettingsActivity
+		if (key.equals(getString(R.string.settings_key_show_settings_app)))
+		{
+			PackageManager pm = getPackageManager();
+			boolean showApp = sharedPreferences.getBoolean(key, getResources().getBoolean(R.bool.settings_default_show_settings_app));
+			pm.setComponentEnabledSetting(new ComponentName(getApplicationContext(), com.menny.android.anysoftkeyboard.LauncherSettingsActivity.class), 
+					showApp? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED, 
+					PackageManager.DONT_KILL_APP);
+		}
+	}
+	
+	
 	
 	public static Configuration getConfig()
 	{

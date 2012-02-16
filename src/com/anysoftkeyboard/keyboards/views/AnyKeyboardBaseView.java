@@ -40,7 +40,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
-import android.preference.PreferenceManager;
 import android.text.Layout.Alignment;
 import android.text.StaticLayout;
 import android.text.TextPaint;
@@ -580,7 +579,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         mHasDistinctMultitouch = true;/*(multiTouchSupportLevel == MultiTouchSupportLevel.Basic) ||(multiTouchSupportLevel == MultiTouchSupportLevel.Distinct);*/
         mKeyRepeatInterval = 50;
         
-        PreferenceManager.getDefaultSharedPreferences(getContext()).registerOnSharedPreferenceChangeListener(this);
+        AnyApplication.getConfig().addChangedListener(this);
     }
 
 	public void setAnySoftKeyboardContext(AnyKeyboardContextProvider askContext) {
@@ -2177,7 +2176,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     @Override
     public void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        PreferenceManager.getDefaultSharedPreferences(getContext()).unregisterOnSharedPreferenceChangeListener(this);
+        AnyApplication.getConfig().removeChangedListener(this);
         closing();
     }
     
