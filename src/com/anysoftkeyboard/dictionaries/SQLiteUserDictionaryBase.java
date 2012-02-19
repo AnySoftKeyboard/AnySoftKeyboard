@@ -73,6 +73,11 @@ public abstract class SQLiteUserDictionaryBase extends UserDictionaryBase {
 	protected void AddWordToStorage(String word, int frequency) {
 		mStorage.addWord(word, frequency);
 	}
+	
+	@Override
+	public void deleteWord(String word) {
+		mStorage.deleteWord(word);
+	}
 
 	@Override
 	protected void closeAllResources() {

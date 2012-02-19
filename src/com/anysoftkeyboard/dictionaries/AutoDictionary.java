@@ -284,4 +284,8 @@ public class AutoDictionary extends UserDictionaryBase {
     	 else
          	return query(COLUMN_LOCALE + "=?", new String[] { mLocale });
     }
+    
+    @Override
+    public void deleteWord(String word) {
+    }
 }

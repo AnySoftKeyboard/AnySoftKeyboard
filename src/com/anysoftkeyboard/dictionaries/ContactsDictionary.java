@@ -174,7 +174,6 @@ public class ContactsDictionary extends UserDictionaryBase {
 
     @Override
     protected void AddWordToStorage(String word, int frequency) {
-        
     }
     
     @Override
@@ -182,4 +181,7 @@ public class ContactsDictionary extends UserDictionaryBase {
     	return mContext.getContentResolver().query(Contacts.CONTENT_URI, PROJECTION, Contacts.IN_VISIBLE_GROUP+"="+1, null, null);
     }
 
+    @Override
+    public void deleteWord(String word) {
+    }
 }

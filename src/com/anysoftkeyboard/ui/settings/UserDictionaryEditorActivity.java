@@ -84,8 +84,6 @@ public class UserDictionaryEditorActivity extends ListActivity {
     private static final String INSTANCE_KEY_DIALOG_EDITING_WORD = "DIALOG_EDITING_WORD";
     private static final String INSTANCE_KEY_ADDED_WORD = "DIALOG_ADDED_WORD";
 
-    private static final String DELETE_SELECTION = UserDictionary.Words.WORD + "=?";
-
     private static final String EXTRA_WORD = "word";
 
     private static final int DIALOG_ADD_OR_EDIT = 0;
@@ -289,8 +287,7 @@ public class UserDictionaryEditorActivity extends ListActivity {
     }
 
     private void deleteWord(String word) {
-        getContentResolver().delete(UserDictionary.Words.CONTENT_URI, DELETE_SELECTION,
-                new String[] { word });
+    	mCurrentDictionary.deleteWord(word);
     }
     
     private class MyAdapter extends SimpleCursorAdapter implements SectionIndexer {

@@ -100,6 +100,15 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
 		db.close();
     }
     
+    public synchronized void deleteWord(String word)
+    {
+    	SQLiteDatabase db = getWritableDatabase();
+
+    	db.delete(mTableName, mWordsColumnName+"=?", new String[]{word});
+    	
+		db.close();
+    }
+    
     public Cursor getWordsCursor(){
     	SQLiteDatabase db = getReadableDatabase();
     	Cursor c = db.query(mTableName, new String[]{mWordsColumnName, mFrequencyColumnName}, 

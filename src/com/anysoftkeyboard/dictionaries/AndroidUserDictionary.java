@@ -107,4 +107,12 @@ public class AndroidUserDictionary extends UserDictionaryBase {
 		Log.i(TAG, "Added the word '"+word+"' at locale "+mLocale+" into Android's user dictionary. Result "+result);
 		//Words.addWord(mContext, word, frequency, Words.LOCALE_TYPE_CURRENT);
 	}
+	
+	@Override
+	public void deleteWord(String word) {
+		mContext.getContentResolver().delete(
+				Words.CONTENT_URI, 
+				Words.WORD + "=?", 
+				new String[] { word });
+	}
 }
