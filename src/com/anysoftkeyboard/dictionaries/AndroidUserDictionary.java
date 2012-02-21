@@ -62,8 +62,6 @@ public class AndroidUserDictionary extends UserDictionaryBase {
 	}
 
 	public Cursor getWordsCursor() {
-		throw new RuntimeException("No built-in Android dictionary!");
-		/*
 		Cursor cursor = TextUtils.isEmpty(mLocale)?
 				mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION, null, null, null)
 			    : mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION,
@@ -72,7 +70,7 @@ public class AndroidUserDictionary extends UserDictionaryBase {
 				
 		if (cursor == null)
 			throw new RuntimeException("No built-in Android dictionary!");
-		return cursor;*/
+		return cursor;
 	}
 
 	private void addWords(Cursor cursor) {

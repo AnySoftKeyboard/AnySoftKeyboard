@@ -124,14 +124,15 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
     public synchronized List<DictionaryWord> getAllWords()
     {
     	Cursor c = getWordsCursor();
-
     	if (c != null)
     	{
+        	final int wordColumnIndex = c.getColumnIndex(Words.WORD);
+        	final int freqColumnIndex = c.getColumnIndex(Words.FREQUENCY);
     		List<DictionaryWord> words = new ArrayList<DictionaryWord>(c.getCount());
         	if (c.moveToFirst()) {
                 while (!c.isAfterLast()) {
-                    String word = c.getString(0);
-                    int freq = c.getInt(1);
+                    String word = c.getString(wordColumnIndex);
+                    int freq = c.getInt(freqColumnIndex);
                     words.add(new DictionaryWord(word.toLowerCase(), freq));
                     c.moveToNext();
                 }

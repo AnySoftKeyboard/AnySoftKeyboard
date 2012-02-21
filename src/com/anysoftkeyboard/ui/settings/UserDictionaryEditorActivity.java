@@ -111,45 +111,7 @@ public class UserDictionaryEditorActivity extends ListActivity {
         mLangs.setOnItemSelectedListener(new OnItemSelectedListener() {
         	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
         		mSelectedLocale = arg0.getItemAtPosition(arg2).toString();
-        		Log.d(TAG, "Selected locale is "+mSelectedLocale);
-        		new MyAsyncTask()
-            	{
-
-        			@Override
-            		protected Void doInBackground(Void... params) {
-            			try
-            			{
-            				try
-            				{
-            					AndroidUserDictionary androidBuiltIn = new AndroidUserDictionary(getApplicationContext(), mSelectedLocale);
-            					androidBuiltIn.loadDictionary();
-            					mCurrentDictionary = androidBuiltIn;
-            				}
-            				catch(Exception e)
-            				{
-            					Log.w(TAG, "Failed to load Android's built-in user dictionary. No matter, I'll use a fallback.");
-            					FallbackUserDictionary fallback = new FallbackUserDictionary(getApplicationContext(), mSelectedLocale);
-            					fallback.loadDictionary();
-            					
-            					mCurrentDictionary = fallback;
-            				}
-            				mCursor = mCurrentDictionary.getWordsCursor();
-            			}
-            			catch(Exception e)
-            			{
-            				e.printStackTrace();
-            			}
-            			
-            			return null;
-            		}
-            		
-            		@Override
-            		protected void applyResults(Void result) {
-            			MyAdapter adapter = new MyAdapter(UserDictionaryEditorActivity.this,
-            	                R.layout.user_dictionary_word_row, mCursor);
-            			setListAdapter(adapter);
-            		};
-            	}.execute();
+        		fillWordsList();
         	}
         	public void onNothingSelected(AdapterView<?> arg0) {
         		Log.d(TAG, "No locale selected");
@@ -282,7 +244,9 @@ public class UserDictionaryEditorActivity extends ListActivity {
         
         mCurrentDictionary.addWord(word, 128);
         
-        mCursor.requery();
+        //mCursor.requery();
+        fillWordsList();
+        
         mAddedWordAlready = true;
     }
 
@@ -290,7 +254,49 @@ public class UserDictionaryEditorActivity extends ListActivity {
     	mCurrentDictionary.deleteWord(word);
     }
     
-    private class MyAdapter extends SimpleCursorAdapter implements SectionIndexer {
+    public void fillWordsList() {
+		Log.d(TAG, "Selected locale is "+mSelectedLocale);
+		new MyAsyncTask()
+		{
+
+			@Override
+			protected Void doInBackground(Void... params) {
+				try
+				{
+					try
+					{
+						AndroidUserDictionary androidBuiltIn = new AndroidUserDictionary(getApplicationContext(), mSelectedLocale);
+						androidBuiltIn.loadDictionary();
+						mCurrentDictionary = androidBuiltIn;
+					}
+					catch(Exception e)
+					{
+						Log.w(TAG, "Failed to load Android's built-in user dictionary. No matter, I'll use a fallback.");
+						FallbackUserDictionary fallback = new FallbackUserDictionary(getApplicationContext(), mSelectedLocale);
+						fallback.loadDictionary();
+						
+						mCurrentDictionary = fallback;
+					}
+					mCursor = mCurrentDictionary.getWordsCursor();
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+				
+				return null;
+			}
+			
+			@Override
+			protected void applyResults(Void result) {
+				MyAdapter adapter = new MyAdapter(UserDictionaryEditorActivity.this,
+		                R.layout.user_dictionary_word_row, mCursor);
+				setListAdapter(adapter);
+			};
+		}.execute();
+	}
+
+	private class MyAdapter extends SimpleCursorAdapter implements SectionIndexer {
         private AlphabetIndexer mIndexer;        
         private final int mWordColumnIndex;
         
@@ -330,6 +336,8 @@ public class UserDictionaryEditorActivity extends ListActivity {
         	v.findViewById(R.id.delete_user_word).setOnClickListener(new OnClickListener() {
 				public void onClick(View v) {
 					deleteWord(word);
+					
+					fillWordsList();
 				}
 			});
         	
