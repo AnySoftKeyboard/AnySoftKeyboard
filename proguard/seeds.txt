@@ -86,6 +86,7 @@ com.anysoftkeyboard.voice.ActivityHelper
 com.anysoftkeyboard.ui.settings.UserDictionaryEditorActivity
 com.anysoftkeyboard.ui.settings.MainSettings
 com.menny.android.anysoftkeyboard.MainSettings
+com.menny.android.anysoftkeyboard.LauncherSettingsActivity
 com.anysoftkeyboard.ui.settings.Tweaks
 com.anysoftkeyboard.ui.settings.AddOnSelector
 com.anysoftkeyboard.ui.settings.QuickTextKeys
@@ -100,7 +101,6 @@ com.anysoftkeyboard.voice.ServiceHelper
 com.anysoftkeyboard.AnySoftKeyboard
 com.menny.android.anysoftkeyboard.SoftKeyboard
 com.anysoftkeyboard.api.LanguageChangeddBroadcastReceiver
-com.anysoftkeyboard.receivers.AnySoftKeyboardInstalledReceiver
 com.anysoftkeyboard.api.LayoutChangedBroadcastReceiver
 com.anysoftkeyboard.receivers.PackagesChangedReceiver
 com.anysoftkeyboard.receivers.SoundPreferencesChangedReceiver
