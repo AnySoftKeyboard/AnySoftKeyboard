@@ -10,6 +10,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.UserDictionary.Words;
 import android.util.Log;
 
 public class DictionarySQLiteConnection extends SQLiteOpenHelper
@@ -36,32 +37,27 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
 		public int getFrequency() {return mFrequency;}
 	}
 
-	private final String mDBFile;
-	protected final String mTableName;
-	protected final String mWordsColumnName;
-	protected final String mFrequencyColumnName;
-	protected final String mLocaleColumnName;
+	private final static String DB_FILENAME = "fallback.db";
+	private final static String TABLE_NAME = "FALL_BACK_USER_DICTIONARY";
+	//protected final String mWordsColumnName;
+	//protected final String mFrequencyColumnName;
+	//protected final String mLocaleColumnName;
 	protected final Context mContext;
 	private final String mCurrentLocale;
 
-	public DictionarySQLiteConnection(Context context, String dbName, String tableName, String wordsColumnName, String frequencyColumnName, String localeColumnName, String currentLocale) {
-		super(context, dbName, null, 5);
-		mDBFile = dbName;
+	public DictionarySQLiteConnection(Context context, String currentLocale) {
+		super(context, DB_FILENAME, null, 6);
 		mContext = context;
-		mTableName = tableName;
-		mWordsColumnName = wordsColumnName;
-		mFrequencyColumnName =frequencyColumnName;
-		mLocaleColumnName = localeColumnName;
 		mCurrentLocale = currentLocale;
 	}
 
 	@Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + mTableName + " ("
-                + "_id INTEGER PRIMARY KEY,"
-                + mWordsColumnName+" TEXT,"
-                + mFrequencyColumnName+" INTEGER,"
-                + mLocaleColumnName+" TEXT"
+        db.execSQL("CREATE TABLE " + TABLE_NAME + " ("
+                + Words._ID + " INTEGER PRIMARY KEY,"
+                + Words.WORD+" TEXT,"
+                + Words.FREQUENCY+" INTEGER,"
+                + Words.LOCALE+" TEXT"
                 + ");");
     }
 
@@ -69,12 +65,22 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (oldVersion < 4)
         {
-        	db.execSQL("ALTER TABLE "+mTableName+" ADD COLUMN "+mLocaleColumnName+" TEXT;");
+        	db.execSQL("ALTER TABLE FALL_BACK_USER_DICTIONARY ADD COLUMN locale TEXT;");
         }
         if (oldVersion < 5)
         {
-        	db.execSQL("ALTER TABLE "+mTableName+" ADD COLUMN _id TEXT;");
-        	db.execSQL("UPDATE "+mTableName+" SET _id=Id;");
+        	db.execSQL("ALTER FALL_BACK_USER_DICTIONARY ADD COLUMN _id INTEGER;");
+        	db.execSQL("UPDATE FALL_BACK_USER_DICTIONARY SET _id=Id;");
+        }
+        if (oldVersion < 6)
+        {
+        	db.execSQL("ALTER TABLE FALL_BACK_USER_DICTIONARY RENAME TO tmp_FALL_BACK_USER_DICTIONARY;");
+        	
+        	onCreate(db);
+        	
+        	db.execSQL("INSERT INTO FALL_BACK_USER_DICTIONARY(_id, word, frequency, locale) SELECT _id, Word, Frequency, locale FROM tmp_FALL_BACK_USER_DICTIONARY;");
+        	
+        	db.execSQL("DROP TABLE tmp_FALL_BACK_USER_DICTIONARY;");
         }
     }
 
@@ -83,11 +89,11 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
     	SQLiteDatabase db = getWritableDatabase();
 
     	ContentValues values = new ContentValues();
-    	values.put("_id", word.hashCode());//ensuring that any word is inserted once
-    	values.put(mWordsColumnName, word);
-    	values.put(mFrequencyColumnName, freq);
-    	values.put(mLocaleColumnName, mCurrentLocale);
-		long res = db.insert(mTableName, null, values);
+    	values.put(Words._ID, word.hashCode());//ensuring that any word is inserted once
+    	values.put(Words.WORD, word);
+    	values.put(Words.FREQUENCY, freq);
+    	values.put(Words.LOCALE, mCurrentLocale);
+		long res = db.insert(TABLE_NAME, null, values);
 		if (res < 0)
 		{
 			Log.e(TAG, "Unable to insert '"+word+"' to the fall-back dictionary! Result:"+res);
@@ -96,7 +102,6 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
 		{
 		    if (AnyApplication.DEBUG)Log.d(TAG, "Inserted '"+word+"' to the fall-back dictionary. Id:"+res);
 		}
-		
 		db.close();
     }
     
@@ -104,17 +109,15 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
     {
     	SQLiteDatabase db = getWritableDatabase();
 
-    	db.delete(mTableName, mWordsColumnName+"=?", new String[]{word});
-    	
+    	db.delete(TABLE_NAME, Words.WORD+"=?", new String[]{word});
 		db.close();
     }
     
     public Cursor getWordsCursor(){
     	SQLiteDatabase db = getReadableDatabase();
-    	Cursor c = db.query(mTableName, new String[]{mWordsColumnName, mFrequencyColumnName}, 
-	    		"("+mLocaleColumnName+" IS NULL) or ("+mLocaleColumnName+"=?)", new String[] { mCurrentLocale },
+    	Cursor c = db.query(TABLE_NAME, new String[]{Words._ID, Words.WORD, Words.FREQUENCY}, 
+	    		"("+Words.LOCALE+" IS NULL) or ("+Words.LOCALE+"=?)", new String[] { mCurrentLocale },
 	    		null,null,null);
-    	db.close();
     	return c;
     }
 
@@ -142,6 +145,6 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
     
     String getDatabaseFile()
     {
-    	return mDBFile;
+    	return DB_FILENAME;
     }
 }
