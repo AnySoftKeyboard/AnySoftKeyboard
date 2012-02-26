@@ -24,13 +24,13 @@ public class DictionaryFactory
     
     private AutoDictionary mAutoDictionary = null;
     private String mUserDictionaryLocale = null;
-    private AddableDictionary mUserDictionary = null;
+    private EditableDictionary mUserDictionary = null;
 
     public DictionaryFactory()
     {
     }
     
-    public synchronized AddableDictionary createUserDictionary(Context context, String locale)
+    public synchronized EditableDictionary createUserDictionary(Context context, String locale)
     {
         if (mUserDictionary != null && equalsString(mUserDictionaryLocale, locale)){
             return mUserDictionary;
@@ -43,7 +43,7 @@ public class DictionaryFactory
         return mUserDictionary;
     }
     
-    public synchronized AddableDictionary createContactsDictionary(Context context)
+    public synchronized EditableDictionary createContactsDictionary(Context context)
     {
           return null;
     }

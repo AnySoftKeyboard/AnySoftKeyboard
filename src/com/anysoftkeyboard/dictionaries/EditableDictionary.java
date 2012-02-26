@@ -1,8 +1,10 @@
 package com.anysoftkeyboard.dictionaries;
 
-public abstract class AddableDictionary extends Dictionary {
+import android.database.Cursor;
 
-	protected AddableDictionary(String dictionaryName) {
+public abstract class EditableDictionary extends Dictionary {
+
+	protected EditableDictionary(String dictionaryName) {
 		super(dictionaryName);
 	}
 
@@ -15,4 +17,8 @@ public abstract class AddableDictionary extends Dictionary {
      * @TODO use a higher or float range for frequency
      */
     public abstract void addWord(String word, int frequency);
+    
+    public abstract Cursor getWordsCursor();
+
+	public abstract void deleteWord(String word);
 }

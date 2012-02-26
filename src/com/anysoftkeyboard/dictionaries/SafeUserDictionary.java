@@ -3,10 +3,11 @@ package com.anysoftkeyboard.dictionaries;
 import com.anysoftkeyboard.WordComposer;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public class SafeUserDictionary extends AddableDictionary {
+public class SafeUserDictionary extends EditableDictionary {
 
 	private static final String TAG = "ASK_SUD";
 	private final Context mContext;
@@ -16,7 +17,7 @@ public class SafeUserDictionary extends AddableDictionary {
 	private boolean mUpdatingDictionary = false;
 	private final String mLocale;
 	
-	protected SafeUserDictionary(Context context, String locale) {
+	public SafeUserDictionary(Context context, String locale) {
 		super("SafeUserDictionary");
 		mLocale = locale;
 		mContext = context;
@@ -85,6 +86,19 @@ public class SafeUserDictionary extends AddableDictionary {
     public void addWord(String word, int frequency) {
     	if (mActualDictionary != null)
 			mActualDictionary.addWord(word, frequency);
+    }
+    
+    @Override
+    public Cursor getWordsCursor() {
+    	if (mActualDictionary != null)
+			mActualDictionary.getWordsCursor();
+    	return null;
+    }
+    
+    @Override
+    public void deleteWord(String word) {
+    	if (mActualDictionary != null)
+			mActualDictionary.deleteWord(word);
     }
 
 }

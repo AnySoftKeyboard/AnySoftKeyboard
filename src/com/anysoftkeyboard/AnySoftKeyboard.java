@@ -62,7 +62,7 @@ import android.widget.Toast;
 
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.devicespecific.Clipboard;
-import com.anysoftkeyboard.dictionaries.AddableDictionary;
+import com.anysoftkeyboard.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.dictionaries.AutoDictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.dictionaries.DictionaryFactory;
@@ -168,7 +168,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private HashSet<Character> mSentenceSeparators = new HashSet<Character>();
 
 	//private UserDictionaryBase mContactsDictionary;
-	private AddableDictionary mUserDictionary;
+	private EditableDictionary mUserDictionary;
 	private AutoDictionary mAutoDictionary;
 	
 

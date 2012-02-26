@@ -24,7 +24,7 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public abstract class UserDictionaryBase extends AddableDictionary {
+public abstract class UserDictionaryBase extends EditableDictionary {
 
     private static final char QUOTE = '\'';
 
@@ -567,8 +567,6 @@ public abstract class UserDictionaryBase extends AddableDictionary {
         0x0423, 0x0443, 0x0423, 0x0443, 0x0427, 0x0447, 0x04f6, 0x04f7,
         0x042b, 0x044b, 0x04fa, 0x04fb, 0x04fc, 0x04fd, 0x04fe, 0x04ff,
     };
-
-	public abstract void deleteWord(String word);
 
     // generated with:
     // cat UnicodeData.txt | perl -e 'while (<>) { @foo = split(/;/); $foo[5] =~ s/<.*> //; $base[hex($foo[0])] = hex($foo[5]);} for ($i = 0; $i < 0x500; $i += 8) { for ($j = $i; $j < $i + 8; $j++) { printf("0x%04x, ", $base[$j] ? $base[$j] : $j)}; print "\n"; }'

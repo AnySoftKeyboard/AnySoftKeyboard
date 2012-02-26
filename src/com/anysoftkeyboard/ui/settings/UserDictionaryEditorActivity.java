@@ -46,9 +46,8 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.anysoftkeyboard.dictionaries.AndroidUserDictionary;
-import com.anysoftkeyboard.dictionaries.FallbackUserDictionary;
-import com.anysoftkeyboard.dictionaries.UserDictionaryBase;
+import com.anysoftkeyboard.dictionaries.EditableDictionary;
+import com.anysoftkeyboard.dictionaries.SafeUserDictionary;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.menny.android.anysoftkeyboard.R;
@@ -96,7 +95,7 @@ public class UserDictionaryEditorActivity extends ListActivity {
     
     private Cursor mCursor;
     private String mSelectedLocale = null;
-	private UserDictionaryBase mCurrentDictionary;
+	private EditableDictionary mCurrentDictionary;
     
     private boolean mAddedWordAlready;
     private boolean mAutoReturn;
@@ -263,20 +262,8 @@ public class UserDictionaryEditorActivity extends ListActivity {
 			protected Void doInBackground(Void... params) {
 				try
 				{
-					try
-					{
-						AndroidUserDictionary androidBuiltIn = new AndroidUserDictionary(getApplicationContext(), mSelectedLocale);
-						androidBuiltIn.loadDictionary();
-						mCurrentDictionary = androidBuiltIn;
-					}
-					catch(Exception e)
-					{
-						Log.w(TAG, "Failed to load Android's built-in user dictionary. No matter, I'll use a fallback.");
-						FallbackUserDictionary fallback = new FallbackUserDictionary(getApplicationContext(), mSelectedLocale);
-						fallback.loadDictionary();
-						
-						mCurrentDictionary = fallback;
-					}
+					mCurrentDictionary = new SafeUserDictionary(getApplicationContext(), mSelectedLocale);
+					mCurrentDictionary.loadDictionary();
 					mCursor = mCurrentDictionary.getWordsCursor();
 				}
 				catch(Exception e)

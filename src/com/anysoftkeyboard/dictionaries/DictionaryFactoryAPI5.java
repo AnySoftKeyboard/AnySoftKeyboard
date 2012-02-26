@@ -7,10 +7,10 @@ public class DictionaryFactoryAPI5 extends DictionaryFactory
 {
 	private static final String TAG = "ASK DictFctry5";
     
-	private AddableDictionary mContactsDictionary;
+	private EditableDictionary mContactsDictionary;
     
 	@Override
-	public synchronized AddableDictionary createContactsDictionary(Context context)
+	public synchronized EditableDictionary createContactsDictionary(Context context)
     {
           if(mContactsDictionary != null){
               return mContactsDictionary;

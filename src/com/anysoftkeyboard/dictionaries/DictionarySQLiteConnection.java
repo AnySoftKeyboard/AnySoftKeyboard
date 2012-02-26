@@ -63,22 +63,28 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    	//Please note: don't use class level constants here, since they may change.
+    	//if you upgrade from one version to another, make sure you use the correct names!
+    	Log.d(TAG, "Upgrading DictionarySQLiteConnection from version "+oldVersion+" to "+newVersion+"...");
         if (oldVersion < 4)
         {
+        	Log.d(TAG, "Upgrading DictionarySQLiteConnection to version 4: Adding locale column...");
         	db.execSQL("ALTER TABLE FALL_BACK_USER_DICTIONARY ADD COLUMN locale TEXT;");
         }
         if (oldVersion < 5)
         {
-        	db.execSQL("ALTER FALL_BACK_USER_DICTIONARY ADD COLUMN _id INTEGER;");
+        	Log.d(TAG, "Upgrading DictionarySQLiteConnection to version 5: Adding _id column and populating...");
+        	db.execSQL("ALTER TABLE FALL_BACK_USER_DICTIONARY ADD COLUMN _id INTEGER;");
         	db.execSQL("UPDATE FALL_BACK_USER_DICTIONARY SET _id=Id;");
         }
         if (oldVersion < 6)
         {
+        	Log.d(TAG, "Upgrading DictionarySQLiteConnection to version 6: Matching schema with Android's User-Dictionary table...");
         	db.execSQL("ALTER TABLE FALL_BACK_USER_DICTIONARY RENAME TO tmp_FALL_BACK_USER_DICTIONARY;");
         	
         	onCreate(db);
         	
-        	db.execSQL("INSERT INTO FALL_BACK_USER_DICTIONARY(_id, word, frequency, locale) SELECT _id, Word, Frequency, locale FROM tmp_FALL_BACK_USER_DICTIONARY;");
+        	db.execSQL("INSERT INTO FALL_BACK_USER_DICTIONARY(_id, word, frequency, locale) SELECT _id, Word, Freq, locale FROM tmp_FALL_BACK_USER_DICTIONARY;");
         	
         	db.execSQL("DROP TABLE tmp_FALL_BACK_USER_DICTIONARY;");
         }

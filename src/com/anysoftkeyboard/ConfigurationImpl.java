@@ -150,7 +150,9 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 //			e.commit();
 //		}
 		
-		int configurationVersion = sp.getInt(CONFIGURATION_VERSION, 0);
+	    //please note: the default value should be the last version.
+	    //upgrading should only be done when actually need to be done.
+		int configurationVersion = sp.getInt(CONFIGURATION_VERSION, 4);
 		if (configurationVersion < 1)
 		{
 			boolean oldLandscapeFullScreenValue = sp.getBoolean("fullscreen_input_connection_supported", 

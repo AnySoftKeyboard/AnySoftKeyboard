@@ -101,9 +101,9 @@ public class ResourceBinaryDictionary extends Dictionary {
     private native int getSuggestionsNative(int dict, int[] inputCodes, int codesSize, 
             char[] outputChars, int[] frequencies, int maxWordLength, int maxWords,
             int maxAlternatives, int skipPos, int[] nextLettersFrequencies, int nextLettersSize);
-    private native int getBigramsNative(int dict, char[] prevWord, int prevWordLength,
+    /*private native int getBigramsNative(int dict, char[] prevWord, int prevWordLength,
             int[] inputCodes, int inputCodesLength, char[] outputChars, int[] frequencies,
-            int maxWordLength, int maxBigrams, int maxAlternatives);
+            int maxWordLength, int maxBigrams, int maxAlternatives);*/
 
     @Override
     public void loadDictionary()
