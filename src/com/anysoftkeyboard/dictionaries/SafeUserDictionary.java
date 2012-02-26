@@ -10,6 +10,7 @@ import android.util.Log;
 public class SafeUserDictionary extends EditableDictionary {
 
 	private static final String TAG = "ASK_SUD";
+	private final Object mLocker = new Object();
 	private final Context mContext;
 	private UserDictionaryBase mActualDictionary;
 
@@ -57,19 +58,23 @@ public class SafeUserDictionary extends EditableDictionary {
     }
 
 	private void loadDictionaryAsync() {
-		try
-		{
-			AndroidUserDictionary androidBuiltIn = new AndroidUserDictionary(mContext, mLocale);
-			androidBuiltIn.loadDictionary();
-			mActualDictionary = androidBuiltIn;
-		}
-		catch(Exception e)
-		{
-			Log.w(TAG, "Failed to load Android's built-in user dictionary. No matter, I'll use a fallback.");
-			FallbackUserDictionary fallback = new FallbackUserDictionary(mContext, mLocale);
-			fallback.loadDictionary();
+		synchronized (mLocker) {
+			try
+			{
+				AndroidUserDictionary androidBuiltIn = new AndroidUserDictionary(mContext, mLocale);
+				androidBuiltIn.loadDictionary();
+				mActualDictionary = androidBuiltIn;
+			}
+			catch(Exception e)
+			{
+				Log.w(TAG, "Failed to load Android's built-in user dictionary. No matter, I'll use a fallback.");
+				FallbackUserDictionary fallback = new FallbackUserDictionary(mContext, mLocale);
+				fallback.loadDictionary();
+				
+				mActualDictionary = fallback;
+			}
 			
-			mActualDictionary = fallback;
+			mLocker.notifyAll();
 		}
 	}
     
@@ -90,9 +95,23 @@ public class SafeUserDictionary extends EditableDictionary {
     
     @Override
     public Cursor getWordsCursor() {
-    	if (mActualDictionary != null)
-			mActualDictionary.getWordsCursor();
-    	return null;
+    	synchronized (mLocker) {
+        	if (mActualDictionary != null)
+        	{
+    			return mActualDictionary.getWordsCursor();
+        	}
+        	else
+        	{
+        		try {
+					mLocker.wait();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+					return null;
+				}
+        		
+        		return getWordsCursor();
+        	}
+    	}
     }
     
     @Override

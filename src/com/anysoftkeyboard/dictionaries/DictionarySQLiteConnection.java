@@ -82,7 +82,12 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
         	Log.d(TAG, "Upgrading DictionarySQLiteConnection to version 6: Matching schema with Android's User-Dictionary table...");
         	db.execSQL("ALTER TABLE FALL_BACK_USER_DICTIONARY RENAME TO tmp_FALL_BACK_USER_DICTIONARY;");
         	
-        	onCreate(db);
+        	db.execSQL("CREATE TABLE FALL_BACK_USER_DICTIONARY ("
+                    + "_id INTEGER PRIMARY KEY,"
+                    + "word TEXT,"
+                    + "frequency INTEGER,"
+                    + "locale TEXT"
+                    + ");");
         	
         	db.execSQL("INSERT INTO FALL_BACK_USER_DICTIONARY(_id, word, frequency, locale) SELECT _id, Word, Freq, locale FROM tmp_FALL_BACK_USER_DICTIONARY;");
         	
@@ -119,8 +124,8 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
 		db.close();
     }
     
-    public Cursor getWordsCursor(){
-    	SQLiteDatabase db = getReadableDatabase();
+    public synchronized Cursor getWordsCursor(){
+    	SQLiteDatabase db = getReadableDatabase();	    	
     	Cursor c = db.query(TABLE_NAME, new String[]{Words._ID, Words.WORD, Words.FREQUENCY}, 
 	    		"("+Words.LOCALE+" IS NULL) or ("+Words.LOCALE+"=?)", new String[] { mCurrentLocale },
 	    		null,null,null);

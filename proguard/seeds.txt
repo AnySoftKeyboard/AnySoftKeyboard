@@ -8,7 +8,6 @@ com.anysoftkeyboard.dictionaries.ResourceBinaryDictionary: int openNative(java.n
 com.anysoftkeyboard.dictionaries.ResourceBinaryDictionary: void closeNative(int)
 com.anysoftkeyboard.dictionaries.ResourceBinaryDictionary: boolean isValidWordNative(int,char[],int)
 com.anysoftkeyboard.dictionaries.ResourceBinaryDictionary: int getSuggestionsNative(int,int[],int,char[],int[],int,int,int,int,int[],int)
-com.anysoftkeyboard.dictionaries.ResourceBinaryDictionary: int getBigramsNative(int,char[],int,int[],int,char[],int[],int,int,int)
 com.anysoftkeyboard.ui.MySeekBarPreference
 com.anysoftkeyboard.ui.MySeekBarPreference: MySeekBarPreference(android.content.Context,android.util.AttributeSet)
 com.anysoftkeyboard.keyboards.views.CandidateView
@@ -101,6 +100,7 @@ com.anysoftkeyboard.voice.ServiceHelper
 com.anysoftkeyboard.AnySoftKeyboard
 com.menny.android.anysoftkeyboard.SoftKeyboard
 com.anysoftkeyboard.api.LanguageChangeddBroadcastReceiver
+com.anysoftkeyboard.receivers.AnySoftKeyboardInstalledReceiver
 com.anysoftkeyboard.api.LayoutChangedBroadcastReceiver
 com.anysoftkeyboard.receivers.PackagesChangedReceiver
 com.anysoftkeyboard.receivers.SoundPreferencesChangedReceiver

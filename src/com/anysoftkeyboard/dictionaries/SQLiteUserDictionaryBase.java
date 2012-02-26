@@ -62,8 +62,12 @@ public abstract class SQLiteUserDictionaryBase extends UserDictionaryBase {
 	
 	@Override
 	public Cursor getWordsCursor() {
+		Log.d(TAG, "getWordsCursor");
 		if (mStorage == null)
+		{
+			Log.d(TAG, "getWordsCursor::createStorage");
 			mStorage = createStorage();
+		}
 		return mStorage.getWordsCursor();
 	}
 

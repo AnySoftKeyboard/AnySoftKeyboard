@@ -23,7 +23,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -46,8 +45,8 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.anysoftkeyboard.dictionaries.DictionaryFactory;
 import com.anysoftkeyboard.dictionaries.EditableDictionary;
-import com.anysoftkeyboard.dictionaries.SafeUserDictionary;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.menny.android.anysoftkeyboard.R;
@@ -256,14 +255,16 @@ public class UserDictionaryEditorActivity extends ListActivity {
     public void fillWordsList() {
 		Log.d(TAG, "Selected locale is "+mSelectedLocale);
 		new MyAsyncTask()
-		{
-
+		{	
 			@Override
 			protected Void doInBackground(Void... params) {
 				try
 				{
-					mCurrentDictionary = new SafeUserDictionary(getApplicationContext(), mSelectedLocale);
-					mCurrentDictionary.loadDictionary();
+					EditableDictionary dictionary = DictionaryFactory.getInstance().createUserDictionary(getApplicationContext(), mSelectedLocale);
+					if (dictionary != mCurrentDictionary && mCurrentDictionary != null)
+						mCurrentDictionary.close();
+					
+					mCurrentDictionary = dictionary;
 					mCursor = mCurrentDictionary.getWordsCursor();
 				}
 				catch(Exception e)
@@ -276,9 +277,16 @@ public class UserDictionaryEditorActivity extends ListActivity {
 			
 			@Override
 			protected void applyResults(Void result) {
-				MyAdapter adapter = new MyAdapter(UserDictionaryEditorActivity.this,
-		                R.layout.user_dictionary_word_row, mCursor);
-				setListAdapter(adapter);
+				MyAdapter adapter = (MyAdapter)getListAdapter();
+				if (adapter == null)
+				{
+					adapter = new MyAdapter();
+					setListAdapter(adapter);
+				}
+				else
+				{
+					adapter.changeCursor(mCursor);
+				}
 			};
 		}.execute();
 	}
@@ -287,14 +295,16 @@ public class UserDictionaryEditorActivity extends ListActivity {
         private AlphabetIndexer mIndexer;        
         private final int mWordColumnIndex;
         
-        public MyAdapter(Context context, int layout, Cursor c) {
-            super(context, layout, c,
+        public MyAdapter() {
+        	super(getApplicationContext(), 
+        			R.layout.user_dictionary_word_row, 
+        			mCursor,
 	                new String[] { UserDictionary.Words.WORD },
 	                new int[] { android.R.id.text1 });
 
-            mWordColumnIndex = c.getColumnIndexOrThrow(UserDictionary.Words.WORD);
-            String alphabet = context.getString(R.string.fast_scroll_alphabet);
-            mIndexer = new AlphabetIndexer(c, mWordColumnIndex, alphabet); 
+            mWordColumnIndex = mCursor.getColumnIndexOrThrow(UserDictionary.Words.WORD);
+            String alphabet = getString(R.string.fast_scroll_alphabet);
+            mIndexer = new AlphabetIndexer(mCursor, mWordColumnIndex, alphabet); 
         }
 
         public int getPositionForSection(int section) {

@@ -20,8 +20,8 @@ com.anysoftkeyboard.Configuration:
 com.anysoftkeyboard.ConfigurationImpl:
     static final java.lang.String TAG
     private static final java.lang.String CONFIGURATION_VERSION
-    547:547:public int getDeviceOrientation()
-    630:630:public boolean drawExtensionKeyboardAboveMainKeyboard()
+    549:549:public int getDeviceOrientation()
+    632:632:public boolean drawExtensionKeyboardAboveMainKeyboard()
 com.anysoftkeyboard.WordComposer:
     private static final java.lang.String CHEWBACCAONTHEDRUMS
     52:59:WordComposer(com.anysoftkeyboard.WordComposer)
@@ -157,7 +157,6 @@ com.anysoftkeyboard.dictionaries.ResourceBinaryDictionary:
     private static final int MAX_BIGRAMS
     private static final int TYPED_LETTER_MULTIPLIER
     private static final boolean ENABLE_MISSED_CHARACTERS
-    private native int getBigramsNative(int,char[],int,int[],int,char[],int[],int,int,int)
     264:264:public int getSize()
 com.anysoftkeyboard.dictionaries.SafeUserDictionary:
     private static final java.lang.String TAG
@@ -366,6 +365,9 @@ com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory:
     private static final java.lang.String XML_KEY_LABEL_RES_ID_ATTRIBUTE
     private static final java.lang.String XML_KEY_OUTPUT_TEXT_RES_ID_ATTRIBUTE
     private static final java.lang.String XML_ICON_PREVIEW_RES_ID_ATTRIBUTE
+com.anysoftkeyboard.receivers.AnySoftKeyboardInstalledReceiver:
+    private static final java.lang.String TAG
+    public static final int INSTALLED_NOTIFICATION_ID
 com.anysoftkeyboard.receivers.PackagesChangedReceiver:
     private static final java.lang.String TAG
 com.anysoftkeyboard.theme.KeyboardTheme:
@@ -406,11 +408,11 @@ com.anysoftkeyboard.ui.tutorials.TipsActivity:
     private static final java.lang.String TAG
     public static final java.lang.String EXTRA_SHOW_ALL_TIPS
 com.anysoftkeyboard.ui.tutorials.TutorialsProvider:
-    public static final java.lang.String TUTORIALS_SP_FILENAME
     private static final java.lang.String TAG
     private static final int TUTORIALS_NOTIFICATION_ID_BASE
 com.anysoftkeyboard.ui.tutorials.WelcomeHowToNoticeActivity:
-    private static final java.lang.String ASK_HAS_BEEN_ENABLED_BEFORE
+    public static final java.lang.String ASK_HAS_BEEN_ENABLED_BEFORE
+    private static final java.lang.String TAG
 com.anysoftkeyboard.utils.IMEUtil:
     38:41:public static void cancelTask(android.os.AsyncTask,boolean)
     82:82:public static boolean hasMultipleEnabledIMEs(android.content.Context)

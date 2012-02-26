@@ -62,15 +62,15 @@ public class AndroidUserDictionary extends UserDictionaryBase {
 	}
 
 	public Cursor getWordsCursor() {
-		/*Cursor cursor = TextUtils.isEmpty(mLocale)?
+		Cursor cursor = TextUtils.isEmpty(mLocale)?
 				mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION, null, null, null)
 			    : mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION,
 			    		"("+Words.LOCALE+" IS NULL) or ("+Words.LOCALE+"=?)",
 			    		new String[] { mLocale }, null);
 				
-		if (cursor == null)*/
+		if (cursor == null)
 			throw new RuntimeException("No built-in Android dictionary!");
-		/*return cursor;*/
+		return cursor;
 	}
 
 	private void addWords(Cursor cursor) {
