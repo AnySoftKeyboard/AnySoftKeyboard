@@ -11,12 +11,9 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.provider.Settings.Secure;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.anysoftkeyboard.ui.tutorials.WelcomeHowToNoticeActivity;
-import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 public class MainSettings extends PreferenceActivity {
@@ -50,15 +47,11 @@ public class MainSettings extends PreferenceActivity {
 	protected void onResume() {
 		super.onResume();
 		//I wont to help the user configure the keyboard
-		if (!linearSearch( Secure.getString(getContentResolver(), Secure.ENABLED_INPUT_METHODS), getPackageName() ) )
+		if (WelcomeHowToNoticeActivity.shouldShowWelcomeActivity(getApplicationContext()))
 		{
-			//ASK is not enabled, but installed. Has the user forgot how to turn it on?
-			if (!WelcomeHowToNoticeActivity.hasWelcomeActivityShown(getApplicationContext()))
-			{
-				//this is the first time the application is loaded.
-				Log.i(TAG, "Welcome should be shown");
-				showDialog(DIALOG_WELCOME);
-			}
+			//this is the first time the application is loaded.
+			Log.i(TAG, "Welcome should be shown");
+			showDialog(DIALOG_WELCOME);
 		}
 	}
 	
@@ -91,35 +84,5 @@ public class MainSettings extends PreferenceActivity {
 		}
 	}
 	
-	/**
-	 * Search array for an entry BEGINNING with key.
-	 * 
-	 * @param array the array to search over
-	 * @param key the string to search for
-	 * @return true if the key was found in the array
-	 */
-	private static boolean linearSearch( String listOfIme, final String key )
-	{
-		if (TextUtils.isEmpty(listOfIme) || TextUtils.isEmpty(key))
-			return false;
-		if (AnyApplication.DEBUG)
-			Log.d(TAG, "Currently these are the IME enabled in the OS: "+listOfIme);
-		String[] arrayOfIme = listOfIme.split(":");
-		if (arrayOfIme == null)
-			return false;
-		
-		for(final String ime : arrayOfIme)
-		{
-			if (TextUtils.isEmpty(ime)) continue;
-			if (AnyApplication.DEBUG)
-				Log.d(TAG, "Is '"+ime+"' starts with '"+key+"'?");
-			//checking "startsWith" since the OS list is something like this:
-			//com.android.inputmethod.latin/.LatinIME:com.menny.android.anysoftkeyboard/.SoftKeyboard
-			if (ime.startsWith(key)) return true;
-		}
-		
-		if (AnyApplication.DEBUG)
-			Log.d(TAG, "'"+key+"' was not found in the list of IMEs!");
-		return false;
-	}
+	
 }

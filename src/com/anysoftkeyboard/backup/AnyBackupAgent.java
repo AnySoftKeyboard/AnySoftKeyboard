@@ -1,5 +1,6 @@
 package com.anysoftkeyboard.backup;
 
+import com.anysoftkeyboard.ui.tutorials.WelcomeHowToNoticeActivity;
 import com.menny.android.anysoftkeyboard.R;
 
 import android.app.backup.BackupAgentHelper;
@@ -32,6 +33,9 @@ public class AnyBackupAgent extends BackupAgentHelper {
 	        		if (key.equalsIgnoreCase(getApplicationContext().getString(R.string.settings_key_portrait_fullscreen)))
 	        			return;
 	        		if (key.equalsIgnoreCase(getApplicationContext().getString(R.string.settings_key_landscape_fullscreen)))
+	        			return;
+	        		//every device/install should get this help thingy
+	        		if (key.equalsIgnoreCase(WelcomeHowToNoticeActivity.ASK_HAS_BEEN_ENABLED_BEFORE))
 	        			return;
         		}
         		super.restoreEntity(data);

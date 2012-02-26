@@ -20,7 +20,7 @@ import android.util.Log;
 
 public class TutorialsProvider 
 {
-	public static final String TUTORIALS_SP_FILENAME = "tutorials";
+	//public static final String TUTORIALS_SP_FILENAME = "tutorials";
 
 	private static final String TAG = "ASK Turorial";
 
@@ -90,7 +90,7 @@ public class TutorialsProvider
 	private static boolean firstTestersTimeVersionLoaded(Context context)
 	{
 		final String KEY = "testers_version_version_hash";
-		SharedPreferences sp = context.getSharedPreferences(TUTORIALS_SP_FILENAME, 0);//private
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);// context.getSharedPreferences(TUTORIALS_SP_FILENAME, 0);//private
 		final String lastDebugVersionHash = sp.getString(KEY, "NONE");
 		String currentHash = "";
 		try {
@@ -109,12 +109,13 @@ public class TutorialsProvider
 	}
 	
 	private static boolean firstTimeVersionLoaded(Context context) {
-		SharedPreferences sp = context.getSharedPreferences(TUTORIALS_SP_FILENAME, 0);//private
-		final int lastTutorialVersion = sp.getInt("tutorial_version", 0);
+		final String changeLogVersion = "last_changelog_ver_shown";
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);// context.getSharedPreferences(TUTORIALS_SP_FILENAME, 0);//private
+		final int lastTutorialVersion = sp.getInt(changeLogVersion, 0);
 		final int packageVersion = getPackageVersion(context);
 		
 		Editor e = sp.edit();
-		e.putInt("tutorial_version", packageVersion);
+		e.putInt(changeLogVersion, packageVersion);
 		e.commit();
 		
 		return packageVersion != lastTutorialVersion;
