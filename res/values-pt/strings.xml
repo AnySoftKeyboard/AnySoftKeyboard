@@ -192,10 +192,13 @@
   <string name="special_dictionaries_group">Dicionários especiais</string>
   <string name="use_user_dictionary">Dicionário do utilizador</string>
   <string name="use_user_dictionary_on_summary">Sugere palavras adicionadas pelo utilizador (pressão longa na sugestão para adicionar)</string>
+  <string name="use_user_dictionary_off_summary"> </string>
   <string name="use_auto_dictionary">Dicionário automático</string>
   <string name="use_auto_dictionary_on_summary">Sugere também palavras frequentes</string>
+  <string name="use_auto_dictionary_off_summary"> </string>
   <string name="use_contacts_dictionary">Dicionário de contactos</string>
   <string name="use_contacts_dictionary_on_summary">Sugere nomes da lista de contactos</string>
+  <string name="use_contacts_dictionary_off_summary"> </string>
   <string name="use_contacts_dictionary_not_supported_summary">Sem suporte na sua versão do sistema operativo.</string>
   <string name="tweaks_group">Ajustes</string>
   <string name="tweak_sound_group">Ajustes de som</string>
@@ -242,6 +245,7 @@
   <string name="zoom_factor_keys_in_landscape">Factor altura na horizontal</string>
   <string name="insert_space_after_word_suggestion_selection">Espaço após sugestão</string>
   <string name="insert_space_after_word_suggestion_selection_on_summary">Insere espaço depois da palavra sugerida</string>
+  <string name="insert_space_after_word_suggestion_selection_off_summary"> </string>
   <string name="double_space_to_period">Duplo espaçoe para ponto</string>
   <string name="double_space_to_period_summary">Duplo espaço insere ponto final seguido de espaço</string>
   <string name="action_key_invisible_on_disable">Tecla de acção invisível</string>
