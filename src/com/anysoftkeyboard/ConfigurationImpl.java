@@ -396,17 +396,18 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
         mInitialKeyboardSplitState = sp.getString(mContext.getString(R.string.settings_key_default_split_state), 
         		mContext.getString(R.string.settings_default_default_split_state));
         Log.i(TAG, "** mInitialKeyboardSplitState: " + mInitialKeyboardSplitState);
-        
 
-		
-		for(OnSharedPreferenceChangeListener listener : mPreferencesChangedListeners)
+        //Some preferences cause rebuild of the keyboard, hence changing the listeners list
+        final LinkedList<OnSharedPreferenceChangeListener> disconnectedList = new LinkedList<SharedPreferences.OnSharedPreferenceChangeListener>(mPreferencesChangedListeners);
+		for(OnSharedPreferenceChangeListener listener : disconnectedList)
 		{
 			listener.onSharedPreferenceChanged(sp, key);
 		}
 	}
 
 	private boolean getAlwaysUseDrawTextDefault() {
-		if (android.os.Build.BRAND.contains("SEMC")) 
+		if (	android.os.Build.BRAND.contains("SEMC")//SE phones have fix for that, but more important, their StaticLayout class is bugged 
+				|| Workarounds.getApiLevel() > 11) //Android has native fix for API level 11! Ya
 			return true;
 		else
 			return mContext.getResources().getBoolean(R.bool.settings_default_workaround_disable_rtl_fix);
