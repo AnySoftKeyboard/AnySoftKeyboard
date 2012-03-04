@@ -15,8 +15,8 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:tag="20120228-friendly-chamaeleon"
+    	android:tag="20120304-friendly-chamaeleon"
         android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
 	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-	    android:text="* Contacts dictionary fix.\n* New addons detection fix.\n* Words editor crash fix on selected devices.\n* New translations: EL, PT, PT-BR, HU, ES, MK, HE, CA, IT.\n* Other bug fixes." style="@android:style/TextAppearance.Small"/>
+	    android:text="* Crashes on system-app changes.\n* New translations: .\n* Other bug fixes." style="@android:style/TextAppearance.Small"/>
 </LinearLayout>

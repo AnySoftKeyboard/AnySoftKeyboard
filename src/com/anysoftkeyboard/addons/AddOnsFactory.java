@@ -155,7 +155,8 @@ public abstract class AddOnsFactory<E extends AddOn> {
 			ActivityInfo[] receivers = newPackage.receivers;
 			for(ActivityInfo aReceiver : receivers)
 			{
-				if (!aReceiver.enabled || !aReceiver.applicationInfo.enabled) continue;
+				//issue 904
+				if (aReceiver == null || aReceiver.applicationInfo == null || !aReceiver.enabled || !aReceiver.applicationInfo.enabled) continue;
 				final XmlPullParser xml = aReceiver.loadXmlMetaData(context.getPackageManager(), RECEIVER_META_DATA);
 				if (xml != null)
 				{
