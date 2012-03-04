@@ -36,11 +36,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.AlphabetIndexer;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SectionIndexer;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -291,8 +289,8 @@ public class UserDictionaryEditorActivity extends ListActivity {
 		}.execute();
 	}
 
-	private class MyAdapter extends SimpleCursorAdapter implements SectionIndexer {
-        private AlphabetIndexer mIndexer;        
+	private class MyAdapter extends SimpleCursorAdapter /*implements SectionIndexer (removed because of issue 903)*/ {
+        //private AlphabetIndexer mIndexer;        
         private final int mWordColumnIndex;
         
         public MyAdapter() {
@@ -303,10 +301,10 @@ public class UserDictionaryEditorActivity extends ListActivity {
 	                new int[] { android.R.id.text1 });
 
             mWordColumnIndex = mCursor.getColumnIndexOrThrow(UserDictionary.Words.WORD);
-            String alphabet = getString(R.string.fast_scroll_alphabet);
-            mIndexer = new AlphabetIndexer(mCursor, mWordColumnIndex, alphabet); 
+            //String alphabet = getString(R.string.fast_scroll_alphabet);
+            //mIndexer = new AlphabetIndexer(mCursor, mWordColumnIndex, alphabet); 
         }
-
+/*
         public int getPositionForSection(int section) {
             return mIndexer.getPositionForSection(section);
         }
@@ -318,7 +316,7 @@ public class UserDictionaryEditorActivity extends ListActivity {
         public Object[] getSections() {
             return mIndexer.getSections();
         }
-        
+        */
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
         	ViewGroup v = (ViewGroup)super.getView(position, convertView, parent);
