@@ -29,20 +29,17 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
 	private final static ArrayList<AddOnsFactory<?> > mActiveInstances = new  ArrayList<AddOnsFactory<?> >();
 
-	public static void onPackageChanged(Intent eventIntent, AnySoftKeyboard mIme)
+	public static void onPackageChanged(final Intent eventIntent, final AnySoftKeyboard ask)
 	{
-	    final AnySoftKeyboard ask = mIme;
-	    if (ask == null) return;//service is not running (issue 762)
-	    
 		boolean cleared = false;
 		boolean recreateView = false;
 		for(AddOnsFactory<?> factory : mActiveInstances)
 		{
 			try {
-				if (factory.isEventRequiresCacheRefresh(eventIntent, mIme.getApplicationContext()))
+				if (factory.isEventRequiresCacheRefresh(eventIntent, ask.getApplicationContext()))
 				{
 					cleared = true;
-					if (factory.isEventRequiresViewReset(eventIntent, mIme.getApplicationContext())) recreateView = true;
+					if (factory.isEventRequiresViewReset(eventIntent, ask.getApplicationContext())) recreateView = true;
 					if (AnyApplication.DEBUG) Log.d("AddOnsFactory", factory.getClass().getName()+" will handle this package-changed event. Also recreate view? "+recreateView);
 					factory.clearAddOnList();
 				}
