@@ -34,6 +34,7 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 	private boolean mSwitchKeyboardOnSpace = true;
 	private boolean mUseFullScreenInputInLandscape = true;
 	private boolean mUseFullScreenInputInPortrait = false;
+	private boolean mUseChewbacca = true;
 	private boolean mUseKeyRepeat = true;
 	private float mKeysHeightFactorInPortrait = 1.0f;
 	private float mKeysHeightFactorInLandscape = 1.0f;
@@ -397,6 +398,10 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
         		mContext.getString(R.string.settings_default_default_split_state));
         Log.i(TAG, "** mInitialKeyboardSplitState: " + mInitialKeyboardSplitState);
 
+        mUseChewbacca = sp.getBoolean(mContext.getString(R.string.settings_key_show_chewbacca),
+                mContext.getResources().getBoolean(R.bool.settings_default_show_chewbacca));
+        Log.i(TAG, "** mUseChewbacca: " + mUseChewbacca);
+        
         //Some preferences cause rebuild of the keyboard, hence changing the listeners list
         final LinkedList<OnSharedPreferenceChangeListener> disconnectedList = new LinkedList<SharedPreferences.OnSharedPreferenceChangeListener>(mPreferencesChangedListeners);
 		for(OnSharedPreferenceChangeListener listener : disconnectedList)
@@ -659,5 +664,9 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
     
     public boolean getShowHintTextOnKeys() {
     	return mShowHintTextOnKeys;
+    }
+    
+    public boolean useChewbaccaNotifications() {
+    	return mUseChewbacca;
     }
 }

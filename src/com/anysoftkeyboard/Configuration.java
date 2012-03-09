@@ -84,6 +84,8 @@ public interface Configuration {
 	
 	String getInitialKeyboardSplitState();
 	
+	boolean useChewbaccaNotifications();
+	
 	void addChangedListener(OnSharedPreferenceChangeListener listener);
 	
 	void removeChangedListener(OnSharedPreferenceChangeListener listener);

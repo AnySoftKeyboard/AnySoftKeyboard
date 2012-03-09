@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.anysoftkeyboard.ui.SendBugReportUiActivity;
 import com.anysoftkeyboard.utils.Workarounds;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import android.app.Notification;
@@ -31,51 +32,52 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 	
 	public void uncaughtException(Thread thread, Throwable ex) {
 		Log.e(TAG, "Caught an unhandled exception!!! ", ex);
-		
-		String appName = mApp.getText(R.string.ime_name).toString();
-		try {
-			PackageInfo info = mApp.getPackageManager().getPackageInfo(mApp.getPackageName(), 0);
-			appName = appName + " v"+info.versionName+" release "+info.versionCode;
-		} catch (NameNotFoundException e) {
-			appName = "NA";
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (AnyApplication.getConfig().useChewbaccaNotifications())
+		{
+			String appName = mApp.getText(R.string.ime_name).toString();
+			try {
+				PackageInfo info = mApp.getPackageManager().getPackageInfo(mApp.getPackageName(), 0);
+				appName = appName + " v"+info.versionName+" release "+info.versionCode;
+			} catch (NameNotFoundException e) {
+				appName = "NA";
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			String logText = "Hi. It seems that we have crashed.... Here are some details:\n"+
+				"****** GMT Time: "+(new Date()).toGMTString()+"\n"+
+				"****** Application name: "+appName+"\n"+
+				"******************************\n"+
+				"****** Exception type: "+ex.getClass().getName()+"\n"+
+				"****** Exception message: "+ex.getMessage()+"\n"+
+				"****** Trace trace:\n"+getStackTrace(ex)+"\n"+
+				"******************************\n"+
+				"****** Device information:\n"+getSysInfo()+
+				"******************************\n"+
+				"****** Logcat:\n"+getLogcat();
+			Log.e(TAG, "About to send a bug report:\n"+logText);
+	        
+			Notification notification = new Notification(R.drawable.notification_error_icon, "Oops! Didn't see that coming, I crashed.", System.currentTimeMillis());
+	
+			Intent notificationIntent = new Intent(mApp, SendBugReportUiActivity.class);
+			
+			notificationIntent.putExtra(SendBugReportUiActivity.CRASH_REPORT_TEXT, logText);
+			
+			PendingIntent contentIntent = PendingIntent.getActivity(mApp, 0, notificationIntent, 0);
+	
+			notification.setLatestEventInfo(mApp, 
+					mApp.getText(R.string.ime_name), 
+					"Oops! Didn't see that coming, I crashed.",
+					contentIntent);
+			notification.flags |= Notification.FLAG_AUTO_CANCEL;
+			notification.flags |= Notification.FLAG_ONLY_ALERT_ONCE;
+			notification.defaults |= Notification.DEFAULT_LIGHTS;
+			notification.defaults |= Notification.DEFAULT_VIBRATE;
+			// notifying
+			NotificationManager notificationManager = (NotificationManager)mApp.getSystemService(Context.NOTIFICATION_SERVICE);
+			
+			notificationManager.notify(1, notification);
 		}
-		
-		String logText = "Hi. It seems that we have crashed.... Here are some details:\n"+
-			"****** GMT Time: "+(new Date()).toGMTString()+"\n"+
-			"****** Application name: "+appName+"\n"+
-			"******************************\n"+
-			"****** Exception type: "+ex.getClass().getName()+"\n"+
-			"****** Exception message: "+ex.getMessage()+"\n"+
-			"****** Trace trace:\n"+getStackTrace(ex)+"\n"+
-			"******************************\n"+
-			"****** Device information:\n"+getSysInfo()+
-			"******************************\n"+
-			"****** Logcat:\n"+getLogcat();
-		Log.e(TAG, "About to send a bug report:\n"+logText);
-        
-		Notification notification = new Notification(R.drawable.notification_error_icon, "Oops! Didn't see that coming, I crashed.", System.currentTimeMillis());
-
-		Intent notificationIntent = new Intent(mApp, SendBugReportUiActivity.class);
-		
-		notificationIntent.putExtra(SendBugReportUiActivity.CRASH_REPORT_TEXT, logText);
-		
-		PendingIntent contentIntent = PendingIntent.getActivity(mApp, 0, notificationIntent, 0);
-
-		notification.setLatestEventInfo(mApp, 
-				mApp.getText(R.string.ime_name), 
-				"Oops! Didn't see that coming, I crashed.",
-				contentIntent);
-		notification.flags |= Notification.FLAG_AUTO_CANCEL;
-		notification.flags |= Notification.FLAG_ONLY_ALERT_ONCE;
-		notification.defaults |= Notification.DEFAULT_LIGHTS;
-		notification.defaults |= Notification.DEFAULT_VIBRATE;
-		// notifying
-		NotificationManager notificationManager = (NotificationManager)mApp.getSystemService(Context.NOTIFICATION_SERVICE);
-		
-		notificationManager.notify(1, notification);
-
 		//and sending to the OS
 		if (mOsDefaultHandler != null)
 		{

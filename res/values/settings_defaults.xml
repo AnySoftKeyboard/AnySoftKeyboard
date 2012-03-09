@@ -12,6 +12,7 @@
     <bool name="settings_default_show_version_notification">true</bool>
     <bool name="settings_default_show_tips_notification">true</bool>
     <bool name="settings_default_show_settings_app">true</bool>
+    <bool name="settings_default_show_chewbacca">true</bool>
     <bool name="settings_default_use_16_keys_symbols_keyboards">false</bool>
     <bool name="settings_default_landscape_fullscreen">true</bool>
     <bool name="settings_default_portrait_fullscreen">false</bool>

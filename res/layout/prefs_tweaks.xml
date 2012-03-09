@@ -236,6 +236,13 @@ android:key="tweaks_group_screen">
 		android:defaultValue="@bool/settings_default_show_settings_app"
 		android:summaryOn="@string/settings_key_show_settings_app_on_summary"
 		android:summaryOff="@string/settings_key_show_settings_app_off_summary"/>
+	<CheckBoxPreference
+		android:key="@string/settings_key_show_chewbacca"
+		android:title="@string/show_crash_notification"
+		android:persistent="true"
+		android:defaultValue="@bool/settings_default_show_chewbacca"
+		android:summaryOn="@string/show_crash_notification_on_summary"
+		android:summaryOff="@string/show_crash_notification_off_summary"/>
 	
 	<EditTextPreference android:key="keyboards_sandbox" 
 		android:lines="3" android:singleLine="false" android:autoText="true" android:capitalize="sentences"

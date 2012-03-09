@@ -25,6 +25,7 @@
     <string name="settings_key_show_tips_notification">settings_key_show_tips_notification</string>
     
     <string name="settings_key_show_settings_app">settings_key_show_settings_app</string>
+    <string name="settings_key_show_chewbacca">settings_key_show_chewbacca</string>
     
     <string name="settings_key_use_16_keys_symbols_keyboards">settings_key_use_16_keys_symbols_keyboards</string>
     

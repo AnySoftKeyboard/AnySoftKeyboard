@@ -1356,7 +1356,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 			{
 				handleDeleteLastCharacter(false);
 			}
-			break;
+			throw new RuntimeException();
+			//break;
 		case KeyCodes.CLEAR_INPUT:
 			if (ic != null)
 			{
