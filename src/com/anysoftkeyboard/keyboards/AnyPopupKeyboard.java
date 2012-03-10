@@ -25,37 +25,20 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     		final KeyboardDimens keyboardDimens)
 	{
 		super(askContext, askContext.getApplicationContext(), R.xml.popup);
+		
 		loadKeyboard(keyboardDimens);
+		
 		final float rowVerticalGap = keyboardDimens.getRowVerticalGap();
     	final float keyHorizontalGap = keyboardDimens.getKeyHorizontalGap();
         
 		List<Key> keys = getKeys();
 		//now adding the popups
-		/*
-		Row row = new Row(this);
-		final int y = rowVerticalGap;
-		int x = 0;
-		for(int popupCharIndex=0;popupCharIndex<popupCharacters.length();popupCharIndex++)
-		{
-			Key aKey = new Key(row);
-			aKey.codes = new int[]{(int)popupCharacters.charAt(popupCharIndex)};
-			aKey.label = String.valueOf(popupCharacters.charAt(popupCharIndex));
-			x += (keyHorizontalGap/2);
-			aKey.x = x;
-			aKey.width -= keyHorizontalGap;//the gap is on both sides
-			aKey.y = y;
-			final int xOffset = aKey.width + row.defaultHorizontalGap + (keyHorizontalGap/2);
-			x += xOffset;
-			keys.add(aKey);
-		}
-		mAdditionalWidth = x;
-		*/
 		final float y = rowVerticalGap;
 		Key baseKey = keys.get(0);
 		Row row = baseKey.row;
 		baseKey.codes = new int[]{(int)popupCharacters.charAt(0)};
-		baseKey.edgeFlags += EDGE_LEFT;
-		baseKey.label = String.valueOf(popupCharacters.charAt(0));
+		baseKey.label = ""+popupCharacters.charAt(0);
+		baseKey.edgeFlags |= EDGE_LEFT;
 		float x = baseKey.width + row.defaultHorizontalGap;
 		for(int popupCharIndex=1;popupCharIndex<popupCharacters.length();popupCharIndex++)
 		{
@@ -63,7 +46,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 			
 			Key aKey = new AnyKey(row, keyboardDimens);
 			aKey.codes = new int[]{(int)popupCharacters.charAt(popupCharIndex)};
-			aKey.label = String.valueOf(popupCharacters.charAt(popupCharIndex));
+			baseKey.label = ""+popupCharacters.charAt(popupCharIndex);
 			aKey.x = (int)x;
 			aKey.width -= keyHorizontalGap;//the gap is on both sides
 			aKey.y = (int)y;
@@ -73,8 +56,8 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 			keys.add(aKey);
 		}
 		//adding edge flag to the last key
-		keys.get(0).edgeFlags += EDGE_LEFT;
-		keys.get(keys.size() - 1).edgeFlags += EDGE_RIGHT;
+		keys.get(0).edgeFlags |= EDGE_LEFT;
+		keys.get(keys.size() - 1).edgeFlags |= EDGE_RIGHT;
 	}
 	
 	@Override

@@ -79,7 +79,7 @@ public class PointerTracker {
     private int mTapCount;
     private long mLastTapTime;
     private boolean mInMultiTap;
-    private final StringBuilder mPreviewLabel = new StringBuilder(1);
+    //private final StringBuilder mPreviewLabel = new StringBuilder(1);
 
     // pressed key
     private int mPreviousKey = NOT_A_KEY;
@@ -532,17 +532,23 @@ public class PointerTracker {
     public CharSequence getPreviewText(Key key, boolean isUppercase) {
         if (mInMultiTap) {
             // Multi-tap
-            mPreviewLabel.setLength(0);
-            final int[] codes;
             if (!isUppercase || !(key instanceof AnyKey) || ((AnyKey)key).shiftedCodes == null)
-            	codes = key.codes;
+            {
+            	final int[] codes = key.codes;
+            	char label = (char)codes[mTapCount < 0 ? 0 : mTapCount];
+            	label = isUppercase? Character.toUpperCase(label) : label;
+            	return Character.toString(label);
+            }
             else
-            	codes = ((AnyKey)key).shiftedCodes;
-            mPreviewLabel.append((char)codes[mTapCount < 0 ? 0 : mTapCount]);
-            return mPreviewLabel;
+            {
+            	final int[] codes = ((AnyKey)key).shiftedCodes;
+            	char label = (char)codes[mTapCount < 0 ? 0 : mTapCount];
+            	return Character.toString(label);
+            }
         } else {
+        	if (key.label == null) return null;
         	if (!isUppercase || !(key instanceof AnyKey) || TextUtils.isEmpty(((AnyKey)key).shiftedKeyLabel))
-        		return key.label;
+        		return isUppercase? key.label.toString().toUpperCase() : key.label;
         	else
         		return ((AnyKey)key).shiftedKeyLabel;
         }

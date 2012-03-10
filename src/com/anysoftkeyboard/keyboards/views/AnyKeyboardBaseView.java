@@ -1095,17 +1095,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     	}
         return label;
     }
-
-    private CharSequence adjustCase(CharSequence label) {
-//        if (mKeyboard.isShifted() && label != null && label.length() < 3
-//                && Character.isLowerCase(label.charAt(0))) {
-//            label = label.toString().toUpperCase();
-//        }
-    	if (mKeyboard.isShifted() && (!TextUtils.isEmpty(label)) && Character.isLowerCase(label.charAt(0))) {
-    		label = label.toString().toUpperCase();
-        }
-        return label;
-    }
     
     @Override
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -1539,7 +1528,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         int popupWidth = 0;
         int popupHeight = 0;
         // Should not draw hint icon in key preview
-        CharSequence label = adjustCase(tracker.getPreviewText(key, mKeyboard.isShifted()));
+        CharSequence label = tracker.getPreviewText(key, mKeyboard.isShifted());
         if (TextUtils.isEmpty(label))
         {
 	        Drawable iconToDraw = getIconToDrawForKey(key, true);
