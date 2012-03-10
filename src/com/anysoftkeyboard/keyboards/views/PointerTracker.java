@@ -24,6 +24,7 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 
@@ -532,11 +533,18 @@ public class PointerTracker {
         if (mInMultiTap) {
             // Multi-tap
             mPreviewLabel.setLength(0);
-            final int[] codes = (isUppercase && key instanceof AnyKey)? ((AnyKey)key).shiftedCodes : key.codes;
+            final int[] codes;
+            if (!isUppercase || !(key instanceof AnyKey) || ((AnyKey)key).shiftedCodes == null)
+            	codes = key.codes;
+            else
+            	codes = ((AnyKey)key).shiftedCodes;
             mPreviewLabel.append((char)codes[mTapCount < 0 ? 0 : mTapCount]);
             return mPreviewLabel;
         } else {
-            return key.label;
+        	if (!isUppercase || !(key instanceof AnyKey) || TextUtils.isEmpty(((AnyKey)key).shiftedKeyLabel))
+        		return key.label;
+        	else
+        		return ((AnyKey)key).shiftedKeyLabel;
         }
     }
 

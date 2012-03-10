@@ -1356,8 +1356,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			{
 				handleDeleteLastCharacter(false);
 			}
-			throw new RuntimeException();
-			//break;
+			break;
 		case KeyCodes.CLEAR_INPUT:
 			if (ic != null)
 			{
@@ -1970,24 +1969,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 		{
 			if (mInputView.isShifted())
 			{
-				//Log.w("Shift-code", "Start");
-				// TODO: Change code for get ShiftKeyCodes
-				//mKeyCodePosition = -1;
-				//AnyKey key = getKeyFromPrimaryKey(primaryCode);
-				//Log.w("Shift-code", (char)Character.toUpperCase(primaryCode) + " : " + keyCodes.length + " : " + mKeyCodePosition);
 				if (key != null && key instanceof AnyKey)
 				{
 					AnyKey anyKey = (AnyKey)key;
-//					primaryCodeForShow = TextUtils.isEmpty(anyKey.shiftedKeyLabel) ? 
-//						Character.toUpperCase(primaryCode) : anyKey.shiftedCodes[multiTapIndex];
 					int[] shiftCodes = anyKey.shiftedCodes;
 					primaryCodeForShow = shiftCodes != null && shiftCodes.length > multiTapIndex?
 							shiftCodes[multiTapIndex] : Character.toUpperCase(primaryCode);
-					//Log.w("Shift-code", (char)Character.toUpperCase(primaryCodeForShow) + "");
 				}
 				else
-					primaryCodeForShow = primaryCode;
-							
+					primaryCodeForShow = Character.toUpperCase(primaryCode);
+				
+				Log.d("****SHIFT***", "handleCharacter resulted in: "+primaryCodeForShow);
 			}
 			else
 				primaryCodeForShow = primaryCode;

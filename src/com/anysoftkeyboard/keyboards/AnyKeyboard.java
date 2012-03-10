@@ -183,24 +183,33 @@ public abstract class AnyKeyboard extends Keyboard
 	                //setting the character label
 	                if (isAlphabetKey(key) && (key.icon == null))
 	                {
-	                	if (TextUtils.isEmpty(key.label))
+	                	final boolean labelIsOriginallyEmpty = TextUtils.isEmpty(key.label);
+	                	if (labelIsOriginallyEmpty)
 	                	{
 		                	final char code = (char)key.codes[0];
 		                	//check the ASCII table, everything below 32, is not printable
 		                	if (code > 31 && !Character.isWhitespace(code))
 		                		key.label = ""+code;
 	                	}
-	                	if (key instanceof AnyKey)
+	                	/*if (key instanceof AnyKey)
 	                	{
 	                		AnyKey anyKey = (AnyKey)key;
 		                	if (TextUtils.isEmpty(anyKey.shiftedKeyLabel))
 		                	{
-			                	final char code = (char)anyKey.shiftedCodes[0];
-			                	//check the ASCII table, everything below 32, is not printable
-			                	if (code > 31 && !Character.isWhitespace(code))
-			                		anyKey.shiftedKeyLabel = ""+code;
+		                		if (!labelIsOriginallyEmpty && anyKey.shiftedCodes.length > 1)
+		                		{
+		                			//HO, the label is not generated, it was specified, and this is a multi chars key
+		                			anyKey.shiftedKeyLabel = anyKey.label.toString().toUpperCase();
+		                		}
+		                		else
+		                		{
+		                			final char code = (char)anyKey.shiftedCodes[0];
+		                			//check the ASCII table, everything below 32, is not printable
+		                			if (code > 31 && !Character.isWhitespace(code))
+		                				anyKey.shiftedKeyLabel = ""+code;
+		                		}
 		                	}
-	                	}
+	                	}*/
 	                }
                 }
             }
@@ -468,8 +477,8 @@ public abstract class AnyKeyboard extends Keyboard
         
         setPopupKeyChars(key);
         
-        if (!TextUtils.isEmpty(key.label))
-        	key.label = key.label;
+        //if (!TextUtils.isEmpty(key.label))
+        //	key.label = key.label;
         		
         return key;
     }
@@ -771,19 +780,19 @@ public abstract class AnyKeyboard extends Keyboard
             {
 	            if (shiftedCodesValue.type == TypedValue.TYPE_INT_DEC 
 	            		|| shiftedCodesValue.type == TypedValue.TYPE_INT_HEX) {
+	            	Log.d("*****SHIFT****", "shiftedCodes is TYPE_INT_HEX");
 	                shiftedCodes = new int[] { shiftedCodesValue.data };
 	            } else if (shiftedCodesValue.type == TypedValue.TYPE_STRING) {
+	            	Log.d("*****SHIFT****", "shiftedCodes is TYPE_STRING");
 	            	shiftedCodes = parseCSV(shiftedCodesValue.string.toString());
 	            }
             }
             else
             {
-            	//shifted codes were not specified. Using char.toupper
-            	shiftedCodes = new int[0];
-            	//I'll let the IF below fix the shiftedCodes array
+            	shiftedCodes = null;
             }
             //ensuring codes and shiftedCodes are the same size
-            if (shiftedCodes.length != codes.length)
+            if (shiftedCodes != null && shiftedCodes.length != codes.length)
             {
             	int[] wrongSizedShiftCodes = shiftedCodes;
             	shiftedCodes = new int[codes.length];
