@@ -104,4 +104,8 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 		//no generic rows in popups, only in main keyboard
 	}
 
+	@Override
+	protected boolean keyboardSupportShift() {
+		return true;
+	}
 }

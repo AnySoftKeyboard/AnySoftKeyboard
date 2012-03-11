@@ -625,7 +625,7 @@ public abstract class AnyKeyboard extends Keyboard
     public abstract int getKeyboardIconResId();
     
     public boolean setShiftLocked(boolean shiftLocked) {
-        if (mShiftKey != null) {
+        if (keyboardSupportShift()) {
         	final int initialState = mShiftState;
             if (shiftLocked) {
                 mShiftState = STICKY_KEY_LOCKED;
@@ -642,7 +642,7 @@ public abstract class AnyKeyboard extends Keyboard
     
     @Override
     public boolean isShifted() {
-        if (mShiftKey != null) {
+        if (keyboardSupportShift()) {
             return mShiftState != STICKY_KEY_OFF;
         } else {
             return false;
@@ -651,7 +651,7 @@ public abstract class AnyKeyboard extends Keyboard
     
     @Override
     public boolean setShifted(boolean shiftState) {
-        if (mShiftKey != null) {
+        if (keyboardSupportShift()) {
         	final int initialState = mShiftState;
             if (shiftState) {
             	if (mShiftState == STICKY_KEY_OFF) {//so it is not LOCKED
@@ -665,9 +665,14 @@ public abstract class AnyKeyboard extends Keyboard
             setShiftViewAsState();
             return mShiftState != initialState;
         } else {
-            return super.setShifted(shiftState);
+            super.setShifted(shiftState);
+            return false;
         }
     }
+
+	protected boolean keyboardSupportShift() {
+		return mShiftKey != null;
+	}
 
 	private void setShiftViewAsState() {
 		//the "on" led is just like the caps-lock led
