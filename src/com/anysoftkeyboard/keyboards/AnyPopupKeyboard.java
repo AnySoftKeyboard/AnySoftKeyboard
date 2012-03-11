@@ -46,7 +46,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 			
 			Key aKey = new AnyKey(row, keyboardDimens);
 			aKey.codes = new int[]{(int)popupCharacters.charAt(popupCharIndex)};
-			baseKey.label = ""+popupCharacters.charAt(popupCharIndex);
+			aKey.label = ""+popupCharacters.charAt(popupCharIndex);
 			aKey.x = (int)x;
 			aKey.width -= keyHorizontalGap;//the gap is on both sides
 			aKey.y = (int)y;

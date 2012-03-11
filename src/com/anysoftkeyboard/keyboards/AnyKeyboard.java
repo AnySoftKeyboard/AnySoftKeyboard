@@ -676,7 +676,7 @@ public abstract class AnyKeyboard extends Keyboard
 
 	private void setShiftViewAsState() {
 		//the "on" led is just like the caps-lock led
-		mShiftKey.on = (mShiftState == STICKY_KEY_LOCKED);
+		if (mShiftKey != null) mShiftKey.on = (mShiftState == STICKY_KEY_LOCKED);
 	}
     
 	public boolean isShiftLocked() {
