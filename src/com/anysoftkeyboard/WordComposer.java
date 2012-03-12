@@ -179,7 +179,7 @@ public class WordComposer {
     public CharSequence getTypedWord() {
         int wordSize = mCodes.size();
         if (wordSize == 0) {
-            return null;
+            return "";
         }
         return mTypedWord;
     }

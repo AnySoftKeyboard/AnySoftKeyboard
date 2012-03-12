@@ -1773,6 +1773,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				if (mWord.cursorPosition() != mWord.size())
 				{
 					int cursorPosition = mWord.cursorPosition() + mWord.candidatesStartPosition();
+					Log.d(TAG, "Updating cursor position: cursorPosition:"+cursorPosition+" mWord.cursorPosition():"+mWord.cursorPosition()+" mWord.candidatesStartPosition():"+mWord.candidatesStartPosition());
 					ic.setSelection(cursorPosition, cursorPosition);
 				}
 				if (mWord.size()/*mComposing.length()*/ == 0) {
@@ -2009,6 +2010,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				if (mWord.cursorPosition() != mWord.size())
 				{
 					int cursorPosition = mWord.candidatesStartPosition() + mWord.cursorPosition();
+					Log.d(TAG, "Updating cursor position: cursorPosition:"+cursorPosition+" mWord.cursorPosition():"+mWord.cursorPosition()+" mWord.candidatesStartPosition():"+mWord.candidatesStartPosition());
 					ic.setSelection(cursorPosition, cursorPosition);
 				}
 			}
