@@ -34,6 +34,9 @@ public class WordComposer {
     private String mPreferredWord;
     
     private final StringBuilder mTypedWord;
+    
+    private int mCursorPosition;
+    private int mCandidatesStartPosition;
 
     private int mCapsCount;
 
@@ -67,6 +70,8 @@ public class WordComposer {
         mPreferredWord = null;
         mTypedWord.setLength(0);
         mCapsCount = 0;
+        mCursorPosition = 0;
+        mCandidatesStartPosition = 0;
     }
 
     /**
@@ -75,6 +80,23 @@ public class WordComposer {
      */
     public int size() {
         return mCodes.size();
+    }
+    
+    /**
+     * Cursor position
+     */
+    public int cursorPosition() {
+        return mCursorPosition;
+    }
+    
+    public int candidatesStartPosition() {
+    	return mCandidatesStartPosition;
+    }
+    
+    public void setCursorPostion(int position, int candidatesStartPosition)
+    {
+    	mCursorPosition = position;
+    	mCandidatesStartPosition = candidatesStartPosition;
     }
 
     /**
@@ -92,9 +114,10 @@ public class WordComposer {
      * @param codes the array of unicode values
      */
     public boolean add(int primaryCode, int[] codes) {
-        mTypedWord.append((char) primaryCode);
+        mTypedWord.insert(mCursorPosition, (char) primaryCode);
         correctPrimaryJuxtapos(primaryCode, codes);
-        mCodes.add(codes);
+        mCodes.add(mCursorPosition, codes);
+        mCursorPosition++;
         if (Character.isUpperCase((char) primaryCode)) mCapsCount++;
 		
 		if (mTypedWord.length() == CHEWBACCAONTHEDRUMS.length())
@@ -112,26 +135,39 @@ public class WordComposer {
      * value in the array but the second. This happens when the preferred key is not the key that
      * the user released the finger on.
      * @param primaryCode the preferred character
-     * @param codes array of codes based on distance from touch point
+     * @param nearByKeyCodes array of codes based on distance from touch point
      */
-    private void correctPrimaryJuxtapos(int primaryCode, int[] codes) {
-        if (codes.length < 2) return;
+    private void correctPrimaryJuxtapos(int primaryCode, int[] nearByKeyCodes) {
+        /*if (codes.length < 2) return;
         if (codes[0] > 0 && codes[1] > 0 && codes[0] != primaryCode && codes[1] == primaryCode) {
             codes[1] = codes[0];
             codes[0] = primaryCode;
-        }
+        }*/
+    	if(nearByKeyCodes != null && nearByKeyCodes.length > 1 && primaryCode != nearByKeyCodes[0]){
+			int swapedItem = nearByKeyCodes[0];
+			nearByKeyCodes[0] = primaryCode;
+			for(int i=1;i<nearByKeyCodes.length; i++)
+			{
+				if (nearByKeyCodes[i] == primaryCode)
+				{
+					nearByKeyCodes[i] = swapedItem;
+					break;
+				}
+			}
+		}
     }
     
     /**
      * Delete the last keystroke as a result of hitting backspace.
      */
     public void deleteLast() {
-    	final int codesSize = mCodes.size();
-        if (codesSize > 0) {
-            mCodes.remove(codesSize - 1);
-            final int lastPos = mTypedWord.length() - 1;
-            char last = mTypedWord.charAt(lastPos);
-            mTypedWord.deleteCharAt(lastPos);
+    	//final int codesSize = mCodes.size();
+        if (mCursorPosition > 0) {
+            mCodes.remove(mCursorPosition - 1);
+            //final int lastPos = mTypedWord.length() - 1;
+            char last = mTypedWord.charAt(mCursorPosition - 1);
+            mTypedWord.deleteCharAt(mCursorPosition - 1);
+            mCursorPosition--;
             if (Character.isUpperCase(last)) mCapsCount--;
         }
     }

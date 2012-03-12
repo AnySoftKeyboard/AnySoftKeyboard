@@ -139,8 +139,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 	*/
     // Keep track of the last selection range to decide if we need to show word alternatives
-    private int     mLastSelectionStart;
-    private int     mLastSelectionEnd;
+    //private int     mLastSelectionStart;
+    //private int     mLastSelectionEnd;
 
 	private final com.anysoftkeyboard.Configuration mConfig;
 	private static final boolean DEBUG = AnyApplication.DEBUG;
@@ -172,7 +172,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private AutoDictionary mAutoDictionary;
 	
 
-	private StringBuilder mComposing = new StringBuilder();
+	//private StringBuilder mComposing = new StringBuilder();
 	private WordComposer mWord = new WordComposer();
 
 	private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
@@ -574,7 +574,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		
 		mInputView.closing();
 		
-		mComposing.setLength(0);
+		//mComposing.setLength(0);
+		mWord.reset();
+		
 		mPredicting = false;
 		//mDeleteCount = 0;
         mJustAddedAutoSpace = false;
@@ -628,6 +630,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		System.gc();
 	}
 	
+	
 	///this function is called EVERYTIME them selection is changed. This also includes the underlined
 	///suggestions.
 	@Override
@@ -646,39 +649,57 @@ public class AnySoftKeyboard extends InputMethodService implements
                     + ", ce=" + candidatesEnd);
         }
 
-        // If the current selection in the text view changes, we should
-        // clear whatever candidate text we have.
-        if ((((mComposing.length() > 0 && mPredicting) /*|| mVoiceInputHighlighted*/)
-                && (newSelStart != candidatesEnd
-                    || newSelEnd != candidatesEnd)
-                && mLastSelectionStart != newSelStart)) {
-            mComposing.setLength(0);
-            mPredicting = false;
-            postUpdateSuggestions();
-            TextEntryState.reset();
-            InputConnection ic = getCurrentInputConnection();
-            if (ic != null) {
-                ic.finishComposingText();
-            }
-            //mVoiceInputHighlighted = false;
-        } else if (!mPredicting && !mJustAccepted) {
-            switch (TextEntryState.getState()) {
-                case ACCEPTED_DEFAULT:
-                    TextEntryState.reset();
-                    // fall through
-                case SPACE_AFTER_PICKED:
-                    mJustAddedAutoSpace = false;  // The user moved the cursor.
-                    break;
-            }
-        }
-        mJustAccepted = false;
+//        // If the current selection in the text view changes, we should
+//        // clear whatever candidate text we have.
+//        if ((((mComposing.length() > 0 && mPredicting) /*|| mVoiceInputHighlighted*/)
+//                && (newSelStart != candidatesEnd
+//                    || newSelEnd != candidatesEnd)
+//                && mLastSelectionStart != newSelStart)) {
+//            mComposing.setLength(0);
+//            mPredicting = false;
+//            postUpdateSuggestions();
+//            TextEntryState.reset();
+//            InputConnection ic = getCurrentInputConnection();
+//            if (ic != null) {
+//                ic.finishComposingText();
+//            }
+//            //mVoiceInputHighlighted = false;
+//        } else if (!mPredicting && !mJustAccepted) {
+//            switch (TextEntryState.getState()) {
+//                case ACCEPTED_DEFAULT:
+//                    TextEntryState.reset();
+//                    // fall through
+//                case SPACE_AFTER_PICKED:
+//                    mJustAddedAutoSpace = false;  // The user moved the cursor.
+//                    break;
+//            }
+//        }
+//        mJustAccepted = false;
         //postUpdateShiftKeyState();
         updateShiftKeyState(getCurrentInputEditorInfo());
 
         // Make a note of the cursor position
-        mLastSelectionStart = newSelStart;
-        mLastSelectionEnd = newSelEnd;
-
+        if (mWord.size() > 0 && mPredicting)
+        {//there's predicting going on
+        	//is the cursor inside the mWord limits?
+    		if ((newSelEnd > candidatesEnd) || (newSelEnd < candidatesStart))
+    		{
+    			mWord.reset();
+    			mPredicting = false;
+    			postUpdateSuggestions();
+    			TextEntryState.reset();
+    			InputConnection ic = getCurrentInputConnection();
+    			if (ic != null) {
+    				ic.finishComposingText();
+    			}
+    		}
+    		else
+    		{
+    			int cursorPosition = newSelEnd - candidatesStart; 
+    			mWord.setCursorPostion(cursorPosition, candidatesStart<0? newSelStart : candidatesStart);
+    		}
+        }
+        
     }
 
 	private void onPhysicalKeyboardKeyPressed() {
@@ -797,24 +818,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	@Override
 	public boolean onKeyDown(final int keyCode, KeyEvent event) {
-//		if (DEBUG)
-//		{
-//			Log.d(TAG, "onKeyDown:"+keyCode+" flags:"+event.getFlags());
-//			
-//			if (mInputView == null)
-//			{
-//				Log.d(TAG, "No input view");
-//			}
-//			else
-//			{
-//				Log.d(TAG, "\n canInteractWithUi:"+mInputView.canInteractWithUi()+"\n"+
-//						"getHeight:"+mInputView.getHeight()+"\n"+
-//						"getVisibility:"+mInputView.getVisibility()+"\n"+
-//						"getWindowVisibility:"+mInputView.getWindowVisibility()+"\n"+
-//						"isFocused:"+mInputView.isFocused()+"\n"+
-//						"isShown:"+mInputView.isShown()+"\n");
-//			}
-//		}
 		final boolean shouldTranslateSpecialKeys = isInputViewShown();
 		if(DEBUG){
 			Log.d(TAG, "isInputViewShown="+shouldTranslateSpecialKeys);
@@ -1017,36 +1020,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if ((mKeyboardSwitcher.isAlphabetMode())
 				&& !mKeyboardChangeNotificationType
 						.equals(KEYBOARD_NOTIFICATION_NEVER)) {
-			//AnyKeyboard current = mKeyboardSwitcher.getCurrentKeyboard();
-			// notifying the user about the keyboard.
-			// creating the message
-//			final String keyboardName = getCurrentKeyboard().getKeyboardName();
-//
-//			Notification notification = new Notification(R.drawable.notification_icon, keyboardName, System.currentTimeMillis());
-//
-//			Intent notificationIntent = new Intent();
-//			PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-//					notificationIntent, 0);
-//
-//			notification.setLatestEventInfo(getApplicationContext(),
-//					getText(R.string.ime_name), keyboardName,
-//					contentIntent);
-//
-//			if (mKeyboardChangeNotificationType.equals("1")) {
-//				notification.flags |= Notification.FLAG_ONGOING_EVENT;
-//				notification.flags |= Notification.FLAG_NO_CLEAR;
-//			} else {
-//				notification.flags |= Notification.FLAG_AUTO_CANCEL;
-//			}
-//			// notifying
-//			mNotificationManager.notify(KEYBOARD_NOTIFICATION_ID, notification);
-//			Intent i = new Intent(NOTIFY_LAYOUT_SWITCH);
-//			i.putExtra(NOTIFY_LAYOUT_SWITCH_NOTIFICATION_TITLE, getText(R.string.ime_name));
-//			i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_RESID,   getCurrentKeyboard().getKeyboardIconResId());
-//			i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_NAME,    getCurrentKeyboard().getKeyboardName());
-//			i.putExtra(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_PACKAGE, getCurrentKeyboard().getKeyboardContext().getPackageName());
-//			i.putExtra(NOTIFY_LAYOUT_SWITCH_NOTIFICATION_FLAGS, notification.flags);
-//			sendBroadcast(i);
 			mInputMethodManager.showStatusIcon(mImeToken, getCurrentKeyboard()
 					.getKeyboardContext().getPackageName(), getCurrentKeyboard().getKeyboardIconResId());
 		}
@@ -1073,13 +1046,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		case KeyEvent.KEYCODE_DPAD_UP:
 		case KeyEvent.KEYCODE_DPAD_LEFT:
 		case KeyEvent.KEYCODE_DPAD_RIGHT:
-			// // If tutorial is visible, don't allow dpad to work
-			// if (mTutorial != null) {
-			// return true;
-			// }
-			// Enable shift key and DPAD to do selections
-			if (mInputView != null && mInputView.isShown()
-					&& mInputView.isShifted()) {
+			if (mInputView != null && mInputView.isShown() && mInputView.isShifted()) {
 				event = new KeyEvent(event.getDownTime(), event.getEventTime(),
 						event.getAction(), event.getKeyCode(), event
 								.getRepeatCount(), event.getDeviceId(), event
@@ -1183,13 +1150,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private void commitTyped(InputConnection inputConnection) {
 		if (mPredicting) {
 			mPredicting = false;
-			if (mComposing.length() > 0) {
+			if (/*mComposing.length()*/mWord.size() > 0) {
 				if (inputConnection != null) {
-					inputConnection.commitText(mComposing, 1);
+					inputConnection.commitText(/*mComposing*/mWord.getTypedWord(), 1);
 				}
-				mCommittedLength = mComposing.length();
-				TextEntryState.acceptedTyped(mComposing);
-				addToDictionaries(mComposing, AutoDictionary.FREQUENCY_FOR_TYPED);
+				mCommittedLength = mWord.size();//mComposing.length();
+				TextEntryState.acceptedTyped(mWord.getTypedWord()/*mComposing*/);
+				addToDictionaries(mWord.getTypedWord()/*mComposing*/, AutoDictionary.FREQUENCY_FOR_TYPED);
 			}
 			postUpdateSuggestionsNow();
 		}
@@ -1710,16 +1677,21 @@ public class AnySoftKeyboard extends InputMethodService implements
 	        return;
 	    }
 		if (mPredicting) {
-			final int length = mComposing.length();
-			if (length == 0) {
-				return;
-			}
-			mComposing.delete(0, length);
-			mWord.deleteLast();
-			ic.setComposingText(mComposing, 1);
-			if (mComposing.length() == 0) {
-				mPredicting = false;
-			}
+//			final int length = mComposing.length();
+//			if (length == 0) {
+//				return;
+//			}
+//			mComposing.delete(0, length);
+//			mWord.deleteLast();
+//			ic.setComposingText(mComposing, 1);
+//			if (mComposing.length() == 0) {
+//				mPredicting = false;
+//			}
+//			postUpdateSuggestions();
+//			return;
+			mWord.reset();
+			mPredicting = false;
+			ic.setComposingText("", 1);
 			postUpdateSuggestions();
 			return;
 		}
@@ -1793,12 +1765,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 		
 	    boolean deleteChar = false;
 		if (mPredicting) {
-			final int length = mComposing.length();
+			final int length = mWord.size();// mComposing.length();
 			if (length > 0) {
-				mComposing.delete(length - 1, length);
+				//mComposing.delete(length - 1, length);
 				mWord.deleteLast();
-				ic.setComposingText(mComposing, 1);
-				if (mComposing.length() == 0) {
+				ic.setComposingText(mWord.getTypedWord()/*mComposing*/, 1);
+				if (mWord.cursorPosition() != mWord.size())
+				{
+					int cursorPosition = mWord.cursorPosition() + mWord.candidatesStartPosition();
+					ic.setSelection(cursorPosition, cursorPosition);
+				}
+				if (mWord.size()/*mComposing.length()*/ == 0) {
 					mPredicting = false;
 				}
 				postUpdateSuggestions();
@@ -1936,7 +1913,8 @@ public class AnySoftKeyboard extends InputMethodService implements
             getCurrentInputConnection().finishComposingText();
             clearSuggestions();
             
-            mComposing.setLength(0);
+            //mComposing.setLength(0);
+            mWord.reset();
     		mPredicting = false;
     		mPredictionOn = false;
             mJustAddedAutoSpace = false;
@@ -1953,16 +1931,16 @@ public class AnySoftKeyboard extends InputMethodService implements
 				&& !isCursorTouchingWord()) {
 			if (!mPredicting) {
 				mPredicting = true;
-				mComposing.setLength(0);
+				//mComposing.setLength(0);
 				mWord.reset();
 			}
 		}
 		
 		mLastCharacterWasShifted = (mInputView != null) && mInputView.isShifted();
 		
-		if (mLastSelectionStart == mLastSelectionEnd && TextEntryState.isCorrecting()) {
-            abortCorrection(false);
-        }
+//		if (mLastSelectionStart == mLastSelectionEnd && TextEntryState.isCorrecting()) {
+//            abortCorrection(false);
+//        }
 		
 		final int primaryCodeForShow;
 		if (mInputView != null)
@@ -1989,11 +1967,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 		
 		if (mPredicting) {
 			if ((mInputView != null) && mInputView.isShifted()
-					&& mComposing.length() == 0) {
+					&& /*mComposing.length() == 0*/ mWord.cursorPosition() == 0) {
 				mWord.setFirstCharCapitalized(true);
 			}
 			
-			mComposing.append((char) primaryCodeForShow);
+			/*mComposing.append((char) primaryCodeForShow);
 			if(nearByKeyCodes != null && nearByKeyCodes.length > 1 && primaryCode != nearByKeyCodes[0]){
 				int swapedItem = nearByKeyCodes[0];
 				nearByKeyCodes[0] = primaryCode;
@@ -2005,7 +1983,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 						break;
 					}
 				}
-			}
+			}*/
 			if (mWord.add(primaryCodeForShow, nearByKeyCodes))
 			{
 				Toast note = Toast.makeText(getApplicationContext(), "Check the logcat for a note from AnySoftKeyboard developers!", Toast.LENGTH_LONG);
@@ -2027,7 +2005,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 			InputConnection ic = getCurrentInputConnection();
 			if (ic != null) {
-				ic.setComposingText(mComposing, 1);
+				ic.setComposingText(mWord.getTypedWord()/*mComposing*/, 1);
+				if (mWord.cursorPosition() != mWord.size())
+				{
+					int cursorPosition = mWord.candidatesStartPosition() + mWord.cursorPosition();
+					ic.setSelection(cursorPosition, cursorPosition);
+				}
 			}
 			postUpdateSuggestions();
 		} else {
@@ -2150,12 +2133,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	private boolean shouldCandidatesStripBeShown() {
-//		boolean shown = isPredictionOn() && (mShowSuggestions || isFullscreenMode());
-//		if (!onEvaluateInputViewShown())
-//			shown &= mPredictionLandscape;
-//		return shown;
-//		return true;
-//		return isPredictionOn() || isFullscreenMode();
 		return mShowSuggestions;
 	}
 
@@ -2278,7 +2255,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	            addToDictionaries(suggestion, AutoDictionary.FREQUENCY_FOR_PICKED);
 	        }
 	        
-			TextEntryState.acceptedSuggestion(mComposing.toString(), suggestion);
+			TextEntryState.acceptedSuggestion(mWord.getTypedWord()/*mComposing.toString()*/, suggestion);
 			// Follow it with a space
 			if (mAutoSpace && !correcting) {
 				sendSpace();
@@ -2365,7 +2342,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	public void revertLastWord(boolean deleteChar) {
-		final int length = mComposing.length();
+		final int length = mWord.size();// mComposing.length();
 		if (!mPredicting && length > 0) {
 			final InputConnection ic = getCurrentInputConnection();
 			mPredicting = true;
@@ -2380,7 +2357,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				toDelete--;
 			}
 			ic.deleteSurroundingText(toDelete, 0);
-			ic.setComposingText(mComposing, 1);
+			ic.setComposingText(mWord.getTypedWord()/*mComposing*/, 1);
 			TextEntryState.backspace();
 			ic.endBatchEdit();
 			postUpdateSuggestions();
@@ -3006,7 +2983,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mWord.add(c, new int[]{c});
 		}
 
-		mComposing.append(textToCommit);
+		//mComposing.append(textToCommit);
 		
 		if (mCompletionOn)
 			getCurrentInputConnection().setComposingText(mWord.getTypedWord(), textToCommit.length());
@@ -3020,12 +2997,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (countToDelete == 0)
 			return;
 
-		final int currentLength = mComposing.length();
+		final int currentLength = mWord.size();// mComposing.length();
 		boolean shouldDeleteUsingCompletion;
 		if (currentLength > 0) {
 			shouldDeleteUsingCompletion = true;
 			if (currentLength > countToDelete) {
-				mComposing.delete(currentLength - countToDelete, currentLength);
+				//mComposing.delete(currentLength - countToDelete, currentLength);
 
 			    int deletesLeft = countToDelete;
 		    	while(deletesLeft > 0)
@@ -3034,7 +3011,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		    		deletesLeft--;
 		    	}
 			} else {
-				mComposing.setLength(0);
+				//mComposing.setLength(0);
 				mWord.reset();
 			}
 		} else {
@@ -3043,7 +3020,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		InputConnection ic = getCurrentInputConnection();
 		if(ic != null){
 		    if (mCompletionOn && shouldDeleteUsingCompletion) {
-			    ic.setComposingText(mComposing, 1);
+			    ic.setComposingText(mWord.getTypedWord()/*mComposing*/, 1);
 			    // updateCandidates();
 		    } else {
 		        ic.deleteSurroundingText(countToDelete, 0);
