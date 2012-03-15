@@ -435,6 +435,8 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 			return KeyCodes.CANCEL;
 		else if (keyValue.equalsIgnoreCase("backspace"))
 			return KeyCodes.DELETE;
+		else if (keyValue.equalsIgnoreCase("backword"))
+			return KeyCodes.DELETE_WORD;
 		else if (keyValue.equalsIgnoreCase("clear_input"))
 			return KeyCodes.CLEAR_INPUT;
 		else if (keyValue.equalsIgnoreCase("cursor_up"))

@@ -34,6 +34,7 @@
         <item>shift</item>
         <item>hide</item>
         <item>backspace</item>
+        <item>backword</item>
         <item>clear_input</item>
         <item>cursor_up</item>
         <item>cursor_down</item>
@@ -55,6 +56,7 @@
         <item>@string/swipe_action_name_shift</item>
         <item>@string/swipe_action_name_hide</item>
         <item>@string/swipe_action_name_backspace</item>
+        <item>@string/swipe_action_name_backword</item>
         <item>@string/swipe_action_name_clear_input</item>
         <item>@string/swipe_action_name_cursor_up</item>
         <item>@string/swipe_action_name_cursor_down</item>

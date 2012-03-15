@@ -1370,6 +1370,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 		final InputConnection ic = getCurrentInputConnection();
 		
 		switch (primaryCode) {
+		case KeyCodes.DELETE_WORD:
+			if (ic == null)//if we don't want to do anything, lets check null first.
+	            break;
+			handleBackword(ic);
+			break;
 		case KeyCodes.DELETE:
 			if (ic == null)//if we don't want to do anything, lets check null first.
 	            break;
