@@ -18,6 +18,9 @@ package com.anysoftkeyboard;
 
 import java.util.ArrayList;
 
+import android.os.Looper;
+import android.util.Log;
+
 /**
  * A place to store the currently composing word with information such as adjacent key codes as well
  */
@@ -95,6 +98,8 @@ public class WordComposer {
     
     public void setCursorPostion(int position, int candidatesStartPosition)
     {
+    	final Looper l = Looper.myLooper();
+    	Log.d("TTTTTTTT", "Looper is "+(l != null? ""+l.hashCode() : "NULL"));
     	mCursorPosition = position;
     	mCandidatesStartPosition = candidatesStartPosition;
     }
@@ -105,6 +110,8 @@ public class WordComposer {
      * @return the unicode for the pressed and surrounding keys
      */
     public int[] getCodesAt(int index) {
+    	final Looper l = Looper.myLooper();
+    	Log.d("TTTTTTTT", "Looper is "+(l != null? ""+l.hashCode() : "NULL"));
         return mCodes.get(index);
     }
 
@@ -114,6 +121,9 @@ public class WordComposer {
      * @param codes the array of unicode values
      */
     public boolean add(int primaryCode, int[] codes) {
+    	final Looper l = Looper.myLooper();
+    	Log.d("TTTTTTTT", "Looper is "+(l != null? ""+l.hashCode() : "NULL"));
+    	
         mTypedWord.insert(mCursorPosition, (char) primaryCode);
         correctPrimaryJuxtapos(primaryCode, codes);
         mCodes.add(mCursorPosition, codes);
@@ -162,6 +172,9 @@ public class WordComposer {
      * Delete the last keystroke as a result of hitting backspace.
      */
     public void deleteLast() {
+    	final Looper l = Looper.myLooper();
+    	Log.d("TTTTTTTT", "Looper is "+(l != null? ""+l.hashCode() : "NULL"));
+    	
     	//final int codesSize = mCodes.size();
         if (mCursorPosition > 0) {
             mCodes.remove(mCursorPosition - 1);

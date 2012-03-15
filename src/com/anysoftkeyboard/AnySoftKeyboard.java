@@ -648,119 +648,95 @@ public class AnySoftKeyboard extends InputMethodService implements
                     + ", cs=" + candidatesStart
                     + ", ce=" + candidatesEnd);
         }
-
-//        // If the current selection in the text view changes, we should
-//        // clear whatever candidate text we have.
-//        if ((((mComposing.length() > 0 && mPredicting) /*|| mVoiceInputHighlighted*/)
-//                && (newSelStart != candidatesEnd
-//                    || newSelEnd != candidatesEnd)
-//                && mLastSelectionStart != newSelStart)) {
-//            mComposing.setLength(0);
-//            mPredicting = false;
-//            postUpdateSuggestions();
-//            TextEntryState.reset();
-//            InputConnection ic = getCurrentInputConnection();
-//            if (ic != null) {
-//                ic.finishComposingText();
-//            }
-//            //mVoiceInputHighlighted = false;
-//        } else if (!mPredicting && !mJustAccepted) {
-//            switch (TextEntryState.getState()) {
-//                case ACCEPTED_DEFAULT:
-//                    TextEntryState.reset();
-//                    // fall through
-//                case SPACE_AFTER_PICKED:
-//                    mJustAddedAutoSpace = false;  // The user moved the cursor.
-//                    break;
-//            }
-//        }
-        // The user moved the cursor.
-        mJustAccepted = false;
-        mJustAddedAutoSpace = false;
-        //postUpdateShiftKeyState();
-        updateShiftKeyState(getCurrentInputEditorInfo());
-
-        // Make a note of the cursor position
-        if (/*mWord.size() > 0 && mPredicting*/mPredictionOn)
-        {//there's predicting going on
-        	//is the cursor inside the mWord limits?
-    		if ((newSelEnd > candidatesEnd) || (newSelEnd < candidatesStart))
-    		{
-    			//this means that the new cursor position is outside the candidates underline
-    			//this can be either because the cursor is really outside the previously underlined (suggested) 
-    			//or nothing was suggested.
-    			//in this case, we would like to reset the predition and restart
-    			//if the user clicked inside a different word
-    			InputConnection ic = getCurrentInputConnection();
-    			ic.beginBatchEdit();//don't want any events till I finish handling this touch
-    			
-    			ic.finishComposingText();
-    			//restart required?
-    			if (isCursorTouchingWord())
-    			{
-    				mWord.reset();
-        			mPredicting = false;
-        			TextEntryState.reset();
-        			
-        			if (DEBUG) Log.d(TAG,"User moved cursor to a word. Should I restart predition?");
-    				//locating the word
-    				int wordStartOffset = 0;
-    				int wordEndOffset = 0;
-    				CharSequence toLeft = "";
-    				CharSequence toRight = "";
-    				while(true)
-    				{
-    					if (DEBUG) Log.d(TAG,"Checking left offset "+wordStartOffset+". Currently have "+toLeft);
-    					CharSequence newToLeft = ic.getTextBeforeCursor(wordStartOffset+1, 0);
-    					if (TextUtils.isEmpty(newToLeft) || isWordSeparator(newToLeft.charAt(0)) || newToLeft.length() == toLeft.length()) {
-    						break;
-    					}
-    					toLeft = newToLeft;
-    					wordStartOffset++;
-    				}
-    				while(true)
-    				{
-    					if (DEBUG) Log.d(TAG,"Checking right offset "+wordEndOffset+". Currently have "+toRight);
-    					CharSequence newToRight = ic.getTextAfterCursor(wordEndOffset+1, 0);
-    					if (TextUtils.isEmpty(newToRight) || isWordSeparator(newToRight.charAt(newToRight.length()-1)) || newToRight.length() == toRight.length()) {
-    						break;
-    					}
-    					toRight = newToRight;
-    					wordEndOffset++;
-    				}
-        			CharSequence word = toLeft.toString()+toRight.toString();
-        			Log.d(TAG,"Starting new prediction on word '"+word+"' with wordStartOffset:"+wordStartOffset+" and wordEndOffset:"+wordEndOffset);
-        			for(int index=0; index<word.length(); index++)
-        			{
-        				final char c = word.charAt(index);
-        				mWord.add(c, new int[]{c});
-        				if (index == 0)
-        					mWord.setFirstCharCapitalized(Character.isUpperCase(c));
-        				TextEntryState.typedCharacter((char) c, false);
-        			}
-        			ic.deleteSurroundingText(wordStartOffset, wordEndOffset);
-        			ic.setComposingText(word, 1);
-
-        			mPredicting = mWord.size() > 0;
-        			postUpdateSuggestions();
-    			}
-    			else if (TextEntryState.getState() != TextEntryState.State.ACCEPTED_DEFAULT)
-    			{
-    				mWord.reset();
-        			mPredicting = false;
-        			TextEntryState.reset();
-    			}
-    			
-    			ic.endBatchEdit();
-    		}
-    		else if (mWord.size() > 0 && mPredicting)
-    		{
-    			//inside the currently selected word
-    			int cursorPosition = newSelEnd - candidatesStart; 
-    			mWord.setCursorPostion(cursorPosition, candidatesStart<0? newSelStart : candidatesStart);
-    		}
+        if (newSelStart == newSelEnd)
+        {
+	        // The user moved the cursor.
+	        mJustAccepted = false;
+	        mJustAddedAutoSpace = false;
+	        //postUpdateShiftKeyState();
+	        updateShiftKeyState(getCurrentInputEditorInfo());
+	
+	        // Make a note of the cursor position
+	        if (/*mWord.size() > 0 && mPredicting*/mPredictionOn)
+	        {//there's predicting going on
+	        	//is the cursor inside the mWord limits?
+	    		if ((newSelEnd > candidatesEnd) || (newSelEnd < candidatesStart))
+	    		{
+	    			//this means that the new cursor position is outside the candidates underline
+	    			//this can be either because the cursor is really outside the previously underlined (suggested) 
+	    			//or nothing was suggested.
+	    			//in this case, we would like to reset the predition and restart
+	    			//if the user clicked inside a different word
+	    			InputConnection ic = getCurrentInputConnection();
+	    			ic.beginBatchEdit();//don't want any events till I finish handling this touch
+	    			
+	    			ic.finishComposingText();
+	    			//restart required?
+	    			if (isCursorTouchingWord())
+	    			{
+	    				mWord.reset();
+	        			mPredicting = false;
+	        			TextEntryState.reset();
+	        			
+	        			if (DEBUG) Log.d(TAG,"User moved cursor to a word. Should I restart predition?");
+	    				//locating the word
+	    				int wordStartOffset = 0;
+	    				int wordEndOffset = 0;
+	    				CharSequence toLeft = "";
+	    				CharSequence toRight = "";
+	    				while(true)
+	    				{
+	    					if (DEBUG) Log.d(TAG,"Checking left offset "+wordStartOffset+". Currently have "+toLeft);
+	    					CharSequence newToLeft = ic.getTextBeforeCursor(wordStartOffset+1, 0);
+	    					if (TextUtils.isEmpty(newToLeft) || isWordSeparator(newToLeft.charAt(0)) || newToLeft.length() == toLeft.length()) {
+	    						break;
+	    					}
+	    					toLeft = newToLeft;
+	    					wordStartOffset++;
+	    				}
+	    				while(true)
+	    				{
+	    					if (DEBUG) Log.d(TAG,"Checking right offset "+wordEndOffset+". Currently have "+toRight);
+	    					CharSequence newToRight = ic.getTextAfterCursor(wordEndOffset+1, 0);
+	    					if (TextUtils.isEmpty(newToRight) || isWordSeparator(newToRight.charAt(newToRight.length()-1)) || newToRight.length() == toRight.length()) {
+	    						break;
+	    					}
+	    					toRight = newToRight;
+	    					wordEndOffset++;
+	    				}
+	        			CharSequence word = toLeft.toString()+toRight.toString();
+	        			Log.d(TAG,"Starting new prediction on word '"+word+"' with wordStartOffset:"+wordStartOffset+" and wordEndOffset:"+wordEndOffset);
+	        			for(int index=0; index<word.length(); index++)
+	        			{
+	        				final char c = word.charAt(index);
+	        				mWord.add(c, new int[]{c});
+	        				if (index == 0)
+	        					mWord.setFirstCharCapitalized(Character.isUpperCase(c));
+	        				TextEntryState.typedCharacter((char) c, false);
+	        			}
+	        			ic.deleteSurroundingText(wordStartOffset, wordEndOffset);
+	        			ic.setComposingText(word, 1);
+	
+	        			mPredicting = mWord.size() > 0;
+	        			postUpdateSuggestions();
+	    			}
+	    			else if (TextEntryState.getState() != TextEntryState.State.ACCEPTED_DEFAULT)
+	    			{
+	    				mWord.reset();
+	        			mPredicting = false;
+	        			TextEntryState.reset();
+	    			}
+	    			
+	    			ic.endBatchEdit();
+	    		}
+	    		else if (mWord.size() > 0 && mPredicting)
+	    		{
+	    			//inside the currently selected word
+	    			int cursorPosition = newSelEnd - candidatesStart; 
+	    			mWord.setCursorPostion(cursorPosition, candidatesStart<0? newSelStart : candidatesStart);
+	    		}
+	        }
         }
-        
     }
 
 	private void onPhysicalKeyboardKeyPressed() {
@@ -1834,8 +1810,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 			final int length = mWord.size();// mComposing.length();
 			if (length > 0) {
 				//mComposing.delete(length - 1, length);
-				mWord.deleteLast();
 				ic.beginBatchEdit();
+				mWord.deleteLast();
 				ic.setComposingText(mWord.getTypedWord()/*mComposing*/, 1);
 				if (mWord.cursorPosition() != mWord.size())
 				{
@@ -2053,6 +2029,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 					}
 				}
 			}*/
+			final InputConnection ic = getCurrentInputConnection();
+			if (ic != null) ic.beginBatchEdit();
 			if (mWord.add(primaryCodeForShow, nearByKeyCodes))
 			{
 				Toast note = Toast.makeText(getApplicationContext(), "Check the logcat for a note from AnySoftKeyboard developers!", Toast.LENGTH_LONG);
@@ -2072,9 +2050,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				easterEgg.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				startActivity(easterEgg);
 			}
-			InputConnection ic = getCurrentInputConnection();
 			if (ic != null) {
-				ic.beginBatchEdit();
 				ic.setComposingText(mWord.getTypedWord()/*mComposing*/, 1);
 				if (mWord.cursorPosition() != mWord.size())
 				{
@@ -3045,7 +3021,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			resetKeyboardView(key.equals(getString(R.string.settings_key_keyboard_theme_key)));
 		}
 	}
-
+/*
 	public void appendCharactersToInput(CharSequence textToCommit) {
 		if (DEBUG)
 			Log.d(TAG, "appendCharactersToInput: '"+ textToCommit+"'");
@@ -3064,7 +3040,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		updateShiftKeyState(getCurrentInputEditorInfo());
 	}
-
+*/
 	public void deleteLastCharactersFromInput(int countToDelete) {
 		if (countToDelete == 0)
 			return;
