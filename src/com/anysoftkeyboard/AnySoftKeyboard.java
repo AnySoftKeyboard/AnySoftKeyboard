@@ -691,9 +691,6 @@ public class AnySoftKeyboard extends InputMethodService implements
     			//or nothing was suggested.
     			//in this case, we would like to reset the predition and restart
     			//if the user clicked inside a different word
-    			mWord.reset();
-    			mPredicting = false;
-    			TextEntryState.reset();
     			InputConnection ic = getCurrentInputConnection();
     			ic.beginBatchEdit();//don't want any events till I finish handling this touch
     			
@@ -701,7 +698,11 @@ public class AnySoftKeyboard extends InputMethodService implements
     			//restart required?
     			if (isCursorTouchingWord())
     			{
-    				if (DEBUG) Log.d(TAG,"User moved cursor to a word. Should I restart predition?");
+    				mWord.reset();
+        			mPredicting = false;
+        			TextEntryState.reset();
+        			
+        			if (DEBUG) Log.d(TAG,"User moved cursor to a word. Should I restart predition?");
     				//locating the word
     				int wordStartOffset = 0;
     				int wordEndOffset = 0;
@@ -735,12 +736,20 @@ public class AnySoftKeyboard extends InputMethodService implements
         				mWord.add(c, new int[]{c});
         				if (index == 0)
         					mWord.setFirstCharCapitalized(Character.isUpperCase(c));
+        				TextEntryState.typedCharacter((char) c, false);
         			}
         			ic.deleteSurroundingText(wordStartOffset, wordEndOffset);
         			ic.setComposingText(word, 1);
+
+        			mPredicting = mWord.size() > 0;
+        			postUpdateSuggestions();
     			}
-    			mPredicting = mWord.size() > 0;
-    			postUpdateSuggestions();
+    			else if (TextEntryState.getState() != TextEntryState.State.ACCEPTED_DEFAULT)
+    			{
+    				mWord.reset();
+        			mPredicting = false;
+        			TextEntryState.reset();
+    			}
     			
     			ic.endBatchEdit();
     		}
