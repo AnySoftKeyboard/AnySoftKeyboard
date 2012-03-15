@@ -674,7 +674,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 //                    break;
 //            }
 //        }
-//        mJustAccepted = false;
+        // The user moved the cursor.
+        mJustAccepted = false;
+        mJustAddedAutoSpace = false;
         //postUpdateShiftKeyState();
         updateShiftKeyState(getCurrentInputEditorInfo());
 
@@ -693,13 +695,12 @@ public class AnySoftKeyboard extends InputMethodService implements
     			mPredicting = false;
     			TextEntryState.reset();
     			InputConnection ic = getCurrentInputConnection();
-    			if (ic != null) {
-    				ic.finishComposingText();
-    			}
+    			ic.beginBatchEdit();//don't want any events till I finish handling this touch
+    			
+    			ic.finishComposingText();
     			//restart required?
     			if (isCursorTouchingWord())
     			{
-    				ic.beginBatchEdit();
     				if (DEBUG) Log.d(TAG,"User moved cursor to a word. Should I restart predition?");
     				//locating the word
     				int wordStartOffset = 0;
@@ -732,12 +733,16 @@ public class AnySoftKeyboard extends InputMethodService implements
         			{
         				final char c = word.charAt(index);
         				mWord.add(c, new int[]{c});
+        				if (index == 0)
+        					mWord.setFirstCharCapitalized(Character.isUpperCase(c));
         			}
         			ic.deleteSurroundingText(wordStartOffset, wordEndOffset);
         			ic.setComposingText(word, 1);
-        			ic.endBatchEdit();
     			}
+    			mPredicting = mWord.size() > 0;
     			postUpdateSuggestions();
+    			
+    			ic.endBatchEdit();
     		}
     		else if (mWord.size() > 0 && mPredicting)
     		{
@@ -2007,7 +2012,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				else
 					primaryCodeForShow = Character.toUpperCase(primaryCode);
 				
-				Log.d("****SHIFT***", "handleCharacter resulted in: "+primaryCodeForShow);
+				//Log.d("****SHIFT***", "handleCharacter resulted in: "+primaryCodeForShow);
 			}
 			else
 				primaryCodeForShow = primaryCode;

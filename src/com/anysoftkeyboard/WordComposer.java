@@ -127,6 +127,7 @@ public class WordComposer {
         		return true;
         	}
         }
+		
 		return false;
     }
 
