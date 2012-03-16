@@ -166,7 +166,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private long mMetaState;
 	//private AnyKeyboard getCurrentKeyboard() = null;
 	private HashSet<Character> mSentenceSeparators = new HashSet<Character>();
-
+	
 	//private UserDictionaryBase mContactsDictionary;
 	private EditableDictionary mUserDictionary;
 	private AutoDictionary mAutoDictionary;
@@ -310,7 +310,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mOrientation = getResources().getConfiguration().orientation;
 		
 		mSentenceSeparators = getCurrentKeyboard().getSentenceSeparators();
-		
+    	
 		if (mSuggest == null) {
 			initSuggest(/* getResources().getConfiguration().locale.toString() */);
 		}
@@ -2265,36 +2265,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (mBestWord != null) {
 			TextEntryState.acceptedDefault(mWord.getTypedWord(), mBestWord);
 			mJustAccepted = true;
-			pickSuggestion(mBestWord);
+			pickSuggestion(mBestWord, false);
 			  // Add the word to the auto dictionary if it's not a known word
             addToDictionaries(mBestWord, AutoDictionary.FREQUENCY_FOR_TYPED);
             return true;
 		}
 		return false;
 	}
-	
-	private CharSequence pickSuggestion(CharSequence suggestion) {
-        if (mCapsLock) {
-                suggestion = suggestion.toString().toUpperCase();
-        } else if (preferCapitalization()
-                        || (mKeyboardSwitcher.isAlphabetMode() && (mInputView != null) && mInputView .isShifted())) {
-                suggestion = Character.toUpperCase(suggestion.charAt(0))
-                                + suggestion.subSequence(1, suggestion.length()).toString();
-        }
-
-        InputConnection ic = getCurrentInputConnection();
-        if (ic != null) {
-                ic.commitText(suggestion, 1);
-        }
-        mPredicting = false;
-        mCommittedLength = suggestion.length();
-        if (mCandidateView != null) {
-                mCandidateView.setSuggestions(null, false, false, false);
-        }
-        updateShiftKeyState(getCurrentInputEditorInfo());
-
-        return suggestion;
-}
 
 	public void pickSuggestionManually(int index, CharSequence suggestion) {
 		final boolean correcting = TextEntryState.isCorrecting();
@@ -2368,7 +2345,7 @@ public class AnySoftKeyboard extends InputMethodService implements
      * @param correcting whether this is due to a correction of an existing
      *            word.
      */
-    private void pickSuggestion(CharSequence suggestion, boolean correcting) {
+    private CharSequence pickSuggestion(CharSequence suggestion, boolean correcting) {
 		if (mCapsLock) {
 			suggestion = suggestion.toString().toUpperCase();
 		} else if (preferCapitalization()
@@ -2392,6 +2369,8 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
         
 		updateShiftKeyState(getCurrentInputEditorInfo());
+		
+		return suggestion;
 	}
 
 	private boolean isCursorTouchingWord() {
@@ -2467,8 +2446,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 //        }
 //    }
 	
+	private static final List<CharSequence> msEmptyNextSuggestions = new ArrayList<CharSequence>(0);
+	
     private void setNextSuggestions() {
-        setSuggestions(new ArrayList<CharSequence>(), false, false, false);
+        setSuggestions(/*mSuggest.getInitialSuggestions()*/msEmptyNextSuggestions, false, false, false);
     }
 
 	public boolean isWordSeparator(int code) {
@@ -2518,8 +2499,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 	    AnyKeyboard keyboard = mKeyboardSwitcher.nextKeyboard(currentEditorInfo, type);
 
 	    if (!(keyboard instanceof GenericKeyboard))
+	    {
 	    	mSentenceSeparators = keyboard.getSentenceSeparators();
-	    
+	    }
 		setKeyboardFinalStuff(currentEditorInfo, type, keyboard);
 	}
 
@@ -2974,7 +2956,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             mKeyboardSwitcher.makeKeyboards(true);
             //new WxH. need new object.
             mSentenceSeparators = getCurrentKeyboard().getSentenceSeparators();
-    		
+	    	
     		if (mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS))// should it be always on?
     			notifyKeyboardChangeIfNeeded();
         }

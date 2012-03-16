@@ -26,6 +26,7 @@ import android.util.Log;
 
 import com.anysoftkeyboard.WordComposer;
 import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.R;
 
 /**
  * This class loads a dictionary and provides a list of suggestions for a given
@@ -53,6 +54,9 @@ public class Suggest implements Dictionary.WordCallback {
 
 	private int mPrefMaxSuggestions = 12;
 
+	private final List<CharSequence> mDefaultInitialSuggestions;
+	private List<CharSequence> mInitialSuggestions = new ArrayList<CharSequence>();
+	
 	private int[] mPriorities = new int[mPrefMaxSuggestions];
 	private List<CharSequence> mSuggestions = new ArrayList<CharSequence>();
 	// private boolean mIncludeTypedWordIfValid;
@@ -77,6 +81,18 @@ public class Suggest implements Dictionary.WordCallback {
 		for (int i = 0; i < mPrefMaxSuggestions; i++) {
 			StringBuilder sb = new StringBuilder(32);
 			mStringPool.add(sb);
+		}
+		
+		String[] initialSuggestions = context.getResources().getStringArray(R.array.english_initial_suggestions);
+		if (initialSuggestions != null)
+		{
+			mDefaultInitialSuggestions = new ArrayList<CharSequence>(initialSuggestions.length);
+			for(String suggestion : initialSuggestions)
+				mDefaultInitialSuggestions.add(suggestion);
+		}
+		else
+		{
+			mDefaultInitialSuggestions = new ArrayList<CharSequence>(0);
 		}
 	}
 /*
@@ -113,6 +129,7 @@ public class Suggest implements Dictionary.WordCallback {
 		{
 			mMainDict = null;
 			mAutoText = null;
+			mInitialSuggestions = mDefaultInitialSuggestions;
 		}
 		else
 		{
@@ -126,6 +143,9 @@ public class Suggest implements Dictionary.WordCallback {
 				e.printStackTrace();
 			}
 			mAutoText = dictionaryBuilder.createAutoText();
+			mInitialSuggestions = dictionaryBuilder.createInitialSuggestions();
+			if (mInitialSuggestions == null)
+				mInitialSuggestions = mDefaultInitialSuggestions;
 		}
 	}
 
@@ -185,6 +205,11 @@ public class Suggest implements Dictionary.WordCallback {
 		}
 	}
 
+	public List<CharSequence> getInitialSuggestions()
+	{
+		return mInitialSuggestions;
+	}
+	
 	/**
 	 * Returns a list of words that match the list of character codes passed in.
 	 * This list will be overwritten the next time this function is called.

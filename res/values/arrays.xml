@@ -10,6 +10,21 @@
         <item>Big</item>
     </string-array>
      -->
+     <string-array name="english_initial_suggestions">
+        <item>!</item>
+        <item>\?</item>
+        <item>,</item>
+        <item>"</item>
+        <item>\'</item>
+        <item>:</item>
+        <item>(</item>
+        <item>)</item>
+        <item>-</item>
+        <item>/</item>
+        <item>\@</item>
+        <item>_</item>
+    </string-array>
+    
     <string-array name="physical_keyboard_change_notification_values">
         <item>1</item>
         <item>2</item>

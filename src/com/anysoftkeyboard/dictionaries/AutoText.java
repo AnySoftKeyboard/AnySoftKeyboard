@@ -68,7 +68,7 @@ public class AutoText {
     private char mTrieUsed;
     private String mText;
     //private Locale mLocale;
-    private int mSize;
+    //private int mSize;
 
     AutoText(Resources resources, int resId) {
         //mLocale = locale;
@@ -291,7 +291,7 @@ public class AutoText {
         int slen = src.length();
         int herep = TRIE_ROOT;
         // Keep track of the size of the dictionary
-        mSize++;
+        //mSize++;
         
         for (int i = 0; i < slen; i++) {
             char c = src.charAt(i);

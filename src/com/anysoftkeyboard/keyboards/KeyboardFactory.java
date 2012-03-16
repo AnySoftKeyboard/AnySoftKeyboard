@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
+import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -91,9 +92,9 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder>
 			AttributeSet attrs) {
 		
       final int layoutResId = attrs.getAttributeResourceValue(null,
-              XML_LAYOUT_RES_ID_ATTRIBUTE, -1);
+              XML_LAYOUT_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
       final int landscapeLayoutResId = attrs.getAttributeResourceValue(null,
-              XML_LANDSCAPE_LAYOUT_RES_ID_ATTRIBUTE, -1);
+              XML_LANDSCAPE_LAYOUT_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
       final int iconResId = attrs.getAttributeResourceValue(null,
               XML_ICON_RES_ID_ATTRIBUTE,
               R.drawable.sym_keyboard_notification_icon);
@@ -106,14 +107,13 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder>
       if (sentenceSeparators == null)
     	  sentenceSeparators = DEFAULT_SENTENCE_SEPARATORS;
       final int physicalTranslationResId = attrs.getAttributeResourceValue(null,
-              XML_PHYSICAL_TRANSLATION_RES_ID_ATTRIBUTE, -1);
-      
+              XML_PHYSICAL_TRANSLATION_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
       // A keyboard is enabled by default if it is the first one (index==1)
       final boolean keyboardDefault = attrs.getAttributeBooleanValue(null,
       		XML_DEFAULT_ATTRIBUTE, sortIndex==1);
 
       // asserting
-      if ((prefId == null) || (nameId == -1) || (layoutResId == -1)) {
+      if ((prefId == null) || (nameId == AddOn.INVALID_RES_ID) || (layoutResId == AddOn.INVALID_RES_ID)) {
           Log.e(TAG, "External Keyboard does not include all mandatory details! Will not create keyboard.");
           return null;
       } else {
@@ -128,8 +128,8 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder>
           final KeyboardAddOnAndBuilder creator = new KeyboardAddOnAndBuilder(context,
                   prefId, nameId, layoutResId, landscapeLayoutResId,
                   defaultDictionary, iconResId, physicalTranslationResId,
-                  additionalIsLetterExceptions, sentenceSeparators, description, sortIndex,
-                  keyboardDefault );
+                  additionalIsLetterExceptions, sentenceSeparators,
+                  description, sortIndex, keyboardDefault);
 
           return creator;
       }

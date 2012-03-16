@@ -12,6 +12,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 
 	private int mAdditionalWidth = 0;
 	private boolean mOneKeyPressPopup = true;
+	private static final HashSet<Character> msEmptySet = new HashSet<Character>(0);
 	
 	public AnyPopupKeyboard(AnyKeyboardContextProvider askContext, Context context,//note: the context can be from a different package!
     		int xmlLayoutResId, 
@@ -62,9 +63,9 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 	
 	@Override
 	public HashSet<Character> getSentenceSeparators() {
-		return null;
+		return msEmptySet;
 	}
-	
+		
 	@Override
 	public int getMinWidth() {
 		return super.getMinWidth() + mAdditionalWidth;

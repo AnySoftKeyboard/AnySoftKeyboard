@@ -11,6 +11,7 @@ import android.util.Log;
 import android.util.Xml;
 
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
+import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
@@ -63,7 +64,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 		mNameResId = nameResId;
 		mIconId = iconResId;
 		mDefaultDictionary = defaultDictionary;
-		if (qwertyTranslationId != -1)
+		if (qwertyTranslationId != AddOn.INVALID_RES_ID)
 		{
 		    if (AnyApplication.DEBUG)Log.d(TAG, "Creating qwerty mapping:"+qwertyTranslationId);
 			mHardKeyboardTranslator = createPhysicalTranslatorFromResourceId(context, qwertyTranslationId);
@@ -73,18 +74,19 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
 			mHardKeyboardTranslator = null;
 		}
 
-		mAdditionalIsLetterExceptions = new HashSet<Character>();
+		mAdditionalIsLetterExceptions = new HashSet<Character>(additionalIsLetterExceptions != null? additionalIsLetterExceptions.length() : 0);
 		if (additionalIsLetterExceptions != null)
 		{
 			for(int i=0;i<additionalIsLetterExceptions.length(); i++)
 				mAdditionalIsLetterExceptions.add(additionalIsLetterExceptions.charAt(i));
 		}
-		mSentenceSeparators = new HashSet<Character>();
+		mSentenceSeparators = new HashSet<Character>(sentenceSeparators != null? sentenceSeparators.length() : 0);
 		if (sentenceSeparators != null)
 		{
 			for(int i=0;i<sentenceSeparators.length(); i++)
 				mSentenceSeparators.add(sentenceSeparators.charAt(i));
 		}
+		
 		setExtensionLayout(KeyboardExtensionFactory.getCurrentKeyboardExtension(askContext.getApplicationContext(), KeyboardExtension.TYPE_EXTENSION));
 	}
 	

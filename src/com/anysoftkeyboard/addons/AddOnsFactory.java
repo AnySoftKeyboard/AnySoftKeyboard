@@ -320,12 +320,12 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
 	private E createAddOnFromXmlAttributes(AttributeSet attrs, Context context) {
         final String prefId = attrs.getAttributeValue(null, XML_PREF_ID_ATTRIBUTE);
-        final int nameId = attrs.getAttributeResourceValue(null, XML_NAME_RES_ID_ATTRIBUTE, -1);
-        final int descriptionInt = attrs.getAttributeResourceValue(null, XML_DESCRIPTION_ATTRIBUTE,-1);
+        final int nameId = attrs.getAttributeResourceValue(null, XML_NAME_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
+        final int descriptionInt = attrs.getAttributeResourceValue(null, XML_DESCRIPTION_ATTRIBUTE, AddOn.INVALID_RES_ID);
         //NOTE, to be compatibel we need this. because the most of descriptions are
         //without @string/adb
         String description;
-        if(descriptionInt != -1){
+        if(descriptionInt != AddOn.INVALID_RES_ID){
             description = context.getResources().getString(descriptionInt);
         } else {
             description =  attrs.getAttributeValue(null, XML_DESCRIPTION_ATTRIBUTE); 
@@ -334,7 +334,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         final int sortIndex = attrs.getAttributeUnsignedIntValue(null, XML_SORT_INDEX_ATTRIBUTE, 1);
         
         // asserting
-        if ((prefId == null) || (nameId == -1)) {
+        if ((prefId == null) || (nameId == AddOn.INVALID_RES_ID)) {
             Log.e(TAG, "External add-on does not include all mandatory details! Will not create add-on.");
             return null;
         } else {

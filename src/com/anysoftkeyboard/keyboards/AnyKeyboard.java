@@ -517,7 +517,6 @@ public abstract class AnyKeyboard extends Keyboard
     }
     
     public abstract HashSet<Character> getSentenceSeparators();
-    
 	/**
      * This looks at the ime options given by the current editor, to set the
      * appropriate label on the keyboard's enter key (if it has one).

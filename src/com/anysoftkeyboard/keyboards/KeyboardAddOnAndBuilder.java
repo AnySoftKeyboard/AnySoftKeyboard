@@ -3,6 +3,7 @@ package com.anysoftkeyboard.keyboards;
 import android.content.Context;
 
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
+import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnImpl;
 
 public class KeyboardAddOnAndBuilder extends AddOnImpl {
@@ -30,7 +31,7 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl {
 		super(packageContext, KEYBOARD_PREF_PREFIX+id, nameResId, description, keyboardIndex);
 		
 		mResId = layoutResId;
-        if (landscapeLayoutResId == -1){
+        if (landscapeLayoutResId == AddOn.INVALID_RES_ID){
             mLandscapeResId = mResId;
         } else {
             mLandscapeResId = landscapeLayoutResId;
