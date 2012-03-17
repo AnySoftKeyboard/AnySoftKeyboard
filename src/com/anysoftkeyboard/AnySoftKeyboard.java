@@ -421,7 +421,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 					final long currentTime = SystemClock.elapsedRealtime();
 					if (currentTime - mFirstClickTime < DOUBLE_TAP_TIMEOUT)
 					{
-						abortCorrection(true);
+						abortCorrection(true, true);
 					}
 					else
 					{
@@ -648,9 +648,12 @@ public class AnySoftKeyboard extends InputMethodService implements
                     + ", cs=" + candidatesStart
                     + ", ce=" + candidatesEnd);
         }
-        if (!mPredictionOn) return;//not releant if no prediction is needed.
+        if (!mPredictionOn || mInputView == null || !mInputView.isShown()) return;//not relevant if no prediction is needed.
+        
         final InputConnection ic = getCurrentInputConnection();
         if (ic == null) return;//well, I can't do anything without this connection
+        
+        if (DEBUG) Log.d(TAG, "onUpdateSelection: ok, let's see what can be done");
         
         if (newSelStart != newSelEnd)
         {
@@ -682,10 +685,10 @@ public class AnySoftKeyboard extends InputMethodService implements
     			if (DEBUG) Log.d(TAG, "onUpdateSelection: cursor moving outside the currently predicting word");
     			ic.beginBatchEdit();//don't want any events till I finish handling this touch
     			
-    			ic.finishComposingText();
     			//restart required?
     			if (isCursorTouchingWord())
     			{
+    				ic.finishComposingText();
     				mWord.reset();
         			mPredicting = false;
         			TextEntryState.reset();
@@ -732,11 +735,13 @@ public class AnySoftKeyboard extends InputMethodService implements
         			ic.setSelection(newSelStart, newSelEnd);
 
         			mPredicting = mWord.size() > 0;
+        			mWord.setCursorPostion(wordStartOffset, newSelStart - wordStartOffset);
         			postUpdateSuggestions();
     			}
     			else if (TextEntryState.getState() != TextEntryState.State.ACCEPTED_DEFAULT)
     			{//what does this mean?
-    				mWord.reset();
+    				ic.finishComposingText();
+        			mWord.reset();
         			mPredicting = false;
         			TextEntryState.reset();
     			}
@@ -745,6 +750,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     		}
     		else if (mWord.size() > 0)
     		{
+    			if (DEBUG) Log.d(TAG, "onUpdateSelection: cursor moving inside the predicting word");
     			//inside the currently selected word
     			int cursorPosition = newSelEnd - candidatesStart; 
     			mWord.setCursorPostion(cursorPosition, candidatesStart<0? newSelStart : candidatesStart);
@@ -882,9 +888,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			// so we disable it.
 
 			// to clear the underline.
-			commitTyped(ic);// to clear the underline.
-
-			mPredicting = false;
+			abortCorrection(true, false);
 		}
 		if (DEBUG)
 			Log.d(TAG, "Event: Key:" + event.getKeyCode()
@@ -1155,9 +1159,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 					MyMetaKeyKeyListener.META_SYM_ON) == 0)
 				clearStatesFlags += KeyEvent.META_SYM_ON;
 			if (DEBUG)
-				Log
-						.d(
-								"AnySoftKeyboard-meta-key",
+				Log.d("AnySoftKeyboard-meta-key",
 								getMetaKeysStates("setInputConnectionMetaStateAsCurrentMetaKeyKeyListenerState with flags: "
 										+ clearStatesFlags));
 			ic.clearMetaKeyStates(clearStatesFlags);
@@ -1711,8 +1713,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		InputConnection ic = getCurrentInputConnection();
 		if (ic == null)
 			return;
-        abortCorrection(false);
 		ic.beginBatchEdit();
+        abortCorrection(false, false);
 		if (mPredicting) {
 			commitTyped(ic);
 		}
@@ -1820,8 +1822,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		
 	    boolean deleteChar = false;
 		if (mPredicting) {
-			final int length = mWord.size();// mComposing.length();
-			if (length > 0) {
+			final boolean wordManipulation = mWord.size() > 0 && mWord.cursorPosition() > 0;// mComposing.length();
+			if (wordManipulation) {
 				//mComposing.delete(length - 1, length);
 				ic.beginBatchEdit();
 				mWord.deleteLast();
@@ -1829,7 +1831,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				if (mWord.cursorPosition() != mWord.size())
 				{
 					int cursorPosition = mWord.cursorPosition() + mWord.candidatesStartPosition();
-					Log.d(TAG, "Updating cursor position: cursorPosition:"+cursorPosition+" mWord.cursorPosition():"+mWord.cursorPosition()+" mWord.candidatesStartPosition():"+mWord.candidatesStartPosition());
+					if (DEBUG) Log.d(TAG, "Updating cursor position: cursorPosition:"+cursorPosition+" mWord.cursorPosition():"+mWord.cursorPosition()+" mWord.candidatesStartPosition():"+mWord.candidatesStartPosition());
 					ic.setSelection(cursorPosition, cursorPosition);
 				}
 				if (mWord.size()/*mComposing.length()*/ == 0) {
@@ -1963,7 +1965,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	}
 
-    private void abortCorrection(boolean force) {
+    private void abortCorrection(boolean force, boolean forever) {
         if (force || TextEntryState.isCorrecting()) {
 
         	mHandler.removeMessages(MSG_UPDATE_SUGGESTIONS);
@@ -2096,7 +2098,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		InputConnection ic = getCurrentInputConnection();
 		if (ic != null) {
 			ic.beginBatchEdit();
-            abortCorrection(false);
+            abortCorrection(false, false);
 		}
 		//this is a special case, when the user presses a separator WHILE inside the predicted word.
 		//in this case, I will want to just dump the separator.
@@ -2167,6 +2169,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		{
 			commitTyped(getCurrentInputConnection());
 			requestHideSelf(0);
+			abortCorrection(true, true);
 			TextEntryState.endSession();
 		}
 	}
