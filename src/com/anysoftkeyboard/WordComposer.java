@@ -117,7 +117,7 @@ public class WordComposer {
     {
     	if (AnyApplication.DEBUG)
     	{
-    		Log.d(TAG, "Current word lenght is "+mTypedWord.length()+", and word starts at "+mCandidatesStartPosition+". Input's cursor is at "+cursorPosition);
+    		Log.d(TAG, "Current word length is "+mTypedWord.length()+", and word starts at "+mCandidatesStartPosition+". Input's cursor is at "+cursorPosition);
     	}
     	return (cursorPosition >= mCandidatesStartPosition &&  cursorPosition <= (mCandidatesStartPosition+mTypedWord.length()));
     }

@@ -91,7 +91,6 @@ import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.settings.MainSettings;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
-import com.anysoftkeyboard.utils.EditingUtil;
 import com.anysoftkeyboard.utils.ModifierKeyState;
 import com.anysoftkeyboard.utils.Workarounds;
 import com.anysoftkeyboard.voice.VoiceInput;
@@ -120,10 +119,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private final boolean TRACE_SDCARD = false;
 
 	private static final int MSG_UPDATE_SUGGESTIONS = 0;
-	//private static final int MSG_RESTART_NEW_WORD_SUGGESTIONS = 1;
-	private static final int MSG_UPDATE_OLD_SUGGESTIONS = 2;
+	private static final int MSG_RESTART_NEW_WORD_SUGGESTIONS = 1;
+	//private static final int MSG_UPDATE_OLD_SUGGESTIONS = 2;
 	//private static final int MSG_START_TUTORIAL = 1;
-    //private static final int MSG_UPDATE_SHIFT_STATE = 2;
+    private static final int MSG_UPDATE_SHIFT_STATE = 3;
 	
 	//private static final int KEYBOARD_NOTIFICATION_ID = 1;
 	/*
@@ -143,7 +142,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	*/
     // Keep track of the last selection range to decide if we need to show word alternatives
     private int     mLastSelectionStart;
-    private int     mLastSelectionEnd;
+    //private int     mLastSelectionEnd;
 
 	private final com.anysoftkeyboard.Configuration mConfig;
 	private static final boolean DEBUG = AnyApplication.DEBUG;
@@ -244,15 +243,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 			case MSG_UPDATE_SUGGESTIONS:
 				performUpdateSuggestions();
 				break;
-//			case MSG_RESTART_NEW_WORD_SUGGESTIONS:
-//				performRestartWordSuggestion(msg.arg1, getCurrentInputConnection());
-//				break;
-			 case MSG_UPDATE_OLD_SUGGESTIONS:
-                 setOldSuggestions();
-                 break;
-//			case MSG_UPDATE_SHIFT_STATE:
-//                updateShiftKeyState(getCurrentInputEditorInfo());
-//                break;
+			case MSG_RESTART_NEW_WORD_SUGGESTIONS:
+				performRestartWordSuggestion(getCurrentInputConnection());
+				break;
+//			 case MSG_UPDATE_OLD_SUGGESTIONS:
+//				 setOldSuggestions();
+//                 break;
+			case MSG_UPDATE_SHIFT_STATE:
+                updateShiftKeyState(getCurrentInputEditorInfo());
+                break;
 			default:
 				super.handleMessage(msg);
 			}
@@ -374,7 +373,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
         // Remove penging messages related to update suggestions
         mHandler.removeMessages(MSG_UPDATE_SUGGESTIONS);
-        mHandler.removeMessages(MSG_UPDATE_OLD_SUGGESTIONS);
+        mHandler.removeMessages(MSG_RESTART_NEW_WORD_SUGGESTIONS);
 	}
 
 	@Override
@@ -642,7 +641,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 	
 	///this function is called EVERYTIME them selection is changed. This also includes the underlined
 	///suggestions.
-	/*
 	@Override
     public void onUpdateSelection(int oldSelStart, int oldSelEnd,
             int newSelStart, int newSelEnd,
@@ -658,7 +656,17 @@ public class AnySoftKeyboard extends InputMethodService implements
                     + ", cs=" + candidatesStart
                     + ", ce=" + candidatesEnd);
         }
-        if (!mPredictionOn || mInputView == null || !mInputView.isShown()) return;//not relevant if no prediction is needed.
+        if (!mPredictionOn/* || mInputView == null || !mInputView.isShown()*/) return;//not relevant if no prediction is needed.
+        
+        //are we in sync? It seems that sometimes, the onUpdateSelection is called with events from the past
+        //(welcome to the world of async IPC)
+        if (	mPredicting && mWord.size() > 0 &&//we are doing prediction
+        		(candidatesEnd - candidatesStart) != mWord.size())//the candidates are not in sync with the actual predicting data
+        {
+        	if (DEBUG) Log.d(TAG, "onUpdateSelection: not in sync! mWord says size is "+mWord.size());
+        	return;
+        }
+        mLastSelectionStart = newSelStart;
         
         final InputConnection ic = getCurrentInputConnection();
         if (ic == null) return;//well, I can't do anything without this connection
@@ -682,7 +690,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         	
         	//we have the following options (we are in an input which requires predicting (mPredictionOn == true):
         	//1) predicting and moved inside the word
-        	//2) predecting and moved outside the word
+        	//2) predicting and moved outside the word
         	//2.1) to a new word
         	//2.2) to no word land
         	//3) not predicting
@@ -704,15 +712,21 @@ public class AnySoftKeyboard extends InputMethodService implements
         		else
         		{
         			if (DEBUG) Log.d(TAG, "onUpdateSelection: cursor moving outside the currently predicting word");
-        			postRestartWordSuggestion(newSelStart);
+        			postRestartWordSuggestion();
         			//performRestartWordSuggestion(newSelStart, ic);
         		}
         	}
         }
     }
 
-	public void performRestartWordSuggestion(int cursorPosition, final InputConnection ic) {
-		//2) predecting and moved outside the word - abort predicting, update shift state
+	private void postRestartWordSuggestion() {
+        mHandler.removeMessages(MSG_RESTART_NEW_WORD_SUGGESTIONS);
+        mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_RESTART_NEW_WORD_SUGGESTIONS), 300);
+    }
+	
+	public void performRestartWordSuggestion(final InputConnection ic) {
+		int cursorPosition = mLastSelectionStart;
+		//2) predicting and moved outside the word - abort predicting, update shift state
 		//2.1) to a new word - restart predicting on the new word
 		//2.2) to no word land - nothing else
 		
@@ -781,7 +795,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		updateShiftKeyState(getCurrentInputEditorInfo());
 		ic.endBatchEdit();
 	}
-*/
+/*
 	@Override
     public void onUpdateSelection(int oldSelStart, int oldSelEnd,
             int newSelStart, int newSelEnd,
@@ -800,7 +814,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         // If the current selection in the text view changes, we should
         // clear whatever candidate text we have.
-        if (((mWord.size() > 0 && mPredicting)
+        if ((((mWord.size() > 0 && mPredicting))
                 && (newSelStart != candidatesEnd
                     || newSelEnd != candidatesEnd)
                 && mLastSelectionStart != newSelStart)) {
@@ -812,6 +826,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             if (ic != null) {
                 ic.finishComposingText();
             }
+            //mVoiceInputHighlighted = false;
         } else if (!mPredicting && !mJustAccepted) {
             switch (TextEntryState.getState()) {
                 case ACCEPTED_DEFAULT:
@@ -823,8 +838,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             }
         }
         mJustAccepted = false;
-        updateShiftKeyState(getCurrentInputEditorInfo());
-        
+
         // Make a note of the cursor position
         mLastSelectionStart = newSelStart;
         mLastSelectionEnd = newSelEnd;
@@ -849,42 +863,77 @@ public class AnySoftKeyboard extends InputMethodService implements
                 }
             }
         }
+        postUpdateShiftKeyState();
     }
 	
 	private void setOldSuggestions() {
+		if (DEBUG) Log.d(TAG, "Starting setOldSuggestions");
         if (mCandidateView != null && mCandidateView.isShowingAddToDictionaryHint()) {
             return;
         }
         InputConnection ic = getCurrentInputConnection();
         if (ic == null) return;
+        ic.beginBatchEdit();
+//        ExtractedText extracted = ic.getExtractedText(new ExtractedTextRequest(), 0);
+//        if (extracted == null) return;
+//        final int cursorPosition = extracted.startOffset + extracted.selectionStart;
+        final int cursorPosition = mLastSelectionStart;
         if (!mPredicting) {
             // Extract the selected or touching text
-            EditingUtil.SelectedWord touching = EditingUtil.getWordAtCursorOrSelection(ic, mLastSelectionStart, mLastSelectionEnd, get);
+        	int wordStartOffset = 0;
+			int wordEndOffset = 0;
+			CharSequence toLeft = "";
+			CharSequence toRight = "";
+			while(true)
+			{
+				if (DEBUG) Log.d(TAG,"Checking left offset "+wordStartOffset+". Currently have "+toLeft);
+				CharSequence newToLeft = ic.getTextBeforeCursor(wordStartOffset+1, 0);
+				if (TextUtils.isEmpty(newToLeft) || isWordSeparator(newToLeft.charAt(0)) || newToLeft.length() == toLeft.length()) {
+					break;
+				}
+				toLeft = newToLeft;
+				wordStartOffset++;
+			}
+			while(true)
+			{
+				if (DEBUG) Log.d(TAG,"Checking right offset "+wordEndOffset+". Currently have "+toRight);
+				CharSequence newToRight = ic.getTextAfterCursor(wordEndOffset+1, 0);
+				if (TextUtils.isEmpty(newToRight) || isWordSeparator(newToRight.charAt(newToRight.length()-1)) || newToRight.length() == toRight.length()) {
+					break;
+				}
+				toRight = newToRight;
+				wordEndOffset++;
+			}
+			CharSequence word = toLeft.toString()+toRight.toString();
+			Log.d(TAG,"Starting new prediction on word '"+word+"'.");
+			for(int index=0; index<word.length(); index++)
+			{
+				final char c = word.charAt(index);
+				mWord.add(c, new int[]{c});
+				if (index == 0)
+					mWord.setFirstCharCapitalized(Character.isUpperCase(c));
+			}
+			ic.deleteSurroundingText(wordStartOffset, wordEndOffset);
+			ic.setComposingText(word, 1);
+			//repositioning the cursor
+			ic.setSelection(cursorPosition, cursorPosition);
 
-            if (touching != null && touching.word.length() > 1) {
-                ic.beginBatchEdit();
-
-                /*if (!applyVoiceAlternatives(touching) && !applyTypedAlternatives(touching)) {
-                    abortCorrection(true, false);
-                } else*/ {
-                    TextEntryState.selectedForCorrection();
-                    EditingUtil.underlineWord(ic, touching);
-                }
-
-                ic.endBatchEdit();
-            } else {
-                abortCorrection(true, false);
-                setNextSuggestions();  // Show the punctuation suggestions list
-            }
+			mPredicting = mWord.size() > 0;
+			mWord.setCursorPostion(wordStartOffset, cursorPosition - wordStartOffset);
+            TextEntryState.selectedForCorrection();
+			postUpdateSuggestions();
         } else {
             abortCorrection(true, false);
+            setNextSuggestions();
         }
+        ic.endBatchEdit();
     }
 
 	private void postUpdateOldSuggestions() {
         mHandler.removeMessages(MSG_UPDATE_OLD_SUGGESTIONS);
         mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_UPDATE_OLD_SUGGESTIONS), 300);
     }
+	*/
 	
 	private void onPhysicalKeyboardKeyPressed() {
 		if (mConfig.hideSoftKeyboardWhenPhysicalKeyPressed()) hideWindow(); 
@@ -1342,14 +1391,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	}
 
-	/*private void postUpdateShiftKeyState() {
+	private void postUpdateShiftKeyState() {
         mHandler.removeMessages(MSG_UPDATE_SHIFT_STATE);
         // TODO: Should remove this 300ms delay?
         mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_UPDATE_SHIFT_STATE), 150);
-    }*/
+    }
 
     public void updateShiftKeyState(EditorInfo attr) {
-		//mHandler.removeMessages(MSG_UPDATE_SHIFT_STATE);
+		mHandler.removeMessages(MSG_UPDATE_SHIFT_STATE);
         InputConnection ic = getCurrentInputConnection();
         if (ic != null && attr != null && mKeyboardSwitcher.isAlphabetMode() && (mInputView != null)) {
             mInputView.setShifted(mShiftKeyState.isMomentary() || mCapsLock
@@ -1878,6 +1927,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mPredicting = false;
 			ic.setComposingText("", 1);
 			postUpdateSuggestions();
+			postUpdateShiftKeyState();
 			return;
 		}
 		CharSequence cs = ic.getTextBeforeCursor(1, 0);
@@ -1942,6 +1992,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		//we want to delete at least one character
 		//ic.deleteSurroundingText(csl == 0 ? 1 : csl, 0);
 		ic.deleteSurroundingText(csl, 0);//it is always > 0 !
+		postUpdateShiftKeyState();
 	}
 	
 
@@ -2163,19 +2214,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 				mWord.setFirstCharCapitalized(true);
 			}
 			
-			/*mComposing.append((char) primaryCodeForShow);
-			if(nearByKeyCodes != null && nearByKeyCodes.length > 1 && primaryCode != nearByKeyCodes[0]){
-				int swapedItem = nearByKeyCodes[0];
-				nearByKeyCodes[0] = primaryCode;
-				for(int i=1;i<nearByKeyCodes.length; i++)
-				{
-					if (nearByKeyCodes[i] == primaryCode)
-					{
-						nearByKeyCodes[i] = swapedItem;
-						break;
-					}
-				}
-			}*/
 			final InputConnection ic = getCurrentInputConnection();
 			if (ic != null) ic.beginBatchEdit();
 			if (mWord.add(primaryCodeForShow, nearByKeyCodes))
@@ -2213,8 +2251,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 		updateShiftKeyState(getCurrentInputEditorInfo());
 		// measureCps();
-		TextEntryState.typedCharacter((char) primaryCodeForShow,
-				isWordSeparator(primaryCodeForShow));
+		TextEntryState.typedCharacter((char) primaryCodeForShow, false);
 	}
 
 	private void handleSeparator(int primaryCode) {
@@ -2511,7 +2548,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             setNextSuggestions();
         }
         
-		updateShiftKeyState(getCurrentInputEditorInfo());
+        updateShiftKeyState(getCurrentInputEditorInfo());
 		
 		return suggestion;
 	}
@@ -3219,7 +3256,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		        ic.deleteSurroundingText(countToDelete, 0);
 		    }
 		}
-		updateShiftKeyState(getCurrentInputEditorInfo());
+		postUpdateShiftKeyState();
 	}
 
 	public SharedPreferences getSharedPreferences() {
