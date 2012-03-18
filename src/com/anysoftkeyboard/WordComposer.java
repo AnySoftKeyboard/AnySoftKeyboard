@@ -18,11 +18,16 @@ package com.anysoftkeyboard;
 
 import java.util.ArrayList;
 
+import android.util.Log;
+
+import com.menny.android.anysoftkeyboard.AnyApplication;
+
 /**
  * A place to store the currently composing word with information such as adjacent key codes as well
  */
 public class WordComposer {
 	private static final String CHEWBACCAONTHEDRUMS = "chewbacca";
+	private static final String TAG = "ASK _WC";
     /**
      * The list of unicode values for each keystroke (including surrounding keys)
      */
@@ -79,7 +84,7 @@ public class WordComposer {
      * @return the number of keystrokes
      */
     public int size() {
-        return mCodes.size();
+        return mTypedWord.length();
     }
     
     /**
@@ -97,6 +102,24 @@ public class WordComposer {
     {
     	mCursorPosition = position;
     	mCandidatesStartPosition = candidatesStartPosition;
+    }
+    
+    public boolean hasUserMovedCursor(int cursorPosition)
+    {
+    	if (AnyApplication.DEBUG)
+    	{
+    		Log.d(TAG, "Current cursor position inside word is "+mCursorPosition+", and word starts at "+mCandidatesStartPosition+". Input's cursor is at "+cursorPosition);
+    	}
+    	return (cursorPosition != (mCursorPosition + mCandidatesStartPosition));
+    }
+    
+    public boolean hasUserMovedCursorInsideOfWord(int cursorPosition)
+    {
+    	if (AnyApplication.DEBUG)
+    	{
+    		Log.d(TAG, "Current word lenght is "+mTypedWord.length()+", and word starts at "+mCandidatesStartPosition+". Input's cursor is at "+cursorPosition);
+    	}
+    	return (cursorPosition >= mCandidatesStartPosition &&  cursorPosition <= (mCandidatesStartPosition+mTypedWord.length()));
     }
 
     /**
