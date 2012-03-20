@@ -50,6 +50,7 @@
 						<TextView android:text="Benny Beat" style="@android:style/TextAppearance.Small" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
             			<TextView android:text="Hugo Lopes" style="@android:style/TextAppearance.Small" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
             			<TextView android:text="Luis Eduardo Loch" style="@android:style/TextAppearance.Small" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
+            			<TextView android:text="Rytis Slatkevičius" style="@android:style/TextAppearance.Small" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
 						<TextView android:autoLink="web" android:text="And the great translators team at\nhttp://crowdin.net\nhttp://s.evendanan.net/translateask" style="@android:style/TextAppearance.Small" android:layout_width="fill_parent" android:layout_height="wrap_content" android:gravity="center"></TextView>
             		</LinearLayout>
  	</ScrollView>
