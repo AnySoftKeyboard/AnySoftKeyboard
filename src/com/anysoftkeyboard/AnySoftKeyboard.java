@@ -681,13 +681,6 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
         else
         {
-        	if (!mWord.hasUserMovedCursor(newSelStart))
-        	{
-        		if (DEBUG) Log.d(TAG, "onUpdateSelection: cursor was not moved.");
-        		return;
-        	}
-        	if (DEBUG) Log.d(TAG, "onUpdateSelection: cursor moving");
-        	
         	//we have the following options (we are in an input which requires predicting (mPredictionOn == true):
         	//1) predicting and moved inside the word
         	//2) predicting and moved outside the word
@@ -700,21 +693,30 @@ public class AnySoftKeyboard extends InputMethodService implements
         	//so, 1 and 2 requires that predicting is currently done, and the cursor moved
         	if (mPredicting)
         	{
-        		if (mWord.hasUserMovedCursorInsideOfWord(newSelStart))
+        		if (newSelStart >= candidatesStart && newSelStart <= candidatesEnd)
         		{
         			//1) predicting and moved inside the word - just update the cursor position and shift state
         			if (DEBUG) Log.d(TAG, "onUpdateSelection: cursor moving inside the predicting word");
         			//inside the currently selected word
         			int cursorPosition = newSelEnd - candidatesStart; 
-        			mWord.setCursorPostion(cursorPosition, candidatesStart<0? newSelStart : candidatesStart);
-        			updateShiftKeyState(getCurrentInputEditorInfo());
+        			if (mWord.setCursorPostion(cursorPosition/*, candidatesStart<0? newSelStart : candidatesStart*/))
+        			{
+        				updateShiftKeyState(getCurrentInputEditorInfo());
+        			}
         		}
         		else
         		{
         			if (DEBUG) Log.d(TAG, "onUpdateSelection: cursor moving outside the currently predicting word");
+        			abortCorrection(true, false);
         			postRestartWordSuggestion();
         			//performRestartWordSuggestion(newSelStart, ic);
         		}
+        	}
+        	else
+        	{
+        		if (DEBUG) Log.d(TAG, "onUpdateSelection: not predicting at this moment, maybe the cursor is now at a new word?");
+        		abortCorrection(true, false);
+        		postRestartWordSuggestion();
         	}
         }
     }
@@ -785,7 +787,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			ic.setSelection(cursorPosition, cursorPosition);
 
 			mPredicting = mWord.size() > 0;
-			mWord.setCursorPostion(wordStartOffset, cursorPosition - wordStartOffset);
+			mWord.setCursorPostion(wordStartOffset/*, cursorPosition - wordStartOffset*/);
 			postUpdateSuggestions();
 		}
 		else
@@ -2007,12 +2009,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 				ic.beginBatchEdit();
 				mWord.deleteLast();
 				ic.setComposingText(mWord.getTypedWord()/*mComposing*/, 1);
-				if (mWord.cursorPosition() != mWord.size())
-				{
-					int cursorPosition = mWord.cursorPosition() + mWord.candidatesStartPosition();
-					if (DEBUG) Log.d(TAG, "Updating cursor position: cursorPosition:"+cursorPosition+" mWord.cursorPosition():"+mWord.cursorPosition()+" mWord.candidatesStartPosition():"+mWord.candidatesStartPosition());
-					ic.setSelection(cursorPosition, cursorPosition);
-				}
+				//if (mWord.cursorPosition() != mWord.size())
+				//{
+					//int cursorPosition = mWord.cursorPosition() + mWord.candidatesStartPosition();
+					//if (DEBUG) Log.d(TAG, "Updating cursor position: cursorPosition:"+cursorPosition+" mWord.cursorPosition():"+mWord.cursorPosition()+" mWord.candidatesStartPosition():"+mWord.candidatesStartPosition());
+					//ic.setSelection(cursorPosition, cursorPosition);
+				//}
 				if (mWord.size()/*mComposing.length()*/ == 0) {
 					mPredicting = false;
 				}
@@ -2237,12 +2239,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 			if (ic != null) {
 				ic.setComposingText(mWord.getTypedWord()/*mComposing*/, 1);
-				if (mWord.cursorPosition() != mWord.size())
-				{
-					int cursorPosition = mWord.candidatesStartPosition() + mWord.cursorPosition();
-					Log.d(TAG, "Updating cursor position: cursorPosition:"+cursorPosition+" mWord.cursorPosition():"+mWord.cursorPosition()+" mWord.candidatesStartPosition():"+mWord.candidatesStartPosition());
-					ic.setSelection(cursorPosition, cursorPosition);
-				}
+				//if (mWord.cursorPosition() != mWord.size())
+				//{
+					//int cursorPosition = mWord.candidatesStartPosition() + mWord.cursorPosition();
+					//Log.d(TAG, "Updating cursor position: cursorPosition:"+cursorPosition+" mWord.cursorPosition():"+mWord.cursorPosition()+" mWord.candidatesStartPosition():"+mWord.candidatesStartPosition());
+					//ic.setSelection(cursorPosition, cursorPosition);
+				//}
 				ic.endBatchEdit();
 			}
 			postUpdateSuggestions();

@@ -18,16 +18,12 @@ package com.anysoftkeyboard;
 
 import java.util.ArrayList;
 
-import android.util.Log;
-
-import com.menny.android.anysoftkeyboard.AnyApplication;
-
 /**
  * A place to store the currently composing word with information such as adjacent key codes as well
  */
 public class WordComposer {
 	private static final String CHEWBACCAONTHEDRUMS = "chewbacca";
-	private static final String TAG = "ASK _WC";
+	//private static final String TAG = "ASK _WC";
     /**
      * The list of unicode values for each keystroke (including surrounding keys)
      */
@@ -41,7 +37,7 @@ public class WordComposer {
     private final StringBuilder mTypedWord;
     
     private int mCursorPosition;
-    private int mCandidatesStartPosition;
+    //private int mCandidatesStartPosition;
 
     private int mCapsCount;
 
@@ -56,7 +52,7 @@ public class WordComposer {
         mCodes = new ArrayList<int[]>(12);
         mTypedWord = new StringBuilder(20);
     }
-
+/*
     WordComposer(WordComposer copy) {
         mCodes = new ArrayList<int[]>(copy.mCodes);
         mPreferredWord = copy.mPreferredWord;
@@ -65,7 +61,7 @@ public class WordComposer {
         mAutoCapitalized = copy.mAutoCapitalized;
         mIsFirstCharCapitalized = copy.mIsFirstCharCapitalized;
     }
-
+*/
     /**
      * Clear out the keys registered so far.
      */
@@ -76,7 +72,7 @@ public class WordComposer {
         mTypedWord.setLength(0);
         mCapsCount = 0;
         mCursorPosition = 0;
-        mCandidatesStartPosition = 0;
+        //mCandidatesStartPosition = 0;
     }
 
     /**
@@ -93,17 +89,19 @@ public class WordComposer {
     public int cursorPosition() {
         return mCursorPosition;
     }
-    
+    /*
     public int candidatesStartPosition() {
     	return mCandidatesStartPosition;
     }
-    
-    public void setCursorPostion(int position, int candidatesStartPosition)
+    */
+    public boolean setCursorPostion(int position/*, int candidatesStartPosition*/)
     {
+    	final boolean changed = mCursorPosition == position;
     	mCursorPosition = position;
-    	mCandidatesStartPosition = candidatesStartPosition;
+    	return changed;
+    	//mCandidatesStartPosition = candidatesStartPosition;
     }
-    
+    /*
     public boolean hasUserMovedCursor(int cursorPosition)
     {
     	if (AnyApplication.DEBUG)
@@ -121,7 +119,7 @@ public class WordComposer {
     	}
     	return (cursorPosition >= mCandidatesStartPosition &&  cursorPosition <= (mCandidatesStartPosition+mTypedWord.length()));
     }
-
+	*/
     /**
      * Returns the codes at a particular position in the word.
      * @param index the position in the word
