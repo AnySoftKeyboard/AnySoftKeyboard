@@ -53,6 +53,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.ExtractedText;
+import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
@@ -141,7 +143,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 	*/
     // Keep track of the last selection range to decide if we need to show word alternatives
-    private int     mLastSelectionStart;
+    //private int     mLastSelectionStart;
     //private int     mLastSelectionEnd;
 
 	private final com.anysoftkeyboard.Configuration mConfig;
@@ -244,7 +246,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 				performUpdateSuggestions();
 				break;
 			case MSG_RESTART_NEW_WORD_SUGGESTIONS:
-				performRestartWordSuggestion(getCurrentInputConnection());
+				final InputConnection ic = getCurrentInputConnection();
+				performRestartWordSuggestion(ic, getCursorPosition(ic));
 				break;
 //			 case MSG_UPDATE_OLD_SUGGESTIONS:
 //				 setOldSuggestions();
@@ -666,7 +669,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         	if (DEBUG) Log.d(TAG, "onUpdateSelection: not in sync! mWord says size is "+mWord.size());
         	return;
         }
-        mLastSelectionStart = newSelStart;
+        //mLastSelectionStart = newSelStart;
         
         final InputConnection ic = getCurrentInputConnection();
         if (ic == null) return;//well, I can't do anything without this connection
@@ -696,11 +699,11 @@ public class AnySoftKeyboard extends InputMethodService implements
         		if (newSelStart >= candidatesStart && newSelStart <= candidatesEnd)
         		{
         			//1) predicting and moved inside the word - just update the cursor position and shift state
-        			if (DEBUG) Log.d(TAG, "onUpdateSelection: cursor moving inside the predicting word");
         			//inside the currently selected word
         			int cursorPosition = newSelEnd - candidatesStart; 
         			if (mWord.setCursorPostion(cursorPosition/*, candidatesStart<0? newSelStart : candidatesStart*/))
         			{
+            			if (DEBUG) Log.d(TAG, "onUpdateSelection: cursor moving inside the predicting word");
         				updateShiftKeyState(getCurrentInputEditorInfo());
         			}
         		}
@@ -709,13 +712,11 @@ public class AnySoftKeyboard extends InputMethodService implements
         			if (DEBUG) Log.d(TAG, "onUpdateSelection: cursor moving outside the currently predicting word");
         			abortCorrection(true, false);
         			postRestartWordSuggestion();
-        			//performRestartWordSuggestion(newSelStart, ic);
         		}
         	}
         	else
         	{
         		if (DEBUG) Log.d(TAG, "onUpdateSelection: not predicting at this moment, maybe the cursor is now at a new word?");
-        		abortCorrection(true, false);
         		postRestartWordSuggestion();
         	}
         }
@@ -726,8 +727,20 @@ public class AnySoftKeyboard extends InputMethodService implements
         mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_RESTART_NEW_WORD_SUGGESTIONS), 300);
     }
 	
-	public void performRestartWordSuggestion(final InputConnection ic) {
-		int cursorPosition = mLastSelectionStart;
+	private static int getCursorPosition(InputConnection connection) {
+		ExtractedText extracted = connection.getExtractedText(new ExtractedTextRequest(), 0);
+		if (extracted == null) return 0;
+		return extracted.startOffset + extracted.selectionStart;
+	}
+	
+	public void performRestartWordSuggestion(final InputConnection ic, final int cursorPosition) {
+		//I assume ASK DOES NOT predict at this moment!
+		if (mPredicting || !isPredictionOn())
+		{
+			if (DEBUG) Log.d(TAG, "performRestartWordSuggestion: no need to restart - mPredicting="+mPredicting+", isPredictionOn="+isPredictionOn());
+			return;
+		}
+		
 		//2) predicting and moved outside the word - abort predicting, update shift state
 		//2.1) to a new word - restart predicting on the new word
 		//2.2) to no word land - nothing else
@@ -738,15 +751,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 		//in this case, we would like to reset the predition and restart
 		//if the user clicked inside a different word
 		ic.beginBatchEdit();//don't want any events till I finish handling this touch
-		mJustAccepted = false;
-		mJustAddedAutoSpace = false;
-		abortCorrection(false, false);
+		abortCorrection(true, false);
 		//restart required?
 		if (isCursorTouchingWord())
 		{//2.1
-			if (DEBUG) Log.d(TAG,"User moved cursor to a word.");
+			if (DEBUG) Log.d(TAG,"User moved cursor to a word. Should I restart predition?");
+			
 			//locating the word
-			if (DEBUG) Log.d(TAG,"Should I restart predition?");
 			int wordStartOffset = 0;
 			int wordEndOffset = 0;
 			CharSequence toLeft = "";
@@ -784,7 +795,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 			ic.deleteSurroundingText(wordStartOffset, wordEndOffset);
 			ic.setComposingText(word, 1);
 			//repositioning the cursor
-			ic.setSelection(cursorPosition, cursorPosition);
+			if (wordEndOffset > 0)
+			{
+				if (DEBUG) Log.d(TAG,"Repositioning the cursor inside the word to position "+cursorPosition);
+				ic.setSelection(cursorPosition, cursorPosition);
+			}
 
 			mPredicting = mWord.size() > 0;
 			mWord.setCursorPostion(wordStartOffset/*, cursorPosition - wordStartOffset*/);
@@ -2009,12 +2024,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 				ic.beginBatchEdit();
 				mWord.deleteLast();
 				ic.setComposingText(mWord.getTypedWord()/*mComposing*/, 1);
-				//if (mWord.cursorPosition() != mWord.size())
-				//{
-					//int cursorPosition = mWord.cursorPosition() + mWord.candidatesStartPosition();
-					//if (DEBUG) Log.d(TAG, "Updating cursor position: cursorPosition:"+cursorPosition+" mWord.cursorPosition():"+mWord.cursorPosition()+" mWord.candidatesStartPosition():"+mWord.candidatesStartPosition());
-					//ic.setSelection(cursorPosition, cursorPosition);
-				//}
 				if (mWord.size()/*mComposing.length()*/ == 0) {
 					mPredicting = false;
 				}
@@ -2239,12 +2248,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 			if (ic != null) {
 				ic.setComposingText(mWord.getTypedWord()/*mComposing*/, 1);
-				//if (mWord.cursorPosition() != mWord.size())
-				//{
-					//int cursorPosition = mWord.candidatesStartPosition() + mWord.cursorPosition();
-					//Log.d(TAG, "Updating cursor position: cursorPosition:"+cursorPosition+" mWord.cursorPosition():"+mWord.cursorPosition()+" mWord.candidatesStartPosition():"+mWord.candidatesStartPosition());
-					//ic.setSelection(cursorPosition, cursorPosition);
-				//}
 				ic.endBatchEdit();
 			}
 			postUpdateSuggestions();
