@@ -168,7 +168,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	KeyboardSwitcher mKeyboardSwitcher;
 	private final HardKeyboardActionImpl mHardKeyboardAction;
 	private long mMetaState;
-	//private AnyKeyboard getCurrentKeyboard() = null;
+	
 	private HashSet<Character> mSentenceSeparators = new HashSet<Character>();
 	
 	//private UserDictionaryBase mContactsDictionary;
