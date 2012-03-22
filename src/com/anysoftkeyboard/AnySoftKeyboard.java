@@ -218,7 +218,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private static final String KEYBOARD_NOTIFICATION_NEVER = "3";
 
 	// Indicates whether the suggestion strip is to be on in landscape
-	private boolean mJustAccepted;
+	//private boolean mJustAccepted;
 	private CharSequence mJustRevertedSeparator;
 
 	private AudioManager mAudioManager;
@@ -750,12 +750,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 		//or nothing was suggested.
 		//in this case, we would like to reset the predition and restart
 		//if the user clicked inside a different word
-		ic.beginBatchEdit();//don't want any events till I finish handling this touch
-		abortCorrection(true, false);
 		//restart required?
 		if (isCursorTouchingWord())
 		{//2.1
+			ic.beginBatchEdit();//don't want any events till I finish handling this touch
 			if (DEBUG) Log.d(TAG,"User moved cursor to a word. Should I restart predition?");
+			abortCorrection(true, false);
 			
 			//locating the word
 			int wordStartOffset = 0;
@@ -803,6 +803,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 			mPredicting = mWord.size() > 0;
 			mWord.setCursorPostion(wordStartOffset/*, cursorPosition - wordStartOffset*/);
+			ic.endBatchEdit();
 			postUpdateSuggestions();
 		}
 		else
@@ -810,7 +811,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 			if (DEBUG) Log.d(TAG,"User moved cursor to no land word. Bye bye.");
 		}
 		updateShiftKeyState(getCurrentInputEditorInfo());
-		ic.endBatchEdit();
 	}
 /*
 	@Override
@@ -2167,7 +2167,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             mWord.reset();
     		mPredicting = false;
     		mJustAddedAutoSpace = false;
-            mJustAccepted = false;
+            //mJustAccepted = false;
             if (forever)
             {
             	mPredictionOn = false;
@@ -2449,7 +2449,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		if (mBestWord != null) {
 			TextEntryState.acceptedDefault(mWord.getTypedWord(), mBestWord);
-			mJustAccepted = true;
+			//mJustAccepted = true;
 			pickSuggestion(mBestWord, false);
 			  // Add the word to the auto dictionary if it's not a known word
             addToDictionaries(mBestWord, AutoDictionary.FREQUENCY_FOR_TYPED);
@@ -2574,6 +2574,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	public void revertLastWord(boolean deleteChar) {
+		if (DEBUG) Log.d(TAG, "revertLastWord deleteChar:"+deleteChar+", mWord.size:"+mWord.size()+" mPredicting:"+mPredicting+" mCommittedLength"+mCommittedLength);
+		
 		final int length = mWord.size();// mComposing.length();
 		if (!mPredicting && length > 0) {
 			final InputConnection ic = getCurrentInputConnection();

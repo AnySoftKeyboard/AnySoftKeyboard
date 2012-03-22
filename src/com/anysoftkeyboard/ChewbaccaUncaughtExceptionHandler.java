@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.text.format.DateFormat;
 import android.util.Log;
 
 class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
@@ -44,8 +45,10 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 				e.printStackTrace();
 			}
 			
+			final CharSequence utcTimeDate = DateFormat.format("kk:mm:ss dd.MM.yyyy" , new Date());
+			
 			String logText = "Hi. It seems that we have crashed.... Here are some details:\n"+
-				"****** GMT Time: "+(new Date()).toGMTString()+"\n"+
+				"****** UTC Time: "+utcTimeDate+"\n"+
 				"****** Application name: "+appName+"\n"+
 				"******************************\n"+
 				"****** Exception type: "+ex.getClass().getName()+"\n"+

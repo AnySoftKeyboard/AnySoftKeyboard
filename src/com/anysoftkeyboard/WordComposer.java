@@ -96,7 +96,7 @@ public class WordComposer {
     */
     public boolean setCursorPostion(int position/*, int candidatesStartPosition*/)
     {
-    	final boolean changed = mCursorPosition == position;
+    	final boolean changed = mCursorPosition != position;
     	mCursorPosition = position;
     	return changed;
     	//mCandidatesStartPosition = candidatesStartPosition;
