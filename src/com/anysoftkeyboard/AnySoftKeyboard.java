@@ -2023,9 +2023,19 @@ public class AnySoftKeyboard extends InputMethodService implements
 				//mComposing.delete(length - 1, length);
 				ic.beginBatchEdit();
 				mWord.deleteLast();
+				final int cursorPosition;
+				if (mWord.cursorPosition() != mWord.size())
+					cursorPosition = getCursorPosition(ic);
+				else
+					cursorPosition = -1;
 				ic.setComposingText(mWord.getTypedWord()/*mComposing*/, 1);
-				if (mWord.size()/*mComposing.length()*/ == 0) {
+				if (mWord.size()/*mComposing.length()*/ == 0) 
+				{
 					mPredicting = false;
+				}
+				else if (cursorPosition > 0)
+				{
+					ic.setSelection(cursorPosition-1, cursorPosition-1);
 				}
 				ic.endBatchEdit();
 				postUpdateSuggestions();
@@ -2157,7 +2167,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private void abortCorrection(boolean force, boolean forever) {
         if (force || TextEntryState.isCorrecting()) {
-
+        	if (DEBUG) Log.d(TAG, "abortCorrection will actually abort correct");
         	mHandler.removeMessages(MSG_UPDATE_SUGGESTIONS);
 			
             getCurrentInputConnection().finishComposingText();
@@ -2170,6 +2180,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             //mJustAccepted = false;
             if (forever)
             {
+            	if (DEBUG) Log.d(TAG, "abortCorrection will abort correct forever");
             	mPredictionOn = false;
             	setCandidatesViewShown(false);
 	    		if (mSuggest != null) {
@@ -2247,7 +2258,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 				startActivity(easterEgg);
 			}
 			if (ic != null) {
+				final int cursorPosition;
+				if (mWord.cursorPosition() != mWord.size())
+				{
+					if (DEBUG) Log.d(TAG, "Cursor is not at the end of the word. I'll need to reposition");
+					cursorPosition = getCursorPosition(ic);
+				}
+				else
+					cursorPosition = -1;
 				ic.setComposingText(mWord.getTypedWord()/*mComposing*/, 1);
+				if (cursorPosition >= 0)
+					ic.setSelection(cursorPosition+1, cursorPosition+1);
 				ic.endBatchEdit();
 			}
 			postUpdateSuggestions();
@@ -2272,7 +2293,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		InputConnection ic = getCurrentInputConnection();
 		if (ic != null) {
 			ic.beginBatchEdit();
-            abortCorrection(false, false);
+            abortCorrection(true, false);
 		}
 		//this is a special case, when the user presses a separator WHILE inside the predicted word.
 		//in this case, I will want to just dump the separator.
