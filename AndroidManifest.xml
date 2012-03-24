@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.menny.android.anysoftkeyboard"
-        android:versionCode="68" android:versionName="20120322-friendly-chamaeleon">
+        android:versionCode="68" android:versionName="20120323-friendly-chamaeleon">
     
 	<supports-screens
 	    android:xlargeScreens="true"
