@@ -1072,6 +1072,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if(DEBUG){
 			Log.d(TAG, "isInputViewShown="+shouldTranslateSpecialKeys);
 		}
+		
+		if (event.isPrintingKey()) onPhysicalKeyboardKeyPressed();
+		mHardKeyboardAction.initializeAction(event, mMetaState);
+		
 		InputConnection ic = getCurrentInputConnection();
 		if (!mPredictionLandscape) {
 			// For all other keys, if we want to do transformations on
@@ -1188,10 +1192,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 				    if(mConfig.useBackword() && keyCode == KeyEvent.KEYCODE_DEL && event.isShiftPressed()){
                         handleBackword(ic);
                         return true;
-				    } else if (event.isPrintingKey()) {
-						onPhysicalKeyboardKeyPressed();
-						mHardKeyboardAction.initializeAction(event, mMetaState);
-						// http://article.gmane.org/gmane.comp.handhelds.openmoko.android-freerunner/629
+				    } else/* if (event.isPrintingKey())*/ {
+				    	// http://article.gmane.org/gmane.comp.handhelds.openmoko.android-freerunner/629
 						AnyKeyboard current = mKeyboardSwitcher.getCurrentKeyboard();
 
 						HardKeyboardTranslator keyTranslator = (HardKeyboardTranslator) current;
