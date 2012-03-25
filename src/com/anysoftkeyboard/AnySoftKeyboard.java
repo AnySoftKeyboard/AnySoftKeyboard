@@ -2293,7 +2293,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		InputConnection ic = getCurrentInputConnection();
 		if (ic != null) {
 			ic.beginBatchEdit();
-            abortCorrection(true, false);
+            //abortCorrection(true, false);
 		}
 		//this is a special case, when the user presses a separator WHILE inside the predicted word.
 		//in this case, I will want to just dump the separator.
@@ -2322,7 +2322,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 		else
 		{
-			ic.finishComposingText();
+			abortCorrection(true, false);
+			//ic.finishComposingText();
 		}
         if (mJustAddedAutoSpace && primaryCode == KeyCodes.ENTER) {
             removeTrailingSpace();
