@@ -30,6 +30,7 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 	private String mDomainText = ".com";
 	//private String mLayoutChangeKeysSize = "Small";
 	private boolean mShowKeyPreview = true;
+	private boolean mKeyPreviewAboveKey = true;
 	private boolean mShowHintTextOnKeys = true;
 	private boolean mSwitchKeyboardOnSpace = true;
 	private boolean mUseFullScreenInputInLandscape = true;
@@ -237,6 +238,11 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 				mContext.getResources().getBoolean(R.bool.settings_default_key_press_shows_preview_popup));
 		Log.i(TAG, "** mShowKeyPreview: "+mShowKeyPreview);
 
+		mKeyPreviewAboveKey = sp.getString(mContext.getString(R.string.settings_key_key_press_preview_popup_position), 
+				mContext.getString(R.string.settings_default_key_press_preview_popup_position)).equals("above_key");
+		Log.i(TAG, "** mKeyPreviewAboveKey: "+mKeyPreviewAboveKey);
+		
+		
 		mShowHintTextOnKeys = sp.getBoolean(mContext.getString(R.string.settings_key_show_hint_text_key), 
 				mContext.getResources().getBoolean(R.bool.settings_default_show_hint_text_value));
 		Log.i(TAG, "** mShowHintTextOnKeys: "+mShowHintTextOnKeys);
@@ -670,5 +676,9 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
     
     public boolean useChewbaccaNotifications() {
     	return mUseChewbacca;
+    }
+    
+    public boolean showKeyPreviewAboveKey() {
+    	return mKeyPreviewAboveKey;
     }
 }

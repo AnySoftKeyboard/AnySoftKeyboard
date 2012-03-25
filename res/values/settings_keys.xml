@@ -10,6 +10,7 @@
     <string name="settings_key_sound_on">sound_on</string>
     
     <string name="settings_key_key_press_shows_preview_popup">key_press_preview_popup</string>
+    <string name="settings_key_key_press_preview_popup_position">settings_key_key_press_preview_popup_position</string>
     
     <string name="settings_key_lang_key_shows_popup">lang_key_shows_popup</string>
     
@@ -68,6 +69,15 @@
 		<item>540</item>
 	</string-array>
    	
+	<string-array name="settings_key_preview_position_override_names">
+    	<item>@string/key_preview_position_override_above_key</item>
+		<item>@string/key_preview_position_override_above_keyboard</item>
+    </string-array>
+    <string-array name="settings_key_preview_position_override_values">
+    	<item>above_key</item>
+		<item>above_keyboard</item>
+    </string-array>
+    
     <string-array name="settings_key_swipe_velocity_threshold_names">
     	<item>@string/settings_swipe_velocity_very_slow</item>
 		<item>@string/settings_swipe_velocity_slow</item>

@@ -86,6 +86,8 @@ public interface Configuration {
 	
 	boolean useChewbaccaNotifications();
 	
+	boolean showKeyPreviewAboveKey();
+	
 	void addChangedListener(OnSharedPreferenceChangeListener listener);
 	
 	void removeChangedListener(OnSharedPreferenceChangeListener listener);

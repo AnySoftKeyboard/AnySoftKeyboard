@@ -98,6 +98,7 @@
 	<string name="changelog">Changelog</string>
 	<string name="search_market_for_addons">Search for add-ons</string>
 	<string name="theme_addons_settings">Keyboard theme settings</string>
+	<string name="keyboard_theme_tweak_group">Tweaks</string>
 	<string name="bottom_row_addons_settings">Bottom row settings</string>
 	<string name="top_row_addons_settings">Top row settings</string>
 	
@@ -316,6 +317,11 @@
     <string name="smiley_icon_on_smileys_key">Use icon for smiley key</string>
     <string name="smiley_icon_on_smileys_key_on_summary">Icon will be drawn on smiley key</string>
     <string name="smiley_icon_on_smileys_key_off_summary">Smiley default text will be drawn on smiley key</string>
+    
+    <string name="key_preview_position_override">Key preview position</string>
+    <string name="key_preview_position_override_summary">Above the pressed key or above the entire keyboard</string>
+    <string name="key_preview_position_override_above_key">Above pressed key</string>
+    <string name="key_preview_position_override_above_keyboard">Above keyboard</string>
     
     <string name="key_press_preview_popup">Key preview popup</string>
     <string name="key_press_preview_popup_on_summary">Show popup upon key-press</string>

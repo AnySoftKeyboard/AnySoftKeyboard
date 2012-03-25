@@ -1577,8 +1577,11 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         	popupHeight = Math.max(mPreviewKeyBackground.getMinimumHeight(), popupHeight);
         }
         
-        int popupPreviewX = key.x - ((popupWidth - key.width) / 2);
-        int popupPreviewY = key.y - popupHeight - mPreviewOffset;
+        final boolean showPopupAboveKey = AnyApplication.getConfig().showKeyPreviewAboveKey();
+        int popupPreviewX = showPopupAboveKey? 
+        			key.x - ((popupWidth - key.width) / 2):
+        			popupWidth;
+        int popupPreviewY = (showPopupAboveKey? key.y:0) - popupHeight - mPreviewOffset;
 
         mHandler.cancelDismissPreview();
         if (mOffsetInWindow == null) {

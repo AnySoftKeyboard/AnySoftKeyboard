@@ -25,5 +25,49 @@
 				
 				android:defaultValue="@string/settings_default_keyboard_theme_key"
 				android:summary="@string/keyboard_theme_summary"/>
+			<PreferenceScreen android:key="keyboard_theme_tweak_group"
+				android:title="@string/keyboard_theme_tweak_group">
+				<CheckBoxPreference
+					android:key="@string/settings_key_key_press_shows_preview_popup"
+					android:title="@string/key_press_preview_popup"
+					android:persistent="true"
+					android:defaultValue="@bool/settings_default_key_press_shows_preview_popup"
+					android:summaryOn="@string/key_press_preview_popup_on_summary"
+					android:summaryOff="@string/key_press_preview_popup_off_summary"
+				/>
+				<ListPreference
+					android:key="@string/settings_key_key_press_preview_popup_position"
+					android:title="@string/key_preview_position_override"
+					android:persistent="true"
+					android:dialogTitle="@string/settings_key_key_press_preview_popup_position"
+					
+					android:entries="@array/settings_key_preview_position_override_names"
+					android:entryValues="@array/settings_key_preview_position_override_values"
+					
+					android:defaultValue="@string/settings_default_key_press_preview_popup_position"
+					android:summary="@string/key_preview_position_override_summary"
+					
+					android:dependency="@string/settings_key_key_press_shows_preview_popup"/>
+				
+				<CheckBoxPreference
+					android:key="@string/settings_key_show_hint_text_key"
+					android:title="@string/show_hint_text"
+					android:persistent="true"
+					android:defaultValue="@bool/settings_default_show_hint_text_value"
+					android:summaryOn="@string/show_hint_text_on_summary"
+					android:summaryOff="@string/show_hint_text_off_summary"
+				/>
+				
+				<EditTextPreference android:key="zoom_factor_keys_in_portrait"
+					android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none" android:inputType="numberDecimal"
+					android:title="@string/zoom_factor_keys_in_portrait" android:dialogTitle="@string/zoom_factor_keys_in_portrait" android:persistent="true"
+					android:defaultValue="@string/settings_default_portrait_keyboard_height_factor"
+				/>
+				<EditTextPreference android:key="zoom_factor_keys_in_landscape"
+					android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none" android:inputType="numberDecimal"
+					android:title="@string/zoom_factor_keys_in_landscape" android:dialogTitle="@string/zoom_factor_keys_in_landscape" android:persistent="true"
+					android:defaultValue="@string/settings_default_landscape_keyboard_height_factor"
+				/>
+			</PreferenceScreen>
 	</PreferenceCategory>
 </PreferenceScreen>
