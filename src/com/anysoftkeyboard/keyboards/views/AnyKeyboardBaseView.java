@@ -1580,7 +1580,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         final boolean showPopupAboveKey = AnyApplication.getConfig().showKeyPreviewAboveKey();
         int popupPreviewX = showPopupAboveKey? 
         			key.x - ((popupWidth - key.width) / 2):
-        			popupWidth;
+        			(getWidth() - popupWidth) / 2;
         int popupPreviewY = (showPopupAboveKey? key.y:0) - popupHeight - mPreviewOffset;
 
         mHandler.cancelDismissPreview();
