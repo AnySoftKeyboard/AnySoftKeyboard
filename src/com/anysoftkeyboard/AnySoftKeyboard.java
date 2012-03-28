@@ -375,8 +375,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			//mNotificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
 		}
         // Remove penging messages related to update suggestions
-        mHandler.removeMessages(MSG_UPDATE_SUGGESTIONS);
-        mHandler.removeMessages(MSG_RESTART_NEW_WORD_SUGGESTIONS);
+		abortCorrection(true, false);
 	}
 
 	@Override
@@ -2171,6 +2170,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         if (force || TextEntryState.isCorrecting()) {
         	if (DEBUG) Log.d(TAG, "abortCorrection will actually abort correct");
         	mHandler.removeMessages(MSG_UPDATE_SUGGESTIONS);
+            mHandler.removeMessages(MSG_RESTART_NEW_WORD_SUGGESTIONS);
 			
             getCurrentInputConnection().finishComposingText();
             clearSuggestions();
