@@ -43,7 +43,7 @@
     <string name="tip_8_suggestions_editor">If I don\'t know a word, you can teach me! Type that word, and click it in the suggestions strip. I\'ll remember it.\nYou can also edit those User-Words in our built-in editor. Look for the editor in AnySoftKeyboard Dictionary Settings.</string>
     <!-- tip 9 -->
     <string name="tip_9_suggestions_restart">Suggestions Restarting</string>
-    <string name="tip_9_suggestions_restart_tip">AnySoftKeyboard provides word completion suggestions based on what you typed. But, AnySoftKeyboard can also provide suggestions on already typed words! Tap the word, and AnySoftKeyboard will refreash the suggestions strip.</string>
+    <string name="tip_9_suggestions_restart_tip">AnySoftKeyboard provides word completion suggestions based on what you typed. But, AnySoftKeyboard can also provide suggestions on already typed words! Tap the word, and AnySoftKeyboard will refresh the suggestions strip.</string>
     <!-- main form -->
     <string name="main_tab_welcome">Welcome</string>
     <string name="main_tab_links">Links</string>
