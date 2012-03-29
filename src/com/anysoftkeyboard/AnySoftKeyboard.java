@@ -658,7 +658,22 @@ public class AnySoftKeyboard extends InputMethodService implements
                     + ", cs=" + candidatesStart
                     + ", ce=" + candidatesEnd);
         }
+
+        //mLastSelectionStart = newSelStart;
+        
         if (!mPredictionOn/* || mInputView == null || !mInputView.isShown()*/) return;//not relevant if no prediction is needed.
+        /*
+        if ((	(mWord.size() > 0 && mPredicting)//I think I'm predicting 
+        		&& (newSelStart != candidatesEnd || newSelEnd != candidatesEnd)//mm, the cursor is not at the end of the word
+                && (mLastSelectionStart != newSelStart)))//ho! The cursor changed too! 
+        {
+        	if (DEBUG) Log.d(TAG, "onUpdateSelection: seems like the input connection has been changed!");
+        	//This means the input connection has changed by the app, and not the user
+        	//Why? Because the cursor is not in the candidates range, as seen by the input connection,
+        	//and the cursor has moved from it previous position, which should also invoke change in the candidates range!
+        	abortCorrection(true, false);
+        	postUpdateShiftKeyState();
+        }
         
         //are we in sync? It seems that sometimes, the onUpdateSelection is called with events from the past
         //(welcome to the world of async IPC)
@@ -668,8 +683,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         	if (DEBUG) Log.d(TAG, "onUpdateSelection: not in sync! mWord says size is "+mWord.size());
         	return;
         }
-        //mLastSelectionStart = newSelStart;
-        
+        */
         final InputConnection ic = getCurrentInputConnection();
         if (ic == null) return;//well, I can't do anything without this connection
         
@@ -2172,10 +2186,13 @@ public class AnySoftKeyboard extends InputMethodService implements
         	mHandler.removeMessages(MSG_UPDATE_SUGGESTIONS);
             mHandler.removeMessages(MSG_RESTART_NEW_WORD_SUGGESTIONS);
 			
-            getCurrentInputConnection().finishComposingText();
+            final InputConnection ic = getCurrentInputConnection();
+            if (ic != null) ic.finishComposingText();
+            
             clearSuggestions();
             
             //mComposing.setLength(0);
+            TextEntryState.reset();
             mWord.reset();
     		mPredicting = false;
     		mJustAddedAutoSpace = false;
