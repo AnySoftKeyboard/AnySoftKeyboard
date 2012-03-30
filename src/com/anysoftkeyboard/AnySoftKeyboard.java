@@ -748,7 +748,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	
 	public void performRestartWordSuggestion(final InputConnection ic, final int cursorPosition) {
 		//I assume ASK DOES NOT predict at this moment!
-		if (mPredicting || !isPredictionOn())
+		if (mPredicting || !isPredictionOn() || mInputView == null || !mInputView.isShown())
 		{
 			if (DEBUG) Log.d(TAG, "performRestartWordSuggestion: no need to restart - mPredicting="+mPredicting+", isPredictionOn="+isPredictionOn());
 			return;
@@ -2312,7 +2312,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		InputConnection ic = getCurrentInputConnection();
 		if (ic != null) {
 			ic.beginBatchEdit();
-            //abortCorrection(true, false);
 		}
 		//this is a special case, when the user presses a separator WHILE inside the predicted word.
 		//in this case, I will want to just dump the separator.
@@ -2339,11 +2338,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				commitTyped(ic);
 			}
 		}
-		else
-		{
-			abortCorrection(true, false);
-			//ic.finishComposingText();
-		}
+		
         if (mJustAddedAutoSpace && primaryCode == KeyCodes.ENTER) {
             removeTrailingSpace();
             mJustAddedAutoSpace = false;
