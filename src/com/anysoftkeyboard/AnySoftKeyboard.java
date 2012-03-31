@@ -2338,13 +2338,18 @@ public class AnySoftKeyboard extends InputMethodService implements
 				commitTyped(ic);
 			}
 		}
+		else if (separatorInsideWord)
+		{
+			//when puting a separator in the middile of a word, there is no need to do correction, or keep knowledge
+			abortCorrection(true, false);
+		}
 		
         if (mJustAddedAutoSpace && primaryCode == KeyCodes.ENTER) {
             removeTrailingSpace();
             mJustAddedAutoSpace = false;
         }
 
-		sendKeyChar((char) primaryCode);
+        sendKeyChar((char) primaryCode);
 
 		// Handle the case of ". ." -> " .." with auto-space if necessary
         // before changing the TextEntryState.
