@@ -31,6 +31,8 @@
   <string name="tip_8_suggestions">Σας συμπληρώνω</string>
   <string name="tip_8_suggestions_tip">Ανάλογα με το επίπεδο υποστήριξης της γλώσσας σας, το AnySoftKeyboard βοηθά να συμπληρωθούν οι λέξεις σας και να διορθωθούν λάθη στην πληκτρολόγησής σας. Καθώς αρχίζετε να πληκτρολογείτε, το AnySoftKeyboard θα προτείνει λέξεις με βάση ότι πληκτρολογήσατε ήδη.</string>
   <string name="tip_8_suggestions_editor">Αν δεν γνωρίζω μια λέξη, μπορείτε να με διδάξετε! Πληκτρολογήστε αυτή τη λέξη και κάντε κλικ στη λωρίδα προτάσεις. Θα το θυμάμαι.\nΜπορείτε επίσης να επεξεργαστείτε αυτές τις λέξεις χρήστη στο ενσωματωμένο πρόγραμμα επεξεργασίας. Αναζητήστε το πρόγραμμα επεξεργασίας στις ρυθμίσεις λεξικού του AnySoftKeyboard.</string>
+  <string name="tip_9_suggestions_restart">Επανέναρξη προτάσεων</string>
+  <string name="tip_9_suggestions_restart_tip">Το AnySoftKeyboard παρέχει προτάσεις ολοκλήρωσης λέξεων που βασίζονται σε ότι πληκτρολογήσατε. Αλλά το AnySoftKeyboard μπορεί επίσης να παρέχει προτάσεις που βασίζονται σε ήδη πληκτρολογημένες λέξεις! Επιλέξτε τη λέξη και το AnySoftKeyboard θα ανανεώσει την γραμμή προτάσεων.</string>
   <string name="main_tab_welcome">Καλώς ορίσατε</string>
   <string name="main_tab_links">Σύνδεσμοι</string>
   <string name="main_tab_credits">Συντελεστές</string>
@@ -73,6 +75,7 @@
   <string name="changelog">Αρχείο αλλαγών</string>
   <string name="search_market_for_addons">Αναζήτηση για πρόσθετα</string>
   <string name="theme_addons_settings">Ρυθμίσεις θέματος πληκτρολογίου</string>
+  <string name="keyboard_theme_tweak_group">Τροποποιήσεις</string>
   <string name="bottom_row_addons_settings">Ρυθμίσεις κάτω γραμμής</string>
   <string name="top_row_addons_settings">Ρυθμίσεις πάνω γραμμής</string>
   <string name="close_button">Κλείσιμο</string>
@@ -159,6 +162,7 @@
   <string name="swipe_action_name_shift">Μετατόπιση</string>
   <string name="swipe_action_name_hide">Απόκρυψη πληκτρολογίου</string>
   <string name="swipe_action_name_backspace">Βήμα πίσω</string>
+  <string name="swipe_action_name_backword">Back-word</string>
   <string name="swipe_action_name_clear_input">Διαγραφή όλου του κειμένου</string>
   <string name="swipe_action_name_cursor_up">Μετακίνηση του δείκτη πάνω</string>
   <string name="swipe_action_name_cursor_down">Μετακίνηση του δείκτη κάτω</string>
@@ -222,6 +226,9 @@
   <string name="show_settings_app_in_launcher">Ρυθμίσεις εφαρμογής</string>
   <string name="settings_key_show_settings_app_on_summary">Οι ρυθμίσεις της εφαρμογής θα είναι ορατές στο πρόγραμμα εκκίνησης (μπορεί να χρειαστεί επανεκκίνηση)</string>
   <string name="settings_key_show_settings_app_off_summary">Απόκρυψη ρυθμίσεων εφαρμογής (μπορεί να χρειαστεί επανεκκίνηση)</string>
+  <string name="show_crash_notification">Αναφορά διακοπής λειτουργίας</string>
+  <string name="show_crash_notification_on_summary">Κατά την διακοπή λειτουργίας ASK, άνοιγμα παραθύρου διαλόγου αναφοράς διακοπής λειτουργίας</string>
+  <string name="show_crash_notification_off_summary">Σιωπηλή απορρόφηση διακοπής λειτουργίας</string>
   <string name="show_new_version_notifications_again">Εμφάνιση ειδοποιήσεων για νέα έκδοση</string>
   <string name="show_new_version_notifications_again_on_summary">Κατά την εγκατάσταση μιας νέας έκδοσης, θα εμφανίζεται ένα αρχείο αλλαγών</string>
   <string name="show_new_version_notifications_again_off_summary">Δεν θα σας ειδοποιεί όταν μια νέα έκδοση έχει εγκατασταθεί</string>
@@ -238,6 +245,10 @@
   <string name="smiley_icon_on_smileys_key">Χρήση εικονίδιου για πλήκτρο φατσούλων</string>
   <string name="smiley_icon_on_smileys_key_on_summary">Θα εμφανίζεται εικονίδιο στο πλήκτρο φατσούλων</string>
   <string name="smiley_icon_on_smileys_key_off_summary">Το προεπιλεγμένο κείμενο φατσούλων θα εμφανίζεται στο πλήκτρο φατσούλων</string>
+  <string name="key_preview_position_override">Προεπισκόπηση θέσης πλήκτρου</string>
+  <string name="key_preview_position_override_summary">Πάνω από το πατημένο πλήκτρο ή πάνω από ολόκληρο το πληκτρολόγιο</string>
+  <string name="key_preview_position_override_above_key">Πάνω από το πατημένο πλήκτρο</string>
+  <string name="key_preview_position_override_above_keyboard">Πάνω από το πληκτρολόγιο</string>
   <string name="key_press_preview_popup">Αναδυόμενη προεπισκόπηση πλήκτρου</string>
   <string name="key_press_preview_popup_on_summary">Εμφάνιση αναδυόμενου κατά την πίεση πλήκτρου</string>
   <string name="key_press_preview_popup_off_summary">Να μην εμφανίζεται αναδυόμενο κατά την πίεση πλήκτρου</string>

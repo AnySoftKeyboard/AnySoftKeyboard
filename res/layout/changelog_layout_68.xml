@@ -15,8 +15,8 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:tag="20120328-friendly-chamaeleon"
+    	android:tag="20120401-friendly-chamaeleon"
         android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
 	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-	    android:text="* Crashes on system-app changes.\n* Several uppercase related bug fixes.\n* Suggestions are now refreshed when tapping on a new word in the textbox.\n* New translations: IT, BR-PT, LT, TA, TL (Filipino), FR, ES, SL.\n* Other bug fixes." style="@android:style/TextAppearance.Small"/>
+	    android:text="* Crashes on system-app changes.\n* Several uppercase related bug fixes.\n* Suggestions are now refreshed when tapping on a new word in the textbox.\n* New translations: IT, BR-PT, LT, TA, TL (Filipino), FR, ES, SL, CA, EL.\n* Other bug fixes." style="@android:style/TextAppearance.Small"/>
 </LinearLayout>

@@ -31,6 +31,8 @@
   <string name="tip_8_suggestions">Suggeriments</string>
   <string name="tip_8_suggestions_tip">Segons la disponibilitat del diccionari, AnySoftKeyboard pot ajudar-vos a finalitzar els mots que voleu escriure o corregir els errors. Mentre escriviu, si us suggeriran paraules basades en el que esteu inserint.</string>
   <string name="tip_8_suggestions_editor">Si una paraula no és al diccionari, podeu afegir-la. Acabeu d\'escriure-la i premeu-la 2 vegades al quadre de suggeriments. Ja l\'heu afegida!\nTambé podeu editar les ja existents mitjançant l\'editor que trobareu a les opcions dels diccionaris.</string>
+  <string name="tip_9_suggestions_restart">Reinicia els suggerits</string>
+  <string name="tip_9_suggestions_restart_tip">L\'AnySoftKeyboard us facilita l\'emplenament automàtic dels mots basant-se en el que escriviu. A més, l\'AnySoftKeyboard us pot suggerir paraules que hagueu inserit anteriorment! Toqueu la paraula i l\'AnySoftKeyboard actualitzarà la llista de mots suggerits.</string>
   <string name="main_tab_welcome">Benvinguda</string>
   <string name="main_tab_links">Enllaços</string>
   <string name="main_tab_credits">Crèdits</string>
@@ -73,6 +75,7 @@
   <string name="changelog">Registre de canvis</string>
   <string name="search_market_for_addons">Cerca de complements</string>
   <string name="theme_addons_settings">Opcions del teclat</string>
+  <string name="keyboard_theme_tweak_group">Optimitzacions</string>
   <string name="bottom_row_addons_settings">Opcions de la fila inferior</string>
   <string name="top_row_addons_settings">Opcions de la fila superior</string>
   <string name="close_button">Surt</string>
@@ -159,6 +162,7 @@
   <string name="swipe_action_name_shift">Activa les Majúscules</string>
   <string name="swipe_action_name_hide">Amaga el teclat</string>
   <string name="swipe_action_name_backspace">Activa el retorn</string>
+  <string name="swipe_action_name_backword">Paraula anterior</string>
   <string name="swipe_action_name_clear_input">Suprimeix tot el text</string>
   <string name="swipe_action_name_cursor_up">Mou el cursor amunt</string>
   <string name="swipe_action_name_cursor_down">Mou el cursor avall</string>
@@ -222,6 +226,9 @@
   <string name="show_settings_app_in_launcher">Configuració de l\'aplicació</string>
   <string name="settings_key_show_settings_app_on_summary">Configuració visible al menú (pot ser necessari reiniciar)</string>
   <string name="settings_key_show_settings_app_off_summary">Amaga la configuració (pot ser necessari reiniciar)</string>
+  <string name="show_crash_notification">Informe d\'error</string>
+  <string name="show_crash_notification_on_summary">Si l\'ASK falla, obre el diàleg d\'enviament d\'errors</string>
+  <string name="show_crash_notification_off_summary">No reportis els errors</string>
   <string name="show_new_version_notifications_again">Mostra les notificacions de noves versions</string>
   <string name="show_new_version_notifications_again_on_summary">Amb la propera actualització veureu en pantalla el registre de canvis</string>
   <string name="show_new_version_notifications_again_off_summary">En activar aquesta opció si us mostrarà el registre de canvis</string>
@@ -238,6 +245,10 @@
   <string name="smiley_icon_on_smileys_key">Imatge com a icona</string>
   <string name="smiley_icon_on_smileys_key_on_summary">Es mostra una imatge a la tecla d\'emoticones</string>
   <string name="smiley_icon_on_smileys_key_off_summary">Es mostra el text predeterminat a la tecla d\'emoticones</string>
+  <string name="key_preview_position_override">Posició de la tecla premuda</string>
+  <string name="key_preview_position_override_summary">Per sobre de la tecla premuda o per sota del teclat</string>
+  <string name="key_preview_position_override_above_key">Per sobre de la tecla premuda</string>
+  <string name="key_preview_position_override_above_keyboard">Per sota del teclat</string>
   <string name="key_press_preview_popup">Mostra la tecla premuda</string>
   <string name="key_press_preview_popup_on_summary">Ressalta la tecla premuda</string>
   <string name="key_press_preview_popup_off_summary">No ressaltis la tecla premuda</string>

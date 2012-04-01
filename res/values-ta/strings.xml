@@ -80,6 +80,7 @@
   <string name="emoticon_long_press_opens_popup_on_summary">நீள் விசையில் உணர்முகங்கள் தேர்வைக் காட்டு</string>
   <string name="emoticon_long_press_opens_popup_off_summary">குறு விசையில் உணர்முகங்கள் தேர்வைக் காட்டு</string>
   <string name="emoticon_popup_type_title">உணர்முகங்கள் தேர்வு வகை</string>
+  <string name="emoticon_popup_type_summary">Emoticon தேர்வு காட்ட விழிதிரை வகையை தேர்ந்தெடு</string>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Always show layout icon</item>
     <item>On physical keyboard change</item>
