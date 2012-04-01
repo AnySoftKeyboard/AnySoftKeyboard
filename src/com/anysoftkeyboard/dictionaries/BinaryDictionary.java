@@ -38,7 +38,7 @@ class BinaryDictionary extends Dictionary {
     private static final int MAX_WORDS = 16;
     private final AssetFileDescriptor mAfd;
 
-    private static final int TYPED_LETTER_MULTIPLIER = 2;
+    private static final int TYPED_LETTER_MULTIPLIER = 4;
     private static final boolean ENABLE_MISSED_CHARACTERS = true;
 
     private int mNativeDict;
