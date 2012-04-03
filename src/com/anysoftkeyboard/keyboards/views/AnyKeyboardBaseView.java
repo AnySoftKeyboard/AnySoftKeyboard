@@ -1620,7 +1620,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         }
         //mPreviewPopup.getContentView().invalidate();
         // Record popup preview position to display mini-keyboard later at the same positon
-        mPopupPreviewDisplayedY = popupPreviewY;
+        mPopupPreviewDisplayedY = popupPreviewY + 
+        		(showPopupAboveKey? 0 : key.y);//the popup keyboard should be placed at the right position. So I'm fixing
         mPreviewLayut.setVisibility(VISIBLE);
         
         // Set the preview background state
