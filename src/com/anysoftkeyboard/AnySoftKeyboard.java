@@ -1451,6 +1451,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		final InputConnection ic = getCurrentInputConnection();
 		if (ic == null)
 			return;
+		if (!mConfig.shouldswapPunctuationAndSpace()) return;
 		CharSequence lastTwo = ic.getTextBeforeCursor(2, 0);
 		if (DEBUG)
 		{

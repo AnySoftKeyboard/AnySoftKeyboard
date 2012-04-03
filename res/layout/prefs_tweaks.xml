@@ -34,7 +34,15 @@ android:key="tweaks_group_screen">
 			android:defaultValue="2"
 			android:max="10"
 			ask:min="1"
-		/>	
+		/>
+		<ListPreference
+			android:key="@string/settings_key_should_swap_punctuation_and_space"
+			android:title="@string/should_swap_punctuation_and_space_title"
+			android:summary="@string/should_swap_punctuation_and_space_summary"
+			android:entries="@array/settings_key_should_swap_punctuation_and_space_names"
+			android:entryValues="@array/settings_key_should_swap_punctuation_and_space_values"
+			android:defaultValue="@string/settings_default_should_swap_punctuation_and_space"
+			android:dialogTitle="@string/should_swap_punctuation_and_space_title"/>
 	</PreferenceCategory>
 	
 	<PreferenceCategory android:key="tweak_physical_keyboard_group"

@@ -18,12 +18,14 @@ package com.anysoftkeyboard;
 
 import java.util.ArrayList;
 
+import android.util.Log;
+
 /**
  * A place to store the currently composing word with information such as adjacent key codes as well
  */
 public class WordComposer {
 	private static final String CHEWBACCAONTHEDRUMS = "chewbacca";
-	//private static final String TAG = "ASK _WC";
+	private static final String TAG = "ASK _WC";
     /**
      * The list of unicode values for each keystroke (including surrounding keys)
      */
@@ -96,6 +98,10 @@ public class WordComposer {
     */
     public boolean setCursorPostion(int position/*, int candidatesStartPosition*/)
     {
+    	if (position < 0 || position >= size())
+    	{
+    		Log.w(TAG, "New cursor position is invalid! It is outside the word (size "+size()+", new position "+position+". Disregarding!!!!");
+    	}
     	final boolean changed = mCursorPosition != position;
     	mCursorPosition = position;
     	return changed;

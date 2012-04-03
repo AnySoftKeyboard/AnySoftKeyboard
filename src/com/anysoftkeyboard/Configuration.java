@@ -91,4 +91,6 @@ public interface Configuration {
 	void addChangedListener(OnSharedPreferenceChangeListener listener);
 	
 	void removeChangedListener(OnSharedPreferenceChangeListener listener);
+
+	boolean shouldswapPunctuationAndSpace();
 }

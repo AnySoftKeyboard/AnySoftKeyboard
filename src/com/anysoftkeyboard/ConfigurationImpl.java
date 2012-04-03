@@ -31,6 +31,7 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 	//private String mLayoutChangeKeysSize = "Small";
 	private boolean mShowKeyPreview = true;
 	private boolean mKeyPreviewAboveKey = true;
+	private boolean mSwapPunctuationAndSpace = true;
 	private boolean mShowHintTextOnKeys = true;
 	private boolean mSwitchKeyboardOnSpace = true;
 	private boolean mUseFullScreenInputInLandscape = true;
@@ -408,6 +409,10 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
                 mContext.getResources().getBoolean(R.bool.settings_default_show_chewbacca));
         Log.i(TAG, "** mUseChewbacca: " + mUseChewbacca);
         
+        String shouldSwapType = sp.getString(mContext.getString(R.string.settings_key_should_swap_punctuation_and_space),
+                mContext.getString(R.string.settings_default_should_swap_punctuation_and_space));
+        mSwapPunctuationAndSpace = shouldSwapType.equals("yes");
+        Log.i(TAG, "** mSwapPunctuationAndSpace: " + mSwapPunctuationAndSpace);
         //Some preferences cause rebuild of the keyboard, hence changing the listeners list
         final LinkedList<OnSharedPreferenceChangeListener> disconnectedList = new LinkedList<SharedPreferences.OnSharedPreferenceChangeListener>(mPreferencesChangedListeners);
 		for(OnSharedPreferenceChangeListener listener : disconnectedList)
@@ -680,5 +685,9 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
     
     public boolean showKeyPreviewAboveKey() {
     	return mKeyPreviewAboveKey;
+    }
+    
+    public boolean shouldswapPunctuationAndSpace() {
+    	return mSwapPunctuationAndSpace;
     }
 }
