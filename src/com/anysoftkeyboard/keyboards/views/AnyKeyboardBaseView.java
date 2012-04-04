@@ -991,9 +991,10 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
      * no shift key on the keyboard or there is no keyboard attached, it returns false.
      */
     public boolean isShifted() {
-        if (mKeyboard != null) {
-            return mKeyboard.isShifted();
-        }
+    	if (isPopupShowing()) return mMiniKeyboard.isShifted();
+    	
+        if (mKeyboard != null) return mKeyboard.isShifted();
+        
         return false;
     }
     

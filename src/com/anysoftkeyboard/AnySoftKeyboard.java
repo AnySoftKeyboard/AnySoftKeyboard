@@ -1804,7 +1804,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 	                }
 				}
 				else
+				{
 					handleCharacter(primaryCode, key, multiTapIndex, nearByKeyCodes);
+				}
 				//AnyKey s = mKeyboardSwitcher.getCurrentKeyboard().getKeys().
 				
 				// reseting the mSpaceSent, which is set to true upon selecting
@@ -2238,17 +2240,25 @@ public class AnySoftKeyboard extends InputMethodService implements
 					int[] shiftCodes = anyKey.shiftedCodes;
 					primaryCodeForShow = shiftCodes != null && shiftCodes.length > multiTapIndex?
 							shiftCodes[multiTapIndex] : Character.toUpperCase(primaryCode);
+							
+					Log.d("****SHIFT***", "handleCharacter (shiftedCodes) "+primaryCode+" resulted in: "+primaryCodeForShow);
 				}
 				else
+				{
 					primaryCodeForShow = Character.toUpperCase(primaryCode);
-				
-				//Log.d("****SHIFT***", "handleCharacter resulted in: "+primaryCodeForShow);
+					Log.d("****SHIFT***", "handleCharacter "+primaryCode+" resulted in: "+primaryCodeForShow);
+				}
 			}
 			else
+			{
 				primaryCodeForShow = primaryCode;
+				Log.d("****SHIFT***", "handleCharacter (not shifted) "+primaryCode+" resulted in: "+primaryCodeForShow);
+			}
 		}	
 		else
+		{
 			primaryCodeForShow = primaryCode;
+		}
 		
 		if (mPredicting) {
 			if ((mInputView != null) && mInputView.isShifted()
