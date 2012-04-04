@@ -135,8 +135,8 @@ static JNINativeMethod gMethods[] = {
                                           (void*)nativeime_ResourceBinaryDictionary_open},
     {"closeNative",          "(I)V",            (void*)nativeime_ResourceBinaryDictionary_close},
     {"getSuggestionsNative", "(I[II[C[IIIII[II)I",  (void*)nativeime_ResourceBinaryDictionary_getSuggestions},
-    {"isValidWordNative",    "(I[CI)Z",         (void*)nativeime_ResourceBinaryDictionary_isValidWord},
-//    {"getBigramsNative",    "(I[CI[II[C[IIII)I",         (void*)nativeime_ResourceBinaryDictionary_getBigrams}
+    {"isValidWordNative",    "(I[CI)Z",         (void*)nativeime_ResourceBinaryDictionary_isValidWord}/*,
+    {"getBigramsNative",    "(I[CI[II[C[IIII)I",         (void*)nativeime_ResourceBinaryDictionary_getBigrams}*/
 };
 
 static int registerNativeMethods(JNIEnv* env, const char* className,

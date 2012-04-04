@@ -18,6 +18,8 @@ package com.anysoftkeyboard;
 
 import java.util.ArrayList;
 
+import com.menny.android.anysoftkeyboard.AnyApplication;
+
 import android.util.Log;
 
 /**
@@ -98,9 +100,10 @@ public class WordComposer {
     */
     public boolean setCursorPostion(int position/*, int candidatesStartPosition*/)
     {
-    	if (position < 0 || position >= size())
+    	if (position < 0 || position > size())//note: the cursor can be AFTER the word, so it can be equal to size()
     	{
     		Log.w(TAG, "New cursor position is invalid! It is outside the word (size "+size()+", new position "+position+". Disregarding!!!!");
+    		return false;
     	}
     	final boolean changed = mCursorPosition != position;
     	mCursorPosition = position;
@@ -143,6 +146,14 @@ public class WordComposer {
     public boolean add(int primaryCode, int[] codes) {
     	
         mTypedWord.insert(mCursorPosition, (char) primaryCode);
+        /*if (codes != null)
+        {
+        	for(int i=0; i<codes.length; i++)
+        	{
+        		if (codes[i] > 32) codes[i] = Character.toLowerCase(codes[i]);
+        	}
+        }*/
+        
         correctPrimaryJuxtapos(primaryCode, codes);
         mCodes.add(mCursorPosition, codes);
         mCursorPosition++;
@@ -172,17 +183,21 @@ public class WordComposer {
             codes[1] = codes[0];
             codes[0] = primaryCode;
         }*/
-    	if(nearByKeyCodes != null && nearByKeyCodes.length > 1 && primaryCode != nearByKeyCodes[0]){
+    	if(nearByKeyCodes != null && nearByKeyCodes.length > 1 && primaryCode != nearByKeyCodes[0] && primaryCode != Character.toLowerCase((char)nearByKeyCodes[0])){
 			int swapedItem = nearByKeyCodes[0];
 			nearByKeyCodes[0] = primaryCode;
+			boolean found = false;
 			for(int i=1;i<nearByKeyCodes.length; i++)
 			{
 				if (nearByKeyCodes[i] == primaryCode)
 				{
 					nearByKeyCodes[i] = swapedItem;
+					found = true;
 					break;
 				}
 			}
+			if (!found) //reverting
+				nearByKeyCodes[0] = swapedItem;
 		}
     }
     
@@ -271,4 +286,18 @@ public class WordComposer {
     public boolean isAutoCapitalized() {
         return mAutoCapitalized;
     }
+	public void logCodes() {
+		if (!AnyApplication.DEBUG) return;
+		Log.d(TAG, "Word: "+mTypedWord+", prefered word:"+mPreferredWord);
+		int i = 0;
+		for(int[] codes : mCodes)
+		{
+			String codesString = "Codes #"+i+": ";
+			for(int c : codes)
+			{
+				codesString += ""+c+",";
+			}
+			Log.d(TAG, codesString);
+		}
+	}
 }
