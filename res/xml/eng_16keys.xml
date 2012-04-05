@@ -5,62 +5,62 @@
     android:keyWidth="25%p"
 	android:keyHeight="@integer/key_normal_height">
      <Row android:rowEdgeFlags="top" android:keyboardMode="@integer/keyboard_mode_normal">
-        <Key android:codes="46,44,63,33,8217,45,64,47,58" android:keyLabel=".,?!’" android:keyEdgeFlags="left"/>
-        <Key android:codes="97,98,99" android:keyLabel="abc"/>
-        <Key android:codes="100,101,102" android:keyLabel="def"/>
+        <Key android:codes="46,44,63,33,8217,45,64,47,58" android:keyLabel=".,?!’" android:popupCharacters="1.,?!’-\@/:" android:keyEdgeFlags="left"/>
+        <Key android:codes="97,98,99" android:keyLabel="abc" android:popupKeyboard="@xml/popup_16keys_abc"/>
+        <Key android:codes="100,101,102" android:keyLabel="def" android:popupKeyboard="@xml/popup_16keys_def"/>
         <Key android:codes="-10" ask:longPressCode="-102" android:keyEdgeFlags="right"/>        
     </Row>
     <Row android:rowEdgeFlags="top" android:keyboardMode="@integer/keyboard_mode_im">
-        <Key android:codes="46,44,63,33,8217,45,64,47,58" android:keyLabel=".,?!’" android:keyEdgeFlags="left"/>
-        <Key android:codes="97,98,99" android:keyLabel="abc"/>
-        <Key android:codes="100,101,102" android:keyLabel="def"/>
+        <Key android:codes="46,44,63,33,8217,45,64,47,58" android:keyLabel=".,?!’" android:popupCharacters="1.,?!’-\@/:" android:keyEdgeFlags="left"/>
+        <Key android:codes="97,98,99" android:keyLabel="abc" android:popupKeyboard="@xml/popup_16keys_abc"/>
+        <Key android:codes="100,101,102" android:keyLabel="def" android:popupKeyboard="@xml/popup_16keys_def"/>
         <Key android:codes="-10" ask:longPressCode="-102" android:keyEdgeFlags="right"/>
     </Row>
     <Row android:rowEdgeFlags="top" android:keyboardMode="@integer/keyboard_mode_url">
-        <Key android:codes="46,47,64,63,33,95" android:keyLabel="./\@?!_" android:keyEdgeFlags="left"/>
-        <Key android:codes="97,98,99" android:keyLabel="abc"/>
-        <Key android:codes="100,101,102" android:keyLabel="def"/>
+        <Key android:codes="46,47,64,63,33,95" android:keyLabel="./\@?!_" android:popupCharacters="1.,?!’-\@/:" android:keyEdgeFlags="left"/>
+        <Key android:codes="97,98,99" android:keyLabel="abc" android:popupKeyboard="@xml/popup_16keys_abc"/>
+        <Key android:codes="100,101,102" android:keyLabel="def" android:popupKeyboard="@xml/popup_16keys_def"/>
         <Key android:codes="-9" android:keyEdgeFlags="right"/>
     </Row>
     <Row android:rowEdgeFlags="top" android:keyboardMode="@integer/keyboard_mode_email">
-        <Key android:codes="64,46,63,33,95,47" android:keyLabel="\@.?!_/" android:keyEdgeFlags="left"/>
-        <Key android:codes="97,98,99" android:keyLabel="abc"/>
-        <Key android:codes="100,101,102" android:keyLabel="def"/>
+        <Key android:codes="64,46,63,33,95,47" android:keyLabel="\@.?!_/" android:popupCharacters="1.,?!’-\@/:" android:keyEdgeFlags="left"/>
+        <Key android:codes="97,98,99" android:keyLabel="abc" android:popupKeyboard="@xml/popup_16keys_abc"/>
+        <Key android:codes="100,101,102" android:keyLabel="def" android:popupKeyboard="@xml/popup_16keys_def"/>
         <Key android:codes="-9" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row>
-        <Key android:codes="103,104,105" android:keyLabel="ghi" android:keyEdgeFlags="left"/>
-        <Key android:codes="106,107,108" android:keyLabel="jkl"/>
-        <Key android:codes="109,110,111" android:keyLabel="mno"/>
+        <Key android:codes="103,104,105" android:keyLabel="ghi" android:popupKeyboard="@xml/popup_16keys_ghi" android:keyEdgeFlags="left"/>
+        <Key android:codes="106,107,108" android:keyLabel="jkl" android:popupKeyboard="@xml/popup_16keys_jkl"/>
+        <Key android:codes="109,110,111" android:keyLabel="mno" android:popupKeyboard="@xml/popup_16keys_mno"/>
         <Key android:codes="-2" android:keyLabel="123" android:keyEdgeFlags="right"/>
     </Row>
     
     <Row android:keyboardMode="@integer/keyboard_mode_normal">
-    	<Key android:codes="112,113,114,115" android:keyLabel="pqrs" android:keyEdgeFlags="left"/>
-        <Key android:codes="116,117,118" android:keyLabel="tuv"/>
-        <Key android:codes="119,120,121,122" android:keyLabel="wxyz"/>
+    	<Key android:codes="112,113,114,115" android:keyLabel="pqrs" android:popupKeyboard="@xml/popup_16keys_pqrs" android:keyEdgeFlags="left"/>
+        <Key android:codes="116,117,118" android:keyLabel="tuv" android:popupKeyboard="@xml/popup_16keys_tuv"/>
+        <Key android:codes="119,120,121,122" android:keyLabel="wxyz" android:popupKeyboard="@xml/popup_16keys_wxyz"/>
         <Key android:codes="-5"
         	android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     <Row android:keyboardMode="@integer/keyboard_mode_im">
-    	<Key android:codes="112,113,114,115" android:keyLabel="pqrs" android:keyEdgeFlags="left"/>
-        <Key android:codes="116,117,118" android:keyLabel="tuv"/>
-        <Key android:codes="119,120,121,122" android:keyLabel="wxyz"/>
+    	<Key android:codes="112,113,114,115" android:keyLabel="pqrs" android:popupKeyboard="@xml/popup_16keys_pqrs" android:keyEdgeFlags="left"/>
+        <Key android:codes="116,117,118" android:keyLabel="tuv" android:popupKeyboard="@xml/popup_16keys_tuv"/>
+        <Key android:codes="119,120,121,122" android:keyLabel="wxyz" android:popupKeyboard="@xml/popup_16keys_wxyz"/>
         <Key android:codes="-5"
         	android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     <Row android:keyboardMode="@integer/keyboard_mode_email">
-    	<Key android:codes="112,113,114,115" android:keyLabel="pqrs" android:keyEdgeFlags="left"/>
-        <Key android:codes="116,117,118" android:keyLabel="tuv"/>
-        <Key android:codes="119,120,121,122" android:keyLabel="wxyz"/>
+    	<Key android:codes="112,113,114,115" android:keyLabel="pqrs" android:popupKeyboard="@xml/popup_16keys_pqrs" android:keyEdgeFlags="left"/>
+        <Key android:codes="116,117,118" android:keyLabel="tuv" android:popupKeyboard="@xml/popup_16keys_tuv"/>
+        <Key android:codes="119,120,121,122" android:keyLabel="wxyz" android:popupKeyboard="@xml/popup_16keys_wxyz"/>
         <Key android:codes="-5"
         	android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
     <Row android:keyboardMode="@integer/keyboard_mode_url">
-    	<Key android:codes="112,113,114,115" android:keyLabel="pqrs" android:keyEdgeFlags="left"/>
-        <Key android:codes="116,117,118" android:keyLabel="tuv"/>
-        <Key android:codes="119,120,121,122" android:keyLabel="wxyz"/>
+    	<Key android:codes="112,113,114,115" android:keyLabel="pqrs" android:popupKeyboard="@xml/popup_16keys_pqrs" android:keyEdgeFlags="left"/>
+        <Key android:codes="116,117,118" android:keyLabel="tuv" android:popupKeyboard="@xml/popup_16keys_tuv"/>
+        <Key android:codes="119,120,121,122" android:keyLabel="wxyz" android:popupKeyboard="@xml/popup_16keys_wxyz"/>
         <Key android:codes="-5"
         	android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
