@@ -717,7 +717,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         			if (mWord.setCursorPostion(cursorPosition/*, candidatesStart<0? newSelStart : candidatesStart*/))
         			{
             			if (DEBUG) Log.d(TAG, "onUpdateSelection: cursor moving inside the predicting word");
-        				updateShiftKeyState(getCurrentInputEditorInfo());
+        				//updateShiftKeyState(getCurrentInputEditorInfo());
         			}
         		}
         		else
@@ -737,6 +737,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void postRestartWordSuggestion() {
         mHandler.removeMessages(MSG_RESTART_NEW_WORD_SUGGESTIONS);
+        if (!isCursorTouchingWord()) return;
+        
         mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_RESTART_NEW_WORD_SUGGESTIONS), 300);
     }
 	
