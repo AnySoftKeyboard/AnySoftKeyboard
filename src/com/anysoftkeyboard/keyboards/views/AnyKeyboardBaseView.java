@@ -1384,11 +1384,20 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         mDirtyRect.setEmpty();
     }
     
+    int mKeyboardActionType = EditorInfo.IME_ACTION_UNSPECIFIED;
+    public void setKeyboardActionType(final int imeOptions) {
+    	if ((imeOptions&EditorInfo.IME_FLAG_NO_ENTER_ACTION) != 0)//this is usually a multi-line edittext box
+    		mKeyboardActionType = EditorInfo.IME_ACTION_UNSPECIFIED;
+    	else
+    		mKeyboardActionType = (imeOptions&EditorInfo.IME_MASK_ACTION);
+    }
+    
     private CharSequence guessLabelForKey(AnyKey key) {
     	switch(key.codes[0])
     	{
     	case KeyCodes.ENTER:
-    		switch(mKeyboard.getKeyboardActionType())
+    		if (AnyApplication.DEBUG) Log.d(TAG, "Action key action ID is: "+mKeyboardActionType);
+    		switch(mKeyboardActionType)
     		{
     		case EditorInfo.IME_ACTION_DONE:
     			return getContext().getText(R.string.label_done_key);
@@ -1427,22 +1436,28 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     	switch(key.codes[0])
     	{
     	case KeyCodes.ENTER:
-    		switch(mKeyboard.getKeyboardActionType())
+    		if (AnyApplication.DEBUG) Log.d(TAG, "Action key action ID is: "+mKeyboardActionType);
+    		Drawable actionKeyDrawable = null;
+    		switch(mKeyboardActionType)
     		{
     		case EditorInfo.IME_ACTION_DONE:
     			mActionKeyIcon.setState(DRAWABLE_STATE_ACTION_DONE);
+    			actionKeyDrawable = mActionKeyIcon;
     			break;
     		case EditorInfo.IME_ACTION_GO:
     			mActionKeyIcon.setState(DRAWABLE_STATE_ACTION_GO);
+    			actionKeyDrawable = mActionKeyIcon;
     			break;
     		case EditorInfo.IME_ACTION_SEARCH:
     			mActionKeyIcon.setState(DRAWABLE_STATE_ACTION_SEARCH);
+    			actionKeyDrawable = mActionKeyIcon;
     			break;
-    		default:
+    		case EditorInfo.IME_ACTION_UNSPECIFIED:
     			mActionKeyIcon.setState(DRAWABLE_STATE_ACTION_NORMAL);
+    			actionKeyDrawable = mActionKeyIcon;
     			break;
     		}
-    		return mActionKeyIcon;
+    		return actionKeyDrawable;
     	case KeyCodes.DELETE:
     		return mDeleteKeyIcon;
     	case KeyCodes.SPACE:

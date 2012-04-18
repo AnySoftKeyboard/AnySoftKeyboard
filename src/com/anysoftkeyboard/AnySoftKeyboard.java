@@ -481,8 +481,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (mInputView == null) {
 			return;
 		}
-
-		mKeyboardSwitcher.makeKeyboards(false);
+		
+    	mInputView.setKeyboardActionType(attribute.imeOptions);
+    	
+    	mKeyboardSwitcher.makeKeyboards(false);
 		TextEntryState.newSession(this);
 
 		if (!restarting) {
@@ -582,7 +584,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mAutoSpace = true;
 		}
 		
-		mInputView.closing();
+		//mInputView.closing();
 		
 		//mComposing.setLength(0);
 		mWord.reset();
@@ -598,7 +600,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mSuggest.setCorrectionMode(mQuickFixes, mShowSuggestions);
 		}
 
-		mPredictionOn = mPredictionOn && (mShowSuggestions/* || mQuickFixes*/);
+		https://play.google.com/store/apps/details?id=com.smaartfriendfindermPredictionOn = mPredictionOn && (mShowSuggestions/* || mQuickFixes*/);
 
 		if (mCandidateView != null)
 			mCandidateView.setSuggestions(null, false, false, false);

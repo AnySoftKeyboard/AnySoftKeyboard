@@ -309,8 +309,7 @@ public class KeyboardSwitcher
         mContext.setKeyboardStuffBeforeSetToView(keyboard);
         if (mInputView != null)
         {
-        	mInputView.setKeyboard(keyboard);
-        	//keyboard.setShifted(mInputView.isShifted());
+        	mInputView.setKeyboard(keyboard);//keyboard.setShifted(mInputView.isShifted());
         }
     }
 
