@@ -1031,7 +1031,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 		else if (DEBUG) Log.v(TAG, "Received completions: completions should not be shown.");
 	}
-/*
+
 	@Override
 	public void setCandidatesViewShown(boolean shown) {
 		// we show predication only in on-screen keyboard
@@ -1040,7 +1040,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// (mPredictionLandscape)
 		super.setCandidatesViewShown(shouldCandidatesStripBeShown() && shown);
 	}
-*/
+
 
 
     private void clearSuggestions() {
@@ -2442,7 +2442,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	private boolean shouldCandidatesStripBeShown() {
-		return mShowSuggestions;
+		return mShowSuggestions && onEvaluateInputViewShown();
 	}
 
 	private void performUpdateSuggestions() {

@@ -87,8 +87,8 @@
         <!-- key preview (feeback) -->
         <item name="keyPreviewBackground">@drawable/dark_btn_key_preview_background</item>
     	<item name="keyPreviewTextColor">#FFFFFFFF</item>
-    	<item name="keyPreviewTextSize">32sp</item>
-    	<item name="keyPreviewLabelTextSize">22sp</item>
+    	<item name="keyPreviewTextSize">36sp</item>
+    	<item name="keyPreviewLabelTextSize">26sp</item>
     	<item name="keyPreviewOffset">@dimen/key_preview_offset</item>
     	
     	<!-- suggestion strip -->
@@ -99,6 +99,7 @@
     	<item name="suggestionBackgroundImage">@drawable/dark_background</item>
     	<item name="suggestionDividerImage">@drawable/dark_suggestions_divider</item>
     	<item name="suggestionStripHeight">@dimen/candidate_strip_height</item>
+    	<item name="suggestionWordXGap">15dp</item>
     	
     	<item name="keyNormalHeight">@dimen/default_key_height</item>
     	<item name="keySmallHeight">@dimen/default_key_half_height</item>

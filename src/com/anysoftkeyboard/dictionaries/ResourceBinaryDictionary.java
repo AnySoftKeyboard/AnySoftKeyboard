@@ -51,7 +51,6 @@ public class ResourceBinaryDictionary extends Dictionary {
     private static final int MAX_WORDS = 18;
     private static final int MAX_BIGRAMS = 60;
 
-    private static final int TYPED_LETTER_MULTIPLIER = 4;
     private static final boolean ENABLE_MISSED_CHARACTERS = true;
 
     //private int mDicTypeId;

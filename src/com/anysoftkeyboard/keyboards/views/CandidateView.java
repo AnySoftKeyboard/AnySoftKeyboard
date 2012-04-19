@@ -76,8 +76,8 @@ public class CandidateView extends View {
     //private int mPopupPreviewX;
     //private int mPopupPreviewY;
 
-    private static final int X_GAP = 10;
-    
+    //private static final int X_GAP = 30;
+    private final float mXGap;
     private final int mColorNormal;
     private final int mColorRecommended;
     private final int mColorOther;
@@ -111,7 +111,7 @@ public class CandidateView extends View {
         mAddToDictionaryHint = context.getString(R.string.hint_add_to_dictionary);
         //themed
         final KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(context);
-        final TypedArray a = theme.getPackageContext().obtainStyledAttributes(attrs, R.styleable.AnyKeyboardBaseView, 0, theme.getThemeResId());
+        TypedArray a = theme.getPackageContext().obtainStyledAttributes(attrs, R.styleable.AnyKeyboardBaseView, 0, theme.getThemeResId());
         int colorNormal = context.getResources().getColor(R.color.candidate_normal);
         int colorRecommended = context.getResources().getColor(R.color.candidate_recommended);
         int colorOther = context.getResources().getColor(R.color.candidate_other);
@@ -134,6 +134,11 @@ public class CandidateView extends View {
         	e.printStackTrace();
         }
         a.recycle();
+        
+        a = theme.getPackageContext().obtainStyledAttributes(attrs, R.styleable.AnyKeyboardBaseViewV3, 0, theme.getThemeResId());
+        mXGap = a.getDimension(R.styleable.AnyKeyboardBaseViewV3_suggestionWordXGap, 20);
+        a.recycle();
+        
         mColorNormal = colorNormal;
         mColorRecommended = colorRecommended;
         mColorOther = colorOther;
@@ -280,7 +285,7 @@ public class CandidateView extends View {
             if ((wordWidth = mWordWidth[i]) == 0) {
                 float textWidth =  paint.measureText(suggestion, 0, wordLength);
                 //wordWidth = Math.max(0, (int) textWidth + X_GAP * 2);
-                wordWidth = (int) textWidth + X_GAP * 2;
+                wordWidth = (int) (textWidth + mXGap * 2);
                 mWordWidth[i] = wordWidth;
             }
 
@@ -309,7 +314,7 @@ public class CandidateView extends View {
             	{
             		final int y = (int) (height - mPaint.getTextSize() + mPaint.descent()) / 2;
                     // no matter what: StaticLayout
-	            	float textX = x + (wordWidth/2) - X_GAP;
+	            	float textX = x + (wordWidth/2) - mXGap;
 	            	float textY = y - bgPadding.bottom - bgPadding.top;
 	            	
 	            	canvas.translate(textX , textY);	
