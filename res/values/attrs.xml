@@ -211,4 +211,11 @@
     <declare-styleable name="Keyboard_Key_v2">
         <attr name="shiftedKeyLabel" format="string"/>
     </declare-styleable>
+    
+    <declare-styleable name="AnyKeyboardBaseViewV3">
+		<!-- Size of the text for the prefered word. -->
+        <attr name="suggestionPreferedWordTextSize" format="dimension" />
+		<!-- vertical padding. -->
+        <attr name="suggestionWordXGap" format="dimension" />
+	</declare-styleable>
 </resources>
