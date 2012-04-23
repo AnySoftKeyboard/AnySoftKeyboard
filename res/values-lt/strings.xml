@@ -13,6 +13,8 @@
   <string name="how_to_pointer_not_app">AnySoftKeyboard nėra įprasta programėlė - tai ekrano klaviatūros pakaitalas.</string>
   <string name="how_to_pointer_go_to_links">Dėl išsamesnės informacijos, eikitę į nuorodų kortelę.</string>
   <string name="how_to_pointer_how_to_url">Kaip naudoti šią klaviatūrą:</string>
+  <string name="how_to_pointer_issues">Pranešimai apie klaidas:</string>
+  <string name="main_tab_credits_title">Ši programa sukurta su šių žmonių pagalba-</string>
   <string name="main_tab_credits_created_by">Sukūrė:</string>
   <string name="main_tab_credits_additional_work_by">Papildomi programavimo darbai:</string>
   <string name="main_tab_credits_localization_by">Lokalizacijos pastangos:</string>
@@ -25,9 +27,11 @@
   <string name="menu_insert_smiley">Įdėti šypsenėlę</string>
   <string name="click_for_help">Pagalba</string>
   <string name="ui_group">Vartotojo sąsaja</string>
+  <string name="physical_keyboard_change_notification_title">Pranešimas apie išdėstymą</string>
   <string name="physical_keyboard_change_notification_dialog_title">Pasirinkite pranešimo tipą</string>
   <string name="lengthy_operations_toast_notification">Pranešti apie ilgus veiksmus</string>
   <string name="voice_input_not_installed_action_install">Įdiegti</string>
+  <string name="override_dictionary_default">Numatytasis</string>
   <string name="effects_group">Efektai</string>
   <string name="ime_settings">Klaviatūros nustatymai</string>
   <string name="vibrate_on_key_press_title">Vibruoti paspaudimo metu</string>
@@ -56,6 +60,9 @@
   <string name="tweak_ui_group">Grafiniai patobulinimai</string>
   <string name="show_hint_text">Rodyti užuominas</string>
   <string name="use_keyrepeat">Naudoti pakartojimą</string>
+  <string name="default_smiley_text">Šypsenėlės tekstas</string>
+  <string name="default_domain_text">Domeno tekstas</string>
+  <string name="smiley_icon_on_smileys_key">Naudoti piktogramą šypsenėlės klavišui</string>
   <string name="grammer_group">Gramatika</string>
   <string name="candidates_on">Rodyti pasiūlymus</string>
   <string name="quick_fix">Greiti pataisymai</string>
