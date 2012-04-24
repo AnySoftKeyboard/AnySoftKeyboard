@@ -2214,13 +2214,10 @@ public class AnySoftKeyboard extends InputMethodService implements
     
 	private void handleCharacter(final int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes) {
 		if(DEBUG) Log.d(TAG, "handleCharacter: "+primaryCode+", isPredictionOn:"+isPredictionOn()+", mPredicting:"+mPredicting);
-		if (isAlphabet(primaryCode) && isPredictionOn()
+		if (isAlphabet(primaryCode) && isPredictionOn() && !mPredicting
 				&& !isCursorTouchingWord()) {
-			if (!mPredicting) {
-				mPredicting = true;
-				//mComposing.setLength(0);
-				mWord.reset();
-			}
+			mPredicting = true;
+			mWord.reset();
 		}
 		
 		mLastCharacterWasShifted = (mInputView != null) && mInputView.isShifted();
@@ -2305,7 +2302,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		} else {
 			sendKeyChar((char) primaryCodeForShow);
 		}
-		updateShiftKeyState(getCurrentInputEditorInfo());
+		//updateShiftKeyState(getCurrentInputEditorInfo());
 		// measureCps();
 		TextEntryState.typedCharacter((char) primaryCodeForShow, false);
 	}
