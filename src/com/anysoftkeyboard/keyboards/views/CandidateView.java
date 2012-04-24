@@ -51,6 +51,7 @@ public class CandidateView extends View {
     private static final int OUT_OF_BOUNDS_X_COORD = -1;
 
     private AnySoftKeyboard mService;
+    private boolean mNoticing = false;
     private final ArrayList<CharSequence> mSuggestions = new ArrayList<CharSequence>();
     private boolean mShowingCompletions;
     private CharSequence mSelectedString;
@@ -422,6 +423,7 @@ public class CandidateView extends View {
         // Don't call mSuggestions.clear() because it's being used for logging
         // in LatinIME.pickSuggestionManually().
         mSuggestions.clear();
+        mNoticing = false;
         mTouchX = OUT_OF_BOUNDS_X_COORD;
         mSelectedString = null;
         mSelectedIndex = -1;
@@ -438,6 +440,8 @@ public class CandidateView extends View {
             return true;
         }
 
+        if (mNoticing) return true;
+        
         int action = me.getAction();
         int x = (int) me.getX();
         int y = (int) me.getY();
@@ -471,13 +475,14 @@ public class CandidateView extends View {
                     if (mShowingAddToDictionary) {
                         //longPressFirstWord();
                     	CharSequence word = mSuggestions.get(0);
-                        if (word.length() >= 2 && mService.addWordToDictionary(word.toString())) {
+                        if (word.length() >= 2 && !mNoticing && mService.addWordToDictionary(word.toString())) {
                             //showPreview(0, getContext().getResources().getString(R.string.added_word, word));
                         	ArrayList<CharSequence> notice = new ArrayList<CharSequence>(1);
                         	notice.add(getContext().getResources().getString(R.string.added_word, word));
                         	setSuggestions(notice, false, true, false);
+                        	mNoticing = true;
                         }
-                    } else {
+                    } else if (!mNoticing) {
                         if (!mShowingCompletions) {
                             TextEntryState.acceptedSuggestion(mSuggestions.get(0),
                                     mSelectedString);
