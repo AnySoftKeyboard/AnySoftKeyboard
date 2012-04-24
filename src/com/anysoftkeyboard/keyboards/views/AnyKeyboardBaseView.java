@@ -179,7 +179,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
     // Popup mini keyboard
     private PopupWindow mMiniKeyboardPopup;
-    protected AnyKeyboardBaseView mMiniKeyboard;
+    protected AnyKeyboardBaseView mMiniKeyboard = null;;
+    private boolean mMiniKeyboardVisible = false;
     private View mMiniKeyboardParent;
     //private final WeakHashMap<Key, AnyKeyboardBaseView> mMiniKeyboardCache = new WeakHashMap<Key, AnyKeyboardBaseView>();
     private int mMiniKeyboardOriginX;
@@ -1355,7 +1356,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         }
         mInvalidatedKey = null;
         // Overlay a dark rectangle to dim the keyboard
-        if (mMiniKeyboard != null) {
+        if (mMiniKeyboard != null && mMiniKeyboardVisible) {
             paint.setColor((int) (mBackgroundDimAmount * 0xFF) << 24);
             canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
         }
@@ -1751,7 +1752,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         	createMiniKeyboard();
         }
     	setupMiniKeyboardContainer(packageContext, popupKey.popupCharacters, popupKey.popupResId, isSticky);
-        if (mWindowOffset == null) {
+    	mMiniKeyboardVisible = true;
+    	if (mWindowOffset == null) {
             mWindowOffset = new int[2];
             getLocationInWindow(mWindowOffset);
         }
@@ -1783,7 +1785,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         mMiniKeyboardOriginY = y + mMiniKeyboard.getPaddingTop() - mWindowOffset[1];
         mMiniKeyboard.setPopupOffset(adjustedX, y);
         final boolean isShifted = isShifted();
-        Log.d("*********", "isShifted: "+isShifted);
         mMiniKeyboard.setShifted(isShifted);
         // Mini keyboard needs no pop-up key preview displayed.
         mMiniKeyboard.setPreviewEnabled(false);
@@ -1815,7 +1816,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
 		mMiniKeyboard.setOnKeyboardActionListener(new OnKeyboardActionListener() {
 			
-			private AnyPopupKeyboard getMyKeyboard() {return (AnyPopupKeyboard)mMiniKeyboard.getKeyboard();}
+			private final AnyKeyboardBaseView mParent = mMiniKeyboard;
+			
+			private AnyPopupKeyboard getMyKeyboard() {return (AnyPopupKeyboard)mParent.getKeyboard();}
 			
 			public void onKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
 		        mKeyboardActionListener.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
@@ -1954,7 +1957,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     }
 
     public boolean isInSlidingKeyInput() {
-        if (mMiniKeyboard != null) {
+        if (mMiniKeyboard != null && mMiniKeyboardVisible) {
             return mMiniKeyboard.isInSlidingKeyInput();
         } else {
             return mPointerQueue.isInSlidingKeyInput();
@@ -1989,7 +1992,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 	        mSwipeTracker.addMovement(me.getNativeMotionEvent());
 	
 	        // Gesture detector must be enabled only when mini-keyboard is not on the screen.
-	        if (mMiniKeyboard == null && mGestureDetector != null && (mGestureDetector.onTouchEvent(me.getNativeMotionEvent()) /*|| mInScrollGesture*/)) {
+	        if (!mMiniKeyboardVisible && mGestureDetector != null && (mGestureDetector.onTouchEvent(me.getNativeMotionEvent()) /*|| mInScrollGesture*/)) {
 	        	if (AnyApplication.DEBUG) Log.d(TAG, "Gesture detected!");
 	        	//mHandler.cancelAllMessages();
 	        	mHandler.cancelKeyTimers();
@@ -2005,7 +2008,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 	
 	        // Needs to be called after the gesture detector gets a turn, as it may have
 	        // displayed the mini keyboard
-	        if (mMiniKeyboard != null) {
+	        if (mMiniKeyboard != null && mMiniKeyboardVisible) {
 	            final int miniKeyboardPointerIndex = me.findPointerIndex(mMiniKeyboardTrackerId);
 	            if (miniKeyboardPointerIndex >= 0 && miniKeyboardPointerIndex < pointerCount) {
 	                final int miniKeyboardX = (int)me.getX(miniKeyboardPointerIndex);
@@ -2207,13 +2210,13 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
     protected boolean isPopupShowing()
     {
-    	return mMiniKeyboardPopup != null && mMiniKeyboardPopup.isShowing();
+    	return mMiniKeyboardPopup != null && mMiniKeyboardVisible;
     }
     
     protected boolean dismissPopupKeyboard() {
         if (isPopupShowing()) {
             mMiniKeyboardPopup.dismiss();
-            mMiniKeyboard = null;
+            mMiniKeyboardVisible = false;
             mMiniKeyboardOriginX = 0;
             mMiniKeyboardOriginY = 0;
             invalidateAllKeys();

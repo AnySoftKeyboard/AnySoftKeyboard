@@ -15,8 +15,8 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:tag="20120424-35bday"
+    	android:tag="20120424-almost-35-bday"
         android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
 	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-	    android:text="* Various bug fixes.\n* ES translations fix.\n*Performance improvements." style="@android:style/TextAppearance.Small"/>
+	    android:text="* Various bug fixes.\n* ES translations fix.\n* Performance improvements." style="@android:style/TextAppearance.Small"/>
 </LinearLayout>
