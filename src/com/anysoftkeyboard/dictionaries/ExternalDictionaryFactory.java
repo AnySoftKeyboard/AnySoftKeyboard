@@ -93,7 +93,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
 		else
 		{
 			final DictionaryAddOnAndBuilder creator;
-			if (dictionaryResourceId == -1)
+			if (dictionaryResourceId == AddOn.INVALID_RES_ID)
 				creator = new DictionaryAddOnAndBuilder(context, prefId, nameId, description, sortIndex, language, assets, initialSuggestionsId);
 			else
 				creator = new DictionaryAddOnAndBuilder(context, prefId, nameId, description, sortIndex, language, dictionaryResourceId, autoTextResId, initialSuggestionsId);
