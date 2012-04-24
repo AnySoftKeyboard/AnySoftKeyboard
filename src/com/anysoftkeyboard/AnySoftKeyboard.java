@@ -600,7 +600,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mSuggest.setCorrectionMode(mQuickFixes, mShowSuggestions);
 		}
 
-		https://play.google.com/store/apps/details?id=com.smaartfriendfindermPredictionOn = mPredictionOn && (mShowSuggestions/* || mQuickFixes*/);
+		mPredictionOn = mPredictionOn && (mShowSuggestions/* || mQuickFixes*/);
 
 		if (mCandidateView != null)
 			mCandidateView.setSuggestions(null, false, false, false);
@@ -1950,18 +1950,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 	        return;
 	    }
 		if (mPredicting) {
-//			final int length = mComposing.length();
-//			if (length == 0) {
-//				return;
-//			}
-//			mComposing.delete(0, length);
-//			mWord.deleteLast();
-//			ic.setComposingText(mComposing, 1);
-//			if (mComposing.length() == 0) {
-//				mPredicting = false;
-//			}
-//			postUpdateSuggestions();
-//			return;
 			mWord.reset();
 			mPredicting = false;
 			ic.setComposingText("", 1);
@@ -1969,8 +1957,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 			postUpdateShiftKeyState();
 			return;
 		}
-		CharSequence cs = ic.getTextBeforeCursor(1, 0);
-		//int csl = cs.length();//check if there is no input
+		//I will not delete more than 128 characters. Just a safe-guard.
+		//this will also allow me do just one call to getTextBeforeCursor! Which is alway good. This is a part of issue 951.
+		CharSequence cs = ic.getTextBeforeCursor(128, 0);
 		if (TextUtils.isEmpty(cs)) {
 			return;//nothing to delete
 		}
@@ -2003,9 +1992,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 		
 		//2b) "test this, " -> "test this"
 		
-		boolean stopCharAtTheEnd = isBackwordStopChar((int)cs.charAt(0)); 
-		int idx = 1;
-		int csl = 0;
+		final int inputLength = cs.length();
+		int idx = inputLength-1;//it's OK since we checked whether cs is empty after retrieving it.
+		while(idx > 0 && !isBackwordStopChar((int)cs.charAt(idx))) {
+			idx--;
+		}
+		/*
 		while (true) {
 			cs = ic.getTextBeforeCursor(idx, 0);
 			//issue 951
@@ -2031,10 +2023,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 				--csl;
 				break;
 			}
-		}
+		}*/
 		//we want to delete at least one character
 		//ic.deleteSurroundingText(csl == 0 ? 1 : csl, 0);
-		ic.deleteSurroundingText(csl, 0);//it is always > 0 !
+		ic.deleteSurroundingText(inputLength-idx, 0);//it is always > 0 !
 		postUpdateShiftKeyState();
 	}
 	
