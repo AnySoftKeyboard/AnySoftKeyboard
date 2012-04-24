@@ -2008,6 +2008,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 		int csl = 0;
 		while (true) {
 			cs = ic.getTextBeforeCursor(idx, 0);
+			//issue 951
+			if (TextUtils.isEmpty(cs)) {//it seems that it is possible that getTextBeforeCursor will return NULL
+				return;//nothing to delete//issue 951
+			}
 			csl = cs.length();
 			if (csl < idx) {
 				// read text is smaller than requested. We are at start
