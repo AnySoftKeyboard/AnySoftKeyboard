@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.WeakHashMap;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -182,7 +181,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private PopupWindow mMiniKeyboardPopup;
     protected AnyKeyboardBaseView mMiniKeyboard;
     private View mMiniKeyboardParent;
-    private final WeakHashMap<Key, AnyKeyboardBaseView> mMiniKeyboardCache = new WeakHashMap<Key, AnyKeyboardBaseView>();
+    //private final WeakHashMap<Key, AnyKeyboardBaseView> mMiniKeyboardCache = new WeakHashMap<Key, AnyKeyboardBaseView>();
     private int mMiniKeyboardOriginX;
     private int mMiniKeyboardOriginY;
     private long mMiniKeyboardPopupTime;
@@ -948,7 +947,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         mKeyboardChanged = true;
         invalidateAllKeys();
         computeProximityThreshold(keyboard);
-        mMiniKeyboardCache.clear();
+        //mMiniKeyboardCache.clear();
         super.invalidate();
     }
 
@@ -1702,85 +1701,22 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         return result;
     }
 
-    private AnyKeyboardBaseView inflateMiniKeyboardContainer(Context packageContext, CharSequence popupCharacters, int popupKeyboardId, boolean isSticky) {
-        //int popupKeyboardId = popupKey.popupResId;
-        LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(
-                Context.LAYOUT_INFLATER_SERVICE);
-        AnyKeyboardBaseView miniKeyboard = (AnyKeyboardBaseView)inflater.inflate(R.layout.popup_keyboard_layout, null);
-        if (miniKeyboard == null)
-            throw new NullPointerException();
-
+    private void setupMiniKeyboardContainer(Context packageContext, CharSequence popupCharacters, int popupKeyboardId, boolean isSticky) {
         final AnyPopupKeyboard keyboard;
         if (popupCharacters != null) {
-            keyboard = new AnyPopupKeyboard(mAskContext, popupCharacters, miniKeyboard.getThemedKeyboardDimens());
+            keyboard = new AnyPopupKeyboard(mAskContext, popupCharacters, mMiniKeyboard.getThemedKeyboardDimens());
         } else {
-            keyboard = new AnyPopupKeyboard(mAskContext, packageContext, popupKeyboardId, miniKeyboard.getThemedKeyboardDimens());
+            keyboard = new AnyPopupKeyboard(mAskContext, packageContext, popupKeyboardId, mMiniKeyboard.getThemedKeyboardDimens());
         }
         keyboard.setIsOneKeyEventPopup(!isSticky);
-        
-        miniKeyboard.setOnKeyboardActionListener(new OnKeyboardActionListener() {
-        	
-        	public void onKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
-                mKeyboardActionListener.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
-                if (keyboard.isOneKeyEventPopup()) dismissPopupKeyboard();
-            }
-        	
-        	public void onMultiTap() {
-        		mKeyboardActionListener.onMultiTap();
-        	}
-
-            public void onText(CharSequence text) {
-            	mKeyboardActionListener.onText(text);
-            	if (keyboard.isOneKeyEventPopup()) dismissPopupKeyboard();
-            }
-
-            public void onCancel() {
-                mKeyboardActionListener.onCancel();
-                dismissPopupKeyboard();
-            }
-
-            public void onSwipeLeft(boolean onSpacebar) {
-            }
-            public void onSwipeRight(boolean onSpacebar) {
-            }
-            public void onSwipeUp(boolean onSpacebar) {
-            }
-            public void onSwipeDown(boolean onSpacebar) {
-            }
-            public void onPinch() {
-            }
-            public void onSeparate() {
-            }
-            public void onPress(int primaryCode) {
-                mKeyboardActionListener.onPress(primaryCode);
-            }
-            public void onRelease(int primaryCode) {
-                mKeyboardActionListener.onRelease(primaryCode);
-            }
-            
-            public void endInputConnectionEdit() {
-            	mKeyboardActionListener.endInputConnectionEdit();
-            }
-            
-            public void startInputConnectionEdit() {
-            	mKeyboardActionListener.startInputConnectionEdit();
-            }
-        });
-        // Override default ProximityKeyDetector.
-        miniKeyboard.mKeyDetector = new MiniKeyboardKeyDetector(mMiniKeyboardSlideAllowance);
-        // Remove gesture detector on mini-keyboard
-        miniKeyboard.mGestureDetector = null;
 
         if (isSticky)
-        	miniKeyboard.setKeyboard(keyboard, mVerticalCorrection);
+        	mMiniKeyboard.setKeyboard(keyboard, mVerticalCorrection);
         else
-        	miniKeyboard.setKeyboard(keyboard);
-        miniKeyboard.setPopupParent(this);
+        	mMiniKeyboard.setKeyboard(keyboard);
 
-        miniKeyboard.measure(MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.AT_MOST),
+        mMiniKeyboard.measure(MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.AT_MOST),
                 MeasureSpec.makeMeasureSpec(getHeight(), MeasureSpec.AT_MOST));
-
-        return miniKeyboard;
     }
     
 	public KeyboardDimens getThemedKeyboardDimens() {
@@ -1810,13 +1746,11 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     protected boolean onLongPress(Context packageContext, Key popupKey, boolean isSticky, boolean requireSlideInto) {
         if (popupKey.popupResId == 0)
             return false;
-
-        AnyKeyboardBaseView miniKeyboardView = mMiniKeyboardCache.get(popupKey);
-        if (miniKeyboardView == null) {
-        	miniKeyboardView = inflateMiniKeyboardContainer(packageContext, popupKey.popupCharacters, popupKey.popupResId, isSticky);
-            mMiniKeyboardCache.put(popupKey, miniKeyboardView);
+        
+        if (mMiniKeyboard == null) {
+        	createMiniKeyboard();
         }
-        mMiniKeyboard = miniKeyboardView;
+    	setupMiniKeyboardContainer(packageContext, popupKey.popupCharacters, popupKey.popupResId, isSticky);
         if (mWindowOffset == null) {
             mWindowOffset = new int[2];
             getLocationInWindow(mWindowOffset);
@@ -1872,6 +1806,68 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         invalidateAllKeys();
         return true;
     }
+
+	public void createMiniKeyboard() {
+		LayoutInflater inflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		mMiniKeyboard = (AnyKeyboardBaseView)inflater.inflate(R.layout.popup_keyboard_layout, null);
+        
+        mMiniKeyboard.setPopupParent(this);
+
+		mMiniKeyboard.setOnKeyboardActionListener(new OnKeyboardActionListener() {
+			
+			private AnyPopupKeyboard getMyKeyboard() {return (AnyPopupKeyboard)mMiniKeyboard.getKeyboard();}
+			
+			public void onKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
+		        mKeyboardActionListener.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
+		        if (getMyKeyboard().isOneKeyEventPopup()) dismissPopupKeyboard();
+		    }
+			
+			public void onMultiTap() {
+				mKeyboardActionListener.onMultiTap();
+			}
+
+		    public void onText(CharSequence text) {
+		    	mKeyboardActionListener.onText(text);
+		    	if (getMyKeyboard().isOneKeyEventPopup()) dismissPopupKeyboard();
+		    }
+
+		    public void onCancel() {
+		        mKeyboardActionListener.onCancel();
+		        dismissPopupKeyboard();
+		    }
+
+		    public void onSwipeLeft(boolean onSpacebar) {
+		    }
+		    public void onSwipeRight(boolean onSpacebar) {
+		    }
+		    public void onSwipeUp(boolean onSpacebar) {
+		    }
+		    public void onSwipeDown(boolean onSpacebar) {
+		    }
+		    public void onPinch() {
+		    }
+		    public void onSeparate() {
+		    }
+		    public void onPress(int primaryCode) {
+		        mKeyboardActionListener.onPress(primaryCode);
+		    }
+		    public void onRelease(int primaryCode) {
+		        mKeyboardActionListener.onRelease(primaryCode);
+		    }
+		    
+		    public void endInputConnectionEdit() {
+		    	mKeyboardActionListener.endInputConnectionEdit();
+		    }
+		    
+		    public void startInputConnectionEdit() {
+		    	mKeyboardActionListener.startInputConnectionEdit();
+		    }
+		});
+        // Override default ProximityKeyDetector.
+        mMiniKeyboard.mKeyDetector = new MiniKeyboardKeyDetector(mMiniKeyboardSlideAllowance);
+        // Remove gesture detector on mini-keyboard
+        mMiniKeyboard.mGestureDetector = null;
+	}
 
     private static boolean isOneRowKeys(List<Key> keys) {
         if (keys.size() == 0) return false;
@@ -2175,7 +2171,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         {
 	        //mBuffer = null;
 	        //mCanvas = null;
-	        mMiniKeyboardCache.clear();
+	        //mMiniKeyboardCache.clear();
 	        return true;
         }
         else
