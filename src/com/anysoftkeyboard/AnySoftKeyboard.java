@@ -2237,19 +2237,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 					int[] shiftCodes = anyKey.shiftedCodes;
 					primaryCodeForShow = shiftCodes != null && shiftCodes.length > multiTapIndex?
 							shiftCodes[multiTapIndex] : Character.toUpperCase(primaryCode);
-							
-					Log.d("****SHIFT***", "handleCharacter (shiftedCodes) "+primaryCode+" resulted in: "+primaryCodeForShow);
 				}
 				else
 				{
 					primaryCodeForShow = Character.toUpperCase(primaryCode);
-					Log.d("****SHIFT***", "handleCharacter "+primaryCode+" resulted in: "+primaryCodeForShow);
 				}
 			}
 			else
 			{
 				primaryCodeForShow = primaryCode;
-				Log.d("****SHIFT***", "handleCharacter (not shifted) "+primaryCode+" resulted in: "+primaryCodeForShow);
 			}
 		}	
 		else

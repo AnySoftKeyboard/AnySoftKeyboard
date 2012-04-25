@@ -534,15 +534,13 @@ public class PointerTracker {
             // Multi-tap
             if (!isUppercase || !(key instanceof AnyKey) || ((AnyKey)key).shiftedCodes == null)
             {
-            	final int[] codes = key.codes;
-            	char label = (char)codes[mTapCount < 0 ? 0 : mTapCount];
+            	char label = getMultiTapCode(key.codes);
             	label = isUppercase? Character.toUpperCase(label) : label;
             	return Character.toString(label);
             }
             else
             {
-            	final int[] codes = ((AnyKey)key).shiftedCodes;
-            	char label = (char)codes[mTapCount < 0 ? 0 : mTapCount];
+            	char label = getMultiTapCode(((AnyKey)key).shiftedCodes);
             	return Character.toString(label);
             }
         } else {
@@ -553,6 +551,13 @@ public class PointerTracker {
         		return ((AnyKey)key).shiftedKeyLabel;
         }
     }
+
+	public char getMultiTapCode(final int[] codes) {
+		if (codes == null || codes.length == 0) return 32;//space is good for nothing
+		int safeMultiTapIndex = mTapCount < 0 ? 0 : mTapCount % codes.length;
+		char label =  (char)codes[safeMultiTapIndex];
+		return label;
+	}
 
     private void resetMultiTap() {
         mLastSentIndex = NOT_A_KEY;
