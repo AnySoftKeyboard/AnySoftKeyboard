@@ -22,11 +22,13 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.os.AsyncTask;
@@ -176,7 +178,7 @@ public class AutoDictionary extends UserDictionaryBase {
             // Nothing pending? Return
             if (mPendingWrites.isEmpty()) return;
             // Create a background thread to write the pending entries
-            new UpdateDbTask(mContext, msOpenHelper, mPendingWrites, mLocale).execute();
+            new UpdateDbTask(mContext, msOpenHelper, getDictionaryName(), mPendingWrites, mLocale).execute();
             // Create a new map for writing new entries into while the old one is written to db
             mPendingWrites = new HashMap<String, Integer>();
         }
@@ -227,12 +229,16 @@ public class AutoDictionary extends UserDictionaryBase {
      * the in-memory trie.
      */
     private static class UpdateDbTask extends AsyncTask<Void, Void, Void> {
+    	private final Context mAppContext;
         private final HashMap<String, Integer> mMap;
         private final DatabaseHelper mDbHelper;
         private final String mLocale;
+        private final String mDatabaseFilename;
 
-        public UpdateDbTask(Context context, DatabaseHelper openHelper,
+        public UpdateDbTask(Context context, DatabaseHelper openHelper, String databaseFilename,
                 HashMap<String, Integer> pendingWrites, String locale) {
+        	mAppContext = context.getApplicationContext();
+        	mDatabaseFilename = databaseFilename;
             mMap = pendingWrites;
             mLocale = locale;
             mDbHelper = openHelper;
@@ -240,20 +246,44 @@ public class AutoDictionary extends UserDictionaryBase {
 
         @Override
         protected Void doInBackground(Void... v) {
-            SQLiteDatabase db = mDbHelper.getWritableDatabase();
-            // Write all the entries to the db
-            Set<Entry<String,Integer>> mEntries = mMap.entrySet();
-            for (Entry<String,Integer> entry : mEntries) {
-                Integer freq = entry.getValue();
-                db.delete(AUTODICT_TABLE_NAME, COLUMN_WORD + "=? AND " + COLUMN_LOCALE + "=?",
-                        new String[] { entry.getKey(), mLocale });
-                if (freq != null) {
-                    db.insert(AUTODICT_TABLE_NAME, null,
-                            getContentValues(entry.getKey(), freq, mLocale));
-                }
-            }
+        	try//issue 952
+        	{
+	            flushToDB();
+        	}
+        	catch(SQLiteException e) {
+        		Log.w(TAG, "Could not access the auto-dictionary database!! Error: "+e.getMessage());
+        		e.printStackTrace();
+        		try//issue 952
+            	{
+        			mAppContext.deleteDatabase(mDatabaseFilename);
+            		flushToDB();
+            	}
+            	catch(SQLiteException e2) {
+            		Log.w(TAG, "Could not delete the auto-dictionary database (failing DB)!! Error: "+e2.getMessage());
+            		e.printStackTrace();
+            		
+            		if (AnyApplication.DEBUG) throw e2;
+            		
+            		return null;
+            	}
+        	}
             return null;
         }
+
+		public void flushToDB() {
+			SQLiteDatabase db = mDbHelper.getWritableDatabase();
+			// Write all the entries to the db
+			Set<Entry<String,Integer>> mEntries = mMap.entrySet();
+			for (Entry<String,Integer> entry : mEntries) {
+			    Integer freq = entry.getValue();
+			    db.delete(AUTODICT_TABLE_NAME, COLUMN_WORD + "=? AND " + COLUMN_LOCALE + "=?",
+			            new String[] { entry.getKey(), mLocale });
+			    if (freq != null) {
+			        db.insert(AUTODICT_TABLE_NAME, null,
+			                getContentValues(entry.getKey(), freq, mLocale));
+			    }
+			}
+		}
 
         private ContentValues getContentValues(String word, int frequency, String locale) {
             ContentValues values = new ContentValues(4);
