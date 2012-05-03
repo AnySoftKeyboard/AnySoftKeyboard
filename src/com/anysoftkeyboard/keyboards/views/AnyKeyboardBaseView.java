@@ -1386,6 +1386,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     
     int mKeyboardActionType = EditorInfo.IME_ACTION_UNSPECIFIED;
     public void setKeyboardActionType(final int imeOptions) {
+    	if (AnyApplication.DEBUG)
+    		Log.d(TAG, "setKeyboardActionType imeOptions:"+imeOptions+" action:"+(imeOptions&EditorInfo.IME_MASK_ACTION));
     	if ((imeOptions&EditorInfo.IME_FLAG_NO_ENTER_ACTION) != 0)//this is usually a multi-line edittext box
     		mKeyboardActionType = EditorInfo.IME_ACTION_UNSPECIFIED;
     	else
@@ -1452,6 +1454,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     			mActionKeyIcon.setState(DRAWABLE_STATE_ACTION_SEARCH);
     			actionKeyDrawable = mActionKeyIcon;
     			break;
+    		case EditorInfo.IME_ACTION_NONE:
     		case EditorInfo.IME_ACTION_UNSPECIFIED:
     			mActionKeyIcon.setState(DRAWABLE_STATE_ACTION_NORMAL);
     			actionKeyDrawable = mActionKeyIcon;

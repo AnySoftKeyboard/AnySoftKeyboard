@@ -18,6 +18,7 @@ package com.anysoftkeyboard.dictionaries;
 
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
+import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.ContentObserver;
@@ -26,6 +27,7 @@ import android.os.AsyncTask;
 import android.provider.ContactsContract.Contacts;
 import android.util.Log;
 
+@TargetApi(5)
 public class ContactsDictionary extends UserDictionaryBase {
     
     protected static final String TAG = "ASK CDict";

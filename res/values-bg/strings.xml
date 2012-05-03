@@ -18,8 +18,6 @@
   <string name="main_tab_credits_additional_work_by">Допълнително кодиране от:</string>
   <string name="main_tab_credits_localization_by">Локализация от:</string>
   <string name="main_tab_credits_GUI_by">UI снимки от:</string>
-  <string name="how_to_simple_howto"> Android requires that you (the user) will manually enabled and activate external keyboards. Here is how:\n1) go to Android\'s Settings and select \'Locale &amp; text\' or \'Language &amp; keyboard\'.\n2) Turn on AnySoftKeyboard.\n*It will warn you about possible key-logging, don\'t worry, we do not keep data, and we do not send it anywere.\n\n To actually use AnySoftKeyboard, you\'ll need to activate it:\n1) Go to any text-box (e.g., Messagings TO field), and long-press it.\n2) A dialog will pop-up, select \'Input Method\' (usally the last option).\n3) Another dialog will popup - select AnySoftKeyboard.\nThat\'s it! Enjoy.</string>
-  <string name="notification_text">Добре дошли! Моля прочетете ме.</string>
   <string name="testers_version">Версия за тестери!</string>
   <string name="license_title">License</string>
   <string name="license_text">This software is licensed under Apache2 (c) 2011 Menny Even-Danan</string>
@@ -34,9 +32,6 @@
   <string name="click_for_help">Помощ</string>
   <string name="click_for_help_summary">Натиснете за помощ по интернет</string>
   <string name="ui_group">Потребителски интерфейс</string>
-  <string name="keyboard_layout_change_keys_size_title">Горния ред клавиши</string>
-  <string name="keyboard_layout_change_keys_size_summary">Бутони за смяна на клавиатурната подредба</string>
-  <string name="keyboard_layout_change_keys_size_dialog_title">Изберете размер</string>
   <string name="physical_keyboard_change_notification_title">Уведомяване за клавиатурна подредба</string>
   <string name="physical_keyboard_change_notification_summary">Вид на съобщението за активна подредба</string>
   <string name="physical_keyboard_change_notification_dialog_title">Изберете типа на уведомяване</string>
@@ -197,13 +192,6 @@
   <string name="select_keyboard_popup_title">Изберете клавиатура</string>
   <string name="eng_dictionary">Английски</string>
   <string name="simley_key_name">Smiley key</string>
-  <string name="smiley_key_label">:-)</string>
-  <string name="smiley_key_default_output">:-) </string>
-  <string-array name="keyboard_layout_keys_size">
-    <item>Без бутони</item>
-    <item>Малки бутони</item>
-    <item>Големи бутони</item>
-  </string-array>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Винаги показвай икона</item>
     <item>Смяна на физическата клавиатура</item>
