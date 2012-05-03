@@ -70,7 +70,7 @@ public class UserDictionaryEditorActivity extends ListActivity {
 		}
 		
 		protected void onPostExecute(Void result) {
-			progresDialog.dismiss();
+			if (progresDialog.isShowing()) progresDialog.dismiss();
 			applyResults(result);
 		}
 
