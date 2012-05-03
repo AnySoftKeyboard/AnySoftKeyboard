@@ -1784,8 +1784,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         mMiniKeyboardOriginX = adjustedX + mMiniKeyboard.getPaddingLeft() - mWindowOffset[0];
         mMiniKeyboardOriginY = y + mMiniKeyboard.getPaddingTop() - mWindowOffset[1];
         mMiniKeyboard.setPopupOffset(adjustedX, y);
-        final boolean isShifted = isShifted();
-        mMiniKeyboard.setShifted(isShifted);
+        mMiniKeyboard.setShifted(mKeyboard != null? mKeyboard.isShifted() : false);//NOTE: I'm checking the main keyboard shift state directly! Not anything else.
         // Mini keyboard needs no pop-up key preview displayed.
         mMiniKeyboard.setPreviewEnabled(false);
         mMiniKeyboardPopup.setContentView(mMiniKeyboard);
