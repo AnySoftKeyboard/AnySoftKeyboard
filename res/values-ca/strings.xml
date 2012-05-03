@@ -354,8 +354,6 @@
   <string name="select_keyboard_popup_title">Seleccioneu un teclat</string>
   <string name="eng_dictionary">Anglès</string>
   <string name="simley_key_name">Mostra les emoticones</string>
-  <string name="smiley_key_label">:-)</string>
-  <string name="smiley_key_default_output">:-)</string>
   <string name="default_quick_text_key_name">Emoticones bàsiques</string>
   <string name="multitap_timeout_title">Multi toc</string>
   <string name="multitap_timeout_summary">Temps d\'espera entre pulsacions</string>

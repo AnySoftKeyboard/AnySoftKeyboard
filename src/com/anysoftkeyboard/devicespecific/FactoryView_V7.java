@@ -1,9 +1,11 @@
 package com.anysoftkeyboard.devicespecific;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.util.AttributeSet;
 
+@TargetApi(7)
 class FactoryView_V7 extends FactoryView_V5 {
 
 	public FactoryView_V7(Context context) {

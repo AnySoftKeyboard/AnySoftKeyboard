@@ -1,7 +1,9 @@
 package com.anysoftkeyboard.devicespecific;
 
+import android.annotation.TargetApi;
 import android.view.MotionEvent;
 
+@TargetApi(8)
 class WMotionEventV8 extends WMotionEventV5 {
 
 	WMotionEventV8(MotionEvent nativeMotionEvent) {
