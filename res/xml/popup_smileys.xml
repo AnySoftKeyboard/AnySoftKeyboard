@@ -4,24 +4,24 @@
     android:keyWidth="15%p"
     android:keyHeight="@integer/key_normal_height">
 	<Row android:rowEdgeFlags="top">
-        <Key android:keyLabel=":-)" android:keyOutputText=":-) " android:keyEdgeFlags="left" />
-        <Key android:keyLabel=":-D" android:keyOutputText=":-D "/>
-        <Key android:keyLabel=";-)" android:keyOutputText=";-) "/>
-        <Key android:keyLabel=":-P" android:keyOutputText=":-P "/>
-        <Key android:keyLabel="B-)" android:keyOutputText="B-) " android:keyEdgeFlags="right" />
+        <Key android:keyLabel=":-)" android:keyOutputText=":-)\u0020" android:keyEdgeFlags="left" />
+        <Key android:keyLabel=":-D" android:keyOutputText=":-D\u0020"/>
+        <Key android:keyLabel=";-)" android:keyOutputText=";-)\u0020"/>
+        <Key android:keyLabel=":-P" android:keyOutputText=":-P\u0020"/>
+        <Key android:keyLabel="B-)" android:keyOutputText="B-)\u0020" android:keyEdgeFlags="right" />
     </Row>
     <Row>
-        <Key android:keyLabel=":-X" android:keyOutputText=":-X " android:keyEdgeFlags="left" />
-        <Key android:keyLabel=":-I" android:keyOutputText=":-I "/>
-        <Key android:keyLabel="8-." android:keyOutputText="8-. "/>
-        <Key android:keyLabel="8-o" android:keyOutputText="8-o "/>
-        <Key android:keyLabel="O_Q" android:keyOutputText="O_Q " android:keyEdgeFlags="right" />
+        <Key android:keyLabel=":-X" android:keyOutputText=":-X\u0020" android:keyEdgeFlags="left" />
+        <Key android:keyLabel=":-I" android:keyOutputText=":-I\u0020"/>
+        <Key android:keyLabel="8-." android:keyOutputText="8-.\u0020"/>
+        <Key android:keyLabel="8-o" android:keyOutputText="8-o\u0020"/>
+        <Key android:keyLabel="O_Q" android:keyOutputText="O_Q\u0020" android:keyEdgeFlags="right" />
     </Row>
     <Row android:rowEdgeFlags="bottom">
-        <Key android:keyLabel=":-(" android:keyOutputText=":-( " android:keyEdgeFlags="left" />
-        <Key android:keyLabel="8-[" android:keyOutputText="8-[ "/>
-        <Key android:keyLabel="xx-P" android:keyOutputText="xx-P "/>
-        <Key android:keyLabel="|-." android:keyOutputText="|-. "/>
-        <Key android:keyLabel="}-]" android:keyOutputText="}-] " android:keyEdgeFlags="right" />
+        <Key android:keyLabel=":-(" android:keyOutputText=":-(\u0020" android:keyEdgeFlags="left" />
+        <Key android:keyLabel="8-[" android:keyOutputText="8-[\u0020"/>
+        <Key android:keyLabel="xx-P" android:keyOutputText="xx-P\u0020"/>
+        <Key android:keyLabel="|-." android:keyOutputText="|-.\u0020"/>
+        <Key android:keyLabel="}-]" android:keyOutputText="}-]\u0020" android:keyEdgeFlags="right" />
     </Row>
 </Keyboard>
