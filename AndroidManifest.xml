@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.menny.android.anysoftkeyboard"
-        android:versionCode="70" android:versionName="20120425-almost-35-bday-IL64">
+        android:versionCode="71" android:versionName="20120503">
     
 	<supports-screens
 	    android:xlargeScreens="true"
