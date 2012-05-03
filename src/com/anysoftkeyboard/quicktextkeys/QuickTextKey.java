@@ -5,6 +5,7 @@ import com.anysoftkeyboard.addons.AddOnImpl;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.util.Log;
 
 /**
  *
@@ -48,6 +49,7 @@ public class QuickTextKey extends AddOnImpl {
 		this.mKeyLabel = keyLabelResId > 0 ? resources.getString(keyLabelResId) : null;
 		this.mKeyOutputText = keyOutputTextResId > 0 ? resources.getString(keyOutputTextResId) :
 			null;
+		Log.d("****************", "mKeyOutputText: '"+mKeyOutputText+"'");
 		this.mIconPreviewResId = iconPreviewResId;
 	}
 
