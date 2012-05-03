@@ -235,15 +235,16 @@ public class UserDictionaryEditorActivity extends ListActivity {
             deleteWord(mDialogEditingWord);
         }
         
-        // Disallow duplicates
-        deleteWord(word);
-        
-        mCurrentDictionary.addWord(word, 128);
-        
+        if (!TextUtils.isEmpty(word)){
+	        // Disallow duplicates
+	        deleteWord(word);
+	        
+	        mCurrentDictionary.addWord(word, 128);
+        }
         //mCursor.requery();
         fillWordsList();
         
-        mAddedWordAlready = true;
+        mAddedWordAlready = !TextUtils.isEmpty(word);
     }
 
     private void deleteWord(String word) {
