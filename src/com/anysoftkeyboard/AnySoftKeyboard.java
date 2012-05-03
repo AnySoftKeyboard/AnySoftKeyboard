@@ -1930,10 +1930,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (ic == null)
 			return;
 		ic.beginBatchEdit();
-        abortCorrection(false, false);
 		if (mPredicting) {
 			commitTyped(ic);
 		}
+        abortCorrection(true, false);
 		ic.commitText(text, 1);
 		ic.endBatchEdit();
 		updateShiftKeyState(getCurrentInputEditorInfo());

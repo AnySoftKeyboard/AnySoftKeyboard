@@ -5,8 +5,8 @@
         nameResId="@string/default_quick_text_key_name"
         popupKeyboard="@xml/popup_default_quick_text"
         keyIcon="@drawable/sym_keyboard_smiley"
-        keyLabel="@string/smiley_key_label"
-        keyOutputText="@string/smiley_key_default_output"
+        keyLabel="@string/quick_text_smiley_key_label"
+        keyOutputText="@string/quick_text_smiley_key_output"
         description=""
         index="1"/>
 	<QuickTextKey
@@ -14,8 +14,8 @@
         nameResId="@string/simley_key_name"
         popupKeyboard="@xml/popup_smileys"
         keyIcon="@drawable/sym_keyboard_smiley"
-        keyLabel="@string/smiley_key_label"
-        keyOutputText="@string/smiley_key_default_output"
+        keyLabel="@string/quick_text_smiley_key_label"
+        keyOutputText="@string/quick_text_smiley_key_output"
         description=""
         index="2"/>
 </QuickTextKeys>

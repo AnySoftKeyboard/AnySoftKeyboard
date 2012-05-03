@@ -139,16 +139,26 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper
     	{
         	final int wordColumnIndex = c.getColumnIndex(Words.WORD);
         	final int freqColumnIndex = c.getColumnIndex(Words.FREQUENCY);
-    		List<DictionaryWord> words = new ArrayList<DictionaryWord>(c.getCount());
-        	if (c.moveToFirst()) {
-                while (!c.isAfterLast()) {
-                    String word = c.getString(wordColumnIndex);
-                    int freq = c.getInt(freqColumnIndex);
-                    words.add(new DictionaryWord(word.toLowerCase(), freq));
-                    c.moveToNext();
-                }
-            }
-        	c.close();
+        	List<DictionaryWord> words;
+        	try
+        	{
+        		words = new ArrayList<DictionaryWord>(c.getCount());
+	        	if (c.moveToFirst()) {
+	                while (!c.isAfterLast()) {
+	                    String word = c.getString(wordColumnIndex);
+	                    int freq = c.getInt(freqColumnIndex);
+	                    words.add(new DictionaryWord(word.toLowerCase(), freq));
+	                    c.moveToNext();
+	                }
+	            }
+        	}
+        	catch(IllegalStateException e) {
+        		//could be a memory issue
+        		//see https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/2
+        		words = new ArrayList<DictionaryWord>(0);
+        	}
+        	if (!c.isClosed()) c.close();
+        	
         	return words;
     	}
     	else

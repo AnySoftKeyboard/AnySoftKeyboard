@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    
+	<string name="quick_text_smiley_key_label">:-)</string>
+	<string name="quick_text_smiley_key_output">:-)\u0020</string>
+</resources>	

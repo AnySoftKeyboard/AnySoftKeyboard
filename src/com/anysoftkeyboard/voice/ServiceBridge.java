@@ -49,7 +49,15 @@ class ServiceBridge {
 
             public void onResult(final String recognitionResult) {
                 mCallback.onRecognitionResult(recognitionResult);
-                context.unbindService(conReq);
+                try
+                {
+                	context.unbindService(conReq);
+                }
+                catch(IllegalArgumentException e) {
+                	//not exactly sure why it happens, but it does.
+                	//anyhow, I got mine :)
+                	//https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/3
+                }
             }
         });
 
