@@ -4,12 +4,12 @@
     android:keyWidth="15%p"
     android:keyHeight="@integer/key_normal_height">
 	<Row android:rowEdgeFlags="top">
-        <Key android:keyLabel="\\m/" android:keyOutputText="\\m/ " android:keyEdgeFlags="left" />
-        <Key android:keyLabel="O_Q" android:keyOutputText="O_Q "/>
-        <Key android:keyLabel="o_O" android:keyOutputText="o_O "/>
-        <Key android:keyLabel="(^_^)" android:keyOutputText="(^_^) "/>
-        <Key android:keyLabel="(ToT)" android:keyOutputText="(ToT) "/>
-        <Key android:keyLabel="rose" android:keyOutputText="\@}-;-'-- " android:keyEdgeFlags="right" />
+        <Key android:keyLabel="\\m/" android:keyOutputText="\\m/\u0020" android:keyEdgeFlags="left" />
+        <Key android:keyLabel="O_Q" android:keyOutputText="O_Q\u0020"/>
+        <Key android:keyLabel="o_O" android:keyOutputText="o_O\u0020"/>
+        <Key android:keyLabel="(^_^)" android:keyOutputText="(^_^)\u0020"/>
+        <Key android:keyLabel="(ToT)" android:keyOutputText="(ToT)\u0020"/>
+        <Key android:keyLabel="rose" android:keyOutputText="\@}-;-'--\u0020" android:keyEdgeFlags="right" />
     </Row>
     <Row>
         <Key android:keyLabel="♥" android:keyOutputText="♥" android:keyEdgeFlags="left" />
@@ -20,11 +20,11 @@
         <Key android:keyLabel="□" android:keyOutputText="□" android:keyEdgeFlags="right" />
     </Row>
     <Row android:rowEdgeFlags="bottom">
-        <Key android:keyLabel=":-(" android:keyOutputText=":-( " android:keyEdgeFlags="left" />
-        <Key android:keyLabel=":_(" android:keyOutputText=":_( "/>
-        <Key android:keyLabel=";-)" android:keyOutputText=";-) "/>
-        <Key android:keyLabel=":-D" android:keyOutputText=":-D "/>
-        <Key android:keyLabel=":-O" android:keyOutputText=":-O "/>
-        <Key android:keyLabel="}-]" android:keyOutputText="}-] " android:keyEdgeFlags="right" />
+        <Key android:keyLabel=":-(" android:keyOutputText=":-(\u0020" android:keyEdgeFlags="left" />
+        <Key android:keyLabel=":_(" android:keyOutputText=":_(\u0020"/>
+        <Key android:keyLabel=";-)" android:keyOutputText=";-)\u0020"/>
+        <Key android:keyLabel=":-D" android:keyOutputText=":-D\u0020"/>
+        <Key android:keyLabel=":-O" android:keyOutputText=":-O\u0020"/>
+        <Key android:keyLabel="}-]" android:keyOutputText="}-]\u0020" android:keyEdgeFlags="right" />
     </Row>
 </Keyboard>

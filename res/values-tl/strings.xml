@@ -23,15 +23,34 @@
   <string name="menu_insert_smiley">Pumasok ng icons ng emosyon</string>
   <string name="click_for_help">Tulong</string>
   <string name="ui_group">Interface ng user</string>
+  <string name="label_next_key">Susunod</string>
+  <string name="label_send_key">Isend</string>
+  <string name="label_done_key">Tapos</string>
+  <string name="change_lang_wide">→ ABC →</string>
+  <string name="change_lang_regular">ABC</string>
+  <string name="change_symbols_wide">← 123 ←</string>
+  <string name="change_symbols_regular">123</string>
+  <string name="please_wait">Teka lang</string>
+  <string name="toast_lengthy_words_long_operation">Niloload ang diksyonaryo...</string>
+  <string name="lengthy_creating_keyboard_operation">Gumagawa ng keyboards...</string>
+  <string name="select_keyboard_popup_title">Pumili ng keyboard</string>
+  <string name="eng_dictionary">English</string>
+  <string name="settings_multitap_timeout_faster">Mas mabilis</string>
+  <string name="settings_multitap_timeout_fast">Mabilis</string>
+  <string name="settings_multitap_timeout_normal">Katamtaman</string>
+  <string name="settings_multitap_timeout_slow">Mabagal</string>
+  <string name="settings_multitap_timeout_slower">Mas mabagal</string>
+  <string name="settings_long_press_timeout_faster">Mas mabilis</string>
+  <string name="settings_long_press_timeout_never">Hindi kailanman</string>
   <string-array name="physical_keyboard_change_notification_types">
-    <item>Always show layout icon</item>
+    <item>Laging ipalitaw ang icon</item>
     <item>On physical keyboard change</item>
-    <item>No notification</item>
+    <item>Walang notipikasyon</item>
   </string-array>
   <string-array name="vibrate_on_key_press_types">
-    <item>None</item>
-    <item>Light</item>
-    <item>Medium</item>
-    <item>Strong</item>
+    <item>Wala</item>
+    <item>Magaan</item>
+    <item>Katamtaman</item>
+    <item>Malakas</item>
   </string-array>
 </resources>
