@@ -47,9 +47,7 @@ public class QuickTextKey extends AddOnImpl {
 		}
 		this.mKeyIconResId = keyIconResId;
 		this.mKeyLabel = keyLabelResId > 0 ? resources.getString(keyLabelResId) : null;
-		this.mKeyOutputText = keyOutputTextResId > 0 ? resources.getString(keyOutputTextResId) :
-			null;
-		Log.d("****************", "mKeyOutputText: '"+mKeyOutputText+"'");
+		this.mKeyOutputText = keyOutputTextResId > 0 ? resources.getString(keyOutputTextResId) : null;
 		this.mIconPreviewResId = iconPreviewResId;
 	}
 
