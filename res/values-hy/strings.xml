@@ -18,12 +18,8 @@
   <string name="main_tab_credits_additional_work_by">Հավելյալ ծրագրավորում՝</string>
   <string name="main_tab_credits_localization_by">Տեղայնացում՝</string>
   <string name="main_tab_credits_GUI_by">Պատկերները՝</string>
-  <string name="how_to_simple_howto"> Android requires that you (the user) will manually enabled and activate external keyboards. Here is how:\n1) go to Android\'s Settings and select \'Locale &amp; text\' or \'Language &amp; keyboard\'.\n2) Turn on AnySoftKeyboard.\n*It will warn you about possible key-logging, don\'t worry, we do not keep data, and we do not send it anywere.\n\n To actually use AnySoftKeyboard, you\'ll need to activate it:\n1) Go to any text-box (e.g., Messagings TO field), and long-press it.\n2) A dialog will pop-up, select \'Input Method\' (usally the last option).\n3) Another dialog will popup - select AnySoftKeyboard.\nThat\'s it! Enjoy.</string>
-  <string name="notification_text">Բարի գալո՛ւստ։ Խնդրում ենք կարդալ։</string>
   <string name="testers_version">Testers version!</string>
   <string name="license_title">Թույլատրագիր</string>
-  <string name="license_text">This software is licensed under Apache2 (c) 2011 Menny Even-Danan</string>
-  <string name="extrenal_addons_cat">External add-ons</string>
   <string name="about">Ծրագրի մասին</string>
   <string name="changelog">Փոփոխություններ</string>
   <string name="search_market_for_addons">Որոնել հավելումներ</string>
@@ -35,9 +31,6 @@
   <string name="click_for_help">Օգնություն</string>
   <string name="click_for_help_summary">Սեղմեք առցանց օգնության համար</string>
   <string name="ui_group">Օգագործողի միջներես</string>
-  <string name="keyboard_layout_change_keys_size_title">Վերին շարքի ստեղներ</string>
-  <string name="keyboard_layout_change_keys_size_summary">Sets the cap/number mode key size</string>
-  <string name="keyboard_layout_change_keys_size_dialog_title">Mode key size</string>
   <string name="physical_keyboard_change_notification_title">Keyboard layout notification</string>
   <string name="physical_keyboard_change_notification_summary">Type of notification about the active layout</string>
   <string name="physical_keyboard_change_notification_dialog_title">Select notification type</string>
@@ -198,13 +191,6 @@
   <string name="select_keyboard_popup_title">Ընտրեք ստեղնաշարը</string>
   <string name="eng_dictionary">Անգլերեն</string>
   <string name="simley_key_name">Smiley key</string>
-  <string name="smiley_key_label">:-)</string>
-  <string name="smiley_key_default_output">:-) </string>
-  <string-array name="keyboard_layout_keys_size">
-    <item>Ոչ մի</item>
-    <item>Մանր</item>
-    <item>Խոշոր</item>
-  </string-array>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Always show layout icon</item>
     <item>On physical keyboard change</item>

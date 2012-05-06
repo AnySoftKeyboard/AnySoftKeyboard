@@ -68,7 +68,6 @@
   <string name="notification_text_how_to_enable">Apprenez comment activer AnySoftKeyboard</string>
   <string name="testers_version">Version d’essai !</string>
   <string name="license_title">Licence</string>
-  <string name="license_text">Ce logiciel est sous licence Apache2 (c) 2012 Menny Even-Danan</string>
   <string name="languages_cat">Langues</string>
   <string name="about">À propos de</string>
   <string name="changelog">Journal des modifications (Changelog)</string>
@@ -339,8 +338,6 @@
   <string name="select_keyboard_popup_title">Sélectionnez le clavier</string>
   <string name="eng_dictionary">Anglais</string>
   <string name="simley_key_name">Touche émoticône</string>
-  <string name="smiley_key_label">:-)</string>
-  <string name="smiley_key_default_output">:-) </string>
   <string name="default_quick_text_key_name">Émoticônes simples</string>
   <string name="multitap_timeout_title">Délai du multi-tap</string>
   <string name="multitap_timeout_summary">Délai entre deux tap</string>

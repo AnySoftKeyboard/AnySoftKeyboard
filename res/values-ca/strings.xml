@@ -69,7 +69,6 @@
   <string name="notification_text_how_to_enable">Aprengueu com activar-ho</string>
   <string name="testers_version">Edició de proves!</string>
   <string name="license_title">Llicència</string>
-  <string name="license_text">Aplicació sota llicència Apache2 - © 2012 Menny Even-Danan</string>
   <string name="languages_cat">Idiomes</string>
   <string name="about">Quant a</string>
   <string name="changelog">Registre de canvis</string>
@@ -354,8 +353,6 @@
   <string name="select_keyboard_popup_title">Seleccioneu un teclat</string>
   <string name="eng_dictionary">Anglès</string>
   <string name="simley_key_name">Mostra les emoticones</string>
-  <string name="smiley_key_label">:-)</string>
-  <string name="smiley_key_default_output">:-)</string>
   <string name="default_quick_text_key_name">Emoticones bàsiques</string>
   <string name="multitap_timeout_title">Multi toc</string>
   <string name="multitap_timeout_summary">Temps d\'espera entre pulsacions</string>

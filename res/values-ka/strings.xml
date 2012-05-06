@@ -18,12 +18,8 @@
   <string name="main_tab_credits_additional_work_by">დამატებით პროგრამირება:</string>
   <string name="main_tab_credits_localization_by">თარგმნა:</string>
   <string name="main_tab_credits_GUI_by">UI სურათების შემქმნელი:</string>
-  <string name="how_to_simple_howto"> Android requires that you (the user) will manually enabled and activate external keyboards. Here is how:\n1) go to Android\'s Settings and select \'Locale &amp; text\' or \'Language &amp; keyboard\'.\n2) Turn on AnySoftKeyboard.\n*It will warn you about possible key-logging, don\'t worry, we do not keep data, and we do not send it anywere.\n\n To actually use AnySoftKeyboard, you\'ll need to activate it:\n1) Go to any text-box (e.g., Messagings TO field), and long-press it.\n2) A dialog will pop-up, select \'Input Method\' (usally the last option).\n3) Another dialog will popup - select AnySoftKeyboard.\nThat\'s it! Enjoy.</string>
-  <string name="notification_text">წამიკითხე</string>
   <string name="testers_version">ვერსია მტესტავთათვის!</string>
   <string name="license_title">License</string>
-  <string name="license_text">This software is licensed under Apache2 (c) 2011 Menny Even-Danan</string>
-  <string name="extrenal_addons_cat">External add-ons</string>
   <string name="about">About</string>
   <string name="changelog">ცვლილებები</string>
   <string name="search_market_for_addons">დამატებათა ძიება</string>
@@ -35,9 +31,6 @@
   <string name="click_for_help">Help</string>
   <string name="click_for_help_summary">დააკლიკეთ - ონლაინ დახმარებისთვის</string>
   <string name="ui_group">კლიენტუირ ინტერფეისი</string>
-  <string name="keyboard_layout_change_keys_size_title">განლაგების გადამრთველები</string>
-  <string name="keyboard_layout_change_keys_size_summary">On screen keyboard layout keys size</string>
-  <string name="keyboard_layout_change_keys_size_dialog_title">ზომის არჩევა</string>
   <string name="physical_keyboard_change_notification_title">კლავიატურის იერსახის შეტყობინება</string>
   <string name="physical_keyboard_change_notification_summary">შეტყობინების ტიპი აქტიური იერსახის შესახებ</string>
   <string name="physical_keyboard_change_notification_dialog_title">აირჩიე შეტყობინების ტიპი</string>
@@ -198,13 +191,6 @@
   <string name="select_keyboard_popup_title">აირჩიე კლავიატურა</string>
   <string name="eng_dictionary">ინგლისური</string>
   <string name="simley_key_name">Smiley key</string>
-  <string name="smiley_key_label">:-)</string>
-  <string name="smiley_key_default_output">:-) </string>
-  <string-array name="keyboard_layout_keys_size">
-    <item>არცერთო</item>
-    <item>პატარა</item>
-    <item>დიდი</item>
-  </string-array>
   <string-array name="physical_keyboard_change_notification_types">
     <item>ყოველთვის აჩვენე იერსახის პიქტოგრამა</item>
     <item>როდესაც შეიცვლება ფიზიკური კლავიატურა</item>

@@ -30,11 +30,6 @@
     
     <!-- settings - UI -->
     <string name="ui_group">Interfaco</string>
-    <string-array name="keyboard_layout_change_methods">
-        <item>Neniuj</item>
-        <item>Etaj</item>
-        <item>Grandaj</item>
-    </string-array>
     
     <string name="physical_keyboard_change_notification_title">Atentigo</string>
     <string name="physical_keyboard_change_notification_summary">Speco de atentigo pri la aktiva klavara aranĝo</string>

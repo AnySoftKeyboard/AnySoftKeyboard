@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard.voice;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 /**
  * Helper activity used for triggering the Intent recognition, and for collecting the results.
  */
+@TargetApi(4)
 public class ActivityHelper extends Activity {
 
     @SuppressWarnings("unused")
@@ -71,7 +73,8 @@ public class ActivityHelper extends Activity {
         }
     }
 
-    private Dialog createResultDialog(final String[] recognitionResults) {
+    @TargetApi(11)
+	private Dialog createResultDialog(final String[] recognitionResults) {
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT < 11/*Build.VERSION_CODES.HONEYCOMB*/) {
             builder = new AlertDialog.Builder(this);

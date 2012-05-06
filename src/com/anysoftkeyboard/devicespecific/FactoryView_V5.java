@@ -3,10 +3,12 @@ package com.anysoftkeyboard.devicespecific;
 import com.anysoftkeyboard.dictionaries.DictionaryFactory;
 import com.anysoftkeyboard.dictionaries.DictionaryFactoryAPI5;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+@TargetApi(5)
 class FactoryView_V5 extends FactoryView_V3 {
 
 	public FactoryView_V5(Context context) {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation,MissingTranslation">
 	<!-- DO NOT TRANSLATE -->
 	<!-- settings keys -->
 	<!-- 
@@ -89,7 +89,7 @@
 		<item>above_keyboard</item>
     </string-array>
     
-    <string-array name="settings_key_swipe_velocity_threshold_names">
+    <string-array name="settings_key_swipe_velocity_threshold_names" >
     	<item>@string/settings_swipe_velocity_very_slow</item>
 		<item>@string/settings_swipe_velocity_slow</item>
 		<item>@string/settings_swipe_velocity_normal</item>

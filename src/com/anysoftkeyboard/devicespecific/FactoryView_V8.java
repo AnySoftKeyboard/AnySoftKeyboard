@@ -5,6 +5,7 @@ import com.anysoftkeyboard.backup.CloudBackupRequesterApi8;
 import com.anysoftkeyboard.voice.VoiceInput;
 import com.anysoftkeyboard.voice.VoiceRecognitionTrigger;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.inputmethodservice.InputMethodService;
@@ -12,6 +13,7 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
+@TargetApi(8)
 class FactoryView_V8 extends FactoryView_V7 {
 
 	public FactoryView_V8(Context context) {

@@ -244,7 +244,7 @@ public class AutoDictionary extends UserDictionaryBase {
             mDbHelper = openHelper;
         }
 
-        @Override
+		@Override
         protected Void doInBackground(Void... v) {
         	try//issue 952
         	{

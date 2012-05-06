@@ -18,12 +18,8 @@
   <string name="main_tab_credits_additional_work_by">عمل ترميز إضافي من قبل:</string>
   <string name="main_tab_credits_localization_by">جهود التعريب من قبل :</string>
   <string name="main_tab_credits_GUI_by">صور واجهة المستخدم من قبل :</string>
-  <string name="how_to_simple_howto"> Android requires that you (the user) will manually enable and activate external keyboards. Here is how:\n 1) go to Android\'s Settings and select \'Language &amp; keyboard\' (or \'Locale &amp; text\' in some Android OSes).\n 2) Turn on AnySoftKeyboard.\n *It will warn you about possible key-logging, don\'t worry, we do not keep data, and we do not send it anywhere.\n \n To actually use AnySoftKeyboard, you\'ll need to activate it:\n 1) Go to any text-box (e.g., Messagings TO field), and long-press it.\n 2) A dialog will pop-up, select \'Input Method\' (usually the last option).\n 3) Another dialog will popup - select AnySoftKeyboard.\n That\'s it! Enjoy.</string>
-  <string name="notification_text">أهلا وسهلا! من فضلك ، اقرأني.</string>
   <string name="testers_version">نسخة اختبارية!</string>
   <string name="license_title">الترخيص</string>
-  <string name="license_text">تم ترخيص هذا البرنامج تحت Apache2 (ج) ٢٠١١ Menny Even-Danan</string>
-  <string name="extrenal_addons_cat">الإضافات الخارجية</string>
   <string name="about">حول</string>
   <string name="changelog">سجل التغييرات</string>
   <string name="search_market_for_addons">البحث عن الوظائف الإضافية</string>
@@ -36,9 +32,6 @@
   <string name="click_for_help">تعليمات</string>
   <string name="click_for_help_summary">الضغط من أجل مساعدة فورية</string>
   <string name="ui_group">واجهة المستخدم</string>
-  <string name="keyboard_layout_change_keys_size_title">مفاتيح الصف العلوي</string>
-  <string name="keyboard_layout_change_keys_size_summary">يحدد حجم مفتاح التحكم/وضع الأرقام</string>
-  <string name="keyboard_layout_change_keys_size_dialog_title">وضع حجم المفتاح</string>
   <string name="physical_keyboard_change_notification_title">إعلام تخطيط لوحة المفاتيح</string>
   <string name="physical_keyboard_change_notification_summary">نوع الإعلام حول التخطيط النشط</string>
   <string name="physical_keyboard_change_notification_dialog_title">حدد نوع الإعلام</string>
@@ -130,7 +123,6 @@
   <string name="tweaks_group">تعيير دقيق</string>
   <string name="tweak_sound_group">التعديلات المتعلقة بالصوت</string>
   <string name="tweak_physical_keyboard_group">التعديلات المتعلقة بلوحة المفاتيح الفعلية</string>
-  <string name="tweak_ui_ux_group">UI / UX تعديلات</string>
   <string name="is_sticky_extesion_keyboard">لوحة المفاتيح الملحقة</string>
   <string name="is_sticky_extesion_keyboard_on_summary">تبقى مرئية حتى تغلق تماماً</string>
   <string name="is_sticky_extesion_keyboard_off_summary">الإغلاق بعد ضغظ المعتاح</string>
@@ -213,13 +205,6 @@
   <string name="select_keyboard_popup_title">تحديد لوحة المفاتيح</string>
   <string name="eng_dictionary">اللغة الإنجليزية</string>
   <string name="simley_key_name">معتاح التبسمات</string>
-  <string name="smiley_key_label">:-)</string>
-  <string name="smiley_key_default_output">:-) </string>
-  <string-array name="keyboard_layout_keys_size">
-    <item>لا شيء</item>
-    <item>صغير</item>
-    <item>كبير</item>
-  </string-array>
   <string-array name="physical_keyboard_change_notification_types">
     <item>إظهار رمز تخطيط دوماً</item>
     <item>على تغيير لوحة المفاتيح الفعلية</item>
