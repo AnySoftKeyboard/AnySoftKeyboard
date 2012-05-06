@@ -3,11 +3,13 @@ package com.anysoftkeyboard.backup;
 import com.anysoftkeyboard.ui.tutorials.WelcomeHowToNoticeActivity;
 import com.menny.android.anysoftkeyboard.R;
 
+import android.annotation.TargetApi;
 import android.app.backup.BackupAgentHelper;
 import android.app.backup.BackupDataInputStream;
 import android.app.backup.SharedPreferencesBackupHelper;
 import android.text.TextUtils;
 
+@TargetApi(8)
 public class AnyBackupAgent extends BackupAgentHelper {
 	static final String DEFAULT_PREFS_FILE = "com.menny.android.anysoftkeyboard_preferences";
     // A key to uniquely identify the set of backup data

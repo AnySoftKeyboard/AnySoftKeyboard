@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard.voice;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.inputmethodservice.InputMethodService;
 import android.os.Build;
@@ -29,6 +30,7 @@ import java.util.Map;
 /**
  * Triggers a voice recognition using Google voice typing.
  */
+@TargetApi(11)
 class ImeTrigger implements Trigger {
 
     private static final String VOICE_IME_SUBTYPE_MODE = "voice";

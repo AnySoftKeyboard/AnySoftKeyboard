@@ -2,6 +2,7 @@ package com.anysoftkeyboard.devicespecific;
 
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 
+@TargetApi(8)
 public class AskV8GestureDetector extends GestureDetector {
 	private static final String TAG = "AskV8GestureDetector";
 	

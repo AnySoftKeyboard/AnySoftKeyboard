@@ -301,8 +301,6 @@
   <string name="select_keyboard_popup_title">בחר מקלדת</string>
   <string name="eng_dictionary">אנגלית</string>
   <string name="simley_key_name">לחצן סמיילי</string>
-  <string name="smiley_key_label">:-)</string>
-  <string name="smiley_key_default_output">:-)</string>
   <string name="multitap_timeout_title">זמן בין לחיצות מרובות</string>
   <string name="multitap_timeout_summary">מרווח זמן בין לחיצות</string>
   <string name="settings_multitap_timeout_disabled">מבוטל</string>

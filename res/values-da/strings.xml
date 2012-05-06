@@ -168,8 +168,6 @@
   <string name="select_keyboard_popup_title">Vælg tastatur</string>
   <string name="eng_dictionary">Engelsk</string>
   <string name="simley_key_name">Smiley knap</string>
-  <string name="smiley_key_label">:-)</string>
-  <string name="smiley_key_default_output">:-)</string>
   <string name="multitap_timeout_title">Multi-tap timeout</string>
   <string name="multitap_timeout_summary">Timeout mellem de vigtigste taste faner</string>
   <string name="settings_multitap_timeout_faster">Hurtigere</string>
