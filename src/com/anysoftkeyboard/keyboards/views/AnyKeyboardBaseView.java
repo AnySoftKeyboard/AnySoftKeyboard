@@ -18,7 +18,6 @@ package com.anysoftkeyboard.keyboards.views;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -1241,8 +1240,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             }
             canvas.translate(key.x + kbdPaddingLeft, key.y + kbdPaddingTop);
             keyBackground.draw(canvas);
-
-            if (label == null) {
+            
+            if (TextUtils.isEmpty(label)) {
             	Drawable iconToDraw = getIconToDrawForKey(key, false);
 	            if (iconToDraw != null/* && shouldDrawIcon*/) {
 	                // Special handing for the upper-right number hint icons
@@ -1266,6 +1265,10 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 	            	//ho... no icon.
 	            	//I'll try to guess the text
 	            	label = guessLabelForKey(key);
+	            	if (TextUtils.isEmpty(label))
+	            	{
+	            		Log.w(TAG, "That's unfortunate, for key "+key.codes[0]+" at ("+key.x+", "+key.y+") there is no icon nor label. Action ID is "+mKeyboardActionType);
+	            	}
 	            }
             }
             
@@ -1419,7 +1422,17 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 						CharSequence label = guessLabelForKey((AnyKey)key);
 						key.label = label;
 						((AnyKey)key).shiftedKeyLabel = label;
-					}	
+					}
+					//making sure something is shown
+					if (key.icon == null && TextUtils.isEmpty(key.label)) {
+						Log.i(TAG, "Wow. Unknown ACTION ID "+mKeyboardActionType+". Will default to ENTER icon.");
+		    			//I saw devices (Galaxy Tab 10") which say the action type is 255... 
+		    			//D/ASKKbdViewBase( 3594): setKeyboardActionType imeOptions:33554687 action:255
+						//which means it is not a known ACTION
+						mActionKeyIcon.setState(DRAWABLE_STATE_ACTION_NORMAL);
+						key.icon = mActionKeyIcon;
+						key.iconPreview = mActionKeyIcon;
+					}
 				}
 			}
     	}
@@ -1486,7 +1499,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     			actionKeyDrawable = mActionKeyIcon;
     			break;
     		case EditorInfo.IME_ACTION_NONE:
-    		case EditorInfo.IME_ACTION_UNSPECIFIED:
+       		case EditorInfo.IME_ACTION_UNSPECIFIED:
     			mActionKeyIcon.setState(DRAWABLE_STATE_ACTION_NORMAL);
     			actionKeyDrawable = mActionKeyIcon;
     			break;
