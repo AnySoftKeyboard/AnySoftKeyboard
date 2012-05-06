@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     
 	<string name="quick_text_smiley_key_label">:-)</string>
 	<string name="quick_text_smiley_key_output">:-)\u0020</string>
+	
+  	<string name="license_notice_text">This software is licensed under Apache2 © 2012 Menny Even-Danan</string>
+  	
+  	<string-array name="english_initial_suggestions">
+        <item>!</item>
+        <item>\?</item>
+        <item>,</item>
+        <item>"</item>
+        <item>\'</item>
+        <item>:</item>
+        <item>(</item>
+        <item>)</item>
+        <item>-</item>
+        <item>/</item>
+        <item>\@</item>
+        <item>_</item>
+    </string-array>
 </resources>	

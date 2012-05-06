@@ -98,8 +98,6 @@
   <string name="select_keyboard_popup_title">Pasirinkite klaviatūrą</string>
   <string name="eng_dictionary">Anglų</string>
   <string name="simley_key_name">Šypsenėlės klavišas</string>
-  <string name="smiley_key_label">:-)</string>
-  <string name="smiley_key_default_output">:-) </string>
   <string name="default_quick_text_key_name">Paprastos šypsenėlės</string>
   <string name="settings_multitap_timeout_disabled">Išjungta</string>
   <string name="settings_long_press_timeout_never">Niekada</string>

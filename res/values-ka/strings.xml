@@ -20,7 +20,6 @@
   <string name="main_tab_credits_GUI_by">UI სურათების შემქმნელი:</string>
   <string name="testers_version">ვერსია მტესტავთათვის!</string>
   <string name="license_title">License</string>
-  <string name="license_text">This software is licensed under Apache2 (c) 2011 Menny Even-Danan</string>
   <string name="about">About</string>
   <string name="changelog">ცვლილებები</string>
   <string name="search_market_for_addons">დამატებათა ძიება</string>
@@ -32,9 +31,6 @@
   <string name="click_for_help">Help</string>
   <string name="click_for_help_summary">დააკლიკეთ - ონლაინ დახმარებისთვის</string>
   <string name="ui_group">კლიენტუირ ინტერფეისი</string>
-  <string name="keyboard_layout_change_keys_size_title">განლაგების გადამრთველები</string>
-  <string name="keyboard_layout_change_keys_size_summary">On screen keyboard layout keys size</string>
-  <string name="keyboard_layout_change_keys_size_dialog_title">ზომის არჩევა</string>
   <string name="physical_keyboard_change_notification_title">კლავიატურის იერსახის შეტყობინება</string>
   <string name="physical_keyboard_change_notification_summary">შეტყობინების ტიპი აქტიური იერსახის შესახებ</string>
   <string name="physical_keyboard_change_notification_dialog_title">აირჩიე შეტყობინების ტიპი</string>

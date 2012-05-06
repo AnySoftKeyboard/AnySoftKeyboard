@@ -46,7 +46,6 @@
   <string name="notification_text_changelog">Haz clic para enterarte de lo último.</string>
   <string name="notification_title_how_to_enable">Bienvenid@ a AnySoftKeyboard</string>
   <string name="license_title">Licencia</string>
-  <string name="license_text">Licencia del software registrada por Apache2 (c) 2012 Menny Even-Danan</string>
   <string name="languages_cat">Idiomas</string>
   <string name="about">Acerca de</string>
   <string name="changelog">Registro de cambios </string>
@@ -284,8 +283,6 @@
   <string name="select_keyboard_popup_title">Seleccione el teclado</string>
   <string name="eng_dictionary">Inglés</string>
   <string name="simley_key_name">Tecla de smiley</string>
-  <string name="smiley_key_label">:-)</string>
-  <string name="smiley_key_default_output">:-)</string>
   <string name="default_quick_text_key_name">Emoticonos simples</string>
   <string name="settings_multitap_timeout_disabled">Desactivado</string>
   <string name="settings_multitap_timeout_faster">Más rápido</string>

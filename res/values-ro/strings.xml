@@ -18,12 +18,8 @@
   <string name="main_tab_credits_additional_work_by">Lucrări de codificare suplimentare de:</string>
   <string name="main_tab_credits_localization_by">Localization efforts by:</string>
   <string name="main_tab_credits_GUI_by">Imagini UI de:</string>
-  <string name="how_to_simple_howto"> Android requires that you (the user) will manually enabled and activate external keyboards. Here is how:\n1) go to Android\'s Settings and select \'Locale &amp; text\' or \'Language &amp; keyboard\'.\n2) Turn on AnySoftKeyboard.\n*It will warn you about possible key-logging, don\'t worry, we do not keep data, and we do not send it anywere.\n\n To actually use AnySoftKeyboard, you\'ll need to activate it:\n1) Go to any text-box (e.g., Messagings TO field), and long-press it.\n2) A dialog will pop-up, select \'Input Method\' (usally the last option).\n3) Another dialog will popup - select AnySoftKeyboard.\nThat\'s it! Enjoy.</string>
-  <string name="notification_text">Bine ati venit! Vă rog să mă citiţi.</string>
   <string name="testers_version">Versiunea pentru teste!</string>
   <string name="license_title">License</string>
-  <string name="license_text">This software is licensed under Apache2 (c) 2011 Menny Even-Danan</string>
-  <string name="extrenal_addons_cat">External add-ons</string>
   <string name="about">About</string>
   <string name="changelog">Jurnal de modificări</string>
   <string name="search_market_for_addons">Căutare suplimente</string>
@@ -35,9 +31,6 @@
   <string name="click_for_help">Ajutor</string>
   <string name="click_for_help_summary">Apăsaţi pentru ajutor on-line</string>
   <string name="ui_group">Interfaţa utilizatorului</string>
-  <string name="keyboard_layout_change_keys_size_title">Primul rând de taste</string>
-  <string name="keyboard_layout_change_keys_size_summary">Setează dimensiunea butonului cheie</string>
-  <string name="keyboard_layout_change_keys_size_dialog_title">Mod dimensiune cheie</string>
   <string name="physical_keyboard_change_notification_title">Notificare aspect tastatură</string>
   <string name="physical_keyboard_change_notification_summary">Tipul de notificare pentru aspectul activ</string>
   <string name="physical_keyboard_change_notification_dialog_title">Selectaţi tipul de notificare</string>
@@ -192,19 +185,9 @@
   <string name="change_symbols_wide">← 123 ←</string>
   <string name="change_symbols_regular">123</string>
   <string name="please_wait">Please wait</string>
-  <string name="toast_lengthy_words_long_operation">Loading dictionary...</string>
-  <string name="toast_lengthy_start_up_operation">Starting AnySoftKeyboard...</string>
-  <string name="lengthy_creating_keyboard_operation">Creating keyboards...</string>
   <string name="select_keyboard_popup_title">Select keyboard</string>
   <string name="eng_dictionary">English</string>
   <string name="simley_key_name">Smiley key</string>
-  <string name="smiley_key_label">:-)</string>
-  <string name="smiley_key_default_output">:-) </string>
-  <string-array name="keyboard_layout_keys_size">
-    <item>None</item>
-    <item>Small</item>
-    <item>Large</item>
-  </string-array>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Always show layout icon</item>
     <item>On physical keyboard change</item>

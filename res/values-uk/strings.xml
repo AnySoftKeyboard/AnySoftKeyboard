@@ -18,11 +18,8 @@
   <string name="main_tab_credits_additional_work_by">Розробники:</string>
   <string name="main_tab_credits_localization_by">Локалізація:</string>
   <string name="main_tab_credits_GUI_by">Інтерфейс:</string>
-  <string name="how_to_simple_howto"> Android requires that you (the user) will manually enabled and activate external keyboards. Here is how:\n1) go to Android\'s Settings and select \'Locale &amp; text\' or \'Language &amp; keyboard\'.\n2) Turn on AnySoftKeyboard.\n*It will warn you about possible key-logging, don\'t worry, we do not keep data, and we do not send it anywere.\n\n To actually use AnySoftKeyboard, you\'ll need to activate it:\n1) Go to any text-box (e.g., Messagings TO field), and long-press it.\n2) A dialog will pop-up, select \'Input Method\' (usally the last option).\n3) Another dialog will popup - select AnySoftKeyboard.\nThat\'s it! Enjoy.</string>
-  <string name="notification_text">Ласкаво просимо! Будь ласка, прочитайте це.</string>
   <string name="testers_version">Версія тестерів!</string>
   <string name="license_title">License</string>
-  <string name="license_text">This software is licensed under Apache2 (c) 2011 Menny Even-Danan</string>
   <string name="about">About</string>
   <string name="changelog">Журнал змін</string>
   <string name="search_market_for_addons">Шукати додатки</string>
@@ -34,9 +31,6 @@
   <string name="click_for_help">Довідка</string>
   <string name="click_for_help_summary">Натисніть для отримання довідки</string>
   <string name="ui_group">Інтерфейс користувача</string>
-  <string name="keyboard_layout_change_keys_size_title">Кнопки зміни розкладки</string>
-  <string name="keyboard_layout_change_keys_size_summary">Розмір кнопок зміни розкладки</string>
-  <string name="keyboard_layout_change_keys_size_dialog_title">Оберіть розмір</string>
   <string name="physical_keyboard_change_notification_title">Повідомлення</string>
   <string name="physical_keyboard_change_notification_summary">Повідомлення про зміну розкладки</string>
   <string name="physical_keyboard_change_notification_dialog_title">Оберіть тип повідомлення</string>
@@ -197,13 +191,6 @@
   <string name="select_keyboard_popup_title">Select keyboard</string>
   <string name="eng_dictionary">English</string>
   <string name="simley_key_name">Smiley key</string>
-  <string name="smiley_key_label">:-)</string>
-  <string name="smiley_key_default_output">:-) </string>
-  <string-array name="keyboard_layout_keys_size">
-    <item>None</item>
-    <item>Small</item>
-    <item>Large</item>
-  </string-array>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Завжди показувати символ розкладки</item>
     <item>При зміні фізичної клавіатури</item>
