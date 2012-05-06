@@ -67,7 +67,6 @@
   <string name="notification_text_how_to_enable">Aprenda como activar</string>
   <string name="testers_version">Versão de teste!</string>
   <string name="license_title">Licença</string>
-  <string name="license_text">Este software está licenciado sob Apache2 (c) 2012 Menny Even-Danan</string>
   <string name="languages_cat">Idiomas</string>
   <string name="about">Sobre</string>
   <string name="changelog">Lista de alterações</string>
@@ -343,8 +342,6 @@
   <string name="select_keyboard_popup_title">Seleccionar teclado</string>
   <string name="eng_dictionary">Inglês</string>
   <string name="simley_key_name">Tecla smiley</string>
-  <string name="smiley_key_label">:-)</string>
-  <string name="smiley_key_default_output">:-) </string>
   <string name="default_quick_text_key_name">Emoticons simples</string>
   <string name="multitap_timeout_title">Intervalo de múltiplos toques</string>
   <string name="multitap_timeout_summary">Intervalo entre toques</string>

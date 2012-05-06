@@ -112,8 +112,6 @@
   <string name="select_keyboard_popup_title">လက်ကွက်ပံုစံ ေရွးပါ။</string>
   <string name="eng_dictionary">အဂင်္လိပ်</string>
   <string name="simley_key_name">ခံစားချက်သရုပ်ြပပံုများ</string>
-  <string name="smiley_key_label">:-)</string>
-  <string name="smiley_key_default_output">:-)</string>
   <string name="settings_multitap_timeout_disabled">ပိတ်ထားရန်</string>
   <string name="settings_multitap_timeout_faster">အြမန်ဆံုး</string>
   <string name="settings_multitap_timeout_fast">အြမန်</string>

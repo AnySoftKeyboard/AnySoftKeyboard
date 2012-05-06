@@ -169,8 +169,6 @@
   <string name="select_keyboard_popup_title">Izberite tipkovnico</string>
   <string name="eng_dictionary">Angleška</string>
   <string name="simley_key_name">Smeško tipka</string>
-  <string name="smiley_key_label">:-)</string>
-  <string name="smiley_key_default_output">:-)</string>
   <string name="settings_multitap_timeout_faster">Hitreje</string>
   <string name="settings_multitap_timeout_fast">Hitro</string>
   <string name="settings_multitap_timeout_normal">Normalno</string>

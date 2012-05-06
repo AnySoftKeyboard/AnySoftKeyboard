@@ -40,7 +40,6 @@
   <string name="notification_title_how_to_enable">Benvenuti in AnySoftKeyboard</string>
   <string name="testers_version">Tester build!</string>
   <string name="license_title">Licenza</string>
-  <string name="license_text">Questo software è concesso in licenza Apache2 (c) 2012 Menny Even-Danan</string>
   <string name="languages_cat">Lingue</string>
   <string name="about">About</string>
   <string name="changelog">Changelog</string>
@@ -275,8 +274,6 @@
   <string name="select_keyboard_popup_title">Seleziona tastiera</string>
   <string name="eng_dictionary">Inglese</string>
   <string name="simley_key_name">Tasto faccine</string>
-  <string name="smiley_key_label">:-)</string>
-  <string name="smiley_key_default_output">:-) </string>
   <string name="default_quick_text_key_name">Simple Emoticon</string>
   <string name="multitap_timeout_title">Timeout multi-tap</string>
   <string name="settings_multitap_timeout_disabled">Disattivato</string>
