@@ -52,8 +52,6 @@
   <string name="change_symbols_regular">123</string>
   <string name="please_wait">Aguarde</string>
   <string name="eng_dictionary">Inglês</string>
-  <string name="smiley_key_label">:-)</string>
-  <string name="smiley_key_default_output">:-) </string>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Always show layout icon</item>
     <item>On physical keyboard change</item>

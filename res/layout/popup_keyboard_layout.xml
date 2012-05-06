@@ -20,7 +20,6 @@
 <!-- android:background="@drawable/keyboard_dark_background" -->
 <com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard"
         android:id="@+id/AnyKeyboardPopupView"
         android:layout_alignParentBottom="true"
         android:layout_width="fill_parent"

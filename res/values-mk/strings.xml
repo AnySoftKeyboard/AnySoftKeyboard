@@ -160,8 +160,6 @@
   <string name="select_keyboard_popup_title">Избери тастатура</string>
   <string name="eng_dictionary">Англиски</string>
   <string name="simley_key_name">Смајли копче</string>
-  <string name="smiley_key_label">:-)</string>
-  <string name="smiley_key_default_output">:-) </string>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Секогаш прикажувј икона за распоред</item>
     <item>При менување на физичка тастатура</item>

@@ -505,7 +505,7 @@ public class PointerTracker {
                     } else {
                         mTapCount = 0;
                     }
-                    code = key.codes[mTapCount];
+                    code = getMultiTapCode(key.codes);
                 }
                 /*
                  * Swap the first and second values in the codes array if the primary code is not

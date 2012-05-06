@@ -145,8 +145,6 @@
   <string name="lengthy_creating_keyboard_operation">Стварэньне клявіятураў...</string>
   <string name="select_keyboard_popup_title">Абраць клавіятуру</string>
   <string name="eng_dictionary">Ангельская</string>
-  <string name="smiley_key_label">:-)</string>
-  <string name="smiley_key_default_output">:-) </string>
   <string name="settings_multitap_timeout_faster">Хутчэй</string>
   <string name="settings_multitap_timeout_fast">Хутка</string>
   <string name="settings_multitap_timeout_normal">Нармалёва</string>

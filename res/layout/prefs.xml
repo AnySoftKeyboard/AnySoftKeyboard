@@ -3,15 +3,15 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
 android:title="@string/ime_settings"
 android:key="ime_settings">
-	<Preference android:key="prefs_title_key" android:selectable="false" android:enabled="false"
+	<Preference android:key="prefs_title_key" android:selectable="false" android:state_enabled="false"
 	android:persistent="false"
 	android:title="@string/ime_name"
 	android:summary="@string/how_to_pointer_version_prefix">
 	</Preference>
-	<Preference android:key="prefs_license_key" android:selectable="false" android:enabled="true"
+	<Preference android:key="prefs_license_key" android:selectable="false"
 	android:persistent="false"
 	android:title="@string/license_title"
-	android:summary="@string/license_text"/>
+	android:summary="@string/license_notice_text"/>
 	<Preference
 	android:title="@string/click_for_help"
 	android:summary="@string/click_for_help_summary">
