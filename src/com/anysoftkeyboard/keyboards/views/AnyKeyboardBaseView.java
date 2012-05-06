@@ -18,6 +18,7 @@ package com.anysoftkeyboard.keyboards.views;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -943,7 +944,10 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         for (PointerTracker tracker : mPointerTrackers) {
             tracker.setKeyboard(mKeys, mKeyHysteresisDistance);
         }
-        requestLayout();
+    	//setting the icon/text
+    	setSpecialKeysIconsAndLabels();
+
+    	requestLayout();
         // Hint to reallocate the buffer if the size changed
         mKeyboardChanged = true;
         invalidateAllKeys();
@@ -1392,7 +1396,34 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     		mKeyboardActionType = EditorInfo.IME_ACTION_UNSPECIFIED;
     	else
     		mKeyboardActionType = (imeOptions&EditorInfo.IME_MASK_ACTION);
+    	
+    	//setting the icon/text
+    	setSpecialKeysIconsAndLabels();
     }
+
+	public void setSpecialKeysIconsAndLabels() {
+		List<Key> keys = (mKeyboard != null)? mKeyboard.getKeys() : null;
+    	if (keys != null) {
+    		for (Key key : keys) {
+				if (key.codes != null && key.codes.length > 0 && key.codes[0] == KeyCodes.ENTER) {
+					key.icon = null;
+					key.iconPreview = null;
+					key.label = null;
+					((AnyKey)key).shiftedKeyLabel = null;
+					Drawable icon = getIconToDrawForKey(key, false);
+					if (icon != null) {
+						key.icon = icon;
+						key.iconPreview = icon;
+					}
+					else {
+						CharSequence label = guessLabelForKey((AnyKey)key);
+						key.label = label;
+						((AnyKey)key).shiftedKeyLabel = label;
+					}	
+				}
+			}
+    	}
+	}
     
     private CharSequence guessLabelForKey(AnyKey key) {
     	switch(key.codes[0])
@@ -1511,7 +1542,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     	} 
 	}
 
-	// TODO: clean up this method.
     void dismissKeyPreview() {
         for (PointerTracker tracker : mPointerTrackers)
             tracker.updateKey(NOT_A_KEY);
@@ -1550,7 +1580,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         CharSequence label = tracker.getPreviewText(key, mKeyboard.isShifted());
         if (TextUtils.isEmpty(label))
         {
-	        Drawable iconToDraw = getIconToDrawForKey(key, true);
+        	Drawable iconToDraw = getIconToDrawForKey(key, true);
+        	Log.d("*****************", "showKey "+key.codes[0]+" iconToDraw:"+(iconToDraw != null));
 	        //mPreviewText.setCompoundDrawables(null, null, null, key.iconPreview != null ? key.iconPreview : key.icon);
         	mPreviewIcon.setImageDrawable(iconToDraw);
             mPreviewText.setText(null);
