@@ -55,7 +55,7 @@ class ServiceBridge {
                 }
                 catch(IllegalArgumentException e) {
                 	//not exactly sure why it happens, but it does.
-                	//anyhow, I got mine :)
+                	//anyhow, I got mine :) (mCallback.onRecognitionResult)
                 	//https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/3
                 }
             }
