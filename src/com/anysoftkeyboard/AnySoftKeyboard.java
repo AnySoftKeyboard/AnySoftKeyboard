@@ -553,6 +553,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			case EditorInfo.TYPE_TEXT_VARIATION_URI:
 				if (DEBUG) Log.d(TAG, "Setting MODE_URL as keyboard due to a TYPE_TEXT_VARIATION_URI input.");
 				mKeyboardSwitcher.setKeyboardMode(KeyboardSwitcher.MODE_URL, attribute);
+				mPredictionOn = false;
 				break;
 			case EditorInfo.TYPE_TEXT_VARIATION_SHORT_MESSAGE:
 				if (DEBUG) Log.d(TAG, "Setting MODE_IM as keyboard due to a TYPE_TEXT_VARIATION_SHORT_MESSAGE input.");
