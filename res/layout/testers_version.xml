@@ -8,9 +8,10 @@
     	android:layout_height="0px"
     	android:layout_weight="1"
         android:layout_width="fill_parent"
-        android:text="This is a testing build. It may contain many bugs, and it may be non-backward compatible!\n It may also include DRAGONS! And they tend to eat features.\n Please, report any problems you encounter.\nThank you for your beta-testing."
+        android:text="@string/beta_tester_message"
         style="@android:style/TextAppearance.Small"
         android:paddingTop="12dp"
+        android:paddingBottom="12dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         />
