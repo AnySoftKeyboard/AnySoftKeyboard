@@ -3,6 +3,6 @@
 	<Dictionary nameResId="@string/eng_dictionary" locale="en" 
 		id="8a678ccc-b62a-41e3-9d1b-0023bf710b2b" 
 		type="binary_resource" 
-		dictionaryResourceId="@raw/words" autoTextResourceId="@xml/en_autotext"  
+		dictionaryResourceId="@array/words_dict_array" autoTextResourceId="@xml/en_autotext"  
 		description=""/>
 </Dictionaries>
