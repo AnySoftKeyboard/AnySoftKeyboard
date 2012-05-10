@@ -1678,8 +1678,18 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         } else {
             mPreviewPopup.setWidth(popupWidth);
             mPreviewPopup.setHeight(popupHeight);
-            mPreviewPopup.showAtLocation(mMiniKeyboardParent, Gravity.NO_GRAVITY,
+            try
+            {
+            	//https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/6
+            	//I don't understand why this should happen, and only with MIUI ROMs.
+            	//anyhow, it easy to hide :)
+            	mPreviewPopup.showAtLocation(mMiniKeyboardParent, Gravity.NO_GRAVITY,
                     popupPreviewX, popupPreviewY);
+            }
+            catch(RuntimeException e) {
+            	//nothing to do here. I think.
+            }
+            
         }
         //mPreviewPopup.getContentView().invalidate();
         // Record popup preview position to display mini-keyboard later at the same positon
