@@ -8,6 +8,6 @@
      "autoTextResourceId" : a reference to a common typing mistakes XML.
      -->
 	<Dictionary nameResId="@string/dictionary_name" locale="change_me" id="change_me" type="binary_resource"
-	dictionaryResourceId="@raw/words" autoTextResourceId="@xml/autotext" 
+	dictionaryResourceId="@array/words_dict_array" autoTextResourceId="@xml/autotext" 
 	description="change_me"/>	
 </Dictionaries>
