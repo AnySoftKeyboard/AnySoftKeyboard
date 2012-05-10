@@ -247,7 +247,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 				break;
 			case MSG_RESTART_NEW_WORD_SUGGESTIONS:
 				final InputConnection ic = getCurrentInputConnection();
-				performRestartWordSuggestion(ic, getCursorPosition(ic));
+				if (ic != null)
+					performRestartWordSuggestion(ic, getCursorPosition(ic));
 				break;
 //			 case MSG_UPDATE_OLD_SUGGESTIONS:
 //				 setOldSuggestions();
