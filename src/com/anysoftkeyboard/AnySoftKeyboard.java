@@ -746,6 +746,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 	
 	private static int getCursorPosition(InputConnection connection) {
+		if (connection == null) return 0;
 		ExtractedText extracted = connection.getExtractedText(new ExtractedTextRequest(), 0);
 		if (extracted == null) return 0;
 		return extracted.startOffset + extracted.selectionStart;
