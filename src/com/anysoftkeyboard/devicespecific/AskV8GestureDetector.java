@@ -39,7 +39,14 @@ public class AskV8GestureDetector extends GestureDetector {
 	
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
-		mScaleGestureDetector.onTouchEvent(ev);
+		try
+		{
+			//https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/26
+			mScaleGestureDetector.onTouchEvent(ev);
+		}
+		catch(IllegalArgumentException e) {
+			//I have nothing I can do here.
+		}
 		final boolean scaleEventHandled = mScaleEventHandled;
 		mScaleEventHandled = false;
 		return super.onTouchEvent(ev) || scaleEventHandled;
