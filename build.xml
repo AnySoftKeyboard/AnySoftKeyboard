@@ -51,8 +51,6 @@
 
     <target name="-pre-build">
 	<java jar="../AnySoftKeyboardTools/makedict/makedict.jar" fork="true">
-		<arg value="dict/words.xml"/>
-		<arg value="res/raw/words.dict"/>
 	</java>
     </target>
 <!--
