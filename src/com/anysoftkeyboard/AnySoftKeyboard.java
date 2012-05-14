@@ -738,7 +738,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void postRestartWordSuggestion() {
         mHandler.removeMessages(MSG_RESTART_NEW_WORD_SUGGESTIONS);
-        mRestartSuggestionsView.setVisibility(View.GONE);
+        if (mRestartSuggestionsView != null) mRestartSuggestionsView.setVisibility(View.GONE);
         mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_RESTART_NEW_WORD_SUGGESTIONS), 500);
     }
 	
@@ -1047,7 +1047,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 
     private void clearSuggestions() {
-    	mRestartSuggestionsView.setVisibility(View.GONE);
+    	if (mRestartSuggestionsView != null) mRestartSuggestionsView.setVisibility(View.GONE);
         setSuggestions(null, false, false, false);
     }
 
