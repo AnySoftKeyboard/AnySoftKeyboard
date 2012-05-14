@@ -4,6 +4,7 @@
     <string name="ime_name">AnySoftKeyboard</string>
     <string name="settings_app_name">AnySoftKeyboard Settings</string>
     
+    <string name="click_to_restart_suggestions">Click for suggestions</string>
     <!-- tips -->
     <string name="tips_notification_text">Click for tips!</string>
     <string name="tips_button">How to use tips</string>
