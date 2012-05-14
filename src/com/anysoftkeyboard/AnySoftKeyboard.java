@@ -199,6 +199,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private boolean mCompletionOn;
 	private boolean mAutoSpace;
 	private boolean mAutoCorrectOn;
+	private boolean mAllowSuggestionsRestart = true;
 	/*
 	 * This will help us detect multi-tap on the SHIFT key for caps-lock
 	 */
@@ -749,8 +750,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 	
 	private boolean canRestartWordSuggestion(final InputConnection ic) {
-		if (mPredicting || !isPredictionOn() || mInputView == null || !mInputView.isShown()) {
-			if (DEBUG) Log.d(TAG, "performRestartWordSuggestion: no need to restart - mPredicting="+mPredicting+", isPredictionOn="+isPredictionOn());
+		if (mPredicting || !isPredictionOn() || !mAllowSuggestionsRestart || mInputView == null || !mInputView.isShown()) {
+			if (DEBUG) Log.d(TAG, "performRestartWordSuggestion: no need to restart - mPredicting="+mPredicting+", isPredictionOn="+isPredictionOn()+", mAllowSuggestionsRestart="+mAllowSuggestionsRestart);
 			return false;
 		} else if (!isCursorTouchingWord()) {
 			if (DEBUG) Log.d(TAG,"User moved cursor to no land word. Bye bye.");
@@ -2987,6 +2988,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		mQuickFixes = sp.getBoolean("quick_fix", true);
 
+		mAllowSuggestionsRestart = sp.getBoolean(getString(R.string.settings_key_allow_suggestions_restart), true);
+		
 		mAutoCorrectOn = /* mSuggest != null && *//*
 												 * Suggestion always exists,
 												 * maybe not at the moment, but

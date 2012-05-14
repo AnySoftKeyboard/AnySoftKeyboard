@@ -172,4 +172,6 @@
 	</string-array>
 	<!-- added a _ to handle a preference tpye change from int to string -->
 	<string name="settings_key_min_length_for_word_correction__">settings_key_min_length_for_word_correction__</string>
+	
+	<string name="settings_key_allow_suggestions_restart">settings_key_allow_suggestions_restart</string>
 </resources>
