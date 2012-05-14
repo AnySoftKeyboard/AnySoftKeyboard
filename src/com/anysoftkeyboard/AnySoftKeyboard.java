@@ -64,10 +64,10 @@ import android.widget.Toast;
 
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.devicespecific.Clipboard;
-import com.anysoftkeyboard.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.dictionaries.AutoDictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
 import com.anysoftkeyboard.dictionaries.DictionaryFactory;
+import com.anysoftkeyboard.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
@@ -156,6 +156,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	
 	private AnyKeyboardView mInputView;
 	private CandidateView mCandidateView;
+	private View mRestartSuggestionsView;
 	private static final long MINIMUM_REFRESH_TIME_FOR_DICTIONARIES = 30*1000;
 	private long mLastDictionaryRefresh = -1;
 	private int mMinimumWordCorrectionLength = 2;
@@ -235,12 +236,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private int mVibrationDuration;
 	
 	private boolean mKeyboardInCondensedMode = false;
-	
-	//private int mKeyCodePosition;
-	
-	//private NotificationManager mNotificationManager;
-
-	//private static AnySoftKeyboard INSTANCE;
 
 	Handler mHandler = new Handler() {
 		@Override
@@ -251,8 +246,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 				break;
 			case MSG_RESTART_NEW_WORD_SUGGESTIONS:
 				final InputConnection ic = getCurrentInputConnection();
-				if (ic != null)
-					performRestartWordSuggestion(ic, getCursorPosition(ic));
+				if (ic != null && mRestartSuggestionsView != null)
+				{
+					if (canRestartWordSuggestion(ic)) {
+						mRestartSuggestionsView.setVisibility(View.VISIBLE);
+					}
+				}
 				break;
 //			 case MSG_UPDATE_OLD_SUGGESTIONS:
 //				 setOldSuggestions();
@@ -468,6 +467,19 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 		}
 		
+		mRestartSuggestionsView = candidateViewContainer.findViewById(R.id.restart_suggestions);
+		if (mRestartSuggestionsView != null)
+		{
+			mRestartSuggestionsView.setOnClickListener(new OnClickListener() {
+				
+				public void onClick(View v) {
+					v.setVisibility(View.GONE);
+					InputConnection ic = getCurrentInputConnection();
+					performRestartWordSuggestion(ic, getCursorPosition(ic));
+				}
+			});
+		}
+		
 		return candidateViewContainer;
 	}
 	
@@ -670,28 +682,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         //mLastSelectionStart = newSelStart;
         
         if (!mPredictionOn/* || mInputView == null || !mInputView.isShown()*/) return;//not relevant if no prediction is needed.
-        /*
-        if ((	(mWord.size() > 0 && mPredicting)//I think I'm predicting 
-        		&& (newSelStart != candidatesEnd || newSelEnd != candidatesEnd)//mm, the cursor is not at the end of the word
-                && (mLastSelectionStart != newSelStart)))//ho! The cursor changed too! 
-        {
-        	if (DEBUG) Log.d(TAG, "onUpdateSelection: seems like the input connection has been changed!");
-        	//This means the input connection has changed by the app, and not the user
-        	//Why? Because the cursor is not in the candidates range, as seen by the input connection,
-        	//and the cursor has moved from it previous position, which should also invoke change in the candidates range!
-        	abortCorrection(true, false);
-        	postUpdateShiftKeyState();
-        }
         
-        //are we in sync? It seems that sometimes, the onUpdateSelection is called with events from the past
-        //(welcome to the world of async IPC)
-        if (	mPredicting && mWord.size() > 0 &&//we are doing prediction
-        		(candidatesEnd - candidatesStart) != mWord.size())//the candidates are not in sync with the actual predicting data
-        {
-        	if (DEBUG) Log.d(TAG, "onUpdateSelection: not in sync! mWord says size is "+mWord.size());
-        	return;
-        }
-        */
         final InputConnection ic = getCurrentInputConnection();
         if (ic == null) return;//well, I can't do anything without this connection
         
@@ -732,6 +723,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         		{
         			if (DEBUG) Log.d(TAG, "onUpdateSelection: cursor moving outside the currently predicting word");
         			abortCorrection(true, false);
+        			//ask user whether to restart
         			postRestartWordSuggestion();
         		}
         	}
@@ -745,9 +737,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void postRestartWordSuggestion() {
         mHandler.removeMessages(MSG_RESTART_NEW_WORD_SUGGESTIONS);
-        if (!isCursorTouchingWord()) return;
-        
-        mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_RESTART_NEW_WORD_SUGGESTIONS), 300);
+        mRestartSuggestionsView.setVisibility(View.GONE);
+        mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_RESTART_NEW_WORD_SUGGESTIONS), 500);
     }
 	
 	private static int getCursorPosition(InputConnection connection) {
@@ -757,13 +748,20 @@ public class AnySoftKeyboard extends InputMethodService implements
 		return extracted.startOffset + extracted.selectionStart;
 	}
 	
+	private boolean canRestartWordSuggestion(final InputConnection ic) {
+		if (mPredicting || !isPredictionOn() || mInputView == null || !mInputView.isShown()) {
+			if (DEBUG) Log.d(TAG, "performRestartWordSuggestion: no need to restart - mPredicting="+mPredicting+", isPredictionOn="+isPredictionOn());
+			return false;
+		} else if (!isCursorTouchingWord()) {
+			if (DEBUG) Log.d(TAG,"User moved cursor to no land word. Bye bye.");
+			return false;
+		}
+		
+		return true;
+	}
+	
 	public void performRestartWordSuggestion(final InputConnection ic, final int cursorPosition) {
 		//I assume ASK DOES NOT predict at this moment!
-		if (mPredicting || !isPredictionOn() || mInputView == null || !mInputView.isShown())
-		{
-			if (DEBUG) Log.d(TAG, "performRestartWordSuggestion: no need to restart - mPredicting="+mPredicting+", isPredictionOn="+isPredictionOn());
-			return;
-		}
 		
 		//2) predicting and moved outside the word - abort predicting, update shift state
 		//2.1) to a new word - restart predicting on the new word
@@ -775,7 +773,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		//in this case, we would like to reset the predition and restart
 		//if the user clicked inside a different word
 		//restart required?
-		if (isCursorTouchingWord())
+		if (canRestartWordSuggestion(ic))
 		{//2.1
 			ic.beginBatchEdit();//don't want any events till I finish handling this touch
 			if (DEBUG) Log.d(TAG,"User moved cursor to a word. Should I restart predition?");
@@ -830,10 +828,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			ic.endBatchEdit();
 			postUpdateSuggestions();
 		}
-		else
-		{//2.2
-			if (DEBUG) Log.d(TAG,"User moved cursor to no land word. Bye bye.");
-		}
+		
 		updateShiftKeyState(getCurrentInputEditorInfo());
 	}
 /*
@@ -1051,6 +1046,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 
     private void clearSuggestions() {
+    	mRestartSuggestionsView.setVisibility(View.GONE);
         setSuggestions(null, false, false, false);
     }
 
@@ -2626,14 +2622,20 @@ public class AnySoftKeyboard extends InputMethodService implements
 		InputConnection ic = getCurrentInputConnection();
 		if (ic == null)
 			return false;
+		
 		CharSequence toLeft = ic.getTextBeforeCursor(1, 0);
+		//It is not exactly clear to me why, but sometimes, although I request 1 character, I get
+		//the entire text. This causes me to incorrectly detect restart suggestions...
+		if (!TextUtils.isEmpty(toLeft) && toLeft.length() == 1 && !isWordSeparator(toLeft.charAt(0))) {
+			return true;
+		}
+		
 		CharSequence toRight = ic.getTextAfterCursor(1, 0);
-		if (!TextUtils.isEmpty(toLeft) && !isWordSeparator(toLeft.charAt(0))) {
+		Log.d("********", "toRight: '"+toRight+"'");
+		if (!TextUtils.isEmpty(toRight) && toRight.length() == 1 && !isWordSeparator(toRight.charAt(0))) {
 			return true;
 		}
-		if (!TextUtils.isEmpty(toRight) && !isWordSeparator(toRight.charAt(0))) {
-			return true;
-		}
+		
 		return false;
 	}
 
