@@ -198,6 +198,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private boolean mCompletionOn;
 	private boolean mAutoSpace;
 	private boolean mAutoCorrectOn;
+	/*
+	 * This will help us detect multi-tap on the SHIFT key for caps-lock
+	 */
+	private long mShiftStartTime = 0;
 	private boolean mCapsLock;
 	
 	private static final String SMILEY_PLUGIN_ID = "0077b34d-770f-4083-83e4-081957e06c27";
@@ -2161,6 +2165,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			{
 				if (!mInputView.isShifted())
 				{
+					mShiftStartTime = SystemClock.elapsedRealtime();
 					if (DEBUG) Log.d(TAG, "handleShift: current keyboard is un-shifted");
 					mInputView.setShifted(true);
 					caps = false;
@@ -2175,9 +2180,20 @@ public class AnySoftKeyboard extends InputMethodService implements
 					}
 					else
 					{
-						if (DEBUG) Log.d(TAG, "handleShift: current keyboard is shifted");
-						mInputView.setShifted(true);
-						caps = true;
+						//if this is a quick tap, then move to caps locks, else back to unshifted.
+						if ((SystemClock.elapsedRealtime() - mShiftStartTime) < mConfig.getMultiTapTimeout())
+						{
+							if (DEBUG) Log.d(TAG, "handleShift: current keyboard is shifted, within multi-tap period.");
+							mInputView.setShifted(true);
+							caps = true;
+						}
+						else
+						{
+							if (DEBUG) Log.d(TAG, "handleShift: current keyboard is shifted, not within multi-tap period.");
+							mInputView.setShifted(false);
+							caps = false;
+						}
+						
 					}
 				}
 			}
