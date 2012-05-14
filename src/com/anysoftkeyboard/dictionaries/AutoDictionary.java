@@ -92,7 +92,7 @@ public class AutoDictionary extends UserDictionaryBase {
         sDictProjectionMap.put(COLUMN_LOCALE, COLUMN_LOCALE);
     }
 
-    private static DatabaseHelper msOpenHelper = null;
+    private DatabaseHelper mOpenHelper = null;
 
     public AutoDictionary(Context context, AnySoftKeyboard ime, String locale) {
         super("Auto", context);
@@ -120,9 +120,8 @@ public class AutoDictionary extends UserDictionaryBase {
     @Override
    protected  void loadDictionaryAsync()
    {
-
-        if (msOpenHelper == null) {
-            msOpenHelper = new DatabaseHelper(mContext);
+        if (mOpenHelper == null) {
+            mOpenHelper = new DatabaseHelper(mContext);
         }
         // Load the words that correspond to the current input locale
         Cursor cursor = getWordsCursor();
@@ -176,9 +175,9 @@ public class AutoDictionary extends UserDictionaryBase {
     public void flushPendingWrites() {
         synchronized (mPendingWritesLock) {
             // Nothing pending? Return
-            if (mPendingWrites.isEmpty()) return;
+            if (mPendingWrites.isEmpty() || mOpenHelper == null) return;
             // Create a background thread to write the pending entries
-            new UpdateDbTask(mContext, msOpenHelper, getDictionaryName(), mPendingWrites, mLocale).execute();
+            new UpdateDbTask(mContext, mOpenHelper, getDictionaryName(), mPendingWrites, mLocale).execute();
             // Create a new map for writing new entries into while the old one is written to db
             mPendingWrites = new HashMap<String, Integer>();
         }
@@ -218,7 +217,7 @@ public class AutoDictionary extends UserDictionaryBase {
         qb.setProjectionMap(sDictProjectionMap);
 
         // Get the database and run the query
-        SQLiteDatabase db = msOpenHelper.getReadableDatabase();
+        SQLiteDatabase db = mOpenHelper.getReadableDatabase();
         Cursor c = qb.query(db, null, selection, selectionArgs, null, null,
                 DEFAULT_SORT_ORDER);
         return c;
