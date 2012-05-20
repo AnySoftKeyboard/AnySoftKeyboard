@@ -125,7 +125,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private AnyKeyboardView mInputView;
     private CandidateView mCandidateView;
-    private View mRestartSuggestionsView;
+    //private View mRestartSuggestionsView;
     private static final long MINIMUM_REFRESH_TIME_FOR_DICTIONARIES = 30 * 1000;
     private long mLastDictionaryRefresh = -1;
     private int mMinimumWordCorrectionLength = 2;
@@ -215,12 +215,15 @@ public class AnySoftKeyboard extends InputMethodService implements
                     break;
                 case MSG_RESTART_NEW_WORD_SUGGESTIONS:
                     final InputConnection ic = getCurrentInputConnection();
+                    /*At some point I wanted to make the user click a View to restart suggestions
                     if (ic != null && mRestartSuggestionsView != null)
                     {
                         if (canRestartWordSuggestion(ic)) {
                             mRestartSuggestionsView.setVisibility(View.VISIBLE);
                         }
                     }
+                    */
+                    performRestartWordSuggestion(ic/*, getCursorPosition(ic)*/);
                     break;
                 // case MSG_UPDATE_OLD_SUGGESTIONS:
                 // setOldSuggestions();
@@ -442,7 +445,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                 });
             }
         }
-
+        /*At some point I wanted the user to click a View to restart the suggestions. I don't any more.
         mRestartSuggestionsView = candidateViewContainer.findViewById(R.id.restart_suggestions);
         if (mRestartSuggestionsView != null)
         {
@@ -455,7 +458,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                 }
             });
         }
-
+        */
         return candidateViewContainer;
     }
 
@@ -729,7 +732,6 @@ public class AnySoftKeyboard extends InputMethodService implements
             {
                 if (DEBUG)
                     Log.d(TAG, "onUpdateSelection: not predicting at this moment, maybe the cursor is now at a new word?");
-                abortCorrection(true, false);
                 postRestartWordSuggestion();
             }
         }
@@ -737,8 +739,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private void postRestartWordSuggestion() {
         mHandler.removeMessages(MSG_RESTART_NEW_WORD_SUGGESTIONS);
+        /*
         if (mRestartSuggestionsView != null)
             mRestartSuggestionsView.setVisibility(View.GONE);
+        */
         mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_RESTART_NEW_WORD_SUGGESTIONS), 500);
     }
 
@@ -768,7 +772,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         return true;
     }
 
-    public void performRestartWordSuggestion(final InputConnection ic, final int cursorPosition) {
+    public void performRestartWordSuggestion(final InputConnection ic/*, final int cursorPosition*/) {
         // I assume ASK DOES NOT predict at this moment!
 
         // 2) predicting and moved outside the word - abort predicting, update
@@ -800,8 +804,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             while (true)
             {
                 if (DEBUG)
-                    Log.d(TAG, "Checking left offset " + wordStartOffset + ". Currently have "
-                            + toLeft);
+                    Log.d(TAG, "Checking left offset " + wordStartOffset + ". Currently have " + toLeft);
                 CharSequence newToLeft = ic.getTextBeforeCursor(wordStartOffset + 1, 0);
                 if (TextUtils.isEmpty(newToLeft) || isWordSeparator(newToLeft.charAt(0))
                         || newToLeft.length() == toLeft.length()) {
@@ -841,17 +844,14 @@ public class AnySoftKeyboard extends InputMethodService implements
             // repositioning the cursor
             if (wordEndOffset > 0)
             {
+                final int cursorPosition = getCursorPosition(ic);
                 if (DEBUG)
-                    Log.d(TAG, "Repositioning the cursor inside the word to position "
-                            + cursorPosition);
+                    Log.d(TAG, "Repositioning the cursor inside the word to position " + cursorPosition);
                 ic.setSelection(cursorPosition, cursorPosition);
             }
 
             mPredicting = mWord.size() > 0;
-            mWord.setCursorPostion(wordStartOffset/*
-                                                   * , cursorPosition -
-                                                   * wordStartOffset
-                                                   */);
+            mWord.setCursorPostion(wordStartOffset);
             ic.endBatchEdit();
             postUpdateSuggestions();
         }
@@ -1013,8 +1013,10 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     private void clearSuggestions() {
+        /*
         if (mRestartSuggestionsView != null)
             mRestartSuggestionsView.setVisibility(View.GONE);
+            */
         setSuggestions(null, false, false, false);
     }
 
