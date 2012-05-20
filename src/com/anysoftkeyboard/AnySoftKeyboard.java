@@ -674,7 +674,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                     + ", ce=" + candidatesEnd);
         }
 
-        if (!mPredictionOn/* || mInputView == null || !mInputView.isShown() */)
+        if (!isPredictionOn()/* || mInputView == null || !mInputView.isShown() */)
             return;// not relevant if no prediction is needed.
 
         final InputConnection ic = getCurrentInputConnection();
@@ -2694,7 +2694,6 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
 
         CharSequence toRight = ic.getTextAfterCursor(1, 0);
-        Log.d("********", "toRight: '" + toRight + "'");
         if (!TextUtils.isEmpty(toRight) && toRight.length() == 1
                 && !isWordSeparator(toRight.charAt(0))) {
             return true;
@@ -2726,7 +2725,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             ic.setComposingText(mWord.getTypedWord()/* mComposing */, 1);
             TextEntryState.backspace();
             ic.endBatchEdit();
-            postUpdateSuggestions();
+            performUpdateSuggestions();
         } else {
             sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
             mJustRevertedSeparator = null;
