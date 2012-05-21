@@ -25,14 +25,15 @@ import java.io.IOException;
 import java.util.Calendar;
 
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 
 public class TextEntryState {
     
-    private static final boolean DBG = false;
+    private static final boolean DBG = false && AnyApplication.DEBUG;
 
     private static final String TAG = "TextEntryState";
 
-    private static boolean LOGGING = false;
+    private static boolean LOGGING = false && AnyApplication.DEBUG;
 
     private static int sBackspaceCount = 0;
     
