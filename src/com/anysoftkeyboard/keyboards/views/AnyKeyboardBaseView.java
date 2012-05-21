@@ -1594,8 +1594,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         if (TextUtils.isEmpty(label))
         {
         	Drawable iconToDraw = getIconToDrawForKey(key, true);
-        	Log.d("*****************", "showKey "+key.codes[0]+" iconToDraw:"+(iconToDraw != null));
-	        //mPreviewText.setCompoundDrawables(null, null, null, key.iconPreview != null ? key.iconPreview : key.icon);
+        	//mPreviewText.setCompoundDrawables(null, null, null, key.iconPreview != null ? key.iconPreview : key.icon);
         	mPreviewIcon.setImageDrawable(iconToDraw);
             mPreviewText.setText(null);
             mPreviewIcon.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
