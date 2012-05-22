@@ -14,8 +14,14 @@
     
     <string name="settings_key_lang_key_shows_popup">lang_key_shows_popup</string>
     
-    <string name="settings_key_show_hint_text_key">settings_key_show_hint_text_key</string>
+    <string name="settings_key_use_custom_keytext_color_key">settings_key_use_custom_keytext_color_key</string>
     
+    <string name="settings_key_show_hint_text_key">settings_key_show_hint_text_key</string>
+    <string name="settings_key_use_custom_hint_color_key">settings_key_use_custom_hint_color_key</string>
+    <string name="settings_key_use_custom_hint_align_key">settings_key_use_custom_hint_align</string>
+    <string name="settings_key_custom_hint_align_key">settings_key_custom_hint_align_key</string>
+	<string name="settings_key_custom_hint_valign_key">settings_key_custom_hint_valign_key</string>
+
     <string name="settings_key_emoticon_default_text">settings_key_emoticon_default_text</string>
     <string name="settings_key_smiley_icon_on_smileys_key">settings_key_smiley_icon_on_smileys_key</string>
     

@@ -49,15 +49,70 @@
 					
 					android:dependency="@string/settings_key_key_press_shows_preview_popup"/>
 				
-				<CheckBoxPreference
-					android:key="@string/settings_key_show_hint_text_key"
-					android:title="@string/show_hint_text"
-					android:persistent="true"
-					android:defaultValue="@bool/settings_default_show_hint_text_value"
-					android:summaryOn="@string/show_hint_text_on_summary"
-					android:summaryOff="@string/show_hint_text_off_summary"
-				/>
+					<!-- 
+				    <CheckBoxPreference
+						android:key="@string/settings_key_use_custom_keytext_color_key"
+						android:title="@string/use_custom_keytext_color"
+						android:persistent="true"
+						android:defaultValue="@bool/settings_default_use_custom_keytext_color_value"
+						android:summaryOn="@string/use_custom_keytext_color_on_summary"
+						android:summaryOff="@string/use_custom_keytext_color_off_summary"
+					/>
+					-->
+					<!-- need a color picker that is only enabled when using custom hint color... -->
+					<!-- may want one for "normal" keys, and another for "functional" keys -->
+					
 				
+				    <CheckBoxPreference
+						android:key="@string/settings_key_show_hint_text_key"
+						android:title="@string/show_hint_text"
+						android:persistent="true"
+						android:defaultValue="@bool/settings_default_show_hint_text_value"
+						android:summaryOn="@string/show_hint_text_on_summary"
+						android:summaryOff="@string/show_hint_text_off_summary"
+					/>
+					
+					<!-- 
+				    <CheckBoxPreference
+						android:key="@string/settings_key_use_custom_hint_color_key"
+						android:title="@string/use_custom_hint_color"
+						android:persistent="true"
+						android:defaultValue="@bool/settings_default_use_custom_hint_color_value"
+						android:summaryOn="@string/use_custom_hint_color_on_summary"
+						android:summaryOff="@string/use_custom_hint_color_off_summary"
+					/>
+					-->
+					<!-- need a color picker that is only enabled when using custom hint color... -->
+					<!-- may want one for "normal" keys, and another for "functional" keys -->
+					
+					<CheckBoxPreference
+					    android:key="@string/settings_key_use_custom_hint_align_key"
+					    android:title="@string/use_custom_hint_align"
+					    android:persistent="true"
+					    android:defaultValue="@bool/settings_default_use_custom_hint_align_value"
+				    	android:summaryOn="@string/use_custom_hint_align_on_summary"
+					    android:summaryOff="@string/use_custom_hint_align_off_summary"
+					    android:dependency="@string/settings_key_show_hint_text_key"
+					/>
+					<ListPreference
+						android:key="@string/settings_key_custom_hint_align_key"
+						android:title="@string/custom_hint_align"
+						android:dependency="@string/settings_key_use_custom_hint_align_key"
+						android:summary="@string/custom_hint_align_summary"
+						android:entries="@array/custom_hint_align_types"
+						android:entryValues="@array/custom_hint_align_values"
+						android:defaultValue="@string/settings_default_custom_hint_align_value"
+						android:dialogTitle="@string/settings_custom_hint_align_dialog_title"/>
+					<ListPreference
+						android:key="@string/settings_key_custom_hint_valign_key"
+						android:title="@string/custom_hint_valign"
+						android:dependency="@string/settings_key_use_custom_hint_align_key"
+						android:summary="@string/custom_hint_valign_summary"
+						android:entries="@array/custom_hint_valign_types"
+						android:entryValues="@array/custom_hint_valign_values"
+						android:defaultValue="@string/settings_default_custom_hint_valign_value"
+						android:dialogTitle="@string/settings_custom_hint_valign_dialog_title"/>
+
 				<EditTextPreference android:key="zoom_factor_keys_in_portrait"
 					android:lines="1" android:singleLine="true" android:autoText="false" android:capitalize="none" android:inputType="numberDecimal"
 					android:title="@string/zoom_factor_keys_in_portrait" android:dialogTitle="@string/zoom_factor_keys_in_portrait" android:persistent="true"

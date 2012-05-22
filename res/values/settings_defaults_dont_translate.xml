@@ -26,8 +26,15 @@
     <bool name="settings_default_user_dictionary">true</bool>
 	<bool name="settings_default_hide_soft_when_physical">true</bool>
 	<bool name="settings_default_key_press_shows_preview_popup">true</bool>
-	<bool name="settings_default_show_hint_text_value">true</bool>
 	
+	<bool name="settings_default_use_custom_keytext_color_value">false</bool>
+	
+	<bool name="settings_default_show_hint_text_value">true</bool>
+	<bool name="settings_default_use_custom_hint_color_value">false</bool>
+	<bool name="settings_default_use_custom_hint_align_value">false</bool>
+	<!-- default values for custom hint align are in arrays.xmlso that
+		 they are near the array of valid values for that preference -->	
+					
 	<string name="settings_default_key_press_preview_popup_position">above_key</string>
 	
 	<string name="settings_default_portrait_keyboard_height_factor">1.0</string>

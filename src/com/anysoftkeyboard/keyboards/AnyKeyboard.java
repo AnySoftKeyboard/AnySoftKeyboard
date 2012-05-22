@@ -752,6 +752,7 @@ public abstract class AnyKeyboard extends Keyboard
         
         public int[] shiftedCodes;
         public CharSequence shiftedKeyLabel;
+        public CharSequence mHintLabel;
         public int longPressCode;
         private boolean mFunctionalKey;
 		private boolean mEnabled;
@@ -812,6 +813,7 @@ public abstract class AnyKeyboard extends Keyboard
             /*long press support*/
             longPressCode = a.getInt(R.styleable.Keyboard_Key_longPressCode, 0);
             mFunctionalKey = a.getBoolean(R.styleable.Keyboard_Key_isFunctional, false);
+            this.mHintLabel = a.getString(R.styleable.Keyboard_Key_hintLabel);
             
             a.recycle();
             
