@@ -98,6 +98,7 @@
 	<string name="search_market_for_addons">Search for add-ons</string>
 	<string name="theme_addons_settings">Keyboard theme settings</string>
 	<string name="keyboard_theme_tweak_group">Tweaks</string>
+	<string name="keyboard_theme_tweak_hints_group">Hint text tweaks</string>
 	<string name="bottom_row_addons_settings">Bottom row settings</string>
 	<string name="top_row_addons_settings">Top row settings</string>
 	
@@ -275,9 +276,36 @@
     <string name="tweak_dictionary_group">Dictionary tweaks</string>
     <string name="settings_min_length_for_word_correction">Minimum word length for correction</string>
     
+    <string name="use_custom_keytext_color">Override key text color</string>
+    <string name="use_custom_keytext_color_on_summary">Use custom key text color</string>
+    <string name="use_custom_keytext_color_off_summary">Use theme key text color</string>
+    
     <string name="show_hint_text">Show hint text</string>
     <string name="show_hint_text_on_summary">Show hints on keys, if theme supports</string>
     <string name="show_hint_text_off_summary">Never show hints on keys</string>
+    
+    <string name="use_custom_hint_color">Override hint color</string>
+    <string name="use_custom_hint_color_on_summary">Use custom hint text color</string>
+    <string name="use_custom_hint_color_off_summary">Use theme hint text color</string>
+    
+    <string name="use_custom_hint_align">Override hint position</string>
+    <string name="use_custom_hint_align_on_summary">Use custom hint text position</string>
+    <string name="use_custom_hint_align_off_summary">Use theme hint text position</string>
+	<string name="custom_hint_align">Custom horizontal hint alignment</string>
+	<string name="custom_hint_align_summary">Align hint text at left, center, or right of key</string>
+	<string name="settings_custom_hint_align_dialog_title">Select horizontal alignment for hint text</string>
+    <string-array name="custom_hint_align_types">
+        <item>Left</item>
+        <item>Center</item>
+        <item>Right</item>
+    </string-array>
+    <string name="custom_hint_valign">Custom vertical hint alignment</string>
+    <string name="custom_hint_valign_summary">Align hint text at top or bottom of key</string>
+	<string name="settings_custom_hint_valign_dialog_title">Select vertical alignment for hint text</string>
+    <string-array name="custom_hint_valign_types">
+        <item>Top</item>
+        <item>Bottom</item>
+    </string-array>
     
     <string name="is_sticky_extesion_keyboard">Sticky extension keyboard</string>
     <string name="is_sticky_extesion_keyboard_on_summary">Stays visible until explicitly closed</string>
@@ -366,6 +394,7 @@
     <string name="keyboards_group">Keyboards</string>
     <string name="symbols_keyboard">Symbols</string>
     <string name="eng_keyboard">English</string>
+    <string name="eng_keyboard_qwertywithsymbols">English with symbols</string>
     <string name="eng_keyboard_16keys">16 Keys English</string>
 
 	<string name="additional_addons_group">Additional add-ons</string>
@@ -410,6 +439,8 @@
 	<string name="dark_plain_keyboard_theme_description">Dark colors, simple graphics</string>
 	<string name="light_plain_keyboard_theme_name">Plain light theme</string>
 	<string name="light_plain_keyboard_theme_description">Light colors, simple graphics</string>
+	<string name="blacktheme_keyboard_theme_name">Simple black glow</string>
+	<string name="blacktheme_keyboard_theme_description">Simple black theme with color highlights</string>
 	
 	<!-- extension keyboard type -->
 	<string name="extension_kbd_top_none">No top row</string>
@@ -421,6 +452,7 @@
 	<string name="extension_kbd_bottom_regular">Classic (no mic)</string>
 	<string name="extension_kbd_bottom_iphone">iPhone styled (no mic)</string>
 	<string name="extension_kbd_bottom_iphone_with_voice">iPhone styled with mic</string>
+	<string name="extension_kbd_bottom_alt">Alternate (no mic)</string>
 	
 	<string name="extension_kbd_extension_numbers_symbols">Numbers and symbols</string>
 	
