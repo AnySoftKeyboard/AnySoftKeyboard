@@ -111,6 +111,9 @@
 		<!-- V2 -->
         <item name="hintTextSize">@dimen/key_hint_text_size</item>
         <item name="hintTextColor">#FFBBBBBB</item>
+        <!-- hint label positioning attributes -->
+        <item name="hintLabelVAlign">bottom</item>
+        <item name="hintLabelAlign">right</item>
     </style>
     <style name="AnyKeyboardPopupBaseTheme" parent="@style/AnyKeyboardBaseTheme">
         <item name="android:paddingLeft">8dp</item>
@@ -150,11 +153,51 @@
     	<item name="keyBackground">@drawable/dark_btn_key</item>
     </style>
     
+    <style name="PlainBlackAnySoftKeyboard" parent="@style/AnyKeyboardBaseTheme">
+        <item name="android:background">@drawable/blacktheme_background</item>
+    	<item name="keyBackground">@drawable/blacktheme_key</item>
+
+    	<item name="keyPreviewBackground">@drawable/blacktheme_preview_background</item>
+        <item name="keyPreviewTextColor">@color/blacktheme_color_previewtext</item>
+        <item name="keyPreviewTextSize">@dimen/blacktheme_size_text_preview</item>
+    	<item name="keyPreviewLabelTextSize">@dimen/blacktheme_size_text_main</item>
+        
+        <item name="keyTextSize">@dimen/blacktheme_size_text_main</item>
+        <item name="labelTextSize">@dimen/blacktheme_size_text_smaller</item>            
+        <item name="keyTextColor">@color/blacktheme_key_keytext_color</item>
+        
+        <item name="hintTextSize">@dimen/blacktheme_size_text_hint</item>
+    	<item name="hintTextColor">@color/blacktheme_key_hint_color</item>
+        <item name="hintLabelVAlign">top</item>
+        <item name="hintLabelAlign">center</item>
+ 		
+ 		<item name="keyHorizontalGap">@dimen/blacktheme_keygap_horizontal</item>
+		<item name="keyVerticalGap">@dimen/blacktheme_keygap_vertical</item>
+		
+		<item name="keyNormalHeight">@dimen/blacktheme_key_height</item>
+    	<item name="keySmallHeight">@dimen/blacktheme_key_half_height</item>
+    	<item name="keyLargeHeight">@dimen/blacktheme_key_tall_height</item>
+		        
+        <item name="suggestionNormalTextColor">@color/blacktheme_color_suggestion_normal</item>
+    	<item name="suggestionRecommendedTextColor">@color/blacktheme_color_suggestion_recommended</item>
+    	<item name="suggestionOthersTextColor">@color/blacktheme_color_suggestion_others</item>
+    	<item name="suggestionBackgroundImage">@drawable/blacktheme_suggestion_background</item>
+    	<item name="suggestionDividerImage">@drawable/dark_suggestions_divider</item>
+    	<item name="suggestionTextSize">@dimen/candidate_font_height</item>
+    	<item name="suggestionStripHeight">@dimen/candidate_strip_height</item>
+    </style>
+    <style name="PlainBlackAnySoftKeyboardPopup" parent="@style/AnyKeyboardPopupBaseTheme">
+        <item name="android:background">@drawable/blacktheme_popup_background</item>
+    	<item name="keyBackground">@drawable/blacktheme_popupkey</item>
+        <item name="keyTextColor">@color/blacktheme_popup_keytext_color</item>
+    </style>
+    
     <style name="PlainLightAnySoftKeyboard" parent="@style/AnyKeyboardBaseTheme">
         <item name="android:background">@drawable/light_background_tiled</item>
     	<item name="keyBackground">@drawable/light_btn_key</item>
         <item name="keyTextColor">@color/light_btn_key_text_color</item>
         <item name="hintTextColor">#FF222222</item>
+        
         <item name="backgroundDimAmount">0.2</item>
         
         <item name="keyPreviewBackground">@drawable/light_btn_key_preview_background</item>
