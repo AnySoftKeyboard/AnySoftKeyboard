@@ -24,4 +24,41 @@
 
     <color name="key_color_white">#FFFFFFFF</color>
     <color name="key_color_black">#FF000000</color>
+    
+    <color name="blacktheme_color_background">#FF000000</color>
+	<color name="blacktheme_color_topborder">#FF333333</color>
+    <color name="blacktheme_color_suggestion_background">#FF000000</color>
+    <color name="blacktheme_color_suggestion_divider">#FF00FF66</color>
+    <color name="blacktheme_color_suggestion_recommended">#FF00CC33</color>
+    <color name="blacktheme_color_suggestion_others">#FFCCCCCC</color>
+    <color name="blacktheme_color_suggestion_normal">#FFFFFFFF</color>
+    <color name="blacktheme_color_previewtext">#FFFFFFFF</color>
+    <color name="blacktheme_color_popup_background">#FF333333</color>
+    <color name="blacktheme_color_popup_stroke">#FF999999</color>
+    <color name="blacktheme_color_action">#FF002007</color>
+    <color name="blacktheme_color_action_pressed">#FF006611</color>
+    <color name="blacktheme_color_action_stroke">#FF006611</color>
+    <color name="blacktheme_color_action_pressed_stroke">#FF00CC22</color>
+    <color name="blacktheme_color_action_keytext">#FFEEEEEE</color>
+    <color name="blacktheme_color_action_pressed_keytext">#FFFFFFFF</color>
+    <color name="blacktheme_color_action_hint">#FF33FF99</color>
+    <color name="blacktheme_color_action_pressed_hint">#FF33FFCC</color>
+    <color name="blacktheme_color_function">#FF001020</color>
+    <color name="blacktheme_color_function_pressed">#FF003366</color>
+    <color name="blacktheme_color_function_checked">#FF002244</color>
+    <color name="blacktheme_color_function_stroke">#FF003366</color>
+    <color name="blacktheme_color_function_pressed_stroke">#FF0066CC</color>
+    <color name="blacktheme_color_function_checked_stroke">#FF0055AA</color>
+    <color name="blacktheme_color_function_keytext">#FFEEEEEE</color>
+    <color name="blacktheme_color_function_pressed_keytext">#FFFFFFFF</color>
+    <color name="blacktheme_color_function_hint">#FF3399FF</color>
+    <color name="blacktheme_color_function_pressed_hint">#FF33CCFF</color>
+    <color name="blacktheme_color_normal">#FF000000</color>
+    <color name="blacktheme_color_normal_pressed">#FF000000</color>
+    <color name="blacktheme_color_normal_stroke">#FF333333</color>
+    <color name="blacktheme_color_normal_pressed_stroke">#FF0088FF</color>
+    <color name="blacktheme_color_normal_keytext">#FFEEEEEE</color>
+    <color name="blacktheme_color_normal_pressed_keytext">#FFFFFFFF</color>
+    <color name="blacktheme_color_normal_hint">#FF0088FF</color>
+	<color name="blacktheme_color_normal_pressed_hint">#FF00BBFF</color>
 </resources>
