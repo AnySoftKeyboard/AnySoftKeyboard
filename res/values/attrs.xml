@@ -70,6 +70,8 @@
         <attr name="isFunctional" format="boolean" />
         
         <attr name="shiftedCodes" format="integer|string"/>
+        <!-- The characters to display as a hint for the popup keyboard -->
+        <attr name="hintLabel" format="string"/>
     </declare-styleable>
     
     <declare-styleable name="AnyKeyboardBaseView">
@@ -125,7 +127,7 @@
             <flag name="white" value="0" />
             <flag name="black" value="1" />
         </attr>
-
+        
 		<attr name="android:background"/>
 		<attr name="android:paddingLeft"/>
 		<attr name="android:paddingTop"/>
@@ -157,9 +159,21 @@
 	<declare-styleable name="AnyKeyboardBaseViewV2">
 		<!-- Size of the text for hinting about long press output. -->
         <attr name="hintTextSize" format="dimension" />
-
+        
+        <!-- location of hint labels -->
+       	<attr name="hintLabelAlign">
+        	<flag name="left" value="3" />
+        	<flag name="center" value="17" />
+        	<flag name="right" value="5" />
+        </attr>
+        <attr name="hintLabelVAlign">
+            <flag name="top" value="48" />
+        	<flag name="bottom" value="80" />
+        </attr>
+        
         <!-- Color to use for hint text. -->
         <attr name="hintTextColor" format="color" />
+        
 	</declare-styleable>
 	
 	<declare-styleable name="AnySoftKeyboardKeyIcons">
