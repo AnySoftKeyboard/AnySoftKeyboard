@@ -4,8 +4,8 @@
 	xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard" android:rowEdgeFlags="top"
    android:keyWidth="35%p"
    android:keyHeight="@integer/key_short_height">
-   	<Key android:codes="-2"  android:keyLabel="@string/change_symbols_wide" android:isModifier="true" android:keyEdgeFlags="left"/>
+   	<Key android:codes="-2"  android:keyLabel="@string/change_symbols_wide" ask:hintLabel=" " android:isModifier="true" android:keyEdgeFlags="left"/>
    	<Key android:codes="-20" android:keyWidth="15%p" android:isRepeatable="true" />
    	<Key android:codes="-21" android:keyWidth="15%p" android:isRepeatable="true" />
-	<Key android:codes="-99" android:keyLabel="@string/change_lang_wide" ask:longPressCode="-98" android:isModifier="true" android:keyEdgeFlags="right"/>
+	<Key android:codes="-99" android:keyLabel="@string/change_lang_wide" ask:hintLabel=" " ask:longPressCode="-98" android:isModifier="true" android:keyEdgeFlags="right"/>
 </Row>
