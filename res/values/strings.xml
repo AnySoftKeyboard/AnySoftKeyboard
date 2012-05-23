@@ -447,12 +447,14 @@
 	<string name="extension_kbd_top_small">Small keys</string>
 	<string name="extension_kbd_top_regular">Regular sized keys</string>
 	<string name="extension_kbd_top_small_numbers">Numbers keys</string>
+	<string name="extension_kbd_top_numbers_alt">Alternate number keys</string>
 	
 	<string name="extension_kbd_bottom_regular_with_voice">Regular</string>
 	<string name="extension_kbd_bottom_regular">Classic (no mic)</string>
 	<string name="extension_kbd_bottom_iphone">iPhone styled (no mic)</string>
 	<string name="extension_kbd_bottom_iphone_with_voice">iPhone styled with mic</string>
 	<string name="extension_kbd_bottom_alt">Alternate (no mic)</string>
+	<string name="extension_kbd_bottom_alt_with_mic">Alternate with mic</string>
 	
 	<string name="extension_kbd_extension_numbers_symbols">Numbers and symbols</string>
 	
