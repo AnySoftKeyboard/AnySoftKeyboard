@@ -35,7 +35,7 @@
                 android:isModifier="true" android:isSticky="true" android:keyEdgeFlags="left"/>
         <Key android:codes="z" android:popupCharacters="/÷żžź" ask:hintLabel="/"/>
         <Key android:codes="x" android:popupCharacters="*·×" ask:hintLabel="*" />
-        <Key android:codes="c" android:popupCharacters="-çćĉč" ask:hintLabel="-" />
+        <Key android:codes="c" android:popupCharacters="-çćĉč" ask:hintLabel="−" />
         <Key android:codes="v" android:popupCharacters="+±" ask:hintLabel="+" />
         <Key android:codes="b" android:popupCharacters="\u003D" />
         <Key android:codes="n" android:popupCharacters="&lt;ñ" ask:hintLabel="&lt;" />
