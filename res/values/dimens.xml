@@ -66,14 +66,14 @@
     
 	<integer name="condensing_precentage">100</integer>
 
-    <dimen name="blacktheme_size_text_main">20sp</dimen>
+    <dimen name="blacktheme_size_text_main">21sp</dimen>
     <dimen name="blacktheme_size_text_smaller">14sp</dimen>
     <dimen name="blacktheme_size_text_hint">10sp</dimen>
     <dimen name="blacktheme_size_text_preview">28sp</dimen>
-    <dimen name="blacktheme_keygap_horizontal">2dp</dimen>
-    <dimen name="blacktheme_keygap_vertical">2dp</dimen>
+    <dimen name="blacktheme_keygap_horizontal">1.5dp</dimen>
+    <dimen name="blacktheme_keygap_vertical">0.5dp</dimen>
     <dimen name="blacktheme_radius_popup_corner">2dp</dimen>
-    <dimen name="blacktheme_radius_key_corner">2dp</dimen>
+    <dimen name="blacktheme_radius_key_corner">1dp</dimen>
     <dimen name="blacktheme_width_key_pressed_stroke">2dp</dimen>
     <dimen name="blacktheme_width_key_stroke">1.5dp</dimen>
     <dimen name="blacktheme_width_topborder">1.5dp</dimen>
