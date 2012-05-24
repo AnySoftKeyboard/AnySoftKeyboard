@@ -728,6 +728,8 @@ public class AnySoftKeyboard extends InputMethodService implements
                     abortCorrection(true, false);
                     // ask user whether to restart
                     postRestartWordSuggestion();
+                    //there has been a cursor movement. Maybe a shift state is required too?
+                    postUpdateShiftKeyState();
                 }
             }
             else
@@ -746,6 +748,8 @@ public class AnySoftKeyboard extends InputMethodService implements
                     }
                 }
                 postRestartWordSuggestion();
+                //there has been a cursor movement. Maybe a shift state is required too?
+                postUpdateShiftKeyState();
             }
         }
     }
@@ -798,7 +802,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         // this can be either because the cursor is really outside the
         // previously underlined (suggested)
         // or nothing was suggested.
-        // in this case, we would like to reset the predition and restart
+        // in this case, we would like to reset the prediction and restart
         // if the user clicked inside a different word
         // restart required?
         if (canRestartWordSuggestion(ic))
@@ -810,66 +814,56 @@ public class AnySoftKeyboard extends InputMethodService implements
             abortCorrection(true, false);
 
             // locating the word
-            int wordStartOffset = 0;
-            int wordEndOffset = 0;
             CharSequence toLeft = "";
             CharSequence toRight = "";
             while (true)
             {
                 if (DEBUG)
-                    Log.d(TAG, "Checking left offset " + wordStartOffset + ". Currently have " + toLeft);
-                CharSequence newToLeft = ic.getTextBeforeCursor(wordStartOffset + 1, 0);
+                    Log.d(TAG, "Checking left offset " + toLeft.length() + ". Currently have '" + toLeft+"'");
+                CharSequence newToLeft = ic.getTextBeforeCursor(toLeft.length() + 1, 0);
                 if (TextUtils.isEmpty(newToLeft) || isWordSeparator(newToLeft.charAt(0))
                         || newToLeft.length() == toLeft.length()) {
                     break;
                 }
                 toLeft = newToLeft;
-                wordStartOffset++;
             }
             while (true)
             {
                 if (DEBUG)
-                    Log.d(TAG, "Checking right offset " + wordEndOffset + ". Currently have "
-                            + toRight);
-                CharSequence newToRight = ic.getTextAfterCursor(wordEndOffset + 1, 0);
+                    Log.d(TAG, "Checking right offset " + toRight.length() + ". Currently have '" + toRight+"'");
+                CharSequence newToRight = ic.getTextAfterCursor(toRight.length() + 1, 0);
                 if (TextUtils.isEmpty(newToRight)
                         || isWordSeparator(newToRight.charAt(newToRight.length() - 1))
                         || newToRight.length() == toRight.length()) {
                     break;
                 }
                 toRight = newToRight;
-                wordEndOffset++;
             }
             CharSequence word = toLeft.toString() + toRight.toString();
             Log.d(TAG, "Starting new prediction on word '" + word + "'.");
             for (int index = 0; index < word.length(); index++)
             {
                 final char c = word.charAt(index);
-                mWord.add(c, new int[] {
-                    c
-                });
+                mWord.add(c, new int[] {c});
                 if (index == 0)
                     mWord.setFirstCharCapitalized(Character.isUpperCase(c));
                 TextEntryState.typedCharacter((char) c, false);
             }
-            ic.deleteSurroundingText(wordStartOffset, wordEndOffset);
+            ic.deleteSurroundingText(toLeft.length(), toRight.length());
             ic.setComposingText(word, 1);
             // repositioning the cursor
-            if (wordEndOffset > 0)
+            if (toRight.length() > 0)
             {
-                final int cursorPosition = getCursorPosition(ic);
+                final int cursorPosition = getCursorPosition(ic) - toRight.length();
                 if (DEBUG)
                     Log.d(TAG, "Repositioning the cursor inside the word to position " + cursorPosition);
                 ic.setSelection(cursorPosition, cursorPosition);
             }
-
             mPredicting = mWord.size() > 0;
-            mWord.setCursorPostion(wordStartOffset);
+            mWord.setCursorPostion(toLeft.length());
             ic.endBatchEdit();
             postUpdateSuggestions();
         }
-
-        updateShiftKeyState(getCurrentInputEditorInfo());
     }
     
     private void onPhysicalKeyboardKeyPressed() {
@@ -1373,7 +1367,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private void postUpdateShiftKeyState() {
         mHandler.removeMessages(MSG_UPDATE_SHIFT_STATE);
-        // TODO: Should remove this 300ms delay?
         mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_UPDATE_SHIFT_STATE), 150);
     }
 
@@ -3521,7 +3514,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
             b.setCancelable(true);
             b.setAdapter(a, new DialogInterface.OnClickListener() {
-                @SuppressWarnings("unchecked")
+                @SuppressWarnings("unchecked") //I know, I know, it is not safe to cast, but I created the list, and willing to pay the price. 
                 public final void onClick(DialogInterface dialog, int which) {
                     HashMap<String, Object> item = (HashMap<String, Object>) a.getItem(which);
                     onText((String) item.get("text"));

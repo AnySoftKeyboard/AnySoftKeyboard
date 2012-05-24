@@ -15,8 +15,8 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:tag="20120510"
+    	android:tag="20120524"
         android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
 	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-	    android:text="* Word suggestions restart revision.\n* Various bug fixes.\n* Translations: CA, EL, ES, FR, IT, LT, PL, pt-BR, tl(fil)." style="@android:style/TextAppearance.Small"/>
+	    android:text="* Word suggestions restart revision.\n* Various bug fixes.\n* Translations: CA, EL, ES, FR, IT, LT, PL, PT, pt-BR, tl(fil)." style="@android:style/TextAppearance.Small"/>
 </LinearLayout>
