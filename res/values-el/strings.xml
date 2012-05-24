@@ -17,7 +17,7 @@
   <string name="tip_3_hidden_kbds">Κρυμμένα διαμάντια</string>
   <string name="tip_3_hidden_kbds_tip">Υπάρχουν κάποια κρυφά πληκτρολόγια:\n1) Σύρετε το δάχτυλό σας από το πλήκτρο διαστήματος και προς τα πάνω, για να έχετε ένα βοηθητικό πληκτρολόγιο με βέλη και μικρόφωνο (για είσοδο φωνής).\n2) Σύρετε το δάχτυλό σας προς τα πάνω εκτός πληκτρολογίου και κρατήστε πατημένο. Αυτό είναι το επιπλέον πληκτρολόγιο, με αριθμούς και σύμβολα.</string>
   <string name="tip_4_top_generic_row">Πάνω σειρά</string>
-  <string name="tip_4_top_generic_row_tip">Η πάνω σειρά είναι ίδια σε όλες τις διατάξεις κι αυτό μπορεί να αλλάξει! Η προεπιλεγμένη πάνω σειρά περιλαμβάνει πλήκτρα με σύμβολα (&lt;i&gt;123&lt;/i&gt;), πλήκτρα δεικτών γι αριστερά και δεξιά και πλήκτρο γλώσσας (&lt;i&gt;ABC&lt;/i&gt;).  Μπορείτε να αντικαταστήσετε αυτή τη σειρά στις ρυθμίσεις.</string>
+  <string name="tip_4_top_generic_row_tip">Η πάνω σειρά είναι ίδια σε όλες τις διατάξεις κι αυτό μπορεί να αλλάξει! Η προεπιλεγμένη πάνω σειρά περιλαμβάνει πλήκτρα με σύμβολα (&lt;i&gt;123&lt;/i&gt;), πλήκτρα δεικτών για αριστερά και δεξιά και πλήκτρο γλώσσας (&lt;i&gt;ABC&lt;/i&gt;).  Μπορείτε να αντικαταστήσετε αυτή τη σειρά στις ρυθμίσεις.</string>
   <string name="tip_4_top_generic_row_go_to_top_row_settings">Αλλαγή πάνω σειράς τώρα</string>
   <string name="tip_5_key_feedback">Ανταπόκριση</string>
   <string name="tip_5_key_feedback_tip">Μερικές φορές είναι ωραίο να έχετε μια μη οπτική ειδοποίηση σχετικά με τις πιέσεις πλήκτρων. Το υποστηρίζω αυτό. Επομένως εδώ είναι, μπορείτε να έχετε δόνηση ή ήχο, ή και τα δύο.</string>
@@ -265,8 +265,8 @@
   <string name="cycle_all_symbols_keyboards">Εμφάνιση όλων των συμβόλων</string>
   <string name="cycle_all_symbols_keyboards_on_summary">Το πλήκτρο συμβόλων θα εμφανίζει όλα τα πληκτρολόγια συμβόλων</string>
   <string name="cycle_all_symbols_keyboards_off_summary">Το πλήκτρο συμβόλων θα εμφανίζει μόνο τα βασικά σύμβολα του πληκτρολόγιου</string>
-  <string name="lang_key_shows_popup">Αλλαγή γλώσσας με popup</string>
-  <string name="lang_key_shows_popup_on_summary">Το πλήκτρο γλώσσας θα εμφανίσει ένα pop-up με διάλογο επιλογής</string>
+  <string name="lang_key_shows_popup">Αλλαγή γλώσσας με αναδυόμενη επιλογή</string>
+  <string name="lang_key_shows_popup_on_summary">Το πλήκτρο γλώσσας θα εμφανίσει έναν αναδυόμενο διάλογο επιλογής</string>
   <string name="lang_key_shows_popup_off_summary">Το πλήκτρο γλώσσας θα εναλλάσσει τις γλώσσες</string>
   <string name="auto_caps">Αυτόματα πεζά και κεφαλαία γράμματα</string>
   <string name="grammer_group">Γραμματική</string>
@@ -292,7 +292,7 @@
   <string name="eng_keyboard">Αγγλικά</string>
   <string name="eng_keyboard_16keys">Αγγλικά 16 πλήκτρων</string>
   <string name="additional_addons_group">Επιπλέον πρόσθετα</string>
-  <string name="quick_text_keys_group">Πλήκτρα ταχείας γραφής κειμένου</string>
+  <string name="quick_text_keys_group">Πλήκτρο ταχείας γραφής κειμένου</string>
   <string name="quick_text_key_active">Ενεργοποίηση πλήκτρου ταχείας γραφής</string>
   <string name="quick_text_key_dialog_title">Επιλέξτε πλήκτρο</string>
   <string name="quick_text_key_summary">Επιλέξτε πλήκτρο ταχείας γραφής για εμφάνιση στα πληκτρολόγια</string>
@@ -356,7 +356,7 @@
   <string name="select_keyboard_popup_title">Επιλέξτε πληκτρολόγιο</string>
   <string name="eng_dictionary">Αγγλικά</string>
   <string name="simley_key_name">Πλήκτρο φατσούλας</string>
-  <string name="default_quick_text_key_name">Απλά εικονίδια</string>
+  <string name="default_quick_text_key_name">Απλό εικονίδιο</string>
   <string name="multitap_timeout_title">Χρονικό όριο για πολλαπλό πάτημα</string>
   <string name="multitap_timeout_summary">Χρονικό όριο μεταξύ πατημάτων πλήκτρων</string>
   <string name="settings_multitap_timeout_disabled">Απενεργοποιημένο</string>
@@ -379,7 +379,7 @@
   <string name="workaround_disable_rtl_fix_summary_on">Χρήση γραφής RTL του λειτουργικού (για τηλέφωνα SE)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Χρήση γραφής RTL του AnySoftKeyboard</string>
   <string name="settings_split_state_title">Αρχική κατάσταση διαιρεμένου/ενωμένου</string>
-  <string name="settings_split_state_summary">Ορίστε αν το πληκτρολόγιο είναι διαιρεμένο ως προεπιλογή</string>
+  <string name="settings_split_state_summary">Καθορίστε αν το πληκτρολόγιο είναι διαιρεμένο ως προεπιλογή</string>
   <string name="settings_split_state_merged_always">Έναρξη κανονικού</string>
   <string name="settings_split_state_split_in_landscape">Έναρξη διαιρεμένου σε οριζόντιο</string>
   <string name="settings_split_state_split_always">Έναρξη διαιρεμένου</string>
