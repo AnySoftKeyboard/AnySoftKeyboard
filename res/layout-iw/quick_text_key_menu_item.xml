@@ -5,8 +5,7 @@
 	android:layout_height="?android:attr/listPreferredItemHeight">
 	<TextView android:id="@+id/quick_text_name"
 		android:singleLine="true"
-		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:textColor="?android:attr/textColorPrimaryInverse"
+		android:textAppearance="?android:attr/textAppearanceLargeInverse"
 		android:layout_marginLeft="24dip"
 		android:layout_gravity="center_vertical"
 		android:gravity="left"
@@ -14,8 +13,7 @@
 		android:layout_height="wrap_content" />
 	<TextView android:id="@+id/quick_text_output"
 		android:singleLine="true"
-		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:textColor="?android:attr/textColorPrimaryInverse"
+		android:textAppearance="?android:attr/textAppearanceLargeInverse"
  		android:layout_gravity="center"
 		android:layout_weight="1"
 		android:layout_width="0dip"
