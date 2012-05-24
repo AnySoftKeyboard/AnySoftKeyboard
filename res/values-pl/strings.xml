@@ -5,7 +5,7 @@
   <string name="settings_app_name">Ustawienia AnySoftKeyboard</string>
   <string name="click_to_restart_suggestions">Kliknij dla sugestii</string>
   <string name="tips_notification_text">Kliknij, aby uzyskać porady!</string>
-  <string name="tips_button">Jak używać wkazówek</string>
+  <string name="tips_button">Wskazówki jak używać</string>
   <string name="tips_button_description">Kliknij aby uzyskać porady dotyczące AnySoftKeyboard</string>
   <string name="tips_title">Porady AnySoftKeyboard</string>
   <string name="click_for_previous_tip">↓ Poprzednia</string>
@@ -17,7 +17,7 @@
   <string name="tip_3_hidden_kbds">Ukryte klejnoty</string>
   <string name="tip_3_hidden_kbds_tip">Jest nieco ukrytych klawiatur:\n1. Przesuwając palecem od spacji w górę otrzymasz klawiaturę użytkową ze strzałkami i mikrofonem (do wprowadzania głosowego).\n2. Przesuń palec w górę poza klawiaturę i przytrzymaj. To jest klawiatura rozszerzająca z cyframi i znakami.</string>
   <string name="tip_4_top_generic_row">Górny wiersz</string>
-  <string name="tip_4_top_generic_row_tip">Górny wiersz jest taki sam we wszystkich układach i może być zmieniony! Domyślny wiersz zawiera klawisze symboli (<i>123</i>), lewa i prawa strzałka oraz klawisz języka (<i>ABC</i>). Możesz wymienić ten wiersz w ustawieniach.</string>
+  <string name="tip_4_top_generic_row_tip">Górny wiersz jest taki sam we wszystkich układach i może być zmieniony! Domyślny wiersz zawiera klawisze symboli (<i>123</i>), strzałki w prawo i lewo oraz klawisz języka (<i>ABC</i>). Możesz wymienić ten wiersz w ustawieniach.</string>
   <string name="tip_4_top_generic_row_go_to_top_row_settings">Zmień teraz górny wiersz</string>
   <string name="tip_5_key_feedback">Reakcja</string>
   <string name="tip_5_key_feedback_tip">Czasami fajnie jest dostawać niewizualne reakcje na naciśnięcia klawiszy. Popieram to. Proszę bardzo, możesz wybrać wibracje, dźwięk albo oba.</string>
@@ -30,7 +30,9 @@
   <string name="tip_7_voice_input_tip_dont_forget_bottom_row">Jeśli chcesz zawsze mieć ikonę mikrofonu, upewnij się, że masz wybrany poprawny dolny wiersz (poprzednia wskazówka, pamiętasz?).\nW każdym razie mikrofon jest zawsze dostępny przez ukrytą klawiaturę użytkową (przesunięcie w góre od spacji).</string>
   <string name="tip_7_voice_input_tip_note">* Wymaga Androida 2.2+ i połączenia z Internetem do działania.</string>
   <string name="tip_8_suggestions">Uzupełniam Cię</string>
+  <string name="tip_8_suggestions_tip">AnySoftKeyboard może ci pomóc dokańczać wyrazy oraz poprawiać literówki. Po rozpoczęciu pisania AnySoftKeyboard będzie sugerował wyrazy na podstawie tego, co już zostało wpisane.</string>
   <string name="tip_8_suggestions_editor">Jeśli nie znam wyrazu, możesz mnie nauczyć! Wpisz ten wyraz i kliknij go na pasku sugestii. Zapamiętam go.\nMożesz też edytować te wyrazy we wbudowanym edytorze. Rozglądaj się za nim w Ustawieniach Słownika AnySoftKeyboard.</string>
+  <string name="tip_9_suggestions_restart">Restartowanie sugestii</string>
   <string name="tip_9_suggestions_restart_tip">AnySoftKeyboard dostarcza podpowiedzi autouzupełniania bazujące na tym co zostało wpisane. Jednakże AnySoftKeyboard może także dostarczać sugestie dla już wpisanych wyrazów! Dotknij słowo, a AnySoftKeyboard odświeży pasek podpowiedzi.</string>
   <string name="main_tab_welcome">Witaj</string>
   <string name="main_tab_links">Łącza</string>
@@ -52,7 +54,9 @@
   <string name="how_to_enable_dialog_text">AnySoftKeyboard nie została jeszcze aktywowana. Chcesz żebym pokazał jak ją aktywować?</string>
   <string name="how_to_enable_dialog_show_me">Pokaż mi!</string>
   <string name="how_to_enable_dialog_dont_show_me">Później</string>
+  <string name="how_to_simple_howto_preface">Android wymaga, abyś ty (użytkownik) ręcznie włączył i aktywował dodatkowe klawiatury. Jak tego dokonać:</string>
   <string name="how_to_simple_howto_enable_ask">Krok 1: Włącz AnySoftKeyboard (dostaniesz ostrzeżenie o możliwym gromadzeniu danych ale nie martw się, AnySoftKeyboard ich nie przetrzymuje i nigdzie nie wysyła):</string>
+  <string name="how_to_simple_howto_enable_ask_button">Włącz AnySoftKeyboard</string>
   <string name="how_to_simple_howto_go_to_settings_button">Ustawienia AnySoftKeyboard</string>
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
   <string name="notification_text_testers">To jest wersja beta. Zachowaj ostrożność!</string>
@@ -97,7 +101,7 @@
   <string name="effects_group">Efekty</string>
   <string name="ime_settings">Ustawienia klawiatury</string>
   <string name="vibrate_on_key_press_title">Wibruj przy naciśnięciu</string>
-  <string name="vibrate_on_key_press_summary">Wybierz, aby klawisze wibrowały przy naciśnięciu</string>
+  <string name="vibrate_on_key_press_summary">Wybierz siłę, z jaką mają wibrować klawisze po naciśnięciu</string>
   <string name="vibrate_on_key_press_dialog_title">Wybierz typ wibracji</string>
   <string name="sound_on">Dźwięk przy naciśnięciu</string>
   <string name="sound_on_summary">Efekt dźwiękowy przy naciśnięciu klawisza.</string>
@@ -185,7 +189,7 @@
   <string name="camera_key_for_backspace_backword_support_off_summary">Półwciśnięcie przycisku migawki usuwa ostatnią literę, pełne usuwa ostatni wyraz</string>
   <string name="special_dictionaries_group">Specjalne słowniki</string>
   <string name="use_user_dictionary">Słownik użytkownika</string>
-  <string name="use_user_dictionary_on_summary">Podpowiadaj wyrazy dodane przez użytkownika (przytrzymanie na sugestii aby dodać)</string>
+  <string name="use_user_dictionary_on_summary">Podpowiada wyrazy dodane przez użytkownika (przytrzymanie na sugestii aby dodać)</string>
   <string name="use_auto_dictionary">Słownik automatyczny</string>
   <string name="use_auto_dictionary_on_summary">Podpowiada często używane słowa</string>
   <string name="use_contacts_dictionary">Słownik kontaktów</string>
@@ -199,7 +203,7 @@
   <string name="tweak_dictionary_group">Dostrajanie słownika</string>
   <string name="settings_min_length_for_word_correction">Minimalna długość wyrazu do korekty</string>
   <string name="show_hint_text">Pokaż tekst podpowiedzi</string>
-  <string name="show_hint_text_on_summary">Pokazuj podpowiedzi na klawiszach, jeśli motyw je obsługuje</string>
+  <string name="show_hint_text_on_summary">Pokazuj na klawiszu jego drugie znaczenie (jeśli motyw obsługuje)</string>
   <string name="show_hint_text_off_summary">Nie pokazuj podpowiedzi na klawiszach</string>
   <string name="is_sticky_extesion_keyboard">Lepka klawiatura rozszerzająca</string>
   <string name="is_sticky_extesion_keyboard_on_summary">Zostaje widoczna aż do jawnego zamknięcia</string>
@@ -237,6 +241,8 @@
   <string name="key_press_preview_popup">Popup z podglądem klawisza</string>
   <string name="key_press_preview_popup_on_summary">Pokaż popup po naciśnięciu klawisza</string>
   <string name="key_press_preview_popup_off_summary">Nie pokazuj popupa po naciśnięciu klawisza</string>
+  <string name="zoom_factor_keys_in_portrait">Współczynnik wysokości klawiszy (pionowo)</string>
+  <string name="zoom_factor_keys_in_landscape">Współczynnik wysokości klawiszy (poziomo)</string>
   <string name="insert_space_after_word_suggestion_selection">Spacja po wyborze kandydata</string>
   <string name="insert_space_after_word_suggestion_selection_on_summary">Wstaw spację po wybraniu sugerowanego wyrazu</string>
   <string name="double_space_to_period">Podwójna spacja da kropkę</string>
@@ -266,6 +272,7 @@
   <string name="keyboards_group">Klawiatury</string>
   <string name="symbols_keyboard">Symbole</string>
   <string name="eng_keyboard">Angielski</string>
+  <string name="eng_keyboard_16keys">Angielski 16 klawiszy</string>
   <string name="additional_addons_group">Dodatkowe rozszerzenia</string>
   <string name="quick_text_keys_group">Klawisze szybkiego tekstu</string>
   <string name="quick_text_key_active">Aktywny klawisz szybkiego tekstu</string>
@@ -358,6 +365,7 @@
   <string name="settings_split_state_split_in_landscape">Startuj rozdzieloną w poziomie</string>
   <string name="settings_split_state_split_always">Startuj rozdzieloną</string>
   <string name="user_dictionary_select_locale">Język:</string>
+  <string name="user_dictionary_read_please_wait">Wczytywanie wyrazów...</string>
   <string name="user_dict_settings_titlebar">Słownik użytkownika</string>
   <string name="user_dict_editor">Edytor wyrazów</string>
   <string name="user_dict_settings_title">Słownik użytkownika</string>
