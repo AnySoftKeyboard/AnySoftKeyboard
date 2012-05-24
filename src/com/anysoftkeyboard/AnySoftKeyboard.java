@@ -728,6 +728,8 @@ public class AnySoftKeyboard extends InputMethodService implements
                     abortCorrection(true, false);
                     // ask user whether to restart
                     postRestartWordSuggestion();
+                    //there has been a cursor movement. Maybe a shift state is required too?
+                    postUpdateShiftKeyState();
                 }
             }
             else
@@ -746,6 +748,8 @@ public class AnySoftKeyboard extends InputMethodService implements
                     }
                 }
                 postRestartWordSuggestion();
+                //there has been a cursor movement. Maybe a shift state is required too?
+                postUpdateShiftKeyState();
             }
         }
     }
@@ -860,8 +864,6 @@ public class AnySoftKeyboard extends InputMethodService implements
             ic.endBatchEdit();
             postUpdateSuggestions();
         }
-
-        updateShiftKeyState(getCurrentInputEditorInfo());
     }
     
     private void onPhysicalKeyboardKeyPressed() {
@@ -1365,7 +1367,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private void postUpdateShiftKeyState() {
         mHandler.removeMessages(MSG_UPDATE_SHIFT_STATE);
-        // TODO: Should remove this 300ms delay?
         mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_UPDATE_SHIFT_STATE), 150);
     }
 
