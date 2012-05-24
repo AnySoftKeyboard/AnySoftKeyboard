@@ -3513,7 +3513,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
             b.setCancelable(true);
             b.setAdapter(a, new DialogInterface.OnClickListener() {
-                @SuppressWarnings("unchecked")
+                @SuppressWarnings("unchecked") //I know, I know, it is not safe to cast, but I created the list, and willing to pay the price. 
                 public final void onClick(DialogInterface dialog, int which) {
                     HashMap<String, Object> item = (HashMap<String, Object>) a.getItem(which);
                     onText((String) item.get("text"));
