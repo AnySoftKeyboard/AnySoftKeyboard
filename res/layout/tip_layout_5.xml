@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012 AnySoftKeyboard
+<!--
+     Copyright (C) 2012 AnySoftKeyboard
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,23 +15,47 @@
      limitations under the License.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
-	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-	    android:text="@string/tip_5_key_feedback" android:gravity="center"
-	    style="@android:style/TextAppearance.Medium" android:textStyle="bold"/>
-	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-	    android:text="@string/tip_5_key_feedback_tip"
-	    style="@android:style/TextAppearance.Medium"/>
-	
-	<CheckBox android:id="@+id/settings_key_press_vibration" android:layout_width="fill_parent" android:layout_height="wrap_content"
-	    android:text="@string/vibrate_on_key_press_title"
-	    style="@android:style/TextAppearance.Small"/>
-	<CheckBox android:id="@+id/settings_key_press_sound" android:layout_width="fill_parent" android:layout_height="wrap_content"
-	    android:text="@string/sound_on"
-	    style="@android:style/TextAppearance.Small"/>
-	
-	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-	    android:text="@string/tip_5_key_feedback_test" android:gravity="center"
-	    style="@android:style/TextAppearance.Small"/>
-	<EditText android:layout_height="wrap_content" android:layout_width="fill_parent"/>
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        style="@android:style/TextAppearance.Medium"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/tip_5_key_feedback"
+        android:textStyle="bold" />
+
+    <TextView
+        style="@android:style/TextAppearance.Medium"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tip_5_key_feedback_tip" />
+
+    <CheckBox
+        android:id="@+id/settings_key_press_vibration"
+        style="@android:style/TextAppearance.Small"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/vibrate_on_key_press_title" />
+
+    <CheckBox
+        android:id="@+id/settings_key_press_sound"
+        style="@android:style/TextAppearance.Small"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sound_on" />
+
+    <TextView
+        style="@android:style/TextAppearance.Small"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/tip_5_key_feedback_test" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
