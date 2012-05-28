@@ -869,6 +869,18 @@ public class AnySoftKeyboard extends InputMethodService implements
     private void onPhysicalKeyboardKeyPressed() {
         if (mConfig.hideSoftKeyboardWhenPhysicalKeyPressed())
             hideWindow();
+
+        if (!mPredictionLandscape) {
+            // For all other keys, if we want to do transformations on
+            // text being entered with a hard keyboard, we need to process
+            // it and do the appropriate action.
+            // using physical keyboard is more annoying with candidate view in
+            // the way
+            // so we disable it.
+
+            // to clear the underline.
+            abortCorrection(true, false);
+        }
     }
 
     @Override
@@ -1002,17 +1014,6 @@ public class AnySoftKeyboard extends InputMethodService implements
         mHardKeyboardAction.initializeAction(event, mMetaState);
 
         InputConnection ic = getCurrentInputConnection();
-        if (!mPredictionLandscape) {
-            // For all other keys, if we want to do transformations on
-            // text being entered with a hard keyboard, we need to process
-            // it and do the appropriate action.
-            // using physical keyboard is more annoying with candidate view in
-            // the way
-            // so we disable it.
-
-            // to clear the underline.
-            abortCorrection(true, false);
-        }
         if (DEBUG)
             Log.d(TAG, "Event: Key:" + event.getKeyCode()
                     + " Shift:"
