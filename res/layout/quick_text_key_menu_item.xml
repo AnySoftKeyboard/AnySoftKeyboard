@@ -3,32 +3,26 @@
 
     <TextView
         android:id="@+id/quick_text_name"
-        style="@android:style/TextAppearance.Large"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginLeft="6dip"
         android:layout_weight="1"
         android:gravity="center_vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
         android:singleLine="true"
-        android:textColor="@android:color/white" />
+        android:textAppearance="?android:attr/textAppearanceLargeInverse"
+        android:textColor="@android:color/black" />
 
     <TextView
         android:id="@+id/quick_text_output"
-        style="@android:style/TextAppearance.Large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginRight="10dip"
+        android:layout_marginLeft="6dip"
+        android:layout_marginRight="6dip" 
         android:gravity="right"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
         android:singleLine="true"
-        android:textColor="@android:color/white" />
+        android:textAppearance="?android:attr/textAppearanceLargeInverse"
+        android:textColor="@android:color/black" />
 
 </merge>
