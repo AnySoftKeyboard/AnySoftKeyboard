@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:background="@android:color/background_dark"
     android:orientation="horizontal" >
 
     <ImageView
@@ -9,7 +10,8 @@
         android:layout_width="20dip"
         android:layout_height="20dip"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="18dip"/>
+        android:layout_marginLeft="18dip"
+        android:scaleType="centerInside" />
 
     <include layout="@layout/quick_text_key_menu_item" />
 
