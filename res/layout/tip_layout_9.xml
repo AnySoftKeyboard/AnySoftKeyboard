@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012 AnySoftKeyboard
+<!--
+     Copyright (C) 2012 AnySoftKeyboard
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,15 +15,34 @@
      limitations under the License.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
-	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-	    android:text="@string/tip_9_suggestions_restart" android:gravity="center"
-	    style="@android:style/TextAppearance.Medium" android:textStyle="bold"/>
-	
-	<ImageView android:layout_height="wrap_content" android:layout_width="fill_parent" android:scaleType="centerInside" android:padding="0px" android:layout_margin="0px"
-	    android:layout_marginTop="4dp" android:layout_marginBottom="4dp" android:layout_gravity="center" android:src="@drawable/tip_9_screenshot" android:adjustViewBounds="true"/>
-	
-	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-	    android:text="@string/tip_9_suggestions_restart_tip"
-	    style="@android:style/TextAppearance.Medium"/>
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        style="@android:style/TextAppearance.Medium"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/tip_9_suggestions_restart"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="0px"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"
+        android:adjustViewBounds="true"
+        android:padding="0px"
+        android:scaleType="centerInside"
+        android:src="@drawable/tip_9_screenshot" />
+
+    <TextView
+        style="@android:style/TextAppearance.Medium"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tip_9_suggestions_restart_tip" />
+
 </LinearLayout>
