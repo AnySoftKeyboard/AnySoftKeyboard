@@ -10,6 +10,7 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.ui.MainForm;
@@ -35,6 +36,7 @@ public abstract class AddOnSelector<E extends AddOn> extends PreferenceActivity 
 						try {
 							MainForm.searchMarketForAddons(AddOnSelector.this.getApplicationContext(), getAdditionalMarketQueryString());
 						} catch (Exception ex) {
+						    Toast.makeText(getApplicationContext(), getText(R.string.no_market_store_available), Toast.LENGTH_LONG).show();
 							Log.e("ASK-SETTINGS", "Failed to launch market!", ex);
 						}
 					}
