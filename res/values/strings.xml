@@ -97,6 +97,7 @@
 	<!-- changelog -->
 	<string name="changelog">Changelog</string>
 	<string name="search_market_for_addons">Search for add-ons</string>
+	<string name="no_market_store_available">Could not find Android Play Store on your device. Unable to search for add-ons!</string>
 	<string name="theme_addons_settings">Keyboard theme settings</string>
 	<string name="keyboard_theme_tweak_group">Tweaks</string>
 	<string name="bottom_row_addons_settings">Bottom row settings</string>

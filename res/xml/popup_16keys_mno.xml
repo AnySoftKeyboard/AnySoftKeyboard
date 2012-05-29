@@ -7,6 +7,7 @@
 	    <!-- 6ñ -->
         <Key android:codes="54" android:keyEdgeFlags="left" />
         <Key android:codes="241" />
+        <Key android:codes="324" />
     </Row>
     <Row android:rowEdgeFlags="bottom">
          <!-- òóôõöøőœō -->
