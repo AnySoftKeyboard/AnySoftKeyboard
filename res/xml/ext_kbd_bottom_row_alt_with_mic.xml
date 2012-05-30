@@ -9,39 +9,39 @@
         <Key android:keyWidth="10%p" ask:isFunctional="true" android:codes="@integer/key_code_mode_alphabet" ask:longPressCode="@integer/key_code_cancel" android:keyIcon="@drawable/sym_keyboard_and_cancel" ask:hintLabel=" " android:keyEdgeFlags="left" />
 		<Key android:keyWidth="10%p" ask:isFunctional="true" android:codes="@integer/key_code_voice_input" ask:hintLabel=" " />
         <Key android:keyWidth="10%p" ask:isFunctional="true" android:codes="@integer/key_code_quick_text" ask:hintLabel=" " />
-        <Key android:keyWidth="10%p" android:codes="44" android:popupCharacters=";:-" ask:hintLabel="; : -" />
+        <Key android:keyWidth="10%p" ask:isFunctional="true" android:codes="44" android:popupCharacters=";:-" ask:hintLabel="; : -" />
 		<Key android:keyWidth="35%p" android:codes="@integer/key_code_space" android:isRepeatable="true" ask:hintLabel=" " />
-		<Key android:keyWidth="10%p" android:codes="." android:popupCharacters="\?!" ask:hintLabel="\? !" />
-        <Key android:keyWidth="15%p" ask:isFunctional="true" android:codes="@integer/key_code_enter" android:keyIcon="@drawable/sym_keyboard_return" ask:longPressCode="@integer/key_code_settings" ask:hintLabel=" " android:keyEdgeFlags="right"/>
+		<Key android:keyWidth="10%p" ask:isFunctional="true" android:codes="." android:popupCharacters="\?!" ask:hintLabel="\? !" />
+        <Key android:keyWidth="15%p" ask:isFunctional="true" android:codes="@integer/key_code_enter" ask:longPressCode="@integer/key_code_settings" ask:hintLabel=" " android:keyEdgeFlags="right"/>
     </Row>        
     <Row android:keyboardMode="@integer/keyboard_mode_im" android:rowEdgeFlags="bottom">
         <Key android:keyWidth="10%p" ask:isFunctional="true" android:codes="@integer/key_code_mode_alphabet" ask:longPressCode="@integer/key_code_cancel" android:keyIcon="@drawable/sym_keyboard_and_cancel" ask:hintLabel=" " android:keyEdgeFlags="left" />
 		<Key android:keyWidth="10%p" ask:isFunctional="true" android:codes="@integer/key_code_voice_input" ask:hintLabel=" " />
         <Key android:keyWidth="10%p" ask:isFunctional="true" android:codes="@integer/key_code_quick_text" ask:hintLabel=" " />
-        <Key android:keyWidth="10%p" android:codes="44" android:popupCharacters=";:-" ask:hintLabel="; : -" />
+        <Key android:keyWidth="10%p" ask:isFunctional="true" android:codes="44" android:popupCharacters=";:-" ask:hintLabel="; : -" />
         <Key android:keyWidth="35%p" android:codes="@integer/key_code_space" android:isRepeatable="true" ask:hintLabel=" " />
-		<Key android:keyWidth="10%p" android:codes="." android:popupCharacters="\?!" ask:hintLabel="\? !" />
-        <Key android:keyWidth="15%p" ask:isFunctional="true" android:codes="@integer/key_code_enter" android:keyIcon="@drawable/sym_keyboard_return" ask:longPressCode="@integer/key_code_settings" ask:hintLabel=" " android:keyEdgeFlags="right"/>
+		<Key android:keyWidth="10%p" ask:isFunctional="true" android:codes="." android:popupCharacters="\?!" ask:hintLabel="\? !" />
+        <Key android:keyWidth="15%p" ask:isFunctional="true" android:codes="@integer/key_code_enter" ask:longPressCode="@integer/key_code_settings" ask:hintLabel=" " android:keyEdgeFlags="right"/>
     </Row>
     <Row android:keyboardMode="@integer/keyboard_mode_url" android:rowEdgeFlags="bottom">
         <Key android:keyWidth="10%p" ask:isFunctional="true" android:codes="@integer/key_code_mode_alphabet" ask:longPressCode="@integer/key_code_cancel" android:keyIcon="@drawable/sym_keyboard_and_cancel" ask:hintLabel=" " android:keyEdgeFlags="left" />
 		<Key android:keyWidth="10%p" ask:isFunctional="true" android:codes="@integer/key_code_voice_input" ask:hintLabel=" " />
-        <Key android:keyWidth="12.5%p" ask:isFunctional="true" android:codes="@integer/key_code_domain" ask:hintLabel=" " />
-        <Key android:keyWidth="10%p" ask:isFunctional="true" android:codes=":" android:popupCharacters="\u002C;-" ask:hintLabel=", ; -" />
-        <Key android:keyWidth="10%p" ask:isFunctional="true" android:codes="/" android:popupCharacters="_+\u003D$%\u0026" ask:hintLabel="_"/>
-        <Key android:keyWidth="22.5%p" android:codes="@integer/key_code_space" android:isRepeatable="true" ask:hintLabel=" " />
-		<Key android:keyWidth="10%p" ask:isFunctional="true" android:codes="." android:popupCharacters="\?!" ask:hintLabel="\? !"/>
-        <Key android:keyWidth="15%p" ask:isFunctional="true" android:codes="@integer/key_code_enter" android:keyIcon="@drawable/sym_keyboard_return" ask:longPressCode="@integer/key_code_settings" ask:hintLabel=" " android:keyEdgeFlags="right"/>
+        <Key android:keyWidth="10%p" ask:isFunctional="true" android:codes="/" android:popupCharacters="_+\u003D$%\u0026" ask:hintLabel="_ +"/>
+		<Key android:keyWidth="10%p" ask:isFunctional="true" android:codes=":" android:popupCharacters="\u002C;-" ask:hintLabel=", ; -" />
+        <Key android:keyWidth="25%p" android:codes="@integer/key_code_space" android:isRepeatable="true" ask:hintLabel=" " />
+        <Key android:keyWidth="10%p" ask:isFunctional="true" android:codes="@integer/key_code_domain" android:keyIcon="@drawable/sym_keyboard_key_domain" ask:hintLabel=" " />
+ 		<Key android:keyWidth="10%p" ask:isFunctional="true" android:codes="." android:popupCharacters="\?!" ask:hintLabel="\? !"/>
+        <Key android:keyWidth="15%p" ask:isFunctional="true" android:codes="@integer/key_code_enter" ask:longPressCode="@integer/key_code_settings" ask:hintLabel=" " android:keyEdgeFlags="right"/>
     </Row>        
     <Row android:keyboardMode="@integer/keyboard_mode_email" android:rowEdgeFlags="bottom">
         <Key android:keyWidth="10%p" ask:isFunctional="true" android:codes="@integer/key_code_mode_alphabet" ask:longPressCode="@integer/key_code_cancel" android:keyIcon="@drawable/sym_keyboard_and_cancel" ask:hintLabel=" " android:keyEdgeFlags="left" />
 		<Key android:keyWidth="10%p" ask:isFunctional="true" android:codes="@integer/key_code_voice_input" ask:hintLabel=" " />
-        <Key android:keyWidth="12.5%p" ask:isFunctional="true" android:codes="@integer/key_code_domain" ask:hintLabel=" " />
-        <Key android:keyWidth="10%p" android:codes="44" android:popupCharacters=";:-" ask:hintLabel="; : -" />
-        <Key android:keyWidth="10%p" android:codes="\@" android:popupCharacters="_+\u003D$%\u0026" ask:hintLabel="_" />
-        <Key android:keyWidth="22.5%p" android:codes="@integer/key_code_space" android:isRepeatable="true" ask:hintLabel=" " />
-   		<Key android:keyWidth="10%p" android:codes="." android:popupCharacters="\?!" ask:hintLabel="\? !" />
-        <Key android:keyWidth="15%p" ask:isFunctional="true" android:codes="@integer/key_code_enter" android:keyIcon="@drawable/sym_keyboard_return" ask:longPressCode="@integer/key_code_settings" ask:hintLabel=" " android:keyEdgeFlags="right"/>
+        <Key android:keyWidth="10%p" ask:isFunctional="true" android:codes="\@" android:popupCharacters="_+\u003D$%\u0026" ask:hintLabel="_ +" />
+		<Key android:keyWidth="10%p" ask:isFunctional="true" android:codes="44" android:popupCharacters=";:-" ask:hintLabel="; : -" />
+        <Key android:keyWidth="25%p" android:codes="@integer/key_code_space" android:isRepeatable="true" ask:hintLabel=" " />
+        <Key android:keyWidth="10%p" ask:isFunctional="true" android:codes="@integer/key_code_domain" android:keyIcon="@drawable/sym_keyboard_key_domain" ask:hintLabel=" " />
+		<Key android:keyWidth="10%p" ask:isFunctional="true" android:codes="." android:popupCharacters="\?!" ask:hintLabel="\? !" />
+        <Key android:keyWidth="15%p" ask:isFunctional="true" android:codes="@integer/key_code_enter" ask:longPressCode="@integer/key_code_settings" ask:hintLabel=" " android:keyEdgeFlags="right"/>
     </Row>
             
 </Keyboard>
