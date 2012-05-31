@@ -17,6 +17,7 @@
 
 package com.anysoftkeyboard.ui.settings;
 
+import android.R.integer;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
@@ -51,8 +52,19 @@ import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.utils.XmlWriter;
 import com.menny.android.anysoftkeyboard.R;
 
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
+
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.util.ArrayList;
+
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 public class UserDictionaryEditorActivity extends ListActivity {
 
@@ -265,7 +277,95 @@ public class UserDictionaryEditorActivity extends ListActivity {
     }
 
     private void restoreWords() {
+        new MyAsyncTask() {
 
+            private Exception mException = null;
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                try
+                {
+                    // http://developer.android.com/guide/topics/data/data-storage.html#filesExternal
+                    final File externalFolder = Environment.getExternalStorageDirectory();
+                    final File targetFolder = new File(externalFolder, "/Android/data/"
+                            + getPackageName() + "/files/");
+
+                    SAXParserFactory factory = SAXParserFactory.newInstance();
+                    SAXParser parser = factory.newSAXParser();
+                    parser.parse(new FileInputStream(new File(targetFolder,
+                            ASK_USER_WORDS_SDCARD_FILENAME)),
+                            new DefaultHandler() {
+                        private boolean inWord = false;
+                        private int freq = 1;
+                        private String word = "";
+                                @Override
+                                public void characters(char[] ch, int start, int length)
+                                        throws SAXException {
+                                    super.characters(ch, start, length);
+                                    if (inWord)
+                                    {
+                                        word += new String(ch, start, length);
+                                    }
+                                }
+
+                                @Override
+                                public void startElement(String uri, String localName,
+                                        String qName, Attributes attributes) throws SAXException {
+                                    super.startElement(uri, localName, qName, attributes);
+                                    inWord = (localName.equals("w"));
+                                    if (inWord) {
+                                        word = "";
+                                        freq = Integer.parseInt(attributes.getValue("f"));
+                                    }
+                                    
+                                    if (localName.equals("wordlist")) {
+                                        String locale = attributes.getValue("locale");
+                                        EditableDictionary dictionary = DictionaryFactory.getInstance()
+                                                .createUserDictionary(getApplicationContext(), locale);
+
+                                        if (dictionary != mCurrentDictionary && mCurrentDictionary != null)
+                                            mCurrentDictionary.close();
+
+                                        mCurrentDictionary = dictionary;
+                                    }
+                                }
+
+                                @Override
+                                public void endElement(String uri, String localName, String qName)
+                                        throws SAXException {
+                                    if (inWord) {
+                                        mCurrentDictionary.addWord(word, freq);
+                                    }
+                                    inWord = false;
+                                    super.endElement(uri, localName, qName);
+                                }
+                            });
+                } 
+                catch (Exception e)
+                {
+                    mException = e;
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void applyResults(Void result) {
+                if (mException != null) {
+                    Toast.makeText(
+                            getApplicationContext(),
+                            getString(R.string.user_dict_backup_fail_text_with_error,
+                                    mException.getMessage()), Toast.LENGTH_LONG).show();
+                    showDialog(DIALOG_SAVE_FAILED);
+                } else {
+                    showDialog(DIALOG_SAVE_SUCCESS);
+                }
+                // re-reading words (this is a simple way to re-sync the
+                // dictionary members)
+                fillLangsSpinner();
+            }
+        }.execute();
     }
 
     private void fillLangsSpinner() {
