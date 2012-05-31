@@ -51,6 +51,8 @@ import com.menny.android.anysoftkeyboard.R;
 
 public class UserDictionaryEditorActivity extends ListActivity {
 
+    public static final String ASK_USER_WORDS_SDCARD_FILENAME = "UserWords.xml";
+    
 	private abstract class MyAsyncTask extends AsyncTask<Void, Void, Void >
 	{
 		private ProgressDialog progresDialog;
@@ -121,6 +123,18 @@ public class UserDictionaryEditorActivity extends ListActivity {
 			}
 		});
         
+        findViewById(R.id.backup_words).setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                backupWords();
+            }
+        });
+        
+        findViewById(R.id.restore_words).setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                restoreWords();
+            }
+        });
+        
         TextView emptyView = (TextView) findViewById(R.id.empty_user_dictionary);
         
         ListView listView = getListView();
@@ -143,6 +157,13 @@ public class UserDictionaryEditorActivity extends ListActivity {
         fillLangsSpinner();
     }
     
+    private void backupWords() {
+        
+    }
+    
+    private void restartWords() {
+        
+    }
     
     private void fillLangsSpinner() {
     	new MyAsyncTask()
