@@ -72,17 +72,58 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:background="@android:color/darker_gray"
-        android:orientation="vertical"
-        android:padding="4dp" >
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:weightSum="4" >
 
+        <View android:layout_width="0px"
+            android:layout_height="1px"
+            android:layout_weight="1"/>
+        
         <ImageView
             android:id="@+id/add_user_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:adjustViewBounds="true"
+            android:background="@drawable/words_editor_buttons_border"
+            android:padding="@dimen/key_corner_radius"
             android:scaleType="centerInside"
             android:src="@android:drawable/ic_menu_add" />
+
+        <View android:layout_width="0px"
+            android:layout_height="1px"
+            android:layout_weight="1"/>
+        
+        <ImageView
+            android:id="@+id/backup_words"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:background="@drawable/words_editor_buttons_border"
+            android:padding="@dimen/key_corner_radius"
+            android:scaleType="centerInside"
+            android:src="@android:drawable/ic_menu_save" />
+
+        <View android:layout_width="0px"
+            android:layout_height="1px"
+            android:layout_weight="1"/>
+        
+        <ImageView
+            android:id="@+id/restore_words"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:background="@drawable/words_editor_buttons_border"
+            android:padding="@dimen/key_corner_radius"
+            android:scaleType="centerInside"
+            android:src="@android:drawable/ic_menu_upload" />
+        
+        <View android:layout_width="0px"
+            android:layout_height="1px"
+            android:layout_weight="1"/>
     </LinearLayout>
 
 </LinearLayout>
