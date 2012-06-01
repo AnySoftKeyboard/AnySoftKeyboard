@@ -461,6 +461,21 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 doneStylesIndexes2.add(new Integer(attr));
         }
         a.recycle();
+        // skip to v4; v3 are used elsewhere
+        HashSet<Integer> doneStylesIndexes4 = new HashSet<Integer>();
+        a = theme.getPackageContext().obtainStyledAttributes(
+                attrs,
+                R.styleable.AnyKeyboardBaseViewV4,
+                0,
+                keyboardThemeStyleResId);
+
+        final int n4 = a.getIndexCount();
+        for (int i = 0; i < n4; i++) {
+            final int attr = a.getIndex(i);
+            if (setValueFromTheme_v4(a, attr))
+                doneStylesIndexes4.add(new Integer(attr));
+        }
+        
         // taking icons
         int iconSetStyleRes = theme.getIconsThemeResId();
         HashSet<Integer> doneIconsStylesIndexes = new HashSet<Integer>();
@@ -863,15 +878,29 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                     if (AnyApplication.DEBUG)
                         Log.d(TAG, "AnyKeyboardBaseViewV2_hintTextColor " + mHintTextColor);
                     break;
-                case R.styleable.AnyKeyboardBaseViewV2_hintLabelVAlign:
+            }
+            return true;
+        } catch (Exception e)
+        {
+            // on API changes, so the incompatible themes wont crash me..
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean setValueFromTheme_v4(TypedArray a, final int attr) {
+        try
+        {
+            switch (attr) {
+                case R.styleable.AnyKeyboardBaseViewV4_hintLabelVAlign:
                     mHintLabelVAlign = a.getInt(attr, Gravity.BOTTOM);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseViewV2_hintLabelVAlign " + mHintLabelVAlign);
+                        Log.d(TAG, "AnyKeyboardBaseViewV3_hintLabelVAlign " + mHintLabelVAlign);
                     break;
-                case R.styleable.AnyKeyboardBaseViewV2_hintLabelAlign:
+                case R.styleable.AnyKeyboardBaseViewV4_hintLabelAlign:
                     mHintLabelAlign = a.getInt(attr, Gravity.RIGHT);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseViewV2_hintLabelAlign " + mHintLabelAlign);
+                        Log.d(TAG, "AnyKeyboardBaseViewV3_hintLabelAlign " + mHintLabelAlign);
                     break;
             }
             return true;
@@ -1149,10 +1178,10 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     }
 
     /**
-     * Returns the state of the shift key of the keyboard, if any.
+     * Returns the state of the control key of the keyboard, if any.
      * 
-     * @return true if the shift is in a pressed state, false otherwise. If
-     *         there is no shift key on the keyboard or there is no keyboard
+     * @return true if the control is in a pressed state, false otherwise. If
+     *         there is no control key on the keyboard or there is no keyboard
      *         attached, it returns false.
      */
     public boolean isControl() {
