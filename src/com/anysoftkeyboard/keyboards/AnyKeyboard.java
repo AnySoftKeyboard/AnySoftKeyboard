@@ -870,13 +870,15 @@ public abstract class AnyKeyboard extends Keyboard
             /* long press support */
             longPressCode = a.getInt(R.styleable.Keyboard_Key_longPressCode, 0);
             mFunctionalKey = a.getBoolean(R.styleable.Keyboard_Key_isFunctional, false);
-            this.mHintLabel = a.getString(R.styleable.Keyboard_Key_hintLabel);
-
             a.recycle();
 
             /* Shift label support */
             a = res.obtainAttributes(Xml.asAttributeSet(parser), R.styleable.Keyboard_Key_v2);
             shiftedKeyLabel = a.getString(R.styleable.Keyboard_Key_v2_shiftedKeyLabel);
+            a.recycle();
+
+            a = res.obtainAttributes(Xml.asAttributeSet(parser), R.styleable.Keyboard_Key_v3);
+            mHintLabel = a.getString(R.styleable.Keyboard_Key_v3_hintLabel);
             a.recycle();
         }
 
