@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2008 The Android Open Source Project
+<!--
+     Copyright (C) 2008 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,46 +15,74 @@
      limitations under the License.
 -->
 
- 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" 
-    android:orientation="vertical" android:weightSum="1">
-    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:weightSum="1"
-	    android:background="@android:color/darker_gray"
-	    android:layout_margin="4dp" android:padding="4dp">
-        <TextView android:text="@string/user_dictionary_select_locale" android:layout_width="wrap_content" android:layout_height="wrap_content"
-            style="@android:style/TextAppearance.Medium" android:layout_gravity="center_vertical"/>
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:weightSum="1" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:background="@android:color/darker_gray"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:weightSum="1" >
+
+        <TextView
+            style="@android:style/TextAppearance.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/user_dictionary_select_locale" />
 
         <Spinner
             android:id="@+id/user_dictionay_langs"
-            android:layout_width="0px" android:layout_weight="1" 
+            android:layout_width="0px"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"/>
-        
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1" />
     </LinearLayout>
+
     <FrameLayout
-	    android:layout_width="fill_parent"
-	    android:layout_height="0px" android:layout_weight="1" >
-	    <ListView android:id="@android:id/list"
-	        android:layout_width="fill_parent" 
-	        android:layout_height="fill_parent"
-	        android:drawSelectorOnTop="false"
-	        />
-	
-	    <TextView android:id="@+id/empty_user_dictionary"
-	        android:layout_width="fill_parent"
-	        android:layout_height="fill_parent"
-	        android:padding="5dip"
-	        android:gravity="center"
-	        android:visibility="gone"
-	        android:text="@string/user_dict_settings_empty_text"
-	        style="@android:style/TextAppearance.Large" />
-	</FrameLayout>
-	
-    <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray" android:layout_margin="4dp" android:padding="4dp" >
-		<ImageView android:id="@+id/add_user_word" android:layout_width="wrap_content" android:layout_height="wrap_content"
-		    android:src="@android:drawable/ic_menu_add" android:scaleType="centerInside" android:adjustViewBounds="true" android:layout_gravity="center"/>
-	</LinearLayout>
-</LinearLayout>    
+        android:layout_width="fill_parent"
+        android:layout_height="0px"
+        android:layout_weight="1" >
+
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:drawSelectorOnTop="false" />
+
+        <TextView
+            android:id="@+id/empty_user_dictionary"
+            style="@android:style/TextAppearance.Large"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:padding="5dip"
+            android:text="@string/user_dict_settings_empty_text"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:background="@android:color/darker_gray"
+        android:orientation="vertical"
+        android:padding="4dp" >
+
+        <ImageView
+            android:id="@+id/add_user_word"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:src="@android:drawable/ic_menu_add" />
+    </LinearLayout>
+
+</LinearLayout>

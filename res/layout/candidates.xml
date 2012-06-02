@@ -40,6 +40,7 @@
     	android:layout_centerVertical="true"
     	android:paddingLeft="8dp" android:paddingRight="4dp"
     	android:background="@android:color/transparent"
+    	android:contentDescription="@string/hint_double_tap_to_close"
     	android:src="@drawable/close_suggestions_strip_icon" android:scaleType="centerInside"/>
     
     <TextView android:id="@+id/close_suggestions_strip_text"
@@ -62,4 +63,18 @@
 	    android:background="@drawable/tips_notification_background"
 	    android:layout_margin="@dimen/key_corner_radius"
 	    android:padding="@dimen/key_corner_radius"/>
+    <!-- 
+    <TextView android:id="@+id/restart_suggestions"
+        android:visibility="gone"
+        style="@android:style/TextAppearance.Small"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+	    android:text="@string/click_to_restart_suggestions"
+	    android:layout_centerHorizontal="true"
+    	android:layout_centerVertical="true"
+    	android:layout_width="wrap_content" android:layout_height="wrap_content"
+	    android:background="@drawable/restart_suggestions_notification_background"
+	    android:layout_margin="@dimen/key_corner_radius"
+	    android:padding="@dimen/key_corner_radius"/>
+	 -->
 </RelativeLayout>

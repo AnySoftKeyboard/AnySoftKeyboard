@@ -4,6 +4,7 @@
     <string name="ime_name">AnySoftKeyboard</string>
     <string name="settings_app_name">AnySoftKeyboard Settings</string>
     
+    <string name="click_to_restart_suggestions">Click for suggestions</string>
     <!-- tips -->
     <string name="tips_notification_text">Click for tips!</string>
     <string name="tips_button">How to use tips</string>
@@ -96,6 +97,7 @@
 	<!-- changelog -->
 	<string name="changelog">Changelog</string>
 	<string name="search_market_for_addons">Search for add-ons</string>
+	<string name="no_market_store_available">Could not find Android Play Store on your device. Unable to search for add-ons!</string>
 	<string name="theme_addons_settings">Keyboard theme settings</string>
 	<string name="keyboard_theme_tweak_group">Tweaks</string>
 	<string name="keyboard_theme_tweak_hints_group">Hint text tweaks</string>
@@ -377,6 +379,8 @@
     <string name="candidates_on">Show suggestions</string>
     <string name="quick_fix">Quick fixes</string>
     <string name="quick_fix_summary">Corrects commonly typed mistakes</string>
+    <string name="allow_suggestions_restart">Suggestions restart</string>
+    <string name="allow_suggestions_restart_summary">Restart word suggestion upon cursor movement</string>
     <string name="auto_complete">Auto select suggestion</string>
     <string name="auto_complete_summary">Space will select highlighted suggestion</string>
     <string name="physical_keyboard_suggestions">Suggestions in device keyboard</string>

@@ -1382,13 +1382,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         // TODO: final boolean useCustomKeyTextColor =
         // AnyApplication.getConfig().getUseCustomTextColorOnKeys();
         final ColorStateList keyTextColor = useCustomKeyTextColor
-                ? new ColorStateList(new int[][] {
-                    {
-                        0
-                    }
-                }, new int[] {
-                    0xFF6666FF
-                }) : mKeyTextColor;
+                ? new ColorStateList(new int[][] {{0}}, new int[] {0xFF6666FF})
+                : mKeyTextColor;
         // TODO: ? AnyApplication.getConfig().getCustomKeyTextColorOnKeys() :
         // mKeyTextColor;
 
@@ -1396,13 +1391,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         // TODO: final boolean useCustomHintColor = drawHintText &&
         // AnyApplication.getConfig().getUseCustomHintColorOnKeys();
         final ColorStateList hintColor = useCustomHintColor
-                ? new ColorStateList(new int[][] {
-                    {
-                        0
-                    }
-                }, new int[] {
-                    0xFFFF6666
-                }) : mHintTextColor;
+                ? new ColorStateList(new int[][] {{0}}, new int[] {0xFFFF6666}) 
+                : mHintTextColor;
         // TODO: ? AnyApplication.getConfig().getCustomHintColorOnKeys() :
         // mHintTextColor;
 
@@ -1982,12 +1972,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         CharSequence label = tracker.getPreviewText(key, mKeyboard.isShifted());
         if (TextUtils.isEmpty(label))
         {
-            Drawable iconToDraw = getIconToDrawForKey(key, true);
-            Log.d("*****************", "showKey " + key.codes[0] + " iconToDraw:"
-                    + (iconToDraw != null));
-            // mPreviewText.setCompoundDrawables(null, null, null,
-            // key.iconPreview != null ? key.iconPreview : key.icon);
-            mPreviewIcon.setImageDrawable(iconToDraw);
+        	Drawable iconToDraw = getIconToDrawForKey(key, true);
+        	//mPreviewText.setCompoundDrawables(null, null, null, key.iconPreview != null ? key.iconPreview : key.icon);
+        	mPreviewIcon.setImageDrawable(iconToDraw);
             mPreviewText.setText(null);
             mPreviewIcon.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
                     MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
