@@ -452,6 +452,7 @@
 	<string name="extension_kbd_top_regular">Regular sized keys</string>
 	<string name="extension_kbd_top_small_numbers">Numbers keys</string>
 	<string name="extension_kbd_top_numbers_alt">Alternate number keys</string>
+	<string name="extension_kbd_top_nav">Navigation keys</string>
 	
 	<string name="extension_kbd_bottom_regular_with_voice">Regular</string>
 	<string name="extension_kbd_bottom_regular">Classic (no mic)</string>
