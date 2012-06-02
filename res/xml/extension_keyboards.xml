@@ -41,7 +41,15 @@
 		description=""
 		index="5"
 		/>
-	
+	<ExtensionKeyboard
+		id="E797771E-F8CF-4684-96CB-3546A54A7A10"
+		nameResId="@string/extension_kbd_top_nav"
+		extensionKeyboardResId="@xml/ext_kbd_top_row_nav" 
+		extensionKeyboardType="@integer/extension_keyboard_type_top_row"
+		description=""
+		index="6"
+		/>
+		
 	<!-- bottom rows -->
 	<ExtensionKeyboard
 		id="09f8f280-dee2-11e0-9572-0800200c9a66"
