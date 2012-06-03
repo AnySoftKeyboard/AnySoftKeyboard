@@ -11,7 +11,13 @@ public interface Configuration {
 	boolean getShowKeyPreview();
 	
 	boolean getShowHintTextOnKeys();
-
+	
+	boolean getUseCustomHintAlign();
+	
+	int getCustomHintAlign();
+	
+	int getCustomHintVAlign();
+	
 	boolean getSwitchKeyboardOnSpace();
 	
 	boolean getUseFullScreenInputInLandscape();

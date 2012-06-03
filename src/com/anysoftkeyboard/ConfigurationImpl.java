@@ -15,6 +15,7 @@ import com.anysoftkeyboard.utils.Workarounds;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -33,6 +34,9 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 	private boolean mKeyPreviewAboveKey = true;
 	private boolean mSwapPunctuationAndSpace = true;
 	private boolean mShowHintTextOnKeys = true;
+	private boolean mUseCustomHintAlign = true;
+	private int mCustomHintAlign = Gravity.BOTTOM;
+	private int mCustomHintVAlign = Gravity.TOP;
 	private boolean mSwitchKeyboardOnSpace = true;
 	private boolean mUseFullScreenInputInLandscape = true;
 	private boolean mUseFullScreenInputInPortrait = false;
@@ -248,6 +252,19 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 				mContext.getResources().getBoolean(R.bool.settings_default_show_hint_text_value));
 		Log.i(TAG, "** mShowHintTextOnKeys: "+mShowHintTextOnKeys);
 		
+		// preferences to override theme's hint position
+		mUseCustomHintAlign = sp.getBoolean(mContext.getString(R.string.settings_key_use_custom_hint_align_key),
+				mContext.getResources().getBoolean(R.bool.settings_default_use_custom_hint_align_value));
+		Log.i(TAG, "** mUseCustomHintAlign: "+mUseCustomHintAlign);
+        mCustomHintAlign = getIntFromString(sp, 
+        		mContext.getString(R.string.settings_key_custom_hint_align_key),
+                mContext.getString(R.string.settings_default_custom_hint_align_value));
+        Log.i(TAG, "** mCustomHintAlign: " + mCustomHintAlign);
+        mCustomHintVAlign = getIntFromString(sp, 
+        		mContext.getString(R.string.settings_key_custom_hint_valign_key),
+                mContext.getString(R.string.settings_default_custom_hint_valign_value));
+        Log.i(TAG, "** mCustomHintVAlign: " + mCustomHintVAlign);
+ 
 		mSwitchKeyboardOnSpace = sp.getBoolean("switch_keyboard_on_space", false);
 		Log.i(TAG, "** mSwitchKeyboardOnSpace: "+mSwitchKeyboardOnSpace);
 		
@@ -677,6 +694,18 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
     
     public boolean getShowHintTextOnKeys() {
     	return mShowHintTextOnKeys;
+    }
+    
+    public boolean getUseCustomHintAlign() {
+    	return mUseCustomHintAlign;
+    }
+    
+    public int getCustomHintAlign() {
+    	return mCustomHintAlign;
+    }
+    
+    public int getCustomHintVAlign() {
+    	return mCustomHintVAlign;
     }
     
     public boolean useChewbaccaNotifications() {

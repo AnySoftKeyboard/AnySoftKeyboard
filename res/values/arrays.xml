@@ -4,7 +4,23 @@
 
 	<!-- It is very important NOT to translate any string in this file. -->
 	
-    
+	<!-- Values for custom hint positioning, which should be interpreted
+		 the same way that they are for a theme: comparing against Gravity.XXXX
+		 and creating a Paint.Align object for horizontal alignment or a boolean
+		 for above/below vertical alignment. See start of
+		 AnyKeyboardBaseView.onBufferDraw() method -->
+    <string-array name="custom_hint_align_values">
+        <item>3</item>
+        <item>17</item>
+        <item>5</item>
+    </string-array>
+    <string name="settings_default_custom_hint_align_value">17</string>
+    <string-array name="custom_hint_valign_values">
+        <item>48</item>
+        <item>80</item>
+    </string-array>
+    <string name="settings_default_custom_hint_valign_value">48</string>
+        
     <string-array name="physical_keyboard_change_notification_values">
         <item>1</item>
         <item>2</item>

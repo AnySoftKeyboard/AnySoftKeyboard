@@ -27,4 +27,13 @@
         themeScreenshot="@drawable/dark_theme_screenshot"
         description="@string/dark_plain_keyboard_theme_description"
         index="3"/>
+	<KeyboardTheme
+	    id="EC93C810-4FC5-4FC3-8CE4-1CDA44680A0D"
+	    nameResId="@string/blacktheme_keyboard_theme_name"
+	    themeRes="@style/PlainBlackAnySoftKeyboard"
+	    popupThemeRes="@style/PlainBlackAnySoftKeyboardPopup"
+	    iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
+	    themeScreenshot="@drawable/blacktheme_screenshot"
+	    description="@string/blacktheme_keyboard_theme_description"
+	    index="4"/>
 </KeyboardThemes>
