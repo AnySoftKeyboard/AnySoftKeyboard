@@ -47,6 +47,9 @@ public class AskV8GestureDetector extends GestureDetector {
 		catch(IllegalArgumentException e) {
 			//I have nothing I can do here.
 		}
+		catch(ArrayIndexOutOfBoundsException e) {
+			//I have nothing I can do here.
+		}
 		final boolean scaleEventHandled = mScaleEventHandled;
 		mScaleEventHandled = false;
 		return super.onTouchEvent(ev) || scaleEventHandled;
