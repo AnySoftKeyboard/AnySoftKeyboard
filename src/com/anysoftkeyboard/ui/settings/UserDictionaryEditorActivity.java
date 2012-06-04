@@ -142,8 +142,9 @@ public class UserDictionaryEditorActivity extends ListActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (!mAddedWordAlready
-                && getIntent().getAction().equals("com.android.settings.USER_DICTIONARY_INSERT")) {
+        if (!mAddedWordAlready &&
+                !TextUtils.isEmpty(getIntent().getAction()) &&
+                getIntent().getAction().equals("com.android.settings.USER_DICTIONARY_INSERT")) {
             String word = getIntent().getStringExtra(EXTRA_WORD);
             mAutoReturn = true;
             if (word != null) {
@@ -401,7 +402,7 @@ public class UserDictionaryEditorActivity extends ListActivity {
                                     EditableDictionary dictionary = DictionaryFactory.getInstance()
                                             .createUserDictionary(getApplicationContext(), locale);
 
-                                    Log.d(TAG, "Starting restore to locale "+locale);
+                                    Log.d(TAG, "Starting restore to locale " + locale);
                                     if (dictionary != mCurrentDictionary
                                             && mCurrentDictionary != null)
                                         mCurrentDictionary.close();
@@ -416,13 +417,14 @@ public class UserDictionaryEditorActivity extends ListActivity {
                                 if (inWord && localName.equals("w")) {
                                     if (!TextUtils.isEmpty(word)) {
                                         if (AnyApplication.DEBUG)
-                                            Log.d(TAG, "Restoring word '"+word+"' with freq "+freq);
+                                            Log.d(TAG, "Restoring word '" + word + "' with freq "
+                                                    + freq);
                                         // Disallow duplicates
                                         deleteWord(word);
 
                                         mCurrentDictionary.addWord(word, freq);
                                     }
-                                    
+
                                     inWord = false;
                                 }
                                 super.endElement(uri, localName, qName);
@@ -471,7 +473,7 @@ public class UserDictionaryEditorActivity extends ListActivity {
                 final String locale = (String) mLangs.getItemAtPosition(i);
                 if (!TextUtils.isEmpty(locale)) {
                     mLocalesToSave.add(locale);
-                    Log.d(TAG, "Found a locale to backup: "+locale);
+                    Log.d(TAG, "Found a locale to backup: " + locale);
                 }
             }
         }
@@ -494,7 +496,7 @@ public class UserDictionaryEditorActivity extends ListActivity {
                 for (String locale : mLocalesToSave) {
                     EditableDictionary dictionary = DictionaryFactory.getInstance()
                             .createUserDictionary(getApplicationContext(), locale);
-                    Log.d(TAG, "Reading words from user dictionary locale "+locale);
+                    Log.d(TAG, "Reading words from user dictionary locale " + locale);
                     if (dictionary != mCurrentDictionary && mCurrentDictionary != null)
                         mCurrentDictionary.close();
 
@@ -514,7 +516,7 @@ public class UserDictionaryEditorActivity extends ListActivity {
                         output.writeEntity("w").writeAttribute("f", Integer.toString(freq))
                                 .writeText(word).endEntity();
                         if (AnyApplication.DEBUG)
-                            Log.d(TAG, "Storing word '"+word+"' with freq "+freq);
+                            Log.d(TAG, "Storing word '" + word + "' with freq " + freq);
                         mCursor.moveToNext();
                     }
 
