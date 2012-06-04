@@ -192,6 +192,7 @@ public class XmlWriter {
                 this.writer.write(">\n");
             }
             this.empty = false;
+            this.closed = true;
             this.justWroteText = false;
         }
         return this;
