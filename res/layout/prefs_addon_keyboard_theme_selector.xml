@@ -63,6 +63,33 @@
                 android:summaryOff="@string/show_hint_text_off_summary"
                 android:summaryOn="@string/show_hint_text_on_summary"
                 android:title="@string/show_hint_text" />
+            
+            <CheckBoxPreference
+				android:key="@string/settings_key_use_custom_hint_align_key"
+				android:title="@string/use_custom_hint_align"
+				android:persistent="true"
+				android:defaultValue="@bool/settings_default_use_custom_hint_align_value"
+				android:summaryOn="@string/use_custom_hint_align_on_summary"
+				android:summaryOff="@string/use_custom_hint_align_off_summary"
+				android:dependency="@string/settings_key_show_hint_text_key"/>
+            <ListPreference
+				android:key="@string/settings_key_custom_hint_align_key"
+				android:title="@string/custom_hint_align"
+				android:dependency="@string/settings_key_use_custom_hint_align_key"
+				android:summary="@string/custom_hint_align_summary"
+				android:entries="@array/custom_hint_align_types"
+				android:entryValues="@array/custom_hint_align_values"
+				android:defaultValue="@string/settings_default_custom_hint_align_value"
+				android:dialogTitle="@string/settings_custom_hint_align_dialog_title"/>
+			<ListPreference
+				android:key="@string/settings_key_custom_hint_valign_key"
+				android:title="@string/custom_hint_valign"
+				android:dependency="@string/settings_key_use_custom_hint_align_key"
+				android:summary="@string/custom_hint_valign_summary"
+				android:entries="@array/custom_hint_valign_types"
+				android:entryValues="@array/custom_hint_valign_values"
+				android:defaultValue="@string/settings_default_custom_hint_valign_value"
+				android:dialogTitle="@string/settings_custom_hint_valign_dialog_title"/>
 
             <EditTextPreference
                 android:autoText="false"

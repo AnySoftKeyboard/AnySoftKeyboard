@@ -33,6 +33,23 @@
 		description=""
 		index="4"
 		/>
+	<ExtensionKeyboard
+		id="69520BA1-7EB1-424B-B5C5-C3C4857E53FE"
+		nameResId="@string/extension_kbd_top_numbers_alt"
+		extensionKeyboardResId="@xml/ext_kbd_top_row_numbers_alt" 
+		extensionKeyboardType="@integer/extension_keyboard_type_top_row"
+		description=""
+		index="5"
+		/>
+	<ExtensionKeyboard
+		id="E797771E-F8CF-4684-96CB-3546A54A7A10"
+		nameResId="@string/extension_kbd_top_nav"
+		extensionKeyboardResId="@xml/ext_kbd_top_row_nav" 
+		extensionKeyboardType="@integer/extension_keyboard_type_top_row"
+		description=""
+		index="6"
+		/>
+		
 	<!-- bottom rows -->
 	<ExtensionKeyboard
 		id="09f8f280-dee2-11e0-9572-0800200c9a66"
@@ -66,6 +83,23 @@
 		description=""
 		index="4"
 		/>
+	<ExtensionKeyboard
+		id="3DFFC2AD-8BC8-47F3-962A-918156AD8DD0"
+		nameResId="@string/extension_kbd_bottom_alt_with_mic"
+		extensionKeyboardResId="@xml/ext_kbd_bottom_row_alt_with_mic" 
+		extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
+		description=""
+		index="5"
+	/>
+	<ExtensionKeyboard
+		id="59295DFF-4A34-4DC9-86E1-8844F56F6858"
+		nameResId="@string/extension_kbd_bottom_alt"
+		extensionKeyboardResId="@xml/ext_kbd_bottom_row_alt" 
+		extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
+		description=""
+		index="6"
+	/>
+		
 	<!-- top extension keyboards -->
 	<ExtensionKeyboard
 		id="6f1ecea0-dee2-11e0-9572-0800200c9a66"
