@@ -208,9 +208,9 @@
     <string name="pinch_gesture_action">Pinch gesture</string>
     <string name="pinch_gesture_action_title">Select pinch gesture action</string>
     <string name="pinch_gesture_action_summary">Define the pinch gesture action</string>
-    <string name="separate_gesture_action">Separate gesture</string>
-    <string name="separate_gesture_action_title">Select separate gesture action</string>
-    <string name="separate_gesture_action_summary">Define the separate gesture action</string>
+    <string name="separate_gesture_action">Stretch gesture</string>
+    <string name="separate_gesture_action_title">Select stretch gesture action</string>
+    <string name="separate_gesture_action_summary">Define the stretch gesture action</string>
     
     <string name="swipe_action_name_none">No action</string>
    	<string name="swipe_action_name_next_alphabet">Next alphabet keyboard</string>
