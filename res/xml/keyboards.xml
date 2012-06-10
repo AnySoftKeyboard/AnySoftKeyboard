@@ -13,5 +13,12 @@
 		index="2" defaultEnabled="false"
 		physicalKeyboardMappingResId="@xml/physical"
 		/>
+	<Keyboard nameResId="@string/eng_keyboard_qwertywithsymbols" iconResId="@drawable/ic_stat_en"
+	    layoutResId="@xml/qwerty_with_symbols" landscapeResId="@xml/qwerty_with_symbols"
+	    id="34CC76A3-91B3-4204-BB1B-421BA8FC8430"
+		defaultDictionaryLocale="en" description="QWERTY keyboard with symbols"
+		index="3" defaultEnabled="false"
+		physicalKeyboardMappingResId="@xml/physical"
+		/>
 
 </Keyboards>

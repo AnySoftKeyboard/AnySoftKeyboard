@@ -24,26 +24,26 @@
     <dimen name="selected_tab_drawable_height">8px</dimen>
     <dimen name="unselected_tab_drawable_height">1px</dimen>
     
-    <dimen name="default_key_height">48dip</dimen>
-    <dimen name="default_key_half_height">32dip</dimen>
-    <dimen name="default_key_tall_height">54dip</dimen>
+    <dimen name="default_key_height">48dp</dimen>
+    <dimen name="default_key_half_height">32dp</dimen>
+    <dimen name="default_key_tall_height">54dp</dimen>
     
-    <dimen name="default_key_vertical_gap">2dip</dimen>
+    <dimen name="default_key_vertical_gap">2dp</dimen>
     <dimen name="default_key_horizontal_gap">1dp</dimen>
     <dimen name="plain_theme_key_horizontal_gap">3dp</dimen>
     <dimen name="plain_theme_key_vertical_gap">3dp</dimen>
-    
+
     <dimen name="key_text_size">21sp</dimen>
     <dimen name="key_label_text_size">14sp</dimen>
     <dimen name="key_hint_text_size">8sp</dimen>
     <dimen name="key_hint_text_no_size">0px</dimen>
     
-    <dimen name="candidate_strip_height">36dip</dimen>
+    <dimen name="candidate_strip_height">36dp</dimen>
     <dimen name="candidate_font_height">18sp</dimen>
    
     <dimen name="candidate_vertical_padding">4sp</dimen>
     
-    <dimen name="candidate_strip_fading_edge_length">63dip</dimen>
+    <dimen name="candidate_strip_fading_edge_length">63dp</dimen>
     <dimen name="candidate_min_touchable_width">0.3in</dimen>
     
     <dimen name="key_hysteresis_distance">10dp</dimen>
@@ -58,11 +58,29 @@
     <dimen name="mini_keyboard_slide_allowance">80dp</dimen>
     
     <dimen name="key_corner_radius">3dp</dimen>
-    
+        
     <dimen name="key_top_inset">3dp</dimen>
     <dimen name="key_bottom_inset">3dp</dimen>
     <dimen name="key_right_inset">2.5dp</dimen>
     <dimen name="key_left_inset">2.5dp</dimen>
     
 	<integer name="condensing_precentage">100</integer>
+
+    <dimen name="blacktheme_size_text_main">21sp</dimen>
+    <dimen name="blacktheme_size_text_smaller">14sp</dimen>
+    <dimen name="blacktheme_size_text_hint">10sp</dimen>
+    <dimen name="blacktheme_size_text_preview">28sp</dimen>
+    <dimen name="blacktheme_keygap_horizontal">1.5dp</dimen>
+    <dimen name="blacktheme_keygap_vertical">0.5dp</dimen>
+    <dimen name="blacktheme_radius_popup_corner">2dp</dimen>
+    <dimen name="blacktheme_radius_key_corner">1dp</dimen>
+    <dimen name="blacktheme_width_key_pressed_stroke">2dp</dimen>
+    <dimen name="blacktheme_width_key_stroke">1.5dp</dimen>
+    <dimen name="blacktheme_width_topborder">1.5dp</dimen>
+    <dimen name="blacktheme_width_suggestion_padding">2dp</dimen>
+    <dimen name="blacktheme_width_suggestion_divider_padded">5dp</dimen>
+    <dimen name="blacktheme_key_height">46dp</dimen>
+    <dimen name="blacktheme_key_half_height">32dp</dimen>
+    <dimen name="blacktheme_key_tall_height">52dp</dimen>
+    
 </resources>
