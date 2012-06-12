@@ -2095,7 +2095,8 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     private void handleShift(boolean reset) {
-        // mHandler.removeMessages(MSG_UPDATE_SHIFT_STATE);
+        //user is above anything automatic.
+        mHandler.removeMessages(MSG_UPDATE_SHIFT_STATE);
 
         if (mKeyboardSwitcher.isAlphabetMode()) {
             // shift pressed and this is an alphabet keyboard
