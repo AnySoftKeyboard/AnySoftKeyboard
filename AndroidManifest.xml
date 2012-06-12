@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.menny.android.anysoftkeyboard"
-        android:versionCode="74" android:versionName="20120528">
+        android:versionCode="75" android:versionName="20120604">
     
 	<supports-screens
 	    android:xlargeScreens="true"
@@ -18,6 +18,8 @@
     <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
     <!-- REQUIRED FOR THE CONTACTS DICTIONARY -->
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- REQUIRED BACKUP TO/RESTORE FROM SDCARD-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 	<!-- currently, only support touch screens -->
 	<uses-configuration android:reqTouchScreen="finger"/>
