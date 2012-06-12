@@ -593,80 +593,6 @@ public abstract class AnyKeyboard extends Keyboard
         // int imeActionId = (editor == null)? -1 :editor.actionId;
 
         mEnterKey.enable();
-
-        // //Used in conjunction with a custom action, this indicates that the
-        // action should not be available in-line
-        // //as a replacement for the "enter" key. Typically this is because the
-        // action has such a significant impact
-        // //or is not recoverable enough that accidentally hitting it should be
-        // avoided, such as sending a message.
-        // //Note that TextView will automatically set this flag for you on
-        // multi-line text views.
-        // boolean inNoEnterActionMode =
-        // ((options&EditorInfo.IME_FLAG_NO_ENTER_ACTION) != 0);
-        //
-        // final int action = (options&EditorInfo.IME_MASK_ACTION);
-        //
-        // if (AnyApplication.DEBUG)
-        // Log.d(TAG, "Input Connection ENTER key with action: "+action +
-        // " and NO_ACTION flag is: "+inNoEnterActionMode);
-        //
-        // if (inNoEnterActionMode)
-        // {
-        // //this means that the ENTER should not be replaced with a custom
-        // action.
-        // //maybe in future ASK releases, we'll add the custom action key.
-        // //setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_return,
-        // -1/*R.drawable.sym_keyboard_feedback_return*/);
-        // //mKeyboardActionType = EditorInfo.IME_ACTION_NONE;
-        // }
-        // else
-        // {
-        // //mKeyboardActionType = action;
-        // switch (action) {
-        // case EditorInfo.IME_ACTION_GO:
-        // mEnterKey.label = res.getText(R.string.label_go_key);
-        // break;
-        // case EditorInfo.IME_ACTION_NEXT:
-        // mEnterKey.label = res.getText(R.string.label_next_key);
-        // break;
-        // case EditorInfo.IME_ACTION_DONE:
-        // mEnterKey.label = null;
-        // //setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_done,
-        // -1/*R.drawable.sym_keyboard_done_black*/);
-        // break;
-        // case EditorInfo.IME_ACTION_SEARCH:
-        // mEnterKey.label = null;
-        // //setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_search,
-        // -1/*R.drawable.sym_keyboard_feedback_search*/);
-        // break;
-        // case EditorInfo.IME_ACTION_SEND:
-        // mEnterKey.label = res.getText(R.string.label_send_key);
-        // break;
-        // case EditorInfo.IME_ACTION_NONE:
-        // case EditorInfo.IME_ACTION_UNSPECIFIED:
-        // default:
-        // mEnterKey.label = null;
-        // //mKeyboardActionType = EditorInfo.IME_ACTION_UNSPECIFIED;
-        // //TODO: Maybe someday we will support this functionality
-        // // if ((imeLabel != null) && (imeLabel.length() > 0) && (imeActionId
-        // > 0))
-        // // {
-        // // Log.d(TAG, "Input has provided its own ENTER label: "+ imeLabel);
-        // // mEnterKey.iconPreview = null;
-        // // mEnterKey.icon = null;
-        // // //there is a problem with LTR languages
-        // // mEnterKey.label =
-        // Workarounds.workaroundCorrectStringDirection(imeLabel);
-        // // }
-        // // else
-        // // {
-        // // setKeyIcons(mEnterKey, res, R.drawable.sym_keyboard_return,
-        // -1/*R.drawable.sym_keyboard_feedback_return*/);
-        // // }
-        // break;
-        // }
-        // }
     }
 
     protected abstract int getKeyboardNameResId();
@@ -770,14 +696,6 @@ public abstract class AnyKeyboard extends Keyboard
         }
     }
 
-    /*
-     * public boolean setControlLocked(boolean controlLocked) { if (mControlKey
-     * != null) { final int initialState = mControlState; if (controlLocked) {
-     * mControlState = STICKY_KEY_LOCKED; } else if (mControlState ==
-     * STICKY_KEY_LOCKED) { mControlState = STICKY_KEY_ON; }
-     * setControlViewAsState(); return initialState != mControlState; } return
-     * false; }
-     */
     private void setControlViewAsState() {
         // the "on" led is just like the caps-lock led
         mControlKey.on = (mControlState == STICKY_KEY_LOCKED);
@@ -828,16 +746,17 @@ public abstract class AnyKeyboard extends Keyboard
                 popupResId = 0;
             }
 
-            TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser), R.styleable.Keyboard);
+            TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser),
+                    R.styleable.KeyboardLayout);
             /* shifted codes support */
             TypedValue shiftedCodesValue = new TypedValue();
 
-            if (a.getValue(R.styleable.Keyboard_Key_shiftedCodes, shiftedCodesValue))
+            if (a.getValue(R.styleable.KeyboardLayout_Key_shiftedCodes, shiftedCodesValue))
             {
                 if (shiftedCodesValue.type == TypedValue.TYPE_INT_DEC
                         || shiftedCodesValue.type == TypedValue.TYPE_INT_HEX) {
                     shiftedCodes = new int[] {
-                        shiftedCodesValue.data
+                            shiftedCodesValue.data
                     };
                 } else if (shiftedCodesValue.type == TypedValue.TYPE_STRING) {
                     shiftedCodes = parseCSV(shiftedCodesValue.string.toString());
@@ -866,17 +785,10 @@ public abstract class AnyKeyboard extends Keyboard
             }
 
             /* long press support */
-            longPressCode = a.getInt(R.styleable.Keyboard_Key_longPressCode, 0);
-            mFunctionalKey = a.getBoolean(R.styleable.Keyboard_Key_isFunctional, false);
-            a.recycle();
-
-            /* Shift label support */
-            a = res.obtainAttributes(Xml.asAttributeSet(parser), R.styleable.Keyboard_Key_v2);
-            shiftedKeyLabel = a.getString(R.styleable.Keyboard_Key_v2_shiftedKeyLabel);
-            a.recycle();
-
-            a = res.obtainAttributes(Xml.asAttributeSet(parser), R.styleable.Keyboard_Key_v3);
-            hintLabel = a.getString(R.styleable.Keyboard_Key_v3_hintLabel);
+            longPressCode = a.getInt(R.styleable.KeyboardLayout_Key_longPressCode, 0);
+            mFunctionalKey = a.getBoolean(R.styleable.KeyboardLayout_Key_isFunctional, false);
+            shiftedKeyLabel = a.getString(R.styleable.KeyboardLayout_Key_shiftedKeyLabel);
+            hintLabel = a.getString(R.styleable.KeyboardLayout_Key_hintLabel);
             a.recycle();
         }
 
