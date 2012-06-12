@@ -112,34 +112,30 @@ public class CandidateView extends View {
         mAddToDictionaryHint = context.getString(R.string.hint_add_to_dictionary);
         //themed
         final KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(context);
-        TypedArray a = theme.getPackageContext().obtainStyledAttributes(attrs, R.styleable.AnyKeyboardBaseView, 0, theme.getThemeResId());
+        TypedArray a = theme.getPackageContext().obtainStyledAttributes(attrs, R.styleable.AnySoftKeyboardTheme, 0, theme.getThemeResId());
         int colorNormal = context.getResources().getColor(R.color.candidate_normal);
         int colorRecommended = context.getResources().getColor(R.color.candidate_recommended);
         int colorOther = context.getResources().getColor(R.color.candidate_other);
         float fontSizePixel = context.getResources().getDimensionPixelSize(R.dimen.candidate_font_height);
         try
         {
-        	colorNormal = a.getColor(R.styleable.AnyKeyboardBaseView_suggestionNormalTextColor, colorNormal);
-        	colorRecommended = a.getColor(R.styleable.AnyKeyboardBaseView_suggestionRecommendedTextColor, colorRecommended);
-        	colorOther = a.getColor(R.styleable.AnyKeyboardBaseView_suggestionOthersTextColor, colorOther);
-	        mDivider = a.getDrawable(R.styleable.AnyKeyboardBaseView_suggestionDividerImage);
-	        final Drawable stripImage = a.getDrawable(R.styleable.AnyKeyboardBaseView_suggestionBackgroundImage);
+        	colorNormal = a.getColor(R.styleable.AnySoftKeyboardTheme_suggestionNormalTextColor, colorNormal);
+        	colorRecommended = a.getColor(R.styleable.AnySoftKeyboardTheme_suggestionRecommendedTextColor, colorRecommended);
+        	colorOther = a.getColor(R.styleable.AnySoftKeyboardTheme_suggestionOthersTextColor, colorOther);
+	        mDivider = a.getDrawable(R.styleable.AnySoftKeyboardTheme_suggestionDividerImage);
+	        final Drawable stripImage = a.getDrawable(R.styleable.AnySoftKeyboardTheme_suggestionBackgroundImage);
 	        if (stripImage == null) 
 	        	setBackgroundColor(Color.BLACK);
 	        else 
 	        	setBackgroundDrawable(stripImage);
-	        fontSizePixel = a.getDimension(R.styleable.AnyKeyboardBaseView_suggestionTextSize, fontSizePixel);
+	        fontSizePixel = a.getDimension(R.styleable.AnySoftKeyboardTheme_suggestionTextSize, fontSizePixel);
         }
         catch(Exception e)
         {
         	e.printStackTrace();
         }
+        mXGap = a.getDimension(R.styleable.AnySoftKeyboardTheme_suggestionWordXGap, 20);
         a.recycle();
-        
-        a = theme.getPackageContext().obtainStyledAttributes(attrs, R.styleable.AnyKeyboardBaseViewV3, 0, theme.getThemeResId());
-        mXGap = a.getDimension(R.styleable.AnyKeyboardBaseViewV3_suggestionWordXGap, 20);
-        a.recycle();
-        
         mColorNormal = colorNormal;
         mColorRecommended = colorRecommended;
         mColorOther = colorOther;

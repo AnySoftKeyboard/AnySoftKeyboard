@@ -416,7 +416,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
     public AnyKeyboardBaseView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-
+        
         LayoutInflater inflate = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         // int previewLayout = 0;
@@ -435,8 +435,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 + keyboardThemeStyleResId);
         HashSet<Integer> doneStylesIndexes = new HashSet<Integer>();
         TypedArray a = theme.getPackageContext().obtainStyledAttributes(
-                attrs,
-                R.styleable.AnyKeyboardBaseView,
+                null,
+                R.styleable.AnySoftKeyboardTheme,
                 0,
                 keyboardThemeStyleResId);
 
@@ -447,35 +447,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 doneStylesIndexes.add(new Integer(attr));
         }
         a.recycle();
-        HashSet<Integer> doneStylesIndexes2 = new HashSet<Integer>();
-        a = theme.getPackageContext().obtainStyledAttributes(
-                attrs,
-                R.styleable.AnyKeyboardBaseViewV2,
-                0,
-                keyboardThemeStyleResId);
-
-        final int n2 = a.getIndexCount();
-        for (int i = 0; i < n2; i++) {
-            final int attr = a.getIndex(i);
-            if (setValueFromTheme_v2(a, attr))
-                doneStylesIndexes2.add(new Integer(attr));
-        }
-        a.recycle();
-        // skip to v4; v3 are used elsewhere
-        HashSet<Integer> doneStylesIndexes4 = new HashSet<Integer>();
-        a = theme.getPackageContext().obtainStyledAttributes(
-                attrs,
-                R.styleable.AnyKeyboardBaseViewV4,
-                0,
-                keyboardThemeStyleResId);
-
-        final int n4 = a.getIndexCount();
-        for (int i = 0; i < n4; i++) {
-            final int attr = a.getIndex(i);
-            if (setValueFromTheme_v4(a, attr))
-                doneStylesIndexes4.add(new Integer(attr));
-        }
-        
         // taking icons
         int iconSetStyleRes = theme.getIconsThemeResId();
         HashSet<Integer> doneIconsStylesIndexes = new HashSet<Integer>();
@@ -484,8 +455,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         if (iconSetStyleRes != 0)
         {
             a = theme.getPackageContext().obtainStyledAttributes(
-                    attrs,
-                    R.styleable.AnySoftKeyboardKeyIcons,
+                    null,
+                    R.styleable.AnySoftKeyboardThemeKeyIcons,
                     0,
                     iconSetStyleRes);
             final int iconsCount = a.getIndexCount();
@@ -503,8 +474,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         Log.d(TAG, "Will use keyboard fallback theme " + fallbackTheme.getName() + " id "
                 + fallbackTheme.getId() + " res " + keyboardFallbackThemeStyleResId);
         a = fallbackTheme.getPackageContext().obtainStyledAttributes(
-                attrs,
-                R.styleable.AnyKeyboardBaseView,
+                null,
+                R.styleable.AnySoftKeyboardTheme,
                 0,
                 keyboardFallbackThemeStyleResId);
 
@@ -518,29 +489,13 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             setValueFromTheme(a, padding, attr);
         }
         a.recycle();
-        a = fallbackTheme.getPackageContext().obtainStyledAttributes(
-                attrs,
-                R.styleable.AnyKeyboardBaseViewV2,
-                0,
-                keyboardFallbackThemeStyleResId);
-
-        final int fallbackCount2 = a.getIndexCount();
-        for (int i = 0; i < fallbackCount2; i++) {
-            final int attr = a.getIndex(i);
-            if (doneStylesIndexes2.contains(new Integer(attr)))
-                continue;
-            if (AnyApplication.DEBUG)
-                Log.d(TAG, "Falling back theme res ID " + attr);
-            setValueFromTheme_v2(a, attr);
-        }
-        a.recycle();
         // taking missing icons
         int fallbackIconSetStyleId = fallbackTheme.getIconsThemeResId();
         Log.d(TAG, "Will use keyboard fallback icons theme " + fallbackTheme.getName() + " id "
                 + fallbackTheme.getId() + " res " + fallbackIconSetStyleId);
         a = fallbackTheme.getPackageContext().obtainStyledAttributes(
-                attrs,
-                R.styleable.AnySoftKeyboardKeyIcons,
+                null,
+                R.styleable.AnySoftKeyboardThemeKeyIcons,
                 0,
                 fallbackIconSetStyleId);
 
@@ -554,22 +509,11 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             setKeyIconValueFromTheme(a, attr);
         }
         a.recycle();
+        
         // settings
         super.setPadding(padding[0], padding[1], padding[2], padding[3]);
 
         final Resources res = getResources();
-        /*
-         * mShiftLockedIcon =
-         * res.getDrawable(R.drawable.sym_keyboard_shift_locked); mShiftOnIcon =
-         * res.getDrawable(R.drawable.sym_keyboard_shift_on); mShiftIcon =
-         * res.getDrawable(R.drawable.sym_keyboard_shift); mDeleteKeyIcon =
-         * res.getDrawable(R.drawable.sym_keyboard_delete); mControlIcon =
-         * res.getDrawable(R.drawable.sym_keyboard_ctrl); mSpaceKeyIcon =
-         * res.getDrawable(R.drawable.sym_keyboard_space); mTabKeyIcon =
-         * res.getDrawable(R.drawable.sym_keyboard_tab); mCancelKeyIcon =
-         * res.getDrawable(R.drawable.sym_keyboard_cancel); mGlobeKeyIcon =
-         * res.getDrawable(R.drawable.sym_keyboard_globe);
-         */
         mKeyboardDimens.setKeyboardMaxWidth(res.getDisplayMetrics().widthPixels - padding[0]
                 - padding[2]);
 
@@ -646,78 +590,78 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         try
         {
             switch (attr) {
-                case R.styleable.AnyKeyboardBaseView_android_background:
+                case R.styleable.AnySoftKeyboardTheme_android_background:
                     Drawable keyboardBackground = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_android_background "
+                        Log.d(TAG, "AnySoftKeyboardTheme_android_background "
                                 + (keyboardBackground != null));
                     super.setBackgroundDrawable(keyboardBackground);
                     break;
-                case R.styleable.AnyKeyboardBaseView_android_paddingLeft:
+                case R.styleable.AnySoftKeyboardTheme_android_paddingLeft:
                     padding[0] = a.getDimensionPixelSize(attr, 0);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_android_paddingLeft " + padding[0]);
+                        Log.d(TAG, "AnySoftKeyboardTheme_android_paddingLeft " + padding[0]);
                     break;
-                case R.styleable.AnyKeyboardBaseView_android_paddingTop:
+                case R.styleable.AnySoftKeyboardTheme_android_paddingTop:
                     padding[1] = a.getDimensionPixelSize(attr, 0);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_android_paddingTop " + padding[1]);
+                        Log.d(TAG, "AnySoftKeyboardTheme_android_paddingTop " + padding[1]);
                     break;
-                case R.styleable.AnyKeyboardBaseView_android_paddingRight:
+                case R.styleable.AnySoftKeyboardTheme_android_paddingRight:
                     padding[2] = a.getDimensionPixelSize(attr, 0);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_android_paddingRight " + padding[2]);
+                        Log.d(TAG, "AnySoftKeyboardTheme_android_paddingRight " + padding[2]);
                     break;
-                case R.styleable.AnyKeyboardBaseView_android_paddingBottom:
+                case R.styleable.AnySoftKeyboardTheme_android_paddingBottom:
                     padding[3] = a.getDimensionPixelSize(attr, 0);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_android_paddingBottom " + padding[3]);
+                        Log.d(TAG, "AnySoftKeyboardTheme_android_paddingBottom " + padding[3]);
                     break;
-                case R.styleable.AnyKeyboardBaseView_keyBackground:
+                case R.styleable.AnySoftKeyboardTheme_keyBackground:
                     mKeyBackground = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_keyBackground " + (mKeyBackground != null));
+                        Log.d(TAG, "AnySoftKeyboardTheme_keyBackground " + (mKeyBackground != null));
                     break;
-                case R.styleable.AnyKeyboardBaseView_keyHysteresisDistance:
+                case R.styleable.AnySoftKeyboardTheme_keyHysteresisDistance:
                     mKeyHysteresisDistance = a.getDimensionPixelOffset(attr, 0);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_keyHysteresisDistance "
+                        Log.d(TAG, "AnySoftKeyboardTheme_keyHysteresisDistance "
                                 + mKeyHysteresisDistance);
                     break;
-                case R.styleable.AnyKeyboardBaseView_verticalCorrection:
+                case R.styleable.AnySoftKeyboardTheme_verticalCorrection:
                     mVerticalCorrection = a.getDimensionPixelOffset(attr, 0);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_verticalCorrection " + mVerticalCorrection);
+                        Log.d(TAG, "AnySoftKeyboardTheme_verticalCorrection " + mVerticalCorrection);
                     break;
-                case R.styleable.AnyKeyboardBaseView_keyPreviewBackground:
+                case R.styleable.AnySoftKeyboardTheme_keyPreviewBackground:
                     mPreviewKeyBackground = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_keyPreviewBackground "
+                        Log.d(TAG, "AnySoftKeyboardTheme_keyPreviewBackground "
                                 + (mPreviewKeyBackground != null));
                     break;
-                case R.styleable.AnyKeyboardBaseView_keyPreviewTextColor:
+                case R.styleable.AnySoftKeyboardTheme_keyPreviewTextColor:
                     mPreviewKeyTextColor = a.getColor(attr, 0xFFF);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_keyPreviewTextColor "
+                        Log.d(TAG, "AnySoftKeyboardTheme_keyPreviewTextColor "
                                 + mPreviewKeyTextColor);
                     break;
-                case R.styleable.AnyKeyboardBaseView_keyPreviewTextSize:
+                case R.styleable.AnySoftKeyboardTheme_keyPreviewTextSize:
                     mPreviewKeyTextSize = a.getDimensionPixelSize(attr, 0);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_keyPreviewTextSize " + mPreviewKeyTextSize);
+                        Log.d(TAG, "AnySoftKeyboardTheme_keyPreviewTextSize " + mPreviewKeyTextSize);
                     break;
-                case R.styleable.AnyKeyboardBaseView_keyPreviewLabelTextSize:
+                case R.styleable.AnySoftKeyboardTheme_keyPreviewLabelTextSize:
                     mPreviewLabelTextSize = a.getDimensionPixelSize(attr, 0);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_keyPreviewLabelTextSize "
+                        Log.d(TAG, "AnySoftKeyboardTheme_keyPreviewLabelTextSize "
                                 + mPreviewLabelTextSize);
                     break;
-                case R.styleable.AnyKeyboardBaseView_keyPreviewOffset:
+                case R.styleable.AnySoftKeyboardTheme_keyPreviewOffset:
                     mPreviewOffset = a.getDimensionPixelOffset(attr, 0);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_keyPreviewOffset " + mPreviewOffset);
+                        Log.d(TAG, "AnySoftKeyboardTheme_keyPreviewOffset " + mPreviewOffset);
                     break;
-                case R.styleable.AnyKeyboardBaseView_keyTextSize:
+                case R.styleable.AnySoftKeyboardTheme_keyTextSize:
                     mKeyTextSize = a.getDimensionPixelSize(attr, 18);
                     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
                         mKeyTextSize = mKeyTextSize
@@ -726,9 +670,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                         mKeyTextSize = mKeyTextSize
                                 * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_keyTextSize " + mKeyTextSize);
+                        Log.d(TAG, "AnySoftKeyboardTheme_keyTextSize " + mKeyTextSize);
                     break;
-                case R.styleable.AnyKeyboardBaseView_keyTextColor:
+                case R.styleable.AnySoftKeyboardTheme_keyTextColor:
                     mKeyTextColor = a.getColorStateList(attr);
                     if (mKeyTextColor == null)
                     {
@@ -743,9 +687,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                         });
                     }
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_keyTextColor " + mKeyTextColor);
+                        Log.d(TAG, "AnySoftKeyboardTheme_keyTextColor " + mKeyTextColor);
                     break;
-                case R.styleable.AnyKeyboardBaseView_labelTextSize:
+                case R.styleable.AnySoftKeyboardTheme_labelTextSize:
                     mLabelTextSize = a.getDimensionPixelSize(attr, 14);
                     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
                         mLabelTextSize = mLabelTextSize
@@ -754,35 +698,35 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                         mLabelTextSize = mLabelTextSize
                                 * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_labelTextSize " + mLabelTextSize);
+                        Log.d(TAG, "AnySoftKeyboardTheme_labelTextSize " + mLabelTextSize);
                     break;
-                case R.styleable.AnyKeyboardBaseView_shadowColor:
+                case R.styleable.AnySoftKeyboardTheme_shadowColor:
                     mShadowColor = a.getColor(attr, 0);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_shadowColor " + mShadowColor);
+                        Log.d(TAG, "AnySoftKeyboardTheme_shadowColor " + mShadowColor);
                     break;
-                case R.styleable.AnyKeyboardBaseView_shadowRadius:
+                case R.styleable.AnySoftKeyboardTheme_shadowRadius:
                     mShadowRadius = a.getDimensionPixelOffset(attr, 0);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_shadowRadius " + mShadowRadius);
+                        Log.d(TAG, "AnySoftKeyboardTheme_shadowRadius " + mShadowRadius);
                     break;
-                case R.styleable.AnyKeyboardBaseView_shadowOffsetX:
+                case R.styleable.AnySoftKeyboardTheme_shadowOffsetX:
                     mShadowOffsetX = a.getDimensionPixelOffset(attr, 0);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_shadowOffsetX " + mShadowOffsetX);
+                        Log.d(TAG, "AnySoftKeyboardTheme_shadowOffsetX " + mShadowOffsetX);
                     break;
-                case R.styleable.AnyKeyboardBaseView_shadowOffsetY:
+                case R.styleable.AnySoftKeyboardTheme_shadowOffsetY:
                     mShadowOffsetY = a.getDimensionPixelOffset(attr, 0);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_shadowOffsetY " + mShadowOffsetY);
+                        Log.d(TAG, "AnySoftKeyboardTheme_shadowOffsetY " + mShadowOffsetY);
                     break;
-                case R.styleable.AnyKeyboardBaseView_backgroundDimAmount:
+                case R.styleable.AnySoftKeyboardTheme_backgroundDimAmount:
                     mBackgroundDimAmount = a.getFloat(attr, 0.5f);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_backgroundDimAmount "
+                        Log.d(TAG, "AnySoftKeyboardTheme_backgroundDimAmount "
                                 + mBackgroundDimAmount);
                     break;
-                case R.styleable.AnyKeyboardBaseView_keyTextStyle:
+                case R.styleable.AnySoftKeyboardTheme_keyTextStyle:
                     int textStyle = a.getInt(attr, 0);
                     switch (textStyle) {
                         case 0:
@@ -799,59 +743,47 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                             break;
                     }
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_keyTextStyle " + mKeyTextStyle);
+                        Log.d(TAG, "AnySoftKeyboardTheme_keyTextStyle " + mKeyTextStyle);
                     break;
-                case R.styleable.AnyKeyboardBaseView_symbolColorScheme:
+                case R.styleable.AnySoftKeyboardTheme_symbolColorScheme:
                     mSymbolColorScheme = a.getInt(attr, 0);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_symbolColorScheme " + mSymbolColorScheme);
+                        Log.d(TAG, "AnySoftKeyboardTheme_symbolColorScheme " + mSymbolColorScheme);
                     break;
-                case R.styleable.AnyKeyboardBaseView_keyHorizontalGap:
+                case R.styleable.AnySoftKeyboardTheme_keyHorizontalGap:
                     float themeHorizotalKeyGap = a.getDimensionPixelOffset(attr, 0);
                     mKeyboardDimens.setHorizontalKeyGap(themeHorizotalKeyGap);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_keyHorizontalGap " + themeHorizotalKeyGap);
+                        Log.d(TAG, "AnySoftKeyboardTheme_keyHorizontalGap " + themeHorizotalKeyGap);
                     break;
-                case R.styleable.AnyKeyboardBaseView_keyVerticalGap:
+                case R.styleable.AnySoftKeyboardTheme_keyVerticalGap:
                     float themeVerticalRowGap = a.getDimensionPixelOffset(attr, 0);
                     mKeyboardDimens.setVerticalRowGap(themeVerticalRowGap);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_keyVerticalGap " + themeVerticalRowGap);
+                        Log.d(TAG, "AnySoftKeyboardTheme_keyVerticalGap " + themeVerticalRowGap);
                     break;
-                case R.styleable.AnyKeyboardBaseView_keyNormalHeight:
+                case R.styleable.AnySoftKeyboardTheme_keyNormalHeight:
                     float themeNormalKeyHeight = a.getDimensionPixelOffset(attr, 0);
                     mKeyboardDimens.setNormalKeyHeight(themeNormalKeyHeight);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_keyNormalHeight " + themeNormalKeyHeight);
+                        Log.d(TAG, "AnySoftKeyboardTheme_keyNormalHeight " + themeNormalKeyHeight);
                     break;
-                case R.styleable.AnyKeyboardBaseView_keyLargeHeight:
+                case R.styleable.AnySoftKeyboardTheme_keyLargeHeight:
                     float themeLargeKeyHeight = a.getDimensionPixelOffset(attr, 0);
                     mKeyboardDimens.setLargeKeyHeight(themeLargeKeyHeight);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_keyLargeHeight " + themeLargeKeyHeight);
+                        Log.d(TAG, "AnySoftKeyboardTheme_keyLargeHeight " + themeLargeKeyHeight);
                     break;
-                case R.styleable.AnyKeyboardBaseView_keySmallHeight:
+                case R.styleable.AnySoftKeyboardTheme_keySmallHeight:
                     float themeSmallKeyHeight = a.getDimensionPixelOffset(attr, 0);
                     mKeyboardDimens.setSmallKeyHeight(themeSmallKeyHeight);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_keySmallHeight " + themeSmallKeyHeight);
+                        Log.d(TAG, "AnySoftKeyboardTheme_keySmallHeight " + themeSmallKeyHeight);
                     break;
-            }
-            return true;
-        } catch (Exception e)
-        {
-            // on API changes, so the incompatible themes wont crash me..
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    public boolean setValueFromTheme_v2(TypedArray a, final int attr) {
-        try
-        {
-            switch (attr) {
-                case R.styleable.AnyKeyboardBaseViewV2_hintTextSize:
+                case R.styleable.AnySoftKeyboardTheme_hintTextSize:
                     mHintTextSize = a.getDimensionPixelSize(attr, 0);
+                    if (AnyApplication.DEBUG)
+                        Log.d(TAG, "AnySoftKeyboardTheme_hintTextSize " + mHintTextSize);
                     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
                         mHintTextSize = mHintTextSize
                                 * AnyApplication.getConfig().getKeysHeightFactorInLandscape();
@@ -859,9 +791,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                         mHintTextSize = mHintTextSize
                                 * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseViewV2_hintTextSize " + mHintTextSize);
+                        Log.d(TAG, "AnySoftKeyboardTheme_hintTextSize with factor " + mHintTextSize);
                     break;
-                case R.styleable.AnyKeyboardBaseViewV2_hintTextColor:
+                case R.styleable.AnySoftKeyboardTheme_hintTextColor:
                     mHintTextColor = a.getColorStateList(attr);
                     if (mHintTextColor == null)
                     {
@@ -876,7 +808,17 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                         });
                     }
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseViewV2_hintTextColor " + mHintTextColor);
+                        Log.d(TAG, "AnySoftKeyboardTheme_hintTextColor " + mHintTextColor);
+                    break;
+                case R.styleable.AnySoftKeyboardTheme_hintLabelVAlign:
+                    mHintLabelVAlign = a.getInt(attr, Gravity.BOTTOM);
+                    if (AnyApplication.DEBUG)
+                        Log.d(TAG, "AnySoftKeyboardTheme_hintLabelVAlign " + mHintLabelVAlign);
+                    break;
+                case R.styleable.AnySoftKeyboardTheme_hintLabelAlign:
+                    mHintLabelAlign = a.getInt(attr, Gravity.RIGHT);
+                    if (AnyApplication.DEBUG)
+                        Log.d(TAG, "AnySoftKeyboardTheme_hintLabelAlign " + mHintLabelAlign);
                     break;
             }
             return true;
@@ -888,120 +830,96 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         }
     }
     
-    public boolean setValueFromTheme_v4(TypedArray a, final int attr) {
-        try
-        {
-            switch (attr) {
-                case R.styleable.AnyKeyboardBaseViewV4_hintLabelVAlign:
-                    mHintLabelVAlign = a.getInt(attr, Gravity.BOTTOM);
-                    if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseViewV3_hintLabelVAlign " + mHintLabelVAlign);
-                    break;
-                case R.styleable.AnyKeyboardBaseViewV4_hintLabelAlign:
-                    mHintLabelAlign = a.getInt(attr, Gravity.RIGHT);
-                    if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseViewV3_hintLabelAlign " + mHintLabelAlign);
-                    break;
-            }
-            return true;
-        } catch (Exception e)
-        {
-            // on API changes, so the incompatible themes wont crash me..
-            e.printStackTrace();
-            return false;
-        }
-    }
-
     public boolean setKeyIconValueFromTheme(TypedArray a, final int attr) {
         try
         {
             switch (attr) {
-                case R.styleable.AnySoftKeyboardKeyIcons_iconKeyShift:
+                case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyShift:
                     mShiftIcon = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_iconKeyShift " + (mShiftIcon != null));
+                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyShift " + (mShiftIcon != null));
                     break;
-                case R.styleable.AnySoftKeyboardKeyIcons_iconKeyControl:
+                case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyControl:
                     mControlIcon = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_iconKeyControl " + (mControlIcon != null));
+                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyControl " + (mControlIcon != null));
                     break;
-                case R.styleable.AnySoftKeyboardKeyIcons_iconKeyAction:
+                case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyAction:
                     mActionKeyIcon = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_iconKeyAction " + (mActionKeyIcon != null));
+                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyAction " + (mActionKeyIcon != null));
                     break;
-                case R.styleable.AnySoftKeyboardKeyIcons_iconKeyBackspace:
+                case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyBackspace:
                     mDeleteKeyIcon = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_iconKeyBackspace "
+                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyBackspace "
                                 + (mDeleteKeyIcon != null));
                     break;
-                case R.styleable.AnySoftKeyboardKeyIcons_iconKeyCancel:
+                case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyCancel:
                     mCancelKeyIcon = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_iconKeyCancel " + (mCancelKeyIcon != null));
+                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyCancel " + (mCancelKeyIcon != null));
                     break;
-                case R.styleable.AnySoftKeyboardKeyIcons_iconKeyGlobe:
+                case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyGlobe:
                     mGlobeKeyIcon = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_iconKeyGlobe " + (mGlobeKeyIcon != null));
+                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyGlobe " + (mGlobeKeyIcon != null));
                     break;
-                case R.styleable.AnySoftKeyboardKeyIcons_iconKeySpace:
+                case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeySpace:
                     mSpaceKeyIcon = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_iconKeySpace " + (mSpaceKeyIcon != null));
+                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeySpace " + (mSpaceKeyIcon != null));
                     break;
-                case R.styleable.AnySoftKeyboardKeyIcons_iconKeyTab:
+                case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyTab:
                     mTabKeyIcon = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnyKeyboardBaseView_iconKeyTab " + (mTabKeyIcon != null));
+                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyTab " + (mTabKeyIcon != null));
                     break;
-                case R.styleable.AnySoftKeyboardKeyIcons_iconKeyArrowDown:
+                case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyArrowDown:
                     mArrowDownKeyIcon = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardKeyIcons_iconKeyArrowDown "
+                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyArrowDown "
                                 + (mArrowDownKeyIcon != null));
                     break;
-                case R.styleable.AnySoftKeyboardKeyIcons_iconKeyArrowLeft:
+                case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyArrowLeft:
                     mArrowLeftKeyIcon = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardKeyIcons_iconKeyArrowLeft "
+                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyArrowLeft "
                                 + (mArrowLeftKeyIcon != null));
                     break;
-                case R.styleable.AnySoftKeyboardKeyIcons_iconKeyArrowRight:
+                case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyArrowRight:
                     mArrowRightKeyIcon = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardKeyIcons_iconKeyArrowRight "
+                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyArrowRight "
                                 + (mArrowRightKeyIcon != null));
                     break;
-                case R.styleable.AnySoftKeyboardKeyIcons_iconKeyArrowUp:
+                case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyArrowUp:
                     mArrowUpKeyIcon = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardKeyIcons_iconKeyArrowUp "
+                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyArrowUp "
                                 + (mArrowUpKeyIcon != null));
                     break;
-                case R.styleable.AnySoftKeyboardKeyIcons_iconKeyInputMoveHome:
+                case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyInputMoveHome:
                     mMoveHomeKeyIcon = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardKeyIcons_iconKeyInputMoveHome "
+                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyInputMoveHome "
                                 + (mMoveHomeKeyIcon != null));
                     break;
-                case R.styleable.AnySoftKeyboardKeyIcons_iconKeyInputMoveEnd:
+                case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyInputMoveEnd:
                     mMoveEndKeyIcon = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardKeyIcons_iconKeyInputMoveEnd "
+                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyInputMoveEnd "
                                 + (mMoveEndKeyIcon != null));
                     break;
-                case R.styleable.AnySoftKeyboardKeyIcons_iconKeyMic:
+                case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyMic:
                     mMicKeyIcon = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardKeyIcons_iconKeyMic " + (mMicKeyIcon != null));
+                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyMic " + (mMicKeyIcon != null));
                     break;
-                case R.styleable.AnySoftKeyboardKeyIcons_iconKeySettings:
+                case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeySettings:
                     mSettingsKeyIcon = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardKeyIcons_iconKeySettings "
+                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeySettings "
                                 + (mSettingsKeyIcon != null));
                     break;
             }
@@ -1371,6 +1289,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
         final boolean drawHintText = (mHintTextSize > 1)
                 && AnyApplication.getConfig().getShowHintTextOnKeys();
+        if (AnyApplication.DEBUG && !drawHintText) {
+            Log.d(TAG, "drawHintText is false. mHintTextSize: "+mHintTextSize+", getShowHintTextOnKeys: "+AnyApplication.getConfig().getShowHintTextOnKeys());
+        }
         // TODO: calls to AnyApplication.getConfig().getXXXXX() functions are
         // not yet implemented,
         // but need to when allowing preferences to override theme settings of
@@ -1492,24 +1413,20 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 // For characters, use large font. For labels like "Done", use
                 // small font.
                 final FontMetrics fm;
-                final boolean specialKey;
                 if (label.length() > 1 && key.codes.length < 2) {
                     paint.setTextSize(mLabelTextSize);
                     paint.setTypeface(Typeface.DEFAULT_BOLD);
                     if (mLabelFM == null)
                         mLabelFM = paint.getFontMetrics();
                     fm = mLabelFM;
-                    specialKey = true;
                 } else {
                     paint.setTextSize(mKeyTextSize);
                     paint.setTypeface(mKeyTextStyle);
                     if (mTextFM == null)
                         mTextFM = paint.getFontMetrics();
                     fm = mTextFM;
-                    specialKey = false;
                 }
 
-                final float labelHeight = -fm.top;
                 // Draw a drop shadow for the text
                 paint.setShadowLayer(mShadowRadius, mShadowOffsetX, mShadowOffsetY, mShadowColor);
 
@@ -1529,7 +1446,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 // of hint text... unless it's a special key like "Done" or the
                 // cycle keyboard keys in
                 // the top extension keyboard...
-                final boolean adjustMainLabel = drawHintText && !specialKey;
+                final boolean adjustMainLabel = false;// drawHintText && !specialKey;
                 if (adjustMainLabel) {
                     final float halfTextHeight = (-fm.top + fm.bottom) / 2;
                     final float minY = mKeyBackgroundPadding.top + halfTextHeight + 1;
@@ -1613,9 +1530,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
                     String hintText = "···";
 
-                    if (key.mHintLabel != null && key.mHintLabel.length() > 0)
+                    if (key.hintLabel != null && key.hintLabel.length() > 0)
                     {
-                        hintText = key.mHintLabel.toString();
+                        hintText = key.hintLabel.toString();
                         // it is the responsibility of the keyboard layout
                         // designer to ensure that they do
                         // not put too many characters in the hint label...
