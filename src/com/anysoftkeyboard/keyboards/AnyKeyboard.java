@@ -805,7 +805,7 @@ public abstract class AnyKeyboard extends Keyboard
 
         public int[] shiftedCodes;
         public CharSequence shiftedKeyLabel;
-        public CharSequence mHintLabel;
+        public CharSequence hintLabel;
         public int longPressCode;
         private boolean mFunctionalKey;
         private boolean mEnabled;
@@ -836,12 +836,10 @@ public abstract class AnyKeyboard extends Keyboard
             {
                 if (shiftedCodesValue.type == TypedValue.TYPE_INT_DEC
                         || shiftedCodesValue.type == TypedValue.TYPE_INT_HEX) {
-                    Log.d("*****SHIFT****", "shiftedCodes is TYPE_INT_HEX");
                     shiftedCodes = new int[] {
                         shiftedCodesValue.data
                     };
                 } else if (shiftedCodesValue.type == TypedValue.TYPE_STRING) {
-                    Log.d("*****SHIFT****", "shiftedCodes is TYPE_STRING");
                     shiftedCodes = parseCSV(shiftedCodesValue.string.toString());
                 }
             }
@@ -878,7 +876,7 @@ public abstract class AnyKeyboard extends Keyboard
             a.recycle();
 
             a = res.obtainAttributes(Xml.asAttributeSet(parser), R.styleable.Keyboard_Key_v3);
-            mHintLabel = a.getString(R.styleable.Keyboard_Key_v3_hintLabel);
+            hintLabel = a.getString(R.styleable.Keyboard_Key_v3_hintLabel);
             a.recycle();
         }
 
