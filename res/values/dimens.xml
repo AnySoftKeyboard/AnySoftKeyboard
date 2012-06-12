@@ -35,7 +35,7 @@
 
     <dimen name="key_text_size">21sp</dimen>
     <dimen name="key_label_text_size">14sp</dimen>
-    <dimen name="key_hint_text_size">8sp</dimen>
+    <dimen name="key_hint_text_size">7sp</dimen>
     <dimen name="key_hint_text_no_size">0px</dimen>
     
     <dimen name="candidate_strip_height">36dp</dimen>
