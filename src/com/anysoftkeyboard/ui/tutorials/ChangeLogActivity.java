@@ -18,6 +18,7 @@ import com.anysoftkeyboard.ui.settings.BottomRowSelector;
 import com.anysoftkeyboard.ui.settings.KeyboardThemeSelector;
 import com.anysoftkeyboard.ui.settings.MainSettings;
 import com.anysoftkeyboard.ui.settings.TopRowSelector;
+import com.anysoftkeyboard.ui.settings.UserDictionaryEditorActivity;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -133,6 +134,10 @@ public class ChangeLogActivity extends BaseTutorialActivity{
 			Intent themeSelector = new Intent(this, KeyboardThemeSelector.class);
 			startActivity(themeSelector);
 			break;
+		case R.id.settings_word_editor_button:
+            Intent wordEditor = new Intent(this, UserDictionaryEditorActivity.class);
+            startActivity(wordEditor);
+            break;
 		default:
 			super.onClick(v);
 			break;
