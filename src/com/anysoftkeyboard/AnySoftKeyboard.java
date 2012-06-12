@@ -382,14 +382,14 @@ public class AnySoftKeyboard extends InputMethodService implements
         final KeyboardTheme theme = KeyboardThemeFactory
                 .getCurrentKeyboardTheme(getApplicationContext());
         final TypedArray a = theme.getPackageContext().obtainStyledAttributes(null,
-                R.styleable.AnyKeyboardBaseView, 0, theme.getThemeResId());
+                R.styleable.AnySoftKeyboardTheme, 0, theme.getThemeResId());
         int closeTextColor = getResources().getColor(R.color.candidate_other);
         float fontSizePixel = getResources().getDimensionPixelSize(R.dimen.candidate_font_height);
         try
         {
-            closeTextColor = a.getColor(R.styleable.AnyKeyboardBaseView_suggestionOthersTextColor,
+            closeTextColor = a.getColor(R.styleable.AnySoftKeyboardTheme_suggestionOthersTextColor,
                     closeTextColor);
-            fontSizePixel = a.getDimension(R.styleable.AnyKeyboardBaseView_suggestionTextSize,
+            fontSizePixel = a.getDimension(R.styleable.AnySoftKeyboardTheme_suggestionTextSize,
                     fontSizePixel);
         } catch (Exception e)
         {
