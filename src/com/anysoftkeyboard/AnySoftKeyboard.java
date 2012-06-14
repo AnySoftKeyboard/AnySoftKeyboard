@@ -1484,10 +1484,19 @@ public class AnySoftKeyboard extends InputMethodService implements
             return getCurrentKeyboard().isStartOfWordLetter((char) code);
     }
 
-    public void onMultiTap() {
+    public void onMultiTapStarted() {
+        final InputConnection ic = getCurrentInputConnection();
+        if (ic != null)
+            ic.beginBatchEdit();
         handleDeleteLastCharacter(true);
         if (mInputView != null)
             mInputView.setShifted(mLastCharacterWasShifted);
+    }
+    
+    public void onMultiTapEndeded() {
+        final InputConnection ic = getCurrentInputConnection();
+        if (ic != null)
+            ic.endBatchEdit();
     }
 
     /**
@@ -1526,8 +1535,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                 handleBackword(ic);
                 break;
             case KeyCodes.DELETE:
-                if (ic == null)// if we don't want to do anything, lets check
-                               // null first.
+                if (ic == null)// if we don't want to do anything, lets check null first.
                     break;
                 // we do backword if the shift is pressed while pressing
                 // backspace (like in a PC)
@@ -1999,24 +2007,29 @@ public class AnySoftKeyboard extends InputMethodService implements
         if (mPredicting) {
             final boolean wordManipulation = mWord.size() > 0 && mWord.cursorPosition() > 0;// mComposing.length();
             if (wordManipulation) {
-                // mComposing.delete(length - 1, length);
-                ic.beginBatchEdit();
                 mWord.deleteLast();
                 final int cursorPosition;
                 if (mWord.cursorPosition() != mWord.size())
                     cursorPosition = getCursorPosition(ic);
                 else
                     cursorPosition = -1;
+                
+                if (cursorPosition >= 0)
+                    ic.beginBatchEdit();
+                
                 ic.setComposingText(mWord.getTypedWord()/* mComposing */, 1);
                 if (mWord.size()/* mComposing.length() */== 0)
                 {
                     mPredicting = false;
                 }
-                else if (cursorPosition > 0)
+                else if (cursorPosition >= 0)
                 {
                     ic.setSelection(cursorPosition - 1, cursorPosition - 1);
                 }
-                ic.endBatchEdit();
+                
+                if (cursorPosition >= 0)
+                    ic.endBatchEdit();
+                
                 postUpdateSuggestions();
             } else {
                 ic.deleteSurroundingText(1, 0);
@@ -2250,8 +2263,6 @@ public class AnySoftKeyboard extends InputMethodService implements
             }
 
             final InputConnection ic = getCurrentInputConnection();
-            if (ic != null)
-                ic.beginBatchEdit();
             if (mWord.add(primaryCodeForShow, nearByKeyCodes))
             {
                 Toast note = Toast.makeText(getApplicationContext(),
@@ -2284,12 +2295,18 @@ public class AnySoftKeyboard extends InputMethodService implements
                         Log.d(TAG, "Cursor is not at the end of the word. I'll need to reposition");
                     cursorPosition = getCursorPosition(ic);
                 }
-                else
+                else {
                     cursorPosition = -1;
-                ic.setComposingText(mWord.getTypedWord()/* mComposing */, 1);
+                }
+                
                 if (cursorPosition >= 0)
+                    ic.beginBatchEdit();
+                
+                ic.setComposingText(mWord.getTypedWord()/* mComposing */, 1);
+                if (cursorPosition >= 0) {
                     ic.setSelection(cursorPosition + 1, cursorPosition + 1);
-                ic.endBatchEdit();
+                    ic.endBatchEdit();
+                }
             }
             postUpdateSuggestions();
         } else {
@@ -3421,29 +3438,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         super.onLowMemory();
     }
 
-    private InputConnection mEditingInput = null;
-
     private TextView mCandidateCloseText;
-
-    public void startInputConnectionEdit() {
-        mEditingInput = getCurrentInputConnection();
-        if (mEditingInput != null)
-            mEditingInput.beginBatchEdit();
-    }
-
-    public void endInputConnectionEdit() {
-        if (mEditingInput != null)
-        {
-            try
-            {
-                mEditingInput.endBatchEdit();
-            } catch (Exception e)
-            {
-                // it could be dead already.
-                e.printStackTrace();
-            }
-        }
-    }
 
     private void showQuickTextKeyPopupKeyboard(QuickTextKey quickTextKey) {
         if (mInputView != null) {
