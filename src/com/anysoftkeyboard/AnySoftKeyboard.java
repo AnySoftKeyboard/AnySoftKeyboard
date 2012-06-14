@@ -2008,7 +2008,6 @@ public class AnySoftKeyboard extends InputMethodService implements
         if (mPredicting) {
             final boolean wordManipulation = mWord.size() > 0 && mWord.cursorPosition() > 0;// mComposing.length();
             if (wordManipulation) {
-                // mComposing.delete(length - 1, length);
                 ic.beginBatchEdit();
                 mWord.deleteLast();
                 final int cursorPosition;
@@ -2259,8 +2258,6 @@ public class AnySoftKeyboard extends InputMethodService implements
             }
 
             final InputConnection ic = getCurrentInputConnection();
-            if (ic != null)
-                ic.beginBatchEdit();
             if (mWord.add(primaryCodeForShow, nearByKeyCodes))
             {
                 Toast note = Toast.makeText(getApplicationContext(),
@@ -2293,12 +2290,18 @@ public class AnySoftKeyboard extends InputMethodService implements
                         Log.d(TAG, "Cursor is not at the end of the word. I'll need to reposition");
                     cursorPosition = getCursorPosition(ic);
                 }
-                else
+                else {
                     cursorPosition = -1;
-                ic.setComposingText(mWord.getTypedWord()/* mComposing */, 1);
+                }
+                
                 if (cursorPosition >= 0)
+                    ic.beginBatchEdit();
+                
+                ic.setComposingText(mWord.getTypedWord()/* mComposing */, 1);
+                if (cursorPosition >= 0) {
                     ic.setSelection(cursorPosition + 1, cursorPosition + 1);
-                ic.endBatchEdit();
+                    ic.endBatchEdit();
+                }
             }
             postUpdateSuggestions();
         } else {
