@@ -1535,8 +1535,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                 handleBackword(ic);
                 break;
             case KeyCodes.DELETE:
-                if (ic == null)// if we don't want to do anything, lets check
-                               // null first.
+                if (ic == null)// if we don't want to do anything, lets check null first.
                     break;
                 // we do backword if the shift is pressed while pressing
                 // backspace (like in a PC)
@@ -2008,23 +2007,29 @@ public class AnySoftKeyboard extends InputMethodService implements
         if (mPredicting) {
             final boolean wordManipulation = mWord.size() > 0 && mWord.cursorPosition() > 0;// mComposing.length();
             if (wordManipulation) {
-                ic.beginBatchEdit();
                 mWord.deleteLast();
                 final int cursorPosition;
                 if (mWord.cursorPosition() != mWord.size())
                     cursorPosition = getCursorPosition(ic);
                 else
                     cursorPosition = -1;
+                
+                if (cursorPosition >= 0)
+                    ic.beginBatchEdit();
+                
                 ic.setComposingText(mWord.getTypedWord()/* mComposing */, 1);
                 if (mWord.size()/* mComposing.length() */== 0)
                 {
                     mPredicting = false;
                 }
-                else if (cursorPosition > 0)
+                else if (cursorPosition >= 0)
                 {
                     ic.setSelection(cursorPosition - 1, cursorPosition - 1);
                 }
-                ic.endBatchEdit();
+                
+                if (cursorPosition >= 0)
+                    ic.endBatchEdit();
+                
                 postUpdateSuggestions();
             } else {
                 ic.deleteSurroundingText(1, 0);
