@@ -44,7 +44,8 @@ public interface OnKeyboardActionListener {
      */
     void onKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI);
     
-    void onMultiTap();
+    void onMultiTapStarted();
+    void onMultiTapEndeded();
     
     /**
      * Sends a sequence of characters to the listener.
@@ -90,7 +91,4 @@ public interface OnKeyboardActionListener {
      * Called when the user perform 'separate' gesture with two fingers.
      */
     void onSeparate();
-    
-    void startInputConnectionEdit();
-	void endInputConnectionEdit();
 }

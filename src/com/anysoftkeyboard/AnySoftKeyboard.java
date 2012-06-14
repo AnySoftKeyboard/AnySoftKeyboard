@@ -1484,10 +1484,19 @@ public class AnySoftKeyboard extends InputMethodService implements
             return getCurrentKeyboard().isStartOfWordLetter((char) code);
     }
 
-    public void onMultiTap() {
+    public void onMultiTapStarted() {
+        final InputConnection ic = getCurrentInputConnection();
+        if (ic != null)
+            ic.beginBatchEdit();
         handleDeleteLastCharacter(true);
         if (mInputView != null)
             mInputView.setShifted(mLastCharacterWasShifted);
+    }
+    
+    public void onMultiTapEndeded() {
+        final InputConnection ic = getCurrentInputConnection();
+        if (ic != null)
+            ic.endBatchEdit();
     }
 
     /**
@@ -3421,29 +3430,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         super.onLowMemory();
     }
 
-    private InputConnection mEditingInput = null;
-
     private TextView mCandidateCloseText;
-
-    public void startInputConnectionEdit() {
-        mEditingInput = getCurrentInputConnection();
-        if (mEditingInput != null)
-            mEditingInput.beginBatchEdit();
-    }
-
-    public void endInputConnectionEdit() {
-        if (mEditingInput != null)
-        {
-            try
-            {
-                mEditingInput.endBatchEdit();
-            } catch (Exception e)
-            {
-                // it could be dead already.
-                e.printStackTrace();
-            }
-        }
-    }
 
     private void showQuickTextKeyPopupKeyboard(QuickTextKey quickTextKey) {
         if (mInputView != null) {

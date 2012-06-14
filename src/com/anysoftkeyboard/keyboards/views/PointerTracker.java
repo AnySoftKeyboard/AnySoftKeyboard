@@ -497,11 +497,12 @@ public class PointerTracker {
                 int code = key.codes[0];
                 int[] nearByKeyCodes = mKeyDetector.newCodeArray();
                 mKeyDetector.getKeyIndexAndNearbyCodes(x, y, nearByKeyCodes);
+                boolean multiTapStarted = false;
                 // Multi-tap
                 if (mInMultiTap) {
                     if (mTapCount != -1) {
-                    	mListener.onMultiTap();
-                        //mListener.onKey(Keyboard.KEYCODE_DELETE, KEY_DELETE, x, y);
+                        multiTapStarted = true;
+                    	mListener.onMultiTapStarted();
                     } else {
                         mTapCount = 0;
                     }
@@ -519,6 +520,8 @@ public class PointerTracker {
                 if (listener != null) {
                     listener.onKey(code, key, mTapCount, nearByKeyCodes, x>=0 || y>=0);
                     listener.onRelease(code);
+                    if (multiTapStarted)
+                        mListener.onMultiTapEndeded();
                 }
             }
             mLastSentIndex = index;
