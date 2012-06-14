@@ -2218,8 +2218,12 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                     dismissPopupKeyboard();
             }
 
-            public void onMultiTap() {
-                mKeyboardActionListener.onMultiTap();
+            public void onMultiTapStarted() {
+                mKeyboardActionListener.onMultiTapStarted();
+            }
+            
+            public void onMultiTapEndeded() {
+                mKeyboardActionListener.onMultiTapEndeded();
             }
 
             public void onText(CharSequence text) {
@@ -2257,14 +2261,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
             public void onRelease(int primaryCode) {
                 mKeyboardActionListener.onRelease(primaryCode);
-            }
-
-            public void endInputConnectionEdit() {
-                mKeyboardActionListener.endInputConnectionEdit();
-            }
-
-            public void startInputConnectionEdit() {
-                mKeyboardActionListener.startInputConnectionEdit();
             }
         });
         // Override default ProximityKeyDetector.
@@ -2381,123 +2377,114 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
     @Override
     public boolean onTouchEvent(MotionEvent nativeMotionEvent) {
-        final OnKeyboardActionListener ime = (OnKeyboardActionListener) getOnKeyboardActionListener();
+        WMotionEvent me = AnyApplication.getDeviceSpecific().createMotionEventWrapper(
+                nativeMotionEvent);
+        final int action = me.getActionMasked();
+        final int pointerCount = me.getPointerCount();
+        final int oldPointerCount = mOldPointerCount;
+        mOldPointerCount = pointerCount;
 
-        try
-        {
-            ime.startInputConnectionEdit();
-            WMotionEvent me = AnyApplication.getDeviceSpecific().createMotionEventWrapper(
-                    nativeMotionEvent);
-            final int action = me.getActionMasked();
-            final int pointerCount = me.getPointerCount();
-            final int oldPointerCount = mOldPointerCount;
-            mOldPointerCount = pointerCount;
-
-            // TODO: cleanup this code into a multi-touch to single-touch event
-            // converter class?
-            // If the device does not have distinct multi-touch support panel,
-            // ignore all multi-touch
-            // events except a transition from/to single-touch.
-            if (!mHasDistinctMultitouch && pointerCount > 1 && oldPointerCount > 1) {
-                return true;
-            }
-
-            // Track the last few movements to look for spurious swipes.
-            mSwipeTracker.addMovement(me.getNativeMotionEvent());
-
-            // Gesture detector must be enabled only when mini-keyboard is not
-            // on the screen.
-            if (!mMiniKeyboardVisible && mGestureDetector != null
-                    && (mGestureDetector.onTouchEvent(me.getNativeMotionEvent()) /*
-                                                                                  * ||
-                                                                                  * mInScrollGesture
-                                                                                  */)) {
-                if (AnyApplication.DEBUG)
-                    Log.d(TAG, "Gesture detected!");
-                // mHandler.cancelAllMessages();
-                mHandler.cancelKeyTimers();
-                dismissKeyPreview();
-                return true;
-            }
-
-            final long eventTime = me.getEventTime();
-            final int index = me.getActionIndex();
-            final int id = me.getPointerId(index);
-            final int x = (int) me.getX(index);
-            final int y = (int) me.getY(index);
-
-            // Needs to be called after the gesture detector gets a turn, as it
-            // may have
-            // displayed the mini keyboard
-            if (mMiniKeyboard != null && mMiniKeyboardVisible) {
-                final int miniKeyboardPointerIndex = me.findPointerIndex(mMiniKeyboardTrackerId);
-                if (miniKeyboardPointerIndex >= 0 && miniKeyboardPointerIndex < pointerCount) {
-                    final int miniKeyboardX = (int) me.getX(miniKeyboardPointerIndex);
-                    final int miniKeyboardY = (int) me.getY(miniKeyboardPointerIndex);
-                    MotionEvent translated = generateMiniKeyboardMotionEvent(action,
-                            miniKeyboardX, miniKeyboardY, eventTime);
-                    mMiniKeyboard.onTouchEvent(translated);
-                    translated.recycle();
-                }
-                return true;
-            }
-
-            if (mHandler.isInKeyRepeat()) {
-                // It will keep being in the key repeating mode while the key is
-                // being pressed.
-                if (action == MotionEvent.ACTION_MOVE) {
-                    return true;
-                }
-                final PointerTracker tracker = getPointerTracker(id);
-                // Key repeating timer will be canceled if 2 or more keys are in
-                // action, and current
-                // event (UP or DOWN) is non-modifier key.
-                if (pointerCount > 1 && !tracker.isModifier()) {
-                    mHandler.cancelKeyRepeatTimer();
-                }
-                // Up event will pass through.
-            }
-
-            // TODO: cleanup this code into a multi-touch to single-touch event
-            // converter class?
-            // Translate mutli-touch event to single-touch events on the device
-            // that has no distinct
-            // multi-touch panel.
-            if (!mHasDistinctMultitouch) {
-                // Use only main (id=0) pointer tracker.
-                PointerTracker tracker = getPointerTracker(0);
-                if (pointerCount == 1 && oldPointerCount == 2) {
-                    // Multi-touch to single touch transition.
-                    // Send a down event for the latest pointer.
-                    tracker.onDownEvent(x, y, eventTime);
-                } else if (pointerCount == 2 && oldPointerCount == 1) {
-                    // Single-touch to multi-touch transition.
-                    // Send an up event for the last pointer.
-                    tracker.onUpEvent(tracker.getLastX(), tracker.getLastY(), eventTime);
-                } else if (pointerCount == 1 && oldPointerCount == 1) {
-                    tracker.onTouchEvent(action, x, y, eventTime);
-                } else {
-                    Log.w(TAG, "Unknown touch panel behavior: pointer count is " + pointerCount
-                            + " (old " + oldPointerCount + ")");
-                }
-                return true;
-            }
-
-            if (action == MotionEvent.ACTION_MOVE) {
-                for (int i = 0; i < pointerCount; i++) {
-                    PointerTracker tracker = getPointerTracker(me.getPointerId(i));
-                    tracker.onMoveEvent((int) me.getX(i), (int) me.getY(i), eventTime);
-                }
-            } else {
-                PointerTracker tracker = getPointerTracker(id);
-                sendOnXEvent(action, eventTime, x, y, tracker);
-            }
-
+        // TODO: cleanup this code into a multi-touch to single-touch event
+        // converter class?
+        // If the device does not have distinct multi-touch support panel,
+        // ignore all multi-touch
+        // events except a transition from/to single-touch.
+        if (!mHasDistinctMultitouch && pointerCount > 1 && oldPointerCount > 1) {
             return true;
-        } finally
-        {
-            ime.endInputConnectionEdit();
         }
+
+        // Track the last few movements to look for spurious swipes.
+        mSwipeTracker.addMovement(me.getNativeMotionEvent());
+
+        // Gesture detector must be enabled only when mini-keyboard is not
+        // on the screen.
+        if (!mMiniKeyboardVisible && mGestureDetector != null
+                && (mGestureDetector.onTouchEvent(me.getNativeMotionEvent()) /*
+                                                                              * ||
+                                                                              * mInScrollGesture
+                                                                              */)) {
+            if (AnyApplication.DEBUG)
+                Log.d(TAG, "Gesture detected!");
+            // mHandler.cancelAllMessages();
+            mHandler.cancelKeyTimers();
+            dismissKeyPreview();
+            return true;
+        }
+
+        final long eventTime = me.getEventTime();
+        final int index = me.getActionIndex();
+        final int id = me.getPointerId(index);
+        final int x = (int) me.getX(index);
+        final int y = (int) me.getY(index);
+
+        // Needs to be called after the gesture detector gets a turn, as it
+        // may have
+        // displayed the mini keyboard
+        if (mMiniKeyboard != null && mMiniKeyboardVisible) {
+            final int miniKeyboardPointerIndex = me.findPointerIndex(mMiniKeyboardTrackerId);
+            if (miniKeyboardPointerIndex >= 0 && miniKeyboardPointerIndex < pointerCount) {
+                final int miniKeyboardX = (int) me.getX(miniKeyboardPointerIndex);
+                final int miniKeyboardY = (int) me.getY(miniKeyboardPointerIndex);
+                MotionEvent translated = generateMiniKeyboardMotionEvent(action,
+                        miniKeyboardX, miniKeyboardY, eventTime);
+                mMiniKeyboard.onTouchEvent(translated);
+                translated.recycle();
+            }
+            return true;
+        }
+
+        if (mHandler.isInKeyRepeat()) {
+            // It will keep being in the key repeating mode while the key is
+            // being pressed.
+            if (action == MotionEvent.ACTION_MOVE) {
+                return true;
+            }
+            final PointerTracker tracker = getPointerTracker(id);
+            // Key repeating timer will be canceled if 2 or more keys are in
+            // action, and current
+            // event (UP or DOWN) is non-modifier key.
+            if (pointerCount > 1 && !tracker.isModifier()) {
+                mHandler.cancelKeyRepeatTimer();
+            }
+            // Up event will pass through.
+        }
+
+        // TODO: cleanup this code into a multi-touch to single-touch event
+        // converter class?
+        // Translate mutli-touch event to single-touch events on the device
+        // that has no distinct
+        // multi-touch panel.
+        if (!mHasDistinctMultitouch) {
+            // Use only main (id=0) pointer tracker.
+            PointerTracker tracker = getPointerTracker(0);
+            if (pointerCount == 1 && oldPointerCount == 2) {
+                // Multi-touch to single touch transition.
+                // Send a down event for the latest pointer.
+                tracker.onDownEvent(x, y, eventTime);
+            } else if (pointerCount == 2 && oldPointerCount == 1) {
+                // Single-touch to multi-touch transition.
+                // Send an up event for the last pointer.
+                tracker.onUpEvent(tracker.getLastX(), tracker.getLastY(), eventTime);
+            } else if (pointerCount == 1 && oldPointerCount == 1) {
+                tracker.onTouchEvent(action, x, y, eventTime);
+            } else {
+                Log.w(TAG, "Unknown touch panel behavior: pointer count is " + pointerCount
+                        + " (old " + oldPointerCount + ")");
+            }
+            return true;
+        }
+
+        if (action == MotionEvent.ACTION_MOVE) {
+            for (int i = 0; i < pointerCount; i++) {
+                PointerTracker tracker = getPointerTracker(me.getPointerId(i));
+                tracker.onMoveEvent((int) me.getX(i), (int) me.getY(i), eventTime);
+            }
+        } else {
+            PointerTracker tracker = getPointerTracker(id);
+            sendOnXEvent(action, eventTime, x, y, tracker);
+        }
+
+        return true;
     }
 
     protected boolean isFirstDownEventInsideSpaceBar() {
