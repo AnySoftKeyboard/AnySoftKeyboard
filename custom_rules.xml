@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="custom_rules">
+	<target name="-pre-build">
+		<java jar="../AnySoftKeyboardTools/makedict/makedict.jar" failonerror="true" fork="true">
+		</java>
+		<java jar="../AnySoftKeyboardTools/packverifier/packverifier.jar" failonerror="true" fork="true">
+		</java>
+	</target>
+</project>
