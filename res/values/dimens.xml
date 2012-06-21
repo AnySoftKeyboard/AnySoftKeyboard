@@ -66,7 +66,7 @@
     
 	<integer name="condensing_precentage">100</integer>
 
-    <dimen name="blacktheme_size_text_main">21sp</dimen>
+    <dimen name="blacktheme_size_text_main">20sp</dimen>
     <dimen name="blacktheme_size_text_smaller">14sp</dimen>
     <dimen name="blacktheme_size_text_hint">10sp</dimen>
     <dimen name="blacktheme_size_text_preview">28sp</dimen>
@@ -79,8 +79,12 @@
     <dimen name="blacktheme_width_topborder">1.5dp</dimen>
     <dimen name="blacktheme_width_suggestion_padding">2dp</dimen>
     <dimen name="blacktheme_width_suggestion_divider_padded">5dp</dimen>
-    <dimen name="blacktheme_key_height">46dp</dimen>
-    <dimen name="blacktheme_key_half_height">32dp</dimen>
+    <dimen name="blacktheme_key_height">48dp</dimen>
+    <dimen name="blacktheme_key_half_height">36dp</dimen>
     <dimen name="blacktheme_key_tall_height">52dp</dimen>
+    <dimen name="blacktheme_paddingLeft">1dp</dimen>
+    <dimen name="blacktheme_paddingRight">1dp</dimen>
+    <dimen name="blacktheme_paddingTop">0dp</dimen>
+    <dimen name="blacktheme_paddingBottom">0dp</dimen>
     
 </resources>
