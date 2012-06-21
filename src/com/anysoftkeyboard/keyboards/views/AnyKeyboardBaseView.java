@@ -86,7 +86,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     public static final int NOT_A_KEY = -1;
 
     private static final int[] LONG_PRESSABLE_STATE_SET = {
-        android.R.attr.state_long_pressable
+            android.R.attr.state_long_pressable
     };
     // private static final int NUMBER_HINT_VERTICAL_ADJUSTMENT_PIXEL = -1;
 
@@ -123,6 +123,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private FontMetrics mHintTextFM;
     private int mHintLabelAlign;
     private int mHintLabelVAlign;
+    private String mHintOverflowLabel = null;
     private int mSymbolColorScheme = 0;
     private int mShadowColor;
     private int mShadowRadius;
@@ -416,7 +417,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
     public AnyKeyboardBaseView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        
+
         LayoutInflater inflate = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         // int previewLayout = 0;
@@ -509,7 +510,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             setKeyIconValueFromTheme(a, attr);
         }
         a.recycle();
-        
+
         // settings
         super.setPadding(padding[0], padding[1], padding[2], padding[3]);
 
@@ -679,11 +680,11 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                         if (AnyApplication.DEBUG)
                             Log.d(TAG, "Creating an empty ColorStateList for mKeyTextColor");
                         mKeyTextColor = new ColorStateList(new int[][] {
-                            {
-                                0
+                                {
+                                        0
                             }
                         }, new int[] {
-                            a.getColor(attr, 0xFF000000)
+                                a.getColor(attr, 0xFF000000)
                         });
                     }
                     if (AnyApplication.DEBUG)
@@ -800,11 +801,11 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                         if (AnyApplication.DEBUG)
                             Log.d(TAG, "Creating an empty ColorStateList for mHintTextColor");
                         mHintTextColor = new ColorStateList(new int[][] {
-                            {
-                                0
+                                {
+                                        0
                             }
                         }, new int[] {
-                            a.getColor(attr, 0xFF000000)
+                                a.getColor(attr, 0xFF000000)
                         });
                     }
                     if (AnyApplication.DEBUG)
@@ -820,6 +821,11 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                     if (AnyApplication.DEBUG)
                         Log.d(TAG, "AnySoftKeyboardTheme_hintLabelAlign " + mHintLabelAlign);
                     break;
+                case R.styleable.AnySoftKeyboardTheme_hintOverflowLabel:
+                    mHintOverflowLabel = a.getString(attr);
+                    if (AnyApplication.DEBUG)
+                        Log.d(TAG, "AnySoftKeyboardTheme_defaultHintLabel " + mHintOverflowLabel);
+                    break;
             }
             return true;
         } catch (Exception e)
@@ -829,7 +835,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             return false;
         }
     }
-    
+
     public boolean setKeyIconValueFromTheme(TypedArray a, final int attr) {
         try
         {
@@ -837,17 +843,20 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyShift:
                     mShiftIcon = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyShift " + (mShiftIcon != null));
+                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyShift "
+                                + (mShiftIcon != null));
                     break;
                 case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyControl:
                     mControlIcon = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyControl " + (mControlIcon != null));
+                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyControl "
+                                + (mControlIcon != null));
                     break;
                 case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyAction:
                     mActionKeyIcon = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyAction " + (mActionKeyIcon != null));
+                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyAction "
+                                + (mActionKeyIcon != null));
                     break;
                 case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyBackspace:
                     mDeleteKeyIcon = a.getDrawable(attr);
@@ -858,22 +867,26 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyCancel:
                     mCancelKeyIcon = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyCancel " + (mCancelKeyIcon != null));
+                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyCancel "
+                                + (mCancelKeyIcon != null));
                     break;
                 case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyGlobe:
                     mGlobeKeyIcon = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyGlobe " + (mGlobeKeyIcon != null));
+                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyGlobe "
+                                + (mGlobeKeyIcon != null));
                     break;
                 case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeySpace:
                     mSpaceKeyIcon = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeySpace " + (mSpaceKeyIcon != null));
+                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeySpace "
+                                + (mSpaceKeyIcon != null));
                     break;
                 case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyTab:
                     mTabKeyIcon = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyTab " + (mTabKeyIcon != null));
+                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyTab "
+                                + (mTabKeyIcon != null));
                     break;
                 case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyArrowDown:
                     mArrowDownKeyIcon = a.getDrawable(attr);
@@ -914,7 +927,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyMic:
                     mMicKeyIcon = a.getDrawable(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyMic " + (mMicKeyIcon != null));
+                        Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyMic "
+                                + (mMicKeyIcon != null));
                     break;
                 case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeySettings:
                     mSettingsKeyIcon = a.getDrawable(attr);
@@ -1290,7 +1304,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         final boolean drawHintText = (mHintTextSize > 1)
                 && AnyApplication.getConfig().getShowHintTextOnKeys();
         if (AnyApplication.DEBUG && !drawHintText) {
-            Log.d(TAG, "drawHintText is false. mHintTextSize: "+mHintTextSize+", getShowHintTextOnKeys: "+AnyApplication.getConfig().getShowHintTextOnKeys());
+            Log.d(TAG, "drawHintText is false. mHintTextSize: " + mHintTextSize
+                    + ", getShowHintTextOnKeys: "
+                    + AnyApplication.getConfig().getShowHintTextOnKeys());
         }
         // TODO: calls to AnyApplication.getConfig().getXXXXX() functions are
         // not yet implemented,
@@ -1303,7 +1319,13 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         // TODO: final boolean useCustomKeyTextColor =
         // AnyApplication.getConfig().getUseCustomTextColorOnKeys();
         final ColorStateList keyTextColor = useCustomKeyTextColor
-                ? new ColorStateList(new int[][] {{0}}, new int[] {0xFF6666FF})
+                ? new ColorStateList(new int[][] {
+                    {
+                        0
+                    }
+                }, new int[] {
+                    0xFF6666FF
+                })
                 : mKeyTextColor;
         // TODO: ? AnyApplication.getConfig().getCustomKeyTextColorOnKeys() :
         // mKeyTextColor;
@@ -1312,7 +1334,13 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         // TODO: final boolean useCustomHintColor = drawHintText &&
         // AnyApplication.getConfig().getUseCustomHintColorOnKeys();
         final ColorStateList hintColor = useCustomHintColor
-                ? new ColorStateList(new int[][] {{0}}, new int[] {0xFFFF6666}) 
+                ? new ColorStateList(new int[][] {
+                    {
+                        0
+                    }
+                }, new int[] {
+                    0xFFFF6666
+                })
                 : mHintTextColor;
         // TODO: ? AnyApplication.getConfig().getCustomHintColorOnKeys() :
         // mHintTextColor;
@@ -1446,7 +1474,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 // of hint text... unless it's a special key like "Done" or the
                 // cycle keyboard keys in
                 // the top extension keyboard...
-                final boolean adjustMainLabel = false;// drawHintText && !specialKey;
+                final boolean adjustMainLabel = false;// drawHintText &&
+                                                      // !specialKey;
                 if (adjustMainLabel) {
                     final float halfTextHeight = (-fm.top + fm.bottom) / 2;
                     final float minY = mKeyBackgroundPadding.top + halfTextHeight + 1;
@@ -1528,7 +1557,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 {
                     Paint.Align oldAlign = paint.getTextAlign();
 
-                    String hintText = "···";
+                    String hintText = null;
 
                     if (key.hintLabel != null && key.hintLabel.length() > 0)
                     {
@@ -1541,36 +1570,26 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                     {
                         if (Character.isLetterOrDigit(key.longPressCode))
                             hintText = Character.toString((char) key.longPressCode);
+                    }
+                    else if (key.popupCharacters != null)
+                    {
+                        final String hintString = key.popupCharacters.toString();
+                        final int hintLength = hintString.length();
+                        if (hintLength <= 3) hintText = hintString;
+                    }
+                    
+                    // if hintText is still null, it means it didn't fit one of the above
+                    // cases, so we should provide the hint using the default
+                    if (hintText == null) {
+                        if (mHintOverflowLabel != null) hintText = mHintOverflowLabel.toString();
                         else {
-                            // special function on long-press
-                            // later want to show appropriate icon for the
-                            // long-press function
-                            // for now use ˙˙˙ if hints are above, ... if hints
-                            // are below
+                            // theme does not provide a defaultHintLabel
+                            // use ˙˙˙ if hints are above, ... if hints are below
                             // (to avoid being too close to main label/icon)
                             if (hintVAlign == Gravity.TOP)
                                 hintText = "˙˙˙";
                             else
                                 hintText = "...";
-                        }
-                        // if not a letter or digit, use ··· to indicate a
-                        // special function when long-pressed
-                        // note: later it would be good to instead display a
-                        // mini icon for the special function
-                    }
-                    else if (key.popupCharacters != null && key.popupCharacters.length() > 0)
-                    {
-                        final String hintString = key.popupCharacters.toString();
-                        final int hintLength = hintString.length();
-                        // if it's short enough, use the entire popupCharacters
-                        // list as the hint text
-                        if (hintLength <= 3)
-                            hintText = hintString;
-                        else {
-                            // use first two plus last character of the
-                            // popupCharacters list
-                            hintText = hintString.substring(0, 2)
-                                    + hintString.substring(hintLength - 1, hintLength);
                         }
                     }
 
@@ -1889,9 +1908,10 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         CharSequence label = tracker.getPreviewText(key, mKeyboard.isShifted());
         if (TextUtils.isEmpty(label))
         {
-        	Drawable iconToDraw = getIconToDrawForKey(key, true);
-        	//mPreviewText.setCompoundDrawables(null, null, null, key.iconPreview != null ? key.iconPreview : key.icon);
-        	mPreviewIcon.setImageDrawable(iconToDraw);
+            Drawable iconToDraw = getIconToDrawForKey(key, true);
+            // mPreviewText.setCompoundDrawables(null, null, null,
+            // key.iconPreview != null ? key.iconPreview : key.icon);
+            mPreviewIcon.setImageDrawable(iconToDraw);
             mPreviewText.setText(null);
             mPreviewIcon.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
                     MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
@@ -2221,7 +2241,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             public void onMultiTapStarted() {
                 mKeyboardActionListener.onMultiTapStarted();
             }
-            
+
             public void onMultiTapEndeded() {
                 mKeyboardActionListener.onMultiTapEndeded();
             }
