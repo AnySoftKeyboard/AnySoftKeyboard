@@ -824,7 +824,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 case R.styleable.AnySoftKeyboardTheme_hintOverflowLabel:
                     mHintOverflowLabel = a.getString(attr);
                     if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardTheme_defaultHintLabel " + mHintOverflowLabel);
+                        Log.d(TAG, "AnySoftKeyboardTheme_hintOverflowLabel " + mHintOverflowLabel);
                     break;
             }
             return true;
