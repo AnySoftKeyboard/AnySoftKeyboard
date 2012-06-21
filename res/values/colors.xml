@@ -54,9 +54,9 @@
     <color name="blacktheme_color_function_hint">#FFDDDDDD</color>
     <color name="blacktheme_color_function_pressed_hint">#FFEEEEEE</color>
     <color name="blacktheme_color_normal">#FF000000</color>
-    <color name="blacktheme_color_normal_pressed">#FF000000</color>
+    <color name="blacktheme_color_normal_pressed">#FF333333</color>
     <color name="blacktheme_color_normal_stroke">#FF666666</color>
-    <color name="blacktheme_color_normal_pressed_stroke">#FF0088FF</color>
+    <color name="blacktheme_color_normal_pressed_stroke">#FFFFFFFF</color>
     <color name="blacktheme_color_normal_keytext">#FFEEEEEE</color>
     <color name="blacktheme_color_normal_pressed_keytext">#FFFFFFFF</color>
     <color name="blacktheme_color_normal_hint">#FF0088FF</color>
