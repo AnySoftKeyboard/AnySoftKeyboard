@@ -1,9 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="custom_rules">
-	<target name="-pre-build">
-		<java jar="../AnySoftKeyboardTools/makedict/makedict.jar" failonerror="true" fork="true">
-		</java>
-		<java jar="../AnySoftKeyboardTools/packverifier/packverifier.jar" failonerror="true" fork="true">
-		</java>
-	</target>
+<project name="custom_rules" >
+
+    <target name="-set-build-type-value" >
+
+        <condition property="is.release" >
+
+            <contains
+                string="${ant.project.invoked-targets}"
+                substring="release" />
+        </condition>
+
+        <condition property="is.debug" >
+
+            <contains
+                string="${ant.project.invoked-targets}"
+                substring="debug" />
+        </condition>
+    </target>
+
+    <target name="-pre-build-makedict" >
+
+        <java
+            failonerror="true"
+            fork="true"
+            jar="../AnySoftKeyboardTools/makedict/makedict.jar" >
+        </java>
+    </target>
+
+    <target
+        name="-pre-build-verify-pack-release"
+        if="is.release" >
+
+        <java
+            failonerror="true"
+            fork="true"
+            jar="../AnySoftKeyboardTools/packverifier/packverifier.jar" >
+
+            <arg value="release" >
+            </arg>
+        </java>
+    </target>
+
+    <target
+        name="-pre-build-verify-pack-debug"
+        if="is.debug" >
+
+        <java
+            failonerror="true"
+            fork="true"
+            jar="../AnySoftKeyboardTools/packverifier/packverifier.jar" >
+
+            <arg value="debug" >
+            </arg>
+        </java>
+    </target>
+
+    <target
+        name="-pre-build"
+        depends="-set-build-type-value,-pre-build-makedict,-pre-build-verify-pack-release,-pre-build-verify-pack-debug" >
+    </target>
+
 </project>
