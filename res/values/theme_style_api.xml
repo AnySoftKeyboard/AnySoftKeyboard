@@ -94,6 +94,10 @@
 	    </attr>
 	    <attr name="hintLabelVAlign">
 	    </attr>
+	    
+	    <!-- default hint label to use when key has a longPressCode or more than -->
+	    <!-- 3 popupCharacters, but does not have a hintLabel defined -->
+	    <attr name="hintOverflowLabel"/>
     </declare-styleable>
     
 	<declare-styleable name="AnySoftKeyboardThemeKeyIcons">

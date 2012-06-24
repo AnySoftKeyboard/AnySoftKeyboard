@@ -315,14 +315,17 @@
 	        <flag name="center" value="17" />
 	    </attr>
 	
+	    <!-- hint label to use when hintLabel unspecified and more than 3 characters in -->
+	    <!-- popupCharacters or when longPressCode instead of popupCharacters -->
+	    <!-- (if none specified, app default used) -->
+	    <attr name="hintOverflowLabel" format="string" />
+	    
 	    <!-- FOR FUTURE EXPANSION - NOT YET SUPPORTED -->
 	
-	
-	    <!-- default hint label/icon to use when more than 3 characters in popupCharacters -->
+	    <!-- hint icon to use when no hintLabel given and more than 3 characters in popupCharacters -->
 	    <!-- or when longPressCode instead of popupCharacters (if not specified, app default used) -->
 	    <!-- if both icon and label specified, icon wins -->
-	    <attr name="defaultHintLabel" format="string" />
-	    <attr name="defaultHintIcon" format="reference" />
+	    <attr name="hintOverflowIcon" format="reference" />
 	    <!-- allow the key to have another hint to show that there are more characters in -->
 	    <!-- popupCharacters than shown by the hint label (if not specified, none used) -->
 	    <attr name="extraHintLabel" format="string" />
