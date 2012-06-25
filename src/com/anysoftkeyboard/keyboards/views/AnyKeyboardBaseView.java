@@ -16,11 +16,6 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -72,6 +67,11 @@ import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.utils.IMEUtil;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         OnSharedPreferenceChangeListener {
@@ -1276,26 +1276,11 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     }
 
     private void onBufferDraw(Canvas canvas) {
-        if (/* mBuffer == null || */mKeyboardChanged) {
-            // if (mBuffer == null || mKeyboardChanged &&
-            // (mBuffer.getWidth() != getWidth() || mBuffer.getHeight() !=
-            // getHeight())) {
-            // // Make sure our bitmap is at least 1x1
-            // final int width = Math.max(1, getWidth());
-            // final int height = Math.max(1, getHeight());
-            // Log.d(TAG, "Buffer dimensions: w:"+width+" h:"+height);
-            // mBuffer = Bitmap.createBitmap(width, height,
-            // Bitmap.Config.ARGB_8888);
-            // mCanvas = new Canvas(mBuffer);
-            // /*Drawable background = super.getBackground();
-            // background.setBounds(0, 0, width, height);
-            // background.draw(mCanvas);*/
-            // }
+        if (mKeyboardChanged) {
             invalidateAllKeys();
             mKeyboardChanged = false;
         }
-        // final Canvas canvas = mCanvas;
-        // canvas.clipRect(mDirtyRect, Op.REPLACE);
+
         canvas.getClipBounds(mDirtyRect);
 
         if (mKeyboard == null)
@@ -1320,11 +1305,11 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         // AnyApplication.getConfig().getUseCustomTextColorOnKeys();
         final ColorStateList keyTextColor = useCustomKeyTextColor
                 ? new ColorStateList(new int[][] {
-                    {
-                        0
+                        {
+                                0
                     }
                 }, new int[] {
-                    0xFF6666FF
+                        0xFF6666FF
                 })
                 : mKeyTextColor;
         // TODO: ? AnyApplication.getConfig().getCustomKeyTextColorOnKeys() :
@@ -1335,11 +1320,11 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         // AnyApplication.getConfig().getUseCustomHintColorOnKeys();
         final ColorStateList hintColor = useCustomHintColor
                 ? new ColorStateList(new int[][] {
-                    {
-                        0
+                        {
+                                0
                     }
                 }, new int[] {
-                    0xFFFF6666
+                        0xFFFF6666
                 })
                 : mHintTextColor;
         // TODO: ? AnyApplication.getConfig().getCustomHintColorOnKeys() :
@@ -1455,6 +1440,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                     fm = mTextFM;
                 }
 
+                final float labelHeight = -fm.top;
                 // Draw a drop shadow for the text
                 paint.setShadowLayer(mShadowRadius, mShadowOffsetX, mShadowOffsetY, mShadowColor);
 
@@ -1466,45 +1452,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                 // the center of the drawable space, which is value used
                 // previously for vertically
                 // positioning the key label
-                final float origCenterY = mKeyBackgroundPadding.top +
+                final float centerY = mKeyBackgroundPadding.top +
                         (key.height - mKeyBackgroundPadding.top - mKeyBackgroundPadding.bottom) / 2;
-                final float centerY;
-                // adjust vertical position of key label (if appropriate) based
-                // on presence and location
-                // of hint text... unless it's a special key like "Done" or the
-                // cycle keyboard keys in
-                // the top extension keyboard...
-                final boolean adjustMainLabel = false;// drawHintText &&
-                                                      // !specialKey;
-                if (adjustMainLabel) {
-                    final float halfTextHeight = (-fm.top + fm.bottom) / 2;
-                    final float minY = mKeyBackgroundPadding.top + halfTextHeight + 1;
-                    final float maxY = key.height - mKeyBackgroundPadding.bottom - halfTextHeight
-                            - 1;
-                    if (minY >= maxY) {
-                        // if very small keys, don't try anything special, just
-                        // use the original value
-                        centerY = origCenterY;
-                    } else if (origCenterY < minY) {
-                        // label wants to be high, but we'll put a bound on it
-                        centerY = minY;
-                    } else if (origCenterY > maxY) {
-                        // label wants to be low, but we'll put a bound on it
-                        centerY = maxY;
-                    } else if (hintVAlign == Gravity.TOP) {
-                        // if the hint label is above, nudge the main key label
-                        // down a bit
-                        centerY = (origCenterY + 2 * maxY) / 3;
-                    } else {
-                        // if the hint label is below, nudge the main key label
-                        // up a bit
-                        centerY = (origCenterY + 2 * minY) / 3;
-                    }
-                } else {
-                    // not drawing hints, so keep the original position of the
-                    // key label
-                    centerY = origCenterY;
-                }
+
                 // the X coordinate for the center of the main label text is
                 // unaffected by the hints
                 final float centerX = mKeyBackgroundPadding.left
@@ -1513,22 +1463,25 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
 
                 final float textX = centerX;
                 final float textY;
+                // Some devices (mostly pre-Honeycomb, have issues with RTL text
+                // drawing.
+                // Of course, there is no issue with a single character :)
+                // so, we'll use the RTL secured drawing (via StaticLayout) for
+                // labels.
                 if (label.length() > 1
                         && !AnyApplication.getConfig().workaround_alwaysUseDrawText())
                 {
                     // calculate Y coordinate of top of text based on center
                     // location
-                    textY = centerY - (-fm.top + fm.bottom) / 2;
-                    // textY = centerY - (labelHeight - paint.descent())/2;
+                    textY = centerY - ((labelHeight - paint.descent()) / 2);
                     canvas.translate(textX, textY);
                     if (AnyApplication.DEBUG)
                         Log.d(TAG, "Using RTL fix for key draw '" + label + "'");
                     // RTL fix. But it costs, let do it when in need (more than
                     // 1 character)
-                    TextPaint labelPaint = new TextPaint(paint);
                     StaticLayout labelText =
                             new StaticLayout(
-                                    label, labelPaint,
+                                    label, new TextPaint(paint),
                                     (int) textWidth, Alignment.ALIGN_NORMAL,
                                     0.0f, 0.0f, false);
                     labelText.draw(canvas);
@@ -1539,8 +1492,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                     // first add half the height (to get to
                     // bottom of text), then subtract the part below the
                     // baseline. Note that fm.top is negative.
-                    textY = centerY + (-fm.top + fm.bottom) / 2 - fm.bottom;
-                    // textY = centerY + ((labelHeight - paint.descent())/2);
+                    textY = centerY + ((labelHeight - paint.descent()) / 2);
                     canvas.translate(textX, textY);
                     canvas.drawText(label, 0, label.length(), 0, 0, paint);
                 }
@@ -1575,16 +1527,20 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                     {
                         final String hintString = key.popupCharacters.toString();
                         final int hintLength = hintString.length();
-                        if (hintLength <= 3) hintText = hintString;
+                        if (hintLength <= 3)
+                            hintText = hintString;
                     }
-                    
-                    // if hintText is still null, it means it didn't fit one of the above
+
+                    // if hintText is still null, it means it didn't fit one of
+                    // the above
                     // cases, so we should provide the hint using the default
                     if (hintText == null) {
-                        if (mHintOverflowLabel != null) hintText = mHintOverflowLabel.toString();
+                        if (mHintOverflowLabel != null)
+                            hintText = mHintOverflowLabel.toString();
                         else {
                             // theme does not provide a defaultHintLabel
-                            // use ˙˙˙ if hints are above, ... if hints are below
+                            // use ˙˙˙ if hints are above, ... if hints are
+                            // below
                             // (to avoid being too close to main label/icon)
                             if (hintVAlign == Gravity.TOP)
                                 hintText = "˙˙˙";
