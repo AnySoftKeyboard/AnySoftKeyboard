@@ -21,7 +21,7 @@
 <resources>
 	<dimen name="window_popup_corner_radius">6dp</dimen>
     
-    <dimen name="default_key_height">50dip</dimen>
+    <dimen name="default_key_height">52dip</dimen>
     <dimen name="default_key_half_height">38dip</dimen>
     <dimen name="default_key_tall_height">62dip</dimen>
     
@@ -32,7 +32,7 @@
     
     <dimen name="key_text_size">24sp</dimen>
     <dimen name="key_label_text_size">17sp</dimen>
-    <dimen name="key_hint_text_size">9sp</dimen>
+    <dimen name="key_hint_text_size">8sp</dimen>
     
     <dimen name="candidate_strip_height">44sp</dimen>
     <dimen name="candidate_font_height">24sp</dimen>
