@@ -35,8 +35,8 @@
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1">
-    	<include layout="@layout/main_fragment_1" />
-        <include layout="@layout/main_fragment_2" />
-        <include layout="@layout/main_fragment_3" />
+    	<include layout="@layout/main_fragment_1_main" />
+        <include layout="@layout/main_fragment_2_links" />
+        <include layout="@layout/main_fragment_3_credits" />
 	</com.anysoftkeyboard.ui.FixedViewFlipper>
 </LinearLayout>
