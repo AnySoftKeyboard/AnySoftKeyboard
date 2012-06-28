@@ -26,7 +26,7 @@
         android:fromAlpha="0.5"
         android:toAlpha="1.0"
         android:startOffset="2000"
-        android:duration="100" />
+        android:duration="@integer/mainKeyboardAnimTime" />
      <scale
         android:interpolator="@android:anim/linear_interpolator"
         android:fromXScale="1.0"
@@ -35,10 +35,10 @@
         android:toYScale="1.0"
         android:fillAfter="false"
         android:startOffset="2000"
-        android:duration="100" />
+        android:duration="@integer/mainKeyboardAnimTime" />
     <translate
         android:fromYDelta="50%"
         android:toYDelta="0"
         android:startOffset="2000"
-        android:duration="100"/>
+        android:duration="@integer/mainKeyboardAnimTime"/>
 </set>

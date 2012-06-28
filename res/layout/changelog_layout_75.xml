@@ -15,7 +15,7 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:tag="20120604"
+    	android:tag="20120628"
         android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
 	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
 	    android:text="* User-words editor now supports backup to and restore from SDCARD!! YA! Want to try?" style="@android:style/TextAppearance.Small"/>

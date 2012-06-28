@@ -25,7 +25,7 @@
     <alpha
         android:fromAlpha="0.5"
         android:toAlpha="1.0"
-        android:duration="80" />
+        android:duration="@integer/popupAnimTime" />
      <scale
         android:interpolator="@android:anim/linear_interpolator"
         android:fromXScale="1.0"
@@ -33,9 +33,9 @@
         android:fromYScale="0.0"
         android:toYScale="1.0"
         android:fillAfter="false"
-        android:duration="80" />
+        android:duration="@integer/popupAnimTime" />
     <translate
         android:fromYDelta="50%"
         android:toYDelta="0"
-        android:duration="80"/>
+        android:duration="@integer/popupAnimTime"/>
 </set>

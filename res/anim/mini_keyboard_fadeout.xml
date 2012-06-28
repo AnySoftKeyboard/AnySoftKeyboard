@@ -26,5 +26,5 @@
     <alpha
         android:fromAlpha="1.0"
         android:toAlpha="0.0"
-        android:duration="180" />
+        android:duration="@integer/popupAnimTime" />
 </set>
