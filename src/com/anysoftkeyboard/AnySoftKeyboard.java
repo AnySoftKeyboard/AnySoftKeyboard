@@ -127,6 +127,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private boolean mTipsCalled = false;
 
+
+    
+    private boolean mInputWindowVisible = false;
+    private Animation mInputShowAnimation;
+    private Animation mInputHideAnimation;
+    
     private View mInputViewParent;
     private AnyKeyboardView mInputView;
     private View mCandidatesParent;
@@ -277,6 +283,11 @@ public class AnySoftKeyboard extends InputMethodService implements
     public void onCreate() {
         super.onCreate();
         Log.i(TAG, "****** AnySoftKeyboard service started.");
+        //I'm handling animations. No need for any nifty ROMs assistance.
+        //I can't use this function with my own animations, since the WindowManager can
+        //only use system resources.
+        getWindow().getWindow().setWindowAnimations(0);
+        
         Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(
                 getApplication().getBaseContext(), null));
         mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
@@ -309,8 +320,21 @@ public class AnySoftKeyboard extends InputMethodService implements
         mVoiceRecognitionTrigger = AnyApplication.getDeviceSpecific().createVoiceInput(this);
 
         TutorialsProvider.showChangeLogIfNeeded(getApplicationContext());
-        //I'm handling animations. No need for any nifty ROMs assistance.
-        getWindow().getWindow().setWindowAnimations(0);
+        
+
+        mInputShowAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.input_method_fancy_enter);
+        mInputHideAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.input_method_fancy_exit);
+        mInputHideAnimation.setAnimationListener(new AnimationListener() {
+            public void onAnimationStart(Animation animation) {
+            }
+            
+            public void onAnimationRepeat(Animation animation) {
+            }
+            
+            public void onAnimationEnd(Animation animation) {
+                //AnySoftKeyboard.super.hideWindow();
+            }
+        });
     }
 
     @Override
@@ -657,22 +681,53 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
     
     @Override
+    public void showWindow(boolean showInput) {
+        final boolean wasShown = mInputWindowVisible;
+        super.showWindow(showInput);
+        
+        if (!wasShown) {
+            if (mInputViewParent != null) {
+                if (AnyApplication.DEBUG) Log.d(TAG, "Setting input VISIBLE animation");
+                mInputViewParent.startAnimation(mInputShowAnimation);
+            }
+        }
+    }
+    
+    @Override
     public void onWindowShown() {
         super.onWindowShown();
-        
-        if (mInputViewParent != null) {
-            if (AnyApplication.DEBUG) Log.d(TAG, "Setting input VISIBLE animation");
-            mInputViewParent.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.input_method_fancy_enter));
+        mInputWindowVisible = true;
+    }
+
+    @Override
+    public void hideWindow() {
+        if (TRACE_SDCARD)
+            Debug.stopMethodTracing();
+
+        if (mOptionsDialog != null && mOptionsDialog.isShowing()) {
+            mOptionsDialog.dismiss();
+            mOptionsDialog = null;
         }
+        if (mQuickTextKeyDialog != null && mQuickTextKeyDialog.isShowing()) {
+            mQuickTextKeyDialog.dismiss();
+            mQuickTextKeyDialog = null;
+        }
+        if (mInputWindowVisible) {
+            if (mInputViewParent != null) {
+                if (AnyApplication.DEBUG) Log.d(TAG, "Setting input not VISIBLE animation");
+                mInputViewParent.setAnimation(mInputHideAnimation);
+            }
+        }
+        
+        super.hideWindow();
+        
+        TextEntryState.endSession();
     }
     
     @Override
     public void onWindowHidden() {
         super.onWindowHidden();
-        if (mInputViewParent != null) {
-            if (AnyApplication.DEBUG) Log.d(TAG, "Setting input not VISIBLE animation");
-            mInputViewParent.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.input_method_fancy_exit));
-        }
+        mInputWindowVisible = false;
     }
 
     @Override
@@ -919,27 +974,6 @@ public class AnySoftKeyboard extends InputMethodService implements
             // to clear the underline.
             abortCorrection(true, false);
         }
-    }
-
-    @Override
-    public void hideWindow() {
-        if (TRACE_SDCARD)
-            Debug.stopMethodTracing();
-
-        if (mOptionsDialog != null && mOptionsDialog.isShowing()) {
-            mOptionsDialog.dismiss();
-            mOptionsDialog = null;
-        }
-        if (mQuickTextKeyDialog != null && mQuickTextKeyDialog.isShowing()) {
-            mQuickTextKeyDialog.dismiss();
-            mQuickTextKeyDialog = null;
-        }
-        // if (mTutorial != null) {
-        // mTutorial.close();
-        // mTutorial = null;
-        // }
-        super.hideWindow();
-        TextEntryState.endSession();
     }
 
     @Override
