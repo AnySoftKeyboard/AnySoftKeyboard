@@ -35,6 +35,6 @@
     	android:layout_gravity="center"/>
 	
 	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-	    android:text="* Bug fixes." style="@android:style/TextAppearance.Small"/>
+	    android:text="* Eye candy in the form of animations.\n* Bug fixes." style="@android:style/TextAppearance.Small"/>
 	
 </LinearLayout>

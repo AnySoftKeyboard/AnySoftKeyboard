@@ -17,10 +17,6 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -45,7 +41,13 @@ import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class CandidateView extends View {
+
+    private static final String TAG = "CandidateView";
 
     //private static final int OUT_OF_BOUNDS_WORD_INDEX = -1;
     private static final int OUT_OF_BOUNDS_X_COORD = -1;
@@ -495,62 +497,5 @@ public class CandidateView extends View {
             break;
         }
         return true;
-    }
-
-    /*
-    private void hidePreview() {
-        mTouchX = OUT_OF_BOUNDS_X_COORD;
-        mCurrentWordIndex = OUT_OF_BOUNDS_WORD_INDEX;
-        mPreviewPopup.dismiss();
-    }
-    
-    private void showPreview(int wordIndex, String altText) {
-        int oldWordIndex = mCurrentWordIndex;
-        mCurrentWordIndex = wordIndex;
-        // If index changed or changing text
-        if (oldWordIndex != mCurrentWordIndex || altText != null) {
-            if (wordIndex == OUT_OF_BOUNDS_WORD_INDEX) {
-                hidePreview();
-            } else {
-                CharSequence word = altText != null? altText : mSuggestions.get(wordIndex);
-                mPreviewText.setText(word);
-                mPreviewText.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), 
-                        MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
-                int wordWidth = (int) (mPaint.measureText(word, 0, word.length()) + X_GAP * 2);
-                final int popupWidth = wordWidth
-                        + mPreviewText.getPaddingLeft() + mPreviewText.getPaddingRight();
-                final int popupHeight = mPreviewText.getMeasuredHeight();
-                //mPreviewText.setVisibility(INVISIBLE);
-                mPopupPreviewX = mWordX[wordIndex] - mPreviewText.getPaddingLeft() - getScrollX()
-                        + (mWordWidth[wordIndex] - wordWidth) / 2;
-                mPopupPreviewY = - popupHeight;
-                int [] offsetInWindow = new int[2];
-                getLocationInWindow(offsetInWindow);
-                if (mPreviewPopup.isShowing()) {
-                    mPreviewPopup.update(mPopupPreviewX, mPopupPreviewY + offsetInWindow[1], 
-                            popupWidth, popupHeight);
-                } else {
-                    mPreviewPopup.setWidth(popupWidth);
-                    mPreviewPopup.setHeight(popupHeight);
-                    mPreviewPopup.showAtLocation(this, Gravity.NO_GRAVITY, mPopupPreviewX, 
-                            mPopupPreviewY + offsetInWindow[1]);
-                }
-                mPreviewText.setVisibility(VISIBLE);
-            }
-        }
-    }
-    
-    private void longPressFirstWord() {
-        CharSequence word = mSuggestions.get(0);
-        if (word.length() < 2) return;
-        if (mService.addWordToDictionary(word.toString())) {
-            showPreview(0, getContext().getResources().getString(R.string.added_word, word));
-        }
-    }
-    @Override
-    public void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        hidePreview();
-    }
-    */
+    }    
 }
