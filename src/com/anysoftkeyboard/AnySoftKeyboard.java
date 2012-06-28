@@ -16,12 +16,6 @@
 
 package com.anysoftkeyboard;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -51,6 +45,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.ExtractedText;
@@ -100,6 +97,12 @@ import com.anysoftkeyboard.voice.VoiceInput;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Input method implementation for Qwerty'ish keyboard.
  */
@@ -124,7 +127,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private boolean mTipsCalled = false;
 
+    private View mInputViewParent;
     private AnyKeyboardView mInputView;
+    private View mCandidatesParent;
     private CandidateView mCandidateView;
     //private View mRestartSuggestionsView;
     private static final long MINIMUM_REFRESH_TIME_FOR_DICTIONARIES = 30 * 1000;
@@ -285,7 +290,6 @@ public class AnySoftKeyboard extends InputMethodService implements
                 mPackagesChangedReceiver.createFilterToRegisterOn());
 
         mVibrator = ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE));
-        // setStatusIcon(R.drawable.ime_qwerty);
         loadSettings();
         mConfig.addChangedListener(this);
         mKeyboardSwitcher = new KeyboardSwitcher(this);
@@ -305,6 +309,8 @@ public class AnySoftKeyboard extends InputMethodService implements
         mVoiceRecognitionTrigger = AnyApplication.getDeviceSpecific().createVoiceInput(this);
 
         TutorialsProvider.showChangeLogIfNeeded(getApplicationContext());
+        //I'm handling animations. No need for any nifty ROMs assistance.
+        getWindow().getWindow().setWindowAnimations(0);
     }
 
     @Override
@@ -356,7 +362,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     public View onCreateInputView() {
         if (DEBUG)
             Log.v(TAG, "Creating Input View");
-
+        mInputViewParent = null;
         mInputView = (AnyKeyboardView) getLayoutInflater().inflate(R.layout.main_keyboard_layout,
                 null);
         mInputView.setAnySoftKeyboardContext(this);
@@ -366,15 +372,23 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         mKeyboardSwitcher.setInputView(mInputView);
         mInputView.setOnKeyboardActionListener(this);
-
+        
         return mInputView;
+    }    
+    
+    @Override
+    public void setInputView(View view) {
+        super.setInputView(view);
+        //storing my parent
+        mInputViewParent = view.getParent() instanceof View? (View)view.getParent() : null;
     }
-
+    
     @Override
     public View onCreateCandidatesView() {
         mKeyboardSwitcher.makeKeyboards(false);
         final ViewGroup candidateViewContainer = (ViewGroup) getLayoutInflater().inflate(
                 R.layout.candidates, null);
+        mCandidatesParent = null;
         mCandidateView = (CandidateView) candidateViewContainer.findViewById(R.id.candidates);
         mCandidateView.setService(this);
         setCandidatesViewShown(false);
@@ -405,10 +419,8 @@ public class AnySoftKeyboard extends InputMethodService implements
         if (closeIcon != null)
         {
             closeIcon.setOnClickListener(new OnClickListener() {
-                private final static long DOUBLE_TAP_TIMEOUT = 2 * 1000;// two
-                                                                        // seconds
-                                                                        // is
-                                                                        // enough
+                //two seconds is enough.
+                private final static long DOUBLE_TAP_TIMEOUT = 2 * 1000;
                 private long mFirstClickTime = 0;
 
                 public void onClick(View v) {
@@ -436,11 +448,18 @@ public class AnySoftKeyboard extends InputMethodService implements
                     .findViewById(R.id.tips_notification_on_candidates);
             if (tipsNotification != null)
             {
+                tipsNotification.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.tips_flip_in));
                 tipsNotification.setVisibility(View.VISIBLE);
                 tipsNotification.setOnClickListener(new OnClickListener() {
 
-                    public void onClick(View v) {
-                        v.setVisibility(View.GONE);
+                    public void onClick(final View v) {
+                        Animation gone = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.tips_flip_out);
+                        gone.setAnimationListener(new AnimationListener() {
+                            public void onAnimationStart(Animation animation) {}
+                            public void onAnimationRepeat(Animation animation) {}
+                            public void onAnimationEnd(Animation animation) {v.setVisibility(View.GONE);}
+                        });
+                        v.startAnimation(gone);
                         mTipsCalled = true;
                         TutorialsProvider.showTips(getApplicationContext());
                     }
@@ -635,6 +654,25 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
         if (TRACE_SDCARD)
             Debug.startMethodTracing("anysoftkeyboard_log.trace");
+    }
+    
+    @Override
+    public void onWindowShown() {
+        super.onWindowShown();
+        
+        if (mInputViewParent != null) {
+            if (AnyApplication.DEBUG) Log.d(TAG, "Setting input VISIBLE animation");
+            mInputViewParent.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.input_method_fancy_enter));
+        }
+    }
+    
+    @Override
+    public void onWindowHidden() {
+        super.onWindowHidden();
+        if (mInputViewParent != null) {
+            if (AnyApplication.DEBUG) Log.d(TAG, "Setting input not VISIBLE animation");
+            mInputViewParent.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.input_method_fancy_exit));
+        }
     }
 
     @Override
@@ -955,7 +993,24 @@ public class AnySoftKeyboard extends InputMethodService implements
         // (onEvaluateInputViewShown)
         // or if the physical keyboard supports candidates
         // (mPredictionLandscape)
-        super.setCandidatesViewShown(shouldCandidatesStripBeShown() && shown);
+        final boolean shouldShow = shouldCandidatesStripBeShown() && shown;
+        final boolean currentlyShown = mCandidatesParent != null && mCandidatesParent.getVisibility() == View.VISIBLE;
+        super.setCandidatesViewShown(shouldShow);
+        if (shouldShow != currentlyShown) {
+            if (shouldShow) {
+                if (AnyApplication.DEBUG) Log.d(TAG, "Setting VISIBLE animation");
+                mCandidatesParent.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.candidates_bottom_to_up_enter));
+            } else {
+                if (AnyApplication.DEBUG) Log.d(TAG, "Setting not VISIBLE animation");
+                mCandidatesParent.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.candidates_up_to_bottom_exit));
+            }
+        }
+    }
+    
+    @Override
+    public void setCandidatesView(View view) {
+        super.setCandidatesView(view);
+        mCandidatesParent = view.getParent() instanceof View? (View)view.getParent() : null;
     }
 
     private void clearSuggestions() {
@@ -971,11 +1026,6 @@ public class AnySoftKeyboard extends InputMethodService implements
             boolean completions,
             boolean typedWordValid,
             boolean haveMinimalSuggestion) {
-
-        // if (mIsShowingHint) {
-        // setCandidatesView(mCandidateViewContainer);
-        // mIsShowingHint = false;
-        // }
 
         if (mCandidateView != null) {
             mCandidateView.setSuggestions(
