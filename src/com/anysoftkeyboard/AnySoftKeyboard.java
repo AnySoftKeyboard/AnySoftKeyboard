@@ -51,6 +51,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.ExtractedText;
@@ -125,6 +128,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     private boolean mTipsCalled = false;
 
     private AnyKeyboardView mInputView;
+    private View mCandidatesParent;
     private CandidateView mCandidateView;
     //private View mRestartSuggestionsView;
     private static final long MINIMUM_REFRESH_TIME_FOR_DICTIONARIES = 30 * 1000;
@@ -272,6 +276,12 @@ public class AnySoftKeyboard extends InputMethodService implements
     public void onCreate() {
         super.onCreate();
         Log.i(TAG, "****** AnySoftKeyboard service started.");
+        //I'm handling animations. No need for any nifty ROMs assistance.
+        //I can't use this function with my own animations, since the WindowManager can
+        //only use system resources.
+        /* Not right now... performance of my animations is lousy..
+        getWindow().getWindow().setWindowAnimations(0);
+        */
         Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(
                 getApplication().getBaseContext(), null));
         mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
@@ -285,7 +295,6 @@ public class AnySoftKeyboard extends InputMethodService implements
                 mPackagesChangedReceiver.createFilterToRegisterOn());
 
         mVibrator = ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE));
-        // setStatusIcon(R.drawable.ime_qwerty);
         loadSettings();
         mConfig.addChangedListener(this);
         mKeyboardSwitcher = new KeyboardSwitcher(this);
@@ -356,7 +365,6 @@ public class AnySoftKeyboard extends InputMethodService implements
     public View onCreateInputView() {
         if (DEBUG)
             Log.v(TAG, "Creating Input View");
-
         mInputView = (AnyKeyboardView) getLayoutInflater().inflate(R.layout.main_keyboard_layout,
                 null);
         mInputView.setAnySoftKeyboardContext(this);
@@ -366,15 +374,16 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         mKeyboardSwitcher.setInputView(mInputView);
         mInputView.setOnKeyboardActionListener(this);
-
+        
         return mInputView;
-    }
-
+    }    
+    
     @Override
     public View onCreateCandidatesView() {
         mKeyboardSwitcher.makeKeyboards(false);
         final ViewGroup candidateViewContainer = (ViewGroup) getLayoutInflater().inflate(
                 R.layout.candidates, null);
+        mCandidatesParent = null;
         mCandidateView = (CandidateView) candidateViewContainer.findViewById(R.id.candidates);
         mCandidateView.setService(this);
         setCandidatesViewShown(false);
@@ -405,10 +414,8 @@ public class AnySoftKeyboard extends InputMethodService implements
         if (closeIcon != null)
         {
             closeIcon.setOnClickListener(new OnClickListener() {
-                private final static long DOUBLE_TAP_TIMEOUT = 2 * 1000;// two
-                                                                        // seconds
-                                                                        // is
-                                                                        // enough
+                //two seconds is enough.
+                private final static long DOUBLE_TAP_TIMEOUT = 2 * 1000;
                 private long mFirstClickTime = 0;
 
                 public void onClick(View v) {
@@ -436,11 +443,18 @@ public class AnySoftKeyboard extends InputMethodService implements
                     .findViewById(R.id.tips_notification_on_candidates);
             if (tipsNotification != null)
             {
+				tipsNotification.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.tips_flip_in));
                 tipsNotification.setVisibility(View.VISIBLE);
                 tipsNotification.setOnClickListener(new OnClickListener() {
 
-                    public void onClick(View v) {
-                        v.setVisibility(View.GONE);
+                    public void onClick(final View v) {
+                        Animation gone = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.tips_flip_out);
+                        gone.setAnimationListener(new AnimationListener() {
+                            public void onAnimationStart(Animation animation) {}
+                            public void onAnimationRepeat(Animation animation) {}
+                            public void onAnimationEnd(Animation animation) {v.setVisibility(View.GONE);}
+                        });
+                        v.startAnimation(gone);
                         mTipsCalled = true;
                         TutorialsProvider.showTips(getApplicationContext());
                     }
@@ -635,6 +649,25 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
         if (TRACE_SDCARD)
             Debug.startMethodTracing("anysoftkeyboard_log.trace");
+    }
+    
+    @Override
+    public void hideWindow() {
+        if (TRACE_SDCARD)
+            Debug.stopMethodTracing();
+
+        if (mOptionsDialog != null && mOptionsDialog.isShowing()) {
+            mOptionsDialog.dismiss();
+            mOptionsDialog = null;
+        }
+        if (mQuickTextKeyDialog != null && mQuickTextKeyDialog.isShowing()) {
+            mQuickTextKeyDialog.dismiss();
+            mQuickTextKeyDialog = null;
+        }
+        
+        super.hideWindow();
+        
+        TextEntryState.endSession();
     }
 
     @Override
@@ -884,27 +917,6 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     @Override
-    public void hideWindow() {
-        if (TRACE_SDCARD)
-            Debug.stopMethodTracing();
-
-        if (mOptionsDialog != null && mOptionsDialog.isShowing()) {
-            mOptionsDialog.dismiss();
-            mOptionsDialog = null;
-        }
-        if (mQuickTextKeyDialog != null && mQuickTextKeyDialog.isShowing()) {
-            mQuickTextKeyDialog.dismiss();
-            mQuickTextKeyDialog = null;
-        }
-        // if (mTutorial != null) {
-        // mTutorial.close();
-        // mTutorial = null;
-        // }
-        super.hideWindow();
-        TextEntryState.endSession();
-    }
-
-    @Override
     public void onDisplayCompletions(CompletionInfo[] completions) {
         if (DEBUG) {
             Log.i(TAG, "Received completions:");
@@ -955,7 +967,22 @@ public class AnySoftKeyboard extends InputMethodService implements
         // (onEvaluateInputViewShown)
         // or if the physical keyboard supports candidates
         // (mPredictionLandscape)
-        super.setCandidatesViewShown(shouldCandidatesStripBeShown() && shown);
+        final boolean shouldShow = shouldCandidatesStripBeShown() && shown;
+        final boolean currentlyShown = mCandidatesParent != null && mCandidatesParent.getVisibility() == View.VISIBLE;
+        super.setCandidatesViewShown(shouldShow);
+        if (shouldShow != currentlyShown) {
+            if (shouldShow) {
+                mCandidatesParent.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.candidates_bottom_to_up_enter));
+            } else {
+                mCandidatesParent.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.candidates_up_to_bottom_exit));
+            }
+        }
+    }
+    
+    @Override
+    public void setCandidatesView(View view) {
+        super.setCandidatesView(view);
+        mCandidatesParent = view.getParent() instanceof View? (View)view.getParent() : null;
     }
 
     private void clearSuggestions() {
@@ -971,11 +998,6 @@ public class AnySoftKeyboard extends InputMethodService implements
             boolean completions,
             boolean typedWordValid,
             boolean haveMinimalSuggestion) {
-
-        // if (mIsShowingHint) {
-        // setCandidatesView(mCandidateViewContainer);
-        // mIsShowingHint = false;
-        // }
 
         if (mCandidateView != null) {
             mCandidateView.setSuggestions(

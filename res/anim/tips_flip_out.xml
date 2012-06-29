@@ -2,7 +2,6 @@
 <!--
 /*
 **
-** Copyright 2010, The Android Open Source Project
 ** Copyright 2012, AnySoftKeyboard
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +23,19 @@
     android:interpolator="@android:anim/decelerate_interpolator"
 >
     <alpha
-        android:fromAlpha="0.5"
-        android:toAlpha="1.0"
+        android:fromAlpha="1.0"
+        android:toAlpha="0.5"
         android:duration="@integer/popupAnimTime" />
+     <scale
+        android:interpolator="@android:anim/linear_interpolator"
+        android:fromXScale="1.0"
+        android:toXScale="1.0"
+        android:fromYScale="1.0"
+        android:toYScale="0.0"
+        android:fillAfter="false"
+        android:duration="@integer/popupAnimTime" />
+    <translate
+        android:fromYDelta="0"
+        android:toYDelta="50%"
+        android:duration="@integer/popupAnimTime"/>
 </set>
