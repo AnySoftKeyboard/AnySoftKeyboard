@@ -16,6 +16,12 @@
 
 package com.anysoftkeyboard;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -97,12 +103,6 @@ import com.anysoftkeyboard.voice.VoiceInput;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-
 /**
  * Input method implementation for Qwerty'ish keyboard.
  */
@@ -127,13 +127,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private boolean mTipsCalled = false;
 
-
-    
-    private boolean mInputWindowVisible = false;
-    private Animation mInputShowAnimation;
-    private Animation mInputHideAnimation;
-    
-    private View mInputViewParent;
     private AnyKeyboardView mInputView;
     private View mCandidatesParent;
     private CandidateView mCandidateView;
@@ -286,8 +279,9 @@ public class AnySoftKeyboard extends InputMethodService implements
         //I'm handling animations. No need for any nifty ROMs assistance.
         //I can't use this function with my own animations, since the WindowManager can
         //only use system resources.
+        /* Not right now... performance of my animations is lousy..
         getWindow().getWindow().setWindowAnimations(0);
-        
+        */
         Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(
                 getApplication().getBaseContext(), null));
         mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
@@ -320,21 +314,6 @@ public class AnySoftKeyboard extends InputMethodService implements
         mVoiceRecognitionTrigger = AnyApplication.getDeviceSpecific().createVoiceInput(this);
 
         TutorialsProvider.showChangeLogIfNeeded(getApplicationContext());
-        
-
-        mInputShowAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.input_method_fancy_enter);
-        mInputHideAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.input_method_fancy_exit);
-        mInputHideAnimation.setAnimationListener(new AnimationListener() {
-            public void onAnimationStart(Animation animation) {
-            }
-            
-            public void onAnimationRepeat(Animation animation) {
-            }
-            
-            public void onAnimationEnd(Animation animation) {
-                //AnySoftKeyboard.super.hideWindow();
-            }
-        });
     }
 
     @Override
@@ -386,7 +365,6 @@ public class AnySoftKeyboard extends InputMethodService implements
     public View onCreateInputView() {
         if (DEBUG)
             Log.v(TAG, "Creating Input View");
-        mInputViewParent = null;
         mInputView = (AnyKeyboardView) getLayoutInflater().inflate(R.layout.main_keyboard_layout,
                 null);
         mInputView.setAnySoftKeyboardContext(this);
@@ -399,13 +377,6 @@ public class AnySoftKeyboard extends InputMethodService implements
         
         return mInputView;
     }    
-    
-    @Override
-    public void setInputView(View view) {
-        super.setInputView(view);
-        //storing my parent
-        mInputViewParent = view.getParent() instanceof View? (View)view.getParent() : null;
-    }
     
     @Override
     public View onCreateCandidatesView() {
@@ -472,7 +443,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                     .findViewById(R.id.tips_notification_on_candidates);
             if (tipsNotification != null)
             {
-                tipsNotification.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.tips_flip_in));
+				tipsNotification.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.tips_flip_in));
                 tipsNotification.setVisibility(View.VISIBLE);
                 tipsNotification.setOnClickListener(new OnClickListener() {
 
@@ -681,25 +652,6 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
     
     @Override
-    public void showWindow(boolean showInput) {
-        final boolean wasShown = mInputWindowVisible;
-        super.showWindow(showInput);
-        
-        if (!wasShown) {
-            if (mInputViewParent != null) {
-                if (AnyApplication.DEBUG) Log.d(TAG, "Setting input VISIBLE animation");
-                mInputViewParent.startAnimation(mInputShowAnimation);
-            }
-        }
-    }
-    
-    @Override
-    public void onWindowShown() {
-        super.onWindowShown();
-        mInputWindowVisible = true;
-    }
-
-    @Override
     public void hideWindow() {
         if (TRACE_SDCARD)
             Debug.stopMethodTracing();
@@ -712,22 +664,10 @@ public class AnySoftKeyboard extends InputMethodService implements
             mQuickTextKeyDialog.dismiss();
             mQuickTextKeyDialog = null;
         }
-        if (mInputWindowVisible) {
-            if (mInputViewParent != null) {
-                if (AnyApplication.DEBUG) Log.d(TAG, "Setting input not VISIBLE animation");
-                mInputViewParent.setAnimation(mInputHideAnimation);
-            }
-        }
         
         super.hideWindow();
         
         TextEntryState.endSession();
-    }
-    
-    @Override
-    public void onWindowHidden() {
-        super.onWindowHidden();
-        mInputWindowVisible = false;
     }
 
     @Override
@@ -1032,10 +972,8 @@ public class AnySoftKeyboard extends InputMethodService implements
         super.setCandidatesViewShown(shouldShow);
         if (shouldShow != currentlyShown) {
             if (shouldShow) {
-                if (AnyApplication.DEBUG) Log.d(TAG, "Setting VISIBLE animation");
                 mCandidatesParent.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.candidates_bottom_to_up_enter));
             } else {
-                if (AnyApplication.DEBUG) Log.d(TAG, "Setting not VISIBLE animation");
                 mCandidatesParent.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.candidates_up_to_bottom_exit));
             }
         }
