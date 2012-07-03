@@ -309,14 +309,14 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	}
 	
 	public void requestInAnimation() {
-	    mAnimationRequested = true;
+	    mAnimationRequested = AnyApplication.BLEEDING_EDGE && true;
 	}
 
 	@Override
 	public void onDraw(Canvas canvas) {
 	    final boolean keyboardChanged = mKeyboardChanged;
 	    super.onDraw(canvas);
-	    if (keyboardChanged && mAnimationRequested) {
+	    if (AnyApplication.BLEEDING_EDGE && keyboardChanged && mAnimationRequested) {
 	        mAnimationRequested = false;
 	        this.startAnimation(mInAnimation);
 	    }

@@ -128,8 +128,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private boolean mTipsCalled = false;
 
-    private Animation mSwipeLeftAnimation;
-    private Animation mSwipeRightAnimation;
+    private Animation mSwipeLeftAnimation = null;
+    private Animation mSwipeRightAnimation = null;
     private AnyKeyboardView mInputView;
     private View mCandidatesParent;
     private CandidateView mCandidateView;
@@ -319,10 +319,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         TutorialsProvider.showChangeLogIfNeeded(getApplicationContext());
 
-        mSwipeLeftAnimation = AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.layout_switch_slide_out_left);
-        mSwipeRightAnimation = AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.layout_switch_slide_out_right);
+        if (AnyApplication.BLEEDING_EDGE) {
+            mSwipeLeftAnimation = AnimationUtils.loadAnimation(getApplicationContext(),
+                    R.anim.layout_switch_slide_out_left);
+            mSwipeRightAnimation = AnimationUtils.loadAnimation(getApplicationContext(),
+                    R.anim.layout_switch_slide_out_right);
+        }
     }
 
     private void initSuggest(/* String locale */) {
@@ -382,11 +384,13 @@ public class AnySoftKeyboard extends InputMethodService implements
     @Override
     public void setInputView(View view) {
         super.setInputView(view);
-        ViewParent parent = view.getParent();
-        if (parent instanceof View) {
-            // this is required for animations, so the background will be
-            // consist.
-            ((View) parent).setBackgroundDrawable(view.getBackground());
+        if (AnyApplication.BLEEDING_EDGE) {
+            ViewParent parent = view.getParent();
+            if (parent instanceof View) {
+                // this is required for animations, so the background will be
+                // consist.
+                ((View) parent).setBackgroundDrawable(view.getBackground());
+            }
         }
     }
 
@@ -2882,7 +2886,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         if (DEBUG)
             Log.d(TAG, "onSwipeRight " + ((onSpaceBar) ? " + space" : "") + " => code " + keyCode);
         if (keyCode != 0)
-            if (mInputView != null && mSwipeRightAnimation != null
+            if (AnyApplication.BLEEDING_EDGE &&mInputView != null && mSwipeRightAnimation != null
                     && isKeyCodeCanUseAnimation(keyCode)) {
                 mSwipeRightAnimation.setAnimationListener(new AnimationListener() {
                     public void onAnimationStart(Animation animation) {
@@ -2911,7 +2915,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         if (DEBUG)
             Log.d(TAG, "onSwipeLeft " + ((onSpaceBar) ? " + space" : "") + " => code " + keyCode);
         if (keyCode != 0) {
-            if (mInputView != null && mSwipeLeftAnimation != null
+            if (AnyApplication.BLEEDING_EDGE && mInputView != null && mSwipeLeftAnimation != null
                     && isKeyCodeCanUseAnimation(keyCode)) {
                 mSwipeLeftAnimation.setAnimationListener(new AnimationListener() {
                     public void onAnimationStart(Animation animation) {
