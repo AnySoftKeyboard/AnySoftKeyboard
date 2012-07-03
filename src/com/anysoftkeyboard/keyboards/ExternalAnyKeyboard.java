@@ -143,6 +143,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                         	{
 	                        	//if (AnySoftKeyboardConfiguration.getInstance().getDEBUG()) Log.d(TAG, "Physical translation details: keys:"+printInts(keyCodes)+" target:"+target);
 	                        	translator.addSequence(keyCodes, target.intValue());
+	                        	//http://code.google.com/p/softkeyboard/issues/detail?id=734
+	                        	translator.addShiftSequence(keyCodes, Character.toUpperCase(target.intValue()));
                         	}
                         	else if (isAlt)
                         	{
