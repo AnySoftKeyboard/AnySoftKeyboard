@@ -234,7 +234,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
      * Notes if the keyboard just changed, so that we could possibly reallocate
      * the mBuffer.
      */
-    private boolean mKeyboardChanged;
+    protected boolean mKeyboardChanged;
     private Key mInvalidatedKey;
     /** The canvas for the above mutable keyboard bitmap */
     // private Canvas mCanvas;
