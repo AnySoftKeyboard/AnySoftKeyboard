@@ -74,8 +74,10 @@
   <string name="about">Σχετικά</string>
   <string name="changelog">Αρχείο αλλαγών</string>
   <string name="search_market_for_addons">Αναζήτηση για πρόσθετα</string>
+  <string name="no_market_store_available">Δεν ήταν δυνατή η εύρεση του Android Play Store στη συσκευή σας. Αδύνατη η αναζήτηση για πρόσθετα!</string>
   <string name="theme_addons_settings">Ρυθμίσεις θέματος πληκτρολογίου</string>
   <string name="keyboard_theme_tweak_group">Τροποποιήσεις</string>
+  <string name="keyboard_theme_tweak_hints_group">Τροποποιήσεις κειμένου υποδείξεων</string>
   <string name="bottom_row_addons_settings">Ρυθμίσεις κάτω γραμμής</string>
   <string name="top_row_addons_settings">Ρυθμίσεις πάνω γραμμής</string>
   <string name="close_button">Κλείσιμο</string>
@@ -150,9 +152,9 @@
   <string name="pinch_gesture_action">Τσίμπημα</string>
   <string name="pinch_gesture_action_title">Επιλέξτε ενέργεια για τσίμπημα</string>
   <string name="pinch_gesture_action_summary">Καθορισμός ενέργειας του τσιμπήματος</string>
-  <string name="separate_gesture_action">Χειρονομία διαχωρισμού</string>
-  <string name="separate_gesture_action_title">Επιλέξτε ενέργεια της χειρονομίας διαχωρισμού</string>
-  <string name="separate_gesture_action_summary">Καθορισμός ενέργειας της χειρονομίας διαχωρισμού</string>
+  <string name="separate_gesture_action">Έκταση χειρονομίας</string>
+  <string name="separate_gesture_action_title">Επιλέξτε έκταση ενέργειας χειρονομίας</string>
+  <string name="separate_gesture_action_summary">Ορίστε την έκταση ενέργειας χειρονομίας</string>
   <string name="swipe_action_name_none">Καμία ενέργεια</string>
   <string name="swipe_action_name_next_alphabet">Επόμενο αλφαβητικό πληκτρολόγιο</string>
   <string name="swipe_action_name_next_symbols">Επόμενο πληκτρολόγιο συμβόλων</string>
@@ -211,9 +213,24 @@
   <string name="tweak_ux_group">Συμπεριφορά προηγμένων ρυθμίσεων</string>
   <string name="tweak_dictionary_group">Τροποποιήσεις λεξικού</string>
   <string name="settings_min_length_for_word_correction">Ελάχιστο μήκος λέξης για διόρθωση</string>
+  <string name="use_custom_keytext_color">Παράκαμψη χρώματος κειμένου πλήκτρου</string>
+  <string name="use_custom_keytext_color_on_summary">Χρήση προσαρμοσμένου χρώματος για το κείμενο πλήκτρου</string>
+  <string name="use_custom_keytext_color_off_summary">Χρήση του χρώματος θέματος για το κείμενο πλήκτρου</string>
   <string name="show_hint_text">Εμφάνιση κειμένου υπόδειξης</string>
   <string name="show_hint_text_on_summary">Εμφάνιση υποδείξεων στα πλήκτρα, αν το υποστηρίζει το θέμα</string>
   <string name="show_hint_text_off_summary">Να μην εμφανίζονται ποτέ υποδείξεις στα πλήκτρα</string>
+  <string name="use_custom_hint_color">Παράκαμψη χρώματος υποδείξεων</string>
+  <string name="use_custom_hint_color_on_summary">Χρήση προσαρμοσμένου χρώματος για το κείμενο υποδείξεων</string>
+  <string name="use_custom_hint_color_off_summary">Χρήση του χρώματος θέματος για το κείμενο υποδείξεων</string>
+  <string name="use_custom_hint_align">Παράκαμψη θέσης υποδείξεων</string>
+  <string name="use_custom_hint_align_on_summary">Χρήση προσαρμοσμένης θέσης για το κείμενο υποδείξεων</string>
+  <string name="use_custom_hint_align_off_summary">Χρήση της θέση θέματος για το κείμενο υποδείξεων</string>
+  <string name="custom_hint_align">Προσαρμοσμένη οριζόντια στοίχιση υπόδειξης</string>
+  <string name="custom_hint_align_summary">Στοιχίστε το κείμενο υποδείξεων στα αριστερά, στο κέντρο ή δεξιά του πλήκτρου</string>
+  <string name="settings_custom_hint_align_dialog_title">Επιλέξτε οριζόντια στοίχιση για το κείμενο υποδείξεων</string>
+  <string name="custom_hint_valign">Προσαρμοσμένη κατακόρυφη στοίχιση υπόδειξης</string>
+  <string name="custom_hint_valign_summary">Στοιχίστε το κείμενο υποδείξεων στο πάνω ή το κάτω μέρος του πλήκτρου</string>
+  <string name="settings_custom_hint_valign_dialog_title">Επιλέξτε κατακόρυφη στοίχιση για το κείμενο υποδείξεων</string>
   <string name="is_sticky_extesion_keyboard">Μόνιμη επέκταση του πληκτρολογίου</string>
   <string name="is_sticky_extesion_keyboard_on_summary">Παραμένει ορατό μέχρι το οριστικό κλείσιμο</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Κλείσιμο μετά από πίεση πλήκτρου</string>
@@ -290,6 +307,7 @@
   <string name="keyboards_group">Πληκτρολόγια</string>
   <string name="symbols_keyboard">Σύμβολα</string>
   <string name="eng_keyboard">Αγγλικά</string>
+  <string name="eng_keyboard_qwertywithsymbols">Αγγλικά με σύμβολα</string>
   <string name="eng_keyboard_16keys">Αγγλικά 16 πλήκτρων</string>
   <string name="additional_addons_group">Επιπλέον πρόσθετα</string>
   <string name="quick_text_keys_group">Πλήκτρο ταχείας γραφής κειμένου</string>
@@ -324,14 +342,20 @@
   <string name="dark_plain_keyboard_theme_description">Σκούρα χρώματα, απλά γραφικά</string>
   <string name="light_plain_keyboard_theme_name">Απλό φωτεινό θέμα</string>
   <string name="light_plain_keyboard_theme_description">Φωτεινά χρώματα, απλά γραφικά</string>
+  <string name="blacktheme_keyboard_theme_name">Απλή μαύρη λάμψη</string>
+  <string name="blacktheme_keyboard_theme_description">Απλό μαύρο θέμα με φωτισμένα χρώματα</string>
   <string name="extension_kbd_top_none">Χωρίς πάνω σειρά</string>
   <string name="extension_kbd_top_small">Μικρά πλήκτρα</string>
   <string name="extension_kbd_top_regular">Πλήκτρα κανονικού μεγέθους</string>
   <string name="extension_kbd_top_small_numbers">Αριθμητικό πληκτρολόγιο</string>
+  <string name="extension_kbd_top_numbers_alt">Εναλλακτικά πλήκτρα αριθμών</string>
+  <string name="extension_kbd_top_nav">Πλήκτρα μετακίνησης</string>
   <string name="extension_kbd_bottom_regular_with_voice">Κανονικό</string>
   <string name="extension_kbd_bottom_regular">Κλασικό (χωρίς μικρόφωνο)</string>
   <string name="extension_kbd_bottom_iphone">Στυλ iPhone (χωρίς μικρόφωνο)</string>
   <string name="extension_kbd_bottom_iphone_with_voice">Στυλ iPhone με μικρόφωνο</string>
+  <string name="extension_kbd_bottom_alt">Εναλλακτικό (χωρίς μικρόφωνο)</string>
+  <string name="extension_kbd_bottom_alt_with_mic">Εναλλακτικό με μικρόφωνο</string>
   <string name="extension_kbd_extension_numbers_symbols">Αριθμοί και σύμβολα</string>
   <string name="show_tutorial_on_startup">Εμφάνιση αυτού του εκπαιδευτικού κειμένου κατά την εκκίνηση</string>
   <string name="tutorial_swipe_title">Σύρετε για αλλαγή πληκτρολογίου</string>
@@ -395,6 +419,16 @@
   <string name="user_dict_settings_context_menu_edit_title">Επεξεργασία</string>
   <string name="user_dict_settings_context_menu_delete_title">Διαγραφή</string>
   <string name="user_dict_settings_empty_text">Δεν έχετε λέξεις στο λεξικό χρήστη. Μπορείτε να προσθέσετε μια λέξη μέσω του μενού.</string>
+  <string name="user_dict_backup_success_title">Το αντίγραφο ασφαλείας έγινε!</string>
+  <string name="user_dict_backup_success_text">Οι λέξεις σας αποθηκεύτηκαν με επιτυχία στον αποθηκευτικό χώρο της συσκευής, στο /Android/data/com.menny.android.anysoftkeyboard/files/</string>
+  <string name="user_dict_backup_fail_title">Το αντίγραφο ασφαλείας απέτυχε!</string>
+  <string name="user_dict_backup_fail_text">Δεν ήταν δυνατή η αποθήκευση των αρχείων σας! Ο αποθηκευτικός χώρος είναι διαθέσιμος;</string>
+  <string name="user_dict_backup_fail_text_with_error">Απέτυχε η αποθήκευση λέξεων λόγω: <xliff:g id="error">%s</xliff:g></string>
+  <string name="user_dict_restore_success_title">Η επαναφορά έγινε!</string>
+  <string name="user_dict_restore_success_text">Επιτυχής επαναφορά των λέξεών σας.</string>
+  <string name="user_dict_restore_fail_title">Η επαναφορά απέτυχε!</string>
+  <string name="user_dict_restore_fail_text">Δεν ήταν δυνατή η ανάγνωση των αρχείων του αντιγράφου ασφαλείας σας! Ο αποθηκευτικός χώρος είναι διαθέσιμος;</string>
+  <string name="user_dict_restore_fail_text_with_error">Απέτυχε η επαναφορά λέξεων λόγω: <xliff:g id="error">%s</xliff:g></string>
   <string name="fast_scroll_alphabet"> ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ</string>
   <string name="should_swap_punctuation_and_space_title">Εναλλαγή σημείων στίξης και διαστήματος</string>
   <string name="should_swap_punctuation_and_space_summary">Εναλλαγή σημείων στίξης και διαστήματος</string>
@@ -410,5 +444,14 @@
     <item>Αδύναμη</item>
     <item>Μεσαία</item>
     <item>Ισχυρή</item>
+  </string-array>
+  <string-array name="custom_hint_align_types">
+    <item>Αριστερά</item>
+    <item>Κέντρο</item>
+    <item>Δεξιά</item>
+  </string-array>
+  <string-array name="custom_hint_valign_types">
+    <item>Πάνω</item>
+    <item>Κάτω</item>
   </string-array>
 </resources>
