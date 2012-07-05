@@ -57,6 +57,7 @@
   <string name="how_to_simple_howto_preface">Android wymaga, abyś ty (użytkownik) ręcznie włączył i aktywował dodatkowe klawiatury. Jak tego dokonać:</string>
   <string name="how_to_simple_howto_enable_ask">Krok 1: Włącz AnySoftKeyboard (dostaniesz ostrzeżenie o możliwym gromadzeniu danych ale nie martw się, AnySoftKeyboard ich nie przetrzymuje i nigdzie nie wysyła):</string>
   <string name="how_to_simple_howto_enable_ask_button">Włącz AnySoftKeyboard</string>
+  <string name="how_to_simple_howto_switch_to_ask_button_before_step_1">Najpierw zrób krok 1</string>
   <string name="how_to_simple_howto_go_to_settings_button">Ustawienia AnySoftKeyboard</string>
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
   <string name="notification_text_testers">To jest wersja beta. Zachowaj ostrożność!</string>
@@ -144,9 +145,6 @@
   <string name="pinch_gesture_action">Gest szczypania</string>
   <string name="pinch_gesture_action_title">Wybierz akcję gestu szczypania</string>
   <string name="pinch_gesture_action_summary">Określ akcję dla gestu uszczypnięcia</string>
-  <string name="separate_gesture_action">Gest rozdzielenia</string>
-  <string name="separate_gesture_action_title">Wybierz akcję gestu rozdzielenia</string>
-  <string name="separate_gesture_action_summary">Określ gest rozdzielenia</string>
   <string name="swipe_action_name_none">Brak akcji</string>
   <string name="swipe_action_name_next_alphabet">Następny układ alfabetyczny</string>
   <string name="swipe_action_name_next_symbols">Następny układ z symbolami</string>
@@ -247,6 +245,9 @@
   <string name="insert_space_after_word_suggestion_selection_on_summary">Wstaw spację po wybraniu sugerowanego wyrazu</string>
   <string name="double_space_to_period">Podwójna spacja da kropkę</string>
   <string name="double_space_to_period_summary">Podwójne wpisanie spacji stanie się kropką+spacja</string>
+  <string name="cycle_all_symbols_keyboards">Kolejno po wszystkich symbolach</string>
+  <string name="cycle_all_symbols_keyboards_on_summary">Klawisz symboli będzie przechodził po wszystkich klawiaturach znakowych</string>
+  <string name="cycle_all_symbols_keyboards_off_summary">Klawisz symboli pokaże tylko główną klawiaturę z symbolami</string>
   <string name="lang_key_shows_popup">Przełącznik języka w popupie</string>
   <string name="lang_key_shows_popup_on_summary">Klawisz języka wyskoczy z okienkiem wyboru języka</string>
   <string name="lang_key_shows_popup_off_summary">Klawisz języka będzie przełączał języki w cyklu</string>
@@ -390,5 +391,14 @@
     <item>Lekkie</item>
     <item>Średnie</item>
     <item>Mocne</item>
+  </string-array>
+  <string-array name="custom_hint_align_types">
+    <item>Left</item>
+    <item>Center</item>
+    <item>Right</item>
+  </string-array>
+  <string-array name="custom_hint_valign_types">
+    <item>Top</item>
+    <item>Bottom</item>
   </string-array>
 </resources>
