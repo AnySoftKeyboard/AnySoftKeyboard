@@ -18,6 +18,7 @@
   <string name="tip_7_voice_input">Habla conmigo*</string>
   <string name="tip_7_voice_input_tip">Escribir es bonito, ¡pero también hay soporte para entrada de voz! ¿Quieres dictar el texto? ¡Haz clic en la tecla del micrófono y ponte a hablar!\nEsta función utiliza tecnología de reconocimiento cedida por Google, así que no dudes de su funcionamiento :)</string>
   <string name="tip_7_voice_input_tip_note">* Requiere Android 2.2+ y conexión a Internet.</string>
+  <string name="tip_8_suggestions">Yo te completo</string>
   <string name="tip_8_suggestions_editor">Si no conozco una palabra, ¡enséñamela! Escribe esa palabra y haz clic en la franja de sugerencias. Así la recordaré.\nAdemás, puedes editar esas palabras desde nuestro editor incorporado. Podrás encontrar el editor en los Ajustes de Dicionario de AnySoftKeyboard.</string>
   <string name="main_tab_welcome">Bienvenid@</string>
   <string name="main_tab_links">Enlaces</string>
@@ -39,8 +40,12 @@
   <string name="how_to_enable_dialog_text">No has activado AnySoftKeyboard aún. ¿Quieres ver cómo activarlo?</string>
   <string name="how_to_enable_dialog_show_me">¡Demuéstramelo!</string>
   <string name="how_to_enable_dialog_dont_show_me">Más tarde</string>
+  <string name="how_to_simple_howto_preface">Android requiere que tú (el usuario) actives manualmente el teclado externo. Aquí te explicamos cómo:</string>
   <string name="how_to_simple_howto_enable_ask_button">Activar AnySoftKeyboard</string>
+  <string name="how_to_simple_howto_press_back_to_return_tip">Pulsa ATRAS cuando lo hayas hecho, para volver a las instrucciones de activación</string>
+  <string name="how_to_simple_howto_switch_to_ask">Paso 2: Elige AnySoftKeyboard como tu método de entrada activo:</string>
   <string name="how_to_simple_howto_switch_to_ask_button_after_step_1">Cambiar a AnySoftKeyboard</string>
+  <string name="how_to_simple_howto_switch_to_ask_button_before_step_1">Haz primero el paso 1</string>
   <string name="how_to_simple_howto_go_to_settings_button">Ajustes de AnySoftKeyboard</string>
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
   <string name="notification_text_testers">Esta es la versión beta. ¡Utilízala con precaución!</string>
@@ -55,6 +60,9 @@
   <string name="search_market_for_addons">Búsqueda de complementos</string>
   <string name="theme_addons_settings">Ajustes de tema del teclado</string>
   <string name="keyboard_theme_tweak_group">Ajustes</string>
+  <string name="keyboard_theme_tweak_hints_group">Ajustes de texto de sugerencia</string>
+  <string name="bottom_row_addons_settings">Ajustes de la fila inferior</string>
+  <string name="top_row_addons_settings">Ajustes de la fila superior</string>
   <string name="close_button">Cerrar</string>
   <string name="how_to_active_text">Cómo activar AnySoftKeyboard</string>
   <string name="added_word"><xliff:g id="word">%s</xliff:g>:Guardado</string>
@@ -241,6 +249,7 @@
   <string name="keyboards_group">Teclados</string>
   <string name="symbols_keyboard">Símbolos</string>
   <string name="eng_keyboard">Inglés</string>
+  <string name="eng_keyboard_qwertywithsymbols">Inglés con símbolos</string>
   <string name="eng_keyboard_16keys">Inglés 16 Teclas</string>
   <string name="additional_addons_group">Complementos adicionales</string>
   <string name="quick_text_keys_group">Teclas de texto rápido</string>
@@ -262,9 +271,12 @@
   <string name="gingerbread_keyboard_theme_description">Pan de Jengibre (Android 2.3) de botones y colores</string>
   <string name="dark_plain_keyboard_theme_description">Colores oscuros, gráficos sencillos</string>
   <string name="light_plain_keyboard_theme_description">Colores claros, gráficos sencillos</string>
+  <string name="extension_kbd_top_none">Sin fila superior</string>
   <string name="extension_kbd_top_small">Teclas pequeñas</string>
   <string name="extension_kbd_top_regular">Teclas de tamaño normal</string>
   <string name="extension_kbd_top_small_numbers">Teclas de números</string>
+  <string name="extension_kbd_top_numbers_alt">Alternar teclas numéricas</string>
+  <string name="extension_kbd_top_nav">Teclas de navegación</string>
   <string name="extension_kbd_bottom_regular">Clásico (sin mic.)</string>
   <string name="extension_kbd_bottom_iphone">Estilo iPhone (sin mic.)</string>
   <string name="extension_kbd_bottom_iphone_with_voice">Estilo iPhone con mic.</string>
@@ -316,6 +328,11 @@
   <string name="user_dict_settings_edit_dialog_title">Editar texto</string>
   <string name="user_dict_settings_context_menu_edit_title">Editar</string>
   <string name="user_dict_settings_context_menu_delete_title">Eliminar</string>
+  <string name="user_dict_backup_success_title">¡Copia de seguridad hecha correctamente!</string>
+  <string name="user_dict_backup_fail_title">¡Copia de seguridad fallida!</string>
+  <string name="user_dict_restore_success_title">¡Correctamente restaurado!</string>
+  <string name="user_dict_restore_success_text">Correctamente restaurado con tus palabras.</string>
+  <string name="user_dict_restore_fail_title">¡Restauración fallida!</string>
   <string name="fast_scroll_alphabet"> ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
   <string name="should_swap_punctuation_and_space_summary"> </string>
   <string name="should_swap_punctuation_and_space_yes">Sí</string>
@@ -330,5 +347,14 @@
     <item>Leve</item>
     <item>Medio</item>
     <item>Fuerte</item>
+  </string-array>
+  <string-array name="custom_hint_align_types">
+    <item>Izquierda</item>
+    <item>Centro</item>
+    <item>Derecha</item>
+  </string-array>
+  <string-array name="custom_hint_valign_types">
+    <item>Arriba</item>
+    <item>Abajo</item>
   </string-array>
 </resources>

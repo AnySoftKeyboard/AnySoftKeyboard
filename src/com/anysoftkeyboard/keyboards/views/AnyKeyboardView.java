@@ -16,10 +16,13 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
@@ -56,6 +59,8 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	private Key mSpaceBarKey = null;
 	private Point mFirstTouchPoint = null;
 	private Boolean mCachedIsFirstDownEventInsideSpaceBar = null;
+	private boolean mAnimationRequested = false;
+	private Animation mInAnimation;
 
 	/** Whether we've started dropping move events because we found a big jump */
 	// private boolean mDroppingEvents;
@@ -82,6 +87,8 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 		mExtensionKeyboardPopupOffset = 0;
 		mExtensionKeyboardYActivationPoint = -5;
 		mExtensionKeyboardYDismissPoint = getThemedKeyboardDimens().getNormalKeyHeight();
+		
+		mInAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.layout_switch_fadein);
 	}
 
 	protected String getKeyboardViewNameForLogging() {
@@ -186,44 +193,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 		}
 		return false;
 	}
-	/*
-	public boolean isControlLocked()
-	{
-		AnyKeyboard keyboard = getKeyboard();
-		if (keyboard != null)
-		{
-            return keyboard.isControlLocked();
-        }
-        return false;
-	}
-
-	public boolean setControlLocked(boolean locked) {
-		AnyKeyboard keyboard = getKeyboard();
-		if (keyboard != null)
-		{
-			if (keyboard.setControlLocked(locked))
-			{
-				invalidateAllKeys();
-				return true;
-			}
-		}
-		return false;
-	}*/
-/*
-	@Override
-	public void draw(Canvas c) {
-		IMEUtil.GCUtils.getInstance().reset();
-		boolean tryGC = true;
-		for (int i = 0; i < IMEUtil.GCUtils.GC_TRY_LOOP_MAX && tryGC; ++i) {
-			try {
-				super.draw(c);
-				tryGC = false;
-			} catch (OutOfMemoryError e) {
-				tryGC = IMEUtil.GCUtils.getInstance().tryGCOrWait(TAG, e);
-			}
-		}
-	}
-*/
+	
 	@Override
 	protected boolean onLongPress(Context packageContext, Key key, boolean isSticky, boolean requireSlideInto) {
 		if (key != null && key instanceof AnyKey) {
@@ -336,5 +306,19 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     	}
     	super.onLongPress(getContext(), mUtilityKey, true, false);
     	mMiniKeyboard.setPreviewEnabled(true);
+	}
+	
+	public void requestInAnimation() {
+	    mAnimationRequested = AnyApplication.BLEEDING_EDGE && true;
+	}
+
+	@Override
+	public void onDraw(Canvas canvas) {
+	    final boolean keyboardChanged = mKeyboardChanged;
+	    super.onDraw(canvas);
+	    if (AnyApplication.BLEEDING_EDGE && keyboardChanged && mAnimationRequested) {
+	        mAnimationRequested = false;
+	        this.startAnimation(mInAnimation);
+	    }
 	}
 }
