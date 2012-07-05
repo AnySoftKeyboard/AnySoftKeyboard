@@ -111,7 +111,10 @@
   <string name="extension_kbd_bottom_iphone">Estilo iPhone (sem microfone)</string>
   <string name="extension_kbd_bottom_iphone_with_voice">Estilo iPhone com microfone</string>
   <string name="show_tutorial_on_startup">Mostrar este tutorial ao iniciar</string>
+  <string name="label_go_key">Ir</string>
+  <string name="label_next_key">Próximo</string>
   <string name="label_previous_key">Anterior</string>
+  <string name="label_send_key">Enviar</string>
   <string name="label_search_key">Pesquisar</string>
   <string name="label_tab_key">Tab</string>
   <string name="change_lang_wide">→ ABC →</string>
@@ -161,5 +164,14 @@
     <item>Fraco</item>
     <item>Médio</item>
     <item>Forte</item>
+  </string-array>
+  <string-array name="custom_hint_align_types">
+    <item>Left</item>
+    <item>Center</item>
+    <item>Right</item>
+  </string-array>
+  <string-array name="custom_hint_valign_types">
+    <item>Top</item>
+    <item>Bottom</item>
   </string-array>
 </resources>
