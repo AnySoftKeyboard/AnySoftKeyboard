@@ -17,7 +17,11 @@
   <string name="tip_3_hidden_kbds">Trucs i consells</string>
   <string name="tip_3_hidden_kbds_tip">Existeixen teclats amagats:\n1) Llisqueu el dit cap amunt per sobre de la tecla «Espai» i trobareu els cursors de direcció i el micròfon (per dictar-hi text).\n2) Llisqueu el dit per sobre del teclat cap amunt de la pantalla i accedireu a un teclat nimèric i simbòlic bàsic.</string>
   <string name="tip_4_top_generic_row">Fila superior</string>
-  <string name="tip_4_top_generic_row_tip">La fila superior és genèrica per a tots els teclats, però es pot modificar! Per defecte aquesta fila està representada com a <i>« <- 123 <- »</i> per als caràcters numèrics i símbols, i com a <i>« -> ABC -> »</i> pel teclat d\'idioma. Podeu canviar aquest comportament al menú «Fila superior genèrica».</string>
+  <string name="tip_4_top_generic_row_tip">
+      <![CDATA[
+      La fila superior és genèrica per a tots els teclats, però es pot modificar! Per defecte aquesta fila està representada com a <i>« <- 123 <- »</i> per als caràcters numèrics i símbols, i com a <i>« -> ABC -> »</i> pel teclat d\'idioma. Podeu canviar aquest comportament al menú «Fila superior genèrica».
+      ]]>
+  </string>
   <string name="tip_4_top_generic_row_go_to_top_row_settings">Modifica l\'aparença</string>
   <string name="tip_5_key_feedback">Vibració i so</string>
   <string name="tip_5_key_feedback_tip">Comptar amb una ajuda no visual per saber si premem el teclat correctament pot ser útil. Aquí podeu activar la vibració de tecles, el so, o tot alhora.</string>
