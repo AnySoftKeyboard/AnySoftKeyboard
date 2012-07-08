@@ -390,6 +390,8 @@ public class AnySoftKeyboard extends InputMethodService implements
                 // this is required for animations, so the background will be
                 // consist.
                 ((View) parent).setBackgroundDrawable(view.getBackground());
+            } else {
+                Log.w(TAG, "*** It seams that the InputView parent is not a View!! This is very strange.");
             }
         }
     }

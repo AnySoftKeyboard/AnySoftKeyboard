@@ -239,4 +239,8 @@
         <item name="android:windowEnterAnimation">@anim/mini_keyboard_flip_in</item>
         <item name="android:windowExitAnimation">@anim/mini_keyboard_fadeout</item>
     </style>
+    <style name="ExtensionKeyboardAnimation">
+        <item name="android:windowEnterAnimation">@anim/extension_keyboard_fadein</item>
+        <item name="android:windowExitAnimation">@anim/extension_keyboard_fadeout</item>
+    </style>
 </resources>

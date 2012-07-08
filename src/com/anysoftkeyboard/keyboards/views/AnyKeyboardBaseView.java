@@ -184,7 +184,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private final int mDelayAfterPreview;
 
     // Popup mini keyboard
-    private PopupWindow mMiniKeyboardPopup;
+    protected PopupWindow mMiniKeyboardPopup;
     protected AnyKeyboardBaseView mMiniKeyboard = null;;
     private boolean mMiniKeyboardVisible = false;
     private View mMiniKeyboardParent;
@@ -2106,16 +2106,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             mWindowOffset = new int[2];
             getLocationInWindow(mWindowOffset);
         }
-        // final List<Key> miniKeys = mMiniKeyboard.getKeyboard().getKeys();
-        // final int miniKeyWidth = miniKeys.size() > 0 ? miniKeys.get(0).width
-        // : 0;
 
         int popupX = popupKey.x + mWindowOffset[0];
         popupX -= mMiniKeyboard.getPaddingLeft();
-        /*
-         * popupX += miniKeyWidth; popupX -= mMiniKeyboard.getMeasuredWidth();
-         * popupX += mMiniKeyboard.getPaddingRight();
-         */
         int popupY = popupKey.y + mWindowOffset[1];
         popupY += getPaddingTop();
         popupY -= mMiniKeyboard.getMeasuredHeight();
@@ -2124,7 +2117,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         final int y = mShowPreview && mOldPreviewKeyIndex != NOT_A_KEY
                 && isOneRowKeys(mMiniKeyboard.getKeyboard().getKeys()) ? mPopupPreviewDisplayedY
                 : popupY;
-        // final int y = popupY;
 
         int adjustedX = x;
         if (x < 0) {
@@ -2135,20 +2127,12 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         mMiniKeyboardOriginX = adjustedX + mMiniKeyboard.getPaddingLeft() - mWindowOffset[0];
         mMiniKeyboardOriginY = y + mMiniKeyboard.getPaddingTop() - mWindowOffset[1];
         mMiniKeyboard.setPopupOffset(adjustedX, y);
-        mMiniKeyboard.setShifted(mKeyboard != null ? mKeyboard.isShifted() : false);// NOTE:
-                                                                                    // I'm
-                                                                                    // checking
-                                                                                    // the
-                                                                                    // main
-                                                                                    // keyboard
-                                                                                    // shift
-                                                                                    // state
-                                                                                    // directly!
-                                                                                    // Not
-                                                                                    // anything
-                                                                                    // else.
+        // NOTE:I'm checking the main keyboard shift state directly!
+        // Not anything else.
+        mMiniKeyboard.setShifted(mKeyboard != null ? mKeyboard.isShifted() : false);
         // Mini keyboard needs no pop-up key preview displayed.
         mMiniKeyboard.setPreviewEnabled(false);
+        //animation switching required?
         mMiniKeyboardPopup.setContentView(mMiniKeyboard);
         mMiniKeyboardPopup.setWidth(mMiniKeyboard.getMeasuredWidth());
         mMiniKeyboardPopup.setHeight(mMiniKeyboard.getMeasuredHeight());
