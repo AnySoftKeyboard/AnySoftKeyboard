@@ -66,6 +66,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anysoftkeyboard.LayoutSwitchAnimationListener.AnimationType;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.devicespecific.Clipboard;
 import com.anysoftkeyboard.dictionaries.AutoDictionary;
@@ -128,12 +129,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private boolean mTipsCalled = false;
 
-    private Animation mSwitchAnimation = null;
-    private Animation mSwitch2Animation = null;
-    private Animation mSwipeLeftAnimation = null;
-    private Animation mSwipeLeft2Animation = null;
-    private Animation mSwipeRightAnimation = null;
-    private Animation mSwipeRight2Animation = null;
+    private LayoutSwitchAnimationListener mSwitchAnimator;
     private AnyKeyboardView mInputView;
     private View mCandidatesParent;
     private CandidateView mCandidateView;
@@ -323,22 +319,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         TutorialsProvider.showChangeLogIfNeeded(getApplicationContext());
 
-        if (AnyApplication.BLEEDING_EDGE) {
-            mSwitchAnimation = AnimationUtils.loadAnimation(getApplicationContext(),
-                    R.anim.layout_switch_fadeout);
-            mSwitch2Animation = AnimationUtils.loadAnimation(getApplicationContext(),
-                    R.anim.layout_switch_fadein);
-            
-            mSwipeLeftAnimation = AnimationUtils.loadAnimation(getApplicationContext(),
-                    R.anim.layout_switch_slide_out_left);
-            mSwipeLeft2Animation = AnimationUtils.loadAnimation(getApplicationContext(),
-                    R.anim.layout_switch_slide_in_right);
-            
-            mSwipeRightAnimation = AnimationUtils.loadAnimation(getApplicationContext(),
-                    R.anim.layout_switch_slide_out_right);
-            mSwipeRight2Animation = AnimationUtils.loadAnimation(getApplicationContext(),
-                    R.anim.layout_switch_slide_in_left);
-        }
+        mSwitchAnimator = new LayoutSwitchAnimationListener(this);
     }
 
     private void initSuggest(/* String locale */) {
@@ -378,6 +359,10 @@ public class AnySoftKeyboard extends InputMethodService implements
         abortCorrection(true, false);
     }
 
+    AnyKeyboardView getInputView() {
+        return mInputView;
+    }
+
     @Override
     public View onCreateInputView() {
         if (DEBUG)
@@ -405,7 +390,8 @@ public class AnySoftKeyboard extends InputMethodService implements
                 // consist.
                 ((View) parent).setBackgroundDrawable(view.getBackground());
             } else {
-                Log.w(TAG, "*** It seams that the InputView parent is not a View!! This is very strange.");
+                Log.w(TAG,
+                        "*** It seams that the InputView parent is not a View!! This is very strange.");
             }
         }
     }
@@ -2883,77 +2869,20 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
     }
 
-    private static boolean isKeyCodeCanUseAnimation(final int keyCode) {
-        switch (keyCode) {
-            case KeyCodes.KEYBOARD_CYCLE:
-            case KeyCodes.KEYBOARD_CYCLE_INSIDE_MODE:
-            case KeyCodes.KEYBOARD_MODE_CHANGE:
-            case KeyCodes.KEYBOARD_REVERSE_CYCLE:
-            case KeyCodes.MODE_ALPHABET:
-            case KeyCodes.MODE_SYMOBLS:
-                return true;
-            default:
-                return false;
-        }
-    }
-
     public void onSwipeRight(boolean onSpaceBar) {
         final int keyCode = mConfig.getGestureSwipeRightKeyCode();
         if (DEBUG)
             Log.d(TAG, "onSwipeRight " + ((onSpaceBar) ? " + space" : "") + " => code " + keyCode);
         if (keyCode != 0)
-            if (AnyApplication.BLEEDING_EDGE &&mInputView != null && mSwipeRightAnimation != null
-                    && isKeyCodeCanUseAnimation(keyCode)) {
-                mSwipeRightAnimation.setAnimationListener(new AnimationListener() {
-                    public void onAnimationStart(Animation animation) {
-                    }
-
-                    public void onAnimationRepeat(Animation animation) {
-                    }
-
-                    public void onAnimationEnd(Animation animation) {
-                        mInputView.requestInAnimation(mSwipeRight2Animation);
-                        onKey(keyCode, null, -1, new int[] {
-                                keyCode
-                        }, false);
-                    }
-                });
-                mInputView.startAnimation(mSwipeRightAnimation);
-            } else {
-                onKey(keyCode, null, -1, new int[] {
-                        keyCode
-                }, false);
-            }
+            mSwitchAnimator.doSwitchAnimation(AnimationType.SwipeRight, keyCode);
     }
 
     public void onSwipeLeft(boolean onSpaceBar) {
         final int keyCode = mConfig.getGestureSwipeLeftKeyCode();
         if (DEBUG)
             Log.d(TAG, "onSwipeLeft " + ((onSpaceBar) ? " + space" : "") + " => code " + keyCode);
-        if (keyCode != 0) {
-            if (AnyApplication.BLEEDING_EDGE && mInputView != null && mSwipeLeftAnimation != null
-                    && isKeyCodeCanUseAnimation(keyCode)) {
-                mSwipeLeftAnimation.setAnimationListener(new AnimationListener() {
-                    public void onAnimationStart(Animation animation) {
-                    }
-
-                    public void onAnimationRepeat(Animation animation) {
-                    }
-
-                    public void onAnimationEnd(Animation animation) {
-                        mInputView.requestInAnimation(mSwipeLeft2Animation);
-                        onKey(keyCode, null, -1, new int[] {
-                                keyCode
-                        }, false);
-                    }
-                });
-                mInputView.startAnimation(mSwipeLeftAnimation);
-            } else {
-                onKey(keyCode, null, -1, new int[] {
-                        keyCode
-                }, false);
-            }
-        }
+        if (keyCode != 0)
+            mSwitchAnimator.doSwitchAnimation(AnimationType.SwipeLeft, keyCode);
     }
 
     public void onSwipeDown(boolean onSpaceBar) {
