@@ -128,8 +128,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private boolean mTipsCalled = false;
 
+    private Animation mSwitchAnimation = null;
+    private Animation mSwitch2Animation = null;
     private Animation mSwipeLeftAnimation = null;
+    private Animation mSwipeLeft2Animation = null;
     private Animation mSwipeRightAnimation = null;
+    private Animation mSwipeRight2Animation = null;
     private AnyKeyboardView mInputView;
     private View mCandidatesParent;
     private CandidateView mCandidateView;
@@ -320,10 +324,20 @@ public class AnySoftKeyboard extends InputMethodService implements
         TutorialsProvider.showChangeLogIfNeeded(getApplicationContext());
 
         if (AnyApplication.BLEEDING_EDGE) {
+            mSwitchAnimation = AnimationUtils.loadAnimation(getApplicationContext(),
+                    R.anim.layout_switch_fadeout);
+            mSwitch2Animation = AnimationUtils.loadAnimation(getApplicationContext(),
+                    R.anim.layout_switch_fadein);
+            
             mSwipeLeftAnimation = AnimationUtils.loadAnimation(getApplicationContext(),
                     R.anim.layout_switch_slide_out_left);
+            mSwipeLeft2Animation = AnimationUtils.loadAnimation(getApplicationContext(),
+                    R.anim.layout_switch_slide_in_right);
+            
             mSwipeRightAnimation = AnimationUtils.loadAnimation(getApplicationContext(),
                     R.anim.layout_switch_slide_out_right);
+            mSwipeRight2Animation = AnimationUtils.loadAnimation(getApplicationContext(),
+                    R.anim.layout_switch_slide_in_left);
         }
     }
 
@@ -2898,7 +2912,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                     }
 
                     public void onAnimationEnd(Animation animation) {
-                        mInputView.requestInAnimation();
+                        mInputView.requestInAnimation(mSwipeRight2Animation);
                         onKey(keyCode, null, -1, new int[] {
                                 keyCode
                         }, false);
@@ -2927,7 +2941,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                     }
 
                     public void onAnimationEnd(Animation animation) {
-                        mInputView.requestInAnimation();
+                        mInputView.requestInAnimation(mSwipeLeft2Animation);
                         onKey(keyCode, null, -1, new int[] {
                                 keyCode
                         }, false);

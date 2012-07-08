@@ -59,7 +59,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	private Key mSpaceBarKey = null;
 	private Point mFirstTouchPoint = null;
 	private Boolean mCachedIsFirstDownEventInsideSpaceBar = null;
-	private boolean mAnimationRequested = false;
 	private Animation mInAnimation;
 
 	/** Whether we've started dropping move events because we found a big jump */
@@ -316,17 +315,20 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     	mMiniKeyboard.setPreviewEnabled(true);
 	}
 	
-	public void requestInAnimation() {
-	    mAnimationRequested = AnyApplication.BLEEDING_EDGE && true;
+	public void requestInAnimation(Animation animation) {
+	    if (AnyApplication.BLEEDING_EDGE)
+	        mInAnimation = animation;
+	    else
+	        mInAnimation = null;
 	}
 
 	@Override
 	public void onDraw(Canvas canvas) {
 	    final boolean keyboardChanged = mKeyboardChanged;
 	    super.onDraw(canvas);
-	    if (AnyApplication.BLEEDING_EDGE && keyboardChanged && mAnimationRequested) {
-	        mAnimationRequested = false;
-	        this.startAnimation(mInAnimation);
+	    if (AnyApplication.BLEEDING_EDGE && keyboardChanged && (mInAnimation != null)) {
+	        startAnimation(mInAnimation);
+	        mInAnimation = null;
 	    }
 	}
 }
