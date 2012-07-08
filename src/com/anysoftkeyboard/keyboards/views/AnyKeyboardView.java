@@ -209,6 +209,14 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 			}
 		}
 
+		if (mExtensionVisible && mMiniKeyboardPopup.getAnimationStyle() != R.style.ExtensionKeyboardAnimation) {
+		    if (AnyApplication.DEBUG) Log.d(TAG, "Switching mini-keyboard animation to ExtensionKeyboardAnimation");
+		    mMiniKeyboardPopup.setAnimationStyle(R.style.ExtensionKeyboardAnimation);
+		} else if (!mExtensionVisible && mMiniKeyboardPopup.getAnimationStyle() != R.style.MiniKeyboardAnimation) {
+		    if (AnyApplication.DEBUG) Log.d(TAG, "Switching mini-keyboard animation to MiniKeyboardAnimation");
+            mMiniKeyboardPopup.setAnimationStyle(R.style.MiniKeyboardAnimation);
+        } 
+		    
 		return super.onLongPress(packageContext, key, isSticky, requireSlideInto);
 	}
 
@@ -259,7 +267,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 			        	mExtensionKey.x = getWidth()/2;
 			        	mExtensionKey.y = mExtensionKeyboardPopupOffset;
 		        	}
-		        	super.onLongPress(getContext(), mExtensionKey, AnyApplication.getConfig().isStickyExtensionKeyboard(), !AnyApplication.getConfig().isStickyExtensionKeyboard());
+		        	onLongPress(getContext(), mExtensionKey, AnyApplication.getConfig().isStickyExtensionKeyboard(), !AnyApplication.getConfig().isStickyExtensionKeyboard());
 		        	//it is an extension..
 		        	mMiniKeyboard.setPreviewEnabled(true);
 		        	return true;
