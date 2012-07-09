@@ -5,5 +5,6 @@
     <bool name="settings_default_landscape_fullscreen">false</bool>
     <bool name="settings_default_portrait_fullscreen">false</bool>
     
-    <string name="settings_default_default_split_state">split_in_landscape</string>
+    <string name="settings_default_default_split_state">merge_always</string>
 </resources>
+
