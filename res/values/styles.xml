@@ -127,6 +127,24 @@
         <item name="hintTextSize">0px</item>
     </style>
     
+    <style name="LeanDark" parent="@style/AnyKeyboardBaseTheme">
+        <item name="android:background">@drawable/lean_dark_keyboard_background</item>
+    	<item name="keyBackground">@drawable/lean_dark_btn</item>
+    	<item name="keyPreviewBackground">@drawable/lean_dark_popup_keyboard_background</item>
+    	<item name="keyTextSize">@dimen/lean_key_text_size</item>
+    	<item name="shadowRadius">0px</item>
+    </style>
+    <style name="LeanDarkPopup" parent="@style/AnyKeyboardPopupBaseTheme">
+        <item name="android:background">@drawable/lean_dark_popup_keyboard_background</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:paddingBottom">16dp</item>
+    	<item name="keyBackground">@drawable/lean_dark_btn_popup</item>
+    	<item name="keyTextSize">@dimen/lean_key_text_size</item>
+    	<item name="shadowRadius">0px</item>
+    </style>
+    
         
     <style name="Gingerbread" parent="@style/AnyKeyboardBaseTheme">
         <item name="android:background">@drawable/gingerbread_main_background</item>

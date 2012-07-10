@@ -34,6 +34,7 @@
     <dimen name="plain_theme_key_vertical_gap">3dp</dimen>
 
     <dimen name="key_text_size">21sp</dimen>
+    <dimen name="lean_key_text_size">18sp</dimen>
     <dimen name="key_label_text_size">14sp</dimen>
     <dimen name="key_hint_text_size">7sp</dimen>
     <dimen name="key_hint_text_no_size">0px</dimen>
