@@ -445,6 +445,8 @@
 	<string name="light_plain_keyboard_theme_description">Light colors, simple graphics</string>
 	<string name="blacktheme_keyboard_theme_name">Simple black glow</string>
 	<string name="blacktheme_keyboard_theme_description">Simple black theme with color highlights</string>
+	<string name="lean_dark_keyboard_theme_name">Lean Dark</string>
+	<string name="lean_dark_keyboard_theme_description">Dark theme, with minimal UI elements</string>
 	
 	<!-- extension keyboard type -->
 	<string name="extension_kbd_top_none">No top row</string>
