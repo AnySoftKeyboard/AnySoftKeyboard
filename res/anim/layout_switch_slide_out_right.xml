@@ -10,6 +10,6 @@
     <alpha
         android:duration="@integer/layoutSwitchAnimTime"
         android:fromAlpha="1.0"
-        android:toAlpha="0.0" />
+        android:toAlpha="0.25" />
 
 </set>
