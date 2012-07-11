@@ -511,7 +511,18 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         }
         a.recycle();
 
-        // settings
+        // settings.
+        //don't forget that there are TWO paddings, the theme's and the
+        //background image's padding!
+        Drawable keyboardBabground = super.getBackground();
+        if (keyboardBabground != null) {
+            Rect backgroundPadding = new Rect();
+            keyboardBabground.getPadding(backgroundPadding);
+            padding[0] += backgroundPadding.left;
+            padding[1] += backgroundPadding.top;
+            padding[2] += backgroundPadding.right;
+            padding[3] += backgroundPadding.bottom;
+        }
         super.setPadding(padding[0], padding[1], padding[2], padding[3]);
 
         final Resources res = getResources();
