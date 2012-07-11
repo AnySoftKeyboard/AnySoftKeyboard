@@ -116,10 +116,10 @@
         <item name="hintLabelAlign">right</item>
     </style>
     <style name="AnyKeyboardPopupBaseTheme" parent="@style/AnyKeyboardBaseTheme">
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingRight">8dp</item>
-        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingLeft">0px</item>
+        <item name="android:paddingTop">0px</item>
+        <item name="android:paddingRight">0px</item>
+        <item name="android:paddingBottom">0px</item>
         <!-- selected popup key is the one ABOVE the finger -->
         <item name="verticalCorrection">-0.26in</item>
         <!-- this will say "no preview" -->
@@ -136,10 +136,6 @@
     </style>
     <style name="LeanDarkPopup" parent="@style/AnyKeyboardPopupBaseTheme">
         <item name="android:background">@drawable/lean_dark_popup_keyboard_background</item>
-        <item name="android:paddingLeft">12dp</item>
-        <item name="android:paddingTop">12dp</item>
-        <item name="android:paddingRight">12dp</item>
-        <item name="android:paddingBottom">16dp</item>
     	<item name="keyBackground">@drawable/lean_dark_btn_popup</item>
     	<item name="keyTextSize">@dimen/lean_key_text_size</item>
     	<item name="shadowRadius">0px</item>
