@@ -65,6 +65,9 @@
         <attr name="symbolColorScheme">
         </attr>
 
+        <!-- keyboard wallpaper - this is the image BEHIND the keyboards, it is visible when switching layout with animation -->
+        <attr name="keyboardWallpaper"/>
+        <!-- keyboard background - this is the layout's background, it moves with the layout when there are animations -->
 		<attr name="android:background"/>
 		<attr name="android:paddingLeft"/>
 		<attr name="android:paddingTop"/>
