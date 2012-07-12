@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <set xmlns:android="http://schemas.android.com/apk/res/android"
-    android:interpolator="@android:anim/linear_interpolator">
-	<translate android:fromXDelta="-100%p" android:toXDelta="0" android:duration="@integer/layoutSwitchAnimTime" />
+    android:interpolator="@android:anim/linear_interpolator" >
 
-	<alpha
-	    android:duration="@integer/layoutSwitchAnimTime"
-	    android:fromAlpha="0.25"
-	    android:toAlpha="1.0" />
+    <translate
+        android:duration="@integer/layoutSwitchAnimTime"
+        android:fromXDelta="-100%p"
+        android:interpolator="@android:anim/decelerate_interpolator"
+        android:toXDelta="0" />
+
+    <alpha
+        android:duration="@integer/layoutSwitchAnimTime"
+        android:fromAlpha="0.25"
+        android:interpolator="@android:anim/accelerate_interpolator"
+        android:toAlpha="1.0" />
+
+    <scale
+        android:duration="@integer/layoutSwitchAnimTime"
+        android:fromXScale="0.7"
+        android:fromYScale="0.7"
+        android:interpolator="@android:anim/accelerate_interpolator"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:toXScale="1.0"
+        android:toYScale="1.0" />
 
 </set>

@@ -388,7 +388,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             if (parent instanceof View) {
                 // this is required for animations, so the background will be
                 // consist.
-                ((View) parent).setBackgroundDrawable(view.getBackground());
+                ((View) parent).setBackgroundResource(R.drawable.ask_wallpaper);
             } else {
                 Log.w(TAG,
                         "*** It seams that the InputView parent is not a View!! This is very strange.");

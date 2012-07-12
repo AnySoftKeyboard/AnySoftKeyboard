@@ -61,6 +61,7 @@
     </style>
     <style name="AnyKeyboardBaseTheme">
         <item name="android:background">@drawable/dark_background</item>
+        <item name="keyboardWallpaper">@drawable/ask_wallpaper</item>
     	<item name="keyBackground">@drawable/dark_btn_key</item>
     	
         <item name="keyTextSize">@dimen/key_text_size</item>
