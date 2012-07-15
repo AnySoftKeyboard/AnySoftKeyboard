@@ -61,4 +61,5 @@
 	<string name="settings_default_default_split_state">merged_always</string>
 	
 	<string name="settings_default_should_swap_punctuation_and_space">yes</string>
+	<bool name="settings_default_allow_suggestions_restart">true</bool>
 </resources>

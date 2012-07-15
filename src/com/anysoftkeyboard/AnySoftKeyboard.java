@@ -3108,7 +3108,8 @@ public class AnySoftKeyboard extends InputMethodService implements
         mQuickFixes = sp.getBoolean("quick_fix", true);
 
         mAllowSuggestionsRestart = sp.getBoolean(
-                getString(R.string.settings_key_allow_suggestions_restart), true);
+                getString(R.string.settings_key_allow_suggestions_restart), getResources()
+                        .getBoolean(R.bool.settings_default_allow_suggestions_restart));
 
         mAutoCorrectOn = /* mSuggest != null && *//*
                                                    * Suggestion always exists,
