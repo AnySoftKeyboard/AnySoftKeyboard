@@ -105,11 +105,11 @@
 	
 	<string name="settings_key_swipe_distance_threshold">settings_key_swipe_distance_threshold</string>
 	<string-array name="settings_key_swipe_distance_threshold_values">
-		<item>60</item>
-		<item>100</item>
-		<item>160</item>
-		<item>220</item>
-		<item>300</item>
+		<item>30</item>
+		<item>80</item>
+		<item>140</item>
+		<item>180</item>
+		<item>240</item>
 	</string-array>
     <string-array name="settings_key_swipe_distance_threshold_names">
     	<item>@string/settings_swipe_distance_very_short</item>
