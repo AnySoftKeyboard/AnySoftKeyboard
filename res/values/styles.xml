@@ -130,6 +130,7 @@
     
     <style name="LeanDark" parent="@style/AnyKeyboardBaseTheme">
         <item name="android:background">@drawable/lean_dark_keyboard_background</item>
+		<item name="keyVerticalGap">@dimen/plain_theme_key_horizontal_gap</item>
     	<item name="keyBackground">@drawable/lean_dark_btn</item>
     	<item name="keyPreviewBackground">@drawable/lean_dark_popup_keyboard_background</item>
 <!--
