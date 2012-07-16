@@ -149,6 +149,14 @@
     	<item name="shadowRadius">0px</item>
     </style>
     
+    <style name="LeanDark2" parent="@style/LeanDark">
+    	<item name="keyTextSize">@dimen/lean_key_text_size</item>
+        <item name="keyTextStyle">bold</item>
+    </style>
+    <style name="LeanDarkPopup2" parent="@style/LeanDarkPopup">
+    	<item name="keyTextSize">@dimen/lean_key_text_size</item>
+        <item name="keyTextStyle">bold</item>
+    </style>
         
     <style name="Gingerbread" parent="@style/AnyKeyboardBaseTheme">
         <item name="android:background">@drawable/gingerbread_main_background</item>
