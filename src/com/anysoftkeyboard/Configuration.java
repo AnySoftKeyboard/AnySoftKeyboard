@@ -4,7 +4,13 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 
 public interface Configuration {
 	
-	String getDomainText();
+	public static enum AnimationsLevel {
+	    Full,
+	    Some,
+	    None
+    }
+
+    String getDomainText();
 	
 	//String getChangeLayoutKeysSize();
 	
@@ -17,6 +23,8 @@ public interface Configuration {
 	int getCustomHintAlign();
 	
 	int getCustomHintVAlign();
+	
+	AnimationsLevel getAnimationsLevel();
 	
 	boolean getSwitchKeyboardOnSpace();
 	

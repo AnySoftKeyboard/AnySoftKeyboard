@@ -71,7 +71,7 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 	private boolean mUseAutoDictionary = true;
 	private boolean mIsStickyExtensionKeyboard = false;
 	private boolean mDrawExtensionKeyboardAboveMainKeyboard = true;
-	
+	private Configuration.AnimationsLevel mAnimationsLevel = AnimationsLevel.Full;
 	private int mLongPressTimeout = 350;
 	private int mMultiTapTimeout = 700;
 	
@@ -430,6 +430,16 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
                 mContext.getString(R.string.settings_default_should_swap_punctuation_and_space));
         mSwapPunctuationAndSpace = shouldSwapType.equals("yes");
         Log.i(TAG, "** mSwapPunctuationAndSpace: " + mSwapPunctuationAndSpace);
+        
+        String animationsLevel = sp.getString(mContext.getString(R.string.settings_key_tweak_animations_level),
+                mContext.getString(R.string.settings_default_tweak_animations_level));
+        if ("none".equals(animationsLevel))
+            mAnimationsLevel = AnimationsLevel.None;
+        else if ("some".equals(animationsLevel))
+            mAnimationsLevel = AnimationsLevel.Some;
+        else
+            mAnimationsLevel = AnimationsLevel.Full;
+        Log.i(TAG, "** mAnimationsLevel: " + mAnimationsLevel);
         //Some preferences cause rebuild of the keyboard, hence changing the listeners list
         final LinkedList<OnSharedPreferenceChangeListener> disconnectedList = new LinkedList<SharedPreferences.OnSharedPreferenceChangeListener>(mPreferencesChangedListeners);
 		for(OnSharedPreferenceChangeListener listener : disconnectedList)
@@ -718,5 +728,9 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
     
     public boolean shouldswapPunctuationAndSpace() {
     	return mSwapPunctuationAndSpace;
+    }
+    
+    public AnimationsLevel getAnimationsLevel() {
+        return mAnimationsLevel;
     }
 }
