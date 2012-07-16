@@ -6,7 +6,7 @@
         themeRes="@style/LeanDark"
         popupThemeRes="@style/LeanDarkPopup"
         iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
-        themeScreenshot="@drawable/light_theme_screenshot"
+        themeScreenshot="@drawable/lean_dark_theme_screenshot"
         description="@string/lean_dark_keyboard_theme_description"
         index="1"/>
 	<KeyboardTheme
@@ -45,4 +45,13 @@
 	    themeScreenshot="@drawable/blacktheme_screenshot"
 	    description="@string/blacktheme_keyboard_theme_description"
 	    index="5"/>
+	<KeyboardTheme
+        id="28860f10-cf16-11e1-9b23-0800200c9a66"
+        nameResId="@string/lean_dark_2_keyboard_theme_name"
+        themeRes="@style/LeanDark2"
+        popupThemeRes="@style/LeanDarkPopup2"
+        iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
+        themeScreenshot="@drawable/lean_dark_theme_screenshot"
+        description="@string/lean_dark_keyboard_theme_description"
+        index="6"/>
 </KeyboardThemes>
