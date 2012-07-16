@@ -53,6 +53,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
+import com.anysoftkeyboard.Configuration.AnimationsLevel;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
 import com.anysoftkeyboard.devicespecific.WMotionEvent;
@@ -196,6 +197,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private int[] mWindowOffset;
     private final float mMiniKeyboardSlideAllowance;
     private int mMiniKeyboardTrackerId;
+    protected AnimationsLevel mAnimationLevel = AnyApplication.getConfig().getAnimationsLevel();
 
     /** Listener for {@link OnKeyboardActionListener}. */
     OnKeyboardActionListener mKeyboardActionListener;
@@ -512,8 +514,8 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         a.recycle();
 
         // settings.
-        //don't forget that there are TWO paddings, the theme's and the
-        //background image's padding!
+        // don't forget that there are TWO paddings, the theme's and the
+        // background image's padding!
         Drawable keyboardBabground = super.getBackground();
         if (keyboardBabground != null) {
             Rect backgroundPadding = new Rect();
@@ -547,14 +549,17 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             mShowPreview = false;
         }
         mPreviewPopup.setTouchable(false);
-        mPreviewPopup.setAnimationStyle(R.style.KeyPreviewAnimation);
+        mPreviewPopup.setAnimationStyle((mAnimationLevel == AnimationsLevel.None) ?
+                0 : R.style.KeyPreviewAnimation);
         mDelayBeforePreview = 0;
         mDelayAfterPreview = 10;
 
         mMiniKeyboardParent = this;
         mMiniKeyboardPopup = new PopupWindow(context);
         mMiniKeyboardPopup.setBackgroundDrawable(null);
-        mMiniKeyboardPopup.setAnimationStyle(R.style.MiniKeyboardAnimation);
+
+        mMiniKeyboardPopup.setAnimationStyle((mAnimationLevel == AnimationsLevel.None) ?
+                0 : R.style.MiniKeyboardAnimation);
 
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
@@ -2143,7 +2148,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         mMiniKeyboard.setShifted(mKeyboard != null ? mKeyboard.isShifted() : false);
         // Mini keyboard needs no pop-up key preview displayed.
         mMiniKeyboard.setPreviewEnabled(false);
-        //animation switching required?
+        // animation switching required?
         mMiniKeyboardPopup.setContentView(mMiniKeyboard);
         mMiniKeyboardPopup.setWidth(mMiniKeyboard.getMeasuredWidth());
         mMiniKeyboardPopup.setHeight(mMiniKeyboard.getMeasuredHeight());
@@ -2580,6 +2585,13 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             closing();
             mPointerTrackers.clear();
         }
+
+        mAnimationLevel = AnyApplication.getConfig().getAnimationsLevel();
+        mPreviewPopup.setAnimationStyle((mAnimationLevel == AnimationsLevel.None) ?
+                0 : R.style.KeyPreviewAnimation);
+        mMiniKeyboardPopup.setAnimationStyle((mAnimationLevel == AnimationsLevel.None) ?
+                0 : R.style.MiniKeyboardAnimation);
+
     }
 
     protected boolean isPopupShowing()

@@ -40,6 +40,8 @@
 	<string name="settings_default_portrait_keyboard_height_factor">1.0</string>
     <string name="settings_default_landscape_keyboard_height_factor">1.0</string>
     
+    <string name="settings_default_tweak_animations_level">full</string>
+    
     <bool name="settings_default_is_sticky_extesion_keyboard">false</bool>
     <bool name="settings_default_is_extesion_keyboard_above_keyboard">true</bool>
     

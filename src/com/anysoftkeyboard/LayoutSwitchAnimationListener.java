@@ -4,6 +4,7 @@ package com.anysoftkeyboard;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import com.anysoftkeyboard.Configuration.AnimationsLevel;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -29,9 +30,11 @@ public class LayoutSwitchAnimationListener implements
 
     private AnimationType mCurrentAnimationType = AnimationType.InPlaceSwitch;
     private int mTargetKeyCode;
+    private final Configuration mConfig;
 
     LayoutSwitchAnimationListener(AnySoftKeyboard ime) {
         mIme = ime;
+        mConfig = AnyApplication.getConfig();
 
         mSwitchAnimation = AnimationUtils.loadAnimation(mIme.getApplicationContext(),
                 R.anim.layout_switch_fadeout);
@@ -56,7 +59,7 @@ public class LayoutSwitchAnimationListener implements
         mCurrentAnimationType = type;
         mTargetKeyCode = targetKeyCode;
         final AnyKeyboardView view = mIme.getInputView();
-        if (AnyApplication.BLEEDING_EDGE && view != null
+        if (mConfig.getAnimationsLevel() == AnimationsLevel.Full && view != null
                 && isKeyCodeCanUseAnimation(targetKeyCode)) {
             view.startAnimation(getStartAnimation(mCurrentAnimationType));
         } else {

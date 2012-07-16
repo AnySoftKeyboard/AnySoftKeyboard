@@ -383,16 +383,14 @@ public class AnySoftKeyboard extends InputMethodService implements
     @Override
     public void setInputView(View view) {
         super.setInputView(view);
-        if (AnyApplication.BLEEDING_EDGE) {
-            ViewParent parent = view.getParent();
-            if (parent instanceof View) {
-                // this is required for animations, so the background will be
-                // consist.
-                ((View) parent).setBackgroundResource(R.drawable.ask_wallpaper);
-            } else {
-                Log.w(TAG,
-                        "*** It seams that the InputView parent is not a View!! This is very strange.");
-            }
+        ViewParent parent = view.getParent();
+        if (parent instanceof View) {
+            // this is required for animations, so the background will be
+            // consist.
+            ((View) parent).setBackgroundResource(R.drawable.ask_wallpaper);
+        } else {
+            Log.w(TAG,
+                    "*** It seams that the InputView parent is not a View!! This is very strange.");
         }
     }
 
