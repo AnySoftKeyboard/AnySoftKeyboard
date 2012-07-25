@@ -334,6 +334,8 @@ public class AnySoftKeyboard extends InputMethodService implements
     public void onDestroy() {
         Log.i(TAG, "AnySoftKeyboard has been destroyed! Cleaning resources..");
 
+        mSwitchAnimator.onDestory();
+        
         mConfig.removeChangedListener(this);
 
         unregisterReceiver(mSoundPreferencesChangedReceiver);
@@ -452,12 +454,12 @@ public class AnySoftKeyboard extends InputMethodService implements
             });
         }
 
-        if (!mTipsCalled && mConfig.getShowTipsNotification()
-                && TutorialsProvider.shouldShowTips(getApplicationContext()))
+        View tipsNotification = candidateViewContainer
+                .findViewById(R.id.tips_notification_on_candidates);
+        if (tipsNotification != null)
         {
-            View tipsNotification = candidateViewContainer
-                    .findViewById(R.id.tips_notification_on_candidates);
-            if (tipsNotification != null)
+            if (!mTipsCalled && mConfig.getShowTipsNotification()
+                    && TutorialsProvider.shouldShowTips(getApplicationContext()))
             {
                 tipsNotification.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
                         R.anim.tips_flip_in));
@@ -476,6 +478,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
                             public void onAnimationEnd(Animation animation) {
                                 v.setVisibility(View.GONE);
+                                // removing for memory releasing
+                                candidateViewContainer.removeView(v);
                             }
                         });
                         v.startAnimation(gone);
@@ -483,6 +487,10 @@ public class AnySoftKeyboard extends InputMethodService implements
                         TutorialsProvider.showTips(getApplicationContext());
                     }
                 });
+            }
+            else {
+                // removing for memory releasing
+                candidateViewContainer.removeView(tipsNotification);
             }
         }
         /*

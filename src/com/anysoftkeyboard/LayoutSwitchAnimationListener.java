@@ -1,6 +1,8 @@
 
 package com.anysoftkeyboard;
 
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
@@ -11,7 +13,7 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 public class LayoutSwitchAnimationListener implements
-        android.view.animation.Animation.AnimationListener {
+        android.view.animation.Animation.AnimationListener, OnSharedPreferenceChangeListener {
 
     static enum AnimationType {
         InPlaceSwitch,
@@ -30,24 +32,28 @@ public class LayoutSwitchAnimationListener implements
 
     private AnimationType mCurrentAnimationType = AnimationType.InPlaceSwitch;
     private int mTargetKeyCode;
-    private final Configuration mConfig;
 
     LayoutSwitchAnimationListener(AnySoftKeyboard ime) {
         mIme = ime;
-        mConfig = AnyApplication.getConfig();
 
+        AnyApplication.getConfig().addChangedListener(this);
+
+        setAnimations();
+    }
+
+    private void loadAnimations() {
         mSwitchAnimation = AnimationUtils.loadAnimation(mIme.getApplicationContext(),
                 R.anim.layout_switch_fadeout);
         mSwitchAnimation.setAnimationListener(this);
         mSwitch2Animation = AnimationUtils.loadAnimation(mIme.getApplicationContext(),
                 R.anim.layout_switch_fadein);
-        
+
         mSwipeLeftAnimation = AnimationUtils.loadAnimation(mIme.getApplicationContext(),
                 R.anim.layout_switch_slide_out_left);
         mSwipeLeftAnimation.setAnimationListener(this);
         mSwipeLeft2Animation = AnimationUtils.loadAnimation(mIme.getApplicationContext(),
                 R.anim.layout_switch_slide_in_right);
-        
+
         mSwipeRightAnimation = AnimationUtils.loadAnimation(mIme.getApplicationContext(),
                 R.anim.layout_switch_slide_out_right);
         mSwipeRightAnimation.setAnimationListener(this);
@@ -55,11 +61,22 @@ public class LayoutSwitchAnimationListener implements
                 R.anim.layout_switch_slide_in_left);
     }
 
+    private void unloadAnimations() {
+        mSwitchAnimation = null;
+        mSwitch2Animation = null;
+
+        mSwipeLeftAnimation = null;
+        mSwipeLeft2Animation = null;
+
+        mSwipeRightAnimation = null;
+        mSwipeRight2Animation = null;
+    }
+
     void doSwitchAnimation(AnimationType type, int targetKeyCode) {
         mCurrentAnimationType = type;
         mTargetKeyCode = targetKeyCode;
         final AnyKeyboardView view = mIme.getInputView();
-        if (mConfig.getAnimationsLevel() == AnimationsLevel.Full && view != null
+        if (mSwitchAnimation != null && view != null
                 && isKeyCodeCanUseAnimation(targetKeyCode)) {
             view.startAnimation(getStartAnimation(mCurrentAnimationType));
         } else {
@@ -120,5 +137,23 @@ public class LayoutSwitchAnimationListener implements
             default:
                 return false;
         }
+    }
+
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        setAnimations();
+    }
+
+    private void setAnimations() {
+        if (AnyApplication.getConfig().getAnimationsLevel() == AnimationsLevel.Full
+                && mSwitchAnimation == null)
+            loadAnimations();
+        else if (AnyApplication.getConfig().getAnimationsLevel() != AnimationsLevel.Full
+                && mSwitchAnimation != null)
+            unloadAnimations();
+    }
+
+    void onDestory() {
+        unloadAnimations();
+        AnyApplication.getConfig().removeChangedListener(this);
     }
 }

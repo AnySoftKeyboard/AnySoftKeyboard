@@ -2,10 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 	<!-- DO NOT TRANSLATE -->
 	<!-- Default settings values -->
-	<!-- 
-    <string name="settings_default_top_keyboard_row_id">Small</string>
-     -->
-    <string name="settings_default_physical_keyboard_change_notification_type">2</string>
+	<string name="settings_default_physical_keyboard_change_notification_type">2</string>
     <string name="settings_default_vibrate_on_key_press_duration">0</string>
     <bool name="settings_default_sound_on">false</bool>
     <bool name="settings_default_lang_key_shows_popup">false</bool>
@@ -40,7 +37,7 @@
 	<string name="settings_default_portrait_keyboard_height_factor">1.0</string>
     <string name="settings_default_landscape_keyboard_height_factor">1.0</string>
     
-    <string name="settings_default_tweak_animations_level">full</string>
+    <string name="settings_default_tweak_animations_level">some</string>
     
     <bool name="settings_default_is_sticky_extesion_keyboard">false</bool>
     <bool name="settings_default_is_extesion_keyboard_above_keyboard">true</bool>

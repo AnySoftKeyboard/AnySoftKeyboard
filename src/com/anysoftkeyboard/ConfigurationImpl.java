@@ -225,7 +225,7 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 		}
 	}
 	
-	public void addChangedListener(OnSharedPreferenceChangeListener listener) {
+    public void addChangedListener(OnSharedPreferenceChangeListener listener) {
 		mPreferencesChangedListeners.add(listener);
 	}
 	
