@@ -386,4 +386,6 @@
 		<attr name="iconKeyNavigation" format="reference" />
 	</declare-styleable>
 	
+	<!-- keyboard wallpaper - this is the image BEHIND the keyboard, it is visible when switching layout with animation -->
+	<attr name="keyboardWallpaper" format="reference" />
 </resources>
