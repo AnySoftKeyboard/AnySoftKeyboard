@@ -57,7 +57,11 @@
   <string name="how_to_simple_howto_preface">Android wymaga, abyś ty (użytkownik) ręcznie włączył i aktywował dodatkowe klawiatury. Jak tego dokonać:</string>
   <string name="how_to_simple_howto_enable_ask">Krok 1: Włącz AnySoftKeyboard (dostaniesz ostrzeżenie o możliwym gromadzeniu danych ale nie martw się, AnySoftKeyboard ich nie przetrzymuje i nigdzie nie wysyła):</string>
   <string name="how_to_simple_howto_enable_ask_button">Włącz AnySoftKeyboard</string>
+  <string name="how_to_simple_howto_press_back_to_return_tip">Naciśnij WRÓĆ kiedy skończysz, aby wrócić do instrukcji aktywacji</string>
+  <string name="how_to_simple_howto_switch_to_ask">Krok 2: Wybierz AnySoftKeyboard jako aktywną metodę wprowadzania:</string>
+  <string name="how_to_simple_howto_switch_to_ask_button_after_step_1">Przełącz na AnySoftKeyboard</string>
   <string name="how_to_simple_howto_switch_to_ask_button_before_step_1">Najpierw zrób krok 1</string>
+  <string name="how_to_simple_howto_go_to_settings">Krok 3 (opcjonalny): AnySoftKeyboard jest bardzo konfigurowalny. Zmień coś! Możesz zrobić to póżniej przytrzymując klawisz ENTER.</string>
   <string name="how_to_simple_howto_go_to_settings_button">Ustawienia AnySoftKeyboard</string>
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
   <string name="notification_text_testers">To jest wersja beta. Zachowaj ostrożność!</string>
@@ -70,8 +74,10 @@
   <string name="about">O aplikacji</string>
   <string name="changelog">Lista zmian</string>
   <string name="search_market_for_addons">Szukaj dodatków</string>
+  <string name="no_market_store_available">Nie można znaleźć Sklepu Play na tym urządzeniu. Nie da się poszukać dodatków!</string>
   <string name="theme_addons_settings">Ustawienia motywu klawiatury</string>
   <string name="keyboard_theme_tweak_group">Dostrajanie</string>
+  <string name="keyboard_theme_tweak_hints_group">Dostrajanie tekstu podpowiedzi</string>
   <string name="bottom_row_addons_settings">Ustawienia dolnego wiersza</string>
   <string name="top_row_addons_settings">Ustawienia górnego wiersza</string>
   <string name="close_button">Zamknij</string>
@@ -145,6 +151,9 @@
   <string name="pinch_gesture_action">Gest szczypania</string>
   <string name="pinch_gesture_action_title">Wybierz akcję gestu szczypania</string>
   <string name="pinch_gesture_action_summary">Określ akcję dla gestu uszczypnięcia</string>
+  <string name="separate_gesture_action">Gest rozciągania</string>
+  <string name="separate_gesture_action_title">Wybierz akcję gestu rozciągania</string>
+  <string name="separate_gesture_action_summary">Zdefiniuj akcję gestu rozciągania</string>
   <string name="swipe_action_name_none">Brak akcji</string>
   <string name="swipe_action_name_next_alphabet">Następny układ alfabetyczny</string>
   <string name="swipe_action_name_next_symbols">Następny układ z symbolami</string>
@@ -200,9 +209,24 @@
   <string name="tweak_ux_group">Dostrajanie zachowania</string>
   <string name="tweak_dictionary_group">Dostrajanie słownika</string>
   <string name="settings_min_length_for_word_correction">Minimalna długość wyrazu do korekty</string>
+  <string name="use_custom_keytext_color">Zastąp kolor tekstu klawisza</string>
+  <string name="use_custom_keytext_color_on_summary">Użyj niestandardowego koloru tekstu klawisza</string>
+  <string name="use_custom_keytext_color_off_summary">Użyj koloru tekstu klawisza z motywu</string>
   <string name="show_hint_text">Pokaż tekst podpowiedzi</string>
   <string name="show_hint_text_on_summary">Pokazuj na klawiszu jego drugie znaczenie (jeśli motyw obsługuje)</string>
   <string name="show_hint_text_off_summary">Nie pokazuj podpowiedzi na klawiszach</string>
+  <string name="use_custom_hint_color">Zastąp kolor podpowiedzi</string>
+  <string name="use_custom_hint_color_on_summary">Użyj niestandardowego koloru podpowiedzi</string>
+  <string name="use_custom_hint_color_off_summary">Użyj koloru podpowiedzi z motywu</string>
+  <string name="use_custom_hint_align">Zastąp pozycję podpowiedzi</string>
+  <string name="use_custom_hint_align_on_summary">Użyj niestandardowego położenia podpowiedzi</string>
+  <string name="use_custom_hint_align_off_summary">Użyj pozycji podpowiedzi z motywu</string>
+  <string name="custom_hint_align">Niestandardowe poziome wyrównanie wskazówki</string>
+  <string name="custom_hint_align_summary">Wyrównaj tekst wskazówki do lewej, prawej, lub do środka klawisza</string>
+  <string name="settings_custom_hint_align_dialog_title">Wybierz poziome wyrównanie tekstu podpowiedzi</string>
+  <string name="custom_hint_valign">Niestandardowe pionowe wyrównanie podpowiedzi</string>
+  <string name="custom_hint_valign_summary">Wyrównaj tekst podpowiedzi do góry lub dołu klawisza</string>
+  <string name="settings_custom_hint_valign_dialog_title">Wybierz pionowe wyrównanie tekstu podpowiedzi</string>
   <string name="is_sticky_extesion_keyboard">Lepka klawiatura rozszerzająca</string>
   <string name="is_sticky_extesion_keyboard_on_summary">Zostaje widoczna aż do jawnego zamknięcia</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Zamyka się po naciśnięciu klawisza</string>
@@ -273,6 +297,7 @@
   <string name="keyboards_group">Klawiatury</string>
   <string name="symbols_keyboard">Symbole</string>
   <string name="eng_keyboard">Angielski</string>
+  <string name="eng_keyboard_qwertywithsymbols">Angielski z symbolami</string>
   <string name="eng_keyboard_16keys">Angielski 16 klawiszy</string>
   <string name="additional_addons_group">Dodatkowe rozszerzenia</string>
   <string name="quick_text_keys_group">Klawisze szybkiego tekstu</string>
@@ -307,14 +332,20 @@
   <string name="dark_plain_keyboard_theme_description">Ciemne kolory, proste grafiki</string>
   <string name="light_plain_keyboard_theme_name">Zwykły jasny motyw</string>
   <string name="light_plain_keyboard_theme_description">Jasne kolory, proste grafiki</string>
+  <string name="blacktheme_keyboard_theme_name">Prosta czarna poświata</string>
+  <string name="blacktheme_keyboard_theme_description">Prosty czarny motyw z kolorowymi podświetleniami</string>
   <string name="extension_kbd_top_none">Bez górnego wiersza</string>
   <string name="extension_kbd_top_small">Małe klawisze</string>
   <string name="extension_kbd_top_regular">Klawisze normalnych rozmiarów</string>
   <string name="extension_kbd_top_small_numbers">Klawisze numeryczne</string>
+  <string name="extension_kbd_top_numbers_alt">Alternatywne klawisze numeryczne</string>
+  <string name="extension_kbd_top_nav">Klawisze nawigacyjne</string>
   <string name="extension_kbd_bottom_regular_with_voice">Zwykły</string>
   <string name="extension_kbd_bottom_regular">Klasyczny (bez mikrofonu)</string>
   <string name="extension_kbd_bottom_iphone">styl iPhone (bez mikrofonu)</string>
   <string name="extension_kbd_bottom_iphone_with_voice">styl iPhone z mikrofonem</string>
+  <string name="extension_kbd_bottom_alt">Alternatywny (bez mikr.)</string>
+  <string name="extension_kbd_bottom_alt_with_mic">Alternatywny z mikrofonem</string>
   <string name="extension_kbd_extension_numbers_symbols">Cyfry i znaki</string>
   <string name="show_tutorial_on_startup">Pokaż ten samouczek podczas uruchamiania</string>
   <string name="tutorial_swipe_title">Przesuń, aby zmienić klawiaturę</string>
@@ -377,6 +408,16 @@
   <string name="user_dict_settings_context_menu_edit_title">Edytuj</string>
   <string name="user_dict_settings_context_menu_delete_title">Usuń</string>
   <string name="user_dict_settings_empty_text">Nie masz żadnych słów w słowniku użytkownika. Możesz dodać wyraz poprzez menu.</string>
+  <string name="user_dict_backup_success_title">Kopia zapasowa gotowa!</string>
+  <string name="user_dict_backup_success_text">Pomyślnie zapisano wyrazy na karcie pamięci w /Android/data/com.menny.android.anysoftkeyboard/files/</string>
+  <string name="user_dict_backup_fail_title">Tworzenie kopii nie powiodło się!</string>
+  <string name="user_dict_backup_fail_text">Nie można zapisać plików! Czy pamięć jest dostępna?</string>
+  <string name="user_dict_backup_fail_text_with_error">Nie można zapisać wyrazów ze względu na: <xliff:g id="error">%s</xliff:g></string>
+  <string name="user_dict_restore_success_title">Przywracanie gotowe!</string>
+  <string name="user_dict_restore_success_text">Pomyślnie przywrócono wyrazy.</string>
+  <string name="user_dict_restore_fail_title">Przywracanie nie powiodło się!</string>
+  <string name="user_dict_restore_fail_text">Nie można odczytać plików kopii zapasowej! Czy pamięć jest dostępna?</string>
+  <string name="user_dict_restore_fail_text_with_error">Nie można przywrócić wyrazów ze względu na: <xliff:g id="error">%s</xliff:g></string>
   <string name="fast_scroll_alphabet"> AĄBCĆDEĘFGHIJKLŁMNŃOÓPRSŚTUWYZŹŻ</string>
   <string name="should_swap_punctuation_and_space_title">Zamień znaki interpunkcyjne i spację</string>
   <string name="should_swap_punctuation_and_space_yes">Tak</string>
@@ -393,12 +434,12 @@
     <item>Mocne</item>
   </string-array>
   <string-array name="custom_hint_align_types">
-    <item>Left</item>
-    <item>Center</item>
-    <item>Right</item>
+    <item>Do lewej</item>
+    <item>Środek</item>
+    <item>Do prawej</item>
   </string-array>
   <string-array name="custom_hint_valign_types">
-    <item>Top</item>
-    <item>Bottom</item>
+    <item>Góra</item>
+    <item>Dół</item>
   </string-array>
 </resources>
