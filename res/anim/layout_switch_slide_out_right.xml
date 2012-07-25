@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <set xmlns:android="http://schemas.android.com/apk/res/android"
-    android:interpolator="@android:anim/decelerate_interpolator" >
+    android:interpolator="@android:anim/linear_interpolator" >
 
     <translate
-        android:duration="@integer/mainKeyboardAnimTime"
+        android:duration="@integer/layoutSwitchAnimTime"
         android:fromXDelta="0"
+        android:interpolator="@android:anim/accelerate_interpolator"
         android:toXDelta="100%p" />
 
     <alpha
-        android:duration="@integer/mainKeyboardAnimTime"
+        android:duration="@integer/layoutSwitchAnimTime"
         android:fromAlpha="1.0"
-        android:toAlpha="0.0" />
+        android:interpolator="@android:anim/decelerate_interpolator"
+        android:toAlpha="0.25" />
+
+    <scale
+        android:duration="@integer/layoutSwitchAnimTime"
+        android:fromXScale="1.0"
+        android:fromYScale="1.0"
+        android:interpolator="@android:anim/decelerate_interpolator"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:toXScale="0.7"
+        android:toYScale="0.7" />
 
 </set>

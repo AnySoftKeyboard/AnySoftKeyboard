@@ -66,6 +66,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.anysoftkeyboard.LayoutSwitchAnimationListener.AnimationType;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.devicespecific.Clipboard;
 import com.anysoftkeyboard.dictionaries.AutoDictionary;
@@ -128,8 +129,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private boolean mTipsCalled = false;
 
-    private Animation mSwipeLeftAnimation = null;
-    private Animation mSwipeRightAnimation = null;
+    private LayoutSwitchAnimationListener mSwitchAnimator;
     private AnyKeyboardView mInputView;
     private View mCandidatesParent;
     private CandidateView mCandidateView;
@@ -319,12 +319,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         TutorialsProvider.showChangeLogIfNeeded(getApplicationContext());
 
-        if (AnyApplication.BLEEDING_EDGE) {
-            mSwipeLeftAnimation = AnimationUtils.loadAnimation(getApplicationContext(),
-                    R.anim.layout_switch_slide_out_left);
-            mSwipeRightAnimation = AnimationUtils.loadAnimation(getApplicationContext(),
-                    R.anim.layout_switch_slide_out_right);
-        }
+        mSwitchAnimator = new LayoutSwitchAnimationListener(this);
     }
 
     private void initSuggest(/* String locale */) {
@@ -339,6 +334,8 @@ public class AnySoftKeyboard extends InputMethodService implements
     public void onDestroy() {
         Log.i(TAG, "AnySoftKeyboard has been destroyed! Cleaning resources..");
 
+        mSwitchAnimator.onDestory();
+        
         mConfig.removeChangedListener(this);
 
         unregisterReceiver(mSoundPreferencesChangedReceiver);
@@ -364,6 +361,10 @@ public class AnySoftKeyboard extends InputMethodService implements
         abortCorrection(true, false);
     }
 
+    AnyKeyboardView getInputView() {
+        return mInputView;
+    }
+
     @Override
     public View onCreateInputView() {
         if (DEBUG)
@@ -384,13 +385,14 @@ public class AnySoftKeyboard extends InputMethodService implements
     @Override
     public void setInputView(View view) {
         super.setInputView(view);
-        if (AnyApplication.BLEEDING_EDGE) {
-            ViewParent parent = view.getParent();
-            if (parent instanceof View) {
-                // this is required for animations, so the background will be
-                // consist.
-                ((View) parent).setBackgroundDrawable(view.getBackground());
-            }
+        ViewParent parent = view.getParent();
+        if (parent instanceof View) {
+            // this is required for animations, so the background will be
+            // consist.
+            ((View) parent).setBackgroundResource(R.drawable.ask_wallpaper);
+        } else {
+            Log.w(TAG,
+                    "*** It seams that the InputView parent is not a View!! This is very strange.");
         }
     }
 
@@ -452,12 +454,12 @@ public class AnySoftKeyboard extends InputMethodService implements
             });
         }
 
-        if (!mTipsCalled && mConfig.getShowTipsNotification()
-                && TutorialsProvider.shouldShowTips(getApplicationContext()))
+        View tipsNotification = candidateViewContainer
+                .findViewById(R.id.tips_notification_on_candidates);
+        if (tipsNotification != null)
         {
-            View tipsNotification = candidateViewContainer
-                    .findViewById(R.id.tips_notification_on_candidates);
-            if (tipsNotification != null)
+            if (!mTipsCalled && mConfig.getShowTipsNotification()
+                    && TutorialsProvider.shouldShowTips(getApplicationContext()))
             {
                 tipsNotification.setAnimation(AnimationUtils.loadAnimation(getApplicationContext(),
                         R.anim.tips_flip_in));
@@ -476,6 +478,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
                             public void onAnimationEnd(Animation animation) {
                                 v.setVisibility(View.GONE);
+                                // removing for memory releasing
+                                candidateViewContainer.removeView(v);
                             }
                         });
                         v.startAnimation(gone);
@@ -483,6 +487,10 @@ public class AnySoftKeyboard extends InputMethodService implements
                         TutorialsProvider.showTips(getApplicationContext());
                     }
                 });
+            }
+            else {
+                // removing for memory releasing
+                candidateViewContainer.removeView(tipsNotification);
             }
         }
         /*
@@ -2867,77 +2875,20 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
     }
 
-    private static boolean isKeyCodeCanUseAnimation(final int keyCode) {
-        switch (keyCode) {
-            case KeyCodes.KEYBOARD_CYCLE:
-            case KeyCodes.KEYBOARD_CYCLE_INSIDE_MODE:
-            case KeyCodes.KEYBOARD_MODE_CHANGE:
-            case KeyCodes.KEYBOARD_REVERSE_CYCLE:
-            case KeyCodes.MODE_ALPHABET:
-            case KeyCodes.MODE_SYMOBLS:
-                return true;
-            default:
-                return false;
-        }
-    }
-
     public void onSwipeRight(boolean onSpaceBar) {
         final int keyCode = mConfig.getGestureSwipeRightKeyCode();
         if (DEBUG)
             Log.d(TAG, "onSwipeRight " + ((onSpaceBar) ? " + space" : "") + " => code " + keyCode);
         if (keyCode != 0)
-            if (AnyApplication.BLEEDING_EDGE &&mInputView != null && mSwipeRightAnimation != null
-                    && isKeyCodeCanUseAnimation(keyCode)) {
-                mSwipeRightAnimation.setAnimationListener(new AnimationListener() {
-                    public void onAnimationStart(Animation animation) {
-                    }
-
-                    public void onAnimationRepeat(Animation animation) {
-                    }
-
-                    public void onAnimationEnd(Animation animation) {
-                        mInputView.requestInAnimation();
-                        onKey(keyCode, null, -1, new int[] {
-                                keyCode
-                        }, false);
-                    }
-                });
-                mInputView.startAnimation(mSwipeRightAnimation);
-            } else {
-                onKey(keyCode, null, -1, new int[] {
-                        keyCode
-                }, false);
-            }
+            mSwitchAnimator.doSwitchAnimation(AnimationType.SwipeRight, keyCode);
     }
 
     public void onSwipeLeft(boolean onSpaceBar) {
         final int keyCode = mConfig.getGestureSwipeLeftKeyCode();
         if (DEBUG)
             Log.d(TAG, "onSwipeLeft " + ((onSpaceBar) ? " + space" : "") + " => code " + keyCode);
-        if (keyCode != 0) {
-            if (AnyApplication.BLEEDING_EDGE && mInputView != null && mSwipeLeftAnimation != null
-                    && isKeyCodeCanUseAnimation(keyCode)) {
-                mSwipeLeftAnimation.setAnimationListener(new AnimationListener() {
-                    public void onAnimationStart(Animation animation) {
-                    }
-
-                    public void onAnimationRepeat(Animation animation) {
-                    }
-
-                    public void onAnimationEnd(Animation animation) {
-                        mInputView.requestInAnimation();
-                        onKey(keyCode, null, -1, new int[] {
-                                keyCode
-                        }, false);
-                    }
-                });
-                mInputView.startAnimation(mSwipeLeftAnimation);
-            } else {
-                onKey(keyCode, null, -1, new int[] {
-                        keyCode
-                }, false);
-            }
-        }
+        if (keyCode != 0)
+            mSwitchAnimator.doSwitchAnimation(AnimationType.SwipeLeft, keyCode);
     }
 
     public void onSwipeDown(boolean onSpaceBar) {
@@ -3163,7 +3114,8 @@ public class AnySoftKeyboard extends InputMethodService implements
         mQuickFixes = sp.getBoolean("quick_fix", true);
 
         mAllowSuggestionsRestart = sp.getBoolean(
-                getString(R.string.settings_key_allow_suggestions_restart), true);
+                getString(R.string.settings_key_allow_suggestions_restart), getResources()
+                        .getBoolean(R.bool.settings_default_allow_suggestions_restart));
 
         mAutoCorrectOn = /* mSuggest != null && *//*
                                                    * Suggestion always exists,

@@ -22,6 +22,8 @@
     <string name="settings_key_custom_hint_align_key">settings_key_custom_hint_align_key</string>
 	<string name="settings_key_custom_hint_valign_key">settings_key_custom_hint_valign_key</string>
 
+	<string name="settings_key_tweak_animations_level">settings_key_tweak_animations_level</string>
+	
     <string name="settings_key_emoticon_default_text">settings_key_emoticon_default_text</string>
     <string name="settings_key_smiley_icon_on_smileys_key">settings_key_smiley_icon_on_smileys_key</string>
     
@@ -76,6 +78,18 @@
 		<item>@string/should_swap_punctuation_and_space_no</item>
 	</string-array>
 	
+	<string-array name="tweak_animations_level_types">
+	    <item>@string/tweak_animations_level_types_full</item>
+		<item>@string/tweak_animations_level_types_some</item>
+		<item>@string/tweak_animations_level_types_none</item>
+	</string-array>
+	
+	<string-array name="tweak_animations_level_values">
+	    <item>full</item>
+		<item>some</item>
+		<item>none</item>
+	</string-array>
+	
 	<string name="settings_key_swipe_velocity_threshold">settings_key_swipe_velocity_threshold</string>
 	<!-- these values are normalized. -->
 	<string-array name="settings_key_swipe_velocity_threshold_values">
@@ -105,11 +119,11 @@
 	
 	<string name="settings_key_swipe_distance_threshold">settings_key_swipe_distance_threshold</string>
 	<string-array name="settings_key_swipe_distance_threshold_values">
-		<item>60</item>
-		<item>100</item>
-		<item>160</item>
-		<item>220</item>
-		<item>300</item>
+		<item>30</item>
+		<item>80</item>
+		<item>140</item>
+		<item>180</item>
+		<item>240</item>
 	</string-array>
     <string-array name="settings_key_swipe_distance_threshold_names">
     	<item>@string/settings_swipe_distance_very_short</item>

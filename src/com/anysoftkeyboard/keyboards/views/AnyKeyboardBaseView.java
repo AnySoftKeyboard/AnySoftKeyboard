@@ -53,6 +53,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
+import com.anysoftkeyboard.Configuration.AnimationsLevel;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
 import com.anysoftkeyboard.devicespecific.WMotionEvent;
@@ -184,7 +185,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private final int mDelayAfterPreview;
 
     // Popup mini keyboard
-    private PopupWindow mMiniKeyboardPopup;
+    protected PopupWindow mMiniKeyboardPopup;
     protected AnyKeyboardBaseView mMiniKeyboard = null;;
     private boolean mMiniKeyboardVisible = false;
     private View mMiniKeyboardParent;
@@ -196,6 +197,7 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
     private int[] mWindowOffset;
     private final float mMiniKeyboardSlideAllowance;
     private int mMiniKeyboardTrackerId;
+    protected AnimationsLevel mAnimationLevel = AnyApplication.getConfig().getAnimationsLevel();
 
     /** Listener for {@link OnKeyboardActionListener}. */
     OnKeyboardActionListener mKeyboardActionListener;
@@ -511,7 +513,18 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         }
         a.recycle();
 
-        // settings
+        // settings.
+        // don't forget that there are TWO paddings, the theme's and the
+        // background image's padding!
+        Drawable keyboardBabground = super.getBackground();
+        if (keyboardBabground != null) {
+            Rect backgroundPadding = new Rect();
+            keyboardBabground.getPadding(backgroundPadding);
+            padding[0] += backgroundPadding.left;
+            padding[1] += backgroundPadding.top;
+            padding[2] += backgroundPadding.right;
+            padding[3] += backgroundPadding.bottom;
+        }
         super.setPadding(padding[0], padding[1], padding[2], padding[3]);
 
         final Resources res = getResources();
@@ -536,14 +549,17 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             mShowPreview = false;
         }
         mPreviewPopup.setTouchable(false);
-        mPreviewPopup.setAnimationStyle(R.style.KeyPreviewAnimation);
+        mPreviewPopup.setAnimationStyle((mAnimationLevel == AnimationsLevel.None) ?
+                0 : R.style.KeyPreviewAnimation);
         mDelayBeforePreview = 0;
         mDelayAfterPreview = 10;
 
         mMiniKeyboardParent = this;
         mMiniKeyboardPopup = new PopupWindow(context);
         mMiniKeyboardPopup.setBackgroundDrawable(null);
-        mMiniKeyboardPopup.setAnimationStyle(R.style.MiniKeyboardAnimation);
+
+        mMiniKeyboardPopup.setAnimationStyle((mAnimationLevel == AnimationsLevel.None) ?
+                0 : R.style.MiniKeyboardAnimation);
 
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
@@ -2106,16 +2122,9 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             mWindowOffset = new int[2];
             getLocationInWindow(mWindowOffset);
         }
-        // final List<Key> miniKeys = mMiniKeyboard.getKeyboard().getKeys();
-        // final int miniKeyWidth = miniKeys.size() > 0 ? miniKeys.get(0).width
-        // : 0;
 
         int popupX = popupKey.x + mWindowOffset[0];
         popupX -= mMiniKeyboard.getPaddingLeft();
-        /*
-         * popupX += miniKeyWidth; popupX -= mMiniKeyboard.getMeasuredWidth();
-         * popupX += mMiniKeyboard.getPaddingRight();
-         */
         int popupY = popupKey.y + mWindowOffset[1];
         popupY += getPaddingTop();
         popupY -= mMiniKeyboard.getMeasuredHeight();
@@ -2124,7 +2133,6 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         final int y = mShowPreview && mOldPreviewKeyIndex != NOT_A_KEY
                 && isOneRowKeys(mMiniKeyboard.getKeyboard().getKeys()) ? mPopupPreviewDisplayedY
                 : popupY;
-        // final int y = popupY;
 
         int adjustedX = x;
         if (x < 0) {
@@ -2135,20 +2143,12 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
         mMiniKeyboardOriginX = adjustedX + mMiniKeyboard.getPaddingLeft() - mWindowOffset[0];
         mMiniKeyboardOriginY = y + mMiniKeyboard.getPaddingTop() - mWindowOffset[1];
         mMiniKeyboard.setPopupOffset(adjustedX, y);
-        mMiniKeyboard.setShifted(mKeyboard != null ? mKeyboard.isShifted() : false);// NOTE:
-                                                                                    // I'm
-                                                                                    // checking
-                                                                                    // the
-                                                                                    // main
-                                                                                    // keyboard
-                                                                                    // shift
-                                                                                    // state
-                                                                                    // directly!
-                                                                                    // Not
-                                                                                    // anything
-                                                                                    // else.
+        // NOTE:I'm checking the main keyboard shift state directly!
+        // Not anything else.
+        mMiniKeyboard.setShifted(mKeyboard != null ? mKeyboard.isShifted() : false);
         // Mini keyboard needs no pop-up key preview displayed.
         mMiniKeyboard.setPreviewEnabled(false);
+        // animation switching required?
         mMiniKeyboardPopup.setContentView(mMiniKeyboard);
         mMiniKeyboardPopup.setWidth(mMiniKeyboard.getMeasuredWidth());
         mMiniKeyboardPopup.setHeight(mMiniKeyboard.getMeasuredHeight());
@@ -2585,6 +2585,13 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
             closing();
             mPointerTrackers.clear();
         }
+
+        mAnimationLevel = AnyApplication.getConfig().getAnimationsLevel();
+        mPreviewPopup.setAnimationStyle((mAnimationLevel == AnimationsLevel.None) ?
+                0 : R.style.KeyPreviewAnimation);
+        mMiniKeyboardPopup.setAnimationStyle((mAnimationLevel == AnimationsLevel.None) ?
+                0 : R.style.MiniKeyboardAnimation);
+
     }
 
     protected boolean isPopupShowing()

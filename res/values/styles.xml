@@ -61,6 +61,7 @@
     </style>
     <style name="AnyKeyboardBaseTheme">
         <item name="android:background">@drawable/dark_background</item>
+        <item name="keyboardWallpaper">@drawable/ask_wallpaper</item>
     	<item name="keyBackground">@drawable/dark_btn_key</item>
     	
         <item name="keyTextSize">@dimen/key_text_size</item>
@@ -116,10 +117,10 @@
         <item name="hintLabelAlign">right</item>
     </style>
     <style name="AnyKeyboardPopupBaseTheme" parent="@style/AnyKeyboardBaseTheme">
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingRight">8dp</item>
-        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingLeft">0px</item>
+        <item name="android:paddingTop">0px</item>
+        <item name="android:paddingRight">0px</item>
+        <item name="android:paddingBottom">0px</item>
         <!-- selected popup key is the one ABOVE the finger -->
         <item name="verticalCorrection">-0.26in</item>
         <!-- this will say "no preview" -->
@@ -127,6 +128,35 @@
         <item name="hintTextSize">0px</item>
     </style>
     
+    <style name="LeanDark" parent="@style/AnyKeyboardBaseTheme">
+        <item name="android:background">@drawable/lean_dark_keyboard_background</item>
+		<item name="keyVerticalGap">@dimen/plain_theme_key_horizontal_gap</item>
+    	<item name="keyBackground">@drawable/lean_dark_btn</item>
+    	<item name="keyPreviewBackground">@drawable/lean_dark_popup_keyboard_background</item>
+<!--
+    	<item name="keyTextSize">@dimen/lean_key_text_size</item>
+-->
+        <item name="keyTextStyle">normal</item>
+    	<item name="shadowRadius">0px</item>
+    </style>
+    <style name="LeanDarkPopup" parent="@style/AnyKeyboardPopupBaseTheme">
+        <item name="android:background">@drawable/lean_dark_popup_keyboard_background</item>
+    	<item name="keyBackground">@drawable/lean_dark_btn_popup</item>
+<!--
+    	<item name="keyTextSize">@dimen/lean_key_text_size</item>
+-->
+        <item name="keyTextStyle">normal</item>
+    	<item name="shadowRadius">0px</item>
+    </style>
+    
+    <style name="LeanDark2" parent="@style/LeanDark">
+    	<item name="keyTextSize">@dimen/lean_key_text_size</item>
+        <item name="keyTextStyle">bold</item>
+    </style>
+    <style name="LeanDarkPopup2" parent="@style/LeanDarkPopup">
+    	<item name="keyTextSize">@dimen/lean_key_text_size</item>
+        <item name="keyTextStyle">bold</item>
+    </style>
         
     <style name="Gingerbread" parent="@style/AnyKeyboardBaseTheme">
         <item name="android:background">@drawable/gingerbread_main_background</item>
@@ -238,5 +268,9 @@
     <style name="MiniKeyboardAnimation">
         <item name="android:windowEnterAnimation">@anim/mini_keyboard_flip_in</item>
         <item name="android:windowExitAnimation">@anim/mini_keyboard_fadeout</item>
+    </style>
+    <style name="ExtensionKeyboardAnimation">
+        <item name="android:windowEnterAnimation">@anim/extension_keyboard_fadein</item>
+        <item name="android:windowExitAnimation">@anim/extension_keyboard_fadeout</item>
     </style>
 </resources>

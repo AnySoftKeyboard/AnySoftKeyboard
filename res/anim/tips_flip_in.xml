@@ -20,7 +20,7 @@
 
 <set
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:interpolator="@android:anim/decelerate_interpolator"
+    android:interpolator="@android:anim/linear_interpolator"
 >
     <alpha
         android:fromAlpha="0.5"
@@ -28,7 +28,6 @@
         android:startOffset="2000"
         android:duration="@integer/mainKeyboardAnimTime" />
      <scale
-        android:interpolator="@android:anim/linear_interpolator"
         android:fromXScale="1.0"
         android:toXScale="1.0"
         android:fromYScale="0.0"

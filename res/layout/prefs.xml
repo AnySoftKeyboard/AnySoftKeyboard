@@ -176,7 +176,7 @@
             android:title="@string/quick_fix" />
 
         <CheckBoxPreference
-            android:defaultValue="true"
+            android:defaultValue="@bool/settings_default_allow_suggestions_restart"
             android:dependency="candidates_on"
             android:key="@string/settings_key_allow_suggestions_restart"
             android:persistent="true"
