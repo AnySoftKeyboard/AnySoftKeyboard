@@ -366,6 +366,12 @@
     <string name="action_key_invisible_on_disable_on_summary">Action key will be invisible when GUI requests</string>
     <string name="action_key_invisible_on_disable_off_summary">Action key will be visible even if GUI requests</string>
     
+    <string name="tweak_animations_level_title">Animations</string>
+    <string name="tweak_animations_level_summary">How much animations should be used</string>
+    <string name="tweak_animations_level_types_full">Full</string>
+    <string name="tweak_animations_level_types_some">Some</string>
+    <string name="tweak_animations_level_types_none">None</string>
+    
     <string name="cycle_all_symbols_keyboards">Cycle over all symbols</string>
     <string name="cycle_all_symbols_keyboards_on_summary">Symbols key will cycle over all symbols keyboards</string>
     <string name="cycle_all_symbols_keyboards_off_summary">Symbols key will only show main symbols keyboard</string>
@@ -445,6 +451,9 @@
 	<string name="light_plain_keyboard_theme_description">Light colors, simple graphics</string>
 	<string name="blacktheme_keyboard_theme_name">Simple black glow</string>
 	<string name="blacktheme_keyboard_theme_description">Simple black theme with color highlights</string>
+	<string name="lean_dark_keyboard_theme_name">Lean Dark</string>
+	<string name="lean_dark_keyboard_theme_description">Dark theme, with minimal UI elements</string>
+	<string name="lean_dark_2_keyboard_theme_name">Lean Dark - Option 2</string>
 	
 	<!-- extension keyboard type -->
 	<string name="extension_kbd_top_none">No top row</string>
