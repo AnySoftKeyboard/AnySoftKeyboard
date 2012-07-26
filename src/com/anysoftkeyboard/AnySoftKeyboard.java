@@ -1451,8 +1451,12 @@ public class AnySoftKeyboard extends InputMethodService implements
         InputConnection ic = getCurrentInputConnection();
         if (ic != null && attr != null && mKeyboardSwitcher.isAlphabetMode()
                 && (mInputView != null)) {
+            final boolean inputSaysCaps = getCursorCapsMode(ic, attr) != 0;
+            if (inputSaysCaps)
+                mShiftStartTime = SystemClock.elapsedRealtime();
+            
             mInputView.setShifted(mShiftKeyState.isMomentary() || mCapsLock
-                    || getCursorCapsMode(ic, attr) != 0);
+                    || inputSaysCaps);
         }
     }
 
