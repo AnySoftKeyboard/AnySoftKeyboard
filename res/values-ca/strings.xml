@@ -17,11 +17,7 @@
   <string name="tip_3_hidden_kbds">Trucs i consells</string>
   <string name="tip_3_hidden_kbds_tip">Existeixen teclats amagats:\n1) Llisqueu el dit cap amunt per sobre de la tecla «Espai» i trobareu els cursors de direcció i el micròfon (per dictar-hi text).\n2) Llisqueu el dit per sobre del teclat cap amunt de la pantalla i accedireu a un teclat nimèric i simbòlic bàsic.</string>
   <string name="tip_4_top_generic_row">Fila superior</string>
-  <string name="tip_4_top_generic_row_tip">
-      <![CDATA[
-      La fila superior és genèrica per a tots els teclats, però es pot modificar! Per defecte aquesta fila està representada com a <i>« <- 123 <- »</i> per als caràcters numèrics i símbols, i com a <i>« -> ABC -> »</i> pel teclat d\'idioma. Podeu canviar aquest comportament al menú «Fila superior genèrica».
-      ]]>
-  </string>
+  <string name="tip_4_top_generic_row_tip">La fila superior és genèrica per a tots els teclats, però es pot modificar! Per defecte aquesta fila està representada com a <i>« 123 »</i> per als caràcters numèrics i símbols, i com a <i>« ABC »</i> pel teclat d\'idioma. Podeu canviar aquest comportament al menú «Fila superior genèrica».</string>
   <string name="tip_4_top_generic_row_go_to_top_row_settings">Modifica l\'aparença</string>
   <string name="tip_5_key_feedback">Vibració i so</string>
   <string name="tip_5_key_feedback_tip">Comptar amb una ajuda no visual per saber si premem el teclat correctament pot ser útil. Aquí podeu activar la vibració de tecles, el so, o tot alhora.</string>
@@ -283,6 +279,11 @@
   <string name="action_key_invisible_on_disable">Tecla d\'acció invisible</string>
   <string name="action_key_invisible_on_disable_on_summary">No es mostra la tecla d\'acció</string>
   <string name="action_key_invisible_on_disable_off_summary">Es mostra la tecla d\'acció</string>
+  <string name="tweak_animations_level_title">Efectes</string>
+  <string name="tweak_animations_level_summary">Quantitat d\'efectes a emprar</string>
+  <string name="tweak_animations_level_types_full">Tot</string>
+  <string name="tweak_animations_level_types_some">Només les principals</string>
+  <string name="tweak_animations_level_types_none">Cap efecte</string>
   <string name="cycle_all_symbols_keyboards">Rotació simbòlic/numèric</string>
   <string name="cycle_all_symbols_keyboards_on_summary">Prement « ← 123 ← » canvia el tipus de teclat</string>
   <string name="cycle_all_symbols_keyboards_off_summary">Prement « ... » canvia el tipus de teclat</string>
@@ -348,6 +349,9 @@
   <string name="light_plain_keyboard_theme_description">Color clar i gràfics simples</string>
   <string name="blacktheme_keyboard_theme_name">Simple black glow</string>
   <string name="blacktheme_keyboard_theme_description">Tema negre bàsic amb atenuació dels colors</string>
+  <string name="lean_dark_keyboard_theme_name">Pinzellada fosca</string>
+  <string name="lean_dark_keyboard_theme_description">Tema fosc i minimalista</string>
+  <string name="lean_dark_2_keyboard_theme_name">Pinzellada fosca - 2ª opció</string>
   <string name="extension_kbd_top_none">Sense fila superior</string>
   <string name="extension_kbd_top_small">Tecles petites</string>
   <string name="extension_kbd_top_regular">Tecles normals</string>

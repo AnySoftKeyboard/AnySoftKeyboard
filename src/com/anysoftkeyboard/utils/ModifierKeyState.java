@@ -31,6 +31,10 @@ public class ModifierKeyState {
         mState = RELEASING;
     }
 
+    public void reset() {
+        mState = RELEASING;
+    }
+
     public void onOtherKeyPressed() {
         if (mState == PRESSING)
             mState = MOMENTARY;
