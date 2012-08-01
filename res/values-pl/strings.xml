@@ -99,6 +99,7 @@
   <string name="voice_input_not_installed_text">Wymagane jest zainstalowanie Wyszukiwanie głosowe Google ze Sklepu zanim zaczniesz używać tej funkcji.</string>
   <string name="voice_input_not_installed_action_install">Zainstaluj</string>
   <string name="voice_input_not_installed_action_do_not_install">Nie</string>
+  <string name="voice_input_not_voice_pack_in_market">Nie można znaleźć głosowego wprowadzania (com.google.android.voicesearch) w Markecie. Niestety wprowadzanie głosowe nie będzie działać na tym urządzeniu.</string>
   <string name="change_ime">Zmień metodę wprowadzania</string>
   <string name="override_dictionary">Zastąpić domyślny słownik</string>
   <string name="override_dictionary_title">Nadpisz <xliff:g id="word">%s</xliff:g> słownik</string>
@@ -231,6 +232,8 @@
   <string name="is_sticky_extesion_keyboard_on_summary">Zostaje widoczna aż do jawnego zamknięcia</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Zamyka się po naciśnięciu klawisza</string>
   <string name="is_extesion_keyboard_above_keyboard">Górna klawiatura rozszerzająca</string>
+  <string name="is_extesion_keyboard_above_keyboard_on_summary">Rysuj nad główną klawiaturą</string>
+  <string name="is_extesion_keyboard_above_keyboard_off_summary">Rysuj na głównej klawiaturze</string>
   <string name="show_new_tips_notifications_again">Pokaż nowe porady</string>
   <string name="show_new_tips_notifications_again_on_summary">Gdy dostępne będą nowe porady, zostaną one wyświetlone</string>
   <string name="show_new_tips_notifications_again_off_summary">Nie powiadomi, kiedy nowe porady będą dostępne</string>
@@ -269,6 +272,14 @@
   <string name="insert_space_after_word_suggestion_selection_on_summary">Wstaw spację po wybraniu sugerowanego wyrazu</string>
   <string name="double_space_to_period">Podwójna spacja da kropkę</string>
   <string name="double_space_to_period_summary">Podwójne wpisanie spacji stanie się kropką+spacja</string>
+  <string name="action_key_invisible_on_disable">Niewidoczny klawisz akcji</string>
+  <string name="action_key_invisible_on_disable_on_summary">Klawisz akcji będzie niewidoczny, gdy zażąda GUI</string>
+  <string name="action_key_invisible_on_disable_off_summary">Klawisz akcji będzie widoczny, nawet jeśli zażąda GUI</string>
+  <string name="tweak_animations_level_title">Animacje</string>
+  <string name="tweak_animations_level_summary">Ile animacji powinno być używane</string>
+  <string name="tweak_animations_level_types_full">Pełne</string>
+  <string name="tweak_animations_level_types_some">Niektóre</string>
+  <string name="tweak_animations_level_types_none">Żadne</string>
   <string name="cycle_all_symbols_keyboards">Kolejno po wszystkich symbolach</string>
   <string name="cycle_all_symbols_keyboards_on_summary">Klawisz symboli będzie przechodził po wszystkich klawiaturach znakowych</string>
   <string name="cycle_all_symbols_keyboards_off_summary">Klawisz symboli pokaże tylko główną klawiaturę z symbolami</string>
@@ -334,6 +345,9 @@
   <string name="light_plain_keyboard_theme_description">Jasne kolory, proste grafiki</string>
   <string name="blacktheme_keyboard_theme_name">Prosta czarna poświata</string>
   <string name="blacktheme_keyboard_theme_description">Prosty czarny motyw z kolorowymi podświetleniami</string>
+  <string name="lean_dark_keyboard_theme_name">Lean Dark</string>
+  <string name="lean_dark_keyboard_theme_description">Ciemny motyw z minimum elementów interfejsu</string>
+  <string name="lean_dark_2_keyboard_theme_name">Lean Dark - Opcja 2</string>
   <string name="extension_kbd_top_none">Bez górnego wiersza</string>
   <string name="extension_kbd_top_small">Małe klawisze</string>
   <string name="extension_kbd_top_regular">Klawisze normalnych rozmiarów</string>
