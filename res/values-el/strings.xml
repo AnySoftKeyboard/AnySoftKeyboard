@@ -279,6 +279,11 @@
   <string name="action_key_invisible_on_disable">Αόρατο κουμπί ενέργειας</string>
   <string name="action_key_invisible_on_disable_on_summary">Το κουμπί ενέργειας θα είναι αόρατο όταν ζητείται απο το GUI</string>
   <string name="action_key_invisible_on_disable_off_summary">Το κουμπί ενέργειας θα είναι ορατό ακόμη και αν ζητείται από το GUI</string>
+  <string name="tweak_animations_level_title">Κινούμενες εικόνες</string>
+  <string name="tweak_animations_level_summary">Πόσες κινούμενες εικόνες θα πρέπει να χρησιμοποιούνται</string>
+  <string name="tweak_animations_level_types_full">Πλήρης</string>
+  <string name="tweak_animations_level_types_some">Μερικές</string>
+  <string name="tweak_animations_level_types_none">Καμία</string>
   <string name="cycle_all_symbols_keyboards">Εμφάνιση όλων των συμβόλων</string>
   <string name="cycle_all_symbols_keyboards_on_summary">Το πλήκτρο συμβόλων θα εμφανίζει όλα τα πληκτρολόγια συμβόλων</string>
   <string name="cycle_all_symbols_keyboards_off_summary">Το πλήκτρο συμβόλων θα εμφανίζει μόνο τα βασικά σύμβολα του πληκτρολόγιου</string>
@@ -344,6 +349,9 @@
   <string name="light_plain_keyboard_theme_description">Φωτεινά χρώματα, απλά γραφικά</string>
   <string name="blacktheme_keyboard_theme_name">Απλή μαύρη λάμψη</string>
   <string name="blacktheme_keyboard_theme_description">Απλό μαύρο θέμα με φωτισμένα χρώματα</string>
+  <string name="lean_dark_keyboard_theme_name">Ελαφρώς σκούρο</string>
+  <string name="lean_dark_keyboard_theme_description">Σκούρο θέμα, με ελάχιστα στοιχεία UI</string>
+  <string name="lean_dark_2_keyboard_theme_name">Ελαφρώς σκούρο - Επιλογή 2</string>
   <string name="extension_kbd_top_none">Χωρίς πάνω σειρά</string>
   <string name="extension_kbd_top_small">Μικρά πλήκτρα</string>
   <string name="extension_kbd_top_regular">Πλήκτρα κανονικού μεγέθους</string>

@@ -15,7 +15,7 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:tag="20120725-eye-candy"
+    	android:tag="20120801-eye-candy"
         android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
 	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
 	    android:text="* User-words editor now supports backup to and restore from SDCARD!! YA! Want to try?" style="@android:style/TextAppearance.Small"/>
@@ -35,6 +35,6 @@
     	android:layout_gravity="center"/>
 	
 	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-	    android:text="* Eye candy in the form of animations.\n* New translations: CA, DE, EL, ES, HU, PL, PT-BR, BE, RU.\n* Bug fixes." style="@android:style/TextAppearance.Small"/>
+	    android:text="* Eye candy in the form of animations.\n* New translations: CA, DE, EL, ES, HU, PL, PT-BR, BE, RU, HY, HE, MY.\n* Bug fixes." style="@android:style/TextAppearance.Small"/>
 	
 </LinearLayout>
