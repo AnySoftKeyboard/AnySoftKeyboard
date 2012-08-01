@@ -130,6 +130,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     private boolean mTipsCalled = false;
 
     private LayoutSwitchAnimationListener mSwitchAnimator;
+    private boolean mDistinctMultiTouch = true;
     private AnyKeyboardView mInputView;
     private View mCandidatesParent;
     private CandidateView mCandidateView;
@@ -379,6 +380,8 @@ public class AnySoftKeyboard extends InputMethodService implements
         mKeyboardSwitcher.setInputView(mInputView);
         mInputView.setOnKeyboardActionListener(this);
 
+        mDistinctMultiTouch = mInputView.hasDistinctMultitouch();
+        
         return mInputView;
     }
 
@@ -1451,8 +1454,12 @@ public class AnySoftKeyboard extends InputMethodService implements
         InputConnection ic = getCurrentInputConnection();
         if (ic != null && attr != null && mKeyboardSwitcher.isAlphabetMode()
                 && (mInputView != null)) {
+            final boolean inputSaysCaps = getCursorCapsMode(ic, attr) != 0;
+            if (inputSaysCaps)
+                mShiftStartTime = SystemClock.elapsedRealtime();
+            
             mInputView.setShifted(mShiftKeyState.isMomentary() || mCapsLock
-                    || getCursorCapsMode(ic, attr) != 0);
+                    || inputSaysCaps);
         }
     }
 
@@ -1621,7 +1628,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                         && mInputView.isShifted()
                         && !mInputView.getKeyboard().isShiftLocked()
                         &&
-                        ((mInputView.hasDistinctMultitouch() && mShiftKeyState.isMomentary()) || mConfig
+                        ((mDistinctMultiTouch && mShiftKeyState.isMomentary()) || mConfig
                                 .useBackword()))
                 {
                     handleBackword(ic);
@@ -1641,11 +1648,11 @@ public class AnySoftKeyboard extends InputMethodService implements
                 }
                 break;
             case KeyCodes.SHIFT:
-                if ((!mInputView.hasDistinctMultitouch()) || !fromUI)
+                if ((!mDistinctMultiTouch) || !fromUI)
                     handleShift(false);
                 break;
             case KeyCodes.CTRL:
-                if ((!mInputView.hasDistinctMultitouch()) || !fromUI)
+                if ((!mDistinctMultiTouch) || !fromUI)
                     handleControl(false);
                 break;
             case KeyCodes.ARROW_LEFT:
@@ -2864,6 +2871,8 @@ public class AnySoftKeyboard extends InputMethodService implements
             KeyboardSwitcher.NextKeyboardType type, AnyKeyboard currentKeyboard) {
         updateShiftKeyState(currentEditorInfo);
         mCapsLock = currentKeyboard.isShiftLocked();
+        mShiftKeyState.reset();
+        mControlKeyState.reset();
         // changing dictionary
         setDictionariesForCurrentKeyboard();
         // Notifying if needed
@@ -2952,15 +2961,14 @@ public class AnySoftKeyboard extends InputMethodService implements
             mVibrator.vibrate(mVibrationDuration);
         }
 
-        final boolean distinctMultiTouch = mInputView.hasDistinctMultitouch();
-        if (distinctMultiTouch && primaryCode == KeyCodes.SHIFT) {
+        if (mDistinctMultiTouch && primaryCode == KeyCodes.SHIFT) {
             mShiftKeyState.onPress();
             handleShift(false);
         } else {
             mShiftKeyState.onOtherKeyPressed();
         }
 
-        if (distinctMultiTouch && primaryCode == KeyCodes.CTRL) {
+        if (mDistinctMultiTouch && primaryCode == KeyCodes.CTRL) {
             mControlKeyState.onPress();
             handleControl(false);
             sendKeyDown(ic, 113); // KeyEvent.KEYCODE_CTRL_LEFT (API 11 and up)
@@ -3033,13 +3041,12 @@ public class AnySoftKeyboard extends InputMethodService implements
         // Reset any drag flags in the keyboard
         // ((AnyKeyboard) mInputView.getKeyboard()).keyReleased();
         // vibrate();
-        final boolean distinctMultiTouch = mInputView.hasDistinctMultitouch();
-        if (distinctMultiTouch && primaryCode == KeyCodes.SHIFT) {
+        if (mDistinctMultiTouch && primaryCode == KeyCodes.SHIFT) {
             if (mShiftKeyState.isMomentary())
                 handleShift(true);
             mShiftKeyState.onRelease();
         }
-        if (distinctMultiTouch && primaryCode == KeyCodes.CTRL) {
+        if (mDistinctMultiTouch && primaryCode == KeyCodes.CTRL) {
             if (mControlKeyState.isMomentary())
                 handleControl(true);
             sendKeyUp(ic, 113); // KeyEvent.KEYCODE_CTRL_LEFT
