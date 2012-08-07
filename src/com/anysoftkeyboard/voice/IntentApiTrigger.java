@@ -110,7 +110,6 @@ class IntentApiTrigger implements Trigger {
     }
 
     public void onStartInputView() {
-        Log.i(TAG, "#onStartInputView");
         if (mLastRecognitionResult != null) {
             scheduleCommit();
         }
