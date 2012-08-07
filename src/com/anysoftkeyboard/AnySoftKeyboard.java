@@ -336,7 +336,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         Log.i(TAG, "AnySoftKeyboard has been destroyed! Cleaning resources..");
 
         mSwitchAnimator.onDestory();
-        
+
         mConfig.removeChangedListener(this);
 
         unregisterReceiver(mSoundPreferencesChangedReceiver);
@@ -381,7 +381,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         mInputView.setOnKeyboardActionListener(this);
 
         mDistinctMultiTouch = mInputView.hasDistinctMultitouch();
-        
+
         return mInputView;
     }
 
@@ -508,6 +508,24 @@ public class AnySoftKeyboard extends InputMethodService implements
          */
         return candidateViewContainer;
     }
+    
+    @Override
+    public void onStartInput(EditorInfo attribute, boolean restarting) {
+        if (DEBUG)
+            Log.d(TAG, "onStartInput(EditorInfo:"
+                    + attribute.imeOptions + "," + attribute.inputType
+                    + ", restarting:" + restarting + ")");
+        
+        super.onStartInput(attribute, restarting);
+
+        abortCorrection(true, false);            
+
+        if (!restarting) {
+            TextEntryState.newSession(this);
+            // Clear shift states.
+            mMetaState = 0;
+        }
+    }
 
     @Override
     public void onStartInputView(EditorInfo attribute, boolean restarting) {
@@ -517,7 +535,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                     + ", restarting:" + restarting + ")");
 
         super.onStartInputView(attribute, restarting);
-
+        
         if (mVoiceRecognitionTrigger != null) {
             mVoiceRecognitionTrigger.onStartInputView();
         }
@@ -527,14 +545,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
 
         mInputView.setKeyboardActionType(attribute.imeOptions);
-
         mKeyboardSwitcher.makeKeyboards(false);
-        TextEntryState.newSession(this);
-
-        if (!restarting) {
-            // Clear shift states.
-            mMetaState = 0;
-        }
 
         mPredictionOn = false;
         mCompletionOn = false;
@@ -650,7 +661,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         // mInputView.closing();
 
         // mComposing.setLength(0);
-        mWord.reset();
+        //mWord.reset();
 
         mPredicting = false;
         // mDeleteCount = 0;
@@ -862,11 +873,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         return true;
     }
 
-    public void performRestartWordSuggestion(final InputConnection ic/*
-                                                                      * , final
-                                                                      * int
-                                                                      * cursorPosition
-                                                                      */) {
+    public void performRestartWordSuggestion(final InputConnection ic) {
         // I assume ASK DOES NOT predict at this moment!
 
         // 2) predicting and moved outside the word - abort predicting, update
@@ -945,6 +952,8 @@ public class AnySoftKeyboard extends InputMethodService implements
             mWord.setCursorPostion(toLeft.length());
             ic.endBatchEdit();
             postUpdateSuggestions();
+        } else {
+            if (DEBUG) Log.d(TAG, "performRestartWordSuggestion canRestartWordSuggestion == false");
         }
     }
 
@@ -1457,7 +1466,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             final boolean inputSaysCaps = getCursorCapsMode(ic, attr) != 0;
             if (inputSaysCaps)
                 mShiftStartTime = SystemClock.elapsedRealtime();
-            
+
             mInputView.setShifted(mShiftKeyState.isMomentary() || mCapsLock
                     || inputSaysCaps);
         }
@@ -2592,12 +2601,13 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     private boolean pickDefaultSuggestion() {
+        if (DEBUG) Log.d(TAG, "pickDefaultSuggestion: mBestWord:"+mBestWord);
         // Complete any pending candidate query first
         if (mHandler.hasMessages(MSG_UPDATE_SUGGESTIONS)) {
             postUpdateSuggestionsNow();
         }
 
-        if (mBestWord != null) {
+        if (!TextUtils.isEmpty(mBestWord)) {
             TextEntryState.acceptedDefault(mWord.getTypedWord(), mBestWord);
             // mJustAccepted = true;
             pickSuggestion(mBestWord, false);
@@ -2609,6 +2619,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     public void pickSuggestionManually(int index, CharSequence suggestion) {
+        if (DEBUG) Log.d(TAG, "pickSuggestionManually: index "+index+" suggestion "+suggestion);
         final boolean correcting = TextEntryState.isCorrecting();
         final InputConnection ic = getCurrentInputConnection();
         if (ic != null) {
