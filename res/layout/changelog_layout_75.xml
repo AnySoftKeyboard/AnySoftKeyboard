@@ -35,6 +35,6 @@
     	android:layout_gravity="center"/>
 	
 	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-	    android:text="* Eye candy in the form of animations.\n* New translations: CA, DE, EL, ES, HU, PL, PT-BR, BE, RU, HY, HE, MY.\n* Bug fixes." style="@android:style/TextAppearance.Small"/>
+	    android:text="* Eye candy in the form of animations.\n* New translations: CA, DE, EL, ES, HU, PL, PT-BR, BE, RU, HY, HE, MY, NL (a new one! ya!).\n* Bug fixes." style="@android:style/TextAppearance.Small"/>
 	
 </LinearLayout>
