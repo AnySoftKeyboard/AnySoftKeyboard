@@ -177,6 +177,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     private boolean mAutoSpace;
     private boolean mAutoCorrectOn;
     private boolean mAllowSuggestionsRestart = true;
+    private boolean mCurrentlyAllowSuggestionRestart = true;
     /*
      * This will help us detect multi-tap on the SHIFT key for caps-lock
      */
@@ -225,14 +226,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                     break;
                 case MSG_RESTART_NEW_WORD_SUGGESTIONS:
                     final InputConnection ic = getCurrentInputConnection();
-                    /*
-                     * At some point I wanted to make the user click a View to
-                     * restart suggestions if (ic != null &&
-                     * mRestartSuggestionsView != null) { if
-                     * (canRestartWordSuggestion(ic)) {
-                     * mRestartSuggestionsView.setVisibility(View.VISIBLE); } }
-                     */
-                    performRestartWordSuggestion(ic/* , getCursorPosition(ic) */);
+                    performRestartWordSuggestion(ic);
                     break;
                 // case MSG_UPDATE_OLD_SUGGESTIONS:
                 // setOldSuggestions();
@@ -508,22 +502,30 @@ public class AnySoftKeyboard extends InputMethodService implements
          */
         return candidateViewContainer;
     }
-    
+
     @Override
     public void onStartInput(EditorInfo attribute, boolean restarting) {
         if (DEBUG)
             Log.d(TAG, "onStartInput(EditorInfo:"
                     + attribute.imeOptions + "," + attribute.inputType
                     + ", restarting:" + restarting + ")");
-        
+
         super.onStartInput(attribute, restarting);
 
-        abortCorrection(true, false);            
+        abortCorrection(true, false);
 
         if (!restarting) {
             TextEntryState.newSession(this);
             // Clear shift states.
             mMetaState = 0;
+            mCurrentlyAllowSuggestionRestart = mAllowSuggestionsRestart;
+        } else {
+            //something very fishy happening here...
+            //this is the only way I can get around it.
+            //it seems that when a onStartInput is called with restarting == true
+            //suggestions restart fails :(
+            //see Browser when editing multiline textbox
+            mCurrentlyAllowSuggestionRestart = false;
         }
     }
 
@@ -535,7 +537,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                     + ", restarting:" + restarting + ")");
 
         super.onStartInputView(attribute, restarting);
-        
+
         if (mVoiceRecognitionTrigger != null) {
             mVoiceRecognitionTrigger.onStartInputView();
         }
@@ -661,7 +663,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         // mInputView.closing();
 
         // mComposing.setLength(0);
-        //mWord.reset();
+        // mWord.reset();
 
         mPredicting = false;
         // mDeleteCount = 0;
@@ -857,12 +859,18 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     private boolean canRestartWordSuggestion(final InputConnection ic) {
-        if (mPredicting || !isPredictionOn() || !mAllowSuggestionsRestart || mInputView == null
+        if (mPredicting || !isPredictionOn() || !mAllowSuggestionsRestart || !mCurrentlyAllowSuggestionRestart || mInputView == null
                 || !mInputView.isShown()) {
+            //why?
+            //mPredicting - if I'm predicting a word, I can not restart it.. right? I'm inside that word!
+            //isPredictionOn() - this is obvious.
+            //mAllowSuggestionsRestart - config settings
+            //mCurrentlyAllowSuggestionRestart - workaround for onInputStart(restarting == true)
+            //mInputView == null - obvious, no?
             if (DEBUG)
-                Log.d(TAG, "performRestartWordSuggestion: no need to restart - mPredicting="
+                Log.d(TAG, "performRestartWordSuggestion: no need to restart - "+ " mPredicting="
                         + mPredicting + ", isPredictionOn=" + isPredictionOn()
-                        + ", mAllowSuggestionsRestart=" + mAllowSuggestionsRestart);
+                        + ", mAllowSuggestionsRestart=" + mAllowSuggestionsRestart + ", mCurrentlyAllowSuggestionRestart="+mCurrentlyAllowSuggestionRestart);
             return false;
         } else if (!isCursorTouchingWord()) {
             if (DEBUG)
@@ -927,14 +935,18 @@ public class AnySoftKeyboard extends InputMethodService implements
             }
             CharSequence word = toLeft.toString() + toRight.toString();
             Log.d(TAG, "Starting new prediction on word '" + word + "'.");
+            mPredicting = word.length() > 0;
+            mUndoCommitCursorPosition = -2;// so it will be marked the next time
+            mWord.reset();
+            
             for (int index = 0; index < word.length(); index++)
             {
                 final char c = word.charAt(index);
-                mWord.add(c, new int[] {
-                        c
-                });
                 if (index == 0)
                     mWord.setFirstCharCapitalized(Character.isUpperCase(c));
+                
+                mWord.add(c, new int[] {c});
+                
                 TextEntryState.typedCharacter((char) c, false);
             }
             ic.deleteSurroundingText(toLeft.length(), toRight.length());
@@ -948,12 +960,13 @@ public class AnySoftKeyboard extends InputMethodService implements
                             + cursorPosition);
                 ic.setSelection(cursorPosition, cursorPosition);
             }
-            mPredicting = mWord.size() > 0;
+            
             mWord.setCursorPostion(toLeft.length());
             ic.endBatchEdit();
             postUpdateSuggestions();
         } else {
-            if (DEBUG) Log.d(TAG, "performRestartWordSuggestion canRestartWordSuggestion == false");
+            if (DEBUG)
+                Log.d(TAG, "performRestartWordSuggestion canRestartWordSuggestion == false");
         }
     }
 
@@ -2282,13 +2295,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 
             clearSuggestions();
 
-            // mComposing.setLength(0);
             TextEntryState.reset();
             mUndoCommitCursorPosition = -2;
             mWord.reset();
             mPredicting = false;
             mJustAddedAutoSpace = false;
-            // mJustAccepted = false;
             if (forever)
             {
                 if (DEBUG)
@@ -2350,7 +2361,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         if (mPredicting) {
             if ((mInputView != null) && mInputView.isShifted()
-                    && /* mComposing.length() == 0 */mWord.cursorPosition() == 0) {
+                    && mWord.cursorPosition() == 0) {
                 mWord.setFirstCharCapitalized(true);
             }
 
@@ -2601,7 +2612,8 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     private boolean pickDefaultSuggestion() {
-        if (DEBUG) Log.d(TAG, "pickDefaultSuggestion: mBestWord:"+mBestWord);
+        if (DEBUG)
+            Log.d(TAG, "pickDefaultSuggestion: mBestWord:" + mBestWord);
         // Complete any pending candidate query first
         if (mHandler.hasMessages(MSG_UPDATE_SUGGESTIONS)) {
             postUpdateSuggestionsNow();
@@ -2619,7 +2631,8 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     public void pickSuggestionManually(int index, CharSequence suggestion) {
-        if (DEBUG) Log.d(TAG, "pickSuggestionManually: index "+index+" suggestion "+suggestion);
+        if (DEBUG)
+            Log.d(TAG, "pickSuggestionManually: index " + index + " suggestion " + suggestion);
         final boolean correcting = TextEntryState.isCorrecting();
         final InputConnection ic = getCurrentInputConnection();
         if (ic != null) {
