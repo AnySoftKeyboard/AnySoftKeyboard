@@ -20,12 +20,12 @@ import android.content.Context;
 import android.text.format.DateFormat;
 import android.util.Log;
 
+import com.anysoftkeyboard.keyboards.Keyboard.Key;
+import com.menny.android.anysoftkeyboard.AnyApplication;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
-
-import com.anysoftkeyboard.keyboards.Keyboard.Key;
-import com.menny.android.anysoftkeyboard.AnyApplication;
 
 public class TextEntryState {
     

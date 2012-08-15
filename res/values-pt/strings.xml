@@ -41,7 +41,7 @@
   <string name="how_to_pointer_go_to_links">Para mais informações, consulte o separador Ligações.</string>
   <string name="how_to_pointer_how_to_url">Informações sobre a utilização deste teclado:</string>
   <string name="how_to_pointer_site">Informações gerais:</string>
-  <string name="how_to_pointer_changelog">Informações sobre a versão mais recente:</string>
+  <string name="how_to_pointer_changelog">Detalhes da versão mais recente:</string>
   <string name="how_to_pointer_issues">Reporte de erros:</string>
   <string name="main_tab_credits_title">Esta aplicação foi criada com a ajuda das seguintes pessoas-</string>
   <string name="main_tab_credits_created_by">Criado por:</string>
@@ -148,9 +148,6 @@
   <string name="pinch_gesture_action">Juntar</string>
   <string name="pinch_gesture_action_title">Ao juntar</string>
   <string name="pinch_gesture_action_summary">Define a acção do gesto juntar</string>
-  <string name="separate_gesture_action">Separar</string>
-  <string name="separate_gesture_action_title">Ao separar</string>
-  <string name="separate_gesture_action_summary">Define a acção do gesto separar</string>
   <string name="swipe_action_name_none">Nenhuma acção</string>
   <string name="swipe_action_name_next_alphabet">Teclado alfabético seguinte</string>
   <string name="swipe_action_name_next_symbols">Teclado simbólico seguinte</string>
@@ -398,5 +395,14 @@
     <item>Curta</item>
     <item>Média</item>
     <item>Longa</item>
+  </string-array>
+  <string-array name="custom_hint_align_types">
+    <item>Left</item>
+    <item>Center</item>
+    <item>Right</item>
+  </string-array>
+  <string-array name="custom_hint_valign_types">
+    <item>Top</item>
+    <item>Bottom</item>
   </string-array>
 </resources>
