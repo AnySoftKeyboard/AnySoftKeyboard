@@ -680,12 +680,17 @@ public class AnyKeyboardBaseView extends View implements PointerTracker.UIProxy,
                     break;
                 case R.styleable.AnySoftKeyboardTheme_keyTextSize:
                     mKeyTextSize = a.getDimensionPixelSize(attr, 18);
+                    //you might ask yourself "why did Menny sqrt root the factor?"
+                    //I'll tell you; the factor is mostly for the height, not the font size, 
+                    //but I also factorize the font size because I want the text to be a little like
+                    //the key size.
+                    //the whole factor maybe too much, so I ease that a bit.
                     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
                         mKeyTextSize = mKeyTextSize
-                                * AnyApplication.getConfig().getKeysHeightFactorInLandscape();
+                                * (float)Math.sqrt(AnyApplication.getConfig().getKeysHeightFactorInLandscape());
                     else
                         mKeyTextSize = mKeyTextSize
-                                * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
+                                * (float)Math.sqrt(AnyApplication.getConfig().getKeysHeightFactorInPortrait());
                     if (AnyApplication.DEBUG)
                         Log.d(TAG, "AnySoftKeyboardTheme_keyTextSize " + mKeyTextSize);
                     break;
