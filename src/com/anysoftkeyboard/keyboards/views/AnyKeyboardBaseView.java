@@ -39,6 +39,7 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.FloatMath;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
@@ -105,6 +106,9 @@ public class AnyKeyboardBaseView extends View implements
 	private Typeface mKeyTextStyle = Typeface.DEFAULT;
 	private float mLabelTextSize;
 	private FontMetrics mLabelFM;
+	private float mKeyboardNameTextSize;
+	private FontMetrics mKeyboardNameFM;
+	private ColorStateList mKeyboardNameTextColor;
 	private float mHintTextSize;
 	private ColorStateList mHintTextColor;
 	private FontMetrics mHintTextFM;
@@ -442,7 +446,7 @@ public class AnyKeyboardBaseView extends View implements
 		for (int i = 0; i < n; i++) {
 			final int attr = a.getIndex(i);
 			if (setValueFromTheme(a, padding, attr))
-				doneStylesIndexes.add(new Integer(attr));
+				doneStylesIndexes.add(attr);
 		}
 		a.recycle();
 		// taking icons
@@ -458,7 +462,7 @@ public class AnyKeyboardBaseView extends View implements
 			for (int i = 0; i < iconsCount; i++) {
 				final int attr = a.getIndex(i);
 				if (setKeyIconValueFromTheme(a, attr))
-					doneIconsStylesIndexes.add(new Integer(attr));
+					doneIconsStylesIndexes.add(attr);
 			}
 			a.recycle();
 		}
@@ -477,7 +481,7 @@ public class AnyKeyboardBaseView extends View implements
 		final int fallbackCount = a.getIndexCount();
 		for (int i = 0; i < fallbackCount; i++) {
 			final int attr = a.getIndex(i);
-			if (doneStylesIndexes.contains(new Integer(attr)))
+			if (doneStylesIndexes.contains(attr))
 				continue;
 			if (AnyApplication.DEBUG)
 				Log.d(TAG, "Falling back theme res ID " + attr);
@@ -498,7 +502,7 @@ public class AnyKeyboardBaseView extends View implements
 		final int fallbackIconsCount = a.getIndexCount();
 		for (int i = 0; i < fallbackIconsCount; i++) {
 			final int attr = a.getIndex(i);
-			if (doneIconsStylesIndexes.contains(new Integer(attr)))
+			if (doneIconsStylesIndexes.contains(attr))
 				continue;
 			if (AnyApplication.DEBUG)
 				Log.d(TAG, "Falling back icon res ID " + attr);
@@ -699,11 +703,11 @@ public class AnyKeyboardBaseView extends View implements
 				// the whole factor maybe too much, so I ease that a bit.
 				if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
 					mKeyTextSize = mKeyTextSize
-							* (float) Math.sqrt(AnyApplication.getConfig()
+							* FloatMath.sqrt(AnyApplication.getConfig()
 									.getKeysHeightFactorInLandscape());
 				else
 					mKeyTextSize = mKeyTextSize
-							* (float) Math.sqrt(AnyApplication.getConfig()
+							* FloatMath.sqrt(AnyApplication.getConfig()
 									.getKeysHeightFactorInPortrait());
 				if (AnyApplication.DEBUG)
 					Log.d(TAG, "AnySoftKeyboardTheme_keyTextSize "
@@ -735,6 +739,33 @@ public class AnyKeyboardBaseView extends View implements
 				if (AnyApplication.DEBUG)
 					Log.d(TAG, "AnySoftKeyboardTheme_labelTextSize "
 							+ mLabelTextSize);
+				break;
+			case R.styleable.AnySoftKeyboardTheme_keyboardNameTextSize:
+				mKeyboardNameTextSize = a.getDimensionPixelSize(attr, 10);
+				if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+					mKeyboardNameTextSize = mKeyboardNameTextSize
+							* AnyApplication.getConfig()
+									.getKeysHeightFactorInLandscape();
+				else
+					mKeyboardNameTextSize = mKeyboardNameTextSize
+							* AnyApplication.getConfig()
+									.getKeysHeightFactorInPortrait();
+				if (AnyApplication.DEBUG)
+					Log.d(TAG, "AnySoftKeyboardTheme_keyboardNameTextSize "
+							+ mKeyboardNameTextSize);
+				break;
+			case R.styleable.AnySoftKeyboardTheme_keyboardNameTextColor:
+				mKeyboardNameTextColor = a.getColorStateList(attr);
+				if (mKeyboardNameTextColor == null) {
+					if (AnyApplication.DEBUG)
+						Log.d(TAG,
+								"Creating an empty ColorStateList for mKeyboardNameTextColor");
+					mKeyboardNameTextColor = new ColorStateList(new int[][] { { 0 } },
+							new int[] { a.getColor(attr, 0xFFAAAAAA) });
+				}
+				if (AnyApplication.DEBUG)
+					Log.d(TAG, "AnySoftKeyboardTheme_keyboardNameTextColor "
+							+ mKeyboardNameTextColor);
 				break;
 			case R.styleable.AnySoftKeyboardTheme_shadowColor:
 				mShadowColor = a.getColor(attr, 0);
@@ -1410,6 +1441,7 @@ public class AnyKeyboardBaseView extends View implements
 		final int keyCount = keys.length;
 		for (int i = 0; i < keyCount; i++) {
 			final AnyKey key = (AnyKey) keys[i];
+			final boolean keyIsSpace = isSpaceKey(key);
 
 			if (drawSingleKey && (invalidKey != key)) {
 				continue;
@@ -1421,8 +1453,12 @@ public class AnyKeyboardBaseView extends View implements
 			}
 			int[] drawableState = key.getCurrentDrawableState();
 
-			paint.setColor(keyTextColor.getColorForState(drawableState,
+			if (keyIsSpace)
+				paint.setColor(mKeyboardNameTextColor.getColorForState(drawableState,
 					0xFF000000));
+			else
+				paint.setColor(keyTextColor.getColorForState(drawableState,
+						0xFF000000));
 			keyBackground.setState(drawableState);
 
 			// Switch the character to uppercase if shift is pressed
@@ -1456,7 +1492,7 @@ public class AnyKeyboardBaseView extends View implements
 					iconToDraw.setBounds(0, 0, drawableWidth, drawableHeight);
 					iconToDraw.draw(canvas);
 					canvas.translate(-drawableX, -drawableY);
-					if (key.codes.length > 0 && key.codes[0] == KeyCodes.SPACE) {
+					if (keyIsSpace) {
 						//now a little hack, I'll set the label now, so it get drawn.
 						label = mKeyboardName;
 					}
@@ -1477,7 +1513,13 @@ public class AnyKeyboardBaseView extends View implements
 				// For characters, use large font. For labels like "Done", use
 				// small font.
 				final FontMetrics fm;
-				if (label.length() > 1 && key.codes.length < 2) {
+				if (keyIsSpace) {
+					paint.setTextSize(mKeyboardNameTextSize);
+					paint.setTypeface(Typeface.DEFAULT);
+					if (mKeyboardNameFM == null)
+						mKeyboardNameFM = paint.getFontMetrics();
+					fm = mKeyboardNameFM;
+				} else if (label.length() > 1 && key.codes.length < 2) {
 					paint.setTextSize(mLabelTextSize);
 					paint.setTypeface(Typeface.DEFAULT_BOLD);
 					if (mLabelFM == null)
@@ -1701,6 +1743,10 @@ public class AnyKeyboardBaseView extends View implements
 
 		mDrawPending = false;
 		mDirtyRect.setEmpty();
+	}
+
+	private boolean isSpaceKey(final AnyKey key) {
+		return key.codes.length > 0 && key.codes[0] == KeyCodes.SPACE;
 	}
 
 	int mKeyboardActionType = EditorInfo.IME_ACTION_UNSPECIFIED;

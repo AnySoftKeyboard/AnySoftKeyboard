@@ -19,7 +19,7 @@
         <item name="keyPreviewOffset">@dimen/key_preview_offset</item>
         <item name="keyPreviewHeight">@dimen/key_preview_height</item>
 -->
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="Popup" parent="@android:style/Theme.Dialog">
    		<item name="android:windowContentOverlay">@null</item>
    		<item name="android:maxWidth">320dp</item>
@@ -67,7 +67,10 @@
         <item name="keyTextSize">@dimen/key_text_size</item>
         <item name="keyTextStyle">bold</item>
         <item name="keyTextColor">#FFFFFFFF</item>
-        <item name="labelTextSize">@dimen/key_label_text_size</item>            
+        <item name="labelTextSize">@dimen/key_label_text_size</item>  
+        
+        <item name="keyboardNameTextSize">@dimen/keyboard_name_text_size</item>
+        <item name="keyboardNameTextColor">#FAAA</item>
             
         <item name="keyHysteresisDistance">@dimen/key_hysteresis_distance</item>
         <!-- this is what Android team figured verticalCorrection should be -->
