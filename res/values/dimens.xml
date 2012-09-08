@@ -38,6 +38,7 @@
     <dimen name="key_label_text_size">14sp</dimen>
     <dimen name="key_hint_text_size">7sp</dimen>
     <dimen name="key_hint_text_no_size">0px</dimen>
+    <dimen name="keyboard_name_text_size">10sp</dimen>
     
     <dimen name="candidate_strip_height">36dp</dimen>
     <dimen name="candidate_font_height">18sp</dimen>
