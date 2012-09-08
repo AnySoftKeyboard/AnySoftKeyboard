@@ -34,6 +34,7 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 	private boolean mKeyPreviewAboveKey = true;
 	private boolean mSwapPunctuationAndSpace = true;
 	private boolean mShowHintTextOnKeys = true;
+	private boolean mShowKeyboardNameText = true;
 	private boolean mUseCustomHintAlign = true;
 	private int mCustomHintAlign = Gravity.BOTTOM;
 	private int mCustomHintVAlign = Gravity.TOP;
@@ -247,6 +248,9 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 				mContext.getString(R.string.settings_default_key_press_preview_popup_position)).equals("above_key");
 		Log.i(TAG, "** mKeyPreviewAboveKey: "+mKeyPreviewAboveKey);
 		
+		mShowKeyboardNameText = sp.getBoolean(mContext.getString(R.string.settings_key_show_keyboard_name_text_key), 
+				mContext.getResources().getBoolean(R.bool.settings_default_show_keyboard_name_text_value));
+		Log.i(TAG, "** mShowKeyboardNameText: "+mShowKeyboardNameText);
 		
 		mShowHintTextOnKeys = sp.getBoolean(mContext.getString(R.string.settings_key_show_hint_text_key), 
 				mContext.getResources().getBoolean(R.bool.settings_default_show_hint_text_value));
@@ -716,6 +720,10 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
     
     public int getCustomHintVAlign() {
     	return mCustomHintVAlign;
+    }
+    
+    public boolean getShowKeyboardNameText() {
+    	return mShowKeyboardNameText;
     }
     
     public boolean useChewbaccaNotifications() {

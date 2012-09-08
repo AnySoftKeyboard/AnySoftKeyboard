@@ -599,7 +599,10 @@ public abstract class AnyKeyboard extends Keyboard
 
     public String getKeyboardName()
     {
-        return mKeyboardContext.getResources().getString(getKeyboardNameResId());
+    	final int nameId= getKeyboardNameResId();
+    	if (nameId == -1)
+    		return null;
+        return mKeyboardContext.getResources().getString(nameId);
     }
 
     public boolean isLeftToRightLanguage()

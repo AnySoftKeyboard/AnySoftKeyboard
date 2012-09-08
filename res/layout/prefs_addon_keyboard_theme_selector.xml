@@ -93,6 +93,14 @@
                 android:summary="@string/custom_hint_valign_summary"
                 android:title="@string/custom_hint_valign" />
 
+            <CheckBoxPreference
+                android:defaultValue="@bool/settings_default_show_keyboard_name_text_value"
+                android:key="@string/settings_key_show_keyboard_name_text_key"
+                android:persistent="true"
+                android:summaryOff="@string/show_keyboard_name_off_summary"
+                android:summaryOn="@string/show_keyboard_name_on_summary"
+                android:title="@string/show_keyboard_name_text" />
+            
             <EditTextPreference
                 android:autoText="false"
                 android:capitalize="none"

@@ -25,7 +25,7 @@
 	<bool name="settings_default_key_press_shows_preview_popup">true</bool>
 	
 	<bool name="settings_default_use_custom_keytext_color_value">false</bool>
-	
+	<bool name="settings_default_show_keyboard_name_text_value">true</bool>
 	<bool name="settings_default_show_hint_text_value">true</bool>
 	<bool name="settings_default_use_custom_hint_color_value">false</bool>
 	<bool name="settings_default_use_custom_hint_align_value">false</bool>
