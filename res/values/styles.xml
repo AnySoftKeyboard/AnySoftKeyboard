@@ -136,9 +136,11 @@
 		<item name="keyVerticalGap">@dimen/plain_theme_key_horizontal_gap</item>
     	<item name="keyBackground">@drawable/lean_dark_btn</item>
     	<item name="keyPreviewBackground">@drawable/lean_dark_popup_keyboard_background</item>
-<!--
-    	<item name="keyTextSize">@dimen/lean_key_text_size</item>
--->
+
+    	<!-- I said Lean theme, so no garbage on the screen please. -->
+    	<item name="keyboardNameTextSize">0px</item>
+        <item name="hintTextSize">0px</item>
+    	
         <item name="keyTextStyle">normal</item>
     	<item name="shadowRadius">0px</item>
     </style>
