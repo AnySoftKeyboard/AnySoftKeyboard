@@ -15,6 +15,8 @@ public interface Configuration {
 	//String getChangeLayoutKeysSize();
 	
 	boolean getShowKeyPreview();
+
+	boolean getShowKeyboardNameText();
 	
 	boolean getShowHintTextOnKeys();
 	

@@ -278,6 +278,10 @@
     <string name="tweak_dictionary_group">Dictionary tweaks</string>
     <string name="settings_min_length_for_word_correction">Minimum word length for correction</string>
     
+    <string name="show_keyboard_name_text">Show keyboard name</string>
+    <string name="show_keyboard_name_on_summary">Show keyboard name on space-bar</string>
+    <string name="show_keyboard_name_off_summary">Never show keyboard name</string>
+    
     <string name="use_custom_keytext_color">Override key text color</string>
     <string name="use_custom_keytext_color_on_summary">Use custom key text color</string>
     <string name="use_custom_keytext_color_off_summary">Use theme key text color</string>

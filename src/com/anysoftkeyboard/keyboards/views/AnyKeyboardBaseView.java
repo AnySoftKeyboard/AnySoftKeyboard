@@ -16,6 +16,11 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -66,14 +71,10 @@ import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
-import com.anysoftkeyboard.utils.IMEUtil;
+import com.anysoftkeyboard.utils.IMEUtil.GCUtils;
+import com.anysoftkeyboard.utils.IMEUtil.GCUtils.MemRelatedOperation;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 
 public class AnyKeyboardBaseView extends View implements
 		PointerTracker.UIProxy, OnSharedPreferenceChangeListener {
@@ -1341,32 +1342,22 @@ public class AnyKeyboardBaseView extends View implements
 	}
 
 	@Override
-	public void onDraw(Canvas canvas) {
+	public void onDraw(final Canvas canvas) {
 		super.onDraw(canvas);
 		// mCanvas = canvas;
 		if (mDrawPending || mBuffer == null || mKeyboardChanged) {
-			doOnBufferDrawWithMemProtection(canvas);
+			GCUtils.getInstance().peformOperationWithMemRetry(TAG, new MemRelatedOperation() {
+				
+				public void operation() {
+					onBufferDraw(canvas);
+				}
+			}, true);
 		}
 		// maybe there is no buffer, since drawing was not done.
 		if (mBuffer != null)
 			canvas.drawBitmap(mBuffer, 0, 0, null);
 	}
-
-	private void doOnBufferDrawWithMemProtection(Canvas canvas) {
-		IMEUtil.GCUtils.getInstance().reset();
-		boolean tryGC = true;
-		for (int i = 0; i < IMEUtil.GCUtils.GC_TRY_LOOP_MAX && tryGC; ++i) {
-			try {
-				onBufferDraw(canvas);
-				tryGC = false;
-			} catch (OutOfMemoryError e) {
-				Log.w(TAG,
-						"WOW! No memory to paint stuff... I'll try to release some.");
-				tryGC = IMEUtil.GCUtils.getInstance().tryGCOrWait(TAG, e);
-			}
-		}
-	}
-
+							
 	private void onBufferDraw(Canvas canvas) {
 		if (mKeyboardChanged) {
 			invalidateAllKeys();
@@ -1378,6 +1369,9 @@ public class AnyKeyboardBaseView extends View implements
 		if (mKeyboard == null)
 			return;
 
+		final boolean drawKeyboardNameText = (mKeyboardNameTextSize > 1)
+				&& AnyApplication.getConfig().getShowKeyboardNameText();
+		
 		final boolean drawHintText = (mHintTextSize > 1)
 				&& AnyApplication.getConfig().getShowHintTextOnKeys();
 		if (AnyApplication.DEBUG && !drawHintText) {
@@ -1492,7 +1486,7 @@ public class AnyKeyboardBaseView extends View implements
 					iconToDraw.setBounds(0, 0, drawableWidth, drawableHeight);
 					iconToDraw.draw(canvas);
 					canvas.translate(-drawableX, -drawableY);
-					if (keyIsSpace) {
+					if (keyIsSpace && drawKeyboardNameText) {
 						//now a little hack, I'll set the label now, so it get drawn.
 						label = mKeyboardName;
 					}
@@ -1745,7 +1739,7 @@ public class AnyKeyboardBaseView extends View implements
 		mDirtyRect.setEmpty();
 	}
 
-	private boolean isSpaceKey(final AnyKey key) {
+	private static boolean isSpaceKey(final AnyKey key) {
 		return key.codes.length > 0 && key.codes[0] == KeyCodes.SPACE;
 	}
 
