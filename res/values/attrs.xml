@@ -388,4 +388,7 @@
 	
 	<!-- keyboard wallpaper - this is the image BEHIND the keyboard, it is visible when switching layout with animation -->
 	<attr name="keyboardWallpaper" format="reference" />
+	
+	<attr name="keyboardNameTextSize" format="dimension"/>
+	<attr name="keyboardNameTextColor" format="color" />
 </resources>
