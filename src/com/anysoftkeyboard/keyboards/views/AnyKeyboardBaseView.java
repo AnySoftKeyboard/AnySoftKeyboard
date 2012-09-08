@@ -1369,7 +1369,7 @@ public class AnyKeyboardBaseView extends View implements
 		if (mKeyboard == null)
 			return;
 
-		final boolean drawKeyboardNameText = (mKeyboardNameTextSize > 1)
+		final boolean drawKeyboardNameText = (mKeyboardNameTextSize > 1f)
 				&& AnyApplication.getConfig().getShowKeyboardNameText();
 		
 		final boolean drawHintText = (mHintTextSize > 1)
@@ -1509,7 +1509,7 @@ public class AnyKeyboardBaseView extends View implements
 				final FontMetrics fm;
 				if (keyIsSpace) {
 					paint.setTextSize(mKeyboardNameTextSize);
-					paint.setTypeface(Typeface.DEFAULT);
+					paint.setTypeface(Typeface.DEFAULT_BOLD);
 					if (mKeyboardNameFM == null)
 						mKeyboardNameFM = paint.getFontMetrics();
 					fm = mKeyboardNameFM;
@@ -1560,8 +1560,8 @@ public class AnyKeyboardBaseView extends View implements
 				// previously for vertically
 				// positioning the key label
 				final float centerY = mKeyBackgroundPadding.top
-						+ (key.height - mKeyBackgroundPadding.top - mKeyBackgroundPadding.bottom)
-						/ 2;
+						+ ((key.height - mKeyBackgroundPadding.top - mKeyBackgroundPadding.bottom)
+						/ (keyIsSpace? 3 : 2));//the label on the space is a bit higher
 
 				// the X coordinate for the center of the main label text is
 				// unaffected by the hints
