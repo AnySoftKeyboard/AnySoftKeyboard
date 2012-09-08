@@ -16,6 +16,8 @@
     
     <string name="settings_key_use_custom_keytext_color_key">settings_key_use_custom_keytext_color_key</string>
     
+    <string name="settings_key_show_keyboard_name_text_key">settings_key_show_keyboard_name_text_key</string>
+    
     <string name="settings_key_show_hint_text_key">settings_key_show_hint_text_key</string>
     <string name="settings_key_use_custom_hint_color_key">settings_key_use_custom_hint_color_key</string>
     <string name="settings_key_use_custom_hint_align_key">settings_key_use_custom_hint_align</string>
