@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.menny.android.anysoftkeyboard"
     android:versionCode="77"
-    android:versionName="20120905-eye-candy" >
+    android:versionName="20120910-eye-candy" >
 
     <supports-screens
         android:anyDensity="true"
@@ -55,7 +55,16 @@
                 android:name="android.view.im"
                 android:resource="@xml/method" />
         </service>
-
+        <!-- Not ready for prime-time
+        <service android:name="com.anysoftkeyboard.spellcheck.AnySpellCheckerService"
+                 android:label="@string/spell_checker_service_name"
+                 android:permission="android.permission.BIND_TEXT_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.textservice.SpellCheckerService" />
+            </intent-filter>
+            <meta-data android:name="android.view.textservice.scs" android:resource="@xml/spellchecker" />
+        </service>
+		 -->
         <!-- receivers for outside events -->
         <!--
          this is used for showing HOW-TO after Market install
@@ -171,7 +180,12 @@
             android:icon="@drawable/ic_launcher"
             android:label="@string/ime_name" >
         </activity>
-
+        <!-- 
+         <activity android:name="com.anysoftkeyboard.ui.settings.SpellCheckerSettingsActivity"
+                  android:label="@string/spell_checker_settings"
+                  android:icon="@drawable/ic_launcher_settings">
+        </activity>
+		 -->	
         <!-- for voice -->
         <activity
             android:name="com.anysoftkeyboard.voice.VoiceInputNotInstalledActivity"

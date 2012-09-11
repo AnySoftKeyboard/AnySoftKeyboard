@@ -3,6 +3,9 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="ime_name">AnySoftKeyboard</string>
     <string name="settings_app_name">AnySoftKeyboard Settings</string>
+    <string name="spell_checker_service_name">AnySoftKeyboard Spell Checker</string>
+    <string name="spell_checker_settings">AnySoftKeyboard Speller Settings</string>
+    <string name="subtype_generic">speller-generic</string>
     
     <string name="click_to_restart_suggestions">Click for suggestions</string>
     <!-- tips -->
@@ -72,7 +75,7 @@
 	<string name="how_to_enable_dialog_dont_show_me">Later</string>
 	
 	<string name="how_to_simple_howto_preface">Android requires that you (the user) will manually enable and activate external keyboards. Here is how:</string>
-	<string name="how_to_simple_howto_enable_ask">Step 1: Enable AnySoftKeyboard (it will warn you about possible key-logging, don\'t worry, AnySoftKeyboard do not keep data, and do not send it anywhere) :</string>
+	<string name="how_to_simple_howto_enable_ask">Step 1: Enable AnySoftKeyboard (it will warn you about possible key-logging, don\'t worry, AnySoftKeyboard does not keep data, and does not send it anywhere) :</string>
 	<string name="how_to_simple_howto_enable_ask_button">Enable AnySoftKeyboard</string>
 	<string name="how_to_simple_howto_press_back_to_return_tip">Press BACK once done, to get back to activation instructions</string>
 	<string name="how_to_simple_howto_switch_to_ask">Step 2: Select AnySoftKeyboard as your active Input Method:</string>
