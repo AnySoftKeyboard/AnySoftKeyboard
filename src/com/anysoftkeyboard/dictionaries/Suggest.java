@@ -25,6 +25,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.anysoftkeyboard.WordComposer;
+import com.anysoftkeyboard.utils.IMEUtil;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -185,24 +186,20 @@ public class Suggest implements Dictionary.WordCallback {
 			mStringPool.add(sb);
 		}
 	}
-
+	
 	private boolean haveSufficientCommonality(String original,
 			CharSequence suggestion) {
-		final int len = Math.min(original.length(), suggestion.length());
-		if (len <= 2)
+		final int originalLength = original.length();
+		final int suggestionLength = suggestion.length();
+		final int lengthDiff = suggestionLength - originalLength;
+
+		if (lengthDiff == 0 || lengthDiff == 1) {
 			return true;
-		int matching = 0;
-		for (int i = 0; i < len; i++) {
-			if (UserDictionaryBase.toLowerCase(original.charAt(i)) == UserDictionaryBase
-					.toLowerCase(suggestion.charAt(i))) {
-				matching++;
-			}
 		}
-		if (len <= 4) {
-			return matching >= 2;
-		} else {
-			return matching > len / 2;
-		}
+		
+		final int distance = IMEUtil.editDistance(original, suggestion);
+		
+		return distance <= 1;
 	}
 
 	public List<CharSequence> getInitialSuggestions()
@@ -276,34 +273,17 @@ public class Suggest implements Dictionary.WordCallback {
         // Check if the first suggestion has a minimum number of characters in
         // common
         if (mMainDictioanryEnabled && mSuggestions.size() > 1) {
-            // //will check if the original typed word is in the suggestions
-            // final int maxIndex = Math.min(4, mSuggestions.size());
-            // for(int suggestionIndex=1; suggestionIndex<maxIndex;
-            // suggestionIndex++)
-            // {
-            // if
-            // (mLowerOriginalWord.equalsIgnoreCase(mSuggestions.get(suggestionIndex).toString()))
-            // {
-            // mSuggestions.remove(suggestionIndex);
-            // break;
-            // }
-            // }
+        	
             if (!haveSufficientCommonality(mLowerOriginalWord, mSuggestions.get(1))) {
                 mHaveCorrection = false;
             }
         }
-
-//        if (view == null)
-//            return mSuggestions;
 
         int i = 0;
         int max = 6;
         // Don't autotext the suggestions from the dictionaries
         if (!mMainDictioanryEnabled && mAutoTextEnabled)
             max = 1;
-        //Locale old = view.getResources().getConfiguration().locale;
-        //view.getResources().getConfiguration().locale = new Locale(AnySoftKeyboard.getInstance().getCurrentKeyboard().getDefaultDictionaryLocale());
-        try { 
         while (i < mSuggestions.size() && i < max) {
             String suggestedWord = mSuggestions.get(i).toString().toLowerCase();
             
@@ -324,9 +304,6 @@ public class Suggest implements Dictionary.WordCallback {
                 i++;
             }
             i++;
-        }
-        }finally{
-        	//view.getResources().getConfiguration().locale = old;
         }
 
         return mSuggestions;
