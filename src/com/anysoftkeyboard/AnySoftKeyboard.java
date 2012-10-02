@@ -1361,6 +1361,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public AnyKeyboard getCurrentKeyboard() {
 		return mKeyboardSwitcher.getCurrentKeyboard();
 	}
+	
+	public KeyboardSwitcher getKeyboardSwitcher() {
+		return mKeyboardSwitcher;
+	}
 
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {

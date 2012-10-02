@@ -15,7 +15,7 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:tag="20120910-eye-candy"
+    	android:tag="20120922-eye-candy"
         android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
 	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
 	    android:text="* Some UI improvement.\n* New translations: IW, PT.\n* Bug fixes." style="@android:style/TextAppearance.Small"/>

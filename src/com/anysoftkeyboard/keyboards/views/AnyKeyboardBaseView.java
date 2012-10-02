@@ -30,6 +30,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.FontMetrics;
@@ -62,6 +63,7 @@ import com.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.anysoftkeyboard.Configuration.AnimationsLevel;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
+import com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel;
 import com.anysoftkeyboard.devicespecific.WMotionEvent;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
@@ -160,9 +162,8 @@ public class AnyKeyboardBaseView extends View implements
 	private TextView mPreviewText;
 	private ImageView mPreviewIcon;
 	private PopupWindow mPreviewPopup;
-	private boolean mStaticLocationPopupWindow = false;
 	private int mPreviewKeyTextSize;
-	private int mPreviewLabelTextSize;
+	protected int mPreviewLabelTextSize;
 	private int mPreviewPaddingWidth = -1;
 	private int mPreviewPaddingHeight = -1;
 	// private int mPreviewTextSizeLarge;
@@ -240,13 +241,13 @@ public class AnyKeyboardBaseView extends View implements
 	/*
 	 * NOTE: this field EXISTS ONLY AFTER THE CTOR IS FINISHED!
 	 */
-	private AnyKeyboardContextProvider mAskContext;
+	protected AnyKeyboardContextProvider mAskContext;
 
 	private final UIHandler mHandler = new UIHandler();
 
 	private Drawable mPreviewKeyBackground;
 
-	private int mPreviewKeyTextColor;
+	protected int mPreviewKeyTextColor;
 
 	private final KeyboardDimensFromTheme mKeyboardDimens = new KeyboardDimensFromTheme();
 
@@ -533,8 +534,7 @@ public class AnyKeyboardBaseView extends View implements
 		if (mPreviewKeyTextSize > 0) {
 			if (mPreviewLabelTextSize <= 0)
 				mPreviewLabelTextSize = mPreviewKeyTextSize;
-			mPreviewLayut = (ViewGroup) inflate.inflate(R.layout.key_preview,
-					null);
+			mPreviewLayut = inflatePreviewWindowLayout(inflate);
 			mPreviewText = (TextView) mPreviewLayut
 					.findViewById(R.id.key_preview_text);
 			mPreviewText.setTextColor(mPreviewKeyTextColor);
@@ -543,7 +543,7 @@ public class AnyKeyboardBaseView extends View implements
 					.findViewById(R.id.key_preview_icon);
 			mPreviewPopup.setBackgroundDrawable(mPreviewKeyBackground);
 			mPreviewPopup.setContentView(mPreviewLayut);
-			mShowPreview = true;
+			mShowPreview = mPreviewLayut != null;
 		} else {
 			mPreviewLayut = null;
 			mPreviewText = null;
@@ -593,17 +593,17 @@ public class AnyKeyboardBaseView extends View implements
 				.createGestureDetector(getContext(), listener);
 		mGestureDetector.setIsLongpressEnabled(false);
 
-		// MultiTouchSupportLevel multiTouchSupportLevel =
-		// AnyApplication.getDeviceSpecific().getMultiTouchSupportLevel(getContext());
-		mHasDistinctMultitouch = true;/*
-									 * (multiTouchSupportLevel ==
-									 * MultiTouchSupportLevel.Basic)
-									 * ||(multiTouchSupportLevel ==
-									 * MultiTouchSupportLevel.Distinct);
-									 */
+		MultiTouchSupportLevel multiTouchSupportLevel = AnyApplication.getDeviceSpecific().getMultiTouchSupportLevel(getContext());
+		mHasDistinctMultitouch = multiTouchSupportLevel == MultiTouchSupportLevel.Distinct;
+		
 		mKeyRepeatInterval = 50;
 
 		AnyApplication.getConfig().addChangedListener(this);
+	}
+
+	protected ViewGroup inflatePreviewWindowLayout(LayoutInflater inflate) {
+		return (ViewGroup) inflate.inflate(R.layout.key_preview,
+				null);
 	}
 
 	public void setAnySoftKeyboardContext(AnyKeyboardContextProvider askContext) {
@@ -761,8 +761,9 @@ public class AnyKeyboardBaseView extends View implements
 					if (AnyApplication.DEBUG)
 						Log.d(TAG,
 								"Creating an empty ColorStateList for mKeyboardNameTextColor");
-					mKeyboardNameTextColor = new ColorStateList(new int[][] { { 0 } },
-							new int[] { a.getColor(attr, 0xFFAAAAAA) });
+					mKeyboardNameTextColor = new ColorStateList(
+							new int[][] { { 0 } }, new int[] { a.getColor(attr,
+									0xFFAAAAAA) });
 				}
 				if (AnyApplication.DEBUG)
 					Log.d(TAG, "AnySoftKeyboardTheme_keyboardNameTextColor "
@@ -1102,7 +1103,7 @@ public class AnyKeyboardBaseView extends View implements
 		mHandler.cancelKeyTimers();
 		mHandler.cancelPopupPreview();
 		mKeyboard = keyboard;
-		mKeyboardName = keyboard != null? keyboard.getKeyboardName() : null;
+		mKeyboardName = keyboard != null ? keyboard.getKeyboardName() : null;
 		// ImeLogger.onSetKeyboard(keyboard);
 		mKeys = mKeyDetector.setKeyboard(keyboard);
 		mKeyDetector.setCorrection(-getPaddingLeft(), -getPaddingTop()
@@ -1346,18 +1347,19 @@ public class AnyKeyboardBaseView extends View implements
 		super.onDraw(canvas);
 		// mCanvas = canvas;
 		if (mDrawPending || mBuffer == null || mKeyboardChanged) {
-			GCUtils.getInstance().peformOperationWithMemRetry(TAG, new MemRelatedOperation() {
-				
-				public void operation() {
-					onBufferDraw(canvas);
-				}
-			}, true);
+			GCUtils.getInstance().peformOperationWithMemRetry(TAG,
+					new MemRelatedOperation() {
+
+						public void operation() {
+							onBufferDraw(canvas);
+						}
+					}, true);
 		}
 		// maybe there is no buffer, since drawing was not done.
 		if (mBuffer != null)
 			canvas.drawBitmap(mBuffer, 0, 0, null);
 	}
-							
+
 	private void onBufferDraw(Canvas canvas) {
 		if (mKeyboardChanged) {
 			invalidateAllKeys();
@@ -1371,7 +1373,7 @@ public class AnyKeyboardBaseView extends View implements
 
 		final boolean drawKeyboardNameText = (mKeyboardNameTextSize > 1f)
 				&& AnyApplication.getConfig().getShowKeyboardNameText();
-		
+
 		final boolean drawHintText = (mHintTextSize > 1)
 				&& AnyApplication.getConfig().getShowHintTextOnKeys();
 		if (AnyApplication.DEBUG && !drawHintText) {
@@ -1448,8 +1450,8 @@ public class AnyKeyboardBaseView extends View implements
 			int[] drawableState = key.getCurrentDrawableState();
 
 			if (keyIsSpace)
-				paint.setColor(mKeyboardNameTextColor.getColorForState(drawableState,
-					0xFF000000));
+				paint.setColor(mKeyboardNameTextColor.getColorForState(
+						drawableState, 0xFF000000));
 			else
 				paint.setColor(keyTextColor.getColorForState(drawableState,
 						0xFF000000));
@@ -1487,7 +1489,8 @@ public class AnyKeyboardBaseView extends View implements
 					iconToDraw.draw(canvas);
 					canvas.translate(-drawableX, -drawableY);
 					if (keyIsSpace && drawKeyboardNameText) {
-						//now a little hack, I'll set the label now, so it get drawn.
+						// now a little hack, I'll set the label now, so it get
+						// drawn.
 						label = mKeyboardName;
 					}
 				} else {
@@ -1536,22 +1539,36 @@ public class AnyKeyboardBaseView extends View implements
 				// no matter what: StaticLayout
 				// this should be in the top left corner of the key
 				float textWidth = paint.measureText(label, 0, label.length());
-				//I'm going to try something if the key is too small for the text:
-				//1) divide the text size by 1.5
-				//2) if still too large, divide by 2.5
-				//3) show no text
+				// I'm going to try something if the key is too small for the
+				// text:
+				// 1) divide the text size by 1.5
+				// 2) if still too large, divide by 2.5
+				// 3) show no text
 				if (textWidth > key.width) {
-					if (AnyApplication.DEBUG) Log.d(TAG, "Label '"+label+"' is too large for the key. Reducing by 1.5.");
-					paint.setTextSize(mKeyTextSize/1.5f);
+					if (AnyApplication.DEBUG)
+						Log.d(TAG,
+								"Label '"
+										+ label
+										+ "' is too large for the key. Reducing by 1.5.");
+					paint.setTextSize(mKeyTextSize / 1.5f);
 					textWidth = paint.measureText(label, 0, label.length());
 					if (textWidth > key.width) {
-						if (AnyApplication.DEBUG) Log.d(TAG, "Label '"+label+"' is too large for the key. Reducing by 2.5.");
-						paint.setTextSize(mKeyTextSize/2.5f);
+						if (AnyApplication.DEBUG)
+							Log.d(TAG,
+									"Label '"
+											+ label
+											+ "' is too large for the key. Reducing by 2.5.");
+						paint.setTextSize(mKeyTextSize / 2.5f);
 						textWidth = paint.measureText(label, 0, label.length());
 						if (textWidth > key.width) {
-							if (AnyApplication.DEBUG) Log.d(TAG, "Label '"+label+"' is too large for the key. Showing no text.");
+							if (AnyApplication.DEBUG)
+								Log.d(TAG,
+										"Label '"
+												+ label
+												+ "' is too large for the key. Showing no text.");
 							paint.setTextSize(0f);
-							textWidth = paint.measureText(label, 0, label.length());
+							textWidth = paint.measureText(label, 0,
+									label.length());
 						}
 					}
 				}
@@ -1560,8 +1577,8 @@ public class AnyKeyboardBaseView extends View implements
 				// previously for vertically
 				// positioning the key label
 				final float centerY = mKeyBackgroundPadding.top
-						+ ((key.height - mKeyBackgroundPadding.top - mKeyBackgroundPadding.bottom)
-						/ (keyIsSpace? 3 : 2));//the label on the space is a bit higher
+						+ ((key.height - mKeyBackgroundPadding.top - mKeyBackgroundPadding.bottom) / (keyIsSpace ? 3
+								: 2));// the label on the space is a bit higher
 
 				// the X coordinate for the center of the main label text is
 				// unaffected by the hints
@@ -1739,7 +1756,7 @@ public class AnyKeyboardBaseView extends View implements
 		mDirtyRect.setEmpty();
 	}
 
-	private static boolean isSpaceKey(final AnyKey key) {
+	protected static boolean isSpaceKey(final AnyKey key) {
 		return key.codes.length > 0 && key.codes[0] == KeyCodes.SPACE;
 	}
 
@@ -1931,21 +1948,7 @@ public class AnyKeyboardBaseView extends View implements
 		// the space key preview and 3) pointer moves off the space key to other
 		// letter key, we
 		// should hide the preview of the previous key.
-		final boolean hidePreviewOrShowSpaceKeyPreview = (tracker == null)/*
-																		 * ||
-																		 * tracker
-																		 * .
-																		 * isSpaceKey
-																		 * (
-																		 * keyIndex
-																		 * ) ||
-																		 * tracker
-																		 * .
-																		 * isSpaceKey
-																		 * (
-																		 * oldKeyIndex
-																		 * )
-																		 */;
+		final boolean hidePreviewOrShowSpaceKeyPreview = (tracker == null);
 		// If key changed and preview is on or the key is space (language switch
 		// is enabled)
 		if (oldKeyIndex != keyIndex
@@ -1969,27 +1972,17 @@ public class AnyKeyboardBaseView extends View implements
 		CharSequence label = tracker.getPreviewText(key, mKeyboard.isShifted());
 		if (TextUtils.isEmpty(label)) {
 			Drawable iconToDraw = getIconToDrawForKey(key, true);
-			// mPreviewText.setCompoundDrawables(null, null, null,
-			// key.iconPreview != null ? key.iconPreview : key.icon);
 			mPreviewIcon.setImageDrawable(iconToDraw);
-			if (key.codes.length > 0 && key.codes[0] == KeyCodes.SPACE) {
-				// in the spacebar we'll also add the current gesture, with alpha [0...128,255].
-				//if any
-				//TODO: the above
-				//mPreviewText.setTextColor(color+alpha)
-				mPreviewText.setText(null);
-			} else {
-				mPreviewText.setText(null);
-			}
 			mPreviewIcon.measure(
 					MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
 					MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
 			popupWidth = Math.max(mPreviewIcon.getMeasuredWidth(), key.width);
 			popupHeight = Math
 					.max(mPreviewIcon.getMeasuredHeight(), key.height);
+			mPreviewText.setText(null);
 		} else {
-			// mPreviewText.setCompoundDrawables(null, null, null, null);
 			mPreviewIcon.setImageDrawable(null);
+			mPreviewText.setTextColor(mPreviewKeyTextColor);
 			setKeyPreviewText(key, label);
 			popupWidth = Math.max(mPreviewText.getMeasuredWidth(), key.width);
 			popupHeight = Math
@@ -2060,23 +2053,41 @@ public class AnyKeyboardBaseView extends View implements
 		}
 
 		if (mPreviewPopup.isShowing()) {
-			if (mStaticLocationPopupWindow) {
+			/*if (mStaticLocationPopupWindow) {
 				// started at SPACE, so I stick with the position. This is used
 				// for
 				// showing gesture info
-
-			} else {
+				// in the spacebar we'll also add the current gesture, with
+				// alpha [0...128,255].
+				// if any
+				// TODO: the above
+				final int horizontalSlide = tracker.getLastX()
+						- tracker.getStartX();
+				final int slideRatio = (255 * mSwipeXDistanceThreshold)
+						/ horizontalSlide;
+				final int slideDisatance = Math.abs(slideRatio);
+				if (AnyApplication.DEBUG) {
+					Log.d(TAG, "horizontalSlide: " + horizontalSlide
+							+ ", slideRatio:" + slideRatio);
+				}
+				if (slideDisatance >= 20) {
+					final int alpha = slideDisatance > 127? 255 : slideDisatance;
+					mPreviewText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+							mPreviewLabelTextSize);
+					mPreviewText.setTextColor(Color.argb(alpha,
+							mPreviewKeyTextRedColor, mPreviewKeyTextGreenColor,
+							mPreviewKeyTextBlueColor));
+					mPreviewText.setText("GESTURE");
+				} else {
+					mPreviewText.setText(null);
+				}
+			} else {*/
 				mPreviewPopup.update(popupPreviewX, popupPreviewY, popupWidth,
 						popupHeight);
-			}
+			/*}*/
 		} else {
 			mPreviewPopup.setWidth(popupWidth);
 			mPreviewPopup.setHeight(popupHeight);
-			// if started at SPACE, so I stick with the position. This is used
-			// for
-			// showing gesture info
-			mStaticLocationPopupWindow = key.codes.length > 0
-					&& key.codes[0] == KeyCodes.SPACE;
 			try {
 				// https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/6
 				// I don't understand why this should happen, and only with MIUI
@@ -2393,66 +2404,14 @@ public class AnyKeyboardBaseView extends View implements
 		return (edgeFlags & Keyboard.EDGE_TOP) != 0
 				&& (edgeFlags & Keyboard.EDGE_BOTTOM) != 0;
 	}
-
-	// private static boolean hasMultiplePopupChars(Key key) {
-	// if (key.popupCharacters != null && key.popupCharacters.length() > 1) {
-	// return true;
-	// }
-	// return false;
-	// }
-
-	// private boolean shouldDrawIconFully(Key key) {
-	// return isNumberAtEdgeOfPopupChars(key) /*|| isLatinF1Key(key)
-	// || LatinKeyboard.hasPuncOrSmileysPopup(key)*/;
-	// }
-	//
-	// private boolean shouldDrawLabelAndIcon(Key key) {
-	// return isNumberAtEdgeOfPopupChars(key) /*|| isNonMicLatinF1Key(key)
-	// || AnyKeyboard.hasPuncOrSmileysPopup(key)*/;
-	// }
-
-	// private boolean isLatinF1Key(Key key) {
-	// return (mKeyboard instanceof AnyKeyboard) &&
-	// ((AnyKeyboard)mKeyboard).isF1Key(key);
-	// }
-
-	// private boolean isNonMicLatinF1Key(Key key) {
-	// return isLatinF1Key(key) && key.label != null;
-	// }
-
-	// private static boolean isNumberAtEdgeOfPopupChars(Key key) {
-	// return isNumberAtLeftmostPopupChar(key) ||
-	// isNumberAtRightmostPopupChar(key);
-	// }
-
-	// /* package */ static boolean isNumberAtLeftmostPopupChar(Key key) {
-	// if (key.popupCharacters != null && key.popupCharacters.length() > 0
-	// && isAsciiDigit(key.popupCharacters.charAt(0))) {
-	// return true;
-	// }
-	// return false;
-	// }
-
-	// /* package */ static boolean isNumberAtRightmostPopupChar(Key key) {
-	// if (key.popupCharacters != null && key.popupCharacters.length() > 0
-	// && isAsciiDigit(key.popupCharacters.charAt(key.popupCharacters.length() -
-	// 1))) {
-	// return true;
-	// }
-	// return false;
-	// }
-	//
-	// private static boolean isAsciiDigit(char c) {
-	// return (c < 0x80) && Character.isDigit(c);
-	// }
-
+	
 	private MotionEvent generateMiniKeyboardMotionEvent(int action, int x,
 			int y, long eventTime) {
 		return MotionEvent.obtain(mMiniKeyboardPopupTime, eventTime, action, x
 				- mMiniKeyboardOriginX, y - mMiniKeyboardOriginY, 0);
 	}
 
-	private PointerTracker getPointerTracker(final int id) {
+	protected PointerTracker getPointerTracker(final int id) {
 		final ArrayList<PointerTracker> pointers = mPointerTrackers;
 		final Key[] keys = mKeys;
 		final OnKeyboardActionListener listener = mKeyboardActionListener;
@@ -2509,13 +2468,9 @@ public class AnyKeyboardBaseView extends View implements
 		// on the screen.
 		if (!mMiniKeyboardVisible
 				&& mGestureDetector != null
-				&& (mGestureDetector.onTouchEvent(me.getNativeMotionEvent()) /*
-																			 * ||
-																			 * mInScrollGesture
-																			 */)) {
+				&& (mGestureDetector.onTouchEvent(me.getNativeMotionEvent()))) {
 			if (AnyApplication.DEBUG)
 				Log.d(TAG, "Gesture detected!");
-			// mHandler.cancelAllMessages();
 			mHandler.cancelKeyTimers();
 			dismissKeyPreview();
 			return true;
@@ -2636,7 +2591,7 @@ public class AnyKeyboardBaseView extends View implements
 		mPointerQueue.add(tracker);
 	}
 
-	private void onUpEvent(PointerTracker tracker, int x, int y, long eventTime) {
+	protected void onUpEvent(PointerTracker tracker, int x, int y, long eventTime) {
 		if (tracker.isModifier()) {
 			// Before processing an up event of modifier key, all pointers
 			// already being tracked
@@ -2657,27 +2612,12 @@ public class AnyKeyboardBaseView extends View implements
 		mPointerQueue.remove(tracker);
 	}
 
-	private void onCancelEvent(PointerTracker tracker, int x, int y,
+	protected void onCancelEvent(PointerTracker tracker, int x, int y,
 			long eventTime) {
 		tracker.onCancelEvent(x, y, eventTime);
 		mPointerQueue.remove(tracker);
 	}
 
-	/*
-	 * protected void swipeRight(boolean onSpacebar) {
-	 * mKeyboardActionListener.onSwipeRight(onSpacebar); } protected void
-	 * swipeLeft(boolean onSpacebar) {
-	 * mKeyboardActionListener.onSwipeLeft(onSpacebar); } protected void
-	 * swipeUp(boolean onSpacebar) {
-	 * mKeyboardActionListener.onSwipeUp(onSpacebar); } protected void
-	 * swipeDown(boolean onSpacebar) {
-	 * mKeyboardActionListener.onSwipeDown(onSpacebar); }
-	 */
-	/*
-	 * protected void scrollGestureStarted(float dX, float dY) {
-	 * mInScrollGesture = true; } protected void scrollGestureEnded() {
-	 * mInScrollGesture = false; }
-	 */
 	protected Key findKeyByKeyCode(int keyCode) {
 		if (getKeyboard() == null) {
 			return null;
@@ -2695,9 +2635,6 @@ public class AnyKeyboardBaseView extends View implements
 		mHandler.cancelAllMessages();
 
 		if (!dismissPopupKeyboard()) {
-			// mBuffer = null;
-			// mCanvas = null;
-			// mMiniKeyboardCache.clear();
 			return true;
 		} else {
 			return false;
@@ -2761,8 +2698,4 @@ public class AnyKeyboardBaseView extends View implements
 		}
 		return false;
 	}
-
-	// helper classes to translate the hint positioning integer values from the
-	// theme or settings into the Paint.Align and boolean values used in
-	// onBufferDraw()
 }

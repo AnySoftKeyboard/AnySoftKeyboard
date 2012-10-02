@@ -30,7 +30,7 @@ import android.view.MotionEvent;
 
 public class PointerTracker {
     private static final String TAG = "PointerTracker";
-    private static final boolean DEBUG = false;
+    private static final boolean DEBUG = AnyApplication.DEBUG;
     private static final boolean DEBUG_MOVE = false;
 
     public interface UIProxy {
