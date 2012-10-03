@@ -241,8 +241,9 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 		if (me.getAction() == MotionEvent.ACTION_DOWN) {
 			mFirstTouchPont.x = (int) me.getX();
 			mFirstTouchPont.y = (int) me.getY();
-			mIsFirstDownEventInsideSpaceBar = mSpaceBarKey.isInside(
-					mFirstTouchPont.x, mFirstTouchPont.y);
+			mIsFirstDownEventInsideSpaceBar = mSpaceBarKey != null
+					&& mSpaceBarKey.isInside(mFirstTouchPont.x,
+							mFirstTouchPont.y);
 			if (AnyApplication.DEBUG)
 				Log.d(TAG, "First down point on space-bar: "
 						+ mIsFirstDownEventInsideSpaceBar);
@@ -260,10 +261,10 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 					Log.d(TAG, "Pointer is up while starting at SPACE BAR.");
 
 				final int slide = getSlideDistance(me);
-				final int distance = slide & 0x00FF;//removing direction
+				final int distance = slide & 0x00FF;// removing direction
 				if (distance > SLIDE_RATIO_FOR_GESTURE) {
-					//gesture!!
-					switch(slide & 0xFF00) {
+					// gesture!!
+					switch (slide & 0xFF00) {
 					case DIRECTION_DOWN:
 						mKeyboardActionListener.onSwipeDown(true);
 						break;
@@ -345,6 +346,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	}
 
 	private static final int SLIDE_RATIO_FOR_GESTURE = 250;
+
 	private void setGesturePreviewText(MotionEvent me) {
 		// started at SPACE, so I stick with the position. This is used
 		// for showing gesture info on the spacebar.
@@ -355,9 +357,10 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 
 		if (slideDisatance >= 20) {
 			final boolean isGesture = slideDisatance > SLIDE_RATIO_FOR_GESTURE;
-			final int alpha = isGesture ? 255 : slideDisatance/2;
+			final int alpha = isGesture ? 255 : slideDisatance / 2;
 			mPreviewText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-					isGesture? mPreviewLabelTextSize:mPreviewLabelTextSize/1.75f);
+					isGesture ? mPreviewLabelTextSize
+							: mPreviewLabelTextSize / 1.75f);
 			int color = Color.argb(alpha, mPreviewKeyTextRedColor,
 					mPreviewKeyTextGreenColor, mPreviewKeyTextBlueColor);
 			mPreviewText.setTextColor(color);
@@ -380,15 +383,16 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 				swipeKeyTarget = KeyCodes.SPACE;
 				break;
 			}
-			
+
 			String tooltip;
 			switch (swipeKeyTarget) {
 			case KeyCodes.MODE_ALPHABET:
-				//printing the next alpha keyboard name
-				tooltip = mAskContext.getKeyboardSwitcher().peekNextAlphabetKeyboard();
+				// printing the next alpha keyboard name
+				tooltip = mAskContext.getKeyboardSwitcher()
+						.peekNextAlphabetKeyboard();
 				break;
 			case KeyCodes.MODE_SYMOBLS:
-				//printing the next alpha keyboard name
+				// printing the next alpha keyboard name
 				tooltip = getResources().getString(R.string.symbols_keyboard);
 				break;
 			default:
