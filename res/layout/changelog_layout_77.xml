@@ -18,6 +18,6 @@
     	android:tag="20121007-eye-candy"
         android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
 	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-	    android:text="* Some UI improvement.\n* space-bar gesture preview.\n* New translations: IW, PT.\n* Bug fixes." style="@android:style/TextAppearance.Small"/>
+	    android:text="* Some UI improvement.\n* space-bar gesture preview.\n* New translations: IW, PT, CA, DA, EL, MY, Pl and all new TR (Turkish).\n* Bug fixes." style="@android:style/TextAppearance.Small"/>
 	
 </LinearLayout>

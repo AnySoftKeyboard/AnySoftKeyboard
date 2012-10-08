@@ -3,6 +3,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="ime_name">AnySoftKeyboard</string>
   <string name="settings_app_name">Definições do AnySoftKeyboard</string>
+  <string name="spell_checker_service_name">Verificação ortográfica AnySoftKeyboard</string>
+  <string name="spell_checker_settings">Definições do verificador ortográfico</string>
+  <string name="subtype_generic">verificador genérico</string>
   <string name="click_to_restart_suggestions">Clique para sugestões</string>
   <string name="tips_notification_text">Clique para dicas!</string>
   <string name="tips_button">Dicas de utilização</string>
@@ -30,6 +33,7 @@
   <string name="tip_7_voice_input_tip_dont_forget_bottom_row">Se quiser o ícone do microfone sempre visível, certifique-se que tem a linha inferior correta (dica anterior, lembra-se?).\nPode sempre aceder ao microfone através do teclado auxiliar (deslizar barra de espaço para cima).</string>
   <string name="tip_7_voice_input_tip_note">* Para funcionar, requer Android 2.2+ e ligação à Internet.</string>
   <string name="tip_8_suggestions">Eu ajudo-o</string>
+  <string name="tip_8_suggestions_tip">Dependendo do suporte ao seu idioma, o AnySoft Keyboard pode ajuda-lo a completar as palavras e corrigir erros. Assim que começar a escrever, o AnySoftKeyboard sugere as palavras de acordo com que que já escreveu anteriormente.</string>
   <string name="tip_8_suggestions_editor">Se a palavra introduzida não for reconhecida, adicione-a! Digite-a e clique na linha de sugestões.\nTambém pode apagar ou corrigir as palavras adicionadas utilizando o editor, disponível nas definições do AnySoftKeyboard.</string>
   <string name="tip_9_suggestions_restart">A reiniciar sugestões</string>
   <string name="tip_9_suggestions_restart_tip">O AnySoftKeyboard disponibiliza as sugestões com base nas palavras que o utilizador escreveu. No entanto, também pode usar as palavras do dicionário. Clique na palavra e o AnySoftKeyboard atualiza a lista de sugestões.</string>
@@ -54,6 +58,7 @@
   <string name="how_to_enable_dialog_show_me">Sim!</string>
   <string name="how_to_enable_dialog_dont_show_me">Mais tarde</string>
   <string name="how_to_simple_howto_preface">O Android requer que seja o utilizador a ativar e selecionar manualmente os teclados externos. Faça o seguinte:</string>
+  <string name="how_to_simple_howto_enable_ask">1 -  Ative o AnySoftKeyboard (verá um aviso sobre o registo de teclas. Não se preocupe pois o AnySoftKeyboard não guarda os dados nem os envia para qualquer lugar):</string>
   <string name="how_to_simple_howto_enable_ask_button">Ativar o AnySoftKeyboard</string>
   <string name="how_to_simple_howto_press_back_to_return_tip">Prima Voltar quando terminar para voltar às instruções de ativação</string>
   <string name="how_to_simple_howto_switch_to_ask">2: Selecione o AnySoftKeyboard como método de entrada:</string>
@@ -211,6 +216,9 @@
   <string name="tweak_ux_group">Ajustes de comportamento</string>
   <string name="tweak_dictionary_group">Ajustes do dicionário</string>
   <string name="settings_min_length_for_word_correction">Tamanho mínimo das palavras para correção</string>
+  <string name="show_keyboard_name_text">Mostrar nome do teclado</string>
+  <string name="show_keyboard_name_on_summary">Mostrar nome na barra de espaço</string>
+  <string name="show_keyboard_name_off_summary">Não mostrar nome do teclado</string>
   <string name="use_custom_keytext_color">Alterar cor do texto da tecla</string>
   <string name="use_custom_keytext_color_on_summary">Utilizar cor personalizada</string>
   <string name="use_custom_keytext_color_off_summary">Utilizar cor do tema</string>
