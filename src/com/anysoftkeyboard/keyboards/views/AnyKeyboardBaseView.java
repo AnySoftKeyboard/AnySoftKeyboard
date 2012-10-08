@@ -163,7 +163,7 @@ public class AnyKeyboardBaseView extends View implements
 	private ImageView mPreviewIcon;
 	private PopupWindow mPreviewPopup;
 	private int mPreviewKeyTextSize;
-	protected int mPreviewLabelTextSize;
+	private int mPreviewLabelTextSize;
 	private int mPreviewPaddingWidth = -1;
 	private int mPreviewPaddingHeight = -1;
 	// private int mPreviewTextSizeLarge;
@@ -247,7 +247,7 @@ public class AnyKeyboardBaseView extends View implements
 
 	private Drawable mPreviewKeyBackground;
 
-	protected int mPreviewKeyTextColor;
+	private int mPreviewKeyTextColor;
 
 	private final KeyboardDimensFromTheme mKeyboardDimens = new KeyboardDimensFromTheme();
 
