@@ -17,6 +17,8 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -27,6 +29,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.Configuration;
@@ -60,10 +63,13 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	private Point mFirstTouchPont = new Point(0, 0);
 	private boolean mIsFirstDownEventInsideSpaceBar = false;
 	private Animation mInAnimation;
+	private Animation mGestureSlideReachedAnimation;
 
 	private TextView mPreviewText;
-	private int mPreviewKeyTextColor, mPreviewKeyTextRedColor,
-			mPreviewKeyTextGreenColor, mPreviewKeyTextBlueColor;
+	private float mGesturePreviewTextSize;
+	private int mGesturePreviewTextColor, mGesturePreviewTextColorRed,
+			mGesturePreviewTextColorGreen, mGesturePreviewTextColorBlue;
+	private boolean mGestureReachedThreshold = false;
 
 	/** Whether we've started dropping move events because we found a big jump */
 	// private boolean mDroppingEvents;
@@ -94,9 +100,17 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 
 		mInAnimation = null;
 
-		mPreviewKeyTextRedColor = mPreviewKeyTextColor & 0x00FF0000;
-		mPreviewKeyTextGreenColor = mPreviewKeyTextColor & 0x0000FF00;
-		mPreviewKeyTextBlueColor = mPreviewKeyTextColor & 0x000000FF;
+		mGesturePreviewTextColorRed = (mGesturePreviewTextColor & 0x00FF0000) >> 16;
+		mGesturePreviewTextColorGreen = (mGesturePreviewTextColor & 0x0000FF00) >> 8;
+		mGesturePreviewTextColorBlue = mGesturePreviewTextColor & 0x000000FF;
+		
+		if (mAnimationLevel != AnimationsLevel.None) {
+			createGestureSlideAnimation();
+		}
+	}
+
+	protected void createGestureSlideAnimation() {
+		mGestureSlideReachedAnimation = AnimationUtils.loadAnimation(getContext().getApplicationContext(), R.anim.gesture_slide_threshold_reached);
 	}
 
 	protected String getKeyboardViewNameForLogging() {
@@ -156,6 +170,26 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 				break;
 			}
 		}
+	}
+
+	@Override
+	public boolean setValueFromTheme(TypedArray a, int[] padding, int attr) {
+		switch (attr) {
+		case R.styleable.AnySoftKeyboardTheme_previewGestureTextSize:
+			mGesturePreviewTextSize = a.getDimensionPixelSize(attr, 0);
+			if (AnyApplication.DEBUG)
+				Log.d(TAG, "AnySoftKeyboardTheme_previewGestureTextSize "
+						+ mGesturePreviewTextSize);
+			break;
+		case R.styleable.AnySoftKeyboardTheme_previewGestureTextColor:
+			mGesturePreviewTextColor = a.getColor(attr, 0xFFF);
+			if (AnyApplication.DEBUG)
+				Log.d(TAG, "AnySoftKeyboardTheme_previewGestureTextColor "
+						+ mGesturePreviewTextColor);
+		default:
+			return super.setValueFromTheme(a, padding, attr);
+		}
+		return true;
 	}
 
 	@Override
@@ -357,12 +391,17 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 
 		if (slideDisatance >= 20) {
 			final boolean isGesture = slideDisatance > SLIDE_RATIO_FOR_GESTURE;
+			
+			final boolean justReachedThreashold = isGesture && !mGestureReachedThreshold;
+			mGestureReachedThreshold = isGesture;
+			
 			final int alpha = isGesture ? 255 : slideDisatance / 2;
 			mPreviewText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-					isGesture ? mPreviewLabelTextSize
-							: mPreviewLabelTextSize / 1.75f);
-			int color = Color.argb(alpha, mPreviewKeyTextRedColor,
-					mPreviewKeyTextGreenColor, mPreviewKeyTextBlueColor);
+					mGesturePreviewTextSize);
+			int color = Color
+					.argb(alpha, mGesturePreviewTextColorRed,
+							mGesturePreviewTextColorGreen,
+							mGesturePreviewTextColorBlue);
 			mPreviewText.setTextColor(color);
 			final int swipeKeyTarget;
 			final Configuration cfg = AnyApplication.getConfig();
@@ -400,6 +439,9 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 				break;
 			}
 			mPreviewText.setText(tooltip);
+			if (mGestureSlideReachedAnimation != null && justReachedThreashold) {
+				mPreviewText.startAnimation(mGestureSlideReachedAnimation);
+			}
 		} else {
 			mPreviewText.setText(null);
 		}
@@ -468,6 +510,17 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 		Key popupKey = findKeyByKeyCode(KeyCodes.QUICK_TEXT);
 		popupKey.popupResId = key.getPopupKeyboardResId();
 		super.onLongPress(packageContext, popupKey, false, true);
+	}
+	
+	@Override
+	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
+			String key) {
+		super.onSharedPreferenceChanged(sharedPreferences, key);
+		if (mAnimationLevel == AnimationsLevel.None && mGestureSlideReachedAnimation != null) {
+			mGestureSlideReachedAnimation = null;
+		} else if (mAnimationLevel != AnimationsLevel.None && mGestureSlideReachedAnimation == null) {
+			createGestureSlideAnimation();
+		}
 	}
 
 	public void openUtilityKeyboard() {
