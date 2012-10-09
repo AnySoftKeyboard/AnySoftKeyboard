@@ -50,6 +50,8 @@
         <attr name="keyPreviewTextColor" />
         <attr name="keyPreviewLabelTextSize" />
         
+        <attr name="previewGestureTextSize" />
+        <attr name="previewGestureTextColor" />
         <!-- Hysteresis distance for key debouncing -->
         <attr name="keyHysteresisDistance" />
 

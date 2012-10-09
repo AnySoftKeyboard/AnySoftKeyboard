@@ -391,4 +391,7 @@
 	
 	<attr name="keyboardNameTextSize" format="dimension"/>
 	<attr name="keyboardNameTextColor" format="color" />
+	
+	<attr name="previewGestureTextSize" format="dimension"/>
+	<attr name="previewGestureTextColor" format="color" />
 </resources>
