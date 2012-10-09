@@ -3,6 +3,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="ime_name">AnySoftKeyboard</string>
   <string name="settings_app_name">Ustawienia AnySoftKeyboard</string>
+  <string name="spell_checker_service_name">Moduł sprawdzania pisowni AnySoftKeyboard</string>
+  <string name="spell_checker_settings">Ustawienia sprawdzania pisowni</string>
   <string name="click_to_restart_suggestions">Kliknij dla sugestii</string>
   <string name="tips_notification_text">Kliknij, aby uzyskać porady!</string>
   <string name="tips_button">Wskazówki jak używać</string>
@@ -55,7 +57,7 @@
   <string name="how_to_enable_dialog_show_me">Pokaż mi!</string>
   <string name="how_to_enable_dialog_dont_show_me">Później</string>
   <string name="how_to_simple_howto_preface">Android wymaga, abyś ty (użytkownik) ręcznie włączył i aktywował dodatkowe klawiatury. Jak tego dokonać:</string>
-  <string name="how_to_simple_howto_enable_ask">Krok 1: Włącz AnySoftKeyboard (dostaniesz ostrzeżenie o możliwym gromadzeniu danych ale nie martw się, AnySoftKeyboard ich nie przetrzymuje i nigdzie nie wysyła):</string>
+  <string name="how_to_simple_howto_enable_ask">Krok 1: Włącz AnySoftKeyboard (dostaniesz ostrzeżenie o możliwym gromadzeniu danych ale nie martw się, AnySoftKeyboard ich nie przetrzymuje i nigdzie nie wysyła) :</string>
   <string name="how_to_simple_howto_enable_ask_button">Włącz AnySoftKeyboard</string>
   <string name="how_to_simple_howto_press_back_to_return_tip">Naciśnij WRÓĆ kiedy skończysz, aby wrócić do instrukcji aktywacji</string>
   <string name="how_to_simple_howto_switch_to_ask">Krok 2: Wybierz AnySoftKeyboard jako aktywną metodę wprowadzania:</string>
@@ -210,6 +212,9 @@
   <string name="tweak_ux_group">Dostrajanie zachowania</string>
   <string name="tweak_dictionary_group">Dostrajanie słownika</string>
   <string name="settings_min_length_for_word_correction">Minimalna długość wyrazu do korekty</string>
+  <string name="show_keyboard_name_text">Pokaż nazwę klawiatury</string>
+  <string name="show_keyboard_name_on_summary">Pokaż nazwę klawiatury na spacji</string>
+  <string name="show_keyboard_name_off_summary">Nigdy nie pokazuj nazwy klawiatury</string>
   <string name="use_custom_keytext_color">Zastąp kolor tekstu klawisza</string>
   <string name="use_custom_keytext_color_on_summary">Użyj niestandardowego koloru tekstu klawisza</string>
   <string name="use_custom_keytext_color_off_summary">Użyj koloru tekstu klawisza z motywu</string>
@@ -266,8 +271,8 @@
   <string name="key_press_preview_popup">Popup z podglądem klawisza</string>
   <string name="key_press_preview_popup_on_summary">Pokaż popup po naciśnięciu klawisza</string>
   <string name="key_press_preview_popup_off_summary">Nie pokazuj popupa po naciśnięciu klawisza</string>
-  <string name="zoom_factor_keys_in_portrait">Współczynnik wysokości klawiszy (pionowo)</string>
-  <string name="zoom_factor_keys_in_landscape">Współczynnik wysokości klawiszy (poziomo)</string>
+  <string name="zoom_factor_keys_in_portrait">Współczynnik wysokości klawiszy (tryb pionowy)</string>
+  <string name="zoom_factor_keys_in_landscape">Współczynnik wysokości klawiszy (tryb poziomy)</string>
   <string name="insert_space_after_word_suggestion_selection">Spacja po wyborze kandydata</string>
   <string name="insert_space_after_word_suggestion_selection_on_summary">Wstaw spację po wybraniu sugerowanego wyrazu</string>
   <string name="double_space_to_period">Podwójna spacja da kropkę</string>
