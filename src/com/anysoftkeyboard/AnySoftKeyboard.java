@@ -1361,6 +1361,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public AnyKeyboard getCurrentKeyboard() {
 		return mKeyboardSwitcher.getCurrentKeyboard();
 	}
+	
+	public KeyboardSwitcher getKeyboardSwitcher() {
+		return mKeyboardSwitcher;
+	}
 
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
@@ -1501,7 +1505,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 				addToDictionaries(mWord.getTypedWord()/* mComposing */,
 						AutoDictionary.FREQUENCY_FOR_TYPED);
 			}
-			postUpdateSuggestionsNow();
+			if (mHandler.hasMessages(MSG_UPDATE_SUGGESTIONS)) {
+				performUpdateSuggestions();
+			}
 		}
 	}
 
@@ -1642,25 +1648,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (ic != null)
 			ic.endBatchEdit();
 	}
-
-	/**
-	 * Get Key from primary code. on onKey event, it only gets primary key. So,
-	 * to access Key of it, we need to find Key which contains it.
-	 */
-	// private AnyKey getKeyFromPrimaryKey(int primaryCode){
-	// AnyKey key = null;
-	//
-	// for (Key k : mInputView.getKeyboard().getKeys()){
-	// AnyKey ck = (AnyKey)k;
-	// for (int i = 0; i < ck.codes.length; ++i)
-	// if (ck.codes[i] == primaryCode) {
-	// mKeyCodePosition = i;
-	// return ck;
-	// }
-	// }
-	//
-	// return key;
-	// }
 
 	public void onKey(int primaryCode, Key key, int multiTapIndex,
 			int[] nearByKeyCodes, boolean fromUI) {
@@ -1876,7 +1863,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				onText(clipboardText);
 			}
 			break;
-		case KeyCodes.TAB/* Tab */:
+		case KeyCodes.TAB:
 			sendTab();
 			break;
 		case KeyCodes.ESCAPE:
@@ -2436,8 +2423,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// this is a special case, when the user presses a separator WHILE
 		// inside the predicted word.
 		// in this case, I will want to just dump the separator.
-		final boolean separatorInsideWord = (mWord.cursorPosition() < mWord
-				.size());
+		final boolean separatorInsideWord = 
+				(mWord.cursorPosition() < mWord.size());
+		
 		if (mPredicting && !separatorInsideWord) {
 			// In certain languages where single quote is a separator, it's
 			// better
@@ -2537,10 +2525,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mHandler.sendMessage(mHandler.obtainMessage(MSG_UPDATE_SUGGESTIONS));
 	}
 
-	private void postUpdateSuggestionsNow() {
-		postUpdateSuggestions(0);
-	}
-
 	private boolean isPredictionOn() {
 		boolean predictionOn = mPredictionOn;
 		// if (!onEvaluateInputViewShown()) predictionOn &=
@@ -2614,7 +2598,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			Log.d(TAG, "pickDefaultSuggestion: mBestWord:" + mBestWord);
 		// Complete any pending candidate query first
 		if (mHandler.hasMessages(MSG_UPDATE_SUGGESTIONS)) {
-			postUpdateSuggestionsNow();
+			performUpdateSuggestions();
 		}
 
 		if (!TextUtils.isEmpty(mBestWord)) {
@@ -2839,8 +2823,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	public boolean isWordSeparator(int code) {
-		// String separators = getWordSeparators();
-		// return separators.contains(String.valueOf((char)code));
 		return (!isAlphabet(code));
 	}
 

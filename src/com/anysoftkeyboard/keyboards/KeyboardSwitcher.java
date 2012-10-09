@@ -426,6 +426,22 @@ public class KeyboardSwitcher
             return null;
         }
     }
+    
+    public String peekNextAlphabetKeyboard() {
+    	if (mKeyboardLocked) {
+            return getCurrentKeyboard().getKeyboardName();
+        } else {
+        	 final int keyboardsCount = mAlphabetKeyboardsCreators.length;
+        	 int selectedKeyboard = mLastSelectedKeyboard;
+             if (isAlphabetMode())
+            	 selectedKeyboard++;
+
+             if (selectedKeyboard >= keyboardsCount)
+            	 selectedKeyboard = 0;
+             
+             return mAlphabetKeyboardsCreators[selectedKeyboard].getName();
+        }
+    }
 
     private AnyKeyboard nextAlphabetKeyboard(EditorInfo currentEditorInfo, boolean supportsPhysical)
     {
