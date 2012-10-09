@@ -3,6 +3,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="ime_name">AnySoftKeyboard</string>
   <string name="settings_app_name">Ρυθμίσεις του AnySoftKeyboard</string>
+  <string name="spell_checker_service_name">Ορθογραφικός έλεγχος AnySoftKeyboard</string>
+  <string name="spell_checker_settings">Ρυθμίσεις ορθογραφικού ελέγχου AnySoftKeyboard</string>
+  <string name="subtype_generic">Ορθογραφικός έλεγχος-γενικά</string>
   <string name="click_to_restart_suggestions">Κάντε κλικ για υποδείξεις</string>
   <string name="tips_notification_text">Κάντε κλικ για συμβουλές!</string>
   <string name="tips_button">Τρόπος χρήσης συμβουλών</string>
@@ -30,7 +33,7 @@
   <string name="tip_7_voice_input_tip_dont_forget_bottom_row">Εάν θέλετε να έχετε πάντα το εικονίδιο του μικροφώνου, βεβαιωθείτε ότι έχετε τη σωστή κάτω σειρά (προηγούμενη συμβουλή, θυμάστε;).\nΌπως και να ΄χει πάντως, το μικρόφωνο είναι πάντα προσβάσιμο μέσω του κρυφού βοηθητικού πληκτρολογίου (μετά από σύρσιμο πάνω από το πλήκτρο διαστήματος).</string>
   <string name="tip_7_voice_input_tip_note">* Απαιτεί Android 2.2+ και σύνδεση στο Διαδίκτυο για να λειτουργήσει.</string>
   <string name="tip_8_suggestions">Σας συμπληρώνω</string>
-  <string name="tip_8_suggestions_tip">Ανάλογα με το επίπεδο υποστήριξης της γλώσσας σας, το AnySoftKeyboard βοηθά να συμπληρωθούν οι λέξεις σας και να διορθωθούν λάθη στην πληκτρολόγησής σας. Καθώς αρχίζετε να πληκτρολογείτε, το AnySoftKeyboard θα προτείνει λέξεις με βάση ότι πληκτρολογήσατε ήδη.</string>
+  <string name="tip_8_suggestions_tip">Ανάλογα με το επίπεδο της γλωσσικής υποστήριξης, Το AnySoftKeyboard μπορεί να σας βοηθήσει να ολοκληρώσετε τις λέξεις σας και να διορθώσετε τα λάθη σας. Μόλις αρχίσετε να πληκτρολογείτε, το AnySoftKeyboard θα προτείνει λέξεις με βάση αυτά που έχετε ήδη πληκτρολογήσει.</string>
   <string name="tip_8_suggestions_editor">Αν δεν γνωρίζω μια λέξη, μπορείτε να με διδάξετε! Πληκτρολογήστε αυτή τη λέξη και κάντε κλικ στη λωρίδα προτάσεις. Θα το θυμάμαι.\nΜπορείτε επίσης να επεξεργαστείτε αυτές τις λέξεις χρήστη στο ενσωματωμένο πρόγραμμα επεξεργασίας. Αναζητήστε το πρόγραμμα επεξεργασίας στις ρυθμίσεις λεξικού του AnySoftKeyboard.</string>
   <string name="tip_9_suggestions_restart">Επανέναρξη προτάσεων</string>
   <string name="tip_9_suggestions_restart_tip">Το AnySoftKeyboard παρέχει προτάσεις ολοκλήρωσης λέξεων που βασίζονται σε ότι πληκτρολογήσατε. Αλλά το AnySoftKeyboard μπορεί επίσης να παρέχει προτάσεις που βασίζονται σε ήδη πληκτρολογημένες λέξεις! Επιλέξτε τη λέξη και το AnySoftKeyboard θα ανανεώσει την γραμμή προτάσεων.</string>
@@ -55,7 +58,7 @@
   <string name="how_to_enable_dialog_show_me">Δείξε μου!</string>
   <string name="how_to_enable_dialog_dont_show_me">Αργότερα</string>
   <string name="how_to_simple_howto_preface">Το Android απαιτεί ότι εσείς (ο χρήστης) θα κάνετε χειροκίνητη ενεργοποίηση εξωτερικών πληκτρολόγιων. Με αυτό τον τρόπο:</string>
-  <string name="how_to_simple_howto_enable_ask">Βήμα 1: Ενεργοποίηση του AnySoftKeyboard (αυτό θα σας προειδοποιήσει σχετικά με την πιθανή καταγραφή πλήκτρων, μην ανησυχείτε, το AnySoftKeyboard δεν διατηρεί δεδομένα και δεν τα στέλνει οπουδήποτε):</string>
+  <string name="how_to_simple_howto_enable_ask">Βήμα 1: Ενεργοποίηση του AnySoftKeyboard (θα σας προειδοποιήσει σχετικά με την πιθανή καταγραφή πλήκτρων, μην ανησυχείτε, το AnySoftKeyboard δεν διατηρεί δεδομένα και δεν τα στέλνει οπουδήποτε):</string>
   <string name="how_to_simple_howto_enable_ask_button">Ενεργοποίηση AnySoftKeyboard</string>
   <string name="how_to_simple_howto_press_back_to_return_tip">Πιέστε ΠΙΣΩ μόλις τελειώσετε, για να πάτε πίσω στις οδηγίες ενεργοποίησης</string>
   <string name="how_to_simple_howto_switch_to_ask">Βήμα 2: Επιλέξτε το AnySoftKeyboard ως την ενεργή μέθοδο εισαγωγής σας:</string>
@@ -213,6 +216,9 @@
   <string name="tweak_ux_group">Συμπεριφορά προηγμένων ρυθμίσεων</string>
   <string name="tweak_dictionary_group">Τροποποιήσεις λεξικού</string>
   <string name="settings_min_length_for_word_correction">Ελάχιστο μήκος λέξης για διόρθωση</string>
+  <string name="show_keyboard_name_text">Εμφάνιση του ονόματος πληκτρολογίου</string>
+  <string name="show_keyboard_name_on_summary">Εμφάνιση του ονόματος πληκτρολογίου πατώντας το πλήκτρο διαστήματος</string>
+  <string name="show_keyboard_name_off_summary">Να μην εμφανίζεται ποτέ το όνομα πληκτρολογίου</string>
   <string name="use_custom_keytext_color">Παράκαμψη χρώματος κειμένου πλήκτρου</string>
   <string name="use_custom_keytext_color_on_summary">Χρήση προσαρμοσμένου χρώματος για το κείμενο πλήκτρου</string>
   <string name="use_custom_keytext_color_off_summary">Χρήση του χρώματος θέματος για το κείμενο πλήκτρου</string>
