@@ -141,13 +141,7 @@ public class KeyboardSwitcher
     {
         makeKeyboards(false);
         AnyKeyboard keyboard = mSymbolsKeyboardsArray[keyboardIndex];
-        // if (requiredToRecreateKeyboard(keyboard))
-        // {
-        // Log.d(TAG,
-        // "Symbols keyboard width is "+keyboard.getMinWidth()+", while view width is "+mContext.getMaxWidth()+". Recreating.");
-        // keyboard = null;
-        // mSymbolsKeyboardsArray[keyboardIndex] = null;
-        // }
+        
         if (keyboard == null)
         {
             switch (keyboardIndex)
@@ -163,27 +157,27 @@ public class KeyboardSwitcher
                 case SYMBOLS_KEYBOARD_ALT_INDEX:
                     if (AnyApplication.getConfig().use16KeysSymbolsKeyboards())
                         keyboard = new GenericKeyboard(mContext, R.xml.symbols_alt_16keys,
-                                R.xml.symbols_alt, R.string.symbols_keyboard, "symbols_keyboard",
+                                R.xml.symbols_alt, R.string.symbols_alt_keyboard, "symbols_keyboard",
                                 mode);
                     else
                         keyboard = new GenericKeyboard(mContext, R.xml.symbols_alt,
-                                R.string.symbols_keyboard, "alt_symbols_keyboard", mode, false);
+                                R.string.symbols_alt_keyboard, "alt_symbols_keyboard", mode, false);
                     break;
                 case SYMBOLS_KEYBOARD_ALT_NUMBERS_INDEX:
                     keyboard = new GenericKeyboard(mContext, R.xml.simple_alt_numbers,
-                            R.string.symbols_keyboard, "alt_numbers_symbols_keyboard", mode, false);
+                            R.string.symbols_alt_num_keyboard, "alt_numbers_symbols_keyboard", mode, false);
                     break;
                 case SYMBOLS_KEYBOARD_PHONE_INDEX:
                     keyboard = new GenericKeyboard(mContext, R.xml.simple_phone,
-                            R.string.symbols_keyboard, "phone_symbols_keyboard", mode, true);
+                            R.string.symbols_phone_keyboard, "phone_symbols_keyboard", mode, true);
                     break;
                 case SYMBOLS_KEYBOARD_NUMBERS_INDEX:
                     keyboard = new GenericKeyboard(mContext, R.xml.simple_numbers,
-                            R.string.symbols_keyboard, "numbers_symbols_keyboard", mode, false);
+                            R.string.symbols_numbers_keyboard, "numbers_symbols_keyboard", mode, false);
                     break;
                 case SYMBOLS_KEYBOARD_DATETIME_INDEX:
                     keyboard = new GenericKeyboard(mContext, R.xml.simple_datetime,
-                            R.string.symbols_keyboard, "datetime_symbols_keyboard", mode, false);
+                            R.string.symbols_time_keyboard, "datetime_symbols_keyboard", mode, false);
                     break;
             }
             mSymbolsKeyboardsArray[keyboardIndex] = keyboard;
