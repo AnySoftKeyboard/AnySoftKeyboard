@@ -409,7 +409,12 @@
     <string name="no_extrenal_packs_support_message">For now, AnySoftKeyboard does not allow external packs of this type.\nOnce API specifications have been determined, this feature will be opened.\nStay tuned.</string>
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Keyboards</string>
-    <string name="symbols_keyboard">Symbols</string>
+    <string name="symbols_keyboard">123!#()</string>
+    <string name="symbols_alt_keyboard">{}\_</string>
+    <string name="symbols_alt_num_keyboard">123</string>
+    <string name="symbols_phone_keyboard">phone</string>
+    <string name="symbols_numbers_keyboard">123</string>
+    <string name="symbols_time_keyboard">time</string>
     <string name="eng_keyboard">English</string>
     <string name="eng_keyboard_qwertywithsymbols">English with symbols</string>
     <string name="eng_keyboard_16keys">16 Keys English</string>
