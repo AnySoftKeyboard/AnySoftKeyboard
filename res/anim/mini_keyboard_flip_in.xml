@@ -27,7 +27,6 @@
         android:toAlpha="1.0"
         android:duration="@integer/popupAnimTime" />
      <scale
-        android:interpolator="@android:anim/linear_interpolator"
         android:fromXScale="1.0"
         android:toXScale="1.0"
         android:fromYScale="0.0"
