@@ -33,7 +33,19 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 	
 	public void uncaughtException(Thread thread, Throwable ex) {
 		Log.e(TAG, "Caught an unhandled exception!!! ", ex);
-		if (AnyApplication.getConfig().useChewbaccaNotifications())
+		boolean ignore = false;
+		
+		//https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/15
+		String stackTrace = getStackTrace(ex);
+		if (ex instanceof NullPointerException && 
+				stackTrace != null && 
+				stackTrace.contains("android.inputmethodservice.IInputMethodSessionWrapper.executeMessage(IInputMethodSessionWrapper.java")) {
+			//https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/15
+			Log.w(TAG, "An OS bug has been adverted. Keep on, there is nothing to see here.");
+			ignore = true;
+		}
+		
+		if (!ignore && AnyApplication.getConfig().useChewbaccaNotifications())
 		{
 			String appName = mApp.getText(R.string.ime_name).toString();
 			try {
@@ -53,7 +65,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 				"******************************\n"+
 				"****** Exception type: "+ex.getClass().getName()+"\n"+
 				"****** Exception message: "+ex.getMessage()+"\n"+
-				"****** Trace trace:\n"+getStackTrace(ex)+"\n"+
+				"****** Trace trace:\n"+stackTrace+"\n"+
 				"******************************\n"+
 				"****** Device information:\n"+getSysInfo()+
 				"******************************\n"+
@@ -82,7 +94,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 			notificationManager.notify(1, notification);
 		}
 		//and sending to the OS
-		if (mOsDefaultHandler != null)
+		if (!ignore && mOsDefaultHandler != null)
 		{
 			Log.i(TAG, "Sending the exception to OS exception handler...");
 			mOsDefaultHandler.uncaughtException(thread, ex);
