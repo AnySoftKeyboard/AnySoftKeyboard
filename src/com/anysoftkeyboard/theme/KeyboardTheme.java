@@ -1,10 +1,12 @@
 package com.anysoftkeyboard.theme;
 
 import com.anysoftkeyboard.addons.AddOnImpl;
+import com.anysoftkeyboard.addons.ScreenshotHolder;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 
-public class KeyboardTheme extends AddOnImpl {
+public class KeyboardTheme extends AddOnImpl implements ScreenshotHolder {
 	
 	private final int mThemeResId;
 	private final int mPopupThemeResId;
@@ -30,10 +32,14 @@ public class KeyboardTheme extends AddOnImpl {
 	public int getPopupThemeResId() {
 		return mPopupThemeResId;
 	}
-	
-	public int getThemeScreenshotResId() {
-		return mThemeScreenshotResId;
-	}
+    
+    public Drawable getScreenshot() {
+    	if (mThemeScreenshotResId != INVALID_RES_ID) {
+    		return getPackageContext().getResources().getDrawable(mThemeScreenshotResId);
+    	} else {
+    		return null;
+    	}
+    }
 	
 	public int getIconsThemeResId() {
 		return mIconsThemeResId;

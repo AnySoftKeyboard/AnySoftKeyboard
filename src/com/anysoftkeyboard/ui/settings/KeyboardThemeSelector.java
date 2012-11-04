@@ -32,4 +32,9 @@ public class KeyboardThemeSelector extends AddOnSelector<KeyboardTheme> {
 	protected boolean allowExternalPacks() {
 		return true;
 	}
+	
+	@Override
+	protected String getDefaultAddOnId() {
+		return KeyboardThemeFactory.getCurrentKeyboardTheme(getApplicationContext()).getId();
+	}
 }

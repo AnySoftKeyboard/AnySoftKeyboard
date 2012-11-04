@@ -32,4 +32,9 @@ public class QuickTextKeys extends AddOnSelector<QuickTextKey> {
 	protected boolean allowExternalPacks() {
 		return true;
 	}
+	
+	@Override
+	protected String getDefaultAddOnId() {
+		return QuickTextKeyFactory.getCurrentQuickTextKey(getApplicationContext()).getId();
+	}
 }
