@@ -32,4 +32,9 @@ public class TopRowSelector extends AddOnSelector<KeyboardExtension> {
 	protected boolean allowExternalPacks() {
 		return false;
 	}
+	
+	@Override
+	protected String getDefaultAddOnId() {
+		return KeyboardExtensionFactory.getCurrentKeyboardExtension(getApplicationContext(), KeyboardExtension.TYPE_TOP).getId();
+	}
 }

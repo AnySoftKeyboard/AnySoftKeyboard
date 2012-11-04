@@ -280,4 +280,9 @@
         <item name="android:windowEnterAnimation">@anim/extension_keyboard_fadein</item>
         <item name="android:windowExitAnimation">@anim/extension_keyboard_fadeout</item>
     </style>
+    
+    <style name="ScreenshotAnimation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
 </resources>

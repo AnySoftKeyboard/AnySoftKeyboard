@@ -5,6 +5,7 @@
 		defaultDictionaryLocale="en" description="QWERTY Latin keyboard"
 		index="1" defaultEnabled="true"
 		physicalKeyboardMappingResId="@xml/physical"
+		screenshotResId="@drawable/english_qwerty_screenshot"
 		/>
 	<Keyboard nameResId="@string/eng_keyboard_16keys"
 		iconResId="@drawable/ic_stat_en" layoutResId="@xml/eng_16keys"
