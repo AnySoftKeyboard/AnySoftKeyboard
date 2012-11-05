@@ -29,7 +29,8 @@ import com.menny.android.anysoftkeyboard.R;
 public class AddOnListPreference extends ListPreference {
 
 	private AddOn[] mAddOns;
-
+	private AddOn mSelectedAddOn;
+	
 	public AddOnListPreference(Context context) {
 		super(context);
 	}
@@ -120,17 +121,16 @@ public class AddOnListPreference extends ListPreference {
 			// set checkbox
 			RadioButton tb = (RadioButton) row
 					.findViewById(R.id.addon_checkbox);
-			if (addOn.getId() == AddOnListPreference.this.getValue()) {
-				tb.setChecked(true);
-			}
 			tb.setClickable(false);
+			tb.setChecked(addOn.getId() == mSelectedAddOn.getId());
 
 			return row;
 		}
 
 		public void onClick(View v) {
 			if (v.getId() == R.id.addon_list_item_layout) {
-				AddOnListPreference.this.setValue(((AddOn)v.getTag()).getId());
+				setSelectedAddOn((AddOn)v.getTag());
+				AddOnListPreference.this.setValue(mSelectedAddOn.getId());
 				getDialog().dismiss();
 			} else if (v.getId() == R.id.addon_image) {
 				// showing a screenshot (if available)
@@ -165,5 +165,10 @@ public class AddOnListPreference extends ListPreference {
 				popup.showAtLocation(v, Gravity.CENTER, 0, 0);
 			}
 		}
+	}
+
+	public void setSelectedAddOn(AddOn currentSelectedAddOn) {
+		setSummary(getContext().getString(R.string.selected_add_on_summary, currentSelectedAddOn.getName()));
+		mSelectedAddOn = currentSelectedAddOn;
 	}
 }
