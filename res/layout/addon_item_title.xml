@@ -20,6 +20,7 @@
         android:adjustViewBounds="true"
         android:clickable="false"
         android:scaleType="centerInside"
+        android:visibility="invisible"
         android:src="@drawable/icon_more_overlay" />
 
     <TextView
