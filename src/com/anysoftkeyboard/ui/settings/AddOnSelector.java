@@ -51,14 +51,9 @@ public abstract class AddOnSelector<E extends AddOn> extends PreferenceActivity 
 		});
 		
 		mAddonsList = (AddOnListPreference) findPreference(getString(getAddonsListPrefKeyResId()));
-		if (TextUtils.isEmpty(mAddonsList.getValue())) {
-			String defaultValue = getDefaultAddOnId();
-			mAddonsList.setDefaultValue(defaultValue);
-			mAddonsList.setValue(defaultValue);
-		}
-    }
+	}
 
-	protected abstract String getDefaultAddOnId();
+	protected abstract AddOn getCurrentSelectedAddOn();
 
 	@Override
 	protected Dialog onCreateDialog(int id) {
@@ -85,6 +80,7 @@ public abstract class AddOnSelector<E extends AddOn> extends PreferenceActivity 
 		AddOn[] addOns = new AddOn[keys.size()];
 		keys.toArray(addOns);
 		mAddonsList.setAddOnsList(addOns);
+		mAddonsList.setSelectedAddOn(getCurrentSelectedAddOn());
 	}
 	
 	protected abstract boolean allowExternalPacks();

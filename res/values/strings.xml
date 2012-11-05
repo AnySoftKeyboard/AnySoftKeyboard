@@ -419,6 +419,7 @@
     <string name="eng_keyboard_qwertywithsymbols">English with symbols</string>
     <string name="eng_keyboard_16keys">16 Keys English</string>
 
+    <string name="selected_add_on_summary">Now using \'<xliff:g id="addOnName">%s</xliff:g>\'</string>
 	<string name="additional_addons_group">Additional add-ons</string>
 	<!-- settings - quick text keys -->
 	<string name="quick_text_keys_group">Quick text keys</string>
