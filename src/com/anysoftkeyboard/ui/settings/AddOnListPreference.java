@@ -113,8 +113,7 @@ public class AddOnListPreference extends ListPreference {
 				if (((ScreenshotHolder)addOn).hasScreenshot()) {
 					addOnIcon.setOnClickListener(this);
 					addOnIcon.setTag(addOn);
-				} else {
-					row.findViewById(R.id.addon_image_more_overlay).setVisibility(View.INVISIBLE);
+                                        row.findViewById(R.id.addon_image_more_overlay).setVisibility(View.VISIBLE);
 				}
 			}
 			
