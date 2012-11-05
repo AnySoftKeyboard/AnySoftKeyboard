@@ -33,6 +33,10 @@ public class KeyboardTheme extends AddOnImpl implements ScreenshotHolder {
 		return mPopupThemeResId;
 	}
     
+    public boolean hasScreenshot() {
+    	return (mThemeScreenshotResId != INVALID_RES_ID);
+    }
+    
     public Drawable getScreenshot() {
     	if (mThemeScreenshotResId != INVALID_RES_ID) {
     		return getPackageContext().getResources().getDrawable(mThemeScreenshotResId);

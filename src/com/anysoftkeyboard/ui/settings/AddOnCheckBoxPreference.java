@@ -41,6 +41,7 @@ public class AddOnCheckBoxPreference extends Preference implements
 	private CheckBox mCheckBox;
 	private TextView mName, mDescription;
 	private ImageView mAddOnIcon;
+	private View mIconOverlay;
 	private AddOn mAddOn;
 
 	public AddOnCheckBoxPreference(Context context, AttributeSet attrs) {
@@ -59,7 +60,7 @@ public class AddOnCheckBoxPreference extends Preference implements
 		mName = (TextView) layout.findViewById(R.id.addon_title);
 		mDescription = (TextView) layout.findViewById(R.id.addon_description);
 		mAddOnIcon = (ImageView) layout.findViewById(R.id.addon_image);
-		mAddOnIcon.setOnClickListener(this);
+		mIconOverlay = layout.findViewById(R.id.addon_image_more_overlay);
 		populateViews();
 		return layout;
 	}
@@ -91,6 +92,13 @@ public class AddOnCheckBoxPreference extends Preference implements
 
 		mAddOnIcon.setImageDrawable(icon);
 
+		if (mAddOn instanceof ScreenshotHolder) {
+			if (((ScreenshotHolder)mAddOn).hasScreenshot()) {
+				mAddOnIcon.setOnClickListener(this);
+			} else {
+				mIconOverlay.setVisibility(View.INVISIBLE);
+			}
+		}
 		boolean defaultChecked = false;
 		if (mAddOn instanceof KeyboardAddOnAndBuilder) {
 			defaultChecked = ((KeyboardAddOnAndBuilder)mAddOn).getKeyboardDefaultEnabled();

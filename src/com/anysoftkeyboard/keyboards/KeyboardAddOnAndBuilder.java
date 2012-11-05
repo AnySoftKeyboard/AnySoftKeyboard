@@ -68,6 +68,10 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl implements IconHolder, Sc
     	}
     }
     
+    public boolean hasScreenshot() {
+    	return (mScreenshotResId != INVALID_RES_ID);
+    }
+    
     public Drawable getScreenshot() {
     	if (mScreenshotResId != INVALID_RES_ID) {
     		return getPackageContext().getResources().getDrawable(mScreenshotResId);

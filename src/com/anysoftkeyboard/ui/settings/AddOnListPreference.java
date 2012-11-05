@@ -109,8 +109,14 @@ public class AddOnListPreference extends ListPreference {
 			ImageView addOnIcon = (ImageView) row
 					.findViewById(R.id.addon_image);
 			addOnIcon.setImageDrawable(icon);
-			addOnIcon.setOnClickListener(this);
-			addOnIcon.setTag(addOn);
+			if (addOn instanceof ScreenshotHolder) {
+				if (((ScreenshotHolder)addOn).hasScreenshot()) {
+					addOnIcon.setOnClickListener(this);
+					addOnIcon.setTag(addOn);
+				} else {
+					row.findViewById(R.id.addon_image_more_overlay).setVisibility(View.INVISIBLE);
+				}
+			}
 			
 			// set checkbox
 			RadioButton tb = (RadioButton) row

@@ -181,7 +181,7 @@ public abstract class AnyKeyboard extends Keyboard
                 {
                     case KeyCodes.QUICK_TEXT:
                         QuickTextKey quickKey = QuickTextKeyFactory
-                                .getCurrentQuickTextKey(getKeyboardContext().getApplicationContext());
+                                .getCurrentQuickTextKey(getASKContext().getApplicationContext());
                         if (quickKey == null) { // No plugins. Weird, but we
                                                 // can't do anything
                             Log.w(TAG,

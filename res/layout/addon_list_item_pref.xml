@@ -11,33 +11,13 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true" />
 
-    <LinearLayout
+    <include
         android:id="@+id/addon_pref_title_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="4dp"
         android:layout_toRightOf="@id/addon_checkbox"
-        android:orientation="horizontal" >
-
-        <ImageView
-            android:id="@+id/addon_image"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center_vertical"
-            android:adjustViewBounds="true"
-            android:scaleType="centerInside" />
-
-        <TextView
-            android:id="@+id/addon_title"
-            style="@android:style/TextAppearance.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="6dp"
-            android:gravity="center_vertical" />
-    </LinearLayout>
+        layout="@layout/addon_item_title" />
 
     <TextView
         android:id="@+id/addon_description"
