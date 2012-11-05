@@ -124,15 +124,6 @@
                 android:persistent="true"
                 android:singleLine="true"
                 android:title="@string/zoom_factor_keys_in_landscape" />
-
-            <ListPreference
-                android:defaultValue="@string/settings_default_tweak_animations_level"
-                android:dialogTitle="@string/tweak_animations_level_title"
-                android:entries="@array/tweak_animations_level_types"
-                android:entryValues="@array/tweak_animations_level_values"
-                android:key="@string/settings_key_tweak_animations_level"
-                android:summary="@string/tweak_animations_level_summary"
-                android:title="@string/tweak_animations_level_title" />
         </PreferenceScreen>
     </PreferenceCategory>
 
