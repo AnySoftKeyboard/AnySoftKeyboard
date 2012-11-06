@@ -1898,9 +1898,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 					handleCharacter(primaryCode, key, multiTapIndex,
 							nearByKeyCodes);
 				}
-				// AnyKey s =
-				// mKeyboardSwitcher.getCurrentKeyboard().getKeys().
-
 				// reseting the mSpaceSent, which is set to true upon
 				// selecting
 				// candidate
@@ -2394,7 +2391,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 					ic.endBatchEdit();
 				}
 			}
-			postUpdateSuggestions();
+			//this should be done ONLY if the key is a letter, and not a inner character (like ').
+			if (Character.isLetter((char) primaryCodeForShow)) {
+				postUpdateSuggestions();
+			}
 		} else {
 			sendKeyChar((char) primaryCodeForShow);
 		}
