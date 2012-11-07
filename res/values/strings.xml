@@ -127,7 +127,7 @@
     <string name="ui_group">User interface</string>
      
     <string name="physical_keyboard_change_notification_title">Keyboard layout notification</string>
-    <string name="physical_keyboard_change_notification_summary">Type of notification about the active layout</string>
+    <string name="physical_keyboard_change_notification_summary">Type of notification about the active layout. Now: %s</string>
     <string name="physical_keyboard_change_notification_dialog_title">Select notification type</string>
     <string-array name="physical_keyboard_change_notification_types">
         <item>Always show layout icon</item>
@@ -261,6 +261,7 @@
     <string name="camera_key_for_backspace_backword_support_on_summary">Restore the camera key function</string>
     <string name="camera_key_for_backspace_backword_support_off_summary">Half press on camera button deletes last character, full press deletes last word</string>
     <string name="special_dictionaries_group">Special dictionaries</string>
+    <string name="special_dictionaries_group_summary">Suggestion dictionaries used in AnySoftKeyboard</string>
     <string name="use_user_dictionary">User dictionary</string>
     <string name="use_user_dictionary_on_summary">Suggest user added words (long press on suggestion to add)</string>
     <string name="use_user_dictionary_off_summary"></string>
@@ -374,7 +375,7 @@
     <string name="action_key_invisible_on_disable_off_summary">Action key will be visible even if GUI requests</string>
     
     <string name="tweak_animations_level_title">Animations</string>
-    <string name="tweak_animations_level_summary">How much animations should be used</string>
+    <string name="tweak_animations_level_summary">How much animations should be used. Now: %s</string>
     <string name="tweak_animations_level_types_full">Full</string>
     <string name="tweak_animations_level_types_some">Some</string>
     <string name="tweak_animations_level_types_none">None</string>
@@ -409,6 +410,7 @@
     <string name="no_extrenal_packs_support_message">For now, AnySoftKeyboard does not allow external packs of this type.\nOnce API specifications have been determined, this feature will be opened.\nStay tuned.</string>
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Keyboards</string>
+    <string name="keyboards_group_summary">Keyboard layouts for use in AnySoftKeyboard</string>
     <string name="symbols_keyboard">123!#()</string>
     <string name="symbols_alt_keyboard">{}\_</string>
     <string name="symbols_alt_num_keyboard">123</string>
@@ -544,7 +546,7 @@
 	<string name="workaround_disable_rtl_fix_summary_off">Use AnySoftKeyboard RTL handling</string>
 	
 	<string name="settings_split_state_title">Split/Merge initial state</string>
-	<string name="settings_split_state_summary">Define whether the keyboard is split as default</string>
+	<string name="settings_split_state_summary">Define whether the keyboard is split as default. Now: %s</string>
 	<string name="settings_split_state_merged_always">Start regular</string>
 	<string name="settings_split_state_split_in_landscape">Start split in landscape</string>
 	<string name="settings_split_state_split_always">Start split</string>
