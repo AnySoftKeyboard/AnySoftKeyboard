@@ -99,7 +99,7 @@ public abstract class UserDictionaryBase extends EditableDictionary {
         	}
         	catch(RuntimeException e)
         	{
-        		Log.w(TAG, "Failed to load dictionary! Message: "+e.getMessage());
+        		Log.w(TAG, "Failed to load dictionary (in "+getClass().getSimpleName()+")! Message: "+e.getMessage());
         		e.printStackTrace();
         		if (AnyApplication.DEBUG) throw e;
         	}
@@ -150,13 +150,13 @@ public abstract class UserDictionaryBase extends EditableDictionary {
         	try {
 				loadDictionary();
 			} catch (Exception e) {
-				Log.e(TAG, "Failed to load database while adding word");
+				Log.e(TAG, "Failed to load database while adding word (in "+getClass().getSimpleName()+")");
 				e.printStackTrace();
 			}
     	}
         // Safeguard against adding long words. Can cause stack overflow.
         if (word.length() >= MAX_WORD_LENGTH) return;
-        Log.e(TAG, "Adding word '"+word+"' to dictionary");
+        Log.e(TAG, "Adding word '"+word+"' to dictionary (in "+getClass().getSimpleName()+") with frequency "+frequency);
         
         addWordRec(mRoots, word, 0, frequency);
 
@@ -177,7 +177,7 @@ public abstract class UserDictionaryBase extends EditableDictionary {
         	try {
 				loadDictionary();
 			} catch (Exception e) {
-				Log.e(TAG, "Failed to load database while adding word");
+				Log.e(TAG, "Failed to load database while adding word (in "+getClass().getSimpleName()+")");
 				e.printStackTrace();
 			}
         }
@@ -193,7 +193,7 @@ public abstract class UserDictionaryBase extends EditableDictionary {
         	try {
 				loadDictionary();
 			} catch (Exception e) {
-				Log.e(TAG, "Failed to load database while adding word");
+				Log.e(TAG, "Failed to load database while adding word (in "+getClass().getSimpleName()+")");
 				e.printStackTrace();
 			}
         }
