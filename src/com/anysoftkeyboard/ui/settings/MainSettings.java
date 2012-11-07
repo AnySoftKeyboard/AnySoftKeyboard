@@ -13,6 +13,11 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.util.Log;
 
+import com.anysoftkeyboard.addons.AddOn;
+import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
+import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
+import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
+import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.tutorials.WelcomeHowToNoticeActivity;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -35,8 +40,24 @@ public class MainSettings extends PreferenceActivity {
 			Log.e(TAG, "Failed to locate package information! This is very weird... I'm installed.");
 		}
 
-		final Preference label = super.findPreference("prefs_title_key");
+		Preference label = findPreference("prefs_title_key");
 		label.setSummary(label.getSummary()+version);
+		
+		setAddOnGroupSummary("keyboard_theme_group", 
+				KeyboardThemeFactory.getCurrentKeyboardTheme(getApplicationContext()));
+		setAddOnGroupSummary("quick_text_keys_group", 
+				QuickTextKeyFactory.getCurrentQuickTextKey(getApplicationContext()));
+		setAddOnGroupSummary("top_generic_row_group", 
+				KeyboardExtensionFactory.getCurrentKeyboardExtension(getApplicationContext(),KeyboardExtension.TYPE_TOP));
+		setAddOnGroupSummary("bottom_generic_row_group", 
+				KeyboardExtensionFactory.getCurrentKeyboardExtension(getApplicationContext(),KeyboardExtension.TYPE_BOTTOM));
+		setAddOnGroupSummary("extension_keyboard_group", 
+				KeyboardExtensionFactory.getCurrentKeyboardExtension(getApplicationContext(),KeyboardExtension.TYPE_EXTENSION));
+	}
+
+	private void setAddOnGroupSummary(String preferenceGroupKey, AddOn addOn) {
+		String summary = getResources().getString(R.string.selected_add_on_summary, addOn.getName());
+		findPreference(preferenceGroupKey).setSummary(summary);
 	}
 
 	public static PackageInfo getPackageInfo(Context context) throws NameNotFoundException {
