@@ -54,7 +54,7 @@ public class AutoDictionary extends UserDictionaryBase {
     // frequency.
     public static final int FREQUENCY_FOR_AUTO_ADD = 250;
     // If the user touches a typed word 2 times or more, it will become valid.
-    private static final int VALIDITY_THRESHOLD = 2 * FREQUENCY_FOR_PICKED;
+    private static final int VALIDITY_THRESHOLD = FREQUENCY_FOR_PICKED;
     // If the user touches a typed word 4 times or more, it will be added to the user dict.
     private static final int PROMOTION_THRESHOLD = 4 * FREQUENCY_FOR_PICKED;
 
@@ -104,6 +104,7 @@ public class AutoDictionary extends UserDictionaryBase {
     @Override
     public boolean isValidWord(CharSequence word) {
         final int frequency = getWordFrequency(word);
+        if (AnyApplication.DEBUG) Log.d(TAG, "isValidWord "+word+" (freq "+frequency+")? "+(frequency >= VALIDITY_THRESHOLD));
         return frequency >= VALIDITY_THRESHOLD;
     }
 
@@ -159,6 +160,7 @@ public class AutoDictionary extends UserDictionaryBase {
         super.addWord(word, freq);
 
         if (freq >= PROMOTION_THRESHOLD) {
+        	Log.d(TAG, "Promoting the word "+word+" (freq "+freq+") to the user dictionary. It earned it.");
             mIme.promoteToUserDictionary(word, FREQUENCY_FOR_AUTO_ADD);
             freq = 0;
         }
@@ -277,6 +279,7 @@ public class AutoDictionary extends UserDictionaryBase {
 			    Integer freq = entry.getValue();
 			    db.delete(AUTODICT_TABLE_NAME, COLUMN_WORD + "=? AND " + COLUMN_LOCALE + "=?",
 			            new String[] { entry.getKey(), mLocale });
+			    //note: any word with NULL is a deleted word (see "addWord" function)
 			    if (freq != null) {
 			        db.insert(AUTODICT_TABLE_NAME, null,
 			                getContentValues(entry.getKey(), freq, mLocale));

@@ -1475,11 +1475,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 			return;
 
 		if (suggestion != null && mAutoDictionary != null) {
+			String suggestionToCheck = suggestion.toString();
 			if (/* !addToBigramDictionary && */
-			mAutoDictionary.isValidWord(suggestion)
-					|| (!mSuggest.isValidWord(suggestion.toString()) && !mSuggest
-							.isValidWord(suggestion.toString().toLowerCase()))) {
-				mAutoDictionary.addWord(suggestion.toString(), frequencyDelta);
+			mAutoDictionary.isValidWord(suggestionToCheck)//this check is for promoting from Auto to User
+					|| (!mSuggest.isValidWord(suggestionToCheck) && !mSuggest
+							.isValidWord(suggestionToCheck.toLowerCase()))) {
+				
+				mAutoDictionary.addWord(suggestionToCheck, frequencyDelta);
 			}
 			/*
 			 * if (mUserBigramDictionary != null) { CharSequence prevWord =
