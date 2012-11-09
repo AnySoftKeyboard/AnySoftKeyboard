@@ -69,7 +69,7 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 	private boolean mUseVolumeKeyForLeftRight = false;
 	private boolean mUseCameraKeyForBackspaceBackword = false;
 	private boolean mUseContactsDictionary = true;
-	private boolean mUseAutoDictionary = true;
+	private int mAutoDictionaryInsertionThreshold = 9;
 	private boolean mIsStickyExtensionKeyboard = false;
 	private boolean mDrawExtensionKeyboardAboveMainKeyboard = true;
 	private Configuration.AnimationsLevel mAnimationsLevel = AnimationsLevel.Full;
@@ -387,9 +387,10 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
                     mContext.getResources().getBoolean(R.bool.settings_default_contacts_dictionary));
         Log.i(TAG, "** mUseContactsDictionary: " + mUseContactsDictionary);
 
-        mUseAutoDictionary = sp.getBoolean(mContext.getString(R.string.settings_key_use_auto_dictionary),
-                mContext.getResources().getBoolean(R.bool.settings_default_auto_dictionary));
-        Log.i(TAG, "** mUseAutoDictionary: " + mUseAutoDictionary);
+        mAutoDictionaryInsertionThreshold = getIntFromString(sp, 
+        		mContext.getString(R.string.settings_key_auto_dictionary_threshold),
+                mContext.getString(R.string.settings_default_auto_dictionary_add_threshold));
+        Log.i(TAG, "** mAutoDictionaryInsertionThreshold: " + mAutoDictionaryInsertionThreshold);
 		    
         mIsStickyExtensionKeyboard = sp.getBoolean(mContext.getString(R.string.settings_key_is_sticky_extesion_keyboard),
                 mContext.getResources().getBoolean(R.bool.settings_default_is_sticky_extesion_keyboard));
@@ -670,8 +671,8 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
         return mUseContactsDictionary;
     }
 
-    public boolean useAutoDictionary() {
-        return mUseAutoDictionary;
+    public int getAutoDictionaryInsertionThreshold() {
+    	return mAutoDictionaryInsertionThreshold;
     }	
     
     public boolean isStickyExtensionKeyboard() {
