@@ -113,9 +113,9 @@
     <!-- Symbols that are commonly considered word separators in this language -->
     <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
     <!-- Indicates that a word has been added to the dictionary -->
-    <string name="added_word">Saved <i><xliff:g id="word">%s</xliff:g></i></string>
+    <string name="added_word">Saved: <xliff:g id="word">%s</xliff:g></string>
     <string name="revert_added_word_question">Remove\?</string>
-    <string name="removed_word">Removed <i><xliff:g id="word">%s</xliff:g></i></string>
+    <string name="removed_word">Removed: <xliff:g id="word">%s</xliff:g></string>
     <string name="hint_add_to_dictionary">\u2190 Touch again to save</string>
     <string name="hint_double_tap_to_close">Again to remove suggestions \u2192</string>
     
