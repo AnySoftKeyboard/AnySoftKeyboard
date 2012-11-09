@@ -165,6 +165,7 @@ public abstract class UserDictionaryBase extends EditableDictionary {
 
 	protected void reloadDictionary() {
 		try {
+			clearDictionary();
 			loadDictionary();
 		} catch (Exception e) {
 			Log.e(TAG, "Failed to load database while adding word (in "+getClass().getSimpleName()+")");

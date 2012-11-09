@@ -1646,6 +1646,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public void removeFromUserDictionary(String word) {
 		if (mUserDictionary != null) {
 			mUserDictionary.deleteWord(word);
+			abortCorrection(true, false);
 			if (mCandidateView != null)
 				mCandidateView.notifyAboutRemovedWord(word);
 		}
