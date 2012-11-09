@@ -113,5 +113,6 @@ public class AndroidUserDictionary extends UserDictionaryBase {
 				Words.CONTENT_URI, 
 				Words.WORD + "=?", 
 				new String[] { word });
+		reloadDictionary();
 	}
 }

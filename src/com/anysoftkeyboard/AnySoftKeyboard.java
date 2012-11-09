@@ -1635,10 +1635,19 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public boolean addWordToDictionary(String word) {
 		if (mUserDictionary != null) {
 			mUserDictionary.addWord(word, 128);
+			if (mCandidateView != null)
+				mCandidateView.notifyAboutWordAdded(word);
 			return true;
-		}
-		else {
+		} else {
 			return false;
+		}
+	}
+	
+	public void removeFromUserDictionary(String word) {
+		if (mUserDictionary != null) {
+			mUserDictionary.deleteWord(word);
+			if (mCandidateView != null)
+				mCandidateView.notifyAboutRemovedWord(word);
 		}
 	}
 
@@ -2806,7 +2815,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				//we'll also need to REMOVE the word from the user dictionary now...
 				//Since the user revert the commited word, and ASK auto-added that word, this word will need to be removed.
 				Log.i(TAG, "Since the word '"+typedWord+"' was auto-added to the user-dictionary, it will not be deleted.");
-				mUserDictionary.deleteWord(typedWord.toString());
+				removeFromUserDictionary(typedWord.toString());
 			}
 		} else {
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
