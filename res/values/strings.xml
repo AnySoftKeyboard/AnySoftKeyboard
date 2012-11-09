@@ -266,8 +266,11 @@
     <string name="use_user_dictionary_on_summary">Suggest user added words (long press on suggestion to add)</string>
     <string name="use_user_dictionary_off_summary"></string>
     <string name="use_auto_dictionary">Auto dictionary</string>
-    <string name="use_auto_dictionary_on_summary">Suggest frequently used words too</string>
-    <string name="use_auto_dictionary_off_summary"></string>
+    <string name="use_auto_dictionary_dialog_title">Select learn method</string>
+    <string name="use_auto_dictionary_summary">Automaticlly learn new words. Learn method: %s</string>
+    <string name="auto_dictionary_threshold_type_after_a_while">After some usage</string>
+    <string name="auto_dictionary_threshold_type_immediately">Immediately after I type it</string>
+    <string name="auto_dictionary_threshold_type_off">Do not learn new words</string>
     <string name="use_contacts_dictionary">Contacts dictionary</string>
     <string name="use_contacts_dictionary_on_summary">Suggest names from contacts list</string>
     <string name="use_contacts_dictionary_off_summary"></string>

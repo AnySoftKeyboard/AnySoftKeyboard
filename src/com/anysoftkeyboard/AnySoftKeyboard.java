@@ -179,6 +179,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private boolean mAutoCorrectOn;
 	private boolean mAllowSuggestionsRestart = true;
 	private boolean mCurrentlyAllowSuggestionRestart = true;
+	private boolean mJustAutoAddedWord = false;
 	/*
 	 * This will help us detect multi-tap on the SHIFT key for caps-lock
 	 */
@@ -886,7 +887,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			return false;
 		} else if (!isCursorTouchingWord()) {
 			if (DEBUG)
-				Log.d(TAG, "User moved cursor to no land word. Bye bye.");
+				Log.d(TAG, "User moved cursor to no-man land. Bye bye.");
 			return false;
 		}
 
@@ -1451,8 +1452,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	}
 
-	private void addToDictionaries(CharSequence suggestion, int frequencyDelta) {
-		checkAddToDictionary(suggestion, frequencyDelta/* , false */);
+	private boolean addToDictionaries(CharSequence suggestion, int frequencyDelta) {
+		boolean added = checkAddToDictionary(suggestion, frequencyDelta/* , false */);
+		if (added) {
+			Log.i(TAG, "Word '"+suggestion+"' was added to the auto-dictionary.");
+		}
+		return added;
 	}
 
 	/**
@@ -1461,27 +1466,33 @@ public class AnySoftKeyboard extends InputMethodService implements
 	 * @param addToBigramDictionary
 	 *            true if it should be added to bigram dictionary if possible
 	 */
-	private void checkAddToDictionary(CharSequence suggestion,
+	private boolean checkAddToDictionary(CharSequence suggestion,
 			int frequencyDelta/*
 							 * , boolean addToBigramDictionary
 							 */) {
 		if (suggestion == null || suggestion.length() < 1)
-			return;
+			return false;
 		// Only auto-add to dictionary if auto-correct is ON. Otherwise we'll be
 		// adding words in situations where the user or application really
 		// didn't
 		// want corrections enabled or learned.
 		if (!mQuickFixes && !mShowSuggestions)
-			return;
+			return false;
 
 		if (suggestion != null && mAutoDictionary != null) {
 			String suggestionToCheck = suggestion.toString();
-			if (/* !addToBigramDictionary && */
+			if (/* !addToBigramDictionary && 
 			mAutoDictionary.isValidWord(suggestionToCheck)//this check is for promoting from Auto to User
-					|| (!mSuggest.isValidWord(suggestionToCheck) && !mSuggest
+					|| */(!mSuggest.isValidWord(suggestionToCheck) && !mSuggest
 							.isValidWord(suggestionToCheck.toLowerCase()))) {
 				
-				mAutoDictionary.addWord(suggestionToCheck, frequencyDelta);
+				final boolean added = mAutoDictionary.addWord(suggestionToCheck, frequencyDelta);
+				Log.d(TAG, "**** mAutoDictionary.addWord? "+added);
+				if (added && mCandidateView != null) {
+					Log.d(TAG, "**** notifyAboutWordAdded: "+suggestionToCheck);
+					mCandidateView.notifyAboutWordAdded(suggestion);
+				}
+				return added;
 			}
 			/*
 			 * if (mUserBigramDictionary != null) { CharSequence prevWord =
@@ -1491,6 +1502,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			 * suggestion.toString()); } }
 			 */
 		}
+		return false;
 	}
 
 	private void commitTyped(InputConnection inputConnection) {
@@ -1621,8 +1633,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	public boolean addWordToDictionary(String word) {
-		mUserDictionary.addWord(word, 128);
-		return true;
+		if (mUserDictionary != null) {
+			mUserDictionary.addWord(word, 128);
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	/**
@@ -2638,11 +2655,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 				return;
 			}
 			pickSuggestion(suggestion, correcting);
-			// Add the word to the auto dictionary if it's not a known word
-			if (index == 0) {
-				addToDictionaries(suggestion,
-						AutoDictionary.FREQUENCY_FOR_PICKED);
-			}
 
 			TextEntryState.acceptedSuggestion(mWord.getTypedWord(), suggestion);
 			// Follow it with a space
@@ -2650,31 +2662,46 @@ public class AnySoftKeyboard extends InputMethodService implements
 				sendSpace();
 				mJustAddedAutoSpace = true;
 			}
-
-			final boolean showingAddToDictionaryHint = index == 0
-					&& (mQuickFixes || mShowSuggestions)
-					&& !mSuggest.isValidWord(suggestion)
-					&& !mSuggest.isValidWord(suggestion.toString()
-							.toLowerCase());
-
-			if (!correcting) {
-				// Fool the state watcher so that a subsequent backspace will
-				// not do a revert, unless
-				// we just did a correction, in which case we need to stay in
-				// TextEntryState.State.PICKED_SUGGESTION state.
-				TextEntryState.typedCharacter((char) KeyCodes.SPACE, true);
-				setNextSuggestions();
-			} else if (!showingAddToDictionaryHint) {
-				// If we're not showing the "Touch again to save", then show
-				// corrections again.
-				// In case the cursor position doesn't change, make sure we show
-				// the suggestions again.
-				clearSuggestions();
-				// postUpdateOldSuggestions();
+			// Add the word to the auto dictionary if it's not a known word
+			mJustAutoAddedWord = false;
+			if (index == 0) {
+				mJustAutoAddedWord = addToDictionaries(suggestion,
+						AutoDictionary.FREQUENCY_FOR_PICKED);
 			}
 
-			if (showingAddToDictionaryHint && mCandidateView != null) {
-				mCandidateView.showAddToDictionaryHint(suggestion);
+			final boolean showingAddToDictionaryHint = !mJustAutoAddedWord 
+					&& index == 0
+					&& (mQuickFixes || mShowSuggestions)
+					&& !mSuggest.isValidWord(suggestion)//this is for the case that the word was auto-added upon picking
+					&& !mSuggest.isValidWord(suggestion.toString()
+							.toLowerCase());
+			
+			Log.d(TAG, "*** mJustAutoAddedWord:"+mJustAutoAddedWord+", showingAddToDictionaryHint:"+showingAddToDictionaryHint);
+			
+			if (!mJustAutoAddedWord) {
+				/*
+				if (!correcting) {
+					Log.d(TAG, "*** AT !correcting");
+					// Fool the state watcher so that a subsequent backspace will
+					// not do a revert, unless
+					// we just did a correction, in which case we need to stay in
+					// TextEntryState.State.PICKED_SUGGESTION state.
+					TextEntryState.typedCharacter((char) KeyCodes.SPACE, true);
+					setNextSuggestions();
+				} else if (!showingAddToDictionaryHint) {
+					Log.d(TAG, "*** AT !mJustAutoAddedWord && !showingAddToDictionaryHint");
+					// If we're not showing the "Touch again to save", then show
+					// corrections again.
+					// In case the cursor position doesn't change, make sure we show
+					// the suggestions again.
+					clearSuggestions();
+					// postUpdateOldSuggestions();
+				}
+				*/
+				if (showingAddToDictionaryHint && mCandidateView != null) {
+					Log.d(TAG, "*** AT showingAddToDictionaryHint && mCandidateView != null");
+					mCandidateView.showAddToDictionaryHint(suggestion);
+				}
 			}
 		} finally {
 			if (ic != null) {
@@ -2755,6 +2782,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		final int length = mWord.size();// mComposing.length();
 		if (!mPredicting && length > 0) {
+			final CharSequence typedWord = mWord.getTypedWord();
 			final InputConnection ic = getCurrentInputConnection();
 			mPredicting = true;
 			mUndoCommitCursorPosition = -2;
@@ -2770,10 +2798,16 @@ public class AnySoftKeyboard extends InputMethodService implements
 				toDelete--;
 			}
 			ic.deleteSurroundingText(toDelete, 0);
-			ic.setComposingText(mWord.getTypedWord()/* mComposing */, 1);
+			ic.setComposingText(typedWord/* mComposing */, 1);
 			TextEntryState.backspace();
 			ic.endBatchEdit();
 			performUpdateSuggestions();
+			if (mJustAutoAddedWord && mUserDictionary != null) {
+				//we'll also need to REMOVE the word from the user dictionary now...
+				//Since the user revert the commited word, and ASK auto-added that word, this word will need to be removed.
+				Log.i(TAG, "Since the word '"+typedWord+"' was auto-added to the user-dictionary, it will not be deleted.");
+				mUserDictionary.deleteWord(typedWord.toString());
+			}
 		} else {
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
 			// mJustRevertedSeparator = null;
@@ -3458,7 +3492,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		if (isDictionaryKey
 				|| key.equals(getString(R.string.settings_key_use_contacts_dictionary))
-				|| key.equals(getString(R.string.settings_key_use_auto_dictionary))) {
+				|| key.equals(getString(R.string.settings_key_auto_dictionary_threshold))) {
 			setDictionariesForCurrentKeyboard();
 		} else if (
 		// key.equals(getString(R.string.settings_key_top_keyboard_row_id)) ||
@@ -3643,10 +3677,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mQuickTextKeyDialog.show();
 	}
 
-	public void promoteToUserDictionary(String word, int frequency) {
+	public boolean promoteToUserDictionary(String word, int frequency) {
 		if (mUserDictionary.isValidWord(word))
-			return;
-		mUserDictionary.addWord(word, frequency);
+			return false;
+		else
+			return mUserDictionary.addWord(word, frequency);
 	}
 
 	public WordComposer getCurrentWord() {

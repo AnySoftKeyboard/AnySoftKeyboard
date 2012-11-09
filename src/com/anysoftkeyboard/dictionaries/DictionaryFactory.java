@@ -61,7 +61,7 @@ public class DictionaryFactory
     
     public synchronized AutoDictionary createAutoDictionary(Context context, AnySoftKeyboard ime, String currentAutoDictionaryLocale)
     {
-    	if (!AnyApplication.getConfig().useAutoDictionary())
+    	if (AnyApplication.getConfig().getAutoDictionaryInsertionThreshold() < 0)
     		return null;
     	
     	if (mAutoDictionary != null && equalsString(mAutoDictionary.getLocale(), currentAutoDictionaryLocale))

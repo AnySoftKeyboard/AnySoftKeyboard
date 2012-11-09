@@ -144,7 +144,7 @@ public abstract class UserDictionaryBase extends EditableDictionary {
      * the highest.
      * @TODO use a higher or float range for frequency
      */
-    public synchronized void addWord(String word, int frequency) {
+    public synchronized boolean addWord(String word, int frequency) {
         if (mRequiresReload)
     	{
         	try {
@@ -155,7 +155,7 @@ public abstract class UserDictionaryBase extends EditableDictionary {
 			}
     	}
         // Safeguard against adding long words. Can cause stack overflow.
-        if (word.length() >= MAX_WORD_LENGTH) return;
+        if (word.length() >= MAX_WORD_LENGTH) return false;
         Log.e(TAG, "Adding word '"+word+"' to dictionary (in "+getClass().getSimpleName()+") with frequency "+frequency);
         
         addWordRec(mRoots, word, 0, frequency);
@@ -164,6 +164,8 @@ public abstract class UserDictionaryBase extends EditableDictionary {
 
         // In case the above does a synchronous callback of the change observer
         mRequiresReload = false;
+        
+        return true;
     }
 
     public abstract Cursor getWordsCursor();

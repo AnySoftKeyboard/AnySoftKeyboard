@@ -18,11 +18,8 @@ package com.anysoftkeyboard.dictionaries;
 
 
 import java.util.HashMap;
-import java.util.Set;
 import java.util.Map.Entry;
-
-import com.anysoftkeyboard.AnySoftKeyboard;
-import com.menny.android.anysoftkeyboard.AnyApplication;
+import java.util.Set;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -35,6 +32,9 @@ import android.os.AsyncTask;
 import android.provider.BaseColumns;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.anysoftkeyboard.AnySoftKeyboard;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 
 /**
  * Stores new words temporarily until they are promoted to the user dictionary
@@ -52,12 +52,12 @@ public class AutoDictionary extends UserDictionaryBase {
     public static final int FREQUENCY_FOR_TYPED = 1;
     // A word that is frequently typed and gets promoted to the user dictionary, uses this
     // frequency.
-    public static final int FREQUENCY_FOR_AUTO_ADD = 250;
+    public static final int FREQUENCY_FOR_AUTO_ADD = 178;
+    /*this is not interesting
     // If the user touches a typed word 2 times or more, it will become valid.
-    private static final int VALIDITY_THRESHOLD = FREQUENCY_FOR_PICKED;
+    private static final int VALIDITY_THRESHOLD = FREQUENCY_FOR_PICKED;*/
     // If the user touches a typed word 4 times or more, it will be added to the user dict.
-    private static final int PROMOTION_THRESHOLD = 4 * FREQUENCY_FOR_PICKED;
-
+    
     private AnySoftKeyboard mIme;
     // Locale for which this auto dictionary is storing words
     private final String mLocale;
@@ -104,8 +104,7 @@ public class AutoDictionary extends UserDictionaryBase {
     @Override
     public boolean isValidWord(CharSequence word) {
         final int frequency = getWordFrequency(word);
-        if (AnyApplication.DEBUG) Log.d(TAG, "isValidWord "+word+" (freq "+frequency+")? "+(frequency >= VALIDITY_THRESHOLD));
-        return frequency >= VALIDITY_THRESHOLD;
+        return frequency >= 1;//which means it has been seen before
     }
 
     @Override
@@ -147,10 +146,10 @@ public class AutoDictionary extends UserDictionaryBase {
     }
 
     @Override
-    public void addWord(String word, int addFrequency) {
+    public boolean addWord(String word, int addFrequency) {
         final int length = word.length();
         // Don't add very short or very long words.
-        if (length < 2 || length > MAX_WORD_LENGTH) return;
+        if (length < 2 || length > MAX_WORD_LENGTH) return false;
         if (mIme.getCurrentWord().isAutoCapitalized()) {
             // Remove caps before adding
             word = Character.toLowerCase(word.charAt(0)) + word.substring(1);
@@ -159,9 +158,10 @@ public class AutoDictionary extends UserDictionaryBase {
         freq = freq < 0 ? addFrequency : freq + addFrequency;
         super.addWord(word, freq);
 
-        if (freq >= PROMOTION_THRESHOLD) {
+        boolean added = false;
+        if (freq >= AnyApplication.getConfig().getAutoDictionaryInsertionThreshold()) {
         	Log.d(TAG, "Promoting the word "+word+" (freq "+freq+") to the user dictionary. It earned it.");
-            mIme.promoteToUserDictionary(word, FREQUENCY_FOR_AUTO_ADD);
+        	added = mIme.promoteToUserDictionary(word, FREQUENCY_FOR_AUTO_ADD);
             freq = 0;
         }
 
@@ -169,6 +169,8 @@ public class AutoDictionary extends UserDictionaryBase {
             // Write a null frequency if it is to be deleted from the db
             mPendingWrites.put(word, freq == 0 ? null : new Integer(freq));
         }
+        
+        return added;
     }
 
     /**
