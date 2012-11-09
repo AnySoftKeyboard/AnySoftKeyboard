@@ -147,12 +147,7 @@ public abstract class UserDictionaryBase extends EditableDictionary {
     public synchronized boolean addWord(String word, int frequency) {
         if (mRequiresReload)
     	{
-        	try {
-				loadDictionary();
-			} catch (Exception e) {
-				Log.e(TAG, "Failed to load database while adding word (in "+getClass().getSimpleName()+")");
-				e.printStackTrace();
-			}
+        	reloadDictionary();
     	}
         // Safeguard against adding long words. Can cause stack overflow.
         if (word.length() >= MAX_WORD_LENGTH) return false;
@@ -167,6 +162,15 @@ public abstract class UserDictionaryBase extends EditableDictionary {
         
         return true;
     }
+
+	protected void reloadDictionary() {
+		try {
+			loadDictionary();
+		} catch (Exception e) {
+			Log.e(TAG, "Failed to load database while adding word (in "+getClass().getSimpleName()+")");
+			e.printStackTrace();
+		}
+	}
 
     public abstract Cursor getWordsCursor();
     
