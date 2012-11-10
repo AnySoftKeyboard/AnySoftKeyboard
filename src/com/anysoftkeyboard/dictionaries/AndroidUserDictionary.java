@@ -1,5 +1,7 @@
 package com.anysoftkeyboard.dictionaries;
 
+import com.menny.android.anysoftkeyboard.AnyApplication;
+
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -75,6 +77,7 @@ public class AndroidUserDictionary extends UserDictionaryBase {
 
 	private void addWords(Cursor cursor) {
         if (cursor.moveToFirst()) {
+        	Log.d(TAG, "About to load "+cursor.getCount()+" rows from Android's User Dictionary of locale "+mLocale+"...");
             while (!cursor.isAfterLast()) {
                 String word = cursor.getString(INDEX_WORD);
                 int frequency = cursor.getInt(INDEX_FREQUENCY);
@@ -84,6 +87,11 @@ public class AndroidUserDictionary extends UserDictionaryBase {
                 	addWordFromStorage(word, frequency);
                 }
                 cursor.moveToNext();
+                if (AnyApplication.DEBUG) {
+                	if (cursor.getPosition() % 25 == 0) {
+                		Log.d(TAG, "Read "+cursor.getPosition()+" out of "+cursor.getCount()+" words.");
+                	}
+                }
             }
         }
     }

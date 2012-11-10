@@ -317,16 +317,23 @@ public class UserDictionaryEditorActivity extends ListActivity {
         Log.d(TAG, "Selected locale is " + mSelectedLocale);
         new UserWordsEditorAsyncTask(this)
         {
+        	@Override
+        	protected void onPreExecute() {
+        		super.onPreExecute();
+        		//all the code below can be safely (and must) be called in the UI thread.
+        		EditableDictionary dictionary = DictionaryFactory.getInstance()
+                        .createUserDictionary(getApplicationContext(), mSelectedLocale);
+                if (dictionary != mCurrentDictionary && mCurrentDictionary != null) {
+                    mCurrentDictionary.close();
+                }
+
+                mCurrentDictionary = dictionary;
+        	}
+        	
             @Override
             protected Void doInBackground(Void... params) {
                 try
                 {
-                    EditableDictionary dictionary = DictionaryFactory.getInstance()
-                            .createUserDictionary(getApplicationContext(), mSelectedLocale);
-                    if (dictionary != mCurrentDictionary && mCurrentDictionary != null)
-                        mCurrentDictionary.close();
-
-                    mCurrentDictionary = dictionary;
                     mCursor = mCurrentDictionary.getWordsCursor();
                 } catch (Exception e)
                 {
@@ -341,11 +348,15 @@ public class UserDictionaryEditorActivity extends ListActivity {
                 MyAdapter adapter = (MyAdapter) getListAdapter();
                 if (adapter == null)
                 {
+                	if (AnyApplication.DEBUG)
+                		Log.d(TAG, "Creating a new MyAdapter for the words editor");
                     adapter = new MyAdapter();
                     setListAdapter(adapter);
                 }
                 else
                 {
+                	if (AnyApplication.DEBUG)
+                		Log.d(TAG, "Replacing the cursor for the user-dictionary words editor list adapter.");
                     adapter.changeCursor(mCursor);
                 }
             };

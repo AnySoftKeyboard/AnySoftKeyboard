@@ -49,7 +49,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 public class CandidateView extends View {
 
-	private static final String TAG = "CandidateView";
+	private static final String TAG = "ASK CandidateView";
 
 	// private static final int OUT_OF_BOUNDS_WORD_INDEX = -1;
 	private static final int OUT_OF_BOUNDS_X_COORD = -1;
@@ -477,12 +477,11 @@ public class CandidateView extends View {
 			invalidate();
 			break;
 		case MotionEvent.ACTION_MOVE:
-			Log.d(TAG, "MotionEvent.ACTION_MOVE: y:"+y);
 			if (y <= 0) {
-				Log.d(TAG, "Fling up from candidates view. Deleting word at index "+mSelectedIndex+", which is "+mSelectedString);
 				// Fling up!?
 				//Fling up should be a hacker's way to delete words (user dictionary words)
 				if (mSelectedString != null) {
+					Log.d(TAG, "Fling up from candidates view. Deleting word at index "+mSelectedIndex+", which is "+mSelectedString);
 					mService.removeFromUserDictionary(mSelectedString.toString());
 					clear();
 				}
@@ -523,7 +522,6 @@ public class CandidateView extends View {
 						mService.pickSuggestionManually(mSelectedIndex,
 								mSelectedString);
 					} else /*if (mNoticing)*/ {
-						Log.d(TAG, "Touch while mNoticing. action: "+action+", mSelectedIndex: "+mSelectedIndex+", mJustAddedWord: "+mJustAddedWord);
 						if (action == MotionEvent.ACTION_UP && mSelectedIndex == 1
 								&& !TextUtils.isEmpty(mJustAddedWord)) {
 							// 1 is the index of "Remove?"

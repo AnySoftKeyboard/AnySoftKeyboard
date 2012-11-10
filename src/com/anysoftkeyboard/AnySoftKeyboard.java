@@ -1487,9 +1487,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 							.isValidWord(suggestionToCheck.toLowerCase()))) {
 				
 				final boolean added = mAutoDictionary.addWord(suggestionToCheck, frequencyDelta);
-				Log.d(TAG, "**** mAutoDictionary.addWord? "+added);
 				if (added && mCandidateView != null) {
-					Log.d(TAG, "**** notifyAboutWordAdded: "+suggestionToCheck);
 					mCandidateView.notifyAboutWordAdded(suggestion);
 				}
 				return added;
@@ -2686,12 +2684,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 					&& !mSuggest.isValidWord(suggestion.toString()
 							.toLowerCase());
 			
-			Log.d(TAG, "*** mJustAutoAddedWord:"+mJustAutoAddedWord+", showingAddToDictionaryHint:"+showingAddToDictionaryHint);
-			
 			if (!mJustAutoAddedWord) {
 				/*
 				if (!correcting) {
-					Log.d(TAG, "*** AT !correcting");
 					// Fool the state watcher so that a subsequent backspace will
 					// not do a revert, unless
 					// we just did a correction, in which case we need to stay in
@@ -2699,7 +2694,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 					TextEntryState.typedCharacter((char) KeyCodes.SPACE, true);
 					setNextSuggestions();
 				} else if (!showingAddToDictionaryHint) {
-					Log.d(TAG, "*** AT !mJustAutoAddedWord && !showingAddToDictionaryHint");
 					// If we're not showing the "Touch again to save", then show
 					// corrections again.
 					// In case the cursor position doesn't change, make sure we show
@@ -2709,7 +2703,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 				}
 				*/
 				if (showingAddToDictionaryHint && mCandidateView != null) {
-					Log.d(TAG, "*** AT showingAddToDictionaryHint && mCandidateView != null");
 					mCandidateView.showAddToDictionaryHint(suggestion);
 				}
 			}
