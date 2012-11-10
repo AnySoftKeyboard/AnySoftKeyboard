@@ -2,10 +2,12 @@ package com.anysoftkeyboard.ui.settings;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.menny.android.anysoftkeyboard.R;
 
 abstract class UserWordsEditorAsyncTask extends AsyncTask<Void, Void, Void> {
+	private static final String TAG = "ASK UserWordsEditorAsyncTask";
 	/**
      * 
      */
@@ -43,6 +45,7 @@ abstract class UserWordsEditorAsyncTask extends AsyncTask<Void, Void, Void> {
 				progresDialog.dismiss();
 		} catch (IllegalArgumentException e) {
 			// just swallowing it.
+			Log.w(TAG, "Caught an excpetion while trying to dismiss the progress dialog. Not important?");
 		}
 		applyResults(result);
 	}
