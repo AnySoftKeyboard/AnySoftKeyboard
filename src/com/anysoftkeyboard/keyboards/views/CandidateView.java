@@ -560,4 +560,11 @@ public class CandidateView extends View {
 		setSuggestions(notice, false, true, false);
 		mNoticing = true;
 	}
+
+	public void replaceTypedWord(CharSequence typedWord) {
+		if (mSuggestions.size() > 0) {
+			mSuggestions.set(0, typedWord);
+			invalidate();
+		}
+	}
 }

@@ -2421,6 +2421,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 			//this should be done ONLY if the key is a letter, and not a inner character (like ').
 			if (Character.isLetter((char) primaryCodeForShow)) {
 				postUpdateSuggestions();
+			} else {
+				//just replace the typed word in the candidates view
+				if (mCandidateView != null)
+					mCandidateView.replaceTypedWord(mWord.getTypedWord());
 			}
 		} else {
 			sendKeyChar((char) primaryCodeForShow);
