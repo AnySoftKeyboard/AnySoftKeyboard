@@ -88,9 +88,11 @@ public class SafeUserDictionary extends EditableDictionary {
     }
     
     @Override
-    public void addWord(String word, int frequency) {
+    public boolean addWord(String word, int frequency) {
     	if (mActualDictionary != null)
-			mActualDictionary.addWord(word, frequency);
+			return mActualDictionary.addWord(word, frequency);
+    	else
+    		return false;
     }
     
     @Override

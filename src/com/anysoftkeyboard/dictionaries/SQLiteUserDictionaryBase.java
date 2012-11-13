@@ -81,6 +81,7 @@ public abstract class SQLiteUserDictionaryBase extends UserDictionaryBase {
 	@Override
 	public void deleteWord(String word) {
 		mStorage.deleteWord(word);
+		reloadDictionary();
 	}
 
 	@Override

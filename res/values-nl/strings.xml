@@ -3,6 +3,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="ime_name">AnySoftKeyboard</string>
   <string name="settings_app_name">AnySoftKeyboards instellingen</string>
+  <string name="spell_checker_service_name">AnySoftKeyboard spellingscontrole</string>
+  <string name="spell_checker_settings">AnySoftKeyboard spellingscontrole instellingen</string>
+  <string name="subtype_generic">spellingscontrole-algemeen</string>
   <string name="click_to_restart_suggestions">Klik voor suggesties</string>
   <string name="tips_notification_text">Klik voor tips!</string>
   <string name="tips_button">Hoe de tips te gebruiken</string>
@@ -30,7 +33,7 @@
   <string name="tip_7_voice_input_tip_dont_forget_bottom_row">Als het microfoon ikoon altijd zichtbaar moet zijn zorg dan voor de juiste onderrij (vorige tip).\nDe microfoon is altijd toegankelijk via het verborgen toetsenbord (veeg naar boven vanaf de spatiebalk).</string>
   <string name="tip_7_voice_input_tip_note">* Vereist Android 2.2+ en een internet verbinding.</string>
   <string name="tip_8_suggestions">Ik zorg dat je compleet bent</string>
-  <string name="tip_8_suggestions_tip">Afhankelijk van het taal ondersteunings niveau kan AnySoftKeyboard helpen met het afmaken van woorden en het corrigeren van typfouten. Zodra gestart wordt met typen zal AnySoftKeyboard woorden suggereren die gebaseerd zijn op awat al is ingevoerd.</string>
+  <string name="tip_8_suggestions_tip">Afhankelijk van je taal ondersteuningsniveau kan AnySoftKeyboard uw woorden en uw typefouten corrigeren. Zodra u begont te typen, zal AnySoftKeyboard woorden voorstellen op basis van wat u reeds hebt getypt.</string>
   <string name="tip_8_suggestions_editor">Als ik een woord niet weet dan kan ik het leren! Voer het woord in and klik er op in de suggestie strop. Ik onthoud het.\nDeze gebruikers woorden kunnen ook aangepast worden in de ingebouwde tekstverwerker. Zoek naar de tekstverwerker in AnySoftKeyboard woordenboek instellinge.</string>
   <string name="tip_9_suggestions_restart">Suggesties wordt opnieuw gestart</string>
   <string name="tip_9_suggestions_restart_tip">AnySoftKeyboard bied woord voltooing suggesties gebaseerd op het ingevoerd. Maar AnySoftKeyboard kan ook suggesties bieden op reeds ingevoerde woorden. Raak het woord aan en AnySoftKeyboard zal de suggestie strip vernieuwen.</string>
@@ -55,7 +58,7 @@
   <string name="how_to_enable_dialog_show_me">Laat zien!</string>
   <string name="how_to_enable_dialog_dont_show_me">Later</string>
   <string name="how_to_simple_howto_preface">Android vereist dat de gebruiker een extern toetsenbord activeerd. Dat moet zo:</string>
-  <string name="how_to_simple_howto_enable_ask">Stap 1: zet AnySoftKeyboard aan (het apparaat zal waarschuwen over de mogelijkheid van toets opvang. Geen paniek, AnySoftKeyboard slaat geen gegevens op en stuurt ook niets weg):</string>
+  <string name="how_to_simple_howto_enable_ask">Stap 1: Activeer AnySoftKeyboard (er komt een waarschuwing over mogelijke toets-opslag, geen angst, AnySoftKeyboard slaat geen data op en zend het nergens heen):</string>
   <string name="how_to_simple_howto_enable_ask_button">AnySoftKeyboard aanzetten</string>
   <string name="how_to_simple_howto_press_back_to_return_tip">Druk eenmaal op BACK om terug te gaan naar de instructies</string>
   <string name="how_to_simple_howto_switch_to_ask">Stap 2: kies AnySoftKeyboard als active invoer methode:</string>
@@ -213,6 +216,9 @@
   <string name="tweak_ux_group">Gedragsaanpassingen</string>
   <string name="tweak_dictionary_group">Woordenlijst aanpassingen</string>
   <string name="settings_min_length_for_word_correction">Minimale woord lengte voor verbinding</string>
+  <string name="show_keyboard_name_text">Toon toetsenbord naam</string>
+  <string name="show_keyboard_name_on_summary">Toon toetsenbord naam op spatiebalk</string>
+  <string name="show_keyboard_name_off_summary">Toon toetsenbordnaam niet</string>
   <string name="use_custom_keytext_color">Gebruik toets kleur</string>
   <string name="use_custom_keytext_color_on_summary">Gebruik aangepaste toets kleur</string>
   <string name="use_custom_keytext_color_off_summary">Gebruik thema toets kleur</string>

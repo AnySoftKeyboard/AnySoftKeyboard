@@ -52,7 +52,17 @@
   	<string name="settings_key_use_camera_key_for_backspace_backword">settings_key_use_camera_key_for_backspace_backword</string>
   	
   	<string name="settings_key_use_user_dictionary">settings_key_use_user_dictionary</string>
-  	<string name="settings_key_use_auto_dictionary">settings_key_use_auto_dictionary</string>
+  	<string name="settings_key_auto_dictionary_threshold">settings_key_auto_dictionary_threshold</string>
+  	<string-array name="auto_dictionary_threshold_values">
+	    <item>9</item>
+		<item>1</item>
+		<item>-1</item>
+	</string-array>
+	<string-array name="auto_dictionary_threshold_types">
+	    <item>@string/auto_dictionary_threshold_type_after_a_while</item>
+		<item>@string/auto_dictionary_threshold_type_immediately</item>
+		<item>@string/auto_dictionary_threshold_type_off</item>
+	</string-array>
   	<string name="settings_key_use_contacts_dictionary">settings_key_use_contacts_dictionary</string>
 
 	<string name="settings_key_active_quick_text_key">settings_key_active_quick_text_key</string>

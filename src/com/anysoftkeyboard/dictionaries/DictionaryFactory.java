@@ -33,12 +33,13 @@ public class DictionaryFactory
     public synchronized EditableDictionary createUserDictionary(Context context, String locale)
     {
         if (mUserDictionary != null && equalsString(mUserDictionaryLocale, locale)){
+        	Log.d(TAG, "Returning cached user-dictionary for locale "+mUserDictionaryLocale);
             return mUserDictionary;
         }
-        
+        Log.d(TAG, "Creating a new UserDictionart for locale "+locale);
         mUserDictionary = new SafeUserDictionary(context, locale);
         mUserDictionary.loadDictionary();
-        
+
         mUserDictionaryLocale = locale;
         return mUserDictionary;
     }
@@ -61,7 +62,7 @@ public class DictionaryFactory
     
     public synchronized AutoDictionary createAutoDictionary(Context context, AnySoftKeyboard ime, String currentAutoDictionaryLocale)
     {
-    	if (!AnyApplication.getConfig().useAutoDictionary())
+    	if (AnyApplication.getConfig().getAutoDictionaryInsertionThreshold() < 0)
     		return null;
     	
     	if (mAutoDictionary != null && equalsString(mAutoDictionary.getLocale(), currentAutoDictionaryLocale))

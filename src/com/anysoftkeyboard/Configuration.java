@@ -82,7 +82,7 @@ public interface Configuration {
 	
 	boolean useContactsDictionary();
 	
-	boolean useAutoDictionary();
+	int getAutoDictionaryInsertionThreshold();
 	
 	boolean isStickyExtensionKeyboard();
 	

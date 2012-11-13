@@ -17,8 +17,8 @@
 ** limitations under the License.
 */
 -->
-<set xmlns:android="http://schemas.android.com/apk/res/android"
-        android:interpolator="@android:anim/accelerate_interpolator">
-    <translate android:fromYDelta="0" android:toYDelta="100%"
-            android:duration="@integer/extendingAnimTime"/>
-</set>
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="@integer/extendingAnimTime"
+    android:fromYDelta="0"
+    android:interpolator="@android:anim/accelerate_interpolator"
+    android:toYDelta="100%" />
