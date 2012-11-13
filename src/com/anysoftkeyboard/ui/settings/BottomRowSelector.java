@@ -2,6 +2,7 @@ package com.anysoftkeyboard.ui.settings;
 
 import java.util.List;
 
+import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.menny.android.anysoftkeyboard.R;
@@ -31,5 +32,10 @@ public class BottomRowSelector extends AddOnSelector<KeyboardExtension> {
 	@Override
 	protected boolean allowExternalPacks() {
 		return false;
+	}
+	
+	@Override
+	protected AddOn getCurrentSelectedAddOn() {
+		return KeyboardExtensionFactory.getCurrentKeyboardExtension(getApplicationContext(), KeyboardExtension.TYPE_BOTTOM);
 	}
 }

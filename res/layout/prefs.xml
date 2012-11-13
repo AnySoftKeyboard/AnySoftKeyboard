@@ -48,7 +48,8 @@
         android:key="languages_cat"
         android:title="@string/languages_cat" >
 
-        <Preference android:title="@string/keyboards_group" >
+        <Preference android:title="@string/keyboards_group"
+        	android:summary="@string/keyboards_group_summary">
 
             <intent
                 android:action="android.intent.action.MAIN"
@@ -56,7 +57,8 @@
                 android:targetPackage="com.menny.android.anysoftkeyboard" />
         </Preference>
 
-        <Preference android:title="@string/special_dictionaries_group" >
+        <Preference android:title="@string/special_dictionaries_group" 
+        	android:summary="@string/special_dictionaries_group_summary">
 
             <intent
                 android:action="android.intent.action.MAIN"
@@ -69,7 +71,8 @@
         android:key="ui_group"
         android:title="@string/ui_group" >
 
-        <Preference android:title="@string/keyboard_theme_group" >
+        <Preference android:title="@string/keyboard_theme_group" 
+        android:key="keyboard_theme_group">
 
             <intent
                 android:action="android.intent.action.MAIN"
@@ -77,7 +80,8 @@
                 android:targetPackage="com.menny.android.anysoftkeyboard" />
         </Preference>
 
-        <Preference android:title="@string/quick_text_keys_group" >
+        <Preference android:title="@string/quick_text_keys_group" 
+        android:key="quick_text_keys_group">
 
             <intent
                 android:action="android.intent.action.MAIN"
@@ -85,7 +89,8 @@
                 android:targetPackage="com.menny.android.anysoftkeyboard" />
         </Preference>
 
-        <Preference android:title="@string/top_generic_row_group" >
+        <Preference android:title="@string/top_generic_row_group" 
+        android:key="top_generic_row_group">
 
             <intent
                 android:action="android.intent.action.MAIN"
@@ -93,7 +98,8 @@
                 android:targetPackage="com.menny.android.anysoftkeyboard" />
         </Preference>
 
-        <Preference android:title="@string/bottom_generic_row_group" >
+        <Preference android:title="@string/bottom_generic_row_group"
+        android:key="bottom_generic_row_group">
 
             <intent
                 android:action="android.intent.action.MAIN"
@@ -101,7 +107,8 @@
                 android:targetPackage="com.menny.android.anysoftkeyboard" />
         </Preference>
 
-        <Preference android:title="@string/extension_keyboard_group" >
+        <Preference android:title="@string/extension_keyboard_group"
+        android:key="extension_keyboard_group">
 
             <intent
                 android:action="android.intent.action.MAIN"
@@ -139,6 +146,15 @@
             android:summaryOff=""
             android:summaryOn="@string/sound_on_summary"
             android:title="@string/sound_on" />
+
+        <ListPreference
+            android:defaultValue="@string/settings_default_tweak_animations_level"
+            android:dialogTitle="@string/tweak_animations_level_title"
+            android:entries="@array/tweak_animations_level_types"
+            android:entryValues="@array/tweak_animations_level_values"
+            android:key="@string/settings_key_tweak_animations_level"
+            android:summary="@string/tweak_animations_level_summary"
+            android:title="@string/tweak_animations_level_title" />
     </PreferenceCategory>
 
     <PreferenceCategory

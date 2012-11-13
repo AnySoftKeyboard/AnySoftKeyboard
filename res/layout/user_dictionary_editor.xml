@@ -54,6 +54,7 @@
             android:id="@android:id/list"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:animateLayoutChanges="true"
             android:drawSelectorOnTop="false" />
 
         <TextView
@@ -76,10 +77,11 @@
         android:padding="4dp"
         android:weightSum="4" >
 
-        <View android:layout_width="0px"
+        <View
+            android:layout_width="0px"
             android:layout_height="1px"
-            android:layout_weight="1"/>
-        
+            android:layout_weight="1" />
+
         <ImageView
             android:id="@+id/add_user_word"
             android:layout_width="wrap_content"
@@ -91,10 +93,11 @@
             android:scaleType="centerInside"
             android:src="@android:drawable/ic_menu_add" />
 
-        <View android:layout_width="0px"
+        <View
+            android:layout_width="0px"
             android:layout_height="1px"
-            android:layout_weight="1"/>
-        
+            android:layout_weight="1" />
+
         <ImageView
             android:id="@+id/backup_words"
             android:layout_width="wrap_content"
@@ -106,10 +109,11 @@
             android:scaleType="centerInside"
             android:src="@android:drawable/ic_menu_save" />
 
-        <View android:layout_width="0px"
+        <View
+            android:layout_width="0px"
             android:layout_height="1px"
-            android:layout_weight="1"/>
-        
+            android:layout_weight="1" />
+
         <ImageView
             android:id="@+id/restore_words"
             android:layout_width="wrap_content"
@@ -120,10 +124,11 @@
             android:padding="@dimen/key_corner_radius"
             android:scaleType="centerInside"
             android:src="@android:drawable/ic_menu_upload" />
-        
-        <View android:layout_width="0px"
+
+        <View
+            android:layout_width="0px"
             android:layout_height="1px"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
     </LinearLayout>
 
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.anysoftkeyboard.ui.settings;
 
 import java.util.List;
 
+import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.menny.android.anysoftkeyboard.R;
@@ -31,5 +32,10 @@ public class QuickTextKeys extends AddOnSelector<QuickTextKey> {
 	@Override
 	protected boolean allowExternalPacks() {
 		return true;
+	}
+	
+	@Override
+	protected AddOn getCurrentSelectedAddOn() {
+		return QuickTextKeyFactory.getCurrentQuickTextKey(getApplicationContext());
 	}
 }

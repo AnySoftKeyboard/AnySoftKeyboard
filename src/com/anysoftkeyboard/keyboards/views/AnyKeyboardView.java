@@ -432,7 +432,8 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 				break;
 			case KeyCodes.MODE_SYMOBLS:
 				// printing the next alpha keyboard name
-				tooltip = getResources().getString(R.string.symbols_keyboard);
+				tooltip = mAskContext.getKeyboardSwitcher()
+						.peekNextSymbolsKeyboard();
 				break;
 			default:
 				tooltip = "";
