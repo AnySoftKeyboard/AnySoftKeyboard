@@ -2,6 +2,7 @@ package com.anysoftkeyboard.ui.settings;
 
 import java.util.List;
 
+import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.menny.android.anysoftkeyboard.R;
@@ -31,5 +32,10 @@ public class KeyboardThemeSelector extends AddOnSelector<KeyboardTheme> {
 	@Override
 	protected boolean allowExternalPacks() {
 		return true;
+	}
+	
+	@Override
+	protected AddOn getCurrentSelectedAddOn() {
+		return KeyboardThemeFactory.getCurrentKeyboardTheme(getApplicationContext());
 	}
 }

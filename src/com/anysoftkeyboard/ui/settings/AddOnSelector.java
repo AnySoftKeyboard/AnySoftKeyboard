@@ -5,10 +5,10 @@ import java.util.List;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -18,14 +18,14 @@ import com.menny.android.anysoftkeyboard.R;
 
 public abstract class AddOnSelector<E extends AddOn> extends PreferenceActivity {
 	private static final String SEARCH_MARKET_PACKS_PREF_KEY = "search_for_addon_packs_at_market";
-	private ListPreference mAddonsList;
+	private AddOnListPreference mAddonsList;
 	
 	private final static int DIALOG_NO_EXTERNAL_PACKS_FOR_NOW = 234234;
 	
 	@Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        addPreferencesFromResource(getPrefsLayoutResId());
+        addPreferencesFromResource(getPrefsLayoutResId());        
 
 		final Preference searcher = findPreference(SEARCH_MARKET_PACKS_PREF_KEY);
 		searcher.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -50,8 +50,10 @@ public abstract class AddOnSelector<E extends AddOn> extends PreferenceActivity 
 			}
 		});
 		
-		mAddonsList = (ListPreference) findPreference(getString(getAddonsListPrefKeyResId()));
-    }
+		mAddonsList = (AddOnListPreference) findPreference(getString(getAddonsListPrefKeyResId()));
+	}
+
+	protected abstract AddOn getCurrentSelectedAddOn();
 
 	@Override
 	protected Dialog onCreateDialog(int id) {
@@ -75,17 +77,10 @@ public abstract class AddOnSelector<E extends AddOn> extends PreferenceActivity 
 	protected void onResume() {
 		super.onResume();
 		final List<E> keys = getAllAvailableAddOns();
-
-		String[] ids = new String[keys.size()];
-		String[] names = new String[keys.size()];
-		int entryPos = 0;
-		for (E aKey : keys) {
-			ids[entryPos] = aKey.getId();
-			names[entryPos] = aKey.getName();
-			entryPos++;
-		}
-		mAddonsList.setEntries(names);
-		mAddonsList.setEntryValues(ids);
+		AddOn[] addOns = new AddOn[keys.size()];
+		keys.toArray(addOns);
+		mAddonsList.setAddOnsList(addOns);
+		mAddonsList.setSelectedAddOn(getCurrentSelectedAddOn());
 	}
 	
 	protected abstract boolean allowExternalPacks();

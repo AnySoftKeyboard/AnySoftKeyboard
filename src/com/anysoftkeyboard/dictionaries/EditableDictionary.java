@@ -16,7 +16,7 @@ public abstract class EditableDictionary extends Dictionary {
      * the highest.
      * @TODO use a higher or float range for frequency
      */
-    public abstract void addWord(String word, int frequency);
+    public abstract boolean addWord(String word, int frequency);
     
     public abstract Cursor getWordsCursor();
 

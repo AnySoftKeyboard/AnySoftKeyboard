@@ -2120,6 +2120,8 @@ public class AnyKeyboardBaseView extends View implements
 
 		// LayoutParams lp = mPreviewLayut.getLayoutParams();
 		// lp.width = popupWidth;
+		mPreviewLayut.requestLayout();
+		mPreviewLayut.invalidate();
 	}
 
 	private void setKeyPreviewText(Key key, CharSequence label) {

@@ -396,19 +396,18 @@ public class Suggest implements Dictionary.WordCallback {
 		if (mMainDictioanryEnabled || mAutoTextEnabled) {
 			final boolean validFromMain = (mMainDictioanryEnabled && mMainDict != null && mMainDict.isValidWord(word));
 			final boolean validFromUser = (mUserDictionary != null && mUserDictionary.isValidWord(word));
-			// final boolean validFromAuto = (mAutoDictionary != null &&
-			// mAutoDictionary.isValidWord(word));
+			//final boolean validFromAuto = (mAutoDictionary != null && mAutoDictionary.isValidWord(word));
 			final boolean validFromContacts = (mContactsDictionary != null && mContactsDictionary.isValidWord(word));
 
 			if (AnyApplication.DEBUG)
 				Log.v(TAG, "Suggest::isValidWord(" + word
 						+ ") mMainDictioanryEnabled:" + mMainDictioanryEnabled+" mAutoTextEnabled:"+mAutoTextEnabled
-						+ " validFromMain:" + validFromMain + " validFromUser:"
-						+ validFromUser
-						// +" validFromAuto:"+validFromAuto
+						+ " validFromMain:" + validFromMain 
+                                                + " validFromUser:"+ validFromUser
+						//+" validFromAuto:"+validFromAuto
 						+ " validFromContacts:" + validFromContacts);
 			return validFromMain || validFromUser
-					|| /* validFromAuto || */validFromContacts;
+					|| /*validFromAuto ||*/ validFromContacts;
 		} else {
 			return false;
 		}
