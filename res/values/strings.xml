@@ -117,7 +117,7 @@
     <string name="revert_added_word_question">Remove\?</string>
     <string name="removed_word">Removed: <xliff:g id="word">%s</xliff:g></string>
     <string name="hint_add_to_dictionary">\u2190 Touch again to save</string>
-    <string name="hint_double_tap_to_close">Again to remove suggestions \u2192</string>
+    <string name="hint_double_tap_to_close">Again to remove suggestions</string>
     
     <string name="menu_insert_smiley">Insert emoticon</string>
     
