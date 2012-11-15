@@ -63,7 +63,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	private Point mFirstTouchPont = new Point(0, 0);
 	private boolean mIsFirstDownEventInsideSpaceBar = false;
 	private Animation mInAnimation;
-	private Animation mGestureSlideReachedAnimation;
+	//private Animation mGestureSlideReachedAnimation;
 
 	private TextView mPreviewText;
 	private float mGesturePreviewTextSize;
@@ -104,14 +104,14 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 		mGesturePreviewTextColorGreen = (mGesturePreviewTextColor & 0x0000FF00) >> 8;
 		mGesturePreviewTextColorBlue = mGesturePreviewTextColor & 0x000000FF;
 		
-		if (mAnimationLevel != AnimationsLevel.None) {
+		/*if (mAnimationLevel != AnimationsLevel.None) {
 			createGestureSlideAnimation();
-		}
+		}*/
 	}
 
-	protected void createGestureSlideAnimation() {
+	/*protected void createGestureSlideAnimation() {
 		mGestureSlideReachedAnimation = AnimationUtils.loadAnimation(getContext().getApplicationContext(), R.anim.gesture_slide_threshold_reached);
-	}
+	}*/
 
 	protected String getKeyboardViewNameForLogging() {
 		return "AnyKeyboardView";
@@ -440,9 +440,9 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 				break;
 			}
 			mPreviewText.setText(tooltip);
-			if (mGestureSlideReachedAnimation != null && justReachedThreashold) {
+			/*if (mGestureSlideReachedAnimation != null && justReachedThreashold) {
 				mPreviewText.startAnimation(mGestureSlideReachedAnimation);
-			}
+			}*/
 		} else {
 			mPreviewText.setText(null);
 		}
@@ -517,11 +517,11 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
 			String key) {
 		super.onSharedPreferenceChanged(sharedPreferences, key);
-		if (mAnimationLevel == AnimationsLevel.None && mGestureSlideReachedAnimation != null) {
+		/*if (mAnimationLevel == AnimationsLevel.None && mGestureSlideReachedAnimation != null) {
 			mGestureSlideReachedAnimation = null;
 		} else if (mAnimationLevel != AnimationsLevel.None && mGestureSlideReachedAnimation == null) {
 			createGestureSlideAnimation();
-		}
+		}*/
 	}
 
 	public void openUtilityKeyboard() {
