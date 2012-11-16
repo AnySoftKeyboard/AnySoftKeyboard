@@ -529,7 +529,6 @@ public class AnyKeyboardBaseView extends View implements
 		final Resources res = getResources();
 		mKeyboardDimens.setKeyboardMaxWidth(res.getDisplayMetrics().widthPixels
 				- padding[0] - padding[2]);
-
 		mPreviewPopup = new PopupWindow(context);
 		if (mPreviewKeyTextSize > 0) {
 			if (mPreviewLabelTextSize <= 0)
@@ -2318,7 +2317,9 @@ public class AnyKeyboardBaseView extends View implements
 				R.layout.popup_keyboard_layout, null);
 
 		mMiniKeyboard.setPopupParent(this);
-
+		//hack: this will ensure that the key of a popup is no wider than a thumb's width.
+		((KeyboardDimensFromTheme)mMiniKeyboard.getThemedKeyboardDimens()).setKeyMaxWidth(mMiniKeyboard.getThemedKeyboardDimens().getNormalKeyHeight());
+		
 		mMiniKeyboard
 				.setOnKeyboardActionListener(new OnKeyboardActionListener() {
 

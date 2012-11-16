@@ -118,6 +118,10 @@ public class KeyboardSwitcher {
 				return (int) res
 						.getDimensionPixelOffset(R.dimen.default_key_horizontal_gap);
 			}
+			
+			public int getKeyMaxWidth() {
+				return Integer.MAX_VALUE;
+			}
 		};
 		KEYBOARDMODE_NORMAL = res.getInteger(R.integer.keyboard_mode_normal);
 		KEYBOARDMODE_IM = res.getInteger(R.integer.keyboard_mode_im);
