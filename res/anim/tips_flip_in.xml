@@ -50,13 +50,13 @@
         android:fromYScale="1.0"
         android:toYScale="1.0"
         android:fillAfter="false"
-        android:startOffset="8000"
+        android:startOffset="7500"
         android:duration="@integer/mainKeyboardAnimTime" />
     <translate
         android:fromYDelta="0"
         android:toYDelta="0"
         android:fromXDelta="0"
         android:toXDelta="80%"
-        android:startOffset="8000"
+        android:startOffset="7500"
         android:duration="@integer/mainKeyboardAnimTime"/>
 </set>
