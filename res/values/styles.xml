@@ -159,6 +159,7 @@
     <style name="LeanDark2" parent="@style/LeanDark">
     	<item name="keyTextSize">@dimen/lean_key_text_size</item>
         <item name="keyTextStyle">bold</item>
+        <item name="hintTextSize">@dimen/key_hint_text_size</item>
     </style>
     <style name="LeanDarkPopup2" parent="@style/LeanDarkPopup">
     	<item name="keyTextSize">@dimen/lean_key_text_size</item>
