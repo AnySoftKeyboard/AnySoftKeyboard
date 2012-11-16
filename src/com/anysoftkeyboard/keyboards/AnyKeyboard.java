@@ -547,7 +547,7 @@ public abstract class AnyKeyboard extends Keyboard
         return (!key.modifier) &&
                 (!key.sticky) &&
                 (!key.repeatable) &&
-                (key.icon == null) &&
+                /*(key.icon == null) &&*/
                 (key.codes[0] > 0);
     }
 
