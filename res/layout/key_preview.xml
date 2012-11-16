@@ -39,6 +39,8 @@
 	    android:layout_margin="0px"
 	    android:padding="0px"
 	    android:scaleType="centerInside"
+	    android:duplicateParentState="false"
+	    android:clickable="false"
 	    android:layout_centerInParent="true"/>
 </RelativeLayout>
 

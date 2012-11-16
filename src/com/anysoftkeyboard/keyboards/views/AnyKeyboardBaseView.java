@@ -1470,6 +1470,14 @@ public class AnyKeyboardBaseView extends View implements
 			if (TextUtils.isEmpty(label)) {
 				Drawable iconToDraw = getIconToDrawForKey(key, false);
 				if (iconToDraw != null/* && shouldDrawIcon */) {
+					if (key.codes[0] == 10) {
+						String states = "[";
+						for(int s : iconToDraw.getState()) {
+							states += ""+s+",";
+						}
+						states += "]";
+						Log.d(TAG,"**** Action Key icon state: "+states);
+					}
 					// Special handing for the upper-right number hint icons
 					final int drawableWidth;
 					final int drawableHeight;
@@ -1971,6 +1979,9 @@ public class AnyKeyboardBaseView extends View implements
 		CharSequence label = tracker.getPreviewText(key, mKeyboard.isShifted());
 		if (TextUtils.isEmpty(label)) {
 			Drawable iconToDraw = getIconToDrawForKey(key, true);
+			//Here's an annoying bug for you (explaination at the end of the hack)
+			mPreviewIcon.setImageState(iconToDraw.getState(), false);
+			//end of hack. You see, the drawable comes with a state, this state is overriden by the ImageView. Nomore.
 			mPreviewIcon.setImageDrawable(iconToDraw);
 			mPreviewIcon.measure(
 					MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
