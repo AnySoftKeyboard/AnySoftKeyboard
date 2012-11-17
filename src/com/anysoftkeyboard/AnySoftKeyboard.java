@@ -239,16 +239,18 @@ public class AnySoftKeyboard extends InputMethodService implements
 				updateShiftKeyState(getCurrentInputEditorInfo());
 				break;
 			case MSG_REMOVE_CLOSE_SUGGESTIONS_HINT:
-				if (mCandidateCloseText != null) {
-					Animation gone = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.close_candidates_hint_out);
+				if (mCandidateCloseText != null) {//in API3, this variable is null
+					Animation gone = AnimationUtils.loadAnimation(
+							getApplicationContext(),
+							R.anim.close_candidates_hint_out);
 					gone.setAnimationListener(new AnimationListener() {
-						
+
 						public void onAnimationStart(Animation animation) {
 						}
-						
+
 						public void onAnimationRepeat(Animation animation) {
 						}
-						
+
 						public void onAnimationEnd(Animation animation) {
 							mCandidateCloseText.setVisibility(View.GONE);
 						}
@@ -455,44 +457,54 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		mCandidateCloseText = (TextView) candidateViewContainer
 				.findViewById(R.id.close_suggestions_strip_text);
-		mCandidateCloseText.setTextColor(closeTextColor);
-		mCandidateCloseText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-				fontSizePixel);
-		mCandidateCloseText.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				mHandler.removeMessages(MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
-				mCandidateCloseText.setVisibility(View.GONE);
-				abortCorrection(true, true);
-			}
-		});
-		
-		candidateViewContainer.findViewById(R.id.close_suggestions_strip_icon).setOnClickListener(new OnClickListener() {
-			// two seconds is enough.
-			private final static long DOUBLE_TAP_TIMEOUT = 2 * 1000;
-			
-			public void onClick(View v) {
-				mHandler.removeMessages(MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
-				mCandidateCloseText.setVisibility(View.VISIBLE);
-				mCandidateCloseText.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.close_candidates_hint_in));
-				mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_REMOVE_CLOSE_SUGGESTIONS_HINT), DOUBLE_TAP_TIMEOUT - 50);
-			}
-		});
+		if (mCandidateCloseText != null) {// why? In API3 it is not supported
+			mCandidateCloseText.setTextColor(closeTextColor);
+			mCandidateCloseText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+					fontSizePixel);
+			mCandidateCloseText.setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {
+					mHandler.removeMessages(MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
+					mCandidateCloseText.setVisibility(View.GONE);
+					abortCorrection(true, true);
+				}
+			});
+		}
+		View closeIcon = candidateViewContainer
+				.findViewById(R.id.close_suggestions_strip_icon);
+		if (closeIcon != null) {//why? in API 3 it is not supported
+			mCandidateCloseText.setOnClickListener(new OnClickListener() {
+				// two seconds is enough.
+				private final static long DOUBLE_TAP_TIMEOUT = 2 * 1000;
 
-		final TextView tipsNotification = (TextView)candidateViewContainer
+				public void onClick(View v) {
+					mHandler.removeMessages(MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
+					mCandidateCloseText.setVisibility(View.VISIBLE);
+					mCandidateCloseText.startAnimation(AnimationUtils
+							.loadAnimation(getApplicationContext(),
+									R.anim.close_candidates_hint_in));
+					mHandler.sendMessageDelayed(mHandler
+							.obtainMessage(MSG_REMOVE_CLOSE_SUGGESTIONS_HINT),
+							DOUBLE_TAP_TIMEOUT - 50);
+				}
+			});
+		}
+
+		final TextView tipsNotification = (TextView) candidateViewContainer
 				.findViewById(R.id.tips_notification_on_candidates);
-		if (tipsNotification != null) {
+		if (tipsNotification != null) {//why? in API 3 it is not supported
 			if (!mTipsCalled
 					&& mConfig.getShowTipsNotification()
 					&& TutorialsProvider
 							.shouldShowTips(getApplicationContext())) {
-				Animation tipsInAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.tips_flip_in);
+				Animation tipsInAnimation = AnimationUtils.loadAnimation(
+						getApplicationContext(), R.anim.tips_flip_in);
 				tipsInAnimation.setAnimationListener(new AnimationListener() {
 					public void onAnimationStart(Animation animation) {
 					}
-					
+
 					public void onAnimationRepeat(Animation animation) {
 					}
-					
+
 					public void onAnimationEnd(Animation animation) {
 						tipsNotification.setText("?");
 					}
@@ -619,7 +631,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			switch (variation) {
 			case EditorInfo.TYPE_TEXT_VARIATION_PASSWORD:
 			case EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD:
-			case 0xe0://API 11 EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD:
+			case 0xe0:// API 11 EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD:
 				if (DEBUG)
 					Log.d(TAG,
 							"A password TYPE_CLASS_TEXT input with no prediction");
@@ -633,7 +645,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 				switch (variation) {
 				case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
 				case EditorInfo.TYPE_TEXT_VARIATION_URI:
-				case 0xd0://API 11 EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
+				case 0xd0:// API 11
+							// EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
 					mAutoSpace = false;
 					break;
 				default:
@@ -646,7 +659,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 			switch (variation) {
 			case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
-			case 0xd0://API 11 EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
+			case 0xd0:// API 11
+						// EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
 				if (DEBUG)
 					Log.d(TAG,
 							"Setting MODE_EMAIL as keyboard due to a TYPE_TEXT_VARIATION_EMAIL_ADDRESS input.");
@@ -680,7 +694,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 			final int textFlag = attribute.inputType
 					& EditorInfo.TYPE_MASK_FLAGS;
 			switch (textFlag) {
-			case 0x00080000:// FROM API 5:EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS:
+			case 0x00080000:// FROM API
+							// 5:EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS:
 			case EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE:
 				if (DEBUG)
 					Log.d(TAG,
@@ -2618,7 +2633,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// mPredicting
 		// && isPredictionOn() && shouldCandidatesStripBeShown());
 
-		if (mCandidateCloseText != null)
+		if (mCandidateCloseText != null)//in API3 this variable is null
 			mCandidateCloseText.setVisibility(View.GONE);
 
 		if (!mPredicting) {
