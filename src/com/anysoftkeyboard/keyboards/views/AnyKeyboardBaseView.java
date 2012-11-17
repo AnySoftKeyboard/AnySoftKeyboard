@@ -1299,8 +1299,9 @@ public class AnyKeyboardBaseView extends View implements
 			if (MeasureSpec.getSize(widthMeasureSpec) < width + 10) {
 				width = MeasureSpec.getSize(widthMeasureSpec);
 			}
-			setMeasuredDimension(width, mKeyboard.getHeight() + getPaddingTop()
-					+ getPaddingBottom());
+			int height = mKeyboard.getHeight() + getPaddingTop()
+					+ getPaddingBottom();
+			setMeasuredDimension(width, height);
 		}
 	}
 
@@ -1470,14 +1471,6 @@ public class AnyKeyboardBaseView extends View implements
 			if (TextUtils.isEmpty(label)) {
 				Drawable iconToDraw = getIconToDrawForKey(key, false);
 				if (iconToDraw != null/* && shouldDrawIcon */) {
-					if (key.codes[0] == 10) {
-						String states = "[";
-						for(int s : iconToDraw.getState()) {
-							states += ""+s+",";
-						}
-						states += "]";
-						Log.d(TAG,"**** Action Key icon state: "+states);
-					}
 					// Special handing for the upper-right number hint icons
 					final int drawableWidth;
 					final int drawableHeight;
