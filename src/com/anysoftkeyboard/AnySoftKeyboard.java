@@ -619,6 +619,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			switch (variation) {
 			case EditorInfo.TYPE_TEXT_VARIATION_PASSWORD:
 			case EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD:
+			case 0xe0://API 11 EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD:
 				if (DEBUG)
 					Log.d(TAG,
 							"A password TYPE_CLASS_TEXT input with no prediction");
@@ -632,6 +633,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				switch (variation) {
 				case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
 				case EditorInfo.TYPE_TEXT_VARIATION_URI:
+				case 0xd0://API 11 EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
 					mAutoSpace = false;
 					break;
 				default:
@@ -644,6 +646,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 			switch (variation) {
 			case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
+			case 0xd0://API 11 EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
 				if (DEBUG)
 					Log.d(TAG,
 							"Setting MODE_EMAIL as keyboard due to a TYPE_TEXT_VARIATION_EMAIL_ADDRESS input.");
@@ -677,8 +680,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			final int textFlag = attribute.inputType
 					& EditorInfo.TYPE_MASK_FLAGS;
 			switch (textFlag) {
-			case 0x00080000:// FROM API 5:
-							// EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS:
+			case 0x00080000:// FROM API 5:EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS:
 			case EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE:
 				if (DEBUG)
 					Log.d(TAG,
