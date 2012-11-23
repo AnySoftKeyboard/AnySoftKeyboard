@@ -1,7 +1,9 @@
 package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.anysoftkeyboard.addons.AddOn;
@@ -12,6 +14,8 @@ import com.anysoftkeyboard.addons.ScreenshotHolder;
 public class KeyboardAddOnAndBuilder extends AddOnImpl implements IconHolder, ScreenshotHolder {
 
 	public static final String KEYBOARD_PREF_PREFIX = "keyboard_";
+
+	private static final String TAG = "ASK KBD-BUILDER";
 	
 	private final int mResId;
     private final int mLandscapeResId;
@@ -61,9 +65,14 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl implements IconHolder, Sc
     }
     
     public Drawable getIcon() {
-    	if (mIconResId != INVALID_RES_ID) {
-    		return getPackageContext().getResources().getDrawable(mIconResId);
-    	} else {
+    	try {
+	    	if (mIconResId != INVALID_RES_ID) {
+	    		return getPackageContext().getResources().getDrawable(mIconResId);
+	    	} else {
+	    		return null;
+	    	}
+    	} catch (Resources.NotFoundException n) {
+    		Log.w(TAG, "Failed to load pack ICON! ResId: "+mIconResId);
     		return null;
     	}
     }
@@ -73,9 +82,14 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl implements IconHolder, Sc
     }
     
     public Drawable getScreenshot() {
-    	if (mScreenshotResId != INVALID_RES_ID) {
-    		return getPackageContext().getResources().getDrawable(mScreenshotResId);
-    	} else {
+    	try {
+	    	if (mScreenshotResId != INVALID_RES_ID) {
+	    		return getPackageContext().getResources().getDrawable(mScreenshotResId);
+	    	} else {
+	    		return null;
+	    	}
+    	} catch(Resources.NotFoundException n) {
+    		Log.w(TAG, "Failed to load pack screenshot! ResId: "+mScreenshotResId);
     		return null;
     	}
     }
