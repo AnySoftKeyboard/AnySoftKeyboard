@@ -4,10 +4,13 @@ import com.anysoftkeyboard.addons.AddOnImpl;
 import com.anysoftkeyboard.addons.ScreenshotHolder;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 public class KeyboardTheme extends AddOnImpl implements ScreenshotHolder {
 	
+	private static final String TAG = "ASK KBD-THEME";
 	private final int mThemeResId;
 	private final int mPopupThemeResId;
 	private final int mIconsThemeResId;
@@ -38,9 +41,14 @@ public class KeyboardTheme extends AddOnImpl implements ScreenshotHolder {
     }
     
     public Drawable getScreenshot() {
-    	if (mThemeScreenshotResId != INVALID_RES_ID) {
-    		return getPackageContext().getResources().getDrawable(mThemeScreenshotResId);
-    	} else {
+    	try {
+	    	if (mThemeScreenshotResId != INVALID_RES_ID) {
+	    		return getPackageContext().getResources().getDrawable(mThemeScreenshotResId);
+	    	} else {
+	    		return null;
+	    	}
+    	} catch(Resources.NotFoundException n) {
+    		Log.w(TAG, "Failed to load pack Screenshot! ResId:"+mThemeScreenshotResId);
     		return null;
     	}
     }
