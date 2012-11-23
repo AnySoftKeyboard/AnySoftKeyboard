@@ -449,25 +449,20 @@ public abstract class AnyKeyboard extends Keyboard
         return super.getShiftKeyIndex() + mTopRowKeysCount;
     }
 
-    /*
-     * private void setIconIfNeeded(Key key, Resources localResources, int
-     * iconId, int iconWideId, int iconFeedbackId) { Drawable wider =
-     * localResources.getDrawable(iconWideId); if ((wider.getMinimumWidth()*1.1)
-     * < key.width) iconId = iconWideId; setKeyIcons(key, localResources,
-     * iconId, iconFeedbackId); } private void setIconIfNeeded(Key key,
-     * Resources localResources, int iconId, int iconFeedbackId) { if ((key.icon
-     * != null) || (!TextUtils.isEmpty(key.label))) return; setKeyIcons(key,
-     * localResources, iconId, iconFeedbackId); }
-     */
     private void setKeyIcons(Key key, Resources localResources, int iconId, int iconFeedbackId) {
-        key.icon = localResources.getDrawable(iconId);
-        if (iconFeedbackId > 0)
-        {
-            Drawable preview = localResources.getDrawable(iconFeedbackId);
-            preview.setBounds(0, 0,
-                    preview.getIntrinsicWidth(), preview.getIntrinsicHeight());
-            key.iconPreview = preview;
-        }
+    	try {
+	        key.icon = localResources.getDrawable(iconId);
+	        if (iconFeedbackId > 0)
+	        {
+	            Drawable preview = localResources.getDrawable(iconFeedbackId);
+	            preview.setBounds(0, 0,
+	                    preview.getIntrinsicWidth(), preview.getIntrinsicHeight());
+	            key.iconPreview = preview;
+	        }
+    	}
+    	catch(OutOfMemoryError m) {
+    		Log.w(TAG, "Low memory when trying to load key icon. I'll leave it empty.");
+    	}
 
         if (key.icon != null)
             key.label = null;
