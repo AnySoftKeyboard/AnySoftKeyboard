@@ -343,7 +343,7 @@ public abstract class Keyboard {
             row = parent;
             keyboard = parent.parent;
             height = keyboardDimens.getNormalKeyHeight();
-            width = parent.defaultWidth;
+            width = Math.min(keyboardDimens.getKeyMaxWidth(), parent.defaultWidth);
             gap = parent.defaultHorizontalGap;
             edgeFlags = parent.rowEdgeFlags;
         }
@@ -372,6 +372,7 @@ public abstract class Keyboard {
             width = getDimensionOrFraction(a,
                     R.styleable.KeyboardLayout_android_keyWidth,
                     keyboard.mDisplayWidth, parent.defaultWidth);
+            width = Math.min(keyboardDimens.getKeyMaxWidth(), width);
             final Resources askResources = askContext.getApplicationContext().getResources();
             final int heightCode = getKeyHeightCode(askResources, res, a, parent.defaultHeightCode);
             switch (heightCode)

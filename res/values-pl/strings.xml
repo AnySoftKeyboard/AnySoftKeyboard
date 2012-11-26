@@ -84,15 +84,17 @@
   <string name="top_row_addons_settings">Ustawienia górnego wiersza</string>
   <string name="close_button">Zamknij</string>
   <string name="how_to_active_text">Jak aktywować AnySoftKeyboard</string>
-  <string name="added_word"><xliff:g id="word">%s</xliff:g> : Zapisano</string>
+  <string name="added_word">Zapisane: <xliff:g id="word">%s</xliff:g></string>
+  <string name="revert_added_word_question">Usunąć\?</string>
+  <string name="removed_word">Usunięte: <xliff:g id="word">%s</xliff:g></string>
   <string name="hint_add_to_dictionary">\u2190 Dotknij ponownie, aby zapisać</string>
-  <string name="hint_double_tap_to_close">Ponownie, aby usunąć sugestie \u2192</string>
+  <string name="hint_double_tap_to_close">Ponownie, aby usunąć sugestie</string>
   <string name="menu_insert_smiley">Wstaw emotikonę</string>
   <string name="click_for_help">Pomoc</string>
   <string name="click_for_help_summary">Naciśnij, aby uzyskać dodatkową pomoc</string>
   <string name="ui_group">Interfejs użytkownika</string>
   <string name="physical_keyboard_change_notification_title">Powiadomienie o układzie klawiatury</string>
-  <string name="physical_keyboard_change_notification_summary">Rodzaj powiadomienia o aktywnym układzie</string>
+  <string name="physical_keyboard_change_notification_summary">Rodzaj powiadomienia o aktywnym układzie. Teraz: %s</string>
   <string name="physical_keyboard_change_notification_dialog_title">Wybierz typ powiadomienia</string>
   <string name="lengthy_operations_toast_notification">Powiadamiaj o długotrwałych operacjach</string>
   <string name="lengthy_operations_toast_notification_summary">Pokaż krótkie powiadomienia dla długotrwałych operacji</string>
@@ -201,7 +203,11 @@
   <string name="use_user_dictionary">Słownik użytkownika</string>
   <string name="use_user_dictionary_on_summary">Podpowiada wyrazy dodane przez użytkownika (przytrzymanie na sugestii aby dodać)</string>
   <string name="use_auto_dictionary">Słownik automatyczny</string>
-  <string name="use_auto_dictionary_on_summary">Podpowiada często używane słowa</string>
+  <string name="use_auto_dictionary_dialog_title">Wybierz metodę uczenia</string>
+  <string name="use_auto_dictionary_summary">Automatycznie ucz się nowych wyrazów. Metoda uczenia: %s</string>
+  <string name="auto_dictionary_threshold_type_after_a_while">Po chwili</string>
+  <string name="auto_dictionary_threshold_type_immediately">Od razu po wpisaniu</string>
+  <string name="auto_dictionary_threshold_type_off">Nie ucz się nowych wyrazów</string>
   <string name="use_contacts_dictionary">Słownik kontaktów</string>
   <string name="use_contacts_dictionary_on_summary">Podpowiada nazwy z listy kontaktów</string>
   <string name="use_contacts_dictionary_not_supported_summary">Nieobsługiwane w tej wersji systemu. Przykro mi.</string>
@@ -281,7 +287,7 @@
   <string name="action_key_invisible_on_disable_on_summary">Klawisz akcji będzie niewidoczny, gdy zażąda GUI</string>
   <string name="action_key_invisible_on_disable_off_summary">Klawisz akcji będzie widoczny, nawet jeśli zażąda GUI</string>
   <string name="tweak_animations_level_title">Animacje</string>
-  <string name="tweak_animations_level_summary">Ile animacji powinno być używane</string>
+  <string name="tweak_animations_level_summary">Jak dużo animacji ma być używane. Teraz: %s</string>
   <string name="tweak_animations_level_types_full">Pełne</string>
   <string name="tweak_animations_level_types_some">Niektóre</string>
   <string name="tweak_animations_level_types_none">Żadne</string>
@@ -311,10 +317,17 @@
   <string name="no_extrenal_packs_support_title">Nieobsługiwane</string>
   <string name="no_extrenal_packs_support_message">Na razie AnySoftKeyboard nie dopuszcza zewnętrznych paczek tego typu.\nKiedy specyfikacja API będzie ustalona, ta opcja zostanie otwarta.\nBądźcie czujni.</string>
   <string name="keyboards_group">Klawiatury</string>
-  <string name="symbols_keyboard">Symbole</string>
+  <string name="keyboards_group_summary">Układy klawiatury do użycia w AnySoftKeyboard</string>
+  <string name="symbols_keyboard">123!#()</string>
+  <string name="symbols_alt_keyboard">{}\_</string>
+  <string name="symbols_alt_num_keyboard">123</string>
+  <string name="symbols_phone_keyboard">telefon</string>
+  <string name="symbols_numbers_keyboard">123</string>
+  <string name="symbols_time_keyboard">czas</string>
   <string name="eng_keyboard">Angielski</string>
   <string name="eng_keyboard_qwertywithsymbols">Angielski z symbolami</string>
   <string name="eng_keyboard_16keys">Angielski 16 klawiszy</string>
+  <string name="selected_add_on_summary">Teraz używa \'<xliff:g id="addOnName">%s</xliff:g>\'</string>
   <string name="additional_addons_group">Dodatkowe rozszerzenia</string>
   <string name="quick_text_keys_group">Klawisze szybkiego tekstu</string>
   <string name="quick_text_key_active">Aktywny klawisz szybkiego tekstu</string>
@@ -411,7 +424,7 @@
   <string name="workaround_disable_rtl_fix_summary_on">Używaj systemowej obsługi RTL (dla telefonów SE)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Używaj obsługi RTL z AnySoftKeyboard</string>
   <string name="settings_split_state_title">Początkowy stan Rozdzielona/Złączona</string>
-  <string name="settings_split_state_summary">Określ, czy klawiatura jest domyślnie rozdzielona</string>
+  <string name="settings_split_state_summary">Określa kiedy klawiatura jest domyślnie rozdzielona. Teraz: %s</string>
   <string name="settings_split_state_merged_always">Startuj złączoną</string>
   <string name="settings_split_state_split_in_landscape">Startuj rozdzieloną w poziomie</string>
   <string name="settings_split_state_split_always">Startuj rozdzieloną</string>

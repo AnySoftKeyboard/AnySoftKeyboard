@@ -12,6 +12,7 @@
   <string name="tip_3_hidden_kbds">Gemme nascoste</string>
   <string name="tip_5_key_feedback">Feedback</string>
   <string name="tip_5_key_feedback_test">Vuoi testare il feedback?</string>
+  <string name="tip_6_bottom_rows">Riga inferiore</string>
   <string name="tip_7_voice_input">Parla con me *</string>
   <string name="tip_7_voice_input_tip_note">* Richiede Android 2.2+ e connessione internet per funzionare.</string>
   <string name="tip_8_suggestions">Posso completare</string>
@@ -51,7 +52,9 @@
   <string name="top_row_addons_settings">Impostazioni riga superiore</string>
   <string name="close_button">Chiudi</string>
   <string name="how_to_active_text">Come attivare AnySoftKeyboard</string>
-  <string name="added_word"><xliff:g id="word">%s</xliff:g> : Salvato</string>
+  <string name="added_word">Salvata: <xliff:g id="word">%s</xliff:g></string>
+  <string name="revert_added_word_question">Rimuovere\?</string>
+  <string name="removed_word">Rimossa: <xliff:g id="word">%s</xliff:g></string>
   <string name="hint_add_to_dictionary">\u2190 Tocca di nuovo per salvare</string>
   <string name="hint_double_tap_to_close">Rimuovi nuovamente i suggerimenti \u2192</string>
   <string name="menu_insert_smiley">Inserire emoticon</string>
@@ -59,7 +62,6 @@
   <string name="click_for_help_summary">Premi per un ulteriore aiuto</string>
   <string name="ui_group">Interfaccia utente</string>
   <string name="physical_keyboard_change_notification_title">Notifica layout tastiera</string>
-  <string name="physical_keyboard_change_notification_summary">Tipo di notifica relativa al layout attivo</string>
   <string name="physical_keyboard_change_notification_dialog_title">Seleziona tipo di notifica</string>
   <string name="lengthy_operations_toast_notification">Notifica operazioni lunghe</string>
   <string name="lengthy_operations_toast_notification_summary">Mostra brevi notifiche per le operazioni lunghe</string>
@@ -157,7 +159,7 @@
   <string name="use_user_dictionary">Dizionario utente</string>
   <string name="use_user_dictionary_on_summary">Suggerisci parole aggiunte dall\' utente (pressione prolungata sul suggerimento da aggiungere)</string>
   <string name="use_auto_dictionary">Dizionario automatico</string>
-  <string name="use_auto_dictionary_on_summary">Suggerisci anche parole usate frequentemente</string>
+  <string name="auto_dictionary_threshold_type_off">Non imparare nuove parole</string>
   <string name="use_contacts_dictionary">Dizionario contatti</string>
   <string name="use_contacts_dictionary_on_summary">Suggerisci nomi dalla lista contatti</string>
   <string name="use_contacts_dictionary_not_supported_summary">Non supportata dalla versione dell\' OS. Ci spiace.</string>
@@ -165,6 +167,7 @@
   <string name="tweak_ui_group">Ritocchi grafici</string>
   <string name="tweak_dictionary_group">Tweaks dizionario</string>
   <string name="settings_min_length_for_word_correction">Lunghezza minima della parola per la correzione</string>
+  <string name="show_keyboard_name_off_summary">Non mostrare mai il nome della tastiera</string>
   <string name="show_hint_text">Mostra testo suggerimento</string>
   <string name="is_sticky_extesion_keyboard_on_summary">Rimani visibile fino alla chiusura esplicita</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Si chiude dopo la pressione di un tasto</string>
@@ -207,6 +210,8 @@
   <string name="action_key_invisible_on_disable">Tasto azione invisibile</string>
   <string name="action_key_invisible_on_disable_on_summary">Il tasto azione sarà invisibile quando vengono richieste GUI</string>
   <string name="action_key_invisible_on_disable_off_summary">Il tasto azione sarà visibile anche se la vengono richieste GUI</string>
+  <string name="tweak_animations_level_title">Animazioni</string>
+  <string name="tweak_animations_level_types_none">Nessuno</string>
   <string name="cycle_all_symbols_keyboards">Scorri tra tutti i simboli</string>
   <string name="cycle_all_symbols_keyboards_on_summary">Il tasto simboli scorrerà tutte le tastiere simboli</string>
   <string name="cycle_all_symbols_keyboards_off_summary">Il tasto simboli sarà mostrato solo per le tastiere simboli principali</string>
@@ -218,6 +223,7 @@
   <string name="candidates_on">Mostra suggerimenti</string>
   <string name="quick_fix">Correzioni rapide</string>
   <string name="quick_fix_summary">Correggi errori di digitazione più comuni</string>
+  <string name="allow_suggestions_restart">Riavvia suggerimenti</string>
   <string name="auto_complete">Selezione automatica suggerimento</string>
   <string name="auto_complete_summary">Lo spazio selezionerà il suggerimento evideniato</string>
   <string name="physical_keyboard_suggestions">Suggerimenti nella tastiera del dispositivo</string>
@@ -230,9 +236,15 @@
   <string name="auto_dict_summary">Aggiungi parole di uso comune o selezionate automaticamente al dizionario</string>
   <string name="no_extrenal_packs_support_title">Non supportato</string>
   <string name="keyboards_group">Tastiere</string>
-  <string name="symbols_keyboard">Simboli</string>
+  <string name="symbols_keyboard">123!#()</string>
+  <string name="symbols_alt_keyboard">{}\_</string>
+  <string name="symbols_alt_num_keyboard">123</string>
+  <string name="symbols_phone_keyboard">telefono</string>
+  <string name="symbols_numbers_keyboard">123</string>
   <string name="eng_keyboard">Inglese</string>
+  <string name="eng_keyboard_qwertywithsymbols">Inglese con simboli</string>
   <string name="eng_keyboard_16keys">16 Tasti Inglese</string>
+  <string name="selected_add_on_summary">Ora stai usando \'<xliff:g id="addOnName">%s</xliff:g>\'</string>
   <string name="additional_addons_group">Ulteriori add-on</string>
   <string name="quick_text_keys_group">Tasti testo rapido</string>
   <string name="quick_text_key_active">Attiva tasto testo rapido</string>
@@ -316,6 +328,10 @@
   <string name="user_dict_settings_edit_dialog_title">Modifica parola</string>
   <string name="user_dict_settings_context_menu_edit_title">Modifica</string>
   <string name="user_dict_settings_context_menu_delete_title">Cancella</string>
+  <string name="user_dict_backup_success_title">Backup riuscito!</string>
+  <string name="user_dict_backup_fail_title">Backup non riuscito!</string>
+  <string name="user_dict_restore_success_title">Ripristino riuscito!</string>
+  <string name="user_dict_restore_fail_title">Ripristino non riuscito!</string>
   <string name="fast_scroll_alphabet"> ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
   <string name="should_swap_punctuation_and_space_yes">Sì</string>
   <string name="should_swap_punctuation_and_space_no">No</string>
@@ -329,5 +345,14 @@
     <item>Leggera</item>
     <item>Media</item>
     <item>Forte</item>
+  </string-array>
+  <string-array name="custom_hint_align_types">
+    <item>Left</item>
+    <item>Center</item>
+    <item>Right</item>
+  </string-array>
+  <string-array name="custom_hint_valign_types">
+    <item>Top</item>
+    <item>Bottom</item>
   </string-array>
 </resources>

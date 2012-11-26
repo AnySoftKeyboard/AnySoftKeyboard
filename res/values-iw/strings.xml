@@ -3,6 +3,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="ime_name">AnySoftKeyboard</string>
   <string name="settings_app_name">הגדרות AnySoftKeyboard</string>
+  <string name="spell_checker_service_name">בודק האיות של AnySoftKeyboard</string>
+  <string name="spell_checker_settings">הגדרות בודק האיות</string>
+  <string name="click_to_restart_suggestions">לחץ לקבלת הצעות</string>
   <string name="tips_notification_text">טיפים!</string>
   <string name="tips_button">עצות לשימוש יעיל</string>
   <string name="tips_button_description">לחץ לקבלת עצות לשימוש ב AnySoftKeyboard</string>
@@ -22,6 +25,7 @@
   <string name="tip_5_key_feedback_tip">ניתן לקבל משוב לא-חזותי בעת לחיצה על מקש. תוכל לבחור אם להשמיע צליל, רטט או שניהם.</string>
   <string name="tip_5_key_feedback_test">רוצה לבדוק את המשוב?</string>
   <string name="tip_6_bottom_rows">שורה תחתונה</string>
+  <string name="tip_6_bottom_rows_tip">ניתן להחליף את שורת המקשים התחתונה לסוגים שונים- עם או בלי מיקרופון, בסגנון אייפון ועוד.</string>
   <string name="tip_6_top_generic_row_go_to_bottom_row_settings">שנה שורה תחתונה כעת</string>
   <string name="tip_7_voice_input">דבר איתי*</string>
   <string name="tip_7_voice_input_tip_dont_forget_bottom_row">אם אתה רוצה להציג תמיד את סמל המיקרופון, ודא כי בחרת את השורה התחתונה הנכונה (כמו שמופיע בטיפ הקודם).\nמכל מקום- המיקרופון זמין תמיד דרך תפריט ההגדרות הנסתר (משוך את האצבע מכיוון מקש הרווח כלפי מעלה).</string>
@@ -72,14 +76,13 @@
   <string name="top_row_addons_settings">הגדרות השורה העליונה</string>
   <string name="close_button">סגור</string>
   <string name="how_to_active_text">כיצד להפעיל את AnySoftKeyboard</string>
-  <string name="added_word">נשמר: <xliff:g id="word">%s</xliff:g></string>
   <string name="hint_add_to_dictionary">לחץ שוב לשמירה \u2190</string>
   <string name="hint_double_tap_to_close">לחץ שוב על מנת לסגור</string>
   <string name="menu_insert_smiley">הכנס סמיילי</string>
   <string name="click_for_help">עזרה</string>
+  <string name="click_for_help_summary">הקש לקבלת עזרה נוספת</string>
   <string name="ui_group">שינוי שפה</string>
   <string name="physical_keyboard_change_notification_title">התראה בשינוי שפה</string>
-  <string name="physical_keyboard_change_notification_summary">סוג ההתראה שתינתן בהחלפת שפה</string>
   <string name="physical_keyboard_change_notification_dialog_title">בחר את סוג ההתראה</string>
   <string name="lengthy_operations_toast_notification">התראה על פעולות ממושכות</string>
   <string name="lengthy_operations_toast_notification_summary">הראה הודעה בביצוע פעולות ארוכות</string>
@@ -125,6 +128,7 @@
   <string name="swipe_up_action_summary">הגדר פעולה בהחלקה מעלה</string>
   <string name="swipe_up_action_title">בחר פעולה</string>
   <string name="swipe_up_from_spacebar_action">החלק ממקש הרווח כלפי מעלה</string>
+  <string name="swipe_up_from_spacebar_action_summary">הגדרות פעולת ההחלקה כלפי מעלה ממקש הרווח</string>
   <string name="swipe_down_action">החלקה מטה</string>
   <string name="swipe_down_action_summary">הגדר פעולה בהחלקה מטה</string>
   <string name="swipe_down_action_title">בחר פעולה</string>
@@ -179,7 +183,10 @@
   <string name="use_user_dictionary">מילון משתמש</string>
   <string name="use_user_dictionary_on_summary">הצע מילים ממילון משתמש (לחיצה ארוכה על מילה מוצעת להוספה)</string>
   <string name="use_auto_dictionary">מילון אוטומטי</string>
-  <string name="use_auto_dictionary_on_summary">הצע את המילים שנמצאות בשימוש תכוף</string>
+  <string name="use_auto_dictionary_summary">למד מילים חדשות באופן אוטומטי. אופן הפעולה: %s</string>
+  <string name="auto_dictionary_threshold_type_after_a_while">לאחר שימוש ממושך</string>
+  <string name="auto_dictionary_threshold_type_immediately">מיד בסיום ההקלדה</string>
+  <string name="auto_dictionary_threshold_type_off">אל תלמד מילים חדשות</string>
   <string name="use_contacts_dictionary">מילון אנשי קשר</string>
   <string name="use_contacts_dictionary_on_summary">הצע שמות מרשימת אנשי הקשר</string>
   <string name="use_contacts_dictionary_not_supported_summary">לא נתמך תחת גירסת מערכת ההפעלה שלך</string>
@@ -190,6 +197,9 @@
   <string name="tweak_ux_group">שיפורי התנהגות</string>
   <string name="tweak_dictionary_group">הגדרות מילון נוספות</string>
   <string name="settings_min_length_for_word_correction">אורך מילה מינימלי להצעת תיקון</string>
+  <string name="show_keyboard_name_text">הצגת שם המקלדת</string>
+  <string name="show_keyboard_name_on_summary">הצג את שם המקלדת על גבי מקש הרווח</string>
+  <string name="show_keyboard_name_off_summary">אל תציג את שם המקלדת</string>
   <string name="show_hint_text">הצג טקסט רמז</string>
   <string name="show_hint_text_on_summary">הצג רמז על המקשים, אם ערכת הנושא תומכת</string>
   <string name="show_hint_text_off_summary">לעולם אל תציג רמזים על המקשים</string>
@@ -235,7 +245,6 @@
   <string name="action_key_invisible_on_disable_on_summary">מקש הפעולה יהיה בלתי נראה כאשר נדרש</string>
   <string name="action_key_invisible_on_disable_off_summary">מקש הפעולה יהיה גלוי גם אם לא נדרש</string>
   <string name="tweak_animations_level_title">אנימציות</string>
-  <string name="tweak_animations_level_summary">כמה אנימציות להפעיל</string>
   <string name="tweak_animations_level_types_full">כל האנימציות</string>
   <string name="tweak_animations_level_types_some">חלק מהאנימציות</string>
   <string name="tweak_animations_level_types_none">ללא אנימציות</string>
@@ -261,7 +270,6 @@
   <string name="no_extrenal_packs_support_title">לא נתמך</string>
   <string name="no_extrenal_packs_support_message">אין אפשרות להשתמש בחבילות חיצוניות ברגע זה.</string>
   <string name="keyboards_group">מקלדות</string>
-  <string name="symbols_keyboard">סימנים</string>
   <string name="eng_keyboard">אנגלית</string>
   <string name="eng_keyboard_16keys">16 Keys English</string>
   <string name="additional_addons_group">תוספים</string>
