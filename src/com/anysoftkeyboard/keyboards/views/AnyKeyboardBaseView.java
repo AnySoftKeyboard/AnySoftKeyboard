@@ -529,7 +529,6 @@ public class AnyKeyboardBaseView extends View implements
 		final Resources res = getResources();
 		mKeyboardDimens.setKeyboardMaxWidth(res.getDisplayMetrics().widthPixels
 				- padding[0] - padding[2]);
-
 		mPreviewPopup = new PopupWindow(context);
 		if (mPreviewKeyTextSize > 0) {
 			if (mPreviewLabelTextSize <= 0)
@@ -1300,8 +1299,9 @@ public class AnyKeyboardBaseView extends View implements
 			if (MeasureSpec.getSize(widthMeasureSpec) < width + 10) {
 				width = MeasureSpec.getSize(widthMeasureSpec);
 			}
-			setMeasuredDimension(width, mKeyboard.getHeight() + getPaddingTop()
-					+ getPaddingBottom());
+			int height = mKeyboard.getHeight() + getPaddingTop()
+					+ getPaddingBottom();
+			setMeasuredDimension(width, height);
 		}
 	}
 
@@ -1972,6 +1972,9 @@ public class AnyKeyboardBaseView extends View implements
 		CharSequence label = tracker.getPreviewText(key, mKeyboard.isShifted());
 		if (TextUtils.isEmpty(label)) {
 			Drawable iconToDraw = getIconToDrawForKey(key, true);
+			//Here's an annoying bug for you (explaination at the end of the hack)
+			mPreviewIcon.setImageState(iconToDraw.getState(), false);
+			//end of hack. You see, the drawable comes with a state, this state is overriden by the ImageView. Nomore.
 			mPreviewIcon.setImageDrawable(iconToDraw);
 			mPreviewIcon.measure(
 					MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
@@ -2318,7 +2321,9 @@ public class AnyKeyboardBaseView extends View implements
 				R.layout.popup_keyboard_layout, null);
 
 		mMiniKeyboard.setPopupParent(this);
-
+		//hack: this will ensure that the key of a popup is no wider than a thumb's width.
+		((KeyboardDimensFromTheme)mMiniKeyboard.getThemedKeyboardDimens()).setKeyMaxWidth(mMiniKeyboard.getThemedKeyboardDimens().getNormalKeyHeight());
+		
 		mMiniKeyboard
 				.setOnKeyboardActionListener(new OnKeyboardActionListener() {
 

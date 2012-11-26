@@ -1,30 +1,36 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/addon_list_item_layout"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:padding="6dp" >
 
-    <RadioButton
-        android:id="@+id/addon_checkbox"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true" />
-
-    <include
-        android:id="@+id/addon_pref_title_layout"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:layout_marginBottom="4dp"
-        android:layout_toRightOf="@id/addon_checkbox"
-        layout="@layout/addon_item_title" />
+        android:orientation="horizontal"
+        android:weightSum="1" >
+
+        <include
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            layout="@layout/addon_item_title" />
+
+        <RadioButton
+            android:id="@+id/addon_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/addon_description"
         style="@android:style/TextAppearance.Small"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/addon_pref_title_layout" />
+        android:layout_height="wrap_content" />
 
-</RelativeLayout>
+</LinearLayout>

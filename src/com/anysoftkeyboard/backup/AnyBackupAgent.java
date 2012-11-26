@@ -39,6 +39,9 @@ public class AnyBackupAgent extends BackupAgentHelper {
 	        		//every device/install should get this help thingy
 	        		if (key.equalsIgnoreCase(WelcomeHowToNoticeActivity.ASK_HAS_BEEN_ENABLED_BEFORE))
 	        			return;
+	        		//RTL is device specific
+	        		if (key.equalsIgnoreCase(getApplicationContext().getString(R.string.settings_key_workaround_disable_rtl_fix)))
+	        			return;
         		}
         		super.restoreEntity(data);
         	}

@@ -85,15 +85,17 @@
   <string name="top_row_addons_settings">Definições da linha superior</string>
   <string name="close_button">Fechar</string>
   <string name="how_to_active_text">Como ativar o AnySoftKeyboard</string>
-  <string name="added_word"><xliff:g id="word"> %s </xliff:g> : Gravada</string>
+  <string name="added_word">Gravado: <xliff:g id="word">%s</xliff:g></string>
+  <string name="revert_added_word_question">Remover\?</string>
+  <string name="removed_word">Removido: <xliff:g id="word">%s</xliff:g></string>
   <string name="hint_add_to_dictionary">\u2190 Toque novamente para gravar</string>
-  <string name="hint_double_tap_to_close">Novamente para remover sugestões\u2192</string>
+  <string name="hint_double_tap_to_close">Novamente para remover sugestões</string>
   <string name="menu_insert_smiley">Inserir ícone emotivo</string>
   <string name="click_for_help">Ajuda</string>
   <string name="click_for_help_summary">Prima para obter mais ajuda</string>
   <string name="ui_group">Interface</string>
   <string name="physical_keyboard_change_notification_title">Notificação de esquema</string>
-  <string name="physical_keyboard_change_notification_summary">Tipo de notificação do esquema ativo</string>
+  <string name="physical_keyboard_change_notification_summary">Tipo de notificação do esquema ativo. Agora: %s</string>
   <string name="physical_keyboard_change_notification_dialog_title">Escolha o tipo de notificação</string>
   <string name="lengthy_operations_toast_notification">Notificar em operações longas</string>
   <string name="lengthy_operations_toast_notification_summary">Mostrar notificações em operações longas</string>
@@ -199,12 +201,16 @@
   <string name="camera_key_for_backspace_backword_support_on_summary">Restaurar opção da tecla da câmara</string>
   <string name="camera_key_for_backspace_backword_support_off_summary">Toque no botão da câmara apaga o último carácter, pressão apaga a última palavra</string>
   <string name="special_dictionaries_group">Dicionários especiais</string>
+  <string name="special_dictionaries_group_summary">Dicionários de sugestão usados no AnySoftKeyboard</string>
   <string name="use_user_dictionary">Dicionário do utilizador</string>
   <string name="use_user_dictionary_on_summary">Sugere palavras adicionadas pelo utilizador (toque longo na sugestão para adicionar)</string>
   <string name="use_user_dictionary_off_summary"> </string>
   <string name="use_auto_dictionary">Dicionário automático</string>
-  <string name="use_auto_dictionary_on_summary">Sugere também palavras frequentes</string>
-  <string name="use_auto_dictionary_off_summary"> </string>
+  <string name="use_auto_dictionary_dialog_title">Escolha o modo de aprendizagem</string>
+  <string name="use_auto_dictionary_summary">Aprender palavras automaticamente. Método: %s</string>
+  <string name="auto_dictionary_threshold_type_after_a_while">Após utilização</string>
+  <string name="auto_dictionary_threshold_type_immediately">Ao escrever</string>
+  <string name="auto_dictionary_threshold_type_off">Não aprender palavras</string>
   <string name="use_contacts_dictionary">Dicionário de contactos</string>
   <string name="use_contacts_dictionary_on_summary">Sugere nomes da lista de contactos</string>
   <string name="use_contacts_dictionary_off_summary"> </string>
@@ -286,7 +292,7 @@
   <string name="action_key_invisible_on_disable_on_summary">Tecla de ação invisível se definido pelo sistema</string>
   <string name="action_key_invisible_on_disable_off_summary">Tecla de acção visível mesmo que definido o contrário</string>
   <string name="tweak_animations_level_title">Animações</string>
-  <string name="tweak_animations_level_summary">Animações a exibir</string>
+  <string name="tweak_animations_level_summary">Quantas animações devem ser utilizadas. Agora: %s</string>
   <string name="tweak_animations_level_types_full">Todas</string>
   <string name="tweak_animations_level_types_some">Algumas</string>
   <string name="tweak_animations_level_types_none">Nenhuma</string>
@@ -316,10 +322,17 @@
   <string name="no_extrenal_packs_support_title">Não suportado</string>
   <string name="no_extrenal_packs_support_message">O AnySoftKeyboard não permite componentes externos deste tipo.\nA funcionalidade será disponibilizada assim que API for definida.\nMantenha-se atento.</string>
   <string name="keyboards_group">Teclados</string>
-  <string name="symbols_keyboard">Símbolos</string>
+  <string name="keyboards_group_summary">Esquemas de teclado para o AnySoftKeyboard</string>
+  <string name="symbols_keyboard">123!#()</string>
+  <string name="symbols_alt_keyboard">{}\_</string>
+  <string name="symbols_alt_num_keyboard">123</string>
+  <string name="symbols_phone_keyboard">telefone</string>
+  <string name="symbols_numbers_keyboard">123</string>
+  <string name="symbols_time_keyboard">hora</string>
   <string name="eng_keyboard">Inglês</string>
   <string name="eng_keyboard_qwertywithsymbols">Inglês com símbolos</string>
   <string name="eng_keyboard_16keys">Inglês - 16 teclas</string>
+  <string name="selected_add_on_summary">A utilizar \'<xliff:g id="addOnName">%s</xliff:g>\'</string>
   <string name="additional_addons_group">Outras extras</string>
   <string name="quick_text_keys_group">Teclas de texto rápido</string>
   <string name="quick_text_key_active">Tecla de texto rápido ativa</string>
@@ -417,7 +430,7 @@
   <string name="workaround_disable_rtl_fix_summary_on">Texto RTL gerido pelo SO (para SE)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Texto RTL gerido pelo AnySoftKeyboard</string>
   <string name="settings_split_state_title">Estado inicial de separação</string>
-  <string name="settings_split_state_summary">Define se o teclado aparece separado</string>
+  <string name="settings_split_state_summary">Defina se o teclado deve ser dividido: Agora: %s</string>
   <string name="settings_split_state_merged_always">Iniciar normal</string>
   <string name="settings_split_state_split_in_landscape">Iniciar separado quando horizontal</string>
   <string name="settings_split_state_split_always">Iniciar separado</string>

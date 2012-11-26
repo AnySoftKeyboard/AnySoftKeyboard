@@ -85,15 +85,17 @@
   <string name="top_row_addons_settings">Opcions de la fila superior</string>
   <string name="close_button">Surt</string>
   <string name="how_to_active_text">Com activar AnySoftKeyboard</string>
-  <string name="added_word"><xliff:g id="word">%s</xliff:g> : s\'ha desat correctament</string>
+  <string name="added_word">S\'ha desat: <xliff:g id="word">%s</xliff:g></string>
+  <string name="revert_added_word_question">Suprimir\?</string>
+  <string name="removed_word">S\'ha suprimit: <xliff:g id="word">%s</xliff:g></string>
   <string name="hint_add_to_dictionary">Premeu altre vegada per desar el mot</string>
-  <string name="hint_double_tap_to_close">Premeu altre vegada per suprimir el mot</string>
+  <string name="hint_double_tap_to_close">Novament per suprimir suggeriments</string>
   <string name="menu_insert_smiley">Insereix una emoticona</string>
   <string name="click_for_help">Ajuda</string>
   <string name="click_for_help_summary">Toqueu per veure l\'ajuda addicional</string>
   <string name="ui_group">Interfície d\'usuari</string>
   <string name="physical_keyboard_change_notification_title">Notificacions del teclat</string>
-  <string name="physical_keyboard_change_notification_summary">Mostra un avís en canviar el teclat actiu</string>
+  <string name="physical_keyboard_change_notification_summary">Tipus de notificació de la disposició. Actualment: %s</string>
   <string name="physical_keyboard_change_notification_dialog_title">Trieu el tipus de notificació</string>
   <string name="lengthy_operations_toast_notification">Notifica les operacions de llarga durada</string>
   <string name="lengthy_operations_toast_notification_summary">Mostra notificacions breus en operacions de llarga durada</string>
@@ -199,12 +201,16 @@
   <string name="camera_key_for_backspace_backword_support_on_summary">Desactivant aquesta opció restaureu la funció de la tecla de la càmera</string>
   <string name="camera_key_for_backspace_backword_support_off_summary">Prement el botó suaument esborrareu un caràcter. Premeu completament per esborrar la darrera paraula</string>
   <string name="special_dictionaries_group">Diccionaris especials</string>
+  <string name="special_dictionaries_group_summary">Suggeriments utilitzats als diccionaris de l\'AnySoftKeyboard</string>
   <string name="use_user_dictionary">Diccionari de l\'usuari</string>
   <string name="use_user_dictionary_on_summary">Suggereix els mots afegits per l\'usuari (premeu prolongat al suggeriment per afegir-lo)</string>
   <string name="use_user_dictionary_off_summary"> </string>
   <string name="use_auto_dictionary">Diccionari automàtic</string>
-  <string name="use_auto_dictionary_on_summary">Suggereix també mots d\'ús freqüent</string>
-  <string name="use_auto_dictionary_off_summary"> </string>
+  <string name="use_auto_dictionary_dialog_title">Mètode d\'aprenentatge</string>
+  <string name="use_auto_dictionary_summary">Aprèn paraules automàticament. Mètode triat: %s</string>
+  <string name="auto_dictionary_threshold_type_after_a_while">En utilitzar-la diverses vegades</string>
+  <string name="auto_dictionary_threshold_type_immediately">Immediatament en escriure-la</string>
+  <string name="auto_dictionary_threshold_type_off">No aprendre paraules noves</string>
   <string name="use_contacts_dictionary">Diccionari de contactes</string>
   <string name="use_contacts_dictionary_on_summary">Suggereix els noms i cognoms de la llista de contactes</string>
   <string name="use_contacts_dictionary_off_summary"> </string>
@@ -286,7 +292,7 @@
   <string name="action_key_invisible_on_disable_on_summary">No es mostra la tecla d\'acció</string>
   <string name="action_key_invisible_on_disable_off_summary">Es mostra la tecla d\'acció</string>
   <string name="tweak_animations_level_title">Efectes</string>
-  <string name="tweak_animations_level_summary">Quantitat d\'efectes a emprar</string>
+  <string name="tweak_animations_level_summary">Animacions utilitzades. Actualment: %s</string>
   <string name="tweak_animations_level_types_full">Tot</string>
   <string name="tweak_animations_level_types_some">Només les principals</string>
   <string name="tweak_animations_level_types_none">Cap efecte</string>
@@ -316,10 +322,17 @@
   <string name="no_extrenal_packs_support_title">No suportat</string>
   <string name="no_extrenal_packs_support_message">AnySoftKeyboard no suporta aquest tipus de paquets de moment.\nAquesta característica serà disponible en establir les especificacions API.\nEstigueu en contacte!</string>
   <string name="keyboards_group">Teclats disponibles</string>
-  <string name="symbols_keyboard">Símbols</string>
+  <string name="keyboards_group_summary">Disposicions de teclat de l\'AnySoftKeyboard</string>
+  <string name="symbols_keyboard">123!#()</string>
+  <string name="symbols_alt_keyboard">{}\_</string>
+  <string name="symbols_alt_num_keyboard">123</string>
+  <string name="symbols_phone_keyboard">telèfon</string>
+  <string name="symbols_numbers_keyboard">123</string>
+  <string name="symbols_time_keyboard">temps</string>
   <string name="eng_keyboard">Anglès</string>
   <string name="eng_keyboard_qwertywithsymbols">Anglès amb símbols</string>
   <string name="eng_keyboard_16keys">Anglès - 16 tecles</string>
+  <string name="selected_add_on_summary">En ús \'<xliff:g id="addOnName">%s</xliff:g>\'</string>
   <string name="additional_addons_group">Complements addicionals</string>
   <string name="quick_text_keys_group">Tecla de funció especial</string>
   <string name="quick_text_key_active">Inserció avançada</string>
@@ -417,7 +430,7 @@
   <string name="workaround_disable_rtl_fix_summary_on">Escriptura gestionada pel sistema (telèfons suportats)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Escriptura gestionada per l\'AnySoftKeyboard</string>
   <string name="settings_split_state_title">Disposició del teclat</string>
-  <string name="settings_split_state_summary">Permet triar entre un teclat clàssic o ergonòmic</string>
+  <string name="settings_split_state_summary">Defineix si el teclat està dividit per defecte. Actualment: %s</string>
   <string name="settings_split_state_merged_always">Teclat clàssic</string>
   <string name="settings_split_state_split_in_landscape">Teclat ergonòmic en mode apaïsat</string>
   <string name="settings_split_state_split_always">Teclat ergonòmic</string>

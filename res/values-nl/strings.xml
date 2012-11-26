@@ -52,14 +52,14 @@
   <string name="main_tab_credits_created_by">Gemaakt door:</string>
   <string name="main_tab_credits_additional_work_by">Extra programmeer werk door:</string>
   <string name="main_tab_credits_localization_by">Lokalisatie inspanningen door:</string>
-  <string name="main_tab_credits_GUI_by">De beelden van de UI door:</string>
+  <string name="main_tab_credits_GUI_by">UI beelden door:</string>
   <string name="how_to_enable_dialog_title">AnySoftKeyboard aanzetten?</string>
   <string name="how_to_enable_dialog_text">AnySoftKeyboard is nog niet geactiveerd. Zal ik laten ziek hoe dat moet?</string>
   <string name="how_to_enable_dialog_show_me">Laat zien!</string>
   <string name="how_to_enable_dialog_dont_show_me">Later</string>
   <string name="how_to_simple_howto_preface">Android vereist dat de gebruiker een extern toetsenbord activeerd. Dat moet zo:</string>
   <string name="how_to_simple_howto_enable_ask">Stap 1: Activeer AnySoftKeyboard (er komt een waarschuwing over mogelijke toets-opslag, geen angst, AnySoftKeyboard slaat geen data op en zend het nergens heen):</string>
-  <string name="how_to_simple_howto_enable_ask_button">AnySoftKeyboard aanzetten</string>
+  <string name="how_to_simple_howto_enable_ask_button">Activeren AnySoftKeyboard</string>
   <string name="how_to_simple_howto_press_back_to_return_tip">Druk eenmaal op BACK om terug te gaan naar de instructies</string>
   <string name="how_to_simple_howto_switch_to_ask">Stap 2: kies AnySoftKeyboard als active invoer methode:</string>
   <string name="how_to_simple_howto_switch_to_ask_button_after_step_1">Omschakelen naar AnySoftKeyboard</string>
@@ -75,8 +75,8 @@
   <string name="license_title">Licentie</string>
   <string name="languages_cat">Talen</string>
   <string name="about">Over</string>
-  <string name="changelog">Changelog</string>
-  <string name="search_market_for_addons">Zoeken naar add-ons</string>
+  <string name="changelog">Wijzigingslijst</string>
+  <string name="search_market_for_addons">Zoeken naar toevoegingen</string>
   <string name="no_market_store_available">Kan Google Play Store niet vinden voor dit apparaat. Kan niet naar uitbreidingen zoeken!</string>
   <string name="theme_addons_settings">Toetsenbord thema instellingen</string>
   <string name="keyboard_theme_tweak_group">Aanpassingen</string>
@@ -85,15 +85,17 @@
   <string name="top_row_addons_settings">Instellingen bovenste rij</string>
   <string name="close_button">Sluiten</string>
   <string name="how_to_active_text">Hoe moet AnySoftKeyboard geactiveerd worden</string>
-  <string name="added_word"><xliff:g id="word">%s</xliff:g>: opgeslagen</string>
+  <string name="added_word">Opgeslagen: <xliff:g id="word">%s</xliff:g></string>
+  <string name="revert_added_word_question">Verwijderen\?</string>
+  <string name="removed_word">Verwijderd: <xliff:g id="word">%s</xliff:g></string>
   <string name="hint_add_to_dictionary">\u2190 Raak opnieuw aan om op te slaan</string>
-  <string name="hint_double_tap_to_close">Opnieuw om suggestie te verwijderen u2192</string>
+  <string name="hint_double_tap_to_close">Opnieuw om de voorstellen te verwijderen</string>
   <string name="menu_insert_smiley">Emoticon invoegen</string>
   <string name="click_for_help">Help</string>
   <string name="click_for_help_summary">Klik voor extra ondersteuning</string>
   <string name="ui_group">Gebruikersinterface</string>
-  <string name="physical_keyboard_change_notification_title">Toetsenbord lay-out kennisgeving</string>
-  <string name="physical_keyboard_change_notification_summary">Soort melding over de actieve lay-out</string>
+  <string name="physical_keyboard_change_notification_title">Melding toetsenbordindeling</string>
+  <string name="physical_keyboard_change_notification_summary">Soort melding over de actieve indeling. Nu: %s</string>
   <string name="physical_keyboard_change_notification_dialog_title">Selecteer meldingstype</string>
   <string name="lengthy_operations_toast_notification">Bericht bij lange operaties</string>
   <string name="lengthy_operations_toast_notification_summary">Toon korte melding bij lange operaties</string>
@@ -199,12 +201,16 @@
   <string name="camera_key_for_backspace_backword_support_on_summary">Herstel camera toets functie</string>
   <string name="camera_key_for_backspace_backword_support_off_summary">Half indrukken van camera toets verwijderd laatste teken, volledig indrukken verwijderd woord</string>
   <string name="special_dictionaries_group">Speciale woordenlijsten</string>
+  <string name="special_dictionaries_group_summary">Woordenboeken met voorstellen gebruikt in AnySoftKeyboard</string>
   <string name="use_user_dictionary">Eigen woordenlijst</string>
   <string name="use_user_dictionary_on_summary">Stel woorden voor uit einge woordenlijst (lang drukken om toe te voegen)</string>
   <string name="use_user_dictionary_off_summary"> </string>
   <string name="use_auto_dictionary">Automatische woordenlijst</string>
-  <string name="use_auto_dictionary_on_summary">Stel ook veelgebruikte woorden voor</string>
-  <string name="use_auto_dictionary_off_summary"> </string>
+  <string name="use_auto_dictionary_dialog_title">Selecteer lerende methode</string>
+  <string name="use_auto_dictionary_summary">Leer automatisch nieuwe woorden. Methode: %s</string>
+  <string name="auto_dictionary_threshold_type_after_a_while">Na een tijdje gebruik</string>
+  <string name="auto_dictionary_threshold_type_immediately">Direct nadat ik het typ</string>
+  <string name="auto_dictionary_threshold_type_off">Geen nieuwe woorden leren</string>
   <string name="use_contacts_dictionary">Contacten woordenlijst</string>
   <string name="use_contacts_dictionary_on_summary">Stel namen van contacten voor</string>
   <string name="use_contacts_dictionary_off_summary"> </string>
@@ -286,7 +292,7 @@
   <string name="action_key_invisible_on_disable_on_summary">Actie toets onzichtbaar bij GUI aanvragen</string>
   <string name="action_key_invisible_on_disable_off_summary">Actie toets zichtbaar zelfs als GUI verzoekt</string>
   <string name="tweak_animations_level_title">Animaties</string>
-  <string name="tweak_animations_level_summary">Hoeveel animaties moeten gebruikt worden</string>
+  <string name="tweak_animations_level_summary">Hoeveel animaties moeten gebruikt worden. Nu: %s</string>
   <string name="tweak_animations_level_types_full">Volledig</string>
   <string name="tweak_animations_level_types_some">Enkele</string>
   <string name="tweak_animations_level_types_none">Geen</string>
@@ -316,10 +322,17 @@
   <string name="no_extrenal_packs_support_title">Niet ondersteund</string>
   <string name="no_extrenal_packs_support_message">Op dit moment ondersteund AnySoftKeyboard dit soort externe onderdelen niet.\nZodra de API is vastgesteld zal dit onderdeel open gezet worden.\nBlijf controleren.</string>
   <string name="keyboards_group">Toetsenborden</string>
-  <string name="symbols_keyboard">Symbolen</string>
+  <string name="keyboards_group_summary">Toetsenbordindeling voor gebruik in AnySoftKeybord</string>
+  <string name="symbols_keyboard">123!#()</string>
+  <string name="symbols_alt_keyboard">{}\_</string>
+  <string name="symbols_alt_num_keyboard">123</string>
+  <string name="symbols_phone_keyboard">telefoon</string>
+  <string name="symbols_numbers_keyboard">123</string>
+  <string name="symbols_time_keyboard">tijd</string>
   <string name="eng_keyboard">Engels</string>
   <string name="eng_keyboard_qwertywithsymbols">Engels met symbolen</string>
   <string name="eng_keyboard_16keys">16 toetsen engels</string>
+  <string name="selected_add_on_summary">Gebruik nu \'<xliff:g id="addOnName">%s</xliff:g>\'</string>
   <string name="additional_addons_group">Extra add-ons</string>
   <string name="quick_text_keys_group">Snel teksttoetsen</string>
   <string name="quick_text_key_active">Actieve snel teksttoets</string>
@@ -417,7 +430,7 @@
   <string name="workaround_disable_rtl_fix_summary_on">Gebruik OS RTL verwerking (voor SE telefoons)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Gebruik AnySoftKeyboard RTL verwerking</string>
   <string name="settings_split_state_title">Gesplitst/samengevoegd beginstand</string>
-  <string name="settings_split_state_summary">Geef aan of het toetsenbord standaard is gesplitst</string>
+  <string name="settings_split_state_summary">Opgeven of het toetsenbord is gesplitst. Nu: %s</string>
   <string name="settings_split_state_merged_always">Start gewoon</string>
   <string name="settings_split_state_split_in_landscape">Start gesplitst in landscape</string>
   <string name="settings_split_state_split_always">Start gesplitst</string>
@@ -437,7 +450,7 @@
   <string name="user_dict_backup_success_text">Woorden opgeslagen in apparaat opslagruimte /Android/data/com.menny.android.anysoftkeyboard/files/</string>
   <string name="user_dict_backup_fail_title">Backup mislukt!</string>
   <string name="user_dict_backup_fail_text">Kan bestanden niet opslaan! Is opslag beschikbaar?</string>
-  <string name="user_dict_backup_fail_text_with_error">Herstellen van woorden mislukt doordat: <xliff:g id="error">%s</xliff:g></string>
+  <string name="user_dict_backup_fail_text_with_error">Opslaan van woorden mislukt door: <xliff:g id="error">%s</xliff:g></string>
   <string name="user_dict_restore_success_title">Terugzetten gedaan!</string>
   <string name="user_dict_restore_success_text">Herstellen van de woorden is gelukt.</string>
   <string name="user_dict_restore_fail_title">Herstellen mislukt!</string>

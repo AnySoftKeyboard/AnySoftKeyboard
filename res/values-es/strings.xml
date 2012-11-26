@@ -3,6 +3,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="ime_name">AnySoftKeyboard</string>
   <string name="settings_app_name">Ajustes de AnySoftKeyboard</string>
+  <string name="spell_checker_service_name">Corrector ortográfico AnySoftKeyboard</string>
+  <string name="spell_checker_settings">Configuración de ortografía de AnySoftKeyboard</string>
   <string name="click_to_restart_suggestions">Haz clic para sugerencias</string>
   <string name="tips_notification_text">¡Haz clic para ver consejos!</string>
   <string name="tips_button">Consejos de utilización</string>
@@ -11,8 +13,12 @@
   <string name="click_for_previous_tip">Sugerencia anterior ↓</string>
   <string name="click_for_next_tip">Siguiente sugerencia ↓</string>
   <string name="tip_1_welcome_to_ask">Bienvenid@ a AnySoftKeyboard!</string>
+  <string name="tip_1_how_to_access_settings">Para acceder a ajustes; mantén la tecla INTRO. ¡Encontrarás un mundo de opciones personalizables!</string>
+  <string name="tip_2_gestures">¡Con soporte de gestos!</string>
+  <string name="tip_3_hidden_kbds">Gemas ocultas</string>
   <string name="tip_4_top_generic_row">Fila superior</string>
   <string name="tip_4_top_generic_row_go_to_top_row_settings">Cambiar fila superior ahora</string>
+  <string name="tip_5_key_feedback">Comentarios</string>
   <string name="tip_6_bottom_rows">Fila inferior</string>
   <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Cambiar fila inferior ahora</string>
   <string name="tip_7_voice_input">Habla conmigo*</string>
@@ -65,14 +71,16 @@
   <string name="top_row_addons_settings">Ajustes de la fila superior</string>
   <string name="close_button">Cerrar</string>
   <string name="how_to_active_text">Cómo activar AnySoftKeyboard</string>
-  <string name="added_word"><xliff:g id="word">%s</xliff:g>:Guardado</string>
+  <string name="added_word">Guardado: <xliff:g id="word">%s</xliff:g></string>
+  <string name="revert_added_word_question">¿Eliminar\?</string>
+  <string name="removed_word">Eliminado: <xliff:g id="word">%s</xliff:g></string>
   <string name="hint_add_to_dictionary">\ U2190 Toque nuevamente para guardar</string>
+  <string name="hint_double_tap_to_close">De nuevo para quitar sugerencias \u2192</string>
   <string name="menu_insert_smiley">Insertar emotícono</string>
   <string name="click_for_help">Ayuda</string>
   <string name="click_for_help_summary">Pulsar para ayuda adicional</string>
   <string name="ui_group">Interfaz de usuario</string>
   <string name="physical_keyboard_change_notification_title">Notificación de distribución del teclado</string>
-  <string name="physical_keyboard_change_notification_summary">Tipo de notificación acerca de la distribución activa</string>
   <string name="physical_keyboard_change_notification_dialog_title">Seleccione el tipo de notificación</string>
   <string name="lengthy_operations_toast_notification">Notificar sobre operaciones largas</string>
   <string name="lengthy_operations_toast_notification_summary">Mostrar notificaciones cortas en operaciones largas</string>
@@ -168,8 +176,6 @@
   <string name="use_user_dictionary_on_summary">Sugerir palabras agregadas por el usuario (pulse largo en la sugerencia a agregar)</string>
   <string name="use_user_dictionary_off_summary"> </string>
   <string name="use_auto_dictionary">Diccionario automático</string>
-  <string name="use_auto_dictionary_on_summary">Sugerir palabras frecuentemente usadas también</string>
-  <string name="use_auto_dictionary_off_summary"> </string>
   <string name="use_contacts_dictionary">Diccionario de contactos</string>
   <string name="use_contacts_dictionary_on_summary">Sugerir nombres de la lista de contactos</string>
   <string name="use_contacts_dictionary_off_summary"> </string>
@@ -223,6 +229,10 @@
   <string name="action_key_invisible_on_disable">Tecla de acción invisible</string>
   <string name="action_key_invisible_on_disable_on_summary">La tecla de acción será visible cuando la interfaz lo requiera</string>
   <string name="action_key_invisible_on_disable_off_summary">La tecla de acción será visible incluso si la interfaz lo requiere</string>
+  <string name="tweak_animations_level_title">Animaciones</string>
+  <string name="tweak_animations_level_types_full">Lleno</string>
+  <string name="tweak_animations_level_types_some">Algunos</string>
+  <string name="tweak_animations_level_types_none">Ninguno</string>
   <string name="cycle_all_symbols_keyboards">Recorrer todos los símbolos</string>
   <string name="cycle_all_symbols_keyboards_on_summary">La tecla de símbolos recorrerá todos los teclados de símbolos</string>
   <string name="cycle_all_symbols_keyboards_off_summary">La tecla de símbolos solo mostrará el teclado principal de símbolos</string>
@@ -234,6 +244,7 @@
   <string name="candidates_on">Mostrar sugerencias</string>
   <string name="quick_fix">Correcciones rápidas</string>
   <string name="quick_fix_summary">Corrige los errores comunes escritos</string>
+  <string name="allow_suggestions_restart">Reiniciar sugerencias</string>
   <string name="auto_complete">Selección automática de sugerencias</string>
   <string name="auto_complete_summary">El espacio seleccionara la sugerencia resaltada</string>
   <string name="physical_keyboard_suggestions">Sugerencias en el teclado del dispositivo</string>
@@ -247,16 +258,27 @@
   <string name="no_extrenal_packs_support_title">No soportado</string>
   <string name="no_extrenal_packs_support_message">Por ahora, AnySoftKeyboard no permite paquetes externos de este tipo. \nUna vez se determinan las especificaciones API, se abrirá esta función. \nEstá ajustado.</string>
   <string name="keyboards_group">Teclados</string>
-  <string name="symbols_keyboard">Símbolos</string>
+  <string name="symbols_keyboard">123!#()</string>
+  <string name="symbols_alt_keyboard">{}\_</string>
+  <string name="symbols_alt_num_keyboard">123</string>
+  <string name="symbols_phone_keyboard">teléfono</string>
+  <string name="symbols_numbers_keyboard">123</string>
+  <string name="symbols_time_keyboard">tiempo</string>
   <string name="eng_keyboard">Inglés</string>
   <string name="eng_keyboard_qwertywithsymbols">Inglés con símbolos</string>
   <string name="eng_keyboard_16keys">Inglés 16 Teclas</string>
+  <string name="selected_add_on_summary">Utilizando ahora \'<xliff:g id="addOnName">%s</xliff:g>\'</string>
   <string name="additional_addons_group">Complementos adicionales</string>
   <string name="quick_text_keys_group">Teclas de texto rápido</string>
   <string name="quick_text_key_active">Tecla de texto rápido activa</string>
   <string name="quick_text_key_dialog_title">Seleccione la tecla</string>
   <string name="quick_text_key_summary">Seleccione la tecla rápida de texto para mostrar en los teclados</string>
   <string name="extension_keyboards_group">Teclados de extensión</string>
+  <string name="top_generic_row_active">Fila superior activa</string>
+  <string name="top_generic_row_dialog_title">Seleccioonar tipo de fila</string>
+  <string name="top_generic_row_list_title">Seleccioonar tipo de fila</string>
+  <string name="bottom_generic_row_dialog_title">Seleccioonar tipo de fila</string>
+  <string name="bottom_generic_row_list_title">Seleccioonar tipo de fila</string>
   <string name="extension_keyboard_group">Teclado de extensión</string>
   <string name="extension_keyboard_active">Teclado de extensión activo</string>
   <string name="extension_keyboard_dialog_title">Seleccionar teclado</string>
@@ -269,17 +291,24 @@
   <string name="keyboard_theme_list_title">Seleccionar tema</string>
   <string name="gingerbread_keyboard_theme_name">Pan de Jengibre</string>
   <string name="gingerbread_keyboard_theme_description">Pan de Jengibre (Android 2.3) de botones y colores</string>
+  <string name="dark_plain_keyboard_theme_name">Tema oscuro llano</string>
   <string name="dark_plain_keyboard_theme_description">Colores oscuros, gráficos sencillos</string>
+  <string name="light_plain_keyboard_theme_name">Tema luz llano</string>
   <string name="light_plain_keyboard_theme_description">Colores claros, gráficos sencillos</string>
+  <string name="blacktheme_keyboard_theme_name">Simple resplandor negro</string>
+  <string name="blacktheme_keyboard_theme_description">Tema negro sencillo con reflejos de color</string>
   <string name="extension_kbd_top_none">Sin fila superior</string>
   <string name="extension_kbd_top_small">Teclas pequeñas</string>
   <string name="extension_kbd_top_regular">Teclas de tamaño normal</string>
   <string name="extension_kbd_top_small_numbers">Teclas de números</string>
   <string name="extension_kbd_top_numbers_alt">Alternar teclas numéricas</string>
   <string name="extension_kbd_top_nav">Teclas de navegación</string>
+  <string name="extension_kbd_bottom_regular_with_voice">Regular</string>
   <string name="extension_kbd_bottom_regular">Clásico (sin mic.)</string>
   <string name="extension_kbd_bottom_iphone">Estilo iPhone (sin mic.)</string>
   <string name="extension_kbd_bottom_iphone_with_voice">Estilo iPhone con mic.</string>
+  <string name="extension_kbd_bottom_alt">Alternativo (sin micrófono)</string>
+  <string name="extension_kbd_bottom_alt_with_mic">Alternativo con micro</string>
   <string name="extension_kbd_extension_numbers_symbols">Números y símbolos</string>
   <string name="show_tutorial_on_startup">Mostrar este tutorial al inicio</string>
   <string name="tutorial_swipe_title">Gesto de barrido para cambio de teclado</string>
@@ -310,6 +339,7 @@
   <string name="settings_multitap_timeout_normal">Normal</string>
   <string name="settings_multitap_timeout_slow">Lento</string>
   <string name="settings_multitap_timeout_slower">Más lento</string>
+  <string name="settings_multitap_timeout_never">Esperar para siempre</string>
   <string name="settings_long_press_timeout_faster">Más rápido</string>
   <string name="settings_long_press_timeout_fast">Rápido</string>
   <string name="settings_long_press_timeout_normal">Normal</string>
@@ -330,9 +360,11 @@
   <string name="user_dict_settings_context_menu_delete_title">Eliminar</string>
   <string name="user_dict_backup_success_title">¡Copia de seguridad hecha correctamente!</string>
   <string name="user_dict_backup_fail_title">¡Copia de seguridad fallida!</string>
+  <string name="user_dict_backup_fail_text_with_error">Error al almacenar palabras: <xliff:g id="error">%s</xliff:g></string>
   <string name="user_dict_restore_success_title">¡Correctamente restaurado!</string>
   <string name="user_dict_restore_success_text">Correctamente restaurado con tus palabras.</string>
   <string name="user_dict_restore_fail_title">¡Restauración fallida!</string>
+  <string name="user_dict_restore_fail_text_with_error">Error al restaurar palabras: <xliff:g id="error">%s</xliff:g></string>
   <string name="fast_scroll_alphabet"> ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
   <string name="should_swap_punctuation_and_space_summary"> </string>
   <string name="should_swap_punctuation_and_space_yes">Sí</string>

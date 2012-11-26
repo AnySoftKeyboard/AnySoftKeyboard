@@ -61,6 +61,7 @@ import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebView.FindListener;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -121,6 +122,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private static final int MSG_UPDATE_SUGGESTIONS = 0;
 	private static final int MSG_RESTART_NEW_WORD_SUGGESTIONS = 1;
 	private static final int MSG_UPDATE_SHIFT_STATE = 3;
+	private static final int MSG_REMOVE_CLOSE_SUGGESTIONS_HINT = 4;
 
 	private final com.anysoftkeyboard.Configuration mConfig;
 	private static final boolean DEBUG = AnyApplication.DEBUG;
@@ -236,6 +238,25 @@ public class AnySoftKeyboard extends InputMethodService implements
 			case MSG_UPDATE_SHIFT_STATE:
 				updateShiftKeyState(getCurrentInputEditorInfo());
 				break;
+			case MSG_REMOVE_CLOSE_SUGGESTIONS_HINT:
+				if (mCandidateCloseText != null) {//in API3, this variable is null
+					Animation gone = AnimationUtils.loadAnimation(
+							getApplicationContext(),
+							R.anim.close_candidates_hint_out);
+					gone.setAnimationListener(new AnimationListener() {
+
+						public void onAnimationStart(Animation animation) {
+						}
+
+						public void onAnimationRepeat(Animation animation) {
+						}
+
+						public void onAnimationEnd(Animation animation) {
+							mCandidateCloseText.setVisibility(View.GONE);
+						}
+					});
+					mCandidateCloseText.startAnimation(gone);
+				}
 			default:
 				super.handleMessage(msg);
 			}
@@ -436,42 +457,59 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		mCandidateCloseText = (TextView) candidateViewContainer
 				.findViewById(R.id.close_suggestions_strip_text);
-		mCandidateCloseText.setTextColor(closeTextColor);
-		mCandidateCloseText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-				fontSizePixel);
+		if (mCandidateCloseText != null) {// why? In API3 it is not supported
+			mCandidateCloseText.setTextColor(closeTextColor);
+			mCandidateCloseText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+					fontSizePixel);
+			mCandidateCloseText.setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {
+					mHandler.removeMessages(MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
+					mCandidateCloseText.setVisibility(View.GONE);
+					abortCorrection(true, true);
+				}
+			});
+		}
 		View closeIcon = candidateViewContainer
 				.findViewById(R.id.close_suggestions_strip_icon);
-		if (closeIcon != null) {
-			closeIcon.setOnClickListener(new OnClickListener() {
+		if (closeIcon != null) {//why? in API 3 it is not supported
+			mCandidateCloseText.setOnClickListener(new OnClickListener() {
 				// two seconds is enough.
 				private final static long DOUBLE_TAP_TIMEOUT = 2 * 1000;
-				private long mFirstClickTime = 0;
 
 				public void onClick(View v) {
-					final long currentTime = SystemClock.elapsedRealtime();
-					if (currentTime - mFirstClickTime < DOUBLE_TAP_TIMEOUT) {
-						abortCorrection(true, true);
-					} else {
-						mCandidateView
-								.setSuggestions(null, false, false, false);
-						if (mCandidateCloseText != null)
-							mCandidateCloseText.setVisibility(View.VISIBLE);
-						postUpdateSuggestions(DOUBLE_TAP_TIMEOUT - 50);
-					}
-					mFirstClickTime = currentTime;
+					mHandler.removeMessages(MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
+					mCandidateCloseText.setVisibility(View.VISIBLE);
+					mCandidateCloseText.startAnimation(AnimationUtils
+							.loadAnimation(getApplicationContext(),
+									R.anim.close_candidates_hint_in));
+					mHandler.sendMessageDelayed(mHandler
+							.obtainMessage(MSG_REMOVE_CLOSE_SUGGESTIONS_HINT),
+							DOUBLE_TAP_TIMEOUT - 50);
 				}
 			});
 		}
 
-		View tipsNotification = candidateViewContainer
+		final TextView tipsNotification = (TextView) candidateViewContainer
 				.findViewById(R.id.tips_notification_on_candidates);
-		if (tipsNotification != null) {
+		if (tipsNotification != null) {//why? in API 3 it is not supported
 			if (!mTipsCalled
 					&& mConfig.getShowTipsNotification()
 					&& TutorialsProvider
 							.shouldShowTips(getApplicationContext())) {
-				tipsNotification.setAnimation(AnimationUtils.loadAnimation(
-						getApplicationContext(), R.anim.tips_flip_in));
+				Animation tipsInAnimation = AnimationUtils.loadAnimation(
+						getApplicationContext(), R.anim.tips_flip_in);
+				tipsInAnimation.setAnimationListener(new AnimationListener() {
+					public void onAnimationStart(Animation animation) {
+					}
+
+					public void onAnimationRepeat(Animation animation) {
+					}
+
+					public void onAnimationEnd(Animation animation) {
+						tipsNotification.setText("?");
+					}
+				});
+				tipsNotification.setAnimation(tipsInAnimation);
 				tipsNotification.setVisibility(View.VISIBLE);
 				tipsNotification.setOnClickListener(new OnClickListener() {
 
@@ -486,12 +524,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 							}
 
 							public void onAnimationEnd(Animation animation) {
-								v.setVisibility(View.GONE);
-								// removing for memory releasing
-								candidateViewContainer.removeView(v);
+								tipsNotification.setVisibility(View.GONE);
 							}
 						});
-						v.startAnimation(gone);
+						tipsNotification.startAnimation(gone);
 						mTipsCalled = true;
 						TutorialsProvider.showTips(getApplicationContext());
 					}
@@ -595,6 +631,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			switch (variation) {
 			case EditorInfo.TYPE_TEXT_VARIATION_PASSWORD:
 			case EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD:
+			case 0xe0:// API 11 EditorInfo.TYPE_TEXT_VARIATION_WEB_PASSWORD:
 				if (DEBUG)
 					Log.d(TAG,
 							"A password TYPE_CLASS_TEXT input with no prediction");
@@ -608,6 +645,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 				switch (variation) {
 				case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
 				case EditorInfo.TYPE_TEXT_VARIATION_URI:
+				case 0xd0:// API 11
+							// EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
 					mAutoSpace = false;
 					break;
 				default:
@@ -620,6 +659,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 			switch (variation) {
 			case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
+			case 0xd0:// API 11
+						// EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
 				if (DEBUG)
 					Log.d(TAG,
 							"Setting MODE_EMAIL as keyboard due to a TYPE_TEXT_VARIATION_EMAIL_ADDRESS input.");
@@ -653,8 +694,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 			final int textFlag = attribute.inputType
 					& EditorInfo.TYPE_MASK_FLAGS;
 			switch (textFlag) {
-			case 0x00080000:// FROM API 5:
-							// EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS:
+			case 0x00080000:// FROM API
+							// 5:EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS:
 			case EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE:
 				if (DEBUG)
 					Log.d(TAG,
@@ -1362,7 +1403,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public AnyKeyboard getCurrentKeyboard() {
 		return mKeyboardSwitcher.getCurrentKeyboard();
 	}
-	
+
 	public KeyboardSwitcher getKeyboardSwitcher() {
 		return mKeyboardSwitcher;
 	}
@@ -1452,10 +1493,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	}
 
-	private boolean addToDictionaries(CharSequence suggestion, int frequencyDelta) {
-		boolean added = checkAddToDictionary(suggestion, frequencyDelta/* , false */);
+	private boolean addToDictionaries(CharSequence suggestion,
+			int frequencyDelta) {
+		boolean added = checkAddToDictionary(suggestion, frequencyDelta/*
+																		 * ,
+																		 * false
+																		 */);
 		if (added) {
-			Log.i(TAG, "Word '"+suggestion+"' was added to the auto-dictionary.");
+			Log.i(TAG, "Word '" + suggestion
+					+ "' was added to the auto-dictionary.");
 		}
 		return added;
 	}
@@ -1481,12 +1527,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		if (suggestion != null && mAutoDictionary != null) {
 			String suggestionToCheck = suggestion.toString();
-			if (/* !addToBigramDictionary && 
-			mAutoDictionary.isValidWord(suggestionToCheck)//this check is for promoting from Auto to User
-					|| */(!mSuggest.isValidWord(suggestionToCheck) && !mSuggest
-							.isValidWord(suggestionToCheck.toLowerCase()))) {
-				
-				final boolean added = mAutoDictionary.addWord(suggestionToCheck, frequencyDelta);
+			if (/*
+				 * !addToBigramDictionary &&
+				 * mAutoDictionary.isValidWord(suggestionToCheck)//this check is
+				 * for promoting from Auto to User ||
+				 */(!mSuggest.isValidWord(suggestionToCheck) && !mSuggest
+					.isValidWord(suggestionToCheck.toLowerCase()))) {
+
+				final boolean added = mAutoDictionary.addWord(
+						suggestionToCheck, frequencyDelta);
 				if (added && mCandidateView != null) {
 					mCandidateView.notifyAboutWordAdded(suggestion);
 				}
@@ -1509,7 +1558,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			if (/* mComposing.length() */mWord.size() > 0) {
 				if (inputConnection != null) {
 					inputConnection.commitText(
-							/* mComposing */mWord.getTypedWord(), 1);
+					/* mComposing */mWord.getTypedWord(), 1);
 				}
 				mCommittedLength = mWord.size();// mComposing.length();
 				TextEntryState
@@ -1640,7 +1689,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			return false;
 		}
 	}
-	
+
 	public void removeFromUserDictionary(String word) {
 		if (mUserDictionary != null) {
 			mUserDictionary.deleteWord(word);
@@ -2418,11 +2467,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 					ic.endBatchEdit();
 				}
 			}
-			//this should be done ONLY if the key is a letter, and not a inner character (like ').
+			// this should be done ONLY if the key is a letter, and not a inner
+			// character (like ').
 			if (Character.isLetter((char) primaryCodeForShow)) {
 				postUpdateSuggestions();
 			} else {
-				//just replace the typed word in the candidates view
+				// just replace the typed word in the candidates view
 				if (mCandidateView != null)
 					mCandidateView.replaceTypedWord(mWord.getTypedWord());
 			}
@@ -2454,9 +2504,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// this is a special case, when the user presses a separator WHILE
 		// inside the predicted word.
 		// in this case, I will want to just dump the separator.
-		final boolean separatorInsideWord = 
-				(mWord.cursorPosition() < mWord.size());
-		
+		final boolean separatorInsideWord = (mWord.cursorPosition() < mWord
+				.size());
+
 		if (mPredicting && !separatorInsideWord) {
 			// In certain languages where single quote is a separator, it's
 			// better
@@ -2583,7 +2633,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// mPredicting
 		// && isPredictionOn() && shouldCandidatesStripBeShown());
 
-		if (mCandidateCloseText != null)
+		if (mCandidateCloseText != null)//in API3 this variable is null
 			mCandidateCloseText.setVisibility(View.GONE);
 
 		if (!mPredicting) {
@@ -2593,7 +2643,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 
 		List<CharSequence> stringList = mSuggest.getSuggestions(
-				/* mInputView, */mWord, false);
+		/* mInputView, */mWord, false);
 		boolean correctionAvailable = mSuggest.hasMinimalCorrection();
 		// || mCorrectionMode == mSuggest.CORRECTION_FULL;
 		CharSequence typedWord = mWord.getTypedWord();
@@ -2681,31 +2731,29 @@ public class AnySoftKeyboard extends InputMethodService implements
 						AutoDictionary.FREQUENCY_FOR_PICKED);
 			}
 
-			final boolean showingAddToDictionaryHint = !mJustAutoAddedWord 
+			final boolean showingAddToDictionaryHint = !mJustAutoAddedWord
 					&& index == 0
 					&& (mQuickFixes || mShowSuggestions)
-					&& !mSuggest.isValidWord(suggestion)//this is for the case that the word was auto-added upon picking
+					&& !mSuggest.isValidWord(suggestion)// this is for the case
+														// that the word was
+														// auto-added upon
+														// picking
 					&& !mSuggest.isValidWord(suggestion.toString()
 							.toLowerCase());
-			
+
 			if (!mJustAutoAddedWord) {
 				/*
-				if (!correcting) {
-					// Fool the state watcher so that a subsequent backspace will
-					// not do a revert, unless
-					// we just did a correction, in which case we need to stay in
-					// TextEntryState.State.PICKED_SUGGESTION state.
-					TextEntryState.typedCharacter((char) KeyCodes.SPACE, true);
-					setNextSuggestions();
-				} else if (!showingAddToDictionaryHint) {
-					// If we're not showing the "Touch again to save", then show
-					// corrections again.
-					// In case the cursor position doesn't change, make sure we show
-					// the suggestions again.
-					clearSuggestions();
-					// postUpdateOldSuggestions();
-				}
-				*/
+				 * if (!correcting) { // Fool the state watcher so that a
+				 * subsequent backspace will // not do a revert, unless // we
+				 * just did a correction, in which case we need to stay in //
+				 * TextEntryState.State.PICKED_SUGGESTION state.
+				 * TextEntryState.typedCharacter((char) KeyCodes.SPACE, true);
+				 * setNextSuggestions(); } else if (!showingAddToDictionaryHint)
+				 * { // If we're not showing the "Touch again to save", then
+				 * show // corrections again. // In case the cursor position
+				 * doesn't change, make sure we show // the suggestions again.
+				 * clearSuggestions(); // postUpdateOldSuggestions(); }
+				 */
 				if (showingAddToDictionaryHint && mCandidateView != null) {
 					mCandidateView.showAddToDictionaryHint(suggestion);
 				}
@@ -2810,9 +2858,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 			ic.endBatchEdit();
 			performUpdateSuggestions();
 			if (mJustAutoAddedWord && mUserDictionary != null) {
-				//we'll also need to REMOVE the word from the user dictionary now...
-				//Since the user revert the commited word, and ASK auto-added that word, this word will need to be removed.
-				Log.i(TAG, "Since the word '"+typedWord+"' was auto-added to the user-dictionary, it will not be deleted.");
+				// we'll also need to REMOVE the word from the user dictionary
+				// now...
+				// Since the user revert the commited word, and ASK auto-added
+				// that word, this word will need to be removed.
+				Log.i(TAG,
+						"Since the word '"
+								+ typedWord
+								+ "' was auto-added to the user-dictionary, it will not be deleted.");
 				removeFromUserDictionary(typedWord.toString());
 			}
 		} else {
@@ -2861,8 +2914,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void setNextSuggestions() {
 		setSuggestions(
-				/* mSuggest.getInitialSuggestions() */msEmptyNextSuggestions,
-				false, false, false);
+		/* mSuggest.getInitialSuggestions() */msEmptyNextSuggestions, false,
+				false, false);
 	}
 
 	public boolean isWordSeparator(int code) {

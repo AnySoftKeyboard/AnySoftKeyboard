@@ -18,52 +18,55 @@
 ** limitations under the License.
 */
 -->
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
 
-	<com.anysoftkeyboard.keyboards.views.CandidateView
+    <com.anysoftkeyboard.keyboards.views.CandidateView
         android:id="@+id/candidates"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/candidate_strip_height"
         android:layout_alignParentLeft="true"
-    	android:layout_centerVertical="true"
-    	android:layout_alignParentRight="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:fadingEdge="horizontal"
-        android:fadingEdgeLength="@dimen/candidate_strip_fading_edge_length"
-        />
+        android:fadingEdgeLength="@dimen/candidate_strip_fading_edge_length" />
     
-	<ImageView android:id="@+id/close_suggestions_strip_icon"
+    <ImageView android:id="@+id/close_suggestions_strip_icon"
     	android:layout_width="wrap_content" android:layout_height="wrap_content"
     	android:layout_alignParentRight="true"
     	android:layout_centerVertical="true"
-    	android:paddingLeft="8dp" android:paddingRight="4dp"
+    	android:padding="4dp"
     	android:background="@android:color/transparent"
     	android:contentDescription="@string/hint_double_tap_to_close"
     	android:src="@drawable/close_suggestions_strip_icon" android:scaleType="centerInside"/>
-    
-    <TextView android:id="@+id/close_suggestions_strip_text"
-    	android:layout_width="wrap_content" android:layout_height="wrap_content"
-    	android:layout_toLeftOf="@id/close_suggestions_strip_icon"
-    	android:layout_centerVertical="true"
-    	android:visibility="gone"
-    	android:background="@android:color/transparent"
-    	android:text="@string/hint_double_tap_to_close"/>
 
-    <TextView android:id="@+id/tips_notification_on_candidates"
-        android:visibility="gone"
-        style="@android:style/TextAppearance.Small"
-        android:textStyle="bold"
+    <TextView
+        android:id="@+id/tips_notification_on_candidates"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="4dp"
+        android:paddingRight="8dp" android:paddingLeft="8dp"
+        android:paddingTop="4dp" android:paddingBottom="4dp"
+        android:layout_toLeftOf="@id/close_suggestions_strip_icon"
+        android:background="@drawable/tips_notification_background"
+        android:text="@string/tips_notification_text"
         android:textColor="@android:color/white"
-	    android:text="@string/tips_notification_text"
-	    android:layout_alignParentRight="true"
+        android:textStyle="bold"
+        android:visibility="gone" />
+    
+    <TextView
+        android:id="@+id/close_suggestions_strip_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
     	android:layout_centerVertical="true"
-    	android:layout_width="wrap_content" android:layout_height="wrap_content"
-	    android:background="@drawable/tips_notification_background"
-	    android:layout_margin="@dimen/key_corner_radius"
-	    android:padding="@dimen/key_corner_radius"/>
-    <!-- 
+    	android:padding="4dp"
+        android:background="@drawable/close_candidates_hint_background"
+        android:drawableRight="@drawable/close_suggestions_strip_icon"
+        android:text="@string/hint_double_tap_to_close"/>
+    <!--
     <TextView android:id="@+id/restart_suggestions"
         android:visibility="gone"
         style="@android:style/TextAppearance.Small"
@@ -76,5 +79,6 @@
 	    android:background="@drawable/restart_suggestions_notification_background"
 	    android:layout_margin="@dimen/key_corner_radius"
 	    android:padding="@dimen/key_corner_radius"/>
-	 -->
+    -->
+
 </RelativeLayout>
