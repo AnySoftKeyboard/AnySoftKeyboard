@@ -33,10 +33,10 @@
   <string name="tip_7_voice_input_tip_dont_forget_bottom_row">Εάν θέλετε να έχετε πάντα το εικονίδιο του μικροφώνου, βεβαιωθείτε ότι έχετε τη σωστή κάτω σειρά (προηγούμενη συμβουλή, θυμάστε;).\nΌπως και να ΄χει πάντως, το μικρόφωνο είναι πάντα προσβάσιμο μέσω του κρυφού βοηθητικού πληκτρολογίου (μετά από σύρσιμο πάνω από το πλήκτρο διαστήματος).</string>
   <string name="tip_7_voice_input_tip_note">* Απαιτεί Android 2.2+ και σύνδεση στο Διαδίκτυο για να λειτουργήσει.</string>
   <string name="tip_8_suggestions">Σας συμπληρώνω</string>
-  <string name="tip_8_suggestions_tip">Ανάλογα με το επίπεδο της γλωσσικής υποστήριξης, Το AnySoftKeyboard μπορεί να σας βοηθήσει να ολοκληρώσετε τις λέξεις σας και να διορθώσετε τα λάθη σας. Μόλις αρχίσετε να πληκτρολογείτε, το AnySoftKeyboard θα προτείνει λέξεις με βάση αυτά που έχετε ήδη πληκτρολογήσει.</string>
-  <string name="tip_8_suggestions_editor">Αν δεν γνωρίζω μια λέξη, μπορείτε να με διδάξετε! Πληκτρολογήστε αυτή τη λέξη και κάντε κλικ στη λωρίδα προτάσεις. Θα το θυμάμαι.\nΜπορείτε επίσης να επεξεργαστείτε αυτές τις λέξεις χρήστη στο ενσωματωμένο πρόγραμμα επεξεργασίας. Αναζητήστε το πρόγραμμα επεξεργασίας στις ρυθμίσεις λεξικού του AnySoftKeyboard.</string>
-  <string name="tip_9_suggestions_restart">Επανέναρξη προτάσεων</string>
-  <string name="tip_9_suggestions_restart_tip">Το AnySoftKeyboard παρέχει προτάσεις ολοκλήρωσης λέξεων που βασίζονται σε ότι πληκτρολογήσατε. Αλλά το AnySoftKeyboard μπορεί επίσης να παρέχει προτάσεις που βασίζονται σε ήδη πληκτρολογημένες λέξεις! Επιλέξτε τη λέξη και το AnySoftKeyboard θα ανανεώσει την γραμμή προτάσεων.</string>
+  <string name="tip_8_suggestions_tip">Ανάλογα με το επίπεδο της γλωσσικής υποστήριξης, Το AnySoftKeyboard μπορεί να σας βοηθήσει να ολοκληρώσετε τις λέξεις σας και να διορθώσετε τα λάθη σας. Μόλις αρχίσετε να πληκτρολογείτε, το AnySoftKeyboard θα υποδείξει λέξεις με βάση αυτά που έχετε ήδη πληκτρολογήσει.</string>
+  <string name="tip_8_suggestions_editor">Αν δεν γνωρίζω μια λέξη, μπορείτε να με διδάξετε! Πληκτρολογήστε αυτή τη λέξη και κάντε κλικ στη λωρίδα υποδείξεις. Θα το θυμάμαι.\nΜπορείτε επίσης να επεξεργαστείτε αυτές τις λέξεις χρήστη στο ενσωματωμένο πρόγραμμα επεξεργασίας. Αναζητήστε το πρόγραμμα επεξεργασίας στις ρυθμίσεις λεξικού του AnySoftKeyboard.</string>
+  <string name="tip_9_suggestions_restart">Επανέναρξη υποδείξεων</string>
+  <string name="tip_9_suggestions_restart_tip">Το AnySoftKeyboard παρέχει υποδείξεις ολοκλήρωσης λέξεων που βασίζονται σε ότι πληκτρολογήσατε. Αλλά το AnySoftKeyboard μπορεί επίσης να παρέχει υποδείξεις που βασίζονται σε ήδη πληκτρολογημένες λέξεις! Επιλέξτε τη λέξη και το AnySoftKeyboard θα ανανεώσει την γραμμή υποδείξεων.</string>
   <string name="main_tab_welcome">Καλώς ήλθατε</string>
   <string name="main_tab_links">Σύνδεσμοι</string>
   <string name="main_tab_credits">Συντελεστές</string>
@@ -89,7 +89,7 @@
   <string name="revert_added_word_question">Αφαίρεση\;</string>
   <string name="removed_word">Αφαιρέθηκε: <xliff:g id="word">%s</xliff:g></string>
   <string name="hint_add_to_dictionary">\u2190 Αγγίξτε πάλι για αποθήκευση</string>
-  <string name="hint_double_tap_to_close">Πάλι για απομάκρυνση προτάσεων \u2192</string>
+  <string name="hint_double_tap_to_close">Πάλι για αφαίρεση υποδείξεων</string>
   <string name="menu_insert_smiley">Εισαγωγή εικονιδίων</string>
   <string name="click_for_help">Βοήθεια</string>
   <string name="click_for_help_summary">Πιέστε για επιπλέον βοήθεια</string>
@@ -201,9 +201,9 @@
   <string name="camera_key_for_backspace_backword_support_on_summary">Επαναφορά της λειτουργίας πλήκτρου κάμερας</string>
   <string name="camera_key_for_backspace_backword_support_off_summary">Μισή πίεση κουμπιού κάμερας διαγράφει τον τελευταίο χαρακτήρα, πλήρης πίεση διαγράφει την τελευταία λέξη</string>
   <string name="special_dictionaries_group">Ειδικά λεξικά</string>
-  <string name="special_dictionaries_group_summary">Προτάσεις λεξικών που χρησιμοποιούνται στο AnySoftKeyboard</string>
+  <string name="special_dictionaries_group_summary">Λεξικά υποδείξεων που χρησιμοποιούνται στο AnySoftKeyboard</string>
   <string name="use_user_dictionary">Λεξικό χρήστη</string>
-  <string name="use_user_dictionary_on_summary">Πρόταση λέξεων που προστέθηκαν από τον χρήστη (παρατεταμένη πίεση στην πρόταση για προσθήκη)</string>
+  <string name="use_user_dictionary_on_summary">Υπόδειξη λέξεων που προστέθηκαν από τον χρήστη (παρατεταμένη πίεση στην πρόταση για προσθήκη)</string>
   <string name="use_user_dictionary_off_summary"> </string>
   <string name="use_auto_dictionary">Αυτόματο λεξικό</string>
   <string name="use_auto_dictionary_dialog_title">Επιλέξτε μέθοδο εκμάθησης</string>
@@ -283,7 +283,7 @@
   <string name="key_press_preview_popup_off_summary">Να μην εμφανίζεται αναδυόμενο κατά την πίεση πλήκτρου</string>
   <string name="zoom_factor_keys_in_portrait">Ύψος πλήκτρων σε κατακόρυφη λειτουργία</string>
   <string name="zoom_factor_keys_in_landscape">Ύψος πλήκτρων σε οριζόντια λειτουργία</string>
-  <string name="insert_space_after_word_suggestion_selection">Διάστημα μετά την επιλογή προτεινόμενων λέξεων</string>
+  <string name="insert_space_after_word_suggestion_selection">Διάστημα μετά την επιλογή υποψηφίου</string>
   <string name="insert_space_after_word_suggestion_selection_on_summary">Εισαγωγή διαστήματος μετά την επιλογή προτεινόμενων λέξεων</string>
   <string name="insert_space_after_word_suggestion_selection_off_summary"> </string>
   <string name="double_space_to_period">Διπλό διάστημα στην τελεία</string>
@@ -308,7 +308,7 @@
   <string name="quick_fix">Γρήγορες επιδιορθώσεις</string>
   <string name="quick_fix_summary">Διορθώνει συχνά σφάλματα πληκτρολόγησης</string>
   <string name="allow_suggestions_restart">Επανεκκίνηση υποδείξεων</string>
-  <string name="allow_suggestions_restart_summary">Κάντε επανεκκίνηση υποδείξεων κατά την κίνηση του δρομέα</string>
+  <string name="allow_suggestions_restart_summary">Επανεκκίνηση υποδείξεων λέξεων κατά την κίνηση του δρομέα</string>
   <string name="auto_complete">Αυτόματη επιλογή υπόδειξης</string>
   <string name="auto_complete_summary">Το πλήκτρο διαστήματος θα επιλέγει την φωτισμένη υπόδειξη</string>
   <string name="physical_keyboard_suggestions">Υποδείξεις στο πληκτρολόγιο της συσκευής</string>
@@ -316,7 +316,7 @@
   <string name="keyboard_sandbox">Κάντε κλικ για δοκιμή κειμένου</string>
   <string name="keyboard_sandbox_title">Πληκτρολογήστε παρακάτω, για να ελέγξετε τις ρυθμίσεις σας</string>
   <string name="contacts_dict">Λεξικό επαφών</string>
-  <string name="contacts_dict_summary">Περιλαμβάνει ονόματα επαφών στις προτάσεις</string>
+  <string name="contacts_dict_summary">Περιλαμβάνει ονόματα επαφών στις υποδείξεις</string>
   <string name="auto_dict">Αυτόματα σε λεξικό</string>
   <string name="auto_dict_summary">Αυτόματη προσθήκη στο λεξικό, λέξεων που χρησιμοποιούνται συχνά ή είναι επιλεγμένες</string>
   <string name="no_extrenal_packs_support_title">Δεν υποστηρίζεται</string>

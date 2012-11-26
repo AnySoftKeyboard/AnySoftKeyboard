@@ -88,7 +88,7 @@
   <string name="revert_added_word_question">Usunąć\?</string>
   <string name="removed_word">Usunięte: <xliff:g id="word">%s</xliff:g></string>
   <string name="hint_add_to_dictionary">\u2190 Dotknij ponownie, aby zapisać</string>
-  <string name="hint_double_tap_to_close">Ponownie, aby usunąć sugestie \u2192</string>
+  <string name="hint_double_tap_to_close">Ponownie, aby usunąć sugestie</string>
   <string name="menu_insert_smiley">Wstaw emotikonę</string>
   <string name="click_for_help">Pomoc</string>
   <string name="click_for_help_summary">Naciśnij, aby uzyskać dodatkową pomoc</string>

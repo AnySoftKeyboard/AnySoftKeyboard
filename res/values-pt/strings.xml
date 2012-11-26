@@ -89,7 +89,7 @@
   <string name="revert_added_word_question">Remover\?</string>
   <string name="removed_word">Removido: <xliff:g id="word">%s</xliff:g></string>
   <string name="hint_add_to_dictionary">\u2190 Toque novamente para gravar</string>
-  <string name="hint_double_tap_to_close">Novamente para remover sugestões\u2192</string>
+  <string name="hint_double_tap_to_close">Novamente para remover sugestões</string>
   <string name="menu_insert_smiley">Inserir ícone emotivo</string>
   <string name="click_for_help">Ajuda</string>
   <string name="click_for_help_summary">Prima para obter mais ajuda</string>
