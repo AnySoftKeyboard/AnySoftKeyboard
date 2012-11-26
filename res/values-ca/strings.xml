@@ -89,7 +89,7 @@
   <string name="revert_added_word_question">Suprimir\?</string>
   <string name="removed_word">S\'ha suprimit: <xliff:g id="word">%s</xliff:g></string>
   <string name="hint_add_to_dictionary">Premeu altre vegada per desar el mot</string>
-  <string name="hint_double_tap_to_close">Premeu altre vegada per suprimir el mot</string>
+  <string name="hint_double_tap_to_close">Novament per suprimir suggeriments</string>
   <string name="menu_insert_smiley">Insereix una emoticona</string>
   <string name="click_for_help">Ajuda</string>
   <string name="click_for_help_summary">Toqueu per veure l\'ajuda addicional</string>
