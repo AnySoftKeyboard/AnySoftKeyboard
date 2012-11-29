@@ -457,22 +457,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		mCandidateCloseText = (TextView) candidateViewContainer
 				.findViewById(R.id.close_suggestions_strip_text);
-		if (mCandidateCloseText != null) {// why? In API3 it is not supported
-			mCandidateCloseText.setTextColor(closeTextColor);
-			mCandidateCloseText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-					fontSizePixel);
-			mCandidateCloseText.setOnClickListener(new OnClickListener() {
-				public void onClick(View v) {
-					mHandler.removeMessages(MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
-					mCandidateCloseText.setVisibility(View.GONE);
-					abortCorrection(true, true);
-				}
-			});
-		}
 		View closeIcon = candidateViewContainer
 				.findViewById(R.id.close_suggestions_strip_icon);
-		if (closeIcon != null) {//why? in API 3 it is not supported
-			mCandidateCloseText.setOnClickListener(new OnClickListener() {
+		
+		if (mCandidateCloseText != null && closeIcon != null) {// why? In API3 it is not supported
+			closeIcon.setOnClickListener(new OnClickListener() {
 				// two seconds is enough.
 				private final static long DOUBLE_TAP_TIMEOUT = 2 * 1000;
 
@@ -485,6 +474,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 					mHandler.sendMessageDelayed(mHandler
 							.obtainMessage(MSG_REMOVE_CLOSE_SUGGESTIONS_HINT),
 							DOUBLE_TAP_TIMEOUT - 50);
+				}
+			});
+			
+			mCandidateCloseText.setTextColor(closeTextColor);
+			mCandidateCloseText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+					fontSizePixel);
+			mCandidateCloseText.setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {
+					mHandler.removeMessages(MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
+					mCandidateCloseText.setVisibility(View.GONE);
+					abortCorrection(true, true);
 				}
 			});
 		}
