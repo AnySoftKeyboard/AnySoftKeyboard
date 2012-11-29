@@ -116,7 +116,7 @@
                 android:targetPackage="com.menny.android.anysoftkeyboard" />
         </Preference>
 
-        <ListPreference
+        <com.anysoftkeyboard.ui.settings.ListPreferenceEx
             android:defaultValue="@string/settings_default_physical_keyboard_change_notification_type"
             android:dialogTitle="@string/physical_keyboard_change_notification_dialog_title"
             android:entries="@array/physical_keyboard_change_notification_types"
@@ -130,7 +130,7 @@
         android:key="effects_group"
         android:title="@string/effects_group" >
 
-        <ListPreference
+        <com.anysoftkeyboard.ui.settings.ListPreferenceEx
             android:defaultValue="@string/settings_default_vibrate_on_key_press_duration"
             android:dialogTitle="@string/vibrate_on_key_press_dialog_title"
             android:entries="@array/vibrate_on_key_press_types"
@@ -147,7 +147,7 @@
             android:summaryOn="@string/sound_on_summary"
             android:title="@string/sound_on" />
 
-        <ListPreference
+        <com.anysoftkeyboard.ui.settings.ListPreferenceEx
             android:defaultValue="@string/settings_default_tweak_animations_level"
             android:dialogTitle="@string/tweak_animations_level_title"
             android:entries="@array/tweak_animations_level_types"
@@ -221,7 +221,7 @@
             android:summaryOn="@string/double_space_to_period_summary"
             android:title="@string/double_space_to_period" />
 
-        <ListPreference
+        <com.anysoftkeyboard.ui.settings.ListPreferenceEx
             android:defaultValue="@string/settings_default_default_split_state"
             android:dialogTitle="@string/settings_split_state_title"
             android:entries="@array/settings_key_default_split_state_names"
@@ -234,7 +234,7 @@
             android:key="swipe_tweak_group"
             android:title="@string/swipe_tweak_group" >
 
-            <ListPreference
+            <com.anysoftkeyboard.ui.settings.ListPreferenceEx
                 android:defaultValue="shift"
                 android:dialogTitle="@string/swipe_up_action_title"
                 android:entries="@array/swipe_action_types_names"
@@ -243,7 +243,7 @@
                 android:summary="@string/swipe_up_action_summary"
                 android:title="@string/swipe_up_action" />
 
-            <ListPreference
+            <com.anysoftkeyboard.ui.settings.ListPreferenceEx
                 android:defaultValue="hide"
                 android:dialogTitle="@string/swipe_down_action_title"
                 android:entries="@array/swipe_action_types_names"
@@ -252,7 +252,7 @@
                 android:summary="@string/swipe_down_action_summary"
                 android:title="@string/swipe_down_action" />
 
-            <ListPreference
+            <com.anysoftkeyboard.ui.settings.ListPreferenceEx
                 android:defaultValue="next_symbols"
                 android:dialogTitle="@string/swipe_left_action_title"
                 android:entries="@array/swipe_action_types_names"
@@ -261,7 +261,7 @@
                 android:summary="@string/swipe_left_action_summary"
                 android:title="@string/swipe_left_action" />
 
-            <ListPreference
+            <com.anysoftkeyboard.ui.settings.ListPreferenceEx
                 android:defaultValue="next_alphabet"
                 android:dialogTitle="@string/swipe_right_action_title"
                 android:entries="@array/swipe_action_types_names"
@@ -270,7 +270,7 @@
                 android:summary="@string/swipe_right_action_summary"
                 android:title="@string/swipe_right_action" />
 
-            <ListPreference
+            <com.anysoftkeyboard.ui.settings.ListPreferenceEx
                 android:defaultValue="utility_keyboard"
                 android:dialogTitle="@string/swipe_up_from_spacebar_action_title"
                 android:entries="@array/swipe_action_types_names"
@@ -279,7 +279,7 @@
                 android:summary="@string/swipe_up_from_spacebar_action_summary"
                 android:title="@string/swipe_up_from_spacebar_action" />
 
-            <ListPreference
+            <com.anysoftkeyboard.ui.settings.ListPreferenceEx
                 android:defaultValue="merge_layout"
                 android:dialogTitle="@string/pinch_gesture_action_title"
                 android:entries="@array/swipe_action_types_names"
@@ -288,7 +288,7 @@
                 android:summary="@string/pinch_gesture_action_summary"
                 android:title="@string/pinch_gesture_action" />
 
-            <ListPreference
+            <com.anysoftkeyboard.ui.settings.ListPreferenceEx
                 android:defaultValue="split_layout"
                 android:dialogTitle="@string/separate_gesture_action_title"
                 android:entries="@array/swipe_action_types_names"
@@ -297,7 +297,7 @@
                 android:summary="@string/separate_gesture_action_summary"
                 android:title="@string/separate_gesture_action" />
 
-            <ListPreference
+            <com.anysoftkeyboard.ui.settings.ListPreferenceEx
                 android:defaultValue="@string/settings_default_swipe_velocity_threshold"
                 android:dialogTitle="@string/settings_swipe_velocity_threshold_title"
                 android:entries="@array/settings_key_swipe_velocity_threshold_names"
@@ -306,7 +306,7 @@
                 android:summary="@string/settings_swipe_velocity_threshold_summary"
                 android:title="@string/settings_swipe_velocity_threshold_title" />
 
-            <ListPreference
+            <com.anysoftkeyboard.ui.settings.ListPreferenceEx
                 android:defaultValue="@string/settings_default_swipe_distance_threshold"
                 android:dialogTitle="@string/settings_swipe_distance_threshold_title"
                 android:entries="@array/settings_key_swipe_distance_threshold_names"

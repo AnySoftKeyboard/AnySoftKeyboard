@@ -30,7 +30,7 @@ import com.anysoftkeyboard.addons.IconHolder;
 import com.anysoftkeyboard.addons.ScreenshotHolder;
 import com.menny.android.anysoftkeyboard.R;
 
-public class AddOnListPreference extends ListPreference {
+public class AddOnListPreference extends ListPreferenceEx {
 
 	private AddOn[] mAddOns;
 	private AddOn mSelectedAddOn;
@@ -181,8 +181,6 @@ public class AddOnListPreference extends ListPreference {
 	}
 
 	public void setSelectedAddOn(AddOn currentSelectedAddOn) {
-		setSummary(getContext().getString(R.string.selected_add_on_summary,
-				currentSelectedAddOn.getName()));
 		mSelectedAddOn = currentSelectedAddOn;
 	}
 
@@ -202,11 +200,8 @@ public class AddOnListPreference extends ListPreference {
 
 	@Override
 	protected void onRestoreInstanceState(Parcelable state) {
-		if (state == null || !(state instanceof AddOnsListSavedState)) {// although,
-																		// this
-																		// should
-																		// not
-																		// happen
+		if (state == null || !(state instanceof AddOnsListSavedState)) {
+			// although, this should not happen
 			super.onRestoreInstanceState(state);
 		} else {
 			AddOnsListSavedState myState = (AddOnsListSavedState) state;
