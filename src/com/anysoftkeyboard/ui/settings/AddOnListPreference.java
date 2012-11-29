@@ -6,9 +6,12 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.preference.ListPreference;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.view.AbsSavedState;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +25,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.addons.AddOn;
+import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.addons.IconHolder;
 import com.anysoftkeyboard.addons.ScreenshotHolder;
 import com.menny.android.anysoftkeyboard.R;
@@ -30,7 +34,7 @@ public class AddOnListPreference extends ListPreference {
 
 	private AddOn[] mAddOns;
 	private AddOn mSelectedAddOn;
-	
+
 	public AddOnListPreference(Context context) {
 		super(context);
 	}
@@ -41,16 +45,20 @@ public class AddOnListPreference extends ListPreference {
 
 	@Override
 	protected void onPrepareDialogBuilder(Builder builder) {
-		ListAdapter listAdapter = new AddOnArrayAdapter(getContext(),
-				R.layout.addon_list_item_pref, mAddOns);
+		if (mAddOns != null) {
+			// mAddOns is null happens when activity gets recreated, e.g. on
+			// rotating the device.
+			ListAdapter listAdapter = new AddOnArrayAdapter(getContext(),
+					R.layout.addon_list_item_pref, mAddOns);
 
-		builder.setAdapter(listAdapter, this);
+			builder.setAdapter(listAdapter, this);
+		}
 		super.onPrepareDialogBuilder(builder);
 	}
 
 	public void setAddOnsList(AddOn[] addOns) {
 		mAddOns = addOns;
-		
+
 		String[] ids = new String[mAddOns.length];
 		String[] names = new String[mAddOns.length];
 		int entryPos = 0;
@@ -111,13 +119,14 @@ public class AddOnListPreference extends ListPreference {
 					.findViewById(R.id.addon_image);
 			addOnIcon.setImageDrawable(icon);
 			if (addOn instanceof ScreenshotHolder) {
-				if (((ScreenshotHolder)addOn).hasScreenshot()) {
+				if (((ScreenshotHolder) addOn).hasScreenshot()) {
 					addOnIcon.setOnClickListener(this);
 					addOnIcon.setTag(addOn);
-                                        row.findViewById(R.id.addon_image_more_overlay).setVisibility(View.VISIBLE);
+					row.findViewById(R.id.addon_image_more_overlay)
+							.setVisibility(View.VISIBLE);
 				}
 			}
-			
+
 			// set checkbox
 			RadioButton tb = (RadioButton) row
 					.findViewById(R.id.addon_checkbox);
@@ -129,46 +138,124 @@ public class AddOnListPreference extends ListPreference {
 
 		public void onClick(View v) {
 			if (v.getId() == R.id.addon_list_item_layout) {
-				setSelectedAddOn((AddOn)v.getTag());
+				setSelectedAddOn((AddOn) v.getTag());
 				AddOnListPreference.this.setValue(mSelectedAddOn.getId());
 				getDialog().dismiss();
 			} else if (v.getId() == R.id.addon_image) {
 				// showing a screenshot (if available)
-				AddOn addOn = (AddOn)v.getTag();
+				AddOn addOn = (AddOn) v.getTag();
 				Drawable screenshot = null;
 				if (addOn instanceof ScreenshotHolder) {
-					ScreenshotHolder holder = (ScreenshotHolder)addOn;
+					ScreenshotHolder holder = (ScreenshotHolder) addOn;
 					screenshot = holder.getScreenshot();
 				}
 				if (screenshot == null) {
-					screenshot = ((ImageView)v).getDrawable();
+					screenshot = ((ImageView) v).getDrawable();
 				}
 				//
-				if (screenshot == null) return;
-				//inflating the screenshot view
+				if (screenshot == null)
+					return;
+				// inflating the screenshot view
 				LayoutInflater inflator = (LayoutInflater) getContext()
 						.getSystemService(Service.LAYOUT_INFLATER_SERVICE);
 				ViewGroup layout = (ViewGroup) inflator.inflate(
 						R.layout.addon_screenshot, null);
 				final PopupWindow popup = new PopupWindow(getContext());
 				popup.setContentView(layout);
-				DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
+				DisplayMetrics dm = getContext().getResources()
+						.getDisplayMetrics();
 				popup.setWidth(dm.widthPixels);
 				popup.setHeight(dm.heightPixels);
 				popup.setAnimationStyle(R.style.ScreenshotAnimation);
-				layout.findViewById(R.id.addon_screenshot_close).setOnClickListener(new OnClickListener() {
-					public void onClick(View v) {
-						popup.dismiss();
-					}
-				});
-				((ImageView)layout.findViewById(R.id.addon_screenshot)).setImageDrawable(screenshot);
+				layout.findViewById(R.id.addon_screenshot_close)
+						.setOnClickListener(new OnClickListener() {
+							public void onClick(View v) {
+								popup.dismiss();
+							}
+						});
+				((ImageView) layout.findViewById(R.id.addon_screenshot))
+						.setImageDrawable(screenshot);
 				popup.showAtLocation(v, Gravity.CENTER, 0, 0);
 			}
 		}
 	}
 
 	public void setSelectedAddOn(AddOn currentSelectedAddOn) {
-		setSummary(getContext().getString(R.string.selected_add_on_summary, currentSelectedAddOn.getName()));
+		setSummary(getContext().getString(R.string.selected_add_on_summary,
+				currentSelectedAddOn.getName()));
 		mSelectedAddOn = currentSelectedAddOn;
+	}
+
+	@Override
+	protected Parcelable onSaveInstanceState() {
+		Parcelable superP = super.onSaveInstanceState();
+		AddOnsListSavedState myState = new AddOnsListSavedState(superP);
+
+		myState.selectedAddOnId = mSelectedAddOn.getId();
+		String[] addOns = new String[mAddOns.length];
+		for (int i = 0; i < addOns.length; i++)
+			addOns[i] = mAddOns[i].getId();
+		myState.addOnIds = addOns;
+
+		return myState;
+	}
+
+	@Override
+	protected void onRestoreInstanceState(Parcelable state) {
+		if (state == null || !(state instanceof AddOnsListSavedState)) {// although,
+																		// this
+																		// should
+																		// not
+																		// happen
+			super.onRestoreInstanceState(state);
+		} else {
+			AddOnsListSavedState myState = (AddOnsListSavedState) state;
+			String selectedAddOnId = myState.selectedAddOnId;
+			String[] addOnIds = myState.addOnIds;
+			AddOn[] addOns = new AddOn[addOnIds.length];
+			for (int i = 0; i < addOns.length; i++)
+				addOns[i] = AddOnsFactory
+						.locateAddOn(addOnIds[i], getContext());
+			setAddOnsList(addOns);
+			setSelectedAddOn(AddOnsFactory.locateAddOn(selectedAddOnId,
+					getContext()));
+			super.onRestoreInstanceState(myState.getSuperState());
+		}
+	}
+
+	private static class AddOnsListSavedState extends AbsSavedState {
+
+		String selectedAddOnId;
+		String[] addOnIds;
+
+		public AddOnsListSavedState(Parcel source) {
+			super(source);
+			selectedAddOnId = source.readString();
+			int addOnCount = source.readInt();
+			addOnIds = new String[addOnCount];
+			source.readStringArray(addOnIds);
+		}
+
+		@Override
+		public void writeToParcel(Parcel dest, int flags) {
+			super.writeToParcel(dest, flags);
+			dest.writeString(selectedAddOnId);
+			dest.writeInt(addOnIds.length);
+			dest.writeStringArray(addOnIds);
+		}
+
+		public AddOnsListSavedState(Parcelable superState) {
+			super(superState);
+		}
+
+		public static final Parcelable.Creator<AddOnsListSavedState> CREATOR = new Parcelable.Creator<AddOnsListSavedState>() {
+			public AddOnsListSavedState createFromParcel(Parcel in) {
+				return new AddOnsListSavedState(in);
+			}
+
+			public AddOnsListSavedState[] newArray(int size) {
+				return new AddOnsListSavedState[size];
+			}
+		};
 	}
 }
