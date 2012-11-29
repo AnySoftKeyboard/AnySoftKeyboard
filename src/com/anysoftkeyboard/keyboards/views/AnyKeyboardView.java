@@ -383,6 +383,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	private static final int SLIDE_RATIO_FOR_GESTURE = 250;
 
 	private void setGesturePreviewText(MotionEvent me) {
+		if (mPreviewText == null) return;
 		// started at SPACE, so I stick with the position. This is used
 		// for showing gesture info on the spacebar.
 		// we'll also add the current gesture, with alpha [0...200,255].
@@ -445,7 +446,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 				mPreviewText.startAnimation(mGestureSlideReachedAnimation);
 			}*/
 		} else {
-			mPreviewText.setText(null);
+			mPreviewText.setText("");
 		}
 	}
 
