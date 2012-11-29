@@ -16,7 +16,7 @@
             android:summaryOn="@string/use_custom_sound_volume_on_summary"
             android:title="@string/use_custom_sound_volume" />
 
-        <com.anysoftkeyboard.ui.MySeekBarPreference
+        <com.anysoftkeyboard.ui.settings.SeekBarPreference
             android:defaultValue="50"
             android:dependency="use_custom_sound_volume"
             android:key="custom_sound_volume"
@@ -29,7 +29,7 @@
         android:key="tweak_dictionary_group"
         android:title="@string/tweak_dictionary_group" >
 
-        <com.anysoftkeyboard.ui.MySeekBarPreference
+        <com.anysoftkeyboard.ui.settings.SeekBarPreference
             android:defaultValue="2"
             android:key="@string/settings_key_min_length_for_word_correction__"
             android:max="10"
@@ -37,7 +37,7 @@
             android:title="@string/settings_min_length_for_word_correction"
             ask:min="1" />
 
-        <ListPreference
+        <com.anysoftkeyboard.ui.settings.ListPreferenceEx
             android:defaultValue="@string/settings_default_should_swap_punctuation_and_space"
             android:dialogTitle="@string/should_swap_punctuation_and_space_title"
             android:entries="@array/settings_key_should_swap_punctuation_and_space_names"
@@ -120,7 +120,7 @@
         android:key="tweak_ux_group"
         android:title="@string/tweak_ux_group" >
 
-        <ListPreference
+        <com.anysoftkeyboard.ui.settings.ListPreferenceEx
             android:defaultValue="@string/settings_default_multitap_timeout"
             android:dialogTitle="@string/multitap_timeout_title"
             android:entries="@array/settings_key_multitap_timeout_names"
@@ -129,7 +129,7 @@
             android:summary="@string/multitap_timeout_summary"
             android:title="@string/multitap_timeout_title" />
 
-        <ListPreference
+        <com.anysoftkeyboard.ui.settings.ListPreferenceEx
             android:defaultValue="@string/settings_default_long_press_timeout"
             android:dialogTitle="@string/long_press_timeout_title"
             android:entries="@array/settings_key_long_press_timeout_names"

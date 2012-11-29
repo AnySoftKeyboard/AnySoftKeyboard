@@ -432,7 +432,7 @@
 	<string name="quick_text_keys_group">Quick text keys</string>
 	<string name="quick_text_key_active">Active quick text key</string>
 	<string name="quick_text_key_dialog_title">Select key</string>
-	<string name="quick_text_key_summary">Select quick text key to show on keyboards</string>
+	<string name="quick_text_key_summary">Selected Quick Text key: %s</string>
     
     <!-- settings - extension keyboards -->
 	<string name="extension_keyboards_group">Extension keyboards</string>
@@ -441,26 +441,26 @@
 	<string name="top_generic_row_group">Common top generic row</string>
 	<string name="top_generic_row_active">Active top row</string>
 	<string name="top_generic_row_dialog_title">Select row type</string>
-	<string name="top_generic_row_summary">Row type to put on keyboard top</string>
+	<string name="top_generic_row_summary">Selected top row: %s</string>
 	<string name="top_generic_row_list_title">Select row type</string>
 	<!-- settings - bottom generic row -->
 	<string name="bottom_generic_row_group">Common bottom generic row</string>
 	<string name="bottom_generic_row_active">Active bottom row</string>
 	<string name="bottom_generic_row_dialog_title">Select row type</string>
-	<string name="bottom_generic_row_summary">Row type to put on keyboard bottom</string>
+	<string name="bottom_generic_row_summary">Selected bottom row: %s</string>
 	<string name="bottom_generic_row_list_title">Select row type</string>
 	<!-- settings - extension keyboard -->
 	<string name="extension_keyboard_group">Extension keyboard</string>
 	<string name="extension_keyboard_active">Active extension keyboard</string>
 	<string name="extension_keyboard_dialog_title">Select keyboard</string>
-	<string name="extension_keyboard_summary">Keyboard type to use as extension</string>
+	<string name="extension_keyboard_summary">Selected Extension Keyboard: %s</string>
 	<string name="extension_keyboard_list_title">Select keyboard</string>
 	
 	
 	<string name="keyboard_theme_group">Keyboard themes</string>
 	<string name="keyboard_theme_active">Active keyboard theme</string>
 	<string name="keyboard_theme_dialog_title">Select theme</string>
-	<string name="keyboard_theme_summary">Keyboard theme (skin/style) to use</string>
+	<string name="keyboard_theme_summary">Selected theme: %s</string>
 	<string name="keyboard_theme_list_title">Select theme</string>
 	
 	<string name="gingerbread_keyboard_theme_name">Gingerbread styled</string>
