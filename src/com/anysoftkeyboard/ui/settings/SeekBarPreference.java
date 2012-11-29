@@ -5,7 +5,7 @@
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  */
-package com.anysoftkeyboard.ui;
+package com.anysoftkeyboard.ui.settings;
 
 import com.menny.android.anysoftkeyboard.R;
 
@@ -21,7 +21,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 
-public class MySeekBarPreference extends /*Dialog*/Preference implements SeekBar.OnSeekBarChangeListener
+public class SeekBarPreference extends /*Dialog*/Preference implements SeekBar.OnSeekBarChangeListener
 {
 	private static final String androidns="http://schemas.android.com/apk/res/android";
 	private static final String askns="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard";
@@ -33,11 +33,10 @@ public class MySeekBarPreference extends /*Dialog*/Preference implements SeekBar
 
 	private int mDefault=50, mMax=100, mMin=0, mValue = 0;
   
-	public MySeekBarPreference(Context context, AttributeSet attrs) { 
+	public SeekBarPreference(Context context, AttributeSet attrs) { 
 		super(context,attrs); 
 		mContext = context;
 		mDefault = attrs.getAttributeIntValue(androidns,"defaultValue", 0);
-		Log.d("************", "MySeekBarPreference default "+mDefault);
 		mMax = attrs.getAttributeIntValue(androidns,"max", 100);
 		mMin = attrs.getAttributeIntValue(askns, "min", 0);
 		int titleResId = attrs.getAttributeResourceValue(androidns, "title", 0);

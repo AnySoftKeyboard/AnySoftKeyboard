@@ -42,17 +42,6 @@ public class MainSettings extends PreferenceActivity {
 
 		Preference label = findPreference("prefs_title_key");
 		label.setSummary(label.getSummary()+version);
-		
-		setAddOnGroupSummary("keyboard_theme_group", 
-				KeyboardThemeFactory.getCurrentKeyboardTheme(getApplicationContext()));
-		setAddOnGroupSummary("quick_text_keys_group", 
-				QuickTextKeyFactory.getCurrentQuickTextKey(getApplicationContext()));
-		setAddOnGroupSummary("top_generic_row_group", 
-				KeyboardExtensionFactory.getCurrentKeyboardExtension(getApplicationContext(),KeyboardExtension.TYPE_TOP));
-		setAddOnGroupSummary("bottom_generic_row_group", 
-				KeyboardExtensionFactory.getCurrentKeyboardExtension(getApplicationContext(),KeyboardExtension.TYPE_BOTTOM));
-		setAddOnGroupSummary("extension_keyboard_group", 
-				KeyboardExtensionFactory.getCurrentKeyboardExtension(getApplicationContext(),KeyboardExtension.TYPE_EXTENSION));
 	}
 
 	private void setAddOnGroupSummary(String preferenceGroupKey, AddOn addOn) {
@@ -74,6 +63,17 @@ public class MainSettings extends PreferenceActivity {
 			Log.i(TAG, "Welcome should be shown");
 			showDialog(DIALOG_WELCOME);
 		}
+		
+		setAddOnGroupSummary("keyboard_theme_group", 
+				KeyboardThemeFactory.getCurrentKeyboardTheme(getApplicationContext()));
+		setAddOnGroupSummary("quick_text_keys_group", 
+				QuickTextKeyFactory.getCurrentQuickTextKey(getApplicationContext()));
+		setAddOnGroupSummary("top_generic_row_group", 
+				KeyboardExtensionFactory.getCurrentKeyboardExtension(getApplicationContext(),KeyboardExtension.TYPE_TOP));
+		setAddOnGroupSummary("bottom_generic_row_group", 
+				KeyboardExtensionFactory.getCurrentKeyboardExtension(getApplicationContext(),KeyboardExtension.TYPE_BOTTOM));
+		setAddOnGroupSummary("extension_keyboard_group", 
+				KeyboardExtensionFactory.getCurrentKeyboardExtension(getApplicationContext(),KeyboardExtension.TYPE_EXTENSION));
 	}
 	
 	@Override
