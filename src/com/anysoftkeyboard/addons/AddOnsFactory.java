@@ -29,6 +29,8 @@ public abstract class AddOnsFactory<E extends AddOn> {
 
 	private final static ArrayList<AddOnsFactory<?> > mActiveInstances = new  ArrayList<AddOnsFactory<?> >();
 
+	private static final String sTAG = "AddOnsFactory";
+
 	public static void onPackageChanged(final Intent eventIntent, final AnySoftKeyboard ask)
 	{
 		boolean cleared = false;
@@ -40,7 +42,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
 				{
 					cleared = true;
 					if (factory.isEventRequiresViewReset(eventIntent, ask.getApplicationContext())) recreateView = true;
-					if (AnyApplication.DEBUG) Log.d("AddOnsFactory", factory.getClass().getName()+" will handle this package-changed event. Also recreate view? "+recreateView);
+					Log.d(sTAG, factory.getClass().getName()+" will handle this package-changed event. Also recreate view? "+recreateView);
 					factory.clearAddOnList();
 				}
 			} catch (NameNotFoundException e) {
@@ -50,6 +52,17 @@ public abstract class AddOnsFactory<E extends AddOn> {
 		if (cleared) ask.resetKeyboardView(recreateView);
 	}
 
+	public static AddOn locateAddOn(String id, Context askContext) {
+		for(AddOnsFactory<?> factory : mActiveInstances) {
+			AddOn addOn = factory.getAddOnById(id, askContext);
+			if (addOn != null) {
+				if (AnyApplication.DEBUG) Log.d(sTAG, "Located addon with id "+addOn.getId()+" of type "+addOn.getClass().getName());
+				return addOn;
+			}
+		}
+		
+		return null;
+	}
 	protected final String TAG;
 
     /**
@@ -179,8 +192,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         
     public synchronized E getAddOnById(String id, Context askContext)
     {
-    	if (mAddOnsById.size() == 0)
-        {
+    	if (mAddOnsById.size() == 0) {
         	loadAddOns(askContext);
         }
     	return mAddOnsById.get(id);
@@ -188,8 +200,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
     
 	public synchronized final ArrayList<E> getAllAddOns(Context askContext) {
 
-        if (mAddOns.size() == 0)
-        {
+        if (mAddOns.size() == 0) {
         	loadAddOns(askContext);
         }
         return mAddOns;
