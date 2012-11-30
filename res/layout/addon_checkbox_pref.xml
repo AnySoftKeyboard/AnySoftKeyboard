@@ -12,12 +12,43 @@
         android:orientation="horizontal"
         android:weightSum="1" >
 
-        <include
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            layout="@layout/addon_item_title" />
+            android:layout_weight="1" >
+
+            <ImageView
+                android:id="@+id/addon_image"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="center_vertical"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside" />
+
+            <ImageView
+                android:id="@+id/addon_image_more_overlay"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_alignBottom="@id/addon_image"
+                android:layout_alignRight="@id/addon_image"
+                android:adjustViewBounds="true"
+                android:clickable="false"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_more_overlay"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/addon_title"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="6dp"
+                android:layout_toRightOf="@id/addon_image"
+                android:gravity="center_vertical" />
+        </RelativeLayout>
 
         <CheckBox
             android:id="@+id/addon_checkbox"
