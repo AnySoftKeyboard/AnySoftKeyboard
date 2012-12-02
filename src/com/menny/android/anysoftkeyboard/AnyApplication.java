@@ -20,7 +20,7 @@ import android.view.LayoutInflater;
 
 public class AnyApplication extends Application implements OnSharedPreferenceChangeListener {
 
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 	//public static final boolean BLEEDING_EDGE = true;
 	
 	private static final String TAG = "ASK_APP";
@@ -54,6 +54,7 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
 
         FactoryViewBase factory = (FactoryViewBase)inflate.inflate(R.layout.device_specific, null);
         msDeviceSpecific = factory.createDeviceSpecific();
+        Log.i(TAG, "Loaded DeviceSpecific "+msDeviceSpecific.getApiLevel());
         factory = null;//GC! Please clean this view!
         
         msCloudBackuper = msDeviceSpecific.createCloudBackupRequester(getApplicationContext());

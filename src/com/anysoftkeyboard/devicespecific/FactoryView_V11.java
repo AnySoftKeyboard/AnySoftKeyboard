@@ -1,19 +1,18 @@
 package com.anysoftkeyboard.devicespecific;
 
-import com.anysoftkeyboard.devicespecific.FactoryView_V8.DeviceSpecific_V8;
-import com.anysoftkeyboard.voice.VoiceInput;
-import com.anysoftkeyboard.voice.VoiceRecognitionTriggerV11;
-
 import android.annotation.TargetApi;
 import android.content.ClipData;
 import android.content.ClipData.Item;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.inputmethodservice.InputMethodService;
-import android.content.ClipboardManager;
 import android.util.AttributeSet;
 
+import com.anysoftkeyboard.voice.VoiceInput;
+import com.anysoftkeyboard.voice.VoiceRecognitionTriggerV11;
+
 @TargetApi(11)
-class FactoryView_V11 extends FactoryView_V7 {
+class FactoryView_V11 extends FactoryView_V8 {
 
 	public FactoryView_V11(Context context) {
 		super(context);
