@@ -16,16 +16,15 @@
 
 package com.anysoftkeyboard.dictionaries;
 
-import com.menny.android.anysoftkeyboard.AnyApplication;
-
 import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.database.Cursor;
-import android.os.AsyncTask;
 import android.provider.ContactsContract.Contacts;
 import android.util.Log;
+
+import com.menny.android.anysoftkeyboard.AnyApplication;
 
 @TargetApi(5)
 public class ContactsDictionary extends UserDictionaryBase {
@@ -55,20 +54,15 @@ public class ContactsDictionary extends UserDictionaryBase {
         // when needed.
         ContentResolver cres = mContext.getContentResolver();
 
-        cres.registerContentObserver(Contacts.CONTENT_URI, true, mObserver = new ContentObserver(null) {
+        mObserver = new ContentObserver(null) {
             @Override
             public void onChange(boolean self) {
                 if (AnyApplication.DEBUG)Log.d(TAG, "Contacts list modified (self: "+self+"). Reloading...");
-                new AsyncTask<Void, Void, Void>()
-            	{
-            		@Override
-            		protected Void doInBackground(Void... params) {
-            			loadDictionaryAsync();
-            			return null;
-            		}
-            	}.execute();
+                loadDictionary();
             }
-        });
+        };
+        
+        cres.registerContentObserver(Contacts.CONTENT_URI, true, mObserver);
     }
 
     
@@ -180,7 +174,7 @@ public class ContactsDictionary extends UserDictionaryBase {
     
     @Override
     public Cursor getWordsCursor() {
-    	return mContext.getContentResolver().query(Contacts.CONTENT_URI, PROJECTION, Contacts.IN_VISIBLE_GROUP+"="+1, null, null);
+    	return mContext.getContentResolver().query(Contacts.CONTENT_URI, PROJECTION, Contacts.IN_VISIBLE_GROUP+"=?", new String[]{"1"}, null);
     }
 
     @Override

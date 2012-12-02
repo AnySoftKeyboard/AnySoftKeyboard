@@ -41,6 +41,7 @@ public class AndroidUserDictionary extends UserDictionaryBase {
 	
 	@Override
 	public void loadDictionary() {
+		//NOT doing it async, why? because my parent (SafeUserDictionary) is doing it async
 		loadDictionaryAsync();
 	}
 
