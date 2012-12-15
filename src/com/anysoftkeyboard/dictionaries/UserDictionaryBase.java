@@ -17,7 +17,6 @@
 package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -170,7 +169,7 @@ public abstract class UserDictionaryBase extends EditableDictionary {
 		}
 	}
 
-	public abstract Cursor getWordsCursor();
+	public abstract WordsCursor getWordsCursor();
 
 	protected abstract void AddWordToStorage(String word, int frequency);
 
