@@ -24,7 +24,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.database.Cursor;
-import android.net.Uri;
 import android.provider.ContactsContract.Contacts;
 import android.util.Log;
 
@@ -55,7 +54,9 @@ public class ContactsDictionary extends UserDictionaryBase {
 		// when needed.
 		ContentResolver cres = mContext.getContentResolver();
 		// registering
-		if (AnyApplication.DEBUG) Log.d(TAG, "Registering to contants changes at "+Contacts.CONTENT_URI);
+		if (AnyApplication.DEBUG)
+			Log.d(TAG, "Registering to contants changes at "
+					+ Contacts.CONTENT_URI);
 		cres.registerContentObserver(Contacts.CONTENT_URI, true,
 				mObserver = createContactContectObserver());
 	}
@@ -70,7 +71,7 @@ public class ContactsDictionary extends UserDictionaryBase {
 				super.onChange(selfChange);
 				loadDictionary();
 			}
-			
+
 			@Override
 			public boolean deliverSelfNotifications() {
 				return true;
@@ -82,9 +83,11 @@ public class ContactsDictionary extends UserDictionaryBase {
 	protected void loadDictionaryAsync() {
 		Log.d(TAG, "Starting load of contact names...");
 		try {
-			//a bit less contacts for memory stress reduction
-			final Cursor cursor = mContext.getContentResolver()
-                    .query(Contacts.CONTENT_URI, PROJECTION, Contacts.IN_VISIBLE_GROUP+"=?", new String[]{"1"}, null);
+			// a bit less contacts for memory stress reduction
+			final Cursor cursor = mContext.getContentResolver().query(
+					Contacts.CONTENT_URI, PROJECTION,
+					Contacts.IN_VISIBLE_GROUP + "=?", new String[] { "1" },
+					null);
 			if (cursor != null) {
 				int newCount = 0;
 				long newHash = 0;
@@ -117,7 +120,8 @@ public class ContactsDictionary extends UserDictionaryBase {
 				clearDictionary();
 				int loadedContacts = 0;
 				final int maxWordLength = MAX_WORD_LENGTH;
-				HashMap<String, Integer> names = new HashMap<String, Integer>(mContactsCount);
+				HashMap<String, Integer> names = new HashMap<String, Integer>(
+						mContactsCount);
 				if (cursor.moveToFirst()) {
 					while (!cursor.isAfterLast()) {
 						String name = cursor.getString(INDEX_NAME);
@@ -166,13 +170,21 @@ public class ContactsDictionary extends UserDictionaryBase {
 											freq = 16;
 
 										if (names.containsKey(word)) {
-											//this word is already in the list
-											//should we update its freq?
+											// this word is already in the list
+											// should we update its freq?
 											int oldFreq = names.get(word);
-											//if a name is really popular, then it should reflect that
+											// if a name is really popular, then
+											// it should reflect that
 											freq += oldFreq;
 											if (AnyApplication.DEBUG)
-												Log.d(TAG, "The contact part "+word+" get get a better freq (was "+oldFreq+", and can be "+freq+"). Updating.");
+												Log.d(TAG,
+														"The contact part "
+																+ word
+																+ " get get a better freq (was "
+																+ oldFreq
+																+ ", and can be "
+																+ freq
+																+ "). Updating.");
 											names.put(word, freq);
 										} else {
 											if (AnyApplication.DEBUG)
@@ -182,7 +194,7 @@ public class ContactsDictionary extends UserDictionaryBase {
 																+ "' will be added to contacts dictionary with freq "
 																+ freq);
 											names.put(word, freq);
-										}										
+										}
 									}
 								}
 							}
@@ -191,13 +203,14 @@ public class ContactsDictionary extends UserDictionaryBase {
 						cursor.moveToNext();
 					}
 				}
-				
-				//actually adding the words
-				for(Entry<String, Integer> wordFreq : names.entrySet()) {
+
+				// actually adding the words
+				for (Entry<String, Integer> wordFreq : names.entrySet()) {
 					addWordFromStorage(wordFreq.getKey(), wordFreq.getValue());
 				}
 
-				Log.i(TAG, "Loaded " + loadedContacts + " words which were made up from your contacts list.");
+				Log.i(TAG, "Loaded " + loadedContacts
+						+ " words which were made up from your contacts list.");
 				cursor.close();
 			}
 		} catch (IllegalStateException e) {
@@ -208,8 +221,8 @@ public class ContactsDictionary extends UserDictionaryBase {
 	@Override
 	protected void closeAllResources() {
 		if (mObserver != null) {
-			Thread.dumpStack();
-			if (AnyApplication.DEBUG) Log.d(TAG, "Unregisterring from contacts change notifications.");
+			if (AnyApplication.DEBUG)
+				Log.d(TAG, "Unregisterring from contacts change notifications.");
 			mContext.getContentResolver().unregisterContentObserver(mObserver);
 			mObserver = null;
 		}
