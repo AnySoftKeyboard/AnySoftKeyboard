@@ -96,7 +96,7 @@ public class SafeUserDictionary extends EditableDictionary {
     }
     
     @Override
-    public Cursor getWordsCursor() {
+    public WordsCursor getWordsCursor() {
     	synchronized (mLocker) {
         	if (mActualDictionary != null)
         	{

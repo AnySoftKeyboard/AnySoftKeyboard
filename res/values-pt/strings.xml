@@ -85,9 +85,9 @@
   <string name="top_row_addons_settings">Definições da linha superior</string>
   <string name="close_button">Fechar</string>
   <string name="how_to_active_text">Como ativar o AnySoftKeyboard</string>
-  <string name="added_word">Gravado: <xliff:g id="word">%s</xliff:g></string>
+  <string name="added_word">Gravada: <xliff:g id="word">%s</xliff:g></string>
   <string name="revert_added_word_question">Remover\?</string>
-  <string name="removed_word">Removido: <xliff:g id="word">%s</xliff:g></string>
+  <string name="removed_word">Removida: <xliff:g id="word">%s</xliff:g></string>
   <string name="hint_add_to_dictionary">\u2190 Toque novamente para gravar</string>
   <string name="hint_double_tap_to_close">Novamente para remover sugestões</string>
   <string name="menu_insert_smiley">Inserir ícone emotivo</string>
@@ -337,28 +337,28 @@
   <string name="quick_text_keys_group">Teclas de texto rápido</string>
   <string name="quick_text_key_active">Tecla de texto rápido ativa</string>
   <string name="quick_text_key_dialog_title">Escolha a tecla</string>
-  <string name="quick_text_key_summary">Escolha a tecla de texto rápido a mostrar nos teclados</string>
+  <string name="quick_text_key_summary">Tecla escolhida: %s</string>
   <string name="extension_keyboards_group">Teclados extensivos</string>
   <string name="extension_keyboards_summary">Escolha linha superior, inferior ou teclado extensivo</string>
   <string name="top_generic_row_group">Linha superior comum</string>
   <string name="top_generic_row_active">Linha superior ativa</string>
   <string name="top_generic_row_dialog_title">Escolha o tipo de linha</string>
-  <string name="top_generic_row_summary">Tipo de linha a colocar na parte superior do teclado</string>
+  <string name="top_generic_row_summary">Linha superior escolhida: %s</string>
   <string name="top_generic_row_list_title">Escolha o tipo de linha</string>
   <string name="bottom_generic_row_group">Linha inferior comum</string>
   <string name="bottom_generic_row_active">Linha inferior ativa</string>
   <string name="bottom_generic_row_dialog_title">Escolha o tipo de linha</string>
-  <string name="bottom_generic_row_summary">Tipo de linha a colocar na parte inferior do teclado</string>
+  <string name="bottom_generic_row_summary">Linha inferior escolhida: %s</string>
   <string name="bottom_generic_row_list_title">Escolha o tipo de linha</string>
   <string name="extension_keyboard_group">Teclado extendido</string>
   <string name="extension_keyboard_active">Teclado extensivo ativo</string>
   <string name="extension_keyboard_dialog_title">Escolha o teclado</string>
-  <string name="extension_keyboard_summary">Tipo de teclado extensivo</string>
+  <string name="extension_keyboard_summary">Teclado escolhido: %s</string>
   <string name="extension_keyboard_list_title">Escolha o teclado</string>
   <string name="keyboard_theme_group">Temas de teclado</string>
   <string name="keyboard_theme_active">Tema de teclado ativo</string>
   <string name="keyboard_theme_dialog_title">Escolha o tema</string>
-  <string name="keyboard_theme_summary">Tema de teclado a utilizar</string>
+  <string name="keyboard_theme_summary">Tema escolhido: %s</string>
   <string name="keyboard_theme_list_title">Escolha o tema</string>
   <string name="gingerbread_keyboard_theme_name">Estilo Gingerbread</string>
   <string name="gingerbread_keyboard_theme_description">Botões e cores do Gingerbread (Android 2.3)</string>

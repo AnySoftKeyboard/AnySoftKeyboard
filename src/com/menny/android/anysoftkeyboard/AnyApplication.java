@@ -54,6 +54,7 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
 
         FactoryViewBase factory = (FactoryViewBase)inflate.inflate(R.layout.device_specific, null);
         msDeviceSpecific = factory.createDeviceSpecific();
+        Log.i(TAG, "Loaded DeviceSpecific "+msDeviceSpecific.getApiLevel());
         factory = null;//GC! Please clean this view!
         
         msCloudBackuper = msDeviceSpecific.createCloudBackupRequester(getApplicationContext());
