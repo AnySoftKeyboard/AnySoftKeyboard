@@ -1,6 +1,5 @@
 package com.anysoftkeyboard.dictionaries;
 
-import android.database.Cursor;
 
 public abstract class EditableDictionary extends Dictionary {
 
@@ -18,7 +17,7 @@ public abstract class EditableDictionary extends Dictionary {
      */
     public abstract boolean addWord(String word, int frequency);
     
-    public abstract Cursor getWordsCursor();
+    public abstract WordsCursor getWordsCursor();
 
 	public abstract void deleteWord(String word);
 }

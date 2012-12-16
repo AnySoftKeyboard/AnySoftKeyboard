@@ -61,7 +61,6 @@ import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebView.FindListener;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -239,7 +238,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 				updateShiftKeyState(getCurrentInputEditorInfo());
 				break;
 			case MSG_REMOVE_CLOSE_SUGGESTIONS_HINT:
-				if (mCandidateCloseText != null) {//in API3, this variable is null
+				if (mCandidateCloseText != null) {// in API3, this variable is
+													// null
 					Animation gone = AnimationUtils.loadAnimation(
 							getApplicationContext(),
 							R.anim.close_candidates_hint_out);
@@ -459,8 +459,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 				.findViewById(R.id.close_suggestions_strip_text);
 		View closeIcon = candidateViewContainer
 				.findViewById(R.id.close_suggestions_strip_icon);
-		
-		if (mCandidateCloseText != null && closeIcon != null) {// why? In API3 it is not supported
+
+		if (mCandidateCloseText != null && closeIcon != null) {// why? In API3
+																// it is not
+																// supported
 			closeIcon.setOnClickListener(new OnClickListener() {
 				// two seconds is enough.
 				private final static long DOUBLE_TAP_TIMEOUT = 2 * 1000;
@@ -476,7 +478,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 							DOUBLE_TAP_TIMEOUT - 50);
 				}
 			});
-			
+
 			mCandidateCloseText.setTextColor(closeTextColor);
 			mCandidateCloseText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
 					fontSizePixel);
@@ -491,7 +493,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		final TextView tipsNotification = (TextView) candidateViewContainer
 				.findViewById(R.id.tips_notification_on_candidates);
-		if (tipsNotification != null) {//why? in API 3 it is not supported
+		if (tipsNotification != null) {// why? in API 3 it is not supported
 			if (!mTipsCalled
 					&& mConfig.getShowTipsNotification()
 					&& TutorialsProvider
@@ -2633,7 +2635,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// mPredicting
 		// && isPredictionOn() && shouldCandidatesStripBeShown());
 
-		if (mCandidateCloseText != null)//in API3 this variable is null
+		if (mCandidateCloseText != null)// in API3 this variable is null
 			mCandidateCloseText.setVisibility(View.GONE);
 
 		if (!mPredicting) {
@@ -3272,7 +3274,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 				mSuggest.setMainDictionary(null);
 				mSuggest.setUserDictionary(null);
 				mSuggest.setAutoDictionary(null);
-				mSuggest.setContactsDictionary(null);
 				mLastDictionaryRefresh = -1;
 			} else {
 				mLastDictionaryRefresh = SystemClock.elapsedRealtime();
@@ -3324,13 +3325,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 							.createAutoDictionary(this, this,
 									localeForSupportingDictionaries);
 					mSuggest.setAutoDictionary(mAutoDictionary);
-
-					if (mConfig.useContactsDictionary())
-						mSuggest.setContactsDictionary(DictionaryFactory
-								.getInstance().createContactsDictionary(
-										getApplicationContext()));
-					else
-						mSuggest.setContactsDictionary(null);
+					mSuggest.setContactsDictionary(getApplicationContext(),
+							mConfig.useContactsDictionary());
 				}
 			}
 		}

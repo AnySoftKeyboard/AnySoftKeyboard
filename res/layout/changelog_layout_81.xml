@@ -15,9 +15,9 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:tag="20121128-eye-candy"
+    	android:tag="20121215-eye-candy"
         android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
 	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-	    android:text="* Bug fixes." style="@android:style/TextAppearance.Small"/>
+	    android:text="* Contacts list updates fix.\n* Additional bug fixes.\n* Updated translations for CA, EL, NL, PL, PT and RU." style="@android:style/TextAppearance.Small"/>
 	
 </LinearLayout>

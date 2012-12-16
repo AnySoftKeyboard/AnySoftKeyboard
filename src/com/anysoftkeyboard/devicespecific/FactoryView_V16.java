@@ -8,38 +8,42 @@ import android.content.Context;
 import android.inputmethodservice.InputMethodService;
 import android.util.AttributeSet;
 
+import com.anysoftkeyboard.dictionaries.ContactsDictionaryAPI16;
+import com.anysoftkeyboard.dictionaries.DictionaryFactory;
+import com.anysoftkeyboard.dictionaries.DictionaryFactoryAPI16;
 import com.anysoftkeyboard.voice.VoiceInput;
 import com.anysoftkeyboard.voice.VoiceRecognitionTriggerV11;
 
 @TargetApi(11)
-class FactoryView_V11 extends FactoryView_V8 {
+class FactoryView_V16 extends FactoryView_V11 {
 
-	public FactoryView_V11(Context context) {
+	public FactoryView_V16(Context context) {
 		super(context);
 	}
 
-	public FactoryView_V11(Context context, AttributeSet attrs) {
+	public FactoryView_V16(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 	 
-	public FactoryView_V11(Context context, AttributeSet attrs, int defStyle) {
+	public FactoryView_V16(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
     }
 	
 	@Override
 	public DeviceSpecific createDeviceSpecific() {
-		return new DeviceSpecific_V11();
+		return new DeviceSpecific_V16();
 	}
 
-	public static class DeviceSpecific_V11 extends DeviceSpecific_V8
+	public static class DeviceSpecific_V16 extends DeviceSpecific_V8
 	{		
 		@Override
 		public String getApiLevel() {
-			return "DeviceSpecific_V11";
+			return "DeviceSpecific_V16";
 		}
+		
 		@Override
-		public VoiceInput createVoiceInput(InputMethodService ime) {
-			return new VoiceRecognitionTriggerV11(ime);
+		public DictionaryFactory createDictionaryFactory() {
+			return new DictionaryFactoryAPI16();
 		}
 	}
 
