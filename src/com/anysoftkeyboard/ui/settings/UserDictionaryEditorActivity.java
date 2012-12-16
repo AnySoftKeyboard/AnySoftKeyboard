@@ -318,23 +318,26 @@ public class UserDictionaryEditorActivity extends ListActivity {
         Log.d(TAG, "Selected locale is " + mSelectedLocale);
         new UserWordsEditorAsyncTask(this)
         {
+        	private EditableDictionary mNewDictionary;
+        	
         	@Override
         	protected void onPreExecute() {
         		super.onPreExecute();
         		//all the code below can be safely (and must) be called in the UI thread.
-        		EditableDictionary dictionary = DictionaryFactory.getInstance()
+        		mNewDictionary = DictionaryFactory.getInstance()
                         .createUserDictionary(getApplicationContext(), mSelectedLocale);
-                if (dictionary != mCurrentDictionary && mCurrentDictionary != null) {
-                    mCurrentDictionary.close();
-                }
-
-                mCurrentDictionary = dictionary;
         	}
         	
             @Override
             protected Void doInBackground(Void... params) {
                 try
                 {
+                	if (mNewDictionary != mCurrentDictionary && mCurrentDictionary != null) {
+                    	mCursor.close();
+                        mCurrentDictionary.close();
+                    }
+
+                    mCurrentDictionary = mNewDictionary;
                     mCursor = mCurrentDictionary.getWordsCursor();
                 } catch (Exception e)
                 {
@@ -509,9 +512,10 @@ public class UserDictionaryEditorActivity extends ListActivity {
                     EditableDictionary dictionary = DictionaryFactory.getInstance()
                             .createUserDictionary(getApplicationContext(), locale);
                     Log.d(TAG, "Reading words from user dictionary locale " + locale);
-                    if (dictionary != mCurrentDictionary && mCurrentDictionary != null)
+                    if (dictionary != mCurrentDictionary && mCurrentDictionary != null) {
+                    	mCursor.close();
                         mCurrentDictionary.close();
-
+                    }
                     mCurrentDictionary = dictionary;
                     mCursor = mCurrentDictionary.getWordsCursor();
 
