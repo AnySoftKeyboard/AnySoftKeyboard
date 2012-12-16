@@ -77,7 +77,6 @@ class BinaryDictionary extends Dictionary {
     {
     	if (mAfd != null) {
     		new LoadDictionaryTask().execute();
-            
         }
     }
 

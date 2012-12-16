@@ -153,10 +153,16 @@ public class Suggest implements Dictionary.WordCallback {
 	/**
 	 * Sets an optional contacts dictionary resource to be loaded.
 	 */
-	public void setContactsDictionary(Dictionary contactsDictionary) {
-		if (mContactsDictionary != contactsDictionary && mContactsDictionary != null)
+	public void setContactsDictionary(Context context, boolean enabled) {
+		if (!enabled && mContactsDictionary != null) {
+			//had one, but now config says it should be off
+			Log.i(TAG, "Contacts dictionary has been disabled! Closing resources.");
 			mContactsDictionary.close();
-		mContactsDictionary = contactsDictionary;
+			mContactsDictionary = null;
+		} else if (enabled && mContactsDictionary == null){
+			//config says it should be on, but I have none.
+			mContactsDictionary = DictionaryFactory.getInstance().createContactsDictionary(context);
+		}
 	}
 
 	public void setAutoDictionary(Dictionary autoDictionary) {

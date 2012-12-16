@@ -55,6 +55,7 @@ import android.widget.Toast;
 
 import com.anysoftkeyboard.dictionaries.DictionaryFactory;
 import com.anysoftkeyboard.dictionaries.EditableDictionary;
+import com.anysoftkeyboard.dictionaries.WordsCursor;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.utils.XmlWriter;
@@ -88,7 +89,7 @@ public class UserDictionaryEditorActivity extends ListActivity {
 
     private Spinner mLangs;
 
-    private Cursor mCursor;
+    private WordsCursor mCursor;
     private String mSelectedLocale = null;
     private EditableDictionary mCurrentDictionary;
 
@@ -357,7 +358,7 @@ public class UserDictionaryEditorActivity extends ListActivity {
                 {
                 	if (AnyApplication.DEBUG)
                 		Log.d(TAG, "Replacing the cursor for the user-dictionary words editor list adapter.");
-                    adapter.changeCursor(mCursor);
+                    adapter.changeCursor(mCursor.getCursor());
                 }
             };
         }.execute();
@@ -515,20 +516,20 @@ public class UserDictionaryEditorActivity extends ListActivity {
                     mCursor = mCurrentDictionary.getWordsCursor();
 
                     output.writeEntity("wordlist").writeAttribute("locale", locale);
+                    Cursor cursor = mCursor.getCursor();
+                    cursor.moveToFirst();
+                    final int wordIndex = cursor.getColumnIndex(Words.WORD);
+                    final int freqIndex = cursor.getColumnIndex(Words.FREQUENCY);
 
-                    mCursor.moveToFirst();
-                    final int wordIndex = mCursor.getColumnIndex(Words.WORD);
-                    final int freqIndex = mCursor.getColumnIndex(Words.FREQUENCY);
-
-                    while (!mCursor.isAfterLast()) {
-                        String word = mCursor.getString(wordIndex).trim();
-                        int freq = mCursor.getInt(freqIndex);
+                    while (!cursor.isAfterLast()) {
+                        String word = cursor.getString(wordIndex).trim();
+                        int freq = cursor.getInt(freqIndex);
                         // <w f="128">Facebook</w>
                         output.writeEntity("w").writeAttribute("f", Integer.toString(freq))
                                 .writeText(word).endEntity();
                         if (AnyApplication.DEBUG)
                             Log.d(TAG, "Storing word '" + word + "' with freq " + freq);
-                        mCursor.moveToNext();
+                        cursor.moveToNext();
                     }
 
                     output.endEntity();// wordlist
@@ -574,7 +575,7 @@ public class UserDictionaryEditorActivity extends ListActivity {
         public MyAdapter() {
             super(getApplicationContext(),
                     R.layout.user_dictionary_word_row,
-                    mCursor,
+                    mCursor.getCursor(),
                     new String[] {
                             UserDictionary.Words.WORD
                     },
@@ -582,7 +583,7 @@ public class UserDictionaryEditorActivity extends ListActivity {
                             android.R.id.text1
                     });
 
-            mWordColumnIndex = mCursor.getColumnIndexOrThrow(UserDictionary.Words.WORD);
+            mWordColumnIndex = mCursor.getCursor().getColumnIndexOrThrow(UserDictionary.Words.WORD);
             // String alphabet = getString(R.string.fast_scroll_alphabet);
             // mIndexer = new AlphabetIndexer(mCursor, mWordColumnIndex,
             // alphabet);
