@@ -1,5 +1,6 @@
 package com.anysoftkeyboard.devicespecific;
 
+import com.anysoftkeyboard.WordComposer;
 import com.anysoftkeyboard.backup.CloudBackupRequester;
 import com.anysoftkeyboard.dictionaries.DictionaryFactory;
 import com.anysoftkeyboard.voice.VoiceInput;
@@ -8,6 +9,7 @@ import android.content.Context;
 import android.inputmethodservice.InputMethodService;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.inputmethod.InputConnection;
 
 public interface DeviceSpecific {
 
@@ -26,4 +28,6 @@ public interface DeviceSpecific {
 	public VoiceInput createVoiceInput(InputMethodService ime);
 	
 	public Clipboard getClipboard(Context appContext);
+
+	public void commitCorrectionToInputConnection(InputConnection ic, WordComposer word);
 }

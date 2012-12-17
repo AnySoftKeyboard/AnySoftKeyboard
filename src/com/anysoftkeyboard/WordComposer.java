@@ -36,12 +36,12 @@ public class WordComposer {
     /**
      * The word chosen from the candidate list, until it is committed.
      */
-    private String mPreferredWord;
+    private CharSequence mPreferredWord;
     
     private final StringBuilder mTypedWord;
     
     private int mCursorPosition;
-    //private int mCandidatesStartPosition;
+    private int mGlobalCursorPosition;
 
     private int mCapsCount;
 
@@ -76,7 +76,7 @@ public class WordComposer {
         mTypedWord.setLength(0);
         mCapsCount = 0;
         mCursorPosition = 0;
-        //mCandidatesStartPosition = 0;
+        mGlobalCursorPosition = 0;
     }
 
     /**
@@ -93,11 +93,15 @@ public class WordComposer {
     public int cursorPosition() {
         return mCursorPosition;
     }
-    /*
-    public int candidatesStartPosition() {
-    	return mCandidatesStartPosition;
+    
+    public int globalCursorPosition() {
+    	return mGlobalCursorPosition;
     }
-    */
+    
+    public void setGlobalCursorPosition(int position) { 
+    	mGlobalCursorPosition = position;
+    }
+    
     public boolean setCursorPostion(int position/*, int candidatesStartPosition*/)
     {
     	if (position < 0 || position > size())//note: the cursor can be AFTER the word, so it can be equal to size()
@@ -251,16 +255,12 @@ public class WordComposer {
      * Stores the user's selected word, before it is actually committed to the text field.
      * @param preferred
      */
-    public void setPreferredWord(String preferred) {
+    public void setPreferredWord(CharSequence preferred) {
         mPreferredWord = preferred;
     }
-    
-    /**
-     * Return the word chosen by the user, or the typed word if no other word was chosen.
-     * @return the preferred word
-     */
+
     public CharSequence getPreferredWord() {
-        return mPreferredWord != null ? mPreferredWord : getTypedWord();
+        return mPreferredWord;
     }
 
     /**
