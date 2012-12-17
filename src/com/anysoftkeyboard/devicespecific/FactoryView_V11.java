@@ -7,7 +7,11 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.inputmethodservice.InputMethodService;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.inputmethod.CorrectionInfo;
+import android.view.inputmethod.InputConnection;
 
+import com.anysoftkeyboard.WordComposer;
 import com.anysoftkeyboard.voice.VoiceInput;
 import com.anysoftkeyboard.voice.VoiceRecognitionTriggerV11;
 
@@ -40,6 +44,15 @@ class FactoryView_V11 extends FactoryView_V8 {
 		@Override
 		public VoiceInput createVoiceInput(InputMethodService ime) {
 			return new VoiceRecognitionTriggerV11(ime);
+		}
+		
+		@Override
+		public void commitCorrectionToInputConnection(InputConnection ic, WordComposer word) {
+			super.commitCorrectionToInputConnection(ic, word);
+			CorrectionInfo correctionInfo = 
+					new CorrectionInfo(word.globalCursorPosition() - word.getTypedWord().length(), word.getTypedWord(), word.getPreferredWord());
+			
+			ic.commitCorrection(correctionInfo);
 		}
 	}
 
