@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.devicespecific;
 
 
+import com.anysoftkeyboard.WordComposer;
 import com.anysoftkeyboard.backup.CloudBackupRequester;
 import com.anysoftkeyboard.dictionaries.DictionaryFactory;
 import com.anysoftkeyboard.voice.VoiceInput;
@@ -13,6 +14,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.inputmethod.InputConnection;
 import android.widget.Toast;
 
 @SuppressWarnings("deprecation")
@@ -96,6 +98,10 @@ class FactoryView_V3 extends FactoryViewBase {
 						return null;
 				}
 			}; 
+		}
+		
+		public void commitCorrectionToInputConnection(InputConnection ic, WordComposer word) {
+			ic.commitText(word.getPreferredWord(), 1);
 		}
 	}
 	
