@@ -195,11 +195,6 @@ public class CandidateView extends View {
 			mTouchSlopSquare = touchSlop * touchSlop;
 		}
 
-		/*
-		 * @Override public void onLongPress(MotionEvent me) { if
-		 * (mSuggestions.size() > 0) { if (me.getX() + getScrollX() <
-		 * mWordWidth[0] && getScrollX() < 10) { longPressFirstWord(); } } }
-		 */
 		@Override
 		public boolean onDown(MotionEvent e) {
 			mScrolled = false;

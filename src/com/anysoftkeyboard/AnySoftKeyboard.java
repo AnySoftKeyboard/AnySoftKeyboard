@@ -156,7 +156,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private EditableDictionary mUserDictionary;
 	private AutoDictionary mAutoDictionary;
 
-	// private StringBuilder mComposing = new StringBuilder();
 	private WordComposer mWord = new WordComposer();
 
 	private int mOrientation = Configuration.ORIENTATION_PORTRAIT;
@@ -166,7 +165,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 	 * Do we do prediction now
 	 */
 	private boolean mPredicting;
-	private CharSequence mBestWord;
 	private final boolean mPredictionLandscape = false;
 	/*
 	 * is prediction needed for the current input connection
@@ -808,6 +806,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 					+ oldSelEnd + ", nss=" + newSelStart + ", nse=" + newSelEnd
 					+ ", cs=" + candidatesStart + ", ce=" + candidatesEnd);
 		}
+		
+		mWord.setGlobalCursorPosition(newSelEnd);
 
 		if (!isPredictionOn()/* || mInputView == null || !mInputView.isShown() */)
 			return;// not relevant if no prediction is needed.
@@ -1084,7 +1084,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 						+ stringList.size() + " completions.");
 			// CharSequence typedWord = mWord.getTypedWord();
 			setSuggestions(stringList, true, true, true);
-			mBestWord = null;
+			mWord.setPreferredWord(null);
 			// I mean, if I'm here, it must be shown...
 			setCandidatesViewShown(true);
 		} else if (DEBUG)
@@ -2558,8 +2558,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		} else if (/* isPredictionOn() && */primaryCode == ' ') {
 			doubleSpace();
 		}
-		if (pickedDefault && mBestWord != null) {
-			TextEntryState.acceptedDefault(mWord.getTypedWord(), mBestWord);
+		if (pickedDefault && mWord.getPreferredWord() != null) {
+			TextEntryState.acceptedDefault(mWord.getTypedWord(), mWord.getPreferredWord());
 		}
 		updateShiftKeyState(getCurrentInputEditorInfo());
 		if (ic != null) {
@@ -2666,30 +2666,32 @@ public class AnySoftKeyboard extends InputMethodService implements
 				correctionAvailable);
 		if (stringList.size() > 0) {
 			if (correctionAvailable && !typedWordValid && stringList.size() > 1) {
-				mBestWord = stringList.get(1);
+				mWord.setPreferredWord(stringList.get(1));
 			} else {
-				mBestWord = typedWord;
+				mWord.setPreferredWord(typedWord);
 			}
 		} else {
-			mBestWord = null;
+			mWord.setPreferredWord(null);
 		}
 		setCandidatesViewShown(shouldCandidatesStripBeShown() || mCompletionOn);
 	}
 
 	private boolean pickDefaultSuggestion() {
+		final CharSequence bestWord = mWord.getPreferredWord();
 		if (DEBUG)
-			Log.d(TAG, "pickDefaultSuggestion: mBestWord:" + mBestWord);
+			Log.d(TAG, "pickDefaultSuggestion: bestWord:" + bestWord);
 		// Complete any pending candidate query first
 		if (mHandler.hasMessages(MSG_UPDATE_SUGGESTIONS)) {
 			performUpdateSuggestions();
 		}
 
-		if (!TextUtils.isEmpty(mBestWord)) {
-			TextEntryState.acceptedDefault(mWord.getTypedWord(), mBestWord);
+		if (!TextUtils.isEmpty(bestWord)) {
+			final CharSequence typedWord = mWord.getTypedWord();
+			TextEntryState.acceptedDefault(typedWord, bestWord);
 			// mJustAccepted = true;
-			pickSuggestion(mBestWord, false);
+			pickSuggestion(bestWord, !bestWord.equals(typedWord));
 			// Add the word to the auto dictionary if it's not a known word
-			addToDictionaries(mBestWord, AutoDictionary.FREQUENCY_FOR_TYPED);
+			addToDictionaries(mWord.getPreferredWord(), AutoDictionary.FREQUENCY_FOR_TYPED);
 			return true;
 		}
 		return false;
@@ -2788,9 +2790,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 					+ suggestion.subSequence(1, suggestion.length()).toString();
 		}
 
+		mWord.setPreferredWord(suggestion);
 		InputConnection ic = getCurrentInputConnection();
 		if (ic != null) {
-			ic.commitText(suggestion, 1);
+			if (correcting) {
+				AnyApplication.getDeviceSpecific().commitCorrectionToInputConnection(ic, mWord);
+			} else {
+				ic.commitText(suggestion, 1);
+			}
 		}
 		mPredicting = false;
 		mCommittedLength = suggestion.length();
