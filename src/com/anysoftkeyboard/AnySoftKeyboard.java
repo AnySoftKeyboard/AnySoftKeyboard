@@ -131,6 +131,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private boolean mTipsCalled = false;
 
+	private Key mCurrentlyHandledKey = null;
+
 	private LayoutSwitchAnimationListener mSwitchAnimator;
 	private boolean mDistinctMultiTouch = true;
 	private AnyKeyboardView mInputView;
@@ -1729,6 +1731,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	public void onKey(int primaryCode, Key key, int multiTapIndex,
 			int[] nearByKeyCodes, boolean fromUI) {
+		mCurrentlyHandledKey = key;
 		if (DEBUG) {
 			Log.d(TAG, "onKey " + primaryCode);
 			// Thread.dumpStack();
@@ -1989,6 +1992,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 			break;
 		}
+		mCurrentlyHandledKey = null;
 	}
 
 	private boolean isConnectbot() {
@@ -2795,6 +2799,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (ic != null) {
 			if (correcting) {
 				AnyApplication.getDeviceSpecific().commitCorrectionToInputConnection(ic, mWord);
+				//and drawing popout text
+				mInputView.popTextOutOfKey(mWord.getPreferredWord(), mCurrentlyHandledKey);
 			} else {
 				ic.commitText(suggestion, 1);
 			}
