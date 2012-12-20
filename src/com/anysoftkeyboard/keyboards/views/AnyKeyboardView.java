@@ -580,14 +580,13 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 			final long currentAnimationTime = SystemClock.elapsedRealtime() - mPopOutTime;
 			if (currentAnimationTime > animationDuration) {
 				mPopOutText = null;
-				mPopOutStartKey = null;
 				mPopOutRTLFixedStaticLayout = null;
 				if (AnyApplication.DEBUG) Log.d(TAG, "Drawing text popout done.");
 			} else {
 				final float animationProgress = ((float)currentAnimationTime)/((float)animationDuration);
 				final float animationFactoredProgress = getPopOutAnimationInterpolator(animationProgress);
-				final int y = mPopOutStartKey.y - (int)(maxVerticalTravel * animationFactoredProgress);
-				final int x = mPopOutStartKey.x + mPopOutStartKey.width/2;
+				final int y = mPopOutStartPoint.y - (int)(maxVerticalTravel * animationFactoredProgress);
+				final int x = mPopOutStartPoint.x;
 				final int alpha = 255 - (int)(255*animationProgress);
 				if (AnyApplication.DEBUG) Log.d(TAG, "Drawing text popout '"+mPopOutText+"' at "+x+","+y+" with alpha "+alpha+". Animation progress is "+animationProgress+", and factor progress is "+animationFactoredProgress);
 				//drawing
@@ -625,18 +624,19 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 
 	private CharSequence mPopOutText = null;
 	private long mPopOutTime = 0;
-	private Key mPopOutStartKey = null;
+	private final Point mPopOutStartPoint = new Point();
 	private StaticLayout mPopOutRTLFixedStaticLayout = null;
 	private float mPopOutAnimationFactor = 1.0f;
 	
-	public void popTextOutOfKey(CharSequence text, Key key) {
-		if (TextUtils.isEmpty(text) || key == null) {
-			Log.w(TAG, "Call for popTextOutOfKey with missing arguments!");
+	public void popTextOutOfKey(CharSequence text) {
+		if (TextUtils.isEmpty(text)) {
+			Log.w(TAG, "Call for popTextOutOfKey with missing text argument!");
 			return;
 		}
 		mPopOutText = text;
 		mPopOutTime = SystemClock.elapsedRealtime();
-		mPopOutStartKey = key;
+		mPopOutStartPoint.x = mFirstTouchPont.x;
+		mPopOutStartPoint.y = mFirstTouchPont.y;
 		//doing all the simple things before the animation
 		if (!AnyApplication.getConfig().workaround_alwaysUseDrawText()) {
 			// RTL fix. But it costs
