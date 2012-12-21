@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.app.AlertDialog.Builder;
+import android.app.Dialog;
 import android.app.Service;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -8,7 +9,6 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.preference.ListPreference;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.AbsSavedState;
@@ -140,7 +140,9 @@ public class AddOnListPreference extends ListPreferenceEx {
 			if (v.getId() == R.id.addon_list_item_layout) {
 				setSelectedAddOn((AddOn) v.getTag());
 				AddOnListPreference.this.setValue(mSelectedAddOn.getId());
-				getDialog().dismiss();
+				Dialog dialog = getDialog();
+				if (dialog != null)
+					dialog.dismiss();// it is null if the dialog is not shown.
 			} else if (v.getId() == R.id.addon_image) {
 				// showing a screenshot (if available)
 				AddOn addOn = (AddOn) v.getTag();
