@@ -22,6 +22,11 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.os.SystemClock;
+import android.text.Layout.Alignment;
+import android.text.StaticLayout;
+import android.text.TextPaint;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
@@ -63,7 +68,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	private Point mFirstTouchPont = new Point(0, 0);
 	private boolean mIsFirstDownEventInsideSpaceBar = false;
 	private Animation mInAnimation;
-	//private Animation mGestureSlideReachedAnimation;
+	// private Animation mGestureSlideReachedAnimation;
 
 	private TextView mPreviewText;
 	private float mGesturePreviewTextSize;
@@ -103,15 +108,14 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 		mGesturePreviewTextColorRed = (mGesturePreviewTextColor & 0x00FF0000) >> 16;
 		mGesturePreviewTextColorGreen = (mGesturePreviewTextColor & 0x0000FF00) >> 8;
 		mGesturePreviewTextColorBlue = mGesturePreviewTextColor & 0x000000FF;
-		
-		/*if (mAnimationLevel != AnimationsLevel.None) {
-			createGestureSlideAnimation();
-		}*/
 	}
 
-	/*protected void createGestureSlideAnimation() {
-		mGestureSlideReachedAnimation = AnimationUtils.loadAnimation(getContext().getApplicationContext(), R.anim.gesture_slide_threshold_reached);
-	}*/
+	/*
+	 * protected void createGestureSlideAnimation() {
+	 * mGestureSlideReachedAnimation =
+	 * AnimationUtils.loadAnimation(getContext().getApplicationContext(),
+	 * R.anim.gesture_slide_threshold_reached); }
+	 */
 
 	protected String getKeyboardViewNameForLogging() {
 		return "AnyKeyboardView";
@@ -357,7 +361,9 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 						mExtensionKey.x = getWidth() / 2;
 						mExtensionKey.y = mExtensionKeyboardPopupOffset;
 					}
-					mExtensionKey.x = (int) me.getX();//so the popup will be right above your finger.
+					mExtensionKey.x = (int) me.getX();// so the popup will be
+														// right above your
+														// finger.
 					onLongPress(getContext(), mExtensionKey, AnyApplication
 							.getConfig().isStickyExtensionKeyboard(),
 							!AnyApplication.getConfig()
@@ -383,7 +389,8 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	private static final int SLIDE_RATIO_FOR_GESTURE = 250;
 
 	private void setGesturePreviewText(MotionEvent me) {
-		if (mPreviewText == null) return;
+		if (mPreviewText == null)
+			return;
 		// started at SPACE, so I stick with the position. This is used
 		// for showing gesture info on the spacebar.
 		// we'll also add the current gesture, with alpha [0...200,255].
@@ -393,10 +400,11 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 
 		if (slideDisatance >= 20) {
 			final boolean isGesture = slideDisatance > SLIDE_RATIO_FOR_GESTURE;
-			
-			final boolean justReachedThreashold = isGesture && !mGestureReachedThreshold;
+
+			final boolean justReachedThreashold = isGesture
+					&& !mGestureReachedThreshold;
 			mGestureReachedThreshold = isGesture;
-			
+
 			final int alpha = isGesture ? 255 : slideDisatance / 2;
 			mPreviewText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
 					mGesturePreviewTextSize);
@@ -442,9 +450,11 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 				break;
 			}
 			mPreviewText.setText(tooltip);
-			/*if (mGestureSlideReachedAnimation != null && justReachedThreashold) {
-				mPreviewText.startAnimation(mGestureSlideReachedAnimation);
-			}*/
+			/*
+			 * if (mGestureSlideReachedAnimation != null &&
+			 * justReachedThreashold) {
+			 * mPreviewText.startAnimation(mGestureSlideReachedAnimation); }
+			 */
 		} else {
 			mPreviewText.setText("");
 		}
@@ -514,16 +524,18 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 		popupKey.popupResId = key.getPopupKeyboardResId();
 		super.onLongPress(packageContext, popupKey, false, true);
 	}
-	
+
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
 			String key) {
 		super.onSharedPreferenceChanged(sharedPreferences, key);
-		/*if (mAnimationLevel == AnimationsLevel.None && mGestureSlideReachedAnimation != null) {
-			mGestureSlideReachedAnimation = null;
-		} else if (mAnimationLevel != AnimationsLevel.None && mGestureSlideReachedAnimation == null) {
-			createGestureSlideAnimation();
-		}*/
+		/*
+		 * if (mAnimationLevel == AnimationsLevel.None &&
+		 * mGestureSlideReachedAnimation != null) {
+		 * mGestureSlideReachedAnimation = null; } else if (mAnimationLevel !=
+		 * AnimationsLevel.None && mGestureSlideReachedAnimation == null) {
+		 * createGestureSlideAnimation(); }
+		 */
 	}
 
 	public void openUtilityKeyboard() {
@@ -555,10 +567,86 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	public void onDraw(Canvas canvas) {
 		final boolean keyboardChanged = mKeyboardChanged;
 		super.onDraw(canvas);
+		//switching animation
 		if (mAnimationLevel != AnimationsLevel.None && keyboardChanged
 				&& (mInAnimation != null)) {
 			startAnimation(mInAnimation);
 			mInAnimation = null;
 		}
+		//text pop out animation
+		if (mPopOutText != null && mAnimationLevel != AnimationsLevel.None) {
+			final int maxVerticalTravel = getHeight()/2;
+			final long animationDuration = 1200;
+			final long currentAnimationTime = SystemClock.elapsedRealtime() - mPopOutTime;
+			if (currentAnimationTime > animationDuration) {
+				mPopOutText = null;
+				mPopOutRTLFixedStaticLayout = null;
+				if (AnyApplication.DEBUG) Log.d(TAG, "Drawing text popout done.");
+			} else {
+				final float animationProgress = ((float)currentAnimationTime)/((float)animationDuration);
+				final float animationFactoredProgress = getPopOutAnimationInterpolator(animationProgress);
+				final int y = mPopOutStartPoint.y - (int)(maxVerticalTravel * animationFactoredProgress);
+				final int x = mPopOutStartPoint.x;
+				final int alpha = 255 - (int)(255*animationProgress);
+				if (AnyApplication.DEBUG) Log.d(TAG, "Drawing text popout '"+mPopOutText+"' at "+x+","+y+" with alpha "+alpha+". Animation progress is "+animationProgress+", and factor progress is "+animationFactoredProgress);
+				//drawing
+				setPaintToKeyText(mPaint);
+				//will disapear over time
+				mPaint.setAlpha(alpha);
+				mPaint.setShadowLayer(5, 0, 0, Color.BLACK);
+				//will grow over time
+				mPaint.setTextSize(mPaint.getTextSize()*(1.0f + animationFactoredProgress));
+				canvas.translate(x, y);
+				if (mPopOutRTLFixedStaticLayout != null) {
+						mPopOutRTLFixedStaticLayout.draw(canvas);
+				} else {
+					canvas.drawText(mPopOutText, 0, mPopOutText.length(), 0, 0, mPaint);
+				}
+				canvas.translate(-x, -y);
+				//next frame
+				postInvalidateDelayed(1000/50);//doing 50 frames per second;
+			}
+		}
+	}
+	
+	/*
+	 * Taken from https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/android/view/animation/DecelerateInterpolator.java
+	 */
+	private float getPopOutAnimationInterpolator(float input) {
+        float result;
+        if (mPopOutAnimationFactor == 1.0f) {
+            result = (float)(1.0f - (1.0f - input) * (1.0f - input));
+        } else {
+            result = (float)(1.0f - Math.pow((1.0f - input), 2 * mPopOutAnimationFactor));
+        }
+        return result;
+    }
+
+	private CharSequence mPopOutText = null;
+	private long mPopOutTime = 0;
+	private final Point mPopOutStartPoint = new Point();
+	private StaticLayout mPopOutRTLFixedStaticLayout = null;
+	private float mPopOutAnimationFactor = 1.0f;
+	
+	public void popTextOutOfKey(CharSequence text) {
+		if (TextUtils.isEmpty(text)) {
+			Log.w(TAG, "Call for popTextOutOfKey with missing text argument!");
+			return;
+		}
+		mPopOutText = text;
+		mPopOutTime = SystemClock.elapsedRealtime();
+		mPopOutStartPoint.x = mFirstTouchPont.x;
+		mPopOutStartPoint.y = mFirstTouchPont.y;
+		//doing all the simple things before the animation
+		if (!AnyApplication.getConfig().workaround_alwaysUseDrawText()) {
+			// RTL fix. But it costs
+			if (AnyApplication.DEBUG) Log.d(TAG, "Will use RTL fix for drawing pop-out text.");
+			final int textWidth = (int)mPaint.measureText(mPopOutText.toString());
+			mPopOutRTLFixedStaticLayout = new StaticLayout(mPopOutText,
+					new TextPaint(mPaint), (int) textWidth,
+					Alignment.ALIGN_NORMAL, 0.0f, 0.0f, false);
+		}
+		//it is ok to wait for the next loop.
+		postInvalidate();
 	}
 }

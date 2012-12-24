@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.menny.android.anysoftkeyboard"
-    android:versionCode="81"
-    android:versionName="20121215-eye-candy" >
+    android:versionCode="82"
+    android:versionName="20121219-eye-candy" >
 
     <supports-screens
         android:anyDensity="true"
@@ -13,7 +13,7 @@
 
     <uses-sdk
         android:minSdkVersion="3"
-        android:targetSdkVersion="16" >
+        android:targetSdkVersion="17" >
     </uses-sdk>
 
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -31,6 +31,7 @@
 
     <application
         android:name=".AnyApplication"
+        android:allowBackup="true"
         android:backupAgent="com.anysoftkeyboard.backup.AnyBackupAgent"
         android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
@@ -55,7 +56,8 @@
                 android:name="android.view.im"
                 android:resource="@xml/method" />
         </service>
-        <!-- Not ready for prime-time
+        <!--
+        Not ready for prime-time
         <service android:name="com.anysoftkeyboard.spellcheck.AnySpellCheckerService"
                  android:label="@string/spell_checker_service_name"
                  android:permission="android.permission.BIND_TEXT_SERVICE">
@@ -64,7 +66,7 @@
             </intent-filter>
             <meta-data android:name="android.view.textservice.scs" android:resource="@xml/spellchecker" />
         </service>
-		 -->
+        -->
         <!-- receivers for outside events -->
         <!--
          this is used for showing HOW-TO after Market install
@@ -180,17 +182,17 @@
             android:icon="@drawable/ic_launcher"
             android:label="@string/ime_name" >
         </activity>
-        <!-- 
+        <!--
          <activity android:name="com.anysoftkeyboard.ui.settings.SpellCheckerSettingsActivity"
                   android:label="@string/spell_checker_settings"
                   android:icon="@drawable/ic_launcher_settings">
         </activity>
-		 -->	
+        -->
         <!-- for voice -->
         <activity
             android:name="com.anysoftkeyboard.voice.VoiceInputNotInstalledActivity"
-            android:label="@string/ime_name"
             android:icon="@drawable/ic_launcher"
+            android:label="@string/ime_name"
             android:theme="@style/Popup.NoTitle" />
 
         <service android:name="com.anysoftkeyboard.voice.ServiceHelper" />
