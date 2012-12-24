@@ -235,7 +235,7 @@ public class AnyKeyboardBaseView extends View implements
 	private Key mInvalidatedKey;
 	/** The canvas for the above mutable keyboard bitmap */
 	// private Canvas mCanvas;
-	private final Paint mPaint;
+	protected final Paint mPaint;
 	private final Rect mKeyBackgroundPadding;
 	private final Rect mClipRegion = new Rect(0, 0, 0, 0);
 	/*
@@ -1341,19 +1341,30 @@ public class AnyKeyboardBaseView extends View implements
 		// draw
 		mBuffer = null;
 	}
+	
+	private class KeybaordDrawOperation implements MemRelatedOperation {
+		
+		private Canvas mCanvas;
+		
+		public void setCanvas(Canvas canvas) {
+			mCanvas = canvas;
+		}
+		public void operation() {
+			if (AnyApplication.DEBUG) Log.d(TAG, "Actually drawing the keyboard (no buffer).");
+			onBufferDraw(mCanvas);
+		}
+	}
+	//a single instance is enough, there is no need to recreate every draw operation!
+	private final KeybaordDrawOperation mDrawOperation = new KeybaordDrawOperation();
 
 	@Override
 	public void onDraw(final Canvas canvas) {
 		super.onDraw(canvas);
 		// mCanvas = canvas;
+		mDrawOperation.setCanvas(canvas);
 		if (mDrawPending || mBuffer == null || mKeyboardChanged) {
 			GCUtils.getInstance().peformOperationWithMemRetry(TAG,
-					new MemRelatedOperation() {
-
-						public void operation() {
-							onBufferDraw(canvas);
-						}
-					}, true);
+					mDrawOperation, true);
 		}
 		// maybe there is no buffer, since drawing was not done.
 		if (mBuffer != null)
@@ -1523,11 +1534,7 @@ public class AnyKeyboardBaseView extends View implements
 						mLabelFM = paint.getFontMetrics();
 					fm = mLabelFM;
 				} else {
-					paint.setTextSize(mKeyTextSize);
-					paint.setTypeface(mKeyTextStyle);
-					if (mTextFM == null)
-						mTextFM = paint.getFontMetrics();
-					fm = mTextFM;
+					fm = setPaintToKeyText(paint);
 				}
 
 				final float labelHeight = -fm.top;
@@ -1754,6 +1761,16 @@ public class AnyKeyboardBaseView extends View implements
 
 		mDrawPending = false;
 		mDirtyRect.setEmpty();
+	}
+
+	protected FontMetrics setPaintToKeyText(final Paint paint) {
+		final FontMetrics fm;
+		paint.setTextSize(mKeyTextSize);
+		paint.setTypeface(mKeyTextStyle);
+		if (mTextFM == null)
+			mTextFM = paint.getFontMetrics();
+		fm = mTextFM;
+		return fm;
 	}
 
 	protected static boolean isSpaceKey(final AnyKey key) {

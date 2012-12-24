@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.anysoftkeyboard.addons.AddOnImpl;
 
@@ -12,6 +13,8 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
 	private static final String DICTIONARY_PREF_PREFIX = "dictionary_";
 	
 	private static final int INVALID_RES_ID = 0;
+
+	private static final String TAG = "ASK DAOB";
 	
 	private final String mLanguage;
 	private final String mAssetsFilename;
@@ -60,10 +63,16 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
 	
 	public AutoText createAutoText()
 	{
-		if (mAutoTextResId == INVALID_RES_ID)
+		if (mAutoTextResId == INVALID_RES_ID) {
 			return null;
-		else
-			return new AutoText(getPackageContext().getResources(), mAutoTextResId);
+		} else {
+			try {
+				return new AutoText(getPackageContext().getResources(), mAutoTextResId);
+			} catch (OutOfMemoryError e) {
+				Log.i(TAG, "Failed to create the AutoText dictionary.");
+				return null;
+			}
+		}
 	}
 	
 	public List<CharSequence> createInitialSuggestions()
