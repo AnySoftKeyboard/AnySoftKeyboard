@@ -2795,6 +2795,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (ic != null) {
 			if (correcting) {
 				AnyApplication.getDeviceSpecific().commitCorrectionToInputConnection(ic, mWord);
+				//and drawing popout text
+				mInputView.popTextOutOfKey(mWord.getPreferredWord());
 			} else {
 				ic.commitText(suggestion, 1);
 			}
