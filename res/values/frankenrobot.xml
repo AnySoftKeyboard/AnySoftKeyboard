@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="frankenrobot_interfaces">
+        <item>com.anysoftkeyboard.devicespecific.DeviceSpecific</item>
+    </string-array>
+    
+    <string-array name="frankenrobot_concreate_classes">
+        <item>@string/frankenrobot_device_specific_implementation</item>
+    </string-array>
+    
+    <string name="frankenrobot_device_specific_implementation">com.anysoftkeyboard.devicespecific.DeviceSpecific_V3</string>
+</resources>
