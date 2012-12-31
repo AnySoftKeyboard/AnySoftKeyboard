@@ -13,20 +13,26 @@ import android.view.inputmethod.InputConnection;
 
 public interface DeviceSpecific {
 
-	public abstract String getApiLevel();
+	public String getApiLevel();
 	
+	//TODO move to the new FrankenRobot mechanism
 	public WMotionEvent createMotionEventWrapper(MotionEvent nativeMotionEvent);
 	
 	public MultiTouchSupportLevel getMultiTouchSupportLevel(Context appContext);
 	
+	//TODO move to the new FrankenRobot mechanism
 	public GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener);
 
+	//TODO move to the new FrankenRobot mechanism
 	public CloudBackupRequester createCloudBackupRequester(Context appContext);
 
+	//TODO move to the new FrankenRobot mechanism
 	public DictionaryFactory createDictionaryFactory();
 
+	//TODO move to the new FrankenRobot mechanism
 	public VoiceInput createVoiceInput(InputMethodService ime);
 	
+	//TODO move to the new FrankenRobot mechanism
 	public Clipboard getClipboard(Context appContext);
 
 	public void commitCorrectionToInputConnection(InputConnection ic, WordComposer word);
