@@ -3,11 +3,11 @@ package com.anysoftkeyboard.spellcheck;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import android.util.Log;
+
 import com.anysoftkeyboard.dictionaries.Dictionary.WordCallback;
 import com.anysoftkeyboard.utils.ArraysCompatUtils;
 import com.anysoftkeyboard.utils.IMEUtil;
-
-import android.util.Log;
 
 class SuggestionsGatherer implements WordCallback {
     public static class Result {
@@ -41,9 +41,9 @@ class SuggestionsGatherer implements WordCallback {
         mSuggestions = new ArrayList<CharSequence>(maxLength + 1);
         mScores = new int[mMaxLength];
     }
-
-    @Override
-    synchronized public boolean addWord(char[] word, int wordOffset, int wordLength, int frequency) {
+    
+	public boolean addWord(char[] word, int wordOffset, int wordLength,
+			int frequency) {
         final int positionIndex = ArraysCompatUtils.binarySearch(mScores, 0, mLength, frequency);
         // binarySearch returns the index if the element exists, and -<insertion index> - 1
         // if it doesn't. See documentation for binarySearch.
@@ -96,7 +96,7 @@ class SuggestionsGatherer implements WordCallback {
 
         return true;
     }
-
+	
     public SuggestionsGatherer.Result getResults(final int capitalizeType) {
         final String[] gatheredSuggestions;
         final boolean hasLikelySuggestions;
