@@ -53,8 +53,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.anysoftkeyboard.dictionaries.DictionaryFactory;
 import com.anysoftkeyboard.dictionaries.EditableDictionary;
+import com.anysoftkeyboard.dictionaries.SafeUserDictionary;
 import com.anysoftkeyboard.dictionaries.WordsCursor;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
@@ -154,6 +154,18 @@ public class UserDictionaryEditorActivity extends ListActivity {
         }
 
         fillLangsSpinner();
+    }
+    
+    @Override
+    protected void onPause() {
+    	super.onPause();
+    	if (mCursor != null)
+    		mCursor.close();
+    	if (mCurrentDictionary != null)
+    		mCurrentDictionary.close();
+    	
+    	mCursor = null;
+    	mCurrentDictionary = null;
     }
 
     private void fillLangsSpinner() {
@@ -324,23 +336,22 @@ public class UserDictionaryEditorActivity extends ListActivity {
         	protected void onPreExecute() {
         		super.onPreExecute();
         		//all the code below can be safely (and must) be called in the UI thread.
-        		mNewDictionary = DictionaryFactory.getInstance()
-                        .createUserDictionary(getApplicationContext(), mSelectedLocale);
+        		mNewDictionary = new SafeUserDictionary(getApplicationContext(), mSelectedLocale);
+        		//all the code below can be safely (and must) be called in the UI thread.
+        		mNewDictionary.loadDictionary();
+        		if (mNewDictionary != mCurrentDictionary && mCurrentDictionary != null) {
+                	mCursor.close();
+                    mCurrentDictionary.close();
+                }
         	}
         	
             @Override
             protected Void doInBackground(Void... params) {
                 try
                 {
-                	if (mNewDictionary != mCurrentDictionary && mCurrentDictionary != null) {
-                    	mCursor.close();
-                        mCurrentDictionary.close();
-                    }
-
                     mCurrentDictionary = mNewDictionary;
                     mCursor = mCurrentDictionary.getWordsCursor();
-                } catch (Exception e)
-                {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -350,19 +361,10 @@ public class UserDictionaryEditorActivity extends ListActivity {
             @Override
             protected void applyResults(Void result) {
                 MyAdapter adapter = (MyAdapter) getListAdapter();
-                if (adapter == null)
-                {
-                	if (AnyApplication.DEBUG)
-                		Log.d(TAG, "Creating a new MyAdapter for the words editor");
-                    adapter = new MyAdapter();
-                    setListAdapter(adapter);
-                }
-                else
-                {
-                	if (AnyApplication.DEBUG)
-                		Log.d(TAG, "Replacing the cursor for the user-dictionary words editor list adapter.");
-                    adapter.changeCursor(mCursor.getCursor());
-                }
+                if (AnyApplication.DEBUG)
+            		Log.d(TAG, "Creating a new MyAdapter for the words editor");
+                adapter = new MyAdapter();
+                setListAdapter(adapter);
             };
         }.execute();
     }
@@ -414,8 +416,7 @@ public class UserDictionaryEditorActivity extends ListActivity {
 
                                 if (localName.equals("wordlist")) {
                                     String locale = attributes.getValue("locale");
-                                    EditableDictionary dictionary = DictionaryFactory.getInstance()
-                                            .createUserDictionary(getApplicationContext(), locale);
+                                    EditableDictionary dictionary = new SafeUserDictionary(getApplicationContext(), locale);
 
                                     Log.d(TAG, "Starting restore to locale " + locale);
                                     if (dictionary != mCurrentDictionary
@@ -423,6 +424,8 @@ public class UserDictionaryEditorActivity extends ListActivity {
                                         mCurrentDictionary.close();
 
                                     mCurrentDictionary = dictionary;
+                                    //TODO: this call must be moved to the UI thread!
+                                    mCurrentDictionary.loadDictionary();
                                 }
                             }
 
@@ -509,15 +512,16 @@ public class UserDictionaryEditorActivity extends ListActivity {
 
                 output.writeEntity("userwordlist");
                 for (String locale : mLocalesToSave) {
-                    EditableDictionary dictionary = DictionaryFactory.getInstance()
-                            .createUserDictionary(getApplicationContext(), locale);
+                    EditableDictionary dictionary = new SafeUserDictionary(getApplicationContext(), locale);
                     Log.d(TAG, "Reading words from user dictionary locale " + locale);
                     if (dictionary != mCurrentDictionary && mCurrentDictionary != null) {
                     	mCursor.close();
                         mCurrentDictionary.close();
                     }
                     mCurrentDictionary = dictionary;
-                    mCursor = mCurrentDictionary.getWordsCursor();
+                    //TODO: this call must be moved to the UI thread!
+                    mCurrentDictionary.loadDictionary();
+            		mCursor = mCurrentDictionary.getWordsCursor();
 
                     output.writeEntity("wordlist").writeAttribute("locale", locale);
                     Cursor cursor = mCursor.getCursor();

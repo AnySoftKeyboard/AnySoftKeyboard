@@ -38,7 +38,6 @@ public class DictionaryFactory
         }
         Log.d(TAG, "Creating a new UserDictionart for locale "+locale);
         mUserDictionary = new SafeUserDictionary(context, locale);
-        mUserDictionary.loadDictionary();
 
         mUserDictionaryLocale = locale;
         return mUserDictionary;
