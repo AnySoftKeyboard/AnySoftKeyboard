@@ -16,18 +16,20 @@
 
 package com.anysoftkeyboard.spellcheck;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.service.textservice.SpellCheckerService;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.textservice.SuggestionsInfo;
 import android.view.textservice.TextInfo;
 
-import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 /**
  * Service for spell checking, using ASK dictionaries and mechanisms.
  */
+@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class AnySpellCheckerService extends SpellCheckerService {
 	static final String TAG = "ASK_SPELL";
 	static final boolean DBG = AnyApplication.DEBUG;
