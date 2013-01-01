@@ -17,16 +17,9 @@
 
 package com.anysoftkeyboard.ui.settings;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -34,9 +27,7 @@ import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.UserDictionary;
-import android.provider.UserDictionary.Words;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
@@ -51,14 +42,12 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.anysoftkeyboard.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.dictionaries.SafeUserDictionary;
 import com.anysoftkeyboard.dictionaries.WordsCursor;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
-import com.anysoftkeyboard.utils.XmlWriter;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -73,13 +62,13 @@ public class UserDictionaryEditorActivity extends ListActivity {
 
     private static final int DIALOG_ADD_OR_EDIT = 0;
 
-    private static final int DIALOG_SAVE_SUCCESS = 10;
-    private static final int DIALOG_SAVE_FAILED = 11;
+    static final int DIALOG_SAVE_SUCCESS = 10;
+    static final int DIALOG_SAVE_FAILED = 11;
 
-    private static final int DIALOG_LOAD_SUCCESS = 20;
-    private static final int DIALOG_LOAD_FAILED = 21;
+    static final int DIALOG_LOAD_SUCCESS = 20;
+    static final int DIALOG_LOAD_FAILED = 21;
 
-    private static final String TAG = "ASK_UDE";
+    static final String TAG = "ASK_UDE";
 
     /**
      * The word being edited in the dialog (null means the user is adding a
@@ -87,11 +76,11 @@ public class UserDictionaryEditorActivity extends ListActivity {
      */
     private String mDialogEditingWord;
 
-    private Spinner mLangs;
+    Spinner mLangs;
 
-    private WordsCursor mCursor;
+    WordsCursor mCursor;
     private String mSelectedLocale = null;
-    private EditableDictionary mCurrentDictionary;
+    SafeUserDictionary mCurrentDictionary;
 
     private boolean mAddedWordAlready;
     private boolean mAutoReturn;
@@ -168,7 +157,7 @@ public class UserDictionaryEditorActivity extends ListActivity {
     	mCurrentDictionary = null;
     }
 
-    private void fillLangsSpinner() {
+    void fillLangsSpinner() {
         new UserWordsEditorAsyncTask(this)
         {
             private ArrayList<String> mLangsList;
@@ -322,7 +311,7 @@ public class UserDictionaryEditorActivity extends ListActivity {
         mAddedWordAlready = !TextUtils.isEmpty(word);
     }
 
-    private void deleteWord(String word) {
+    void deleteWord(String word) {
         mCurrentDictionary.deleteWord(word);
     }
 
@@ -330,15 +319,13 @@ public class UserDictionaryEditorActivity extends ListActivity {
         Log.d(TAG, "Selected locale is " + mSelectedLocale);
         new UserWordsEditorAsyncTask(this)
         {
-        	private EditableDictionary mNewDictionary;
+        	private SafeUserDictionary mNewDictionary;
         	
         	@Override
         	protected void onPreExecute() {
         		super.onPreExecute();
         		//all the code below can be safely (and must) be called in the UI thread.
         		mNewDictionary = new SafeUserDictionary(getApplicationContext(), mSelectedLocale);
-        		//all the code below can be safely (and must) be called in the UI thread.
-        		mNewDictionary.loadDictionary();
         		if (mNewDictionary != mCurrentDictionary && mCurrentDictionary != null) {
                 	mCursor.close();
                     mCurrentDictionary.close();
@@ -350,6 +337,7 @@ public class UserDictionaryEditorActivity extends ListActivity {
                 try
                 {
                     mCurrentDictionary = mNewDictionary;
+                    mCurrentDictionary.loadDictionarySync();
                     mCursor = mCurrentDictionary.getWordsCursor();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -367,208 +355,6 @@ public class UserDictionaryEditorActivity extends ListActivity {
                 setListAdapter(adapter);
             };
         }.execute();
-    }
-
-    private final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
-        private Exception mException = null;
-
-        private RestoreUserWordsAsyncTask(UserDictionaryEditorActivity userDictionaryEditorActivity) {
-            super(userDictionaryEditorActivity);
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            try
-            {
-                // http://developer.android.com/guide/topics/data/data-storage.html#filesExternal
-                final File externalFolder = Environment.getExternalStorageDirectory();
-                final File targetFolder = new File(externalFolder, "/Android/data/"
-                        + getPackageName() + "/files/");
-
-                SAXParserFactory factory = SAXParserFactory.newInstance();
-                SAXParser parser = factory.newSAXParser();
-                parser.parse(new FileInputStream(new File(targetFolder,
-                        ASK_USER_WORDS_SDCARD_FILENAME)),
-                        new DefaultHandler() {
-                            private boolean inWord = false;
-                            private int freq = 1;
-                            private String word = "";
-
-                            @Override
-                            public void characters(char[] ch, int start, int length)
-                                    throws SAXException {
-                                super.characters(ch, start, length);
-                                if (inWord)
-                                {
-                                    word += new String(ch, start, length);
-                                }
-                            }
-
-                            @Override
-                            public void startElement(String uri, String localName,
-                                    String qName, Attributes attributes) throws SAXException {
-                                super.startElement(uri, localName, qName, attributes);
-                                if (localName.equals("w")) {
-                                    inWord = true;
-                                    word = "";
-                                    freq = Integer.parseInt(attributes.getValue("f"));
-                                }
-
-                                if (localName.equals("wordlist")) {
-                                    String locale = attributes.getValue("locale");
-                                    EditableDictionary dictionary = new SafeUserDictionary(getApplicationContext(), locale);
-
-                                    Log.d(TAG, "Starting restore to locale " + locale);
-                                    if (dictionary != mCurrentDictionary
-                                            && mCurrentDictionary != null)
-                                        mCurrentDictionary.close();
-
-                                    mCurrentDictionary = dictionary;
-                                    //TODO: this call must be moved to the UI thread!
-                                    mCurrentDictionary.loadDictionary();
-                                }
-                            }
-
-                            @Override
-                            public void endElement(String uri, String localName, String qName)
-                                    throws SAXException {
-                                if (inWord && localName.equals("w")) {
-                                    if (!TextUtils.isEmpty(word)) {
-                                        if (AnyApplication.DEBUG)
-                                            Log.d(TAG, "Restoring word '" + word + "' with freq "
-                                                    + freq);
-                                        // Disallow duplicates
-                                        deleteWord(word);
-
-                                        mCurrentDictionary.addWord(word, freq);
-                                    }
-
-                                    inWord = false;
-                                }
-                                super.endElement(uri, localName, qName);
-                            }
-                        });
-            } catch (Exception e)
-            {
-                mException = e;
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void applyResults(Void result) {
-            if (mException != null) {
-                Toast.makeText(
-                        getApplicationContext(),
-                        getString(R.string.user_dict_restore_fail_text_with_error,
-                                mException.getMessage()), Toast.LENGTH_LONG).show();
-                showDialog(DIALOG_LOAD_FAILED);
-            } else {
-                showDialog(DIALOG_LOAD_SUCCESS);
-            }
-            // re-reading words (this is a simple way to re-sync the
-            // dictionary members)
-            fillLangsSpinner();
-        }
-    }
-
-    private final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
-        ArrayList<String> mLocalesToSave = new ArrayList<String>();
-        Exception mException = null;
-
-        private BackupUserWordsAsyncTask(UserDictionaryEditorActivity userDictionaryEditorActivity) {
-            super(userDictionaryEditorActivity);
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            // I can acccess the UI object in the UI thread.
-            for (int i = 0; i < mLangs.getCount(); i++)
-            {
-                final String locale = (String) mLangs.getItemAtPosition(i);
-                if (!TextUtils.isEmpty(locale)) {
-                    mLocalesToSave.add(locale);
-                    Log.d(TAG, "Found a locale to backup: " + locale);
-                }
-            }
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            // out of UI thread.
-            try
-            {
-                // http://developer.android.com/guide/topics/data/data-storage.html#filesExternal
-                final File externalFolder = Environment.getExternalStorageDirectory();
-                final File targetFolder = new File(externalFolder, "/Android/data/"
-                        + getPackageName() + "/files/");
-                targetFolder.mkdirs();
-                // https://github.com/menny/Java-very-tiny-XmlWriter/blob/master/XmlWriter.java
-                XmlWriter output = new XmlWriter(new File(targetFolder,
-                        ASK_USER_WORDS_SDCARD_FILENAME));
-
-                output.writeEntity("userwordlist");
-                for (String locale : mLocalesToSave) {
-                    EditableDictionary dictionary = new SafeUserDictionary(getApplicationContext(), locale);
-                    Log.d(TAG, "Reading words from user dictionary locale " + locale);
-                    if (dictionary != mCurrentDictionary && mCurrentDictionary != null) {
-                    	mCursor.close();
-                        mCurrentDictionary.close();
-                    }
-                    mCurrentDictionary = dictionary;
-                    //TODO: this call must be moved to the UI thread!
-                    mCurrentDictionary.loadDictionary();
-            		mCursor = mCurrentDictionary.getWordsCursor();
-
-                    output.writeEntity("wordlist").writeAttribute("locale", locale);
-                    Cursor cursor = mCursor.getCursor();
-                    cursor.moveToFirst();
-                    final int wordIndex = cursor.getColumnIndex(Words.WORD);
-                    final int freqIndex = cursor.getColumnIndex(Words.FREQUENCY);
-
-                    while (!cursor.isAfterLast()) {
-                        String word = cursor.getString(wordIndex).trim();
-                        int freq = cursor.getInt(freqIndex);
-                        // <w f="128">Facebook</w>
-                        output.writeEntity("w").writeAttribute("f", Integer.toString(freq))
-                                .writeText(word).endEntity();
-                        if (AnyApplication.DEBUG)
-                            Log.d(TAG, "Storing word '" + word + "' with freq " + freq);
-                        cursor.moveToNext();
-                    }
-
-                    output.endEntity();// wordlist
-                }
-
-                output.endEntity();// userwordlist
-                output.close();
-            } catch (Exception e)
-            {
-                mException = e;
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void applyResults(Void result) {
-            if (mException != null) {
-                Toast.makeText(
-                        getApplicationContext(),
-                        getString(R.string.user_dict_backup_fail_text_with_error,
-                                mException.getMessage()), Toast.LENGTH_LONG).show();
-                showDialog(DIALOG_SAVE_FAILED);
-            } else {
-                showDialog(DIALOG_SAVE_SUCCESS);
-            }
-            // re-reading words (this is a simple way to re-sync the
-            // dictionary members)
-            fillLangsSpinner();
-        }
     }
 
     private class MyAdapter extends SimpleCursorAdapter /*
