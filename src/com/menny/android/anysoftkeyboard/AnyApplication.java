@@ -1,21 +1,21 @@
 package com.menny.android.anysoftkeyboard;
 
-import com.anysoftkeyboard.Configuration;
-import com.anysoftkeyboard.ConfigurationImpl;
-import com.anysoftkeyboard.backup.CloudBackupRequester;
-import com.anysoftkeyboard.devicespecific.DeviceSpecific;
-import com.anysoftkeyboard.devicespecific.FactoryViewBase;
-import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 
+import net.evendanan.frankenrobot.FrankenRobot;
+import net.evendanan.frankenrobot.Lab;
 import android.app.Application;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.LayoutInflater;
+
+import com.anysoftkeyboard.Configuration;
+import com.anysoftkeyboard.ConfigurationImpl;
+import com.anysoftkeyboard.backup.CloudBackupRequester;
+import com.anysoftkeyboard.devicespecific.DeviceSpecific;
+import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 
 
 public class AnyApplication extends Application implements OnSharedPreferenceChangeListener {
@@ -50,13 +50,10 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		sp.registerOnSharedPreferenceChangeListener(this);
 
-        LayoutInflater inflate = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		FrankenRobot frank = Lab.build(getApplicationContext(), R.array.frankenrobot_interfaces, R.array.frankenrobot_concreate_classes);
+		msDeviceSpecific = (DeviceSpecific) frank.embody(DeviceSpecific.class);
+        Log.i(TAG, "Loaded DeviceSpecific "+msDeviceSpecific.getApiLevel()+" concrete class "+msDeviceSpecific.getClass().getName());
 
-        FactoryViewBase factory = (FactoryViewBase)inflate.inflate(R.layout.device_specific, null);
-        msDeviceSpecific = factory.createDeviceSpecific();
-        Log.i(TAG, "Loaded DeviceSpecific "+msDeviceSpecific.getApiLevel());
-        factory = null;//GC! Please clean this view!
-        
         msCloudBackuper = msDeviceSpecific.createCloudBackupRequester(getApplicationContext());
 		
 		TutorialsProvider.showDragonsIfNeeded(getApplicationContext());
