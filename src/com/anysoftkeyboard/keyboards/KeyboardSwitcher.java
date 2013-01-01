@@ -272,7 +272,7 @@ public class KeyboardSwitcher {
 		mSymbolsKeyboardsArray = EMPTY_AnyKeyboards;
 	}
 
-	public void setKeyboardMode(int mode, EditorInfo attr) {
+	public void setKeyboardMode(final int mode, final EditorInfo attr, final boolean restarting) {
 		// mMode = mode;
 		// mImeOptions = (attr == null)? 0 : attr.imeOptions;
 		AnyKeyboard keyboard = null;
@@ -304,10 +304,12 @@ public class KeyboardSwitcher {
 			break;
 		case MODE_URL:
 		case MODE_EMAIL:
-			// starting with English
-			if (mLatinKeyboardIndex >= 0)
+			// starting with English, but only in non-restarting mode
+			//this is a fix for issue #62
+			if (!restarting && mLatinKeyboardIndex >= 0) {
 				mLastSelectedKeyboard = mLatinKeyboardIndex;
-			// note: letting it fallthru to the default branch
+			}
+			// note: letting it fallthrough to the default branch
 		default:
 			mKeyboardLocked = false;
 			keyboard = getAlphabetKeyboard(mLastSelectedKeyboard,
