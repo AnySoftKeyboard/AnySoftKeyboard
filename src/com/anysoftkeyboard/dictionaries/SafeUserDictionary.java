@@ -1,11 +1,10 @@
 package com.anysoftkeyboard.dictionaries;
 
-import com.anysoftkeyboard.WordComposer;
-
 import android.content.Context;
-import android.database.Cursor;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.anysoftkeyboard.WordComposer;
 
 public class SafeUserDictionary extends EditableDictionary {
 
@@ -43,7 +42,7 @@ public class SafeUserDictionary extends EditableDictionary {
 		if (mActualDictionary != null)
 			mActualDictionary.close();
 	}
-
+	
 	private class LoadDictionaryTask extends AsyncTask<Void, Void, Void> {
         
 		@Override
