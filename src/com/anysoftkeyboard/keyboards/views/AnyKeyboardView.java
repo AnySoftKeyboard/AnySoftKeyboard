@@ -640,11 +640,11 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 		//doing all the simple things before the animation
 		if (!AnyApplication.getConfig().workaround_alwaysUseDrawText()) {
 			// RTL fix. But it costs
-			if (AnyApplication.DEBUG) Log.d(TAG, "Will use RTL fix for drawing pop-out text.");
+			/*if (AnyApplication.DEBUG) Log.d(TAG, "Will use RTL fix for drawing pop-out text.");
 			final int textWidth = (int)mPaint.measureText(mPopOutText.toString());
 			mPopOutRTLFixedStaticLayout = new StaticLayout(mPopOutText,
 					new TextPaint(mPaint), (int) textWidth,
-					Alignment.ALIGN_NORMAL, 0.0f, 0.0f, false);
+					Alignment.ALIGN_NORMAL, 0.0f, 0.0f, false);*/
 		}
 		//it is ok to wait for the next loop.
 		postInvalidate();
