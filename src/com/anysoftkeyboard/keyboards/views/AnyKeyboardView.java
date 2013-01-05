@@ -580,7 +580,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 			final long currentAnimationTime = SystemClock.elapsedRealtime() - mPopOutTime;
 			if (currentAnimationTime > animationDuration) {
 				mPopOutText = null;
-				mPopOutRTLFixedStaticLayout = null;
 				if (AnyApplication.DEBUG) Log.d(TAG, "Drawing text popout done.");
 			} else {
 				final float animationProgress = ((float)currentAnimationTime)/((float)animationDuration);
@@ -591,17 +590,13 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 				if (AnyApplication.DEBUG) Log.d(TAG, "Drawing text popout '"+mPopOutText+"' at "+x+","+y+" with alpha "+alpha+". Animation progress is "+animationProgress+", and factor progress is "+animationFactoredProgress);
 				//drawing
 				setPaintToKeyText(mPaint);
-				//will disapear over time
+				//will disappear over time
 				mPaint.setAlpha(alpha);
 				mPaint.setShadowLayer(5, 0, 0, Color.BLACK);
 				//will grow over time
 				mPaint.setTextSize(mPaint.getTextSize()*(1.0f + animationFactoredProgress));
 				canvas.translate(x, y);
-				if (mPopOutRTLFixedStaticLayout != null) {
-						mPopOutRTLFixedStaticLayout.draw(canvas);
-				} else {
-					canvas.drawText(mPopOutText, 0, mPopOutText.length(), 0, 0, mPaint);
-				}
+				canvas.drawText(mPopOutText, 0, mPopOutText.length(), 0, 0, mPaint);
 				canvas.translate(-x, -y);
 				//next frame
 				postInvalidateDelayed(1000/50);//doing 50 frames per second;
@@ -625,7 +620,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	private CharSequence mPopOutText = null;
 	private long mPopOutTime = 0;
 	private final Point mPopOutStartPoint = new Point();
-	private StaticLayout mPopOutRTLFixedStaticLayout = null;
 	private float mPopOutAnimationFactor = 1.0f;
 	
 	public void popTextOutOfKey(CharSequence text) {
@@ -633,19 +627,13 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 			Log.w(TAG, "Call for popTextOutOfKey with missing text argument!");
 			return;
 		}
+		if (!AnyApplication.getConfig().workaround_alwaysUseDrawText())
+			return;//not doing it with StaticLayout
+		
 		mPopOutText = text;
 		mPopOutTime = SystemClock.elapsedRealtime();
 		mPopOutStartPoint.x = mFirstTouchPont.x;
 		mPopOutStartPoint.y = mFirstTouchPont.y;
-		//doing all the simple things before the animation
-		if (!AnyApplication.getConfig().workaround_alwaysUseDrawText()) {
-			// RTL fix. But it costs
-			/*if (AnyApplication.DEBUG) Log.d(TAG, "Will use RTL fix for drawing pop-out text.");
-			final int textWidth = (int)mPaint.measureText(mPopOutText.toString());
-			mPopOutRTLFixedStaticLayout = new StaticLayout(mPopOutText,
-					new TextPaint(mPaint), (int) textWidth,
-					Alignment.ALIGN_NORMAL, 0.0f, 0.0f, false);*/
-		}
 		//it is ok to wait for the next loop.
 		postInvalidate();
 	}
