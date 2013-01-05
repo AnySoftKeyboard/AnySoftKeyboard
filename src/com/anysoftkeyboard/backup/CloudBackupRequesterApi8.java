@@ -9,8 +9,8 @@ public class CloudBackupRequesterApi8 implements CloudBackupRequester {
 	
 	private final BackupManager mBackuper;
 	
-	public CloudBackupRequesterApi8(Context appContext) {
-		mBackuper = new BackupManager(appContext);
+	public CloudBackupRequesterApi8(CloudBackupRequesterDiagram diagram) {
+		mBackuper = new BackupManager(diagram.getContext());
 	}
 
 	public void notifyBackupManager()

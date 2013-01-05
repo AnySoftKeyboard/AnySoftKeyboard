@@ -1,15 +1,14 @@
 package com.anysoftkeyboard.devicespecific;
 
-import com.anysoftkeyboard.WordComposer;
-import com.anysoftkeyboard.backup.CloudBackupRequester;
-import com.anysoftkeyboard.dictionaries.DictionaryFactory;
-import com.anysoftkeyboard.voice.VoiceInput;
-
 import android.content.Context;
 import android.inputmethodservice.InputMethodService;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.inputmethod.InputConnection;
+
+import com.anysoftkeyboard.WordComposer;
+import com.anysoftkeyboard.dictionaries.DictionaryFactory;
+import com.anysoftkeyboard.voice.VoiceInput;
 
 public interface DeviceSpecific {
 
@@ -22,9 +21,6 @@ public interface DeviceSpecific {
 	
 	//TODO move to the new FrankenRobot mechanism
 	public GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener);
-
-	//TODO move to the new FrankenRobot mechanism
-	public CloudBackupRequester createCloudBackupRequester(Context appContext);
 
 	//TODO move to the new FrankenRobot mechanism
 	public DictionaryFactory createDictionaryFactory();

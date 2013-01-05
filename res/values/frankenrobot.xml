@@ -2,11 +2,14 @@
 <resources>
     <string-array name="frankenrobot_interfaces">
         <item>com.anysoftkeyboard.devicespecific.DeviceSpecific</item>
+        <item>com.anysoftkeyboard.backup.CloudBackupRequester</item>
     </string-array>
     
     <string-array name="frankenrobot_concreate_classes">
         <item>@string/frankenrobot_device_specific_implementation</item>
+        <item>@string/frankenrobot_cloud_backup_implementation</item>
     </string-array>
     
     <string name="frankenrobot_device_specific_implementation">com.anysoftkeyboard.devicespecific.DeviceSpecific_V3</string>
+    <string name="frankenrobot_cloud_backup_implementation">@null</string>
 </resources>

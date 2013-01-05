@@ -49,11 +49,6 @@ public class DeviceSpecific_V8 extends DeviceSpecific_V7 {
 	}
 
 	@Override
-	public CloudBackupRequester createCloudBackupRequester(Context appContext) {
-		return new CloudBackupRequesterApi8(appContext);
-	}
-
-	@Override
 	public VoiceInput createVoiceInput(InputMethodService ime) {
 		return new VoiceRecognitionTrigger(ime);
 	}

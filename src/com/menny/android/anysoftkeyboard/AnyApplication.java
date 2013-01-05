@@ -1,6 +1,7 @@
 package com.menny.android.anysoftkeyboard;
 
 
+import net.evendanan.frankenrobot.Diagram;
 import net.evendanan.frankenrobot.FrankenRobot;
 import net.evendanan.frankenrobot.Lab;
 import android.app.Application;
@@ -14,6 +15,7 @@ import android.util.Log;
 import com.anysoftkeyboard.Configuration;
 import com.anysoftkeyboard.ConfigurationImpl;
 import com.anysoftkeyboard.backup.CloudBackupRequester;
+import com.anysoftkeyboard.backup.CloudBackupRequesterDiagram;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 
@@ -51,10 +53,10 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
 		sp.registerOnSharedPreferenceChangeListener(this);
 
 		FrankenRobot frank = Lab.build(getApplicationContext(), R.array.frankenrobot_interfaces, R.array.frankenrobot_concreate_classes);
-		msDeviceSpecific = (DeviceSpecific) frank.embody(DeviceSpecific.class);
+		msDeviceSpecific = frank.embody(new Diagram<DeviceSpecific>() {});
         Log.i(TAG, "Loaded DeviceSpecific "+msDeviceSpecific.getApiLevel()+" concrete class "+msDeviceSpecific.getClass().getName());
 
-        msCloudBackuper = msDeviceSpecific.createCloudBackupRequester(getApplicationContext());
+        msCloudBackuper = frank.embody(new CloudBackupRequesterDiagram(getApplicationContext()));
 		
 		TutorialsProvider.showDragonsIfNeeded(getApplicationContext());
 	}
