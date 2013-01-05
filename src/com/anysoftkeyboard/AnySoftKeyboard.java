@@ -2530,6 +2530,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				}
 			} else {
 				commitTyped(ic);
+				abortCorrection(true, false);
 			}
 		} else if (separatorInsideWord) {
 			// when puting a separator in the middile of a word, there is no
