@@ -41,10 +41,6 @@ public class DeviceSpecific_V3 implements DeviceSpecific
 		return new GestureDetector(appContext, listener, null);
 	}
 	
-	public CloudBackupRequester createCloudBackupRequester(Context appContext) {
-		return null;
-	}
-	
 	public DictionaryFactory createDictionaryFactory() {
 		return new DictionaryFactory();
 	}
