@@ -47,8 +47,8 @@ public class SafeUserDictionary extends EditableDictionary {
         
 		@Override
         protected Void doInBackground(Void... v) {
-            
-     
+			loadDictionaryAsync();
+			
             synchronized (mUpdatingLock) {
                 mUpdatingDictionary = false;
             }
@@ -58,10 +58,8 @@ public class SafeUserDictionary extends EditableDictionary {
 	
 	public void loadDictionarySync() {
 		synchronized (mUpdatingLock) {
-        	if (!mUpdatingDictionary ) {
-                mUpdatingDictionary = true;
-            }
-        	
+        	mUpdatingDictionary = true;
+            
         	loadDictionaryAsync();
         	
         	mUpdatingDictionary = false;
