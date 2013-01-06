@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="frankenrobot_interfaces_mapping">
+        <item>com.anysoftkeyboard.devicespecific.DeviceSpecific is @string/frankenrobot_device_specific_implementation</item>
+        <item>com.anysoftkeyboard.devicespecific.WMotionEvent is @string/frankenrobot_motion_event_implementation</item>
+        <item>com.anysoftkeyboard.backup.CloudBackupRequester is @string/frankenrobot_cloud_backup_implementation</item>
+    </string-array>
+    <!-- 
     <string-array name="frankenrobot_interfaces">
         <item>com.anysoftkeyboard.devicespecific.DeviceSpecific</item>
+        <item>com.anysoftkeyboard.devicespecific.WMotionEvent</item>
         <item>com.anysoftkeyboard.backup.CloudBackupRequester</item>
     </string-array>
     
     <string-array name="frankenrobot_concreate_classes">
         <item>@string/frankenrobot_device_specific_implementation</item>
+        <item>@string/frankenrobot_motion_event_implementation</item>
         <item>@string/frankenrobot_cloud_backup_implementation</item>
     </string-array>
-    
+     -->
     <string name="frankenrobot_device_specific_implementation">com.anysoftkeyboard.devicespecific.DeviceSpecific_V3</string>
+    <string name="frankenrobot_motion_event_implementation">com.anysoftkeyboard.devicespecific.WMotionEventV3</string>
     <string name="frankenrobot_cloud_backup_implementation">@null</string>
 </resources>

@@ -6,12 +6,10 @@ import android.content.Context;
 import android.inputmethodservice.InputMethodService;
 import android.util.Log;
 import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.inputmethod.InputConnection;
 import android.widget.Toast;
 
 import com.anysoftkeyboard.WordComposer;
-import com.anysoftkeyboard.backup.CloudBackupRequester;
 import com.anysoftkeyboard.dictionaries.DictionaryFactory;
 import com.anysoftkeyboard.voice.VoiceInput;
 import com.menny.android.anysoftkeyboard.R;
@@ -26,10 +24,6 @@ public class DeviceSpecific_V3 implements DeviceSpecific
 
 	public String getApiLevel() {
 		return "DeviceSpecific_V3";
-	}
-
-	public WMotionEvent createMotionEventWrapper(MotionEvent nativeMotionEvent) {
-		return new WMotionEvent(nativeMotionEvent);
 	}
 
 	public MultiTouchSupportLevel getMultiTouchSupportLevel(Context appContext) {

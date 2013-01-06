@@ -5,10 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.inputmethodservice.InputMethodService;
 import android.view.GestureDetector;
-import android.view.MotionEvent;
 
-import com.anysoftkeyboard.backup.CloudBackupRequester;
-import com.anysoftkeyboard.backup.CloudBackupRequesterApi8;
 import com.anysoftkeyboard.voice.VoiceInput;
 import com.anysoftkeyboard.voice.VoiceRecognitionTrigger;
 
@@ -17,11 +14,6 @@ public class DeviceSpecific_V8 extends DeviceSpecific_V7 {
 	@Override
 	public String getApiLevel() {
 		return "DeviceSpecific_V8";
-	}
-
-	@Override
-	public WMotionEvent createMotionEventWrapper(MotionEvent nativeMotionEvent) {
-		return new WMotionEventV8(nativeMotionEvent);
 	}
 
 	@Override
