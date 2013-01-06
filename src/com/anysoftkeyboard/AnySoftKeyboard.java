@@ -22,6 +22,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import net.evendanan.frankenrobot.Diagram;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -331,8 +333,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 			notifyKeyboardChangeIfNeeded();
 		}
 
-		mVoiceRecognitionTrigger = AnyApplication.getDeviceSpecific()
-				.createVoiceInput(this);
+		mVoiceRecognitionTrigger = AnyApplication.getFrankenRobot().embody(
+				new VoiceInput.VoiceInputDiagram(this));
 
 		TutorialsProvider.showChangeLogIfNeeded(getApplicationContext());
 

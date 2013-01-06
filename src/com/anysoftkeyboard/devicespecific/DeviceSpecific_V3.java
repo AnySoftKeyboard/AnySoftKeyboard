@@ -30,19 +30,6 @@ public class DeviceSpecific_V3 implements DeviceSpecific
 			AskOnGestureListener listener) {
 		return new GestureDetector(appContext, listener, null);
 	}
-	
-	public VoiceInput createVoiceInput(InputMethodService ime) {
-		final Context appContext = ime.getApplicationContext();
-		return new VoiceInput() {
-			public void startVoiceRecognition(String language) {
-				Toast.makeText(appContext, appContext.getText(R.string.voice_input_not_support_in_this_os_version), Toast.LENGTH_LONG).show();
-			}
-			
-			public void onStartInputView() {
-				
-			}
-		};
-	}
 
 	@SuppressWarnings("deprecation")
 	public Clipboard getClipboard(Context appContext) {

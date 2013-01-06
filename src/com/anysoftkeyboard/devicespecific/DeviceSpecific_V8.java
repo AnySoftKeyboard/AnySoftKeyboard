@@ -39,9 +39,4 @@ public class DeviceSpecific_V8 extends DeviceSpecific_V7 {
 		return new AskV8GestureDetector(appContext, listener, null,
 				ignoreMultitouch);
 	}
-
-	@Override
-	public VoiceInput createVoiceInput(InputMethodService ime) {
-		return new VoiceRecognitionTrigger(ime);
-	}
 }
