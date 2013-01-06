@@ -1,17 +1,12 @@
-package com.anysoftkeyboard.devicespecific;
+package com.anysoftkeyboard.keyboards.views;
 
 import android.view.MotionEvent;
 
-public class WMotionEvent {
-	protected final MotionEvent mNativeMotionEvent;
+public class WMotionEventV3 implements WMotionEvent {
+	protected MotionEvent mNativeMotionEvent;
 	
-	public WMotionEvent(MotionEvent nativeMotionEvent)
-	{
+	public final void setNativeMotionEvent(MotionEvent nativeMotionEvent) {
 		mNativeMotionEvent = nativeMotionEvent;
-	}
-
-	public MotionEvent getNativeMotionEvent() {
-		return mNativeMotionEvent;
 	}
 
 	public int getActionMasked() {

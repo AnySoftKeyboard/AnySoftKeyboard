@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 
 @TargetApi(7)
-public class DeviceSpecific_V7 extends DeviceSpecific_V5 {
+public class DeviceSpecific_V7 extends DeviceSpecific_V3 {
 	@Override
 	public String getApiLevel() {
 		return "DeviceSpecific_V7";

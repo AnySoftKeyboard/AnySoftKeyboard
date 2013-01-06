@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="frankenrobot_device_specific_implementation">com.anysoftkeyboard.devicespecific.DeviceSpecific_V5</string>
+    <string name="frankenrobot_motion_event_implementation">com.anysoftkeyboard.keyboards.views.WMotionEventV5</string>
+    <string name="frankenrobot_dictionary_factory_implementation">com.anysoftkeyboard.dictionaries.DictionaryFactoryAPI5</string>
 </resources>
