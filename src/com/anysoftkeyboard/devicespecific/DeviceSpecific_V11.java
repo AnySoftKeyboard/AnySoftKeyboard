@@ -19,12 +19,7 @@ public class DeviceSpecific_V11 extends DeviceSpecific_V8 {
 	public String getApiLevel() {
 		return "DeviceSpecific_V11";
 	}
-
-	@Override
-	public VoiceInput createVoiceInput(InputMethodService ime) {
-		return new VoiceRecognitionTriggerV11(ime);
-	}
-
+	
 	@Override
 	public void commitCorrectionToInputConnection(InputConnection ic,
 			WordComposer word) {

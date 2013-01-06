@@ -6,7 +6,6 @@ import android.view.GestureDetector;
 import android.view.inputmethod.InputConnection;
 
 import com.anysoftkeyboard.WordComposer;
-import com.anysoftkeyboard.dictionaries.DictionaryFactory;
 import com.anysoftkeyboard.voice.VoiceInput;
 
 public interface DeviceSpecific {
@@ -17,9 +16,6 @@ public interface DeviceSpecific {
 	
 	public GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener);
 
-	//TODO move to the new FrankenRobot mechanism
-	public VoiceInput createVoiceInput(InputMethodService ime);
-	
 	//TODO move to the new FrankenRobot mechanism
 	public Clipboard getClipboard(Context appContext);
 
