@@ -1,6 +1,7 @@
 package com.menny.android.anysoftkeyboard;
 
 
+import net.evendanan.frankenrobot.Diagram;
 import net.evendanan.frankenrobot.FrankenRobot;
 import net.evendanan.frankenrobot.Lab;
 import android.app.Application;
@@ -14,6 +15,7 @@ import android.util.Log;
 import com.anysoftkeyboard.Configuration;
 import com.anysoftkeyboard.ConfigurationImpl;
 import com.anysoftkeyboard.backup.CloudBackupRequester;
+import com.anysoftkeyboard.backup.CloudBackupRequesterDiagram;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 
@@ -25,6 +27,7 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
 	
 	private static final String TAG = "ASK_APP";
 	private static Configuration msConfig;
+	private static FrankenRobot msFrank;
 	private static DeviceSpecific msDeviceSpecific;
 	private static CloudBackupRequester msCloudBackuper;
 	
@@ -50,11 +53,11 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		sp.registerOnSharedPreferenceChangeListener(this);
 
-		FrankenRobot frank = Lab.build(getApplicationContext(), R.array.frankenrobot_interfaces, R.array.frankenrobot_concreate_classes);
-		msDeviceSpecific = (DeviceSpecific) frank.embody(DeviceSpecific.class);
+		msFrank = Lab.build(getApplicationContext(), R.array.frankenrobot_interfaces_mapping);
+		msDeviceSpecific = msFrank.embody(new Diagram<DeviceSpecific>() {});
         Log.i(TAG, "Loaded DeviceSpecific "+msDeviceSpecific.getApiLevel()+" concrete class "+msDeviceSpecific.getClass().getName());
 
-        msCloudBackuper = msDeviceSpecific.createCloudBackupRequester(getApplicationContext());
+        msCloudBackuper = msFrank.embody(new CloudBackupRequesterDiagram(getApplicationContext()));
 		
 		TutorialsProvider.showDragonsIfNeeded(getApplicationContext());
 	}
@@ -88,6 +91,10 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
 	{
 		if (msCloudBackuper != null)
 			msCloudBackuper.notifyBackupManager();
+	}
+
+	public static FrankenRobot getFrankenRobot() {
+		return msFrank;
 	}
 	
 }

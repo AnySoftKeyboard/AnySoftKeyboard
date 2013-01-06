@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import net.evendanan.frankenrobot.Diagram;
+
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
@@ -46,6 +48,8 @@ public class Suggest implements Dictionary.WordCallback {
 	private AutoText mAutoText;
 	
 	private int mMinimumWordSizeToStartCorrecting = 2;
+	
+	private final DictionaryFactory mDictionaryFactory;
 	
 	private Dictionary mUserDictionary;
 
@@ -76,9 +80,8 @@ public class Suggest implements Dictionary.WordCallback {
 	private boolean mAutoTextEnabled = true;
 	private boolean mMainDictioanryEnabled = true;
 
-	public Suggest(Context context/* , int dictionaryResId */) {
-		// mContext = context;
-		// mMainDict = new BinaryDictionary(context, dictionaryResId);
+	public Suggest(Context context) {
+		mDictionaryFactory = AnyApplication.getFrankenRobot().embody(new Diagram<DictionaryFactory>() {});
 		for (int i = 0; i < mPrefMaxSuggestions; i++) {
 			StringBuilder sb = new StringBuilder(32);
 			mStringPool.add(sb);
@@ -161,7 +164,7 @@ public class Suggest implements Dictionary.WordCallback {
 			mContactsDictionary = null;
 		} else if (enabled && mContactsDictionary == null){
 			//config says it should be on, but I have none.
-			mContactsDictionary = DictionaryFactory.getInstance().createContactsDictionary(context);
+			mContactsDictionary = mDictionaryFactory.createContactsDictionary(context);
 		}
 	}
 
@@ -441,9 +444,7 @@ public class Suggest implements Dictionary.WordCallback {
 		//making sure it is not negative or zero
 		mMinimumWordSizeToStartCorrecting = Math.max(1, minLength);
 	}
-
-	// public Dictionary getMainDictionary()
-	// {
-	// return mMainDict;
-	// }
+	public DictionaryFactory getDictionaryFactory() {
+		return mDictionaryFactory;
+	}
 }

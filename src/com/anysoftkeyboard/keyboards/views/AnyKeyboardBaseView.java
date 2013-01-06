@@ -21,6 +21,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.evendanan.frankenrobot.Diagram;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -64,7 +66,6 @@ import com.anysoftkeyboard.Configuration.AnimationsLevel;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
 import com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel;
-import com.anysoftkeyboard.devicespecific.WMotionEvent;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
@@ -199,6 +200,7 @@ public class AnyKeyboardBaseView extends View implements
 
 	private final ArrayList<PointerTracker> mPointerTrackers = new ArrayList<PointerTracker>();
 
+	private final WMotionEvent mMotionEvent;
 	// TODO: Let the PointerTracker class manage this pointer queue
 	final PointerQueue mPointerQueue = new PointerQueue();
 
@@ -426,6 +428,8 @@ public class AnyKeyboardBaseView extends View implements
 	public AnyKeyboardBaseView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 
+		mMotionEvent = AnyApplication.getFrankenRobot().embody(new Diagram<WMotionEvent>() {});
+		
 		LayoutInflater inflate = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		// int previewLayout = 0;
@@ -2469,8 +2473,8 @@ public class AnyKeyboardBaseView extends View implements
 
 	@Override
 	public boolean onTouchEvent(MotionEvent nativeMotionEvent) {
-		WMotionEvent me = AnyApplication.getDeviceSpecific()
-				.createMotionEventWrapper(nativeMotionEvent);
+		mMotionEvent.setNativeMotionEvent(nativeMotionEvent);
+		WMotionEvent me = mMotionEvent;
 		final int action = me.getActionMasked();
 		final int pointerCount = me.getPointerCount();
 		final int oldPointerCount = mOldPointerCount;
@@ -2486,13 +2490,13 @@ public class AnyKeyboardBaseView extends View implements
 		}
 
 		// Track the last few movements to look for spurious swipes.
-		mSwipeTracker.addMovement(me.getNativeMotionEvent());
+		mSwipeTracker.addMovement(nativeMotionEvent);
 
 		// Gesture detector must be enabled only when mini-keyboard is not
 		// on the screen.
 		if (!mMiniKeyboardVisible
 				&& mGestureDetector != null
-				&& (mGestureDetector.onTouchEvent(me.getNativeMotionEvent()))) {
+				&& (mGestureDetector.onTouchEvent(nativeMotionEvent))) {
 			if (AnyApplication.DEBUG)
 				Log.d(TAG, "Gesture detected!");
 			mHandler.cancelKeyTimers();

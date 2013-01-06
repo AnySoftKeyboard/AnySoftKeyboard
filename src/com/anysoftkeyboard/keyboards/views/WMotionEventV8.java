@@ -1,15 +1,9 @@
-package com.anysoftkeyboard.devicespecific;
+package com.anysoftkeyboard.keyboards.views;
 
 import android.annotation.TargetApi;
-import android.view.MotionEvent;
 
 @TargetApi(8)
-class WMotionEventV8 extends WMotionEventV5 {
-
-	WMotionEventV8(MotionEvent nativeMotionEvent) {
-		super(nativeMotionEvent);
-	}
-
+public class WMotionEventV8 extends WMotionEventV5 {
 	public int getActionMasked() {
 		return mNativeMotionEvent.getActionMasked();
 	}

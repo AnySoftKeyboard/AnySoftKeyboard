@@ -16,7 +16,6 @@
 
 package com.anysoftkeyboard.voice;
 
-import android.inputmethodservice.InputMethodService;
 import android.util.Log;
 
 /**
@@ -26,8 +25,8 @@ import android.util.Log;
 public class VoiceRecognitionTriggerV11 extends VoiceRecognitionTrigger {
 	private static final String TAG = "ASK_VoiceRecognitionTriggerV11";
 	
-	public VoiceRecognitionTriggerV11(InputMethodService inputMethodService) {
-		super(inputMethodService);
+	public VoiceRecognitionTriggerV11(VoiceInputDiagram diagram) {
+		super(diagram);
 	}
 
 	protected Trigger getTrigger() {
