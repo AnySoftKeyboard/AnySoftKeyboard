@@ -1,12 +1,10 @@
 package com.anysoftkeyboard.devicespecific;
 
 import android.content.Context;
-import android.inputmethodservice.InputMethodService;
 import android.view.GestureDetector;
 import android.view.inputmethod.InputConnection;
 
 import com.anysoftkeyboard.WordComposer;
-import com.anysoftkeyboard.voice.VoiceInput;
 
 public interface DeviceSpecific {
 
@@ -15,9 +13,6 @@ public interface DeviceSpecific {
 	public MultiTouchSupportLevel getMultiTouchSupportLevel(Context appContext);
 	
 	public GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener);
-
-	//TODO move to the new FrankenRobot mechanism
-	public Clipboard getClipboard(Context appContext);
 
 	public void commitCorrectionToInputConnection(InputConnection ic, WordComposer word);
 }
