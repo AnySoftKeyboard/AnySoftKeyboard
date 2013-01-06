@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="frankenrobot_device_specific_implementation">com.anysoftkeyboard.devicespecific.DeviceSpecific_V8</string>
-    <string name="frankenrobot_motion_event_implementation">com.anysoftkeyboard.devicespecific.WMotionEventV8</string>
+    <string name="frankenrobot_motion_event_implementation">com.anysoftkeyboard.keyboards.views.WMotionEventV8</string>
     <string name="frankenrobot_cloud_backup_implementation">com.anysoftkeyboard.backup.CloudBackupRequesterApi8</string>
 </resources>

@@ -6,19 +6,11 @@ import android.content.ClipData.Item;
 import android.content.ClipboardManager;
 import android.content.Context;
 
-import com.anysoftkeyboard.dictionaries.DictionaryFactory;
-import com.anysoftkeyboard.dictionaries.DictionaryFactoryAPI16;
-
 @TargetApi(16)
 public class DeviceSpecific_V16 extends DeviceSpecific_V8 {
 	@Override
 	public String getApiLevel() {
 		return "DeviceSpecific_V16";
-	}
-
-	@Override
-	public DictionaryFactory createDictionaryFactory() {
-		return new DictionaryFactoryAPI16();
 	}
 
 	@Override

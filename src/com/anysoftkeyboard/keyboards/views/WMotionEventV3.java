@@ -1,4 +1,4 @@
-package com.anysoftkeyboard.devicespecific;
+package com.anysoftkeyboard.keyboards.views;
 
 import android.view.MotionEvent;
 

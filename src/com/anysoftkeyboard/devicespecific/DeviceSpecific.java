@@ -15,11 +15,7 @@ public interface DeviceSpecific {
 
 	public MultiTouchSupportLevel getMultiTouchSupportLevel(Context appContext);
 	
-	//TODO move to the new FrankenRobot mechanism
 	public GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener);
-
-	//TODO move to the new FrankenRobot mechanism
-	public DictionaryFactory createDictionaryFactory();
 
 	//TODO move to the new FrankenRobot mechanism
 	public VoiceInput createVoiceInput(InputMethodService ime);

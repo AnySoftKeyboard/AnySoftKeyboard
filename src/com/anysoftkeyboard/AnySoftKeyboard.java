@@ -3326,13 +3326,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 					mSuggest.setMainDictionary(dictionaryBuilder);
 					String localeForSupportingDictionaries = dictionaryBuilder != null ? dictionaryBuilder
 							.getLanguage() : defaultDictionary;
-					mUserDictionary = DictionaryFactory.getInstance()
+					mUserDictionary = mSuggest.getDictionaryFactory()
 							.createUserDictionary(this,
 									localeForSupportingDictionaries);
 					mUserDictionary.loadDictionary();
 					mSuggest.setUserDictionary(mUserDictionary);
 
-					mAutoDictionary = DictionaryFactory.getInstance()
+					mAutoDictionary = mSuggest.getDictionaryFactory()
 							.createAutoDictionary(this, this,
 									localeForSupportingDictionaries);
 					mSuggest.setAutoDictionary(mAutoDictionary);
