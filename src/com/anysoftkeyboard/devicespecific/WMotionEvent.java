@@ -2,47 +2,22 @@ package com.anysoftkeyboard.devicespecific;
 
 import android.view.MotionEvent;
 
-public class WMotionEvent {
-	protected final MotionEvent mNativeMotionEvent;
+public interface WMotionEvent {
+	void setNativeMotionEvent(MotionEvent nativeMotionEvent);
 	
-	public WMotionEvent(MotionEvent nativeMotionEvent)
-	{
-		mNativeMotionEvent = nativeMotionEvent;
-	}
+	int getActionMasked() ;
 
-	public MotionEvent getNativeMotionEvent() {
-		return mNativeMotionEvent;
-	}
+	int getPointerCount();
 
-	public int getActionMasked() {
-		return mNativeMotionEvent.getAction();
-	}
+	long getEventTime();
 
-	public int getPointerCount() {
-		return 1;
-	}
+	int getActionIndex();
 
-	public long getEventTime() {
-		return mNativeMotionEvent.getEventTime();
-	}
+	int getPointerId(int index);
 
-	public int getActionIndex() {
-		return 1;
-	}
+	float getX(int index);
 
-	public int getPointerId(int index) {
-		return 1;
-	}
+	float getY(int index);
 
-	public float getX(int index) {
-		return mNativeMotionEvent.getX();
-	}
-
-	public float getY(int index) {
-		return mNativeMotionEvent.getY();
-	}
-
-	public int findPointerIndex(int pointerId) {
-		return 1;
-	}
+	int findPointerIndex(int pointerId);
 }

@@ -27,6 +27,7 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
 	
 	private static final String TAG = "ASK_APP";
 	private static Configuration msConfig;
+	private static FrankenRobot msFrank;
 	private static DeviceSpecific msDeviceSpecific;
 	private static CloudBackupRequester msCloudBackuper;
 	
@@ -52,11 +53,11 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		sp.registerOnSharedPreferenceChangeListener(this);
 
-		FrankenRobot frank = Lab.build(getApplicationContext(), R.array.frankenrobot_interfaces, R.array.frankenrobot_concreate_classes);
-		msDeviceSpecific = frank.embody(new Diagram<DeviceSpecific>() {});
+		msFrank = Lab.build(getApplicationContext(), R.array.frankenrobot_interfaces_mapping);
+		msDeviceSpecific = msFrank.embody(new Diagram<DeviceSpecific>() {});
         Log.i(TAG, "Loaded DeviceSpecific "+msDeviceSpecific.getApiLevel()+" concrete class "+msDeviceSpecific.getClass().getName());
 
-        msCloudBackuper = frank.embody(new CloudBackupRequesterDiagram(getApplicationContext()));
+        msCloudBackuper = msFrank.embody(new CloudBackupRequesterDiagram(getApplicationContext()));
 		
 		TutorialsProvider.showDragonsIfNeeded(getApplicationContext());
 	}
@@ -90,6 +91,10 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
 	{
 		if (msCloudBackuper != null)
 			msCloudBackuper.notifyBackupManager();
+	}
+
+	public static FrankenRobot getFrankenRobot() {
+		return msFrank;
 	}
 	
 }
