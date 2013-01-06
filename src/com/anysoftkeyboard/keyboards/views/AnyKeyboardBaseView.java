@@ -66,7 +66,6 @@ import com.anysoftkeyboard.Configuration.AnimationsLevel;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
 import com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel;
-import com.anysoftkeyboard.devicespecific.WMotionEvent;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
