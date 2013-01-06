@@ -22,6 +22,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import net.evendanan.frankenrobot.Diagram;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -104,6 +106,7 @@ import com.anysoftkeyboard.utils.IMEUtil.GCUtils.MemRelatedOperation;
 import com.anysoftkeyboard.utils.ModifierKeyState;
 import com.anysoftkeyboard.utils.Workarounds;
 import com.anysoftkeyboard.voice.VoiceInput;
+import com.anysoftkeyboard.voice.VoiceInput.VoiceInputDiagram;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -331,8 +334,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 			notifyKeyboardChangeIfNeeded();
 		}
 
-		mVoiceRecognitionTrigger = AnyApplication.getDeviceSpecific()
-				.createVoiceInput(this);
+		mVoiceRecognitionTrigger = AnyApplication.getFrankenRobot().embody(
+				new VoiceInput.VoiceInputDiagram(this));
 
 		TutorialsProvider.showChangeLogIfNeeded(getApplicationContext());
 
@@ -1934,8 +1937,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 					NextKeyboardType.OtherMode);
 			break;
 		case KeyCodes.CLIPBOARD:
-			Clipboard cp = AnyApplication.getDeviceSpecific().getClipboard(
-					getApplicationContext());
+			Clipboard cp = AnyApplication.getFrankenRobot().embody(
+					new Clipboard.ClipboardDiagram(getApplicationContext()));
 			CharSequence clipboardText = cp.getText();
 			if (!TextUtils.isEmpty(clipboardText)) {
 				onText(clipboardText);
@@ -3326,13 +3329,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 					mSuggest.setMainDictionary(dictionaryBuilder);
 					String localeForSupportingDictionaries = dictionaryBuilder != null ? dictionaryBuilder
 							.getLanguage() : defaultDictionary;
-					mUserDictionary = DictionaryFactory.getInstance()
+					mUserDictionary = mSuggest.getDictionaryFactory()
 							.createUserDictionary(this,
 									localeForSupportingDictionaries);
 					mUserDictionary.loadDictionary();
 					mSuggest.setUserDictionary(mUserDictionary);
 
-					mAutoDictionary = DictionaryFactory.getInstance()
+					mAutoDictionary = mSuggest.getDictionaryFactory()
 							.createAutoDictionary(this, this,
 									localeForSupportingDictionaries);
 					mSuggest.setAutoDictionary(mAutoDictionary);

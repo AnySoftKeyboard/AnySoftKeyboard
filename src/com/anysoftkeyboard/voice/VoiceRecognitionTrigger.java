@@ -31,8 +31,8 @@ public class VoiceRecognitionTrigger implements VoiceInput {
 
     private Trigger mTrigger;
 
-    public VoiceRecognitionTrigger(InputMethodService inputMethodService) {
-        mInputMethodService = inputMethodService;
+    public VoiceRecognitionTrigger(VoiceInputDiagram diagram) {
+        mInputMethodService = diagram.getInputMethodService();
         mTrigger = getTrigger();
     }
 

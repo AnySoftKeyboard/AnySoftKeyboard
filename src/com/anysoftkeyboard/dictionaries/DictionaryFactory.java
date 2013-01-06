@@ -10,18 +10,6 @@ public class DictionaryFactory
 {
     private static final String TAG = "ASK DictFctry";
     
-    private static final DictionaryFactory msFactory;
-    
-    static
-    {
-    	msFactory = AnyApplication.getDeviceSpecific().createDictionaryFactory();
-    }
-    
-    public static DictionaryFactory getInstance()
-    {
-    	return msFactory;
-    }
-    
     private AutoDictionary mAutoDictionary = null;
     private String mUserDictionaryLocale = null;
     private EditableDictionary mUserDictionary = null;
