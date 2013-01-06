@@ -30,28 +30,4 @@ public class DeviceSpecific_V11 extends DeviceSpecific_V8 {
 
 		ic.commitCorrection(correctionInfo);
 	}
-
-	@Override
-	public Clipboard getClipboard(final Context appContext) {
-		final ClipboardManager cbV11 = (ClipboardManager) appContext
-				.getSystemService(Context.CLIPBOARD_SERVICE);
-		return new Clipboard() {
-
-			public void setText(CharSequence text) {
-				cbV11.setPrimaryClip(ClipData.newPlainText("Styled Text", text));
-			}
-
-			public CharSequence getText() {
-				ClipData cp = cbV11.getPrimaryClip();
-				if (cp != null) {
-					if (cp.getItemCount() > 0) {
-						Item cpi = cp.getItemAt(0);
-						return cpi.coerceToText(appContext);
-					}
-				}
-
-				return null;
-			}
-		};
-	}
 }

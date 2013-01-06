@@ -6,6 +6,7 @@
         <item>com.anysoftkeyboard.backup.CloudBackupRequester is @string/frankenrobot_cloud_backup_implementation</item>
         <item>com.anysoftkeyboard.dictionaries.DictionaryFactory is @string/frankenrobot_dictionary_factory_implementation</item>
         <item>com.anysoftkeyboard.voice.VoiceInput is @string/frankenrobot_voice_input_implementation</item>
+        <item>com.anysoftkeyboard.devicespecific.Clipboard is @string/frankenrobot_clipboard_implementation</item>
     </string-array>
     <!-- 
     <string-array name="frankenrobot_interfaces">
@@ -25,4 +26,5 @@
     <string name="frankenrobot_cloud_backup_implementation">@null</string>
     <string name="frankenrobot_dictionary_factory_implementation">com.anysoftkeyboard.dictionaries.DictionaryFactory</string>
     <string name="frankenrobot_voice_input_implementation">com.anysoftkeyboard.voice.VoiceInputEmptyImpl</string>
+    <string name="frankenrobot_clipboard_implementation">com.anysoftkeyboard.devicespecific.ClipboardV3</string>
 </resources>
