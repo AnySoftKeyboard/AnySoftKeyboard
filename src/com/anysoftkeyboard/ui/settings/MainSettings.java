@@ -30,7 +30,7 @@ public class MainSettings extends PreferenceActivity {
 	@Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        addPreferencesFromResource(R.layout.prefs);
+        addPreferencesFromResource(R.xml.prefs);
         
         String version = "";
         try {
