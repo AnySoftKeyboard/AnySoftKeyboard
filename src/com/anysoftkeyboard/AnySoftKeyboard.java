@@ -114,6 +114,26 @@ public class AnySoftKeyboard extends InputMethodService implements
 		OnKeyboardActionListener, OnSharedPreferenceChangeListener,
 		AnyKeyboardContextProvider, SoundPreferencesChangedListener {
 	private static final class KeyboardUIStateHanlder extends Handler {
+		private static final class CloseTextAnimationListener implements
+				AnimationListener {
+			private View closeText;
+
+			public void setCloseText(View c) {
+				closeText = c;
+			}
+			
+			public void onAnimationStart(Animation animation) {
+			}
+
+			public void onAnimationRepeat(Animation animation) {
+			}
+
+			public void onAnimationEnd(Animation animation) {
+				closeText.setVisibility(View.GONE);
+			}
+		}
+
+		private final CloseTextAnimationListener mCloseTextAnimationListener = new CloseTextAnimationListener();
 		private final WeakReference<AnySoftKeyboard> mKeyboard;
 		
 		public KeyboardUIStateHanlder(AnySoftKeyboard keyboard) {
@@ -144,21 +164,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 				final View closeText = ask.mCandidateCloseText;
 				if (closeText != null) {// in API3, this variable is
 													// null
+					mCloseTextAnimationListener.setCloseText(closeText);
 					Animation gone = AnimationUtils.loadAnimation(
 							ask.getApplicationContext(),
 							R.anim.close_candidates_hint_out);
-					gone.setAnimationListener(new AnimationListener() {
-
-						public void onAnimationStart(Animation animation) {
-						}
-
-						public void onAnimationRepeat(Animation animation) {
-						}
-
-						public void onAnimationEnd(Animation animation) {
-							closeText.setVisibility(View.GONE);
-						}
-					});
+					gone.setAnimationListener(mCloseTextAnimationListener);
 					closeText.startAnimation(gone);
 				}
 			default:
@@ -180,8 +190,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private final com.anysoftkeyboard.Configuration mConfig;
 	private static final boolean DEBUG = AnyApplication.DEBUG;
 
-	private ModifierKeyState mShiftKeyState = new ModifierKeyState();
-	private ModifierKeyState mControlKeyState = new ModifierKeyState();
+	private final ModifierKeyState mShiftKeyState = new ModifierKeyState();
+	private final ModifierKeyState mControlKeyState = new ModifierKeyState();
 
 	private boolean mTipsCalled = false;
 
@@ -201,7 +211,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private AlertDialog mQuickTextKeyDialog;
 
 	KeyboardSwitcher mKeyboardSwitcher;
-	private final HardKeyboardActionImpl mHardKeyboardAction;
+	private final HardKeyboardActionImpl mHardKeyboardAction = new HardKeyboardActionImpl();
 	private long mMetaState;
 
 	private HashSet<Character> mSentenceSeparators = new HashSet<Character>();
@@ -288,7 +298,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	public AnySoftKeyboard() {
 		mConfig = AnyApplication.getConfig();
-		mHardKeyboardAction = new HardKeyboardActionImpl();
 	}
 
 	@Override

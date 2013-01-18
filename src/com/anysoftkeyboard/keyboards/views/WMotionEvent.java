@@ -3,6 +3,10 @@ package com.anysoftkeyboard.keyboards.views;
 import android.view.MotionEvent;
 
 public interface WMotionEvent {
+	public static class Diagram extends net.evendanan.frankenrobot.Diagram<WMotionEvent> {
+		
+	}
+	
 	void setNativeMotionEvent(MotionEvent nativeMotionEvent);
 	
 	int getActionMasked() ;
