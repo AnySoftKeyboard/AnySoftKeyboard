@@ -181,8 +181,6 @@ public class AnyKeyboardBaseView extends View implements
 	protected AnyKeyboardBaseView mMiniKeyboard = null;;
 	private boolean mMiniKeyboardVisible = false;
 	private View mMiniKeyboardParent;
-	// private final WeakHashMap<Key, AnyKeyboardBaseView> mMiniKeyboardCache =
-	// new WeakHashMap<Key, AnyKeyboardBaseView>();
 	private int mMiniKeyboardOriginX;
 	private int mMiniKeyboardOriginY;
 	private long mMiniKeyboardPopupTime;
@@ -253,42 +251,42 @@ public class AnyKeyboardBaseView extends View implements
 	private static final class MiniKeyboardActionListener implements
 			OnKeyboardActionListener {
 		
-		private final WeakReference<AnyKeyboardBaseView> mParent;
+		private final WeakReference<AnyKeyboardBaseView> mParentKeyboard;
 
-		public MiniKeyboardActionListener(AnyKeyboardBaseView keyboard) {
-			mParent = new WeakReference<AnyKeyboardBaseView>(keyboard);
+		public MiniKeyboardActionListener(AnyKeyboardBaseView parentKeyboard) {
+			mParentKeyboard = new WeakReference<AnyKeyboardBaseView>(parentKeyboard);
 		}
 		
 		private AnyPopupKeyboard getMyKeyboard() {
-			return (AnyPopupKeyboard) mParent.get().getKeyboard();
+			return (AnyPopupKeyboard) mParentKeyboard.get().mMiniKeyboard.getKeyboard();
 		}
 
 		public void onKey(int primaryCode, Key key,
 				int multiTapIndex, int[] nearByKeyCodes,
 				boolean fromUI) {
-			mParent.get().mKeyboardActionListener.onKey(primaryCode, key,
+			mParentKeyboard.get().mKeyboardActionListener.onKey(primaryCode, key,
 					multiTapIndex, nearByKeyCodes, fromUI);
 			if (getMyKeyboard().isOneKeyEventPopup())
-				mParent.get().dismissPopupKeyboard();
+				mParentKeyboard.get().dismissPopupKeyboard();
 		}
 
 		public void onMultiTapStarted() {
-			mParent.get().mKeyboardActionListener.onMultiTapStarted();
+			mParentKeyboard.get().mKeyboardActionListener.onMultiTapStarted();
 		}
 
 		public void onMultiTapEndeded() {
-			mParent.get().mKeyboardActionListener.onMultiTapEndeded();
+			mParentKeyboard.get().mKeyboardActionListener.onMultiTapEndeded();
 		}
 
 		public void onText(CharSequence text) {
-			mParent.get().mKeyboardActionListener.onText(text);
+			mParentKeyboard.get().mKeyboardActionListener.onText(text);
 			if (getMyKeyboard().isOneKeyEventPopup())
-				mParent.get().dismissPopupKeyboard();
+				mParentKeyboard.get().dismissPopupKeyboard();
 		}
 
 		public void onCancel() {
-			mParent.get().mKeyboardActionListener.onCancel();
-			mParent.get().dismissPopupKeyboard();
+			mParentKeyboard.get().mKeyboardActionListener.onCancel();
+			mParentKeyboard.get().dismissPopupKeyboard();
 		}
 
 		public void onSwipeLeft(boolean onSpacebar) {
@@ -310,11 +308,11 @@ public class AnyKeyboardBaseView extends View implements
 		}
 
 		public void onPress(int primaryCode) {
-			mParent.get().mKeyboardActionListener.onPress(primaryCode);
+			mParentKeyboard.get().mKeyboardActionListener.onPress(primaryCode);
 		}
 
 		public void onRelease(int primaryCode) {
-			mParent.get().mKeyboardActionListener.onRelease(primaryCode);
+			mParentKeyboard.get().mKeyboardActionListener.onRelease(primaryCode);
 		}
 	}
 
@@ -502,9 +500,7 @@ public class AnyKeyboardBaseView extends View implements
 	public AnyKeyboardBaseView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 
-		mMotionEvent = AnyApplication.getFrankenRobot().embody(
-				new Diagram<WMotionEvent>() {
-				});
+		mMotionEvent = AnyApplication.getFrankenRobot().embody(new WMotionEvent.Diagram());
 
 		LayoutInflater inflate = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
