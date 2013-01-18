@@ -16,13 +16,13 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
 import net.evendanan.frankenrobot.Diagram;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -32,7 +32,6 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.FontMetrics;
@@ -149,8 +148,6 @@ public class AnyKeyboardBaseView extends View implements
 	private float mKeyHysteresisDistance;
 	private float mVerticalCorrection;
 	private int mPreviewOffset;
-	// private int mPreviewHeight;
-	// private final int mPopupLayout = R.layout.keyboard_popup;
 
 	// Main keyboard
 	private AnyKeyboard mKeyboard;
@@ -245,7 +242,7 @@ public class AnyKeyboardBaseView extends View implements
 	 */
 	protected AnyKeyboardContextProvider mAskContext;
 
-	private final UIHandler mHandler = new UIHandler();
+	private final UIHandler mHandler = new UIHandler(this);
 
 	private Drawable mPreviewKeyBackground;
 
@@ -253,7 +250,78 @@ public class AnyKeyboardBaseView extends View implements
 
 	private final KeyboardDimensFromTheme mKeyboardDimens = new KeyboardDimensFromTheme();
 
-	class UIHandler extends Handler {
+	private static final class MiniKeyboardActionListener implements
+			OnKeyboardActionListener {
+		
+		private final WeakReference<AnyKeyboardBaseView> mParent;
+
+		public MiniKeyboardActionListener(AnyKeyboardBaseView keyboard) {
+			mParent = new WeakReference<AnyKeyboardBaseView>(keyboard);
+		}
+		
+		private AnyPopupKeyboard getMyKeyboard() {
+			return (AnyPopupKeyboard) mParent.get().getKeyboard();
+		}
+
+		public void onKey(int primaryCode, Key key,
+				int multiTapIndex, int[] nearByKeyCodes,
+				boolean fromUI) {
+			mParent.get().mKeyboardActionListener.onKey(primaryCode, key,
+					multiTapIndex, nearByKeyCodes, fromUI);
+			if (getMyKeyboard().isOneKeyEventPopup())
+				mParent.get().dismissPopupKeyboard();
+		}
+
+		public void onMultiTapStarted() {
+			mParent.get().mKeyboardActionListener.onMultiTapStarted();
+		}
+
+		public void onMultiTapEndeded() {
+			mParent.get().mKeyboardActionListener.onMultiTapEndeded();
+		}
+
+		public void onText(CharSequence text) {
+			mParent.get().mKeyboardActionListener.onText(text);
+			if (getMyKeyboard().isOneKeyEventPopup())
+				mParent.get().dismissPopupKeyboard();
+		}
+
+		public void onCancel() {
+			mParent.get().mKeyboardActionListener.onCancel();
+			mParent.get().dismissPopupKeyboard();
+		}
+
+		public void onSwipeLeft(boolean onSpacebar) {
+		}
+
+		public void onSwipeRight(boolean onSpacebar) {
+		}
+
+		public void onSwipeUp(boolean onSpacebar) {
+		}
+
+		public void onSwipeDown(boolean onSpacebar) {
+		}
+
+		public void onPinch() {
+		}
+
+		public void onSeparate() {
+		}
+
+		public void onPress(int primaryCode) {
+			mParent.get().mKeyboardActionListener.onPress(primaryCode);
+		}
+
+		public void onRelease(int primaryCode) {
+			mParent.get().mKeyboardActionListener.onRelease(primaryCode);
+		}
+	}
+
+	static class UIHandler extends Handler {
+		
+		private final WeakReference<AnyKeyboardBaseView> mKeyboard;
+		
 		private static final int MSG_POPUP_PREVIEW = 1;
 		private static final int MSG_DISMISS_PREVIEW = 2;
 		private static final int MSG_REPEAT_KEY = 3;
@@ -261,24 +329,29 @@ public class AnyKeyboardBaseView extends View implements
 
 		private boolean mInKeyRepeat;
 
+		public UIHandler(AnyKeyboardBaseView keyboard) {
+			mKeyboard = new WeakReference<AnyKeyboardBaseView>(keyboard);
+		}
+		
 		@Override
 		public void handleMessage(Message msg) {
+			AnyKeyboardBaseView keyboard = mKeyboard.get();
 			switch (msg.what) {
 			case MSG_POPUP_PREVIEW:
-				showKey(msg.arg1, (PointerTracker) msg.obj);
+				keyboard.showKey(msg.arg1, (PointerTracker) msg.obj);
 				break;
 			case MSG_DISMISS_PREVIEW:
-				mPreviewPopup.dismiss();
+				keyboard.mPreviewPopup.dismiss();
 				break;
 			case MSG_REPEAT_KEY: {
 				final PointerTracker tracker = (PointerTracker) msg.obj;
 				tracker.repeatKey(msg.arg1);
-				startKeyRepeatTimer(mKeyRepeatInterval, msg.arg1, tracker);
+				startKeyRepeatTimer(keyboard.mKeyRepeatInterval, msg.arg1, tracker);
 				break;
 			}
 			case MSG_LONGPRESS_KEY: {
 				final PointerTracker tracker = (PointerTracker) msg.obj;
-				openPopupIfRequired(msg.arg1, tracker);
+				keyboard.openPopupIfRequired(msg.arg1, tracker);
 				break;
 			}
 			}
@@ -286,12 +359,13 @@ public class AnyKeyboardBaseView extends View implements
 
 		public void popupPreview(long delay, int keyIndex,
 				PointerTracker tracker) {
+			AnyKeyboardBaseView keyboard = mKeyboard.get();
 			removeMessages(MSG_POPUP_PREVIEW);
-			if (mPreviewPopup.isShowing()
-					&& mPreviewLayut.getVisibility() == VISIBLE) {
+			if (keyboard.mPreviewPopup.isShowing()
+					&& keyboard.mPreviewLayut.getVisibility() == VISIBLE) {
 				// Show right away, if it's already visible and finger is moving
 				// around
-				showKey(keyIndex, tracker);
+				keyboard.showKey(keyIndex, tracker);
 			} else {
 				sendMessageDelayed(
 						obtainMessage(MSG_POPUP_PREVIEW, keyIndex, 0, tracker),
@@ -304,7 +378,7 @@ public class AnyKeyboardBaseView extends View implements
 		}
 
 		public void dismissPreview(long delay) {
-			if (mPreviewPopup.isShowing()) {
+			if (mKeyboard.get().mPreviewPopup.isShowing()) {
 				sendMessageDelayed(obtainMessage(MSG_DISMISS_PREVIEW), delay);
 			}
 		}
@@ -428,8 +502,10 @@ public class AnyKeyboardBaseView extends View implements
 	public AnyKeyboardBaseView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 
-		mMotionEvent = AnyApplication.getFrankenRobot().embody(new Diagram<WMotionEvent>() {});
-		
+		mMotionEvent = AnyApplication.getFrankenRobot().embody(
+				new Diagram<WMotionEvent>() {
+				});
+
 		LayoutInflater inflate = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		// int previewLayout = 0;
@@ -596,17 +672,17 @@ public class AnyKeyboardBaseView extends View implements
 				.createGestureDetector(getContext(), listener);
 		mGestureDetector.setIsLongpressEnabled(false);
 
-		MultiTouchSupportLevel multiTouchSupportLevel = AnyApplication.getDeviceSpecific().getMultiTouchSupportLevel(getContext());
+		MultiTouchSupportLevel multiTouchSupportLevel = AnyApplication
+				.getDeviceSpecific().getMultiTouchSupportLevel(getContext());
 		mHasDistinctMultitouch = multiTouchSupportLevel == MultiTouchSupportLevel.Distinct;
-		
+
 		mKeyRepeatInterval = 50;
 
 		AnyApplication.getConfig().addChangedListener(this);
 	}
 
 	protected ViewGroup inflatePreviewWindowLayout(LayoutInflater inflate) {
-		return (ViewGroup) inflate.inflate(R.layout.key_preview,
-				null);
+		return (ViewGroup) inflate.inflate(R.layout.key_preview, null);
 	}
 
 	public void setAnySoftKeyboardContext(AnyKeyboardContextProvider askContext) {
@@ -1345,21 +1421,32 @@ public class AnyKeyboardBaseView extends View implements
 		// draw
 		mBuffer = null;
 	}
-	
-	private class KeybaordDrawOperation implements MemRelatedOperation {
+
+	private static class KeybaordDrawOperation implements MemRelatedOperation {
+
+		private final WeakReference<AnyKeyboardBaseView> mView;
+		private WeakReference<Canvas> mCanvas;
 		
-		private Canvas mCanvas;
+		public KeybaordDrawOperation(AnyKeyboardBaseView keyboard) {
+			mView = new WeakReference<AnyKeyboardBaseView>(keyboard);
+		}
 		
 		public void setCanvas(Canvas canvas) {
-			mCanvas = canvas;
+			mCanvas = new WeakReference<Canvas>(canvas);
 		}
+
 		public void operation() {
-			if (AnyApplication.DEBUG) Log.d(TAG, "Actually drawing the keyboard (no buffer).");
-			onBufferDraw(mCanvas);
+			if (AnyApplication.DEBUG)
+				Log.d(TAG, "Actually drawing the keyboard (no buffer).");
+			//if this function is called, it can only be called from within
+			//AnyKeyboardBaseView! So there is no need to check if get() returns null.
+			mView.get().onBufferDraw(mCanvas.get());
 		}
 	}
-	//a single instance is enough, there is no need to recreate every draw operation!
-	private final KeybaordDrawOperation mDrawOperation = new KeybaordDrawOperation();
+
+	// a single instance is enough, there is no need to recreate every draw
+	// operation!
+	private final KeybaordDrawOperation mDrawOperation = new KeybaordDrawOperation(this);
 
 	@Override
 	public void onDraw(final Canvas canvas) {
@@ -1993,9 +2080,11 @@ public class AnyKeyboardBaseView extends View implements
 		CharSequence label = tracker.getPreviewText(key, mKeyboard.isShifted());
 		if (TextUtils.isEmpty(label)) {
 			Drawable iconToDraw = getIconToDrawForKey(key, true);
-			//Here's an annoying bug for you (explaination at the end of the hack)
+			// Here's an annoying bug for you (explanation at the end of the
+			// hack)
 			mPreviewIcon.setImageState(iconToDraw.getState(), false);
-			//end of hack. You see, the drawable comes with a state, this state is overriden by the ImageView. Nomore.
+			// end of hack. You see, the drawable comes with a state, this state
+			// is overridden by the ImageView. No more.
 			mPreviewIcon.setImageDrawable(iconToDraw);
 			mPreviewIcon.measure(
 					MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
@@ -2077,38 +2166,8 @@ public class AnyKeyboardBaseView extends View implements
 		}
 
 		if (mPreviewPopup.isShowing()) {
-			/*if (mStaticLocationPopupWindow) {
-				// started at SPACE, so I stick with the position. This is used
-				// for
-				// showing gesture info
-				// in the spacebar we'll also add the current gesture, with
-				// alpha [0...128,255].
-				// if any
-				// TODO: the above
-				final int horizontalSlide = tracker.getLastX()
-						- tracker.getStartX();
-				final int slideRatio = (255 * mSwipeXDistanceThreshold)
-						/ horizontalSlide;
-				final int slideDisatance = Math.abs(slideRatio);
-				if (AnyApplication.DEBUG) {
-					Log.d(TAG, "horizontalSlide: " + horizontalSlide
-							+ ", slideRatio:" + slideRatio);
-				}
-				if (slideDisatance >= 20) {
-					final int alpha = slideDisatance > 127? 255 : slideDisatance;
-					mPreviewText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-							mPreviewLabelTextSize);
-					mPreviewText.setTextColor(Color.argb(alpha,
-							mPreviewKeyTextRedColor, mPreviewKeyTextGreenColor,
-							mPreviewKeyTextBlueColor));
-					mPreviewText.setText("GESTURE");
-				} else {
-					mPreviewText.setText(null);
-				}
-			} else {*/
-				mPreviewPopup.update(popupPreviewX, popupPreviewY, popupWidth,
-						popupHeight);
-			/*}*/
+			mPreviewPopup.update(popupPreviewX, popupPreviewY, popupWidth,
+					popupHeight);
 		} else {
 			mPreviewPopup.setWidth(popupWidth);
 			mPreviewPopup.setHeight(popupHeight);
@@ -2124,9 +2183,8 @@ public class AnyKeyboardBaseView extends View implements
 			}
 
 		}
-		// mPreviewPopup.getContentView().invalidate();
-		// Record popup preview position to display mini-keyboard later at the
-		// same positon
+		// Record pop-up preview position to display mini-keyboard later at the
+		// same position
 		mPopupPreviewDisplayedY = popupPreviewY
 				+ (showPopupAboveKey ? 0 : key.y);// the popup keyboard should
 													// be
@@ -2342,72 +2400,14 @@ public class AnyKeyboardBaseView extends View implements
 				R.layout.popup_keyboard_layout, null);
 
 		mMiniKeyboard.setPopupParent(this);
-		//hack: this will ensure that the key of a popup is no wider than a thumb's width.
-		((KeyboardDimensFromTheme)mMiniKeyboard.getThemedKeyboardDimens()).setKeyMaxWidth(mMiniKeyboard.getThemedKeyboardDimens().getNormalKeyHeight());
-		
+		// hack: this will ensure that the key of a popup is no wider than a
+		// thumb's width.
+		((KeyboardDimensFromTheme) mMiniKeyboard.getThemedKeyboardDimens())
+				.setKeyMaxWidth(mMiniKeyboard.getThemedKeyboardDimens()
+						.getNormalKeyHeight());
+
 		mMiniKeyboard
-				.setOnKeyboardActionListener(new OnKeyboardActionListener() {
-
-					private final AnyKeyboardBaseView mParent = mMiniKeyboard;
-
-					private AnyPopupKeyboard getMyKeyboard() {
-						return (AnyPopupKeyboard) mParent.getKeyboard();
-					}
-
-					public void onKey(int primaryCode, Key key,
-							int multiTapIndex, int[] nearByKeyCodes,
-							boolean fromUI) {
-						mKeyboardActionListener.onKey(primaryCode, key,
-								multiTapIndex, nearByKeyCodes, fromUI);
-						if (getMyKeyboard().isOneKeyEventPopup())
-							dismissPopupKeyboard();
-					}
-
-					public void onMultiTapStarted() {
-						mKeyboardActionListener.onMultiTapStarted();
-					}
-
-					public void onMultiTapEndeded() {
-						mKeyboardActionListener.onMultiTapEndeded();
-					}
-
-					public void onText(CharSequence text) {
-						mKeyboardActionListener.onText(text);
-						if (getMyKeyboard().isOneKeyEventPopup())
-							dismissPopupKeyboard();
-					}
-
-					public void onCancel() {
-						mKeyboardActionListener.onCancel();
-						dismissPopupKeyboard();
-					}
-
-					public void onSwipeLeft(boolean onSpacebar) {
-					}
-
-					public void onSwipeRight(boolean onSpacebar) {
-					}
-
-					public void onSwipeUp(boolean onSpacebar) {
-					}
-
-					public void onSwipeDown(boolean onSpacebar) {
-					}
-
-					public void onPinch() {
-					}
-
-					public void onSeparate() {
-					}
-
-					public void onPress(int primaryCode) {
-						mKeyboardActionListener.onPress(primaryCode);
-					}
-
-					public void onRelease(int primaryCode) {
-						mKeyboardActionListener.onRelease(primaryCode);
-					}
-				});
+				.setOnKeyboardActionListener(new MiniKeyboardActionListener(this));
 		// Override default ProximityKeyDetector.
 		mMiniKeyboard.mKeyDetector = new MiniKeyboardKeyDetector(
 				mMiniKeyboardSlideAllowance);
@@ -2432,7 +2432,7 @@ public class AnyKeyboardBaseView extends View implements
 		return (edgeFlags & Keyboard.EDGE_TOP) != 0
 				&& (edgeFlags & Keyboard.EDGE_BOTTOM) != 0;
 	}
-	
+
 	private MotionEvent generateMiniKeyboardMotionEvent(int action, int x,
 			int y, long eventTime) {
 		return MotionEvent.obtain(mMiniKeyboardPopupTime, eventTime, action, x
@@ -2494,8 +2494,7 @@ public class AnyKeyboardBaseView extends View implements
 
 		// Gesture detector must be enabled only when mini-keyboard is not
 		// on the screen.
-		if (!mMiniKeyboardVisible
-				&& mGestureDetector != null
+		if (!mMiniKeyboardVisible && mGestureDetector != null
 				&& (mGestureDetector.onTouchEvent(nativeMotionEvent))) {
 			if (AnyApplication.DEBUG)
 				Log.d(TAG, "Gesture detected!");
@@ -2619,7 +2618,8 @@ public class AnyKeyboardBaseView extends View implements
 		mPointerQueue.add(tracker);
 	}
 
-	protected void onUpEvent(PointerTracker tracker, int x, int y, long eventTime) {
+	protected void onUpEvent(PointerTracker tracker, int x, int y,
+			long eventTime) {
 		if (tracker.isModifier()) {
 			// Before processing an up event of modifier key, all pointers
 			// already being tracked
@@ -2669,10 +2669,39 @@ public class AnyKeyboardBaseView extends View implements
 		}
 	}
 
+	private static void unbindDrawable(Drawable d) {
+		if (d != null)
+			d.setCallback(null);
+	}
+	
 	@Override
 	public void onDetachedFromWindow() {
+		if (AnyApplication.DEBUG)
+			Log.d(TAG, "onDetachedFromWindow");
 		super.onDetachedFromWindow();
 		AnyApplication.getConfig().removeChangedListener(this);
+		//cleaning up memory
+		unbindDrawable(mPreviewPopup.getBackground());
+		unbindDrawable(getBackground());
+		unbindDrawable(mShiftIcon);
+		unbindDrawable(mControlIcon);
+		unbindDrawable(mActionKeyIcon);
+		unbindDrawable(mDeleteKeyIcon);
+		unbindDrawable(mSpaceKeyIcon);
+		unbindDrawable(mTabKeyIcon);
+		unbindDrawable(mCancelKeyIcon);
+		unbindDrawable(mGlobeKeyIcon);
+		unbindDrawable(mMicKeyIcon);
+		unbindDrawable(mSettingsKeyIcon);
+		unbindDrawable(mArrowRightKeyIcon);
+		unbindDrawable(mArrowLeftKeyIcon);
+		unbindDrawable(mArrowUpKeyIcon);
+		unbindDrawable(mArrowDownKeyIcon);
+		unbindDrawable(mMoveHomeKeyIcon);
+		unbindDrawable(mMoveEndKeyIcon);
+		unbindDrawable(mPreviewKeyBackground);
+		mMiniKeyboardParent = null;
+		
 		closing();
 	}
 

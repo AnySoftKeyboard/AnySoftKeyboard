@@ -16,13 +16,12 @@
 
 package com.anysoftkeyboard;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-
-import net.evendanan.frankenrobot.Diagram;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -73,7 +72,6 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.devicespecific.Clipboard;
 import com.anysoftkeyboard.dictionaries.AutoDictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
-import com.anysoftkeyboard.dictionaries.DictionaryFactory;
 import com.anysoftkeyboard.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.Suggest;
@@ -106,7 +104,6 @@ import com.anysoftkeyboard.utils.IMEUtil.GCUtils.MemRelatedOperation;
 import com.anysoftkeyboard.utils.ModifierKeyState;
 import com.anysoftkeyboard.utils.Workarounds;
 import com.anysoftkeyboard.voice.VoiceInput;
-import com.anysoftkeyboard.voice.VoiceInput.VoiceInputDiagram;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -116,6 +113,60 @@ import com.menny.android.anysoftkeyboard.R;
 public class AnySoftKeyboard extends InputMethodService implements
 		OnKeyboardActionListener, OnSharedPreferenceChangeListener,
 		AnyKeyboardContextProvider, SoundPreferencesChangedListener {
+	private static final class KeyboardUIStateHanlder extends Handler {
+		private final WeakReference<AnySoftKeyboard> mKeyboard;
+		
+		public KeyboardUIStateHanlder(AnySoftKeyboard keyboard) {
+			mKeyboard = new WeakReference<AnySoftKeyboard>(keyboard);
+		}
+		
+		@Override
+		public void handleMessage(Message msg) {
+			AnySoftKeyboard ask = mKeyboard.get();
+			if (ask == null)//delayed posts and such may result in the reference gone
+				return;
+			
+			switch (msg.what) {
+			case MSG_UPDATE_SUGGESTIONS:
+				ask.performUpdateSuggestions();
+				break;
+			case MSG_RESTART_NEW_WORD_SUGGESTIONS:
+				final InputConnection ic = ask.getCurrentInputConnection();
+				ask.performRestartWordSuggestion(ic);
+				break;
+			// case MSG_UPDATE_OLD_SUGGESTIONS:
+			// setOldSuggestions();
+			// break;
+			case MSG_UPDATE_SHIFT_STATE:
+				ask.updateShiftKeyState(ask.getCurrentInputEditorInfo());
+				break;
+			case MSG_REMOVE_CLOSE_SUGGESTIONS_HINT:
+				final View closeText = ask.mCandidateCloseText;
+				if (closeText != null) {// in API3, this variable is
+													// null
+					Animation gone = AnimationUtils.loadAnimation(
+							ask.getApplicationContext(),
+							R.anim.close_candidates_hint_out);
+					gone.setAnimationListener(new AnimationListener() {
+
+						public void onAnimationStart(Animation animation) {
+						}
+
+						public void onAnimationRepeat(Animation animation) {
+						}
+
+						public void onAnimationEnd(Animation animation) {
+							closeText.setVisibility(View.GONE);
+						}
+					});
+					closeText.startAnimation(gone);
+				}
+			default:
+				super.handleMessage(msg);
+			}
+		}
+	}
+
 	private final static String TAG = "ASK";
 
 	// private final static int SWIPE_CORD = -2;
@@ -221,48 +272,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private boolean mKeyboardInCondensedMode = false;
 
-	Handler mHandler = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-			case MSG_UPDATE_SUGGESTIONS:
-				performUpdateSuggestions();
-				break;
-			case MSG_RESTART_NEW_WORD_SUGGESTIONS:
-				final InputConnection ic = getCurrentInputConnection();
-				performRestartWordSuggestion(ic);
-				break;
-			// case MSG_UPDATE_OLD_SUGGESTIONS:
-			// setOldSuggestions();
-			// break;
-			case MSG_UPDATE_SHIFT_STATE:
-				updateShiftKeyState(getCurrentInputEditorInfo());
-				break;
-			case MSG_REMOVE_CLOSE_SUGGESTIONS_HINT:
-				if (mCandidateCloseText != null) {// in API3, this variable is
-													// null
-					Animation gone = AnimationUtils.loadAnimation(
-							getApplicationContext(),
-							R.anim.close_candidates_hint_out);
-					gone.setAnimationListener(new AnimationListener() {
-
-						public void onAnimationStart(Animation animation) {
-						}
-
-						public void onAnimationRepeat(Animation animation) {
-						}
-
-						public void onAnimationEnd(Animation animation) {
-							mCandidateCloseText.setVisibility(View.GONE);
-						}
-					});
-					mCandidateCloseText.startAnimation(gone);
-				}
-			default:
-				super.handleMessage(msg);
-			}
-		}
-	};
+	private final Handler mHandler = new KeyboardUIStateHanlder(this);
 
 	private boolean mJustAddedAutoSpace;
 

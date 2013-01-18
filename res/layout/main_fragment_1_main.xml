@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012 AnySoftKeyboard
+<!--
+     Copyright (C) 2012 AnySoftKeyboard
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,34 +15,114 @@
      limitations under the License.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
-	<ScrollView android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1">
-		<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical"
-    	     android:layout_marginLeft="5dp"
-	         android:layout_marginRight="5dp">
-			<TextView android:text="@string/how_to_pointer_title" android:layout_width="fill_parent" android:layout_height="wrap_content"
-				android:textStyle="bold" android:textColor="@android:color/white" android:gravity="center" style="@android:style/TextAppearance.Large"></TextView>
-			<TextView android:id="@+id/main_title_version" android:layout_width="fill_parent" android:layout_height="wrap_content"
-				android:textStyle="bold" android:gravity="center" style="@android:style/TextAppearance.Small"></TextView>
-			<LinearLayout android:layout_margin="4dp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
-				<ImageView android:layout_height="wrap_content" android:src="@drawable/gplus" android:layout_width="wrap_content"></ImageView>
-				<TextView android:layout_marginLeft="4dp" android:text="http://gplus.to/menny" android:autoLink="web"  style="@android:style/TextAppearance.Small" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
-			</LinearLayout>
-			<LinearLayout android:layout_margin="4dp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal">
-				<ImageView android:layout_height="wrap_content" android:src="@drawable/twitter" android:layout_width="wrap_content"></ImageView>
-				<TextView android:layout_marginLeft="4dp" android:text="http://twitter.com/anysoftkeyboard" android:autoLink="web"  style="@android:style/TextAppearance.Small" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
-			</LinearLayout>
-			<LinearLayout android:layout_margin="5dp" android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:weightSum="10">
-				<ImageView android:layout_margin="4dp" android:layout_height="wrap_content" android:src="@drawable/light_theme_screenshot" android:layout_width="0px" android:layout_weight="5" android:scaleType="centerInside" android:adjustViewBounds="true"></ImageView>
-				<TextView android:layout_margin="4dp" android:text="@string/how_to_pointer_not_app" android:layout_width="0px" android:layout_weight="5" android:layout_height="wrap_content" style="@android:style/TextAppearance.Small"></TextView>
-			</LinearLayout>
-			<TextView android:layout_marginTop="3dp" android:text="@string/how_to_pointer_go_to_links" style="@android:style/TextAppearance.Small" android:layout_width="fill_parent" android:layout_height="wrap_content"></TextView>
-			<Button android:id="@+id/goto_howto_form" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/how_to_active_text" android:layout_gravity="center"/>
-			<Button android:id="@+id/goto_tips_form" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/tips_title" android:layout_gravity="center"/>
-			<CheckBox android:id="@+id/show_tips_next_time" android:text="@string/show_new_tips_notifications_again" android:layout_width="fill_parent" android:layout_height="wrap_content"/>
-			<Button android:id="@+id/goto_changelog_button" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/changelog" android:layout_gravity="center"/>
-			<CheckBox android:id="@+id/show_notifications_next_time" android:text="@string/show_new_version_notifications_again" android:layout_width="fill_parent" android:layout_height="wrap_content"/>
-		</LinearLayout>
- 	</ScrollView>
-</LinearLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:orientation="vertical" >
+
+        <TextView
+            style="@android:style/TextAppearance.Large"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/how_to_pointer_title"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/main_title_version"
+            style="@android:style/TextAppearance.Small"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textStyle="bold" >
+        </TextView>
+
+        <TextView
+            style="@android:style/TextAppearance.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:autoLink="web"
+            android:drawableLeft="@drawable/gplus"
+            android:text=" http://gplus.to/menny" >
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            android:weightSum="10" >
+
+            <ImageView
+                android:contentDescription="@string/ime_name"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="5"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/light_theme_screenshot" >
+            </ImageView>
+
+            <TextView
+                style="@android:style/TextAppearance.Small"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="5"
+                android:text="@string/how_to_pointer_not_app" >
+            </TextView>
+        </LinearLayout>
+
+        <TextView
+            style="@android:style/TextAppearance.Small"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="@string/how_to_pointer_go_to_links" >
+        </TextView>
+
+        <Button
+            android:id="@+id/goto_howto_form"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/how_to_active_text" />
+
+        <Button
+            android:id="@+id/goto_tips_form"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/tips_title" />
+
+        <CheckBox
+            android:id="@+id/show_tips_next_time"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/show_new_tips_notifications_again" />
+
+        <Button
+            android:id="@+id/goto_changelog_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/changelog" />
+
+        <CheckBox
+            android:id="@+id/show_notifications_next_time"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/show_new_version_notifications_again" />
+    </LinearLayout>
+
+</ScrollView>
