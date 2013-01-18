@@ -88,7 +88,7 @@ public class CandidateView extends View {
 	private final int mColorRecommended;
 	private final int mColorOther;
 	private final Paint mPaint;
-	// private final int mDescent;
+	private final TextPaint mTextPaint;
 	private boolean mScrolled;
 	private boolean mShowingAddToDictionary;
 	private CharSequence mAddToDictionaryHint;
@@ -173,7 +173,7 @@ public class CandidateView extends View {
 		mPaint.setTextSize(fontSizePixel);
 		mPaint.setStrokeWidth(0);
 		mPaint.setTextAlign(Align.CENTER);
-		// mDescent = (int) mPaint.descent();
+		mTextPaint = new TextPaint(mPaint);
 		mMinTouchableWidth = (int) context.getResources().getDimension(
 				R.dimen.candidate_min_touchable_width);
 
@@ -341,10 +341,10 @@ public class CandidateView extends View {
 					float textY = y - bgPadding.bottom - bgPadding.top;
 
 					canvas.translate(textX, textY);
-
-					TextPaint suggestionPaint = new TextPaint(paint);
+					mTextPaint.setTypeface(paint.getTypeface());
+					mTextPaint.setColor(paint.getColor());
 					StaticLayout suggestionText = new StaticLayout(suggestion,
-							suggestionPaint, wordWidth, Alignment.ALIGN_CENTER,
+							mTextPaint, wordWidth, Alignment.ALIGN_CENTER,
 							0.0f, 0.0f, false);
 					suggestionText.draw(canvas);
 

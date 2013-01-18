@@ -23,9 +23,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.SystemClock;
-import android.text.Layout.Alignment;
-import android.text.StaticLayout;
-import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -34,7 +31,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.Configuration;
@@ -74,7 +70,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	private float mGesturePreviewTextSize;
 	private int mGesturePreviewTextColor, mGesturePreviewTextColorRed,
 			mGesturePreviewTextColorGreen, mGesturePreviewTextColorBlue;
-	private boolean mGestureReachedThreshold = false;
 
 	/** Whether we've started dropping move events because we found a big jump */
 	// private boolean mDroppingEvents;
@@ -401,10 +396,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 		if (slideDisatance >= 20) {
 			final boolean isGesture = slideDisatance > SLIDE_RATIO_FOR_GESTURE;
 
-			final boolean justReachedThreashold = isGesture
-					&& !mGestureReachedThreshold;
-			mGestureReachedThreshold = isGesture;
-
 			final int alpha = isGesture ? 255 : slideDisatance / 2;
 			mPreviewText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
 					mGesturePreviewTextSize);
@@ -450,11 +441,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 				break;
 			}
 			mPreviewText.setText(tooltip);
-			/*
-			 * if (mGestureSlideReachedAnimation != null &&
-			 * justReachedThreashold) {
-			 * mPreviewText.startAnimation(mGestureSlideReachedAnimation); }
-			 */
 		} else {
 			mPreviewText.setText("");
 		}
@@ -567,74 +553,89 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	public void onDraw(Canvas canvas) {
 		final boolean keyboardChanged = mKeyboardChanged;
 		super.onDraw(canvas);
-		//switching animation
+		// switching animation
 		if (mAnimationLevel != AnimationsLevel.None && keyboardChanged
 				&& (mInAnimation != null)) {
 			startAnimation(mInAnimation);
 			mInAnimation = null;
 		}
-		//text pop out animation
+		// text pop out animation
 		if (mPopOutText != null && mAnimationLevel != AnimationsLevel.None) {
-			final int maxVerticalTravel = getHeight()/2;
+			final int maxVerticalTravel = getHeight() / 2;
 			final long animationDuration = 1200;
-			final long currentAnimationTime = SystemClock.elapsedRealtime() - mPopOutTime;
+			final long currentAnimationTime = SystemClock.elapsedRealtime()
+					- mPopOutTime;
 			if (currentAnimationTime > animationDuration) {
 				mPopOutText = null;
-				if (AnyApplication.DEBUG) Log.d(TAG, "Drawing text popout done.");
+				if (AnyApplication.DEBUG)
+					Log.d(TAG, "Drawing text popout done.");
 			} else {
-				final float animationProgress = ((float)currentAnimationTime)/((float)animationDuration);
+				final float animationProgress = ((float) currentAnimationTime)
+						/ ((float) animationDuration);
 				final float animationFactoredProgress = getPopOutAnimationInterpolator(animationProgress);
-				final int y = mPopOutStartPoint.y - (int)(maxVerticalTravel * animationFactoredProgress);
+				final int y = mPopOutStartPoint.y
+						- (int) (maxVerticalTravel * animationFactoredProgress);
 				final int x = mPopOutStartPoint.x;
-				final int alpha = 255 - (int)(255*animationProgress);
-				if (AnyApplication.DEBUG) Log.d(TAG, "Drawing text popout '"+mPopOutText+"' at "+x+","+y+" with alpha "+alpha+". Animation progress is "+animationProgress+", and factor progress is "+animationFactoredProgress);
-				//drawing
+				final int alpha = 255 - (int) (255 * animationProgress);
+				if (AnyApplication.DEBUG)
+					Log.d(TAG, "Drawing text popout '" + mPopOutText + "' at "
+							+ x + "," + y + " with alpha " + alpha
+							+ ". Animation progress is " + animationProgress
+							+ ", and factor progress is "
+							+ animationFactoredProgress);
+				// drawing
 				setPaintToKeyText(mPaint);
-				//will disappear over time
+				// will disappear over time
 				mPaint.setAlpha(alpha);
 				mPaint.setShadowLayer(5, 0, 0, Color.BLACK);
-				//will grow over time
-				mPaint.setTextSize(mPaint.getTextSize()*(1.0f + animationFactoredProgress));
+				// will grow over time
+				mPaint.setTextSize(mPaint.getTextSize()
+						* (1.0f + animationFactoredProgress));
 				canvas.translate(x, y);
-				canvas.drawText(mPopOutText, 0, mPopOutText.length(), 0, 0, mPaint);
+				canvas.drawText(mPopOutText, 0, mPopOutText.length(), 0, 0,
+						mPaint);
 				canvas.translate(-x, -y);
-				//next frame
-				postInvalidateDelayed(1000/50);//doing 50 frames per second;
+				// next frame
+				postInvalidateDelayed(1000 / 50);// doing 50 frames per second;
 			}
 		}
 	}
-	
+
 	/*
-	 * Taken from https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/android/view/animation/DecelerateInterpolator.java
+	 * Taken from
+	 * https://android.googlesource.com/platform/frameworks/base/+/refs
+	 * /heads/master
+	 * /core/java/android/view/animation/DecelerateInterpolator.java
 	 */
 	private float getPopOutAnimationInterpolator(float input) {
-        float result;
-        if (mPopOutAnimationFactor == 1.0f) {
-            result = (float)(1.0f - (1.0f - input) * (1.0f - input));
-        } else {
-            result = (float)(1.0f - Math.pow((1.0f - input), 2 * mPopOutAnimationFactor));
-        }
-        return result;
-    }
+		float result;
+		if (mPopOutAnimationFactor == 1.0f) {
+			result = (float) (1.0f - (1.0f - input) * (1.0f - input));
+		} else {
+			result = (float) (1.0f - Math.pow((1.0f - input),
+					2 * mPopOutAnimationFactor));
+		}
+		return result;
+	}
 
 	private CharSequence mPopOutText = null;
 	private long mPopOutTime = 0;
 	private final Point mPopOutStartPoint = new Point();
 	private float mPopOutAnimationFactor = 1.0f;
-	
+
 	public void popTextOutOfKey(CharSequence text) {
 		if (TextUtils.isEmpty(text)) {
 			Log.w(TAG, "Call for popTextOutOfKey with missing text argument!");
 			return;
 		}
 		if (!AnyApplication.getConfig().workaround_alwaysUseDrawText())
-			return;//not doing it with StaticLayout
-		
+			return;// not doing it with StaticLayout
+
 		mPopOutText = text;
 		mPopOutTime = SystemClock.elapsedRealtime();
 		mPopOutStartPoint.x = mFirstTouchPont.x;
 		mPopOutStartPoint.y = mFirstTouchPont.y;
-		//it is ok to wait for the next loop.
+		// it is ok to wait for the next loop.
 		postInvalidate();
 	}
 }

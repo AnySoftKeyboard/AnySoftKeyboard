@@ -128,9 +128,9 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTran
                     	final String targetCharCode = attrs.getAttributeValue(null, XML_TARGET_CHAR_CODE_ATTRIBUTE);
                         final Integer target;
                         if (targetCharCode == null)
-                        	target = new Integer((int)targetChar.charAt(0));
+                        	target = Integer.valueOf((int)targetChar.charAt(0));
                         else
-                        	target = new Integer(Integer.parseInt(targetCharCode));
+                        	target = Integer.valueOf(targetCharCode);
                         	
                     	//asserting
                         if ((keyCodes == null) || (keyCodes.length == 0) || (target == null))

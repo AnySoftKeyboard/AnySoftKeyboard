@@ -177,7 +177,7 @@ public class AutoDictionary extends UserDictionaryBase {
 
 		synchronized (mPendingWritesLock) {
 			// Write a null frequency if it is to be deleted from the db
-			mPendingWrites.put(word, freq == 0 ? null : new Integer(freq));
+			mPendingWrites.put(word, freq == 0 ? null : Integer.valueOf(freq));
 		}
 
 		return added;
