@@ -3196,7 +3196,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void loadSettings() {
 		// setting all values to default
-		PreferenceManager.setDefaultValues(this, R.layout.prefs, false);
+		PreferenceManager.setDefaultValues(this, R.xml.prefs, false);
 		// Get the settings preferences
 		SharedPreferences sp = PreferenceManager
 				.getDefaultSharedPreferences(this);

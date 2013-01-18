@@ -11,6 +11,6 @@ public class Tweaks extends PreferenceActivity {
 	@Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        addPreferencesFromResource(R.layout.prefs_tweaks);
+        addPreferencesFromResource(R.xml.prefs_tweaks);
     }
 }

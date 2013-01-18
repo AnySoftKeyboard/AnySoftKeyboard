@@ -21,7 +21,7 @@ public class KeyboardThemeSelector extends AddOnSelector<KeyboardTheme> {
 	
 	@Override
 	protected int getPrefsLayoutResId() {
-		return R.layout.prefs_addon_keyboard_theme_selector;
+		return R.xml.prefs_addon_keyboard_theme_selector;
 	}
 	
 	@Override
