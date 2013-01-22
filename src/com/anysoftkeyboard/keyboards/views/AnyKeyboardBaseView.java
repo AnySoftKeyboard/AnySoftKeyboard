@@ -495,7 +495,7 @@ public class AnyKeyboardBaseView extends View implements
 		}
 		a.recycle();
 		// taking missing icons
-		int fallbackIconSetStyleId = fallbackTheme.getIconsThemeResId();
+		int fallbackIconSetStyleId = R.style.AnyKeyboardBaseKeyIconTheme;
 		Log.d(TAG,
 				"Will use keyboard fallback icons theme "
 						+ fallbackTheme.getName() + " id "
@@ -1867,6 +1867,14 @@ public class AnyKeyboardBaseView extends View implements
 			return getContext().getText(R.string.label_home_key);
 		case KeyCodes.MOVE_END:
 			return getContext().getText(R.string.label_end_key);
+		case KeyCodes.ARROW_DOWN:
+			return "\u2193";
+		case KeyCodes.ARROW_LEFT:
+			return "\u2190";
+		case KeyCodes.ARROW_RIGHT:
+			return "\u2192";
+		case KeyCodes.ARROW_UP:
+			return "\u2191";
 		default:
 			return null;
 		}
@@ -1990,9 +1998,8 @@ public class AnyKeyboardBaseView extends View implements
 		int popupWidth = 0;
 		int popupHeight = 0;
 		// Should not draw hint icon in key preview
-		CharSequence label = tracker.getPreviewText(key, mKeyboard.isShifted());
-		if (TextUtils.isEmpty(label)) {
-			Drawable iconToDraw = getIconToDrawForKey(key, true);
+		Drawable iconToDraw = getIconToDrawForKey(key, true);
+		if (iconToDraw != null) {
 			//Here's an annoying bug for you (explaination at the end of the hack)
 			mPreviewIcon.setImageState(iconToDraw.getState(), false);
 			//end of hack. You see, the drawable comes with a state, this state is overriden by the ImageView. Nomore.
@@ -2005,6 +2012,10 @@ public class AnyKeyboardBaseView extends View implements
 					.max(mPreviewIcon.getMeasuredHeight(), key.height);
 			mPreviewText.setText(null);
 		} else {
+			CharSequence label = tracker.getPreviewText(key, mKeyboard.isShifted());
+			if (TextUtils.isEmpty(label)) {
+				label = guessLabelForKey((AnyKey)key);
+			}
 			mPreviewIcon.setImageDrawable(null);
 			mPreviewText.setTextColor(mPreviewKeyTextColor);
 			setKeyPreviewText(key, label);
