@@ -44,6 +44,7 @@ import com.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.Keyboard.Row;
+import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -54,6 +55,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	private static final int DELAY_BEFORE_POPING_UP_EXTENSION_KBD = 35;// milliseconds
 	private final static String TAG = "AnyKeyboardView";
 
+	private KeyboardSwitcher mSwitcher;
 	private boolean mExtensionVisible = false;
 	private final int mExtensionKeyboardYActivationPoint;
 	private final int mExtensionKeyboardPopupOffset;
@@ -64,7 +66,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	private Point mFirstTouchPont = new Point(0, 0);
 	private boolean mIsFirstDownEventInsideSpaceBar = false;
 	private Animation mInAnimation;
-	// private Animation mGestureSlideReachedAnimation;
 
 	private TextView mPreviewText;
 	private float mGesturePreviewTextSize;
@@ -121,6 +122,10 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 		ViewGroup v = super.inflatePreviewWindowLayout(inflate);
 		mPreviewText = (TextView) v.findViewById(R.id.key_preview_text);
 		return v;
+	}
+	
+	public void setKeyboardSwitcher(KeyboardSwitcher switcher) {
+		mSwitcher = switcher;
 	}
 
 	@Override
@@ -277,22 +282,11 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 			mIsFirstDownEventInsideSpaceBar = mSpaceBarKey != null
 					&& mSpaceBarKey.isInside(mFirstTouchPont.x,
 							mFirstTouchPont.y);
-			if (AnyApplication.DEBUG)
-				Log.d(TAG, "First down point on space-bar: "
-						+ mIsFirstDownEventInsideSpaceBar);
-
 		} else if (mIsFirstDownEventInsideSpaceBar) {
 			if (me.getAction() == MotionEvent.ACTION_MOVE) {
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "Pointer is moving while starting at SPACE BAR.");
-
-				setGesturePreviewText(me);
-
+				setGesturePreviewText(mSwitcher, me);
 				return true;
 			} else if (me.getAction() == MotionEvent.ACTION_UP) {
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "Pointer is up while starting at SPACE BAR.");
-
 				final int slide = getSlideDistance(me);
 				final int distance = slide & 0x00FF;// removing direction
 				if (distance > SLIDE_RATIO_FOR_GESTURE) {
@@ -383,7 +377,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 
 	private static final int SLIDE_RATIO_FOR_GESTURE = 250;
 
-	private void setGesturePreviewText(MotionEvent me) {
+	private void setGesturePreviewText(KeyboardSwitcher switcher, MotionEvent me) {
 		if (mPreviewText == null)
 			return;
 		// started at SPACE, so I stick with the position. This is used
@@ -428,13 +422,11 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 			switch (swipeKeyTarget) {
 			case KeyCodes.MODE_ALPHABET:
 				// printing the next alpha keyboard name
-				tooltip = mAskContext.getKeyboardSwitcher()
-						.peekNextAlphabetKeyboard();
+				tooltip = switcher.peekNextAlphabetKeyboard();
 				break;
 			case KeyCodes.MODE_SYMOBLS:
 				// printing the next alpha keyboard name
-				tooltip = mAskContext.getKeyboardSwitcher()
-						.peekNextSymbolsKeyboard();
+				tooltip = switcher.peekNextSymbolsKeyboard();
 				break;
 			default:
 				tooltip = "";
@@ -637,5 +629,11 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 		mPopOutStartPoint.y = mFirstTouchPont.y;
 		// it is ok to wait for the next loop.
 		postInvalidate();
+	}
+	
+	@Override
+	public void onDetachedFromWindow() {
+		super.onDetachedFromWindow();
+		mSwitcher = null;
 	}
 }

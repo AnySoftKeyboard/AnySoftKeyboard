@@ -70,7 +70,7 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme>
 	}
 
 	@Override
-	protected KeyboardTheme createConcreateAddOn(Context context, String prefId, int nameResId,
+	protected KeyboardTheme createConcreateAddOn(Context askContext, Context context, String prefId, int nameResId,
 			String description, int sortIndex, AttributeSet attrs) {
 		final int keyboardThemeResId = attrs.getAttributeResourceValue(null,
 				XML_POPUP_KEYBOARD_THEME_RES_ID_ATTRIBUTE, 0);
@@ -89,7 +89,7 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme>
 			
 			throw new RuntimeException(detailMessage);
 		}
-		return new KeyboardTheme(context, prefId, nameResId, 
+		return new KeyboardTheme(askContext, context, prefId, nameResId, 
 				keyboardThemeResId, popupKeyboardThemeResId, iconsThemeResId,
 				keyboardThemeScreenshotResId, description, sortIndex);
 	}

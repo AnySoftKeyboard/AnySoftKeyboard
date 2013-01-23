@@ -187,6 +187,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private static final int MSG_UPDATE_SHIFT_STATE = 3;
 	private static final int MSG_REMOVE_CLOSE_SUGGESTIONS_HINT = 4;
 
+	private SharedPreferences mPrefs;
 	private final com.anysoftkeyboard.Configuration mConfig;
 	private static final boolean DEBUG = AnyApplication.DEBUG;
 
@@ -335,6 +336,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		registerReceiver(mPackagesChangedReceiver,
 				mPackagesChangedReceiver.createFilterToRegisterOn());
 
+		mPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		mVibrator = ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE));
 		loadSettings();
 		mConfig.addChangedListener(this);
@@ -381,6 +383,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		unregisterReceiver(mPackagesChangedReceiver);
 
 		mInputMethodManager.hideStatusIcon(mImeToken);
+		
+		mKeyboardSwitcher.setInputView(null);
 
 		super.onDestroy();
 	}
@@ -417,7 +421,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 								.inflate(R.layout.main_keyboard_layout, null);
 					}
 				}, true);
-		mInputView.setAnySoftKeyboardContext(this);
 		// reseting token users
 		mOptionsDialog = null;
 		mQuickTextKeyDialog = null;
@@ -1019,12 +1022,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mUndoCommitCursorPosition = -2;// so it will be marked the next time
 			mWord.reset();
 
+			final int[] alekNearByKeys= new int[1];
+			
 			for (int index = 0; index < word.length(); index++) {
 				final char c = word.charAt(index);
 				if (index == 0)
 					mWord.setFirstCharCapitalized(Character.isUpperCase(c));
 
-				mWord.add(c, new int[] { c });
+				alekNearByKeys[0] = c;
+				mWord.add(c, alekNearByKeys);
 
 				TextEntryState.typedCharacter((char) c, false);
 			}
@@ -1346,7 +1352,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 						}
 
 						keyTranslator
-								.translatePhysicalCharacter(mHardKeyboardAction);
+								.translatePhysicalCharacter(mHardKeyboardAction, this);
 
 						if (DEBUG)
 							Log.v(TAG,
@@ -3321,14 +3327,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 					String mappingSettingsKey = getDictionaryOverrideKey(currentKeyobard);
 					String defaultDictionary = currentKeyobard
 							.getDefaultDictionaryLocale();
-					String dictionaryValue = getSharedPreferences().getString(
-							mappingSettingsKey, null);
+					String dictionaryValue = mPrefs.getString(mappingSettingsKey, null);
 					DictionaryAddOnAndBuilder dictionaryBuilder = null;
 
 					if (dictionaryValue == null) {
 						dictionaryBuilder = ExternalDictionaryFactory
 								.getDictionaryBuilderByLocale(currentKeyobard
-										.getDefaultDictionaryLocale(), this);
+										.getDefaultDictionaryLocale(), getApplicationContext());
 					} else {
 						if (DEBUG) {
 							Log.d(TAG,
@@ -3342,7 +3347,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 											+ dictionaryValue + "'");
 						}
 						dictionaryBuilder = ExternalDictionaryFactory
-								.getDictionaryBuilderById(dictionaryValue, this);
+								.getDictionaryBuilderById(dictionaryValue, getApplicationContext());
 					}
 
 					mSuggest.setMainDictionary(dictionaryBuilder);
@@ -3381,8 +3386,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void launchDictionaryOverriding() {
 		final String dictionaryOverridingKey = getDictionaryOverrideKey(getCurrentKeyboard());
-		final String dictionaryOverrideValue = getSharedPreferences()
-				.getString(dictionaryOverridingKey, null);
+		final String dictionaryOverrideValue = mPrefs.getString(dictionaryOverridingKey, null);
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setCancelable(true);
 		builder.setIcon(R.drawable.ic_launcher);
@@ -3404,7 +3408,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 					+ getString(R.string.override_dictionary_default));
 		// going over all installed dictionaries
 		for (DictionaryAddOnAndBuilder dictionaryBuilder : ExternalDictionaryFactory
-				.getAllAvailableExternalDictionaries(this)) {
+				.getAllAvailableExternalDictionaries(getApplicationContext())) {
 			dictionaryIds.add(dictionaryBuilder.getId());
 			String description;
 			if (dictionaryOverrideValue != null
@@ -3428,7 +3432,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		builder.setItems(items, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface di, int position) {
 				di.dismiss();
-				Editor editor = getSharedPreferences().edit();
+				Editor editor = mPrefs.edit();
 				switch (position) {
 				case 0:
 					if (DEBUG)
@@ -3646,10 +3650,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 		}
 		postUpdateShiftKeyState();
-	}
-
-	public SharedPreferences getSharedPreferences() {
-		return PreferenceManager.getDefaultSharedPreferences(this);
 	}
 
 	public void showToastMessage(int resId, boolean forShortTime) {

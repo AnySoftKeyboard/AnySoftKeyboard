@@ -104,7 +104,7 @@ public class KeyboardExtensionFactory extends AddOnsFactory<KeyboardExtension>
 	}
 
 	@Override
-	protected KeyboardExtension createConcreateAddOn(Context context, String prefId, int nameResId,
+	protected KeyboardExtension createConcreateAddOn(Context askContext, Context context, String prefId, int nameResId,
 			String description, int sortIndex, AttributeSet attrs) {
 		int keyboardResId = attrs.getAttributeResourceValue(null, XML_EXT_KEYBOARD_RES_ID_ATTRIBUTE, -2);
 		if (keyboardResId == -2) keyboardResId = attrs.getAttributeIntValue(null, XML_EXT_KEYBOARD_RES_ID_ATTRIBUTE, -2);
@@ -130,7 +130,7 @@ public class KeyboardExtensionFactory extends AddOnsFactory<KeyboardExtension>
 			
 			throw new RuntimeException(detailMessage);
 		}
-		return new KeyboardExtension(context, prefId, nameResId, keyboardResId, extensionType, description, sortIndex);
+		return new KeyboardExtension(askContext, context, prefId, nameResId, keyboardResId, extensionType, description, sortIndex);
 	}
 	
 	@Override

@@ -24,8 +24,8 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
     
     
     private static final ExternalDictionaryFactory msInstance;
-    static
-    {
+    
+    static {
     	msInstance = new ExternalDictionaryFactory();
     }
     
@@ -66,8 +66,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
     		mBuildersByLocale.put(addOn.getLanguage(), addOn);
     }
     
-    public synchronized DictionaryAddOnAndBuilder getAddOnByLocale(String locale, Context askContext)
-    {
+    public synchronized DictionaryAddOnAndBuilder getAddOnByLocale(String locale, Context askContext) {
     	if (mBuildersByLocale.size() == 0)
     		loadAddOns(askContext);
     	
@@ -75,7 +74,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
     }
 
 	@Override
-	protected DictionaryAddOnAndBuilder createConcreateAddOn(Context context,
+	protected DictionaryAddOnAndBuilder createConcreateAddOn(Context askContext, Context context,
 			String prefId, int nameId, String description, int sortIndex,
 			AttributeSet attrs) {
 		
@@ -94,9 +93,9 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
 		{
 			final DictionaryAddOnAndBuilder creator;
 			if (dictionaryResourceId == AddOn.INVALID_RES_ID)
-				creator = new DictionaryAddOnAndBuilder(context, prefId, nameId, description, sortIndex, language, assets, initialSuggestionsId);
+				creator = new DictionaryAddOnAndBuilder(askContext, context, prefId, nameId, description, sortIndex, language, assets, initialSuggestionsId);
 			else
-				creator = new DictionaryAddOnAndBuilder(context, prefId, nameId, description, sortIndex, language, dictionaryResourceId, autoTextResId, initialSuggestionsId);
+				creator = new DictionaryAddOnAndBuilder(askContext, context, prefId, nameId, description, sortIndex, language, dictionaryResourceId, autoTextResId, initialSuggestionsId);
 				
 			return creator;
 		}

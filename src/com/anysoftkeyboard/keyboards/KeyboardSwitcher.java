@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard.keyboards;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
@@ -51,7 +52,8 @@ public class KeyboardSwitcher {
 	private final int KEYBOARDMODE_IM;
 
 	AnyKeyboardView mInputView;
-	private final AnySoftKeyboard mContext;
+	AnySoftKeyboard mIME;
+	private final Context mContext;
 
 	private static final int SYMBOLS_KEYBOARD_REGULAR_INDEX = 0;
 	private static final int SYMBOLS_KEYBOARD_ALT_INDEX = 1;
@@ -85,8 +87,9 @@ public class KeyboardSwitcher {
 	private final KeyboardDimens mKeyboardDimens;
 
 	// Constructor hidden
-	public KeyboardSwitcher(AnySoftKeyboard context) {
-		mContext = context;
+	public KeyboardSwitcher(AnySoftKeyboard ime) {
+		mIME = ime;
+		mContext = ime.getApplicationContext();
 		final Resources res = mContext.getResources();
 		mKeyboardDimens = new KeyboardDimens() {
 
@@ -130,11 +133,14 @@ public class KeyboardSwitcher {
 	}
 
 	public void setInputView(AnyKeyboardView inputView) {
-		// TODO could this param be null? Why?
+		if (mInputView != null) {
+			mInputView.setKeyboardSwitcher(null);
+		}
 		mInputView = inputView;
 		if (inputView == null) {
 			return;
 		}
+		mInputView.setKeyboardSwitcher(this);
 		makeKeyboards(true);
 	}
 
@@ -149,42 +155,42 @@ public class KeyboardSwitcher {
 				if (AnyApplication.getConfig().use16KeysSymbolsKeyboards())
 					keyboard = new GenericKeyboard(mContext,
 							R.xml.symbols_16keys, R.xml.symbols,
-							R.string.symbols_keyboard, "symbols_keyboard", mode);
+							mContext.getString(R.string.symbols_keyboard), "symbols_keyboard", mode);
 				else
 					keyboard = new GenericKeyboard(mContext, R.xml.symbols,
-							R.string.symbols_keyboard, "symbols_keyboard",
+							mContext.getString(R.string.symbols_keyboard), "symbols_keyboard",
 							mode, false);
 				break;
 			case SYMBOLS_KEYBOARD_ALT_INDEX:
 				if (AnyApplication.getConfig().use16KeysSymbolsKeyboards())
 					keyboard = new GenericKeyboard(mContext,
 							R.xml.symbols_alt_16keys, R.xml.symbols_alt,
-							R.string.symbols_alt_keyboard, "symbols_keyboard",
+							mContext.getString(R.string.symbols_alt_keyboard), "symbols_keyboard",
 							mode);
 				else
 					keyboard = new GenericKeyboard(mContext, R.xml.symbols_alt,
-							R.string.symbols_alt_keyboard,
+							mContext.getString(R.string.symbols_alt_keyboard),
 							"alt_symbols_keyboard", mode, false);
 				break;
 			case SYMBOLS_KEYBOARD_ALT_NUMBERS_INDEX:
 				keyboard = new GenericKeyboard(mContext,
 						R.xml.simple_alt_numbers,
-						R.string.symbols_alt_num_keyboard,
+						mContext.getString(R.string.symbols_alt_num_keyboard),
 						"alt_numbers_symbols_keyboard", mode, false);
 				break;
 			case SYMBOLS_KEYBOARD_PHONE_INDEX:
 				keyboard = new GenericKeyboard(mContext, R.xml.simple_phone,
-						R.string.symbols_phone_keyboard,
+						mContext.getString(R.string.symbols_phone_keyboard),
 						"phone_symbols_keyboard", mode, true);
 				break;
 			case SYMBOLS_KEYBOARD_NUMBERS_INDEX:
 				keyboard = new GenericKeyboard(mContext, R.xml.simple_numbers,
-						R.string.symbols_numbers_keyboard,
+						mContext.getString(R.string.symbols_numbers_keyboard),
 						"numbers_symbols_keyboard", mode, false);
 				break;
 			case SYMBOLS_KEYBOARD_DATETIME_INDEX:
 				keyboard = new GenericKeyboard(mContext, R.xml.simple_datetime,
-						R.string.symbols_time_keyboard,
+						mContext.getString(R.string.symbols_time_keyboard),
 						"datetime_symbols_keyboard", mode, false);
 				break;
 			}
@@ -192,7 +198,7 @@ public class KeyboardSwitcher {
 			mLastSelectedSymbolsKeyboard = keyboardIndex;
 			if (mInputView != null) {
 				keyboard.loadKeyboard(mInputView.getThemedKeyboardDimens());
-				mContext.setKeyboardStuffBeforeSetToView(keyboard);
+				mIME.setKeyboardStuffBeforeSetToView(keyboard);
 				mInputView.setKeyboard(keyboard);
 			} else {
 				keyboard.loadKeyboard(mKeyboardDimens);
@@ -256,7 +262,7 @@ public class KeyboardSwitcher {
 
 		for (int index = 0; index < mAlphabetKeyboardsCreators.length; index++) {
 			final KeyboardAddOnAndBuilder builder = mAlphabetKeyboardsCreators[index];
-			if (builder.getNameResId() == R.string.eng_keyboard)
+			if (builder.getId().equals("c7535083-4fe6-49dc-81aa-c5438a1a343a"))
 				return index;
 		}
 
@@ -323,7 +329,7 @@ public class KeyboardSwitcher {
 		// keyboard.setTextVariation(mContext.getResources(), (attr == null)? 0
 		// : attr.inputType);
 		// now show
-		mContext.setKeyboardStuffBeforeSetToView(keyboard);
+		mIME.setKeyboardStuffBeforeSetToView(keyboard);
 		if (mInputView != null) {
 			mInputView.setKeyboard(keyboard);// keyboard.setShifted(mInputView.isShifted());
 		}
@@ -557,7 +563,7 @@ public class KeyboardSwitcher {
 		// currentEditorInfo.inputType);
 
 		// now show
-		mContext.setKeyboardStuffBeforeSetToView(current);
+		mIME.setKeyboardStuffBeforeSetToView(current);
 		if (mInputView != null)
 			mInputView.setKeyboard(current);
 
@@ -587,7 +593,7 @@ public class KeyboardSwitcher {
 			keyboard = keyboards[index];
 			if (mInputView != null) {
 				keyboard.loadKeyboard(mInputView.getThemedKeyboardDimens());
-				mContext.setKeyboardStuffBeforeSetToView(keyboard);
+				mIME.setKeyboardStuffBeforeSetToView(keyboard);
 				mInputView.setKeyboard(keyboard);
 			} else {
 				keyboard.loadKeyboard(mKeyboardDimens);
@@ -595,14 +601,6 @@ public class KeyboardSwitcher {
 		}
 		return keyboard;
 	}
-
-	// private boolean requiredToRecreateKeyboard(AnyKeyboard keyboard) {
-	// return (keyboard != null) && (keyboard.getMinWidth() !=
-	// mContext.getMaxWidth())
-	// //this is some tolerance, since sometimes the keyboard ends a bit after
-	// //the end of the screen (see issue 305)
-	// && (Math.abs(keyboard.getMinWidth() - mContext.getMaxWidth()) > 5);
-	// }
 
 	public AnyKeyboard nextKeyboard(EditorInfo currentEditorInfo,
 			NextKeyboardType type) {
@@ -748,36 +746,4 @@ public class KeyboardSwitcher {
 				&& AnyApplication.getConfig()
 						.shouldShowPopupForLanguageSwitch();
 	}
-
-	// void toggleSymbols() {
-	// Keyboard current = mInputView.getKeyboard();
-	// if (mSymbolsKeyboard == null) {
-	// mSymbolsKeyboard = new LatinKeyboard(mContext, R.xml.kbd_symbols);
-	// }
-	// if (mSymbolsShiftedKeyboard == null) {
-	// mSymbolsShiftedKeyboard = new LatinKeyboard(mContext,
-	// R.xml.kbd_symbols_shift);
-	// }
-	// if (current == mSymbolsKeyboard || current == mSymbolsShiftedKeyboard) {
-	// setKeyboardMode(mMode, mImeOptions); // Could be qwerty, alpha, url,
-	// email or im
-	// return;
-	// } else if (current == mPhoneKeyboard) {
-	// current = mPhoneSymbolsKeyboard;
-	// mPhoneSymbolsKeyboard.setImeOptions(mContext.getResources(), mMode,
-	// mImeOptions);
-	// } else if (current == mPhoneSymbolsKeyboard) {
-	// current = mPhoneKeyboard;
-	// mPhoneKeyboard.setImeOptions(mContext.getResources(), mMode,
-	// mImeOptions);
-	// } else {
-	// current = mSymbolsKeyboard;
-	// mSymbolsKeyboard.setImeOptions(mContext.getResources(), mMode,
-	// mImeOptions);
-	// }
-	// mInputView.setKeyboard(current);
-	// if (current == mSymbolsKeyboard) {
-	// current.setShifted(false);
-	// }
-	// }
 }

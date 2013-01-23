@@ -2,6 +2,7 @@ package com.anysoftkeyboard.keyboards;
 
 import java.util.Stack;
 
+import android.content.Context;
 import android.util.Log;
 import android.util.SparseArray;
 
@@ -31,9 +32,12 @@ public class KeyboardCondensor {
 	private boolean mKeyboardCondensed = false;
 	private final SparseArray<KeySize> mKeySizesMap = new SparseArray<KeySize>();
 	private final AnyKeyboard mKeyboard;
+	private final float mCondensingFactor;
 
-	public KeyboardCondensor(AnyKeyboard keyboard) {
+	public KeyboardCondensor(Context askContext, AnyKeyboard keyboard) {
 		mKeyboard = keyboard;
+		mCondensingFactor = ((float) askContext.getResources()
+				.getInteger(R.integer.condensing_precentage)) / 100f;
 	}
 
 	public void setCondensedKeys(boolean condensed) {
@@ -45,14 +49,7 @@ public class KeyboardCondensor {
 
 		if (condensed) {
 			mKeySizesMap.clear();
-
-			// final float CONDENSING_FACTOR = 0.80f;
-			final float CONDENSING_FACTOR = ((float) mKeyboard.getASKContext()
-					.getApplicationContext().getResources()
-					.getInteger(R.integer.condensing_precentage)) / 100f;
-			if (AnyApplication.DEBUG)
-				Log.d(TAG, "Condensing factor is " + CONDENSING_FACTOR);
-			if (CONDENSING_FACTOR > 0.97f)
+			if (mCondensingFactor > 0.97f)
 				return;
 
 			// now to determine the watershed line: keys will be align to the
@@ -78,7 +75,7 @@ public class KeyboardCondensor {
 				{
 					flipSideLeft = !flipSideLeft;
 
-					condenseRightSide(CONDENSING_FACTOR, keyboardWidth,
+					condenseRightSide(mCondensingFactor, keyboardWidth,
 							currentRightX, rightKeys, spaceKey);
 
 					currentLeftX = 0;
@@ -90,17 +87,17 @@ public class KeyboardCondensor {
 				if (AnyApplication.DEBUG)
 					Log.d(TAG, "Condesing key " + k.codes[0] + " x,y " + k.x
 							+ "," + k.y + " w,h " + k.width + "," + k.height);
-				int targetWidth = (int) (k.width * CONDENSING_FACTOR);
+				int targetWidth = (int) (k.width * mCondensingFactor);
 				int keyMidPoint = (k.gap + k.x + (k.width / 2));
 				if ((k.gap + k.x) < watershedLineX
 						&& k.codes[0] == KeyCodes.SPACE) {
 					// space is a special case, I want to make it as wide as
 					// possible
 					spaceKey = k;
-					currentLeftX = condenseLeftSide(CONDENSING_FACTOR,
+					currentLeftX = condenseLeftSide(mCondensingFactor,
 							currentLeftX, k, targetWidth);
 				} else if (keyMidPoint < (watershedLineX - 5)) {
-					currentLeftX = condenseLeftSide(CONDENSING_FACTOR,
+					currentLeftX = condenseLeftSide(mCondensingFactor,
 							currentLeftX, k, targetWidth);
 				} else if (keyMidPoint > (watershedLineX + 5)) {
 					// to handle later. I need to find the last gap
@@ -108,7 +105,7 @@ public class KeyboardCondensor {
 							targetWidth);
 				} else {
 					if (flipSideLeft) {
-						currentLeftX = condenseLeftSide(CONDENSING_FACTOR,
+						currentLeftX = condenseLeftSide(mCondensingFactor,
 								currentLeftX, k, targetWidth);
 					} else {
 						currentRightX = stackRightSideKeyForLater(rightKeys, k,
@@ -121,7 +118,7 @@ public class KeyboardCondensor {
 							+ "," + k.y + " w,h " + k.width + "," + k.height);
 			}
 			// now to condense the last row
-			condenseRightSide(CONDENSING_FACTOR, keyboardWidth, currentRightX,
+			condenseRightSide(mCondensingFactor, keyboardWidth, currentRightX,
 					rightKeys, spaceKey);
 		} else {
 			// restoring sizes
