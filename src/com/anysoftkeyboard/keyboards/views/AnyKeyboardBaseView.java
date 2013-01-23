@@ -22,7 +22,6 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-import net.evendanan.frankenrobot.Diagram;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
@@ -60,7 +59,6 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.anysoftkeyboard.Configuration.AnimationsLevel;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
@@ -238,8 +236,7 @@ public class AnyKeyboardBaseView extends View implements
 	/*
 	 * NOTE: this field EXISTS ONLY AFTER THE CTOR IS FINISHED!
 	 */
-	protected AnyKeyboardContextProvider mAskContext;
-
+	
 	private final UIHandler mHandler = new UIHandler(this);
 
 	private Drawable mPreviewKeyBackground;
@@ -250,22 +247,23 @@ public class AnyKeyboardBaseView extends View implements
 
 	private static final class MiniKeyboardActionListener implements
 			OnKeyboardActionListener {
-		
+
 		private final WeakReference<AnyKeyboardBaseView> mParentKeyboard;
 
 		public MiniKeyboardActionListener(AnyKeyboardBaseView parentKeyboard) {
-			mParentKeyboard = new WeakReference<AnyKeyboardBaseView>(parentKeyboard);
-		}
-		
-		private AnyPopupKeyboard getMyKeyboard() {
-			return (AnyPopupKeyboard) mParentKeyboard.get().mMiniKeyboard.getKeyboard();
+			mParentKeyboard = new WeakReference<AnyKeyboardBaseView>(
+					parentKeyboard);
 		}
 
-		public void onKey(int primaryCode, Key key,
-				int multiTapIndex, int[] nearByKeyCodes,
-				boolean fromUI) {
-			mParentKeyboard.get().mKeyboardActionListener.onKey(primaryCode, key,
-					multiTapIndex, nearByKeyCodes, fromUI);
+		private AnyPopupKeyboard getMyKeyboard() {
+			return (AnyPopupKeyboard) mParentKeyboard.get().mMiniKeyboard
+					.getKeyboard();
+		}
+
+		public void onKey(int primaryCode, Key key, int multiTapIndex,
+				int[] nearByKeyCodes, boolean fromUI) {
+			mParentKeyboard.get().mKeyboardActionListener.onKey(primaryCode,
+					key, multiTapIndex, nearByKeyCodes, fromUI);
 			if (getMyKeyboard().isOneKeyEventPopup())
 				mParentKeyboard.get().dismissPopupKeyboard();
 		}
@@ -312,14 +310,15 @@ public class AnyKeyboardBaseView extends View implements
 		}
 
 		public void onRelease(int primaryCode) {
-			mParentKeyboard.get().mKeyboardActionListener.onRelease(primaryCode);
+			mParentKeyboard.get().mKeyboardActionListener
+					.onRelease(primaryCode);
 		}
 	}
 
 	static class UIHandler extends Handler {
-		
+
 		private final WeakReference<AnyKeyboardBaseView> mKeyboard;
-		
+
 		private static final int MSG_POPUP_PREVIEW = 1;
 		private static final int MSG_DISMISS_PREVIEW = 2;
 		private static final int MSG_REPEAT_KEY = 3;
@@ -330,7 +329,7 @@ public class AnyKeyboardBaseView extends View implements
 		public UIHandler(AnyKeyboardBaseView keyboard) {
 			mKeyboard = new WeakReference<AnyKeyboardBaseView>(keyboard);
 		}
-		
+
 		@Override
 		public void handleMessage(Message msg) {
 			AnyKeyboardBaseView keyboard = mKeyboard.get();
@@ -344,7 +343,8 @@ public class AnyKeyboardBaseView extends View implements
 			case MSG_REPEAT_KEY: {
 				final PointerTracker tracker = (PointerTracker) msg.obj;
 				tracker.repeatKey(msg.arg1);
-				startKeyRepeatTimer(keyboard.mKeyRepeatInterval, msg.arg1, tracker);
+				startKeyRepeatTimer(keyboard.mKeyRepeatInterval, msg.arg1,
+						tracker);
 				break;
 			}
 			case MSG_LONGPRESS_KEY: {
@@ -500,7 +500,8 @@ public class AnyKeyboardBaseView extends View implements
 	public AnyKeyboardBaseView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 
-		mMotionEvent = AnyApplication.getFrankenRobot().embody(new WMotionEvent.Diagram());
+		mMotionEvent = AnyApplication.getFrankenRobot().embody(
+				new WMotionEvent.Diagram());
 
 		LayoutInflater inflate = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -680,11 +681,11 @@ public class AnyKeyboardBaseView extends View implements
 	protected ViewGroup inflatePreviewWindowLayout(LayoutInflater inflate) {
 		return (ViewGroup) inflate.inflate(R.layout.key_preview, null);
 	}
-
+/*
 	public void setAnySoftKeyboardContext(AnyKeyboardContextProvider askContext) {
 		mAskContext = askContext;
 	}
-
+*/
 	public boolean setValueFromTheme(TypedArray a, final int[] padding,
 			final int attr) {
 		try {
@@ -1422,11 +1423,11 @@ public class AnyKeyboardBaseView extends View implements
 
 		private final WeakReference<AnyKeyboardBaseView> mView;
 		private WeakReference<Canvas> mCanvas;
-		
+
 		public KeybaordDrawOperation(AnyKeyboardBaseView keyboard) {
 			mView = new WeakReference<AnyKeyboardBaseView>(keyboard);
 		}
-		
+
 		public void setCanvas(Canvas canvas) {
 			mCanvas = new WeakReference<Canvas>(canvas);
 		}
@@ -1434,15 +1435,17 @@ public class AnyKeyboardBaseView extends View implements
 		public void operation() {
 			if (AnyApplication.DEBUG)
 				Log.d(TAG, "Actually drawing the keyboard (no buffer).");
-			//if this function is called, it can only be called from within
-			//AnyKeyboardBaseView! So there is no need to check if get() returns null.
+			// if this function is called, it can only be called from within
+			// AnyKeyboardBaseView! So there is no need to check if get()
+			// returns null.
 			mView.get().onBufferDraw(mCanvas.get());
 		}
 	}
 
 	// a single instance is enough, there is no need to recreate every draw
 	// operation!
-	private final KeybaordDrawOperation mDrawOperation = new KeybaordDrawOperation(this);
+	private final KeybaordDrawOperation mDrawOperation = new KeybaordDrawOperation(
+			this);
 
 	@Override
 	public void onDraw(final Canvas canvas) {
@@ -2278,10 +2281,10 @@ public class AnyKeyboardBaseView extends View implements
 			CharSequence popupCharacters, int popupKeyboardId, boolean isSticky) {
 		final AnyPopupKeyboard keyboard;
 		if (popupCharacters != null) {
-			keyboard = new AnyPopupKeyboard(mAskContext, popupCharacters,
+			keyboard = new AnyPopupKeyboard(getContext().getApplicationContext(), popupCharacters,
 					mMiniKeyboard.getThemedKeyboardDimens());
 		} else {
-			keyboard = new AnyPopupKeyboard(mAskContext, packageContext,
+			keyboard = new AnyPopupKeyboard(getContext().getApplicationContext(), packageContext,
 					popupKeyboardId, mMiniKeyboard.getThemedKeyboardDimens());
 		}
 		keyboard.setIsOneKeyEventPopup(!isSticky);
@@ -2403,7 +2406,8 @@ public class AnyKeyboardBaseView extends View implements
 						.getNormalKeyHeight());
 
 		mMiniKeyboard
-				.setOnKeyboardActionListener(new MiniKeyboardActionListener(this));
+				.setOnKeyboardActionListener(new MiniKeyboardActionListener(
+						this));
 		// Override default ProximityKeyDetector.
 		mMiniKeyboard.mKeyDetector = new MiniKeyboardKeyDetector(
 				mMiniKeyboardSlideAllowance);
@@ -2669,14 +2673,14 @@ public class AnyKeyboardBaseView extends View implements
 		if (d != null)
 			d.setCallback(null);
 	}
-	
+
 	@Override
 	public void onDetachedFromWindow() {
 		if (AnyApplication.DEBUG)
 			Log.d(TAG, "onDetachedFromWindow");
 		super.onDetachedFromWindow();
 		AnyApplication.getConfig().removeChangedListener(this);
-		//cleaning up memory
+		// cleaning up memory
 		unbindDrawable(mPreviewPopup.getBackground());
 		unbindDrawable(getBackground());
 		unbindDrawable(mShiftIcon);
@@ -2697,7 +2701,7 @@ public class AnyKeyboardBaseView extends View implements
 		unbindDrawable(mMoveEndKeyIcon);
 		unbindDrawable(mPreviewKeyBackground);
 		mMiniKeyboardParent = null;
-		
+
 		closing();
 	}
 

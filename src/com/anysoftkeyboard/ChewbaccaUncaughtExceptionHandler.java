@@ -1,12 +1,8 @@
 package com.anysoftkeyboard;
 
+import java.io.File;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.Date;
-
-import com.anysoftkeyboard.ui.SendBugReportUiActivity;
-import com.anysoftkeyboard.utils.Workarounds;
-import com.menny.android.anysoftkeyboard.AnyApplication;
-import com.menny.android.anysoftkeyboard.R;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -15,8 +11,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Debug;
+import android.os.Environment;
 import android.text.format.DateFormat;
 import android.util.Log;
+
+import com.anysoftkeyboard.ui.SendBugReportUiActivity;
+import com.anysoftkeyboard.utils.Workarounds;
+import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.R;
 
 class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 	private static final String TAG = "ASK CHEWBACCA";
@@ -41,7 +44,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 				stackTrace != null && 
 				stackTrace.contains("android.inputmethodservice.IInputMethodSessionWrapper.executeMessage(IInputMethodSessionWrapper.java")) {
 			//https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/15
-			Log.w(TAG, "An OS bug has been adverted. Keep on, there is nothing to see here.");
+			Log.w(TAG, "An OS bug has been adverted. Move along, there is nothing to see here.");
 			ignore = true;
 		}
 		
@@ -65,12 +68,19 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 				"******************************\n"+
 				"****** Exception type: "+ex.getClass().getName()+"\n"+
 				"****** Exception message: "+ex.getMessage()+"\n"+
-				"****** Trace trace:\n"+stackTrace+"\n"+
+				"****** Trace trace:\n"+stackTrace+"\n";
+			logText +=
 				"******************************\n"+
-				"****** Device information:\n"+getSysInfo()+
+				"****** Device information:\n"+getSysInfo();
+			if (ex instanceof OutOfMemoryError ||
+					(ex.getCause() != null && ex.getCause() instanceof OutOfMemoryError)){
+				logText +=
+					"******************************\n"+
+					"****** Memory:\n"+getMemory();
+			}
+			logText +=
 				"******************************\n"+
 				"****** Logcat:\n"+getLogcat();
-			Log.e(TAG, "About to send a bug report:\n"+logText);
 	        
 			Notification notification = new Notification(R.drawable.notification_error_icon, "Oops! Didn't see that coming, I crashed.", System.currentTimeMillis());
 	
@@ -105,6 +115,26 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 
 	private String getLogcat() {
 		return "Not supported at the moment";
+	}
+	
+	private String getMemory() {
+		String mem = "Total: " + Runtime.getRuntime().totalMemory() +"\n" +
+				"Free: " + Runtime.getRuntime().freeMemory() + "\n" +
+				"Max: " + Runtime.getRuntime().maxMemory() + "\n";
+		
+		if (AnyApplication.DEBUG) {
+			File extFolder = Environment.getExternalStorageDirectory();
+			File target = new File(extFolder, "ask_mem_dump.hprof");
+			try {
+				Debug.dumpHprofData(target.getAbsolutePath());
+				mem += "Created hprof file at "+target.getAbsolutePath()+"\n";
+			} catch (Exception e) {
+				mem += "Failed to create hprof file cause of "+e.getMessage();
+				e.printStackTrace();
+			}
+		}
+		
+		return mem;
 	}
 
 	private String getStackTrace(Throwable ex) {

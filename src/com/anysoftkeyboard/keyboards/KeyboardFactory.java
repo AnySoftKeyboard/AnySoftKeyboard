@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.Log;
 
-import com.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -40,13 +40,13 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder>
 		return msInstance.getAllAddOns(askContext);
 	}
 	
-	public static ArrayList<KeyboardAddOnAndBuilder> getEnabledKeyboards(AnyKeyboardContextProvider contextProvider)
+	public static ArrayList<KeyboardAddOnAndBuilder> getEnabledKeyboards(Context askContext)
 	{
-		final ArrayList<KeyboardAddOnAndBuilder> allAddOns = msInstance.getAllAddOns(contextProvider.getApplicationContext());
+		final ArrayList<KeyboardAddOnAndBuilder> allAddOns = msInstance.getAllAddOns(askContext);
         Log.i(TAG, "Creating enabled addons list. I have a total of "+ allAddOns.size()+" addons");
 
         //getting shared prefs to determine which to create.
-        final SharedPreferences sharedPreferences = contextProvider.getSharedPreferences();
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(askContext);
         
         final ArrayList<KeyboardAddOnAndBuilder> enabledAddOns = new ArrayList<KeyboardAddOnAndBuilder>();
         for(int addOnIndex=0; addOnIndex<allAddOns.size(); addOnIndex++)
@@ -88,7 +88,7 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder>
 	}
 
 	@Override
-	protected KeyboardAddOnAndBuilder createConcreateAddOn(Context context,
+	protected KeyboardAddOnAndBuilder createConcreateAddOn(Context askContext, Context context,
 			String prefId, int nameId, String description, int sortIndex,
 			AttributeSet attrs) {
 		
@@ -128,7 +128,7 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder>
                       + " iconResId:" + iconResId + " defaultDictionary:"
                       + defaultDictionary);
           }
-          final KeyboardAddOnAndBuilder creator = new KeyboardAddOnAndBuilder(context,
+          final KeyboardAddOnAndBuilder creator = new KeyboardAddOnAndBuilder(askContext, context,
                   prefId, nameId, layoutResId, landscapeLayoutResId,
                   defaultDictionary, iconResId, physicalTranslationResId,
                   additionalIsLetterExceptions, sentenceSeparators,
