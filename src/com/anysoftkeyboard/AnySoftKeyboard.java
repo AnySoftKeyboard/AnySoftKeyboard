@@ -384,6 +384,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		mInputMethodManager.hideStatusIcon(mImeToken);
 		
+		if (mInputView != null)
+			mInputView.onViewNotRequired();
+		mInputView = null;
+		
 		mKeyboardSwitcher.setInputView(null);
 
 		super.onDestroy();
@@ -413,9 +417,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public View onCreateInputView() {
 		if (DEBUG)
 			Log.v(TAG, "Creating Input View");
+		if (mInputView != null)
+			mInputView.onViewNotRequired();
+		mInputView = null;
+		
 		GCUtils.getInstance().peformOperationWithMemRetry(TAG,
 				new MemRelatedOperation() {
-
 					public void operation() {
 						mInputView = (AnyKeyboardView) getLayoutInflater()
 								.inflate(R.layout.main_keyboard_layout, null);

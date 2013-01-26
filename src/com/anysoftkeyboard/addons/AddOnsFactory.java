@@ -65,8 +65,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
 		for(AddOnsFactory<?> factory : mActiveInstances)
 		{
 			try {
-				if (factory.isEventRequiresCacheRefresh(eventIntent, ask.getApplicationContext()))
-				{
+				if (factory.isEventRequiresCacheRefresh(eventIntent, ask.getApplicationContext())) {
 					cleared = true;
 					if (factory.isEventRequiresViewReset(eventIntent, ask.getApplicationContext())) recreateView = true;
 					Log.d(sTAG, factory.getClass().getName()+" will handle this package-changed event. Also recreate view? "+recreateView);

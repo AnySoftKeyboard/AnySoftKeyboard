@@ -48,7 +48,7 @@ public class AddOnListPreference extends ListPreferenceEx {
 		if (mAddOns != null) {
 			// mAddOns is null happens when activity gets recreated, e.g. on
 			// rotating the device.
-			ListAdapter listAdapter = new AddOnArrayAdapter(getContext(),
+			ListAdapter listAdapter = new AddOnArrayAdapter(getContext().getApplicationContext(),
 					R.layout.addon_list_item_pref, mAddOns);
 
 			builder.setAdapter(listAdapter, this);
@@ -212,10 +212,10 @@ public class AddOnListPreference extends ListPreferenceEx {
 			AddOn[] addOns = new AddOn[addOnIds.length];
 			for (int i = 0; i < addOns.length; i++)
 				addOns[i] = AddOnsFactory
-						.locateAddOn(addOnIds[i], getContext());
+						.locateAddOn(addOnIds[i], getContext().getApplicationContext());
 			setAddOnsList(addOns);
 			setSelectedAddOn(AddOnsFactory.locateAddOn(selectedAddOnId,
-					getContext()));
+					getContext().getApplicationContext()));
 			super.onRestoreInstanceState(myState.getSuperState());
 		}
 	}
