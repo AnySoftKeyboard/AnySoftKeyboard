@@ -3,6 +3,7 @@ package com.anysoftkeyboard.addons;
 import java.lang.ref.WeakReference;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 
 public abstract class AddOnImpl implements AddOn {
@@ -38,7 +39,7 @@ public abstract class AddOnImpl implements AddOn {
 		Context c = mPackageContext.get();
 		if (c == null) {
 			try {
-				c = mAskAppContext.createPackageContext(mPackageName, 0);
+				c = mAskAppContext.createPackageContext(mPackageName, PackageManager.GET_META_DATA);
 				mPackageContext = new WeakReference<Context>(c);
 			} catch (NameNotFoundException e) {
 				// TODO Auto-generated catch block

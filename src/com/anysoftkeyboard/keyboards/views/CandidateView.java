@@ -120,7 +120,7 @@ public class CandidateView extends View {
 				.getString(R.string.hint_add_to_dictionary);
 		// themed
 		final KeyboardTheme theme = KeyboardThemeFactory
-				.getCurrentKeyboardTheme(context);
+				.getCurrentKeyboardTheme(context.getApplicationContext());
 		TypedArray a = theme.getPackageContext().obtainStyledAttributes(attrs,
 				R.styleable.AnySoftKeyboardTheme, 0, theme.getThemeResId());
 		int colorNormal = context.getResources().getColor(

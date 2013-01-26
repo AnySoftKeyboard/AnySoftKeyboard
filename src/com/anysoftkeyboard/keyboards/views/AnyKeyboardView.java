@@ -632,8 +632,8 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	}
 	
 	@Override
-	public void onDetachedFromWindow() {
-		super.onDetachedFromWindow();
+	public void onViewNotRequired() {
+		super.onViewNotRequired();
 		mSwitcher = null;
 	}
 }

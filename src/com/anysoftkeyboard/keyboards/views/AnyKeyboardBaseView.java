@@ -514,8 +514,8 @@ public class AnyKeyboardBaseView extends View implements
 		Log.d(TAG, "Will use keyboard theme " + theme.getName() + " id "
 				+ theme.getId() + " res " + keyboardThemeStyleResId);
 		HashSet<Integer> doneStylesIndexes = new HashSet<Integer>();
-		TypedArray a = theme.getPackageContext().obtainStyledAttributes(null,
-				R.styleable.AnySoftKeyboardTheme, 0, keyboardThemeStyleResId);
+		TypedArray a = theme.getPackageContext().obtainStyledAttributes(keyboardThemeStyleResId,
+				R.styleable.AnySoftKeyboardTheme);
 
 		final int n = a.getIndexCount();
 		for (int i = 0; i < n; i++) {
@@ -530,9 +530,8 @@ public class AnyKeyboardBaseView extends View implements
 		Log.d(TAG, "Will use keyboard icons theme " + theme.getName() + " id "
 				+ theme.getId() + " res " + iconSetStyleRes);
 		if (iconSetStyleRes != 0) {
-			a = theme.getPackageContext().obtainStyledAttributes(null,
-					R.styleable.AnySoftKeyboardThemeKeyIcons, 0,
-					iconSetStyleRes);
+			a = theme.getPackageContext().obtainStyledAttributes(iconSetStyleRes, 
+					R.styleable.AnySoftKeyboardThemeKeyIcons);
 			final int iconsCount = a.getIndexCount();
 			for (int i = 0; i < iconsCount; i++) {
 				final int attr = a.getIndex(i);
@@ -549,9 +548,8 @@ public class AnyKeyboardBaseView extends View implements
 				"Will use keyboard fallback theme " + fallbackTheme.getName()
 						+ " id " + fallbackTheme.getId() + " res "
 						+ keyboardFallbackThemeStyleResId);
-		a = fallbackTheme.getPackageContext().obtainStyledAttributes(null,
-				R.styleable.AnySoftKeyboardTheme, 0,
-				keyboardFallbackThemeStyleResId);
+		a = fallbackTheme.getPackageContext().obtainStyledAttributes(keyboardFallbackThemeStyleResId,
+				R.styleable.AnySoftKeyboardTheme);
 
 		final int fallbackCount = a.getIndexCount();
 		for (int i = 0; i < fallbackCount; i++) {
@@ -570,9 +568,8 @@ public class AnyKeyboardBaseView extends View implements
 						+ fallbackTheme.getName() + " id "
 						+ fallbackTheme.getId() + " res "
 						+ fallbackIconSetStyleId);
-		a = fallbackTheme.getPackageContext().obtainStyledAttributes(null,
-				R.styleable.AnySoftKeyboardThemeKeyIcons, 0,
-				fallbackIconSetStyleId);
+		a = fallbackTheme.getPackageContext().obtainStyledAttributes(fallbackIconSetStyleId,
+				R.styleable.AnySoftKeyboardThemeKeyIcons);
 
 		final int fallbackIconsCount = a.getIndexCount();
 		for (int i = 0; i < fallbackIconsCount; i++) {
@@ -629,7 +626,7 @@ public class AnyKeyboardBaseView extends View implements
 		mDelayAfterPreview = 10;
 
 		mMiniKeyboardParent = this;
-		mMiniKeyboardPopup = new PopupWindow(context);
+		mMiniKeyboardPopup = new PopupWindow(context.getApplicationContext());
 		mMiniKeyboardPopup.setBackgroundDrawable(null);
 
 		mMiniKeyboardPopup
@@ -1237,12 +1234,9 @@ public class AnyKeyboardBaseView extends View implements
 		mHandler.cancelPopupPreview();
 		mKeyboard = keyboard;
 		mKeyboardName = keyboard != null ? keyboard.getKeyboardName() : null;
-		// ImeLogger.onSetKeyboard(keyboard);
 		mKeys = mKeyDetector.setKeyboard(keyboard);
 		mKeyDetector.setCorrection(-getPaddingLeft(), -getPaddingTop()
 				+ verticalCorrection);
-		// mKeyboardVerticalGap =
-		// (int)getResources().getDimension(R.dimen.key_bottom_gap);
 		for (PointerTracker tracker : mPointerTrackers) {
 			tracker.setKeyboard(mKeys, mKeyHysteresisDistance);
 		}
@@ -1254,8 +1248,6 @@ public class AnyKeyboardBaseView extends View implements
 		mKeyboardChanged = true;
 		invalidateAllKeys();
 		computeProximityThreshold(keyboard);
-		// mMiniKeyboardCache.clear();
-		super.invalidate();
 	}
 
 	/**
@@ -2722,11 +2714,9 @@ public class AnyKeyboardBaseView extends View implements
 			d.setCallback(null);
 	}
 
-	@Override
-	public void onDetachedFromWindow() {
+	public void onViewNotRequired() {
 		if (AnyApplication.DEBUG)
-			Log.d(TAG, "onDetachedFromWindow");
-		super.onDetachedFromWindow();
+			Log.d(TAG, "onViewNotRequired");
 		AnyApplication.getConfig().removeChangedListener(this);
 		// cleaning up memory
 		unbindDrawable(mPreviewPopup.getBackground());
@@ -2738,8 +2728,16 @@ public class AnyKeyboardBaseView extends View implements
 		mKeysIconBuilders.clear();
 		mKeysIcons.clear();
 		unbindDrawable(mPreviewKeyBackground);
+		unbindDrawable(mKeyBackground);
 		mMiniKeyboardParent = null;
+		if (mMiniKeyboard != null)
+			mMiniKeyboard.onViewNotRequired();
+		mMiniKeyboard = null;
 
+		mKeyboardActionListener = null;
+		mKeyboard = null;
+				
+		
 		closing();
 	}
 
