@@ -2708,6 +2708,17 @@ public class AnyKeyboardBaseView extends View implements
 			return false;
 		}
 	}
+	
+	@Override
+	protected void onDetachedFromWindow() {
+		super.onDetachedFromWindow();
+		//releasing some memory
+		for (int i = 0; i < mKeysIcons.size(); i++) {
+			Drawable d = mKeysIcons.valueAt(i);
+			unbindDrawable(d);
+		}
+		mKeysIcons.clear();
+	}
 
 	private static void unbindDrawable(Drawable d) {
 		if (d != null)
@@ -2725,8 +2736,8 @@ public class AnyKeyboardBaseView extends View implements
 			Drawable d = mKeysIcons.valueAt(i);
 			unbindDrawable(d);
 		}
-		mKeysIconBuilders.clear();
 		mKeysIcons.clear();
+		mKeysIconBuilders.clear();
 		unbindDrawable(mPreviewKeyBackground);
 		unbindDrawable(mKeyBackground);
 		mMiniKeyboardParent = null;
