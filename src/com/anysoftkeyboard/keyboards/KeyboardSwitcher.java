@@ -64,6 +64,7 @@ public class KeyboardSwitcher {
 	private static final int SYMBOLS_KEYBOARD_DATETIME_INDEX = 5;
 	private static final int SYMBOLS_KEYBOARDS_COUNT = 6;
 
+	private int mMode;
 	private int mLastSelectedSymbolsKeyboard = SYMBOLS_KEYBOARD_REGULAR_INDEX;
 
 	private AnyKeyboard[] mSymbolsKeyboardsArray = EMPTY_AnyKeyboards;
@@ -121,7 +122,7 @@ public class KeyboardSwitcher {
 				return (int) res
 						.getDimensionPixelOffset(R.dimen.default_key_horizontal_gap);
 			}
-			
+
 			public int getKeyMaxWidth() {
 				return Integer.MAX_VALUE;
 			}
@@ -130,6 +131,7 @@ public class KeyboardSwitcher {
 		KEYBOARDMODE_IM = res.getInteger(R.integer.keyboard_mode_im);
 		KEYBOARDMODE_URL = res.getInteger(R.integer.keyboard_mode_url);
 		KEYBOARDMODE_EMAIL = res.getInteger(R.integer.keyboard_mode_email);
+		mMode = KEYBOARDMODE_NORMAL;
 	}
 
 	public void setInputView(AnyKeyboardView inputView) {
@@ -155,18 +157,19 @@ public class KeyboardSwitcher {
 				if (AnyApplication.getConfig().use16KeysSymbolsKeyboards())
 					keyboard = new GenericKeyboard(mContext,
 							R.xml.symbols_16keys, R.xml.symbols,
-							mContext.getString(R.string.symbols_keyboard), "symbols_keyboard", mode);
+							mContext.getString(R.string.symbols_keyboard),
+							"symbols_keyboard", mode);
 				else
 					keyboard = new GenericKeyboard(mContext, R.xml.symbols,
-							mContext.getString(R.string.symbols_keyboard), "symbols_keyboard",
-							mode, false);
+							mContext.getString(R.string.symbols_keyboard),
+							"symbols_keyboard", mode, false);
 				break;
 			case SYMBOLS_KEYBOARD_ALT_INDEX:
 				if (AnyApplication.getConfig().use16KeysSymbolsKeyboards())
 					keyboard = new GenericKeyboard(mContext,
 							R.xml.symbols_alt_16keys, R.xml.symbols_alt,
-							mContext.getString(R.string.symbols_alt_keyboard), "symbols_keyboard",
-							mode);
+							mContext.getString(R.string.symbols_alt_keyboard),
+							"symbols_keyboard", mode);
 				else
 					keyboard = new GenericKeyboard(mContext, R.xml.symbols_alt,
 							mContext.getString(R.string.symbols_alt_keyboard),
@@ -278,9 +281,11 @@ public class KeyboardSwitcher {
 		mSymbolsKeyboardsArray = EMPTY_AnyKeyboards;
 	}
 
-	public void setKeyboardMode(final int mode, final EditorInfo attr, final boolean restarting) {
-		// mMode = mode;
-		// mImeOptions = (attr == null)? 0 : attr.imeOptions;
+	public void setKeyboardMode(final int mode, final EditorInfo attr,
+			final boolean restarting) {
+		final int previousMode = mMode;
+		mMode = mode;
+		boolean resubmitToView = true;
 		AnyKeyboard keyboard = null;
 
 		switch (mode) {
@@ -311,27 +316,37 @@ public class KeyboardSwitcher {
 		case MODE_URL:
 		case MODE_EMAIL:
 			// starting with English, but only in non-restarting mode
-			//this is a fix for issue #62
+			// this is a fix for issue #62
 			if (!restarting && mLatinKeyboardIndex >= 0) {
 				mLastSelectedKeyboard = mLatinKeyboardIndex;
 			}
 			// note: letting it fallthrough to the default branch
 		default:
 			mKeyboardLocked = false;
-			keyboard = getAlphabetKeyboard(mLastSelectedKeyboard,
-					getKeyboardMode(attr));
-			mAlphabetMode = true;
+			// I'll start with a new alphabet keyboard if
+			// 1) this is a non-restarting session, which means it is a brand
+			// new input field.
+			// 2) this is a restarting, but the mode what change (probably to
+			// Normal).
+			if (!restarting || mMode != previousMode) {
+				keyboard = getAlphabetKeyboard(mLastSelectedKeyboard,
+						getKeyboardMode(attr));
+				mAlphabetMode = true;
+			} else {
+				// just keep doing what you did before.
+				keyboard = getCurrentKeyboard();
+				resubmitToView = false;
+			}
 			break;
 		}
 
-		// keyboard.setShiftLocked(keyboard.isShiftLocked());
 		keyboard.setImeOptions(mContext.getResources(), attr);
-		// keyboard.setTextVariation(mContext.getResources(), (attr == null)? 0
-		// : attr.inputType);
 		// now show
-		mIME.setKeyboardStuffBeforeSetToView(keyboard);
-		if (mInputView != null) {
-			mInputView.setKeyboard(keyboard);// keyboard.setShifted(mInputView.isShifted());
+		if (resubmitToView) {
+			mIME.setKeyboardStuffBeforeSetToView(keyboard);
+			if (mInputView != null) {
+				mInputView.setKeyboard(keyboard);
+			}
 		}
 	}
 
@@ -450,7 +465,7 @@ public class KeyboardSwitcher {
 				tooltipResId = R.string.symbols_time_keyboard;
 				break;
 			default:
-			//case SYMBOLS_KEYBOARD_REGULAR_INDEX:
+				// case SYMBOLS_KEYBOARD_REGULAR_INDEX:
 				tooltipResId = R.string.symbols_keyboard;
 				break;
 			}
