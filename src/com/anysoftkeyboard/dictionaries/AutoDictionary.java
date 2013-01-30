@@ -323,6 +323,8 @@ public class AutoDictionary extends UserDictionaryBase {
 
 	@Override
 	protected void closeAllResources() {
+		if (mOpenHelper != null)
+			mOpenHelper.close();
 	}
 
 	@Override
