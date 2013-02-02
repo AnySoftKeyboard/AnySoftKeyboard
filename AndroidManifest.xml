@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.menny.android.anysoftkeyboard"
-    android:versionCode="88"
+    android:versionCode="89"
     android:versionName="20130130-skinny-eye-candy" >
 
     <supports-screens
