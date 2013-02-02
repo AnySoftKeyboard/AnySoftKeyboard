@@ -72,10 +72,6 @@ public class AutoDictionary extends UserDictionaryBase {
 	private static final String DATABASE_NAME = "auto_dict.db";
 	private static final int DATABASE_VERSION = 1;
 
-	// These are the columns in the dictionary
-	// TODO: Consume less space by using a unique id for locale instead of the
-	// whole
-	// 2-5 character string.
 	private static final String COLUMN_ID = BaseColumns._ID;
 	private static final String COLUMN_WORD = "word";
 	private static final String COLUMN_FREQUENCY = "freq";
@@ -97,7 +93,18 @@ public class AutoDictionary extends UserDictionaryBase {
 		sDictProjectionMap.put(COLUMN_LOCALE, COLUMN_LOCALE);
 	}
 
-	private DatabaseHelper mOpenHelper = null;
+	// Why static? Because ALL locale are using the same connection
+	private static DatabaseHelper msGlobalDbHelper = null;
+	private static Object msDbLocker = new Object();
+
+	private static DatabaseHelper getDatabaseHelper(Context context) {
+		synchronized (msDbLocker) {
+			if (msGlobalDbHelper == null) {
+				msGlobalDbHelper = new DatabaseHelper(context);
+			}
+			return msGlobalDbHelper;
+		}
+	}
 
 	public AutoDictionary(Context context, AnySoftKeyboard ime, String locale) {
 		super("Auto", context);
@@ -125,9 +132,6 @@ public class AutoDictionary extends UserDictionaryBase {
 
 	@Override
 	protected void loadDictionaryAsync() {
-		if (mOpenHelper == null) {
-			mOpenHelper = new DatabaseHelper(mContext);
-		}
 		// Load the words that correspond to the current input locale
 		WordsCursor wordsCursor = getWordsCursor();
 		Cursor cursor = wordsCursor.getCursor();
@@ -183,16 +187,14 @@ public class AutoDictionary extends UserDictionaryBase {
 		return added;
 	}
 
-	/**
-	 * Schedules a background thread to write any pending words to the database.
-	 */
 	public void flushPendingWrites() {
 		synchronized (mPendingWritesLock) {
 			// Nothing pending? Return
-			if (mPendingWrites.isEmpty() || mOpenHelper == null)
+			DatabaseHelper helper = getDatabaseHelper(mContext);
+			if (mPendingWrites.isEmpty() || helper == null)
 				return;
 			// Create a background thread to write the pending entries
-			new UpdateDbTask(mContext, mOpenHelper, getDictionaryName(),
+			new UpdateDbTask(mContext, helper, getDictionaryName(),
 					mPendingWrites, mLocale).execute();
 			// Create a new map for writing new entries into while the old one
 			// is written to db
@@ -233,7 +235,7 @@ public class AutoDictionary extends UserDictionaryBase {
 		qb.setProjectionMap(sDictProjectionMap);
 
 		// Get the database and run the query
-		SQLiteDatabase db = mOpenHelper.getReadableDatabase();
+		SQLiteDatabase db = getDatabaseHelper(mContext).getReadableDatabase();
 		Cursor c = qb.query(db, null, selection, selectionArgs, null, null,
 				DEFAULT_SORT_ORDER);
 		return new WordsCursor.SqliteWordsCursor(db, c);
@@ -323,8 +325,10 @@ public class AutoDictionary extends UserDictionaryBase {
 
 	@Override
 	protected void closeAllResources() {
-		if (mOpenHelper != null)
-			mOpenHelper.close();
+		/*
+		 * NO NEED TO CLOSE THIS CONNECTION HERE. Only at process end.
+		 * (msOpenHelper != null) msOpenHelper.close();
+		 */
 	}
 
 	@Override
