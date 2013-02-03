@@ -152,7 +152,10 @@ public class AutoDictionary extends UserDictionaryBase {
 				}
 			}
 		} finally {
-			wordsCursor.close();
+			//NOTE: I'm closing ONLY the cursor! Not the WordsCursor (which also closes the DB).
+			//this will help fighting race conditions when loading this locale, and a background
+			//task is writing pendings of the previous locale.
+			cursor.close();
 		}
 	}
 
