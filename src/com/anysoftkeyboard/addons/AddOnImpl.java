@@ -34,6 +34,10 @@ public abstract class AddOnImpl implements AddOn {
 	public final String getDescription() {
 		return mDescription;
 	}
+	
+	public String getPackageName() {
+		return mPackageName;
+	}
 
 	public final Context getPackageContext() {
 		Context c = mPackageContext.get();

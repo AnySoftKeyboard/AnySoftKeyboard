@@ -8,6 +8,7 @@ public interface AddOn {
 	String getId();
 	String getName();
     String getDescription();
+    String getPackageName();
     Context getPackageContext();
     int getSortIndex();
 }
