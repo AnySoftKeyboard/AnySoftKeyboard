@@ -28,29 +28,25 @@ import android.util.Xml;
 public abstract class AddOnsFactory<E extends AddOn> {
 
 	private static final class AddOnsComparator implements Comparator<AddOn> {
-		private final Context askContext;
+		private final String mAskPackageName;
 
 		private AddOnsComparator(Context askContext) {
-			this.askContext = askContext;
+			mAskPackageName = askContext.getPackageName();
 		}
 
 		public int compare(AddOn k1, AddOn k2)
 		{
-			Context c1 = k1.getPackageContext();
-			Context c2 = k2.getPackageContext();
-			if (c1 == null)
-				c1 = askContext;
-			if (c2 == null)
-				c2 = askContext;
+			String c1 = k1.getPackageName();
+			String c2 = k2.getPackageName();
 
-			if (c1 == c2)
+			if (c1.equals(c2))
 				return k1.getSortIndex() - k2.getSortIndex();
-			else if (c1 == askContext)//I want to make sure ASK packages are first
+			else if (c1.equals(mAskPackageName))//I want to make sure ASK packages are first
 				return -1;
-			else if (c2 == askContext)
+			else if (c2.equals(mAskPackageName))
 				return 1;
 			else
-				return c1.getPackageName().compareToIgnoreCase(c2.getPackageName());
+				return c1.compareToIgnoreCase(c2);
 		}
 	}
 
@@ -177,7 +173,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
     	
     protected boolean isPackageManaged(String packageNameSchemePart) {
     	for (AddOn addOn : mAddOns) {
-			if (addOn.getPackageContext().getPackageName().equals(packageNameSchemePart)) {
+			if (addOn.getPackageName().equals(packageNameSchemePart)) {
 				return true;
 			}
 		}
