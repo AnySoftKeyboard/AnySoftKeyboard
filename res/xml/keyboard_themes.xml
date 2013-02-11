@@ -23,7 +23,7 @@
         nameResId="@string/gingerbread_keyboard_theme_name"
         themeRes="@style/Gingerbread"
         popupThemeRes="@style/GingerbreadPopup"
-        iconsThemeRes="@style/AnyKeyboardBaseKeyIconTheme"
+        iconsThemeRes="@style/GingerbreadKeyIconTheme"
         themeScreenshot="@drawable/gingerbread_theme_screenshot"
         description="@string/gingerbread_keyboard_theme_description"
         index="3"/>
