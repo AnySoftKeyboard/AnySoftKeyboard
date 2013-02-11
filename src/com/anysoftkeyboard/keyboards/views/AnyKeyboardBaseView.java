@@ -124,8 +124,10 @@ public class AnyKeyboardBaseView extends View implements
 	private int mShadowOffsetY;
 	private Drawable mKeyBackground;
 	/* keys icons */
-	private final SparseArray<DrawableBuilder> mKeysIconBuilders = new SparseArray<DrawableBuilder>(32);
-	private final SparseArray<Drawable> mKeysIcons = new SparseArray<Drawable>(32);
+	private final SparseArray<DrawableBuilder> mKeysIconBuilders = new SparseArray<DrawableBuilder>(
+			32);
+	private final SparseArray<Drawable> mKeysIcons = new SparseArray<Drawable>(
+			32);
 	/*
 	 * private Drawable mShiftIcon; private Drawable mControlIcon; private
 	 * Drawable mActionKeyIcon; private Drawable mDeleteKeyIcon; private
@@ -514,8 +516,8 @@ public class AnyKeyboardBaseView extends View implements
 		Log.d(TAG, "Will use keyboard theme " + theme.getName() + " id "
 				+ theme.getId() + " res " + keyboardThemeStyleResId);
 		HashSet<Integer> doneStylesIndexes = new HashSet<Integer>();
-		TypedArray a = theme.getPackageContext().obtainStyledAttributes(keyboardThemeStyleResId,
-				R.styleable.AnySoftKeyboardTheme);
+		TypedArray a = theme.getPackageContext().obtainStyledAttributes(
+				keyboardThemeStyleResId, R.styleable.AnySoftKeyboardTheme);
 
 		final int n = a.getIndexCount();
 		for (int i = 0; i < n; i++) {
@@ -530,8 +532,8 @@ public class AnyKeyboardBaseView extends View implements
 		Log.d(TAG, "Will use keyboard icons theme " + theme.getName() + " id "
 				+ theme.getId() + " res " + iconSetStyleRes);
 		if (iconSetStyleRes != 0) {
-			a = theme.getPackageContext().obtainStyledAttributes(iconSetStyleRes, 
-					R.styleable.AnySoftKeyboardThemeKeyIcons);
+			a = theme.getPackageContext().obtainStyledAttributes(
+					iconSetStyleRes, R.styleable.AnySoftKeyboardThemeKeyIcons);
 			final int iconsCount = a.getIndexCount();
 			for (int i = 0; i < iconsCount; i++) {
 				final int attr = a.getIndex(i);
@@ -548,7 +550,8 @@ public class AnyKeyboardBaseView extends View implements
 				"Will use keyboard fallback theme " + fallbackTheme.getName()
 						+ " id " + fallbackTheme.getId() + " res "
 						+ keyboardFallbackThemeStyleResId);
-		a = fallbackTheme.getPackageContext().obtainStyledAttributes(keyboardFallbackThemeStyleResId,
+		a = fallbackTheme.getPackageContext().obtainStyledAttributes(
+				keyboardFallbackThemeStyleResId,
 				R.styleable.AnySoftKeyboardTheme);
 
 		final int fallbackCount = a.getIndexCount();
@@ -562,13 +565,14 @@ public class AnyKeyboardBaseView extends View implements
 		}
 		a.recycle();
 		// taking missing icons
-		int fallbackIconSetStyleId = fallbackTheme.getIconsThemeResId();
+		int fallbackIconSetStyleId = R.style.AnyKeyboardBaseKeyIconTheme;
 		Log.d(TAG,
 				"Will use keyboard fallback icons theme "
 						+ fallbackTheme.getName() + " id "
 						+ fallbackTheme.getId() + " res "
 						+ fallbackIconSetStyleId);
-		a = fallbackTheme.getPackageContext().obtainStyledAttributes(fallbackIconSetStyleId,
+		a = fallbackTheme.getPackageContext().obtainStyledAttributes(
+				fallbackIconSetStyleId,
 				R.styleable.AnySoftKeyboardThemeKeyIcons);
 
 		final int fallbackIconsCount = a.getIndexCount();
@@ -1148,7 +1152,8 @@ public class AnyKeyboardBaseView extends View implements
 				break;
 			}
 			if (AnyApplication.DEBUG)
-				Log.d(TAG, "DrawableBuilders size is "+mKeysIconBuilders.size());
+				Log.d(TAG,
+						"DrawableBuilders size is " + mKeysIconBuilders.size());
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -2003,6 +2008,14 @@ public class AnyKeyboardBaseView extends View implements
 			return getContext().getText(R.string.label_home_key);
 		case KeyCodes.MOVE_END:
 			return getContext().getText(R.string.label_end_key);
+		case KeyCodes.ARROW_DOWN:
+			return "\u2193";
+		case KeyCodes.ARROW_LEFT:
+			return "\u2190";
+		case KeyCodes.ARROW_RIGHT:
+			return "\u2192";
+		case KeyCodes.ARROW_UP:
+			return "\u2191";
 		default:
 			return null;
 		}
@@ -2030,7 +2043,8 @@ public class AnyKeyboardBaseView extends View implements
 			icon = builder.buildDrawable();
 			mKeysIcons.put(keyCode, icon);
 			if (AnyApplication.DEBUG)
-				Log.d(TAG, "Current drawable cache size is "+mKeysIcons.size());
+				Log.d(TAG,
+						"Current drawable cache size is " + mKeysIcons.size());
 		}
 		// maybe a drawable state is required
 		if (icon != null) {
@@ -2113,10 +2127,9 @@ public class AnyKeyboardBaseView extends View implements
 		int popupWidth = 0;
 		int popupHeight = 0;
 		// Should not draw hint icon in key preview
-		CharSequence label = tracker.getPreviewText(key, mKeyboard.isShifted());
-		if (TextUtils.isEmpty(label)) {
-			Drawable iconToDraw = getIconToDrawForKey(key, true);
-			// Here's an annoying bug for you (explanation at the end of the
+		Drawable iconToDraw = getIconToDrawForKey(key, true);
+		if (iconToDraw != null) {
+			// Here's an annoying bug for you (explaination at the end of the
 			// hack)
 			mPreviewIcon.setImageState(iconToDraw.getState(), false);
 			// end of hack. You see, the drawable comes with a state, this state
@@ -2130,6 +2143,11 @@ public class AnyKeyboardBaseView extends View implements
 					.max(mPreviewIcon.getMeasuredHeight(), key.height);
 			mPreviewText.setText(null);
 		} else {
+			CharSequence label = tracker.getPreviewText(key,
+					mKeyboard.isShifted());
+			if (TextUtils.isEmpty(label)) {
+				label = guessLabelForKey((AnyKey) key);
+			}
 			mPreviewIcon.setImageDrawable(null);
 			mPreviewText.setTextColor(mPreviewKeyTextColor);
 			setKeyPreviewText(key, label);
@@ -2708,11 +2726,11 @@ public class AnyKeyboardBaseView extends View implements
 			return false;
 		}
 	}
-	
+
 	@Override
 	protected void onDetachedFromWindow() {
 		super.onDetachedFromWindow();
-		//releasing some memory
+		// releasing some memory
 		for (int i = 0; i < mKeysIcons.size(); i++) {
 			Drawable d = mKeysIcons.valueAt(i);
 			unbindDrawable(d);
@@ -2747,8 +2765,7 @@ public class AnyKeyboardBaseView extends View implements
 
 		mKeyboardActionListener = null;
 		mKeyboard = null;
-				
-		
+
 		closing();
 	}
 

@@ -130,6 +130,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 			public void onAnimationEnd(Animation animation) {
 				closeText.setVisibility(View.GONE);
+				closeText = null;
 			}
 		}
 
@@ -3183,10 +3184,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		InputConnection ic = getCurrentInputConnection();
 		if (DEBUG)
 			Log.d(TAG, "onRelease:" + primaryCode);
-		// vibrate();
-		// Reset any drag flags in the keyboard
-		// ((AnyKeyboard) mInputView.getKeyboard()).keyReleased();
-		// vibrate();
 		if (mDistinctMultiTouch && primaryCode == KeyCodes.SHIFT) {
 			if (mShiftKeyState.isMomentary())
 				handleShift(true);
