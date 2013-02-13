@@ -14,6 +14,18 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 
 public class AndroidUserDictionary extends UserDictionaryBase {
 
+	private final class UserDictionaryContentObserver extends
+			ContentObserver {
+		private UserDictionaryContentObserver() {
+			super(null);
+		}
+
+		@Override
+		public void onChange(boolean self) {
+			mRequiresReload = true;
+		}
+	}
+
 	private static final String[] PROJECTION = { Words._ID, Words.WORD,
 			Words.FREQUENCY };
 
@@ -29,6 +41,10 @@ public class AndroidUserDictionary extends UserDictionaryBase {
 	}
 
 	protected void closeAllResources() {
+		closeObserver();
+	}
+
+	private void closeObserver() {
 		if (mObserver != null) {
 			mContext.getContentResolver().unregisterContentObserver(mObserver);
 			mObserver = null;
@@ -52,15 +68,10 @@ public class AndroidUserDictionary extends UserDictionaryBase {
 		// Perform a managed query. The Activity will handle closing and
 		// requerying the cursor
 		// when needed.
+		closeObserver();
 		ContentResolver cres = mContext.getContentResolver();
-
-		cres.registerContentObserver(Words.CONTENT_URI, true,
-				mObserver = new ContentObserver(null) {
-					@Override
-					public void onChange(boolean self) {
-						mRequiresReload = true;
-					}
-				});
+		mObserver = new UserDictionaryContentObserver();
+		cres.registerContentObserver(Words.CONTENT_URI, true, mObserver);
 	}
 
 	public WordsCursor getWordsCursor() {
@@ -74,6 +85,7 @@ public class AndroidUserDictionary extends UserDictionaryBase {
 
 		if (cursor == null)
 			throw new RuntimeException("No built-in Android dictionary!");
+		
 		return new WordsCursor(cursor);
 	}
 
