@@ -109,18 +109,13 @@ public abstract class UserDictionaryBase extends EditableDictionary {
 			return null;
 		}
 	}
-
-	private void startDictionaryLoadingTaskLocked() {
-		if (!mUpdatingDictionary) {
-			mUpdatingDictionary = true;
-			mRequiresReload = false;
-			new LoadDictionaryTask().execute();
-		}
-	}
-
 	public void loadDictionary() {
 		synchronized (mUpdatingLock) {
-			startDictionaryLoadingTaskLocked();
+			if (!mUpdatingDictionary) {
+				mUpdatingDictionary = true;
+				mRequiresReload = false;
+				new LoadDictionaryTask().execute();
+			}
 		}
 	}
 
