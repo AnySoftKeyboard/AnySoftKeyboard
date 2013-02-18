@@ -390,6 +390,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mInputView = null;
 		
 		mKeyboardSwitcher.setInputView(null);
+		
+		mSuggest.setAutoDictionary(null);
+		mSuggest.setContactsDictionary(getApplicationContext(), false);
+		mSuggest.setMainDictionary(null);
+		mSuggest.setUserDictionary(null);
 
 		super.onDestroy();
 	}
