@@ -3203,7 +3203,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// the user lifted the finger, let's handle the shift
 		if (primaryCode != KeyCodes.SHIFT)
 			updateShiftKeyState(getCurrentInputEditorInfo());
-		if (primaryCode != KeyCodes.CTRL)
+		//and set the control state. Checking if the inputview is null
+		//this is weird, I agree, how can onRelease be called, if the inputview is null
+		//well, there are some cases where the onRelease is called with a delayed message, and in this case the view may already be disposed!
+		//Issue #94.
+		if (primaryCode != KeyCodes.CTRL && mInputView != null)
 			mInputView.setControl(mControlKeyState.isMomentary());
 	}
 
