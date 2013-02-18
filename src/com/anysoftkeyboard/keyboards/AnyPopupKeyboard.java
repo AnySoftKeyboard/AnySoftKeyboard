@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.content.Context;
 
-import com.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.menny.android.anysoftkeyboard.R;
 
 public class AnyPopupKeyboard extends AnyKeyboard {
@@ -14,7 +13,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 	private boolean mOneKeyPressPopup = true;
 	private static final HashSet<Character> msEmptySet = new HashSet<Character>(0);
 	
-	public AnyPopupKeyboard(AnyKeyboardContextProvider askContext, Context context,//note: the context can be from a different package!
+	public AnyPopupKeyboard(Context askContext, Context context,//note: the context can be from a different package!
     		int xmlLayoutResId, 
     		final KeyboardDimens keyboardDimens)
 	{
@@ -22,10 +21,10 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 		loadKeyboard(keyboardDimens);
 	}
 	
-	public AnyPopupKeyboard(AnyKeyboardContextProvider askContext, CharSequence popupCharacters, 
+	public AnyPopupKeyboard(Context askContext, CharSequence popupCharacters, 
     		final KeyboardDimens keyboardDimens)
 	{
-		super(askContext, askContext.getApplicationContext(), R.xml.popup);
+		super(askContext, askContext, R.xml.popup);
 		
 		loadKeyboard(keyboardDimens);
 		
@@ -75,10 +74,10 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 	public String getDefaultDictionaryLocale() {
 		return null;
 	}
-
+	
 	@Override
-	protected int getKeyboardNameResId() {
-		return -1;
+	public String getKeyboardName() {
+		return null;
 	}
 
 	@Override
@@ -101,7 +100,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 	}
 	
 	@Override
-	protected void addGenericRows(AnyKeyboardContextProvider askContext, Context context, int mode, KeyboardDimens keyboardDimens) {
+	protected void addGenericRows(Context askContext, Context context, int mode, KeyboardDimens keyboardDimens) {
 		//no generic rows in popups, only in main keyboard
 	}
 

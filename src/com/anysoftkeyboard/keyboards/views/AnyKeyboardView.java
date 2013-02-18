@@ -23,9 +23,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.SystemClock;
-import android.text.Layout.Alignment;
-import android.text.StaticLayout;
-import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -34,7 +31,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.Configuration;
@@ -48,6 +44,7 @@ import com.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.Keyboard.Row;
+import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -58,6 +55,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	private static final int DELAY_BEFORE_POPING_UP_EXTENSION_KBD = 35;// milliseconds
 	private final static String TAG = "AnyKeyboardView";
 
+	private KeyboardSwitcher mSwitcher;
 	private boolean mExtensionVisible = false;
 	private final int mExtensionKeyboardYActivationPoint;
 	private final int mExtensionKeyboardPopupOffset;
@@ -68,13 +66,11 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	private Point mFirstTouchPont = new Point(0, 0);
 	private boolean mIsFirstDownEventInsideSpaceBar = false;
 	private Animation mInAnimation;
-	// private Animation mGestureSlideReachedAnimation;
 
 	private TextView mPreviewText;
 	private float mGesturePreviewTextSize;
 	private int mGesturePreviewTextColor, mGesturePreviewTextColorRed,
 			mGesturePreviewTextColorGreen, mGesturePreviewTextColorBlue;
-	private boolean mGestureReachedThreshold = false;
 
 	/** Whether we've started dropping move events because we found a big jump */
 	// private boolean mDroppingEvents;
@@ -127,6 +123,10 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 		mPreviewText = (TextView) v.findViewById(R.id.key_preview_text);
 		return v;
 	}
+	
+	public void setKeyboardSwitcher(KeyboardSwitcher switcher) {
+		mSwitcher = switcher;
+	}
 
 	@Override
 	public void setKeyboard(AnyKeyboard newKeyboard) {
@@ -134,11 +134,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 		mExtensionVisible = false;
 
 		mUtilityKey = null;
-		// final Keyboard oldKeyboard = getKeyboard();
-		// if (oldKeyboard instanceof AnyKeyboard) {
-		// // Reset old keyboard state before switching to new keyboard.
-		// ((AnyKeyboard)oldKeyboard).keyReleased();
-		// }
 		super.setKeyboard(newKeyboard);
 		if (newKeyboard != null && newKeyboard instanceof GenericKeyboard
 				&& ((GenericKeyboard) newKeyboard).disableKeyPreviews()) {
@@ -282,22 +277,11 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 			mIsFirstDownEventInsideSpaceBar = mSpaceBarKey != null
 					&& mSpaceBarKey.isInside(mFirstTouchPont.x,
 							mFirstTouchPont.y);
-			if (AnyApplication.DEBUG)
-				Log.d(TAG, "First down point on space-bar: "
-						+ mIsFirstDownEventInsideSpaceBar);
-
 		} else if (mIsFirstDownEventInsideSpaceBar) {
 			if (me.getAction() == MotionEvent.ACTION_MOVE) {
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "Pointer is moving while starting at SPACE BAR.");
-
-				setGesturePreviewText(me);
-
+				setGesturePreviewText(mSwitcher, me);
 				return true;
 			} else if (me.getAction() == MotionEvent.ACTION_UP) {
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "Pointer is up while starting at SPACE BAR.");
-
 				final int slide = getSlideDistance(me);
 				final int distance = slide & 0x00FF;// removing direction
 				if (distance > SLIDE_RATIO_FOR_GESTURE) {
@@ -388,7 +372,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 
 	private static final int SLIDE_RATIO_FOR_GESTURE = 250;
 
-	private void setGesturePreviewText(MotionEvent me) {
+	private void setGesturePreviewText(KeyboardSwitcher switcher, MotionEvent me) {
 		if (mPreviewText == null)
 			return;
 		// started at SPACE, so I stick with the position. This is used
@@ -400,10 +384,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 
 		if (slideDisatance >= 20) {
 			final boolean isGesture = slideDisatance > SLIDE_RATIO_FOR_GESTURE;
-
-			final boolean justReachedThreashold = isGesture
-					&& !mGestureReachedThreshold;
-			mGestureReachedThreshold = isGesture;
 
 			final int alpha = isGesture ? 255 : slideDisatance / 2;
 			mPreviewText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
@@ -437,24 +417,17 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 			switch (swipeKeyTarget) {
 			case KeyCodes.MODE_ALPHABET:
 				// printing the next alpha keyboard name
-				tooltip = mAskContext.getKeyboardSwitcher()
-						.peekNextAlphabetKeyboard();
+				tooltip = switcher.peekNextAlphabetKeyboard();
 				break;
 			case KeyCodes.MODE_SYMOBLS:
 				// printing the next alpha keyboard name
-				tooltip = mAskContext.getKeyboardSwitcher()
-						.peekNextSymbolsKeyboard();
+				tooltip = switcher.peekNextSymbolsKeyboard();
 				break;
 			default:
 				tooltip = "";
 				break;
 			}
 			mPreviewText.setText(tooltip);
-			/*
-			 * if (mGestureSlideReachedAnimation != null &&
-			 * justReachedThreashold) {
-			 * mPreviewText.startAnimation(mGestureSlideReachedAnimation); }
-			 */
 		} else {
 			mPreviewText.setText("");
 		}
@@ -567,74 +540,95 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 	public void onDraw(Canvas canvas) {
 		final boolean keyboardChanged = mKeyboardChanged;
 		super.onDraw(canvas);
-		//switching animation
+		// switching animation
 		if (mAnimationLevel != AnimationsLevel.None && keyboardChanged
 				&& (mInAnimation != null)) {
 			startAnimation(mInAnimation);
 			mInAnimation = null;
 		}
-		//text pop out animation
+		// text pop out animation
 		if (mPopOutText != null && mAnimationLevel != AnimationsLevel.None) {
-			final int maxVerticalTravel = getHeight()/2;
+			final int maxVerticalTravel = getHeight() / 2;
 			final long animationDuration = 1200;
-			final long currentAnimationTime = SystemClock.elapsedRealtime() - mPopOutTime;
+			final long currentAnimationTime = SystemClock.elapsedRealtime()
+					- mPopOutTime;
 			if (currentAnimationTime > animationDuration) {
 				mPopOutText = null;
-				if (AnyApplication.DEBUG) Log.d(TAG, "Drawing text popout done.");
+				if (AnyApplication.DEBUG)
+					Log.d(TAG, "Drawing text popout done.");
 			} else {
-				final float animationProgress = ((float)currentAnimationTime)/((float)animationDuration);
+				final float animationProgress = ((float) currentAnimationTime)
+						/ ((float) animationDuration);
 				final float animationFactoredProgress = getPopOutAnimationInterpolator(animationProgress);
-				final int y = mPopOutStartPoint.y - (int)(maxVerticalTravel * animationFactoredProgress);
+				final int y = mPopOutStartPoint.y
+						- (int) (maxVerticalTravel * animationFactoredProgress);
 				final int x = mPopOutStartPoint.x;
-				final int alpha = 255 - (int)(255*animationProgress);
-				if (AnyApplication.DEBUG) Log.d(TAG, "Drawing text popout '"+mPopOutText+"' at "+x+","+y+" with alpha "+alpha+". Animation progress is "+animationProgress+", and factor progress is "+animationFactoredProgress);
-				//drawing
+				final int alpha = 255 - (int) (255 * animationProgress);
+				if (AnyApplication.DEBUG)
+					Log.d(TAG, "Drawing text popout '" + mPopOutText + "' at "
+							+ x + "," + y + " with alpha " + alpha
+							+ ". Animation progress is " + animationProgress
+							+ ", and factor progress is "
+							+ animationFactoredProgress);
+				// drawing
 				setPaintToKeyText(mPaint);
-				//will disappear over time
+				// will disappear over time
 				mPaint.setAlpha(alpha);
 				mPaint.setShadowLayer(5, 0, 0, Color.BLACK);
-				//will grow over time
-				mPaint.setTextSize(mPaint.getTextSize()*(1.0f + animationFactoredProgress));
+				// will grow over time
+				mPaint.setTextSize(mPaint.getTextSize()
+						* (1.0f + animationFactoredProgress));
 				canvas.translate(x, y);
-				canvas.drawText(mPopOutText, 0, mPopOutText.length(), 0, 0, mPaint);
+				canvas.drawText(mPopOutText, 0, mPopOutText.length(), 0, 0,
+						mPaint);
 				canvas.translate(-x, -y);
-				//next frame
-				postInvalidateDelayed(1000/50);//doing 50 frames per second;
+				// next frame
+				postInvalidateDelayed(1000 / 50);// doing 50 frames per second;
 			}
 		}
 	}
-	
+
 	/*
-	 * Taken from https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/android/view/animation/DecelerateInterpolator.java
+	 * Taken from
+	 * https://android.googlesource.com/platform/frameworks/base/+/refs
+	 * /heads/master
+	 * /core/java/android/view/animation/DecelerateInterpolator.java
 	 */
 	private float getPopOutAnimationInterpolator(float input) {
-        float result;
-        if (mPopOutAnimationFactor == 1.0f) {
-            result = (float)(1.0f - (1.0f - input) * (1.0f - input));
-        } else {
-            result = (float)(1.0f - Math.pow((1.0f - input), 2 * mPopOutAnimationFactor));
-        }
-        return result;
-    }
+		float result;
+		if (mPopOutAnimationFactor == 1.0f) {
+			result = (float) (1.0f - (1.0f - input) * (1.0f - input));
+		} else {
+			result = (float) (1.0f - Math.pow((1.0f - input),
+					2 * mPopOutAnimationFactor));
+		}
+		return result;
+	}
 
 	private CharSequence mPopOutText = null;
 	private long mPopOutTime = 0;
 	private final Point mPopOutStartPoint = new Point();
 	private float mPopOutAnimationFactor = 1.0f;
-	
+
 	public void popTextOutOfKey(CharSequence text) {
 		if (TextUtils.isEmpty(text)) {
 			Log.w(TAG, "Call for popTextOutOfKey with missing text argument!");
 			return;
 		}
 		if (!AnyApplication.getConfig().workaround_alwaysUseDrawText())
-			return;//not doing it with StaticLayout
-		
+			return;// not doing it with StaticLayout
+
 		mPopOutText = text;
 		mPopOutTime = SystemClock.elapsedRealtime();
 		mPopOutStartPoint.x = mFirstTouchPont.x;
 		mPopOutStartPoint.y = mFirstTouchPont.y;
-		//it is ok to wait for the next loop.
+		// it is ok to wait for the next loop.
 		postInvalidate();
+	}
+	
+	@Override
+	public void onViewNotRequired() {
+		super.onViewNotRequired();
+		mSwitcher = null;
 	}
 }

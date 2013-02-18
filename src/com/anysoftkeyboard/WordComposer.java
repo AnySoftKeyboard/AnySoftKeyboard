@@ -16,8 +16,16 @@
 
 package com.anysoftkeyboard;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
+import com.anysoftkeyboard.dictionaries.AndroidUserDictionary;
+import com.anysoftkeyboard.dictionaries.Dictionary;
+import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import android.util.Log;
@@ -31,14 +39,19 @@ public class WordComposer {
     /**
      * The list of unicode values for each keystroke (including surrounding keys)
      */
-    private final ArrayList<int[]> mCodes;
+    private final ArrayList<int[]> mCodes = new ArrayList<int[]>(AndroidUserDictionary.MAX_WORD_LENGTH);
+    
+    /**
+     * This holds arrays for reuse. Will not exceed AndroidUserDictionary.MAX_WORD_LENGTH
+     */
+    private final List<int[]> mArraysToReuse = new ArrayList<int[]>(AndroidUserDictionary.MAX_WORD_LENGTH);
     
     /**
      * The word chosen from the candidate list, until it is committed.
      */
     private CharSequence mPreferredWord;
     
-    private final StringBuilder mTypedWord;
+    private final StringBuilder mTypedWord = new StringBuilder(AndroidUserDictionary.MAX_WORD_LENGTH);
     
     private int mCursorPosition;
     private int mGlobalCursorPosition;
@@ -53,8 +66,6 @@ public class WordComposer {
     private boolean mIsFirstCharCapitalized;
 
     public WordComposer() {
-        mCodes = new ArrayList<int[]>(12);
-        mTypedWord = new StringBuilder(20);
     }
 /*
     WordComposer(WordComposer copy) {
@@ -70,6 +81,10 @@ public class WordComposer {
      * Clear out the keys registered so far.
      */
     public void reset() {
+    	//moving arrays back to re-use list
+    	for(int[] array : mCodes) {
+    		mArraysToReuse.add(array);
+    	}
         mCodes.clear();
         mIsFirstCharCapitalized = false;
         mPreferredWord = null;
@@ -159,7 +174,9 @@ public class WordComposer {
         }*/
         
         correctPrimaryJuxtapos(primaryCode, codes);
-        mCodes.add(mCursorPosition, codes);
+        //this will return a copy of the codes array, stored in an array with sufficent storage 
+        int[] reusableArray = getReusableArray(codes);
+        mCodes.add(mCursorPosition, reusableArray);
         mCursorPosition++;
         if (Character.isUpperCase((char) primaryCode)) mCapsCount++;
 		
@@ -174,14 +191,34 @@ public class WordComposer {
 		return false;
     }
 
-    /**
+    private int[] getReusableArray(int[] codes) {
+    	while(mArraysToReuse.size() > 0) {
+    		int[] possibleArray = mArraysToReuse.remove(0);
+    		//is it usable in this situation?
+    		if (possibleArray.length >= codes.length) {
+    			System.arraycopy(codes, 0, possibleArray, 0, codes.length);
+    			if (possibleArray.length > codes.length)
+    				Arrays.fill(possibleArray, codes.length, possibleArray.length, AnyKeyboardBaseView.NOT_A_KEY);
+    			if (AnyApplication.DEBUG)
+    				Log.d(TAG, "Found an array to reuse with length "+possibleArray.length);
+    			return possibleArray;
+    		}
+    	}
+    	//if I got here, it means that the reusableArray does not contain a long enough array
+    	if (AnyApplication.DEBUG)
+			Log.d(TAG, "Creating a new array with length "+codes.length);
+    	int[] newArray = new int[codes.length];
+    	mArraysToReuse.add(newArray);
+    	return getReusableArray(codes);
+	}
+	/**
      * Swaps the first and second values in the codes array if the primary code is not the first
      * value in the array but the second. This happens when the preferred key is not the key that
      * the user released the finger on.
      * @param primaryCode the preferred character
      * @param nearByKeyCodes array of codes based on distance from touch point
      */
-    private void correctPrimaryJuxtapos(int primaryCode, int[] nearByKeyCodes) {
+    private static void correctPrimaryJuxtapos(int primaryCode, int[] nearByKeyCodes) {
         /*if (codes.length < 2) return;
         if (codes[0] > 0 && codes[1] > 0 && codes[0] != primaryCode && codes[1] == primaryCode) {
             codes[1] = codes[0];
@@ -210,7 +247,8 @@ public class WordComposer {
      */
     public void deleteLast() {
         if (mCursorPosition > 0) {
-            mCodes.remove(mCursorPosition - 1);
+        	//removing from the codes list, and taking it back to the reusable list 
+            mArraysToReuse.add(mCodes.remove(mCursorPosition - 1));
             //final int lastPos = mTypedWord.length() - 1;
             char last = mTypedWord.charAt(mCursorPosition - 1);
             mTypedWord.deleteCharAt(mCursorPosition - 1);

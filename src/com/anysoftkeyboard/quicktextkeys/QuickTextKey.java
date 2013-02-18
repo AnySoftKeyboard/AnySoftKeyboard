@@ -1,11 +1,10 @@
 package com.anysoftkeyboard.quicktextkeys;
 
-import com.anysoftkeyboard.addons.AddOnImpl;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.util.Log;
+
+import com.anysoftkeyboard.addons.AddOnImpl;
 
 /**
  *
@@ -23,11 +22,11 @@ public class QuickTextKey extends AddOnImpl {
 	private int mKeyIconResId;
 	private int mIconPreviewResId;
 
-	public QuickTextKey(Context packageContext, String id, int nameResId, int popupKeyboardResId,
+	public QuickTextKey(Context askContext, Context packageContext, String id, int nameResId, int popupKeyboardResId,
 			int popupListNamesResId, int popupListValuesResId, int popupListIconsResId,
 			int keyIconResId, int keyLabelResId, int keyOutputTextResId, int iconPreviewResId,
 			String description, int sortIndex) {
-		super(packageContext, id, nameResId, description, sortIndex);
+		super(askContext, packageContext, id, nameResId, description, sortIndex);
 		
 		Resources resources = packageContext.getResources();
 

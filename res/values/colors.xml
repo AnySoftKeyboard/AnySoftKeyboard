@@ -21,14 +21,10 @@
     <color name="candidate_normal">#FFFFFFFF</color>
     <color name="candidate_recommended">#FFE35900</color>
     <color name="candidate_other">#ff808080</color>
-
-    <color name="key_color_white">#FFFFFFFF</color>
-    <color name="key_color_black">#FF000000</color>
     
     <color name="blacktheme_color_background">#FF000000</color>
 	<color name="blacktheme_color_topborder">#FF333333</color>
     <color name="blacktheme_color_suggestion_background">#FF000000</color>
-    <color name="blacktheme_color_suggestion_divider">#FF00FF66</color>
     <color name="blacktheme_color_suggestion_recommended">#FF00A020</color>
     <color name="blacktheme_color_suggestion_others">#FFBBBBBB</color>
     <color name="blacktheme_color_suggestion_normal">#FFFFFFFF</color>

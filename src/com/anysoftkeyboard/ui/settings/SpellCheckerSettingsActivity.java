@@ -27,6 +27,6 @@ public class SpellCheckerSettingsActivity extends PreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.layout.spell_checker_settings);
+        addPreferencesFromResource(R.xml.spell_checker_settings);
     }
 }

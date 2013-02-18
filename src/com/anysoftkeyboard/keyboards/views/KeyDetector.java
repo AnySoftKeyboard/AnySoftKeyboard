@@ -25,6 +25,7 @@ import java.util.List;
 abstract class KeyDetector {
     protected Keyboard mKeyboard;
 
+    private final int[] mNearByCodes;
     private Key[] mKeys;
 
     protected int mCorrectionX;
@@ -34,6 +35,10 @@ abstract class KeyDetector {
     protected boolean mProximityCorrectOn;
 
     protected int mProximityThresholdSquare;
+    
+    protected KeyDetector() {
+    	mNearByCodes = new int[getMaxNearbyKeys()];
+    }
 
     public Key[] setKeyboard(Keyboard keyboard) {
         if (keyboard == null)
@@ -87,9 +92,8 @@ abstract class KeyDetector {
      *         value.
      */
     public int[] newCodeArray() {
-        int[] codes = new int[getMaxNearbyKeys()];
-        Arrays.fill(codes, AnyKeyboardBaseView.NOT_A_KEY);
-        return codes;
+        Arrays.fill(mNearByCodes, AnyKeyboardBaseView.NOT_A_KEY);
+        return mNearByCodes;
     }
 
     /**

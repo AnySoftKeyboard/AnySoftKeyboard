@@ -257,4 +257,13 @@
         android:title="@string/keyboard_sandbox" >
     </EditTextPreference>
 
+    <Preference
+        android:summary="@string/click_for_developer_features_summary"
+        android:title="@string/click_for_developer_features" >
+
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetClass="com.anysoftkeyboard.ui.dev.MainDeveloperActivity"
+            android:targetPackage="com.menny.android.anysoftkeyboard" />
+    </Preference>
 </PreferenceScreen>

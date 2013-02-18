@@ -16,11 +16,11 @@ public class KeyboardTheme extends AddOnImpl implements ScreenshotHolder {
 	private final int mIconsThemeResId;
 	private final int mThemeScreenshotResId;
 	
-	public KeyboardTheme(Context packageContext, String id, int nameResId, 
+	public KeyboardTheme(Context askContext, Context packageContext, String id, int nameResId, 
 			int themeResId, int popupThemeResId, int iconsThemeResId,
 			int themeScreenshotResId,
 			String description, int sortIndex) {
-		super(packageContext, id, nameResId, description, sortIndex);
+		super(askContext, packageContext, id, nameResId, description, sortIndex);
 		
 		mThemeResId = themeResId;
 		mPopupThemeResId = popupThemeResId == -1 ? mThemeResId : popupThemeResId;
