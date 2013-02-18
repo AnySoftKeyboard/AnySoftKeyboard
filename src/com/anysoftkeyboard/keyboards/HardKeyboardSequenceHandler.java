@@ -6,6 +6,7 @@ import com.anysoftkeyboard.api.KeyCodes;
 import android.view.KeyEvent;
 
 import com.anysoftkeyboard.AnyKeyboardContextProvider;
+import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.keyboards.KeyEventStateMachine.State;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
@@ -73,7 +74,7 @@ public class HardKeyboardSequenceHandler
 	
 
 	
-	public int getCurrentCharacter(int currentKeyEvent, AnyKeyboardContextProvider inputHandler) {
+	public int getCurrentCharacter(int currentKeyEvent, AnySoftKeyboard inputHandler) {
 		State result = this.addNewKey(currentKeyEvent);
 		if (result == State.FULLMATCH || result == State.PARTMATCH) {
 			int mappedChar = mCurrentSequence.getCharacter();

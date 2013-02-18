@@ -16,12 +16,11 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-
-import net.evendanan.frankenrobot.Diagram;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -32,7 +31,6 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.FontMetrics;
@@ -49,6 +47,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.FloatMath;
 import android.util.Log;
+import android.util.SparseArray;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.Gravity;
@@ -61,7 +60,6 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.anysoftkeyboard.Configuration.AnimationsLevel;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
@@ -126,31 +124,26 @@ public class AnyKeyboardBaseView extends View implements
 	private int mShadowOffsetY;
 	private Drawable mKeyBackground;
 	/* keys icons */
-	private Drawable mShiftIcon;
-	private Drawable mControlIcon;
-	private Drawable mActionKeyIcon;
-	private Drawable mDeleteKeyIcon;
-	private Drawable mSpaceKeyIcon;
-	private Drawable mTabKeyIcon;
-	private Drawable mCancelKeyIcon;
-	private Drawable mGlobeKeyIcon;
-	private Drawable mMicKeyIcon;
-	private Drawable mSettingsKeyIcon;
-
-	private Drawable mArrowRightKeyIcon;
-	private Drawable mArrowLeftKeyIcon;
-	private Drawable mArrowUpKeyIcon;
-	private Drawable mArrowDownKeyIcon;
-
-	private Drawable mMoveHomeKeyIcon;
-	private Drawable mMoveEndKeyIcon;
-
+	private final SparseArray<DrawableBuilder> mKeysIconBuilders = new SparseArray<DrawableBuilder>(
+			32);
+	private final SparseArray<Drawable> mKeysIcons = new SparseArray<Drawable>(
+			32);
+	/*
+	 * private Drawable mShiftIcon; private Drawable mControlIcon; private
+	 * Drawable mActionKeyIcon; private Drawable mDeleteKeyIcon; private
+	 * Drawable mSpaceKeyIcon; private Drawable mTabKeyIcon; private Drawable
+	 * mCancelKeyIcon; private Drawable mGlobeKeyIcon; private Drawable
+	 * mMicKeyIcon; private Drawable mSettingsKeyIcon;
+	 * 
+	 * private Drawable mArrowRightKeyIcon; private Drawable mArrowLeftKeyIcon;
+	 * private Drawable mArrowUpKeyIcon; private Drawable mArrowDownKeyIcon;
+	 * 
+	 * private Drawable mMoveHomeKeyIcon; private Drawable mMoveEndKeyIcon;
+	 */
 	private float mBackgroundDimAmount;
 	private float mKeyHysteresisDistance;
 	private float mVerticalCorrection;
 	private int mPreviewOffset;
-	// private int mPreviewHeight;
-	// private final int mPopupLayout = R.layout.keyboard_popup;
 
 	// Main keyboard
 	private AnyKeyboard mKeyboard;
@@ -184,8 +177,6 @@ public class AnyKeyboardBaseView extends View implements
 	protected AnyKeyboardBaseView mMiniKeyboard = null;;
 	private boolean mMiniKeyboardVisible = false;
 	private View mMiniKeyboardParent;
-	// private final WeakHashMap<Key, AnyKeyboardBaseView> mMiniKeyboardCache =
-	// new WeakHashMap<Key, AnyKeyboardBaseView>();
 	private int mMiniKeyboardOriginX;
 	private int mMiniKeyboardOriginY;
 	private long mMiniKeyboardPopupTime;
@@ -243,9 +234,8 @@ public class AnyKeyboardBaseView extends View implements
 	/*
 	 * NOTE: this field EXISTS ONLY AFTER THE CTOR IS FINISHED!
 	 */
-	protected AnyKeyboardContextProvider mAskContext;
 
-	private final UIHandler mHandler = new UIHandler();
+	private final UIHandler mHandler = new UIHandler(this);
 
 	private Drawable mPreviewKeyBackground;
 
@@ -253,7 +243,80 @@ public class AnyKeyboardBaseView extends View implements
 
 	private final KeyboardDimensFromTheme mKeyboardDimens = new KeyboardDimensFromTheme();
 
-	class UIHandler extends Handler {
+	private static final class MiniKeyboardActionListener implements
+			OnKeyboardActionListener {
+
+		private final WeakReference<AnyKeyboardBaseView> mParentKeyboard;
+
+		public MiniKeyboardActionListener(AnyKeyboardBaseView parentKeyboard) {
+			mParentKeyboard = new WeakReference<AnyKeyboardBaseView>(
+					parentKeyboard);
+		}
+
+		private AnyPopupKeyboard getMyKeyboard() {
+			return (AnyPopupKeyboard) mParentKeyboard.get().mMiniKeyboard
+					.getKeyboard();
+		}
+
+		public void onKey(int primaryCode, Key key, int multiTapIndex,
+				int[] nearByKeyCodes, boolean fromUI) {
+			mParentKeyboard.get().mKeyboardActionListener.onKey(primaryCode,
+					key, multiTapIndex, nearByKeyCodes, fromUI);
+			if (getMyKeyboard().isOneKeyEventPopup())
+				mParentKeyboard.get().dismissPopupKeyboard();
+		}
+
+		public void onMultiTapStarted() {
+			mParentKeyboard.get().mKeyboardActionListener.onMultiTapStarted();
+		}
+
+		public void onMultiTapEndeded() {
+			mParentKeyboard.get().mKeyboardActionListener.onMultiTapEndeded();
+		}
+
+		public void onText(CharSequence text) {
+			mParentKeyboard.get().mKeyboardActionListener.onText(text);
+			if (getMyKeyboard().isOneKeyEventPopup())
+				mParentKeyboard.get().dismissPopupKeyboard();
+		}
+
+		public void onCancel() {
+			mParentKeyboard.get().mKeyboardActionListener.onCancel();
+			mParentKeyboard.get().dismissPopupKeyboard();
+		}
+
+		public void onSwipeLeft(boolean onSpacebar) {
+		}
+
+		public void onSwipeRight(boolean onSpacebar) {
+		}
+
+		public void onSwipeUp(boolean onSpacebar) {
+		}
+
+		public void onSwipeDown(boolean onSpacebar) {
+		}
+
+		public void onPinch() {
+		}
+
+		public void onSeparate() {
+		}
+
+		public void onPress(int primaryCode) {
+			mParentKeyboard.get().mKeyboardActionListener.onPress(primaryCode);
+		}
+
+		public void onRelease(int primaryCode) {
+			mParentKeyboard.get().mKeyboardActionListener
+					.onRelease(primaryCode);
+		}
+	}
+
+	static class UIHandler extends Handler {
+
+		private final WeakReference<AnyKeyboardBaseView> mKeyboard;
+
 		private static final int MSG_POPUP_PREVIEW = 1;
 		private static final int MSG_DISMISS_PREVIEW = 2;
 		private static final int MSG_REPEAT_KEY = 3;
@@ -261,24 +324,30 @@ public class AnyKeyboardBaseView extends View implements
 
 		private boolean mInKeyRepeat;
 
+		public UIHandler(AnyKeyboardBaseView keyboard) {
+			mKeyboard = new WeakReference<AnyKeyboardBaseView>(keyboard);
+		}
+
 		@Override
 		public void handleMessage(Message msg) {
+			AnyKeyboardBaseView keyboard = mKeyboard.get();
 			switch (msg.what) {
 			case MSG_POPUP_PREVIEW:
-				showKey(msg.arg1, (PointerTracker) msg.obj);
+				keyboard.showKey(msg.arg1, (PointerTracker) msg.obj);
 				break;
 			case MSG_DISMISS_PREVIEW:
-				mPreviewPopup.dismiss();
+				keyboard.mPreviewPopup.dismiss();
 				break;
 			case MSG_REPEAT_KEY: {
 				final PointerTracker tracker = (PointerTracker) msg.obj;
 				tracker.repeatKey(msg.arg1);
-				startKeyRepeatTimer(mKeyRepeatInterval, msg.arg1, tracker);
+				startKeyRepeatTimer(keyboard.mKeyRepeatInterval, msg.arg1,
+						tracker);
 				break;
 			}
 			case MSG_LONGPRESS_KEY: {
 				final PointerTracker tracker = (PointerTracker) msg.obj;
-				openPopupIfRequired(msg.arg1, tracker);
+				keyboard.openPopupIfRequired(msg.arg1, tracker);
 				break;
 			}
 			}
@@ -286,12 +355,13 @@ public class AnyKeyboardBaseView extends View implements
 
 		public void popupPreview(long delay, int keyIndex,
 				PointerTracker tracker) {
+			AnyKeyboardBaseView keyboard = mKeyboard.get();
 			removeMessages(MSG_POPUP_PREVIEW);
-			if (mPreviewPopup.isShowing()
-					&& mPreviewLayut.getVisibility() == VISIBLE) {
+			if (keyboard.mPreviewPopup.isShowing()
+					&& keyboard.mPreviewLayut.getVisibility() == VISIBLE) {
 				// Show right away, if it's already visible and finger is moving
 				// around
-				showKey(keyIndex, tracker);
+				keyboard.showKey(keyIndex, tracker);
 			} else {
 				sendMessageDelayed(
 						obtainMessage(MSG_POPUP_PREVIEW, keyIndex, 0, tracker),
@@ -304,7 +374,7 @@ public class AnyKeyboardBaseView extends View implements
 		}
 
 		public void dismissPreview(long delay) {
-			if (mPreviewPopup.isShowing()) {
+			if (mKeyboard.get().mPreviewPopup.isShowing()) {
 				sendMessageDelayed(obtainMessage(MSG_DISMISS_PREVIEW), delay);
 			}
 		}
@@ -428,8 +498,9 @@ public class AnyKeyboardBaseView extends View implements
 	public AnyKeyboardBaseView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 
-		mMotionEvent = AnyApplication.getFrankenRobot().embody(new Diagram<WMotionEvent>() {});
-		
+		mMotionEvent = AnyApplication.getFrankenRobot().embody(
+				new WMotionEvent.Diagram());
+
 		LayoutInflater inflate = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		// int previewLayout = 0;
@@ -445,8 +516,8 @@ public class AnyKeyboardBaseView extends View implements
 		Log.d(TAG, "Will use keyboard theme " + theme.getName() + " id "
 				+ theme.getId() + " res " + keyboardThemeStyleResId);
 		HashSet<Integer> doneStylesIndexes = new HashSet<Integer>();
-		TypedArray a = theme.getPackageContext().obtainStyledAttributes(null,
-				R.styleable.AnySoftKeyboardTheme, 0, keyboardThemeStyleResId);
+		TypedArray a = theme.getPackageContext().obtainStyledAttributes(
+				keyboardThemeStyleResId, R.styleable.AnySoftKeyboardTheme);
 
 		final int n = a.getIndexCount();
 		for (int i = 0; i < n; i++) {
@@ -461,13 +532,12 @@ public class AnyKeyboardBaseView extends View implements
 		Log.d(TAG, "Will use keyboard icons theme " + theme.getName() + " id "
 				+ theme.getId() + " res " + iconSetStyleRes);
 		if (iconSetStyleRes != 0) {
-			a = theme.getPackageContext().obtainStyledAttributes(null,
-					R.styleable.AnySoftKeyboardThemeKeyIcons, 0,
-					iconSetStyleRes);
+			a = theme.getPackageContext().obtainStyledAttributes(
+					iconSetStyleRes, R.styleable.AnySoftKeyboardThemeKeyIcons);
 			final int iconsCount = a.getIndexCount();
 			for (int i = 0; i < iconsCount; i++) {
 				final int attr = a.getIndex(i);
-				if (setKeyIconValueFromTheme(a, attr))
+				if (setKeyIconValueFromTheme(theme, a, attr))
 					doneIconsStylesIndexes.add(attr);
 			}
 			a.recycle();
@@ -480,9 +550,9 @@ public class AnyKeyboardBaseView extends View implements
 				"Will use keyboard fallback theme " + fallbackTheme.getName()
 						+ " id " + fallbackTheme.getId() + " res "
 						+ keyboardFallbackThemeStyleResId);
-		a = fallbackTheme.getPackageContext().obtainStyledAttributes(null,
-				R.styleable.AnySoftKeyboardTheme, 0,
-				keyboardFallbackThemeStyleResId);
+		a = fallbackTheme.getPackageContext().obtainStyledAttributes(
+				keyboardFallbackThemeStyleResId,
+				R.styleable.AnySoftKeyboardTheme);
 
 		final int fallbackCount = a.getIndexCount();
 		for (int i = 0; i < fallbackCount; i++) {
@@ -501,9 +571,9 @@ public class AnyKeyboardBaseView extends View implements
 						+ fallbackTheme.getName() + " id "
 						+ fallbackTheme.getId() + " res "
 						+ fallbackIconSetStyleId);
-		a = fallbackTheme.getPackageContext().obtainStyledAttributes(null,
-				R.styleable.AnySoftKeyboardThemeKeyIcons, 0,
-				fallbackIconSetStyleId);
+		a = fallbackTheme.getPackageContext().obtainStyledAttributes(
+				fallbackIconSetStyleId,
+				R.styleable.AnySoftKeyboardThemeKeyIcons);
 
 		final int fallbackIconsCount = a.getIndexCount();
 		for (int i = 0; i < fallbackIconsCount; i++) {
@@ -512,7 +582,7 @@ public class AnyKeyboardBaseView extends View implements
 				continue;
 			if (AnyApplication.DEBUG)
 				Log.d(TAG, "Falling back icon res ID " + attr);
-			setKeyIconValueFromTheme(a, attr);
+			setKeyIconValueFromTheme(fallbackTheme, a, attr);
 		}
 		a.recycle();
 
@@ -560,7 +630,7 @@ public class AnyKeyboardBaseView extends View implements
 		mDelayAfterPreview = 10;
 
 		mMiniKeyboardParent = this;
-		mMiniKeyboardPopup = new PopupWindow(context);
+		mMiniKeyboardPopup = new PopupWindow(context.getApplicationContext());
 		mMiniKeyboardPopup.setBackgroundDrawable(null);
 
 		mMiniKeyboardPopup
@@ -596,23 +666,23 @@ public class AnyKeyboardBaseView extends View implements
 				.createGestureDetector(getContext(), listener);
 		mGestureDetector.setIsLongpressEnabled(false);
 
-		MultiTouchSupportLevel multiTouchSupportLevel = AnyApplication.getDeviceSpecific().getMultiTouchSupportLevel(getContext());
+		MultiTouchSupportLevel multiTouchSupportLevel = AnyApplication
+				.getDeviceSpecific().getMultiTouchSupportLevel(getContext());
 		mHasDistinctMultitouch = multiTouchSupportLevel == MultiTouchSupportLevel.Distinct;
-		
+
 		mKeyRepeatInterval = 50;
 
 		AnyApplication.getConfig().addChangedListener(this);
 	}
 
 	protected ViewGroup inflatePreviewWindowLayout(LayoutInflater inflate) {
-		return (ViewGroup) inflate.inflate(R.layout.key_preview,
-				null);
+		return (ViewGroup) inflate.inflate(R.layout.key_preview, null);
 	}
 
-	public void setAnySoftKeyboardContext(AnyKeyboardContextProvider askContext) {
-		mAskContext = askContext;
-	}
-
+	/*
+	 * public void setAnySoftKeyboardContext(AnyKeyboardContextProvider
+	 * askContext) { mAskContext = askContext; }
+	 */
 	public boolean setValueFromTheme(TypedArray a, final int[] padding,
 			final int attr) {
 		try {
@@ -920,109 +990,170 @@ public class AnyKeyboardBaseView extends View implements
 		}
 	}
 
-	public boolean setKeyIconValueFromTheme(TypedArray a, final int attr) {
+	private boolean setKeyIconValueFromTheme(KeyboardTheme theme, TypedArray a,
+			final int attr) {
 		try {
 			switch (attr) {
 			case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyShift:
-				mShiftIcon = a.getDrawable(attr);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyShift "
-							+ (mShiftIcon != null));
+				/*
+				 * mShiftIcon = a.getDrawable(attr); if (AnyApplication.DEBUG)
+				 * Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyShift " +
+				 * (mShiftIcon != null));
+				 */
+				mKeysIconBuilders.put(KeyCodes.SHIFT,
+						DrawableBuilder.build(theme, a, attr));
 				break;
 			case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyControl:
-				mControlIcon = a.getDrawable(attr);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyControl "
-							+ (mControlIcon != null));
+				/*
+				 * mControlIcon = a.getDrawable(attr); if (AnyApplication.DEBUG)
+				 * Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyControl " +
+				 * (mControlIcon != null));
+				 */
+				mKeysIconBuilders.put(KeyCodes.CTRL,
+						DrawableBuilder.build(theme, a, attr));
 				break;
 			case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyAction:
-				mActionKeyIcon = a.getDrawable(attr);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyAction "
-							+ (mActionKeyIcon != null));
+				/*
+				 * mActionKeyIcon = a.getDrawable(attr); if
+				 * (AnyApplication.DEBUG) Log.d(TAG,
+				 * "AnySoftKeyboardThemeKeyIcons_iconKeyAction " +
+				 * (mActionKeyIcon != null));
+				 */
+				mKeysIconBuilders.put(KeyCodes.ENTER,
+						DrawableBuilder.build(theme, a, attr));
 				break;
 			case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyBackspace:
-				mDeleteKeyIcon = a.getDrawable(attr);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyBackspace "
-							+ (mDeleteKeyIcon != null));
+				/*
+				 * mDeleteKeyIcon = a.getDrawable(attr); if
+				 * (AnyApplication.DEBUG) Log.d(TAG,
+				 * "AnySoftKeyboardThemeKeyIcons_iconKeyBackspace " +
+				 * (mDeleteKeyIcon != null));
+				 */
+				mKeysIconBuilders.put(KeyCodes.DELETE,
+						DrawableBuilder.build(theme, a, attr));
 				break;
 			case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyCancel:
-				mCancelKeyIcon = a.getDrawable(attr);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyCancel "
-							+ (mCancelKeyIcon != null));
+				/*
+				 * mCancelKeyIcon = a.getDrawable(attr); if
+				 * (AnyApplication.DEBUG) Log.d(TAG,
+				 * "AnySoftKeyboardThemeKeyIcons_iconKeyCancel " +
+				 * (mCancelKeyIcon != null));
+				 */
+				mKeysIconBuilders.put(KeyCodes.CANCEL,
+						DrawableBuilder.build(theme, a, attr));
 				break;
 			case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyGlobe:
-				mGlobeKeyIcon = a.getDrawable(attr);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyGlobe "
-							+ (mGlobeKeyIcon != null));
+				/*
+				 * mGlobeKeyIcon = a.getDrawable(attr); if
+				 * (AnyApplication.DEBUG) Log.d(TAG,
+				 * "AnySoftKeyboardThemeKeyIcons_iconKeyGlobe " + (mGlobeKeyIcon
+				 * != null));
+				 */
+				mKeysIconBuilders.put(KeyCodes.MODE_ALPHABET,
+						DrawableBuilder.build(theme, a, attr));
 				break;
 			case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeySpace:
-				mSpaceKeyIcon = a.getDrawable(attr);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeySpace "
-							+ (mSpaceKeyIcon != null));
+				/*
+				 * mSpaceKeyIcon = a.getDrawable(attr); if
+				 * (AnyApplication.DEBUG) Log.d(TAG,
+				 * "AnySoftKeyboardThemeKeyIcons_iconKeySpace " + (mSpaceKeyIcon
+				 * != null));
+				 */
+				mKeysIconBuilders.put(KeyCodes.SPACE,
+						DrawableBuilder.build(theme, a, attr));
 				break;
 			case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyTab:
-				mTabKeyIcon = a.getDrawable(attr);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyTab "
-							+ (mTabKeyIcon != null));
+				/*
+				 * mTabKeyIcon = a.getDrawable(attr); if (AnyApplication.DEBUG)
+				 * Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyTab " +
+				 * (mTabKeyIcon != null));
+				 */
+				mKeysIconBuilders.put(KeyCodes.TAB,
+						DrawableBuilder.build(theme, a, attr));
 				break;
 			case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyArrowDown:
-				mArrowDownKeyIcon = a.getDrawable(attr);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyArrowDown "
-							+ (mArrowDownKeyIcon != null));
+				/*
+				 * mArrowDownKeyIcon = a.getDrawable(attr); if
+				 * (AnyApplication.DEBUG) Log.d(TAG,
+				 * "AnySoftKeyboardThemeKeyIcons_iconKeyArrowDown " +
+				 * (mArrowDownKeyIcon != null));
+				 */
+				mKeysIconBuilders.put(KeyCodes.ARROW_DOWN,
+						DrawableBuilder.build(theme, a, attr));
 				break;
 			case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyArrowLeft:
-				mArrowLeftKeyIcon = a.getDrawable(attr);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyArrowLeft "
-							+ (mArrowLeftKeyIcon != null));
+				/*
+				 * mArrowLeftKeyIcon = a.getDrawable(attr); if
+				 * (AnyApplication.DEBUG) Log.d(TAG,
+				 * "AnySoftKeyboardThemeKeyIcons_iconKeyArrowLeft " +
+				 * (mArrowLeftKeyIcon != null));
+				 */
+				mKeysIconBuilders.put(KeyCodes.ARROW_LEFT,
+						DrawableBuilder.build(theme, a, attr));
 				break;
 			case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyArrowRight:
-				mArrowRightKeyIcon = a.getDrawable(attr);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG,
-							"AnySoftKeyboardThemeKeyIcons_iconKeyArrowRight "
-									+ (mArrowRightKeyIcon != null));
+				/*
+				 * mArrowRightKeyIcon = a.getDrawable(attr); if
+				 * (AnyApplication.DEBUG) Log.d(TAG,
+				 * "AnySoftKeyboardThemeKeyIcons_iconKeyArrowRight " +
+				 * (mArrowRightKeyIcon != null));
+				 */
+				mKeysIconBuilders.put(KeyCodes.ARROW_RIGHT,
+						DrawableBuilder.build(theme, a, attr));
 				break;
 			case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyArrowUp:
-				mArrowUpKeyIcon = a.getDrawable(attr);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyArrowUp "
-							+ (mArrowUpKeyIcon != null));
+				/*
+				 * mArrowUpKeyIcon = a.getDrawable(attr); if
+				 * (AnyApplication.DEBUG) Log.d(TAG,
+				 * "AnySoftKeyboardThemeKeyIcons_iconKeyArrowUp " +
+				 * (mArrowUpKeyIcon != null));
+				 */
+				mKeysIconBuilders.put(KeyCodes.ARROW_UP,
+						DrawableBuilder.build(theme, a, attr));
 				break;
 			case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyInputMoveHome:
-				mMoveHomeKeyIcon = a.getDrawable(attr);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG,
-							"AnySoftKeyboardThemeKeyIcons_iconKeyInputMoveHome "
-									+ (mMoveHomeKeyIcon != null));
+				/*
+				 * mMoveHomeKeyIcon = a.getDrawable(attr); if
+				 * (AnyApplication.DEBUG) Log.d(TAG,
+				 * "AnySoftKeyboardThemeKeyIcons_iconKeyInputMoveHome " +
+				 * (mMoveHomeKeyIcon != null));
+				 */
+				mKeysIconBuilders.put(KeyCodes.MOVE_HOME,
+						DrawableBuilder.build(theme, a, attr));
 				break;
 			case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyInputMoveEnd:
-				mMoveEndKeyIcon = a.getDrawable(attr);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG,
-							"AnySoftKeyboardThemeKeyIcons_iconKeyInputMoveEnd "
-									+ (mMoveEndKeyIcon != null));
+				/*
+				 * mMoveEndKeyIcon = a.getDrawable(attr); if
+				 * (AnyApplication.DEBUG) Log.d(TAG,
+				 * "AnySoftKeyboardThemeKeyIcons_iconKeyInputMoveEnd " +
+				 * (mMoveEndKeyIcon != null));
+				 */
+				mKeysIconBuilders.put(KeyCodes.MOVE_END,
+						DrawableBuilder.build(theme, a, attr));
 				break;
 			case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeyMic:
-				mMicKeyIcon = a.getDrawable(attr);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyMic "
-							+ (mMicKeyIcon != null));
+				/*
+				 * mMicKeyIcon = a.getDrawable(attr); if (AnyApplication.DEBUG)
+				 * Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeyMic " +
+				 * (mMicKeyIcon != null));
+				 */
+				mKeysIconBuilders.put(KeyCodes.VOICE_INPUT,
+						DrawableBuilder.build(theme, a, attr));
 				break;
 			case R.styleable.AnySoftKeyboardThemeKeyIcons_iconKeySettings:
-				mSettingsKeyIcon = a.getDrawable(attr);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardThemeKeyIcons_iconKeySettings "
-							+ (mSettingsKeyIcon != null));
+				/*
+				 * mSettingsKeyIcon = a.getDrawable(attr); if
+				 * (AnyApplication.DEBUG) Log.d(TAG,
+				 * "AnySoftKeyboardThemeKeyIcons_iconKeySettings " +
+				 * (mSettingsKeyIcon != null));
+				 */
+				mKeysIconBuilders.put(KeyCodes.SETTINGS,
+						DrawableBuilder.build(theme, a, attr));
 				break;
 			}
+			if (AnyApplication.DEBUG)
+				Log.d(TAG,
+						"DrawableBuilders size is " + mKeysIconBuilders.size());
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1099,6 +1230,7 @@ public class AnyKeyboardBaseView extends View implements
 	}
 
 	public void setKeyboard(AnyKeyboard keyboard, float verticalCorrection) {
+		mKeysIcons.clear();
 		if (mKeyboard != null) {
 			dismissKeyPreview();
 		}
@@ -1107,12 +1239,9 @@ public class AnyKeyboardBaseView extends View implements
 		mHandler.cancelPopupPreview();
 		mKeyboard = keyboard;
 		mKeyboardName = keyboard != null ? keyboard.getKeyboardName() : null;
-		// ImeLogger.onSetKeyboard(keyboard);
 		mKeys = mKeyDetector.setKeyboard(keyboard);
 		mKeyDetector.setCorrection(-getPaddingLeft(), -getPaddingTop()
 				+ verticalCorrection);
-		// mKeyboardVerticalGap =
-		// (int)getResources().getDimension(R.dimen.key_bottom_gap);
 		for (PointerTracker tracker : mPointerTrackers) {
 			tracker.setKeyboard(mKeys, mKeyHysteresisDistance);
 		}
@@ -1124,8 +1253,6 @@ public class AnyKeyboardBaseView extends View implements
 		mKeyboardChanged = true;
 		invalidateAllKeys();
 		computeProximityThreshold(keyboard);
-		// mMiniKeyboardCache.clear();
-		super.invalidate();
 	}
 
 	/**
@@ -1345,21 +1472,34 @@ public class AnyKeyboardBaseView extends View implements
 		// draw
 		mBuffer = null;
 	}
-	
-	private class KeybaordDrawOperation implements MemRelatedOperation {
-		
-		private Canvas mCanvas;
-		
-		public void setCanvas(Canvas canvas) {
-			mCanvas = canvas;
+
+	private static class KeybaordDrawOperation implements MemRelatedOperation {
+
+		private final WeakReference<AnyKeyboardBaseView> mView;
+		private WeakReference<Canvas> mCanvas;
+
+		public KeybaordDrawOperation(AnyKeyboardBaseView keyboard) {
+			mView = new WeakReference<AnyKeyboardBaseView>(keyboard);
 		}
+
+		public void setCanvas(Canvas canvas) {
+			mCanvas = new WeakReference<Canvas>(canvas);
+		}
+
 		public void operation() {
-			if (AnyApplication.DEBUG) Log.d(TAG, "Actually drawing the keyboard (no buffer).");
-			onBufferDraw(mCanvas);
+			if (AnyApplication.DEBUG)
+				Log.d(TAG, "Actually drawing the keyboard (no buffer).");
+			// if this function is called, it can only be called from within
+			// AnyKeyboardBaseView! So there is no need to check if get()
+			// returns null.
+			mView.get().onBufferDraw(mCanvas.get());
 		}
 	}
-	//a single instance is enough, there is no need to recreate every draw operation!
-	private final KeybaordDrawOperation mDrawOperation = new KeybaordDrawOperation();
+
+	// a single instance is enough, there is no need to recreate every draw
+	// operation!
+	private final KeybaordDrawOperation mDrawOperation = new KeybaordDrawOperation(
+			this);
 
 	@Override
 	public void onDraw(final Canvas canvas) {
@@ -1800,40 +1940,41 @@ public class AnyKeyboardBaseView extends View implements
 		setSpecialKeysIconsAndLabels();
 	}
 
-	public void setSpecialKeysIconsAndLabels() {
-		List<Key> keys = (mKeyboard != null) ? mKeyboard.getKeys() : null;
-		if (keys != null) {
-			for (Key key : keys) {
-				if (key.codes != null && key.codes.length > 0
-						&& key.codes[0] == KeyCodes.ENTER) {
-					key.icon = null;
-					key.iconPreview = null;
-					key.label = null;
-					((AnyKey) key).shiftedKeyLabel = null;
-					Drawable icon = getIconToDrawForKey(key, false);
-					if (icon != null) {
-						key.icon = icon;
-						key.iconPreview = icon;
-					} else {
-						CharSequence label = guessLabelForKey((AnyKey) key);
-						key.label = label;
-						((AnyKey) key).shiftedKeyLabel = label;
-					}
-					// making sure something is shown
-					if (key.icon == null && TextUtils.isEmpty(key.label)) {
-						Log.i(TAG, "Wow. Unknown ACTION ID "
-								+ mKeyboardActionType
-								+ ". Will default to ENTER icon.");
-						// I saw devices (Galaxy Tab 10") which say the action
-						// type is 255...
-						// D/ASKKbdViewBase( 3594): setKeyboardActionType
-						// imeOptions:33554687 action:255
-						// which means it is not a known ACTION
-						mActionKeyIcon.setState(DRAWABLE_STATE_ACTION_NORMAL);
-						key.icon = mActionKeyIcon;
-						key.iconPreview = mActionKeyIcon;
-					}
-				}
+	private void setSpecialKeysIconsAndLabels() {
+		Key enterKey = findKeyByKeyCode(KeyCodes.ENTER);
+		if (enterKey != null) {
+			enterKey.icon = null;
+			enterKey.iconPreview = null;
+			enterKey.label = null;
+			((AnyKey) enterKey).shiftedKeyLabel = null;
+			Drawable icon = getIconToDrawForKey(enterKey, false);
+			if (icon != null) {
+				enterKey.icon = icon;
+				enterKey.iconPreview = icon;
+			} else {
+				CharSequence label = guessLabelForKey((AnyKey) enterKey);
+				enterKey.label = label;
+				((AnyKey) enterKey).shiftedKeyLabel = label;
+			}
+			// making sure something is shown
+			if (enterKey.icon == null && TextUtils.isEmpty(enterKey.label)) {
+				Log.i(TAG, "Wow. Unknown ACTION ID " + mKeyboardActionType
+						+ ". Will default to ENTER icon.");
+				// I saw devices (Galaxy Tab 10") which say the action
+				// type is 255...
+				// D/ASKKbdViewBase( 3594): setKeyboardActionType
+				// imeOptions:33554687 action:255
+				// which means it is not a known ACTION
+				Drawable enterIcon = getIconForKeyCode(KeyCodes.ENTER);
+				enterIcon.setState(DRAWABLE_STATE_ACTION_NORMAL);
+				enterKey.icon = enterIcon;
+				enterKey.iconPreview = enterIcon;
+			}
+		}
+		Key langKey = findKeyByKeyCode(KeyCodes.MODE_ALPHABET);
+		if (langKey != null) {
+			if (TextUtils.isEmpty(langKey.label)) {
+				langKey.icon = getIconForKeyCode(KeyCodes.MODE_ALPHABET);
 			}
 		}
 	}
@@ -1886,80 +2027,68 @@ public class AnyKeyboardBaseView extends View implements
 		if (key.icon != null)
 			return key.icon;
 
-		switch (key.codes[0]) {
-		case KeyCodes.ENTER:
+		return getIconForKeyCode(key.codes[0]);
+	}
+
+	private Drawable getIconForKeyCode(int keyCode) {
+		Drawable icon = mKeysIcons.get(keyCode);
+
+		if (icon == null) {
+			// building needed icon
 			if (AnyApplication.DEBUG)
-				Log.d(TAG, "Action key action ID is: " + mKeyboardActionType);
-			Drawable actionKeyDrawable = null;
-			switch (mKeyboardActionType) {
-			case EditorInfo.IME_ACTION_DONE:
-				mActionKeyIcon.setState(DRAWABLE_STATE_ACTION_DONE);
-				actionKeyDrawable = mActionKeyIcon;
+				Log.d(TAG, "Building icon for key-code " + keyCode);
+			DrawableBuilder builder = mKeysIconBuilders.get(keyCode);
+			if (builder == null)
+				return null;
+			icon = builder.buildDrawable();
+			mKeysIcons.put(keyCode, icon);
+			if (AnyApplication.DEBUG)
+				Log.d(TAG,
+						"Current drawable cache size is " + mKeysIcons.size());
+		}
+		// maybe a drawable state is required
+		if (icon != null) {
+			switch (keyCode) {
+			case KeyCodes.ENTER:
+				if (AnyApplication.DEBUG)
+					Log.d(TAG, "Action key action ID is: "
+							+ mKeyboardActionType);
+				switch (mKeyboardActionType) {
+				case EditorInfo.IME_ACTION_DONE:
+					icon.setState(DRAWABLE_STATE_ACTION_DONE);
+					break;
+				case EditorInfo.IME_ACTION_GO:
+					icon.setState(DRAWABLE_STATE_ACTION_GO);
+					break;
+				case EditorInfo.IME_ACTION_SEARCH:
+					icon.setState(DRAWABLE_STATE_ACTION_SEARCH);
+					break;
+				case EditorInfo.IME_ACTION_NONE:
+				case EditorInfo.IME_ACTION_UNSPECIFIED:
+					icon.setState(DRAWABLE_STATE_ACTION_NORMAL);
+					break;
+				}
 				break;
-			case EditorInfo.IME_ACTION_GO:
-				mActionKeyIcon.setState(DRAWABLE_STATE_ACTION_GO);
-				actionKeyDrawable = mActionKeyIcon;
+			case KeyCodes.SHIFT:
+				if (mKeyboard.isShiftLocked())
+					icon.setState(DRAWABLE_STATE_MODIFIER_LOCKED);
+				else if (mKeyboard.isShifted())
+					icon.setState(DRAWABLE_STATE_MODIFIER_PRESSED);
+				else
+					icon.setState(DRAWABLE_STATE_MODIFIER_NORMAL);
 				break;
-			case EditorInfo.IME_ACTION_SEARCH:
-				mActionKeyIcon.setState(DRAWABLE_STATE_ACTION_SEARCH);
-				actionKeyDrawable = mActionKeyIcon;
-				break;
-			case EditorInfo.IME_ACTION_NONE:
-			case EditorInfo.IME_ACTION_UNSPECIFIED:
-				mActionKeyIcon.setState(DRAWABLE_STATE_ACTION_NORMAL);
-				actionKeyDrawable = mActionKeyIcon;
+			case KeyCodes.CTRL:
+				/*
+				 * if (mKeyboard.isControlLocked())
+				 * mControlIcon.setState(DRAWABLE_STATE_MODIFIER_LOCKED); else
+				 */if (mKeyboard.isControl())
+					icon.setState(DRAWABLE_STATE_MODIFIER_PRESSED);
+				else
+					icon.setState(DRAWABLE_STATE_MODIFIER_NORMAL);
 				break;
 			}
-			return actionKeyDrawable;
-		case KeyCodes.DELETE:
-			return mDeleteKeyIcon;
-		case KeyCodes.SPACE:
-			return mSpaceKeyIcon;
-		case KeyCodes.SHIFT:
-			if (mKeyboard.isShiftLocked())
-				mShiftIcon.setState(DRAWABLE_STATE_MODIFIER_LOCKED);
-			else if (mKeyboard.isShifted())
-				mShiftIcon.setState(DRAWABLE_STATE_MODIFIER_PRESSED);
-			else
-				mShiftIcon.setState(DRAWABLE_STATE_MODIFIER_NORMAL);
-			return mShiftIcon;
-		case KeyCodes.CANCEL:
-			return mCancelKeyIcon;
-		case KeyCodes.MODE_ALPHABET:
-			if (key.label == null)
-				return mGlobeKeyIcon;
-			else
-				return null;
-		case KeyCodes.CTRL:
-			/*
-			 * if (mKeyboard.isControlLocked())
-			 * mControlIcon.setState(DRAWABLE_STATE_MODIFIER_LOCKED); else
-			 */if (mKeyboard.isControl())
-				mControlIcon.setState(DRAWABLE_STATE_MODIFIER_PRESSED);
-			else
-				mControlIcon.setState(DRAWABLE_STATE_MODIFIER_NORMAL);
-			return mControlIcon;
-		case KeyCodes.TAB:
-			return mTabKeyIcon;
-		case KeyCodes.ARROW_DOWN:
-			return mArrowDownKeyIcon;
-		case KeyCodes.ARROW_LEFT:
-			return mArrowLeftKeyIcon;
-		case KeyCodes.ARROW_RIGHT:
-			return mArrowRightKeyIcon;
-		case KeyCodes.ARROW_UP:
-			return mArrowUpKeyIcon;
-		case KeyCodes.MOVE_HOME:
-			return mMoveHomeKeyIcon;
-		case KeyCodes.MOVE_END:
-			return mMoveEndKeyIcon;
-		case KeyCodes.VOICE_INPUT:
-			return mMicKeyIcon;
-		case KeyCodes.SETTINGS:
-			return mSettingsKeyIcon;
-		default:
-			return null;
 		}
+		return icon;
 	}
 
 	void dismissKeyPreview() {
@@ -2000,9 +2129,11 @@ public class AnyKeyboardBaseView extends View implements
 		// Should not draw hint icon in key preview
 		Drawable iconToDraw = getIconToDrawForKey(key, true);
 		if (iconToDraw != null) {
-			//Here's an annoying bug for you (explaination at the end of the hack)
+			// Here's an annoying bug for you (explaination at the end of the
+			// hack)
 			mPreviewIcon.setImageState(iconToDraw.getState(), false);
-			//end of hack. You see, the drawable comes with a state, this state is overriden by the ImageView. Nomore.
+			// end of hack. You see, the drawable comes with a state, this state
+			// is overridden by the ImageView. No more.
 			mPreviewIcon.setImageDrawable(iconToDraw);
 			mPreviewIcon.measure(
 					MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
@@ -2012,9 +2143,10 @@ public class AnyKeyboardBaseView extends View implements
 					.max(mPreviewIcon.getMeasuredHeight(), key.height);
 			mPreviewText.setText(null);
 		} else {
-			CharSequence label = tracker.getPreviewText(key, mKeyboard.isShifted());
+			CharSequence label = tracker.getPreviewText(key,
+					mKeyboard.isShifted());
 			if (TextUtils.isEmpty(label)) {
-				label = guessLabelForKey((AnyKey)key);
+				label = guessLabelForKey((AnyKey) key);
 			}
 			mPreviewIcon.setImageDrawable(null);
 			mPreviewText.setTextColor(mPreviewKeyTextColor);
@@ -2088,38 +2220,8 @@ public class AnyKeyboardBaseView extends View implements
 		}
 
 		if (mPreviewPopup.isShowing()) {
-			/*if (mStaticLocationPopupWindow) {
-				// started at SPACE, so I stick with the position. This is used
-				// for
-				// showing gesture info
-				// in the spacebar we'll also add the current gesture, with
-				// alpha [0...128,255].
-				// if any
-				// TODO: the above
-				final int horizontalSlide = tracker.getLastX()
-						- tracker.getStartX();
-				final int slideRatio = (255 * mSwipeXDistanceThreshold)
-						/ horizontalSlide;
-				final int slideDisatance = Math.abs(slideRatio);
-				if (AnyApplication.DEBUG) {
-					Log.d(TAG, "horizontalSlide: " + horizontalSlide
-							+ ", slideRatio:" + slideRatio);
-				}
-				if (slideDisatance >= 20) {
-					final int alpha = slideDisatance > 127? 255 : slideDisatance;
-					mPreviewText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-							mPreviewLabelTextSize);
-					mPreviewText.setTextColor(Color.argb(alpha,
-							mPreviewKeyTextRedColor, mPreviewKeyTextGreenColor,
-							mPreviewKeyTextBlueColor));
-					mPreviewText.setText("GESTURE");
-				} else {
-					mPreviewText.setText(null);
-				}
-			} else {*/
-				mPreviewPopup.update(popupPreviewX, popupPreviewY, popupWidth,
-						popupHeight);
-			/*}*/
+			mPreviewPopup.update(popupPreviewX, popupPreviewY, popupWidth,
+					popupHeight);
 		} else {
 			mPreviewPopup.setWidth(popupWidth);
 			mPreviewPopup.setHeight(popupHeight);
@@ -2135,9 +2237,8 @@ public class AnyKeyboardBaseView extends View implements
 			}
 
 		}
-		// mPreviewPopup.getContentView().invalidate();
-		// Record popup preview position to display mini-keyboard later at the
-		// same positon
+		// Record pop-up preview position to display mini-keyboard later at the
+		// same position
 		mPopupPreviewDisplayedY = popupPreviewY
 				+ (showPopupAboveKey ? 0 : key.y);// the popup keyboard should
 													// be
@@ -2235,11 +2336,13 @@ public class AnyKeyboardBaseView extends View implements
 			CharSequence popupCharacters, int popupKeyboardId, boolean isSticky) {
 		final AnyPopupKeyboard keyboard;
 		if (popupCharacters != null) {
-			keyboard = new AnyPopupKeyboard(mAskContext, popupCharacters,
+			keyboard = new AnyPopupKeyboard(getContext()
+					.getApplicationContext(), popupCharacters,
 					mMiniKeyboard.getThemedKeyboardDimens());
 		} else {
-			keyboard = new AnyPopupKeyboard(mAskContext, packageContext,
-					popupKeyboardId, mMiniKeyboard.getThemedKeyboardDimens());
+			keyboard = new AnyPopupKeyboard(getContext()
+					.getApplicationContext(), packageContext, popupKeyboardId,
+					mMiniKeyboard.getThemedKeyboardDimens());
 		}
 		keyboard.setIsOneKeyEventPopup(!isSticky);
 
@@ -2353,72 +2456,15 @@ public class AnyKeyboardBaseView extends View implements
 				R.layout.popup_keyboard_layout, null);
 
 		mMiniKeyboard.setPopupParent(this);
-		//hack: this will ensure that the key of a popup is no wider than a thumb's width.
-		((KeyboardDimensFromTheme)mMiniKeyboard.getThemedKeyboardDimens()).setKeyMaxWidth(mMiniKeyboard.getThemedKeyboardDimens().getNormalKeyHeight());
-		
+		// hack: this will ensure that the key of a popup is no wider than a
+		// thumb's width.
+		((KeyboardDimensFromTheme) mMiniKeyboard.getThemedKeyboardDimens())
+				.setKeyMaxWidth(mMiniKeyboard.getThemedKeyboardDimens()
+						.getNormalKeyHeight());
+
 		mMiniKeyboard
-				.setOnKeyboardActionListener(new OnKeyboardActionListener() {
-
-					private final AnyKeyboardBaseView mParent = mMiniKeyboard;
-
-					private AnyPopupKeyboard getMyKeyboard() {
-						return (AnyPopupKeyboard) mParent.getKeyboard();
-					}
-
-					public void onKey(int primaryCode, Key key,
-							int multiTapIndex, int[] nearByKeyCodes,
-							boolean fromUI) {
-						mKeyboardActionListener.onKey(primaryCode, key,
-								multiTapIndex, nearByKeyCodes, fromUI);
-						if (getMyKeyboard().isOneKeyEventPopup())
-							dismissPopupKeyboard();
-					}
-
-					public void onMultiTapStarted() {
-						mKeyboardActionListener.onMultiTapStarted();
-					}
-
-					public void onMultiTapEndeded() {
-						mKeyboardActionListener.onMultiTapEndeded();
-					}
-
-					public void onText(CharSequence text) {
-						mKeyboardActionListener.onText(text);
-						if (getMyKeyboard().isOneKeyEventPopup())
-							dismissPopupKeyboard();
-					}
-
-					public void onCancel() {
-						mKeyboardActionListener.onCancel();
-						dismissPopupKeyboard();
-					}
-
-					public void onSwipeLeft(boolean onSpacebar) {
-					}
-
-					public void onSwipeRight(boolean onSpacebar) {
-					}
-
-					public void onSwipeUp(boolean onSpacebar) {
-					}
-
-					public void onSwipeDown(boolean onSpacebar) {
-					}
-
-					public void onPinch() {
-					}
-
-					public void onSeparate() {
-					}
-
-					public void onPress(int primaryCode) {
-						mKeyboardActionListener.onPress(primaryCode);
-					}
-
-					public void onRelease(int primaryCode) {
-						mKeyboardActionListener.onRelease(primaryCode);
-					}
-				});
+				.setOnKeyboardActionListener(new MiniKeyboardActionListener(
+						this));
 		// Override default ProximityKeyDetector.
 		mMiniKeyboard.mKeyDetector = new MiniKeyboardKeyDetector(
 				mMiniKeyboardSlideAllowance);
@@ -2443,7 +2489,7 @@ public class AnyKeyboardBaseView extends View implements
 		return (edgeFlags & Keyboard.EDGE_TOP) != 0
 				&& (edgeFlags & Keyboard.EDGE_BOTTOM) != 0;
 	}
-	
+
 	private MotionEvent generateMiniKeyboardMotionEvent(int action, int x,
 			int y, long eventTime) {
 		return MotionEvent.obtain(mMiniKeyboardPopupTime, eventTime, action, x
@@ -2505,8 +2551,7 @@ public class AnyKeyboardBaseView extends View implements
 
 		// Gesture detector must be enabled only when mini-keyboard is not
 		// on the screen.
-		if (!mMiniKeyboardVisible
-				&& mGestureDetector != null
+		if (!mMiniKeyboardVisible && mGestureDetector != null
 				&& (mGestureDetector.onTouchEvent(nativeMotionEvent))) {
 			if (AnyApplication.DEBUG)
 				Log.d(TAG, "Gesture detected!");
@@ -2630,7 +2675,8 @@ public class AnyKeyboardBaseView extends View implements
 		mPointerQueue.add(tracker);
 	}
 
-	protected void onUpEvent(PointerTracker tracker, int x, int y, long eventTime) {
+	protected void onUpEvent(PointerTracker tracker, int x, int y,
+			long eventTime) {
 		if (tracker.isModifier()) {
 			// Before processing an up event of modifier key, all pointers
 			// already being tracked
@@ -2663,7 +2709,8 @@ public class AnyKeyboardBaseView extends View implements
 		}
 
 		for (Key key : getKeyboard().getKeys()) {
-			if (key.codes[0] == keyCode)
+			if (key.codes != null && key.codes.length > 0
+					&& key.codes[0] == keyCode)
 				return key;
 		}
 		return null;
@@ -2681,9 +2728,44 @@ public class AnyKeyboardBaseView extends View implements
 	}
 
 	@Override
-	public void onDetachedFromWindow() {
+	protected void onDetachedFromWindow() {
 		super.onDetachedFromWindow();
+		// releasing some memory
+		for (int i = 0; i < mKeysIcons.size(); i++) {
+			Drawable d = mKeysIcons.valueAt(i);
+			unbindDrawable(d);
+		}
+		mKeysIcons.clear();
+	}
+
+	private static void unbindDrawable(Drawable d) {
+		if (d != null)
+			d.setCallback(null);
+	}
+
+	public void onViewNotRequired() {
+		if (AnyApplication.DEBUG)
+			Log.d(TAG, "onViewNotRequired");
 		AnyApplication.getConfig().removeChangedListener(this);
+		// cleaning up memory
+		unbindDrawable(mPreviewPopup.getBackground());
+		unbindDrawable(getBackground());
+		for (int i = 0; i < mKeysIcons.size(); i++) {
+			Drawable d = mKeysIcons.valueAt(i);
+			unbindDrawable(d);
+		}
+		mKeysIcons.clear();
+		mKeysIconBuilders.clear();
+		unbindDrawable(mPreviewKeyBackground);
+		unbindDrawable(mKeyBackground);
+		mMiniKeyboardParent = null;
+		if (mMiniKeyboard != null)
+			mMiniKeyboard.onViewNotRequired();
+		mMiniKeyboard = null;
+
+		mKeyboardActionListener = null;
+		mKeyboard = null;
+
 		closing();
 	}
 

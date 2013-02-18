@@ -14,9 +14,9 @@ public class KeyboardExtension extends AddOnImpl {
 	private final int mKeyboardResId;
 	private final int mExtensionType;
 	
-	public KeyboardExtension(Context packageContext, String id, int nameResId, int keyboardResId, int type,
+	public KeyboardExtension(Context askContext, Context packageContext, String id, int nameResId, int keyboardResId, int type,
 			String description, int sortIndex) {
-		super(packageContext, id, nameResId, description, sortIndex);
+		super(askContext, packageContext, id, nameResId, description, sortIndex);
 		mKeyboardResId = keyboardResId;
 		mExtensionType = type;
 	}

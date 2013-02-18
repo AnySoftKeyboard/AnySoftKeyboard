@@ -19,8 +19,6 @@ package com.anysoftkeyboard.ui.settings;
 
 import java.util.ArrayList;
 
-
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
@@ -53,356 +51,363 @@ import com.menny.android.anysoftkeyboard.R;
 
 public class UserDictionaryEditorActivity extends ListActivity {
 
-    public static final String ASK_USER_WORDS_SDCARD_FILENAME = "UserWords.xml";
+	public static final String ASK_USER_WORDS_SDCARD_FILENAME = "UserWords.xml";
 
-    private static final String INSTANCE_KEY_DIALOG_EDITING_WORD = "DIALOG_EDITING_WORD";
-    private static final String INSTANCE_KEY_ADDED_WORD = "DIALOG_ADDED_WORD";
+	private static final String INSTANCE_KEY_DIALOG_EDITING_WORD = "DIALOG_EDITING_WORD";
+	private static final String INSTANCE_KEY_ADDED_WORD = "DIALOG_ADDED_WORD";
 
-    private static final String EXTRA_WORD = "word";
+	private static final String EXTRA_WORD = "word";
 
-    private static final int DIALOG_ADD_OR_EDIT = 0;
+	private static final int DIALOG_ADD_OR_EDIT = 0;
 
-    static final int DIALOG_SAVE_SUCCESS = 10;
-    static final int DIALOG_SAVE_FAILED = 11;
+	static final int DIALOG_SAVE_SUCCESS = 10;
+	static final int DIALOG_SAVE_FAILED = 11;
 
-    static final int DIALOG_LOAD_SUCCESS = 20;
-    static final int DIALOG_LOAD_FAILED = 21;
+	static final int DIALOG_LOAD_SUCCESS = 20;
+	static final int DIALOG_LOAD_FAILED = 21;
 
-    static final String TAG = "ASK_UDE";
+	static final String TAG = "ASK_UDE";
 
-    /**
-     * The word being edited in the dialog (null means the user is adding a
-     * word).
-     */
-    private String mDialogEditingWord;
+	/**
+	 * The word being edited in the dialog (null means the user is adding a
+	 * word).
+	 */
+	private String mDialogEditingWord;
 
-    Spinner mLangs;
+	Spinner mLangs;
 
-    WordsCursor mCursor;
-    private String mSelectedLocale = null;
-    SafeUserDictionary mCurrentDictionary;
+	WordsCursor mCursor;
+	private String mSelectedLocale = null;
+	SafeUserDictionary mCurrentDictionary;
 
-    private boolean mAddedWordAlready;
-    private boolean mAutoReturn;
+	private boolean mAddedWordAlready;
+	private boolean mAutoReturn;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.user_dictionary_editor);
+		setContentView(R.layout.user_dictionary_editor);
 
-        mLangs = (Spinner) findViewById(R.id.user_dictionay_langs);
-        mLangs.setOnItemSelectedListener(new OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                mSelectedLocale = arg0.getItemAtPosition(arg2).toString();
-                fillWordsList();
-            }
+		mLangs = (Spinner) findViewById(R.id.user_dictionay_langs);
+		mLangs.setOnItemSelectedListener(new OnItemSelectedListener() {
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				mSelectedLocale = arg0.getItemAtPosition(arg2).toString();
+				fillWordsList();
+			}
 
-            public void onNothingSelected(AdapterView<?> arg0) {
-                Log.d(TAG, "No locale selected");
-                mSelectedLocale = null;
-            }
-        });
+			public void onNothingSelected(AdapterView<?> arg0) {
+				Log.d(TAG, "No locale selected");
+				mSelectedLocale = null;
+			}
+		});
 
-        findViewById(R.id.add_user_word).setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                showAddOrEditDialog(null);
-            }
-        });
+		findViewById(R.id.add_user_word).setOnClickListener(
+				new OnClickListener() {
+					public void onClick(View v) {
+						showAddOrEditDialog(null);
+					}
+				});
 
-        findViewById(R.id.backup_words).setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                new BackupUserWordsAsyncTask(UserDictionaryEditorActivity.this).execute();
-            }
-        });
+		findViewById(R.id.backup_words).setOnClickListener(
+				new OnClickListener() {
+					public void onClick(View v) {
+						new BackupUserWordsAsyncTask(
+								UserDictionaryEditorActivity.this).execute();
+					}
+				});
 
-        findViewById(R.id.restore_words).setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                new RestoreUserWordsAsyncTask(UserDictionaryEditorActivity.this).execute();
-            }
-        });
+		findViewById(R.id.restore_words).setOnClickListener(
+				new OnClickListener() {
+					public void onClick(View v) {
+						new RestoreUserWordsAsyncTask(
+								UserDictionaryEditorActivity.this).execute();
+					}
+				});
 
-        TextView emptyView = (TextView) findViewById(R.id.empty_user_dictionary);
+		TextView emptyView = (TextView) findViewById(R.id.empty_user_dictionary);
 
-        ListView listView = getListView();
-        listView.setFastScrollEnabled(true);
-        listView.setEmptyView(emptyView);
-    }
+		ListView listView = getListView();
+		listView.setFastScrollEnabled(true);
+		listView.setEmptyView(emptyView);
+	}
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (!mAddedWordAlready &&
-                !TextUtils.isEmpty(getIntent().getAction()) &&
-                getIntent().getAction().equals("com.android.settings.USER_DICTIONARY_INSERT")) {
-            String word = getIntent().getStringExtra(EXTRA_WORD);
-            mAutoReturn = true;
-            if (word != null) {
-                showAddOrEditDialog(word);
-            }
-        }
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (!mAddedWordAlready
+				&& !TextUtils.isEmpty(getIntent().getAction())
+				&& getIntent().getAction().equals(
+						"com.android.settings.USER_DICTIONARY_INSERT")) {
+			String word = getIntent().getStringExtra(EXTRA_WORD);
+			mAutoReturn = true;
+			if (word != null) {
+				showAddOrEditDialog(word);
+			}
+		}
 
-        fillLangsSpinner();
-    }
-    
-    @Override
-    protected void onPause() {
-    	super.onPause();
-    	if (mCursor != null)
-    		mCursor.close();
-    	if (mCurrentDictionary != null)
-    		mCurrentDictionary.close();
-    	
-    	mCursor = null;
-    	mCurrentDictionary = null;
-    }
+		fillLangsSpinner();
+	}
 
-    void fillLangsSpinner() {
-        new UserWordsEditorAsyncTask(this)
-        {
-            private ArrayList<String> mLangsList;
+	@Override
+	protected void onPause() {
+		super.onPause();
+		if (mCursor != null)
+			mCursor.close();
+		if (mCurrentDictionary != null)
+			mCurrentDictionary.close();
 
-            @Override
-            protected Void doInBackground(Void... params) {
-                mLangsList = new ArrayList<String>();
+		mCursor = null;
+		mCurrentDictionary = null;
+	}
 
-                ArrayList<KeyboardAddOnAndBuilder> keyboards = KeyboardFactory
-                        .getAllAvailableKeyboards(getApplicationContext());
-                for (KeyboardAddOnAndBuilder kbd : keyboards)
-                {
-                    String locale = kbd.getKeyboardLocale();
-                    if (TextUtils.isEmpty(locale))
-                        continue;
-                    if (mLangsList.contains(locale))
-                        continue;
-                    Log.d(TAG, "Adding locale " + locale + " to editor.");
-                    mLangsList.add(locale);
-                }
-                return null;
-            }
+	void fillLangsSpinner() {
+		new UserWordsEditorAsyncTask(this) {
+			private ArrayList<String> mLangsList;
 
-            @Override
-            protected void applyResults(Void result) {
-                ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(
-                        UserDictionaryEditorActivity.this, android.R.layout.simple_spinner_item);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                for (String lang : mLangsList)
-                    adapter.add(lang);
+			@Override
+			protected Void doAsyncTask(Void[] params) throws Exception {
+				mLangsList = new ArrayList<String>();
 
-                mLangs.setAdapter(adapter);
-            };
-        }.execute();
-    }
+				ArrayList<KeyboardAddOnAndBuilder> keyboards = KeyboardFactory
+						.getAllAvailableKeyboards(getApplicationContext());
+				for (KeyboardAddOnAndBuilder kbd : keyboards) {
+					String locale = kbd.getKeyboardLocale();
+					if (TextUtils.isEmpty(locale))
+						continue;
+					if (mLangsList.contains(locale))
+						continue;
+					Log.d(TAG, "Adding locale " + locale + " to editor.");
+					mLangsList.add(locale);
+				}
+				return null;
+			}
 
-    @Override
-    protected void onRestoreInstanceState(Bundle state) {
-        super.onRestoreInstanceState(state);
-        mDialogEditingWord = state.getString(INSTANCE_KEY_DIALOG_EDITING_WORD);
-        mAddedWordAlready = state.getBoolean(INSTANCE_KEY_ADDED_WORD, false);
-    }
+			@Override
+			protected void applyResults(Void result,
+					Exception backgroundException) {
+				ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(
+						UserDictionaryEditorActivity.this,
+						android.R.layout.simple_spinner_item);
+				adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				for (String lang : mLangsList)
+					adapter.add(lang);
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString(INSTANCE_KEY_DIALOG_EDITING_WORD, mDialogEditingWord);
-        outState.putBoolean(INSTANCE_KEY_ADDED_WORD, mAddedWordAlready);
-    }
+				mLangs.setAdapter(adapter);
+			};
+		}.execute();
+	}
 
-    private void showAddOrEditDialog(String editingWord) {
-        mDialogEditingWord = editingWord;
-        showDialog(DIALOG_ADD_OR_EDIT);
-    }
+	@Override
+	protected void onRestoreInstanceState(Bundle state) {
+		super.onRestoreInstanceState(state);
+		mDialogEditingWord = state.getString(INSTANCE_KEY_DIALOG_EDITING_WORD);
+		mAddedWordAlready = state.getBoolean(INSTANCE_KEY_ADDED_WORD, false);
+	}
 
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        switch (id)
-        {
-            case DIALOG_ADD_OR_EDIT:
-                return createAddEditWordDialog();
-            case DIALOG_SAVE_SUCCESS:
-                return createDialogAlert(R.string.user_dict_backup_success_title,
-                        R.string.user_dict_backup_success_text);
-            case DIALOG_SAVE_FAILED:
-                return createDialogAlert(R.string.user_dict_backup_fail_title,
-                        R.string.user_dict_backup_fail_text);
-            case DIALOG_LOAD_SUCCESS:
-                return createDialogAlert(R.string.user_dict_restore_success_title,
-                        R.string.user_dict_restore_success_text);
-            case DIALOG_LOAD_FAILED:
-                return createDialogAlert(R.string.user_dict_restore_fail_title,
-                        R.string.user_dict_restore_fail_text);
-        }
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putString(INSTANCE_KEY_DIALOG_EDITING_WORD, mDialogEditingWord);
+		outState.putBoolean(INSTANCE_KEY_ADDED_WORD, mAddedWordAlready);
+	}
 
-        return null;
-    }
+	private void showAddOrEditDialog(String editingWord) {
+		mDialogEditingWord = editingWord;
+		showDialog(DIALOG_ADD_OR_EDIT);
+	}
 
-    private Dialog createDialogAlert(int title, int text) {
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle(title)
-                .setMessage(text)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .create();
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		switch (id) {
+		case DIALOG_ADD_OR_EDIT:
+			return createAddEditWordDialog();
+		case DIALOG_SAVE_SUCCESS:
+			return createDialogAlert(R.string.user_dict_backup_success_title,
+					R.string.user_dict_backup_success_text);
+		case DIALOG_SAVE_FAILED:
+			return createDialogAlert(R.string.user_dict_backup_fail_title,
+					R.string.user_dict_backup_fail_text);
+		case DIALOG_LOAD_SUCCESS:
+			return createDialogAlert(R.string.user_dict_restore_success_title,
+					R.string.user_dict_restore_success_text);
+		case DIALOG_LOAD_FAILED:
+			return createDialogAlert(R.string.user_dict_restore_fail_title,
+					R.string.user_dict_restore_fail_text);
+		}
 
-        return dialog;
-    }
+		return null;
+	}
 
-    public Dialog createAddEditWordDialog() {
-        View content = getLayoutInflater().inflate(R.layout.dialog_edittext, null);
-        final EditText editText = (EditText) content.findViewById(R.id.edittext);
-        // No prediction in soft keyboard mode. TODO: Create a better way to
-        // disable prediction
-        editText.setInputType(InputType.TYPE_CLASS_TEXT
-                | InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE);
+	private Dialog createDialogAlert(int title, int text) {
+		AlertDialog dialog = new AlertDialog.Builder(this)
+				.setTitle(title)
+				.setMessage(text)
+				.setPositiveButton(android.R.string.ok,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+								dialog.dismiss();
+							}
+						}).create();
 
-        return new AlertDialog.Builder(this)
-                .setTitle(mDialogEditingWord != null
-                        ? R.string.user_dict_settings_edit_dialog_title
-                        : R.string.user_dict_settings_add_dialog_title)
-                .setView(content)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        onAddOrEditFinished(editText.getText().toString());
-                        if (mAutoReturn)
-                            finish();
-                    }
-                })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (mAutoReturn)
-                            finish();
-                    }
-                })
-                .create();
-    }
+		return dialog;
+	}
 
-    @Override
-    protected void onPrepareDialog(int id, Dialog d) {
-        switch (id)
-        {
-            case DIALOG_ADD_OR_EDIT:
-                AlertDialog dialog = (AlertDialog) d;
-                d.setTitle(mDialogEditingWord != null
-                        ? R.string.user_dict_settings_edit_dialog_title
-                        : R.string.user_dict_settings_add_dialog_title);
-                EditText editText = (EditText) dialog.findViewById(R.id.edittext);
-                editText.setText(mDialogEditingWord);
-        }
-    }
+	public Dialog createAddEditWordDialog() {
+		View content = getLayoutInflater().inflate(R.layout.dialog_edittext,
+				null);
+		final EditText editText = (EditText) content
+				.findViewById(R.id.edittext);
+		// No prediction in soft keyboard mode. TODO: Create a better way to
+		// disable prediction
+		editText.setInputType(InputType.TYPE_CLASS_TEXT
+				| InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE);
 
-    private void onAddOrEditFinished(String word) {
-        if (mDialogEditingWord != null) {
-            // The user was editing a word, so do a delete/add
-            deleteWord(mDialogEditingWord);
-        }
+		return new AlertDialog.Builder(this)
+				.setTitle(
+						mDialogEditingWord != null ? R.string.user_dict_settings_edit_dialog_title
+								: R.string.user_dict_settings_add_dialog_title)
+				.setView(content)
+				.setPositiveButton(android.R.string.ok,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+								onAddOrEditFinished(editText.getText()
+										.toString());
+								if (mAutoReturn)
+									finish();
+							}
+						})
+				.setNegativeButton(android.R.string.cancel,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+								if (mAutoReturn)
+									finish();
+							}
+						}).create();
+	}
 
-        if (!TextUtils.isEmpty(word)) {
-            // Disallow duplicates
-            deleteWord(word);
+	@Override
+	protected void onPrepareDialog(int id, Dialog d) {
+		switch (id) {
+		case DIALOG_ADD_OR_EDIT:
+			AlertDialog dialog = (AlertDialog) d;
+			d.setTitle(mDialogEditingWord != null ? R.string.user_dict_settings_edit_dialog_title
+					: R.string.user_dict_settings_add_dialog_title);
+			EditText editText = (EditText) dialog.findViewById(R.id.edittext);
+			editText.setText(mDialogEditingWord);
+		}
+	}
 
-            mCurrentDictionary.addWord(word, 128);
-        }
-        // mCursor.requery();
-        fillWordsList();
+	private void onAddOrEditFinished(String word) {
+		if (mDialogEditingWord != null) {
+			// The user was editing a word, so do a delete/add
+			deleteWord(mDialogEditingWord);
+		}
 
-        mAddedWordAlready = !TextUtils.isEmpty(word);
-    }
+		if (!TextUtils.isEmpty(word)) {
+			// Disallow duplicates
+			deleteWord(word);
 
-    void deleteWord(String word) {
-        mCurrentDictionary.deleteWord(word);
-    }
+			mCurrentDictionary.addWord(word, 128);
+		}
+		// mCursor.requery();
+		fillWordsList();
 
-    public void fillWordsList() {
-        Log.d(TAG, "Selected locale is " + mSelectedLocale);
-        new UserWordsEditorAsyncTask(this)
-        {
-        	private SafeUserDictionary mNewDictionary;
-        	
-        	@Override
-        	protected void onPreExecute() {
-        		super.onPreExecute();
-        		//all the code below can be safely (and must) be called in the UI thread.
-        		mNewDictionary = new SafeUserDictionary(getApplicationContext(), mSelectedLocale);
-        		if (mNewDictionary != mCurrentDictionary && mCurrentDictionary != null) {
-                	mCursor.close();
-                    mCurrentDictionary.close();
-                }
-        	}
-        	
-            @Override
-            protected Void doInBackground(Void... params) {
-                try
-                {
-                    mCurrentDictionary = mNewDictionary;
-                    mCurrentDictionary.loadDictionarySync();
-                    mCursor = mCurrentDictionary.getWordsCursor();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+		mAddedWordAlready = !TextUtils.isEmpty(word);
+	}
 
-                return null;
-            }
+	void deleteWord(String word) {
+		mCurrentDictionary.deleteWord(word);
+	}
 
-            @Override
-            protected void applyResults(Void result) {
-                MyAdapter adapter = (MyAdapter) getListAdapter();
-                if (AnyApplication.DEBUG)
-            		Log.d(TAG, "Creating a new MyAdapter for the words editor");
-                adapter = new MyAdapter();
-                setListAdapter(adapter);
-            };
-        }.execute();
-    }
+	public void fillWordsList() {
+		Log.d(TAG, "Selected locale is " + mSelectedLocale);
+		new UserWordsEditorAsyncTask(this) {
+			private SafeUserDictionary mNewDictionary;
 
-    private class MyAdapter extends SimpleCursorAdapter /*
-                                                         * implements
-                                                         * SectionIndexer
-                                                         * (removed because of
-                                                         * issue 903)
-                                                         */{
-        // private AlphabetIndexer mIndexer;
-        private final int mWordColumnIndex;
+			@Override
+			protected void onPreExecute() {
+				super.onPreExecute();
+				// all the code below can be safely (and must) be called in the
+				// UI thread.
+				mNewDictionary = new SafeUserDictionary(
+						getApplicationContext(), mSelectedLocale);
+				if (mNewDictionary != mCurrentDictionary
+						&& mCurrentDictionary != null) {
+					mCursor.close();
+					mCurrentDictionary.close();
+				}
+			}
 
-        public MyAdapter() {
-            super(getApplicationContext(),
-                    R.layout.user_dictionary_word_row,
-                    mCursor.getCursor(),
-                    new String[] {
-                            UserDictionary.Words.WORD
-                    },
-                    new int[] {
-                            android.R.id.text1
-                    });
+			@Override
+			protected Void doAsyncTask(Void[] params) throws Exception {
+				mCurrentDictionary = mNewDictionary;
+				mCurrentDictionary.loadDictionarySync();
+				mCursor = mCurrentDictionary.getWordsCursor();
+				return null;
+			}
 
-            mWordColumnIndex = mCursor.getCursor().getColumnIndexOrThrow(UserDictionary.Words.WORD);
-            // String alphabet = getString(R.string.fast_scroll_alphabet);
-            // mIndexer = new AlphabetIndexer(mCursor, mWordColumnIndex,
-            // alphabet);
-        }
+			protected void applyResults(Void result,
+					Exception backgroundException) {
+				MyAdapter adapter = (MyAdapter) getListAdapter();
+				if (AnyApplication.DEBUG)
+					Log.d(TAG, "Creating a new MyAdapter for the words editor");
+				adapter = new MyAdapter();
+				setListAdapter(adapter);
+			};
+		}.execute();
+	}
 
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewGroup v = (ViewGroup) super.getView(position, convertView, parent);
-            final String word = ((Cursor) getItem(position)).getString(mWordColumnIndex);
+	private class MyAdapter extends SimpleCursorAdapter /*
+														 * implements
+														 * SectionIndexer
+														 * (removed because of
+														 * issue 903)
+														 */{
+		// private AlphabetIndexer mIndexer;
+		private final int mWordColumnIndex;
 
-            v.findViewById(R.id.edit_user_word).setOnClickListener(new OnClickListener() {
-                public void onClick(View v) {
-                    showAddOrEditDialog(word);
-                }
-            });
+		public MyAdapter() {
+			super(getApplicationContext(), R.layout.user_dictionary_word_row,
+					mCursor.getCursor(),
+					new String[] { UserDictionary.Words.WORD },
+					new int[] { android.R.id.text1 });
 
-            v.findViewById(R.id.delete_user_word).setOnClickListener(new OnClickListener() {
-                public void onClick(View v) {
-                    deleteWord(word);
+			mWordColumnIndex = mCursor.getCursor().getColumnIndexOrThrow(
+					UserDictionary.Words.WORD);
+			// String alphabet = getString(R.string.fast_scroll_alphabet);
+			// mIndexer = new AlphabetIndexer(mCursor, mWordColumnIndex,
+			// alphabet);
+		}
 
-                    fillWordsList();
-                }
-            });
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			ViewGroup v = (ViewGroup) super.getView(position, convertView,
+					parent);
+			final String word = ((Cursor) getItem(position))
+					.getString(mWordColumnIndex);
 
-            return v;
-        }
-    }
+			v.findViewById(R.id.edit_user_word).setOnClickListener(
+					new OnClickListener() {
+						public void onClick(View v) {
+							showAddOrEditDialog(word);
+						}
+					});
+
+			v.findViewById(R.id.delete_user_word).setOnClickListener(
+					new OnClickListener() {
+						public void onClick(View v) {
+							deleteWord(word);
+
+							fillWordsList();
+						}
+					});
+
+			return v;
+		}
+	}
 }

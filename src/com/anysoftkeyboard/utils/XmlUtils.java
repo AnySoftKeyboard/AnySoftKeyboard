@@ -804,9 +804,9 @@ public class XmlUtils
         } else if (tagName.equals("long")) {
             res = Long.valueOf(parser.getAttributeValue(null, "value"));
         } else if (tagName.equals("float")) {
-            res = new Float(parser.getAttributeValue(null, "value"));
+            res = Float.valueOf(parser.getAttributeValue(null, "value"));
         } else if (tagName.equals("double")) {
-            res = new Double(parser.getAttributeValue(null, "value"));
+            res = Double.valueOf(parser.getAttributeValue(null, "value"));
         } else if (tagName.equals("boolean")) {
             res = Boolean.valueOf(parser.getAttributeValue(null, "value"));
         } else if (tagName.equals("int-array")) {

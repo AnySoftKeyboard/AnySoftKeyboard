@@ -23,7 +23,7 @@ public class Keyboards extends PreferenceActivity {
 	@Override
 	protected void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
-		addPreferencesFromResource(R.layout.prefs_keyboards);
+		addPreferencesFromResource(R.xml.prefs_keyboards);
 		mKeyboardsGroup = (PreferenceCategory) super
 				.findPreference("keyboard_addons_group");
 		// mDefaultPreferencesCount = mKeyboardsGroup.getPreferenceCount();

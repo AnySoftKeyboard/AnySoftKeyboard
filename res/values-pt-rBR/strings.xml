@@ -43,8 +43,15 @@
   <string name="hint_add_to_dictionary">\u2190 Toque novamente para salvar</string>
   <string name="menu_insert_smiley">Inserir emoticon</string>
   <string name="click_for_help">Ajuda</string>
+  <string name="click_for_help_summary">Pressione para obter ajuda adicional</string>
   <string name="ui_group">Interface de usuário</string>
+  <string name="physical_keyboard_change_notification_summary">Tipo de notificação sobre o layout ativo. Agora: %s</string>
   <string name="physical_keyboard_change_notification_dialog_title">Selecione o tipo de notificação</string>
+  <string name="lengthy_operations_toast_notification">Notificar sobre operações demoradas</string>
+  <string name="lengthy_operations_toast_notification_summary">Mostrar notificações curtas de operações demoradas</string>
+  <string name="voice_input_not_support_in_this_os_version">Entrada de voz é compatível com Android 2.2 +</string>
+  <string name="voice_input_not_installed_title">Entrada de voz não instalada</string>
+  <string name="voice_input_not_installed_text">É necessário instalar o Google Voice Input a partir do Google Play antes de utilizar este recurso.</string>
   <string name="voice_input_not_installed_action_install">Instalar</string>
   <string name="voice_input_not_installed_action_do_not_install">Não</string>
   <string name="change_ime">Alterar método de entrada</string>
@@ -81,8 +88,6 @@
   <string name="use_user_dictionary_on_summary">Sugerir palavras adicionadas pelo usuário (toque longo na sugestão para adicionar)</string>
   <string name="use_user_dictionary_off_summary"> </string>
   <string name="use_auto_dictionary">Dicionário automático</string>
-  <string name="use_auto_dictionary_on_summary">Sugerir também palavras usadas frequentemente</string>
-  <string name="use_auto_dictionary_off_summary"> </string>
   <string name="use_contacts_dictionary">Dicionário de contatos</string>
   <string name="use_contacts_dictionary_on_summary">Sugerir nomes da lista de contatos</string>
   <string name="use_contacts_dictionary_off_summary"> </string>
@@ -103,7 +108,6 @@
   <string name="auto_dict">Dicionário automático</string>
   <string name="auto_dict_summary">Adicionar automaticamente palavras frequentemente usadas ou selecionadas ao dicionário</string>
   <string name="keyboards_group">Teclados</string>
-  <string name="symbols_keyboard">Símbolos</string>
   <string name="eng_keyboard">Inglês</string>
   <string name="eng_keyboard_16keys">16 Teclas Inglês</string>
   <string name="additional_addons_group">Complementos adicionais</string>

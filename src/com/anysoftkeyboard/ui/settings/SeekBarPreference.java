@@ -92,7 +92,7 @@ public class SeekBarPreference extends /*Dialog*/Preference implements SeekBar.O
 	  if (mValue < mMin) mValue=mMin;
 	  
 	  if (shouldPersist()) persistInt(mValue);
-	  callChangeListener(new Integer(mValue));
+	  callChangeListener(Integer.valueOf(mValue));
 	  
 	  if (mCurrentValue != null)
 		  mCurrentValue.setText(Integer.toString(mValue));

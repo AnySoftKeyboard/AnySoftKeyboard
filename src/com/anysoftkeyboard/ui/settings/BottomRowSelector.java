@@ -16,7 +16,7 @@ public class BottomRowSelector extends AddOnSelector<KeyboardExtension> {
 	
 	@Override
 	protected int getPrefsLayoutResId() {
-		return R.layout.prefs_addon_bottom_row_selector;
+		return R.xml.prefs_addon_bottom_row_selector;
 	}
 	
 	@Override

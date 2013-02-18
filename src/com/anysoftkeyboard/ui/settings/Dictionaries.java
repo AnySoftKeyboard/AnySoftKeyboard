@@ -13,7 +13,7 @@ public class Dictionaries extends PreferenceActivity {
 	@Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        addPreferencesFromResource(R.layout.prefs_dictionaries);
+        addPreferencesFromResource(R.xml.prefs_dictionaries);
         if (Workarounds.getApiLevel() < 5) {
         	//disabling the Contacts dictionary
         	Preference contactsDictionary = findPreference(getResources().getString(R.string.settings_key_use_contacts_dictionary));

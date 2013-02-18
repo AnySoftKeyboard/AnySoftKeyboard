@@ -27,6 +27,29 @@ import android.util.Xml;
 
 public abstract class AddOnsFactory<E extends AddOn> {
 
+	private static final class AddOnsComparator implements Comparator<AddOn> {
+		private final String mAskPackageName;
+
+		private AddOnsComparator(Context askContext) {
+			mAskPackageName = askContext.getPackageName();
+		}
+
+		public int compare(AddOn k1, AddOn k2)
+		{
+			String c1 = k1.getPackageName();
+			String c2 = k2.getPackageName();
+
+			if (c1.equals(c2))
+				return k1.getSortIndex() - k2.getSortIndex();
+			else if (c1.equals(mAskPackageName))//I want to make sure ASK packages are first
+				return -1;
+			else if (c2.equals(mAskPackageName))
+				return 1;
+			else
+				return c1.compareToIgnoreCase(c2);
+		}
+	}
+
 	private final static ArrayList<AddOnsFactory<?> > mActiveInstances = new  ArrayList<AddOnsFactory<?> >();
 
 	private static final String sTAG = "AddOnsFactory";
@@ -38,8 +61,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
 		for(AddOnsFactory<?> factory : mActiveInstances)
 		{
 			try {
-				if (factory.isEventRequiresCacheRefresh(eventIntent, ask.getApplicationContext()))
-				{
+				if (factory.isEventRequiresCacheRefresh(eventIntent, ask.getApplicationContext())) {
 					cleared = true;
 					if (factory.isEventRequiresViewReset(eventIntent, ask.getApplicationContext())) recreateView = true;
 					Log.d(sTAG, factory.getClass().getName()+" will handle this package-changed event. Also recreate view? "+recreateView);
@@ -150,10 +172,8 @@ public abstract class AddOnsFactory<E extends AddOn> {
 	}
     	
     protected boolean isPackageManaged(String packageNameSchemePart) {
-    	for (AddOn addOn : mAddOns)
-		{
-			if (addOn.getPackageContext().getPackageName().equals(packageNameSchemePart))
-			{
+    	for (AddOn addOn : mAddOns) {
+			if (addOn.getPackageName().equals(packageNameSchemePart)) {
 				return true;
 			}
 		}
@@ -171,8 +191,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
 				//issue 904
 				if (aReceiver == null || aReceiver.applicationInfo == null || !aReceiver.enabled || !aReceiver.applicationInfo.enabled) continue;
 				final XmlPullParser xml = aReceiver.loadXmlMetaData(context.getPackageManager(), RECEIVER_META_DATA);
-				if (xml != null)
-				{
+				if (xml != null) {
 					return true;
 				}
 			}
@@ -209,34 +228,14 @@ public abstract class AddOnsFactory<E extends AddOn> {
 	protected void loadAddOns(final Context askContext) {
 		clearAddOnList();
 		
-		mAddOns.addAll(getAddOnsFromResId(askContext, mBuildInAddOnsResId));
+		mAddOns.addAll(getAddOnsFromResId(askContext, askContext, mBuildInAddOnsResId));
 		mAddOns.addAll(getExternalAddOns(askContext));
 		
 		buildOtherDataBasedOnNewAddOns(mAddOns);
 		
 		//sorting the keyboards according to the requested
 		//sort order (from minimum to maximum)
-		Collections.sort(mAddOns, new Comparator<AddOn>()
-		    {
-		        public int compare(AddOn k1, AddOn k2)
-		        {
-		        	Context c1 = k1.getPackageContext();
-		        	Context c2 = k2.getPackageContext();
-		        	if (c1 == null)
-		        		c1 = askContext;
-		        	if (c2 == null)
-		        		c2 = askContext;
-
-		        	if (c1 == c2)
-		        		return k1.getSortIndex() - k2.getSortIndex();
-		        	else if (c1 == askContext)//I want to make sure ASK packages are first
-		        		return -1;
-		        	else if (c2 == askContext)
-		        		return 1;
-		        	else
-		        		return c1.getPackageName().compareToIgnoreCase(c2.getPackageName());
-		        }
-		    });
+		Collections.sort(mAddOns, new AddOnsComparator(askContext));
 	}
 	
 	protected void buildOtherDataBasedOnNewAddOns(ArrayList<E> newAddOns) {
@@ -244,20 +243,20 @@ public abstract class AddOnsFactory<E extends AddOn> {
 			mAddOnsById.put(addOn.getId(), addOn);
 	}
 
-	private ArrayList<E> getExternalAddOns(Context context){
+	private ArrayList<E> getExternalAddOns(Context askContext){
 		final ArrayList<E> externalAddOns = new ArrayList<E>();
 		
 		if (!mReadExternalPacksToo)//this will disable external packs (API careful stage)
 			return externalAddOns;
 		
         final List<ResolveInfo> broadcastReceivers = 
-        	context.getPackageManager().queryBroadcastReceivers(new Intent(RECEIVER_INTERFACE), PackageManager.GET_META_DATA);
+        		askContext.getPackageManager().queryBroadcastReceivers(new Intent(RECEIVER_INTERFACE), PackageManager.GET_META_DATA);
 
         
         for(final ResolveInfo receiver : broadcastReceivers){
             if (receiver.activityInfo == null) {
                 Log.e(TAG, "BroadcastReceiver has null ActivityInfo. Receiver's label is "
-                        + receiver.loadLabel(context.getPackageManager()));
+                        + receiver.loadLabel(askContext.getPackageManager()));
                 Log.e(TAG, "Is the external keyboard a service instead of BroadcastReceiver?");
                 // Skip to next receiver
                 continue;
@@ -266,8 +265,8 @@ public abstract class AddOnsFactory<E extends AddOn> {
             if (!receiver.activityInfo.enabled || !receiver.activityInfo.applicationInfo.enabled) continue;
 
             try {
-                final Context externalPackageContext = context.createPackageContext(receiver.activityInfo.packageName, PackageManager.GET_META_DATA);
-                final ArrayList<E> packageAddOns = getAddOnsFromActivityInfo(externalPackageContext, receiver.activityInfo);
+                final Context externalPackageContext = askContext.createPackageContext(receiver.activityInfo.packageName, PackageManager.GET_META_DATA);
+                final ArrayList<E> packageAddOns = getAddOnsFromActivityInfo(askContext, externalPackageContext, receiver.activityInfo);
                 
                 externalAddOns.addAll(packageAddOns);
             } catch (final NameNotFoundException e) {
@@ -279,21 +278,21 @@ public abstract class AddOnsFactory<E extends AddOn> {
         return externalAddOns;
     }
 
-    private ArrayList<E> getAddOnsFromResId(Context context, int addOnsResId) {
+    private ArrayList<E> getAddOnsFromResId(Context askContext, Context context, int addOnsResId) {
         final XmlPullParser xml = context.getResources().getXml(addOnsResId);
         if (xml == null)
         	return new ArrayList<E>();
-        return parseAddOnsFromXml(context, xml);
+        return parseAddOnsFromXml(askContext, context, xml);
     }
 
-    private ArrayList<E> getAddOnsFromActivityInfo(Context context, ActivityInfo ai) {
+    private ArrayList<E> getAddOnsFromActivityInfo(Context askContext, Context context, ActivityInfo ai) {
         final XmlPullParser xml = ai.loadXmlMetaData(context.getPackageManager(), RECEIVER_META_DATA);
         if (xml == null)//issue 718: maybe a bad package?
         	return new ArrayList<E>();
-        return parseAddOnsFromXml(context, xml);
+        return parseAddOnsFromXml(askContext, context, xml);
     }
 
-    private ArrayList<E> parseAddOnsFromXml(Context context, XmlPullParser xml) {
+    private ArrayList<E> parseAddOnsFromXml(Context askContext, Context context, XmlPullParser xml) {
         final ArrayList<E> addOns = new ArrayList<E>();
         try {
             int event;
@@ -305,7 +304,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
                         inRoot = true;
                     } else if (inRoot && ADDON_NODE_TAG.equals(tag)) {
                     	final AttributeSet attrs = Xml.asAttributeSet(xml);
-                    	E addOn = createAddOnFromXmlAttributes(attrs, context);
+                    	E addOn = createAddOnFromXmlAttributes(askContext, attrs, context);
                     	if (addOn != null)
                     	{
                     		addOns.add(addOn);
@@ -329,7 +328,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         return addOns;
     }
 
-	private E createAddOnFromXmlAttributes(AttributeSet attrs, Context context) {
+	private E createAddOnFromXmlAttributes(Context askContext, AttributeSet attrs, Context context) {
         final String prefId = attrs.getAttributeValue(null, XML_PREF_ID_ATTRIBUTE);
         final int nameId = attrs.getAttributeResourceValue(null, XML_NAME_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
         final int descriptionInt = attrs.getAttributeResourceValue(null, XML_DESCRIPTION_ATTRIBUTE, AddOn.INVALID_RES_ID);
@@ -352,10 +351,10 @@ public abstract class AddOnsFactory<E extends AddOn> {
             if (AnyApplication.DEBUG) {
                 Log.d(TAG, "External addon details: prefId:" + prefId + " nameId:" + nameId);
             }
-            return createConcreateAddOn(context, prefId, nameId, description, sortIndex, attrs);
+            return createConcreateAddOn(askContext, context, prefId, nameId, description, sortIndex, attrs);
         }
 	}
 
-	protected abstract E createConcreateAddOn(Context context, String prefId, int nameId,
+	protected abstract E createConcreateAddOn(Context askContext, Context context, String prefId, int nameId,
 			String description, int sortIndex, AttributeSet attrs);
 }

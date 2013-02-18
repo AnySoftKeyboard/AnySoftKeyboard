@@ -82,9 +82,10 @@ public class ContactsDictionary extends UserDictionaryBase {
 	@Override
 	protected void loadDictionaryAsync() {
 		Log.d(TAG, "Starting load of contact names...");
+		Cursor cursor = null;
 		try {
 			// a bit less contacts for memory stress reduction
-			final Cursor cursor = mContext.getContentResolver().query(
+			cursor = mContext.getContentResolver().query(
 					Contacts.CONTENT_URI, PROJECTION,
 					Contacts.IN_VISIBLE_GROUP + "=?", new String[] { "1" },
 					null);
@@ -211,10 +212,12 @@ public class ContactsDictionary extends UserDictionaryBase {
 
 				Log.i(TAG, "Loaded " + loadedContacts
 						+ " words which were made up from your contacts list.");
-				cursor.close();
 			}
 		} catch (IllegalStateException e) {
 			Log.e(TAG, "Contacts DB is having problems");
+		} finally {
+			if (cursor != null)
+				cursor.close();
 		}
 	}
 
