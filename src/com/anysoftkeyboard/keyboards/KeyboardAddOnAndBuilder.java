@@ -27,7 +27,7 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl implements IconHolder, Sc
     private final boolean mKeyboardDefaultEnabled;
     private final int mScreenshotResId;
     
-    public KeyboardAddOnAndBuilder(Context packageContext, String id, int nameResId,
+    public KeyboardAddOnAndBuilder(Context askContext, Context packageContext, String id, int nameResId,
             int layoutResId, int landscapeLayoutResId,
             String defaultDictionary, int iconResId,
             int physicalTranslationResId,
@@ -37,7 +37,7 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl implements IconHolder, Sc
             int keyboardIndex,
             boolean keyboardDefaultEnabled,
             int screenshotResId) {
-		super(packageContext, KEYBOARD_PREF_PREFIX+id, nameResId, description, keyboardIndex);
+		super(askContext, packageContext, KEYBOARD_PREF_PREFIX+id, nameResId, description, keyboardIndex);
 		
 		mResId = layoutResId;
         if (landscapeLayoutResId == AddOn.INVALID_RES_ID){
@@ -94,7 +94,7 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl implements IconHolder, Sc
     	}
     }
     
-    public AnyKeyboard createKeyboard(AnyKeyboardContextProvider askContext, int mode) {
-        return new ExternalAnyKeyboard(askContext, getPackageContext(), mResId, mLandscapeResId, getId(), getNameResId(), mIconResId, mQwertyTranslationId, mDefaultDictionary, mAdditionalIsLetterExceptions, mSentenceSeparators, mode);
+    public AnyKeyboard createKeyboard(Context askContext, int mode) {
+        return new ExternalAnyKeyboard(askContext, getPackageContext(), mResId, mLandscapeResId, getId(), getName(), mIconResId, mQwertyTranslationId, mDefaultDictionary, mAdditionalIsLetterExceptions, mSentenceSeparators, mode);
     }
 }

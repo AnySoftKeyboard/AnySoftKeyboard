@@ -16,13 +16,12 @@
 
 package com.anysoftkeyboard;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-
-import net.evendanan.frankenrobot.Diagram;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -73,7 +72,6 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.devicespecific.Clipboard;
 import com.anysoftkeyboard.dictionaries.AutoDictionary;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
-import com.anysoftkeyboard.dictionaries.DictionaryFactory;
 import com.anysoftkeyboard.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.Suggest;
@@ -106,7 +104,6 @@ import com.anysoftkeyboard.utils.IMEUtil.GCUtils.MemRelatedOperation;
 import com.anysoftkeyboard.utils.ModifierKeyState;
 import com.anysoftkeyboard.utils.Workarounds;
 import com.anysoftkeyboard.voice.VoiceInput;
-import com.anysoftkeyboard.voice.VoiceInput.VoiceInputDiagram;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -116,6 +113,71 @@ import com.menny.android.anysoftkeyboard.R;
 public class AnySoftKeyboard extends InputMethodService implements
 		OnKeyboardActionListener, OnSharedPreferenceChangeListener,
 		AnyKeyboardContextProvider, SoundPreferencesChangedListener {
+	private static final class KeyboardUIStateHanlder extends Handler {
+		private static final class CloseTextAnimationListener implements
+				AnimationListener {
+			private View closeText;
+
+			public void setCloseText(View c) {
+				closeText = c;
+			}
+			
+			public void onAnimationStart(Animation animation) {
+			}
+
+			public void onAnimationRepeat(Animation animation) {
+			}
+
+			public void onAnimationEnd(Animation animation) {
+				closeText.setVisibility(View.GONE);
+				closeText = null;
+			}
+		}
+
+		private final CloseTextAnimationListener mCloseTextAnimationListener = new CloseTextAnimationListener();
+		private final WeakReference<AnySoftKeyboard> mKeyboard;
+		
+		public KeyboardUIStateHanlder(AnySoftKeyboard keyboard) {
+			mKeyboard = new WeakReference<AnySoftKeyboard>(keyboard);
+		}
+		
+		@Override
+		public void handleMessage(Message msg) {
+			AnySoftKeyboard ask = mKeyboard.get();
+			if (ask == null)//delayed posts and such may result in the reference gone
+				return;
+			
+			switch (msg.what) {
+			case MSG_UPDATE_SUGGESTIONS:
+				ask.performUpdateSuggestions();
+				break;
+			case MSG_RESTART_NEW_WORD_SUGGESTIONS:
+				final InputConnection ic = ask.getCurrentInputConnection();
+				ask.performRestartWordSuggestion(ic);
+				break;
+			// case MSG_UPDATE_OLD_SUGGESTIONS:
+			// setOldSuggestions();
+			// break;
+			case MSG_UPDATE_SHIFT_STATE:
+				ask.updateShiftKeyState(ask.getCurrentInputEditorInfo());
+				break;
+			case MSG_REMOVE_CLOSE_SUGGESTIONS_HINT:
+				final View closeText = ask.mCandidateCloseText;
+				if (closeText != null) {// in API3, this variable is
+													// null
+					mCloseTextAnimationListener.setCloseText(closeText);
+					Animation gone = AnimationUtils.loadAnimation(
+							ask.getApplicationContext(),
+							R.anim.close_candidates_hint_out);
+					gone.setAnimationListener(mCloseTextAnimationListener);
+					closeText.startAnimation(gone);
+				}
+			default:
+				super.handleMessage(msg);
+			}
+		}
+	}
+
 	private final static String TAG = "ASK";
 
 	// private final static int SWIPE_CORD = -2;
@@ -126,11 +188,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private static final int MSG_UPDATE_SHIFT_STATE = 3;
 	private static final int MSG_REMOVE_CLOSE_SUGGESTIONS_HINT = 4;
 
+	private SharedPreferences mPrefs;
 	private final com.anysoftkeyboard.Configuration mConfig;
 	private static final boolean DEBUG = AnyApplication.DEBUG;
 
-	private ModifierKeyState mShiftKeyState = new ModifierKeyState();
-	private ModifierKeyState mControlKeyState = new ModifierKeyState();
+	private final ModifierKeyState mShiftKeyState = new ModifierKeyState();
+	private final ModifierKeyState mControlKeyState = new ModifierKeyState();
 
 	private boolean mTipsCalled = false;
 
@@ -150,7 +213,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private AlertDialog mQuickTextKeyDialog;
 
 	KeyboardSwitcher mKeyboardSwitcher;
-	private final HardKeyboardActionImpl mHardKeyboardAction;
+	private final HardKeyboardActionImpl mHardKeyboardAction = new HardKeyboardActionImpl();
 	private long mMetaState;
 
 	private HashSet<Character> mSentenceSeparators = new HashSet<Character>();
@@ -221,48 +284,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private boolean mKeyboardInCondensedMode = false;
 
-	Handler mHandler = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-			case MSG_UPDATE_SUGGESTIONS:
-				performUpdateSuggestions();
-				break;
-			case MSG_RESTART_NEW_WORD_SUGGESTIONS:
-				final InputConnection ic = getCurrentInputConnection();
-				performRestartWordSuggestion(ic);
-				break;
-			// case MSG_UPDATE_OLD_SUGGESTIONS:
-			// setOldSuggestions();
-			// break;
-			case MSG_UPDATE_SHIFT_STATE:
-				updateShiftKeyState(getCurrentInputEditorInfo());
-				break;
-			case MSG_REMOVE_CLOSE_SUGGESTIONS_HINT:
-				if (mCandidateCloseText != null) {// in API3, this variable is
-													// null
-					Animation gone = AnimationUtils.loadAnimation(
-							getApplicationContext(),
-							R.anim.close_candidates_hint_out);
-					gone.setAnimationListener(new AnimationListener() {
-
-						public void onAnimationStart(Animation animation) {
-						}
-
-						public void onAnimationRepeat(Animation animation) {
-						}
-
-						public void onAnimationEnd(Animation animation) {
-							mCandidateCloseText.setVisibility(View.GONE);
-						}
-					});
-					mCandidateCloseText.startAnimation(gone);
-				}
-			default:
-				super.handleMessage(msg);
-			}
-		}
-	};
+	private final Handler mHandler = new KeyboardUIStateHanlder(this);
 
 	private boolean mJustAddedAutoSpace;
 
@@ -278,7 +300,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	public AnySoftKeyboard() {
 		mConfig = AnyApplication.getConfig();
-		mHardKeyboardAction = new HardKeyboardActionImpl();
 	}
 
 	@Override
@@ -316,6 +337,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		registerReceiver(mPackagesChangedReceiver,
 				mPackagesChangedReceiver.createFilterToRegisterOn());
 
+		mPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		mVibrator = ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE));
 		loadSettings();
 		mConfig.addChangedListener(this);
@@ -362,6 +384,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 		unregisterReceiver(mPackagesChangedReceiver);
 
 		mInputMethodManager.hideStatusIcon(mImeToken);
+		
+		if (mInputView != null)
+			mInputView.onViewNotRequired();
+		mInputView = null;
+		
+		mKeyboardSwitcher.setInputView(null);
+		
+		mSuggest.setAutoDictionary(null);
+		mSuggest.setContactsDictionary(getApplicationContext(), false);
+		mSuggest.setMainDictionary(null);
+		mSuggest.setUserDictionary(null);
 
 		super.onDestroy();
 	}
@@ -390,15 +423,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public View onCreateInputView() {
 		if (DEBUG)
 			Log.v(TAG, "Creating Input View");
+		if (mInputView != null)
+			mInputView.onViewNotRequired();
+		mInputView = null;
+		
 		GCUtils.getInstance().peformOperationWithMemRetry(TAG,
 				new MemRelatedOperation() {
-
 					public void operation() {
 						mInputView = (AnyKeyboardView) getLayoutInflater()
 								.inflate(R.layout.main_keyboard_layout, null);
 					}
 				}, true);
-		mInputView.setAnySoftKeyboardContext(this);
 		// reseting token users
 		mOptionsDialog = null;
 		mQuickTextKeyDialog = null;
@@ -1000,12 +1035,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mUndoCommitCursorPosition = -2;// so it will be marked the next time
 			mWord.reset();
 
+			final int[] alekNearByKeys= new int[1];
+			
 			for (int index = 0; index < word.length(); index++) {
 				final char c = word.charAt(index);
 				if (index == 0)
 					mWord.setFirstCharCapitalized(Character.isUpperCase(c));
 
-				mWord.add(c, new int[] { c });
+				alekNearByKeys[0] = c;
+				mWord.add(c, alekNearByKeys);
 
 				TextEntryState.typedCharacter((char) c, false);
 			}
@@ -1327,7 +1365,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 						}
 
 						keyTranslator
-								.translatePhysicalCharacter(mHardKeyboardAction);
+								.translatePhysicalCharacter(mHardKeyboardAction, this);
 
 						if (DEBUG)
 							Log.v(TAG,
@@ -3151,10 +3189,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		InputConnection ic = getCurrentInputConnection();
 		if (DEBUG)
 			Log.d(TAG, "onRelease:" + primaryCode);
-		// vibrate();
-		// Reset any drag flags in the keyboard
-		// ((AnyKeyboard) mInputView.getKeyboard()).keyReleased();
-		// vibrate();
 		if (mDistinctMultiTouch && primaryCode == KeyCodes.SHIFT) {
 			if (mShiftKeyState.isMomentary())
 				handleShift(true);
@@ -3186,7 +3220,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void loadSettings() {
 		// setting all values to default
-		PreferenceManager.setDefaultValues(this, R.layout.prefs, false);
+		PreferenceManager.setDefaultValues(this, R.xml.prefs, false);
 		// Get the settings preferences
 		SharedPreferences sp = PreferenceManager
 				.getDefaultSharedPreferences(this);
@@ -3302,14 +3336,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 					String mappingSettingsKey = getDictionaryOverrideKey(currentKeyobard);
 					String defaultDictionary = currentKeyobard
 							.getDefaultDictionaryLocale();
-					String dictionaryValue = getSharedPreferences().getString(
-							mappingSettingsKey, null);
+					String dictionaryValue = mPrefs.getString(mappingSettingsKey, null);
 					DictionaryAddOnAndBuilder dictionaryBuilder = null;
 
 					if (dictionaryValue == null) {
 						dictionaryBuilder = ExternalDictionaryFactory
 								.getDictionaryBuilderByLocale(currentKeyobard
-										.getDefaultDictionaryLocale(), this);
+										.getDefaultDictionaryLocale(), getApplicationContext());
 					} else {
 						if (DEBUG) {
 							Log.d(TAG,
@@ -3323,7 +3356,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 											+ dictionaryValue + "'");
 						}
 						dictionaryBuilder = ExternalDictionaryFactory
-								.getDictionaryBuilderById(dictionaryValue, this);
+								.getDictionaryBuilderById(dictionaryValue, getApplicationContext());
 					}
 
 					mSuggest.setMainDictionary(dictionaryBuilder);
@@ -3362,8 +3395,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void launchDictionaryOverriding() {
 		final String dictionaryOverridingKey = getDictionaryOverrideKey(getCurrentKeyboard());
-		final String dictionaryOverrideValue = getSharedPreferences()
-				.getString(dictionaryOverridingKey, null);
+		final String dictionaryOverrideValue = mPrefs.getString(dictionaryOverridingKey, null);
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setCancelable(true);
 		builder.setIcon(R.drawable.ic_launcher);
@@ -3385,7 +3417,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 					+ getString(R.string.override_dictionary_default));
 		// going over all installed dictionaries
 		for (DictionaryAddOnAndBuilder dictionaryBuilder : ExternalDictionaryFactory
-				.getAllAvailableExternalDictionaries(this)) {
+				.getAllAvailableExternalDictionaries(getApplicationContext())) {
 			dictionaryIds.add(dictionaryBuilder.getId());
 			String description;
 			if (dictionaryOverrideValue != null
@@ -3409,7 +3441,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		builder.setItems(items, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface di, int position) {
 				di.dismiss();
-				Editor editor = getSharedPreferences().edit();
+				Editor editor = mPrefs.edit();
 				switch (position) {
 				case 0:
 					if (DEBUG)
@@ -3627,10 +3659,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 			}
 		}
 		postUpdateShiftKeyState();
-	}
-
-	public SharedPreferences getSharedPreferences() {
-		return PreferenceManager.getDefaultSharedPreferences(this);
 	}
 
 	public void showToastMessage(int resId, boolean forShortTime) {

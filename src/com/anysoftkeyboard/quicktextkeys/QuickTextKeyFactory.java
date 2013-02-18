@@ -72,7 +72,7 @@ public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey> {
 	}
 
 	@Override
-	protected QuickTextKey createConcreateAddOn(Context context, String prefId,
+	protected QuickTextKey createConcreateAddOn(Context askContext, Context context, String prefId,
 			int nameResId, String description, int sortIndex, AttributeSet attrs) {
 		final int popupKeyboardResId = attrs.getAttributeResourceValue(null,
 				XML_POPUP_KEYBOARD_RES_ID_ATTRIBUTE, -1);
@@ -104,7 +104,7 @@ public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey> {
 
 			throw new RuntimeException(detailMessage);
 		}
-		return new QuickTextKey(context, prefId, nameResId, popupKeyboardResId,
+		return new QuickTextKey(askContext, context, prefId, nameResId, popupKeyboardResId,
 				popupListTextResId, popupListOutputResId, popupListIconsResId,
 				iconResId, keyLabelResId, keyOutputTextResId,
 				keyIconPreviewResId, description, sortIndex);

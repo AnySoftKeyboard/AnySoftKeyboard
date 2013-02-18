@@ -21,7 +21,7 @@ public class QuickTextKeys extends AddOnSelector<QuickTextKey> {
 	
 	@Override
 	protected int getPrefsLayoutResId() {
-		return R.layout.prefs_addon_quick_keys_selector;
+		return R.xml.prefs_addon_quick_keys_selector;
 	}
 	
 	@Override

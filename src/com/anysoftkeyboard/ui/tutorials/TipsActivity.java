@@ -104,7 +104,7 @@ public class TipsActivity extends BaseTutorialActivity implements OnCheckedChang
 				if (showAllTips || !appPrefs.getBoolean(layoutResourceName, false))
 				{
 					Log.d(TAG, "Got a tip #"+currentTipLoadingIndex+" which is "+layoutResourceName);
-					layoutsToShow.add(new Integer(resId));
+					layoutsToShow.add(Integer.valueOf(resId));
 				}
 			}
 			currentTipLoadingIndex++;

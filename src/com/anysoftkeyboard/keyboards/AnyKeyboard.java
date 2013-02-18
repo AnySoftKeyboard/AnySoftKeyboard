@@ -18,7 +18,7 @@ import android.util.TypedValue;
 import android.util.Xml;
 import android.view.inputmethod.EditorInfo;
 
-import com.anysoftkeyboard.AnyKeyboardContextProvider;
+import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
@@ -49,7 +49,7 @@ public abstract class AnyKeyboard extends Keyboard
          * Gets the current state of the hard keyboard, and may change the
          * output key-code.
          */
-        void translatePhysicalCharacter(HardKeyboardAction action);
+        void translatePhysicalCharacter(HardKeyboardAction action, AnySoftKeyboard ime);
     }
 
     private static final String TAG_ROW = "Row";
@@ -102,15 +102,8 @@ public abstract class AnyKeyboard extends Keyboard
     // private int mKeyboardActionType = EditorInfo.IME_ACTION_NONE;
 
     // for popup keyboard
-    protected AnyKeyboard(AnyKeyboardContextProvider askContext, Context context,// note:
-                                                                                 // the
-                                                                                 // context
-                                                                                 // can
-                                                                                 // be
-                                                                                 // from
-                                                                                 // a
-                                                                                 // different
-                                                                                 // package!
+    // note: the context can be from a different package!
+    protected AnyKeyboard(Context askContext, Context context,
             int xmlLayoutResId)
     {
         // should use the package context for creating the layout
@@ -119,15 +112,8 @@ public abstract class AnyKeyboard extends Keyboard
     }
 
     // for the External
-    protected AnyKeyboard(AnyKeyboardContextProvider askContext, Context context,// note:
-                                                                                 // the
-                                                                                 // context
-                                                                                 // can
-                                                                                 // be
-                                                                                 // from
-                                                                                 // a
-                                                                                 // different
-                                                                                 // package!
+    // note: the context can be from a different package!
+    protected AnyKeyboard(Context askContext, Context context,
             int xmlLayoutResId, int mode)
     {
         // should use the package context for creating the layout
@@ -138,10 +124,10 @@ public abstract class AnyKeyboard extends Keyboard
         super.loadKeyboard(keyboardDimens);
 
         addGenericRows(mASKContext, mKeyboardContext, mKeyboardMode, keyboardDimens);
-        initKeysMembers();
+        initKeysMembers(mASKContext);
     };
 
-    private void initKeysMembers()
+    private void initKeysMembers(Context askContext)
     {
         for (final Key key : getKeys())
         {
@@ -181,7 +167,7 @@ public abstract class AnyKeyboard extends Keyboard
                 {
                     case KeyCodes.QUICK_TEXT:
                         QuickTextKey quickKey = QuickTextKeyFactory
-                                .getCurrentQuickTextKey(getASKContext().getApplicationContext());
+                                .getCurrentQuickTextKey(askContext);
                         if (quickKey == null) { // No plugins. Weird, but we
                                                 // can't do anything
                             Log.w(TAG,
@@ -244,16 +230,16 @@ public abstract class AnyKeyboard extends Keyboard
             }
         }
 
-        mKeyboardCondensor = new KeyboardCondensor(this);
+        mKeyboardCondensor = new KeyboardCondensor(askContext, this);
     }
 
-    protected void addGenericRows(AnyKeyboardContextProvider askContext, Context context, int mode,
+    protected void addGenericRows(Context askContext, Context context, int mode,
             final KeyboardDimens keyboardDimens) {
         final KeyboardMetadata topMd;
         if (!mTopRowWasCreated)
         {
             final KeyboardExtension topRowPlugin = KeyboardExtensionFactory
-                    .getCurrentKeyboardExtension(getASKContext().getApplicationContext(),
+                    .getCurrentKeyboardExtension(askContext,
                             KeyboardExtension.TYPE_TOP);
             if (topRowPlugin == null || // no plugin found
                     topRowPlugin.getKeyboardResId() == -1 || // plugin specified
@@ -287,7 +273,7 @@ public abstract class AnyKeyboard extends Keyboard
         if (!mBottomRowWasCreated)
         {
             final KeyboardExtension bottomRowPlugin = KeyboardExtensionFactory
-                    .getCurrentKeyboardExtension(getASKContext().getApplicationContext(),
+                    .getCurrentKeyboardExtension(askContext,
                             KeyboardExtension.TYPE_BOTTOM);
             if (AnyApplication.DEBUG)
                 Log.d(TAG, "Bottom row layout id " + bottomRowPlugin.getId());
@@ -468,13 +454,7 @@ public abstract class AnyKeyboard extends Keyboard
             key.label = null;
     }
 
-    protected AnyKeyboardContextProvider getASKContext()
-    {
-        return mASKContext;
-    }
-
-    public Context getKeyboardContext()
-    {
+    public Context getKeyboardContext() {
         return mKeyboardContext;
     }
 
@@ -482,7 +462,7 @@ public abstract class AnyKeyboard extends Keyboard
 
     // this function is called from within the super constructor.
     @Override
-    protected Key createKeyFromXml(AnyKeyboardContextProvider askContext, Resources res,
+    protected Key createKeyFromXml(Context askContext, Resources res,
             Row parent, KeyboardDimens keyboardDimens, int x, int y,
             XmlResourceParser parser) {
         AnyKey key = new AnyKey(askContext, res, parent, keyboardDimens, x, y, parser);
@@ -523,7 +503,7 @@ public abstract class AnyKeyboard extends Keyboard
     }
 
     @Override
-    protected Row createRowFromXml(AnyKeyboardContextProvider askContext, Resources res,
+    protected Row createRowFromXml(Context askContext, Resources res,
             XmlResourceParser parser)
     {
         Row aRow = super.createRowFromXml(askContext, res, parser);
@@ -590,18 +570,9 @@ public abstract class AnyKeyboard extends Keyboard
         mEnterKey.enable();
     }
 
-    protected abstract int getKeyboardNameResId();
+    public abstract String getKeyboardName();
 
-    public String getKeyboardName()
-    {
-    	final int nameId= getKeyboardNameResId();
-    	if (nameId == -1)
-    		return null;
-        return mKeyboardContext.getResources().getString(nameId);
-    }
-
-    public boolean isLeftToRightLanguage()
-    {
+    public boolean isLeftToRightLanguage() {
         return !mRightToLeftLayout;
     }
 
@@ -731,7 +702,7 @@ public abstract class AnyKeyboard extends Keyboard
             super(row, keyboardDimens);
         }
 
-        public AnyKey(AnyKeyboardContextProvider askContext, Resources res, Keyboard.Row parent,
+        public AnyKey(Context askContext, Resources res, Keyboard.Row parent,
                 KeyboardDimens keyboardDimens, int x, int y,
                 XmlResourceParser parser) {
             super(askContext, res, parent, keyboardDimens, x, y, parser);
@@ -841,7 +812,7 @@ public abstract class AnyKeyboard extends Keyboard
 
         private final int mOriginalHeight;
 
-        public EnterKey(AnyKeyboardContextProvider askContext, Resources res, Row parent,
+        public EnterKey(Context askContext, Resources res, Row parent,
                 KeyboardDimens keyboardDimens, int x, int y,
                 XmlResourceParser parser) {
             super(askContext, res, parent, keyboardDimens, x, y, parser);

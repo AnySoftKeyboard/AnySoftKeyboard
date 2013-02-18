@@ -22,10 +22,10 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
 	private final int mAutoTextResId;
 	private final int mInitialSuggestionsResId;
 	
-	private DictionaryAddOnAndBuilder(Context packageContext, String id,
+	private DictionaryAddOnAndBuilder(Context askContext, Context packageContext, String id,
 			int nameResId, String description, int sortIndex, String dictionaryLanguage, 
 			String assetsFilename, int dictResId, int autoTextResId, int initialSuggestionsResId) {
-		super(packageContext, DICTIONARY_PREF_PREFIX + id, nameResId, description, sortIndex);
+		super(askContext, packageContext, DICTIONARY_PREF_PREFIX + id, nameResId, description, sortIndex);
 		mLanguage = dictionaryLanguage;
 		mAssetsFilename = assetsFilename;
 		mDictionaryResId = dictResId;
@@ -33,36 +33,32 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
 		mInitialSuggestionsResId = initialSuggestionsResId;
 	}
 	
-	public DictionaryAddOnAndBuilder(Context packageContext, String id,
+	public DictionaryAddOnAndBuilder(Context askContext, Context packageContext, String id,
 			int nameResId, String description, int sortIndex, String dictionaryLanguage, String assetsFilename, int initialSuggestionsResId) {
-		this(packageContext, id, nameResId, description, sortIndex, dictionaryLanguage, assetsFilename, INVALID_RES_ID, INVALID_RES_ID, initialSuggestionsResId);
+		this(askContext, packageContext, id, nameResId, description, sortIndex, dictionaryLanguage, assetsFilename, INVALID_RES_ID, INVALID_RES_ID, initialSuggestionsResId);
 	}
 	
-	public DictionaryAddOnAndBuilder(Context packageContext, String id,
+	public DictionaryAddOnAndBuilder(Context askContext, Context packageContext, String id,
 			int nameResId, String description, int sortIndex, String dictionaryLanguage, int dictionaryResId, int autoTextResId, int initialSuggestionsResId) {
-		this(packageContext, id, nameResId, description, sortIndex, dictionaryLanguage, null, dictionaryResId, autoTextResId, initialSuggestionsResId);
+		this(askContext, packageContext, id, nameResId, description, sortIndex, dictionaryLanguage, null, dictionaryResId, autoTextResId, initialSuggestionsResId);
 	}
 
-	public String getLanguage()
-	{
+	public String getLanguage() {
 		return mLanguage;
 	}
 	
-	public int getAutoTextResId()
-	{
+	public int getAutoTextResId() {
 		return mAutoTextResId;
 	}
 	
-	public Dictionary createDictionary() throws Exception
-	{
+	public Dictionary createDictionary() throws Exception {
 		if (mDictionaryResId == INVALID_RES_ID)
 			return new BinaryDictionary(getName(), getPackageContext().getAssets().openFd(mAssetsFilename));
 		else
 			return new ResourceBinaryDictionary(getName(), getPackageContext(), mDictionaryResId);
 	}
 	
-	public AutoText createAutoText()
-	{
+	public AutoText createAutoText() {
 		if (mAutoTextResId == INVALID_RES_ID) {
 			return null;
 		} else {
@@ -75,25 +71,18 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
 		}
 	}
 	
-	public List<CharSequence> createInitialSuggestions()
-	{
-		if (mInitialSuggestionsResId == INVALID_RES_ID)
-		{
+	public List<CharSequence> createInitialSuggestions() {
+		if (mInitialSuggestionsResId == INVALID_RES_ID) {
 			return null;
-		}
-		else
-		{
+		} else {
 			String[] initialSuggestions = getPackageContext().getResources().getStringArray(mInitialSuggestionsResId);
-			if (initialSuggestions != null)
-			{
+			if (initialSuggestions != null) {
 				List<CharSequence> suggestionsList= new ArrayList<CharSequence>(initialSuggestions.length);
 				for(String suggestion : initialSuggestions)
 					suggestionsList.add(suggestion);
 				
 				return suggestionsList;
-			}
-			else
-			{
+			} else {
 				return null;
 			}
 		}

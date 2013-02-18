@@ -31,12 +31,12 @@
 
 package com.anysoftkeyboard.keyboards;
 
-import org.xmlpull.v1.XmlPullParserException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
-import com.anysoftkeyboard.AnyKeyboardContextProvider;
-import com.anysoftkeyboard.api.KeyCodes;
-import com.menny.android.anysoftkeyboard.AnyApplication;
-import com.menny.android.anysoftkeyboard.R;
+import org.xmlpull.v1.XmlPullParserException;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -49,10 +49,9 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.util.Xml;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
+import com.anysoftkeyboard.api.KeyCodes;
+import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.R;
 
 /**
  * Loads an XML description of a keyboard and stores the attributes of the keys.
@@ -96,7 +95,7 @@ public abstract class Keyboard {
     public static final int EDGE_BOTTOM = 0x08;
 
     protected final Context mKeyboardContext;
-    protected final AnyKeyboardContextProvider mASKContext;
+    protected final Context mASKContext;
     protected final int mLayoutResId;
 
     /** Horizontal gap default for all rows */
@@ -204,9 +203,9 @@ public abstract class Keyboard {
             mode = parent.mKeyboardMode;
         }
 
-        public Row(AnyKeyboardContextProvider askContext, Resources res, Keyboard parent,
+        public Row(Context askContext, Resources res, Keyboard parent,
                 XmlResourceParser parser) {
-            Resources askRes = askContext.getApplicationContext().getResources();
+            Resources askRes = askContext.getResources();
             this.parent = parent;
             TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser),
                     R.styleable.KeyboardLayout);
@@ -359,7 +358,7 @@ public abstract class Keyboard {
          * @param y the y coordinate of the top-left
          * @param parser the XML parser containing the attributes for this key
          */
-        public Key(AnyKeyboardContextProvider askContext, Resources res, Row parent,
+        public Key(Context askContext, Resources res, Row parent,
                 KeyboardDimens keyboardDimens, int x, int y, XmlResourceParser parser) {
             this(parent, keyboardDimens);
 
@@ -373,7 +372,7 @@ public abstract class Keyboard {
                     R.styleable.KeyboardLayout_android_keyWidth,
                     keyboard.mDisplayWidth, parent.defaultWidth);
             width = Math.min(keyboardDimens.getKeyMaxWidth(), width);
-            final Resources askResources = askContext.getApplicationContext().getResources();
+            final Resources askResources = askContext.getResources();
             final int heightCode = getKeyHeightCode(askResources, res, a, parent.defaultHeightCode);
             switch (heightCode)
             {
@@ -591,7 +590,7 @@ public abstract class Keyboard {
      * @param xmlLayoutResId the resource file that contains the keyboard layout
      *            and keys.
      */
-    public Keyboard(AnyKeyboardContextProvider askContext, Context context, int xmlLayoutResId) {
+    public Keyboard(Context askContext, Context context, int xmlLayoutResId) {
         this(askContext, context, xmlLayoutResId, 0);
     }
 
@@ -634,7 +633,7 @@ public abstract class Keyboard {
      *            and keys.
      * @param modeId keyboard mode identifier
      */
-    public Keyboard(AnyKeyboardContextProvider askContext, Context context, int xmlLayoutResId,
+    public Keyboard(Context askContext, Context context, int xmlLayoutResId,
             int modeId) {
         mASKContext = askContext;
         mKeyboardContext = context;
@@ -795,17 +794,14 @@ public abstract class Keyboard {
         return new int[0];
     }
 
-    protected Row createRowFromXml(AnyKeyboardContextProvider askContext, Resources res,
+    protected Row createRowFromXml(Context askContext, Resources res,
             XmlResourceParser parser) {
         return new Row(askContext, res, this, parser);
     }
 
-    protected abstract Key createKeyFromXml(AnyKeyboardContextProvider askContext, Resources res,
+    protected abstract Key createKeyFromXml(Context askContext, Resources res,
             Row parent, KeyboardDimens keyboardDimens, int x, int y,
-            XmlResourceParser parser);/*
-                                       * { return new Key(askContext, res,
-                                       * parent, x, y, parser); }
-                                       */
+            XmlResourceParser parser);
 
     public void loadKeyboard(final KeyboardDimens keyboardDimens) {
         mDisplayWidth = keyboardDimens.getKeyboardMaxWidth();
@@ -916,14 +912,14 @@ public abstract class Keyboard {
         }
     }
 
-    private void parseKeyboardAttributes(AnyKeyboardContextProvider askContext, Resources res,
+    private void parseKeyboardAttributes(Context askContext, Resources res,
             XmlResourceParser parser) {
         TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser),
                 R.styleable.KeyboardLayout);
 
         mDefaultWidth = getDimensionOrFraction(a, R.styleable.KeyboardLayout_android_keyWidth,
                 mDisplayWidth, mDisplayWidth / 10);
-        Resources askRes = askContext.getApplicationContext().getResources();
+        Resources askRes = askContext.getResources();
         mDefaultHeightCode = getKeyHeightCode(askRes, res, a, -1);
         mDefaultHorizontalGap = getDimensionOrFraction(a,
                 R.styleable.KeyboardLayout_android_horizontalGap,

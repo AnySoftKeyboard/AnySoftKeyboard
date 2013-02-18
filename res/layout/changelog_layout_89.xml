@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2008 The Android Open Source Project
+<!-- Copyright (C) 2012 AnySoftKeyboard
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
-  
+
           http://www.apache.org/licenses/LICENSE-2.0
-  
+
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,12 +14,10 @@
      limitations under the License.
 -->
 
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:state_pressed="false"
-        android:drawable="@android:color/transparent" />
-
-    <item android:state_pressed="true"
-        android:drawable="@drawable/highlight_pressed" />
-
-</selector>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:tag="20130130-skinny-eye-candy"
+        android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
+	    android:text="* Lots of memory optimiations! I'm not kidding, lots! AnySoftKeyboard is probably the skinniest modern keyboard today!" style="@android:style/TextAppearance.Small"/>
+	
+</LinearLayout>
