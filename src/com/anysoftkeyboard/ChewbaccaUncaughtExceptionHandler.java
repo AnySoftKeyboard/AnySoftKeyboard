@@ -53,17 +53,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 		}
 
 		if (!ignore && AnyApplication.getConfig().useChewbaccaNotifications()) {
-			String appName = mApp.getText(R.string.ime_name).toString();
-			try {
-				PackageInfo info = mApp.getPackageManager().getPackageInfo(
-						mApp.getPackageName(), 0);
-				appName = appName + " v" + info.versionName + " release "
-						+ info.versionCode;
-			} catch (NameNotFoundException e) {
-				appName = "NA";
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			String appName = DeveloperUtils.getAppDetails(mApp.getApplicationContext());
 
 			final CharSequence utcTimeDate = DateFormat.format(
 					"kk:mm:ss dd.MM.yyyy", new Date());
@@ -83,7 +73,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 					+ ex.getMessage()
 					+ "\n" + "****** Trace trace:\n" + stackTrace + "\n";
 			logText += "******************************\n"
-					+ "****** Device information:\n" + getSysInfo();
+					+ "****** Device information:\n" + DeveloperUtils.getSysInfo();
 			if (ex instanceof OutOfMemoryError
 					|| (ex.getCause() != null && ex.getCause() instanceof OutOfMemoryError)) {
 				logText += "******************************\n"
@@ -173,25 +163,5 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 			sb.append('\n');
 			return sb.toString();
 		}
-	}
-
-	private static String getSysInfo() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("BRAND:").append(android.os.Build.BRAND).append("\n");
-		sb.append("DEVICE:").append(android.os.Build.DEVICE).append("\n");
-		sb.append("Build ID:").append(android.os.Build.DISPLAY).append("\n");
-		sb.append("changelist number:").append(android.os.Build.ID)
-				.append("\n");
-		sb.append("MODEL:").append(android.os.Build.MODEL).append("\n");
-		sb.append("PRODUCT:").append(android.os.Build.PRODUCT).append("\n");
-		sb.append("TAGS:").append(android.os.Build.TAGS).append("\n");
-		sb.append("VERSION.INCREMENTAL:")
-				.append(android.os.Build.VERSION.INCREMENTAL).append("\n");
-		sb.append("VERSION.RELEASE:").append(android.os.Build.VERSION.RELEASE)
-				.append("\n");
-		sb.append("VERSION.SDK_INT:").append(Workarounds.getApiLevel())
-				.append("\n");
-		sb.append("That's all I know.\n");
-		return sb.toString();
 	}
 }

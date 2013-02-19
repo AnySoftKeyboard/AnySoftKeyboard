@@ -36,7 +36,6 @@ import android.graphics.drawable.Drawable;
 import android.inputmethodservice.InputMethodService;
 import android.media.AudioManager;
 import android.net.Uri;
-import android.os.Debug;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -97,6 +96,7 @@ import com.anysoftkeyboard.receivers.SoundPreferencesChangedReceiver;
 import com.anysoftkeyboard.receivers.SoundPreferencesChangedReceiver.SoundPreferencesChangedListener;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
+import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.ui.settings.MainSettings;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 import com.anysoftkeyboard.utils.IMEUtil.GCUtils;
@@ -179,9 +179,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	private final static String TAG = "ASK";
-
-	// private final static int SWIPE_CORD = -2;
-	private final boolean TRACE_SDCARD = false;
 
 	private static final int MSG_UPDATE_SUGGESTIONS = 0;
 	private static final int MSG_RESTART_NEW_WORD_SUGGESTIONS = 1;
@@ -316,6 +313,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		mPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(
+				getApplication().getBaseContext(), null));
+		if (DeveloperUtils.hasTracingRequested(getApplicationContext())) {
+			DeveloperUtils.startTracing();
+			Toast.makeText(getApplicationContext(), R.string.debug_tracing_starting, Toast.LENGTH_SHORT).show();
+		}
 		Log.i(TAG, "****** AnySoftKeyboard service started.");
 		// I'm handling animations. No need for any nifty ROMs assistance.
 		// I can't use this function with my own animations, since the
@@ -325,8 +329,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		 * Not right now... performance of my animations is lousy..
 		 * getWindow().getWindow().setWindowAnimations(0);
 		 */
-		Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(
-				getApplication().getBaseContext(), null));
 		mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 		mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 		updateRingerMode();
@@ -336,8 +338,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// register to receive packages changes
 		registerReceiver(mPackagesChangedReceiver,
 				mPackagesChangedReceiver.createFilterToRegisterOn());
-
-		mPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		mVibrator = ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE));
 		loadSettings();
 		mConfig.addChangedListener(this);
@@ -396,6 +396,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mSuggest.setMainDictionary(null);
 		mSuggest.setUserDictionary(null);
 
+		if (DeveloperUtils.hasTracingStarted()) {
+			DeveloperUtils.stopTracing();
+			Toast.makeText(getApplicationContext(), getString(R.string.debug_tracing_finished, DeveloperUtils.getTraceFile()), Toast.LENGTH_SHORT).show();
+		}
+		
 		super.onDestroy();
 	}
 
@@ -757,11 +762,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mAutoSpace = true;
 		}
 
-		// mInputView.closing();
-
-		// mComposing.setLength(0);
-		// mWord.reset();
-
 		mPredicting = false;
 		// mDeleteCount = 0;
 		mJustAddedAutoSpace = false;
@@ -785,15 +785,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 			// this will release memory
 			setDictionariesForCurrentKeyboard();
 		}
-		if (TRACE_SDCARD)
-			Debug.startMethodTracing("anysoftkeyboard_log.trace");
 	}
 
 	@Override
 	public void hideWindow() {
-		if (TRACE_SDCARD)
-			Debug.stopMethodTracing();
-
 		if (mOptionsDialog != null && mOptionsDialog.isShowing()) {
 			mOptionsDialog.dismiss();
 			mOptionsDialog = null;

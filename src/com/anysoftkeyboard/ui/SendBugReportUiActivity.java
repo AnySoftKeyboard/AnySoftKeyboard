@@ -62,7 +62,7 @@ public class SendBugReportUiActivity extends Activity {
 			Log.i(TAG, "Will send crash report using "+sender);
 			startActivity(sender);
 		} catch (android.content.ActivityNotFoundException ex) {
-			Toast.makeText(this, "Unable to send bug report via e-mail!", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), "Unable to send bug report via e-mail!", Toast.LENGTH_LONG).show();
 		}
 		
 		finish();
