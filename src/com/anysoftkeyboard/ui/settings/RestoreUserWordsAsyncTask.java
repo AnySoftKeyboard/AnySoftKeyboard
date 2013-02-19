@@ -13,11 +13,11 @@ import org.xml.sax.helpers.DefaultHandler;
 import android.content.Context;
 import android.os.Environment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.WindowManager.BadTokenException;
 import android.widget.Toast;
 
 import com.anysoftkeyboard.dictionaries.SafeUserDictionary;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 

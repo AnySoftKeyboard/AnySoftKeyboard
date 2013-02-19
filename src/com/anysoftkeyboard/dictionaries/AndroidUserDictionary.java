@@ -8,8 +8,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.UserDictionary.Words;
 import android.text.TextUtils;
-import android.util.Log;
 
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 public class AndroidUserDictionary extends UserDictionaryBase {

@@ -1,7 +1,6 @@
 package com.anysoftkeyboard;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.Date;
 
@@ -10,16 +9,11 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.Debug;
-import android.os.Environment;
 import android.text.format.DateFormat;
-import android.util.Log;
 
 import com.anysoftkeyboard.ui.SendBugReportUiActivity;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
-import com.anysoftkeyboard.utils.Workarounds;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -53,7 +47,8 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 		}
 
 		if (!ignore && AnyApplication.getConfig().useChewbaccaNotifications()) {
-			String appName = DeveloperUtils.getAppDetails(mApp.getApplicationContext());
+			String appName = DeveloperUtils.getAppDetails(mApp
+					.getApplicationContext());
 
 			final CharSequence utcTimeDate = DateFormat.format(
 					"kk:mm:ss dd.MM.yyyy", new Date());
@@ -73,7 +68,8 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 					+ ex.getMessage()
 					+ "\n" + "****** Trace trace:\n" + stackTrace + "\n";
 			logText += "******************************\n"
-					+ "****** Device information:\n" + DeveloperUtils.getSysInfo();
+					+ "****** Device information:\n"
+					+ DeveloperUtils.getSysInfo();
 			if (ex instanceof OutOfMemoryError
 					|| (ex.getCause() != null && ex.getCause() instanceof OutOfMemoryError)) {
 				logText += "******************************\n"

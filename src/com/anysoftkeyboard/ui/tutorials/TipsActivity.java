@@ -9,7 +9,6 @@ import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -19,6 +18,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.anysoftkeyboard.ui.settings.BottomRowSelector;
 import com.anysoftkeyboard.ui.settings.TopRowSelector;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 

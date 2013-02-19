@@ -2,11 +2,11 @@ package com.anysoftkeyboard.theme;
 
 import com.anysoftkeyboard.addons.AddOnImpl;
 import com.anysoftkeyboard.addons.ScreenshotHolder;
+import com.anysoftkeyboard.utils.Log;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 
 public class KeyboardTheme extends AddOnImpl implements ScreenshotHolder {
 	
@@ -48,7 +48,7 @@ public class KeyboardTheme extends AddOnImpl implements ScreenshotHolder {
 	    		return null;
 	    	}
     	} catch(Resources.NotFoundException n) {
-    		Log.w(TAG, "Failed to load pack Screenshot! ResId:"+mThemeScreenshotResId);
+			Log.w(TAG, "Failed to load pack Screenshot! ResId:"+mThemeScreenshotResId);
     		return null;
     	}
     }

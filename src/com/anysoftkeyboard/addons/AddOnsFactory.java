@@ -11,6 +11,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 
@@ -22,7 +23,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.Xml;
 
 public abstract class AddOnsFactory<E extends AddOn> {

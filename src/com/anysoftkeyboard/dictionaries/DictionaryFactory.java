@@ -1,9 +1,9 @@
 package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 public class DictionaryFactory

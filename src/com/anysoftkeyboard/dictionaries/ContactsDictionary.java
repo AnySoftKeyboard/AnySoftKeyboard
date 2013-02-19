@@ -25,8 +25,8 @@ import android.content.Context;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.provider.ContactsContract.Contacts;
-import android.util.Log;
 
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 @TargetApi(5)
@@ -54,9 +54,7 @@ public class ContactsDictionary extends UserDictionaryBase {
 		// when needed.
 		ContentResolver cres = mContext.getContentResolver();
 		// registering
-		if (AnyApplication.DEBUG)
-			Log.d(TAG, "Registering to contants changes at "
-					+ Contacts.CONTENT_URI);
+		Log.d(TAG, "Registering to contants changes at " + Contacts.CONTENT_URI);
 		cres.registerContentObserver(Contacts.CONTENT_URI, true,
 				mObserver = createContactContectObserver());
 	}
@@ -65,8 +63,7 @@ public class ContactsDictionary extends UserDictionaryBase {
 		return new ContentObserver(null) {
 			@Override
 			public void onChange(boolean selfChange) {
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "Contacts list modified (self: " + selfChange
+				Log.d(TAG, "Contacts list modified (self: " + selfChange
 							+ "). Reloading...");
 				super.onChange(selfChange);
 				loadDictionary();
@@ -85,10 +82,9 @@ public class ContactsDictionary extends UserDictionaryBase {
 		Cursor cursor = null;
 		try {
 			// a bit less contacts for memory stress reduction
-			cursor = mContext.getContentResolver().query(
-					Contacts.CONTENT_URI, PROJECTION,
-					Contacts.IN_VISIBLE_GROUP + "=?", new String[] { "1" },
-					null);
+			cursor = mContext.getContentResolver().query(Contacts.CONTENT_URI,
+					PROJECTION, Contacts.IN_VISIBLE_GROUP + "=?",
+					new String[] { "1" }, null);
 			if (cursor != null) {
 				int newCount = 0;
 				long newHash = 0;
