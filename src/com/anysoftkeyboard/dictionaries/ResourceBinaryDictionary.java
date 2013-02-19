@@ -28,11 +28,11 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.anysoftkeyboard.WordComposer;
 import com.anysoftkeyboard.utils.IMEUtil.GCUtils;
 import com.anysoftkeyboard.utils.IMEUtil.GCUtils.MemRelatedOperation;
+import com.anysoftkeyboard.utils.Log;
 
 /**
  * Implements a static, compacted, binary dictionary of standard words.

@@ -4,10 +4,9 @@ import java.util.List;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteException;
-import android.util.Log;
 
 import com.anysoftkeyboard.dictionaries.DictionarySQLiteConnection.DictionaryWord;
-import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.anysoftkeyboard.utils.Log;
 
 public abstract class SQLiteUserDictionaryBase extends UserDictionaryBase {
 
@@ -27,18 +26,14 @@ public abstract class SQLiteUserDictionaryBase extends UserDictionaryBase {
 			long loadStartTime = System.currentTimeMillis();
 			List<DictionaryWord> words = mStorage.getAllWords();
 			long loadEndTime = System.currentTimeMillis();
-			if (AnyApplication.DEBUG)
-				Log.d(TAG, "SQLite dictionary loaded " + words.size()
-						+ " words. Took " + (loadEndTime - loadStartTime)
-						+ " ms.");
+			Log.d(TAG, "SQLite dictionary loaded " + words.size()
+					+ " words. Took " + (loadEndTime - loadStartTime) + " ms.");
 			for (DictionaryWord word : words) {
 				addWordFromStorage(word.getWord(), word.getFrequency());
 			}
 			long storeEndTime = System.currentTimeMillis();
-			if (AnyApplication.DEBUG)
-				Log.d(TAG, "Stored " + words.size()
-						+ " words in dictionary. Took "
-						+ (storeEndTime - loadEndTime) + " ms.");
+			Log.d(TAG, "Stored " + words.size() + " words in dictionary. Took "
+					+ (storeEndTime - loadEndTime) + " ms.");
 			/*
 			 * calling GC here, will stop the device for even longer time. //we
 			 * just finished working with a lot of memory. //lets release it.

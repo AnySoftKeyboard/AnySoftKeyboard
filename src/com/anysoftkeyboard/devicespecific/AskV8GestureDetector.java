@@ -1,14 +1,13 @@
 package com.anysoftkeyboard.devicespecific;
 
-import com.menny.android.anysoftkeyboard.AnyApplication;
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
+
+import com.anysoftkeyboard.utils.Log;
 
 @TargetApi(8)
 public class AskV8GestureDetector extends GestureDetector {
@@ -27,7 +26,7 @@ public class AskV8GestureDetector extends GestureDetector {
 		mScaleGestureDetector = new ScaleGestureDetector(context, new ScaleGestureDetector.SimpleOnScaleGestureListener() {
 			public void onScaleEnd(ScaleGestureDetector detector) {
 				final float factor = detector.getScaleFactor();
-				if (AnyApplication.DEBUG) Log.d(TAG, "onScaleEnd factor "+factor);
+				Log.d(TAG, "onScaleEnd factor "+factor);
 				
 				if (factor > 1.1)
 					mScaleEventHandled = mListener.onSeparate(factor);

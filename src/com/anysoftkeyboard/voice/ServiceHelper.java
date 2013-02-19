@@ -21,7 +21,6 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.speech.RecognizerIntent;
-import android.util.Log;
 
 /**
  * Service helper that connects the IME with the activity that triggers the recognition
@@ -40,20 +39,7 @@ public class ServiceHelper extends Service {
         return mBinder;
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        Log.i(TAG, "#onCreate");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.i(TAG, "#onDestroy");
-    }
-
     public void startRecognition(String languageLocale, Callback callback) {
-        Log.i(TAG, "#startRecognition");
         mCallback = callback;
         Intent intent = new Intent(this, ActivityHelper.class);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, languageLocale);

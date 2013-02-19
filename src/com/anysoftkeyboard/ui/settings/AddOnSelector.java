@@ -8,12 +8,11 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
-import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.ui.MainForm;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
 public abstract class AddOnSelector<E extends AddOn> extends PreferenceActivity {

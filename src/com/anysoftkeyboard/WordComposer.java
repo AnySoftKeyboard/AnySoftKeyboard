@@ -16,19 +16,14 @@
 
 package com.anysoftkeyboard;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 import com.anysoftkeyboard.dictionaries.AndroidUserDictionary;
-import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
-
-import android.util.Log;
 
 /**
  * A place to store the currently composing word with information such as adjacent key codes as well

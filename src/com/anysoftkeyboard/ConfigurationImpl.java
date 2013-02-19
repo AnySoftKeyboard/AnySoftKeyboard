@@ -10,11 +10,11 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.utils.Log;
 import com.anysoftkeyboard.utils.Workarounds;
 
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 
 import com.menny.android.anysoftkeyboard.AnyApplication;

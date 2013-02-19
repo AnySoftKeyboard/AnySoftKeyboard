@@ -22,10 +22,10 @@ import java.io.FileDescriptor;
 import java.util.Arrays;
 
 import com.anysoftkeyboard.WordComposer;
+import com.anysoftkeyboard.utils.Log;
 
 import android.content.res.AssetFileDescriptor;
 import android.os.AsyncTask;
-import android.util.Log;
 
 /**
  * Implements a static, compacted, binary dictionary of standard words.

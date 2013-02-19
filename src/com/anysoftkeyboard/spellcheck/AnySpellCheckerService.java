@@ -20,10 +20,10 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.service.textservice.SpellCheckerService;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.textservice.SuggestionsInfo;
 import android.view.textservice.TextInfo;
 
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 /**

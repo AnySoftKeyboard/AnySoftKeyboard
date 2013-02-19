@@ -25,7 +25,6 @@ import android.inputmethodservice.InputMethodService;
 import android.os.Handler;
 import android.os.IBinder;
 import android.speech.RecognizerIntent;
-import android.util.Log;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
@@ -35,6 +34,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 /**

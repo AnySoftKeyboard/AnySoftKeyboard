@@ -28,7 +28,6 @@ import android.os.Bundle;
 import android.provider.UserDictionary;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -41,11 +40,11 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.anysoftkeyboard.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.dictionaries.SafeUserDictionary;
 import com.anysoftkeyboard.dictionaries.WordsCursor;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 

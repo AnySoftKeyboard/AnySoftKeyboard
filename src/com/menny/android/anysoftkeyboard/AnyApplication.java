@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.anysoftkeyboard.Configuration;
 import com.anysoftkeyboard.ConfigurationImpl;
@@ -18,6 +17,7 @@ import com.anysoftkeyboard.backup.CloudBackupRequester;
 import com.anysoftkeyboard.backup.CloudBackupRequesterDiagram;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
+import com.anysoftkeyboard.utils.Log;
 
 
 public class AnyApplication extends Application implements OnSharedPreferenceChangeListener {

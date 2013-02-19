@@ -18,9 +18,9 @@ package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.anysoftkeyboard.WordComposer;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 public abstract class UserDictionaryBase extends EditableDictionary {

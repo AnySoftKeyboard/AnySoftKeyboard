@@ -8,11 +8,11 @@ import android.database.Cursor;
 import android.os.Environment;
 import android.provider.UserDictionary.Words;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.anysoftkeyboard.dictionaries.SafeUserDictionary;
 import com.anysoftkeyboard.dictionaries.WordsCursor;
+import com.anysoftkeyboard.utils.Log;
 import com.anysoftkeyboard.utils.XmlWriter;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;

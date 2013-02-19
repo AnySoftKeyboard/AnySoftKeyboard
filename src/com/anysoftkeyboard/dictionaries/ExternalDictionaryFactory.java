@@ -6,10 +6,10 @@ import java.util.HashMap;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
 public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndBuilder> {

@@ -2,9 +2,9 @@ package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.anysoftkeyboard.WordComposer;
+import com.anysoftkeyboard.utils.Log;
 
 public class SafeUserDictionary extends EditableDictionary {
 

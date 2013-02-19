@@ -3,12 +3,10 @@ package com.anysoftkeyboard.keyboards;
 import java.util.Stack;
 
 import android.content.Context;
-import android.util.Log;
 import android.util.SparseArray;
 
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
-import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 public class KeyboardCondensor {
@@ -41,9 +39,6 @@ public class KeyboardCondensor {
 	}
 
 	public void setCondensedKeys(boolean condensed) {
-		if (AnyApplication.DEBUG)
-			Log.d(TAG, "setCondensedKeys set to " + condensed + " (was "
-					+ mKeyboardCondensed + ")");
 		if (condensed == mKeyboardCondensed)
 			return;
 
@@ -84,9 +79,6 @@ public class KeyboardCondensor {
 					rightKeys.clear();
 				}
 
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "Condesing key " + k.codes[0] + " x,y " + k.x
-							+ "," + k.y + " w,h " + k.width + "," + k.height);
 				int targetWidth = (int) (k.width * mCondensingFactor);
 				int keyMidPoint = (k.gap + k.x + (k.width / 2));
 				if ((k.gap + k.x) < watershedLineX
@@ -112,10 +104,6 @@ public class KeyboardCondensor {
 								targetWidth);
 					}
 				}
-
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "Condesed key " + k.codes[0] + " x,y " + k.x
-							+ "," + k.y + " w,h " + k.width + "," + k.height);
 			}
 			// now to condense the last row
 			condenseRightSide(mCondensingFactor, keyboardWidth, currentRightX,
