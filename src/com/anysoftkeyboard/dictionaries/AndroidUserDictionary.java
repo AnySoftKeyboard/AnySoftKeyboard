@@ -40,11 +40,7 @@ public class AndroidUserDictionary extends UserDictionaryBase {
 		mLocale = locale;
 	}
 
-	protected void closeAllResources() {
-		closeObserver();
-	}
-
-	private void closeObserver() {
+	protected synchronized void closeAllResources() {
 		if (mObserver != null) {
 			mContext.getContentResolver().unregisterContentObserver(mObserver);
 			mObserver = null;
@@ -52,29 +48,25 @@ public class AndroidUserDictionary extends UserDictionaryBase {
 	}
 
 	@Override
-	public void loadDictionary() {
+	public synchronized void loadDictionary() {
 		// NOT doing it async, why? because my parent (SafeUserDictionary) is
 		// doing it async
 		loadDictionaryAsync();
 	}
 
-	protected void loadDictionaryAsync() {
+	protected synchronized void loadDictionaryAsync() {
 		WordsCursor cursor = getWordsCursor();
 
 		addWords(cursor.getCursor());
 
 		cursor.close();
-
-		// Perform a managed query. The Activity will handle closing and
-		// requerying the cursor
-		// when needed.
-		closeObserver();
+		
 		ContentResolver cres = mContext.getContentResolver();
 		mObserver = new UserDictionaryContentObserver();
 		cres.registerContentObserver(Words.CONTENT_URI, true, mObserver);
 	}
 
-	public WordsCursor getWordsCursor() {
+	public synchronized WordsCursor getWordsCursor() {
 		Cursor cursor = TextUtils.isEmpty(mLocale) ? mContext
 				.getContentResolver().query(Words.CONTENT_URI, PROJECTION,
 						null, null, null) : mContext.getContentResolver()
@@ -138,7 +130,7 @@ public class AndroidUserDictionary extends UserDictionaryBase {
 	}
 
 	@Override
-	public void deleteWord(String word) {
+	public synchronized void deleteWord(String word) {
 		mContext.getContentResolver().delete(Words.CONTENT_URI,
 				Words.WORD + "=?", new String[] { word });
 		reloadDictionary();

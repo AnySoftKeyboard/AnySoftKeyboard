@@ -22,7 +22,6 @@ import android.database.ContentObserver;
 import android.net.Uri;
 
 import com.anysoftkeyboard.utils.Log;
-import com.menny.android.anysoftkeyboard.AnyApplication;
 
 @TargetApi(16)
 public class ContactsDictionaryAPI16 extends ContactsDictionary {

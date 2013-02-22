@@ -9,12 +9,13 @@ import com.anysoftkeyboard.utils.Log;
 public class SafeUserDictionary extends EditableDictionary {
 
 	private static final String TAG = "ASK_SUD";
-	private final Object mLocker = new Object();
-	private final Context mContext;
 	private UserDictionaryBase mActualDictionary;
+
+	private final Context mContext;
 
 	private final Object mUpdatingLock = new Object();
 	private boolean mUpdatingDictionary = false;
+	private boolean mInitialLoaded = false;
 	private final String mLocale;
 
 	public SafeUserDictionary(Context context, String locale) {
@@ -24,13 +25,14 @@ public class SafeUserDictionary extends EditableDictionary {
 	}
 
 	@Override
-	public void getWords(WordComposer composer, WordCallback callback) {
+	public synchronized void getWords(WordComposer composer,
+			WordCallback callback) {
 		if (mActualDictionary != null)
 			mActualDictionary.getWords(composer, callback);
 	}
 
 	@Override
-	public boolean isValidWord(CharSequence word) {
+	public synchronized boolean isValidWord(CharSequence word) {
 		if (mActualDictionary != null)
 			return mActualDictionary.isValidWord(word);
 		else
@@ -38,7 +40,7 @@ public class SafeUserDictionary extends EditableDictionary {
 	}
 
 	@Override
-	public void close() {
+	public synchronized void close() {
 		if (mActualDictionary != null)
 			mActualDictionary.close();
 	}
@@ -47,58 +49,51 @@ public class SafeUserDictionary extends EditableDictionary {
 
 		@Override
 		protected Void doInBackground(Void... v) {
-			loadDictionaryAsync();
-
-			synchronized (mUpdatingLock) {
-				mUpdatingDictionary = false;
-			}
+			loadDictionarySync();
 			return null;
 		}
 	}
 
-	public void loadDictionarySync() {
+	public synchronized void loadDictionarySync() {
 		synchronized (mUpdatingLock) {
 			mUpdatingDictionary = true;
 
 			loadDictionaryAsync();
-
+			mInitialLoaded = true;
 			mUpdatingDictionary = false;
 		}
 	}
 
 	private void loadDictionaryAsync() {
-		synchronized (mLocker) {
-			AndroidUserDictionary androidBuiltIn = null;
-			try {
-				androidBuiltIn = new AndroidUserDictionary(mContext, mLocale);
-				androidBuiltIn.loadDictionary();
-				mActualDictionary = androidBuiltIn;
-			} catch (Exception e) {
-				Log.w(TAG,
-						"Failed to load Android's built-in user dictionary. No matter, I'll use a fallback.");
-				if (androidBuiltIn != null) {
-					try {
-						androidBuiltIn.close();
-					} catch (Exception buildInCloseException) {
-						//it's an half-baked object, no need to worry about it
-						buildInCloseException.printStackTrace();
-						Log.w(TAG, "Failed to close the build-in user dictionary properly, but it should be fine.");
-					}
+		AndroidUserDictionary androidBuiltIn = null;
+		try {
+			androidBuiltIn = new AndroidUserDictionary(mContext, mLocale);
+			androidBuiltIn.loadDictionary();
+			mActualDictionary = androidBuiltIn;
+		} catch (Exception e) {
+			Log.w(TAG,
+					"Failed to load Android's built-in user dictionary. No matter, I'll use a fallback.");
+			if (androidBuiltIn != null) {
+				try {
+					androidBuiltIn.close();
+				} catch (Exception buildInCloseException) {
+					// it's an half-baked object, no need to worry about it
+					buildInCloseException.printStackTrace();
+					Log.w(TAG,
+							"Failed to close the build-in user dictionary properly, but it should be fine.");
 				}
-				FallbackUserDictionary fallback = new FallbackUserDictionary(
-						mContext, mLocale);
-				fallback.loadDictionary();
-
-				mActualDictionary = fallback;
 			}
+			FallbackUserDictionary fallback = new FallbackUserDictionary(
+					mContext, mLocale);
+			fallback.loadDictionary();
 
-			mLocker.notifyAll();
+			mActualDictionary = fallback;
 		}
 	}
 
 	public void loadDictionary() {
 		synchronized (mUpdatingLock) {
-			if (!mUpdatingDictionary) {
+			if (!mUpdatingDictionary && !mInitialLoaded) {
 				mUpdatingDictionary = true;
 				new LoadDictionaryTask().execute();
 			}
@@ -106,7 +101,7 @@ public class SafeUserDictionary extends EditableDictionary {
 	}
 
 	@Override
-	public boolean addWord(String word, int frequency) {
+	public synchronized boolean addWord(String word, int frequency) {
 		if (mActualDictionary != null)
 			return mActualDictionary.addWord(word, frequency);
 		else
@@ -114,25 +109,15 @@ public class SafeUserDictionary extends EditableDictionary {
 	}
 
 	@Override
-	public WordsCursor getWordsCursor() {
-		synchronized (mLocker) {
-			if (mActualDictionary != null) {
-				return mActualDictionary.getWordsCursor();
-			} else {
-				try {
-					mLocker.wait();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-					return null;
-				}
-
-				return getWordsCursor();
-			}
-		}
+	public synchronized WordsCursor getWordsCursor() {
+		if (mActualDictionary != null)
+			return mActualDictionary.getWordsCursor();
+		
+		return null;
 	}
 
 	@Override
-	public void deleteWord(String word) {
+	public synchronized void deleteWord(String word) {
 		if (mActualDictionary != null)
 			mActualDictionary.deleteWord(word);
 	}

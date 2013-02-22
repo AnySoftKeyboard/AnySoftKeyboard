@@ -124,6 +124,7 @@ public class Suggest implements Dictionary.WordCallback {
 									: dictionaryBuilder.getName()));
 		if (mMainDict != null) {
 			mMainDict.close();
+			mMainDict = null;
 		}
 
 		if (dictionaryBuilder == null) {
