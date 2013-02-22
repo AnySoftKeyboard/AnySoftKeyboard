@@ -25,7 +25,6 @@ import android.graphics.Point;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -47,6 +46,7 @@ import com.anysoftkeyboard.keyboards.Keyboard.Row;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.theme.KeyboardTheme;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -250,15 +250,13 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 			mMiniKeyboardPopup.setAnimationStyle(0);
 		} else if (mExtensionVisible
 				&& mMiniKeyboardPopup.getAnimationStyle() != R.style.ExtensionKeyboardAnimation) {
-			if (AnyApplication.DEBUG)
-				Log.d(TAG,
+			Log.d(TAG,
 						"Switching mini-keyboard animation to ExtensionKeyboardAnimation");
 			mMiniKeyboardPopup
 					.setAnimationStyle(R.style.ExtensionKeyboardAnimation);
 		} else if (!mExtensionVisible
 				&& mMiniKeyboardPopup.getAnimationStyle() != R.style.MiniKeyboardAnimation) {
-			if (AnyApplication.DEBUG)
-				Log.d(TAG,
+			Log.d(TAG,
 						"Switching mini-keyboard animation to MiniKeyboardAnimation");
 			mMiniKeyboardPopup.setAnimationStyle(R.style.MiniKeyboardAnimation);
 		}

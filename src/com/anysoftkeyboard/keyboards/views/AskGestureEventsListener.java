@@ -1,10 +1,9 @@
 package com.anysoftkeyboard.keyboards.views;
 
-import android.util.Log;
 import android.view.MotionEvent;
 
 import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
-import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.anysoftkeyboard.utils.Log;
 
 final class AskGestureEventsListener implements
 		AskOnGestureListener {
@@ -26,7 +25,7 @@ final class AskGestureEventsListener implements
 	}
 
 	public boolean onFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
-		if (AnyApplication.DEBUG) Log.d(AnyKeyboardBaseView.TAG, String.format("onFling vx %f, vy %f", velocityX, velocityY));
+		Log.d(AnyKeyboardBaseView.TAG, String.format("onFling vx %f, vy %f", velocityX, velocityY));
 		
 		final float absX = Math.abs(velocityX);
 	    final float absY = Math.abs(velocityY);

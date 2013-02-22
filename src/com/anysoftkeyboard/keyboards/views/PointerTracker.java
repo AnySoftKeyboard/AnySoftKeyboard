@@ -22,10 +22,10 @@ import android.content.res.Resources;
 
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MotionEvent;
 
 public class PointerTracker {

@@ -21,7 +21,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 public class CompatUtils {
     private static final String TAG = "ASK CMPT_UTILS";

@@ -7,7 +7,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import com.anysoftkeyboard.ui.settings.KeyboardThemeSelector;
 import com.anysoftkeyboard.ui.settings.MainSettings;
 import com.anysoftkeyboard.ui.settings.TopRowSelector;
 import com.anysoftkeyboard.ui.settings.UserDictionaryEditorActivity;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 

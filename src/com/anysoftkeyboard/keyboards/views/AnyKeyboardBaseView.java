@@ -46,7 +46,6 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.FloatMath;
-import android.util.Log;
 import android.util.SparseArray;
 import android.util.TypedValue;
 import android.view.GestureDetector;
@@ -74,6 +73,7 @@ import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.utils.IMEUtil.GCUtils;
 import com.anysoftkeyboard.utils.IMEUtil.GCUtils.MemRelatedOperation;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -783,22 +783,17 @@ public class AnyKeyboardBaseView extends View implements
 					mKeyTextSize = mKeyTextSize
 							* FloatMath.sqrt(AnyApplication.getConfig()
 									.getKeysHeightFactorInPortrait());
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardTheme_keyTextSize "
-							+ mKeyTextSize);
+				Log.d(TAG, "AnySoftKeyboardTheme_keyTextSize " + mKeyTextSize);
 				break;
 			case R.styleable.AnySoftKeyboardTheme_keyTextColor:
 				mKeyTextColor = a.getColorStateList(attr);
 				if (mKeyTextColor == null) {
-					if (AnyApplication.DEBUG)
-						Log.d(TAG,
-								"Creating an empty ColorStateList for mKeyTextColor");
+					Log.d(TAG,
+							"Creating an empty ColorStateList for mKeyTextColor");
 					mKeyTextColor = new ColorStateList(new int[][] { { 0 } },
 							new int[] { a.getColor(attr, 0xFF000000) });
 				}
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardTheme_keyTextColor "
-							+ mKeyTextColor);
+				Log.d(TAG, "AnySoftKeyboardTheme_keyTextColor " + mKeyTextColor);
 				break;
 			case R.styleable.AnySoftKeyboardTheme_labelTextSize:
 				mLabelTextSize = a.getDimensionPixelSize(attr, 14);
@@ -810,9 +805,8 @@ public class AnyKeyboardBaseView extends View implements
 					mLabelTextSize = mLabelTextSize
 							* AnyApplication.getConfig()
 									.getKeysHeightFactorInPortrait();
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardTheme_labelTextSize "
-							+ mLabelTextSize);
+				Log.d(TAG, "AnySoftKeyboardTheme_labelTextSize "
+						+ mLabelTextSize);
 				break;
 			case R.styleable.AnySoftKeyboardTheme_keyboardNameTextSize:
 				mKeyboardNameTextSize = a.getDimensionPixelSize(attr, 10);
@@ -824,53 +818,43 @@ public class AnyKeyboardBaseView extends View implements
 					mKeyboardNameTextSize = mKeyboardNameTextSize
 							* AnyApplication.getConfig()
 									.getKeysHeightFactorInPortrait();
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardTheme_keyboardNameTextSize "
-							+ mKeyboardNameTextSize);
+				Log.d(TAG, "AnySoftKeyboardTheme_keyboardNameTextSize "
+						+ mKeyboardNameTextSize);
 				break;
 			case R.styleable.AnySoftKeyboardTheme_keyboardNameTextColor:
 				mKeyboardNameTextColor = a.getColorStateList(attr);
 				if (mKeyboardNameTextColor == null) {
-					if (AnyApplication.DEBUG)
-						Log.d(TAG,
-								"Creating an empty ColorStateList for mKeyboardNameTextColor");
+					Log.d(TAG,
+							"Creating an empty ColorStateList for mKeyboardNameTextColor");
 					mKeyboardNameTextColor = new ColorStateList(
 							new int[][] { { 0 } }, new int[] { a.getColor(attr,
 									0xFFAAAAAA) });
 				}
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardTheme_keyboardNameTextColor "
-							+ mKeyboardNameTextColor);
+				Log.d(TAG, "AnySoftKeyboardTheme_keyboardNameTextColor "
+						+ mKeyboardNameTextColor);
 				break;
 			case R.styleable.AnySoftKeyboardTheme_shadowColor:
 				mShadowColor = a.getColor(attr, 0);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardTheme_shadowColor "
-							+ mShadowColor);
+				Log.d(TAG, "AnySoftKeyboardTheme_shadowColor " + mShadowColor);
 				break;
 			case R.styleable.AnySoftKeyboardTheme_shadowRadius:
 				mShadowRadius = a.getDimensionPixelOffset(attr, 0);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardTheme_shadowRadius "
-							+ mShadowRadius);
+				Log.d(TAG, "AnySoftKeyboardTheme_shadowRadius " + mShadowRadius);
 				break;
 			case R.styleable.AnySoftKeyboardTheme_shadowOffsetX:
 				mShadowOffsetX = a.getDimensionPixelOffset(attr, 0);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardTheme_shadowOffsetX "
-							+ mShadowOffsetX);
+				Log.d(TAG, "AnySoftKeyboardTheme_shadowOffsetX "
+						+ mShadowOffsetX);
 				break;
 			case R.styleable.AnySoftKeyboardTheme_shadowOffsetY:
 				mShadowOffsetY = a.getDimensionPixelOffset(attr, 0);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardTheme_shadowOffsetY "
-							+ mShadowOffsetY);
+				Log.d(TAG, "AnySoftKeyboardTheme_shadowOffsetY "
+						+ mShadowOffsetY);
 				break;
 			case R.styleable.AnySoftKeyboardTheme_backgroundDimAmount:
 				mBackgroundDimAmount = a.getFloat(attr, 0.5f);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardTheme_backgroundDimAmount "
-							+ mBackgroundDimAmount);
+				Log.d(TAG, "AnySoftKeyboardTheme_backgroundDimAmount "
+						+ mBackgroundDimAmount);
 				break;
 			case R.styleable.AnySoftKeyboardTheme_keyTextStyle:
 				int textStyle = a.getInt(attr, 0);
@@ -888,56 +872,46 @@ public class AnyKeyboardBaseView extends View implements
 					mKeyTextStyle = Typeface.defaultFromStyle(textStyle);
 					break;
 				}
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardTheme_keyTextStyle "
-							+ mKeyTextStyle);
+				Log.d(TAG, "AnySoftKeyboardTheme_keyTextStyle " + mKeyTextStyle);
 				break;
 			case R.styleable.AnySoftKeyboardTheme_symbolColorScheme:
 				mSymbolColorScheme = a.getInt(attr, 0);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardTheme_symbolColorScheme "
-							+ mSymbolColorScheme);
+				Log.d(TAG, "AnySoftKeyboardTheme_symbolColorScheme "
+						+ mSymbolColorScheme);
 				break;
 			case R.styleable.AnySoftKeyboardTheme_keyHorizontalGap:
 				float themeHorizotalKeyGap = a.getDimensionPixelOffset(attr, 0);
 				mKeyboardDimens.setHorizontalKeyGap(themeHorizotalKeyGap);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardTheme_keyHorizontalGap "
-							+ themeHorizotalKeyGap);
+				Log.d(TAG, "AnySoftKeyboardTheme_keyHorizontalGap "
+						+ themeHorizotalKeyGap);
 				break;
 			case R.styleable.AnySoftKeyboardTheme_keyVerticalGap:
 				float themeVerticalRowGap = a.getDimensionPixelOffset(attr, 0);
 				mKeyboardDimens.setVerticalRowGap(themeVerticalRowGap);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardTheme_keyVerticalGap "
-							+ themeVerticalRowGap);
+				Log.d(TAG, "AnySoftKeyboardTheme_keyVerticalGap "
+						+ themeVerticalRowGap);
 				break;
 			case R.styleable.AnySoftKeyboardTheme_keyNormalHeight:
 				float themeNormalKeyHeight = a.getDimensionPixelOffset(attr, 0);
 				mKeyboardDimens.setNormalKeyHeight(themeNormalKeyHeight);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardTheme_keyNormalHeight "
-							+ themeNormalKeyHeight);
+				Log.d(TAG, "AnySoftKeyboardTheme_keyNormalHeight "
+						+ themeNormalKeyHeight);
 				break;
 			case R.styleable.AnySoftKeyboardTheme_keyLargeHeight:
 				float themeLargeKeyHeight = a.getDimensionPixelOffset(attr, 0);
 				mKeyboardDimens.setLargeKeyHeight(themeLargeKeyHeight);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardTheme_keyLargeHeight "
-							+ themeLargeKeyHeight);
+				Log.d(TAG, "AnySoftKeyboardTheme_keyLargeHeight "
+						+ themeLargeKeyHeight);
 				break;
 			case R.styleable.AnySoftKeyboardTheme_keySmallHeight:
 				float themeSmallKeyHeight = a.getDimensionPixelOffset(attr, 0);
 				mKeyboardDimens.setSmallKeyHeight(themeSmallKeyHeight);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardTheme_keySmallHeight "
-							+ themeSmallKeyHeight);
+				Log.d(TAG, "AnySoftKeyboardTheme_keySmallHeight "
+						+ themeSmallKeyHeight);
 				break;
 			case R.styleable.AnySoftKeyboardTheme_hintTextSize:
 				mHintTextSize = a.getDimensionPixelSize(attr, 0);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardTheme_hintTextSize "
-							+ mHintTextSize);
+				Log.d(TAG, "AnySoftKeyboardTheme_hintTextSize " + mHintTextSize);
 				if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
 					mHintTextSize = mHintTextSize
 							* AnyApplication.getConfig()
@@ -946,40 +920,34 @@ public class AnyKeyboardBaseView extends View implements
 					mHintTextSize = mHintTextSize
 							* AnyApplication.getConfig()
 									.getKeysHeightFactorInPortrait();
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardTheme_hintTextSize with factor "
-							+ mHintTextSize);
+				Log.d(TAG, "AnySoftKeyboardTheme_hintTextSize with factor "
+						+ mHintTextSize);
 				break;
 			case R.styleable.AnySoftKeyboardTheme_hintTextColor:
 				mHintTextColor = a.getColorStateList(attr);
 				if (mHintTextColor == null) {
-					if (AnyApplication.DEBUG)
-						Log.d(TAG,
-								"Creating an empty ColorStateList for mHintTextColor");
+					Log.d(TAG,
+							"Creating an empty ColorStateList for mHintTextColor");
 					mHintTextColor = new ColorStateList(new int[][] { { 0 } },
 							new int[] { a.getColor(attr, 0xFF000000) });
 				}
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardTheme_hintTextColor "
-							+ mHintTextColor);
+				Log.d(TAG, "AnySoftKeyboardTheme_hintTextColor "
+						+ mHintTextColor);
 				break;
 			case R.styleable.AnySoftKeyboardTheme_hintLabelVAlign:
 				mHintLabelVAlign = a.getInt(attr, Gravity.BOTTOM);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardTheme_hintLabelVAlign "
-							+ mHintLabelVAlign);
+				Log.d(TAG, "AnySoftKeyboardTheme_hintLabelVAlign "
+						+ mHintLabelVAlign);
 				break;
 			case R.styleable.AnySoftKeyboardTheme_hintLabelAlign:
 				mHintLabelAlign = a.getInt(attr, Gravity.RIGHT);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardTheme_hintLabelAlign "
-							+ mHintLabelAlign);
+				Log.d(TAG, "AnySoftKeyboardTheme_hintLabelAlign "
+						+ mHintLabelAlign);
 				break;
 			case R.styleable.AnySoftKeyboardTheme_hintOverflowLabel:
 				mHintOverflowLabel = a.getString(attr);
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "AnySoftKeyboardTheme_hintOverflowLabel "
-							+ mHintOverflowLabel);
+				Log.d(TAG, "AnySoftKeyboardTheme_hintOverflowLabel "
+						+ mHintOverflowLabel);
 				break;
 			}
 			return true;
