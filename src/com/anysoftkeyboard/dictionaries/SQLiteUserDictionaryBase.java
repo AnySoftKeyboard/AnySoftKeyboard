@@ -18,7 +18,7 @@ public abstract class SQLiteUserDictionaryBase extends UserDictionaryBase {
 	}
 
 	@Override
-	protected void loadDictionaryAsync() {
+	protected synchronized void loadDictionaryAsync() {
 		try {
 			if (mStorage == null)
 				mStorage = createStorage();
@@ -60,7 +60,7 @@ public abstract class SQLiteUserDictionaryBase extends UserDictionaryBase {
 	}
 
 	@Override
-	public WordsCursor getWordsCursor() {
+	public synchronized WordsCursor getWordsCursor() {
 		Log.d(TAG, "getWordsCursor");
 		if (mStorage == null) {
 			Log.d(TAG, "getWordsCursor::createStorage");
@@ -72,18 +72,18 @@ public abstract class SQLiteUserDictionaryBase extends UserDictionaryBase {
 	protected abstract DictionarySQLiteConnection createStorage();
 
 	@Override
-	protected void AddWordToStorage(String word, int frequency) {
+	protected synchronized void AddWordToStorage(String word, int frequency) {
 		mStorage.addWord(word, frequency);
 	}
 
 	@Override
-	public void deleteWord(String word) {
+	public synchronized void deleteWord(String word) {
 		mStorage.deleteWord(word);
 		reloadDictionary();
 	}
 
 	@Override
-	protected void closeAllResources() {
+	protected synchronized void closeAllResources() {
 		if (mStorage != null)
 			mStorage.close();
 	}

@@ -119,7 +119,7 @@ public class AutoDictionary extends UserDictionaryBase {
 	}
 
 	@Override
-	public void close() {
+	public synchronized void close() {
 		flushPendingWrites();
 		// Don't close the database as locale changes will require it to be
 		// reopened anyway
@@ -131,7 +131,7 @@ public class AutoDictionary extends UserDictionaryBase {
 	}
 
 	@Override
-	protected void loadDictionaryAsync() {
+	protected synchronized void loadDictionaryAsync() {
 		// Load the words that correspond to the current input locale
 		WordsCursor wordsCursor = getWordsCursor();
 		Cursor cursor = wordsCursor.getCursor();

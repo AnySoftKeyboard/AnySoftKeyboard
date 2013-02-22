@@ -3378,13 +3378,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 					String localeForSupportingDictionaries = dictionaryBuilder != null ? dictionaryBuilder
 							.getLanguage() : defaultDictionary;
 					mUserDictionary = mSuggest.getDictionaryFactory()
-							.createUserDictionary(this,
+							.createUserDictionary(getApplicationContext(),
 									localeForSupportingDictionaries);
-					mUserDictionary.loadDictionary();
 					mSuggest.setUserDictionary(mUserDictionary);
 
 					mAutoDictionary = mSuggest.getDictionaryFactory()
-							.createAutoDictionary(this, this,
+							.createAutoDictionary(getApplicationContext(), this,
 									localeForSupportingDictionaries);
 					mSuggest.setAutoDictionary(mAutoDictionary);
 					mSuggest.setContactsDictionary(getApplicationContext(),

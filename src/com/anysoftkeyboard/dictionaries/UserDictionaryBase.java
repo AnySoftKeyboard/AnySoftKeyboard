@@ -27,7 +27,6 @@ public abstract class UserDictionaryBase extends EditableDictionary {
 
 	private static final char QUOTE = '\'';
 
-	// protected final AnyKeyboardContextProvider mAnyContext;
 	protected final Context mContext;
 	private NodeArray mRoots;
 	private int mMaxDepth;
@@ -109,6 +108,7 @@ public abstract class UserDictionaryBase extends EditableDictionary {
 			return null;
 		}
 	}
+
 	public void loadDictionary() {
 		synchronized (mUpdatingLock) {
 			if (!mUpdatingDictionary) {
@@ -382,14 +382,14 @@ public abstract class UserDictionaryBase extends EditableDictionary {
 		addWordRec(childNode.children, word, depth + 1, frequency);
 	}
 
-	protected void clearDictionary() {
+	protected synchronized void clearDictionary() {
 		mRoots = new NodeArray();
 	}
 
 	/**
 	 * Returns the word's frequency or -1 if not found
 	 */
-	public int getWordFrequency(CharSequence word) {
+	public synchronized int getWordFrequency(CharSequence word) {
 		return getWordFrequencyRec(mRoots, word, 0, word.length());
 	}
 

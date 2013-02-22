@@ -77,7 +77,7 @@ public class ContactsDictionary extends UserDictionaryBase {
 	}
 
 	@Override
-	protected void loadDictionaryAsync() {
+	protected synchronized void loadDictionaryAsync() {
 		Log.d(TAG, "Starting load of contact names...");
 		Cursor cursor = null;
 		try {
@@ -218,7 +218,7 @@ public class ContactsDictionary extends UserDictionaryBase {
 	}
 
 	@Override
-	protected void closeAllResources() {
+	protected synchronized void closeAllResources() {
 		if (mObserver != null) {
 			if (AnyApplication.DEBUG)
 				Log.d(TAG, "Unregisterring from contacts change notifications.");
@@ -228,15 +228,15 @@ public class ContactsDictionary extends UserDictionaryBase {
 	}
 
 	@Override
-	protected void AddWordToStorage(String word, int frequency) {
+	protected synchronized void AddWordToStorage(String word, int frequency) {
 	}
 
 	@Override
-	public WordsCursor getWordsCursor() {
+	public synchronized WordsCursor getWordsCursor() {
 		return null;
 	}
 
 	@Override
-	public void deleteWord(String word) {
+	public synchronized void deleteWord(String word) {
 	}
 }
