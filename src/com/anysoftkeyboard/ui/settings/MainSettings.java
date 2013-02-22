@@ -11,7 +11,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.util.Log;
 
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
@@ -19,6 +18,7 @@ import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.tutorials.WelcomeHowToNoticeActivity;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
 public class MainSettings extends PreferenceActivity {

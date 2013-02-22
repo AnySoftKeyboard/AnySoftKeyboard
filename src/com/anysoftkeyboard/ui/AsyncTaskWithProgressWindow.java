@@ -5,8 +5,8 @@ import java.lang.ref.WeakReference;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.AsyncTask;
-import android.util.Log;
 
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
 public abstract class AsyncTaskWithProgressWindow<Params, Progress, Result, A extends Activity>

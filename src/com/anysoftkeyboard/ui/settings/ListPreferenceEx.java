@@ -2,7 +2,6 @@ package com.anysoftkeyboard.ui.settings;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 
 public class ListPreferenceEx extends android.preference.ListPreference {
 

@@ -36,7 +36,6 @@ import android.graphics.drawable.Drawable;
 import android.inputmethodservice.InputMethodService;
 import android.media.AudioManager;
 import android.net.Uri;
-import android.os.Debug;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -44,7 +43,6 @@ import android.os.SystemClock;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
@@ -97,10 +95,12 @@ import com.anysoftkeyboard.receivers.SoundPreferencesChangedReceiver;
 import com.anysoftkeyboard.receivers.SoundPreferencesChangedReceiver.SoundPreferencesChangedListener;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
+import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.ui.settings.MainSettings;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 import com.anysoftkeyboard.utils.IMEUtil.GCUtils;
 import com.anysoftkeyboard.utils.IMEUtil.GCUtils.MemRelatedOperation;
+import com.anysoftkeyboard.utils.Log;
 import com.anysoftkeyboard.utils.ModifierKeyState;
 import com.anysoftkeyboard.utils.Workarounds;
 import com.anysoftkeyboard.voice.VoiceInput;
@@ -121,7 +121,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			public void setCloseText(View c) {
 				closeText = c;
 			}
-			
+
 			public void onAnimationStart(Animation animation) {
 			}
 
@@ -136,17 +136,18 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		private final CloseTextAnimationListener mCloseTextAnimationListener = new CloseTextAnimationListener();
 		private final WeakReference<AnySoftKeyboard> mKeyboard;
-		
+
 		public KeyboardUIStateHanlder(AnySoftKeyboard keyboard) {
 			mKeyboard = new WeakReference<AnySoftKeyboard>(keyboard);
 		}
-		
+
 		@Override
 		public void handleMessage(Message msg) {
 			AnySoftKeyboard ask = mKeyboard.get();
-			if (ask == null)//delayed posts and such may result in the reference gone
+			if (ask == null)// delayed posts and such may result in the
+							// reference gone
 				return;
-			
+
 			switch (msg.what) {
 			case MSG_UPDATE_SUGGESTIONS:
 				ask.performUpdateSuggestions();
@@ -164,7 +165,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			case MSG_REMOVE_CLOSE_SUGGESTIONS_HINT:
 				final View closeText = ask.mCandidateCloseText;
 				if (closeText != null) {// in API3, this variable is
-													// null
+										// null
 					mCloseTextAnimationListener.setCloseText(closeText);
 					Animation gone = AnimationUtils.loadAnimation(
 							ask.getApplicationContext(),
@@ -179,9 +180,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	private final static String TAG = "ASK";
-
-	// private final static int SWIPE_CORD = -2;
-	private final boolean TRACE_SDCARD = false;
 
 	private static final int MSG_UPDATE_SUGGESTIONS = 0;
 	private static final int MSG_RESTART_NEW_WORD_SUGGESTIONS = 1;
@@ -316,6 +314,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		mPrefs = PreferenceManager
+				.getDefaultSharedPreferences(getApplicationContext());
+		Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(
+				getApplication().getBaseContext(), null));
+		if (DeveloperUtils.hasTracingRequested(getApplicationContext())) {
+			DeveloperUtils.startTracing();
+			Toast.makeText(getApplicationContext(),
+					R.string.debug_tracing_starting, Toast.LENGTH_SHORT).show();
+		}
 		Log.i(TAG, "****** AnySoftKeyboard service started.");
 		// I'm handling animations. No need for any nifty ROMs assistance.
 		// I can't use this function with my own animations, since the
@@ -325,8 +332,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		 * Not right now... performance of my animations is lousy..
 		 * getWindow().getWindow().setWindowAnimations(0);
 		 */
-		Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(
-				getApplication().getBaseContext(), null));
 		mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 		mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 		updateRingerMode();
@@ -336,8 +341,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// register to receive packages changes
 		registerReceiver(mPackagesChangedReceiver,
 				mPackagesChangedReceiver.createFilterToRegisterOn());
-
-		mPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		mVibrator = ((Vibrator) getSystemService(Context.VIBRATOR_SERVICE));
 		loadSettings();
 		mConfig.addChangedListener(this);
@@ -384,17 +387,26 @@ public class AnySoftKeyboard extends InputMethodService implements
 		unregisterReceiver(mPackagesChangedReceiver);
 
 		mInputMethodManager.hideStatusIcon(mImeToken);
-		
+
 		if (mInputView != null)
 			mInputView.onViewNotRequired();
 		mInputView = null;
-		
+
 		mKeyboardSwitcher.setInputView(null);
-		
+
 		mSuggest.setAutoDictionary(null);
 		mSuggest.setContactsDictionary(getApplicationContext(), false);
 		mSuggest.setMainDictionary(null);
 		mSuggest.setUserDictionary(null);
+
+		if (DeveloperUtils.hasTracingStarted()) {
+			DeveloperUtils.stopTracing();
+			Toast.makeText(
+					getApplicationContext(),
+					getString(R.string.debug_tracing_finished,
+							DeveloperUtils.getTraceFile()), Toast.LENGTH_SHORT)
+					.show();
+		}
 
 		super.onDestroy();
 	}
@@ -426,7 +438,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (mInputView != null)
 			mInputView.onViewNotRequired();
 		mInputView = null;
-		
+
 		GCUtils.getInstance().peformOperationWithMemRetry(TAG,
 				new MemRelatedOperation() {
 					public void operation() {
@@ -615,7 +627,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	@Override
-	public void onStartInputView(final EditorInfo attribute, final boolean restarting) {
+	public void onStartInputView(final EditorInfo attribute,
+			final boolean restarting) {
 		if (DEBUG)
 			Log.d(TAG, "onStartInputView(EditorInfo:" + attribute.imeOptions
 					+ "," + attribute.inputType + ", restarting:" + restarting
@@ -757,11 +770,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mAutoSpace = true;
 		}
 
-		// mInputView.closing();
-
-		// mComposing.setLength(0);
-		// mWord.reset();
-
 		mPredicting = false;
 		// mDeleteCount = 0;
 		mJustAddedAutoSpace = false;
@@ -785,15 +793,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 			// this will release memory
 			setDictionariesForCurrentKeyboard();
 		}
-		if (TRACE_SDCARD)
-			Debug.startMethodTracing("anysoftkeyboard_log.trace");
 	}
 
 	@Override
 	public void hideWindow() {
-		if (TRACE_SDCARD)
-			Debug.stopMethodTracing();
-
 		if (mOptionsDialog != null && mOptionsDialog.isShowing()) {
 			mOptionsDialog.dismiss();
 			mOptionsDialog = null;
@@ -844,7 +847,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 					+ oldSelEnd + ", nss=" + newSelStart + ", nse=" + newSelEnd
 					+ ", cs=" + candidatesStart + ", ce=" + candidatesEnd);
 		}
-		
+
 		mWord.setGlobalCursorPosition(newSelEnd);
 
 		if (!isPredictionOn()/* || mInputView == null || !mInputView.isShown() */)
@@ -1035,8 +1038,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mUndoCommitCursorPosition = -2;// so it will be marked the next time
 			mWord.reset();
 
-			final int[] alekNearByKeys= new int[1];
-			
+			final int[] alekNearByKeys = new int[1];
+
 			for (int index = 0; index < word.length(); index++) {
 				final char c = word.charAt(index);
 				if (index == 0)
@@ -1364,8 +1367,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 													.getKeyCodeWasChanged());
 						}
 
-						keyTranslator
-								.translatePhysicalCharacter(mHardKeyboardAction, this);
+						keyTranslator.translatePhysicalCharacter(
+								mHardKeyboardAction, this);
 
 						if (DEBUG)
 							Log.v(TAG,
@@ -2601,7 +2604,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 			doubleSpace();
 		}
 		if (pickedDefault && mWord.getPreferredWord() != null) {
-			TextEntryState.acceptedDefault(mWord.getTypedWord(), mWord.getPreferredWord());
+			TextEntryState.acceptedDefault(mWord.getTypedWord(),
+					mWord.getPreferredWord());
 		}
 		updateShiftKeyState(getCurrentInputEditorInfo());
 		if (ic != null) {
@@ -2733,7 +2737,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 			// mJustAccepted = true;
 			pickSuggestion(bestWord, !bestWord.equals(typedWord));
 			// Add the word to the auto dictionary if it's not a known word
-			addToDictionaries(mWord.getPreferredWord(), AutoDictionary.FREQUENCY_FOR_TYPED);
+			addToDictionaries(mWord.getPreferredWord(),
+					AutoDictionary.FREQUENCY_FOR_TYPED);
 			return true;
 		}
 		return false;
@@ -2836,8 +2841,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 		InputConnection ic = getCurrentInputConnection();
 		if (ic != null) {
 			if (correcting) {
-				AnyApplication.getDeviceSpecific().commitCorrectionToInputConnection(ic, mWord);
-				//and drawing popout text
+				AnyApplication.getDeviceSpecific()
+						.commitCorrectionToInputConnection(ic, mWord);
+				// and drawing popout text
 				mInputView.popTextOutOfKey(mWord.getPreferredWord());
 			} else {
 				ic.commitText(suggestion, 1);
@@ -3203,7 +3209,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// the user lifted the finger, let's handle the shift
 		if (primaryCode != KeyCodes.SHIFT)
 			updateShiftKeyState(getCurrentInputEditorInfo());
-		if (primaryCode != KeyCodes.CTRL)
+		// and set the control state. Checking if the inputview is null
+		// this is weird, I agree, how can onRelease be called, if the inputview
+		// is null
+		// well, there are some cases where the onRelease is called with a
+		// delayed message, and in this case the view may already be disposed!
+		// Issue #94.
+		if (primaryCode != KeyCodes.CTRL && mInputView != null)
 			mInputView.setControl(mControlKeyState.isMomentary());
 	}
 
@@ -3336,13 +3348,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 					String mappingSettingsKey = getDictionaryOverrideKey(currentKeyobard);
 					String defaultDictionary = currentKeyobard
 							.getDefaultDictionaryLocale();
-					String dictionaryValue = mPrefs.getString(mappingSettingsKey, null);
+					String dictionaryValue = mPrefs.getString(
+							mappingSettingsKey, null);
 					DictionaryAddOnAndBuilder dictionaryBuilder = null;
 
 					if (dictionaryValue == null) {
 						dictionaryBuilder = ExternalDictionaryFactory
 								.getDictionaryBuilderByLocale(currentKeyobard
-										.getDefaultDictionaryLocale(), getApplicationContext());
+										.getDefaultDictionaryLocale(),
+										getApplicationContext());
 					} else {
 						if (DEBUG) {
 							Log.d(TAG,
@@ -3356,20 +3370,20 @@ public class AnySoftKeyboard extends InputMethodService implements
 											+ dictionaryValue + "'");
 						}
 						dictionaryBuilder = ExternalDictionaryFactory
-								.getDictionaryBuilderById(dictionaryValue, getApplicationContext());
+								.getDictionaryBuilderById(dictionaryValue,
+										getApplicationContext());
 					}
 
 					mSuggest.setMainDictionary(dictionaryBuilder);
 					String localeForSupportingDictionaries = dictionaryBuilder != null ? dictionaryBuilder
 							.getLanguage() : defaultDictionary;
 					mUserDictionary = mSuggest.getDictionaryFactory()
-							.createUserDictionary(this,
+							.createUserDictionary(getApplicationContext(),
 									localeForSupportingDictionaries);
-					mUserDictionary.loadDictionary();
 					mSuggest.setUserDictionary(mUserDictionary);
 
 					mAutoDictionary = mSuggest.getDictionaryFactory()
-							.createAutoDictionary(this, this,
+							.createAutoDictionary(getApplicationContext(), this,
 									localeForSupportingDictionaries);
 					mSuggest.setAutoDictionary(mAutoDictionary);
 					mSuggest.setContactsDictionary(getApplicationContext(),
@@ -3395,7 +3409,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void launchDictionaryOverriding() {
 		final String dictionaryOverridingKey = getDictionaryOverrideKey(getCurrentKeyboard());
-		final String dictionaryOverrideValue = mPrefs.getString(dictionaryOverridingKey, null);
+		final String dictionaryOverrideValue = mPrefs.getString(
+				dictionaryOverridingKey, null);
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setCancelable(true);
 		builder.setIcon(R.drawable.ic_launcher);

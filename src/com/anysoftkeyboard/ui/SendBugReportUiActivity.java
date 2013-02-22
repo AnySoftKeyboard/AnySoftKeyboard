@@ -1,5 +1,6 @@
 package com.anysoftkeyboard.ui;
 
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
 import android.app.Activity;
@@ -8,7 +9,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 
@@ -62,7 +62,7 @@ public class SendBugReportUiActivity extends Activity {
 			Log.i(TAG, "Will send crash report using "+sender);
 			startActivity(sender);
 		} catch (android.content.ActivityNotFoundException ex) {
-			Toast.makeText(this, "Unable to send bug report via e-mail!", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(), "Unable to send bug report via e-mail!", Toast.LENGTH_LONG).show();
 		}
 		
 		finish();

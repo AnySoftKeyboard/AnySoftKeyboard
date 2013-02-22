@@ -18,13 +18,13 @@ package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -231,11 +231,7 @@ public class KeyboardSwitcher {
 
 		if ((force || mAlphabetKeyboards.length == 0)
 				|| (mSymbolsKeyboardsArray.length == 0)) {
-			if (AnyApplication.DEBUG)
-				Log.d(TAG, "makeKeyboards: force:" + force);
 			if (mAlphabetKeyboards.length == 0) {
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "makeKeyboards: creating alphabets");
 				mAlphabetKeyboardsCreators = KeyboardFactory
 						.getEnabledKeyboards(mContext).toArray(
 								new KeyboardAddOnAndBuilder[] {});
@@ -245,8 +241,6 @@ public class KeyboardSwitcher {
 					mLastSelectedKeyboard = 0;
 			}
 			if (mSymbolsKeyboardsArray.length == 0) {
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "makeKeyboards: creating symbols");
 				mSymbolsKeyboardsArray = new AnyKeyboard[SYMBOLS_KEYBOARDS_COUNT];
 				if (mLastSelectedSymbolsKeyboard >= mSymbolsKeyboardsArray.length)
 					mLastSelectedSymbolsKeyboard = 0;
@@ -273,10 +267,6 @@ public class KeyboardSwitcher {
 	}
 
 	synchronized void resetKeyboardsCache() {
-		if (AnyApplication.DEBUG) {
-			Log.d(TAG, "Forcing Keyboards cache clear");
-			// Thread.dumpStack();
-		}
 		mAlphabetKeyboards = EMPTY_AnyKeyboards;
 		mSymbolsKeyboardsArray = EMPTY_AnyKeyboards;
 	}

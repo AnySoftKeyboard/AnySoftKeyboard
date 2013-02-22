@@ -16,7 +16,7 @@
 
 package com.anysoftkeyboard.voice;
 
-import android.util.Log;
+import com.anysoftkeyboard.utils.Log;
 
 /**
  * Triggers a voice recognition by using {@link ImeTrigger} or

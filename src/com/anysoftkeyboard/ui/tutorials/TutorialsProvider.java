@@ -3,6 +3,7 @@ package com.anysoftkeyboard.ui.tutorials;
 import java.util.ArrayList;
 
 import com.anysoftkeyboard.ui.settings.MainSettings;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -16,7 +17,6 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 public class TutorialsProvider 
 {

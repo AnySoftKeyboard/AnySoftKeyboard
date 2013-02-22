@@ -20,9 +20,8 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.net.Uri;
-import android.util.Log;
 
-import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.anysoftkeyboard.utils.Log;
 
 @TargetApi(16)
 public class ContactsDictionaryAPI16 extends ContactsDictionary {
@@ -37,8 +36,7 @@ public class ContactsDictionaryAPI16 extends ContactsDictionary {
 
 			@Override
 			public void onChange(boolean selfChange, Uri uri) {
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "Contacts list modified (self: " + selfChange
+				Log.d(TAG, "Contacts list modified (self: " + selfChange
 							+ ", uri: " + uri + "). Reloading...");
 				super.onChange(selfChange, uri);
 				loadDictionary();
@@ -46,8 +44,7 @@ public class ContactsDictionaryAPI16 extends ContactsDictionary {
 
 			@Override
 			public void onChange(boolean selfChange) {
-				if (AnyApplication.DEBUG)
-					Log.d(TAG, "Contacts list modified (self: " + selfChange
+				Log.d(TAG, "Contacts list modified (self: " + selfChange
 							+ "). Reloading...");
 				super.onChange(selfChange);
 				loadDictionary();

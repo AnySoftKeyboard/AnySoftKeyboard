@@ -30,9 +30,9 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.os.AsyncTask;
 import android.provider.BaseColumns;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 /**
@@ -119,7 +119,7 @@ public class AutoDictionary extends UserDictionaryBase {
 	}
 
 	@Override
-	public void close() {
+	public synchronized void close() {
 		flushPendingWrites();
 		// Don't close the database as locale changes will require it to be
 		// reopened anyway
@@ -131,7 +131,7 @@ public class AutoDictionary extends UserDictionaryBase {
 	}
 
 	@Override
-	protected void loadDictionaryAsync() {
+	protected synchronized void loadDictionaryAsync() {
 		// Load the words that correspond to the current input locale
 		WordsCursor wordsCursor = getWordsCursor();
 		Cursor cursor = wordsCursor.getCursor();
@@ -176,7 +176,7 @@ public class AutoDictionary extends UserDictionaryBase {
 		boolean added = false;
 		if (freq >= AnyApplication.getConfig()
 				.getAutoDictionaryInsertionThreshold()) {
-			Log.d(TAG, "Promoting the word " + word + " (freq " + freq
+			Log.i(TAG, "Promoting the word " + word + " (freq " + freq
 					+ ") to the user dictionary. It earned it.");
 			added = mIme.promoteToUserDictionary(word, FREQUENCY_FOR_AUTO_ADD);
 			freq = 0;

@@ -4,10 +4,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.util.Log;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.addons.AddOnsFactory;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 public class PackagesChangedReceiver extends BroadcastReceiver {

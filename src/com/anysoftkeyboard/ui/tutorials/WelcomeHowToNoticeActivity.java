@@ -9,7 +9,6 @@ import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 import android.provider.Settings.Secure;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ScrollView;
@@ -17,6 +16,7 @@ import android.widget.Toast;
 
 import com.anysoftkeyboard.receivers.AnySoftKeyboardInstalledReceiver;
 import com.anysoftkeyboard.ui.MainForm;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 

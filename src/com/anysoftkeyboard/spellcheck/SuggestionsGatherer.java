@@ -3,11 +3,10 @@ package com.anysoftkeyboard.spellcheck;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import android.util.Log;
-
 import com.anysoftkeyboard.dictionaries.Dictionary.WordCallback;
 import com.anysoftkeyboard.utils.ArraysCompatUtils;
 import com.anysoftkeyboard.utils.IMEUtil;
+import com.anysoftkeyboard.utils.Log;
 
 class SuggestionsGatherer implements WordCallback {
     public static class Result {

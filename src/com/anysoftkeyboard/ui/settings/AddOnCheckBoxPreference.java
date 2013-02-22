@@ -15,7 +15,6 @@ import android.graphics.drawable.Drawable;
 import android.preference.Preference;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +31,7 @@ import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.IconHolder;
 import com.anysoftkeyboard.addons.ScreenshotHolder;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
 public class AddOnCheckBoxPreference extends Preference implements
