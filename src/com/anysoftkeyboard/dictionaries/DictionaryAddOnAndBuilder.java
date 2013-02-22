@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.anysoftkeyboard.addons.AddOnImpl;
+import com.anysoftkeyboard.utils.Log;
 
 public class DictionaryAddOnAndBuilder extends AddOnImpl {
 

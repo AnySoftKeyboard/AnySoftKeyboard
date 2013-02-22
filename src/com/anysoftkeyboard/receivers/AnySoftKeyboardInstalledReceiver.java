@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.receivers;
 
 import com.anysoftkeyboard.ui.tutorials.WelcomeHowToNoticeActivity;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
 import android.app.Notification;
@@ -9,7 +10,6 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 /*
  * This receiver is (hopefully) called after AnySoftKeyboard installed from the Market
@@ -31,9 +31,6 @@ public class AnySoftKeyboardInstalledReceiver extends BroadcastReceiver {
 		
 		if (WelcomeHowToNoticeActivity.shouldShowWelcomeActivity(context))
 		{
-			//this is the first time the application is loaded.
-			Log.i(TAG, "How-to-activate notification icon added");
-
 			Intent i = new Intent(context, WelcomeHowToNoticeActivity.class);
 			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			

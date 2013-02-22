@@ -7,7 +7,6 @@ import org.xmlpull.v1.XmlPullParser;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.Xml;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
@@ -16,6 +15,7 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 public class ExternalAnyKeyboard extends AnyKeyboard implements
@@ -57,8 +57,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements
 		mIconId = iconResId;
 		mDefaultDictionary = defaultDictionary;
 		if (qwertyTranslationId != AddOn.INVALID_RES_ID) {
-			if (AnyApplication.DEBUG)
-				Log.d(TAG, "Creating qwerty mapping:" + qwertyTranslationId);
+			Log.d(TAG, "Creating qwerty mapping:" + qwertyTranslationId);
 			mHardKeyboardTranslator = createPhysicalTranslatorFromResourceId(
 					context, qwertyTranslationId);
 		} else {

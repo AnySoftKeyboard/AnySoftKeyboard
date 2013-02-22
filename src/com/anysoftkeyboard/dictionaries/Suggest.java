@@ -24,10 +24,10 @@ import net.evendanan.frankenrobot.Diagram;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.anysoftkeyboard.WordComposer;
 import com.anysoftkeyboard.utils.IMEUtil;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -124,6 +124,7 @@ public class Suggest implements Dictionary.WordCallback {
 									: dictionaryBuilder.getName()));
 		if (mMainDict != null) {
 			mMainDict.close();
+			mMainDict = null;
 		}
 
 		if (dictionaryBuilder == null) {

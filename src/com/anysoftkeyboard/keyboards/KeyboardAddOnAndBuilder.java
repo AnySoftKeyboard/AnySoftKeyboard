@@ -3,13 +3,12 @@ package com.anysoftkeyboard.keyboards;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 
-import com.anysoftkeyboard.AnyKeyboardContextProvider;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnImpl;
 import com.anysoftkeyboard.addons.IconHolder;
 import com.anysoftkeyboard.addons.ScreenshotHolder;
+import com.anysoftkeyboard.utils.Log;
 
 public class KeyboardAddOnAndBuilder extends AddOnImpl implements IconHolder, ScreenshotHolder {
 
@@ -72,7 +71,7 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl implements IconHolder, Sc
 	    		return null;
 	    	}
     	} catch (Resources.NotFoundException n) {
-    		Log.w(TAG, "Failed to load pack ICON! ResId: "+mIconResId);
+			Log.w(TAG, "Failed to load pack ICON! ResId: "+mIconResId);
     		return null;
     	}
     }

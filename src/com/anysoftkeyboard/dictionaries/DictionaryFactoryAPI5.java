@@ -1,7 +1,8 @@
 package com.anysoftkeyboard.dictionaries;
 
+import com.anysoftkeyboard.utils.Log;
+
 import android.content.Context;
-import android.util.Log;
 
 public class DictionaryFactoryAPI5 extends DictionaryFactory {
 	private static final String TAG = "ASK DictFctry5";

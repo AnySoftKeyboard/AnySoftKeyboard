@@ -9,8 +9,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.UserDictionary.Words;
-import android.util.Log;
 
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 public class DictionarySQLiteConnection extends SQLiteOpenHelper {
@@ -144,8 +144,7 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper {
 						while (!c.isAfterLast()) {
 							String word = c.getString(wordColumnIndex);
 							int freq = c.getInt(freqColumnIndex);
-							words.add(new DictionaryWord(word.toLowerCase(),
-									freq));
+							words.add(new DictionaryWord(word, freq));
 							c.moveToNext();
 						}
 					}

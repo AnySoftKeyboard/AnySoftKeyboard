@@ -3,7 +3,6 @@ package com.anysoftkeyboard.utils;
 import java.lang.reflect.Field;
 
 import com.menny.android.anysoftkeyboard.AnyApplication;
-
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 

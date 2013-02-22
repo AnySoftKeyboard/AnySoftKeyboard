@@ -16,70 +16,79 @@
 
 package com.anysoftkeyboard.voice;
 
+import com.anysoftkeyboard.utils.Log;
+
 import android.content.Intent;
 import android.inputmethodservice.InputMethodService;
-import android.util.Log;
 
 /**
  * Triggers a voice recognition by using {@link ImeTrigger} or
  * {@link IntentApiTrigger}.
  */
 public class VoiceRecognitionTrigger implements VoiceInput {
-    private static final String TAG = "ASK_VoiceRecognitionTrigger";
-    
+	private static final String TAG = "ASK_VoiceRecognitionTrigger";
+
 	protected final InputMethodService mInputMethodService;
 
-    private Trigger mTrigger;
+	private Trigger mTrigger;
 
-    public VoiceRecognitionTrigger(VoiceInputDiagram diagram) {
-        mInputMethodService = diagram.getInputMethodService();
-        mTrigger = getTrigger();
-    }
+	public VoiceRecognitionTrigger(VoiceInputDiagram diagram) {
+		mInputMethodService = diagram.getInputMethodService();
+		mTrigger = getTrigger();
+	}
 
-    protected Trigger getTrigger() {
-        if (IntentApiTrigger.isInstalled(mInputMethodService)) {
-            return getIntentTrigger();
-        } else {
-        	Log.d(TAG, "IntentApiTrigger is not installed");
-            return null;
-        }
-    }
+	protected Trigger getTrigger() {
+		if (IntentApiTrigger.isInstalled(mInputMethodService)) {
+			return getIntentTrigger();
+		} else {
+			Log.d(TAG, "IntentApiTrigger is not installed");
+			return null;
+		}
+	}
 
-    private Trigger getIntentTrigger() {
-        return new IntentApiTrigger(mInputMethodService);
-    }
-    
-    /**
-     * Starts a voice recognition. The language of the recognition will match
-     * the voice search language settings, or the locale of the calling IME.
-     */
-    public void startVoiceRecognition() {
-    	startVoiceRecognition(null);
-    }
+	private Trigger getIntentTrigger() {
+		return new IntentApiTrigger(mInputMethodService);
+	}
 
-    /* (non-Javadoc)
-	 * @see com.anysoftkeyboard.voice.VoiceInput#startVoiceRecognition(java.lang.String)
+	/**
+	 * Starts a voice recognition. The language of the recognition will match
+	 * the voice search language settings, or the locale of the calling IME.
 	 */
-    public void startVoiceRecognition(String language) {
-        // The trigger is refreshed as the system may have changed in the meanwhile.
-    	mTrigger = getTrigger();
-        if (mTrigger != null) {
-            mTrigger.startVoiceRecognition(language);
-        }
-        else
-        {
-        	Intent notInstalledActivity = new Intent(mInputMethodService.getApplicationContext(), VoiceInputNotInstalledActivity.class);
-        	notInstalledActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        	mInputMethodService.getApplicationContext().startActivity(notInstalledActivity);
-        }
-    }
+	public void startVoiceRecognition() {
+		startVoiceRecognition(null);
+	}
 
-    /* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.anysoftkeyboard.voice.VoiceInput#startVoiceRecognition(java.lang.
+	 * String)
+	 */
+	public void startVoiceRecognition(String language) {
+		// The trigger is refreshed as the system may have changed in the
+		// meanwhile.
+		mTrigger = getTrigger();
+		if (mTrigger != null) {
+			mTrigger.startVoiceRecognition(language);
+		} else {
+			Intent notInstalledActivity = new Intent(
+					mInputMethodService.getApplicationContext(),
+					VoiceInputNotInstalledActivity.class);
+			notInstalledActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			mInputMethodService.getApplicationContext().startActivity(
+					notInstalledActivity);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.anysoftkeyboard.voice.VoiceInput#onStartInputView()
 	 */
-    public void onStartInputView() {
-        if (mTrigger != null) {
-            mTrigger.onStartInputView();
-        }
-    }
+	public void onStartInputView() {
+		if (mTrigger != null) {
+			mTrigger.onStartInputView();
+		}
+	}
 }
