@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<integer name="key_code_esc">27</integer>
+    <integer name="key_code_esc">27</integer>
     <integer name="key_code_tab">9</integer>
-    
-	<integer name="key_code_space">32</integer>
-	<integer name="key_code_enter">10</integer>
-	<integer name="key_code_delete">-5</integer>
-	<integer name="key_code_clear_input">-13</integer>
-	<integer name="key_code_voice_input">-4</integer>
-	
-	<integer name="key_code_quick_text">-10</integer>
-	<integer name="key_code_quick_text_popup">-102</integer>
-	<integer name="key_code_domain">-9</integer>
-	
-	<integer name="key_code_shift">-1</integer>
-	<integer name="key_code_alt">-6</integer>
-	<integer name="key_code_ctrl">-11</integer>
-	
-	<integer name="key_code_mode_symbols">-2</integer>
-	<integer name="key_code_mode_alphabet">-99</integer>
-	<integer name="key_code_mode_alphabet_popup">-98</integer>
-	<integer name="key_code_keyboard_cycle">-97</integer>
+
+    <integer name="key_code_space">32</integer>
+    <integer name="key_code_enter">10</integer>
+    <integer name="key_code_delete">-5</integer>
+    <integer name="key_code_clear_input">-13</integer>
+    <integer name="key_code_voice_input">-4</integer>
+
+    <integer name="key_code_quick_text">-10</integer>
+    <integer name="key_code_quick_text_popup">-102</integer>
+    <integer name="key_code_domain">-9</integer>
+
+    <integer name="key_code_shift">-1</integer>
+    <integer name="key_code_alt">-6</integer>
+    <integer name="key_code_ctrl">-11</integer>
+
+    <integer name="key_code_mode_symbols">-2</integer>
+    <integer name="key_code_mode_alphabet">-99</integer>
+    <integer name="key_code_mode_alphabet_popup">-98</integer>
+    <integer name="key_code_keyboard_cycle">-97</integer>
     <integer name="key_code_keyboard_reverse_cycle">-96</integer>
-	<integer name="key_code_keyboard_cycle_inside_mode">-95</integer>
-	<integer name="key_code_keyboard_mode_change">-94</integer>
-	
-	<integer name="key_code_arrow_left">-20</integer>
-	<integer name="key_code_arrow_right">-21</integer>
-	<integer name="key_code_arrow_up">-22</integer>
-	<integer name="key_code_arrow_down">-23</integer>
-	<integer name="key_code_move_home">-24</integer>
-	<integer name="key_code_move_end">-25</integer>
-	
-	<integer name="key_code_settings">-100</integer>
-	<integer name="key_code_clipboard">-12</integer>
-	<integer name="key_code_cancel">-3</integer>
-	
-	<integer name="key_code_split_layout">-110</integer>
-	<integer name="key_code_merge_layout">-111</integer>
-	
-	<integer name="key_code_utility_keyboard">-120</integer>
-	
-	<integer name="key_code_delete_word">-7</integer>
+    <integer name="key_code_keyboard_cycle_inside_mode">-95</integer>
+    <integer name="key_code_keyboard_mode_change">-94</integer>
+
+    <integer name="key_code_arrow_left">-20</integer>
+    <integer name="key_code_arrow_right">-21</integer>
+    <integer name="key_code_arrow_up">-22</integer>
+    <integer name="key_code_arrow_down">-23</integer>
+    <integer name="key_code_move_home">-24</integer>
+    <integer name="key_code_move_end">-25</integer>
+
+    <integer name="key_code_settings">-100</integer>
+    <integer name="key_code_clipboard">-12</integer>
+    <integer name="key_code_cancel">-3</integer>
+
+    <integer name="key_code_split_layout">-110</integer>
+    <integer name="key_code_merge_layout">-111</integer>
+
+    <integer name="key_code_utility_keyboard">-120</integer>
+
+    <integer name="key_code_delete_word">-7</integer>
 </resources>

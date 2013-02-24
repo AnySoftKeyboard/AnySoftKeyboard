@@ -16,7 +16,7 @@
 
 <resources>
 
-	<declare-styleable name="Keyboard">
+    <declare-styleable name="Keyboard">
         <!-- Default width of a key, in pixels or percentage of display width. -->
         <attr name="android:keyWidth"/>
         <!-- Default height of a key, in pixels or percentage of display width. -->
@@ -39,9 +39,9 @@
     <declare-styleable name="Keyboard_Key">
         <!-- The unicode value or comma-separated values that this key outputs. -->
         <attr name="android:codes"/>
-        
+
         <!-- The XML keyboard layout of any popup keyboard. -->
-        <attr name="android:popupKeyboard" />
+        <attr name="android:popupKeyboard"/>
         <!-- The characters to display in the popup keyboard. -->
         <attr name="android:popupCharacters"/>
         <!-- Key edge flags. -->
@@ -52,7 +52,7 @@
         <!-- Whether this is a toggle key. -->
         <attr name="android:isSticky"/>
         <!-- Whether long-pressing on this key will make it repeat. -->
-        <attr name="android:isRepeatable" />
+        <attr name="android:isRepeatable"/>
         <!-- The icon to show in the popup preview. -->
         <attr name="android:iconPreview"/>
         <!-- The string of characters to output when this key is pressed. -->
@@ -63,335 +63,338 @@
         <attr name="android:keyIcon"/>
         <!-- Mode of the keyboard. If the mode doesn't match the
              requested keyboard mode, the key will be skipped. -->
-        <attr name="android:keyboardMode" />
-        
-        <attr name="longPressCode" format="integer" />
-        
-        <attr name="isFunctional" format="boolean" />
-        
+        <attr name="android:keyboardMode"/>
+
+        <attr name="longPressCode" format="integer"/>
+
+        <attr name="isFunctional" format="boolean"/>
+
         <attr name="shiftedCodes" format="integer|string"/>
     </declare-styleable>
-    
+
     <declare-styleable name="AnyKeyboardBaseView">
         <!-- Image for the key. This image needs to be a StateListDrawable, with the following
              possible states: normal, pressed, checkable, checkable+pressed, checkable+checked,
              checkable+checked+pressed. -->
-        <attr name="keyBackground" format="reference" />
+        <attr name="keyBackground" format="reference"/>
 
         <!-- Size of the text for character keys. -->
-        <attr name="keyTextSize" format="dimension" />
+        <attr name="keyTextSize" format="dimension"/>
 
         <!-- Size of the text for custom keys with some text and no icon. -->
-        <attr name="labelTextSize" format="dimension" />
+        <attr name="labelTextSize" format="dimension"/>
 
         <!-- Color to use for the label in a key. -->
-        <attr name="keyTextColor" format="color" />
-		
+        <attr name="keyTextColor" format="color"/>
+
         <!-- size of different keys height -->
-        <attr name="keyNormalHeight" format="dimension" />
-        <attr name="keySmallHeight" format="dimension" />
-        <attr name="keyLargeHeight" format="dimension" />
-        
-        <attr name="keyHorizontalGap" format="dimension" />
-        <attr name="keyVerticalGap" format="dimension" />
-        
+        <attr name="keyNormalHeight" format="dimension"/>
+        <attr name="keySmallHeight" format="dimension"/>
+        <attr name="keyLargeHeight" format="dimension"/>
+
+        <attr name="keyHorizontalGap" format="dimension"/>
+        <attr name="keyVerticalGap" format="dimension"/>
+
         <!-- Vertical offset of the key press feedback from the key. -->
-        <attr name="keyPreviewOffset" format="dimension" />
-        <attr name="keyPreviewBackground" format="reference" />
-        <attr name="keyPreviewTextSize" format="dimension" />
-        <attr name="keyPreviewTextColor" format="color" />
-        <attr name="keyPreviewLabelTextSize" format="dimension" />
-        
+        <attr name="keyPreviewOffset" format="dimension"/>
+        <attr name="keyPreviewBackground" format="reference"/>
+        <attr name="keyPreviewTextSize" format="dimension"/>
+        <attr name="keyPreviewTextColor" format="color"/>
+        <attr name="keyPreviewLabelTextSize" format="dimension"/>
+
         <!-- Hysteresis distance for key debouncing -->
-        <attr name="keyHysteresisDistance" format="dimension" />
+        <attr name="keyHysteresisDistance" format="dimension"/>
 
         <!-- Amount to offset the touch Y coordinate by, for bias correction. -->
-        <attr name="verticalCorrection" format="dimension" />
+        <attr name="verticalCorrection" format="dimension"/>
 
-        <attr name="shadowColor" format="color" />
-        <attr name="shadowRadius" format="dimension" />
-        <attr name="shadowOffsetX" format="dimension" />
-        <attr name="shadowOffsetY" format="dimension" />
-        
-        <attr name="backgroundDimAmount" format="float" />
+        <attr name="shadowColor" format="color"/>
+        <attr name="shadowRadius" format="dimension"/>
+        <attr name="shadowOffsetX" format="dimension"/>
+        <attr name="shadowOffsetY" format="dimension"/>
+
+        <attr name="backgroundDimAmount" format="float"/>
 
         <attr name="keyTextStyle">
-            <flag name="normal" value="0" />
-            <flag name="bold" value="1" />
-            <flag name="italic" value="2" />
-        </attr>
-		
-        <attr name="symbolColorScheme">
-            <flag name="white" value="0" />
-            <flag name="black" value="1" />
+            <flag name="normal" value="0"/>
+            <flag name="bold" value="1"/>
+            <flag name="italic" value="2"/>
         </attr>
 
-		<attr name="android:background"/>
-		<attr name="android:paddingLeft"/>
-		<attr name="android:paddingTop"/>
-		<attr name="android:paddingRight"/>
-		<attr name="android:paddingBottom"/>
-		
-		<attr name="suggestionNormalTextColor" format="color" />
-		<attr name="suggestionRecommendedTextColor" format="color" />
-		<attr name="suggestionOthersTextColor" format="color" />
-		<attr name="suggestionTextSize" format="dimension" />
-		<attr name="suggestionBackgroundImage" format="reference" />
-		<attr name="suggestionDividerImage" format="reference" />
-		<attr name="suggestionStripHeight" format="dimension" />
+        <attr name="symbolColorScheme">
+            <flag name="white" value="0"/>
+            <flag name="black" value="1"/>
+        </attr>
+
+        <attr name="android:background"/>
+        <attr name="android:paddingLeft"/>
+        <attr name="android:paddingTop"/>
+        <attr name="android:paddingRight"/>
+        <attr name="android:paddingBottom"/>
+
+        <attr name="suggestionNormalTextColor" format="color"/>
+        <attr name="suggestionRecommendedTextColor" format="color"/>
+        <attr name="suggestionOthersTextColor" format="color"/>
+        <attr name="suggestionTextSize" format="dimension"/>
+        <attr name="suggestionBackgroundImage" format="reference"/>
+        <attr name="suggestionDividerImage" format="reference"/>
+        <attr name="suggestionStripHeight" format="dimension"/>
     </declare-styleable>
 
-	<declare-styleable name="keyType">
-		<attr name="key_type_function" format="boolean" />
-		<attr name="key_type_action" format="boolean" />
-		<attr name="key_type_feedback" format="boolean" />
-	</declare-styleable>
-	
-	<declare-styleable name="keyActionType">
-		<attr name="action_done" format="boolean" />
-		<attr name="action_search" format="boolean" />
-		<attr name="action_go" format="boolean" />
-		<attr name="action_send" format="boolean" />
-	</declare-styleable>
-	
-	<declare-styleable name="AnyKeyboardBaseViewV2">
-		<!-- Size of the text for hinting about long press output. -->
-        <attr name="hintTextSize" format="dimension" />
+    <declare-styleable name="keyType">
+        <attr name="key_type_function" format="boolean"/>
+        <attr name="key_type_action" format="boolean"/>
+        <attr name="key_type_feedback" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="keyActionType">
+        <attr name="action_done" format="boolean"/>
+        <attr name="action_search" format="boolean"/>
+        <attr name="action_go" format="boolean"/>
+        <attr name="action_send" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="AnyKeyboardBaseViewV2">
+        <!-- Size of the text for hinting about long press output. -->
+        <attr name="hintTextSize" format="dimension"/>
 
         <!-- Color to use for hint text. -->
-        <attr name="hintTextColor" format="color" />
-	</declare-styleable>
-	
-	<declare-styleable name="AnySoftKeyboardKeyIcons">
-		<!-- should support normal, android:state_pressed, key_type_feedback, android:state_pressed+key_type_feedback, android:state_checked, state_checked+key_type_feedback -->
-		<attr name="iconKeyShift" format="reference" />
-		<!-- should support normal, android:state_pressed, key_type_feedback, android:state_pressed+key_type_feedback, android:state_checked, state_checked+key_type_feedback -->
-		<attr name="iconKeyControl" format="reference" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyBackspace" format="reference" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeySpace" format="reference" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyTab" format="reference" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyCancel" format="reference" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyGlobe" format="reference" />
-		<!-- should support normal, key_type_feedback, action_done, action_done+key_type_feedback, action_search, action_search+key_type_feedback, action_go, action_go+key_type_feedback  -->
-		<attr name="iconKeyAction" format="reference" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyArrowRight" format="reference" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyArrowLeft" format="reference" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyArrowUp" format="reference" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyArrowDown" format="reference" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyMic" format="reference" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeySettings" format="reference" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyInputClear" format="reference" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyInputSelectAll" format="reference" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyInputClipboardCopy" format="reference" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyInputClipboardCut" format="reference" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyInputClipboardPaste" format="reference" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyInputMoveEnd" format="reference" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyInputMoveHome" format="reference" />
-	</declare-styleable>
-	
-	<!-- for backword compatibility, it is required to be defined at the end... -->
+        <attr name="hintTextColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="AnySoftKeyboardKeyIcons">
+        <!-- should support normal, android:state_pressed, key_type_feedback, android:state_pressed+key_type_feedback, android:state_checked, state_checked+key_type_feedback -->
+        <attr name="iconKeyShift" format="reference"/>
+        <!-- should support normal, android:state_pressed, key_type_feedback, android:state_pressed+key_type_feedback, android:state_checked, state_checked+key_type_feedback -->
+        <attr name="iconKeyControl" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyBackspace" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeySpace" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyTab" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyCancel" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyGlobe" format="reference"/>
+        <!-- should support normal, key_type_feedback, action_done, action_done+key_type_feedback, action_search, action_search+key_type_feedback, action_go, action_go+key_type_feedback  -->
+        <attr name="iconKeyAction" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyArrowRight" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyArrowLeft" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyArrowUp" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyArrowDown" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyMic" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeySettings" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyInputClear" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyInputSelectAll" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyInputClipboardCopy" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyInputClipboardCut" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyInputClipboardPaste" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyInputMoveEnd" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyInputMoveHome" format="reference"/>
+    </declare-styleable>
+
+    <!-- for backword compatibility, it is required to be defined at the end... -->
     <declare-styleable name="Keyboard_Key_v2">
         <attr name="shiftedKeyLabel" format="string"/>
     </declare-styleable>
-    
+
     <declare-styleable name="AnyKeyboardBaseViewV3">
-		<!-- Size of the text for the prefered word. -->
-        <attr name="suggestionPreferedWordTextSize" format="dimension" />
-		<!-- vertical padding. -->
-        <attr name="suggestionWordXGap" format="dimension" />
-	</declare-styleable>
+        <!-- Size of the text for the prefered word. -->
+        <attr name="suggestionPreferedWordTextSize" format="dimension"/>
+        <!-- vertical padding. -->
+        <attr name="suggestionWordXGap" format="dimension"/>
+    </declare-styleable>
 
-	<!-- additional key types that can be used to make themes interesting -->
-	<!-- can auto-detect these, but allow keyboard layout to set some, such as -->
-	<!-- punctuation, navigation, numeric, symbol, alpha -->
-	<!-- for auto-detecting, difference between "punctuation" and "symbol" could just -->
-	<!-- be if the unicode value is above 0x0100, since that's probably close enough -->
-	<!-- intent is that "functional" type is unchanged, so a shift key is still functional -->
-	<!-- to ensure backwards compatibility -->
-	<declare-styleable name="keyTypeV2">
-	    <!-- FOR FUTURE EXPANSION - NOT YET SUPPORTED -->
-    	<attr name="key_type_punctuation" format="boolean" />
-    	<attr name="key_type_navigation" format="boolean" />
-    	<attr name="key_type_numeric" format="boolean" />
-    	<attr name="key_type_symbol" format="boolean" />
-    	<attr name="key_type_alpha" format="boolean" />
-    	<attr name="key_type_space" format="boolean" />
-    	<attr name="key_type_shift" format="boolean" />
-    	<attr name="key_type_delete" format="boolean" />
-	</declare-styleable>
-	
-	<declare-styleable name="Keyboard_Key_v3">
+    <!-- additional key types that can be used to make themes interesting -->
+    <!-- can auto-detect these, but allow keyboard layout to set some, such as -->
+    <!-- punctuation, navigation, numeric, symbol, alpha -->
+    <!-- for auto-detecting, difference between "punctuation" and "symbol" could just -->
+    <!-- be if the unicode value is above 0x0100, since that's probably close enough -->
+    <!-- intent is that "functional" type is unchanged, so a shift key is still functional -->
+    <!-- to ensure backwards compatibility -->
+    <declare-styleable name="keyTypeV2">
+        <!-- FOR FUTURE EXPANSION - NOT YET SUPPORTED -->
+        <attr name="key_type_punctuation" format="boolean"/>
+        <attr name="key_type_navigation" format="boolean"/>
+        <attr name="key_type_numeric" format="boolean"/>
+        <attr name="key_type_symbol" format="boolean"/>
+        <attr name="key_type_alpha" format="boolean"/>
+        <attr name="key_type_space" format="boolean"/>
+        <attr name="key_type_shift" format="boolean"/>
+        <attr name="key_type_delete" format="boolean"/>
+    </declare-styleable>
 
-    	<!-- The characters to display as a hint for the popup keyboard -->
-    	<attr name="hintLabel" format="string" />
+    <declare-styleable name="Keyboard_Key_v3">
 
-	    <!-- FOR FUTURE EXPANSION - NOT YET SUPPORTED -->
-	    
-	    <!-- lets us have lower-case letters as popupCharacters that -->
-	    <!-- aren't affected by state of SHIFT key (e.g., pi) -->
-	    <attr name="shiftedPopupCharacters" format="string" />
-	    <attr name="shiftedHintLabel" format="string" />
-	    
-		<!-- flags the keyboard designer can set to help theme correctly style keys -->
-		<!-- (though, for the most part, these should be autodetected) -->
-	    <attr name="isPunctuation" format="boolean" />
-    	<attr name="isNavigation" format="boolean" /> <!-- should automatically also be "functional" -->
-	    <attr name="isNumeric" format="boolean" />
-    	<attr name="isSymbol" format="boolean" />
-	    <attr name="isAlpha" format="boolean" />
-	    <attr name="isSpace" format="boolean" />
-	    <attr name="isShift" format="boolean" /> <!-- should automatically also be "functional" -->
-	    <attr name="isDelete" format="boolean" /> <!-- should automatically also be "functional" -->
-	
-	
-	    <!-- if false, determine position of main key label/icon without accounting for -->
-	    <!-- hint label. this may override the theme (e.g., if auto positioning is used), -->
-	    <!-- but may be needed to make special keys look right -->
-	    <!-- also useful for a short numeric row with highly-related popupCharacters where don't -->
-	    <!-- want to clutter with hints but want main label/icon still centered -->
-	    <!-- e.g., a "1" key that has popupCharacters="¹₁①" -->
-	    <attr name="adjustPosition" format="boolean" />
-	
-	    <!-- icon for the hint instead of a label -->
-	    <!-- if icon and label specified, icon wins -->
-	    <attr name="hintIcon" format="reference" />
-	
-	    <!-- swipe in different directions on a key to get different codes -->
-	    <!-- suggested to have noHint="true" if using swipe and long-press for keys -->
-	    <attr name="swipeLeftCode" format="string" />
-	    <attr name="swipeRightCode" format="string" />
-	    <attr name="swipeUpCode" format="string" />
-	    <attr name="swipeDownCode" format="string" />
-	    <!-- labels and icons for the different swipe directions -->
-	    <!-- default to using label or icon based on code -->
-	    <!-- if both icon and label specified, icon wins -->
-	    <attr name="swipeLeftLabel" format="string" />
-	    <attr name="swipeLeftIcon" format="reference" />
-	    <attr name="swipeLeftColor" format="color" />
-	    <attr name="swipeRightLabel" format="string" />
-	    <attr name="swipeRightIcon" format="reference" />
-	    <attr name="swipeRightColor" format="color" />
-	    <attr name="swipeUpLabel" format="string" />
-	    <attr name="swipeUpIcon" format="reference" />
-	    <attr name="swipeUpColor" format="color" />
-	    <attr name="swipeDownLabel" format="string" />
-	    <attr name="swipeDownIcon" format="reference" />
-	    <attr name="swipeDownColor" format="color" />
-	    <!-- size of the swipe labels -->
-	    <attr name="swipeLabelSize" format="dimension" />
-	
-	</declare-styleable>
-	
-	<declare-styleable name="AnyKeyboardBaseViewV4">
-	
-	    <!-- location of hint labels -->
-	    <attr name="hintLabelAlign">
-	        <flag name="left" value="3" />
-	        <flag name="center" value="17" />
-	        <flag name="right" value="5" />
-	    </attr>
-	    <attr name="hintLabelVAlign">
-	        <flag name="top" value="48" />
-	        <flag name="bottom" value="80" />
-	        <!-- currently not supported -->
-	        <flag name="center" value="17" />
-	    </attr>
-	
-	    <!-- hint label to use when hintLabel unspecified and more than 3 characters in -->
-	    <!-- popupCharacters or when longPressCode instead of popupCharacters -->
-	    <!-- (if none specified, app default used) -->
-	    <attr name="hintOverflowLabel" format="string" />
-	    
-	    <!-- FOR FUTURE EXPANSION - NOT YET SUPPORTED -->
-	
-	    <!-- hint icon to use when no hintLabel given and more than 3 characters in popupCharacters -->
-	    <!-- or when longPressCode instead of popupCharacters (if not specified, app default used) -->
-	    <!-- if both icon and label specified, icon wins -->
-	    <attr name="hintOverflowIcon" format="reference" />
-	    <!-- allow the key to have another hint to show that there are more characters in -->
-	    <!-- popupCharacters than shown by the hint label (if not specified, none used) -->
-	    <attr name="extraHintLabel" format="string" />
-	    <attr name="extraHintIcon" format="reference" />
-	    <attr name="extraHintLabelAlign">
-	        <flag name="left" value="3" />
-	        <flag name="center" value="17" />
-	        <flag name="right" value="5" />
-	    </attr>
-	    <attr name="extraHintLabelVAlign">
-	        <flag name="top" value="48" />
-	        <flag name="bottom" value="80" />
-	        <!-- less likely to support... -->
-	        <flag name="center" value="17" />
-	    </attr>
-	    <!-- allow main key label/icon to be in different positions -->
-	    <!-- behavior before implemented: keyLabelIconAlign="center" keyLabelIconVAlign="auto" -->
-	    <attr name="keyLabelIconAlign">
-	
-	        <!-- against left or right edge of key -->
-	        <flag name="left" value="3" />
-	        <flag name="right" value="5" />
-	        <!-- horizontally centered at center of key (adjusted only for key padding) -->
-	        <flag name="center" value="17" />
-	        <!-- centered, but also adjust position to account for hint label location -->
-	        <flag name="auto" value="7" />
-	    </attr>
-	    <attr name="keyLabelIconVAlign">
-	
-	        <!-- against top or bottom edge of key -->
-	        <flag name="top" value="48" />
-	        <flag name="bottom" value="80" />
-	        <!-- vertically centered at center of key (adjusted only for key padding) -->
-	        <flag name="center" value="17" />
-	        <!-- centered, but also adjust position to account for hint label location -->
-	        <flag name="auto" value="112" />
-	    </attr>
-	    <!-- show hint and/or extra hint on preview -->
-	    <attr name="showHintOnPreview" format="boolean" />
-	    <attr name="showExtraHintOnPreview" format="boolean" />
-	    <!-- expected behavior if showHintOnPreview="false" and showExtraHintOnPreview="true" -->
-	    <!-- is that extra hint is shown if any long press or popupCharacters for key -->
-	
-	</declare-styleable>
+        <!-- The characters to display as a hint for the popup keyboard -->
+        <attr name="hintLabel" format="string"/>
 
-	<declare-styleable name="AnySoftKeyboardKeyIconsV2">
-	    <!-- FOR FUTURE EXPANSION - NOT YET SUPPORTED -->
-	    
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyNextKeyboard" format="reference" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeySymbols" format="reference" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyAlpha" format="reference" />
-		<!-- should support normal, android:state_pressed, key_type_feedback, android:state_pressed+key_type_feedback, android:state_checked, state_checked+key_type_feedback -->
-		<attr name="iconKeyAlt" format="reference" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyNavigation" format="reference" />
-	</declare-styleable>
-	
-	<!-- keyboard wallpaper - this is the image BEHIND the keyboard, it is visible when switching layout with animation -->
-	<attr name="keyboardWallpaper" format="reference" />
-	
-	<attr name="keyboardNameTextSize" format="dimension"/>
-	<attr name="keyboardNameTextColor" format="color" />
-	
-	<attr name="previewGestureTextSize" format="dimension"/>
-	<attr name="previewGestureTextColor" format="color" />
+        <!-- FOR FUTURE EXPANSION - NOT YET SUPPORTED -->
+
+        <!-- lets us have lower-case letters as popupCharacters that -->
+        <!-- aren't affected by state of SHIFT key (e.g., pi) -->
+        <attr name="shiftedPopupCharacters" format="string"/>
+        <attr name="shiftedHintLabel" format="string"/>
+
+        <!-- flags the keyboard designer can set to help theme correctly style keys -->
+        <!-- (though, for the most part, these should be autodetected) -->
+        <attr name="isPunctuation" format="boolean"/>
+        <attr name="isNavigation" format="boolean"/>
+        <!-- should automatically also be "functional" -->
+        <attr name="isNumeric" format="boolean"/>
+        <attr name="isSymbol" format="boolean"/>
+        <attr name="isAlpha" format="boolean"/>
+        <attr name="isSpace" format="boolean"/>
+        <attr name="isShift" format="boolean"/>
+        <!-- should automatically also be "functional" -->
+        <attr name="isDelete" format="boolean"/>
+        <!-- should automatically also be "functional" -->
+
+
+        <!-- if false, determine position of main key label/icon without accounting for -->
+        <!-- hint label. this may override the theme (e.g., if auto positioning is used), -->
+        <!-- but may be needed to make special keys look right -->
+        <!-- also useful for a short numeric row with highly-related popupCharacters where don't -->
+        <!-- want to clutter with hints but want main label/icon still centered -->
+        <!-- e.g., a "1" key that has popupCharacters="¹₁①" -->
+        <attr name="adjustPosition" format="boolean"/>
+
+        <!-- icon for the hint instead of a label -->
+        <!-- if icon and label specified, icon wins -->
+        <attr name="hintIcon" format="reference"/>
+
+        <!-- swipe in different directions on a key to get different codes -->
+        <!-- suggested to have noHint="true" if using swipe and long-press for keys -->
+        <attr name="swipeLeftCode" format="string"/>
+        <attr name="swipeRightCode" format="string"/>
+        <attr name="swipeUpCode" format="string"/>
+        <attr name="swipeDownCode" format="string"/>
+        <!-- labels and icons for the different swipe directions -->
+        <!-- default to using label or icon based on code -->
+        <!-- if both icon and label specified, icon wins -->
+        <attr name="swipeLeftLabel" format="string"/>
+        <attr name="swipeLeftIcon" format="reference"/>
+        <attr name="swipeLeftColor" format="color"/>
+        <attr name="swipeRightLabel" format="string"/>
+        <attr name="swipeRightIcon" format="reference"/>
+        <attr name="swipeRightColor" format="color"/>
+        <attr name="swipeUpLabel" format="string"/>
+        <attr name="swipeUpIcon" format="reference"/>
+        <attr name="swipeUpColor" format="color"/>
+        <attr name="swipeDownLabel" format="string"/>
+        <attr name="swipeDownIcon" format="reference"/>
+        <attr name="swipeDownColor" format="color"/>
+        <!-- size of the swipe labels -->
+        <attr name="swipeLabelSize" format="dimension"/>
+
+    </declare-styleable>
+
+    <declare-styleable name="AnyKeyboardBaseViewV4">
+
+        <!-- location of hint labels -->
+        <attr name="hintLabelAlign">
+            <flag name="left" value="3"/>
+            <flag name="center" value="17"/>
+            <flag name="right" value="5"/>
+        </attr>
+        <attr name="hintLabelVAlign">
+            <flag name="top" value="48"/>
+            <flag name="bottom" value="80"/>
+            <!-- currently not supported -->
+            <flag name="center" value="17"/>
+        </attr>
+
+        <!-- hint label to use when hintLabel unspecified and more than 3 characters in -->
+        <!-- popupCharacters or when longPressCode instead of popupCharacters -->
+        <!-- (if none specified, app default used) -->
+        <attr name="hintOverflowLabel" format="string"/>
+
+        <!-- FOR FUTURE EXPANSION - NOT YET SUPPORTED -->
+
+        <!-- hint icon to use when no hintLabel given and more than 3 characters in popupCharacters -->
+        <!-- or when longPressCode instead of popupCharacters (if not specified, app default used) -->
+        <!-- if both icon and label specified, icon wins -->
+        <attr name="hintOverflowIcon" format="reference"/>
+        <!-- allow the key to have another hint to show that there are more characters in -->
+        <!-- popupCharacters than shown by the hint label (if not specified, none used) -->
+        <attr name="extraHintLabel" format="string"/>
+        <attr name="extraHintIcon" format="reference"/>
+        <attr name="extraHintLabelAlign">
+            <flag name="left" value="3"/>
+            <flag name="center" value="17"/>
+            <flag name="right" value="5"/>
+        </attr>
+        <attr name="extraHintLabelVAlign">
+            <flag name="top" value="48"/>
+            <flag name="bottom" value="80"/>
+            <!-- less likely to support... -->
+            <flag name="center" value="17"/>
+        </attr>
+        <!-- allow main key label/icon to be in different positions -->
+        <!-- behavior before implemented: keyLabelIconAlign="center" keyLabelIconVAlign="auto" -->
+        <attr name="keyLabelIconAlign">
+
+            <!-- against left or right edge of key -->
+            <flag name="left" value="3"/>
+            <flag name="right" value="5"/>
+            <!-- horizontally centered at center of key (adjusted only for key padding) -->
+            <flag name="center" value="17"/>
+            <!-- centered, but also adjust position to account for hint label location -->
+            <flag name="auto" value="7"/>
+        </attr>
+        <attr name="keyLabelIconVAlign">
+
+            <!-- against top or bottom edge of key -->
+            <flag name="top" value="48"/>
+            <flag name="bottom" value="80"/>
+            <!-- vertically centered at center of key (adjusted only for key padding) -->
+            <flag name="center" value="17"/>
+            <!-- centered, but also adjust position to account for hint label location -->
+            <flag name="auto" value="112"/>
+        </attr>
+        <!-- show hint and/or extra hint on preview -->
+        <attr name="showHintOnPreview" format="boolean"/>
+        <attr name="showExtraHintOnPreview" format="boolean"/>
+        <!-- expected behavior if showHintOnPreview="false" and showExtraHintOnPreview="true" -->
+        <!-- is that extra hint is shown if any long press or popupCharacters for key -->
+
+    </declare-styleable>
+
+    <declare-styleable name="AnySoftKeyboardKeyIconsV2">
+        <!-- FOR FUTURE EXPANSION - NOT YET SUPPORTED -->
+
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyNextKeyboard" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeySymbols" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyAlpha" format="reference"/>
+        <!-- should support normal, android:state_pressed, key_type_feedback, android:state_pressed+key_type_feedback, android:state_checked, state_checked+key_type_feedback -->
+        <attr name="iconKeyAlt" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyNavigation" format="reference"/>
+    </declare-styleable>
+
+    <!-- keyboard wallpaper - this is the image BEHIND the keyboard, it is visible when switching layout with animation -->
+    <attr name="keyboardWallpaper" format="reference"/>
+
+    <attr name="keyboardNameTextSize" format="dimension"/>
+    <attr name="keyboardNameTextColor" format="color"/>
+
+    <attr name="previewGestureTextSize" format="dimension"/>
+    <attr name="previewGestureTextColor" format="color"/>
 </resources>

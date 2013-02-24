@@ -15,143 +15,143 @@
 -->
 
 <resources>
-    
+
     <declare-styleable name="AnySoftKeyboardTheme">
         <!-- Image for the key. This image needs to be a StateListDrawable, with the following
              possible states: normal, pressed, checkable, checkable+pressed, checkable+checked,
              checkable+checked+pressed. -->
-        <attr name="keyBackground" />
+        <attr name="keyBackground"/>
 
         <!-- Size of the text for character keys. -->
-        <attr name="keyTextSize" />
+        <attr name="keyTextSize"/>
 
         <!-- Size of the text for custom keys with some text and no icon. -->
-        <attr name="labelTextSize" />
+        <attr name="labelTextSize"/>
 
         <!-- Color to use for the label in a key. -->
-        <attr name="keyTextColor" />
-        
+        <attr name="keyTextColor"/>
+
         <!-- text style for the label on the spacebar -->
         <attr name="keyboardNameTextSize"/>
-		<attr name="keyboardNameTextColor" />
-		
+        <attr name="keyboardNameTextColor"/>
+
         <!-- size of different keys height -->
-        <attr name="keyNormalHeight" />
-        <attr name="keySmallHeight" />
-        <attr name="keyLargeHeight" />
-        
-        <attr name="keyHorizontalGap" />
-        <attr name="keyVerticalGap" />
-        
+        <attr name="keyNormalHeight"/>
+        <attr name="keySmallHeight"/>
+        <attr name="keyLargeHeight"/>
+
+        <attr name="keyHorizontalGap"/>
+        <attr name="keyVerticalGap"/>
+
         <!-- Vertical offset of the key press feedback from the key. -->
-        <attr name="keyPreviewOffset" />
-        <attr name="keyPreviewBackground"  />
-        <attr name="keyPreviewTextSize" />
-        <attr name="keyPreviewTextColor" />
-        <attr name="keyPreviewLabelTextSize" />
-        
-        <attr name="previewGestureTextSize" />
-        <attr name="previewGestureTextColor" />
+        <attr name="keyPreviewOffset"/>
+        <attr name="keyPreviewBackground"/>
+        <attr name="keyPreviewTextSize"/>
+        <attr name="keyPreviewTextColor"/>
+        <attr name="keyPreviewLabelTextSize"/>
+
+        <attr name="previewGestureTextSize"/>
+        <attr name="previewGestureTextColor"/>
         <!-- Hysteresis distance for key debouncing -->
-        <attr name="keyHysteresisDistance" />
+        <attr name="keyHysteresisDistance"/>
 
         <!-- Amount to offset the touch Y coordinate by, for bias correction. -->
-        <attr name="verticalCorrection"  />
+        <attr name="verticalCorrection"/>
 
-        <attr name="shadowColor" />
-        <attr name="shadowRadius"  />
-        <attr name="shadowOffsetX" />
-        <attr name="shadowOffsetY" />
-        
-        <attr name="backgroundDimAmount" />
+        <attr name="shadowColor"/>
+        <attr name="shadowRadius"/>
+        <attr name="shadowOffsetX"/>
+        <attr name="shadowOffsetY"/>
+
+        <attr name="backgroundDimAmount"/>
 
         <attr name="keyTextStyle">
         </attr>
-		
+
         <attr name="symbolColorScheme">
         </attr>
 
         <!-- keyboard wallpaper - this is the image BEHIND the keyboards, it is visible when switching layout with animation -->
         <attr name="keyboardWallpaper"/>
         <!-- keyboard background - this is the layout's background, it moves with the layout when there are animations -->
-		<attr name="android:background"/>
-		<attr name="android:paddingLeft"/>
-		<attr name="android:paddingTop"/>
-		<attr name="android:paddingRight"/>
-		<attr name="android:paddingBottom"/>
-		
-		<attr name="suggestionNormalTextColor" />
-		<attr name="suggestionRecommendedTextColor" />
-		<attr name="suggestionOthersTextColor"  />
-		<attr name="suggestionTextSize" />
-		<attr name="suggestionBackgroundImage"  />
-		<attr name="suggestionDividerImage" />
-		<attr name="suggestionStripHeight"  />
-		<!-- Size of the text for the prefered word. -->
-        <attr name="suggestionPreferedWordTextSize" />
-		<!-- horizontal padding. -->
+        <attr name="android:background"/>
+        <attr name="android:paddingLeft"/>
+        <attr name="android:paddingTop"/>
+        <attr name="android:paddingRight"/>
+        <attr name="android:paddingBottom"/>
+
+        <attr name="suggestionNormalTextColor"/>
+        <attr name="suggestionRecommendedTextColor"/>
+        <attr name="suggestionOthersTextColor"/>
+        <attr name="suggestionTextSize"/>
+        <attr name="suggestionBackgroundImage"/>
+        <attr name="suggestionDividerImage"/>
+        <attr name="suggestionStripHeight"/>
+        <!-- Size of the text for the prefered word. -->
+        <attr name="suggestionPreferedWordTextSize"/>
+        <!-- horizontal padding. -->
         <attr name="suggestionWordXGap"/>
-		
-		<!-- Size of the text for hinting about long press output. -->
-        <attr name="hintTextSize" />
+
+        <!-- Size of the text for hinting about long press output. -->
+        <attr name="hintTextSize"/>
 
         <!-- Color to use for hint text. -->
-        <attr name="hintTextColor" />
-        
+        <attr name="hintTextColor"/>
+
         <!-- location of hint labels -->
-	    <attr name="hintLabelAlign">
-	    </attr>
-	    <attr name="hintLabelVAlign">
-	    </attr>
-	    
-	    <!-- default hint label to use when key has a longPressCode or more than -->
-	    <!-- 3 popupCharacters, but does not have a hintLabel defined -->
-	    <attr name="hintOverflowLabel"/>
+        <attr name="hintLabelAlign">
+        </attr>
+        <attr name="hintLabelVAlign">
+        </attr>
+
+        <!-- default hint label to use when key has a longPressCode or more than -->
+        <!-- 3 popupCharacters, but does not have a hintLabel defined -->
+        <attr name="hintOverflowLabel"/>
     </declare-styleable>
-    
-	<declare-styleable name="AnySoftKeyboardThemeKeyIcons">
-		<!-- should support normal, android:state_pressed, key_type_feedback, android:state_pressed+key_type_feedback, android:state_checked, state_checked+key_type_feedback -->
-		<attr name="iconKeyShift" />
-		<!-- should support normal, android:state_pressed, key_type_feedback, android:state_pressed+key_type_feedback, android:state_checked, state_checked+key_type_feedback -->
-		<attr name="iconKeyControl" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyBackspace" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeySpace" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyTab" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyCancel" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyGlobe" />
-		<!-- should support normal, key_type_feedback, action_done, action_done+key_type_feedback, action_search, action_search+key_type_feedback, action_go, action_go+key_type_feedback  -->
-		<attr name="iconKeyAction" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyArrowRight" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyArrowLeft" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyArrowUp" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyArrowDown" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyMic" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeySettings"/>
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyInputClear"/>
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyInputSelectAll" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyInputClipboardCopy" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyInputClipboardCut" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyInputClipboardPaste" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyInputMoveEnd" />
-		<!-- should support normal, key_type_feedback -->
-		<attr name="iconKeyInputMoveHome" />
-	</declare-styleable>
-	
+
+    <declare-styleable name="AnySoftKeyboardThemeKeyIcons">
+        <!-- should support normal, android:state_pressed, key_type_feedback, android:state_pressed+key_type_feedback, android:state_checked, state_checked+key_type_feedback -->
+        <attr name="iconKeyShift"/>
+        <!-- should support normal, android:state_pressed, key_type_feedback, android:state_pressed+key_type_feedback, android:state_checked, state_checked+key_type_feedback -->
+        <attr name="iconKeyControl"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyBackspace"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeySpace"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyTab"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyCancel"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyGlobe"/>
+        <!-- should support normal, key_type_feedback, action_done, action_done+key_type_feedback, action_search, action_search+key_type_feedback, action_go, action_go+key_type_feedback  -->
+        <attr name="iconKeyAction"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyArrowRight"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyArrowLeft"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyArrowUp"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyArrowDown"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyMic"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeySettings"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyInputClear"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyInputSelectAll"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyInputClipboardCopy"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyInputClipboardCut"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyInputClipboardPaste"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyInputMoveEnd"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyInputMoveHome"/>
+    </declare-styleable>
+
 </resources>
