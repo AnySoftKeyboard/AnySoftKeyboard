@@ -1,34 +1,33 @@
 /*
- * Copyright (C) 2008 The Android Open Source Project
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
+ * Copyright (c) 2013 Menny Even-Danan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.anysoftkeyboard.dictionaries;
+
+import android.content.Context;
+import android.text.format.DateFormat;
+import com.anysoftkeyboard.keyboards.Keyboard.Key;
+import com.anysoftkeyboard.utils.Log;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 
-import android.content.Context;
-import android.text.format.DateFormat;
-
-import com.anysoftkeyboard.keyboards.Keyboard.Key;
-import com.anysoftkeyboard.utils.Log;
-import com.menny.android.anysoftkeyboard.AnyApplication;
-
 public class TextEntryState {
-    
+
     private static final boolean DBG = false && AnyApplication.DEBUG;
 
     private static final String TAG = "TextEntryState";
@@ -36,17 +35,17 @@ public class TextEntryState {
     private static boolean LOGGING = false && AnyApplication.DEBUG;
 
     private static int sBackspaceCount = 0;
-    
+
     private static int sAutoSuggestCount = 0;
-    
+
     private static int sAutoSuggestUndoneCount = 0;
-    
+
     private static int sManualSuggestCount = 0;
-    
+
     private static int sWordNotInDictionaryCount = 0;
-    
+
     private static int sSessionCount = 0;
-    
+
     private static int sTypedChars;
 
     private static int sActualChars;
@@ -70,7 +69,7 @@ public class TextEntryState {
 
     private static FileOutputStream sKeyLocationFile;
     private static FileOutputStream sUserActionFile;
-    
+
     public static void newSession(Context context) {
         sSessionCount++;
         sAutoSuggestCount = 0;
@@ -81,7 +80,7 @@ public class TextEntryState {
         sTypedChars = 0;
         sActualChars = 0;
         sState = State.START;
-        
+
         if (LOGGING) {
             try {
                 sKeyLocationFile = context.openFileOutput("key.txt", Context.MODE_APPEND);
@@ -91,7 +90,7 @@ public class TextEntryState {
             }
         }
     }
-    
+
     public static void endSession() {
         if (sKeyLocationFile == null) {
             return;
@@ -114,10 +113,10 @@ public class TextEntryState {
             sKeyLocationFile = null;
             sUserActionFile = null;
         } catch (IOException ioe) {
-            
+
         }
     }
-    
+
     public static void acceptedDefault(CharSequence typedWord, CharSequence actualWord) {
         if (typedWord == null) return;
         if (!typedWord.equals(actualWord)) {
@@ -225,7 +224,7 @@ public class TextEntryState {
         }
         displayState();
     }
-    
+
     public static void backspace() {
         if (sState == State.ACCEPTED_DEFAULT) {
             sState = State.UNDO_COMMIT;
@@ -256,13 +255,13 @@ public class TextEntryState {
 
     public static void keyPressedAt(Key key, int x, int y) {
         if (LOGGING && sKeyLocationFile != null && key.codes[0] >= 32) {
-            String out = 
-                    "KEY: " + (char) key.codes[0] 
-                    + " X: " + x 
-                    + " Y: " + y
-                    + " MX: " + (key.x + key.width / 2)
-                    + " MY: " + (key.y + key.height / 2) 
-                    + "\n";
+            String out =
+                    "KEY: " + (char) key.codes[0]
+                            + " X: " + x
+                            + " Y: " + y
+                            + " MX: " + (key.x + key.width / 2)
+                            + " MY: " + (key.y + key.height / 2)
+                            + "\n";
             try {
                 sKeyLocationFile.write(out.getBytes());
             } catch (IOException ioe) {

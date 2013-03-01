@@ -18,26 +18,26 @@
 */
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="0px"
-    android:gravity="center"
-    android:layout_gravity="center"
-    android:padding="0px">
-	<ImageView android:id="@+id/addon_screenshot"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:scaleType="centerInside"
-	    android:layout_centerInParent="true"
-	    android:adjustViewBounds="true"
-	    android:layout_margin="8dp"
-	    android:padding="8dp"/>
-	
-	<ImageView android:id="@+id/addon_screenshot_close"
-	    android:layout_width="wrap_content" android:layout_height="wrap_content"
-	    android:scaleType="centerInside"
-	    android:layout_alignTop="@id/addon_screenshot" android:layout_alignRight="@id/addon_screenshot"
-	    android:src="@drawable/close_popup_window"/>
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="0px"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:padding="0px">
+    <ImageView android:id="@+id/addon_screenshot"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:scaleType="centerInside"
+               android:layout_centerInParent="true"
+               android:adjustViewBounds="true"
+               android:layout_margin="8dp"
+               android:padding="8dp"/>
+
+    <ImageView android:id="@+id/addon_screenshot_close"
+               android:layout_width="wrap_content" android:layout_height="wrap_content"
+               android:scaleType="centerInside"
+               android:layout_alignTop="@id/addon_screenshot" android:layout_alignRight="@id/addon_screenshot"
+               android:src="@drawable/close_popup_window"/>
 </RelativeLayout>
 
 

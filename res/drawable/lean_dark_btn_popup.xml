@@ -16,6 +16,6 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true"
-          android:drawable="@drawable/lean_dark_popup_btn_selected" />
-    <item android:drawable="@drawable/lean_dark_popup_btn_normal" />
+          android:drawable="@drawable/lean_dark_popup_btn_selected"/>
+    <item android:drawable="@drawable/lean_dark_popup_btn_normal"/>
 </selector>

@@ -19,44 +19,44 @@
 -->
 
 <set
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:interpolator="@android:anim/decelerate_interpolator"
->
-	<!-- first phase, show the text -->
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:interpolator="@android:anim/decelerate_interpolator"
+        >
+    <!-- first phase, show the text -->
     <alpha
-        android:fromAlpha="0.5"
-        android:toAlpha="1.0"
-        android:startOffset="2000"
-        android:duration="@integer/mainKeyboardAnimTime" />
-     <scale
-        android:fromXScale="1.0"
-        android:toXScale="1.0"
-        android:fromYScale="0.0"
-        android:toYScale="1.0"
-        android:fillAfter="false"
-        android:startOffset="2000"
-        android:duration="@integer/mainKeyboardAnimTime" />
+            android:fromAlpha="0.5"
+            android:toAlpha="1.0"
+            android:startOffset="2000"
+            android:duration="@integer/mainKeyboardAnimTime"/>
+    <scale
+            android:fromXScale="1.0"
+            android:toXScale="1.0"
+            android:fromYScale="0.0"
+            android:toYScale="1.0"
+            android:fillAfter="false"
+            android:startOffset="2000"
+            android:duration="@integer/mainKeyboardAnimTime"/>
     <translate
-        android:fromYDelta="50%"
-        android:toYDelta="0"
-        android:fromXDelta="0"
-        android:toXDelta="0"
-        android:startOffset="2000"
-        android:duration="@integer/mainKeyboardAnimTime"/>
+            android:fromYDelta="50%"
+            android:toYDelta="0"
+            android:fromXDelta="0"
+            android:toXDelta="0"
+            android:startOffset="2000"
+            android:duration="@integer/mainKeyboardAnimTime"/>
     <!-- second phase, switch to question mark -->
     <scale
-        android:fromXScale="1.0"
-        android:toXScale="0.2"
-        android:fromYScale="1.0"
-        android:toYScale="1.0"
-        android:fillAfter="false"
-        android:startOffset="7500"
-        android:duration="@integer/mainKeyboardAnimTime" />
+            android:fromXScale="1.0"
+            android:toXScale="0.2"
+            android:fromYScale="1.0"
+            android:toYScale="1.0"
+            android:fillAfter="false"
+            android:startOffset="7500"
+            android:duration="@integer/mainKeyboardAnimTime"/>
     <translate
-        android:fromYDelta="0"
-        android:toYDelta="0"
-        android:fromXDelta="0"
-        android:toXDelta="80%"
-        android:startOffset="7500"
-        android:duration="@integer/mainKeyboardAnimTime"/>
+            android:fromYDelta="0"
+            android:toYDelta="0"
+            android:fromXDelta="0"
+            android:toXDelta="80%"
+            android:startOffset="7500"
+            android:duration="@integer/mainKeyboardAnimTime"/>
 </set>

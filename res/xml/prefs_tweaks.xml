@@ -1,76 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard"
-    android:key="tweaks_group_screen"
-    android:title="@string/tweaks_group" >
+                  xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard"
+                  android:key="tweaks_group_screen"
+                  android:title="@string/tweaks_group">
 
     <PreferenceCategory
-        android:key="tweak_sound_group"
-        android:title="@string/tweak_sound_group" >
+            android:key="tweak_sound_group"
+            android:title="@string/tweak_sound_group">
 
         <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="use_custom_sound_volume"
-            android:persistent="true"
-            android:summaryOff="@string/use_custom_sound_volume_off_summary"
-            android:summaryOn="@string/use_custom_sound_volume_on_summary"
-            android:title="@string/use_custom_sound_volume" />
+                android:defaultValue="false"
+                android:key="use_custom_sound_volume"
+                android:persistent="true"
+                android:summaryOff="@string/use_custom_sound_volume_off_summary"
+                android:summaryOn="@string/use_custom_sound_volume_on_summary"
+                android:title="@string/use_custom_sound_volume"/>
 
         <com.anysoftkeyboard.ui.settings.SeekBarPreference
-            android:defaultValue="50"
-            android:dependency="use_custom_sound_volume"
-            android:key="custom_sound_volume"
-            android:max="100"
-            android:persistent="true"
-            android:title="@string/custom_sound_volume" />
+                android:defaultValue="50"
+                android:dependency="use_custom_sound_volume"
+                android:key="custom_sound_volume"
+                android:max="100"
+                android:persistent="true"
+                android:title="@string/custom_sound_volume"/>
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="tweak_dictionary_group"
-        android:title="@string/tweak_dictionary_group" >
+            android:key="tweak_dictionary_group"
+            android:title="@string/tweak_dictionary_group">
 
         <com.anysoftkeyboard.ui.settings.SeekBarPreference
-            android:defaultValue="2"
-            android:key="@string/settings_key_min_length_for_word_correction__"
-            android:max="10"
-            android:persistent="true"
-            android:title="@string/settings_min_length_for_word_correction"
-            ask:min="1" />
+                android:defaultValue="2"
+                android:key="@string/settings_key_min_length_for_word_correction__"
+                android:max="10"
+                android:persistent="true"
+                android:title="@string/settings_min_length_for_word_correction"
+                ask:min="1"/>
 
         <com.anysoftkeyboard.ui.settings.ListPreferenceEx
-            android:defaultValue="@string/settings_default_should_swap_punctuation_and_space"
-            android:dialogTitle="@string/should_swap_punctuation_and_space_title"
-            android:entries="@array/settings_key_should_swap_punctuation_and_space_names"
-            android:entryValues="@array/settings_key_should_swap_punctuation_and_space_values"
-            android:key="@string/settings_key_should_swap_punctuation_and_space"
-            android:summary="@string/should_swap_punctuation_and_space_summary"
-            android:title="@string/should_swap_punctuation_and_space_title" />
+                android:defaultValue="@string/settings_default_should_swap_punctuation_and_space"
+                android:dialogTitle="@string/should_swap_punctuation_and_space_title"
+                android:entries="@array/settings_key_should_swap_punctuation_and_space_names"
+                android:entryValues="@array/settings_key_should_swap_punctuation_and_space_values"
+                android:key="@string/settings_key_should_swap_punctuation_and_space"
+                android:summary="@string/should_swap_punctuation_and_space_summary"
+                android:title="@string/should_swap_punctuation_and_space_title"/>
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="tweak_physical_keyboard_group"
-        android:title="@string/tweak_physical_keyboard_group" >
+            android:key="tweak_physical_keyboard_group"
+            android:title="@string/tweak_physical_keyboard_group">
 
         <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="use_keyrepeat"
-            android:persistent="true"
-            android:summaryOff="@string/use_keyrepeat_off_summary"
-            android:summaryOn="@string/use_keyrepeat_on_summary"
-            android:title="@string/use_keyrepeat" />
+                android:defaultValue="true"
+                android:key="use_keyrepeat"
+                android:persistent="true"
+                android:summaryOff="@string/use_keyrepeat_off_summary"
+                android:summaryOn="@string/use_keyrepeat_on_summary"
+                android:title="@string/use_keyrepeat"/>
 
         <CheckBoxPreference
-            android:defaultValue="@bool/settings_default_hide_soft_when_physical"
-            android:key="@string/settings_key_hide_soft_when_physical"
-            android:persistent="true"
-            android:summaryOff="@string/hide_soft_when_physical_off_summary"
-            android:summaryOn="@string/hide_soft_when_physical_on_summary"
-            android:title="@string/hide_soft_when_physical" />
+                android:defaultValue="@bool/settings_default_hide_soft_when_physical"
+                android:key="@string/settings_key_hide_soft_when_physical"
+                android:persistent="true"
+                android:summaryOff="@string/hide_soft_when_physical_off_summary"
+                android:summaryOn="@string/hide_soft_when_physical_on_summary"
+                android:title="@string/hide_soft_when_physical"/>
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="tweak_ui_group"
-        android:title="@string/tweak_ui_group" >
+            android:key="tweak_ui_group"
+            android:title="@string/tweak_ui_group">
 
         <!--
 		<CheckBoxPreference
@@ -84,186 +84,186 @@
         -->
 
         <CheckBoxPreference
-            android:defaultValue="@bool/settings_default_is_sticky_extesion_keyboard"
-            android:key="@string/settings_key_is_sticky_extesion_keyboard"
-            android:persistent="true"
-            android:summaryOff="@string/is_sticky_extesion_keyboard_off_summary"
-            android:summaryOn="@string/is_sticky_extesion_keyboard_on_summary"
-            android:title="@string/is_sticky_extesion_keyboard" />
+                android:defaultValue="@bool/settings_default_is_sticky_extesion_keyboard"
+                android:key="@string/settings_key_is_sticky_extesion_keyboard"
+                android:persistent="true"
+                android:summaryOff="@string/is_sticky_extesion_keyboard_off_summary"
+                android:summaryOn="@string/is_sticky_extesion_keyboard_on_summary"
+                android:title="@string/is_sticky_extesion_keyboard"/>
 
         <CheckBoxPreference
-            android:defaultValue="@bool/settings_default_is_extesion_keyboard_above_keyboard"
-            android:key="@string/settings_key_is_extesion_keyboard_above_keyboard"
-            android:persistent="true"
-            android:summaryOff="@string/is_extesion_keyboard_above_keyboard_off_summary"
-            android:summaryOn="@string/is_extesion_keyboard_above_keyboard_on_summary"
-            android:title="@string/is_extesion_keyboard_above_keyboard" />
+                android:defaultValue="@bool/settings_default_is_extesion_keyboard_above_keyboard"
+                android:key="@string/settings_key_is_extesion_keyboard_above_keyboard"
+                android:persistent="true"
+                android:summaryOff="@string/is_extesion_keyboard_above_keyboard_off_summary"
+                android:summaryOn="@string/is_extesion_keyboard_above_keyboard_on_summary"
+                android:title="@string/is_extesion_keyboard_above_keyboard"/>
 
         <CheckBoxPreference
-            android:defaultValue="@bool/settings_default_portrait_fullscreen"
-            android:key="@string/settings_key_portrait_fullscreen"
-            android:persistent="true"
-            android:summaryOff="@string/fullscreen_portrait_input_connection_supported_off_summary"
-            android:summaryOn="@string/fullscreen_portrait_input_connection_supported_on_summary"
-            android:title="@string/fullscreen_portrait_input_connection_supported" />
+                android:defaultValue="@bool/settings_default_portrait_fullscreen"
+                android:key="@string/settings_key_portrait_fullscreen"
+                android:persistent="true"
+                android:summaryOff="@string/fullscreen_portrait_input_connection_supported_off_summary"
+                android:summaryOn="@string/fullscreen_portrait_input_connection_supported_on_summary"
+                android:title="@string/fullscreen_portrait_input_connection_supported"/>
 
         <CheckBoxPreference
-            android:defaultValue="@bool/settings_default_landscape_fullscreen"
-            android:key="@string/settings_key_landscape_fullscreen"
-            android:persistent="true"
-            android:summaryOff="@string/fullscreen_input_connection_supported_off_summary"
-            android:summaryOn="@string/fullscreen_input_connection_supported_on_summary"
-            android:title="@string/fullscreen_input_connection_supported" />
+                android:defaultValue="@bool/settings_default_landscape_fullscreen"
+                android:key="@string/settings_key_landscape_fullscreen"
+                android:persistent="true"
+                android:summaryOff="@string/fullscreen_input_connection_supported_off_summary"
+                android:summaryOn="@string/fullscreen_input_connection_supported_on_summary"
+                android:title="@string/fullscreen_input_connection_supported"/>
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="tweak_ux_group"
-        android:title="@string/tweak_ux_group" >
+            android:key="tweak_ux_group"
+            android:title="@string/tweak_ux_group">
 
         <com.anysoftkeyboard.ui.settings.ListPreferenceEx
-            android:defaultValue="@string/settings_default_multitap_timeout"
-            android:dialogTitle="@string/multitap_timeout_title"
-            android:entries="@array/settings_key_multitap_timeout_names"
-            android:entryValues="@array/settings_key_multitap_timeout_values"
-            android:key="@string/settings_key_multitap_timeout"
-            android:summary="@string/multitap_timeout_summary"
-            android:title="@string/multitap_timeout_title" />
+                android:defaultValue="@string/settings_default_multitap_timeout"
+                android:dialogTitle="@string/multitap_timeout_title"
+                android:entries="@array/settings_key_multitap_timeout_names"
+                android:entryValues="@array/settings_key_multitap_timeout_values"
+                android:key="@string/settings_key_multitap_timeout"
+                android:summary="@string/multitap_timeout_summary"
+                android:title="@string/multitap_timeout_title"/>
 
         <com.anysoftkeyboard.ui.settings.ListPreferenceEx
-            android:defaultValue="@string/settings_default_long_press_timeout"
-            android:dialogTitle="@string/long_press_timeout_title"
-            android:entries="@array/settings_key_long_press_timeout_names"
-            android:entryValues="@array/settings_key_long_press_timeout_values"
-            android:key="@string/settings_key_long_press_timeout"
-            android:summary="@string/long_press_timeout_summary"
-            android:title="@string/long_press_timeout_title" />
+                android:defaultValue="@string/settings_default_long_press_timeout"
+                android:dialogTitle="@string/long_press_timeout_title"
+                android:entries="@array/settings_key_long_press_timeout_names"
+                android:entryValues="@array/settings_key_long_press_timeout_values"
+                android:key="@string/settings_key_long_press_timeout"
+                android:summary="@string/long_press_timeout_summary"
+                android:title="@string/long_press_timeout_title"/>
 
         <CheckBoxPreference
-            android:defaultValue="@bool/settings_default_lang_key_shows_popup"
-            android:key="@string/settings_key_lang_key_shows_popup"
-            android:persistent="true"
-            android:summaryOff="@string/lang_key_shows_popup_off_summary"
-            android:summaryOn="@string/lang_key_shows_popup_on_summary"
-            android:title="@string/lang_key_shows_popup" />
+                android:defaultValue="@bool/settings_default_lang_key_shows_popup"
+                android:key="@string/settings_key_lang_key_shows_popup"
+                android:persistent="true"
+                android:summaryOff="@string/lang_key_shows_popup_off_summary"
+                android:summaryOn="@string/lang_key_shows_popup_on_summary"
+                android:title="@string/lang_key_shows_popup"/>
 
         <EditTextPreference
-            android:autoText="false"
-            android:capitalize="none"
-            android:defaultValue=".com"
-            android:dialogTitle="@string/default_domain_text"
-            android:key="default_domain_text"
-            android:lines="1"
-            android:persistent="true"
-            android:singleLine="true"
-            android:title="@string/default_domain_text" />
+                android:autoText="false"
+                android:capitalize="none"
+                android:defaultValue=".com"
+                android:dialogTitle="@string/default_domain_text"
+                android:key="default_domain_text"
+                android:lines="1"
+                android:persistent="true"
+                android:singleLine="true"
+                android:title="@string/default_domain_text"/>
 
         <CheckBoxPreference
-            android:defaultValue="@bool/settings_default_emoticon_long_press_opens_popup"
-            android:key="@string/settings_key_emoticon_long_press_opens_popup"
-            android:persistent="true"
-            android:summaryOff="@string/emoticon_long_press_opens_popup_off_summary"
-            android:summaryOn="@string/emoticon_long_press_opens_popup_on_summary"
-            android:title="@string/emoticon_long_press_opens_popup" />
+                android:defaultValue="@bool/settings_default_emoticon_long_press_opens_popup"
+                android:key="@string/settings_key_emoticon_long_press_opens_popup"
+                android:persistent="true"
+                android:summaryOff="@string/emoticon_long_press_opens_popup_off_summary"
+                android:summaryOn="@string/emoticon_long_press_opens_popup_on_summary"
+                android:title="@string/emoticon_long_press_opens_popup"/>
 
         <EditTextPreference
-            android:autoText="false"
-            android:capitalize="none"
-            android:defaultValue=""
-            android:dialogTitle="@string/default_smiley_text"
-            android:key="@string/settings_key_emoticon_default_text"
-            android:lines="1"
-            android:persistent="true"
-            android:singleLine="true"
-            android:title="@string/default_smiley_text" />
+                android:autoText="false"
+                android:capitalize="none"
+                android:defaultValue=""
+                android:dialogTitle="@string/default_smiley_text"
+                android:key="@string/settings_key_emoticon_default_text"
+                android:lines="1"
+                android:persistent="true"
+                android:singleLine="true"
+                android:title="@string/default_smiley_text"/>
 
         <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="insert_space_after_word_suggestion_selection"
-            android:persistent="true"
-            android:summaryOff="@string/insert_space_after_word_suggestion_selection_off_summary"
-            android:summaryOn="@string/insert_space_after_word_suggestion_selection_on_summary"
-            android:title="@string/insert_space_after_word_suggestion_selection" />
+                android:defaultValue="true"
+                android:key="insert_space_after_word_suggestion_selection"
+                android:persistent="true"
+                android:summaryOff="@string/insert_space_after_word_suggestion_selection_off_summary"
+                android:summaryOn="@string/insert_space_after_word_suggestion_selection_on_summary"
+                android:title="@string/insert_space_after_word_suggestion_selection"/>
 
         <CheckBoxPreference
-            android:defaultValue="@bool/settings_default_cycle_all_symbols"
-            android:key="@string/settings_key_cycle_all_symbols"
-            android:persistent="true"
-            android:summaryOff="@string/cycle_all_symbols_keyboards_off_summary"
-            android:summaryOn="@string/cycle_all_symbols_keyboards_on_summary"
-            android:title="@string/cycle_all_symbols_keyboards" />
+                android:defaultValue="@bool/settings_default_cycle_all_symbols"
+                android:key="@string/settings_key_cycle_all_symbols"
+                android:persistent="true"
+                android:summaryOff="@string/cycle_all_symbols_keyboards_off_summary"
+                android:summaryOn="@string/cycle_all_symbols_keyboards_on_summary"
+                android:title="@string/cycle_all_symbols_keyboards"/>
 
         <CheckBoxPreference
-            android:defaultValue="@bool/settings_default_use_backword"
-            android:key="@string/settings_key_use_backword"
-            android:persistent="true"
-            android:summaryOff="@string/backword_support_off_summary"
-            android:summaryOn="@string/backword_support_on_summary"
-            android:title="@string/backword_support" />
+                android:defaultValue="@bool/settings_default_use_backword"
+                android:key="@string/settings_key_use_backword"
+                android:persistent="true"
+                android:summaryOff="@string/backword_support_off_summary"
+                android:summaryOn="@string/backword_support_on_summary"
+                android:title="@string/backword_support"/>
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="tweak_workarounds_group"
-        android:title="@string/tweak_workarounds_group" >
+            android:key="tweak_workarounds_group"
+            android:title="@string/tweak_workarounds_group">
 
         <CheckBoxPreference
-            android:defaultValue="@bool/settings_default_workaround_disable_rtl_fix"
-            android:key="@string/settings_key_workaround_disable_rtl_fix"
-            android:persistent="true"
-            android:summaryOff="@string/workaround_disable_rtl_fix_summary_off"
-            android:summaryOn="@string/workaround_disable_rtl_fix_summary_on"
-            android:title="@string/workaround_disable_rtl_fix" />
+                android:defaultValue="@bool/settings_default_workaround_disable_rtl_fix"
+                android:key="@string/settings_key_workaround_disable_rtl_fix"
+                android:persistent="true"
+                android:summaryOff="@string/workaround_disable_rtl_fix_summary_off"
+                android:summaryOn="@string/workaround_disable_rtl_fix_summary_on"
+                android:title="@string/workaround_disable_rtl_fix"/>
     </PreferenceCategory>
 
     <CheckBoxPreference
-        android:defaultValue="@bool/settings_default_show_version_notification"
-        android:key="@string/settings_key_show_version_notification"
-        android:persistent="true"
-        android:summaryOff="@string/show_new_version_notifications_again_off_summary"
-        android:summaryOn="@string/show_new_version_notifications_again_on_summary"
-        android:title="@string/show_new_version_notifications_again" />
+            android:defaultValue="@bool/settings_default_show_version_notification"
+            android:key="@string/settings_key_show_version_notification"
+            android:persistent="true"
+            android:summaryOff="@string/show_new_version_notifications_again_off_summary"
+            android:summaryOn="@string/show_new_version_notifications_again_on_summary"
+            android:title="@string/show_new_version_notifications_again"/>
 
     <CheckBoxPreference
-        android:defaultValue="@bool/settings_default_show_tips_notification"
-        android:key="@string/settings_key_show_tips_notification"
-        android:persistent="true"
-        android:summaryOff="@string/show_new_tips_notifications_again_off_summary"
-        android:summaryOn="@string/show_new_tips_notifications_again_on_summary"
-        android:title="@string/show_new_tips_notifications_again" />
+            android:defaultValue="@bool/settings_default_show_tips_notification"
+            android:key="@string/settings_key_show_tips_notification"
+            android:persistent="true"
+            android:summaryOff="@string/show_new_tips_notifications_again_off_summary"
+            android:summaryOn="@string/show_new_tips_notifications_again_on_summary"
+            android:title="@string/show_new_tips_notifications_again"/>
 
     <CheckBoxPreference
-        android:defaultValue="@bool/settings_default_show_settings_app"
-        android:key="@string/settings_key_show_settings_app"
-        android:persistent="true"
-        android:summaryOff="@string/settings_key_show_settings_app_off_summary"
-        android:summaryOn="@string/settings_key_show_settings_app_on_summary"
-        android:title="@string/show_settings_app_in_launcher" />
+            android:defaultValue="@bool/settings_default_show_settings_app"
+            android:key="@string/settings_key_show_settings_app"
+            android:persistent="true"
+            android:summaryOff="@string/settings_key_show_settings_app_off_summary"
+            android:summaryOn="@string/settings_key_show_settings_app_on_summary"
+            android:title="@string/show_settings_app_in_launcher"/>
 
     <CheckBoxPreference
-        android:defaultValue="@bool/settings_default_show_chewbacca"
-        android:key="@string/settings_key_show_chewbacca"
-        android:persistent="true"
-        android:summaryOff="@string/show_crash_notification_off_summary"
-        android:summaryOn="@string/show_crash_notification_on_summary"
-        android:title="@string/show_crash_notification" />
+            android:defaultValue="@bool/settings_default_show_chewbacca"
+            android:key="@string/settings_key_show_chewbacca"
+            android:persistent="true"
+            android:summaryOff="@string/show_crash_notification_off_summary"
+            android:summaryOn="@string/show_crash_notification_on_summary"
+            android:title="@string/show_crash_notification"/>
 
     <EditTextPreference
-        android:autoText="true"
-        android:capitalize="sentences"
-        android:dialogTitle="@string/keyboard_sandbox_title"
-        android:key="keyboards_sandbox"
-        android:lines="3"
-        android:persistent="false"
-        android:singleLine="false"
-        android:title="@string/keyboard_sandbox" >
+            android:autoText="true"
+            android:capitalize="sentences"
+            android:dialogTitle="@string/keyboard_sandbox_title"
+            android:key="keyboards_sandbox"
+            android:lines="3"
+            android:persistent="false"
+            android:singleLine="false"
+            android:title="@string/keyboard_sandbox">
     </EditTextPreference>
 
     <Preference
-        android:summary="@string/click_for_developer_features_summary"
-        android:title="@string/click_for_developer_features" >
+            android:summary="@string/click_for_developer_features_summary"
+            android:title="@string/click_for_developer_features">
 
         <intent
-            android:action="android.intent.action.MAIN"
-            android:targetClass="com.anysoftkeyboard.ui.dev.MainDeveloperActivity"
-            android:targetPackage="com.menny.android.anysoftkeyboard" />
+                android:action="android.intent.action.MAIN"
+                android:targetClass="com.anysoftkeyboard.ui.dev.MainDeveloperActivity"
+                android:targetPackage="com.menny.android.anysoftkeyboard"/>
     </Preference>
 </PreferenceScreen>

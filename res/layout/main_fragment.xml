@@ -16,27 +16,34 @@
 
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-   		android:orientation="vertical" android:padding="4dip"
+        android:orientation="vertical" android:padding="4dip"
         android:gravity="center_horizontal"
         android:layout_width="fill_parent" android:layout_height="fill_parent">
     <LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:weightSum="3">
-        <TextView android:id="@+id/main_tab_text_1" android:layout_width="0px" android:layout_height="32sp" android:layout_weight="1"
-            android:text="@string/main_tab_welcome" style="@android:style/TextAppearance.Medium" android:gravity="center"/>
-        <TextView android:id="@+id/main_tab_text_2" android:layout_width="0px" android:layout_height="32sp" android:layout_weight="1"
-            android:text="@string/main_tab_links" style="@android:style/TextAppearance.Medium" android:gravity="center"/>
-        <TextView android:id="@+id/main_tab_text_3" android:layout_width="0px" android:layout_height="32sp" android:layout_weight="1"
-            android:text="@string/main_tab_credits" style="@android:style/TextAppearance.Medium" android:gravity="center"/>
+        <TextView android:id="@+id/main_tab_text_1" android:layout_width="0px" android:layout_height="32sp"
+                  android:layout_weight="1"
+                  android:text="@string/main_tab_welcome" style="@android:style/TextAppearance.Medium"
+                  android:gravity="center"/>
+        <TextView android:id="@+id/main_tab_text_2" android:layout_width="0px" android:layout_height="32sp"
+                  android:layout_weight="1"
+                  android:text="@string/main_tab_links" style="@android:style/TextAppearance.Medium"
+                  android:gravity="center"/>
+        <TextView android:id="@+id/main_tab_text_3" android:layout_width="0px" android:layout_height="32sp"
+                  android:layout_weight="1"
+                  android:text="@string/main_tab_credits" style="@android:style/TextAppearance.Medium"
+                  android:gravity="center"/>
     </LinearLayout>
-    
-    <View android:layout_width="fill_parent" android:layout_height="@dimen/unselected_tab_drawable_height" android:background="#F11"/>
-    
+
+    <View android:layout_width="fill_parent" android:layout_height="@dimen/unselected_tab_drawable_height"
+          android:background="#F11"/>
+
     <com.anysoftkeyboard.ui.FixedViewFlipper
-        android:id="@+id/main_pager"
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="1">
-    	<include layout="@layout/main_fragment_1_main" />
-        <include layout="@layout/main_fragment_2_links" />
-        <include layout="@layout/main_fragment_3_credits" />
-	</com.anysoftkeyboard.ui.FixedViewFlipper>
+            android:id="@+id/main_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1">
+        <include layout="@layout/main_fragment_1_main"/>
+        <include layout="@layout/main_fragment_2_links"/>
+        <include layout="@layout/main_fragment_3_credits"/>
+    </com.anysoftkeyboard.ui.FixedViewFlipper>
 </LinearLayout>

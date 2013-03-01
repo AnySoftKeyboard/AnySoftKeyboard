@@ -2,8 +2,8 @@
 
 
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-    android:keyWidth="10%p"
-    android:keyHeight="@integer/key_normal_height">
+          android:keyWidth="10%p"
+          android:keyHeight="@integer/key_normal_height">
     <Row>
         <Key android:codes="49" android:keyLabel="1" android:keyEdgeFlags="left"/>
         <Key android:codes="50" android:keyLabel="2" android:popupCharacters="½²"/>
@@ -16,9 +16,9 @@
         <Key android:codes="57" android:keyLabel="9"/>
         <Key android:codes="48" android:keyLabel="0" android:popupCharacters="°" android:keyEdgeFlags="right"/>
     </Row>
-    
+
     <Row>
-    	<Key android:codes="33" android:keyLabel="!" android:keyEdgeFlags="left"/>
+        <Key android:codes="33" android:keyLabel="!" android:keyEdgeFlags="left"/>
         <Key android:codes="64" android:keyLabel="\@"/>
         <Key android:codes="35" android:keyLabel="\#"/>
         <Key android:codes="36" android:keyLabel="$" android:popupCharacters="£€¥¢"/>
@@ -29,13 +29,13 @@
         <Key android:codes="40" android:keyLabel="("/>
         <Key android:codes="41" android:keyLabel=")" android:keyEdgeFlags="right"/>
     </Row>
-    
+
     <Row>
-    	<Key android:keyWidth="15%p" android:codes="-6" android:keyLabel="..." android:keyEdgeFlags="left"/>
+        <Key android:keyWidth="15%p" android:codes="-6" android:keyLabel="..." android:keyEdgeFlags="left"/>
         <Key android:codes="34" android:keyLabel="&quot;"/>
         <Key android:codes="58" android:keyLabel=":" android:popupCharacters=";"/>
         <Key android:codes="63" android:keyLabel="\?"/>
-        <Key android:codes="47" android:keyLabel="/" />
+        <Key android:codes="47" android:keyLabel="/"/>
         <Key android:codes="45" android:keyLabel="-"/>
         <Key android:codes="61" android:keyLabel="="/>
         <Key android:codes="43" android:keyLabel="+"/>

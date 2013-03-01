@@ -1,42 +1,22 @@
 /*
- * Copyright (C) 2008-2009 Google Inc.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
+ * Copyright (c) 2013 Menny Even-Danan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-/*
- * Copyright (C) 2008-2011 Menny Even Danan.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
+
+
 
 package com.anysoftkeyboard.keyboards;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
-
-import org.xmlpull.v1.XmlPullParserException;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -47,11 +27,16 @@ import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.util.Xml;
-
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * Loads an XML description of a keyboard and stores the attributes of the keys.
@@ -60,7 +45,7 @@ import com.menny.android.anysoftkeyboard.R;
  * The layout file for a keyboard contains XML that looks like the following
  * snippet:
  * </p>
- * 
+ * <p/>
  * <pre>
  * &lt;Keyboard
  *         android:keyWidth="%10p"
@@ -74,7 +59,7 @@ import com.menny.android.anysoftkeyboard.R;
  *     ...
  * &lt;/Keyboard&gt;
  * </pre>
- * 
+ *
  * @attr ref android.R.styleable#Keyboard_keyWidth
  * @attr ref android.R.styleable#Keyboard_keyHeight
  * @attr ref android.R.styleable#Keyboard_horizontalGap
@@ -98,28 +83,44 @@ public abstract class Keyboard {
     protected final Context mASKContext;
     protected final int mLayoutResId;
 
-    /** Horizontal gap default for all rows */
+    /**
+     * Horizontal gap default for all rows
+     */
     private int mDefaultHorizontalGap;
 
-    /** Default key width */
+    /**
+     * Default key width
+     */
     private int mDefaultWidth;
 
-    /** Default key height */
+    /**
+     * Default key height
+     */
     private int mDefaultHeightCode;
 
-    /** Default gap between rows */
+    /**
+     * Default gap between rows
+     */
     private int mDefaultVerticalGap;
 
-    /** Is the keyboard in the shifted state */
+    /**
+     * Is the keyboard in the shifted state
+     */
     private boolean mShifted;
 
-    /** Key instance for the shift key, if present */
+    /**
+     * Key instance for the shift key, if present
+     */
     private Key mShiftKey;
 
-    /** Key index for the shift key, if present */
+    /**
+     * Key index for the shift key, if present
+     */
     private int mShiftKeyIndex = -1;
 
-    /** Total height of the keyboard, including the padding and keys */
+    /**
+     * Total height of the keyboard, including the padding and keys
+     */
     private int mTotalHeight;
 
     /**
@@ -128,19 +129,27 @@ public abstract class Keyboard {
      */
     private int mTotalWidth;
 
-    /** List of keys in this keyboard */
+    /**
+     * List of keys in this keyboard
+     */
     private List<Key> mKeys;
 
-    /** List of modifier keys such as Shift & Alt, if any */
+    /**
+     * List of modifier keys such as Shift & Alt, if any
+     */
     private List<Key> mModifierKeys;
 
-    /** Width of the screen available to fit the keyboard */
+    /**
+     * Width of the screen available to fit the keyboard
+     */
     private int mDisplayWidth;
 
     /** Height of the screen */
     // private int mDisplayHeight;
 
-    /** Keyboard mode, or zero, if none. */
+    /**
+     * Keyboard mode, or zero, if none.
+     */
     protected final int mKeyboardMode;
 
     // Variables for pre-computing nearest keys.
@@ -161,7 +170,7 @@ public abstract class Keyboard {
      * Container for keys in the keyboard. All keys in a row are at the same
      * Y-coordinate. Some of the key size defaults can be overridden per row
      * from what the {@link Keyboard} defines.
-     * 
+     *
      * @attr ref android.R.styleable#Keyboard_keyWidth
      * @attr ref android.R.styleable#Keyboard_keyHeight
      * @attr ref android.R.styleable#Keyboard_horizontalGap
@@ -170,13 +179,21 @@ public abstract class Keyboard {
      * @attr ref android.R.styleable#Keyboard_Row_keyboardMode
      */
     public static class Row {
-        /** Default width of a key in this row. */
+        /**
+         * Default width of a key in this row.
+         */
         public int defaultWidth;
-        /** Default height of a key in this row. */
+        /**
+         * Default height of a key in this row.
+         */
         public int defaultHeightCode;
-        /** Default horizontal gap between keys in this row. */
+        /**
+         * Default horizontal gap between keys in this row.
+         */
         public int defaultHorizontalGap;
-        /** Vertical gap following this row. */
+        /**
+         * Vertical gap following this row.
+         */
         public int verticalGap;
         /**
          * Edge flags for this row of keys. Possible values that can be assigned
@@ -185,7 +202,9 @@ public abstract class Keyboard {
          */
         public int rowEdgeFlags;
 
-        /** The keyboard mode for this row */
+        /**
+         * The keyboard mode for this row
+         */
         public int mode;
 
         private Keyboard parent;
@@ -204,7 +223,7 @@ public abstract class Keyboard {
         }
 
         public Row(Context askContext, Resources res, Keyboard parent,
-                XmlResourceParser parser) {
+                   XmlResourceParser parser) {
             Resources askRes = askContext.getResources();
             this.parent = parent;
             TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser),
@@ -231,7 +250,7 @@ public abstract class Keyboard {
     /**
      * Class for describing the position and characteristics of a single key in
      * the keyboard.
-     * 
+     *
      * @attr ref android.R.styleable#Keyboard_keyWidth
      * @attr ref android.R.styleable#Keyboard_keyHeight
      * @attr ref android.R.styleable#Keyboard_horizontalGap
@@ -254,7 +273,9 @@ public abstract class Keyboard {
          */
         public int[] codes;
 
-        /** Label to display */
+        /**
+         * Label to display
+         */
         public CharSequence label;
 
         /**
@@ -262,30 +283,50 @@ public abstract class Keyboard {
          * label
          */
         public Drawable icon;
-        /** Preview version of the icon, for the preview popup */
+        /**
+         * Preview version of the icon, for the preview popup
+         */
         public Drawable iconPreview;
-        /** Width of the key, not including the gap */
+        /**
+         * Width of the key, not including the gap
+         */
         public int width;
-        /** Height of the key, not including the gap */
+        /**
+         * Height of the key, not including the gap
+         */
         public int height;
-        /** The horizontal gap before this key */
+        /**
+         * The horizontal gap before this key
+         */
         public int gap;
-        /** Whether this key is sticky, i.e., a toggle key */
+        /**
+         * Whether this key is sticky, i.e., a toggle key
+         */
         public boolean sticky;
-        /** X coordinate of the key in the keyboard layout */
+        /**
+         * X coordinate of the key in the keyboard layout
+         */
         public int x;
-        /** Y coordinate of the key in the keyboard layout */
+        /**
+         * Y coordinate of the key in the keyboard layout
+         */
         public int y;
-        /** The current pressed state of this key */
+        /**
+         * The current pressed state of this key
+         */
         public boolean pressed;
-        /** If this is a sticky key, is it on? */
+        /**
+         * If this is a sticky key, is it on?
+         */
         public boolean on;
         /**
          * Text to output when pressed. This can be multiple characters, like
          * ".com"
          */
         public CharSequence text;
-        /** Popup characters */
+        /**
+         * Popup characters
+         */
         public CharSequence popupCharacters;
 
         /**
@@ -296,9 +337,13 @@ public abstract class Keyboard {
          * {@link Keyboard#EDGE_BOTTOM}.
          */
         public int edgeFlags;
-        /** Whether this is a modifier key, such as Shift or Alt */
+        /**
+         * Whether this is a modifier key, such as Shift or Alt
+         */
         public boolean modifier;
-        /** The keyboard that this key belongs to */
+        /**
+         * The keyboard that this key belongs to
+         */
         private Keyboard keyboard;
 
         public final Row row;
@@ -307,7 +352,9 @@ public abstract class Keyboard {
          * XML layout for that keyboard.
          */
         public int popupResId;
-        /** Whether this key repeats itself when held down */
+        /**
+         * Whether this key repeats itself when held down
+         */
         public boolean repeatable;
 
         private final static int[] KEY_STATE_NORMAL_ON = {
@@ -331,13 +378,15 @@ public abstract class Keyboard {
         };
 
         private final static int[] KEY_STATE_NORMAL = {
-                };
+        };
 
         private final static int[] KEY_STATE_PRESSED = {
                 android.R.attr.state_pressed
         };
 
-        /** Create an empty key with no attributes. */
+        /**
+         * Create an empty key with no attributes.
+         */
         public Key(Row parent, KeyboardDimens keyboardDimens) {
             row = parent;
             keyboard = parent.parent;
@@ -350,16 +399,16 @@ public abstract class Keyboard {
         /**
          * Create a key with the given top-left coordinate and extract its
          * attributes from the XML parser.
-         * 
-         * @param res resources associated with the caller's context
+         *
+         * @param res    resources associated with the caller's context
          * @param parent the row that this key belongs to. The row must already
-         *            be attached to a {@link Keyboard}.
-         * @param x the x coordinate of the top-left
-         * @param y the y coordinate of the top-left
+         *               be attached to a {@link Keyboard}.
+         * @param x      the x coordinate of the top-left
+         * @param y      the y coordinate of the top-left
          * @param parser the XML parser containing the attributes for this key
          */
         public Key(Context askContext, Resources res, Row parent,
-                KeyboardDimens keyboardDimens, int x, int y, XmlResourceParser parser) {
+                   KeyboardDimens keyboardDimens, int x, int y, XmlResourceParser parser) {
             this(parent, keyboardDimens);
 
             this.x = x;
@@ -374,8 +423,7 @@ public abstract class Keyboard {
             width = Math.min(keyboardDimens.getKeyMaxWidth(), width);
             final Resources askResources = askContext.getResources();
             final int heightCode = getKeyHeightCode(askResources, res, a, parent.defaultHeightCode);
-            switch (heightCode)
-            {
+            switch (heightCode) {
                 case 0:
                     height = 0;
                     break;
@@ -408,8 +456,8 @@ public abstract class Keyboard {
 
             if (codesValue.type == TypedValue.TYPE_INT_DEC
                     || codesValue.type == TypedValue.TYPE_INT_HEX) {
-                codes = new int[] {
-                    codesValue.data
+                codes = new int[]{
+                        codesValue.data
                 };
             } else if (codesValue.type == TypedValue.TYPE_STRING) {
                 codes = parseCSV(codesValue.string.toString());
@@ -441,8 +489,8 @@ public abstract class Keyboard {
             text = a.getText(R.styleable.KeyboardLayout_Key_android_keyOutputText);
 
             if (codes == null && !TextUtils.isEmpty(label)) {
-                codes = new int[] {
-                    label.charAt(0)
+                codes = new int[]{
+                        label.charAt(0)
                 };
             }
             a.recycle();
@@ -451,7 +499,7 @@ public abstract class Keyboard {
         /**
          * Informs the key that it has been pressed, in case it needs to change
          * its appearance or state.
-         * 
+         *
          * @see #onReleased(boolean)
          */
         public void onPressed() {
@@ -462,7 +510,7 @@ public abstract class Keyboard {
          * Changes the pressed state of the key. If it is a sticky key, it will
          * also change the toggled state of the key if the finger was release
          * inside.
-         * 
+         *
          * @param inside whether the finger was released inside the key
          * @see #onPressed()
          */
@@ -506,7 +554,7 @@ public abstract class Keyboard {
 
         /**
          * Detects if a point falls inside this key.
-         * 
+         *
          * @param x the x-coordinate of the point
          * @param y the y-coordinate of the point
          * @return whether or not the point falls inside the key. If the key is
@@ -531,7 +579,7 @@ public abstract class Keyboard {
         /**
          * Returns the square of the distance between the closest point inside
          * the key and the given point.
-         * 
+         *
          * @param x the x-coordinate of the point
          * @param y the y-coordinate of the point
          * @return the square of the distance of the point from and the key
@@ -553,7 +601,7 @@ public abstract class Keyboard {
         /**
          * Returns the drawable state for the key, based on the current state
          * and type of the key.
-         * 
+         *
          * @return the drawable state of the key.
          * @see android.graphics.drawable.StateListDrawable#setState(int[])
          */
@@ -585,28 +633,25 @@ public abstract class Keyboard {
 
     /**
      * Creates a keyboard from the given xml key layout file.
-     * 
-     * @param context the application or service context
+     *
+     * @param context        the application or service context
      * @param xmlLayoutResId the resource file that contains the keyboard layout
-     *            and keys.
+     *                       and keys.
      */
     public Keyboard(Context askContext, Context context, int xmlLayoutResId) {
         this(askContext, context, xmlLayoutResId, 0);
     }
 
     protected static int getKeyHeightCode(Resources askRes, Resources res, TypedArray a,
-            int defaultHeightCode) {
+                                          int defaultHeightCode) {
         int heightCode = -1;
         TypedValue value = a.peekValue(R.styleable.KeyboardLayout_android_keyHeight);
         if (value == null)// means that it was not provided. So I take my
-                          // parent's
+        // parent's
         {
             heightCode = defaultHeightCode;
-        }
-        else if (value.type >= TypedValue.TYPE_FIRST_INT && value.type <= TypedValue.TYPE_LAST_INT)
-        {
-            switch (value.data)
-            {
+        } else if (value.type >= TypedValue.TYPE_FIRST_INT && value.type <= TypedValue.TYPE_LAST_INT) {
+            switch (value.data) {
                 case 0:
                 case -2:
                 case -3:
@@ -614,9 +659,7 @@ public abstract class Keyboard {
                 default:
                     return -1;
             }
-        }
-        else
-        {
+        } else {
             Log.w(TAG, "Key height attribute is incorrectly set! Defaulting to regular height.");
             return heightCode = -1;
         }
@@ -627,14 +670,14 @@ public abstract class Keyboard {
     /**
      * Creates a keyboard from the given xml key layout file. Weeds out rows
      * that have a keyboard mode defined but don't match the specified mode.
-     * 
-     * @param context the application or service context
+     *
+     * @param context        the application or service context
      * @param xmlLayoutResId the resource file that contains the keyboard layout
-     *            and keys.
-     * @param modeId keyboard mode identifier
+     *                       and keys.
+     * @param modeId         keyboard mode identifier
      */
     public Keyboard(Context askContext, Context context, int xmlLayoutResId,
-            int modeId) {
+                    int modeId) {
         mASKContext = askContext;
         mKeyboardContext = context;
         mLayoutResId = xmlLayoutResId;
@@ -658,15 +701,15 @@ public abstract class Keyboard {
      * If the specified number of columns is -1, then the keyboard will fit as
      * many keys as possible in each row.
      * </p>
-     * 
-     * @param context the application or service context
+     *
+     * @param context             the application or service context
      * @param layoutTemplateResId the layout template file, containing no keys.
-     * @param characters the list of characters to display on the keyboard. One
-     *            key will be created for each character.
-     * @param columns the number of columns of keys to display. If this number
-     *            is greater than the number of keys that can fit in a row, it
-     *            will be ignored. If this number is -1, the keyboard will fit
-     *            as many keys as possible in each row.
+     * @param characters          the list of characters to display on the keyboard. One
+     *                            key will be created for each character.
+     * @param columns             the number of columns of keys to display. If this number
+     *                            is greater than the number of keys that can fit in a row, it
+     *                            will be ignored. If this number is -1, the keyboard will fit
+     *                            as many keys as possible in each row.
      */
     /*
      * public Keyboard(Context context, int layoutTemplateResId, CharSequence
@@ -715,7 +758,7 @@ public abstract class Keyboard {
 
     /**
      * Returns the total height of the keyboard
-     * 
+     *
      * @return the total height of the keyboard
      */
     public int getHeight() {
@@ -761,7 +804,7 @@ public abstract class Keyboard {
                     if (key.squaredDistanceFrom(x, y) < mProximityThreshold ||
                             key.squaredDistanceFrom(x + mCellWidth - 1, y) < mProximityThreshold ||
                             key.squaredDistanceFrom(x + mCellWidth - 1, y + mCellHeight - 1)
-                            < mProximityThreshold ||
+                                    < mProximityThreshold ||
                             key.squaredDistanceFrom(x, y + mCellHeight - 1) < mProximityThreshold) {
                         indices[count++] = i;
                     }
@@ -775,7 +818,7 @@ public abstract class Keyboard {
 
     /**
      * Returns the indices of the keys that are closest to the given point.
-     * 
+     *
      * @param x the x-coordinate of the point
      * @param y the y-coordinate of the point
      * @return the array of integer indices for the nearest keys to the given
@@ -795,13 +838,13 @@ public abstract class Keyboard {
     }
 
     protected Row createRowFromXml(Context askContext, Resources res,
-            XmlResourceParser parser) {
+                                   XmlResourceParser parser) {
         return new Row(askContext, res, this, parser);
     }
 
     protected abstract Key createKeyFromXml(Context askContext, Resources res,
-            Row parent, KeyboardDimens keyboardDimens, int x, int y,
-            XmlResourceParser parser);
+                                            Row parent, KeyboardDimens keyboardDimens, int x, int y,
+                                            XmlResourceParser parser);
 
     public void loadKeyboard(final KeyboardDimens keyboardDimens) {
         mDisplayWidth = keyboardDimens.getKeyboardMaxWidth();
@@ -850,7 +893,7 @@ public abstract class Keyboard {
                                 (int) x, (int) y, parser);
                         rowHeight = Math.max(rowHeight, key.height);
                         key.width -= keyHorizontalGap;// the gap is on both
-                                                      // sides
+                        // sides
                         mKeys.add(key);
                         if (key.codes[0] == KeyCodes.SHIFT) {
                             mShiftKey = key;
@@ -861,8 +904,7 @@ public abstract class Keyboard {
                         }
                     } else if (TAG_KEYBOARD.equals(tag)) {
                         parseKeyboardAttributes(mASKContext, res, parser);
-                    } else
-                    {
+                    } else {
                         inUnknown = true;
                         onUnknownTagStart(mKeyboardContext, res, tag, parser);
                     }
@@ -898,7 +940,7 @@ public abstract class Keyboard {
     }
 
     protected void onUnknownTagStart(Context context, Resources res, String tag2,
-            XmlResourceParser parser) {
+                                     XmlResourceParser parser) {
     }
 
     private void skipToEndOfRow(XmlResourceParser parser)
@@ -913,7 +955,7 @@ public abstract class Keyboard {
     }
 
     private void parseKeyboardAttributes(Context askContext, Resources res,
-            XmlResourceParser parser) {
+                                         XmlResourceParser parser) {
         TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser),
                 R.styleable.KeyboardLayout);
 
@@ -927,9 +969,9 @@ public abstract class Keyboard {
         mDefaultVerticalGap = askRes.getDimensionPixelOffset(R.dimen.default_key_vertical_gap);
         mProximityThreshold = (int) (mDefaultWidth * SEARCH_DISTANCE);
         mProximityThreshold = mProximityThreshold * mProximityThreshold; // Square
-                                                                         // it
-                                                                         // for
-                                                                         // comparison
+        // it
+        // for
+        // comparison
         a.recycle();
     }
 

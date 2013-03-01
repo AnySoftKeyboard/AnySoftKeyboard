@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-    android:keyWidth="10%p"
-    android:keyHeight="@integer/key_normal_height">
+          android:keyWidth="10%p"
+          android:keyHeight="@integer/key_normal_height">
 
     <Row android:rowEdgeFlags="top|bottom">
-        <Key android:codes="58" android:keyLabel=":" android:keyEdgeFlags="left" />
-        <Key android:codes="47" android:keyLabel="/" />
-        <Key android:codes="64" android:keyLabel="\@" />
-        <Key android:codes="39" android:keyLabel="\'" />
-        <Key android:codes="34" android:keyLabel="&quot;" />
-        <Key android:codes="183" android:keyLabel="&#183;" android:keyEdgeFlags="right" />
+        <Key android:codes="58" android:keyLabel=":" android:keyEdgeFlags="left"/>
+        <Key android:codes="47" android:keyLabel="/"/>
+        <Key android:codes="64" android:keyLabel="\@"/>
+        <Key android:codes="39" android:keyLabel="\'"/>
+        <Key android:codes="34" android:keyLabel="&quot;"/>
+        <Key android:codes="183" android:keyLabel="&#183;" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>

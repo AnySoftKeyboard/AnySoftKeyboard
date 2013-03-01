@@ -1,11 +1,11 @@
 /*
- * Copyright (C) 2007 The Android Open Source Project
+ * Copyright (c) 2013 Menny Even-Danan
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,15 +16,13 @@
 
 package com.anysoftkeyboard.dictionaries;
 
-import java.io.IOException;
-
+import android.content.res.Resources;
+import android.content.res.XmlResourceParser;
+import com.anysoftkeyboard.utils.XmlUtils;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
-import android.content.res.Resources;
-import android.content.res.XmlResourceParser;
-
-import com.anysoftkeyboard.utils.XmlUtils;
+import java.io.IOException;
 
 /**
  * This class accesses a dictionary of corrections to frequent misspellings.
@@ -73,8 +71,8 @@ public class AutoText {
     AutoText(Resources resources, int resId) {
         //mLocale = locale;
         //init(resources);
-    	
-    	XmlResourceParser parser = resources.getXml(resId);
+
+        XmlResourceParser parser = resources.getXml(resId);
 
         StringBuilder right = new StringBuilder(RIGHT);
         mTrie = new char[DEFAULT];
@@ -89,7 +87,7 @@ public class AutoText {
             while (true) {
                 XmlUtils.nextElement(parser);
 
-                String element = parser.getName(); 
+                String element = parser.getName();
                 if (element == null || !(element.equals("word"))) {
                     break;
                 }
@@ -117,10 +115,10 @@ public class AutoText {
         } finally {
             parser.close();
         }
-    	
+
         mText = right.toString();
     }
-    
+
     public String lookup(CharSequence src, final int start, final int end) {
         int here = mTrie[TRIE_ROOT];
 
@@ -129,7 +127,7 @@ public class AutoText {
 
             for (; here != TRIE_NULL; here = mTrie[here + TRIE_NEXT]) {
                 if (c == mTrie[here + TRIE_C]) {
-                    if ((i == end - 1) 
+                    if ((i == end - 1)
                             && (mTrie[here + TRIE_OFF] != TRIE_NULL)) {
                         int off = mTrie[here + TRIE_OFF];
                         int len = mText.charAt(off);
@@ -155,13 +153,13 @@ public class AutoText {
         int herep = TRIE_ROOT;
         // Keep track of the size of the dictionary
         //mSize++;
-        
+
         for (int i = 0; i < slen; i++) {
             char c = src.charAt(i);
             boolean found = false;
 
             for (; mTrie[herep] != TRIE_NULL;
-                    herep = mTrie[herep] + TRIE_NEXT) {
+                 herep = mTrie[herep] + TRIE_NEXT) {
                 if (c == mTrie[mTrie[herep] + TRIE_C]) {
                     // There is a node for this letter, and this is the
                     // end, so fill in the right hand side fields.

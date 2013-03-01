@@ -19,9 +19,9 @@
 -->
 <!-- android:background="@drawable/keyboard_dark_background" -->
 <com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/AnyKeyboardPopupView"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:layout_margin="0px"
-    android:padding="0px" />
+                                                         android:id="@+id/AnyKeyboardPopupView"
+                                                         android:layout_width="fill_parent"
+                                                         android:layout_height="wrap_content"
+                                                         android:layout_alignParentBottom="true"
+                                                         android:layout_margin="0px"
+                                                         android:padding="0px"/>

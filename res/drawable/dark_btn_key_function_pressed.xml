@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-	<item>
-		<shape
-		    android:shape="rectangle">
-		    <padding android:top="@dimen/key_top_inset"
-			    android:right="@dimen/key_right_inset"
-			    android:bottom="@dimen/key_bottom_inset"
-			    android:left="@dimen/key_left_inset"/>
-		    <solid android:color="#606060"/>
-		    <stroke android:width="2px" android:color="#222"/>
-		    <corners android:radius="@dimen/key_corner_radius"/>
-		</shape>
-	</item>
+    <item>
+        <shape
+                android:shape="rectangle">
+            <padding android:top="@dimen/key_top_inset"
+                     android:right="@dimen/key_right_inset"
+                     android:bottom="@dimen/key_bottom_inset"
+                     android:left="@dimen/key_left_inset"/>
+            <solid android:color="#606060"/>
+            <stroke android:width="2px" android:color="#222"/>
+            <corners android:radius="@dimen/key_corner_radius"/>
+        </shape>
+    </item>
 </layer-list>

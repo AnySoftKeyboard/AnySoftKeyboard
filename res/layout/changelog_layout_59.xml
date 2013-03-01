@@ -15,9 +15,9 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:tag="20111212"
-        android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
-	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-	    android:text="* A more capable theme support.\n* Various infrastructure fixes.\n* Various fixes (like 16 keys layout crash)."
-	    style="@android:style/TextAppearance.Small"/>
+              android:tag="20111212"
+              android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+    <TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
+              android:text="* A more capable theme support.\n* Various infrastructure fixes.\n* Various fixes (like 16 keys layout crash)."
+              style="@android:style/TextAppearance.Small"/>
 </LinearLayout>

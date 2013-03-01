@@ -15,40 +15,40 @@
      limitations under the License.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical">
 
     <TextView
-        style="@android:style/TextAppearance.Medium"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/tip_8_suggestions"
-        android:textStyle="bold" />
+            style="@android:style/TextAppearance.Medium"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/tip_8_suggestions"
+            android:textStyle="bold"/>
 
     <TextView
-        style="@android:style/TextAppearance.Medium"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/tip_8_suggestions_tip" />
+            style="@android:style/TextAppearance.Medium"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tip_8_suggestions_tip"/>
 
     <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="0px"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="4dp"
-        android:adjustViewBounds="true"
-        android:padding="0px"
-        android:scaleType="centerInside"
-        android:src="@drawable/tip_8_suggestions" />
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="0px"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:adjustViewBounds="true"
+            android:padding="0px"
+            android:scaleType="centerInside"
+            android:src="@drawable/tip_8_suggestions"/>
 
     <TextView
-        style="@android:style/TextAppearance.Medium"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/tip_8_suggestions_editor" />
+            style="@android:style/TextAppearance.Medium"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tip_8_suggestions_editor"/>
 
 </LinearLayout>

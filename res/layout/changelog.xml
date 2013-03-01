@@ -1,130 +1,130 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
 
     <RelativeLayout
-        android:id="@+id/changelog_title_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" >
+            android:id="@+id/changelog_title_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true">
 
         <ImageView
-            android:id="@+id/changelog_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_margin="10dp"
-            android:contentDescription="@string/ime_name"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_launcher" />
+                android:id="@+id/changelog_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="10dp"
+                android:contentDescription="@string/ime_name"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_launcher"/>
 
         <TextView
-            android:id="@+id/changelog_app_name"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@id/changelog_icon"
-            android:gravity="center"
-            android:paddingTop="10dp"
-            android:text="@string/ime_name"
-            android:textColor="#FFF"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+                android:id="@+id/changelog_app_name"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@id/changelog_icon"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:text="@string/ime_name"
+                android:textColor="#FFF"
+                android:textSize="22sp"
+                android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/changelog_label"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/changelog_app_name"
-            android:layout_toRightOf="@id/changelog_icon"
-            android:gravity="center"
-            android:text="@string/changelog"
-            android:textColor="#FFF"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-<!-- 
+                android:id="@+id/changelog_label"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/changelog_app_name"
+                android:layout_toRightOf="@id/changelog_icon"
+                android:gravity="center"
+                android:text="@string/changelog"
+                android:textColor="#FFF"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+        <!--
+                <TextView
+                    android:id="@+id/changelog_web_url"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/changelog_label"
+                    android:layout_toRightOf="@id/changelog_icon"
+                    android:autoLink="web"
+                    android:gravity="center"
+                    android:text="http://s.evendanan.net/ask"
+                    android:textColor="#BBB"
+                    android:textSize="14sp" />
+         -->
         <TextView
-            android:id="@+id/changelog_web_url"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/changelog_label"
-            android:layout_toRightOf="@id/changelog_icon"
-            android:autoLink="web"
-            android:gravity="center"
-            android:text="http://s.evendanan.net/ask"
-            android:textColor="#BBB"
-            android:textSize="14sp" />
- -->
-        <TextView
-            android:id="@+id/changelog_gplus"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/changelog_label"
-            android:layout_margin="4dp"
-            android:layout_toRightOf="@id/changelog_icon"
-            android:autoLink="web"
-            android:drawableLeft="@drawable/gplus"
-            android:text=" http://gplus.to/anysoftkeyboard"
-            android:textSize="12sp" >
+                android:id="@+id/changelog_gplus"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/changelog_label"
+                android:layout_margin="4dp"
+                android:layout_toRightOf="@id/changelog_icon"
+                android:autoLink="web"
+                android:drawableLeft="@drawable/gplus"
+                android:text=" http://gplus.to/anysoftkeyboard"
+                android:textSize="12sp">
         </TextView>
-<!-- 
-        <TextView
-            android:id="@+id/changelog_twitter"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/changelog_gplus"
-            android:layout_margin="4dp"
-            android:layout_toRightOf="@id/changelog_icon"
-            android:autoLink="web"
-            android:drawableLeft="@drawable/twitter"
-            android:text=" http://twitter.com/anysoftkeyboard"
-            android:textSize="12sp" >
-        </TextView>
- -->
+        <!--
+                <TextView
+                    android:id="@+id/changelog_twitter"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/changelog_gplus"
+                    android:layout_margin="4dp"
+                    android:layout_toRightOf="@id/changelog_icon"
+                    android:autoLink="web"
+                    android:drawableLeft="@drawable/twitter"
+                    android:text=" http://twitter.com/anysoftkeyboard"
+                    android:textSize="12sp" >
+                </TextView>
+         -->
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/close_button_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/tips_bottom_background"
-        android:orientation="horizontal"
-        android:padding="4dp"
-        android:weightSum="2" >
+            android:id="@+id/close_button_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/tips_bottom_background"
+            android:orientation="horizontal"
+            android:padding="4dp"
+            android:weightSum="2">
 
         <Button
-            android:id="@+id/close_button"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="8dp"
-            android:text="@string/close_button" />
+                android:id="@+id/close_button"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="@string/close_button"/>
     </LinearLayout>
 
     <CheckBox
-        android:id="@+id/show_notifications_next_time"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/close_button_layout"
-        android:text="@string/show_new_version_notifications_again" />
-
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/show_notifications_next_time"
-        android:layout_below="@id/changelog_title_layout" >
-
-        <LinearLayout
-            android:id="@+id/change_logs_container"
+            android:id="@+id/show_notifications_next_time"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp" >
+            android:layout_above="@id/close_button_layout"
+            android:text="@string/show_new_version_notifications_again"/>
+
+    <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/show_notifications_next_time"
+            android:layout_below="@id/changelog_title_layout">
+
+        <LinearLayout
+                android:id="@+id/change_logs_container"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp">
         </LinearLayout>
     </ScrollView>
 

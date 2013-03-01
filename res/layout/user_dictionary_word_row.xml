@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp"
-    android:weightSum="1" >
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:paddingLeft="8dp"
+              android:paddingRight="8dp"
+              android:weightSum="1">
 
     <TextView
-        android:id="@android:id/text1"
-        android:layout_width="0px"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-        android:minHeight="?android:attr/listPreferredItemHeight"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:id="@android:id/text1"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:minHeight="?android:attr/listPreferredItemHeight"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     <ImageView
-        android:id="@+id/edit_user_word"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="8dp"
-        android:adjustViewBounds="true"
-        android:scaleType="centerInside"
-        android:src="@android:drawable/ic_menu_edit" />
+            android:id="@+id/edit_user_word"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:src="@android:drawable/ic_menu_edit"/>
 
     <ImageView
-        android:id="@+id/delete_user_word"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="8dp"
-        android:adjustViewBounds="true"
-        android:scaleType="centerInside"
-        android:src="@android:drawable/ic_menu_delete" />
+            android:id="@+id/delete_user_word"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:src="@android:drawable/ic_menu_delete"/>
 
 </LinearLayout>
