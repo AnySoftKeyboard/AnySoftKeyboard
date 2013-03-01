@@ -158,9 +158,19 @@ public class TutorialsProvider {
     }
 
     public static boolean shouldShowTips(Context applicationContext) {
+        //OK, I should show tips if there are some to show, but I don't want to annoy, so:
+        //1) I wont show tips if the current version is old than 3 days - if the user hasn't read them so far..
+        final long currentReleaseInstallTime = AnyApplication.getConfig().getTimeCurrentVersionInstalled();
+        final long THREE_DAYS = 3*24*60*60*1000;
+        if ((System.currentTimeMillis() - currentReleaseInstallTime) > THREE_DAYS) {
+            //waited too long - NO TIPS FOR YOU!
+            return false;
+        }
+        //let's see if there are new layouts for this user.
         ArrayList<Integer> layoutsToShow = new ArrayList<Integer>();
         SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(applicationContext);
         TipsActivity.getTipsLayouts(applicationContext, false, layoutsToShow, appPrefs);
+
         return layoutsToShow.size() > 0;
     }
 
