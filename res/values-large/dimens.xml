@@ -19,33 +19,33 @@
 -->
 
 <resources>
-	<dimen name="window_popup_corner_radius">6dp</dimen>
-    
+    <dimen name="window_popup_corner_radius">6dp</dimen>
+
     <dimen name="default_key_height">52dip</dimen>
     <dimen name="default_key_half_height">38dip</dimen>
     <dimen name="default_key_tall_height">62dip</dimen>
-    
+
     <dimen name="default_key_vertical_gap">3dip</dimen>
     <dimen name="default_key_horizontal_gap">1dp</dimen>
     <dimen name="plain_theme_key_horizontal_gap">3dp</dimen>
     <dimen name="plain_theme_key_vertical_gap">4dp</dimen>
-    
+
     <dimen name="key_text_size">24sp</dimen>
     <dimen name="lean_key_text_size">21sp</dimen>
     <dimen name="key_label_text_size">17sp</dimen>
     <dimen name="key_hint_text_size">8sp</dimen>
-    
+
     <dimen name="keyboard_name_text_size">12sp</dimen>
-    
+
     <dimen name="candidate_strip_height">44sp</dimen>
     <dimen name="candidate_font_height">24sp</dimen>
-    
+
     <dimen name="key_corner_radius">3dp</dimen>
-    
+
     <dimen name="key_top_inset">4dp</dimen>
     <dimen name="key_bottom_inset">4dp</dimen>
     <dimen name="key_right_inset">4dp</dimen>
     <dimen name="key_left_inset">4dp</dimen>
-    
-	<integer name="condensing_precentage">100</integer>
+
+    <integer name="condensing_precentage">100</integer>
 </resources>

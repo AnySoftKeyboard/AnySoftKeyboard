@@ -1,80 +1,28 @@
 
+/*
+ * Copyright (c) 2013 Menny Even-Danan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.anysoftkeyboard.utils;
 
-/*
- * Copyright (c) 2003, Henri Yandell
- * All rights reserved.
- * 
- * Redistribution and use in source and binary forms, with or 
- * without modification, are permitted provided that the 
- * following conditions are met:
- * 
- * + Redistributions of source code must retain the above copyright notice, 
- *   this list of conditions and the following disclaimer.
- * 
- * + Redistributions in binary form must reproduce the above copyright notice, 
- *   this list of conditions and the following disclaimer in the documentation 
- *   and/or other materials provided with the distribution.
- * 
- * + Neither the name of XmlWriter nor the names of its contributors 
- *   may be used to endorse or promote products derived from this software 
- *   without specific prior written permission.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
- * POSSIBILITY OF SUCH DAMAGE.
- */
-
-/*
- * Copyright (c) 2010, Menny Even Danan
- * All rights reserved.
- * 
- * Redistribution and use in source and binary forms, with or 
- * without modification, are permitted provided that the 
- * following conditions are met:
- * 
- * + Redistributions of source code must retain the above copyright notice, 
- *   this list of conditions and the following disclaimer.
- * 
- * + Redistributions in binary form must reproduce the above copyright notice, 
- *   this list of conditions and the following disclaimer in the documentation 
- *   and/or other materials provided with the distribution.
- * 
- * + Neither the name of XmlWriter nor the names of its contributors 
- *   may be used to endorse or promote products derived from this software 
- *   without specific prior written permission.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
- * ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
- * POSSIBILITY OF SUCH DAMAGE.
- */
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InvalidObjectException;
-import java.io.Writer;
-
+import java.io.*;
 import java.util.Stack;
 
 /**
  * Makes writing XML much much easier.
- * 
+ *
  * @author <a href="mailto:bayard@generationjava.com">Henri Yandell</a>
  * @author <a href="mailto:menny|AT| evendanan{dot} net">Menny Even Danan - just
  *         added some features on Henri's initial version</a>
@@ -94,7 +42,7 @@ public class XmlWriter {
 
     /**
      * Create an XmlWriter on top of an existing java.io.Writer.
-     * 
+     *
      * @throws IOException
      */
     public XmlWriter(Writer writer, boolean takeOwnership, int indentingOffset, boolean addXmlPrefix)
@@ -115,7 +63,7 @@ public class XmlWriter {
 
     /**
      * Begin to output an entity.
-     * 
+     *
      * @param String name of entity.
      */
     public XmlWriter writeEntity(String name) throws IOException {
@@ -153,7 +101,7 @@ public class XmlWriter {
      * Write an attribute out for the current entity. Any xml characters in the
      * value are escaped. Currently it does not actually throw the exception,
      * but the api is set that way for future changes.
-     * 
+     *
      * @param String name of attribute.
      * @param String value of attribute.
      */
@@ -169,7 +117,7 @@ public class XmlWriter {
     /**
      * End the current entity. This will throw an exception if it is called when
      * there is not a currently open entity.
-     * 
+     *
      * @throws IOException
      */
     public XmlWriter endEntity() throws IOException {
@@ -182,8 +130,7 @@ public class XmlWriter {
                 writeAttributes();
                 this.writer.write("/>\n");
             } else {
-                if (!this.justWroteText)
-                {
+                if (!this.justWroteText) {
                     for (int tabIndex = 0; tabIndex < stack.size() + indentingOffset; tabIndex++)
                         this.writer.write(INDENT_STRING);
                 }
@@ -201,7 +148,7 @@ public class XmlWriter {
     /**
      * Close this writer. It does not close the underlying writer, but does
      * throw an exception if there are as yet unclosed tags.
-     * 
+     *
      * @throws IOException
      */
     public void close() throws IOException {
@@ -209,8 +156,7 @@ public class XmlWriter {
             throw new InvalidObjectException("Tags are not all closed. " +
                     "Possibly, " + this.stack.pop() + " is unclosed. ");
         }
-        if (thisIsWriterOwner)
-        {
+        if (thisIsWriterOwner) {
             this.writer.flush();
             this.writer.close();
         }
@@ -248,11 +194,11 @@ public class XmlWriter {
     /**
      * Replace a string with another string inside a larger string, for the
      * first n values of the search string.
-     * 
+     *
      * @param text String to do search and replace in
      * @param repl String to search for
      * @param with String to replace with
-     * @param n int values to replace
+     * @param n    int values to replace
      * @return String with n values replacEd
      */
     static public String replaceString(String text, String repl, String with, int max) {

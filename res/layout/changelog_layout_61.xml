@@ -15,9 +15,9 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:tag="20111223"
-        android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
-	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-	    android:text="* A more capable theme support.\n* Hint characters at the bottom-right corner of the key.\n* Initial keyboard split/merge state is configurable now.\n* Bug fixes."
-	    style="@android:style/TextAppearance.Small"/>
+              android:tag="20111223"
+              android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+    <TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
+              android:text="* A more capable theme support.\n* Hint characters at the bottom-right corner of the key.\n* Initial keyboard split/merge state is configurable now.\n* Bug fixes."
+              style="@android:style/TextAppearance.Small"/>
 </LinearLayout>

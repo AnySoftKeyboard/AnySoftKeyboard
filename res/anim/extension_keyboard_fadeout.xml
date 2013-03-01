@@ -20,13 +20,13 @@
 -->
 
 <set
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:interpolator="@android:anim/decelerate_interpolator"
->
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:interpolator="@android:anim/decelerate_interpolator"
+        >
     <alpha
-        android:fromAlpha="1.0"
-        android:toAlpha="0.0"
-        android:duration="@integer/extendingAnimTime" />
-    <translate android:fromYDelta="0" android:toYDelta="50%"
+            android:fromAlpha="1.0"
+            android:toAlpha="0.0"
             android:duration="@integer/extendingAnimTime"/>
+    <translate android:fromYDelta="0" android:toYDelta="50%"
+               android:duration="@integer/extendingAnimTime"/>
 </set>

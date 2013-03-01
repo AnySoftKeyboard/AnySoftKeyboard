@@ -20,10 +20,10 @@
 -->
 
 <set
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:interpolator="@android:anim/accelerate_interpolator">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:interpolator="@android:anim/accelerate_interpolator">
     <alpha
-        android:fromAlpha="1.0"
-        android:toAlpha="0.0"
-        android:duration="@integer/popupAnimTime" />
+            android:fromAlpha="1.0"
+            android:toAlpha="0.0"
+            android:duration="@integer/popupAnimTime"/>
 </set>

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <set xmlns:android="http://schemas.android.com/apk/res/android"
-    android:interpolator="@android:anim/decelerate_interpolator">
+     android:interpolator="@android:anim/decelerate_interpolator">
     <scale
-        android:fromXScale="0.0"
-        android:toXScale="1.0"
-        android:fromYScale="0.0"
-        android:toYScale="1.0"
-        android:fillAfter="false"
-        android:duration="@integer/popupAnimTime" />
+            android:fromXScale="0.0"
+            android:toXScale="1.0"
+            android:fromYScale="0.0"
+            android:toYScale="1.0"
+            android:fillAfter="false"
+            android:duration="@integer/popupAnimTime"/>
     <translate
-        android:fromYDelta="50%"
-        android:toYDelta="0"
-        android:fromXDelta="100%"
-        android:toXDelta="0"
-        android:duration="@integer/popupAnimTime"/>
+            android:fromYDelta="50%"
+            android:toYDelta="0"
+            android:fromXDelta="100%"
+            android:toXDelta="0"
+            android:duration="@integer/popupAnimTime"/>
 </set>

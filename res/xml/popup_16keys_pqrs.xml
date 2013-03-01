@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-    android:keyWidth="15%p"
-    android:keyHeight="@integer/key_normal_height">
+          android:keyWidth="15%p"
+          android:keyHeight="@integer/key_normal_height">
     <Row android:rowEdgeFlags="top">
-         <!-- 7§ßśŝš -->
-        <Key android:codes="55" android:keyEdgeFlags="left" />
-        <Key android:codes="167" />
-        <Key android:codes="223" />
-        <Key android:codes="347" />
-        <Key android:codes="349" />
-        <Key android:codes="223" />
-        <Key android:codes="347" />
-        <Key android:codes="349" />
-        <Key android:codes="353" android:keyEdgeFlags="right" />
+        <!-- 7§ßśŝš -->
+        <Key android:codes="55" android:keyEdgeFlags="left"/>
+        <Key android:codes="167"/>
+        <Key android:codes="223"/>
+        <Key android:codes="347"/>
+        <Key android:codes="349"/>
+        <Key android:codes="223"/>
+        <Key android:codes="347"/>
+        <Key android:codes="349"/>
+        <Key android:codes="353" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>

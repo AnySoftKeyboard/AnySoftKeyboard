@@ -1,31 +1,28 @@
 /*
- * Copyright (C) 2008-2009 Google Inc.
- * Copyright (C) 2009 Spiros Papadimitriou <spapadim@cs.cmu.edu>
- * Copyright (C) 2011 AnySoftKeyboard.
+ * Copyright (c) 2013 Menny Even-Danan
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.anysoftkeyboard.dictionaries;
 
-import java.io.FileDescriptor;
-import java.util.Arrays;
-
+import android.content.res.AssetFileDescriptor;
+import android.os.AsyncTask;
 import com.anysoftkeyboard.WordComposer;
 import com.anysoftkeyboard.utils.Log;
 
-import android.content.res.AssetFileDescriptor;
-import android.os.AsyncTask;
+import java.io.FileDescriptor;
+import java.util.Arrays;
 
 /**
  * Implements a static, compacted, binary dictionary of standard words.
@@ -49,14 +46,12 @@ class BinaryDictionary extends Dictionary {
     static {
         try {
             System.loadLibrary("anysoftkey_jni");
-        } 
-        catch (UnsatisfiedLinkError ule) {
-        	Log.e(TAG, "******** Could not load native library nativeim ********");
+        } catch (UnsatisfiedLinkError ule) {
+            Log.e(TAG, "******** Could not load native library nativeim ********");
             Log.e(TAG, "******** Could not load native library nativeim ********", ule);
             Log.e(TAG, "******** Could not load native library nativeim ********");
-        }
-        catch (Throwable t) {
-        	Log.e(TAG, "******** Failed to load native dictionary library ********");
+        } catch (Throwable t) {
+            Log.e(TAG, "******** Failed to load native dictionary library ********");
             Log.e(TAG, "******** Failed to load native dictionary library *******", t);
             Log.e(TAG, "******** Failed to load native dictionary library ********");
         }
@@ -64,46 +59,46 @@ class BinaryDictionary extends Dictionary {
 
     /**
      * Create a dictionary from a raw resource file
+     *
      * @param context application context for reading resources
-     * @param resId the resource containing the raw binary dictionary
+     * @param resId   the resource containing the raw binary dictionary
      */
     public BinaryDictionary(String dictionaryName, AssetFileDescriptor afd) {
-    	super(dictionaryName);
-    	mAfd = afd;
+        super(dictionaryName);
+        mAfd = afd;
     }
 
     @Override
-    public void loadDictionary()
-    {
-    	if (mAfd != null) {
-    		new LoadDictionaryTask().execute();
+    public void loadDictionary() {
+        if (mAfd != null) {
+            new LoadDictionaryTask().execute();
         }
     }
 
     private class LoadDictionaryTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... v) {
-        	//The try-catch is for issue 878: http://code.google.com/p/softkeyboard/issues/detail?id=878
-			try
-			{
-				mNativeDict = 0;
-				loadDictionary(mAfd);
-			}
-			catch(UnsatisfiedLinkError ex)
-			{
-				Log.w(TAG, "Failed to load binary JNI connection! Error: "+ex.getMessage());
-			}
-			return null;
+            //The try-catch is for issue 878: http://code.google.com/p/softkeyboard/issues/detail?id=878
+            try {
+                mNativeDict = 0;
+                loadDictionary(mAfd);
+            } catch (UnsatisfiedLinkError ex) {
+                Log.w(TAG, "Failed to load binary JNI connection! Error: " + ex.getMessage());
+            }
+            return null;
         }
     }
-    
+
     private native int openNative(FileDescriptor fd, long offset, long length,
-            int typedLetterMultiplier, int fullWordMultiplier);
+                                  int typedLetterMultiplier, int fullWordMultiplier);
+
     private native void closeNative(int dict);
+
     private native boolean isValidWordNative(int nativeData, char[] word, int wordLength);
+
     private native int getSuggestionsNative(int dict, int[] inputCodes, int codesSize,
-            char[] outputChars, int[] frequencies,
-            int maxWordLength, int maxWords, int maxAlternatives, int skipPos);
+                                            char[] outputChars, int[] frequencies,
+                                            int maxWordLength, int maxWords, int maxAlternatives, int skipPos);
 
     private final void loadDictionary(AssetFileDescriptor afd) {
         long startTime = System.currentTimeMillis();
@@ -115,7 +110,7 @@ class BinaryDictionary extends Dictionary {
 
     @Override
     public void getWords(final WordComposer codes, final WordCallback callback) {
-    	if (mNativeDict == 0) return;
+        if (mNativeDict == 0) return;
         final int codesSize = codes.size();
         // Wont deal with really long words.
         if (codesSize > MAX_WORD_LENGTH - 1) return;
@@ -150,7 +145,7 @@ class BinaryDictionary extends Dictionary {
         for (int j = 0; j < count; j++) {
             if (mFrequencies[j] < 1) break;
             final int start = j * MAX_WORD_LENGTH;
-            
+
             int position = start;
             while ((mOutputChars.length > position) && (mOutputChars[position] != 0)) {
                 position++;

@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-    android:keyWidth="15%p">
+          android:keyWidth="15%p">
     <Row android:rowEdgeFlags="top">
-		<Key android:keyLabel=".net" android:keyOutputText=".net" android:keyEdgeFlags="left"/>
-		<Key android:keyLabel=".org" android:keyOutputText=".org"/>
-		<Key android:keyLabel=".gov" android:keyOutputText=".gov"/>
-		<Key android:keyLabel=".edu" android:keyOutputText=".edu" android:keyEdgeFlags="right"/>
-	</Row>
+        <Key android:keyLabel=".net" android:keyOutputText=".net" android:keyEdgeFlags="left"/>
+        <Key android:keyLabel=".org" android:keyOutputText=".org"/>
+        <Key android:keyLabel=".gov" android:keyOutputText=".gov"/>
+        <Key android:keyLabel=".edu" android:keyOutputText=".edu" android:keyEdgeFlags="right"/>
+    </Row>
     <Row android:rowEdgeFlags="bottom">
-		<Key android:keyLabel=".ru" android:keyOutputText=".ru" android:keyEdgeFlags="left"/>
-      <Key android:keyLabel=".su" android:keyOutputText=".su"/>
-		<Key android:keyLabel=".рф" android:keyOutputText=".рф" android:keyEdgeFlags="right"/>
-	</Row>
+        <Key android:keyLabel=".ru" android:keyOutputText=".ru" android:keyEdgeFlags="left"/>
+        <Key android:keyLabel=".su" android:keyOutputText=".su"/>
+        <Key android:keyLabel=".рф" android:keyOutputText=".рф" android:keyEdgeFlags="right"/>
+    </Row>
 </Keyboard>

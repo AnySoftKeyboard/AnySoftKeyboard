@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-    android:keyWidth="15%p">
+          android:keyWidth="15%p">
     <Row android:rowEdgeFlags="top">
-		<Key android:keyLabel=".cat" android:keyOutputText=".cat" android:keyEdgeFlags="left"/>
-		<Key android:keyLabel=".com" android:keyOutputText=".com"/>
-		<Key android:keyLabel=".info" android:keyOutputText=".info"/>
-		<Key android:keyLabel=".net" android:keyOutputText=".net"/>
-		<Key android:keyLabel=".org" android:keyOutputText=".org"/>
-	</Row>
+        <Key android:keyLabel=".cat" android:keyOutputText=".cat" android:keyEdgeFlags="left"/>
+        <Key android:keyLabel=".com" android:keyOutputText=".com"/>
+        <Key android:keyLabel=".info" android:keyOutputText=".info"/>
+        <Key android:keyLabel=".net" android:keyOutputText=".net"/>
+        <Key android:keyLabel=".org" android:keyOutputText=".org"/>
+    </Row>
     <Row android:rowEdgeFlags="bottom">
-		<Key android:keyLabel=".eu" android:keyOutputText=".eu" android:keyEdgeFlags="left"/>
-		<Key android:keyLabel=".ad" android:keyOutputText=".ad"/>
-		<Key android:keyLabel=".es" android:keyOutputText=".es"/>
-		<Key android:keyLabel=".fr" android:keyOutputText=".fr"/>
-		<Key android:keyLabel=".it" android:keyOutputText=".it"/>
-	</Row>
+        <Key android:keyLabel=".eu" android:keyOutputText=".eu" android:keyEdgeFlags="left"/>
+        <Key android:keyLabel=".ad" android:keyOutputText=".ad"/>
+        <Key android:keyLabel=".es" android:keyOutputText=".es"/>
+        <Key android:keyLabel=".fr" android:keyOutputText=".fr"/>
+        <Key android:keyLabel=".it" android:keyOutputText=".it"/>
+    </Row>
 </Keyboard>
