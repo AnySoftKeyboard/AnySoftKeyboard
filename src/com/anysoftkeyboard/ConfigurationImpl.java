@@ -282,7 +282,7 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 
         //statistics
         mFirstAppVersionInstalled = sp.getInt(mContext.getString(R.string.settings_key_first_app_version_installed), 0);
-        mFirstTimeAppInstalled = sp.getInt(mContext.getString(R.string.settings_key_first_time_app_installed), 0);
+        mFirstTimeAppInstalled = sp.getLong(mContext.getString(R.string.settings_key_first_time_app_installed), 0);
         mFirstTimeCurrentVersionInstalled = sp.getLong(mContext.getString(R.string.settings_key_first_time_current_version_installed), 0);
 
         //now real settings
