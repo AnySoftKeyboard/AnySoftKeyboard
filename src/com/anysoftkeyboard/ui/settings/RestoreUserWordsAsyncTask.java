@@ -21,7 +21,7 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.view.WindowManager.BadTokenException;
 import android.widget.Toast;
-import com.anysoftkeyboard.dictionaries.SafeUserDictionary;
+import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -39,7 +39,7 @@ final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
 
     private final Context mAppContext;
     private String mLocale;
-    private SafeUserDictionary mDictionary;
+    private UserDictionary mDictionary;
 
     RestoreUserWordsAsyncTask(
             UserDictionaryEditorActivity userDictionaryEditorActivity) {
@@ -130,8 +130,8 @@ final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
             if (mDictionary != null) {
                 mDictionary.close();
             }
-            mDictionary = new SafeUserDictionary(mAppContext, mLocale);
-            mDictionary.loadDictionarySync();
+            mDictionary = new UserDictionary(mAppContext, mLocale);
+            mDictionary.loadDictionary();
             mLocale.notifyAll();
         }
     }

@@ -22,7 +22,7 @@ import android.os.Environment;
 import android.provider.UserDictionary.Words;
 import android.text.TextUtils;
 import android.widget.Toast;
-import com.anysoftkeyboard.dictionaries.SafeUserDictionary;
+import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.dictionaries.WordsCursor;
 import com.anysoftkeyboard.utils.Log;
 import com.anysoftkeyboard.utils.XmlWriter;
@@ -38,7 +38,7 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
     ArrayList<String> mLocalesToSave = new ArrayList<String>();
 
     private String mLocale;
-    private SafeUserDictionary mDictionary;
+    private UserDictionary mDictionary;
     private final Context mAppContext;
 
     BackupUserWordsAsyncTask(
@@ -124,8 +124,8 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
     protected void onProgressUpdate(Void... values) {
         super.onProgressUpdate(values);
         synchronized (mLocale) {
-            mDictionary = new SafeUserDictionary(mAppContext, mLocale);
-            mDictionary.loadDictionarySync();
+            mDictionary = new UserDictionary(mAppContext, mLocale);
+            mDictionary.loadDictionary();
             mLocale.notifyAll();
         }
     }

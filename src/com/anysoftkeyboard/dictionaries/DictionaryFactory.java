@@ -17,12 +17,29 @@
 package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
+import android.database.ContentObserver;
 import com.anysoftkeyboard.AnySoftKeyboard;
+import com.anysoftkeyboard.dictionaries.content.ContactsDictionary;
+import com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
+import net.evendanan.frankenrobot.Diagram;
 
 public class DictionaryFactory {
-    private static final String TAG = "ASK DictFctry";
+
+    public static final class ContactsDictionaryDiagram extends Diagram<ContactsDictionary> {
+        private final Context mAppContext;
+        public ContactsDictionaryDiagram(Context appContext) {
+            mAppContext = appContext;
+        }
+
+        public Context getAppContext() {
+            return mAppContext;
+        }
+    }
+
+
+    private static final String TAG = "ASK DictFactory";
 
     private AutoDictionary mAutoDictionary = null;
     private String mUserDictionaryLocale = null;
@@ -39,27 +56,25 @@ public class DictionaryFactory {
                     + mUserDictionaryLocale);
             return mUserDictionary;
         }
-        Log.d(TAG, "Creating a new UserDictionart for locale " + locale);
-        mUserDictionary = new SafeUserDictionary(context, locale);
-        mUserDictionary.loadDictionary();
+        Log.d(TAG, "Creating a new UserDictionary for locale " + locale);
+        mUserDictionary = new UserDictionary(context, locale);
+        new DictionaryASyncLoader(null).execute(mUserDictionary);
 
         mUserDictionaryLocale = locale;
         return mUserDictionary;
     }
 
-    public synchronized EditableDictionary createContactsDictionary(
-            Context context) {
-        return null;
+    public synchronized Dictionary createContactsDictionary(Context context) {
+        return AnyApplication.getFrankenRobot().embody(new ContactsDictionaryDiagram(context.getApplicationContext()));
     }
 
-    public boolean equalsString(String a, String b) {
-        if (a == null && b == null) {
+    private static boolean equalsString(String a, String b) {
+        if (a == null && b == null)
             return true;
-        }
-        if (a == null || b == null) {
+        else  if (a == null || b == null)
             return false;
-        }
-        return a.equals(b);
+        else
+            return a.equals(b);
     }
 
     public synchronized AutoDictionary createAutoDictionary(Context context,
@@ -67,17 +82,22 @@ public class DictionaryFactory {
         if (AnyApplication.getConfig().getAutoDictionaryInsertionThreshold() < 0)
             return null;
 
-        if (mAutoDictionary != null
-                && equalsString(mAutoDictionary.getLocale(),
-                currentAutoDictionaryLocale)) {
-            return mAutoDictionary;
+        if (mAutoDictionary != null) {
+            if (equalsString(mAutoDictionary.getLocale(), currentAutoDictionaryLocale)) {
+                return mAutoDictionary;
+            } else {
+                //will create a new one shortly.
+                mAutoDictionary.close();
+            }
         }
 
         Log.d(TAG, "Creating AutoDictionary for locale: "
                 + currentAutoDictionaryLocale);
+
         mAutoDictionary = new AutoDictionary(context, ime,
                 currentAutoDictionaryLocale);
-        mAutoDictionary.loadDictionary();
+
+        new DictionaryASyncLoader(null).execute(mAutoDictionary);
 
         return mAutoDictionary;
     }

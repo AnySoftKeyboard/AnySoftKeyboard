@@ -97,9 +97,7 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder> {
     }
 
     @Override
-    protected KeyboardAddOnAndBuilder createConcreateAddOn(Context askContext, Context context,
-                                                           String prefId, int nameId, String description, int sortIndex,
-                                                           AttributeSet attrs) {
+    protected KeyboardAddOnAndBuilder createConcreteAddOn(Context askContext, Context context, String prefId, int nameId, String description, int sortIndex, AttributeSet attrs) {
 
         final int layoutResId = attrs.getAttributeResourceValue(null,
                 XML_LAYOUT_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);

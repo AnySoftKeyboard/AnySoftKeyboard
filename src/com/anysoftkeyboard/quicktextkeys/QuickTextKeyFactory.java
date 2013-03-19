@@ -87,8 +87,7 @@ public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey> {
     }
 
     @Override
-    protected QuickTextKey createConcreateAddOn(Context askContext, Context context, String prefId,
-                                                int nameResId, String description, int sortIndex, AttributeSet attrs) {
+    protected QuickTextKey createConcreteAddOn(Context askContext, Context context, String prefId, int nameResId, String description, int sortIndex, AttributeSet attrs) {
         final int popupKeyboardResId = attrs.getAttributeResourceValue(null,
                 XML_POPUP_KEYBOARD_RES_ID_ATTRIBUTE, -1);
         final int popupListTextResId = attrs.getAttributeResourceValue(null,

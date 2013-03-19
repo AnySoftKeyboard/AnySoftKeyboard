@@ -326,7 +326,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         final String prefId = attrs.getAttributeValue(null, XML_PREF_ID_ATTRIBUTE);
         final int nameId = attrs.getAttributeResourceValue(null, XML_NAME_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
         final int descriptionInt = attrs.getAttributeResourceValue(null, XML_DESCRIPTION_ATTRIBUTE, AddOn.INVALID_RES_ID);
-        //NOTE, to be compatibel we need this. because the most of descriptions are
+        //NOTE, to be compatible we need this. because the most of descriptions are
         //without @string/adb
         String description;
         if (descriptionInt != AddOn.INVALID_RES_ID) {
@@ -345,10 +345,9 @@ public abstract class AddOnsFactory<E extends AddOn> {
             if (AnyApplication.DEBUG) {
                 Log.d(TAG, "External addon details: prefId:" + prefId + " nameId:" + nameId);
             }
-            return createConcreateAddOn(askContext, context, prefId, nameId, description, sortIndex, attrs);
+            return createConcreteAddOn(askContext, context, prefId, nameId, description, sortIndex, attrs);
         }
     }
 
-    protected abstract E createConcreateAddOn(Context askContext, Context context, String prefId, int nameId,
-                                              String description, int sortIndex, AttributeSet attrs);
+    protected abstract E createConcreteAddOn(Context askContext, Context context, String prefId, int nameId, String description, int sortIndex, AttributeSet attrs);
 }

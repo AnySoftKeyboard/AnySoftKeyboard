@@ -22,7 +22,6 @@ import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.UserDictionary;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
@@ -30,7 +29,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.*;
 import android.widget.AdapterView.OnItemSelectedListener;
-import com.anysoftkeyboard.dictionaries.SafeUserDictionary;
+import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.dictionaries.WordsCursor;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
@@ -69,7 +68,7 @@ public class UserDictionaryEditorActivity extends ListActivity {
 
     WordsCursor mCursor;
     private String mSelectedLocale = null;
-    SafeUserDictionary mCurrentDictionary;
+    UserDictionary mCurrentDictionary;
 
     private boolean mAddedWordAlready;
     private boolean mAutoReturn;
@@ -320,14 +319,14 @@ public class UserDictionaryEditorActivity extends ListActivity {
     public void fillWordsList() {
         Log.d(TAG, "Selected locale is " + mSelectedLocale);
         new UserWordsEditorAsyncTask(this) {
-            private SafeUserDictionary mNewDictionary;
+            private UserDictionary mNewDictionary;
 
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
                 // all the code below can be safely (and must) be called in the
                 // UI thread.
-                mNewDictionary = new SafeUserDictionary(
+                mNewDictionary = new UserDictionary(
                         getApplicationContext(), mSelectedLocale);
                 if (mNewDictionary != mCurrentDictionary
                         && mCurrentDictionary != null) {
@@ -339,17 +338,16 @@ public class UserDictionaryEditorActivity extends ListActivity {
             @Override
             protected Void doAsyncTask(Void[] params) throws Exception {
                 mCurrentDictionary = mNewDictionary;
-                mCurrentDictionary.loadDictionarySync();
+                mCurrentDictionary.loadDictionary();
                 mCursor = mCurrentDictionary.getWordsCursor();
                 return null;
             }
 
             protected void applyResults(Void result,
                                         Exception backgroundException) {
-                MyAdapter adapter = (MyAdapter) getListAdapter();
                 if (AnyApplication.DEBUG)
                     Log.d(TAG, "Creating a new MyAdapter for the words editor");
-                adapter = new MyAdapter();
+                MyAdapter adapter = new MyAdapter();
                 setListAdapter(adapter);
             }
 
@@ -369,11 +367,11 @@ public class UserDictionaryEditorActivity extends ListActivity {
         public MyAdapter() {
             super(getApplicationContext(), R.layout.user_dictionary_word_row,
                     mCursor.getCursor(),
-                    new String[]{UserDictionary.Words.WORD},
+                    new String[]{android.provider.UserDictionary.Words.WORD},
                     new int[]{android.R.id.text1});
 
             mWordColumnIndex = mCursor.getCursor().getColumnIndexOrThrow(
-                    UserDictionary.Words.WORD);
+                    android.provider.UserDictionary.Words.WORD);
             // String alphabet = getString(R.string.fast_scroll_alphabet);
             // mIndexer = new AlphabetIndexer(mCursor, mWordColumnIndex,
             // alphabet);
