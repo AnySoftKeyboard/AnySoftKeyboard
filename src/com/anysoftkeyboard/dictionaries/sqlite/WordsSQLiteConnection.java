@@ -14,64 +14,40 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard.dictionaries;
+package com.anysoftkeyboard.dictionaries.sqlite;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.UserDictionary.Words;
+import com.anysoftkeyboard.dictionaries.WordsCursor;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class DictionarySQLiteConnection extends SQLiteOpenHelper {
-    private static final String TAG = "ASK DictSql";
-
-    public static class DictionaryWord {
-        private final String mWord;
-        private final int mFrequency;
-
-        public DictionaryWord(String word, int freq) {
-            if (word == null) {
-                Log.e(TAG, "Got a NULL word from dictionary! This is illegal!");
-                word = "" + this.hashCode();
-            }
-            mWord = word;
-            mFrequency = freq;
-        }
-
-        public String getWord() {
-            return mWord;
-        }
-
-        public int getFrequency() {
-            return mFrequency;
-        }
+public class WordsSQLiteConnection extends SQLiteOpenHelper {
+    public static final class Words {
+        public static final java.lang.String _ID = "_id";
+        public static final java.lang.String WORD = "word";
+        public static final java.lang.String FREQUENCY = "frequency";
+        public static final java.lang.String LOCALE = "locale";
     }
 
-    private final static String DB_FILENAME = "fallback.db";
-    private final static String TABLE_NAME = "FALL_BACK_USER_DICTIONARY";
-    // protected final String mWordsColumnName;
-    // protected final String mFrequencyColumnName;
-    // protected final String mLocaleColumnName;
+    private static final String TAG = "ASK SqliteCnnt";
+
+    private final static String TABLE_NAME = "WORDS";//was ;
     protected final Context mContext;
     private final String mCurrentLocale;
 
-    public DictionarySQLiteConnection(Context context, String currentLocale) {
-        super(context, DB_FILENAME, null, 6);
+    public WordsSQLiteConnection(Context context, String DbFilename, String currentLocale) {
+        super(context, DbFilename, null, 7);
         mContext = context;
         mCurrentLocale = currentLocale;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + Words._ID
-                + " INTEGER PRIMARY KEY," + Words.WORD + " TEXT,"
-                + Words.FREQUENCY + " INTEGER," + Words.LOCALE + " TEXT" + ");");
+        db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + Words._ID + " INTEGER PRIMARY KEY," + Words.WORD + " TEXT," + Words.FREQUENCY + " INTEGER," + Words.LOCALE + " TEXT" + ");");
     }
 
     @Override
@@ -80,22 +56,22 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper {
         // change.
         // if you upgrade from one version to another, make sure you use the
         // correct names!
-        Log.d(TAG, "Upgrading DictionarySQLiteConnection from version "
+        Log.d(TAG, "Upgrading WordsSQLiteConnection from version "
                 + oldVersion + " to " + newVersion + "...");
         if (oldVersion < 4) {
             Log.d(TAG,
-                    "Upgrading DictionarySQLiteConnection to version 4: Adding locale column...");
+                    "Upgrading WordsSQLiteConnection to version 4: Adding locale column...");
             db.execSQL("ALTER TABLE FALL_BACK_USER_DICTIONARY ADD COLUMN locale TEXT;");
         }
         if (oldVersion < 5) {
             Log.d(TAG,
-                    "Upgrading DictionarySQLiteConnection to version 5: Adding _id column and populating...");
+                    "Upgrading WordsSQLiteConnection to version 5: Adding _id column and populating...");
             db.execSQL("ALTER TABLE FALL_BACK_USER_DICTIONARY ADD COLUMN _id INTEGER;");
             db.execSQL("UPDATE FALL_BACK_USER_DICTIONARY SET _id=Id;");
         }
         if (oldVersion < 6) {
             Log.d(TAG,
-                    "Upgrading DictionarySQLiteConnection to version 6: Matching schema with Android's User-Dictionary table...");
+                    "Upgrading WordsSQLiteConnection to version 6: Matching schema with Android's User-Dictionary table...");
             db.execSQL("ALTER TABLE FALL_BACK_USER_DICTIONARY RENAME TO tmp_FALL_BACK_USER_DICTIONARY;");
 
             db.execSQL("CREATE TABLE FALL_BACK_USER_DICTIONARY ("
@@ -105,6 +81,10 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper {
             db.execSQL("INSERT INTO FALL_BACK_USER_DICTIONARY(_id, word, frequency, locale) SELECT _id, Word, Freq, locale FROM tmp_FALL_BACK_USER_DICTIONARY;");
 
             db.execSQL("DROP TABLE tmp_FALL_BACK_USER_DICTIONARY;");
+        }
+        if (oldVersion < 7) {
+            Log.d(TAG, "Renaming the table's name to a generic one...");
+            db.execSQL("ALTER TABLE FALL_BACK_USER_DICTIONARY RENAME TO WORDS;");
         }
     }
 
@@ -136,49 +116,12 @@ public class DictionarySQLiteConnection extends SQLiteOpenHelper {
         db.close();
     }
 
-    public synchronized WordsCursor getWordsCursor() {
+    public WordsCursor getWordsCursor() {
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.query(TABLE_NAME, new String[]{Words._ID, Words.WORD,
                 Words.FREQUENCY}, "(" + Words.LOCALE + " IS NULL) or ("
                 + Words.LOCALE + "=?)", new String[]{mCurrentLocale}, null,
                 null, null);
         return new WordsCursor.SqliteWordsCursor(db, c);
-    }
-
-    public synchronized List<DictionaryWord> getAllWords() {
-        WordsCursor wordsCursor = getWordsCursor();
-        try {
-            Cursor c = wordsCursor.getCursor();
-            if (c != null) {
-                final int wordColumnIndex = c.getColumnIndex(Words.WORD);
-                final int freqColumnIndex = c.getColumnIndex(Words.FREQUENCY);
-                List<DictionaryWord> words;
-                try {
-                    words = new ArrayList<DictionaryWord>(c.getCount());
-                    if (c.moveToFirst()) {
-                        while (!c.isAfterLast()) {
-                            String word = c.getString(wordColumnIndex);
-                            int freq = c.getInt(freqColumnIndex);
-                            words.add(new DictionaryWord(word, freq));
-                            c.moveToNext();
-                        }
-                    }
-                } catch (IllegalStateException e) {
-                    // could be a memory issue
-                    // see
-                    // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/2
-                    words = new ArrayList<DictionaryWord>(0);
-                }
-
-                return words;
-            } else
-                return new ArrayList<DictionaryWord>(0);
-        } finally {
-            wordsCursor.close();
-        }
-    }
-
-    String getDatabaseFile() {
-        return DB_FILENAME;
     }
 }

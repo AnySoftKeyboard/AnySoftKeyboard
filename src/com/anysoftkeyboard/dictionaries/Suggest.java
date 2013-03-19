@@ -74,9 +74,7 @@ public class Suggest implements Dictionary.WordCallback {
     private boolean mMainDictioanryEnabled = true;
 
     public Suggest(Context context) {
-        mDictionaryFactory = AnyApplication.getFrankenRobot().embody(
-                new Diagram<DictionaryFactory>() {
-                });
+        mDictionaryFactory = new DictionaryFactory();
         for (int i = 0; i < mPrefMaxSuggestions; i++) {
             StringBuilder sb = new StringBuilder(32);
             mStringPool.add(sb);
@@ -134,7 +132,7 @@ public class Suggest implements Dictionary.WordCallback {
                 System.gc();
 
                 mMainDict = dictionaryBuilder.createDictionary();
-                mMainDict.loadDictionary();
+                new DictionaryASyncLoader(null).execute(mMainDict);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -238,7 +236,7 @@ public class Suggest implements Dictionary.WordCallback {
         }
         // Search the dictionary only if there are at least 2 (configurable)
         // characters
-        if (wordComposer.size() >= mMinimumWordSizeToStartCorrecting) {
+        if (wordComposer.length() >= mMinimumWordSizeToStartCorrecting) {
             if (mContactsDictionary != null) {
                 if (AnyApplication.DEBUG)
                     Log.v(TAG, "getSuggestions from contacts-dictionary");

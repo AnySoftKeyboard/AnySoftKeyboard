@@ -16,7 +16,7 @@
 
 package com.anysoftkeyboard;
 
-import com.anysoftkeyboard.dictionaries.AndroidUserDictionary;
+import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionary;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -95,7 +95,7 @@ public class WordComposer {
      *
      * @return the number of keystrokes
      */
-    public int size() {
+    public int length() {
         return mTypedWord.length();
     }
 
@@ -115,9 +115,9 @@ public class WordComposer {
     }
 
     public boolean setCursorPostion(int position/*, int candidatesStartPosition*/) {
-        if (position < 0 || position > size())//note: the cursor can be AFTER the word, so it can be equal to size()
+        if (position < 0 || position > length())//note: the cursor can be AFTER the word, so it can be equal to size()
         {
-            Log.w(TAG, "New cursor position is invalid! It is outside the word (size " + size() + ", new position " + position + ". Disregarding!!!!");
+            Log.w(TAG, "New cursor position is invalid! It is outside the word (size " + length() + ", new position " + position + ". Disregarding!!!!");
             return false;
         }
         final boolean changed = mCursorPosition != position;
@@ -286,7 +286,7 @@ public class WordComposer {
      * @return true if all user typed chars are upper case, false otherwise
      */
     public boolean isAllUpperCase() {
-        return (mCapsCount > 0) && (mCapsCount == size());
+        return (mCapsCount > 0) && (mCapsCount == length());
     }
 
     /**

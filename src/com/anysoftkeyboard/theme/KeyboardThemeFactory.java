@@ -81,8 +81,7 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
     }
 
     @Override
-    protected KeyboardTheme createConcreateAddOn(Context askContext, Context context, String prefId, int nameResId,
-                                                 String description, int sortIndex, AttributeSet attrs) {
+    protected KeyboardTheme createConcreteAddOn(Context askContext, Context context, String prefId, int nameResId, String description, int sortIndex, AttributeSet attrs) {
         final int keyboardThemeResId = attrs.getAttributeResourceValue(null,
                 XML_POPUP_KEYBOARD_THEME_RES_ID_ATTRIBUTE, 0);
         final int popupKeyboardThemeResId = attrs.getAttributeResourceValue(null,

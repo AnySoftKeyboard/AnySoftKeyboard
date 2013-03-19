@@ -58,7 +58,9 @@ abstract public class Dictionary {
         boolean addWord(char[] word, int wordOffset, int wordLength, int frequency);
     }
 
+    protected final Object mResourceMonitor = new Object();
     private final String mDictionaryName;
+    private boolean mClosed = false;
 
     protected Dictionary(String dictionaryName) {
         mDictionaryName = dictionaryName;
@@ -70,7 +72,7 @@ abstract public class Dictionary {
      *
      * @param composer the key sequence to match
      * @param callback the callback object to send matched words to as possible candidates
-     * @see WordCallback#addWord(char[], int, int)
+     * @see WordCallback#addWord(char[], int, int, int)
      */
     abstract public void getWords(final WordComposer composer, final WordCallback callback);
 
@@ -91,7 +93,7 @@ abstract public class Dictionary {
      * @param typedWord the word to compare with
      * @return true if they are the same, false otherwise.
      */
-    protected boolean same(final char[] word, final int length, final CharSequence typedWord) {
+    static protected final boolean same(final char[] word, final int length, final CharSequence typedWord) {
         if (typedWord.length() != length) {
             return false;
         }
@@ -103,11 +105,39 @@ abstract public class Dictionary {
         return true;
     }
 
-    public abstract void close();
+    public final void close() {
+        if (mClosed)
+            return;
+        mClosed = true;
+        synchronized (mResourceMonitor) {
+            closeAllResources();
+        }
+    }
 
-    public abstract void loadDictionary();
+    public final boolean isClosed() {
+        return mClosed;
+    }
 
-    public String getDictionaryName() {
+    protected abstract void closeAllResources();
+
+    public final void loadDictionary() {
+        if (mClosed)
+            return;
+        synchronized (mResourceMonitor) {
+            if (mClosed)
+                return;
+            loadAllResources();
+        }
+    }
+
+    protected abstract void loadAllResources();
+
+    public final String getDictionaryName() {
+        return mDictionaryName;
+    }
+
+    @Override
+    public String toString() {
         return mDictionaryName;
     }
 }

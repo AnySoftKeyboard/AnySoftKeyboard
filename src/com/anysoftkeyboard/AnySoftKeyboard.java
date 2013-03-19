@@ -48,6 +48,7 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.devicespecific.Clipboard;
 import com.anysoftkeyboard.dictionaries.*;
 import com.anysoftkeyboard.dictionaries.TextEntryState.State;
+import com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
@@ -192,7 +193,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private HashSet<Character> mSentenceSeparators = new HashSet<Character>();
 
-    // private UserDictionaryBase mContactsDictionary;
+    // private BTreeDictionary mContactsDictionary;
     private EditableDictionary mUserDictionary;
     private AutoDictionary mAutoDictionary;
 
@@ -799,10 +800,6 @@ public class AnySoftKeyboard extends InputMethodService implements
                 .equals(KEYBOARD_NOTIFICATION_ALWAYS)) {
             mInputMethodManager.hideStatusIcon(mImeToken);
         }
-        // releasing some memory. Dictionaries, completions, etc.
-        if (mAutoDictionary != null)
-            mAutoDictionary.flushPendingWrites();
-        System.gc();
     }
 
     /*
@@ -1511,12 +1508,9 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
     }
 
-    private boolean addToDictionaries(CharSequence suggestion,
-                                      int frequencyDelta) {
-        boolean added = checkAddToDictionary(suggestion, frequencyDelta/*
-																		 * ,
-																		 * false
-																		 */);
+    private boolean addToDictionaries(WordComposer suggestion,
+                                      AutoDictionary.AdditionType type) {
+        boolean added = checkAddToDictionary(suggestion, type);
         if (added) {
             Log.i(TAG, "Word '" + suggestion
                     + "' was added to the auto-dictionary.");
@@ -1527,10 +1521,9 @@ public class AnySoftKeyboard extends InputMethodService implements
     /**
      * Adds to the UserBigramDictionary and/or AutoDictionary
      *
-     * @param addToBigramDictionary true if it should be added to bigram dictionary if possible
      */
-    private boolean checkAddToDictionary(CharSequence suggestion,
-                                         int frequencyDelta/*
+    private boolean checkAddToDictionary(WordComposer suggestion,
+                                         AutoDictionary.AdditionType type/*
 							 * , boolean addToBigramDictionary
 							 */) {
         if (suggestion == null || suggestion.length() < 1)
@@ -1543,18 +1536,16 @@ public class AnySoftKeyboard extends InputMethodService implements
             return false;
 
         if (suggestion != null && mAutoDictionary != null) {
-            String suggestionToCheck = suggestion.toString();
+            String suggestionToCheck = suggestion.getTypedWord().toString();
             if (/*
 				 * !addToBigramDictionary &&
 				 * mAutoDictionary.isValidWord(suggestionToCheck)//this check is
 				 * for promoting from Auto to User ||
-				 */(!mSuggest.isValidWord(suggestionToCheck) && !mSuggest
-                    .isValidWord(suggestionToCheck.toLowerCase()))) {
+				 */(mSuggest.isValidWord(suggestionToCheck))) {
 
-                final boolean added = mAutoDictionary.addWord(
-                        suggestionToCheck, frequencyDelta);
+                final boolean added = mAutoDictionary.addWord(suggestion, type);
                 if (added && mCandidateView != null) {
-                    mCandidateView.notifyAboutWordAdded(suggestion);
+                    mCandidateView.notifyAboutWordAdded(suggestion.getTypedWord());
                 }
                 return added;
             }
@@ -1572,16 +1563,15 @@ public class AnySoftKeyboard extends InputMethodService implements
     private void commitTyped(InputConnection inputConnection) {
         if (mPredicting) {
             mPredicting = false;
-            if (/* mComposing.length() */mWord.size() > 0) {
+            if (mWord.length() > 0) {
                 if (inputConnection != null) {
                     inputConnection.commitText(
-					/* mComposing */mWord.getTypedWord(), 1);
+					mWord.getTypedWord(), 1);
                 }
-                mCommittedLength = mWord.size();// mComposing.length();
+                mCommittedLength = mWord.length();// mComposing.length();
                 TextEntryState
-                        .acceptedTyped(mWord.getTypedWord()/* mComposing */);
-                addToDictionaries(mWord.getTypedWord()/* mComposing */,
-                        AutoDictionary.FREQUENCY_FOR_TYPED);
+                        .acceptedTyped(mWord.getTypedWord());
+                addToDictionaries(mWord, AutoDictionary.AdditionType.Typed);
             }
             if (mHandler.hasMessages(MSG_UPDATE_SUGGESTIONS)) {
                 performUpdateSuggestions();
@@ -2209,12 +2199,12 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         boolean deleteChar = false;
         if (mPredicting) {
-            final boolean wordManipulation = mWord.size() > 0
+            final boolean wordManipulation = mWord.length() > 0
                     && mWord.cursorPosition() > 0;// mComposing.length();
             if (wordManipulation) {
                 mWord.deleteLast();
                 final int cursorPosition;
-                if (mWord.cursorPosition() != mWord.size())
+                if (mWord.cursorPosition() != mWord.length())
                     cursorPosition = getCursorPosition(ic);
                 else
                     cursorPosition = -1;
@@ -2222,8 +2212,8 @@ public class AnySoftKeyboard extends InputMethodService implements
                 if (cursorPosition >= 0)
                     ic.beginBatchEdit();
 
-                ic.setComposingText(mWord.getTypedWord()/* mComposing */, 1);
-                if (mWord.size()/* mComposing.length() */ == 0) {
+                ic.setComposingText(mWord.getTypedWord(), 1);
+                if (mWord.length() == 0) {
                     mPredicting = false;
                 } else if (cursorPosition >= 0) {
                     ic.setSelection(cursorPosition - 1, cursorPosition - 1);
@@ -2466,7 +2456,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             }
             if (ic != null) {
                 final int cursorPosition;
-                if (mWord.cursorPosition() != mWord.size()) {
+                if (mWord.cursorPosition() != mWord.length()) {
                     if (DEBUG)
                         Log.d(TAG,
                                 "Cursor is not at the end of the word. I'll need to reposition");
@@ -2478,7 +2468,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                 if (cursorPosition >= 0)
                     ic.beginBatchEdit();
 
-                ic.setComposingText(mWord.getTypedWord()/* mComposing */, 1);
+                ic.setComposingText(mWord.getTypedWord(), 1);
                 if (cursorPosition >= 0) {
                     ic.setSelection(cursorPosition + 1, cursorPosition + 1);
                     ic.endBatchEdit();
@@ -2521,8 +2511,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         // this is a special case, when the user presses a separator WHILE
         // inside the predicted word.
         // in this case, I will want to just dump the separator.
-        final boolean separatorInsideWord = (mWord.cursorPosition() < mWord
-                .size());
+        final boolean separatorInsideWord = (mWord.cursorPosition() < mWord.length());
 
         if (mPredicting && !separatorInsideWord) {
             // In certain languages where single quote is a separator, it's
@@ -2708,8 +2697,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             // mJustAccepted = true;
             pickSuggestion(bestWord, !bestWord.equals(typedWord));
             // Add the word to the auto dictionary if it's not a known word
-            addToDictionaries(mWord.getPreferredWord(),
-                    AutoDictionary.FREQUENCY_FOR_TYPED);
+            addToDictionaries(mWord, AutoDictionary.AdditionType.Typed);
             return true;
         }
         return false;
@@ -2749,8 +2737,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             // Add the word to the auto dictionary if it's not a known word
             mJustAutoAddedWord = false;
             if (index == 0) {
-                mJustAutoAddedWord = addToDictionaries(suggestion,
-                        AutoDictionary.FREQUENCY_FOR_PICKED);
+                mJustAutoAddedWord = addToDictionaries(mWord, AutoDictionary.AdditionType.Picked);
             }
 
             final boolean showingAddToDictionaryHint = !mJustAutoAddedWord
@@ -2860,10 +2847,10 @@ public class AnySoftKeyboard extends InputMethodService implements
     public void revertLastWord(boolean deleteChar) {
         if (DEBUG)
             Log.d(TAG, "revertLastWord deleteChar:" + deleteChar
-                    + ", mWord.size:" + mWord.size() + " mPredicting:"
+                    + ", mWord.size:" + mWord.length() + " mPredicting:"
                     + mPredicting + " mCommittedLength" + mCommittedLength);
 
-        final int length = mWord.size();// mComposing.length();
+        final int length = mWord.length();// mComposing.length();
         if (!mPredicting && length > 0) {
             final CharSequence typedWord = mWord.getTypedWord();
             final InputConnection ic = getCurrentInputConnection();
@@ -3613,7 +3600,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         if (countToDelete == 0)
             return;
 
-        final int currentLength = mWord.size();// mComposing.length();
+        final int currentLength = mWord.length();
         boolean shouldDeleteUsingCompletion;
         if (currentLength > 0) {
             shouldDeleteUsingCompletion = true;
