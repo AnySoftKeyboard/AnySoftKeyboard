@@ -43,7 +43,7 @@ public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
         try {
             if (mStorage == null)
                 mStorage = createStorage(mLocale);
-            
+
             return mStorage.getWordsCursor();
         } catch (SQLiteException e) {
             e.printStackTrace();
