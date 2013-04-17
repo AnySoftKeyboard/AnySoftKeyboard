@@ -18,6 +18,6 @@
               android:tag="20130319-skinny-eye-candy"
               android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
     <TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-              android:text="* Rewriting the dictionaries mechanism - no new features (for now)." style="@android:style/TextAppearance.Small"/>
+              android:text="* Rewriting the dictionaries mechanism - no new features (for now).\n* Updated translations: AR, BG, CA, MY, RO, RU, and TR." style="@android:style/TextAppearance.Small"/>
 
 </LinearLayout>
