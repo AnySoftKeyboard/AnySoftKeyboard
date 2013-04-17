@@ -16,9 +16,9 @@
 -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard">
+          xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard">
 
     <!-- Normal keys -->
-	<item ask:key_type_feedback="true" android:drawable="@drawable/sym_keyboard_feedback_settings" />
-    <item android:drawable="@drawable/sym_keyboard_settings" />
+    <item ask:key_type_feedback="true" android:drawable="@drawable/sym_keyboard_feedback_settings"/>
+    <item android:drawable="@drawable/sym_keyboard_settings"/>
 </selector>

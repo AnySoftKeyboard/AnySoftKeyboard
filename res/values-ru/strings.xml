@@ -45,6 +45,9 @@
   <string name="main_tab_credits_additional_work_by">Программисты:</string>
   <string name="main_tab_credits_localization_by">Переводчики:</string>
   <string name="main_tab_credits_GUI_by">Художники:</string>
+  <string name="how_to_enable_dialog_text">AnySoftKeyboard ещё не активировано. Показать, как активировать приложение?</string>
+  <string name="how_to_enable_dialog_show_me">Да!</string>
+  <string name="how_to_enable_dialog_dont_show_me">Позже</string>
   <string name="how_to_simple_howto_preface">Android требует, чтобы Вы (пользователь) вручную включили и активировали внешние клавиатуры. Вот как:</string>
   <string name="how_to_simple_howto_enable_ask_button">Включить AnySoftKeyboard</string>
   <string name="how_to_simple_howto_press_back_to_return_tip">Нажмите НАЗАД, когда готово, чтобы вернуться к инструкции по активации</string>

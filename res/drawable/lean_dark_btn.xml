@@ -16,35 +16,35 @@
 -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard">
+          xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard">
 
     <!-- Action key -->
 
     <item ask:key_type_action="true" android:state_pressed="true"
-          android:drawable="@drawable/lean_dark_btn_action_pressed" />
+          android:drawable="@drawable/lean_dark_btn_action_pressed"/>
     <item ask:key_type_action="true"
-    	android:drawable="@drawable/lean_dark_btn_action" />
+          android:drawable="@drawable/lean_dark_btn_action"/>
 
     <!-- Functional keys. -->
 
     <item ask:key_type_function="true" android:state_pressed="true"
-          android:drawable="@drawable/lean_dark_function_btn_pressed" />
+          android:drawable="@drawable/lean_dark_function_btn_pressed"/>
     <item ask:key_type_function="true"
-          android:drawable="@drawable/lean_dark_btn_function" />
+          android:drawable="@drawable/lean_dark_btn_function"/>
 
     <!-- Toggle keys. Use checkable/checked state. -->
 
     <item android:state_checkable="true" android:state_checked="true" android:state_pressed="true"
-          android:drawable="@drawable/lean_dark_btn_action_pressed" />
+          android:drawable="@drawable/lean_dark_btn_action_pressed"/>
     <item android:state_checkable="true" android:state_pressed="true"
-          android:drawable="@drawable/lean_dark_btn_action_pressed" />
+          android:drawable="@drawable/lean_dark_btn_action_pressed"/>
     <item android:state_checkable="true" android:state_checked="true"
-          android:drawable="@drawable/lean_dark_btn_function" />
+          android:drawable="@drawable/lean_dark_btn_function"/>
     <item android:state_checkable="true"
-          android:drawable="@drawable/lean_dark_btn_function" />
+          android:drawable="@drawable/lean_dark_btn_function"/>
 
     <!-- Normal keys -->
-	<item android:state_pressed="true"
-          android:drawable="@drawable/lean_dark_normal_btn_pressed" />
-    <item android:drawable="@drawable/lean_dark_btn_normal" />
+    <item android:state_pressed="true"
+          android:drawable="@drawable/lean_dark_normal_btn_pressed"/>
+    <item android:drawable="@drawable/lean_dark_btn_normal"/>
 </selector>

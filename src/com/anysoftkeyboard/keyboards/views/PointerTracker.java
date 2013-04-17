@@ -1,32 +1,29 @@
 /*
- * Copyright (C) 2010 Google Inc.
+ * Copyright (c) 2013 Menny Even-Danan
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.anysoftkeyboard.keyboards.views;
 
-import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView.UIHandler;
-
 import android.content.res.Resources;
-
-import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
-import com.anysoftkeyboard.keyboards.Keyboard.Key;
-import com.anysoftkeyboard.utils.Log;
-import com.menny.android.anysoftkeyboard.AnyApplication;
-
 import android.text.TextUtils;
 import android.view.MotionEvent;
+import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
+import com.anysoftkeyboard.keyboards.Keyboard.Key;
+import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView.UIHandler;
+import com.anysoftkeyboard.utils.Log;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 
 public class PointerTracker {
     private static final String TAG = "PointerTracker";
@@ -35,7 +32,9 @@ public class PointerTracker {
 
     public interface UIProxy {
         public void invalidateKey(Key key);
+
         public void showPreview(int keyIndex, PointerTracker tracker);
+
         public boolean hasDistinctMultitouch();
     }
 
@@ -165,12 +164,12 @@ public class PointerTracker {
         }
 
         public int onUpKey(int x, int y) {
-        	return onMoveKeyInternal(x, y);
+            return onMoveKeyInternal(x, y);
         }
     }
 
     public PointerTracker(int id, UIHandler handler, KeyDetector keyDetector, UIProxy proxy,
-            Resources res) {
+                          Resources res) {
         if (proxy == null || handler == null || keyDetector == null)
             throw new NullPointerException();
         mPointerId = id;
@@ -194,7 +193,7 @@ public class PointerTracker {
         if (keys == null || keyHysteresisDistance < 0)
             throw new IllegalArgumentException();
         mKeys = keys;
-        mKeyHysteresisDistanceSquared = (int)(keyHysteresisDistance * keyHysteresisDistance);
+        mKeyHysteresisDistanceSquared = (int) (keyHysteresisDistance * keyHysteresisDistance);
         // Mark that keyboard layout has been changed.
         mKeyboardLayoutHasBeenChanged = true;
     }
@@ -259,20 +258,20 @@ public class PointerTracker {
 
     public void onTouchEvent(int action, int x, int y, long eventTime) {
         switch (action) {
-        case MotionEvent.ACTION_MOVE:
-            onMoveEvent(x, y, eventTime);
-            break;
-        case MotionEvent.ACTION_DOWN:
-        case 0x00000005://MotionEvent.ACTION_POINTER_DOWN:
-            onDownEvent(x, y, eventTime);
-            break;
-        case MotionEvent.ACTION_UP:
-        case 0x00000006://MotionEvent.ACTION_POINTER_UP:
-            onUpEvent(x, y, eventTime);
-            break;
-        case MotionEvent.ACTION_CANCEL:
-            onCancelEvent(x, y, eventTime);
-            break;
+            case MotionEvent.ACTION_MOVE:
+                onMoveEvent(x, y, eventTime);
+                break;
+            case MotionEvent.ACTION_DOWN:
+            case 0x00000005://MotionEvent.ACTION_POINTER_DOWN:
+                onDownEvent(x, y, eventTime);
+                break;
+            case MotionEvent.ACTION_UP:
+            case 0x00000006://MotionEvent.ACTION_POINTER_UP:
+                onUpEvent(x, y, eventTime);
+                break;
+            case MotionEvent.ACTION_CANCEL:
+                onCancelEvent(x, y, eventTime);
+                break;
         }
     }
 
@@ -361,7 +360,7 @@ public class PointerTracker {
                 if (mListener != null)
                     mListener.onRelease(oldKey.codes[0]);
                 resetMultiTap();
-                keyState.onMoveToNewKey(keyIndex, x ,y);
+                keyState.onMoveToNewKey(keyIndex, x, y);
                 mHandler.cancelLongPressTimer();
             }
         }
@@ -401,7 +400,7 @@ public class PointerTracker {
         mIsInSlidingKeyInput = false;
         int keyIndex = mKeyState.getKeyIndex();
         if (isValidKeyIndex(keyIndex))
-           mProxy.invalidateKey(mKeys[keyIndex]);
+            mProxy.invalidateKey(mKeys[keyIndex]);
     }
 
     public void repeatKey(int keyIndex) {
@@ -476,7 +475,7 @@ public class PointerTracker {
 //            // We use longer timeout for sliding finger input started from the symbols mode key.
 //            mHandler.startLongPressTimer(mLongPressKeyTimeout * 3, keyIndex, this);
 //        } else {
-            mHandler.startLongPressTimer(mLongPressKeyTimeout, keyIndex, this);
+        mHandler.startLongPressTimer(mLongPressKeyTimeout, keyIndex, this);
 //        }
     }
 
@@ -502,7 +501,7 @@ public class PointerTracker {
                 if (mInMultiTap) {
                     if (mTapCount != -1) {
                         multiTapStarted = true;
-                    	mListener.onMultiTapStarted();
+                        mListener.onMultiTapStarted();
                     } else {
                         mTapCount = 0;
                     }
@@ -518,7 +517,7 @@ public class PointerTracker {
                     nearByKeyCodes[0] = code;
                 }
                 if (listener != null) {
-                    listener.onKey(code, key, mTapCount, nearByKeyCodes, x>=0 || y>=0);
+                    listener.onKey(code, key, mTapCount, nearByKeyCodes, x >= 0 || y >= 0);
                     listener.onRelease(code);
                     if (multiTapStarted)
                         mListener.onMultiTapEndeded();
@@ -535,32 +534,29 @@ public class PointerTracker {
     public CharSequence getPreviewText(Key key, boolean isUppercase) {
         if (mInMultiTap) {
             // Multi-tap
-            if (!isUppercase || !(key instanceof AnyKey) || ((AnyKey)key).shiftedCodes == null)
-            {
-            	char label = getMultiTapCode(key.codes);
-            	label = isUppercase? Character.toUpperCase(label) : label;
-            	return Character.toString(label);
-            }
-            else
-            {
-            	char label = getMultiTapCode(((AnyKey)key).shiftedCodes);
-            	return Character.toString(label);
+            if (!isUppercase || !(key instanceof AnyKey) || ((AnyKey) key).shiftedCodes == null) {
+                char label = getMultiTapCode(key.codes);
+                label = isUppercase ? Character.toUpperCase(label) : label;
+                return Character.toString(label);
+            } else {
+                char label = getMultiTapCode(((AnyKey) key).shiftedCodes);
+                return Character.toString(label);
             }
         } else {
-        	if (key.label == null) return null;
-        	if (!isUppercase || !(key instanceof AnyKey) || TextUtils.isEmpty(((AnyKey)key).shiftedKeyLabel))
-        		return isUppercase? key.label.toString().toUpperCase() : key.label;
-        	else
-        		return ((AnyKey)key).shiftedKeyLabel;
+            if (key.label == null) return null;
+            if (!isUppercase || !(key instanceof AnyKey) || TextUtils.isEmpty(((AnyKey) key).shiftedKeyLabel))
+                return isUppercase ? key.label.toString().toUpperCase() : key.label;
+            else
+                return ((AnyKey) key).shiftedKeyLabel;
         }
     }
 
-	public char getMultiTapCode(final int[] codes) {
-		if (codes == null || codes.length == 0) return 32;//space is good for nothing
-		int safeMultiTapIndex = mTapCount < 0 ? 0 : mTapCount % codes.length;
-		char label =  (char)codes[safeMultiTapIndex];
-		return label;
-	}
+    public char getMultiTapCode(final int[] codes) {
+        if (codes == null || codes.length == 0) return 32;//space is good for nothing
+        int safeMultiTapIndex = mTapCount < 0 ? 0 : mTapCount % codes.length;
+        char label = (char) codes[safeMultiTapIndex];
+        return label;
+    }
 
     private void resetMultiTap() {
         mLastSentIndex = NOT_A_KEY;

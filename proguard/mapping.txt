@@ -23,7 +23,7 @@ com.anysoftkeyboard.AnySoftKeyboard -> com.anysoftkeyboard.AnySoftKeyboard:
     long mMetaState -> s
     java.util.HashSet mSentenceSeparators -> t
     com.anysoftkeyboard.dictionaries.EditableDictionary mUserDictionary -> u
-    com.anysoftkeyboard.dictionaries.AutoDictionary mAutoDictionary -> v
+    com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary mAutoDictionary -> v
     java.lang.StringBuilder mComposing -> w
     com.anysoftkeyboard.WordComposer mWord -> x
     int mOrientation -> y
@@ -485,7 +485,7 @@ com.anysoftkeyboard.devicespecific.WMotionEventV5 -> com.anysoftkeyboard.devices
 com.anysoftkeyboard.devicespecific.WMotionEventV8 -> com.anysoftkeyboard.devicespecific.n:
     int getActionMasked() -> a
     int getActionIndex() -> b
-com.anysoftkeyboard.dictionaries.AndroidUserDictionary -> com.anysoftkeyboard.dictionaries.ac:
+com.anysoftkeyboard.dictionaries.content.AndroidUserDictionary -> com.anysoftkeyboard.dictionaries.ac:
     java.lang.String[] PROJECTION -> c
     android.database.ContentObserver mObserver -> d
     java.lang.String mLocale -> e
@@ -495,16 +495,16 @@ com.anysoftkeyboard.dictionaries.AndroidUserDictionary -> com.anysoftkeyboard.di
     android.database.Cursor getWordsCursor() -> e
     void AddWordToStorage(java.lang.String,int) -> b
     void deleteWord(java.lang.String) -> a
-com.anysoftkeyboard.dictionaries.AndroidUserDictionary$1 -> com.anysoftkeyboard.dictionaries.c:
-    com.anysoftkeyboard.dictionaries.AndroidUserDictionary this$0 -> a
+com.anysoftkeyboard.dictionaries.content.AndroidUserDictionary$1 -> com.anysoftkeyboard.dictionaries.c:
+    com.anysoftkeyboard.dictionaries.content.AndroidUserDictionary this$0 -> a
     void onChange(boolean) -> onChange
-com.anysoftkeyboard.dictionaries.AutoDictionary -> com.anysoftkeyboard.dictionaries.ad:
+com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary -> com.anysoftkeyboard.dictionaries.ad:
     com.anysoftkeyboard.AnySoftKeyboard mIme -> c
     java.lang.String mLocale -> d
     java.util.HashMap mPendingWrites -> e
     java.lang.Object mPendingWritesLock -> f
     java.util.HashMap sDictProjectionMap -> g
-    com.anysoftkeyboard.dictionaries.AutoDictionary$DatabaseHelper msOpenHelper -> h
+    com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary$DatabaseHelper msOpenHelper -> h
     boolean isValidWord(java.lang.CharSequence) -> a
     void close() -> b
     void loadDictionaryAsync() -> d
@@ -516,12 +516,12 @@ com.anysoftkeyboard.dictionaries.AutoDictionary -> com.anysoftkeyboard.dictionar
     void AddWordToStorage(java.lang.String,int) -> b
     android.database.Cursor getWordsCursor() -> e
     void deleteWord(java.lang.String) -> a
-com.anysoftkeyboard.dictionaries.AutoDictionary$DatabaseHelper -> com.anysoftkeyboard.dictionaries.i:
+com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary$DatabaseHelper -> com.anysoftkeyboard.dictionaries.i:
     void onCreate(android.database.sqlite.SQLiteDatabase) -> onCreate
     void onUpgrade(android.database.sqlite.SQLiteDatabase,int,int) -> onUpgrade
-com.anysoftkeyboard.dictionaries.AutoDictionary$UpdateDbTask -> com.anysoftkeyboard.dictionaries.x:
+com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary$UpdateDbTask -> com.anysoftkeyboard.dictionaries.x:
     java.util.HashMap mMap -> a
-    com.anysoftkeyboard.dictionaries.AutoDictionary$DatabaseHelper mDbHelper -> b
+    com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary$DatabaseHelper mDbHelper -> b
     java.lang.String mLocale -> c
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
 com.anysoftkeyboard.dictionaries.AutoText -> com.anysoftkeyboard.dictionaries.v:
@@ -553,7 +553,7 @@ com.anysoftkeyboard.dictionaries.BinaryDictionary$LoadDictionaryTask -> com.anys
     com.anysoftkeyboard.dictionaries.BinaryDictionary this$0 -> a
     java.lang.Void doInBackground$10299ca() -> a
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.anysoftkeyboard.dictionaries.ContactsDictionary -> com.anysoftkeyboard.dictionaries.o:
+com.anysoftkeyboard.dictionaries.content.ContactsDictionary -> com.anysoftkeyboard.dictionaries.o:
     java.lang.String[] PROJECTION -> c
     android.database.ContentObserver mObserver -> d
     int mContactsCount -> e
@@ -563,11 +563,11 @@ com.anysoftkeyboard.dictionaries.ContactsDictionary -> com.anysoftkeyboard.dicti
     void AddWordToStorage(java.lang.String,int) -> b
     android.database.Cursor getWordsCursor() -> e
     void deleteWord(java.lang.String) -> a
-com.anysoftkeyboard.dictionaries.ContactsDictionary$1 -> com.anysoftkeyboard.dictionaries.ae:
-    com.anysoftkeyboard.dictionaries.ContactsDictionary this$0 -> a
+com.anysoftkeyboard.dictionaries.content.ContactsDictionary$1 -> com.anysoftkeyboard.dictionaries.ae:
+    com.anysoftkeyboard.dictionaries.content.ContactsDictionary this$0 -> a
     void onChange(boolean) -> onChange
-com.anysoftkeyboard.dictionaries.ContactsDictionary$1$1 -> com.anysoftkeyboard.dictionaries.s:
-    com.anysoftkeyboard.dictionaries.ContactsDictionary$1 this$1 -> a
+com.anysoftkeyboard.dictionaries.content.ContactsDictionary$1$1 -> com.anysoftkeyboard.dictionaries.s:
+    com.anysoftkeyboard.dictionaries.content.ContactsDictionary$1 this$1 -> a
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
 com.anysoftkeyboard.dictionaries.Dictionary -> com.anysoftkeyboard.dictionaries.z:
     java.lang.String mDictionaryName -> a
@@ -587,18 +587,18 @@ com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder -> com.anysoftkeyboar
     com.anysoftkeyboard.dictionaries.AutoText createAutoText() -> c
 com.anysoftkeyboard.dictionaries.DictionaryFactory -> com.anysoftkeyboard.dictionaries.n:
     com.anysoftkeyboard.dictionaries.DictionaryFactory msFactory -> a
-    com.anysoftkeyboard.dictionaries.AutoDictionary mAutoDictionary -> b
+    com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary mAutoDictionary -> b
     java.lang.String mUserDictionaryLocale -> c
     com.anysoftkeyboard.dictionaries.EditableDictionary mUserDictionary -> d
     com.anysoftkeyboard.dictionaries.DictionaryFactory getInstance() -> a
     com.anysoftkeyboard.dictionaries.EditableDictionary createUserDictionary(android.content.Context,java.lang.String) -> a
     com.anysoftkeyboard.dictionaries.EditableDictionary createContactsDictionary(android.content.Context) -> a
     boolean equalsString(java.lang.String,java.lang.String) -> a
-    com.anysoftkeyboard.dictionaries.AutoDictionary createAutoDictionary(android.content.Context,com.anysoftkeyboard.AnySoftKeyboard,java.lang.String) -> a
+    com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary createAutoDictionary(android.content.Context,com.anysoftkeyboard.AnySoftKeyboard,java.lang.String) -> a
 com.anysoftkeyboard.dictionaries.DictionaryFactoryAPI5 -> com.anysoftkeyboard.dictionaries.k:
     com.anysoftkeyboard.dictionaries.EditableDictionary mContactsDictionary -> a
     com.anysoftkeyboard.dictionaries.EditableDictionary createContactsDictionary(android.content.Context) -> a
-com.anysoftkeyboard.dictionaries.DictionarySQLiteConnection -> com.anysoftkeyboard.dictionaries.g:
+com.anysoftkeyboard.dictionaries.sqlite.WordsSQLiteConnection -> com.anysoftkeyboard.dictionaries.g:
     android.content.Context mContext -> a
     java.lang.String mCurrentLocale -> b
     void onCreate(android.database.sqlite.SQLiteDatabase) -> onCreate
@@ -607,7 +607,7 @@ com.anysoftkeyboard.dictionaries.DictionarySQLiteConnection -> com.anysoftkeyboa
     void deleteWord(java.lang.String) -> a
     android.database.Cursor getWordsCursor() -> a
     java.util.List getAllWords() -> b
-com.anysoftkeyboard.dictionaries.DictionarySQLiteConnection$DictionaryWord -> com.anysoftkeyboard.dictionaries.l:
+com.anysoftkeyboard.dictionaries.sqlite.WordsSQLiteConnection$DictionaryWord -> com.anysoftkeyboard.dictionaries.l:
     java.lang.String mWord -> a
     int mFrequency -> b
     java.lang.String getWord() -> a
@@ -626,11 +626,11 @@ com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory -> com.anysoftkeyboar
     void buildOtherDataBasedOnNewAddOns(java.util.ArrayList) -> a
     com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder getAddOnByLocale(java.lang.String,android.content.Context) -> d
     com.anysoftkeyboard.addons.AddOn createConcreateAddOn(android.content.Context,java.lang.String,int,java.lang.String,int,android.util.AttributeSet) -> a
-com.anysoftkeyboard.dictionaries.FallbackUserDictionary -> com.anysoftkeyboard.dictionaries.m:
+com.anysoftkeyboard.dictionaries.sqlite.FallbackUserDictionary -> com.anysoftkeyboard.dictionaries.m:
     java.lang.String mLocale -> c
-    com.anysoftkeyboard.dictionaries.DictionarySQLiteConnection createStorage() -> g
+    com.anysoftkeyboard.dictionaries.sqlite.WordsSQLiteConnection createStorage() -> g
     void loadDictionary() -> a
-com.anysoftkeyboard.dictionaries.ResourceBinaryDictionary -> com.anysoftkeyboard.dictionaries.ResourceBinaryDictionary:
+com.anysoftkeyboard.dictionaries.jni.ResourceBinaryDictionary -> com.anysoftkeyboard.dictionaries.jni.ResourceBinaryDictionary:
     int mNativeDict -> a
     int mDictLength -> b
     int[] mInputCodes -> c
@@ -649,27 +649,27 @@ com.anysoftkeyboard.dictionaries.ResourceBinaryDictionary -> com.anysoftkeyboard
     boolean isValidWord(java.lang.CharSequence) -> a
     void close() -> b
     void finalize() -> finalize
-    android.content.Context access$0(com.anysoftkeyboard.dictionaries.ResourceBinaryDictionary) -> a
-    int access$1(com.anysoftkeyboard.dictionaries.ResourceBinaryDictionary) -> b
-    void access$2$6b1febb7(com.anysoftkeyboard.dictionaries.ResourceBinaryDictionary) -> c
-    void access$3(com.anysoftkeyboard.dictionaries.ResourceBinaryDictionary,android.content.Context,int[]) -> a
-com.anysoftkeyboard.dictionaries.ResourceBinaryDictionary$LoadDictionaryTask -> com.anysoftkeyboard.dictionaries.r:
-    com.anysoftkeyboard.dictionaries.ResourceBinaryDictionary this$0 -> a
+    android.content.Context access$0(com.anysoftkeyboard.dictionaries.jni.ResourceBinaryDictionary) -> a
+    int access$1(com.anysoftkeyboard.dictionaries.jni.ResourceBinaryDictionary) -> b
+    void access$2$6b1febb7(com.anysoftkeyboard.dictionaries.jni.ResourceBinaryDictionary) -> c
+    void access$3(com.anysoftkeyboard.dictionaries.jni.ResourceBinaryDictionary,android.content.Context,int[]) -> a
+com.anysoftkeyboard.dictionaries.jni.ResourceBinaryDictionary$LoadDictionaryTask -> com.anysoftkeyboard.dictionaries.r:
+    com.anysoftkeyboard.dictionaries.jni.ResourceBinaryDictionary this$0 -> a
     java.lang.Void doInBackground$10299ca() -> a
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.anysoftkeyboard.dictionaries.SQLiteUserDictionaryBase -> com.anysoftkeyboard.dictionaries.w:
-    com.anysoftkeyboard.dictionaries.DictionarySQLiteConnection mStorage -> c
+com.anysoftkeyboard.dictionaries.sqlite.SQLiteUserDictionaryBase -> com.anysoftkeyboard.dictionaries.w:
+    com.anysoftkeyboard.dictionaries.sqlite.WordsSQLiteConnection mStorage -> c
     boolean mInDatabaseFileRecovery -> d
     void loadDictionaryAsync() -> d
     android.database.Cursor getWordsCursor() -> e
-    com.anysoftkeyboard.dictionaries.DictionarySQLiteConnection createStorage() -> g
+    com.anysoftkeyboard.dictionaries.sqlite.WordsSQLiteConnection createStorage() -> g
     void AddWordToStorage(java.lang.String,int) -> b
     void deleteWord(java.lang.String) -> a
     void closeAllResources() -> c
-com.anysoftkeyboard.dictionaries.SafeUserDictionary -> com.anysoftkeyboard.dictionaries.j:
+com.anysoftkeyboard.dictionaries.UserDictionary -> com.anysoftkeyboard.dictionaries.j:
     java.lang.Object mLocker -> a
     android.content.Context mContext -> b
-    com.anysoftkeyboard.dictionaries.UserDictionaryBase mActualDictionary -> c
+    com.anysoftkeyboard.dictionaries.BTreeDictionary mActualDictionary -> c
     java.lang.Object mUpdatingLock -> d
     boolean mUpdatingDictionary -> e
     java.lang.String mLocale -> f
@@ -680,11 +680,11 @@ com.anysoftkeyboard.dictionaries.SafeUserDictionary -> com.anysoftkeyboard.dicti
     void addWord(java.lang.String,int) -> a
     android.database.Cursor getWordsCursor() -> e
     void deleteWord(java.lang.String) -> a
-    void access$0(com.anysoftkeyboard.dictionaries.SafeUserDictionary) -> a
-    java.lang.Object access$1(com.anysoftkeyboard.dictionaries.SafeUserDictionary) -> b
-    void access$2$33a3af(com.anysoftkeyboard.dictionaries.SafeUserDictionary) -> c
-com.anysoftkeyboard.dictionaries.SafeUserDictionary$LoadDictionaryTask -> com.anysoftkeyboard.dictionaries.b:
-    com.anysoftkeyboard.dictionaries.SafeUserDictionary this$0 -> a
+    void access$0(com.anysoftkeyboard.dictionaries.UserDictionary) -> a
+    java.lang.Object access$1(com.anysoftkeyboard.dictionaries.UserDictionary) -> b
+    void access$2$33a3af(com.anysoftkeyboard.dictionaries.UserDictionary) -> c
+com.anysoftkeyboard.dictionaries.UserDictionary$LoadDictionaryTask -> com.anysoftkeyboard.dictionaries.b:
+    com.anysoftkeyboard.dictionaries.UserDictionary this$0 -> a
     java.lang.Void doInBackground$10299ca() -> a
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
 com.anysoftkeyboard.dictionaries.Suggest -> com.anysoftkeyboard.dictionaries.f:
@@ -757,9 +757,9 @@ com.anysoftkeyboard.dictionaries.TextEntryState$State -> com.anysoftkeyboard.dic
     com.anysoftkeyboard.dictionaries.TextEntryState$State[] ENUM$VALUES -> m
     com.anysoftkeyboard.dictionaries.TextEntryState$State[] values() -> values
     com.anysoftkeyboard.dictionaries.TextEntryState$State valueOf(java.lang.String) -> valueOf
-com.anysoftkeyboard.dictionaries.UserDictionaryBase -> com.anysoftkeyboard.dictionaries.d:
+com.anysoftkeyboard.dictionaries.BTreeDictionary -> com.anysoftkeyboard.dictionaries.d:
     android.content.Context mContext -> a
-    com.anysoftkeyboard.dictionaries.UserDictionaryBase$NodeArray mRoots -> c
+    com.anysoftkeyboard.dictionaries.BTreeDictionary$NodeArray mRoots -> c
     int mMaxDepth -> d
     int mInputLength -> e
     char[] mWordBuilder -> f
@@ -776,27 +776,27 @@ com.anysoftkeyboard.dictionaries.UserDictionaryBase -> com.anysoftkeyboard.dicti
     void AddWordToStorage(java.lang.String,int) -> b
     void getWords(com.anysoftkeyboard.WordComposer,com.anysoftkeyboard.dictionaries.Dictionary$WordCallback) -> a
     boolean isValidWord(java.lang.CharSequence) -> a
-    boolean isValidWordRec(com.anysoftkeyboard.dictionaries.UserDictionaryBase$NodeArray,java.lang.CharSequence,int,int) -> a
+    boolean isValidWordRec(com.anysoftkeyboard.dictionaries.BTreeDictionary$NodeArray,java.lang.CharSequence,int,int) -> a
     char toLowerCase(char) -> a
-    void getWordsRec(com.anysoftkeyboard.dictionaries.UserDictionaryBase$NodeArray,com.anysoftkeyboard.WordComposer,char[],int,boolean,float,int,com.anysoftkeyboard.dictionaries.Dictionary$WordCallback) -> a
+    void getWordsRec(com.anysoftkeyboard.dictionaries.BTreeDictionary$NodeArray,com.anysoftkeyboard.WordComposer,char[],int,boolean,float,int,com.anysoftkeyboard.dictionaries.Dictionary$WordCallback) -> a
     void addWordFromStorage(java.lang.String,int) -> c
-    void addWordRec(com.anysoftkeyboard.dictionaries.UserDictionaryBase$NodeArray,java.lang.String,int,int) -> a
+    void addWordRec(com.anysoftkeyboard.dictionaries.BTreeDictionary$NodeArray,java.lang.String,int,int) -> a
     void clearDictionary() -> f
     int getWordFrequency(java.lang.CharSequence) -> b
-    int getWordFrequencyRec(com.anysoftkeyboard.dictionaries.UserDictionaryBase$NodeArray,java.lang.CharSequence,int,int) -> b
-    java.lang.Object access$0(com.anysoftkeyboard.dictionaries.UserDictionaryBase) -> a
-    void access$1$40d05bd5(com.anysoftkeyboard.dictionaries.UserDictionaryBase) -> b
-com.anysoftkeyboard.dictionaries.UserDictionaryBase$LoadDictionaryTask -> com.anysoftkeyboard.dictionaries.t:
-    com.anysoftkeyboard.dictionaries.UserDictionaryBase this$0 -> a
+    int getWordFrequencyRec(com.anysoftkeyboard.dictionaries.BTreeDictionary$NodeArray,java.lang.CharSequence,int,int) -> b
+    java.lang.Object access$0(com.anysoftkeyboard.dictionaries.BTreeDictionary) -> a
+    void access$1$40d05bd5(com.anysoftkeyboard.dictionaries.BTreeDictionary) -> b
+com.anysoftkeyboard.dictionaries.BTreeDictionary$LoadDictionaryTask -> com.anysoftkeyboard.dictionaries.t:
+    com.anysoftkeyboard.dictionaries.BTreeDictionary this$0 -> a
     java.lang.Void doInBackground$10299ca() -> a
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-com.anysoftkeyboard.dictionaries.UserDictionaryBase$Node -> com.anysoftkeyboard.dictionaries.ab:
+com.anysoftkeyboard.dictionaries.BTreeDictionary$Node -> com.anysoftkeyboard.dictionaries.ab:
     char code -> a
     int frequency -> b
     boolean terminal -> c
-    com.anysoftkeyboard.dictionaries.UserDictionaryBase$NodeArray children -> d
-com.anysoftkeyboard.dictionaries.UserDictionaryBase$NodeArray -> com.anysoftkeyboard.dictionaries.y:
-    com.anysoftkeyboard.dictionaries.UserDictionaryBase$Node[] data -> a
+    com.anysoftkeyboard.dictionaries.BTreeDictionary$NodeArray children -> d
+com.anysoftkeyboard.dictionaries.BTreeDictionary$NodeArray -> com.anysoftkeyboard.dictionaries.y:
+    com.anysoftkeyboard.dictionaries.BTreeDictionary$Node[] data -> a
     int length -> b
 com.anysoftkeyboard.keyboardextensions.KeyboardExtension -> com.anysoftkeyboard.b.a:
     int mKeyboardResId -> a

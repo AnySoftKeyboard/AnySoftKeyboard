@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-	<item>
-		<shape
-		    android:shape="rectangle">
-		    <solid android:color="#000" />
-		</shape>
-	</item>
-	<item android:top="1px">
-		<shape
-		    android:shape="rectangle">
-		    <solid android:color="#AAA" />
-		</shape>
-	</item>
-	<!-- 
-	<item android:top="1px">
-		<bitmap android:src="@drawable/light_background_base_tile" android:tileMode="repeat" />
-	</item>
-	 -->
+    <item>
+        <shape
+                android:shape="rectangle">
+            <solid android:color="#000"/>
+        </shape>
+    </item>
+    <item android:top="1px">
+        <shape
+                android:shape="rectangle">
+            <solid android:color="#AAA"/>
+        </shape>
+    </item>
+    <!--
+    <item android:top="1px">
+        <bitmap android:src="@drawable/light_background_base_tile" android:tileMode="repeat" />
+    </item>
+     -->
 </layer-list>
     

@@ -16,58 +16,58 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical">
 
     <TextView
-        style="@android:style/TextAppearance.Medium"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/tip_1_welcome_to_ask"
-        android:textStyle="bold" />
+            style="@android:style/TextAppearance.Medium"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/tip_1_welcome_to_ask"
+            android:textStyle="bold"/>
 
     <TextView
-        style="@android:style/TextAppearance.Medium"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/tip_1_how_to_access_settings" />
+            style="@android:style/TextAppearance.Medium"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tip_1_how_to_access_settings"/>
 
     <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/tip_1_ask_settings" />
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/tip_1_ask_settings"/>
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="40dp"
-        android:gravity="bottom"
-        android:orientation="horizontal"
-        android:weightSum="1" >
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="40dp"
+            android:gravity="bottom"
+            android:orientation="horizontal"
+            android:weightSum="1">
 
         <TextView
-            style="@android:style/TextAppearance.Large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/click_for_previous_tip"
-            android:textStyle="bold" />
+                style="@android:style/TextAppearance.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/click_for_previous_tip"
+                android:textStyle="bold"/>
 
         <View
-            android:layout_width="0px"
-            android:layout_height="1px"
-            android:layout_weight="1" />
+                android:layout_width="0px"
+                android:layout_height="1px"
+                android:layout_weight="1"/>
 
         <TextView
-            style="@android:style/TextAppearance.Large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/click_for_next_tip"
-            android:textStyle="bold" />
+                style="@android:style/TextAppearance.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/click_for_next_tip"
+                android:textStyle="bold"/>
     </LinearLayout>
 
 </LinearLayout>

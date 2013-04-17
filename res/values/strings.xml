@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools"
+           tools:ignore="MissingTranslation">
     <string name="ime_name">AnySoftKeyboard</string>
     <string name="settings_app_name">AnySoftKeyboard Settings</string>
     <string name="spell_checker_service_name">AnySoftKeyboard Spell Checker</string>
     <string name="spell_checker_settings">AnySoftKeyboard Speller Settings</string>
     <string name="subtype_generic">speller-generic</string>
-    
+
     <string name="debug_tracing_starting">Tracing started!\nMake sure you stop it at some point</string>
-    <string name="debug_tracing_finished">Tracing finished!\nTrace file is <xliff:g id="trace_file">%s</xliff:g></string>
-    
+    <string name="debug_tracing_finished">Tracing finished!\nTrace file is
+        <xliff:g id="trace_file">%s</xliff:g>
+    </string>
+
     <string name="click_to_restart_suggestions">Click for suggestions</string>
     <!-- tips -->
     <string name="tips_notification_text">Click for tips!</string>
@@ -20,146 +23,206 @@
     <string name="click_for_next_tip">Next tip ↓</string>
     <!-- tip 1 -->
     <string name="tip_1_welcome_to_ask">Welcome to AnySoftKeyboard!</string>
-    <string name="tip_1_how_to_access_settings">To access the settings; long press the ENTER key. You\'ll find a world of customizations there!</string>
+    <string name="tip_1_how_to_access_settings">To access the settings; long press the ENTER key. You\'ll find a world
+        of customizations there!
+    </string>
     <!-- tip 2 -->
     <string name="tip_2_gestures">I support gestures!</string>
-    <string name="tip_2_gestures_tip">With a swipe, you can do a lot! Swipe from left to right will switch languages, swiping to the left will switch to symbols layout, swiping from the spacebar up will show up a utility keyboard, and swiping down will hide the keyboard.\nIt is configurable in the settings (remember? Long pressing the ENTER key).</string>
+    <string name="tip_2_gestures_tip">With a swipe, you can do a lot! Swipe from left to right will switch languages,
+        swiping to the left will switch to symbols layout, swiping from the spacebar up will show up a utility keyboard,
+        and swiping down will hide the keyboard.\nIt is configurable in the settings (remember? Long pressing the ENTER
+        key).
+    </string>
     <!-- tip 3 -->
     <string name="tip_3_hidden_kbds">Hidden gems</string>
-    <string name="tip_3_hidden_kbds_tip">There are some hidden keyboards:\n1) Swipe your finger from the spacebar and up, you\'ll get a utility keyboard with arrows and microphone (for voice input).\n2) Swipe your finger up outside the keyboard, and keep it pressed. This is the extension keyboard, with numbers and symbols.</string>
+    <string name="tip_3_hidden_kbds_tip">There are some hidden keyboards:\n1) Swipe your finger from the spacebar and
+        up, you\'ll get a utility keyboard with arrows and microphone (for voice input).\n2) Swipe your finger up
+        outside the keyboard, and keep it pressed. This is the extension keyboard, with numbers and symbols.
+    </string>
     <!-- tip 4 -->
     <string name="tip_4_top_generic_row">Top row</string>
-    <string name="tip_4_top_generic_row_tip">The top row is the same on all layouts, and it can be changed! The default top row includes symbols key (<i>123</i>), left and right arrow keys, and language key (<i>ABC</i>). You can replace this row in settings.</string>
+    <string name="tip_4_top_generic_row_tip">The top row is the same on all layouts, and it can be changed! The default
+        top row includes symbols key (<i>123</i>), left and right arrow keys, and language key (<i>ABC</i>). You can
+        replace this row in settings.
+    </string>
     <string name="tip_4_top_generic_row_go_to_top_row_settings">Change top row now</string>
     <!-- tip 5 -->
     <string name="tip_5_key_feedback">Feedback</string>
-    <string name="tip_5_key_feedback_tip">Sometimes it is nice to get a non-visual feedback about key presses. I support that. So here you go, you can have vibration or sound, or both.</string>
+    <string name="tip_5_key_feedback_tip">Sometimes it is nice to get a non-visual feedback about key presses. I support
+        that. So here you go, you can have vibration or sound, or both.
+    </string>
     <string name="tip_5_key_feedback_test">Want to test the feedback?</string>
     <!-- tip 6 -->
     <string name="tip_6_bottom_rows">Bottom row</string>
-    <string name="tip_6_bottom_rows_tip">As the top row, the bottom row can also be replaced. AnySoftKeyboard has several types - with or without a mic, iPhone style, etc.</string>
-	<string name="tip_6_top_generic_row_go_to_bottom_row_settings">Change bottom row now</string>   
-   	<!-- tip 7 -->
+    <string name="tip_6_bottom_rows_tip">As the top row, the bottom row can also be replaced. AnySoftKeyboard has
+        several types - with or without a mic, iPhone style, etc.
+    </string>
+    <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Change bottom row now</string>
+    <!-- tip 7 -->
     <string name="tip_7_voice_input">Talk to me*</string>
-    <string name="tip_7_voice_input_tip">Typing is nice, but there is also support for voice input! Want to dictate the text? Click the microphone key, and talk away!\nThis feature uses Google\'s state-of-the-art voice recognition technology, so be sure it works :)</string>
-    <string name="tip_7_voice_input_tip_dont_forget_bottom_row">If you want to always have the mic icon, make sure you have the correct bottom row (previous tip, remember?).\nAnyway, mic is always accessible via the hidden utility keyboard (swipe up from the spacebar).</string>
+    <string name="tip_7_voice_input_tip">Typing is nice, but there is also support for voice input! Want to dictate the
+        text? Click the microphone key, and talk away!\nThis feature uses Google\'s state-of-the-art voice recognition
+        technology, so be sure it works :)
+    </string>
+    <string name="tip_7_voice_input_tip_dont_forget_bottom_row">If you want to always have the mic icon, make sure you
+        have the correct bottom row (previous tip, remember?).\nAnyway, mic is always accessible via the hidden utility
+        keyboard (swipe up from the spacebar).
+    </string>
     <string name="tip_7_voice_input_tip_note">* Requires Android 2.2+ and Internet connection to work.</string>
     <!-- tip 8 -->
     <string name="tip_8_suggestions">I complete you</string>
-    <string name="tip_8_suggestions_tip">Depending on you language support level, AnySoftKeyboard can help you finish your words and correct your typos. As you start typing, AnySoftKeyboard will suggest words based on what you already typed.</string>
-    <string name="tip_8_suggestions_editor">If I don\'t know a word, you can teach me! Type that word, and click it in the suggestions strip. I\'ll remember it.\nYou can also edit those User-Words in our built-in editor. Look for the editor in AnySoftKeyboard Dictionary Settings.</string>
+    <string name="tip_8_suggestions_tip">Depending on you language support level, AnySoftKeyboard can help you finish
+        your words and correct your typos. As you start typing, AnySoftKeyboard will suggest words based on what you
+        already typed.
+    </string>
+    <string name="tip_8_suggestions_editor">If I don\'t know a word, you can teach me! Type that word, and click it in
+        the suggestions strip. I\'ll remember it.\nYou can also edit those User-Words in our built-in editor. Look for
+        the editor in AnySoftKeyboard Dictionary Settings.
+    </string>
     <!-- tip 9 -->
     <string name="tip_9_suggestions_restart">Suggestions Restarting</string>
-    <string name="tip_9_suggestions_restart_tip">AnySoftKeyboard provides word completion suggestions based on what you typed. But, AnySoftKeyboard can also provide suggestions on already typed words! Tap the word, and AnySoftKeyboard will refresh the suggestions strip.</string>
+    <string name="tip_9_suggestions_restart_tip">AnySoftKeyboard provides word completion suggestions based on what you
+        typed. But, AnySoftKeyboard can also provide suggestions on already typed words! Tap the word, and
+        AnySoftKeyboard will refresh the suggestions strip.
+    </string>
     <!-- main form -->
     <string name="main_tab_welcome">Welcome</string>
     <string name="main_tab_links">Links</string>
     <string name="main_tab_credits">Credits</string>
     <!-- welcome tab -->
-	<string name="how_to_pointer_title">Welcome to AnySoftKeyboard</string>
-	<string name="how_to_pointer_version_prefix">Version: </string>
-	<string name="how_to_pointer_not_app">AnySoftKeyboard is not a regular application - it is a on-screen keyboard replacement.</string>
-	<string name="how_to_pointer_go_to_links">For further information, go to the Links tab.</string>
-	<!-- links tab -->
-	<string name="how_to_pointer_how_to_url">Details about how to use this keyboard:</string>
-	<string name="how_to_pointer_site">General details:</string>
-	<string name="how_to_pointer_changelog">Details about the latest version:</string>
-	<string name="how_to_pointer_issues">Bug reporting:</string>
-	<!-- credits tab -->
-	<string name="main_tab_credits_title">This application was created with the help of the following people-</string>
-	<string name="main_tab_credits_created_by">Created by:</string>
-	<string name="main_tab_credits_additional_work_by">Additional coding work by:</string>
-	<string name="main_tab_credits_localization_by">Localization efforts by:</string>
-	<string name="main_tab_credits_GUI_by">UI images by:</string>
-	
-	<string name="how_to_enable_dialog_title">Enable AnySoftKeyboard\?</string>
-	<string name="how_to_enable_dialog_text">AnySoftKeyboard is not activated yet. Do you want me to show you how to activate?</string>
-	<string name="how_to_enable_dialog_show_me">Show me!</string>
-	<string name="how_to_enable_dialog_dont_show_me">Later</string>
-	
-	<string name="how_to_simple_howto_preface">Android requires that you (the user) will manually enable and activate external keyboards. Here is how:</string>
-	<string name="how_to_simple_howto_enable_ask">Step 1: Enable AnySoftKeyboard (it will warn you about possible key-logging, don\'t worry, AnySoftKeyboard does not keep data, and does not send it anywhere) :</string>
-	<string name="how_to_simple_howto_enable_ask_button">Enable AnySoftKeyboard</string>
-	<string name="how_to_simple_howto_press_back_to_return_tip">Press BACK once done, to get back to activation instructions</string>
-	<string name="how_to_simple_howto_switch_to_ask">Step 2: Select AnySoftKeyboard as your active Input Method:</string>
-	<string name="how_to_simple_howto_switch_to_ask_button_after_step_1">Switch to AnySoftKeyboard</string>
-	<string name="how_to_simple_howto_switch_to_ask_button_before_step_1">First do step 1</string>
-	<string name="how_to_simple_howto_go_to_settings">Step 3 (optional): AnySoftKeyboard is very customizable. Change stuff! You can do that later by long-press the ENTER key.</string>
-	<string name="how_to_simple_howto_go_to_settings_button">AnySoftKeyboard\'s settings</string>
-	
-	<!-- notifications -->
-	<string name="ime_name_beta">AnySoftKeyboard BETA</string>
-	<string name="notification_text_testers">This is a beta version. Use with caution!</string>
-	<string name="notification_text_changelog">Click to learn what\'s new.</string>
-	<string name="notification_title_how_to_enable">Welcome to AnySoftKeyboard</string>
-	<string name="notification_text_how_to_enable">Learn how to enable</string>
-	<string name="testers_version">Testers build!</string>
-	
-	<!-- settings -->
-	<string name="license_title">License</string>
-	<string name="languages_cat">Languages</string>
-	<!-- welcome -->
-	<string name="about">About</string>
-	<!-- changelog -->
-	<string name="changelog">Changelog</string>
-	<string name="search_market_for_addons">Search for add-ons</string>
-	<string name="no_market_store_available">Could not find Android Play Store on your device. Unable to search for add-ons!</string>
-	<string name="theme_addons_settings">Keyboard theme settings</string>
-	<string name="keyboard_theme_tweak_group">Tweaks</string>
-	<string name="keyboard_theme_tweak_hints_group">Hint text tweaks</string>
-	<string name="bottom_row_addons_settings">Bottom row settings</string>
-	<string name="top_row_addons_settings">Top row settings</string>
-	
-	<string name="close_button">Close</string>
-	
-	<string name="how_to_active_text">How to active AnySoftKeyboard</string>
+    <string name="how_to_pointer_title">Welcome to AnySoftKeyboard</string>
+    <string name="how_to_pointer_version_prefix">Version:</string>
+    <string name="how_to_pointer_not_app">AnySoftKeyboard is not a regular application - it is a on-screen keyboard
+        replacement.
+    </string>
+    <string name="how_to_pointer_go_to_links">For further information, go to the Links tab.</string>
+    <!-- links tab -->
+    <string name="how_to_pointer_how_to_url">Details about how to use this keyboard:</string>
+    <string name="how_to_pointer_site">General details:</string>
+    <string name="how_to_pointer_changelog">Details about the latest version:</string>
+    <string name="how_to_pointer_issues">Bug reporting:</string>
+    <!-- credits tab -->
+    <string name="main_tab_credits_title">This application was created with the help of the following people-</string>
+    <string name="main_tab_credits_created_by">Created by:</string>
+    <string name="main_tab_credits_additional_work_by">Additional coding work by:</string>
+    <string name="main_tab_credits_localization_by">Localization efforts by:</string>
+    <string name="main_tab_credits_GUI_by">UI images by:</string>
+
+    <string name="how_to_enable_dialog_title">Enable AnySoftKeyboard\?</string>
+    <string name="how_to_enable_dialog_text">AnySoftKeyboard is not activated yet. Do you want me to show you how to
+        activate?
+    </string>
+    <string name="how_to_enable_dialog_show_me">Show me!</string>
+    <string name="how_to_enable_dialog_dont_show_me">Later</string>
+
+    <string name="how_to_simple_howto_preface">Android requires that you (the user) will manually enable and activate
+        external keyboards. Here is how:
+    </string>
+    <string name="how_to_simple_howto_enable_ask">Step 1: Enable AnySoftKeyboard (it will warn you about possible
+        key-logging, don\'t worry, AnySoftKeyboard does not keep data, and does not send it anywhere) :
+    </string>
+    <string name="how_to_simple_howto_enable_ask_button">Enable AnySoftKeyboard</string>
+    <string name="how_to_simple_howto_press_back_to_return_tip">Press BACK once done, to get back to activation
+        instructions
+    </string>
+    <string name="how_to_simple_howto_switch_to_ask">Step 2: Select AnySoftKeyboard as your active Input Method:
+    </string>
+    <string name="how_to_simple_howto_switch_to_ask_button_after_step_1">Switch to AnySoftKeyboard</string>
+    <string name="how_to_simple_howto_switch_to_ask_button_before_step_1">First do step 1</string>
+    <string name="how_to_simple_howto_go_to_settings">Step 3 (optional): AnySoftKeyboard is very customizable. Change
+        stuff! You can do that later by long-press the ENTER key.
+    </string>
+    <string name="how_to_simple_howto_go_to_settings_button">AnySoftKeyboard\'s settings</string>
+
+    <!-- notifications -->
+    <string name="ime_name_beta">AnySoftKeyboard BETA</string>
+    <string name="notification_text_testers">This is a beta version. Use with caution!</string>
+    <string name="notification_text_changelog">Click to learn what\'s new.</string>
+    <string name="notification_title_how_to_enable">Welcome to AnySoftKeyboard</string>
+    <string name="notification_text_how_to_enable">Learn how to enable</string>
+    <string name="testers_version">Testers build!</string>
+
+    <!-- settings -->
+    <string name="license_title">License</string>
+    <string name="languages_cat">Languages</string>
+    <!-- welcome -->
+    <string name="about">About</string>
+    <!-- changelog -->
+    <string name="changelog">Changelog</string>
+    <string name="search_market_for_addons">Search for add-ons</string>
+    <string name="no_market_store_available">Could not find Android Play Store on your device. Unable to search for
+        add-ons!
+    </string>
+    <string name="theme_addons_settings">Keyboard theme settings</string>
+    <string name="keyboard_theme_tweak_group">Tweaks</string>
+    <string name="keyboard_theme_tweak_hints_group">Hint text tweaks</string>
+    <string name="bottom_row_addons_settings">Bottom row settings</string>
+    <string name="top_row_addons_settings">Top row settings</string>
+
+    <string name="close_button">Close</string>
+
+    <string name="how_to_active_text">How to active AnySoftKeyboard</string>
     <!-- Symbols that are commonly considered word separators in this language -->
     <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
     <!-- Indicates that a word has been added to the dictionary -->
-    <string name="added_word">Saved: <xliff:g id="word">%s</xliff:g></string>
+    <string name="added_word">Saved:
+        <xliff:g id="word">%s</xliff:g>
+    </string>
     <string name="revert_added_word_question">Remove\?</string>
-    <string name="removed_word">Removed: <xliff:g id="word">%s</xliff:g></string>
+    <string name="removed_word">Removed:
+        <xliff:g id="word">%s</xliff:g>
+    </string>
     <string name="hint_add_to_dictionary">\u2190 Touch again to save</string>
     <string name="hint_double_tap_to_close">Again to remove suggestions</string>
-    
+
     <string name="menu_insert_smiley">Insert emoticon</string>
-    
+
     <string name="click_for_help">Help</string>
     <string name="click_for_help_summary">Press for additional help</string>
-    
-    
+
+
     <!-- settings - UI -->
     <string name="ui_group">User interface</string>
-     
+
     <string name="physical_keyboard_change_notification_title">Keyboard layout notification</string>
-    <string name="physical_keyboard_change_notification_summary">Type of notification about the active layout. Now: %s</string>
+    <string name="physical_keyboard_change_notification_summary">Type of notification about the active layout. Now: %s
+    </string>
     <string name="physical_keyboard_change_notification_dialog_title">Select notification type</string>
     <string-array name="physical_keyboard_change_notification_types">
         <item>Always show layout icon</item>
         <item>On physical keyboard change</item>
         <item>No notification</item>
     </string-array>
-    
+
     <string name="lengthy_operations_toast_notification">Notify on lengthy operations</string>
     <string name="lengthy_operations_toast_notification_summary">Show short notifications on lengthy operations</string>
-    
+
     <!-- voice -->
     <string name="voice_input_not_support_in_this_os_version">Voice input is supported in Android 2.2+</string>
     <string name="voice_input_not_installed_title">Voice input not installed</string>
-    <string name="voice_input_not_installed_text">It is required to install Google\'s Voice Input from the Market before using this feature.</string>
+    <string name="voice_input_not_installed_text">It is required to install Google\'s Voice Input from the Market before
+        using this feature.
+    </string>
     <string name="voice_input_not_installed_action_install">Install</string>
     <string name="voice_input_not_installed_action_do_not_install">No</string>
-    <string name="voice_input_not_voice_pack_in_market">I can not find voice input (com.google.android.voicesearch) in the Market. Sorry, voice input will not work on your device.</string>
+    <string name="voice_input_not_voice_pack_in_market">I can not find voice input (com.google.android.voicesearch) in
+        the Market. Sorry, voice input will not work on your device.
+    </string>
     <!-- Options menu -->
     <string name="change_ime">Change input method</string>
     <string name="override_dictionary">Override default dictionary</string>
     <!-- Dictionary override strings -->
-    <string name="override_dictionary_title">Override <xliff:g id="word">%s</xliff:g> dictionary</string>
+    <string name="override_dictionary_title">Override
+        <xliff:g id="word">%s</xliff:g>
+        dictionary
+    </string>
     <string name="override_dictionary_default">Default</string>
     <!-- Dictionary override toast messages -->
     <string name="override_disabled">Override cleared</string>
-    <string name="override_enabled">Overriding to <xliff:g id="word">%s</xliff:g></string>
-    
+    <string name="override_enabled">Overriding to
+        <xliff:g id="word">%s</xliff:g>
+    </string>
+
     <!-- settings - effects-->
     <string name="effects_group">Effects</string>
     <string name="ime_settings">Keyboard settings</string>
@@ -168,32 +231,37 @@
     <string name="vibrate_on_key_press_summary">Select to have keys vibrate when tapped</string>
     <string name="vibrate_on_key_press_dialog_title">Select vibration type</string>
     <string-array name="vibrate_on_key_press_types">
-    	<item>None</item>
+        <item>None</item>
         <item>Light</item>
         <item>Medium</item>
         <item>Strong</item>
     </string-array>
-    
+
     <string name="sound_on">Sound on key-press</string>
     <string name="sound_on_summary">Sound effects on soft keyboard press.</string>
     <string name="use_custom_sound_volume">Set custom volume</string>
     <string name="use_custom_sound_volume_on_summary">Sounds effects volume is custom.</string>
-    <string name="use_custom_sound_volume_off_summary">Sounds effects volume is the system\'s notifications volume.</string>
+    <string name="use_custom_sound_volume_off_summary">Sounds effects volume is the system\'s notifications volume.
+    </string>
     <string name="custom_sound_volume">Custom key-press volume</string>
-    
+
     <string name="speacial_fetures_group">Special features</string>
     <string name="switch_keyboard_on_space">Space switches keyboards</string>
-    <string name="switch_keyboard_on_space_on_summary">Switch from symbols/numbers to alphabet when pressing space</string>
-    <string name="switch_keyboard_on_space_off_summary">Do not switch from symbols/numbers to alphabet when pressing space</string>
+    <string name="switch_keyboard_on_space_on_summary">Switch from symbols/numbers to alphabet when pressing space
+    </string>
+    <string name="switch_keyboard_on_space_off_summary">Do not switch from symbols/numbers to alphabet when pressing
+        space
+    </string>
     <string name="hide_soft_when_physical">Hide keyboard on physical key</string>
     <string name="hide_soft_when_physical_on_summary">Hide soft keyboard when physical keyboard is used</string>
-    <string name="hide_soft_when_physical_off_summary">Show soft keyboard when physical keyboard is used</string>	
+    <string name="hide_soft_when_physical_off_summary">Show soft keyboard when physical keyboard is used</string>
     <string name="fullscreen_input_connection_supported">Use landscape full-screen</string>
     <string name="fullscreen_input_connection_supported_on_summary">Full-screen input in landscape</string>
     <string name="fullscreen_input_connection_supported_off_summary">Do not use full-screen input in landscape</string>
     <string name="fullscreen_portrait_input_connection_supported">Use portrait full-screen</string>
     <string name="fullscreen_portrait_input_connection_supported_on_summary">Full-screen input in portrait</string>
-    <string name="fullscreen_portrait_input_connection_supported_off_summary">Do not use full-screen input in portrait</string>
+    <string name="fullscreen_portrait_input_connection_supported_off_summary">Do not use full-screen input in portrait
+    </string>
     <string name="backword_support">Back-word support</string>
     <string name="backword_support_on_summary">Shifted Backspace will delete the last word</string>
     <string name="backword_support_off_summary">Shifted Backspace will delete the last character</string>
@@ -219,9 +287,9 @@
     <string name="separate_gesture_action">Stretch gesture</string>
     <string name="separate_gesture_action_title">Select stretch gesture action</string>
     <string name="separate_gesture_action_summary">Define the stretch gesture action</string>
-    
+
     <string name="swipe_action_name_none">No action</string>
-   	<string name="swipe_action_name_next_alphabet">Next alphabet keyboard</string>
+    <string name="swipe_action_name_next_alphabet">Next alphabet keyboard</string>
     <string name="swipe_action_name_next_symbols">Next symbols keyboard</string>
     <string name="swipe_action_name_next_inside_mode">Next in current mode</string>
     <string name="swipe_action_name_cycle_keyboards">Cycle through all keyboards</string>
@@ -235,36 +303,40 @@
     <string name="swipe_action_name_cursor_down">Move cursor down</string>
     <string name="swipe_action_name_cursor_left">Move cursor left</string>
     <string name="swipe_action_name_cursor_right">Move cursor right</string>
-	<string name="swipe_action_name_other_keyboards_mode">Switch layout mode</string>
-	<string name="swipe_action_name_split_layout">Split layout</string>
-	<string name="swipe_action_name_merge_layout">Merge layout</string>
-	<string name="swipe_action_name_utility_keyboard">Show utility keyboard</string>
-   	
-   	<string name="settings_swipe_velocity_threshold_title">Swipe velocity threshold</string>
-   	<string name="settings_swipe_velocity_threshold_summary">The minimal swipe gesture speed</string>
-   	
-   	<string name="settings_swipe_velocity_very_slow">Very slow</string>
-   	<string name="settings_swipe_velocity_slow">Slow</string>
-   	<string name="settings_swipe_velocity_normal">Normal</string>
-   	<string name="settings_swipe_velocity_fast">Fast</string>
-   	<string name="settings_swipe_velocity_very_fast">Very fast</string>
-    
+    <string name="swipe_action_name_other_keyboards_mode">Switch layout mode</string>
+    <string name="swipe_action_name_split_layout">Split layout</string>
+    <string name="swipe_action_name_merge_layout">Merge layout</string>
+    <string name="swipe_action_name_utility_keyboard">Show utility keyboard</string>
+
+    <string name="settings_swipe_velocity_threshold_title">Swipe velocity threshold</string>
+    <string name="settings_swipe_velocity_threshold_summary">The minimal swipe gesture speed</string>
+
+    <string name="settings_swipe_velocity_very_slow">Very slow</string>
+    <string name="settings_swipe_velocity_slow">Slow</string>
+    <string name="settings_swipe_velocity_normal">Normal</string>
+    <string name="settings_swipe_velocity_fast">Fast</string>
+    <string name="settings_swipe_velocity_very_fast">Very fast</string>
+
     <string name="settings_swipe_distance_threshold_title">Swipe distance threshold</string>
-   	<string name="settings_swipe_distance_threshold_summary">The minimal swipe gesture distance</string>
-   	
-   	<string name="settings_swipe_distance_very_short">Very short</string>
-   	<string name="settings_swipe_distance_short">Short</string>
-   	<string name="settings_swipe_distance_normal">Normal</string>
-   	<string name="settings_swipe_distance_long">Long</string>
-   	<string name="settings_swipe_distance_very_long">Very long</string>
-    
+    <string name="settings_swipe_distance_threshold_summary">The minimal swipe gesture distance</string>
+
+    <string name="settings_swipe_distance_very_short">Very short</string>
+    <string name="settings_swipe_distance_short">Short</string>
+    <string name="settings_swipe_distance_normal">Normal</string>
+    <string name="settings_swipe_distance_long">Long</string>
+    <string name="settings_swipe_distance_very_long">Very long</string>
+
     <string name="hardware_keys_group">Hardware keys mapping</string>
     <string name="volume_key_for_left_right_support">Volume key for left/right</string>
     <string name="volume_key_for_left_right_support_on_summary">Disable left/right via volume up/down</string>
-    <string name="volume_key_for_left_right_support_off_summary">Volume up turns cursor left, volume down turns cursor right</string>
+    <string name="volume_key_for_left_right_support_off_summary">Volume up turns cursor left, volume down turns cursor
+        right
+    </string>
     <string name="camera_key_for_backspace_backword_support">Use Camera key for backspace/backword</string>
     <string name="camera_key_for_backspace_backword_support_on_summary">Restore the camera key function</string>
-    <string name="camera_key_for_backspace_backword_support_off_summary">Half press on camera button deletes last character, full press deletes last word</string>
+    <string name="camera_key_for_backspace_backword_support_off_summary">Half press on camera button deletes last
+        character, full press deletes last word
+    </string>
     <string name="special_dictionaries_group">Special dictionaries</string>
     <string name="special_dictionaries_group_summary">Suggestion dictionaries used in AnySoftKeyboard</string>
     <string name="use_user_dictionary">User dictionary</string>
@@ -280,38 +352,38 @@
     <string name="use_contacts_dictionary_on_summary">Suggest names from contacts list</string>
     <string name="use_contacts_dictionary_off_summary"></string>
     <string name="use_contacts_dictionary_not_supported_summary">Unsupported under your OS version. Sorry.</string>
-    
+
     <string name="tweaks_group">Tweaks</string>
     <string name="tweak_sound_group">Sound related tweaks</string>
     <string name="tweak_physical_keyboard_group">Physical keyboard tweaks</string>
     <string name="tweak_ui_group">Graphical tweaks</string>
     <string name="tweak_ux_group">Behavior tweaks</string>
-    
+
     <string name="tweak_dictionary_group">Dictionary tweaks</string>
     <string name="settings_min_length_for_word_correction">Minimum word length for correction</string>
-    
+
     <string name="show_keyboard_name_text">Show keyboard name</string>
     <string name="show_keyboard_name_on_summary">Show keyboard name on space-bar</string>
     <string name="show_keyboard_name_off_summary">Never show keyboard name</string>
-    
+
     <string name="use_custom_keytext_color">Override key text color</string>
     <string name="use_custom_keytext_color_on_summary">Use custom key text color</string>
     <string name="use_custom_keytext_color_off_summary">Use theme key text color</string>
-    
+
     <string name="show_hint_text">Show hint text</string>
     <string name="show_hint_text_on_summary">Show hints on keys, if theme supports</string>
     <string name="show_hint_text_off_summary">Never show hints on keys</string>
-    
+
     <string name="use_custom_hint_color">Override hint color</string>
     <string name="use_custom_hint_color_on_summary">Use custom hint text color</string>
     <string name="use_custom_hint_color_off_summary">Use theme hint text color</string>
-    
+
     <string name="use_custom_hint_align">Override hint position</string>
     <string name="use_custom_hint_align_on_summary">Use custom hint text position</string>
     <string name="use_custom_hint_align_off_summary">Use theme hint text position</string>
-	<string name="custom_hint_align">Custom horizontal hint alignment</string>
-	<string name="custom_hint_align_summary">Align hint text at left, center, or right of key</string>
-	<string name="settings_custom_hint_align_dialog_title">Select horizontal alignment for hint text</string>
+    <string name="custom_hint_align">Custom horizontal hint alignment</string>
+    <string name="custom_hint_align_summary">Align hint text at left, center, or right of key</string>
+    <string name="settings_custom_hint_align_dialog_title">Select horizontal alignment for hint text</string>
     <string-array name="custom_hint_align_types">
         <item>Left</item>
         <item>Center</item>
@@ -319,83 +391,91 @@
     </string-array>
     <string name="custom_hint_valign">Custom vertical hint alignment</string>
     <string name="custom_hint_valign_summary">Align hint text at top or bottom of key</string>
-	<string name="settings_custom_hint_valign_dialog_title">Select vertical alignment for hint text</string>
+    <string name="settings_custom_hint_valign_dialog_title">Select vertical alignment for hint text</string>
     <string-array name="custom_hint_valign_types">
         <item>Top</item>
         <item>Bottom</item>
     </string-array>
-    
+
     <string name="is_sticky_extesion_keyboard">Sticky extension keyboard</string>
     <string name="is_sticky_extesion_keyboard_on_summary">Stays visible until explicitly closed</string>
     <string name="is_sticky_extesion_keyboard_off_summary">Closes after key press</string>
-    
+
     <string name="is_extesion_keyboard_above_keyboard">Top extension keyboard</string>
     <string name="is_extesion_keyboard_above_keyboard_on_summary">Drawn above main keyboard</string>
     <string name="is_extesion_keyboard_above_keyboard_off_summary">Drawn on main keyboard</string>
-    
+
     <string name="show_new_tips_notifications_again">Show new tips</string>
     <string name="show_new_tips_notifications_again_on_summary">When new tips are available, they will be shown</string>
-    <string name="show_new_tips_notifications_again_off_summary">Will not notify you when a new tip is available</string>
-    
+    <string name="show_new_tips_notifications_again_off_summary">Will not notify you when a new tip is available
+    </string>
+
     <string name="show_settings_app_in_launcher">Settings app</string>
-    <string name="settings_key_show_settings_app_on_summary">Settings app will be visible in the launcher (may require reboot)</string>
+    <string name="settings_key_show_settings_app_on_summary">Settings app will be visible in the launcher (may require
+        reboot)
+    </string>
     <string name="settings_key_show_settings_app_off_summary">Hide Settings app (may require reboot)</string>
-    
+
     <string name="show_crash_notification">Report on crash</string>
     <string name="show_crash_notification_on_summary">Upon ASK crash, open crash report dialog</string>
     <string name="show_crash_notification_off_summary">Silently absorb crashes</string>
-    
+
     <string name="show_new_version_notifications_again">Show new version notifications</string>
-    <string name="show_new_version_notifications_again_on_summary">Upon installing a new version, a change-log will be shown</string>
-    <string name="show_new_version_notifications_again_off_summary">Will not notify you when a new version is installed</string>
+    <string name="show_new_version_notifications_again_on_summary">Upon installing a new version, a change-log will be
+        shown
+    </string>
+    <string name="show_new_version_notifications_again_off_summary">Will not notify you when a new version is
+        installed
+    </string>
     <string name="use_keyrepeat">Use key repeat</string>
     <string name="use_keyrepeat_on_summary">Key repeat is enabled</string>
-    <string name="use_keyrepeat_off_summary">Key repeat is disabled</string>    
+    <string name="use_keyrepeat_off_summary">Key repeat is disabled</string>
     <string name="emoticon_long_press_opens_popup">Long-press smiley popup</string>
     <string name="emoticon_long_press_opens_popup_on_summary">Show emoticons popup on long-press</string>
     <string name="emoticon_long_press_opens_popup_off_summary">Show emoticons popup on short-press</string>
-   	<string name="emoticon_popup_type_title">Emoticon popup type</string>
-   	<string name="emoticon_popup_type_summary">Select the type of popup to show for emoticon selection</string>
-   	<string name="default_smiley_text">Smiley text</string>
+    <string name="emoticon_popup_type_title">Emoticon popup type</string>
+    <string name="emoticon_popup_type_summary">Select the type of popup to show for emoticon selection</string>
+    <string name="default_smiley_text">Smiley text</string>
     <string name="default_domain_text">Domain text</string>
-    
+
     <string name="smiley_icon_on_smileys_key">Use icon for smiley key</string>
     <string name="smiley_icon_on_smileys_key_on_summary">Icon will be drawn on smiley key</string>
     <string name="smiley_icon_on_smileys_key_off_summary">Smiley default text will be drawn on smiley key</string>
-    
+
     <string name="key_preview_position_override">Key preview position</string>
     <string name="key_preview_position_override_summary">Above the pressed key or above the entire keyboard</string>
     <string name="key_preview_position_override_above_key">Above pressed key</string>
     <string name="key_preview_position_override_above_keyboard">Above keyboard</string>
-    
+
     <string name="key_press_preview_popup">Key preview popup</string>
     <string name="key_press_preview_popup_on_summary">Show popup upon key-press</string>
     <string name="key_press_preview_popup_off_summary">Do not show popup upon key-press</string>
-	<string name="zoom_factor_keys_in_portrait">Keys height factor in portrait mode</string>
+    <string name="zoom_factor_keys_in_portrait">Keys height factor in portrait mode</string>
     <string name="zoom_factor_keys_in_landscape">Keys height factor in landscape mode</string>
     <string name="insert_space_after_word_suggestion_selection">Space after candidate pick</string>
-    <string name="insert_space_after_word_suggestion_selection_on_summary">Insert space after word suggestion select</string>
+    <string name="insert_space_after_word_suggestion_selection_on_summary">Insert space after word suggestion select
+    </string>
     <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
     <string name="double_space_to_period">Double space to period</string>
     <string name="double_space_to_period_summary">Double space tap will become period+space</string>
     <string name="action_key_invisible_on_disable">Invisible action key</string>
     <string name="action_key_invisible_on_disable_on_summary">Action key will be invisible when GUI requests</string>
     <string name="action_key_invisible_on_disable_off_summary">Action key will be visible even if GUI requests</string>
-    
+
     <string name="tweak_animations_level_title">Animations</string>
     <string name="tweak_animations_level_summary">How much animations should be used. Now: %s</string>
     <string name="tweak_animations_level_types_full">Full</string>
     <string name="tweak_animations_level_types_some">Some</string>
     <string name="tweak_animations_level_types_none">None</string>
-    
+
     <string name="cycle_all_symbols_keyboards">Cycle over all symbols</string>
     <string name="cycle_all_symbols_keyboards_on_summary">Symbols key will cycle over all symbols keyboards</string>
     <string name="cycle_all_symbols_keyboards_off_summary">Symbols key will only show main symbols keyboard</string>
-    
+
     <string name="lang_key_shows_popup">Language switch by popup</string>
     <string name="lang_key_shows_popup_on_summary">Language key will pop-up a selection dialog</string>
     <string name="lang_key_shows_popup_off_summary">Language key will cycle languages</string>
-    
+
     <string name="auto_caps">Auto-capitalization</string>
     <string name="grammer_group">Grammar</string>
     <string name="candidates_on">Show suggestions</string>
@@ -413,9 +493,11 @@
     <string name="contacts_dict_summary">Include contact names in suggestions</string>
     <string name="auto_dict">Auto dictionary</string>
     <string name="auto_dict_summary">Add commonly used or selected words automatically to the dictionary</string>
-    
+
     <string name="no_extrenal_packs_support_title">Unsupported</string>
-    <string name="no_extrenal_packs_support_message">For now, AnySoftKeyboard does not allow external packs of this type.\nOnce API specifications have been determined, this feature will be opened.\nStay tuned.</string>
+    <string name="no_extrenal_packs_support_message">For now, AnySoftKeyboard does not allow external packs of this
+        type.\nOnce API specifications have been determined, this feature will be opened.\nStay tuned.
+    </string>
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Keyboards</string>
     <string name="keyboards_group_summary">Keyboard layouts for use in AnySoftKeyboard</string>
@@ -429,77 +511,80 @@
     <string name="eng_keyboard_qwertywithsymbols">English with symbols</string>
     <string name="eng_keyboard_16keys">16 Keys English</string>
 
-    <string name="selected_add_on_summary">Now using \'<xliff:g id="addOnName">%s</xliff:g>\'</string>
-	<string name="additional_addons_group">Additional add-ons</string>
-	<!-- settings - quick text keys -->
-	<string name="quick_text_keys_group">Quick text keys</string>
-	<string name="quick_text_key_active">Active quick text key</string>
-	<string name="quick_text_key_dialog_title">Select key</string>
-	<string name="quick_text_key_summary">Selected Quick Text key: %s</string>
-    
+    <string name="selected_add_on_summary">Now using \'<xliff:g id="addOnName">%s</xliff:g>\'
+    </string>
+    <string name="additional_addons_group">Additional add-ons</string>
+    <!-- settings - quick text keys -->
+    <string name="quick_text_keys_group">Quick text keys</string>
+    <string name="quick_text_key_active">Active quick text key</string>
+    <string name="quick_text_key_dialog_title">Select key</string>
+    <string name="quick_text_key_summary">Selected Quick Text key: %s</string>
+
     <!-- settings - extension keyboards -->
-	<string name="extension_keyboards_group">Extension keyboards</string>
-	<string name="extension_keyboards_summary">Select top, bottom rows or extension keyboard</string>
-	<!-- settings - top generic row -->
-	<string name="top_generic_row_group">Common top generic row</string>
-	<string name="top_generic_row_active">Active top row</string>
-	<string name="top_generic_row_dialog_title">Select row type</string>
-	<string name="top_generic_row_summary">Selected top row: %s</string>
-	<string name="top_generic_row_list_title">Select row type</string>
-	<!-- settings - bottom generic row -->
-	<string name="bottom_generic_row_group">Common bottom generic row</string>
-	<string name="bottom_generic_row_active">Active bottom row</string>
-	<string name="bottom_generic_row_dialog_title">Select row type</string>
-	<string name="bottom_generic_row_summary">Selected bottom row: %s</string>
-	<string name="bottom_generic_row_list_title">Select row type</string>
-	<!-- settings - extension keyboard -->
-	<string name="extension_keyboard_group">Extension keyboard</string>
-	<string name="extension_keyboard_active">Active extension keyboard</string>
-	<string name="extension_keyboard_dialog_title">Select keyboard</string>
-	<string name="extension_keyboard_summary">Selected Extension Keyboard: %s</string>
-	<string name="extension_keyboard_list_title">Select keyboard</string>
-	
-	
-	<string name="keyboard_theme_group">Keyboard themes</string>
-	<string name="keyboard_theme_active">Active keyboard theme</string>
-	<string name="keyboard_theme_dialog_title">Select theme</string>
-	<string name="keyboard_theme_summary">Selected theme: %s</string>
-	<string name="keyboard_theme_list_title">Select theme</string>
-	
-	<string name="gingerbread_keyboard_theme_name">Gingerbread styled</string>
-	<string name="gingerbread_keyboard_theme_description">Gingerbread (Android 2.3) styled buttons and colors</string>
-	<string name="dark_plain_keyboard_theme_name">Plain dark theme</string>
-	<string name="dark_plain_keyboard_theme_description">Dark colors, simple graphics</string>
-	<string name="light_plain_keyboard_theme_name">Plain light theme</string>
-	<string name="light_plain_keyboard_theme_description">Light colors, simple graphics</string>
-	<string name="blacktheme_keyboard_theme_name">Simple black glow</string>
-	<string name="blacktheme_keyboard_theme_description">Simple black theme with color highlights</string>
-	<string name="lean_dark_keyboard_theme_name">Lean Dark</string>
-	<string name="lean_dark_keyboard_theme_description">Dark theme, with minimal UI elements</string>
-	<string name="lean_dark_2_keyboard_theme_name">Lean Dark - Option 2</string>
-	
-	<!-- extension keyboard type -->
-	<string name="extension_kbd_top_none">No top row</string>
-	<string name="extension_kbd_top_small">Small keys</string>
-	<string name="extension_kbd_top_regular">Regular sized keys</string>
-	<string name="extension_kbd_top_small_numbers">Numbers keys</string>
-	<string name="extension_kbd_top_numbers_alt">Alternate number keys</string>
-	<string name="extension_kbd_top_nav">Navigation keys</string>
-	
-	<string name="extension_kbd_bottom_regular_with_voice">Regular</string>
-	<string name="extension_kbd_bottom_regular">Classic (no mic)</string>
-	<string name="extension_kbd_bottom_iphone">iPhone styled (no mic)</string>
-	<string name="extension_kbd_bottom_iphone_with_voice">iPhone styled with mic</string>
-	<string name="extension_kbd_bottom_alt">Alternate (no mic)</string>
-	<string name="extension_kbd_bottom_alt_with_mic">Alternate with mic</string>
-	
-	<string name="extension_kbd_extension_numbers_symbols">Numbers and symbols</string>
-	
-    <!-- Tutorials --> 
+    <string name="extension_keyboards_group">Extension keyboards</string>
+    <string name="extension_keyboards_summary">Select top, bottom rows or extension keyboard</string>
+    <!-- settings - top generic row -->
+    <string name="top_generic_row_group">Common top generic row</string>
+    <string name="top_generic_row_active">Active top row</string>
+    <string name="top_generic_row_dialog_title">Select row type</string>
+    <string name="top_generic_row_summary">Selected top row: %s</string>
+    <string name="top_generic_row_list_title">Select row type</string>
+    <!-- settings - bottom generic row -->
+    <string name="bottom_generic_row_group">Common bottom generic row</string>
+    <string name="bottom_generic_row_active">Active bottom row</string>
+    <string name="bottom_generic_row_dialog_title">Select row type</string>
+    <string name="bottom_generic_row_summary">Selected bottom row: %s</string>
+    <string name="bottom_generic_row_list_title">Select row type</string>
+    <!-- settings - extension keyboard -->
+    <string name="extension_keyboard_group">Extension keyboard</string>
+    <string name="extension_keyboard_active">Active extension keyboard</string>
+    <string name="extension_keyboard_dialog_title">Select keyboard</string>
+    <string name="extension_keyboard_summary">Selected Extension Keyboard: %s</string>
+    <string name="extension_keyboard_list_title">Select keyboard</string>
+
+
+    <string name="keyboard_theme_group">Keyboard themes</string>
+    <string name="keyboard_theme_active">Active keyboard theme</string>
+    <string name="keyboard_theme_dialog_title">Select theme</string>
+    <string name="keyboard_theme_summary">Selected theme: %s</string>
+    <string name="keyboard_theme_list_title">Select theme</string>
+
+    <string name="gingerbread_keyboard_theme_name">Gingerbread styled</string>
+    <string name="gingerbread_keyboard_theme_description">Gingerbread (Android 2.3) styled buttons and colors</string>
+    <string name="dark_plain_keyboard_theme_name">Plain dark theme</string>
+    <string name="dark_plain_keyboard_theme_description">Dark colors, simple graphics</string>
+    <string name="light_plain_keyboard_theme_name">Plain light theme</string>
+    <string name="light_plain_keyboard_theme_description">Light colors, simple graphics</string>
+    <string name="blacktheme_keyboard_theme_name">Simple black glow</string>
+    <string name="blacktheme_keyboard_theme_description">Simple black theme with color highlights</string>
+    <string name="lean_dark_keyboard_theme_name">Lean Dark</string>
+    <string name="lean_dark_keyboard_theme_description">Dark theme, with minimal UI elements</string>
+    <string name="lean_dark_2_keyboard_theme_name">Lean Dark - Option 2</string>
+
+    <!-- extension keyboard type -->
+    <string name="extension_kbd_top_none">No top row</string>
+    <string name="extension_kbd_top_small">Small keys</string>
+    <string name="extension_kbd_top_regular">Regular sized keys</string>
+    <string name="extension_kbd_top_small_numbers">Numbers keys</string>
+    <string name="extension_kbd_top_numbers_alt">Alternate number keys</string>
+    <string name="extension_kbd_top_nav">Navigation keys</string>
+
+    <string name="extension_kbd_bottom_regular_with_voice">Regular</string>
+    <string name="extension_kbd_bottom_regular">Classic (no mic)</string>
+    <string name="extension_kbd_bottom_iphone">iPhone styled (no mic)</string>
+    <string name="extension_kbd_bottom_iphone_with_voice">iPhone styled with mic</string>
+    <string name="extension_kbd_bottom_alt">Alternate (no mic)</string>
+    <string name="extension_kbd_bottom_alt_with_mic">Alternate with mic</string>
+
+    <string name="extension_kbd_extension_numbers_symbols">Numbers and symbols</string>
+
+    <!-- Tutorials -->
     <string name="show_tutorial_on_startup">Show this tutorial on startup</string>
     <string name="tutorial_swipe_title">Swipe for keyboard change</string>
-    <string name="tutorial_swipe_text">Keyboard layout can be changed by swiping you finger over the keyboard. Swipe left-to-right to change language, swipe right-to-left to change to symbols.</string>
-    
+    <string name="tutorial_swipe_text">Keyboard layout can be changed by swiping you finger over the keyboard. Swipe
+        left-to-right to change language, swipe right-to-left to change to symbols.
+    </string>
+
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Go</string>
     <string name="label_next_key">Next</string>
@@ -507,61 +592,62 @@
     <string name="label_send_key">Send</string>
     <string name="label_search_key">Search</string>
     <string name="label_done_key">Done</string>
-    
+
     <string name="label_tab_key">Tab</string>
     <string name="label_home_key">Home</string>
     <string name="label_end_key">End</string>
-    
+
     <string name="change_lang_wide">&#8594; ABC &#8594;</string>
     <string name="change_lang_regular">ABC</string>
     <string name="change_symbols_wide">&#8592; 123 &#8592;</string>
     <string name="change_symbols_regular">123</string>
-    
+
     <string name="please_wait">Please wait</string>
     <string name="toast_lengthy_words_long_operation">Loading dictionary...</string>
     <string name="toast_lengthy_start_up_operation">Starting AnySoftKeyboard...</string>
     <string name="lengthy_creating_keyboard_operation">Creating keyboards...</string>
-    
+
     <string name="select_keyboard_popup_title">Select keyboard</string>
     <!-- dictionaries -->
     <string name="eng_dictionary">English</string>
-    
+
     <string name="simley_key_name">Smiley key</string>
-	<string name="default_quick_text_key_name">Simple Emoticons</string>
-	
-	<string name="multitap_timeout_title">Multi-tap timeout</string>
-	<string name="multitap_timeout_summary">Timeout between key taps</string>	
-	<string name="settings_multitap_timeout_disabled">Disabled</string>
-	<string name="settings_multitap_timeout_faster">Faster</string>
-	<string name="settings_multitap_timeout_fast">Fast</string>
-	<string name="settings_multitap_timeout_normal">Normal</string>
-	<string name="settings_multitap_timeout_slow">Slow</string>
-	<string name="settings_multitap_timeout_slower">Slower</string>
-	<string name="settings_multitap_timeout_never">Wait forever</string>
-	
-	<string name="long_press_timeout_title">Long-press time</string>
-	<string name="long_press_timeout_summary">Key press time to be considered as long-press</string>
-	<string name="settings_long_press_timeout_faster">Faster</string>
-	<string name="settings_long_press_timeout_fast">Fast</string>
-	<string name="settings_long_press_timeout_normal">Normal</string>
-	<string name="settings_long_press_timeout_slow">Slow</string>
-	<string name="settings_long_press_timeout_slower">Slower</string>
-	<string name="settings_long_press_timeout_never">Never</string>
-	
-	<string name="tweak_workarounds_group">Workarounds</string>
-	<string name="workaround_disable_rtl_fix">Disable Right-to-Left handling</string>
-	<string name="workaround_disable_rtl_fix_summary_on">Use OS RTL handling (for SE phones)</string>
-	<string name="workaround_disable_rtl_fix_summary_off">Use AnySoftKeyboard RTL handling</string>
-	
-	<string name="settings_split_state_title">Split/Merge initial state</string>
-	<string name="settings_split_state_summary">Define whether the keyboard is split as default. Now: %s</string>
-	<string name="settings_split_state_merged_always">Start regular</string>
-	<string name="settings_split_state_split_in_landscape">Start split in landscape</string>
-	<string name="settings_split_state_split_always">Start split</string>
-	
-	<!-- User dictionary settings --><skip />
-	<string name="user_dictionary_select_locale">Language:</string>
-	<string name="user_dictionary_read_please_wait">Reading words…</string>
+    <string name="default_quick_text_key_name">Simple Emoticons</string>
+
+    <string name="multitap_timeout_title">Multi-tap timeout</string>
+    <string name="multitap_timeout_summary">Timeout between key taps</string>
+    <string name="settings_multitap_timeout_disabled">Disabled</string>
+    <string name="settings_multitap_timeout_faster">Faster</string>
+    <string name="settings_multitap_timeout_fast">Fast</string>
+    <string name="settings_multitap_timeout_normal">Normal</string>
+    <string name="settings_multitap_timeout_slow">Slow</string>
+    <string name="settings_multitap_timeout_slower">Slower</string>
+    <string name="settings_multitap_timeout_never">Wait forever</string>
+
+    <string name="long_press_timeout_title">Long-press time</string>
+    <string name="long_press_timeout_summary">Key press time to be considered as long-press</string>
+    <string name="settings_long_press_timeout_faster">Faster</string>
+    <string name="settings_long_press_timeout_fast">Fast</string>
+    <string name="settings_long_press_timeout_normal">Normal</string>
+    <string name="settings_long_press_timeout_slow">Slow</string>
+    <string name="settings_long_press_timeout_slower">Slower</string>
+    <string name="settings_long_press_timeout_never">Never</string>
+
+    <string name="tweak_workarounds_group">Workarounds</string>
+    <string name="workaround_disable_rtl_fix">Disable Right-to-Left handling</string>
+    <string name="workaround_disable_rtl_fix_summary_on">Use OS RTL handling (for SE phones)</string>
+    <string name="workaround_disable_rtl_fix_summary_off">Use AnySoftKeyboard RTL handling</string>
+
+    <string name="settings_split_state_title">Split/Merge initial state</string>
+    <string name="settings_split_state_summary">Define whether the keyboard is split as default. Now: %s</string>
+    <string name="settings_split_state_merged_always">Start regular</string>
+    <string name="settings_split_state_split_in_landscape">Start split in landscape</string>
+    <string name="settings_split_state_split_always">Start split</string>
+
+    <!-- User dictionary settings -->
+    <skip/>
+    <string name="user_dictionary_select_locale">Language:</string>
+    <string name="user_dictionary_read_please_wait">Reading words…</string>
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">User dictionary</string>
     <string name="user_dict_editor">Words editor</string>
@@ -570,30 +656,42 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <string name="user_dict_settings_edit_dialog_title">Edit word</string>
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
-    <string name="user_dict_settings_empty_text">You do not have any words in the user dictionary. You can add a word through the menu.</string>
-    
-	<string name="user_dict_backup_success_title">Backup done!</string>
-	<string name="user_dict_backup_success_text">Successfully stored your words on device storage at /Android/data/com.menny.android.anysoftkeyboard/files/</string>
-	<string name="user_dict_backup_fail_title">Backup failed!</string>
-	<string name="user_dict_backup_fail_text">Could not store your files! Is storage available?</string>
-	<string name="user_dict_backup_fail_text_with_error">Failed to store words due to: <xliff:g id="error">%s</xliff:g></string>
-	
-	<string name="user_dict_restore_success_title">Restore done!</string>
-	<string name="user_dict_restore_success_text">Successfully restored your words.</string>
-	<string name="user_dict_restore_fail_title">Restore failed!</string>
-	<string name="user_dict_restore_fail_text">Could not read your backup files! Is storage available?</string>
-    <string name="user_dict_restore_fail_text_with_error">Failed to restore words due to: <xliff:g id="error">%s</xliff:g></string>
-    
-    <string name="fast_scroll_alphabet"> ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
-    
+    <string name="user_dict_settings_empty_text">You do not have any words in the user dictionary. You can add a word
+        through the menu.
+    </string>
+
+    <string name="user_dict_backup_success_title">Backup done!</string>
+    <string name="user_dict_backup_success_text">Successfully stored your words on device storage at
+        /Android/data/com.menny.android.anysoftkeyboard/files/
+    </string>
+    <string name="user_dict_backup_fail_title">Backup failed!</string>
+    <string name="user_dict_backup_fail_text">Could not store your files! Is storage available?</string>
+    <string name="user_dict_backup_fail_text_with_error">Failed to store words due to:
+        <xliff:g id="error">%s</xliff:g>
+    </string>
+
+    <string name="user_dict_restore_success_title">Restore done!</string>
+    <string name="user_dict_restore_success_text">Successfully restored your words.</string>
+    <string name="user_dict_restore_fail_title">Restore failed!</string>
+    <string name="user_dict_restore_fail_text">Could not read your backup files! Is storage available?</string>
+    <string name="user_dict_restore_fail_text_with_error">Failed to restore words due to:
+        <xliff:g id="error">%s</xliff:g>
+    </string>
+
+    <string name="fast_scroll_alphabet">ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+
     <string name="should_swap_punctuation_and_space_title">Swap punctuation and space</string>
     <string name="should_swap_punctuation_and_space_summary"></string>
     <string name="should_swap_punctuation_and_space_yes">Yes</string>
     <string name="should_swap_punctuation_and_space_no">No</string>
-    
+
     <string name="developer_tools">Developer tools</string>
     <string name="click_for_developer_features">Developer tools</string>
     <string name="click_for_developer_features_summary">Various tools for AnySoftKeyboard developers</string>
-    <string name="failed_to_create_mem_dump">Failed to create memory dump file due to: <xliff:g id="message">%s</xliff:g></string>
-    <string name="created_mem_dump_file">Created memory dump file at: <xliff:g id="file_path">%s</xliff:g></string>
+    <string name="failed_to_create_mem_dump">Failed to create memory dump file due to:
+        <xliff:g id="message">%s</xliff:g>
+    </string>
+    <string name="created_mem_dump_file">Created memory dump file at:
+        <xliff:g id="file_path">%s</xliff:g>
+    </string>
 </resources>

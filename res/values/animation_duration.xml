@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources>
     <integer name="mainKeyboardAnimTime">250</integer>
 
     <integer name="layoutSwitchAnimTime">100</integer>
-    
+
     <integer name="popupAnimTime">70</integer>
-    
+
     <integer name="extendingAnimTime">110</integer>
 </resources>

@@ -1,11 +1,11 @@
 /*
- * Copyright (C) 2011 AnySoftKeyboardt
+ * Copyright (c) 2013 Menny Even-Danan
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,29 +16,28 @@
 
 package com.anysoftkeyboard.utils;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.inputmethod.InputMethodManager;
-
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
+import java.util.ArrayList;
+
 public class IMEUtil {
 
 
-	private static final String TAG = "ASK IMEUtils";
-	
+    private static final String TAG = "ASK IMEUtils";
+
     /**
      * Cancel an {@link AsyncTask}.
      *
      * @param mayInterruptIfRunning <tt>true</tt> if the thread executing this
-     *        task should be interrupted; otherwise, in-progress tasks are allowed
-     *        to complete.
+     *                              task should be interrupted; otherwise, in-progress tasks are allowed
+     *                              to complete.
      */
     public static void cancelTask(AsyncTask<?, ?, ?> task, boolean mayInterruptIfRunning) {
         if (task != null && task.getStatus() != AsyncTask.Status.FINISHED) {
@@ -47,9 +46,10 @@ public class IMEUtil {
     }
 
     public static class GCUtils {
-    	public static interface MemRelatedOperation {
-    		void operation();
-    	}
+        public static interface MemRelatedOperation {
+            void operation();
+        }
+
         private static final int GC_TRY_COUNT = 2;
         // GC_TRY_LOOP_MAX is used for the hard limit of GC wait,
         // GC_TRY_LOOP_MAX should be greater than GC_TRY_COUNT.
@@ -61,23 +61,23 @@ public class IMEUtil {
         public static GCUtils getInstance() {
             return sInstance;
         }
-        
+
         public boolean peformOperationWithMemRetry(String TAG, MemRelatedOperation operation, boolean failWithException) {
-        	reset();
-        	
-        	boolean retry = true;
-        	try {
-        		while(retry) {
-        			operation.operation();
-            		return true;
-        		}
-        	} catch (OutOfMemoryError e) {
-        		Log.w(TAG,
-						"WOW! No memory for operation... I'll try to release some.");
-        		retry = tryGCOrWait(TAG, e);
-        		if (!retry && failWithException) throw e;
-        	}
-    		return false;
+            reset();
+
+            boolean retry = true;
+            try {
+                while (retry) {
+                    operation.operation();
+                    return true;
+                }
+            } catch (OutOfMemoryError e) {
+                Log.w(TAG,
+                        "WOW! No memory for operation... I'll try to release some.");
+                retry = tryGCOrWait(TAG, e);
+                if (!retry && failWithException) throw e;
+            }
+            return false;
         }
 
         private void reset() {
@@ -91,7 +91,7 @@ public class IMEUtil {
             if (mGCTryCount > GC_TRY_LOOP_MAX) {
                 return false;
             } else {
-            	mGCTryCount++;
+                mGCTryCount++;
                 try {
                     Thread.sleep(GC_INTERVAL);
                     return true;
@@ -124,18 +124,22 @@ public class IMEUtil {
 
         private RingCharBuffer() {
         }
+
         public static RingCharBuffer getInstance() {
             return sRingCharBuffer;
         }
+
         public static RingCharBuffer init(Context context, boolean enabled) {
             sRingCharBuffer.mContext = context;
             sRingCharBuffer.mEnabled = enabled;
             return sRingCharBuffer;
         }
+
         private int normalize(int in) {
             int ret = in % BUFSIZE;
             return ret < 0 ? ret + BUFSIZE : ret;
         }
+
         public void push(char c, int x, int y) {
             if (!mEnabled) return;
             mCharBuf[mEnd] = c;
@@ -146,6 +150,7 @@ public class IMEUtil {
                 ++mLength;
             }
         }
+
         public char pop() {
             if (mLength < 1) {
                 return PLACEHOLDER_DELIMITER_CHAR;
@@ -155,6 +160,7 @@ public class IMEUtil {
                 return mCharBuf[mEnd];
             }
         }
+
         public char getLastChar() {
             if (mLength < 1) {
                 return PLACEHOLDER_DELIMITER_CHAR;
@@ -162,6 +168,7 @@ public class IMEUtil {
                 return mCharBuf[normalize(mEnd - 1)];
             }
         }
+
         public int getPreviousX(char c, int back) {
             int index = normalize(mEnd - 2 - back);
             if (mLength <= back
@@ -171,6 +178,7 @@ public class IMEUtil {
                 return mXBuf[index];
             }
         }
+
         public int getPreviousY(char c, int back) {
             int index = normalize(mEnd - 2 - back);
             if (mLength <= back
@@ -180,11 +188,12 @@ public class IMEUtil {
                 return mYBuf[index];
             }
         }
+
         public String getLastString() {
             StringBuffer sb = new StringBuffer();
             for (int i = 0; i < mLength; ++i) {
                 char c = mCharBuf[normalize(mEnd - 1 - i)];
-                if (!((AnySoftKeyboard)mContext).isWordSeparator(c)) {
+                if (!((AnySoftKeyboard) mContext).isWordSeparator(c)) {
                     sb.append(c);
                 } else {
                     break;
@@ -192,12 +201,13 @@ public class IMEUtil {
             }
             return sb.reverse().toString();
         }
+
         public void reset() {
             mLength = 0;
         }
     }
-    
- // In dictionary.cpp, getSuggestion() method,
+
+    // In dictionary.cpp, getSuggestion() method,
     // suggestion scores are computed using the below formula.
     // original score
     //  := pow(mTypedLetterMultiplier (this is defined 2),
@@ -221,6 +231,7 @@ public class IMEUtil {
     private static final int TYPED_LETTER_MULTIPLIER = 2;
     private static final int FULL_WORD_MULTIPLIER = 2;
     private static final int S_INT_MAX = 2147483647;
+
     public static double calcNormalizedScore(CharSequence before, CharSequence after, int score) {
         final int beforeLength = before.length();
         final int afterLength = after.length();
@@ -237,7 +248,7 @@ public class IMEUtil {
         if (spaceCount == afterLength) return 0;
         final double maximumScore = score == S_INT_MAX ? S_INT_MAX : MAX_INITIAL_SCORE
                 * Math.pow(
-                        TYPED_LETTER_MULTIPLIER, Math.min(beforeLength, afterLength - spaceCount))
+                TYPED_LETTER_MULTIPLIER, Math.min(beforeLength, afterLength - spaceCount))
                 * FULL_WORD_MULTIPLIER;
         // add a weight based on edit distance.
         // distance <= max(afterLength, beforeLength) == afterLength,
@@ -253,7 +264,7 @@ public class IMEUtil {
         }
         final int sl = s.length();
         final int tl = t.length();
-        int[][] dp = new int [sl + 1][tl + 1];
+        int[][] dp = new int[sl + 1][tl + 1];
         for (int i = 0; i <= sl; i++) {
             dp[i][0] = i;
         }
@@ -287,10 +298,10 @@ public class IMEUtil {
         }
         return dp[sl][tl];
     }
-    
+
     /**
      * Remove duplicates from an array of strings.
-     *
+     * <p/>
      * This method will always keep the first occurence of all strings at their position
      * in the array, removing the subsequent ones.
      */
@@ -312,11 +323,10 @@ public class IMEUtil {
             i++;
         }
     }
-    
 
 
     private static void removeFromSuggestions(final ArrayList<CharSequence> suggestions,
-            final int index) {
+                                              final int index) {
         final CharSequence garbage = suggestions.remove(index);
         /*if (garbage instanceof StringBuilder) {
             StringBuilderPool.recycle((StringBuilder)garbage);

@@ -1,17 +1,34 @@
-package com.anysoftkeyboard.spellcheck;
+/*
+ * Copyright (c) 2013 Menny Even-Danan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-import java.util.ArrayList;
-import java.util.Collections;
+package com.anysoftkeyboard.spellcheck;
 
 import com.anysoftkeyboard.dictionaries.Dictionary.WordCallback;
 import com.anysoftkeyboard.utils.ArraysCompatUtils;
 import com.anysoftkeyboard.utils.IMEUtil;
 import com.anysoftkeyboard.utils.Log;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 class SuggestionsGatherer implements WordCallback {
     public static class Result {
         public final String[] mSuggestions;
         public final boolean mHasLikelySuggestions;
+
         public Result(final String[] gatheredSuggestions, final boolean hasLikelySuggestions) {
             mSuggestions = gatheredSuggestions;
             mHasLikelySuggestions = hasLikelySuggestions;
@@ -32,7 +49,7 @@ class SuggestionsGatherer implements WordCallback {
     private int mBestScore = Integer.MIN_VALUE; // As small as possible
 
     SuggestionsGatherer(final String originalText, final double suggestionThreshold,
-            final double likelyThreshold, final int maxLength) {
+                        final double likelyThreshold, final int maxLength) {
         mOriginalText = originalText;
         mSuggestionThreshold = suggestionThreshold;
         mLikelyThreshold = likelyThreshold;
@@ -40,9 +57,9 @@ class SuggestionsGatherer implements WordCallback {
         mSuggestions = new ArrayList<CharSequence>(maxLength + 1);
         mScores = new int[mMaxLength];
     }
-    
-	public boolean addWord(char[] word, int wordOffset, int wordLength,
-			int frequency) {
+
+    public boolean addWord(char[] word, int wordOffset, int wordLength,
+                           int frequency) {
         final int positionIndex = ArraysCompatUtils.binarySearch(mScores, 0, mLength, frequency);
         // binarySearch returns the index if the element exists, and -<insertion index> - 1
         // if it doesn't. See documentation for binarySearch.
@@ -77,7 +94,8 @@ class SuggestionsGatherer implements WordCallback {
         final double normalizedScore =
                 IMEUtil.calcNormalizedScore(mOriginalText, wordString, frequency);
         if (normalizedScore < mSuggestionThreshold) {
-            if (AnySpellCheckerService.DBG) Log.i(AnySpellCheckerService.TAG, wordString + " does not make the score threshold");
+            if (AnySpellCheckerService.DBG)
+                Log.i(AnySpellCheckerService.TAG, wordString + " does not make the score threshold");
             return true;
         }
 
@@ -95,7 +113,7 @@ class SuggestionsGatherer implements WordCallback {
 
         return true;
     }
-	
+
     public SuggestionsGatherer.Result getResults(final int capitalizeType) {
         final String[] gatheredSuggestions;
         final boolean hasLikelySuggestions;

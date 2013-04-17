@@ -19,11 +19,11 @@
 -->
 
 <set xmlns:android="http://schemas.android.com/apk/res/android"
-        android:interpolator="@android:anim/decelerate_interpolator">
+     android:interpolator="@android:anim/decelerate_interpolator">
     <scale android:fromXScale="2.0" android:toXScale="1.0"
            android:fromYScale="2.0" android:toYScale="1.0"
            android:pivotX="50%" android:pivotY="50%"
-           android:duration="@integer/mainKeyboardAnimTime" />
+           android:duration="@integer/mainKeyboardAnimTime"/>
     <translate android:fromYDelta="100%" android:toYDelta="0"
-            android:duration="@integer/mainKeyboardAnimTime"/>
+               android:duration="@integer/mainKeyboardAnimTime"/>
 </set>
