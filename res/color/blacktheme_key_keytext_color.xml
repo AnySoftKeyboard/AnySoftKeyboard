@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard">
-	<item ask:key_type_action="true" android:state_pressed="true"
-	    android:color="@color/blacktheme_color_action_pressed_keytext" />
-	<item ask:key_type_action="true"
-	    android:color="@color/blacktheme_color_action_keytext" />
-	<item ask:key_type_function="true" android:state_pressed="true"
-	    android:color="@color/blacktheme_color_function_pressed_keytext" />
-	<item ask:key_type_function="true"
-	    android:color="@color/blacktheme_color_function_keytext" />
-	<item android:state_checkable="true" android:state_pressed="true"
-	    android:color="@color/blacktheme_color_function_pressed_keytext" />
-	<item android:state_checkable="true"
-	    android:color="@color/blacktheme_color_function_keytext" />
-	<item android:state_pressed="true"
-	    android:color="@color/blacktheme_color_normal_pressed_keytext" />
-	<item
-	    android:color="@color/blacktheme_color_normal_keytext" />
+          xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard">
+    <item ask:key_type_action="true" android:state_pressed="true"
+          android:color="@color/blacktheme_color_action_pressed_keytext"/>
+    <item ask:key_type_action="true"
+          android:color="@color/blacktheme_color_action_keytext"/>
+    <item ask:key_type_function="true" android:state_pressed="true"
+          android:color="@color/blacktheme_color_function_pressed_keytext"/>
+    <item ask:key_type_function="true"
+          android:color="@color/blacktheme_color_function_keytext"/>
+    <item android:state_checkable="true" android:state_pressed="true"
+          android:color="@color/blacktheme_color_function_pressed_keytext"/>
+    <item android:state_checkable="true"
+          android:color="@color/blacktheme_color_function_keytext"/>
+    <item android:state_pressed="true"
+          android:color="@color/blacktheme_color_normal_pressed_keytext"/>
+    <item
+            android:color="@color/blacktheme_color_normal_keytext"/>
 </selector>

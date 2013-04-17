@@ -16,7 +16,7 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_long_pressable="true"
-            android:drawable="@drawable/gingerbread_key_preview_more_background" />
+          android:drawable="@drawable/gingerbread_key_preview_more_background"/>
 
-    <item android:drawable="@drawable/gingerbread_key_preview_background" />
+    <item android:drawable="@drawable/gingerbread_key_preview_background"/>
 </selector>

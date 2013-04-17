@@ -19,23 +19,23 @@
 -->
 
 <resources>
-	<dimen name="default_key_height">44dip</dimen>
+    <dimen name="default_key_height">44dip</dimen>
     <dimen name="default_key_half_height">32dip</dimen>
     <dimen name="default_key_tall_height">56dip</dimen>
-    
+
     <dimen name="default_key_vertical_gap">1dip</dimen>
     <dimen name="default_key_horizontal_gap">2dp</dimen>
     <dimen name="plain_theme_key_horizontal_gap">5dp</dimen>
     <dimen name="plain_theme_key_vertical_gap">2dp</dimen>
-    
+
     <dimen name="key_text_size">24sp</dimen>
     <dimen name="lean_key_text_size">21sp</dimen>
     <dimen name="key_label_text_size">16sp</dimen>
-    
+
     <dimen name="keyboard_name_text_size">11sp</dimen>
-    
+
     <dimen name="candidate_strip_height">40dip</dimen>
     <dimen name="candidate_font_height">23sp</dimen>
-    
-	<integer name="condensing_precentage">70</integer>
+
+    <integer name="condensing_precentage">70</integer>
 </resources>

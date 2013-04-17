@@ -15,9 +15,10 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:tag="20130106-eye-candy"
-        android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
-	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-	    android:text="* Saving from the candidates strip is back.\n* Fix for crash on auto-correct (some devices)." style="@android:style/TextAppearance.Small"/>
-	
+              android:tag="20130106-eye-candy"
+              android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+    <TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
+              android:text="* Saving from the candidates strip is back.\n* Fix for crash on auto-correct (some devices)."
+              style="@android:style/TextAppearance.Small"/>
+
 </LinearLayout>

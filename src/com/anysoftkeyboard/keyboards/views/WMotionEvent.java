@@ -1,27 +1,43 @@
+/*
+ * Copyright (c) 2013 Menny Even-Danan
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.anysoftkeyboard.keyboards.views;
 
 import android.view.MotionEvent;
 
 public interface WMotionEvent {
-	public static class Diagram extends net.evendanan.frankenrobot.Diagram<WMotionEvent> {
-		
-	}
-	
-	void setNativeMotionEvent(MotionEvent nativeMotionEvent);
-	
-	int getActionMasked() ;
+    public static class Diagram extends net.evendanan.frankenrobot.Diagram<WMotionEvent> {
 
-	int getPointerCount();
+    }
 
-	long getEventTime();
+    void setNativeMotionEvent(MotionEvent nativeMotionEvent);
 
-	int getActionIndex();
+    int getActionMasked();
 
-	int getPointerId(int index);
+    int getPointerCount();
 
-	float getX(int index);
+    long getEventTime();
 
-	float getY(int index);
+    int getActionIndex();
 
-	int findPointerIndex(int pointerId);
+    int getPointerId(int index);
+
+    float getX(int index);
+
+    float getY(int index);
+
+    int findPointerIndex(int pointerId);
 }

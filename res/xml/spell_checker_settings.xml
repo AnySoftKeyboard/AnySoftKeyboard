@@ -15,7 +15,7 @@
 -->
 
 <PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/spell_checker_settings">
-    
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:title="@string/spell_checker_settings">
+
 </PreferenceScreen>

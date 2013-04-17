@@ -20,14 +20,14 @@
 
 <resources>
     <dimen name="window_popup_corner_radius">5dp</dimen>
-    
+
     <dimen name="selected_tab_drawable_height">8px</dimen>
     <dimen name="unselected_tab_drawable_height">1px</dimen>
-    
+
     <dimen name="default_key_height">48dp</dimen>
     <dimen name="default_key_half_height">32dp</dimen>
     <dimen name="default_key_tall_height">54dp</dimen>
-    
+
     <dimen name="default_key_vertical_gap">2dp</dimen>
     <dimen name="default_key_horizontal_gap">1dp</dimen>
     <dimen name="plain_theme_key_horizontal_gap">3dp</dimen>
@@ -38,25 +38,25 @@
     <dimen name="key_label_text_size">14sp</dimen>
     <dimen name="key_hint_text_size">7sp</dimen>
     <dimen name="keyboard_name_text_size">10sp</dimen>
-    
+
     <dimen name="candidate_strip_height">36dp</dimen>
     <dimen name="candidate_font_height">18sp</dimen>
-    
+
     <dimen name="candidate_strip_fading_edge_length">63dp</dimen>
     <dimen name="candidate_min_touchable_width">0.3in</dimen>
-    
+
     <dimen name="key_hysteresis_distance">10dp</dimen>
     <dimen name="key_preview_offset">0dp</dimen>
     <dimen name="mini_keyboard_slide_allowance">80dp</dimen>
-    
+
     <dimen name="key_corner_radius">3dp</dimen>
-        
+
     <dimen name="key_top_inset">3dp</dimen>
     <dimen name="key_bottom_inset">3dp</dimen>
     <dimen name="key_right_inset">2.5dp</dimen>
     <dimen name="key_left_inset">2.5dp</dimen>
-    
-	<integer name="condensing_precentage">100</integer>
+
+    <integer name="condensing_precentage">100</integer>
 
     <dimen name="blacktheme_size_text_main">20sp</dimen>
     <dimen name="blacktheme_size_text_smaller">14sp</dimen>
@@ -76,5 +76,5 @@
     <dimen name="blacktheme_paddingRight">1dp</dimen>
     <dimen name="blacktheme_paddingTop">0dp</dimen>
     <dimen name="blacktheme_paddingBottom">0dp</dimen>
-    
+
 </resources>

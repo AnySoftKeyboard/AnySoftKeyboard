@@ -2,35 +2,40 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ime_name">AnySoftKeyboard</string>
-    
+
     <string name="main_tab_welcome">Bonvenon</string>
     <string name="main_tab_links">Ligoj</string>
     <string name="main_tab_credits">Dankoj</string>
     <!-- welcome tab -->
-	<string name="how_to_pointer_title">Bonvenon al AnySoftKeyboard</string>
-	<string name="how_to_pointer_version_prefix">Versio: </string>
-	<string name="how_to_pointer_not_app">AnySoftKeyboard ne estas kiel kutima programo, fakte ĝi estas ekrana klavaro.</string>
-	<string name="how_to_pointer_go_to_links">Por pli da informoj, premu \&quot;ligoj\&quot; supre.</string>
-	<!-- links tab -->
-	<string name="how_to_pointer_how_to_url">Detaloj pri kiel uzi tiun ĉi klavaron:</string>
-	<string name="how_to_pointer_site">Ĝeneralaj detaloj:</string>
-	<string name="how_to_pointer_changelog">Detaloj pri la plej lasta versio:</string>
-	<string name="how_to_pointer_issues">Por raporti cimon:</string>
-	<!-- credits tab -->
-	<string name="main_tab_credits_title">Tiu ĉi programo estis kreita kun la helpo de la jenaj homoj:</string>
-	<string name="main_tab_credits_created_by">Kreita de:</string>
-	<string name="main_tab_credits_additional_work_by">Aldona kodigado de:</string>
-	<string name="main_tab_credits_localization_by">Tradukoj de:</string>
-	<string name="main_tab_credits_GUI_by">Bildoj de:</string>
-	
+    <string name="how_to_pointer_title">Bonvenon al AnySoftKeyboard</string>
+    <string name="how_to_pointer_version_prefix">Versio:</string>
+    <string name="how_to_pointer_not_app">AnySoftKeyboard ne estas kiel kutima programo, fakte ĝi estas ekrana
+        klavaro.
+    </string>
+    <string name="how_to_pointer_go_to_links">Por pli da informoj, premu \&quot;ligoj\&quot; supre.</string>
+    <!-- links tab -->
+    <string name="how_to_pointer_how_to_url">Detaloj pri kiel uzi tiun ĉi klavaron:</string>
+    <string name="how_to_pointer_site">Ĝeneralaj detaloj:</string>
+    <string name="how_to_pointer_changelog">Detaloj pri la plej lasta versio:</string>
+    <string name="how_to_pointer_issues">Por raporti cimon:</string>
+    <!-- credits tab -->
+    <string name="main_tab_credits_title">Tiu ĉi programo estis kreita kun la helpo de la jenaj homoj:</string>
+    <string name="main_tab_credits_created_by">Kreita de:</string>
+    <string name="main_tab_credits_additional_work_by">Aldona kodigado de:</string>
+    <string name="main_tab_credits_localization_by">Tradukoj de:</string>
+    <string name="main_tab_credits_GUI_by">Bildoj de:</string>
+
     <!-- Symbols that are commonly considered word separators in this language -->
     <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
     <!-- Indicates that a word has been added to the dictionary -->
-    <string name="added_word"><xliff:g id="word">%s</xliff:g> : Registrita</string>
-    
+    <string name="added_word">
+        <xliff:g id="word">%s</xliff:g>
+        : Registrita
+    </string>
+
     <!-- settings - UI -->
     <string name="ui_group">Interfaco</string>
-    
+
     <string name="physical_keyboard_change_notification_title">Atentigo</string>
     <string name="physical_keyboard_change_notification_summary">Speco de atentigo pri la aktiva klavara aranĝo</string>
     <string name="physical_keyboard_change_notification_dialog_title">Kia atentigo?</string>
@@ -39,20 +44,25 @@
         <item>Atentigo je ŝanĝo</item>
         <item>Neniu atentigo</item>
     </string-array>
-    
+
     <string name="lengthy_operations_toast_notification">Atentigo je longaj operacioj</string>
     <string name="lengthy_operations_toast_notification_summary">Kurta atentigo je longaj operacioj</string>
-    
+
     <!-- Options menu -->
     <string name="change_ime">Ŝanĝu klavaron</string>
     <string name="override_dictionary">Transpasu defaŭltan vortaron</string>
     <!-- Dictionary override strings -->
-    <string name="override_dictionary_title">Transpaso<xliff:g id="word">%s</xliff:g> dictionary</string>
+    <string name="override_dictionary_title">Transpaso
+        <xliff:g id="word">%s</xliff:g>
+        dictionary
+    </string>
     <string name="override_dictionary_default">Defaŭlta</string>
     <!-- Dictionary override toast messages -->
     <string name="override_disabled">Neniu transpaso</string>
-    <string name="override_enabled">Transpaso al<xliff:g id="word">%s</xliff:g></string>
-    
+    <string name="override_enabled">Transpaso al
+        <xliff:g id="word">%s</xliff:g>
+    </string>
+
     <!-- settings - effects-->
     <string name="effects_group">Efektoj</string>
     <string name="ime_settings">Klavaraj agordoj</string>
@@ -61,30 +71,32 @@
     <string name="vibrate_on_key_press_summary">Elekto de speco de vibro</string>
     <string name="vibrate_on_key_press_dialog_title">Elektu vibron</string>
     <string-array name="vibrate_on_key_press_types">
-    	<item>Neniu</item>
+        <item>Neniu</item>
         <item>Mola</item>
         <item>Meza</item>
         <item>Dura</item>
     </string-array>
-    
+
     <string name="sound_on">Sono je klav-premo</string>
     <string name="sound_on_summary">Sonoj</string>
     <string name="use_custom_sound_volume">Elektu laŭteco</string>
     <string name="use_custom_sound_volume_on_summary">Propra laŭteco</string>
     <string name="use_custom_sound_volume_off_summary">Sistema laŭteco</string>
     <string name="custom_sound_volume">Propra klav-prema laŭteco</string>
-    
+
     <string name="tweaks_group">Optimumigoj</string>
     <string name="emoticon_long_press_opens_popup">Miensimbolara ŝprucmenuo je long-premo</string>
-    <string name="emoticon_long_press_opens_popup_on_summary">Montri miensimbolojn je long-premo de \&quot;:-)\&quot;</string>
-    <string name="emoticon_long_press_opens_popup_off_summary">Montri miensimbolojn je kurt-premo de \&quot;:-)\&quot;</string>
+    <string name="emoticon_long_press_opens_popup_on_summary">Montri miensimbolojn je long-premo de
+        \&quot;:-)\&quot;</string>
+    <string name="emoticon_long_press_opens_popup_off_summary">Montri miensimbolojn je kurt-premo de
+        \&quot;:-)\&quot;</string>
     <string name="default_smiley_text">Defaŭlta mieno</string>
     <string name="default_domain_text">Defaŭlta domajno</string>
     <string name="key_press_preview_popup">Klava ŝprucmenuo</string>
     <string name="key_press_preview_popup_on_summary">Montri ŝprucmenuon je klav-premo</string>
     <string name="key_press_preview_popup_off_summary">Ne montri ŝprucmenuon je klav-premo</string>
-    
-    
+
+
     <string name="auto_caps">Aŭtomata uskleco</string>
     <string name="grammer_group">Gramatiko</string>
     <string name="candidates_on">Montri proponojn</string>
@@ -98,23 +110,25 @@
     <string name="keyboard_sandbox_title">Tajpu sube por kontroli viajn agordojn</string>
     <!-- settings - keyboard group -->
     <string name="keyboards_group">Klavaroj</string>
-    <string name="eng_keyboard">Angla</string>    
-    
-    <!-- Tutorials --> 
+    <string name="eng_keyboard">Angla</string>
+
+    <!-- Tutorials -->
     <string name="show_tutorial_on_startup">Montru tiujn ĉi klarigojn je starto</string>
     <string name="tutorial_swipe_title">Rapidpasigo por nova klavaro</string>
-    <string name="tutorial_swipe_text">Por ŝanĝi la klavaran aranĝon, rapidpasigu vian fingron sur la klavaro.  Dekstren por lingvoj; liven por simboloj.</string>
-    
+    <string name="tutorial_swipe_text">Por ŝanĝi la klavaran aranĝon, rapidpasigu vian fingron sur la klavaro. Dekstren
+        por lingvoj; liven por simboloj.
+    </string>
+
     <!-- Special soft keyboard keys text -->
     <string name="label_go_key">Iri</string>
     <string name="label_next_key">Venonten</string>
     <string name="label_send_key">Sendi</string>
-    
+
     <string name="change_lang_wide">&#8594; ABC &#8594;</string>
     <string name="change_lang_regular">ABC</string>
     <string name="change_symbols_wide">&#8592; 123 &#8592;</string>
     <string name="change_symbols_regular">123</string>
-    
+
     <string name="please_wait">Bonvole atendu</string>
     <string name="toast_lengthy_words_long_operation">Ŝargante vortaron...</string>
     <string name="toast_lengthy_start_up_operation">Startante AnySoftKeyboard...</string>

@@ -1,56 +1,56 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="6dp" >
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:padding="6dp">
 
     <TextView
-        android:id="@+id/pref_title"
-        style="@android:style/TextAppearance.Medium"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+            android:id="@+id/pref_title"
+            style="@android:style/TextAppearance.Medium"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="8dp"
-        android:weightSum="3" >
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="8dp"
+            android:weightSum="3">
 
         <TextView
-            android:id="@+id/pref_min_value"
-            style="@android:style/TextAppearance.Small"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:gravity="left"
-            android:text="0" />
+                android:id="@+id/pref_min_value"
+                style="@android:style/TextAppearance.Small"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="0"/>
 
         <TextView
-            android:id="@+id/pref_current_value"
-            style="@android:style/TextAppearance.Medium"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="0" />
+                android:id="@+id/pref_current_value"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="0"/>
 
         <TextView
-            android:id="@+id/pref_max_value"
-            style="@android:style/TextAppearance.Small"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:text="0" />
+                android:id="@+id/pref_max_value"
+                style="@android:style/TextAppearance.Small"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="0"/>
     </LinearLayout>
 
     <SeekBar
-        android:id="@+id/pref_seekbar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+            android:id="@+id/pref_seekbar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
 
 </LinearLayout>

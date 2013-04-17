@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <inset
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:drawable="@drawable/window_popup_background_inner"
-    android:insetTop="@dimen/window_popup_corner_radius"
-    android:insetRight="@dimen/window_popup_corner_radius"
-    android:insetBottom="@dimen/window_popup_corner_radius"
-    android:insetLeft="@dimen/window_popup_corner_radius" />
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:drawable="@drawable/window_popup_background_inner"
+        android:insetTop="@dimen/window_popup_corner_radius"
+        android:insetRight="@dimen/window_popup_corner_radius"
+        android:insetBottom="@dimen/window_popup_corner_radius"
+        android:insetLeft="@dimen/window_popup_corner_radius"/>

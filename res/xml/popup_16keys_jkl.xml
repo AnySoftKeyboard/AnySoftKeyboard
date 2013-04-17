@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-    android:keyWidth="15%p"
-    android:keyHeight="@integer/key_normal_height">
-	<Row android:rowEdgeFlags="top|bottom">
-	    <!-- 5ĵ -->
-        <Key android:codes="53" android:keyEdgeFlags="left" />
-        <Key android:codes="309" />
+          android:keyWidth="15%p"
+          android:keyHeight="@integer/key_normal_height">
+    <Row android:rowEdgeFlags="top|bottom">
+        <!-- 5ĵ -->
+        <Key android:codes="53" android:keyEdgeFlags="left"/>
+        <Key android:codes="309"/>
     </Row>
 </Keyboard>

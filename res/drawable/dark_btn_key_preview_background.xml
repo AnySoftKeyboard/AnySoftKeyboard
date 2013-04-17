@@ -16,7 +16,7 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_long_pressable="true"
-            android:drawable="@drawable/dark_background_popup" />
+          android:drawable="@drawable/dark_background_popup"/>
 
-    <item android:drawable="@drawable/dark_background_popup" />
+    <item android:drawable="@drawable/dark_background_popup"/>
 </selector>

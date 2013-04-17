@@ -15,8 +15,9 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:tag="20120108"
-        android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
-	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-	    android:text="* Voice Input support for Android 2.2+!\n* New translations for Hebrew, Catalan, Italian, Belarusian, Portuguese and Greek.\n* Bug fixes." style="@android:style/TextAppearance.Small"/>
+              android:tag="20120108"
+              android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+    <TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
+              android:text="* Voice Input support for Android 2.2+!\n* New translations for Hebrew, Catalan, Italian, Belarusian, Portuguese and Greek.\n* Bug fixes."
+              style="@android:style/TextAppearance.Small"/>
 </LinearLayout>
