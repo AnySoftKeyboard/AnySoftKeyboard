@@ -15,9 +15,10 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:tag="20130212-skinny-eye-candy"
-        android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
-	<TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-	    android:text="* Many crash fixes for some devices (mainly 2.2).\n* Translations: AR, HU, PT-br and CA." style="@android:style/TextAppearance.Small"/>
-	
+              android:tag="20130212-skinny-eye-candy"
+              android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+    <TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
+              android:text="* Many crash fixes for some devices (mainly 2.2).\n* Translations: AR, HU, PT-br and CA."
+              style="@android:style/TextAppearance.Small"/>
+
 </LinearLayout>

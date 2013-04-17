@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard"
-    android:keyWidth="25%p"
-    android:keyHeight="@integer/key_normal_height">
+          xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard"
+          android:keyWidth="25%p"
+          android:keyHeight="@integer/key_normal_height">
     <Row android:rowEdgeFlags="top">
         <Key android:codes="49" android:keyEdgeFlags="left"/>
         <Key android:codes="50"/>
@@ -16,14 +16,14 @@
         <Key android:codes="54"/>
         <Key android:codes="45" android:keyEdgeFlags="right"/>
     </Row>
-    
+
     <Row>
         <Key android:codes="55" android:keyEdgeFlags="left"/>
         <Key android:codes="56"/>
         <Key android:codes="57"/>
         <Key android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
-    
+
     <Row android:rowEdgeFlags="bottom">
         <Key android:codes="42" android:keyLabel="*" android:popupCharacters="/()%" android:keyEdgeFlags="left"/>
         <Key android:codes="48"/>

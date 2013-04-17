@@ -59,7 +59,7 @@
   <string name="how_to_enable_dialog_dont_show_me">Més tard</string>
   <string name="how_to_simple_howto_preface">Android requereix que l\'usuari (vós) activi de forma manual un teclat de la seva elecció. Aquí es mostra com fer-ho:</string>
   <string name="how_to_simple_howto_enable_ask">1) Activeu AnySoftKeyboard (no us amoïneu pel missatge de la captura d\'informació; el codi font està a l\'abast de tothom qui vulgui consultar-ho):</string>
-  <string name="how_to_simple_howto_enable_ask_button">Activa AnySoftKeyboard</string>
+  <string name="how_to_simple_howto_enable_ask_button">Activa l\'AnySoftKeyboard</string>
   <string name="how_to_simple_howto_press_back_to_return_tip">Premeu «Enrere» una vegada activat, per tornar a les instruccions d\'activació</string>
   <string name="how_to_simple_howto_switch_to_ask">2) Seleccioneu AnySoftKeyboard com el teclat per defecte</string>
   <string name="how_to_simple_howto_switch_to_ask_button_after_step_1">Canvia a AnySoftKeyboard</string>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard"
-    android:keyWidth="25%p"
-    android:keyHeight="@integer/key_normal_height">
+          xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard"
+          android:keyWidth="25%p"
+          android:keyHeight="@integer/key_normal_height">
     <Row android:rowEdgeFlags="top">
         <Key android:codes="46,44,63,33" android:keyLabel=".,?!" android:keyEdgeFlags="left"/>
         <Key android:codes="8216,40,41" android:keyLabel="‘()"/>
@@ -16,17 +16,17 @@
         <Key android:codes="58,61,43" android:keyLabel=":=+"/>
         <Key android:codes="-99" android:keyLabel="ABC" android:keyEdgeFlags="right"/>
     </Row>
-    
+
     <Row>
         <Key android:codes="35,42,94" android:keyLabel="#*^" android:keyEdgeFlags="left"/>
         <Key android:codes="37,60,62" android:keyLabel="%&lt;&gt;"/>
         <Key android:codes="34,38,8220,124" android:keyLabel="&quot;&amp;“|"/>
         <Key android:codes="-5"
-        	android:keyEdgeFlags="right" android:isRepeatable="true"/>
+             android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
-    
+
     <Row android:rowEdgeFlags="bottom">
-         <Key android:codes="-6" android:keyLabel="123" android:keyEdgeFlags="left"/>
+        <Key android:codes="-6" android:keyLabel="123" android:keyEdgeFlags="left"/>
         <Key android:codes="32,191,161" android:keyWidth="50%p"/>
         <Key android:codes="10" android:keyEdgeFlags="right" ask:longPressCode="-100"/>
     </Row>

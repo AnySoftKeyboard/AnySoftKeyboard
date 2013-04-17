@@ -20,31 +20,31 @@
 
 <resources>
     <dimen name="window_popup_corner_radius">9dp</dimen>
-    
+
     <dimen name="default_key_height">67dip</dimen>
     <dimen name="default_key_half_height">52dip</dimen>
     <dimen name="default_key_tall_height">80dip</dimen>
-    
+
     <dimen name="default_key_vertical_gap">3dip</dimen>
     <dimen name="default_key_horizontal_gap">4dip</dimen>
     <dimen name="plain_theme_key_horizontal_gap">6dp</dimen>
     <dimen name="plain_theme_key_vertical_gap">4dp</dimen>
-    
+
     <dimen name="key_text_size">29sp</dimen>
     <dimen name="key_label_text_size">20sp</dimen>
     <dimen name="key_hint_text_size">10sp</dimen>
-    
+
     <dimen name="keyboard_name_text_size">15sp</dimen>
-    
+
     <dimen name="candidate_strip_height">42dip</dimen>
     <dimen name="candidate_font_height">25sp</dimen>
-    
+
     <dimen name="key_corner_radius">4dp</dimen>
-    
+
     <dimen name="key_top_inset">4dp</dimen>
     <dimen name="key_bottom_inset">4dp</dimen>
     <dimen name="key_right_inset">5dp</dimen>
     <dimen name="key_left_inset">5dp</dimen>
-    
-	<integer name="condensing_precentage">90</integer>
+
+    <integer name="condensing_precentage">90</integer>
 </resources>

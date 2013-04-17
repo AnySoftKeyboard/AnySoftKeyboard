@@ -1,17 +1,17 @@
 /*
- * Copyright (C) 2011 AnySoftKeyboard.
+ * Copyright (c) 2013 Menny Even-Danan
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.anysoftkeyboard.keyboards.views;
@@ -35,9 +35,9 @@ abstract class KeyDetector {
     protected boolean mProximityCorrectOn;
 
     protected int mProximityThresholdSquare;
-    
+
     protected KeyDetector() {
-    	mNearByCodes = new int[getMaxNearbyKeys()];
+        mNearByCodes = new int[getMaxNearbyKeys()];
     }
 
     public Key[] setKeyboard(Keyboard keyboard) {
@@ -49,10 +49,10 @@ abstract class KeyDetector {
         mKeys = array;
         return array;
     }
-    
-    public void setCorrection(float correctionX, float correctionY){
-    	mCorrectionX = (int)correctionX;
-        mCorrectionY = (int)correctionY;
+
+    public void setCorrection(float correctionX, float correctionY) {
+        mCorrectionX = (int) correctionX;
+        mCorrectionY = (int) correctionY;
     }
 
     protected int getTouchX(int x) {
@@ -111,8 +111,8 @@ abstract class KeyDetector {
      * {@link #setProximityThreshold(int)} and the mode set by
      * {@link #setProximityCorrectionEnabled(boolean)}.
      *
-     * @param x The x-coordinate of a touch point
-     * @param y The y-coordinate of a touch point
+     * @param x       The x-coordinate of a touch point
+     * @param y       The y-coordinate of a touch point
      * @param allKeys All nearby key indices are returned in this array
      * @return The nearest key index
      */

@@ -1,93 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:fillViewport="true" >
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:fillViewport="true">
 
     <LinearLayout
-        android:padding="4dp"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/dev_title"
+            android:padding="4dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="AnySoftKeyboard v99"
-            android:layout_marginBottom="16dp"
-            android:gravity="center"
-            android:textAppearance="@android:style/TextAppearance.Medium" />
+            android:orientation="vertical">
 
         <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Memory"
-            android:textAppearance="@android:style/TextAppearance.Medium" />
+                android:id="@+id/dev_title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="AnySoftKeyboard v99"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
+
+        <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Memory"
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="8dp" >
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="8dp">
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="8dp"
-                android:onClick="onUserClickedMemoryDump"
-                android:text="Dump to SDCARD" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="8dp"
+                    android:onClick="onUserClickedMemoryDump"
+                    android:text="Dump to SDCARD"/>
 
             <Button
-                android:id="@+id/dev_share_mem_file"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="8dp"
-                android:enabled="false"
-                android:onClick="onUserClickedShareMemoryDump"
-                android:text="Send" />
+                    android:id="@+id/dev_share_mem_file"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="8dp"
+                    android:enabled="false"
+                    android:onClick="onUserClickedShareMemoryDump"
+                    android:text="Send"/>
         </LinearLayout>
 
         <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Tracing"
-            android:textAppearance="@android:style/TextAppearance.Medium" />
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Tracing"
+                android:textAppearance="@android:style/TextAppearance.Medium"/>
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="8dp" >
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="8dp">
 
             <Button
-                android:id="@+id/dev_flip_trace_file"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="8dp"
-                android:onClick="onUserClickedFlipTracing"
-                android:text="Enable tracing" />
+                    android:id="@+id/dev_flip_trace_file"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="8dp"
+                    android:onClick="onUserClickedFlipTracing"
+                    android:text="Enable tracing"/>
 
             <ProgressBar
-                android:id="@+id/dev_tracing_running_progress_bar"
-                style="@android:style/Widget.ProgressBar.Small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:indeterminate="true" />
+                    android:id="@+id/dev_tracing_running_progress_bar"
+                    style="@android:style/Widget.ProgressBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminate="true"/>
 
             <Button
-                android:id="@+id/dev_share_trace_file"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="8dp"
-                android:enabled="false"
-                android:onClick="onUserClickedShareTracingFile"
-                android:text="Send" />
+                    android:id="@+id/dev_share_trace_file"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="8dp"
+                    android:enabled="false"
+                    android:onClick="onUserClickedShareTracingFile"
+                    android:text="Send"/>
         </LinearLayout>
     </LinearLayout>
 

@@ -16,17 +16,17 @@
 -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard">
+          xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard">
 
     <!-- Search keys -->
-	<item ask:action_search="true" ask:key_type_feedback="true" android:drawable="@drawable/sym_keyboard_search" />
-    <item ask:action_search="true" android:drawable="@drawable/sym_keyboard_search" />
-    
+    <item ask:action_search="true" ask:key_type_feedback="true" android:drawable="@drawable/sym_keyboard_search"/>
+    <item ask:action_search="true" android:drawable="@drawable/sym_keyboard_search"/>
+
     <!-- Done keys -->
-	<item ask:action_done="true" ask:key_type_feedback="true" android:drawable="@drawable/sym_keyboard_done" />
-    <item ask:action_done="true" android:drawable="@drawable/sym_keyboard_done" />
-    
+    <item ask:action_done="true" ask:key_type_feedback="true" android:drawable="@drawable/sym_keyboard_done"/>
+    <item ask:action_done="true" android:drawable="@drawable/sym_keyboard_done"/>
+
     <!-- ENTER keys -->
-	<item ask:key_type_feedback="true" android:drawable="@drawable/sym_keyboard_return" />
-    <item android:drawable="@drawable/sym_keyboard_return" />
+    <item ask:key_type_feedback="true" android:drawable="@drawable/sym_keyboard_return"/>
+    <item android:drawable="@drawable/sym_keyboard_return"/>
 </selector>

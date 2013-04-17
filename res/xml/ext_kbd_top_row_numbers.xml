@@ -2,10 +2,10 @@
 
 <!-- generic top row -->
 <Row xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard"
-	android:rowEdgeFlags="top"
-	android:keyWidth="10%p"
-    android:keyHeight="@integer/key_short_height">
+     xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard"
+     android:rowEdgeFlags="top"
+     android:keyWidth="10%p"
+     android:keyHeight="@integer/key_short_height">
     <Key android:codes="49" android:keyLabel="1" ask:isFunctional="true" android:keyEdgeFlags="left"/>
     <Key android:codes="50" android:keyLabel="2" ask:isFunctional="true"/>
     <Key android:codes="51" android:keyLabel="3" ask:isFunctional="true"/>

@@ -1,11 +1,11 @@
 /*
- * Copyright (C) 2011 The Android Open Source Project
+ * Copyright (c) 2013 Menny Even-Danan
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,11 +16,11 @@
 
 package com.anysoftkeyboard.utils;
 
+import android.text.TextUtils;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-
-import android.text.TextUtils;
 
 public class CompatUtils {
     private static final String TAG = "ASK CMPT_UTILS";
@@ -34,7 +34,7 @@ public class CompatUtils {
     }
 
     public static Method getMethod(Class<?> targetClass, String name,
-            Class<?>... parameterTypes) {
+                                   Class<?>... parameterTypes) {
         if (targetClass == null || TextUtils.isEmpty(name)) return null;
         try {
             return targetClass.getMethod(name, parameterTypes);
@@ -58,7 +58,7 @@ public class CompatUtils {
         return null;
     }
 
-    public static Constructor<?> getConstructor(Class<?> targetClass, Class<?> ... types) {
+    public static Constructor<?> getConstructor(Class<?> targetClass, Class<?>... types) {
         if (targetClass == null || types == null) return null;
         try {
             return targetClass.getConstructor(types);
@@ -70,7 +70,7 @@ public class CompatUtils {
         return null;
     }
 
-    public static Object newInstance(Constructor<?> constructor, Object ... args) {
+    public static Object newInstance(Constructor<?> constructor, Object... args) {
         if (constructor == null) return null;
         try {
             return constructor.newInstance(args);

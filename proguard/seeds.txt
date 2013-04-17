@@ -3,11 +3,11 @@ com.anysoftkeyboard.dictionaries.BinaryDictionary: int openNative(java.io.FileDe
 com.anysoftkeyboard.dictionaries.BinaryDictionary: void closeNative(int)
 com.anysoftkeyboard.dictionaries.BinaryDictionary: boolean isValidWordNative(int,char[],int)
 com.anysoftkeyboard.dictionaries.BinaryDictionary: int getSuggestionsNative(int,int[],int,char[],int[],int,int,int,int)
-com.anysoftkeyboard.dictionaries.ResourceBinaryDictionary
-com.anysoftkeyboard.dictionaries.ResourceBinaryDictionary: int openNative(java.nio.ByteBuffer,int,int)
-com.anysoftkeyboard.dictionaries.ResourceBinaryDictionary: void closeNative(int)
-com.anysoftkeyboard.dictionaries.ResourceBinaryDictionary: boolean isValidWordNative(int,char[],int)
-com.anysoftkeyboard.dictionaries.ResourceBinaryDictionary: int getSuggestionsNative(int,int[],int,char[],int[],int,int,int,int,int[],int)
+com.anysoftkeyboard.dictionaries.jni.ResourceBinaryDictionary
+com.anysoftkeyboard.dictionaries.jni.ResourceBinaryDictionary: int openNative(java.nio.ByteBuffer,int,int)
+com.anysoftkeyboard.dictionaries.jni.ResourceBinaryDictionary: void closeNative(int)
+com.anysoftkeyboard.dictionaries.jni.ResourceBinaryDictionary: boolean isValidWordNative(int,char[],int)
+com.anysoftkeyboard.dictionaries.jni.ResourceBinaryDictionary: int getSuggestionsNative(int,int[],int,char[],int[],int,int,int,int,int[],int)
 com.anysoftkeyboard.ui.MySeekBarPreference
 com.anysoftkeyboard.ui.MySeekBarPreference: MySeekBarPreference(android.content.Context,android.util.AttributeSet)
 com.anysoftkeyboard.keyboards.views.CandidateView

@@ -160,7 +160,7 @@ static int registerNativeMethods(JNIEnv* env, const char* className,
 
 static int registerNatives(JNIEnv *env)
 {
-    const char* const kClassPathName = "com/anysoftkeyboard/dictionaries/ResourceBinaryDictionary";
+    const char* const kClassPathName = "com/anysoftkeyboard/dictionaries/jni/ResourceBinaryDictionary";
     return registerNativeMethods(env,
             kClassPathName, gMethods, sizeof(gMethods) / sizeof(gMethods[0]));
 }

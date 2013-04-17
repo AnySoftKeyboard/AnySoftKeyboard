@@ -15,47 +15,47 @@
      limitations under the License.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical">
 
     <TextView
-        style="@android:style/TextAppearance.Medium"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/tip_5_key_feedback"
-        android:textStyle="bold" />
+            style="@android:style/TextAppearance.Medium"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/tip_5_key_feedback"
+            android:textStyle="bold"/>
 
     <TextView
-        style="@android:style/TextAppearance.Medium"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/tip_5_key_feedback_tip" />
+            style="@android:style/TextAppearance.Medium"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tip_5_key_feedback_tip"/>
 
     <CheckBox
-        android:id="@+id/settings_key_press_vibration"
-        style="@android:style/TextAppearance.Small"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/vibrate_on_key_press_title" />
+            android:id="@+id/settings_key_press_vibration"
+            style="@android:style/TextAppearance.Small"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/vibrate_on_key_press_title"/>
 
     <CheckBox
-        android:id="@+id/settings_key_press_sound"
-        style="@android:style/TextAppearance.Small"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/sound_on" />
+            android:id="@+id/settings_key_press_sound"
+            style="@android:style/TextAppearance.Small"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sound_on"/>
 
     <TextView
-        style="@android:style/TextAppearance.Small"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/tip_5_key_feedback_test" />
+            style="@android:style/TextAppearance.Small"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/tip_5_key_feedback_test"/>
 
     <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
 
 </LinearLayout>
