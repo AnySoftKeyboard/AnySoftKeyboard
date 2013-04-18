@@ -295,9 +295,17 @@ public class AnySoftKeyboard extends InputMethodService implements
         Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(
                 getApplication().getBaseContext(), null));
         if (DeveloperUtils.hasTracingRequested(getApplicationContext())) {
-            DeveloperUtils.startTracing();
-            Toast.makeText(getApplicationContext(),
-                    R.string.debug_tracing_starting, Toast.LENGTH_SHORT).show();
+            try {
+                DeveloperUtils.startTracing();
+                Toast.makeText(getApplicationContext(),
+                        R.string.debug_tracing_starting, Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                //see issue https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/105
+                //I might get a "Permission denied" error.
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(),
+                        R.string.debug_tracing_starting_failed, Toast.LENGTH_LONG).show();
+            }
         }
         Log.i(TAG, "****** AnySoftKeyboard service started.");
         // I'm handling animations. No need for any nifty ROMs assistance.
