@@ -113,8 +113,7 @@ public class AddOnListPreference extends ListPreferenceEx {
                 try {
                     PackageManager packageManager = getContext()
                             .getPackageManager();
-                    PackageInfo packageInfo = packageManager.getPackageInfo(
-                            addOn.getPackageContext().getPackageName(), 0);
+                    PackageInfo packageInfo = packageManager.getPackageInfo(addOn.getPackageName(), 0);
                     icon = packageInfo.applicationInfo.loadIcon(packageManager);
                 } catch (PackageManager.NameNotFoundException e) {
                     icon = null;
