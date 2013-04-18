@@ -43,7 +43,7 @@ public class DictionaryContentObserver extends ContentObserver {
     private final static String TAG = "DictionaryContentObserver";
     private final WeakReference<BTreeDictionary> mDictionary;
 
-    DictionaryContentObserver(DictionaryContentObserverDiagram diagram) {
+    public DictionaryContentObserver(DictionaryContentObserverDiagram diagram) {
         super(null);
         mDictionary = new WeakReference<BTreeDictionary>(diagram.getOwningDictionary());
     }
