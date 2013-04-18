@@ -38,11 +38,13 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
     private final static String TABLE_NAME = "WORDS";//was ;
     protected final Context mContext;
     private final String mCurrentLocale;
+    private final String mDbName;
 
     public WordsSQLiteConnection(Context context, String DbFilename, String currentLocale) {
         super(context, DbFilename, null, 7);
         mContext = context;
         mCurrentLocale = currentLocale;
+        mDbName = DbFilename;
     }
 
     @Override
@@ -123,5 +125,13 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
                 + Words.LOCALE + "=?)", new String[]{mCurrentLocale}, null,
                 null, null);
         return new WordsCursor.SqliteWordsCursor(db, c);
+    }
+
+    /**
+     * This is a compatibility function: SQLiteOpenHelper.getDatabaseName exists only in API14
+     * @return
+     */
+    public String getDbFilename() {
+        return mDbName;
     }
 }
