@@ -123,7 +123,7 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
     protected boolean isEventRequiresViewReset(Intent eventIntent, Context context) {
         //will reset ONLY if this is the active theme
         KeyboardTheme selectedTheme = getCurrentKeyboardTheme(context.getApplicationContext());
-        if ((selectedTheme != null) && (selectedTheme.getPackageContext().getPackageName().equals(eventIntent.getData().getSchemeSpecificPart()))) {
+        if ((selectedTheme != null) && (selectedTheme.getPackageName().equals(eventIntent.getData().getSchemeSpecificPart()))) {
             Log.d(TAG, "It seems that selected keyboard theme has been changed. I need to reload view!");
             return true;
         }
