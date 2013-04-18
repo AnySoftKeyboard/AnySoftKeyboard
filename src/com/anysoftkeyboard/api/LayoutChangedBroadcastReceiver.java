@@ -1,7 +1,6 @@
 package com.anysoftkeyboard.api;
 
 
-
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -12,9 +11,8 @@ import android.content.Intent;
 
 /**
  * @author lado
- * if NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_PACKAGE param name is not same as getClass().getPackage().getName();
- * The notifcation is removed.
- *
+ *         if NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_PACKAGE param name is not same as getClass().getPackage().getName();
+ *         The notifcation is removed.
  */
 public abstract class LayoutChangedBroadcastReceiver extends BroadcastReceiver {
     //api
@@ -24,7 +22,7 @@ public abstract class LayoutChangedBroadcastReceiver extends BroadcastReceiver {
     private static final String NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_PACKAGE = "current_layout_package";
     private static final String NOTIFY_LAYOUT_SWITCH_NOTIFICATION_FLAGS = "notification_flags";
     private static final String NOTIFY_LAYOUT_SWITCH_NOTIFICATION_TITLE = "notification_title";
-   
+
 
     /* (non-Javadoc)
      * @see android.content.BroadcastReceiver#onReceive(android.content.Context, android.content.Intent)
@@ -32,34 +30,34 @@ public abstract class LayoutChangedBroadcastReceiver extends BroadcastReceiver {
     @Override
     public final void onReceive(Context ctx, Intent intent) {
         String currentPackage = getClass().getPackage().getName();
-        String pack  = intent.getExtras().getString(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_PACKAGE);
-        if(!currentPackage.equals(pack)){
+        String pack = intent.getExtras().getString(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_PACKAGE);
+        if (!currentPackage.equals(pack)) {
             String ns = Context.NOTIFICATION_SERVICE;
-            NotificationManager nm = 
-               (NotificationManager)ctx.getSystemService(ns);
+            NotificationManager nm =
+                    (NotificationManager) ctx.getSystemService(ns);
             nm.cancel(1);
             return;
         }
 
-       int icon =  intent.getExtras().getInt(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_RESID);
-       String name = intent.getExtras().getString(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_NAME);
-       int flags = intent.getExtras().getInt(NOTIFY_LAYOUT_SWITCH_NOTIFICATION_FLAGS);
-       
-       //prepare notification
-       String ns = Context.NOTIFICATION_SERVICE;
-       NotificationManager nm = 
-          (NotificationManager)ctx.getSystemService(ns);
-       long when = System.currentTimeMillis();
-       Notification notification = 
-          new Notification(icon, name, when);
-       notification.defaults = 0;
-       notification.flags = flags;
-    
-       
-       Intent i = new Intent(ctx, InfoActivity.class);
-       PendingIntent pi = PendingIntent.getActivity(ctx, 0, i, 0);
-       notification.setLatestEventInfo(ctx, intent.getExtras().getString(NOTIFY_LAYOUT_SWITCH_NOTIFICATION_TITLE), name , pi);
-       nm.notify(1, notification);
+        int icon = intent.getExtras().getInt(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_RESID);
+        String name = intent.getExtras().getString(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_NAME);
+        int flags = intent.getExtras().getInt(NOTIFY_LAYOUT_SWITCH_NOTIFICATION_FLAGS);
+
+        //prepare notification
+        String ns = Context.NOTIFICATION_SERVICE;
+        NotificationManager nm =
+                (NotificationManager) ctx.getSystemService(ns);
+        long when = System.currentTimeMillis();
+        Notification notification =
+                new Notification(icon, name, when);
+        notification.defaults = 0;
+        notification.flags = flags;
+
+
+        Intent i = new Intent(ctx, InfoActivity.class);
+        PendingIntent pi = PendingIntent.getActivity(ctx, 0, i, 0);
+        notification.setLatestEventInfo(ctx, intent.getExtras().getString(NOTIFY_LAYOUT_SWITCH_NOTIFICATION_TITLE), name, pi);
+        nm.notify(1, notification);
     }
-    
+
 }
