@@ -47,7 +47,7 @@ public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
             return mStorage.getWordsCursor();
         } catch (SQLiteException e) {
             e.printStackTrace();
-            final String dbFile = mStorage.getDatabaseName();
+            final String dbFile = mStorage.getDbFilename();
             try {
                 mStorage.close();
             } catch (SQLiteException swallow) {}
