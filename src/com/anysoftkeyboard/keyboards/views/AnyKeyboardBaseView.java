@@ -2494,6 +2494,8 @@ public class AnyKeyboardBaseView extends View implements
 
     @Override
     public boolean onTouchEvent(MotionEvent nativeMotionEvent) {
+        if (mKeyboard == null)//I mean, if there isn't any keyboard I'm handling, what's the point?
+            return false;
         mMotionEvent.setNativeMotionEvent(nativeMotionEvent);
         WMotionEvent me = mMotionEvent;
         final int action = me.getActionMasked();
@@ -2728,6 +2730,7 @@ public class AnyKeyboardBaseView extends View implements
         mMiniKeyboard = null;
 
         mKeyboardActionListener = null;
+        mGestureDetector = null;
         mKeyboard = null;
 
         closing();
