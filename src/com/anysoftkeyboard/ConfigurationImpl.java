@@ -122,6 +122,7 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 
         customizeSettingValues(mContext.getApplicationContext(), sp);
         upgradeSettingsValues(sp);
+        initializeComputedValues(sp);
 
         onSharedPreferenceChanged(sp, "");
     }
@@ -196,6 +197,22 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 //			}
     }
 
+    /**
+     * The purpose of this function is to set in the preferences file the computed values.
+     * This is required since the Preferences xml UI elements can not take computed values, only static ones, as default.
+     * So, the computed default could be one, and the static default may be another!
+     * See https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/110
+      * @param sp
+     */
+    private void initializeComputedValues(SharedPreferences sp){
+        boolean drawType = sp.getBoolean(mContext.getString(R.string.settings_key_workaround_disable_rtl_fix),
+                getAlwaysUseDrawTextDefault());
+
+        Editor e = sp.edit();
+        e.putBoolean(mContext.getString(R.string.settings_key_workaround_disable_rtl_fix), drawType);
+        e.commit();
+    }
+
     private void upgradeSettingsValues(SharedPreferences sp) {
         if (AnyApplication.DEBUG) Log.d(TAG, "Checking if configuration upgrade is needed.");
 //		String topRowNewIdValue = sp.getString(mContext.getString(R.string.settings_key_top_keyboard_row_id), null);
@@ -211,11 +228,11 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 
         //please note: the default value should be the last version.
         //upgrading should only be done when actually need to be done.
-        int configurationVersion = sp.getInt(CONFIGURATION_VERSION, 4);
+        int configurationVersion = sp.getInt(CONFIGURATION_VERSION, 5);
         if (configurationVersion < 1) {
             boolean oldLandscapeFullScreenValue = sp.getBoolean("fullscreen_input_connection_supported",
                     mContext.getResources().getBoolean(R.bool.settings_default_landscape_fullscreen));
-            if (AnyApplication.DEBUG) Log.d(TAG, "Replacing landscape-fullscreen key...");
+            Log.i(TAG, "Replacing landscape-fullscreen key...");
             Editor e = sp.edit();
             e.putBoolean(mContext.getString(R.string.settings_key_landscape_fullscreen), oldLandscapeFullScreenValue);
             e.remove("fullscreen_input_connection_supported");
@@ -225,7 +242,7 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
         }
 
         if (configurationVersion < 2) {
-            if (AnyApplication.DEBUG) Log.d(TAG, "Reseting key height factor...");
+            Log.i(TAG, "Reseting key height factor...");
             Editor e = sp.edit();
             e.putString("zoom_factor_keys_in_portrait", mContext.getString(R.string.settings_default_portrait_keyboard_height_factor));
             e.putString("zoom_factor_keys_in_landscape", mContext.getString(R.string.settings_default_landscape_keyboard_height_factor));
@@ -237,8 +254,7 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
         if (configurationVersion < 3) {
             Editor e = sp.edit();
             if (Workarounds.getApiLevel() <= 7) {
-                if (AnyApplication.DEBUG)
-                    Log.d(TAG, "In API7 or lower, bottom row needs to be changed to not include mic...");
+                Log.i(TAG, "In API7 or lower, bottom row needs to be changed to not include mic...");
                 final String bottomRowKey = mContext.getString(R.string.settings_key_ext_kbd_bottom_row_key);
                 String currentBottomRowId = sp.getString(bottomRowKey, mContext.getString(R.string.settings_default_ext_kbd_bottom_row_key));
                 String newBottomRowId = "";
@@ -259,12 +275,23 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 
         if (configurationVersion < 4) {
             Editor e = sp.edit();
-            if (AnyApplication.DEBUG) Log.d(TAG, "Reseting key landscape fullscreen...");
+            Log.i(TAG, "Resetting key landscape fullscreen...");
             //this is done since some people have phones (which are full-screen ON) and tablets (which are full-screen OFF),
-            //and the settings get overriden by BackupAgent
+            //and the settings get over-written by BackupAgent
             e.putBoolean(mContext.getString(R.string.settings_key_landscape_fullscreen), mContext.getResources().getBoolean(R.bool.settings_default_landscape_fullscreen));
             //saving config level
             e.putInt(CONFIGURATION_VERSION, 4);
+            e.commit();
+        }
+
+        if (configurationVersion < 5) {
+            Editor e = sp.edit();
+            Log.i(TAG, "Resetting RTL drawing workaround...");
+            //read issue https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/110
+            e.putBoolean(mContext.getString(R.string.settings_key_workaround_disable_rtl_fix),
+                    getAlwaysUseDrawTextDefault());
+            //saving config level
+            e.putInt(CONFIGURATION_VERSION, 5);
             e.commit();
         }
     }
@@ -278,7 +305,7 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sp, String key) {
-        Log.i(TAG, "**** onSharedPreferenceChanged: ");
+        Log.d(TAG, "**** onSharedPreferenceChanged: ");
 
         //statistics
         mFirstAppVersionInstalled = sp.getInt(mContext.getString(R.string.settings_key_first_app_version_installed), 0);
