@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AnySoftKeyboard.iml" filepath="$PROJECT_DIR$/AnySoftKeyboard.iml" />
       <module fileurl="file://$PROJECT_DIR$/../AnySoftKeyboard-API/AnySoftKeyboard-API.iml" filepath="$PROJECT_DIR$/../AnySoftKeyboard-API/AnySoftKeyboard-API.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../LanguagePack/LanguagePack.iml" filepath="$PROJECT_DIR$/../LanguagePack/LanguagePack.iml" />
     </modules>
   </component>
 </project>
