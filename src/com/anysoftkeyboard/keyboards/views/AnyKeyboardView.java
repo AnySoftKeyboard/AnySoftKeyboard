@@ -412,11 +412,11 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
             switch (swipeKeyTarget) {
                 case KeyCodes.MODE_ALPHABET:
                     // printing the next alpha keyboard name
-                    tooltip = switcher.peekNextAlphabetKeyboard();
+                    tooltip = switcher!=null? switcher.peekNextAlphabetKeyboard() : "";
                     break;
                 case KeyCodes.MODE_SYMOBLS:
                     // printing the next alpha keyboard name
-                    tooltip = switcher.peekNextSymbolsKeyboard();
+                    tooltip = switcher!=null? switcher.peekNextSymbolsKeyboard() : "";
                     break;
                 default:
                     tooltip = "";
