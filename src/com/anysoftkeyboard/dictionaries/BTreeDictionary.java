@@ -134,37 +134,42 @@ public abstract class BTreeDictionary extends EditableDictionary {
         }
     }
 
-    private int deleteWordRec(final NodeArray children, final CharSequence word, final int offset, final int length) {
+    private boolean deleteWordRec(final NodeArray children, final CharSequence word, final int offset, final int length) {
         final int count = children.length;
         final char currentChar = word.charAt(offset);
         for (int j = 0; j < count; j++) {
             final Node node = children.data[j];
             if (node.code == currentChar) {
                 if (offset == length - 1) {//last character in the word to delete
+                    //we need to delete this node. But only if it terminal
                     if (node.terminal) {
-                        //so it is no longer terminal!
-                        node.terminal = false;
-                        return j;
+                        children.deleteNode(j);
+                        //let's tell that we deleted a node
+                        return true;
+                    } else {
+                        //it is not terminal, and the word to delete is longer
+                        //let's tell that we didn't delete
+                        return false;
                     }
                 } else {
-                    if (node.children != null) {
-                        final int deletedIndex = deleteWordRec(node.children, word, offset + 1, length);
-                        if (deletedIndex >= 0) {
-                            Node deletedNode = node.children.data[deletedIndex];
-                            if (deletedNode.children.length == 0 && !deletedNode.terminal) {
-                                //this is one useless node
-                                node.children.deleteNode(deletedIndex);
-                                return j;
-                            } else {
-                                //something happened in the tree below, but it has not more consequences.
-                                return -1;
-                            }
+                    //not the last character in the word to delete,
+                    //but if the node forward was deleted, then this one might also need to be deleted.
+                    final boolean aChildNodeWasDeleted = deleteWordRec(node.children, word, offset + 1, length);
+                    if (aChildNodeWasDeleted) {//something was deleted in my children
+                        if (node.children.length == 0) {
+                            //this node just deleted its last child.
+                            //it is not necessary anymore.
+                            children.deleteNode(j);
+                            //let's tell that we deleted.
+                            return true;
+                        } else {
+                            return false;
                         }
                     }
                 }
             }
         }
-        return -1;//nothing to delete here, move along.
+        return false;//nothing to delete here, move along.
     }
 
     protected abstract void deleteWordFromStorage(String word);
@@ -396,8 +401,10 @@ public abstract class BTreeDictionary extends EditableDictionary {
             Node[] newChildren = new Node[oldChildrenCount - 1];
             int newArrayIndex = 0;
             for (int oldArrayIndex = 0; oldArrayIndex < oldChildrenCount; oldArrayIndex++) {
-                if (oldArrayIndex != nodeIndexToDelete) newChildren[newArrayIndex] = data[oldArrayIndex];
-                else newArrayIndex++;//only skipping the index to delete
+                if (oldArrayIndex != nodeIndexToDelete) {
+                    newChildren[newArrayIndex] = data[oldArrayIndex];
+                    newArrayIndex++;
+                }
             }
             //replacing
             data = newChildren;
