@@ -2305,7 +2305,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         // user is above anything automatic.
         mHandler.removeMessages(MSG_UPDATE_SHIFT_STATE);
 
-        if (mKeyboardSwitcher.isAlphabetMode()) {
+        if (mInputView != null && mKeyboardSwitcher.isAlphabetMode()) {
             // shift pressed and this is an alphabet keyboard
             // we want to do:
             // 1)if keyboard is unshifted -> shift view and keyboard
@@ -2316,23 +2316,15 @@ public class AnySoftKeyboard extends InputMethodService implements
 
             final boolean caps;
             if (reset) {
-                if (DEBUG)
-                    Log.d(TAG, "handleShift: reset");
                 mInputView.setShifted(false);
                 caps = false;
             } else {
                 if (!mInputView.isShifted()) {
                     mShiftStartTime = SystemClock.elapsedRealtime();
-                    if (DEBUG)
-                        Log.d(TAG,
-                                "handleShift: current keyboard is un-shifted");
                     mInputView.setShifted(true);
                     caps = false;
                 } else {
                     if (mInputView.isShiftLocked()) {
-                        if (DEBUG)
-                            Log.d(TAG,
-                                    "handleShift: current keyboard is CAPSLOCKED");
                         mInputView.setShifted(false);
                         caps = false;
                     } else {
@@ -2340,15 +2332,11 @@ public class AnySoftKeyboard extends InputMethodService implements
                         // back to unshifted.
                         if ((SystemClock.elapsedRealtime() - mShiftStartTime) < mConfig
                                 .getMultiTapTimeout()) {
-                            if (DEBUG)
-                                Log.d(TAG,
-                                        "handleShift: current keyboard is shifted, within multi-tap period.");
+                            Log.d(TAG, "handleShift: current keyboard is shifted, within multi-tap period.");
                             mInputView.setShifted(true);
                             caps = true;
                         } else {
-                            if (DEBUG)
-                                Log.d(TAG,
-                                        "handleShift: current keyboard is shifted, not within multi-tap period.");
+                            Log.d(TAG, "handleShift: current keyboard is shifted, not within multi-tap period.");
                             mInputView.setShifted(false);
                             caps = false;
                         }
