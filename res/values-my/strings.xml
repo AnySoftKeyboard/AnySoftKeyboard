@@ -10,8 +10,10 @@
   <string name="click_for_previous_tip">↓ေရှ့တစ်ခု</string>
   <string name="click_for_next_tip">ေနာက်တခု↓</string>
   <string name="tip_1_welcome_to_ask">AnySoftKeyboard မှ ြကိုဆိုပါတယ်!</string>
+  <string name="tip_4_top_generic_row">အေပါ်ဆံုးအတန်း</string>
   <string name="tip_5_key_feedback">ေဝဖန်အြကံြပုပါ။</string>
   <string name="tip_5_key_feedback_test">ေဝဖန်အြကံြပုမှုကိုစမ်းသပ်ြကည့်မယ်။</string>
+  <string name="tip_6_bottom_rows">ေအာက်ေြခအတန်း</string>
   <string name="tip_7_voice_input">ကျွနု်ပ်ကိုေြပာပါ</string>
   <string name="main_tab_welcome">ြကိုဆိုပါတယ်။</string>
   <string name="main_tab_links">လခ်များ</string>
@@ -46,6 +48,7 @@
   <string name="bottom_row_addons_settings">ေအာက်ေြခြပင်ဆင်မှု</string>
   <string name="top_row_addons_settings">အေပါ်ရိုးဆိုင်ရာစီမံခန့်ခွဲမှု</string>
   <string name="close_button">ပိတ်ပါ</string>
+  <string name="revert_added_word_question">ဖျတ်ရန်</string>
   <string name="menu_insert_smiley">ခံစားချက် ထည့်သွင်းရန်</string>
   <string name="click_for_help">အကူညီရယူရန်</string>
   <string name="ui_group">သံုးစွဲသူ အြပင်အဆင်</string>
@@ -54,6 +57,8 @@
   <string name="lengthy_operations_toast_notification">အေသးစိတ် အေြကာင်းြကားြခင်း</string>
   <string name="lengthy_operations_toast_notification_summary">လိုတိုရှင်း အေြကာင်းြကားြခင်း</string>
   <string name="voice_input_not_support_in_this_os_version">Android 2.2+ ေနာက်ပိုင်းထွက်များတွင် အသံြဖင့်စာရိုက်သည့်နည်းစနစ်ပါရှိပါသည်။</string>
+  <string name="voice_input_not_installed_action_install">ထည့်သွင်းရန်</string>
+  <string name="voice_input_not_installed_action_do_not_install">မဟုတ်</string>
   <string name="change_ime">လက်ကွက်ပံုစံေြပာင်းြခင်း</string>
   <string name="override_dictionary">ပံုေသ ဒစ်ရှင်နရီ</string>
   <string name="override_dictionary_default">ပံုေသ</string>
