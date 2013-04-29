@@ -52,7 +52,18 @@ public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
                 mStorage.close();
             } catch (SQLiteException swallow) {}
             Log.w(TAG, "Caught an SQL exception while read database (message: '" + e.getMessage() + "'). I'll delete the database '" + dbFile + "'...");
-            mContext.deleteDatabase(dbFile);
+            try {
+                mContext.deleteDatabase(dbFile);
+            } catch(Exception okToFailEx){
+                Log.w(TAG, "Failed to delete database file "+dbFile+"!");
+                okToFailEx.printStackTrace();
+            }
+            try {
+                mContext.deleteDatabase(dbFile+".db");
+            } catch(Exception okToFailEx){
+                Log.w(TAG, "Failed to delete database file "+dbFile+".db!");
+                okToFailEx.printStackTrace();
+            }
             mStorage = null;// will re-create the storage.
             mStorage = createStorage(mLocale);
             //if this function will throw an exception again, well the hell with it.
