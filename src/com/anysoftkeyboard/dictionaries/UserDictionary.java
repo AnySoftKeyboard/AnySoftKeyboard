@@ -22,6 +22,7 @@ import com.anysoftkeyboard.WordComposer;
 import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.FallbackUserDictionary;
 import com.anysoftkeyboard.utils.Log;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 
 public class UserDictionary extends EditableDictionary {
 
@@ -62,12 +63,16 @@ public class UserDictionary extends EditableDictionary {
     protected final void loadAllResources() {
         AndroidUserDictionary androidBuiltIn = null;
         try {
+            //The only reason I see someone uses this, is for development or debugging.
+            if (AnyApplication.getConfig().alwaysUseFallBackUserDictionary())
+                throw new RuntimeException("User requested to always use fall-back user-dictionary.");
+
             androidBuiltIn = new AndroidUserDictionary(mContext, mLocale);
             androidBuiltIn.loadDictionary();
             mActualDictionary = androidBuiltIn;
         } catch (Exception e) {
             Log.w(TAG,
-                    "Failed to load Android's built-in user dictionary. No matter, I'll use a fallback.");
+                    "Can not load Android's built-in user dictionary (since '"+e.getMessage()+"'). FallbackUserDictionary to the rescue!");
             if (androidBuiltIn != null) {
                 try {
                     androidBuiltIn.close();
@@ -78,8 +83,7 @@ public class UserDictionary extends EditableDictionary {
                             "Failed to close the build-in user dictionary properly, but it should be fine.");
                 }
             }
-            FallbackUserDictionary fallback = new FallbackUserDictionary(
-                    mContext, mLocale);
+            FallbackUserDictionary fallback = new FallbackUserDictionary(mContext, mLocale);
             fallback.loadDictionary();
 
             mActualDictionary = fallback;

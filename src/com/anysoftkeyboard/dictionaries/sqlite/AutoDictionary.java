@@ -77,7 +77,8 @@ public class AutoDictionary extends SQLiteUserDictionaryBase {
 
     @Override
     protected WordsSQLiteConnection createStorage(String locale) {
-        return new WordsSQLiteConnection(mContext, "auto_dict.db", locale);
+        /*I've renamed the db filename, since the previous one was in an incompatible format*/
+        return new WordsSQLiteConnection(mContext, "auto_dict_2.db", locale);
     }
 
     @Override
