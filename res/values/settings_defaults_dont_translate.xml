@@ -39,6 +39,8 @@
 
     <string name="settings_default_tweak_animations_level">some</string>
 
+    <bool name="settings_default_always_use_fallback_user_dictionary">false</bool>
+
     <bool name="settings_default_is_sticky_extesion_keyboard">false</bool>
     <bool name="settings_default_is_extesion_keyboard_above_keyboard">true</bool>
 

@@ -340,9 +340,12 @@
     </string>
     <string name="special_dictionaries_group">Special dictionaries</string>
     <string name="special_dictionaries_group_summary">Suggestion dictionaries used in AnySoftKeyboard</string>
-    <string name="use_user_dictionary">User dictionary</string>
+    <string name="use_user_dictionary">User-dictionary</string>
     <string name="use_user_dictionary_on_summary">Suggest user added words (double-click a typed-suggestion to add)</string>
     <string name="use_user_dictionary_off_summary"></string>
+    <string name="always_use_fallback_user_dictionary">Use fallback User-dictionary</string>
+    <string name="always_use_fallback_user_dictionary_on_summary">Use only AnySoftKeyboard\'s built-in User-dictionary mechanism (not recommended).</string>
+    <string name="always_use_fallback_user_dictionary_off_summary">Try to use Android\'s built-in User-dictionary first (recommended).</string>
     <string name="use_auto_dictionary">Auto dictionary</string>
     <string name="use_auto_dictionary_dialog_title">Select learn method</string>
     <string name="use_auto_dictionary_summary">Automaticlly learn new words. Learn method: %s</string>
