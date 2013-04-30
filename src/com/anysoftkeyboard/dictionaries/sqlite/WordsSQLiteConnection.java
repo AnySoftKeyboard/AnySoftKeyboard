@@ -35,7 +35,7 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
 
     private static final String TAG = "ASK SqliteCnnt";
 
-    private final static String TABLE_NAME = "WORDS";//was ;
+    private final static String TABLE_NAME = "WORDS";//was FALL_BACK_USER_DICTIONARY;
     protected final Context mContext;
     private final String mCurrentLocale;
     private final String mDbName;
@@ -77,8 +77,8 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
             db.execSQL("ALTER TABLE FALL_BACK_USER_DICTIONARY RENAME TO tmp_FALL_BACK_USER_DICTIONARY;");
 
             db.execSQL("CREATE TABLE FALL_BACK_USER_DICTIONARY ("
-                    + "_id INTEGER PRIMARY KEY," + "word TEXT,"
-                    + "frequency INTEGER," + "locale TEXT" + ");");
+                    + "_id INTEGER PRIMARY KEY,word TEXT,"
+                    + "frequency INTEGER,locale TEXT);");
 
             db.execSQL("INSERT INTO FALL_BACK_USER_DICTIONARY(_id, word, frequency, locale) SELECT _id, Word, Freq, locale FROM tmp_FALL_BACK_USER_DICTIONARY;");
 
@@ -104,8 +104,7 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
             Log.e(TAG, "Unable to insert '" + word
                     + "' to the fall-back dictionary! Result:" + res);
         } else {
-            if (AnyApplication.DEBUG)
-                Log.d(TAG, "Inserted '" + word
+            Log.d(TAG, "Inserted '" + word
                         + "' to the fall-back dictionary. Id:" + res);
         }
         db.close();
