@@ -60,7 +60,7 @@ abstract public class Dictionary {
 
     protected final Object mResourceMonitor = new Object();
     private final String mDictionaryName;
-    private boolean mClosed = false;
+    private volatile boolean mClosed = false;
 
     protected Dictionary(String dictionaryName) {
         mDictionaryName = dictionaryName;
