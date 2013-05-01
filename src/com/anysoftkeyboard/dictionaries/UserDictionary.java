@@ -27,7 +27,7 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 public class UserDictionary extends EditableDictionary {
 
     private static final String TAG = "ASK_SUD";
-    private BTreeDictionary mActualDictionary;
+    private volatile BTreeDictionary mActualDictionary;
 
     private final Context mContext;
     private final String mLocale;

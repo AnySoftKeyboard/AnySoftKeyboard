@@ -26,7 +26,7 @@ import com.anysoftkeyboard.utils.Log;
 
 public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
 
-    private WordsSQLiteConnection mStorage;
+    private volatile WordsSQLiteConnection mStorage;
     private final String mLocale;
 
     protected SQLiteUserDictionaryBase(String dictionaryName, Context context, String locale) {
