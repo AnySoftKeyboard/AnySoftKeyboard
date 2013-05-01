@@ -25,12 +25,15 @@ import android.os.Debug;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import com.anysoftkeyboard.utils.Workarounds;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.io.File;
 import java.io.IOException;
 
 public class DeveloperUtils {
+
+    public static final String NEW_LINE = System.getProperty("line.separator");
 
     private static final String KEY_SDCARD_TRACING_ENABLED = "KEY_SDCARD_TRACING_ENABLED";
     private static final String ASK_TRACE_FILENAME = "AnySoftKeyboard_tracing.trace";
@@ -81,21 +84,21 @@ public class DeveloperUtils {
 
     public static String getSysInfo() {
         StringBuilder sb = new StringBuilder();
-        sb.append("BRAND:").append(android.os.Build.BRAND).append("\n");
-        sb.append("DEVICE:").append(android.os.Build.DEVICE).append("\n");
-        sb.append("Build ID:").append(android.os.Build.DISPLAY).append("\n");
+        sb.append("BRAND:").append(android.os.Build.BRAND).append(NEW_LINE);
+        sb.append("DEVICE:").append(android.os.Build.DEVICE).append(NEW_LINE);
+        sb.append("Build ID:").append(android.os.Build.DISPLAY).append(NEW_LINE);
         sb.append("changelist number:").append(android.os.Build.ID)
                 .append("\n");
-        sb.append("MODEL:").append(android.os.Build.MODEL).append("\n");
-        sb.append("PRODUCT:").append(android.os.Build.PRODUCT).append("\n");
-        sb.append("TAGS:").append(android.os.Build.TAGS).append("\n");
+        sb.append("MODEL:").append(android.os.Build.MODEL).append(NEW_LINE);
+        sb.append("PRODUCT:").append(android.os.Build.PRODUCT).append(NEW_LINE);
+        sb.append("TAGS:").append(android.os.Build.TAGS).append(NEW_LINE);
         sb.append("VERSION.INCREMENTAL:")
-                .append(android.os.Build.VERSION.INCREMENTAL).append("\n");
+                .append(android.os.Build.VERSION.INCREMENTAL).append(NEW_LINE);
         sb.append("VERSION.RELEASE:").append(android.os.Build.VERSION.RELEASE)
-                .append("\n");
+                .append(NEW_LINE);
         sb.append("VERSION.SDK_INT:").append(Workarounds.getApiLevel())
-                .append("\n");
-        sb.append("That's all I know.\n");
+                .append(NEW_LINE);
+        sb.append("That's all I know.");
         return sb.toString();
     }
 
@@ -106,6 +109,8 @@ public class DeveloperUtils {
                     appContext.getPackageName(), 0);
             appName = appName + " v" + info.versionName + " release "
                     + info.versionCode;
+            appName = appName +". Installed on " + AnyApplication.getConfig().getTimeCurrentVersionInstalled()
+                    + ", first release installed was "+AnyApplication.getConfig().getFirstAppVersionInstalled()+".";
         } catch (NameNotFoundException e) {
             appName = "NA";
             // TODO Auto-generated catch block

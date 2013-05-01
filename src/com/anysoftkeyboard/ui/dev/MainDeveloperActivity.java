@@ -16,20 +16,29 @@
 
 package com.anysoftkeyboard.ui.dev;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.anysoftkeyboard.ui.AsyncTaskWithProgressWindow;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.io.File;
 
 public class MainDeveloperActivity extends Activity {
+
+    private PopupWindow mPopupWindow;
 
     private abstract static class DeveloperAsyncTask<Params, Progress, Result>
             extends
@@ -53,6 +62,31 @@ public class MainDeveloperActivity extends Activity {
         super.onResume();
 
         updateTracingState();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mPopupWindow != null)
+            mPopupWindow.dismiss();
+        mPopupWindow = null;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && mPopupWindow != null && mPopupWindow.isShowing())
+            return true;
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && mPopupWindow != null && mPopupWindow.isShowing()) {
+            mPopupWindow.dismiss();
+            mPopupWindow = null;
+            return true;
+        }
+        return super.onKeyUp(keyCode, event);
     }
 
     private void updateTracingState() {
@@ -119,7 +153,7 @@ public class MainDeveloperActivity extends Activity {
         StringBuilder sb = new StringBuilder(
                 "Hi! Here is a memory dump file for ");
         sb.append(DeveloperUtils.getAppDetails(getApplicationContext()));
-        sb.append("\n");
+        sb.append(DeveloperUtils.NEW_LINE);
         sb.append(DeveloperUtils.getSysInfo());
 
         shareFile(memDump, "AnySoftKeyboard Memory Dump File", sb.toString());
@@ -138,7 +172,7 @@ public class MainDeveloperActivity extends Activity {
                     .setIcon(R.drawable.notification_icon_beta_version)
                     .setTitle("How to use Tracing")
                     .setMessage(
-                            "Tracing is now enabled, but not started!\nTo start tracing, you'll need to restart AnySoftKeyboard. How? Either reboot your phone, or switch to another keyboard app (like the stock).\nTo stop tracing, first disable it, and then restart AnySoftkeyboard (as above).\nThanks!!")
+                            "Tracing is now enabled, but not started!"+DeveloperUtils.NEW_LINE+"To start tracing, you'll need to restart AnySoftKeyboard. How? Either reboot your phone, or switch to another keyboard app (like the stock)."+DeveloperUtils.NEW_LINE+"To stop tracing, first disable it, and then restart AnySoftkeyboard (as above)."+DeveloperUtils.NEW_LINE+"Thanks!!")
                     .setPositiveButton("Got it!", null).create();
 
             info.show();
@@ -148,7 +182,7 @@ public class MainDeveloperActivity extends Activity {
                     .setIcon(R.drawable.notification_icon_beta_version)
                     .setTitle("How to stop Tracing")
                     .setMessage(
-                            "Tracing is now disabled, but not ended!\nTo end tracing (and to be able to send the file), you'll need to restart AnySoftKeyboard. How? Either reboot your phone (preferable), or switch to another keyboard app (like the stock).\nThanks!!")
+                            "Tracing is now disabled, but not ended!"+DeveloperUtils.NEW_LINE+"To end tracing (and to be able to send the file), you'll need to restart AnySoftKeyboard. How? Either reboot your phone (preferable), or switch to another keyboard app (like the stock)."+DeveloperUtils.NEW_LINE+"Thanks!!")
                     .setPositiveButton("Got it!", null).create();
 
             info.show();
@@ -158,10 +192,33 @@ public class MainDeveloperActivity extends Activity {
     public void onUserClickedShareTracingFile(View v) {
         StringBuilder sb = new StringBuilder("Hi! Here is a tracing file for ");
         sb.append(DeveloperUtils.getAppDetails(getApplicationContext()));
-        sb.append("\n");
+        sb.append(DeveloperUtils.NEW_LINE);
         sb.append(DeveloperUtils.getSysInfo());
 
         shareFile(DeveloperUtils.getTraceFile(), "AnySoftKeyboard Trace File",
+                sb.toString());
+    }
+
+    public void onUserClickedShowLogCat(View v) {
+        View logRootView = getLayoutInflater().inflate(R.layout.developer_logcat_layout, null);
+        TextView linesRoot = (TextView) logRootView.findViewById(R.id.lines_text_view);
+
+        String log = Log.getAllLogLines();
+        linesRoot.setText(log);
+
+        mPopupWindow = new PopupWindow(logRootView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mPopupWindow.showAtLocation(findViewById(R.id.root), Gravity.CENTER, 0, 0);
+    }
+
+    public void onUserClickedShareLogCat(View v) {
+        StringBuilder sb = new StringBuilder("Hi! Here is a LogCat snippet for ");
+        sb.append(DeveloperUtils.getAppDetails(getApplicationContext()));
+        sb.append(DeveloperUtils.NEW_LINE);
+        sb.append(DeveloperUtils.getSysInfo());
+        sb.append(DeveloperUtils.NEW_LINE);
+        sb.append(Log.getAllLogLines());
+
+        shareFile(null, "AnySoftKeyboard LogCat",
                 sb.toString());
     }
 
@@ -171,6 +228,9 @@ public class MainDeveloperActivity extends Activity {
         sendMail.setType("plain/text");
         sendMail.putExtra(Intent.EXTRA_SUBJECT, title);
         sendMail.putExtra(Intent.EXTRA_TEXT, message);
+        if (fileToShare != null){
+            sendMail.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(fileToShare));
+        }
 
         try {
             Intent sender = Intent.createChooser(sendMail, "Share");
