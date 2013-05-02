@@ -15,7 +15,7 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:tag="20130430-2-skinny-eye-candy-post-birthday"
+              android:tag="20130501-skinny-eye-candy-post-birthday"
               android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
     <TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
               android:text="* Crash fixes on some devices." style="@android:style/TextAppearance.Small"/>

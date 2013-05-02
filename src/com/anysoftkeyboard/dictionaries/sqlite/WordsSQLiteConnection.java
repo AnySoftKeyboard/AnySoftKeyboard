@@ -21,6 +21,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.TextUtils;
 import com.anysoftkeyboard.dictionaries.WordsCursor;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -119,10 +120,18 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
 
     public WordsCursor getWordsCursor() {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.query(TABLE_NAME, new String[]{Words._ID, Words.WORD,
-                Words.FREQUENCY}, "(" + Words.LOCALE + " IS NULL) or ("
-                + Words.LOCALE + "=?)", new String[]{mCurrentLocale}, null,
-                null, null);
+        Cursor c;
+        if (TextUtils.isEmpty(mCurrentLocale)) {
+            //some language packs will not provide locale, and Android _may_ crash here
+            c = db.query(TABLE_NAME, new String[]{Words._ID, Words.WORD,
+                    Words.FREQUENCY}, "(" + Words.LOCALE + " IS NULL)", null, null, null, null);
+        } else {
+            c = db.query(TABLE_NAME, new String[]{Words._ID, Words.WORD,
+                    Words.FREQUENCY}, "(" + Words.LOCALE + " IS NULL) or ("
+                    + Words.LOCALE + "=?)", new String[]{mCurrentLocale}, null,
+                    null, null);
+        }
+
         return new WordsCursor.SqliteWordsCursor(db, c);
     }
 
