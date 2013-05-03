@@ -94,6 +94,8 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 
     private String mInitialKeyboardSplitState = "merged_always";
 
+    private boolean mAlwaysUseFallBackUserDictionary = false;
+
     private long mFirstTimeAppInstalled;
     private long mFirstTimeCurrentVersionInstalled;
     private int mFirstAppVersionInstalled;
@@ -516,7 +518,9 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
             mAnimationsLevel = AnimationsLevel.Full;
         Log.d(TAG, "** mAnimationsLevel: " + mAnimationsLevel);
 
-
+        mAlwaysUseFallBackUserDictionary = sp.getBoolean(mContext.getString(R.string.settings_key_always_use_fallback_user_dictionary),
+                mContext.getResources().getBoolean(R.bool.settings_default_always_use_fallback_user_dictionary));
+        Log.d(TAG, "** mAlwaysUseFallBackUserDictionary: " + mAlwaysUseFallBackUserDictionary);
 
         //Some preferences cause rebuild of the keyboard, hence changing the listeners list
         final LinkedList<OnSharedPreferenceChangeListener> disconnectedList = new LinkedList<SharedPreferences.OnSharedPreferenceChangeListener>(mPreferencesChangedListeners);
@@ -834,5 +838,10 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
     @Override
     public long getTimeCurrentVersionInstalled() {
         return mFirstTimeCurrentVersionInstalled;
+    }
+
+    @Override
+    public boolean alwaysUseFallBackUserDictionary() {
+        return mAlwaysUseFallBackUserDictionary;
     }
 }

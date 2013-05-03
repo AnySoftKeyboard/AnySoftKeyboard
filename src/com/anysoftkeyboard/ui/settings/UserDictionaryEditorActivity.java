@@ -141,8 +141,8 @@ public class UserDictionaryEditorActivity extends ListActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onStop() {
+        super.onStop();
         if (mCursor != null)
             mCursor.close();
         if (mCurrentDictionary != null)

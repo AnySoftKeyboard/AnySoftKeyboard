@@ -20,6 +20,8 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 
 public interface Configuration {
 
+    boolean alwaysUseFallBackUserDictionary();
+
     public static enum AnimationsLevel {
         Full,
         Some,
