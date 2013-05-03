@@ -21,6 +21,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.TextUtils;
 import com.anysoftkeyboard.dictionaries.WordsCursor;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -35,7 +36,7 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
 
     private static final String TAG = "ASK SqliteCnnt";
 
-    private final static String TABLE_NAME = "WORDS";//was ;
+    private final static String TABLE_NAME = "WORDS";//was FALL_BACK_USER_DICTIONARY;
     protected final Context mContext;
     private final String mCurrentLocale;
     private final String mDbName;
@@ -77,8 +78,8 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
             db.execSQL("ALTER TABLE FALL_BACK_USER_DICTIONARY RENAME TO tmp_FALL_BACK_USER_DICTIONARY;");
 
             db.execSQL("CREATE TABLE FALL_BACK_USER_DICTIONARY ("
-                    + "_id INTEGER PRIMARY KEY," + "word TEXT,"
-                    + "frequency INTEGER," + "locale TEXT" + ");");
+                    + "_id INTEGER PRIMARY KEY,word TEXT,"
+                    + "frequency INTEGER,locale TEXT);");
 
             db.execSQL("INSERT INTO FALL_BACK_USER_DICTIONARY(_id, word, frequency, locale) SELECT _id, Word, Freq, locale FROM tmp_FALL_BACK_USER_DICTIONARY;");
 
@@ -104,8 +105,7 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
             Log.e(TAG, "Unable to insert '" + word
                     + "' to the fall-back dictionary! Result:" + res);
         } else {
-            if (AnyApplication.DEBUG)
-                Log.d(TAG, "Inserted '" + word
+            Log.d(TAG, "Inserted '" + word
                         + "' to the fall-back dictionary. Id:" + res);
         }
         db.close();
@@ -120,10 +120,18 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
 
     public WordsCursor getWordsCursor() {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.query(TABLE_NAME, new String[]{Words._ID, Words.WORD,
-                Words.FREQUENCY}, "(" + Words.LOCALE + " IS NULL) or ("
-                + Words.LOCALE + "=?)", new String[]{mCurrentLocale}, null,
-                null, null);
+        Cursor c;
+        if (TextUtils.isEmpty(mCurrentLocale)) {
+            //some language packs will not provide locale, and Android _may_ crash here
+            c = db.query(TABLE_NAME, new String[]{Words._ID, Words.WORD,
+                    Words.FREQUENCY}, "(" + Words.LOCALE + " IS NULL)", null, null, null, null);
+        } else {
+            c = db.query(TABLE_NAME, new String[]{Words._ID, Words.WORD,
+                    Words.FREQUENCY}, "(" + Words.LOCALE + " IS NULL) or ("
+                    + Words.LOCALE + "=?)", new String[]{mCurrentLocale}, null,
+                    null, null);
+        }
+
         return new WordsCursor.SqliteWordsCursor(db, c);
     }
 

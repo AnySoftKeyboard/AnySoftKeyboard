@@ -44,7 +44,9 @@ public class AndroidUserDictionary extends BTreeDictionary {
     }
 
     public WordsCursor getWordsCursor() {
-        Cursor cursor = TextUtils.isEmpty(mLocale) ? mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION, null, null, null) : mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION, "(" + Words.LOCALE + " IS NULL) or (" + Words.LOCALE + "=?)", new String[]{mLocale}, null);
+        Cursor cursor = TextUtils.isEmpty(mLocale) ?
+                mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION, "(" + Words.LOCALE + " IS NULL)", null, null) :
+                mContext.getContentResolver().query(Words.CONTENT_URI, PROJECTION, "(" + Words.LOCALE + " IS NULL) or (" + Words.LOCALE + "=?)", new String[]{mLocale}, null);
 
         if (cursor == null) throw new RuntimeException("No built-in Android dictionary!");
 
