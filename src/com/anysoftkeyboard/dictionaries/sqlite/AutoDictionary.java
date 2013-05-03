@@ -16,28 +16,13 @@
 
 package com.anysoftkeyboard.dictionaries.sqlite;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteQueryBuilder;
-import android.os.AsyncTask;
-import android.provider.BaseColumns;
-import android.text.TextUtils;
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.WordComposer;
-import com.anysoftkeyboard.dictionaries.BTreeDictionary;
-import com.anysoftkeyboard.dictionaries.WordsCursor;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
-import java.io.InvalidClassException;
 import java.lang.ref.WeakReference;
-import java.util.HashMap;
-import java.util.Map.Entry;
-import java.util.Set;
 
 /**
  * Stores new words temporarily until they are promoted to the user dictionary
@@ -77,7 +62,8 @@ public class AutoDictionary extends SQLiteUserDictionaryBase {
 
     @Override
     protected WordsSQLiteConnection createStorage(String locale) {
-        return new WordsSQLiteConnection(mContext, "auto_dict.db", locale);
+        /*I've renamed the db filename, since the previous one was in an incompatible format*/
+        return new WordsSQLiteConnection(mContext, "auto_dict_2.db", locale);
     }
 
     @Override
@@ -104,10 +90,10 @@ public class AutoDictionary extends SQLiteUserDictionaryBase {
             wordToAdd = Character.toLowerCase(wordToAdd.charAt(0)) + wordToAdd.substring(1);
         }
         int freq = getWordFrequency(wordToAdd);
-        final int frequencyDetla = type.equals(AdditionType.Picked)? FREQUENCY_FOR_PICKED: FREQUENCY_FOR_TYPED;
+        final int frequencyDelta = type.equals(AdditionType.Picked)? FREQUENCY_FOR_PICKED: FREQUENCY_FOR_TYPED;
 
-        freq = freq < 0 ? frequencyDetla : freq + frequencyDetla;
-        boolean added = false;
+        freq = freq < 0 ? frequencyDelta : freq + frequencyDelta;
+        boolean added;
         if (freq >= AnyApplication.getConfig().getAutoDictionaryInsertionThreshold()) {
             Log.i(TAG, "Promoting the word " + word + " (freq " + freq
                     + ") to the user dictionary. It earned it.");

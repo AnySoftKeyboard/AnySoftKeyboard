@@ -15,9 +15,9 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:tag="20130429-skinny-eye-candy-for-my-birthday"
+              android:tag="20130501-skinny-eye-candy-post-birthday"
               android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
     <TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-              android:text="* Rewriting the dictionaries mechanism - no new features (for now).\n* Updated translations: AR, BG, CA, MY, MK, RO, RU, and TR.\n* Some bug fixes." style="@android:style/TextAppearance.Small"/>
+              android:text="* Crash fixes on some devices." style="@android:style/TextAppearance.Small"/>
 
 </LinearLayout>

@@ -79,6 +79,8 @@
 
     <string name="settings_key_hide_soft_when_physical">settings_key_hide_soft_when_physical</string>
 
+    <string name="settings_key_always_use_fallback_user_dictionary">settings_key_always_use_fallback_user_dictionary</string>
+
     <string name="settings_key_is_sticky_extesion_keyboard">settings_key_is_sticky_extesion_keyboard</string>
     <string name="settings_key_is_extesion_keyboard_above_keyboard">settings_key_is_extesion_keyboard_above_keyboard
     </string>

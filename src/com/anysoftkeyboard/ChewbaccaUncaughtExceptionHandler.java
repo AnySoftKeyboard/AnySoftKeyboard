@@ -50,7 +50,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
         boolean ignore = false;
 
         // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/15
-        String stackTrace = getStackTrace(ex);
+        String stackTrace = Log.getStackTrace(ex);
         if (ex instanceof NullPointerException
                 && stackTrace != null
                 && stackTrace
@@ -67,31 +67,31 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
 
             final CharSequence utcTimeDate = DateFormat.format(
                     "kk:mm:ss dd.MM.yyyy", new Date());
-
-            String logText = "Hi. It seems that we have crashed.... Here are some details:\n"
+            final String newline = DeveloperUtils.NEW_LINE;
+            String logText = "Hi. It seems that we have crashed.... Here are some details:"+newline
                     + "****** UTC Time: "
                     + utcTimeDate
-                    + "\n"
+                    + newline
                     + "****** Application name: "
                     + appName
-                    + "\n"
-                    + "******************************\n"
+                    + newline
+                    + "******************************"+newline
                     + "****** Exception type: "
                     + ex.getClass().getName()
-                    + "\n"
+                    + newline
                     + "****** Exception message: "
                     + ex.getMessage()
-                    + "\n" + "****** Trace trace:\n" + stackTrace + "\n";
-            logText += "******************************\n"
-                    + "****** Device information:\n"
+                    + newline + "****** Trace trace:"+ newline + stackTrace + newline;
+            logText += "******************************"+newline
+                    + "****** Device information:"+newline
                     + DeveloperUtils.getSysInfo();
             if (ex instanceof OutOfMemoryError
                     || (ex.getCause() != null && ex.getCause() instanceof OutOfMemoryError)) {
                 logText += "******************************\n"
-                        + "****** Memory:\n" + getMemory();
+                        + "****** Memory:" +newline+ getMemory();
             }
-            logText += "******************************\n" + "****** Logcat:\n"
-                    + getLogcat();
+            logText += "******************************"+newline + "****** Logcat:"+newline
+                    + Log.getAllLogLines();
 
             Notification notification = new Notification(
                     R.drawable.notification_error_icon,
@@ -129,10 +129,6 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
         System.exit(0);
     }
 
-    private String getLogcat() {
-        return "Not supported at the moment";
-    }
-
     private String getMemory() {
         String mem = "Total: " + Runtime.getRuntime().totalMemory() + "\n"
                 + "Free: " + Runtime.getRuntime().freeMemory() + "\n" + "Max: "
@@ -150,29 +146,5 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
         }
 
         return mem;
-    }
-
-    private String getStackTrace(Throwable ex) {
-        StackTraceElement[] stackTrace = ex.getStackTrace();
-        StringBuilder sb = new StringBuilder();
-
-        for (StackTraceElement element : stackTrace) {
-            sb.append(element.toString());
-            sb.append('\n');
-        }
-
-        if (ex.getCause() == null)
-            return sb.toString();
-        else {
-            ex = ex.getCause();
-            String cause = getStackTrace(ex);
-            sb.append("*** Cause: " + ex.getClass().getName());
-            sb.append('\n');
-            sb.append("** Message: " + ex.getMessage());
-            sb.append('\n');
-            sb.append("** Stack track: " + cause);
-            sb.append('\n');
-            return sb.toString();
-        }
     }
 }

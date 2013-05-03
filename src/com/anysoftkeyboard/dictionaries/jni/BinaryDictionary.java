@@ -34,7 +34,7 @@ public class BinaryDictionary extends Dictionary {
     private static final int MAX_WORDS = 16;
     private static final boolean ENABLE_MISSED_CHARACTERS = true;
     private final AssetFileDescriptor mAfd;
-    private int mNativeDict;
+    private volatile int mNativeDict;
     private int[] mInputCodes = new int[MAX_WORD_LENGTH * MAX_ALTERNATIVES];
     private char[] mOutputChars = new char[MAX_WORD_LENGTH * MAX_WORDS];
     private int[] mFrequencies = new int[MAX_WORDS];

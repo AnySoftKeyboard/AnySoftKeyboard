@@ -52,7 +52,7 @@ public class ResourceBinaryDictionary extends Dictionary {
     private final Context mAppContext;
     private final int mDictResId;
     // private int mDicTypeId;
-    private int mNativeDict;
+    private volatile int mNativeDict;
     private int mDictLength;
     private int[] mInputCodes = new int[MAX_WORD_LENGTH * MAX_ALTERNATIVES];
     private char[] mOutputChars = new char[MAX_WORD_LENGTH * MAX_WORDS];
