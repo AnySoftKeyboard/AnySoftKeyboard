@@ -15,5 +15,4 @@
 -->
 
 <resources>
-    <attr name="min" format="integer"/>
 </resources>

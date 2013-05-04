@@ -30,7 +30,7 @@ import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.anysoftkeyboard.ui.AsyncTaskWithProgressWindow;
+import net.evendanan.pushingpixels.AsyncTaskWithProgressWindow;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
