@@ -151,8 +151,12 @@ public abstract class BTreeDictionary extends EditableDictionary {
                         //let's tell that we didn't delete
                         return false;
                     }
+                } else if (node.terminal &&//a terminal node
+                                (node.children == null || node.children.length == 0)) {//has no children
+                    //this is not the last character, but this is a terminal node with no children! Nothing to delete here.
+                    return false;
                 } else {
-                    //not the last character in the word to delete,
+                    //not the last character in the word to delete, and not a terminal node.
                     //but if the node forward was deleted, then this one might also need to be deleted.
                     final boolean aChildNodeWasDeleted = deleteWordRec(node.children, word, offset + 1, length);
                     if (aChildNodeWasDeleted) {//something was deleted in my children
