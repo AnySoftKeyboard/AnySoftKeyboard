@@ -110,7 +110,10 @@ public abstract class BTreeDictionary extends EditableDictionary {
             if (isClosed()) return false;
             // Safeguard against adding long words. Can cause stack overflow.
             if (word.length() >= MAX_WORD_LENGTH) return false;
-            Log.e(TAG, "Adding word '" + word + "' to dictionary (in " + getClass().getSimpleName() + ") with frequency " + frequency);
+
+            Log.i(TAG, "Adding word '" + word + "' to dictionary (in " + getClass().getSimpleName() + ") with frequency " + frequency);
+            //first deleting the word, so it wont conflict in the adding (_ID is unique).
+            deleteWord(word);
             //add word to in-memory structure
             addWordRec(mRoots, word, 0, frequency);
             //add word to storage
