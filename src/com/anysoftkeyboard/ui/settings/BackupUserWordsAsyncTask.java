@@ -55,7 +55,7 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
             return;
         // I can access the UI object in the UI thread.
         for (int i = 0; i < a.mLangs.getCount(); i++) {
-            final String locale = (String) a.mLangs.getItemAtPosition(i);
+            final String locale = ((UserDictionaryEditorActivity.DictionaryLocale) a.mLangs.getItemAtPosition(i)).getLocale();
             if (!TextUtils.isEmpty(locale)) {
                 mLocalesToSave.add(locale);
                 Log.d(TAG, "Found a locale to backup: " + locale);
