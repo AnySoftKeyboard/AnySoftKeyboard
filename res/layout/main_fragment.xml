@@ -37,7 +37,7 @@
     <View android:layout_width="fill_parent" android:layout_height="@dimen/unselected_tab_drawable_height"
           android:background="#F11"/>
 
-    <com.anysoftkeyboard.ui.FixedViewFlipper
+    <net.evendanan.pushingpixels.FixedViewFlipper
             android:id="@+id/main_pager"
             android:layout_width="match_parent"
             android:layout_height="0px"
@@ -45,5 +45,5 @@
         <include layout="@layout/main_fragment_1_main"/>
         <include layout="@layout/main_fragment_2_links"/>
         <include layout="@layout/main_fragment_3_credits"/>
-    </com.anysoftkeyboard.ui.FixedViewFlipper>
+    </net.evendanan.pushingpixels.FixedViewFlipper>
 </LinearLayout>

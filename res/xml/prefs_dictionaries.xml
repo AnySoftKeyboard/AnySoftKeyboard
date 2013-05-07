@@ -18,7 +18,7 @@
             android:targetPackage="com.menny.android.anysoftkeyboard"
             android:targetClass="com.anysoftkeyboard.ui.settings.UserDictionaryEditorActivity"/>
     </Preference>
-    <com.anysoftkeyboard.ui.settings.ListPreferenceEx
+    <net.evendanan.pushingpixels.ListPreference
         android:key="@string/settings_key_auto_dictionary_threshold"
         android:defaultValue="@string/settings_default_auto_dictionary_add_threshold"
         android:dialogTitle="@string/use_auto_dictionary_dialog_title"
