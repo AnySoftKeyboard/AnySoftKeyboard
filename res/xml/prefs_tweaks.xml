@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard"
+                  xmlns:pp="http://schemas.android.com/apk/res-auto"
                   android:key="tweaks_group_screen"
                   android:title="@string/tweaks_group">
 
@@ -15,12 +15,13 @@
             android:summaryOff="@string/use_custom_sound_volume_off_summary"
             android:summaryOn="@string/use_custom_sound_volume_on_summary"
             android:title="@string/use_custom_sound_volume"/>
-
-        <com.anysoftkeyboard.ui.settings.SeekBarPreference
+        <!-- Using this import require an Android Library reference from https://github.com/menny/PushingPixels -->
+        <net.evendanan.pushingpixels.SlidePreference
             android:defaultValue="50"
             android:dependency="use_custom_sound_volume"
             android:key="custom_sound_volume"
-            android:max="100"
+            pp:slideMaximum="100"
+            pp:slideMinimum="1"
             android:persistent="true"
             android:title="@string/custom_sound_volume"/>
     </PreferenceCategory>
@@ -29,15 +30,16 @@
         android:key="tweak_dictionary_group"
         android:title="@string/tweak_dictionary_group">
 
-        <com.anysoftkeyboard.ui.settings.SeekBarPreference
+        <!-- Using this import require an Android Library reference from https://github.com/menny/PushingPixels -->
+        <net.evendanan.pushingpixels.SlidePreference
             android:defaultValue="2"
             android:key="@string/settings_key_min_length_for_word_correction__"
-            android:max="10"
+            pp:slideMaximum="10"
             android:persistent="true"
             android:title="@string/settings_min_length_for_word_correction"
-            ask:min="1"/>
+            pp:slideMinimum="1"/>
 
-        <com.anysoftkeyboard.ui.settings.ListPreferenceEx
+        <net.evendanan.pushingpixels.ListPreference
             android:defaultValue="@string/settings_default_should_swap_punctuation_and_space"
             android:dialogTitle="@string/should_swap_punctuation_and_space_title"
             android:entries="@array/settings_key_should_swap_punctuation_and_space_names"
@@ -129,7 +131,7 @@
         android:key="tweak_ux_group"
         android:title="@string/tweak_ux_group">
 
-        <com.anysoftkeyboard.ui.settings.ListPreferenceEx
+        <net.evendanan.pushingpixels.ListPreference
             android:defaultValue="@string/settings_default_multitap_timeout"
             android:dialogTitle="@string/multitap_timeout_title"
             android:entries="@array/settings_key_multitap_timeout_names"
@@ -138,7 +140,7 @@
             android:summary="@string/multitap_timeout_summary"
             android:title="@string/multitap_timeout_title"/>
 
-        <com.anysoftkeyboard.ui.settings.ListPreferenceEx
+        <net.evendanan.pushingpixels.ListPreference
             android:defaultValue="@string/settings_default_long_press_timeout"
             android:dialogTitle="@string/long_press_timeout_title"
             android:entries="@array/settings_key_long_press_timeout_names"

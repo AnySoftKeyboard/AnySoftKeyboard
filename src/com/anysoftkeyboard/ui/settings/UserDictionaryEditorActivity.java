@@ -41,6 +41,45 @@ import java.util.ArrayList;
 
 public class UserDictionaryEditorActivity extends ListActivity {
 
+    static final class DictionaryLocale {
+        private final String mLocale;
+        private final String mLocaleName;
+
+        public DictionaryLocale(String locale, String name) {
+            mLocale = locale;
+            mLocaleName = name;
+        }
+
+        public String getLocale() { return mLocale; }
+
+        @Override
+        public String toString() {
+            return String.format("%s - (%s)", mLocaleName, mLocale);
+        }
+
+        @Override
+        public int hashCode() {
+            return mLocale == null? 0 : mLocale.hashCode();
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (o instanceof DictionaryLocale) {
+                String otherLocale = ((DictionaryLocale)o).getLocale();
+                if (otherLocale == null && mLocale == null)
+                    return true;
+                else if (otherLocale == null)
+                    return false;
+                else if (mLocale == null)
+                    return false;
+                else
+                    return mLocale.equals(otherLocale);
+            } else {
+                return false;
+            }
+        }
+    }
+
     public static final String ASK_USER_WORDS_SDCARD_FILENAME = "UserWords.xml";
 
     private static final String INSTANCE_KEY_DIALOG_EDITING_WORD = "DIALOG_EDITING_WORD";
@@ -83,7 +122,7 @@ public class UserDictionaryEditorActivity extends ListActivity {
         mLangs.setOnItemSelectedListener(new OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
-                mSelectedLocale = arg0.getItemAtPosition(arg2).toString();
+                mSelectedLocale = ((DictionaryLocale)arg0.getItemAtPosition(arg2)).getLocale();
                 fillWordsList();
             }
 
@@ -154,11 +193,11 @@ public class UserDictionaryEditorActivity extends ListActivity {
 
     void fillLangsSpinner() {
         new UserWordsEditorAsyncTask(this) {
-            private ArrayList<String> mLangsList;
+            private ArrayList<DictionaryLocale> mLangsList;
 
             @Override
             protected Void doAsyncTask(Void[] params) throws Exception {
-                mLangsList = new ArrayList<String>();
+                mLangsList = new ArrayList<DictionaryLocale>();
 
                 ArrayList<KeyboardAddOnAndBuilder> keyboards = KeyboardFactory
                         .getAllAvailableKeyboards(getApplicationContext());
@@ -166,10 +205,13 @@ public class UserDictionaryEditorActivity extends ListActivity {
                     String locale = kbd.getKeyboardLocale();
                     if (TextUtils.isEmpty(locale))
                         continue;
-                    if (mLangsList.contains(locale))
+
+                    DictionaryLocale dictionaryLocale = new DictionaryLocale(locale, kbd.getName());
+                    //Don't worry, DictionaryLocale equals any DictionaryLocale with the same locale (no matter what its name is)
+                    if (mLangsList.contains(dictionaryLocale))
                         continue;
                     Log.d(TAG, "Adding locale " + locale + " to editor.");
-                    mLangsList.add(locale);
+                    mLangsList.add(dictionaryLocale);
                 }
                 return null;
             }
@@ -177,11 +219,11 @@ public class UserDictionaryEditorActivity extends ListActivity {
             @Override
             protected void applyResults(Void result,
                                         Exception backgroundException) {
-                ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(
+                ArrayAdapter<DictionaryLocale> adapter = new ArrayAdapter<DictionaryLocale>(
                         UserDictionaryEditorActivity.this,
                         android.R.layout.simple_spinner_item);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                for (String lang : mLangsList)
+                for (DictionaryLocale lang : mLangsList)
                     adapter.add(lang);
 
                 mLangs.setAdapter(adapter);
@@ -236,13 +278,11 @@ public class UserDictionaryEditorActivity extends ListActivity {
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle(title)
                 .setMessage(text)
-                .setPositiveButton(android.R.string.ok,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                                dialog.dismiss();
-                            }
-                        }).create();
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).create();
 
         return dialog;
     }
@@ -258,28 +298,19 @@ public class UserDictionaryEditorActivity extends ListActivity {
                 | InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE);
 
         return new AlertDialog.Builder(this)
-                .setTitle(
-                        mDialogEditingWord != null ? R.string.user_dict_settings_edit_dialog_title
-                                : R.string.user_dict_settings_add_dialog_title)
+                .setTitle(mDialogEditingWord != null ? R.string.user_dict_settings_edit_dialog_title : R.string.user_dict_settings_add_dialog_title)
                 .setView(content)
-                .setPositiveButton(android.R.string.ok,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                                onAddOrEditFinished(editText.getText()
-                                        .toString());
-                                if (mAutoReturn)
-                                    finish();
-                            }
-                        })
-                .setNegativeButton(android.R.string.cancel,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                                if (mAutoReturn)
-                                    finish();
-                            }
-                        }).create();
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        onAddOrEditFinished(editText.getText().toString());
+                        if (mAutoReturn) finish();
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (mAutoReturn) finish();
+                    }
+                }).create();
     }
 
     @Override
@@ -350,8 +381,6 @@ public class UserDictionaryEditorActivity extends ListActivity {
                 MyAdapter adapter = new MyAdapter();
                 setListAdapter(adapter);
             }
-
-            ;
         }.execute();
     }
 

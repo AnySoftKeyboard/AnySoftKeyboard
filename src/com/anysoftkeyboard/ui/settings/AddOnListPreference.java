@@ -35,8 +35,10 @@ import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.addons.IconHolder;
 import com.anysoftkeyboard.addons.ScreenshotHolder;
 import com.menny.android.anysoftkeyboard.R;
+/*using this import requires using the Android Library from https://github.com/menny/PushingPixels*/
+import net.evendanan.pushingpixels.ListPreference;
 
-public class AddOnListPreference extends ListPreferenceEx {
+public class AddOnListPreference extends ListPreference {
 
     private AddOn[] mAddOns;
     private AddOn mSelectedAddOn;

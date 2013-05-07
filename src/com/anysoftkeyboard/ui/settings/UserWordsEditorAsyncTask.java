@@ -15,8 +15,8 @@
  */
 
 package com.anysoftkeyboard.ui.settings;
-
-import com.anysoftkeyboard.ui.AsyncTaskWithProgressWindow;
+/*Using this import require an Android Library reference from https://github.com/menny/PushingPixels*/
+import net.evendanan.pushingpixels.AsyncTaskWithProgressWindow;
 
 abstract class UserWordsEditorAsyncTask extends AsyncTaskWithProgressWindow<Void, Void, Void, UserDictionaryEditorActivity> {
 

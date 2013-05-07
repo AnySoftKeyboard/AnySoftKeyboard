@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2013 Menny Even-Danan
+<!-- Copyright (C) 2013 Menny Even Danan
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,5 +14,10 @@
      limitations under the License.
 -->
 
-<resources>
-</resources>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:tag="20130506"
+              android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+    <TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
+              android:text="* Crash fixes for some devices.\n* Re-save words fix." style="@android:style/TextAppearance.Small"/>
+
+</LinearLayout>
