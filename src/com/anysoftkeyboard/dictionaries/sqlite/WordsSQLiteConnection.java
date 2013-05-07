@@ -95,8 +95,7 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(Words._ID, word.hashCode());// ensuring that any word is
-        // inserted once
+        values.put(Words._ID, word.hashCode());// ensuring that any word is inserted once
         values.put(Words.WORD, word);
         values.put(Words.FREQUENCY, freq);
         values.put(Words.LOCALE, mCurrentLocale);
