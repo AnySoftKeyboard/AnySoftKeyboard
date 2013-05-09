@@ -107,7 +107,10 @@ public abstract class BTreeDictionary extends EditableDictionary {
      */
     public boolean addWord(String word, int frequency) {
         synchronized (mResourceMonitor) {
-            if (isClosed()) return false;
+            if (isClosed()) {
+                Log.d(TAG, "Dictionary (type "+this.getClass().getName()+") "+this.getDictionaryName()+" is closed! Can not add word.");
+                return false;
+            }
             // Safeguard against adding long words. Can cause stack overflow.
             if (word.length() >= MAX_WORD_LENGTH) return false;
 
@@ -131,7 +134,10 @@ public abstract class BTreeDictionary extends EditableDictionary {
     @Override
     public final void deleteWord(String word) {
         synchronized (mResourceMonitor) {
-            if (isClosed()) return;
+            if (isClosed()) {
+                Log.d(TAG, "Dictionary (type "+this.getClass().getName()+") "+this.getDictionaryName()+" is closed! Can not delete word.");
+                return;
+            }
             deleteWordRec(mRoots, word, 0, word.length());
             deleteWordFromStorage(word);
         }

@@ -92,10 +92,12 @@ public class UserDictionary extends EditableDictionary {
 
     @Override
     public final boolean addWord(String word, int frequency) {
-        if (mActualDictionary != null)
+        if (mActualDictionary != null) {
             return mActualDictionary.addWord(word, frequency);
-        else
+        } else {
+            Log.d(TAG, "There is no actual dictionary to use for adding word! How come?");
             return false;
+        }
     }
 
     @Override
