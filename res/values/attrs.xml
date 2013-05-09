@@ -15,4 +15,6 @@
 -->
 
 <resources>
+    <!-- although this is not used, it must stay here, or else the backward compatibility of the themes/addon will be broken -->
+    <attr name="min" format="integer"/>
 </resources>

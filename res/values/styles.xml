@@ -22,6 +22,12 @@
     <style name="Popup.NoTitle" parent="@style/Popup">
         <item name="android:windowNoTitle">true</item>
     </style>
+    <!-- although this is not used, it must stay here, or else the backward compatibility of the themes/addon will be broken -->
+    <style name="ProgressDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@drawable/progress_dialog_background</item>
+    </style>
 
     <style name="AnyKeyboardBaseKeyIconTheme">
         <!-- should support normal, android:state_pressed, feedback, android:state_pressed+feedback, android:state_checked, state_checked+feedback -->
