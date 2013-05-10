@@ -149,7 +149,7 @@ public class AddOnCheckBoxPreference extends Preference implements
             DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
             popup.setWidth(dm.widthPixels);
             popup.setHeight(dm.heightPixels);
-            popup.setAnimationStyle(R.style.ScreenshotAnimation);
+            popup.setAnimationStyle(R.style.AddonScreenshotPopupAnimation);
             layout.findViewById(R.id.addon_screenshot_close).setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {
                     popup.dismiss();
