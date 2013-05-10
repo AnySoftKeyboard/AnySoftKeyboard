@@ -2264,11 +2264,9 @@ public class AnySoftKeyboard extends InputMethodService implements
                     // updated faster!
                     // but will not handle "delete all selected text" feature,
                     // hence the "if (!forMultitap)" above
-                    final CharSequence beforeText = ic
-                            .getTextBeforeCursor(1, 0);
-                    final int textLengthBeforeDelete = (TextUtils
-                            .isEmpty(beforeText)) ? 0 : beforeText.length();
-                    if (textLengthBeforeDelete > 0)
+                    final CharSequence beforeText = ic == null? null : ic.getTextBeforeCursor(1, 0);
+                    final int textLengthBeforeDelete = (TextUtils.isEmpty(beforeText)) ? 0 : beforeText.length();
+                    if (textLengthBeforeDelete > 0) 
                         ic.deleteSurroundingText(1, 0);
                     else
                         sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
