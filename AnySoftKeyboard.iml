@@ -23,7 +23,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="AnySoftKeyboard-API" />
-    <orderEntry type="module" module-name="PushingPixels" />
   </component>
 </module>
 
