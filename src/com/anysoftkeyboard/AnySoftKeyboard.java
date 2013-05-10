@@ -1696,10 +1696,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     public boolean addWordToDictionary(String word) {
         if (mUserDictionary != null) {
-            mUserDictionary.addWord(word, 128);
-            if (mCandidateView != null)
+            boolean added = mUserDictionary.addWord(word, 128);
+            if (added && mCandidateView != null)
                 mCandidateView.notifyAboutWordAdded(word);
-            return true;
+            return added;
         } else {
             return false;
         }
