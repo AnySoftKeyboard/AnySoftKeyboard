@@ -17,12 +17,14 @@
 package com.anysoftkeyboard.dictionaries;
 
 import com.anysoftkeyboard.WordComposer;
+import com.anysoftkeyboard.utils.Log;
 
 /**
  * Abstract base class for a dictionary that can do a fuzzy search for words based on a set of key
  * strokes.
  */
 abstract public class Dictionary {
+    private static final String TAG = "ASK_DICT";
     /**
      * Whether or not to replicate the typed word in the suggested list, even if it's valid.
      */

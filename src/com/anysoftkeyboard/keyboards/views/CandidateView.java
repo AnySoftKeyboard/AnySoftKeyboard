@@ -502,7 +502,10 @@ public class CandidateView extends View {
                             final CharSequence word = mSuggestions.get(0);
                             if (word.length() >= 2 && !mNoticing) {
                                 Log.d(TAG, "User wants to add the word " + word + " to the user-dictionary.");
-                                mService.addWordToDictionary(word.toString());
+                                boolean added = mService.addWordToDictionary(word.toString());
+                                if (!added) {
+                                    Log.w(TAG, "Failed to add word to user-dictionary!");
+                                }
                             }
                         } else if (!mNoticing) {
                             if (!mShowingCompletions) {
