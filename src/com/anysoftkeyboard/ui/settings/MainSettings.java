@@ -46,17 +46,6 @@ public class MainSettings extends PreferenceActivity {
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         addPreferencesFromResource(R.xml.prefs);
-
-        String version = "";
-        try {
-            final PackageInfo info = getPackageInfo(getApplicationContext());
-            version = info.versionName + " (release " + info.versionCode + ")";
-        } catch (final NameNotFoundException e) {
-            Log.e(TAG, "Failed to locate package information! This is very weird... I'm installed.");
-        }
-
-        Preference label = findPreference("prefs_title_key");
-        label.setSummary(label.getSummary() + version);
     }
 
     private void setAddOnGroupSummary(String preferenceGroupKey, AddOn addOn) {

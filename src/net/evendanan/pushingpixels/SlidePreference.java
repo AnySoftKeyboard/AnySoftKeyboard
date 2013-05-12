@@ -57,6 +57,7 @@ public class SlidePreference extends Preference implements SeekBar.OnSeekBarChan
             mTitle = array.getString(R.styleable.SlidePreferenceAttributes_android_title);
         else
             mTitle = context.getString(titleResId);
+        array.recycle();
     }
 
     @Override
