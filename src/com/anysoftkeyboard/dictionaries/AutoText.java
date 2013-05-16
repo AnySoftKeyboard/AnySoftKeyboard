@@ -46,23 +46,25 @@ import java.util.Map;
 
 public class AutoText {
 
-	private static ConcurrentRadixTree<String> mTree = null;
 	private static final String mFileDirname = "/AnySoftKeyboard/AutoText";
 	private static String mLanguage;
 	protected static final String TAG = "ASK AutoText";
+	
+	private static ConcurrentRadixTree<String> mTree = null;
 	private static Map<String, ConcurrentRadixTree<String>> mTrees = new HashMap<String, ConcurrentRadixTree<String>>();
-
+	
 	AutoText(Resources resources, int resId, String language) {
 
 		mLanguage = language;
-
-		AsyncAutoTextParsing backgroundTask = new AsyncAutoTextParsing();
-		backgroundTask.resId = resId;
-		backgroundTask.resources = resources;
-		backgroundTask.execute();
+		
+		AsyncAutoTextParsing mAsyncTask = new AsyncAutoTextParsing();
+		mAsyncTask.resId = resId;
+		mAsyncTask.resources = resources;
+		mAsyncTask.execute();
 	}
 
 	public String lookup(CharSequence src, final int start, final int end) {
+		//the tree loads in an async task, then maybe is null if the task takes time
 		if (mTree == null)
 			return null;
 		else
@@ -87,7 +89,7 @@ public class AutoText {
 				Log.i(TAG, "Tree '" + mLanguage + "' loaded from memory");
 				return null;
 			}
-
+			
 			// if not, read a cached serialized version (if exists)
 			try {
 				mTree = unserialize();
@@ -95,13 +97,15 @@ public class AutoText {
 						+ "' loaded from serialized version");
 				return null;
 			} catch (IOException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
+			} catch(Throwable e)  {
+				//e.printStackTrace();
 			}
 			Log.i(TAG, "Failed to read the Tree '" + mLanguage
 					+ "' from serialized version");
-
+			
 			// if not, create new tree
 			mTree = new ConcurrentRadixTree<String>(
 					new DefaultCharArrayNodeFactory());
@@ -135,6 +139,10 @@ public class AutoText {
 				parser.close();
 			}
 
+			// in an static object
+			mTrees.put(mLanguage, mTree);
+			Log.i(TAG, "Tree '" + mLanguage + "' saved to static object");
+			
 			// serializing the result
 			try {
 				serialize(mTree);
@@ -142,11 +150,10 @@ public class AutoText {
 			} catch (IOException e1) {
 				Log.i(TAG, "Failed to save serialized Tree '" + mLanguage
 						+ "' to file");
+			} catch(Throwable e)  {
+				//e.printStackTrace();
 			}
 
-			// in an static object
-			mTrees.put(mLanguage, mTree);
-			Log.i(TAG, "Tree '" + mLanguage + "' saved to static object");
 			return null;
 		}
 
