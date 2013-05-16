@@ -17,13 +17,11 @@ package com.anysoftkeyboard.dictionaries;
 
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
-import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
 
 import com.anysoftkeyboard.utils.XmlUtils;
 
-//second try.. better
 import com.googlecode.concurrenttrees.radix.ConcurrentRadixTree;
 import com.googlecode.concurrenttrees.radix.node.concrete.DefaultCharArrayNodeFactory;
 
@@ -49,168 +47,156 @@ public class AutoText {
 	private static final String mFileDirname = "/AnySoftKeyboard/AutoText";
 	private static String mLanguage;
 	protected static final String TAG = "ASK AutoText";
-	
+
 	private static ConcurrentRadixTree<String> mTree = null;
 	private static Map<String, ConcurrentRadixTree<String>> mTrees = new HashMap<String, ConcurrentRadixTree<String>>();
-	
+	private int mResId;
+	private Resources mResources;
+	private static ThreadGroup mThreadgroup = new ThreadGroup("");
+
 	AutoText(Resources resources, int resId, String language) {
 
 		mLanguage = language;
-		
-		AsyncAutoTextParsing mAsyncTask = new AsyncAutoTextParsing();
-		mAsyncTask.resId = resId;
-		mAsyncTask.resources = resources;
-		mAsyncTask.execute();
+		mResId = resId;
+		mResources = resources;
+
+		new Thread(mThreadgroup, new Runnable() {
+
+			@Override
+			public void run() {
+
+				// if the tree is in memory just load it
+				if (mTrees.containsKey(mLanguage)) {
+					mTree = mTrees.get(mLanguage);
+					Log.i(TAG, "Tree '" + mLanguage + "' loaded from memory");
+					return;
+				}
+
+				// if not, read a cached serialized version (if exists)
+				try {
+					mTree = unserialize();
+					Log.i(TAG, "Tree '" + mLanguage
+							+ "' loaded from serialized version");
+					return;
+				} catch (IOException e) {
+					// e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					// e.printStackTrace();
+				} catch (Throwable e) {
+					// e.printStackTrace();
+				}
+				Log.i(TAG, "Failed to read the Tree '" + mLanguage
+						+ "' from serialized version");
+
+				// if not, create new tree
+				mTree = new ConcurrentRadixTree<String>(
+						new DefaultCharArrayNodeFactory());
+				XmlResourceParser parser = mResources.getXml(mResId);
+
+				try {
+					XmlUtils.beginDocument(parser, "words");
+					String element = null;
+					String search = null;
+					while (true) {
+						XmlUtils.nextElement(parser);
+						element = parser.getName();
+						if (element == null || !(element.equals("word"))) {
+							break;
+						}
+						search = parser.getAttributeValue(null, "src");
+						if (parser.next() == XmlPullParser.TEXT) {
+							mTree.put(search, parser.getText());
+						}
+					}
+					Log.i(TAG, "Tree '" + mLanguage
+							+ "' created from autotext.xml");
+				} catch (XmlPullParserException e) {
+					Log.i(TAG, "Failed to create tree '" + mLanguage
+							+ "' from autotext.xml");
+					throw new RuntimeException(e);
+				} catch (IOException e) {
+					Log.i(TAG, "Failed to create tree '" + mLanguage
+							+ "' from autotext.xml");
+					throw new RuntimeException(e);
+				} finally {
+					parser.close();
+				}
+
+				// in an static object
+				mTrees.put(mLanguage, mTree);
+				Log.i(TAG, "Tree '" + mLanguage + "' saved to static object");
+
+				// serializing the result
+				try {
+					serialize(mTree);
+					Log.i(TAG, "Tree '" + mLanguage
+							+ "' saved to serialized file");
+				} catch (IOException e1) {
+					Log.i(TAG, "Failed to save serialized Tree '" + mLanguage
+							+ "' to file");
+				} catch (Throwable e) {
+					// e.printStackTrace();
+				}
+
+				return;
+			}
+
+		}, "ASK Autotext Thread", 262144).start();
+
 	}
 
 	public String lookup(CharSequence src, final int start, final int end) {
-		//the tree loads in an async task, then maybe is null if the task takes time
+		// the tree loads in an async task, then maybe is null if the task takes
+		// time
 		if (mTree == null)
 			return null;
 		else
 			return mTree.getValueForExactKey(src.toString());
 	}
 
-	private class AsyncAutoTextParsing extends AsyncTask<Void, Void, Void> {
+	// serialize
+	public boolean serialize(ConcurrentRadixTree<String> obj)
+			throws IOException {
 
-		private int resId;
-		private Resources resources;
+		File root = Environment.getExternalStorageDirectory();
+		File dir = new File(root.getAbsolutePath() + mFileDirname);
+		dir.mkdirs();
+		File file = new File(dir, mLanguage + ".serialized");
+		if (file.exists())
+			file.delete();
 
-		@Override
-		protected void onPreExecute() {
+		try {
+			FileOutputStream f = new FileOutputStream(file);
+			ObjectOutputStream os = new ObjectOutputStream(f);
+			os.writeObject(obj);
+			os.close();
+			f.close();
+			return true;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
 		}
+	}
 
-		@Override
-		protected Void doInBackground(Void... params) {
+	// unserialize
+	@SuppressWarnings("unchecked")
+	public ConcurrentRadixTree<String> unserialize() throws IOException,
+			ClassNotFoundException {
 
-			// if the tree is in memory just load it
-			if (mTrees.containsKey(mLanguage)) {
-				mTree = mTrees.get(mLanguage);
-				Log.i(TAG, "Tree '" + mLanguage + "' loaded from memory");
-				return null;
-			}
-			
-			// if not, read a cached serialized version (if exists)
-			try {
-				mTree = unserialize();
-				Log.i(TAG, "Tree '" + mLanguage
-						+ "' loaded from serialized version");
-				return null;
-			} catch (IOException e) {
-				//e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				//e.printStackTrace();
-			} catch(Throwable e)  {
-				//e.printStackTrace();
-			}
-			Log.i(TAG, "Failed to read the Tree '" + mLanguage
-					+ "' from serialized version");
-			
-			// if not, create new tree
-			mTree = new ConcurrentRadixTree<String>(
-					new DefaultCharArrayNodeFactory());
-			XmlResourceParser parser = resources.getXml(resId);
+		File root = Environment.getExternalStorageDirectory();
+		File dir = new File(root.getAbsolutePath() + mFileDirname);
+		dir.mkdirs();
+		File file = new File(dir, mLanguage + ".serialized");
 
-			try {
-				XmlUtils.beginDocument(parser, "words");
-				String element = null;
-				String search = null;
-				while (true) {
-					XmlUtils.nextElement(parser);
-					element = parser.getName();
-					if (element == null || !(element.equals("word"))) {
-						break;
-					}
-					search = parser.getAttributeValue(null, "src");
-					if (parser.next() == XmlPullParser.TEXT) {
-						mTree.put(search, parser.getText());
-					}
-				}
-				Log.i(TAG, "Tree '" + mLanguage + "' created from autotext.xml");
-			} catch (XmlPullParserException e) {
-				Log.i(TAG, "Failed to create tree '" + mLanguage
-						+ "' from autotext.xml");
-				throw new RuntimeException(e);
-			} catch (IOException e) {
-				Log.i(TAG, "Failed to create tree '" + mLanguage
-						+ "' from autotext.xml");
-				throw new RuntimeException(e);
-			} finally {
-				parser.close();
-			}
-
-			// in an static object
-			mTrees.put(mLanguage, mTree);
-			Log.i(TAG, "Tree '" + mLanguage + "' saved to static object");
-			
-			// serializing the result
-			try {
-				serialize(mTree);
-				Log.i(TAG, "Tree '" + mLanguage + "' saved to serialized file");
-			} catch (IOException e1) {
-				Log.i(TAG, "Failed to save serialized Tree '" + mLanguage
-						+ "' to file");
-			} catch(Throwable e)  {
-				//e.printStackTrace();
-			}
-
-			return null;
-		}
-
-		@Override
-		protected void onProgressUpdate(Void... data) {
-		}
-
-		@Override
-		protected void onCancelled(Void unused) {
-		}
-
-		@Override
-		protected void onPostExecute(Void unused) {
-		}
-
-		// serialize
-		public boolean serialize(ConcurrentRadixTree<String> obj)
-				throws IOException {
-
-			File root = Environment.getExternalStorageDirectory();
-			File dir = new File(root.getAbsolutePath() + mFileDirname);
-			dir.mkdirs();
-			File file = new File(dir, mLanguage + ".serialized");
-			if (file.exists())
-				file.delete();
-			
-			try {
-				FileOutputStream f = new FileOutputStream(file);
-				ObjectOutputStream os = new ObjectOutputStream(f);
-				os.writeObject(obj);
-				os.close();
-				return true;
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-				return false;
-			} catch (IOException e) {
-				e.printStackTrace();
-				return false;
-			}
-		}
-
-		// unserialize
-		@SuppressWarnings("unchecked")
-		public ConcurrentRadixTree<String> unserialize() throws IOException,
-				ClassNotFoundException {
-
-			File root = Environment.getExternalStorageDirectory();
-			File dir = new File(root.getAbsolutePath() + mFileDirname);
-			dir.mkdirs();
-			File file = new File(dir, mLanguage + ".serialized");
-
-			FileInputStream fis = new FileInputStream(file);
-			ObjectInputStream is = new ObjectInputStream(fis);
-			ConcurrentRadixTree<String> simpleClass = (ConcurrentRadixTree<String>) is
-					.readObject();
-			is.close();
-			return simpleClass;
-		}
+		FileInputStream fis = new FileInputStream(file);
+		ObjectInputStream is = new ObjectInputStream(fis);
+		ConcurrentRadixTree<String> simpleClass = (ConcurrentRadixTree<String>) is
+				.readObject();
+		is.close();
+		fis.close();
+		return simpleClass;
 	}
 }
