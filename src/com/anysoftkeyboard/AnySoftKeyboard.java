@@ -2677,14 +2677,16 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     private boolean pickDefaultSuggestion() {
-        final CharSequence bestWord = mWord.getPreferredWord();
-        if (DEBUG)
-            Log.d(TAG, "pickDefaultSuggestion: bestWord:" + bestWord);
+
         // Complete any pending candidate query first
         if (mHandler.hasMessages(MSG_UPDATE_SUGGESTIONS)) {
             performUpdateSuggestions();
         }
 
+        final CharSequence bestWord = mWord.getPreferredWord();
+        if (DEBUG)
+            Log.d(TAG, "pickDefaultSuggestion: bestWord:" + bestWord);
+        
         if (!TextUtils.isEmpty(bestWord)) {
             final CharSequence typedWord = mWord.getTypedWord();
             TextEntryState.acceptedDefault(typedWord, bestWord);
