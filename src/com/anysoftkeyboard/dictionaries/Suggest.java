@@ -288,7 +288,7 @@ public class Suggest implements Dictionary.WordCallback {
             String suggestedWord = mSuggestions.get(i).toString().toLowerCase();
 
             CharSequence autoText = mAutoTextEnabled && mAutoText != null ? mAutoText
-                    .lookup(suggestedWord, 0, suggestedWord.length()) : null;
+                    .lookup(suggestedWord) : null;
             // Is there an AutoText correction?
             boolean canAdd = autoText != null;
             // Is that correction already the current prediction (or original

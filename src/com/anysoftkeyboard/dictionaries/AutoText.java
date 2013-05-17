@@ -145,7 +145,7 @@ public class AutoText {
 
 	}
 
-	public String lookup(CharSequence src, final int start, final int end) {
+	public String lookup(CharSequence src) {
 		// the tree loads in an async task, then maybe is null if the task takes
 		// time
 		if (mTree == null)
