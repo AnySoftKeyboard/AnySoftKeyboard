@@ -2296,8 +2296,7 @@ public class AnyKeyboardBaseView extends View implements
         return result;
     }
 
-    private void setupMiniKeyboardContainer(Context packageContext,
-                                            CharSequence popupCharacters, int popupKeyboardId, boolean isSticky) {
+    private void setupMiniKeyboardContainer(CharSequence popupCharacters, int popupKeyboardId, boolean isSticky) {
         final AnyPopupKeyboard keyboard;
         if (popupCharacters != null) {
             keyboard = new AnyPopupKeyboard(getContext()
@@ -2305,7 +2304,7 @@ public class AnyKeyboardBaseView extends View implements
                     mMiniKeyboard.getThemedKeyboardDimens());
         } else {
             keyboard = new AnyPopupKeyboard(getContext()
-                    .getApplicationContext(), packageContext, popupKeyboardId,
+                    .getApplicationContext(), mKeyboard.getKeyboardContext(), popupKeyboardId,
                     mMiniKeyboard.getThemedKeyboardDimens());
         }
         keyboard.setIsOneKeyEventPopup(!isSticky);
@@ -2355,8 +2354,7 @@ public class AnyKeyboardBaseView extends View implements
         if (mMiniKeyboard == null) {
             createMiniKeyboard();
         }
-        setupMiniKeyboardContainer(packageContext, popupKey.popupCharacters,
-                popupKey.popupResId, isSticky);
+        setupMiniKeyboardContainer(popupKey.popupCharacters, popupKey.popupResId, isSticky);
         mMiniKeyboardVisible = true;
         if (mWindowOffset == null) {
             mWindowOffset = new int[2];
