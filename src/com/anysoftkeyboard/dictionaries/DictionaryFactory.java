@@ -17,7 +17,6 @@
 package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
-import android.database.ContentObserver;
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.dictionaries.content.ContactsDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary;
@@ -27,20 +26,7 @@ import net.evendanan.frankenrobot.Diagram;
 
 public class DictionaryFactory {
 
-    public static final class ContactsDictionaryDiagram extends Diagram<ContactsDictionary> {
-        private final Context mAppContext;
-        public ContactsDictionaryDiagram(Context appContext) {
-            mAppContext = appContext;
-        }
-
-        public Context getAppContext() {
-            return mAppContext;
-        }
-    }
-
-
     private static final String TAG = "ASK DictFactory";
-
     private AutoDictionary mAutoDictionary = null;
     private String mUserDictionaryLocale = null;
     private EditableDictionary mUserDictionary = null;
@@ -48,13 +34,20 @@ public class DictionaryFactory {
     public DictionaryFactory() {
     }
 
-    public synchronized EditableDictionary createUserDictionary(
-            Context context, String locale) {
-        if (mUserDictionary != null
-                && equalsString(mUserDictionaryLocale, locale)) {
-            Log.d(TAG, "Returning cached user-dictionary for locale "
-                    + mUserDictionaryLocale);
-            return mUserDictionary;
+    private static boolean equalsString(String a, String b) {
+        if (a == null && b == null) return true;
+        else if (a == null || b == null) return false;
+        else return a.equals(b);
+    }
+
+    public synchronized EditableDictionary createUserDictionary(Context context, String locale) {
+        if (mUserDictionary != null) {
+            if (!mUserDictionary.isClosed() && equalsString(mUserDictionaryLocale, locale)) {
+                Log.d(TAG, "Returning cached user-dictionary for locale " + mUserDictionaryLocale);
+                return mUserDictionary;
+            } else {
+                mUserDictionary.close();
+            }
         }
         Log.d(TAG, "Creating a new UserDictionary for locale " + locale);
         mUserDictionary = new UserDictionary(context, locale);
@@ -68,21 +61,10 @@ public class DictionaryFactory {
         return AnyApplication.getFrankenRobot().embody(new ContactsDictionaryDiagram(context.getApplicationContext()));
     }
 
-    private static boolean equalsString(String a, String b) {
-        if (a == null && b == null)
-            return true;
-        else  if (a == null || b == null)
-            return false;
-        else
-            return a.equals(b);
-    }
+    public synchronized AutoDictionary createAutoDictionary(Context context, AnySoftKeyboard ime, String currentAutoDictionaryLocale) {
+        if (AnyApplication.getConfig().getAutoDictionaryInsertionThreshold() < 0) return null;
 
-    public synchronized AutoDictionary createAutoDictionary(Context context,
-                                                            AnySoftKeyboard ime, String currentAutoDictionaryLocale) {
-        if (AnyApplication.getConfig().getAutoDictionaryInsertionThreshold() < 0)
-            return null;
-
-        if (mAutoDictionary != null) {
+        if (mAutoDictionary != null && !mAutoDictionary.isClosed()) {
             if (equalsString(mAutoDictionary.getLocale(), currentAutoDictionaryLocale)) {
                 return mAutoDictionary;
             } else {
@@ -91,14 +73,24 @@ public class DictionaryFactory {
             }
         }
 
-        Log.d(TAG, "Creating AutoDictionary for locale: "
-                + currentAutoDictionaryLocale);
+        Log.d(TAG, "Creating AutoDictionary for locale: " + currentAutoDictionaryLocale);
 
-        mAutoDictionary = new AutoDictionary(context, ime,
-                currentAutoDictionaryLocale);
+        mAutoDictionary = new AutoDictionary(context, ime, currentAutoDictionaryLocale);
 
         new DictionaryASyncLoader(null).execute(mAutoDictionary);
 
         return mAutoDictionary;
+    }
+
+    public static final class ContactsDictionaryDiagram extends Diagram<ContactsDictionary> {
+        private final Context mAppContext;
+
+        public ContactsDictionaryDiagram(Context appContext) {
+            mAppContext = appContext;
+        }
+
+        public Context getAppContext() {
+            return mAppContext;
+        }
     }
 }
