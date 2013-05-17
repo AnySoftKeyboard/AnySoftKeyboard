@@ -340,10 +340,10 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
                         mExtensionKey.x = getWidth() / 2;
                         mExtensionKey.y = mExtensionKeyboardPopupOffset;
                     }
-                    mExtensionKey.x = (int) me.getX();// so the popup will be
-                    // right above your
-                    // finger.
-                    onLongPress(getContext(), mExtensionKey, AnyApplication
+                    // so the popup will be right above your finger.
+                    mExtensionKey.x = (int) me.getX();
+
+                    onLongPress(getKeyboard().getKeyboardContext(), mExtensionKey, AnyApplication
                             .getConfig().isStickyExtensionKeyboard(),
                             !AnyApplication.getConfig()
                                     .isStickyExtensionKeyboard());
