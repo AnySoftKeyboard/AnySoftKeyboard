@@ -2259,7 +2259,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		        }
 		        //keep space after a word; if the char is -1 then the char at 0 was already deleted
 		        //case deleting this "aword aword2|" cursor will end here "aword |" 
-		        //case deleting this "aword. aword2|" cursor will end here "aword. |" 
+		        //case deleting this "aword. aword2|" cursor will end here "aword |" 
 		        if(idx!=-1)
 		        	idx+=1;
     		}
