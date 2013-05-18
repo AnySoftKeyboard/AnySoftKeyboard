@@ -825,22 +825,19 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
         return mAnimationsLevel;
     }
 
-    @Override
+    
     public int getFirstAppVersionInstalled() {
         return mFirstAppVersionInstalled;
     }
 
-    @Override
     public long getFirstTimeAppInstalled() {
         return mFirstTimeAppInstalled;
     }
 
-    @Override
     public long getTimeCurrentVersionInstalled() {
         return mFirstTimeCurrentVersionInstalled;
     }
 
-    @Override
     public boolean alwaysUseFallBackUserDictionary() {
         return mAlwaysUseFallBackUserDictionary;
     }

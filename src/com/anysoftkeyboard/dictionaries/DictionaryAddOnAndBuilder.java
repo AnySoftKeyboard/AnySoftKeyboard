@@ -80,7 +80,7 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
             return null;
         } else {
             try {
-                return new AutoText(getPackageContext().getResources(), mAutoTextResId);
+                return new AutoText(getPackageContext().getResources(), mAutoTextResId, mLanguage);
             } catch (OutOfMemoryError e) {
                 Log.i(TAG, "Failed to create the AutoText dictionary.");
                 return null;
