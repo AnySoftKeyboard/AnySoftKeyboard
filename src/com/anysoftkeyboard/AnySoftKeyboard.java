@@ -1749,12 +1749,18 @@ public class AnySoftKeyboard extends InputMethodService implements
         final InputConnection ic = getCurrentInputConnection();
 
         switch (primaryCode) {
-            case KeyCodes.DELETE_WORD:
-                if (ic == null)// if we don't want to do anything, lets check
-                    // null first.
-                    break;
-                handleBackword(ic);
-                break;
+	        case KeyCodes.DELETE_WORD:
+	            if (ic == null)// if we don't want to do anything, lets check
+	                // null first.
+	                break;
+	            handleBackword(ic);
+	            break;
+	        case KeyCodes.DELETE_WORD_SMART:
+	            if (ic == null)// if we don't want to do anything, lets check
+	                // null first.
+	                break;
+	            handleBackwordSmart(ic);
+	            break;
             case KeyCodes.DELETE:
                 if (ic == null)// if we don't want to do anything, lets check
                     // null first.
@@ -2200,6 +2206,68 @@ public class AnySoftKeyboard extends InputMethodService implements
         // ic.deleteSurroundingText(csl == 0 ? 1 : csl, 0);
         ic.deleteSurroundingText(inputLength - idx, 0);// it is always > 0 !
         postUpdateShiftKeyState();
+    }
+    
+    private static long handleBackwordSmartTimeoutPrevious = new Date().getTime();
+    private static boolean handleBackwordSmartFlagCanDeleteWord() {
+      long now = new Date().getTime();
+      long time = now - handleBackwordSmartTimeoutPrevious;
+      handleBackwordSmartTimeoutPrevious = now;
+      if(time < 190){
+        return true;
+      } else {
+        return false;
+      }
+    }
+    private void handleBackwordSmart(InputConnection ic) {
+       if (ic == null) {
+           return;
+       }
+       if (mPredicting) {
+        commitTyped(ic);
+       }
+       // I will not delete more than 128 characters. Just a safe-guard.
+       // this will also allow me do just one call to getTextBeforeCursor!
+       // Which is alway good. This is a part of issue 951.
+       CharSequence cs = ic.getTextBeforeCursor(128, 0);
+       if (TextUtils.isEmpty(cs)) {
+           return;// nothing to delete
+       }
+      
+
+       final int inputLength = cs.length();
+       int idx = inputLength -1;// it's OK since we checked whether cs is
+
+       // empty after retrieving it.
+       
+       //delete spaces
+       if(cs.charAt(idx) == KeyCodes.SPACE){
+        while (idx > -1 && cs.charAt(idx) == KeyCodes.SPACE) {
+            idx--;
+        }
+        //prevent deletion of last char in a word; if the char is -1 then the char at 0 was already deleted and was actually a space
+        //case deleting this "aword    |" cursor will end here "aword|"
+        if(idx!=-1)
+          idx+=1;
+       } else if(cs.charAt(idx) == KeyCodes.ENTER){
+    } else {
+      //timed out decision to delete chars on slow deletion or backwords in quick deletion
+      if(!handleBackwordSmartFlagCanDeleteWord()){
+      } else {
+          while (idx > -1 && !isBackwordStopChar((int) cs.charAt(idx))) {
+              idx--;
+          }
+          //keep space after a word; if the char is -1 then the char at 0 was already deleted
+          //case deleting this "aword aword2|" cursor will end here "aword |" 
+          //case deleting this "aword. aword2|" cursor will end here "aword |" 
+          if(idx!=-1)
+            idx+=1;
+      }
+    }
+       if(idx==-1)
+        idx = 0;
+       ic.deleteSurroundingText(inputLength - idx, 0);// it is always > 0 !
+       postUpdateShiftKeyState();
     }
 
     private void handleDeleteLastCharacter(boolean forMultitap) {
