@@ -2207,7 +2207,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         ic.deleteSurroundingText(inputLength - idx, 0);// it is always > 0 !
         postUpdateShiftKeyState();
     }
-    
+
     private static long handleBackwordSmartTimeoutPrevious = new Date().getTime();
 	private static boolean handleBackwordSmartFlagCanDeleteWord() {
 		long now = new Date().getTime();
@@ -2233,30 +2233,39 @@ public class AnySoftKeyboard extends InputMethodService implements
         if (TextUtils.isEmpty(cs)) {
             return;// nothing to delete
         }
-       
+
 
         final int inputLength = cs.length();
-        int idx = inputLength - 1;// it's OK since we checked whether cs is
+        int idx = inputLength -1;// it's OK since we checked whether cs is
+
         // empty after retrieving it.
 
-        //delete whitespaces but not \n, first
+        //delete spaces
         if(cs.charAt(idx) == KeyCodes.SPACE){
-	        while (idx > 0 && cs.charAt(idx) == KeyCodes.SPACE) {
+	        while (idx > -1 && cs.charAt(idx) == KeyCodes.SPACE) {
 	            idx--;
 	        }
-	        idx+=1;
+	        //prevent deletion of last char in a word; if the char is -1 then the char at 0 was already deleted and was actually a space
+	        //case deleting this "aword    |" cursor will end here "aword|"
+	        if(idx!=-1)
+	        	idx+=1;
         } else if(cs.charAt(idx) == KeyCodes.ENTER){
-        	//idx--;
     	} else {
     		//timed out decision to delete chars on slow deletion or backwords in quick deletion
     		if(!handleBackwordSmartFlagCanDeleteWord()){
     		} else {
-		        while (idx > 0 && !isBackwordStopChar((int) cs.charAt(idx))) {
+		        while (idx > -1 && !isBackwordStopChar((int) cs.charAt(idx))) {
 		            idx--;
 		        }
+		        //keep space after a word; if the char is -1 then the char at 0 was already deleted
+		        //case deleting this "aword aword2|" cursor will end here "aword |"
+		        //case deleting this "aword. aword2|" cursor will end here "aword. |"
+		        if(idx!=-1)
+		        	idx+=1;
     		}
 	    }
-
+        if(idx==-1)
+        	idx = 0;
         ic.deleteSurroundingText(inputLength - idx, 0);// it is always > 0 !
         postUpdateShiftKeyState();
     }
