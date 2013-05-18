@@ -2253,6 +2253,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     		//timed out decision to delete chars on slow deletion or backwords in quick deletion
     		if(!handleBackwordSmartFlagCanDeleteWord()){
     		} else {
+    			idx--;
     			while (idx > -1 && !isBackwordStopChar((int) cs.charAt(idx))) {
     				idx--;
     			}
