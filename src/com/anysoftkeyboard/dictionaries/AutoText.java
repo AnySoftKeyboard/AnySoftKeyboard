@@ -77,6 +77,9 @@ public class AutoText {
 					mTree = unserialize();
 					Log.i(TAG, "Tree '" + mLanguage
 							+ "' loaded from serialized version");
+					//save it in an static object
+					mTrees.put(mLanguage, mTree);
+					Log.i(TAG, "Tree '" + mLanguage + "' saved to static object");
 					return;
 				} catch (IOException e) {
 					// e.printStackTrace();
