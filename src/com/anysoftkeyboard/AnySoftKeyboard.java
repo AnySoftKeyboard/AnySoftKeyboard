@@ -2207,7 +2207,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         ic.deleteSurroundingText(inputLength - idx, 0);// it is always > 0 !
         postUpdateShiftKeyState();
     }
-
+    
     private static long handleBackwordSmartTimeoutPrevious = new Date().getTime();
 	private static boolean handleBackwordSmartFlagCanDeleteWord() {
 		long now = new Date().getTime();
@@ -2233,13 +2233,13 @@ public class AnySoftKeyboard extends InputMethodService implements
         if (TextUtils.isEmpty(cs)) {
             return;// nothing to delete
         }
-
+       
 
         final int inputLength = cs.length();
         int idx = inputLength -1;// it's OK since we checked whether cs is
 
         // empty after retrieving it.
-
+        
         //delete spaces
         if(cs.charAt(idx) == KeyCodes.SPACE){
 	        while (idx > -1 && cs.charAt(idx) == KeyCodes.SPACE) {
@@ -2258,8 +2258,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		            idx--;
 		        }
 		        //keep space after a word; if the char is -1 then the char at 0 was already deleted
-		        //case deleting this "aword aword2|" cursor will end here "aword |"
-		        //case deleting this "aword. aword2|" cursor will end here "aword. |"
+		        //case deleting this "aword aword2|" cursor will end here "aword |" 
+		        //case deleting this "aword. aword2|" cursor will end here "aword. |" 
 		        if(idx!=-1)
 		        	idx+=1;
     		}
