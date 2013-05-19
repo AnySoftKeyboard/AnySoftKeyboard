@@ -260,6 +260,7 @@ public abstract class Keyboard {
      * @attr ref android.R.styleable#Keyboard_Key_iconPreview
      * @attr ref android.R.styleable#Keyboard_Key_isSticky
      * @attr ref android.R.styleable#Keyboard_Key_isRepeatable
+     * @attr ref android.R.styleable#Keyboard_Key_showPreview
      * @attr ref android.R.styleable#Keyboard_Key_isModifier
      * @attr ref android.R.styleable#Keyboard_Key_popupKeyboard
      * @attr ref android.R.styleable#Keyboard_Key_popupCharacters
@@ -356,6 +357,11 @@ public abstract class Keyboard {
          * Whether this key repeats itself when held down
          */
         public boolean repeatable;
+        
+        /**
+         * Whether this key should show previewPopup
+         */
+        public boolean showPreview;
 
         private final static int[] KEY_STATE_NORMAL_ON = {
                 android.R.attr.state_checkable,
@@ -474,6 +480,8 @@ public abstract class Keyboard {
                     R.styleable.KeyboardLayout_Key_android_popupKeyboard, 0);
             repeatable = a.getBoolean(
                     R.styleable.KeyboardLayout_Key_android_isRepeatable, false);
+            showPreview = a.getBoolean(
+                    R.styleable.KeyboardLayout_Key_showPreview, true);
             modifier = a.getBoolean(
                     R.styleable.KeyboardLayout_Key_android_isModifier, false);
             sticky = a.getBoolean(
