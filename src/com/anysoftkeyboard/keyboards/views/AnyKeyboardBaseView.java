@@ -2080,7 +2080,8 @@ public class AnyKeyboardBaseView extends View implements
                 mHandler.cancelPopupPreview();
                 mHandler.dismissPreview(mDelayAfterPreview);
             } else if (tracker != null) {
-                mHandler.popupPreview(mDelayBeforePreview, keyIndex, tracker);
+            	if(tracker.getKey(keyIndex).showPreview)
+            		mHandler.popupPreview(mDelayBeforePreview, keyIndex, tracker);
             }
         }
     }
