@@ -74,6 +74,9 @@ Copyright (C) 2013 Menny Even-Danan
 
         <attr name="shiftedKeyLabel"/>
 
+        <!-- Whether should show preview. -->
+        <attr name="showPreview"/>
+
         <!-- The characters to display as a hint for the popup keyboard -->
         <attr name="hintLabel"/>
     </declare-styleable>
