@@ -1227,7 +1227,6 @@ public class AnyKeyboardBaseView extends View implements
      * Returns the current keyboard being displayed by this view.
      *
      * @return the currently attached keyboard
-     * @see #setKeyboard(Keyboard)
      */
     public AnyKeyboard getKeyboard() {
         return mKeyboard;
@@ -2284,7 +2283,7 @@ public class AnyKeyboardBaseView extends View implements
         Key popupKey = tracker.getKey(keyIndex);
         if (popupKey == null)
             return false;
-        boolean result = onLongPress(getContext(), popupKey, false, true);
+        boolean result = onLongPress(getKeyboard().getKeyboardContext(), popupKey, false, true);
         if (result) {
             dismissKeyPreview();
             mMiniKeyboardTrackerId = tracker.mPointerId;
@@ -2296,15 +2295,16 @@ public class AnyKeyboardBaseView extends View implements
         return result;
     }
 
-    private void setupMiniKeyboardContainer(CharSequence popupCharacters, int popupKeyboardId, boolean isSticky) {
+    private void setupMiniKeyboardContainer(Context packageContext, Key popupKey, boolean isSticky) {
         final AnyPopupKeyboard keyboard;
-        if (popupCharacters != null) {
+        if (popupKey.popupCharacters != null) {
             keyboard = new AnyPopupKeyboard(getContext()
-                    .getApplicationContext(), popupCharacters,
+                    .getApplicationContext(), popupKey.popupCharacters,
                     mMiniKeyboard.getThemedKeyboardDimens());
         } else {
-            keyboard = new AnyPopupKeyboard(getContext()
-                    .getApplicationContext(), mKeyboard.getKeyboardContext(), popupKeyboardId,
+            keyboard = new AnyPopupKeyboard(getContext().getApplicationContext(),
+                    popupKey.externalResourcePopupLayout ? packageContext : getContext().getApplicationContext(),
+                    popupKey.popupResId,
                     mMiniKeyboard.getThemedKeyboardDimens());
         }
         keyboard.setIsOneKeyEventPopup(!isSticky);
@@ -2354,7 +2354,7 @@ public class AnyKeyboardBaseView extends View implements
         if (mMiniKeyboard == null) {
             createMiniKeyboard();
         }
-        setupMiniKeyboardContainer(popupKey.popupCharacters, popupKey.popupResId, isSticky);
+        setupMiniKeyboardContainer(packageContext, popupKey, isSticky);
         mMiniKeyboardVisible = true;
         if (mWindowOffset == null) {
             mWindowOffset = new int[2];

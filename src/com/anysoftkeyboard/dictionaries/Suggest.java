@@ -132,7 +132,10 @@ public class Suggest implements Dictionary.WordCallback {
                 System.gc();
 
                 mMainDict = dictionaryBuilder.createDictionary();
-                new DictionaryASyncLoader(null).execute(mMainDict);
+                DictionaryASyncLoader loader = new DictionaryASyncLoader(null);
+                loader.execute(mMainDict);
+                //this will help us in the really rare case that an access to the dictionary is done before the loading started.
+                loader.waitTillLoadingStarted();
             } catch (Exception e) {
                 e.printStackTrace();
             }

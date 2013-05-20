@@ -51,7 +51,10 @@ public class DictionaryFactory {
         }
         Log.d(TAG, "Creating a new UserDictionary for locale " + locale);
         mUserDictionary = new UserDictionary(context, locale);
-        new DictionaryASyncLoader(null).execute(mUserDictionary);
+        DictionaryASyncLoader loader = new DictionaryASyncLoader(null);
+        loader.execute(mUserDictionary);
+        //this will help us in the really rare case that an access to the dictionary is done before the loading started.
+        loader.waitTillLoadingStarted();
 
         mUserDictionaryLocale = locale;
         return mUserDictionary;
@@ -77,7 +80,10 @@ public class DictionaryFactory {
 
         mAutoDictionary = new AutoDictionary(context, ime, currentAutoDictionaryLocale);
 
-        new DictionaryASyncLoader(null).execute(mAutoDictionary);
+        DictionaryASyncLoader loader = new DictionaryASyncLoader(null);
+        loader.execute(mAutoDictionary);
+        //this will help us in the really rare case that an access to the dictionary is done before the loading started.
+        loader.waitTillLoadingStarted();
 
         return mAutoDictionary;
     }

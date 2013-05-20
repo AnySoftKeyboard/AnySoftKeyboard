@@ -352,6 +352,8 @@ public abstract class Keyboard {
          * XML layout for that keyboard.
          */
         public int popupResId;
+
+        public boolean externalResourcePopupLayout = false;
         /**
          * Whether this key repeats itself when held down
          */
@@ -470,8 +472,8 @@ public abstract class Keyboard {
             }
             popupCharacters = a.getText(
                     R.styleable.KeyboardLayout_Key_android_popupCharacters);
-            popupResId = a.getResourceId(
-                    R.styleable.KeyboardLayout_Key_android_popupKeyboard, 0);
+            popupResId = a.getResourceId(R.styleable.KeyboardLayout_Key_android_popupKeyboard, 0);
+            externalResourcePopupLayout = popupResId != 0;
             repeatable = a.getBoolean(
                     R.styleable.KeyboardLayout_Key_android_isRepeatable, false);
             modifier = a.getBoolean(
