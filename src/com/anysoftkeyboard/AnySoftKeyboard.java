@@ -3652,12 +3652,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private void showQuickTextKeyPopupKeyboard(QuickTextKey quickTextKey) {
         if (mInputView != null) {
-            if (quickTextKey.getPackageContext() == getApplicationContext()) {
+            /*if (quickTextKey.getPackageContext() == getApplicationContext()) {
                 mInputView.simulateLongPress(KeyCodes.QUICK_TEXT);
-            } else {
-                mInputView.showQuickTextPopupKeyboard(
-                        quickTextKey.getPackageContext(), quickTextKey);
-            }
+            } else {*/
+                mInputView.showQuickTextPopupKeyboard(quickTextKey);
+            /*}*/
         }
     }
 

@@ -197,6 +197,7 @@ public abstract class AnyKeyboard extends Keyboard {
 					 * special handling when the key is long-pressed!
 					 */
                         key.popupResId = quickKey.getPopupKeyboardResId();
+                        key.externalResourcePopupLayout = key.popupResId != 0;
                         break;
                     case KeyCodes.DOMAIN:
                         // fixing icons

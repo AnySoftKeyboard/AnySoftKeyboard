@@ -17,12 +17,20 @@ public class DictionaryASyncLoader extends AsyncTask<Dictionary, Void, Dictionar
     private final WeakReference<Listener> mListener;
     private Exception mException = null;
 
+    private boolean mLoadingStarted = false;
+    private final Object mLoadingStartedMonitor = new Object();
+
     public DictionaryASyncLoader(Listener listener) {
         mListener = new WeakReference<Listener>(listener);
     }
 
     @Override
     protected Dictionary doInBackground(Dictionary... dictionaries) {
+        synchronized (mLoadingStartedMonitor) {
+            mLoadingStarted = true;
+            //notifying waiters
+            mLoadingStartedMonitor.notifyAll();
+        }
         Dictionary dictionary = dictionaries[0];
         if (!dictionary.isClosed()) {
             try {
@@ -43,13 +51,30 @@ public class DictionaryASyncLoader extends AsyncTask<Dictionary, Void, Dictionar
             if (mException != null) {
                 dictionary.close();
             }
-            
+
             Listener listener = mListener.get();
             if (listener == null) return;
             if (mException == null) {
                 listener.onDictionaryLoadingDone(dictionary);
             } else {
                 listener.onDictionaryLoadingFailed(dictionary, mException);
+            }
+        }
+    }
+
+    /**
+     * This method will help in the rare case the access to the dictionary is done before loading started (hence the storage is not ready)
+     */
+    public void waitTillLoadingStarted() {
+        synchronized (mLoadingStartedMonitor) {
+            if (mLoadingStarted == false) {
+                try {
+                    mLoadingStartedMonitor.wait();
+                    waitTillLoadingStarted();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    return;
+                }
             }
         }
     }
