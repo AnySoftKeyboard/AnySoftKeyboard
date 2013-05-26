@@ -176,7 +176,7 @@ public class UserDictionaryEditorActivity extends ListActivity {
             }
         }
 
-        fillLangsSpinner();
+        fillLanguagesSpinner();
     }
 
     @Override
@@ -191,13 +191,13 @@ public class UserDictionaryEditorActivity extends ListActivity {
         mCurrentDictionary = null;
     }
 
-    void fillLangsSpinner() {
+    void fillLanguagesSpinner() {
         new UserWordsEditorAsyncTask(this) {
-            private ArrayList<DictionaryLocale> mLangsList;
+            private ArrayList<DictionaryLocale> mLanguagesList;
 
             @Override
             protected Void doAsyncTask(Void[] params) throws Exception {
-                mLangsList = new ArrayList<DictionaryLocale>();
+                mLanguagesList = new ArrayList<DictionaryLocale>();
 
                 ArrayList<KeyboardAddOnAndBuilder> keyboards = KeyboardFactory
                         .getAllAvailableKeyboards(getApplicationContext());
@@ -208,10 +208,10 @@ public class UserDictionaryEditorActivity extends ListActivity {
 
                     DictionaryLocale dictionaryLocale = new DictionaryLocale(locale, kbd.getName());
                     //Don't worry, DictionaryLocale equals any DictionaryLocale with the same locale (no matter what its name is)
-                    if (mLangsList.contains(dictionaryLocale))
+                    if (mLanguagesList.contains(dictionaryLocale))
                         continue;
                     Log.d(TAG, "Adding locale " + locale + " to editor.");
-                    mLangsList.add(dictionaryLocale);
+                    mLanguagesList.add(dictionaryLocale);
                 }
                 return null;
             }
@@ -223,7 +223,7 @@ public class UserDictionaryEditorActivity extends ListActivity {
                         UserDictionaryEditorActivity.this,
                         android.R.layout.simple_spinner_item);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                for (DictionaryLocale lang : mLangsList)
+                for (DictionaryLocale lang : mLanguagesList)
                     adapter.add(lang);
 
                 mLangs.setAdapter(adapter);
@@ -360,8 +360,7 @@ public class UserDictionaryEditorActivity extends ListActivity {
                 mNewDictionary = new UserDictionary(
                         getApplicationContext(), mSelectedLocale);
                 if (mNewDictionary != mCurrentDictionary
-                        && mCurrentDictionary != null) {
-                    mCursor.close();
+                        && mCurrentDictionary != null && mCursor != null) {
                     mCurrentDictionary.close();
                 }
             }
