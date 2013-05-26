@@ -148,6 +148,6 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
         // re-reading words (this is a simple way to re-sync the
         // dictionary members)
         if (a != null)
-            a.fillLangsSpinner();
+            a.fillLanguagesSpinner();
     }
 }
