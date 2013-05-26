@@ -2689,9 +2689,11 @@ public class AnySoftKeyboard extends InputMethodService implements
             final CharSequence typedWord = mWord.getTypedWord();
             TextEntryState.acceptedDefault(typedWord, bestWord);
             // mJustAccepted = true;
-            pickSuggestion(bestWord, !bestWord.equals(typedWord));
-            // Add the word to the auto dictionary if it's not a known word
-            addToDictionaries(mWord, AutoDictionary.AdditionType.Typed);
+            final boolean fixed = !typedWord.equals(pickSuggestion(bestWord, !bestWord.equals(typedWord)));
+            if (!fixed) {//if the word typed was auto-replaced, we should not learn it.
+                // Add the word to the auto dictionary if it's not a known word
+                addToDictionaries(mWord, AutoDictionary.AdditionType.Typed);
+            }
             return true;
         }
         return false;
