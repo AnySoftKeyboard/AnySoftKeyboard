@@ -114,22 +114,9 @@ public class AnyKeyboardBaseView extends View implements
     private int mShadowOffsetY;
     private Drawable mKeyBackground;
     /* keys icons */
-    private final SparseArray<DrawableBuilder> mKeysIconBuilders = new SparseArray<DrawableBuilder>(
-            32);
-    private final SparseArray<Drawable> mKeysIcons = new SparseArray<Drawable>(
-            32);
-    /*
-     * private Drawable mShiftIcon; private Drawable mControlIcon; private
-     * Drawable mActionKeyIcon; private Drawable mDeleteKeyIcon; private
-     * Drawable mSpaceKeyIcon; private Drawable mTabKeyIcon; private Drawable
-     * mCancelKeyIcon; private Drawable mGlobeKeyIcon; private Drawable
-     * mMicKeyIcon; private Drawable mSettingsKeyIcon;
-     *
-     * private Drawable mArrowRightKeyIcon; private Drawable mArrowLeftKeyIcon;
-     * private Drawable mArrowUpKeyIcon; private Drawable mArrowDownKeyIcon;
-     *
-     * private Drawable mMoveHomeKeyIcon; private Drawable mMoveEndKeyIcon;
-     */
+    private final SparseArray<DrawableBuilder> mKeysIconBuilders = new SparseArray<DrawableBuilder>(32);
+    private final SparseArray<Drawable> mKeysIcons = new SparseArray<Drawable>(32);
+
     private float mBackgroundDimAmount;
     private float mKeyHysteresisDistance;
     private float mVerticalCorrection;
@@ -2006,8 +1993,7 @@ public class AnyKeyboardBaseView extends View implements
             icon = builder.buildDrawable();
             mKeysIcons.put(keyCode, icon);
             if (AnyApplication.DEBUG)
-                Log.d(TAG,
-                        "Current drawable cache size is " + mKeysIcons.size());
+                Log.d(TAG, "Current drawable cache size is " + mKeysIcons.size());
         }
         // maybe a drawable state is required
         if (icon != null) {
