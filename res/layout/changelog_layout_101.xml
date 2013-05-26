@@ -15,7 +15,7 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:tag="20130511"
+              android:tag="20130525"
               android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
     <TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
               android:text="* Several crash fixes.\n* Several bug fixes.\n* Localization updating: uk." style="@android:style/TextAppearance.Small"/>
