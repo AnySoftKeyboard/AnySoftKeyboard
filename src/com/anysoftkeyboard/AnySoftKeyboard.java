@@ -1549,7 +1549,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				 * !addToBigramDictionary &&
 				 * mAutoDictionary.isValidWord(suggestionToCheck)//this check is
 				 * for promoting from Auto to User ||
-				 */(mSuggest.isValidWord(suggestionToCheck))) {
+				 */(!mSuggest.isValidWord(suggestionToCheck))) {
 
                 final boolean added = mAutoDictionary.addWord(suggestion, type);
                 if (added && mCandidateView != null) {
