@@ -128,7 +128,10 @@ public abstract class BTreeDictionary extends EditableDictionary {
     protected void onStorageChanged() {
         if (isClosed()) return;
         clearDictionary();
-        new DictionaryASyncLoader(null).execute(this);
+        DictionaryASyncLoader loader = new DictionaryASyncLoader(null);
+        loader.execute(this);
+        //this will help us in the really rare case that an access to the dictionary is done before the loading started.
+        loader.waitTillLoadingStarted();
     }
 
     @Override

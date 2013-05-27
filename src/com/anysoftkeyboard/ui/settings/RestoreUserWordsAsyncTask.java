@@ -162,7 +162,7 @@ final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
             // re-reading words (this is a simple way to re-sync the
             // dictionary members)
             if (activity != null)
-                activity.fillLangsSpinner();
+                activity.fillLanguagesSpinner();
         } catch (BadTokenException e) {
             // activity gone away!
             // nevermind

@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard"
                   android:key="ime_settings"
                   android:title="@string/ime_settings">
 
-    <Preference
-            android:key="prefs_title_key"
-            android:persistent="false"
-            android:selectable="false"
-            android:state_enabled="false"
-            android:summary="@string/how_to_pointer_version_prefix"
-            android:title="@string/ime_name">
-    </Preference>
-
-    <Preference
-            android:key="prefs_license_key"
-            android:persistent="false"
-            android:selectable="false"
-            android:summary="@string/license_notice_text"
-            android:title="@string/license_title"/>
+    <net.evendanan.pushingpixels.AboutAppPreference
+            android:key="prefs_about_app_key"
+            ask:appIcon="@drawable/ic_launcher"
+            ask:appName="@string/ime_name"
+            ask:appOwner="@string/copyright_owner">
+    </net.evendanan.pushingpixels.AboutAppPreference>
 
     <Preference
             android:summary="@string/click_for_help_summary"
@@ -27,21 +19,6 @@
                 android:action="android.intent.action.MAIN"
                 android:targetClass="com.anysoftkeyboard.ui.MainForm"
                 android:targetPackage="com.menny.android.anysoftkeyboard"/>
-    </Preference>
-
-    <Preference
-            android:summary="@string/tips_button_description"
-            android:title="@string/tips_button">
-
-        <intent
-                android:action="android.intent.action.MAIN"
-                android:targetClass="com.anysoftkeyboard.ui.tutorials.TipsActivity"
-                android:targetPackage="com.menny.android.anysoftkeyboard">
-
-            <extra
-                    android:name="EXTRA_SHOW_ALL_TIPS"
-                    android:value="true"/>
-        </intent>
     </Preference>
 
     <PreferenceCategory

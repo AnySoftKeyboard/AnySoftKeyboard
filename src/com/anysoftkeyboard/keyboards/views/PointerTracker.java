@@ -588,7 +588,8 @@ public class PointerTracker {
     }
 
     private void debugLog(String title, int x, int y) {
-        int keyIndex = mKeyDetector.getKeyIndexAndNearbyCodes(x, y, null);
+        return;
+        /*int keyIndex = mKeyDetector.getKeyIndexAndNearbyCodes(x, y, null);
         Key key = getKey(keyIndex);
         final String code;
         if (key == null) {
@@ -599,6 +600,6 @@ public class PointerTracker {
         }
         Log.d(TAG, String.format("%s%s[%d] %3d,%3d %3d(%s) %s", title,
                 (mKeyAlreadyProcessed ? "-" : " "), mPointerId, x, y, keyIndex, code,
-                (isModifier() ? "modifier" : "")));
+                (isModifier() ? "modifier" : "")));*/
     }
 }
