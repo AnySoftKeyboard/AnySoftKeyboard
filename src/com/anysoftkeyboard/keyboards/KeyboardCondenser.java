@@ -24,7 +24,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.util.Stack;
 
-public class KeyboardCondensor {
+public class KeyboardCondenser {
 
     private static class KeySize {
         public final int width;
@@ -40,27 +40,27 @@ public class KeyboardCondensor {
         }
     }
 
-    private static final String TAG = "ASK - KeyboardCondensor";
+    private static final String TAG = "ASK - KeyboardCondenser";
 
     private boolean mKeyboardCondensed = false;
     private final SparseArray<KeySize> mKeySizesMap = new SparseArray<KeySize>();
     private final AnyKeyboard mKeyboard;
     private final float mCondensingFactor;
 
-    public KeyboardCondensor(Context askContext, AnyKeyboard keyboard) {
+    public KeyboardCondenser(Context askContext, AnyKeyboard keyboard) {
         mKeyboard = keyboard;
         mCondensingFactor = ((float) askContext.getResources()
                 .getInteger(R.integer.condensing_precentage)) / 100f;
     }
 
-    public void setCondensedKeys(boolean condensed) {
+    public boolean setCondensedKeys(boolean condensed) {
         if (condensed == mKeyboardCondensed)
-            return;
+            return false;//not changed
 
         if (condensed) {
             mKeySizesMap.clear();
             if (mCondensingFactor > 0.97f)
-                return;
+                return false;
 
             // now to determine the watershed line: keys will be align to the
             // edges
@@ -137,6 +137,8 @@ public class KeyboardCondensor {
         }
 
         mKeyboardCondensed = condensed;
+        //changed
+        return true;
     }
 
     int stackRightSideKeyForLater(Stack<Key> rightKeys, Key k, int targetWidth) {

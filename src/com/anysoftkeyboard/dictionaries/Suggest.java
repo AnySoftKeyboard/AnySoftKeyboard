@@ -132,7 +132,10 @@ public class Suggest implements Dictionary.WordCallback {
                 System.gc();
 
                 mMainDict = dictionaryBuilder.createDictionary();
-                new DictionaryASyncLoader(null).execute(mMainDict);
+                DictionaryASyncLoader loader = new DictionaryASyncLoader(null);
+                loader.execute(mMainDict);
+                //this will help us in the really rare case that an access to the dictionary is done before the loading started.
+                loader.waitTillLoadingStarted();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -155,8 +158,11 @@ public class Suggest implements Dictionary.WordCallback {
             mContactsDictionary = null;
         } else if (enabled && mContactsDictionary == null) {
             // config says it should be on, but I have none.
-            mContactsDictionary = mDictionaryFactory
-                    .createContactsDictionary(context);
+            mContactsDictionary = mDictionaryFactory.createContactsDictionary(context);
+            DictionaryASyncLoader loader = new DictionaryASyncLoader(null);
+            loader.execute(mContactsDictionary);
+            //this will help us in the really rare case that an access to the dictionary is done before the loading started.
+            loader.waitTillLoadingStarted();
         }
     }
 
@@ -210,10 +216,6 @@ public class Suggest implements Dictionary.WordCallback {
      * Returns a list of words that match the list of character codes passed in.
      * This list will be overwritten the next time this function is called.
      *
-     * @param a     view for retrieving the context for AutoText
-     * @param codes the list of codes. Each list item contains an array of
-     *              character codes in order of probability where the character at
-     *              index 0 in the array has the highest probability.
      * @return list of suggestions.
      */
     public List<CharSequence> getSuggestions(
@@ -394,14 +396,11 @@ public class Suggest implements Dictionary.WordCallback {
         }
 
         if (mMainDictioanryEnabled || mAutoTextEnabled) {
-            final boolean validFromMain = (mMainDictioanryEnabled
-                    && mMainDict != null && mMainDict.isValidWord(word));
-            final boolean validFromUser = (mUserDictionary != null && mUserDictionary
-                    .isValidWord(word));
+            final boolean validFromMain = (mMainDictioanryEnabled && mMainDict != null && mMainDict.isValidWord(word));
+            final boolean validFromUser = (mUserDictionary != null && mUserDictionary.isValidWord(word));
             // final boolean validFromAuto = (mAutoDictionary != null &&
             // mAutoDictionary.isValidWord(word));
-            final boolean validFromContacts = (mContactsDictionary != null && mContactsDictionary
-                    .isValidWord(word));
+            final boolean validFromContacts = (mContactsDictionary != null && mContactsDictionary.isValidWord(word));
 
             if (AnyApplication.DEBUG)
                 Log.v(TAG, "Suggest::isValidWord(" + word

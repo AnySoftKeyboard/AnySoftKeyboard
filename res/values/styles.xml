@@ -297,4 +297,10 @@
         <attr name="slideMinimum"/>
         <attr name="slideMaximum"/>
     </declare-styleable>
+
+    <declare-styleable name="AboutAppPreferenceAttributes">
+        <attr name="appIcon"/>
+        <attr name="appName"/>
+        <attr name="appOwner"/>
+    </declare-styleable>
 </resources>

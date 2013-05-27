@@ -107,7 +107,7 @@ public abstract class AnyKeyboard extends Keyboard {
     // max(generic row widths)
     private int mMaxGenericRowsWidth = 0;
 
-    private KeyboardCondensor mKeyboardCondensor;
+    private KeyboardCondenser mKeyboardCondenser;
 
     // private int mKeyboardActionType = EditorInfo.IME_ACTION_NONE;
 
@@ -197,6 +197,7 @@ public abstract class AnyKeyboard extends Keyboard {
 					 * special handling when the key is long-pressed!
 					 */
                         key.popupResId = quickKey.getPopupKeyboardResId();
+                        key.externalResourcePopupLayout = key.popupResId != 0;
                         break;
                     case KeyCodes.DOMAIN:
                         // fixing icons
@@ -216,26 +217,12 @@ public abstract class AnyKeyboard extends Keyboard {
                                 if (code > 31 && !Character.isWhitespace(code))
                                     key.label = "" + code;
                             }
-						/*
-						 * if (key instanceof AnyKey) { AnyKey anyKey =
-						 * (AnyKey)key; if
-						 * (TextUtils.isEmpty(anyKey.shiftedKeyLabel)) { if
-						 * (!labelIsOriginallyEmpty &&
-						 * anyKey.shiftedCodes.length > 1) { //HO, the label is
-						 * not generated, it was specified, and this is a multi
-						 * chars key anyKey.shiftedKeyLabel =
-						 * anyKey.label.toString().toUpperCase(); } else { final
-						 * char code = (char)anyKey.shiftedCodes[0]; //check the
-						 * ASCII table, everything below 32, is not printable if
-						 * (code > 31 && !Character.isWhitespace(code))
-						 * anyKey.shiftedKeyLabel = ""+code; } } }
-						 */
                         }
                 }
             }
         }
 
-        mKeyboardCondensor = new KeyboardCondensor(askContext, this);
+        mKeyboardCondenser = new KeyboardCondenser(askContext, this);
     }
 
     protected void addGenericRows(Context askContext, Context context,
@@ -830,7 +817,7 @@ public abstract class AnyKeyboard extends Keyboard {
     }
 
     public void setCondensedKeys(boolean condensed) {
-        mKeyboardCondensor.setCondensedKeys(condensed);
-        computeNearestNeighbors();
+        if (mKeyboardCondenser.setCondensedKeys(condensed))
+            computeNearestNeighbors();//keyboard has changed, so we need to recompute the neighbors.
     }
 }

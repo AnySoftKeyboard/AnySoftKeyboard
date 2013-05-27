@@ -1549,7 +1549,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				 * !addToBigramDictionary &&
 				 * mAutoDictionary.isValidWord(suggestionToCheck)//this check is
 				 * for promoting from Auto to User ||
-				 */(mSuggest.isValidWord(suggestionToCheck))) {
+				 */(!mSuggest.isValidWord(suggestionToCheck))) {
 
                 final boolean added = mAutoDictionary.addWord(suggestion, type);
                 if (added && mCandidateView != null) {
@@ -2689,9 +2689,11 @@ public class AnySoftKeyboard extends InputMethodService implements
             final CharSequence typedWord = mWord.getTypedWord();
             TextEntryState.acceptedDefault(typedWord, bestWord);
             // mJustAccepted = true;
-            pickSuggestion(bestWord, !bestWord.equals(typedWord));
-            // Add the word to the auto dictionary if it's not a known word
-            addToDictionaries(mWord, AutoDictionary.AdditionType.Typed);
+            final boolean fixed = !typedWord.equals(pickSuggestion(bestWord, !bestWord.equals(typedWord)));
+            if (!fixed) {//if the word typed was auto-replaced, we should not learn it.
+                // Add the word to the auto dictionary if it's not a known word
+                addToDictionaries(mWord, AutoDictionary.AdditionType.Typed);
+            }
             return true;
         }
         return false;
@@ -3336,8 +3338,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                             .createAutoDictionary(getApplicationContext(), this,
                                     localeForSupportingDictionaries);
                     mSuggest.setAutoDictionary(mAutoDictionary);
-                    mSuggest.setContactsDictionary(getApplicationContext(),
-                            mConfig.useContactsDictionary());
+                    mSuggest.setContactsDictionary(getApplicationContext(), mConfig.useContactsDictionary());
                 }
             }
         }
@@ -3652,12 +3653,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private void showQuickTextKeyPopupKeyboard(QuickTextKey quickTextKey) {
         if (mInputView != null) {
-            if (quickTextKey.getPackageContext() == getApplicationContext()) {
+            /*if (quickTextKey.getPackageContext() == getApplicationContext()) {
                 mInputView.simulateLongPress(KeyCodes.QUICK_TEXT);
-            } else {
-                mInputView.showQuickTextPopupKeyboard(
-                        quickTextKey.getPackageContext(), quickTextKey);
-            }
+            } else {*/
+                mInputView.showQuickTextPopupKeyboard(quickTextKey);
+            /*}*/
         }
     }
 

@@ -114,22 +114,9 @@ public class AnyKeyboardBaseView extends View implements
     private int mShadowOffsetY;
     private Drawable mKeyBackground;
     /* keys icons */
-    private final SparseArray<DrawableBuilder> mKeysIconBuilders = new SparseArray<DrawableBuilder>(
-            32);
-    private final SparseArray<Drawable> mKeysIcons = new SparseArray<Drawable>(
-            32);
-    /*
-     * private Drawable mShiftIcon; private Drawable mControlIcon; private
-     * Drawable mActionKeyIcon; private Drawable mDeleteKeyIcon; private
-     * Drawable mSpaceKeyIcon; private Drawable mTabKeyIcon; private Drawable
-     * mCancelKeyIcon; private Drawable mGlobeKeyIcon; private Drawable
-     * mMicKeyIcon; private Drawable mSettingsKeyIcon;
-     *
-     * private Drawable mArrowRightKeyIcon; private Drawable mArrowLeftKeyIcon;
-     * private Drawable mArrowUpKeyIcon; private Drawable mArrowDownKeyIcon;
-     *
-     * private Drawable mMoveHomeKeyIcon; private Drawable mMoveEndKeyIcon;
-     */
+    private final SparseArray<DrawableBuilder> mKeysIconBuilders = new SparseArray<DrawableBuilder>(32);
+    private final SparseArray<Drawable> mKeysIcons = new SparseArray<Drawable>(32);
+
     private float mBackgroundDimAmount;
     private float mKeyHysteresisDistance;
     private float mVerticalCorrection;
@@ -1227,7 +1214,6 @@ public class AnyKeyboardBaseView extends View implements
      * Returns the current keyboard being displayed by this view.
      *
      * @return the currently attached keyboard
-     * @see #setKeyboard(Keyboard)
      */
     public AnyKeyboard getKeyboard() {
         return mKeyboard;
@@ -2007,8 +1993,7 @@ public class AnyKeyboardBaseView extends View implements
             icon = builder.buildDrawable();
             mKeysIcons.put(keyCode, icon);
             if (AnyApplication.DEBUG)
-                Log.d(TAG,
-                        "Current drawable cache size is " + mKeysIcons.size());
+                Log.d(TAG, "Current drawable cache size is " + mKeysIcons.size());
         }
         // maybe a drawable state is required
         if (icon != null) {
@@ -2284,7 +2269,7 @@ public class AnyKeyboardBaseView extends View implements
         Key popupKey = tracker.getKey(keyIndex);
         if (popupKey == null)
             return false;
-        boolean result = onLongPress(getContext(), popupKey, false, true);
+        boolean result = onLongPress(getKeyboard().getKeyboardContext(), popupKey, false, true);
         if (result) {
             dismissKeyPreview();
             mMiniKeyboardTrackerId = tracker.mPointerId;
@@ -2296,16 +2281,16 @@ public class AnyKeyboardBaseView extends View implements
         return result;
     }
 
-    private void setupMiniKeyboardContainer(Context packageContext,
-                                            CharSequence popupCharacters, int popupKeyboardId, boolean isSticky) {
+    private void setupMiniKeyboardContainer(Context packageContext, Key popupKey, boolean isSticky) {
         final AnyPopupKeyboard keyboard;
-        if (popupCharacters != null) {
+        if (popupKey.popupCharacters != null) {
             keyboard = new AnyPopupKeyboard(getContext()
-                    .getApplicationContext(), popupCharacters,
+                    .getApplicationContext(), popupKey.popupCharacters,
                     mMiniKeyboard.getThemedKeyboardDimens());
         } else {
-            keyboard = new AnyPopupKeyboard(getContext()
-                    .getApplicationContext(), packageContext, popupKeyboardId,
+            keyboard = new AnyPopupKeyboard(getContext().getApplicationContext(),
+                    popupKey.externalResourcePopupLayout ? packageContext : getContext().getApplicationContext(),
+                    popupKey.popupResId,
                     mMiniKeyboard.getThemedKeyboardDimens());
         }
         keyboard.setIsOneKeyEventPopup(!isSticky);
@@ -2355,8 +2340,7 @@ public class AnyKeyboardBaseView extends View implements
         if (mMiniKeyboard == null) {
             createMiniKeyboard();
         }
-        setupMiniKeyboardContainer(packageContext, popupKey.popupCharacters,
-                popupKey.popupResId, isSticky);
+        setupMiniKeyboardContainer(packageContext, popupKey, isSticky);
         mMiniKeyboardVisible = true;
         if (mWindowOffset == null) {
             mWindowOffset = new int[2];
