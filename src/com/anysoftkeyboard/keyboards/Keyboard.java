@@ -352,6 +352,8 @@ public abstract class Keyboard {
          * XML layout for that keyboard.
          */
         public int popupResId;
+
+        public boolean externalResourcePopupLayout = false;
         /**
          * Whether this key repeats itself when held down
          */
@@ -470,8 +472,8 @@ public abstract class Keyboard {
             }
             popupCharacters = a.getText(
                     R.styleable.KeyboardLayout_Key_android_popupCharacters);
-            popupResId = a.getResourceId(
-                    R.styleable.KeyboardLayout_Key_android_popupKeyboard, 0);
+            popupResId = a.getResourceId(R.styleable.KeyboardLayout_Key_android_popupKeyboard, 0);
+            externalResourcePopupLayout = popupResId != 0;
             repeatable = a.getBoolean(
                     R.styleable.KeyboardLayout_Key_android_isRepeatable, false);
             modifier = a.getBoolean(
@@ -685,49 +687,8 @@ public abstract class Keyboard {
 
         mKeys = new ArrayList<Key>();
         mModifierKeys = new ArrayList<Key>();
-
-        // DisplayMetrics dm =
-        // askContext.getApplicationContext().getResources().getDisplayMetrics();
-        // loadKeyboard(dm.widthPixels);
     }
 
-    /**
-     * <p>
-     * Creates a blank keyboard from the given resource file and populates it
-     * with the specified characters in left-to-right, top-to-bottom fashion,
-     * using the specified number of columns.
-     * </p>
-     * <p>
-     * If the specified number of columns is -1, then the keyboard will fit as
-     * many keys as possible in each row.
-     * </p>
-     *
-     * @param context             the application or service context
-     * @param layoutTemplateResId the layout template file, containing no keys.
-     * @param characters          the list of characters to display on the keyboard. One
-     *                            key will be created for each character.
-     * @param columns             the number of columns of keys to display. If this number
-     *                            is greater than the number of keys that can fit in a row, it
-     *                            will be ignored. If this number is -1, the keyboard will fit
-     *                            as many keys as possible in each row.
-     */
-    /*
-     * public Keyboard(Context context, int layoutTemplateResId, CharSequence
-     * characters, int columns, int horizontalPadding) { this(context,
-     * layoutTemplateResId); int x = 0; int y = 0; int column = 0; mTotalWidth =
-     * 0; Row row = new Row(this); row.defaultHeight = mDefaultHeight;
-     * row.defaultWidth = mDefaultWidth; row.defaultHorizontalGap =
-     * mDefaultHorizontalGap; row.verticalGap = mDefaultVerticalGap;
-     * row.rowEdgeFlags = EDGE_TOP | EDGE_BOTTOM; final int maxColumns = columns
-     * == -1 ? Integer.MAX_VALUE : columns; for (int i = 0; i <
-     * characters.length(); i++) { char c = characters.charAt(i); if (column >=
-     * maxColumns || x + mDefaultWidth + horizontalPadding > mDisplayWidth) { x
-     * = 0; y += mDefaultVerticalGap + mDefaultHeight; column = 0; } final Key
-     * key = new Key(row); key.x = x; key.y = y; key.label = String.valueOf(c);
-     * key.codes = new int[] { c }; column++; x += key.width + key.gap;
-     * mKeys.add(key); if (x > mTotalWidth) { mTotalWidth = x; } } mTotalHeight
-     * = y + mDefaultHeight; }
-     */
     public List<Key> getKeys() {
         return mKeys;
     }
@@ -747,14 +708,6 @@ public abstract class Keyboard {
     protected int getVerticalGap() {
         return mDefaultVerticalGap;
     }
-
-    /*
-     * protected void setVerticalGap(int gap) { mDefaultVerticalGap = gap; }
-     * protected int getKeyHeight() { return mDefaultHeight; } protected void
-     * setKeyHeight(int height) { mDefaultHeight = height; } protected int
-     * getKeyWidth() { return mDefaultWidth; } protected void setKeyWidth(int
-     * width) { mDefaultWidth = width; }
-     */
 
     /**
      * Returns the total height of the keyboard
@@ -850,11 +803,9 @@ public abstract class Keyboard {
         mDisplayWidth = keyboardDimens.getKeyboardMaxWidth();
         final float rowVerticalGap = keyboardDimens.getRowVerticalGap();
         final float keyHorizontalGap = keyboardDimens.getKeyHorizontalGap();
-        // mDisplayHeight = dm.heightPixels;
 
         mDefaultHorizontalGap = 0;
         mDefaultWidth = mDisplayWidth / 10;
-        // mDefaultVerticalGap = 0;
         mDefaultHeightCode = -1;
 
         XmlResourceParser parser = mKeyboardContext.getResources().getXml(mLayoutResId);

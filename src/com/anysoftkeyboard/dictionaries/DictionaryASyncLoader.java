@@ -1,19 +1,24 @@
 package com.anysoftkeyboard.dictionaries;
 
 import android.os.AsyncTask;
+import com.anysoftkeyboard.utils.Log;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import java.lang.ref.WeakReference;
 
 /**
- * Created with IntelliJ IDEA.
+ * A generic AsyncTask to load AnySoftKeyboard's dictionary object.
  * User: menny
  * Date: 3/19/13
  * Time: 11:52 AM
- * To change this template use File | Settings | File Templates.
  */
 public class DictionaryASyncLoader extends AsyncTask<Dictionary, Void, Dictionary> {
+    private static final String TAG = "ASK_DictionaryASyncLoader";
     private final WeakReference<Listener> mListener;
     private Exception mException = null;
+
+    private boolean mLoadingStarted = false;
+    private final Object mLoadingStartedMonitor = new Object();
 
     public DictionaryASyncLoader(Listener listener) {
         mListener = new WeakReference<Listener>(listener);
@@ -21,9 +26,19 @@ public class DictionaryASyncLoader extends AsyncTask<Dictionary, Void, Dictionar
 
     @Override
     protected Dictionary doInBackground(Dictionary... dictionaries) {
+        synchronized (mLoadingStartedMonitor) {
+            mLoadingStarted = true;
+            //notifying waiters
+            mLoadingStartedMonitor.notifyAll();
+        }
         Dictionary dictionary = dictionaries[0];
         if (!dictionary.isClosed()) {
-            dictionary.loadDictionary();
+            try {
+                dictionary.loadDictionary();
+            } catch (Exception e) {
+                Log.w(TAG, "Failed to load dictionary!", e);
+                mException = e;
+            }
         }
 
         return dictionary;
@@ -33,12 +48,33 @@ public class DictionaryASyncLoader extends AsyncTask<Dictionary, Void, Dictionar
     protected void onPostExecute(Dictionary dictionary) {
         super.onPostExecute(dictionary);
         if (!dictionary.isClosed()) {
+            if (mException != null) {
+                dictionary.close();
+            }
+
             Listener listener = mListener.get();
             if (listener == null) return;
             if (mException == null) {
                 listener.onDictionaryLoadingDone(dictionary);
             } else {
                 listener.onDictionaryLoadingFailed(dictionary, mException);
+            }
+        }
+    }
+
+    /**
+     * This method will help in the rare case the access to the dictionary is done before loading started (hence the storage is not ready)
+     */
+    public void waitTillLoadingStarted() {
+        synchronized (mLoadingStartedMonitor) {
+            if (mLoadingStarted == false) {
+                try {
+                    mLoadingStartedMonitor.wait();
+                    waitTillLoadingStarted();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    return;
+                }
             }
         }
     }
