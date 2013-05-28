@@ -3000,6 +3000,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                 .equals(KEYBOARD_NOTIFICATION_ON_PHYSICAL) && (type == NextKeyboardType.AlphabetSupportsPhysical))) {
             notifyKeyboardChangeIfNeeded();
         }
+        postUpdateSuggestions();
     }
 
     public void onSwipeRight(boolean onSpaceBar) {
