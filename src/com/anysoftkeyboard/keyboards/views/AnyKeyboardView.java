@@ -614,7 +614,9 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         if (!AnyApplication.getConfig().workaround_alwaysUseDrawText())
             return;// not doing it with StaticLayout
 
-        mPopOutText = text;
+        //performing "toString" so we'll have a separate copy of the CharSequence,
+        // and not the original object which I fear is a reference copy (hence may be changed).
+        mPopOutText = text.toString();
         mPopOutTime = SystemClock.elapsedRealtime();
         mPopOutStartPoint.x = mFirstTouchPont.x;
         mPopOutStartPoint.y = mFirstTouchPont.y;
