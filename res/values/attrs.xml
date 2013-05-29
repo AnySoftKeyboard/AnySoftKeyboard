@@ -71,8 +71,6 @@
         <attr name="isFunctional" format="boolean"/>
 
         <attr name="shiftedCodes" format="integer|string"/>
-				<!-- Whether should show preview. -->
-        <attr name="showPreview" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="AnyKeyboardBaseView">
@@ -400,4 +398,6 @@
 
     <attr name="previewGestureTextSize" format="dimension"/>
     <attr name="previewGestureTextColor" format="color"/>
+    <!-- Whether should show preview. -->
+    <attr name="showPreview" format="boolean"/>
 </resources>
