@@ -71,6 +71,8 @@
         <attr name="isFunctional" format="boolean"/>
 
         <attr name="shiftedCodes" format="integer|string"/>
+				<!-- Whether should show preview. -->
+        <attr name="showPreview" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="AnyKeyboardBaseView">
