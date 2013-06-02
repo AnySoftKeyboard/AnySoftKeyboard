@@ -70,7 +70,7 @@ public class DictionaryASyncLoader extends AsyncTask<Dictionary, Void, Dictionar
         //this function will always be called for a thread that actually WAITS for the dictionary loading to start,
         // so, if the thread is going to wait, why not just yield now, and let the other thread just do it!
         Thread.yield();
-        
+
         synchronized (mLoadingStartedMonitor) {
             if (mLoadingStarted == false) {
                 try {
