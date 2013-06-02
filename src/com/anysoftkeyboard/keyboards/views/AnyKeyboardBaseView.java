@@ -1300,7 +1300,6 @@ public class AnyKeyboardBaseView extends View implements
      * enabled.
      *
      * @param previewEnabled whether or not to enable the key feedback popup
-     * @see #isPreviewEnabled()
      */
     protected void setPreviewEnabled(boolean previewEnabled) {
         mShowPreview = mPreviewText != null && previewEnabled;
@@ -2061,12 +2060,13 @@ public class AnyKeyboardBaseView extends View implements
         // is enabled)
         if (oldKeyIndex != keyIndex
                 && (mShowPreview || (hidePreviewOrShowSpaceKeyPreview && isLanguageSwitchEnabled))) {
-            if (keyIndex == NOT_A_KEY) {
+            final Key key = hidePreviewOrShowSpaceKeyPreview? null : tracker.getKey(keyIndex);
+            //this will ensure that in case the key is marked as NO preview, we will just dismiss the previous popup.
+            if (keyIndex == NOT_A_KEY || key == null || !key.showPreview) {
                 mHandler.cancelPopupPreview();
                 mHandler.dismissPreview(mDelayAfterPreview);
             } else if (tracker != null) {
-            	if(tracker.getKey(keyIndex).showPreview)
-            		mHandler.popupPreview(mDelayBeforePreview, keyIndex, tracker);
+                mHandler.popupPreview(mDelayBeforePreview, keyIndex, tracker);
             }
         }
     }
@@ -2090,8 +2090,7 @@ public class AnyKeyboardBaseView extends View implements
                     MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
                     MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
             popupWidth = Math.max(mPreviewIcon.getMeasuredWidth(), key.width);
-            popupHeight = Math
-                    .max(mPreviewIcon.getMeasuredHeight(), key.height);
+            popupHeight = Math.max(mPreviewIcon.getMeasuredHeight(), key.height);
             mPreviewText.setText(null);
         } else {
             CharSequence label = tracker.getPreviewText(key,
@@ -2103,8 +2102,7 @@ public class AnyKeyboardBaseView extends View implements
             mPreviewText.setTextColor(mPreviewKeyTextColor);
             setKeyPreviewText(key, label);
             popupWidth = Math.max(mPreviewText.getMeasuredWidth(), key.width);
-            popupHeight = Math
-                    .max(mPreviewText.getMeasuredHeight(), key.height);
+            popupHeight = Math.max(mPreviewText.getMeasuredHeight(), key.height);
         }
 
         if (mPreviewPaddingHeight < 0) {

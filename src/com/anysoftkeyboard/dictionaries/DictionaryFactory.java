@@ -17,7 +17,6 @@
 package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
-import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.dictionaries.content.ContactsDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary;
 import com.anysoftkeyboard.utils.Log;
@@ -64,7 +63,7 @@ public class DictionaryFactory {
         return AnyApplication.getFrankenRobot().embody(new ContactsDictionaryDiagram(context.getApplicationContext()));
     }
 
-    public synchronized AutoDictionary createAutoDictionary(Context context, AnySoftKeyboard ime, String currentAutoDictionaryLocale) {
+    public synchronized AutoDictionary createAutoDictionary(Context context, String currentAutoDictionaryLocale) {
         if (AnyApplication.getConfig().getAutoDictionaryInsertionThreshold() < 0) return null;
 
         if (mAutoDictionary != null && !mAutoDictionary.isClosed()) {
@@ -78,7 +77,7 @@ public class DictionaryFactory {
 
         Log.d(TAG, "Creating AutoDictionary for locale: " + currentAutoDictionaryLocale);
 
-        mAutoDictionary = new AutoDictionary(context, ime, currentAutoDictionaryLocale);
+        mAutoDictionary = new AutoDictionary(context, currentAutoDictionaryLocale);
 
         DictionaryASyncLoader loader = new DictionaryASyncLoader(null);
         loader.execute(mAutoDictionary);
