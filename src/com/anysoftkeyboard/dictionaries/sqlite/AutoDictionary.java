@@ -22,8 +22,6 @@ import com.anysoftkeyboard.WordComposer;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
-import java.lang.ref.WeakReference;
-
 /**
  * Stores new words temporarily until they are promoted to the user dictionary
  * for longevity. Words in the auto dictionary are used to determine if it's ok
@@ -48,16 +46,13 @@ public class AutoDictionary extends SQLiteUserDictionaryBase {
     // frequency.
     private static final int AUTO_ADDED_WORDS_FREQUENCY = 178;
 
-    private WeakReference<AnySoftKeyboard> mIme;
-
     /**
      * Sort by descending order of frequency.
      */
     public static final String DEFAULT_SORT_ORDER = WordsSQLiteConnection.Words.FREQUENCY + " DESC";
 
-    public AutoDictionary(Context context, AnySoftKeyboard ime, String locale) {
+    public AutoDictionary(Context context, String locale) {
         super("Auto", context, locale);
-        mIme = new WeakReference<AnySoftKeyboard>(ime);
     }
 
     @Override
@@ -77,33 +72,38 @@ public class AutoDictionary extends SQLiteUserDictionaryBase {
      * @param type what type of addition was it
      * @return true if the word was promoted to user's dictionary.
      */
-    public boolean addWord(WordComposer word, AdditionType type) {
-        final int length = word.length();
-        // Don't add very short or very long words.
-        if (length < 2 || length > MAX_WORD_LENGTH)
-            return false;
-        final AnySoftKeyboard ask = mIme.get();
-        //ask can not be null! This should not happen (since the caller is ASK instance...)
-        String wordToAdd = word.getTypedWord().toString();
-        if (ask.getCurrentWord().isAutoCapitalized()) {
-            // Remove caps before adding
-            wordToAdd = Character.toLowerCase(wordToAdd.charAt(0)) + wordToAdd.substring(1);
-        }
-        int freq = getWordFrequency(wordToAdd);
-        final int frequencyDelta = type.equals(AdditionType.Picked)? FREQUENCY_FOR_PICKED: FREQUENCY_FOR_TYPED;
+    public boolean addWord(WordComposer word, AdditionType type, AnySoftKeyboard callingIme) {
+        synchronized (mResourceMonitor) {
+            if (isClosed()) {
+                Log.d(TAG, "Dictionary (type "+this.getClass().getName()+") "+this.getDictionaryName()+" is closed! Can not add word.");
+                return false;
+            }
+            final int length = word.length();
+            // Don't add very short or very long words.
+            if (length < 2 || length > MAX_WORD_LENGTH)
+                return false;
+            //ask can not be null! This should not happen (since the caller is ASK instance...)
+            String wordToAdd = word.getTypedWord().toString();
+            if (callingIme.getCurrentWord().isAutoCapitalized()) {
+                // Remove caps before adding
+                wordToAdd = Character.toLowerCase(wordToAdd.charAt(0)) + wordToAdd.substring(1);
+            }
+            int freq = getWordFrequency(wordToAdd);
+            final int frequencyDelta = type.equals(AdditionType.Picked)? FREQUENCY_FOR_PICKED: FREQUENCY_FOR_TYPED;
 
-        freq = freq < 0 ? frequencyDelta : freq + frequencyDelta;
-        boolean added;
-        if (freq >= AnyApplication.getConfig().getAutoDictionaryInsertionThreshold()) {
-            Log.i(TAG, "Promoting the word " + word + " (freq " + freq
-                    + ") to the user dictionary. It earned it.");
-            added = ask.promoteToUserDictionary(wordToAdd, AUTO_ADDED_WORDS_FREQUENCY);
-            deleteWord(wordToAdd);
-        } else {
-            super.addWord(wordToAdd, freq);
-            added = false;//this means that the word was not promoted.
+            freq = freq < 0 ? frequencyDelta : freq + frequencyDelta;
+            boolean added;
+            if (freq >= AnyApplication.getConfig().getAutoDictionaryInsertionThreshold()) {
+                Log.i(TAG, "Promoting the word " + word + " (freq " + freq
+                        + ") to the user dictionary. It earned it.");
+                added = callingIme.promoteToUserDictionary(wordToAdd, AUTO_ADDED_WORDS_FREQUENCY);
+                deleteWord(wordToAdd);
+            } else {
+                super.addWord(wordToAdd, freq);
+                added = false;//this means that the word was not promoted.
+            }
+            return added;
         }
-        return added;
     }
 
     @Override

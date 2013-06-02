@@ -1551,7 +1551,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				 * for promoting from Auto to User ||
 				 */(!mSuggest.isValidWord(suggestionToCheck))) {
 
-                final boolean added = mAutoDictionary.addWord(suggestion, type);
+                final boolean added = mAutoDictionary.addWord(suggestion, type, this);
                 if (added && mCandidateView != null) {
                     mCandidateView.notifyAboutWordAdded(suggestion.getTypedWord());
                 }
@@ -3337,9 +3337,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                                     localeForSupportingDictionaries);
                     mSuggest.setUserDictionary(mUserDictionary);
 
-                    mAutoDictionary = mSuggest.getDictionaryFactory()
-                            .createAutoDictionary(getApplicationContext(), this,
-                                    localeForSupportingDictionaries);
+                    mAutoDictionary = mSuggest.getDictionaryFactory().createAutoDictionary(getApplicationContext(),localeForSupportingDictionaries);
                     mSuggest.setAutoDictionary(mAutoDictionary);
                     mSuggest.setContactsDictionary(getApplicationContext(), mConfig.useContactsDictionary());
                 }
