@@ -79,6 +79,10 @@ public abstract class Keyboard {
     public static final int EDGE_TOP = 0x04;
     public static final int EDGE_BOTTOM = 0x08;
 
+    public static final int KEY_EMBLEM_NONE = 0x00;
+    public static final int KEY_EMBLEM_TEXT = 0x01;
+    public static final int KEY_EMBLEM_ICON = 0x02;
+
     protected final Context mKeyboardContext;
     protected final Context mASKContext;
     protected final int mLayoutResId;
@@ -365,6 +369,8 @@ public abstract class Keyboard {
          */
         public boolean showPreview;
 
+        public int dynamicEmblem;
+
         private final static int[] KEY_STATE_NORMAL_ON = {
                 android.R.attr.state_checkable,
                 android.R.attr.state_checked
@@ -484,6 +490,7 @@ public abstract class Keyboard {
                     R.styleable.KeyboardLayout_Key_android_isRepeatable, false);
             showPreview = a.getBoolean(
                     R.styleable.KeyboardLayout_Key_showPreview, true);
+            dynamicEmblem = a.getInt(R.styleable.KeyboardLayout_Key_keyDynamicEmblem, KEY_EMBLEM_NONE);
             modifier = a.getBoolean(
                     R.styleable.KeyboardLayout_Key_android_isModifier, false);
             sticky = a.getBoolean(
