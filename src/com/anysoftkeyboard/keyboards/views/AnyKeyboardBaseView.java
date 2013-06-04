@@ -47,12 +47,9 @@ import com.anysoftkeyboard.Configuration.AnimationsLevel;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
 import com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel;
-import com.anysoftkeyboard.keyboards.AnyKeyboard;
+import com.anysoftkeyboard.keyboards.*;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
-import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
-import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
-import com.anysoftkeyboard.keyboards.KeyboardDimens;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.utils.IMEUtil.GCUtils;
@@ -91,6 +88,7 @@ public class AnyKeyboardBaseView extends View implements
     private static final int[] DRAWABLE_STATE_ACTION_SEARCH = new int[]{R.attr.action_search};
     private static final int[] DRAWABLE_STATE_ACTION_GO = new int[]{R.attr.action_go};
 
+    protected KeyboardSwitcher mSwitcher;
     // XML attribute
     private float mKeyTextSize;
     private FontMetrics mTextFM;
@@ -1562,8 +1560,7 @@ public class AnyKeyboardBaseView extends View implements
             keyBackground.setState(drawableState);
 
             // Switch the character to uppercase if shift is pressed
-            CharSequence label = key.label == null ? null : adjustCase(key)
-                    .toString();
+            CharSequence label = key.label == null ? null : adjustCase(key).toString();
 
             final Rect bounds = keyBackground.getBounds();
             if ((key.width != bounds.right) || (key.height != bounds.bottom)) {
@@ -1923,12 +1920,26 @@ public class AnyKeyboardBaseView extends View implements
         Key langKey = findKeyByKeyCode(KeyCodes.MODE_ALPHABET);
         if (langKey != null) {
             if (TextUtils.isEmpty(langKey.label)) {
-                langKey.icon = getIconForKeyCode(KeyCodes.MODE_ALPHABET);
+                if (langKey.dynamicEmblem == Keyboard.KEY_EMBLEM_TEXT) {
+                    langKey.label = guessLabelForKey(langKey);
+                } else {
+                    langKey.icon = getIconForKeyCode(KeyCodes.MODE_ALPHABET);
+                }
+            }
+        }
+        Key symKey = findKeyByKeyCode(KeyCodes.MODE_SYMOBLS);
+        if (symKey != null) {
+            if (TextUtils.isEmpty(symKey.label)) {
+                if (symKey.dynamicEmblem == Keyboard.KEY_EMBLEM_TEXT) {
+                    symKey.label = guessLabelForKey(symKey);
+                } else {
+                    symKey.icon = getIconForKeyCode(KeyCodes.MODE_SYMOBLS);
+                }
             }
         }
     }
 
-    private CharSequence guessLabelForKey(AnyKey key) {
+    private CharSequence guessLabelForKey(Key key) {
         switch (key.codes[0]) {
             case KeyCodes.ENTER:
                 if (AnyApplication.DEBUG)
@@ -1950,7 +1961,21 @@ public class AnyKeyboardBaseView extends View implements
                         return "";
                 }
             case KeyCodes.MODE_ALPHABET:
-                return getContext().getText(R.string.change_lang_regular);
+                String langKeyText = null;
+                if (mSwitcher != null)//should show the next keyboard label, not a generic one.
+                    langKeyText = mSwitcher.peekNextAlphabetKeyboard();
+                if (langKeyText == null)
+                    return getResources().getString(R.string.change_lang_regular);
+                else
+                    return langKeyText;
+            case KeyCodes.MODE_SYMOBLS:
+                String symKeyText = null;
+                if (mSwitcher != null)//should show the next keyboard label, not a generic one.
+                    symKeyText = mSwitcher.peekNextSymbolsKeyboard();
+                if (symKeyText == null)
+                    return getResources().getString(R.string.change_symbols_regular);
+                else
+                    return symKeyText;
             case KeyCodes.TAB:
                 return getContext().getText(R.string.label_tab_key);
             case KeyCodes.MOVE_HOME:
@@ -2715,6 +2740,8 @@ public class AnyKeyboardBaseView extends View implements
         mKeyboardActionListener = null;
         mGestureDetector = null;
         mKeyboard = null;
+
+        mSwitcher = null;
 
         closing();
     }

@@ -50,7 +50,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     private static final int DELAY_BEFORE_POPING_UP_EXTENSION_KBD = 35;// milliseconds
     private final static String TAG = "AnyKeyboardView";
 
-    private KeyboardSwitcher mSwitcher;
     private boolean mExtensionVisible = false;
     private final int mExtensionKeyboardYActivationPoint;
     private final int mExtensionKeyboardPopupOffset;
@@ -622,11 +621,5 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         mPopOutStartPoint.y = mFirstTouchPont.y;
         // it is ok to wait for the next loop.
         postInvalidate();
-    }
-
-    @Override
-    public void onViewNotRequired() {
-        super.onViewNotRequired();
-        mSwitcher = null;
     }
 }
