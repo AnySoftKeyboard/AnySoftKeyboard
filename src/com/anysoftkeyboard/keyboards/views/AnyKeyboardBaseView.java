@@ -1691,8 +1691,7 @@ public class AnyKeyboardBaseView extends View implements
                 // so, we'll use the RTL secured drawing (via StaticLayout) for
                 // labels.
                 if (label.length() > 1
-                        && !AnyApplication.getConfig()
-                        .workaround_alwaysUseDrawText()) {
+                        && !AnyApplication.getConfig().workaround_alwaysUseDrawText()) {
                     // calculate Y coordinate of top of text based on center
                     // location
                     textY = centerY - ((labelHeight - paint.descent()) / 2);
