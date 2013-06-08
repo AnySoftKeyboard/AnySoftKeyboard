@@ -274,28 +274,28 @@ public class KeyboardSwitcher {
 
         switch (mode) {
             case MODE_DATETIME:
+                mAlphabetMode = false;
+                mKeyboardLocked = true;
                 keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_DATETIME_INDEX,
                         getKeyboardMode(attr));
-                mAlphabetMode = false;
-                mKeyboardLocked = true;
                 break;
             case MODE_NUMBERS:
+                mAlphabetMode = false;
+                mKeyboardLocked = true;
                 keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_NUMBERS_INDEX,
                         getKeyboardMode(attr));
-                mAlphabetMode = false;
-                mKeyboardLocked = true;
                 break;
             case MODE_SYMBOLS:
+                mAlphabetMode = false;
+                mKeyboardLocked = true;
                 keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_REGULAR_INDEX,
                         getKeyboardMode(attr));
-                mAlphabetMode = false;
-                mKeyboardLocked = true;
                 break;
             case MODE_PHONE:
-                keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_PHONE_INDEX,
-                        getKeyboardMode(attr));
                 mAlphabetMode = false;
                 mKeyboardLocked = true;
+                keyboard = getSymbolsKeyboard(SYMBOLS_KEYBOARD_PHONE_INDEX,
+                        getKeyboardMode(attr));
                 break;
             case MODE_URL:
             case MODE_EMAIL:
@@ -304,7 +304,7 @@ public class KeyboardSwitcher {
                 if (!restarting && mLatinKeyboardIndex >= 0) {
                     mLastSelectedKeyboard = mLatinKeyboardIndex;
                 }
-                // note: letting it fallthrough to the default branch
+                // note: letting it fall-through to the default branch
             default:
                 mKeyboardLocked = false;
                 // I'll start with a new alphabet keyboard if
@@ -313,9 +313,8 @@ public class KeyboardSwitcher {
                 // 2) this is a restarting, but the mode what change (probably to
                 // Normal).
                 if (!restarting || mMode != previousMode) {
-                    keyboard = getAlphabetKeyboard(mLastSelectedKeyboard,
-                            getKeyboardMode(attr));
                     mAlphabetMode = true;
+                    keyboard = getAlphabetKeyboard(mLastSelectedKeyboard, getKeyboardMode(attr));
                 } else {
                     // just keep doing what you did before.
                     keyboard = getCurrentKeyboard();
@@ -428,7 +427,7 @@ public class KeyboardSwitcher {
 
     public String peekNextSymbolsKeyboard() {
         if (mKeyboardLocked) {
-            return getCurrentKeyboard().getKeyboardName();
+            return mContext.getString(R.string.keyboard_change_locked);
         } else {
             int nextKeyboardIndex = getNextSymbolsKeyboardIndex();
             int tooltipResId;
@@ -459,7 +458,7 @@ public class KeyboardSwitcher {
 
     public String peekNextAlphabetKeyboard() {
         if (mKeyboardLocked) {
-            return getCurrentKeyboard().getKeyboardName();
+            return mContext.getString(R.string.keyboard_change_locked);
         } else {
             final int keyboardsCount = mAlphabetKeyboardsCreators.length;
             int selectedKeyboard = mLastSelectedKeyboard;
