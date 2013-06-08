@@ -94,23 +94,19 @@ public class KeyboardSwitcher {
         mKeyboardDimens = new KeyboardDimens() {
 
             public int getSmallKeyHeight() {
-                return (int) res
-                        .getDimensionPixelOffset(R.dimen.default_key_half_height);
+                return res.getDimensionPixelOffset(R.dimen.default_key_half_height);
             }
 
             public float getRowVerticalGap() {
-                return (int) res
-                        .getDimensionPixelOffset(R.dimen.default_key_vertical_gap);
+                return res.getDimensionPixelOffset(R.dimen.default_key_vertical_gap);
             }
 
             public int getNormalKeyHeight() {
-                return (int) res
-                        .getDimensionPixelOffset(R.dimen.default_key_height);
+                return res.getDimensionPixelOffset(R.dimen.default_key_height);
             }
 
             public int getLargeKeyHeight() {
-                return (int) res
-                        .getDimensionPixelOffset(R.dimen.default_key_tall_height);
+                return res.getDimensionPixelOffset(R.dimen.default_key_tall_height);
             }
 
             public int getKeyboardMaxWidth() {
@@ -118,8 +114,7 @@ public class KeyboardSwitcher {
             }
 
             public float getKeyHorizontalGap() {
-                return (int) res
-                        .getDimensionPixelOffset(R.dimen.default_key_horizontal_gap);
+                return res.getDimensionPixelOffset(R.dimen.default_key_horizontal_gap);
             }
 
             public int getKeyMaxWidth() {
