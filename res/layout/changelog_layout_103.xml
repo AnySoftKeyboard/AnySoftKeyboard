@@ -18,6 +18,6 @@
               android:tag="20130609"
               android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
     <TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-              android:text="* Next language name is now shown on the LANG key.\n* Several crash fixes.\n* Other defect fixes.\n* Localization updating:." style="@android:style/TextAppearance.Small"/>
+              android:text="* Next language name is now shown on the LANG key.\n* Several crash fixes.\n* Other defect fixes.\n* Localization updating: pl." style="@android:style/TextAppearance.Small"/>
 
 </LinearLayout>
