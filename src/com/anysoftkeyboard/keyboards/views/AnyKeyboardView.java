@@ -302,19 +302,18 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
             }
 
         }
-        // If the motion event is above the keyboard and it's not an UP event
-        // coming
-        // even before the first MOVE event into the extension area
+        // If the motion event is above the keyboard and it's a MOVE event
+        // coming even before the first MOVE event into the extension area
         if (!mIsFirstDownEventInsideSpaceBar
                 && me.getY() < mExtensionKeyboardYActivationPoint
-                && !isPopupShowing() && !mExtensionVisible
-                && me.getAction() != MotionEvent.ACTION_UP) {
+                && !isPopupShowing()
+                && !mExtensionVisible
+                && me.getAction() == MotionEvent.ACTION_MOVE) {
             if (mExtensionKeyboardAreaEntranceTime <= 0)
                 mExtensionKeyboardAreaEntranceTime = System.currentTimeMillis();
 
             if (System.currentTimeMillis() - mExtensionKeyboardAreaEntranceTime > DELAY_BEFORE_POPING_UP_EXTENSION_KBD) {
-                KeyboardExtension extKbd = ((ExternalAnyKeyboard) getKeyboard())
-                        .getExtensionLayout();
+                KeyboardExtension extKbd = ((ExternalAnyKeyboard) getKeyboard()).getExtensionLayout();
                 if (extKbd == null || extKbd.getKeyboardResId() == -1) {
                     return super.onTouchEvent(me);
                 } else {
