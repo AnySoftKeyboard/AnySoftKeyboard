@@ -50,7 +50,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     private static final int DELAY_BEFORE_POPING_UP_EXTENSION_KBD = 35;// milliseconds
     private final static String TAG = "AnyKeyboardView";
 
-    private KeyboardSwitcher mSwitcher;
     private boolean mExtensionVisible = false;
     private final int mExtensionKeyboardYActivationPoint;
     private final int mExtensionKeyboardPopupOffset;
@@ -303,19 +302,18 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
             }
 
         }
-        // If the motion event is above the keyboard and it's not an UP event
-        // coming
-        // even before the first MOVE event into the extension area
+        // If the motion event is above the keyboard and it's a MOVE event
+        // coming even before the first MOVE event into the extension area
         if (!mIsFirstDownEventInsideSpaceBar
                 && me.getY() < mExtensionKeyboardYActivationPoint
-                && !isPopupShowing() && !mExtensionVisible
-                && me.getAction() != MotionEvent.ACTION_UP) {
+                && !isPopupShowing()
+                && !mExtensionVisible
+                && me.getAction() == MotionEvent.ACTION_MOVE) {
             if (mExtensionKeyboardAreaEntranceTime <= 0)
                 mExtensionKeyboardAreaEntranceTime = System.currentTimeMillis();
 
             if (System.currentTimeMillis() - mExtensionKeyboardAreaEntranceTime > DELAY_BEFORE_POPING_UP_EXTENSION_KBD) {
-                KeyboardExtension extKbd = ((ExternalAnyKeyboard) getKeyboard())
-                        .getExtensionLayout();
+                KeyboardExtension extKbd = ((ExternalAnyKeyboard) getKeyboard()).getExtensionLayout();
                 if (extKbd == null || extKbd.getKeyboardResId() == -1) {
                     return super.onTouchEvent(me);
                 } else {
@@ -622,11 +620,5 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         mPopOutStartPoint.y = mFirstTouchPont.y;
         // it is ok to wait for the next loop.
         postInvalidate();
-    }
-
-    @Override
-    public void onViewNotRequired() {
-        super.onViewNotRequired();
-        mSwitcher = null;
     }
 }

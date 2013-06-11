@@ -159,10 +159,12 @@ public class Suggest implements Dictionary.WordCallback {
         } else if (enabled && mContactsDictionary == null) {
             // config says it should be on, but I have none.
             mContactsDictionary = mDictionaryFactory.createContactsDictionary(context);
-            DictionaryASyncLoader loader = new DictionaryASyncLoader(null);
-            loader.execute(mContactsDictionary);
-            //this will help us in the really rare case that an access to the dictionary is done before the loading started.
-            loader.waitTillLoadingStarted();
+            if (mContactsDictionary != null) {//not all devices has contacts-dictionary
+                DictionaryASyncLoader loader = new DictionaryASyncLoader(null);
+                loader.execute(mContactsDictionary);
+                //this will help us in the really rare case that an access to the dictionary is done before the loading started.
+                loader.waitTillLoadingStarted();
+            }
         }
     }
 

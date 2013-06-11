@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- DO NOT TRANSLATE -->
+    <!-- Android has working, native RTL support starting with Honeycomb -->
+    <bool name="settings_default_workaround_disable_rtl_fix">true</bool>
+</resources>
