@@ -1897,7 +1897,7 @@ public class AnyKeyboardBaseView extends View implements
                 enterKey.icon = icon;
                 enterKey.iconPreview = icon;
             } else {
-                CharSequence label = guessLabelForKey((AnyKey) enterKey);
+                CharSequence label = guessLabelForKey(enterKey);
                 enterKey.label = label;
                 ((AnyKey) enterKey).shiftedKeyLabel = label;
             }
@@ -1995,6 +1995,9 @@ public class AnyKeyboardBaseView extends View implements
     }
 
     private Drawable getIconToDrawForKey(Key key, boolean feedback) {
+        if (key.dynamicEmblem == Keyboard.KEY_EMBLEM_TEXT)
+            return null;
+        
         if (feedback && key.iconPreview != null)
             return key.iconPreview;
         if (key.icon != null)
@@ -2104,7 +2107,7 @@ public class AnyKeyboardBaseView extends View implements
         // Should not draw hint icon in key preview
         Drawable iconToDraw = getIconToDrawForKey(key, true);
         if (iconToDraw != null) {
-            // Here's an annoying bug for you (explaination at the end of the
+            // Here's an annoying bug for you (explanation at the end of the
             // hack)
             mPreviewIcon.setImageState(iconToDraw.getState(), false);
             // end of hack. You see, the drawable comes with a state, this state
@@ -2117,10 +2120,9 @@ public class AnyKeyboardBaseView extends View implements
             popupHeight = Math.max(mPreviewIcon.getMeasuredHeight(), key.height);
             mPreviewText.setText(null);
         } else {
-            CharSequence label = tracker.getPreviewText(key,
-                    mKeyboard.isShifted());
+            CharSequence label = tracker.getPreviewText(key, mKeyboard.isShifted());
             if (TextUtils.isEmpty(label)) {
-                label = guessLabelForKey((AnyKey) key);
+                label = guessLabelForKey(key);
             }
             mPreviewIcon.setImageDrawable(null);
             mPreviewText.setTextColor(mPreviewKeyTextColor);
