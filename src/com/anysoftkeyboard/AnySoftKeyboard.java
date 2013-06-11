@@ -1828,9 +1828,8 @@ public class AnySoftKeyboard extends InputMethodService implements
                 break;
             case KeyCodes.MOVE_END:
                 if (Workarounds.getApiLevel() >= 11) {
-                    sendDownUpKeyEvents(0x0000007b/*
-											 * API 11: KeyEvent.KEYCODE_MOVE_END
-											 */);
+                    //API 11: KeyEvent.KEYCODE_MOVE_END
+                    sendDownUpKeyEvents(0x0000007b);
                 } else {
                     if (ic != null) {
                         CharSequence textAfter = ic.getTextAfterCursor(1024, 0);
@@ -1845,10 +1844,15 @@ public class AnySoftKeyboard extends InputMethodService implements
                             }
                             if (newPosition > textAfter.length())
                                 newPosition = textAfter.length();
-                            CharSequence textBefore = ic.getTextBeforeCursor(
-                                    Integer.MAX_VALUE, 0);
-                            ic.setSelection(newPosition + textBefore.length(),
-                                    newPosition + textBefore.length());
+                            try {
+                                CharSequence textBefore = ic.getTextBeforeCursor(Integer.MAX_VALUE, 0);
+                                if (!TextUtils.isEmpty(textBefore)) {
+                                    newPosition = newPosition + textBefore.length();
+                                }
+                                ic.setSelection(newPosition, newPosition);
+                            } catch (Throwable e/*I'm using Integer.MAX_VALUE, it's scary.*/) {
+                                Log.w(TAG, "Failed to getTextBeforeCursor.", e);
+                            }
                         }
                     }
                 }
