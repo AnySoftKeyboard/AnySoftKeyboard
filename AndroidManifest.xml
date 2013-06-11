@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.menny.android.anysoftkeyboard"
-          android:versionCode="102"
-          android:versionName="20130528">
+          android:versionCode="103"
+          android:versionName="20130609">
 
     <supports-screens
             android:anyDensity="true"
