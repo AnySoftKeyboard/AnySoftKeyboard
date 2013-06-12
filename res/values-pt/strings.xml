@@ -6,43 +6,40 @@
   <string name="spell_checker_service_name">Verificação ortográfica AnySoftKeyboard</string>
   <string name="spell_checker_settings">Definições do verificador ortográfico</string>
   <string name="subtype_generic">verificador genérico</string>
+  <string name="copyright_text">Direitos de autor © <xliff:g id="year">%s</xliff:g> <xliff:g id="owner">%s</xliff:g></string>
+  <string name="version_text"><xliff:g id="version_name">%s</xliff:g> (v<xliff:g id="version_number">%s</xliff:g>)</string>
+  <string name="additional_licenses"><u>Outras licenças…</u></string>
+  <string name="debug_tracing_starting">Rastreio iniciado!\nNão se esqueça de parar em alguma parte</string>
+  <string name="debug_tracing_starting_failed">Falha ao iniciar rastreio! Consulte o logcat para detalhes.</string>
+  <string name="debug_tracing_finished">Rastreio iniciado!\nO ficheiro de rastreio é
+        <xliff:g id="trace_file">%s</xliff:g>
+    </string>
   <string name="click_to_restart_suggestions">Clique para sugestões</string>
   <string name="tips_notification_text">Clique para dicas!</string>
-  <string name="tips_button">Dicas de utilização</string>
-  <string name="tips_button_description">Clique para ver as dicas do AnySoftKeyboard</string>
+  <string name="tips_button">Como utilizar</string>
+  <string name="tips_button_description">Ajuda de utilização do AnySoftKeyboard</string>
   <string name="tips_title">Dicas AnySoftKeyboard</string>
   <string name="click_for_previous_tip">↓ Dica anterior</string>
   <string name="click_for_next_tip">Dica seguinte ↓</string>
   <string name="tip_1_welcome_to_ask">Bem-vindo ao AnySoftKeyboard!</string>
-  <string name="tip_1_how_to_access_settings">Para aceder às definições prima a tecla ENTER. Encontrará um mundo de personalizações!</string>
+  <string name="tip_1_how_to_access_settings">Para aceder às definições. Clique longo na tecla ENTER. Encontrará diversas opções de personalização!</string>
   <string name="tip_2_gestures">Com suporte a gestos!</string>
-  <string name="tip_2_gestures_tip">Com um deslizar do dedo pode fazer muita coisa! Deslizar da esquerda para a direita muda de idioma, da direita para a esquerda abre o teclado de símbolos, da barra de espaço para cima abre o  teclado auxiliar e de cima para baixo oculta o teclado.\nTodos os gestos podem ser ajustados nas definições (Mantenha a tecla ENTER pressionada).</string>
   <string name="tip_3_hidden_kbds">Jóias escondidas</string>
-  <string name="tip_3_hidden_kbds_tip">Existem alguns teclados ocultos:\n1) Deslize o dedo da barra de espaço para cima e terá acesso ao teclado auxiliar, com setas e microfone (para entrada de voz).\n2) Deslize o dedo para fora do teclado e mantenha a pressão. Aparece o teclado extensivo, com números e símbolos.</string>
   <string name="tip_4_top_generic_row">Linha superior</string>
-  <string name="tip_4_top_generic_row_tip">A linha superior é comum a todos os teclados e existem várias! A linha pré-definida inclui símbolos (<i>123</i>), setas para a direita e esquerda e mudança de idioma (<i>ABC</i>). Pode substituir esta linha nas definições.</string>
   <string name="tip_4_top_generic_row_go_to_top_row_settings">Alterar linha superior agora</string>
   <string name="tip_5_key_feedback">Resposta</string>
-  <string name="tip_5_key_feedback_tip">Às vezes é útil ter uma resposta não visual à pressão das teclas. Pode ativar a vibração, o som ou ambos.</string>
   <string name="tip_5_key_feedback_test">Pretende testar a resposta?</string>
   <string name="tip_6_bottom_rows">Linha inferior</string>
-  <string name="tip_6_bottom_rows_tip">Tal como a linha superior, a inferior também pode ser substituída. O AnySoftKeyboard tem vários tipos: com ou sem microfone, normal, estilo iPhone...</string>
   <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Alterar linha inferior agora</string>
   <string name="tip_7_voice_input">Fale comigo*</string>
-  <string name="tip_7_voice_input_tip">Teclar pode ser agradável, mas também está disponível a opção de entrada de voz! Quer ditar o texto? Clique na tecla do microfone e fale!\nEsta opção usa a tecnologia de reconhecimento de voz da Google. Certifique-se que funciona no seu idioma.</string>
-  <string name="tip_7_voice_input_tip_dont_forget_bottom_row">Se quiser o ícone do microfone sempre visível, certifique-se que tem a linha inferior correta (dica anterior, lembra-se?).\nPode sempre aceder ao microfone através do teclado auxiliar (deslizar barra de espaço para cima).</string>
   <string name="tip_7_voice_input_tip_note">* Para funcionar, requer Android 2.2+ e ligação à Internet.</string>
   <string name="tip_8_suggestions">Eu ajudo-o</string>
-  <string name="tip_8_suggestions_tip">Dependendo do suporte ao seu idioma, o AnySoft Keyboard pode ajuda-lo a completar as palavras e corrigir erros. Assim que começar a escrever, o AnySoftKeyboard sugere as palavras de acordo com que que já escreveu anteriormente.</string>
-  <string name="tip_8_suggestions_editor">Se a palavra introduzida não for reconhecida, adicione-a! Digite-a e clique na linha de sugestões.\nTambém pode apagar ou corrigir as palavras adicionadas utilizando o editor, disponível nas definições do AnySoftKeyboard.</string>
   <string name="tip_9_suggestions_restart">A reiniciar sugestões</string>
-  <string name="tip_9_suggestions_restart_tip">O AnySoftKeyboard disponibiliza as sugestões com base nas palavras que o utilizador escreveu. No entanto, também pode usar as palavras do dicionário. Clique na palavra e o AnySoftKeyboard atualiza a lista de sugestões.</string>
   <string name="main_tab_welcome">Bem-vindo</string>
   <string name="main_tab_links">Ligações</string>
   <string name="main_tab_credits">Créditos</string>
   <string name="how_to_pointer_title">Bem-vindo ao AnySoftKeyboard</string>
   <string name="how_to_pointer_version_prefix">Versão: </string>
-  <string name="how_to_pointer_not_app">O AnySoftKeyboard não é uma aplicação comum - é um substituto do teclado virtual.</string>
   <string name="how_to_pointer_go_to_links">Para detalhes consulte o separador Ligações.</string>
   <string name="how_to_pointer_how_to_url">Como utilizar este teclado:</string>
   <string name="how_to_pointer_site">Detalhes gerais:</string>
@@ -54,17 +51,11 @@
   <string name="main_tab_credits_localization_by">Traduzido por:</string>
   <string name="main_tab_credits_GUI_by">Imagens da UI:</string>
   <string name="how_to_enable_dialog_title">Ativar o AnySoftKeyboard?</string>
-  <string name="how_to_enable_dialog_text">O AnySoftKeyboard ainda não está ativo. Quer saber como o ativa?</string>
   <string name="how_to_enable_dialog_show_me">Sim!</string>
   <string name="how_to_enable_dialog_dont_show_me">Mais tarde</string>
-  <string name="how_to_simple_howto_preface">O Android requer que seja o utilizador a ativar e selecionar manualmente os teclados externos. Faça o seguinte:</string>
-  <string name="how_to_simple_howto_enable_ask">1 -  Ative o AnySoftKeyboard (verá um aviso sobre o registo de teclas. Não se preocupe pois o AnySoftKeyboard não guarda os dados nem os envia para qualquer lugar):</string>
   <string name="how_to_simple_howto_enable_ask_button">Ativar o AnySoftKeyboard</string>
-  <string name="how_to_simple_howto_press_back_to_return_tip">Prima Voltar quando terminar para voltar às instruções de ativação</string>
-  <string name="how_to_simple_howto_switch_to_ask">2: Selecione o AnySoftKeyboard como método de entrada:</string>
   <string name="how_to_simple_howto_switch_to_ask_button_after_step_1">Mudar para o AnySoftKeyboard</string>
   <string name="how_to_simple_howto_switch_to_ask_button_before_step_1">Execute o passo 1</string>
-  <string name="how_to_simple_howto_go_to_settings">3 (opcional): o AnySoftKeyboard é bastante personalizável. Pode configurar a aplicação premindo a tecla Enter.</string>
   <string name="how_to_simple_howto_go_to_settings_button">﻿Definições do AnySoftKeyboard</string>
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
   <string name="notification_text_testers">Esta é uma versão beta. Use com cuidado!</string>
@@ -77,7 +68,6 @@
   <string name="about">Sobre</string>
   <string name="changelog">Alterações</string>
   <string name="search_market_for_addons">Procurar extras</string>
-  <string name="no_market_store_available">A Play Store não foi encontrada no dispositivo. Não pode procurar extras!</string>
   <string name="theme_addons_settings">Definições do tema</string>
   <string name="keyboard_theme_tweak_group">Ajustes</string>
   <string name="keyboard_theme_tweak_hints_group">Ajustes do texto auxiliar</string>
@@ -85,32 +75,24 @@
   <string name="top_row_addons_settings">Definições da linha superior</string>
   <string name="close_button">Fechar</string>
   <string name="how_to_active_text">Como ativar o AnySoftKeyboard</string>
-  <string name="added_word">Gravada: <xliff:g id="word">%s</xliff:g></string>
   <string name="revert_added_word_question">Remover\?</string>
-  <string name="removed_word">Removida: <xliff:g id="word">%s</xliff:g></string>
   <string name="hint_add_to_dictionary">\u2190 Toque novamente para gravar</string>
   <string name="hint_double_tap_to_close">Novamente para remover sugestões</string>
   <string name="menu_insert_smiley">Inserir ícone emotivo</string>
   <string name="click_for_help">Ajuda</string>
-  <string name="click_for_help_summary">Prima para obter mais ajuda</string>
   <string name="ui_group">Interface</string>
   <string name="physical_keyboard_change_notification_title">Notificação de esquema</string>
-  <string name="physical_keyboard_change_notification_summary">Tipo de notificação do esquema ativo. Agora: %s</string>
   <string name="physical_keyboard_change_notification_dialog_title">Escolha o tipo de notificação</string>
   <string name="lengthy_operations_toast_notification">Notificar em operações longas</string>
   <string name="lengthy_operations_toast_notification_summary">Mostrar notificações em operações longas</string>
   <string name="voice_input_not_support_in_this_os_version">O entrada de voz só é suportada no Android 2.2+</string>
   <string name="voice_input_not_installed_title">Reconhecimento de voz não instalado</string>
-  <string name="voice_input_not_installed_text">Tem que instalar a Entrada por voz da Google, disponível no Market, antes de usar esta opção.</string>
   <string name="voice_input_not_installed_action_install">Instalar</string>
   <string name="voice_input_not_installed_action_do_not_install">Não</string>
-  <string name="voice_input_not_voice_pack_in_market">Não foi possível encontrar a pesquisa por voz (com.google.android.voicesearch) no Market. A pesquisa por voz não funcionará no seu dispositivo.</string>
   <string name="change_ime">Alterar método de inserção</string>
   <string name="override_dictionary">Sobrepor dicionário ativo</string>
-  <string name="override_dictionary_title">Substituir dicionário <xliff:g id="word"> %s </xliff:g></string>
   <string name="override_dictionary_default">Padrão</string>
   <string name="override_disabled">Sobreposição desativada</string>
-  <string name="override_enabled">A substituir por <xliff:g id="word"> %s </xliff:g></string>
   <string name="effects_group">Efeitos</string>
   <string name="ime_settings">Definições do teclado</string>
   <string name="vibrate_on_key_press_title">Vibrar ao pressionar</string>
@@ -120,12 +102,9 @@
   <string name="sound_on_summary">Emitir som ao pressionar teclas.</string>
   <string name="use_custom_sound_volume">Definir volume</string>
   <string name="use_custom_sound_volume_on_summary">Utilizar volume personalizado.</string>
-  <string name="use_custom_sound_volume_off_summary">Utilizar volume igual ao das notificações do sistema.</string>
   <string name="custom_sound_volume">Volume personalizado</string>
   <string name="speacial_fetures_group">Opções especiais</string>
   <string name="switch_keyboard_on_space">Espaço muda de teclado</string>
-  <string name="switch_keyboard_on_space_on_summary">Mudar de símbolos/números para alfabeto ao pressionar espaço</string>
-  <string name="switch_keyboard_on_space_off_summary">Não mudar de símbolos/números para alfabeto ao pressionar espaço</string>
   <string name="hide_soft_when_physical">Ocultar teclado ao usar tecla física</string>
   <string name="hide_soft_when_physical_on_summary">Ocultar teclado virtual ao usar teclado físico</string>
   <string name="hide_soft_when_physical_off_summary">Mostrar teclado virtual ao usar teclado físico</string>
@@ -134,7 +113,6 @@
   <string name="fullscreen_input_connection_supported_off_summary">Não usar ecrã completo no modo horizontal</string>
   <string name="fullscreen_portrait_input_connection_supported">Ecrã completo na vertical</string>
   <string name="fullscreen_portrait_input_connection_supported_on_summary">Ecrã completo para inserir texto</string>
-  <string name="fullscreen_portrait_input_connection_supported_off_summary">Não usar ecrã completo para inserir texto</string>
   <string name="backword_support">Apagar palavra</string>
   <string name="backword_support_on_summary">Shift+Backspace apaga a última palavra</string>
   <string name="backword_support_off_summary">Shift+Backspace apaga o último carácter</string>
@@ -196,14 +174,11 @@
   <string name="hardware_keys_group">Funções das teclas</string>
   <string name="volume_key_for_left_right_support">Tecla de volume para esquerda/direita</string>
   <string name="volume_key_for_left_right_support_on_summary">Desativar esquerda/direita usando teclas de volume</string>
-  <string name="volume_key_for_left_right_support_off_summary">Volume para cima move cursor para a esquerda, volume para baixo move cursor para a direita</string>
   <string name="camera_key_for_backspace_backword_support">Tecla Câmara para apagar carácter/palavra</string>
   <string name="camera_key_for_backspace_backword_support_on_summary">Restaurar opção da tecla da câmara</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Toque no botão da câmara apaga o último carácter, pressão apaga a última palavra</string>
   <string name="special_dictionaries_group">Dicionários especiais</string>
   <string name="special_dictionaries_group_summary">Dicionários de sugestão usados no AnySoftKeyboard</string>
   <string name="use_user_dictionary">Dicionário do utilizador</string>
-  <string name="use_user_dictionary_on_summary">Sugere palavras adicionadas pelo utilizador (toque longo na sugestão para adicionar)</string>
   <string name="use_user_dictionary_off_summary"> </string>
   <string name="use_auto_dictionary">Dicionário automático</string>
   <string name="use_auto_dictionary_dialog_title">Escolha o modo de aprendizagem</string>
@@ -251,16 +226,12 @@
   <string name="is_extesion_keyboard_above_keyboard_off_summary">Cobre o teclado principal</string>
   <string name="show_new_tips_notifications_again">Mostrar dicas</string>
   <string name="show_new_tips_notifications_again_on_summary">Se forem adicionadas novas dicas, estas serão mostradas</string>
-  <string name="show_new_tips_notifications_again_off_summary">Não será notificado se forem adicionadas novas dicas</string>
   <string name="show_settings_app_in_launcher">Definições</string>
-  <string name="settings_key_show_settings_app_on_summary">Mostrar aplicação de definições na lista (poderá ter de reiniciar)</string>
   <string name="settings_key_show_settings_app_off_summary">Ocultar aplicação de definições na lista (poderá ter de reiniciar)</string>
   <string name="show_crash_notification">Reportar erros</string>
   <string name="show_crash_notification_on_summary">Num erro ASK, abrir caixa de reporte de erros</string>
   <string name="show_crash_notification_off_summary">Enviar erros silenciosamente</string>
   <string name="show_new_version_notifications_again">Notificações de nova versão</string>
-  <string name="show_new_version_notifications_again_on_summary">Ao instalar uma nova versão, mostrar as alterações</string>
-  <string name="show_new_version_notifications_again_off_summary">Não notificar ao instalar uma nova versão</string>
   <string name="use_keyrepeat">Repetição de tecla</string>
   <string name="use_keyrepeat_on_summary">Repetição de tecla ativa</string>
   <string name="use_keyrepeat_off_summary">Repetição de tecla inativa</string>
@@ -284,7 +255,6 @@
   <string name="zoom_factor_keys_in_portrait">Fator de altura no modo vertical</string>
   <string name="zoom_factor_keys_in_landscape">Fator de altura no modo horizontal</string>
   <string name="insert_space_after_word_suggestion_selection">Espaço após sugestão</string>
-  <string name="insert_space_after_word_suggestion_selection_on_summary">Inserir espaço depois da palavra sugerida</string>
   <string name="insert_space_after_word_suggestion_selection_off_summary"> </string>
   <string name="double_space_to_period">Duplo espaço para ponto</string>
   <string name="double_space_to_period_summary">Duplo espaço insere ponto final e espaço</string>
@@ -320,7 +290,6 @@
   <string name="auto_dict">Dicionário automático</string>
   <string name="auto_dict_summary">Adicionar automaticamente ao dicionário as palavras frequentes ou selecionadas</string>
   <string name="no_extrenal_packs_support_title">Não suportado</string>
-  <string name="no_extrenal_packs_support_message">O AnySoftKeyboard não permite componentes externos deste tipo.\nA funcionalidade será disponibilizada assim que API for definida.\nMantenha-se atento.</string>
   <string name="keyboards_group">Teclados</string>
   <string name="keyboards_group_summary">Esquemas de teclado para o AnySoftKeyboard</string>
   <string name="symbols_keyboard">123!#()</string>
@@ -332,7 +301,9 @@
   <string name="eng_keyboard">Inglês</string>
   <string name="eng_keyboard_qwertywithsymbols">Inglês com símbolos</string>
   <string name="eng_keyboard_16keys">Inglês - 16 teclas</string>
-  <string name="selected_add_on_summary">A utilizar \'<xliff:g id="addOnName">%s</xliff:g>\'</string>
+  <string name="keyboard_change_locked">n/d</string>
+  <string name="selected_add_on_summary">A utilizar \'<xliff:g id="addOnName">%s</xliff:g>\'
+    </string>
   <string name="additional_addons_group">Outras extras</string>
   <string name="quick_text_keys_group">Teclas de texto rápido</string>
   <string name="quick_text_key_active">Tecla de texto rápido ativa</string>
@@ -386,7 +357,6 @@
   <string name="extension_kbd_extension_numbers_symbols">Números e símbolos</string>
   <string name="show_tutorial_on_startup">Mostrar ajuda ao iniciar</string>
   <string name="tutorial_swipe_title">Deslize para alterar esquema</string>
-  <string name="tutorial_swipe_text">Pode alterar o esquema deslizando o dedo no teclado. Se deslizar da esquerda para a direita muda o idioma e da direita para a esquerda troca para símbolos.</string>
   <string name="label_go_key">Ir</string>
   <string name="label_next_key">Seg.</string>
   <string name="label_previous_key">Ant.</string>
@@ -435,32 +405,36 @@
   <string name="settings_split_state_split_in_landscape">Iniciar separado quando horizontal</string>
   <string name="settings_split_state_split_always">Iniciar separado</string>
   <string name="user_dictionary_select_locale">Idioma:</string>
-  <string name="user_dictionary_read_please_wait">A ler palavras...</string>
+  <string name="user_dictionary_read_please_wait">A carregar palavras...</string>
   <string name="user_dict_settings_titlebar">Dicionário do utilizador</string>
   <string name="user_dict_editor">Editor de palavras</string>
-  <string name="user_dict_settings_title">Dicionário do utilizador</string>
-  <string name="user_dict_settings_summary">Adicionar e remover palavras do dicionário do utilizador</string>
-  <string name="user_dict_settings_add_menu_title">Adicionar</string>
   <string name="user_dict_settings_add_dialog_title">Adicionar ao dicionário</string>
   <string name="user_dict_settings_edit_dialog_title">Editar palavra</string>
-  <string name="user_dict_settings_context_menu_edit_title">Editar</string>
-  <string name="user_dict_settings_context_menu_delete_title">Apagar</string>
-  <string name="user_dict_settings_empty_text">Não existem palavras no dicionário de utilizador. Pode adicionar palavras no menu.</string>
+  <string name="user_dict_settings_empty_text">Não existem palavras no dicionário. Pode adicionar palavras no menu.</string>
   <string name="user_dict_backup_success_title">Cópia de segurança efetuada!</string>
-  <string name="user_dict_backup_success_text">As palavras foram gravadas com sucesso em /Android/data/com.menny.android.anysoftkeyboard/files/</string>
+  <string name="user_dict_backup_success_text">Palavras gravadas no cartão SD em:
+        /Android/data/com.menny.android.anysoftkeyboard/files/
+    </string>
   <string name="user_dict_backup_fail_title">Falha ao copiar!</string>
   <string name="user_dict_backup_fail_text">Não foi possível gravar o ficheiro. Possui um cartão SD?</string>
-  <string name="user_dict_backup_fail_text_with_error">A falha ao gravar deve-se a: <xliff:g id="error">%s</xliff:g></string>
+  <string name="user_dict_backup_fail_text_with_error">Não foi possível guardar as palavras devido a:
+        <xliff:g id="error">%s</xliff:g>
+    </string>
   <string name="user_dict_restore_success_title">Restauro efetuado!</string>
   <string name="user_dict_restore_success_text">As palavras foram restauradas.</string>
   <string name="user_dict_restore_fail_title">Falha ao restaurar!</string>
   <string name="user_dict_restore_fail_text">Não foi possível ler o ficheiro. Possui um cartão SD?</string>
-  <string name="user_dict_restore_fail_text_with_error">A falha ao restaurar deve-se a: <xliff:g id="error">%s</xliff:g></string>
-  <string name="fast_scroll_alphabet"> ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+  <string name="user_dict_restore_fail_text_with_error">Não foi possível restaurar palavras devido a:
+        <xliff:g id="error">%s</xliff:g>
+    </string>
+  <string name="fast_scroll_alphabet">ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
   <string name="should_swap_punctuation_and_space_title">Trocar pontuação e espaço</string>
   <string name="should_swap_punctuation_and_space_summary"> </string>
   <string name="should_swap_punctuation_and_space_yes">Sim</string>
   <string name="should_swap_punctuation_and_space_no">Não</string>
+  <string name="developer_tools">Ferramentas de programação</string>
+  <string name="click_for_developer_features">Ferramentas de programação</string>
+  <string name="click_for_developer_features_summary">Várias ferramentas de desenvolvimento do AnySoftKeyboard</string>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Mostrar ícone na barra de estado</item>
     <item>Mostrar aviso ao alterar teclado</item>
