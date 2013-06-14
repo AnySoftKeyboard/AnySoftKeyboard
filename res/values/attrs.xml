@@ -400,4 +400,10 @@
     <attr name="previewGestureTextColor" format="color"/>
     <!-- Whether should show preview. -->
     <attr name="showPreview" format="boolean"/>
+
+    <attr name="keyDynamicEmblem">
+        <flag name="none" value="0"/>
+        <flag name="text" value="1"/>
+        <flag name="icon" value="2"/>
+    </attr>
 </resources>
