@@ -15,7 +15,7 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:tag="20130609"
+              android:tag="20130612"
               android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
     <TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
               android:text="* Next language name is now shown on the LANG key.\n* Several crash fixes.\n* Other defect fixes.\n* Localization updating: pl, el, es, hu, pt, uk, ca." style="@android:style/TextAppearance.Small"/>

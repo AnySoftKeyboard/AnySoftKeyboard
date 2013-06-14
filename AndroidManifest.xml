@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.menny.android.anysoftkeyboard"
-          android:versionCode="103"
+          android:versionCode="104"
           android:versionName="20130612">
 
     <supports-screens
