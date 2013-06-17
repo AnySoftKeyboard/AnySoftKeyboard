@@ -23,7 +23,6 @@ import com.anysoftkeyboard.utils.IMEUtil;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
-import net.evendanan.frankenrobot.Diagram;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -134,8 +133,6 @@ public class Suggest implements Dictionary.WordCallback {
                 mMainDict = dictionaryBuilder.createDictionary();
                 DictionaryASyncLoader loader = new DictionaryASyncLoader(null);
                 loader.execute(mMainDict);
-                //this will help us in the really rare case that an access to the dictionary is done before the loading started.
-                loader.waitTillLoadingStarted();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -162,8 +159,6 @@ public class Suggest implements Dictionary.WordCallback {
             if (mContactsDictionary != null) {//not all devices has contacts-dictionary
                 DictionaryASyncLoader loader = new DictionaryASyncLoader(null);
                 loader.execute(mContactsDictionary);
-                //this will help us in the really rare case that an access to the dictionary is done before the loading started.
-                loader.waitTillLoadingStarted();
             }
         }
     }
