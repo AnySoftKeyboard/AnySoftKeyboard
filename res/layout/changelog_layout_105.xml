@@ -18,6 +18,6 @@
               android:tag="20130617"
               android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
     <TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-              android:text="* A rare crash fix.\n* Localization updating: ." style="@android:style/TextAppearance.Small"/>
+              android:text="* A rare crash fix.\n* Localization updating: el, hu, pt." style="@android:style/TextAppearance.Small"/>
 
 </LinearLayout>
