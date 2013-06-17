@@ -52,8 +52,6 @@ public class DictionaryFactory {
         mUserDictionary = new UserDictionary(context, locale);
         DictionaryASyncLoader loader = new DictionaryASyncLoader(null);
         loader.execute(mUserDictionary);
-        //this will help us in the really rare case that an access to the dictionary is done before the loading started.
-        loader.waitTillLoadingStarted();
 
         mUserDictionaryLocale = locale;
         return mUserDictionary;
@@ -81,8 +79,6 @@ public class DictionaryFactory {
 
         DictionaryASyncLoader loader = new DictionaryASyncLoader(null);
         loader.execute(mAutoDictionary);
-        //this will help us in the really rare case that an access to the dictionary is done before the loading started.
-        loader.waitTillLoadingStarted();
 
         return mAutoDictionary;
     }
