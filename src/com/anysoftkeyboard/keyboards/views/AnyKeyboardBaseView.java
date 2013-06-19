@@ -1597,7 +1597,7 @@ public class AnyKeyboardBaseView extends View implements
                 } else {
                     // ho... no icon.
                     // I'll try to guess the text
-                    label = guessLabelForKey(key);
+                    label = guessLabelForKey(key.codes[0]);
                     if (TextUtils.isEmpty(label)) {
                         Log.w(TAG, "That's unfortunate, for key "
                                 + key.codes[0] + " at (" + key.x + ", " + key.y
@@ -1897,7 +1897,7 @@ public class AnyKeyboardBaseView extends View implements
                 enterKey.icon = icon;
                 enterKey.iconPreview = icon;
             } else {
-                CharSequence label = guessLabelForKey(enterKey);
+                CharSequence label = guessLabelForKey(enterKey.codes[0]);
                 enterKey.label = label;
                 ((AnyKey) enterKey).shiftedKeyLabel = label;
             }
@@ -1916,30 +1916,27 @@ public class AnyKeyboardBaseView extends View implements
                 enterKey.iconPreview = enterIcon;
             }
         }
-        Key langKey = findKeyByKeyCode(KeyCodes.MODE_ALPHABET);
-        if (langKey != null) {
-            if (TextUtils.isEmpty(langKey.label)) {
-                if (langKey.dynamicEmblem == Keyboard.KEY_EMBLEM_TEXT) {
-                    langKey.label = guessLabelForKey(langKey);
+        //these are dynamic keys
+        setSpecialKeyIconOrLabel(KeyCodes.MODE_ALPHABET);
+        setSpecialKeyIconOrLabel(KeyCodes.MODE_SYMOBLS);
+        setSpecialKeyIconOrLabel(KeyCodes.KEYBOARD_MODE_CHANGE);
+    }
+
+    private void setSpecialKeyIconOrLabel(int keyCode) {
+        Key key = findKeyByKeyCode(keyCode);
+        if (key != null) {
+            if (TextUtils.isEmpty(key.label)) {
+                if (key.dynamicEmblem == Keyboard.KEY_EMBLEM_TEXT) {
+                    key.label = guessLabelForKey(key.codes[0]);
                 } else {
-                    langKey.icon = getIconForKeyCode(KeyCodes.MODE_ALPHABET);
-                }
-            }
-        }
-        Key symKey = findKeyByKeyCode(KeyCodes.MODE_SYMOBLS);
-        if (symKey != null) {
-            if (TextUtils.isEmpty(symKey.label)) {
-                if (symKey.dynamicEmblem == Keyboard.KEY_EMBLEM_TEXT) {
-                    symKey.label = guessLabelForKey(symKey);
-                } else {
-                    symKey.icon = getIconForKeyCode(KeyCodes.MODE_SYMOBLS);
+                    key.icon = getIconForKeyCode(keyCode);
                 }
             }
         }
     }
 
-    private CharSequence guessLabelForKey(Key key) {
-        switch (key.codes[0]) {
+    private CharSequence guessLabelForKey(int keyCode) {
+        switch (keyCode) {
             case KeyCodes.ENTER:
                 if (AnyApplication.DEBUG)
                     Log.d(TAG, "Action key action ID is: " + mKeyboardActionType);
@@ -1959,6 +1956,11 @@ public class AnyKeyboardBaseView extends View implements
                     default:
                         return "";
                 }
+            case KeyCodes.KEYBOARD_MODE_CHANGE:
+                if (mSwitcher.isAlphabetMode())
+                    return guessLabelForKey(KeyCodes.MODE_SYMOBLS);
+                else
+                    return guessLabelForKey(KeyCodes.MODE_ALPHABET);
             case KeyCodes.MODE_ALPHABET:
                 String langKeyText = null;
                 if (mSwitcher != null)//should show the next keyboard label, not a generic one.
@@ -2122,7 +2124,7 @@ public class AnyKeyboardBaseView extends View implements
         } else {
             CharSequence label = tracker.getPreviewText(key, mKeyboard.isShifted());
             if (TextUtils.isEmpty(label)) {
-                label = guessLabelForKey(key);
+                label = guessLabelForKey(key.codes[0]);
             }
             mPreviewIcon.setImageDrawable(null);
             mPreviewText.setTextColor(mPreviewKeyTextColor);
