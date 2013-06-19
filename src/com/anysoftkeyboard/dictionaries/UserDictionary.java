@@ -17,7 +17,6 @@
 package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import com.anysoftkeyboard.WordComposer;
 import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.FallbackUserDictionary;

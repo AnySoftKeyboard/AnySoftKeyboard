@@ -5,6 +5,7 @@
   <string name="settings_app_name">AnySoftKeyboard beállítások</string>
   <string name="spell_checker_service_name">AnySoftKeyboard helyesírás-ellenőrző</string>
   <string name="spell_checker_settings">AnySoftKeyboard helyesírás-ellenőrző beállítások</string>
+  <string name="subtype_generic">speller-generic</string>
   <string name="copyright_text">Copyright © <xliff:g id="year">%s</xliff:g> <xliff:g id="owner">%s</xliff:g></string>
   <string name="version_text"><xliff:g id="version_name">%s</xliff:g> (v<xliff:g id="version_number">%s</xliff:g>)</string>
   <string name="additional_licenses"><u>További licenszek...</u></string>
@@ -223,6 +224,7 @@ törlődik, teljesen lenyomva az utolsó szó</string>
   <string name="use_user_dictionary">Felhasználói szótár</string>
   <string name="use_user_dictionary_on_summary">Felhasználó által felvett szavakat ajánl (dupla kattintás a szóra a beillesztéshez)</string>
   <string name="use_user_dictionary_off_summary"> </string>
+  <string name="always_use_fallback_user_dictionary">Vész-felhasználói szótár használata</string>
   <string name="always_use_fallback_user_dictionary_on_summary">Csak az AnySoftKeyboard beépített szótárának használata (nem javasolt).</string>
   <string name="always_use_fallback_user_dictionary_off_summary">Próbálja használni az Android beépített felhasználói szótárát először (ajánlott).</string>
   <string name="use_auto_dictionary">Automatikus szótár</string>
