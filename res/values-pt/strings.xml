@@ -24,6 +24,7 @@
   <string name="tip_1_welcome_to_ask">Bem-vindo ao AnySoftKeyboard!</string>
   <string name="tip_1_how_to_access_settings">Para aceder às definições. Clique longo na tecla ENTER. Encontrará diversas opções de personalização!</string>
   <string name="tip_2_gestures">Com suporte a gestos!</string>
+  <string name="tip_2_gestures_tip">Com um deslizar no ecrã, pode efetuar diversas ações! Deslizar da esquerda para a direita troca de idioma, da direita para a esquerda troca o esquema de símbolos, da barra de espaço para cima mostra o teclado e de cima para baixo oculta o teclado.\nAs ações podem ser editadas nas definições (toque longo na tecla Enter, lembra-se?).</string>
   <string name="tip_3_hidden_kbds">Jóias escondidas</string>
   <string name="tip_4_top_generic_row">Linha superior</string>
   <string name="tip_4_top_generic_row_go_to_top_row_settings">Alterar linha superior agora</string>
