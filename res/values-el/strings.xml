@@ -22,12 +22,17 @@
   <string name="tip_1_welcome_to_ask">Καλώς ήλθατε στο AnySoftKeyboard!</string>
   <string name="tip_1_how_to_access_settings">Για να αποκτήσετε πρόσβαση στις ρυθμίσεις, παρατεταμένο πάτημα του πλήκτρου ENTER. Θα βρείτε έναν κόσμο από προσαρμογές εκεί!</string>
   <string name="tip_2_gestures">Υποστηρίζω κινήσεις!</string>
+  <string name="tip_2_gestures_tip">Με ένα σύρσιμο, μπορείτε να κάνετε πολλά! Σύρσιμο από αριστερά προς τα δεξιά θα αλλάξει η γλώσσα, σύρσιμο προς τα αριστερά θα αλλάξει σε διάταξη με σύμβολα, σύρσιμο από το πλήκτρο διαστήματος και πάνω θα παρουσιάσει ένα εργαλείο πληκτρολογίου και σύρσιμο προς τα κάτω θα κρύψει το πληκτρολόγιο.\nΜπορεί να διαμορφωθεί στις ρυθμίσεις (θυμάστε; Παρατεταμένη πίεση στο πλήκτρο ENTER).</string>
   <string name="tip_3_hidden_kbds">Κρυμμένα διαμάντια</string>
+  <string name="tip_3_hidden_kbds_tip">Υπάρχουν μερικά κρυμμένα πληκτρολόγια:\n1) Σέρνοντας το δάχτυλό σας από το πλήκτρο διαστήματος και πάνω, θα πάρετε ένα εργαλείο πληκτρολογίου με βέλη και μικρόφωνο (για την φωνητική εισαγωγή).\n2) Σύρετε το δάχτυλό σας προς τα πάνω και έξω από το πληκτρολόγιο και κρατήστε το πατημένο. Αυτή είναι η επέκταση πληκτρολογίου, με αριθμούς και σύμβολα.</string>
   <string name="tip_4_top_generic_row">Πάνω σειρά</string>
+  <string name="tip_4_top_generic_row_tip">Η πάνω σειρά είναι ίδια σε όλες τις διατάξεις, και μπορεί να αλλάξει! Από προεπιλογή η πάνω σειρά περιλαμβάνει σύμβολα (<i>123</i>), αριστερό και δεξιό βέλος, και το πλήκτρο γλώσσας (<i>ABC</i>). Μπορείτε να αντικαταστήσετε αυτή τη γραμμή στις ρυθμίσεις.</string>
   <string name="tip_4_top_generic_row_go_to_top_row_settings">Αλλαγή πάνω σειράς τώρα</string>
   <string name="tip_5_key_feedback">Ανταπόκριση</string>
+  <string name="tip_5_key_feedback_tip">Μερικές φορές είναι ωραίο να πάρετε μια μη οπτική ανταπόκριση για πιέσεις πλήκτρων. Οπότε ορίστε, μπορείτε να έχετε δόνηση ή ήχο, ή και τα δύο.</string>
   <string name="tip_5_key_feedback_test">Θέλετε να δοκιμάσετε την ανταπόκριση;</string>
   <string name="tip_6_bottom_rows">Κάτω σειρά</string>
+  <string name="tip_6_bottom_rows_tip">Όπως η πάνω σειρά, μπορεί να αντικατασταθεί επίσης και η κάτω σειρά. Το AnySoftKeyboard έχει πολλά είδη - με ή χωρίς μικρόφωνο, στυλ iPhone, κ.λπ.</string>
   <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Αλλαγή κάτω σειράς τώρα</string>
   <string name="tip_7_voice_input">Μίλησε σε μένα*</string>
   <string name="tip_7_voice_input_tip_note">* Απαιτεί Android 2.2+ και σύνδεση στο Διαδίκτυο για να λειτουργήσει.</string>
@@ -125,9 +130,12 @@
   <string name="sound_on_summary">Ηχητικά εφέ στο πάτημα των πλήκτρων.</string>
   <string name="use_custom_sound_volume">Ορισμός προσαρμοσμένης έντασης</string>
   <string name="use_custom_sound_volume_on_summary">Η ένταση των ηχητικών εφέ είναι προσαρμοσμένη.</string>
+  <string name="use_custom_sound_volume_off_summary">Η ένταση ηχητικών εφέ είναι η ένταση των ειδοποιήσεων συστήματος.</string>
   <string name="custom_sound_volume">Προσαρμοσμένη ένταση πίεσης πλήκτρου</string>
   <string name="speacial_fetures_group">Ειδικά χαρακτηριστικά</string>
   <string name="switch_keyboard_on_space">Το πλήκτρο διαστήματος αλλάζει πληκτρολόγια</string>
+  <string name="switch_keyboard_on_space_on_summary">Αλλαγή από σύμβολα/αριθμούς σε αλφάβητο όταν πιέζεται το διάστημα</string>
+  <string name="switch_keyboard_on_space_off_summary">Να μην γίνεται αλλαγή από σύμβολα/αριθμούς σε αλφάβητο όταν πιέζεται το διάστημα</string>
   <string name="hide_soft_when_physical">Απόκρυψη πληκτρολογίου σε φυσικό πλήκτρο</string>
   <string name="hide_soft_when_physical_on_summary">Απόκρυψη εικονικού πληκτρολογίου όταν χρησιμοποιείται το φυσικό</string>
   <string name="hide_soft_when_physical_off_summary">Εμφάνιση εικονικού πληκτρολογίου όταν χρησιμοποιείται το φυσικό</string>
@@ -136,6 +144,7 @@
   <string name="fullscreen_input_connection_supported_off_summary">Να μη χρησιμοποιείτε εισαγωγή πλήρους οθόνης σε οριζόντιο</string>
   <string name="fullscreen_portrait_input_connection_supported">Χρήση πλήρους οθόνης σε κατακόρυφο</string>
   <string name="fullscreen_portrait_input_connection_supported_on_summary">Εισαγωγή πλήρους οθόνης σε κατακόρυφο</string>
+  <string name="fullscreen_portrait_input_connection_supported_off_summary">Να μην γίνεται χρήση εισαγωγής πλήρους οθόνης σε κατακόρυφο</string>
   <string name="backword_support">Υποστήριξη Back-word</string>
   <string name="backword_support_on_summary">Το μετακινούμενο Backspace θα διαγράψει την τελευταία λέξη</string>
   <string name="backword_support_off_summary">Το μετακινούμενο Backspace θα διαγράψει τον τελευταίο χαρακτήρα</string>
@@ -197,8 +206,10 @@
   <string name="hardware_keys_group">Πίνακας χαρακτήρων φυσικού πληκτρολογίου</string>
   <string name="volume_key_for_left_right_support">Πλήκτρο έντασης για αριστερά/δεξιά</string>
   <string name="volume_key_for_left_right_support_on_summary">Απενεργοποίηση αριστερά/δεξιά μέσω έντασης πάνω/κάτω</string>
+  <string name="volume_key_for_left_right_support_off_summary">Η αύξηση έντασης μετακινεί τον κέρσορα αριστερά, η μείωση έντασης μετακινεί τον κέρσορα δεξιά</string>
   <string name="camera_key_for_backspace_backword_support">Χρήση του πλήκτρου κάμερας για backspace/backword</string>
   <string name="camera_key_for_backspace_backword_support_on_summary">Επαναφορά της λειτουργίας πλήκτρου κάμερας</string>
+  <string name="camera_key_for_backspace_backword_support_off_summary">Μισή πίεση στο κουμπί κάμερας διαγράφει τον τελευταίο χαρακτήρα, πλήρης πίεση διαγράφει την τελευταία λέξη</string>
   <string name="special_dictionaries_group">Ειδικά λεξικά</string>
   <string name="special_dictionaries_group_summary">Λεξικά υποδείξεων που χρησιμοποιούνται στο AnySoftKeyboard</string>
   <string name="use_user_dictionary">Λεξικό-χρήστη</string>
@@ -326,6 +337,7 @@
   <string name="eng_keyboard">Αγγλικά</string>
   <string name="eng_keyboard_qwertywithsymbols">Αγγλικά με σύμβολα</string>
   <string name="eng_keyboard_16keys">Αγγλικά 16 πλήκτρων</string>
+  <string name="keyboard_change_locked">μ/δ</string>
   <string name="selected_add_on_summary">Τώρα χρησιμοποιείται \'<xliff:g id="addOnName">%s</xliff:g>\'
     </string>
   <string name="additional_addons_group">Επιπλέον πρόσθετα</string>
