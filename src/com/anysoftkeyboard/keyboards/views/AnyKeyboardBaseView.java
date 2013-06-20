@@ -2336,19 +2336,6 @@ public class AnyKeyboardBaseView extends View implements
         return mKeyboardDimens;
     }
 
-	/*
-	 * private static boolean isOneRowKeys(List<Key> keys) { if (keys.size() ==
-	 * 0) return false; final int edgeFlags = keys.get(0).edgeFlags; // HACK:
-	 * The first key of mini keyboard which was inflated from xml and has
-	 * multiple rows, // does not have both top and bottom edge flags on at the
-	 * same time. On the other hand, // the first key of mini keyboard that was
-	 * created with popupCharacters must have both top // and bottom edge flags
-	 * on. // When you want to use one row mini-keyboard from xml file, make
-	 * sure that the row has // both top and bottom edge flags set. return
-	 * (edgeFlags & Keyboard.EDGE_TOP) != 0 && (edgeFlags &
-	 * Keyboard.EDGE_BOTTOM) != 0; }
-	 */
-
     /**
      * Called when a key is long pressed. By default this will open any popup
      * keyboard associated with this key through the attributes popupLayout and
@@ -2386,28 +2373,39 @@ public class AnyKeyboardBaseView extends View implements
                 : popupY;
 
         int adjustedX = x;
-        if (x < 0) {
-            adjustedX = 0;
-        } else if (x > (getMeasuredWidth() - mMiniKeyboard.getMeasuredWidth())) {
+        //now we need to see the the popup is positioned correctly:
+        //1) if the right edge is off the screen, then we'll try to put the right edge over the popup key
+        if (adjustedX > (getMeasuredWidth() - mMiniKeyboard.getMeasuredWidth())) {
+            adjustedX = getMeasuredWidth() - mMiniKeyboard.getMeasuredWidth();
+            //adding the width of the key
+            adjustedX += popupKey.width;
+        }
+        //2) if it is negative, then we'll put it as much as possible to the left
+        if (adjustedX < 0) {
             adjustedX = getMeasuredWidth() - mMiniKeyboard.getMeasuredWidth();
         }
-        mMiniKeyboardOriginX = adjustedX + mMiniKeyboard.getPaddingLeft()
-                - mWindowOffset[0];
-        mMiniKeyboardOriginY = y + mMiniKeyboard.getPaddingTop()
-                - mWindowOffset[1];
-        mMiniKeyboard.setPopupOffset(adjustedX, y);
+        //3) if it is still negative, then let's put it at the beginning (shouldn't happen)
+        if (adjustedX < 0) {
+            adjustedX = 0;
+        }
+
+        mMiniKeyboardOriginX =
+                adjustedX + mMiniKeyboard.getPaddingLeft() - mWindowOffset[0];
+        mMiniKeyboardOriginY =
+                y + mMiniKeyboard.getPaddingTop() - mWindowOffset[1];
+
+        mMiniKeyboard.setPopupOffset(x, y);
         // NOTE:I'm checking the main keyboard shift state directly!
         // Not anything else.
-        mMiniKeyboard.setShifted(mKeyboard != null ? mKeyboard.isShifted()
-                : false);
+        mMiniKeyboard.setShifted(mKeyboard != null ?
+                mKeyboard.isShifted() : false);
         // Mini keyboard needs no pop-up key preview displayed.
         mMiniKeyboard.setPreviewEnabled(false);
         // animation switching required?
         mMiniKeyboardPopup.setContentView(mMiniKeyboard);
         mMiniKeyboardPopup.setWidth(mMiniKeyboard.getMeasuredWidth());
         mMiniKeyboardPopup.setHeight(mMiniKeyboard.getMeasuredHeight());
-        mMiniKeyboardPopup.showAtLocation(this, Gravity.NO_GRAVITY, adjustedX,
-                y);
+        mMiniKeyboardPopup.showAtLocation(this, Gravity.NO_GRAVITY, adjustedX, y);
 
         if (requireSlideInto) {
             // Inject down event on the key to mini keyboard.
