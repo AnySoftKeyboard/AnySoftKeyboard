@@ -2376,15 +2376,12 @@ public class AnyKeyboardBaseView extends View implements
         //now we need to see the the popup is positioned correctly:
         //1) if the right edge is off the screen, then we'll try to put the right edge over the popup key
         if (adjustedX > (getMeasuredWidth() - mMiniKeyboard.getMeasuredWidth())) {
-            adjustedX = getMeasuredWidth() - mMiniKeyboard.getMeasuredWidth();
-            //adding the width of the key
+            adjustedX = popupKey.x + mWindowOffset[0] - mMiniKeyboard.getMeasuredWidth();
+            //adding the width of the key - now the right most popup key is above the finger
             adjustedX += popupKey.width;
+            adjustedX += mMiniKeyboard.getPaddingRight();
         }
-        //2) if it is negative, then we'll put it as much as possible to the left
-        if (adjustedX < 0) {
-            adjustedX = getMeasuredWidth() - mMiniKeyboard.getMeasuredWidth();
-        }
-        //3) if it is still negative, then let's put it at the beginning (shouldn't happen)
+        //2) if it is still negative, then let's put it at the beginning (shouldn't happen)
         if (adjustedX < 0) {
             adjustedX = 0;
         }
@@ -2394,7 +2391,9 @@ public class AnyKeyboardBaseView extends View implements
         mMiniKeyboardOriginY =
                 y + mMiniKeyboard.getPaddingTop() - mWindowOffset[1];
 
-        mMiniKeyboard.setPopupOffset(x, y);
+        //I'm not sure I need to do this, but in any case - this is to sync the popup window
+        //to align to the mini-keyboard position
+        mMiniKeyboard.setPopupOffset(adjustedX, y);
         // NOTE:I'm checking the main keyboard shift state directly!
         // Not anything else.
         mMiniKeyboard.setShifted(mKeyboard != null ?
