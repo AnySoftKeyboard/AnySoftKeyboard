@@ -17,6 +17,7 @@
 package net.evendanan.pushingpixels;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 
 /**
@@ -44,7 +45,11 @@ public class ListPreference extends android.preference.ListPreference {
         //will replace it. Win!
         //if the device is Honeycomb, then "getSummary" will already replace the %s, and it wont be there, and
         //the String.format function will do nothing! Win again!
-        return String.format(super.getSummary().toString(), getEntry());
+        final CharSequence baseSummary = super.getSummary();
+        if (TextUtils.isEmpty(baseSummary))//baseSummary may be null
+            return baseSummary;
+        else
+            return String.format(baseSummary.toString(), getEntry());
     }
 
     @Override
