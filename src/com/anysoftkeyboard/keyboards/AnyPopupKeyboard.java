@@ -46,13 +46,14 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 
         List<Key> keys = getKeys();
         for(int rowIndex = rowsCount-1; rowIndex>=0; rowIndex--) {
-            Key baseKey = keys.get(keys.size()-rowIndex-1);
-            addPopupKeysToList(baseKey, keyboardDimens, keys, popupCharacters, rowIndex*keysPerRow, keysPerRow);
+            int baseKeyIndex = keys.size()-rowIndex-1;
+            addPopupKeysToList(baseKeyIndex, keyboardDimens, keys, popupCharacters, rowIndex*keysPerRow, keysPerRow);
         }
     }
 
-    private void addPopupKeysToList(Key baseKey, KeyboardDimens keyboardDimens, List<Key> keys, CharSequence popupCharacters, int characterOffset, int keysPerRow) {
+    private void addPopupKeysToList(int baseKeyIndex, KeyboardDimens keyboardDimens, List<Key> keys, CharSequence popupCharacters, int characterOffset, int keysPerRow) {
         int rowWidth = 0;
+        Key baseKey = keys.get(baseKeyIndex);
         Row row = baseKey.row;
         //now adding the popups
         final float y = baseKey.y;
@@ -60,12 +61,13 @@ public class AnyPopupKeyboard extends AnyKeyboard {
         baseKey.codes = new int[]{(int) popupCharacters.charAt(characterOffset)};
         baseKey.label = "" + popupCharacters.charAt(characterOffset);
         float x = baseKey.width;
+        Key aKey = null;
         for (int popupCharIndex = characterOffset+1;
              popupCharIndex < characterOffset+keysPerRow && popupCharIndex < popupCharacters.length();
              popupCharIndex++) {
             x += (keyHorizontalGap / 2);
 
-            Key aKey = new AnyKey(row, keyboardDimens);
+            aKey = new AnyKey(row, keyboardDimens);
             aKey.codes = new int[]{(int) popupCharacters.charAt(popupCharIndex)};
             aKey.label = "" + popupCharacters.charAt(popupCharIndex);
             aKey.x = (int) x;
@@ -74,11 +76,16 @@ public class AnyPopupKeyboard extends AnyKeyboard {
             final int xOffset = (int) (aKey.width + keyHorizontalGap + (keyHorizontalGap / 2));
             x += xOffset;
             rowWidth += xOffset;
-            keys.add(aKey);
+            keys.add(baseKeyIndex, aKey);
         }
         //adding edge flag to the last key
         baseKey.edgeFlags = EDGE_LEFT;
-        keys.get(keys.size()-1).edgeFlags = EDGE_RIGHT;
+        //this holds the last key
+        if (aKey != null)
+            aKey.edgeFlags = EDGE_RIGHT;
+        else
+            baseKey.edgeFlags |= EDGE_RIGHT;//adding another flag, since the baseKey is the only one in the row
+
         mAdditionalWidth = Math.max(rowWidth, mAdditionalWidth);
     }
 
