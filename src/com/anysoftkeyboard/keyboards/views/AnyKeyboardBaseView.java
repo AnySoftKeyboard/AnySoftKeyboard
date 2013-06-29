@@ -1702,7 +1702,7 @@ public class AnyKeyboardBaseView extends View implements
                     // 1 character)
                     StaticLayout labelText = new StaticLayout(label,
                             new TextPaint(paint), (int) textWidth,
-                            Alignment.ALIGN_NORMAL, 0.0f, 0.0f, false);
+                            Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
                     labelText.draw(canvas);
                 } else {
                     // to get Y coordinate of baseline from center of text,
