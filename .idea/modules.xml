@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/../AnySoftKeyboard-API/AnySoftKeyboard-API.iml" filepath="$PROJECT_DIR$/../AnySoftKeyboard-API/AnySoftKeyboard-API.iml" />
       <module fileurl="file://$PROJECT_DIR$/../LanguagePack/LanguagePack.iml" filepath="$PROJECT_DIR$/../LanguagePack/LanguagePack.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../PushingPixels/PushingPixels.iml" filepath="$PROJECT_DIR$/../../PushingPixels/PushingPixels.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tests/tests.iml" filepath="$PROJECT_DIR$/tests/tests.iml" />
     </modules>
   </component>
 </project>
