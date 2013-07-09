@@ -153,7 +153,13 @@ public abstract class BTreeDictionary extends EditableDictionary {
                 if (offset == length - 1) {//last character in the word to delete
                     //we need to delete this node. But only if it terminal
                     if (node.terminal) {
-                        children.deleteNode(j);
+                        if (node.children == null || node.children.length == 0) {
+                            //terminal node, with no children - can be safely removed
+                            children.deleteNode(j);
+                        } else {
+                            //terminal node with children. So, it is no longer terminal
+                            node.terminal = false;
+                        }
                         //let's tell that we deleted a node
                         return true;
                     } else {
@@ -170,8 +176,8 @@ public abstract class BTreeDictionary extends EditableDictionary {
                     //but if the node forward was deleted, then this one might also need to be deleted.
                     final boolean aChildNodeWasDeleted = deleteWordRec(node.children, word, offset + 1, length);
                     if (aChildNodeWasDeleted) {//something was deleted in my children
-                        if (node.children.length == 0) {
-                            //this node just deleted its last child.
+                        if (node.children.length == 0 && !node.terminal) {
+                            //this node just deleted its last child, and it is not a terminal character.
                             //it is not necessary anymore.
                             children.deleteNode(j);
                             //let's tell that we deleted.
@@ -331,10 +337,13 @@ public abstract class BTreeDictionary extends EditableDictionary {
 
     @Override
     protected final void closeAllResources() {
+        clearDictionary();
         if (mObserver != null) {
             mContext.getContentResolver().unregisterContentObserver(mObserver);
             mObserver = null;
         }
+
+        closeStorage();
     }
 
     protected void addWordFromStorage(String word, int frequency) {
@@ -378,6 +387,8 @@ public abstract class BTreeDictionary extends EditableDictionary {
         mRoots = new NodeArray(INITIAL_ROOT_CAPACITY);
     }
 
+    protected abstract void closeStorage();
+
     static class Node {
         char code;
         int frequency;
@@ -411,17 +422,11 @@ public abstract class BTreeDictionary extends EditableDictionary {
 
         public void deleteNode(int nodeIndexToDelete) {
             length--;
-            final int oldChildrenCount = data.length;
-            Node[] newChildren = new Node[oldChildrenCount - 1];
-            int newArrayIndex = 0;
-            for (int oldArrayIndex = 0; oldArrayIndex < oldChildrenCount; oldArrayIndex++) {
-                if (oldArrayIndex != nodeIndexToDelete) {
-                    newChildren[newArrayIndex] = data[oldArrayIndex];
-                    newArrayIndex++;
+            if (length > 0) {
+                for (int i = nodeIndexToDelete; i < length; i++) {
+                    data[i] = data[i+1];
                 }
             }
-            //replacing
-            data = newChildren;
         }
     }
 }
