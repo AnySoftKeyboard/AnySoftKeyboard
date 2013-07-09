@@ -119,4 +119,9 @@ public class ContactsDictionaryImpl extends ContactsDictionary {
     protected void AddWordToStorage(String word, int frequency) {
         //not going to support addition of contacts!
     }
+
+    @Override
+    protected void closeStorage() {
+        /*nothing to close here*/
+    }
 }
