@@ -323,13 +323,11 @@ public class CandidateView extends View {
             if (canvas != null) {
                 // (+)This is the trick to get RTL/LTR text correct
                 if (AnyApplication.getConfig().workaround_alwaysUseDrawText()) {
-                    final int y = (int) (height + mPaint.getTextSize() - mPaint
-                            .descent()) / 2;
+                    final int y = (int) (height + paint.getTextSize() - paint.descent()) / 2;
                     canvas.drawText(suggestion, 0, wordLength, x + wordWidth
                             / 2, y, paint);
                 } else {
-                    final int y = (int) (height - mPaint.getTextSize() + mPaint
-                            .descent()) / 2;
+                    final int y = (int) (height - paint.getTextSize() + paint.descent()) / 2;
                     // no matter what: StaticLayout
                     float textX = x + (wordWidth / 2) - mXGap;
                     float textY = y - bgPadding.bottom - bgPadding.top;
@@ -337,9 +335,10 @@ public class CandidateView extends View {
                     canvas.translate(textX, textY);
                     mTextPaint.setTypeface(paint.getTypeface());
                     mTextPaint.setColor(paint.getColor());
+
                     StaticLayout suggestionText = new StaticLayout(suggestion,
                             mTextPaint, wordWidth, Alignment.ALIGN_CENTER,
-                            0.0f, 0.0f, false);
+                            1.0f, 0.0f, false);
                     suggestionText.draw(canvas);
 
                     canvas.translate(-textX, -textY);

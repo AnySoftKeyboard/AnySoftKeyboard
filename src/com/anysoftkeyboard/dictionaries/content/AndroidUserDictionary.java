@@ -81,4 +81,9 @@ public class AndroidUserDictionary extends BTreeDictionary {
     public String toString() {
         return mLocale + "@" + super.toString();
     }
+
+    @Override
+    protected void closeStorage() {
+        /*nothing to close here*/
+    }
 }

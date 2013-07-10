@@ -436,6 +436,9 @@
   <string name="developer_tools">Ferramentas de programação</string>
   <string name="click_for_developer_features">Ferramentas de programação</string>
   <string name="click_for_developer_features_summary">Várias ferramentas de desenvolvimento do AnySoftKeyboard</string>
+  <string name="created_mem_dump_file">Ficheiro criado em:
+<xliff:g id="file_path">%s</xliff:g>
+    </string>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Mostrar ícone na barra de estado</item>
     <item>Mostrar aviso ao alterar teclado</item>

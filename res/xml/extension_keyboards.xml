@@ -99,6 +99,14 @@
             description=""
             index="6"
             />
+    <ExtensionKeyboard
+        id="d8657c90-d910-11e2-a28f-0800200c9a66"
+        nameResId="@string/extension_kbd_bottom_ng"
+        extensionKeyboardResId="@xml/ext_kbd_bottom_row_ng"
+        extensionKeyboardType="@integer/extension_keyboard_type_bottom_row"
+        description=""
+        index="7"
+        />
 
     <!-- top extension keyboards -->
     <ExtensionKeyboard
