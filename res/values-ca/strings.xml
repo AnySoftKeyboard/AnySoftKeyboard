@@ -373,6 +373,7 @@
   <string name="eng_keyboard">Anglès</string>
   <string name="eng_keyboard_qwertywithsymbols">Anglès amb símbols</string>
   <string name="eng_keyboard_16keys">Anglès - 16 tecles</string>
+  <string name="keyboard_change_locked">n/d</string>
   <string name="selected_add_on_summary">en ús «<xliff:g id="addOnName">%s</xliff:g>»
     </string>
   <string name="additional_addons_group">Complements addicionals</string>
