@@ -83,4 +83,11 @@ public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
     protected final void registerObserver(ContentObserver dictionaryContentObserver, ContentResolver contentResolver) {
         //nothing to do here, the storage is internal and cannot be changed from the outside.
     }
+
+    @Override
+    protected void closeStorage() {
+        if (mStorage != null)
+            mStorage.close();
+        mStorage = null;
+    }
 }

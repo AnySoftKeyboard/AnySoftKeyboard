@@ -37,40 +37,81 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 
     public AnyPopupKeyboard(Context askContext, CharSequence popupCharacters,
                             final KeyboardDimens keyboardDimens) {
-        super(askContext, askContext, R.xml.popup);
+        super(askContext, askContext, getPopupLayout(popupCharacters));
 
         loadKeyboard(keyboardDimens);
 
-        final float rowVerticalGap = keyboardDimens.getRowVerticalGap();
-        final float keyHorizontalGap = keyboardDimens.getKeyHorizontalGap();
+        final int rowsCount = getPopupRowsCount(popupCharacters);
+        final int keysPerRow = (int)Math.ceil((float)popupCharacters.length()/(float)rowsCount);
 
         List<Key> keys = getKeys();
-        //now adding the popups
-        final float y = rowVerticalGap;
-        Key baseKey = keys.get(0);
+        for(int rowIndex = rowsCount-1; rowIndex>=0; rowIndex--) {
+            int baseKeyIndex = keys.size()-rowIndex-1;
+            addPopupKeysToList(baseKeyIndex, keyboardDimens, keys, popupCharacters, rowIndex*keysPerRow, keysPerRow);
+        }
+    }
+
+    private void addPopupKeysToList(int baseKeyIndex, KeyboardDimens keyboardDimens, List<Key> keys, CharSequence popupCharacters, int characterOffset, int keysPerRow) {
+        int rowWidth = 0;
+        Key baseKey = keys.get(baseKeyIndex);
         Row row = baseKey.row;
-        baseKey.codes = new int[]{(int) popupCharacters.charAt(0)};
-        baseKey.label = "" + popupCharacters.charAt(0);
-        baseKey.edgeFlags |= EDGE_LEFT;
-        float x = baseKey.width + row.defaultHorizontalGap;
-        for (int popupCharIndex = 1; popupCharIndex < popupCharacters.length(); popupCharIndex++) {
+        //now adding the popups
+        final float y = baseKey.y;
+        final float keyHorizontalGap = row.defaultHorizontalGap;
+        baseKey.codes = new int[]{(int) popupCharacters.charAt(characterOffset)};
+        baseKey.label = "" + popupCharacters.charAt(characterOffset);
+        float x = baseKey.width;
+        Key aKey = null;
+        for (int popupCharIndex = characterOffset+1;
+             popupCharIndex < characterOffset+keysPerRow && popupCharIndex < popupCharacters.length();
+             popupCharIndex++) {
             x += (keyHorizontalGap / 2);
 
-            Key aKey = new AnyKey(row, keyboardDimens);
+            aKey = new AnyKey(row, keyboardDimens);
             aKey.codes = new int[]{(int) popupCharacters.charAt(popupCharIndex)};
             aKey.label = "" + popupCharacters.charAt(popupCharIndex);
             aKey.x = (int) x;
             aKey.width -= keyHorizontalGap;//the gap is on both sides
             aKey.y = (int) y;
-            final int xOffset = (int) (aKey.width + row.defaultHorizontalGap + (keyHorizontalGap / 2));
+            final int xOffset = (int) (aKey.width + keyHorizontalGap + (keyHorizontalGap / 2));
             x += xOffset;
-            mAdditionalWidth += xOffset;
-            keys.add(aKey);
+            rowWidth += xOffset;
+            keys.add(baseKeyIndex, aKey);
         }
         //adding edge flag to the last key
-        keys.get(0).edgeFlags |= EDGE_LEFT;
-        keys.get(keys.size() - 1).edgeFlags |= EDGE_RIGHT;
+        baseKey.edgeFlags = EDGE_LEFT;
+        //this holds the last key
+        if (aKey != null)
+            aKey.edgeFlags = EDGE_RIGHT;
+        else
+            baseKey.edgeFlags |= EDGE_RIGHT;//adding another flag, since the baseKey is the only one in the row
+
+        mAdditionalWidth = Math.max(rowWidth, mAdditionalWidth);
     }
+
+    private static int getPopupLayout(CharSequence popupCharacters) {
+        switch (getPopupRowsCount(popupCharacters)) {
+            case 1:
+                return R.xml.popup_one_row;
+            case 2:
+                return R.xml.popup_two_rows;
+            case 3:
+                return R.xml.popup_three_rows;
+            default:
+                throw new RuntimeException("AnyPopupKeyboard supports 1, 2, and 3 rows only!");
+        }
+    }
+
+    private static int getPopupRowsCount(CharSequence popupCharacters) {
+        final int count = popupCharacters.length();
+        if (count <= 8)
+            return 1;
+        if (count <= 16)
+            return 2;
+        else
+            return 3;
+    }
+
 
     @Override
     public HashSet<Character> getSentenceSeparators() {
