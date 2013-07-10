@@ -1597,7 +1597,7 @@ public class AnyKeyboardBaseView extends View implements
                 } else {
                     // ho... no icon.
                     // I'll try to guess the text
-                    label = guessLabelForKey(key);
+                    label = guessLabelForKey(key.codes[0]);
                     if (TextUtils.isEmpty(label)) {
                         Log.w(TAG, "That's unfortunate, for key "
                                 + key.codes[0] + " at (" + key.x + ", " + key.y
@@ -1702,7 +1702,7 @@ public class AnyKeyboardBaseView extends View implements
                     // 1 character)
                     StaticLayout labelText = new StaticLayout(label,
                             new TextPaint(paint), (int) textWidth,
-                            Alignment.ALIGN_NORMAL, 0.0f, 0.0f, false);
+                            Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
                     labelText.draw(canvas);
                 } else {
                     // to get Y coordinate of baseline from center of text,
@@ -1897,7 +1897,7 @@ public class AnyKeyboardBaseView extends View implements
                 enterKey.icon = icon;
                 enterKey.iconPreview = icon;
             } else {
-                CharSequence label = guessLabelForKey(enterKey);
+                CharSequence label = guessLabelForKey(enterKey.codes[0]);
                 enterKey.label = label;
                 ((AnyKey) enterKey).shiftedKeyLabel = label;
             }
@@ -1916,30 +1916,27 @@ public class AnyKeyboardBaseView extends View implements
                 enterKey.iconPreview = enterIcon;
             }
         }
-        Key langKey = findKeyByKeyCode(KeyCodes.MODE_ALPHABET);
-        if (langKey != null) {
-            if (TextUtils.isEmpty(langKey.label)) {
-                if (langKey.dynamicEmblem == Keyboard.KEY_EMBLEM_TEXT) {
-                    langKey.label = guessLabelForKey(langKey);
+        //these are dynamic keys
+        setSpecialKeyIconOrLabel(KeyCodes.MODE_ALPHABET);
+        setSpecialKeyIconOrLabel(KeyCodes.MODE_SYMOBLS);
+        setSpecialKeyIconOrLabel(KeyCodes.KEYBOARD_MODE_CHANGE);
+    }
+
+    private void setSpecialKeyIconOrLabel(int keyCode) {
+        Key key = findKeyByKeyCode(keyCode);
+        if (key != null) {
+            if (TextUtils.isEmpty(key.label)) {
+                if (key.dynamicEmblem == Keyboard.KEY_EMBLEM_TEXT) {
+                    key.label = guessLabelForKey(key.codes[0]);
                 } else {
-                    langKey.icon = getIconForKeyCode(KeyCodes.MODE_ALPHABET);
-                }
-            }
-        }
-        Key symKey = findKeyByKeyCode(KeyCodes.MODE_SYMOBLS);
-        if (symKey != null) {
-            if (TextUtils.isEmpty(symKey.label)) {
-                if (symKey.dynamicEmblem == Keyboard.KEY_EMBLEM_TEXT) {
-                    symKey.label = guessLabelForKey(symKey);
-                } else {
-                    symKey.icon = getIconForKeyCode(KeyCodes.MODE_SYMOBLS);
+                    key.icon = getIconForKeyCode(keyCode);
                 }
             }
         }
     }
 
-    private CharSequence guessLabelForKey(Key key) {
-        switch (key.codes[0]) {
+    private CharSequence guessLabelForKey(int keyCode) {
+        switch (keyCode) {
             case KeyCodes.ENTER:
                 if (AnyApplication.DEBUG)
                     Log.d(TAG, "Action key action ID is: " + mKeyboardActionType);
@@ -1959,6 +1956,11 @@ public class AnyKeyboardBaseView extends View implements
                     default:
                         return "";
                 }
+            case KeyCodes.KEYBOARD_MODE_CHANGE:
+                if (mSwitcher.isAlphabetMode())
+                    return guessLabelForKey(KeyCodes.MODE_SYMOBLS);
+                else
+                    return guessLabelForKey(KeyCodes.MODE_ALPHABET);
             case KeyCodes.MODE_ALPHABET:
                 String langKeyText = null;
                 if (mSwitcher != null)//should show the next keyboard label, not a generic one.
@@ -2122,7 +2124,7 @@ public class AnyKeyboardBaseView extends View implements
         } else {
             CharSequence label = tracker.getPreviewText(key, mKeyboard.isShifted());
             if (TextUtils.isEmpty(label)) {
-                label = guessLabelForKey(key);
+                label = guessLabelForKey(key.codes[0]);
             }
             mPreviewIcon.setImageDrawable(null);
             mPreviewText.setTextColor(mPreviewKeyTextColor);
@@ -2334,19 +2336,6 @@ public class AnyKeyboardBaseView extends View implements
         return mKeyboardDimens;
     }
 
-	/*
-	 * private static boolean isOneRowKeys(List<Key> keys) { if (keys.size() ==
-	 * 0) return false; final int edgeFlags = keys.get(0).edgeFlags; // HACK:
-	 * The first key of mini keyboard which was inflated from xml and has
-	 * multiple rows, // does not have both top and bottom edge flags on at the
-	 * same time. On the other hand, // the first key of mini keyboard that was
-	 * created with popupCharacters must have both top // and bottom edge flags
-	 * on. // When you want to use one row mini-keyboard from xml file, make
-	 * sure that the row has // both top and bottom edge flags set. return
-	 * (edgeFlags & Keyboard.EDGE_TOP) != 0 && (edgeFlags &
-	 * Keyboard.EDGE_BOTTOM) != 0; }
-	 */
-
     /**
      * Called when a key is long pressed. By default this will open any popup
      * keyboard associated with this key through the attributes popupLayout and
@@ -2384,28 +2373,38 @@ public class AnyKeyboardBaseView extends View implements
                 : popupY;
 
         int adjustedX = x;
-        if (x < 0) {
-            adjustedX = 0;
-        } else if (x > (getMeasuredWidth() - mMiniKeyboard.getMeasuredWidth())) {
-            adjustedX = getMeasuredWidth() - mMiniKeyboard.getMeasuredWidth();
+        //now we need to see the the popup is positioned correctly:
+        //1) if the right edge is off the screen, then we'll try to put the right edge over the popup key
+        if (adjustedX > (getMeasuredWidth() - mMiniKeyboard.getMeasuredWidth())) {
+            adjustedX = popupKey.x + mWindowOffset[0] - mMiniKeyboard.getMeasuredWidth();
+            //adding the width of the key - now the right most popup key is above the finger
+            adjustedX += popupKey.width;
+            adjustedX += mMiniKeyboard.getPaddingRight();
         }
-        mMiniKeyboardOriginX = adjustedX + mMiniKeyboard.getPaddingLeft()
-                - mWindowOffset[0];
-        mMiniKeyboardOriginY = y + mMiniKeyboard.getPaddingTop()
-                - mWindowOffset[1];
+        //2) if it is still negative, then let's put it at the beginning (shouldn't happen)
+        if (adjustedX < 0) {
+            adjustedX = 0;
+        }
+
+        mMiniKeyboardOriginX =
+                adjustedX + mMiniKeyboard.getPaddingLeft() - mWindowOffset[0];
+        mMiniKeyboardOriginY =
+                y + mMiniKeyboard.getPaddingTop() - mWindowOffset[1];
+
+        //I'm not sure I need to do this, but in any case - this is to sync the popup window
+        //to align to the mini-keyboard position
         mMiniKeyboard.setPopupOffset(adjustedX, y);
         // NOTE:I'm checking the main keyboard shift state directly!
         // Not anything else.
-        mMiniKeyboard.setShifted(mKeyboard != null ? mKeyboard.isShifted()
-                : false);
+        mMiniKeyboard.setShifted(mKeyboard != null ?
+                mKeyboard.isShifted() : false);
         // Mini keyboard needs no pop-up key preview displayed.
         mMiniKeyboard.setPreviewEnabled(false);
         // animation switching required?
         mMiniKeyboardPopup.setContentView(mMiniKeyboard);
         mMiniKeyboardPopup.setWidth(mMiniKeyboard.getMeasuredWidth());
         mMiniKeyboardPopup.setHeight(mMiniKeyboard.getMeasuredHeight());
-        mMiniKeyboardPopup.showAtLocation(this, Gravity.NO_GRAVITY, adjustedX,
-                y);
+        mMiniKeyboardPopup.showAtLocation(this, Gravity.NO_GRAVITY, adjustedX, y);
 
         if (requireSlideInto) {
             // Inject down event on the key to mini keyboard.
