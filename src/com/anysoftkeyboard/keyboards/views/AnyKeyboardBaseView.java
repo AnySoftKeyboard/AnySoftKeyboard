@@ -2308,7 +2308,7 @@ public class AnyKeyboardBaseView extends View implements
         return result;
     }
 
-    private void setupMiniKeyboardContainer(Context packageContext, Key popupKey, boolean isSticky) {
+    private AnyPopupKeyboard setupMiniKeyboardContainer(Context packageContext, Key popupKey, boolean isSticky) {
         final AnyPopupKeyboard keyboard;
         if (popupKey.popupCharacters != null) {
             keyboard = new AnyPopupKeyboard(getContext()
@@ -2330,6 +2330,8 @@ public class AnyKeyboardBaseView extends View implements
         mMiniKeyboard.measure(
                 MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.AT_MOST),
                 MeasureSpec.makeMeasureSpec(getHeight(), MeasureSpec.AT_MOST));
+
+        return keyboard;
     }
 
     public KeyboardDimens getThemedKeyboardDimens() {
@@ -2354,7 +2356,7 @@ public class AnyKeyboardBaseView extends View implements
         if (mMiniKeyboard == null) {
             createMiniKeyboard();
         }
-        setupMiniKeyboardContainer(packageContext, popupKey, isSticky);
+        AnyPopupKeyboard popupKeyboard = setupMiniKeyboardContainer(packageContext, popupKey, isSticky);
         mMiniKeyboardVisible = true;
         if (mWindowOffset == null) {
             mWindowOffset = new int[2];
@@ -2373,6 +2375,7 @@ public class AnyKeyboardBaseView extends View implements
                 : popupY;
 
         int adjustedX = x;
+        boolean shouldMirrorKeys = false;
         //now we need to see the the popup is positioned correctly:
         //1) if the right edge is off the screen, then we'll try to put the right edge over the popup key
         if (adjustedX > (getMeasuredWidth() - mMiniKeyboard.getMeasuredWidth())) {
@@ -2380,11 +2383,15 @@ public class AnyKeyboardBaseView extends View implements
             //adding the width of the key - now the right most popup key is above the finger
             adjustedX += popupKey.width;
             adjustedX += mMiniKeyboard.getPaddingRight();
+            shouldMirrorKeys = true;
         }
         //2) if it is still negative, then let's put it at the beginning (shouldn't happen)
         if (adjustedX < 0) {
             adjustedX = 0;
+            shouldMirrorKeys = false;
         }
+        if (shouldMirrorKeys)
+            popupKeyboard.mirrorKeys();
 
         mMiniKeyboardOriginX =
                 adjustedX + mMiniKeyboard.getPaddingLeft() - mWindowOffset[0];
@@ -2396,8 +2403,7 @@ public class AnyKeyboardBaseView extends View implements
         mMiniKeyboard.setPopupOffset(adjustedX, y);
         // NOTE:I'm checking the main keyboard shift state directly!
         // Not anything else.
-        mMiniKeyboard.setShifted(mKeyboard != null ?
-                mKeyboard.isShifted() : false);
+        mMiniKeyboard.setShifted(mKeyboard != null && mKeyboard.isShifted());
         // Mini keyboard needs no pop-up key preview displayed.
         mMiniKeyboard.setPreviewEnabled(false);
         // animation switching required?
