@@ -6,6 +6,8 @@ import android.database.AbstractCursor;
 import android.database.ContentObserver;
 import com.anysoftkeyboard.dictionaries.sqlite.WordsSQLiteConnection;
 
+import java.lang.reflect.Field;
+
 public class TestableBTreeDictionary extends BTreeDictionary{
     public static final Object[][] STORAGE = {
             {1, "hello", 255, "en"},
@@ -25,8 +27,16 @@ public class TestableBTreeDictionary extends BTreeDictionary{
     public int wordFrequencyRequestedToAddedToStorage = -1;
     public boolean storageIsClosed = false;
 
-    protected TestableBTreeDictionary(String dictionaryName, Context context) {
+    private Field mRootsField;
+
+    protected TestableBTreeDictionary(String dictionaryName, Context context) throws NoSuchFieldException {
         super(dictionaryName, context);
+        mRootsField = BTreeDictionary.class.getDeclaredField("mRoots");
+        mRootsField.setAccessible(true);
+    }
+
+    public NodeArray getRoot() throws IllegalAccessException {
+        return (NodeArray) mRootsField.get(this);
     }
 
     @Override
