@@ -33,13 +33,18 @@ import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class ConfigurationImpl implements Configuration, OnSharedPreferenceChangeListener {
     static final String TAG = "ASK_Cfg";
 
     private static final String CONFIGURATION_VERSION = "configurationVersion";
+
+    private static final String NOTIFICATION_CLICKED_KEY_PREFIX = "NOTIFICATION_CLICKED_KEY_PREFIX";
     private static final String NOTIFICATION_ANIMATION_KEY_PREFIX = "NOTIFICATION_ANIMATION_KEY_PREFIX";
+
+    private static final HashMap<String, Object> mInstanceStorage = new HashMap<String, Object>();
 
     //private static final String CUSTOMIZATION_LEVEL = "customizationLevel";
     private final Context mContext;
@@ -856,15 +861,21 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 
     @Override
     public boolean hasNotificationAnimated(String notificationKey) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
-        return sp.getInt(NOTIFICATION_ANIMATION_KEY_PREFIX+notificationKey, 0) == mCurrentAppVersion;
+        return mInstanceStorage.get(NOTIFICATION_ANIMATION_KEY_PREFIX+notificationKey) != null;
     }
 
     @Override
     public void setNotificationAnimated(String notificationKey) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
-        Editor e = sp.edit();
-        e.putInt(NOTIFICATION_ANIMATION_KEY_PREFIX+notificationKey, mCurrentAppVersion);
-        e.commit();
+        mInstanceStorage.put(NOTIFICATION_ANIMATION_KEY_PREFIX + notificationKey, Integer.valueOf(mCurrentAppVersion));
+    }
+
+    @Override
+    public void setNotificationClicked(String notificationKey) {
+        mInstanceStorage.put(NOTIFICATION_CLICKED_KEY_PREFIX + notificationKey, Integer.valueOf(mCurrentAppVersion));
+    }
+
+    @Override
+    public boolean hasNotificationClicked(String notificationKey) {
+        return mInstanceStorage.get(NOTIFICATION_CLICKED_KEY_PREFIX+notificationKey) != null;
     }
 }
