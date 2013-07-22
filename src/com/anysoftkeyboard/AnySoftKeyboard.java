@@ -71,6 +71,7 @@ import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.ui.settings.MainSettings;
+import com.anysoftkeyboard.ui.tutorials.TipsActivity;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 import com.anysoftkeyboard.utils.IMEUtil.GCUtils;
 import com.anysoftkeyboard.utils.IMEUtil.GCUtils.MemRelatedOperation;
@@ -527,40 +528,12 @@ public class AnySoftKeyboard extends InputMethodService implements
         if (tipsNotification != null) {// why? in API 3 it is not supported
             if (!mTipsCalled
                     && mConfig.getShowTipsNotification()
-                    && TutorialsProvider
-                    .shouldShowTips(getApplicationContext())) {
-                Animation tipsInAnimation = AnimationUtils.loadAnimation(
-                        getApplicationContext(), R.anim.tips_flip_in);
-                tipsInAnimation.setAnimationListener(new AnimationListener() {
-                    public void onAnimationStart(Animation animation) {
-                    }
+                    && TutorialsProvider.shouldShowTips(getApplicationContext())) {
 
-                    public void onAnimationRepeat(Animation animation) {
-                    }
-
-                    public void onAnimationEnd(Animation animation) {
-                        tipsNotification.setText("?");
-                    }
-                });
-                tipsNotification.setAnimation(tipsInAnimation);
-                tipsNotification.setVisibility(View.VISIBLE);
-                tipsNotification.setOnClickListener(new OnClickListener() {
-
-                    public void onClick(final View v) {
-                        Animation gone = AnimationUtils.loadAnimation(
-                                getApplicationContext(), R.anim.tips_flip_out);
-                        gone.setAnimationListener(new AnimationListener() {
-                            public void onAnimationStart(Animation animation) {
-                            }
-
-                            public void onAnimationRepeat(Animation animation) {
-                            }
-
-                            public void onAnimationEnd(Animation animation) {
-                                tipsNotification.setVisibility(View.GONE);
-                            }
-                        });
-                        tipsNotification.startAnimation(gone);
+                final String TIPS_NOTIFICATION_KEY = "TIPS_NOTIFICATION_KEY";
+                TipsActivity.addTipToCandidate(getApplicationContext(), tipsNotification, TIPS_NOTIFICATION_KEY, new OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
                         mTipsCalled = true;
                         TutorialsProvider.showTips(getApplicationContext());
                     }
