@@ -26,6 +26,10 @@ public interface Configuration {
 
     void setNotificationAnimated(String notificationKey);
 
+    void setNotificationClicked(String notificationKey);
+
+    boolean hasNotificationClicked(String notificationKey);
+
     public static enum AnimationsLevel {
         Full,
         Some,

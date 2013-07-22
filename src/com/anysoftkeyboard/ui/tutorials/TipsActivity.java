@@ -214,6 +214,13 @@ public class TipsActivity extends BaseTutorialActivity implements OnCheckedChang
     }
 
     public static void addTipToCandidate(final Context appContext, final TextView tipsNotification, final String TIPS_NOTIFICATION_KEY, final OnClickListener onClickListener) {
+        if (AnyApplication.getConfig().hasNotificationClicked(TIPS_NOTIFICATION_KEY)) {
+            tipsNotification.setVisibility(View.GONE);
+            ViewGroup p = tipsNotification.getParent() instanceof ViewGroup? (ViewGroup)tipsNotification.getParent() : null;
+            if (p != null)
+                p.removeView(tipsNotification);// removing for memory releasing
+        }
+
         tipsNotification.setVisibility(View.VISIBLE);
         if (!AnyApplication.getConfig().hasNotificationAnimated(TIPS_NOTIFICATION_KEY)) {
             Log.d(TAG, "Tip with key "+TIPS_NOTIFICATION_KEY+" has not been animated before.");
@@ -240,6 +247,7 @@ public class TipsActivity extends BaseTutorialActivity implements OnCheckedChang
         tipsNotification.setOnClickListener(new OnClickListener() {
 
             public void onClick(final View v) {
+                AnyApplication.getConfig().setNotificationClicked(TIPS_NOTIFICATION_KEY);
                 Animation gone = AnimationUtils.loadAnimation(
                         appContext, R.anim.tips_flip_out);
                 gone.setAnimationListener(new Animation.AnimationListener() {

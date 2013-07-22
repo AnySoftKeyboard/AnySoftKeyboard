@@ -171,8 +171,6 @@ public class AnySoftKeyboard extends InputMethodService implements
     private final ModifierKeyState mShiftKeyState = new ModifierKeyState();
     private final ModifierKeyState mControlKeyState = new ModifierKeyState();
 
-    private boolean mTipsCalled = false;
-
     private LayoutSwitchAnimationListener mSwitchAnimator;
     private boolean mDistinctMultiTouch = true;
     private AnyKeyboardView mInputView;
@@ -526,21 +524,16 @@ public class AnySoftKeyboard extends InputMethodService implements
         final TextView tipsNotification = (TextView) candidateViewContainer
                 .findViewById(R.id.tips_notification_on_candidates);
         if (tipsNotification != null) {// why? in API 3 it is not supported
-            if (!mTipsCalled
-                    && mConfig.getShowTipsNotification()
+            if (mConfig.getShowTipsNotification()
                     && TutorialsProvider.shouldShowTips(getApplicationContext())) {
 
                 final String TIPS_NOTIFICATION_KEY = "TIPS_NOTIFICATION_KEY";
                 TipsActivity.addTipToCandidate(getApplicationContext(), tipsNotification, TIPS_NOTIFICATION_KEY, new OnClickListener(){
                     @Override
                     public void onClick(View v) {
-                        mTipsCalled = true;
                         TutorialsProvider.showTips(getApplicationContext());
                     }
                 });
-            } else {
-                // removing for memory releasing
-                candidateViewContainer.removeView(tipsNotification);
             }
         }
 		/*
