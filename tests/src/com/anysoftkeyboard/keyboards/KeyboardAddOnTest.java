@@ -11,6 +11,10 @@ import java.util.ArrayList;
 
 public class KeyboardAddOnTest extends AndroidTestCase {
 
+    public static final String ASK_ENGLISH_1 = "c7535083-4fe6-49dc-81aa-c5438a1a343a";
+    public static final String TESTER_KEYBOARD_1 = "aef7f690-f485-11e2-b778-0800200c9a60";
+    public static final String TESTER_KEYBOARD_2 = "aef7f690-f485-11e2-b778-0800200c9a61";
+    public static final String TESTER_KEYBOARD_3 = "aef7f690-f485-11e2-b778-0800200c9a62";
     private Context mTesterContext;
 
     @Override
@@ -59,7 +63,7 @@ public class KeyboardAddOnTest extends AndroidTestCase {
         //checking that ASK English is enabled
         boolean askEnglishEnabled = false;
         for(KeyboardAddOnAndBuilder addOnAndBuilder : enabledKeyboards) {
-            if (addOnAndBuilder.getId().contains("c7535083-4fe6-49dc-81aa-c5438a1a343a")) {
+            if (addOnAndBuilder.getId().contains(ASK_ENGLISH_1)) {
                 assertTrue(addOnAndBuilder.getKeyboardDefaultEnabled());
                 assertEquals(addOnAndBuilder.getPackageName(), getContext().getPackageName());
                 askEnglishEnabled = true;
@@ -70,7 +74,7 @@ public class KeyboardAddOnTest extends AndroidTestCase {
         //now checking my tester keyboard
         boolean testerEnglishEnabled = false;
         for(KeyboardAddOnAndBuilder addOnAndBuilder : enabledKeyboards) {
-            if (addOnAndBuilder.getId().contains("aef7f690-f485-11e2-b778-0800200c9a60")) {
+            if (addOnAndBuilder.getId().contains(TESTER_KEYBOARD_1)) {
                 assertTrue(addOnAndBuilder.getKeyboardDefaultEnabled());
                 assertEquals(addOnAndBuilder.getPackageName(), mTesterContext.getPackageName());
                 testerEnglishEnabled = true;
@@ -81,7 +85,7 @@ public class KeyboardAddOnTest extends AndroidTestCase {
         //now checking my tester keyboard 2
         boolean tester2EnglishEnabled = false;
         for(KeyboardAddOnAndBuilder addOnAndBuilder : enabledKeyboards) {
-            if (addOnAndBuilder.getId().contains("aef7f690-f485-11e2-b778-0800200c9a61")) {
+            if (addOnAndBuilder.getId().contains(TESTER_KEYBOARD_2)) {
                 tester2EnglishEnabled = true;
             }
         }
@@ -101,19 +105,19 @@ public class KeyboardAddOnTest extends AndroidTestCase {
     }
 
     public void testGetKeyboardLocale() throws Exception {
-        KeyboardAddOnAndBuilder askEnglish = getKeyboardFromFactory("c7535083-4fe6-49dc-81aa-c5438a1a343a");
+        KeyboardAddOnAndBuilder askEnglish = getKeyboardFromFactory(ASK_ENGLISH_1);
         assertNotNull(askEnglish);
         assertEquals(askEnglish.getKeyboardLocale(), "en");
 
-        KeyboardAddOnAndBuilder testerEnglish = getKeyboardFromFactory("aef7f690-f485-11e2-b778-0800200c9a60");
+        KeyboardAddOnAndBuilder testerEnglish = getKeyboardFromFactory(TESTER_KEYBOARD_1);
         assertNotNull(testerEnglish);
         assertEquals(testerEnglish.getKeyboardLocale(), "en");
 
-        KeyboardAddOnAndBuilder tester2Hebrew = getKeyboardFromFactory("aef7f690-f485-11e2-b778-0800200c9a61");
+        KeyboardAddOnAndBuilder tester2Hebrew = getKeyboardFromFactory(TESTER_KEYBOARD_2);
         assertNotNull(tester2Hebrew);
         assertEquals(tester2Hebrew.getKeyboardLocale(), "iw");
 
-        KeyboardAddOnAndBuilder tester3Console = getKeyboardFromFactory("aef7f690-f485-11e2-b778-0800200c9a62");
+        KeyboardAddOnAndBuilder tester3Console = getKeyboardFromFactory(TESTER_KEYBOARD_3);
         assertNotNull(tester3Console);
         assertTrue(TextUtils.isEmpty(tester3Console.getKeyboardLocale()));
     }
@@ -125,15 +129,15 @@ public class KeyboardAddOnTest extends AndroidTestCase {
     }
 
     public void testHasScreenshot() throws Exception {
-        KeyboardAddOnAndBuilder askEnglish = getKeyboardFromFactory("c7535083-4fe6-49dc-81aa-c5438a1a343a");
+        KeyboardAddOnAndBuilder askEnglish = getKeyboardFromFactory(ASK_ENGLISH_1);
         assertNotNull(askEnglish);
         assertTrue(askEnglish.hasScreenshot());
 
-        KeyboardAddOnAndBuilder testerEnglish = getKeyboardFromFactory("aef7f690-f485-11e2-b778-0800200c9a60");
+        KeyboardAddOnAndBuilder testerEnglish = getKeyboardFromFactory(TESTER_KEYBOARD_1);
         assertNotNull(testerEnglish);
         assertTrue(askEnglish.hasScreenshot());
 
-        KeyboardAddOnAndBuilder tester3Console = getKeyboardFromFactory("aef7f690-f485-11e2-b778-0800200c9a62");
+        KeyboardAddOnAndBuilder tester3Console = getKeyboardFromFactory(TESTER_KEYBOARD_3);
         assertNotNull(tester3Console);
         assertFalse(tester3Console.hasScreenshot());
     }
