@@ -2407,7 +2407,8 @@ public class AnySoftKeyboard extends InputMethodService implements
             // in Italian dov' should not be expanded to dove' because the
             // elision
             // requires the last vowel to be removed.
-            if (mAutoCorrectOn && primaryCode != '\''
+            //Also, ACTION does not invoke default picking. See https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/198
+            if (mAutoCorrectOn && primaryCode != '\'' && primaryCode != KeyCodes.ENTER
 			/*
 			 * && (mJustRevertedSeparator == null ||
 			 * mJustRevertedSeparator.length() == 0 ||
