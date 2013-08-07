@@ -1471,8 +1471,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                 addToDictionaries(mWord, AutoDictionary.AdditionType.Typed);
             }
             if (mHandler.hasMessages(KeyboardUIStateHanlder.MSG_UPDATE_SUGGESTIONS)) {
-                mHandler.removeMessages(KeyboardUIStateHanlder.MSG_UPDATE_SUGGESTIONS);
-                performUpdateSuggestions();
+                postUpdateSuggestions(-1);
             }
         }
     }
@@ -2493,14 +2492,18 @@ public class AnySoftKeyboard extends InputMethodService implements
     // mHandler.sendMessageDelayed(msg, 600);
     // }
 
+    /**
+     * posts an update suggestions request to the messages queue. Removes any previous request.
+     * @param delay negative value will cause the call to be done now, in this thread.
+     */
     private void postUpdateSuggestions(long delay) {
         mHandler.removeMessages(KeyboardUIStateHanlder.MSG_UPDATE_SUGGESTIONS);
         if (delay > 0)
-            mHandler.sendMessageDelayed(
-                    mHandler.obtainMessage(KeyboardUIStateHanlder.MSG_UPDATE_SUGGESTIONS), delay);
+            mHandler.sendMessageDelayed(mHandler.obtainMessage(KeyboardUIStateHanlder.MSG_UPDATE_SUGGESTIONS), delay);
+        else if (delay == 0)
+            mHandler.sendMessage(mHandler.obtainMessage(KeyboardUIStateHanlder.MSG_UPDATE_SUGGESTIONS));
         else
-            mHandler.sendMessage(mHandler.obtainMessage(KeyboardUIStateHanlder.MSG_UPDATE_SUGGESTIONS));
-            mHandler.sendMessage(mHandler.obtainMessage(KeyboardUIStateHanlder.MSG_UPDATE_SUGGESTIONS));
+            performUpdateSuggestions();
     }
 
     private boolean isPredictionOn() {
@@ -2574,8 +2577,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         // Complete any pending candidate query first
         if (mHandler.hasMessages(KeyboardUIStateHanlder.MSG_UPDATE_SUGGESTIONS)) {
-            mHandler.removeMessages(KeyboardUIStateHanlder.MSG_UPDATE_SUGGESTIONS);
-            performUpdateSuggestions();
+            postUpdateSuggestions(-1);
         }
 
         final CharSequence bestWord = mWord.getPreferredWord();
@@ -2764,7 +2766,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             ic.setComposingText(typedWord/* mComposing */, 1);
             TextEntryState.backspace();
             ic.endBatchEdit();
-            performUpdateSuggestions();
+            postUpdateSuggestions(-1);
             if (mJustAutoAddedWord && mUserDictionary != null) {
                 // we'll also need to REMOVE the word from the user dictionary
                 // now...
