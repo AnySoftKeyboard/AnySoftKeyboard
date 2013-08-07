@@ -6,35 +6,29 @@
   <string name="spell_checker_service_name">Проверка орфографии AnySoftKeyboard</string>
   <string name="spell_checker_settings">AnySoftKeyboard Орфографические настройки</string>
   <string name="subtype_generic">правописание-общее</string>
+  <string name="additional_licenses"><u>Дополнительные лицензии...</u></string>
   <string name="click_to_restart_suggestions">Нажмите для подсказок</string>
   <string name="tips_notification_text">Нажмите для подсказки!</string>
-  <string name="tips_button">Как использовать подсказки</string>
-  <string name="tips_button_description">Советы по AnySoftKeyboard</string>
+  <string name="tips_button">Как использовать</string>
   <string name="tips_title">Подсказки AnySoftKeyboard</string>
   <string name="click_for_previous_tip">↓ Предыдущая подсказка</string>
   <string name="click_for_next_tip">Следующая подсказка ↓</string>
   <string name="tip_1_welcome_to_ask">Добро пожаловать в AnySoftKeyboard!</string>
-  <string name="tip_1_how_to_access_settings">Для быстрого перехода к параметрам, нажмите и подержите клавишу ENTER. Вы там найдёте море настроек!</string>
   <string name="tip_2_gestures">Поддерживаются жесты!</string>
-  <string name="tip_2_gestures_tip">Жестами Вы можете делать многое! Взмах слева направо переключает языки, взмах влево перейдет на клавиатуру символов, жест от пробела вверх открывает инструментальные клавиши и взмах вниз скроет всю клавиатуру.\nЭто настраивается в настройках (помните? Долгое нажатие на клавишу ВВОД).</string>
   <string name="tip_3_hidden_kbds">Скрытые изюминки</string>
-  <string name="tip_3_hidden_kbds_tip">Есть скрытые клавиатуры:\n1) Взмахните пальцем от пробела вверх, и появится инструментальная клавиатурка со стрелками для курсора и микрофоном (для голосового ввода).\n2) Проведите пальцем вверх за пределы клавиатуры и подержите его прижатым. Появится дополнительная клавиатура с цифрами и символами.</string>
   <string name="tip_4_top_generic_row">Верхний ряд</string>
-  <string name="tip_4_top_generic_row_tip">Верхний ряд одинаков для всех раскладок, но его тоже можно поменять! По умолчанию, верхний ряд включает клавишу переключения на символы (<i>123</i>), стрелки курсора влево и вправо и клавишу переключения раскладок (<i>АБВ</i>). Вы можете изменить это в настройках.</string>
   <string name="tip_4_top_generic_row_go_to_top_row_settings">Поменять верхний ряд сейчас</string>
   <string name="tip_5_key_feedback">Отзыв</string>
-  <string name="tip_5_key_feedback_tip">Иногда удобнее получать невизуальный отклик нажатия на клавиши. Такая поддержка имеется. Вибирайте: вибрация, звук или оба.</string>
   <string name="tip_5_key_feedback_test">Хотите попробовать отклик?</string>
   <string name="tip_6_bottom_rows">Нижняя строка</string>
-  <string name="tip_6_bottom_rows_tip">Также как и верхний, нижний ряд можно поменять. В AnySoftKeyboard есть несколько типов: с микрофоном или без, как в iPhone и т.д.</string>
   <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Изменить нижнюю строку</string>
+  <string name="tip_7_voice_input">Поговори со мной *</string>
   <string name="tip_7_voice_input_tip_note">* Требует Android 2.2+ и подключение к Интернету для работы.</string>
   <string name="main_tab_welcome">Добро пожаловать</string>
   <string name="main_tab_links">Ссылки</string>
   <string name="main_tab_credits">Об авторах</string>
   <string name="how_to_pointer_title">Добро пожаловать в AnySoftKeyboard</string>
   <string name="how_to_pointer_version_prefix">Версия:</string>
-  <string name="how_to_pointer_not_app">AnySoftKeyboard не обычная программа - это заменитель клавиатуры.</string>
   <string name="how_to_pointer_go_to_links">Посетите раздел ссылок для более подробной информации.</string>
   <string name="how_to_pointer_how_to_url">Инстркуция по эксплуатации:</string>
   <string name="how_to_pointer_site">Подробнее о программе:</string>
@@ -45,16 +39,12 @@
   <string name="main_tab_credits_additional_work_by">Программисты:</string>
   <string name="main_tab_credits_localization_by">Переводчики:</string>
   <string name="main_tab_credits_GUI_by">Художники:</string>
-  <string name="how_to_enable_dialog_text">AnySoftKeyboard ещё не активировано. Показать, как активировать приложение?</string>
+  <string name="how_to_enable_dialog_title">Включить AnySoftKeyboard\?</string>
   <string name="how_to_enable_dialog_show_me">Да!</string>
   <string name="how_to_enable_dialog_dont_show_me">Позже</string>
-  <string name="how_to_simple_howto_preface">Android требует, чтобы Вы (пользователь) вручную включили и активировали внешние клавиатуры. Вот как:</string>
   <string name="how_to_simple_howto_enable_ask_button">Включить AnySoftKeyboard</string>
-  <string name="how_to_simple_howto_press_back_to_return_tip">Нажмите НАЗАД, когда готово, чтобы вернуться к инструкции по активации</string>
-  <string name="how_to_simple_howto_switch_to_ask">Шаг 2: Выберите AnySoftKeyboard как активный метод ввода:</string>
   <string name="how_to_simple_howto_switch_to_ask_button_after_step_1">Выбрать AnySoftKeyboard</string>
   <string name="how_to_simple_howto_switch_to_ask_button_before_step_1">Сначала выполните шаг 1</string>
-  <string name="how_to_simple_howto_go_to_settings">Шаг 3 (необязательный): AnySoftKeyboard очень настраиваемый. Вы можете сделать это позже долгим нажмитем на клавишу ВВОД (ENTER).</string>
   <string name="how_to_simple_howto_go_to_settings_button">Настройки AnySoftKeyboard</string>
   <string name="notification_text_changelog">Нажмите, чтобы узнать что нового.</string>
   <string name="notification_title_how_to_enable">Добро пожаловать в AnySoftKeyboard</string>
@@ -78,12 +68,16 @@
   <string name="physical_keyboard_change_notification_dialog_title">Выбор Уведомления</string>
   <string name="lengthy_operations_toast_notification">Долгие операции</string>
   <string name="lengthy_operations_toast_notification_summary">Показывать уведомления при долгих операциях.</string>
+  <string name="voice_input_not_installed_action_install">Установить</string>
+  <string name="voice_input_not_installed_action_do_not_install">Нет</string>
+  <string name="voice_input_not_voice_pack_in_market">Я не могу найти голосовой ввод (com.google.android.voicesearch) в Market. К сожалению, голосовой ввод не будет работать на вашем устройстве.</string>
   <string name="change_ime">Изменить метод ввода</string>
   <string name="override_dictionary">Заместить стандартный словарь</string>
-  <string name="override_dictionary_title">Переопределить <xliff:g id="word">%s</xliff:g> словарь</string>
+  <string name="override_dictionary_title">Переопределить <xliff:g id="word"> %s </xliff:g> словарь</string>
   <string name="override_dictionary_default">Стандартный</string>
   <string name="override_disabled">Сброшен на заводской</string>
-  <string name="override_enabled">Переопределение на <xliff:g id="word">%s</xliff:g></string>
+  <string name="override_enabled">Переопределить для
+<xliff:g id="word">%s</xliff:g></string>
   <string name="effects_group">Эффекты</string>
   <string name="ime_settings">Настройки Клавиатуры</string>
   <string name="vibrate_on_key_press_title">Вибрация при нажатии</string>
@@ -93,12 +87,10 @@
   <string name="sound_on_summary">Звуковой эффект при нажатии клавиш на виртуальной клавиатуре.</string>
   <string name="use_custom_sound_volume">Выставить громкость вручную</string>
   <string name="use_custom_sound_volume_on_summary">Громкость выставленна вручную.</string>
-  <string name="use_custom_sound_volume_off_summary">Громкость такая-же как на системных уведомлениях.</string>
   <string name="custom_sound_volume">Громкость при нажатии</string>
   <string name="speacial_fetures_group">Возможности</string>
   <string name="switch_keyboard_on_space">Пробел Переключает Раскладку</string>
-  <string name="switch_keyboard_on_space_on_summary">Пробел возвращяет в буквенную раскладку из цифровой</string>
-  <string name="switch_keyboard_on_space_off_summary">Нажатие пробела оставляет на цифровой раскладке</string>
+  <string name="switch_keyboard_on_space_on_summary">Переключение с символы/цифры алфавит при нажатии ПРОБЕЛ</string>
   <string name="hide_soft_when_physical">Скрыть виртуальную при аппаратной</string>
   <string name="hide_soft_when_physical_on_summary">Скрыть виртуальную клавиатуру при использовании аппаратной</string>
   <string name="hide_soft_when_physical_off_summary">Показывать виртуальную клавиатуру даже при использовании аппаратной</string>
@@ -107,7 +99,6 @@
   <string name="fullscreen_input_connection_supported_off_summary">Не использовать полноэкранный ввод в горизонтальном положении</string>
   <string name="fullscreen_portrait_input_connection_supported">Использовать полноэкранный ввод в горизонтальном расположении</string>
   <string name="fullscreen_portrait_input_connection_supported_on_summary">Полноэкранный ввод в вертикале</string>
-  <string name="fullscreen_portrait_input_connection_supported_off_summary">Не использовать полноэкранный ввод в вертикальном положении</string>
   <string name="backword_support">Удаление полного слова</string>
   <string name="backword_support_on_summary">Нажатие кнопки возврата в верхнем регистре удалит последнее слово</string>
   <string name="backword_support_off_summary">Нажатие кнопки возврата в верхнем регистре удалит последний символ</string>
@@ -158,13 +149,9 @@
   <string name="hardware_keys_group">Сопоставление аппаратных клавиш</string>
   <string name="volume_key_for_left_right_support">Клавиши регулировки громкости для стрелок влево/вправо</string>
   <string name="volume_key_for_left_right_support_on_summary">Отключить влево/вправо с помощью увеличения/уменьшения громкости</string>
-  <string name="volume_key_for_left_right_support_off_summary">Увеличение громкости перемещает курсор влево, уменьшения громкости - вправо</string>
   <string name="camera_key_for_backspace_backword_support">Использовать клавишу камеры для возврата</string>
   <string name="camera_key_for_backspace_backword_support_on_summary">Восстановить функцию клавиши камеры</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Полу-нажатие кнопки камеры удаляет последний символ, полное нажатие удаляет последнее слово</string>
   <string name="special_dictionaries_group">Специальные словари</string>
-  <string name="use_user_dictionary">Пользовательский словарь</string>
-  <string name="use_user_dictionary_on_summary">Предлагать слова из пользовательского словаря (для добавления - долгое нажатие на вариант)</string>
   <string name="use_user_dictionary_off_summary"> </string>
   <string name="use_auto_dictionary">Автоматический словарь</string>
   <string name="use_contacts_dictionary">Словарь из контактов</string>
@@ -187,10 +174,7 @@
   <string name="is_extesion_keyboard_above_keyboard_off_summary">Отображать прямо на основной клавиатуре</string>
   <string name="show_new_tips_notifications_again">Показывать новые подсказки</string>
   <string name="show_new_tips_notifications_again_on_summary">Когда новые подсказки доступны, они будут показаны</string>
-  <string name="show_new_tips_notifications_again_off_summary">Уведомлений о новых подсказках не будет</string>
   <string name="show_new_version_notifications_again">Показывать уведомления о новой версии</string>
-  <string name="show_new_version_notifications_again_on_summary">После установки новой версии, будет показан список изменений</string>
-  <string name="show_new_version_notifications_again_off_summary">Уведомления после установки новой версии отключены</string>
   <string name="use_keyrepeat">Повторять клавиши</string>
   <string name="use_keyrepeat_on_summary">Повторение клавиш включено</string>
   <string name="use_keyrepeat_off_summary">Повторение клавиш выключено</string>
@@ -214,7 +198,6 @@
   <string name="zoom_factor_keys_in_portrait">Фактор высоты кнопок в вертикальном режиме</string>
   <string name="zoom_factor_keys_in_landscape">Фактор высоты кнопок в горизонтальном режиме</string>
   <string name="insert_space_after_word_suggestion_selection">Пробел После Совета</string>
-  <string name="insert_space_after_word_suggestion_selection_on_summary">Вставить пробел после выбора совета</string>
   <string name="insert_space_after_word_suggestion_selection_off_summary"> </string>
   <string name="double_space_to_period">Двойной пробел в точку</string>
   <string name="double_space_to_period_summary">Нажатие на пробел дважды будет превращено в точку с пробелом</string>
@@ -243,7 +226,6 @@
   <string name="auto_dict">Автоматический словарь</string>
   <string name="auto_dict_summary">Автоматически добавлять часто используюемые или отмеченные слова в словарь</string>
   <string name="no_extrenal_packs_support_title">Не поддерживается</string>
-  <string name="no_extrenal_packs_support_message">﻿В настоящее время, AnySoftKeyboard не допускает  внешние пакеты такого типа.\nКогда API спецификации станут известны, эта функция будет открыта.\nОставайтесь на связи.</string>
   <string name="keyboards_group">Языки Раскладок</string>
   <string name="eng_keyboard">Английский</string>
   <string name="eng_keyboard_16keys">16 Keys English</string>
@@ -282,7 +264,6 @@
   <string name="extension_kbd_extension_numbers_symbols">Цифры и символы</string>
   <string name="show_tutorial_on_startup">Показывать помощь при запуске</string>
   <string name="tutorial_swipe_title">Провод пальцем для изменения раскладки</string>
-  <string name="tutorial_swipe_text">Раскладку можно поменять, проведя пальцем по виртуальной клавиатуре. Проведите с лева на право для изменения языка, и с права на лево для вызова символов.</string>
   <string name="label_go_key">Пуск</string>
   <string name="label_next_key">Следующий</string>
   <string name="label_send_key">Отправить</string>
@@ -307,6 +288,9 @@
   <string name="settings_split_state_split_in_landscape">Разорванная когда в горизонтальном</string>
   <string name="settings_split_state_split_always">Разорванная во всех положениях</string>
   <string name="user_dictionary_select_locale">Язык:</string>
+  <string name="user_dict_backup_fail_text_with_error">Не удалось сохранить слова из-за: <xliff:g id="error"> %s </xliff:g>     </string>
+  <string name="user_dict_restore_success_title">Восстановление завершено!</string>
+  <string name="user_dict_restore_fail_title">Восстановление потерпело неудачу!</string>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Всегда показывать иконку</item>
     <item>При изменении встроенной клавиатуре</item>
