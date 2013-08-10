@@ -22,6 +22,14 @@ public interface Configuration {
 
     boolean alwaysUseFallBackUserDictionary();
 
+    boolean hasNotificationAnimated(String notificationKey);
+
+    void setNotificationAnimated(String notificationKey);
+
+    void setNotificationClicked(String notificationKey);
+
+    boolean hasNotificationClicked(String notificationKey);
+
     public static enum AnimationsLevel {
         Full,
         Some,
@@ -133,6 +141,8 @@ public interface Configuration {
     void removeChangedListener(OnSharedPreferenceChangeListener listener);
 
     boolean shouldswapPunctuationAndSpace();
+
+    int getCurrentAppVersion();
 
     int getFirstAppVersionInstalled();
 

@@ -33,14 +33,22 @@ import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class ConfigurationImpl implements Configuration, OnSharedPreferenceChangeListener {
     static final String TAG = "ASK_Cfg";
 
     private static final String CONFIGURATION_VERSION = "configurationVersion";
+
+    private static final String NOTIFICATION_CLICKED_KEY_PREFIX = "NOTIFICATION_CLICKED_KEY_PREFIX";
+    private static final String NOTIFICATION_ANIMATION_KEY_PREFIX = "NOTIFICATION_ANIMATION_KEY_PREFIX";
+
+    private static final HashMap<String, Object> mInstanceStorage = new HashMap<String, Object>();
+
     //private static final String CUSTOMIZATION_LEVEL = "customizationLevel";
     private final Context mContext;
+
 
     private String mDomainText = ".com";
     //private String mLayoutChangeKeysSize = "Small";
@@ -96,6 +104,7 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 
     private boolean mAlwaysUseFallBackUserDictionary = false;
 
+    private final int mCurrentAppVersion;
     private long mFirstTimeAppInstalled;
     private long mFirstTimeCurrentVersionInstalled;
     private int mFirstAppVersionInstalled;
@@ -114,9 +123,9 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
         } catch (NameNotFoundException e) {
             Log.e(TAG, "Failed to locate package information! This is very weird... I'm installed.");
         }
-
+        mCurrentAppVersion = releaseNumber;
         Log.i(TAG, "** Version: " + version);
-        Log.i(TAG, "** Release code: " + releaseNumber);
+        Log.i(TAG, "** Release code: " + mCurrentAppVersion);
         Log.i(TAG, "** Debug: " + AnyApplication.DEBUG);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
         //setting some statistics
@@ -826,6 +835,11 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
     }
 
     @Override
+    public int getCurrentAppVersion() {
+        return mCurrentAppVersion;
+    }
+
+    @Override
     public int getFirstAppVersionInstalled() {
         return mFirstAppVersionInstalled;
     }
@@ -843,5 +857,25 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
     @Override
     public boolean alwaysUseFallBackUserDictionary() {
         return mAlwaysUseFallBackUserDictionary;
+    }
+
+    @Override
+    public boolean hasNotificationAnimated(String notificationKey) {
+        return mInstanceStorage.get(NOTIFICATION_ANIMATION_KEY_PREFIX+notificationKey) != null;
+    }
+
+    @Override
+    public void setNotificationAnimated(String notificationKey) {
+        mInstanceStorage.put(NOTIFICATION_ANIMATION_KEY_PREFIX + notificationKey, Integer.valueOf(mCurrentAppVersion));
+    }
+
+    @Override
+    public void setNotificationClicked(String notificationKey) {
+        mInstanceStorage.put(NOTIFICATION_CLICKED_KEY_PREFIX + notificationKey, Integer.valueOf(mCurrentAppVersion));
+    }
+
+    @Override
+    public boolean hasNotificationClicked(String notificationKey) {
+        return mInstanceStorage.get(NOTIFICATION_CLICKED_KEY_PREFIX+notificationKey) != null;
     }
 }

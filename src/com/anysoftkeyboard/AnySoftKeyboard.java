@@ -35,8 +35,6 @@ import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.*;
 import android.view.View.OnClickListener;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.*;
 import android.widget.ImageView;
@@ -71,6 +69,7 @@ import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.ui.settings.MainSettings;
+import com.anysoftkeyboard.ui.tutorials.TipsActivity;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 import com.anysoftkeyboard.utils.IMEUtil.GCUtils;
 import com.anysoftkeyboard.utils.IMEUtil.GCUtils.MemRelatedOperation;
@@ -81,7 +80,6 @@ import com.anysoftkeyboard.voice.VoiceInput;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
-import java.lang.ref.WeakReference;
 import java.util.*;
 
 /**
@@ -90,78 +88,8 @@ import java.util.*;
 public class AnySoftKeyboard extends InputMethodService implements
         OnKeyboardActionListener, OnSharedPreferenceChangeListener,
         AnyKeyboardContextProvider, SoundPreferencesChangedListener {
-    private static final class KeyboardUIStateHanlder extends Handler {
-        private static final class CloseTextAnimationListener implements
-                AnimationListener {
-            private View closeText;
-
-            public void setCloseText(View c) {
-                closeText = c;
-            }
-
-            public void onAnimationStart(Animation animation) {
-            }
-
-            public void onAnimationRepeat(Animation animation) {
-            }
-
-            public void onAnimationEnd(Animation animation) {
-                closeText.setVisibility(View.GONE);
-                closeText = null;
-            }
-        }
-
-        private final CloseTextAnimationListener mCloseTextAnimationListener = new CloseTextAnimationListener();
-        private final WeakReference<AnySoftKeyboard> mKeyboard;
-
-        public KeyboardUIStateHanlder(AnySoftKeyboard keyboard) {
-            mKeyboard = new WeakReference<AnySoftKeyboard>(keyboard);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            AnySoftKeyboard ask = mKeyboard.get();
-            if (ask == null)// delayed posts and such may result in the
-                // reference gone
-                return;
-
-            switch (msg.what) {
-                case MSG_UPDATE_SUGGESTIONS:
-                    ask.performUpdateSuggestions();
-                    break;
-                case MSG_RESTART_NEW_WORD_SUGGESTIONS:
-                    final InputConnection ic = ask.getCurrentInputConnection();
-                    ask.performRestartWordSuggestion(ic);
-                    break;
-                // case MSG_UPDATE_OLD_SUGGESTIONS:
-                // setOldSuggestions();
-                // break;
-                case MSG_UPDATE_SHIFT_STATE:
-                    ask.updateShiftKeyState(ask.getCurrentInputEditorInfo());
-                    break;
-                case MSG_REMOVE_CLOSE_SUGGESTIONS_HINT:
-                    final View closeText = ask.mCandidateCloseText;
-                    if (closeText != null) {// in API3, this variable is
-                        // null
-                        mCloseTextAnimationListener.setCloseText(closeText);
-                        Animation gone = AnimationUtils.loadAnimation(
-                                ask.getApplicationContext(),
-                                R.anim.close_candidates_hint_out);
-                        gone.setAnimationListener(mCloseTextAnimationListener);
-                        closeText.startAnimation(gone);
-                    }
-                default:
-                    super.handleMessage(msg);
-            }
-        }
-    }
 
     private final static String TAG = "ASK";
-
-    private static final int MSG_UPDATE_SUGGESTIONS = 0;
-    private static final int MSG_RESTART_NEW_WORD_SUGGESTIONS = 1;
-    private static final int MSG_UPDATE_SHIFT_STATE = 3;
-    private static final int MSG_REMOVE_CLOSE_SUGGESTIONS_HINT = 4;
 
     private SharedPreferences mPrefs;
     private final com.anysoftkeyboard.Configuration mConfig;
@@ -169,8 +97,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private final ModifierKeyState mShiftKeyState = new ModifierKeyState();
     private final ModifierKeyState mControlKeyState = new ModifierKeyState();
-
-    private boolean mTipsCalled = false;
 
     private LayoutSwitchAnimationListener mSwitchAnimator;
     private boolean mDistinctMultiTouch = true;
@@ -499,14 +425,10 @@ public class AnySoftKeyboard extends InputMethodService implements
                 private final static long DOUBLE_TAP_TIMEOUT = 2 * 1000;
 
                 public void onClick(View v) {
-                    mHandler.removeMessages(MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
+                    mHandler.removeMessages(KeyboardUIStateHanlder.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
                     mCandidateCloseText.setVisibility(View.VISIBLE);
-                    mCandidateCloseText.startAnimation(AnimationUtils
-                            .loadAnimation(getApplicationContext(),
-                                    R.anim.close_candidates_hint_in));
-                    mHandler.sendMessageDelayed(mHandler
-                            .obtainMessage(MSG_REMOVE_CLOSE_SUGGESTIONS_HINT),
-                            DOUBLE_TAP_TIMEOUT - 50);
+                    mCandidateCloseText.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.close_candidates_hint_in));
+                    mHandler.sendMessageDelayed(mHandler.obtainMessage(KeyboardUIStateHanlder.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT), DOUBLE_TAP_TIMEOUT - 50);
                 }
             });
 
@@ -515,7 +437,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                     fontSizePixel);
             mCandidateCloseText.setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {
-                    mHandler.removeMessages(MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
+                    mHandler.removeMessages(KeyboardUIStateHanlder.MSG_REMOVE_CLOSE_SUGGESTIONS_HINT);
                     mCandidateCloseText.setVisibility(View.GONE);
                     abortCorrection(true, true);
                 }
@@ -525,49 +447,16 @@ public class AnySoftKeyboard extends InputMethodService implements
         final TextView tipsNotification = (TextView) candidateViewContainer
                 .findViewById(R.id.tips_notification_on_candidates);
         if (tipsNotification != null) {// why? in API 3 it is not supported
-            if (!mTipsCalled
-                    && mConfig.getShowTipsNotification()
-                    && TutorialsProvider
-                    .shouldShowTips(getApplicationContext())) {
-                Animation tipsInAnimation = AnimationUtils.loadAnimation(
-                        getApplicationContext(), R.anim.tips_flip_in);
-                tipsInAnimation.setAnimationListener(new AnimationListener() {
-                    public void onAnimationStart(Animation animation) {
-                    }
+            if (mConfig.getShowTipsNotification()
+                    && TutorialsProvider.shouldShowTips(getApplicationContext())) {
 
-                    public void onAnimationRepeat(Animation animation) {
-                    }
-
-                    public void onAnimationEnd(Animation animation) {
-                        tipsNotification.setText("?");
-                    }
-                });
-                tipsNotification.setAnimation(tipsInAnimation);
-                tipsNotification.setVisibility(View.VISIBLE);
-                tipsNotification.setOnClickListener(new OnClickListener() {
-
-                    public void onClick(final View v) {
-                        Animation gone = AnimationUtils.loadAnimation(
-                                getApplicationContext(), R.anim.tips_flip_out);
-                        gone.setAnimationListener(new AnimationListener() {
-                            public void onAnimationStart(Animation animation) {
-                            }
-
-                            public void onAnimationRepeat(Animation animation) {
-                            }
-
-                            public void onAnimationEnd(Animation animation) {
-                                tipsNotification.setVisibility(View.GONE);
-                            }
-                        });
-                        tipsNotification.startAnimation(gone);
-                        mTipsCalled = true;
+                final String TIPS_NOTIFICATION_KEY = "TIPS_NOTIFICATION_KEY";
+                TipsActivity.addTipToCandidate(getApplicationContext(), tipsNotification, TIPS_NOTIFICATION_KEY, new OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
                         TutorialsProvider.showTips(getApplicationContext());
                     }
                 });
-            } else {
-                // removing for memory releasing
-                candidateViewContainer.removeView(tipsNotification);
             }
         }
 		/*
@@ -907,13 +796,13 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     private void postRestartWordSuggestion() {
-        mHandler.removeMessages(MSG_RESTART_NEW_WORD_SUGGESTIONS);
+        mHandler.removeMessages(KeyboardUIStateHanlder.MSG_RESTART_NEW_WORD_SUGGESTIONS);
 		/*
 		 * if (mRestartSuggestionsView != null)
 		 * mRestartSuggestionsView.setVisibility(View.GONE);
 		 */
         mHandler.sendMessageDelayed(
-                mHandler.obtainMessage(MSG_RESTART_NEW_WORD_SUGGESTIONS), 500);
+                mHandler.obtainMessage(KeyboardUIStateHanlder.MSG_RESTART_NEW_WORD_SUGGESTIONS), 500);
     }
 
     private static int getCursorPosition(InputConnection connection) {
@@ -1581,20 +1470,20 @@ public class AnySoftKeyboard extends InputMethodService implements
                         .acceptedTyped(mWord.getTypedWord());
                 addToDictionaries(mWord, AutoDictionary.AdditionType.Typed);
             }
-            if (mHandler.hasMessages(MSG_UPDATE_SUGGESTIONS)) {
-                performUpdateSuggestions();
+            if (mHandler.hasMessages(KeyboardUIStateHanlder.MSG_UPDATE_SUGGESTIONS)) {
+                postUpdateSuggestions(-1);
             }
         }
     }
 
     private void postUpdateShiftKeyState() {
-        mHandler.removeMessages(MSG_UPDATE_SHIFT_STATE);
+        mHandler.removeMessages(KeyboardUIStateHanlder.MSG_UPDATE_SHIFT_STATE);
         mHandler.sendMessageDelayed(
-                mHandler.obtainMessage(MSG_UPDATE_SHIFT_STATE), 150);
+                mHandler.obtainMessage(KeyboardUIStateHanlder.MSG_UPDATE_SHIFT_STATE), 150);
     }
 
     public void updateShiftKeyState(EditorInfo attr) {
-        mHandler.removeMessages(MSG_UPDATE_SHIFT_STATE);
+        mHandler.removeMessages(KeyboardUIStateHanlder.MSG_UPDATE_SHIFT_STATE);
         InputConnection ic = getCurrentInputConnection();
         if (ic != null && attr != null && mKeyboardSwitcher.isAlphabetMode()
                 && (mInputView != null)) {
@@ -2305,7 +2194,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private void handleShift(boolean reset) {
         // user is above anything automatic.
-        mHandler.removeMessages(MSG_UPDATE_SHIFT_STATE);
+        mHandler.removeMessages(KeyboardUIStateHanlder.MSG_UPDATE_SHIFT_STATE);
 
         if (mInputView != null && mKeyboardSwitcher.isAlphabetMode()) {
             // shift pressed and this is an alphabet keyboard
@@ -2355,8 +2244,8 @@ public class AnySoftKeyboard extends InputMethodService implements
         if (force || TextEntryState.isCorrecting()) {
             if (DEBUG)
                 Log.d(TAG, "abortCorrection will actually abort correct");
-            mHandler.removeMessages(MSG_UPDATE_SUGGESTIONS);
-            mHandler.removeMessages(MSG_RESTART_NEW_WORD_SUGGESTIONS);
+            mHandler.removeMessages(KeyboardUIStateHanlder.MSG_UPDATE_SUGGESTIONS);
+            mHandler.removeMessages(KeyboardUIStateHanlder.MSG_RESTART_NEW_WORD_SUGGESTIONS);
 
             final InputConnection ic = getCurrentInputConnection();
             if (ic != null)
@@ -2518,7 +2407,8 @@ public class AnySoftKeyboard extends InputMethodService implements
             // in Italian dov' should not be expanded to dove' because the
             // elision
             // requires the last vowel to be removed.
-            if (mAutoCorrectOn && primaryCode != '\''
+            //Also, ACTION does not invoke default picking. See https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/198
+            if (mAutoCorrectOn && primaryCode != '\'' && primaryCode != KeyCodes.ENTER
 			/*
 			 * && (mJustRevertedSeparator == null ||
 			 * mJustRevertedSeparator.length() == 0 ||
@@ -2603,13 +2493,18 @@ public class AnySoftKeyboard extends InputMethodService implements
     // mHandler.sendMessageDelayed(msg, 600);
     // }
 
+    /**
+     * posts an update suggestions request to the messages queue. Removes any previous request.
+     * @param delay negative value will cause the call to be done now, in this thread.
+     */
     private void postUpdateSuggestions(long delay) {
-        mHandler.removeMessages(MSG_UPDATE_SUGGESTIONS);
+        mHandler.removeMessages(KeyboardUIStateHanlder.MSG_UPDATE_SUGGESTIONS);
         if (delay > 0)
-            mHandler.sendMessageDelayed(
-                    mHandler.obtainMessage(MSG_UPDATE_SUGGESTIONS), delay);
+            mHandler.sendMessageDelayed(mHandler.obtainMessage(KeyboardUIStateHanlder.MSG_UPDATE_SUGGESTIONS), delay);
+        else if (delay == 0)
+            mHandler.sendMessage(mHandler.obtainMessage(KeyboardUIStateHanlder.MSG_UPDATE_SUGGESTIONS));
         else
-            mHandler.sendMessage(mHandler.obtainMessage(MSG_UPDATE_SUGGESTIONS));
+            performUpdateSuggestions();
     }
 
     private boolean isPredictionOn() {
@@ -2623,7 +2518,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         return mShowSuggestions && onEvaluateInputViewShown();
     }
 
-    private void performUpdateSuggestions() {
+    /*package*/ void performUpdateSuggestions() {
         if (DEBUG)
             Log.d(TAG, "performUpdateSuggestions: has mSuggest:"
                     + (mSuggest != null) + ", isPredictionOn:"
@@ -2648,8 +2543,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             return;
         }
 
-        List<CharSequence> stringList = mSuggest.getSuggestions(
-		/* mInputView, */mWord, false);
+        List<CharSequence> stringList = mSuggest.getSuggestions(/* mInputView, */mWord, false);
         boolean correctionAvailable = mSuggest.hasMinimalCorrection();
         // || mCorrectionMode == mSuggest.CORRECTION_FULL;
         CharSequence typedWord = mWord.getTypedWord();
@@ -2683,8 +2577,8 @@ public class AnySoftKeyboard extends InputMethodService implements
     private boolean pickDefaultSuggestion() {
 
         // Complete any pending candidate query first
-        if (mHandler.hasMessages(MSG_UPDATE_SUGGESTIONS)) {
-            performUpdateSuggestions();
+        if (mHandler.hasMessages(KeyboardUIStateHanlder.MSG_UPDATE_SUGGESTIONS)) {
+            postUpdateSuggestions(-1);
         }
 
         final CharSequence bestWord = mWord.getPreferredWord();
@@ -2873,7 +2767,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             ic.setComposingText(typedWord/* mComposing */, 1);
             TextEntryState.backspace();
             ic.endBatchEdit();
-            performUpdateSuggestions();
+            postUpdateSuggestions(-1);
             if (mJustAutoAddedWord && mUserDictionary != null) {
                 // we'll also need to REMOVE the word from the user dictionary
                 // now...
@@ -3654,7 +3548,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         super.onLowMemory();
     }
 
-    private TextView mCandidateCloseText;
+    /*package*/ TextView mCandidateCloseText;
 
     private void showQuickTextKeyPopupKeyboard(QuickTextKey quickTextKey) {
         if (mInputView != null) {

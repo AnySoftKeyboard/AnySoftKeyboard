@@ -160,4 +160,24 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     protected boolean keyboardSupportShift() {
         return true;
     }
+
+    public void mirrorKeys() {
+        /* how to mirror?
+        width = 55
+        [0..15] [20..35] [40..55]
+        phase 1: multiple by -1
+        [0] [-20] [-40]
+        phase 2: add keyboard width
+        [55] [35] [15]
+        phase 3: subtracting the key's width
+        [40] [20] [0]
+        cool?
+         */
+        final int keyboardWidth = getMinWidth();
+        for(Key k : getKeys()) {
+            k.x = k.x*(-1);//phase 1
+            k.x += keyboardWidth;//phase 2
+            k.x -= k.width;//phase 3
+        }
+    }
 }
