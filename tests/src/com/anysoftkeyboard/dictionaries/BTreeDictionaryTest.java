@@ -42,6 +42,8 @@ public class BTreeDictionaryTest extends ActivityInstrumentationTestCase2<MainSe
             Assert.assertTrue("Word at row "+row+" ("+word+") should be valid.", dictionary.isValidWord(word));
             Assert.assertEquals(dictionary.getWordFrequency(word), freq);
         }
+        //checking validity of the internal structure
+        assetNodeArrayIsValid(dictionary.getRoot());
     }
 
     public void testAddWord() throws Exception {
@@ -53,17 +55,23 @@ public class BTreeDictionaryTest extends ActivityInstrumentationTestCase2<MainSe
         Assert.assertEquals(23, dictionary.wordFrequencyRequestedToAddedToStorage);
         Assert.assertTrue(dictionary.isValidWord("new"));
         Assert.assertEquals(dictionary.getWordFrequency("new"), 23);
+        //checking validity of the internal structure
+        assetNodeArrayIsValid(dictionary.getRoot());
 
         Assert.assertTrue(dictionary.addWord("new", 34));
         Assert.assertEquals("new", dictionary.wordRequestedToAddedToStorage);
         Assert.assertEquals(34, dictionary.wordFrequencyRequestedToAddedToStorage);
         Assert.assertTrue(dictionary.isValidWord("new"));
         Assert.assertEquals(dictionary.getWordFrequency("new"), 34);
+        //checking validity of the internal structure
+        assetNodeArrayIsValid(dictionary.getRoot());
 
         Assert.assertTrue(dictionary.addWord("newa", 45));
         Assert.assertTrue(dictionary.isValidWord("newa"));
         Assert.assertEquals(dictionary.getWordFrequency("new"), 34);
         Assert.assertEquals(dictionary.getWordFrequency("newa"), 45);
+        //checking validity of the internal structure
+        assetNodeArrayIsValid(dictionary.getRoot());
 
         Assert.assertTrue(dictionary.addWord("nea", 47));
         Assert.assertEquals("nea", dictionary.wordRequestedToAddedToStorage);
@@ -72,6 +80,8 @@ public class BTreeDictionaryTest extends ActivityInstrumentationTestCase2<MainSe
         Assert.assertEquals(dictionary.getWordFrequency("new"), 34);
         Assert.assertEquals(dictionary.getWordFrequency("newa"), 45);
         Assert.assertEquals(dictionary.getWordFrequency("nea"), 47);
+        //checking validity of the internal structure
+        assetNodeArrayIsValid(dictionary.getRoot());
 
         Assert.assertTrue(dictionary.addWord("neabb", 50));
         Assert.assertEquals("neabb", dictionary.wordRequestedToAddedToStorage);
@@ -83,6 +93,8 @@ public class BTreeDictionaryTest extends ActivityInstrumentationTestCase2<MainSe
         Assert.assertEquals(dictionary.getWordFrequency("nea"), 47);
         Assert.assertEquals(dictionary.getWordFrequency("neabb"), 50);
         Assert.assertEquals(dictionary.getWordFrequency("neab"), 0);
+        //checking validity of the internal structure
+        assetNodeArrayIsValid(dictionary.getRoot());
     }
 
     public void testOnStorageChanged() throws Exception {
@@ -92,7 +104,6 @@ public class BTreeDictionaryTest extends ActivityInstrumentationTestCase2<MainSe
     public void testDeleteWord() throws Exception {
         TestableBTreeDictionary dictionary = new TestableBTreeDictionary("TEST", getActivity().getApplicationContext());
         dictionary.loadDictionary();
-
         //from read storage
         String word = (String)TestableBTreeDictionary.STORAGE[0][1];
         int wordFreq = ((Integer)TestableBTreeDictionary.STORAGE[0][2]).intValue();
@@ -100,6 +111,8 @@ public class BTreeDictionaryTest extends ActivityInstrumentationTestCase2<MainSe
         dictionary.deleteWord(word);
         Assert.assertFalse(dictionary.isValidWord(word));
         Assert.assertEquals(dictionary.wordRequestedToBeDeletedFromStorage, word);
+        //checking validity of the internal structure
+        assetNodeArrayIsValid(dictionary.getRoot());
 
         //re-adding
         Assert.assertTrue(dictionary.addWord(word, wordFreq+1));
@@ -109,6 +122,8 @@ public class BTreeDictionaryTest extends ActivityInstrumentationTestCase2<MainSe
         dictionary.deleteWord(word);
         Assert.assertFalse(dictionary.isValidWord(word));
         Assert.assertEquals(dictionary.wordRequestedToBeDeletedFromStorage, word);
+        //checking validity of the internal structure
+        assetNodeArrayIsValid(dictionary.getRoot());
 
         //a new one
         word = "new";
@@ -119,11 +134,15 @@ public class BTreeDictionaryTest extends ActivityInstrumentationTestCase2<MainSe
         dictionary.deleteWord(word);
         Assert.assertFalse(dictionary.isValidWord(word));
         Assert.assertEquals(dictionary.wordRequestedToBeDeletedFromStorage, word);
+        //checking validity of the internal structure
+        assetNodeArrayIsValid(dictionary.getRoot());
 
         //none existing
         Assert.assertFalse(dictionary.isValidWord("fail"));
         dictionary.deleteWord("fail");
         Assert.assertFalse(dictionary.isValidWord("fail"));
+        //checking validity of the internal structure
+        assetNodeArrayIsValid(dictionary.getRoot());
 
         //deleting part of the root
         dictionary.addWord("root", 1);
@@ -131,27 +150,51 @@ public class BTreeDictionaryTest extends ActivityInstrumentationTestCase2<MainSe
         dictionary.addWord("rootina", 2);
         Assert.assertFalse(dictionary.isValidWord("roo"));
         Assert.assertFalse(dictionary.isValidWord("rooti"));
+        //checking validity of the internal structure
+        assetNodeArrayIsValid(dictionary.getRoot());
+
         dictionary.deleteWord("root");
         Assert.assertFalse(dictionary.isValidWord("roo"));
         Assert.assertFalse(dictionary.isValidWord("root"));
         Assert.assertFalse(dictionary.isValidWord("rooti"));
         Assert.assertTrue(dictionary.isValidWord("rooting"));
         Assert.assertTrue(dictionary.isValidWord("rootina"));
+        //checking validity of the internal structure
+        assetNodeArrayIsValid(dictionary.getRoot());
+
         dictionary.deleteWord("rooting");
         Assert.assertFalse(dictionary.isValidWord("root"));
         Assert.assertFalse(dictionary.isValidWord("rooti"));
         Assert.assertFalse(dictionary.isValidWord("rooting"));
         Assert.assertTrue(dictionary.isValidWord("rootina"));
+        //checking validity of the internal structure
+        assetNodeArrayIsValid(dictionary.getRoot());
+
         dictionary.addWord("root", 1);
         Assert.assertTrue(dictionary.isValidWord("root"));
         Assert.assertFalse(dictionary.isValidWord("rooting"));
         Assert.assertFalse(dictionary.isValidWord("rooti"));
         Assert.assertTrue(dictionary.isValidWord("rootina"));
+        //checking validity of the internal structure
+        assetNodeArrayIsValid(dictionary.getRoot());
+
         dictionary.deleteWord("rootina");
         Assert.assertTrue(dictionary.isValidWord("root"));
         Assert.assertFalse(dictionary.isValidWord("rooting"));
         Assert.assertFalse(dictionary.isValidWord("rooti"));
         Assert.assertFalse(dictionary.isValidWord("rootina"));
+        //checking validity of the internal structure
+        assetNodeArrayIsValid(dictionary.getRoot());
+    }
+
+    private void assetNodeArrayIsValid(BTreeDictionary.NodeArray root) {
+        assertTrue(root.length >=0);
+        assertTrue(root.length <= root.data.length);
+        for (int i=0;i<root.length;i++) {
+            assertNotNull(root.data[i]);
+            if (root.data[i].children != null)//it may be null.
+                assetNodeArrayIsValid(root.data[i].children);
+        }
     }
 
     public void testClose() throws Exception {

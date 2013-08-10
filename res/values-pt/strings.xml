@@ -54,9 +54,15 @@
   <string name="how_to_enable_dialog_title">Ativar o AnySoftKeyboard?</string>
   <string name="how_to_enable_dialog_show_me">Sim!</string>
   <string name="how_to_enable_dialog_dont_show_me">Mais tarde</string>
+  <string name="how_to_simple_howto_enable_ask">Passo 1: Ativar o AnySoftKeyboard (será alertado sobre a recolha de dados mas não se preocupe. O AnySoftKeyboard não guarda nem envia dados para qualquer local.
+    </string>
   <string name="how_to_simple_howto_enable_ask_button">Ativar o AnySoftKeyboard</string>
+  <string name="how_to_simple_howto_press_back_to_return_tip">Prima Recuar para voltar às instruções de ativação</string>
+  <string name="how_to_simple_howto_switch_to_ask">Passo 2: Selecione o AnySoftKeyboard como método de introdução ativo:
+    </string>
   <string name="how_to_simple_howto_switch_to_ask_button_after_step_1">Mudar para o AnySoftKeyboard</string>
   <string name="how_to_simple_howto_switch_to_ask_button_before_step_1">Execute o passo 1</string>
+  <string name="how_to_simple_howto_go_to_settings">Passo 3 (opcional): O AnySoftKeyboard pode ser personalizado. Pode personalizar a aplicação com um toque longo na tecla Enter.</string>
   <string name="how_to_simple_howto_go_to_settings_button">﻿Definições do AnySoftKeyboard</string>
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
   <string name="notification_text_testers">Esta é uma versão beta. Use com cuidado!</string>
@@ -69,6 +75,7 @@
   <string name="about">Sobre</string>
   <string name="changelog">Alterações</string>
   <string name="search_market_for_addons">Procurar extras</string>
+  <string name="no_market_store_available">A aplicação Google Play Store não foi encontrada no dispositivo. Não é possível procurar extras.</string>
   <string name="theme_addons_settings">Definições do tema</string>
   <string name="keyboard_theme_tweak_group">Ajustes</string>
   <string name="keyboard_theme_tweak_hints_group">Ajustes do texto auxiliar</string>
@@ -76,11 +83,18 @@
   <string name="top_row_addons_settings">Definições da linha superior</string>
   <string name="close_button">Fechar</string>
   <string name="how_to_active_text">Como ativar o AnySoftKeyboard</string>
+  <string name="added_word">Gravado:
+        <xliff:g id="word">%s</xliff:g>
+    </string>
   <string name="revert_added_word_question">Remover\?</string>
+  <string name="removed_word">Removido:
+        <xliff:g id="word">%s</xliff:g>
+    </string>
   <string name="hint_add_to_dictionary">\u2190 Toque novamente para gravar</string>
   <string name="hint_double_tap_to_close">Novamente para remover sugestões</string>
   <string name="menu_insert_smiley">Inserir ícone emotivo</string>
   <string name="click_for_help">Ajuda</string>
+  <string name="click_for_help_summary">Ajuda adicional sobre o AnySoftKeyboard</string>
   <string name="ui_group">Interface</string>
   <string name="physical_keyboard_change_notification_title">Notificação de esquema</string>
   <string name="physical_keyboard_change_notification_dialog_title">Escolha o tipo de notificação</string>
@@ -256,6 +270,7 @@
   <string name="zoom_factor_keys_in_portrait">Fator de altura no modo vertical</string>
   <string name="zoom_factor_keys_in_landscape">Fator de altura no modo horizontal</string>
   <string name="insert_space_after_word_suggestion_selection">Espaço após sugestão</string>
+  <string name="insert_space_after_word_suggestion_selection_on_summary">Inserir espaço após a seleção da palavra sugerida</string>
   <string name="insert_space_after_word_suggestion_selection_off_summary"> </string>
   <string name="double_space_to_period">Duplo espaço para ponto</string>
   <string name="double_space_to_period_summary">Duplo espaço insere ponto final e espaço</string>

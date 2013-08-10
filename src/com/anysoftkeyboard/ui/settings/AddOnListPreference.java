@@ -90,11 +90,17 @@ public class AddOnListPreference extends ListPreference {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             final AddOn addOn = getItem(position);
-            // inflate layout
-            LayoutInflater inflator = (LayoutInflater) getContext()
-                    .getSystemService(Service.LAYOUT_INFLATER_SERVICE);
-            View row = inflator.inflate(R.layout.addon_list_item_pref, parent,
-                    false);
+            final View row;
+            if (convertView == null) {
+                // inflate layout
+                LayoutInflater inflator = (LayoutInflater) getContext()
+                        .getSystemService(Service.LAYOUT_INFLATER_SERVICE);
+                    row = inflator.inflate(R.layout.addon_list_item_pref, parent,
+                        false);
+            } else {
+                row = convertView;
+            }
+
             row.setTag(addOn);
 
             // set on click listener for row

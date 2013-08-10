@@ -9,6 +9,25 @@
          which is needed when building test cases. -->
     <application>
         <uses-library android:name="android.test.runner"/>
+
+        <receiver android:exported="true" android:name=".PackBroadcastReceiver">
+            <intent-filter>
+                <action android:name="com.menny.android.anysoftkeyboard.KEYBOARD" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.ALTERNATIVE" />
+                <category android:name="android.intent.category.SELECTED_ALTERNATIVE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.menny.android.anysoftkeyboard.DICTIONARY" />
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.ALTERNATIVE" />
+                <category android:name="android.intent.category.SELECTED_ALTERNATIVE" />
+            </intent-filter>
+            <meta-data android:name="com.menny.android.anysoftkeyboard.keyboards" android:resource="@xml/keyboards" />
+            <!--
+            <meta-data android:name="com.menny.android.anysoftkeyboard.dictionaries" android:resource="@xml/dictionaries" />
+            -->
+        </receiver>
     </application>
     <!--
     This declares that this application uses the instrumentation test runner targeting
