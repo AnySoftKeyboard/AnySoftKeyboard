@@ -26,9 +26,12 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.TextView;
 import com.anysoftkeyboard.ui.settings.BottomRowSelector;
 import com.anysoftkeyboard.ui.settings.TopRowSelector;
 import com.anysoftkeyboard.utils.Log;
@@ -208,5 +211,60 @@ public class TipsActivity extends BaseTutorialActivity implements OnCheckedChang
                 super.onClick(v);
                 break;
         }
+    }
+
+    public static void addTipToCandidate(final Context appContext, final TextView tipsNotification, final String TIPS_NOTIFICATION_KEY, final OnClickListener onClickListener) {
+        if (AnyApplication.getConfig().hasNotificationClicked(TIPS_NOTIFICATION_KEY)) {
+            tipsNotification.setVisibility(View.GONE);
+            ViewGroup p = tipsNotification.getParent() instanceof ViewGroup? (ViewGroup)tipsNotification.getParent() : null;
+            if (p != null)
+                p.removeView(tipsNotification);// removing for memory releasing
+        }
+
+        tipsNotification.setVisibility(View.VISIBLE);
+        if (!AnyApplication.getConfig().hasNotificationAnimated(TIPS_NOTIFICATION_KEY)) {
+            Log.d(TAG, "Tip with key "+TIPS_NOTIFICATION_KEY+" has not been animated before.");
+            Animation tipsInAnimation = AnimationUtils.loadAnimation(appContext, R.anim.tips_flip_in);
+            tipsInAnimation.setAnimationListener(new Animation.AnimationListener() {
+                public void onAnimationStart(Animation animation) {
+                }
+
+                public void onAnimationRepeat(Animation animation) {
+                }
+
+                public void onAnimationEnd(Animation animation) {
+                    tipsNotification.setText("?");
+                }
+            });
+            tipsNotification.setAnimation(tipsInAnimation);
+            AnyApplication.getConfig().setNotificationAnimated(TIPS_NOTIFICATION_KEY);
+        } else {
+            tipsNotification.setText("?");
+            Log.d(TAG, "Tip with key "+TIPS_NOTIFICATION_KEY+" WAS animated before.");
+        }
+
+        //setting click listener.
+        tipsNotification.setOnClickListener(new OnClickListener() {
+
+            public void onClick(final View v) {
+                AnyApplication.getConfig().setNotificationClicked(TIPS_NOTIFICATION_KEY);
+                Animation gone = AnimationUtils.loadAnimation(
+                        appContext, R.anim.tips_flip_out);
+                gone.setAnimationListener(new Animation.AnimationListener() {
+                    public void onAnimationStart(Animation animation) {
+                    }
+
+                    public void onAnimationRepeat(Animation animation) {
+                    }
+
+                    public void onAnimationEnd(Animation animation) {
+                        tipsNotification.setVisibility(View.GONE);
+                        if (onClickListener != null)
+                            onClickListener.onClick(null);
+                    }
+                });
+                tipsNotification.startAnimation(gone);
+            }
+        });
     }
 }
