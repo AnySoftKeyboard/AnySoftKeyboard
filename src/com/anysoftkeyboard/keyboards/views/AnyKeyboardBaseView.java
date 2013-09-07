@@ -27,6 +27,8 @@ import android.graphics.*;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.NinePatchDrawable;
+import android.graphics.drawable.StateListDrawable;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
@@ -1529,7 +1531,6 @@ public class AnyKeyboardBaseView extends View implements
                 drawSingleKey = true;
             }
         }
-        // canvas.drawColor(0x00000000, PorterDuff.Mode.CLEAR);
         final int keyCount = keys.length;
         for (int i = 0; i < keyCount; i++) {
             final AnyKey key = (AnyKey) keys[i];
@@ -1566,14 +1567,18 @@ public class AnyKeyboardBaseView extends View implements
             if (TextUtils.isEmpty(label)) {
                 Drawable iconToDraw = getIconToDrawForKey(key, false);
                 if (iconToDraw != null/* && shouldDrawIcon */) {
+                    //http://developer.android.com/reference/android/graphics/drawable/Drawable.html#getCurrent()
+                    //http://stackoverflow.com/a/103600/1324235
+                    final boolean is9Patch = iconToDraw.getCurrent() instanceof NinePatchDrawable;
+
                     // Special handing for the upper-right number hint icons
                     final int drawableWidth;
                     final int drawableHeight;
                     final int drawableX;
                     final int drawableY;
 
-                    drawableWidth = iconToDraw.getIntrinsicWidth();
-                    drawableHeight = iconToDraw.getIntrinsicHeight();
+                    drawableWidth = is9Patch? key.width : iconToDraw.getIntrinsicWidth();
+                    drawableHeight = is9Patch? key.height : iconToDraw.getIntrinsicHeight();
                     drawableX = (key.width + mKeyBackgroundPadding.left
                             - mKeyBackgroundPadding.right - drawableWidth) / 2;
                     drawableY = (key.height + mKeyBackgroundPadding.top
