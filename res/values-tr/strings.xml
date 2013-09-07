@@ -3,23 +3,73 @@
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string name="ime_name">AnySoftKlavye</string>
   <string name="settings_app_name">AnySoftKeyboard ayarları</string>
+  <string name="spell_checker_service_name">AnySoftKeyboard İmla Kontrolcüsü</string>
+  <string name="spell_checker_settings">AnySoftKeyboard İmla Ayarları</string>
+  <string name="subtype_generic">Yazım denetleyicisi-genel</string>
+  <string name="copyright_text">Telif hakkı © <xliff:g id="year">%s</xliff:g> <xliff:g id="owner">%s</xliff:g></string>
+  <string name="version_text"><xliff:g id="version_name">%s</xliff:g> (v<xliff:g id="version_number">%s</xliff:g>)</string>
+  <string name="additional_licenses"><u>Ek lisanslar…</u></string>
+  <string name="debug_tracing_starting">Tarama başlıyor!\nDilediğiniz zaman durdurabilirsiniz</string>
+  <string name="debug_tracing_starting_failed">Tarama sırasında hata oluştu! Detaylar için kayıt günlüğünü kontrol edin.</string>
+  <string name="debug_tracing_finished">Tarama tamamlandı!\nTarama dosyası
+        <xliff:g id="trace_file">%s</xliff:g>
+    </string>
+  <string name="click_to_restart_suggestions">Öneriler için tıklayın</string>
+  <string name="tips_notification_text">İpuçları için tıklayın!</string>
+  <string name="tips_button">Nasıl kullanılır</string>
+  <string name="tips_button_description">AnySoftKeyboard kullanılmıyla ilgili bazı ipuçları</string>
+  <string name="tips_title">AnySoftKeyboard ipuçları</string>
+  <string name="click_for_previous_tip">↓ Önceki ipucu</string>
+  <string name="click_for_next_tip">Sonraki ipucu ↓</string>
+  <string name="tip_1_welcome_to_ask">AnySoftKeyboard a hoş geldiniz!</string>
+  <string name="tip_1_how_to_access_settings">Ayarlara erişmek için; ENTER tuşuna basılı tutun. Burayı kişiselleştirmek için yeni bir dünya bulacaksınız!
+    </string>
+  <string name="tip_2_gestures">I Çizgisel giriş desteği!</string>
+  <string name="tip_3_hidden_kbds">Gizli cehverler</string>
+  <string name="tip_4_top_generic_row">Üst sıra</string>
+  <string name="tip_4_top_generic_row_go_to_top_row_settings">Üst satırı şimdi değiştir</string>
+  <string name="tip_5_key_feedback">Geribildirim</string>
+  <string name="tip_5_key_feedback_test">Geribildirimi denemek ister misiniz?</string>
+  <string name="tip_6_bottom_rows">Alt satır</string>
+  <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Alt satırı değiştir</string>
+  <string name="tip_7_voice_input">Konuş benimle*</string>
+  <string name="tip_7_voice_input_tip_note">* Çalışabilmek için Android 2.2+ ve internet bağlantısı gerektirir.</string>
+  <string name="tip_8_suggestions">Seninle bütünleştim</string>
   <string name="main_tab_welcome">Hoşgeldiniz</string>
   <string name="main_tab_links">Linkler</string>
+  <string name="main_tab_credits">Künye</string>
   <string name="how_to_pointer_title">AnySoftKeyboard\'a hoş geldiniz</string>
   <string name="how_to_pointer_version_prefix">Sürüm: </string>
+  <string name="how_to_pointer_go_to_links">Bildi almak için, Links sekmesine geçin.</string>
+  <string name="how_to_pointer_how_to_url">Klavyenin nasıl kullanılacağına ilişkin detaylar:</string>
   <string name="how_to_pointer_site">Genel ayrıntılar:</string>
+  <string name="how_to_pointer_changelog">Son sürüm hakkında detaylar:</string>
+  <string name="how_to_pointer_issues">Hata raporlama:</string>
+  <string name="main_tab_credits_title">Bu uygulama aşağıdaki kişilerin destekleriyle geliştirilmiştir-</string>
   <string name="main_tab_credits_created_by">Yazan:</string>
+  <string name="main_tab_credits_localization_by">Yerelleştirmeye katkıda bulunanlar:</string>
+  <string name="main_tab_credits_GUI_by">Arabirim görselleri:</string>
+  <string name="how_to_enable_dialog_title">AnySoftKeyboard etkinleştirilsin mi\?</string>
+  <string name="how_to_enable_dialog_text">AnySoftKeyboard henüz aktif değil. Nasıl yapabileceğinizi görmek ister misiniz?</string>
   <string name="how_to_enable_dialog_show_me">Gösterin!</string>
   <string name="how_to_enable_dialog_dont_show_me">Sonra</string>
+  <string name="how_to_simple_howto_enable_ask_button">AnySoftKeyboard etkinleştir</string>
   <string name="license_title">Lisans</string>
   <string name="about">Hakkında</string>
   <string name="theme_addons_settings">Klavye Tema ayarları</string>
   <string name="menu_insert_smiley">İfade ekle</string>
   <string name="click_for_help">Yardım</string>
   <string name="ui_group">Kullanıcı arayüzü</string>
+  <string name="voice_input_not_installed_text">Bu özelliği kullanamdan önce Google\'s Voice giriş uygulaması Market üzerinden yüklenmelidir.</string>
+  <string name="voice_input_not_installed_action_install">Yükle</string>
+  <string name="voice_input_not_installed_action_do_not_install">Hayır</string>
+  <string name="voice_input_not_voice_pack_in_market">Ses girişi uygulamasını (com.google.android.voicesearch) market üzerinde
+bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
+  <string name="change_ime">Giriş yöntemini değiştir</string>
   <string name="override_dictionary_default">Varsayılan</string>
   <string name="effects_group">Efektler</string>
   <string name="ime_settings">Klavye ayarları</string>
+  <string name="vibrate_on_key_press_title">Tuş temasında titreşim</string>
   <string name="swipe_up_action">Yukarı çek</string>
   <string name="swipe_down_action">Aşağı çek</string>
   <string name="swipe_right_action">Sağa çek</string>
@@ -34,7 +84,6 @@
   <string name="settings_swipe_distance_long">Uzun</string>
   <string name="settings_swipe_distance_very_long">Çok uzun</string>
   <string name="special_dictionaries_group">Özel sözlükler</string>
-  <string name="use_user_dictionary">Kullanıcı Sözlüğü</string>
   <string name="use_auto_dictionary">Oto sözlük</string>
   <string name="use_contacts_dictionary">Kişiler sözlüğü</string>
   <string name="auto_caps">Otomatik büyük harfe çevirme</string>
@@ -71,7 +120,7 @@
   <string-array name="physical_keyboard_change_notification_types">
     <item>Always show layout icon</item>
     <item>On physical keyboard change</item>
-    <item>No notification</item>
+    <item>Bildirim yok</item>
   </string-array>
   <string-array name="vibrate_on_key_press_types">
     <item>Hiçbiri</item>
@@ -80,9 +129,9 @@
     <item>Güçlü</item>
   </string-array>
   <string-array name="custom_hint_align_types">
-    <item>Left</item>
-    <item>Center</item>
-    <item>Right</item>
+    <item>Sol</item>
+    <item>Merkezi</item>
+    <item>Sağ</item>
   </string-array>
   <string-array name="custom_hint_valign_types">
     <item>Top</item>
