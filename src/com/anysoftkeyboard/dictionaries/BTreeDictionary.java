@@ -410,17 +410,18 @@ public abstract class BTreeDictionary extends EditableDictionary {
         }
 
         void add(Node n) {
-            if (length + 1 > data.length) {
+            length++;
+            if (length > data.length) {
                 Node[] tempData = new Node[length + INCREMENT];
-                if (length > 0) {
-                    System.arraycopy(data, 0, tempData, 0, length);
-                }
+                System.arraycopy(data, 0, tempData, 0, length);
                 data = tempData;
             }
-            data[length++] = n;
+            data[length-1] = n;
         }
 
         public void deleteNode(int nodeIndexToDelete) {
+            assert length >= 0;
+
             length--;
             if (length > 0) {
                 for (int i = nodeIndexToDelete; i < length; i++) {
