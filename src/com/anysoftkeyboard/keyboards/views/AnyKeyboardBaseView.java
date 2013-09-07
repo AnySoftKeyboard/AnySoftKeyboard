@@ -1420,33 +1420,27 @@ public class AnyKeyboardBaseView extends View implements
         mBuffer = null;
     }
 
-    private static class KeybaordDrawOperation implements MemRelatedOperation {
+    private static class KeyboardDrawOperation implements MemRelatedOperation {
 
-        private final WeakReference<AnyKeyboardBaseView> mView;
-        private WeakReference<Canvas> mCanvas;
+        private final AnyKeyboardBaseView mView;
+        private Canvas mCanvas;
 
-        public KeybaordDrawOperation(AnyKeyboardBaseView keyboard) {
-            mView = new WeakReference<AnyKeyboardBaseView>(keyboard);
+        public KeyboardDrawOperation(AnyKeyboardBaseView keyboard) {
+            mView = keyboard;
         }
 
         public void setCanvas(Canvas canvas) {
-            mCanvas = new WeakReference<Canvas>(canvas);
+            mCanvas = canvas;
         }
 
         public void operation() {
-            if (AnyApplication.DEBUG)
-                Log.d(TAG, "Actually drawing the keyboard (no buffer).");
-            // if this function is called, it can only be called from within
-            // AnyKeyboardBaseView! So there is no need to check if get()
-            // returns null.
-            mView.get().onBufferDraw(mCanvas.get());
+            mView.onBufferDraw(mCanvas);
         }
     }
 
     // a single instance is enough, there is no need to recreate every draw
     // operation!
-    private final KeybaordDrawOperation mDrawOperation = new KeybaordDrawOperation(
-            this);
+    private final KeyboardDrawOperation mDrawOperation = new KeyboardDrawOperation(this);
 
     @Override
     public void onDraw(final Canvas canvas) {
