@@ -27,6 +27,8 @@ import android.graphics.*;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.NinePatchDrawable;
+import android.graphics.drawable.StateListDrawable;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
@@ -1420,33 +1422,27 @@ public class AnyKeyboardBaseView extends View implements
         mBuffer = null;
     }
 
-    private static class KeybaordDrawOperation implements MemRelatedOperation {
+    private static class KeyboardDrawOperation implements MemRelatedOperation {
 
-        private final WeakReference<AnyKeyboardBaseView> mView;
-        private WeakReference<Canvas> mCanvas;
+        private final AnyKeyboardBaseView mView;
+        private Canvas mCanvas;
 
-        public KeybaordDrawOperation(AnyKeyboardBaseView keyboard) {
-            mView = new WeakReference<AnyKeyboardBaseView>(keyboard);
+        public KeyboardDrawOperation(AnyKeyboardBaseView keyboard) {
+            mView = keyboard;
         }
 
         public void setCanvas(Canvas canvas) {
-            mCanvas = new WeakReference<Canvas>(canvas);
+            mCanvas = canvas;
         }
 
         public void operation() {
-            if (AnyApplication.DEBUG)
-                Log.d(TAG, "Actually drawing the keyboard (no buffer).");
-            // if this function is called, it can only be called from within
-            // AnyKeyboardBaseView! So there is no need to check if get()
-            // returns null.
-            mView.get().onBufferDraw(mCanvas.get());
+            mView.onBufferDraw(mCanvas);
         }
     }
 
     // a single instance is enough, there is no need to recreate every draw
     // operation!
-    private final KeybaordDrawOperation mDrawOperation = new KeybaordDrawOperation(
-            this);
+    private final KeyboardDrawOperation mDrawOperation = new KeyboardDrawOperation(this);
 
     @Override
     public void onDraw(final Canvas canvas) {
@@ -1535,7 +1531,6 @@ public class AnyKeyboardBaseView extends View implements
                 drawSingleKey = true;
             }
         }
-        // canvas.drawColor(0x00000000, PorterDuff.Mode.CLEAR);
         final int keyCount = keys.length;
         for (int i = 0; i < keyCount; i++) {
             final AnyKey key = (AnyKey) keys[i];
@@ -1572,14 +1567,18 @@ public class AnyKeyboardBaseView extends View implements
             if (TextUtils.isEmpty(label)) {
                 Drawable iconToDraw = getIconToDrawForKey(key, false);
                 if (iconToDraw != null/* && shouldDrawIcon */) {
+                    //http://developer.android.com/reference/android/graphics/drawable/Drawable.html#getCurrent()
+                    //http://stackoverflow.com/a/103600/1324235
+                    final boolean is9Patch = iconToDraw.getCurrent() instanceof NinePatchDrawable;
+
                     // Special handing for the upper-right number hint icons
                     final int drawableWidth;
                     final int drawableHeight;
                     final int drawableX;
                     final int drawableY;
 
-                    drawableWidth = iconToDraw.getIntrinsicWidth();
-                    drawableHeight = iconToDraw.getIntrinsicHeight();
+                    drawableWidth = is9Patch? key.width : iconToDraw.getIntrinsicWidth();
+                    drawableHeight = is9Patch? key.height : iconToDraw.getIntrinsicHeight();
                     drawableX = (key.width + mKeyBackgroundPadding.left
                             - mKeyBackgroundPadding.right - drawableWidth) / 2;
                     drawableY = (key.height + mKeyBackgroundPadding.top
