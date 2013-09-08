@@ -8,8 +8,8 @@
   <string name="subtype_generic">تهجئة عامة</string>
   <string name="click_to_restart_suggestions">انقر للحصول على اقتراحات</string>
   <string name="tips_notification_text">انقر للحصول على نصائح</string>
-  <string name="tips_button">كيفيفة استخدام النصائح</string>
-  <string name="tips_button_description">انقر للحصول عللى نصائح تخص  AnySoftKeyboard</string>
+  <string name="tips_button">كيفية استخدام النصائح</string>
+  <string name="tips_button_description">انقر للحصول على نصائح تخص  AnySoftKeyboard</string>
   <string name="tips_title">نصائح AnySoftKeyboard</string>
   <string name="click_for_previous_tip">النصيحة السابقة</string>
   <string name="click_for_next_tip">النصيحة التالية</string>
@@ -297,7 +297,7 @@
   <string name="cycle_all_symbols_keyboards_on_summary">مفتاح الرمز سيدير على كل مفاتيح الرموز</string>
   <string name="cycle_all_symbols_keyboards_off_summary">مفتاح الرموز سيظهر مفاتيح الرموز الاساسيه فقط</string>
   <string name="lang_key_shows_popup">تغيير اللغه بواسطة الاطار المنبثق</string>
-  <string name="lang_key_shows_popup_on_summary">مفتاح اللغه يسنبثق بحوار مختار</string>
+  <string name="lang_key_shows_popup_on_summary">مفتاح اللغه سينبثق بحوار مختار</string>
   <string name="lang_key_shows_popup_off_summary">مفتاح اللغه سوف يدير اللغات</string>
   <string name="auto_caps">احرف كبيره تلقائيا</string>
   <string name="grammer_group">قواعد</string>
@@ -368,7 +368,7 @@
   <string name="lean_dark_keyboard_theme_name">ظلام معتم</string>
   <string name="lean_dark_keyboard_theme_description">خلفية مظلمة, مع </string>
   <string name="lean_dark_2_keyboard_theme_name">ظلام معتم ـ خيار2</string>
-  <string name="extension_kbd_top_none">لايوجد صف علوي</string>
+  <string name="extension_kbd_top_none">لا يوجد صف علوي</string>
   <string name="extension_kbd_top_small">أزرار صغيرة</string>
   <string name="extension_kbd_top_regular">أزرار عادية الحجم</string>
   <string name="extension_kbd_top_small_numbers">أزرار الأرقام</string>
@@ -383,7 +383,7 @@
   <string name="extension_kbd_extension_numbers_symbols">أرقام ورموز</string>
   <string name="show_tutorial_on_startup">عرض هذا البرنامج التعليمي عند بدء التشغيل</string>
   <string name="tutorial_swipe_title">اسحب لتغيير لوحة المفاتيح</string>
-  <string name="tutorial_swipe_text">نمط لوحة المفاتييح تتغير بتمرر اصبعك على لوحة المفاتيح.\nاسحب من اليسار لليمين لتغيير اللغة , ومن اليمين لليسار لتغيير الرموز.</string>
+  <string name="tutorial_swipe_text">نمط لوحة المفاتيح تتغير بتمرير اصبعك على لوحة المفاتيح.\nاسحب من اليسار لليمين لتغيير اللغة , ومن اليمين لليسار لتغيير الرموز.</string>
   <string name="label_go_key">إذهب</string>
   <string name="label_next_key">التالي</string>
   <string name="label_previous_key">السابق</string>
@@ -451,7 +451,7 @@
   <string name="user_dict_restore_success_title">تمت الإستعادة </string>
   <string name="user_dict_restore_success_text">تمت استعادة كلماتك بنجاح</string>
   <string name="user_dict_restore_fail_title">فشلت الاستعادة </string>
-  <string name="user_dict_restore_fail_text">لا يمكن قراءة ملفات النسخ الاحتياطي! هوتوجد مساحة متوفرة؟</string>
+  <string name="user_dict_restore_fail_text">لا يمكن قراءة ملفات النسخ الاحتياطي! هل توجد مساحة متوفرة؟</string>
   <string name="user_dict_restore_fail_text_with_error">فشل حفظ الكلمات للأسباب التالية: </string>
   <string name="fast_scroll_alphabet">أ ب  ت ث ج ح خ  د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن هـ  و ي</string>
   <string name="should_swap_punctuation_and_space_title">التبديل بين علامات الترقيم والمسافة</string>
