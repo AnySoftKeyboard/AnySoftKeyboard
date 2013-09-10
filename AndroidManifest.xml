@@ -4,9 +4,7 @@
           android:versionName="20130909">
 
     <uses-sdk
-            android:minSdkVersion="3"
-            android:maxSdkVersion="3"
-            android:targetSdkVersion="3">
+            android:minSdkVersion="3">
     </uses-sdk>
 
     <uses-permission android:name="android.permission.VIBRATE"/>
@@ -151,13 +149,6 @@
                 android:name="com.anysoftkeyboard.ui.MainForm"
                 android:icon="@drawable/ic_launcher"
                 android:label="@string/ime_name">
-        </activity>
-
-        <!-- dev -->
-        <activity
-                android:name="com.anysoftkeyboard.ui.dev.MainDeveloperActivity"
-                android:icon="@drawable/ic_launcher_settings"
-                android:label="@string/developer_tools">
         </activity>
     </application>
 

@@ -3337,8 +3337,6 @@ public class AnySoftKeyboard extends InputMethodService implements
                                           String key) {
         if (DEBUG)
             Log.d(TAG, "onSharedPreferenceChanged - key:" + key);
-        AnyApplication.requestBackupToCloud();
-
         boolean isKeyboardKey = key
                 .startsWith(KeyboardAddOnAndBuilder.KEYBOARD_PREF_PREFIX);
         boolean isDictionaryKey = key.startsWith("dictionary_");
