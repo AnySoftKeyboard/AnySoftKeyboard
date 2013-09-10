@@ -22,14 +22,12 @@ import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.Gravity;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 import com.anysoftkeyboard.utils.Log;
-import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -90,7 +88,6 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
     private boolean mCycleOverAllSymbolsKeyboard = true;
     private boolean mUseVolumeKeyForLeftRight = false;
     private boolean mUseCameraKeyForBackspaceBackword = false;
-    private boolean mUseContactsDictionary = true;
     private int mAutoDictionaryInsertionThreshold = 9;
     private boolean mIsStickyExtensionKeyboard = false;
     private boolean mDrawExtensionKeyboardAboveMainKeyboard = true;
@@ -264,20 +261,18 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 
         if (configurationVersion < 3) {
             Editor e = sp.edit();
-            if (Workarounds.getApiLevel() <= 7) {
-                Log.i(TAG, "In API7 or lower, bottom row needs to be changed to not include mic...");
-                final String bottomRowKey = mContext.getString(R.string.settings_key_ext_kbd_bottom_row_key);
-                String currentBottomRowId = sp.getString(bottomRowKey, mContext.getString(R.string.settings_default_ext_kbd_bottom_row_key));
-                String newBottomRowId = "";
-                if (currentBottomRowId.equals("09f8f280-dee2-11e0-9572-0800200c9a66")) {
-                    newBottomRowId = "09f8f280-dee2-11e0-9572-0800200c9a55";
-                } else if (currentBottomRowId.equals("3659b9e0-dee2-11e0-9572-0800200c9a66")) {
-                    newBottomRowId = "3659b9e0-dee2-11e0-9572-0800200c9a55";
-                }
-                if (!TextUtils.isEmpty(newBottomRowId)) {
-                    Log.i(TAG, "Detected API7 (or lower). Switching bottom row from " + currentBottomRowId + " to " + newBottomRowId + "...");
-                    e.putString(bottomRowKey, newBottomRowId);
-                }
+            Log.i(TAG, "In API7 or lower, bottom row needs to be changed to not include mic...");
+            final String bottomRowKey = mContext.getString(R.string.settings_key_ext_kbd_bottom_row_key);
+            String currentBottomRowId = sp.getString(bottomRowKey, mContext.getString(R.string.settings_default_ext_kbd_bottom_row_key));
+            String newBottomRowId = "";
+            if (currentBottomRowId.equals("09f8f280-dee2-11e0-9572-0800200c9a66")) {
+                newBottomRowId = "09f8f280-dee2-11e0-9572-0800200c9a55";
+            } else if (currentBottomRowId.equals("3659b9e0-dee2-11e0-9572-0800200c9a66")) {
+                newBottomRowId = "3659b9e0-dee2-11e0-9572-0800200c9a55";
+            }
+            if (!TextUtils.isEmpty(newBottomRowId)) {
+                Log.i(TAG, "Detected API7 (or lower). Switching bottom row from " + currentBottomRowId + " to " + newBottomRowId + "...");
+                e.putString(bottomRowKey, newBottomRowId);
             }
             //saving config level
             e.putInt(CONFIGURATION_VERSION, 3);
@@ -464,10 +459,6 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
                 mContext.getResources().getBoolean(R.bool.settings_default_use_volume_key_for_left_right));
         Log.d(TAG, "** mUseVolumeKeyForLeftRight: " + mUseVolumeKeyForLeftRight);
 
-        mUseContactsDictionary = sp.getBoolean(mContext.getString(R.string.settings_key_use_contacts_dictionary),
-                mContext.getResources().getBoolean(R.bool.settings_default_contacts_dictionary));
-        Log.d(TAG, "** mUseContactsDictionary: " + mUseContactsDictionary);
-
         mAutoDictionaryInsertionThreshold = getIntFromString(sp,
                 mContext.getString(R.string.settings_key_auto_dictionary_threshold),
                 mContext.getString(R.string.settings_default_auto_dictionary_add_threshold));
@@ -539,8 +530,7 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
     }
 
     private boolean getAlwaysUseDrawTextDefault() {
-        if (android.os.Build.BRAND.contains("SEMC")//SE phones have fix for that, but more important, their StaticLayout class is bugged
-                || Workarounds.getApiLevel() > 11) //Android has native fix for API level 11! Ya
+        if (android.os.Build.BRAND.contains("SEMC"))//SE phones have fix for that, but more important, their StaticLayout class is bugged
             return true;
         else
             return mContext.getResources().getBoolean(R.bool.settings_default_workaround_disable_rtl_fix);
@@ -756,10 +746,6 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 
     public boolean useVolumeKeyForLeftRight() {
         return mUseVolumeKeyForLeftRight;
-    }
-
-    public boolean useContactsDictionary() {
-        return mUseContactsDictionary;
     }
 
     public int getAutoDictionaryInsertionThreshold() {
