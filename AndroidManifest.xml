@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.menny.android.anysoftkeyboard"
-          android:versionCode="108"
-          android:versionName="20130908">
+          android:versionCode="109"
+          android:versionName="20130919">
 
     <supports-screens
             android:anyDensity="true"
@@ -12,7 +12,7 @@
     <!-- http://d.android.com/guide/practices/screens_support.html read about legacy. -->
 
     <uses-sdk
-            android:minSdkVersion="3"
+            android:minSdkVersion="4"
             android:targetSdkVersion="18">
     </uses-sdk>
 
