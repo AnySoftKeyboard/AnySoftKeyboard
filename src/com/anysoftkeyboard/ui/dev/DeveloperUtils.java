@@ -96,7 +96,7 @@ public class DeveloperUtils {
                 .append(android.os.Build.VERSION.INCREMENTAL).append(NEW_LINE);
         sb.append("VERSION.RELEASE:").append(android.os.Build.VERSION.RELEASE)
                 .append(NEW_LINE);
-        sb.append("VERSION.SDK_INT:").append(Workarounds.getApiLevel())
+        sb.append("VERSION.SDK_INT:3")
                 .append(NEW_LINE);
         sb.append("That's all I know.");
         return sb.toString();

@@ -15,7 +15,6 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_margin="10dp"
-                android:contentDescription="@string/ime_name"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_launcher"/>
 
@@ -43,19 +42,6 @@
                 android:textColor="#FFF"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
-        <!--
-                <TextView
-                    android:id="@+id/changelog_web_url"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/changelog_label"
-                    android:layout_toRightOf="@id/changelog_icon"
-                    android:autoLink="web"
-                    android:gravity="center"
-                    android:text="http://s.evendanan.net/ask"
-                    android:textColor="#BBB"
-                    android:textSize="14sp" />
-         -->
         <TextView
                 android:id="@+id/changelog_gplus"
                 android:layout_width="fill_parent"
@@ -68,20 +54,6 @@
                 android:text=" http://gplus.to/anysoftkeyboard"
                 android:textSize="12sp">
         </TextView>
-        <!--
-                <TextView
-                    android:id="@+id/changelog_twitter"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/changelog_gplus"
-                    android:layout_margin="4dp"
-                    android:layout_toRightOf="@id/changelog_icon"
-                    android:autoLink="web"
-                    android:drawableLeft="@drawable/twitter"
-                    android:text=" http://twitter.com/anysoftkeyboard"
-                    android:textSize="12sp" >
-                </TextView>
-         -->
     </RelativeLayout>
 
     <LinearLayout
