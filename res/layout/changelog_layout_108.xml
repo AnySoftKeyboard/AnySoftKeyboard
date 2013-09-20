@@ -15,7 +15,7 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:tag="20130906"
+              android:tag="20130908"
               android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
     <TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
               android:text="* A tweak with popup characters order.\n* A few bug fixes.\n* Updated translations: it, pt, ru, sk, tr, iw (he)." style="@android:style/TextAppearance.Small"/>
