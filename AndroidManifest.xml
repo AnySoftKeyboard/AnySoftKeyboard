@@ -1,10 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.menny.android.anysoftkeyboard"
-          android:versionCode="109"
+          android:versionCode="110"
           android:versionName="20130919">
 
     <uses-sdk
-            android:minSdkVersion="3">
+        android:minSdkVersion="3"
+        android:targetSdkVersion="3"
+        android:maxSdkVersion="3">
     </uses-sdk>
 
     <uses-permission android:name="android.permission.VIBRATE"/>
