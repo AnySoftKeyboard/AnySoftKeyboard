@@ -25,8 +25,6 @@ import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
 import com.anysoftkeyboard.Configuration;
 import com.anysoftkeyboard.ConfigurationImpl;
-import com.anysoftkeyboard.backup.CloudBackupRequester;
-import com.anysoftkeyboard.backup.CloudBackupRequesterDiagram;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 import com.anysoftkeyboard.utils.Log;
@@ -44,21 +42,9 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
     private static Configuration msConfig;
     private static FrankenRobot msFrank;
     private static DeviceSpecific msDeviceSpecific;
-    private static CloudBackupRequester msCloudBackuper;
 
     @Override
     public void onCreate() {
-//		if (DEBUG) {
-//			StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-//				.detectAll()
-//				.penaltyLog()
-//				.build());
-//			StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-//				.detectAll()
-//				.penaltyLog()
-//				.penaltyDeath()
-//				.build());
-//		}
         super.onCreate();
 
         if (DEBUG) Log.d(TAG, "** Starting application in DEBUG mode.");
@@ -72,8 +58,6 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
         msDeviceSpecific = msFrank.embody(new Diagram<DeviceSpecific>() {
         });
         Log.i(TAG, "Loaded DeviceSpecific " + msDeviceSpecific.getApiLevel() + " concrete class " + msDeviceSpecific.getClass().getName());
-
-        msCloudBackuper = msFrank.embody(new CloudBackupRequesterDiagram(getApplicationContext()));
 
         TutorialsProvider.showDragonsIfNeeded(getApplicationContext());
     }
@@ -98,12 +82,6 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
     public static DeviceSpecific getDeviceSpecific() {
         return msDeviceSpecific;
     }
-
-    public static void requestBackupToCloud() {
-        if (msCloudBackuper != null)
-            msCloudBackuper.notifyBackupManager();
-    }
-
     public static FrankenRobot getFrankenRobot() {
         return msFrank;
     }

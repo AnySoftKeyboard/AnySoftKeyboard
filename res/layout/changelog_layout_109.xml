@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2011 The Android Open Source Project
-    Copyright (C) 2013 Menny Even-Danan
+<!-- Copyright (C) 2013 Menny Even Danan
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -15,8 +14,9 @@
      limitations under the License.
 -->
 
-<PreferenceScreen
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:title="@string/spell_checker_settings">
-
-</PreferenceScreen>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:tag="20130919"
+              android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+    <TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
+              android:text="* Build target is Android 1.5! This is especially for you!\n* Smaller APK size (ya!)." style="@android:style/TextAppearance.Small"/>
+</LinearLayout>

@@ -112,8 +112,6 @@ public interface Configuration {
 
     boolean useCameraKeyForBackspaceBackword();
 
-    boolean useContactsDictionary();
-
     int getAutoDictionaryInsertionThreshold();
 
     boolean isStickyExtensionKeyboard();

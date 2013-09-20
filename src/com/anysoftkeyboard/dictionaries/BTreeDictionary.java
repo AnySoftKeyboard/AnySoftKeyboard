@@ -413,7 +413,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
             length++;
             if (length > data.length) {
                 Node[] tempData = new Node[length + INCREMENT];
-                System.arraycopy(data, 0, tempData, 0, length);
+                System.arraycopy(data, 0, tempData, 0, data.length);
                 data = tempData;
             }
             data[length-1] = n;

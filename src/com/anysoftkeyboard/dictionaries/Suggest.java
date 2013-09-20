@@ -47,8 +47,6 @@ public class Suggest implements Dictionary.WordCallback {
 
     private Dictionary mAutoDictionary;
 
-    private Dictionary mContactsDictionary;
-
     private int mPrefMaxSuggestions = 12;
 
     private final List<CharSequence> mDefaultInitialSuggestions;
@@ -143,26 +141,6 @@ public class Suggest implements Dictionary.WordCallback {
         }
     }
 
-    /**
-     * Sets an optional contacts dictionary resource to be loaded.
-     */
-    public void setContactsDictionary(Context context, boolean enabled) {
-        if (!enabled && mContactsDictionary != null) {
-            // had one, but now config says it should be off
-            Log.i(TAG,
-                    "Contacts dictionary has been disabled! Closing resources.");
-            mContactsDictionary.close();
-            mContactsDictionary = null;
-        } else if (enabled && mContactsDictionary == null) {
-            // config says it should be on, but I have none.
-            mContactsDictionary = mDictionaryFactory.createContactsDictionary(context);
-            if (mContactsDictionary != null) {//not all devices has contacts-dictionary
-                DictionaryASyncLoader loader = new DictionaryASyncLoader(null);
-                loader.execute(mContactsDictionary);
-            }
-        }
-    }
-
     public void setAutoDictionary(Dictionary autoDictionary) {
         if (mAutoDictionary != autoDictionary && mAutoDictionary != null)
             mAutoDictionary.close();
@@ -236,13 +214,6 @@ public class Suggest implements Dictionary.WordCallback {
         // Search the dictionary only if there are at least 2 (configurable)
         // characters
         if (wordComposer.length() >= mMinimumWordSizeToStartCorrecting) {
-            if (mContactsDictionary != null) {
-                if (AnyApplication.DEBUG)
-                    Log.v(TAG, "getSuggestions from contacts-dictionary");
-
-                mContactsDictionary.getWords(wordComposer, this);
-            }
-
             if (mUserDictionary != null) {
                 if (AnyApplication.DEBUG)
                     Log.v(TAG, "getSuggestions from user-dictionary");
@@ -395,20 +366,14 @@ public class Suggest implements Dictionary.WordCallback {
         if (mMainDictioanryEnabled || mAutoTextEnabled) {
             final boolean validFromMain = (mMainDictioanryEnabled && mMainDict != null && mMainDict.isValidWord(word));
             final boolean validFromUser = (mUserDictionary != null && mUserDictionary.isValidWord(word));
-            // final boolean validFromAuto = (mAutoDictionary != null &&
-            // mAutoDictionary.isValidWord(word));
-            final boolean validFromContacts = (mContactsDictionary != null && mContactsDictionary.isValidWord(word));
 
             if (AnyApplication.DEBUG)
                 Log.v(TAG, "Suggest::isValidWord(" + word
                         + ") mMainDictioanryEnabled:" + mMainDictioanryEnabled
                         + " mAutoTextEnabled:" + mAutoTextEnabled
                         + " validFromMain:" + validFromMain + " validFromUser:"
-                        + validFromUser
-                        // +" validFromAuto:"+validFromAuto
-                        + " validFromContacts:" + validFromContacts);
-            return validFromMain || validFromUser
-                    || /* validFromAuto || */validFromContacts;
+                        + validFromUser);
+            return validFromMain || validFromUser;
         } else {
             return false;
         }
