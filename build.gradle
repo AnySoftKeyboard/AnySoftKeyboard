@@ -1,0 +1,30 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.5.+'
+    }
+}
+apply plugin: 'android'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+android {
+    compileSdkVersion 18
+    buildToolsVersion "18.1.0"
+
+    defaultConfig {
+        minSdkVersion 4
+        targetSdkVersion 18
+    }
+}
+
+dependencies {
+    compile 'net.evendanan.anysoftkeyboard:api:1.+'
+    compile 'com.android.support:support-v4:18.0.0'
+    compile 'net.evendanan:frankenrobot:1.+'
+}
