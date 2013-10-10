@@ -23,13 +23,16 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
+
 import com.anysoftkeyboard.Configuration;
 import com.anysoftkeyboard.ConfigurationImpl;
 import com.anysoftkeyboard.backup.CloudBackupRequester;
 import com.anysoftkeyboard.backup.CloudBackupRequesterDiagram;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific;
+import com.anysoftkeyboard.devicespecific.StrictModeAble;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 import com.anysoftkeyboard.utils.Log;
+
 import net.evendanan.frankenrobot.Diagram;
 import net.evendanan.frankenrobot.FrankenRobot;
 import net.evendanan.frankenrobot.Lab;
@@ -37,43 +40,36 @@ import net.evendanan.frankenrobot.Lab;
 
 public class AnyApplication extends Application implements OnSharedPreferenceChangeListener {
 
-    public static final boolean DEBUG = false;
-    //public static final boolean BLEEDING_EDGE = true;
+    public static final boolean DEBUG = BuildConfig.DEBUG;
 
     private static final String TAG = "ASK_APP";
     private static Configuration msConfig;
     private static FrankenRobot msFrank;
     private static DeviceSpecific msDeviceSpecific;
-    private static CloudBackupRequester msCloudBackuper;
+    private static CloudBackupRequester msCloudBackupRequester;
 
     @Override
     public void onCreate() {
-//		if (DEBUG) {
-//			StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-//				.detectAll()
-//				.penaltyLog()
-//				.build());
-//			StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-//				.detectAll()
-//				.penaltyLog()
-//				.penaltyDeath()
-//				.build());
-//		}
         super.onCreate();
-
         if (DEBUG) Log.d(TAG, "** Starting application in DEBUG mode.");
+        msFrank = Lab.build(getApplicationContext(), R.array.frankenrobot_interfaces_mapping);
+        if (DEBUG) {
+            StrictModeAble strictMode = msFrank.embody(StrictModeAble.class);
+            if (strictMode != null)//it should be created only in the API18.
+                strictMode.setupStrictMode();
+        }
 
         msConfig = new ConfigurationImpl(this);
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         sp.registerOnSharedPreferenceChangeListener(this);
 
-        msFrank = Lab.build(getApplicationContext(), R.array.frankenrobot_interfaces_mapping);
+
         msDeviceSpecific = msFrank.embody(new Diagram<DeviceSpecific>() {
         });
         Log.i(TAG, "Loaded DeviceSpecific " + msDeviceSpecific.getApiLevel() + " concrete class " + msDeviceSpecific.getClass().getName());
 
-        msCloudBackuper = msFrank.embody(new CloudBackupRequesterDiagram(getApplicationContext()));
+        msCloudBackupRequester = msFrank.embody(new CloudBackupRequesterDiagram(getApplicationContext()));
 
         TutorialsProvider.showDragonsIfNeeded(getApplicationContext());
     }
@@ -100,8 +96,8 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
     }
 
     public static void requestBackupToCloud() {
-        if (msCloudBackuper != null)
-            msCloudBackuper.notifyBackupManager();
+        if (msCloudBackupRequester != null)
+            msCloudBackupRequester.notifyBackupManager();
     }
 
     public static FrankenRobot getFrankenRobot() {
