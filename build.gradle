@@ -26,40 +26,60 @@ android {
     signingConfigs {
         release {
             //https://gist.github.com/gabrielemariotti/6856974#file-build-gradle
-            def password = ''//I'm assuming that the password is the same for the alias and for the keystore file
+            def keystore_file = ''
+            def keystore_password = ''
+            def key_alias = ''
+            def key_alias_password = ''
             def Properties props = new Properties()
             def propFile = new File('local.signing.properties')
             if (propFile.canRead()){
                 props.load(new FileInputStream(propFile))
 
-                if (props!=null && props.containsKey('STORE_PASSWORD')) {
-                    password = props['STORE_PASSWORD']
-                    println 'taken password:'+password+'.'
+                if (props!=null) {
+                    keystore_file = props['STORE_FILE']
+                    keystore_password = props['STORE_PASSWORD']
+                    key_alias = props['KEY_ALIAS']
+                    key_alias_password = props['KEY_PASSWORD']
+                    println 'For signing, will use keysote file '+keystore_file+', with alias '+key_alias
+                } else {
+                    println 'local.signing.properties file has invalid properties structure. I can not use it.'
                 }
+            } else {
+                println 'local.signing.properties file was not found. Using debug signing configuration.'
             }
 
-            if (password == '') {
-                println 'local.signing.properties file with STORE_PASSWORD entry was not found.'
+            //I'll allow to enter the password from console, but the file and key should come from the file
+            if (keystore_file == '' || key_alias == '') {
+                keystore_file = ''
+                key_alias = ''
+                keystore_password = ''
+                key_alias_password = ''
+                println 'local.signing.properties file was not found. Using debug signing configuration.'
+            } else if (keystore_password == '' || key_alias_password == '') {
                 def con = System.console();
                 if (con == null) {
                     //build from inside IDE (no console)
-                    password = ''
+                    keystore_file = ''
+                    key_alias = ''
+                    keystore_password = ''
+                    key_alias_password = ''
                 } else {
-                    password = System.console().readLine("\n\$ Enter keystore password: ")
+                    keystore_password = System.console().readLine("\n\$ Enter keystore file password: ")
+                    key_alias_password = System.console().readLine("\n\$ Enter key alias password: ")
                 }
             }
 
-            if (password == '') {
+            if (keystore_password == '') {
                 //no password, so I'll use debug signingConfigs details.
                 storeFile signingConfigs.debug.storeFile
                 storePassword signingConfigs.debug.storePassword
                 keyAlias signingConfigs.debug.keyAlias
                 keyPassword signingConfigs.debug.keyPassword
             } else {
-                storeFile file("keyboard_keystore")
-                storePassword password
-                keyAlias "app_key"
-                keyPassword password
+                storeFile file(keystore_file)
+                storePassword keystore_password
+                keyAlias key_alias
+                keyPassword key_alias_password
             }
         }
     }
