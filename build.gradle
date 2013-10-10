@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.5.+'
+        classpath 'com.android.tools.build:gradle:0.6.+'
     }
 }
 
@@ -22,10 +22,65 @@ android {
         minSdkVersion 4
         targetSdkVersion 18
     }
+
+    signingConfigs {
+        release {
+            //https://gist.github.com/gabrielemariotti/6856974#file-build-gradle
+            def password = ''//I'm assuming that the password is the same for the alias and for the keystore file
+            def Properties props = new Properties()
+            def propFile = new File('local.signing.properties')
+            if (propFile.canRead()){
+                props.load(new FileInputStream(propFile))
+
+                if (props!=null && props.containsKey('STORE_PASSWORD')) {
+                    password = props['STORE_PASSWORD']
+                    println 'taken password:'+password+'.'
+                }
+            }
+
+            if (password == '') {
+                println 'local.signing.properties file with STORE_PASSWORD entry was not found.'
+                def con = System.console();
+                if (con == null) {
+                    //build from inside IDE (no console)
+                    password = ''
+                } else {
+                    password = System.console().readLine("\n\$ Enter keystore password: ")
+                }
+            }
+
+            if (password == '') {
+                //no password, so I'll use debug signingConfigs details.
+                storeFile signingConfigs.debug.storeFile
+                storePassword signingConfigs.debug.storePassword
+                keyAlias signingConfigs.debug.keyAlias
+                keyPassword signingConfigs.debug.keyPassword
+            } else {
+                storeFile file("keyboard_keystore")
+                storePassword password
+                keyAlias "app_key"
+                keyPassword password
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            zipAlign true
+        }
+
+        beta {
+            signingConfig signingConfigs.release
+            zipAlign true
+        }
+    }
 }
 
 dependencies {
-    compile 'net.evendanan.anysoftkeyboard:api:1.+'
+    compile 'net.evendanan.anysoftkeyboard:api:1.0'
     compile 'com.android.support:support-v4:18.0.0'
-    compile 'net.evendanan:frankenrobot:1.+'
+    compile 'net.evendanan:frankenrobot:1.1'
+    //https://groups.google.com/d/msg/adt-dev/nQobKd2Gl_8/Z5yWAvCh4h4J
+    compile fileTree(dir: 'libs', include: 'native_libs.jar')
 }

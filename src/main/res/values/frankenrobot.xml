@@ -8,6 +8,7 @@
         <item>com.anysoftkeyboard.dictionaries.DictionaryContentObserver is @string/frankenrobot_dictionary_observer_implementation</item>
         <item>com.anysoftkeyboard.voice.VoiceInput is @string/frankenrobot_voice_input_implementation</item>
         <item>com.anysoftkeyboard.devicespecific.Clipboard is @string/frankenrobot_clipboard_implementation</item>
+        <item>com.anysoftkeyboard.devicespecific.StrictModeAble is @string/frankenrobot_strict_mode_implementation</item>
     </string-array>
 
     <string name="frankenrobot_device_specific_implementation">com.anysoftkeyboard.devicespecific.DeviceSpecific_V3</string>
@@ -17,4 +18,6 @@
     <string name="frankenrobot_dictionary_observer_implementation">com.anysoftkeyboard.dictionaries.DictionaryContentObserver</string>
     <string name="frankenrobot_voice_input_implementation">com.anysoftkeyboard.voice.VoiceInputEmptyImpl</string>
     <string name="frankenrobot_clipboard_implementation">com.anysoftkeyboard.devicespecific.ClipboardV3</string>
+
+    <string name="frankenrobot_strict_mode_implementation">@null</string>
 </resources>
