@@ -1,3 +1,4 @@
+
 buildscript {
     repositories {
         mavenCentral()
@@ -14,6 +15,18 @@ repositories {
     mavenLocal()
 }
 
+def String getInputFromConsoleIfMissing(Properties props, String propKey, String propInputMessage) {
+    def propValue = props[propKey]
+    if (propValue == null || propValue == '') {
+        def con = System.console();
+        if (con != null){
+            propValue = con.readLine("\n"+propInputMessage+": ")
+        }
+    }
+
+    return propValue
+}
+
 android {
     compileSdkVersion 18
     buildToolsVersion "18.1.0"
@@ -26,56 +39,36 @@ android {
     signingConfigs {
         release {
             //https://gist.github.com/gabrielemariotti/6856974#file-build-gradle
-            def keystore_file = ''
-            def keystore_password = ''
-            def key_alias = ''
-            def key_alias_password = ''
+            println "Reading release and beta signing details..."
+
+            def String keystore_file
+            def String keystore_password
+            def String key_alias
+            def String key_alias_password
             def Properties props = new Properties()
             def propFile = new File('local.signing.properties')
             if (propFile.canRead()){
+                println 'Reading details from local.signing.properties file...'
                 props.load(new FileInputStream(propFile))
-
-                if (props!=null) {
-                    keystore_file = props['STORE_FILE']
-                    keystore_password = props['STORE_PASSWORD']
-                    key_alias = props['KEY_ALIAS']
-                    key_alias_password = props['KEY_PASSWORD']
-                    println 'For signing, will use keysote file '+keystore_file+', with alias '+key_alias
-                } else {
-                    println 'local.signing.properties file has invalid properties structure. I can not use it.'
-                }
             } else {
                 println 'local.signing.properties file was not found. Using debug signing configuration.'
             }
 
-            //I'll allow to enter the password from console, but the file and key should come from the file
-            if (keystore_file == '' || key_alias == '') {
-                keystore_file = ''
-                key_alias = ''
-                keystore_password = ''
-                key_alias_password = ''
-                println 'local.signing.properties file was not found. Using debug signing configuration.'
-            } else if (keystore_password == '' || key_alias_password == '') {
-                def con = System.console();
-                if (con == null) {
-                    //build from inside IDE (no console)
-                    keystore_file = ''
-                    key_alias = ''
-                    keystore_password = ''
-                    key_alias_password = ''
-                } else {
-                    keystore_password = System.console().readLine("\n\$ Enter keystore file password: ")
-                    key_alias_password = System.console().readLine("\n\$ Enter key alias password: ")
-                }
-            }
+            keystore_file = getInputFromConsoleIfMissing(props, 'STORE_FILE', 'Key-Store file name')
+            keystore_password = getInputFromConsoleIfMissing(props, 'STORE_PASSWORD', 'Key-Store file password')
+            key_alias = getInputFromConsoleIfMissing(props, 'KEY_ALIAS', 'App key alias')
+            key_alias_password = getInputFromConsoleIfMissing(props, 'KEY_PASSWORD', 'App key password')
 
-            if (keystore_password == '') {
-                //no password, so I'll use debug signingConfigs details.
+            if (    keystore_file == '' || keystore_password == '' ||
+                    key_alias == '' || key_alias_password == '') {
+                //missing signing details, so I'll use debug signingConfigs details.
+                println "Missing release build-type signing details, I'll use DEBUG signing for the release."
                 storeFile signingConfigs.debug.storeFile
                 storePassword signingConfigs.debug.storePassword
                 keyAlias signingConfigs.debug.keyAlias
                 keyPassword signingConfigs.debug.keyPassword
             } else {
+                println 'For signing, will use key-store file '+keystore_file+', with key '+key_alias
                 storeFile file(keystore_file)
                 storePassword keystore_password
                 keyAlias key_alias
