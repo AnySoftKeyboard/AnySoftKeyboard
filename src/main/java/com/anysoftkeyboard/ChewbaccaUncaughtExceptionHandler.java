@@ -62,8 +62,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
         }
 
         if (!ignore && AnyApplication.getConfig().useChewbaccaNotifications()) {
-            String appName = DeveloperUtils.getAppDetails(mApp
-                    .getApplicationContext());
+            String appName = DeveloperUtils.getAppDetails(mApp.getApplicationContext());
 
             final CharSequence utcTimeDate = DateFormat.format(
                     "kk:mm:ss dd.MM.yyyy", new Date());

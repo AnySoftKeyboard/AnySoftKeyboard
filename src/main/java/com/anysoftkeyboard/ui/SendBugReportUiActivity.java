@@ -59,19 +59,21 @@ public class SendBugReportUiActivity extends Activity {
     }
 
     protected void sendCrashReportViaEmail() {
+        String[] recipients = getResources().getStringArray(R.array.crash_report_email_address);
+
         Intent callingIntent = getIntent();
 
         Intent sendMail = new Intent();
         sendMail.setAction(Intent.ACTION_SEND);
         sendMail.setType("plain/text");
-        sendMail.putExtra(Intent.EXTRA_EMAIL, new String[]{"ask+crash@evendanan.net"});
+        sendMail.putExtra(Intent.EXTRA_EMAIL, recipients);
         sendMail.putExtra(Intent.EXTRA_SUBJECT, getText(R.string.ime_name) + " crashed!");
         sendMail.putExtra(Intent.EXTRA_TEXT, callingIntent.getStringExtra(CRASH_REPORT_TEXT));
 
         try {
             Intent sender = Intent.createChooser(sendMail, "Send bug report");
-            sender.putExtra(Intent.EXTRA_EMAIL, new String[]{"ask+crash@evendanan.net"});
-            sender.putExtra(Intent.EXTRA_SUBJECT, getText(R.string.ime_name) + " crashed!");
+            sender.putExtra(Intent.EXTRA_EMAIL, sendMail.getStringExtra(Intent.EXTRA_EMAIL));
+            sender.putExtra(Intent.EXTRA_SUBJECT, sendMail.getStringExtra(Intent.EXTRA_SUBJECT));
             sender.putExtra(Intent.EXTRA_TEXT, callingIntent.getStringExtra(CRASH_REPORT_TEXT));
 
             Log.i(TAG, "Will send crash report using " + sender);
