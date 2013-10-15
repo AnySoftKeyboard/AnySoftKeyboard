@@ -103,7 +103,7 @@ public class DeveloperUtils {
     }
 
     public static String getAppDetails(Context appContext) {
-        String appName = appContext.getText(R.string.ime_name).toString();
+        String appName = appContext.getString(R.string.ime_name) + " ("+appContext.getPackageName()+")";
         try {
             PackageInfo info = appContext.getPackageManager().getPackageInfo(
                     appContext.getPackageName(), 0);
@@ -113,7 +113,6 @@ public class DeveloperUtils {
                     + ", first release installed was "+AnyApplication.getConfig().getFirstAppVersionInstalled()+".";
         } catch (NameNotFoundException e) {
             appName = "NA";
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return appName;
