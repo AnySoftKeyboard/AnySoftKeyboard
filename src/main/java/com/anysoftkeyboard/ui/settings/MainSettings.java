@@ -16,94 +16,89 @@
 
 package com.anysoftkeyboard.ui.settings;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Configuration;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceActivity;
-import com.anysoftkeyboard.addons.AddOn;
-import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
-import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
-import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
-import com.anysoftkeyboard.theme.KeyboardThemeFactory;
-import com.anysoftkeyboard.ui.tutorials.WelcomeHowToNoticeActivity;
-import com.anysoftkeyboard.utils.Log;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
+import android.view.View;
+
 import com.menny.android.anysoftkeyboard.R;
 
-public class MainSettings extends PreferenceActivity {
+public class MainSettings extends ActionBarActivity {
 
-    private static final String TAG = "ASK_PREFS";
+    private static final String TAG = "ASK_MAIN";
 
-    private static final int DIALOG_WELCOME = 1;
+    private DrawerLayout mDrawerRootLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
+
+    private CharSequence mTitle;
+    private CharSequence mDrawerTitle;
 
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        addPreferencesFromResource(R.xml.prefs);
-    }
+        setContentView(R.layout.main_ui);
 
-    private void setAddOnGroupSummary(String preferenceGroupKey, AddOn addOn) {
-        String summary = getResources().getString(R.string.selected_add_on_summary, addOn.getName());
-        findPreference(preferenceGroupKey).setSummary(summary);
-    }
+        mTitle = mDrawerTitle = getTitle();
 
-    public static PackageInfo getPackageInfo(Context context) throws NameNotFoundException {
-        return context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+        mDrawerRootLayout = (DrawerLayout) findViewById(R.id.main_root_layout);
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this,                  /* host Activity */
+                mDrawerRootLayout,         /* DrawerLayout object */
+                R.drawable.ic_drawer,  /* nav drawer icon to replace 'Up' caret */
+                R.string.drawer_open,  /* "open drawer" description */
+                R.string.drawer_close  /* "close drawer" description */
+        ) {
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                getSupportActionBar().setTitle(mTitle);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                getSupportActionBar().setTitle(mDrawerTitle);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+
+        // Set the drawer toggle as the DrawerListener
+        mDrawerRootLayout.setDrawerListener(mDrawerToggle);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        //I wont to help the user configure the keyboard
-        if (WelcomeHowToNoticeActivity.shouldShowWelcomeActivity(getApplicationContext())) {
-            //this is the first time the application is loaded.
-            Log.i(TAG, "Welcome should be shown");
-            showDialog(DIALOG_WELCOME);
-        }
-
-        setAddOnGroupSummary("keyboard_theme_group",
-                KeyboardThemeFactory.getCurrentKeyboardTheme(getApplicationContext()));
-        setAddOnGroupSummary("quick_text_keys_group",
-                QuickTextKeyFactory.getCurrentQuickTextKey(getApplicationContext()));
-        setAddOnGroupSummary("top_generic_row_group",
-                KeyboardExtensionFactory.getCurrentKeyboardExtension(getApplicationContext(), KeyboardExtension.TYPE_TOP));
-        setAddOnGroupSummary("bottom_generic_row_group",
-                KeyboardExtensionFactory.getCurrentKeyboardExtension(getApplicationContext(), KeyboardExtension.TYPE_BOTTOM));
-        setAddOnGroupSummary("extension_keyboard_group",
-                KeyboardExtensionFactory.getCurrentKeyboardExtension(getApplicationContext(), KeyboardExtension.TYPE_EXTENSION));
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
     }
 
     @Override
-    protected Dialog onCreateDialog(int id) {
-        if (id == DIALOG_WELCOME) {
-            AlertDialog dialog = new AlertDialog.Builder(this)
-                    .setIcon(R.drawable.ic_launcher)
-                    .setTitle(R.string.how_to_enable_dialog_title)
-                    .setMessage(R.string.how_to_enable_dialog_text)
-                    .setPositiveButton(R.string.how_to_enable_dialog_show_me,
-                            new OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Intent i = new Intent(getApplicationContext(), WelcomeHowToNoticeActivity.class);
-                                    startActivity(i);
-                                }
-                            })
-                    .setNegativeButton(R.string.how_to_enable_dialog_dont_show_me, new OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    }).create();
-
-            return dialog;
-        } else {
-            return super.onCreateDialog(id);
-        }
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Pass the event to ActionBarDrawerToggle, if it returns
+        // true, then it has handled the app icon touch event
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        // Handle your other action bar items...
 
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        mTitle = title;
+        getSupportActionBar().setTitle(mTitle);
+    }
 }

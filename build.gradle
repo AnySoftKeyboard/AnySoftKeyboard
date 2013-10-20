@@ -27,12 +27,21 @@ def String getInputFromConsoleIfMissing(Properties props, String propKey, String
     return propValue
 }
 
+def isEmpty(value) {
+	if (value == null)
+		return true
+	else if (value == '')
+		return true
+	else
+		return false
+}
+
 android {
     compileSdkVersion 18
     buildToolsVersion "18.1.0"
 
     defaultConfig {
-        minSdkVersion 4
+        minSdkVersion 7
         targetSdkVersion 18
     }
 
@@ -59,8 +68,8 @@ android {
             key_alias = getInputFromConsoleIfMissing(props, 'KEY_ALIAS', 'App key alias')
             key_alias_password = getInputFromConsoleIfMissing(props, 'KEY_PASSWORD', 'App key password')
 
-            if (    keystore_file == '' || keystore_password == '' ||
-                    key_alias == '' || key_alias_password == '') {
+            if (    isEmpty(keystore_file) || isEmpty(keystore_password) ||
+                    isEmpty(key_alias) || isEmpty(key_alias_password)) {
                 //missing signing details, so I'll use debug signingConfigs details.
                 println "Missing release build-type signing details, I'll use DEBUG signing for the release."
                 storeFile signingConfigs.debug.storeFile
@@ -92,8 +101,9 @@ android {
 
 dependencies {
     compile 'net.evendanan.anysoftkeyboard:api:1.0'
-    compile 'com.android.support:support-v4:18.0.0'
+    compile 'com.android.support:support-v4:18.0.+'
     compile 'net.evendanan:frankenrobot:1.1'
+    compile 'com.android.support:appcompat-v7:18.0.+'
     //https://groups.google.com/d/msg/adt-dev/nQobKd2Gl_8/Z5yWAvCh4h4J
     compile fileTree(dir: 'libs', include: 'native_libs.jar')
 }

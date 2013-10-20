@@ -28,6 +28,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
+
+import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.ui.settings.*;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -65,7 +67,7 @@ public class ChangeLogActivity extends BaseTutorialActivity {
         Resources res = getResources();
         int currentVersionCode = 0;
         try {
-            final PackageInfo info = MainSettings.getPackageInfo(getApplicationContext());
+            final PackageInfo info = DeveloperUtils.getPackageInfo(getApplicationContext());
             currentVersionCode = info.versionCode;
         } catch (final NameNotFoundException e) {
             Log.e(TAG, "Failed to locate package information! This is very weird... I'm installed.");
