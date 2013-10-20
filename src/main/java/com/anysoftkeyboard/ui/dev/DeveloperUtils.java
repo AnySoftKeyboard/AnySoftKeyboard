@@ -117,4 +117,8 @@ public class DeveloperUtils {
         }
         return appName;
     }
+
+    public static PackageInfo getPackageInfo(Context context) throws NameNotFoundException {
+        return context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+    }
 }

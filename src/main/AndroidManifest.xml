@@ -12,7 +12,7 @@
     <!-- http://d.android.com/guide/practices/screens_support.html read about legacy. -->
 
     <uses-sdk
-        android:minSdkVersion="4"
+        android:minSdkVersion="7"
         android:targetSdkVersion="18">
     </uses-sdk>
 
@@ -84,7 +84,9 @@
 
         <!-- ui activities -->
         <!-- settings ui activities -->
-        <activity
+        <!-- this is ajust a proxy activit, it does nothing but direct to the actual setting ativity
+        I use this, so I can 'disable' this activity at runtime, and so remove ASK from the launcher's icons -->
+        <activity android:theme="@style/Theme.AppCompat.Light"
             android:name="com.menny.android.anysoftkeyboard.LauncherSettingsActivity"
             android:icon="@drawable/ic_launcher_settings"
             android:label="@string/settings_app_name">
@@ -94,12 +96,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.menny.android.anysoftkeyboard.MainSettings"
-            android:icon="@drawable/ic_launcher_settings"
-            android:label="@string/settings_app_name">
-        </activity>
-        <activity
+        <activity android:theme="@style/Theme.AppCompat.Light"
             android:name="com.anysoftkeyboard.ui.settings.MainSettings"
             android:icon="@drawable/ic_launcher_settings"
             android:label="@string/settings_app_name">

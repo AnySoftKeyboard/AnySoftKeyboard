@@ -26,7 +26,8 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.preference.PreferenceManager;
-import com.anysoftkeyboard.ui.settings.MainSettings;
+
+import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -101,7 +102,7 @@ public class TutorialsProvider {
         final String lastDebugVersionHash = sp.getString(KEY, "NONE");
         String currentHash = "";
         try {
-            PackageInfo pi = MainSettings.getPackageInfo(context);
+            PackageInfo pi = DeveloperUtils.getPackageInfo(context);
             currentHash = pi.versionName + " code " + pi.versionCode;
         } catch (NameNotFoundException e) {
             // TODO Auto-generated catch block
@@ -130,7 +131,7 @@ public class TutorialsProvider {
 
     public static int getPackageVersion(Context context) {
         try {
-            PackageInfo pi = MainSettings.getPackageInfo(context);
+            PackageInfo pi = DeveloperUtils.getPackageInfo(context);
             return pi.versionCode;
         } catch (NameNotFoundException e) {
             // TODO Auto-generated catch block

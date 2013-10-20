@@ -705,4 +705,7 @@
     <string name="created_mem_dump_file">Created memory dump file at:
         <xliff:g id="file_path">%s</xliff:g>
     </string>
+
+    <string name="drawer_open">Menu open</string>
+    <string name="drawer_close">Menu close</string>
 </resources>
