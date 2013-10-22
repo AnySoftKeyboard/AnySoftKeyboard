@@ -21,9 +21,14 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
+import com.anysoftkeyboard.keyboards.KeyboardFactory;
+import com.anysoftkeyboard.theme.KeyboardTheme;
+import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.menny.android.anysoftkeyboard.R;
 
 public class MainSettings extends ActionBarActivity {
@@ -44,6 +49,7 @@ public class MainSettings extends ActionBarActivity {
         mTitle = mDrawerTitle = getTitle();
 
         mDrawerRootLayout = (DrawerLayout) findViewById(R.id.main_root_layout);
+        mDrawerRootLayout.setDrawerShadow(R.drawable.drawer_shadow, Gravity.LEFT);
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
                 mDrawerRootLayout,         /* DrawerLayout object */
@@ -76,6 +82,26 @@ public class MainSettings extends ActionBarActivity {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //updating menu's data
+        updateMenuExtraData();
+    }
+
+    private void updateMenuExtraData() {
+        TextView keyboardsData = (TextView)findViewById(R.id.keyboards_group_extra_data);
+        final int all = KeyboardFactory.getAllAvailableKeyboards(getApplicationContext()).size();
+        final int enabled = KeyboardFactory.getEnabledKeyboards(getApplicationContext()).size();
+        keyboardsData.setText(getString(R.string.keyboards_group_extra_template, enabled, all));
+
+        TextView themeData = (TextView)findViewById(R.id.theme_extra_data);
+        KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(getApplicationContext());
+        if (theme == null)
+            theme = KeyboardThemeFactory.getCurrentKeyboardTheme(getApplicationContext());
+        themeData.setText(getString(R.string.selected_add_on_summary, theme.getName()));
     }
 
     @Override

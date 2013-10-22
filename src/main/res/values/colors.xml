@@ -57,4 +57,11 @@
     <color name="blacktheme_color_normal_pressed_keytext">#FFFFFFFF</color>
     <color name="blacktheme_color_normal_hint">#FF0088FF</color>
     <color name="blacktheme_color_normal_pressed_hint">#FF00BBFF</color>
+
+    <color name="menu_background_normal">#BBB</color>
+    <color name="menu_background_disabled">#BBB</color>
+    <color name="menu_background_pressed">#777</color>
+
+    <color name="menu_divider">#663399</color>
+    <color name="menu_item_divider">#77663399</color>
 </resources>
