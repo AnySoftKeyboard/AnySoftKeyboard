@@ -332,13 +332,13 @@
     </style>
     <style name="Ask.Menu.Item" parent="Ask.Menu">
         <item name="android:clickable">true</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/font_size_sub_title</item>
         <item name="android:minHeight">44dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
     <style name="Ask.Menu.Item.More" parent="Ask.Menu.Item">
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">@dimen/font_size_hint_text</item>
     </style>
     <style name="Ask.Menu.Row.Item" parent="Ask.Menu.Item">
         <item name="android:layout_width">0px</item>
@@ -357,13 +357,13 @@
         <item name="android:layout_marginRight">8dp</item>
         <item name="android:background">@drawable/menu_item_extra_background</item>
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">@dimen/font_size_small_text</item>
         <item name="android:minHeight">0dp</item>
     </style>
     <style name="Ask.Menu.Item.Title" parent="Ask.Menu">
         <item name="android:clickable">false</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">@dimen/font_size_title</item>
         <item name="android:textAllCaps" tools:ignore="NewApi">true</item>
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:layout_marginLeft">8dp</item>
@@ -372,4 +372,33 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
+    <style name="Ask.Text">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="Ask.Text.Title" parent="Ask.Text">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">@dimen/font_size_title</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="Ask.Text.SubTitle" parent="Ask.Text">
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="android:textSize">@dimen/font_size_sub_title</item>
+    </style>
+    <style name="Ask.Text.Normal" parent="Ask.Text">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">@dimen/font_size_text</item>
+    </style>
+    <style name="Ask.Text.Hint" parent="Ask.Text">
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="android:textSize">@dimen/font_size_hint_text</item>
+    </style>
+    <style name="Ask.Text.Small" parent="Ask.Text">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">@dimen/font_size_small_text</item>
+    </style>
+
 </resources>

@@ -77,4 +77,9 @@
     <dimen name="blacktheme_paddingTop">0dp</dimen>
     <dimen name="blacktheme_paddingBottom">0dp</dimen>
 
+    <dimen name="font_size_title">16sp</dimen>
+    <dimen name="font_size_sub_title">18sp</dimen>
+    <dimen name="font_size_text">14dp</dimen>
+    <dimen name="font_size_hint_text">15sp</dimen>
+    <dimen name="font_size_small_text">12sp</dimen>
 </resources>

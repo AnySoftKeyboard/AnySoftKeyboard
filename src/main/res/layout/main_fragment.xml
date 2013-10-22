@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2013 Menny Even-Danan
+<?xml version="1.0" encoding="utf-8"?><!--
+     Copyright (C) 2013 Menny Even-Danan
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,36 +14,81 @@
      limitations under the License.
 -->
 
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical" android:padding="4dip"
-        android:gravity="center_horizontal"
-        android:layout_width="fill_parent" android:layout_height="fill_parent">
-    <LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent" android:weightSum="3">
-        <TextView android:id="@+id/main_tab_text_1" android:layout_width="0px" android:layout_height="32sp"
-                  android:layout_weight="1"
-                  android:text="@string/main_tab_welcome" style="@android:style/TextAppearance.Medium"
-                  android:gravity="center"/>
-        <TextView android:id="@+id/main_tab_text_2" android:layout_width="0px" android:layout_height="32sp"
-                  android:layout_weight="1"
-                  android:text="@string/main_tab_links" style="@android:style/TextAppearance.Medium"
-                  android:gravity="center"/>
-        <TextView android:id="@+id/main_tab_text_3" android:layout_width="0px" android:layout_height="32sp"
-                  android:layout_weight="1"
-                  android:text="@string/main_tab_credits" style="@android:style/TextAppearance.Medium"
-                  android:gravity="center"/>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/Ask.Text.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/how_to_pointer_title" />
+
+        <TextView
+            style="@style/Ask.Text.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:autoLink="web"
+            android:drawableLeft="@drawable/gplus"
+            android:text=" http://gplus.to/menny" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <ImageView
+                android:contentDescription="@string/ime_name"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="5"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/light_theme_screenshot" />
+
+            <TextView
+                style="@style/Ask.Text.Normal"
+                android:layout_width="0px"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="5"
+                android:text="@string/how_to_pointer_not_app" />
+        </LinearLayout>
+
+        <!-- this box will be should shown
+         only if the keyboard is not fully enabled in the system. -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/keyboard_not_configured_box"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:background="@drawable/card_background"
+            android:layout_width="match_parent">
+            <ImageView
+                android:id="@+id/not_configured_icon"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:src="@drawable/ic_not_configured"/>
+            <TextView
+                style="@style/Ask.Text.SubTitle"
+                android:id="@+id/not_configured_click_here"
+                android:layout_marginLeft="6dp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/not_configured_with_click_here"/>
+        </LinearLayout>
     </LinearLayout>
 
-    <View android:layout_width="fill_parent" android:layout_height="@dimen/unselected_tab_drawable_height"
-          android:background="#F11"/>
-
-    <net.evendanan.pushingpixels.FixedViewFlipper
-            android:id="@+id/main_pager"
-            android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="1">
-        <include layout="@layout/main_fragment_1_main"/>
-        <include layout="@layout/main_fragment_2_links"/>
-        <include layout="@layout/main_fragment_3_credits"/>
-    </net.evendanan.pushingpixels.FixedViewFlipper>
-</LinearLayout>
+</ScrollView>
