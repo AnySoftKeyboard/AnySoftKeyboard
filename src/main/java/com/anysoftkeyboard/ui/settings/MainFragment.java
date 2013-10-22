@@ -52,6 +52,8 @@ public class MainFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        getActivity().setTitle(getString(R.string.how_to_pointer_title));
+
         View notConfiguredBox = getView().findViewById(R.id.keyboard_not_configured_box);
         //checking if the IME is configured
         final Context context = getActivity().getApplicationContext();
