@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard.ui.settings;
 
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -31,6 +32,7 @@ import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.MainForm;
 import com.anysoftkeyboard.utils.Log;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.FragmentChauffeurActivity;
@@ -44,6 +46,12 @@ public class MainSettings extends FragmentChauffeurActivity {
 
     private CharSequence mTitle;
     private CharSequence mDrawerTitle;
+    private SharedPreferences.OnSharedPreferenceChangeListener menuExtraUpdaterOnConfigChange = new SharedPreferences.OnSharedPreferenceChangeListener() {
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            updateMenuExtraData();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -79,6 +87,8 @@ public class MainSettings extends FragmentChauffeurActivity {
         mDrawerRootLayout.setDrawerListener(mDrawerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        AnyApplication.getConfig().addChangedListener(menuExtraUpdaterOnConfigChange);
     }
 
     @Override
@@ -103,6 +113,12 @@ public class MainSettings extends FragmentChauffeurActivity {
         super.onStart();
         //updating menu's data
         updateMenuExtraData();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AnyApplication.getConfig().removeChangedListener(menuExtraUpdaterOnConfigChange);
     }
 
     private void updateMenuExtraData() {
