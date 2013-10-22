@@ -16,7 +16,9 @@
 
 package net.evendanan.pushingpixels;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -34,9 +36,39 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
 
     private static final String TAG = "chauffeur";
 
+    private static final String ROOT_FRAGMENT_TAG = "FragmentChauffeurActivity_ROOT_FRAGMENT_TAG";
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        //setting up the root of the UI.
+        setRootFragment(createRootFragmentInstance());
+    }
+
     protected abstract int getFragmentRootUiElementId();
 
+    protected abstract Fragment createRootFragmentInstance();
+
+    public void returnToRootFragment() {
+        getSupportFragmentManager().popBackStack(ROOT_FRAGMENT_TAG, 0 /*don't pop the root*/);
+    }
+
+    public void setRootFragment(Fragment fragment) {
+        getSupportFragmentManager().popBackStack(ROOT_FRAGMENT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.ui_context_root_add_in, R.anim.ui_context_root_add_out,
+                R.anim.ui_context_root_pop_in, R.anim.ui_context_root_pop_out);
+        transaction.replace(getFragmentRootUiElementId(), fragment);
+        //bookmarking, so I can return easily.
+        transaction.addToBackStack(ROOT_FRAGMENT_TAG);
+        transaction.commit();
+    }
+
     public void addFragmentToUi(Fragment fragment, FragmentUiContext experience) {
+        if (experience == FragmentUiContext.RootFragment) {
+            //in this case, I need to pop all the other fragments till the root.
+            returnToRootFragment();
+        }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         //note: the animation should be declared before the fragment replace call, so the transaction will know to which fragment change it should be associated with.
         switch (experience) {
@@ -70,5 +102,17 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
         transaction.replace(getFragmentRootUiElementId(), fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //I know I'm doing something wrong here!
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+            //This is the last fragment on the stack, so I don't want to pop it and leave the UI empty
+            //So, I'm forcibly poping it, and then going on to super.onBackPressed(), which will cause the Activity
+            //to finish
+            getSupportFragmentManager().popBackStackImmediate();
+        }
+        super.onBackPressed();
     }
 }

@@ -117,11 +117,6 @@
             android:label="@string/tweaks_group">
         </activity>
         <activity
-            android:name="com.anysoftkeyboard.ui.settings.Keyboards"
-            android:icon="@drawable/ic_launcher_settings"
-            android:label="@string/keyboards_group">
-        </activity>
-        <activity
             android:name="com.anysoftkeyboard.ui.settings.KeyboardThemeSelector"
             android:icon="@drawable/ic_launcher_settings"
             android:label="@string/keyboard_theme_group"/>
