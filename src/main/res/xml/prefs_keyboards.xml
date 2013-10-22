@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:id="@+id/prefs_keyboards_screen"
-                  android:key="prefs_keyboards_screen"
-                  android:title="@string/keyboards_group">
+    android:id="@+id/prefs_keyboards_screen"
+    android:key="prefs_keyboards_screen"
+    android:title="@string/keyboards_group">
 
-    <Preference
-            android:key="search_for_keyboards_packs"
-            android:persistent="false"
-            android:title="@string/search_market_for_addons"/>
+    <com.anysoftkeyboard.ui.settings.AddOnStoreSearchPreference
+        android:key="language"
+        android:persistent="false"
+        android:title="@string/search_market_for_keyboard_addons" />
 
     <PreferenceCategory
-            android:key="keyboard_addons_group"
-            android:title="@string/keyboards_group">
-    </PreferenceCategory>
+        android:key="keyboard_addons_group"
+        android:title="@string/keyboards_group"></PreferenceCategory>
 
 </PreferenceScreen>

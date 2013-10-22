@@ -154,7 +154,8 @@
     <!-- changelog -->
     <string name="changelog">Changelog</string>
     <string name="search_market_for_addons">Search for add-ons</string>
-    <string name="no_market_store_available">Could not find Android Play Store on your device. Unable to search for
+    <string name="search_market_for_keyboard_addons">Get more keyboards at <i>Play Store</i>…</string>
+    <string name="no_market_store_available">Could not find Google Play Store on your device. Unable to search for
         add-ons!
     </string>
     <string name="theme_addons_settings">Keyboard theme settings</string>

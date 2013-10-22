@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
      Copyright (C) 2013 Menny Even-Danan
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,6 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <TextView
             style="@style/Ask.Text.Small"
             android:layout_width="wrap_content"
@@ -69,19 +69,22 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:background="@drawable/card_background"
+            android:minHeight="44dp"
             android:layout_width="match_parent">
+
             <ImageView
                 android:id="@+id/not_configured_icon"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:src="@drawable/ic_not_configured"/>
+                android:src="@drawable/ic_not_configured" />
+
             <TextView
                 style="@style/Ask.Text.SubTitle"
                 android:id="@+id/not_configured_click_here"
                 android:layout_marginLeft="6dp"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="@string/not_configured_with_click_here"/>
+                android:text="@string/not_configured_with_click_here" />
         </LinearLayout>
     </LinearLayout>
 
