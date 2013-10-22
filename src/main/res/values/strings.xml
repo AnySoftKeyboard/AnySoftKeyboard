@@ -715,4 +715,11 @@
     <string name="drawer_close">Menu close</string>
     <string name="not_configured_with_click_here">AnySoftKeyboard is not fully set-up for use. Click here to set up.</string>
     <string name="not_configured_with_just_click_here">Click here</string>
+
+    <!--  Strings for possible PreferenceActivity Back/Next buttons -->
+    <string name="back_button_label">Back</string>
+    <string name="next_button_label">Next</string>
+
+    <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
+    <string name="skip_button_label">Skip</string>
 </resources>

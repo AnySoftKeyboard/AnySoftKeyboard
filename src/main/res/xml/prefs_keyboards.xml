@@ -4,17 +4,6 @@
                   android:key="prefs_keyboards_screen"
                   android:title="@string/keyboards_group">
 
-    <EditTextPreference
-            android:autoText="true"
-            android:capitalize="sentences"
-            android:dialogTitle="@string/keyboard_sandbox_title"
-            android:key="keyboards_sandbox_3"
-            android:lines="3"
-            android:persistent="false"
-            android:singleLine="false"
-            android:title="@string/keyboard_sandbox">
-    </EditTextPreference>
-
     <Preference
             android:key="search_for_keyboards_packs"
             android:persistent="false"

@@ -19,6 +19,7 @@ package com.anysoftkeyboard.ui.settings;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -28,6 +29,8 @@ import android.widget.TextView;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
+import com.anysoftkeyboard.ui.MainForm;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.FragmentChauffeurActivity;
@@ -86,6 +89,11 @@ public class MainSettings extends FragmentChauffeurActivity {
     }
 
     @Override
+    protected Fragment createRootFragmentInstance() {
+        return new MainFragment();
+    }
+
+    @Override
     protected int getFragmentRootUiElementId() {
         return R.id.main_ui_content;
     }
@@ -132,5 +140,29 @@ public class MainSettings extends FragmentChauffeurActivity {
     public void setTitle(CharSequence title) {
         mTitle = title;
         getSupportActionBar().setTitle(mTitle);
+    }
+
+    public void onSearchPlayStoreClicked(View v) {
+        try {
+            String tag = v.getTag().toString();
+            MainForm.searchMarketForAddons(
+                    getApplicationContext(),
+                    " "+tag);
+        } catch (Exception ex) {
+            Log.e(TAG, "Failed to launch Play Store!", ex);
+        }
+    }
+
+
+    //side menu navigation methods
+
+    public void onNavigateToAboutClicked(View v) {
+        mDrawerRootLayout.closeDrawers();
+        returnToRootFragment();
+    }
+
+    public void onNavigateToKeyboardAddonSettings(View v) {
+        mDrawerRootLayout.closeDrawers();
+        addFragmentToUi(new KeyboardAddOnSettingsFragment(), FragmentUiContext.RootFragment);
     }
 }
