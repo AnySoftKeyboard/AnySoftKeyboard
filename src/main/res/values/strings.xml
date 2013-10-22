@@ -8,8 +8,8 @@
     <string name="spell_checker_settings">AnySoftKeyboard Speller Settings</string>
     <string name="subtype_generic">speller-generic</string>
 
-    <string name="copyright_text">Copyright © <xliff:g id="year">%s</xliff:g> <xliff:g id="owner">%s</xliff:g></string>
-    <string name="version_text"><xliff:g id="version_name">%s</xliff:g> (v<xliff:g id="version_number">%s</xliff:g>)</string>
+    <string name="copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
+    <string name="version_text"><xliff:g id="version_name">%s</xliff:g>\u0020(v<xliff:g id="version_number">%s</xliff:g>)</string>
     <string name="additional_licenses"><u>Additional licenses…</u></string>
     <string name="debug_tracing_starting">Tracing started!\nMake sure you stop it at some point</string>
     <string name="debug_tracing_starting_failed">Tracing initiating failed! Check logcat for details.</string>
@@ -228,6 +228,7 @@
     </string>
 
     <!-- settings - effects-->
+    <string name="gesture_settings">Gestures</string>
     <string name="effects_group">Effects</string>
     <string name="ime_settings">Keyboard settings</string>
     <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
@@ -341,6 +342,9 @@
     <string name="camera_key_for_backspace_backword_support_off_summary">Half press on camera button deletes last
         character, full press deletes last word
     </string>
+
+    <string name="menu_even_more_settings">Even more&#8230;</string>
+
     <string name="special_dictionaries_group">Special dictionaries</string>
     <string name="special_dictionaries_group_summary">Suggestion dictionaries used in AnySoftKeyboard</string>
     <string name="use_user_dictionary">User-dictionary</string>
@@ -506,6 +510,7 @@
         type.\nOnce API specifications have been determined, this feature will be opened.\nStay tuned.
     </string>
     <!-- settings - keyboard group -->
+    <string name="keyboards_group_extra_template"><xliff:g id="enabledLayouts">%s</xliff:g>/<xliff:g id="totalLayouts">%s</xliff:g></string>
     <string name="keyboards_group">Keyboards</string>
     <string name="keyboards_group_summary">Keyboard layouts for use in AnySoftKeyboard</string>
     <string name="symbols_keyboard">123!#()</string>

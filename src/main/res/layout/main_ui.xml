@@ -11,11 +11,13 @@
         android:layout_height="fill_parent"
         android:layout_width="fill_parent"/>
 
-    <LinearLayout
+    <FrameLayout
         android:orientation="vertical"
-        android:id="@+id/side_menu_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="left"
-        android:background="#111"/>
+        android:background="@android:color/white">
+
+        <include layout="@layout/side_menu_layout"/>
+    </FrameLayout>
 </android.support.v4.widget.DrawerLayout>

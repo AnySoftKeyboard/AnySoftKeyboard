@@ -13,7 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="Popup" parent="@android:style/Theme.Dialog">
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:maxWidth">320dp</item>
@@ -175,13 +175,13 @@
         <item name="keyBackground">@drawable/btn_keyboard_key_gingerbread</item>
         <item name="keyPreviewBackground">@drawable/gingerbread_btn_key_preview_background</item>
 
-        <item name="shadowRadius">5px</item>
+        <item name="shadowRadius">5dp</item>
     </style>
     <style name="GingerbreadPopup" parent="@style/AnyKeyboardPopupBaseTheme">
         <item name="android:background">@drawable/keyboard_popup_panel_background</item>
         <item name="keyBackground">@drawable/btn_keyboard_key_gingerbread_popup</item>
 
-        <item name="shadowRadius">5px</item>
+        <item name="shadowRadius">5dp</item>
     </style>
 
     <style name="PlainDarkAnySoftKeyboard" parent="@style/AnyKeyboardBaseTheme">
@@ -302,5 +302,74 @@
         <attr name="appIcon"/>
         <attr name="appName"/>
         <attr name="appOwner"/>
+        <attr name="textColor"/>
     </declare-styleable>
+
+    <style name="Ask">
+    </style>
+
+    <style name="Ask.Menu" parent="Ask">
+        <item name="android:background">@drawable/menu_background</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+    <style name="Ask.Menu.Divider" parent="Ask.Menu">
+        <item name="android:layout_margin">6dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/menu_divider</item>
+    </style>
+    <style name="Ask.Menu.Item.Divider" parent="Ask.Menu.Divider">
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/menu_item_divider</item>
+    </style>
+    <style name="Ask.Menu.Item.Title.Divider" parent="Ask.Menu.Divider">
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:layout_height">2dp</item>
+    </style>
+    <style name="Ask.Menu.Item" parent="Ask.Menu">
+        <item name="android:clickable">true</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:minHeight">44dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="Ask.Menu.Item.More" parent="Ask.Menu.Item">
+        <item name="android:textSize">15sp</item>
+    </style>
+    <style name="Ask.Menu.Row.Item" parent="Ask.Menu.Item">
+        <item name="android:layout_width">0px</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:minHeight">0dp</item>
+    </style>
+    <style name="Ask.Menu.Row" parent="Ask.Menu">
+        <item name="android:clickable">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">44dp</item>
+        <item name="android:weightSum">1</item>
+    </style>
+    <style name="Ask.Menu.Row.Item.Extra" parent="Ask.Menu.Item">
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:background">@drawable/menu_item_extra_background</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:minHeight">0dp</item>
+    </style>
+    <style name="Ask.Menu.Item.Title" parent="Ask.Menu">
+        <item name="android:clickable">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAllCaps" tools:ignore="NewApi">true</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:drawableBottom">@drawable/selected_tab</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>
