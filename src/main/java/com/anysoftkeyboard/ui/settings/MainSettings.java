@@ -30,8 +30,6 @@ import android.widget.TextView;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
-import com.anysoftkeyboard.ui.MainForm;
-import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -157,18 +155,6 @@ public class MainSettings extends FragmentChauffeurActivity {
         mTitle = title;
         getSupportActionBar().setTitle(mTitle);
     }
-
-    public void onSearchPlayStoreClicked(View v) {
-        try {
-            String tag = v.getTag().toString();
-            MainForm.searchMarketForAddons(
-                    getApplicationContext(),
-                    " "+tag);
-        } catch (Exception ex) {
-            Log.e(TAG, "Failed to launch Play Store!", ex);
-        }
-    }
-
 
     //side menu navigation methods
 

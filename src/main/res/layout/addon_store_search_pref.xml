@@ -1,0 +1,35 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/addon_list_item_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="6dp">
+
+    <LinearLayout
+        android:id="@+id/addon_list_item_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@drawable/card_background"
+        android:padding="6dp"
+        android:minHeight="44dp">
+
+
+        <ImageView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:src="@drawable/ic_action_search" />
+
+        <TextView
+            style="@style/Ask.Text.SubTitle"
+            android:id="@+id/cta_title"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/search_market_for_addons"
+            android:layout_marginLeft="8dp" />
+
+    </LinearLayout>
+
+</FrameLayout>
