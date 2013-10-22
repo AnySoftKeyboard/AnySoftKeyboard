@@ -2,22 +2,28 @@
 
 <android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_root_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#EEE">
 
     <FrameLayout
         android:id="@+id/main_ui_content"
         android:layout_height="fill_parent"
-        android:layout_width="fill_parent"/>
+        android:layout_width="fill_parent">
+        <fragment
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:name="com.anysoftkeyboard.ui.settings.MainFragment"
+            tools:layout="@layout/main_fragment" />
+    </FrameLayout>
 
     <FrameLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="left"
-        android:background="@android:color/white">
-
+        android:layout_gravity="left">
         <include layout="@layout/side_menu_layout"/>
     </FrameLayout>
 </android.support.v4.widget.DrawerLayout>

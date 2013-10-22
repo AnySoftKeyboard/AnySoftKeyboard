@@ -25,8 +25,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
-import android.widget.TextView;
 import android.widget.ViewFlipper;
+
 import com.anysoftkeyboard.ui.settings.MainSettings;
 import com.anysoftkeyboard.ui.tutorials.ChangeLogActivity;
 import com.anysoftkeyboard.ui.tutorials.TipsActivity;
@@ -49,10 +49,6 @@ public class MainForm extends Activity implements OnClickListener {
 
         mPager = (ViewFlipper) findViewById(R.id.main_pager);
 
-        findViewById(R.id.main_tab_text_1).setOnClickListener(this);
-        findViewById(R.id.main_tab_text_2).setOnClickListener(this);
-        findViewById(R.id.main_tab_text_3).setOnClickListener(this);
-
         findViewById(R.id.goto_tips_form).setOnClickListener(this);
         findViewById(R.id.goto_changelog_button).setOnClickListener(this);
         findViewById(R.id.goto_howto_form).setOnClickListener(this);
@@ -64,31 +60,10 @@ public class MainForm extends Activity implements OnClickListener {
         CheckBox showVersionNotifications = (CheckBox) findViewById(R.id.show_notifications_next_time);
         showVersionNotifications.setChecked(AnyApplication.getConfig().getShowVersionNotification());
         showVersionNotifications.setOnClickListener(this);
-
-        setSelectedTab(0);
-    }
-
-
-    void setSelectedTab(int index) {
-        ((TextView) findViewById(R.id.main_tab_text_1)).setCompoundDrawables(null, null, null, index == 0 ? mSelectedTabBottomDrawable : null);
-        ((TextView) findViewById(R.id.main_tab_text_2)).setCompoundDrawables(null, null, null, index == 1 ? mSelectedTabBottomDrawable : null);
-        ((TextView) findViewById(R.id.main_tab_text_3)).setCompoundDrawables(null, null, null, index == 2 ? mSelectedTabBottomDrawable : null);
-
-        if (mPager.getDisplayedChild() != index)
-            mPager.setDisplayedChild(index);
     }
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.main_tab_text_1:
-                setSelectedTab(0);
-                break;
-            case R.id.main_tab_text_2:
-                setSelectedTab(1);
-                break;
-            case R.id.main_tab_text_3:
-                setSelectedTab(2);
-                break;
             case R.id.goto_howto_form:
                 Intent i = new Intent(getApplicationContext(), WelcomeHowToNoticeActivity.class);
                 startActivity(i);

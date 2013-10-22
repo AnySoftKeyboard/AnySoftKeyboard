@@ -713,4 +713,6 @@
 
     <string name="drawer_open">Menu open</string>
     <string name="drawer_close">Menu close</string>
+    <string name="not_configured_with_click_here">AnySoftKeyboard is not fully set-up for use. Click here to set up.</string>
+    <string name="not_configured_with_just_click_here">Click here</string>
 </resources>

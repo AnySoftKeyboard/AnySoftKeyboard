@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- this animation is for UI context - going back on a deeper experience, fragment is poping. this is for the old fragment -->
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+    android:fromXDelta="-100%"
+    android:toXDelta="0"
+    android:duration="@android:integer/config_mediumAnimTime" />
