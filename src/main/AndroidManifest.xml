@@ -89,7 +89,7 @@
         <activity android:theme="@style/Theme.AppCompat.Light"
             android:name="com.menny.android.anysoftkeyboard.LauncherSettingsActivity"
             android:icon="@drawable/ic_launcher_settings"
-            android:label="@string/settings_app_name">
+            android:label="@string/ime_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -99,7 +99,7 @@
         <activity android:theme="@style/Theme.AppCompat.Light"
             android:name="com.anysoftkeyboard.ui.settings.MainSettings"
             android:icon="@drawable/ic_launcher_settings"
-            android:label="@string/settings_app_name">
+            android:label="@string/ime_name">
         </activity>
         <activity
             android:name="com.anysoftkeyboard.ui.settings.Dictionaries"
