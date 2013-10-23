@@ -16,14 +16,20 @@
 
 package com.anysoftkeyboard.ui.settings;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.preference.Preference;
+
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.menny.android.anysoftkeyboard.R;
 
+import net.evendanan.pushingpixels.FragmentChauffeurActivity;
+
 import java.util.List;
 
-public class KeyboardThemeSelectorFragment extends AbstractAddOnSelectorFragment<KeyboardTheme> {
+public class KeyboardThemeSelectorFragment extends AbstractAddOnSelectorFragment<KeyboardTheme> implements Preference.OnPreferenceClickListener {
 
     @Override
     protected int getAddOnsListPrefKeyResId() {
@@ -43,5 +49,23 @@ public class KeyboardThemeSelectorFragment extends AbstractAddOnSelectorFragment
     @Override
     protected AddOn getCurrentSelectedAddOn() {
         return KeyboardThemeFactory.getCurrentKeyboardTheme(getActivity().getApplicationContext());
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        findPreference(getString(R.string.tweaks_group_key)).setOnPreferenceClickListener(this);
+    }
+
+    @Override
+    public boolean onPreferenceClick(Preference preference) {
+        if (preference.getKey().equals(getString(R.string.tweaks_group_key))) {
+            Activity activity = getActivity();
+            if (activity != null && activity instanceof FragmentChauffeurActivity) {
+                ((FragmentChauffeurActivity)activity).addFragmentToUi(new KeyboardThemeTweaksFragment(), FragmentChauffeurActivity.FragmentUiContext.DeeperExperience);
+                return true;
+            }
+        }
+        return false;
     }
 }
