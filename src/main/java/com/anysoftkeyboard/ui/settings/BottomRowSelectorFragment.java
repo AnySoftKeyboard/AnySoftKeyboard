@@ -17,31 +17,35 @@
 package com.anysoftkeyboard.ui.settings;
 
 import com.anysoftkeyboard.addons.AddOn;
-import com.anysoftkeyboard.theme.KeyboardTheme;
-import com.anysoftkeyboard.theme.KeyboardThemeFactory;
+import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
+import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.List;
 
-public class KeyboardThemeSelectorFragment extends AbstractAddOnSelectorFragment<KeyboardTheme> {
+public class BottomRowSelectorFragment extends AbstractAddOnSelectorFragment<KeyboardExtension> {
 
     @Override
     protected int getAddOnsListPrefKeyResId() {
-        return R.string.settings_key_keyboard_theme_key;
+        return R.string.settings_key_ext_kbd_bottom_row_key;
     }
 
     @Override
     protected int getPrefsLayoutResId() {
-        return R.xml.prefs_addon_keyboard_theme_selector;
+        return R.xml.prefs_bottom_row_addons;
     }
 
     @Override
-    protected List<KeyboardTheme> getAllAvailableAddOns() {
-        return KeyboardThemeFactory.getAllAvailableThemes(getActivity().getApplicationContext());
+    protected List<KeyboardExtension> getAllAvailableAddOns() {
+        return KeyboardExtensionFactory.getAllAvailableExtensions(
+                getActivity().getApplicationContext(),
+                KeyboardExtension.TYPE_BOTTOM);
     }
 
     @Override
     protected AddOn getCurrentSelectedAddOn() {
-        return KeyboardThemeFactory.getCurrentKeyboardTheme(getActivity().getApplicationContext());
+        return KeyboardExtensionFactory.getCurrentKeyboardExtension(
+                getActivity().getApplicationContext(),
+                KeyboardExtension.TYPE_BOTTOM);
     }
 }

@@ -55,7 +55,7 @@ import java.util.List;
 public class AddOnListPreference extends ListPreference {
 
     public static <E extends AddOn> void populateAddOnListPreference(AddOnListPreference preference,
-                                                   List<E> list, AddOn selectedAddOn) {
+                                                                     List<E> list, AddOn selectedAddOn) {
         AddOn[] addOns = new AddOn[list.size()];
         list.toArray(addOns);
         preference.setAddOnsList(addOns);
@@ -78,7 +78,7 @@ public class AddOnListPreference extends ListPreference {
         if (mAddOns != null) {
             // mAddOns is null happens when activity gets recreated, e.g. on
             // rotating the device.
-            ListAdapter listAdapter = new AddOnArrayAdapter(getContext().getApplicationContext(),
+            ListAdapter listAdapter = new AddOnArrayAdapter(getContext(),
                     R.layout.addon_list_item_pref, mAddOns);
 
             builder.setAdapter(listAdapter, this);
@@ -115,10 +115,8 @@ public class AddOnListPreference extends ListPreference {
             final View row;
             if (convertView == null) {
                 // inflate layout
-                LayoutInflater inflator = (LayoutInflater) getContext()
-                        .getSystemService(Service.LAYOUT_INFLATER_SERVICE);
-                    row = inflator.inflate(R.layout.addon_list_item_pref, parent,
-                        false);
+                LayoutInflater inflater = LayoutInflater.from(getContext());
+                row = inflater.inflate(R.layout.addon_list_item_pref, parent, false);
             } else {
                 row = convertView;
             }
