@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- this animation is for UI context - going back on a deeper experience, fragment is poping. this is for the new fragment poping out -->
-<translate xmlns:android="http://schemas.android.com/apk/res/android"
-    android:interpolator="@android:anim/accelerate_decelerate_interpolator"
-    android:fromXDelta="0"
-    android:toXDelta="100%"
-    android:duration="@android:integer/config_mediumAnimTime" />
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/decelerate_interpolator"
+    android:duration="@android:integer/config_shortAnimTime"
+    android:shareInterpolator="true">
+    <translate
+        android:fromXDelta="0"
+        android:toXDelta="100%" />
+    <alpha android:fromAlpha="1.0" android:toAlpha="0.0" />
+</set>

@@ -50,7 +50,7 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
     protected abstract Fragment createRootFragmentInstance();
 
     public void returnToRootFragment() {
-        getSupportFragmentManager().popBackStack(ROOT_FRAGMENT_TAG, 0 /*don't pop the root*/);
+        getSupportFragmentManager().popBackStackImmediate(ROOT_FRAGMENT_TAG, 0 /*don't pop the root*/);
     }
 
     public void setRootFragment(Fragment fragment) {
