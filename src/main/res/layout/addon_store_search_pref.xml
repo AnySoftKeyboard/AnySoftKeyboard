@@ -13,7 +13,8 @@
         android:background="@drawable/card_background"
         android:padding="6dp"
         android:minHeight="44dp"
-        android:animateLayoutChanges="true">
+        android:animateLayoutChanges="true"
+        android:gravity="center">
 
         <LinearLayout
             android:layout_height="wrap_content"
