@@ -20,7 +20,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.preference.PreferenceCategory;
 import android.support.v4.preference.PreferenceFragment;
-import android.view.View;
 
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
@@ -32,8 +31,8 @@ import java.util.ArrayList;
 public class KeyboardAddOnSettingsFragment extends PreferenceFragment {
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onCreate(Bundle paramBundle) {
+        super.onCreate(paramBundle);
         addPreferencesFromResource(R.xml.prefs_keyboards);
     }
 

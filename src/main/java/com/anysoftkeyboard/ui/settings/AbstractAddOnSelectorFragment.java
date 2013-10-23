@@ -30,9 +30,14 @@ public abstract class AbstractAddOnSelectorFragment<E extends AddOn> extends Pre
     private AddOnListPreference mAddOnsList;
 
     @Override
+    public void onCreate(Bundle paramBundle) {
+        super.onCreate(paramBundle);
+        addPreferencesFromResource(getPrefsLayoutResId());
+    }
+
+    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        addPreferencesFromResource(getPrefsLayoutResId());
         mAddOnsList = (AddOnListPreference) findPreference(getString(getAddOnsListPrefKeyResId()));
     }
 

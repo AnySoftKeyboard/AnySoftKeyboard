@@ -213,6 +213,7 @@ public abstract class PreferenceFragment extends Fragment implements
     /**
      * Inflates the given XML resource and adds the preference hierarchy to the current
      * preference hierarchy.
+     * This should be called in the {@link android.support.v4.preference.PreferenceFragment} onCreate method.
      *
      * @param preferencesResId The XML resource ID to inflate.
      */

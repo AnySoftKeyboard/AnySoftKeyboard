@@ -22,11 +22,12 @@ import android.support.v4.preference.PreferenceFragment;
 
 import com.menny.android.anysoftkeyboard.R;
 
-public class TweaksFragment extends PreferenceFragment {
+public class KeyboardThemeTweaksFragment extends PreferenceFragment {
 
     @Override
-    public void onCreate(Bundle paramBundle) {
-        super.onCreate(paramBundle);
-        addPreferencesFromResource(R.xml.prefs_tweaks);
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState == null)
+            addPreferencesFromResource(R.xml.prefs_keyboard_theme_tweaks);
     }
 }

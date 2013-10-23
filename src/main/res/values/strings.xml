@@ -561,6 +561,7 @@
 
 
     <string name="keyboard_theme_group">Keyboard themes</string>
+    <string name="keyboard_themes_group_summary">Various appearance themes for your on-screen keyboard</string>
     <string name="keyboard_theme_active">Active keyboard theme</string>
     <string name="keyboard_theme_dialog_title">Select theme</string>
     <string name="keyboard_theme_summary">Selected theme: %s</string>
