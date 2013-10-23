@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard.ui.settings;
+package com.anysoftkeyboard.ui.settings.widget;
 
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;

@@ -25,6 +25,7 @@ import android.preference.PreferenceActivity;
 import android.widget.Toast;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.ui.MainForm;
+import com.anysoftkeyboard.ui.settings.widget.AddOnListPreference;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 

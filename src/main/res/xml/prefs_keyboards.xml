@@ -4,7 +4,7 @@
     android:key="prefs_keyboards_screen"
     android:title="@string/keyboards_group">
 
-    <com.anysoftkeyboard.ui.settings.AddOnStoreSearchPreference
+    <com.anysoftkeyboard.ui.settings.widget.AddOnStoreSearchPreference
         android:key="language"
         android:persistent="false"
         android:title="@string/search_market_for_keyboard_addons" />
