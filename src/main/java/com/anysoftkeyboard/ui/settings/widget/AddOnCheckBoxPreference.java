@@ -23,7 +23,6 @@
  */
 package com.anysoftkeyboard.ui.settings.widget;
 
-import android.app.Service;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -36,8 +35,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.TextView;
+
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.IconHolder;
 import com.anysoftkeyboard.addons.ScreenshotHolder;
@@ -147,8 +151,7 @@ public class AddOnCheckBoxPreference extends Preference implements
             //
             if (screenshot == null) return;
             //inflating the screenshot view
-            LayoutInflater inflator = (LayoutInflater) getContext()
-                    .getSystemService(Service.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflator = LayoutInflater.from(getContext());
             ViewGroup layout = (ViewGroup) inflator.inflate(
                     R.layout.addon_screenshot, null);
             final PopupWindow popup = new PopupWindow(getContext());

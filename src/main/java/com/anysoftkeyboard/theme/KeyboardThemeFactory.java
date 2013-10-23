@@ -65,7 +65,7 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
     }
 
 
-    public static ArrayList<KeyboardTheme> getAllAvailableQuickKeys(Context applicationContext) {
+    public static ArrayList<KeyboardTheme> getAllAvailableThemes(Context applicationContext) {
         return msInstance.getAllAddOns(applicationContext);
     }
 
