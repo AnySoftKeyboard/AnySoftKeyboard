@@ -43,7 +43,7 @@ public class KeyboardAddOnSettingsFragment extends PreferenceFragment {
 
         PreferenceCategory keyboardsGroup = (PreferenceCategory) findPreference("keyboard_addons_group");
         Activity activity = getActivity();
-        getActivity().setTitle(getString(R.string.keyboards_group));
+        activity.setTitle(getString(R.string.keyboards_group));
         // getting all keyboards
         final ArrayList<KeyboardAddOnAndBuilder> creators = KeyboardFactory.getAllAvailableKeyboards(activity.getApplicationContext());
 

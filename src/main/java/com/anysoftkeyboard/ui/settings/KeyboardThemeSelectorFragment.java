@@ -17,41 +17,31 @@
 package com.anysoftkeyboard.ui.settings;
 
 import com.anysoftkeyboard.addons.AddOn;
-import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
-import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
+import com.anysoftkeyboard.theme.KeyboardTheme;
+import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.List;
 
-public class QuickTextKeys extends AddOnSelector<QuickTextKey> {
+public class KeyboardThemeSelectorFragment extends AbstractAddOnSelectorFragment<KeyboardTheme> {
 
     @Override
-    protected String getAdditionalMarketQueryString() {
-        return " quick key";
-    }
-
-    @Override
-    protected int getAddonsListPrefKeyResId() {
-        return R.string.settings_key_active_quick_text_key;
+    protected int getAddOnsListPrefKeyResId() {
+        return R.string.settings_key_keyboard_theme_key;
     }
 
     @Override
     protected int getPrefsLayoutResId() {
-        return R.xml.prefs_addon_quick_keys_selector;
+        return R.xml.prefs_addon_keyboard_theme_selector;
     }
 
     @Override
-    protected List<QuickTextKey> getAllAvailableAddOns() {
-        return QuickTextKeyFactory.getAllAvailableQuickKeys(getApplicationContext());
-    }
-
-    @Override
-    protected boolean allowExternalPacks() {
-        return true;
+    protected List<KeyboardTheme> getAllAvailableAddOns() {
+        return KeyboardThemeFactory.getAllAvailableQuickKeys(getActivity().getApplicationContext());
     }
 
     @Override
     protected AddOn getCurrentSelectedAddOn() {
-        return QuickTextKeyFactory.getCurrentQuickTextKey(getApplicationContext());
+        return KeyboardThemeFactory.getCurrentKeyboardTheme(getActivity().getApplicationContext());
     }
 }

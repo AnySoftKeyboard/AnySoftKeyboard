@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="prefs_addons_screen">
+
+    <PreferenceCategory
+        android:key="bottom_row_addons_group"
+        android:title="@string/bottom_generic_row_group"
+        android:summary="@string/bottom_generic_row_group_summary">
+
+        <com.anysoftkeyboard.ui.settings.widget.AddOnListPreference
+            android:defaultValue="@string/settings_default_ext_kbd_bottom_row_key"
+            android:dialogTitle="@string/bottom_generic_row_dialog_title"
+            android:entries="@array/pref_list_empty_types"
+            android:entryValues="@array/pref_list_empty_values"
+            android:key="@string/settings_key_ext_kbd_bottom_row_key"
+            android:persistent="true"
+            android:summary="@string/bottom_generic_row_summary"
+            android:title="@string/bottom_generic_row_list_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="top_row_addons_group"
+        android:title="@string/top_generic_row_group">
+
+        <com.anysoftkeyboard.ui.settings.widget.AddOnListPreference
+            android:defaultValue="@string/settings_default_top_row_key"
+            android:dialogTitle="@string/top_generic_row_dialog_title"
+            android:entries="@array/pref_list_empty_types"
+            android:entryValues="@array/pref_list_empty_values"
+            android:key="@string/settings_key_ext_kbd_top_row_key"
+            android:persistent="true"
+            android:summary="@string/top_generic_row_summary"
+            android:title="@string/top_generic_row_list_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="ext_keyboard_addons_group"
+        android:title="@string/extension_keyboard_group">
+
+        <com.anysoftkeyboard.ui.settings.widget.AddOnListPreference
+            android:defaultValue="@string/settings_default_ext_keyboard_key"
+            android:dialogTitle="@string/extension_keyboard_dialog_title"
+            android:entries="@array/pref_list_empty_types"
+            android:entryValues="@array/pref_list_empty_values"
+            android:key="@string/settings_key_ext_kbd_ext_ketboard_key"
+            android:persistent="true"
+            android:summary="@string/extension_keyboard_summary"
+            android:title="@string/extension_keyboard_list_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="quick_key_addons_group"
+        android:title="@string/quick_text_keys_group">
+
+        <com.anysoftkeyboard.ui.settings.widget.AddOnListPreference
+            android:defaultValue="@string/settings_default_quick_text_key"
+            android:dialogTitle="@string/quick_text_key_dialog_title"
+            android:entries="@array/pref_list_empty_types"
+            android:entryValues="@array/pref_list_empty_values"
+            android:key="@string/settings_key_active_quick_text_key"
+            android:persistent="true"
+            android:summary="@string/quick_text_key_summary"
+            android:title="@string/quick_text_key_active"/>
+
+        <!-- putting this at the end, so the user will get some kind of context -->
+        <com.anysoftkeyboard.ui.settings.widget.AddOnStoreSearchPreference
+            android:key="quick key"
+            android:persistent="false"
+            android:title="@string/search_market_for_quick_key_addons" />
+    </PreferenceCategory>
+</PreferenceScreen>

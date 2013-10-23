@@ -18,14 +18,16 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
+import android.support.v4.preference.PreferenceFragment;
+import android.view.View;
+
 import com.menny.android.anysoftkeyboard.R;
 
-public class Tweaks extends PreferenceActivity {
+public class TweaksFragment extends PreferenceFragment {
 
     @Override
-    protected void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         addPreferencesFromResource(R.xml.prefs_tweaks);
     }
 }

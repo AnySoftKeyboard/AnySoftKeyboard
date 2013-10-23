@@ -112,12 +112,12 @@
             android:label="@string/user_dict_settings_titlebar">
         </activity>
         <activity
-            android:name="com.anysoftkeyboard.ui.settings.Tweaks"
+            android:name="com.anysoftkeyboard.ui.settings.TweaksFragment"
             android:icon="@drawable/ic_launcher_settings"
             android:label="@string/tweaks_group">
         </activity>
         <activity
-            android:name="com.anysoftkeyboard.ui.settings.KeyboardThemeSelector"
+            android:name="com.anysoftkeyboard.ui.settings.KeyboardThemeSelectorFragment"
             android:icon="@drawable/ic_launcher_settings"
             android:label="@string/keyboard_theme_group"/>
         <activity
@@ -129,7 +129,7 @@
             android:icon="@drawable/ic_launcher_settings"
             android:label="@string/top_generic_row_group"/>
         <activity
-            android:name="com.anysoftkeyboard.ui.settings.BottomRowSelector"
+            android:name="com.anysoftkeyboard.ui.settings.BottomRowSelectorFragment"
             android:icon="@drawable/ic_launcher_settings"
             android:label="@string/bottom_generic_row_group"/>
         <activity
