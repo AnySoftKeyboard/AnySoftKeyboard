@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/prefs_keyboards_screen"
     android:key="prefs_keyboards_screen"
     android:title="@string/keyboards_group">
 
+    <Preference
+        android:key="summary"
+        android:summary="@string/keyboards_group_summary" />
+
+    <PreferenceCategory
+        android:key="keyboard_addons_group"
+        android:title="@string/keyboards_group" />
+
+    <!-- putting this at the end, so the user will get some kind of context (a list of keyboards, then how to get more -->
     <com.anysoftkeyboard.ui.settings.widget.AddOnStoreSearchPreference
         android:key="language"
         android:persistent="false"
         android:title="@string/search_market_for_keyboard_addons" />
-
-    <PreferenceCategory
-        android:key="keyboard_addons_group"
-        android:title="@string/keyboards_group"></PreferenceCategory>
 
 </PreferenceScreen>

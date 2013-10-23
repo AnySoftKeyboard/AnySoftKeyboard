@@ -167,4 +167,34 @@ public class MainSettings extends FragmentChauffeurActivity {
         mDrawerRootLayout.closeDrawers();
         addFragmentToUi(new KeyboardAddOnSettingsFragment(), FragmentUiContext.RootFragment);
     }
+
+    public void onNavigateToDictionarySettings(View v) {
+        mDrawerRootLayout.closeDrawers();
+        addFragmentToUi(new DictionariesFragment(), FragmentUiContext.RootFragment);
+    }
+
+    public void onNavigateToLanguageSettings(View v) {
+        mDrawerRootLayout.closeDrawers();
+        //TODO: start additional language settings fragment
+    }
+
+    public void onNavigateToKeyboardThemeSettings(View v) {
+        mDrawerRootLayout.closeDrawers();
+        addFragmentToUi(new KeyboardThemeSelectorFragment(), FragmentUiContext.RootFragment);
+    }
+
+    public void onNavigateToEffectsSettings(View v) {
+        mDrawerRootLayout.closeDrawers();
+        //TODO: start additional language settings fragment
+    }
+
+    public void onNavigateToGestureSettings(View v) {
+        mDrawerRootLayout.closeDrawers();
+        //TODO: start additional language settings fragment
+    }
+
+    public void onNavigateToUserInterfaceSettings(View v) {
+        mDrawerRootLayout.closeDrawers();
+        addFragmentToUi(new AdditionalUiSettingsFragment(), FragmentUiContext.RootFragment);
+    }
 }

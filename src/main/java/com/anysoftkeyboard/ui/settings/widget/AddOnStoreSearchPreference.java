@@ -33,7 +33,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.anysoftkeyboard.ui.MainForm;
 import com.anysoftkeyboard.utils.Log;
@@ -41,6 +40,8 @@ import com.menny.android.anysoftkeyboard.R;
 
 public class AddOnStoreSearchPreference extends Preference implements OnClickListener {
     private static final String TAG = "AddOnStoreSearchPreference";
+
+    private View mStoreNotFoundView;
 
     public AddOnStoreSearchPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -59,6 +60,8 @@ public class AddOnStoreSearchPreference extends Preference implements OnClickLis
             TextView cta = (TextView) layout.findViewById(R.id.cta_title);
             cta.setText(title);
         }
+        mStoreNotFoundView = layout.findViewById(R.id.no_store_found_error);
+        mStoreNotFoundView.setVisibility(View.GONE);
         return layout;
     }
 
@@ -70,9 +73,7 @@ public class AddOnStoreSearchPreference extends Preference implements OnClickLis
                     " " + tag);
         } catch (Exception ex) {
             Log.e(TAG, "Could not launch Store search!", ex);
-            Toast.makeText(getContext().getApplicationContext(),
-                    R.string.no_market_store_available,
-                    Toast.LENGTH_LONG).show();
+            mStoreNotFoundView.setVisibility(View.VISIBLE);
         }
     }
 }

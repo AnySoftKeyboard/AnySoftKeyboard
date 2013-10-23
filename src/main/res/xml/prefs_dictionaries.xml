@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:key="special_dictionaries_group"
-                  android:title="@string/special_dictionaries_group"
-                  android:id="@+id/special_dictionaries_group">
+                  android:key="special_dictionaries_group">
+
+    <Preference
+        android:key="summary"
+        android:summary="@string/special_dictionaries_group_summary" />
 
     <CheckBoxPreference
         android:key="@string/settings_key_use_user_dictionary"
@@ -12,7 +14,8 @@
         android:defaultValue="@bool/settings_default_user_dictionary"
         android:summaryOn="@string/use_user_dictionary_on_summary"
         android:summaryOff="@string/use_user_dictionary_off_summary"/>
-    <Preference android:title="@string/user_dict_editor">
+    <Preference android:title="@string/user_dict_editor"
+        android:key="@string/user_dict_editor_key">
         <intent
             android:action="android.intent.action.MAIN"
             android:targetPackage="com.menny.android.anysoftkeyboard"

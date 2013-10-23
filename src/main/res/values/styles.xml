@@ -408,4 +408,8 @@
         <item name="android:textSize">@dimen/font_size_small_text</item>
     </style>
 
+    <style name="Ask.Text.Small.Error" parent="Ask.Text.Small">
+        <item name="android:textColor">#F46</item>
+    </style>
+
 </resources>

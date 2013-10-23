@@ -27,18 +27,40 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.view.*;
+import android.view.AbsSavedState;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.*;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.PopupWindow;
+import android.widget.RadioButton;
+import android.widget.TextView;
+
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.addons.IconHolder;
 import com.anysoftkeyboard.addons.ScreenshotHolder;
 import com.menny.android.anysoftkeyboard.R;
-/*using this import requires using the Android Library from https://github.com/menny/PushingPixels*/
+
 import net.evendanan.pushingpixels.ListPreference;
 
+import java.util.List;
+
+/*using this import requires using the Android Library from https://github.com/menny/PushingPixels*/
+
 public class AddOnListPreference extends ListPreference {
+
+    public static <E extends AddOn> void populateAddOnListPreference(AddOnListPreference preference,
+                                                   List<E> list, AddOn selectedAddOn) {
+        AddOn[] addOns = new AddOn[list.size()];
+        list.toArray(addOns);
+        preference.setAddOnsList(addOns);
+        preference.setSelectedAddOn(selectedAddOn);
+    }
 
     private AddOn[] mAddOns;
     private AddOn mSelectedAddOn;

@@ -17,7 +17,6 @@
 package com.anysoftkeyboard.ui.tutorials;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
@@ -32,13 +31,14 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
-import com.anysoftkeyboard.ui.settings.BottomRowSelector;
-import com.anysoftkeyboard.ui.settings.TopRowSelector;
+
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
+
+import javax.annotation.Nonnull;
 
 public class TipsActivity extends BaseTutorialActivity implements OnCheckedChangeListener {
 
@@ -197,23 +197,13 @@ public class TipsActivity extends BaseTutorialActivity implements OnCheckedChang
                 mCurrentTipIndex--;
                 showTip();
                 break;
-            //special tips buttons
-            case R.id.tips_goto_top_row_settings:
-                Intent startTopRowSettingsIntent = new Intent(this, TopRowSelector.class);
-                startActivity(startTopRowSettingsIntent);
-                break;
-            case R.id.tips_goto_bottom_row_settings:
-                Intent startBottomRowSettingsIntent = new Intent(this, BottomRowSelector.class);
-                startActivity(startBottomRowSettingsIntent);
-                break;
-            //super
             default:
                 super.onClick(v);
                 break;
         }
     }
 
-    public static void addTipToCandidate(final Context appContext, final TextView tipsNotification, final String TIPS_NOTIFICATION_KEY, final OnClickListener onClickListener) {
+    public static void addTipToCandidate(final Context appContext, @Nonnull final TextView tipsNotification, @Nonnull final String TIPS_NOTIFICATION_KEY, final OnClickListener onClickListener) {
         if (AnyApplication.getConfig().hasNotificationClicked(TIPS_NOTIFICATION_KEY)) {
             tipsNotification.setVisibility(View.GONE);
             ViewGroup p = tipsNotification.getParent() instanceof ViewGroup? (ViewGroup)tipsNotification.getParent() : null;

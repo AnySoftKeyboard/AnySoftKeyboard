@@ -61,27 +61,6 @@ public class TutorialsProvider {
 
         context.startActivity(i);
     }
-    /*
-	public static void showHowToActivateIfNeeded(Context context)
-	{
-		if (!linearSearch( Secure.getString(context.getContentResolver(), Secure.ENABLED_INPUT_METHODS),
-				context.getPackageName() ) )
-		{
-			//ASK is not enabled, but installed. Has the user forgot how to turn it on?
-			if (!hasWelcomeActivityShown(context))
-			{
-				//this is the first time the application is loaded.
-				Log.i(TAG, "Welcome added");
-
-				Intent i = new Intent(context, WelcomeHowToNoticeActivity.class);
-				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				
-				showNotificationIcon(context, new IntentToLaunch(
-								TUTORIALS_NOTIFICATION_ID_BASE+2, i, R.drawable.notification_icon_how_to, 
-								R.string.notification_title_how_to_enable, R.string.notification_text_how_to_enable));
-			}
-		}
-	}*/
 
     public static void showChangeLogIfNeeded(Context context) {
         if (AnyApplication.getConfig().getShowVersionNotification() && firstTimeVersionChangeLogLoaded(context)) {
@@ -98,7 +77,7 @@ public class TutorialsProvider {
 
     private static boolean firstTestersTimeVersionLoaded(Context context) {
         final String KEY = "testers_version_version_hash";
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);// context.getSharedPreferences(TUTORIALS_SP_FILENAME, 0);//private
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         final String lastDebugVersionHash = sp.getString(KEY, "NONE");
         String currentHash = "";
         try {
