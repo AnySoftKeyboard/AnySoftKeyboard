@@ -23,7 +23,6 @@
  */
 package com.anysoftkeyboard.ui.settings.widget;
 
-import android.app.Service;
 import android.content.Context;
 import android.preference.Preference;
 import android.text.TextUtils;
@@ -50,10 +49,8 @@ public class AddOnStoreSearchPreference extends Preference implements OnClickLis
 
     @Override
     protected View onCreateView(ViewGroup parent) {
-        LayoutInflater inflator = (LayoutInflater) getContext()
-                .getSystemService(Service.LAYOUT_INFLATER_SERVICE);
-        View layout = inflator.inflate(
-                R.layout.addon_store_search_pref, null);
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View layout = inflater.inflate(R.layout.addon_store_search_pref, parent, false);
         layout.setOnClickListener(this);
         CharSequence title = getTitle();
         if (!TextUtils.isEmpty(title)) {
