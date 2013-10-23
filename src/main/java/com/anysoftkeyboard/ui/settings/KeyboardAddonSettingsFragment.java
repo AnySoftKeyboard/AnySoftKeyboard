@@ -16,7 +16,7 @@
 
 package com.anysoftkeyboard.ui.settings;
 
-import android.content.Context;
+import android.app.Activity;
 import android.os.Bundle;
 import android.preference.PreferenceCategory;
 import android.support.v4.preference.PreferenceFragment;
@@ -24,6 +24,7 @@ import android.view.View;
 
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
+import com.anysoftkeyboard.ui.settings.widget.AddOnCheckBoxPreference;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
@@ -41,16 +42,15 @@ public class KeyboardAddOnSettingsFragment extends PreferenceFragment {
         super.onStart();
 
         PreferenceCategory keyboardsGroup = (PreferenceCategory) findPreference("keyboard_addons_group");
-        Context appContext = getActivity().getApplicationContext();
+        Activity activity = getActivity();
         getActivity().setTitle(getString(R.string.keyboards_group));
         // getting all keyboards
-        final ArrayList<KeyboardAddOnAndBuilder> creators = KeyboardFactory.getAllAvailableKeyboards(appContext);
+        final ArrayList<KeyboardAddOnAndBuilder> creators = KeyboardFactory.getAllAvailableKeyboards(activity.getApplicationContext());
 
-        // removeNonDefaultPreferences();
         keyboardsGroup.removeAll();
 
         for (final KeyboardAddOnAndBuilder creator : creators) {
-            final AddOnCheckBoxPreference checkBox = new AddOnCheckBoxPreference(appContext, null);
+            final AddOnCheckBoxPreference checkBox = new AddOnCheckBoxPreference(activity, null, R.style.Theme_AppCompat_Light);
             checkBox.setAddOn(creator);
             keyboardsGroup.addPreference(checkBox);
         }

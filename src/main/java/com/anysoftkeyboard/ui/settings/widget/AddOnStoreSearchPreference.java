@@ -21,7 +21,7 @@
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  */
-package com.anysoftkeyboard.ui.settings;
+package com.anysoftkeyboard.ui.settings.widget;
 
 import android.app.Service;
 import android.content.Context;

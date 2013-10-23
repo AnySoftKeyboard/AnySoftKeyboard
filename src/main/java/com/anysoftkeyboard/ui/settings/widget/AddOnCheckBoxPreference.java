@@ -21,7 +21,7 @@
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  */
-package com.anysoftkeyboard.ui.settings;
+package com.anysoftkeyboard.ui.settings.widget;
 
 import android.app.Service;
 import android.content.Context;
@@ -55,17 +55,24 @@ public class AddOnCheckBoxPreference extends Preference implements
     private View mIconOverlay;
     private AddOn mAddOn;
 
+    public AddOnCheckBoxPreference(Context context) {
+        this(context, null);
+    }
+
     public AddOnCheckBoxPreference(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
+    }
+
+    public AddOnCheckBoxPreference(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
         setPersistent(true);
     }
 
     @Override
     protected View onCreateView(ViewGroup parent) {
-        LayoutInflater inflator = (LayoutInflater) getContext()
-                .getSystemService(Service.LAYOUT_INFLATER_SERVICE);
-        ViewGroup layout = (ViewGroup) inflator.inflate(
-                R.layout.addon_checkbox_pref, null);
+        LayoutInflater inflator = LayoutInflater.from(getContext());
+        ViewGroup layout = (ViewGroup) inflator.inflate(R.layout.addon_checkbox_pref, parent, false);
+
         mCheckBox = (CheckBox) layout.findViewById(R.id.addon_checkbox);
         mCheckBox.setOnCheckedChangeListener(this);
         mName = (TextView) layout.findViewById(R.id.addon_title);
