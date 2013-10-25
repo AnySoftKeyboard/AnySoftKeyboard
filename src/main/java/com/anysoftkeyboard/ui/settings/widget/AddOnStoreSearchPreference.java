@@ -24,6 +24,8 @@
 package com.anysoftkeyboard.ui.settings.widget;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.preference.Preference;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -33,7 +35,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.anysoftkeyboard.ui.MainForm;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -65,9 +66,10 @@ public class AddOnStoreSearchPreference extends Preference implements OnClickLis
     public void onClick(View view) {
         try {
             String tag = getKey();
-            MainForm.searchMarketForAddons(
-                    getContext(),
-                    " " + tag);
+            Intent search = new Intent(Intent.ACTION_VIEW);
+            search.setData(Uri.parse("market://search?q=AnySoftKeyboard " + tag));
+            search.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            getContext().startActivity(search);
         } catch (Exception ex) {
             Log.e(TAG, "Could not launch Store search!", ex);
             mStoreNotFoundView.setVisibility(View.VISIBLE);

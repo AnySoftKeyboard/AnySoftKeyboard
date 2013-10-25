@@ -21,7 +21,6 @@ import android.app.backup.BackupAgentHelper;
 import android.app.backup.BackupDataInputStream;
 import android.app.backup.SharedPreferencesBackupHelper;
 import android.text.TextUtils;
-import com.anysoftkeyboard.ui.tutorials.WelcomeHowToNoticeActivity;
 import com.menny.android.anysoftkeyboard.R;
 
 @TargetApi(8)
@@ -48,9 +47,6 @@ public class AnyBackupAgent extends BackupAgentHelper {
                     if (key.equalsIgnoreCase(getApplicationContext().getString(R.string.settings_key_portrait_fullscreen)))
                         return;
                     if (key.equalsIgnoreCase(getApplicationContext().getString(R.string.settings_key_landscape_fullscreen)))
-                        return;
-                    //every device/install should get this help thingy
-                    if (key.equalsIgnoreCase(WelcomeHowToNoticeActivity.ASK_HAS_BEEN_ENABLED_BEFORE))
                         return;
                     //RTL is device specific
                     if (key.equalsIgnoreCase(getApplicationContext().getString(R.string.settings_key_workaround_disable_rtl_fix)))

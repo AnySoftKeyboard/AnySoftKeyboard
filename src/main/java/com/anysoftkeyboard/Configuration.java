@@ -94,10 +94,6 @@ public interface Configuration {
 
     boolean hideSoftKeyboardWhenPhysicalKeyPressed();
 
-    boolean getShowVersionNotification();
-
-    void setShowVersionNotification(boolean show);
-
     boolean getShowTipsNotification();
 
     void setShowTipsNotification(boolean show);

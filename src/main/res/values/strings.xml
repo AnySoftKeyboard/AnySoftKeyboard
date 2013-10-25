@@ -104,6 +104,7 @@
     <string name="how_to_pointer_how_to_url">Details about how to use this keyboard:</string>
     <string name="how_to_pointer_site">General details:</string>
     <string name="how_to_pointer_changelog">Details about the latest version:</string>
+    <string name="change_log_card_title">Latest changes</string>
     <string name="how_to_pointer_issues">Bug reporting:</string>
     <!-- credits tab -->
     <string name="main_tab_credits_title">This application was created with the help of the following people-</string>
@@ -720,6 +721,8 @@
     <string name="drawer_close">Menu close</string>
     <string name="not_configured_with_click_here">AnySoftKeyboard is not fully set-up for use. Click here to set up.</string>
     <string name="not_configured_with_just_click_here">Click here</string>
+
+    <string name="click_for_more">more…</string>
 
     <!--  Strings for possible PreferenceActivity Back/Next buttons -->
     <string name="back_button_label">Back</string>

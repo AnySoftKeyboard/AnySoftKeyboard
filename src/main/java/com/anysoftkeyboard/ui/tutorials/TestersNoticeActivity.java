@@ -16,17 +16,21 @@
 
 package com.anysoftkeyboard.ui.tutorials;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+
 import com.menny.android.anysoftkeyboard.R;
 
-public class TestersNoticeActivity extends BaseTutorialActivity {
+public class TestersNoticeActivity extends Activity {
 
     @Override
-    protected int getLayoutResId() {
-        return R.layout.testers_version;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.testers_version);
     }
 
-    @Override
-    protected int getTitleResId() {
-        return R.string.testers_version;
+    public void onCloseClicked(View v) {
+        finish();
     }
 }

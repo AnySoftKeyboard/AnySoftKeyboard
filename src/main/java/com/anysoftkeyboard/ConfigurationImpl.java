@@ -22,10 +22,10 @@ import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.Gravity;
+
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 import com.anysoftkeyboard.utils.Log;
@@ -82,7 +82,6 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
     private boolean mIsDoubleSpaceChangesToPeroid = true;
     private boolean mShouldPopupForLanguageSwitch = false;
     private boolean mHideSoftKeyboardWhenPhysicalKeyPressed = true;
-    private boolean mShowVersionNotification = true;
     private boolean mShowTipsNotification = true;
     private boolean mUse16KeysSymbolsKeyboard = false;
     private boolean mUseBackword = true;
@@ -431,10 +430,6 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
                 mContext.getResources().getBoolean(R.bool.settings_default_hide_soft_when_physical));
         Log.d(TAG, "** mHideSoftKeyboardWhenPhysicalKeyPressed: " + mHideSoftKeyboardWhenPhysicalKeyPressed);
 
-        mShowVersionNotification = sp.getBoolean(mContext.getString(R.string.settings_key_show_version_notification),
-                mContext.getResources().getBoolean(R.bool.settings_default_show_version_notification));
-        Log.d(TAG, "** mShowVersionNotification: " + mShowVersionNotification);
-
         mShowTipsNotification = sp.getBoolean(mContext.getString(R.string.settings_key_show_tips_notification),
                 mContext.getResources().getBoolean(R.bool.settings_default_show_tips_notification));
         Log.d(TAG, "** mShowTipsNotification: " + mShowTipsNotification);
@@ -706,18 +701,6 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 
     public boolean hideSoftKeyboardWhenPhysicalKeyPressed() {
         return mHideSoftKeyboardWhenPhysicalKeyPressed;
-    }
-
-    public boolean getShowVersionNotification() {
-        return mShowVersionNotification;
-    }
-
-    public void setShowVersionNotification(boolean show) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
-        Editor e = sp.edit();
-        e.putBoolean(mContext.getString(R.string.settings_key_show_version_notification), show);
-        mShowVersionNotification = show;
-        e.commit();
     }
 
     public boolean getShowTipsNotification() {

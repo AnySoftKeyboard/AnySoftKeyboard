@@ -67,20 +67,6 @@
             <meta-data android:name="android.view.textservice.scs" android:resource="@xml/spellchecker" />
         </service>
         -->
-        <!-- receivers for outside events -->
-        <!--
-         this is used for showing HOW-TO after Market install
-	     Probably does not work anymore. It seems that Market v3 will only call this broadcast
-	     on first app activation. Which is a good security fix, but bad for me :) 
-	     I'm keeping it here since some devices STILL have Market v2. So, I'm being greedy.
-        -->
-        <receiver
-            android:name="com.anysoftkeyboard.receivers.AnySoftKeyboardInstalledReceiver"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER"/>
-            </intent-filter>
-        </receiver>
 
         <!-- ui activities -->
         <!-- settings ui activities -->
@@ -108,7 +94,7 @@
         </activity>
         <!-- information ui activities -->
         <activity
-            android:name="com.anysoftkeyboard.ui.tutorials.TipsActivity"
+            android:name="com.anysoftkeyboard.ui.tutorials.TipsFragment"
             android:icon="@drawable/ic_launcher"
             android:label="@string/tips_title"
             android:theme="@style/Popup.NoTitle">
@@ -118,18 +104,6 @@
             android:icon="@drawable/ic_launcher"
             android:label="@string/testers_version"
             android:theme="@style/Popup">
-        </activity>
-        <activity
-            android:name="com.anysoftkeyboard.ui.tutorials.WelcomeHowToNoticeActivity"
-            android:icon="@drawable/ic_launcher"
-            android:label="@string/how_to_pointer_title"
-            android:theme="@style/Popup.NoTitle">
-        </activity>
-        <activity
-            android:name="com.anysoftkeyboard.ui.tutorials.ChangeLogActivity"
-            android:icon="@drawable/ic_launcher"
-            android:label="@string/changelog"
-            android:theme="@style/Popup.NoTitle">
         </activity>
         <!-- ui when a crash happens -->
         <activity
