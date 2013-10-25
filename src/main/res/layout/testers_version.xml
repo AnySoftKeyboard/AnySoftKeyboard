@@ -20,15 +20,6 @@
     android:weightSum="1">
 
     <TextView
-        style="@style/Ask.Text.Title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/testers_version" />
-
-    <View style="@style/Ask.Menu.Divider" />
-
-    <TextView
         style="@style/Ask.Text.Normal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,7 +44,7 @@
             android:gravity="center"
             android:padding="8dp"
             android:text="@string/close_button"
-            android:onClick=""/>
+            android:onClick="onCloseClicked"/>
     </LinearLayout>
 
 </LinearLayout>
