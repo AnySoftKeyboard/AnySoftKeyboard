@@ -87,7 +87,7 @@ import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.ui.settings.MainSettings;
-import com.anysoftkeyboard.ui.tutorials.TipsActivity;
+import com.anysoftkeyboard.ui.tutorials.TipLayoutsSupport;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 import com.anysoftkeyboard.utils.IMEUtil.GCUtils;
 import com.anysoftkeyboard.utils.IMEUtil.GCUtils.MemRelatedOperation;
@@ -294,8 +294,6 @@ public class AnySoftKeyboard extends InputMethodService implements
         mVoiceRecognitionTrigger = AnyApplication.getFrankenRobot().embody(
                 new VoiceInput.VoiceInputDiagram(this));
 
-        TutorialsProvider.showChangeLogIfNeeded(getApplicationContext());
-
         mSwitchAnimator = new LayoutSwitchAnimationListener(this);
     }
 
@@ -473,7 +471,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                     && TutorialsProvider.shouldShowTips(getApplicationContext())) {
 
                 final String TIPS_NOTIFICATION_KEY = "TIPS_NOTIFICATION_KEY";
-                TipsActivity.addTipToCandidate(getApplicationContext(), tipsNotification, TIPS_NOTIFICATION_KEY, new OnClickListener() {
+                TipLayoutsSupport.addTipToCandidate(getApplicationContext(), tipsNotification, TIPS_NOTIFICATION_KEY, new OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         TutorialsProvider.showTips(getApplicationContext());

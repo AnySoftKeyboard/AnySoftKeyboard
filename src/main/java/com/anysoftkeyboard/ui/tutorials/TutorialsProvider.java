@@ -56,23 +56,10 @@ public class TutorialsProvider {
     }
 
     public static void showTips(Context context) {
-        Intent i = new Intent(context, TipsActivity.class);
+        Intent i = new Intent(context, TipsFragment.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         context.startActivity(i);
-    }
-
-    public static void showChangeLogIfNeeded(Context context) {
-        if (AnyApplication.getConfig().getShowVersionNotification() && firstTimeVersionChangeLogLoaded(context)) {
-            Log.i(TAG, "changelog added");
-
-            Intent i = new Intent(context, ChangeLogActivity.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-            showNotificationIcon(context, new IntentToLaunch(
-                    TUTORIALS_NOTIFICATION_ID_BASE + 3, i, R.drawable.notification_icon_changelog,
-                    R.string.ime_name, R.string.notification_text_changelog));
-        }
     }
 
     private static boolean firstTestersTimeVersionLoaded(Context context) {
@@ -149,7 +136,7 @@ public class TutorialsProvider {
         //let's see if there are new layouts for this user.
         ArrayList<Integer> layoutsToShow = new ArrayList<Integer>();
         SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(applicationContext);
-        TipsActivity.getTipsLayouts(applicationContext, false, layoutsToShow, appPrefs);
+        TipLayoutsSupport.getAvailableTipsLayouts(applicationContext, layoutsToShow);
 
         return layoutsToShow.size() > 0;
     }

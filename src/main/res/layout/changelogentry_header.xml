@@ -1,19 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:layout_width="fill_parent" android:layout_height="fill_parent"
-              android:paddingTop="4dp" android:paddingBottom="4dp"
-              android:paddingLeft="8dp" android:paddingRight="8dp">
+              android:layout_width="fill_parent" android:layout_height="fill_parent">
     <TextView
             android:id="@+id/changelog_version_title"
             android:layout_height="wrap_content" android:layout_width="fill_parent"
-            style="@android:style/TextAppearance.Medium"
-            android:textStyle="bold" android:gravity="center"
-            android:text="20120109 - 65"
-            android:textColor="#CCC"
-            />
-    <TextView
-            android:id="@+id/changelog_version_url"
-            android:layout_width="fill_parent" android:layout_height="wrap_content"
-            style="@android:style/TextAppearance.Small"
-            android:autoLink="web" android:text="http://s.evendanan.net/ask_r65"/>
+            style="@style/Ask.Text.Title" android:gravity="center"
+            android:text="20120109 - 65" />
 </LinearLayout>

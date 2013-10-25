@@ -15,6 +15,7 @@
 -->
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp"
@@ -64,13 +65,9 @@
         <!-- this box will be should shown
          only if the keyboard is not fully enabled in the system. -->
         <LinearLayout
+            style="@style/Ask.Card"
             android:orientation="horizontal"
-            android:id="@+id/keyboard_not_configured_box"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:background="@drawable/card_background"
-            android:minHeight="44dp"
-            android:layout_width="match_parent">
+            android:id="@+id/keyboard_not_configured_box">
 
             <ImageView
                 android:id="@+id/not_configured_icon"
@@ -85,6 +82,31 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="@string/not_configured_with_click_here" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/Ask.Card"
+            android:orientation="vertical">
+            <TextView
+                style="@style/Ask.Text.Title"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="6dp"
+                android:text="@string/change_log_card_title" />
+            <fragment
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:name="com.anysoftkeyboard.ui.tutorials.ChangeLogFragment$CardedChangeLogFragment"
+                tools:layout="@layout/changelog_layout_102" />
+            <TextView
+                style="@style/Ask.Text.Small"
+                android:id="@+id/read_more_change_log"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginTop="6dp"
+                android:text="@string/click_for_more" />
         </LinearLayout>
     </LinearLayout>
 

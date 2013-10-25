@@ -1,7 +1,7 @@
 package com.anysoftkeyboard.ui.settings;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
@@ -15,8 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.anysoftkeyboard.ui.tutorials.WelcomeHowToNoticeActivity;
+import com.anysoftkeyboard.ui.tutorials.ChangeLogFragment;
 import com.menny.android.anysoftkeyboard.R;
+
+import net.evendanan.pushingpixels.FragmentChauffeurActivity;
 
 public class MainFragment extends Fragment {
 
@@ -40,11 +42,28 @@ public class MainFragment extends Fragment {
         ClickableSpan csp = new ClickableSpan() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), WelcomeHowToNoticeActivity.class);
-                startActivity(i);
+                //TODO: start the how-to-activate fragment
             }
         };
         sb.setSpan(csp, start, start + length, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        clickHere.setMovementMethod(LinkMovementMethod.getInstance());
+        clickHere.setText(sb);
+
+        //setting up change_log
+        clickHere = (TextView) view.findViewById(R.id.read_more_change_log);
+        sb = new SpannableStringBuilder(clickHere.getText());
+        csp = new ClickableSpan() {
+            @Override
+            public void onClick(View v) {
+                Activity activity = getActivity();
+                if (activity != null && activity instanceof FragmentChauffeurActivity) {
+                    ((FragmentChauffeurActivity)activity).addFragmentToUi(
+                            ChangeLogFragment.createFragment(ChangeLogFragment.SHOW_ALL_CHANGELOG, true),
+                            FragmentChauffeurActivity.FragmentUiContext.ExpandedItem);
+                }
+            }
+        };
+        sb.setSpan(csp, 0, clickHere.getText().length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         clickHere.setMovementMethod(LinkMovementMethod.getInstance());
         clickHere.setText(sb);
     }
