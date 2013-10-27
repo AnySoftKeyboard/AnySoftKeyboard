@@ -1,9 +1,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="fill_parent" android:layout_height="fill_parent">
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="8dp">
+
     <TextView
-            android:id="@+id/changelog_version_title"
-            android:layout_height="wrap_content" android:layout_width="fill_parent"
-            style="@style/Ask.Text.Title" android:gravity="center"
-            android:text="20120109 - 65" />
+        android:id="@+id/changelog_version_title"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        style="@style/Ask.Text.Title"
+        android:text="20120109 - 65" />
+    <View style="@style/Ask.Menu.Divider" />
 </LinearLayout>

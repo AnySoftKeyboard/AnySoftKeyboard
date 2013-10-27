@@ -22,8 +22,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.View;
 
 import com.menny.android.anysoftkeyboard.R;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public abstract class FragmentChauffeurActivity extends ActionBarActivity {
 
@@ -64,7 +68,17 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
         transaction.commit();
     }
 
-    public void addFragmentToUi(Fragment fragment, FragmentUiContext experience) {
+    public void addFragmentToUi(@Nonnull Fragment fragment, FragmentUiContext experience) {
+        addFragmentToUi(fragment, experience, null);
+    }
+
+    /**
+     * Adds the given fragment into the UI using the specified UI-context animation.
+     * @param fragment any generic Fragment. For the ExpandedItem animation it is best to use a PassengerFragment
+     * @param experience
+     * @param originateView a hint view which will be used to fine-tune the ExpandedItem animation
+     */
+    public void addFragmentToUi(@Nonnull Fragment fragment, FragmentUiContext experience, @Nullable View originateView) {
         if (experience == FragmentUiContext.RootFragment) {
             //in this case, I need to pop all the other fragments till the root.
             returnToRootFragment();
@@ -81,14 +95,25 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
                         R.anim.ui_context_deeper_pop_in, R.anim.ui_context_deeper_pop_out);
                 break;
             case ExpandedItem:
-                //ideally, the source of the animation would be the View which we expanding
-                //consider having 9 animations sets: one for each quadrant of the screen, each of the sets will have
-                //a pivotX, pivotY:
-                //1 2 3
-                //4 5 6
-                //7 8 9
-                transaction.setCustomAnimations(R.anim.ui_context_expand_add_in, R.anim.ui_context_expand_add_out,
-                        R.anim.ui_context_expand_pop_in, R.anim.ui_context_expand_pop_out);
+                //although this managing Activity can handle any generic Fragment, in this case we'll need some help from the fragment.
+                //it is required to fine tune the pivot of the scale animation.
+                //so, I'll need the specialized fragment PassengerFragment
+                if (fragment instanceof PassengerFragment && originateView != null) {
+                    View fragmentParent = findViewById(getFragmentRootUiElementId());
+                    float pivotX = ((float)(originateView.getWidth()/2 + originateView.getLeft()) / ((float)fragmentParent.getWidth()));
+                    float pivotY = ((float)(originateView.getHeight()/2 + originateView.getTop()) / ((float)fragmentParent.getHeight()));
+                    float scaleX = ((float)(originateView.getWidth()) / ((float)fragmentParent.getWidth()));
+                    float scaleY = ((float)(originateView.getHeight()) / ((float)fragmentParent.getHeight()));
+
+                    PassengerFragment passengerFragment = (PassengerFragment)fragment;
+                    passengerFragment.setItemExpandExtraData(pivotX, pivotY, scaleX, scaleY);
+                    transaction.setCustomAnimations(R.anim.ui_context_expand_add_in, R.anim.ui_context_expand_add_out,
+                            R.anim.ui_context_expand_pop_in, R.anim.ui_context_expand_pop_out);
+                } else {
+                    //using the default scale animation, no pivot changes can be done on a generic fragment.
+                    transaction.setCustomAnimations(R.anim.ui_context_expand_add_in_default, R.anim.ui_context_expand_add_out,
+                            R.anim.ui_context_expand_pop_in, R.anim.ui_context_expand_pop_out_default);
+                }
                 break;
             case IncomingAlert:
                 transaction.setCustomAnimations(R.anim.ui_context_dialog_add_in, R.anim.ui_context_dialog_add_out,

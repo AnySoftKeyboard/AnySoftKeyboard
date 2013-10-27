@@ -59,7 +59,8 @@ public class MainFragment extends Fragment {
                 if (activity != null && activity instanceof FragmentChauffeurActivity) {
                     ((FragmentChauffeurActivity)activity).addFragmentToUi(
                             ChangeLogFragment.createFragment(ChangeLogFragment.SHOW_ALL_CHANGELOG, true),
-                            FragmentChauffeurActivity.FragmentUiContext.ExpandedItem);
+                            FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
+                            getView().findViewById(R.id.change_log_card));
                 }
             }
         };

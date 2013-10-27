@@ -23,7 +23,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +32,9 @@ import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
-public class ChangeLogFragment extends Fragment {
+import net.evendanan.pushingpixels.PassengerFragment;
+
+public class ChangeLogFragment extends PassengerFragment {
 
     private static final String EXTRA_LOGS_TO_SHOW = "EXTRA_LOGS_TO_SHOW";
     private static final String EXTRA_SHOW_TITLE = "EXTRA_SHOW_TITLE";
@@ -47,6 +48,7 @@ public class ChangeLogFragment extends Fragment {
         Bundle b = new Bundle();
         b.putInt(EXTRA_LOGS_TO_SHOW, logToShow);
         b.putBoolean(EXTRA_SHOW_TITLE, showTitle);
+
         fragment.setArguments(b);
 
         return fragment;
@@ -105,12 +107,14 @@ public class ChangeLogFragment extends Fragment {
                     String logTag = logEntry.getTag().toString();
                     ViewGroup logHeader = (ViewGroup) inflater.inflate(R.layout.changelogentry_header, mLogContainer, false);
                     TextView versionName = (TextView) logHeader.findViewById(R.id.changelog_version_title);
-                    versionName.setText(logTag + " - v" + currentVersionCode);
+                    updateEntryText(versionName, logTag, currentVersionCode);
 
                     mLogContainer.addView(logHeader);
                     mLogContainer.addView(logEntry);
                     if (mLogToShow == SHOW_LATEST_CHANGELOG)
                         break;//in this case, one is enough.
+
+                    mLogContainer.addView(inflater.inflate(R.layout.transparent_divider, mLogContainer, false));
                 } else {
                     //if I've seen this that one, no need to continue with the loop
                     break;
@@ -118,6 +122,10 @@ public class ChangeLogFragment extends Fragment {
             }
             currentVersionCode--;
         }
+    }
+
+    protected void updateEntryText(TextView entryHeader, String versionName, int versionCode) {
+        entryHeader.setText(getString(R.string.change_log_entry_header_template, versionCode, versionName));
     }
 
     @Override
@@ -132,6 +140,11 @@ public class ChangeLogFragment extends Fragment {
             b.putBoolean(EXTRA_SHOW_TITLE, false);
             b.putInt(EXTRA_LOGS_TO_SHOW, ChangeLogFragment.SHOW_LATEST_CHANGELOG);
             setArguments(b);
+        }
+
+        protected void updateEntryText(TextView entryHeader, String versionName, int versionCode) {
+            String cardedHeader = getString(R.string.change_log_card_title_template, versionCode, versionName);
+            entryHeader.setText(cardedHeader);
         }
     }
 }

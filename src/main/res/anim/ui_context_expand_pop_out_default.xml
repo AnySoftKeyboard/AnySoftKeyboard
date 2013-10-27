@@ -7,8 +7,6 @@
         android:fromAlpha="1.0"
         android:toAlpha="0.0"
         android:duration="@android:integer/config_mediumAnimTime" />
-    <!-- this will be added programatically, so the pivot will be set to the originating view -->
-    <!--
     <scale
         android:duration="@android:integer/config_mediumAnimTime"
         android:fromXScale="1.0"
@@ -17,6 +15,5 @@
         android:toYScale="0.4"
         android:pivotX="50%"
         android:pivotY="50%" />
-        -->
 </set>
 

@@ -18,7 +18,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
     android:fillViewport="true">
 
     <LinearLayout
@@ -85,22 +84,16 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/change_log_card"
             style="@style/Ask.Card"
             android:orientation="vertical">
-            <TextView
-                style="@style/Ask.Text.Title"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="6dp"
-                android:text="@string/change_log_card_title" />
             <fragment
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:name="com.anysoftkeyboard.ui.tutorials.ChangeLogFragment$CardedChangeLogFragment"
                 tools:layout="@layout/changelog_layout_102" />
             <TextView
-                style="@style/Ask.Text.Small"
+                style="@style/Ask.Text.Hint"
                 android:id="@+id/read_more_change_log"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
