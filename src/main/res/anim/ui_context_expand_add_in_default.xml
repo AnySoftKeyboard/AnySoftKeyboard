@@ -4,19 +4,16 @@
     android:shareInterpolator="true"
     android:interpolator="@android:anim/decelerate_interpolator">
     <alpha
-        android:fromAlpha="1.0"
-        android:toAlpha="0.0"
+        android:fromAlpha="0.0"
+        android:toAlpha="1.0"
         android:duration="@android:integer/config_mediumAnimTime" />
-    <!-- this will be added programatically, so the pivot will be set to the originating view -->
-    <!--
     <scale
         android:duration="@android:integer/config_mediumAnimTime"
-        android:fromXScale="1.0"
-        android:toXScale="0.4"
-        android:fromYScale="1.0"
-        android:toYScale="0.4"
+        android:fromXScale="0.4"
+        android:toXScale="1.0"
+        android:fromYScale="0.4"
+        android:toYScale="1.0"
         android:pivotX="50%"
         android:pivotY="50%" />
-        -->
 </set>
 
