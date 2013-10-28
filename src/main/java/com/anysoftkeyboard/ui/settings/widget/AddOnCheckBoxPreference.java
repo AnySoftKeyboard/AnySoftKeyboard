@@ -165,7 +165,7 @@ public class AddOnCheckBoxPreference extends Preference implements
                     popup.dismiss();
                 }
             });
-            ((ImageView) layout.findViewById(R.id.addon_screenshot)).setImageDrawable(screenshot);
+            layout.findViewById(R.id.addon_screenshot).setBackground(screenshot);
             popup.showAtLocation(view, Gravity.CENTER, 0, 0);
         }
     }
