@@ -18,7 +18,6 @@ package com.anysoftkeyboard.ui.settings.widget;
 
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
-import android.app.Service;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -191,10 +190,8 @@ public class AddOnListPreference extends ListPreference {
                 if (screenshot == null)
                     return;
                 // inflating the screenshot view
-                LayoutInflater inflator = (LayoutInflater) getContext()
-                        .getSystemService(Service.LAYOUT_INFLATER_SERVICE);
-                ViewGroup layout = (ViewGroup) inflator.inflate(
-                        R.layout.addon_screenshot, null);
+                LayoutInflater inflator = LayoutInflater.from(getContext());
+                ViewGroup layout = (ViewGroup) inflator.inflate(R.layout.addon_screenshot, null);
                 final PopupWindow popup = new PopupWindow(getContext());
                 popup.setContentView(layout);
                 DisplayMetrics dm = getContext().getResources()
@@ -208,8 +205,7 @@ public class AddOnListPreference extends ListPreference {
                                 popup.dismiss();
                             }
                         });
-                ((ImageView) layout.findViewById(R.id.addon_screenshot))
-                        .setImageDrawable(screenshot);
+                layout.findViewById(R.id.addon_screenshot).setBackground(screenshot);
                 popup.showAtLocation(v, Gravity.CENTER, 0, 0);
             }
         }
