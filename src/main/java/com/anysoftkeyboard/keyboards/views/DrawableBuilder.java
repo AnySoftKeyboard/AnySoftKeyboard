@@ -33,8 +33,8 @@ public class DrawableBuilder {
         return mTheme.getPackageContext().getResources().getDrawable(mDrawableResourceId);
     }
 
-    public static DrawableBuilder build(KeyboardTheme theme, TypedArray a, final int attr) {
-        int resId = a.getResourceId(attr, 0);
+    public static DrawableBuilder build(KeyboardTheme theme, TypedArray a, final int index) {
+        int resId = a.getResourceId(index, 0);
         return new DrawableBuilder(theme, resId);
     }
 }
