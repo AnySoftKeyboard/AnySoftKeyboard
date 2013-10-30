@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.menny.android.anysoftkeyboard"
-          android:versionCode="111"
-          android:versionName="20130919">
+          android:versionCode="113"
+          android:versionName="20131030">
 
     <supports-screens
             android:anyDensity="true"
@@ -13,7 +13,7 @@
 
     <uses-sdk
             android:minSdkVersion="4"
-            android:targetSdkVersion="18">
+            android:targetSdkVersion="6">
     </uses-sdk>
 
     <uses-permission android:name="android.permission.VIBRATE"/>
