@@ -22,19 +22,22 @@ import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
-import android.util.TypedValue;
+import android.util.SparseIntArray;
 import android.util.Xml;
 import android.view.inputmethod.EditorInfo;
+
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
+import com.anysoftkeyboard.keyboards.views.KeyDrawableStateProvider;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.utils.Log;
 import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
+
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
@@ -131,9 +134,14 @@ public abstract class AnyKeyboard extends Keyboard {
     public void loadKeyboard(final KeyboardDimens keyboardDimens) {
         super.loadKeyboard(keyboardDimens);
 
-        addGenericRows(mASKContext, mKeyboardContext, mKeyboardMode,
-                keyboardDimens);
+        addGenericRows(mKeyboardMode, keyboardDimens);
         initKeysMembers(mASKContext);
+
+        //releasing memory
+        attributeIdMap = null;
+        remoteKeyboardLayoutStyleable = null;
+        remoteKeyboardRowLayoutStyleable = null;
+        remoteKeyboardKeyLayoutStyleable = null;
     }
 
     ;
@@ -225,13 +233,11 @@ public abstract class AnyKeyboard extends Keyboard {
         mKeyboardCondenser = new KeyboardCondenser(askContext, this);
     }
 
-    protected void addGenericRows(Context askContext, Context context,
-                                  int mode, final KeyboardDimens keyboardDimens) {
+    protected void addGenericRows(int mode, final KeyboardDimens keyboardDimens) {
         final KeyboardMetadata topMd;
         if (!mTopRowWasCreated) {
-            final KeyboardExtension topRowPlugin = KeyboardExtensionFactory
-                    .getCurrentKeyboardExtension(askContext,
-                            KeyboardExtension.TYPE_TOP);
+            final KeyboardExtension topRowPlugin =
+                    KeyboardExtensionFactory.getCurrentKeyboardExtension(mASKContext, KeyboardExtension.TYPE_TOP);
             if (topRowPlugin == null || // no plugin found
                     topRowPlugin.getKeyboardResId() == -1 || // plugin specified
                     // to be empty
@@ -248,6 +254,15 @@ public abstract class AnyKeyboard extends Keyboard {
                         key.edgeFlags = key.edgeFlags | Keyboard.EDGE_TOP;
                 }
             } else {
+                //replacing the styleables
+                attributeIdMap.clear();
+                remoteKeyboardLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
+                        R.styleable.KeyboardLayout, mASKContext, topRowPlugin.getPackageContext(), attributeIdMap, true);
+                remoteKeyboardKeyLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
+                        R.styleable.KeyboardLayout_Key, mASKContext, topRowPlugin.getPackageContext(), attributeIdMap, true);
+                remoteKeyboardRowLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
+                        R.styleable.KeyboardLayout_Row, mASKContext, topRowPlugin.getPackageContext(), attributeIdMap, true);
+
                 Log.d(TAG, "Top row layout id " + topRowPlugin.getId());
                 topMd = addKeyboardRow(topRowPlugin.getPackageContext(),
                         topRowPlugin.getKeyboardResId(), mode, keyboardDimens);
@@ -258,11 +273,18 @@ public abstract class AnyKeyboard extends Keyboard {
                         (int) keyboardDimens.getRowVerticalGap());
         }
         if (!mBottomRowWasCreated) {
-            final KeyboardExtension bottomRowPlugin = KeyboardExtensionFactory
-                    .getCurrentKeyboardExtension(askContext,
-                            KeyboardExtension.TYPE_BOTTOM);
+            final KeyboardExtension bottomRowPlugin =
+                    KeyboardExtensionFactory.getCurrentKeyboardExtension(mASKContext, KeyboardExtension.TYPE_BOTTOM);
             if (AnyApplication.DEBUG)
                 Log.d(TAG, "Bottom row layout id " + bottomRowPlugin.getId());
+            attributeIdMap.clear();
+            remoteKeyboardLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
+                    R.styleable.KeyboardLayout, mASKContext, bottomRowPlugin.getPackageContext(), attributeIdMap, true);
+            remoteKeyboardKeyLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
+                    R.styleable.KeyboardLayout_Key, mASKContext, bottomRowPlugin.getPackageContext(), attributeIdMap, true);
+            remoteKeyboardRowLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
+                    R.styleable.KeyboardLayout_Row, mASKContext, bottomRowPlugin.getPackageContext(), attributeIdMap, true);
+
             KeyboardMetadata bottomMd = addKeyboardRow(
                     bottomRowPlugin.getPackageContext(),
                     bottomRowPlugin.getKeyboardResId(), mode, keyboardDimens);
@@ -427,8 +449,7 @@ public abstract class AnyKeyboard extends Keyboard {
             key.icon = localResources.getDrawable(iconId);
             if (iconFeedbackId > 0) {
                 Drawable preview = localResources.getDrawable(iconFeedbackId);
-                preview.setBounds(0, 0, preview.getIntrinsicWidth(),
-                        preview.getIntrinsicHeight());
+                KeyboardSupport.updateDrawableBounds(preview);
                 key.iconPreview = preview;
             }
         } catch (OutOfMemoryError m) {
@@ -659,11 +680,6 @@ public abstract class AnyKeyboard extends Keyboard {
     }
 
     public static class AnyKey extends Keyboard.Key {
-        private final int[] KEY_STATE_FUNCTIONAL_NORMAL = {R.attr.key_type_function};
-
-        // functional pressed state (with properties)
-        private final int[] KEY_STATE_FUNCTIONAL_PRESSED = {
-                R.attr.key_type_function, android.R.attr.state_pressed};
 
         public int[] shiftedCodes;
         public CharSequence shiftedKeyLabel;
@@ -680,31 +696,46 @@ public abstract class AnyKeyboard extends Keyboard {
                       KeyboardDimens keyboardDimens, int x, int y,
                       XmlResourceParser parser) {
             super(askContext, res, parent, keyboardDimens, x, y, parser);
+            //setting up some defaults
             mEnabled = true;
             mFunctionalKey = false;
+            shiftedCodes = null;
+            longPressCode = 0;
+            shiftedKeyLabel = null;
+            hintLabel = null;
 
-            if (popupCharacters != null && popupCharacters.length() == 0) {
-                // If there is a keyboard with no keys specified in
-                // popupCharacters
-                popupResId = 0;
-            }
-
-            TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser),
-                    R.styleable.KeyboardLayout);
-			/* shifted codes support */
-            TypedValue shiftedCodesValue = new TypedValue();
-
-            if (a.getValue(R.styleable.KeyboardLayout_Key_shiftedCodes,
-                    shiftedCodesValue)) {
-                if (shiftedCodesValue.type == TypedValue.TYPE_INT_DEC
-                        || shiftedCodesValue.type == TypedValue.TYPE_INT_HEX) {
-                    shiftedCodes = new int[]{shiftedCodesValue.data};
-                } else if (shiftedCodesValue.type == TypedValue.TYPE_STRING) {
-                    shiftedCodes = parseCSV(shiftedCodesValue.string.toString());
+            Keyboard parentKeyboard = parent.parent;
+            SparseIntArray attributeIdMap = parentKeyboard.attributeIdMap;
+            int[] remoteKeyboardKeyLayoutStyleable = parentKeyboard.remoteKeyboardKeyLayoutStyleable;
+            TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser), remoteKeyboardKeyLayoutStyleable);
+            int n = a.getIndexCount();
+            for (int i = 0; i < n; i++) {
+                final int remoteIndex = a.getIndex(i);
+                final int localAttrId = attributeIdMap.get(remoteKeyboardKeyLayoutStyleable[remoteIndex]);
+                try {
+                    switch (localAttrId) {
+                        case R.attr.shiftedCodes:
+                            shiftedCodes = KeyboardSupport.getKeyCodesFromTypedArray(a, remoteIndex);
+                            break;
+                        case R.attr.longPressCode:
+                            longPressCode = a.getInt(remoteIndex, 0);
+                            break;
+                        case R.attr.isFunctional:
+                            mFunctionalKey = a.getBoolean(remoteIndex, false);
+                            break;
+                        case R.attr.shiftedKeyLabel:
+                            shiftedKeyLabel = a.getString(remoteIndex);
+                            break;
+                        case R.attr.hintLabel:
+                            hintLabel = a.getString(remoteIndex);
+                            break;
+                    }
+                } catch (Exception e) {
+                    Log.w(TAG, "Failed to set data from XML!", e);
                 }
-            } else {
-                shiftedCodes = null;
             }
+            a.recycle();
+
             // ensuring codes and shiftedCodes are the same size
             if (shiftedCodes != null && shiftedCodes.length != codes.length) {
                 int[] wrongSizedShiftCodes = shiftedCodes;
@@ -721,15 +752,11 @@ public abstract class AnyKeyboard extends Keyboard {
                 }
             }
 
-			/* long press support */
-            longPressCode = a.getInt(
-                    R.styleable.KeyboardLayout_Key_longPressCode, 0);
-            mFunctionalKey = a.getBoolean(
-                    R.styleable.KeyboardLayout_Key_isFunctional, false);
-            shiftedKeyLabel = a
-                    .getString(R.styleable.KeyboardLayout_Key_shiftedKeyLabel);
-            hintLabel = a.getString(R.styleable.KeyboardLayout_Key_hintLabel);
-            a.recycle();
+            if (popupCharacters != null && popupCharacters.length() == 0) {
+                // If there is a keyboard with no keys specified in
+                // popupCharacters
+                popupResId = 0;
+            }
         }
 
         public void enable() {
@@ -755,24 +782,19 @@ public abstract class AnyKeyboard extends Keyboard {
         }
 
         @Override
-        public int[] getCurrentDrawableState() {
+        public int[] getCurrentDrawableState(KeyDrawableStateProvider provider) {
             if (mFunctionalKey) {
                 if (pressed) {
-                    return KEY_STATE_FUNCTIONAL_PRESSED;
+                    return provider.KEY_STATE_FUNCTIONAL_PRESSED;
                 } else {
-                    return KEY_STATE_FUNCTIONAL_NORMAL;
+                    return provider.KEY_STATE_FUNCTIONAL_NORMAL;
                 }
             }
-            return super.getCurrentDrawableState();
+            return super.getCurrentDrawableState(provider);
         }
     }
 
     private static class EnterKey extends AnyKey {
-        private final int[] KEY_STATE_ACTION_NORMAL = {R.attr.key_type_action};
-
-        // functional pressed state (with properties)
-        private final int[] KEY_STATE_ACTION_PRESSED = {
-                R.attr.key_type_action, android.R.attr.state_pressed};
 
         private final int mOriginalHeight;
 
@@ -797,11 +819,11 @@ public abstract class AnyKeyboard extends Keyboard {
         }
 
         @Override
-        public int[] getCurrentDrawableState() {
+        public int[] getCurrentDrawableState(KeyDrawableStateProvider provider) {
             if (pressed) {
-                return KEY_STATE_ACTION_PRESSED;
+                return provider.KEY_STATE_ACTION_PRESSED;
             } else {
-                return KEY_STATE_ACTION_NORMAL;
+                return provider.KEY_STATE_ACTION_NORMAL;
             }
         }
     }
