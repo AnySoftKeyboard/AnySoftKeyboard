@@ -19,24 +19,25 @@
 package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.util.SparseIntArray;
 import android.util.TypedValue;
 import android.util.Xml;
+
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.keyboards.views.KeyDrawableStateProvider;
 import com.anysoftkeyboard.utils.Log;
-import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
+
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 /**
  * Loads an XML description of a keyboard and stores the attributes of the keys.
@@ -86,6 +87,11 @@ public abstract class Keyboard {
     protected final Context mKeyboardContext;
     protected final Context mASKContext;
     protected final int mLayoutResId;
+
+    protected SparseIntArray attributeIdMap;
+    protected int[] remoteKeyboardLayoutStyleable;
+    protected int[] remoteKeyboardRowLayoutStyleable;
+    protected int[] remoteKeyboardKeyLayoutStyleable;
 
     /**
      * Horizontal gap default for all rows
@@ -211,7 +217,7 @@ public abstract class Keyboard {
          */
         public int mode;
 
-        private Keyboard parent;
+        protected Keyboard parent;
 
         public Row(Keyboard parent) {
             this.parent = parent;
@@ -228,25 +234,58 @@ public abstract class Keyboard {
 
         public Row(Context askContext, Resources res, Keyboard parent,
                    XmlResourceParser parser) {
-            Resources askRes = askContext.getResources();
             this.parent = parent;
-            TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser),
-                    R.styleable.KeyboardLayout);
-            defaultWidth = getDimensionOrFraction(a,
-                    R.styleable.KeyboardLayout_android_keyWidth,
-                    parent.mDisplayWidth, parent.mDefaultWidth);
-            defaultHeightCode = getKeyHeightCode(askRes, res, a, parent.mDefaultHeightCode);
-
-            defaultHorizontalGap = getDimensionOrFraction(a,
-                    R.styleable.KeyboardLayout_android_horizontalGap,
-                    parent.mDisplayWidth, parent.mDefaultHorizontalGap);
+            //some defaults
+            defaultWidth = parent.mDefaultWidth;
+            defaultHeightCode = parent.mDefaultHeightCode;
+            defaultHorizontalGap = parent.mDefaultHorizontalGap;
             verticalGap = parent.getVerticalGap();
-
+            //now reading from the XML
+            SparseIntArray attributeIdMap = parent.attributeIdMap;
+            int[] remoteKeyboardLayoutStyleable = parent.remoteKeyboardLayoutStyleable;
+            TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser), remoteKeyboardLayoutStyleable);
+            int n = a.getIndexCount();
+            for (int i = 0; i < n; i++) {
+                final int remoteIndex = a.getIndex(i);
+                final int localAttrId = attributeIdMap.get(remoteKeyboardLayoutStyleable[remoteIndex]);
+                try {
+                    switch (localAttrId) {
+                        case android.R.attr.keyWidth:
+                            defaultWidth = getDimensionOrFraction(a, remoteIndex,
+                                    parent.mDisplayWidth, parent.mDefaultWidth);
+                            break;
+                        case android.R.attr.keyHeight:
+                            defaultHeightCode = getKeyHeightCode(a, remoteIndex, parent.mDefaultHeightCode);
+                            break;
+                        case android.R.attr.horizontalGap:
+                            defaultHorizontalGap = getDimensionOrFraction(a, remoteIndex,
+                                    parent.mDisplayWidth, parent.mDefaultHorizontalGap);
+                            break;
+                    }
+                } catch (Exception e) {
+                    Log.w(TAG, "Failed to set data from XML!", e);
+                }
+            }
             a.recycle();
-            a = res.obtainAttributes(Xml.asAttributeSet(parser),
-                    R.styleable.KeyboardLayout_Row);
-            rowEdgeFlags = a.getInt(R.styleable.KeyboardLayout_Row_android_rowEdgeFlags, 0);
-            mode = a.getResourceId(R.styleable.KeyboardLayout_Row_android_keyboardMode, 0);
+            int[] remoteKeyboardRowLayoutStyleable = parent.remoteKeyboardRowLayoutStyleable;
+            a = res.obtainAttributes(Xml.asAttributeSet(parser), remoteKeyboardRowLayoutStyleable);
+            n = a.getIndexCount();
+            for (int i = 0; i < n; i++) {
+                final int remoteIndex = a.getIndex(i);
+                final int localAttrId = attributeIdMap.get(remoteKeyboardRowLayoutStyleable[remoteIndex]);
+                try {
+                    switch (localAttrId) {
+                        case android.R.attr.rowEdgeFlags:
+                            rowEdgeFlags = a.getInt(remoteIndex, 0);
+                            break;
+                        case android.R.attr.keyboardMode:
+                            mode = a.getResourceId(remoteIndex, 0);
+                            break;
+                    }
+                } catch (Exception e) {
+                    Log.w(TAG, "Failed to set data from XML!", e);
+                }
+            }
             a.recycle();
         }
     }
@@ -371,40 +410,13 @@ public abstract class Keyboard {
 
         public int dynamicEmblem;
 
-        private final static int[] KEY_STATE_NORMAL_ON = {
-                android.R.attr.state_checkable,
-                android.R.attr.state_checked
-        };
-
-        private final static int[] KEY_STATE_PRESSED_ON = {
-                android.R.attr.state_pressed,
-                android.R.attr.state_checkable,
-                android.R.attr.state_checked
-        };
-
-        private final static int[] KEY_STATE_NORMAL_OFF = {
-                android.R.attr.state_checkable
-        };
-
-        private final static int[] KEY_STATE_PRESSED_OFF = {
-                android.R.attr.state_pressed,
-                android.R.attr.state_checkable
-        };
-
-        private final static int[] KEY_STATE_NORMAL = {
-        };
-
-        private final static int[] KEY_STATE_PRESSED = {
-                android.R.attr.state_pressed
-        };
-
         /**
          * Create an empty key with no attributes.
          */
         public Key(Row parent, KeyboardDimens keyboardDimens) {
             row = parent;
             keyboard = parent.parent;
-            height = keyboardDimens.getNormalKeyHeight();
+            height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, parent.defaultHeightCode, row.parent.mASKContext.getResources().getConfiguration().orientation);
             width = Math.min(keyboardDimens.getKeyMaxWidth(), parent.defaultWidth);
             gap = parent.defaultHorizontalGap;
             edgeFlags = parent.rowEdgeFlags;
@@ -424,93 +436,116 @@ public abstract class Keyboard {
         public Key(Context askContext, Resources res, Row parent,
                    KeyboardDimens keyboardDimens, int x, int y, XmlResourceParser parser) {
             this(parent, keyboardDimens);
-
+            final Resources askResources = askContext.getResources();
+            SparseIntArray attributeIdMap = parent.parent.attributeIdMap;
             this.x = x;
             this.y = y;
 
-            TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser),
-                    R.styleable.KeyboardLayout);
+            //setting up some defaults
+            width = Math.min(keyboardDimens.getKeyMaxWidth(), parent.defaultWidth);
+            height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, parent.defaultHeightCode, askResources.getConfiguration().orientation);
+            gap = parent.defaultHorizontalGap;
+            codes = null;
+            iconPreview = null;
+            popupCharacters = null;
+            popupResId = 0;
+            repeatable = false;
+            showPreview = true;
+            dynamicEmblem = KEY_EMBLEM_NONE;
+            modifier = false;
+            sticky = false;
 
-            width = getDimensionOrFraction(a,
-                    R.styleable.KeyboardLayout_android_keyWidth,
-                    keyboard.mDisplayWidth, parent.defaultWidth);
-            width = Math.min(keyboardDimens.getKeyMaxWidth(), width);
-            final Resources askResources = askContext.getResources();
-            final int heightCode = getKeyHeightCode(askResources, res, a, parent.defaultHeightCode);
-            switch (heightCode) {
-                case 0:
-                    height = 0;
-                    break;
-                case -2:
-                    height = keyboardDimens.getSmallKeyHeight();
-                    break;
-                case -3:
-                    height = keyboardDimens.getLargeKeyHeight();
-                    break;
-                default:// -1
-                    height = keyboardDimens.getNormalKeyHeight();
-                    break;
+            //loading data from XML
+            int[] remoteKeyboardLayoutStyleable = parent.parent.remoteKeyboardLayoutStyleable;
+            TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser), remoteKeyboardLayoutStyleable);
+            int n = a.getIndexCount();
+            for (int i = 0; i < n; i++) {
+                final int remoteIndex = a.getIndex(i);
+                final int localAttrId = attributeIdMap.get(remoteKeyboardLayoutStyleable[remoteIndex]);
+                setDataFromTypedArray(parent, keyboardDimens, askResources, a, remoteIndex, localAttrId);
             }
-            if (askResources.getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-                height = (int) (height * AnyApplication.getConfig()
-                        .getKeysHeightFactorInLandscape());
-            else
-                height = (int) (height * AnyApplication.getConfig().getKeysHeightFactorInPortrait());
-
-            gap = getDimensionOrFraction(a,
-                    R.styleable.KeyboardLayout_android_horizontalGap,
-                    keyboard.mDisplayWidth, parent.defaultHorizontalGap);
             a.recycle();
-            a = res.obtainAttributes(Xml.asAttributeSet(parser),
-                    R.styleable.KeyboardLayout_Key);
             this.x += gap;
-            TypedValue codesValue = new TypedValue();
-            a.getValue(R.styleable.KeyboardLayout_Key_android_codes,
-                    codesValue);
 
-            if (codesValue.type == TypedValue.TYPE_INT_DEC
-                    || codesValue.type == TypedValue.TYPE_INT_HEX) {
-                codes = new int[]{
-                        codesValue.data
-                };
-            } else if (codesValue.type == TypedValue.TYPE_STRING) {
-                codes = parseCSV(codesValue.string.toString());
+            int[] remoteKeyboardKeyLayoutStyleable = parent.parent.remoteKeyboardKeyLayoutStyleable;
+            a = res.obtainAttributes(Xml.asAttributeSet(parser),
+                    remoteKeyboardKeyLayoutStyleable);
+            n = a.getIndexCount();
+            for (int i = 0; i < n; i++) {
+                final int remoteIndex = a.getIndex(i);
+                final int localAttrId = attributeIdMap.get(remoteKeyboardKeyLayoutStyleable[remoteIndex]);
+                setDataFromTypedArray(parent, keyboardDimens, askResources, a, remoteIndex, localAttrId);
             }
-
-            iconPreview = a.getDrawable(R.styleable.KeyboardLayout_Key_android_iconPreview);
-            if (iconPreview != null) {
-                iconPreview.setBounds(0, 0, iconPreview.getIntrinsicWidth(),
-                        iconPreview.getIntrinsicHeight());
-            }
-            popupCharacters = a.getText(
-                    R.styleable.KeyboardLayout_Key_android_popupCharacters);
-            popupResId = a.getResourceId(R.styleable.KeyboardLayout_Key_android_popupKeyboard, 0);
             externalResourcePopupLayout = popupResId != 0;
-            repeatable = a.getBoolean(
-                    R.styleable.KeyboardLayout_Key_android_isRepeatable, false);
-            showPreview = a.getBoolean(
-                    R.styleable.KeyboardLayout_Key_showPreview, true);
-            dynamicEmblem = a.getInt(R.styleable.KeyboardLayout_Key_keyDynamicEmblem, KEY_EMBLEM_NONE);
-            modifier = a.getBoolean(
-                    R.styleable.KeyboardLayout_Key_android_isModifier, false);
-            sticky = a.getBoolean(
-                    R.styleable.KeyboardLayout_Key_android_isSticky, false);
-            edgeFlags = a.getInt(R.styleable.KeyboardLayout_Key_android_keyEdgeFlags, 0);
-            edgeFlags |= parent.rowEdgeFlags;
-
-            icon = a.getDrawable(R.styleable.KeyboardLayout_Key_android_keyIcon);
-            if (icon != null) {
-                icon.setBounds(0, 0, icon.getIntrinsicWidth(), icon.getIntrinsicHeight());
-            }
-            label = a.getText(R.styleable.KeyboardLayout_Key_android_keyLabel);
-            text = a.getText(R.styleable.KeyboardLayout_Key_android_keyOutputText);
-
             if (codes == null && !TextUtils.isEmpty(label)) {
-                codes = new int[]{
-                        label.charAt(0)
-                };
+                codes = new int[]{ label.charAt(0) };
             }
             a.recycle();
+        }
+
+        private void setDataFromTypedArray(Row parent, KeyboardDimens keyboardDimens, Resources askResources, TypedArray a, int remoteIndex, int localAttrId) {
+            try {
+                switch (localAttrId) {
+                    case android.R.attr.keyWidth:
+                        width = getDimensionOrFraction(a,
+                                remoteIndex,
+                                keyboard.mDisplayWidth, parent.defaultWidth);
+                        width = Math.min(keyboardDimens.getKeyMaxWidth(), width);
+                        break;
+                    case android.R.attr.keyHeight:
+                        int heightCode = getKeyHeightCode(a, remoteIndex, parent.defaultHeightCode);
+                        height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, heightCode, askResources.getConfiguration().orientation);
+                        break;
+                    case android.R.attr.horizontalGap:
+                        gap = getDimensionOrFraction(a, remoteIndex,
+                            keyboard.mDisplayWidth, parent.defaultHorizontalGap);
+                        break;
+                    case android.R.attr.codes:
+                        codes = KeyboardSupport.getKeyCodesFromTypedArray(a, remoteIndex);
+                        break;
+                    case android.R.attr.iconPreview:
+                        iconPreview = a.getDrawable(remoteIndex);
+                        KeyboardSupport.updateDrawableBounds(iconPreview);
+                        break;
+                    case android.R.attr.popupCharacters:
+                        popupCharacters = a.getText(remoteIndex);
+                        break;
+                    case android.R.attr.popupKeyboard:
+                        popupResId = a.getResourceId(remoteIndex, 0);
+                        break;
+                    case android.R.attr.isRepeatable:
+                        repeatable = a.getBoolean(remoteIndex, false);
+                        break;
+                    case R.attr.showPreview:
+                        showPreview = a.getBoolean(remoteIndex, true);
+                        break;
+                    case R.attr.keyDynamicEmblem:
+                        dynamicEmblem = a.getInt(remoteIndex, KEY_EMBLEM_NONE);
+                        break;
+                    case android.R.attr.isModifier:
+                        modifier = a.getBoolean(remoteIndex, false);
+                        break;
+                    case android.R.attr.isSticky:
+                        sticky = a.getBoolean(remoteIndex, false);
+                        break;
+                    case android.R.attr.keyEdgeFlags:
+                        edgeFlags = a.getInt(remoteIndex, 0);
+                        edgeFlags |= parent.rowEdgeFlags;
+                        break;
+                    case android.R.attr.keyIcon:
+                        icon = a.getDrawable(remoteIndex);
+                        KeyboardSupport.updateDrawableBounds(icon);
+                        break;
+                    case android.R.attr.keyLabel:
+                        label = a.getText(remoteIndex);
+                        break;
+                    case android.R.attr.keyOutputText:
+                        text = a.getText(remoteIndex);
+                        break;
+                }
+            } catch(Exception e){
+                Log.w(TAG, "Failed to load keyboard layout! ", e);
+            }
         }
 
         /**
@@ -537,36 +572,6 @@ public abstract class Keyboard {
              * No need for this code, I handle this expicitly in setShifted code
              * if (sticky) { on = !on; }
              */
-        }
-
-        int[] parseCSV(String value) {
-            int count = 0;
-            int lastIndex = 0;
-            if (value.length() > 0) {
-                count++;
-                while ((lastIndex = value.indexOf(",", lastIndex + 1)) > 0) {
-                    count++;
-                }
-            }
-            int[] values = new int[count];
-            count = 0;
-            StringTokenizer st = new StringTokenizer(value, ",");
-            while (st.hasMoreTokens()) {
-                String nextToken = st.nextToken();
-                try {
-                    // Issue 395
-                    // default behavior
-                    if (nextToken.length() != 1) {
-                        values[count++] = Integer.parseInt(nextToken);
-                    } else {
-                        // length == 1, assume a char!
-                        values[count++] = (int) nextToken.charAt(0);
-                    }
-                } catch (NumberFormatException nfe) {
-                    Log.e(TAG, "Error parsing keycodes " + value);
-                }
-            }
-            return values;
         }
 
         /**
@@ -622,25 +627,25 @@ public abstract class Keyboard {
          * @return the drawable state of the key.
          * @see android.graphics.drawable.StateListDrawable#setState(int[])
          */
-        public int[] getCurrentDrawableState() {
-            int[] states = KEY_STATE_NORMAL;
+        public int[] getCurrentDrawableState(KeyDrawableStateProvider provider) {
+            int[] states = provider.KEY_STATE_NORMAL;
 
             if (on) {
                 if (pressed) {
-                    states = KEY_STATE_PRESSED_ON;
+                    states = provider.KEY_STATE_PRESSED_ON;
                 } else {
-                    states = KEY_STATE_NORMAL_ON;
+                    states = provider.KEY_STATE_NORMAL_ON;
                 }
             } else {
                 if (sticky) {
                     if (pressed) {
-                        states = KEY_STATE_PRESSED_OFF;
+                        states = provider.KEY_STATE_PRESSED_OFF;
                     } else {
-                        states = KEY_STATE_NORMAL_OFF;
+                        states = provider.KEY_STATE_NORMAL_OFF;
                     }
                 } else {
                     if (pressed) {
-                        states = KEY_STATE_PRESSED;
+                        states = provider.KEY_STATE_PRESSED;
                     }
                 }
             }
@@ -659,29 +664,18 @@ public abstract class Keyboard {
         this(askContext, context, xmlLayoutResId, 0);
     }
 
-    protected static int getKeyHeightCode(Resources askRes, Resources res, TypedArray a,
-                                          int defaultHeightCode) {
-        int heightCode = -1;
-        TypedValue value = a.peekValue(R.styleable.KeyboardLayout_android_keyHeight);
-        if (value == null)// means that it was not provided. So I take my
-        // parent's
-        {
-            heightCode = defaultHeightCode;
-        } else if (value.type >= TypedValue.TYPE_FIRST_INT && value.type <= TypedValue.TYPE_LAST_INT) {
-            switch (value.data) {
-                case 0:
-                case -2:
-                case -3:
-                    return value.data;
-                default:
-                    return -1;
-            }
+    protected static int getKeyHeightCode(TypedArray a, int remoteIndex, int defaultHeightCode) {
+        TypedValue value = a.peekValue(remoteIndex);
+        if (value == null) {
+            // means that it was not provided. So I take my parent's
+            return defaultHeightCode;
+        } else if (value.type >= TypedValue.TYPE_FIRST_INT && value.type <= TypedValue.TYPE_LAST_INT &&
+                value.data <= 0 && value.data >= -3) {
+            return value.data;
         } else {
             Log.w(TAG, "Key height attribute is incorrectly set! Defaulting to regular height.");
-            return heightCode = -1;
+            return -1;
         }
-
-        return heightCode;
     }
 
     /**
@@ -693,8 +687,16 @@ public abstract class Keyboard {
      *                       and keys.
      * @param modeId         keyboard mode identifier
      */
-    public Keyboard(Context askContext, Context context, int xmlLayoutResId,
-                    int modeId) {
+    public Keyboard(Context askContext, Context context, int xmlLayoutResId, int modeId) {
+        attributeIdMap = new SparseIntArray(
+                R.styleable.KeyboardLayout.length + R.styleable.KeyboardLayout_Row.length + R.styleable.KeyboardLayout_Key.length);
+        remoteKeyboardLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
+                R.styleable.KeyboardLayout, askContext, context, attributeIdMap, true);
+        remoteKeyboardRowLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
+                R.styleable.KeyboardLayout_Row, askContext, context, attributeIdMap, true);
+        remoteKeyboardKeyLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
+                R.styleable.KeyboardLayout_Key, askContext, context, attributeIdMap, true);
+
         mASKContext = askContext;
         mKeyboardContext = context;
         mLayoutResId = xmlLayoutResId;
@@ -922,23 +924,43 @@ public abstract class Keyboard {
 
     private void parseKeyboardAttributes(Context askContext, Resources res,
                                          XmlResourceParser parser) {
-        TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser),
-                R.styleable.KeyboardLayout);
-
-        mDefaultWidth = getDimensionOrFraction(a, R.styleable.KeyboardLayout_android_keyWidth,
-                mDisplayWidth, mDisplayWidth / 10);
+        TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser), remoteKeyboardLayoutStyleable);
         Resources askRes = askContext.getResources();
-        mDefaultHeightCode = getKeyHeightCode(askRes, res, a, -1);
-        mDefaultHorizontalGap = getDimensionOrFraction(a,
-                R.styleable.KeyboardLayout_android_horizontalGap,
-                mDisplayWidth, 0);
+        //some defaults
+        mDefaultWidth = mDisplayWidth / 10;
+        mDefaultHeightCode = -1;
+        mDefaultHorizontalGap = 0;
         mDefaultVerticalGap = askRes.getDimensionPixelOffset(R.dimen.default_key_vertical_gap);
-        mProximityThreshold = (int) (mDefaultWidth * SEARCH_DISTANCE);
-        mProximityThreshold = mProximityThreshold * mProximityThreshold; // Square
-        // it
-        // for
-        // comparison
+        //now reading from XML
+        int n = a.getIndexCount();
+        for (int i = 0; i < n; i++) {
+            final int remoteIndex = a.getIndex(i);
+            final int localAttrId = attributeIdMap.get(remoteKeyboardLayoutStyleable[remoteIndex]);
+            try {
+                switch (localAttrId) {
+                    case android.R.attr.keyWidth:
+                        mDefaultWidth = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDisplayWidth / 10);
+                        break;
+                    case android.R.attr.keyHeight:
+                        mDefaultHeightCode = getKeyHeightCode(a, remoteIndex, -1);
+                        break;
+                    case android.R.attr.horizontalGap:
+                        mDefaultHorizontalGap = getDimensionOrFraction(a, remoteIndex,
+                            mDisplayWidth, 0);
+                        break;
+                    case android.R.attr.verticalGap:
+                        mDefaultVerticalGap = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDefaultVerticalGap);
+                        break;
+                }
+            } catch (Exception e) {
+                Log.w(TAG, "Failed to set data from XML!", e);
+            }
+        }
         a.recycle();
+
+        mProximityThreshold = (int) (mDefaultWidth * SEARCH_DISTANCE);
+        // Square it for comparison
+        mProximityThreshold = mProximityThreshold * mProximityThreshold;
     }
 
     static int getDimensionOrFraction(TypedArray a, int index, int base, int defValue) {
