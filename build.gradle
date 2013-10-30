@@ -12,6 +12,7 @@ apply plugin: 'maven-publish'
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 version '1.0'
@@ -31,4 +32,5 @@ android {
 //to local: mvn install:install-file -Dfile=build/libs/api-1.0.aar -DgroupId=net.evendanan.anysoftkeyboard -DartifactId=api -Dversion=1.0 -Dpackaging=aar
 
 dependencies {
+    compile('net.evendanan.anysoftkeyboard:api:1.0')
 }
