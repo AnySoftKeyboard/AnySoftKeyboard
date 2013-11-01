@@ -7,10 +7,9 @@
 
     <string name="copyright_owner">Menny Even-Danan</string>
 
-    <string name="beta_tester_message">This is a<b>testing build</b>. It may contain bugs, and it may be non-backward
-        compatible!\nIt may also include DRAGONS! And they tend to eat features.\nPlease, report
-        <b>any problem</b>
-        you encounter at http://s.evendanan.net/ask_issues.\n\nThank you for your beta-testing.
+    <string name="beta_tester_message">This is a\u0020<b>testing build</b>. It may contain bugs, and it may be non-backward
+        compatible!\nIt may also include\u0020<i>DRAGONS</i>!\u0020And they tend to eat features.\nPlease, report\u0020<b>any problem</b>
+        you encounter at http://s.evendanan.net/ask_issues.\n\nThank you for testing a development build.
     </string>
     <string-array name="english_initial_suggestions">
         <item>!</item>

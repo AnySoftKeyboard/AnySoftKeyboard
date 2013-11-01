@@ -24,7 +24,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        android:text="@string/beta_tester_message" />
+        android:text="@string/beta_tester_message"
+        android:autoLink="web"/>
 
     <LinearLayout
         android:id="@+id/close_button_layout"
