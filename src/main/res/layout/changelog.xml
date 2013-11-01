@@ -2,7 +2,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="8dp"
     android:background="@android:color/white">
 
     <RelativeLayout
@@ -44,19 +43,31 @@
     </RelativeLayout>
 
 
-
-    <ScrollView
-        android:layout_width="match_parent"
+    <FrameLayout
+        android:id="@+id/change_log_content_frame"
         android:layout_height="0px"
         android:layout_weight="1"
-        android:fillViewport="true">
-        <LinearLayout
-            android:id="@+id/change_logs_container"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:foregroundGravity="top|fill_horizontal"
+        android:foreground="@drawable/drop_shadow_for_top">
 
-        </LinearLayout>
-    </ScrollView>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:id="@+id/change_logs_container"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingBottom="4dp">
+
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+
 
 </LinearLayout>

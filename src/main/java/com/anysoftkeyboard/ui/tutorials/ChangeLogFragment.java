@@ -26,6 +26,7 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
@@ -79,7 +80,10 @@ public class ChangeLogFragment extends PassengerFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         LayoutInflater inflater = LayoutInflater.from(getActivity());
-        view.findViewById(R.id.changelog_title_layout).setVisibility(mShowTitle? View.VISIBLE : View.GONE);
+        if (!mShowTitle) {
+            view.findViewById(R.id.changelog_title_layout).setVisibility(View.GONE);
+            ((FrameLayout)view.findViewById(R.id.change_log_content_frame)).setForeground(null);
+        }
 
         Context appContext = getActivity().getApplicationContext();
         mLogContainer = (ViewGroup) view.findViewById(R.id.change_logs_container);
