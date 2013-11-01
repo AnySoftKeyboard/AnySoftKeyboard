@@ -366,6 +366,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">@dimen/font_size_small_text</item>
         <item name="android:padding">4dp</item>
+        <item name="android:maxWidth">@dimen/max_item_extra_width</item>
     </style>
     <style name="Ask.Menu.Item.Title" parent="Ask.Menu">
         <item name="android:clickable">false</item>
@@ -421,5 +422,4 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-
 </resources>
