@@ -22,7 +22,7 @@
         <Key android:codes="113" android:popupCharacters="1" android:keyEdgeFlags="left"/>
         <Key android:codes="119" android:popupCharacters="2"/>
         <Key android:codes="101" android:popupCharacters="3èéêëęē€"/>
-        <Key android:codes="114" android:popupCharacters="4"/>
+        <Key android:codes="114" android:popupCharacters="4ř"/>
         <Key android:codes="116" android:popupCharacters="5ț"/>
         <Key android:codes="121" android:popupCharacters="6ýÿ"/>
         <Key android:codes="117" android:popupCharacters="7ùúûüŭűū"/>
