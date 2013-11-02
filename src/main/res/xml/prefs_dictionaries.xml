@@ -16,10 +16,6 @@
         android:summaryOff="@string/use_user_dictionary_off_summary"/>
     <Preference android:title="@string/user_dict_editor"
         android:key="@string/user_dict_editor_key">
-        <intent
-            android:action="android.intent.action.MAIN"
-            android:targetPackage="com.menny.android.anysoftkeyboard"
-            android:targetClass="com.anysoftkeyboard.ui.settings.UserDictionaryEditorActivity"/>
     </Preference>
     <net.evendanan.pushingpixels.ListPreference
         android:key="@string/settings_key_auto_dictionary_threshold"

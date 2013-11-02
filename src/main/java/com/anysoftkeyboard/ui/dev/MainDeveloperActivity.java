@@ -16,7 +16,6 @@
 
 package com.anysoftkeyboard.ui.dev;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -30,15 +29,22 @@ import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
-import net.evendanan.pushingpixels.AsyncTaskWithProgressWindow;
+
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
+import net.evendanan.pushingpixels.AsyncTaskWithProgressWindow;
+
 import java.io.File;
 
-public class MainDeveloperActivity extends Activity {
+public class MainDeveloperActivity extends Activity implements AsyncTaskWithProgressWindow.AsyncTaskOwner {
 
     private PopupWindow mPopupWindow;
+
+    @Override
+    public Activity getActivity() {
+        return this;
+    }
 
     private abstract static class DeveloperAsyncTask<Params, Progress, Result>
             extends

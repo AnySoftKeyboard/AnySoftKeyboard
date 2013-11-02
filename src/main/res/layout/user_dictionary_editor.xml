@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
      Copyright (C) 2008 The Android Open Source Project
      Copyright (C) 2013 Menny Even-Danan
 
@@ -16,118 +15,25 @@
      limitations under the License.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:orientation="vertical"
-              android:weightSum="1">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:background="@android:color/darker_gray"
-            android:orientation="horizontal"
-            android:padding="4dp"
-            android:weightSum="1">
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:drawSelectorOnTop="false" />
 
-        <TextView
-                style="@android:style/TextAppearance.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="@string/user_dictionary_select_locale"/>
-
-        <Spinner
-                android:id="@+id/user_dictionay_langs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"/>
-    </LinearLayout>
-
-    <FrameLayout
-            android:layout_width="fill_parent"
-            android:layout_height="0px"
-            android:layout_weight="1">
-
-        <ListView
-                android:id="@android:id/list"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:drawSelectorOnTop="false"/>
-
-        <TextView
-                android:id="@+id/empty_user_dictionary"
-                style="@android:style/TextAppearance.Large"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:gravity="center"
-                android:padding="5dip"
-                android:text="@string/user_dict_settings_empty_text"
-                android:visibility="gone"/>
-    </FrameLayout>
-
-    <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:background="@android:color/darker_gray"
-            android:orientation="horizontal"
-            android:padding="4dp"
-            android:weightSum="4">
-
-        <View
-                android:layout_width="0px"
-                android:layout_height="1px"
-                android:layout_weight="1"/>
-
-        <ImageView
-                android:id="@+id/add_user_word"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:adjustViewBounds="true"
-                android:background="@drawable/words_editor_buttons_border"
-                android:padding="@dimen/key_corner_radius"
-                android:scaleType="centerInside"
-                android:src="@android:drawable/ic_menu_add"/>
-
-        <View
-                android:layout_width="0px"
-                android:layout_height="1px"
-                android:layout_weight="1"/>
-
-        <ImageView
-                android:id="@+id/backup_words"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:adjustViewBounds="true"
-                android:background="@drawable/words_editor_buttons_border"
-                android:padding="@dimen/key_corner_radius"
-                android:scaleType="centerInside"
-                android:src="@android:drawable/ic_menu_save"/>
-
-        <View
-                android:layout_width="0px"
-                android:layout_height="1px"
-                android:layout_weight="1"/>
-
-        <ImageView
-                android:id="@+id/restore_words"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:adjustViewBounds="true"
-                android:background="@drawable/words_editor_buttons_border"
-                android:padding="@dimen/key_corner_radius"
-                android:scaleType="centerInside"
-                android:src="@android:drawable/ic_menu_upload"/>
-
-        <View
-                android:layout_width="0px"
-                android:layout_height="1px"
-                android:layout_weight="1"/>
-    </LinearLayout>
-
-</LinearLayout>
+    <TextView
+        android:id="@+id/empty_user_dictionary"
+        style="@style/Ask.Text.SubTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/user_dict_settings_empty_text"
+        android:visibility="gone"
+        android:drawablePadding="8dp"
+        android:drawableBottom="@android:drawable/ic_menu_add" />
+</FrameLayout>

@@ -87,11 +87,6 @@
             android:icon="@drawable/ic_launcher_settings"
             android:label="@string/ime_name">
         </activity>
-        <activity
-            android:name="com.anysoftkeyboard.ui.settings.UserDictionaryEditorActivity"
-            android:icon="@drawable/ic_launcher_settings"
-            android:label="@string/user_dict_settings_titlebar">
-        </activity>
         <!-- information ui activities -->
         <activity
             android:name="com.anysoftkeyboard.ui.tutorials.TipsFragment"

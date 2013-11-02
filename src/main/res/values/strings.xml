@@ -679,9 +679,7 @@
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
     <string name="user_dict_settings_edit_dialog_title">Edit word</string>
     <!-- User dictionary settings. The text to show when there are no user-defined words in the dictionary -->
-    <string name="user_dict_settings_empty_text">You do not have any words in the user dictionary. You can add a word
-        through the menu.
-    </string>
+    <string name="user_dict_settings_empty_text">You do not have any words in the user dictionary. You can add your first word now.</string>
 
     <string name="user_dict_backup_success_title">Backup done!</string>
     <string name="user_dict_backup_success_text">Successfully stored your words on device storage at
@@ -731,4 +729,7 @@
 
     <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
     <string name="skip_button_label">Skip</string>
+    <string name="word_editor_action_add_word">Add word</string>
+    <string name="word_editor_action_backup_words">Backup</string>
+    <string name="word_editor_action_restore_words">Restore</string>
 </resources>

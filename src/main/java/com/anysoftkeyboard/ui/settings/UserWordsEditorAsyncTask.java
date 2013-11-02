@@ -18,10 +18,9 @@ package com.anysoftkeyboard.ui.settings;
 /*Using this import require an Android Library reference from https://github.com/menny/PushingPixels*/
 import net.evendanan.pushingpixels.AsyncTaskWithProgressWindow;
 
-abstract class UserWordsEditorAsyncTask extends AsyncTaskWithProgressWindow<Void, Void, Void, UserDictionaryEditorActivity> {
+public abstract class UserWordsEditorAsyncTask extends AsyncTaskWithProgressWindow<Void, Void, Void, UserDictionaryEditorFragment> {
 
-    protected UserWordsEditorAsyncTask(
-            UserDictionaryEditorActivity userDictionaryEditorActivity) {
-        super(userDictionaryEditorActivity);
+    protected UserWordsEditorAsyncTask(UserDictionaryEditorFragment userDictionaryEditor) {
+        super(userDictionaryEditor);
     }
 }
