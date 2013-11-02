@@ -1,0 +1,111 @@
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.6.+'
+    }
+}
+
+apply plugin: 'android'
+
+repositories {
+    //mavenCentral()
+    mavenLocal()
+}
+
+def String getInputFromConsoleIfMissing(Properties props, String propKey, String propInputMessage) {
+    def propValue = props[propKey]
+    if (propValue == null || propValue == '') {
+        def con = System.console();
+        if (con != null){
+            propValue = con.readLine("\n"+propInputMessage+": ")
+        }
+    }
+
+    return propValue
+}
+
+def isEmpty(value) {
+	if (value == null)
+		return true
+	else if (value == '')
+		return true
+	else
+		return false
+}
+
+android {
+    compileSdkVersion 18
+    buildToolsVersion "18.1.0"
+
+    defaultConfig {
+        minSdkVersion 7
+        targetSdkVersion 18
+    }
+
+    signingConfigs {
+        release {
+            //https://gist.github.com/gabrielemariotti/6856974#file-build-gradle
+            println "Reading release and beta signing details..."
+
+            def String keystore_file
+            def String keystore_password
+            def String key_alias
+            def String key_alias_password
+            def Properties props = new Properties()
+            def propFile = new File('local.signing.properties')
+            if (propFile.canRead()){
+                println 'Reading details from local.signing.properties file...'
+                props.load(new FileInputStream(propFile))
+            } else {
+                println 'local.signing.properties file was not found. Using debug signing configuration.'
+            }
+
+            keystore_file = getInputFromConsoleIfMissing(props, 'STORE_FILE', 'Key-Store file name')
+            keystore_password = getInputFromConsoleIfMissing(props, 'STORE_PASSWORD', 'Key-Store file password')
+            key_alias = getInputFromConsoleIfMissing(props, 'KEY_ALIAS', 'App key alias')
+            key_alias_password = getInputFromConsoleIfMissing(props, 'KEY_PASSWORD', 'App key password')
+
+            if (    isEmpty(keystore_file) || isEmpty(keystore_password) ||
+                    isEmpty(key_alias) || isEmpty(key_alias_password)) {
+                //missing signing details, so I'll use debug signingConfigs details.
+                println "Missing release build-type signing details, I'll use DEBUG signing for the release."
+                storeFile signingConfigs.debug.storeFile
+                storePassword signingConfigs.debug.storePassword
+                keyAlias signingConfigs.debug.keyAlias
+                keyPassword signingConfigs.debug.keyPassword
+            } else {
+                println 'For signing, will use key-store file '+keystore_file+', with key '+key_alias
+                storeFile file(keystore_file)
+                storePassword keystore_password
+                keyAlias key_alias
+                keyPassword key_alias_password
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            zipAlign true
+        }
+
+        beta {
+            signingConfig signingConfigs.release
+            zipAlign true
+            debuggable true
+        }
+    }
+}
+
+dependencies {
+    compile 'net.evendanan.anysoftkeyboard:api:1.0'
+    compile 'com.android.support:support-v4:18.0.+'
+    compile 'net.evendanan:frankenrobot:1.1'
+    compile 'com.android.support:appcompat-v7:18.0.+'
+    compile 'com.google.code.findbugs:jsr305:2.0.1'
+    //https://groups.google.com/d/msg/adt-dev/nQobKd2Gl_8/Z5yWAvCh4h4J
+    compile fileTree(dir: 'libs', include: 'native_libs.jar')
+}

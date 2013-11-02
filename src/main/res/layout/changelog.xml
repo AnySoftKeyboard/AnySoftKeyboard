@@ -1,0 +1,73 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:id="@+id/changelog_title_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/changelog_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="10dp"
+            android:contentDescription="@string/ime_name"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            style="@style/Ask.Text.Title"
+            android:id="@+id/changelog_app_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/changelog_icon"
+            android:gravity="center"
+            android:paddingTop="10dp"
+            android:text="@string/ime_name" />
+
+        <TextView
+            android:id="@+id/changelog_label"
+            style="@style/Ask.Text.SubTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/changelog_app_name"
+            android:layout_toRightOf="@id/changelog_icon"
+            android:gravity="center"
+            android:text="@string/changelog" />
+    </RelativeLayout>
+
+
+    <FrameLayout
+        android:id="@+id/change_log_content_frame"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:foregroundGravity="top|fill_horizontal"
+        android:foreground="@drawable/drop_shadow_for_top">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:id="@+id/change_logs_container"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingBottom="4dp">
+
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+
+
+</LinearLayout>

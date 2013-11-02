@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/* 
+**
+** Copyright 2008, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License"); 
+** you may not use this file except in compliance with the License. 
+** You may obtain a copy of the License at 
+**
+**     http://www.apache.org/licenses/LICENSE-2.0 
+**
+** Unless required by applicable law or agreed to in writing, software 
+** distributed under the License is distributed on an "AS IS" BASIS, 
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+** See the License for the specific language governing permissions and 
+** limitations under the License.
+*/
+-->
+<resources>
+    <color name="candidate_normal">#FFFFFFFF</color>
+    <color name="candidate_recommended">#FFE35900</color>
+    <color name="candidate_other">#ff808080</color>
+
+    <color name="blacktheme_color_background">#FF000000</color>
+    <color name="blacktheme_color_topborder">#FF333333</color>
+    <color name="blacktheme_color_suggestion_background">#FF000000</color>
+    <color name="blacktheme_color_suggestion_recommended">#FF00A020</color>
+    <color name="blacktheme_color_suggestion_others">#FFBBBBBB</color>
+    <color name="blacktheme_color_suggestion_normal">#FFFFFFFF</color>
+    <color name="blacktheme_color_previewtext">#FFFFFFFF</color>
+    <color name="blacktheme_color_popup_background">#FF333333</color>
+    <color name="blacktheme_color_popup_stroke">#FF999999</color>
+    <color name="blacktheme_color_action">#FF005010</color>
+    <color name="blacktheme_color_action_pressed">#FF00A020</color>
+    <color name="blacktheme_color_action_stroke">#FF00A020</color>
+    <color name="blacktheme_color_action_pressed_stroke">#FF00FF33</color>
+    <color name="blacktheme_color_action_keytext">#FFEEEEEE</color>
+    <color name="blacktheme_color_action_pressed_keytext">#FFFFFFFF</color>
+    <color name="blacktheme_color_action_hint">#FF11FF99</color>
+    <color name="blacktheme_color_action_pressed_hint">#FF22FFCC</color>
+    <color name="blacktheme_color_function">#FF001750</color>
+    <color name="blacktheme_color_function_pressed">#FF003CD0</color>
+    <color name="blacktheme_color_function_checked">#FF002990</color>
+    <color name="blacktheme_color_function_stroke">#FF003CD0</color>
+    <color name="blacktheme_color_function_pressed_stroke">#FF0049FF</color>
+    <color name="blacktheme_color_function_checked_stroke">#FF0032B1</color>
+    <color name="blacktheme_color_function_keytext">#FFEEEEEE</color>
+    <color name="blacktheme_color_function_pressed_keytext">#FFFFFFFF</color>
+    <color name="blacktheme_color_function_hint">#FFDDDDDD</color>
+    <color name="blacktheme_color_function_pressed_hint">#FFEEEEEE</color>
+    <color name="blacktheme_color_normal">#FF000000</color>
+    <color name="blacktheme_color_normal_pressed">#FF333333</color>
+    <color name="blacktheme_color_normal_stroke">#FF666666</color>
+    <color name="blacktheme_color_normal_pressed_stroke">#FFFFFFFF</color>
+    <color name="blacktheme_color_normal_keytext">#FFEEEEEE</color>
+    <color name="blacktheme_color_normal_pressed_keytext">#FFFFFFFF</color>
+    <color name="blacktheme_color_normal_hint">#FF0088FF</color>
+    <color name="blacktheme_color_normal_pressed_hint">#FF00BBFF</color>
+
+    <color name="menu_background_normal">#FFF</color>
+    <color name="menu_background_disabled">#FFF</color>
+    <color name="menu_background_pressed">#BBB</color>
+
+    <color name="menu_divider">#663399</color>
+    <color name="menu_item_divider">#77663399</color>
+</resources>

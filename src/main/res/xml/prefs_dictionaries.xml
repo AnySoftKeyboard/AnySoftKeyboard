@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:key="special_dictionaries_group">
+
+    <Preference
+        android:key="summary"
+        android:summary="@string/special_dictionaries_group_summary" />
+
+    <CheckBoxPreference
+        android:key="@string/settings_key_use_user_dictionary"
+        android:title="@string/use_user_dictionary"
+        android:persistent="true"
+        android:defaultValue="@bool/settings_default_user_dictionary"
+        android:summaryOn="@string/use_user_dictionary_on_summary"
+        android:summaryOff="@string/use_user_dictionary_off_summary"/>
+    <Preference android:title="@string/user_dict_editor"
+        android:key="@string/user_dict_editor_key">
+    </Preference>
+    <net.evendanan.pushingpixels.ListPreference
+        android:key="@string/settings_key_auto_dictionary_threshold"
+        android:defaultValue="@string/settings_default_auto_dictionary_add_threshold"
+        android:dialogTitle="@string/use_auto_dictionary_dialog_title"
+        android:entries="@array/auto_dictionary_threshold_types"
+        android:entryValues="@array/auto_dictionary_threshold_values"
+        android:summary="@string/use_auto_dictionary_summary"
+        android:title="@string/use_auto_dictionary"/>
+    <CheckBoxPreference
+        android:key="@string/settings_key_use_contacts_dictionary"
+        android:title="@string/use_contacts_dictionary"
+        android:persistent="true"
+        android:defaultValue="@bool/settings_default_contacts_dictionary"
+        android:summaryOn="@string/use_contacts_dictionary_on_summary"
+        android:summaryOff="@string/use_contacts_dictionary_off_summary"/>
+
+</PreferenceScreen>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="keyboard_theme_tweak_group"
+    android:title="@string/keyboard_theme_tweak_group">
+
+    <CheckBoxPreference
+        android:defaultValue="@bool/settings_default_key_press_shows_preview_popup"
+        android:key="@string/settings_key_key_press_shows_preview_popup"
+        android:persistent="true"
+        android:summaryOff="@string/key_press_preview_popup_off_summary"
+        android:summaryOn="@string/key_press_preview_popup_on_summary"
+        android:title="@string/key_press_preview_popup" />
+
+    <net.evendanan.pushingpixels.ListPreference
+        android:defaultValue="@string/settings_default_key_press_preview_popup_position"
+        android:dependency="@string/settings_key_key_press_shows_preview_popup"
+        android:dialogTitle="@string/settings_key_key_press_preview_popup_position"
+        android:entries="@array/settings_key_preview_position_override_names"
+        android:entryValues="@array/settings_key_preview_position_override_values"
+        android:key="@string/settings_key_key_press_preview_popup_position"
+        android:persistent="true"
+        android:summary="@string/key_preview_position_override_summary"
+        android:title="@string/key_preview_position_override" />
+
+    <CheckBoxPreference
+        android:defaultValue="@bool/settings_default_show_hint_text_value"
+        android:key="@string/settings_key_show_hint_text_key"
+        android:persistent="true"
+        android:summaryOff="@string/show_hint_text_off_summary"
+        android:summaryOn="@string/show_hint_text_on_summary"
+        android:title="@string/show_hint_text" />
+
+    <CheckBoxPreference
+        android:defaultValue="@bool/settings_default_use_custom_hint_align_value"
+        android:dependency="@string/settings_key_show_hint_text_key"
+        android:key="@string/settings_key_use_custom_hint_align_key"
+        android:persistent="true"
+        android:summaryOff="@string/use_custom_hint_align_off_summary"
+        android:summaryOn="@string/use_custom_hint_align_on_summary"
+        android:title="@string/use_custom_hint_align" />
+
+    <net.evendanan.pushingpixels.ListPreference
+        android:defaultValue="@string/settings_default_custom_hint_align_value"
+        android:dependency="@string/settings_key_use_custom_hint_align_key"
+        android:dialogTitle="@string/settings_custom_hint_align_dialog_title"
+        android:entries="@array/custom_hint_align_types"
+        android:entryValues="@array/custom_hint_align_values"
+        android:key="@string/settings_key_custom_hint_align_key"
+        android:summary="@string/custom_hint_align_summary"
+        android:title="@string/custom_hint_align" />
+
+    <net.evendanan.pushingpixels.ListPreference
+        android:defaultValue="@string/settings_default_custom_hint_valign_value"
+        android:dependency="@string/settings_key_use_custom_hint_align_key"
+        android:dialogTitle="@string/settings_custom_hint_valign_dialog_title"
+        android:entries="@array/custom_hint_valign_types"
+        android:entryValues="@array/custom_hint_valign_values"
+        android:key="@string/settings_key_custom_hint_valign_key"
+        android:summary="@string/custom_hint_valign_summary"
+        android:title="@string/custom_hint_valign" />
+
+    <CheckBoxPreference
+        android:defaultValue="@bool/settings_default_show_keyboard_name_text_value"
+        android:key="@string/settings_key_show_keyboard_name_text_key"
+        android:persistent="true"
+        android:summaryOff="@string/show_keyboard_name_off_summary"
+        android:summaryOn="@string/show_keyboard_name_on_summary"
+        android:title="@string/show_keyboard_name_text" />
+
+    <EditTextPreference
+        android:autoText="false"
+        android:capitalize="none"
+        android:defaultValue="@string/settings_default_portrait_keyboard_height_factor"
+        android:dialogTitle="@string/zoom_factor_keys_in_portrait"
+        android:inputType="numberDecimal"
+        android:key="zoom_factor_keys_in_portrait"
+        android:lines="1"
+        android:persistent="true"
+        android:singleLine="true"
+        android:title="@string/zoom_factor_keys_in_portrait" />
+
+    <EditTextPreference
+        android:autoText="false"
+        android:capitalize="none"
+        android:defaultValue="@string/settings_default_landscape_keyboard_height_factor"
+        android:dialogTitle="@string/zoom_factor_keys_in_landscape"
+        android:inputType="numberDecimal"
+        android:key="zoom_factor_keys_in_landscape"
+        android:lines="1"
+        android:persistent="true"
+        android:singleLine="true"
+        android:title="@string/zoom_factor_keys_in_landscape" />
+</PreferenceScreen>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="@color/menu_background_pressed"/>
+    <corners android:radius="2dp" />
+    <stroke android:color="@color/menu_divider" android:width="1px" />
+</shape>
