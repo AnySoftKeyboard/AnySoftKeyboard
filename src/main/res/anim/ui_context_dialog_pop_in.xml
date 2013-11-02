@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- this animation is for UI context - popping dialog. This is for the fragment below the dialog. -->
+<set>
+    <!-- nothing! -->
+</set>

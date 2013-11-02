@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:minHeight="?android:attr/listPreferredItemHeight"
+              android:orientation="horizontal"
+              android:paddingBottom="2dip"
+              android:paddingTop="2dip">
+
+    <ImageView
+            android:id="@+id/quick_text_icon"
+            android:layout_width="20dip"
+            android:layout_height="20dip"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="18dip"
+            android:scaleType="centerInside"/>
+
+    <include layout="@layout/quick_text_key_menu_item"/>
+
+</LinearLayout>

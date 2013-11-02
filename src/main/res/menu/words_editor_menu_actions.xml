@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Search, should appear as action button -->
+    <item android:id="@+id/add_user_word"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="@string/word_editor_action_add_word"
+        android:showAsAction="never|withText" />
+    <item android:id="@+id/backup_words"
+        android:icon="@android:drawable/ic_menu_save"
+        android:title="@string/word_editor_action_backup_words"
+        android:showAsAction="never|withText" />
+    <item android:id="@+id/restore_words"
+        android:icon="@android:drawable/ic_menu_upload"
+        android:title="@string/word_editor_action_restore_words"
+        android:showAsAction="never|withText" />
+</menu>

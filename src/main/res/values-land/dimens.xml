@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/* 
+**
+** Copyright 2011, AnySoftKeyboard
+**
+** Licensed under the Apache License, Version 2.0 (the "License"); 
+** you may not use this file except in compliance with the License. 
+** You may obtain a copy of the License at 
+**
+**     http://www.apache.org/licenses/LICENSE-2.0 
+**
+** Unless required by applicable law or agreed to in writing, software 
+** distributed under the License is distributed on an "AS IS" BASIS, 
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+** See the License for the specific language governing permissions and 
+** limitations under the License.
+*/
+-->
+
+<resources>
+    <dimen name="default_key_height">35dip</dimen>
+    <dimen name="default_key_half_height">27dip</dimen>
+    <dimen name="default_key_tall_height">44dip</dimen>
+
+    <dimen name="default_key_vertical_gap">1dip</dimen>
+    <dimen name="default_key_horizontal_gap">2dp</dimen>
+    <dimen name="plain_theme_key_horizontal_gap">4dp</dimen>
+    <dimen name="plain_theme_key_vertical_gap">2dp</dimen>
+
+    <dimen name="keyboard_bottom_padding">0.0in</dimen>
+
+    <dimen name="mini_keyboard_slide_allowance">80dp</dimen>
+
+    <dimen name="candidate_strip_height">38dip</dimen>
+    <dimen name="candidate_strip_fading_edge_length">63dip</dimen>
+
+    <integer name="condensing_precentage">80</integer>
+
+
+    <dimen name="max_item_extra_width">180dp</dimen>
+</resources>

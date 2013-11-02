@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ask="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:layout_width="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/menu_background_normal">
+
+        <net.evendanan.pushingpixels.AboutAppView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            ask:appIcon="@drawable/ic_launcher"
+            ask:appName="@string/ime_name"
+            ask:appOwner="@string/copyright_owner"
+            android:background="@drawable/menu_background"
+            ask:textColor="@android:color/black"
+            android:onClick="onNavigateToAboutClicked" />
+
+        <View style="@style/Ask.Menu.Divider" />
+
+        <!-- consider adding a small flag or keyboard icon next to the Title -->
+        <TextView
+            style="@style/Ask.Menu.Item.Title"
+            android:text="@string/languages_cat"
+            android:drawableLeft="@drawable/ic_language_category"
+            android:drawablePadding="4dp"/>
+
+        <View style="@style/Ask.Menu.Item.Title.Divider" />
+        <!-- this will need to be refactor! I can't have all those copy-pastes! -->
+        <LinearLayout
+            style="@style/Ask.Menu.Row"
+            android:onClick="onNavigateToKeyboardAddonSettings">
+
+            <TextView
+                style="@style/Ask.Menu.Row.Item"
+                android:text="@string/keyboards_group" />
+
+            <TextView
+                style="@style/Ask.Menu.Row.Item.Extra"
+                android:id="@+id/keyboards_group_extra_data"
+                android:text="@string/keyboards_group_extra_template" />
+            <!-- consider showing the current language flag -->
+        </LinearLayout>
+
+        <View style="@style/Ask.Menu.Item.Divider" />
+
+        <TextView
+            style="@style/Ask.Menu.Item"
+            android:layout_width="match_parent"
+            android:text="@string/special_dictionaries_group"
+            android:onClick="onNavigateToDictionarySettings" />
+
+        <View style="@style/Ask.Menu.Item.Divider" />
+
+        <TextView
+            style="@style/Ask.Menu.Item.More"
+            android:layout_width="match_parent"
+            android:text="@string/menu_even_more_settings"
+            android:onClick="onNavigateToLanguageSettings" />
+
+        <!-- user interface -->
+        <!-- consider adding a small color platte icon next to the Title -->
+        <TextView
+            style="@style/Ask.Menu.Item.Title"
+            android:text="@string/ui_group"
+            android:drawableLeft="@drawable/ic_user_interface_category"
+            android:drawablePadding="4dp"/>
+
+        <View style="@style/Ask.Menu.Item.Title.Divider" />
+
+        <LinearLayout
+            style="@style/Ask.Menu.Row"
+            android:onClick="onNavigateToKeyboardThemeSettings">
+
+            <TextView
+                style="@style/Ask.Menu.Row.Item"
+                android:text="@string/keyboard_theme_group" />
+
+            <TextView
+                style="@style/Ask.Menu.Row.Item.Extra"
+                android:id="@+id/theme_extra_data"
+                android:text="@string/selected_add_on_summary" />
+            <!-- consider to show the Theme's icon -->
+        </LinearLayout>
+
+        <View style="@style/Ask.Menu.Item.Divider" />
+
+        <TextView
+            style="@style/Ask.Menu.Item"
+            android:text="@string/effects_group"
+            android:onClick="onNavigateToEffectsSettings" />
+
+        <View style="@style/Ask.Menu.Item.Divider" />
+
+        <TextView
+            style="@style/Ask.Menu.Item"
+            android:text="@string/gesture_settings"
+            android:onClick="onNavigateToGestureSettings" />
+
+        <View style="@style/Ask.Menu.Item.Divider" />
+
+        <TextView
+            style="@style/Ask.Menu.Item.More"
+            android:text="@string/menu_even_more_settings"
+            android:onClick="onNavigateToUserInterfaceSettings" />
+    </LinearLayout>
+</ScrollView>

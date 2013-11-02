@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2013 Menny Even-Danan
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="Popup" parent="@android:style/Theme.Dialog">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:maxWidth">320dp</item>
+        <item name="android:windowBackground">@drawable/window_popup_background</item>
+    </style>
+    <style name="Popup.NoTitle" parent="@style/Popup">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="ProgressDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@drawable/progress_dialog_background</item>
+    </style>
+
+    <style name="AnyKeyboardBaseKeyIconTheme">
+        <!-- should support normal, android:state_pressed, feedback, android:state_pressed+feedback, android:state_checked, state_checked+feedback -->
+        <item name="iconKeyShift">@drawable/dark_key_shift_set</item>
+        <!-- should support normal, android:state_pressed, feedback, android:state_pressed+feedback, android:state_checked, state_checked+feedback -->
+        <item name="iconKeyControl">@drawable/dark_key_control_set</item>
+        <!-- should support normal, feedback -->
+        <item name="iconKeyBackspace">@drawable/dark_key_delete_set</item>
+        <!-- should support normal, feedback -->
+        <item name="iconKeySpace">@drawable/dark_key_space_set</item>
+        <!-- should support normal, feedback -->
+        <item name="iconKeyTab">@drawable/dark_key_tab_set</item>
+        <!-- should support normal, feedback -->
+        <item name="iconKeyCancel">@drawable/dark_key_cancel_set</item>
+        <!-- should support normal, feedback -->
+        <item name="iconKeyGlobe">@drawable/dark_key_globe_set</item>
+        <!-- should support normal, key_type_feedback, action_done, action_done+key_type_feedback, action_search, action_search+key_type_feedback, action_go, action_go+key_type_feedback  -->
+        <item name="iconKeyAction">@drawable/dark_key_action_set</item>
+        <!-- should support normal, feedback -->
+        <item name="iconKeyMic">@drawable/dark_key_mic_set</item>
+        <!-- should support normal, feedback -->
+        <item name="iconKeySettings">@drawable/dark_key_settings_set</item>
+    </style>
+
+    <style name="GingerbreadKeyIconTheme">
+        <!-- should support normal, feedback -->
+        <item name="iconKeyArrowRight">@drawable/dark_key_arrow_right_set</item>
+        <!-- should support normal, feedback -->
+        <item name="iconKeyArrowLeft">@drawable/dark_key_arrow_left_set</item>
+        <!-- should support normal, feedback -->
+        <item name="iconKeyArrowUp">@drawable/dark_key_arrow_up_set</item>
+        <!-- should support normal, feedback -->
+        <item name="iconKeyArrowDown">@drawable/dark_key_arrow_down_set</item>
+    </style>
+
+    <style name="AnyKeyboardBaseTheme">
+        <item name="android:background">@drawable/dark_background</item>
+        <item name="keyboardWallpaper">@drawable/ask_wallpaper</item>
+        <item name="keyBackground">@drawable/dark_btn_key</item>
+
+        <item name="keyTextSize">@dimen/key_text_size</item>
+        <item name="keyTextStyle">bold</item>
+        <item name="keyTextColor">#FFFFFFFF</item>
+        <item name="labelTextSize">@dimen/key_label_text_size</item>
+
+        <item name="keyboardNameTextSize">@dimen/keyboard_name_text_size</item>
+        <item name="keyboardNameTextColor">#FAAA</item>
+
+        <item name="keyHysteresisDistance">@dimen/key_hysteresis_distance</item>
+        <!-- this is what Android team figured verticalCorrection should be -->
+        <item name="verticalCorrection">-0.05in</item>
+
+        <item name="shadowColor">#BB000000</item>
+        <item name="shadowRadius">0px</item>
+        <item name="shadowOffsetX">0px</item>
+        <item name="shadowOffsetY">0px</item>
+        <item name="backgroundDimAmount">0.5</item>
+        <item name="symbolColorScheme">white</item>
+
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:paddingBottom">6dp</item>
+
+        <!-- key preview (feeback) -->
+        <item name="keyPreviewBackground">@drawable/dark_btn_key_preview_background</item>
+        <item name="keyPreviewTextColor">#FFFFFFFF</item>
+        <item name="keyPreviewTextSize">36sp</item>
+        <item name="keyPreviewLabelTextSize">26sp</item>
+        <item name="keyPreviewOffset">@dimen/key_preview_offset</item>
+        <item name="previewGestureTextSize">16sp</item>
+        <item name="previewGestureTextColor">#FFFFFFFF</item>
+        <!-- suggestion strip -->
+        <item name="suggestionNormalTextColor">@color/candidate_normal</item>
+        <item name="suggestionRecommendedTextColor">@color/candidate_recommended</item>
+        <item name="suggestionOthersTextColor">@color/candidate_other</item>
+        <item name="suggestionTextSize">@dimen/candidate_font_height</item>
+        <item name="suggestionBackgroundImage">@drawable/dark_background</item>
+        <item name="suggestionDividerImage">@drawable/dark_suggestions_divider</item>
+        <item name="suggestionStripHeight">@dimen/candidate_strip_height</item>
+        <item name="suggestionWordXGap">15dp</item>
+
+        <item name="keyNormalHeight">@dimen/default_key_height</item>
+        <item name="keySmallHeight">@dimen/default_key_half_height</item>
+        <item name="keyLargeHeight">@dimen/default_key_tall_height</item>
+
+        <item name="keyHorizontalGap">@dimen/default_key_horizontal_gap</item>
+        <item name="keyVerticalGap">@dimen/default_key_vertical_gap</item>
+
+        <!-- V2 -->
+        <item name="hintTextSize">@dimen/key_hint_text_size</item>
+        <item name="hintTextColor">#FFBBBBBB</item>
+        <!-- hint label positioning attributes -->
+        <item name="hintLabelVAlign">bottom</item>
+        <item name="hintLabelAlign">right</item>
+    </style>
+    <style name="AnyKeyboardPopupBaseTheme" parent="@style/AnyKeyboardBaseTheme">
+        <item name="android:paddingLeft">0px</item>
+        <item name="android:paddingTop">0px</item>
+        <item name="android:paddingRight">0px</item>
+        <item name="android:paddingBottom">0px</item>
+        <!-- selected popup key is the one ABOVE the finger -->
+        <item name="verticalCorrection">-0.26in</item>
+        <!-- this will say "no preview" -->
+        <item name="keyPreviewTextSize">0px</item>
+        <item name="hintTextSize">0px</item>
+    </style>
+
+    <style name="LeanDark" parent="@style/AnyKeyboardBaseTheme">
+        <item name="android:background">@drawable/lean_dark_keyboard_background</item>
+        <item name="keyVerticalGap">@dimen/plain_theme_key_horizontal_gap</item>
+        <item name="keyBackground">@drawable/lean_dark_btn</item>
+        <item name="keyPreviewBackground">@drawable/lean_dark_popup_keyboard_background</item>
+        <item name="suggestionBackgroundImage">@drawable/lean_dark_candidates_background</item>
+
+        <!-- I said Lean theme, so no garbage on the screen please. -->
+        <item name="keyboardNameTextColor">#F666</item>
+        <item name="hintTextSize">0px</item>
+
+        <item name="keyTextStyle">normal</item>
+        <item name="shadowRadius">0px</item>
+    </style>
+    <style name="LeanDarkPopup" parent="@style/AnyKeyboardPopupBaseTheme">
+        <item name="android:background">@drawable/lean_dark_popup_keyboard_background</item>
+        <item name="keyBackground">@drawable/lean_dark_btn_popup</item>
+        <!--
+                <item name="keyTextSize">@dimen/lean_key_text_size</item>
+        -->
+        <item name="keyTextStyle">normal</item>
+        <item name="shadowRadius">0px</item>
+    </style>
+
+    <style name="LeanDark2" parent="@style/LeanDark">
+        <item name="keyTextSize">@dimen/lean_key_text_size</item>
+        <item name="keyTextStyle">bold</item>
+        <item name="hintTextSize">@dimen/key_hint_text_size</item>
+    </style>
+    <style name="LeanDarkPopup2" parent="@style/LeanDarkPopup">
+        <item name="keyTextSize">@dimen/lean_key_text_size</item>
+        <item name="keyTextStyle">bold</item>
+    </style>
+
+    <style name="Gingerbread" parent="@style/AnyKeyboardBaseTheme">
+        <item name="android:background">@drawable/gingerbread_main_background</item>
+        <item name="keyBackground">@drawable/btn_keyboard_key_gingerbread</item>
+        <item name="keyPreviewBackground">@drawable/gingerbread_btn_key_preview_background</item>
+
+        <item name="shadowRadius">5dp</item>
+    </style>
+    <style name="GingerbreadPopup" parent="@style/AnyKeyboardPopupBaseTheme">
+        <item name="android:background">@drawable/keyboard_popup_panel_background</item>
+        <item name="keyBackground">@drawable/btn_keyboard_key_gingerbread_popup</item>
+
+        <item name="shadowRadius">5dp</item>
+    </style>
+
+    <style name="PlainDarkAnySoftKeyboard" parent="@style/AnyKeyboardBaseTheme">
+        <item name="android:background">@drawable/dark_background</item>
+        <item name="keyBackground">@drawable/dark_btn_key</item>
+        <item name="keyPreviewBackground">@drawable/dark_btn_key_preview_background</item>
+        <item name="keyHorizontalGap">@dimen/plain_theme_key_horizontal_gap</item>
+        <item name="keyVerticalGap">@dimen/plain_theme_key_vertical_gap</item>
+    </style>
+    <style name="PlainDarkAnySoftKeyboardPopup" parent="@style/AnyKeyboardPopupBaseTheme">
+        <item name="android:background">@drawable/dark_background_popup</item>
+        <item name="keyBackground">@drawable/dark_btn_key</item>
+    </style>
+
+    <style name="PlainBlackAnySoftKeyboard" parent="@style/AnyKeyboardBaseTheme">
+        <item name="android:background">@drawable/blacktheme_background</item>
+        <item name="keyBackground">@drawable/blacktheme_key</item>
+
+        <item name="keyPreviewBackground">@drawable/blacktheme_preview_background</item>
+        <item name="keyPreviewTextColor">@color/blacktheme_color_previewtext</item>
+        <item name="keyPreviewTextSize">@dimen/blacktheme_size_text_preview</item>
+        <item name="keyPreviewLabelTextSize">@dimen/blacktheme_size_text_main</item>
+
+        <item name="keyTextSize">@dimen/blacktheme_size_text_main</item>
+        <item name="labelTextSize">@dimen/blacktheme_size_text_smaller</item>
+        <item name="keyTextColor">@color/blacktheme_key_keytext_color</item>
+
+        <item name="hintTextSize">@dimen/blacktheme_size_text_hint</item>
+        <item name="hintTextColor">@color/blacktheme_key_hint_color</item>
+        <item name="hintLabelVAlign">top</item>
+        <item name="hintLabelAlign">center</item>
+        <item name="hintOverflowLabel">&lt;·&gt;</item>
+
+        <item name="keyHorizontalGap">@dimen/blacktheme_keygap_horizontal</item>
+        <item name="keyVerticalGap">@dimen/blacktheme_keygap_vertical</item>
+
+        <item name="android:paddingLeft">@dimen/blacktheme_paddingLeft</item>
+        <item name="android:paddingTop">@dimen/blacktheme_paddingTop</item>
+        <item name="android:paddingRight">@dimen/blacktheme_paddingRight</item>
+        <item name="android:paddingBottom">@dimen/blacktheme_paddingBottom</item>
+
+        <item name="keyNormalHeight">@dimen/blacktheme_key_height</item>
+        <item name="keySmallHeight">@dimen/blacktheme_key_half_height</item>
+        <item name="keyLargeHeight">@dimen/blacktheme_key_tall_height</item>
+
+        <item name="suggestionNormalTextColor">@color/blacktheme_color_suggestion_normal</item>
+        <item name="suggestionRecommendedTextColor">@color/blacktheme_color_suggestion_recommended</item>
+        <item name="suggestionOthersTextColor">@color/blacktheme_color_suggestion_others</item>
+        <item name="suggestionBackgroundImage">@drawable/blacktheme_suggestion_background</item>
+        <item name="suggestionDividerImage">@drawable/dark_suggestions_divider</item>
+        <item name="suggestionTextSize">@dimen/candidate_font_height</item>
+        <item name="suggestionStripHeight">@dimen/candidate_strip_height</item>
+    </style>
+    <style name="PlainBlackAnySoftKeyboardPopup" parent="@style/AnyKeyboardPopupBaseTheme">
+        <item name="android:background">@drawable/blacktheme_popup_background</item>
+        <item name="keyBackground">@drawable/blacktheme_popupkey</item>
+        <item name="keyTextColor">@color/blacktheme_popup_keytext_color</item>
+    </style>
+
+    <style name="PlainLightAnySoftKeyboard" parent="@style/AnyKeyboardBaseTheme">
+        <item name="android:background">@drawable/light_background_tiled</item>
+        <item name="keyBackground">@drawable/light_btn_key</item>
+        <item name="keyTextColor">@color/light_btn_key_text_color</item>
+        <item name="hintTextColor">#FF222222</item>
+
+        <item name="backgroundDimAmount">0.2</item>
+
+        <item name="keyPreviewBackground">@drawable/light_btn_key_preview_background</item>
+        <item name="keyPreviewTextColor">#FF000000</item>
+
+        <item name="suggestionNormalTextColor">@android:color/black</item>
+        <item name="suggestionRecommendedTextColor">@color/candidate_recommended</item>
+        <item name="suggestionOthersTextColor">@color/candidate_other</item>
+        <item name="suggestionTextSize">@dimen/candidate_font_height</item>
+        <item name="suggestionBackgroundImage">@drawable/light_background_suggestions</item>
+        <item name="suggestionDividerImage">@drawable/dark_suggestions_divider</item>
+        <item name="suggestionStripHeight">@dimen/candidate_strip_height</item>
+
+        <item name="keyHorizontalGap">@dimen/plain_theme_key_horizontal_gap</item>
+        <item name="keyVerticalGap">@dimen/plain_theme_key_vertical_gap</item>
+    </style>
+    <style name="PlainLightAnySoftKeyboardPopup" parent="@style/AnyKeyboardPopupBaseTheme">
+        <item name="android:background">@drawable/light_background_popup</item>
+        <item name="keyBackground">@drawable/light_btn_key</item>
+        <item name="keyTextColor">@color/light_btn_key_text_color</item>
+    </style>
+
+    <style name="MainKeyboardAnimation">
+        <item name="android:windowEnterAnimation">@anim/input_method_fancy_enter</item>
+        <item name="android:windowExitAnimation">@anim/input_method_fancy_exit</item>
+    </style>
+    <style name="KeyPreviewAnimation">
+        <item name="android:windowEnterAnimation">@anim/key_preview_fadein</item>
+        <item name="android:windowExitAnimation">@anim/key_preview_fadeout</item>
+    </style>
+    <style name="MiniKeyboardAnimation">
+        <item name="android:windowEnterAnimation">@anim/mini_keyboard_flip_in</item>
+        <item name="android:windowExitAnimation">@anim/mini_keyboard_fadeout</item>
+    </style>
+    <style name="ExtensionKeyboardAnimation">
+        <item name="android:windowEnterAnimation">@anim/extension_keyboard_fadein</item>
+        <item name="android:windowExitAnimation">@anim/extension_keyboard_fadeout</item>
+    </style>
+
+    <style name="AddonScreenshotPopupAnimation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+
+    <declare-styleable name="SlidePreferenceAttributes">
+        <attr name="android:title"/>
+        <attr name="android:defaultValue"/>
+        <attr name="slideMinimum"/>
+        <attr name="slideMaximum"/>
+    </declare-styleable>
+
+    <declare-styleable name="AboutAppPreferenceAttributes">
+        <attr name="appIcon"/>
+        <attr name="appName"/>
+        <attr name="appOwner"/>
+        <attr name="textColor"/>
+    </declare-styleable>
+
+    <style name="Ask">
+    </style>
+
+    <style name="Ask.Menu" parent="Ask">
+        <item name="android:background">@drawable/menu_background</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+    <style name="Ask.Menu.Divider" parent="Ask.Menu">
+        <item name="android:layout_margin">6dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/menu_divider</item>
+    </style>
+    <style name="Ask.Menu.Item.Divider" parent="Ask.Menu.Divider">
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/menu_item_divider</item>
+    </style>
+    <style name="Ask.Menu.Item.Title.Divider" parent="Ask.Menu.Divider">
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:layout_height">2dp</item>
+    </style>
+    <style name="Ask.Menu.Item" parent="Ask.Menu">
+        <item name="android:clickable">true</item>
+        <item name="android:textSize">@dimen/font_size_sub_title</item>
+        <item name="android:minHeight">44dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">8dp</item>
+    </style>
+    <style name="Ask.Menu.Item.More" parent="Ask.Menu.Item">
+        <item name="android:textSize">@dimen/font_size_hint_text</item>
+    </style>
+    <style name="Ask.Menu.Row" parent="Ask.Menu">
+        <item name="android:clickable">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">44dp</item>
+        <item name="android:weightSum">1</item>
+    </style>
+    <style name="Ask.Menu.Row.Item" parent="Ask.Menu">
+        <item name="android:clickable">false</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:layout_width">0px</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/font_size_sub_title</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+    </style>
+    <style name="Ask.Menu.Row.Item.Extra" parent="Ask.Menu.Row.Item">
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:background">@drawable/menu_item_extra_background</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textSize">@dimen/font_size_small_text</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:maxWidth">@dimen/max_item_extra_width</item>
+    </style>
+    <style name="Ask.Menu.Item.Title" parent="Ask.Menu">
+        <item name="android:clickable">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/font_size_title</item>
+        <item name="android:textAllCaps" tools:ignore="NewApi">true</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginLeft">12dp</item>
+        <item name="android:drawableBottom">@drawable/selected_tab</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="Ask.Text">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="Ask.Text.Title" parent="Ask.Text">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">@dimen/font_size_title</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="Ask.Text.SubTitle" parent="Ask.Text">
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="android:textSize">@dimen/font_size_sub_title</item>
+    </style>
+    <style name="Ask.Text.Normal" parent="Ask.Text">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">@dimen/font_size_text</item>
+    </style>
+    <style name="Ask.Text.Hint" parent="Ask.Text">
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="android:textSize">@dimen/font_size_hint_text</item>
+    </style>
+    <style name="Ask.Text.Small" parent="Ask.Text">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">@dimen/font_size_small_text</item>
+    </style>
+
+    <style name="Ask.Text.Small.Error" parent="Ask.Text.Small">
+        <item name="android:textColor">#F46</item>
+    </style>
+
+    <style name="Ask.Card">
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/card_background</item>
+        <item name="android:minHeight">44dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+</resources>

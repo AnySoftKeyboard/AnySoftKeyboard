@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:key="prefs_addons_screen"
+                  android:title="@string/keyboard_theme_group">
+
+    <Preference
+        android:key="summary"
+        android:summary="@string/keyboard_themes_group_summary" />
+
+    <PreferenceCategory
+            android:key="category_addons_group"
+            android:title="@string/keyboard_theme_group">
+
+        <com.anysoftkeyboard.ui.settings.widget.AddOnListPreference
+                android:defaultValue="@string/settings_default_keyboard_theme_key"
+                android:dialogTitle="@string/keyboard_theme_dialog_title"
+                android:entries="@array/pref_list_empty_types"
+                android:entryValues="@array/pref_list_empty_values"
+                android:key="@string/settings_key_keyboard_theme_key"
+                android:persistent="true"
+                android:summary="@string/keyboard_theme_summary"
+                android:title="@string/keyboard_theme_list_title"/>
+
+        <!-- putting this at the end, so the user will get some kind of context -->
+        <com.anysoftkeyboard.ui.settings.widget.AddOnStoreSearchPreference
+            android:key="theme"
+            android:title="@string/search_market_for_keyboard_addons" />
+    </PreferenceCategory>
+
+    <Preference
+        android:key="@string/tweaks_group_key"
+        android:title="@string/tweaks_group" />
+
+</PreferenceScreen>
