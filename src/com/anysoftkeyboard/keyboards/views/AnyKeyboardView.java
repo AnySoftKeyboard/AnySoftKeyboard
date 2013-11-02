@@ -168,21 +168,21 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     }
 
     @Override
-    public boolean setValueFromTheme(TypedArray a, int[] padding, int attr) {
-        switch (attr) {
-            case R.styleable.AnySoftKeyboardTheme_previewGestureTextSize:
-                mGesturePreviewTextSize = a.getDimensionPixelSize(attr, 0);
+    public boolean setValueFromTheme(TypedArray remoteTypedArray, int[] padding, int localAttrId, int remoteTypedArrayIndex) {
+        switch (localAttrId) {
+            case R.attr.previewGestureTextSize:
+                mGesturePreviewTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0);
                 if (AnyApplication.DEBUG)
                     Log.d(TAG, "AnySoftKeyboardTheme_previewGestureTextSize "
                             + mGesturePreviewTextSize);
                 break;
-            case R.styleable.AnySoftKeyboardTheme_previewGestureTextColor:
-                mGesturePreviewTextColor = a.getColor(attr, 0xFFF);
+            case R.attr.previewGestureTextColor:
+                mGesturePreviewTextColor = remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFFF);
                 if (AnyApplication.DEBUG)
                     Log.d(TAG, "AnySoftKeyboardTheme_previewGestureTextColor "
                             + mGesturePreviewTextColor);
             default:
-                return super.setValueFromTheme(a, padding, attr);
+                return super.setValueFromTheme(remoteTypedArray, padding, localAttrId, remoteTypedArrayIndex);
         }
         return true;
     }
