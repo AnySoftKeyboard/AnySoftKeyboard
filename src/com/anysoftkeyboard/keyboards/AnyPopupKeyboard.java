@@ -152,7 +152,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     }
 
     @Override
-    protected void addGenericRows(Context askContext, Context context, int mode, KeyboardDimens keyboardDimens) {
+    protected void addGenericRows(int mode, KeyboardDimens keyboardDimens) {
         //no generic rows in popups, only in main keyboard
     }
 
