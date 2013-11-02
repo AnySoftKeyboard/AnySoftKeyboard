@@ -19,16 +19,20 @@ package com.anysoftkeyboard.ui.settings;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.support.v4.preference.PreferenceFragment;
 
 import com.menny.android.anysoftkeyboard.R;
 
-public class DictionariesFragment extends PreferenceFragment {
+import net.evendanan.pushingpixels.FragmentChauffeurActivity;
+
+public class DictionariesFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener {
 
     @Override
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         addPreferencesFromResource(R.xml.prefs_dictionaries);
+        findPreference(getString(R.string.user_dict_editor_key)).setOnPreferenceClickListener(this);
     }
 
     @Override
@@ -36,5 +40,17 @@ public class DictionariesFragment extends PreferenceFragment {
         super.onStart();
         Activity activity = getActivity();
         activity.setTitle(getString(R.string.special_dictionaries_group));
+    }
+
+    @Override
+    public boolean onPreferenceClick(Preference preference) {
+        if (preference.getKey().equals(getString(R.string.user_dict_editor_key))) {
+            Activity activity = getActivity();
+            if (activity != null && activity instanceof FragmentChauffeurActivity) {
+                ((FragmentChauffeurActivity)activity).addFragmentToUi(new UserDictionaryEditorFragment(), FragmentChauffeurActivity.FragmentUiContext.DeeperExperience);
+                return true;
+            }
+        }
+        return false;
     }
 }

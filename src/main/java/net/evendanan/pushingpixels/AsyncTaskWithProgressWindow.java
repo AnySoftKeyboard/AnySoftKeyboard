@@ -20,12 +20,18 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.os.AsyncTask;
 import android.util.Log;
+
 import com.menny.android.anysoftkeyboard.R;
 
 import java.lang.ref.WeakReference;
 
-public abstract class AsyncTaskWithProgressWindow<Params, Progress, Result, A extends Activity>
+public abstract class AsyncTaskWithProgressWindow<Params, Progress, Result, A extends AsyncTaskWithProgressWindow.AsyncTaskOwner>
         extends AsyncTask<Params, Progress, Result> {
+
+    public static interface AsyncTaskOwner {
+        Activity getActivity();
+    }
+
     private static final String TAG = "AsyncTaskWithProgressWindow";
 
     private final WeakReference<A> mActivity;
@@ -38,7 +44,7 @@ public abstract class AsyncTaskWithProgressWindow<Params, Progress, Result, A ex
 
     private Exception mBackgroundException;
 
-    protected final A getOwningActivity() {
+    protected final A getOwner() {
         A a = mActivity.get();
         return a;
     }
@@ -47,16 +53,16 @@ public abstract class AsyncTaskWithProgressWindow<Params, Progress, Result, A ex
     protected void onPreExecute() {
         super.onPreExecute();
 
-        A a = getOwningActivity();
+        A a = getOwner();
         if (a == null)
             return;
 
-        mProgressDialog = new Dialog(a, R.style.ProgressDialog);
+        mProgressDialog = new Dialog(a.getActivity(), R.style.ProgressDialog);
         mProgressDialog.setContentView(R.layout.progress_window);
         mProgressDialog.setTitle(null);
         mProgressDialog.setCancelable(false);
 
-        mProgressDialog.setOwnerActivity(a);
+        mProgressDialog.setOwnerActivity(a.getActivity());
 
         mProgressDialog.show();
     }

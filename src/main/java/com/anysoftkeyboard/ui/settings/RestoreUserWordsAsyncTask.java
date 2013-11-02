@@ -21,18 +21,21 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.view.WindowManager.BadTokenException;
 import android.widget.Toast;
+
 import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
 import java.io.FileInputStream;
+
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
     protected static final String TAG = "ASK RestoreUDict";
@@ -42,9 +45,9 @@ final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
     private UserDictionary mDictionary;
 
     RestoreUserWordsAsyncTask(
-            UserDictionaryEditorActivity userDictionaryEditorActivity) {
+            UserDictionaryEditorFragment userDictionaryEditorActivity) {
         super(userDictionaryEditorActivity);
-        mAppContext = userDictionaryEditorActivity.getApplicationContext();
+        mAppContext = userDictionaryEditorActivity.getActivity().getApplicationContext();
     }
 
     @Override
@@ -57,7 +60,7 @@ final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser parser = factory.newSAXParser();
         parser.parse(new FileInputStream(new File(targetFolder,
-                UserDictionaryEditorActivity.ASK_USER_WORDS_SDCARD_FILENAME)),
+                UserDictionaryEditorFragment.ASK_USER_WORDS_SDCARD_FILENAME)),
                 new DefaultHandler() {
                     private boolean inWord = false;
                     private int freq = 1;
@@ -142,7 +145,7 @@ final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
             mDictionary.close();
         }
 
-        UserDictionaryEditorActivity activity = getOwningActivity();
+        UserDictionaryEditorFragment activity = getOwner();
 
         try {
             if (backgroundException != null) {
@@ -154,10 +157,10 @@ final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
                                         backgroundException.getMessage()),
                         Toast.LENGTH_LONG).show();
                 if (activity != null)
-                    activity.showDialog(UserDictionaryEditorActivity.DIALOG_LOAD_FAILED);
+                    activity.showDialog(UserDictionaryEditorFragment.DIALOG_LOAD_FAILED);
             } else {
                 if (activity != null)
-                    activity.showDialog(UserDictionaryEditorActivity.DIALOG_LOAD_SUCCESS);
+                    activity.showDialog(UserDictionaryEditorFragment.DIALOG_LOAD_SUCCESS);
             }
             // re-reading words (this is a simple way to re-sync the
             // dictionary members)

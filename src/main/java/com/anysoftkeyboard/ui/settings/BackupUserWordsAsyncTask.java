@@ -42,20 +42,20 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
     private final Context mAppContext;
 
     BackupUserWordsAsyncTask(
-            UserDictionaryEditorActivity userDictionaryEditorActivity) {
+            UserDictionaryEditorFragment userDictionaryEditorActivity) {
         super(userDictionaryEditorActivity);
-        mAppContext = userDictionaryEditorActivity.getApplicationContext();
+        mAppContext = userDictionaryEditorActivity.getActivity().getApplicationContext();
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        UserDictionaryEditorActivity a = getOwningActivity();
+        UserDictionaryEditorFragment a = getOwner();
         if (a == null)
             return;
         // I can access the UI object in the UI thread.
         for (int i = 0; i < a.mLangs.getCount(); i++) {
-            final String locale = ((UserDictionaryEditorActivity.DictionaryLocale) a.mLangs.getItemAtPosition(i)).getLocale();
+            final String locale = ((UserDictionaryEditorFragment.DictionaryLocale) a.mLangs.getItemAtPosition(i)).getLocale();
             if (!TextUtils.isEmpty(locale)) {
                 mLocalesToSave.add(locale);
                 Log.d(TAG, "Found a locale to backup: " + locale);
@@ -72,7 +72,7 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
         targetFolder.mkdirs();
         // https://github.com/menny/Java-very-tiny-XmlWriter/blob/master/XmlWriter.java
         XmlWriter output = new XmlWriter(new File(targetFolder,
-                UserDictionaryEditorActivity.ASK_USER_WORDS_SDCARD_FILENAME));
+                UserDictionaryEditorFragment.ASK_USER_WORDS_SDCARD_FILENAME));
 
         output.writeEntity("userwordlist");
         for (String locale : mLocalesToSave) {
@@ -132,7 +132,7 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
 
     @Override
     protected void applyResults(Void result, Exception backgroundException) {
-        UserDictionaryEditorActivity a = getOwningActivity();
+        UserDictionaryEditorFragment a = getOwner();
         if (backgroundException != null) {
             Toast.makeText(
                     mAppContext,
@@ -140,10 +140,10 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
                             R.string.user_dict_backup_fail_text_with_error,
                             backgroundException.getMessage()), Toast.LENGTH_LONG).show();
             if (a != null)
-                a.showDialog(UserDictionaryEditorActivity.DIALOG_SAVE_FAILED);
+                a.showDialog(UserDictionaryEditorFragment.DIALOG_SAVE_FAILED);
         } else {
             if (a != null)
-                a.showDialog(UserDictionaryEditorActivity.DIALOG_SAVE_SUCCESS);
+                a.showDialog(UserDictionaryEditorFragment.DIALOG_SAVE_SUCCESS);
         }
         // re-reading words (this is a simple way to re-sync the
         // dictionary members)
