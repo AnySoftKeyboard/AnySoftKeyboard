@@ -20,7 +20,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.anysoftkeyboard.ui.settings.MainSettings;
+import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 
 /*
  * Why is this class exists?
@@ -30,7 +30,7 @@ public class LauncherSettingsActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        startActivity(new Intent(this, MainSettings.class));
+        startActivity(new Intent(this, MainSettingsActivity.class));
         finish();//no need for this activity anymore.
     }
 }
