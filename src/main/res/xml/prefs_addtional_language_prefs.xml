@@ -38,6 +38,11 @@
             android:summaryOn="@string/quick_fix_summary"
             android:title="@string/quick_fix"/>
 
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="behavior_group"
+        android:title="@string/keyboard_behavior_group">
         <CheckBoxPreference
             android:defaultValue="@bool/settings_default_allow_suggestions_restart"
             android:dependency="candidates_on"
