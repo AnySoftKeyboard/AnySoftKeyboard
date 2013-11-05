@@ -68,4 +68,7 @@
             android:persistent="false"
             android:title="@string/search_market_for_quick_key_addons" />
     </PreferenceCategory>
+
+    <Preference android:key="@string/tweaks_group_key"
+        android:title="@string/tweaks_group"/>
 </PreferenceScreen>

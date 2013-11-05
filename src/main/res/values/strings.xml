@@ -436,13 +436,6 @@
     <string name="show_crash_notification_on_summary">Upon ASK crash, open crash report dialog</string>
     <string name="show_crash_notification_off_summary">Silently absorb crashes</string>
 
-    <string name="show_new_version_notifications_again">Show new version notifications</string>
-    <string name="show_new_version_notifications_again_on_summary">Upon installing a new version, a change-log will be
-        shown
-    </string>
-    <string name="show_new_version_notifications_again_off_summary">Will not notify you when a new version is
-        installed
-    </string>
     <string name="use_keyrepeat">Use key repeat</string>
     <string name="use_keyrepeat_on_summary">Key repeat is enabled</string>
     <string name="use_keyrepeat_off_summary">Key repeat is disabled</string>

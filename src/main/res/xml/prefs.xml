@@ -31,26 +31,7 @@
                 android:summary="@string/settings_split_state_summary"
                 android:title="@string/settings_split_state_title"/>
 
-        <PreferenceScreen
-                android:key="hardware_keys_group"
-                android:title="@string/hardware_keys_group">
 
-            <CheckBoxPreference
-                    android:defaultValue="@bool/settings_default_use_camera_key_for_backspace_backword"
-                    android:key="@string/settings_key_use_camera_key_for_backspace_backword"
-                    android:persistent="true"
-                    android:summaryOff="@string/camera_key_for_backspace_backword_support_off_summary"
-                    android:summaryOn="@string/camera_key_for_backspace_backword_support_on_summary"
-                    android:title="@string/camera_key_for_backspace_backword_support"/>
-
-            <CheckBoxPreference
-                    android:defaultValue="@bool/settings_default_use_volume_key_for_left_right"
-                    android:key="@string/settings_key_use_volume_key_for_left_right"
-                    android:persistent="true"
-                    android:summaryOff="@string/volume_key_for_left_right_support_off_summary"
-                    android:summaryOn="@string/volume_key_for_left_right_support_on_summary"
-                    android:title="@string/volume_key_for_left_right_support"/>
-        </PreferenceScreen>
     </PreferenceCategory>
 
     <PreferenceCategory
