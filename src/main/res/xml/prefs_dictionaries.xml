@@ -8,12 +8,21 @@
         android:summary="@string/special_dictionaries_group_summary" />
 
     <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="candidates_on"
+        android:persistent="true"
+        android:title="@string/candidates_on"
+        android:summaryOn="@string/candidates_on_summary"
+        android:summaryOff="@string/candidates_off_summary"/>
+
+    <CheckBoxPreference
         android:key="@string/settings_key_use_user_dictionary"
         android:title="@string/use_user_dictionary"
         android:persistent="true"
         android:defaultValue="@bool/settings_default_user_dictionary"
         android:summaryOn="@string/use_user_dictionary_on_summary"
-        android:summaryOff="@string/use_user_dictionary_off_summary"/>
+        android:summaryOff="@string/use_user_dictionary_off_summary"
+        android:dependency="candidates_on"/>
     <Preference android:title="@string/user_dict_editor"
         android:key="@string/user_dict_editor_key">
     </Preference>
@@ -31,6 +40,7 @@
         android:persistent="true"
         android:defaultValue="@bool/settings_default_contacts_dictionary"
         android:summaryOn="@string/use_contacts_dictionary_on_summary"
-        android:summaryOff="@string/use_contacts_dictionary_off_summary"/>
+        android:summaryOff="@string/use_contacts_dictionary_off_summary"
+        android:dependency="candidates_on"/>
 
 </PreferenceScreen>

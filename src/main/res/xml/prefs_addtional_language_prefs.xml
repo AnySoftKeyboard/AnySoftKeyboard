@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="prefs_addons_screen">
+
+    <PreferenceCategory
+        android:key="grammer_group"
+        android:title="@string/grammer_group">
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="auto_caps"
+            android:persistent="true"
+            android:title="@string/auto_caps"/>
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="candidates_on"
+            android:persistent="true"
+            android:title="@string/candidates_on"
+            android:summaryOn="@string/candidates_on_summary"
+            android:summaryOff="@string/candidates_off_summary"/>
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:dependency="candidates_on"
+            android:key="auto_complete"
+            android:persistent="true"
+            android:summaryOff=""
+            android:summaryOn="@string/auto_complete_summary"
+            android:title="@string/auto_complete"/>
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:dependency="candidates_on"
+            android:key="quick_fix"
+            android:persistent="true"
+            android:summaryOff=""
+            android:summaryOn="@string/quick_fix_summary"
+            android:title="@string/quick_fix"/>
+
+        <CheckBoxPreference
+            android:defaultValue="@bool/settings_default_allow_suggestions_restart"
+            android:dependency="candidates_on"
+            android:key="@string/settings_key_allow_suggestions_restart"
+            android:persistent="true"
+            android:summaryOff=""
+            android:summaryOn="@string/allow_suggestions_restart_summary"
+            android:title="@string/allow_suggestions_restart"/>
+    </PreferenceCategory>
+</PreferenceScreen>
