@@ -5,4 +5,5 @@
 .DS_Store
 *.iml
 /src/main/obj/
-/local.properies
+local.properties
+local.extra.properties
