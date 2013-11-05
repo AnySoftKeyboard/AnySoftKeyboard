@@ -187,7 +187,7 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
 
     public void onNavigateToEffectsSettings(View v) {
         mDrawerRootLayout.closeDrawers();
-        //TODO: start additional language settings fragment
+        addFragmentToUi(new EffectsSettingsFragment(), FragmentUiContext.RootFragment);
     }
 
     public void onNavigateToGestureSettings(View v) {
