@@ -60,12 +60,12 @@ android {
             def String key_alias
             def String key_alias_password
             def Properties props = new Properties()
-            def propFile = new File('local.signing.properties')
+            def propFile = new File(projectDir, 'local.signing.properties')
             if (propFile.canRead()){
-                println 'Reading details from local.signing.properties file...'
+                println 'Reading details from '+projectDir+'local.signing.properties file...'
                 props.load(new FileInputStream(propFile))
             } else {
-                println 'local.signing.properties file was not found. Using debug signing configuration.'
+                println projectDir+'local.signing.properties file was not found. Using debug signing configuration.'
             }
 
             keystore_file = getInputFromConsoleIfMissing(props, 'STORE_FILE', 'Key-Store file name')
@@ -104,14 +104,12 @@ android {
         }
     }
 
-
-
     //extra details - from local
     def Properties props = new Properties()
     def String support_email_address
-    def propFile = new File('local.extra.properties')
+    def propFile = new File(projectDir, 'local.extra.properties')
     if (propFile.canRead()){
-        println 'Reading extra details from local.properties file...'
+        println 'Reading extra details from '+projectDir+'local.properties file...'
         props.load(new FileInputStream(propFile))
     } else {
         println 'local.extra.properties file was not found.'
@@ -120,7 +118,7 @@ android {
     support_email_address = getInputFromConsoleIfMissing(props, 'CRASH_REPORT_EMAIL', 'Support email address')
     if (isEmpty(support_email_address)) support_email_address = 'ooops@example.com'
 
-    def File arraysResourceFile = new File('src/main/res/values/arrays.xml')
+    def File arraysResourceFile = new File(projectDir, 'src/main/res/values/arrays.xml')
     def String arraysResourceFileContent = arraysResourceFile.getText('UTF-8')
     arraysResourceFileContent.replaceAll('%%CRASH_REPORT_EMAIL%%', support_email_address)
 }
