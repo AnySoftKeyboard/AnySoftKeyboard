@@ -37,8 +37,8 @@ def isEmpty(value) {
 }
 
 android {
-    compileSdkVersion 18
-    buildToolsVersion "18.1.0"
+    compileSdkVersion 19
+    buildToolsVersion "19.0.0"
 
     defaultConfig {
         minSdkVersion 7
@@ -102,10 +102,10 @@ android {
 
 dependencies {
     compile 'net.evendanan.anysoftkeyboard:api:1.0'
-    compile 'com.android.support:support-v4:18.0.+'
+    compile 'com.android.support:support-v4:19.0.+'
     compile 'net.evendanan:frankenrobot:1.1'
-    compile 'com.android.support:appcompat-v7:18.0.+'
-    compile 'com.google.code.findbugs:jsr305:2.0.1'
+    compile 'com.android.support:appcompat-v7:19.0.+'
+    compile 'com.google.code.findbugs:jsr305:2.0.+'
     //https://groups.google.com/d/msg/adt-dev/nQobKd2Gl_8/Z5yWAvCh4h4J
     compile fileTree(dir: 'libs', include: 'native_libs.jar')
 }
