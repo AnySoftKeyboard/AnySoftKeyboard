@@ -42,15 +42,14 @@
             android:orientation="horizontal"
             android:weightSum="10">
 
-            <ImageView
+            <net.evendanan.pushingpixels.Banner
+                android:id="@+id/keyboard_screen_shot"
                 android:contentDescription="@string/ime_name"
                 android:layout_width="0px"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:layout_weight="5"
-                android:adjustViewBounds="true"
-                android:scaleType="centerInside"
-                android:src="@drawable/light_theme_screenshot" />
+                android:src="@drawable/lean_dark_theme_screenshot" />
 
             <TextView
                 style="@style/Ask.Text.Normal"

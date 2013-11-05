@@ -2,6 +2,7 @@ package com.anysoftkeyboard.ui.settings;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
@@ -15,9 +16,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.anysoftkeyboard.theme.KeyboardTheme;
+import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.tutorials.ChangeLogFragment;
 import com.menny.android.anysoftkeyboard.R;
 
+import net.evendanan.pushingpixels.Banner;
 import net.evendanan.pushingpixels.FragmentChauffeurActivity;
 
 public class MainFragment extends Fragment {
@@ -86,5 +90,17 @@ public class MainFragment extends Fragment {
         } else {
             notConfiguredBox.setVisibility(View.GONE);
         }
+
+        //updating the keyboard layout to the current theme screenshot (if exists).
+        KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(getActivity().getApplicationContext());
+        if (theme == null)
+            theme = KeyboardThemeFactory.getFallbackTheme(getActivity().getApplicationContext());
+        Drawable screenshot = theme.getScreenshot();
+
+        Banner screenshotHolder = (Banner) getView().findViewById(R.id.keyboard_screen_shot);
+        if (screenshot == null)
+            screenshotHolder.setBackgroundResource(R.drawable.lean_dark_theme_screenshot);
+        else
+            screenshotHolder.setImageDrawable(screenshot);
     }
 }

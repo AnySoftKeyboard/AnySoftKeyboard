@@ -45,6 +45,7 @@ import com.anysoftkeyboard.addons.IconHolder;
 import com.anysoftkeyboard.addons.ScreenshotHolder;
 import com.menny.android.anysoftkeyboard.R;
 
+import net.evendanan.pushingpixels.Banner;
 import net.evendanan.pushingpixels.ListPreference;
 
 import java.util.List;
@@ -205,7 +206,7 @@ public class AddOnListPreference extends ListPreference {
                                 popup.dismiss();
                             }
                         });
-                layout.findViewById(R.id.addon_screenshot).setBackground(screenshot);
+                ((Banner)layout.findViewById(R.id.addon_screenshot)).setImageDrawable(screenshot);
                 popup.showAtLocation(v, Gravity.CENTER, 0, 0);
             }
         }

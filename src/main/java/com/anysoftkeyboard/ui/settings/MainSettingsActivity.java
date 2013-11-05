@@ -129,7 +129,7 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
         TextView themeData = (TextView)findViewById(R.id.theme_extra_data);
         KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(getApplicationContext());
         if (theme == null)
-            theme = KeyboardThemeFactory.getCurrentKeyboardTheme(getApplicationContext());
+            theme = KeyboardThemeFactory.getFallbackTheme(getApplicationContext());
         themeData.setText(getString(R.string.selected_add_on_summary, theme.getName()));
     }
 
