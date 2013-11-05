@@ -14,58 +14,13 @@
                 android:targetPackage="com.menny.android.anysoftkeyboard"/>
     </Preference>
 
-    <PreferenceCategory
-            android:key="effects_group"
-            android:title="@string/effects_group">
 
-        <net.evendanan.pushingpixels.ListPreference
-                android:defaultValue="@string/settings_default_vibrate_on_key_press_duration"
-                android:dialogTitle="@string/vibrate_on_key_press_dialog_title"
-                android:entries="@array/vibrate_on_key_press_types"
-                android:entryValues="@array/vibrate_on_key_press_values"
-                android:key="@string/settings_key_vibrate_on_key_press_duration"
-                android:summary="@string/vibrate_on_key_press_summary"
-                android:title="@string/vibrate_on_key_press_title"/>
-
-        <CheckBoxPreference
-                android:defaultValue="@bool/settings_default_sound_on"
-                android:key="@string/settings_key_sound_on"
-                android:persistent="true"
-                android:summaryOff=""
-                android:summaryOn="@string/sound_on_summary"
-                android:title="@string/sound_on"/>
-
-        <net.evendanan.pushingpixels.ListPreference
-                android:defaultValue="@string/settings_default_tweak_animations_level"
-                android:dialogTitle="@string/tweak_animations_level_title"
-                android:entries="@array/tweak_animations_level_types"
-                android:entryValues="@array/tweak_animations_level_values"
-                android:key="@string/settings_key_tweak_animations_level"
-                android:summary="@string/tweak_animations_level_summary"
-                android:title="@string/tweak_animations_level_title"/>
-    </PreferenceCategory>
 
 
 
     <PreferenceCategory
             android:key="speacial_fetures_group"
             android:title="@string/speacial_fetures_group">
-
-        <CheckBoxPreference
-                android:defaultValue="true"
-                android:key="switch_keyboard_on_space"
-                android:persistent="true"
-                android:summaryOff="@string/switch_keyboard_on_space_off_summary"
-                android:summaryOn="@string/switch_keyboard_on_space_on_summary"
-                android:title="@string/switch_keyboard_on_space"/>
-
-        <CheckBoxPreference
-                android:defaultValue="true"
-                android:key="double_space_to_period"
-                android:persistent="true"
-                android:summaryOff=""
-                android:summaryOn="@string/double_space_to_period_summary"
-                android:title="@string/double_space_to_period"/>
 
         <net.evendanan.pushingpixels.ListPreference
                 android:defaultValue="@string/settings_default_default_split_state"
@@ -206,16 +161,5 @@
                     android:targetPackage="com.menny.android.anysoftkeyboard"/>
         </Preference>
     </PreferenceCategory>
-
-    <EditTextPreference
-            android:autoText="true"
-            android:capitalize="sentences"
-            android:dialogTitle="@string/keyboard_sandbox_title"
-            android:key="keyboards_sandbox_2"
-            android:lines="3"
-            android:persistent="false"
-            android:singleLine="false"
-            android:title="@string/keyboard_sandbox">
-    </EditTextPreference>
 
 </PreferenceScreen>

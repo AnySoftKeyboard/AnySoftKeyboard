@@ -236,7 +236,7 @@
     <string name="ime_settings">Keyboard settings</string>
     <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Vibrate on key-press</string>
-    <string name="vibrate_on_key_press_summary">Select to have keys vibrate when tapped</string>
+    <string name="vibrate_on_key_press_summary">Vibration level feedback for key-press. Currently: %s</string>
     <string name="vibrate_on_key_press_dialog_title">Select vibration type</string>
     <string-array name="vibrate_on_key_press_types">
         <item>None</item>
@@ -479,7 +479,7 @@
     <string name="action_key_invisible_on_disable_off_summary">Action key will be visible even if GUI requests</string>
 
     <string name="tweak_animations_level_title">Animations</string>
-    <string name="tweak_animations_level_summary">How much animations should be used. Now: %s</string>
+    <string name="tweak_animations_level_summary">How much animations should be used. Currently: %s</string>
     <string name="tweak_animations_level_types_full">Full</string>
     <string name="tweak_animations_level_types_some">Some</string>
     <string name="tweak_animations_level_types_none">None</string>
