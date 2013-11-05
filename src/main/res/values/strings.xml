@@ -495,6 +495,8 @@
     <string name="auto_caps">Auto-capitalization</string>
     <string name="grammer_group">Grammar</string>
     <string name="candidates_on">Show suggestions</string>
+    <string name="candidates_on_summary">A list of suggested words will be displayed above the keyboard</string>
+    <string name="candidates_off_summary">No suggestions will be shown</string>
     <string name="quick_fix">Quick fixes</string>
     <string name="quick_fix_summary">Corrects commonly typed mistakes</string>
     <string name="allow_suggestions_restart">Suggestions restart</string>

@@ -4,13 +4,6 @@
                   android:key="ime_settings"
                   android:title="@string/ime_settings">
 
-    <net.evendanan.pushingpixels.AboutAppPreference
-            android:key="prefs_about_app_key"
-            ask:appIcon="@drawable/ic_launcher"
-            ask:appName="@string/ime_name"
-            ask:appOwner="@string/copyright_owner">
-    </net.evendanan.pushingpixels.AboutAppPreference>
-
     <Preference
             android:summary="@string/click_for_help_summary"
             android:title="@string/click_for_help">
@@ -20,88 +13,6 @@
                 android:targetClass="com.anysoftkeyboard.ui.MainForm"
                 android:targetPackage="com.menny.android.anysoftkeyboard"/>
     </Preference>
-
-    <PreferenceCategory
-            android:key="languages_cat"
-            android:title="@string/languages_cat">
-
-        <Preference android:title="@string/keyboards_group"
-                    android:summary="@string/keyboards_group_summary">
-
-            <intent
-                    android:action="android.intent.action.MAIN"
-                    android:targetClass="com.anysoftkeyboard.ui.settings.Keyboards"
-                    android:targetPackage="com.menny.android.anysoftkeyboard"/>
-        </Preference>
-
-        <Preference android:title="@string/special_dictionaries_group"
-                    android:summary="@string/special_dictionaries_group_summary">
-
-            <intent
-                    android:action="android.intent.action.MAIN"
-                    android:targetClass="com.anysoftkeyboard.ui.settings.Dictionaries"
-                    android:targetPackage="com.menny.android.anysoftkeyboard"/>
-        </Preference>
-    </PreferenceCategory>
-
-    <PreferenceCategory
-            android:key="ui_group"
-            android:title="@string/ui_group">
-
-        <Preference android:title="@string/keyboard_theme_group"
-                    android:key="keyboard_theme_group">
-
-            <intent
-                    android:action="android.intent.action.MAIN"
-                    android:targetClass="com.anysoftkeyboard.ui.settings.KeyboardThemeSelector"
-                    android:targetPackage="com.menny.android.anysoftkeyboard"/>
-        </Preference>
-
-        <Preference android:title="@string/quick_text_keys_group"
-                    android:key="quick_text_keys_group">
-
-            <intent
-                    android:action="android.intent.action.MAIN"
-                    android:targetClass="com.anysoftkeyboard.ui.settings.QuickTextKeys"
-                    android:targetPackage="com.menny.android.anysoftkeyboard"/>
-        </Preference>
-
-        <Preference android:title="@string/top_generic_row_group"
-                    android:key="top_generic_row_group">
-
-            <intent
-                    android:action="android.intent.action.MAIN"
-                    android:targetClass="com.anysoftkeyboard.ui.settings.TopRowSelector"
-                    android:targetPackage="com.menny.android.anysoftkeyboard"/>
-        </Preference>
-
-        <Preference android:title="@string/bottom_generic_row_group"
-                    android:key="bottom_generic_row_group">
-
-            <intent
-                    android:action="android.intent.action.MAIN"
-                    android:targetClass="com.anysoftkeyboard.ui.settings.BottomRowSelector"
-                    android:targetPackage="com.menny.android.anysoftkeyboard"/>
-        </Preference>
-
-        <Preference android:title="@string/extension_keyboard_group"
-                    android:key="extension_keyboard_group">
-
-            <intent
-                    android:action="android.intent.action.MAIN"
-                    android:targetClass="com.anysoftkeyboard.ui.settings.ExtensionKeyboardSelector"
-                    android:targetPackage="com.menny.android.anysoftkeyboard"/>
-        </Preference>
-
-        <net.evendanan.pushingpixels.ListPreference
-                android:defaultValue="@string/settings_default_physical_keyboard_change_notification_type"
-                android:dialogTitle="@string/physical_keyboard_change_notification_dialog_title"
-                android:entries="@array/physical_keyboard_change_notification_types"
-                android:entryValues="@array/physical_keyboard_change_notification_values"
-                android:key="@string/settings_key_physical_keyboard_change_notification_type"
-                android:summary="@string/physical_keyboard_change_notification_summary"
-                android:title="@string/physical_keyboard_change_notification_title"/>
-    </PreferenceCategory>
 
     <PreferenceCategory
             android:key="effects_group"
@@ -134,49 +45,7 @@
                 android:title="@string/tweak_animations_level_title"/>
     </PreferenceCategory>
 
-    <PreferenceCategory
-            android:key="grammer_group"
-            android:title="@string/grammer_group">
 
-        <CheckBoxPreference
-                android:defaultValue="true"
-                android:key="auto_caps"
-                android:persistent="true"
-                android:title="@string/auto_caps"/>
-
-        <CheckBoxPreference
-                android:defaultValue="true"
-                android:key="candidates_on"
-                android:persistent="true"
-                android:title="@string/candidates_on"/>
-
-        <CheckBoxPreference
-                android:defaultValue="true"
-                android:dependency="candidates_on"
-                android:key="auto_complete"
-                android:persistent="true"
-                android:summaryOff=""
-                android:summaryOn="@string/auto_complete_summary"
-                android:title="@string/auto_complete"/>
-
-        <CheckBoxPreference
-                android:defaultValue="true"
-                android:dependency="candidates_on"
-                android:key="quick_fix"
-                android:persistent="true"
-                android:summaryOff=""
-                android:summaryOn="@string/quick_fix_summary"
-                android:title="@string/quick_fix"/>
-
-        <CheckBoxPreference
-                android:defaultValue="@bool/settings_default_allow_suggestions_restart"
-                android:dependency="candidates_on"
-                android:key="@string/settings_key_allow_suggestions_restart"
-                android:persistent="true"
-                android:summaryOff=""
-                android:summaryOn="@string/allow_suggestions_restart_summary"
-                android:title="@string/allow_suggestions_restart"/>
-    </PreferenceCategory>
 
     <PreferenceCategory
             android:key="speacial_fetures_group"
