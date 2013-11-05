@@ -33,7 +33,8 @@
         android:entries="@array/auto_dictionary_threshold_types"
         android:entryValues="@array/auto_dictionary_threshold_values"
         android:summary="@string/use_auto_dictionary_summary"
-        android:title="@string/use_auto_dictionary"/>
+        android:title="@string/use_auto_dictionary"
+        android:dependency="candidates_on"/>
     <CheckBoxPreference
         android:key="@string/settings_key_use_contacts_dictionary"
         android:title="@string/use_contacts_dictionary"
