@@ -80,6 +80,6 @@
     </string-array>
 
     <string-array name="crash_report_email_address">
-        <item>ask+crash@evendanan.net</item>
+        <item>%%CRASH_REPORT_EMAIL%%</item>
     </string-array>
 </resources>
