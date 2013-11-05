@@ -20,6 +20,7 @@ package com.anysoftkeyboard.ui.settings;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.support.v4.preference.PreferenceFragment;
 
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
@@ -28,12 +29,15 @@ import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.anysoftkeyboard.ui.settings.widget.AddOnListPreference;
 import com.menny.android.anysoftkeyboard.R;
 
-public class AdditionalUiSettingsFragment extends PreferenceFragment {
+import net.evendanan.pushingpixels.FragmentChauffeurActivity;
+
+public class AdditionalUiSettingsFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener {
 
     @Override
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         addPreferencesFromResource(R.xml.prefs_addtional_ui_addons_prefs);
+        findPreference(getString(R.string.tweaks_group_key)).setOnPreferenceClickListener(this);
     }
 
     @Override
@@ -62,5 +66,17 @@ public class AdditionalUiSettingsFragment extends PreferenceFragment {
         AddOnListPreference.populateAddOnListPreference(quickTextKey,
                 QuickTextKeyFactory.getAllAvailableQuickKeys(appContext),
                 QuickTextKeyFactory.getCurrentQuickTextKey(appContext));
+    }
+
+    @Override
+    public boolean onPreferenceClick(Preference preference) {
+        if (preference.getKey().equals(getString(R.string.tweaks_group_key))) {
+            Activity activity = getActivity();
+            if (activity != null && activity instanceof FragmentChauffeurActivity) {
+                ((FragmentChauffeurActivity)activity).addFragmentToUi(new UiTweaksFragment(), FragmentChauffeurActivity.FragmentUiContext.DeeperExperience);
+                return true;
+            }
+        }
+        return false;
     }
 }

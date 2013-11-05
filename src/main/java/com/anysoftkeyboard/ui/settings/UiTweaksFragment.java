@@ -19,38 +19,22 @@ package com.anysoftkeyboard.ui.settings;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.support.v4.preference.PreferenceFragment;
 
 import com.menny.android.anysoftkeyboard.R;
 
-import net.evendanan.pushingpixels.FragmentChauffeurActivity;
-
-public class AdditionalLanguageSettingsFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener {
+public class UiTweaksFragment extends PreferenceFragment {
 
     @Override
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
-        addPreferencesFromResource(R.xml.prefs_addtional_language_prefs);
-        findPreference(getString(R.string.tweaks_group_key)).setOnPreferenceClickListener(this);
+        addPreferencesFromResource(R.xml.prefs_ui_tweaks);
     }
 
     @Override
     public void onStart() {
         super.onStart();
         Activity activity = getActivity();
-        activity.setTitle(getString(R.string.languages_cat));
-    }
-
-    @Override
-    public boolean onPreferenceClick(Preference preference) {
-        if (preference.getKey().equals(getString(R.string.tweaks_group_key))) {
-            Activity activity = getActivity();
-            if (activity != null && activity instanceof FragmentChauffeurActivity) {
-                ((FragmentChauffeurActivity)activity).addFragmentToUi(new LanguageTweaksFragment(), FragmentChauffeurActivity.FragmentUiContext.DeeperExperience);
-                return true;
-            }
-        }
-        return false;
+        activity.setTitle(getString(R.string.tweaks_group));
     }
 }
