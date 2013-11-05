@@ -83,7 +83,7 @@
             </intent-filter>
         </activity>
         <activity android:theme="@style/Theme.AppCompat.Light"
-            android:name="com.anysoftkeyboard.ui.settings.MainSettings"
+            android:name="com.anysoftkeyboard.ui.settings.MainSettingsActivity"
             android:icon="@drawable/ic_launcher_settings"
             android:label="@string/ime_name">
         </activity>
