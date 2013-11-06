@@ -24,13 +24,13 @@ import java.util.ArrayList;
 public class Log {
     private static final boolean DEBUG = AnyApplication.DEBUG;
 
-    private static final String[] msLogs = new String[AnyApplication.DEBUG? 225 : 0];
+    private static final String[] msLogs = new String[AnyApplication.DEBUG ? 225 : 0];
     private static int msLogIndex = 0;
 
     private synchronized static void addLog(String level, String tag, String message) {
         if (DEBUG) {
-            msLogs[msLogIndex] = System.currentTimeMillis()+"-"+level+"-["+tag+"] "+message;
-            msLogIndex = (msLogIndex+1)%msLogs.length;
+            msLogs[msLogIndex] = System.currentTimeMillis() + "-" + level + "-[" + tag + "] " + message;
+            msLogIndex = (msLogIndex + 1) % msLogs.length;
         }
     }
 
@@ -41,24 +41,29 @@ public class Log {
         }
     }
 
+    public synchronized static ArrayList<String> getAllLogLinesList() {
+        ArrayList<String> lines = new ArrayList<String>(msLogs.length);
+        int index = msLogIndex;
+        do {
+            index--;
+            if (index == -1) index = msLogs.length - 1;
+            String logLine = msLogs[index];
+            if (logLine == null)
+                break;
+            lines.add(msLogs[index]);
+        }
+        while (index != msLogIndex);
+        return lines;
+    }
+
     public synchronized static String getAllLogLines() {
         if (DEBUG) {
-            ArrayList<String> lines = new ArrayList<String>(msLogs.length);
-            int index = msLogIndex;
-            do {
-                index--;
-                if (index == -1) index = msLogs.length-1;
-                String logLine = msLogs[index];
-                if (logLine == null)
-                    break;
-                lines.add(msLogs[index]);
-            }
-            while(index != msLogIndex);
+            ArrayList<String> lines = getAllLogLinesList();
             //now to build the string
-            StringBuilder sb = new StringBuilder("Log contains "+lines.size()+" lines:");
+            StringBuilder sb = new StringBuilder("Log contains " + lines.size() + " lines:");
             final String newline = DeveloperUtils.NEW_LINE;
-            while(lines.size() > 0) {
-                String line = lines.remove(lines.size()-1);
+            while (lines.size() > 0) {
+                String line = lines.remove(lines.size() - 1);
                 sb.append(newline);
                 sb.append(line);
             }
@@ -73,6 +78,7 @@ public class Log {
     }
 
     private static String LVL_V = "V";
+
     public static void v(String TAG, String text) {
         if (DEBUG) {
             android.util.Log.v(TAG, text);
@@ -88,6 +94,7 @@ public class Log {
     }
 
     private static String LVL_D = "D";
+
     public static void d(String TAG, String text) {
         if (DEBUG) {
             android.util.Log.d(TAG, text);
@@ -103,6 +110,7 @@ public class Log {
     }
 
     private static String LVL_I = "I";
+
     public static void i(String TAG, String text) {
         android.util.Log.i(TAG, text);
         addLog(LVL_I, TAG, text);
@@ -114,6 +122,7 @@ public class Log {
     }
 
     private static String LVL_W = "W";
+
     public static void w(String TAG, String text) {
         android.util.Log.w(TAG, text);
         addLog(LVL_W, TAG, text);
@@ -125,6 +134,7 @@ public class Log {
     }
 
     private static String LVL_E = "E";
+
     public static void e(String TAG, String text) {
         android.util.Log.e(TAG, text);
         addLog(LVL_E, TAG, text);
@@ -134,7 +144,6 @@ public class Log {
         android.util.Log.e(TAG, text, t);
         addLog(LVL_E, TAG, text, t);
     }
-
 
 
     public static String getStackTrace(Throwable ex) {

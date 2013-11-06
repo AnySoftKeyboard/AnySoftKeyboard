@@ -11,7 +11,7 @@ buildscript {
 apply plugin: 'android'
 
 repositories {
-    mavenCentral()
+//    mavenCentral()
     mavenLocal()
 }
 
@@ -62,10 +62,10 @@ android {
             def Properties props = new Properties()
             def propFile = new File(projectDir, 'local.signing.properties')
             if (propFile.canRead()){
-                println 'Reading details from '+projectDir+'local.signing.properties file...'
+                println 'Reading details from local.signing.properties file...'
                 props.load(new FileInputStream(propFile))
             } else {
-                println projectDir+'local.signing.properties file was not found. Using debug signing configuration.'
+                println 'local.signing.properties file was not found. Using debug signing configuration.'
             }
 
             keystore_file = getInputFromConsoleIfMissing(props, 'STORE_FILE', 'Key-Store file name')
@@ -109,7 +109,7 @@ android {
     def String support_email_address
     def propFile = new File(projectDir, 'local.extra.properties')
     if (propFile.canRead()){
-        println 'Reading extra details from '+projectDir+'local.properties file...'
+        println 'Reading extra details from local.properties file...'
         props.load(new FileInputStream(propFile))
     } else {
         println 'local.extra.properties file was not found.'
@@ -120,7 +120,9 @@ android {
 
     def File arraysResourceFile = new File(projectDir, 'src/main/res/values/arrays.xml')
     def String arraysResourceFileContent = arraysResourceFile.getText('UTF-8')
+    println 'using crash-report email address: '+support_email_address
     arraysResourceFileContent.replaceAll('%%CRASH_REPORT_EMAIL%%', support_email_address)
+    arraysResourceFile.setText(arraysResourceFileContent, 'UTF-8')
 }
 
 dependencies {
@@ -128,7 +130,7 @@ dependencies {
     compile 'com.android.support:support-v4:19.0.0'
     compile 'net.evendanan:frankenrobot:1.1'
     compile 'com.android.support:appcompat-v7:19.0.0'
-    compile 'com.google.code.findbugs:jsr305:2.0.2'
+    compile 'com.google.code.findbugs:jsr305:2.0.1'
     //https://groups.google.com/d/msg/adt-dev/nQobKd2Gl_8/Z5yWAvCh4h4J
     compile fileTree(dir: 'libs', include: 'native_libs.jar')
 }

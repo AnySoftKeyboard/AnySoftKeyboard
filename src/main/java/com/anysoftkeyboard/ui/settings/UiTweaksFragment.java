@@ -19,16 +19,23 @@ package com.anysoftkeyboard.ui.settings;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.support.v4.preference.PreferenceFragment;
 
+import com.anysoftkeyboard.ui.dev.DeveloperToolsFragment;
 import com.menny.android.anysoftkeyboard.R;
 
-public class UiTweaksFragment extends PreferenceFragment {
+import net.evendanan.pushingpixels.FragmentChauffeurActivity;
+
+public class UiTweaksFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener {
+
+    public static final String DEV_TOOLS_KEY = "dev_tools";
 
     @Override
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         addPreferencesFromResource(R.xml.prefs_ui_tweaks);
+        findPreference(DEV_TOOLS_KEY).setOnPreferenceClickListener(this);
     }
 
     @Override
@@ -36,5 +43,21 @@ public class UiTweaksFragment extends PreferenceFragment {
         super.onStart();
         Activity activity = getActivity();
         activity.setTitle(getString(R.string.tweaks_group));
+    }
+
+    @Override
+    public boolean onPreferenceClick(Preference preference) {
+        switch(preference.getKey()){
+            case DEV_TOOLS_KEY:
+                Activity activity = getActivity();
+                if (activity != null && activity instanceof FragmentChauffeurActivity) {
+                    ((FragmentChauffeurActivity)activity).addFragmentToUi(new DeveloperToolsFragment(), FragmentChauffeurActivity.FragmentUiContext.DeeperExperience);
+                    return true;
+                }
+                return true;
+
+            default:
+                return false;
+        }
     }
 }
