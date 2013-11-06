@@ -242,7 +242,7 @@ public class UserDictionaryEditorFragment extends ListFragment implements AsyncT
             protected void applyResults(Void result,
                                         Exception backgroundException) {
                 ArrayAdapter<DictionaryLocale> adapter = new ArrayAdapter<DictionaryLocale>(
-                        getActivity().getApplicationContext(),
+                        getActivity(),
                         android.R.layout.simple_spinner_item);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 for (DictionaryLocale lang : mLanguagesList)
@@ -351,7 +351,7 @@ public class UserDictionaryEditorFragment extends ListFragment implements AsyncT
         private final int mWordColumnIndex;
 
         public MyAdapter() {
-            super(getActivity().getApplicationContext(), R.layout.user_dictionary_word_row,
+            super(getActivity(), R.layout.user_dictionary_word_row,
                     mCursor.getCursor(),
                     new String[]{android.provider.UserDictionary.Words.WORD},
                     new int[]{android.R.id.text1});
