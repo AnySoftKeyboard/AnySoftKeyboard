@@ -46,11 +46,15 @@ public class TipsFragment extends Fragment {
     public static final int SHOW_ALL_TIPS = -1;
     public static final int SHOW_UNVIEWED_TIPS = -2;
 
-    public static TipsFragment createFragment(int tipsToShow) {
-        TipsFragment fragment = new TipsFragment();
+    public static Bundle createArgs(int tipsToShow) {
         Bundle b = new Bundle();
         b.putInt(EXTRA_TIPS_TO_SHOW, tipsToShow);
-        fragment.setArguments(b);
+        return b;
+    }
+
+    public static TipsFragment createFragment(int tipsToShow) {
+        TipsFragment fragment = new TipsFragment();
+        fragment.setArguments(createArgs(tipsToShow));
 
         return fragment;
     }
