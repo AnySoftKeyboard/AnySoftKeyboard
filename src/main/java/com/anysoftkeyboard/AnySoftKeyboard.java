@@ -86,7 +86,7 @@ import com.anysoftkeyboard.receivers.SoundPreferencesChangedReceiver.SoundPrefer
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
-import com.anysoftkeyboard.ui.settings.MainSettings;
+import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.anysoftkeyboard.ui.tutorials.TipLayoutsSupport;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 import com.anysoftkeyboard.utils.IMEUtil.GCUtils;
@@ -3104,8 +3104,6 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     private void loadSettings() {
-        // setting all values to default
-        PreferenceManager.setDefaultValues(this, R.xml.prefs, false);
         // Get the settings preferences
         SharedPreferences sp = PreferenceManager
                 .getDefaultSharedPreferences(this);
@@ -3272,7 +3270,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     private void launchSettings() {
         handleClose();
         Intent intent = new Intent();
-        intent.setClass(AnySoftKeyboard.this, MainSettings.class);
+        intent.setClass(AnySoftKeyboard.this, MainSettingsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

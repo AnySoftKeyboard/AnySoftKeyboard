@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2013 Menny Even-Danan
  *
@@ -15,12 +16,25 @@
  */
 
 package com.anysoftkeyboard.ui.settings;
-/*Using this import require an Android Library reference from https://github.com/menny/PushingPixels*/
-import net.evendanan.pushingpixels.AsyncTaskWithProgressWindow;
 
-public abstract class UserWordsEditorAsyncTask extends AsyncTaskWithProgressWindow<Void, Void, Void, UserDictionaryEditorFragment> {
+import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.preference.PreferenceFragment;
 
-    protected UserWordsEditorAsyncTask(UserDictionaryEditorFragment userDictionaryEditor) {
-        super(userDictionaryEditor);
+import com.menny.android.anysoftkeyboard.R;
+
+public class LanguageTweaksFragment extends PreferenceFragment {
+
+    @Override
+    public void onCreate(Bundle paramBundle) {
+        super.onCreate(paramBundle);
+        addPreferencesFromResource(R.xml.prefs_language_tweaks);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Activity activity = getActivity();
+        activity.setTitle(getString(R.string.tweaks_group));
     }
 }

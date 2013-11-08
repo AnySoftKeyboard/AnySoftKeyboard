@@ -83,17 +83,11 @@
             </intent-filter>
         </activity>
         <activity android:theme="@style/Theme.AppCompat.Light"
-            android:name="com.anysoftkeyboard.ui.settings.MainSettings"
+            android:name="com.anysoftkeyboard.ui.settings.MainSettingsActivity"
             android:icon="@drawable/ic_launcher_settings"
             android:label="@string/ime_name">
         </activity>
-        <!-- information ui activities -->
-        <activity
-            android:name="com.anysoftkeyboard.ui.tutorials.TipsFragment"
-            android:icon="@drawable/ic_launcher"
-            android:label="@string/tips_title"
-            android:theme="@style/Popup.NoTitle">
-        </activity>
+
         <activity
             android:name="com.anysoftkeyboard.ui.tutorials.TestersNoticeActivity"
             android:icon="@drawable/ic_launcher"
@@ -106,12 +100,6 @@
             android:icon="@drawable/ic_launcher"
             android:label="@string/ime_name"
             android:theme="@style/Popup">
-        </activity>
-        <!-- main help/about/stuff -->
-        <activity
-            android:name="com.anysoftkeyboard.ui.MainForm"
-            android:icon="@drawable/ic_launcher"
-            android:label="@string/ime_name">
         </activity>
         <!--
          <activity android:name="com.anysoftkeyboard.ui.settings.SpellCheckerSettingsActivity"
@@ -136,13 +124,6 @@
             android:icon="@drawable/ic_launcher"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateAlwaysHidden"/>
-
-        <!-- dev -->
-        <activity
-            android:name="com.anysoftkeyboard.ui.dev.MainDeveloperActivity"
-            android:icon="@drawable/ic_launcher_settings"
-            android:label="@string/developer_tools">
-        </activity>
     </application>
 
 </manifest>

@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2013 Menny Even-Danan
  *
@@ -14,23 +15,26 @@
  * limitations under the License.
  */
 
-package com.menny.android.anysoftkeyboard;
+package com.anysoftkeyboard.ui.settings;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.preference.PreferenceFragment;
 
-import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
+import com.menny.android.anysoftkeyboard.R;
 
-/*
- * Why is this class exists?
- * It is a forwarder activity that I can disable, thus not showing Settings in the launcher menu.
- */
-public class LauncherSettingsActivity extends Activity {
+public class GesturesSettingsFragment extends PreferenceFragment {
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        startActivity(new Intent(this, MainSettingsActivity.class));
-        finish();//no need for this activity anymore.
+    public void onCreate(Bundle paramBundle) {
+        super.onCreate(paramBundle);
+        addPreferencesFromResource(R.xml.prefs_gestures_prefs);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Activity activity = getActivity();
+        activity.setTitle(getString(R.string.swipe_tweak_group));
     }
 }

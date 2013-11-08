@@ -27,72 +27,8 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="tweak_dictionary_group"
-        android:title="@string/tweak_dictionary_group">
-
-        <!-- Using this import require an Android Library reference from https://github.com/menny/PushingPixels -->
-        <net.evendanan.pushingpixels.SlidePreference
-            android:defaultValue="2"
-            android:key="@string/settings_key_min_length_for_word_correction__"
-            pp:slideMaximum="10"
-            android:persistent="true"
-            android:title="@string/settings_min_length_for_word_correction"
-            pp:slideMinimum="1"/>
-
-        <net.evendanan.pushingpixels.ListPreference
-            android:defaultValue="@string/settings_default_should_swap_punctuation_and_space"
-            android:dialogTitle="@string/should_swap_punctuation_and_space_title"
-            android:entries="@array/settings_key_should_swap_punctuation_and_space_names"
-            android:entryValues="@array/settings_key_should_swap_punctuation_and_space_values"
-            android:key="@string/settings_key_should_swap_punctuation_and_space"
-            android:summary="@string/should_swap_punctuation_and_space_summary"
-            android:title="@string/should_swap_punctuation_and_space_title"/>
-
-
-        <CheckBoxPreference
-            android:key="@string/settings_key_always_use_fallback_user_dictionary"
-            android:title="@string/always_use_fallback_user_dictionary"
-            android:persistent="true"
-            android:defaultValue="@bool/settings_default_always_use_fallback_user_dictionary"
-            android:summaryOn="@string/always_use_fallback_user_dictionary_on_summary"
-            android:summaryOff="@string/always_use_fallback_user_dictionary_off_summary"/>
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:key="tweak_physical_keyboard_group"
-        android:title="@string/tweak_physical_keyboard_group">
-
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="use_keyrepeat"
-            android:persistent="true"
-            android:summaryOff="@string/use_keyrepeat_off_summary"
-            android:summaryOn="@string/use_keyrepeat_on_summary"
-            android:title="@string/use_keyrepeat"/>
-
-        <CheckBoxPreference
-            android:defaultValue="@bool/settings_default_hide_soft_when_physical"
-            android:key="@string/settings_key_hide_soft_when_physical"
-            android:persistent="true"
-            android:summaryOff="@string/hide_soft_when_physical_off_summary"
-            android:summaryOn="@string/hide_soft_when_physical_on_summary"
-            android:title="@string/hide_soft_when_physical"/>
-    </PreferenceCategory>
-
-    <PreferenceCategory
         android:key="tweak_ui_group"
         android:title="@string/tweak_ui_group">
-
-        <!--
-		<CheckBoxPreference
-			android:key="action_key_invisible_on_disable"
-			android:title="@string/action_key_invisible_on_disable"
-			android:persistent="true"
-			android:defaultValue="false"
-			android:summaryOn="@string/action_key_invisible_on_disable_on_summary"
-			android:summaryOff="@string/action_key_invisible_on_disable_off_summary"
-		/> 
-        -->
 
         <CheckBoxPreference
             android:defaultValue="@bool/settings_default_is_sticky_extesion_keyboard"
@@ -186,30 +122,6 @@
             android:persistent="true"
             android:singleLine="true"
             android:title="@string/default_smiley_text"/>
-
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="insert_space_after_word_suggestion_selection"
-            android:persistent="true"
-            android:summaryOff="@string/insert_space_after_word_suggestion_selection_off_summary"
-            android:summaryOn="@string/insert_space_after_word_suggestion_selection_on_summary"
-            android:title="@string/insert_space_after_word_suggestion_selection"/>
-
-        <CheckBoxPreference
-            android:defaultValue="@bool/settings_default_cycle_all_symbols"
-            android:key="@string/settings_key_cycle_all_symbols"
-            android:persistent="true"
-            android:summaryOff="@string/cycle_all_symbols_keyboards_off_summary"
-            android:summaryOn="@string/cycle_all_symbols_keyboards_on_summary"
-            android:title="@string/cycle_all_symbols_keyboards"/>
-
-        <CheckBoxPreference
-            android:defaultValue="@bool/settings_default_use_backword"
-            android:key="@string/settings_key_use_backword"
-            android:persistent="true"
-            android:summaryOff="@string/backword_support_off_summary"
-            android:summaryOn="@string/backword_support_on_summary"
-            android:title="@string/backword_support"/>
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -224,14 +136,6 @@
             android:summaryOn="@string/workaround_disable_rtl_fix_summary_on"
             android:title="@string/workaround_disable_rtl_fix"/>
     </PreferenceCategory>
-
-    <CheckBoxPreference
-        android:defaultValue="@bool/settings_default_show_version_notification"
-        android:key="@string/settings_key_show_version_notification"
-        android:persistent="true"
-        android:summaryOff="@string/show_new_version_notifications_again_off_summary"
-        android:summaryOn="@string/show_new_version_notifications_again_on_summary"
-        android:title="@string/show_new_version_notifications_again"/>
 
     <CheckBoxPreference
         android:defaultValue="@bool/settings_default_show_tips_notification"
@@ -257,24 +161,9 @@
         android:summaryOn="@string/show_crash_notification_on_summary"
         android:title="@string/show_crash_notification"/>
 
-    <EditTextPreference
-        android:autoText="true"
-        android:capitalize="sentences"
-        android:dialogTitle="@string/keyboard_sandbox_title"
-        android:key="keyboards_sandbox"
-        android:lines="3"
-        android:persistent="false"
-        android:singleLine="false"
-        android:title="@string/keyboard_sandbox">
-    </EditTextPreference>
-
     <Preference
+        android:key="dev_tools"
         android:summary="@string/click_for_developer_features_summary"
         android:title="@string/click_for_developer_features">
-
-        <intent
-            android:action="android.intent.action.MAIN"
-            android:targetClass="com.anysoftkeyboard.ui.dev.MainDeveloperActivity"
-            android:targetPackage="com.menny.android.anysoftkeyboard"/>
     </Preference>
 </PreferenceScreen>

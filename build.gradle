@@ -11,7 +11,7 @@ buildscript {
 apply plugin: 'android'
 
 repositories {
-    //mavenCentral()
+//    mavenCentral()
     mavenLocal()
 }
 
@@ -45,6 +45,11 @@ android {
         targetSdkVersion 18
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
     signingConfigs {
         release {
             //https://gist.github.com/gabrielemariotti/6856974#file-build-gradle
@@ -55,7 +60,7 @@ android {
             def String key_alias
             def String key_alias_password
             def Properties props = new Properties()
-            def propFile = new File('local.signing.properties')
+            def propFile = new File(projectDir, 'local.signing.properties')
             if (propFile.canRead()){
                 println 'Reading details from local.signing.properties file...'
                 props.load(new FileInputStream(propFile))
@@ -98,14 +103,34 @@ android {
             debuggable true
         }
     }
+
+    //extra details - from local
+    def Properties props = new Properties()
+    def String support_email_address
+    def propFile = new File(projectDir, 'local.extra.properties')
+    if (propFile.canRead()){
+        println 'Reading extra details from local.properties file...'
+        props.load(new FileInputStream(propFile))
+    } else {
+        println 'local.extra.properties file was not found.'
+    }
+    //getting support email - this is used in crash reports (for now).
+    support_email_address = getInputFromConsoleIfMissing(props, 'CRASH_REPORT_EMAIL', 'Support email address')
+    if (isEmpty(support_email_address)) support_email_address = 'ooops@example.com'
+
+    def File arraysResourceFile = new File(projectDir, 'src/main/res/values/arrays.xml')
+    def String arraysResourceFileContent = arraysResourceFile.getText('UTF-8')
+    println 'using crash-report email address: '+support_email_address
+    arraysResourceFileContent.replaceAll('%%CRASH_REPORT_EMAIL%%', support_email_address)
+    arraysResourceFile.setText(arraysResourceFileContent, 'UTF-8')
 }
 
 dependencies {
     compile 'net.evendanan.anysoftkeyboard:api:1.0'
-    compile 'com.android.support:support-v4:19.0.+'
+    compile 'com.android.support:support-v4:19.0.0'
     compile 'net.evendanan:frankenrobot:1.1'
-    compile 'com.android.support:appcompat-v7:19.0.+'
-    compile 'com.google.code.findbugs:jsr305:2.0.+'
+    compile 'com.android.support:appcompat-v7:19.0.0'
+    compile 'com.google.code.findbugs:jsr305:2.0.1'
     //https://groups.google.com/d/msg/adt-dev/nQobKd2Gl_8/Z5yWAvCh4h4J
     compile fileTree(dir: 'libs', include: 'native_libs.jar')
 }

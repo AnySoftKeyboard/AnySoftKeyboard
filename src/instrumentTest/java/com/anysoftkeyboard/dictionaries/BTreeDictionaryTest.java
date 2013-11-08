@@ -18,14 +18,14 @@ package com.anysoftkeyboard.dictionaries;
 
 
 import android.test.ActivityInstrumentationTestCase2;
-import com.anysoftkeyboard.ui.settings.MainSettings;
+import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import junit.framework.Assert;
 
 
-public class BTreeDictionaryTest extends ActivityInstrumentationTestCase2<MainSettings>/*need a valid Application object, so I use ActivityInstrumentationTestCase2*/ {
+public class BTreeDictionaryTest extends ActivityInstrumentationTestCase2<MainSettingsActivity>/*need a valid Application object, so I use ActivityInstrumentationTestCase2*/ {
 
     public BTreeDictionaryTest() {
-        super(MainSettings.class);
+        super(MainSettingsActivity.class);
     }
 
 

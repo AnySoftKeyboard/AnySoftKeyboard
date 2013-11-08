@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="prefs_addons_screen">
+
+    <Preference android:key="gestures_summary"
+        android:summary="@string/swipe_tweak_group" />
+
+    <PreferenceCategory
+        android:key="swipe_tweak_group"
+        android:title="@string/gesture_settings">
+
+        <net.evendanan.pushingpixels.ListPreference
+            android:defaultValue="shift"
+            android:dialogTitle="@string/swipe_up_action_title"
+            android:entries="@array/swipe_action_types_names"
+            android:entryValues="@array/swipe_action_types_values"
+            android:key="swipe_up_action"
+            android:summary="@string/swipe_up_action_summary"
+            android:title="@string/swipe_up_action"/>
+
+        <net.evendanan.pushingpixels.ListPreference
+            android:defaultValue="hide"
+            android:dialogTitle="@string/swipe_down_action_title"
+            android:entries="@array/swipe_action_types_names"
+            android:entryValues="@array/swipe_action_types_values"
+            android:key="swipe_down_action"
+            android:summary="@string/swipe_down_action_summary"
+            android:title="@string/swipe_down_action"/>
+
+        <net.evendanan.pushingpixels.ListPreference
+            android:defaultValue="next_symbols"
+            android:dialogTitle="@string/swipe_left_action_title"
+            android:entries="@array/swipe_action_types_names"
+            android:entryValues="@array/swipe_action_types_values"
+            android:key="swipe_left_action"
+            android:summary="@string/swipe_left_action_summary"
+            android:title="@string/swipe_left_action"/>
+
+        <net.evendanan.pushingpixels.ListPreference
+            android:defaultValue="next_alphabet"
+            android:dialogTitle="@string/swipe_right_action_title"
+            android:entries="@array/swipe_action_types_names"
+            android:entryValues="@array/swipe_action_types_values"
+            android:key="swipe_right_action"
+            android:summary="@string/swipe_right_action_summary"
+            android:title="@string/swipe_right_action"/>
+
+        <net.evendanan.pushingpixels.ListPreference
+            android:defaultValue="utility_keyboard"
+            android:dialogTitle="@string/swipe_up_from_spacebar_action_title"
+            android:entries="@array/swipe_action_types_names"
+            android:entryValues="@array/swipe_action_types_values"
+            android:key="swipe_up_from_spacebar_action"
+            android:summary="@string/swipe_up_from_spacebar_action_summary"
+            android:title="@string/swipe_up_from_spacebar_action"/>
+
+        <net.evendanan.pushingpixels.ListPreference
+            android:defaultValue="merge_layout"
+            android:dialogTitle="@string/pinch_gesture_action_title"
+            android:entries="@array/swipe_action_types_names"
+            android:entryValues="@array/swipe_action_types_values"
+            android:key="pinch_gesture_action"
+            android:summary="@string/pinch_gesture_action_summary"
+            android:title="@string/pinch_gesture_action"/>
+
+        <net.evendanan.pushingpixels.ListPreference
+            android:defaultValue="split_layout"
+            android:dialogTitle="@string/separate_gesture_action_title"
+            android:entries="@array/swipe_action_types_names"
+            android:entryValues="@array/swipe_action_types_values"
+            android:key="separate_gesture_action"
+            android:summary="@string/separate_gesture_action_summary"
+            android:title="@string/separate_gesture_action"/>
+
+        <net.evendanan.pushingpixels.ListPreference
+            android:defaultValue="@string/settings_default_swipe_velocity_threshold"
+            android:dialogTitle="@string/settings_swipe_velocity_threshold_title"
+            android:entries="@array/settings_key_swipe_velocity_threshold_names"
+            android:entryValues="@array/settings_key_swipe_velocity_threshold_values"
+            android:key="@string/settings_key_swipe_velocity_threshold"
+            android:summary="@string/settings_swipe_velocity_threshold_summary"
+            android:title="@string/settings_swipe_velocity_threshold_title"/>
+
+        <net.evendanan.pushingpixels.ListPreference
+            android:defaultValue="@string/settings_default_swipe_distance_threshold"
+            android:dialogTitle="@string/settings_swipe_distance_threshold_title"
+            android:entries="@array/settings_key_swipe_distance_threshold_names"
+            android:entryValues="@array/settings_key_swipe_distance_threshold_values"
+            android:key="@string/settings_key_swipe_distance_threshold"
+            android:summary="@string/settings_swipe_distance_threshold_summary"
+            android:title="@string/settings_swipe_distance_threshold_title"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

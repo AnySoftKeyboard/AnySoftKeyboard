@@ -17,16 +17,24 @@
 
 package com.anysoftkeyboard.ui.settings;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.preference.PreferenceFragment;
 
 import com.menny.android.anysoftkeyboard.R;
 
-public class TweaksFragment extends PreferenceFragment {
+public class EffectsSettingsFragment extends PreferenceFragment {
 
     @Override
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
-        addPreferencesFromResource(R.xml.prefs_tweaks);
+        addPreferencesFromResource(R.xml.prefs_effects_prefs);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Activity activity = getActivity();
+        activity.setTitle(getString(R.string.effects_group));
     }
 }
