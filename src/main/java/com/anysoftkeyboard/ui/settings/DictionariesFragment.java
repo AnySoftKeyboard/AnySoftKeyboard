@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.support.v4.preference.PreferenceFragment;
 
+import com.anysoftkeyboard.ui.settings.wordseditor.UserDictionaryEditorFragment;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.FragmentChauffeurActivity;

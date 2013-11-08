@@ -20,6 +20,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.view.GestureDetector;
+import android.widget.AbsListView;
 
 @TargetApi(8)
 public class DeviceSpecific_V8 extends DeviceSpecific_V7 {
@@ -50,5 +51,10 @@ public class DeviceSpecific_V8 extends DeviceSpecific_V7 {
         final boolean ignoreMultitouch = true;
         return new AskV8GestureDetector(appContext, listener, null,
                 ignoreMultitouch);
+    }
+
+    @Override
+    public void performListScrollToPosition(AbsListView listView, int position) {
+        listView.smoothScrollToPosition(position);
     }
 }
