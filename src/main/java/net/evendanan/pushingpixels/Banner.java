@@ -26,11 +26,11 @@ package net.evendanan.pushingpixels;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 /**
- * A custom view that ensures that its background is taking all the space it can, without losing image ratio.
+ * A custom view that ensures that its image is taking all the space it can, without losing image ratio.
  * Make sure you use layout_width="match_parent" and layout_height="wrap_content" if you want the width to be the ratio guideline,
  * or layout_height="match_parent" and layout_width="wrap_content" if you want the height to be the guideline.
  *
@@ -38,31 +38,34 @@ import android.view.ViewGroup;
  *
  * @author Menny Even-Danan
  */
-public class Banner extends View {
+public class Banner extends ImageView {
     public Banner(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public Banner(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public Banner(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        //I'm using FIT_XY since I'm going to set the view's dimensions based on the intrinsic dimensions of the drawable
+        //so, this will ensure that the image is taking the entire view's space, and my code in onMeasure will make sure ratio is kept.
+        setScaleType(ScaleType.FIT_XY);
     }
 
     @Override protected void onMeasure(int widthMeasureSpec,
                                        int heightMeasureSpec) {
         final ViewGroup.LayoutParams lp = getLayoutParams();
-        if (    (lp.width == ViewGroup.LayoutParams.MATCH_PARENT && lp.height == ViewGroup.LayoutParams.WRAP_CONTENT) ||
-                (lp.height == ViewGroup.LayoutParams.MATCH_PARENT && lp.width == ViewGroup.LayoutParams.WRAP_CONTENT)){
-            final Drawable banner = getBackground();
+        if (    ((lp.width == 0 || lp.width == ViewGroup.LayoutParams.MATCH_PARENT) && lp.height == ViewGroup.LayoutParams.WRAP_CONTENT) ||
+                ((lp.height == 0 || lp.height == ViewGroup.LayoutParams.MATCH_PARENT) && lp.width == ViewGroup.LayoutParams.WRAP_CONTENT)){
+            final Drawable banner = getDrawable();
             if (banner == null) {
                 super.onMeasure(widthMeasureSpec, heightMeasureSpec);
             } else {
                 final int height;
                 final int width;
-                if (lp.width == ViewGroup.LayoutParams.MATCH_PARENT) {
+                if (lp.height == ViewGroup.LayoutParams.WRAP_CONTENT) {
                     width = MeasureSpec.getSize(widthMeasureSpec);
                     height = width * banner.getIntrinsicHeight() / banner.getIntrinsicWidth();
                 } else {

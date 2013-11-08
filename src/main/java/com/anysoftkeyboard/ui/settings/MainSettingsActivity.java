@@ -36,7 +36,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.FragmentChauffeurActivity;
 
-public class MainSettings extends FragmentChauffeurActivity {
+public class MainSettingsActivity extends FragmentChauffeurActivity {
 
     private static final String TAG = "ASK_MAIN";
 
@@ -72,13 +72,13 @@ public class MainSettings extends FragmentChauffeurActivity {
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 getSupportActionBar().setTitle(mTitle);
-                ActivityCompat.invalidateOptionsMenu(MainSettings.this);// creates call to onPrepareOptionsMenu()
+                ActivityCompat.invalidateOptionsMenu(MainSettingsActivity.this);// creates call to onPrepareOptionsMenu()
             }
 
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 getSupportActionBar().setTitle(mDrawerTitle);
-                ActivityCompat.invalidateOptionsMenu(MainSettings.this);// creates call to onPrepareOptionsMenu()
+                ActivityCompat.invalidateOptionsMenu(MainSettingsActivity.this);// creates call to onPrepareOptionsMenu()
             }
         };
 
@@ -129,7 +129,7 @@ public class MainSettings extends FragmentChauffeurActivity {
         TextView themeData = (TextView)findViewById(R.id.theme_extra_data);
         KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(getApplicationContext());
         if (theme == null)
-            theme = KeyboardThemeFactory.getCurrentKeyboardTheme(getApplicationContext());
+            theme = KeyboardThemeFactory.getFallbackTheme(getApplicationContext());
         themeData.setText(getString(R.string.selected_add_on_summary, theme.getName()));
     }
 
@@ -176,7 +176,8 @@ public class MainSettings extends FragmentChauffeurActivity {
 
     public void onNavigateToLanguageSettings(View v) {
         mDrawerRootLayout.closeDrawers();
-        //TODO: start additional language settings fragment
+        addFragmentToUi(new AdditionalLanguageSettingsFragment(), FragmentUiContext.RootFragment);
+
     }
 
     public void onNavigateToKeyboardThemeSettings(View v) {
@@ -186,12 +187,12 @@ public class MainSettings extends FragmentChauffeurActivity {
 
     public void onNavigateToEffectsSettings(View v) {
         mDrawerRootLayout.closeDrawers();
-        //TODO: start additional language settings fragment
+        addFragmentToUi(new EffectsSettingsFragment(), FragmentUiContext.RootFragment);
     }
 
     public void onNavigateToGestureSettings(View v) {
         mDrawerRootLayout.closeDrawers();
-        //TODO: start additional language settings fragment
+        addFragmentToUi(new GesturesSettingsFragment(), FragmentUiContext.RootFragment);
     }
 
     public void onNavigateToUserInterfaceSettings(View v) {

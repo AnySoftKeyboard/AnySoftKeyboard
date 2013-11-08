@@ -49,6 +49,8 @@ import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
+import net.evendanan.pushingpixels.Banner;
+
 public class AddOnCheckBoxPreference extends Preference implements
         OnCheckedChangeListener, OnClickListener {
     private static final String TAG = "AddOnCheckBoxPreference";
@@ -165,7 +167,7 @@ public class AddOnCheckBoxPreference extends Preference implements
                     popup.dismiss();
                 }
             });
-            layout.findViewById(R.id.addon_screenshot).setBackground(screenshot);
+            ((Banner)layout.findViewById(R.id.addon_screenshot)).setImageDrawable(screenshot);
             popup.showAtLocation(view, Gravity.CENTER, 0, 0);
         }
     }

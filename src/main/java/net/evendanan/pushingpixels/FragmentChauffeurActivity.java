@@ -98,14 +98,26 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
                 //although this managing Activity can handle any generic Fragment, in this case we'll need some help from the fragment.
                 //it is required to fine tune the pivot of the scale animation.
                 //so, I'll need the specialized fragment PassengerFragment
-                if (fragment instanceof PassengerFragment && originateView != null) {
+                if (fragment instanceof Passengerable && originateView != null) {
                     View fragmentParent = findViewById(getFragmentRootUiElementId());
-                    float pivotX = ((float)(originateView.getWidth()/2 + originateView.getLeft()) / ((float)fragmentParent.getWidth()));
-                    float pivotY = ((float)(originateView.getHeight()/2 + originateView.getTop()) / ((float)fragmentParent.getHeight()));
-                    float scaleX = ((float)(originateView.getWidth()) / ((float)fragmentParent.getWidth()));
-                    float scaleY = ((float)(originateView.getHeight()) / ((float)fragmentParent.getHeight()));
 
-                    PassengerFragment passengerFragment = (PassengerFragment)fragment;
+                    // Idea taken from:
+                    // http://developer.android.com/training/animation/zoom.html
+                    final float scaleX = ((float) originateView.getWidth())
+                            / ((float) fragmentParent.getWidth());
+                    final float scaleY = ((float) originateView.getHeight())
+                            / ((float) fragmentParent.getHeight());
+                    // some preparations
+                    // the Y pivot is tricky, it should be the middle of the button, but in
+                    // the fragmentParent coordinates
+                    int[] originateLocation = new int[2];
+                    originateView.getLocationInWindow(originateLocation);
+                    int[] parentLocation = new int[2];
+                    fragmentParent.getLocationInWindow(parentLocation);
+                    final int pivotY = originateLocation[1] - parentLocation[1] + (originateView.getHeight()/2);
+                    final int pivotX = originateLocation[0] - parentLocation[0] + (originateView.getWidth()/2);;
+
+                    Passengerable passengerFragment = (Passengerable)fragment;
                     passengerFragment.setItemExpandExtraData(pivotX, pivotY, scaleX, scaleY);
                     transaction.setCustomAnimations(R.anim.ui_context_expand_add_in, R.anim.ui_context_expand_add_out,
                             R.anim.ui_context_expand_pop_in, R.anim.ui_context_expand_pop_out);

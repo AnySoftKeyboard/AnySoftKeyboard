@@ -16,66 +16,23 @@
 
 package net.evendanan.pushingpixels;
 
-import android.graphics.PointF;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.AnimationUtils;
-import android.view.animation.ScaleAnimation;
 
-import com.anysoftkeyboard.utils.Log;
-import com.menny.android.anysoftkeyboard.R;
-
-public abstract class PassengerFragment extends Fragment {
+public abstract class PassengerFragment extends Fragment implements Passengerable {
 
     private static final String TAG = "PassengerFragment";
 
-    private static final String EXTRA_ORIGINATE_VIEW_CENTER = "EXTRA_ORIGINATE_VIEW_CENTER";
-    private static final String EXTRA_ORIGINATE_VIEW_SCALE = "EXTRA_ORIGINATE_VIEW_SCALE";
-
+    @Override
     public void setItemExpandExtraData(float originateViewCenterX, float originateViewCenterY,
                                        float originateViewWidthScale, float originateViewHeightScale) {
-        Bundle bundle = getArguments();
-        if (bundle == null) bundle = new Bundle();
-        bundle.putParcelable(EXTRA_ORIGINATE_VIEW_CENTER, new PointF(originateViewCenterX, originateViewCenterY));
-        bundle.putParcelable(EXTRA_ORIGINATE_VIEW_SCALE, new PointF(originateViewWidthScale, originateViewHeightScale));
-
-        setArguments(bundle);
+        PassengerFragmentSupport.setItemExpandExtraData(this,
+                originateViewCenterX, originateViewCenterY,
+                originateViewWidthScale, originateViewHeightScale);
     }
 
     @Override
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-        Log.d(TAG, "onCreateAnimation: transit: " + transit + ", enter: " + enter + ", nextAnim: " + nextAnim);
-        ScaleAnimation scale = null;
-        PointF originateViewCenterPoint = (PointF)getArguments().get(EXTRA_ORIGINATE_VIEW_CENTER);
-        PointF originateViewScale = (PointF)getArguments().get(EXTRA_ORIGINATE_VIEW_SCALE);
-        if (originateViewCenterPoint != null && originateViewScale != null) {
-            Log.d(TAG, "originateViewCenterPoint: " + originateViewCenterPoint.toString());
-            if (enter && nextAnim == R.anim.ui_context_expand_add_in) {
-                scale = new ScaleAnimation(originateViewScale.x, 1.0f, originateViewScale.y, 1.0f,
-                        ScaleAnimation.RELATIVE_TO_SELF, originateViewCenterPoint.x,
-                        ScaleAnimation.RELATIVE_TO_SELF, originateViewCenterPoint.y);
-            } else if (!enter && nextAnim == R.anim.ui_context_expand_pop_out) {
-                scale = new ScaleAnimation(1.0f, originateViewScale.x, 1.0f, originateViewScale.y,
-                        ScaleAnimation.RELATIVE_TO_SELF, originateViewCenterPoint.x,
-                        ScaleAnimation.RELATIVE_TO_SELF, originateViewCenterPoint.y);
-            }
-        }
-
-        if (scale == null) {
-            //no originate view, so I'll add generic scale-animation
-            if (enter) {
-                scale = new ScaleAnimation(0.4f, 1.0f, 0.4f, 1.0f, ScaleAnimation.RELATIVE_TO_SELF, 0.5f,
-                        ScaleAnimation.RELATIVE_TO_SELF, 0.5f);
-            } else {
-                scale = new ScaleAnimation(1.0f, 0.4f, 1.0f, 0.4f, ScaleAnimation.RELATIVE_TO_SELF, 0.5f,
-                        ScaleAnimation.RELATIVE_TO_SELF, 0.5f);
-            }
-        }
-        scale.setDuration(getResources().getInteger(android.R.integer.config_mediumAnimTime));
-        AnimationSet set = (AnimationSet) AnimationUtils.loadAnimation(getActivity().getApplicationContext(), nextAnim);
-        set.addAnimation(scale);
-        return set;
+        return PassengerFragmentSupport.onCreateAnimation(this, transit, enter, nextAnim);
     }
 }

@@ -236,7 +236,7 @@
     <string name="ime_settings">Keyboard settings</string>
     <!-- <string name="vibrate_on">Vibrate on key-press</string>-->
     <string name="vibrate_on_key_press_title">Vibrate on key-press</string>
-    <string name="vibrate_on_key_press_summary">Select to have keys vibrate when tapped</string>
+    <string name="vibrate_on_key_press_summary">Vibration level feedback for key-press. Currently: %s</string>
     <string name="vibrate_on_key_press_dialog_title">Select vibration type</string>
     <string-array name="vibrate_on_key_press_types">
         <item>None</item>
@@ -275,26 +275,26 @@
     <string name="backword_support_off_summary">Shifted Backspace will delete the last character</string>
     <string name="swipe_tweak_group">Change swipe gesture actions</string>
     <string name="swipe_up_action">Swipe up</string>
-    <string name="swipe_up_action_summary">Define the swipe up gesture action</string>
+    <string name="swipe_up_action_summary">Define the swipe up gesture action. Currently, %s</string>
     <string name="swipe_up_action_title">Select swipe up action</string>
     <string name="swipe_up_from_spacebar_action">Swipe spacebar up</string>
-    <string name="swipe_up_from_spacebar_action_summary">Define the swipe up from spacebar gesture action</string>
+    <string name="swipe_up_from_spacebar_action_summary">Define the swipe up from spacebar gesture action. Currently, %s</string>
     <string name="swipe_up_from_spacebar_action_title">Select swipe spacebar up action</string>
     <string name="swipe_down_action">Swipe down</string>
-    <string name="swipe_down_action_summary">Define the swipe down gesture action</string>
+    <string name="swipe_down_action_summary">Define the swipe down gesture action. Currently, %s</string>
     <string name="swipe_down_action_title">Select swipe down action</string>
     <string name="swipe_left_action">Swipe left</string>
-    <string name="swipe_left_action_summary">Define the swipe left gesture action</string>
+    <string name="swipe_left_action_summary">Define the swipe left gesture action. Currently, %s</string>
     <string name="swipe_left_action_title">Select swipe left action</string>
     <string name="swipe_right_action">Swipe right</string>
-    <string name="swipe_right_action_summary">Define the swipe right gesture action</string>
+    <string name="swipe_right_action_summary">Define the swipe right gesture action. Currently, %s</string>
     <string name="swipe_right_action_title">Select swipe right action</string>
     <string name="pinch_gesture_action">Pinch gesture</string>
     <string name="pinch_gesture_action_title">Select pinch gesture action</string>
-    <string name="pinch_gesture_action_summary">Define the pinch gesture action</string>
+    <string name="pinch_gesture_action_summary">Define the pinch gesture action. Currently, %s</string>
     <string name="separate_gesture_action">Stretch gesture</string>
     <string name="separate_gesture_action_title">Select stretch gesture action</string>
-    <string name="separate_gesture_action_summary">Define the stretch gesture action</string>
+    <string name="separate_gesture_action_summary">Define the stretch gesture action. Currently, %s</string>
 
     <string name="swipe_action_name_none">No action</string>
     <string name="swipe_action_name_next_alphabet">Next alphabet keyboard</string>
@@ -317,7 +317,7 @@
     <string name="swipe_action_name_utility_keyboard">Show utility keyboard</string>
 
     <string name="settings_swipe_velocity_threshold_title">Swipe velocity threshold</string>
-    <string name="settings_swipe_velocity_threshold_summary">The minimal swipe gesture speed</string>
+    <string name="settings_swipe_velocity_threshold_summary">The minimal swipe gesture speed. Currently, %s</string>
 
     <string name="settings_swipe_velocity_very_slow">Very slow</string>
     <string name="settings_swipe_velocity_slow">Slow</string>
@@ -326,7 +326,7 @@
     <string name="settings_swipe_velocity_very_fast">Very fast</string>
 
     <string name="settings_swipe_distance_threshold_title">Swipe distance threshold</string>
-    <string name="settings_swipe_distance_threshold_summary">The minimal swipe gesture distance</string>
+    <string name="settings_swipe_distance_threshold_summary">The minimal swipe gesture distance. Currently, %s</string>
 
     <string name="settings_swipe_distance_very_short">Very short</string>
     <string name="settings_swipe_distance_short">Short</string>
@@ -436,13 +436,6 @@
     <string name="show_crash_notification_on_summary">Upon ASK crash, open crash report dialog</string>
     <string name="show_crash_notification_off_summary">Silently absorb crashes</string>
 
-    <string name="show_new_version_notifications_again">Show new version notifications</string>
-    <string name="show_new_version_notifications_again_on_summary">Upon installing a new version, a change-log will be
-        shown
-    </string>
-    <string name="show_new_version_notifications_again_off_summary">Will not notify you when a new version is
-        installed
-    </string>
     <string name="use_keyrepeat">Use key repeat</string>
     <string name="use_keyrepeat_on_summary">Key repeat is enabled</string>
     <string name="use_keyrepeat_off_summary">Key repeat is disabled</string>
@@ -479,7 +472,7 @@
     <string name="action_key_invisible_on_disable_off_summary">Action key will be visible even if GUI requests</string>
 
     <string name="tweak_animations_level_title">Animations</string>
-    <string name="tweak_animations_level_summary">How much animations should be used. Now: %s</string>
+    <string name="tweak_animations_level_summary">How much animations should be used. Currently: %s</string>
     <string name="tweak_animations_level_types_full">Full</string>
     <string name="tweak_animations_level_types_some">Some</string>
     <string name="tweak_animations_level_types_none">None</string>
@@ -494,7 +487,10 @@
 
     <string name="auto_caps">Auto-capitalization</string>
     <string name="grammer_group">Grammar</string>
+    <string name="keyboard_behavior_group">Keyboard Behavior</string>
     <string name="candidates_on">Show suggestions</string>
+    <string name="candidates_on_summary">A list of suggested words will be displayed above the keyboard</string>
+    <string name="candidates_off_summary">No suggestions will be shown</string>
     <string name="quick_fix">Quick fixes</string>
     <string name="quick_fix_summary">Corrects commonly typed mistakes</string>
     <string name="allow_suggestions_restart">Suggestions restart</string>

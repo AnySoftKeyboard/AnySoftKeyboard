@@ -19,6 +19,8 @@ package com.anysoftkeyboard.devicespecific;
 import android.content.Context;
 import android.view.GestureDetector;
 import android.view.inputmethod.InputConnection;
+import android.widget.AbsListView;
+
 import com.anysoftkeyboard.WordComposer;
 
 public interface DeviceSpecific {
@@ -30,4 +32,6 @@ public interface DeviceSpecific {
     public GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener);
 
     public void commitCorrectionToInputConnection(InputConnection ic, WordComposer word);
+
+    public void performListScrollToPosition(AbsListView listView, int position);
 }

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="prefs_addons_screen">
+
+    <PreferenceCategory
+        android:key="grammer_group"
+        android:title="@string/grammer_group">
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="auto_caps"
+            android:persistent="true"
+            android:title="@string/auto_caps"/>
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="candidates_on"
+            android:persistent="true"
+            android:title="@string/candidates_on"
+            android:summaryOn="@string/candidates_on_summary"
+            android:summaryOff="@string/candidates_off_summary"/>
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:dependency="candidates_on"
+            android:key="auto_complete"
+            android:persistent="true"
+            android:summaryOff=""
+            android:summaryOn="@string/auto_complete_summary"
+            android:title="@string/auto_complete"/>
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:dependency="candidates_on"
+            android:key="quick_fix"
+            android:persistent="true"
+            android:summaryOff=""
+            android:summaryOn="@string/quick_fix_summary"
+            android:title="@string/quick_fix"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="behavior_group"
+        android:title="@string/keyboard_behavior_group">
+        <CheckBoxPreference
+            android:defaultValue="@bool/settings_default_allow_suggestions_restart"
+            android:dependency="candidates_on"
+            android:key="@string/settings_key_allow_suggestions_restart"
+            android:persistent="true"
+            android:summaryOff=""
+            android:summaryOn="@string/allow_suggestions_restart_summary"
+            android:title="@string/allow_suggestions_restart"/>
+    </PreferenceCategory>
+
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="switch_keyboard_on_space"
+        android:persistent="true"
+        android:summaryOff="@string/switch_keyboard_on_space_off_summary"
+        android:summaryOn="@string/switch_keyboard_on_space_on_summary"
+        android:title="@string/switch_keyboard_on_space"/>
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="double_space_to_period"
+        android:persistent="true"
+        android:summaryOff=""
+        android:summaryOn="@string/double_space_to_period_summary"
+        android:title="@string/double_space_to_period"/>
+
+    <PreferenceCategory
+        android:key="hardware_keys_group"
+        android:title="@string/hardware_keys_group">
+
+        <CheckBoxPreference
+            android:defaultValue="@bool/settings_default_use_camera_key_for_backspace_backword"
+            android:key="@string/settings_key_use_camera_key_for_backspace_backword"
+            android:persistent="true"
+            android:summaryOff="@string/camera_key_for_backspace_backword_support_off_summary"
+            android:summaryOn="@string/camera_key_for_backspace_backword_support_on_summary"
+            android:title="@string/camera_key_for_backspace_backword_support"/>
+
+        <CheckBoxPreference
+            android:defaultValue="@bool/settings_default_use_volume_key_for_left_right"
+            android:key="@string/settings_key_use_volume_key_for_left_right"
+            android:persistent="true"
+            android:summaryOff="@string/volume_key_for_left_right_support_off_summary"
+            android:summaryOn="@string/volume_key_for_left_right_support_on_summary"
+            android:title="@string/volume_key_for_left_right_support"/>
+    </PreferenceCategory>
+
+    <Preference android:key="@string/tweaks_group_key"
+        android:title="@string/tweaks_group"/>
+
+</PreferenceScreen>
