@@ -54,8 +54,8 @@ class UserWordsListAdapter extends ArrayAdapter<String> {
     @Override
     public int getCount() {
         final int baseCount = super.getCount();
-        if (baseCount == 0)
-            return 0;//in the case that there are no words, I have a special "empty state"
+        if (baseCount == 0 && mCurrentlyEditPosition == NONE_POSITION)
+            return 0;//in the case that there are no words (and not editing the first word), I have a special "empty state"
 
         return super.getCount()+1;//the plus one is for the "Add new";
     }
