@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard.ui.settings;
+package com.anysoftkeyboard.ui.settings.wordseditor;
 
 import android.content.Context;
 import android.os.Environment;
@@ -23,6 +23,7 @@ import android.view.WindowManager.BadTokenException;
 import android.widget.Toast;
 
 import com.anysoftkeyboard.dictionaries.UserDictionary;
+import com.anysoftkeyboard.ui.settings.wordseditor.UserWordsEditorAsyncTask;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;

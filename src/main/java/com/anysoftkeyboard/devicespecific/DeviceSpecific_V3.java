@@ -21,6 +21,8 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.view.GestureDetector;
 import android.view.inputmethod.InputConnection;
+import android.widget.AbsListView;
+
 import com.anysoftkeyboard.WordComposer;
 
 @TargetApi(3)
@@ -43,5 +45,10 @@ public class DeviceSpecific_V3 implements DeviceSpecific {
 
     public void commitCorrectionToInputConnection(InputConnection ic, WordComposer word) {
         ic.commitText(word.getPreferredWord(), 1);
+    }
+
+    @Override
+    public void performListScrollToPosition(AbsListView listView, int position) {
+        listView.setSelection(position);
     }
 }
