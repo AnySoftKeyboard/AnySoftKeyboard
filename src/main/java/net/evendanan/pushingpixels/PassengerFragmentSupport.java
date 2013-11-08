@@ -48,6 +48,10 @@ public abstract class PassengerFragmentSupport {
 
     public static Animation onCreateAnimation(@Nonnull Fragment passengerFragment, int transit, boolean enter, int nextAnim) {
         Log.d(TAG, "onCreateAnimation: transit: " + transit + ", enter: " + enter + ", nextAnim: " + nextAnim);
+        final boolean validTransitionToModify =
+                nextAnim == R.anim.ui_context_expand_add_in || nextAnim == R.anim.ui_context_expand_pop_out;
+        if (!validTransitionToModify) return null;
+
         ScaleAnimation scale = null;
         PointF originateViewCenterPoint = (PointF)passengerFragment.getArguments().get(EXTRA_ORIGINATE_VIEW_CENTER);
         PointF originateViewScale = (PointF)passengerFragment.getArguments().get(EXTRA_ORIGINATE_VIEW_SCALE);
