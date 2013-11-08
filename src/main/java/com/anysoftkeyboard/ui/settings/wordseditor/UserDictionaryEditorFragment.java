@@ -146,7 +146,7 @@ public class UserDictionaryEditorFragment extends Fragment
 
     private void createEmptyItemForAdd() {
         UserWordsListAdapter adapter = (UserWordsListAdapter) mWordsListView.getAdapter();
-        final int addWordItemIndex = adapter.getCount()-1;
+        final int addWordItemIndex = adapter.getCount() == 0? 0 : adapter.getCount()-1;
         //will use smooth scrolling on API8+
         AnyApplication.getDeviceSpecific().performListScrollToPosition(mWordsListView, addWordItemIndex);
         adapter.onItemClicked(mWordsListView, addWordItemIndex);
