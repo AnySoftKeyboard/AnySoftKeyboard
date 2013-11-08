@@ -149,7 +149,7 @@ public class UserDictionaryEditorFragment extends Fragment
         final int addWordItemIndex = adapter.getCount()-1;
         //will use smooth scrolling on API8+
         AnyApplication.getDeviceSpecific().performListScrollToPosition(mWordsListView, addWordItemIndex);
-        adapter.onItemClicked(addWordItemIndex);
+        adapter.onItemClicked(mWordsListView, addWordItemIndex);
     }
 
     @Override
@@ -322,7 +322,7 @@ public class UserDictionaryEditorFragment extends Fragment
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        ((UserWordsListAdapter) mWordsListView.getAdapter()).onItemClicked(position);
+        ((UserWordsListAdapter) mWordsListView.getAdapter()).onItemClicked(parent, position);
     }
 
     @Override
