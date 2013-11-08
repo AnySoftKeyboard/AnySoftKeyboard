@@ -108,8 +108,8 @@
             <fragment
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:name="com.anysoftkeyboard.ui.tutorials.TipsFragment$TipFragment"
-                tools:layout="@layout/tip_layout_1" />
+                android:name="com.anysoftkeyboard.ui.tutorials.TipsFragment$RandomTipFragment"
+                tools:layout="@layout/tip_layout_2" />
             <TextView
                 style="@style/Ask.Text.Hint"
                 android:id="@+id/show_more_tips"

@@ -33,11 +33,13 @@ import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
+import net.evendanan.pushingpixels.PassengerFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class TipsFragment extends Fragment {
+public class TipsFragment extends PassengerFragment {
 
     private static final String TAG = "ASK TIPS";
 
@@ -97,6 +99,8 @@ public class TipsFragment extends Fragment {
                 AnyApplication.getConfig().setShowTipsNotification(!AnyApplication.getConfig().getShowTipsNotification());
             }
         });
+
+        view.findViewById(R.id.tips_pager_swipe_hint).setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -143,12 +147,12 @@ public class TipsFragment extends Fragment {
             super.onCreate(savedInstanceState);
             mTipResId = getArguments() != null? getArguments().getInt(TIP_RES_ID) : 0;
             if (mTipResId == 0) {
-                //picking a random tip
-                List<Integer> tipResIds = new ArrayList<Integer>();
-                TipLayoutsSupport.getAvailableTipsLayouts(getActivity().getApplicationContext(), tipResIds);
-                int randomIndex = new Random().nextInt(tipResIds.size());
-                mTipResId = tipResIds.get(randomIndex);
+                mTipResId = getTipToUseOnNoneGiven();
             }
+        }
+
+        protected int getTipToUseOnNoneGiven() {
+            throw new IllegalArgumentException("Missing tip res ID!");
         }
 
         @Override
@@ -165,6 +169,17 @@ public class TipsFragment extends Fragment {
             Editor e = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext()).edit();
             e.putBoolean(resName, true);
             e.commit();
+        }
+    }
+
+    public static class RandomTipFragment extends TipFragment {
+        @Override
+        protected int getTipToUseOnNoneGiven() {
+            //picking a random tip
+            List<Integer> tipResIds = new ArrayList<>();
+            TipLayoutsSupport.getAvailableTipsLayouts(getActivity().getApplicationContext(), tipResIds);
+            int randomIndex = new Random().nextInt(tipResIds.size());
+            return tipResIds.get(randomIndex);
         }
     }
 }
