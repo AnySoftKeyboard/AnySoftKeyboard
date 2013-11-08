@@ -28,6 +28,7 @@ import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public abstract class PassengerFragmentSupport {
 
@@ -46,7 +47,7 @@ public abstract class PassengerFragmentSupport {
         passengerFragment.setArguments(bundle);
     }
 
-    public static Animation onCreateAnimation(@Nonnull Fragment passengerFragment, int transit, boolean enter, int nextAnim) {
+    public static @Nullable Animation onCreateAnimation(@Nonnull Fragment passengerFragment, int transit, boolean enter, int nextAnim) {
         Log.d(TAG, "onCreateAnimation: transit: " + transit + ", enter: " + enter + ", nextAnim: " + nextAnim);
         final boolean validTransitionToModify =
                 nextAnim == R.anim.ui_context_expand_add_in || nextAnim == R.anim.ui_context_expand_pop_out;
