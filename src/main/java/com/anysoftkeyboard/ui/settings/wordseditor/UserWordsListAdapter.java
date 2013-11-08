@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -102,16 +103,25 @@ class UserWordsListAdapter extends ArrayAdapter<String> {
             ((TextView)convertView.findViewById(R.id.word_view)).setText(word);
             convertView.setTag(word);
         }
+        if (viewType == TYPE_EDIT) {
+            //I want the text-box to take the focus now.
+            convertView.findViewById(R.id.word_view).requestFocus();
+        }
         return convertView;
     }
 
-    public void onItemClicked(int position) {
+    public void onItemClicked(AdapterView<?> listView, int position) {
         if (mCurrentlyEditPosition == NONE_POSITION) {
             //nothing was in edit mode, so we start a new one
             mCurrentlyEditPosition = position;
+            //see http://stackoverflow.com/a/2680077/1324235
+            listView.setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
         } else {
             //there was an edit in progress. Clicking out side will cause DISCARD.
             mCurrentlyEditPosition = NONE_POSITION;
+            //see http://stackoverflow.com/a/2680077/1324235
+            listView.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
+            listView.requestFocus();
         }
         notifyDataSetChanged();
     }
