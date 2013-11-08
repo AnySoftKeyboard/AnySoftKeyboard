@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.List;
@@ -17,6 +18,8 @@ import java.util.List;
 * Created by menny on 11/7/13.
 */
 class UserWordsListAdapter extends ArrayAdapter<String> {
+
+    private static final String TAG = "UserWordsListAdapter";
 
     public static interface AdapterCallbacks {
         void onWordDeleted(String word);
@@ -70,6 +73,7 @@ class UserWordsListAdapter extends ArrayAdapter<String> {
     public View getView(int position, View convertView, ViewGroup parent) {
         final int viewType = getItemViewType(position);
         if (convertView == null) {
+            Log.d(TAG, "Creating a new view of type "+viewType+" at position "+position);
             switch (viewType) {
                 case TYPE_NORMAL:
                     convertView = mInflater.inflate(R.layout.user_dictionary_word_row, parent, false);
@@ -94,6 +98,7 @@ class UserWordsListAdapter extends ArrayAdapter<String> {
             convertView.setTag(""/*empty word*/);
         } else {
             final String word = getItem(position);
+            Log.d(TAG, "Updating word for view of type "+viewType+" at position "+position+". Word: "+word);
             ((TextView)convertView.findViewById(R.id.word_view)).setText(word);
             convertView.setTag(word);
         }
@@ -124,10 +129,12 @@ class UserWordsListAdapter extends ArrayAdapter<String> {
             final String oldWord = parent.getTag().toString();
             EditText editBox = (EditText)parent.findViewById(R.id.word_view);
             final String newWord = editBox.getText().toString();
+            mCurrentlyEditPosition = NONE_POSITION;
             if (TextUtils.isEmpty(newWord)) {
                 //this is weird.. The user wanted the word to be deleted?
                 //why not clicking on the delete icon?!
                 //I'm ignoring.
+                notifyDataSetChanged();//reloading the list.
             } else {
                 mCallbacksListener.onWordUpdated(oldWord, newWord);
             }
