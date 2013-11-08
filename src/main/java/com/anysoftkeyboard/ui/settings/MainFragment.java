@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.tutorials.ChangeLogFragment;
+import com.anysoftkeyboard.ui.tutorials.TipsFragment;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.Banner;
@@ -54,17 +55,27 @@ public class MainFragment extends Fragment {
         clickHere.setText(sb);
 
         //setting up change_log
-        clickHere = (TextView) view.findViewById(R.id.read_more_change_log);
-        sb = new SpannableStringBuilder(clickHere.getText());
-        csp = new ClickableSpan() {
+        setupLink(view, R.id.read_more_change_log,
+                ChangeLogFragment.createFragment(ChangeLogFragment.SHOW_ALL_CHANGELOG, true),
+                R.id.change_log_card);
+        //setting up tips
+        setupLink(view, R.id.show_more_tips,
+                TipsFragment.createFragment(TipsFragment.SHOW_ALL_TIPS),
+                R.id.tips_card);
+
+    }
+
+    private void setupLink(View root, int showMoreLinkId, final Fragment fragment, final int parentLayoutResId) {
+        TextView clickHere = (TextView) root.findViewById(showMoreLinkId);
+        SpannableStringBuilder sb = new SpannableStringBuilder(clickHere.getText());
+        ClickableSpan csp = new ClickableSpan() {
             @Override
             public void onClick(View v) {
                 Activity activity = getActivity();
                 if (activity != null && activity instanceof FragmentChauffeurActivity) {
-                    ((FragmentChauffeurActivity)activity).addFragmentToUi(
-                            ChangeLogFragment.createFragment(ChangeLogFragment.SHOW_ALL_CHANGELOG, true),
+                    ((FragmentChauffeurActivity)activity).addFragmentToUi(fragment,
                             FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
-                            getView().findViewById(R.id.change_log_card));
+                            getView().findViewById(parentLayoutResId));
                 }
             }
         };

@@ -141,7 +141,7 @@ public class TipsFragment extends Fragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            mTipResId = getArguments().getInt(TIP_RES_ID);
+            mTipResId = getArguments() != null? getArguments().getInt(TIP_RES_ID) : 0;
             if (mTipResId == 0) {
                 //picking a random tip
                 List<Integer> tipResIds = new ArrayList<Integer>();
