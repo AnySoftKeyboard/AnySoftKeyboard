@@ -10,20 +10,18 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.List;
 
 /**
-* Created by menny on 11/7/13.
-*/
+ * List adapter to be used with the words editor fragment.
+ */
 class UserWordsListAdapter extends ArrayAdapter<String> {
-
-    private static final String TAG = "UserWordsListAdapter";
 
     public static interface AdapterCallbacks {
         void onWordDeleted(String word);
+
         void onWordUpdated(String oldWord, String newWord);
     }
 
@@ -57,7 +55,7 @@ class UserWordsListAdapter extends ArrayAdapter<String> {
         if (baseCount == 0 && mCurrentlyEditPosition == NONE_POSITION)
             return 0;//in the case that there are no words (and not editing the first word), I have a special "empty state"
 
-        return super.getCount()+1;//the plus one is for the "Add new";
+        return super.getCount() + 1;//the plus one is for the "Add new";
     }
 
     @Override
@@ -74,7 +72,6 @@ class UserWordsListAdapter extends ArrayAdapter<String> {
     public View getView(int position, View convertView, ViewGroup parent) {
         final int viewType = getItemViewType(position);
         if (convertView == null) {
-            Log.d(TAG, "Creating a new view of type "+viewType+" at position "+position);
             switch (viewType) {
                 case TYPE_NORMAL:
                     convertView = mInflater.inflate(R.layout.user_dictionary_word_row, parent, false);
@@ -99,13 +96,13 @@ class UserWordsListAdapter extends ArrayAdapter<String> {
             convertView.setTag(""/*empty word*/);
         } else {
             final String word = getItem(position);
-            Log.d(TAG, "Updating word for view of type "+viewType+" at position "+position+". Word: "+word);
-            ((TextView)convertView.findViewById(R.id.word_view)).setText(word);
+            ((TextView) convertView.findViewById(R.id.word_view)).setText(word);
             convertView.setTag(word);
         }
         if (viewType == TYPE_EDIT) {
             //I want the text-box to take the focus now.
-            convertView.findViewById(R.id.word_view).requestFocus();
+            final View edit = convertView.findViewById(R.id.word_view);
+            edit.requestFocus();
         }
         return convertView;
     }
@@ -128,16 +125,16 @@ class UserWordsListAdapter extends ArrayAdapter<String> {
 
     private final View.OnClickListener mOnDeleteWordClickListener = new View.OnClickListener() {
         public void onClick(View v) {
-            final String word = ((View)v.getParent()).getTag().toString();
+            final String word = ((View) v.getParent()).getTag().toString();
             mCallbacksListener.onWordDeleted(word);
         }
     };
 
     private final View.OnClickListener mOnWordEditApprovedClickListener = new View.OnClickListener() {
         public void onClick(View v) {
-            View parent = ((View)v.getParent());
+            View parent = ((View) v.getParent());
             final String oldWord = parent.getTag().toString();
-            EditText editBox = (EditText)parent.findViewById(R.id.word_view);
+            EditText editBox = (EditText) parent.findViewById(R.id.word_view);
             final String newWord = editBox.getText().toString();
             mCurrentlyEditPosition = NONE_POSITION;
             if (TextUtils.isEmpty(newWord)) {
