@@ -1,6 +1,5 @@
 package com.anysoftkeyboard.ui.settings;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -56,30 +55,33 @@ public class MainFragment extends Fragment {
 
         //setting up change_log
         setupLink(view, R.id.read_more_change_log,
-                ChangeLogFragment.createFragment(ChangeLogFragment.SHOW_ALL_CHANGELOG, true),
-                R.id.change_log_card);
+                new ClickableSpan() {
+                    @Override
+                    public void onClick(View v) {
+                        FragmentChauffeurActivity activity = (FragmentChauffeurActivity)getActivity();
+                        activity.addFragmentToUi(ChangeLogFragment.createFragment(ChangeLogFragment.SHOW_ALL_CHANGELOG, true),
+                                    FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
+                                    getView().findViewById(R.id.change_log_card));
+                        }
+                    });
         //setting up tips
         setupLink(view, R.id.show_more_tips,
-                TipsFragment.createFragment(TipsFragment.SHOW_ALL_TIPS),
-                R.id.tips_card);
+                new ClickableSpan() {
+                    @Override
+                    public void onClick(View v) {
+                        FragmentChauffeurActivity activity = (FragmentChauffeurActivity)getActivity();
+                        activity.addFragmentToUi(TipsFragment.createFragment(TipsFragment.SHOW_ALL_TIPS),
+                                FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
+                                getView().findViewById(R.id.tips_card));
+                    }
+                });
 
     }
 
-    private void setupLink(View root, int showMoreLinkId, final Fragment fragment, final int parentLayoutResId) {
+    private void setupLink(View root, int showMoreLinkId, ClickableSpan clickableSpan) {
         TextView clickHere = (TextView) root.findViewById(showMoreLinkId);
         SpannableStringBuilder sb = new SpannableStringBuilder(clickHere.getText());
-        ClickableSpan csp = new ClickableSpan() {
-            @Override
-            public void onClick(View v) {
-                Activity activity = getActivity();
-                if (activity != null && activity instanceof FragmentChauffeurActivity) {
-                    ((FragmentChauffeurActivity)activity).addFragmentToUi(fragment,
-                            FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
-                            getView().findViewById(parentLayoutResId));
-                }
-            }
-        };
-        sb.setSpan(csp, 0, clickHere.getText().length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        sb.setSpan(clickableSpan, 0, clickHere.getText().length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         clickHere.setMovementMethod(LinkMovementMethod.getInstance());
         clickHere.setText(sb);
     }

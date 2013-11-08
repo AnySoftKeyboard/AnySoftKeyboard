@@ -7,12 +7,27 @@
     android:layout_height="match_parent"
     android:background="#EEE">
 
-    <FrameLayout
-        android:id="@+id/main_ui_content"
+    <LinearLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_margin="8dp">
-    </FrameLayout>
+        android:orientation="horizontal">
+        <View
+            android:layout_height="1px"
+            android:layout_width="0px"
+            android:layout_weight="0.04"
+            android:background="@android:color/transparent"/>
+        <FrameLayout
+            android:id="@+id/main_ui_content"
+            android:layout_height="match_parent"
+            android:layout_width="0px"
+            android:layout_weight="0.92">
+        </FrameLayout>
+        <View
+            android:layout_height="1px"
+            android:layout_width="0px"
+            android:layout_weight="0.04"
+            android:background="@android:color/transparent"/>
+    </LinearLayout>
 
     <FrameLayout
         android:orientation="vertical"

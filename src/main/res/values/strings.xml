@@ -23,8 +23,7 @@
     <string name="tips_button">How to use</string>
     <string name="tips_button_description">A few tips about how to use AnySoftKeyboard</string>
     <string name="tips_title">AnySoftKeyboard tips</string>
-    <string name="click_for_previous_tip">↓ Previous tip</string>
-    <string name="click_for_next_tip">Next tip ↓</string>
+    <string name="tips_pager_swipe_hint">&#2190;\u0020Swipe left or right for more tips&#2192;</string>
     <!-- tip 1 -->
     <string name="tip_1_welcome_to_ask">Welcome to AnySoftKeyboard!</string>
     <string name="tip_1_how_to_access_settings">To access the settings; long press the ENTER key. You\'ll find a world

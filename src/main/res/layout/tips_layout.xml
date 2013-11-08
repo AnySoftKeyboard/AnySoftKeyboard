@@ -19,6 +19,14 @@
         android:layout_weight="1"
         android:layout_margin="8dp"/>
 
+    <TextView
+        android:id="@+id/tips_pager_swipe_hint"
+        style="@style/Ask.Text.Hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/tips_pager_swipe_hint" />
+
     <CheckBox
         android:id="@+id/show_tips_next_time"
         android:layout_width="fill_parent"
