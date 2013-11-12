@@ -23,6 +23,6 @@
         android:layout_marginLeft="8dp"
         android:adjustViewBounds="true"
         android:scaleType="centerInside"
-        android:src="@android:drawable/ic_menu_delete" />
+        android:src="@drawable/ic_action_content_discard" />
 
 </LinearLayout>

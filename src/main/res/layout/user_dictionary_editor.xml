@@ -35,5 +35,5 @@
         android:text="@string/user_dict_settings_empty_text"
         android:visibility="gone"
         android:drawablePadding="8dp"
-        android:drawableBottom="@android:drawable/ic_menu_add" />
+        android:drawableBottom="@drawable/ic_large_new" />
 </FrameLayout>
