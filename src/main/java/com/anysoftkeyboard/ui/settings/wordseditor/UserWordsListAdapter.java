@@ -2,6 +2,7 @@ package com.anysoftkeyboard.ui.settings.wordseditor;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,8 @@ class UserWordsListAdapter extends ArrayAdapter<String> {
         void onWordDeleted(String word);
 
         void onWordUpdated(String oldWord, String newWord);
+
+        void performDiscardEdit();
     }
 
     private final LayoutInflater mInflater;
@@ -80,6 +83,7 @@ class UserWordsListAdapter extends ArrayAdapter<String> {
                 case TYPE_EDIT:
                     convertView = mInflater.inflate(R.layout.user_dictionary_word_row_edit, parent, false);
                     convertView.findViewById(R.id.approve_user_word).setOnClickListener(mOnWordEditApprovedClickListener);
+                    convertView.findViewById(R.id.word_view).setOnKeyListener(mOnEditBoxKeyPressedListener);
                     break;
                 case TYPE_ADD:
                     convertView = mInflater.inflate(R.layout.user_dictionary_word_row_add, parent, false);
@@ -108,7 +112,7 @@ class UserWordsListAdapter extends ArrayAdapter<String> {
     }
 
     public void onItemClicked(AdapterView<?> listView, int position) {
-        if (mCurrentlyEditPosition == NONE_POSITION) {
+        if (mCurrentlyEditPosition == NONE_POSITION && position >= 0) {
             //nothing was in edit mode, so we start a new one
             mCurrentlyEditPosition = position;
             //see http://stackoverflow.com/a/2680077/1324235
@@ -147,4 +151,25 @@ class UserWordsListAdapter extends ArrayAdapter<String> {
             }
         }
     };
+
+    private final View.OnKeyListener mOnEditBoxKeyPressedListener = new View.OnKeyListener() {
+        @Override
+        public boolean onKey(View v, int keyCode, KeyEvent event) {
+            switch (keyCode) {
+                case KeyEvent.KEYCODE_BACK:
+                    //discarded!
+                    mCallbacksListener.performDiscardEdit();
+                    return true;
+                case KeyEvent.KEYCODE_ENTER:
+                    //v is the editbox. Need to pass the APPROVE view
+                    View parent = (View)v.getParent();
+                    View approveButton = parent.findViewById(R.id.approve_user_word);
+                    mOnWordEditApprovedClickListener.onClick(approveButton);
+                    return true;
+                default:
+                    return false;
+            }
+        }
+    };
+
 }
