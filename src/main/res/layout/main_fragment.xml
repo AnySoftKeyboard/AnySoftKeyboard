@@ -105,11 +105,14 @@
             android:id="@+id/tips_card"
             style="@style/Ask.Card"
             android:orientation="vertical">
-            <fragment
-                android:layout_height="wrap_content"
+            <FrameLayout
+                android:id="@+id/random_tip_fragment_container"
                 android:layout_width="match_parent"
-                android:name="com.anysoftkeyboard.ui.tutorials.TipsFragment$RandomTipFragment"
-                tools:layout="@layout/tip_layout_2" />
+                android:layout_height="wrap_content">
+                <!-- until google fixes the problem with nested fragments, I'll need to
+                 add the fragment from code -->
+            </FrameLayout>
+
             <TextView
                 style="@style/Ask.Text.Hint"
                 android:id="@+id/show_more_tips"
