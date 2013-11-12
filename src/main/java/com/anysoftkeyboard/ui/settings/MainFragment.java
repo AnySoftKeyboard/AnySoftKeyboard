@@ -33,10 +33,12 @@ public class MainFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        //I'm doing the setup of the link in onViewStateRestored, since the links will be restored too
+        //and they will probably refer to a different scoop (Fragment).
         //setting up the underline and click handler in the keyboard_not_configured_box layout
-        TextView clickHere = (TextView) view.findViewById(R.id.not_configured_click_here);
+        TextView clickHere = (TextView) getView().findViewById(R.id.not_configured_click_here);
         String fullText = getString(R.string.not_configured_with_click_here);
         String justClickHereText = getString(R.string.not_configured_with_just_click_here);
         SpannableStringBuilder sb = new SpannableStringBuilder(fullText);
@@ -54,7 +56,7 @@ public class MainFragment extends Fragment {
         clickHere.setText(sb);
 
         //setting up change_log
-        setupLink(view, R.id.read_more_change_log,
+        setupLink(getView(), R.id.read_more_change_log,
                 new ClickableSpan() {
                     @Override
                     public void onClick(View v) {
@@ -65,7 +67,7 @@ public class MainFragment extends Fragment {
                         }
                     });
         //setting up tips
-        setupLink(view, R.id.show_more_tips,
+        setupLink(getView(), R.id.show_more_tips,
                 new ClickableSpan() {
                     @Override
                     public void onClick(View v) {
@@ -81,6 +83,7 @@ public class MainFragment extends Fragment {
     private void setupLink(View root, int showMoreLinkId, ClickableSpan clickableSpan) {
         TextView clickHere = (TextView) root.findViewById(showMoreLinkId);
         SpannableStringBuilder sb = new SpannableStringBuilder(clickHere.getText());
+        sb.clearSpans();//removing any previously (from instance-state) set click spans.
         sb.setSpan(clickableSpan, 0, clickHere.getText().length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         clickHere.setMovementMethod(LinkMovementMethod.getInstance());
         clickHere.setText(sb);
