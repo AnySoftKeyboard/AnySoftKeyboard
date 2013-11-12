@@ -1,7 +1,9 @@
 package com.anysoftkeyboard.ui.settings.wordseditor;
 
 import android.content.Context;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,7 +85,10 @@ class UserWordsListAdapter extends ArrayAdapter<String> {
                 case TYPE_EDIT:
                     convertView = mInflater.inflate(R.layout.user_dictionary_word_row_edit, parent, false);
                     convertView.findViewById(R.id.approve_user_word).setOnClickListener(mOnWordEditApprovedClickListener);
-                    convertView.findViewById(R.id.word_view).setOnKeyListener(mOnEditBoxKeyPressedListener);
+                    EditText editBox = ((EditText)convertView.findViewById(R.id.word_view));
+                    editBox.setOnKeyListener(mOnEditBoxKeyPressedListener);
+                    editBox.addTextChangedListener(mOnEditBoxTextChangedListener);
+                    editBox.setOnEditorActionListener(mEditBoxActionListener);
                     break;
                 case TYPE_ADD:
                     convertView = mInflater.inflate(R.layout.user_dictionary_word_row_add, parent, false);
@@ -169,6 +174,34 @@ class UserWordsListAdapter extends ArrayAdapter<String> {
                 default:
                     return false;
             }
+        }
+    };
+
+    private final TextView.OnEditorActionListener mEditBoxActionListener = new TextView.OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            if (v.getId() != R.id.word_view) return false;
+            View parent = (View)v.getParent();
+            View approveButton = parent.findViewById(R.id.approve_user_word);
+            mOnWordEditApprovedClickListener.onClick(approveButton);
+            return true;
+        }
+    };
+
+    private final TextWatcher mOnEditBoxTextChangedListener = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
         }
     };
 
