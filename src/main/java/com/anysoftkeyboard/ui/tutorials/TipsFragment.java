@@ -44,6 +44,7 @@ public class TipsFragment extends PassengerFragment {
     private static final String TAG = "ASK TIPS";
 
     private static final String EXTRA_TIPS_TO_SHOW = "EXTRA_TIPS_TO_SHOW";
+    private static final String EXTRA_TIP_TO_START_WITH = "EXTRA_TIP_TO_START_WITH";
 
     public static final int SHOW_ALL_TIPS = -1;
     public static final int SHOW_UNVIEWED_TIPS = -2;
@@ -54,9 +55,16 @@ public class TipsFragment extends PassengerFragment {
         return b;
     }
 
-    public static TipsFragment createFragment(int tipsToShow) {
+    public static TipsFragment createFragment(int tipsTypeToShow) {
+        return createFragment(tipsTypeToShow, 0);
+    }
+
+    public static TipsFragment createFragment(int tipsTypeToShow, int tipLayoutResIdToStartWith) {
         TipsFragment fragment = new TipsFragment();
-        fragment.setArguments(createArgs(tipsToShow));
+        Bundle args = createArgs(tipsTypeToShow);
+        if (tipLayoutResIdToStartWith != 0)
+            args.putInt(EXTRA_TIP_TO_START_WITH, tipLayoutResIdToStartWith);
+        fragment.setArguments(args);
 
         return fragment;
     }
@@ -90,6 +98,18 @@ public class TipsFragment extends PassengerFragment {
 
         mPager = (ViewPager)view.findViewById(R.id.tips_pager);
         mPager.setAdapter(new TipFragmentAdapter(getChildFragmentManager()));
+        final int tipLayoutToStartWith = getArguments().getInt(EXTRA_TIP_TO_START_WITH);
+        if (tipLayoutToStartWith != 0) {
+            getArguments().remove(EXTRA_TIP_TO_START_WITH);
+            //looking for the tip layout in the list
+            for(int i=0; i<mLayoutsToShow.size(); i++) {
+                if (mLayoutsToShow.get(i).intValue() == tipLayoutToStartWith) {
+                    //found the layout! Just move there, no need for fancy animations.
+                    mPager.setCurrentItem(i, false);
+                    break;
+                }
+            }
+        }
 
         final CheckBox showNotifications = (CheckBox) view.findViewById(R.id.show_tips_next_time);
         showNotifications.setChecked(AnyApplication.getConfig().getShowTipsNotification());
@@ -101,6 +121,8 @@ public class TipsFragment extends PassengerFragment {
         });
 
         view.findViewById(R.id.tips_pager_swipe_hint).setVisibility(View.VISIBLE);
+
+
     }
 
     @Override
@@ -150,6 +172,8 @@ public class TipsFragment extends PassengerFragment {
                 mTipResId = getTipToUseOnNoneGiven();
             }
         }
+
+        public int shownTipLayoutResId() { return mTipResId;}
 
         protected int getTipToUseOnNoneGiven() {
             throw new IllegalArgumentException("Missing tip res ID!");

@@ -33,6 +33,19 @@ public class MainFragment extends Fragment {
     }
 
     @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (savedInstanceState == null) {
+            //until google fixes the problem with nested fragments, I'll need to add the fragment by code
+            //The problem is that if I want to define the fragment in XML, and have an ID associated to it,
+            //it will fail (since the fragment is nested, and during inflation it is unknown to the inflater).
+            getChildFragmentManager().beginTransaction()
+                    .replace(R.id.random_tip_fragment_container, new TipsFragment.RandomTipFragment())
+                    .commit();
+        }
+    }
+
+    @Override
     public void onViewStateRestored(Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
         //I'm doing the setup of the link in onViewStateRestored, since the links will be restored too
@@ -71,8 +84,12 @@ public class MainFragment extends Fragment {
                 new ClickableSpan() {
                     @Override
                     public void onClick(View v) {
+                        TipsFragment.RandomTipFragment fragment =
+                                (TipsFragment.RandomTipFragment) MainFragment.this.getChildFragmentManager().findFragmentById(R.id.random_tip_fragment_container);
+                        int tipLayoutIdToStartWith = fragment.shownTipLayoutResId();
+
                         FragmentChauffeurActivity activity = (FragmentChauffeurActivity)getActivity();
-                        activity.addFragmentToUi(TipsFragment.createFragment(TipsFragment.SHOW_ALL_TIPS),
+                        activity.addFragmentToUi(TipsFragment.createFragment(TipsFragment.SHOW_ALL_TIPS, tipLayoutIdToStartWith),
                                 FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
                                 getView().findViewById(R.id.tips_card));
                     }
