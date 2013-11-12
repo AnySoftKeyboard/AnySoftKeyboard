@@ -148,7 +148,6 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
                     fragmentParent.getLocationInWindow(parentLocation);
                     final int pivotY = originateLocation[1] - parentLocation[1] + (originateView.getHeight() / 2);
                     final int pivotX = originateLocation[0] - parentLocation[0] + (originateView.getWidth() / 2);
-                    ;
 
                     Passengerable passengerFragment = (Passengerable) fragment;
                     passengerFragment.setItemExpandExtraData(pivotX, pivotY, scaleX, scaleY);
