@@ -359,4 +359,9 @@ public class UserDictionaryEditorFragment extends Fragment
             }
         }.execute();
     }
+
+    @Override
+    public void performDiscardEdit() {
+        ((UserWordsListAdapter) mWordsListView.getAdapter()).onItemClicked(mWordsListView, -1/*doesn't really matter what position it is*/);
+    }
 }
