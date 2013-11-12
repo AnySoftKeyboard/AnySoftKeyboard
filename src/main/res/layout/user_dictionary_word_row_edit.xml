@@ -14,6 +14,11 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center_vertical"
+        android:singleLine="true"
+        android:lines="1"
+        android:hint="@string/enter_word_hint"
+        android:imeOptions="actionDone"
+        android:inputType="textNoSuggestions|text"
         android:layout_gravity="center_vertical"/>
 
     <ImageView
