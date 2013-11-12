@@ -11,7 +11,7 @@ buildscript {
 apply plugin: 'android'
 
 repositories {
-//    mavenCentral()
+    mavenCentral()
     mavenLocal()
 }
 
@@ -27,7 +27,7 @@ def String getInputFromConsoleIfMissing(Properties props, String propKey, String
     return propValue
 }
 
-def isEmpty(value) {
+def boolean isEmpty(String value) {
 	if (value == null)
 		return true
 	else if (value == '')
