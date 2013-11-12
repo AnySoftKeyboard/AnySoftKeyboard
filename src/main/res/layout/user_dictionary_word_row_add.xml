@@ -4,6 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:minHeight="@dimen/comfortable_min_row_height"
     android:gravity="center"
     android:text="@string/click_to_add_new_word"
     android:drawablePadding="4dp"
