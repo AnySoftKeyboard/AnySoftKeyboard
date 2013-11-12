@@ -23,5 +23,5 @@
         android:layout_marginLeft="8dp"
         android:adjustViewBounds="true"
         android:scaleType="centerInside"
-        android:src="@android:drawable/ic_menu_save" />
+        android:src="@drawable/ic_accept" />
 </LinearLayout>

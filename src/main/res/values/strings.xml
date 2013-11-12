@@ -727,4 +727,5 @@
     <string name="word_editor_action_add_word">Add word</string>
     <string name="word_editor_action_backup_words">Backup</string>
     <string name="word_editor_action_restore_words">Restore</string>
+    <string name="click_to_add_new_word">Click to add a new word</string>
 </resources>
