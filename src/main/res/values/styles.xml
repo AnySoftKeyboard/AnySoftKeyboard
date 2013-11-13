@@ -312,6 +312,20 @@
         <attr name="textColor"/>
     </declare-styleable>
 
+    <declare-styleable name="SwitchPreferenceAttributes">
+        <attr name="android:title"/>
+        <attr name="android:defaultValue"/>
+        <attr name="android:summaryOn"/>
+        <attr name="android:summaryOff"/>
+        <attr name="android:disableDependentsState"/>
+    </declare-styleable>
+
+    <style name="DefaultSwitchPreferenceStyle">
+        <item name="android:title"></item>
+        <item name="android:disableDependentsState">false</item>
+    </style>
+
+
     <style name="Ask">
     </style>
 
