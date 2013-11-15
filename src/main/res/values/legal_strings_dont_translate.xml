@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="legal_this_app_uses_android_source_code_title">This application uses bits and pieces (including the <i>Support Library</i> from <b>Android Open Source Project</b> under the following license:</string>
+    <string name="legal_this_app_uses_android_source_code_title">This application uses bits and pieces (including the <i>Support Library</i>) from <b>Android Open Source Project</b> under the following license:</string>
     <string name="legal_this_app_uses_android_source_code_license">Copyright (C) 2013 The Android Open Source Project\n
 \n
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.\n
