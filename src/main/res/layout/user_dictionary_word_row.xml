@@ -14,7 +14,7 @@
         android:id="@+id/word_view"
         android:layout_width="0px"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="1"/>
 
     <ImageView
         android:id="@+id/delete_user_word"
@@ -23,6 +23,7 @@
         android:layout_marginLeft="8dp"
         android:adjustViewBounds="true"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_action_content_discard" />
+        android:src="@drawable/ic_action_content_discard"
+        android:background="@drawable/transparent_click_feedback_background"/>
 
 </LinearLayout>
