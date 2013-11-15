@@ -29,5 +29,6 @@
         android:layout_marginLeft="8dp"
         android:adjustViewBounds="true"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_accept" />
+        android:src="@drawable/ic_accept"
+        android:background="@drawable/transparent_click_feedback_background"/>
 </LinearLayout>
