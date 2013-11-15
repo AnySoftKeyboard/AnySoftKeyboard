@@ -17,6 +17,8 @@
         <xliff:g id="trace_file">%s</xliff:g>
     </string>
 
+    <string name="menu_about_item">About</string>
+
     <string name="click_to_restart_suggestions">Click for suggestions</string>
     <!-- tips -->
     <string name="tips_notification_text">Click for tips!</string>
@@ -731,4 +733,5 @@
     <string name="enter_word_hint">Type the new word here</string>
     <string name="toggle_button_on">On</string>
     <string name="toggle_button_off">Off</string>
+    <string name="about_additional_software_licenses">Additional Software Licenses</string>
 </resources>

@@ -159,7 +159,7 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
 
     //side menu navigation methods
 
-    public void onNavigateToAboutClicked(View v) {
+    public void onNavigateToRootClicked(View v) {
         mDrawerRootLayout.closeDrawers();
         returnToRootFragment();
     }
@@ -198,5 +198,10 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
     public void onNavigateToUserInterfaceSettings(View v) {
         mDrawerRootLayout.closeDrawers();
         addFragmentToUi(new AdditionalUiSettingsFragment(), FragmentUiContext.RootFragment);
+    }
+
+    public void onNavigateToAboutClicked(View v) {
+        mDrawerRootLayout.closeDrawers();
+        addFragmentToUi(new AboutAnySoftKeyboardFragment(), FragmentUiContext.RootFragment);
     }
 }
