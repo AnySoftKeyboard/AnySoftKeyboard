@@ -7,7 +7,7 @@
         android:key="summary"
         android:summary="@string/special_dictionaries_group_summary" />
 
-    <CheckBoxPreference
+    <net.evendanan.pushingpixels.SwitchPreference
         android:defaultValue="true"
         android:key="candidates_on"
         android:persistent="true"
@@ -24,7 +24,8 @@
         android:summaryOff="@string/use_user_dictionary_off_summary"
         android:dependency="candidates_on"/>
     <Preference android:title="@string/user_dict_editor"
-        android:key="@string/user_dict_editor_key">
+        android:key="@string/user_dict_editor_key"
+        android:dependency="candidates_on">
     </Preference>
     <net.evendanan.pushingpixels.ListPreference
         android:key="@string/settings_key_auto_dictionary_threshold"

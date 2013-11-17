@@ -5,6 +5,8 @@
     android:orientation="horizontal"
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
+    android:minHeight="@dimen/comfortable_min_row_height"
+    android:gravity="center_vertical"
     android:weightSum="1">
 
     <EditText
@@ -13,15 +15,20 @@
         android:layout_width="0px"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center_vertical" />
+        android:singleLine="true"
+        android:lines="1"
+        android:hint="@string/enter_word_hint"
+        android:imeOptions="actionDone"
+        android:inputType="textNoSuggestions|text"
+        android:layout_gravity="center_vertical"/>
 
     <ImageView
         android:id="@+id/approve_user_word"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
         android:layout_marginLeft="8dp"
         android:adjustViewBounds="true"
         android:scaleType="centerInside"
-        android:src="@android:drawable/ic_menu_save" />
+        android:src="@drawable/ic_accept"
+        android:background="@drawable/transparent_click_feedback_background"/>
 </LinearLayout>

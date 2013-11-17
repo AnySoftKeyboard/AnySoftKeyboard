@@ -17,14 +17,15 @@
         <xliff:g id="trace_file">%s</xliff:g>
     </string>
 
+    <string name="menu_about_item">About</string>
+
     <string name="click_to_restart_suggestions">Click for suggestions</string>
     <!-- tips -->
     <string name="tips_notification_text">Click for tips!</string>
     <string name="tips_button">How to use</string>
     <string name="tips_button_description">A few tips about how to use AnySoftKeyboard</string>
     <string name="tips_title">AnySoftKeyboard tips</string>
-    <string name="click_for_previous_tip">↓ Previous tip</string>
-    <string name="click_for_next_tip">Next tip ↓</string>
+    <string name="tips_pager_swipe_hint">&#2190;\u0020Swipe left or right for more tips&#2192;</string>
     <!-- tip 1 -->
     <string name="tip_1_welcome_to_ask">Welcome to AnySoftKeyboard!</string>
     <string name="tip_1_how_to_access_settings">To access the settings; long press the ENTER key. You\'ll find a world
@@ -728,4 +729,9 @@
     <string name="word_editor_action_add_word">Add word</string>
     <string name="word_editor_action_backup_words">Backup</string>
     <string name="word_editor_action_restore_words">Restore</string>
+    <string name="click_to_add_new_word">Click to add a new word</string>
+    <string name="enter_word_hint">Type the new word here</string>
+    <string name="toggle_button_on">On</string>
+    <string name="toggle_button_off">Off</string>
+    <string name="about_additional_software_licenses">Additional Software Licenses</string>
 </resources>

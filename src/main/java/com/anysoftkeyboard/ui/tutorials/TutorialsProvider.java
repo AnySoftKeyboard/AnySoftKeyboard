@@ -28,9 +28,12 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.preference.PreferenceManager;
 
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
+import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
+
+import net.evendanan.pushingpixels.FragmentChauffeurActivity;
 
 import java.util.ArrayList;
 
@@ -56,9 +59,10 @@ public class TutorialsProvider {
     }
 
     public static void showTips(Context context) {
-        Intent i = new Intent(context, TipsFragment.class);
+        //starting the MainSettings activity, with TipsFragment
+        Intent i = new Intent(context, MainSettingsActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
+        FragmentChauffeurActivity.addIntentArgsForAddingFragmentToUi(i, TipsFragment.class, TipsFragment.createArgs(TipsFragment.SHOW_UNVIEWED_TIPS));
         context.startActivity(i);
     }
 

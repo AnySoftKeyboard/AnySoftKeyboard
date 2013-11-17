@@ -48,6 +48,10 @@ public class LogCatViewFragment extends ListFragment implements Passengerable {
 
     @Override
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-        return PassengerFragmentSupport.onCreateAnimation(this, transit, enter, nextAnim);
+        Animation animation = PassengerFragmentSupport.onCreateAnimation(this, transit, enter, nextAnim);
+        if (animation == null)
+            animation = super.onCreateAnimation(transit, enter, nextAnim);
+
+        return animation;
     }
 }

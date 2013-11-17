@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
         android:id="@+id/add_new_word"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:adjustViewBounds="true"
-        android:scaleType="centerInside"
-        android:src="@android:drawable/ic_menu_add" />
+        android:minHeight="@dimen/comfortable_min_row_height"
+        android:gravity="center"
+        android:text="@string/click_to_add_new_word"
+        android:drawablePadding="4dp"
+        android:drawableLeft="@drawable/ic_action_content_new" />
+
+</FrameLayout>
