@@ -61,7 +61,10 @@ public class MainFragment extends Fragment {
         ClickableSpan csp = new ClickableSpan() {
             @Override
             public void onClick(View v) {
-                //TODO: start the how-to-activate fragment
+                FragmentChauffeurActivity activity = (FragmentChauffeurActivity)getActivity();
+                activity.addFragmentToUi(new SetUpKeyboardWizardFragment(),
+                        FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
+                        getView().findViewById(R.id.keyboard_not_configured_box));
             }
         };
         sb.setSpan(csp, start, start + length, Spanned.SPAN_INCLUSIVE_INCLUSIVE);

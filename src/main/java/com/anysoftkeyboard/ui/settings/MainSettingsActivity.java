@@ -204,4 +204,14 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
         mDrawerRootLayout.closeDrawers();
         addFragmentToUi(new AboutAnySoftKeyboardFragment(), FragmentUiContext.RootFragment);
     }
+
+    public void setFullScreen(boolean fullScreen) {
+        if (fullScreen) {
+            getSupportActionBar().hide();
+            mDrawerRootLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        } else {
+            getSupportActionBar().show();
+            mDrawerRootLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        }
+    }
 }
