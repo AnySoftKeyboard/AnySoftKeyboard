@@ -23,17 +23,23 @@
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:drawSelectorOnTop="false" />
+        android:descendantFocusability="beforeDescendants"/>
 
-    <TextView
+    <LinearLayout
         android:id="@+id/empty_user_dictionary"
-        style="@style/Ask.Text.SubTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="@string/user_dict_settings_empty_text"
+        android:padding="16dp"
         android:visibility="gone"
-        android:drawablePadding="8dp"
-        android:drawableBottom="@android:drawable/ic_menu_add" />
+        android:background="@drawable/transparent_click_feedback_background">
+        <TextView
+            style="@style/Ask.Text.SubTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/user_dict_settings_empty_text"
+            android:drawablePadding="12dp"
+            android:drawableTop="@drawable/ic_large_new" />
+    </LinearLayout>
 </FrameLayout>

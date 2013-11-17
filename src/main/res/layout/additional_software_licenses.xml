@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:layout_width="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            style="@style/Ask.Legal.Title"
+            android:text="@string/legal_this_app_uses_android_source_code_title"/>
+        <TextView
+            style="@style/Ask.Legal.Text"
+            android:text="@string/legal_this_app_uses_android_source_code_license"/>
+
+
+
+        <View
+            style="@style/Ask.Legal.Divider" />
+
+
+
+        <TextView
+            style="@style/Ask.Legal.Title"
+            android:text="@string/legal_this_app_uses_frankenrobot_title"/>
+        <TextView
+            style="@style/Ask.Legal.Text"
+            android:text="@string/legal_this_app_uses_frankenrobot_license"/>
+
+
+
+        <View
+            style="@style/Ask.Legal.Divider" />
+
+
+
+        <TextView
+            style="@style/Ask.Legal.Title"
+            android:text="@string/legal_this_app_uses_preferences_fragment_title"/>
+        <TextView
+            style="@style/Ask.Legal.Text"
+            android:text="@string/legal_this_app_uses_preferences_fragment_license"/>
+
+
+
+        <View
+            style="@style/Ask.Legal.Divider" />
+
+
+
+        <TextView
+            style="@style/Ask.Legal.Title"
+            android:text="@string/legal_this_app_uses_pushing_pixels_title"/>
+        <TextView
+            style="@style/Ask.Legal.Text"
+            android:text="@string/legal_this_app_uses_pushing_pixels_license"/>
+
+
+
+        <View
+            style="@style/Ask.Legal.Divider" />
+
+
+
+        <TextView
+            style="@style/Ask.Legal.Title"
+            android:text="@string/legal_this_app_uses_jsr305_title"/>
+        <TextView
+            style="@style/Ask.Legal.Text"
+            android:text="@string/legal_this_app_uses_jsr305_license"/>
+
+    </LinearLayout>
+</ScrollView>

@@ -36,7 +36,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.dictionaries.WordsCursor;
@@ -105,7 +104,7 @@ public class UserDictionaryEditorFragment extends Fragment
             }
         });
 
-        TextView emptyView = (TextView) view.findViewById(R.id.empty_user_dictionary);
+        View emptyView = view.findViewById(R.id.empty_user_dictionary);
         emptyView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,10 +145,10 @@ public class UserDictionaryEditorFragment extends Fragment
 
     private void createEmptyItemForAdd() {
         UserWordsListAdapter adapter = (UserWordsListAdapter) mWordsListView.getAdapter();
-        final int addWordItemIndex = adapter.getCount()-1;
+        final int addWordItemIndex = adapter.getCount() == 0 ? 0 : adapter.getCount() - 1;
         //will use smooth scrolling on API8+
         AnyApplication.getDeviceSpecific().performListScrollToPosition(mWordsListView, addWordItemIndex);
-        adapter.onItemClicked(addWordItemIndex);
+        onItemClick(mWordsListView, null, addWordItemIndex, 0l);
     }
 
     @Override
@@ -300,7 +299,7 @@ public class UserDictionaryEditorFragment extends Fragment
                 Cursor cursor = mCursor.getCursor();
                 mWordsList = new ArrayList<>(mCursor.getCursor().getCount());
                 cursor.moveToFirst();
-                while(!cursor.isAfterLast()) {
+                while (!cursor.isAfterLast()) {
                     mWordsList.add(mCursor.getCurrentWord());
                     cursor.moveToNext();
                 }
@@ -322,7 +321,7 @@ public class UserDictionaryEditorFragment extends Fragment
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        ((UserWordsListAdapter) mWordsListView.getAdapter()).onItemClicked(position);
+        ((UserWordsListAdapter) mWordsListView.getAdapter()).onItemClicked(parent, position);
     }
 
     @Override
@@ -358,5 +357,10 @@ public class UserDictionaryEditorFragment extends Fragment
                 fillWordsList();
             }
         }.execute();
+    }
+
+    @Override
+    public void performDiscardEdit() {
+        ((UserWordsListAdapter) mWordsListView.getAdapter()).onItemClicked(mWordsListView, -1/*doesn't really matter what position it is*/);
     }
 }

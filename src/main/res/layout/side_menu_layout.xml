@@ -8,7 +8,8 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/menu_background_normal">
+        android:background="@color/menu_background_normal"
+        android:weightSum="1">
 
         <net.evendanan.pushingpixels.AboutAppView
             android:layout_height="wrap_content"
@@ -18,7 +19,7 @@
             ask:appOwner="@string/copyright_owner"
             android:background="@drawable/menu_background"
             ask:textColor="@android:color/black"
-            android:onClick="onNavigateToAboutClicked" />
+            android:onClick="onNavigateToRootClicked" />
 
         <View style="@style/Ask.Menu.Divider" />
 
@@ -107,5 +108,16 @@
             style="@style/Ask.Menu.Item.More"
             android:text="@string/menu_even_more_settings"
             android:onClick="onNavigateToUserInterfaceSettings" />
+
+        <!-- this empty view will allow us to push the About item all the way to the bottom of the menu -->
+        <View android:layout_width="1dp"
+            android:layout_height="0px"
+            android:layout_weight="1"/>
+
+        <TextView
+            style="@style/Ask.Menu.Item"
+            android:layout_marginTop="24dp"
+            android:text="@string/menu_about_item"
+            android:onClick="onNavigateToAboutClicked" />
     </LinearLayout>
 </ScrollView>

@@ -16,6 +16,7 @@
 
 package net.evendanan.pushingpixels;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -42,11 +43,41 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
 
     private static final String ROOT_FRAGMENT_TAG = "FragmentChauffeurActivity_ROOT_FRAGMENT_TAG";
 
+    private static final String KEY_FRAGMENT_CLASS_TO_ADD = "KEY_FRAGMENT_CLASS_TO_ADD";
+    private static final String KEY_FRAGMENT_ARGS_TO_ADD = "KEY_FRAGMENT_ARGS_TO_ADD";
+
+    public static void addIntentArgsForAddingFragmentToUi(@Nonnull Intent intent, @Nonnull Class<? extends Fragment> fragmentClass, @Nullable Bundle fragmentArgs) {
+        intent.putExtra(KEY_FRAGMENT_CLASS_TO_ADD, fragmentClass);
+        if (fragmentArgs != null)
+            intent.putExtra(KEY_FRAGMENT_ARGS_TO_ADD, fragmentArgs);
+    }
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        //setting up the root of the UI.
-        setRootFragment(createRootFragmentInstance());
+        if (savedInstanceState == null) {
+            //setting up the root of the UI.
+            setRootFragment(createRootFragmentInstance());
+            //now, checking if there is a request to add a fragment on-top of this one.
+            Bundle activityArgs = getIntent().getExtras();
+            if (activityArgs != null && activityArgs.containsKey(KEY_FRAGMENT_CLASS_TO_ADD)) {
+                Class<? extends Fragment> fragmentClass = (Class<? extends Fragment>) activityArgs.get(KEY_FRAGMENT_CLASS_TO_ADD);
+                //not sure that this is a best-practice, but I still need to remove this from the activity's args
+                activityArgs.remove(KEY_FRAGMENT_CLASS_TO_ADD);
+                try {
+                    Fragment fragment = fragmentClass.newInstance();
+                    if (activityArgs.containsKey(KEY_FRAGMENT_ARGS_TO_ADD)) {
+                        fragment.setArguments(activityArgs.getBundle(KEY_FRAGMENT_ARGS_TO_ADD));
+                        activityArgs.remove(KEY_FRAGMENT_CLASS_TO_ADD);
+                    }
+                    addFragmentToUi(fragment, FragmentUiContext.RootFragment);
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     protected abstract int getFragmentRootUiElementId();
@@ -74,7 +105,8 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
 
     /**
      * Adds the given fragment into the UI using the specified UI-context animation.
-     * @param fragment any generic Fragment. For the ExpandedItem animation it is best to use a PassengerFragment
+     *
+     * @param fragment      any generic Fragment. For the ExpandedItem animation it is best to use a PassengerFragment
      * @param experience
      * @param originateView a hint view which will be used to fine-tune the ExpandedItem animation
      */
@@ -114,10 +146,10 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
                     originateView.getLocationInWindow(originateLocation);
                     int[] parentLocation = new int[2];
                     fragmentParent.getLocationInWindow(parentLocation);
-                    final int pivotY = originateLocation[1] - parentLocation[1] + (originateView.getHeight()/2);
-                    final int pivotX = originateLocation[0] - parentLocation[0] + (originateView.getWidth()/2);;
+                    final int pivotY = originateLocation[1] - parentLocation[1] + (originateView.getHeight() / 2);
+                    final int pivotX = originateLocation[0] - parentLocation[0] + (originateView.getWidth() / 2);
 
-                    Passengerable passengerFragment = (Passengerable)fragment;
+                    Passengerable passengerFragment = (Passengerable) fragment;
                     passengerFragment.setItemExpandExtraData(pivotX, pivotY, scaleX, scaleY);
                     transaction.setCustomAnimations(R.anim.ui_context_expand_add_in, R.anim.ui_context_expand_add_out,
                             R.anim.ui_context_expand_pop_in, R.anim.ui_context_expand_pop_out);

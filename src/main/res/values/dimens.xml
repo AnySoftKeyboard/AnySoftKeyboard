@@ -91,4 +91,5 @@
     <integer name="preference_fragment_scrollbarStyle">0x02000000</integer> <!-- outsideOverlay -->
 
     <dimen name="max_item_extra_width" >100dp</dimen>
+    <dimen name="comfortable_min_row_height">44dp</dimen>
 </resources>

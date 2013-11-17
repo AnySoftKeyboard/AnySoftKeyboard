@@ -33,6 +33,10 @@ public abstract class PassengerFragment extends Fragment implements Passengerabl
 
     @Override
     public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-        return PassengerFragmentSupport.onCreateAnimation(this, transit, enter, nextAnim);
+        Animation customAnimation = PassengerFragmentSupport.onCreateAnimation(this, transit, enter, nextAnim);
+        if (customAnimation == null)
+            return super.onCreateAnimation(transit, enter, nextAnim);
+        else
+            return customAnimation;
     }
 }

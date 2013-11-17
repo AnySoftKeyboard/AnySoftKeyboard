@@ -1,6 +1,5 @@
 package com.anysoftkeyboard.ui.settings;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -19,6 +18,7 @@ import android.widget.TextView;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.tutorials.ChangeLogFragment;
+import com.anysoftkeyboard.ui.tutorials.TipsFragment;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.Banner;
@@ -35,8 +35,23 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (savedInstanceState == null) {
+            //until google fixes the problem with nested fragments, I'll need to add the fragment by code
+            //The problem is that if I want to define the fragment in XML, and have an ID associated to it,
+            //it will fail (since the fragment is nested, and during inflation it is unknown to the inflater).
+            getChildFragmentManager().beginTransaction()
+                    .replace(R.id.random_tip_fragment_container, new TipsFragment.RandomTipFragment())
+                    .commit();
+        }
+    }
+
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        //I'm doing the setup of the link in onViewStateRestored, since the links will be restored too
+        //and they will probably refer to a different scoop (Fragment).
         //setting up the underline and click handler in the keyboard_not_configured_box layout
-        TextView clickHere = (TextView) view.findViewById(R.id.not_configured_click_here);
+        TextView clickHere = (TextView) getView().findViewById(R.id.not_configured_click_here);
         String fullText = getString(R.string.not_configured_with_click_here);
         String justClickHereText = getString(R.string.not_configured_with_just_click_here);
         SpannableStringBuilder sb = new SpannableStringBuilder(fullText);
@@ -46,7 +61,10 @@ public class MainFragment extends Fragment {
         ClickableSpan csp = new ClickableSpan() {
             @Override
             public void onClick(View v) {
-                //TODO: start the how-to-activate fragment
+                FragmentChauffeurActivity activity = (FragmentChauffeurActivity)getActivity();
+                activity.addFragmentToUi(new SetUpKeyboardWizardFragment(),
+                        FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
+                        getView().findViewById(R.id.keyboard_not_configured_box));
             }
         };
         sb.setSpan(csp, start, start + length, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
@@ -54,21 +72,39 @@ public class MainFragment extends Fragment {
         clickHere.setText(sb);
 
         //setting up change_log
-        clickHere = (TextView) view.findViewById(R.id.read_more_change_log);
-        sb = new SpannableStringBuilder(clickHere.getText());
-        csp = new ClickableSpan() {
-            @Override
-            public void onClick(View v) {
-                Activity activity = getActivity();
-                if (activity != null && activity instanceof FragmentChauffeurActivity) {
-                    ((FragmentChauffeurActivity)activity).addFragmentToUi(
-                            ChangeLogFragment.createFragment(ChangeLogFragment.SHOW_ALL_CHANGELOG, true),
-                            FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
-                            getView().findViewById(R.id.change_log_card));
-                }
-            }
-        };
-        sb.setSpan(csp, 0, clickHere.getText().length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        setupLink(getView(), R.id.read_more_change_log,
+                new ClickableSpan() {
+                    @Override
+                    public void onClick(View v) {
+                        FragmentChauffeurActivity activity = (FragmentChauffeurActivity)getActivity();
+                        activity.addFragmentToUi(ChangeLogFragment.createFragment(ChangeLogFragment.SHOW_ALL_CHANGELOG, true),
+                                    FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
+                                    getView().findViewById(R.id.change_log_card));
+                        }
+                    });
+        //setting up tips
+        setupLink(getView(), R.id.show_more_tips,
+                new ClickableSpan() {
+                    @Override
+                    public void onClick(View v) {
+                        TipsFragment.RandomTipFragment fragment =
+                                (TipsFragment.RandomTipFragment) MainFragment.this.getChildFragmentManager().findFragmentById(R.id.random_tip_fragment_container);
+                        int tipLayoutIdToStartWith = fragment.shownTipLayoutResId();
+
+                        FragmentChauffeurActivity activity = (FragmentChauffeurActivity)getActivity();
+                        activity.addFragmentToUi(TipsFragment.createFragment(TipsFragment.SHOW_ALL_TIPS, tipLayoutIdToStartWith),
+                                FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
+                                getView().findViewById(R.id.tips_card));
+                    }
+                });
+
+    }
+
+    private void setupLink(View root, int showMoreLinkId, ClickableSpan clickableSpan) {
+        TextView clickHere = (TextView) root.findViewById(showMoreLinkId);
+        SpannableStringBuilder sb = new SpannableStringBuilder(clickHere.getText());
+        sb.clearSpans();//removing any previously (from instance-state) set click spans.
+        sb.setSpan(clickableSpan, 0, clickHere.getText().length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         clickHere.setMovementMethod(LinkMovementMethod.getInstance());
         clickHere.setText(sb);
     }

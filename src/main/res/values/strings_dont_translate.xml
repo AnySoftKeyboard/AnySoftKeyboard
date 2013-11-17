@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools"
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools"
            tools:ignore="MissingTranslation">
 
     <string name="quick_text_smiley_key_label">:-)</string>
@@ -11,6 +11,7 @@
         compatible!\nIt may also include\u0020<i>DRAGONS</i>!\u0020And they tend to eat features.\nPlease, report\u0020<b>any problem</b>
         you encounter at http://s.evendanan.net/ask_issues.\n\nThank you for testing a development build.
     </string>
+    <string name="about_copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020Menny Even-Danan</string>
     <string-array name="english_initial_suggestions">
         <item>!</item>
         <item>\?</item>
