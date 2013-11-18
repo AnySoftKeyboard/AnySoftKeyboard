@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/previous_step_not_complete"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_gravity="center">
+
+    <TextView
+        style="@style/Ask.Text.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/wizard_step_previous_step_not_complete_title"
+        android:drawableTop="@drawable/ic_not_configured"
+        android:drawablePadding="8dp"/>
+
+    <TextView
+        style="@style/Ask.Text.Normal"
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/wizard_step_previous_step_not_complete_text" />
+</LinearLayout>
