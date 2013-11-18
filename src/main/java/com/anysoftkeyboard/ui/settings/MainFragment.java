@@ -3,11 +3,9 @@ package com.anysoftkeyboard.ui.settings;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
@@ -17,6 +15,8 @@ import android.widget.TextView;
 
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
+import com.anysoftkeyboard.ui.settings.setup.SetUpKeyboardWizardFragment;
+import com.anysoftkeyboard.ui.settings.setup.SetupSupport;
 import com.anysoftkeyboard.ui.tutorials.ChangeLogFragment;
 import com.anysoftkeyboard.ui.tutorials.TipsFragment;
 import com.menny.android.anysoftkeyboard.R;
@@ -118,13 +118,13 @@ public class MainFragment extends Fragment {
         //checking if the IME is configured
         final Context context = getActivity().getApplicationContext();
         //checking the default IME
-        final String defaultIME = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.DEFAULT_INPUT_METHOD);
-        if (TextUtils.isEmpty(defaultIME) || !defaultIME.startsWith(context.getPackageName())) {
-            //I'm going to show the warning dialog
-            //whenever AnySoftKeyboard is not marked as the default.
-            notConfiguredBox.setVisibility(View.VISIBLE);
-        } else {
+        final boolean isDefaultIME;
+        isDefaultIME = SetupSupport.isThisKeyboardSetAsDefaultIME(context);
+
+        if (isDefaultIME) {
             notConfiguredBox.setVisibility(View.GONE);
+        } else {
+            notConfiguredBox.setVisibility(View.VISIBLE);
         }
 
         //updating the keyboard layout to the current theme screenshot (if exists).
@@ -139,4 +139,5 @@ public class MainFragment extends Fragment {
         else
             screenshotHolder.setImageDrawable(screenshot);
     }
+
 }

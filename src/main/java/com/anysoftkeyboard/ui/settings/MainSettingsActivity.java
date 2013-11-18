@@ -214,4 +214,8 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
             mDrawerRootLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         }
     }
+
+    public void openDrawer() {
+        mDrawerRootLayout.openDrawer(Gravity.LEFT);
+    }
 }

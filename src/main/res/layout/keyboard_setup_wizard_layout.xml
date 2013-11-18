@@ -4,4 +4,21 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        style="@style/Ask.Text.Title"
+        android:textSize="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/setup_wizard_top_title"
+        android:layout_marginBottom="16dp"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/wizard_pages_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        android:background="@android:color/white"/>
+
 </LinearLayout>
