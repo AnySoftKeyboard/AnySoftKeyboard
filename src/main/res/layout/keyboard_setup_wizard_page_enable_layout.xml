@@ -79,6 +79,7 @@
             android:layout_height="wrap_content"
             android:drawablePadding="6dp"
             android:drawableLeft="@drawable/ic_settings_language"
-            android:text="@string/setup_wizard_step_one_action"/>
+            android:text="@string/setup_wizard_step_one_action"
+            android:background="@drawable/transparent_click_feedback_background"/>
     </LinearLayout>
 </LinearLayout>

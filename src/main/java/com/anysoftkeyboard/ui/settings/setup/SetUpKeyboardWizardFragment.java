@@ -1,6 +1,9 @@
 package com.anysoftkeyboard.ui.settings.setup;
 
+import android.content.Context;
+import android.database.ContentObserver;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +25,27 @@ public class SetUpKeyboardWizardFragment extends PassengerFragment {
 
     ViewPager mWizardPager;
 
+    private Context mAppContext;
+
+    private final ContentObserver mSecureSettingsChanged = new ContentObserver(null) {
+        @Override
+        public boolean deliverSelfNotifications() {
+            return false;
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            mWizardPager.getAdapter().notifyDataSetChanged();
+        }
+    };
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mAppContext = getActivity().getApplicationContext();
+        mAppContext.getContentResolver().registerContentObserver(Settings.Secure.CONTENT_URI, true, mSecureSettingsChanged);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.keyboard_setup_wizard_layout, container, false);
@@ -31,7 +55,7 @@ public class SetUpKeyboardWizardFragment extends PassengerFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mWizardPager = (ViewPager) view.findViewById(R.id.wizard_pages_pager);
-        mWizardPager.setAdapter(new WizardPagesAdapter(getActivity(), getChildFragmentManager()));
+        mWizardPager.setAdapter(new WizardPagesAdapter(getChildFragmentManager()));
     }
 
     @Override
@@ -55,7 +79,7 @@ public class SetUpKeyboardWizardFragment extends PassengerFragment {
             public void run() {
                 mWizardPager.setCurrentItem(switchToPosition, true);
             }
-        }, getResources().getInteger(android.R.integer.config_shortAnimTime));
+        }, getResources().getInteger(android.R.integer.config_longAnimTime));
     }
 
     @Override
@@ -65,4 +89,9 @@ public class SetUpKeyboardWizardFragment extends PassengerFragment {
         activity.setFullScreen(false);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mAppContext.getContentResolver().unregisterContentObserver(mSecureSettingsChanged);
+    }
 }

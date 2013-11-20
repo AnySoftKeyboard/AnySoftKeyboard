@@ -1,16 +1,13 @@
 package com.anysoftkeyboard.ui.settings.setup;
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 class WizardPagesAdapter extends FragmentPagerAdapter {
-    private final Context mContext;
 
-    public WizardPagesAdapter(Context context, FragmentManager fm) {
+    public WizardPagesAdapter(FragmentManager fm) {
         super(fm);
-        this.mContext = context;
     }
 
     @Override
@@ -30,5 +27,10 @@ class WizardPagesAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return 3;
+    }
+
+    public int getItemPosition(Object object) {
+        //so "notifyDataSetChanged()" will cause recreation
+        return POSITION_NONE;
     }
 }

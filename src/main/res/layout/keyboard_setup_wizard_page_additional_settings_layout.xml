@@ -66,7 +66,8 @@
             android:layout_height="wrap_content"
             android:drawablePadding="6dp"
             android:drawableLeft="@drawable/ic_language_category"
-            android:text="@string/setup_wizard_step_three_action_languages"/>
+            android:text="@string/setup_wizard_step_three_action_languages"
+            android:background="@drawable/transparent_click_feedback_background"/>
 
         <TextView
             android:id="@+id/go_to_theme_action"
@@ -76,7 +77,8 @@
             android:layout_height="wrap_content"
             android:drawablePadding="6dp"
             android:drawableLeft="@drawable/ic_user_interface_category"
-            android:text="@string/setup_wizard_step_three_action_themes"/>
+            android:text="@string/setup_wizard_step_three_action_themes"
+            android:background="@drawable/transparent_click_feedback_background"/>
 
         <TextView
             android:id="@+id/go_to_all_settings_action"
@@ -85,6 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="28dp"
-            android:text="@string/setup_wizard_step_three_action_all_settings"/>
+            android:text="@string/setup_wizard_step_three_action_all_settings"
+            android:background="@drawable/transparent_click_feedback_background"/>
     </LinearLayout>
 </LinearLayout>
