@@ -34,7 +34,8 @@
             android:gravity="center"
             android:text="@string/wizard_step_this_step_complete_title"
             android:drawableTop="@drawable/ic_accept"
-            android:drawablePadding="8dp"/>
+            android:drawablePadding="8dp"
+            android:layout_marginTop="16dp"/>
 
         <TextView
             style="@style/Ask.Text.Normal"
