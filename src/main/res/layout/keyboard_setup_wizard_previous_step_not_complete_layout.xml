@@ -14,7 +14,8 @@
         android:gravity="center"
         android:text="@string/wizard_step_previous_step_not_complete_title"
         android:drawableTop="@drawable/ic_not_configured"
-        android:drawablePadding="8dp"/>
+        android:drawablePadding="8dp"
+        android:layout_marginTop="10dp"/>
 
     <TextView
         style="@style/Ask.Text.Normal"
