@@ -78,8 +78,4 @@
         <item>@string/swipe_action_name_merge_layout</item>
         <item>@string/swipe_action_name_utility_keyboard</item>
     </string-array>
-
-    <string-array name="crash_report_email_address">
-        <item>%%CRASH_REPORT_EMAIL%%</item>
-    </string-array>
 </resources>
