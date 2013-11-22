@@ -422,10 +422,9 @@
     <string name="is_extesion_keyboard_above_keyboard_on_summary">Drawn above main keyboard</string>
     <string name="is_extesion_keyboard_above_keyboard_off_summary">Drawn on main keyboard</string>
 
-    <string name="show_new_tips_notifications_again">Show new tips</string>
-    <string name="show_new_tips_notifications_again_on_summary">When new tips are available, they will be shown</string>
-    <string name="show_new_tips_notifications_again_off_summary">Will not notify you when a new tip is available
-    </string>
+    <string name="show_new_tips_notifications_again">Notify on new tips</string>
+    <string name="show_new_tips_notifications_again_on_summary">Will notify you when unseen tips are available to read</string>
+    <string name="show_new_tips_notifications_again_off_summary">Will not notify you when a new tip is available</string>
 
     <string name="show_settings_app_in_launcher">Settings app</string>
     <string name="settings_key_show_settings_app_on_summary">Settings app will be visible in the launcher (may require
