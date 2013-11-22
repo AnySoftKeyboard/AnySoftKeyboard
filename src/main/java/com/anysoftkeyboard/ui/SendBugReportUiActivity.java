@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 import com.anysoftkeyboard.utils.Log;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 
@@ -59,7 +60,7 @@ public class SendBugReportUiActivity extends Activity {
     }
 
     protected void sendCrashReportViaEmail() {
-        String[] recipients = getResources().getStringArray(R.array.crash_report_email_address);
+        String[] recipients = new String[]{BuildConfig.CRASH_REPORT_EMAIL_ADDRESS};
 
         Intent callingIntent = getIntent();
 
