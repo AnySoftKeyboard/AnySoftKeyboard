@@ -43,6 +43,22 @@ android {
     defaultConfig {
         minSdkVersion 7
         targetSdkVersion 18
+        //adding additional fields to the BuildConfig class.
+
+        //extra details - from local
+        def Properties props = new Properties()
+        def String support_email_address
+        def propFile = new File(projectDir, 'local.extra.properties')
+        if (propFile.canRead()){
+            props.load(new FileInputStream(propFile))
+        } else {
+            println 'local.extra.properties file was not found.'
+        }
+        support_email_address = getInputFromConsoleIfMissing(props, 'CRASH_REPORT_EMAIL', 'Support email address')
+        if (isEmpty(support_email_address)) support_email_address = 'ooops@example.com'
+        println 'crash report email is: '+support_email_address
+
+        buildConfig "public final static String CRASH_REPORT_EMAIL_ADDRESS = \""+support_email_address+"\";"
     }
 
     compileOptions {
@@ -53,8 +69,6 @@ android {
     signingConfigs {
         release {
             //https://gist.github.com/gabrielemariotti/6856974#file-build-gradle
-            println "Reading release and beta signing details..."
-
             def String keystore_file
             def String keystore_password
             def String key_alias
@@ -62,7 +76,6 @@ android {
             def Properties props = new Properties()
             def propFile = new File(projectDir, 'local.signing.properties')
             if (propFile.canRead()){
-                println 'Reading details from local.signing.properties file...'
                 props.load(new FileInputStream(propFile))
             } else {
                 println 'local.signing.properties file was not found. Using debug signing configuration.'
@@ -103,26 +116,6 @@ android {
             debuggable true
         }
     }
-
-    //extra details - from local
-    def Properties props = new Properties()
-    def String support_email_address
-    def propFile = new File(projectDir, 'local.extra.properties')
-    if (propFile.canRead()){
-        println 'Reading extra details from local.properties file...'
-        props.load(new FileInputStream(propFile))
-    } else {
-        println 'local.extra.properties file was not found.'
-    }
-    //getting support email - this is used in crash reports (for now).
-    support_email_address = getInputFromConsoleIfMissing(props, 'CRASH_REPORT_EMAIL', 'Support email address')
-    if (isEmpty(support_email_address)) support_email_address = 'ooops@example.com'
-
-    def File arraysResourceFile = new File(projectDir, 'src/main/res/values/arrays.xml')
-    def String arraysResourceFileContent = arraysResourceFile.getText('UTF-8')
-    println 'using crash-report email address: '+support_email_address
-    arraysResourceFileContent.replaceAll('%%CRASH_REPORT_EMAIL%%', support_email_address)
-    arraysResourceFile.setText(arraysResourceFileContent, 'UTF-8')
 }
 
 dependencies {
