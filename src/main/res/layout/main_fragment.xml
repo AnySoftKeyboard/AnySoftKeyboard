@@ -67,19 +67,14 @@
             android:orientation="horizontal"
             android:id="@+id/keyboard_not_configured_box">
 
-            <ImageView
-                android:id="@+id/not_configured_icon"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:src="@drawable/ic_not_configured" />
-
             <TextView
                 style="@style/Ask.Text.SubTitle"
                 android:id="@+id/not_configured_click_here"
-                android:layout_marginLeft="6dp"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="@string/not_configured_with_click_here" />
+                android:text="@string/not_configured_with_click_here"
+                android:drawableLeft="@drawable/ic_not_configured"
+                android:drawablePadding="6dp" />
         </LinearLayout>
 
         <LinearLayout
