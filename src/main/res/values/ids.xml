@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="this_step_complete" type="id" />
+    <item name="this_step_needs_setup" type="id" />
+    <item name="previous_step_not_complete" type="id" />
+</resources>

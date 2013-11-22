@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/Ask.Text.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/setup_wizard_step_one_title"/>
+
+    <include android:id="@id/previous_step_not_complete"
+        layout="@layout/keyboard_setup_wizard_previous_step_not_complete_layout"
+        android:visibility="gone"/>
+
+
+    <LinearLayout
+        android:id="@id/this_step_complete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            style="@style/Ask.Text.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/wizard_step_this_step_complete_title"
+            android:drawableTop="@drawable/ic_accept"
+            android:drawablePadding="8dp"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            style="@style/Ask.Text.Normal"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/wizard_step_this_step_complete_text_enabled" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@id/this_step_needs_setup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_gravity="center">
+
+        <TextView
+            style="@style/Ask.Text.Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="4dp"
+            android:text="@string/setup_wizard_step_small_sub_title"/>
+
+        <TextView
+            style="@style/Ask.Text.Normal"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/setup_wizard_step_one_details" />
+
+        <View
+            style="@style/Ask.Menu.Divider" />
+
+        <TextView
+            android:id="@+id/go_to_language_settings_action"
+            style="@style/Ask.Text.Normal"
+            android:padding="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="6dp"
+            android:drawableLeft="@drawable/ic_settings_language"
+            android:text="@string/setup_wizard_step_one_action"
+            android:background="@drawable/transparent_click_feedback_background"/>
+    </LinearLayout>
+</LinearLayout>

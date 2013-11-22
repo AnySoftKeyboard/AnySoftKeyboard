@@ -85,6 +85,7 @@
         <activity android:theme="@style/Theme.AppCompat.Light"
             android:name="com.anysoftkeyboard.ui.settings.MainSettingsActivity"
             android:icon="@drawable/ic_launcher_settings"
+            android:launchMode="singleTop"
             android:label="@string/ime_name">
         </activity>
 
