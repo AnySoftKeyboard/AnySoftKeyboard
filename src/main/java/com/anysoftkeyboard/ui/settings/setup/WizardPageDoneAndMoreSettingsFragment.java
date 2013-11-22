@@ -5,8 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.anysoftkeyboard.ui.settings.AdditionalUiSettingsFragment;
+import com.anysoftkeyboard.ui.settings.KeyboardAddOnSettingsFragment;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
+
+import net.evendanan.pushingpixels.FragmentChauffeurActivity;
 
 public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragment implements View.OnClickListener {
     @Override
@@ -37,10 +41,10 @@ public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragmen
         MainSettingsActivity activity = (MainSettingsActivity) getActivity();
         switch (v.getId()) {
             case R.id.go_to_languages_action:
-                activity.onNavigateToKeyboardAddonSettings(v);
+                activity.addFragmentToUi(new KeyboardAddOnSettingsFragment(), FragmentChauffeurActivity.FragmentUiContext.DeeperExperience);
                 break;
             case R.id.go_to_theme_action:
-                activity.onNavigateToUserInterfaceSettings(v);
+                activity.addFragmentToUi(new AdditionalUiSettingsFragment(), FragmentChauffeurActivity.FragmentUiContext.DeeperExperience);
                 break;
             case R.id.go_to_all_settings_action:
                 activity.onNavigateToRootClicked(v);
