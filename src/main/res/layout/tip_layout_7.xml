@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
      Copyright (C) 2013 Menny Even-Danan
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,46 +14,38 @@
      limitations under the License.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:orientation="vertical">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
 
     <TextView
-            style="@android:style/TextAppearance.Medium"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/tip_7_voice_input"
-            android:textStyle="bold"/>
+        style="@android:style/TextAppearance.Medium"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/tip_7_voice_input"
+        android:textStyle="bold" />
 
     <TextView
-            style="@android:style/TextAppearance.Medium"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/tip_7_voice_input_tip"/>
-
-    <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="0px"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"
-            android:adjustViewBounds="true"
-            android:padding="0px"
-            android:scaleType="centerInside"
-            android:src="@drawable/sym_keyboard_mic"/>
+        style="@android:style/TextAppearance.Medium"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:drawableBottom="@drawable/sym_keyboard_mic"
+        android:drawablePadding="6dp"
+        android:text="@string/tip_7_voice_input_tip" />
 
     <TextView
-            style="@android:style/TextAppearance.Medium"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/tip_7_voice_input_tip_dont_forget_bottom_row"/>
+        style="@android:style/TextAppearance.Medium"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="6dp"
+        android:text="@string/tip_7_voice_input_tip_dont_forget_bottom_row" />
 
     <TextView
-            style="@android:style/TextAppearance.Small"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/tip_7_voice_input_tip_note"/>
+        style="@android:style/TextAppearance.Small"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="6dp"
+        android:text="@string/tip_7_voice_input_tip_note" />
 
 </LinearLayout>
