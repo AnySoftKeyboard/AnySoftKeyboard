@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:weightSum="1"
-              android:orientation="vertical">
+    android:orientation="vertical">
 
     <TextView
-            style="@style/Ask.Text.Title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/tips_title" />
+        style="@style/Ask.Text.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/tips_title" />
+
+    <View
+        style="@style/Ask.Legal.Divider"
+        android:layout_marginBottom="0dp" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/tips_pager"
         android:layout_width="match_parent"
         android:layout_height="0px"
-        android:layout_weight="1"
-        android:layout_margin="8dp"/>
+        android:layout_weight="1"/>
+
+    <View
+        style="@style/Ask.Legal.Divider"
+        android:layout_marginTop="0dp" />
 
     <TextView
         android:id="@+id/tips_pager_swipe_hint"
@@ -31,6 +38,6 @@
         android:id="@+id/show_tips_next_time"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/show_new_tips_notifications_again"/>
+        android:text="@string/show_new_tips_notifications_again" />
 
 </LinearLayout>
