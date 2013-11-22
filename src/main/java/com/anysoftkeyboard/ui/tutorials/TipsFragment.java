@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ScrollView;
 
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -181,7 +182,11 @@ public class TipsFragment extends PassengerFragment {
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            return inflater.inflate(mTipResId, container, false);
+            //making sure that the tip is scrollable
+            ScrollView scrollContainer = (ScrollView) inflater.inflate(R.layout.tip_scroll_container, container, false);
+            View tipLayout = inflater.inflate(mTipResId, scrollContainer, false);
+            scrollContainer.addView(tipLayout);
+            return scrollContainer;
         }
 
         @Override
