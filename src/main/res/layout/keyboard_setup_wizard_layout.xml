@@ -4,6 +4,41 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp">
+        <ImageView
+            android:id="@+id/center_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/indicator_empty"
+            android:layout_centerHorizontal="true"
+            android:padding="6dp"/>
+        <ImageView
+            android:id="@+id/left_most_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/indicator_empty"
+            android:layout_toLeftOf="@id/center_indicator"
+            android:padding="6dp"/>
+        <ImageView
+            android:id="@+id/right_most_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/indicator_empty"
+            android:layout_toRightOf="@id/center_indicator"
+            android:padding="6dp"/>
+
+        <ImageView
+            android:id="@+id/selected_page_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/indicator_full"
+            android:layout_alignLeft="@id/left_most_indicator"
+            android:padding="6dp"/>
+    </RelativeLayout>
     <TextView
         style="@style/Ask.Text.Title"
         android:textSize="32dp"
