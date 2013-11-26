@@ -6,20 +6,11 @@
   <string name="spell_checker_service_name">Corrector ortográfico AnySoftKeyboard</string>
   <string name="spell_checker_settings">Configuración de ortografía de AnySoftKeyboard</string>
   <string name="subtype_generic">corrector-genérico</string>
-  <string name="copyright_text">Copyright © <xliff:g id="year">%s</xliff:g> <xliff:g id="owner">%s</xliff:g></string>
-  <string name="version_text"><xliff:g id="version_name">%s</xliff:g> (v<xliff:g id="version_number">%s</xliff:g>)</string>
-  <string name="additional_licenses"><u>Licencias adicionales…</u></string>
-  <string name="debug_tracing_starting">¡Seguimiento iniciado!\nAsegúrate de que lo pararás en algún momento</string>
-  <string name="debug_tracing_starting_failed">¡Inicio de seguimiento fallido! Revisa el registro para más detalles.</string>
-  <string name="debug_tracing_finished">¡Registro finalizado!\nEl archivo es
-        <xliff:g id="trace_file">%s</xliff:g>
-    </string>
+  <string name="menu_about_item">Acerca de</string>
   <string name="click_to_restart_suggestions">Haz clic para sugerencias</string>
   <string name="tips_notification_text">¡Haz clic para ver consejos!</string>
   <string name="tips_button">Cómo utilizarlo</string>
   <string name="tips_title">Consejos de AnySoftKeyboard</string>
-  <string name="click_for_previous_tip">Consejo anterior ↓</string>
-  <string name="click_for_next_tip">Consejo siguiente ↓</string>
   <string name="tip_1_welcome_to_ask">Bienvenid@ a AnySoftKeyboard!</string>
   <string name="tip_2_gestures">¡Con soporte de gestos!</string>
   <string name="tip_3_hidden_kbds">Gemas ocultas</string>
@@ -73,9 +64,6 @@
   <string name="top_row_addons_settings">Ajustes de la fila superior</string>
   <string name="close_button">Cerrar</string>
   <string name="how_to_active_text">Cómo activar AnySoftKeyboard</string>
-  <string name="added_word">Guardado:
-        <xliff:g id="word">%s</xliff:g>
-    </string>
   <string name="revert_added_word_question">¿Eliminar\?</string>
   <string name="removed_word">Eliminado:
         <xliff:g id="word">%s</xliff:g>
@@ -87,6 +75,8 @@
   <string name="click_for_help_summary">Ayuda adicional acerca de AnySoftKeyboard</string>
   <string name="ui_group">Interfaz de usuario</string>
   <string name="physical_keyboard_change_notification_title">Notificación de distribución del teclado</string>
+  <string name="physical_keyboard_change_notification_summary">Tipo de notificación sobre el diseño activo. Ahora: %s
+    </string>
   <string name="physical_keyboard_change_notification_dialog_title">Seleccione el tipo de notificación</string>
   <string name="lengthy_operations_toast_notification">Notificar sobre operaciones largas</string>
   <string name="lengthy_operations_toast_notification_summary">Mostrar notificaciones cortas en operaciones largas</string>
@@ -98,10 +88,10 @@
   <string name="override_dictionary">Reemplazar diccionario predeterminado</string>
   <string name="override_dictionary_default">Predeterminado</string>
   <string name="override_disabled">Anulación desactivada</string>
+  <string name="gesture_settings">Gestos</string>
   <string name="effects_group">Efectos</string>
   <string name="ime_settings">Configuración del teclado</string>
   <string name="vibrate_on_key_press_title">Vibrar en la pulsación de teclas</string>
-  <string name="vibrate_on_key_press_summary">Seleccione para que vibre cuando se pulsan las teclas</string>
   <string name="vibrate_on_key_press_dialog_title">Seleccione el tipo de vibración</string>
   <string name="sound_on">Sonido en la pulsación de teclas</string>
   <string name="sound_on_summary">Efectos de sonido suave en el teclado virtual.</string>
@@ -118,33 +108,24 @@
   <string name="fullscreen_input_connection_supported_off_summary">No utilizar pantalla completa de entrada en modo horizontal</string>
   <string name="fullscreen_portrait_input_connection_supported">Utilizar pantalla completa en modo vertical</string>
   <string name="fullscreen_portrait_input_connection_supported_on_summary">Utilizar pantalla completa de entrada en modo vertical</string>
-  <string name="fullscreen_portrait_input_connection_supported_off_summary">No utilizar pantalla completa de entrada en modo vertical
-    </string>
   <string name="backword_support">Soporte de palabra-anterior</string>
   <string name="backword_support_on_summary">Retroceso + Mayus borrará la última palabra</string>
   <string name="backword_support_off_summary">Retroceso + Mayus borrará el último carácter</string>
   <string name="swipe_tweak_group">Cambiar las acciones de los gestos</string>
   <string name="swipe_up_action">Delizar hacia arriba</string>
-  <string name="swipe_up_action_summary">Definir la acción de desliz hacia arriba</string>
   <string name="swipe_up_action_title">Seleccionar acción de desliz hacia arriba</string>
   <string name="swipe_up_from_spacebar_action">Desliz en la barra espaciadora hacia arriba</string>
-  <string name="swipe_up_from_spacebar_action_summary">Definir la acción al delizar sobre la barra espaciadora hacia arriba</string>
   <string name="swipe_up_from_spacebar_action_title">Seleccionar la acción de desliz hacía arriba en la barra espaciadora</string>
   <string name="swipe_down_action">Desliz hacia abajo</string>
-  <string name="swipe_down_action_summary">Definir la acción de desliz hacia abajo</string>
   <string name="swipe_down_action_title">Seleccionar acción de desliz hacia abajo</string>
   <string name="swipe_left_action">Desliz a la izquierda</string>
-  <string name="swipe_left_action_summary">Definir la acción de desliz a la izquierda</string>
   <string name="swipe_left_action_title">Seleccionar acción de desliz a la izquierda</string>
   <string name="swipe_right_action">Desliz a la derecha</string>
-  <string name="swipe_right_action_summary">Definir la acción de desliz a la derecha</string>
   <string name="swipe_right_action_title">Seleccionar acción de desliz a la derecha</string>
   <string name="pinch_gesture_action">Gesto de pellizcar</string>
   <string name="pinch_gesture_action_title">Seleccione la acción del gesto de pellizcar</string>
-  <string name="pinch_gesture_action_summary">Definir la acción de gesto de pellizco</string>
   <string name="separate_gesture_action">Gesto de estiramiento</string>
   <string name="separate_gesture_action_title">Seleccione la acción del gesto de estiramiento</string>
-  <string name="separate_gesture_action_summary">Definir la acción del gesto de estiramiento</string>
   <string name="swipe_action_name_none">Ninguna acción</string>
   <string name="swipe_action_name_next_alphabet">Siguiente teclado alfabético</string>
   <string name="swipe_action_name_next_symbols">Siguiente teclado de símbolos</string>
@@ -165,14 +146,12 @@
   <string name="swipe_action_name_merge_layout">Disposición compacta</string>
   <string name="swipe_action_name_utility_keyboard">Mostrar utilidad del teclado</string>
   <string name="settings_swipe_velocity_threshold_title">Umbral de velocidad de desliz</string>
-  <string name="settings_swipe_velocity_threshold_summary">La velocidad mínima del gesto de deliz</string>
   <string name="settings_swipe_velocity_very_slow">Muy lento</string>
   <string name="settings_swipe_velocity_slow">Lento</string>
   <string name="settings_swipe_velocity_normal">Normal</string>
   <string name="settings_swipe_velocity_fast">Rápido</string>
   <string name="settings_swipe_velocity_very_fast">Muy rápido</string>
   <string name="settings_swipe_distance_threshold_title">Umbral de distancia de deliz</string>
-  <string name="settings_swipe_distance_threshold_summary">La distancia mínima del gesto de deliz</string>
   <string name="settings_swipe_distance_very_short">Muy corto</string>
   <string name="settings_swipe_distance_short">Corto</string>
   <string name="settings_swipe_distance_normal">Normal</string>
@@ -183,16 +162,12 @@
   <string name="volume_key_for_left_right_support_on_summary">Desactivar ir hacia la izquierda/derecha con las teclas de volumen.</string>
   <string name="camera_key_for_backspace_backword_support">Utilizar la tecla de la cámara para retroceder un caracter o palabra</string>
   <string name="camera_key_for_backspace_backword_support_on_summary">Restaurar la función de la tecla de la cámara</string>
+  <string name="menu_even_more_settings">Mucho más…</string>
+  <string name="more_ui_settings_group">Interfaz de usuario</string>
   <string name="special_dictionaries_group">Diccionarios especiales</string>
-  <string name="special_dictionaries_group_summary">Diccionarios de sugerencias usados en AnySoftKeyboard</string>
   <string name="use_user_dictionary">Diccionario de usuario</string>
   <string name="use_user_dictionary_off_summary"> </string>
   <string name="use_auto_dictionary">Diccionario automático</string>
-  <string name="use_auto_dictionary_dialog_title">Seleccione el método de aprendizaje</string>
-  <string name="use_auto_dictionary_summary">Automaticamente aprende nuevas palabras. Metodología de aprendizaje: %s</string>
-  <string name="auto_dictionary_threshold_type_after_a_while">Después de algún uso</string>
-  <string name="auto_dictionary_threshold_type_immediately">Inmediatamente después de escribirla</string>
-  <string name="auto_dictionary_threshold_type_off">No aprender nuevas palabras</string>
   <string name="use_contacts_dictionary">Diccionario de contactos</string>
   <string name="use_contacts_dictionary_on_summary">Sugerir nombres de la lista de contactos</string>
   <string name="use_contacts_dictionary_off_summary"> </string>
@@ -231,14 +206,12 @@
   <string name="is_extesion_keyboard_above_keyboard">Extensión del teclado arriba</string>
   <string name="is_extesion_keyboard_above_keyboard_on_summary">Aparece encima del teclado principal</string>
   <string name="is_extesion_keyboard_above_keyboard_off_summary">Dibujado en el teclado principal</string>
-  <string name="show_new_tips_notifications_again">Mostrar nuevos consejos</string>
-  <string name="show_new_tips_notifications_again_on_summary">Se mostrarán nuevos consejos cuando estén disponibles</string>
+  <string name="show_new_tips_notifications_again_off_summary">No se notificara cuando nuevos conejos estén disponibles</string>
   <string name="show_settings_app_in_launcher">Configuración de la aplicación</string>
   <string name="settings_key_show_settings_app_off_summary">Ocultar la aplicación de configuración (puede requerir el reinicio del sistema)</string>
   <string name="show_crash_notification">Informar de cuelgue</string>
   <string name="show_crash_notification_on_summary">Si AnySoftKeyboard se cierra, abrir el diálogo de informe de accidente</string>
   <string name="show_crash_notification_off_summary">Absorber los accidentes silenciosamente</string>
-  <string name="show_new_version_notifications_again">Mostrar notificaciones de nuevas versiones</string>
   <string name="use_keyrepeat">Usar repetición de tecla</string>
   <string name="use_keyrepeat_on_summary">Repetición de tecla está activada</string>
   <string name="use_keyrepeat_off_summary">Repetición de tecla está desactivada</string>
@@ -269,7 +242,6 @@
   <string name="action_key_invisible_on_disable_on_summary">La tecla de acción será visible cuando la interfaz lo requiera</string>
   <string name="action_key_invisible_on_disable_off_summary">La tecla de acción será visible incluso si la interfaz lo requiere</string>
   <string name="tweak_animations_level_title">Animaciones</string>
-  <string name="tweak_animations_level_summary">¿Cuántas animaciones pueden usarse?. Ahora: %s</string>
   <string name="tweak_animations_level_types_full">Lleno</string>
   <string name="tweak_animations_level_types_some">Algunos</string>
   <string name="tweak_animations_level_types_none">Ninguno</string>
@@ -298,7 +270,6 @@
   <string name="auto_dict_summary">Agregar palabras comúnmente utilizadas o seleccionadas automáticamente al diccionario</string>
   <string name="no_extrenal_packs_support_title">No soportado</string>
   <string name="keyboards_group">Teclados</string>
-  <string name="keyboards_group_summary">Distribuciones de teclado para el uso en AnySoftKeyboard</string>
   <string name="symbols_keyboard">123!#()</string>
   <string name="symbols_alt_keyboard">{}\_</string>
   <string name="symbols_alt_num_keyboard">123</string>
@@ -308,27 +279,26 @@
   <string name="eng_keyboard">Inglés</string>
   <string name="eng_keyboard_qwertywithsymbols">Inglés con símbolos</string>
   <string name="eng_keyboard_16keys">Inglés 16 Teclas</string>
+  <string name="keyboard_change_locked">n/d</string>
+  <string name="selected_add_on_summary">Utilizando ahora \'<xliff:g id="addOnName">%s</xliff:g>\'
+    </string>
   <string name="additional_addons_group">Complementos adicionales</string>
   <string name="quick_text_keys_group">Teclas de texto rápido</string>
   <string name="quick_text_key_active">Tecla de texto rápido activa</string>
   <string name="quick_text_key_dialog_title">Seleccione la tecla</string>
-  <string name="quick_text_key_summary">Tecla seleccionada para Texto Rápido: %s</string>
   <string name="extension_keyboards_group">Teclados de extensión</string>
   <string name="extension_keyboards_summary">Seleccione las filas arriba, abajo o teclado de extensión</string>
   <string name="top_generic_row_group">Fila superior genérica común</string>
   <string name="top_generic_row_active">Fila superior activa</string>
   <string name="top_generic_row_dialog_title">Seleccionar tipo de fila</string>
-  <string name="top_generic_row_summary">Fila superior seleccionada: %s</string>
   <string name="top_generic_row_list_title">Seleccionar tipo de fila</string>
   <string name="bottom_generic_row_group">Fila inforeror genérica común</string>
   <string name="bottom_generic_row_active">Fila inferior activa</string>
   <string name="bottom_generic_row_dialog_title">Seleccionar tipo de fila</string>
-  <string name="bottom_generic_row_summary">Fila inferior seleccionada: %s</string>
   <string name="bottom_generic_row_list_title">Seleccionar tipo de fila</string>
   <string name="extension_keyboard_group">Teclado de extensión</string>
   <string name="extension_keyboard_active">Teclado de extensión activo</string>
   <string name="extension_keyboard_dialog_title">Seleccionar teclado</string>
-  <string name="extension_keyboard_summary">Extensión de teclado seleccionado: %s</string>
   <string name="extension_keyboard_list_title">Seleccionar teclado</string>
   <string name="keyboard_theme_group">Temas de teclado</string>
   <string name="keyboard_theme_active">Tema de teclado activo</string>
@@ -358,6 +328,7 @@
   <string name="extension_kbd_bottom_iphone_with_voice">Estilo iPhone con micrófono.</string>
   <string name="extension_kbd_bottom_alt">Alternativo (sin micrófono)</string>
   <string name="extension_kbd_bottom_alt_with_mic">Alternativo con micrófono</string>
+  <string name="extension_kbd_bottom_ng">Nueva generación (prueba)</string>
   <string name="extension_kbd_extension_numbers_symbols">Números y símbolos</string>
   <string name="show_tutorial_on_startup">Mostrar este tutorial al inicio</string>
   <string name="tutorial_swipe_title">Delizar para cambiar el teclado</string>
@@ -404,11 +375,11 @@
   <string name="workaround_disable_rtl_fix_summary_on">Usar OS RTL (para los teléfonos SE)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Usar el manejo de RTL de AnySoftKeyboard</string>
   <string name="settings_split_state_title">Estado inicial Dividido/Compacto</string>
-  <string name="settings_split_state_summary">Definir si se divide el teclado por defecto. Ahora: %s</string>
   <string name="settings_split_state_merged_always">Inicio regular</string>
   <string name="settings_split_state_split_in_landscape">Iniciar dividido cuando se muestra horizontalmente</string>
   <string name="settings_split_state_split_always">Iniciar dividido</string>
   <string name="user_dictionary_select_locale">Idioma:</string>
+  <string name="user_dictionary_read_please_wait">Leyendo palabras...</string>
   <string name="user_dict_settings_titlebar">Diccionario de usuario</string>
   <string name="user_dict_editor">Editor de palabras</string>
   <string name="user_dict_settings_add_dialog_title">Añadir al diccionario</string>
@@ -420,12 +391,41 @@
   <string name="user_dict_restore_success_text">Se restauraron correctamente tus palabras.</string>
   <string name="user_dict_restore_fail_title">¡Restauración falló!</string>
   <string name="user_dict_restore_fail_text">No se pudo leer sus archivos de copia de seguridad! ¿Existe almacenamiento disponible?</string>
+  <string name="fast_scroll_alphabet">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ</string>
   <string name="should_swap_punctuation_and_space_title">Intercambiar puntuación y espacio</string>
   <string name="should_swap_punctuation_and_space_summary"> </string>
   <string name="should_swap_punctuation_and_space_yes">Sí</string>
   <string name="should_swap_punctuation_and_space_no">No</string>
+  <string name="developer_tools">Herramientas de desarrollador</string>
   <string name="click_for_developer_features">Herramientas de desarrollador</string>
-  <string name="click_for_developer_features_summary">Varias herramientas para desarrolladores de AnySoftKeyboard</string>
+  <string name="drawer_open">Menú abierto</string>
+  <string name="drawer_close">Menú cerrado</string>
+  <string name="not_configured_with_click_here">AnySoftKeyboard no está del todo listo. Haz clic aquí para ponerlo a punto.</string>
+  <string name="not_configured_with_just_click_here">Haz clic aquí</string>
+  <string name="click_for_more">más...</string>
+  <string name="back_button_label">Atrás</string>
+  <string name="next_button_label">Siguiente</string>
+  <string name="skip_button_label">Omitir</string>
+  <string name="word_editor_action_add_word">Añadir palabra</string>
+  <string name="word_editor_action_backup_words">Copia de seguridad</string>
+  <string name="word_editor_action_restore_words">Restaurar</string>
+  <string name="click_to_add_new_word">Haz clic para añadir una nueva palabra</string>
+  <string name="enter_word_hint">Escribe aquí la nueva palabra</string>
+  <string name="wizard_step_previous_step_not_complete_title">Te has dejado un paso sin hacer</string>
+  <string name="wizard_step_previous_step_not_complete_text">Por favor, ve al paso anterior y sigue las instrucciones.</string>
+  <string name="wizard_step_this_step_complete_title">¡Paso hecho!</string>
+  <string name="wizard_step_this_step_complete_text_enabled"><i>AnySoftKeyboard</i> está activado. ¡Solo te falta un paso para usar <i>AnySoftKeyboard</i> en tu gran dispositivo!\nVe a la página siguiente.</string>
+  <string name="setup_wizard_step_one_title">Activar AnySoftKeyboard</string>
+  <string name="setup_wizard_step_small_sub_title">Este es el primer paso, pero no te preocupes, son solo 3 y muy cortos.</string>
+  <string name="setup_wizard_top_title">Configura\nAnySoftKeyboard\npara usarlo</string>
+  <string name="setup_wizard_step_two_title">Cambiar a AnySoftKeyboard</string>
+  <string name="setup_wizard_step_two_small_sub_title">Paso 2 de 3</string>
+  <string name="setup_wizard_step_two_action">Cambiar teclados activos</string>
+  <string name="setup_wizard_step_three_title">¡AnySoftKeyboard está listo!</string>
+  <string name="setup_wizard_step_three_details">Gracias por elegir <i>AnySoftKeyboard</i>.\nEste teclado es totalmente personalizable. Corre y personalízalo:</string>
+  <string name="setup_wizard_step_three_action_languages">Configuración de idiomas...</string>
+  <string name="setup_wizard_step_three_action_themes">Seleccionar tema...</string>
+  <string name="setup_wizard_step_three_action_all_settings">Configurar todo lo demás...</string>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Mostrar siempre el icono de disposición</item>
     <item>Sobre el cambio a teclado físico</item>

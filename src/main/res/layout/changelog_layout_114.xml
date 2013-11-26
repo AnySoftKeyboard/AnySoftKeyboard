@@ -15,8 +15,8 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:tag="20131101"
+              android:tag="20131125"
               android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
     <TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-              android:text="* This release is for Android 2.1 and higher.\n* Complete redesign of the Settings UI.\n* Better support for old (and future) add-on packs." style="@style/Ask.Text.Normal"/>
+              android:text="* This release is for Android 2.1 and higher.\n* Complete redesign of the Settings UI.\n* Better support for old (and future) add-on packs.\n* Localizations: Greek, Germen, Kannada, Spanish." style="@style/Ask.Text.Normal"/>
 </LinearLayout>
