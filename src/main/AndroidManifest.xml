@@ -75,6 +75,7 @@
         <activity android:theme="@style/Theme.AppCompat.Light"
             android:name="com.menny.android.anysoftkeyboard.LauncherSettingsActivity"
             android:icon="@drawable/ic_launcher_settings"
+            android:launchMode="singleTop"
             android:label="@null">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -85,7 +86,7 @@
         <activity android:theme="@style/Theme.AppCompat.Light"
             android:name="com.anysoftkeyboard.ui.settings.MainSettingsActivity"
             android:icon="@drawable/ic_launcher_settings"
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:label="@string/ime_name">
         </activity>
 
