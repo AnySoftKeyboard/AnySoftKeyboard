@@ -23,6 +23,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,13 +95,14 @@ public class ChangeLogFragment extends PassengerFragment {
         //looking for logs to show
         Resources res = getResources();
         int currentVersionCode = 0;
+        PackageInfo info = null;
         try {
-            final PackageInfo info = DeveloperUtils.getPackageInfo(appContext);
+            info = DeveloperUtils.getPackageInfo(appContext);
             currentVersionCode = info.versionCode;
         } catch (final NameNotFoundException e) {
             Log.e(TAG, "Failed to locate package information! This is very weird... I'm installed.");
         }
-        while (currentVersionCode > 0) {
+        while (info != null && currentVersionCode > 0) {
             final String layoutResourceName = "changelog_layout_" + currentVersionCode;
             Log.d(TAG, "Looking for changelog " + layoutResourceName);
             final int resId = res.getIdentifier(layoutResourceName, "layout", appContext.getPackageName());
@@ -108,10 +110,10 @@ public class ChangeLogFragment extends PassengerFragment {
                 if (showAllLogs || !mAppPrefs.getBoolean(layoutResourceName, false)) {
                     Log.d(TAG, "Got a changelog #" + currentVersionCode + " which is " + layoutResourceName);
                     View logEntry = inflater.inflate(resId, mLogContainer, false);
-                    String logTag = logEntry.getTag().toString();
+                    Object logTag = logEntry.getTag();
                     ViewGroup logHeader = (ViewGroup) inflater.inflate(R.layout.changelogentry_header, mLogContainer, false);
                     TextView versionName = (TextView) logHeader.findViewById(R.id.changelog_version_title);
-                    updateEntryText(versionName, logTag, currentVersionCode);
+                    updateEntryText(versionName, logTag, currentVersionCode, info);
 
                     mLogContainer.addView(logHeader);
                     mLogContainer.addView(logEntry);
@@ -128,8 +130,23 @@ public class ChangeLogFragment extends PassengerFragment {
         }
     }
 
-    protected void updateEntryText(TextView entryHeader, String versionName, int versionCode) {
-        entryHeader.setText(getString(R.string.change_log_entry_header_template, versionCode, versionName));
+    protected void updateEntryText(TextView entryHeader, Object tag, int versionCode, PackageInfo packageInfo) {
+        String versionName;
+        if (tag == null) {
+            if (packageInfo.versionCode == versionCode)
+                //automatically adding the version name
+                versionName = packageInfo.versionName;
+            else
+                versionName = null;
+        } else {
+            versionName = tag.toString();
+        }
+
+        if (TextUtils.isEmpty(versionName)) {
+            entryHeader.setText(getString(R.string.change_log_entry_header_template_without_name, versionCode));
+        } else {
+            entryHeader.setText(getString(R.string.change_log_entry_header_template, versionCode, versionName));
+        }
     }
 
     @Override
