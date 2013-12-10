@@ -27,10 +27,40 @@ import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
  * It is a forwarder activity that I can disable, thus not showing Settings in the launcher menu.
  */
 public class LauncherSettingsActivity extends Activity {
+
+    private final static String LANUCHED_KEY = "LANUCHED_KEY";
+    /**
+     * This flag will help us keeping this activity inside the task, thus returning to the TASK when relaunching (and not to re-create the activity)
+     */
+    private boolean mLaunched = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        startActivity(new Intent(this, MainSettingsActivity.class));
-        finish();//no need for this activity anymore.
+        if (savedInstanceState != null)
+            mLaunched = savedInstanceState.getBoolean(LANUCHED_KEY, false);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mLaunched)
+            finish();
+        else
+            startActivity(new Intent(this, MainSettingsActivity.class));
+
+        mLaunched = true;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(LANUCHED_KEY, mLaunched);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mLaunched = savedInstanceState.getBoolean(LANUCHED_KEY);
     }
 }

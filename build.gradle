@@ -1,3 +1,5 @@
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 
 buildscript {
     repositories {
@@ -36,11 +38,20 @@ def boolean isEmpty(String value) {
 		return false
 }
 
+def String getVersionPatchBuild() {
+    DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd")
+    Date date = new Date()
+    return dateFormat.format(date)
+}
+
 android {
     compileSdkVersion 19
     buildToolsVersion "19.0.0"
 
     defaultConfig {
+        versionCode 114
+        versionName "1.1."+getVersionPatchBuild()
+
         minSdkVersion 7
         targetSdkVersion 18
         //adding additional fields to the BuildConfig class.
@@ -113,7 +124,7 @@ android {
         beta {
             signingConfig signingConfigs.release
             zipAlign true
-            debuggable true
+            debuggable false
         }
     }
 }

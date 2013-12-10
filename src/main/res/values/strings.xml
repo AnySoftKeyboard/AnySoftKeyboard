@@ -107,6 +107,7 @@
     <string name="how_to_pointer_changelog">Details about the latest version:</string>
     <string name="change_log_card_title_template">Latest changes for v<xliff:g id="code">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
     <string name="change_log_entry_header_template">v<xliff:g id="code">%s</xliff:g>\u0020-\u0020<xliff:g id="name">%s</xliff:g></string>
+    <string name="change_log_entry_header_template_without_name">v<xliff:g id="code">%s</xliff:g></string>
     <string name="how_to_pointer_issues">Bug reporting:</string>
     <!-- credits tab -->
     <string name="main_tab_credits_title">This application was created with the help of the following people-</string>
@@ -422,10 +423,9 @@
     <string name="is_extesion_keyboard_above_keyboard_on_summary">Drawn above main keyboard</string>
     <string name="is_extesion_keyboard_above_keyboard_off_summary">Drawn on main keyboard</string>
 
-    <string name="show_new_tips_notifications_again">Show new tips</string>
-    <string name="show_new_tips_notifications_again_on_summary">When new tips are available, they will be shown</string>
-    <string name="show_new_tips_notifications_again_off_summary">Will not notify you when a new tip is available
-    </string>
+    <string name="show_new_tips_notifications_again">Notify on new tips</string>
+    <string name="show_new_tips_notifications_again_on_summary">Will notify you when unseen tips are available to read</string>
+    <string name="show_new_tips_notifications_again_off_summary">Will not notify you when a new tip is available</string>
 
     <string name="show_settings_app_in_launcher">Settings app</string>
     <string name="settings_key_show_settings_app_on_summary">Settings app will be visible in the launcher (may require
