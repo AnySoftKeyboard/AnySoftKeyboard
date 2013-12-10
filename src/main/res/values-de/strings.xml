@@ -5,10 +5,21 @@
   <string name="settings_app_name">AnySoftKeyboard Einstellungen</string>
   <string name="spell_checker_service_name">AnySoftKeyboard Rechtschreibung</string>
   <string name="spell_checker_settings">Einstellungen für Rechtschreibung</string>
+  <string name="copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
+  <string name="additional_licenses"><u>Zusätzliche Lizenzen...</u></string>
+  <string name="debug_tracing_starting">Tracing gestartet!\nNicht vergessen es später wieder auszuschalten</string>
+  <string name="debug_tracing_starting_failed">Initiierung des Tracings ist fehlgeschlagen! Siehe LogCat für weitere Infos.</string>
+  <string name="debug_tracing_finished">Tracing beendet!\nDie Datei ist 
+<xliff:g id="trace_file">%s</xliff:g></string>
+  <string name="menu_about_item">Über</string>
   <string name="click_to_restart_suggestions">Vorschläge durch Klicken</string>
   <string name="tips_notification_text">Für Tipps klicken!</string>
+  <string name="tips_button">Anleitung</string>
+  <string name="tips_button_description">EIn paar Tipps zur Nutzung von AnySoftKeyboard</string>
   <string name="tips_title">AnySoftKeyboard Tipps</string>
+  <string name="tips_pager_swipe_hint">ࢎ\u0020Swipe nach links oder rechts für weitere Tipps࢐</string>
   <string name="tip_1_welcome_to_ask">Willkommen bei AnySoftKeyboard!</string>
+  <string name="tip_1_how_to_access_settings">Um zu den Einstellungen zu gelangen, lange auf ENTER drücken. Dort wirst du ein Berg an Anpassungen finden!</string>
   <string name="tip_2_gestures">Ich unterstütze Gesten!</string>
   <string name="tip_3_hidden_kbds">Verborgene Schätze</string>
   <string name="tip_4_top_generic_row">Kopfzeile</string>
@@ -62,8 +73,10 @@
   <string name="close_button">Schließen</string>
   <string name="how_to_active_text">Wie aktivert man AnySoftKeyboard</string>
   <string name="hint_add_to_dictionary">\u2190 Berühren um erneut zu speichern</string>
+  <string name="hint_double_tap_to_close">Drücke nochmal um die Vorschläge zu entfernen</string>
   <string name="menu_insert_smiley">Emoticon einfügen</string>
   <string name="click_for_help">Hilfe</string>
+  <string name="click_for_help_summary">Zusätzlich Hilfe zu AnySoftwareKeyboard</string>
   <string name="ui_group">Benutzeroberfläche</string>
   <string name="physical_keyboard_change_notification_title">Tastatur-Layout Benachrichtigung</string>
   <string name="physical_keyboard_change_notification_dialog_title">Benachrichtigungsart auswählen</string>
@@ -71,12 +84,16 @@
   <string name="lengthy_operations_toast_notification_summary">Zeige kurze Benachrichtigung bei zeitintensiven Operationen</string>
   <string name="voice_input_not_support_in_this_os_version">Spracheingabe wird in Android 2.2 + unterstützt</string>
   <string name="voice_input_not_installed_title">Spracheingabe ist nicht installiert</string>
+  <string name="voice_input_not_installed_text">Du musst dir erst Google\'s Voice Input vom Markt installieren, bevor du diese Funktion nutzen kannst.</string>
   <string name="voice_input_not_installed_action_install">Installieren</string>
   <string name="voice_input_not_installed_action_do_not_install">Nein</string>
+  <string name="voice_input_not_voice_pack_in_market">Voice input (com.google.android.voicesearch) konnte nicht im Markt gefunden werden. Es tut uns Leid, aber die Spracheingabe wird auf diesem Gerät nicht funktionieren.</string>
   <string name="change_ime">Eingabemethode ändern</string>
   <string name="override_dictionary">Standardwörterbuch überschreiben</string>
+  <string name="override_dictionary_title">Wörterbuch <xliff:g id="word">%s</xliff:g> überschreiben</string>
   <string name="override_dictionary_default">Standard</string>
   <string name="override_disabled">Überschreiben deaktiviert</string>
+  <string name="override_enabled">zu <xliff:g id="word">%s</xliff:g> überschreiben</string>
   <string name="gesture_settings">Gesten</string>
   <string name="effects_group">Effekte</string>
   <string name="ime_settings">Tastatureinstellungen</string>
@@ -149,6 +166,7 @@
   <string name="camera_key_for_backspace_backword_support">Kameratasten für Rückschritt / Wort zurück</string>
   <string name="camera_key_for_backspace_backword_support_on_summary">Funktion Kameratasten wiederherstellen</string>
   <string name="special_dictionaries_group">Fachwörterbücher</string>
+  <string name="use_user_dictionary">Benutzerwörterbuch</string>
   <string name="use_auto_dictionary">Auto Wörterbuch</string>
   <string name="use_contacts_dictionary">Kontakte Wörterbuch</string>
   <string name="use_contacts_dictionary_on_summary">Namen aus Kontakten vorschlagen</string>
@@ -221,17 +239,28 @@
   <string name="auto_dict_summary">Oft verwendete Wörter automatisch ins Wörterbuch aufnehmen</string>
   <string name="no_extrenal_packs_support_title">Nicht unterstützt</string>
   <string name="keyboards_group">Tastaturen</string>
+  <string name="symbols_keyboard">123!#()</string>
+  <string name="symbols_alt_keyboard">{}\_</string>
+  <string name="symbols_alt_num_keyboard">123</string>
+  <string name="symbols_phone_keyboard">Telefon</string>
+  <string name="symbols_numbers_keyboard">123</string>
+  <string name="symbols_time_keyboard">Zeit</string>
   <string name="eng_keyboard">Englisch</string>
+  <string name="eng_keyboard_qwertywithsymbols">Englisch mit Symbolen</string>
   <string name="eng_keyboard_16keys">16 Tasten Englisch</string>
+  <string name="keyboard_change_locked">n/a</string>
+  <string name="selected_add_on_summary">Benutze nun \'<xliff:g id="addOnName">%s</xliff:g>\'</string>
   <string name="additional_addons_group">Zusätzliche Add-ons</string>
   <string name="quick_text_keys_group">Schnell Text-Tasten</string>
   <string name="quick_text_key_active">Aktive schnelle Textschlüssel</string>
   <string name="quick_text_key_dialog_title">Select-Taste</string>
+  <string name="quick_text_key_summary">Ausgewählte Quicktext Schlüssel: %s</string>
   <string name="extension_keyboards_group">Erweiterte Tastatur</string>
   <string name="extension_keyboards_summary">Wählen Sie die obere, untere Zeilen oder Erweiterungs tastatur</string>
   <string name="top_generic_row_group">Allgemeine oberste generische Reihe</string>
   <string name="top_generic_row_active">Aktive oberste Zeile</string>
   <string name="top_generic_row_dialog_title">Wählen Sie den Zeilentyp</string>
+  <string name="top_generic_row_summary">Ausgewählte oberste Zeile: %s</string>
   <string name="top_generic_row_list_title">Wählen Sie den Zeilentyp</string>
   <string name="bottom_generic_row_group">Allgemeine untere generische Reihe</string>
   <string name="bottom_generic_row_active">Aktive unteren Zeile</string>
@@ -333,6 +362,22 @@
   <string name="should_swap_punctuation_and_space_summary"> </string>
   <string name="should_swap_punctuation_and_space_yes">Ja</string>
   <string name="should_swap_punctuation_and_space_no">Nein</string>
+  <string name="wizard_step_this_step_complete_text_enabled"><i>AnySoftKeyboard</i> ist aktiv. Du bist nur einen Schritt davon entfernt <i>AnySoftKeyboard</i> auf deinem tollen Gerät zu benutzen!\nSwipe dich zur nächsten Seite.</string>
+  <string name="wizard_step_this_step_complete_text_switched"><i>AnySoftKeyboard</i> ist deine Standarttastatur. Aber willst du keine zusätzlichen Sachen installieren, wie Themen oder Sprachen?\nSwype dich zu nächsten Seite.</string>
+  <string name="setup_wizard_step_one_title">AnySoftKeyboard aktivieren</string>
+  <string name="setup_wizard_step_small_sub_title">Das ist der erste Schritt, aber keine Sorge. Es gibt nur drei ,ganz einfache, Schritte.</string>
+  <string name="setup_wizard_step_one_details">In diesem Schritt, wirst musst <i>AnySoftKeyboard</i> aktivieren. Bitte hake <i>\'AnySoftKeyboard\'</i> im <i>Sprache und Texteingabe</i> Ordner ab. Das ermöglicht der App auf dem Gerät zu laufen.</string>
+  <string name="setup_wizard_step_one_action">Gehe zu deinem  <i>Sprache und Texteingabe</i> Ordner…</string>
+  <string name="setup_wizard_top_title">Installiere\nAnySoftKeyboard\nzum Benutzen</string>
+  <string name="setup_wizard_step_two_title">zu AnySoftKeyboard wechseln</string>
+  <string name="setup_wizard_step_two_small_sub_title">Schritt zwei von drei</string>
+  <string name="setup_wizard_step_two_details">Das Gerät kann nun <i>AnySoftKeyboard</i> verwenden, aber es ist nicht als Aktive Tastatur eingestellt.\nnach dem wechseln wird <i>AnySoftKeyboard</i> deine neue Bildschirmatastatur mit all seinen Funktionen sein!</string>
+  <string name="setup_wizard_step_two_action">Aktive Tastaturen tauschen</string>
+  <string name="setup_wizard_step_three_title">AnySoftKeyboard ist bereit!</string>
+  <string name="setup_wizard_step_three_details">Danke, dass du <i>AnySoftKeyboard</i> ausgewählt hast.\nDiese Tastatur zeichnet sich durch ein grosses Grad an Anpassungsfähigkeit aus. Personalisiere es:</string>
+  <string name="setup_wizard_step_three_action_languages">Sprachen Installieren...</string>
+  <string name="setup_wizard_step_three_action_themes">Thema wählen...</string>
+  <string name="setup_wizard_step_three_action_all_settings">Etwas anderes EInstellen...</string>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Zeige das Layout-Symbol immer</item>
     <item>Nur beim Wechsel des Tastaturlayouts</item>
@@ -340,9 +385,9 @@
   </string-array>
   <string-array name="vibrate_on_key_press_types">
     <item>Keine Vibration</item>
-    <item>Schwach</item>
+    <item>leicht</item>
     <item>Mittel</item>
-    <item>Stark</item>
+    <item>Fett</item>
   </string-array>
   <string-array name="custom_hint_align_types">
     <item>Links</item>
