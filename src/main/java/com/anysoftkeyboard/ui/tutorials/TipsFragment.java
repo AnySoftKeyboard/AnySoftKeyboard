@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard.ui.tutorials;
 
+import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -28,6 +29,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ScrollView;
 
 import com.anysoftkeyboard.utils.Log;
@@ -131,7 +133,6 @@ public class TipsFragment extends PassengerFragment {
         super.onStart();
         getActivity().setTitle(getString(R.string.tips_title));
     }
-
     private class TipFragmentAdapter extends FragmentStatePagerAdapter {
 
         public TipFragmentAdapter(FragmentManager fm) {
@@ -150,7 +151,7 @@ public class TipsFragment extends PassengerFragment {
         }
     }
 
-    public static class TipFragment extends Fragment {
+    public static class TipFragment extends Fragment implements CompoundButton.OnCheckedChangeListener {
 
         private static final String TIP_RES_ID = "TIP_RES_ID";
 
@@ -185,8 +186,19 @@ public class TipsFragment extends PassengerFragment {
             //making sure that the tip is scrollable
             ScrollView scrollContainer = (ScrollView) inflater.inflate(R.layout.tip_scroll_container, container, false);
             View tipLayout = inflater.inflate(mTipResId, scrollContainer, false);
+
+            setThisAsCheckListenerFor(tipLayout, R.id.tip_settings_key_press_vibration);
+            setThisAsCheckListenerFor(tipLayout, R.id.tip_settings_key_press_sound);
+
             scrollContainer.addView(tipLayout);
             return scrollContainer;
+        }
+
+        private void setThisAsCheckListenerFor(View tipLayout, int compoundButtonId) {
+            View view = tipLayout.findViewById(compoundButtonId);
+            if (view != null && view instanceof CompoundButton) {
+                ((CompoundButton)view).setOnCheckedChangeListener(this);
+            }
         }
 
         @Override
@@ -195,8 +207,39 @@ public class TipsFragment extends PassengerFragment {
             String resName = getResources().getResourceName(mTipResId);
             resName = resName.substring(resName.lastIndexOf("/") + 1, resName.length());
             Log.d(TAG, "Seen tip " + resName + ".");
-            Editor e = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext()).edit();
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+            Editor e = prefs.edit();
             e.putBoolean(resName, true);
+            e.commit();
+            //setting initial values
+            setCompoundButtonCheckState(R.id.tip_settings_key_press_vibration,
+                    !prefs.getString(getString(R.string.settings_key_vibrate_on_key_press_duration),
+                            getString(R.string.settings_default_vibrate_on_key_press_duration)).equals("0"));
+            setCompoundButtonCheckState(R.id.tip_settings_key_press_sound,
+                    prefs.getBoolean(getString(R.string.settings_key_sound_on),
+                            getResources().getBoolean(R.bool.settings_default_sound_on)));
+        }
+
+        private void setCompoundButtonCheckState(int compoundButtonId, boolean checked) {
+            View view = getView().findViewById(compoundButtonId);
+            if (view != null && view instanceof CompoundButton) {
+                ((CompoundButton)view).setChecked(checked);
+            }
+        }
+
+        @Override
+        public void onCheckedChanged(CompoundButton checkBox, boolean isChecked) {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+            Editor e = prefs.edit();
+            switch (checkBox.getId()) {
+                case R.id.tip_settings_key_press_vibration:
+                    e.putString(getString(R.string.settings_key_vibrate_on_key_press_duration),
+                            isChecked ? "17" : "0");
+                    break;
+                case R.id.tip_settings_key_press_sound:
+                    e.putBoolean(getString(R.string.settings_key_sound_on), isChecked);
+                    break;
+            }
             e.commit();
         }
     }
