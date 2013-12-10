@@ -5,8 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.anysoftkeyboard.ui.settings.AdditionalUiSettingsFragment;
 import com.anysoftkeyboard.ui.settings.KeyboardAddOnSettingsFragment;
+import com.anysoftkeyboard.ui.settings.KeyboardThemeSelectorFragment;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -44,7 +44,7 @@ public class WizardPageDoneAndMoreSettingsFragment extends WizardPageBaseFragmen
                 activity.addFragmentToUi(new KeyboardAddOnSettingsFragment(), FragmentChauffeurActivity.FragmentUiContext.DeeperExperience);
                 break;
             case R.id.go_to_theme_action:
-                activity.addFragmentToUi(new AdditionalUiSettingsFragment(), FragmentChauffeurActivity.FragmentUiContext.DeeperExperience);
+                activity.addFragmentToUi(new KeyboardThemeSelectorFragment(), FragmentChauffeurActivity.FragmentUiContext.DeeperExperience);
                 break;
             case R.id.go_to_all_settings_action:
                 activity.onNavigateToRootClicked(v);

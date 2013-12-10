@@ -6,61 +6,61 @@
   <string name="spell_checker_service_name">Corrector ortogràfic de l\'AnySoftKeyboard</string>
   <string name="spell_checker_settings">Opcions del corrector de l\'AnySoftKeyboard</string>
   <string name="subtype_generic">Corrector genèric</string>
-  <string name="copyright_text">Copyright © <xliff:g id="year">%s</xliff:g> <xliff:g id="owner">%s</xliff:g></string>
-  <string name="version_text"><xliff:g id="version_name">%s</xliff:g> (v<xliff:g id="version_number">%s</xliff:g>)</string>
+  <string name="copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
+  <string name="version_text"><xliff:g id="version_name">%s</xliff:g>\u0020(v<xliff:g id="version_number">%s</xliff:g>)</string>
   <string name="additional_licenses"><u>Llicències addicionals…</u></string>
-  <string name="debug_tracing_starting">S\'ha iniciat l\'anàlisi.\nAssegureu-vos d\'aturar-ho quan ho creieu convenient</string>
-  <string name="debug_tracing_starting_failed">Ha fallat l\'inici el seguiment! Verifiqueu el contingut del «logcat».</string>
-  <string name="debug_tracing_finished">Anàlisi finalitzada.\nTrobareu l\'informe a
-        <xliff:g id="trace_file">%s</xliff:g>
-    </string>
+  <string name="debug_tracing_starting">Seguiment iniciat!\nAssegureu-vos d\'aturar-ho quan ho estimeu convenient</string>
+  <string name="debug_tracing_starting_failed">Ha fallat el seguiment! Verifiqueu el fitxer logcat per a més detalls.</string>
+  <string name="debug_tracing_finished">S\'ha finalitzat el seguiment!\nEl fitxer es troba a
+<xliff:g id="trace_file">%s</xliff:g>
+    </string>
+  <string name="menu_about_item">Quant a...</string>
   <string name="click_to_restart_suggestions">Toc per a suggeriments</string>
   <string name="tips_notification_text">Consell del dia!</string>
-  <string name="tips_button">Com s\'utilitza</string>
-  <string name="tips_button_description">Recomanacions per fer servir l\'AnySoftKeyboard</string>
+  <string name="tips_button">Com utilitzar l\'ASK</string>
+  <string name="tips_button_description">Suggeriments d\'us de l\'AnySoftKeyboard</string>
   <string name="tips_title">AnySoftKeyboard - Trucs</string>
-  <string name="click_for_previous_tip">↓ Anterior</string>
-  <string name="click_for_next_tip">Següent ↓</string>
+  <string name="tips_pager_swipe_hint">\u0020Llisqueu a l\'esquerra o dreta per a més suggeriments</string>
   <string name="tip_1_welcome_to_ask">Us donem la benvinguda a AnySoftKeyboard!</string>
-  <string name="tip_1_how_to_access_settings">Per accedir a les opcions de personalització; mantingueu premuda la tecla INTRO. Trobareu un bon grapat d\'opcions!
-    </string>
+  <string name="tip_1_how_to_access_settings">Per accedir a la configuració mantingueu premuda la tecla INTRO. Trobareu moltes opcions de personalització aquí!
+    </string>
   <string name="tip_2_gestures">Suport per a gestos!</string>
-  <string name="tip_2_gestures_tip">El mètode «Swipe» us fa l\'escriptura més fàcil! Llisqueu el dit d\'esquerra a dreta per canviar d\'idioma i al revés per alternar entre el teclat i els símbols. Si ho feu des de la barra d\'espai cap amunt trobareu opcions addicionals per al teclat i lliscant d\'amunt avall amagareu el teclat.\nTot això ho podeu configurar a les opcions! (Recordeu, mantingueu premuda la tecla INTRO).</string>
+  <string name="tip_2_gestures_tip">Amb un toc podeu fer molt! Llisqueu cap a la dreta per canviar d\'idioma al teclat, cap a l\'esquerra trobareu el teclat numèric, cap amunt si us mostrarà un teclat addicional i cap avall amagareu el teclat.\nTot això es pot configurar a les opcions (recordeu? Prement prolongadament la tecla INTRO).
+    </string>
   <string name="tip_3_hidden_kbds">Trucs i consells</string>
-  <string name="tip_3_hidden_kbds_tip">Existeixen teclats amagats:\n1) Llisqueu el dit des de la barra d\'espai cap amunt i accedireu als cursors per poder desplaçar-vos i al micròfon (per dictar un text).\n2) Llisqueu el dit des del teclat cap amunt fins treure\'l fora mentre continueu prement; accedireu al teclat numèric i simbòlic.</string>
+  <string name="tip_3_hidden_kbds_tip">Trobareu teclats amagats:\n1) Llisqueu el dit des de la barra d\'espai fins dalt i trobareu un teclat amb cursors i micròfon (per a la síntesi de veu).\n2) Llisqueu el dit cap amunt i fora del teclat mentre mantigueu premut. Aquest és el teclat numèric i simbòlic.
+    </string>
   <string name="tip_4_top_generic_row">Fila superior</string>
-  <string name="tip_4_top_generic_row_tip">La fila superior és genèrica per a tots els teclats, però es pot modificar! Per defecte aquesta fila està representada com a <i>« 123 »</i> per als caràcters numèrics i símbols, i com a <i>« ABC »</i> pel teclat d\'idioma. Podeu canviar aquest comportament a les opcions.
+  <string name="tip_4_top_generic_row_tip">La part superior del teclat és la mateixa per a tots els teclats, però es pot modificar! Podem canviar la barra (<i>123</i>) i (<i>ABC</i>) al nostre gust des del menú de configuració.
     </string>
   <string name="tip_4_top_generic_row_go_to_top_row_settings">Modifica l\'aparença</string>
   <string name="tip_5_key_feedback">Vibració i so</string>
-  <string name="tip_5_key_feedback_tip">Probablement us ajudarà comptar amb un element indicant que esteu prement les tecles. Si és el vostre cas, podeu activar la vibració, el só, o tots 2 elements alhora.
-    </string>
+  <string name="tip_5_key_feedback_tip">De vegades es millor tenir una referència per saber que hem premut una tecla sense haver de mirar al teclat. Podem triar entre una vibració, so, o totes dues opcions alhora.
+    </string>
   <string name="tip_5_key_feedback_test">Voleu provar la configuració?</string>
   <string name="tip_6_bottom_rows">Fila inferior</string>
-  <string name="tip_6_bottom_rows_tip">La fila inferior també pot ser modificada. L\'AnySoftKeyboard us permet adaptar-la com vulgueu; amb o sense micròfon, amb altre estil, etc.
-    </string>
+  <string name="tip_6_bottom_rows_tip">De la mateixa manera que la columna superior, també podem fer canvis a la inferior. L\'AnySoftKeyboard té diverses interfícies; amb o sense micròfon, estil iPhone, etc.
+    </string>
   <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Modifica l\'aparença</string>
   <string name="tip_7_voice_input">«Se\'m escolta bé?»</string>
-  <string name="tip_7_voice_input_tip">Escriure està bé, però dictar-ho encara és més còmode; només toqueu el botó del micròfon i comenceu a xerrar!\nCom utilitzem la meravellosa tecnologia de Google, segurament el vostre idioma està suportat :)
-    </string>
-  <string name="tip_7_voice_input_tip_dont_forget_bottom_row">Si voleu utilitzar sempre el micròfon, assegureu-vos que teniu la fila inferior correctament configurada (recordeu el truc anterior?).\nTambé podeu accedir al micròfon mitjançant el teclat amagat (lliscant el dit cap a munt des de la barra d\'espai).
-    </string>
+  <string name="tip_7_voice_input_tip">Escriure és entretingut, però és realment divertit fer-ho amb la veu! Voleu dictar el text? Toqueu la tecla del micròfon, i digueu el que volgueu!\nAquesta característica utilitza la tecnologia Google, per tant funcionarà sense problemes :)
+    </string>
+  <string name="tip_7_voice_input_tip_dont_forget_bottom_row">Si voleu tenir sempre accés al micròfon, assegureu-vos que teniu la columna inferior adient per aquesta tasca (recordeu el consell anterior?).\nIgualment, el micròfon romandrà disponible des del teclat amagat (lliscant amunt el dit des de la barra d\'espai).
+    </string>
   <string name="tip_7_voice_input_tip_note">* Necessari Android 2.2+ i connexió a Internet perquè funcioni.</string>
   <string name="tip_8_suggestions">Suggeriments</string>
-  <string name="tip_8_suggestions_tip">Segons l\'idioma triat per escriure, l\'AnySoftKeyboard pot ajudar-vos a finalitzar paraules o corregir errors tipogràfics. Tal com comenceu a escriure, l\'AnySoftKeyboard us suggerirà mots que prèviament hagueu escrit.
-    </string>
-  <string name="tip_8_suggestions_editor">Si l\'AnySoftKeyboard no reconeix una paraula, podeu entrenar-lo! Acabeu d\'escriure el mot, i toqueu a la barra de suggeriments per desar-ho.\nTambé podeu editar les paraules mitjançant l\'editor que trobareu a les opcions del diccionari.
-    </string>
+  <string name="tip_8_suggestions_tip">Segons l\'idioma triat, l\'AnySoftKeyboard us pot ajudar a finalitzar les paraules que esteu escrivint i corregir els errors tipogràfics. Tanmateix comenceu a escriure l\'AnySoftKeyboard us suggerirà paraules que prèviament hegueu inserit.
+    </string>
+  <string name="tip_8_suggestions_editor">Si una paraula és desconeguda, podeu entrenar el teclat! Inseriu la paraula i toqueu a la barra de suggeriments i serà recordada.\nPodeu editar les paraules des de l\'editor del diccionari que trobareu a les opcions de l\'AnySoftKeyboard.
+    </string>
   <string name="tip_9_suggestions_restart">Reinicia els suggerits</string>
-  <string name="tip_9_suggestions_restart_tip">L\'AnySoftKeyboard us facilita l\'escriptura suggerint-vos paraules segons el què esteu escrivint, però també podeu modificar el text que heu escrit! Només cal que toqueu la paraula que voleu modificar i si us mostraran més paraules a la barra de suggeriments.
-    </string>
   <string name="main_tab_welcome">Benvinguda</string>
   <string name="main_tab_links">Enllaços</string>
   <string name="main_tab_credits">Crèdits</string>
   <string name="how_to_pointer_title">Us donem la benvinguda a l\'AnySoftKeyboard</string>
   <string name="how_to_pointer_version_prefix">Versió: </string>
   <string name="how_to_pointer_not_app">L\'AnySoftKeyboard no és només una aplicació per escriure; és un substitut del vostre teclat en pantalla actual!
-    </string>
+    </string>
   <string name="how_to_pointer_go_to_links">Teniu més informació a la pestanya «Enllaços»</string>
   <string name="how_to_pointer_how_to_url">Informació quant a l\'ús d\'aquest teclat:</string>
   <string name="how_to_pointer_site">Informació del projecte:</string>
@@ -73,22 +73,23 @@
   <string name="main_tab_credits_GUI_by">Imatges de la interfície gràfica:</string>
   <string name="how_to_enable_dialog_title">Voleu activar l\'AnySoftKeyboard?</string>
   <string name="how_to_enable_dialog_text">L\'AnySoftKeyboard encara no està habilitat. Voleu veure com fer-ho?
-    </string>
+    </string>
   <string name="how_to_enable_dialog_show_me">Mostra-ho ara!</string>
   <string name="how_to_enable_dialog_dont_show_me">Més tard</string>
   <string name="how_to_simple_howto_preface">El sistema Android requereix que l\'usuari habiliti primer els teclats externs. Així és com es fa:
-    </string>
+    </string>
   <string name="how_to_simple_howto_enable_ask">1r) Habiliteu l\'AnySoftKeyboard (no us amoïneu pel missatge que si us mostrarà; l\'AnySoftKeyboard no emmagatzema cap dada ni l\'envia enlloc. Podeu consultar el nostre codi font per a més seguretat) :
-    </string>
+    </string>
   <string name="how_to_simple_howto_enable_ask_button">Activa l\'AnySoftKeyboard</string>
   <string name="how_to_simple_howto_press_back_to_return_tip">Toqueu el botó «Enrere» una vegada enllestit per tornar novament a les instruccions
-    </string>
+    
+    </string>
   <string name="how_to_simple_howto_switch_to_ask">2n) Seleccioneu l\'AnySoftKeyboard com a mètode d\'escriptura per defecte:
-    </string>
+    </string>
   <string name="how_to_simple_howto_switch_to_ask_button_after_step_1">Canvia a AnySoftKeyboard</string>
   <string name="how_to_simple_howto_switch_to_ask_button_before_step_1">Heu de fer el primer pas</string>
   <string name="how_to_simple_howto_go_to_settings">3r) Podeu personalitzar qualsevol cosa a l\'AnySoftKeyboard! Toqueu prolongadament la tecla «INTRO» i accedireu a la configuració.
-    </string>
+    </string>
   <string name="how_to_simple_howto_go_to_settings_button">Opcions d\'AnySoftKeyboard</string>
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
   <string name="notification_text_testers">Esteu emprant una versió Beta. Aneu amb cura!</string>
@@ -101,8 +102,7 @@
   <string name="about">Quant a</string>
   <string name="changelog">Registre de canvis</string>
   <string name="search_market_for_addons">Cerca de complements</string>
-  <string name="no_market_store_available">No s\'ha trobat el Google Play Store al vostre dispositiu; no es poden cercar complements!
-    </string>
+  <string name="search_market_for_keyboard_addons">Aconseguiu més teclats al <i>Play Store</i>…</string>
   <string name="theme_addons_settings">Opcions del teclat</string>
   <string name="keyboard_theme_tweak_group">Optimitzacions</string>
   <string name="keyboard_theme_tweak_hints_group">Configuració dels suggeriments</string>
@@ -112,19 +112,20 @@
   <string name="how_to_active_text">Com activar AnySoftKeyboard</string>
   <string name="added_word">S\'ha desat:
         <xliff:g id="word">%s</xliff:g>
-    </string>
+    </string>
   <string name="revert_added_word_question">Suprimir\?</string>
   <string name="removed_word">S\'ha suprimit:
         <xliff:g id="word">%s</xliff:g>
-    </string>
+    </string>
   <string name="hint_add_to_dictionary">Premeu altre vegada per desar el mot</string>
   <string name="hint_double_tap_to_close">Novament per suprimir suggeriments</string>
   <string name="menu_insert_smiley">Insereix una emoticona</string>
   <string name="click_for_help">Ajuda</string>
-  <string name="click_for_help_summary">Informació addicional per a l\'AnySoftKeyboard</string>
+  <string name="click_for_help_summary">Informació addicional de l\'AnySoftKeyboard</string>
   <string name="ui_group">Interfície d\'usuari</string>
   <string name="physical_keyboard_change_notification_title">Notificacions del teclat</string>
   <string name="physical_keyboard_change_notification_summary">Tipus de notificació de la disposició. En ús: %s
+    
     </string>
   <string name="physical_keyboard_change_notification_dialog_title">Trieu el tipus de notificació</string>
   <string name="lengthy_operations_toast_notification">Notifica les operacions de llarga durada</string>
@@ -132,38 +133,39 @@
   <string name="voice_input_not_support_in_this_os_version">El reconeixement vocal es suporta a l\'Android v.2.2+</string>
   <string name="voice_input_not_installed_title">No està instal·lat el reconeixement vocal</string>
   <string name="voice_input_not_installed_text">És necessari instal·lar el reconeixement de veu del Google abans d\'utilitzar aquesta característica.
-    </string>
+    </string>
   <string name="voice_input_not_installed_action_install">Instal·la</string>
   <string name="voice_input_not_installed_action_do_not_install">No instal·lis</string>
   <string name="voice_input_not_voice_pack_in_market">No s\'ha trobat el Google Voice (com.google.android.voicesearch). El reconeixement de veu no funcionarà en aquest dispositiu.
-    </string>
+    </string>
   <string name="change_ime">Canvia el mètode d\'entrada</string>
   <string name="override_dictionary">No facis servir el diccionari predeterminat</string>
   <string name="override_dictionary_title">Ignora
         <xliff:g id="word">%s</xliff:g>
         al diccionari
-    </string>
+    </string>
   <string name="override_dictionary_default">Predeterminat</string>
   <string name="override_disabled">Anul·lació finalitzada</string>
   <string name="override_enabled">S\'està ignorant
         <xliff:g id="word">%s</xliff:g>
-    </string>
+    </string>
   <string name="effects_group">Efectes</string>
   <string name="ime_settings">Configuració del teclat</string>
   <string name="vibrate_on_key_press_title">Vibració de les tecles</string>
-  <string name="vibrate_on_key_press_summary">Selecció del tipus de vibració</string>
   <string name="vibrate_on_key_press_dialog_title">Seleccioneu la durada de vibració</string>
   <string name="sound_on">So en tocar les tecles</string>
   <string name="sound_on_summary">Efectes de so en tocar les tecles.</string>
   <string name="use_custom_sound_volume">Volum personalitzat</string>
   <string name="use_custom_sound_volume_on_summary">El volum dels efectes de so és personalitzat.</string>
   <string name="use_custom_sound_volume_off_summary">El volum dels efectes és el mateix que les notificacions del sistema.
-    </string>
+    </string>
   <string name="custom_sound_volume">Volum de pulsació de tecles personalitzat</string>
   <string name="speacial_fetures_group">Funcions especials</string>
   <string name="switch_keyboard_on_space">Canvi de teclat amb l\'espai</string>
-  <string name="switch_keyboard_on_space_on_summary">Canvia del teclat simbòlic/numèric a l\'alfabètic en prémer la tecla «Espai»</string>
-  <string name="switch_keyboard_on_space_off_summary">No canviïs del teclat simbòlic/numèric a l\'alfabètic en prémer la tecla «Espai»</string>
+  <string name="switch_keyboard_on_space_on_summary">Canvia del teclat simbòlic/numèric a l\'alfabètic en prémer la tecla «Espai»
+    </string>
+  <string name="switch_keyboard_on_space_off_summary">No canviïs del teclat simbòlic/numèric a l\'alfabètic en prémer la tecla «Espai»
+    </string>
   <string name="hide_soft_when_physical">Amaga el teclat</string>
   <string name="hide_soft_when_physical_on_summary">No mostris l\'AnySoftKeyboard en emprar el teclat físic</string>
   <string name="hide_soft_when_physical_off_summary">Mostra l\'AnySoftKeyboard en emprar el teclat físic</string>
@@ -172,32 +174,26 @@
   <string name="fullscreen_input_connection_supported_off_summary">No facis servir el mode pantalla completa en posició apaïsada</string>
   <string name="fullscreen_portrait_input_connection_supported">Mode vertical</string>
   <string name="fullscreen_portrait_input_connection_supported_on_summary">Pantalla completa en mode vertical</string>
-  <string name="fullscreen_portrait_input_connection_supported_off_summary">No utilitzis la pantalla completa en mode apaïsat</string>
+  <string name="fullscreen_portrait_input_connection_supported_off_summary">No utilitzis la pantalla completa en mode apaïsat
+    </string>
   <string name="backword_support">Retrocés de paraula</string>
   <string name="backword_support_on_summary">Prement la combinació «majúscules + retrocés» s\'esborra la darrera paraula</string>
   <string name="backword_support_off_summary">Prement la tecla majúscules només s\'esborra el darrer caràcter</string>
   <string name="swipe_tweak_group">Associació de gestos al teclat</string>
   <string name="swipe_up_action">En lliscar amunt...</string>
-  <string name="swipe_up_action_summary">Defineix l\'acció associada en lliscar amunt el teclat</string>
   <string name="swipe_up_action_title">Trieu una acció per associar al moviment</string>
   <string name="swipe_up_from_spacebar_action">Canvia la barra d\'espai a dalt</string>
-  <string name="swipe_up_from_spacebar_action_summary">Defineix l\'acció associada a la barra d\'espai</string>
   <string name="swipe_up_from_spacebar_action_title">Trieu una acció per associar a la barra d\'espai</string>
   <string name="swipe_down_action">En lliscar avall...</string>
-  <string name="swipe_down_action_summary">Defineix l\'acció associada en lliscar avall el teclat</string>
   <string name="swipe_down_action_title">Seleccioneu l\'acció de lliscament avall</string>
   <string name="swipe_left_action">En lliscar a l\'esquerra...</string>
-  <string name="swipe_left_action_summary">Defineix l\'acció associada en lliscar a l\'esquerra el teclat</string>
   <string name="swipe_left_action_title">Seleccioneu l\'acció de lliscament a l\'esquerra</string>
   <string name="swipe_right_action">Lliscament a la dreta</string>
-  <string name="swipe_right_action_summary">Defineix l\'acció associada en lliscar a la dreta el teclat</string>
   <string name="swipe_right_action_title">Trieu una acció per associar al moviment</string>
   <string name="pinch_gesture_action">En pessigar la pantalla...</string>
   <string name="pinch_gesture_action_title">Trieu una acció per associar al moviment</string>
-  <string name="pinch_gesture_action_summary">Associa un gest a l\'acció</string>
   <string name="separate_gesture_action">Allarga el gest</string>
   <string name="separate_gesture_action_title">Seleccioneu la mida dels gestos</string>
-  <string name="separate_gesture_action_summary">Mida dels gestos</string>
   <string name="swipe_action_name_none">No associïs</string>
   <string name="swipe_action_name_next_alphabet">Següent lletra del teclat</string>
   <string name="swipe_action_name_next_symbols">Següent caràcter del teclat</string>
@@ -218,14 +214,12 @@
   <string name="swipe_action_name_merge_layout">Canvia al teclat normal</string>
   <string name="swipe_action_name_utility_keyboard">Mostra l\'ajuda al teclat</string>
   <string name="settings_swipe_velocity_threshold_title">Reconeixement de gestos</string>
-  <string name="settings_swipe_velocity_threshold_summary">Velocitat mínima d\'inserció de gestos</string>
   <string name="settings_swipe_velocity_very_slow">Molt lenta</string>
   <string name="settings_swipe_velocity_slow">Lenta</string>
   <string name="settings_swipe_velocity_normal">Normal</string>
   <string name="settings_swipe_velocity_fast">Ràpida</string>
   <string name="settings_swipe_velocity_very_fast">Molt ràpida</string>
   <string name="settings_swipe_distance_threshold_title">Distància del llindar del gest</string>
-  <string name="settings_swipe_distance_threshold_summary">Distància mínima en crear-ne un gest</string>
   <string name="settings_swipe_distance_very_short">Molt curta</string>
   <string name="settings_swipe_distance_short">Curta</string>
   <string name="settings_swipe_distance_normal">Normal</string>
@@ -234,24 +228,19 @@
   <string name="hardware_keys_group">Assignació de tecles físiques</string>
   <string name="volume_key_for_left_right_support">Tecla de volum per moure\'s esquerra/dreta</string>
   <string name="volume_key_for_left_right_support_on_summary">Inhabilita el moviment d\'esquerra/dreta amb la tecla de volum amunt/avall</string>
-  <string name="volume_key_for_left_right_support_off_summary">La tecla de pujar/baixar el volum mou el cursor cap a l\'esquerra/dreta respectívament</string>
   <string name="camera_key_for_backspace_backword_support">Usa la tecla de la càmera per retrocedir un espai o paraula</string>
   <string name="camera_key_for_backspace_backword_support_on_summary">Desactivant aquesta opció restaureu la funció de la tecla de la càmera</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Mitja pulsació al botó de la càmera suprimeix el darrer caràcter i una pulsació completa la darrera paraula</string>
+  <string name="camera_key_for_backspace_backword_support_off_summary">Mitja pulsació al botó de la càmera suprimeix el darrer caràcter i una pulsació completa la darrera paraula
+    </string>
+  <string name="menu_even_more_settings">Encara més…</string>
+  <string name="more_ui_settings_group">Interfície de l\'usuari</string>
   <string name="special_dictionaries_group">Diccionaris especials</string>
   <string name="special_dictionaries_group_summary">Suggeriments utilitzats als diccionaris de l\'AnySoftKeyboard</string>
   <string name="use_user_dictionary">Diccionari de l\'usuari</string>
   <string name="use_user_dictionary_on_summary">Suggereix paraules afegides per l\'usuari (toqueu 2 vegades al suggeriment per afegir-ho)</string>
   <string name="use_user_dictionary_off_summary"> </string>
   <string name="always_use_fallback_user_dictionary">Utilitza el diccionari per defecte</string>
-  <string name="always_use_fallback_user_dictionary_on_summary">Utilitza només el diccionari de l\'AnySoftKeyboard (no recomanat).</string>
-  <string name="always_use_fallback_user_dictionary_off_summary">Utilitza el diccionari original d\'Android (recomanat).</string>
   <string name="use_auto_dictionary">Diccionari automàtic</string>
-  <string name="use_auto_dictionary_dialog_title">Mètode d\'aprenentatge</string>
-  <string name="use_auto_dictionary_summary">Aprèn paraules automàticament. Mètode triat: %s</string>
-  <string name="auto_dictionary_threshold_type_after_a_while">En utilitzar-la diverses vegades</string>
-  <string name="auto_dictionary_threshold_type_immediately">Immediatament en escriure-la</string>
-  <string name="auto_dictionary_threshold_type_off">No aprendre paraules noves</string>
   <string name="use_contacts_dictionary">Diccionari de contactes</string>
   <string name="use_contacts_dictionary_on_summary">Suggereix els noms i cognoms de la llista de contactes</string>
   <string name="use_contacts_dictionary_off_summary"> </string>
@@ -290,18 +279,12 @@
   <string name="is_extesion_keyboard_above_keyboard">Comportament del teclat</string>
   <string name="is_extesion_keyboard_above_keyboard_on_summary">Mostra a sobre del teclat principal</string>
   <string name="is_extesion_keyboard_above_keyboard_off_summary">Mostra al teclat principal</string>
-  <string name="show_new_tips_notifications_again">Mostra els consells nous</string>
-  <string name="show_new_tips_notifications_again_on_summary">Us avisarem quan hi hagin consells nous disponibles</string>
-  <string name="show_new_tips_notifications_again_off_summary">No si us notificarà quan hi hagin consells nous</string>
+  <string name="show_new_tips_notifications_again_off_summary">No us avisarem quan hi hagin consells nous disponibles</string>
   <string name="show_settings_app_in_launcher">Configuració de l\'aplicació</string>
-  <string name="settings_key_show_settings_app_on_summary">La configuració de l\'aplicació serà visible al llançador (pot ser necessari reiniciar)</string>
   <string name="settings_key_show_settings_app_off_summary">Amaga la configuració (pot ser necessari reiniciar)</string>
   <string name="show_crash_notification">Informe d\'error</string>
   <string name="show_crash_notification_on_summary">Si l\'ASK falla, obre el diàleg d\'enviament d\'errors</string>
   <string name="show_crash_notification_off_summary">No reportis els errors</string>
-  <string name="show_new_version_notifications_again">Mostra les notificacions de noves versions</string>
-  <string name="show_new_version_notifications_again_on_summary">En instal·lar una versió nova es mostrarà el llistat de canvis</string>
-  <string name="show_new_version_notifications_again_off_summary">No si us notificarà en actualitzar a la versió més recent</string>
   <string name="use_keyrepeat">Repetició de tecles</string>
   <string name="use_keyrepeat_on_summary">S\'ha activat la repetició de tecles</string>
   <string name="use_keyrepeat_off_summary">La repetició de tecles està desactivada</string>
@@ -325,7 +308,6 @@
   <string name="zoom_factor_keys_in_portrait">Mida de tecles - mode vertical</string>
   <string name="zoom_factor_keys_in_landscape">Mida de tecles - mode apaïsat</string>
   <string name="insert_space_after_word_suggestion_selection">Suggeriment i espai</string>
-  <string name="insert_space_after_word_suggestion_selection_on_summary">Insereix un espai després de la paraula seleccionada</string>
   <string name="insert_space_after_word_suggestion_selection_off_summary"> </string>
   <string name="double_space_to_period">Doble espai per punt</string>
   <string name="double_space_to_period_summary">Converteix un espai repetit a punt+espai</string>
@@ -333,7 +315,6 @@
   <string name="action_key_invisible_on_disable_on_summary">No es mostra la tecla d\'acció</string>
   <string name="action_key_invisible_on_disable_off_summary">Es mostra la tecla d\'acció</string>
   <string name="tweak_animations_level_title">Efectes</string>
-  <string name="tweak_animations_level_summary">Animacions utilitzades. Actualment: %s</string>
   <string name="tweak_animations_level_types_full">Tot</string>
   <string name="tweak_animations_level_types_some">Només les principals</string>
   <string name="tweak_animations_level_types_none">Cap efecte</string>
@@ -361,47 +342,31 @@
   <string name="auto_dict">Diccionari automàtic</string>
   <string name="auto_dict_summary">Afegeix paraules emprades freqüentment (o seleccionades manualment) al diccionari</string>
   <string name="no_extrenal_packs_support_title">No suportat</string>
-  <string name="no_extrenal_packs_support_message">L\'AnySoftKeyboard no permet de moment l\'ús d\'aquest tipus d\'extensions de tercers. \nPublicarem una API que permeti això el més aviat possible. \nEsteu a la guait!</string>
   <string name="keyboards_group">Teclats disponibles</string>
-  <string name="keyboards_group_summary">Disposicions de teclat de l\'AnySoftKeyboard</string>
-  <string name="symbols_keyboard">123!#()</string>
-  <string name="symbols_alt_keyboard">{}\_</string>
-  <string name="symbols_alt_num_keyboard">123</string>
-  <string name="symbols_phone_keyboard">telèfon</string>
-  <string name="symbols_numbers_keyboard">123</string>
-  <string name="symbols_time_keyboard">temps</string>
   <string name="eng_keyboard">Anglès</string>
   <string name="eng_keyboard_qwertywithsymbols">Anglès amb símbols</string>
   <string name="eng_keyboard_16keys">Anglès - 16 tecles</string>
-  <string name="keyboard_change_locked">n/d</string>
-  <string name="selected_add_on_summary">en ús «<xliff:g id="addOnName">%s</xliff:g>»
-    </string>
   <string name="additional_addons_group">Complements addicionals</string>
   <string name="quick_text_keys_group">Tecla de funció especial</string>
   <string name="quick_text_key_active">Inserció avançada</string>
   <string name="quick_text_key_dialog_title">Trieu una opció</string>
-  <string name="quick_text_key_summary">Tecla de selecció de text ràpid: %s</string>
   <string name="extension_keyboards_group">Teclats addicioonals</string>
   <string name="extension_keyboards_summary">Selecció de la fila o l\'extensió de teclat</string>
   <string name="top_generic_row_group">Fila superior genèrica</string>
   <string name="top_generic_row_active">Activa la fila superior</string>
   <string name="top_generic_row_dialog_title">Seleccioneu el tipus de fila</string>
-  <string name="top_generic_row_summary">Selecció de la columna superior: %s</string>
   <string name="top_generic_row_list_title">Selecciona el tipus de fila</string>
   <string name="bottom_generic_row_group">Fila inferior genèrica</string>
   <string name="bottom_generic_row_active">Activa la fila superior</string>
   <string name="bottom_generic_row_dialog_title">Seleccioneu el tipus de fila</string>
-  <string name="bottom_generic_row_summary">Selecció de la columna inferior: %s</string>
   <string name="bottom_generic_row_list_title">Seleccioneu el tipus de fila</string>
   <string name="extension_keyboard_group">Complements del teclat</string>
   <string name="extension_keyboard_active">Activa els complements de teclat</string>
   <string name="extension_keyboard_dialog_title">Trieu el teclat</string>
-  <string name="extension_keyboard_summary">Extensió del teclat seleccionada: %s</string>
   <string name="extension_keyboard_list_title">Trieu el teclat</string>
   <string name="keyboard_theme_group">Aparences del teclat</string>
   <string name="keyboard_theme_active">Aparença del teclat</string>
   <string name="keyboard_theme_dialog_title">Trieu una aparença</string>
-  <string name="keyboard_theme_summary">Aparença seleccionada: %s</string>
   <string name="keyboard_theme_list_title">Trieu una aparença</string>
   <string name="gingerbread_keyboard_theme_name">Estil Gingerbread</string>
   <string name="gingerbread_keyboard_theme_description">Estil de butons «Gingerbread» (Android 2.3) </string>
@@ -429,7 +394,6 @@
   <string name="extension_kbd_extension_numbers_symbols">Numèric i simbòlic</string>
   <string name="show_tutorial_on_startup">Mostra aquest tutorial a l\'inici</string>
   <string name="tutorial_swipe_title">Llisca i canvia</string>
-  <string name="tutorial_swipe_text">La disposició del teclat es pot canviar lliscant el dit sobre el teclat. Llisqueu d\'esquerra a dreta per canviar l\'idioma i de dreta a esquerra per alternar els símbols. </string>
   <string name="label_go_key">Vés</string>
   <string name="label_next_key">Endavant</string>
   <string name="label_previous_key">Ant.</string>
@@ -473,47 +437,45 @@
   <string name="workaround_disable_rtl_fix_summary_on">Escriptura gestionada pel sistema (telèfons suportats)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Escriptura gestionada per l\'AnySoftKeyboard</string>
   <string name="settings_split_state_title">Disposició del teclat</string>
-  <string name="settings_split_state_summary">Defineix si el teclat està dividit per defecte. Actualment: %s</string>
   <string name="settings_split_state_merged_always">Teclat clàssic</string>
   <string name="settings_split_state_split_in_landscape">Teclat ergonòmic en mode apaïsat</string>
   <string name="settings_split_state_split_always">Teclat ergonòmic</string>
   <string name="user_dictionary_select_locale">Idioma:</string>
-  <string name="user_dictionary_read_please_wait">S\'estan llegint les paraules...</string>
   <string name="user_dict_settings_titlebar">Diccionari de l\'usuari</string>
   <string name="user_dict_editor">Editor de paraules</string>
   <string name="user_dict_settings_add_dialog_title">Afegeix al diccionari</string>
   <string name="user_dict_settings_edit_dialog_title">Edita una paraula</string>
-  <string name="user_dict_settings_empty_text">No teniu cap paraula al vostre diccionari. Podeu afegir-ne mitjançant el menú.</string>
   <string name="user_dict_backup_success_title">Còpia finalitzada!</string>
-  <string name="user_dict_backup_success_text">S\'han desat correctament les paraules del vostre diccionari a
-/Android/data/com.menny.android.anysoftkeyboard/files/
-    </string>
   <string name="user_dict_backup_fail_title">Còpia errònia!</string>
   <string name="user_dict_backup_fail_text">No es pot crear una còpia de seguretat! Teniu prou espai disponible?</string>
-  <string name="user_dict_backup_fail_text_with_error">Ha fallat en desar les paraules:
-        <xliff:g id="error">%s</xliff:g>
-    </string>
   <string name="user_dict_restore_success_title">Restauració completada!</string>
   <string name="user_dict_restore_success_text">S\'han restaurat les paraules correctament.</string>
   <string name="user_dict_restore_fail_title">ha fallat la restauració!</string>
   <string name="user_dict_restore_fail_text">No es pot accedir a les còpies de seguretat! Teniu accés a l\'emmagatzematge?</string>
-  <string name="user_dict_restore_fail_text_with_error">Ha fallat en restaurar les paraules:
-        <xliff:g id="error">%s</xliff:g>
-    </string>
-  <string name="fast_scroll_alphabet">ÀÈÉÍÒÓÚÇL·L</string>
+  <string name="fast_scroll_alphabet">ABÇDEFGHIJKL·LMNOPQRSTUVWXYZ</string>
   <string name="should_swap_punctuation_and_space_title">Intercanvia el punt i l\'espai</string>
   <string name="should_swap_punctuation_and_space_summary"> </string>
   <string name="should_swap_punctuation_and_space_yes">Sí</string>
   <string name="should_swap_punctuation_and_space_no">No</string>
-  <string name="developer_tools">Eines per a desenvolupadors</string>
-  <string name="click_for_developer_features">Eines per a desenvolupadors</string>
-  <string name="click_for_developer_features_summary">Eines diverses per a desenvolupadors de l\'AnySoftKeyboard</string>
-  <string name="failed_to_create_mem_dump">Ha fallat en crear el fitxer amb la informació de depuració:
-        <xliff:g id="message">%s</xliff:g>
-    </string>
-  <string name="created_mem_dump_file">S\'ha creat el fitxer amb la informació de depuració a:
-        <xliff:g id="file_path">%s</xliff:g>
-    </string>
+  <string name="developer_tools">Eines de desenvolupadors</string>
+  <string name="click_for_developer_features">Eines de desenvolupadors</string>
+  <string name="click_for_developer_features_summary">Diverses opcions per als desenvolupadors de l\'AnySoftKeyboard</string>
+  <string name="failed_to_create_mem_dump">Ha fallat en crear el volcat de memòria:
+<xliff:g id="message">%s</xliff:g>
+    </string>
+  <string name="created_mem_dump_file">S\'ha creat el volcat de memòria a:
+<xliff:g id="file_path">%s</xliff:g>
+    </string>
+  <string name="not_configured_with_just_click_here">Toqueu aquí</string>
+  <string name="click_for_more">més…</string>
+  <string name="back_button_label">Enrere</string>
+  <string name="next_button_label">Endavant</string>
+  <string name="skip_button_label">Omet</string>
+  <string name="word_editor_action_add_word">Afegeix</string>
+  <string name="word_editor_action_backup_words">Còpia de seguretat</string>
+  <string name="word_editor_action_restore_words">Restaura</string>
+  <string name="click_to_add_new_word">Toqueu per afegir una paraula nova</string>
+  <string name="enter_word_hint">Inseriu la paraula aquí</string>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Mostra sempre la icona del teclat actiu</item>
     <item>Mostra només en activar el teclat físic</item>

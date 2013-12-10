@@ -6,33 +6,40 @@
   <string name="spell_checker_service_name">Ορθογραφικός έλεγχος AnySoftKeyboard</string>
   <string name="spell_checker_settings">Ρυθμίσεις ορθογραφικού ελέγχου AnySoftKeyboard</string>
   <string name="subtype_generic">Ορθογραφικός έλεγχος-γενικά</string>
-  <string name="copyright_text">Πνευματικά δικαιώματα © <xliff:g id="year">%s</xliff:g> <xliff:g id="owner">%s</xliff:g></string>
-  <string name="version_text"><xliff:g id="version_name">%s</xliff:g> (v<xliff:g id="version_number">%s</xliff:g>)</string>
-  <string name="additional_licenses"><u>Πρόσθετες άδειες...</u></string>
+  <string name="copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
+  <string name="version_text"><xliff:g id="version_name">%s</xliff:g>\u0020(v<xliff:g id="version_number">%s</xliff:g>)</string>
+  <string name="additional_licenses"><u>Επιπλέον άδειες…</u></string>
   <string name="debug_tracing_starting">Η ανίχνευση ξεκίνησε!\nΒεβαιωθείτε ότι θα τη σταματήσετε κάποια στιγμή</string>
   <string name="debug_tracing_starting_failed">Η έναρξη ανίχνευσης απέτυχε! Ελέγξτε το logcat για λεπτομέρειες.</string>
-  <string name="debug_tracing_finished">Η ανίχνευση τελείωσε! \nΤο αρχείο ανίχνευσης είναι <xliff:g id="trace_file">%s</xliff:g></string>
+  <string name="debug_tracing_finished">Η ανίχνευση τελείωσε! \nΤο αρχείο ανίχνευσης είναι <xliff:g id="trace_file">%s</xliff:g>
+    </string>
+  <string name="menu_about_item">Σχετικά</string>
   <string name="click_to_restart_suggestions">Κάντε κλικ για υποδείξεις</string>
   <string name="tips_notification_text">Κάντε κλικ για συμβουλές!</string>
   <string name="tips_button">Τρόπος χρήσης</string>
   <string name="tips_button_description">Μερικές συμβουλές για το πώς να χρησιμοποιήσετε το AnySoftKeyboard</string>
   <string name="tips_title">Συμβουλές του AnySoftKeyboard</string>
-  <string name="click_for_previous_tip">↓ Προηγούμενη συμβουλή</string>
-  <string name="click_for_next_tip">Επόμενη συμβουλή ↓</string>
+  <string name="tips_pager_swipe_hint">ࢎ\u0020Σύρετε αριστερά ή δεξιά για περισσότερα μικρά μυστικά࢐</string>
   <string name="tip_1_welcome_to_ask">Καλώς ήλθατε στο AnySoftKeyboard!</string>
-  <string name="tip_1_how_to_access_settings">Για να αποκτήσετε πρόσβαση στις ρυθμίσεις, παρατεταμένο πάτημα του πλήκτρου ENTER. Θα βρείτε έναν κόσμο από προσαρμογές εκεί!</string>
+  <string name="tip_1_how_to_access_settings">Για να αποκτήσετε πρόσβαση στις ρυθμίσεις, παρατεταμένο πάτημα του πλήκτρου ENTER. Θα βρείτε έναν κόσμο από προσαρμογές εκεί!
+    </string>
   <string name="tip_2_gestures">Υποστηρίζω κινήσεις!</string>
-  <string name="tip_2_gestures_tip">Με ένα σύρσιμο, μπορείτε να κάνετε πολλά! Σύρσιμο από αριστερά προς τα δεξιά θα αλλάξει η γλώσσα, σύρσιμο προς τα αριστερά θα αλλάξει σε διάταξη με σύμβολα, σύρσιμο από το πλήκτρο διαστήματος και πάνω θα παρουσιάσει ένα εργαλείο πληκτρολογίου και σύρσιμο προς τα κάτω θα κρύψει το πληκτρολόγιο.\nΜπορεί να διαμορφωθεί στις ρυθμίσεις (θυμάστε; Παρατεταμένη πίεση στο πλήκτρο ENTER).</string>
+  <string name="tip_2_gestures_tip">Με ένα σύρσιμο, μπορείτε να κάνετε πολλά! Σύρσιμο από αριστερά προς τα δεξιά θα αλλάξει η γλώσσα, σύρσιμο προς τα αριστερά θα αλλάξει σε διάταξη με σύμβολα, σύρσιμο από το πλήκτρο διαστήματος και πάνω θα παρουσιάσει ένα εργαλείο πληκτρολογίου και σύρσιμο προς τα κάτω θα κρύψει το πληκτρολόγιο.\nΜπορεί να διαμορφωθεί στις ρυθμίσεις (θυμάστε; Παρατεταμένη πίεση στο πλήκτρο ENTER).
+    </string>
   <string name="tip_3_hidden_kbds">Κρυμμένα διαμάντια</string>
-  <string name="tip_3_hidden_kbds_tip">Υπάρχουν μερικά κρυμμένα πληκτρολόγια:\n1) Σέρνοντας το δάχτυλό σας από το πλήκτρο διαστήματος και πάνω, θα πάρετε ένα εργαλείο πληκτρολογίου με βέλη και μικρόφωνο (για την φωνητική εισαγωγή).\n2) Σύρετε το δάχτυλό σας προς τα πάνω και έξω από το πληκτρολόγιο και κρατήστε το πατημένο. Αυτή είναι η επέκταση πληκτρολογίου, με αριθμούς και σύμβολα.</string>
+  <string name="tip_3_hidden_kbds_tip">Υπάρχουν μερικά κρυμμένα πληκτρολόγια:\n1) Σέρνοντας το δάχτυλό σας από το πλήκτρο διαστήματος και πάνω, θα πάρετε ένα εργαλείο πληκτρολογίου με βέλη και μικρόφωνο (για την φωνητική εισαγωγή).\n2) Σύρετε το δάχτυλό σας προς τα πάνω και έξω από το πληκτρολόγιο και κρατήστε το πατημένο. Αυτή είναι η επέκταση πληκτρολογίου, με αριθμούς και σύμβολα.
+    </string>
   <string name="tip_4_top_generic_row">Πάνω σειρά</string>
-  <string name="tip_4_top_generic_row_tip">Η πάνω σειρά είναι ίδια σε όλες τις διατάξεις, και μπορεί να αλλάξει! Από προεπιλογή η πάνω σειρά περιλαμβάνει σύμβολα (<i>123</i>), αριστερό και δεξιό βέλος, και το πλήκτρο γλώσσας (<i>ABC</i>). Μπορείτε να αντικαταστήσετε αυτή τη γραμμή στις ρυθμίσεις.</string>
+  <string name="tip_4_top_generic_row_tip">Η πάνω σειρά είναι ίδια σε όλες τις διατάξεις, και μπορεί να αλλάξει! Από προεπιλογή η πάνω σειρά περιλαμβάνει σύμβολα (<i>123</i>), αριστερό και δεξιό βέλος, και το πλήκτρο γλώσσας (<i>ABC</i>). Μπορείτε να αντικαταστήσετε αυτή τη γραμμή στις ρυθμίσεις.
+    </string>
   <string name="tip_4_top_generic_row_go_to_top_row_settings">Αλλαγή πάνω σειράς τώρα</string>
   <string name="tip_5_key_feedback">Ανταπόκριση</string>
-  <string name="tip_5_key_feedback_tip">Μερικές φορές είναι ωραίο να πάρετε μια μη οπτική ανταπόκριση για πιέσεις πλήκτρων. Οπότε ορίστε, μπορείτε να έχετε δόνηση ή ήχο, ή και τα δύο.</string>
+  <string name="tip_5_key_feedback_tip">Μερικές φορές είναι ωραίο να πάρετε μια μη οπτική ανταπόκριση για πιέσεις πλήκτρων. Οπότε ορίστε, μπορείτε να έχετε δόνηση ή ήχο, ή και τα δύο.
+    </string>
   <string name="tip_5_key_feedback_test">Θέλετε να δοκιμάσετε την ανταπόκριση;</string>
   <string name="tip_6_bottom_rows">Κάτω σειρά</string>
-  <string name="tip_6_bottom_rows_tip">Όπως η πάνω σειρά, μπορεί να αντικατασταθεί επίσης και η κάτω σειρά. Το AnySoftKeyboard έχει πολλά είδη - με ή χωρίς μικρόφωνο, στυλ iPhone, κ.λπ.</string>
+  <string name="tip_6_bottom_rows_tip">Όπως η πάνω σειρά, μπορεί να αντικατασταθεί επίσης και η κάτω σειρά. Το AnySoftKeyboard έχει πολλά είδη - με ή χωρίς μικρόφωνο, στυλ iPhone, κ.λπ.
+    </string>
   <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Αλλαγή κάτω σειράς τώρα</string>
   <string name="tip_7_voice_input">Μίλησε σε μένα*</string>
   <string name="tip_7_voice_input_tip_note">* Απαιτεί Android 2.2+ και σύνδεση στο Διαδίκτυο για να λειτουργήσει.</string>
@@ -49,11 +56,14 @@
   <string name="main_tab_credits">Συντελεστές</string>
   <string name="how_to_pointer_title">Καλώς ήλθατε στο AnySoftKeyboard</string>
   <string name="how_to_pointer_version_prefix">Έκδοση: </string>
-  <string name="how_to_pointer_not_app">Το AnySoftKeyboard δεν είναι μια κονή εφαρμογή - είναι μία αντικατάσταση πληκτρολογίου στην οθόνη.</string>
+  <string name="how_to_pointer_not_app">Το AnySoftKeyboard δεν είναι μια κονή εφαρμογή - είναι μία αντικατάσταση πληκτρολογίου στην οθόνη.
+    </string>
   <string name="how_to_pointer_go_to_links">Για περισσότερες πληροφορίες, μεταβείτε στην καρτέλα συνδέσμων.</string>
   <string name="how_to_pointer_how_to_url">Λεπτομέρειες για το πώς να χρησιμοποιήσετε αυτό το πληκτρολόγιο:</string>
   <string name="how_to_pointer_site">Γενικές λεπτομέρειες:</string>
   <string name="how_to_pointer_changelog">Λεπτομέρειες σχετικά με την πιο πρόσφατη έκδοση:</string>
+  <string name="change_log_card_title_template">Τελευταίες αλλαγές για v<xliff:g id="code">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
+  <string name="change_log_entry_header_template">v<xliff:g id="code">%s</xliff:g>\u0020-\u0020<xliff:g id="name">%s</xliff:g></string>
   <string name="how_to_pointer_issues">Αναφορά σφαλμάτων:</string>
   <string name="main_tab_credits_title">Αυτή η εφαρμογή δημιουργήθηκε με τη βοήθεια των παρακάτω ατόμων-</string>
   <string name="main_tab_credits_created_by">Δημιουργήθηκε από:</string>
@@ -61,17 +71,23 @@
   <string name="main_tab_credits_localization_by">Μετάφραση απο:</string>
   <string name="main_tab_credits_GUI_by">Εικόνες περιβάλλοντος χρήσης από:</string>
   <string name="how_to_enable_dialog_title">Ενεργοποίηση του AnySoftKeyboard;</string>
-  <string name="how_to_enable_dialog_text">Το AnySoftKeyboard δεν έχει ενεργοποιηθεί ακόμα. Θέλετε να σας δείξω πώς να το ενεργοποιήσετε;</string>
+  <string name="how_to_enable_dialog_text">Το AnySoftKeyboard δεν έχει ενεργοποιηθεί ακόμα. Θέλετε να σας δείξω πώς να το ενεργοποιήσετε;
+    </string>
   <string name="how_to_enable_dialog_show_me">Δείξε μου!</string>
   <string name="how_to_enable_dialog_dont_show_me">Αργότερα</string>
-  <string name="how_to_simple_howto_preface">Το Android απαιτεί ότι εσείς (ο χρήστης) θα ενεργοποιήσετε χειροκίνητα τα εξωτερικά πληκτρολόγια. Αυτός είναι ο τρόπος:</string>
-  <string name="how_to_simple_howto_enable_ask">Βήμα 1: Ενεργοποίηση του AnySoftKeyboard (αυτό θα σας προειδοποιήσει σχετικά με πιθανές καταγραφές πλήκτρων, μην ανησυχείτε, το AnySoftKeyboard δεν διατηρεί δεδομένα, και δεν τα στέλνει πουθενά):</string>
+  <string name="how_to_simple_howto_preface">Το Android απαιτεί ότι εσείς (ο χρήστης) θα ενεργοποιήσετε χειροκίνητα τα εξωτερικά πληκτρολόγια. Αυτός είναι ο τρόπος:
+    </string>
+  <string name="how_to_simple_howto_enable_ask">Βήμα 1: Ενεργοποίηση του AnySoftKeyboard (αυτό θα σας προειδοποιήσει σχετικά με πιθανές καταγραφές πλήκτρων, μην ανησυχείτε, το AnySoftKeyboard δεν διατηρεί δεδομένα, και δεν τα στέλνει πουθενά) :
+    </string>
   <string name="how_to_simple_howto_enable_ask_button">Ενεργοποίηση AnySoftKeyboard</string>
-  <string name="how_to_simple_howto_press_back_to_return_tip">Πατήστε ΠΙΣΩ αφού τελειώσετε, για να πάτε πίσω στις οδηγίες ενεργοποίησης</string>
-  <string name="how_to_simple_howto_switch_to_ask">Βήμα 2: Επιλέξτε το AnySoftKeyboard ως την ενεργή μέθοδο εισαγωγής σας:</string>
+  <string name="how_to_simple_howto_press_back_to_return_tip">Πατήστε ΠΙΣΩ αφού τελειώσετε, για να πάτε πίσω στις οδηγίες ενεργοποίησης
+    </string>
+  <string name="how_to_simple_howto_switch_to_ask">Βήμα 2: Επιλέξτε το AnySoftKeyboard ως την ενεργή μέθοδο εισαγωγής σας:
+    </string>
   <string name="how_to_simple_howto_switch_to_ask_button_after_step_1">Αλλαγή σε AnySoftKeyboard</string>
   <string name="how_to_simple_howto_switch_to_ask_button_before_step_1">Πρώτα κάντε το βήμα 1</string>
-  <string name="how_to_simple_howto_go_to_settings">Βήμα 3 (προαιρετικό): Το AnySoftKeyboard είναι πολύ προσαρμόσιμο. Αλλάζουν πράγματα! Μπορείτε να το κάνετε αργότερα με παρατεταμένο πάτημα του πλήκτρου ENTER.</string>
+  <string name="how_to_simple_howto_go_to_settings">Βήμα 3 (προαιρετικό): Το AnySoftKeyboard είναι πολύ προσαρμόσιμο. Αλλάζουν πράγματα! Μπορείτε να το κάνετε αργότερα με παρατεταμένο πάτημα του πλήκτρου ENTER.
+    </string>
   <string name="how_to_simple_howto_go_to_settings_button">Ρυθμίσεις του AnySoftKeyboard</string>
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
   <string name="notification_text_testers">Αυτή είναι μια δοκιμαστική έκδοση. Χρησιμοποιήστε τη με προσοχή!</string>
@@ -84,7 +100,7 @@
   <string name="about">Σχετικά</string>
   <string name="changelog">Αρχείο αλλαγών</string>
   <string name="search_market_for_addons">Αναζήτηση για πρόσθετα</string>
-  <string name="no_market_store_available">Δεν μπόρεσε να βρεθεί το Android Play Store στη συσκευή σας. Δεν είναι δυνατή η αναζήτηση για πρόσθετα!</string>
+  <string name="search_market_for_keyboard_addons">Αποκτήστε περισσότερα πληκτρολόγια στο <i>Play Store</i>…</string>
   <string name="theme_addons_settings">Ρυθμίσεις θέματος πληκτρολογίου</string>
   <string name="keyboard_theme_tweak_group">Τροποποιήσεις</string>
   <string name="keyboard_theme_tweak_hints_group">Τροποποιήσεις κειμένου υποδείξεων</string>
@@ -93,15 +109,17 @@
   <string name="close_button">Κλείσιμο</string>
   <string name="how_to_active_text">Πως να ενεργοποιήσετε το AnySoftKeyboard</string>
   <string name="added_word">Αποθηκεύτηκε:
-<xliff:g id="word">%s</xliff:g></string>
-  <string name="revert_added_word_question">Αφαίρεση\;</string>
+<xliff:g id="word">%s</xliff:g>
+    </string>
+  <string name="revert_added_word_question">Αφαίρεση;</string>
   <string name="removed_word">Αφαιρέθηκε:
-<xliff:g id="word">%s</xliff:g></string>
+<xliff:g id="word">%s</xliff:g>
+    </string>
   <string name="hint_add_to_dictionary">\u2190 Αγγίξτε πάλι για αποθήκευση</string>
-  <string name="hint_double_tap_to_close">Πάλι για αφαίρεση υποδείξεων</string>
+  <string name="hint_double_tap_to_close">Επαναλάβετε για αφαίρεση υποδείξεων</string>
   <string name="menu_insert_smiley">Εισαγωγή εικονιδίων</string>
   <string name="click_for_help">Βοήθεια</string>
-  <string name="click_for_help_summary">Πρόσθετη βοήθεια για το AnySoftKeyboard</string>
+  <string name="click_for_help_summary">Επιπλέον βοήθεια για το AnySoftKeyboard</string>
   <string name="ui_group">Περιβάλλον χρήσης</string>
   <string name="physical_keyboard_change_notification_title">Ειδοποίηση διάταξης πληκτρολογίου</string>
   <string name="physical_keyboard_change_notification_summary">Τύπος ειδοποίησης για την ενεργή διάταξη. Τώρα: %s
@@ -117,25 +135,30 @@
   <string name="override_dictionary">Παράκαμψη προεπιλεγμένου λεξικού</string>
   <string name="override_dictionary_title">Παράκαμψη
 <xliff:g id="word">%s</xliff:g>
-λεξικού</string>
+λεξικού
+    </string>
   <string name="override_dictionary_default">Προεπιλογή</string>
   <string name="override_disabled">Η παράκαμψη αφαιρέθηκε</string>
-  <string name="override_enabled">Παράκαμψη στο <xliff:g id="word">%s</xliff:g></string>
+  <string name="override_enabled">Παράκαμψη στο <xliff:g id="word">%s</xliff:g>
+    </string>
+  <string name="gesture_settings">Χειρονομίες</string>
   <string name="effects_group">Επιδράσεις</string>
   <string name="ime_settings">Ρυθμίσεις πληκτρολογίου</string>
   <string name="vibrate_on_key_press_title">Δόνηση στο πάτημα των πλήκτρων</string>
-  <string name="vibrate_on_key_press_summary">Επιλέξτε για δόνηση κατά το πάτημα των πλήκτρων</string>
   <string name="vibrate_on_key_press_dialog_title">Επιλέξτε τύπο δόνησης</string>
   <string name="sound_on">Ήχος κατά την πληκτρολόγηση</string>
   <string name="sound_on_summary">Ηχητικά εφέ στο πάτημα των πλήκτρων.</string>
   <string name="use_custom_sound_volume">Ορισμός προσαρμοσμένης έντασης</string>
   <string name="use_custom_sound_volume_on_summary">Η ένταση των ηχητικών εφέ είναι προσαρμοσμένη.</string>
-  <string name="use_custom_sound_volume_off_summary">Η ένταση ηχητικών εφέ είναι η ένταση των ειδοποιήσεων συστήματος.</string>
+  <string name="use_custom_sound_volume_off_summary">Η ένταση ηχητικών εφέ είναι η ένταση των ειδοποιήσεων συστήματος.
+    </string>
   <string name="custom_sound_volume">Προσαρμοσμένη ένταση πίεσης πλήκτρου</string>
   <string name="speacial_fetures_group">Ειδικά χαρακτηριστικά</string>
   <string name="switch_keyboard_on_space">Το πλήκτρο διαστήματος αλλάζει πληκτρολόγια</string>
-  <string name="switch_keyboard_on_space_on_summary">Αλλαγή από σύμβολα/αριθμούς σε αλφάβητο όταν πιέζεται το διάστημα</string>
-  <string name="switch_keyboard_on_space_off_summary">Να μην γίνεται αλλαγή από σύμβολα/αριθμούς σε αλφάβητο όταν πιέζεται το διάστημα</string>
+  <string name="switch_keyboard_on_space_on_summary">Αλλαγή από σύμβολα/αριθμούς σε αλφάβητο όταν πιέζεται το διάστημα
+    </string>
+  <string name="switch_keyboard_on_space_off_summary">Να μην γίνεται αλλαγή από σύμβολα/αριθμούς σε αλφάβητο όταν πιέζεται το διάστημα
+    </string>
   <string name="hide_soft_when_physical">Απόκρυψη πληκτρολογίου σε φυσικό πλήκτρο</string>
   <string name="hide_soft_when_physical_on_summary">Απόκρυψη εικονικού πληκτρολογίου όταν χρησιμοποιείται το φυσικό</string>
   <string name="hide_soft_when_physical_off_summary">Εμφάνιση εικονικού πληκτρολογίου όταν χρησιμοποιείται το φυσικό</string>
@@ -144,32 +167,26 @@
   <string name="fullscreen_input_connection_supported_off_summary">Να μη χρησιμοποιείτε εισαγωγή πλήρους οθόνης σε οριζόντιο</string>
   <string name="fullscreen_portrait_input_connection_supported">Χρήση πλήρους οθόνης σε κατακόρυφο</string>
   <string name="fullscreen_portrait_input_connection_supported_on_summary">Εισαγωγή πλήρους οθόνης σε κατακόρυφο</string>
-  <string name="fullscreen_portrait_input_connection_supported_off_summary">Να μην γίνεται χρήση εισαγωγής πλήρους οθόνης σε κατακόρυφο</string>
+  <string name="fullscreen_portrait_input_connection_supported_off_summary">Να μην γίνεται χρήση εισαγωγής πλήρους οθόνης σε κατακόρυφο
+    </string>
   <string name="backword_support">Υποστήριξη Back-word</string>
   <string name="backword_support_on_summary">Το μετακινούμενο Backspace θα διαγράψει την τελευταία λέξη</string>
   <string name="backword_support_off_summary">Το μετακινούμενο Backspace θα διαγράψει τον τελευταίο χαρακτήρα</string>
   <string name="swipe_tweak_group">Αλλαγή ενεργειών συρσίματος χειρονομίας</string>
   <string name="swipe_up_action">Σύρσιμο προς τα πάνω</string>
-  <string name="swipe_up_action_summary">Ορίστε το σύρσιμο προς τα πάνω της ενέργειας χειρονομίας</string>
   <string name="swipe_up_action_title">Επιλογή ενέργειας συρσίματος προς τα πάνω</string>
   <string name="swipe_up_from_spacebar_action">Σύρσιμο πλήκτρου διαστήματος προς τα πάνω</string>
-  <string name="swipe_up_from_spacebar_action_summary">Ορισμός συρσίματος προς τα πάνω από την ενέργεια χειρονομίας του πλήκτρου διαστήματος</string>
   <string name="swipe_up_from_spacebar_action_title">Επιλογή ενέργειας συρσίματος του πλήκτρου διαστήματος προς τα πάνω</string>
   <string name="swipe_down_action">Σύρσιμο προς τα κάτω</string>
-  <string name="swipe_down_action_summary">Ορίστε το σύρσιμο προς τα κάτω της ενέργειας χειρονομίας</string>
   <string name="swipe_down_action_title">Επιλογή ενέργειας συρσίματος προς τα κάτω</string>
   <string name="swipe_left_action">Σύρσιμο προς τα αριστερά</string>
-  <string name="swipe_left_action_summary">Ορίστε το σύρσιμο προς τα αριστερά της ενέργειας χειρονομίας</string>
   <string name="swipe_left_action_title">Επιλογή ενέργειας συρσίματος προς τα αριστερά</string>
   <string name="swipe_right_action">Σύρσιμο προς τα δεξιά</string>
-  <string name="swipe_right_action_summary">Ορίστε το σύρσιμο προς τα δεξιά της ενέργειας χειρονομίας</string>
   <string name="swipe_right_action_title">Επιλογή ενέργειας συρσίματος προς τα δεξιά</string>
   <string name="pinch_gesture_action">Τσίμπημα</string>
   <string name="pinch_gesture_action_title">Επιλέξτε ενέργεια για τσίμπημα</string>
-  <string name="pinch_gesture_action_summary">Καθορισμός ενέργειας του τσιμπήματος</string>
   <string name="separate_gesture_action">Έκταση χειρονομίας</string>
   <string name="separate_gesture_action_title">Επιλέξτε έκταση ενέργειας χειρονομίας</string>
-  <string name="separate_gesture_action_summary">Ορίστε την έκταση ενέργειας χειρονομίας</string>
   <string name="swipe_action_name_none">Καμία ενέργεια</string>
   <string name="swipe_action_name_next_alphabet">Επόμενο αλφαβητικό πληκτρολόγιο</string>
   <string name="swipe_action_name_next_symbols">Επόμενο πληκτρολόγιο συμβόλων</string>
@@ -190,14 +207,12 @@
   <string name="swipe_action_name_merge_layout">Ενιαία διάταξη</string>
   <string name="swipe_action_name_utility_keyboard">Εμφάνιση βοηθητικού προγράμματος πληκτρολογίου</string>
   <string name="settings_swipe_velocity_threshold_title">Όριο ταχύτητας σάρωσης</string>
-  <string name="settings_swipe_velocity_threshold_summary">Ελάχιστη ταχύτητα σάρωσης χειρονομίας</string>
   <string name="settings_swipe_velocity_very_slow">Πολύ αργή</string>
   <string name="settings_swipe_velocity_slow">Αργή</string>
   <string name="settings_swipe_velocity_normal">Κανονική</string>
   <string name="settings_swipe_velocity_fast">Γρήγορη</string>
   <string name="settings_swipe_velocity_very_fast">Πολύ γρήγορη</string>
   <string name="settings_swipe_distance_threshold_title">Όριο απόστασης σάρωσης</string>
-  <string name="settings_swipe_distance_threshold_summary">Η ελάχιστη απόσταση σάρωσης χειρονομίας</string>
   <string name="settings_swipe_distance_very_short">Πολύ μικρή</string>
   <string name="settings_swipe_distance_short">Μικρή</string>
   <string name="settings_swipe_distance_normal">Κανονική</string>
@@ -206,21 +221,11 @@
   <string name="hardware_keys_group">Πίνακας χαρακτήρων φυσικού πληκτρολογίου</string>
   <string name="volume_key_for_left_right_support">Πλήκτρο έντασης για αριστερά/δεξιά</string>
   <string name="volume_key_for_left_right_support_on_summary">Απενεργοποίηση αριστερά/δεξιά μέσω έντασης πάνω/κάτω</string>
-  <string name="volume_key_for_left_right_support_off_summary">Η αύξηση έντασης μετακινεί τον κέρσορα αριστερά, η μείωση έντασης μετακινεί τον κέρσορα δεξιά</string>
   <string name="camera_key_for_backspace_backword_support">Χρήση του πλήκτρου κάμερας για backspace/backword</string>
   <string name="camera_key_for_backspace_backword_support_on_summary">Επαναφορά της λειτουργίας πλήκτρου κάμερας</string>
-  <string name="camera_key_for_backspace_backword_support_off_summary">Μισή πίεση στο κουμπί κάμερας διαγράφει τον τελευταίο χαρακτήρα, πλήρης πίεση διαγράφει την τελευταία λέξη</string>
   <string name="special_dictionaries_group">Ειδικά λεξικά</string>
-  <string name="special_dictionaries_group_summary">Λεξικά υποδείξεων που χρησιμοποιούνται στο AnySoftKeyboard</string>
-  <string name="use_user_dictionary">Λεξικό-χρήστη</string>
   <string name="use_user_dictionary_off_summary"> </string>
-  <string name="always_use_fallback_user_dictionary">Χρήση εφεδρικού λεξικού χρήστη</string>
   <string name="use_auto_dictionary">Αυτόματο λεξικό</string>
-  <string name="use_auto_dictionary_dialog_title">Επιλέξτε μέθοδο εκμάθησης</string>
-  <string name="use_auto_dictionary_summary">Αυτόματη εκμάθηση νέων λέξεων. Μέθοδος εκμάθησης: %s</string>
-  <string name="auto_dictionary_threshold_type_after_a_while">Μετά από κάποια χρήση</string>
-  <string name="auto_dictionary_threshold_type_immediately">Αμέσως μετά αφού το πληκτρολογήσω</string>
-  <string name="auto_dictionary_threshold_type_off">Μη εκμάθηση νέων λέξεων</string>
   <string name="use_contacts_dictionary">Λεξικό επαφών</string>
   <string name="use_contacts_dictionary_on_summary">Πρόταση ονομάτων από τη λίστα επαφών</string>
   <string name="use_contacts_dictionary_off_summary"> </string>
@@ -259,15 +264,12 @@
   <string name="is_extesion_keyboard_above_keyboard">Πάνω επέκταση πληκτρολογίου</string>
   <string name="is_extesion_keyboard_above_keyboard_on_summary">Σχεδίαση πάνω απ΄ το κύριο πληκτρολόγιο</string>
   <string name="is_extesion_keyboard_above_keyboard_off_summary">Σχεδίαση στο κύριο πληκτρολόγιο</string>
-  <string name="show_new_tips_notifications_again">Εμφάνιση νέων συμβουλών</string>
-  <string name="show_new_tips_notifications_again_on_summary">Όταν υπάρχουν νέες συμβουλές, αυτές θα εμφανίζονται</string>
-  <string name="show_new_tips_notifications_again_off_summary">Δεν θα σας ενημερώσουμε όταν υπάρχει διαθέσιμη μια νέα συμβουλή</string>
+  <string name="show_new_tips_notifications_again_off_summary">Δεν θα σας ειδοποιήσουμε όταν υπάρχει διαθέσιμη μια νέα συμβουλή</string>
   <string name="show_settings_app_in_launcher">Ρυθμίσεις εφαρμογής</string>
   <string name="settings_key_show_settings_app_off_summary">Απόκρυψη ρυθμίσεων εφαρμογής (μπορεί να χρειαστεί επανεκκίνηση)</string>
   <string name="show_crash_notification">Αναφορά διακοπής λειτουργίας</string>
   <string name="show_crash_notification_on_summary">Κατά την διακοπή λειτουργίας ASK, άνοιγμα παραθύρου διαλόγου αναφοράς διακοπής λειτουργίας</string>
   <string name="show_crash_notification_off_summary">Σιωπηλή απορρόφηση διακοπής λειτουργίας</string>
-  <string name="show_new_version_notifications_again">Εμφάνιση ειδοποιήσεων για νέα έκδοση</string>
   <string name="use_keyrepeat">Χρήση πλήκτρου επανάληψης</string>
   <string name="use_keyrepeat_on_summary">Το πλήκτρο επανάληψης είναι ενεργοποιημένο</string>
   <string name="use_keyrepeat_off_summary">Το πλήκτρο επανάληψης είναι απενεργοποιημένο</string>
@@ -298,7 +300,6 @@
   <string name="action_key_invisible_on_disable_on_summary">Το κουμπί ενέργειας θα είναι αόρατο όταν ζητείται απο το GUI</string>
   <string name="action_key_invisible_on_disable_off_summary">Το κουμπί ενέργειας θα είναι ορατό ακόμη και αν ζητείται από το GUI</string>
   <string name="tweak_animations_level_title">Κινούμενες εικόνες</string>
-  <string name="tweak_animations_level_summary">Πόσες κινούμενες εικόνες θα πρέπει να χρησιμοποιούνται. Τώρα: %s</string>
   <string name="tweak_animations_level_types_full">Πλήρης</string>
   <string name="tweak_animations_level_types_some">Μερικές</string>
   <string name="tweak_animations_level_types_none">Καμία</string>
@@ -327,19 +328,9 @@
   <string name="auto_dict_summary">Αυτόματη προσθήκη στο λεξικό, λέξεων που χρησιμοποιούνται συχνά ή είναι επιλεγμένες</string>
   <string name="no_extrenal_packs_support_title">Δεν υποστηρίζεται</string>
   <string name="keyboards_group">Πληκτρολόγια</string>
-  <string name="keyboards_group_summary">Διατάξεις πληκτρολογίου για χρήση στο AnySoftKeyboard</string>
-  <string name="symbols_keyboard">123!#()</string>
-  <string name="symbols_alt_keyboard">{}\_</string>
-  <string name="symbols_alt_num_keyboard">123</string>
-  <string name="symbols_phone_keyboard">τηλέφωνο</string>
-  <string name="symbols_numbers_keyboard">123</string>
-  <string name="symbols_time_keyboard">ώρα</string>
   <string name="eng_keyboard">Αγγλικά</string>
   <string name="eng_keyboard_qwertywithsymbols">Αγγλικά με σύμβολα</string>
   <string name="eng_keyboard_16keys">Αγγλικά 16 πλήκτρων</string>
-  <string name="keyboard_change_locked">μ/δ</string>
-  <string name="selected_add_on_summary">Τώρα χρησιμοποιείται \'<xliff:g id="addOnName">%s</xliff:g>\'
-    </string>
   <string name="additional_addons_group">Επιπλέον πρόσθετα</string>
   <string name="quick_text_keys_group">Πλήκτρο ταχείας γραφής κειμένου</string>
   <string name="quick_text_key_active">Ενεργοποίηση πλήκτρου ταχείας γραφής</string>
@@ -441,7 +432,7 @@
   <string name="settings_split_state_split_in_landscape">Έναρξη διαιρεμένου σε οριζόντιο</string>
   <string name="settings_split_state_split_always">Έναρξη διαιρεμένου</string>
   <string name="user_dictionary_select_locale">Γλώσσα:</string>
-  <string name="user_dictionary_read_please_wait">Ανάγνωση λέξεων...</string>
+  <string name="user_dictionary_read_please_wait">Ανάγνωση λέξεων…</string>
   <string name="user_dict_settings_titlebar">Λεξικό χρήστη</string>
   <string name="user_dict_editor">Πρόγραμμα επεξεργασίας λέξεων</string>
   <string name="user_dict_settings_add_dialog_title">Προσθήκη στο λεξικό</string>
@@ -453,10 +444,33 @@
   <string name="user_dict_restore_success_text">Επιτυχής επαναφορά των λέξεών σας.</string>
   <string name="user_dict_restore_fail_title">Η επαναφορά απέτυχε!</string>
   <string name="user_dict_restore_fail_text">Δεν ήταν δυνατή η ανάγνωση των αρχείων του αντιγράφου ασφαλείας σας! Ο αποθηκευτικός χώρος είναι διαθέσιμος;</string>
+  <string name="fast_scroll_alphabet">ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ</string>
   <string name="should_swap_punctuation_and_space_title">Εναλλαγή σημείων στίξης και διαστήματος</string>
   <string name="should_swap_punctuation_and_space_summary">Εναλλαγή σημείων στίξης και διαστήματος</string>
   <string name="should_swap_punctuation_and_space_yes">Ναι</string>
   <string name="should_swap_punctuation_and_space_no">Όχι</string>
+  <string name="drawer_open">Άνοιγμα μενού</string>
+  <string name="drawer_close">Κλείσιμο μενού</string>
+  <string name="not_configured_with_just_click_here">Κάντε κλικ εδώ</string>
+  <string name="click_for_more">περισσότερα…</string>
+  <string name="back_button_label">Πίσω</string>
+  <string name="next_button_label">Επόμενο</string>
+  <string name="skip_button_label">Παράλειψη</string>
+  <string name="word_editor_action_add_word">Προσθήκη λέξης</string>
+  <string name="word_editor_action_backup_words">Αντίγραφο ασφαλείας</string>
+  <string name="word_editor_action_restore_words">Επαναφορά</string>
+  <string name="click_to_add_new_word">Κάντε κλικ για να προσθέσετε μια νέα λέξη</string>
+  <string name="enter_word_hint">Πληκτρολογήστε τη νέα λέξη εδώ</string>
+  <string name="toggle_button_on">Ενεργό</string>
+  <string name="toggle_button_off">Ανενεργό</string>
+  <string name="about_additional_software_licenses">Επιπλέον άδειες λογισμικού</string>
+  <string name="wizard_step_previous_step_not_complete_title">Το προηγούμενο βήμα εγκατάστασης δεν είναι πλήρες</string>
+  <string name="wizard_step_previous_step_not_complete_text">Παρακαλώ σύρετε στο προηγούμενο βήμα, και ακολουθήστε τις οδηγίες.</string>
+  <string name="wizard_step_this_step_complete_title">Το βήμα ολοκληρώθηκε!</string>
+  <string name="setup_wizard_step_one_title">Ενεργοποίηση AnySoftKeyboard</string>
+  <string name="setup_wizard_step_small_sub_title">Αυτό είναι το πρώτο βήμα, αλλά μην ανησυχείτε, υπάρχουν μόνο τρεία, πολύ απλά βήματα.</string>
+  <string name="setup_wizard_step_two_title">Μεταβείτε σε AnySoftKeyboard</string>
+  <string name="setup_wizard_step_two_small_sub_title">Βήμα δύο από τρία</string>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Να εμφανίζεται πάντα το εικονίδιο διάταξης</item>
     <item>Σε αλλαγή του φυσικού πληκτρολογίου</item>

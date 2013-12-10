@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +38,7 @@ public class SetUpKeyboardWizardFragment extends PassengerFragment {
                 case KEY_MESSAGE_SCROLL_TO_PAGE:
                     int pageToScrollTo = msg.arg1;
                     mWizardPager.setCurrentItem(pageToScrollTo, true);
+                    setFullIndicatorTo(pageToScrollTo, 0.0f);
                     break;
                 case KEY_MESSAGE_UPDATE_INDICATOR:
                     int position = msg.arg1;
@@ -47,8 +49,7 @@ public class SetUpKeyboardWizardFragment extends PassengerFragment {
         }
     };
 
-    ViewPager mWizardPager;
-
+    private ViewPager mWizardPager;
     private Context mAppContext;
 
     private final ContentObserver mSecureSettingsChanged = new ContentObserver(null) {
@@ -59,8 +60,12 @@ public class SetUpKeyboardWizardFragment extends PassengerFragment {
 
         @Override
         public void onChange(boolean selfChange) {
-            mWizardPager.getAdapter().notifyDataSetChanged();
-            scrollToPageRequiresSetup();
+            if (isResumed()) {
+                mWizardPager.getAdapter().notifyDataSetChanged();
+                scrollToPageRequiresSetup();
+            } else {
+                mReloadPager = true;
+            }
         }
     };
     private ViewPager.OnPageChangeListener onPageChangedListener = new ViewPager.OnPageChangeListener() {
@@ -83,6 +88,8 @@ public class SetUpKeyboardWizardFragment extends PassengerFragment {
         public void onPageScrollStateChanged(int i) {
         }
     };
+
+    private boolean mReloadPager = false;
     private View mFullIndicator;
 
     private void setFullIndicatorTo(int position, float offset) {
@@ -95,7 +102,8 @@ public class SetUpKeyboardWizardFragment extends PassengerFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mAppContext = getActivity().getApplicationContext();
+        FragmentActivity activity = getActivity();
+        mAppContext = activity.getApplicationContext();
         mAppContext.getContentResolver().registerContentObserver(Settings.Secure.CONTENT_URI, true, mSecureSettingsChanged);
     }
 
@@ -120,7 +128,12 @@ public class SetUpKeyboardWizardFragment extends PassengerFragment {
         MainSettingsActivity activity = (MainSettingsActivity) getActivity();
         activity.setFullScreen(true);
         //checking to see which page should be shown on start
+        if (mReloadPager) {
+            mWizardPager.getAdapter().notifyDataSetChanged();
+        }
         scrollToPageRequiresSetup();
+
+        mReloadPager = false;
     }
 
     private void scrollToPageRequiresSetup() {
@@ -150,5 +163,6 @@ public class SetUpKeyboardWizardFragment extends PassengerFragment {
     public void onDestroy() {
         super.onDestroy();
         mAppContext.getContentResolver().unregisterContentObserver(mSecureSettingsChanged);
+        mAppContext = null;
     }
 }
