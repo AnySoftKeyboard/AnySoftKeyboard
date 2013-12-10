@@ -124,7 +124,7 @@ android {
         beta {
             signingConfig signingConfigs.release
             zipAlign true
-            debuggable true
+            debuggable false
         }
     }
 }
