@@ -49,7 +49,7 @@ android {
     buildToolsVersion "19.0.0"
 
     defaultConfig {
-        versionCode 114
+        versionCode 115
         versionName "1.1."+getVersionPatchBuild()
 
         minSdkVersion 7
@@ -121,10 +121,10 @@ android {
             zipAlign true
         }
 
-        beta {
+        debug {
             signingConfig signingConfigs.release
             zipAlign true
-            debuggable false
+            debuggable true
         }
     }
 }
