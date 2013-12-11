@@ -184,6 +184,8 @@ public class AnyKeyboardBaseView extends View implements
     final PointerQueue mPointerQueue = new PointerQueue();
 
     private final boolean mHasDistinctMultitouch;
+    private static final long TWO_FINGERS_LINGER_TIME = 30;
+    private long mLastTimeHadTwoFingers = 0;
     private int mOldPointerCount = 1;
 
     protected KeyDetector mKeyDetector = new ProximityKeyDetector();
@@ -239,6 +241,13 @@ public class AnyKeyboardBaseView extends View implements
 
     private final KeyboardDimensFromTheme mKeyboardDimens = new KeyboardDimensFromTheme();
 
+    public boolean isAtTwoFingersState() {
+        //this is a hack, I know.
+        //I know that this is a swipe ONLY after the second finger is up, so I already lost the
+        //two-fingers count in the motion event.
+        return SystemClock.elapsedRealtime() - mLastTimeHadTwoFingers > TWO_FINGERS_LINGER_TIME;
+    }
+
     private static final class MiniKeyboardActionListener implements
             OnKeyboardActionListener {
 
@@ -281,10 +290,10 @@ public class AnyKeyboardBaseView extends View implements
             mParentKeyboard.get().dismissPopupKeyboard();
         }
 
-        public void onSwipeLeft(boolean onSpacebar) {
+        public void onSwipeLeft(boolean onSpacebar, boolean twoFingers) {
         }
 
-        public void onSwipeRight(boolean onSpacebar) {
+        public void onSwipeRight(boolean onSpacebar, boolean twoFingers) {
         }
 
         public void onSwipeUp(boolean onSpacebar) {
@@ -327,6 +336,8 @@ public class AnyKeyboardBaseView extends View implements
         @Override
         public void handleMessage(Message msg) {
             AnyKeyboardBaseView keyboard = mKeyboard.get();
+            if (keyboard == null)
+                return;
             switch (msg.what) {
                 case MSG_POPUP_PREVIEW:
                     keyboard.showKey(msg.arg1, (PointerTracker) msg.obj);
@@ -352,6 +363,8 @@ public class AnyKeyboardBaseView extends View implements
         public void popupPreview(long delay, int keyIndex,
                                  PointerTracker tracker) {
             AnyKeyboardBaseView keyboard = mKeyboard.get();
+            if (keyboard == null)
+                return;
             removeMessages(MSG_POPUP_PREVIEW);
             if (keyboard.mPreviewPopup.isShowing()
                     && keyboard.mPreviewLayut.getVisibility() == VISIBLE) {
@@ -2005,6 +2018,9 @@ public class AnyKeyboardBaseView extends View implements
         Key key = tracker.getKey(keyIndex);
         if (key == null || !mShowPreview)
             return;
+        if (mOldPointerCount > 1)
+            mPreviewPopup.dismiss();
+
         int popupWidth = 0;
         int popupHeight = 0;
         // Should not draw hint icon in key preview
@@ -2402,10 +2418,6 @@ public class AnyKeyboardBaseView extends View implements
         }
     }
 
-    public int getPointerCount() {
-        return mOldPointerCount;
-    }
-
     @Override
     public boolean onTouchEvent(MotionEvent nativeMotionEvent) {
         if (mKeyboard == null)//I mean, if there isn't any keyboard I'm handling, what's the point?
@@ -2416,6 +2428,8 @@ public class AnyKeyboardBaseView extends View implements
         final int pointerCount = me.getPointerCount();
         final int oldPointerCount = mOldPointerCount;
         mOldPointerCount = pointerCount;
+        if (pointerCount > 1)
+            mLastTimeHadTwoFingers = SystemClock.elapsedRealtime();//marking the time. Read isAtTwoFingersState()
 
         // TODO: cleanup this code into a multi-touch to single-touch event
         // converter class?

@@ -2857,18 +2857,18 @@ public class AnySoftKeyboard extends InputMethodService implements
         postUpdateSuggestions();
     }
 
-    public void onSwipeRight(boolean onSpaceBar) {
+    public void onSwipeRight(boolean onSpaceBar, boolean twoFingersGesture) {
         final int keyCode = mConfig.getGestureSwipeRightKeyCode();
-        Log.d(TAG, "onSwipeRight " + ((onSpaceBar) ? " + space" : "")
+        Log.d(TAG, "onSwipeRight " + ((onSpaceBar) ? " + space" : "") + ((twoFingersGesture) ? " + two-fingers" : "")
                 + " => code " + keyCode);
         if (keyCode != 0)
             mSwitchAnimator
                     .doSwitchAnimation(AnimationType.SwipeRight, keyCode);
     }
 
-    public void onSwipeLeft(boolean onSpaceBar) {
+    public void onSwipeLeft(boolean onSpaceBar, boolean twoFingersGesture) {
         final int keyCode = mConfig.getGestureSwipeLeftKeyCode();
-        Log.d(TAG, "onSwipeLeft " + ((onSpaceBar) ? " + space" : "")
+        Log.d(TAG, "onSwipeLeft " + ((onSpaceBar) ? " + space" : "") + ((twoFingersGesture) ? " + two-fingers" : "")
                 + " => code " + keyCode);
         if (keyCode != 0)
             mSwitchAnimator.doSwitchAnimation(AnimationType.SwipeLeft, keyCode);
