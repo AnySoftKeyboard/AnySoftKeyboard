@@ -58,6 +58,11 @@ public class MainFragment extends Fragment {
         // Get the index of "click here" string.
         int start = fullText.indexOf(justClickHereText);
         int length = justClickHereText.length();
+        if (start == -1) {
+            //this could happen when the localizationis not correct
+            start = 0;
+            length = fullText.length();
+        }
         ClickableSpan csp = new ClickableSpan() {
             @Override
             public void onClick(View v) {

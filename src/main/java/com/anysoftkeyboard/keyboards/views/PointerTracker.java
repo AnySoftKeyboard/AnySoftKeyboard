@@ -19,15 +19,14 @@ package com.anysoftkeyboard.keyboards.views;
 import android.content.res.Resources;
 import android.text.TextUtils;
 import android.view.MotionEvent;
+
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView.UIHandler;
-import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 public class PointerTracker {
     private static final String TAG = "PointerTracker";
-    private static final boolean DEBUG = AnyApplication.DEBUG;
     private static final boolean DEBUG_MOVE = false;
 
     public interface UIProxy {
@@ -276,8 +275,7 @@ public class PointerTracker {
     }
 
     public void onDownEvent(int x, int y, long eventTime) {
-        if (DEBUG)
-            debugLog("onDownEvent:", x, y);
+        debugLog("onDownEvent:", x, y);
         int keyIndex = mKeyState.onDownKey(x, y, eventTime);
         mKeyboardLayoutHasBeenChanged = false;
         mKeyAlreadyProcessed = false;
@@ -368,8 +366,7 @@ public class PointerTracker {
     }
 
     public void onUpEvent(int x, int y, long eventTime) {
-        if (DEBUG)
-            debugLog("onUpEvent  :", x, y);
+        debugLog("onUpEvent  :", x, y);
         mHandler.cancelKeyTimers();
         mHandler.cancelPopupPreview();
         showKeyPreviewAndUpdateKey(NOT_A_KEY);
@@ -392,8 +389,7 @@ public class PointerTracker {
     }
 
     public void onCancelEvent(int x, int y, long eventTime) {
-        if (DEBUG)
-            debugLog("onCancelEvt:", x, y);
+        debugLog("onCancelEvt:", x, y);
         mHandler.cancelKeyTimers();
         mHandler.cancelPopupPreview();
         showKeyPreviewAndUpdateKey(NOT_A_KEY);

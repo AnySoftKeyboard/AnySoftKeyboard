@@ -22,6 +22,7 @@ import com.anysoftkeyboard.WordComposer;
 import com.anysoftkeyboard.utils.IMEUtil;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.FeaturesSet;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
@@ -112,11 +113,10 @@ public class Suggest implements Dictionary.WordCallback {
     }
 
     public void setMainDictionary(DictionaryAddOnAndBuilder dictionaryBuilder) {
-        if (AnyApplication.DEBUG)
-            Log.d(TAG,
-                    "Suggest: Got main dictionary! Type: "
-                            + ((dictionaryBuilder == null) ? "NULL"
-                            : dictionaryBuilder.getName()));
+        Log.d(TAG,
+                "Suggest: Got main dictionary! Type: "
+                        + ((dictionaryBuilder == null) ? "NULL"
+                        : dictionaryBuilder.getName()));
         if (mMainDict != null) {
             mMainDict.close();
             mMainDict = null;
@@ -237,16 +237,12 @@ public class Suggest implements Dictionary.WordCallback {
         // characters
         if (wordComposer.length() >= mMinimumWordSizeToStartCorrecting) {
             if (mContactsDictionary != null) {
-                if (AnyApplication.DEBUG)
-                    Log.v(TAG, "getSuggestions from contacts-dictionary");
-
+                Log.v(TAG, "getSuggestions from contacts-dictionary");
                 mContactsDictionary.getWords(wordComposer, this);
             }
 
             if (mUserDictionary != null) {
-                if (AnyApplication.DEBUG)
-                    Log.v(TAG, "getSuggestions from user-dictionary");
-
+                Log.v(TAG, "getSuggestions from user-dictionary");
                 mUserDictionary.getWords(wordComposer, this);
             }
 
@@ -255,8 +251,7 @@ public class Suggest implements Dictionary.WordCallback {
             }
 
             if (mMainDict != null) {
-                if (AnyApplication.DEBUG)
-                    Log.v(TAG, "getSuggestions from main-dictionary");
+                Log.v(TAG, "getSuggestions from main-dictionary");
                 mMainDict.getWords(wordComposer, this);
             }
 
@@ -331,15 +326,13 @@ public class Suggest implements Dictionary.WordCallback {
 
     public boolean addWord(final char[] word, final int offset,
                            final int length, final int freq) {
-        if (AnyApplication.DEBUG)
-            Log.v(TAG, "Suggest::addWord");
+        Log.v(TAG, "Suggest::addWord");
         int pos = 0;
         final int[] priorities = mPriorities;
         final int prefMaxSuggestions = mPrefMaxSuggestions;
         // Check if it's the same word, only caps are different
         if (compareCaseInsensitive(mLowerOriginalWord, word, offset, length)) {
-            if (AnyApplication.DEBUG)
-                Log.v(TAG, "Suggest::addWord - same word as typed");
+            Log.v(TAG, "Suggest::addWord - same word as typed");
             pos = 0;
         } else {
             // Check the last one's priority and bail
@@ -387,8 +380,6 @@ public class Suggest implements Dictionary.WordCallback {
 
     public boolean isValidWord(final CharSequence word) {
         if (word == null || word.length() == 0) {
-            if (AnyApplication.DEBUG)
-                Log.v(TAG, "Suggest::isValidWord - word is empty");
             return false;
         }
 
@@ -399,7 +390,7 @@ public class Suggest implements Dictionary.WordCallback {
             // mAutoDictionary.isValidWord(word));
             final boolean validFromContacts = (mContactsDictionary != null && mContactsDictionary.isValidWord(word));
 
-            if (AnyApplication.DEBUG)
+            if (FeaturesSet.DEBUG_LOG)
                 Log.v(TAG, "Suggest::isValidWord(" + word
                         + ") mMainDictioanryEnabled:" + mMainDictioanryEnabled
                         + " mAutoTextEnabled:" + mAutoTextEnabled

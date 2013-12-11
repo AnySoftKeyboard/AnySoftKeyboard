@@ -275,8 +275,7 @@ public abstract class AnyKeyboard extends Keyboard {
         if (!mBottomRowWasCreated) {
             final KeyboardExtension bottomRowPlugin =
                     KeyboardExtensionFactory.getCurrentKeyboardExtension(mASKContext, KeyboardExtension.TYPE_BOTTOM);
-            if (AnyApplication.DEBUG)
-                Log.d(TAG, "Bottom row layout id " + bottomRowPlugin.getId());
+            Log.d(TAG, "Bottom row layout id " + bottomRowPlugin.getId());
             attributeIdMap.clear();
             remoteKeyboardLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
                     R.styleable.KeyboardLayout, mASKContext, bottomRowPlugin.getPackageContext(), attributeIdMap, true);
@@ -544,14 +543,6 @@ public abstract class AnyKeyboard extends Keyboard {
      * appropriate label on the keyboard's enter key (if it has one).
      */
     public void setImeOptions(Resources res, EditorInfo editor) {
-        if (AnyApplication.DEBUG) {
-            if (editor == null)
-                Log.d(TAG, "AnyKeyboard.setImeOptions");
-            else
-                Log.d(TAG, "AnyKeyboard.setImeOptions. package: "
-                        + editor.packageName + ", id:" + editor.fieldId);
-        }
-
         if (mEnterKey == null) {
             return;
         }

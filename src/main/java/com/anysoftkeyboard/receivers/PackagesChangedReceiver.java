@@ -20,10 +20,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.utils.Log;
-import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.FeaturesSet;
 
 public class PackagesChangedReceiver extends BroadcastReceiver {
 
@@ -41,7 +42,7 @@ public class PackagesChangedReceiver extends BroadcastReceiver {
         if (intent == null || intent.getData() == null || context == null)
             return;
 
-        if (AnyApplication.DEBUG) {
+        if (FeaturesSet.DEBUG_LOG) {
             mSB.setLength(0);
             String text = mSB.append("Package '").append(intent.getData()).append("' have been changed.").toString();
             Log.d(TAG, text);
