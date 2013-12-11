@@ -43,6 +43,8 @@ public class KeyCodes {
 
     public static final int SPLIT_LAYOUT = -110;
     public static final int MERGE_LAYOUT = -111;
+    public static final int COMPACT_LAYOUT_TO_LEFT = -112;
+    public static final int COMPACT_LAYOUT_TO_RIGHT = -113;
 
     public static final int UTILITY_KEYBOARD = -120;
 }
