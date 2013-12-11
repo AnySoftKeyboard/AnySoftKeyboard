@@ -35,6 +35,8 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.anysoftkeyboard.dictionaries.UserDictionary;
@@ -312,7 +314,14 @@ public class UserDictionaryEditorFragment extends Fragment
                         UserDictionaryEditorFragment.this.getActivity(),
                         mWordsList,
                         UserDictionaryEditorFragment.this);
-                mWordsListView.setAdapter(adapter);
+                //AbsListView introduced the setAdapter method in API11, so I'm required to check the instance type
+                if (mWordsListView instanceof ListView) {
+                    ((ListView)mWordsListView).setAdapter(adapter);
+                } else if (mWordsListView instanceof GridView) {
+                    ((GridView)mWordsListView).setAdapter(adapter);
+                } else {
+                    throw new ClassCastException("Unknown mWordsListView type "+mWordsListView.getClass());
+                }
             }
         }.execute();
     }
