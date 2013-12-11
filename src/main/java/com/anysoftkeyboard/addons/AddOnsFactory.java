@@ -25,14 +25,19 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.util.AttributeSet;
 import android.util.Xml;
+
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.utils.Log;
-import com.menny.android.anysoftkeyboard.AnyApplication;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
 
 public abstract class AddOnsFactory<E extends AddOn> {
 
@@ -84,8 +89,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         for (AddOnsFactory<?> factory : mActiveInstances) {
             AddOn addOn = factory.getAddOnById(id, askContext);
             if (addOn != null) {
-                if (AnyApplication.DEBUG)
-                    Log.d(sTAG, "Located addon with id " + addOn.getId() + " of type " + addOn.getClass().getName());
+                Log.d(sTAG, "Located addon with id " + addOn.getId() + " of type " + addOn.getClass().getName());
                 return addOn;
             }
         }
@@ -342,9 +346,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
             Log.e(TAG, "External add-on does not include all mandatory details! Will not create add-on.");
             return null;
         } else {
-            if (AnyApplication.DEBUG) {
-                Log.d(TAG, "External addon details: prefId:" + prefId + " nameId:" + nameId);
-            }
+            Log.d(TAG, "External addon details: prefId:" + prefId + " nameId:" + nameId);
             return createConcreteAddOn(askContext, context, prefId, nameId, description, sortIndex, attrs);
         }
     }

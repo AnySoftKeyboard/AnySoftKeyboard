@@ -585,8 +585,7 @@ public class KeyboardSwitcher {
 
         if (keyboard == null || keyboard.getKeyboardMode() != mode) {
             KeyboardAddOnAndBuilder creator = mAlphabetKeyboardsCreators[index];
-            if (AnyApplication.DEBUG)
-                Log.d(TAG, "About to create keyboard: " + creator.getId());
+            Log.d(TAG, "About to create keyboard: " + creator.getId());
             keyboards[index] = creator.createKeyboard(mContext, mode);
             keyboard = keyboards[index];
             if (mInputView != null) {

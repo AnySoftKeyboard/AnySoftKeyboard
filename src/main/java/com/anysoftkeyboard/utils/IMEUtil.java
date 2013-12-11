@@ -21,9 +21,10 @@ import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.inputmethod.InputMethodManager;
+
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.api.KeyCodes;
-import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.FeaturesSet;
 
 import java.util.ArrayList;
 
@@ -286,7 +287,7 @@ public class IMEUtil {
                 }
             }
         }
-        if (AnyApplication.DEBUG) {
+        if (FeaturesSet.DEBUG_LOG) {
             Log.d(TAG, "editDistance:" + s + "," + t);
             for (int i = 0; i < dp.length; ++i) {
                 StringBuffer sb = new StringBuffer();

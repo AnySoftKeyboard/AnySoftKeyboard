@@ -43,6 +43,7 @@ import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.FeaturesSet;
 import com.menny.android.anysoftkeyboard.R;
 
 public class AnyKeyboardView extends AnyKeyboardBaseView {
@@ -156,12 +157,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         for (Key aKey : newKeyboard.getKeys()) {
             if (aKey.codes[0] == (int) ' ') {
                 mSpaceBarKey = aKey;
-                if (AnyApplication.DEBUG)
-                    Log.d(TAG,
-                            String.format(
-                                    "Created spacebar rect x1 %d, y1 %d, width %d, height %d",
-                                    mSpaceBarKey.x, mSpaceBarKey.y,
-                                    mSpaceBarKey.width, mSpaceBarKey.height));
                 break;
             }
         }
@@ -172,15 +167,13 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         switch (localAttrId) {
             case R.attr.previewGestureTextSize:
                 mGesturePreviewTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0);
-                if (AnyApplication.DEBUG)
-                    Log.d(TAG, "AnySoftKeyboardTheme_previewGestureTextSize "
-                            + mGesturePreviewTextSize);
+                Log.d(TAG, "AnySoftKeyboardTheme_previewGestureTextSize "
+                        + mGesturePreviewTextSize);
                 break;
             case R.attr.previewGestureTextColor:
                 mGesturePreviewTextColor = remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFFF);
-                if (AnyApplication.DEBUG)
-                    Log.d(TAG, "AnySoftKeyboardTheme_previewGestureTextColor "
-                            + mGesturePreviewTextColor);
+                Log.d(TAG, "AnySoftKeyboardTheme_previewGestureTextColor "
+                        + mGesturePreviewTextColor);
             default:
                 return super.setValueFromTheme(remoteTypedArray, padding, localAttrId, remoteTypedArrayIndex);
         }
@@ -551,8 +544,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
                     - mPopOutTime;
             if (currentAnimationTime > animationDuration) {
                 mPopOutText = null;
-                if (AnyApplication.DEBUG)
-                    Log.d(TAG, "Drawing text popout done.");
             } else {
                 final float animationProgress = ((float) currentAnimationTime)
                         / ((float) animationDuration);
@@ -561,7 +552,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
                         - (int) (maxVerticalTravel * animationFactoredProgress);
                 final int x = mPopOutStartPoint.x;
                 final int alpha = 255 - (int) (255 * animationProgress);
-                if (AnyApplication.DEBUG)
+                if (FeaturesSet.DEBUG_LOG)
                     Log.d(TAG, "Drawing text popout '" + mPopOutText + "' at "
                             + x + "," + y + " with alpha " + alpha
                             + ". Animation progress is " + animationProgress

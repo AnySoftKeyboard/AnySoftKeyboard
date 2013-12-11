@@ -22,8 +22,9 @@ import android.service.textservice.SpellCheckerService;
 import android.text.TextUtils;
 import android.view.textservice.SuggestionsInfo;
 import android.view.textservice.TextInfo;
+
 import com.anysoftkeyboard.utils.Log;
-import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.FeaturesSet;
 
 /**
  * Service for spell checking, using ASK dictionaries and mechanisms.
@@ -31,7 +32,7 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class AnySpellCheckerService extends SpellCheckerService {
     static final String TAG = "ASK_SPELL";
-    static final boolean DBG = AnyApplication.DEBUG;
+    static final boolean DBG = FeaturesSet.DEBUG_LOG;
     static final String[] EMPTY_STRING_ARRAY = new String[0];
 
 

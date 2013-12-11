@@ -29,8 +29,9 @@ import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
+
 import com.anysoftkeyboard.utils.Log;
-import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.FeaturesSet;
 
 import java.util.HashSet;
 import java.util.List;
@@ -84,7 +85,7 @@ class IntentApiTrigger implements Trigger {
         PackageManager pm = inputMethodService.getPackageManager();
         List<ResolveInfo> activities = pm.queryIntentActivities(
                 new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
-        if (AnyApplication.DEBUG) {
+        if (FeaturesSet.DEBUG_LOG) {
             for (ResolveInfo ri : activities) {
                 Log.d(TAG, "Found IntentApiTrigger ACTION_RECOGNIZE_SPEECH handler: " + ri.activityInfo.targetActivity + " @ " +
                         ri.activityInfo.packageName);

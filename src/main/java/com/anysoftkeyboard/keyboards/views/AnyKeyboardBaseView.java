@@ -73,6 +73,7 @@ import com.anysoftkeyboard.utils.IMEUtil.GCUtils;
 import com.anysoftkeyboard.utils.IMEUtil.GCUtils.MemRelatedOperation;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.FeaturesSet;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.lang.ref.WeakReference;
@@ -587,8 +588,7 @@ public class AnyKeyboardBaseView extends View implements
             final int attrId = R.styleable.AnySoftKeyboardTheme[index];
             if (doneLocalAttributeIds.contains(attrId))
                 continue;
-            if (AnyApplication.DEBUG)
-                Log.d(TAG, "Falling back theme res ID " + index);
+            Log.d(TAG, "Falling back theme res ID " + index);
             setValueFromTheme(a, padding, attrId, index);
         }
         a.recycle();
@@ -609,8 +609,7 @@ public class AnyKeyboardBaseView extends View implements
             final int attrId = R.styleable.AnySoftKeyboardThemeKeyIcons[index];
             if (doneLocalAttributeIds.contains(attrId))
                 continue;
-            if (AnyApplication.DEBUG)
-                Log.d(TAG, "Falling back icon res ID " + index);
+            Log.d(TAG, "Falling back icon res ID " + index);
             setKeyIconValueFromTheme(fallbackTheme, a, attrId, index);
         }
         a.recycle();
@@ -678,13 +677,6 @@ public class AnyKeyboardBaseView extends View implements
         mKeyBackgroundPadding = new Rect(0, 0, 0, 0);
         mKeyBackground.getPadding(mKeyBackgroundPadding);
 
-        if (AnyApplication.DEBUG)
-            Log.d(TAG, "mKeyBackgroundPadding(L,R,T,B) "
-                    + mKeyBackgroundPadding.left + ","
-                    + mKeyBackgroundPadding.right + ","
-                    + mKeyBackgroundPadding.top + ","
-                    + mKeyBackgroundPadding.bottom);
-
         reloadSwipeThresholdsSettings(res);
 
         mDisambiguateSwipe = res.getBoolean(R.bool.config_swipeDisambiguation);
@@ -717,82 +709,69 @@ public class AnyKeyboardBaseView extends View implements
             switch (localAttrId) {
                 case android.R.attr.background:
                     Drawable keyboardBackground = remoteTypedArray.getDrawable(remoteTypedArrayIndex);
-                    if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardTheme_android_background "
-                                + (keyboardBackground != null));
+                    Log.d(TAG, "AnySoftKeyboardTheme_android_background "
+                            + (keyboardBackground != null));
                     super.setBackgroundDrawable(keyboardBackground);
                     break;
                 case android.R.attr.paddingLeft:
                     padding[0] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0);
-                    if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardTheme_android_paddingLeft "
-                                + padding[0]);
+                    Log.d(TAG, "AnySoftKeyboardTheme_android_paddingLeft "
+                            + padding[0]);
                     break;
                 case android.R.attr.paddingTop:
                     padding[1] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0);
-                    if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardTheme_android_paddingTop "
-                                + padding[1]);
+                    Log.d(TAG, "AnySoftKeyboardTheme_android_paddingTop "
+                            + padding[1]);
                     break;
                 case android.R.attr.paddingRight:
                     padding[2] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0);
-                    if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardTheme_android_paddingRight "
-                                + padding[2]);
+                    Log.d(TAG, "AnySoftKeyboardTheme_android_paddingRight "
+                            + padding[2]);
                     break;
                 case android.R.attr.paddingBottom:
                     padding[3] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0);
-                    if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardTheme_android_paddingBottom "
-                                + padding[3]);
+                    Log.d(TAG, "AnySoftKeyboardTheme_android_paddingBottom "
+                            + padding[3]);
                     break;
                 case R.attr.keyBackground:
                     mKeyBackground = remoteTypedArray.getDrawable(remoteTypedArrayIndex);
-                    if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardTheme_keyBackground "
-                                + (mKeyBackground != null));
+                    Log.d(TAG, "AnySoftKeyboardTheme_keyBackground "
+                            + (mKeyBackground != null));
                     break;
                 case R.attr.keyHysteresisDistance:
                     mKeyHysteresisDistance = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
-                    if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardTheme_keyHysteresisDistance "
-                                + mKeyHysteresisDistance);
+                    Log.d(TAG, "AnySoftKeyboardTheme_keyHysteresisDistance "
+                            + mKeyHysteresisDistance);
                     break;
                 case R.attr.verticalCorrection:
                     mVerticalCorrection = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
-                    if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardTheme_verticalCorrection "
-                                + mVerticalCorrection);
+                    Log.d(TAG, "AnySoftKeyboardTheme_verticalCorrection "
+                            + mVerticalCorrection);
                     break;
                 case R.attr.keyPreviewBackground:
                     mPreviewKeyBackground = remoteTypedArray.getDrawable(remoteTypedArrayIndex);
-                    if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardTheme_keyPreviewBackground "
-                                + (mPreviewKeyBackground != null));
+                    Log.d(TAG, "AnySoftKeyboardTheme_keyPreviewBackground "
+                            + (mPreviewKeyBackground != null));
                     break;
                 case R.attr.keyPreviewTextColor:
                     mPreviewKeyTextColor = remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFFF);
-                    if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardTheme_keyPreviewTextColor "
-                                + mPreviewKeyTextColor);
+                    Log.d(TAG, "AnySoftKeyboardTheme_keyPreviewTextColor "
+                            + mPreviewKeyTextColor);
                     break;
                 case R.attr.keyPreviewTextSize:
                     mPreviewKeyTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0);
-                    if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardTheme_keyPreviewTextSize "
-                                + mPreviewKeyTextSize);
+                    Log.d(TAG, "AnySoftKeyboardTheme_keyPreviewTextSize "
+                            + mPreviewKeyTextSize);
                     break;
                 case R.attr.keyPreviewLabelTextSize:
                     mPreviewLabelTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0);
-                    if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardTheme_keyPreviewLabelTextSize "
-                                + mPreviewLabelTextSize);
+                    Log.d(TAG, "AnySoftKeyboardTheme_keyPreviewLabelTextSize "
+                            + mPreviewLabelTextSize);
                     break;
                 case R.attr.keyPreviewOffset:
                     mPreviewOffset = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
-                    if (AnyApplication.DEBUG)
-                        Log.d(TAG, "AnySoftKeyboardTheme_keyPreviewOffset "
-                                + mPreviewOffset);
+                    Log.d(TAG, "AnySoftKeyboardTheme_keyPreviewOffset "
+                            + mPreviewOffset);
                     break;
                 case R.attr.keyTextSize:
                     mKeyTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 18);
@@ -1055,9 +1034,7 @@ public class AnyKeyboardBaseView extends View implements
                             DrawableBuilder.build(theme, remoteTypeArray, remoteTypedArrayIndex));
                     break;
             }
-            if (AnyApplication.DEBUG)
-                Log.d(TAG,
-                        "DrawableBuilders size is " + mKeysIconBuilders.size());
+            Log.d(TAG, "DrawableBuilders size is " + mKeysIconBuilders.size());
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -1095,13 +1072,6 @@ public class AnyKeyboardBaseView extends View implements
 
         mScrollXDistanceThreshold = mSwipeXDistanceThreshold / 8;
         mScrollYDistanceThreshold = mSwipeYDistanceThreshold / 8;
-        if (AnyApplication.DEBUG) {
-            Log.d(TAG,
-                    String.format(
-                            "Swipe thresholds: Velocity %d, X-Distance %d, Y-Distance %d",
-                            mSwipeVelocityThreshold, mSwipeXDistanceThreshold,
-                            mSwipeYDistanceThreshold));
-        }
     }
 
     public void setOnKeyboardActionListener(OnKeyboardActionListener listener) {
@@ -1422,11 +1392,6 @@ public class AnyKeyboardBaseView extends View implements
 
         final boolean drawHintText = (mHintTextSize > 1)
                 && AnyApplication.getConfig().getShowHintTextOnKeys();
-        if (AnyApplication.DEBUG && !drawHintText) {
-            Log.d(TAG, "drawHintText is false. mHintTextSize: " + mHintTextSize
-                    + ", getShowHintTextOnKeys: "
-                    + AnyApplication.getConfig().getShowHintTextOnKeys());
-        }
         // TODO: calls to AnyApplication.getConfig().getXXXXX() functions are
         // not yet implemented,
         // but need to when allowing preferences to override theme settings of
@@ -1589,27 +1554,23 @@ public class AnyKeyboardBaseView extends View implements
                 // 2) if still too large, divide by 2.5
                 // 3) show no text
                 if (textWidth > key.width) {
-                    if (AnyApplication.DEBUG)
-                        Log.d(TAG,
-                                "Label '"
-                                        + label
-                                        + "' is too large for the key. Reducing by 1.5.");
+                    Log.d(TAG, "Label '"
+                            + label
+                            + "' is too large for the key. Reducing by 1.5.");
                     paint.setTextSize(mKeyTextSize / 1.5f);
                     textWidth = paint.measureText(label, 0, label.length());
                     if (textWidth > key.width) {
-                        if (AnyApplication.DEBUG)
-                            Log.d(TAG,
-                                    "Label '"
-                                            + label
-                                            + "' is too large for the key. Reducing by 2.5.");
+                        Log.d(TAG,
+                                "Label '"
+                                        + label
+                                        + "' is too large for the key. Reducing by 2.5.");
                         paint.setTextSize(mKeyTextSize / 2.5f);
                         textWidth = paint.measureText(label, 0, label.length());
                         if (textWidth > key.width) {
-                            if (AnyApplication.DEBUG)
-                                Log.d(TAG,
-                                        "Label '"
-                                                + label
-                                                + "' is too large for the key. Showing no text.");
+                            Log.d(TAG,
+                                    "Label '"
+                                            + label
+                                            + "' is too large for the key. Showing no text.");
                             paint.setTextSize(0f);
                             textWidth = paint.measureText(label, 0,
                                     label.length());
@@ -1643,8 +1604,7 @@ public class AnyKeyboardBaseView extends View implements
                     // location
                     textY = centerY - ((labelHeight - paint.descent()) / 2);
                     canvas.translate(textX, textY);
-                    if (AnyApplication.DEBUG)
-                        Log.d(TAG, "Using RTL fix for key draw '" + label + "'");
+                    Log.d(TAG, "Using RTL fix for key draw '" + label + "'");
                     // RTL fix. But it costs, let do it when in need (more than
                     // 1 character)
                     StaticLayout labelText = new StaticLayout(label,
@@ -1775,7 +1735,7 @@ public class AnyKeyboardBaseView extends View implements
             canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
         }
 
-        if (AnyApplication.DEBUG) {
+        if (FeaturesSet.DEBUG_LOG) {
             if (mShowTouchPoints) {
                 for (PointerTracker tracker : mPointerTrackers) {
                     int startX = tracker.getStartX();
@@ -1816,9 +1776,8 @@ public class AnyKeyboardBaseView extends View implements
     int mKeyboardActionType = EditorInfo.IME_ACTION_UNSPECIFIED;
 
     public void setKeyboardActionType(final int imeOptions) {
-        if (AnyApplication.DEBUG)
-            Log.d(TAG, "setKeyboardActionType imeOptions:" + imeOptions
-                    + " action:" + (imeOptions & EditorInfo.IME_MASK_ACTION));
+        Log.d(TAG, "setKeyboardActionType imeOptions:" + imeOptions
+                + " action:" + (imeOptions & EditorInfo.IME_MASK_ACTION));
         if ((imeOptions & EditorInfo.IME_FLAG_NO_ENTER_ACTION) != 0)// this is
             // usually a
             // multi-line
@@ -1885,8 +1844,6 @@ public class AnyKeyboardBaseView extends View implements
     private CharSequence guessLabelForKey(int keyCode) {
         switch (keyCode) {
             case KeyCodes.ENTER:
-                if (AnyApplication.DEBUG)
-                    Log.d(TAG, "Action key action ID is: " + mKeyboardActionType);
                 switch (mKeyboardActionType) {
                     case EditorInfo.IME_ACTION_DONE:
                         return getContext().getText(R.string.label_done_key);
@@ -1960,23 +1917,20 @@ public class AnyKeyboardBaseView extends View implements
 
         if (icon == null) {
             // building needed icon
-            if (AnyApplication.DEBUG)
-                Log.d(TAG, "Building icon for key-code " + keyCode);
+            Log.d(TAG, "Building icon for key-code " + keyCode);
             DrawableBuilder builder = mKeysIconBuilders.get(keyCode);
             if (builder == null)
                 return null;
             icon = builder.buildDrawable();
             mKeysIcons.put(keyCode, icon);
-            if (AnyApplication.DEBUG)
-                Log.d(TAG, "Current drawable cache size is " + mKeysIcons.size());
+            Log.d(TAG, "Current drawable cache size is " + mKeysIcons.size());
         }
         // maybe a drawable state is required
         if (icon != null) {
             switch (keyCode) {
                 case KeyCodes.ENTER:
-                    if (AnyApplication.DEBUG)
-                        Log.d(TAG, "Action key action ID is: "
-                                + mKeyboardActionType);
+                    Log.d(TAG, "Action key action ID is: "
+                            + mKeyboardActionType);
                     switch (mKeyboardActionType) {
                         case EditorInfo.IME_ACTION_DONE:
                             icon.setState(mDrawableStatesProvider.DRAWABLE_STATE_ACTION_DONE);
@@ -2117,9 +2071,8 @@ public class AnyKeyboardBaseView extends View implements
         if (mOffsetInWindow == null) {
             mOffsetInWindow = new int[]{0, 0};
             getLocationInWindow(mOffsetInWindow);
-            if (AnyApplication.DEBUG)
-                Log.d(TAG, "mOffsetInWindow " + mOffsetInWindow[0] + ", "
-                        + mOffsetInWindow[1]);
+            Log.d(TAG, "mOffsetInWindow " + mOffsetInWindow[0] + ", "
+                    + mOffsetInWindow[1]);
             mOffsetInWindow[0] += mPopupPreviewOffsetX; // Offset may be zero
             mOffsetInWindow[1] += mPopupPreviewOffsetY; // Offset may be zero
             int[] windowLocation = new int[2];
@@ -2480,8 +2433,7 @@ public class AnyKeyboardBaseView extends View implements
         // on the screen.
         if (!mMiniKeyboardVisible && mGestureDetector != null
                 && (mGestureDetector.onTouchEvent(nativeMotionEvent))) {
-            if (AnyApplication.DEBUG)
-                Log.d(TAG, "Gesture detected!");
+            Log.d(TAG, "Gesture detected!");
             mHandler.cancelKeyTimers();
             dismissKeyPreview();
             return true;
@@ -2671,8 +2623,6 @@ public class AnyKeyboardBaseView extends View implements
     }
 
     public void onViewNotRequired() {
-        if (AnyApplication.DEBUG)
-            Log.d(TAG, "onViewNotRequired");
         AnyApplication.getConfig().removeChangedListener(this);
         // cleaning up memory
         unbindDrawable(mPreviewPopup.getBackground());

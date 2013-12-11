@@ -18,9 +18,11 @@ package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
 import android.text.format.DateFormat;
+
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.utils.Log;
-import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.BuildConfig;
+import com.menny.android.anysoftkeyboard.FeaturesSet;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,11 +30,11 @@ import java.util.Calendar;
 
 public class TextEntryState {
 
-    private static final boolean DBG = false && AnyApplication.DEBUG;
+    private static final boolean DBG = BuildConfig.DEBUG;
 
     private static final String TAG = "TextEntryState";
 
-    private static boolean LOGGING = false && AnyApplication.DEBUG;
+    private static boolean LOGGING = FeaturesSet.DEBUG_LOG;
 
     private static int sBackspaceCount = 0;
 
