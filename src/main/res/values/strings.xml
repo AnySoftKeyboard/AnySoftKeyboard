@@ -329,6 +329,9 @@
     <string name="swipe_action_name_other_keyboards_mode">Switch layout mode</string>
     <string name="swipe_action_name_split_layout">Split layout</string>
     <string name="swipe_action_name_merge_layout">Merge layout</string>
+    <string name="swipe_action_name_compact_layout_to_right">Compact layout to right</string>
+    <string name="swipe_action_name_compact_layout_to_left">Compact layout to left</string>
+
     <string name="swipe_action_name_utility_keyboard">Show utility keyboard</string>
 
     <string name="settings_swipe_velocity_threshold_title">Swipe velocity threshold</string>

@@ -426,12 +426,11 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
         mSwipeRightFromSpaceBarKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_right_space_bar_action, R.string.swipe_action_value_next_alphabet);
         Log.d(TAG, "** mSwipeRightFromSpaceBarKeyCode: " + mSwipeRightFromSpaceBarKeyCode);
 
-        mSwipeLeftWithTwoFingersKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_left_two_fingers_action, R.string.swipe_action_value_next_symbols);
+        mSwipeLeftWithTwoFingersKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_left_two_fingers_action, R.string.swipe_action_value_compact_layout_to_left);
         Log.d(TAG, "** mSwipeLeftWithTwoFingersKeyCode: " + mSwipeLeftWithTwoFingersKeyCode);
 
-        mSwipeRightWithTwoFingersKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_right_two_fingers_action, R.string.swipe_action_value_next_alphabet);
+        mSwipeRightWithTwoFingersKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_right_two_fingers_action, R.string.swipe_action_value_compact_layout_to_right);
         Log.d(TAG, "** mSwipeRightWithTwoFingersKeyCode: " + mSwipeRightWithTwoFingersKeyCode);
-
 
         mActionKeyInvisibleWhenRequested = sp.getBoolean("action_key_invisible_on_disable", false);
         Log.d(TAG, "** mActionKeyInvisibleWhenRequested: " + mActionKeyInvisibleWhenRequested);
@@ -601,6 +600,10 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
             return KeyCodes.SPLIT_LAYOUT;
         else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_merge_layout)))
             return KeyCodes.MERGE_LAYOUT;
+        else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_compact_layout_to_left)))
+            return KeyCodes.COMPACT_LAYOUT_TO_LEFT;
+        else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_compact_layout_to_right)))
+            return KeyCodes.COMPACT_LAYOUT_TO_RIGHT;
         else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_utility_keyboard)))
             return KeyCodes.UTILITY_KEYBOARD;
 

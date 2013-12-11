@@ -829,8 +829,8 @@ public abstract class AnyKeyboard extends Keyboard {
         return mKeyboardMode;
     }
 
-    public void setCondensedKeys(boolean condensed) {
-        if (mKeyboardCondenser.setCondensedKeys(condensed))
+    public void setCondensedKeys(CondenseType condenseType) {
+        if (mKeyboardCondenser.setCondensedKeys(condenseType))
             computeNearestNeighbors();//keyboard has changed, so we need to recompute the neighbors.
     }
 }
