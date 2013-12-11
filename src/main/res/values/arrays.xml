@@ -36,25 +36,25 @@
     </string-array>
 
     <string-array name="swipe_action_types_values">
-        <item>none</item>
-        <item>next_alphabet</item>
-        <item>next_symbols</item>
-        <item>next_inside_mode</item>
-        <item>other_keyboards_mode</item>
-        <item>cycle_keyboards</item>
-        <item>reverse_cycle_keyboards</item>
-        <item>shift</item>
-        <item>hide</item>
-        <item>backspace</item>
-        <item>backword</item>
-        <item>clear_input</item>
-        <item>cursor_up</item>
-        <item>cursor_down</item>
-        <item>cursor_left</item>
-        <item>cursor_right</item>
-        <item>split_layout</item>
-        <item>merge_layout</item>
-        <item>utility_keyboard</item>
+        <item>@string/swipe_action_value_none</item>
+        <item>@string/swipe_action_value_next_alphabet</item>
+        <item>@string/swipe_action_value_next_symbols</item>
+        <item>@string/swipe_action_value_next_inside_mode</item>
+        <item>@string/swipe_action_value_other_keyboards_mode</item>
+        <item>@string/swipe_action_value_cycle_keyboards</item>
+        <item>@string/swipe_action_value_reverse_cycle_keyboards</item>
+        <item>@string/swipe_action_value_shift</item>
+        <item>@string/swipe_action_value_hide</item>
+        <item>@string/swipe_action_value_backspace</item>
+        <item>@string/swipe_action_value_backword</item>
+        <item>@string/swipe_action_value_clear_input</item>
+        <item>@string/swipe_action_value_cursor_up</item>
+        <item>@string/swipe_action_value_cursor_down</item>
+        <item>@string/swipe_action_value_cursor_left</item>
+        <item>@string/swipe_action_value_cursor_right</item>
+        <item>@string/swipe_action_value_split_layout</item>
+        <item>@string/swipe_action_value_merge_layout</item>
+        <item>@string/swipe_action_value_utility_keyboard</item>
     </string-array>
 
     <string-array name="swipe_action_types_names">
