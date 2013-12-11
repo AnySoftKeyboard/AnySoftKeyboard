@@ -5,16 +5,16 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class PointFCompact implements Parcelable {
+public class PointFCompat implements Parcelable {
 
     private PointF mPoint;
 
-    public PointFCompact(PointF point) {
+    public PointFCompat(PointF point) {
         mPoint = point;
     }
 
     // Parcelling part
-    public PointFCompact(Parcel in){
+    public PointFCompat(Parcel in){
         float[] data = new float[2];
 
         in.readFloatArray(data);
@@ -27,12 +27,12 @@ public class PointFCompact implements Parcelable {
     }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
-        public PointFCompact createFromParcel(Parcel in) {
-            return new PointFCompact(in);
+        public PointFCompat createFromParcel(Parcel in) {
+            return new PointFCompat(in);
         }
 
-        public PointFCompact[] newArray(int size) {
-            return new PointFCompact[size];
+        public PointFCompat[] newArray(int size) {
+            return new PointFCompat[size];
         }
     };
 
@@ -47,7 +47,7 @@ public class PointFCompact implements Parcelable {
         if (bundle == null)
             return null;
 
-        PointFCompact compat = bundle.getParcelable(pointFCompactKey);
+        PointFCompat compat = bundle.getParcelable(pointFCompactKey);
         if (compat == null)
             return null;
 
