@@ -124,7 +124,7 @@ public interface Configuration {
 
     boolean workaround_alwaysUseDrawText();
 
-    String getInitialKeyboardSplitState();
+    String getInitialKeyboardCondenseState();
 
     boolean useChewbaccaNotifications();
 

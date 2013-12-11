@@ -3355,7 +3355,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     private void setInitialCondensedState(Configuration newConfig) {
-        final String defaultCondensed = mConfig.getInitialKeyboardSplitState();
+        final String defaultCondensed = mConfig.getInitialKeyboardCondenseState();
         mKeyboardInCondensedMode = CondenseType.None;
         if (defaultCondensed.equals("split_always")) {
             mKeyboardInCondensedMode = CondenseType.Split;
@@ -3364,6 +3364,10 @@ public class AnySoftKeyboard extends InputMethodService implements
                 mKeyboardInCondensedMode = CondenseType.Split;
             else
                 mKeyboardInCondensedMode = CondenseType.None;
+        } else if (defaultCondensed.equals("compact_right_always")) {
+            mKeyboardInCondensedMode = CondenseType.CompactToRight;
+        } else if (defaultCondensed.equals("compact_left_always")) {
+            mKeyboardInCondensedMode = CondenseType.CompactToLeft;
         }
 
         Log.d(TAG, "setInitialCondensedState: defaultCondensed is "
