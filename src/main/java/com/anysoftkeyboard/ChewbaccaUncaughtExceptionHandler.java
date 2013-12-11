@@ -22,10 +22,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.text.format.DateFormat;
+
 import com.anysoftkeyboard.ui.SendBugReportUiActivity;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.io.File;
@@ -133,7 +135,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
                 + "Free: " + Runtime.getRuntime().freeMemory() + "\n" + "Max: "
                 + Runtime.getRuntime().maxMemory() + "\n";
 
-        if (AnyApplication.DEBUG) {
+        if (BuildConfig.DEBUG) {
             try {
                 File target = DeveloperUtils.createMemoryDump();
                 mem += "Created hprof file at " + target.getAbsolutePath()

@@ -24,6 +24,7 @@ import android.text.TextUtils;
 import com.anysoftkeyboard.WordComposer;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.FeaturesSet;
 
 public abstract class BTreeDictionary extends EditableDictionary {
 
@@ -79,7 +80,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
                     addWordFromStorage(word, frequency);
                 }
                 cursor.moveToNext();
-                if (AnyApplication.DEBUG) {
+                if (FeaturesSet.DEBUG_LOG) {
                     if (cursor.getPosition() % 25 == 0) {
                         Log.d(TAG, "Read " + cursor.getPosition() + " out of " + cursor.getCount() + " words.");
                     }

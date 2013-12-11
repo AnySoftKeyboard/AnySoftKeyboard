@@ -17,14 +17,14 @@
 package com.anysoftkeyboard.utils;
 
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
-import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.FeaturesSet;
 
 import java.util.ArrayList;
 
 public class Log {
-    private static final boolean DEBUG = AnyApplication.DEBUG;
+    private static final boolean DEBUG = FeaturesSet.DEBUG_LOG;
 
-    private static final String[] msLogs = new String[AnyApplication.DEBUG ? 225 : 0];
+    private static final String[] msLogs = new String[FeaturesSet.DEBUG_LOG ? 225 : 0];
     private static int msLogIndex = 0;
 
     private synchronized static void addLog(String level, String tag, String message) {

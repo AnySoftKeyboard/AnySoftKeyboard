@@ -308,8 +308,6 @@ public class UserDictionaryEditorFragment extends Fragment
 
             protected void applyResults(Void result,
                                         Exception backgroundException) {
-                if (AnyApplication.DEBUG)
-                    Log.d(TAG, "Creating a new UserWordsListAdapter for the words editor");
                 UserWordsListAdapter adapter = new UserWordsListAdapter(
                         UserDictionaryEditorFragment.this.getActivity(),
                         mWordsList,
