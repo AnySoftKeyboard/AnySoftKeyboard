@@ -104,7 +104,7 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 
     private boolean mWorkaround_alwaysUseDrawText = false;
 
-    private String mInitialKeyboardSplitState = "merged_always";
+    private String mInitialKeyboardCondenseState = "merged_always";
 
     private boolean mAlwaysUseFallBackUserDictionary = false;
 
@@ -518,9 +518,9 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
                 getAlwaysUseDrawTextDefault());
         Log.d(TAG, "** mWorkaround_alwaysUseDrawText: " + mWorkaround_alwaysUseDrawText);
 
-        mInitialKeyboardSplitState = sp.getString(mContext.getString(R.string.settings_key_default_split_state),
+        mInitialKeyboardCondenseState = sp.getString(mContext.getString(R.string.settings_key_default_split_state),
                 mContext.getString(R.string.settings_default_default_split_state));
-        Log.d(TAG, "** mInitialKeyboardSplitState: " + mInitialKeyboardSplitState);
+        Log.d(TAG, "** mInitialKeyboardCondenseState: " + mInitialKeyboardCondenseState);
 
         mUseChewbacca = sp.getBoolean(mContext.getString(R.string.settings_key_show_chewbacca),
                 mContext.getResources().getBoolean(R.bool.settings_default_show_chewbacca));
@@ -801,8 +801,8 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
         return mWorkaround_alwaysUseDrawText;
     }
 
-    public String getInitialKeyboardSplitState() {
-        return mInitialKeyboardSplitState;
+    public String getInitialKeyboardCondenseState() {
+        return mInitialKeyboardCondenseState;
     }
 
     public boolean getShowHintTextOnKeys() {

@@ -122,6 +122,15 @@
             android:persistent="true"
             android:singleLine="true"
             android:title="@string/default_smiley_text"/>
+
+        <net.evendanan.pushingpixels.ListPreference
+            android:defaultValue="@string/settings_default_default_split_state"
+            android:dialogTitle="@string/settings_split_state_title"
+            android:entries="@array/settings_key_default_split_state_names"
+            android:entryValues="@array/settings_key_default_split_state_values"
+            android:key="@string/settings_key_default_split_state"
+            android:summary="@string/settings_split_state_summary"
+            android:title="@string/settings_split_state_title"/>
     </PreferenceCategory>
 
     <PreferenceCategory
