@@ -25,7 +25,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.ScaleAnimation;
 
 import com.anysoftkeyboard.utils.Log;
-import com.anysoftkeyboard.utils.PointFCompact;
+import com.anysoftkeyboard.utils.PointFCompat;
 import com.menny.android.anysoftkeyboard.R;
 
 import javax.annotation.Nonnull;
@@ -43,10 +43,10 @@ public abstract class PassengerFragmentSupport {
         Bundle bundle = passengerFragment.getArguments();
         if (bundle == null) bundle = new Bundle();
         bundle.putParcelable(EXTRA_ORIGINATE_VIEW_CENTER,
-                new PointFCompact(
+                new PointFCompat(
                     new PointF(originateViewCenterX, originateViewCenterY)));
         bundle.putParcelable(EXTRA_ORIGINATE_VIEW_SCALE,
-                new PointFCompact(
+                new PointFCompat(
                     new PointF(originateViewWidthScale, originateViewHeightScale)));
 
         passengerFragment.setArguments(bundle);
@@ -59,8 +59,8 @@ public abstract class PassengerFragmentSupport {
         if (!validTransitionToModify) return null;
 
         ScaleAnimation scale = null;
-        PointF originateViewCenterPoint = PointFCompact.getPointFromBundle(passengerFragment.getArguments(), EXTRA_ORIGINATE_VIEW_CENTER);
-        PointF originateViewScale = PointFCompact.getPointFromBundle(passengerFragment.getArguments(), EXTRA_ORIGINATE_VIEW_SCALE);
+        PointF originateViewCenterPoint = PointFCompat.getPointFromBundle(passengerFragment.getArguments(), EXTRA_ORIGINATE_VIEW_CENTER);
+        PointF originateViewScale = PointFCompat.getPointFromBundle(passengerFragment.getArguments(), EXTRA_ORIGINATE_VIEW_SCALE);
         if (originateViewCenterPoint != null && originateViewScale != null) {
             Log.d(TAG, "originateViewCenterPoint: " + originateViewCenterPoint.toString());
             if (enter && nextAnim == R.anim.ui_context_expand_add_in) {
