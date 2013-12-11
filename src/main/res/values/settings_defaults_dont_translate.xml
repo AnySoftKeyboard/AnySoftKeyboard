@@ -61,5 +61,28 @@
     <string name="settings_default_default_split_state">merged_always</string>
 
     <string name="settings_default_should_swap_punctuation_and_space">yes</string>
+
     <bool name="settings_default_allow_suggestions_restart">true</bool>
+
+
+    <string name="swipe_action_value_shift">shift</string>
+    <string name="swipe_action_value_none">none</string>
+    <string name="swipe_action_value_next_alphabet">next_alphabet</string>
+    <string name="swipe_action_value_next_symbols">next_symbols</string>
+    <string name="swipe_action_value_next_inside_mode"></string>
+    <string name="swipe_action_value_other_keyboards_mode"></string>
+    <string name="swipe_action_value_cycle_keyboards">cycle_keyboards</string>
+    <string name="swipe_action_value_reverse_cycle_keyboards">reverse_cycle_keyboards</string>
+    <string name="swipe_action_value_hide">hide</string>
+    <string name="swipe_action_value_backspace">backspace</string>
+    <string name="swipe_action_value_backword">backword</string>
+    <string name="swipe_action_value_clear_input">clear_input</string>
+    <string name="swipe_action_value_cursor_up">cursor_up</string>
+    <string name="swipe_action_value_cursor_down">cursor_down</string>
+    <string name="swipe_action_value_cursor_left">cursor_left</string>
+    <string name="swipe_action_value_cursor_right">cursor_right</string>
+    <string name="swipe_action_value_split_layout">split_layout</string>
+    <string name="swipe_action_value_merge_layout">merge_layout</string>
+    <string name="swipe_action_value_utility_keyboard">utility_keyboard</string>
+
 </resources>

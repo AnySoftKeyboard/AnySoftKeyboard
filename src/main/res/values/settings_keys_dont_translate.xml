@@ -221,4 +221,16 @@
     <string name="user_dict_editor_key">user_dict_editor_key</string>
 
     <string name="tweaks_group_key">tweaks</string>
+
+    <string name="settings_key_swipe_up_action">settings_key_swipe_up_action</string>
+    <string name="settings_key_swipe_down_action">settings_key_swipe_down_action</string>
+    <string name="settings_key_swipe_left_action">settings_key_swipe_left_action</string>
+    <string name="settings_key_swipe_right_action">settings_key_swipe_right_action</string>
+    <string name="settings_key_swipe_left_space_bar_action">settings_key_swipe_left_space_bar_action</string>
+    <string name="settings_key_swipe_right_space_bar_action">settings_key_swipe_right_space_bar_action</string>
+    <string name="settings_key_swipe_left_two_fingers_action">settings_key_swipe_left_two_fingers_action</string>
+    <string name="settings_key_swipe_right_two_fingers_action">settings_key_swipe_right_two_fingers_action</string>
+    <string name="settings_key_swipe_up_from_spacebar_action">settings_key_swipe_up_from_spacebar_action</string>
+    <string name="settings_key_pinch_gesture_action">settings_key_pinch_gesture_action</string>
+    <string name="settings_key_separate_gesture_action">settings_key_separate_gesture_action</string>
 </resources>
