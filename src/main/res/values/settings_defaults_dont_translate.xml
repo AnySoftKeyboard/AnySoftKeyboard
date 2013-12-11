@@ -83,6 +83,8 @@
     <string name="swipe_action_value_cursor_right">cursor_right</string>
     <string name="swipe_action_value_split_layout">split_layout</string>
     <string name="swipe_action_value_merge_layout">merge_layout</string>
+    <string name="swipe_action_value_compact_layout_to_right">compact_to_right</string>
+    <string name="swipe_action_value_compact_layout_to_left">compact_to_left</string>
     <string name="swipe_action_value_utility_keyboard">utility_keyboard</string>
 
 </resources>

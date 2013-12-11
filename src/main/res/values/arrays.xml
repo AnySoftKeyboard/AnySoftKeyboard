@@ -54,6 +54,8 @@
         <item>@string/swipe_action_value_cursor_right</item>
         <item>@string/swipe_action_value_split_layout</item>
         <item>@string/swipe_action_value_merge_layout</item>
+        <item>@string/swipe_action_value_compact_layout_to_right</item>
+        <item>@string/swipe_action_value_compact_layout_to_left</item>
         <item>@string/swipe_action_value_utility_keyboard</item>
     </string-array>
 
@@ -76,6 +78,8 @@
         <item>@string/swipe_action_name_cursor_right</item>
         <item>@string/swipe_action_name_split_layout</item>
         <item>@string/swipe_action_name_merge_layout</item>
+        <item>@string/swipe_action_name_compact_layout_to_right</item>
+        <item>@string/swipe_action_name_compact_layout_to_left</item>
         <item>@string/swipe_action_name_utility_keyboard</item>
     </string-array>
 </resources>

@@ -68,6 +68,7 @@ import com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
+import com.anysoftkeyboard.keyboards.CondenseType;
 import com.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
@@ -205,7 +206,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     private Vibrator mVibrator;
     private int mVibrationDuration;
 
-    private boolean mKeyboardInCondensedMode = false;
+    private CondenseType mKeyboardInCondensedMode = CondenseType.None;
 
     private final Handler mHandler = new KeyboardUIStateHanlder(this);
 
@@ -1733,8 +1734,10 @@ public class AnySoftKeyboard extends InputMethodService implements
                 break;
             case KeyCodes.SPLIT_LAYOUT:
             case KeyCodes.MERGE_LAYOUT:
+            case KeyCodes.COMPACT_LAYOUT_TO_RIGHT:
+            case KeyCodes.COMPACT_LAYOUT_TO_LEFT:
                 if (getCurrentKeyboard() != null && mInputView != null) {
-                    mKeyboardInCondensedMode = KeyCodes.SPLIT_LAYOUT == primaryCode;
+                    mKeyboardInCondensedMode = CondenseType.fromKeyCode(primaryCode);
                     AnyKeyboard currentKeyboard = getCurrentKeyboard();
                     setKeyboardStuffBeforeSetToView(currentKeyboard);
                     mInputView.setKeyboard(currentKeyboard);
@@ -3353,16 +3356,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private void setInitialCondensedState(Configuration newConfig) {
         final String defaultCondensed = mConfig.getInitialKeyboardSplitState();
-        mKeyboardInCondensedMode = false;
-        if (defaultCondensed.equals("merged_always")) {
-            mKeyboardInCondensedMode = false;
-        } else if (defaultCondensed.equals("split_always")) {
-            mKeyboardInCondensedMode = true;
+        mKeyboardInCondensedMode = CondenseType.None;
+        if (defaultCondensed.equals("split_always")) {
+            mKeyboardInCondensedMode = CondenseType.Split;
         } else if (defaultCondensed.equals("split_in_landscape")) {
             if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
-                mKeyboardInCondensedMode = true;
+                mKeyboardInCondensedMode = CondenseType.Split;
             else
-                mKeyboardInCondensedMode = false;
+                mKeyboardInCondensedMode = CondenseType.None;
         }
 
         Log.d(TAG, "setInitialCondensedState: defaultCondensed is "

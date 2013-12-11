@@ -17,11 +17,13 @@
 package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
-import android.util.SparseArray;
+
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.menny.android.anysoftkeyboard.R;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class KeyboardCondenser {
@@ -42,8 +44,8 @@ public class KeyboardCondenser {
 
     private static final String TAG = "ASK - KeyboardCondenser";
 
-    private boolean mKeyboardCondensed = false;
-    private final SparseArray<KeySize> mKeySizesMap = new SparseArray<KeySize>();
+    private CondenseType mKeyboardCondenseType = CondenseType.None;
+    private List<KeySize> mKeySizesMap = null;//it is usually not used, so I'll create an instance when first needed.
     private final AnyKeyboard mKeyboard;
     private final float mCondensingFactor;
 
@@ -53,92 +55,115 @@ public class KeyboardCondenser {
                 .getInteger(R.integer.condensing_precentage)) / 100f;
     }
 
-    public boolean setCondensedKeys(boolean condensed) {
-        if (condensed == mKeyboardCondensed)
+    public boolean setCondensedKeys(CondenseType condenseType) {
+        if (mKeyboardCondenseType.equals(condenseType))
             return false;//not changed
 
-        if (condensed) {
-            mKeySizesMap.clear();
-            if (mCondensingFactor > 0.97f)
-                return false;
 
-            // now to determine the watershed line: keys will be align to the
-            // edges
-            final int keyboardWidth = mKeyboard.getMinWidth();
-            final int watershedLineX = keyboardWidth / 2;
+        if (mCondensingFactor > 0.97f)
+            return false;
 
-            int currentLeftX = 0;
-            int currentRightX = keyboardWidth;
-            int currentY = 0;
-            Stack<Key> rightKeys = new Stack<Key>();
-            boolean flipSideLeft = true;
-            int i = 0;
-            Key spaceKey = null;
-            for (Key k : mKeyboard.getKeys()) {
-                // first, store the original values
-                mKeySizesMap.put(i, new KeySize(k.width, k.height,
-                        k.x, k.y));
-                i++;
+        List<Key> keys = mKeyboard.getKeys();
 
-                if (currentY != k.y)// on new line, we want to handle the left
-                // side of the keyboard
-                {
-                    flipSideLeft = !flipSideLeft;
+        if (mKeySizesMap == null)
+            mKeySizesMap = new ArrayList<>(keys.size());
 
-                    condenseRightSide(mCondensingFactor, keyboardWidth,
-                            currentRightX, rightKeys, spaceKey);
-
-                    currentLeftX = 0;
-                    currentRightX = keyboardWidth;
-                    currentY = k.y;
-                    rightKeys.clear();
-                }
-
-                int targetWidth = (int) (k.width * mCondensingFactor);
-                int keyMidPoint = (k.gap + k.x + (k.width / 2));
-                if ((k.gap + k.x) < watershedLineX
-                        && k.codes[0] == KeyCodes.SPACE) {
-                    // space is a special case, I want to make it as wide as
-                    // possible
-                    spaceKey = k;
-                    currentLeftX = condenseLeftSide(mCondensingFactor,
-                            currentLeftX, k, targetWidth);
-                } else if (keyMidPoint < (watershedLineX - 5)) {
-                    currentLeftX = condenseLeftSide(mCondensingFactor,
-                            currentLeftX, k, targetWidth);
-                } else if (keyMidPoint > (watershedLineX + 5)) {
-                    // to handle later. I need to find the last gap
-                    currentRightX = stackRightSideKeyForLater(rightKeys, k,
-                            targetWidth);
-                } else {
-                    if (flipSideLeft) {
-                        currentLeftX = condenseLeftSide(mCondensingFactor,
-                                currentLeftX, k, targetWidth);
-                    } else {
-                        currentRightX = stackRightSideKeyForLater(rightKeys, k,
-                                targetWidth);
-                    }
-                }
-            }
-            // now to condense the last row
-            condenseRightSide(mCondensingFactor, keyboardWidth, currentRightX,
-                    rightKeys, spaceKey);
-        } else {
-            // restoring sizes
-            int i = 0;
-            for (Key k : mKeyboard.getKeys()) {
+        //restoring sizes
+        List<KeySize> stashedKeySizes = mKeySizesMap;
+        if (stashedKeySizes.size() > 0) {
+            //we have condensed before
+            if (stashedKeySizes.size() != keys.size())
+                throw new IllegalStateException("The size of the stashed keys and the actual keyboard keys is not the same!");
+            for(int i = 0; i<stashedKeySizes.size(); i++) {
+                Key k = keys.get(i);
                 KeySize originalSize = mKeySizesMap.get(i);
                 k.width = originalSize.width;
                 k.height = originalSize.height;
                 k.x = originalSize.X;
                 k.y = originalSize.Y;
-                i++;
             }
         }
+        //back to original state, no need to keep those key-size data anymore
+        mKeySizesMap.clear();
 
-        mKeyboardCondensed = condensed;
+        final int keyboardWidth = mKeyboard.getMinWidth();
+        switch (condenseType) {
+            case Split:
+                splitKeys(keyboardWidth, keyboardWidth/2);
+                break;
+            case CompactToLeft:
+                splitKeys(keyboardWidth, keyboardWidth);
+                break;
+            case CompactToRight:
+                splitKeys(keyboardWidth, 0);
+                break;
+            case None:
+                // keys already restored
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown condensing type given: "+condenseType);
+        }
+
+        mKeyboardCondenseType = condenseType;
         //changed
         return true;
+    }
+
+    private void splitKeys(final int keyboardWidth, final int watershedLineX) {
+        int currentLeftX = 0;
+        int currentRightX = keyboardWidth;
+        int currentY = 0;
+        Stack<Key> rightKeys = new Stack<>();
+        boolean flipSideLeft = true;
+        Key spaceKey = null;
+        for (Key k : mKeyboard.getKeys()) {
+            // first, store the original values
+            mKeySizesMap.add(new KeySize(k.width, k.height, k.x, k.y));
+
+            if (currentY != k.y)// on new line, we want to handle the left
+            // side of the keyboard
+            {
+                flipSideLeft = !flipSideLeft;
+
+                condenseRightSide(mCondensingFactor, keyboardWidth,
+                        currentRightX, rightKeys, spaceKey);
+
+                currentLeftX = 0;
+                currentRightX = keyboardWidth;
+                currentY = k.y;
+                rightKeys.clear();
+            }
+
+            int targetWidth = (int) (k.width * mCondensingFactor);
+            int keyMidPoint = (k.gap + k.x + (k.width / 2));
+            if (k.codes[0] == KeyCodes.SPACE &&
+                    (k.gap + k.x) < watershedLineX &&//one side is to the left,
+                    (k.gap + k.x+ k.width) > watershedLineX) { //the other side of the key is to the right of the watershed-line
+                // space is a special case, I want to make it as wide as
+                // possible (since it is a space-bar in the middle of the screen
+                spaceKey = k;
+                currentLeftX = condenseLeftSide(mCondensingFactor,
+                        currentLeftX, k, targetWidth);
+            } else if (keyMidPoint < (watershedLineX - 5)) {
+                currentLeftX = condenseLeftSide(mCondensingFactor,
+                        currentLeftX, k, targetWidth);
+            } else if (keyMidPoint > (watershedLineX + 5)) {
+                // to handle later. I need to find the last gap
+                currentRightX = stackRightSideKeyForLater(rightKeys, k,
+                        targetWidth);
+            } else {
+                if (flipSideLeft) {
+                    currentLeftX = condenseLeftSide(mCondensingFactor,
+                            currentLeftX, k, targetWidth);
+                } else {
+                    currentRightX = stackRightSideKeyForLater(rightKeys, k,
+                            targetWidth);
+                }
+            }
+        }
+        // now to condense the last row
+        condenseRightSide(mCondensingFactor, keyboardWidth, currentRightX,
+                rightKeys, spaceKey);
     }
 
     int stackRightSideKeyForLater(Stack<Key> rightKeys, Key k, int targetWidth) {
