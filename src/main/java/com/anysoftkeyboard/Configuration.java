@@ -68,15 +68,13 @@ public interface Configuration {
 
     boolean getInsertSpaceAfterCandidatePick();
 
-    int getGestureSwipeUpKeyCode();
-
-    int getGestureSwipeUpFromSpacebarKeyCode();
+    int getGestureSwipeUpKeyCode(boolean fromSpaceBar);
 
     int getGestureSwipeDownKeyCode();
 
-    int getGestureSwipeLeftKeyCode();
+    int getGestureSwipeLeftKeyCode(boolean fromSpaceBar, boolean withTwoFingers);
 
-    int getGestureSwipeRightKeyCode();
+    int getGestureSwipeRightKeyCode(boolean fromSpaceBar, boolean withTwoFingers);
 
     int getGesturePinchKeyCode();
 

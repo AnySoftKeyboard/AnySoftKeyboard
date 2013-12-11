@@ -387,16 +387,16 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
             final Configuration cfg = AnyApplication.getConfig();
             switch (slide & 0xFF00) {// removing distance
                 case DIRECTION_UP:
-                    swipeKeyTarget = cfg.getGestureSwipeUpFromSpacebarKeyCode();
+                    swipeKeyTarget = cfg.getGestureSwipeUpKeyCode(true);
                     break;
                 case DIRECTION_DOWN:
                     swipeKeyTarget = cfg.getGestureSwipeDownKeyCode();
                     break;
                 case DIRECTION_LEFT:
-                    swipeKeyTarget = cfg.getGestureSwipeLeftKeyCode();
+                    swipeKeyTarget = cfg.getGestureSwipeLeftKeyCode(true, false);
                     break;
                 case DIRECTION_RIGHT:
-                    swipeKeyTarget = cfg.getGestureSwipeRightKeyCode();
+                    swipeKeyTarget = cfg.getGestureSwipeRightKeyCode(true, false);
                     break;
                 default:
                     swipeKeyTarget = KeyCodes.SPACE;

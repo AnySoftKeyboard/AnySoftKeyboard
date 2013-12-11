@@ -291,6 +291,19 @@
     <string name="swipe_right_action">Swipe right</string>
     <string name="swipe_right_action_summary">Define the swipe right gesture action. Currently, %s</string>
     <string name="swipe_right_action_title">Select swipe right action</string>
+    <string name="swipe_right_space_bar_action">Space bar swipe right</string>
+    <string name="swipe_right_space_bar_action_summary">Define the swipe right from space bar gesture action. Currently, %s</string>
+    <string name="swipe_right_space_bar_action_title">Select swipe right action</string>
+    <string name="swipe_left_space_bar_action">Space bar swipe left</string>
+    <string name="swipe_left_space_bar_action_summary">Define the swipe left from space bar gesture action. Currently, %s</string>
+    <string name="swipe_left_space_bar_action_title">Select swipe left action</string>
+    <string name="swipe_left_two_fingers_action">Two fingers swipe left</string>
+    <string name="swipe_left_two_fingers_action_summary">Define the two-fingers swipe left gesture action. Currently, %s</string>
+    <string name="swipe_left_two_fingers_action_title">Select swipe left action</string>
+    <string name="swipe_right_two_fingers_action">Two fingers swipe right</string>
+    <string name="swipe_right_two_fingers_action_summary">Define the two-fingers swipe right gesture action. Currently, %s</string>
+    <string name="swipe_right_two_fingers_action_title">Select swipe right action</string>
+
     <string name="pinch_gesture_action">Pinch gesture</string>
     <string name="pinch_gesture_action_title">Select pinch gesture action</string>
     <string name="pinch_gesture_action_summary">Define the pinch gesture action. Currently, %s</string>

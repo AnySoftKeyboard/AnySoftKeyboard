@@ -46,6 +46,42 @@
             android:title="@string/swipe_right_action"/>
 
         <net.evendanan.pushingpixels.ListPreference
+            android:defaultValue="next_symbols"
+            android:dialogTitle="@string/swipe_left_space_bar_action_title"
+            android:entries="@array/swipe_action_types_names"
+            android:entryValues="@array/swipe_action_types_values"
+            android:key="swipe_left_space_bar_action"
+            android:summary="@string/swipe_left_space_bar_action_summary"
+            android:title="@string/swipe_left_space_bar_action"/>
+
+        <net.evendanan.pushingpixels.ListPreference
+            android:defaultValue="next_alphabet"
+            android:dialogTitle="@string/swipe_right_space_bar_action_title"
+            android:entries="@array/swipe_action_types_names"
+            android:entryValues="@array/swipe_action_types_values"
+            android:key="swipe_right_space_bar_action"
+            android:summary="@string/swipe_right_space_bar_action_summary"
+            android:title="@string/swipe_right_space_bar_action"/>
+
+        <net.evendanan.pushingpixels.ListPreference
+            android:defaultValue="next_symbols"
+            android:dialogTitle="@string/swipe_left_two_fingers_action"
+            android:entries="@array/swipe_action_types_names"
+            android:entryValues="@array/swipe_action_types_values"
+            android:key="swipe_left_two_fingers_action"
+            android:summary="@string/swipe_left_two_fingers_action_summary"
+            android:title="@string/swipe_left_two_fingers_action"/>
+
+        <net.evendanan.pushingpixels.ListPreference
+            android:defaultValue="next_alphabet"
+            android:dialogTitle="@string/swipe_right_two_fingers_action_title"
+            android:entries="@array/swipe_action_types_names"
+            android:entryValues="@array/swipe_action_types_values"
+            android:key="swipe_right_two_fingers_action"
+            android:summary="@string/swipe_right_two_fingers_action_summary"
+            android:title="@string/swipe_right_two_fingers_action"/>
+
+        <net.evendanan.pushingpixels.ListPreference
             android:defaultValue="utility_keyboard"
             android:dialogTitle="@string/swipe_up_from_spacebar_action_title"
             android:entries="@array/swipe_action_types_names"

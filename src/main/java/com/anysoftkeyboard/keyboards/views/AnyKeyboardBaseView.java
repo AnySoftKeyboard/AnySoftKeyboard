@@ -2018,8 +2018,6 @@ public class AnyKeyboardBaseView extends View implements
         Key key = tracker.getKey(keyIndex);
         if (key == null || !mShowPreview)
             return;
-        if (mOldPointerCount > 1)
-            mPreviewPopup.dismiss();
 
         int popupWidth = 0;
         int popupHeight = 0;

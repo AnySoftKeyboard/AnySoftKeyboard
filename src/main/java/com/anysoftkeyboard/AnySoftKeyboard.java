@@ -2858,7 +2858,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     public void onSwipeRight(boolean onSpaceBar, boolean twoFingersGesture) {
-        final int keyCode = mConfig.getGestureSwipeRightKeyCode();
+        final int keyCode = mConfig.getGestureSwipeRightKeyCode(onSpaceBar, twoFingersGesture);
         Log.d(TAG, "onSwipeRight " + ((onSpaceBar) ? " + space" : "") + ((twoFingersGesture) ? " + two-fingers" : "")
                 + " => code " + keyCode);
         if (keyCode != 0)
@@ -2867,7 +2867,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     public void onSwipeLeft(boolean onSpaceBar, boolean twoFingersGesture) {
-        final int keyCode = mConfig.getGestureSwipeLeftKeyCode();
+        final int keyCode = mConfig.getGestureSwipeLeftKeyCode(onSpaceBar, twoFingersGesture);
         Log.d(TAG, "onSwipeLeft " + ((onSpaceBar) ? " + space" : "") + ((twoFingersGesture) ? " + two-fingers" : "")
                 + " => code " + keyCode);
         if (keyCode != 0)
@@ -2883,9 +2883,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     public void onSwipeUp(boolean onSpaceBar) {
-        final int keyCode = onSpaceBar ? mConfig
-                .getGestureSwipeUpFromSpacebarKeyCode() : mConfig
-                .getGestureSwipeUpKeyCode();
+        final int keyCode = mConfig.getGestureSwipeUpKeyCode(onSpaceBar);
         Log.d(TAG, "onSwipeUp " + ((onSpaceBar) ? " + space" : "")
                 + " => code " + keyCode);
         if (keyCode != 0) {
