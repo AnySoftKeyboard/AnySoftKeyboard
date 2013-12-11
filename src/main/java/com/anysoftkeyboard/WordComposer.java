@@ -19,7 +19,7 @@ package com.anysoftkeyboard;
 import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionary;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView;
 import com.anysoftkeyboard.utils.Log;
-import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.FeaturesSet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -196,14 +196,12 @@ public class WordComposer {
                 System.arraycopy(codes, 0, possibleArray, 0, codes.length);
                 if (possibleArray.length > codes.length)
                     Arrays.fill(possibleArray, codes.length, possibleArray.length, AnyKeyboardBaseView.NOT_A_KEY);
-                if (AnyApplication.DEBUG)
-                    Log.d(TAG, "Found an array to reuse with length " + possibleArray.length);
+                Log.d(TAG, "Found an array to reuse with length " + possibleArray.length);
                 return possibleArray;
             }
         }
         //if I got here, it means that the reusableArray does not contain a long enough array
-        if (AnyApplication.DEBUG)
-            Log.d(TAG, "Creating a new array with length " + codes.length);
+        Log.d(TAG, "Creating a new array with length " + codes.length);
         int[] newArray = new int[codes.length];
         mArraysToReuse.add(newArray);
         return getReusableArray(codes);
@@ -329,7 +327,7 @@ public class WordComposer {
     }
 
     public void logCodes() {
-        if (!AnyApplication.DEBUG) return;
+        if (!FeaturesSet.DEBUG_LOG) return;
         Log.d(TAG, "Word: " + mTypedWord + ", prefered word:" + mPreferredWord);
         int i = 0;
         for (int[] codes : mCodes) {

@@ -31,6 +31,7 @@ import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.FragmentChauffeurActivity;
@@ -46,7 +47,7 @@ public class TutorialsProvider {
 
 
     public static void showDragonsIfNeeded(Context context) {
-        if (AnyApplication.DEBUG && firstTestersTimeVersionLoaded(context)) {
+        if (BuildConfig.DEBUG && firstTestersTimeVersionLoaded(context)) {
             Log.i(TAG, "TESTERS VERSION added");
 
             Intent i = new Intent(context, TestersNoticeActivity.class);

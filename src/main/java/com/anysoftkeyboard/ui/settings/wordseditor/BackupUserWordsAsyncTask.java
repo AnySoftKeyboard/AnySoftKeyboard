@@ -103,8 +103,7 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
                 output.writeEntity("w")
                         .writeAttribute("f", Integer.toString(freq))
                         .writeText(word).endEntity();
-                if (AnyApplication.DEBUG)
-                    Log.d(TAG, "Storing word '" + word + "' with freq " + freq);
+                Log.d(TAG, "Storing word '" + word + "' with freq " + freq);
                 cursor.moveToNext();
             }
 

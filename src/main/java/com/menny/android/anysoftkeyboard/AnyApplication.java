@@ -40,8 +40,6 @@ import net.evendanan.frankenrobot.Lab;
 
 public class AnyApplication extends Application implements OnSharedPreferenceChangeListener {
 
-    public static final boolean DEBUG = BuildConfig.DEBUG;
-
     private static final String TAG = "ASK_APP";
     private static Configuration msConfig;
     private static FrankenRobot msFrank;
@@ -51,9 +49,9 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
     @Override
     public void onCreate() {
         super.onCreate();
-        if (DEBUG) Log.d(TAG, "** Starting application in DEBUG mode.");
+        Log.d(TAG, "** Starting application in DEBUG mode.");
         msFrank = Lab.build(getApplicationContext(), R.array.frankenrobot_interfaces_mapping);
-        if (DEBUG) {
+        if (BuildConfig.DEBUG) {
             StrictModeAble strictMode = msFrank.embody(StrictModeAble.class);
             if (strictMode != null)//it should be created only in the API18.
                 strictMode.setupStrictMode();

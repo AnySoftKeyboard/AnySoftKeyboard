@@ -49,7 +49,7 @@ android {
     buildToolsVersion "19.0.0"
 
     defaultConfig {
-        versionCode 114
+        versionCode 115
         versionName "1.1."+getVersionPatchBuild()
 
         minSdkVersion 7
@@ -121,16 +121,16 @@ android {
             zipAlign true
         }
 
-        beta {
+        debug {
             signingConfig signingConfigs.release
             zipAlign true
-            debuggable false
+            debuggable true
         }
     }
 }
 
 dependencies {
-    compile 'net.evendanan.anysoftkeyboard:api:1.0'
+    compile 'net.evendanan.anysoftkeyboard:api:1.0.1'
     compile 'com.android.support:support-v4:19.0.0'
     compile 'net.evendanan:frankenrobot:1.1'
     compile 'com.android.support:appcompat-v7:19.0.0'

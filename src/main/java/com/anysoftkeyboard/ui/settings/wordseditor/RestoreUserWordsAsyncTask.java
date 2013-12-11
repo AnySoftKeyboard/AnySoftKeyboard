@@ -110,9 +110,8 @@ final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
                                            String qName) throws SAXException {
                         if (inWord && localName.equals("w")) {
                             if (!TextUtils.isEmpty(word)) {
-                                if (AnyApplication.DEBUG)
-                                    Log.d(TAG, "Restoring word '" + word
-                                            + "' with freq " + freq);
+                                Log.d(TAG, "Restoring word '" + word
+                                        + "' with freq " + freq);
                                 // Disallow duplicates
                                 mDictionary.deleteWord(word);
                                 mDictionary.addWord(word, freq);

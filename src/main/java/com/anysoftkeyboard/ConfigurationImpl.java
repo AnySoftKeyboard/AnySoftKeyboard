@@ -30,7 +30,8 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 import com.anysoftkeyboard.utils.Log;
 import com.anysoftkeyboard.utils.Workarounds;
-import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.BuildConfig;
+import com.menny.android.anysoftkeyboard.FeaturesSet;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.HashMap;
@@ -125,7 +126,9 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
         mCurrentAppVersion = releaseNumber;
         Log.i(TAG, "** Version: " + version);
         Log.i(TAG, "** Release code: " + mCurrentAppVersion);
-        Log.i(TAG, "** Debug: " + AnyApplication.DEBUG);
+        Log.i(TAG, "** Debug: " + BuildConfig.DEBUG);
+        Log.i(TAG, "** DEBUG_LOG: " + FeaturesSet.DEBUG_LOG);
+        Log.i(TAG, "** CUTTING_EDGE: " + FeaturesSet.CUTTING_EDGE);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
         //setting some statistics
         updateStatistics(sp, mContext);
@@ -224,7 +227,7 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
     }
 
     private void upgradeSettingsValues(SharedPreferences sp) {
-        if (AnyApplication.DEBUG) Log.d(TAG, "Checking if configuration upgrade is needed.");
+        Log.d(TAG, "Checking if configuration upgrade is needed.");
 //		String topRowNewIdValue = sp.getString(mContext.getString(R.string.settings_key_top_keyboard_row_id), null);
 //		String topRowOldIdValue = sp.getString("keyboard_layout_change_method", null);
 //		if (topRowNewIdValue == null && topRowOldIdValue != null)

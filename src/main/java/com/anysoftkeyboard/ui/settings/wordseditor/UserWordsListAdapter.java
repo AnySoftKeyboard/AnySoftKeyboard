@@ -55,6 +55,24 @@ class UserWordsListAdapter extends ArrayAdapter<String> {
     }
 
     @Override
+    public boolean hasStableIds() {
+        return true;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        switch(getItemViewType(position)) {
+            case TYPE_EDIT:
+                return 1;
+            case TYPE_ADD:
+                return 2;
+            default:
+                final String word = getItem(position);
+                return word.hashCode();
+        }
+    }
+
+    @Override
     public int getCount() {
         final int baseCount = super.getCount();
         if (baseCount == 0 && mCurrentlyEditPosition == NONE_POSITION)
