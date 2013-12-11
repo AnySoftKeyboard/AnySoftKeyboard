@@ -74,7 +74,7 @@ final class AskGestureEventsListener implements
     }
 
     public boolean onPinch(float factor) {
-        if (factor < 0.5) {
+        if (factor < 0.65) {
             //mKeyboardView.dismissKeyPreview();
             //mKeyboardView.mPointerQueue.cancelAllTrackers();
             mKeyboardView.mKeyboardActionListener.onPinch();
@@ -84,7 +84,7 @@ final class AskGestureEventsListener implements
     }
 
     public boolean onSeparate(float factor) {
-        if (factor > 1.5) {
+        if (factor > 1.35) {
             //mKeyboardView.dismissKeyPreview();
             //mKeyboardView.mPointerQueue.cancelAllTrackers();
             mKeyboardView.mKeyboardActionListener.onSeparate();
