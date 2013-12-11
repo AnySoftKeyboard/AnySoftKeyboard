@@ -72,10 +72,14 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
     private int mSwipeDistanceThreshold = 240;
     private int mSwipeVelocityThreshold = 400;
     private int mSwipeUpKeyCode;
-    private int mSwipeUpFromSpacebarKeyCode;
+    private int mSwipeUpFromSpaceBarKeyCode;
     private int mSwipeDownKeyCode;
     private int mSwipeLeftKeyCode;
     private int mSwipeRightKeyCode;
+    private int mSwipeLeftFromSpaceBarKeyCode;
+    private int mSwipeRightFromSpaceBarKeyCode;
+    private int mSwipeLeftWithTwoFingersKeyCode;
+    private int mSwipeRightWithTwoFingersKeyCode;
     private int mPinchKeyCode;
     private int mSeparateKeyCode;
     private boolean mActionKeyInvisibleWhenRequested = false;
@@ -398,8 +402,8 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
         mSwipeUpKeyCode = getIntFromSwipeConfiguration(sp, "swipe_up_action", "shift");
         Log.d(TAG, "** mSwipeUpKeyCode: " + mSwipeUpKeyCode);
 
-        mSwipeUpFromSpacebarKeyCode = getIntFromSwipeConfiguration(sp, "swipe_up_from_spacebar_action", "utility_keyboard");
-        Log.d(TAG, "** mSwipeUpFromSpacebarKeyCode: " + mSwipeUpFromSpacebarKeyCode);
+        mSwipeUpFromSpaceBarKeyCode = getIntFromSwipeConfiguration(sp, "swipe_up_from_spacebar_action", "utility_keyboard");
+        Log.d(TAG, "** mSwipeUpFromSpaceBarKeyCode: " + mSwipeUpFromSpaceBarKeyCode);
 
         mSwipeDownKeyCode = getIntFromSwipeConfiguration(sp, "swipe_down_action", "hide");
         Log.d(TAG, "** mSwipeDownKeyCode: " + mSwipeDownKeyCode);
@@ -415,6 +419,19 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 
         mSeparateKeyCode = getIntFromSwipeConfiguration(sp, "separate_gesture_action", "split_layout");
         Log.d(TAG, "** mSeparateKeyCode: " + mSeparateKeyCode);
+
+        mSwipeLeftFromSpaceBarKeyCode = getIntFromSwipeConfiguration(sp, "swipe_left_space_bar_action", "next_symbols");
+        Log.d(TAG, "** mSwipeLeftFromSpaceBarKeyCode: " + mSwipeLeftFromSpaceBarKeyCode);
+
+        mSwipeRightFromSpaceBarKeyCode = getIntFromSwipeConfiguration(sp, "swipe_right_space_bar_action", "next_alphabet");
+        Log.d(TAG, "** mSwipeRightFromSpaceBarKeyCode: " + mSwipeRightFromSpaceBarKeyCode);
+
+        mSwipeLeftWithTwoFingersKeyCode = getIntFromSwipeConfiguration(sp, "swipe_left_two_fingers_action", "next_symbols");
+        Log.d(TAG, "** mSwipeLeftWithTwoFingersKeyCode: " + mSwipeLeftWithTwoFingersKeyCode);
+
+        mSwipeRightWithTwoFingersKeyCode = getIntFromSwipeConfiguration(sp, "swipe_right_two_fingers_action", "next_alphabet");
+        Log.d(TAG, "** mSwipeRightWithTwoFingersKeyCode: " + mSwipeRightWithTwoFingersKeyCode);
+
 
         mActionKeyInvisibleWhenRequested = sp.getBoolean("action_key_invisible_on_disable", false);
         Log.d(TAG, "** mActionKeyInvisibleWhenRequested: " + mActionKeyInvisibleWhenRequested);
@@ -653,20 +670,22 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
         return mInsertSpaceAfterCandidatePick;
     }
 
-    public int getGestureSwipeUpKeyCode() {
-        return mSwipeUpKeyCode;
+    public int getGestureSwipeUpKeyCode(boolean fromSpaceBar) {
+        return fromSpaceBar? mSwipeUpFromSpaceBarKeyCode : mSwipeUpKeyCode;
     }
 
     public int getGestureSwipeDownKeyCode() {
         return mSwipeDownKeyCode;
     }
 
-    public int getGestureSwipeLeftKeyCode() {
-        return mSwipeLeftKeyCode;
+    public int getGestureSwipeLeftKeyCode(boolean fromSpaceBar, boolean withTwoFingers) {
+        return fromSpaceBar? mSwipeLeftFromSpaceBarKeyCode :
+                withTwoFingers? mSwipeLeftWithTwoFingersKeyCode : mSwipeLeftKeyCode;
     }
 
-    public int getGestureSwipeRightKeyCode() {
-        return mSwipeRightKeyCode;
+    public int getGestureSwipeRightKeyCode(boolean fromSpaceBar, boolean withTwoFingers) {
+        return fromSpaceBar? mSwipeRightFromSpaceBarKeyCode :
+                withTwoFingers? mSwipeRightWithTwoFingersKeyCode : mSwipeRightKeyCode;
     }
 
     public int getGesturePinchKeyCode() {
@@ -675,10 +694,6 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 
     public int getGestureSeparateKeyCode() {
         return mSeparateKeyCode;
-    }
-
-    public int getGestureSwipeUpFromSpacebarKeyCode() {
-        return mSwipeUpFromSpacebarKeyCode;
     }
 
     public boolean getActionKeyInvisibleWhenRequested() {
