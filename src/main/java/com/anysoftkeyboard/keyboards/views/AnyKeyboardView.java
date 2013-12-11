@@ -258,6 +258,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 
     @Override
     public boolean onTouchEvent(MotionEvent me) {
+        Log.d(TAG, "onTouchEvent with "+me.getPointerCount()+" points");
         if (getKeyboard() == null)//I mean, if there isn't any keyboard I'm handling, what's the point?
             return false;
 
@@ -284,10 +285,10 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
                             mKeyboardActionListener.onSwipeUp(true);
                             break;
                         case DIRECTION_LEFT:
-                            mKeyboardActionListener.onSwipeLeft(true);
+                            mKeyboardActionListener.onSwipeLeft(true, isAtTwoFingersState());
                             break;
                         case DIRECTION_RIGHT:
-                            mKeyboardActionListener.onSwipeRight(true);
+                            mKeyboardActionListener.onSwipeRight(true, isAtTwoFingersState());
                             break;
                     }
                 } else {
