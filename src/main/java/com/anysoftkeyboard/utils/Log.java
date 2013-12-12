@@ -24,6 +24,9 @@ import java.util.ArrayList;
 public class Log {
     private static final boolean DEBUG = FeaturesSet.DEBUG_LOG;
 
+    private static final StringBuilder msFormatBuilder = new StringBuilder(1024);
+    private static final java.util.Formatter msFormatter =  new java.util.Formatter(msFormatBuilder);
+
     private static final String[] msLogs = new String[FeaturesSet.DEBUG_LOG ? 225 : 0];
     private static int msLogIndex = 0;
 
@@ -79,10 +82,12 @@ public class Log {
 
     private static String LVL_V = "V";
 
-    public static void v(String TAG, String text) {
+    public static void v(String TAG, String text, Object... args) {
         if (DEBUG) {
-            android.util.Log.v(TAG, text);
-            addLog(LVL_V, TAG, text);
+            String msg = args == null? text : msFormatter.format(text, args).toString();
+            msFormatBuilder.setLength(0);
+            android.util.Log.v(TAG, msg);
+            addLog(LVL_V, TAG, msg);
         }
     }
 
@@ -102,6 +107,15 @@ public class Log {
         }
     }
 
+    public static void d(String TAG, String text, Object... args) {
+        if (DEBUG) {
+            String msg = args == null? text : msFormatter.format(text, args).toString();
+            msFormatBuilder.setLength(0);
+            android.util.Log.d(TAG, msg);
+            addLog(LVL_D, TAG, msg);
+        }
+    }
+
     public static void d(String TAG, String text, Throwable t) {
         if (DEBUG) {
             android.util.Log.d(TAG, text, t);
@@ -111,9 +125,11 @@ public class Log {
 
     private static String LVL_I = "I";
 
-    public static void i(String TAG, String text) {
-        android.util.Log.i(TAG, text);
-        addLog(LVL_I, TAG, text);
+    public static void i(String TAG, String text, Object... args) {
+        String msg = args == null? text : msFormatter.format(text, args).toString();
+        msFormatBuilder.setLength(0);
+        android.util.Log.i(TAG, msg);
+        addLog(LVL_I, TAG, msg);
     }
 
     public static void i(String TAG, String text, Throwable t) {
@@ -123,9 +139,11 @@ public class Log {
 
     private static String LVL_W = "W";
 
-    public static void w(String TAG, String text) {
-        android.util.Log.w(TAG, text);
-        addLog(LVL_W, TAG, text);
+    public static void w(String TAG, String text, Object... args) {
+        String msg = args == null? text : msFormatter.format(text, args).toString();
+        msFormatBuilder.setLength(0);
+        android.util.Log.w(TAG, msg);
+        addLog(LVL_W, TAG, msg);
     }
 
     public static void w(String TAG, String text, Throwable t) {
@@ -135,9 +153,11 @@ public class Log {
 
     private static String LVL_E = "E";
 
-    public static void e(String TAG, String text) {
-        android.util.Log.e(TAG, text);
-        addLog(LVL_E, TAG, text);
+    public static void e(String TAG, String text, Object... args) {
+        String msg = args == null? text : msFormatter.format(text, args).toString();
+        msFormatBuilder.setLength(0);
+        android.util.Log.e(TAG, msg);
+        addLog(LVL_E, TAG, msg);
     }
 
     public static void e(String TAG, String text, Throwable t) {
