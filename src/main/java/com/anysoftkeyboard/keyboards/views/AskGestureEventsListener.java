@@ -23,6 +23,7 @@ import com.anysoftkeyboard.utils.Log;
 final class AskGestureEventsListener implements
         AskOnGestureListener {
 
+    private static final String TAG = "AskGestureEventsListener";
     private final SwipeTracker mSwipeTracker;
 
     private final AnyKeyboardBaseView mKeyboardView;
@@ -33,13 +34,56 @@ final class AskGestureEventsListener implements
     }
 
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        //if (AnyApplication.DEBUG) Log.d(TAG, String.format("onScroll dx %f, dy %f", distanceX, distanceY));
-        //return Math.abs(distanceX) > mKeyboardView.mScrollXDistanceThreshold || Math.abs(distanceY) > mKeyboardView.mScrollYDistanceThreshold;
+        final float scrollXDistance = Math.abs(e2.getX() - e1.getX());
+        final float scrollYDistance = Math.abs(e2.getY() - e1.getY());
+        final float totalScrollTime = ((float)(e2.getEventTime() - e1.getEventTime()));
+        //velocity is per second, not per millisecond.
+        final float velocityX = 1000 * Math.abs(scrollXDistance / totalScrollTime);
+        final float velocityY = 1000 * Math.abs(scrollYDistance / totalScrollTime);
+        Log.d(TAG, "onScroll scrollX %f, scrollY %f, velocityX %f, velocityY %f", scrollXDistance, scrollYDistance, velocityX, velocityY);
+        if (velocityX > velocityY) {
+            Log.v(TAG, "Scrolling on X axis");
+            if (velocityX > mKeyboardView.mSwipeVelocityThreshold) {
+                Log.v(TAG, "Scroll broke the velocity barrier");
+                final int swipeXDistance = mKeyboardView.isFirstDownEventInsideSpaceBar() ? mKeyboardView.mSwipeSpaceXDistanceThreshold : mKeyboardView.mSwipeXDistanceThreshold;
+                if (scrollXDistance > swipeXDistance) {
+                    Log.v(TAG, "Scroll broke the distance barrier");
+                    if (e2.getX() > e1.getX()) {
+                        //to right
+                        mKeyboardView.mKeyboardActionListener.onSwipeRight(
+                                mKeyboardView.isFirstDownEventInsideSpaceBar(),
+                                mKeyboardView.isAtTwoFingersState());
+                    } else {
+                        mKeyboardView.mKeyboardActionListener.onSwipeLeft(
+                                mKeyboardView.isFirstDownEventInsideSpaceBar(),
+                                mKeyboardView.isAtTwoFingersState());
+                    }
+                    return true;
+                }
+            }
+        } else {
+            Log.v(TAG, "Scrolling on Y axis");
+            if (velocityX > mKeyboardView.mSwipeVelocityThreshold) {
+                Log.v(TAG, "Scroll broke the velocity barrier");
+                if (scrollYDistance > mKeyboardView.mSwipeYDistanceThreshold) {
+                    Log.v(TAG, "Scroll broke the distance barrier");
+                    if (e2.getY() > e1.getY()) {
+                        //to down
+                        mKeyboardView.mKeyboardActionListener.onSwipeDown(
+                                mKeyboardView.isFirstDownEventInsideSpaceBar());
+                    } else {
+                        mKeyboardView.mKeyboardActionListener.onSwipeUp(
+                                mKeyboardView.isFirstDownEventInsideSpaceBar());
+                    }
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
     public boolean onFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
-        Log.d(AnyKeyboardBaseView.TAG, String.format("onFling vx %f, vy %f", velocityX, velocityY));
+        Log.d(TAG, "onFling vx %f, vy %f", velocityX, velocityY);
 
         final float absX = Math.abs(velocityX);
         final float absY = Math.abs(velocityY);
