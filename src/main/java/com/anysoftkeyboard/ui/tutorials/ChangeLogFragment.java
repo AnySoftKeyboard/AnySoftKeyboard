@@ -27,7 +27,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
@@ -39,21 +38,23 @@ import net.evendanan.pushingpixels.PassengerFragment;
 public class ChangeLogFragment extends PassengerFragment {
 
     private static final String EXTRA_LOGS_TO_SHOW = "EXTRA_LOGS_TO_SHOW";
-    private static final String EXTRA_SHOW_TITLE = "EXTRA_SHOW_TITLE";
 
     public static final int SHOW_ALL_CHANGELOG = -1;
     public static final int SHOW_LATEST_CHANGELOG = -2;
     public static final int SHOW_UNVIEWED_CHANGELOG = -3;
 
-    public static ChangeLogFragment createFragment(int logToShow, boolean showTitle) {
+    public static ChangeLogFragment createFragment(int logToShow) {
         ChangeLogFragment fragment = new ChangeLogFragment();
-        Bundle b = new Bundle();
-        b.putInt(EXTRA_LOGS_TO_SHOW, logToShow);
-        b.putBoolean(EXTRA_SHOW_TITLE, showTitle);
-
+        Bundle b = createArgs(logToShow);
         fragment.setArguments(b);
 
         return fragment;
+    }
+
+    private static Bundle createArgs(int logToShow) {
+        Bundle b = new Bundle();
+        b.putInt(EXTRA_LOGS_TO_SHOW, logToShow);
+        return b;
     }
 
     private static final String TAG = "ASK_CHANGELOG";
@@ -62,29 +63,27 @@ public class ChangeLogFragment extends PassengerFragment {
 
     private ViewGroup mLogContainer;
 
-    private boolean mShowTitle = true;
     private int mLogToShow = SHOW_ALL_CHANGELOG;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mShowTitle = getArguments().getBoolean(EXTRA_SHOW_TITLE);
         mLogToShow = getArguments().getInt(EXTRA_LOGS_TO_SHOW);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.changelog, container, false);
+        return inflater.inflate(getMainLayout(), container, false);
+    }
+
+    protected int getMainLayout() {
+        return R.layout.changelog;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         LayoutInflater inflater = LayoutInflater.from(getActivity());
-        if (!mShowTitle) {
-            view.findViewById(R.id.changelog_title_layout).setVisibility(View.GONE);
-            ((FrameLayout)view.findViewById(R.id.change_log_content_frame)).setForeground(null);
-        }
 
         Context appContext = getActivity().getApplicationContext();
         mLogContainer = (ViewGroup) view.findViewById(R.id.change_logs_container);
@@ -157,14 +156,16 @@ public class ChangeLogFragment extends PassengerFragment {
 
     public static class CardedChangeLogFragment extends ChangeLogFragment {
         public CardedChangeLogFragment() {
-            Bundle b = new Bundle();
-            b.putBoolean(EXTRA_SHOW_TITLE, false);
-            b.putInt(EXTRA_LOGS_TO_SHOW, ChangeLogFragment.SHOW_LATEST_CHANGELOG);
-            setArguments(b);
+            setArguments(createArgs(ChangeLogFragment.SHOW_LATEST_CHANGELOG));
         }
 
-        protected void updateEntryText(TextView entryHeader, String versionName, int versionCode) {
-            String cardedHeader = getString(R.string.change_log_card_title_template, versionCode, versionName);
+        @Override
+        protected int getMainLayout() {
+            return R.layout.changelog_logs_container;
+        }
+
+        protected void updateEntryText(TextView entryHeader, Object tag, int versionCode, PackageInfo packageInfo) {
+            String cardedHeader = getString(R.string.change_log_card_title_template, versionCode, packageInfo.versionName);
             entryHeader.setText(cardedHeader);
         }
     }
