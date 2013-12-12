@@ -162,7 +162,8 @@ public class SetUpKeyboardWizardFragment extends PassengerFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mAppContext.getContentResolver().unregisterContentObserver(mSecureSettingsChanged);
+        if (mAppContext != null)//in case it was destroyed before onActivityCreated was called.
+            mAppContext.getContentResolver().unregisterContentObserver(mSecureSettingsChanged);
         mAppContext = null;
     }
 }
