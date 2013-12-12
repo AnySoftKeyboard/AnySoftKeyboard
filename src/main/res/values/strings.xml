@@ -156,7 +156,7 @@
     <!-- welcome -->
     <string name="about">About</string>
     <!-- changelog -->
-    <string name="changelog">Changelog</string>
+    <string name="changelog">Change Log</string>
     <string name="search_market_for_addons">Search for add-ons</string>
     <string name="search_market_for_keyboard_addons">Get more keyboards at <i>Play Store</i>…</string>
     <string name="search_market_for_quick_key_addons">Get more <i>Quick-Text</i> add-ons at <i>Play Store</i>…</string>

@@ -82,7 +82,7 @@ public class MainFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         FragmentChauffeurActivity activity = (FragmentChauffeurActivity)getActivity();
-                        activity.addFragmentToUi(ChangeLogFragment.createFragment(ChangeLogFragment.SHOW_ALL_CHANGELOG, true),
+                        activity.addFragmentToUi(ChangeLogFragment.createFragment(ChangeLogFragment.SHOW_ALL_CHANGELOG),
                                     FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
                                     getView().findViewById(R.id.change_log_card));
                         }
