@@ -240,12 +240,24 @@ public class AnyKeyboardBaseView extends View implements
     private int mPreviewKeyTextColor;
 
     private final KeyboardDimensFromTheme mKeyboardDimens = new KeyboardDimensFromTheme();
+    private boolean mTouchesAreDisabledTillLastFingerIsUp = false;
+
+    public boolean areTouchesDisabled() {
+        return mTouchesAreDisabledTillLastFingerIsUp;
+    }
 
     public boolean isAtTwoFingersState() {
         //this is a hack, I know.
         //I know that this is a swipe ONLY after the second finger is up, so I already lost the
         //two-fingers count in the motion event.
-        return SystemClock.elapsedRealtime() - mLastTimeHadTwoFingers > TWO_FINGERS_LINGER_TIME;
+        return SystemClock.elapsedRealtime() - mLastTimeHadTwoFingers < TWO_FINGERS_LINGER_TIME;
+    }
+
+    public void disableTouchesTillFingersAreUp() {
+        dismissKeyPreview();
+        mHandler.cancelAllMessages();
+        mHandler.dismissPreview(0);
+        mTouchesAreDisabledTillLastFingerIsUp = true;
     }
 
     private static final class MiniKeyboardActionListener implements
@@ -2429,6 +2441,14 @@ public class AnyKeyboardBaseView extends View implements
         if (pointerCount > 1)
             mLastTimeHadTwoFingers = SystemClock.elapsedRealtime();//marking the time. Read isAtTwoFingersState()
 
+        if (mTouchesAreDisabledTillLastFingerIsUp) {
+            if ( mOldPointerCount == 1 &&
+                (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP)) {
+                mTouchesAreDisabledTillLastFingerIsUp = false;
+            }
+
+            return true;
+        }
         // TODO: cleanup this code into a multi-touch to single-touch event
         // converter class?
         // If the device does not have distinct multi-touch support panel,
