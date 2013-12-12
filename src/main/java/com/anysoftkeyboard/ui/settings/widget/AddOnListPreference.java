@@ -164,7 +164,7 @@ public class AddOnListPreference extends ListPreference {
             RadioButton tb = (RadioButton) row
                     .findViewById(R.id.addon_checkbox);
             tb.setClickable(false);
-            tb.setChecked(addOn.getId() == mSelectedAddOn.getId());
+            tb.setChecked(addOn.getId().equals(mSelectedAddOn.getId()));
 
             return row;
         }
@@ -221,7 +221,8 @@ public class AddOnListPreference extends ListPreference {
         Parcelable superP = super.onSaveInstanceState();
         AddOnsListSavedState myState = new AddOnsListSavedState(superP);
 
-        myState.selectedAddOnId = mSelectedAddOn.getId();
+        //some add-ons can be none.
+        myState.selectedAddOnId = mSelectedAddOn == null? null : mSelectedAddOn.getId();
         String[] addOns = new String[mAddOns.length];
         for (int i = 0; i < addOns.length; i++)
             addOns[i] = mAddOns[i].getId();
@@ -244,7 +245,7 @@ public class AddOnListPreference extends ListPreference {
                 addOns[i] = AddOnsFactory
                         .locateAddOn(addOnIds[i], getContext().getApplicationContext());
             setAddOnsList(addOns);
-            setSelectedAddOn(AddOnsFactory.locateAddOn(selectedAddOnId,
+            setSelectedAddOn(selectedAddOnId == null? null : AddOnsFactory.locateAddOn(selectedAddOnId,
                     getContext().getApplicationContext()));
             super.onRestoreInstanceState(myState.getSuperState());
         }
