@@ -16,6 +16,13 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
-    <TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
+    <TextView android:layout_height="wrap_content" android:layout_width="match_parent"
               android:text="* Compact Mode (check Gesture Settings for details).\n* Bugs fixing." style="@style/Ask.Text.Normal"/>
+    <TextView
+        style="@style/Ask.Text.Small"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:text="More details: https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues?milestone=22&amp;state=closed"/>
 </LinearLayout>
