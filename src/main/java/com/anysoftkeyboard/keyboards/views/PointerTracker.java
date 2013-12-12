@@ -408,6 +408,10 @@ public class PointerTracker {
         }
     }
 
+    public int getKeyIndex() {
+        return mKeyState.getKeyIndex();
+    }
+
     public int getLastX() {
         return mKeyState.getLastX();
     }

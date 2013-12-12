@@ -555,7 +555,7 @@ public abstract class Keyboard {
          * @see #onReleased(boolean)
          */
         public void onPressed() {
-            pressed = !pressed;
+            pressed = true;
         }
 
         /**
@@ -567,7 +567,7 @@ public abstract class Keyboard {
          * @see #onPressed()
          */
         public void onReleased(boolean inside) {
-            pressed = !pressed;
+            pressed = false;
             /*
              * No need for this code, I handle this expicitly in setShifted code
              * if (sticky) { on = !on; }

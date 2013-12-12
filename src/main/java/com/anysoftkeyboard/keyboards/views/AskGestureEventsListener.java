@@ -34,6 +34,9 @@ final class AskGestureEventsListener implements
     }
 
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        if (mKeyboardView.isAtTwoFingersState())
+            return false;
+
         final float scrollXDistance = Math.abs(e2.getX() - e1.getX());
         final float scrollYDistance = Math.abs(e2.getY() - e1.getY());
         final float totalScrollTime = ((float)(e2.getEventTime() - e1.getEventTime()));
@@ -85,6 +88,9 @@ final class AskGestureEventsListener implements
     }
 
     public boolean onFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
+        if (mKeyboardView.isAtTwoFingersState())
+            return false;
+
         Log.d(TAG, "onFling vx %f, vy %f", velocityX, velocityY);
 
         final float absX = Math.abs(velocityX);

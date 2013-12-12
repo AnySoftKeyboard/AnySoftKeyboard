@@ -254,9 +254,16 @@ public class AnyKeyboardBaseView extends View implements
     }
 
     public void disableTouchesTillFingersAreUp() {
-        dismissKeyPreview();
         mHandler.cancelAllMessages();
         mHandler.dismissPreview(0);
+        dismissPopupKeyboard();
+
+        for(PointerTracker tracker : mPointerTrackers) {
+            Log.d(TAG, "Canceling tracker "+tracker.getKeyIndex());
+            sendOnXEvent(MotionEvent.ACTION_CANCEL, 0, 0, 0, tracker);
+            tracker.setAlreadyProcessed();
+        }
+
         mTouchesAreDisabledTillLastFingerIsUp = true;
     }
 
