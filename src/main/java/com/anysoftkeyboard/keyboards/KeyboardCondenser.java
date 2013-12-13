@@ -47,20 +47,33 @@ public class KeyboardCondenser {
     private CondenseType mKeyboardCondenseType = CondenseType.None;
     private List<KeySize> mKeySizesMap = null;//it is usually not used, so I'll create an instance when first needed.
     private final AnyKeyboard mKeyboard;
-    private final float mCondensingFactor;
+    private final float mCondensingFullFactor;
+    private final float mCondensingEdgeFactor;
 
     public KeyboardCondenser(Context askContext, AnyKeyboard keyboard) {
         mKeyboard = keyboard;
-        mCondensingFactor = ((float) askContext.getResources()
+        mCondensingFullFactor = ((float) askContext.getResources()
                 .getInteger(R.integer.condensing_precentage)) / 100f;
+        mCondensingEdgeFactor = ((float) askContext.getResources()
+                .getInteger(R.integer.condensing_precentage_edge)) / 100f;
     }
 
     public boolean setCondensedKeys(CondenseType condenseType) {
         if (mKeyboardCondenseType.equals(condenseType))
             return false;//not changed
 
+        final float condensingFactor;
+        switch (condenseType){
+            case CompactToLeft:
+            case CompactToRight:
+                condensingFactor = mCondensingEdgeFactor;
+                break;
+            default:
+                condensingFactor = mCondensingFullFactor;
+                break;
+        }
 
-        if (mCondensingFactor > 0.97f)
+        if (!condenseType.equals(CondenseType.None) && condensingFactor > 0.97f)
             return false;
 
         List<Key> keys = mKeyboard.getKeys();
@@ -89,13 +102,13 @@ public class KeyboardCondenser {
         final int keyboardWidth = mKeyboard.getMinWidth();
         switch (condenseType) {
             case Split:
-                splitKeys(keyboardWidth, keyboardWidth/2);
+                splitKeys(keyboardWidth, keyboardWidth/2, condensingFactor);
                 break;
             case CompactToLeft:
-                splitKeys(keyboardWidth, keyboardWidth);
+                splitKeys(keyboardWidth, keyboardWidth, condensingFactor);
                 break;
             case CompactToRight:
-                splitKeys(keyboardWidth, 0);
+                splitKeys(keyboardWidth, 0, condensingFactor);
                 break;
             case None:
                 // keys already restored
@@ -109,7 +122,7 @@ public class KeyboardCondenser {
         return true;
     }
 
-    private void splitKeys(final int keyboardWidth, final int watershedLineX) {
+    private void splitKeys(final int keyboardWidth, final int watershedLineX, final float condensingFactor) {
         int currentLeftX = 0;
         int currentRightX = keyboardWidth;
         int currentY = 0;
@@ -125,7 +138,7 @@ public class KeyboardCondenser {
             {
                 flipSideLeft = !flipSideLeft;
 
-                condenseRightSide(mCondensingFactor, keyboardWidth,
+                condenseRightSide(condensingFactor, keyboardWidth,
                         currentRightX, rightKeys, spaceKey);
 
                 currentLeftX = 0;
@@ -134,7 +147,7 @@ public class KeyboardCondenser {
                 rightKeys.clear();
             }
 
-            int targetWidth = (int) (k.width * mCondensingFactor);
+            int targetWidth = (int) (k.width * condensingFactor);
             int keyMidPoint = (k.gap + k.x + (k.width / 2));
             if (k.codes[0] == KeyCodes.SPACE &&
                     (k.gap + k.x) < watershedLineX &&//one side is to the left,
@@ -142,10 +155,10 @@ public class KeyboardCondenser {
                 // space is a special case, I want to make it as wide as
                 // possible (since it is a space-bar in the middle of the screen
                 spaceKey = k;
-                currentLeftX = condenseLeftSide(mCondensingFactor,
+                currentLeftX = condenseLeftSide(condensingFactor,
                         currentLeftX, k, targetWidth);
             } else if (keyMidPoint < (watershedLineX - 5)) {
-                currentLeftX = condenseLeftSide(mCondensingFactor,
+                currentLeftX = condenseLeftSide(condensingFactor,
                         currentLeftX, k, targetWidth);
             } else if (keyMidPoint > (watershedLineX + 5)) {
                 // to handle later. I need to find the last gap
@@ -153,7 +166,7 @@ public class KeyboardCondenser {
                         targetWidth);
             } else {
                 if (flipSideLeft) {
-                    currentLeftX = condenseLeftSide(mCondensingFactor,
+                    currentLeftX = condenseLeftSide(condensingFactor,
                             currentLeftX, k, targetWidth);
                 } else {
                     currentRightX = stackRightSideKeyForLater(rightKeys, k,
@@ -162,7 +175,7 @@ public class KeyboardCondenser {
             }
         }
         // now to condense the last row
-        condenseRightSide(mCondensingFactor, keyboardWidth, currentRightX,
+        condenseRightSide(condensingFactor, keyboardWidth, currentRightX,
                 rightKeys, spaceKey);
     }
 
