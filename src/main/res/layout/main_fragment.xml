@@ -25,57 +25,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            style="@style/Ask.Text.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:autoLink="web"
-            android:gravity="center_vertical"
-            android:drawableLeft="@drawable/gplus"
-            android:text=" http://gplus.to/menny" />
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:orientation="horizontal"
-            android:weightSum="10">
-
-            <net.evendanan.pushingpixels.Banner
-                android:id="@+id/keyboard_screen_shot"
-                android:contentDescription="@string/ime_name"
-                android:layout_width="0px"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_weight="5"
-                android:src="@drawable/lean_dark_theme_screenshot" />
-
-            <TextView
-                style="@style/Ask.Text.Normal"
-                android:layout_width="0px"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_weight="5"
-                android:text="@string/how_to_pointer_not_app" />
-        </LinearLayout>
+        <include layout="@layout/main_fragment_top_info_layout" />
 
         <!-- this box will be should shown
          only if the keyboard is not fully enabled in the system. -->
-        <LinearLayout
-            style="@style/Ask.Card"
-            android:orientation="horizontal"
-            android:id="@+id/keyboard_not_configured_box">
-
-            <TextView
-                style="@style/Ask.Text.SubTitle"
-                android:id="@+id/not_configured_click_here"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="@string/not_configured_with_click_here"
-                android:drawableLeft="@drawable/ic_not_configured"
-                android:drawablePadding="6dp" />
-        </LinearLayout>
+        <include layout="@layout/main_fragment_not_configured_info_layout" />
 
         <LinearLayout
             android:id="@+id/change_log_card"
