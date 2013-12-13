@@ -11,6 +11,7 @@ import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.theme.KeyboardTheme;
@@ -21,12 +22,12 @@ import com.anysoftkeyboard.ui.tutorials.ChangeLogFragment;
 import com.anysoftkeyboard.ui.tutorials.TipsFragment;
 import com.menny.android.anysoftkeyboard.R;
 
-import net.evendanan.pushingpixels.Banner;
 import net.evendanan.pushingpixels.FragmentChauffeurActivity;
 
 public class MainFragment extends Fragment {
 
     private static final String TAG = "MainFragment";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.main_fragment, container, false);
@@ -66,7 +67,7 @@ public class MainFragment extends Fragment {
         ClickableSpan csp = new ClickableSpan() {
             @Override
             public void onClick(View v) {
-                FragmentChauffeurActivity activity = (FragmentChauffeurActivity)getActivity();
+                FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
                 activity.addFragmentToUi(new SetUpKeyboardWizardFragment(),
                         FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
                         getView().findViewById(R.id.keyboard_not_configured_box));
@@ -81,12 +82,12 @@ public class MainFragment extends Fragment {
                 new ClickableSpan() {
                     @Override
                     public void onClick(View v) {
-                        FragmentChauffeurActivity activity = (FragmentChauffeurActivity)getActivity();
+                        FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
                         activity.addFragmentToUi(ChangeLogFragment.createFragment(ChangeLogFragment.SHOW_ALL_CHANGELOG),
-                                    FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
-                                    getView().findViewById(R.id.change_log_card));
-                        }
-                    });
+                                FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
+                                getView().findViewById(R.id.change_log_card));
+                    }
+                });
         //setting up tips
         setupLink(getView(), R.id.show_more_tips,
                 new ClickableSpan() {
@@ -96,7 +97,7 @@ public class MainFragment extends Fragment {
                                 (TipsFragment.RandomTipFragment) MainFragment.this.getChildFragmentManager().findFragmentById(R.id.random_tip_fragment_container);
                         int tipLayoutIdToStartWith = fragment.shownTipLayoutResId();
 
-                        FragmentChauffeurActivity activity = (FragmentChauffeurActivity)getActivity();
+                        FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
                         activity.addFragmentToUi(TipsFragment.createFragment(TipsFragment.SHOW_ALL_TIPS, tipLayoutIdToStartWith),
                                 FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
                                 getView().findViewById(R.id.tips_card));
@@ -132,17 +133,17 @@ public class MainFragment extends Fragment {
             notConfiguredBox.setVisibility(View.VISIBLE);
         }
 
-        //updating the keyboard layout to the current theme screenshot (if exists).
+        //updating the keyboard layout to the current theme screen shot (if exists).
         KeyboardTheme theme = KeyboardThemeFactory.getCurrentKeyboardTheme(getActivity().getApplicationContext());
         if (theme == null)
             theme = KeyboardThemeFactory.getFallbackTheme(getActivity().getApplicationContext());
-        Drawable screenshot = theme.getScreenshot();
+        Drawable themeScreenShot = theme.getScreenshot();
 
-        Banner screenshotHolder = (Banner) getView().findViewById(R.id.keyboard_screen_shot);
-        if (screenshot == null)
-            screenshotHolder.setBackgroundResource(R.drawable.lean_dark_theme_screenshot);
+        ImageView screenShotHolder = (ImageView) getView().findViewById(R.id.keyboard_screen_shot);
+        if (themeScreenShot == null)
+            screenShotHolder.setBackgroundResource(R.drawable.lean_dark_theme_screenshot);
         else
-            screenshotHolder.setImageDrawable(screenshot);
+            screenShotHolder.setImageDrawable(themeScreenShot);
     }
 
 }
