@@ -72,10 +72,14 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
     private int mSwipeDistanceThreshold = 240;
     private int mSwipeVelocityThreshold = 400;
     private int mSwipeUpKeyCode;
-    private int mSwipeUpFromSpacebarKeyCode;
+    private int mSwipeUpFromSpaceBarKeyCode;
     private int mSwipeDownKeyCode;
     private int mSwipeLeftKeyCode;
     private int mSwipeRightKeyCode;
+    private int mSwipeLeftFromSpaceBarKeyCode;
+    private int mSwipeRightFromSpaceBarKeyCode;
+    private int mSwipeLeftWithTwoFingersKeyCode;
+    private int mSwipeRightWithTwoFingersKeyCode;
     private int mPinchKeyCode;
     private int mSeparateKeyCode;
     private boolean mActionKeyInvisibleWhenRequested = false;
@@ -100,7 +104,7 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 
     private boolean mWorkaround_alwaysUseDrawText = false;
 
-    private String mInitialKeyboardSplitState = "merged_always";
+    private String mInitialKeyboardCondenseState = "merged_always";
 
     private boolean mAlwaysUseFallBackUserDictionary = false;
 
@@ -395,26 +399,38 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
         mInsertSpaceAfterCandidatePick = sp.getBoolean("insert_space_after_word_suggestion_selection", true);
         Log.d(TAG, "** mInsertSpaceAfterCandidatePick: " + mInsertSpaceAfterCandidatePick);
 
-        mSwipeUpKeyCode = getIntFromSwipeConfiguration(sp, "swipe_up_action", "shift");
+        mSwipeUpKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_up_action, R.string.swipe_action_value_shift);
         Log.d(TAG, "** mSwipeUpKeyCode: " + mSwipeUpKeyCode);
 
-        mSwipeUpFromSpacebarKeyCode = getIntFromSwipeConfiguration(sp, "swipe_up_from_spacebar_action", "utility_keyboard");
-        Log.d(TAG, "** mSwipeUpFromSpacebarKeyCode: " + mSwipeUpFromSpacebarKeyCode);
+        mSwipeUpFromSpaceBarKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_up_from_spacebar_action, R.string.swipe_action_value_utility_keyboard);
+        Log.d(TAG, "** mSwipeUpFromSpaceBarKeyCode: " + mSwipeUpFromSpaceBarKeyCode);
 
-        mSwipeDownKeyCode = getIntFromSwipeConfiguration(sp, "swipe_down_action", "hide");
+        mSwipeDownKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_down_action, R.string.swipe_action_value_hide);
         Log.d(TAG, "** mSwipeDownKeyCode: " + mSwipeDownKeyCode);
 
-        mSwipeLeftKeyCode = getIntFromSwipeConfiguration(sp, "swipe_left_action", "next_symbols");
+        mSwipeLeftKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_left_action, R.string.swipe_action_value_next_symbols);
         Log.d(TAG, "** mSwipeLeftKeyCode: " + mSwipeLeftKeyCode);
 
-        mSwipeRightKeyCode = getIntFromSwipeConfiguration(sp, "swipe_right_action", "next_alphabet");
+        mSwipeRightKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_right_action, R.string.swipe_action_value_next_alphabet);
         Log.d(TAG, "** mSwipeRightKeyCode: " + mSwipeRightKeyCode);
 
-        mPinchKeyCode = getIntFromSwipeConfiguration(sp, "pinch_gesture_action", "merge_layout");
+        mPinchKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_pinch_gesture_action, R.string.swipe_action_value_merge_layout);
         Log.d(TAG, "** mPinchKeyCode: " + mPinchKeyCode);
 
-        mSeparateKeyCode = getIntFromSwipeConfiguration(sp, "separate_gesture_action", "split_layout");
+        mSeparateKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_separate_gesture_action, R.string.swipe_action_value_split_layout);
         Log.d(TAG, "** mSeparateKeyCode: " + mSeparateKeyCode);
+
+        mSwipeLeftFromSpaceBarKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_left_space_bar_action, R.string.swipe_action_value_next_symbols);
+        Log.d(TAG, "** mSwipeLeftFromSpaceBarKeyCode: " + mSwipeLeftFromSpaceBarKeyCode);
+
+        mSwipeRightFromSpaceBarKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_right_space_bar_action, R.string.swipe_action_value_next_alphabet);
+        Log.d(TAG, "** mSwipeRightFromSpaceBarKeyCode: " + mSwipeRightFromSpaceBarKeyCode);
+
+        mSwipeLeftWithTwoFingersKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_left_two_fingers_action, R.string.swipe_action_value_compact_layout_to_left);
+        Log.d(TAG, "** mSwipeLeftWithTwoFingersKeyCode: " + mSwipeLeftWithTwoFingersKeyCode);
+
+        mSwipeRightWithTwoFingersKeyCode = getIntFromSwipeConfiguration(sp, R.string.settings_key_swipe_right_two_fingers_action, R.string.swipe_action_value_compact_layout_to_right);
+        Log.d(TAG, "** mSwipeRightWithTwoFingersKeyCode: " + mSwipeRightWithTwoFingersKeyCode);
 
         mActionKeyInvisibleWhenRequested = sp.getBoolean("action_key_invisible_on_disable", false);
         Log.d(TAG, "** mActionKeyInvisibleWhenRequested: " + mActionKeyInvisibleWhenRequested);
@@ -502,9 +518,9 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
                 getAlwaysUseDrawTextDefault());
         Log.d(TAG, "** mWorkaround_alwaysUseDrawText: " + mWorkaround_alwaysUseDrawText);
 
-        mInitialKeyboardSplitState = sp.getString(mContext.getString(R.string.settings_key_default_split_state),
+        mInitialKeyboardCondenseState = sp.getString(mContext.getString(R.string.settings_key_default_split_state),
                 mContext.getString(R.string.settings_default_default_split_state));
-        Log.d(TAG, "** mInitialKeyboardSplitState: " + mInitialKeyboardSplitState);
+        Log.d(TAG, "** mInitialKeyboardCondenseState: " + mInitialKeyboardCondenseState);
 
         mUseChewbacca = sp.getBoolean(mContext.getString(R.string.settings_key_show_chewbacca),
                 mContext.getResources().getBoolean(R.bool.settings_default_show_chewbacca));
@@ -544,44 +560,51 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
             return mContext.getResources().getBoolean(R.bool.settings_default_workaround_disable_rtl_fix);
     }
 
-    private int getIntFromSwipeConfiguration(SharedPreferences sp, final String prefKey, final String defaultValue) {
+    private int getIntFromSwipeConfiguration(SharedPreferences sp, final int prefKeyResId, final int defaultValueResId) {
+        final String prefKey = mContext.getString(prefKeyResId);
+        final String defaultValue = mContext.getString(defaultValueResId);
+
         final String keyValue = sp.getString(prefKey, defaultValue);
 
-        if (keyValue.equalsIgnoreCase("next_alphabet"))
+        if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_next_alphabet)))
             return KeyCodes.MODE_ALPHABET;
-        else if (keyValue.equalsIgnoreCase("next_symbols"))
+        else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_next_symbols)))
             return KeyCodes.MODE_SYMOBLS;
-        else if (keyValue.equalsIgnoreCase("cycle_keyboards"))
+        else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_cycle_keyboards)))
             return KeyCodes.KEYBOARD_CYCLE;
-        else if (keyValue.equalsIgnoreCase("reverse_cycle_keyboards"))
+        else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_reverse_cycle_keyboards)))
             return KeyCodes.KEYBOARD_REVERSE_CYCLE;
-        else if (keyValue.equalsIgnoreCase("shift"))
+        else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_shift)))
             return KeyCodes.SHIFT;
-        else if (keyValue.equalsIgnoreCase("hide"))
+        else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_hide)))
             return KeyCodes.CANCEL;
-        else if (keyValue.equalsIgnoreCase("backspace"))
+        else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_backspace)))
             return KeyCodes.DELETE;
-        else if (keyValue.equalsIgnoreCase("backword"))
+        else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_backword)))
             return KeyCodes.DELETE_WORD;
-        else if (keyValue.equalsIgnoreCase("clear_input"))
+        else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_clear_input)))
             return KeyCodes.CLEAR_INPUT;
-        else if (keyValue.equalsIgnoreCase("cursor_up"))
+        else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_cursor_up)))
             return KeyCodes.ARROW_UP;
-        else if (keyValue.equalsIgnoreCase("cursor_down"))
+        else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_cursor_down)))
             return KeyCodes.ARROW_DOWN;
-        else if (keyValue.equalsIgnoreCase("cursor_left"))
+        else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_cursor_left)))
             return KeyCodes.ARROW_LEFT;
-        else if (keyValue.equalsIgnoreCase("cursor_right"))
+        else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_cursor_right)))
             return KeyCodes.ARROW_RIGHT;
-        else if (keyValue.equalsIgnoreCase("next_inside_mode"))
+        else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_next_inside_mode)))
             return KeyCodes.KEYBOARD_CYCLE_INSIDE_MODE;
-        else if (keyValue.equalsIgnoreCase("other_keyboards_mode"))
+        else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_other_keyboards_mode)))
             return KeyCodes.KEYBOARD_MODE_CHANGE;
-        else if (keyValue.equalsIgnoreCase("split_layout"))
+        else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_split_layout)))
             return KeyCodes.SPLIT_LAYOUT;
-        else if (keyValue.equalsIgnoreCase("merge_layout"))
+        else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_merge_layout)))
             return KeyCodes.MERGE_LAYOUT;
-        else if (keyValue.equalsIgnoreCase("utility_keyboard"))
+        else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_compact_layout_to_left)))
+            return KeyCodes.COMPACT_LAYOUT_TO_LEFT;
+        else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_compact_layout_to_right)))
+            return KeyCodes.COMPACT_LAYOUT_TO_RIGHT;
+        else if (keyValue.equalsIgnoreCase(mContext.getString(R.string.swipe_action_value_utility_keyboard)))
             return KeyCodes.UTILITY_KEYBOARD;
 
         return 0;//0 means no action
@@ -653,20 +676,22 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
         return mInsertSpaceAfterCandidatePick;
     }
 
-    public int getGestureSwipeUpKeyCode() {
-        return mSwipeUpKeyCode;
+    public int getGestureSwipeUpKeyCode(boolean fromSpaceBar) {
+        return fromSpaceBar? mSwipeUpFromSpaceBarKeyCode : mSwipeUpKeyCode;
     }
 
     public int getGestureSwipeDownKeyCode() {
         return mSwipeDownKeyCode;
     }
 
-    public int getGestureSwipeLeftKeyCode() {
-        return mSwipeLeftKeyCode;
+    public int getGestureSwipeLeftKeyCode(boolean fromSpaceBar, boolean withTwoFingers) {
+        return fromSpaceBar? mSwipeLeftFromSpaceBarKeyCode :
+                withTwoFingers? mSwipeLeftWithTwoFingersKeyCode : mSwipeLeftKeyCode;
     }
 
-    public int getGestureSwipeRightKeyCode() {
-        return mSwipeRightKeyCode;
+    public int getGestureSwipeRightKeyCode(boolean fromSpaceBar, boolean withTwoFingers) {
+        return fromSpaceBar? mSwipeRightFromSpaceBarKeyCode :
+                withTwoFingers? mSwipeRightWithTwoFingersKeyCode : mSwipeRightKeyCode;
     }
 
     public int getGesturePinchKeyCode() {
@@ -675,10 +700,6 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 
     public int getGestureSeparateKeyCode() {
         return mSeparateKeyCode;
-    }
-
-    public int getGestureSwipeUpFromSpacebarKeyCode() {
-        return mSwipeUpFromSpacebarKeyCode;
     }
 
     public boolean getActionKeyInvisibleWhenRequested() {
@@ -780,8 +801,8 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
         return mWorkaround_alwaysUseDrawText;
     }
 
-    public String getInitialKeyboardSplitState() {
-        return mInitialKeyboardSplitState;
+    public String getInitialKeyboardCondenseState() {
+        return mInitialKeyboardCondenseState;
     }
 
     public boolean getShowHintTextOnKeys() {

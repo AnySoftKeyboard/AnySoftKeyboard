@@ -156,7 +156,7 @@
     <!-- welcome -->
     <string name="about">About</string>
     <!-- changelog -->
-    <string name="changelog">Changelog</string>
+    <string name="changelog">Change Log</string>
     <string name="search_market_for_addons">Search for add-ons</string>
     <string name="search_market_for_keyboard_addons">Get more keyboards at <i>Play Store</i>…</string>
     <string name="search_market_for_quick_key_addons">Get more <i>Quick-Text</i> add-ons at <i>Play Store</i>…</string>
@@ -291,6 +291,19 @@
     <string name="swipe_right_action">Swipe right</string>
     <string name="swipe_right_action_summary">Define the swipe right gesture action. Currently, %s</string>
     <string name="swipe_right_action_title">Select swipe right action</string>
+    <string name="swipe_right_space_bar_action">Space bar swipe right</string>
+    <string name="swipe_right_space_bar_action_summary">Define the swipe right from space bar gesture action. Currently, %s</string>
+    <string name="swipe_right_space_bar_action_title">Select swipe right action</string>
+    <string name="swipe_left_space_bar_action">Space bar swipe left</string>
+    <string name="swipe_left_space_bar_action_summary">Define the swipe left from space bar gesture action. Currently, %s</string>
+    <string name="swipe_left_space_bar_action_title">Select swipe left action</string>
+    <string name="swipe_left_two_fingers_action">Two fingers swipe left</string>
+    <string name="swipe_left_two_fingers_action_summary">Define the two-fingers swipe left gesture action. Currently, %s</string>
+    <string name="swipe_left_two_fingers_action_title">Select swipe left action</string>
+    <string name="swipe_right_two_fingers_action">Two fingers swipe right</string>
+    <string name="swipe_right_two_fingers_action_summary">Define the two-fingers swipe right gesture action. Currently, %s</string>
+    <string name="swipe_right_two_fingers_action_title">Select swipe right action</string>
+
     <string name="pinch_gesture_action">Pinch gesture</string>
     <string name="pinch_gesture_action_title">Select pinch gesture action</string>
     <string name="pinch_gesture_action_summary">Define the pinch gesture action. Currently, %s</string>
@@ -316,6 +329,9 @@
     <string name="swipe_action_name_other_keyboards_mode">Switch layout mode</string>
     <string name="swipe_action_name_split_layout">Split layout</string>
     <string name="swipe_action_name_merge_layout">Merge layout</string>
+    <string name="swipe_action_name_compact_layout_to_right">Compact layout to right</string>
+    <string name="swipe_action_name_compact_layout_to_left">Compact layout to left</string>
+
     <string name="swipe_action_name_utility_keyboard">Show utility keyboard</string>
 
     <string name="settings_swipe_velocity_threshold_title">Swipe velocity threshold</string>
@@ -663,6 +679,8 @@
     <string name="settings_split_state_merged_always">Start regular</string>
     <string name="settings_split_state_split_in_landscape">Start split in landscape</string>
     <string name="settings_split_state_split_always">Start split</string>
+    <string name="settings_split_state_compact_right_always">Start compacted to right</string>
+    <string name="settings_split_state_compact_left_always">Start compacted to left</string>
 
     <!-- User dictionary settings -->
     <skip/>

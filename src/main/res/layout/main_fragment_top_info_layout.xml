@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/keyboard_screen_shot"
+        android:contentDescription="@string/ime_name"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/lean_dark_theme_screenshot"
+        android:layout_gravity="fill"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        style="@style/Ask.Text.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        android:autoLink="web"
+        android:layout_gravity="top|left"
+        android:drawableLeft="@drawable/gplus"
+        android:text=" http://gplus.to/menny"
+        android:background="#2FFF" />
+
+    <TextView
+        style="@style/Ask.Text.Normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        android:text="@string/how_to_pointer_not_app"
+        android:layout_gravity="center_horizontal|bottom"
+        android:background="#2FFF"
+        android:textColor="@android:color/white" />
+</FrameLayout>

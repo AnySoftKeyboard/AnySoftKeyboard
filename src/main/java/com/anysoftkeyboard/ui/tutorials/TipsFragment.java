@@ -184,14 +184,24 @@ public class TipsFragment extends PassengerFragment {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             //making sure that the tip is scrollable
-            ScrollView scrollContainer = (ScrollView) inflater.inflate(R.layout.tip_scroll_container, container, false);
-            View tipLayout = inflater.inflate(mTipResId, scrollContainer, false);
+            ScrollView scrollContainer = null;
+            final int containerResId = getTipContainerLayout();
+            if (containerResId != 0)
+                scrollContainer = (ScrollView) inflater.inflate(containerResId, container, false);
+
+            View tipLayout = inflater.inflate(mTipResId, scrollContainer != null? scrollContainer : container, false);
 
             setThisAsCheckListenerFor(tipLayout, R.id.tip_settings_key_press_vibration);
             setThisAsCheckListenerFor(tipLayout, R.id.tip_settings_key_press_sound);
 
-            scrollContainer.addView(tipLayout);
-            return scrollContainer;
+            if (scrollContainer != null)
+                scrollContainer.addView(tipLayout);
+
+            return scrollContainer != null? scrollContainer : tipLayout;
+        }
+
+        protected int getTipContainerLayout() {
+            return R.layout.tip_scroll_container;
         }
 
         private void setThisAsCheckListenerFor(View tipLayout, int compoundButtonId) {
@@ -245,6 +255,12 @@ public class TipsFragment extends PassengerFragment {
     }
 
     public static class RandomTipFragment extends TipFragment {
+
+        @Override
+        protected int getTipContainerLayout() {
+            return 0;
+        }
+
         @Override
         protected int getTipToUseOnNoneGiven() {
             //picking a random tip
