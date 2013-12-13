@@ -38,4 +38,5 @@
     <dimen name="candidate_font_height">24sp</dimen>
 
     <integer name="condensing_precentage">50</integer>
+    <integer name="condensing_precentage_edge">30</integer>
 </resources>
