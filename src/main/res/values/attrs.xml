@@ -406,4 +406,15 @@
         <flag name="text" value="1"/>
         <flag name="icon" value="2"/>
     </attr>
+
+    <declare-styleable name="AnySoftKeyboardKeyIconsV3">
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyCondenseNormal" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyCondenseSplit" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyCondenseCompactToRight" format="reference"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyCondenseCompactToLeft" format="reference"/>
+    </declare-styleable>
 </resources>

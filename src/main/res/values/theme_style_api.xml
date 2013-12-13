@@ -152,6 +152,14 @@
         <attr name="iconKeyInputMoveEnd"/>
         <!-- should support normal, key_type_feedback -->
         <attr name="iconKeyInputMoveHome"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyCondenseNormal"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyCondenseSplit"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyCondenseCompactToRight"/>
+        <!-- should support normal, key_type_feedback -->
+        <attr name="iconKeyCondenseCompactToLeft"/>
     </declare-styleable>
 
 </resources>
