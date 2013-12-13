@@ -57,6 +57,12 @@
         <item name="iconKeyMic">@drawable/dark_key_mic_set</item>
         <!-- should support normal, feedback -->
         <item name="iconKeySettings">@drawable/dark_key_settings_set</item>
+
+        <!-- condensing icons -->
+        <item name="iconKeyCondenseNormal">@drawable/ic_normal_keyboard</item>
+        <item name="iconKeyCondenseSplit">@drawable/ic_split_keyboard</item>
+        <item name="iconKeyCondenseCompactToRight">@drawable/ic_compact_right_keyboard</item>
+        <item name="iconKeyCondenseCompactToLeft">@drawable/ic_compact_left_keyboard</item>
     </style>
 
     <style name="GingerbreadKeyIconTheme">

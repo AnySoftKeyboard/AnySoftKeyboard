@@ -73,6 +73,7 @@ import com.anysoftkeyboard.utils.IMEUtil.GCUtils;
 import com.anysoftkeyboard.utils.IMEUtil.GCUtils.MemRelatedOperation;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.FeaturesSet;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -625,7 +626,7 @@ public class AnyKeyboardBaseView extends View implements
         }
         a.recycle();
         // taking missing icons
-        int fallbackIconSetStyleId = R.style.AnyKeyboardBaseKeyIconTheme;
+        int fallbackIconSetStyleId = fallbackTheme.getIconsThemeResId();
         Log.d(TAG,
                 "Will use keyboard fallback icons theme "
                         + fallbackTheme.getName() + " id "
@@ -999,75 +1000,82 @@ public class AnyKeyboardBaseView extends View implements
 
     private boolean setKeyIconValueFromTheme(KeyboardTheme theme, TypedArray remoteTypeArray,
                                              final int localAttrId, final int remoteTypedArrayIndex) {
+        final int keyCode;
         try {
             switch (localAttrId) {
                 case R.attr.iconKeyShift:
-                    mKeysIconBuilders.put(KeyCodes.SHIFT,
-                            DrawableBuilder.build(theme, remoteTypeArray, remoteTypedArrayIndex));
+                    keyCode = KeyCodes.SHIFT;
                     break;
                 case R.attr.iconKeyControl:
-                    mKeysIconBuilders.put(KeyCodes.CTRL,
-                            DrawableBuilder.build(theme, remoteTypeArray, remoteTypedArrayIndex));
+                    keyCode = KeyCodes.CTRL;
                     break;
                 case R.attr.iconKeyAction:
-                    mKeysIconBuilders.put(KeyCodes.ENTER,
-                            DrawableBuilder.build(theme, remoteTypeArray, remoteTypedArrayIndex));
+                    keyCode = KeyCodes.ENTER;
                     break;
                 case R.attr.iconKeyBackspace:
-                    mKeysIconBuilders.put(KeyCodes.DELETE,
-                            DrawableBuilder.build(theme, remoteTypeArray, remoteTypedArrayIndex));
+                    keyCode = KeyCodes.DELETE;
                     break;
                 case R.attr.iconKeyCancel:
-                    mKeysIconBuilders.put(KeyCodes.CANCEL,
-                            DrawableBuilder.build(theme, remoteTypeArray, remoteTypedArrayIndex));
+                    keyCode = KeyCodes.CANCEL;
                     break;
                 case R.attr.iconKeyGlobe:
-                    mKeysIconBuilders.put(KeyCodes.MODE_ALPHABET,
-                            DrawableBuilder.build(theme, remoteTypeArray, remoteTypedArrayIndex));
+                    keyCode = KeyCodes.MODE_ALPHABET;
                     break;
                 case R.attr.iconKeySpace:
-                    mKeysIconBuilders.put(KeyCodes.SPACE,
-                            DrawableBuilder.build(theme, remoteTypeArray, remoteTypedArrayIndex));
+                    keyCode = KeyCodes.SPACE;
                     break;
                 case R.attr.iconKeyTab:
-                    mKeysIconBuilders.put(KeyCodes.TAB,
-                            DrawableBuilder.build(theme, remoteTypeArray, remoteTypedArrayIndex));
+                    keyCode = KeyCodes.TAB;
                     break;
                 case R.attr.iconKeyArrowDown:
-                    mKeysIconBuilders.put(KeyCodes.ARROW_DOWN,
-                            DrawableBuilder.build(theme, remoteTypeArray, remoteTypedArrayIndex));
+                    keyCode = KeyCodes.ARROW_DOWN;
                     break;
                 case R.attr.iconKeyArrowLeft:
-                    mKeysIconBuilders.put(KeyCodes.ARROW_LEFT,
-                            DrawableBuilder.build(theme, remoteTypeArray, remoteTypedArrayIndex));
+                    keyCode = KeyCodes.ARROW_LEFT;
                     break;
                 case R.attr.iconKeyArrowRight:
-                    mKeysIconBuilders.put(KeyCodes.ARROW_RIGHT,
-                            DrawableBuilder.build(theme, remoteTypeArray, remoteTypedArrayIndex));
+                    keyCode = KeyCodes.ARROW_RIGHT;
                     break;
                 case R.attr.iconKeyArrowUp:
-                    mKeysIconBuilders.put(KeyCodes.ARROW_UP,
-                            DrawableBuilder.build(theme, remoteTypeArray, remoteTypedArrayIndex));
+                    keyCode = KeyCodes.ARROW_UP;
                     break;
                 case R.attr.iconKeyInputMoveHome:
-                    mKeysIconBuilders.put(KeyCodes.MOVE_HOME,
-                            DrawableBuilder.build(theme, remoteTypeArray, remoteTypedArrayIndex));
+                    keyCode = KeyCodes.MOVE_HOME;
                     break;
                 case R.attr.iconKeyInputMoveEnd:
-                    mKeysIconBuilders.put(KeyCodes.MOVE_END,
-                            DrawableBuilder.build(theme, remoteTypeArray, remoteTypedArrayIndex));
+                    keyCode = KeyCodes.MOVE_END;
                     break;
                 case R.attr.iconKeyMic:
-                    mKeysIconBuilders.put(KeyCodes.VOICE_INPUT,
-                            DrawableBuilder.build(theme, remoteTypeArray, remoteTypedArrayIndex));
+                    keyCode = KeyCodes.VOICE_INPUT;
                     break;
                 case R.attr.iconKeySettings:
-                    mKeysIconBuilders.put(KeyCodes.SETTINGS,
-                            DrawableBuilder.build(theme, remoteTypeArray, remoteTypedArrayIndex));
+                    keyCode = KeyCodes.SETTINGS;
                     break;
+                case R.attr.iconKeyCondenseNormal:
+                    keyCode = KeyCodes.MERGE_LAYOUT;
+                    break;
+                case R.attr.iconKeyCondenseSplit:
+                    keyCode = KeyCodes.SPLIT_LAYOUT;
+                    break;
+                case R.attr.iconKeyCondenseCompactToRight:
+                    keyCode = KeyCodes.COMPACT_LAYOUT_TO_RIGHT;
+                    break;
+                case R.attr.iconKeyCondenseCompactToLeft:
+                    keyCode = KeyCodes.COMPACT_LAYOUT_TO_LEFT;
+                    break;
+                default:
+                    keyCode = 0;
             }
-            Log.d(TAG, "DrawableBuilders size is " + mKeysIconBuilders.size());
-            return true;
+            if (keyCode == 0) {
+                if (BuildConfig.DEBUG)
+                    throw new IllegalArgumentException("No valid keycode for attr "+remoteTypeArray.getResourceId(remoteTypedArrayIndex, 0));
+                Log.w(TAG, "No valid keycode for attr %d", remoteTypeArray.getResourceId(remoteTypedArrayIndex, 0));
+                return false;
+            } else {
+                mKeysIconBuilders.put(keyCode, DrawableBuilder.build(theme, remoteTypeArray, remoteTypedArrayIndex));
+                Log.d(TAG, "DrawableBuilders size is %d, newest key code %d for resId %d (at index %d)", mKeysIconBuilders.size(), keyCode, remoteTypeArray.getResourceId(remoteTypedArrayIndex, 0), remoteTypedArrayIndex);
+                return true;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return false;

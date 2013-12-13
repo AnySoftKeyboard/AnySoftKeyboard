@@ -26,15 +26,23 @@
         <Key android:codes="@integer/key_code_move_home"/>
         <Key android:isRepeatable="true" android:codes="@integer/key_code_arrow_up"/>
         <Key android:codes="@integer/key_code_move_end"/>
-        <Key android:keyWidth="10%p" android:codes="@integer/key_code_voice_input"/>
-        <Key android:horizontalGap="2.5%p" android:keyWidth="10%p" android:codes="@integer/key_code_settings"
-             android:keyEdgeFlags="right"/>
+
+        <Key android:keyWidth="10%p" android:horizontalGap="10%p" android:codes="@integer/key_code_voice_input"/>
+
+        <Key android:keyWidth="10%p" android:horizontalGap="10%p" android:codes="@integer/key_code_settings"/>
+
+        <Key android:keyWidth="10%p" android:codes="@integer/key_code_cancel"
+            android:keyEdgeFlags="right"/>
     </Row>
     <Row android:rowEdgeFlags="bottom">
         <Key android:codes="@integer/key_code_arrow_left" android:isRepeatable="true" android:keyEdgeFlags="left"/>
         <Key android:codes="@integer/key_code_arrow_down" android:isRepeatable="true"/>
         <Key android:codes="@integer/key_code_arrow_right" android:isRepeatable="true"/>
-        <Key android:keyWidth="15%p" android:horizontalGap="10%p" android:codes="@integer/key_code_cancel"
-             android:keyEdgeFlags="right"/>
+
+        <Key android:keyWidth="10%p" android:codes="@integer/key_code_merge_layout" android:horizontalGap="10%p"/>
+        <Key android:keyWidth="10%p" android:codes="@integer/key_code_split_layout"/>
+        <Key android:keyWidth="10%p" android:codes="@integer/key_code_compact_layout_to_left" />
+        <Key android:keyWidth="10%p" android:codes="@integer/key_code_compact_layout_to_right"
+            android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>
