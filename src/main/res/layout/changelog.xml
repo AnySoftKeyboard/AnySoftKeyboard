@@ -34,7 +34,7 @@
         <TextView
             android:id="@+id/changelog_label"
             style="@style/Ask.Text.SubTitle"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/changelog_app_name"
             android:layout_toRightOf="@id/changelog_icon"
@@ -56,16 +56,10 @@
             android:layout_height="wrap_content"
             android:fillViewport="true">
 
-            <LinearLayout
+            <include layout="@layout/changelog_logs_container"
                 android:id="@+id/change_logs_container"
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="4dp"
-                android:paddingRight="4dp"
-                android:paddingBottom="4dp">
-
-            </LinearLayout>
+                android:layout_width="match_parent" />
         </ScrollView>
     </FrameLayout>
 

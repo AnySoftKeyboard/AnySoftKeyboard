@@ -35,6 +35,8 @@ public class DrawableBuilder {
 
     public static DrawableBuilder build(KeyboardTheme theme, TypedArray a, final int index) {
         int resId = a.getResourceId(index, 0);
+        if (resId == 0)
+            throw new IllegalArgumentException("No resource ID was found at index "+index);
         return new DrawableBuilder(theme, resId);
     }
 }

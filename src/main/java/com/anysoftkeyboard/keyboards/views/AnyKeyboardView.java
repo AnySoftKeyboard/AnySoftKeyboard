@@ -258,8 +258,12 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 
     @Override
     public boolean onTouchEvent(MotionEvent me) {
+        Log.d(TAG, "onTouchEvent with "+me.getPointerCount()+" points");
         if (getKeyboard() == null)//I mean, if there isn't any keyboard I'm handling, what's the point?
             return false;
+
+        if (areTouchesDisabled())
+            return super.onTouchEvent(me);
 
         if (me.getAction() == MotionEvent.ACTION_DOWN) {
             mFirstTouchPont.x = (int) me.getX();
@@ -284,10 +288,10 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
                             mKeyboardActionListener.onSwipeUp(true);
                             break;
                         case DIRECTION_LEFT:
-                            mKeyboardActionListener.onSwipeLeft(true);
+                            mKeyboardActionListener.onSwipeLeft(true, isAtTwoFingersState());
                             break;
                         case DIRECTION_RIGHT:
-                            mKeyboardActionListener.onSwipeRight(true);
+                            mKeyboardActionListener.onSwipeRight(true, isAtTwoFingersState());
                             break;
                     }
                 } else {
@@ -386,16 +390,16 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
             final Configuration cfg = AnyApplication.getConfig();
             switch (slide & 0xFF00) {// removing distance
                 case DIRECTION_UP:
-                    swipeKeyTarget = cfg.getGestureSwipeUpFromSpacebarKeyCode();
+                    swipeKeyTarget = cfg.getGestureSwipeUpKeyCode(true);
                     break;
                 case DIRECTION_DOWN:
                     swipeKeyTarget = cfg.getGestureSwipeDownKeyCode();
                     break;
                 case DIRECTION_LEFT:
-                    swipeKeyTarget = cfg.getGestureSwipeLeftKeyCode();
+                    swipeKeyTarget = cfg.getGestureSwipeLeftKeyCode(true, false);
                     break;
                 case DIRECTION_RIGHT:
-                    swipeKeyTarget = cfg.getGestureSwipeRightKeyCode();
+                    swipeKeyTarget = cfg.getGestureSwipeRightKeyCode(true, false);
                     break;
                 default:
                     swipeKeyTarget = KeyCodes.SPACE;

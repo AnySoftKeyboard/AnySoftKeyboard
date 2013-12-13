@@ -56,7 +56,7 @@
     <dimen name="key_right_inset">2.5dp</dimen>
     <dimen name="key_left_inset">2.5dp</dimen>
 
-    <integer name="condensing_precentage">100</integer>
+    <integer name="condensing_precentage">90</integer>
 
     <dimen name="blacktheme_size_text_main">20sp</dimen>
     <dimen name="blacktheme_size_text_smaller">14sp</dimen>

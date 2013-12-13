@@ -22,6 +22,7 @@ import android.os.Handler;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
+
 import com.anysoftkeyboard.utils.Log;
 
 @TargetApi(8)
@@ -30,7 +31,6 @@ public class AskV8GestureDetector extends GestureDetector {
 
     private final ScaleGestureDetector mScaleGestureDetector;
     private final AskOnGestureListener mListener;
-    private boolean mScaleEventHandled = false;
 
     public AskV8GestureDetector(Context context, AskOnGestureListener listener,
                                 Handler handler, boolean ignoreMultitouch) {
@@ -39,14 +39,17 @@ public class AskV8GestureDetector extends GestureDetector {
         mListener = listener;
 
         mScaleGestureDetector = new ScaleGestureDetector(context, new ScaleGestureDetector.SimpleOnScaleGestureListener() {
-            public void onScaleEnd(ScaleGestureDetector detector) {
+            @Override
+            public boolean onScale(ScaleGestureDetector detector) {
                 final float factor = detector.getScaleFactor();
-                Log.d(TAG, "onScaleEnd factor " + factor);
+                Log.d(TAG, "onScale factor " + factor);
 
                 if (factor > 1.1)
-                    mScaleEventHandled = mListener.onSeparate(factor);
+                    return mListener.onSeparate(factor);
                 else if (factor < 0.9)
-                    mScaleEventHandled = mListener.onPinch(factor);
+                    return mListener.onPinch(factor);
+
+                return false;
             }
         });
     }
@@ -61,9 +64,7 @@ public class AskV8GestureDetector extends GestureDetector {
         } catch (ArrayIndexOutOfBoundsException e) {
             //I have nothing I can do here.
         }
-        final boolean scaleEventHandled = mScaleEventHandled;
-        mScaleEventHandled = false;
-        return super.onTouchEvent(ev) || scaleEventHandled;
+        return super.onTouchEvent(ev);
     }
 
 }

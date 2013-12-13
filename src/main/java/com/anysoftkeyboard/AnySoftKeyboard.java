@@ -68,6 +68,7 @@ import com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
+import com.anysoftkeyboard.keyboards.CondenseType;
 import com.anysoftkeyboard.keyboards.GenericKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
@@ -205,7 +206,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     private Vibrator mVibrator;
     private int mVibrationDuration;
 
-    private boolean mKeyboardInCondensedMode = false;
+    private CondenseType mKeyboardInCondensedMode = CondenseType.None;
 
     private final Handler mHandler = new KeyboardUIStateHanlder(this);
 
@@ -1733,8 +1734,10 @@ public class AnySoftKeyboard extends InputMethodService implements
                 break;
             case KeyCodes.SPLIT_LAYOUT:
             case KeyCodes.MERGE_LAYOUT:
+            case KeyCodes.COMPACT_LAYOUT_TO_RIGHT:
+            case KeyCodes.COMPACT_LAYOUT_TO_LEFT:
                 if (getCurrentKeyboard() != null && mInputView != null) {
-                    mKeyboardInCondensedMode = KeyCodes.SPLIT_LAYOUT == primaryCode;
+                    mKeyboardInCondensedMode = CondenseType.fromKeyCode(primaryCode);
                     AnyKeyboard currentKeyboard = getCurrentKeyboard();
                     setKeyboardStuffBeforeSetToView(currentKeyboard);
                     mInputView.setKeyboard(currentKeyboard);
@@ -2857,18 +2860,18 @@ public class AnySoftKeyboard extends InputMethodService implements
         postUpdateSuggestions();
     }
 
-    public void onSwipeRight(boolean onSpaceBar) {
-        final int keyCode = mConfig.getGestureSwipeRightKeyCode();
-        Log.d(TAG, "onSwipeRight " + ((onSpaceBar) ? " + space" : "")
+    public void onSwipeRight(boolean onSpaceBar, boolean twoFingersGesture) {
+        final int keyCode = mConfig.getGestureSwipeRightKeyCode(onSpaceBar, twoFingersGesture);
+        Log.d(TAG, "onSwipeRight " + ((onSpaceBar) ? " + space" : "") + ((twoFingersGesture) ? " + two-fingers" : "")
                 + " => code " + keyCode);
         if (keyCode != 0)
             mSwitchAnimator
                     .doSwitchAnimation(AnimationType.SwipeRight, keyCode);
     }
 
-    public void onSwipeLeft(boolean onSpaceBar) {
-        final int keyCode = mConfig.getGestureSwipeLeftKeyCode();
-        Log.d(TAG, "onSwipeLeft " + ((onSpaceBar) ? " + space" : "")
+    public void onSwipeLeft(boolean onSpaceBar, boolean twoFingersGesture) {
+        final int keyCode = mConfig.getGestureSwipeLeftKeyCode(onSpaceBar, twoFingersGesture);
+        Log.d(TAG, "onSwipeLeft " + ((onSpaceBar) ? " + space" : "") + ((twoFingersGesture) ? " + two-fingers" : "")
                 + " => code " + keyCode);
         if (keyCode != 0)
             mSwitchAnimator.doSwitchAnimation(AnimationType.SwipeLeft, keyCode);
@@ -2883,9 +2886,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     public void onSwipeUp(boolean onSpaceBar) {
-        final int keyCode = onSpaceBar ? mConfig
-                .getGestureSwipeUpFromSpacebarKeyCode() : mConfig
-                .getGestureSwipeUpKeyCode();
+        final int keyCode = mConfig.getGestureSwipeUpKeyCode(onSpaceBar);
         Log.d(TAG, "onSwipeUp " + ((onSpaceBar) ? " + space" : "")
                 + " => code " + keyCode);
         if (keyCode != 0) {
@@ -3354,17 +3355,19 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     private void setInitialCondensedState(Configuration newConfig) {
-        final String defaultCondensed = mConfig.getInitialKeyboardSplitState();
-        mKeyboardInCondensedMode = false;
-        if (defaultCondensed.equals("merged_always")) {
-            mKeyboardInCondensedMode = false;
-        } else if (defaultCondensed.equals("split_always")) {
-            mKeyboardInCondensedMode = true;
+        final String defaultCondensed = mConfig.getInitialKeyboardCondenseState();
+        mKeyboardInCondensedMode = CondenseType.None;
+        if (defaultCondensed.equals("split_always")) {
+            mKeyboardInCondensedMode = CondenseType.Split;
         } else if (defaultCondensed.equals("split_in_landscape")) {
             if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
-                mKeyboardInCondensedMode = true;
+                mKeyboardInCondensedMode = CondenseType.Split;
             else
-                mKeyboardInCondensedMode = false;
+                mKeyboardInCondensedMode = CondenseType.None;
+        } else if (defaultCondensed.equals("compact_right_always")) {
+            mKeyboardInCondensedMode = CondenseType.CompactToRight;
+        } else if (defaultCondensed.equals("compact_left_always")) {
+            mKeyboardInCondensedMode = CondenseType.CompactToLeft;
         }
 
         Log.d(TAG, "setInitialCondensedState: defaultCondensed is "
