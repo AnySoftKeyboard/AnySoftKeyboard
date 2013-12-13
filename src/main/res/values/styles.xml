@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2013 Menny Even-Danan
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2013 Menny Even-Danan
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,11 +13,13 @@
      limitations under the License.
 -->
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
+
     <style name="Popup" parent="@android:style/Theme.Dialog">
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:maxWidth">320dp</item>
         <item name="android:windowBackground">@drawable/window_popup_background</item>
     </style>
+
     <style name="Popup.NoTitle" parent="@style/Popup">
         <item name="android:windowNoTitle">true</item>
     </style>
@@ -137,6 +138,7 @@
         <item name="hintLabelVAlign">bottom</item>
         <item name="hintLabelAlign">right</item>
     </style>
+
     <style name="AnyKeyboardPopupBaseTheme" parent="@style/AnyKeyboardBaseTheme">
         <item name="android:paddingLeft">0px</item>
         <item name="android:paddingTop">0px</item>
@@ -163,6 +165,7 @@
         <item name="keyTextStyle">normal</item>
         <item name="shadowRadius">0px</item>
     </style>
+
     <style name="LeanDarkPopup" parent="@style/AnyKeyboardPopupBaseTheme">
         <item name="android:background">@drawable/lean_dark_popup_keyboard_background</item>
         <item name="keyBackground">@drawable/lean_dark_btn_popup</item>
@@ -178,6 +181,7 @@
         <item name="keyTextStyle">bold</item>
         <item name="hintTextSize">@dimen/key_hint_text_size</item>
     </style>
+
     <style name="LeanDarkPopup2" parent="@style/LeanDarkPopup">
         <item name="keyTextSize">@dimen/lean_key_text_size</item>
         <item name="keyTextStyle">bold</item>
@@ -190,6 +194,7 @@
 
         <item name="shadowRadius">5dp</item>
     </style>
+
     <style name="GingerbreadPopup" parent="@style/AnyKeyboardPopupBaseTheme">
         <item name="android:background">@drawable/keyboard_popup_panel_background</item>
         <item name="keyBackground">@drawable/btn_keyboard_key_gingerbread_popup</item>
@@ -204,6 +209,7 @@
         <item name="keyHorizontalGap">@dimen/plain_theme_key_horizontal_gap</item>
         <item name="keyVerticalGap">@dimen/plain_theme_key_vertical_gap</item>
     </style>
+
     <style name="PlainDarkAnySoftKeyboardPopup" parent="@style/AnyKeyboardPopupBaseTheme">
         <item name="android:background">@drawable/dark_background_popup</item>
         <item name="keyBackground">@drawable/dark_btn_key</item>
@@ -241,13 +247,15 @@
         <item name="keyLargeHeight">@dimen/blacktheme_key_tall_height</item>
 
         <item name="suggestionNormalTextColor">@color/blacktheme_color_suggestion_normal</item>
-        <item name="suggestionRecommendedTextColor">@color/blacktheme_color_suggestion_recommended</item>
+        <item name="suggestionRecommendedTextColor">@color/blacktheme_color_suggestion_recommended
+        </item>
         <item name="suggestionOthersTextColor">@color/blacktheme_color_suggestion_others</item>
         <item name="suggestionBackgroundImage">@drawable/blacktheme_suggestion_background</item>
         <item name="suggestionDividerImage">@drawable/dark_suggestions_divider</item>
         <item name="suggestionTextSize">@dimen/candidate_font_height</item>
         <item name="suggestionStripHeight">@dimen/candidate_strip_height</item>
     </style>
+
     <style name="PlainBlackAnySoftKeyboardPopup" parent="@style/AnyKeyboardPopupBaseTheme">
         <item name="android:background">@drawable/blacktheme_popup_background</item>
         <item name="keyBackground">@drawable/blacktheme_popupkey</item>
@@ -276,6 +284,7 @@
         <item name="keyHorizontalGap">@dimen/plain_theme_key_horizontal_gap</item>
         <item name="keyVerticalGap">@dimen/plain_theme_key_vertical_gap</item>
     </style>
+
     <style name="PlainLightAnySoftKeyboardPopup" parent="@style/AnyKeyboardPopupBaseTheme">
         <item name="android:background">@drawable/light_background_popup</item>
         <item name="keyBackground">@drawable/light_btn_key</item>
@@ -286,14 +295,17 @@
         <item name="android:windowEnterAnimation">@anim/input_method_fancy_enter</item>
         <item name="android:windowExitAnimation">@anim/input_method_fancy_exit</item>
     </style>
+
     <style name="KeyPreviewAnimation">
         <item name="android:windowEnterAnimation">@anim/key_preview_fadein</item>
         <item name="android:windowExitAnimation">@anim/key_preview_fadeout</item>
     </style>
+
     <style name="MiniKeyboardAnimation">
         <item name="android:windowEnterAnimation">@anim/mini_keyboard_flip_in</item>
         <item name="android:windowExitAnimation">@anim/mini_keyboard_fadeout</item>
     </style>
+
     <style name="ExtensionKeyboardAnimation">
         <item name="android:windowEnterAnimation">@anim/extension_keyboard_fadein</item>
         <item name="android:windowExitAnimation">@anim/extension_keyboard_fadeout</item>
@@ -305,25 +317,25 @@
     </style>
 
     <declare-styleable name="SlidePreferenceAttributes">
-        <attr name="android:title"/>
-        <attr name="android:defaultValue"/>
-        <attr name="slideMinimum"/>
-        <attr name="slideMaximum"/>
+        <attr name="android:title" />
+        <attr name="android:defaultValue" />
+        <attr name="slideMinimum" />
+        <attr name="slideMaximum" />
     </declare-styleable>
 
     <declare-styleable name="AboutAppPreferenceAttributes">
-        <attr name="appIcon"/>
-        <attr name="appName"/>
-        <attr name="appOwner"/>
-        <attr name="textColor"/>
+        <attr name="appIcon" />
+        <attr name="appName" />
+        <attr name="appOwner" />
+        <attr name="textColor" />
     </declare-styleable>
 
     <declare-styleable name="SwitchPreferenceAttributes">
-        <attr name="android:title"/>
-        <attr name="android:defaultValue"/>
-        <attr name="android:summaryOn"/>
-        <attr name="android:summaryOff"/>
-        <attr name="android:disableDependentsState"/>
+        <attr name="android:title" />
+        <attr name="android:defaultValue" />
+        <attr name="android:summaryOn" />
+        <attr name="android:summaryOff" />
+        <attr name="android:disableDependentsState" />
     </declare-styleable>
 
     <style name="DefaultSwitchPreferenceStyle">
@@ -332,8 +344,7 @@
     </style>
 
 
-    <style name="Ask">
-    </style>
+    <style name="Ask"></style>
 
     <style name="Ask.Menu" parent="Ask">
         <item name="android:background">@drawable/menu_background</item>
@@ -343,21 +354,25 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:layout_gravity">center_vertical</item>
     </style>
+
     <style name="Ask.Menu.Divider" parent="Ask.Menu">
         <item name="android:layout_margin">6dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
         <item name="android:background">@color/menu_divider</item>
     </style>
+
     <style name="Ask.Menu.Item.Divider" parent="Ask.Menu.Divider">
         <item name="android:layout_margin">0dp</item>
         <item name="android:layout_height">1px</item>
         <item name="android:background">@color/menu_item_divider</item>
     </style>
+
     <style name="Ask.Menu.Item.Title.Divider" parent="Ask.Menu.Divider">
         <item name="android:layout_margin">2dp</item>
         <item name="android:layout_height">2dp</item>
     </style>
+
     <style name="Ask.Menu.Item" parent="Ask.Menu">
         <item name="android:clickable">true</item>
         <item name="android:textSize">@dimen/font_size_sub_title</item>
@@ -366,9 +381,11 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">8dp</item>
     </style>
+
     <style name="Ask.Menu.Item.More" parent="Ask.Menu.Item">
         <item name="android:textSize">@dimen/font_size_hint_text</item>
     </style>
+
     <style name="Ask.Menu.Row" parent="Ask.Menu">
         <item name="android:clickable">true</item>
         <item name="android:layout_width">match_parent</item>
@@ -377,6 +394,7 @@
         <item name="android:minHeight">44dp</item>
         <item name="android:weightSum">1</item>
     </style>
+
     <style name="Ask.Menu.Row.Item" parent="Ask.Menu">
         <item name="android:clickable">false</item>
         <item name="android:duplicateParentState">true</item>
@@ -387,6 +405,7 @@
         <item name="android:padding">0dp</item>
         <item name="android:layout_marginLeft">8dp</item>
     </style>
+
     <style name="Ask.Menu.Row.Item.Extra" parent="Ask.Menu.Row.Item">
         <item name="android:layout_marginRight">8dp</item>
         <item name="android:background">@drawable/menu_item_extra_background</item>
@@ -395,6 +414,7 @@
         <item name="android:padding">4dp</item>
         <item name="android:maxWidth">@dimen/max_item_extra_width</item>
     </style>
+
     <style name="Ask.Menu.Item.Title" parent="Ask.Menu">
         <item name="android:clickable">false</item>
         <item name="android:textStyle">bold</item>
@@ -419,19 +439,38 @@
         <item name="android:textSize">@dimen/font_size_title</item>
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="Ask.Text.SubTitle" parent="Ask.Text">
         <item name="android:textColor">?android:textColorSecondary</item>
         <item name="android:textSize">@dimen/font_size_sub_title</item>
     </style>
+
     <style name="Ask.Text.Normal" parent="Ask.Text">
         <item name="android:textSize">@dimen/font_size_text</item>
     </style>
+
+    <style name="Ask.Text.Normal.Shadow" parent="Ask.Text.Normal">
+        <item name="android:textSize">@dimen/font_size_text</item>
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowRadius">4</item>
+    </style>
+
     <style name="Ask.Text.Hint" parent="Ask.Text">
         <item name="android:textColor">?android:textColorSecondary</item>
         <item name="android:textSize">@dimen/font_size_hint_text</item>
     </style>
+
     <style name="Ask.Text.Small" parent="Ask.Text">
         <item name="android:textSize">@dimen/font_size_small_text</item>
+    </style>
+
+    <style name="Ask.Text.Small.Shadow" parent="Ask.Text.Small">
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowRadius">4</item>
     </style>
 
     <style name="Ask.Text.Small.Error" parent="Ask.Text.Small">
@@ -458,12 +497,14 @@
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:layout_marginBottom">8dp</item>
     </style>
+
     <style name="Ask.Legal.Text" parent="Ask.Legal">
         <item name="android:textSize">@dimen/font_size_small_text</item>
         <item name="android:layout_marginLeft">8dp</item>
         <item name="android:layout_marginRight">8dp</item>
         <item name="android:autoLink">email|web</item>
     </style>
+
     <style name="Ask.Legal.Divider" parent="Ask.Legal">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
@@ -471,6 +512,4 @@
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:layout_marginBottom">8dp</item>
     </style>
-
-
 </resources>
