@@ -212,6 +212,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private boolean mJustAddedAutoSpace;
 
+    private CharSequence mJustAddOnText = null;
+
     private boolean mLastCharacterWasShifted = false;
 
     protected IBinder mImeToken = null;
@@ -1609,6 +1611,26 @@ public class AnySoftKeyboard extends InputMethodService implements
         // Thread.dumpStack();
         final InputConnection ic = getCurrentInputConnection();
 
+        if (mJustAddOnText != null && ic != null) {
+            final CharSequence onTextText = mJustAddOnText;
+            mJustAddOnText = null;
+            switch(primaryCode) {
+                case KeyCodes.DELETE_WORD:
+                case KeyCodes.DELETE:
+                    //just now, the user had cause onText to add text to input.
+                    //but after that, immediately pressed delete. So I'm guessing deleting the entire text is needed
+                    final int onTextLength = onTextText.length();
+                    Log.d(TAG, "Deleting the entire 'onText' input "+onTextText);
+                    CharSequence cs = ic.getTextBeforeCursor(onTextLength, 0);
+                    if (onTextText.equals(cs)) {
+                        ic.deleteSurroundingText(onTextLength, 0);
+                        postUpdateShiftKeyState();
+                        return;//no more things needed here.
+                    }
+                    break;
+            }
+        }
+
         switch (primaryCode) {
             case KeyCodes.DELETE_WORD:
                 if (ic == null)// if we don't want to do anything, lets check
@@ -1986,6 +2008,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         updateShiftKeyState(getCurrentInputEditorInfo());
         // mJustRevertedSeparator = null;
         mJustAddedAutoSpace = false;
+        mJustAddOnText = text;
     }
 
     private static boolean isBackwordStopChar(int c) {
