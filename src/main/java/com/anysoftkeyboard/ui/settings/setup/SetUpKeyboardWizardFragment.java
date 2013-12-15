@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.PassengerFragment;
@@ -124,9 +123,6 @@ public class SetUpKeyboardWizardFragment extends PassengerFragment {
     @Override
     public void onStart() {
         super.onStart();
-        //no actionbar and no menu here. This is a full screen thing!
-        MainSettingsActivity activity = (MainSettingsActivity) getActivity();
-        activity.setFullScreen(true);
         //checking to see which page should be shown on start
         if (mReloadPager) {
             mWizardPager.getAdapter().notifyDataSetChanged();
@@ -155,8 +151,6 @@ public class SetUpKeyboardWizardFragment extends PassengerFragment {
     public void onStop() {
         super.onStop();
         mScrollHandler.removeMessages(KEY_MESSAGE_SCROLL_TO_PAGE);//don't scroll if the UI is not visible
-        MainSettingsActivity activity = (MainSettingsActivity) getActivity();
-        activity.setFullScreen(false);
     }
 
     @Override
