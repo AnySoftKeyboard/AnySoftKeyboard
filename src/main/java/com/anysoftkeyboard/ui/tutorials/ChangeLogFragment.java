@@ -21,6 +21,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.SpannableStringBuilder;
@@ -115,8 +116,9 @@ public class ChangeLogFragment extends PassengerFragment {
                     Log.d(TAG, "Got a changelog #" + currentVersionCode + " which is " + layoutResourceName);
                     View logEntry = inflater.inflate(resId, mLogContainer, false);
                     Object logTag = logEntry.getTag();
-                    ViewGroup logHeader = (ViewGroup) inflater.inflate(R.layout.changelogentry_header, mLogContainer, false);
+                    View logHeader = inflater.inflate(R.layout.changelogentry_header, mLogContainer, false);
                     TextView versionName = (TextView) logHeader.findViewById(R.id.changelog_version_title);
+                    versionName.setPaintFlags(versionName.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                     updateEntryText(versionName, logTag, currentVersionCode, info);
 
                     mLogContainer.addView(logHeader);
