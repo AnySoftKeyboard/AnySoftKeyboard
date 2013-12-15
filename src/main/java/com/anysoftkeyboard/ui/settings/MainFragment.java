@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -27,6 +28,7 @@ import net.evendanan.pushingpixels.FragmentChauffeurActivity;
 public class MainFragment extends Fragment {
 
     private static final String TAG = "MainFragment";
+    private AnimationDrawable mNotConfiguredAnimation = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,6 +55,9 @@ public class MainFragment extends Fragment {
         //and they will probably refer to a different scoop (Fragment).
         //setting up the underline and click handler in the keyboard_not_configured_box layout
         TextView clickHere = (TextView) getView().findViewById(R.id.not_configured_click_here);
+        mNotConfiguredAnimation = clickHere.getVisibility() == View.VISIBLE?
+                (AnimationDrawable)clickHere.getCompoundDrawables()[0] : null;
+
         String fullText = getString(R.string.not_configured_with_click_here);
         String justClickHereText = getString(R.string.not_configured_with_just_click_here);
         SpannableStringBuilder sb = new SpannableStringBuilder(fullText);
@@ -70,7 +75,7 @@ public class MainFragment extends Fragment {
                 FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
                 activity.addFragmentToUi(new SetUpKeyboardWizardFragment(),
                         FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
-                        getView().findViewById(R.id.keyboard_not_configured_box));
+                        v);
             }
         };
         sb.setSpan(csp, start, start + length, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
@@ -120,7 +125,7 @@ public class MainFragment extends Fragment {
         super.onStart();
         getActivity().setTitle(getString(R.string.how_to_pointer_title));
 
-        View notConfiguredBox = getView().findViewById(R.id.keyboard_not_configured_box);
+        View notConfiguredBox = getView().findViewById(R.id.not_configured_click_here);
         //checking if the IME is configured
         final Context context = getActivity().getApplicationContext();
         //checking the default IME
@@ -144,6 +149,10 @@ public class MainFragment extends Fragment {
             screenShotHolder.setBackgroundResource(R.drawable.lean_dark_theme_screenshot);
         else
             screenShotHolder.setImageDrawable(themeScreenShot);
+
+        if (mNotConfiguredAnimation != null)
+            mNotConfiguredAnimation.start();
     }
+
 
 }
