@@ -948,9 +948,10 @@ public abstract class Keyboard {
                         mDefaultHorizontalGap = getDimensionOrFraction(a, remoteIndex,
                             mDisplayWidth, 0);
                         break;
-                    case android.R.attr.verticalGap:
+                    /*vertical gap is part of the Theme, not the keyboard.*/
+                    /*case android.R.attr.verticalGap:
                         mDefaultVerticalGap = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDefaultVerticalGap);
-                        break;
+                        break;*/
                 }
             } catch (Exception e) {
                 Log.w(TAG, "Failed to set data from XML!", e);
