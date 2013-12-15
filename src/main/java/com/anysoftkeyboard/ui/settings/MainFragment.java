@@ -19,7 +19,6 @@ import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.settings.setup.SetUpKeyboardWizardFragment;
 import com.anysoftkeyboard.ui.settings.setup.SetupSupport;
-import com.anysoftkeyboard.ui.tutorials.ChangeLogFragment;
 import com.anysoftkeyboard.ui.tutorials.TipsFragment;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -82,17 +81,7 @@ public class MainFragment extends Fragment {
         clickHere.setMovementMethod(LinkMovementMethod.getInstance());
         clickHere.setText(sb);
 
-        //setting up change_log
-        setupLink(getView(), R.id.read_more_change_log,
-                new ClickableSpan() {
-                    @Override
-                    public void onClick(View v) {
-                        FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
-                        activity.addFragmentToUi(ChangeLogFragment.createFragment(ChangeLogFragment.SHOW_ALL_CHANGELOG),
-                                FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
-                                getView().findViewById(R.id.change_log_card));
-                    }
-                });
+
         //setting up tips
         setupLink(getView(), R.id.show_more_tips,
                 new ClickableSpan() {
