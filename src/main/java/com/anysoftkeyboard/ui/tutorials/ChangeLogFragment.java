@@ -23,7 +23,11 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +37,7 @@ import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
+import net.evendanan.pushingpixels.FragmentChauffeurActivity;
 import net.evendanan.pushingpixels.PassengerFragment;
 
 public class ChangeLogFragment extends PassengerFragment {
@@ -160,8 +165,29 @@ public class ChangeLogFragment extends PassengerFragment {
         }
 
         @Override
-        protected int getMainLayout() {
-            return R.layout.changelog_logs_container;
+        protected int getMainLayout() { return R.layout.changelog_single_container; }
+
+        @Override
+        public void onViewCreated(View view, Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+            ViewGroup container = (ViewGroup)view.findViewById(R.id.change_logs_container);
+            TextView moreLink = (TextView) container.findViewById(R.id.read_more_change_log);
+            container.removeView(moreLink);
+            container.addView(moreLink);
+
+            SpannableStringBuilder sb = new SpannableStringBuilder(moreLink.getText());
+            sb.clearSpans();//removing any previously (from instance-state) set click spans.
+            sb.setSpan(new ClickableSpan() {
+                @Override
+                public void onClick(View v) {
+                    FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
+                    activity.addFragmentToUi(ChangeLogFragment.createFragment(ChangeLogFragment.SHOW_ALL_CHANGELOG),
+                            FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
+                            getView());
+                }
+            }, 0, moreLink.getText().length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+            moreLink.setMovementMethod(LinkMovementMethod.getInstance());
+            moreLink.setText(sb);
         }
 
         protected void updateEntryText(TextView entryHeader, Object tag, int versionCode, PackageInfo packageInfo) {

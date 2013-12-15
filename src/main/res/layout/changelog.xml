@@ -56,10 +56,13 @@
             android:layout_height="wrap_content"
             android:fillViewport="true">
 
-            <include layout="@layout/changelog_logs_container"
+            <LinearLayout
                 android:id="@+id/change_logs_container"
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent" />
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:padding="8dp" />
+
         </ScrollView>
     </FrameLayout>
 
