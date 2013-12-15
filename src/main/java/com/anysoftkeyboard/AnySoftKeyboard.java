@@ -1611,26 +1611,6 @@ public class AnySoftKeyboard extends InputMethodService implements
         // Thread.dumpStack();
         final InputConnection ic = getCurrentInputConnection();
 
-        if (mJustAddOnText != null && ic != null) {
-            final CharSequence onTextText = mJustAddOnText;
-            mJustAddOnText = null;
-            switch(primaryCode) {
-                case KeyCodes.DELETE_WORD:
-                case KeyCodes.DELETE:
-                    //just now, the user had cause onText to add text to input.
-                    //but after that, immediately pressed delete. So I'm guessing deleting the entire text is needed
-                    final int onTextLength = onTextText.length();
-                    Log.d(TAG, "Deleting the entire 'onText' input "+onTextText);
-                    CharSequence cs = ic.getTextBeforeCursor(onTextLength, 0);
-                    if (onTextText.equals(cs)) {
-                        ic.deleteSurroundingText(onTextLength, 0);
-                        postUpdateShiftKeyState();
-                        return;//no more things needed here.
-                    }
-                    break;
-            }
-        }
-
         switch (primaryCode) {
             case KeyCodes.DELETE_WORD:
                 if (ic == null)// if we don't want to do anything, lets check
@@ -2011,6 +1991,25 @@ public class AnySoftKeyboard extends InputMethodService implements
         mJustAddOnText = text;
     }
 
+    private boolean performOnTextDeletion(InputConnection ic) {
+        if (mJustAddOnText != null && ic != null) {
+            final CharSequence onTextText = mJustAddOnText;
+            mJustAddOnText = null;
+            //just now, the user had cause onText to add text to input.
+            //but after that, immediately pressed delete. So I'm guessing deleting the entire text is needed
+            final int onTextLength = onTextText.length();
+            Log.d(TAG, "Deleting the entire 'onText' input "+onTextText);
+            CharSequence cs = ic.getTextBeforeCursor(onTextLength, 0);
+            if (onTextText.equals(cs)) {
+                ic.deleteSurroundingText(onTextLength, 0);
+                postUpdateShiftKeyState();
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private static boolean isBackwordStopChar(int c) {
         return !Character.isLetter(c);// c == 32 ||
         // PUNCTUATION_CHARACTERS.contains(c);
@@ -2020,6 +2019,10 @@ public class AnySoftKeyboard extends InputMethodService implements
         if (ic == null) {
             return;
         }
+
+        if (performOnTextDeletion(ic))
+            return;
+
         if (mPredicting) {
             mWord.reset();
             mPredicting = false;
@@ -2090,6 +2093,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private void handleDeleteLastCharacter(boolean forMultitap) {
         InputConnection ic = getCurrentInputConnection();
+
+        if (!forMultitap && performOnTextDeletion(ic))
+            return;
 
         boolean deleteChar = false;
         if (mPredicting) {
