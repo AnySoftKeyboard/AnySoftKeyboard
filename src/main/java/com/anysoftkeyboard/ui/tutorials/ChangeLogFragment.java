@@ -24,10 +24,7 @@ import android.content.res.Resources;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +32,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
+import com.anysoftkeyboard.ui.settings.MainFragment;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -92,7 +90,7 @@ public class ChangeLogFragment extends PassengerFragment {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
 
         Context appContext = getActivity().getApplicationContext();
-        mLogContainer = (ViewGroup) view.findViewById(R.id.change_logs_container);
+        mLogContainer = (ViewGroup) view.findViewById(getLogItemsContainerId());
 
         mAppPrefs = PreferenceManager.getDefaultSharedPreferences(appContext);
 
@@ -136,6 +134,10 @@ public class ChangeLogFragment extends PassengerFragment {
         }
     }
 
+    protected int getLogItemsContainerId() {
+        return R.id.change_logs_container;
+    }
+
     protected void updateEntryText(TextView entryHeader, Object tag, int versionCode, PackageInfo packageInfo) {
         String versionName;
         if (tag == null) {
@@ -167,19 +169,18 @@ public class ChangeLogFragment extends PassengerFragment {
         }
 
         @Override
-        protected int getMainLayout() { return R.layout.changelog_single_container; }
+        protected int getLogItemsContainerId() {
+            return R.id.card_with_read_more;
+        }
+
+        @Override
+        protected int getMainLayout() { return R.layout.card_with_more_container; }
 
         @Override
         public void onViewCreated(View view, Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
-            ViewGroup container = (ViewGroup)view.findViewById(R.id.change_logs_container);
-            TextView moreLink = (TextView) container.findViewById(R.id.read_more_change_log);
-            container.removeView(moreLink);
-            container.addView(moreLink);
-
-            SpannableStringBuilder sb = new SpannableStringBuilder(moreLink.getText());
-            sb.clearSpans();//removing any previously (from instance-state) set click spans.
-            sb.setSpan(new ClickableSpan() {
+            ViewGroup container = (ViewGroup)view.findViewById(R.id.card_with_read_more);
+            MainFragment.setupLink(container, R.id.read_more_link, new ClickableSpan() {
                 @Override
                 public void onClick(View v) {
                     FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
@@ -187,9 +188,7 @@ public class ChangeLogFragment extends PassengerFragment {
                             FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
                             getView());
                 }
-            }, 0, moreLink.getText().length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-            moreLink.setMovementMethod(LinkMovementMethod.getInstance());
-            moreLink.setText(sb);
+            }, true);
         }
 
         protected void updateEntryText(TextView entryHeader, Object tag, int versionCode, PackageInfo packageInfo) {

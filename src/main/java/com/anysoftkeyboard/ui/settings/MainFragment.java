@@ -19,7 +19,7 @@ import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.settings.setup.SetUpKeyboardWizardFragment;
 import com.anysoftkeyboard.ui.settings.setup.SetupSupport;
-import com.anysoftkeyboard.ui.tutorials.TipsFragment;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.FragmentChauffeurActivity;
@@ -37,14 +37,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (savedInstanceState == null) {
-            //until google fixes the problem with nested fragments, I'll need to add the fragment by code
-            //The problem is that if I want to define the fragment in XML, and have an ID associated to it,
-            //it will fail (since the fragment is nested, and during inflation it is unknown to the inflater).
-            getChildFragmentManager().beginTransaction()
-                    .replace(R.id.random_tip_fragment_container, new TipsFragment.RandomTipFragment())
-                    .commit();
-        }
+        Log.d(TAG, "onViewCreated with savedInstanceState: "+(savedInstanceState != null));
     }
 
     @Override
@@ -80,28 +73,16 @@ public class MainFragment extends Fragment {
         sb.setSpan(csp, start, start + length, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         clickHere.setMovementMethod(LinkMovementMethod.getInstance());
         clickHere.setText(sb);
-
-
-        //setting up tips
-        setupLink(getView(), R.id.show_more_tips,
-                new ClickableSpan() {
-                    @Override
-                    public void onClick(View v) {
-                        TipsFragment.RandomTipFragment fragment =
-                                (TipsFragment.RandomTipFragment) MainFragment.this.getChildFragmentManager().findFragmentById(R.id.random_tip_fragment_container);
-                        int tipLayoutIdToStartWith = fragment.shownTipLayoutResId();
-
-                        FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
-                        activity.addFragmentToUi(TipsFragment.createFragment(TipsFragment.SHOW_ALL_TIPS, tipLayoutIdToStartWith),
-                                FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
-                                getView().findViewById(R.id.tips_card));
-                    }
-                });
-
     }
 
-    private void setupLink(View root, int showMoreLinkId, ClickableSpan clickableSpan) {
+    public static void setupLink(View root, int showMoreLinkId, ClickableSpan clickableSpan, boolean reorderLinkToLastChild) {
         TextView clickHere = (TextView) root.findViewById(showMoreLinkId);
+        if (reorderLinkToLastChild) {
+            ViewGroup rootContainer = (ViewGroup)root;
+            rootContainer.removeView(clickHere);
+            rootContainer.addView(clickHere);
+        }
+
         SpannableStringBuilder sb = new SpannableStringBuilder(clickHere.getText());
         sb.clearSpans();//removing any previously (from instance-state) set click spans.
         sb.setSpan(clickableSpan, 0, clickHere.getText().length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);

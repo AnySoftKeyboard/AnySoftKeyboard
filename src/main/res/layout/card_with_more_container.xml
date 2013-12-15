@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/change_logs_container"
+    android:id="@+id/card_with_read_more"
     style="@style/Ask.Card"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
@@ -10,7 +10,7 @@
 
     <TextView
         style="@style/Ask.Text.Hint"
-        android:id="@+id/read_more_change_log"
+        android:id="@+id/read_more_link"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_gravity="right|bottom"
