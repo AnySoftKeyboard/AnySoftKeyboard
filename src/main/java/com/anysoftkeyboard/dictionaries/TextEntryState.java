@@ -85,6 +85,7 @@ public class TextEntryState {
 
         if (LOGGING) {
             try {
+                endSession();//closing any still(?) open session
                 sKeyLocationFile = context.openFileOutput("key.txt", Context.MODE_APPEND);
                 sUserActionFile = context.openFileOutput("action.txt", Context.MODE_APPEND);
             } catch (IOException ioe) {
