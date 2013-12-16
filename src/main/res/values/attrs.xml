@@ -17,62 +17,6 @@
 
 <resources>
 
-    <declare-styleable name="Keyboard">
-        <!-- Default width of a key, in pixels or percentage of display width. -->
-        <attr name="android:keyWidth"/>
-        <!-- Default height of a key, in pixels or percentage of display width. -->
-        <attr name="android:keyHeight"/>
-        <!-- Default horizontal gap between keys. -->
-        <attr name="android:horizontalGap"/>
-        <!-- Default vertical gap between rows of keys. -->
-        <attr name="android:verticalGap"/>
-    </declare-styleable>
-
-    <declare-styleable name="Keyboard_Row">
-        <!-- Row edge flags. -->
-        <attr name="android:rowEdgeFlags">
-        </attr>
-        <!-- Mode of the keyboard. If the mode doesn't match the
-             requested keyboard mode, the row will be skipped. -->
-        <attr name="android:keyboardMode"/>
-    </declare-styleable>
-
-    <declare-styleable name="Keyboard_Key">
-        <!-- The unicode value or comma-separated values that this key outputs. -->
-        <attr name="android:codes"/>
-
-        <!-- The XML keyboard layout of any popup keyboard. -->
-        <attr name="android:popupKeyboard"/>
-        <!-- The characters to display in the popup keyboard. -->
-        <attr name="android:popupCharacters"/>
-        <!-- Key edge flags. -->
-        <attr name="android:keyEdgeFlags">
-        </attr>
-        <!-- Whether this is a modifier key such as Alt or Shift. -->
-        <attr name="android:isModifier"/>
-        <!-- Whether this is a toggle key. -->
-        <attr name="android:isSticky"/>
-        <!-- Whether long-pressing on this key will make it repeat. -->
-        <attr name="android:isRepeatable"/>
-        <!-- The icon to show in the popup preview. -->
-        <attr name="android:iconPreview"/>
-        <!-- The string of characters to output when this key is pressed. -->
-        <attr name="android:keyOutputText"/>
-        <!-- The label to display on the key. -->
-        <attr name="android:keyLabel"/>
-        <!-- The icon to display on the key instead of the label. -->
-        <attr name="android:keyIcon"/>
-        <!-- Mode of the keyboard. If the mode doesn't match the
-             requested keyboard mode, the key will be skipped. -->
-        <attr name="android:keyboardMode"/>
-
-        <attr name="longPressCode" format="integer"/>
-
-        <attr name="isFunctional" format="boolean"/>
-
-        <attr name="shiftedCodes" format="integer|string"/>
-    </declare-styleable>
-
     <declare-styleable name="AnyKeyboardBaseView">
         <!-- Image for the key. This image needs to be a StateListDrawable, with the following
              possible states: normal, pressed, checkable, checkable+pressed, checkable+checked,
@@ -208,11 +152,6 @@
         <attr name="iconKeyInputMoveHome" format="reference"/>
     </declare-styleable>
 
-    <!-- for backword compatibility, it is required to be defined at the end... -->
-    <declare-styleable name="Keyboard_Key_v2">
-        <attr name="shiftedKeyLabel" format="string"/>
-    </declare-styleable>
-
     <declare-styleable name="AnyKeyboardBaseViewV3">
         <!-- Size of the text for the prefered word. -->
         <attr name="suggestionPreferedWordTextSize" format="dimension"/>
@@ -239,10 +178,7 @@
         <attr name="key_type_delete" format="boolean"/>
     </declare-styleable>
 
-    <declare-styleable name="Keyboard_Key_v3">
-
-        <!-- The characters to display as a hint for the popup keyboard -->
-        <attr name="hintLabel" format="string"/>
+    <declare-styleable name="Keyboard_Key_NOT_SUPPORTED">
 
         <!-- FOR FUTURE EXPANSION - NOT YET SUPPORTED -->
 
@@ -398,14 +334,6 @@
 
     <attr name="previewGestureTextSize" format="dimension"/>
     <attr name="previewGestureTextColor" format="color"/>
-    <!-- Whether should show preview. -->
-    <attr name="showPreview" format="boolean"/>
-
-    <attr name="keyDynamicEmblem">
-        <flag name="none" value="0"/>
-        <flag name="text" value="1"/>
-        <flag name="icon" value="2"/>
-    </attr>
 
     <declare-styleable name="AnySoftKeyboardKeyIconsV3">
         <!-- should support normal, key_type_feedback -->
