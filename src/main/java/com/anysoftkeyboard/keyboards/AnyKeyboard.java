@@ -239,11 +239,10 @@ public abstract class AnyKeyboard extends Keyboard {
             final KeyboardExtension topRowPlugin =
                     KeyboardExtensionFactory.getCurrentKeyboardExtension(mASKContext, KeyboardExtension.TYPE_TOP);
             if (topRowPlugin == null || // no plugin found
-                    topRowPlugin.getKeyboardResId() == -1 || // plugin specified
-                    // to be empty
-                    topRowPlugin.getKeyboardResId() == -2)// could not parse
-            // layout res id
-            {
+                    // plugin specified to be empty
+                    topRowPlugin.getKeyboardResId() == -1 ||
+                    // could not parse layout res id
+                    topRowPlugin.getKeyboardResId() == -2) {
                 Log.d(TAG, "No top row layout");
                 topMd = null;
                 // adding EDGE_TOP to top keys. See issue 775
@@ -257,11 +256,11 @@ public abstract class AnyKeyboard extends Keyboard {
                 //replacing the styleables
                 attributeIdMap.clear();
                 remoteKeyboardLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
-                        R.styleable.KeyboardLayout, mASKContext, topRowPlugin.getPackageContext(), attributeIdMap, true);
+                        R.styleable.KeyboardLayout, mASKContext, topRowPlugin.getPackageContext(), attributeIdMap);
                 remoteKeyboardKeyLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
-                        R.styleable.KeyboardLayout_Key, mASKContext, topRowPlugin.getPackageContext(), attributeIdMap, true);
+                        R.styleable.KeyboardLayout_Key, mASKContext, topRowPlugin.getPackageContext(), attributeIdMap);
                 remoteKeyboardRowLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
-                        R.styleable.KeyboardLayout_Row, mASKContext, topRowPlugin.getPackageContext(), attributeIdMap, true);
+                        R.styleable.KeyboardLayout_Row, mASKContext, topRowPlugin.getPackageContext(), attributeIdMap);
 
                 Log.d(TAG, "Top row layout id " + topRowPlugin.getId());
                 topMd = addKeyboardRow(topRowPlugin.getPackageContext(),
@@ -278,11 +277,11 @@ public abstract class AnyKeyboard extends Keyboard {
             Log.d(TAG, "Bottom row layout id " + bottomRowPlugin.getId());
             attributeIdMap.clear();
             remoteKeyboardLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
-                    R.styleable.KeyboardLayout, mASKContext, bottomRowPlugin.getPackageContext(), attributeIdMap, true);
+                    R.styleable.KeyboardLayout, mASKContext, bottomRowPlugin.getPackageContext(), attributeIdMap);
             remoteKeyboardKeyLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
-                    R.styleable.KeyboardLayout_Key, mASKContext, bottomRowPlugin.getPackageContext(), attributeIdMap, true);
+                    R.styleable.KeyboardLayout_Key, mASKContext, bottomRowPlugin.getPackageContext(), attributeIdMap);
             remoteKeyboardRowLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
-                    R.styleable.KeyboardLayout_Row, mASKContext, bottomRowPlugin.getPackageContext(), attributeIdMap, true);
+                    R.styleable.KeyboardLayout_Row, mASKContext, bottomRowPlugin.getPackageContext(), attributeIdMap);
 
             KeyboardMetadata bottomMd = addKeyboardRow(
                     bottomRowPlugin.getPackageContext(),
@@ -371,7 +370,7 @@ public abstract class AnyKeyboard extends Keyboard {
                     } else if (TAG_KEY.equals(tag)) {
                         inKey = true;
                         x += (keyHorizontalGap / 2);
-                        key = createKeyFromXml(mASKContext, res, currentRow,
+                        key = createKeyFromXml(mASKContext, context, currentRow,
                                 keyboardDimens, (int) x, (int) y, parser);
                         key.width -= keyHorizontalGap;// the gap is on both
                         // sides
@@ -468,10 +467,10 @@ public abstract class AnyKeyboard extends Keyboard {
 
     // this function is called from within the super constructor.
     @Override
-    protected Key createKeyFromXml(Context askContext, Resources res,
+    protected Key createKeyFromXml(Context askContext, Context keyboardContext,
                                    Row parent, KeyboardDimens keyboardDimens, int x, int y,
                                    XmlResourceParser parser) {
-        AnyKey key = new AnyKey(askContext, res, parent, keyboardDimens, x, y,
+        AnyKey key = new AnyKey(askContext, keyboardContext, parent, keyboardDimens, x, y,
                 parser);
 
         if ((key.codes != null) && (key.codes.length > 0)) {
@@ -483,7 +482,7 @@ public abstract class AnyKeyboard extends Keyboard {
                     key.disable();
                     break;
                 case KeyCodes.ENTER:// enter
-                    key = mEnterKey = new EnterKey(mASKContext, res, parent,
+                    key = mEnterKey = new EnterKey(mASKContext, keyboardContext, parent,
                             keyboardDimens, x, y, parser);
                     break;
                 case KeyCodes.SHIFT:
@@ -500,9 +499,6 @@ public abstract class AnyKeyboard extends Keyboard {
         }
 
         setPopupKeyChars(key);
-
-        // if (!TextUtils.isEmpty(key.label))
-        // key.label = key.label;
 
         return key;
     }
@@ -683,10 +679,10 @@ public abstract class AnyKeyboard extends Keyboard {
             super(row, keyboardDimens);
         }
 
-        public AnyKey(Context askContext, Resources res, Keyboard.Row parent,
+        public AnyKey(Context askContext, Context keyboardContext, Keyboard.Row parent,
                       KeyboardDimens keyboardDimens, int x, int y,
                       XmlResourceParser parser) {
-            super(askContext, res, parent, keyboardDimens, x, y, parser);
+            super(askContext, keyboardContext, parent, keyboardDimens, x, y, parser);
             //setting up some defaults
             mEnabled = true;
             mFunctionalKey = false;
@@ -698,7 +694,7 @@ public abstract class AnyKeyboard extends Keyboard {
             Keyboard parentKeyboard = parent.parent;
             SparseIntArray attributeIdMap = parentKeyboard.attributeIdMap;
             int[] remoteKeyboardKeyLayoutStyleable = parentKeyboard.remoteKeyboardKeyLayoutStyleable;
-            TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser), remoteKeyboardKeyLayoutStyleable);
+            TypedArray a = keyboardContext.obtainStyledAttributes(Xml.asAttributeSet(parser), remoteKeyboardKeyLayoutStyleable);
             int n = a.getIndexCount();
             for (int i = 0; i < n; i++) {
                 final int remoteIndex = a.getIndex(i);
@@ -789,10 +785,10 @@ public abstract class AnyKeyboard extends Keyboard {
 
         private final int mOriginalHeight;
 
-        public EnterKey(Context askContext, Resources res, Row parent,
+        public EnterKey(Context askContext, Context keyboardContext, Row parent,
                         KeyboardDimens keyboardDimens, int x, int y,
                         XmlResourceParser parser) {
-            super(askContext, res, parent, keyboardDimens, x, y, parser);
+            super(askContext, keyboardContext, parent, keyboardDimens, x, y, parser);
             mOriginalHeight = this.height;
         }
 

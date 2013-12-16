@@ -523,7 +523,6 @@ public class AnySoftKeyboard extends InputMethodService implements
                     + ")");
 
         super.onStartInputView(attribute, restarting);
-
         if (mVoiceRecognitionTrigger != null) {
             mVoiceRecognitionTrigger.onStartInputView();
         }
