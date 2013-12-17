@@ -6,13 +6,9 @@
   <string name="spell_checker_service_name">Проверка орфографии AnySoftKeyboard</string>
   <string name="spell_checker_settings">AnySoftKeyboard Орфографические настройки</string>
   <string name="subtype_generic">правописание-общее</string>
-  <string name="additional_licenses"><u>Дополнительные лицензии...</u></string>
   <string name="click_to_restart_suggestions">Нажмите для подсказок</string>
   <string name="tips_notification_text">Нажмите для подсказки!</string>
-  <string name="tips_button">Как использовать</string>
   <string name="tips_title">Подсказки AnySoftKeyboard</string>
-  <string name="click_for_previous_tip">↓ Предыдущая подсказка</string>
-  <string name="click_for_next_tip">Следующая подсказка ↓</string>
   <string name="tip_1_welcome_to_ask">Добро пожаловать в AnySoftKeyboard!</string>
   <string name="tip_2_gestures">Поддерживаются жесты!</string>
   <string name="tip_3_hidden_kbds">Скрытые изюминки</string>
@@ -70,18 +66,13 @@
   <string name="lengthy_operations_toast_notification_summary">Показывать уведомления при долгих операциях.</string>
   <string name="voice_input_not_installed_action_install">Установить</string>
   <string name="voice_input_not_installed_action_do_not_install">Нет</string>
-  <string name="voice_input_not_voice_pack_in_market">Я не могу найти голосовой ввод (com.google.android.voicesearch) в Market. К сожалению, голосовой ввод не будет работать на вашем устройстве.</string>
   <string name="change_ime">Изменить метод ввода</string>
   <string name="override_dictionary">Заместить стандартный словарь</string>
-  <string name="override_dictionary_title">Переопределить <xliff:g id="word"> %s </xliff:g> словарь</string>
   <string name="override_dictionary_default">Стандартный</string>
   <string name="override_disabled">Сброшен на заводской</string>
-  <string name="override_enabled">Переопределить для
-<xliff:g id="word">%s</xliff:g></string>
   <string name="effects_group">Эффекты</string>
   <string name="ime_settings">Настройки Клавиатуры</string>
   <string name="vibrate_on_key_press_title">Вибрация при нажатии</string>
-  <string name="vibrate_on_key_press_summary">Тип вибрации</string>
   <string name="vibrate_on_key_press_dialog_title">Выбор типа и силы вибрации</string>
   <string name="sound_on">Звук при нажатии</string>
   <string name="sound_on_summary">Звуковой эффект при нажатии клавиш на виртуальной клавиатуре.</string>
@@ -90,7 +81,6 @@
   <string name="custom_sound_volume">Громкость при нажатии</string>
   <string name="speacial_fetures_group">Возможности</string>
   <string name="switch_keyboard_on_space">Пробел Переключает Раскладку</string>
-  <string name="switch_keyboard_on_space_on_summary">Переключение с символы/цифры алфавит при нажатии ПРОБЕЛ</string>
   <string name="hide_soft_when_physical">Скрыть виртуальную при аппаратной</string>
   <string name="hide_soft_when_physical_on_summary">Скрыть виртуальную клавиатуру при использовании аппаратной</string>
   <string name="hide_soft_when_physical_off_summary">Показывать виртуальную клавиатуру даже при использовании аппаратной</string>
@@ -104,22 +94,15 @@
   <string name="backword_support_off_summary">Нажатие кнопки возврата в верхнем регистре удалит последний символ</string>
   <string name="swipe_tweak_group">Изменить жесты провода пальцем по сенсорному экрану</string>
   <string name="swipe_up_action">Жест вверх</string>
-  <string name="swipe_up_action_summary">Определить действие на взмах пальцем вверх</string>
   <string name="swipe_up_action_title">Выбрать действие</string>
   <string name="swipe_up_from_spacebar_action">От пробела вверх</string>
-  <string name="swipe_up_from_spacebar_action_summary">Определить действие на взмах вверх от пробела</string>
   <string name="swipe_down_action">Жест вниз</string>
-  <string name="swipe_down_action_summary">Определить действие на взмах пальцем вниз</string>
   <string name="swipe_down_action_title">Выбрать действие</string>
   <string name="swipe_left_action">Жест влево</string>
-  <string name="swipe_left_action_summary">Определить действие на взмах пальцем влево</string>
   <string name="swipe_left_action_title">Выбрать действие</string>
   <string name="swipe_right_action">Жест вправо</string>
-  <string name="swipe_right_action_summary">Определить действие на взмах пальцем вправо</string>
   <string name="swipe_right_action_title">Выбрать действие</string>
   <string name="pinch_gesture_action">Жест щипок</string>
-  <string name="pinch_gesture_action_summary">Определить действие по жесту "щипок"</string>
-  <string name="separate_gesture_action_summary">Определить действие по жесту "раздвинуть"</string>
   <string name="swipe_action_name_none">Никаких действий</string>
   <string name="swipe_action_name_next_alphabet">Следующая алфавитная клавиатура</string>
   <string name="swipe_action_name_next_symbols">Следующая символьная клавиатура</string>
@@ -138,14 +121,12 @@
   <string name="swipe_action_name_split_layout">Разорвать клавиатуру</string>
   <string name="swipe_action_name_merge_layout">Слепить клавиатуру</string>
   <string name="settings_swipe_velocity_threshold_title">Предел скорости ведения пальцем</string>
-  <string name="settings_swipe_velocity_threshold_summary">Минимальная скорость жеста ведения пальцем</string>
   <string name="settings_swipe_velocity_very_slow">Очень медленно</string>
   <string name="settings_swipe_velocity_slow">Медленно</string>
   <string name="settings_swipe_velocity_normal">Нормально</string>
   <string name="settings_swipe_velocity_fast">Быстро</string>
   <string name="settings_swipe_velocity_very_fast">Очень быстро</string>
   <string name="settings_swipe_distance_threshold_title">Предел расстояния ведения пальцем</string>
-  <string name="settings_swipe_distance_threshold_summary">Минимальное расстояние жеста ведения пальцем</string>
   <string name="hardware_keys_group">Сопоставление аппаратных клавиш</string>
   <string name="volume_key_for_left_right_support">Клавиши регулировки громкости для стрелок влево/вправо</string>
   <string name="volume_key_for_left_right_support_on_summary">Отключить влево/вправо с помощью увеличения/уменьшения громкости</string>
@@ -172,9 +153,7 @@
   <string name="is_extesion_keyboard_above_keyboard">Дополнительные клавиши</string>
   <string name="is_extesion_keyboard_above_keyboard_on_summary">Отображать над основной клавиатурой</string>
   <string name="is_extesion_keyboard_above_keyboard_off_summary">Отображать прямо на основной клавиатуре</string>
-  <string name="show_new_tips_notifications_again">Показывать новые подсказки</string>
-  <string name="show_new_tips_notifications_again_on_summary">Когда новые подсказки доступны, они будут показаны</string>
-  <string name="show_new_version_notifications_again">Показывать уведомления о новой версии</string>
+  <string name="show_new_tips_notifications_again_off_summary">Уведомлений о новых подсказках не будет</string>
   <string name="use_keyrepeat">Повторять клавиши</string>
   <string name="use_keyrepeat_on_summary">Повторение клавиш включено</string>
   <string name="use_keyrepeat_off_summary">Повторение клавиш выключено</string>
@@ -288,7 +267,6 @@
   <string name="settings_split_state_split_in_landscape">Разорванная когда в горизонтальном</string>
   <string name="settings_split_state_split_always">Разорванная во всех положениях</string>
   <string name="user_dictionary_select_locale">Язык:</string>
-  <string name="user_dict_backup_fail_text_with_error">Не удалось сохранить слова из-за: <xliff:g id="error"> %s </xliff:g>     </string>
   <string name="user_dict_restore_success_title">Восстановление завершено!</string>
   <string name="user_dict_restore_fail_title">Восстановление потерпело неудачу!</string>
   <string-array name="physical_keyboard_change_notification_types">
