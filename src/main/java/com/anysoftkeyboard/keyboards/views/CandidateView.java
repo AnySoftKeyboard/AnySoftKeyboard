@@ -29,6 +29,7 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.theme.KeyboardTheme;
@@ -50,7 +51,7 @@ public class CandidateView extends View {
 
     private AnySoftKeyboard mService;
     private boolean mNoticing = false;
-    private final ArrayList<CharSequence> mSuggestions = new ArrayList<CharSequence>();
+    private final ArrayList<CharSequence> mSuggestions = new ArrayList<>();
     private boolean mShowingCompletions;
     private CharSequence mSelectedString;
     private CharSequence mJustAddedWord;
@@ -116,7 +117,7 @@ public class CandidateView extends View {
         final KeyboardTheme theme = KeyboardThemeFactory
                 .getCurrentKeyboardTheme(context.getApplicationContext());
         TypedArray a = theme.getPackageContext().obtainStyledAttributes(attrs,
-                R.styleable.AnySoftKeyboardTheme, 0, theme.getThemeResId());
+                R.styleable.AnyKeyboardViewTheme, 0, theme.getThemeResId());
         int colorNormal = context.getResources().getColor(
                 R.color.candidate_normal);
         int colorRecommended = context.getResources().getColor(
@@ -127,31 +128,31 @@ public class CandidateView extends View {
                 R.dimen.candidate_font_height);
         try {
             colorNormal = a.getColor(
-                    R.styleable.AnySoftKeyboardTheme_suggestionNormalTextColor,
+                    R.styleable.AnyKeyboardViewTheme_suggestionNormalTextColor,
                     colorNormal);
             colorRecommended = a
                     .getColor(
-                            R.styleable.AnySoftKeyboardTheme_suggestionRecommendedTextColor,
+                            R.styleable.AnyKeyboardViewTheme_suggestionRecommendedTextColor,
                             colorRecommended);
             colorOther = a.getColor(
-                    R.styleable.AnySoftKeyboardTheme_suggestionOthersTextColor,
+                    R.styleable.AnyKeyboardViewTheme_suggestionOthersTextColor,
                     colorOther);
             mDivider = a
-                    .getDrawable(R.styleable.AnySoftKeyboardTheme_suggestionDividerImage);
+                    .getDrawable(R.styleable.AnyKeyboardViewTheme_suggestionDividerImage);
             final Drawable stripImage = a
-                    .getDrawable(R.styleable.AnySoftKeyboardTheme_suggestionBackgroundImage);
+                    .getDrawable(R.styleable.AnyKeyboardViewTheme_suggestionBackgroundImage);
             if (stripImage == null)
                 setBackgroundColor(Color.BLACK);
             else
                 setBackgroundDrawable(stripImage);
             fontSizePixel = a.getDimension(
-                    R.styleable.AnySoftKeyboardTheme_suggestionTextSize,
+                    R.styleable.AnyKeyboardViewTheme_suggestionTextSize,
                     fontSizePixel);
         } catch (Exception e) {
             e.printStackTrace();
         }
         mXGap = a.getDimension(
-                R.styleable.AnySoftKeyboardTheme_suggestionWordXGap, 20);
+                R.styleable.AnyKeyboardViewTheme_suggestionWordXGap, 20);
         a.recycle();
         mColorNormal = colorNormal;
         mColorRecommended = colorRecommended;
@@ -475,7 +476,7 @@ public class CandidateView extends View {
                         clear();
                     }
                 /*
-				if (mSelectedString != null) {
+                if (mSelectedString != null) {
 					// If there are completions from the application, we don't
 					// change the state to
 					// STATE_PICKED_SUGGESTION

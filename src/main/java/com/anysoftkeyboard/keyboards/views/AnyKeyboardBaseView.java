@@ -557,13 +557,13 @@ public class AnyKeyboardBaseView extends View implements
         //creating a mapping from the remote Attribute IDs to my local attribute ID.
         //this is required in order to backward support any build-system (which may cause the attribute IDs to change)
         final SparseIntArray attributeIdMap = new SparseIntArray(
-                R.styleable.AnySoftKeyboardTheme.length + R.styleable.AnySoftKeyboardThemeKeyIcons.length +
+                R.styleable.AnyKeyboardViewTheme.length + R.styleable.AnyKeyboardViewIconsTheme.length +
                         ACTION_KEY_TYPES.length + KEY_TYPES.length);
 
         final int[] remoteKeyboardThemeStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
-                        R.styleable.AnySoftKeyboardTheme, context, theme.getPackageContext(), attributeIdMap);
+                        R.styleable.AnyKeyboardViewTheme, context, theme.getPackageContext(), attributeIdMap);
         final int[] remoteKeyboardIconsThemeStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
-                R.styleable.AnySoftKeyboardThemeKeyIcons, context, theme.getPackageContext(), attributeIdMap);
+                R.styleable.AnyKeyboardViewIconsTheme, context, theme.getPackageContext(), attributeIdMap);
 
         HashSet<Integer> doneLocalAttributeIds = new HashSet<Integer>();
         TypedArray a = theme.getPackageContext().obtainStyledAttributes(keyboardThemeStyleResId, remoteKeyboardThemeStyleable);
@@ -617,12 +617,12 @@ public class AnyKeyboardBaseView extends View implements
                         + keyboardFallbackThemeStyleResId);
         a = fallbackTheme.getPackageContext().obtainStyledAttributes(
                 keyboardFallbackThemeStyleResId,
-                R.styleable.AnySoftKeyboardTheme);
+                R.styleable.AnyKeyboardViewTheme);
 
         final int fallbackCount = a.getIndexCount();
         for (int i = 0; i < fallbackCount; i++) {
             final int index = a.getIndex(i);
-            final int attrId = R.styleable.AnySoftKeyboardTheme[index];
+            final int attrId = R.styleable.AnyKeyboardViewTheme[index];
             if (doneLocalAttributeIds.contains(attrId))
                 continue;
             Log.d(TAG, "Falling back theme res ID " + index);
@@ -638,12 +638,12 @@ public class AnyKeyboardBaseView extends View implements
                         + fallbackIconSetStyleId);
         a = fallbackTheme.getPackageContext().obtainStyledAttributes(
                 fallbackIconSetStyleId,
-                R.styleable.AnySoftKeyboardThemeKeyIcons);
+                R.styleable.AnyKeyboardViewIconsTheme);
 
         final int fallbackIconsCount = a.getIndexCount();
         for (int i = 0; i < fallbackIconsCount; i++) {
             final int index = a.getIndex(i);
-            final int attrId = R.styleable.AnySoftKeyboardThemeKeyIcons[index];
+            final int attrId = R.styleable.AnyKeyboardViewIconsTheme[index];
             if (doneLocalAttributeIds.contains(attrId))
                 continue;
             Log.d(TAG, "Falling back icon res ID " + index);
