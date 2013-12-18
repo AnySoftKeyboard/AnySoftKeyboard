@@ -38,6 +38,8 @@
 
     <integer name="key_code_split_layout">-110</integer>
     <integer name="key_code_merge_layout">-111</integer>
+    <integer name="key_code_compact_layout_to_left">-112</integer>
+    <integer name="key_code_compact_layout_to_right">-113</integer>
 
     <integer name="key_code_utility_keyboard">-120</integer>
 
