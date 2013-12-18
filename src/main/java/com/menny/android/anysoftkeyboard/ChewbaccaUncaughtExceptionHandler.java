@@ -67,32 +67,32 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
             final CharSequence utcTimeDate = DateFormat.format(
                     "kk:mm:ss dd.MM.yyyy", new Date());
             final String newline = DeveloperUtils.NEW_LINE;
-            String logText = "Hi. It seems that we have crashed.... Here are some details:"+newline
+            String logText = "Hi. It seems that we have crashed.... Here are some details:" + newline
                     + "****** UTC Time: "
                     + utcTimeDate
                     + newline
                     + "****** Application name: "
                     + appName
                     + newline
-                    + "******************************"+newline
+                    + "******************************" + newline
                     + "****** Exception type: "
                     + ex.getClass().getName()
                     + newline
                     + "****** Exception message: "
                     + ex.getMessage()
-                    + newline + "****** Trace trace:"+ newline + stackTrace + newline;
-            logText += "******************************"+newline
-                    + "****** Device information:"+newline
+                    + newline + "****** Trace trace:" + newline + stackTrace + newline;
+            logText += "******************************" + newline
+                    + "****** Device information:" + newline
                     + DeveloperUtils.getSysInfo();
             if (ex instanceof OutOfMemoryError
                     || (ex.getCause() != null && ex.getCause() instanceof OutOfMemoryError)) {
                 logText += "******************************\n"
-                        + "****** Memory:" +newline+ getMemory();
+                        + "****** Memory:" + newline + getMemory();
             }
-            logText += "******************************"+newline + "****** Log-Cat:"+newline
+            logText += "******************************" + newline + "****** Log-Cat:" + newline
                     + Log.getAllLogLines();
 
-            String crashType = ex.getClass().getSimpleName()+": "+ex.getMessage();
+            String crashType = ex.getClass().getSimpleName() + ": " + ex.getMessage();
             Intent notificationIntent = new Intent(mApp, SendBugReportUiActivity.class);
             notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             notificationIntent.putExtra(SendBugReportUiActivity.CRASH_REPORT_TEXT, logText);
@@ -106,7 +106,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
                     setTicker(mApp.getText(R.string.ime_crashed_ticker)).
                     setContentTitle(mApp.getText(R.string.ime_name)).
                     setContentText(mApp.getText(R.string.ime_crashed_sub_text)).
-                    setSubText(BuildConfig.DEBUG? crashType : null/*not showing the type of crash in RELEASE mode*/).
+                    setSubText(BuildConfig.DEBUG ? crashType : null/*not showing the type of crash in RELEASE mode*/).
                     setWhen(System.currentTimeMillis()).
                     setContentIntent(contentIntent).
                     setAutoCancel(true).

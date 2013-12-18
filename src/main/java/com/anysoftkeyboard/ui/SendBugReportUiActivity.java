@@ -51,7 +51,7 @@ public class SendBugReportUiActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        TextView crashType = (TextView)findViewById(R.id.ime_crash_type);
+        TextView crashType = (TextView) findViewById(R.id.ime_crash_type);
         Intent callingIntent = getIntent();
         String type = callingIntent.getStringExtra(CRASH_TYPE_STRING);
         if (TextUtils.isEmpty(type) || (!BuildConfig.DEBUG)/*not showing the type of crash in RELEASE mode*/) {
