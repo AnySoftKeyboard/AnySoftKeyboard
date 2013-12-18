@@ -24,18 +24,20 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ScrollView;
 
+import com.anysoftkeyboard.ui.settings.MainFragment;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
+import net.evendanan.pushingpixels.FragmentChauffeurActivity;
 import net.evendanan.pushingpixels.PassengerFragment;
 
 import java.util.ArrayList;
@@ -183,21 +185,17 @@ public class TipsFragment extends PassengerFragment {
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            //making sure that the tip is scrollable
-            ScrollView scrollContainer = null;
             final int containerResId = getTipContainerLayout();
-            if (containerResId != 0)
-                scrollContainer = (ScrollView) inflater.inflate(containerResId, container, false);
+            ViewGroup scrollContainer = (ViewGroup) inflater.inflate(containerResId, container, false);
 
-            View tipLayout = inflater.inflate(mTipResId, scrollContainer != null? scrollContainer : container, false);
+            View tipLayout = inflater.inflate(mTipResId, scrollContainer, false);
 
             setThisAsCheckListenerFor(tipLayout, R.id.tip_settings_key_press_vibration);
             setThisAsCheckListenerFor(tipLayout, R.id.tip_settings_key_press_sound);
 
-            if (scrollContainer != null)
-                scrollContainer.addView(tipLayout);
+            scrollContainer.addView(tipLayout);
 
-            return scrollContainer != null? scrollContainer : tipLayout;
+            return scrollContainer;
         }
 
         protected int getTipContainerLayout() {
@@ -258,7 +256,7 @@ public class TipsFragment extends PassengerFragment {
 
         @Override
         protected int getTipContainerLayout() {
-            return 0;
+            return R.layout.card_with_more_container;
         }
 
         @Override
@@ -268,6 +266,21 @@ public class TipsFragment extends PassengerFragment {
             TipLayoutsSupport.getAvailableTipsLayouts(getActivity().getApplicationContext(), tipResIds);
             int randomIndex = new Random().nextInt(tipResIds.size());
             return tipResIds.get(randomIndex);
+        }
+
+        public void onViewCreated(View view, Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+            Log.d(TAG, "onViewCreated with savedInstanceState: " + (savedInstanceState != null));
+            ViewGroup container = (ViewGroup)view.findViewById(R.id.card_with_read_more);
+            MainFragment.setupLink(container, R.id.read_more_link, new ClickableSpan() {
+                @Override
+                public void onClick(View v) {
+                    FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
+                    activity.addFragmentToUi(TipsFragment.createFragment(TipsFragment.SHOW_ALL_TIPS, shownTipLayoutResId()),
+                            FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
+                            getView());
+                }
+            }, true);
         }
     }
 }

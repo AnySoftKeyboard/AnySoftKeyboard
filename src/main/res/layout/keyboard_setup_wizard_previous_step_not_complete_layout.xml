@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/wizard_step_previous_step_not_complete_title"
-        android:drawableTop="@drawable/ic_not_configured"
+        android:drawableTop="@drawable/ic_not_configured_red"
         android:drawablePadding="8dp"
         android:layout_marginTop="10dp"/>
 

@@ -5,7 +5,9 @@
   <string name="settings_app_name">AnySoftKeyboard Einstellungen</string>
   <string name="spell_checker_service_name">AnySoftKeyboard Rechtschreibung</string>
   <string name="spell_checker_settings">Einstellungen für Rechtschreibung</string>
+  <string name="subtype_generic">Speller-generic</string>
   <string name="copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
+  <string name="version_text"><xliff:g id="version_name"> %s </xliff:g> \u0020 (V <xliff:g id="version_number"> %s </xliff:g>)</string>
   <string name="additional_licenses"><u>Zusätzliche Lizenzen...</u></string>
   <string name="debug_tracing_starting">Tracing gestartet!\nNicht vergessen es später wieder auszuschalten</string>
   <string name="debug_tracing_starting_failed">Initiierung des Tracings ist fehlgeschlagen! Siehe LogCat für weitere Infos.</string>
@@ -21,8 +23,12 @@
   <string name="tip_1_welcome_to_ask">Willkommen bei AnySoftKeyboard!</string>
   <string name="tip_1_how_to_access_settings">Um zu den Einstellungen zu gelangen, lange auf ENTER drücken. Dort wirst du ein Berg an Anpassungen finden!</string>
   <string name="tip_2_gestures">Ich unterstütze Gesten!</string>
+  <string name="tip_2_gestures_tip">Mit einem Swipe lässt sich viel machen! Von links nach rechts streichen (swipen) ändert die Sprache, ein Streich von rechts nach links wechselt zum Symbolmenü. von der Leertaste hoch streichen öffnet eine Werkzeug-Tastatur und nach untenstreichen versteckt die Tastatur\nEs ist in den Einstellungen konfigurierbar (Errinerst du dich? langer Druck auf die EINGABETASTE).</string>
   <string name="tip_3_hidden_kbds">Verborgene Schätze</string>
+  <string name="tip_3_hidden_kbds_tip">Es gibt einige versteckte Tastaturen:\n1) Zieh den Finger von der Leertaste nach oben, um eine Werkzeug-Tastatur mit Pfeilen und  einer Mikrofontaste (für Spracheingabe) aufzurufen.\n2) Zieh den Finger nach oben über die Tastatur und halte gedrückt. Das öffnet die Erweiterte Tastatur mit Zahlen und Symbolen.
+    </string>
   <string name="tip_4_top_generic_row">Kopfzeile</string>
+  <string name="tip_4_top_generic_row_tip">Die oberste Zeile bleibt bei allen Layouts gleich, und sie kann verändert werden! Standartmäßig enthält sie einen Symbolknopf (<i>123</i>), ein Links- und ein Rechtsknopf und einen Sprachknopf  (<i>ABC</i>). Mann kann diese Zeile in den Einstellungen ändern.</string>
   <string name="tip_4_top_generic_row_go_to_top_row_settings">Kopfzeile jetzt ändern</string>
   <string name="tip_5_key_feedback">Reaktionen</string>
   <string name="tip_5_key_feedback_test">Reaktion testen?</string>

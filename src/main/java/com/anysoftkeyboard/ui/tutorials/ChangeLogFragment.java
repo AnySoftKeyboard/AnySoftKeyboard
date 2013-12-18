@@ -21,18 +21,22 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
+import com.anysoftkeyboard.ui.settings.MainFragment;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
+import net.evendanan.pushingpixels.FragmentChauffeurActivity;
 import net.evendanan.pushingpixels.PassengerFragment;
 
 public class ChangeLogFragment extends PassengerFragment {
@@ -86,7 +90,7 @@ public class ChangeLogFragment extends PassengerFragment {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
 
         Context appContext = getActivity().getApplicationContext();
-        mLogContainer = (ViewGroup) view.findViewById(R.id.change_logs_container);
+        mLogContainer = (ViewGroup) view.findViewById(getLogItemsContainerId());
 
         mAppPrefs = PreferenceManager.getDefaultSharedPreferences(appContext);
 
@@ -110,8 +114,9 @@ public class ChangeLogFragment extends PassengerFragment {
                     Log.d(TAG, "Got a changelog #" + currentVersionCode + " which is " + layoutResourceName);
                     View logEntry = inflater.inflate(resId, mLogContainer, false);
                     Object logTag = logEntry.getTag();
-                    ViewGroup logHeader = (ViewGroup) inflater.inflate(R.layout.changelogentry_header, mLogContainer, false);
+                    View logHeader = inflater.inflate(R.layout.changelogentry_header, mLogContainer, false);
                     TextView versionName = (TextView) logHeader.findViewById(R.id.changelog_version_title);
+                    versionName.setPaintFlags(versionName.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
                     updateEntryText(versionName, logTag, currentVersionCode, info);
 
                     mLogContainer.addView(logHeader);
@@ -127,6 +132,10 @@ public class ChangeLogFragment extends PassengerFragment {
             }
             currentVersionCode--;
         }
+    }
+
+    protected int getLogItemsContainerId() {
+        return R.id.change_logs_container;
     }
 
     protected void updateEntryText(TextView entryHeader, Object tag, int versionCode, PackageInfo packageInfo) {
@@ -160,8 +169,26 @@ public class ChangeLogFragment extends PassengerFragment {
         }
 
         @Override
-        protected int getMainLayout() {
-            return R.layout.changelog_logs_container;
+        protected int getLogItemsContainerId() {
+            return R.id.card_with_read_more;
+        }
+
+        @Override
+        protected int getMainLayout() { return R.layout.card_with_more_container; }
+
+        @Override
+        public void onViewCreated(View view, Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+            ViewGroup container = (ViewGroup)view.findViewById(R.id.card_with_read_more);
+            MainFragment.setupLink(container, R.id.read_more_link, new ClickableSpan() {
+                @Override
+                public void onClick(View v) {
+                    FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
+                    activity.addFragmentToUi(ChangeLogFragment.createFragment(ChangeLogFragment.SHOW_ALL_CHANGELOG),
+                            FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
+                            getView());
+                }
+            }, true);
         }
 
         protected void updateEntryText(TextView entryHeader, Object tag, int versionCode, PackageInfo packageInfo) {

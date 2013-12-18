@@ -426,14 +426,13 @@ public abstract class Keyboard {
          * Create a key with the given top-left coordinate and extract its
          * attributes from the XML parser.
          *
-         * @param res    resources associated with the caller's context
          * @param parent the row that this key belongs to. The row must already
          *               be attached to a {@link Keyboard}.
          * @param x      the x coordinate of the top-left
          * @param y      the y coordinate of the top-left
          * @param parser the XML parser containing the attributes for this key
          */
-        public Key(Context askContext, Resources res, Row parent,
+        public Key(Context askContext, Context keyboardContext, Row parent,
                    KeyboardDimens keyboardDimens, int x, int y, XmlResourceParser parser) {
             this(parent, keyboardDimens);
             final Resources askResources = askContext.getResources();
@@ -457,7 +456,7 @@ public abstract class Keyboard {
 
             //loading data from XML
             int[] remoteKeyboardLayoutStyleable = parent.parent.remoteKeyboardLayoutStyleable;
-            TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser), remoteKeyboardLayoutStyleable);
+            TypedArray a = keyboardContext.obtainStyledAttributes(Xml.asAttributeSet(parser), remoteKeyboardLayoutStyleable);
             int n = a.getIndexCount();
             for (int i = 0; i < n; i++) {
                 final int remoteIndex = a.getIndex(i);
@@ -468,7 +467,7 @@ public abstract class Keyboard {
             this.x += gap;
 
             int[] remoteKeyboardKeyLayoutStyleable = parent.parent.remoteKeyboardKeyLayoutStyleable;
-            a = res.obtainAttributes(Xml.asAttributeSet(parser),
+            a = keyboardContext.obtainStyledAttributes(Xml.asAttributeSet(parser),
                     remoteKeyboardKeyLayoutStyleable);
             n = a.getIndexCount();
             for (int i = 0; i < n; i++) {
@@ -691,19 +690,19 @@ public abstract class Keyboard {
         attributeIdMap = new SparseIntArray(
                 R.styleable.KeyboardLayout.length + R.styleable.KeyboardLayout_Row.length + R.styleable.KeyboardLayout_Key.length);
         remoteKeyboardLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
-                R.styleable.KeyboardLayout, askContext, context, attributeIdMap, true);
+                R.styleable.KeyboardLayout, askContext, context, attributeIdMap);
         remoteKeyboardRowLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
-                R.styleable.KeyboardLayout_Row, askContext, context, attributeIdMap, true);
+                R.styleable.KeyboardLayout_Row, askContext, context, attributeIdMap);
         remoteKeyboardKeyLayoutStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
-                R.styleable.KeyboardLayout_Key, askContext, context, attributeIdMap, true);
+                R.styleable.KeyboardLayout_Key, askContext, context, attributeIdMap);
 
         mASKContext = askContext;
         mKeyboardContext = context;
         mLayoutResId = xmlLayoutResId;
         mKeyboardMode = modeId;
 
-        mKeys = new ArrayList<Key>();
-        mModifierKeys = new ArrayList<Key>();
+        mKeys = new ArrayList<>();
+        mModifierKeys = new ArrayList<>();
     }
 
     public List<Key> getKeys() {
@@ -812,7 +811,7 @@ public abstract class Keyboard {
         return new Row(askContext, res, this, parser);
     }
 
-    protected abstract Key createKeyFromXml(Context askContext, Resources res,
+    protected abstract Key createKeyFromXml(Context askContext, Context keyboardContext,
                                             Row parent, KeyboardDimens keyboardDimens, int x, int y,
                                             XmlResourceParser parser);
 
@@ -857,7 +856,7 @@ public abstract class Keyboard {
                     } else if (TAG_KEY.equals(tag)) {
                         inKey = true;
                         x += (keyHorizontalGap / 2);
-                        key = createKeyFromXml(mASKContext, res, currentRow, keyboardDimens,
+                        key = createKeyFromXml(mASKContext, mKeyboardContext, currentRow, keyboardDimens,
                                 (int) x, (int) y, parser);
                         rowHeight = Math.max(rowHeight, key.height);
                         key.width -= keyHorizontalGap;// the gap is on both
@@ -948,9 +947,10 @@ public abstract class Keyboard {
                         mDefaultHorizontalGap = getDimensionOrFraction(a, remoteIndex,
                             mDisplayWidth, 0);
                         break;
-                    case android.R.attr.verticalGap:
+                    /*vertical gap is part of the Theme, not the keyboard.*/
+                    /*case android.R.attr.verticalGap:
                         mDefaultVerticalGap = getDimensionOrFraction(a, remoteIndex, mDisplayWidth, mDefaultVerticalGap);
-                        break;
+                        break;*/
                 }
             } catch (Exception e) {
                 Log.w(TAG, "Failed to set data from XML!", e);

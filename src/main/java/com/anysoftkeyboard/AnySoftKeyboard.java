@@ -212,6 +212,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private boolean mJustAddedAutoSpace;
 
+    private CharSequence mJustAddOnText = null;
+
     private boolean mLastCharacterWasShifted = false;
 
     protected IBinder mImeToken = null;
@@ -521,7 +523,6 @@ public class AnySoftKeyboard extends InputMethodService implements
                     + ")");
 
         super.onStartInputView(attribute, restarting);
-
         if (mVoiceRecognitionTrigger != null) {
             mVoiceRecognitionTrigger.onStartInputView();
         }
@@ -1986,6 +1987,26 @@ public class AnySoftKeyboard extends InputMethodService implements
         updateShiftKeyState(getCurrentInputEditorInfo());
         // mJustRevertedSeparator = null;
         mJustAddedAutoSpace = false;
+        mJustAddOnText = text;
+    }
+
+    private boolean performOnTextDeletion(InputConnection ic) {
+        if (mJustAddOnText != null && ic != null) {
+            final CharSequence onTextText = mJustAddOnText;
+            mJustAddOnText = null;
+            //just now, the user had cause onText to add text to input.
+            //but after that, immediately pressed delete. So I'm guessing deleting the entire text is needed
+            final int onTextLength = onTextText.length();
+            Log.d(TAG, "Deleting the entire 'onText' input "+onTextText);
+            CharSequence cs = ic.getTextBeforeCursor(onTextLength, 0);
+            if (onTextText.equals(cs)) {
+                ic.deleteSurroundingText(onTextLength, 0);
+                postUpdateShiftKeyState();
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private static boolean isBackwordStopChar(int c) {
@@ -1997,6 +2018,10 @@ public class AnySoftKeyboard extends InputMethodService implements
         if (ic == null) {
             return;
         }
+
+        if (performOnTextDeletion(ic))
+            return;
+
         if (mPredicting) {
             mWord.reset();
             mPredicting = false;
@@ -2067,6 +2092,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private void handleDeleteLastCharacter(boolean forMultitap) {
         InputConnection ic = getCurrentInputConnection();
+
+        if (!forMultitap && performOnTextDeletion(ic))
+            return;
 
         boolean deleteChar = false;
         if (mPredicting) {
