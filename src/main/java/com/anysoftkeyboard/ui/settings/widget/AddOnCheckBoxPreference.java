@@ -120,6 +120,8 @@ public class AddOnCheckBoxPreference extends Preference implements
             if (((ScreenshotHolder) mAddOn).hasScreenshot()) {
                 mAddOnIcon.setOnClickListener(this);
                 mIconOverlay.setVisibility(View.VISIBLE);
+            } else {
+                mIconOverlay.setVisibility(View.GONE);
             }
         }
         boolean defaultChecked = false;
