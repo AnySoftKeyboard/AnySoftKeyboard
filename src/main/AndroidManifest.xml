@@ -37,7 +37,8 @@
         android:icon="@drawable/ic_launcher"
         android:installLocation="internalOnly"
         android:label="@string/ime_name"
-        android:restoreAnyVersion="true">
+        android:restoreAnyVersion="true"
+        android:theme="@style/Theme.AskApp">
 
         <!-- used to backup the settings and SQL to the cloud -->
         <meta-data
@@ -72,7 +73,7 @@
         <!-- settings ui activities -->
         <!-- this is ajust a proxy activit, it does nothing but direct to the actual setting ativity
         I use this, so I can 'disable' this activity at runtime, and so remove ASK from the launcher's icons -->
-        <activity android:theme="@style/Theme.AppCompat.Light"
+        <activity android:theme="@style/Theme.AskApp"
             android:name="com.menny.android.anysoftkeyboard.LauncherSettingsActivity"
             android:icon="@drawable/ic_launcher_settings"
             android:launchMode="singleTop"
@@ -83,7 +84,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:theme="@style/Theme.AppCompat.Light"
+        <activity android:theme="@style/Theme.AskApp"
             android:name="com.anysoftkeyboard.ui.settings.MainSettingsActivity"
             android:icon="@drawable/ic_launcher_settings"
             android:launchMode="singleTask"
@@ -94,14 +95,16 @@
             android:name="com.anysoftkeyboard.ui.tutorials.TestersNoticeActivity"
             android:icon="@drawable/ic_launcher"
             android:label="@string/testers_version"
-            android:theme="@style/Popup">
+            android:theme="@style/Theme.AskApp.Popup">
         </activity>
         <!-- ui when a crash happens -->
-        <activity
+        <activity android:theme="@style/Theme.AskApp.NoTitle"
             android:name="com.anysoftkeyboard.ui.SendBugReportUiActivity"
             android:icon="@drawable/ic_launcher"
-            android:label="@string/ime_name"
-            android:theme="@style/Popup">
+            android:excludeFromRecents="true"
+            android:finishOnTaskLaunch="true"
+            android:launchMode="singleInstance"
+            android:label="@string/ime_name">
         </activity>
         <!--
          <activity android:name="com.anysoftkeyboard.ui.settings.SpellCheckerSettingsActivity"
@@ -114,7 +117,7 @@
             android:name="com.anysoftkeyboard.voice.VoiceInputNotInstalledActivity"
             android:icon="@drawable/ic_launcher"
             android:label="@string/ime_name"
-            android:theme="@style/Popup.NoTitle"/>
+            android:theme="@style/Theme.AskApp.Popup.NoTitle"/>
 
         <service android:name="com.anysoftkeyboard.voice.ServiceHelper"/>
 
@@ -124,7 +127,7 @@
             android:excludeFromRecents="true"
             android:finishOnTaskLaunch="true"
             android:icon="@drawable/ic_launcher"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:theme="@style/Theme.AskApp.Popup.NoTitle"
             android:windowSoftInputMode="stateAlwaysHidden"/>
     </application>
 

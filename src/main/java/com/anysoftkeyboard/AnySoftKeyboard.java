@@ -244,8 +244,6 @@ public class AnySoftKeyboard extends InputMethodService implements
         super.onCreate();
         mPrefs = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
-        Thread.setDefaultUncaughtExceptionHandler(new ChewbaccaUncaughtExceptionHandler(
-                getApplication().getBaseContext(), null));
         if (DeveloperUtils.hasTracingRequested(getApplicationContext())) {
             try {
                 DeveloperUtils.startTracing();
