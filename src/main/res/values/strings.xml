@@ -768,7 +768,14 @@
     <string name="setup_wizard_step_two_action">Switch active keyboards</string>
     <string name="setup_wizard_step_three_title">AnySoftKeyboard is ready!</string>
     <string name="setup_wizard_step_three_details">Thank you for choosing <i>AnySoftKeyboard</i>.\nThis keyboard excel in its customization level. Go ahead and personalize:</string>
-    <string name="setup_wizard_step_three_action_languages">Setup languages...</string>
-    <string name="setup_wizard_step_three_action_themes">Select theme...</string>
-    <string name="setup_wizard_step_three_action_all_settings">Configure everything else...</string>
+    <string name="setup_wizard_step_three_action_languages">Setup languages…</string>
+    <string name="setup_wizard_step_three_action_themes">Select theme…</string>
+    <string name="setup_wizard_step_three_action_all_settings">Configure everything else…</string>
+    <string name="ime_crashed_title">AnySoftKeyboard Crashed!</string>
+    <string name="ime_crashed_sub_text">Oops, didn\'t see that coming…</string>
+    <string name="ime_crashed_ticker">Oops, AnySoftKeyboard crashed, didn\'t see that coming…</string>
+    <string name="ime_crashed_text">Unfortunately, there is a problem with <u>AnySoftKeyboard</u>. Do not panic, there is something <b>you</b> can do to help resolve this: send us the crash report, and we\'ll do our best to solve this crash and get you back with an awesome keyboard experience!\nWith sincere apology, the Dev team.</string>
+    <string name="ime_crashed_send_button">Send</string>
+    <string name="ime_crashed_cancel_button">Cancel</string>
+    <string name="ime_crashed_intent_selector_title">Send crash report via</string>
 </resources>

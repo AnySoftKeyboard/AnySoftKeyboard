@@ -14,16 +14,6 @@
 -->
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="Popup" parent="@android:style/Theme.Dialog">
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:maxWidth">320dp</item>
-        <item name="android:windowBackground">@drawable/window_popup_background</item>
-    </style>
-
-    <style name="Popup.NoTitle" parent="@style/Popup">
-        <item name="android:windowNoTitle">true</item>
-    </style>
-
     <style name="ProgressDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -343,6 +333,23 @@
         <item name="android:disableDependentsState">false</item>
     </style>
 
+    <style name="Theme.AskApp" parent="Theme.AppCompat.Light">
+
+    </style>
+
+    <style name="Theme.AskApp.NoTitle" parent="Theme.AskApp">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.AskApp.Popup" parent="Theme.AskApp">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:maxWidth">320dp</item>
+        <item name="android:windowBackground">@drawable/window_popup_background</item>
+    </style>
+
+    <style name="Theme.AskApp.Popup.NoTitle" parent="Theme.AskApp.Popup">
+        <item name="android:windowNoTitle">true</item>
+    </style>
 
     <style name="Ask"></style>
 
