@@ -88,6 +88,8 @@ public class AnyKeyboardBaseView extends View implements
     static final String TAG = "ASKKbdViewBase";
 
     public static final int NOT_A_TOUCH_COORDINATE = -1;
+    private static final int[] ACTION_KEY_TYPES = new int[]{R.attr.action_done, R.attr.action_search, R.attr.action_go};
+    private static final int[] KEY_TYPES = new int[]{R.attr.key_type_function, R.attr.key_type_action};
 
     // Timing constants
     private final int mKeyRepeatInterval;
@@ -554,11 +556,14 @@ public class AnyKeyboardBaseView extends View implements
 
         //creating a mapping from the remote Attribute IDs to my local attribute ID.
         //this is required in order to backward support any build-system (which may cause the attribute IDs to change)
-        final SparseIntArray attributeIdMap = new SparseIntArray(R.styleable.AnySoftKeyboardTheme.length + R.styleable.AnySoftKeyboardThemeKeyIcons.length);
+        final SparseIntArray attributeIdMap = new SparseIntArray(
+                R.styleable.AnySoftKeyboardTheme.length + R.styleable.AnySoftKeyboardThemeKeyIcons.length +
+                        ACTION_KEY_TYPES.length + KEY_TYPES.length);
+
         final int[] remoteKeyboardThemeStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
-                        R.styleable.AnySoftKeyboardTheme, context, theme.getPackageContext(), attributeIdMap, false);
+                        R.styleable.AnySoftKeyboardTheme, context, theme.getPackageContext(), attributeIdMap);
         final int[] remoteKeyboardIconsThemeStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
-                R.styleable.AnySoftKeyboardThemeKeyIcons, context, theme.getPackageContext(), attributeIdMap, false);
+                R.styleable.AnySoftKeyboardThemeKeyIcons, context, theme.getPackageContext(), attributeIdMap);
 
         HashSet<Integer> doneLocalAttributeIds = new HashSet<Integer>();
         TypedArray a = theme.getPackageContext().obtainStyledAttributes(keyboardThemeStyleResId, remoteKeyboardThemeStyleable);
@@ -571,8 +576,7 @@ public class AnyKeyboardBaseView extends View implements
                 if (localAttrId == R.attr.keyBackground) {
                     //keyTypeFunctionAttrId and keyActionAttrId are remote
                     final int[] keyStateAttributes = KeyboardSupport.createBackwardCompatibleStyleable(
-                            new int[]{R.attr.key_type_function, R.attr.key_type_action},
-                            context, theme.getPackageContext(), null, false);
+                            KEY_TYPES, context, theme.getPackageContext(), attributeIdMap);
                     keyTypeFunctionAttrId = keyStateAttributes[0];
                     keyActionAttrId = keyStateAttributes[1];
                 }
@@ -594,8 +598,8 @@ public class AnyKeyboardBaseView extends View implements
                     if (localAttrId == R.attr.iconKeyAction) {
                         //keyActionTypeDoneAttrId and keyActionTypeSearchAttrId and keyActionTypeGoAttrId are remote
                         final int[] keyStateAttributes = KeyboardSupport.createBackwardCompatibleStyleable(
-                                new int[]{R.attr.action_done, R.attr.action_search, R.attr.action_go},
-                                context, theme.getPackageContext(), null, false);
+                                ACTION_KEY_TYPES,
+                                context, theme.getPackageContext(), attributeIdMap);
                         keyActionTypeDoneAttrId = keyStateAttributes[0];
                         keyActionTypeSearchAttrId = keyStateAttributes[1];
                         keyActionTypeGoAttrId = keyStateAttributes[2];

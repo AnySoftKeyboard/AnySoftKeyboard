@@ -15,9 +15,9 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+              android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:tag="1.2.20131217">
     <TextView android:layout_height="wrap_content" android:layout_width="match_parent"
-              android:text="* Compact Mode (check Gesture Settings for details).\n* Bugs fixing." style="@style/Ask.Text.Normal"/>
+              android:text="* Compact Mode (check Gesture Settings for details).\n* A few tablet UI optimizations.\n* Bugs fixing." style="@style/Ask.Text.Normal"/>
     <TextView
         style="@style/Ask.Text.Small"
         android:layout_marginTop="8dp"

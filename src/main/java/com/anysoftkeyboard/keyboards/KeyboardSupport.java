@@ -15,9 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-/**
- * Created by menny on 10/29/13.
- */
+import javax.annotation.Nonnull;
+
 public class KeyboardSupport {
     private static final String TAG = "KeyboardSupport";
 
@@ -70,15 +69,21 @@ public class KeyboardSupport {
 
     }
 
-    public static int[] createBackwardCompatibleStyleable(int[] localStyleableArray, Context localContext, Context remoteContext, SparseIntArray attributeIdMap, boolean reverseMapping) {
+    /**
+     * Creates a mapping between the local styleable and the remote.
+     * @param localStyleableArray the local styleable to map against
+     * @param localContext local APK's Context
+     * @param remoteContext remote package's Context
+     * @param attributeIdMap a mapping between the remote-id -> local-id
+     * @return Always returns the remote version of localStyleableArray
+     */
+    public static int[] createBackwardCompatibleStyleable(@Nonnull int[] localStyleableArray, @Nonnull Context localContext, @Nonnull Context remoteContext, @Nonnull SparseIntArray attributeIdMap) {
         final String remotePackageName = remoteContext.getPackageName();
         if (localContext.getPackageName().equals(remotePackageName)) {
             Log.d(TAG, "This is a local context ("+remotePackageName+"), optimization will be done.");
             //optimization
-            if (attributeIdMap != null) {
-                for(int attrId : localStyleableArray) {
-                    attributeIdMap.put(attrId, attrId);
-                }
+            for(int attrId : localStyleableArray) {
+                attributeIdMap.put(attrId, attrId);
             }
             return localStyleableArray;
         }
@@ -91,20 +96,16 @@ public class KeyboardSupport {
             final int remoteAttrId = remoteRes.getIdentifier(attributeName, "attr", isAndroidAttribute? "android" : remotePackageName);
             Log.d(TAG, "attr "+attributeName+", local id "+attrId+", remote id "+remoteAttrId);
             if (remoteAttrId != 0) {
-                if (attributeIdMap != null) {
-                    if (reverseMapping)
-                        attributeIdMap.put(attrId, remoteAttrId);
-                    else
-                        attributeIdMap.put(remoteAttrId, attrId);
-                }
+                attributeIdMap.put(remoteAttrId, attrId);
                 styleableIdList.add(remoteAttrId);
             }
         }
-        final int[] remoteStyleable = new int[styleableIdList.size()];
-        for(int i=0; i<remoteStyleable.length; i++)
-            remoteStyleable[i] = styleableIdList.get(i);
+        final int[] remoteMappedStyleable = new int[styleableIdList.size()];
+        for(int i=0; i<remoteMappedStyleable.length; i++) {
+            remoteMappedStyleable[i] = styleableIdList.get(i);
+        }
 
-        return remoteStyleable;
+        return remoteMappedStyleable;
     }
 
     public static int getKeyHeightFromHeightCode(KeyboardDimens keyboardDimens, int heightCode, int orientation) {

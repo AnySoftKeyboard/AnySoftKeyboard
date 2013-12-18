@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_with_read_more"
+    style="@style/Ask.Card"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:padding="8dp"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/Ask.Text.Hint"
+        android:id="@+id/read_more_link"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_marginTop="6dp"
+        android:text="@string/click_for_more" />
+
+</LinearLayout>

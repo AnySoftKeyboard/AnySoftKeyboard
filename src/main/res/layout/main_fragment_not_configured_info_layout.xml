@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/Ask.Card"
-    android:orientation="horizontal"
-    android:id="@+id/keyboard_not_configured_box">
-
-    <TextView
-        style="@style/Ask.Text.SubTitle"
-        android:id="@+id/not_configured_click_here"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="@string/not_configured_with_click_here"
-        android:drawableLeft="@drawable/ic_not_configured"
-        android:drawablePadding="6dp" />
-</LinearLayout>
+    android:layout_marginTop="12dp"
+    android:layout_marginBottom="8dp"
+    android:id="@+id/not_configured_click_here"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:text="@string/not_configured_with_click_here"
+    android:drawableLeft="@drawable/ic_not_configured_animation"
+    android:drawablePadding="6dp"
+    android:textColor="?android:textColorSecondary"
+    android:textSize="@dimen/font_size_sub_title"
+    android:layout_gravity="center_horizontal"/>

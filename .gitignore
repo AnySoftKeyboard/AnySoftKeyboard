@@ -7,3 +7,5 @@
 /src/main/obj/
 local.properties
 local.extra.properties
+/bin/
+/gen/
