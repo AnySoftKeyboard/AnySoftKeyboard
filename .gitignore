@@ -2,3 +2,6 @@
 /.gradle
 /.idea
 local.properties
+/bin/
+/gen/
+
