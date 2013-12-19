@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard.utils;
 
+import android.annotation.TargetApi;
 import android.os.Build;
 
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
@@ -170,6 +171,7 @@ public class Log {
 
     private static String LVL_WTF = "WTF";
 
+    @TargetApi(8)
     public static void wtf(String TAG, String text, Object... args) {
         String msg = args == null? text : msFormatter.format(text, args).toString();
         msFormatBuilder.setLength(0);
@@ -182,6 +184,7 @@ public class Log {
             android.util.Log.e(TAG, msg);
     }
 
+    @TargetApi(8)
     public static void wtf(String TAG, String text, Throwable t) {
         addLog(LVL_WTF, TAG, text, t);
         if (Build.VERSION.SDK_INT >= 8)
