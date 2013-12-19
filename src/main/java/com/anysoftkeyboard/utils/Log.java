@@ -16,7 +16,10 @@
 
 package com.anysoftkeyboard.utils;
 
+import android.os.Build;
+
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.FeaturesSet;
 
 import java.util.ArrayList;
@@ -163,6 +166,30 @@ public class Log {
     public static void e(String TAG, String text, Throwable t) {
         android.util.Log.e(TAG, text, t);
         addLog(LVL_E, TAG, text, t);
+    }
+
+    private static String LVL_WTF = "WTF";
+
+    public static void wtf(String TAG, String text, Object... args) {
+        String msg = args == null? text : msFormatter.format(text, args).toString();
+        msFormatBuilder.setLength(0);
+        addLog(LVL_WTF, TAG, msg);
+        if (Build.VERSION.SDK_INT >= 8)
+            android.util.Log.wtf(TAG, msg);
+        else if (BuildConfig.DEBUG)
+            throw new RuntimeException(msg);
+        else
+            android.util.Log.e(TAG, msg);
+    }
+
+    public static void wtf(String TAG, String text, Throwable t) {
+        addLog(LVL_WTF, TAG, text, t);
+        if (Build.VERSION.SDK_INT >= 8)
+            android.util.Log.wtf(TAG, text, t);
+        else if (BuildConfig.DEBUG)
+            throw new RuntimeException(text, t);
+        else
+            android.util.Log.e(TAG, text, t);
     }
 
 

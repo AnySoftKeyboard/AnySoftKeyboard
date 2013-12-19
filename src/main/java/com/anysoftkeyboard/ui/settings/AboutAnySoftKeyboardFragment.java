@@ -71,7 +71,7 @@ public class AboutAnySoftKeyboardFragment extends Fragment {
         additionalSoftware.setText(sb);
     }
 
-    private static class AdditionalSoftwareLicensesFragment extends Fragment {
+    public static class AdditionalSoftwareLicensesFragment extends Fragment {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             return inflater.inflate(R.layout.additional_software_licenses, container, false);
