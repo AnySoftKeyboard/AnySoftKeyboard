@@ -6,7 +6,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.6.+'
+        classpath 'com.android.tools.build:gradle:0.7.+'
     }
 }
 
@@ -69,7 +69,7 @@ android {
         if (isEmpty(support_email_address)) support_email_address = 'ooops@example.com'
         println 'crash report email is: '+support_email_address
 
-        buildConfig "public final static String CRASH_REPORT_EMAIL_ADDRESS = \""+support_email_address+"\";"
+        buildConfigField "String", "CRASH_REPORT_EMAIL_ADDRESS", '"'+support_email_address+'"'
     }
 
     compileOptions {
@@ -130,9 +130,9 @@ android {
 }
 
 dependencies {
-    compile 'net.evendanan.anysoftkeyboard:api:1.2.0'
+    compile 'net.evendanan.anysoftkeyboard:api:1.2.0@aar'
     compile 'com.android.support:support-v4:19.0.0'
-    compile 'net.evendanan:frankenrobot:1.1'
+    compile 'net.evendanan:frankenrobot:1.1@aar'
     compile 'com.android.support:appcompat-v7:19.0.0'
     compile 'com.google.code.findbugs:jsr305:2.0.1'
     //https://groups.google.com/d/msg/adt-dev/nQobKd2Gl_8/Z5yWAvCh4h4J
