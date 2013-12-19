@@ -51,6 +51,14 @@
         android:layout_width="match_parent"
         android:layout_height="0px" android:layout_weight="0.5" />
 
+    <ImageView
+        android:id="@+id/about_donate_paypal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/donate_paypal"
+        android:scaleType="centerInside"
+        android:layout_marginBottom="8dp"/>
+
     <TextView
         style="@style/Ask.Text.Normal"
         android:id="@+id/about_legal_stuff_link"

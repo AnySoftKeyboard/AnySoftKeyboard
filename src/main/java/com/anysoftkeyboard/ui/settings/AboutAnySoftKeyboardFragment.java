@@ -1,7 +1,9 @@
 package com.anysoftkeyboard.ui.settings;
 
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.SpannableStringBuilder;
@@ -43,6 +45,15 @@ public class AboutAnySoftKeyboardFragment extends Fragment {
         }
         TextView version = (TextView)view.findViewById(R.id.about_app_version);
         version.setText(getString(R.string.version_text, appVersionName, appVersionNumber));
+
+        view.findViewById(R.id.about_donate_paypal).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9989122
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9989122"));
+                getActivity().startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -71,7 +82,7 @@ public class AboutAnySoftKeyboardFragment extends Fragment {
         additionalSoftware.setText(sb);
     }
 
-    private static class AdditionalSoftwareLicensesFragment extends Fragment {
+    public static class AdditionalSoftwareLicensesFragment extends Fragment {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             return inflater.inflate(R.layout.additional_software_licenses, container, false);
