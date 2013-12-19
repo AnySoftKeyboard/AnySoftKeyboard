@@ -784,4 +784,5 @@
     <string name="setup_wizard_step_one">Step one:</string>
     <string name="setup_wizard_step_two">Step two:</string>
     <string name="setup_wizard_step_three">Step three:</string>
+    <string name="about_donate">Donate:</string>
 </resources>
