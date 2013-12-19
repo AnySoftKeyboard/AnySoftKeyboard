@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="wizard_step_previous_step_not_complete_text">@null</string>
+    <string name="wizard_step_swipe_to_next">@null</string>
+</resources>	
