@@ -151,12 +151,16 @@ public class AddOnListPreference extends ListPreference {
             ImageView addOnIcon = (ImageView) row
                     .findViewById(R.id.addon_image);
             addOnIcon.setImageDrawable(icon);
+
+            View more = row.findViewById(R.id.addon_image_more_overlay);
+
             if (addOn instanceof ScreenshotHolder) {
                 if (((ScreenshotHolder) addOn).hasScreenshot()) {
                     addOnIcon.setOnClickListener(this);
                     addOnIcon.setTag(addOn);
-                    row.findViewById(R.id.addon_image_more_overlay)
-                            .setVisibility(View.VISIBLE);
+                    more.setVisibility(View.VISIBLE);
+                } else {
+                    more.setVisibility(View.GONE);
                 }
             }
 

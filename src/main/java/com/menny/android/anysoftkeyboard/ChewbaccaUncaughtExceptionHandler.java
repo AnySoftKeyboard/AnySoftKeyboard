@@ -14,21 +14,19 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard;
+package com.menny.android.anysoftkeyboard;
 
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
 import android.text.format.DateFormat;
 
 import com.anysoftkeyboard.ui.SendBugReportUiActivity;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.utils.Log;
-import com.menny.android.anysoftkeyboard.AnyApplication;
-import com.menny.android.anysoftkeyboard.BuildConfig;
-import com.menny.android.anysoftkeyboard.R;
 
 import java.io.File;
 import java.lang.Thread.UncaughtExceptionHandler;
@@ -64,62 +62,62 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
         }
 
         if (!ignore && AnyApplication.getConfig().useChewbaccaNotifications()) {
-            String appName = DeveloperUtils.getAppDetails(mApp.getApplicationContext());
+            String appName = DeveloperUtils.getAppDetails(mApp);
 
             final CharSequence utcTimeDate = DateFormat.format(
                     "kk:mm:ss dd.MM.yyyy", new Date());
             final String newline = DeveloperUtils.NEW_LINE;
-            String logText = "Hi. It seems that we have crashed.... Here are some details:"+newline
+            String logText = "Hi. It seems that we have crashed.... Here are some details:" + newline
                     + "****** UTC Time: "
                     + utcTimeDate
                     + newline
                     + "****** Application name: "
                     + appName
                     + newline
-                    + "******************************"+newline
+                    + "******************************" + newline
                     + "****** Exception type: "
                     + ex.getClass().getName()
                     + newline
                     + "****** Exception message: "
                     + ex.getMessage()
-                    + newline + "****** Trace trace:"+ newline + stackTrace + newline;
-            logText += "******************************"+newline
-                    + "****** Device information:"+newline
+                    + newline + "****** Trace trace:" + newline + stackTrace + newline;
+            logText += "******************************" + newline
+                    + "****** Device information:" + newline
                     + DeveloperUtils.getSysInfo();
             if (ex instanceof OutOfMemoryError
                     || (ex.getCause() != null && ex.getCause() instanceof OutOfMemoryError)) {
                 logText += "******************************\n"
-                        + "****** Memory:" +newline+ getMemory();
+                        + "****** Memory:" + newline + getMemory();
             }
-            logText += "******************************"+newline + "****** Logcat:"+newline
+            logText += "******************************" + newline + "****** Log-Cat:" + newline
                     + Log.getAllLogLines();
 
-            Notification notification = new Notification(
-                    R.drawable.notification_error_icon,
-                    "Oops! Didn't see that coming, I crashed.",
-                    System.currentTimeMillis());
-
-            Intent notificationIntent = new Intent(mApp,
-                    SendBugReportUiActivity.class);
-
-            notificationIntent.putExtra(
-                    SendBugReportUiActivity.CRASH_REPORT_TEXT, logText);
+            String crashType = ex.getClass().getSimpleName() + ": " + ex.getMessage();
+            Intent notificationIntent = new Intent(mApp, SendBugReportUiActivity.class);
+            notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            notificationIntent.putExtra(SendBugReportUiActivity.CRASH_REPORT_TEXT, logText);
+            notificationIntent.putExtra(SendBugReportUiActivity.CRASH_TYPE_STRING, crashType);
 
             PendingIntent contentIntent = PendingIntent.getActivity(mApp, 0,
                     notificationIntent, 0);
 
-            notification.setLatestEventInfo(mApp,
-                    mApp.getText(R.string.ime_name),
-                    "Oops! Didn't see that coming, I crashed.", contentIntent);
-            notification.flags |= Notification.FLAG_AUTO_CANCEL;
-            notification.flags |= Notification.FLAG_ONLY_ALERT_ONCE;
-            notification.defaults |= Notification.DEFAULT_LIGHTS;
-            notification.defaults |= Notification.DEFAULT_VIBRATE;
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(mApp);
+            builder.setSmallIcon(R.drawable.notification_error_icon).
+                    setTicker(mApp.getText(R.string.ime_crashed_ticker)).
+                    setContentTitle(mApp.getText(R.string.ime_name)).
+                    setContentText(mApp.getText(R.string.ime_crashed_sub_text)).
+                    setSubText(BuildConfig.DEBUG ? crashType : null/*not showing the type of crash in RELEASE mode*/).
+                    setWhen(System.currentTimeMillis()).
+                    setContentIntent(contentIntent).
+                    setAutoCancel(true).
+                    setOnlyAlertOnce(true).
+                    setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+
             // notifying
             NotificationManager notificationManager = (NotificationManager) mApp
                     .getSystemService(Context.NOTIFICATION_SERVICE);
 
-            notificationManager.notify(1, notification);
+            notificationManager.notify(1, builder.build());
         }
         // and sending to the OS
         if (!ignore && mOsDefaultHandler != null) {
@@ -127,6 +125,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
             mOsDefaultHandler.uncaughtException(thread, ex);
         }
 
+        //halting the process. No need to continue now. I'm a dead duck.
         System.exit(0);
     }
 

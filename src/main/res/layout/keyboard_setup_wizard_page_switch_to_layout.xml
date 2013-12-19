@@ -44,6 +44,14 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/wizard_step_this_step_complete_text_switched" />
+
+        <TextView
+            style="@style/Ask.Text.Normal"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/wizard_step_swipe_to_next" />
     </LinearLayout>
 
     <LinearLayout

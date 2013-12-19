@@ -34,6 +34,7 @@ import android.widget.TextView;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.ui.settings.MainFragment;
 import com.anysoftkeyboard.utils.Log;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.FragmentChauffeurActivity;
@@ -117,7 +118,7 @@ public class ChangeLogFragment extends PassengerFragment {
                     View logHeader = inflater.inflate(R.layout.changelogentry_header, mLogContainer, false);
                     TextView versionName = (TextView) logHeader.findViewById(R.id.changelog_version_title);
                     versionName.setPaintFlags(versionName.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-                    updateEntryText(versionName, logTag, currentVersionCode, info);
+                    updateEntryText(versionName, logTag, currentVersionCode, info, layoutResourceName);
 
                     mLogContainer.addView(logHeader);
                     mLogContainer.addView(logEntry);
@@ -138,9 +139,11 @@ public class ChangeLogFragment extends PassengerFragment {
         return R.id.change_logs_container;
     }
 
-    protected void updateEntryText(TextView entryHeader, Object tag, int versionCode, PackageInfo packageInfo) {
+    protected void updateEntryText(TextView entryHeader, Object tag, int versionCode, PackageInfo packageInfo, String layoutResourceName) {
         String versionName;
         if (tag == null) {
+            if (!BuildConfig.DEBUG)
+                throw new IllegalStateException("In RELEASE mode, all change log items must have a tag. Please include the version name in layout " + layoutResourceName);
             if (packageInfo.versionCode == versionCode)
                 //automatically adding the version name
                 versionName = packageInfo.versionName;
@@ -191,7 +194,11 @@ public class ChangeLogFragment extends PassengerFragment {
             }, true);
         }
 
-        protected void updateEntryText(TextView entryHeader, Object tag, int versionCode, PackageInfo packageInfo) {
+        @Override
+        protected void updateEntryText(TextView entryHeader, Object tag, int versionCode, PackageInfo packageInfo, String layoutResourceName) {
+            if (tag == null && !BuildConfig.DEBUG)
+                throw new IllegalStateException("In RELEASE mode, all change log items must have a tag. Please include the version name in layout " + layoutResourceName);
+
             String cardedHeader = getString(R.string.change_log_card_title_template, versionCode, packageInfo.versionName);
             entryHeader.setText(cardedHeader);
         }
