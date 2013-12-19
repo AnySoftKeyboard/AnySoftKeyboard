@@ -23,6 +23,10 @@ public abstract class WizardPageBaseFragment extends Fragment {
     public void onStart() {
         super.onStart();
         //enabling or disabling the views.
+        refreshFragmentUi();
+    }
+
+    public void refreshFragmentUi() {
         final View preStepNotCompeleted = getView().findViewById(R.id.previous_step_not_complete);
         final View thisStepCompeleted = getView().findViewById(R.id.this_step_complete);
         final View thisStepSetup = getView().findViewById(R.id.this_step_needs_setup);
