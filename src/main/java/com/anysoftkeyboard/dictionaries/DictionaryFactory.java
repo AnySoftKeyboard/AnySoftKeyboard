@@ -17,11 +17,11 @@
 package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
+
 import com.anysoftkeyboard.dictionaries.content.ContactsDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
-import net.evendanan.frankenrobot.Diagram;
 
 public class DictionaryFactory {
 
@@ -58,7 +58,7 @@ public class DictionaryFactory {
     }
 
     public synchronized Dictionary createContactsDictionary(Context context) {
-        return AnyApplication.getFrankenRobot().embody(new ContactsDictionaryDiagram(context.getApplicationContext()));
+        return new ContactsDictionary(context.getApplicationContext());
     }
 
     public synchronized AutoDictionary createAutoDictionary(Context context, String currentAutoDictionaryLocale) {
@@ -81,17 +81,5 @@ public class DictionaryFactory {
         loader.execute(mAutoDictionary);
 
         return mAutoDictionary;
-    }
-
-    public static final class ContactsDictionaryDiagram extends Diagram<ContactsDictionary> {
-        private final Context mAppContext;
-
-        public ContactsDictionaryDiagram(Context appContext) {
-            mAppContext = appContext;
-        }
-
-        public Context getAppContext() {
-            return mAppContext;
-        }
     }
 }
