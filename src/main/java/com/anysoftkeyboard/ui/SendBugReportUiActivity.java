@@ -17,49 +17,55 @@
 package com.anysoftkeyboard.ui;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 
 public class SendBugReportUiActivity extends Activity {
+    private static final String TAG = "ASK_BUG_SENDER";
 
     public static final String CRASH_REPORT_TEXT = "CRASH_REPORT_TEXT";
-    private static final String TAG = "ASK BUGER";
+    public static final String CRASH_TYPE_STRING = "CRASH_TYPE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        final AlertDialog dialog = new AlertDialog.Builder(this)
-                .setIcon(R.drawable.ic_launcher)
-                .setTitle(R.string.ime_name)
-                .setMessage("Oops, didn't see that coming...")
-                .setPositiveButton("Send :)", new OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        sendCrashReportViaEmail();
-                        finish();
-                    }
-                })
-                .setCancelable(true)
-                .setNegativeButton("No", new OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                })
-                .create();
-
-        dialog.show();
+        setContentView(R.layout.send_crash_log_ui);
     }
 
-    protected void sendCrashReportViaEmail() {
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        //this is a "singleInstance" activity, so we may get a "newIntent" call, with new crash data. I'll store the new intent.
+        setIntent(intent);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        TextView crashType = (TextView) findViewById(R.id.ime_crash_type);
+        Intent callingIntent = getIntent();
+        String type = callingIntent.getStringExtra(CRASH_TYPE_STRING);
+        if (TextUtils.isEmpty(type) || (!BuildConfig.DEBUG)/*not showing the type of crash in RELEASE mode*/) {
+            crashType.setVisibility(View.GONE);
+        } else {
+            crashType.setText(type);
+        }
+    }
+
+    public void onCancelCrashReport(View v) {
+        finish();
+    }
+
+    public void onSendCrashReport(View v) {
         String[] recipients = new String[]{BuildConfig.CRASH_REPORT_EMAIL_ADDRESS};
 
         Intent callingIntent = getIntent();
@@ -68,11 +74,11 @@ public class SendBugReportUiActivity extends Activity {
         sendMail.setAction(Intent.ACTION_SEND);
         sendMail.setType("plain/text");
         sendMail.putExtra(Intent.EXTRA_EMAIL, recipients);
-        sendMail.putExtra(Intent.EXTRA_SUBJECT, getText(R.string.ime_name) + " crashed!");
+        sendMail.putExtra(Intent.EXTRA_SUBJECT, getText(R.string.ime_crashed_title));
         sendMail.putExtra(Intent.EXTRA_TEXT, callingIntent.getStringExtra(CRASH_REPORT_TEXT));
 
         try {
-            Intent sender = Intent.createChooser(sendMail, "Send bug report");
+            Intent sender = Intent.createChooser(sendMail, getString(R.string.ime_crashed_intent_selector_title));
             sender.putExtra(Intent.EXTRA_EMAIL, sendMail.getStringExtra(Intent.EXTRA_EMAIL));
             sender.putExtra(Intent.EXTRA_SUBJECT, sendMail.getStringExtra(Intent.EXTRA_SUBJECT));
             sender.putExtra(Intent.EXTRA_TEXT, callingIntent.getStringExtra(CRASH_REPORT_TEXT));
