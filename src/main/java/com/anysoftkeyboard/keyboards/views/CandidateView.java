@@ -408,9 +408,9 @@ public class CandidateView extends View {
         mTargetScrollX = 0;
         mHaveMinimalSuggestion = haveMinimalSuggestion;
         // Compute the total width
-        draw(null);
+        //draw(null);
         invalidate();
-        requestLayout();
+        //requestLayout();
     }
 
     public boolean isShowingAddToDictionaryHint() {
