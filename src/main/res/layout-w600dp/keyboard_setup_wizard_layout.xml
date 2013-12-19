@@ -26,6 +26,7 @@
             android:text="@string/setup_wizard_step_one" />
 
         <fragment
+            android:id="@+id/wizard_step_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:name="com.anysoftkeyboard.ui.settings.setup.WizardPageEnableKeyboardFragment"
@@ -50,6 +51,7 @@
             android:text="@string/setup_wizard_step_two" />
 
         <fragment
+            android:id="@+id/wizard_step_two"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:name="com.anysoftkeyboard.ui.settings.setup.WizardPageSwitchToKeyboardFragment"
@@ -74,6 +76,7 @@
             android:text="@string/setup_wizard_step_three" />
 
         <fragment
+            android:id="@+id/wizard_step_three"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:name="com.anysoftkeyboard.ui.settings.setup.WizardPageDoneAndMoreSettingsFragment"
