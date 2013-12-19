@@ -21,6 +21,7 @@ import android.content.Context;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.text.TextUtils;
+
 import com.anysoftkeyboard.WordComposer;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -109,7 +110,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
     public boolean addWord(String word, int frequency) {
         synchronized (mResourceMonitor) {
             if (isClosed()) {
-                Log.d(TAG, "Dictionary (type "+this.getClass().getName()+") "+this.getDictionaryName()+" is closed! Can not add word.");
+                Log.d(TAG, "Dictionary (type " + this.getClass().getName() + ") " + this.getDictionaryName() + " is closed! Can not add word.");
                 return false;
             }
             // Safeguard against adding long words. Can cause stack overflow.
@@ -137,7 +138,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
     public final void deleteWord(String word) {
         synchronized (mResourceMonitor) {
             if (isClosed()) {
-                Log.d(TAG, "Dictionary (type "+this.getClass().getName()+") "+this.getDictionaryName()+" is closed! Can not delete word.");
+                Log.d(TAG, "Dictionary (type " + this.getClass().getName() + ") " + this.getDictionaryName() + " is closed! Can not delete word.");
                 return;
             }
             deleteWordRec(mRoots, word, 0, word.length());
@@ -169,7 +170,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
                         return false;
                     }
                 } else if (node.terminal &&//a terminal node
-                                (node.children == null || node.children.length == 0)) {//has no children
+                        (node.children == null || node.children.length == 0)) {//has no children
                     //this is not the last character, but this is a terminal node with no children! Nothing to delete here.
                     return false;
                 } else {
@@ -203,6 +204,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
 
     @Override
     public final void getWords(final WordComposer codes, final WordCallback callback) {
+        if (isLoading() || isClosed()) return;
         mInputLength = codes.length();
         mMaxDepth = mInputLength * 2;
         getWordsRec(mRoots, codes, mWordBuilder, 0, false, 1.0f, 0, callback);
@@ -214,7 +216,6 @@ public abstract class BTreeDictionary extends EditableDictionary {
     }
 
 
-
     /**
      * Checks for the given word's frequency.
      *
@@ -222,6 +223,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
      * @return frequency value (higher is better. 0 means not exists, 1 is minimum, 255 is maximum).
      */
     public final int getWordFrequency(CharSequence word) {
+        if (isLoading() || isClosed()) return 0;
         return getWordFrequencyRec(mRoots, word, 0, word.length());
     }
 
@@ -352,7 +354,6 @@ public abstract class BTreeDictionary extends EditableDictionary {
     }
 
     private void addWordRec(NodeArray children, final String word, final int depth, final int frequency) {
-
         final int wordLength = word.length();
         final char c = word.charAt(depth);
         // Does children have the current character?
@@ -417,7 +418,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
                 System.arraycopy(data, 0, tempData, 0, data.length);
                 data = tempData;
             }
-            data[length-1] = n;
+            data[length - 1] = n;
         }
 
         public void deleteNode(int nodeIndexToDelete) {
@@ -426,7 +427,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
             length--;
             if (length > 0) {
                 for (int i = nodeIndexToDelete; i < length; i++) {
-                    data[i] = data[i+1];
+                    data[i] = data[i + 1];
                 }
             }
         }

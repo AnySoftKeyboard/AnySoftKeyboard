@@ -17,7 +17,6 @@
 package com.anysoftkeyboard.dictionaries;
 
 import com.anysoftkeyboard.WordComposer;
-import com.anysoftkeyboard.utils.Log;
 
 /**
  * Abstract base class for a dictionary that can do a fuzzy search for words based on a set of key
@@ -60,12 +59,17 @@ abstract public class Dictionary {
         boolean addWord(char[] word, int wordOffset, int wordLength, int frequency);
     }
 
+    private volatile boolean mLoadingResources = true;
     protected final Object mResourceMonitor = new Object();
     private final String mDictionaryName;
     private volatile boolean mClosed = false;
 
     protected Dictionary(String dictionaryName) {
         mDictionaryName = dictionaryName;
+    }
+
+    protected boolean isLoading() {
+        return mLoadingResources;
     }
 
     /**
@@ -126,9 +130,14 @@ abstract public class Dictionary {
         if (mClosed)
             return;
         synchronized (mResourceMonitor) {
-            if (mClosed)
-                return;
-            loadAllResources();
+            try {
+                mLoadingResources = true;
+                if (mClosed)
+                    return;
+                loadAllResources();
+            } finally {
+                mLoadingResources = false;
+            }
         }
     }
 

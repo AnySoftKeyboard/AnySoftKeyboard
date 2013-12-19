@@ -16,11 +16,111 @@
 
 package com.anysoftkeyboard.dictionaries.content;
 
-import com.anysoftkeyboard.dictionaries.BTreeDictionary;
-import com.anysoftkeyboard.dictionaries.DictionaryFactory;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.database.ContentObserver;
+import android.database.Cursor;
+import android.provider.ContactsContract.Contacts;
 
-public abstract class ContactsDictionary extends BTreeDictionary {
-    protected ContactsDictionary(DictionaryFactory.ContactsDictionaryDiagram diagram) throws Exception {
-        super("ContactsDictionary", diagram.getAppContext());
+import com.anysoftkeyboard.dictionaries.BTreeDictionary;
+import com.anysoftkeyboard.dictionaries.WordsCursor;
+
+public class ContactsDictionary extends BTreeDictionary {
+
+    private static final class ContactsWordsCursor extends WordsCursor {
+
+        public ContactsWordsCursor(Cursor cursor) {
+            super(cursor);
+        }
+
+        @Override
+        public int getCurrentWordFrequency() {
+            //in contacts, the frequency is a bit tricky:
+            //stared contacts are really high
+            Cursor cursor = getCursor();
+            final boolean isStarred = cursor.getInt(INDEX_STARRED) > 0;
+            if (isStarred)
+                return 255;// WOW! important!
+            //times contacted will be our frequency
+            final int timesContacted = cursor.getInt(INDEX_TIMES);
+            return Math.min(timesContacted, 255);//but no more than the max allowed
+        }
+    }
+
+    protected static final String TAG = "ASK CDict";
+
+    private static final String[] PROJECTION = {Contacts._ID, Contacts.DISPLAY_NAME, Contacts.STARRED, Contacts.TIMES_CONTACTED};
+
+    private static final int INDEX_STARRED = 2;
+    private static final int INDEX_TIMES = 3;
+
+    public ContactsDictionary(Context context) {
+        super("ContactsDictionary", context);
+    }
+
+    @Override
+    protected void registerObserver(ContentObserver dictionaryContentObserver, ContentResolver contentResolver) {
+        contentResolver.registerContentObserver(Contacts.CONTENT_URI, true, dictionaryContentObserver);
+    }
+
+    @Override
+    public WordsCursor getWordsCursor() {
+        Cursor cursor = mContext.getContentResolver().query(Contacts.CONTENT_URI,
+                PROJECTION, Contacts.IN_VISIBLE_GROUP + "=?",
+                new String[]{"1"}, null);
+        return new ContactsWordsCursor(cursor);
+    }
+
+    @Override
+    protected void addWordFromStorage(String name, int frequency) {
+        //the word in Contacts is actually the full name,
+        //so, let's break it to individual words.
+        int len = name.length();
+
+        // TODO: Better tokenization for non-Latin writing systems
+        for (int i = 0; i < len; i++) {
+            if (Character.isLetter(name.charAt(i))) {
+                int j;
+                for (j = i + 1; j < len; j++) {
+                    char c = name.charAt(j);
+
+                    if (!(c == '-' || c == '\'' || Character
+                            .isLetter(c))) {
+                        break;
+                    }
+                }
+
+                String word = name.substring(i, j);
+                i = j - 1;
+
+                // Safeguard against adding really long
+                // words. Stack
+                // may overflow due to recursion
+                // Also don't add single letter words,
+                // possibly confuses
+                // capitalization of i.
+                final int wordLen = word.length();
+                if (wordLen < MAX_WORD_LENGTH && wordLen > 1) {
+                    int oldFrequency = getWordFrequency(word);
+                    if (oldFrequency < frequency)//I had it better!
+                        super.addWordFromStorage(word, frequency);
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void deleteWordFromStorage(String word) {
+        //not going to support deletion of contacts!
+    }
+
+    @Override
+    protected void AddWordToStorage(String word, int frequency) {
+        //not going to support addition of contacts!
+    }
+
+    @Override
+    protected void closeStorage() {
+        /*nothing to close here*/
     }
 }
