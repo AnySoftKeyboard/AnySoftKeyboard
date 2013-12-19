@@ -17,6 +17,8 @@ import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.PassengerFragment;
 
+import javax.annotation.Nullable;
+
 /**
  * This fragment will guide the user through the process of enabling, switch to and configuring AnySoftKeyboard.
  * This will be done with three pages, each for a different task:
@@ -48,7 +50,8 @@ public class SetUpKeyboardWizardFragment extends PassengerFragment {
         }
     };
 
-    private ViewPager mWizardPager;
+    //this is null on tablet!
+    private @Nullable ViewPager mWizardPager;
     private Context mAppContext;
 
     private final ContentObserver mSecureSettingsChanged = new ContentObserver(null) {
@@ -59,7 +62,7 @@ public class SetUpKeyboardWizardFragment extends PassengerFragment {
 
         @Override
         public void onChange(boolean selfChange) {
-            if (isResumed()) {
+            if (isResumed() && mWizardPager != null) {
                 mWizardPager.getAdapter().notifyDataSetChanged();
                 scrollToPageRequiresSetup();
             } else {
@@ -116,15 +119,17 @@ public class SetUpKeyboardWizardFragment extends PassengerFragment {
         super.onViewCreated(view, savedInstanceState);
         mFullIndicator = view.findViewById(R.id.selected_page_indicator);
         mWizardPager = (ViewPager) view.findViewById(R.id.wizard_pages_pager);
-        mWizardPager.setAdapter(new WizardPagesAdapter(getChildFragmentManager()));
-        mWizardPager.setOnPageChangeListener(onPageChangedListener);
+        if (mWizardPager != null) {
+            mWizardPager.setAdapter(new WizardPagesAdapter(getChildFragmentManager()));
+            mWizardPager.setOnPageChangeListener(onPageChangedListener);
+        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
         //checking to see which page should be shown on start
-        if (mReloadPager) {
+        if (mReloadPager && mWizardPager != null) {
             mWizardPager.getAdapter().notifyDataSetChanged();
         }
         scrollToPageRequiresSetup();
@@ -133,6 +138,9 @@ public class SetUpKeyboardWizardFragment extends PassengerFragment {
     }
 
     private void scrollToPageRequiresSetup() {
+        if (mWizardPager == null)
+            return;
+
         int positionToStartAt = 0;
         if (SetupSupport.isThisKeyboardEnabled(getActivity())) {
             positionToStartAt = 1;

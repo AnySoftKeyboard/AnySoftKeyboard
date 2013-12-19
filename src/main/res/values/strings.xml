@@ -762,6 +762,7 @@
     <string name="setup_wizard_step_one_details">In this step, you\'ll need to enable <i>AnySoftKeyboard</i>. Please check <i>\'AnySoftKeyboard\'</i> in your <i>Language&amp;Input settings</i>. This will allow us to run on your device.</string>
     <string name="setup_wizard_step_one_action">Go you <i>Language&amp;Input settings</i>…</string>
     <string name="setup_wizard_top_title">Setup\nAnySoftKeyboard\nfor use</string>
+    <string name="setup_wizard_top_title_tablet">Setup AnySoftKeyboard for use</string>
     <string name="setup_wizard_step_two_title">Switch to AnySoftKeyboard</string>
     <string name="setup_wizard_step_two_small_sub_title">Step two of three</string>
     <string name="setup_wizard_step_two_details">Your system can use <i>AnySoftKeyboard</i> now, but it is not set as the active keyboard.\nBy switching, <i>AnySoftKeyboard</i> will be your new on-screen keyboard, along with all its features!</string>
@@ -778,4 +779,7 @@
     <string name="ime_crashed_send_button">Send</string>
     <string name="ime_crashed_cancel_button">Cancel</string>
     <string name="ime_crashed_intent_selector_title">Send crash report via</string>
+    <string name="setup_wizard_step_one">Step one:</string>
+    <string name="setup_wizard_step_two">Step two:</string>
+    <string name="setup_wizard_step_three">Step three:</string>
 </resources>
