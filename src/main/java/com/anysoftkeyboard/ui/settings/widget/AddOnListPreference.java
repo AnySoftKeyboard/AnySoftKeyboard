@@ -48,6 +48,7 @@ import com.menny.android.anysoftkeyboard.R;
 import net.evendanan.pushingpixels.Banner;
 import net.evendanan.pushingpixels.ListPreference;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*using this import requires using the Android Library from https://github.com/menny/PushingPixels*/
@@ -226,7 +227,7 @@ public class AddOnListPreference extends ListPreference {
         AddOnsListSavedState myState = new AddOnsListSavedState(superP);
 
         //some add-ons can be none.
-        myState.selectedAddOnId = mSelectedAddOn == null? null : mSelectedAddOn.getId();
+        myState.selectedAddOnId = mSelectedAddOn.getId();
         String[] addOns = new String[mAddOns.length];
         for (int i = 0; i < addOns.length; i++)
             addOns[i] = mAddOns[i].getId();
@@ -244,13 +245,26 @@ public class AddOnListPreference extends ListPreference {
             AddOnsListSavedState myState = (AddOnsListSavedState) state;
             String selectedAddOnId = myState.selectedAddOnId;
             String[] addOnIds = myState.addOnIds;
-            AddOn[] addOns = new AddOn[addOnIds.length];
-            for (int i = 0; i < addOns.length; i++)
-                addOns[i] = AddOnsFactory
-                        .locateAddOn(addOnIds[i], getContext().getApplicationContext());
+            //now, this is tricky: it is possible that by the time we need to restore the state
+            //some of the add-ons (and even the default) will no longer exist!
+            //this can happen when going out of the App to uninstall an add-on, and then returning to the App.
+            List<AddOn> validAddOns = new ArrayList<>(addOnIds.length);
+            for (int i = 0; i < addOnIds.length; i++) {
+                AddOn addOn = AddOnsFactory.locateAddOn(addOnIds[i], getContext().getApplicationContext());
+                if (addOn != null) {
+                    validAddOns.add(addOn);
+                }
+            }
+
+            AddOn[] addOns = new AddOn[validAddOns.size()];
+            validAddOns.toArray(addOns);
             setAddOnsList(addOns);
-            setSelectedAddOn(selectedAddOnId == null? null : AddOnsFactory.locateAddOn(selectedAddOnId,
-                    getContext().getApplicationContext()));
+            AddOn selectedAddOn = AddOnsFactory.locateAddOn(selectedAddOnId, getContext().getApplicationContext());
+            if (selectedAddOn == null) {
+                selectedAddOn = validAddOns.get(0);
+            }
+            setSelectedAddOn(selectedAddOn);
+
             super.onRestoreInstanceState(myState.getSuperState());
         }
     }
