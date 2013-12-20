@@ -240,7 +240,7 @@ public abstract class AnyKeyboard extends Keyboard {
                     KeyboardExtensionFactory.getCurrentKeyboardExtension(mASKContext, KeyboardExtension.TYPE_TOP);
             if (topRowPlugin == null || // no plugin found
                     // plugin specified to be empty
-                    topRowPlugin.getKeyboardResId() == -1 ||
+                    topRowPlugin.getKeyboardResId() == 0 ||
                     // could not parse layout res id
                     topRowPlugin.getKeyboardResId() == -2) {
                 Log.d(TAG, "No top row layout");
