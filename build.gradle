@@ -119,6 +119,9 @@ android {
         release {
             signingConfig signingConfigs.release
             zipAlign true
+
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
 
         debug {
