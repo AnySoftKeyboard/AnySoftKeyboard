@@ -20,9 +20,6 @@ More on AnySoftKeyboard can be found [here](http://softkeyboard.googlecode.com)
  * Voice input. 
  * Any many more features.
 
-## Thanks
-The icon of this software was taken from 'keyboardicons.com'. Thanks for this cool free keys icons.
-
 License
 -------
 
