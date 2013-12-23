@@ -230,8 +230,6 @@
   <string name="keyboard_theme_active">Активная тема</string>
   <string name="keyboard_theme_dialog_title">Выбрать тему</string>
   <string name="keyboard_theme_list_title">Темы на выбор</string>
-  <string name="gingerbread_keyboard_theme_name">а\'ля Джинджербред</string>
-  <string name="gingerbread_keyboard_theme_description">Цвет и кнопки в стиле Android 2.3 (Gingerbread)</string>
   <string name="dark_plain_keyboard_theme_name">Плоская тёмная</string>
   <string name="dark_plain_keyboard_theme_description">Тёмные тона, простая графика</string>
   <string name="light_plain_keyboard_theme_name">Плоская светлая</string>

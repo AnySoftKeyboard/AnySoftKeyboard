@@ -312,8 +312,6 @@
   <string name="keyboard_theme_dialog_title">Wybierz motyw</string>
   <string name="keyboard_theme_summary">Wybrany motyw: %s</string>
   <string name="keyboard_theme_list_title">Wybierz motyw</string>
-  <string name="gingerbread_keyboard_theme_name">Styl Gingerbread</string>
-  <string name="gingerbread_keyboard_theme_description">Przyciski i kolory stylowane na Gingerbread (Android 2.3)</string>
   <string name="dark_plain_keyboard_theme_name">Zwykły ciemny motyw</string>
   <string name="dark_plain_keyboard_theme_description">Ciemne kolory, proste grafiki</string>
   <string name="light_plain_keyboard_theme_name">Zwykły jasny motyw</string>

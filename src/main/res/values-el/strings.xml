@@ -358,8 +358,6 @@
   <string name="keyboard_theme_dialog_title">Επιλογή θέματος</string>
   <string name="keyboard_theme_summary">Επιλεγμένο θέμα: %s</string>
   <string name="keyboard_theme_list_title">Επιλογή θέματος</string>
-  <string name="gingerbread_keyboard_theme_name">Στυλ Gingerbread</string>
-  <string name="gingerbread_keyboard_theme_description">Στυλ πλήκτρων και χρωμάτων σαν Gingerbread (Android 2.3)</string>
   <string name="dark_plain_keyboard_theme_name">Απλό σκούρο θέμα</string>
   <string name="dark_plain_keyboard_theme_description">Σκούρα χρώματα, απλά γραφικά</string>
   <string name="light_plain_keyboard_theme_name">Απλό φωτεινό θέμα</string>
