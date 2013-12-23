@@ -79,7 +79,7 @@ public class SendBugReportUiActivity extends Activity {
 
         try {
             Intent sender = Intent.createChooser(sendMail, getString(R.string.ime_crashed_intent_selector_title));
-            sender.putExtra(Intent.EXTRA_EMAIL, sendMail.getStringExtra(Intent.EXTRA_EMAIL));
+            sender.putExtra(Intent.EXTRA_EMAIL, sendMail.getStringArrayExtra(Intent.EXTRA_EMAIL));
             sender.putExtra(Intent.EXTRA_SUBJECT, sendMail.getStringExtra(Intent.EXTRA_SUBJECT));
             sender.putExtra(Intent.EXTRA_TEXT, callingIntent.getStringExtra(CRASH_REPORT_TEXT));
 
