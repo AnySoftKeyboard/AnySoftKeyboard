@@ -288,8 +288,6 @@
   <string name="keyboard_theme_dialog_title">בחר ערכת נושא</string>
   <string name="keyboard_theme_summary">ערכת נושא בשימוש: %s</string>
   <string name="keyboard_theme_list_title">בחר ערכת נושא</string>
-  <string name="gingerbread_keyboard_theme_name">סגנון Gingerbread</string>
-  <string name="gingerbread_keyboard_theme_description">כפתורים וצבעים בסגנון Gingerbread (גרסת אנדרואיד 2.3)</string>
   <string name="dark_plain_keyboard_theme_name">ערכת נושא כהה</string>
   <string name="dark_plain_keyboard_theme_description">צבעים כהים, גרפיקה פשוטה</string>
   <string name="light_plain_keyboard_theme_name">ערכת נושא בהירה</string>

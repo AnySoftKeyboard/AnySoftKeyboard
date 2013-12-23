@@ -357,8 +357,6 @@
   <string name="keyboard_theme_dialog_title">اختر سمة</string>
   <string name="keyboard_theme_summary">السمة المختارة</string>
   <string name="keyboard_theme_list_title">إختر السمة </string>
-  <string name="gingerbread_keyboard_theme_name">نمط خبز الزنجبيل</string>
-  <string name="gingerbread_keyboard_theme_description">أزرار وألوان نمط خبز الزنجبيل (أندرويد 2.3)</string>
   <string name="dark_plain_keyboard_theme_name">خلفية عادية مظلمة</string>
   <string name="dark_plain_keyboard_theme_description">ألوان معتمه,ورسومات بسيطة</string>
   <string name="light_plain_keyboard_theme_name">خلفية عادية مشرقة</string>

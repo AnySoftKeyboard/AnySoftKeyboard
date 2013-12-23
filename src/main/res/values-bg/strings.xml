@@ -242,8 +242,6 @@
   <string name="keyboard_theme_dialog_title">Избор на тема</string>
   <string name="keyboard_theme_summary">Избрана тема: %s</string>
   <string name="keyboard_theme_list_title">Избор на тема</string>
-  <string name="gingerbread_keyboard_theme_name">Gingerbread вид</string>
-  <string name="gingerbread_keyboard_theme_description">Gingerbread (Android 2.3) вид на бутоните и цветове</string>
   <string name="dark_plain_keyboard_theme_name">Обикновена тема (тъмна)</string>
   <string name="dark_plain_keyboard_theme_description">Тъмни цветове, опростени графики</string>
   <string name="light_plain_keyboard_theme_name">Обикновена тема (светла)</string>

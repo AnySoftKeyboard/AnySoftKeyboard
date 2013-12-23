@@ -384,8 +384,6 @@ törlődik, teljesen lenyomva az utolsó szó</string>
   <string name="keyboard_theme_dialog_title">Téma kiválasztása</string>
   <string name="keyboard_theme_summary">Kiválasztott téma: %s</string>
   <string name="keyboard_theme_list_title">Téma kiválasztása</string>
-  <string name="gingerbread_keyboard_theme_name">Gingerbread stílusú</string>
-  <string name="gingerbread_keyboard_theme_description">Gingerbread (Android 2.3) stílusú gombok és színek</string>
   <string name="dark_plain_keyboard_theme_name">Egyszerű, sötét téma</string>
   <string name="dark_plain_keyboard_theme_description">Sötét színek, egyszerű grafika</string>
   <string name="light_plain_keyboard_theme_name">Egyszerű, világos téma</string>

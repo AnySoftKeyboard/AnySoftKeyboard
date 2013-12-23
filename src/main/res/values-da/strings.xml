@@ -174,8 +174,6 @@
     <string name="keyboard_theme_dialog_title">Vælg tema</string>
     <string name="keyboard_theme_summary">Tastatur tema (skin/style) til at bruge</string>
     <string name="keyboard_theme_list_title">Vælg tema</string>
-    <string name="gingerbread_keyboard_theme_name">Gingerbread style</string>
-    <string name="gingerbread_keyboard_theme_description">Gingerbread (Android 2.3) stylet knapper og farver</string>
     <string name="dark_plain_keyboard_theme_name">Almindeligt mørkt tema</string>
     <string name="dark_plain_keyboard_theme_description">Mørke farver, enkle grafik</string>
     <string name="light_plain_keyboard_theme_name">Almindeligt lys tema</string>

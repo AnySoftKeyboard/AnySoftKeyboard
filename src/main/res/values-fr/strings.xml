@@ -431,9 +431,6 @@
     <string name="keyboard_theme_dialog_title">Sélection du thème</string>
     <string name="keyboard_theme_summary">Thème du clavier (skin/style) à utiliser</string>
     <string name="keyboard_theme_list_title">Sélection du thème</string>
-    <string name="gingerbread_keyboard_theme_name">Style de Gingerbread</string>
-    <string name="gingerbread_keyboard_theme_description">Style de boutons et couleurs de Gingerbread (Android 2.3)
-    </string>
     <string name="dark_plain_keyboard_theme_name">Thème foncé</string>
     <string name="dark_plain_keyboard_theme_description">Couleurs sombres, thème simples</string>
     <string name="light_plain_keyboard_theme_name">Thème clair</string>
