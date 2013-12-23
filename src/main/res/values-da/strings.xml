@@ -3,8 +3,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ime_name">AnySoftKeyboard</string>
     <string name="tips_notification_text">Klik for at se tip!</string>
-    <string name="click_for_previous_tip">↓ Forrige tip</string>
-    <string name="click_for_next_tip">Næste tip ↓</string>
     <string name="tip_4_top_generic_row">Øverste række</string>
     <string name="tip_5_key_feedback">Feedback</string>
     <string name="tip_5_key_feedback_test">Ønsker du at teste feedbacken?</string>
@@ -103,7 +101,6 @@
     <string name="use_user_dictionary_on_summary">Foreslå bruger tilføjede ord (langt tryk på forslaget om at tilføje)
     </string>
     <string name="use_auto_dictionary">Auto ordbog</string>
-    <string name="use_auto_dictionary_on_summary">Foreslå hyppigt brugte ord for</string>
     <string name="use_contacts_dictionary">Kontakter ordbog</string>
     <string name="use_contacts_dictionary_on_summary">Foreslå navne fra kontaktliste</string>
     <string name="use_contacts_dictionary_not_supported_summary">Ikke-understøttet under din OS version. Undskyld.
@@ -222,13 +219,8 @@
     <string name="user_dictionary_read_please_wait">Læser ordene...</string>
     <string name="user_dict_settings_titlebar">Brugerordbog</string>
     <string name="user_dict_editor">Ord editor</string>
-    <string name="user_dict_settings_title">Brugerordbog</string>
-    <string name="user_dict_settings_summary">Tilføje og fjerne ord fra brugerordbogen</string>
-    <string name="user_dict_settings_add_menu_title">Tilføj</string>
     <string name="user_dict_settings_add_dialog_title">Føj til ordbog</string>
     <string name="user_dict_settings_edit_dialog_title">Rediger ord</string>
-    <string name="user_dict_settings_context_menu_edit_title">Rediger</string>
-    <string name="user_dict_settings_context_menu_delete_title">Slet</string>
     <string name="user_dict_settings_empty_text">Du har ikke nogen ord i brugerordbogen. Du kan tilføje et ord via
         menuen.
     </string>

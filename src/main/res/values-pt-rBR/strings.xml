@@ -7,8 +7,6 @@
     <string name="tips_button">Dicas de utilização</string>
     <string name="tips_button_description">Clique para obter dicas sobre o AnySoftKeyboard</string>
     <string name="tips_title">Dicas AnySoftKeyboard</string>
-    <string name="click_for_previous_tip">↓ Dica anterior</string>
-    <string name="click_for_next_tip">Próxima dica ↓</string>
     <string name="tip_1_welcome_to_ask">Bem-vindo ao AnySoftKeyboard!</string>
     <string name="tip_1_how_to_access_settings">Para acessar às configurações mantenha a tecla ENTER pressionada. Você
         encontrará um mundo de personalizações!
@@ -112,7 +110,6 @@
     <string name="show_new_tips_notifications_again_off_summary">Não será notificado quando estiverem disponíveis novas
         dicas
     </string>
-    <string name="show_new_version_notifications_again">Mostrar notificações de nova versão</string>
     <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
     <string name="candidates_on">Mostrar sugestões</string>
     <string name="quick_fix">Correções rápidas</string>
@@ -163,13 +160,8 @@
     <string name="user_dictionary_read_please_wait">Lendo palavras...</string>
     <string name="user_dict_settings_titlebar">Dicionário do usuário</string>
     <string name="user_dict_editor">Editor de palavras</string>
-    <string name="user_dict_settings_title">Dicionário do usuário</string>
-    <string name="user_dict_settings_summary">Adicionar &amp; remover palavras do dicionário do usuário</string>
-    <string name="user_dict_settings_add_menu_title">Adicionar</string>
     <string name="user_dict_settings_add_dialog_title">Adicionar ao dicionário</string>
     <string name="user_dict_settings_edit_dialog_title">Editar palavra</string>
-    <string name="user_dict_settings_context_menu_edit_title">Editar</string>
-    <string name="user_dict_settings_context_menu_delete_title">Excluir</string>
     <string name="user_dict_settings_empty_text">Você não tem nenhuma palavra no dicionário do usuário. Você pode
         adicionar uma palavra através do menu.
     </string>

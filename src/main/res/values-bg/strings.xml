@@ -8,8 +8,6 @@
   <string name="tips_button">Как да използвате съветите</string>
   <string name="tips_button_description">Натиснете за съвети за AnySoftKeyboard</string>
   <string name="tips_title">Съвети за AnySoftKeyboard</string>
-  <string name="click_for_previous_tip">Предишен съвет</string>
-  <string name="click_for_next_tip">Следващ съвет</string>
   <string name="tip_1_welcome_to_ask">Добре дошли в AnySoftKeyboard!</string>
   <string name="tip_1_how_to_access_settings">За достъп до настройките; задръжте клавиша ENTER. Там ще намерите всички възможности за персонализация!</string>
   <string name="tip_2_gestures">Аз поддържам жестове!</string>
@@ -159,9 +157,6 @@
   <string name="custom_hint_valign_summary">Подравняване на символите отгоре или отдолу на клавиша</string>
   <string name="settings_custom_hint_valign_dialog_title">Изберете вертикално подравняване за подсказващите символи</string>
   <string name="show_new_tips_notifications_again">Показвай новите съвети</string>
-  <string name="show_new_version_notifications_again">Показвай известия за нова версия</string>
-  <string name="show_new_version_notifications_again_on_summary">При инсталиране на нова версия да се показва списък с промените</string>
-  <string name="show_new_version_notifications_again_off_summary">Да не ме известява когато е инсталирана нова версия</string>
   <string name="use_keyrepeat">Използвай повторение на клавиши</string>
   <string name="use_keyrepeat_on_summary">Повторение на клавиши е включено</string>
   <string name="use_keyrepeat_off_summary">Повторение на клавиши е изключено</string>
@@ -292,12 +287,8 @@
   <string name="user_dictionary_select_locale">Език:</string>
   <string name="user_dict_settings_titlebar">Потребителски речник</string>
   <string name="user_dict_editor">Редактор на думи</string>
-  <string name="user_dict_settings_title">Потребителски речник</string>
-  <string name="user_dict_settings_add_menu_title">Добави</string>
   <string name="user_dict_settings_add_dialog_title">Добави към речника</string>
   <string name="user_dict_settings_edit_dialog_title">Редактирай думата</string>
-  <string name="user_dict_settings_context_menu_edit_title">Редактирай</string>
-  <string name="user_dict_settings_context_menu_delete_title">Изтрий</string>
   <string name="user_dict_settings_empty_text">Нямате никакви думи в потребителския речник. Можете да добавяте думи през менюто.</string>
   <string name="user_dict_backup_success_title">Успешно архивиране!</string>
   <string name="user_dict_backup_success_text">Вашите думи са успешно съхранени в /Android/data/com.menny.android.anysoftkeyboard/files/</string>

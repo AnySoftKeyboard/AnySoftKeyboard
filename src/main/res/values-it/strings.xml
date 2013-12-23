@@ -19,8 +19,6 @@
   <string name="tips_button">Come utilizzare</string>
   <string name="tips_button_description">Alcuni consigli su come utilizzare AnySoftKeyboard</string>
   <string name="tips_title">Suggerimenti AnySoftKeyboard</string>
-  <string name="click_for_previous_tip">↓ Suggerimento precedente</string>
-  <string name="click_for_next_tip">Prossimo suggerimento ↓</string>
   <string name="tip_1_welcome_to_ask">Benvenuti in AnySoftKeyboard!</string>
   <string name="tip_1_how_to_access_settings">Per accedere alle impostazioni; premi a lungo il tasto INVIO. Troverai un mondo di personalizzazioni lì! </string>
   <string name="tip_2_gestures">Supporta le gesture!</string>
@@ -268,9 +266,6 @@
   <string name="show_crash_notification">Segnala un crash</string>
   <string name="show_crash_notification_on_summary">In caso di crash di ASK, apri la finestra di segnalazione crash</string>
   <string name="show_crash_notification_off_summary">Sopporta silenziosamente i crash</string>
-  <string name="show_new_version_notifications_again">Mostra notifiche nuova versione</string>
-  <string name="show_new_version_notifications_again_on_summary">Dopo l\'installazione di una nuova versione, verrà mostrato il changelog</string>
-  <string name="show_new_version_notifications_again_off_summary">Non notificare l\'installazione di una nuova versione</string>
   <string name="use_keyrepeat">Utilizza tasto ripetizione</string>
   <string name="use_keyrepeat_on_summary">La ripetizione tasto è abilitata</string>
   <string name="use_keyrepeat_off_summary">La ripetizione tasto è disattivata</string>

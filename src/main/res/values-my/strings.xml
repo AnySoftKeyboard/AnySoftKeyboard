@@ -7,8 +7,6 @@
   <string name="spell_checker_settings">စာလံုးေပါင်းစစ်ေဆးြခင်း အြပင်အဆင်</string>
   <string name="click_to_restart_suggestions">အြကံြပုချက်ေပးဖို့ နှိပ်ပါ</string>
   <string name="tips_button">ဘယ်လိုအသံုးြပုမလဲ</string>
-  <string name="click_for_previous_tip">↓ေရှ့တစ်ခု</string>
-  <string name="click_for_next_tip">ေနာက်တခု↓</string>
   <string name="tip_1_welcome_to_ask">AnySoftKeyboard မှ ြကိုဆိုပါတယ်!</string>
   <string name="tip_4_top_generic_row">အေပါ်ဆံုးအတန်း</string>
   <string name="tip_5_key_feedback">ေဝဖန်အြကံြပုပါ။</string>
@@ -130,9 +128,6 @@
   <string name="use_contacts_dictionary_off_summary">ဘာမှန်းမသိပါ</string>
   <string name="tweaks_group">ပိုမိုတိုးတက်ေကာင်းမွန်ေအာင်စီမံပါ</string>
   <string name="tweak_ux_group">ြပန်လည်တုံ့ြပန်မှုဆိုင်ရာပိုမိုတိုးတက်ေကာင်းမွန်ေအာင်လုပ်ြခင်း</string>
-  <string name="show_new_version_notifications_again">ပိုမိုဆန်းသစ်ေသာဗားရှင်းဆိုင်ရာအသိေပးမှုများြပသပါ</string>
-  <string name="show_new_version_notifications_again_on_summary">ပိုနှင့်သက်ဆိုင်ေသာအချက်အလက်တင်ြပမှုြဖစ်ေပါ်လိမ့်မည်မိုဆန်းသစ်ေသာဗားရှင်းအေပါ်မှှုတည်ြပီးယင်း</string>
-  <string name="show_new_version_notifications_again_off_summary">ပိုမိုဆန်းသစ်ေသာဗားရှင်းေနရာချြပီးေသာ်လည်းအသင့်အားအသိေပးမည်မဟုတ်</string>
   <string name="use_keyrepeat">ထက်ခါတလဲလဲကီးကိုအသုံးြပုပါ</string>
   <string name="use_keyrepeat_on_summary">ထပ်ခါတလဲလဲကီးအသုံးြပုမှုစတင်ပါြပီး</string>
   <string name="use_keyrepeat_off_summary">ထပ်ခါတလဲလဲကီးအသုံးြပုမှုရပ်တန့်သွားပါြပီးိ</string>
@@ -231,12 +226,8 @@
   <string name="user_dictionary_read_please_wait">စာလံုးေတွကို စစ်ေနသည်။</string>
   <string name="user_dict_settings_titlebar">သံုးသူအဘီဓာန်</string>
   <string name="user_dict_editor">စာေရး စာြပင်သည့်ေနရာ</string>
-  <string name="user_dict_settings_title">သံုးသူအဘီဓာန်</string>
-  <string name="user_dict_settings_add_menu_title">ထည့်သွင်းရန်</string>
   <string name="user_dict_settings_add_dialog_title">အဘီဓာတ်ထဲထည့်ရန်</string>
   <string name="user_dict_settings_edit_dialog_title">စကားလံုးြပင်ဆင်ရန်</string>
-  <string name="user_dict_settings_context_menu_edit_title">ြပင်ဆင်ရန်</string>
-  <string name="user_dict_settings_context_menu_delete_title">ဖျတ်ရန်</string>
   <string name="user_dict_backup_success_title">အရံကူးြခင်းအိုေက!</string>
   <string name="user_dict_backup_fail_title">အရံကူးြခင်းမရ!</string>
   <string name="should_swap_punctuation_and_space_yes">ဟုတ်ကဲ့</string>
