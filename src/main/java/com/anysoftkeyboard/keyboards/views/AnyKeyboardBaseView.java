@@ -1381,6 +1381,12 @@ public class AnyKeyboardBaseView extends View implements
         super.onSizeChanged(w, h, oldw, oldh);
         // Release the buffer, if any and it will be reallocated on the next
         // draw
+        releaseDrawBuffer();
+    }
+
+    protected void releaseDrawBuffer() {
+        if (mBuffer != null)
+            mBuffer.recycle();
         mBuffer = null;
     }
 
@@ -1409,15 +1415,14 @@ public class AnyKeyboardBaseView extends View implements
     @Override
     public void onDraw(final Canvas canvas) {
         super.onDraw(canvas);
-        // mCanvas = canvas;
         mDrawOperation.setCanvas(canvas);
+
         if (mDrawPending || mBuffer == null || mKeyboardChanged) {
-            GCUtils.getInstance().peformOperationWithMemRetry(TAG,
-                    mDrawOperation, true);
+            GCUtils.getInstance().peformOperationWithMemRetry(TAG, mDrawOperation, true);
         }
         // maybe there is no buffer, since drawing was not done.
         if (mBuffer != null)
-            canvas.drawBitmap(mBuffer, 0, 0, null);
+            canvas.drawBitmap(mBuffer, 0.0f, 0.0f, null);
     }
 
     private void onBufferDraw(Canvas canvas) {
