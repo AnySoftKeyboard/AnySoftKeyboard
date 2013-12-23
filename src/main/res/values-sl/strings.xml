@@ -5,8 +5,6 @@
     <string name="tips_notification_text">Kliknite za nasvete!</string>
     <string name="tips_button">Kako uporabljati nasvete</string>
     <string name="tips_button_description">Klikov za nasvete o AnySoftKeyboard</string>
-    <string name="click_for_previous_tip">Prejšnji namig ↓</string>
-    <string name="click_for_next_tip">Naslednji namig ↓</string>
     <string name="main_tab_welcome">Dobrodošli</string>
     <string name="main_tab_links">Povezave</string>
     <string name="main_tab_credits">Sodelujoči</string>
@@ -108,15 +106,8 @@
     <string name="special_dictionaries_group">Posebni slovarji</string>
     <string name="use_user_dictionary">Uporabniški slovar</string>
     <string name="use_auto_dictionary">Auto slovar</string>
-    <string name="use_auto_dictionary_on_summary">Predlagaj tudi pogosteje uporabljene besede</string>
     <string name="use_contacts_dictionary">Slovar stikov</string>
     <string name="use_contacts_dictionary_on_summary">Predlagaj imena iz imenika</string>
-    <string name="show_new_version_notifications_again">Prikaži obvestila o novi verziji</string>
-    <string name="show_new_version_notifications_again_on_summary">Ko namestite novo različico, bo prikazan dnevnik
-        sprememb
-    </string>
-    <string name="show_new_version_notifications_again_off_summary">Ne obvesti me, ko je nameščena nova različica
-    </string>
     <string name="use_keyrepeat">Uporabi ponavljanje tip</string>
     <string name="use_keyrepeat_on_summary">Ponavljanje tip je omogočeno</string>
     <string name="use_keyrepeat_off_summary">Ponavljanje tipk je onemogočeno</string>
@@ -203,12 +194,8 @@
     <string name="user_dictionary_read_please_wait">Branje besed...</string>
     <string name="user_dict_settings_titlebar">Uporabniški slovar</string>
     <string name="user_dict_editor">Urejevalnik besed</string>
-    <string name="user_dict_settings_title">Uporabniški slovar</string>
-    <string name="user_dict_settings_add_menu_title">Dodaj</string>
     <string name="user_dict_settings_add_dialog_title">Dodaj v slovar</string>
     <string name="user_dict_settings_edit_dialog_title">Uredi besedo</string>
-    <string name="user_dict_settings_context_menu_edit_title">Urejanje</string>
-    <string name="user_dict_settings_context_menu_delete_title">Briši</string>
     <string name="fast_scroll_alphabet">ABCČDEFGHIJKLMNOPRSŠTUVZŽ</string>
     <string-array name="physical_keyboard_change_notification_types">
         <item>Vedno prikaži ikono postavitve</item>

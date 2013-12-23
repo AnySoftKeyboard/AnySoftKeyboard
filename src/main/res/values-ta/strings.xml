@@ -75,10 +75,6 @@
         முழு அழுத்தம் கடைசிச் சொல்லையும் அழிக்கும்
     </string>
     <string name="tweaks_group">திரிபுகள்</string>
-    <string name="show_new_version_notifications_again">புதிய பதிப்பு அறிவிப்பை காட்டுக</string>
-    <string name="show_new_version_notifications_again_on_summary">புதிய பதிப்பு கிடைக்கப்பட்டவுடன் மாற்றப் பதிவிடு
-    </string>
-    <string name="show_new_version_notifications_again_off_summary">புதிய பதிப்பு கிடைக்ககப்பட்டவுடன் அறிவி</string>
     <string name="use_keyrepeat">மீள் விசையைப் பயன்படுத்து</string>
     <string name="use_keyrepeat_on_summary">மீள் விசை உபயோகத்தில் உள்ளது</string>
     <string name="use_keyrepeat_off_summary">மீள் விசை உபயோகத்தில் இல்லை</string>

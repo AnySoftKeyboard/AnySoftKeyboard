@@ -19,8 +19,6 @@
   <string name="tips_button">Használati utasítás</string>
   <string name="tips_button_description">Néhány tipp az AnySoftKeyboard használatához</string>
   <string name="tips_title">AnySoftKeyboard tippek</string>
-  <string name="click_for_previous_tip">↓ Előző tipp</string>
-  <string name="click_for_next_tip">Következő tipp ↓</string>
   <string name="tip_1_welcome_to_ask">Üdvözöl az AnySoftKeyboard!</string>
   <string name="tip_1_how_to_access_settings">A beállításokhoz nyomd hosszan az ENTER gombot. Egy rakás személyre 
 szabható dolgot fogsz találni!</string>
@@ -280,9 +278,6 @@ törlődik, teljesen lenyomva az utolsó szó</string>
   <string name="show_crash_notification">Hibajelentés</string>
   <string name="show_crash_notification_on_summary">Az ASK összeomlásakor a hibajelentés párbeszédablak megnyitása</string>
   <string name="show_crash_notification_off_summary">Hiba esetén nem kérek értesítést</string>
-  <string name="show_new_version_notifications_again">Új verzióknál értesítés</string>
-  <string name="show_new_version_notifications_again_on_summary">Új verzió installálásakor egy változás-követő log jelenik meg</string>
-  <string name="show_new_version_notifications_again_off_summary">Értesítést kapsz, ha új verzió települt</string>
   <string name="use_keyrepeat">Billentyű ismétlés</string>
   <string name="use_keyrepeat_on_summary">Billentyű ismétlés bekapcsolva</string>
   <string name="use_keyrepeat_off_summary">Billentyű ismétlés kikapcsolva</string>
