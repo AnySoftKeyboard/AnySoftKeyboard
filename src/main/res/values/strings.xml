@@ -775,7 +775,7 @@
     <string name="ime_crashed_title">AnySoftKeyboard Crashed!</string>
     <string name="ime_crashed_sub_text">Oops, didn\'t see that coming…</string>
     <string name="ime_crashed_ticker">Oops, AnySoftKeyboard crashed, didn\'t see that coming…</string>
-    <string name="ime_crashed_text">Unfortunately, there is a problem with <u>AnySoftKeyboard</u>. Do not panic, there is something <b>you</b> can do to help resolve this: send us the crash report, and we\'ll do our best to solve this crash and get you back with an awesome keyboard experience!\nWith sincere apology, the Dev team.</string>
+    <string name="ime_crashed_text">Unfortunately, there is a problem with <i>AnySoftKeyboard</i>. Do not panic, there is something <b>you</b> can do to help resolve this: send us the crash report, and we\'ll do our best to solve this crash and get you back with an awesome keyboard experience!\n\nWith sincere apology, the Dev team.</string>
     <string name="ime_crashed_send_button">Send</string>
     <string name="ime_crashed_cancel_button">Cancel</string>
     <string name="ime_crashed_intent_selector_title">Send crash report via</string>
