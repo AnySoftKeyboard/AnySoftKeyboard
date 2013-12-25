@@ -56,17 +56,6 @@
         <item name="iconKeyCondenseCompactToLeft">@drawable/ic_compact_left_keyboard</item>
     </style>
 
-    <style name="GingerbreadKeyIconTheme">
-        <!-- should support normal, feedback -->
-        <item name="iconKeyArrowRight">@drawable/dark_key_arrow_right_set</item>
-        <!-- should support normal, feedback -->
-        <item name="iconKeyArrowLeft">@drawable/dark_key_arrow_left_set</item>
-        <!-- should support normal, feedback -->
-        <item name="iconKeyArrowUp">@drawable/dark_key_arrow_up_set</item>
-        <!-- should support normal, feedback -->
-        <item name="iconKeyArrowDown">@drawable/dark_key_arrow_down_set</item>
-    </style>
-
     <style name="AnyKeyboardBaseTheme">
         <item name="android:background">@drawable/dark_background</item>
         <item name="keyboardWallpaper">@drawable/ask_wallpaper</item>
@@ -175,21 +164,6 @@
     <style name="LeanDarkPopup2" parent="@style/LeanDarkPopup">
         <item name="keyTextSize">@dimen/lean_key_text_size</item>
         <item name="keyTextStyle">bold</item>
-    </style>
-
-    <style name="Gingerbread" parent="@style/AnyKeyboardBaseTheme">
-        <item name="android:background">@drawable/gingerbread_main_background</item>
-        <item name="keyBackground">@drawable/btn_keyboard_key_gingerbread</item>
-        <item name="keyPreviewBackground">@drawable/gingerbread_btn_key_preview_background</item>
-
-        <item name="shadowRadius">5dp</item>
-    </style>
-
-    <style name="GingerbreadPopup" parent="@style/AnyKeyboardPopupBaseTheme">
-        <item name="android:background">@drawable/keyboard_popup_panel_background</item>
-        <item name="keyBackground">@drawable/btn_keyboard_key_gingerbread_popup</item>
-
-        <item name="shadowRadius">5dp</item>
     </style>
 
     <style name="PlainDarkAnySoftKeyboard" parent="@style/AnyKeyboardBaseTheme">

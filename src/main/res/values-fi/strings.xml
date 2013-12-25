@@ -154,7 +154,6 @@
     <string name="use_user_dictionary_on_summary">Ehdota käyttäjän lisäämiä sanoja (pitkä painallus lisää ehdotuksen)
     </string>
     <string name="use_auto_dictionary">Automaattinen sanasto</string>
-    <string name="use_auto_dictionary_on_summary">Ehdota myös useimmin käytettyjä sanoja</string>
     <string name="use_contacts_dictionary">Yhteystietojen sanasto</string>
     <string name="use_contacts_dictionary_on_summary">Ehdota nimiä yhteystietoluettelosta</string>
     <string name="use_contacts_dictionary_not_supported_summary">Käyttöjärjestelmäsi versiota ei tueta. Anteeksi.
@@ -170,10 +169,6 @@
     <string name="is_extesion_keyboard_above_keyboard">Top extension keyboard</string>
     <string name="is_extesion_keyboard_above_keyboard_on_summary">Vetää päänäppäimistön yläpuolelle</string>
     <string name="is_extesion_keyboard_above_keyboard_off_summary">Vetää päänäppäimistön päälle</string>
-    <string name="show_new_version_notifications_again">Uusimman version lisätiedot</string>
-    <string name="show_new_version_notifications_again_on_summary">Kun uusi version on asennettu, muutosloki näytetään
-    </string>
-    <string name="show_new_version_notifications_again_off_summary">Ei ilmoitusta uuden version asennuksesta</string>
     <string name="use_keyrepeat">Käytä näppäintoistoa</string>
     <string name="use_keyrepeat_on_summary">Näppäintoisto on käytössä</string>
     <string name="use_keyrepeat_off_summary">Näppäintoisto on pois käytöstä</string>
@@ -261,8 +256,6 @@
     <string name="keyboard_theme_dialog_title">Select theme</string>
     <string name="keyboard_theme_summary">Keyboard theme (skin/style) to use</string>
     <string name="keyboard_theme_list_title">Select theme</string>
-    <string name="gingerbread_keyboard_theme_name">Gingerbread styled</string>
-    <string name="gingerbread_keyboard_theme_description">Gingerbread (Android 2.3) styled buttons and colors</string>
     <string name="dark_plain_keyboard_theme_name">Plain dark theme</string>
     <string name="dark_plain_keyboard_theme_description">Dark colors, simple graphics</string>
     <string name="light_plain_keyboard_theme_name">Plain light theme</string>

@@ -40,7 +40,6 @@
     <string name="settings_swipe_distance_very_long">Շատ երկար</string>
     <string name="special_dictionaries_group">Հատուկ բառարաններ</string>
     <string name="use_user_dictionary">Օգտագործողի բառարաններ</string>
-    <string name="use_auto_dictionary_on_summary">Առաջարկել նաև հաճախ գործածվող բառեր</string>
     <string name="use_contacts_dictionary">Հեռախոսագրքի բառարան</string>
     <string name="use_contacts_dictionary_on_summary">Առաջարկել անուններ հեռախոսագրքից</string>
     <string name="key_preview_position_override_summary">Սղմած ստեղնից կամ ողջ ստեղնաշարից վեր</string>
@@ -90,10 +89,6 @@
     <string name="settings_long_press_timeout_never">Երբեք</string>
     <string name="user_dictionary_select_locale">Լեզու՝</string>
     <string name="user_dict_settings_titlebar">Օգտագործողի բառարան</string>
-    <string name="user_dict_settings_title">Օգտագործողի բառարան</string>
-    <string name="user_dict_settings_add_menu_title">Ավելացնել</string>
-    <string name="user_dict_settings_context_menu_edit_title">Խմբագրել</string>
-    <string name="user_dict_settings_context_menu_delete_title">Ջնջել</string>
     <string name="user_dict_settings_empty_text">Օգտագործողի բառարանում ոչ մի բառ չկա։ Կարող եք բառ ավելացնել ցանկում։
     </string>
     <string-array name="physical_keyboard_change_notification_types">

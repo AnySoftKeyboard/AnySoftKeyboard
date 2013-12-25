@@ -19,8 +19,6 @@
   <string name="tips_button">Як використовувати</string>
   <string name="tips_button_description">Кілька порад про те, як використовувати AnySoftKeyboard</string>
   <string name="tips_title">Підказки AnySoftKeyboard</string>
-  <string name="click_for_previous_tip">↓ Попередня підказка</string>
-  <string name="click_for_next_tip">Наступна підказка ↓</string>
   <string name="tip_1_welcome_to_ask">Ласкаво просимо до AnySoftKeyboard!</string>
   <string name="tip_1_how_to_access_settings">Для доступу до налаштувань; тривало натисніть на клавішу ENTER. Там ви 
 	    знайдете море налаштувань!
@@ -230,7 +228,6 @@
   <string name="show_crash_notification">Звіт про помилку</string>
   <string name="show_crash_notification_on_summary">Щодо помилок ASK відкрийте звіт про помилку</string>
   <string name="show_crash_notification_off_summary">Непомітно отримувати помилки</string>
-  <string name="show_new_version_notifications_again">Показувати сповіщення про нову версію</string>
   <string name="use_keyrepeat">Автоповтор</string>
   <string name="use_keyrepeat_on_summary">Автоповтор ввімкнено</string>
   <string name="use_keyrepeat_off_summary">Автоповтор вимкнено</string>
@@ -322,8 +319,6 @@
   <string name="keyboard_theme_dialog_title">Вибрати тему</string>
   <string name="keyboard_theme_summary">Вибрана тема: %s</string>
   <string name="keyboard_theme_list_title">Вибрати тему</string>
-  <string name="gingerbread_keyboard_theme_name">Gingerbread стиль</string>
-  <string name="gingerbread_keyboard_theme_description">Колір і кнопки в стилі Gingerbread (Android 2.3)</string>
   <string name="dark_plain_keyboard_theme_name">Звичайна темна тема</string>
   <string name="dark_plain_keyboard_theme_description">Темні кольори, проста графіка</string>
   <string name="light_plain_keyboard_theme_name">Звичайна світла тема</string>

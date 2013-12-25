@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2013 Menny Even Danan
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2013 Menny Even Danan
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -17,15 +16,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:tag="1.2.20131223">
 
-<TextView android:layout_height="wrap_content" android:layout_width="match_parent"
-              android:text="* Various tablet optimization (Setup Wizard, phone-number specialized layout, etc.)\n* Bugs fixing.\n* Translations: " style="@style/Ask.Text.Normal"/>
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="* Various tablet optimization (Setup Wizard, phone-number specialized layout, etc.)\n* Removal of Gingerbread theme (if you really want it, you can find it as a separate add-on in the Play Store).\n* Bugs fixing.\n* Translations: DE, EL."
+        style="@style/Ask.Text.Normal" />
+
     <TextView
         style="@style/Ask.Text.Small"
         android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autoLink="web"
-        android:text="More details: https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues?milestone=23&amp;state=closed"/>
+        android:text="More details: https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues?milestone=23&amp;state=closed" />
 </LinearLayout>

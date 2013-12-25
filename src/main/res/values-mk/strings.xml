@@ -85,9 +85,6 @@
   <string name="use_contacts_dictionary_on_summary">Предложени имиња од листата на контакти</string>
   <string name="tweaks_group">Додатни поставувања</string>
   <string name="tweak_ux_group">Измени на однесувањето</string>
-  <string name="show_new_version_notifications_again">Прикажувај известувања за нови верзии</string>
-  <string name="show_new_version_notifications_again_on_summary">По инсталирање на нова верзија, ќе биде прикажана листа со промени</string>
-  <string name="show_new_version_notifications_again_off_summary">Нема да биде прикажано известување кога ќе биде инсталирана нова верзија</string>
   <string name="use_keyrepeat">Користи повторување на карактери</string>
   <string name="use_keyrepeat_on_summary">Повторување на карактери е дозволено</string>
   <string name="use_keyrepeat_off_summary">Повторување на карактери е оневозможено</string>

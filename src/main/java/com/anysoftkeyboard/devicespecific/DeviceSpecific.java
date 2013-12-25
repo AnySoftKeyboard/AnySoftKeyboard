@@ -17,6 +17,7 @@
 package com.anysoftkeyboard.devicespecific;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.view.GestureDetector;
 import android.view.inputmethod.InputConnection;
 import android.widget.AbsListView;
@@ -34,4 +35,6 @@ public interface DeviceSpecific {
     public void commitCorrectionToInputConnection(InputConnection ic, WordComposer word);
 
     public void performListScrollToPosition(AbsListView listView, int position);
+
+    public boolean isHardwareAcceleratedCanvas(Canvas canvas);
 }

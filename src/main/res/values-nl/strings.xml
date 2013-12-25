@@ -282,8 +282,6 @@
   <string name="keyboard_theme_active">Actieve toetsenbord thema</string>
   <string name="keyboard_theme_dialog_title">Kies thema</string>
   <string name="keyboard_theme_list_title">Kies thema</string>
-  <string name="gingerbread_keyboard_theme_name">Gingerbread style</string>
-  <string name="gingerbread_keyboard_theme_description">Gingerbread (Android 2.3) stijl knoppen en kleuren</string>
   <string name="dark_plain_keyboard_theme_name">Gewoon donker thema</string>
   <string name="dark_plain_keyboard_theme_description">Donkere kleuren, eenvoudige plaatjes</string>
   <string name="light_plain_keyboard_theme_name">Gewoon licht thema</string>
