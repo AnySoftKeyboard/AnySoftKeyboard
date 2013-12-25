@@ -19,8 +19,6 @@
   <string name="tips_button">Nasıl kullanılır</string>
   <string name="tips_button_description">AnySoftKeyboard kullanılmıyla ilgili bazı ipuçları</string>
   <string name="tips_title">AnySoftKeyboard ipuçları</string>
-  <string name="click_for_previous_tip">↓ Önceki ipucu</string>
-  <string name="click_for_next_tip">Sonraki ipucu ↓</string>
   <string name="tip_1_welcome_to_ask">AnySoftKeyboard a hoş geldiniz!</string>
   <string name="tip_1_how_to_access_settings">Ayarlara erişmek için; ENTER tuşuna basılı tutun. Burayı kişiselleştirmek için yeni bir dünya bulacaksınız!
     </string>

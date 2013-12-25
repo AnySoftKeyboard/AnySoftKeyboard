@@ -11,8 +11,6 @@
   <string name="tips_button">كيفيفة استخدام النصائح</string>
   <string name="tips_button_description">انقر للحصول عللى نصائح تخص  AnySoftKeyboard</string>
   <string name="tips_title">نصائح AnySoftKeyboard</string>
-  <string name="click_for_previous_tip">النصيحة السابقة</string>
-  <string name="click_for_next_tip">النصيحة التالية</string>
   <string name="tip_1_welcome_to_ask">مرحبا بكم في AnySoftKeyboard</string>
   <string name="tip_1_how_to_access_settings">للوصول الى الاعدادات اضغط مطولا مفتاح ENTER. ستجد عالم من التخصيصات هناك </string>
   <string name="tip_2_gestures">أؤيد الإيماءات </string>
@@ -256,9 +254,6 @@
   <string name="show_crash_notification">أبلغ عن تصادم </string>
   <string name="show_crash_notification_on_summary">عند الانهيار, اعمل تقرير عن ذلك.</string>
   <string name="show_crash_notification_off_summary">استيعاب المصادمات بصمت </string>
-  <string name="show_new_version_notifications_again">عرض تنبيه الإصدار الجديد</string>
-  <string name="show_new_version_notifications_again_on_summary">بتثبيت النسخة الجديدة, سيظهر تغيير كبير</string>
-  <string name="show_new_version_notifications_again_off_summary">\tلن يتم تنبيهك بتثبيت الإصدار الجديد</string>
   <string name="use_keyrepeat">استخدم مفتاح الإعادة</string>
   <string name="use_keyrepeat_on_summary">مفتاح الإعادة متاح</string>
   <string name="use_keyrepeat_off_summary">مفتاح الإعادة غير متاح</string>
@@ -357,8 +352,6 @@
   <string name="keyboard_theme_dialog_title">اختر سمة</string>
   <string name="keyboard_theme_summary">السمة المختارة</string>
   <string name="keyboard_theme_list_title">إختر السمة </string>
-  <string name="gingerbread_keyboard_theme_name">نمط خبز الزنجبيل</string>
-  <string name="gingerbread_keyboard_theme_description">أزرار وألوان نمط خبز الزنجبيل (أندرويد 2.3)</string>
   <string name="dark_plain_keyboard_theme_name">خلفية عادية مظلمة</string>
   <string name="dark_plain_keyboard_theme_description">ألوان معتمه,ورسومات بسيطة</string>
   <string name="light_plain_keyboard_theme_name">خلفية عادية مشرقة</string>
@@ -435,13 +428,8 @@
   <string name="user_dictionary_read_please_wait">جاري قراءة الكلمات</string>
   <string name="user_dict_settings_titlebar">قاموس المستخدم</string>
   <string name="user_dict_editor">محرر الكلمات</string>
-  <string name="user_dict_settings_title">قاموس المستخدم</string>
-  <string name="user_dict_settings_summary">إضافة &amp; إزالة كلمات من قاموس المستخدم</string>
-  <string name="user_dict_settings_add_menu_title">إضافة</string>
   <string name="user_dict_settings_add_dialog_title">إضافة الى القاموس</string>
   <string name="user_dict_settings_edit_dialog_title">تعديل الكلمة</string>
-  <string name="user_dict_settings_context_menu_edit_title">تعديل</string>
-  <string name="user_dict_settings_context_menu_delete_title">حذف</string>
   <string name="user_dict_settings_empty_text">قاموس المستخدم فارغ. أضف كلمات من القائمة</string>
   <string name="user_dict_backup_success_title">تم النسخ الإحتياطي</string>
   <string name="user_dict_backup_success_text">تم حفظ كلماتك في ذاكرة الجهاز بنجاح في الرابط /Android/data/com.menny.android.anysoftkeyboard/files/</string>

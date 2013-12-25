@@ -368,8 +368,6 @@
   <string name="keyboard_theme_active">Aparença del teclat</string>
   <string name="keyboard_theme_dialog_title">Trieu una aparença</string>
   <string name="keyboard_theme_list_title">Trieu una aparença</string>
-  <string name="gingerbread_keyboard_theme_name">Estil Gingerbread</string>
-  <string name="gingerbread_keyboard_theme_description">Estil de butons «Gingerbread» (Android 2.3) </string>
   <string name="dark_plain_keyboard_theme_name">Escriptor de mitjanit</string>
   <string name="dark_plain_keyboard_theme_description">Color fosc i gràfics simples</string>
   <string name="light_plain_keyboard_theme_name">Escriptor professional</string>

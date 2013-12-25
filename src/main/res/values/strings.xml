@@ -372,19 +372,19 @@
     <string name="special_dictionaries_group_summary">Suggestion dictionaries used in AnySoftKeyboard</string>
     <string name="use_user_dictionary">User-dictionary</string>
     <string name="use_user_dictionary_on_summary">Suggest user added words (double-click a typed-suggestion to add)</string>
-    <string name="use_user_dictionary_off_summary"></string>
+    <string name="use_user_dictionary_off_summary"/>
     <string name="always_use_fallback_user_dictionary">Use fallback User-dictionary</string>
     <string name="always_use_fallback_user_dictionary_on_summary">Use only AnySoftKeyboard\'s built-in User-dictionary mechanism (not recommended).</string>
     <string name="always_use_fallback_user_dictionary_off_summary">Try to use Android\'s built-in User-dictionary first (recommended).</string>
     <string name="use_auto_dictionary">Auto dictionary</string>
     <string name="use_auto_dictionary_dialog_title">Select learn method</string>
-    <string name="use_auto_dictionary_summary">Automaticlly learn new words. Learn method: %s</string>
+    <string name="use_auto_dictionary_summary">Automatically learn new words. Learn method: %s</string>
     <string name="auto_dictionary_threshold_type_after_a_while">After some usage</string>
     <string name="auto_dictionary_threshold_type_immediately">Immediately after I type it</string>
     <string name="auto_dictionary_threshold_type_off">Do not learn new words</string>
     <string name="use_contacts_dictionary">Contacts dictionary</string>
     <string name="use_contacts_dictionary_on_summary">Suggest names from contacts list</string>
-    <string name="use_contacts_dictionary_off_summary"></string>
+    <string name="use_contacts_dictionary_off_summary"/>
     <string name="use_contacts_dictionary_not_supported_summary">Unsupported under your OS version. Sorry.</string>
 
     <string name="tweaks_group">Tweaks</string>
@@ -481,7 +481,7 @@
     <string name="insert_space_after_word_suggestion_selection">Space after candidate pick</string>
     <string name="insert_space_after_word_suggestion_selection_on_summary">Insert space after word suggestion select
     </string>
-    <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
+    <string name="insert_space_after_word_suggestion_selection_off_summary"/>
     <string name="double_space_to_period">Double space to period</string>
     <string name="double_space_to_period_summary">Double space tap will become period+space</string>
     <string name="action_key_invisible_on_disable">Invisible action key</string>
@@ -582,8 +582,6 @@
     <string name="keyboard_theme_summary">Selected theme: %s</string>
     <string name="keyboard_theme_list_title">Select theme</string>
 
-    <string name="gingerbread_keyboard_theme_name">Gingerbread styled</string>
-    <string name="gingerbread_keyboard_theme_description">Gingerbread (Android 2.3) styled buttons and colors</string>
     <string name="dark_plain_keyboard_theme_name">Plain dark theme</string>
     <string name="dark_plain_keyboard_theme_description">Dark colors, simple graphics</string>
     <string name="light_plain_keyboard_theme_name">Plain light theme</string>
@@ -639,9 +637,9 @@
     <string name="change_symbols_regular">123</string>
 
     <string name="please_wait">Please wait</string>
-    <string name="toast_lengthy_words_long_operation">Loading dictionary...</string>
-    <string name="toast_lengthy_start_up_operation">Starting AnySoftKeyboard...</string>
-    <string name="lengthy_creating_keyboard_operation">Creating keyboards...</string>
+    <string name="toast_lengthy_words_long_operation">Loading dictionary&#8230;</string>
+    <string name="toast_lengthy_start_up_operation">Starting AnySoftKeyboard&#8230;</string>
+    <string name="lengthy_creating_keyboard_operation">Creating keyboards&#8230;</string>
 
     <string name="select_keyboard_popup_title">Select keyboard</string>
     <!-- dictionaries -->
@@ -717,7 +715,7 @@
     <string name="fast_scroll_alphabet">ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
 
     <string name="should_swap_punctuation_and_space_title">Swap punctuation and space</string>
-    <string name="should_swap_punctuation_and_space_summary"></string>
+    <string name="should_swap_punctuation_and_space_summary"/>
     <string name="should_swap_punctuation_and_space_yes">Yes</string>
     <string name="should_swap_punctuation_and_space_no">No</string>
 
@@ -777,7 +775,7 @@
     <string name="ime_crashed_title">AnySoftKeyboard Crashed!</string>
     <string name="ime_crashed_sub_text">Oops, didn\'t see that coming…</string>
     <string name="ime_crashed_ticker">Oops, AnySoftKeyboard crashed, didn\'t see that coming…</string>
-    <string name="ime_crashed_text">Unfortunately, there is a problem with <u>AnySoftKeyboard</u>. Do not panic, there is something <b>you</b> can do to help resolve this: send us the crash report, and we\'ll do our best to solve this crash and get you back with an awesome keyboard experience!\nWith sincere apology, the Dev team.</string>
+    <string name="ime_crashed_text">Unfortunately, there is a problem with <i>AnySoftKeyboard</i>. Do not panic, there is something <b>you</b> can do to help resolve this: send us the crash report, and we\'ll do our best to solve this crash and get you back with an awesome keyboard experience!\n\nWith sincere apology, the Dev team.</string>
     <string name="ime_crashed_send_button">Send</string>
     <string name="ime_crashed_cancel_button">Cancel</string>
     <string name="ime_crashed_intent_selector_title">Send crash report via</string>

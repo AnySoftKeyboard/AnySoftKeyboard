@@ -8,8 +8,6 @@
     <string name="tips_button">Comment utiliser les astuces</string>
     <string name="tips_button_description">Cliquer pour les astuces à propos d’AnySoftKeyboard</string>
     <string name="tips_title">Astuces AnySoftKeyboard</string>
-    <string name="click_for_previous_tip">Astuce précédente</string>
-    <string name="click_for_next_tip">Astuce suivante</string>
     <string name="tip_1_welcome_to_ask">Bienvenue sur AnySoftKeyboard !</string>
     <string name="tip_1_how_to_access_settings">Pour accéder aux paramètres ; appuyer longtemps sur la touche entrée.
         Vous y trouverez de nombreuses options de configuration !
@@ -286,10 +284,9 @@
         la suggestion pour l\'ajouter)
     </string>
     <string name="use_auto_dictionary">Dictionnaire automatique</string>
-    <string name="use_auto_dictionary_on_summary">Suggérer aussi les mots fréquemment utilisés</string>
-    <string name="use_contacts_dictionary">Dictionnaire de contacts</string>
     <string name="use_contacts_dictionary_on_summary">Suggérer les noms de la liste de contacts</string>
     <string name="use_contacts_dictionary_not_supported_summary">Fonction non disponible pour votre version du système
+    <string name="use_contacts_dictionary">Dictionnaire de contacts</string>
         d\'exploitation. Désolé.
     </string>
     <string name="tweaks_group">Réglages avancés</string>
@@ -320,13 +317,6 @@
     </string>
     <string name="show_crash_notification">Rapport sur l\'accident</string>
     <string name="show_crash_notification_off_summary">Ne pas signaler les accidents</string>
-    <string name="show_new_version_notifications_again">Alerter de la disponibilité d\'une mise à jour</string>
-    <string name="show_new_version_notifications_again_on_summary">Après l\'installation d\'une mise à jour, afficher
-        les nouveautés
-    </string>
-    <string name="show_new_version_notifications_again_off_summary">Ne pas prévenir lorsqu\'une mise à jour est
-        installée
-    </string>
     <string name="use_keyrepeat">Utiliser la répétition des touches</string>
     <string name="use_keyrepeat_on_summary">répétition des touches est activée</string>
     <string name="use_keyrepeat_off_summary">répétition des touches est désactivé</string>
@@ -431,9 +421,6 @@
     <string name="keyboard_theme_dialog_title">Sélection du thème</string>
     <string name="keyboard_theme_summary">Thème du clavier (skin/style) à utiliser</string>
     <string name="keyboard_theme_list_title">Sélection du thème</string>
-    <string name="gingerbread_keyboard_theme_name">Style de Gingerbread</string>
-    <string name="gingerbread_keyboard_theme_description">Style de boutons et couleurs de Gingerbread (Android 2.3)
-    </string>
     <string name="dark_plain_keyboard_theme_name">Thème foncé</string>
     <string name="dark_plain_keyboard_theme_description">Couleurs sombres, thème simples</string>
     <string name="light_plain_keyboard_theme_name">Thème clair</string>
@@ -501,13 +488,8 @@
     <string name="user_dictionary_read_please_wait">Lecture des mots...</string>
     <string name="user_dict_settings_titlebar">Dictionnaire personnel</string>
     <string name="user_dict_editor">Éditeur de mots</string>
-    <string name="user_dict_settings_title">Dictionnaire personnel</string>
-    <string name="user_dict_settings_summary">Ajouter et supprimer des mots du dictionnaire personnel</string>
-    <string name="user_dict_settings_add_menu_title">Ajouter</string>
     <string name="user_dict_settings_add_dialog_title">Ajouter au dictionnaire</string>
     <string name="user_dict_settings_edit_dialog_title">Modifier le mot</string>
-    <string name="user_dict_settings_context_menu_edit_title">Modifier</string>
-    <string name="user_dict_settings_context_menu_delete_title">Supprimer</string>
     <string name="user_dict_settings_empty_text">Vous n\'avez pas de mot dans votre dictionnaire personnel. Vous pouvez
         en ajouter via le menu.
     </string>

@@ -5,8 +5,6 @@
     <string name="settings_app_name">настройкі AnySoftKeyboard</string>
     <string name="tips_notification_text">Націсьніце на парады!</string>
     <string name="tips_button">Як выкарыстоўваць парады</string>
-    <string name="click_for_previous_tip">↓ Папярэдняя парада</string>
-    <string name="click_for_next_tip">Наступная парада ↓</string>
     <string name="tip_7_voice_input">Паразмаўляй са мной*</string>
     <string name="main_tab_welcome">Вітаем</string>
     <string name="main_tab_links">Спасылкі</string>
@@ -119,9 +117,7 @@
     <string name="special_dictionaries_group">Адмысловыя слоўнікі</string>
     <string name="use_user_dictionary">Карыстальніцкія слоўнікі</string>
     <string name="use_auto_dictionary">Аўтаматычны слоўнік</string>
-    <string name="use_auto_dictionary_on_summary">Таксама прапаноўваць часта ўжываныя словы</string>
     <string name="use_contacts_dictionary">Слоўнік кантактаў</string>
-    <string name="use_contacts_dictionary_on_summary">Прапаноўваць імёны са сьпісу кантактаў</string>
     <string name="tweaks_group">Зьмены</string>
     <string name="show_hint_text">Паказаць падказку</string>
     <string name="show_hint_text_on_summary">Паказваць падказкі на клявішах, калі тэма дазваляе</string>
@@ -129,9 +125,6 @@
     <string name="is_sticky_extesion_keyboard_off_summary">Зачыняецца пасьля націсканьня</string>
     <string name="show_new_tips_notifications_again">Паказаць новыя парады</string>
     <string name="show_settings_app_in_launcher">Настройкі праграмы</string>
-    <string name="show_new_version_notifications_again">Паказваць апавяшчэньні пра новыя вэрсіі</string>
-    <string name="show_new_version_notifications_again_off_summary">Ня будзе паведамляць пра ўсталяваньне новай версіі
-    </string>
     <string name="auto_caps">Аўтаматычныя вялікія літары</string>
     <string name="grammer_group">Граматыка</string>
     <string name="candidates_on">Паказаць прапановы</string>

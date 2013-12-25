@@ -8,8 +8,6 @@
   <string name="click_to_restart_suggestions">Kliknij dla sugestii</string>
   <string name="tips_notification_text">Kliknij, aby uzyskać porady!</string>
   <string name="tips_title">Porady AnySoftKeyboard</string>
-  <string name="click_for_previous_tip">↓ Poprzednia</string>
-  <string name="click_for_next_tip">Następna ↓</string>
   <string name="tip_1_welcome_to_ask">Witaj w AnySoftKeyboard!</string>
   <string name="tip_2_gestures">Obsługuję gesty!</string>
   <string name="tip_3_hidden_kbds">Ukryte klejnoty</string>
@@ -216,7 +214,6 @@
   <string name="show_crash_notification">Raportowanie awarii</string>
   <string name="show_crash_notification_on_summary">Otwórz okno raportowania awarii, gdy padnie ASK</string>
   <string name="show_crash_notification_off_summary">Po cichu absorbuj awarie</string>
-  <string name="show_new_version_notifications_again">Pokazuj powiadomienia o nowych wersjach</string>
   <string name="use_keyrepeat">Używaj powtarzania klawisza</string>
   <string name="use_keyrepeat_on_summary">Powtarzanie klawisza jest włączone</string>
   <string name="use_keyrepeat_off_summary">Powtarzanie klawisza jest wyłączone</string>
@@ -312,8 +309,6 @@
   <string name="keyboard_theme_dialog_title">Wybierz motyw</string>
   <string name="keyboard_theme_summary">Wybrany motyw: %s</string>
   <string name="keyboard_theme_list_title">Wybierz motyw</string>
-  <string name="gingerbread_keyboard_theme_name">Styl Gingerbread</string>
-  <string name="gingerbread_keyboard_theme_description">Przyciski i kolory stylowane na Gingerbread (Android 2.3)</string>
   <string name="dark_plain_keyboard_theme_name">Zwykły ciemny motyw</string>
   <string name="dark_plain_keyboard_theme_description">Ciemne kolory, proste grafiki</string>
   <string name="light_plain_keyboard_theme_name">Zwykły jasny motyw</string>
