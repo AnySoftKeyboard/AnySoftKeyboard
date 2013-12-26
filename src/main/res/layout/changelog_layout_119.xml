@@ -17,7 +17,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:tag="1.2.20131225">
+    android:tag="1.2.20131226">
 
     <TextView
         android:layout_height="wrap_content"
