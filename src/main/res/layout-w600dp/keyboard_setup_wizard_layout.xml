@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!-- I'm ignoring InconsistentLayout because we have different elements for tablet and phone -->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="InconsistentLayout"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="3"
     android:layout_gravity="center"
-    android:paddingTop="24dp">
+    android:paddingTop="24dp"
+    android:baselineAligned="false">
 
     <LinearLayout
         style="@style/Ask.Card"

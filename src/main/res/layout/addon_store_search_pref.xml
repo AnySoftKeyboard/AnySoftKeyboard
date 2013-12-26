@@ -14,26 +14,16 @@
         android:animateLayoutChanges="true"
         android:gravity="center">
 
-        <LinearLayout
+        <TextView
+            style="@style/Ask.Text.SubTitle"
+            android:id="@+id/cta_title"
             android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:gravity="center"
             android:layout_gravity="center"
-            android:layout_width="match_parent">
-
-            <ImageView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:src="@drawable/ic_action_search" />
-
-            <TextView
-                style="@style/Ask.Text.SubTitle"
-                android:id="@+id/cta_title"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="@string/search_market_for_addons"
-                android:layout_marginLeft="8dp" />
-        </LinearLayout>
+            android:text="@string/search_market_for_addons"
+            android:drawableLeft="@drawable/ic_action_search"
+            android:drawablePadding="8dp" />
 
         <TextView
             style="@style/Ask.Text.Small.Error"
