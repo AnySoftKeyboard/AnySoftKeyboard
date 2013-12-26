@@ -57,7 +57,7 @@ public class MainFragment extends Fragment {
         int start = fullText.indexOf(justClickHereText);
         int length = justClickHereText.length();
         if (start == -1) {
-            //this could happen when the localizationis not correct
+            //this could happen when the localization is not correct
             start = 0;
             length = fullText.length();
         }
