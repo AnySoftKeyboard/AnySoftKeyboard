@@ -31,19 +31,21 @@
          only if the keyboard is not fully enabled in the system. -->
         <include layout="@layout/main_fragment_not_configured_info_layout" />
 
-        <fragment
-            android:layout_marginTop="8dp"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
+        <!-- replaces
             android:name="com.anysoftkeyboard.ui.tutorials.ChangeLogFragment$CardedChangeLogFragment"
-            tools:layout="@layout/changelog_layout_114" />
-
-        <fragment
+            tools:layout="@layout/changelog_layout_114" -->
+        <FrameLayout android:id="@+id/change_log_fragment"
             android:layout_marginTop="8dp"
             android:layout_height="wrap_content"
-            android:layout_width="match_parent"
+            android:layout_width="match_parent" />
+
+        <!-- replaces
             android:name="com.anysoftkeyboard.ui.tutorials.TipsFragment$RandomTipFragment"
-            tools:layout="@layout/tip_layout_1" />
+            tools:layout="@layout/tip_layout_1" -->
+        <FrameLayout android:id="@+id/tip_fragment"
+            android:layout_marginTop="8dp"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
 
     </LinearLayout>
 

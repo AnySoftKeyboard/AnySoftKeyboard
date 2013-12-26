@@ -5,6 +5,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
@@ -19,7 +20,8 @@ import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.settings.setup.SetUpKeyboardWizardFragment;
 import com.anysoftkeyboard.ui.settings.setup.SetupSupport;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.ui.tutorials.ChangeLogFragment;
+import com.anysoftkeyboard.ui.tutorials.TipsFragment;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.FragmentChauffeurActivity;
@@ -37,7 +39,16 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d(TAG, "onViewCreated with savedInstanceState: "+(savedInstanceState != null));
+        if (savedInstanceState == null) {
+            //I to prevent leaks and duplicate ID errors, I must use the getChildFragmentManager
+            //to add the inner fragments into the UI.
+            //See: https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/285
+            FragmentManager fragmentManager = getChildFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.change_log_fragment, new ChangeLogFragment.CardedChangeLogFragment())
+                    .replace(R.id.tip_fragment, new TipsFragment.RandomTipFragment())
+                    .commit();
+        }
     }
 
     @Override
