@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/Ask.Card"
+    style="@style/Ask.Text.Large"
     android:id="@+id/add_new_word"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:layout_margin="8dp"
     android:minHeight="@dimen/comfortable_min_row_height"
     android:gravity="center"
     android:text="@string/click_to_add_new_word"
     android:drawablePadding="4dp"
     android:drawableLeft="@drawable/ic_action_content_new" />
+

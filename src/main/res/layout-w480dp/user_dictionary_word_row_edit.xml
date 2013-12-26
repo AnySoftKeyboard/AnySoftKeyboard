@@ -15,7 +15,7 @@
         android:background="@drawable/transparent_click_feedback_background"/>
 
     <EditText
-        style="@style/Ask.Text.Title"
+        style="@style/Ask.Text.Large"
         android:id="@+id/word_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
