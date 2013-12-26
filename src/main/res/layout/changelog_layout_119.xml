@@ -22,7 +22,7 @@
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="* Various tablet optimization (Setup Wizard, phone-number specialized layout, etc.)\n* Removal of Gingerbread theme (if you really want it, you can find it as a separate add-on in the Play Store).\n* Bugs fixing.\n* Translations: DE, EL, PT."
+        android:text="* A tablet optimized User Words Editor.\n* Crash fixes for the setup wizard on tablet."
         style="@style/Ask.Text.Normal" />
 
     <TextView
@@ -31,5 +31,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autoLink="web"
-        android:text="More details: https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues?milestone=23&amp;state=closed" />
+        android:text="More details: https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues?milestone=24&amp;state=closed" />
 </LinearLayout>
