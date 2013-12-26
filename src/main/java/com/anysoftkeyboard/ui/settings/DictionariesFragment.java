@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.support.v4.preference.PreferenceFragment;
 
+import com.anysoftkeyboard.ui.settings.wordseditor.AbbreviationDictionaryEditorFragment;
 import com.anysoftkeyboard.ui.settings.wordseditor.UserDictionaryEditorFragment;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -34,6 +35,7 @@ public class DictionariesFragment extends PreferenceFragment implements Preferen
         super.onCreate(paramBundle);
         addPreferencesFromResource(R.xml.prefs_dictionaries);
         findPreference(getString(R.string.user_dict_editor_key)).setOnPreferenceClickListener(this);
+        findPreference(getString(R.string.abbreviation_dict_editor_key)).setOnPreferenceClickListener(this);
     }
 
     @Override
@@ -49,6 +51,12 @@ public class DictionariesFragment extends PreferenceFragment implements Preferen
             Activity activity = getActivity();
             if (activity != null && activity instanceof FragmentChauffeurActivity) {
                 ((FragmentChauffeurActivity)activity).addFragmentToUi(new UserDictionaryEditorFragment(), FragmentChauffeurActivity.FragmentUiContext.DeeperExperience);
+                return true;
+            }
+        } else if (preference.getKey().equals(getString(R.string.abbreviation_dict_editor_key))) {
+            Activity activity = getActivity();
+            if (activity != null && activity instanceof FragmentChauffeurActivity) {
+                ((FragmentChauffeurActivity)activity).addFragmentToUi(new AbbreviationDictionaryEditorFragment(), FragmentChauffeurActivity.FragmentUiContext.DeeperExperience);
                 return true;
             }
         }
