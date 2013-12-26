@@ -17,12 +17,12 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:tag="1.2.20131223">
+    android:tag="1.2.20131225">
 
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="* Various tablet optimization (Setup Wizard, phone-number specialized layout, etc.)\n* Removal of Gingerbread theme (if you really want it, you can find it as a separate add-on in the Play Store).\n* Bugs fixing.\n* Translations: DE, EL."
+        android:text="* Various tablet optimization (Setup Wizard, phone-number specialized layout, etc.)\n* Removal of Gingerbread theme (if you really want it, you can find it as a separate add-on in the Play Store).\n* Bugs fixing.\n* Translations: DE, EL, PT."
         style="@style/Ask.Text.Normal" />
 
     <TextView
