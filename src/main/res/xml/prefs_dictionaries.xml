@@ -27,6 +27,20 @@
         android:key="@string/user_dict_editor_key"
         android:dependency="candidates_on">
     </Preference>
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:dependency="candidates_on"
+        android:key="quick_fix"
+        android:persistent="true"
+        android:summaryOff=""
+        android:summaryOn="@string/quick_fix_summary"
+        android:title="@string/quick_fix"/>
+    <Preference android:title="@string/abbreviation_dict_editor"
+        android:key="@string/abbreviation_dict_editor_key"
+        android:dependency="quick_fix">
+    </Preference>
+
     <net.evendanan.pushingpixels.ListPreference
         android:key="@string/settings_key_auto_dictionary_threshold"
         android:defaultValue="@string/settings_default_auto_dictionary_add_threshold"
