@@ -91,10 +91,17 @@ public class KeyboardSupport {
         final Resources remoteRes = remoteContext.getResources();
         List<Integer> styleableIdList = new ArrayList<Integer>(localStyleableArray.length);
         for(int attrId : localStyleableArray) {
-            final String attributeName = localRes.getResourceEntryName(attrId);
             final boolean isAndroidAttribute = localRes.getResourcePackageName(attrId).equals("android");
-            final int remoteAttrId = remoteRes.getIdentifier(attributeName, "attr", isAndroidAttribute? "android" : remotePackageName);
-            Log.d(TAG, "attr "+attributeName+", local id "+attrId+", remote id "+remoteAttrId);
+            final int remoteAttrId;
+
+            if (isAndroidAttribute) {
+                //android attribute IDs are the same always. So, I can optimize.
+                remoteAttrId = attrId;
+            } else {
+                final String attributeName = localRes.getResourceEntryName(attrId);
+                remoteAttrId = remoteRes.getIdentifier(attributeName, "attr", remotePackageName);
+                Log.d(TAG, "attr "+attributeName+", local id "+attrId+", remote id "+remoteAttrId);
+            }
             if (remoteAttrId != 0) {
                 attributeIdMap.put(remoteAttrId, attrId);
                 styleableIdList.add(remoteAttrId);
