@@ -51,6 +51,9 @@ import net.evendanan.pushingpixels.ListPreference;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /*using this import requires using the Android Library from https://github.com/menny/PushingPixels*/
 
 public class AddOnListPreference extends ListPreference {
@@ -63,8 +66,8 @@ public class AddOnListPreference extends ListPreference {
         preference.setSelectedAddOn(selectedAddOn);
     }
 
-    private AddOn[] mAddOns;
-    private AddOn mSelectedAddOn;
+    private @Nullable AddOn[] mAddOns;
+    private @Nullable AddOn mSelectedAddOn;
 
     public AddOnListPreference(Context context) {
         super(context);
@@ -87,7 +90,7 @@ public class AddOnListPreference extends ListPreference {
         super.onPrepareDialogBuilder(builder);
     }
 
-    public void setAddOnsList(AddOn[] addOns) {
+    public void setAddOnsList(@Nonnull AddOn[] addOns) {
         mAddOns = addOns;
 
         String[] ids = new String[mAddOns.length];
@@ -112,6 +115,7 @@ public class AddOnListPreference extends ListPreference {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+            assert mSelectedAddOn != null;
             final AddOn addOn = getItem(position);
             final View row;
             if (convertView == null) {
@@ -176,8 +180,9 @@ public class AddOnListPreference extends ListPreference {
 
         public void onClick(View v) {
             if (v.getId() == R.id.addon_list_item_layout) {
-                setSelectedAddOn((AddOn) v.getTag());
-                AddOnListPreference.this.setValue(mSelectedAddOn.getId());
+                AddOn newSelectedAddOn = (AddOn) v.getTag();
+                setSelectedAddOn(newSelectedAddOn);
+                AddOnListPreference.this.setValue(newSelectedAddOn.getId());
                 Dialog dialog = getDialog();
                 if (dialog != null)
                     dialog.dismiss();// it is null if the dialog is not shown.
@@ -224,16 +229,21 @@ public class AddOnListPreference extends ListPreference {
     @Override
     protected Parcelable onSaveInstanceState() {
         Parcelable superP = super.onSaveInstanceState();
-        AddOnsListSavedState myState = new AddOnsListSavedState(superP);
+        if (mSelectedAddOn == null || mAddOns == null) {
+            //no state to save
+            return superP;
+        } else {
+            AddOnsListSavedState myState = new AddOnsListSavedState(superP);
 
-        //some add-ons can be none.
-        myState.selectedAddOnId = mSelectedAddOn.getId();
-        String[] addOns = new String[mAddOns.length];
-        for (int i = 0; i < addOns.length; i++)
-            addOns[i] = mAddOns[i].getId();
-        myState.addOnIds = addOns;
+            //some add-ons can be none.
+            myState.selectedAddOnId = mSelectedAddOn.getId();
+            String[] addOns = new String[mAddOns.length];
+            for (int i = 0; i < addOns.length; i++)
+                addOns[i] = mAddOns[i].getId();
+            myState.addOnIds = addOns;
 
-        return myState;
+            return myState;
+        }
     }
 
     @Override
@@ -249,8 +259,8 @@ public class AddOnListPreference extends ListPreference {
             //some of the add-ons (and even the default) will no longer exist!
             //this can happen when going out of the App to uninstall an add-on, and then returning to the App.
             List<AddOn> validAddOns = new ArrayList<>(addOnIds.length);
-            for (int i = 0; i < addOnIds.length; i++) {
-                AddOn addOn = AddOnsFactory.locateAddOn(addOnIds[i], getContext().getApplicationContext());
+            for (String addOnId : addOnIds) {
+                AddOn addOn = AddOnsFactory.locateAddOn(addOnId, getContext().getApplicationContext());
                 if (addOn != null) {
                     validAddOns.add(addOn);
                 }
