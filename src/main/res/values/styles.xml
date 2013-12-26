@@ -421,6 +421,10 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="Ask.Text.Large" parent="Ask.Text">
+        <item name="android:textSize">@dimen/font_size_large</item>
+    </style>
+
     <style name="Ask.Text.SubTitle" parent="Ask.Text">
         <item name="android:textColor">?android:textColorSecondary</item>
         <item name="android:textSize">@dimen/font_size_sub_title</item>
