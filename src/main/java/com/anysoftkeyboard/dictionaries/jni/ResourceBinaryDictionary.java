@@ -58,10 +58,6 @@ public class ResourceBinaryDictionary extends Dictionary {
     private char[] mOutputChars = new char[MAX_WORD_LENGTH * MAX_WORDS];
     private char[] mOutputChars_bigrams = new char[MAX_WORD_LENGTH * MAX_BIGRAMS];
     private int[] mFrequencies = new int[MAX_WORDS];
-    // private int[] mFrequencies_bigrams = new int[MAX_BIGRAMS];
-    // Keep a reference to the native dict direct buffer in Java to avoid
-    // unexpected deallocation of the direct buffer.
-    private ByteBuffer mNativeDictDirectBuffer;
 
     static {
         try {
@@ -118,6 +114,8 @@ public class ResourceBinaryDictionary extends Dictionary {
             resId = new int[a.length()];
             for (int index = 0; index < a.length(); index++)
                 resId[index] = a.getResourceId(index, 0);
+
+            a.recycle();
         }
 
         GCUtils.getInstance().peformOperationWithMemRetry(TAG, new MemRelatedOperation() {
@@ -149,15 +147,15 @@ public class ResourceBinaryDictionary extends Dictionary {
                 total += dictSize;
             }
 
-            mNativeDictDirectBuffer = ByteBuffer.allocateDirect(total).order(ByteOrder.nativeOrder());
+            ByteBuffer nativeDictDirectBuffer = ByteBuffer.allocateDirect(total).order(ByteOrder.nativeOrder());
             int got = 0;
             for (int i = 0; i < resId.length; i++) {
-                got += Channels.newChannel(is[i]).read(mNativeDictDirectBuffer);
+                got += Channels.newChannel(is[i]).read(nativeDictDirectBuffer);
             }
             if (got != total) {
                 Log.e(TAG, "Read " + got + " bytes, expected " + total);
             } else {
-                mNativeDict = openNative(mNativeDictDirectBuffer, TYPED_LETTER_MULTIPLIER, FULL_WORD_FREQ_MULTIPLIER);
+                mNativeDict = openNative(nativeDictDirectBuffer, TYPED_LETTER_MULTIPLIER, FULL_WORD_FREQ_MULTIPLIER);
                 mDictLength = total;
             }
         } catch (IOException e) {
@@ -165,8 +163,8 @@ public class ResourceBinaryDictionary extends Dictionary {
         } finally {
             try {
                 if (is != null) {
-                    for (int i = 0; i < is.length; i++) {
-                        is[i].close();
+                    for (InputStream i1 : is) {
+                        i1.close();
                     }
                 }
             } catch (IOException e) {

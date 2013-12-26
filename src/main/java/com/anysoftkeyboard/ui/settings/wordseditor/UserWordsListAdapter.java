@@ -94,42 +94,48 @@ class UserWordsListAdapter extends ArrayAdapter<String> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final int viewType = getItemViewType(position);
+        TextView wordView;
         if (convertView == null) {
             switch (viewType) {
                 case TYPE_NORMAL:
                     convertView = mInflater.inflate(R.layout.user_dictionary_word_row, parent, false);
-                    convertView.findViewById(R.id.delete_user_word).setOnClickListener(mOnDeleteWordClickListener);
+                    assert convertView != null;
+                    final View deleteButton = convertView.findViewById(R.id.delete_user_word);
+                    deleteButton.setOnClickListener(mOnDeleteWordClickListener);
                     break;
                 case TYPE_EDIT:
                     convertView = mInflater.inflate(R.layout.user_dictionary_word_row_edit, parent, false);
-                    convertView.findViewById(R.id.approve_user_word).setOnClickListener(mOnWordEditApprovedClickListener);
-                    EditText editBox = ((EditText)convertView.findViewById(R.id.word_view));
-                    editBox.setOnKeyListener(mOnEditBoxKeyPressedListener);
-                    editBox.addTextChangedListener(mOnEditBoxTextChangedListener);
-                    editBox.setOnEditorActionListener(mEditBoxActionListener);
+                    assert convertView != null;
+                    final View approveButton = convertView.findViewById(R.id.approve_user_word);
+                    approveButton.setOnClickListener(mOnWordEditApprovedClickListener);
+                    wordView = ((TextView)convertView.findViewById(R.id.word_view));
+                    wordView.setOnKeyListener(mOnEditBoxKeyPressedListener);
+                    wordView.addTextChangedListener(mOnEditBoxTextChangedListener);
+                    wordView.setOnEditorActionListener(mEditBoxActionListener);
                     break;
                 case TYPE_ADD:
                     convertView = mInflater.inflate(R.layout.user_dictionary_word_row_add, parent, false);
+                    assert convertView != null;
                     break;
                 default:
                     throw new IllegalArgumentException("Unknown view type!");
             }
         }
 
+        wordView = ((TextView)convertView.findViewById(R.id.word_view));
         //why to check the position against the super.getCount, and not the view type?
         //good question! In the state where we adding a new word, the underling array is still one short,
         //so the view type will be "EDIT", but the count will still be one less.
         if (position == super.getCount()) {
-            convertView.setTag(""/*empty word*/);
+            convertView.setTag(""/*empty word at the "add new word" row*/);
         } else {
             final String word = getItem(position);
-            ((TextView) convertView.findViewById(R.id.word_view)).setText(word);
+            wordView.setText(word);
             convertView.setTag(word);
         }
         if (viewType == TYPE_EDIT) {
             //I want the text-box to take the focus now.
-            final View edit = convertView.findViewById(R.id.word_view);
-            edit.requestFocus();
+            wordView.requestFocus();
         }
         return convertView;
     }
@@ -184,7 +190,7 @@ class UserWordsListAdapter extends ArrayAdapter<String> {
                     mCallbacksListener.performDiscardEdit();
                     return true;
                 case KeyEvent.KEYCODE_ENTER:
-                    //v is the editbox. Need to pass the APPROVE view
+                    //v is the edit-box. Need to pass the APPROVE view
                     View parent = (View)v.getParent();
                     View approveButton = parent.findViewById(R.id.approve_user_word);
                     mOnWordEditApprovedClickListener.onClick(approveButton);
