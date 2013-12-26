@@ -463,7 +463,7 @@
         <item name="android:layout_marginBottom">4dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:background">@drawable/card_background</item>
-        <item name="android:minHeight">44dp</item>
+        <item name="android:minHeight">@dimen/comfortable_min_row_height</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
