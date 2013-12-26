@@ -39,21 +39,23 @@
             android:orientation="horizontal"
             android:weightSum="10">
 
-            <fragment
+            <!-- replaces
+            android:name="com.anysoftkeyboard.ui.tutorials.ChangeLogFragment$CardedChangeLogFragment"
+            tools:layout="@layout/changelog_layout_114" -->
+            <FrameLayout android:id="@+id/change_log_fragment"
                 android:layout_width="0px"
                 android:layout_weight="5"
                 android:layout_marginRight="8dp"
-                android:layout_height="wrap_content"
-                android:name="com.anysoftkeyboard.ui.tutorials.ChangeLogFragment$CardedChangeLogFragment"
-                tools:layout="@layout/changelog_layout_114" />
+                android:layout_height="wrap_content" />
 
-            <fragment
+            <!-- replaces
+                android:name="com.anysoftkeyboard.ui.tutorials.TipsFragment$RandomTipFragment"
+                tools:layout="@layout/tip_layout_1" -->
+            <FrameLayout android:id="@+id/tip_fragment"
                 android:layout_width="0px"
                 android:layout_weight="5"
                 android:layout_marginLeft="8dp"
-                android:layout_height="wrap_content"
-                android:name="com.anysoftkeyboard.ui.tutorials.TipsFragment$RandomTipFragment"
-                tools:layout="@layout/tip_layout_1" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
     </LinearLayout>

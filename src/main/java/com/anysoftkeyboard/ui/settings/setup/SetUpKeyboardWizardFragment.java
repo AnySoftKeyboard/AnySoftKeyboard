@@ -128,12 +128,17 @@ public class SetUpKeyboardWizardFragment extends PassengerFragment {
         mWizardPager = (ViewPager) view.findViewById(R.id.wizard_pages_pager);
         isInTabletUi = (mWizardPager == null);
         if (isInTabletUi) {
-            FragmentManager fragmentManager = getChildFragmentManager();
-            fragmentManager.beginTransaction()
-                    .add(R.id.wizard_step_one, new WizardPageEnableKeyboardFragment())
-                    .add(R.id.wizard_step_two, new WizardPageSwitchToKeyboardFragment())
-                    .add(R.id.wizard_step_three, new WizardPageDoneAndMoreSettingsFragment())
-                    .commit();
+            if (savedInstanceState == null) {
+                //I to prevent leaks and duplicate ID errors, I must use the getChildFragmentManager
+                //to add the inner fragments into the UI.
+                //See: https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/285
+                FragmentManager fragmentManager = getChildFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.wizard_step_one, new WizardPageEnableKeyboardFragment())
+                        .replace(R.id.wizard_step_two, new WizardPageSwitchToKeyboardFragment())
+                        .replace(R.id.wizard_step_three, new WizardPageDoneAndMoreSettingsFragment())
+                        .commit();
+            }
         } else {
             mWizardPager.setAdapter(new WizardPagesAdapter(getChildFragmentManager()));
             mWizardPager.setOnPageChangeListener(onPageChangedListener);
