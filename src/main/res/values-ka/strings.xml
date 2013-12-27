@@ -202,9 +202,9 @@
     <string name="change_symbols_wide">← 123 ←</string>
     <string name="change_symbols_regular">123</string>
     <string name="please_wait">მოითმინე</string>
-    <string name="toast_lengthy_words_long_operation">ლექსიკონი იტვირთება...</string>
-    <string name="toast_lengthy_start_up_operation">AnySoftKeyboard ეშვება...</string>
-    <string name="lengthy_creating_keyboard_operation">განლაგება იქმნება...</string>
+    <string name="toast_lengthy_words_long_operation">ლექსიკონი იტვირთება&#8230;</string>
+    <string name="toast_lengthy_start_up_operation">AnySoftKeyboard ეშვება&#8230;</string>
+    <string name="lengthy_creating_keyboard_operation">განლაგება იქმნება&#8230;</string>
     <string name="select_keyboard_popup_title">აირჩიე კლავიატურა</string>
     <string name="eng_dictionary">ინგლისური</string>
     <string name="simley_key_name">Smiley key</string>

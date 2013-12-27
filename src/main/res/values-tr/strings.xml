@@ -110,8 +110,8 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
   <string name="change_symbols_wide">← 123 ←</string>
   <string name="change_symbols_regular">123</string>
   <string name="please_wait">Lütfen bekleyin</string>
-  <string name="toast_lengthy_words_long_operation">Sözcük yükleniyor...</string>
-  <string name="toast_lengthy_start_up_operation">AnySoftKeyboard başlatılıyor...</string>
+  <string name="toast_lengthy_words_long_operation">Sözcük yükleniyor&#8230;</string>
+  <string name="toast_lengthy_start_up_operation">AnySoftKeyboard başlatılıyor&#8230;</string>
   <string name="select_keyboard_popup_title">Klavyeyi seçin</string>
   <string name="eng_dictionary">İngilizce</string>
   <string name="long_press_timeout_title">Uzun basma süresi</string>

@@ -344,9 +344,9 @@
   <string name="change_symbols_wide">←123←</string>
   <string name="change_symbols_regular">123</string>
   <string name="please_wait">Espere por favor</string>
-  <string name="toast_lengthy_words_long_operation">Cargando diccionario ...</string>
-  <string name="toast_lengthy_start_up_operation">Iniciando AnySoftKeyboard...</string>
-  <string name="lengthy_creating_keyboard_operation">Creando teclados...</string>
+  <string name="toast_lengthy_words_long_operation">Cargando diccionario &#8230;</string>
+  <string name="toast_lengthy_start_up_operation">Iniciando AnySoftKeyboard&#8230;</string>
+  <string name="lengthy_creating_keyboard_operation">Creando teclados&#8230;</string>
   <string name="select_keyboard_popup_title">Seleccione el teclado</string>
   <string name="eng_dictionary">Inglés</string>
   <string name="simley_key_name">Tecla de smiley</string>
@@ -377,7 +377,7 @@
   <string name="settings_split_state_split_in_landscape">Iniciar dividido cuando se muestra horizontalmente</string>
   <string name="settings_split_state_split_always">Iniciar dividido</string>
   <string name="user_dictionary_select_locale">Idioma:</string>
-  <string name="user_dictionary_read_please_wait">Leyendo palabras...</string>
+  <string name="user_dictionary_read_please_wait">Leyendo palabras&#8230;</string>
   <string name="user_dict_settings_titlebar">Diccionario de usuario</string>
   <string name="user_dict_editor">Editor de palabras</string>
   <string name="user_dict_settings_add_dialog_title">Añadir al diccionario</string>
@@ -400,7 +400,7 @@
   <string name="drawer_close">Menú cerrado</string>
   <string name="not_configured_with_click_here">AnySoftKeyboard no está del todo listo. Haz clic aquí para ponerlo a punto.</string>
   <string name="not_configured_with_just_click_here">Haz clic aquí</string>
-  <string name="click_for_more">más...</string>
+  <string name="click_for_more">más&#8230;</string>
   <string name="back_button_label">Atrás</string>
   <string name="next_button_label">Siguiente</string>
   <string name="skip_button_label">Omitir</string>
@@ -421,9 +421,9 @@
   <string name="setup_wizard_step_two_action">Cambiar teclados activos</string>
   <string name="setup_wizard_step_three_title">¡AnySoftKeyboard está listo!</string>
   <string name="setup_wizard_step_three_details">Gracias por elegir <i>AnySoftKeyboard</i>.\nEste teclado es totalmente personalizable. Corre y personalízalo:</string>
-  <string name="setup_wizard_step_three_action_languages">Configuración de idiomas...</string>
-  <string name="setup_wizard_step_three_action_themes">Seleccionar tema...</string>
-  <string name="setup_wizard_step_three_action_all_settings">Configurar todo lo demás...</string>
+  <string name="setup_wizard_step_three_action_languages">Configuración de idiomas&#8230;</string>
+  <string name="setup_wizard_step_three_action_themes">Seleccionar tema&#8230;</string>
+  <string name="setup_wizard_step_three_action_all_settings">Configurar todo lo demás&#8230;</string>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Mostrar siempre el icono de disposición</item>
     <item>Sobre el cambio a teclado físico</item>

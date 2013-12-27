@@ -347,9 +347,9 @@
   <string name="change_symbols_wide">← 123 ←</string>
   <string name="change_symbols_regular">123</string>
   <string name="please_wait">Proszę czekać</string>
-  <string name="toast_lengthy_words_long_operation">Wczytywanie słownika...</string>
-  <string name="toast_lengthy_start_up_operation">Uruchamianie AnySoftKeyboard...</string>
-  <string name="lengthy_creating_keyboard_operation">Tworzenie klawiatur...</string>
+  <string name="toast_lengthy_words_long_operation">Wczytywanie słownika&#8230;</string>
+  <string name="toast_lengthy_start_up_operation">Uruchamianie AnySoftKeyboard&#8230;</string>
+  <string name="lengthy_creating_keyboard_operation">Tworzenie klawiatur&#8230;</string>
   <string name="select_keyboard_popup_title">Wybierz klawiaturę</string>
   <string name="eng_dictionary">Angielski</string>
   <string name="simley_key_name">Klawisz buźki</string>
