@@ -58,7 +58,7 @@ public class UserDictionaryEditorFragment extends Fragment
 
     private Dialog mDialog;
 
-    public static final String ASK_USER_WORDS_SDCARD_FILENAME = "UserWords.xml";
+    private static final String ASK_USER_WORDS_SDCARD_FILENAME = "UserWords.xml";
 
     static final int DIALOG_SAVE_SUCCESS = 10;
     static final int DIALOG_SAVE_FAILED = 11;
@@ -135,10 +135,10 @@ public class UserDictionaryEditorFragment extends Fragment
                 createEmptyItemForAdd();
                 return true;
             case R.id.backup_words:
-                new BackupUserWordsAsyncTask(UserDictionaryEditorFragment.this).execute();
+                new BackupUserWordsAsyncTask(UserDictionaryEditorFragment.this, ASK_USER_WORDS_SDCARD_FILENAME).execute();
                 return true;
             case R.id.restore_words:
-                new RestoreUserWordsAsyncTask(UserDictionaryEditorFragment.this).execute();
+                new RestoreUserWordsAsyncTask(UserDictionaryEditorFragment.this, ASK_USER_WORDS_SDCARD_FILENAME).execute();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
