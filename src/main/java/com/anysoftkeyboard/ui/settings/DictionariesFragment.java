@@ -35,7 +35,7 @@ public class DictionariesFragment extends PreferenceFragment implements Preferen
         super.onCreate(paramBundle);
         addPreferencesFromResource(R.xml.prefs_dictionaries);
         findPreference(getString(R.string.user_dict_editor_key)).setOnPreferenceClickListener(this);
-        //findPreference(getString(R.string.abbreviation_dict_editor_key)).setOnPreferenceClickListener(this);
+        findPreference(getString(R.string.abbreviation_dict_editor_key)).setOnPreferenceClickListener(this);
     }
 
     @Override

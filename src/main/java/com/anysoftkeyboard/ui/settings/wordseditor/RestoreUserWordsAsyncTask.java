@@ -23,9 +23,7 @@ import android.view.WindowManager.BadTokenException;
 import android.widget.Toast;
 
 import com.anysoftkeyboard.dictionaries.UserDictionary;
-import com.anysoftkeyboard.ui.settings.wordseditor.UserWordsEditorAsyncTask;
 import com.anysoftkeyboard.utils.Log;
-import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.xml.sax.Attributes;
@@ -42,13 +40,15 @@ final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
     protected static final String TAG = "ASK RestoreUDict";
 
     private final Context mAppContext;
+    private final String mFilename;
     private String mLocale;
     private UserDictionary mDictionary;
 
     RestoreUserWordsAsyncTask(
-            UserDictionaryEditorFragment userDictionaryEditorActivity) {
-        super(userDictionaryEditorActivity);
-        mAppContext = userDictionaryEditorActivity.getActivity().getApplicationContext();
+            UserDictionaryEditorFragment callingFragment, String filename) {
+        super(callingFragment);
+        mAppContext = callingFragment.getActivity().getApplicationContext();
+        mFilename = filename;
     }
 
     @Override
@@ -60,8 +60,7 @@ final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
 
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser parser = factory.newSAXParser();
-        parser.parse(new FileInputStream(new File(targetFolder,
-                UserDictionaryEditorFragment.ASK_USER_WORDS_SDCARD_FILENAME)),
+        parser.parse(new FileInputStream(new File(targetFolder, mFilename)),
                 new DefaultHandler() {
                     private boolean inWord = false;
                     private int freq = 1;
