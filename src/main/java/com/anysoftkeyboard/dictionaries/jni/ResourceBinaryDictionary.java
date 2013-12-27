@@ -19,6 +19,7 @@ package com.anysoftkeyboard.dictionaries.jni;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+
 import com.anysoftkeyboard.WordComposer;
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.utils.IMEUtil.GCUtils;
@@ -47,17 +48,18 @@ public class ResourceBinaryDictionary extends Dictionary {
     private static final String TAG = "ASK_ResBinDict";
     private static final int MAX_ALTERNATIVES = 16;
     private static final int MAX_WORDS = 18;
-    private static final int MAX_BIGRAMS = 60;
     private static final boolean ENABLE_MISSED_CHARACTERS = true;
     private final Context mAppContext;
     private final int mDictResId;
-    // private int mDicTypeId;
     private volatile int mNativeDict;
     private int mDictLength;
     private int[] mInputCodes = new int[MAX_WORD_LENGTH * MAX_ALTERNATIVES];
     private char[] mOutputChars = new char[MAX_WORD_LENGTH * MAX_WORDS];
-    private char[] mOutputChars_bigrams = new char[MAX_WORD_LENGTH * MAX_BIGRAMS];
     private int[] mFrequencies = new int[MAX_WORDS];
+
+    // Keep a reference to the native dict direct buffer in Java to avoid
+    // unexpected de-allocation of the direct buffer.
+    private ByteBuffer mNativeDictDirectBuffer;
 
     static {
         try {
@@ -92,13 +94,6 @@ public class ResourceBinaryDictionary extends Dictionary {
     private native boolean isValidWordNative(int nativeData, char[] word, int wordLength);
 
     private native int getSuggestionsNative(int dict, int[] inputCodes, int codesSize, char[] outputChars, int[] frequencies, int maxWordLength, int maxWords, int maxAlternatives, int skipPos, int[] nextLettersFrequencies, int nextLettersSize);
-
-	/*
-     * private native int getBigramsNative(int dict, char[] prevWord, int
-	 * prevWordLength, int[] inputCodes, int inputCodesLength, char[]
-	 * outputChars, int[] frequencies, int maxWordLength, int maxBigrams, int
-	 * maxAlternatives);
-	 */
 
     @Override
     protected void loadAllResources() {
@@ -147,29 +142,30 @@ public class ResourceBinaryDictionary extends Dictionary {
                 total += dictSize;
             }
 
-            ByteBuffer nativeDictDirectBuffer = ByteBuffer.allocateDirect(total).order(ByteOrder.nativeOrder());
+            mNativeDictDirectBuffer = ByteBuffer.allocateDirect(total).order(ByteOrder.nativeOrder());
             int got = 0;
             for (int i = 0; i < resId.length; i++) {
-                got += Channels.newChannel(is[i]).read(nativeDictDirectBuffer);
+                got += Channels.newChannel(is[i]).read(mNativeDictDirectBuffer);
             }
             if (got != total) {
                 Log.e(TAG, "Read " + got + " bytes, expected " + total);
             } else {
-                mNativeDict = openNative(nativeDictDirectBuffer, TYPED_LETTER_MULTIPLIER, FULL_WORD_FREQ_MULTIPLIER);
+                mNativeDict = openNative(mNativeDictDirectBuffer, TYPED_LETTER_MULTIPLIER, FULL_WORD_FREQ_MULTIPLIER);
                 mDictLength = total;
             }
         } catch (IOException e) {
             Log.w(TAG, "No available memory for binary dictionary: " + e.getMessage());
         } finally {
-            try {
-                if (is != null) {
-                    for (InputStream i1 : is) {
+            if (is != null) {
+                for (InputStream i1 : is) {
+                    try {
                         i1.close();
+                    } catch (IOException e) {
+                        Log.w(TAG, "Failed to close input stream");
                     }
                 }
-            } catch (IOException e) {
-                Log.w(TAG, "Failed to close input stream");
             }
+
         }
     }
 
