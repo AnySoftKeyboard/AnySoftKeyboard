@@ -14,8 +14,10 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="UnusedResources"
     android:orientation="vertical"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:tag="1.2.20131225">
 
@@ -23,7 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="* Various tablet optimization (Setup Wizard, phone-number specialized layout, etc.)\n* Removal of Gingerbread theme (if you really want it, you can find it as a separate add-on in the Play Store).\n* Bugs fixing.\n* Translations: DE, EL, PT."
-        style="@style/Ask.Text.Normal" />
+        style="@style/Ask.Text.Normal"
+        tools:ignore="HardcodedText" />
 
     <TextView
         style="@style/Ask.Text.Small"
@@ -31,5 +34,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autoLink="web"
-        android:text="More details: https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues?milestone=23&amp;state=closed" />
+        android:text="More details: https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues?milestone=23&amp;state=closed"
+        tools:ignore="HardcodedText" />
 </LinearLayout>
