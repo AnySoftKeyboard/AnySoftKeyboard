@@ -3,5 +3,4 @@
         style="@style/Ask.Text.Title"
         android:paddingLeft="8dp"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="20120109 - 65"/>
+        android:layout_width="wrap_content"/>

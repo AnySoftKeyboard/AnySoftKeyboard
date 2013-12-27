@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2013 Menny Even Danan
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2013 Menny Even Danan
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -15,9 +14,18 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:tag="20130709"
-              android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
-    <TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
-              android:text="* A few rare crash fixes.\n* Introduction of a new bottom row (NG).\n* A bug fix with dictionary.\n* Updated translations: CA, PT." style="@android:style/TextAppearance.Small"/>
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="UnusedResources"
+    android:tag="20130709"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="* A few rare crash fixes.\n* Introduction of a new bottom row (NG).\n* A bug fix with dictionary.\n* Updated translations: CA, PT."
+        style="@android:style/TextAppearance.Small"
+        tools:ignore="HardcodedText" />
 
 </LinearLayout>
