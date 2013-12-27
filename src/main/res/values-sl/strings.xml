@@ -173,9 +173,9 @@
     <string name="change_symbols_wide">← 123 ←</string>
     <string name="change_symbols_regular">123</string>
     <string name="please_wait">Prosimo počakajte</string>
-    <string name="toast_lengthy_words_long_operation">Nalagam slovar...</string>
-    <string name="toast_lengthy_start_up_operation">Zaganjam AnySoftKeyboard...</string>
-    <string name="lengthy_creating_keyboard_operation">Ustvarjam tipkovnice...</string>
+    <string name="toast_lengthy_words_long_operation">Nalagam slovar&#8230;</string>
+    <string name="toast_lengthy_start_up_operation">Zaganjam AnySoftKeyboard&#8230;</string>
+    <string name="lengthy_creating_keyboard_operation">Ustvarjam tipkovnice&#8230;</string>
     <string name="select_keyboard_popup_title">Izberite tipkovnico</string>
     <string name="eng_dictionary">Angleška</string>
     <string name="simley_key_name">Smeško tipka</string>
@@ -191,7 +191,7 @@
     <string name="settings_long_press_timeout_slower">Počasneje</string>
     <string name="settings_long_press_timeout_never">Nikoli</string>
     <string name="user_dictionary_select_locale">Jezik:</string>
-    <string name="user_dictionary_read_please_wait">Branje besed...</string>
+    <string name="user_dictionary_read_please_wait">Branje besed&#8230;</string>
     <string name="user_dict_settings_titlebar">Uporabniški slovar</string>
     <string name="user_dict_editor">Urejevalnik besed</string>
     <string name="user_dict_settings_add_dialog_title">Dodaj v slovar</string>

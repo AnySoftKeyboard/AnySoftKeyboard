@@ -281,9 +281,9 @@
     <string name="change_symbols_wide">← 123 ←</string>
     <string name="change_symbols_regular">123</string>
     <string name="please_wait">Odota hetki</string>
-    <string name="toast_lengthy_words_long_operation">Ladataan sanakirjaa...</string>
-    <string name="toast_lengthy_start_up_operation">Käynnistetään AnySoftKeyboardia...</string>
-    <string name="lengthy_creating_keyboard_operation">Luodaan näppäimistöä...</string>
+    <string name="toast_lengthy_words_long_operation">Ladataan sanakirjaa&#8230;</string>
+    <string name="toast_lengthy_start_up_operation">Käynnistetään AnySoftKeyboardia&#8230;</string>
+    <string name="lengthy_creating_keyboard_operation">Luodaan näppäimistöä&#8230;</string>
     <string name="select_keyboard_popup_title">Valitse näppäimistö</string>
     <string name="eng_dictionary">englanti</string>
     <string name="simley_key_name">Hymiönäppäin</string>

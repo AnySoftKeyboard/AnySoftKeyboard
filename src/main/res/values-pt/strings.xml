@@ -37,7 +37,7 @@
   <string name="tip_5_key_feedback_tip">Às vezes pode ser útil obter uma reação sonora ou vibratória ao tocar nas teclas. O AnySoftKeyboard possibilita essa reação. Pode ativar sons, vibrações ou ambos.</string>
   <string name="tip_5_key_feedback_test">Pretende testar a resposta?</string>
   <string name="tip_6_bottom_rows">Linha inferior</string>
-  <string name="tip_6_bottom_rows_tip">A linha inferior também pode ser substituída. O AnySoftKeyboard possui diversos tipos de linha - com ou sem microfone, estilo iPhone...</string>
+  <string name="tip_6_bottom_rows_tip">A linha inferior também pode ser substituída. O AnySoftKeyboard possui diversos tipos de linha - com ou sem microfone, estilo iPhone&#8230;</string>
   <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Alterar linha inferior agora</string>
   <string name="tip_7_voice_input">Fale comigo*</string>
   <string name="tip_7_voice_input_tip">Escrever é bom mas o teclado também tem suporte a entrada de voz. Quer dizer o texto? Clique na tecla do microfone e fale.\nEsta função utiliza o reconhecimento de voz da Google, por isso é melhor verificar se funciona corretamente.</string>
@@ -206,7 +206,7 @@
   <string name="volume_key_for_left_right_support_on_summary">Desativar esquerda/direita usando teclas de volume</string>
   <string name="camera_key_for_backspace_backword_support">Tecla Câmara para apagar carácter/palavra</string>
   <string name="camera_key_for_backspace_backword_support_on_summary">Restaurar opção da tecla da câmara</string>
-  <string name="menu_even_more_settings">Ainda mais...</string>
+  <string name="menu_even_more_settings">Ainda mais&#8230;</string>
   <string name="more_ui_settings_group">Interface</string>
   <string name="special_dictionaries_group">Dicionários especiais</string>
   <string name="use_user_dictionary">Dicionário do utilizador</string>
@@ -410,9 +410,9 @@
   <string name="change_symbols_wide">← 123 ←</string>
   <string name="change_symbols_regular">123</string>
   <string name="please_wait">Aguarde</string>
-  <string name="toast_lengthy_words_long_operation">A carregar dicionário...</string>
-  <string name="toast_lengthy_start_up_operation">A iniciar AnySoftKeyboard...</string>
-  <string name="lengthy_creating_keyboard_operation">A criar teclados...</string>
+  <string name="toast_lengthy_words_long_operation">A carregar dicionário&#8230;</string>
+  <string name="toast_lengthy_start_up_operation">A iniciar AnySoftKeyboard&#8230;</string>
+  <string name="lengthy_creating_keyboard_operation">A criar teclados&#8230;</string>
   <string name="select_keyboard_popup_title">Escolha o teclado</string>
   <string name="eng_dictionary">Inglês</string>
   <string name="simley_key_name">Tecla smiley</string>
@@ -443,7 +443,7 @@
   <string name="settings_split_state_split_in_landscape">Iniciar separado quando horizontal</string>
   <string name="settings_split_state_split_always">Iniciar separado</string>
   <string name="user_dictionary_select_locale">Idioma:</string>
-  <string name="user_dictionary_read_please_wait">A carregar palavras...</string>
+  <string name="user_dictionary_read_please_wait">A carregar palavras&#8230;</string>
   <string name="user_dict_settings_titlebar">Dicionário do utilizador</string>
   <string name="user_dict_editor">Editor de palavras</string>
   <string name="user_dict_settings_add_dialog_title">Adicionar ao dicionário</string>
@@ -473,7 +473,7 @@
   <string name="drawer_close">Fechar menu</string>
   <string name="not_configured_with_click_here">O AnySoftKeyboard ainda não pode ser utilizado. Clique aqui para o configurar.</string>
   <string name="not_configured_with_just_click_here">Clique aqui</string>
-  <string name="click_for_more">mais...</string>
+  <string name="click_for_more">mais&#8230;</string>
   <string name="back_button_label">Recuar</string>
   <string name="next_button_label">Avançar</string>
   <string name="skip_button_label">Ignorar</string>
@@ -500,9 +500,9 @@
   <string name="setup_wizard_step_two_action">Trocar teclado ativo</string>
   <string name="setup_wizard_step_three_title">O AnySoftKeyboard está pronto!</string>
   <string name="setup_wizard_step_three_details">Obrigado por escolher o <i>AnySoftKeyboard</i>.\nEste teclado pode ser bastante personalizado. Não tenha medo de o fazer:</string>
-  <string name="setup_wizard_step_three_action_languages">Configurar idiomas...</string>
-  <string name="setup_wizard_step_three_action_themes">Escolher tema...</string>
-  <string name="setup_wizard_step_three_action_all_settings">Outras configurações...</string>
+  <string name="setup_wizard_step_three_action_languages">Configurar idiomas&#8230;</string>
+  <string name="setup_wizard_step_three_action_themes">Escolher tema&#8230;</string>
+  <string name="setup_wizard_step_three_action_all_settings">Outras configurações&#8230;</string>
   <string name="ime_crashed_title">O AnySoftKeyboard encerrou!</string>
   <string name="ime_crashed_sub_text">Não esperava por isto…</string>
   <string name="ime_crashed_ticker">O AnySoftKeyboard encerrou. Não estava à espera disto…</string>

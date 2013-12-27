@@ -44,7 +44,7 @@ public class ResourceBinaryDictionary extends Dictionary {
      * keep it at this value because some languages e.g. German have really long
      * words.
      */
-    protected static final int MAX_WORD_LENGTH = 48;
+    private static final int MAX_WORD_LENGTH = 48;
     private static final String TAG = "ASK_ResBinDict";
     private static final int MAX_ALTERNATIVES = 16;
     private static final int MAX_WORDS = 18;
@@ -53,12 +53,13 @@ public class ResourceBinaryDictionary extends Dictionary {
     private final int mDictResId;
     private volatile int mNativeDict;
     private int mDictLength;
-    private int[] mInputCodes = new int[MAX_WORD_LENGTH * MAX_ALTERNATIVES];
-    private char[] mOutputChars = new char[MAX_WORD_LENGTH * MAX_WORDS];
-    private int[] mFrequencies = new int[MAX_WORDS];
+    private final int[] mInputCodes = new int[MAX_WORD_LENGTH * MAX_ALTERNATIVES];
+    private final char[] mOutputChars = new char[MAX_WORD_LENGTH * MAX_WORDS];
+    private final int[] mFrequencies = new int[MAX_WORDS];
 
-    // Keep a reference to the native dict direct buffer in Java to avoid
-    // unexpected de-allocation of the direct buffer.
+    /** NOTE!
+     * Keep a reference to the native dict direct buffer in Java to avoid
+     * unexpected de-allocation of the direct buffer. */
     private ByteBuffer mNativeDictDirectBuffer;
 
     static {

@@ -147,9 +147,9 @@
   <string name="change_symbols_wide">← 123 ←</string>
   <string name="change_symbols_regular">123</string>
   <string name="please_wait">Ве молам почекајте</string>
-  <string name="toast_lengthy_words_long_operation">Вчитувам речник ...</string>
-  <string name="toast_lengthy_start_up_operation">Стартувам AnySoftKeyboard ...</string>
-  <string name="lengthy_creating_keyboard_operation">Креирање на тастатури ...</string>
+  <string name="toast_lengthy_words_long_operation">Вчитувам речник &#8230;</string>
+  <string name="toast_lengthy_start_up_operation">Стартувам AnySoftKeyboard &#8230;</string>
+  <string name="lengthy_creating_keyboard_operation">Креирање на тастатури &#8230;</string>
   <string name="select_keyboard_popup_title">Избери тастатура</string>
   <string name="eng_dictionary">Англиски</string>
   <string name="simley_key_name">Смајли копче</string>

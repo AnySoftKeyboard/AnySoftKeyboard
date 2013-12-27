@@ -192,9 +192,9 @@
     <string name="change_symbols_wide">← 123 ←</string>
     <string name="change_symbols_regular">123</string>
     <string name="please_wait">Vent venligst</string>
-    <string name="toast_lengthy_words_long_operation">Indlæser ordbog...</string>
-    <string name="toast_lengthy_start_up_operation">Starter AnySoftKeyboard ...</string>
-    <string name="lengthy_creating_keyboard_operation">Oprettelse af tastaturer ...</string>
+    <string name="toast_lengthy_words_long_operation">Indlæser ordbog&#8230;</string>
+    <string name="toast_lengthy_start_up_operation">Starter AnySoftKeyboard &#8230;</string>
+    <string name="lengthy_creating_keyboard_operation">Oprettelse af tastaturer &#8230;</string>
     <string name="select_keyboard_popup_title">Vælg tastatur</string>
     <string name="eng_dictionary">Engelsk</string>
     <string name="simley_key_name">Smiley knap</string>
@@ -216,7 +216,7 @@
     <string name="workaround_disable_rtl_fix">Deaktiver Højre-til-venstre håndtering</string>
     <string name="workaround_disable_rtl_fix_summary_on">Brug OS RTL håndtering (for SE telefoner)</string>
     <string name="user_dictionary_select_locale">Sprog:</string>
-    <string name="user_dictionary_read_please_wait">Læser ordene...</string>
+    <string name="user_dictionary_read_please_wait">Læser ordene&#8230;</string>
     <string name="user_dict_settings_titlebar">Brugerordbog</string>
     <string name="user_dict_editor">Ord editor</string>
     <string name="user_dict_settings_add_dialog_title">Føj til ordbog</string>
