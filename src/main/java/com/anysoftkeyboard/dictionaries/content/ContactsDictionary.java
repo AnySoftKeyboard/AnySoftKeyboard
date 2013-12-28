@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard.dictionaries.content;
 
+import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.ContentObserver;
@@ -25,7 +26,13 @@ import android.provider.ContactsContract.Contacts;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
 import com.anysoftkeyboard.dictionaries.WordsCursor;
 
+@TargetApi(7)
 public class ContactsDictionary extends BTreeDictionary {
+
+    /**
+     * A contact is a valid word in a language, and it usually very frequent.
+     */
+    private static final int MINIMUM_CONTACT_WORD_FREQUENCY = 64;
 
     private static final class ContactsWordsCursor extends WordsCursor {
 
@@ -40,10 +47,13 @@ public class ContactsDictionary extends BTreeDictionary {
             Cursor cursor = getCursor();
             final boolean isStarred = cursor.getInt(INDEX_STARRED) > 0;
             if (isStarred)
-                return 255;// WOW! important!
+                return MAX_WORD_FREQUENCY;// WOW! important!
             //times contacted will be our frequency
-            final int timesContacted = cursor.getInt(INDEX_TIMES);
-            return Math.min(timesContacted, 255);//but no more than the max allowed
+            final int frequencyContacted = cursor.getInt(INDEX_TIMES);
+            //A contact is a valid word in a language, and it usually very frequent.
+            final int minimumAdjustedFrequencyContacted = Math.max(MINIMUM_CONTACT_WORD_FREQUENCY, frequencyContacted);
+            //but no more than the max allowed
+            return Math.min(minimumAdjustedFrequencyContacted, MAX_WORD_FREQUENCY);
         }
     }
 

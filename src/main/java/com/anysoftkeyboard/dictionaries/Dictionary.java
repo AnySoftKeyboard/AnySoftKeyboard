@@ -24,6 +24,9 @@ import com.anysoftkeyboard.WordComposer;
  */
 abstract public class Dictionary {
     private static final String TAG = "ASK_DICT";
+
+    public static final int MAX_WORD_FREQUENCY = 255;
+
     /**
      * Whether or not to replicate the typed word in the suggested list, even if it's valid.
      */
