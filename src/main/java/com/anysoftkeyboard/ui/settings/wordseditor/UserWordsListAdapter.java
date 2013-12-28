@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -20,12 +21,42 @@ import java.util.List;
 /**
  * List adapter to be used with the words editor fragment.
  */
-class UserWordsListAdapter extends ArrayAdapter<String> {
+class UserWordsListAdapter extends ArrayAdapter<UserWordsListAdapter.Word> implements View.OnClickListener {
+
+    public static class Word {
+        public final String word;
+        public final int frequency;
+
+        public Word(String word, int frequency) {
+            this.word = word;
+            this.frequency = frequency;
+        }
+
+        @Override
+        public int hashCode() {
+            return word.hashCode() + frequency;
+        }
+
+        @Override
+        public String toString() {
+            return word;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (o instanceof Word) {
+                Word otherWord = (Word) o;
+                return otherWord.frequency == frequency && otherWord.word.equals(word);
+            } else {
+                return false;
+            }
+        }
+    }
 
     public static interface AdapterCallbacks {
-        void onWordDeleted(String word);
+        void onWordDeleted(Word word);
 
-        void onWordUpdated(String oldWord, String newWord);
+        void onWordUpdated(String oldWord, Word newWord);
 
         void performDiscardEdit();
     }
@@ -40,7 +71,7 @@ class UserWordsListAdapter extends ArrayAdapter<String> {
     private final int TYPE_EDIT = 1;
     private final int TYPE_ADD = 2;
 
-    public UserWordsListAdapter(Context context, List<String> words, AdapterCallbacks callbacks) {
+    public UserWordsListAdapter(Context context, List<Word> words, AdapterCallbacks callbacks) {
         super(context, R.id.word_view, words);
         mCallbacksListener = callbacks;
         mInflater = LayoutInflater.from(context);
@@ -61,13 +92,13 @@ class UserWordsListAdapter extends ArrayAdapter<String> {
 
     @Override
     public long getItemId(int position) {
-        switch(getItemViewType(position)) {
+        switch (getItemViewType(position)) {
             case TYPE_EDIT:
                 return 1;
             case TYPE_ADD:
                 return 2;
             default:
-                final String word = getItem(position);
+                final Word word = getItem(position);
                 return word.hashCode();
         }
     }
@@ -98,23 +129,23 @@ class UserWordsListAdapter extends ArrayAdapter<String> {
         if (convertView == null) {
             switch (viewType) {
                 case TYPE_NORMAL:
-                    convertView = mInflater.inflate(R.layout.user_dictionary_word_row, parent, false);
+                    convertView = inflateNormalWordRow(mInflater, parent);
                     assert convertView != null;
                     final View deleteButton = convertView.findViewById(R.id.delete_user_word);
-                    deleteButton.setOnClickListener(mOnDeleteWordClickListener);
+                    deleteButton.setOnClickListener(this);
                     break;
                 case TYPE_EDIT:
-                    convertView = mInflater.inflate(R.layout.user_dictionary_word_row_edit, parent, false);
+                    convertView = inflateEditedWordRow(mInflater, parent);
                     assert convertView != null;
                     final View approveButton = convertView.findViewById(R.id.approve_user_word);
-                    approveButton.setOnClickListener(mOnWordEditApprovedClickListener);
-                    wordView = ((TextView)convertView.findViewById(R.id.word_view));
+                    approveButton.setOnClickListener(this);
+                    wordView = ((TextView) convertView.findViewById(R.id.word_view));
                     wordView.setOnKeyListener(mOnEditBoxKeyPressedListener);
                     wordView.addTextChangedListener(mOnEditBoxTextChangedListener);
                     wordView.setOnEditorActionListener(mEditBoxActionListener);
                     break;
                 case TYPE_ADD:
-                    convertView = mInflater.inflate(R.layout.user_dictionary_word_row_add, parent, false);
+                    convertView = inflateAddWordRow(mInflater, parent);
                     assert convertView != null;
                     break;
                 default:
@@ -122,22 +153,49 @@ class UserWordsListAdapter extends ArrayAdapter<String> {
             }
         }
 
-        wordView = ((TextView)convertView.findViewById(R.id.word_view));
+        wordView = ((TextView) convertView.findViewById(R.id.word_view));
+        final Word word;
         //why to check the position against the super.getCount, and not the view type?
         //good question! In the state where we adding a new word, the underling array is still one short,
         //so the view type will be "EDIT", but the count will still be one less.
         if (position == super.getCount()) {
-            convertView.setTag(""/*empty word at the "add new word" row*/);
+            word = null;/*empty word at the "add new word" row*/
         } else {
-            final String word = getItem(position);
-            wordView.setText(word);
-            convertView.setTag(word);
+            word = getItem(position);
         }
-        if (viewType == TYPE_EDIT) {
-            //I want the text-box to take the focus now.
-            wordView.requestFocus();
+        convertView.setTag(word);
+
+        switch (viewType) {
+            case TYPE_NORMAL:
+                updateNormalWordRow(convertView, wordView, word);
+                break;
+            case TYPE_EDIT:
+                updateEditedWordRow(convertView, wordView, word);
+                //I want the text-box to take the focus now.
+                wordView.requestFocus();
+                break;
         }
         return convertView;
+    }
+
+    protected void updateEditedWordRow(View rootView, TextView wordView, Word word) {
+        wordView.setText(word.word);
+    }
+
+    protected void updateNormalWordRow(View rootView, TextView wordView, Word word) {
+        wordView.setText(word.word);
+    }
+
+    protected View inflateAddWordRow(LayoutInflater inflater, ViewGroup parent) {
+        return inflater.inflate(R.layout.user_dictionary_word_row_add, parent, false);
+    }
+
+    protected View inflateEditedWordRow(LayoutInflater inflater, ViewGroup parent) {
+        return inflater.inflate(R.layout.user_dictionary_word_row_edit, parent, false);
+    }
+
+    protected View inflateNormalWordRow(LayoutInflater inflater, ViewGroup parent) {
+        return inflater.inflate(R.layout.user_dictionary_word_row, parent, false);
     }
 
     public void onItemClicked(AdapterView<?> listView, int position) {
@@ -156,32 +214,45 @@ class UserWordsListAdapter extends ArrayAdapter<String> {
         notifyDataSetChanged();
     }
 
-    private final View.OnClickListener mOnDeleteWordClickListener = new View.OnClickListener() {
-        public void onClick(View v) {
-            final String word = ((View) v.getParent()).getTag().toString();
-            mCallbacksListener.onWordDeleted(word);
-        }
-    };
 
-    private final View.OnClickListener mOnWordEditApprovedClickListener = new View.OnClickListener() {
-        public void onClick(View v) {
-            View parent = ((View) v.getParent());
-            final String oldWord = parent.getTag().toString();
-            EditText editBox = (EditText) parent.findViewById(R.id.word_view);
-            final String newWord = editBox.getText().toString();
-            mCurrentlyEditPosition = NONE_POSITION;
-            if (TextUtils.isEmpty(newWord)) {
-                //this is weird.. The user wanted the word to be deleted?
-                //why not clicking on the delete icon?!
-                //I'm ignoring.
-                notifyDataSetChanged();//reloading the list.
-            } else {
-                mCallbacksListener.onWordUpdated(oldWord, newWord);
-            }
+    @Override
+    public final void onClick(View v) {
+        final Word word = (Word) ((View) v.getParent()).getTag();
+        switch (v.getId()) {
+            case R.id.delete_user_word:
+                onWordDeleted(word);
+                break;
+            case R.id.approve_user_word:
+                Word newWord = onWordEditApproved(v, word);
+                mCurrentlyEditPosition = NONE_POSITION;
+                if (newWord == null || TextUtils.isEmpty(newWord.word) || newWord.frequency == 0) {
+                    //this is weird.. The user wanted the word to be deleted?
+                    //why not clicking on the delete icon?!
+                    //I'm ignoring.
+                    notifyDataSetChanged();//reloading the list.
+                } else {
+                    mCallbacksListener.onWordUpdated(word.word, newWord);
+                }
+                break;
         }
-    };
+    }
 
-    private final View.OnKeyListener mOnEditBoxKeyPressedListener = new View.OnKeyListener() {
+    protected void onWordDeleted(Word word) {
+        mCallbacksListener.onWordDeleted(word);
+    }
+
+    protected Word onWordEditApproved(View approveButton, Word oldWord) {
+        View parent = ((View) approveButton.getParent());
+        EditText editBox = (EditText) parent.findViewById(R.id.word_view);
+        final String newWord = editBox.getText().toString();
+        if (TextUtils.isEmpty(newWord)) {
+            return null;
+        } else {
+            return new Word(newWord, oldWord == null? 128 : oldWord.frequency);
+        }
+    }
+
+    protected final View.OnKeyListener mOnEditBoxKeyPressedListener = new View.OnKeyListener() {
         @Override
         public boolean onKey(View v, int keyCode, KeyEvent event) {
             switch (keyCode) {
@@ -190,10 +261,16 @@ class UserWordsListAdapter extends ArrayAdapter<String> {
                     mCallbacksListener.performDiscardEdit();
                     return true;
                 case KeyEvent.KEYCODE_ENTER:
-                    //v is the edit-box. Need to pass the APPROVE view
-                    View parent = (View)v.getParent();
-                    View approveButton = parent.findViewById(R.id.approve_user_word);
-                    mOnWordEditApprovedClickListener.onClick(approveButton);
+                    EditText edit = (EditText)v;
+                    if ((edit.getImeOptions() & EditorInfo.IME_ACTION_DONE) == EditorInfo.IME_ACTION_DONE) {
+                        View parent = (View) v.getParent();
+                        View approveButton = parent.findViewById(R.id.approve_user_word);
+                        onClick(approveButton);
+                    } else if ((edit.getImeOptions() & EditorInfo.IME_ACTION_NEXT) == EditorInfo.IME_ACTION_NEXT) {
+                        View nextField = edit.focusSearch(View.FOCUS_RIGHT);
+                        if (nextField != null)
+                            nextField.requestFocus();
+                    }
                     return true;
                 default:
                     return false;
@@ -201,13 +278,12 @@ class UserWordsListAdapter extends ArrayAdapter<String> {
         }
     };
 
-    private final TextView.OnEditorActionListener mEditBoxActionListener = new TextView.OnEditorActionListener() {
+    protected final TextView.OnEditorActionListener mEditBoxActionListener = new TextView.OnEditorActionListener() {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-            if (v.getId() != R.id.word_view) return false;
-            View parent = (View)v.getParent();
+            View parent = (View) v.getParent();
             View approveButton = parent.findViewById(R.id.approve_user_word);
-            mOnWordEditApprovedClickListener.onClick(approveButton);
+            onClick(approveButton);
             return true;
         }
     };
