@@ -15,6 +15,8 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFragment {
 
     @Override
@@ -42,11 +44,13 @@ public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFr
             super(context, words, callbacks);
         }
 
-        private static String getAbbreviation(Word word) {
+        private static String getAbbreviation(@Nullable Word word) {
+            if (word == null) return "";
             return word.word.substring(0, word.frequency);
         }
 
-        private static String getExplodedSentence(Word word) {
+        private static String getExplodedSentence(@Nullable Word word) {
+            if (word == null) return "";
             return word.word.substring(word.frequency);
         }
 
@@ -69,7 +73,7 @@ public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFr
         }
 
         @Override
-        protected Word onWordEditApproved(View approveButton, Word oldWord) {
+        protected Word onWordEditApproved(View approveButton, @Nullable Word oldWord) {
             View parent = ((View) approveButton.getParent());
             EditText abbreviationView = (EditText) parent.findViewById(R.id.word_view);
             EditText explodedSentenceView = (EditText) parent.findViewById(R.id.word_target_view);

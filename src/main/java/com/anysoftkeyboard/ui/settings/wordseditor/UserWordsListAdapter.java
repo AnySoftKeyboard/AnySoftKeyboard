@@ -18,16 +18,20 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * List adapter to be used with the words editor fragment.
  */
 class UserWordsListAdapter extends ArrayAdapter<UserWordsListAdapter.Word> implements View.OnClickListener {
 
     public static class Word {
+        @Nonnull
         public final String word;
         public final int frequency;
 
-        public Word(String word, int frequency) {
+        public Word(@Nonnull String word, int frequency) {
             this.word = word;
             this.frequency = frequency;
         }
@@ -179,7 +183,7 @@ class UserWordsListAdapter extends ArrayAdapter<UserWordsListAdapter.Word> imple
     }
 
     protected void updateEditedWordRow(View rootView, TextView wordView, Word word) {
-        wordView.setText(word.word);
+        wordView.setText(word == null? "" : word.word);
     }
 
     protected void updateNormalWordRow(View rootView, TextView wordView, Word word) {
@@ -217,7 +221,7 @@ class UserWordsListAdapter extends ArrayAdapter<UserWordsListAdapter.Word> imple
 
     @Override
     public final void onClick(View v) {
-        final Word word = (Word) ((View) v.getParent()).getTag();
+        @Nullable final Word word = (Word) ((View) v.getParent()).getTag();
         switch (v.getId()) {
             case R.id.delete_user_word:
                 onWordDeleted(word);
@@ -231,7 +235,7 @@ class UserWordsListAdapter extends ArrayAdapter<UserWordsListAdapter.Word> imple
                     //I'm ignoring.
                     notifyDataSetChanged();//reloading the list.
                 } else {
-                    mCallbacksListener.onWordUpdated(word.word, newWord);
+                    mCallbacksListener.onWordUpdated(word == null? "" : word.word, newWord);
                 }
                 break;
         }
@@ -241,7 +245,7 @@ class UserWordsListAdapter extends ArrayAdapter<UserWordsListAdapter.Word> imple
         mCallbacksListener.onWordDeleted(word);
     }
 
-    protected Word onWordEditApproved(View approveButton, Word oldWord) {
+    protected Word onWordEditApproved(View approveButton, @Nullable Word oldWord) {
         View parent = ((View) approveButton.getParent());
         EditText editBox = (EditText) parent.findViewById(R.id.word_view);
         final String newWord = editBox.getText().toString();
