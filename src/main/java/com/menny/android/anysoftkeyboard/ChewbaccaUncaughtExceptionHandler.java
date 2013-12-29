@@ -21,6 +21,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v4.app.NotificationCompat;
 import android.text.format.DateFormat;
 
@@ -95,8 +96,8 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
             String crashType = ex.getClass().getSimpleName() + ": " + ex.getMessage();
             Intent notificationIntent = new Intent(mApp, SendBugReportUiActivity.class);
             notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            notificationIntent.putExtra(SendBugReportUiActivity.CRASH_REPORT_TEXT, logText);
-            notificationIntent.putExtra(SendBugReportUiActivity.CRASH_TYPE_STRING, crashType);
+            notificationIntent.putExtra(SendBugReportUiActivity.EXTRA_KEY_BugReportDetails,
+                    (Parcelable) new SendBugReportUiActivity.BugReportDetails(ex, logText));
 
             PendingIntent contentIntent = PendingIntent.getActivity(mApp, 0,
                     notificationIntent, 0);
@@ -125,6 +126,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
             mOsDefaultHandler.uncaughtException(thread, ex);
         }
 
+        Thread.yield();
         //halting the process. No need to continue now. I'm a dead duck.
         System.exit(0);
     }

@@ -90,15 +90,13 @@
             android:name="com.anysoftkeyboard.ui.tutorials.TestersNoticeActivity"
             android:icon="@drawable/ic_launcher"
             android:label="@string/testers_version"
+            android:launchMode="singleTop"
             android:theme="@style/Theme.AskApp.Popup">
         </activity>
         <!-- ui when a crash happens -->
         <activity android:theme="@style/Theme.AskApp.NoTitle"
             android:name="com.anysoftkeyboard.ui.SendBugReportUiActivity"
             android:icon="@drawable/ic_launcher"
-            android:excludeFromRecents="true"
-            android:finishOnTaskLaunch="true"
-            android:launchMode="singleInstance"
             android:label="@string/ime_name">
         </activity>
         <!--
