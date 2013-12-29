@@ -8,14 +8,14 @@
     android:paddingRight="8dp"
     android:minHeight="@dimen/comfortable_min_row_height"
     android:gravity="center_vertical"
-    android:weightSum="100">
+    android:weightSum="1">
 
     <EditText
         style="@style/Ask.Text.Normal"
         android:id="@+id/word_view"
-        android:layout_width="0px"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="30"
+        android:minEms="6"
         android:singleLine="true"
         android:maxLength="16"
         android:lines="1"
@@ -36,7 +36,7 @@
         android:id="@+id/word_target_view"
         android:layout_width="0px"
         android:layout_height="wrap_content"
-        android:layout_weight="70"
+        android:layout_weight="1"
         android:singleLine="true"
         android:maxLength="230"
         android:lines="1"
