@@ -2538,9 +2538,9 @@ public class AnySoftKeyboard extends InputMethodService implements
         // || mCorrectionMode == mSuggest.CORRECTION_FULL;
         CharSequence typedWord = mWord.getTypedWord();
         // If we're in basic correct
-        boolean typedWordValid = mSuggest.isValidWord(typedWord)
+        boolean typedWordValid = mSuggest.isValidWord(typedWord);/*
                 || (preferCapitalization() && mSuggest.isValidWord(typedWord
-                .toString().toLowerCase()));
+                .toString().toLowerCase()));*/
 
         if (mShowSuggestions || mQuickFixes) {
             correctionAvailable |= typedWordValid;
