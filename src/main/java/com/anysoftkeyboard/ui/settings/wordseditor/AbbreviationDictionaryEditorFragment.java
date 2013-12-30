@@ -46,12 +46,12 @@ public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFr
 
         private static String getAbbreviation(@Nullable Word word) {
             if (word == null) return "";
-            return word.word.substring(0, word.frequency);
+            return AbbreviationsDictionary.getAbbreviation(word.word, word.frequency);
         }
 
         private static String getExplodedSentence(@Nullable Word word) {
             if (word == null) return "";
-            return word.word.substring(word.frequency);
+            return AbbreviationsDictionary.getExplodedSentence(word.word, word.frequency);
         }
 
         @Override

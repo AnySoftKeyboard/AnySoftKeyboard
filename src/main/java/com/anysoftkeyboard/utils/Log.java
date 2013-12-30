@@ -164,9 +164,17 @@ public class Log {
         addLog(LVL_E, TAG, msg);
     }
 
+    //TODO: remove this method
     public static void e(String TAG, String text, Throwable t) {
         android.util.Log.e(TAG, text, t);
         addLog(LVL_E, TAG, text, t);
+    }
+
+    public static void w(String TAG, Throwable e, String text, Object... args) {
+        String msg = args == null? text : msFormatter.format(text, args).toString();
+        msFormatBuilder.setLength(0);
+        android.util.Log.e(TAG, msg, e);
+        addLog(LVL_E, TAG, msg);
     }
 
     private static String LVL_WTF = "WTF";

@@ -17,8 +17,18 @@
 package com.anysoftkeyboard.dictionaries.sqlite;
 
 import android.content.Context;
+import android.text.TextUtils;
+
+import com.anysoftkeyboard.WordComposer;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.Nonnull;
 
 public class AbbreviationsDictionary extends SQLiteUserDictionaryBase {
+
+    private final Map<CharSequence, String> mAbbreviationsMap = new HashMap<>();
 
     public AbbreviationsDictionary(Context context, String locale) {
         super("AbbreviationsDictionary", context, locale);
@@ -27,5 +37,42 @@ public class AbbreviationsDictionary extends SQLiteUserDictionaryBase {
     @Override
     protected WordsSQLiteConnection createStorage(String locale) {
         return new WordsSQLiteConnection(mContext, "abbreviations.db", locale);
+    }
+
+    @Override
+    public void getWords(WordComposer codes, WordCallback callback) {
+        if (isClosed() || isLoading()) return;
+
+        String word = codes.getTypedWord().toString();
+        String explodedString = mAbbreviationsMap.get(word);
+        if (explodedString == null) {
+            //checking maybe it's a auto-capitalized word
+            if (codes.isFirstCharCapitalized()) {
+                explodedString = mAbbreviationsMap.get(toLowerCase(word.charAt(0))+(word.length() > 1?word.substring(1) : ""));
+            }
+        }
+        if (!TextUtils.isEmpty(explodedString))
+            callback.addWord(explodedString.toCharArray(), 0, explodedString.length(), MAX_WORD_FREQUENCY, this);
+    }
+
+    @Override
+    public boolean isValidWord(CharSequence word) {
+        if (isClosed() || isLoading()) return false;
+
+        return mAbbreviationsMap.containsKey(word);
+    }
+
+    @Override
+    protected void addWordFromStorage(String word, int frequency) {
+        //not double storing the words in memory, so I'm not calling the super method
+        mAbbreviationsMap.put(getAbbreviation(word, frequency), getExplodedSentence(word, frequency));
+    }
+
+    public static String getAbbreviation(@Nonnull String word, int frequency) {
+        return word.substring(0, frequency);
+    }
+
+    public static String getExplodedSentence(@Nonnull String word, int frequency) {
+        return word.substring(frequency);
     }
 }

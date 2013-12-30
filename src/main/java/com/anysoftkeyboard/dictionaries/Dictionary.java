@@ -59,7 +59,7 @@ abstract public class Dictionary {
          *                   can exceed those limits
          * @return true if the word was added, false if no more words are required
          */
-        boolean addWord(char[] word, int wordOffset, int wordLength, int frequency);
+        boolean addWord(char[] word, int wordOffset, int wordLength, int frequency, Dictionary from);
     }
 
     private volatile boolean mLoadingResources = true;
@@ -81,7 +81,7 @@ abstract public class Dictionary {
      *
      * @param composer the key sequence to match
      * @param callback the callback object to send matched words to as possible candidates
-     * @see WordCallback#addWord(char[], int, int, int)
+     * @see WordCallback#addWord(char[], int, int, int, com.anysoftkeyboard.dictionaries.Dictionary)
      */
     abstract public void getWords(final WordComposer composer, final WordCallback callback);
 

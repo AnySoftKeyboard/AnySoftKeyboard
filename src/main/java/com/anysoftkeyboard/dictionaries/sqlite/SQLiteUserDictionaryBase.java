@@ -25,6 +25,7 @@ import com.anysoftkeyboard.dictionaries.WordsCursor;
 import com.anysoftkeyboard.utils.Log;
 
 public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
+    private static final String TAG = "SQLiteUserDictionaryBase";
 
     private volatile WordsSQLiteConnection mStorage;
     private final String mLocale;
@@ -32,6 +33,7 @@ public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
     protected SQLiteUserDictionaryBase(String dictionaryName, Context context, String locale) {
         super(dictionaryName, context);
         mLocale = locale;
+        Log.d(TAG, "Created instance of %s for locale %s.", dictionaryName, locale);
     }
 
     public String getLocale() {
