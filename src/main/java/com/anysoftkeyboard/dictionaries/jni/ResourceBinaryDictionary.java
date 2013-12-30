@@ -213,7 +213,7 @@ public class ResourceBinaryDictionary extends Dictionary {
                 len++;
             }
             if (len > 0) {
-                requestContinue = callback.addWord(mOutputChars, start, len, mFrequencies[j]/*, mDicTypeId, DataType.UNIGRAM*/);
+                requestContinue = callback.addWord(mOutputChars, start, len, mFrequencies[j]/*, mDicTypeId, DataType.UNIGRAM*/, this);
             }
         }
     }
