@@ -279,8 +279,9 @@ public class Suggest implements Dictionary.WordCallback {
             mSuggestions.add(0, mOriginalWord.toString());
         }
         if (mExplodedAbbreviation != null) {
-            mSuggestions.add(0, mExplodedAbbreviation);
-            mHaveCorrection = false;//so the exploded text will be auto-commited.
+            //typed at zero, exploded at 1 index.
+            mSuggestions.add(1, mExplodedAbbreviation);
+            mHaveCorrection = true;//so the exploded text will be auto-committed.
         }
         // Check if the first suggestion has a minimum number of characters in
         // common
@@ -345,13 +346,16 @@ public class Suggest implements Dictionary.WordCallback {
     public boolean addWord(final char[] word, final int offset,
                            final int length, final int freq, final Dictionary from) {
         Log.v(TAG, "Suggest::addWord");
+        if (from == mAbbreviationDictionary) {
+            mExplodedAbbreviation = new String(word, offset, length);
+            return true;
+        }
         int pos = 0;
         final int[] priorities = mPriorities;
         final int prefMaxSuggestions = mPrefMaxSuggestions;
         // Check if it's the same word, only caps are different
-        if (compareCaseInsensitive(mLowerOriginalWord, word, offset, length) || from == mAbbreviationDictionary) {
-            //abbreviations are always the first, and are always auto-replaced.
-            Log.v(TAG, "Suggest::addWord - forced at position 0. Is from abbreviation? %s", from == mAbbreviationDictionary);
+        if (compareCaseInsensitive(mLowerOriginalWord, word, offset, length)) {
+            Log.v(TAG, "Suggest::addWord - forced at position 0.");
             pos = 0;
         } else {
             // Check the last one's priority and bail
@@ -408,13 +412,12 @@ public class Suggest implements Dictionary.WordCallback {
         if (mMainDictionaryEnabled || mAutoTextEnabled) {
             final boolean validFromMain = (mMainDictionaryEnabled && mMainDict != null && mMainDict.isValidWord(word));
             final boolean validFromUser = (mUserDictionary != null && mUserDictionary.isValidWord(word));
-            final boolean validFromAbbreviation = (mAbbreviationDictionary != null && mAbbreviationDictionary.isValidWord(word));
             final boolean validFromContacts = (mContactsDictionary != null && mContactsDictionary.isValidWord(word));
 
-            Log.v(TAG, "Suggest::isValidWord(%s)validFromMain: %s validFromUser: %s validFromContacts: %s validFromAbbreviation: %s",
-                    word, validFromMain, validFromUser, validFromContacts, validFromAbbreviation);
+            Log.v(TAG, "Suggest::isValidWord(%s)validFromMain: %s validFromUser: %s validFromContacts: %s",
+                    word, validFromMain, validFromUser, validFromContacts);
             return validFromMain || validFromUser
-                    || /* validFromAuto || */validFromContacts || validFromAbbreviation;
+                    || /* validFromAuto || */validFromContacts;
         } else {
             return false;
         }

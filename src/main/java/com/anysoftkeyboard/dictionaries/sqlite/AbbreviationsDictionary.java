@@ -56,13 +56,6 @@ public class AbbreviationsDictionary extends SQLiteUserDictionaryBase {
     }
 
     @Override
-    public boolean isValidWord(CharSequence word) {
-        if (isClosed() || isLoading()) return false;
-
-        return mAbbreviationsMap.containsKey(word);
-    }
-
-    @Override
     protected void addWordFromStorage(String word, int frequency) {
         //not double storing the words in memory, so I'm not calling the super method
         mAbbreviationsMap.put(getAbbreviation(word, frequency), getExplodedSentence(word, frequency));
