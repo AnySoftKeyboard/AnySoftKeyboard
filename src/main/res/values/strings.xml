@@ -171,15 +171,11 @@
     <string name="close_button">Close</string>
 
     <string name="how_to_active_text">How to active AnySoftKeyboard</string>
-    <!-- Symbols that are commonly considered word separators in this language -->
-    <!-- <string name="word_separators">\u0020.,;:!?\n()[]*&amp;@{}/&lt;&gt;_+=|-'`~&quot;1234567890</string>-->
     <!-- Indicates that a word has been added to the dictionary -->
-    <string name="added_word">Saved:
-        <xliff:g id="word">%s</xliff:g>
+    <string name="added_word">Saved:\u0020<xliff:g id="word">%s</xliff:g>
     </string>
     <string name="revert_added_word_question">Remove\?</string>
-    <string name="removed_word">Removed:
-        <xliff:g id="word">%s</xliff:g>
+    <string name="removed_word">Removed:\u0020<xliff:g id="word">%s</xliff:g>
     </string>
     <string name="hint_add_to_dictionary">\u2190 Touch again to save</string>
     <string name="hint_double_tap_to_close">Again to remove suggestions</string>
@@ -508,8 +504,8 @@
     <string name="candidates_on">Show suggestions</string>
     <string name="candidates_on_summary">A list of suggested words will be displayed above the keyboard</string>
     <string name="candidates_off_summary">No suggestions will be shown</string>
-    <string name="quick_fix">Quick fixes</string>
-    <string name="quick_fix_summary">Corrects commonly typed mistakes</string>
+    <string name="quick_fix">Quick fixes and abbreviations</string>
+    <string name="quick_fix_summary">Corrects commonly typed mistakes, and expands abbreviations</string>
     <string name="allow_suggestions_restart">Suggestions restart</string>
     <string name="allow_suggestions_restart_summary">Restart word suggestion upon cursor movement</string>
     <string name="auto_complete">Auto select suggestion</string>
@@ -687,6 +683,12 @@
     <!-- User dictionary settings, The titlebar text of the User dictionary settings screen. -->
     <string name="user_dict_settings_titlebar">User dictionary</string>
     <string name="user_dict_editor">Words editor</string>
+
+    <!-- abbreviations editor -->
+    <string name="abbreviation_dict_settings_titlebar">Abbreviation editor</string>
+    <string name="abbreviation_dict_editor">Abbreviation editor</string>
+    <string name="abbreviation_dict_word_template"><i><xliff:g id="abbreviation">%s</xliff:g></i>\u0020\u2192\u0020<i><xliff:g id="target">%s</xliff:g></i></string>
+
     <!-- User dictionary settings. The title of the dialog to add a new word to the user dictionary. -->
     <string name="user_dict_settings_add_dialog_title">Add to dictionary</string>
     <!-- User dictionary settings. The title of the dialog to edit an existing word in the user dictionary. -->
@@ -747,6 +749,8 @@
     <string name="word_editor_action_restore_words">Restore</string>
     <string name="click_to_add_new_word">Click to add a new word</string>
     <string name="enter_word_hint">Type the new word here</string>
+    <string name="enter_abbreviation_hint">Abbreviation</string>
+    <string name="enter_abbreviation_target_hint">Full sentence</string>
     <string name="toggle_button_on">On</string>
     <string name="toggle_button_off">Off</string>
     <string name="about_additional_software_licenses">Additional Software Licenses</string>

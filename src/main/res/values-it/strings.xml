@@ -405,9 +405,9 @@
   <string name="change_symbols_wide">← 123 ←</string>
   <string name="change_symbols_regular">123</string>
   <string name="please_wait">Attendere prego</string>
-  <string name="toast_lengthy_words_long_operation">Caricamento in corso dizionario...</string>
-  <string name="toast_lengthy_start_up_operation">Avvio AnySoftKeyboard...</string>
-  <string name="lengthy_creating_keyboard_operation">Creazione tastiere...</string>
+  <string name="toast_lengthy_words_long_operation">Caricamento in corso dizionario&#8230;</string>
+  <string name="toast_lengthy_start_up_operation">Avvio AnySoftKeyboard&#8230;</string>
+  <string name="lengthy_creating_keyboard_operation">Creazione tastiere&#8230;</string>
   <string name="select_keyboard_popup_title">Seleziona tastiera</string>
   <string name="eng_dictionary">Inglese</string>
   <string name="simley_key_name">Tasto faccine</string>
@@ -439,7 +439,7 @@
   <string name="settings_split_state_split_in_landscape">Avvia divisione in landscape</string>
   <string name="settings_split_state_split_always">Avvia divisione</string>
   <string name="user_dictionary_select_locale">Lingua:</string>
-  <string name="user_dictionary_read_please_wait">Lettura parole...</string>
+  <string name="user_dictionary_read_please_wait">Lettura parole&#8230;</string>
   <string name="user_dict_settings_titlebar">Dizionario utente</string>
   <string name="user_dict_editor">Editor parole</string>
   <string name="user_dict_settings_add_dialog_title">Aggiungi al dizionario</string>

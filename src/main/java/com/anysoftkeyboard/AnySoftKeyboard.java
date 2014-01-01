@@ -327,7 +327,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         mSuggest.setAutoDictionary(null);
         mSuggest.setContactsDictionary(getApplicationContext(), false);
-        mSuggest.setMainDictionary(null);
+        mSuggest.setMainDictionary(getApplicationContext(), null);
         mSuggest.setUserDictionary(null);
 
         if (DeveloperUtils.hasTracingStarted()) {
@@ -2538,9 +2538,9 @@ public class AnySoftKeyboard extends InputMethodService implements
         // || mCorrectionMode == mSuggest.CORRECTION_FULL;
         CharSequence typedWord = mWord.getTypedWord();
         // If we're in basic correct
-        boolean typedWordValid = mSuggest.isValidWord(typedWord)
+        boolean typedWordValid = mSuggest.isValidWord(typedWord);/*
                 || (preferCapitalization() && mSuggest.isValidWord(typedWord
-                .toString().toLowerCase()));
+                .toString().toLowerCase()));*/
 
         if (mShowSuggestions || mQuickFixes) {
             correctionAvailable |= typedWordValid;
@@ -3148,7 +3148,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                 Log.d(TAG,
                         "No suggestion is required. I'll try to release memory from the dictionary.");
                 // DictionaryFactory.getInstance().releaseAllDictionaries();
-                mSuggest.setMainDictionary(null);
+                mSuggest.setMainDictionary(getApplicationContext(), null);
                 mSuggest.setUserDictionary(null);
                 mSuggest.setAutoDictionary(null);
                 mLastDictionaryRefresh = -1;
@@ -3190,7 +3190,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                                         getApplicationContext());
                     }
 
-                    mSuggest.setMainDictionary(dictionaryBuilder);
+                    mSuggest.setMainDictionary(getApplicationContext(), dictionaryBuilder);
                     String localeForSupportingDictionaries = dictionaryBuilder != null ? dictionaryBuilder
                             .getLanguage() : defaultDictionary;
                     mUserDictionary = mSuggest.getDictionaryFactory()

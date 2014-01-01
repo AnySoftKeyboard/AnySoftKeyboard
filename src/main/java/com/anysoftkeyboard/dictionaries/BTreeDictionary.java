@@ -203,7 +203,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
     protected abstract void AddWordToStorage(String word, int frequency);
 
     @Override
-    public final void getWords(final WordComposer codes, final WordCallback callback) {
+    public void getWords(final WordComposer codes, final WordCallback callback) {
         if (isLoading() || isClosed()) return;
         mInputLength = codes.length();
         mMaxDepth = mInputLength * 2;
@@ -298,7 +298,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
             if (completion) {
                 word[depth] = c;
                 if (terminal) {
-                    if (!callback.addWord(word, 0, depth + 1, (int) (freq * snr))) {
+                    if (!callback.addWord(word, 0, depth + 1, (int) (freq * snr), this)) {
                         return;
                     }
                 }
@@ -323,7 +323,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
                         if (codes.length() == depth + 1) {
                             if (terminal) {
                                 if (INCLUDE_TYPED_WORD_IF_VALID || !same(word, depth + 1, codes.getTypedWord())) {
-                                    callback.addWord(word, 0, depth + 1, (int) (freq * snr * addedAttenuation * FULL_WORD_FREQ_MULTIPLIER));
+                                    callback.addWord(word, 0, depth + 1, (int) (freq * snr * addedAttenuation * FULL_WORD_FREQ_MULTIPLIER), this);
                                 }
                             }
                             if (children != null) {

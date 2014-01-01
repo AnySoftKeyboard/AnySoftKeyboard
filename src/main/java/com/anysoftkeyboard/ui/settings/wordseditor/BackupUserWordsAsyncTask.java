@@ -22,11 +22,11 @@ import android.os.Environment;
 import android.provider.UserDictionary.Words;
 import android.text.TextUtils;
 import android.widget.Toast;
+
 import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.dictionaries.WordsCursor;
 import com.anysoftkeyboard.utils.Log;
 import com.anysoftkeyboard.utils.XmlWriter;
-import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.io.File;
@@ -35,6 +35,8 @@ import java.util.ArrayList;
 final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
     private static final String TAG = "ASK BackupUDict";
 
+    private final String mFilename;
+
     ArrayList<String> mLocalesToSave = new ArrayList<String>();
 
     private String mLocale;
@@ -42,9 +44,11 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
     private final Context mAppContext;
 
     BackupUserWordsAsyncTask(
-            UserDictionaryEditorFragment userDictionaryEditorActivity) {
-        super(userDictionaryEditorActivity);
-        mAppContext = userDictionaryEditorActivity.getActivity().getApplicationContext();
+            UserDictionaryEditorFragment callingFragment,
+            String filename) {
+        super(callingFragment);
+        mAppContext = callingFragment.getActivity().getApplicationContext();
+        mFilename = filename;
     }
 
     @Override
@@ -71,8 +75,7 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
                 + mAppContext.getPackageName() + "/files/");
         targetFolder.mkdirs();
         // https://github.com/menny/Java-very-tiny-XmlWriter/blob/master/XmlWriter.java
-        XmlWriter output = new XmlWriter(new File(targetFolder,
-                UserDictionaryEditorFragment.ASK_USER_WORDS_SDCARD_FILENAME));
+        XmlWriter output = new XmlWriter(new File(targetFolder, mFilename));
 
         output.writeEntity("userwordlist");
         for (String locale : mLocalesToSave) {

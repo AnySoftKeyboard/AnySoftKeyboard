@@ -130,7 +130,7 @@
     <string name="change_symbols_regular">123</string>
 
     <string name="please_wait">Bonvole atendu</string>
-    <string name="toast_lengthy_words_long_operation">Ŝargante vortaron...</string>
-    <string name="toast_lengthy_start_up_operation">Startante AnySoftKeyboard...</string>
-    <string name="lengthy_creating_keyboard_operation">Kreante klavarojn...</string>
+    <string name="toast_lengthy_words_long_operation">Ŝargante vortaron&#8230;</string>
+    <string name="toast_lengthy_start_up_operation">Startante AnySoftKeyboard&#8230;</string>
+    <string name="lengthy_creating_keyboard_operation">Kreante klavarojn&#8230;</string>
 </resources>

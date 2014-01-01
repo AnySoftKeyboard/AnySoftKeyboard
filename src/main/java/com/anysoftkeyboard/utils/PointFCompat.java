@@ -13,7 +13,7 @@ public class PointFCompat implements Parcelable {
         mPoint = point;
     }
 
-    // Parcelling part
+    // Start of Parcel part
     public PointFCompat(Parcel in){
         float[] data = new float[2];
 
@@ -36,12 +36,13 @@ public class PointFCompat implements Parcelable {
         }
     };
 
-    public PointF getPoint() {return mPoint;}
-
     @Override
     public int describeContents() {
         return 0;
     }
+    //End of Parcel part
+
+    public PointF getPoint() {return mPoint;}
 
     public static PointF getPointFromBundle(Bundle bundle, String pointFCompactKey) {
         if (bundle == null)

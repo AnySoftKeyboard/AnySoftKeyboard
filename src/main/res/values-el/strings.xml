@@ -227,7 +227,7 @@
   <string name="camera_key_for_backspace_backword_support_on_summary">Επαναφορά της λειτουργίας πλήκτρου κάμερας</string>
   <string name="camera_key_for_backspace_backword_support_off_summary">Μισή πίεση στο κουμπί κάμερας διαγράφει τον τελευταίο χαρακτήρα, πλήρης πίεση διαγράφει την τελευταία λέξη
     </string>
-  <string name="menu_even_more_settings">Ακόμη περισσότερα...</string>
+  <string name="menu_even_more_settings">Ακόμη περισσότερα&#8230;</string>
   <string name="more_ui_settings_group">Περιβάλλον χρήστη</string>
   <string name="special_dictionaries_group">Ειδικά λεξικά</string>
   <string name="special_dictionaries_group_summary">Λεξικά υποδείξεων που χρησιμοποιούνται στο AnySoftKeyboard</string>
@@ -423,9 +423,9 @@
   <string name="change_symbols_wide">← 123 ←</string>
   <string name="change_symbols_regular">123</string>
   <string name="please_wait">Παρακαλώ περιμένετε</string>
-  <string name="toast_lengthy_words_long_operation">Φόρτωση λεξικού...</string>
-  <string name="toast_lengthy_start_up_operation">Εκκίνηση του AnySoftKeyboard...</string>
-  <string name="lengthy_creating_keyboard_operation">Δημιουργία πληκτρολογίων...</string>
+  <string name="toast_lengthy_words_long_operation">Φόρτωση λεξικού&#8230;</string>
+  <string name="toast_lengthy_start_up_operation">Εκκίνηση του AnySoftKeyboard&#8230;</string>
+  <string name="lengthy_creating_keyboard_operation">Δημιουργία πληκτρολογίων&#8230;</string>
   <string name="select_keyboard_popup_title">Επιλέξτε πληκτρολόγιο</string>
   <string name="eng_dictionary">Αγγλικά</string>
   <string name="simley_key_name">Πλήκτρο φατσούλας</string>
@@ -503,7 +503,7 @@
   <string name="setup_wizard_step_one_title">Ενεργοποίηση AnySoftKeyboard</string>
   <string name="setup_wizard_step_small_sub_title">Αυτό είναι το πρώτο βήμα, αλλά μην ανησυχείτε, υπάρχουν μόνο τρεία, πολύ απλά βήματα.</string>
   <string name="setup_wizard_step_one_details">Σε αυτό το βήμα, θα πρέπει να ενεργοποιήσετε το <i>AnySoftKeyboard</i>. Παρακαλώ επιλέξτε το <i>\'AnySoftKeyboard\'</i> στη δική σας <i>Γλώσσα &amp; Ρυθμίσεις εισαγωγής</i>. Αυτό θα επιτρέψει την λειτουργία μας στη συσκευή σας.</string>
-  <string name="setup_wizard_step_one_action">Πηγαίνετε στο <i>Γλώσσα &amp; Ρυθμίσεις εισαγωγής</i>...</string>
+  <string name="setup_wizard_step_one_action">Πηγαίνετε στο <i>Γλώσσα &amp; Ρυθμίσεις εισαγωγής</i>&#8230;</string>
   <string name="setup_wizard_top_title">Εγκατάσταση του\nAnySoftKeyboard\nγια χρήση</string>
   <string name="setup_wizard_step_two_title">Μεταβείτε σε AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_small_sub_title">Βήμα δύο από τρία</string>
@@ -511,9 +511,9 @@
   <string name="setup_wizard_step_two_action">Εναλλαγή ενεργών πληκτρολογίων</string>
   <string name="setup_wizard_step_three_title">Το AnySoftKeyboard είναι έτοιμο!</string>
   <string name="setup_wizard_step_three_details">Σας ευχαριστούμε που επιλέξατε το <i>AnySoftKeyboard</i>.\nΑυτό το πληκτρολόγιο υπερέχει στο επίπεδο προσαρμογής. Προχωρήστε και διαμορφώστε:</string>
-  <string name="setup_wizard_step_three_action_languages">Εγκατάσταση γλωσσών...</string>
-  <string name="setup_wizard_step_three_action_themes">Επιλογή θέματος...</string>
-  <string name="setup_wizard_step_three_action_all_settings">Ρύθμιση όλων των άλλων...</string>
+  <string name="setup_wizard_step_three_action_languages">Εγκατάσταση γλωσσών&#8230;</string>
+  <string name="setup_wizard_step_three_action_themes">Επιλογή θέματος&#8230;</string>
+  <string name="setup_wizard_step_three_action_all_settings">Ρύθμιση όλων των άλλων&#8230;</string>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Να εμφανίζεται πάντα το εικονίδιο διάταξης</item>
     <item>Σε αλλαγή του φυσικού πληκτρολογίου</item>

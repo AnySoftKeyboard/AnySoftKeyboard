@@ -14,7 +14,7 @@
   <string name="debug_tracing_finished">S\'ha finalitzat el seguiment!\nEl fitxer es troba a
 <xliff:g id="trace_file">%s</xliff:g>
     </string>
-  <string name="menu_about_item">Quant a...</string>
+  <string name="menu_about_item">Quant a&#8230;</string>
   <string name="click_to_restart_suggestions">Toc per a suggeriments</string>
   <string name="tips_notification_text">Consell del dia!</string>
   <string name="tips_button">Com utilitzar l\'ASK</string>
@@ -180,17 +180,17 @@
   <string name="backword_support_on_summary">Prement la combinació «majúscules + retrocés» s\'esborra la darrera paraula</string>
   <string name="backword_support_off_summary">Prement la tecla majúscules només s\'esborra el darrer caràcter</string>
   <string name="swipe_tweak_group">Associació de gestos al teclat</string>
-  <string name="swipe_up_action">En lliscar amunt...</string>
+  <string name="swipe_up_action">En lliscar amunt&#8230;</string>
   <string name="swipe_up_action_title">Trieu una acció per associar al moviment</string>
   <string name="swipe_up_from_spacebar_action">Canvia la barra d\'espai a dalt</string>
   <string name="swipe_up_from_spacebar_action_title">Trieu una acció per associar a la barra d\'espai</string>
-  <string name="swipe_down_action">En lliscar avall...</string>
+  <string name="swipe_down_action">En lliscar avall&#8230;</string>
   <string name="swipe_down_action_title">Seleccioneu l\'acció de lliscament avall</string>
-  <string name="swipe_left_action">En lliscar a l\'esquerra...</string>
+  <string name="swipe_left_action">En lliscar a l\'esquerra&#8230;</string>
   <string name="swipe_left_action_title">Seleccioneu l\'acció de lliscament a l\'esquerra</string>
   <string name="swipe_right_action">Lliscament a la dreta</string>
   <string name="swipe_right_action_title">Trieu una acció per associar al moviment</string>
-  <string name="pinch_gesture_action">En pessigar la pantalla...</string>
+  <string name="pinch_gesture_action">En pessigar la pantalla&#8230;</string>
   <string name="pinch_gesture_action_title">Trieu una acció per associar al moviment</string>
   <string name="separate_gesture_action">Allarga el gest</string>
   <string name="separate_gesture_action_title">Seleccioneu la mida dels gestos</string>
@@ -320,7 +320,7 @@
   <string name="tweak_animations_level_types_none">Cap efecte</string>
   <string name="cycle_all_symbols_keyboards">Rotació simbòlic/numèric</string>
   <string name="cycle_all_symbols_keyboards_on_summary">Prement « ← 123 ← » canvia el tipus de teclat</string>
-  <string name="cycle_all_symbols_keyboards_off_summary">Prement « ... » canvia el tipus de teclat</string>
+  <string name="cycle_all_symbols_keyboards_off_summary">Prement « &#8230; » canvia el tipus de teclat</string>
   <string name="lang_key_shows_popup">Finestra d\'idioma</string>
   <string name="lang_key_shows_popup_on_summary">Prement « → ABC → » es mostra una finestra de selecció dels teclats disponibles</string>
   <string name="lang_key_shows_popup_off_summary">Prement « → ABC → » es canvia directament entre els teclats disponibles</string>
@@ -406,9 +406,9 @@
   <string name="change_symbols_wide">← 123 ←</string>
   <string name="change_symbols_regular">123</string>
   <string name="please_wait">Espereu</string>
-  <string name="toast_lengthy_words_long_operation">S\'està carregant el diccionari...</string>
-  <string name="toast_lengthy_start_up_operation">S\'està iniciant l\'AnySoftKeyboard...</string>
-  <string name="lengthy_creating_keyboard_operation">S\'estan creant els teclats...</string>
+  <string name="toast_lengthy_words_long_operation">S\'està carregant el diccionari&#8230;</string>
+  <string name="toast_lengthy_start_up_operation">S\'està iniciant l\'AnySoftKeyboard&#8230;</string>
+  <string name="lengthy_creating_keyboard_operation">S\'estan creant els teclats&#8230;</string>
   <string name="select_keyboard_popup_title">Seleccioneu un teclat</string>
   <string name="eng_dictionary">Anglès</string>
   <string name="simley_key_name">Mostra les emoticones</string>

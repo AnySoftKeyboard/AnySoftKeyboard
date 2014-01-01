@@ -29,15 +29,6 @@
             android:summaryOn="@string/auto_complete_summary"
             android:title="@string/auto_complete"/>
 
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:dependency="candidates_on"
-            android:key="quick_fix"
-            android:persistent="true"
-            android:summaryOff=""
-            android:summaryOn="@string/quick_fix_summary"
-            android:title="@string/quick_fix"/>
-
     </PreferenceCategory>
 
     <PreferenceCategory

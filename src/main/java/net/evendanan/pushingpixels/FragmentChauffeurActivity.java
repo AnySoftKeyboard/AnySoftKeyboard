@@ -175,13 +175,10 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        //I know I'm doing something wrong here!
-        if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
-            //This is the last fragment on the stack, so I don't want to pop it and leave the UI empty
-            //So, I'm forcibly poping it, and then going on to super.onBackPressed(), which will cause the Activity
-            //to finish
-            getSupportFragmentManager().popBackStackImmediate();
-        }
         super.onBackPressed();
+        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+            //the UI is empty. I can safely finish the activity
+            finish();
+        }
     }
 }

@@ -119,7 +119,7 @@ public class BinaryDictionary extends Dictionary {
             }
             final int len = (position - start);
             if (len > 0) {
-                requestContinue = callback.addWord(mOutputChars, start, len, mFrequencies[j]);
+                requestContinue = callback.addWord(mOutputChars, start, len, mFrequencies[j], this);
             }
         }
     }
