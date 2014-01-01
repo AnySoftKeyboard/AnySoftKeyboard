@@ -53,11 +53,15 @@
 
     <ImageView
         android:id="@+id/about_donate_paypal"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/donate_paypal"
         android:scaleType="centerInside"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginBottom="8dp"
+        android:padding="6dp"
+        android:clickable="true"
+        android:layout_gravity="center"
+        android:background="@drawable/transparent_click_feedback_background"/>
 
     <TextView
         style="@style/Ask.Text.Normal"

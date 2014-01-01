@@ -36,9 +36,11 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.anysoftkeyboard.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
 import com.anysoftkeyboard.dictionaries.WordsCursor;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
@@ -58,7 +60,7 @@ public class UserDictionaryEditorFragment extends Fragment
 
     private Dialog mDialog;
 
-    public static final String ASK_USER_WORDS_SDCARD_FILENAME = "UserWords.xml";
+    private static final String ASK_USER_WORDS_SDCARD_FILENAME = "UserWords.xml";
 
     static final int DIALOG_SAVE_SUCCESS = 10;
     static final int DIALOG_SAVE_FAILED = 11;
@@ -72,7 +74,7 @@ public class UserDictionaryEditorFragment extends Fragment
 
     WordsCursor mCursor;
     private String mSelectedLocale = null;
-    UserDictionary mCurrentDictionary;
+    EditableDictionary mCurrentDictionary;
 
     AbsListView mWordsListView;//this may be either ListView or GridView (in tablets)
 
@@ -135,10 +137,10 @@ public class UserDictionaryEditorFragment extends Fragment
                 createEmptyItemForAdd();
                 return true;
             case R.id.backup_words:
-                new BackupUserWordsAsyncTask(UserDictionaryEditorFragment.this).execute();
+                new BackupUserWordsAsyncTask(UserDictionaryEditorFragment.this, ASK_USER_WORDS_SDCARD_FILENAME).execute();
                 return true;
             case R.id.restore_words:
-                new RestoreUserWordsAsyncTask(UserDictionaryEditorFragment.this).execute();
+                new RestoreUserWordsAsyncTask(UserDictionaryEditorFragment.this, ASK_USER_WORDS_SDCARD_FILENAME).execute();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -254,7 +256,7 @@ public class UserDictionaryEditorFragment extends Fragment
     }
 
     private Dialog createDialogAlert(int title, int text) {
-        AlertDialog dialog = new AlertDialog.Builder(getActivity())
+        return new AlertDialog.Builder(getActivity())
                 .setTitle(title)
                 .setMessage(text)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -262,31 +264,24 @@ public class UserDictionaryEditorFragment extends Fragment
                         dialog.dismiss();
                     }
                 }).create();
-
-        return dialog;
-    }
-
-    private void addWord(String word) {
-        deleteWord(word);// Disallow duplicates
-        mCurrentDictionary.addWord(word, 128);
     }
 
     private void deleteWord(String word) {
         mCurrentDictionary.deleteWord(word);
     }
 
-    public void fillWordsList() {
+    private void fillWordsList() {
         Log.d(TAG, "Selected locale is " + mSelectedLocale);
         new UserWordsEditorAsyncTask(this) {
-            private UserDictionary mNewDictionary;
-            private List<String> mWordsList;
+            private EditableDictionary mNewDictionary;
+            private List<UserWordsListAdapter.Word> mWordsList;
 
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
                 // all the code below can be safely (and must) be called in the
                 // UI thread.
-                mNewDictionary = new UserDictionary(getActivity().getApplicationContext(), mSelectedLocale);
+                mNewDictionary = getEditableDictionary(mSelectedLocale);
                 if (mNewDictionary != mCurrentDictionary
                         && mCurrentDictionary != null && mCursor != null) {
                     mCurrentDictionary.close();
@@ -302,18 +297,17 @@ public class UserDictionaryEditorFragment extends Fragment
                 mWordsList = new ArrayList<>(mCursor.getCursor().getCount());
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()) {
-                    mWordsList.add(mCursor.getCurrentWord());
+                    UserWordsListAdapter.Word word = new UserWordsListAdapter.Word(
+                            mCursor.getCurrentWord(),
+                            mCursor.getCurrentWordFrequency());
+                    mWordsList.add(word);
                     cursor.moveToNext();
                 }
                 return null;
             }
 
-            protected void applyResults(Void result,
-                                        Exception backgroundException) {
-                UserWordsListAdapter adapter = new UserWordsListAdapter(
-                        UserDictionaryEditorFragment.this.getActivity(),
-                        mWordsList,
-                        UserDictionaryEditorFragment.this);
+            protected void applyResults(Void result, Exception backgroundException) {
+                ListAdapter adapter = getWordsListAdapter(mWordsList);
                 //AbsListView introduced the setAdapter method in API11, so I'm required to check the instance type
                 if (mWordsListView instanceof ListView) {
                     ((ListView)mWordsListView).setAdapter(adapter);
@@ -326,17 +320,28 @@ public class UserDictionaryEditorFragment extends Fragment
         }.execute();
     }
 
+    protected ListAdapter getWordsListAdapter(List<UserWordsListAdapter.Word> wordsList) {
+        return new UserWordsListAdapter(
+                getActivity(),
+                wordsList,
+                this);
+    }
+
+    protected EditableDictionary getEditableDictionary(String locale) {
+        return new UserDictionary(getActivity().getApplicationContext(), locale);
+    }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         ((UserWordsListAdapter) mWordsListView.getAdapter()).onItemClicked(parent, position);
     }
 
     @Override
-    public void onWordDeleted(final String word) {
+    public void onWordDeleted(final UserWordsListAdapter.Word word) {
         new UserWordsEditorAsyncTask(this) {
             @Override
             protected Void doAsyncTask(Void[] params) throws Exception {
-                deleteWord(word);
+                deleteWord(word.word);
                 return null;
             }
 
@@ -348,14 +353,15 @@ public class UserDictionaryEditorFragment extends Fragment
     }
 
     @Override
-    public void onWordUpdated(final String oldWord, final String newWord) {
+    public void onWordUpdated(final String oldWord, final UserWordsListAdapter.Word newWord) {
 
         new UserWordsEditorAsyncTask(this) {
             @Override
             protected Void doAsyncTask(Void[] params) throws Exception {
                 if (!TextUtils.isEmpty(oldWord))//it can be empty in case it's a new word.
                     deleteWord(oldWord);
-                addWord(newWord);
+                deleteWord(newWord.word);
+                mCurrentDictionary.addWord(newWord.word, newWord.frequency);
                 return null;
             }
 

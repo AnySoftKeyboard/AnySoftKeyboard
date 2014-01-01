@@ -19,6 +19,7 @@ package com.anysoftkeyboard.dictionaries.jni;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+
 import com.anysoftkeyboard.WordComposer;
 import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.utils.IMEUtil.GCUtils;
@@ -43,24 +44,22 @@ public class ResourceBinaryDictionary extends Dictionary {
      * keep it at this value because some languages e.g. German have really long
      * words.
      */
-    protected static final int MAX_WORD_LENGTH = 48;
+    private static final int MAX_WORD_LENGTH = 48;
     private static final String TAG = "ASK_ResBinDict";
     private static final int MAX_ALTERNATIVES = 16;
     private static final int MAX_WORDS = 18;
-    private static final int MAX_BIGRAMS = 60;
     private static final boolean ENABLE_MISSED_CHARACTERS = true;
     private final Context mAppContext;
     private final int mDictResId;
-    // private int mDicTypeId;
     private volatile int mNativeDict;
     private int mDictLength;
-    private int[] mInputCodes = new int[MAX_WORD_LENGTH * MAX_ALTERNATIVES];
-    private char[] mOutputChars = new char[MAX_WORD_LENGTH * MAX_WORDS];
-    private char[] mOutputChars_bigrams = new char[MAX_WORD_LENGTH * MAX_BIGRAMS];
-    private int[] mFrequencies = new int[MAX_WORDS];
-    // private int[] mFrequencies_bigrams = new int[MAX_BIGRAMS];
-    // Keep a reference to the native dict direct buffer in Java to avoid
-    // unexpected deallocation of the direct buffer.
+    private final int[] mInputCodes = new int[MAX_WORD_LENGTH * MAX_ALTERNATIVES];
+    private final char[] mOutputChars = new char[MAX_WORD_LENGTH * MAX_WORDS];
+    private final int[] mFrequencies = new int[MAX_WORDS];
+
+    /** NOTE!
+     * Keep a reference to the native dict direct buffer in Java to avoid
+     * unexpected de-allocation of the direct buffer. */
     private ByteBuffer mNativeDictDirectBuffer;
 
     static {
@@ -97,13 +96,6 @@ public class ResourceBinaryDictionary extends Dictionary {
 
     private native int getSuggestionsNative(int dict, int[] inputCodes, int codesSize, char[] outputChars, int[] frequencies, int maxWordLength, int maxWords, int maxAlternatives, int skipPos, int[] nextLettersFrequencies, int nextLettersSize);
 
-	/*
-     * private native int getBigramsNative(int dict, char[] prevWord, int
-	 * prevWordLength, int[] inputCodes, int inputCodesLength, char[]
-	 * outputChars, int[] frequencies, int maxWordLength, int maxBigrams, int
-	 * maxAlternatives);
-	 */
-
     @Override
     protected void loadAllResources() {
         Resources pkgRes = mAppContext.getResources();
@@ -118,6 +110,8 @@ public class ResourceBinaryDictionary extends Dictionary {
             resId = new int[a.length()];
             for (int index = 0; index < a.length(); index++)
                 resId[index] = a.getResourceId(index, 0);
+
+            a.recycle();
         }
 
         GCUtils.getInstance().peformOperationWithMemRetry(TAG, new MemRelatedOperation() {
@@ -163,15 +157,16 @@ public class ResourceBinaryDictionary extends Dictionary {
         } catch (IOException e) {
             Log.w(TAG, "No available memory for binary dictionary: " + e.getMessage());
         } finally {
-            try {
-                if (is != null) {
-                    for (int i = 0; i < is.length; i++) {
-                        is[i].close();
+            if (is != null) {
+                for (InputStream i1 : is) {
+                    try {
+                        i1.close();
+                    } catch (IOException e) {
+                        Log.w(TAG, "Failed to close input stream");
                     }
                 }
-            } catch (IOException e) {
-                Log.w(TAG, "Failed to close input stream");
             }
+
         }
     }
 
@@ -218,7 +213,7 @@ public class ResourceBinaryDictionary extends Dictionary {
                 len++;
             }
             if (len > 0) {
-                requestContinue = callback.addWord(mOutputChars, start, len, mFrequencies[j]/*, mDicTypeId, DataType.UNIGRAM*/);
+                requestContinue = callback.addWord(mOutputChars, start, len, mFrequencies[j]/*, mDicTypeId, DataType.UNIGRAM*/, this);
             }
         }
     }

@@ -176,9 +176,9 @@
     <string name="change_symbols_wide">← 123 ←</string>
     <string name="change_symbols_regular">123</string>
     <string name="please_wait">Калі ласка, пачакайце</string>
-    <string name="toast_lengthy_words_long_operation">Загрузка слоўніка ...</string>
-    <string name="toast_lengthy_start_up_operation">Запуск AnySoftKeyboard...</string>
-    <string name="lengthy_creating_keyboard_operation">Стварэньне клявіятураў...</string>
+    <string name="toast_lengthy_words_long_operation">Загрузка слоўніка &#8230;</string>
+    <string name="toast_lengthy_start_up_operation">Запуск AnySoftKeyboard&#8230;</string>
+    <string name="lengthy_creating_keyboard_operation">Стварэньне клявіятураў&#8230;</string>
     <string name="select_keyboard_popup_title">Абраць клавіятуру</string>
     <string name="eng_dictionary">Ангельская</string>
     <string name="settings_multitap_timeout_faster">Хутчэй</string>

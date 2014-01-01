@@ -5,25 +5,26 @@
     android:orientation="vertical"
     android:padding="8dp"
     android:minHeight="@dimen/comfortable_min_row_height">
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_weight="1">
-        <TextView
-            android:id="@android:id/title"
-            style="@android:style/TextAppearance.Medium"
-            android:layout_width="0px"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
+        android:gravity="center_vertical">
+
         <FrameLayout
             android:id="@android:id/widget_frame"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true" />
 
-        </FrameLayout>
-    </LinearLayout>
+        <TextView
+            android:id="@android:id/title"
+            style="@android:style/TextAppearance.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@android:id/widget_frame" />
+    </RelativeLayout>
 
     <TextView
         android:id="@android:id/summary"

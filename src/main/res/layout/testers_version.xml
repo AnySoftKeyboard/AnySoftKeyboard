@@ -14,38 +14,27 @@
      limitations under the License.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:weightSum="1">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <TextView
         style="@style/Ask.Text.Normal"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:text="@string/beta_tester_message"
         android:autoLink="web"/>
 
-    <LinearLayout
-        android:id="@+id/close_button_layout"
-        android:layout_width="fill_parent"
+    <Button
+        android:id="@+id/close_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/tips_bottom_background"
-        android:orientation="horizontal"
-        android:padding="4dp"
-        android:weightSum="2">
-
-        <Button
-            android:id="@+id/close_button"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="8dp"
-            android:text="@string/close_button"
-            android:onClick="onCloseClicked"/>
-    </LinearLayout>
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:padding="8dp"
+        android:text="@string/close_button"
+        android:onClick="onCloseClicked"/>
 
 </LinearLayout>

@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard.spellcheck;
 
+import com.anysoftkeyboard.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.Dictionary.WordCallback;
 import com.anysoftkeyboard.utils.ArraysCompatUtils;
 import com.anysoftkeyboard.utils.IMEUtil;
@@ -54,12 +55,13 @@ class SuggestionsGatherer implements WordCallback {
         mSuggestionThreshold = suggestionThreshold;
         mLikelyThreshold = likelyThreshold;
         mMaxLength = maxLength;
-        mSuggestions = new ArrayList<CharSequence>(maxLength + 1);
+        mSuggestions = new ArrayList<>(maxLength + 1);
         mScores = new int[mMaxLength];
     }
 
+    @Override
     public boolean addWord(char[] word, int wordOffset, int wordLength,
-                           int frequency) {
+                           int frequency, Dictionary dictionary) {
         final int positionIndex = ArraysCompatUtils.binarySearch(mScores, 0, mLength, frequency);
         // binarySearch returns the index if the element exists, and -<insertion index> - 1
         // if it doesn't. See documentation for binarySearch.

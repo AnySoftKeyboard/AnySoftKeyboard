@@ -551,11 +551,28 @@ Dictionary::checkFirstCharacter(unsigned short *word)
 bool
 Dictionary::isValidWord(unsigned short *word, int length)
 {
+    bool isValid;
     if (checkIfDictVersionIsLatest()) {
-        return (isValidWordRec(DICTIONARY_HEADER_SIZE, word, 0, length) != NOT_VALID_WORD);
+        isValid = (isValidWordRec(DICTIONARY_HEADER_SIZE, word, 0, length) != NOT_VALID_WORD);
     } else {
-        return (isValidWordRec(0, word, 0, length) != NOT_VALID_WORD);
+        isValid = (isValidWordRec(0, word, 0, length) != NOT_VALID_WORD);
     }
+
+    if (!isValid) {
+        //checking the special case when the word is capitalized
+        unsigned short lowerCaseFirstCharacter = toLowerCase(word[0]);
+        if (lowerCaseFirstCharacter == word[0])
+            return false;
+
+        word[0] = lowerCaseFirstCharacter;
+        if (checkIfDictVersionIsLatest()) {
+            isValid = (isValidWordRec(DICTIONARY_HEADER_SIZE, word, 0, length) != NOT_VALID_WORD);
+        } else {
+            isValid = (isValidWordRec(0, word, 0, length) != NOT_VALID_WORD);
+        }
+    }
+
+    return isValid;
 }
 
 int

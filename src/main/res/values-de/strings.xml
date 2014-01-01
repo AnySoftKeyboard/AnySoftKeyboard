@@ -8,7 +8,7 @@
   <string name="subtype_generic">Speller-generic</string>
   <string name="copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
   <string name="version_text"><xliff:g id="version_name"> %s </xliff:g> \u0020 (V <xliff:g id="version_number"> %s </xliff:g>)</string>
-  <string name="additional_licenses"><u>Zusätzliche Lizenzen...</u></string>
+  <string name="additional_licenses"><u>Zusätzliche Lizenzen&#8230;</u></string>
   <string name="debug_tracing_starting">Tracing gestartet!\nNicht vergessen es später wieder auszuschalten</string>
   <string name="debug_tracing_starting_failed">Initiierung des Tracings ist fehlgeschlagen! Siehe LogCat für weitere Infos.</string>
   <string name="debug_tracing_finished">Tracing beendet!\nDie Datei ist 
@@ -447,9 +447,9 @@
   <string name="setup_wizard_step_two_action">Aktive Tastaturen tauschen</string>
   <string name="setup_wizard_step_three_title">AnySoftKeyboard ist bereit!</string>
   <string name="setup_wizard_step_three_details">Danke, dass du <i>AnySoftKeyboard</i> ausgewählt hast.\nDiese Tastatur zeichnet sich durch ein grosses Grad an Anpassungsfähigkeit aus. Personalisiere es:</string>
-  <string name="setup_wizard_step_three_action_languages">Sprachen Installieren...</string>
-  <string name="setup_wizard_step_three_action_themes">Thema wählen...</string>
-  <string name="setup_wizard_step_three_action_all_settings">Etwas anderes EInstellen...</string>
+  <string name="setup_wizard_step_three_action_languages">Sprachen Installieren&#8230;</string>
+  <string name="setup_wizard_step_three_action_themes">Thema wählen&#8230;</string>
+  <string name="setup_wizard_step_three_action_all_settings">Etwas anderes EInstellen&#8230;</string>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Zeige das Layout-Symbol immer</item>
     <item>Nur beim Wechsel des Tastaturlayouts</item>

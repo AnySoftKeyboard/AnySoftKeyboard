@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -16,7 +17,6 @@
             android:id="@+id/dev_title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="AnySoftKeyboard v99"
             android:layout_marginBottom="16dp"
             android:gravity="center" />
 
@@ -24,7 +24,8 @@
             style="@style/Ask.Text.SubTitle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Memory" />
+            android:text="Memory"
+            tools:ignore="HardcodedText" />
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -38,7 +39,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="8dp"
-                android:text="Dump to SDCARD" />
+                android:text="Dump to SD-Card"
+                tools:ignore="HardcodedText" />
 
             <Button
                 android:id="@+id/dev_share_mem_file"
@@ -47,14 +49,16 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="8dp"
                 android:enabled="false"
-                android:text="Send" />
+                android:text="Send"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
 
         <TextView
             style="@style/Ask.Text.SubTitle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Tracing" />
+            android:text="Tracing"
+            tools:ignore="HardcodedText" />
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -68,7 +72,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="8dp"
-                android:text="Enable tracing" />
+                android:text="Enable tracing"
+                tools:ignore="HardcodedText" />
 
             <ProgressBar
                 android:id="@+id/dev_tracing_running_progress_bar"
@@ -85,14 +90,16 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="8dp"
                 android:enabled="false"
-                android:text="Send" />
+                android:text="Send"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
 
         <TextView
             style="@style/Ask.Text.SubTitle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="LogCat" />
+            android:text="LogCat"
+            tools:ignore="HardcodedText" />
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -107,7 +114,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="8dp"
-                android:text="Show LogCat" />
+                android:text="Show LogCat"
+                tools:ignore="HardcodedText" />
 
             <Button
                 android:id="@+id/share_logcat_button"
@@ -116,7 +124,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="8dp"
                 android:enabled="true"
-                android:text="Send" />
+                android:text="Send"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
     </LinearLayout>
 

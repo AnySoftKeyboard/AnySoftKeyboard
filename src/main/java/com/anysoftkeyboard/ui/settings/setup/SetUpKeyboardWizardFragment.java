@@ -99,6 +99,7 @@ public class SetUpKeyboardWizardFragment extends PassengerFragment {
 
     private boolean mReloadPager = false;
     private View mFullIndicator;
+    private boolean isInTabletUi = false;
 
     private void setFullIndicatorTo(int position, float offset) {
         if (mFullIndicator == null) return;
@@ -125,7 +126,20 @@ public class SetUpKeyboardWizardFragment extends PassengerFragment {
         super.onViewCreated(view, savedInstanceState);
         mFullIndicator = view.findViewById(R.id.selected_page_indicator);
         mWizardPager = (ViewPager) view.findViewById(R.id.wizard_pages_pager);
-        if (mWizardPager != null) {
+        isInTabletUi = (mWizardPager == null);
+        if (isInTabletUi) {
+            if (savedInstanceState == null) {
+                //I to prevent leaks and duplicate ID errors, I must use the getChildFragmentManager
+                //to add the inner fragments into the UI.
+                //See: https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/285
+                FragmentManager fragmentManager = getChildFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.wizard_step_one, new WizardPageEnableKeyboardFragment())
+                        .replace(R.id.wizard_step_two, new WizardPageSwitchToKeyboardFragment())
+                        .replace(R.id.wizard_step_three, new WizardPageDoneAndMoreSettingsFragment())
+                        .commit();
+            }
+        } else {
             mWizardPager.setAdapter(new WizardPagesAdapter(getChildFragmentManager()));
             mWizardPager.setOnPageChangeListener(onPageChangedListener);
         }
@@ -143,14 +157,14 @@ public class SetUpKeyboardWizardFragment extends PassengerFragment {
     }
 
     private void refreshFragmentsUi() {
-        if (mWizardPager != null) {
-            mWizardPager.getAdapter().notifyDataSetChanged();
-            scrollToPageRequiresSetup();
-        } else {
-            FragmentManager fragmentManager = getFragmentManager();
+        if (isInTabletUi) {
+            FragmentManager fragmentManager = getChildFragmentManager();
             refreshFragmentUi(fragmentManager, R.id.wizard_step_one);
             refreshFragmentUi(fragmentManager, R.id.wizard_step_two);
             refreshFragmentUi(fragmentManager, R.id.wizard_step_three);
+        } else {
+            mWizardPager.getAdapter().notifyDataSetChanged();
+            scrollToPageRequiresSetup();
         }
     }
 
@@ -162,7 +176,7 @@ public class SetUpKeyboardWizardFragment extends PassengerFragment {
     }
 
     private void scrollToPageRequiresSetup() {
-        if (mWizardPager == null)
+        if (isInTabletUi)
             return;
 
         int positionToStartAt = 0;

@@ -15,12 +15,9 @@
 
     <string name="settings_key_lang_key_shows_popup">lang_key_shows_popup</string>
 
-    <string name="settings_key_use_custom_keytext_color_key">settings_key_use_custom_keytext_color_key</string>
-
     <string name="settings_key_show_keyboard_name_text_key">settings_key_show_keyboard_name_text_key</string>
 
     <string name="settings_key_show_hint_text_key">settings_key_show_hint_text_key</string>
-    <string name="settings_key_use_custom_hint_color_key">settings_key_use_custom_hint_color_key</string>
     <string name="settings_key_use_custom_hint_align_key">settings_key_use_custom_hint_align</string>
     <string name="settings_key_custom_hint_align_key">settings_key_custom_hint_align_key</string>
     <string name="settings_key_custom_hint_valign_key">settings_key_custom_hint_valign_key</string>
@@ -31,8 +28,6 @@
     <string name="settings_key_smiley_icon_on_smileys_key">settings_key_smiley_icon_on_smileys_key</string>
 
     <string name="settings_key_emoticon_long_press_opens_popup">emoticon_long_press_opens_popup</string>
-
-    <string name="settings_key_show_version_notification">settings_key_show_version_notification</string>
 
     <string name="settings_key_show_tips_notification">settings_key_show_tips_notification</string>
 
@@ -223,6 +218,7 @@
     <string name="settings_key_last_app_version_installed">settings_key_last_app_version_installed</string>
     <string name="settings_key_first_time_current_version_installed">settings_key_first_time_current_version_installed</string>
     <string name="user_dict_editor_key">user_dict_editor_key</string>
+    <string name="abbreviation_dict_editor_key">abbreviation_dict_editor_key</string>
 
     <string name="tweaks_group_key">tweaks</string>
 

@@ -19,11 +19,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:descendantFocusability="beforeDescendants"/>
+    <include layout="@layout/user_dictionary_editor_abslistview" />
 
     <LinearLayout
         android:id="@+id/empty_user_dictionary"

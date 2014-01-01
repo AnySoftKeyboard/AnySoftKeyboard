@@ -31,7 +31,8 @@ public class WMotionEventV5 extends WMotionEventV3 {
     }
 
     public int getActionIndex() {
-        return (mNativeMotionEvent.getAction() & MotionEvent.ACTION_POINTER_INDEX_MASK) >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
+        return (mNativeMotionEvent.getAction() & 0xff00/*MotionEvent.ACTION_POINTER_INDEX_MASK*/)
+                >> 8/*MotionEvent.ACTION_POINTER_INDEX_SHIFT*/;
     }
 
     public int getPointerId(int index) {

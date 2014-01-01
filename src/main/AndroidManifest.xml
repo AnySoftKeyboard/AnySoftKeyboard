@@ -11,11 +11,6 @@
         android:xlargeScreens="true"/>
     <!-- http://d.android.com/guide/practices/screens_support.html read about legacy. -->
 
-    <uses-sdk
-        android:minSdkVersion="7"
-        android:targetSdkVersion="18">
-    </uses-sdk>
-
     <uses-permission android:name="android.permission.VIBRATE"/>
     <!-- required for the user dictionary (long press a word in the suggestions bar) -->
     <uses-permission android:name="android.permission.READ_USER_DICTIONARY"/>
@@ -95,15 +90,13 @@
             android:name="com.anysoftkeyboard.ui.tutorials.TestersNoticeActivity"
             android:icon="@drawable/ic_launcher"
             android:label="@string/testers_version"
+            android:launchMode="singleTop"
             android:theme="@style/Theme.AskApp.Popup">
         </activity>
         <!-- ui when a crash happens -->
         <activity android:theme="@style/Theme.AskApp.NoTitle"
             android:name="com.anysoftkeyboard.ui.SendBugReportUiActivity"
             android:icon="@drawable/ic_launcher"
-            android:excludeFromRecents="true"
-            android:finishOnTaskLaunch="true"
-            android:launchMode="singleInstance"
             android:label="@string/ime_name">
         </activity>
         <!--

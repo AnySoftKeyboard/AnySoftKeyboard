@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp">
+    android:layout_margin="8dp"
+    android:weightSum="1"
+    android:animateLayoutChanges="true">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Ask.Text.Title"
         android:gravity="center_horizontal"
-        android:text="@string/ime_crashed_title"/>
+        android:text="@string/ime_crashed_title" />
 
     <TextView
         android:layout_width="match_parent"
@@ -18,9 +21,9 @@
         style="@style/Ask.Text.Small.Error"
         android:layout_marginTop="4dp"
         android:gravity="center_horizontal"
-        android:text="@string/ime_crashed_sub_text"/>
+        android:text="@string/ime_crashed_sub_text" />
 
-    <View style="@style/Ask.Menu.Item.Title.Divider"/>
+    <View style="@style/Ask.Menu.Item.Title.Divider" />
 
     <TextView
         style="@style/Ask.Text.Normal"
@@ -28,14 +31,25 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:padding="4dp"
-        android:text="@string/ime_crashed_text"/>
+        android:text="@string/ime_crashed_text" />
 
     <TextView
         android:id="@+id/ime_crash_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        style="@style/Ask.Text.Small.Error"/>
+        style="@style/Ask.Text.Small.Error"
+        android:clickable="true"
+        android:onClick="onClickOnType"
+        android:background="@drawable/transparent_click_feedback_background" />
+
+    <FrameLayout
+        android:id="@+id/logcat_fragment_container"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:layout_margin="8dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,6 +59,7 @@
         android:baselineAligned="false"
         android:orientation="horizontal"
         android:gravity="center_horizontal">
+
         <View
             android:layout_width="0px"
             android:layout_height="1px"
@@ -54,7 +69,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/ime_crashed_cancel_button"
-            android:onClick="onCancelCrashReport"/>
+            android:onClick="onCancelCrashReport" />
+
         <View
             android:layout_width="0px"
             android:layout_height="1px"
@@ -66,11 +82,11 @@
             android:text="@string/ime_crashed_send_button"
             android:drawableRight="@drawable/ic_accept"
             android:drawablePadding="4dp"
-            android:onClick="onSendCrashReport"/>
+            android:onClick="onSendCrashReport" />
 
         <View
             android:layout_width="0px"
             android:layout_height="1px"
             android:layout_weight="2" />
-        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>
