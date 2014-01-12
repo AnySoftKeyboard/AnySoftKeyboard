@@ -25,6 +25,8 @@ import com.menny.android.anysoftkeyboard.FeaturesSet;
 
 import java.util.ArrayList;
 
+import javax.annotation.Nonnull;
+
 public class Log {
     private static final boolean DEBUG = FeaturesSet.DEBUG_LOG;
 
@@ -48,21 +50,25 @@ public class Log {
         }
     }
 
+    @Nonnull
     public synchronized static ArrayList<String> getAllLogLinesList() {
         ArrayList<String> lines = new ArrayList<String>(msLogs.length);
-        int index = msLogIndex;
-        do {
-            index--;
-            if (index == -1) index = msLogs.length - 1;
-            String logLine = msLogs[index];
-            if (logLine == null)
-                break;
-            lines.add(msLogs[index]);
+        if (msLogs.length > 0) {
+            int index = msLogIndex;
+            do {
+                index--;
+                if (index == -1) index = msLogs.length - 1;
+                String logLine = msLogs[index];
+                if (logLine == null)
+                    break;
+                lines.add(msLogs[index]);
+            }
+            while (index != msLogIndex);
         }
-        while (index != msLogIndex);
         return lines;
     }
 
+    @Nonnull
     public synchronized static String getAllLogLines() {
         if (DEBUG) {
             ArrayList<String> lines = getAllLogLinesList();
