@@ -212,7 +212,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
 
     @Override
     public boolean isValidWord(CharSequence word) {
-        return getWordFrequencyRec(mRoots, word, 0, word.length()) > 0;
+        return getWordFrequency(word) > 0;
     }
 
 
