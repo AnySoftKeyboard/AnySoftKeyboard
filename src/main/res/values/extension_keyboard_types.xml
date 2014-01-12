@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedResources">
     <integer name="extension_keyboard_type_bottom_row">1</integer>
     <integer name="extension_keyboard_type_top_row">2</integer>
     <integer name="extension_keyboard_type_extension_keyboard">3</integer>

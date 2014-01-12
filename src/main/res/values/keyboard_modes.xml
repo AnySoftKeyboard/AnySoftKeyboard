@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedResources">
     <integer name="keyboard_mode_normal">1</integer>
     <integer name="keyboard_mode_im">2</integer>
     <integer name="keyboard_mode_url">3</integer>
