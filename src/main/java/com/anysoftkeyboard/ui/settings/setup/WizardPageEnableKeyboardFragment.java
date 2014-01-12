@@ -1,5 +1,6 @@
 package com.anysoftkeyboard.ui.settings.setup;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.database.ContentObserver;
@@ -11,6 +12,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.menny.android.anysoftkeyboard.R;
 
@@ -83,7 +85,12 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
                         45*1000/*45 seconds to change a checkbox is enough. After that, I wont listen to changes anymore.*/);
                 Intent startSettings = new Intent(android.provider.Settings.ACTION_INPUT_METHOD_SETTINGS);
                 startSettings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                mAppContext.startActivity(startSettings);
+                try {
+                    mAppContext.startActivity(startSettings);
+                } catch (ActivityNotFoundException notFoundEx) {
+                    //weird.. the device does not have the IME setting activity. Nook?
+                    Toast.makeText(mAppContext, R.string.setup_wizard_step_one_action_error_no_settings_activity, Toast.LENGTH_LONG);
+                }
             }
         });
     }
