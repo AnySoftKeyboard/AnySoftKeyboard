@@ -18,6 +18,8 @@ package com.anysoftkeyboard.addons;
 
 import android.graphics.drawable.Drawable;
 
+import javax.annotation.Nullable;
+
 public interface IconHolder {
-    Drawable getIcon();
+    @Nullable Drawable getIcon();
 }
