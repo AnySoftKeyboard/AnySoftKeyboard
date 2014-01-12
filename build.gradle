@@ -44,16 +44,19 @@ def String getVersionPatchBuild() {
     return dateFormat.format(date)
 }
 
+version "1.2."+getVersionPatchBuild()
+group 'net.evendanan'
+
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.0.0"
+    buildToolsVersion "19.0.1"
 
     defaultConfig {
         versionCode 121
         versionName "1.2."+getVersionPatchBuild()
 
         minSdkVersion 7
-        targetSdkVersion 18
+        targetSdkVersion 19
         //adding additional fields to the BuildConfig class.
 
         //extra details - from local
@@ -133,11 +136,11 @@ android {
 }
 
 dependencies {
-    compile 'net.evendanan.anysoftkeyboard:api:1.2.0@aar'
-    compile 'com.android.support:support-v4:19.0.0'
-    compile 'net.evendanan:frankenrobot:1.1@aar'
-    compile 'com.android.support:appcompat-v7:19.0.0'
-    compile 'com.google.code.findbugs:jsr305:2.0.1'
+    compile project(':AnySoftKeyboard-API')
+    compile 'com.android.support:support-v4:19.0.1'
+    compile 'net.evendanan:frankenrobot:1.1.1@aar'
+    compile 'com.android.support:appcompat-v7:19.0.1'
+    compile 'com.google.code.findbugs:jsr305:2.0.2'
     //https://groups.google.com/d/msg/adt-dev/nQobKd2Gl_8/Z5yWAvCh4h4J
     compile fileTree(dir: 'libs', include: 'native_libs.jar')
 }
