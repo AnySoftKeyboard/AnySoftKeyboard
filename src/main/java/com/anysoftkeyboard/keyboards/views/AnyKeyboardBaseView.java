@@ -202,8 +202,6 @@ public class AnyKeyboardBaseView extends View implements
     int mSwipeSpaceXDistanceThreshold;
     int mScrollXDistanceThreshold;
     int mScrollYDistanceThreshold;
-    final boolean mDisambiguateSwipe;
-    // private boolean mInScrollGesture = false;
 
     // Drawing
     /**
@@ -715,7 +713,6 @@ public class AnyKeyboardBaseView extends View implements
 
         reloadSwipeThresholdsSettings(res);
 
-        mDisambiguateSwipe = res.getBoolean(R.bool.config_swipeDisambiguation);
         mMiniKeyboardSlideAllowance = res
                 .getDimension(R.dimen.mini_keyboard_slide_allowance);
 
