@@ -196,7 +196,6 @@ public class AnyKeyboardBaseView extends View implements
     // Swipe gesture detector
     private GestureDetector mGestureDetector;
 
-    private final SwipeTracker mSwipeTracker = new SwipeTracker();
     int mSwipeVelocityThreshold;
     int mSwipeXDistanceThreshold;
     int mSwipeYDistanceThreshold;
@@ -720,8 +719,7 @@ public class AnyKeyboardBaseView extends View implements
         mMiniKeyboardSlideAllowance = res
                 .getDimension(R.dimen.mini_keyboard_slide_allowance);
 
-        AskOnGestureListener listener = new AskGestureEventsListener(this,
-                mSwipeTracker);
+        AskOnGestureListener listener = new AskGestureEventsListener(this);
 
         mGestureDetector = AnyApplication.getDeviceSpecific()
                 .createGestureDetector(getContext(), listener);
@@ -2481,9 +2479,6 @@ public class AnyKeyboardBaseView extends View implements
         if (!mHasDistinctMultitouch && pointerCount > 1 && oldPointerCount > 1) {
             return true;
         }
-
-        // Track the last few movements to look for spurious swipes.
-        mSwipeTracker.addMovement(nativeMotionEvent);
 
         // Gesture detector must be enabled only when mini-keyboard is not
         // on the screen.
