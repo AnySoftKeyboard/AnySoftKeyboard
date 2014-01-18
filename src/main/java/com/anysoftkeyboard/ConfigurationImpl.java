@@ -245,7 +245,7 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 
         //please note: the default value should be the last version.
         //upgrading should only be done when actually need to be done.
-        int configurationVersion = sp.getInt(CONFIGURATION_VERSION, 5);
+        int configurationVersion = sp.getInt(CONFIGURATION_VERSION, 6);
         if (configurationVersion < 1) {
             boolean oldLandscapeFullScreenValue = sp.getBoolean("fullscreen_input_connection_supported",
                     mContext.getResources().getBoolean(R.bool.settings_default_landscape_fullscreen));
@@ -309,6 +309,16 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
                     getAlwaysUseDrawTextDefault());
             //saving config level
             e.putInt(CONFIGURATION_VERSION, 5);
+            e.commit();
+        }
+
+        if (configurationVersion < 6) {
+            Editor e = sp.edit();
+            Log.i(TAG, "Resetting settings_default_allow_suggestions_restart...");
+            //read issue https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/299
+            e.remove(mContext.getString(R.string.settings_key_allow_suggestions_restart));
+            //saving config level
+            e.putInt(CONFIGURATION_VERSION, 6);
             e.commit();
         }
     }
