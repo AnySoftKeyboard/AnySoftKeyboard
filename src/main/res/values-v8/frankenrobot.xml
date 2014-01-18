@@ -2,7 +2,6 @@
 <resources>
     <string name="frankenrobot_device_specific_implementation" translatable="false">com.anysoftkeyboard.devicespecific.DeviceSpecific_V8
     </string>
-    <string name="frankenrobot_motion_event_implementation" translatable="false">com.anysoftkeyboard.keyboards.views.WMotionEventV8</string>
     <string name="frankenrobot_cloud_backup_implementation" translatable="false">com.anysoftkeyboard.backup.CloudBackupRequesterApi8</string>
     <string name="frankenrobot_voice_input_implementation" translatable="false">com.anysoftkeyboard.voice.VoiceRecognitionTrigger</string>
 </resources>

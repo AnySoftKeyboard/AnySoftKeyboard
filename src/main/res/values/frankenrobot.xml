@@ -2,7 +2,6 @@
 <resources>
     <string-array name="frankenrobot_interfaces_mapping" translatable="false">
         <item>com.anysoftkeyboard.devicespecific.DeviceSpecific is @string/frankenrobot_device_specific_implementation</item>
-        <item>com.anysoftkeyboard.keyboards.views.WMotionEvent is @string/frankenrobot_motion_event_implementation</item>
         <item>com.anysoftkeyboard.backup.CloudBackupRequester is @string/frankenrobot_cloud_backup_implementation</item>
         <item>com.anysoftkeyboard.dictionaries.DictionaryContentObserver is @string/frankenrobot_dictionary_observer_implementation</item>
         <item>com.anysoftkeyboard.voice.VoiceInput is @string/frankenrobot_voice_input_implementation</item>
@@ -11,11 +10,9 @@
     </string-array>
 
     <string name="frankenrobot_device_specific_implementation" translatable="false">com.anysoftkeyboard.devicespecific.DeviceSpecific_V3</string>
-    <string name="frankenrobot_motion_event_implementation" translatable="false">com.anysoftkeyboard.keyboards.views.WMotionEventV3</string>
     <string name="frankenrobot_cloud_backup_implementation" translatable="false">@null</string>
     <string name="frankenrobot_dictionary_observer_implementation" translatable="false">com.anysoftkeyboard.dictionaries.DictionaryContentObserver</string>
     <string name="frankenrobot_voice_input_implementation" translatable="false">com.anysoftkeyboard.voice.VoiceInputEmptyImpl</string>
     <string name="frankenrobot_clipboard_implementation" translatable="false">com.anysoftkeyboard.devicespecific.ClipboardV3</string>
-
     <string name="frankenrobot_strict_mode_implementation" translatable="false">@null</string>
 </resources>
