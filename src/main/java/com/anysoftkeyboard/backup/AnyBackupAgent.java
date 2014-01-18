@@ -51,6 +51,9 @@ public class AnyBackupAgent extends BackupAgentHelper {
                     //RTL is device specific
                     if (key.equalsIgnoreCase(getApplicationContext().getString(R.string.settings_key_workaround_disable_rtl_fix)))
                         return;
+                    //restart is OS version specific
+                    if (key.equalsIgnoreCase(getApplicationContext().getString(R.string.settings_key_allow_suggestions_restart)))
+                        return;
                 }
                 super.restoreEntity(data);
             }

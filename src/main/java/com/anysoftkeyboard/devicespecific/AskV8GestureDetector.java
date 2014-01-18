@@ -19,6 +19,7 @@ package com.anysoftkeyboard.devicespecific;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Handler;
+import android.support.v4.view.MotionEventCompat;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -29,8 +30,12 @@ import com.anysoftkeyboard.utils.Log;
 public class AskV8GestureDetector extends GestureDetector {
     private static final String TAG = "AskV8GestureDetector";
 
+    private static final int NOT_A_POINTER_ID = -1;
+
     private final ScaleGestureDetector mScaleGestureDetector;
     private final AskOnGestureListener mListener;
+
+    private int mSingleFingerEventPointerId = NOT_A_POINTER_ID;
 
     public AskV8GestureDetector(Context context, AskOnGestureListener listener,
                                 Handler handler, boolean ignoreMultitouch) {
@@ -56,6 +61,17 @@ public class AskV8GestureDetector extends GestureDetector {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
+        //I want to keep track on the first finger (https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/300)
+        switch (MotionEventCompat.getActionMasked(ev)){
+            case MotionEvent.ACTION_DOWN:
+                if (ev.getPointerCount() == 1)
+                    mSingleFingerEventPointerId = ev.getPointerId(0);
+                break;
+            case MotionEvent.ACTION_CANCEL:
+            case MotionEvent.ACTION_UP:
+                if (ev.getPointerCount() == 1)
+                    mSingleFingerEventPointerId = NOT_A_POINTER_ID;
+        }
         try {
             //https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/26
             mScaleGestureDetector.onTouchEvent(ev);
@@ -64,7 +80,12 @@ public class AskV8GestureDetector extends GestureDetector {
         } catch (ArrayIndexOutOfBoundsException e) {
             //I have nothing I can do here.
         }
-        return super.onTouchEvent(ev);
+        //I'm going to pass the event to the super, only if it is a single touch, and the event is for the first finger
+        //https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/300
+        if (ev.getPointerCount() == 1 && ev.getPointerId(0) == mSingleFingerEventPointerId)
+            return super.onTouchEvent(ev);
+        else
+            return false;
     }
 
 }

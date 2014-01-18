@@ -22,6 +22,8 @@ import android.content.pm.PackageManager.NameNotFoundException;
 
 import java.lang.ref.WeakReference;
 
+import javax.annotation.Nullable;
+
 public abstract class AddOnImpl implements AddOn {
 
     private final String mId;
@@ -55,6 +57,7 @@ public abstract class AddOnImpl implements AddOn {
         return mPackageName;
     }
 
+    @Nullable
     public final Context getPackageContext() {
         Context c = mPackageContext.get();
         if (c == null) {

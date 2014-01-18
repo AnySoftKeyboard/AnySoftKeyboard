@@ -765,6 +765,7 @@
     <string name="setup_wizard_step_small_sub_title">This is the first step, but don\'t worry, there are only three, very simple steps.</string>
     <string name="setup_wizard_step_one_details">In this step, you\'ll need to enable <i>AnySoftKeyboard</i>. Please check <i>\'AnySoftKeyboard\'</i> in your <i>Language&amp;Input settings</i>. This will allow us to run on your device.</string>
     <string name="setup_wizard_step_one_action">Go to your <i>Language&amp;Input settings</i>…</string>
+    <string name="setup_wizard_step_one_action_error_no_settings_activity">Error: Your device does not support 3rd-party keyboards. AnySoftKeyboard can not be activated!</string>
     <string name="setup_wizard_top_title">Setup\nAnySoftKeyboard\nfor use</string>
     <string name="setup_wizard_top_title_tablet">Setup AnySoftKeyboard for use</string>
     <string name="setup_wizard_step_two_title">Switch to AnySoftKeyboard</string>

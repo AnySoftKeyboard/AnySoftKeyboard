@@ -819,14 +819,8 @@ public class AnySoftKeyboard extends InputMethodService implements
             // mCurrentlyAllowSuggestionRestart - workaround for
             // onInputStart(restarting == true)
             // mInputView == null - obvious, no?
-            Log.d(TAG,
-                        "performRestartWordSuggestion: no need to restart - "
-                                + " mPredicting=" + mPredicting
-                                + ", isPredictionOn=" + isPredictionOn()
-                                + ", mAllowSuggestionsRestart="
-                                + mAllowSuggestionsRestart
-                                + ", mCurrentlyAllowSuggestionRestart="
-                                + mCurrentlyAllowSuggestionRestart);
+            Log.d(TAG, "performRestartWordSuggestion: no need to restart: mPredicting=%s, isPredictionOn=%s, mAllowSuggestionsRestart=%s, mCurrentlyAllowSuggestionRestart=%s"
+                    , mPredicting, isPredictionOn(), mAllowSuggestionsRestart,  mCurrentlyAllowSuggestionRestart);
             return false;
         } else if (!isCursorTouchingWord()) {
             Log.d(TAG, "User moved cursor to no-man land. Bye bye.");
@@ -1019,10 +1013,6 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     private void clearSuggestions() {
-		/*
-		 * if (mRestartSuggestionsView != null)
-		 * mRestartSuggestionsView.setVisibility(View.GONE);
-		 */
         setSuggestions(null, false, false, false);
     }
 
