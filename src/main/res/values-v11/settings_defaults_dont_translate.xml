@@ -3,4 +3,7 @@
     <!-- DO NOT TRANSLATE -->
     <!-- Android has working, native RTL support starting with Honeycomb -->
     <bool name="settings_default_workaround_disable_rtl_fix">true</bool>
+    <!-- not restarting by default on Honeycomb and later, this is because the OS has a build-in dictionary -->
+    <bool name="settings_default_allow_suggestions_restart">false</bool>
+
 </resources>
