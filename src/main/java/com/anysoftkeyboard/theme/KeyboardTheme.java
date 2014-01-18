@@ -23,6 +23,8 @@ import com.anysoftkeyboard.addons.AddOnImpl;
 import com.anysoftkeyboard.addons.ScreenshotHolder;
 import com.anysoftkeyboard.utils.Log;
 
+import javax.annotation.Nullable;
+
 public class KeyboardTheme extends AddOnImpl implements ScreenshotHolder {
 
     private static final String TAG = "ASK KBD-THEME";
@@ -55,10 +57,13 @@ public class KeyboardTheme extends AddOnImpl implements ScreenshotHolder {
         return (mThemeScreenshotResId != INVALID_RES_ID);
     }
 
+    @Nullable
     public Drawable getScreenshot() {
         try {
             if (mThemeScreenshotResId != INVALID_RES_ID) {
-                return getPackageContext().getResources().getDrawable(mThemeScreenshotResId);
+                Context packageContext = getPackageContext();
+                if (packageContext == null) return null;
+                return packageContext.getResources().getDrawable(mThemeScreenshotResId);
             } else {
                 return null;
             }

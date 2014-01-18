@@ -18,8 +18,10 @@ package com.anysoftkeyboard.addons;
 
 import android.graphics.drawable.Drawable;
 
+import javax.annotation.Nullable;
+
 public interface ScreenshotHolder {
-    Drawable getScreenshot();
+    @Nullable Drawable getScreenshot();
 
     boolean hasScreenshot();
 }

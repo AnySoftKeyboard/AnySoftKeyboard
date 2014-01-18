@@ -25,6 +25,8 @@ import com.anysoftkeyboard.addons.IconHolder;
 import com.anysoftkeyboard.addons.ScreenshotHolder;
 import com.anysoftkeyboard.utils.Log;
 
+import javax.annotation.Nullable;
+
 public class KeyboardAddOnAndBuilder extends AddOnImpl implements IconHolder, ScreenshotHolder {
 
     public static final String KEYBOARD_PREF_PREFIX = "keyboard_";
@@ -77,10 +79,13 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl implements IconHolder, Sc
         return mDefaultDictionary;
     }
 
+    @Nullable
     public Drawable getIcon() {
         try {
             if (mIconResId != INVALID_RES_ID) {
-                return getPackageContext().getResources().getDrawable(mIconResId);
+                Context packageContext = getPackageContext();
+                if (packageContext == null) return null;
+                return packageContext.getResources().getDrawable(mIconResId);
             } else {
                 return null;
             }
@@ -94,10 +99,13 @@ public class KeyboardAddOnAndBuilder extends AddOnImpl implements IconHolder, Sc
         return (mScreenshotResId != INVALID_RES_ID);
     }
 
+    @Nullable
     public Drawable getScreenshot() {
         try {
             if (mScreenshotResId != INVALID_RES_ID) {
-                return getPackageContext().getResources().getDrawable(mScreenshotResId);
+                Context packageContext = getPackageContext();
+                if (packageContext == null) return null;
+                return packageContext.getResources().getDrawable(mScreenshotResId);
             } else {
                 return null;
             }

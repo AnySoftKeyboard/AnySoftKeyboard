@@ -43,8 +43,6 @@
     <bool name="settings_default_is_sticky_extesion_keyboard">false</bool>
     <bool name="settings_default_is_extesion_keyboard_above_keyboard">true</bool>
 
-    <bool name="config_swipeDisambiguation">true</bool>
-
     <string name="settings_default_swipe_velocity_threshold">380</string>
     <string name="settings_default_swipe_distance_threshold">140</string>
 

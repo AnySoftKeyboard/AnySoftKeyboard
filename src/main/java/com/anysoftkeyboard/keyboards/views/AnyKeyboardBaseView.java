@@ -35,6 +35,7 @@ import android.graphics.drawable.NinePatchDrawable;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.support.v4.view.MotionEventCompat;
 import android.text.Layout.Alignment;
 import android.text.StaticLayout;
 import android.text.TextPaint;
@@ -180,9 +181,8 @@ public class AnyKeyboardBaseView extends View implements
      */
     OnKeyboardActionListener mKeyboardActionListener;
 
-    private final ArrayList<PointerTracker> mPointerTrackers = new ArrayList<PointerTracker>();
+    private final ArrayList<PointerTracker> mPointerTrackers = new ArrayList<>();
 
-    private final WMotionEvent mMotionEvent;
     // TODO: Let the PointerTracker class manage this pointer queue
     final PointerQueue mPointerQueue = new PointerQueue();
 
@@ -196,15 +196,12 @@ public class AnyKeyboardBaseView extends View implements
     // Swipe gesture detector
     private GestureDetector mGestureDetector;
 
-    private final SwipeTracker mSwipeTracker = new SwipeTracker();
     int mSwipeVelocityThreshold;
     int mSwipeXDistanceThreshold;
     int mSwipeYDistanceThreshold;
     int mSwipeSpaceXDistanceThreshold;
     int mScrollXDistanceThreshold;
     int mScrollYDistanceThreshold;
-    final boolean mDisambiguateSwipe;
-    // private boolean mInScrollGesture = false;
 
     // Drawing
     /**
@@ -536,9 +533,6 @@ public class AnyKeyboardBaseView extends View implements
         int keyActionTypeSearchAttrId = R.attr.action_search;
         int keyActionTypeGoAttrId = R.attr.action_go;
 
-        mMotionEvent = AnyApplication.getFrankenRobot().embody(
-                new WMotionEvent.Diagram());
-
         LayoutInflater inflate = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         // int previewLayout = 0;
@@ -716,12 +710,10 @@ public class AnyKeyboardBaseView extends View implements
 
         reloadSwipeThresholdsSettings(res);
 
-        mDisambiguateSwipe = res.getBoolean(R.bool.config_swipeDisambiguation);
         mMiniKeyboardSlideAllowance = res
                 .getDimension(R.dimen.mini_keyboard_slide_allowance);
 
-        AskOnGestureListener listener = new AskGestureEventsListener(this,
-                mSwipeTracker);
+        AskOnGestureListener listener = new AskGestureEventsListener(this);
 
         mGestureDetector = AnyApplication.getDeviceSpecific()
                 .createGestureDetector(getContext(), listener);
@@ -2456,10 +2448,8 @@ public class AnyKeyboardBaseView extends View implements
     public boolean onTouchEvent(MotionEvent nativeMotionEvent) {
         if (mKeyboard == null)//I mean, if there isn't any keyboard I'm handling, what's the point?
             return false;
-        mMotionEvent.setNativeMotionEvent(nativeMotionEvent);
-        WMotionEvent me = mMotionEvent;
-        final int action = me.getActionMasked();
-        final int pointerCount = me.getPointerCount();
+        final int action = MotionEventCompat.getActionMasked(nativeMotionEvent);
+        final int pointerCount = MotionEventCompat.getPointerCount(nativeMotionEvent);
         final int oldPointerCount = mOldPointerCount;
         mOldPointerCount = pointerCount;
         if (pointerCount > 1)
@@ -2482,9 +2472,6 @@ public class AnyKeyboardBaseView extends View implements
             return true;
         }
 
-        // Track the last few movements to look for spurious swipes.
-        mSwipeTracker.addMovement(nativeMotionEvent);
-
         // Gesture detector must be enabled only when mini-keyboard is not
         // on the screen.
         if (!mMiniKeyboardVisible && mGestureDetector != null
@@ -2495,24 +2482,21 @@ public class AnyKeyboardBaseView extends View implements
             return true;
         }
 
-        final long eventTime = me.getEventTime();
-        final int index = me.getActionIndex();
-        final int id = me.getPointerId(index);
-        final int x = (int) me.getX(index);
-        final int y = (int) me.getY(index);
+        final long eventTime = nativeMotionEvent.getEventTime();
+        final int index = MotionEventCompat.getActionIndex(nativeMotionEvent);
+        final int id = nativeMotionEvent.getPointerId(index);
+        final int x = (int) nativeMotionEvent.getX(index);
+        final int y = (int) nativeMotionEvent.getY(index);
 
         // Needs to be called after the gesture detector gets a turn, as it
         // may have
         // displayed the mini keyboard
         if (mMiniKeyboard != null && mMiniKeyboardVisible) {
-            final int miniKeyboardPointerIndex = me
-                    .findPointerIndex(mMiniKeyboardTrackerId);
+            final int miniKeyboardPointerIndex = nativeMotionEvent.findPointerIndex(mMiniKeyboardTrackerId);
             if (miniKeyboardPointerIndex >= 0
                     && miniKeyboardPointerIndex < pointerCount) {
-                final int miniKeyboardX = (int) me
-                        .getX(miniKeyboardPointerIndex);
-                final int miniKeyboardY = (int) me
-                        .getY(miniKeyboardPointerIndex);
+                final int miniKeyboardX = (int) nativeMotionEvent.getX(miniKeyboardPointerIndex);
+                final int miniKeyboardY = (int) nativeMotionEvent.getY(miniKeyboardPointerIndex);
                 MotionEvent translated = generateMiniKeyboardMotionEvent(
                         action, miniKeyboardX, miniKeyboardY, eventTime);
                 mMiniKeyboard.onTouchEvent(translated);
@@ -2565,8 +2549,8 @@ public class AnyKeyboardBaseView extends View implements
 
         if (action == MotionEvent.ACTION_MOVE) {
             for (int i = 0; i < pointerCount; i++) {
-                PointerTracker tracker = getPointerTracker(me.getPointerId(i));
-                tracker.onMoveEvent((int) me.getX(i), (int) me.getY(i),
+                PointerTracker tracker = getPointerTracker(nativeMotionEvent.getPointerId(i));
+                tracker.onMoveEvent((int) nativeMotionEvent.getX(i), (int) nativeMotionEvent.getY(i),
                         eventTime);
             }
         } else {
