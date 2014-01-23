@@ -43,7 +43,7 @@ public class HardKeyboardSequenceHandler {
 
     public void addQwertyTranslation(String targetCharacters) {
         if (msQwerty.length != targetCharacters.length())
-            throw new InvalidParameterException("'targetCharacters' should be the same lenght as the latin QWERTY keys strings: " + msQwerty);
+            throw new InvalidParameterException("'targetCharacters' should be the same length as the latin QWERTY keys strings: " + msQwerty);
         for (int qwertyIndex = 0; qwertyIndex < msQwerty.length; qwertyIndex++) {
             char latinCharacter = (char) msQwerty[qwertyIndex];
             char otherCharacter = targetCharacters.charAt(qwertyIndex);
