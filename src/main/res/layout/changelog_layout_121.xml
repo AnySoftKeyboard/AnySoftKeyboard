@@ -23,7 +23,7 @@
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="* Abbreviations! You can setup shortcuts for full blown words, or sentences.\n* Bug fixes.\n* Localization: "
+        android:text="* Abbreviations! You can setup shortcuts for full blown words, or sentences.\n* Bug fixes.\n* Localization: CS, DE, RO, ES, PT."
         style="@style/Ask.Text.Normal"
         tools:ignore="HardcodedText" />
 
