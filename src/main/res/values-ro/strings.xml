@@ -5,62 +5,319 @@
   <string name="settings_app_name">Setari AnySoftKeyboard</string>
   <string name="spell_checker_service_name">AnySoftKeyboard verificare scriere</string>
   <string name="spell_checker_settings">AnySoftKeyboard setari scriere</string>
+  <string name="subtype_generic">abecedar-generic</string>
+  <string name="copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
+  <string name="version_text"><xliff:g id="version_name">%s</xliff:g>\u0020(v<xliff:g id="version_number">%s</xliff:g>)</string>
+  <string name="additional_licenses"><u>Licențe adiționale…</u></string>
+  <string name="menu_about_item">Despre</string>
+  <string name="click_to_restart_suggestions">Click pentru sugestii</string>
+  <string name="tips_notification_text">Click pentru sfaturi!</string>
+  <string name="tips_button">Cum se folosește</string>
+  <string name="tips_button_description">Câteva sfaturi despre cum să folosești AnySoftKeyboard</string>
+  <string name="tips_title">Sfaturi AnySoftKeyboard</string>
+  <string name="tips_pager_swipe_hint">ࢎ\u0020Pentru mai multe sfaturi glisează stânga sau dreapta࢐</string>
+  <string name="tip_1_welcome_to_ask">Bun venit la AnySoftKeyboard!</string>
+  <string name="tip_2_gestures">Pot folosi gesturi!</string>
+  <string name="tip_4_top_generic_row">Rândul de sus</string>
+  <string name="tip_4_top_generic_row_go_to_top_row_settings">Schimbă acum rândul de sus</string>
+  <string name="tip_5_key_feedback">Feedback</string>
+  <string name="tip_5_key_feedback_test">Vrei să testezi feedback-ul?</string>
+  <string name="tip_6_bottom_rows">Rândul de jos</string>
+  <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Modifică rândul de jos acum</string>
+  <string name="tip_7_voice_input">Vorbește cu mine*</string>
+  <string name="tip_7_voice_input_tip_note">* Pentru a funcționa este necesar Android 2.2+ și conexiune la internet.</string>
+  <string name="tip_9_suggestions_restart">Repornesc sugestiile</string>
   <string name="main_tab_welcome">Bine aţi venit</string>
   <string name="main_tab_links">Legături</string>
   <string name="main_tab_credits">Credite</string>
   <string name="how_to_pointer_title">Bine aţi venit la AnySoftKeyboard</string>
   <string name="how_to_pointer_version_prefix">Versiunea: </string>
-  <string name="how_to_pointer_not_app">AnySoftKeyboard nu este o aplicaţie regulară - este un inlocuitor pentru tastatura de pe ecran.</string>
+  <string name="how_to_pointer_not_app">AnySoftKeyboard nu este o aplicaţie regulate - este o tastatura de pe ecran înlocuire.</string>
   <string name="how_to_pointer_go_to_links">Pentru mai multe informaţii, mergeţi la fila de legături.</string>
   <string name="how_to_pointer_how_to_url">Detalii despre cum se utilizează această tastatură:</string>
   <string name="how_to_pointer_site">Detalii generale:</string>
   <string name="how_to_pointer_changelog">Detalii despre cea mai recentă versiune:</string>
+  <string name="change_log_card_title_template">Ultimele modificări pentru v<xliff:g id="code">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
+  <string name="change_log_entry_header_template">v<xliff:g id="code">%s</xliff:g>\u0020-\u0020<xliff:g id="name">%s</xliff:g></string>
+  <string name="change_log_entry_header_template_without_name">v<xliff:g id="code">%s</xliff:g></string>
   <string name="how_to_pointer_issues">Raportarea de Bug-uri:</string>
   <string name="main_tab_credits_title">Această aplicație a fost creată cu ajutorul următoarelor persoane-</string>
   <string name="main_tab_credits_created_by">Creat de:</string>
   <string name="main_tab_credits_additional_work_by">Lucrări de codificare suplimentare de:</string>
+  <string name="main_tab_credits_localization_by">Efort depus pentru localizare de:</string>
   <string name="main_tab_credits_GUI_by">Imagini UI de:</string>
+  <string name="how_to_enable_dialog_title">Se activează AnySoftKeyboard?</string>
+  <string name="how_to_enable_dialog_text">AnySoftKeyboard nu este încă activat. Vrei să-ți arăt cum să-l activezi?</string>
+  <string name="how_to_enable_dialog_show_me">Arată-mi!</string>
+  <string name="how_to_enable_dialog_dont_show_me">Mai târziu</string>
+  <string name="how_to_simple_howto_enable_ask_button">Activează AnySoftKeyboard</string>
+  <string name="how_to_simple_howto_switch_to_ask_button_after_step_1">Treci pe AnySoftKeyboard</string>
+  <string name="how_to_simple_howto_switch_to_ask_button_before_step_1">Întâi termină pasul 1</string>
+  <string name="how_to_simple_howto_go_to_settings_button">Setări AnySoftKeyboard\'s</string>
+  <string name="ime_name_beta">AnySoftKeyboard BETA</string>
+  <string name="notification_text_testers">Aceasta este o versiune beta. Folosește-o cu grijă!</string>
+  <string name="notification_text_changelog">Click pentru a vedea ce este nou.</string>
+  <string name="notification_title_how_to_enable">Bun venit la AnySoftKeyboard</string>
+  <string name="notification_text_how_to_enable">Învață cum să activezi</string>
+  <string name="license_title">Licență</string>
+  <string name="languages_cat">Limbi</string>
+  <string name="about">Despre</string>
   <string name="changelog">Jurnal de modificări</string>
   <string name="search_market_for_addons">Căutare suplimente</string>
+  <string name="theme_addons_settings">Setări temă</string>
+  <string name="keyboard_theme_tweak_group">Trucuri</string>
+  <string name="bottom_row_addons_settings">Setări rând de jos</string>
+  <string name="top_row_addons_settings">Setări rând de sus</string>
+  <string name="close_button">Închide</string>
+  <string name="how_to_active_text">Cum să activezi AnySoftKeyboard</string>
+  <string name="added_word">Salvat:\u0020<xliff:g id="word">%s</xliff:g>
+    </string>
+  <string name="removed_word">Șters:\u0020<xliff:g id="word">%s</xliff:g>
+    </string>
+  <string name="hint_add_to_dictionary">\u2190 Atinge din nou pt. salvare</string>
+  <string name="hint_double_tap_to_close">Din nou pt. eliminarea sugestiilor</string>
   <string name="menu_insert_smiley">Introduceţi emoticon</string>
   <string name="click_for_help">Ajutor</string>
+  <string name="click_for_help_summary">Ajutor suplimentar despre AnySoftKeyboard</string>
   <string name="ui_group">Interfaţa utilizatorului</string>
   <string name="physical_keyboard_change_notification_title">Notificare aspect tastatură</string>
   <string name="physical_keyboard_change_notification_dialog_title">Selectaţi tipul de notificare</string>
   <string name="lengthy_operations_toast_notification">Notifică operațiunile de lungă durată</string>
   <string name="lengthy_operations_toast_notification_summary">Afişare notificări scurte pentru operaţiunile de lungă durată</string>
+  <string name="voice_input_not_installed_title">Intrarea vocală nu este instalată</string>
+  <string name="voice_input_not_installed_action_install">Instalează</string>
+  <string name="voice_input_not_installed_action_do_not_install">Nu</string>
   <string name="change_ime">Schimba metoda de introducere</string>
   <string name="override_dictionary">Suprascrie dicţionarul implicit</string>
   <string name="override_dictionary_default">Implicit</string>
   <string name="override_disabled">Suprascrie deselectată</string>
+  <string name="gesture_settings">Gesturi</string>
   <string name="effects_group">Efecte</string>
   <string name="ime_settings">Setări tastatură</string>
   <string name="vibrate_on_key_press_title">Vibrează la apăsarea cheiei</string>
-  <string name="vibrate_on_key_press_summary">Selectaţi sa vibreze atunci când cheiele sunt atinse</string>
   <string name="vibrate_on_key_press_dialog_title">Selectaţi tipul de vibraţii</string>
   <string name="sound_on">Sunetul la apăsarea cheiei</string>
   <string name="sound_on_summary">Efectele sonore la atingerea tastaturii.</string>
   <string name="use_custom_sound_volume">Setare volum personalizat</string>
   <string name="use_custom_sound_volume_on_summary">Volumul efectelor sonore este personalizat.</string>
-  <string name="use_custom_sound_volume_off_summary">Volumul efectelor sonore este cel implicit sistemului.</string>
+  <string name="speacial_fetures_group">Caracteristici speciale</string>
+  <string name="swipe_up_action">Glisează în sus</string>
+  <string name="swipe_up_action_summary">Definește acțiunea glisării în sus. Acum, %s</string>
+  <string name="swipe_up_action_title">Selectează acțiunea glisării în sus</string>
+  <string name="swipe_up_from_spacebar_action">Glisează bara de spațiu în sus</string>
+  <string name="swipe_down_action">Glisează în jos</string>
+  <string name="swipe_down_action_summary">Definește acțiunea glisării în jos. Acum, %s</string>
+  <string name="swipe_down_action_title">Selectează acțiunea glisării în jos</string>
+  <string name="swipe_left_action">Glisează spre stânga</string>
+  <string name="swipe_left_action_summary">Definește acțiunea glisării spre stânga. Acum, %s</string>
+  <string name="swipe_left_action_title">Selectează acțiunea glisării la stânga</string>
+  <string name="swipe_right_action">Glisează spre dreapta</string>
+  <string name="swipe_right_action_summary">Definește acțiunea glisării spre dreapta. Acum, %s</string>
+  <string name="swipe_right_action_title">Selectează acțiunea glisării la dreapta</string>
+  <string name="swipe_right_space_bar_action">Glisează bara de spațiu la dreapta</string>
+  <string name="swipe_right_space_bar_action_title">Selectează acțiunea glisării la dreapta</string>
+  <string name="swipe_left_space_bar_action">Glisează bara de spațiu la stânga</string>
+  <string name="swipe_left_space_bar_action_title">Selectează acțiunea glisării la stânga</string>
+  <string name="swipe_left_two_fingers_action">Glisare cu două degete spre stânga</string>
+  <string name="swipe_left_two_fingers_action_title">Selectează acțiunea glisării la stânga</string>
+  <string name="swipe_right_two_fingers_action">Glisare cu două degete spre dreapta</string>
+  <string name="swipe_right_two_fingers_action_title">Selectează acțiunea glisării la dreapta</string>
+  <string name="pinch_gesture_action">Gest de prindere</string>
+  <string name="pinch_gesture_action_title">Selectează acțiunea gestului de prindere</string>
+  <string name="separate_gesture_action">Gest de întindere</string>
+  <string name="separate_gesture_action_title">Selectează acțiunea gestului de întindere</string>
+  <string name="swipe_action_name_none">Nici o acțiune</string>
+  <string name="swipe_action_name_shift">Shift</string>
+  <string name="swipe_action_name_hide">Ascunde tastatura</string>
+  <string name="swipe_action_name_clear_input">Șterge tot textul</string>
+  <string name="swipe_action_name_cursor_up">Mută cursorul în sus</string>
+  <string name="swipe_action_name_cursor_down">Mută cursorul în jos</string>
+  <string name="swipe_action_name_cursor_left">Mută cursorul la stânga</string>
+  <string name="swipe_action_name_cursor_right">Mută cursorul la dreapta</string>
+  <string name="swipe_action_name_other_keyboards_mode">Schimbă modul de afișare</string>
+  <string name="swipe_action_name_split_layout">Desparte aspectul</string>
+  <string name="swipe_action_name_merge_layout">Unește aspectul</string>
+  <string name="settings_swipe_velocity_very_slow">Foarte încet</string>
+  <string name="settings_swipe_velocity_slow">Încet</string>
+  <string name="settings_swipe_velocity_normal">Normal</string>
+  <string name="settings_swipe_velocity_fast">Rapid</string>
+  <string name="settings_swipe_velocity_very_fast">Foarte rapid</string>
+  <string name="settings_swipe_distance_very_short">Foarte scurt</string>
+  <string name="settings_swipe_distance_short">Scurt</string>
+  <string name="settings_swipe_distance_normal">Normal</string>
+  <string name="settings_swipe_distance_long">Lung</string>
+  <string name="settings_swipe_distance_very_long">Foarte lung</string>
+  <string name="menu_even_more_settings">Și mai multe…</string>
+  <string name="more_ui_settings_group">Interfața cu utilizatorul</string>
+  <string name="special_dictionaries_group">Dicționare speciale</string>
+  <string name="use_user_dictionary">Dicționarul utilizatorului</string>
+  <string name="use_auto_dictionary">Dicționarul automat</string>
+  <string name="auto_dictionary_threshold_type_off">Nu se învață cuvinte noi</string>
+  <string name="use_contacts_dictionary">Dicţionar listă de contacte</string>
+  <string name="use_contacts_dictionary_on_summary">Sugerează nume din lista de contacte</string>
+  <string name="tweaks_group">Trucuri</string>
+  <string name="tweak_sound_group">Trucuri legate de sunet</string>
+  <string name="tweak_physical_keyboard_group">Trucuri tastatură fizică</string>
+  <string name="tweak_ui_group">Trucuri grafice</string>
+  <string name="tweak_ux_group">Trucuri de comportament</string>
+  <string name="tweak_dictionary_group">Trucuri dicționar</string>
+  <string name="settings_min_length_for_word_correction">Lungimea minimă a cuvântului pentru corectare</string>
+  <string name="show_keyboard_name_text">Afișează numele tastaturii</string>
+  <string name="is_sticky_extesion_keyboard_off_summary">Se închide după apăsarea tastei</string>
+  <string name="show_new_tips_notifications_again">Notifică sfaturile noi</string>
+  <string name="show_settings_app_in_launcher">Setări aplicație</string>
+  <string name="tweak_animations_level_title">Animații</string>
+  <string name="tweak_animations_level_types_full">Întreg</string>
+  <string name="tweak_animations_level_types_some">Câteva</string>
+  <string name="tweak_animations_level_types_none">Nimic</string>
+  <string name="grammer_group">Gramatică</string>
+  <string name="keyboard_behavior_group">Comportament tastatură</string>
+  <string name="candidates_on">Afișează sugestii</string>
+  <string name="allow_suggestions_restart">Repornire sugestii</string>
+  <string name="auto_complete">Auto-selectare sugestie</string>
+  <string name="keyboard_sandbox">Click pentru testare text</string>
+  <string name="contacts_dict">Dicţionar listă de contacte</string>
+  <string name="auto_dict">Dicționarul automat</string>
+  <string name="no_extrenal_packs_support_title">Neacceptat</string>
+  <string name="keyboards_group_extra_template"><xliff:g id="enabledLayouts">%s</xliff:g>/<xliff:g id="totalLayouts">%s</xliff:g></string>
+  <string name="keyboards_group">Tastaturi</string>
+  <string name="symbols_keyboard">123!#()</string>
+  <string name="symbols_alt_keyboard">{}\_</string>
+  <string name="symbols_alt_num_keyboard">123</string>
+  <string name="symbols_phone_keyboard">telefon</string>
+  <string name="symbols_numbers_keyboard">123</string>
+  <string name="symbols_time_keyboard">timp</string>
+  <string name="eng_keyboard">Română</string>
+  <string name="eng_keyboard_qwertywithsymbols">Română cu simboluri</string>
+  <string name="eng_keyboard_16keys">Română 16 taste</string>
+  <string name="keyboard_change_locked">n/a</string>
+  <string name="additional_addons_group">Suplimente adiționale</string>
+  <string name="top_generic_row_dialog_title">Selectează tipul de rând</string>
+  <string name="top_generic_row_list_title">Selectează tipul de rând</string>
+  <string name="bottom_generic_row_dialog_title">Selectează tipul de rând</string>
+  <string name="bottom_generic_row_list_title">Selectează tipul de rând</string>
+  <string name="extension_keyboard_group">Extensie tastatură</string>
+  <string name="extension_keyboard_list_title">Selectează tastatura</string>
+  <string name="keyboard_theme_group">Temele tastaturii</string>
+  <string name="keyboard_theme_active">Temă tastatură activă</string>
+  <string name="keyboard_theme_dialog_title">Selectează tema</string>
+  <string name="keyboard_theme_summary">Temă selectată: %s</string>
+  <string name="keyboard_theme_list_title">Selectează tema</string>
+  <string name="dark_plain_keyboard_theme_name">Tema simplă întunecată</string>
+  <string name="dark_plain_keyboard_theme_description">Culori întunecate, grafică simplă</string>
+  <string name="light_plain_keyboard_theme_name">Temă deschisă simplă</string>
+  <string name="light_plain_keyboard_theme_description">Culori deschise, grafică simplă</string>
+  <string name="blacktheme_keyboard_theme_name">Temă negru-simplu strălucitoare</string>
+  <string name="blacktheme_keyboard_theme_description">Temă negru-simplu cu culori evidențiate</string>
+  <string name="lean_dark_keyboard_theme_name">Temă întunecată</string>
+  <string name="lean_dark_keyboard_theme_description">Temă întunecată, cu elemente UI minime</string>
+  <string name="lean_dark_2_keyboard_theme_name">Temă întunecată - opțiunea 2</string>
+  <string name="extension_kbd_top_small">Taste mici</string>
+  <string name="extension_kbd_top_small_numbers">Taste numerice</string>
+  <string name="extension_kbd_top_nav">Taste de navigare</string>
+  <string name="extension_kbd_bottom_regular_with_voice">Obișnuit</string>
+  <string name="extension_kbd_bottom_regular">Clasic (fără microfon)</string>
+  <string name="extension_kbd_bottom_iphone">Stil iPhone (fără microfon)</string>
+  <string name="extension_kbd_bottom_iphone_with_voice">Stil iPhone cu microfon</string>
+  <string name="extension_kbd_bottom_alt">Alternativ (fără microfon)</string>
+  <string name="extension_kbd_bottom_alt_with_mic">Alternativ cu microfon</string>
+  <string name="extension_kbd_bottom_ng">Generație nouă - Testare</string>
+  <string name="label_go_key">Go</string>
+  <string name="label_next_key">Următorul</string>
+  <string name="label_previous_key">Precedentul</string>
+  <string name="label_send_key">Trimite</string>
+  <string name="label_search_key">Caută</string>
+  <string name="label_done_key">Gata</string>
+  <string name="label_tab_key">Filă</string>
+  <string name="label_home_key">Acasă</string>
+  <string name="label_end_key">Sfârșit</string>
+  <string name="change_lang_wide">→ ABC →</string>
+  <string name="change_lang_regular">ABC</string>
+  <string name="change_symbols_wide">← 123 ←</string>
+  <string name="change_symbols_regular">123</string>
+  <string name="please_wait">Așteaptă</string>
+  <string name="toast_lengthy_words_long_operation">Se încarcă dicționarul…</string>
+  <string name="toast_lengthy_start_up_operation">Se inițializează AnySoftKeyboard…</string>
+  <string name="lengthy_creating_keyboard_operation">Se generează tastaturi…</string>
+  <string name="eng_dictionary">Română</string>
+  <string name="default_quick_text_key_name">Emoticon-uri simple</string>
+  <string name="settings_multitap_timeout_disabled">Dezactivat</string>
+  <string name="settings_multitap_timeout_faster">Mai rapid</string>
+  <string name="settings_multitap_timeout_fast">Rapid</string>
+  <string name="settings_multitap_timeout_normal">Normal</string>
+  <string name="settings_multitap_timeout_slow">Încet</string>
+  <string name="settings_multitap_timeout_slower">Mai încet</string>
+  <string name="long_press_timeout_title">Timp apăsare-lungă</string>
+  <string name="settings_long_press_timeout_faster">Mai rapid</string>
+  <string name="settings_long_press_timeout_fast">Rapid</string>
+  <string name="settings_long_press_timeout_normal">Normal</string>
+  <string name="settings_long_press_timeout_slow">Încet</string>
+  <string name="settings_long_press_timeout_slower">Mai încet</string>
+  <string name="settings_long_press_timeout_never">Niciodată</string>
+  <string name="tweak_workarounds_group">Soluții</string>
+  <string name="user_dictionary_select_locale">Limbă:</string>
+  <string name="user_dictionary_read_please_wait">Se citesc cuvintele…</string>
+  <string name="user_dict_settings_titlebar">Dicționarul utilizatorului</string>
+  <string name="user_dict_editor">Editorul de cuvinte</string>
+  <string name="abbreviation_dict_editor">Editor abreviere</string>
+  <string name="abbreviation_dict_word_template"><i><xliff:g id="abbreviation">%s</xliff:g></i>\u0020\u2192\u0020<i><xliff:g id="target">%s</xliff:g></i></string>
+  <string name="user_dict_settings_add_dialog_title">Adaugă la dicționar</string>
+  <string name="user_dict_settings_edit_dialog_title">Editare cuvânt</string>
+  <string name="user_dict_backup_success_title">Backup terminat!</string>
+  <string name="user_dict_backup_fail_title">Backup nereușit!</string>
+  <string name="fast_scroll_alphabet">ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+  <string name="should_swap_punctuation_and_space_yes">Da</string>
+  <string name="should_swap_punctuation_and_space_no">Nu</string>
+  <string name="developer_tools">Unelte dezvoltator</string>
+  <string name="click_for_developer_features">Unelte dezvoltator</string>
+  <string name="not_configured_with_just_click_here">Click aici</string>
+  <string name="click_for_more">mai multe…</string>
+  <string name="next_button_label">Următorul</string>
+  <string name="skip_button_label">Sari peste</string>
+  <string name="word_editor_action_add_word">Adaugă cuvânt</string>
+  <string name="word_editor_action_backup_words">Backup</string>
+  <string name="word_editor_action_restore_words">Restaurare</string>
+  <string name="click_to_add_new_word">Click pentru a adăuga un cuvânt nou</string>
+  <string name="enter_word_hint">Tastează cuvântul nou aici</string>
+  <string name="enter_abbreviation_hint">Abreviere</string>
+  <string name="enter_abbreviation_target_hint">Frază completă</string>
+  <string name="toggle_button_on">On</string>
+  <string name="toggle_button_off">Off</string>
+  <string name="about_additional_software_licenses">Licențe software suplimentare</string>
+  <string name="wizard_step_this_step_complete_title">Pas făcut!</string>
+  <string name="wizard_step_swipe_to_next">Glisați la pagina următoare.</string>
+  <string name="setup_wizard_step_one_title">Activează AnySoftKeyboard</string>
+  <string name="setup_wizard_step_two_title">Treci pe AnySoftKeyboard</string>
+  <string name="setup_wizard_step_two_small_sub_title">Pasul doi din trei</string>
+  <string name="setup_wizard_step_two_action">Schimbă tastaturile active</string>
+  <string name="setup_wizard_step_three_title">AnySoftKeyboard este pregătit!</string>
+  <string name="setup_wizard_step_three_action_languages">Configurează limbile…</string>
+  <string name="setup_wizard_step_three_action_themes">Selectează tema…</string>
+  <string name="ime_crashed_title">AnySoftKeyboard a generat erori!</string>
+  <string name="ime_crashed_send_button">Trimite</string>
+  <string name="ime_crashed_cancel_button">Anulează</string>
+  <string name="setup_wizard_step_one">Pasul unu:</string>
+  <string name="setup_wizard_step_two">Pasul doi:</string>
+  <string name="setup_wizard_step_three">Pasul trei:</string>
+  <string name="about_donate">Donează:</string>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Always show layout icon</item>
-    <item>On physical keyboard change</item>
-    <item>No notification</item>
+    <item>La schimbarea tastaturii fizice</item>
+    <item>Fără notificare</item>
   </string-array>
   <string-array name="vibrate_on_key_press_types">
-    <item>None</item>
-    <item>Light</item>
-    <item>Medium</item>
-    <item>Strong</item>
+    <item>Nimic</item>
+    <item>Ușor</item>
+    <item>Mediu</item>
+    <item>Puternic</item>
   </string-array>
   <string-array name="custom_hint_align_types">
-    <item>Left</item>
-    <item>Center</item>
-    <item>Right</item>
+    <item>Stânga</item>
+    <item>Centru</item>
+    <item>Dreapta</item>
   </string-array>
   <string-array name="custom_hint_valign_types">
-    <item>Top</item>
-    <item>Bottom</item>
+    <item>Sus</item>
+    <item>Jos</item>
   </string-array>
 </resources>

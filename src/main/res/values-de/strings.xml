@@ -8,7 +8,7 @@
   <string name="subtype_generic">Speller-generic</string>
   <string name="copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
   <string name="version_text"><xliff:g id="version_name"> %s </xliff:g> \u0020 (V <xliff:g id="version_number"> %s </xliff:g>)</string>
-  <string name="additional_licenses"><u>Zusätzliche Lizenzen&#8230;</u></string>
+  <string name="additional_licenses"><u>Zusätzliche Lizenzen...</u></string>
   <string name="debug_tracing_starting">Tracing gestartet!\nNicht vergessen es später wieder auszuschalten</string>
   <string name="debug_tracing_starting_failed">Initiierung des Tracings ist fehlgeschlagen! Siehe LogCat für weitere Infos.</string>
   <string name="debug_tracing_finished">Tracing beendet!\nDie Datei ist 
@@ -62,6 +62,7 @@
   <string name="how_to_pointer_changelog">Details zur neuesten Version:</string>
   <string name="change_log_card_title_template">Letzte Änderungen für v <xliff:g id="code"> %s </xliff:g> \u0020 <xliff:g id="name"> %s </xliff:g></string>
   <string name="change_log_entry_header_template">v<xliff:g id="code"> %s </xliff:g> \u0020-\u0020 <xliff:g id="name"> %s </xliff:g></string>
+  <string name="change_log_entry_header_template_without_name">V <xliff:g id="code"> %s </xliff:g></string>
   <string name="how_to_pointer_issues">Fehler melden:</string>
   <string name="main_tab_credits_title">Diese Anwendung wurde mit Hilfe folgender Personen erstellt:</string>
   <string name="main_tab_credits_created_by">Erstellt von:</string>
@@ -175,6 +176,13 @@
   <string name="swipe_right_action">Streichen nach rechts</string>
   <string name="swipe_right_action_summary">Definiere die Aktion der Geste nach rechts. Aktuell %s</string>
   <string name="swipe_right_action_title">Wähle Aktion für das Streichen nach rechts</string>
+  <string name="swipe_right_space_bar_action">von Leertaste nach rechts swipen</string>
+  <string name="swipe_right_space_bar_action_summary">Definiere die Aktion der Geste von der Leertaste nach rechts. Aktuell %s</string>
+  <string name="swipe_right_space_bar_action_title">Wählen Sie eine Aktion für das von der Leertaste nach rechts swipen</string>
+  <string name="swipe_left_space_bar_action">von Leertaste nach links swipen</string>
+  <string name="swipe_left_space_bar_action_summary">Definiere die Aktion der Geste von der Leertaste nach links. Aktuell %s</string>
+  <string name="swipe_left_space_bar_action_title">Wählen Sie eine Aktion für das von der Leertaste nach links swipen</string>
+  <string name="swipe_left_two_fingers_action">Zweifinger-swipe nach Links</string>
   <string name="pinch_gesture_action">Zusammenführen</string>
   <string name="pinch_gesture_action_title">Wähle die Aktion der Pinchgeste</string>
   <string name="pinch_gesture_action_summary">Definiere die Aktion der Pinchgeste. Aktuell %s</string>
@@ -290,8 +298,6 @@
   <string name="grammer_group">Grammatik</string>
   <string name="keyboard_behavior_group">Tastaturverhalten</string>
   <string name="candidates_on">Zeige Wortvorschläge</string>
-  <string name="quick_fix">Schnellkorrektur</string>
-  <string name="quick_fix_summary">Korrigiert häufige Tippfehler</string>
   <string name="allow_suggestions_restart">Vorschläge neustarten</string>
   <string name="allow_suggestions_restart_summary">Wortvorschläge bei Zeigerbewegung neustarten</string>
   <string name="auto_complete">Automatische Auswahl von Wortvorschlägen</string>
@@ -434,8 +440,6 @@
   <string name="wizard_step_previous_step_not_complete_title">der Vorherige Setupschritt ist nicht vollständig</string>
   <string name="wizard_step_previous_step_not_complete_text">Swipe bitte zum vorherigen Schritt, und folge den Anweisungen.</string>
   <string name="wizard_step_this_step_complete_title">Schritt fertig!</string>
-  <string name="wizard_step_this_step_complete_text_enabled"><i>AnySoftKeyboard</i> ist aktiv. Du bist nur einen Schritt davon entfernt <i>AnySoftKeyboard</i> auf deinem tollen Gerät zu benutzen!\nSwipe dich zur nächsten Seite.</string>
-  <string name="wizard_step_this_step_complete_text_switched"><i>AnySoftKeyboard</i> ist deine Standarttastatur. Aber willst du keine zusätzlichen Sachen installieren, wie Themen oder Sprachen?\nSwype dich zu nächsten Seite.</string>
   <string name="setup_wizard_step_one_title">AnySoftKeyboard aktivieren</string>
   <string name="setup_wizard_step_small_sub_title">Das ist der erste Schritt, aber keine Sorge. Es gibt nur drei ,ganz einfache, Schritte.</string>
   <string name="setup_wizard_step_one_details">In diesem Schritt, wirst musst <i>AnySoftKeyboard</i> aktivieren. Bitte hake <i>\'AnySoftKeyboard\'</i> im <i>Sprache und Texteingabe</i> Ordner ab. Das ermöglicht der App auf dem Gerät zu laufen.</string>
@@ -447,9 +451,9 @@
   <string name="setup_wizard_step_two_action">Aktive Tastaturen tauschen</string>
   <string name="setup_wizard_step_three_title">AnySoftKeyboard ist bereit!</string>
   <string name="setup_wizard_step_three_details">Danke, dass du <i>AnySoftKeyboard</i> ausgewählt hast.\nDiese Tastatur zeichnet sich durch ein grosses Grad an Anpassungsfähigkeit aus. Personalisiere es:</string>
-  <string name="setup_wizard_step_three_action_languages">Sprachen Installieren&#8230;</string>
-  <string name="setup_wizard_step_three_action_themes">Thema wählen&#8230;</string>
-  <string name="setup_wizard_step_three_action_all_settings">Etwas anderes EInstellen&#8230;</string>
+  <string name="setup_wizard_step_three_action_languages">Sprachen Installieren...</string>
+  <string name="setup_wizard_step_three_action_themes">Thema wählen...</string>
+  <string name="setup_wizard_step_three_action_all_settings">Etwas anderes EInstellen...</string>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Zeige das Layout-Symbol immer</item>
     <item>Nur beim Wechsel des Tastaturlayouts</item>
