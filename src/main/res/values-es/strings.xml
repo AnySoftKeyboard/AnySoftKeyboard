@@ -6,6 +6,7 @@
   <string name="spell_checker_service_name">Corrector ortográfico AnySoftKeyboard</string>
   <string name="spell_checker_settings">Configuración de ortografía de AnySoftKeyboard</string>
   <string name="subtype_generic">corrector-genérico</string>
+  <string name="additional_licenses"><u>Licencias adicionales…</u></string>
   <string name="menu_about_item">Acerca de</string>
   <string name="click_to_restart_suggestions">Haz clic para sugerencias</string>
   <string name="tips_notification_text">¡Haz clic para ver consejos!</string>
@@ -254,8 +255,6 @@
   <string name="auto_caps">Auto-capitalización</string>
   <string name="grammer_group">Gramática</string>
   <string name="candidates_on">Mostrar sugerencias</string>
-  <string name="quick_fix">Correcciones rápidas</string>
-  <string name="quick_fix_summary">Corrige los errores escritos más comunes</string>
   <string name="allow_suggestions_restart">Reiniciar sugerencias</string>
   <string name="allow_suggestions_restart_summary">Al mover el cursor, reiniciar la sugerencia de la palabra</string>
   <string name="auto_complete">Selección automática de sugerencias</string>
@@ -344,9 +343,9 @@
   <string name="change_symbols_wide">←123←</string>
   <string name="change_symbols_regular">123</string>
   <string name="please_wait">Espere por favor</string>
-  <string name="toast_lengthy_words_long_operation">Cargando diccionario &#8230;</string>
-  <string name="toast_lengthy_start_up_operation">Iniciando AnySoftKeyboard&#8230;</string>
-  <string name="lengthy_creating_keyboard_operation">Creando teclados&#8230;</string>
+  <string name="toast_lengthy_words_long_operation">Cargando diccionario ...</string>
+  <string name="toast_lengthy_start_up_operation">Iniciando AnySoftKeyboard...</string>
+  <string name="lengthy_creating_keyboard_operation">Creando teclados...</string>
   <string name="select_keyboard_popup_title">Seleccione el teclado</string>
   <string name="eng_dictionary">Inglés</string>
   <string name="simley_key_name">Tecla de smiley</string>
@@ -377,7 +376,7 @@
   <string name="settings_split_state_split_in_landscape">Iniciar dividido cuando se muestra horizontalmente</string>
   <string name="settings_split_state_split_always">Iniciar dividido</string>
   <string name="user_dictionary_select_locale">Idioma:</string>
-  <string name="user_dictionary_read_please_wait">Leyendo palabras&#8230;</string>
+  <string name="user_dictionary_read_please_wait">Leyendo palabras...</string>
   <string name="user_dict_settings_titlebar">Diccionario de usuario</string>
   <string name="user_dict_editor">Editor de palabras</string>
   <string name="user_dict_settings_add_dialog_title">Añadir al diccionario</string>
@@ -385,10 +384,17 @@
   <string name="user_dict_backup_success_title">¡Copia de seguridad hecha correctamente!</string>
   <string name="user_dict_backup_fail_title">¡Copia de seguridad falló!</string>
   <string name="user_dict_backup_fail_text">¡No se puede almacenar sus archivos! ¿Existe almacenamiento disponible?</string>
+  <string name="user_dict_backup_fail_text_with_error">Error al guardar palabras por:
+        <xliff:g id="error">%s</xliff:g>
+    </string>
   <string name="user_dict_restore_success_title">¡Correctamente restaurado!</string>
   <string name="user_dict_restore_success_text">Se restauraron correctamente tus palabras.</string>
   <string name="user_dict_restore_fail_title">¡Restauración falló!</string>
   <string name="user_dict_restore_fail_text">No se pudo leer sus archivos de copia de seguridad! ¿Existe almacenamiento disponible?</string>
+  <string name="user_dict_restore_fail_text_with_error">Error al restaurar palabras por:
+        <xliff:g id="error">%s</xliff:g>
+    
+    </string>
   <string name="fast_scroll_alphabet">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ</string>
   <string name="should_swap_punctuation_and_space_title">Intercambiar puntuación y espacio</string>
   <string name="should_swap_punctuation_and_space_summary"> </string>
@@ -396,11 +402,12 @@
   <string name="should_swap_punctuation_and_space_no">No</string>
   <string name="developer_tools">Herramientas de desarrollador</string>
   <string name="click_for_developer_features">Herramientas de desarrollador</string>
+  <string name="click_for_developer_features_summary">Varias herramientas para desarrolladores de AnySoftKeyboard</string>
   <string name="drawer_open">Menú abierto</string>
   <string name="drawer_close">Menú cerrado</string>
   <string name="not_configured_with_click_here">AnySoftKeyboard no está del todo listo. Haz clic aquí para ponerlo a punto.</string>
   <string name="not_configured_with_just_click_here">Haz clic aquí</string>
-  <string name="click_for_more">más&#8230;</string>
+  <string name="click_for_more">más...</string>
   <string name="back_button_label">Atrás</string>
   <string name="next_button_label">Siguiente</string>
   <string name="skip_button_label">Omitir</string>
@@ -409,21 +416,33 @@
   <string name="word_editor_action_restore_words">Restaurar</string>
   <string name="click_to_add_new_word">Haz clic para añadir una nueva palabra</string>
   <string name="enter_word_hint">Escribe aquí la nueva palabra</string>
+  <string name="about_additional_software_licenses">Licencias de software adicionales</string>
   <string name="wizard_step_previous_step_not_complete_title">Te has dejado un paso sin hacer</string>
   <string name="wizard_step_previous_step_not_complete_text">Por favor, ve al paso anterior y sigue las instrucciones.</string>
   <string name="wizard_step_this_step_complete_title">¡Paso hecho!</string>
-  <string name="wizard_step_this_step_complete_text_enabled"><i>AnySoftKeyboard</i> está activado. ¡Solo te falta un paso para usar <i>AnySoftKeyboard</i> en tu gran dispositivo!\nVe a la página siguiente.</string>
+  <string name="wizard_step_swipe_to_next">Pasar a la siguiente página.</string>
   <string name="setup_wizard_step_one_title">Activar AnySoftKeyboard</string>
   <string name="setup_wizard_step_small_sub_title">Este es el primer paso, pero no te preocupes, son solo 3 y muy cortos.</string>
+  <string name="setup_wizard_step_one_action">Ve a <i>Idioma&amp;Ajustes de entrada</i>…</string>
   <string name="setup_wizard_top_title">Configura\nAnySoftKeyboard\npara usarlo</string>
+  <string name="setup_wizard_top_title_tablet">Configura AnySoftKeyboard para usarlo</string>
   <string name="setup_wizard_step_two_title">Cambiar a AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_small_sub_title">Paso 2 de 3</string>
   <string name="setup_wizard_step_two_action">Cambiar teclados activos</string>
   <string name="setup_wizard_step_three_title">¡AnySoftKeyboard está listo!</string>
   <string name="setup_wizard_step_three_details">Gracias por elegir <i>AnySoftKeyboard</i>.\nEste teclado es totalmente personalizable. Corre y personalízalo:</string>
-  <string name="setup_wizard_step_three_action_languages">Configuración de idiomas&#8230;</string>
-  <string name="setup_wizard_step_three_action_themes">Seleccionar tema&#8230;</string>
-  <string name="setup_wizard_step_three_action_all_settings">Configurar todo lo demás&#8230;</string>
+  <string name="setup_wizard_step_three_action_languages">Configuración de idiomas...</string>
+  <string name="setup_wizard_step_three_action_themes">Seleccionar tema...</string>
+  <string name="setup_wizard_step_three_action_all_settings">Configurar todo lo demás...</string>
+  <string name="ime_crashed_title">¡AnySoftKeyboard dejó de funcionar!</string>
+  <string name="ime_crashed_sub_text">Ups, esto no estaba planeado…</string>
+  <string name="ime_crashed_ticker">Ups, AnySoftKeyboard dejó de funcionar, esto no estaba planeado…</string>
+  <string name="ime_crashed_send_button">Enviar</string>
+  <string name="ime_crashed_cancel_button">Cancelar</string>
+  <string name="setup_wizard_step_one">Paso uno:</string>
+  <string name="setup_wizard_step_two">Paso dos:</string>
+  <string name="setup_wizard_step_three">Paso tres:</string>
+  <string name="about_donate">Donar:</string>
   <string-array name="physical_keyboard_change_notification_types">
     <item>Mostrar siempre el icono de disposición</item>
     <item>Sobre el cambio a teclado físico</item>
