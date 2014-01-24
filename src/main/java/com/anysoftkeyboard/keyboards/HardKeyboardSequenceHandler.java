@@ -85,7 +85,7 @@ public class HardKeyboardSequenceHandler {
 
     public int getCurrentCharacter(int currentKeyEvent, AnySoftKeyboard inputHandler) {
         State result = this.addNewKey(currentKeyEvent);
-        if (result == State.FULLMATCH || result == State.PARTMATCH) {
+        if (result == State.FULL_MATCH || result == State.PART_MATCH) {
             int mappedChar = mCurrentSequence.getCharacter();
             final int charactersToDelete = mCurrentSequence.getSequenceLength() - 1;
 

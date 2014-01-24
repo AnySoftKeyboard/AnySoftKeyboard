@@ -22,7 +22,7 @@ public class KeyEventStateMachine {
 
     public static final int KEYCODE_FIRST_CHAR = -4097;
 
-    private final class KeyEventTransition {
+    private static final class KeyEventTransition {
 
         private KeyEventState next;
         private int keyCode;
@@ -34,7 +34,7 @@ public class KeyEventStateMachine {
 
     }
 
-    private final class KeyEventState {
+    private static final class KeyEventState {
 
         private LinkedList<KeyEventTransition> transitions;
         private int result;
@@ -56,7 +56,7 @@ public class KeyEventStateMachine {
 
         public void addNextState(int keyCode, KeyEventState next) {
             if (this.transitions == null)
-                this.transitions = new LinkedList<KeyEventTransition>();
+                this.transitions = new LinkedList<>();
             this.transitions.add(new KeyEventTransition(keyCode, next));
         }
 
@@ -73,11 +73,9 @@ public class KeyEventStateMachine {
 
     private KeyEventState start;
 
-    public enum State {RESET, REWIND, NOMATCH, PARTMATCH, FULLMATCH}
+    public static enum State {RESET, REWIND, NO_MATCH, PART_MATCH, FULL_MATCH}
 
-    ;
-
-    private class NFAPart {
+	private class NFAPart {
 
         KeyEventState state;
         int iVisibleSequenceLength;
@@ -131,11 +129,11 @@ public class KeyEventStateMachine {
 
                 if (!this.state.hasNext()) {
                     this.reset();
-                    return State.FULLMATCH;
+                    return State.FULL_MATCH;
                 }
-                return State.PARTMATCH;
+                return State.PART_MATCH;
             }
-            return State.NOMATCH;
+            return State.NO_MATCH;
         }
     }
 
@@ -202,7 +200,7 @@ public class KeyEventStateMachine {
         this.walkerhelper = new RingBuffer();
     }
 
-    private KeyEventState addNextState(KeyEventState current, int keyCode) {
+    private static KeyEventState addNextState(KeyEventState current, int keyCode) {
         KeyEventState next = current.getNext(keyCode);
         if (next != null)
             return next;
@@ -211,28 +209,30 @@ public class KeyEventStateMachine {
         return next;
     }
 
-    private KeyEventState addSpecialKeyNextState(KeyEventState current, int keyCode, int specialKey) {
-        KeyEventState next = this.addNextState(current, keyCode);
+	/*
+    private static KeyEventState addSpecialKeyNextState(KeyEventState current, int keyCode, int specialKey) {
+        KeyEventState next = addNextState(current, keyCode);
 
-        KeyEventState spnext = this.addNextState(current, specialKey);
+        KeyEventState spnext = addNextState(current, specialKey);
         spnext.addNextState(keyCode, next);
 
         return next;
     }
-
+*/
     public void addSequence(int[] sequence, int result) {
-        KeyEventState c = this.start;
-        for (int i = 0; i < sequence.length; i++) {
-            c = this.addNextState(c, sequence[i]);
-        }
-        c.setCharacter(result);
+	    addSpecialKeySequence(sequence, 0/*no special key*/, result);
     }
 
     public void addSpecialKeySequence(int[] sequence, int specialKey, int result) {
-        KeyEventState c = this.addNextState(this.start, specialKey);
+	    KeyEventState c = this.start;
 
         for (int i = 0; i < sequence.length; i++) {
-            c = this.addSpecialKeyNextState(c, sequence[i], specialKey);
+	        if (specialKey != 0) {
+		        //special key first
+		        c = addNextState(c, specialKey);
+	        }
+	        //the sequence second
+	        c = addNextState(c, sequence[i]);
         }
         c.setCharacter(result);
     }
@@ -264,7 +264,7 @@ public class KeyEventStateMachine {
                 result = cWalker.addKeyCode(keyCode);
             }
 
-            if (result == State.FULLMATCH) {
+            if (result == State.FULL_MATCH) {
                 if (found == null) {
                     this.walkerhelper.putItem(cWalker);
                     resultstate = result;
@@ -273,21 +273,21 @@ public class KeyEventStateMachine {
                 }
             }
 
-            if (result == State.PARTMATCH || result == State.NOMATCH) {
+            if (result == State.PART_MATCH || result == State.NO_MATCH) {
                 if (resultstate == State.RESET)
                     resultstate = result;
                 this.walkerhelper.putItem(cWalker);
             } else {
                 this.walkerunused.putItem(cWalker);
             }
-            if (result == State.PARTMATCH) {
+            if (result == State.PART_MATCH) {
                 if (this.walkerunused.hasItem()) {
                     NFAPart newwalker = this.walkerunused.getItem();
                     newwalker.reset();
                     this.walkerhelper.putItem(newwalker);
                 }
             }
-            if (result == State.PARTMATCH) {
+            if (result == State.PART_MATCH) {
                 if ((found == null) || (found.sequenceLength < cWalker.sequenceLength)) {
                     found = cWalker;
                     resultstate = result;
@@ -311,7 +311,7 @@ public class KeyEventStateMachine {
                 NFAPart part = this.walker.getItem();
                 this.walker.putItem(part);
                 i++;
-                if (part == found && resultstate == State.FULLMATCH)
+                if (part == found && resultstate == State.FULL_MATCH)
                     break;
 
                 if (found.visibleSequenceLength > 1) {
