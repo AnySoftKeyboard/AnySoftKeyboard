@@ -157,29 +157,13 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements
                                             + XML_TARGET_ATTRIBUTE);
                         } else {
                             if (!isAlt && !isShift) {
-                                // if
-                                // (AnySoftKeyboardConfiguration.getInstance().getDEBUG())
-                                // Log.d(TAG,
-                                // "Physical translation details: keys:"+printInts(keyCodes)+" target:"+target);
-                                translator.addSequence(keyCodes,
-                                        target.intValue());
+                                translator.addSequence(keyCodes,target.intValue());
                                 // http://code.google.com/p/softkeyboard/issues/detail?id=734
-                                translator.addShiftSequence(keyCodes, Character
-                                        .toUpperCase(target.intValue()));
+                                translator.addShiftSequence(keyCodes, Character.toUpperCase(target.intValue()));
                             } else if (isAlt) {
-                                // if
-                                // (AnySoftKeyboardConfiguration.getInstance().getDEBUG())
-                                // Log.d(TAG,
-                                // "Physical translation details: ALT+key:"+keyCode+" target:"+target);
-                                translator.addAltSequence(keyCodes,
-                                        target.intValue());
+                                translator.addAltSequence(keyCodes, target.intValue());
                             } else if (isShift) {
-                                // if
-                                // (AnySoftKeyboardConfiguration.getInstance().getDEBUG())
-                                // Log.d(TAG,
-                                // "Physical translation details: ALT+key:"+keyCode+" target:"+target);
-                                translator.addShiftSequence(keyCodes,
-                                        target.intValue());
+                                translator.addShiftSequence(keyCodes, target.intValue());
                             }
                         }
                     }
