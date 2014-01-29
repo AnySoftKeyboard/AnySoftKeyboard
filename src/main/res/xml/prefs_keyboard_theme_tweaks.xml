@@ -14,7 +14,7 @@
     <net.evendanan.pushingpixels.ListPreference
         android:defaultValue="@string/settings_default_key_press_preview_popup_position"
         android:dependency="@string/settings_key_key_press_shows_preview_popup"
-        android:dialogTitle="@string/settings_key_key_press_preview_popup_position"
+        android:dialogTitle="@string/key_preview_position_override"
         android:entries="@array/settings_key_preview_position_override_names"
         android:entryValues="@array/settings_key_preview_position_override_values"
         android:key="@string/settings_key_key_press_preview_popup_position"
