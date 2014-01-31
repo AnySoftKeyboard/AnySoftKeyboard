@@ -209,16 +209,6 @@ public class KeyEventStateMachine {
         return next;
     }
 
-	/*
-    private static KeyEventState addSpecialKeyNextState(KeyEventState current, int keyCode, int specialKey) {
-        KeyEventState next = addNextState(current, keyCode);
-
-        KeyEventState spnext = addNextState(current, specialKey);
-        spnext.addNextState(keyCode, next);
-
-        return next;
-    }
-*/
     public void addSequence(int[] sequence, int result) {
 	    addSpecialKeySequence(sequence, 0/*no special key*/, result);
     }
