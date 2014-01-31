@@ -18,7 +18,8 @@
     tools:ignore="UnusedResources"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:tag="1.2.20140131">
 
     <TextView
         android:layout_height="wrap_content"
