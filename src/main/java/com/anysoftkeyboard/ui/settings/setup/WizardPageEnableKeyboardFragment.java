@@ -89,7 +89,7 @@ public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
                     mAppContext.startActivity(startSettings);
                 } catch (ActivityNotFoundException notFoundEx) {
                     //weird.. the device does not have the IME setting activity. Nook?
-                    Toast.makeText(mAppContext, R.string.setup_wizard_step_one_action_error_no_settings_activity, Toast.LENGTH_LONG);
+                    Toast.makeText(mAppContext, R.string.setup_wizard_step_one_action_error_no_settings_activity, Toast.LENGTH_LONG).show();
                 }
             }
         });
