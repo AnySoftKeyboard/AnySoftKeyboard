@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.7.+'
+        classpath 'com.android.tools.build:gradle:0.8.+'
     }
 }
 
@@ -15,12 +15,12 @@ repositories {
     mavenLocal()
 }
 
-version '1.2.0'
+version '1.2.1'
 group 'net.evendanan.anysoftkeyboard'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.0.0"
+    buildToolsVersion "19.0.1"
 
     defaultConfig {
         minSdkVersion 4
@@ -28,4 +28,4 @@ android {
 }
 
 //how to publish: http://www.flexlabs.org/2013/06/using-local-aar-android-library-packages-in-gradle-builds
-//to local: mvn install:install-file -Dfile=build/libs/api-1.2.0.aar -DgroupId=net.evendanan.anysoftkeyboard -DartifactId=api -Dversion=1.2.0 -Dpackaging=aar
+//to local: mvn install:install-file -Dfile=build/libs/api-1.2.1.aar -DgroupId=net.evendanan.anysoftkeyboard -DartifactId=api -Dversion=1.2.1 -Dpackaging=aar

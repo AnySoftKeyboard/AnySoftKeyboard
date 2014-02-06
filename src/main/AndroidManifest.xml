@@ -1,12 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.anysoftkeyboard.api"
-    android:versionCode="1"
-    android:versionName="1.0">
-
-    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="18" />
+    package="com.anysoftkeyboard.api">
 
     <application
-        android:icon="@null">
+        android:icon="@null"
+        android:allowBackup="false">
 
     </application>
 
