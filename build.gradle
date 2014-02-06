@@ -8,14 +8,13 @@ buildscript {
 }
 
 apply plugin: 'android-library'
-apply plugin: 'maven-publish'
 
 repositories {
     mavenCentral()
     mavenLocal()
 }
 
-version '1.2.1'
+version '1.2.2'
 group 'net.evendanan.anysoftkeyboard'
 
 android {
@@ -27,5 +26,118 @@ android {
     }
 }
 
-//how to publish: http://www.flexlabs.org/2013/06/using-local-aar-android-library-packages-in-gradle-builds
-//to local: mvn install:install-file -Dfile=build/libs/api-1.2.1.aar -DgroupId=net.evendanan.anysoftkeyboard -DartifactId=api -Dversion=1.2.1 -Dpackaging=aar
+def isReleaseBuild() {
+    return version.contains("SNAPSHOT") == false
+}
+
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+configurations {
+    archives {
+        extendsFrom configurations.default
+    }
+}
+
+signing {
+    required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
+    sign configurations.archives
+}
+
+def sonatypeRepositoryUrl = "";
+
+if (isReleaseBuild()) {
+    println 'RELEASE BUILD'
+    sonatypeRepositoryUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+} else {
+    println 'DEBUG BUILD'
+    sonatypeRepositoryUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+}
+
+uploadArchives {
+    def Properties props = new Properties()
+    /**
+     * The file 'local.signing.properties' should include all your Sonatype information:
+     * PGP data:
+     *  signingKeyId
+     *  signingPassword
+     *  signingSecretKeyRingFile
+     *
+     * Sonatype credentials:
+     *  sonatypeUsername
+     *  sonatypePassword
+     */
+    def propFile = new File(projectDir, 'local.signing.properties')
+    def sonatypeUsername;
+    def sonatypePassword
+    if (propFile.canRead()){
+        props.load(new FileInputStream(propFile))
+        //this is your PGP key information
+        signing.keyId=props['signingKeyId']
+        signing.password=props['signingPassword']
+        signing.secretKeyRingFile=props['signingSecretKeyRingFile']
+        //this is your Sonatype account credentials
+        sonatypeUsername = props['sonatypeUsername']
+        sonatypePassword = props['sonatypePassword']
+    } else {
+        println 'local.signing.properties file was not found.'
+    }
+
+    configuration = configurations.archives
+    repositories.mavenDeployer {
+        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+        repository(url: sonatypeRepositoryUrl) {
+            authentication(userName: sonatypeUsername,
+                    password: sonatypePassword)
+        }
+
+        pom.project {
+            name 'AnySoftKeyboard-API'
+            packaging 'aar'
+            description 'AnySoftKeyboard API definitions files (required for the main app and for the plugins).'
+            url 'https://github.com/AnySoftKeyboard/AnySoftKeyboard-API'
+
+            scm {
+                url 'scm:git@github.com:AnySoftKeyboard/AnySoftKeyboard-API.git'
+                connection 'scm:git@github.com:AnySoftKeyboard/AnySoftKeyboard-API.git'
+                developerConnection 'scm:git@github.com:AnySoftKeyboard/AnySoftKeyboard-API.git'
+            }
+
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+
+            developers {
+                developer {
+                    id 'menny'
+                    name 'Menny Even Danan'
+                    email 'menny@evendanan.net'
+                }
+            }
+        }
+    }
+}
+
+task androidJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.allJava
+}
+
+task androidJavadocsJar(type: Jar) {
+    classifier = 'javadoc'
+    from androidJavadocs.destinationDir
+}
+
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.allSource
+}
+
+artifacts {
+    archives androidSourcesJar
+    archives androidJavadocsJar
+}
