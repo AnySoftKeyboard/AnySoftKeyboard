@@ -15,7 +15,7 @@ repositories {
     mavenLocal()
 }
 
-version '1.2.0'
+version '1.2.1'
 group 'net.evendanan.anysoftkeyboard'
 
 android {
@@ -28,4 +28,4 @@ android {
 }
 
 //how to publish: http://www.flexlabs.org/2013/06/using-local-aar-android-library-packages-in-gradle-builds
-//to local: mvn install:install-file -Dfile=build/libs/api-1.2.0.aar -DgroupId=net.evendanan.anysoftkeyboard -DartifactId=api -Dversion=1.2.0 -Dpackaging=aar
+//to local: mvn install:install-file -Dfile=build/libs/api-1.2.1.aar -DgroupId=net.evendanan.anysoftkeyboard -DartifactId=api -Dversion=1.2.1 -Dpackaging=aar
