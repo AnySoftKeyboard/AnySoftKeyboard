@@ -2,6 +2,7 @@
 /.gradle
 /.idea
 local.properties
+local.signing.properties
 /bin/
 /gen/
 
