@@ -34,12 +34,12 @@ public class WordComposer {
     /**
      * The list of unicode values for each keystroke (including surrounding keys)
      */
-    private final ArrayList<int[]> mCodes = new ArrayList<int[]>(AndroidUserDictionary.MAX_WORD_LENGTH);
+    private final ArrayList<int[]> mCodes = new ArrayList<>(AndroidUserDictionary.MAX_WORD_LENGTH);
 
     /**
      * This holds arrays for reuse. Will not exceed AndroidUserDictionary.MAX_WORD_LENGTH
      */
-    private final List<int[]> mArraysToReuse = new ArrayList<int[]>(AndroidUserDictionary.MAX_WORD_LENGTH);
+    private final List<int[]> mArraysToReuse = new ArrayList<>(AndroidUserDictionary.MAX_WORD_LENGTH);
 
     /**
      * The word chosen from the candidate list, until it is committed.

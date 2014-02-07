@@ -28,6 +28,8 @@ import javax.annotation.Nonnull;
 
 public class AbbreviationsDictionary extends SQLiteUserDictionaryBase {
 
+	private static final int ABBR_MAX_WORD_LENGTH = 2048;
+
     private final Map<CharSequence, String> mAbbreviationsMap = new HashMap<>();
 
     public AbbreviationsDictionary(Context context, String locale) {
@@ -39,7 +41,12 @@ public class AbbreviationsDictionary extends SQLiteUserDictionaryBase {
         return new WordsSQLiteConnection(mContext, "abbreviations.db", locale);
     }
 
-    @Override
+	@Override
+	protected int getMaxWordLength() {
+		return ABBR_MAX_WORD_LENGTH;
+	}
+
+	@Override
     public void getWords(WordComposer codes, WordCallback callback) {
         if (isClosed() || isLoading()) return;
 
