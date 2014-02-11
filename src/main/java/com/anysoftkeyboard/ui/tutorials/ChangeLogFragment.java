@@ -18,8 +18,6 @@ package com.anysoftkeyboard.ui.tutorials;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -31,7 +29,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.ui.settings.MainFragment;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -98,27 +95,22 @@ public class ChangeLogFragment extends PassengerFragment {
         final boolean showAllLogs = mLogToShow != SHOW_UNVIEWED_CHANGELOG;
         //looking for logs to show
         Resources res = getResources();
-        int currentVersionCode = 0;
-        PackageInfo info = null;
-        try {
-            info = DeveloperUtils.getPackageInfo(appContext);
-            currentVersionCode = info.versionCode;
-        } catch (final NameNotFoundException e) {
-            Log.e(TAG, "Failed to locate package information! This is very weird... I'm installed.");
-        }
-        while (info != null && currentVersionCode > 0) {
+
+	    int currentVersionCode = BuildConfig.VERSION_CODE;
+
+        while (currentVersionCode > 0) {
             final String layoutResourceName = "changelog_layout_" + currentVersionCode;
-            Log.d(TAG, "Looking for changelog " + layoutResourceName);
+            Log.d(TAG, "Looking for change-log " + layoutResourceName);
             final int resId = res.getIdentifier(layoutResourceName, "layout", appContext.getPackageName());
             if (resId != 0) {
                 if (showAllLogs || !mAppPrefs.getBoolean(layoutResourceName, false)) {
-                    Log.d(TAG, "Got a changelog #" + currentVersionCode + " which is " + layoutResourceName);
+                    Log.d(TAG, "Got a change-log #" + currentVersionCode + " which is " + layoutResourceName);
                     View logEntry = inflater.inflate(resId, mLogContainer, false);
                     Object logTag = logEntry.getTag();
                     View logHeader = inflater.inflate(R.layout.changelogentry_header, mLogContainer, false);
                     TextView versionName = (TextView) logHeader.findViewById(R.id.changelog_version_title);
                     versionName.setPaintFlags(versionName.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-                    updateEntryText(versionName, logTag, currentVersionCode, info, layoutResourceName);
+                    updateEntryText(versionName, logTag, currentVersionCode, layoutResourceName);
 
                     mLogContainer.addView(logHeader);
                     mLogContainer.addView(logEntry);
@@ -139,25 +131,22 @@ public class ChangeLogFragment extends PassengerFragment {
         return R.id.change_logs_container;
     }
 
-    protected void updateEntryText(TextView entryHeader, Object tag, int versionCode, PackageInfo packageInfo, String layoutResourceName) {
-        String versionName;
-        if (tag == null) {
-            if (!BuildConfig.DEBUG)
-                throw new IllegalStateException("In RELEASE mode, all change log items must have a tag. Please include the version name in layout " + layoutResourceName);
-            if (packageInfo.versionCode == versionCode)
-                //automatically adding the version name
-                versionName = packageInfo.versionName;
-            else
-                versionName = null;
-        } else {
-            versionName = tag.toString();
-        }
+    protected void updateEntryText(TextView entryHeader, Object tag, int versionCode, String layoutResourceName) {
+	    if (!BuildConfig.DEBUG && tag == null)
+		    throw new IllegalStateException("In RELEASE mode, all change log items must have a tag. Please include the version name in layout " + layoutResourceName);
 
-        if (TextUtils.isEmpty(versionName)) {
-            entryHeader.setText(getString(R.string.change_log_entry_header_template_without_name, versionCode));
-        } else {
-            entryHeader.setText(getString(R.string.change_log_entry_header_template, versionCode, versionName));
-        }
+	    if (BuildConfig.VERSION_CODE == versionCode) {
+		    if (!BuildConfig.DEBUG && !BuildConfig.VERSION_NAME.equals(tag.toString()))
+			    throw new IllegalStateException("In RELEASE mode, the tag MUST be equals to the VERSION_NAME!");
+		    entryHeader.setText(getString(R.string.change_log_entry_header_template, BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME));
+	    } else {
+		    String versionName = tag == null? null : tag.toString();
+		    if (TextUtils.isEmpty(versionName)) {
+			    entryHeader.setText(getString(R.string.change_log_entry_header_template_without_name, versionCode));
+		    } else {
+			    entryHeader.setText(getString(R.string.change_log_entry_header_template, versionCode, versionName));
+		    }
+	    }
     }
 
     @Override
@@ -195,11 +184,14 @@ public class ChangeLogFragment extends PassengerFragment {
         }
 
         @Override
-        protected void updateEntryText(TextView entryHeader, Object tag, int versionCode, PackageInfo packageInfo, String layoutResourceName) {
+        protected void updateEntryText(TextView entryHeader, Object tag, int versionCode, String layoutResourceName) {
             if (tag == null && !BuildConfig.DEBUG)
                 throw new IllegalStateException("In RELEASE mode, all change log items must have a tag. Please include the version name in layout " + layoutResourceName);
+	        //this method is only called from the main fragment, when the latest release data is shown
+			if (versionCode != BuildConfig.VERSION_CODE)
+				throw new IllegalStateException("This method should only be called when the versionCode parameter is the same as the build version code");
 
-            String cardedHeader = getString(R.string.change_log_card_title_template, versionCode, packageInfo.versionName);
+            String cardedHeader = getString(R.string.change_log_card_title_template, BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME);
             entryHeader.setText(cardedHeader);
         }
     }

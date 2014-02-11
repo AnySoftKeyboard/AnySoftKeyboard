@@ -257,7 +257,10 @@ public class AnySoftKeyboard extends InputMethodService implements
                         R.string.debug_tracing_starting_failed, Toast.LENGTH_LONG).show();
             }
         }
-        Log.i(TAG, "****** AnySoftKeyboard service started.");
+        Log.i(TAG, "****** AnySoftKeyboard v%s (%d) service started.", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE);
+	    if (!BuildConfig.DEBUG && BuildConfig.VERSION_NAME.endsWith("-SNAPSHOT"))
+		    throw new RuntimeException("You can not run a 'RELEASE' build with a SNAPSHOT postfix!");
+
         // I'm handling animations. No need for any nifty ROMs assistance.
         // I can't use this function with my own animations, since the
         // WindowManager can
