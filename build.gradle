@@ -1,6 +1,3 @@
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-
 buildscript {
     repositories {
         mavenCentral()
@@ -16,35 +13,11 @@ repositories {
     mavenCentral()
 }
 
-def String getInputFromConsoleIfMissing(Properties props, String propKey, String propInputMessage) {
-    def propValue = props[propKey]
-    if (propValue == null || propValue == '') {
-        def con = System.console();
-        if (con != null){
-            propValue = con.readLine("\n"+propInputMessage+": ")
-        }
-    }
-
-    return propValue
-}
-
-def boolean isEmpty(String value) {
-	if (value == null)
-		return true
-	else if (value == '')
-		return true
-	else
-		return false
-}
-
-def String getVersionPatchBuild() {
-    DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd")
-    Date date = new Date()
-    return dateFormat.format(date)
-}
-
-version "1.2."+getVersionPatchBuild()
+version utils.Utils.buildVersionName(1, 2, true)
 group 'net.evendanan'
+
+def localproperties.LocalPropertiesFile localExtraProperties = new localproperties.LocalPropertiesFile(new File(projectDir, 'local.extra.properties'))
+def localproperties.LocalPropertiesFile localSigningProperties = new localproperties.LocalPropertiesFile(new File(projectDir, 'local.signing.properties'))
 
 android {
     compileSdkVersion 19
@@ -52,23 +25,14 @@ android {
 
     defaultConfig {
         versionCode 122
-        versionName "1.2."+getVersionPatchBuild()
+        versionName project.version
 
         minSdkVersion 7
         targetSdkVersion 19
         //adding additional fields to the BuildConfig class.
 
         //extra details - from local
-        def Properties props = new Properties()
-        def String support_email_address
-        def propFile = new File(projectDir, 'local.extra.properties')
-        if (propFile.canRead()){
-            props.load(new FileInputStream(propFile))
-        } else {
-            println 'local.extra.properties file was not found.'
-        }
-        support_email_address = getInputFromConsoleIfMissing(props, 'CRASH_REPORT_EMAIL', 'Support email address')
-        if (isEmpty(support_email_address)) support_email_address = 'ooops@example.com'
+        def String support_email_address = localExtraProperties.getValueWithConsoleFallback('CRASH_REPORT_EMAIL', 'ooops@example.com', 'Support email address')
         println 'crash report email is: '+support_email_address
 
         buildConfigField "String", "CRASH_REPORT_EMAIL_ADDRESS", '"'+support_email_address+'"'
@@ -81,26 +45,13 @@ android {
 
     signingConfigs {
         release {
-            //https://gist.github.com/gabrielemariotti/6856974#file-build-gradle
-            def String keystore_file
-            def String keystore_password
-            def String key_alias
-            def String key_alias_password
-            def Properties props = new Properties()
-            def propFile = new File(projectDir, 'local.signing.properties')
-            if (propFile.canRead()){
-                props.load(new FileInputStream(propFile))
-            } else {
-                println 'local.signing.properties file was not found. Using debug signing configuration.'
-            }
+            def String keystore_file = localSigningProperties.getValueWithConsoleFallback('STORE_FILE', 'Key-Store file name')
+            def String keystore_password = localSigningProperties.getValueWithConsoleFallback('STORE_PASSWORD', 'Key-Store file password')
+            def String key_alias = localSigningProperties.getValueWithConsoleFallback('KEY_ALIAS', 'App key alias')
+            def String key_alias_password = localSigningProperties.getValueWithConsoleFallback('KEY_PASSWORD', 'App key password')
 
-            keystore_file = getInputFromConsoleIfMissing(props, 'STORE_FILE', 'Key-Store file name')
-            keystore_password = getInputFromConsoleIfMissing(props, 'STORE_PASSWORD', 'Key-Store file password')
-            key_alias = getInputFromConsoleIfMissing(props, 'KEY_ALIAS', 'App key alias')
-            key_alias_password = getInputFromConsoleIfMissing(props, 'KEY_PASSWORD', 'App key password')
-
-            if (    isEmpty(keystore_file) || isEmpty(keystore_password) ||
-                    isEmpty(key_alias) || isEmpty(key_alias_password)) {
+            if (    utils.Utils.isEmpty(keystore_file) || utils.Utils.isEmpty(keystore_password) ||
+                    utils.Utils.isEmpty(key_alias) || utils.Utils.isEmpty(key_alias_password)) {
                 //missing signing details, so I'll use debug signingConfigs details.
                 println "Missing release build-type signing details, I'll use DEBUG signing for the release."
                 storeFile signingConfigs.debug.storeFile

@@ -10,3 +10,4 @@ local.extra.properties
 /bin/
 /gen/
 /obj/
+/buildSrc/build
