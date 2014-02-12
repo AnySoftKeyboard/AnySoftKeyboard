@@ -115,7 +115,6 @@ public class AddOnListPreference extends ListPreference {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            assert mSelectedAddOn != null;
             final AddOn addOn = getItem(position);
             final View row;
             if (convertView == null) {
@@ -144,8 +143,7 @@ public class AddOnListPreference extends ListPreference {
             }
             if (icon == null) {
                 try {
-                    PackageManager packageManager = getContext()
-                            .getPackageManager();
+                    PackageManager packageManager = getContext().getPackageManager();
                     PackageInfo packageInfo = packageManager.getPackageInfo(addOn.getPackageName(), 0);
                     icon = packageInfo.applicationInfo.loadIcon(packageManager);
                 } catch (PackageManager.NameNotFoundException e) {
@@ -173,7 +171,10 @@ public class AddOnListPreference extends ListPreference {
             RadioButton tb = (RadioButton) row
                     .findViewById(R.id.addon_checkbox);
             tb.setClickable(false);
-            tb.setChecked(addOn.getId().equals(mSelectedAddOn.getId()));
+	        if (mSelectedAddOn != null)
+                tb.setChecked(addOn.getId().equals(mSelectedAddOn.getId()));
+	        else
+	            tb.setChecked(false);
 
             return row;
         }
@@ -270,7 +271,7 @@ public class AddOnListPreference extends ListPreference {
             validAddOns.toArray(addOns);
             setAddOnsList(addOns);
             AddOn selectedAddOn = AddOnsFactory.locateAddOn(selectedAddOnId, getContext().getApplicationContext());
-            if (selectedAddOn == null) {
+            if (selectedAddOn == null && validAddOns.size() > 0) {
                 selectedAddOn = validAddOns.get(0);
             }
             setSelectedAddOn(selectedAddOn);
