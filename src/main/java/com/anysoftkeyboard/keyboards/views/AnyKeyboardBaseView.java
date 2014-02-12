@@ -199,7 +199,7 @@ public class AnyKeyboardBaseView extends View implements
     int mSwipeVelocityThreshold;
     int mSwipeXDistanceThreshold;
     int mSwipeYDistanceThreshold;
-    int mSwipeSpaceXDistanceThreshold;
+	int mSwipeSpaceXDistanceThreshold;
     int mScrollXDistanceThreshold;
     int mScrollYDistanceThreshold;
 
@@ -1095,8 +1095,8 @@ public class AnyKeyboardBaseView extends View implements
                 .getSwipeDistanceThreshold() * density);
         Keyboard kbd = getKeyboard();
         if (kbd != null) {
-            mSwipeYDistanceThreshold = (int) (mSwipeXDistanceThreshold * (((float) kbd
-                    .getHeight()) / ((float) getWidth())));
+            mSwipeYDistanceThreshold = (int) (mSwipeXDistanceThreshold *
+		            (((float) kbd.getHeight()) / ((float) getWidth())));
         } else {
             mSwipeYDistanceThreshold = 0;
         }
@@ -1104,7 +1104,7 @@ public class AnyKeyboardBaseView extends View implements
             mSwipeYDistanceThreshold = mSwipeXDistanceThreshold;
 
         mSwipeSpaceXDistanceThreshold = mSwipeXDistanceThreshold / 2;
-        mSwipeYDistanceThreshold = mSwipeYDistanceThreshold / 2;
+	    mSwipeYDistanceThreshold = mSwipeYDistanceThreshold / 2;
 
         mScrollXDistanceThreshold = mSwipeXDistanceThreshold / 8;
         mScrollYDistanceThreshold = mSwipeYDistanceThreshold / 8;
