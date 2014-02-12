@@ -20,13 +20,16 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 
+import com.anysoftkeyboard.utils.Log;
+
 import java.lang.ref.WeakReference;
 
 import javax.annotation.Nullable;
 
 public abstract class AddOnImpl implements AddOn {
 
-    private final String mId;
+	private static final String TAG = "ASK_AddOnImpl";
+	private final String mId;
     private final String mName;
     private final String mDescription;
     private final String mPackageName;
@@ -41,7 +44,7 @@ public abstract class AddOnImpl implements AddOn {
         mName = packageContext.getString(nameResId);
         mDescription = description;
         mPackageName = packageContext.getPackageName();
-        mPackageContext = new WeakReference<Context>(packageContext);
+        mPackageContext = new WeakReference<>(packageContext);
         mSortIndex = sortIndex;
     }
 
@@ -63,10 +66,10 @@ public abstract class AddOnImpl implements AddOn {
         if (c == null) {
             try {
                 c = mAskAppContext.createPackageContext(mPackageName, PackageManager.GET_META_DATA);
-                mPackageContext = new WeakReference<Context>(c);
+                mPackageContext = new WeakReference<>(c);
             } catch (NameNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+	            Log.w(TAG, "Failed to find package %s!", mPackageName);
+	            Log.w(TAG, "Failed to find package! ", e);
             }
         }
         return c;
