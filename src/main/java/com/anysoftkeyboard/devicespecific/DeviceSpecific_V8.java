@@ -48,9 +48,7 @@ public class DeviceSpecific_V8 extends DeviceSpecific_V7 {
     @Override
     public GestureDetector createGestureDetector(Context appContext,
                                                  AskOnGestureListener listener) {
-        final boolean ignoreMultitouch = true;
-        return new AskV8GestureDetector(appContext, listener, null,
-                ignoreMultitouch);
+        return new AskV8GestureDetector(appContext, listener, null, true/*ignore multi-touch*/);
     }
 
     @Override

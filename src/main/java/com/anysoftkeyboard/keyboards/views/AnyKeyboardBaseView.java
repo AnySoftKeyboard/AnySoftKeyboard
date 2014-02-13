@@ -710,8 +710,7 @@ public class AnyKeyboardBaseView extends View implements
 
         reloadSwipeThresholdsSettings(res);
 
-        mMiniKeyboardSlideAllowance = res
-                .getDimension(R.dimen.mini_keyboard_slide_allowance);
+        mMiniKeyboardSlideAllowance = res.getDimension(R.dimen.mini_keyboard_slide_allowance);
 
         AskOnGestureListener listener = new AskGestureEventsListener(this);
 
@@ -719,8 +718,9 @@ public class AnyKeyboardBaseView extends View implements
                 .createGestureDetector(getContext(), listener);
         mGestureDetector.setIsLongpressEnabled(false);
 
-        MultiTouchSupportLevel multiTouchSupportLevel = AnyApplication
-                .getDeviceSpecific().getMultiTouchSupportLevel(getContext());
+        MultiTouchSupportLevel multiTouchSupportLevel =
+		        AnyApplication.getDeviceSpecific().getMultiTouchSupportLevel(getContext());
+
         mHasDistinctMultitouch = multiTouchSupportLevel == MultiTouchSupportLevel.Distinct;
 
         mKeyRepeatInterval = 50;

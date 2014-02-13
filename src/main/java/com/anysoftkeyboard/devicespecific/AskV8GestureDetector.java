@@ -61,11 +61,15 @@ public class AskV8GestureDetector extends GestureDetector {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
+	    int singleFingerEventPointerId = mSingleFingerEventPointerId;
+
         //I want to keep track on the first finger (https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/300)
         switch (MotionEventCompat.getActionMasked(ev)){
             case MotionEvent.ACTION_DOWN:
-                if (ev.getPointerCount() == 1)
+                if (ev.getPointerCount() == 1) {
                     mSingleFingerEventPointerId = ev.getPointerId(0);
+	                singleFingerEventPointerId = mSingleFingerEventPointerId;
+                }
                 break;
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
@@ -82,7 +86,7 @@ public class AskV8GestureDetector extends GestureDetector {
         }
         //I'm going to pass the event to the super, only if it is a single touch, and the event is for the first finger
         //https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/300
-        if (ev.getPointerCount() == 1 && ev.getPointerId(0) == mSingleFingerEventPointerId)
+        if (ev.getPointerCount() == 1 && ev.getPointerId(0) == singleFingerEventPointerId)
             return super.onTouchEvent(ev);
         else
             return false;
