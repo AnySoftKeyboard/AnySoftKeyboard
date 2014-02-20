@@ -12,6 +12,7 @@
         you encounter at http://s.evendanan.net/ask_issues.\n\nThank you for testing a development build.
     </string>
     <string name="about_copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020Menny Even-Danan</string>
+    <string name="main_site_url">https://plus.google.com/u/0/communities/106050362696748221135</string>
     <string-array name="english_initial_suggestions">
         <item>!</item>
         <item>\?</item>

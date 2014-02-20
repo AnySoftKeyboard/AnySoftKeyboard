@@ -1,8 +1,10 @@
 package com.anysoftkeyboard.ui.settings;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -84,6 +86,15 @@ public class MainFragment extends Fragment {
         sb.setSpan(csp, start, start + length, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         clickHere.setMovementMethod(LinkMovementMethod.getInstance());
         clickHere.setText(sb);
+
+	    ClickableSpan gplusLink = new ClickableSpan() {
+		    @Override
+		    public void onClick(View widget) {
+			    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.main_site_url)));
+			    startActivity(browserIntent);
+		    }
+	    };
+	    setupLink(getView(), R.id.ask_gplus_link, gplusLink, false);
     }
 
     public static void setupLink(View root, int showMoreLinkId, ClickableSpan clickableSpan, boolean reorderLinkToLastChild) {

@@ -13,6 +13,7 @@
         android:scaleType="centerCrop" />
 
     <TextView
+        android:id="@+id/ask_gplus_link"
         style="@style/Ask.Text.Small.Shadow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,7 +22,8 @@
         android:autoLink="web"
         android:layout_gravity="top|left"
         android:drawableLeft="@drawable/gplus"
-        android:text=" http://gplus.to/menny"
+        android:text="@string/ime_name"
+        android:drawablePadding="6dp"
         android:background="#3FFF" />
 
     <TextView
