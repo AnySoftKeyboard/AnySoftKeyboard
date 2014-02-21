@@ -23,7 +23,7 @@
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="* Bug fixes.\n* Localization:"
+        android:text="* Bug fixes.\n* Localization: CS, ES."
         style="@style/Ask.Text.Normal"
         tools:ignore="HardcodedText" />
 

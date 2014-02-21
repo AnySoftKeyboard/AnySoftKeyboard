@@ -6,34 +6,67 @@
   <string name="spell_checker_service_name">Corrector ortográfico AnySoftKeyboard</string>
   <string name="spell_checker_settings">Configuración de ortografía de AnySoftKeyboard</string>
   <string name="subtype_generic">corrector-genérico</string>
+  <string name="copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
+  <string name="version_text"><xliff:g id="version_name">%s</xliff:g>\u0020(v<xliff:g id="version_number">%s</xliff:g>)</string>
   <string name="additional_licenses"><u>Licencias adicionales…</u></string>
+  <string name="debug_tracing_starting">¡Seguimiento iniciado!\nAsegúrate de que lo pararás en algún momento</string>
+  <string name="debug_tracing_starting_failed">¡Inicio de seguimiento fallido! Revisa el registro para más detalles.</string>
+  <string name="debug_tracing_finished">¡Registro finalizado!\nEl archivo es
+        <xliff:g id="trace_file">%s</xliff:g>
+    
+    </string>
   <string name="menu_about_item">Acerca de</string>
   <string name="click_to_restart_suggestions">Haz clic para sugerencias</string>
   <string name="tips_notification_text">¡Haz clic para ver consejos!</string>
   <string name="tips_button">Cómo utilizarlo</string>
+  <string name="tips_button_description">Algunos consejos para utilizar AnySoftKeyboard</string>
   <string name="tips_title">Consejos de AnySoftKeyboard</string>
+  <string name="tips_pager_swipe_hint">ࢎ\u0020Desliza a izquierda o derecha para más consejos࢐</string>
   <string name="tip_1_welcome_to_ask">Bienvenid@ a AnySoftKeyboard!</string>
+  <string name="tip_1_how_to_access_settings">Para acceder a ajustes; mantén la tecla INTRO. ¡Encontrarás un mundo de opciones personalizables!
+    </string>
   <string name="tip_2_gestures">¡Con soporte de gestos!</string>
+  <string name="tip_2_gestures_tip">¡Con un gesto puede hacer mucho! Desliza de izquierda a derecha para cambiar de idioma, desliza hacia la izquierda para cambiar la disposición de símbolos, desliza sobre la barra espaciadora hacia arriba y aparecerán teclas de utilidad y desliza hacia abajo para ocultar el teclado.\nPuedes configurarlo mediante las preferencias (¿recuerdas? pulsando un instante la tecla INTRO).
+    </string>
   <string name="tip_3_hidden_kbds">Gemas ocultas</string>
+  <string name="tip_3_hidden_kbds_tip">Hay algunas teclas ocultas: \n1) Desliza tu dedo en la barra espaciadora hacia arriba, aparecerán las teclas de utilidad con flechas y micrófono (para entrada de voz). \n2) Desliza tu dedo hacia arriba completamente fuera del teclado, mantenlo presionado; este es el teclado extendido, con números y símbolos.
+    </string>
   <string name="tip_4_top_generic_row">Fila superior</string>
+  <string name="tip_4_top_generic_row_tip">¡La fila superior es la misma en todos los diseños y la puedes cambiar! Por defecto incluye símbolos (<i>123</i>), flechas de izquierda, derecha y una tecla de cambio de idioma (<i>ABC</i>). Puedes reemplazar esta fila en los ajustes.
+    </string>
   <string name="tip_4_top_generic_row_go_to_top_row_settings">Cambiar fila superior ahora</string>
   <string name="tip_5_key_feedback">Comentarios</string>
+  <string name="tip_5_key_feedback_tip">A veces es bueno obtener una señal no visual sobre las pulsaciones en las teclas. Me gusta eso. Así que aquí vamos, puedes tener vibración, sonido o ambos.
+    </string>
   <string name="tip_5_key_feedback_test">¿Desea probar las señales?</string>
   <string name="tip_6_bottom_rows">Fila inferior</string>
+  <string name="tip_6_bottom_rows_tip">Al igual que la fila superior, también puede sustituirse la fila inferior. AnySoftKeyboard tiene varios tipos: con o sin un micrófono, estilo iPhone, etc.
+    </string>
   <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Cambiar fila inferior ahora</string>
   <string name="tip_7_voice_input">Habla conmigo*</string>
+  <string name="tip_7_voice_input_tip">Escribir es bonito, ¡pero también hay soporte para entrada de voz! ¿Quieres dictar el texto? ¡Haz clic en la tecla del micrófono y ponte a hablar!\nEsta función utiliza tecnología de reconocimiento cedida por Google, así que no dudes de su funcionamiento :)
+    </string>
+  <string name="tip_7_voice_input_tip_dont_forget_bottom_row">Si quieres tener siempre el icono del micrófono, asegúrate de tener la fila inferior correcta (¿te acuerdas del consejo anterior?).\nComo sea, el micrófono siempre es accesible a través de las funciones ocultas (deslizando hacia arriba en la barra espaciadora).
+    </string>
   <string name="tip_7_voice_input_tip_note">* Requiere Android 2.2+ y conexión a Internet.</string>
   <string name="tip_8_suggestions">Yo te completo</string>
+  <string name="tip_8_suggestions_tip">Dependiendo del nivel de soporte de su idioma, AnySoftKeyboard puede ayudarle a terminar sus palabras y corregir sus errores. Cuando comience a escribir, AnySoftKeyboard sugerirá palabras partiendo de lo que ya ha escrito.
+    </string>
   <string name="tip_9_suggestions_restart">Reiniciando sugerencias</string>
   <string name="main_tab_welcome">Bienvenid@</string>
   <string name="main_tab_links">Enlaces</string>
   <string name="main_tab_credits">Créditos</string>
   <string name="how_to_pointer_title">Bienvenid@ a AnySoftKeyboard</string>
   <string name="how_to_pointer_version_prefix">Versión:</string>
+  <string name="how_to_pointer_not_app">AnySoftKeyboard no es una aplicación regular: es un reemplazo del teclado en pantalla.
+    </string>
   <string name="how_to_pointer_go_to_links">Para más información, vaya a la pestaña de Enlaces.</string>
   <string name="how_to_pointer_how_to_url">Detalles acerca de cómo utilizar este teclado:</string>
   <string name="how_to_pointer_site">Datos generales:</string>
   <string name="how_to_pointer_changelog">Detalles sobre la última versión:</string>
+  <string name="change_log_card_title_template">Últimos cambios de la v<xliff:g id="code">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
+  <string name="change_log_entry_header_template">v<xliff:g id="code">%s</xliff:g>\u0020-\u0020<xliff:g id="name">%s</xliff:g></string>
+  <string name="change_log_entry_header_template_without_name">v<xliff:g id="code">%s</xliff:g></string>
   <string name="how_to_pointer_issues">Informe de errores:</string>
   <string name="main_tab_credits_title">Esta aplicación fue creada con la ayuda de las siguientes personas:</string>
   <string name="main_tab_credits_created_by">Creado por:</string>
@@ -41,11 +74,20 @@
   <string name="main_tab_credits_localization_by">Esfuerzos de traducción por:</string>
   <string name="main_tab_credits_GUI_by">Imágenes de interfaz por:</string>
   <string name="how_to_enable_dialog_title">¿Activar AnySoftKeyboard?</string>
+  <string name="how_to_enable_dialog_text">No has activado AnySoftKeyboard aún. ¿Quieres ver cómo activarlo?
+    </string>
   <string name="how_to_enable_dialog_show_me">¡Demuéstramelo!</string>
   <string name="how_to_enable_dialog_dont_show_me">Más tarde</string>
   <string name="how_to_simple_howto_enable_ask_button">Activar AnySoftKeyboard</string>
+  <string name="how_to_simple_howto_press_back_to_return_tip">Pulsa ATRÁS una vez hecho para volver a las
+        instrucciones de activación
+    </string>
+  <string name="how_to_simple_howto_switch_to_ask">Paso 2: elige AnySoftKeyboard como tu método de entrada activo:
+    </string>
   <string name="how_to_simple_howto_switch_to_ask_button_after_step_1">Cambiar a AnySoftKeyboard</string>
   <string name="how_to_simple_howto_switch_to_ask_button_before_step_1">Haz primero el paso 1</string>
+  <string name="how_to_simple_howto_go_to_settings">Paso 3 (opcional): AnySoftKeyboard es muy personalizable. ¡Cambia las cosas! Puede hacerlo más adelante al pulsar por un instante la tecla INTRO.
+    </string>
   <string name="how_to_simple_howto_go_to_settings_button">Configuración de AnySoftKeyboard</string>
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
   <string name="notification_text_testers">Esta es la versión beta. ¡Utilízala con precaución!</string>
@@ -58,6 +100,8 @@
   <string name="about">Acerca de</string>
   <string name="changelog">Registro de cambios </string>
   <string name="search_market_for_addons">Búsqueda de complementos</string>
+  <string name="search_market_for_keyboard_addons">Consigue más teclados en la <i>Play Store</i>…</string>
+  <string name="search_market_for_quick_key_addons">Consigue más extensiones de <i>texto rápido</i> en la <i>Play Store</i>…</string>
   <string name="theme_addons_settings">Ajustes de tema del teclado</string>
   <string name="keyboard_theme_tweak_group">Ajustes</string>
   <string name="keyboard_theme_tweak_hints_group">Ajustes de texto de sugerencia</string>
@@ -65,6 +109,8 @@
   <string name="top_row_addons_settings">Ajustes de la fila superior</string>
   <string name="close_button">Cerrar</string>
   <string name="how_to_active_text">Cómo activar AnySoftKeyboard</string>
+  <string name="added_word">Guardado:\u0020<xliff:g id="word">%s</xliff:g>
+    </string>
   <string name="revert_added_word_question">¿Eliminar\?</string>
   <string name="removed_word">Eliminado:
         <xliff:g id="word">%s</xliff:g>
@@ -109,20 +155,29 @@
   <string name="fullscreen_input_connection_supported_off_summary">No utilizar pantalla completa de entrada en modo horizontal</string>
   <string name="fullscreen_portrait_input_connection_supported">Utilizar pantalla completa en modo vertical</string>
   <string name="fullscreen_portrait_input_connection_supported_on_summary">Utilizar pantalla completa de entrada en modo vertical</string>
+  <string name="fullscreen_portrait_input_connection_supported_off_summary">No utilizar pantalla completa de entrada en modo vertical
+    </string>
   <string name="backword_support">Soporte de palabra-anterior</string>
   <string name="backword_support_on_summary">Retroceso + Mayus borrará la última palabra</string>
   <string name="backword_support_off_summary">Retroceso + Mayus borrará el último carácter</string>
   <string name="swipe_tweak_group">Cambiar las acciones de los gestos</string>
   <string name="swipe_up_action">Delizar hacia arriba</string>
   <string name="swipe_up_action_title">Seleccionar acción de desliz hacia arriba</string>
-  <string name="swipe_up_from_spacebar_action">Desliz en la barra espaciadora hacia arriba</string>
-  <string name="swipe_up_from_spacebar_action_title">Seleccionar la acción de desliz hacía arriba en la barra espaciadora</string>
+  <string name="swipe_up_from_spacebar_action">Deslizamiento hacia arriba en barra espaciadora</string>
+  <string name="swipe_up_from_spacebar_action_summary">Define el deslizamiento hacia arriba en barra espaciadora. Actualmente, %s</string>
+  <string name="swipe_up_from_spacebar_action_title">Seleccionar la acción de deslizamiento hacia arriba en barra espaciadora</string>
   <string name="swipe_down_action">Desliz hacia abajo</string>
   <string name="swipe_down_action_title">Seleccionar acción de desliz hacia abajo</string>
   <string name="swipe_left_action">Desliz a la izquierda</string>
   <string name="swipe_left_action_title">Seleccionar acción de desliz a la izquierda</string>
   <string name="swipe_right_action">Desliz a la derecha</string>
   <string name="swipe_right_action_title">Seleccionar acción de desliz a la derecha</string>
+  <string name="swipe_right_space_bar_action">Deslizamiento derecho en barra espaciadora</string>
+  <string name="swipe_right_space_bar_action_summary">Define el deslizamiento derecho en barra espaciadora. Actualmente, %s</string>
+  <string name="swipe_right_space_bar_action_title">Deslizamiento derecho en barra espaciadora</string>
+  <string name="swipe_left_space_bar_action">Deslizamiento izquierdo en barra espaciadora</string>
+  <string name="swipe_left_space_bar_action_summary">Define el deslizamiento derecho en barra espaciadora. Actualmente, %s</string>
+  <string name="swipe_left_space_bar_action_title">Deslizamiento izquierdo en barra espaciadora</string>
   <string name="pinch_gesture_action">Gesto de pellizcar</string>
   <string name="pinch_gesture_action_title">Seleccione la acción del gesto de pellizcar</string>
   <string name="separate_gesture_action">Gesto de estiramiento</string>
@@ -169,6 +224,10 @@
   <string name="use_user_dictionary">Diccionario de usuario</string>
   <string name="use_user_dictionary_off_summary"> </string>
   <string name="use_auto_dictionary">Diccionario automático</string>
+  <string name="use_auto_dictionary_dialog_title">Selecciona el método de aprendizaje</string>
+  <string name="auto_dictionary_threshold_type_after_a_while">Después de algún uso</string>
+  <string name="auto_dictionary_threshold_type_immediately">Inmediatamente después de escribirla</string>
+  <string name="auto_dictionary_threshold_type_off">No aprender nuevas palabras</string>
   <string name="use_contacts_dictionary">Diccionario de contactos</string>
   <string name="use_contacts_dictionary_on_summary">Sugerir nombres de la lista de contactos</string>
   <string name="use_contacts_dictionary_off_summary"> </string>
@@ -207,6 +266,7 @@
   <string name="is_extesion_keyboard_above_keyboard">Extensión del teclado arriba</string>
   <string name="is_extesion_keyboard_above_keyboard_on_summary">Aparece encima del teclado principal</string>
   <string name="is_extesion_keyboard_above_keyboard_off_summary">Dibujado en el teclado principal</string>
+  <string name="show_new_tips_notifications_again">Notificar sobre nuevos consejos</string>
   <string name="show_new_tips_notifications_again_off_summary">No se notificara cuando nuevos conejos estén disponibles</string>
   <string name="show_settings_app_in_launcher">Configuración de la aplicación</string>
   <string name="settings_key_show_settings_app_off_summary">Ocultar la aplicación de configuración (puede requerir el reinicio del sistema)</string>
@@ -254,7 +314,10 @@
   <string name="lang_key_shows_popup_off_summary">La tecla de lenguaje recorrerá todos los idiomas</string>
   <string name="auto_caps">Auto-capitalización</string>
   <string name="grammer_group">Gramática</string>
+  <string name="keyboard_behavior_group">Comportamiento del teclado</string>
   <string name="candidates_on">Mostrar sugerencias</string>
+  <string name="candidates_off_summary">No se mostrará ninguna sugerencia</string>
+  <string name="quick_fix">Soluciones rápidas y abreviaturas</string>
   <string name="allow_suggestions_restart">Reiniciar sugerencias</string>
   <string name="allow_suggestions_restart_summary">Al mover el cursor, reiniciar la sugerencia de la palabra</string>
   <string name="auto_complete">Selección automática de sugerencias</string>
@@ -268,7 +331,9 @@
   <string name="auto_dict">Diccionario automático</string>
   <string name="auto_dict_summary">Agregar palabras comúnmente utilizadas o seleccionadas automáticamente al diccionario</string>
   <string name="no_extrenal_packs_support_title">No soportado</string>
+  <string name="keyboards_group_extra_template"><xliff:g id="enabledLayouts">%s</xliff:g>/<xliff:g id="totalLayouts">%s</xliff:g></string>
   <string name="keyboards_group">Teclados</string>
+  <string name="keyboards_group_summary">Distribuciones de teclado para el uso en AnySoftKeyboard</string>
   <string name="symbols_keyboard">123!#()</string>
   <string name="symbols_alt_keyboard">{}\_</string>
   <string name="symbols_alt_num_keyboard">123</string>
@@ -285,19 +350,23 @@
   <string name="quick_text_keys_group">Teclas de texto rápido</string>
   <string name="quick_text_key_active">Tecla de texto rápido activa</string>
   <string name="quick_text_key_dialog_title">Seleccione la tecla</string>
+  <string name="quick_text_key_summary">Tecla seleccionada para texto rápido: %s</string>
   <string name="extension_keyboards_group">Teclados de extensión</string>
   <string name="extension_keyboards_summary">Seleccione las filas arriba, abajo o teclado de extensión</string>
   <string name="top_generic_row_group">Fila superior genérica común</string>
   <string name="top_generic_row_active">Fila superior activa</string>
   <string name="top_generic_row_dialog_title">Seleccionar tipo de fila</string>
+  <string name="top_generic_row_summary">Fila superior seleccionada: %s</string>
   <string name="top_generic_row_list_title">Seleccionar tipo de fila</string>
   <string name="bottom_generic_row_group">Fila inforeror genérica común</string>
   <string name="bottom_generic_row_active">Fila inferior activa</string>
   <string name="bottom_generic_row_dialog_title">Seleccionar tipo de fila</string>
+  <string name="bottom_generic_row_summary">Fila inferior seleccionada: %s</string>
   <string name="bottom_generic_row_list_title">Seleccionar tipo de fila</string>
   <string name="extension_keyboard_group">Teclado de extensión</string>
   <string name="extension_keyboard_active">Teclado de extensión activo</string>
   <string name="extension_keyboard_dialog_title">Seleccionar teclado</string>
+  <string name="extension_keyboard_summary">Extensión de teclado seleccionada: %s</string>
   <string name="extension_keyboard_list_title">Seleccionar teclado</string>
   <string name="keyboard_theme_group">Temas de teclado</string>
   <string name="keyboard_theme_active">Tema de teclado activo</string>
@@ -375,13 +444,19 @@
   <string name="settings_split_state_merged_always">Inicio regular</string>
   <string name="settings_split_state_split_in_landscape">Iniciar dividido cuando se muestra horizontalmente</string>
   <string name="settings_split_state_split_always">Iniciar dividido</string>
+  <string name="settings_split_state_compact_left_always">Inicio compacto a la izquierda</string>
   <string name="user_dictionary_select_locale">Idioma:</string>
   <string name="user_dictionary_read_please_wait">Leyendo palabras...</string>
   <string name="user_dict_settings_titlebar">Diccionario de usuario</string>
   <string name="user_dict_editor">Editor de palabras</string>
+  <string name="abbreviation_dict_settings_titlebar">Editor de abreviatura</string>
+  <string name="abbreviation_dict_editor">Editor de abreviatura</string>
+  <string name="abbreviation_dict_word_template"><i><xliff:g id="abbreviation">%s</xliff:g></i>\u0020\u2192\u0020<i><xliff:g id="target">%s</xliff:g></i></string>
   <string name="user_dict_settings_add_dialog_title">Añadir al diccionario</string>
   <string name="user_dict_settings_edit_dialog_title">Editar texto</string>
   <string name="user_dict_backup_success_title">¡Copia de seguridad hecha correctamente!</string>
+  <string name="user_dict_backup_success_text">Tus palabras se han almacenado satisfactoriamente en /Android/data/com.menny.android.anysoftkeyboard/files/
+    </string>
   <string name="user_dict_backup_fail_title">¡Copia de seguridad falló!</string>
   <string name="user_dict_backup_fail_text">¡No se puede almacenar sus archivos! ¿Existe almacenamiento disponible?</string>
   <string name="user_dict_backup_fail_text_with_error">Error al guardar palabras por:
@@ -416,6 +491,10 @@
   <string name="word_editor_action_restore_words">Restaurar</string>
   <string name="click_to_add_new_word">Haz clic para añadir una nueva palabra</string>
   <string name="enter_word_hint">Escribe aquí la nueva palabra</string>
+  <string name="enter_abbreviation_hint">Abreviatura</string>
+  <string name="enter_abbreviation_target_hint">Frase completa</string>
+  <string name="toggle_button_on">Sí</string>
+  <string name="toggle_button_off">No</string>
   <string name="about_additional_software_licenses">Licencias de software adicionales</string>
   <string name="wizard_step_previous_step_not_complete_title">Te has dejado un paso sin hacer</string>
   <string name="wizard_step_previous_step_not_complete_text">Por favor, ve al paso anterior y sigue las instrucciones.</string>
@@ -428,6 +507,7 @@
   <string name="setup_wizard_top_title_tablet">Configura AnySoftKeyboard para usarlo</string>
   <string name="setup_wizard_step_two_title">Cambiar a AnySoftKeyboard</string>
   <string name="setup_wizard_step_two_small_sub_title">Paso 2 de 3</string>
+  <string name="setup_wizard_step_two_details">¡Su sistema puede usar <i>AnySoftKeyboard</i>, pero no está establecido como teclado activo.\nAl cambiarlo, <i>AnySoftKeyboard</i> se convertirá en su nuevo teclado en pantalla y podrá disfrutar de todas sus características!</string>
   <string name="setup_wizard_step_two_action">Cambiar teclados activos</string>
   <string name="setup_wizard_step_three_title">¡AnySoftKeyboard está listo!</string>
   <string name="setup_wizard_step_three_details">Gracias por elegir <i>AnySoftKeyboard</i>.\nEste teclado es totalmente personalizable. Corre y personalízalo:</string>
@@ -439,6 +519,7 @@
   <string name="ime_crashed_ticker">Ups, AnySoftKeyboard dejó de funcionar, esto no estaba planeado…</string>
   <string name="ime_crashed_send_button">Enviar</string>
   <string name="ime_crashed_cancel_button">Cancelar</string>
+  <string name="ime_crashed_intent_selector_title">Enviar informe de errores vía</string>
   <string name="setup_wizard_step_one">Paso uno:</string>
   <string name="setup_wizard_step_two">Paso dos:</string>
   <string name="setup_wizard_step_three">Paso tres:</string>
