@@ -53,6 +53,8 @@ import net.evendanan.pushingpixels.AsyncTaskWithProgressWindow;
 import net.evendanan.pushingpixels.FragmentChauffeurActivity;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class UserDictionaryEditorFragment extends Fragment
@@ -77,8 +79,14 @@ public class UserDictionaryEditorFragment extends Fragment
     EditableDictionary mCurrentDictionary;
 
     AbsListView mWordsListView;//this may be either ListView or GridView (in tablets)
+	private static final Comparator<UserWordsListAdapter.Word> msWordsComparator = new Comparator<UserWordsListAdapter.Word>() {
+		@Override
+		public int compare(UserWordsListAdapter.Word lhs, UserWordsListAdapter.Word rhs) {
+			return lhs.word.compareTo(rhs.word);
+		}
+	};
 
-    @Override
+	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
@@ -303,6 +311,8 @@ public class UserDictionaryEditorFragment extends Fragment
                     mWordsList.add(word);
                     cursor.moveToNext();
                 }
+	            //now, sorting the word list alphabetically
+	            Collections.sort(mWordsList, msWordsComparator);
                 return null;
             }
 
@@ -310,8 +320,10 @@ public class UserDictionaryEditorFragment extends Fragment
                 ListAdapter adapter = getWordsListAdapter(mWordsList);
                 //AbsListView introduced the setAdapter method in API11, so I'm required to check the instance type
                 if (mWordsListView instanceof ListView) {
+	                //this is NOT a redundant cast!
                     ((ListView)mWordsListView).setAdapter(adapter);
                 } else if (mWordsListView instanceof GridView) {
+	                //this is NOT a redundant cast!
                     ((GridView)mWordsListView).setAdapter(adapter);
                 } else {
                     throw new ClassCastException("Unknown mWordsListView type "+mWordsListView.getClass());
