@@ -64,7 +64,7 @@ public class Suggest implements Dictionary.WordCallback {
     // private Context mContext;
     private boolean mHaveCorrection;
     private CharSequence mOriginalWord;
-    private String mExplodedAbbreviation = null;
+    private final List<String> mExplodedAbbreviations = new ArrayList<>();
     private String mLowerOriginalWord;
 
     // TODO: Remove these member variables by passing more context to addWord()
@@ -227,8 +227,8 @@ public class Suggest implements Dictionary.WordCallback {
     public List<CharSequence> getSuggestions(
             /* View view, */WordComposer wordComposer,
             boolean includeTypedWordIfValid) {
-        mExplodedAbbreviation = null;
-        mHaveCorrection = false;
+	    mExplodedAbbreviations.clear();
+	    mHaveCorrection = false;
         mIsFirstCharCapitalized = wordComposer.isFirstCharCapitalized();
         mIsAllUpperCase = wordComposer.isAllUpperCase();
         collectGarbage();
@@ -278,14 +278,16 @@ public class Suggest implements Dictionary.WordCallback {
         if (mOriginalWord != null) {
             mSuggestions.add(0, mOriginalWord.toString());
         }
-        if (mExplodedAbbreviation != null) {
+        if (mExplodedAbbreviations.size() > 0) {
             //typed at zero, exploded at 1 index.
-            mSuggestions.add(1, mExplodedAbbreviation);
+	        for(String explodedWord : mExplodedAbbreviations)
+                mSuggestions.add(1, explodedWord);
+
             mHaveCorrection = true;//so the exploded text will be auto-committed.
         }
         // Check if the first suggestion has a minimum number of characters in
         // common
-        if (mMainDictionaryEnabled && mSuggestions.size() > 1 && mExplodedAbbreviation == null) {
+        if (mMainDictionaryEnabled && mSuggestions.size() > 1 && mExplodedAbbreviations.size() == 0) {
             if (!haveSufficientCommonality(mLowerOriginalWord,
                     mSuggestions.get(1))) {
                 mHaveCorrection = false;
@@ -347,7 +349,7 @@ public class Suggest implements Dictionary.WordCallback {
                            final int length, final int freq, final Dictionary from) {
         Log.v(TAG, "Suggest::addWord");
         if (from == mAbbreviationDictionary) {
-            mExplodedAbbreviation = new String(word, offset, length);
+	        mExplodedAbbreviations.add(new String(word, offset, length));
             return true;
         }
         int pos = 0;

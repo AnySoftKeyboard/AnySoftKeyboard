@@ -20,8 +20,12 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.anysoftkeyboard.WordComposer;
+import com.anysoftkeyboard.dictionaries.Dictionary;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -30,7 +34,7 @@ public class AbbreviationsDictionary extends SQLiteUserDictionaryBase {
 
 	private static final int ABBR_MAX_WORD_LENGTH = 2048;
 
-    private final Map<CharSequence, String> mAbbreviationsMap = new HashMap<>();
+    private final Map<CharSequence, List<String>> mAbbreviationsMap = new HashMap<>();
 
     public AbbreviationsDictionary(Context context, String locale) {
         super("AbbreviationsDictionary", context, locale);
@@ -51,21 +55,34 @@ public class AbbreviationsDictionary extends SQLiteUserDictionaryBase {
         if (isClosed() || isLoading()) return;
 
         String word = codes.getTypedWord().toString();
-        String explodedString = mAbbreviationsMap.get(word);
-        if (explodedString == null) {
-            //checking maybe it's a auto-capitalized word
-            if (codes.isFirstCharCapitalized()) {
-                explodedString = mAbbreviationsMap.get(toLowerCase(word.charAt(0))+(word.length() > 1?word.substring(1) : ""));
-            }
-        }
-        if (!TextUtils.isEmpty(explodedString))
-            callback.addWord(explodedString.toCharArray(), 0, explodedString.length(), MAX_WORD_FREQUENCY, this);
+		reportExplodedWords(callback, word);
+
+		if (codes.isFirstCharCapitalized()) {
+			String nonCapitalizedWord = toLowerCase(word.charAt(0))+(word.length() > 1? word.substring(1) : "");
+			reportExplodedWords(callback, nonCapitalizedWord);
+		}
     }
 
-    @Override
+	private void reportExplodedWords(WordCallback callback, String word) {
+		List<String> explodedStringsList = mAbbreviationsMap.get(word);
+		if (explodedStringsList != null) {
+			for(String explodedString : explodedStringsList)
+				callback.addWord(explodedString.toCharArray(), 0, explodedString.length(), MAX_WORD_FREQUENCY, this);
+		}
+	}
+
+	@Override
     protected void addWordFromStorage(String word, int frequency) {
         //not double storing the words in memory, so I'm not calling the super method
-        mAbbreviationsMap.put(getAbbreviation(word, frequency), getExplodedSentence(word, frequency));
+	    String key = getAbbreviation(word, frequency);
+	    String value = getExplodedSentence(word, frequency);
+	    if (mAbbreviationsMap.containsKey(key)) {
+		    mAbbreviationsMap.get(key).add(value);
+	    } else {
+		    List<String> list = new ArrayList<>(1);
+		    list.add(value);
+            mAbbreviationsMap.put(key, list);
+	    }
     }
 
     public static String getAbbreviation(@Nonnull String word, int frequency) {
