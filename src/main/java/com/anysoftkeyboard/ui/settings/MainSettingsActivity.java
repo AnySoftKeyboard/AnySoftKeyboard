@@ -34,6 +34,7 @@ import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
+import net.evendanan.pushingpixels.EdgeEffectHacker;
 import net.evendanan.pushingpixels.FragmentChauffeurActivity;
 
 public class MainSettingsActivity extends FragmentChauffeurActivity {
@@ -95,6 +96,8 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
+	    //applying my very own Edge-Effect color
+	    EdgeEffectHacker.brandGlowEffect(getApplicationContext(), getResources().getColor(R.color.menu_divider));
     }
 
     @Override
