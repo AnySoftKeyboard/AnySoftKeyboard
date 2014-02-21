@@ -1958,20 +1958,19 @@ public class AnyKeyboardBaseView extends View implements
 
         if (icon == null) {
             // building needed icon
-            Log.d(TAG, "Building icon for key-code " + keyCode);
+            Log.d(TAG, "Building icon for key-code %d", keyCode);
             DrawableBuilder builder = mKeysIconBuilders.get(keyCode);
             if (builder == null)
                 return null;
             icon = builder.buildDrawable();
             mKeysIcons.put(keyCode, icon);
-            Log.d(TAG, "Current drawable cache size is " + mKeysIcons.size());
+            Log.d(TAG, "Current drawable cache size is %d", mKeysIcons.size());
         }
         // maybe a drawable state is required
         if (icon != null) {
             switch (keyCode) {
                 case KeyCodes.ENTER:
-                    Log.d(TAG, "Action key action ID is: "
-                            + mKeyboardActionType);
+                    Log.d(TAG, "Action key action ID is %d", mKeyboardActionType);
                     switch (mKeyboardActionType) {
                         case EditorInfo.IME_ACTION_DONE:
                             icon.setState(mDrawableStatesProvider.DRAWABLE_STATE_ACTION_DONE);
@@ -1997,10 +1996,6 @@ public class AnyKeyboardBaseView extends View implements
                         icon.setState(mDrawableStatesProvider.DRAWABLE_STATE_MODIFIER_NORMAL);
                     break;
                 case KeyCodes.CTRL:
-				/*
-				 * if (mKeyboard.isControlLocked())
-				 * mControlIcon.setState(DRAWABLE_STATE_MODIFIER_LOCKED); else
-				 */
                     if (mKeyboard.isControl())
                         icon.setState(mDrawableStatesProvider.DRAWABLE_STATE_MODIFIER_PRESSED);
                     else

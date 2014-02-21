@@ -268,9 +268,8 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         if (me.getAction() == MotionEvent.ACTION_DOWN) {
             mFirstTouchPont.x = (int) me.getX();
             mFirstTouchPont.y = (int) me.getY();
-            mIsFirstDownEventInsideSpaceBar = mSpaceBarKey != null
-                    && mSpaceBarKey.isInside(mFirstTouchPont.x,
-                    mFirstTouchPont.y);
+            mIsFirstDownEventInsideSpaceBar =
+		            mSpaceBarKey != null && mSpaceBarKey.isInside(mFirstTouchPont.x, mFirstTouchPont.y);
         } else if (mIsFirstDownEventInsideSpaceBar) {
             if (me.getAction() == MotionEvent.ACTION_MOVE) {
                 setGesturePreviewText(mSwitcher, me);
