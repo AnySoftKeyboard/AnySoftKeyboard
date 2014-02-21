@@ -13,7 +13,7 @@ repositories {
     mavenCentral()
 }
 
-version utils.Utils.buildVersionName(1, 2, true)
+version utils.Utils.buildVersionName(1, 2, false)
 group 'net.evendanan'
 
 def localproperties.LocalPropertiesFile localExtraProperties = new localproperties.LocalPropertiesFile(new File(projectDir, 'local.extra.properties'))
