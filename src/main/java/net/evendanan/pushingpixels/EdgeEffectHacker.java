@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 
+import javax.annotation.Nonnull;
+
 public class EdgeEffectHacker {
 
 	/**
@@ -12,14 +14,20 @@ public class EdgeEffectHacker {
 	 * @param context The application's Context
 	 * @param brandColor The color you wish to apply.
 	 */
-	public static void brandGlowEffect(Context context, int brandColor) {
+	public static void brandGlowEffect(@Nonnull Context context, int brandColor) {
 		//glow
 		int glowDrawableId = context.getResources().getIdentifier("overscroll_glow", "drawable", "android");
-		Drawable androidGlow = context.getResources().getDrawable(glowDrawableId);
-		androidGlow.setColorFilter(brandColor, PorterDuff.Mode.SRC_IN);
+		if (glowDrawableId != 0) {
+			Drawable androidGlow = context.getResources().getDrawable(glowDrawableId);
+			assert androidGlow != null;//I know it can be null, since there is an Identifier with the type and name
+			androidGlow.setColorFilter(brandColor, PorterDuff.Mode.SRC_IN);
+		}
 		//edge
 		int edgeDrawableId = context.getResources().getIdentifier("overscroll_edge", "drawable", "android");
-		Drawable androidEdge = context.getResources().getDrawable(edgeDrawableId);
-		androidEdge.setColorFilter(brandColor, PorterDuff.Mode.SRC_IN);
+		if (edgeDrawableId != 0){
+			Drawable androidEdge = context.getResources().getDrawable(edgeDrawableId);
+			assert androidEdge != null;//I know it can be null, since there is an Identifier with the type and name
+			androidEdge.setColorFilter(brandColor, PorterDuff.Mode.SRC_IN);
+		}
 	}
 }
