@@ -33,8 +33,12 @@ final class AskGestureEventsListener implements
     }
 
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        if (mKeyboardView.isAtTwoFingersState())
-            return false;
+        if (mKeyboardView.isAtTwoFingersState()) {
+	        //in two fingers state we might still want to report a scroll, if BOTH pointers are moving in the same direction
+	        if (!pointersMovingInTheSameDirection(e1, e2)) {
+		        return false;
+	        }
+        }
 
         final float scrollXDistance = Math.abs(e2.getX() - e1.getX());
         final float scrollYDistance = Math.abs(e2.getY() - e1.getY());
@@ -64,29 +68,53 @@ final class AskGestureEventsListener implements
                     return true;
                 }
             }
-        }/* else {
-            Log.v(TAG, "Scrolling on Y axis");
-            if (velocityY > mKeyboardView.mSwipeVelocityThreshold) {
-                Log.v(TAG, "Scroll broke the velocity barrier");
-                if (scrollYDistance > mKeyboardView.mSwipeYDistanceThreshold) {
-                    mKeyboardView.disableTouchesTillFingersAreUp();
-                    Log.v(TAG, "Scroll broke the distance barrier");
-                    if (e2.getY() > e1.getY()) {
-                        //to down
-                        mKeyboardView.mKeyboardActionListener.onSwipeDown(
-                                mKeyboardView.isFirstDownEventInsideSpaceBar());
-                    } else {
-                        mKeyboardView.mKeyboardActionListener.onSwipeUp(
-                                mKeyboardView.isFirstDownEventInsideSpaceBar());
-                    }
-                    return true;
-                }
-            }
-        }*/
+        }
         return false;
     }
 
-    public boolean onFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
+	private static final int DIRECTION_NONE = -1;
+	private static final int DIRECTION_UP = 0;
+	private static final int DIRECTION_DOWN = 1;
+	private static final int DIRECTION_LEFT = 2;
+	private static final int DIRECTION_RIGHT = 3;
+
+	private static int getPointerDirection(MotionEvent e1, MotionEvent e2, final int pointerIndex) {
+		final int pointerId = e1.getPointerId(pointerIndex);
+		final int secondPointerIndex = e2.findPointerIndex(pointerId);
+		if (secondPointerIndex == -1) return DIRECTION_NONE;
+
+		final float xDistance = e2.getX(secondPointerIndex) - e1.getX(pointerIndex);
+		final float yDistance = e2.getY(secondPointerIndex) - e1.getY(pointerIndex);
+		if (xDistance == yDistance) return DIRECTION_NONE;
+		if (Math.abs(xDistance) > Math.abs(yDistance)) {
+			//major movement in the X axis
+			if (xDistance > 0)
+				return DIRECTION_RIGHT;
+			else
+				return DIRECTION_LEFT;
+		} else {
+			if (yDistance > 0)
+				return DIRECTION_DOWN;
+			else
+				return DIRECTION_UP;
+		}
+	}
+
+	private static boolean pointersMovingInTheSameDirection(MotionEvent e1, MotionEvent e2) {
+		//TODO: PROBLEM, the first event should be the first event with TWO fingers.
+
+		final int direction = getPointerDirection(e1, e2, 0);
+		for(int pointerIndex = 1; pointerIndex<e2.getPointerCount(); pointerIndex++) {
+			final int otherPointerDirection = getPointerDirection(e1, e2, pointerIndex);
+			if (otherPointerDirection != direction)
+				return false;
+		}
+		//if we got here, it means that all pointers are moving in the same direction
+		return true;
+	}
+
+
+	public boolean onFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
         if (mKeyboardView.isAtTwoFingersState()) {
 	        Log.v(TAG, "onFling ignored due to isAtTwoFingersState");
 	        return false;
