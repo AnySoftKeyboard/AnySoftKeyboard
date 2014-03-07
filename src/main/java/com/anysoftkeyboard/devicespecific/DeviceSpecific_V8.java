@@ -32,8 +32,7 @@ public class DeviceSpecific_V8 extends DeviceSpecific_V7 {
     @Override
     public MultiTouchSupportLevel getMultiTouchSupportLevel(Context appContext) {
         PackageManager pkg = appContext.getPackageManager();
-        boolean hasDistintMultitouch = pkg
-                .hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN_MULTITOUCH_DISTINCT);
+        boolean hasDistintMultitouch = pkg.hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN_MULTITOUCH_DISTINCT);
         boolean hasMultitouch = pkg
                 .hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN_MULTITOUCH);
 
@@ -48,7 +47,7 @@ public class DeviceSpecific_V8 extends DeviceSpecific_V7 {
     @Override
     public GestureDetector createGestureDetector(Context appContext,
                                                  AskOnGestureListener listener) {
-        return new AskV8GestureDetector(appContext, listener, null, true/*ignore multi-touch*/);
+        return new AskV8GestureDetector(appContext, listener);
     }
 
     @Override

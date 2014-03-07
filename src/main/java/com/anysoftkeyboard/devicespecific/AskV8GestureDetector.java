@@ -18,7 +18,6 @@ package com.anysoftkeyboard.devicespecific;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Handler;
 import android.support.v4.view.MotionEventCompat;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -26,20 +25,21 @@ import android.view.ScaleGestureDetector;
 
 import com.anysoftkeyboard.utils.Log;
 
+import javax.annotation.Nonnull;
+
 @TargetApi(8)
 public class AskV8GestureDetector extends GestureDetector {
     private static final String TAG = "AskV8GestureDetector";
 
     private static final int NOT_A_POINTER_ID = -1;
 
-    private final ScaleGestureDetector mScaleGestureDetector;
+    protected final ScaleGestureDetector mScaleGestureDetector;
     private final AskOnGestureListener mListener;
 
     private int mSingleFingerEventPointerId = NOT_A_POINTER_ID;
 
-    public AskV8GestureDetector(Context context, AskOnGestureListener listener,
-                                Handler handler, boolean ignoreMultitouch) {
-        super(context, listener, handler, ignoreMultitouch);
+    public AskV8GestureDetector(Context context, AskOnGestureListener listener) {
+        super(context, listener, null, true/*ignore multi-touch*/);
 
         mListener = listener;
 
@@ -60,7 +60,7 @@ public class AskV8GestureDetector extends GestureDetector {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent ev) {
+    public boolean onTouchEvent(@Nonnull MotionEvent ev) {
 	    int singleFingerEventPointerId = mSingleFingerEventPointerId;
 
         //I want to keep track on the first finger (https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/300)
