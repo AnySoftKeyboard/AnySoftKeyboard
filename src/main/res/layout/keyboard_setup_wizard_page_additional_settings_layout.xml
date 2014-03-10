@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="6dp">
 
     <include android:id="@id/previous_step_not_complete"
         layout="@layout/keyboard_setup_wizard_previous_step_not_complete_layout"
