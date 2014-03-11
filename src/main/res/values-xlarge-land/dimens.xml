@@ -39,4 +39,9 @@
 
     <integer name="condensing_precentage">50</integer>
     <integer name="condensing_precentage_edge">30</integer>
+
+    <!-- Global content UI padding, bottom -->
+    <dimen name="global_content_padding_bottom">8dp</dimen>
+    <!-- Global content UI padding, sides -->
+    <dimen name="global_content_padding_side">64dp</dimen>
 </resources>

@@ -50,4 +50,9 @@
     <integer name="condensing_precentage_edge">50</integer>
 
     <dimen name="max_item_extra_width">280dp</dimen>
+
+    <!-- Global content UI padding, bottom -->
+    <dimen name="global_content_padding_bottom">8dp</dimen>
+    <!-- Global content UI padding, sides -->
+    <dimen name="global_content_padding_side">32dp</dimen>
 </resources>

@@ -28,11 +28,8 @@
         android:layout_height="0px"
         android:layout_weight="1"
         android:paddingTop="0dip"
-        android:paddingBottom="@dimen/preference_fragment_padding_bottom"
-        android:paddingLeft="@dimen/preference_fragment_padding_side"
-        android:paddingRight="@dimen/preference_fragment_padding_side"
-        android:scrollbarStyle="@integer/preference_fragment_scrollbarStyle"
         android:clipToPadding="false"
+        android:scrollbarStyle="outsideOverlay"
         android:drawSelectorOnTop="false"
         android:cacheColorHint="@android:color/transparent"
         android:scrollbarAlwaysDrawVerticalTrack="true" />
@@ -40,7 +37,7 @@
     <TextView android:id="@android:id/empty"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:padding="@dimen/preference_fragment_padding_side"
+        android:padding="@dimen/global_content_padding_side"
         android:gravity="center"
         android:visibility="gone" />
 
