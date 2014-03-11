@@ -19,6 +19,7 @@ package net.evendanan.pushingpixels;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
@@ -89,4 +90,17 @@ public abstract class PassengerFragmentSupport {
         set.addAnimation(scale);
         return set;
     }
+
+	/**
+	 * Will set the title in the hosting Activity's title.
+	 * Will only set the title if the fragment is hosted by the Activity's manager, and not inner one.
+	 * @param fragment
+	 * @param title
+	 */
+	public static void setActivityTitle(Fragment fragment, CharSequence title) {
+		FragmentActivity activity = fragment.getActivity();
+		if (activity.getSupportFragmentManager() == fragment.getFragmentManager()) {
+			activity.setTitle(title);
+		}
+	}
 }

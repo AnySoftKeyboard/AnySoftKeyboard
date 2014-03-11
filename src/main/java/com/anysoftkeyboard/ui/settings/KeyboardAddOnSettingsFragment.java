@@ -26,6 +26,8 @@ import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.ui.settings.widget.AddOnCheckBoxPreference;
 import com.menny.android.anysoftkeyboard.R;
 
+import net.evendanan.pushingpixels.PassengerFragmentSupport;
+
 import java.util.ArrayList;
 
 public class KeyboardAddOnSettingsFragment extends PreferenceFragment {
@@ -42,7 +44,7 @@ public class KeyboardAddOnSettingsFragment extends PreferenceFragment {
 
         PreferenceCategory keyboardsGroup = (PreferenceCategory) findPreference("keyboard_addons_group");
         Activity activity = getActivity();
-        activity.setTitle(getString(R.string.keyboards_group));
+	    PassengerFragmentSupport.setActivityTitle(this, getString(R.string.keyboards_group));
         // getting all keyboards
         final ArrayList<KeyboardAddOnAndBuilder> creators = KeyboardFactory.getAllAvailableKeyboards(activity.getApplicationContext());
 

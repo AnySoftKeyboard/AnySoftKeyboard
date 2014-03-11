@@ -1854,7 +1854,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                 }
                 // Cancel the just reverted state
                 // mJustRevertedSeparator = null;
-                if (mKeyboardSwitcher.isKeyRequireSwitchToAlphabet(primaryCode)) {
+                if (mKeyboardSwitcher.isKeyCodeRequireSwitchingToAlphabet(primaryCode)) {
                     mKeyboardSwitcher.nextKeyboard(getCurrentInputEditorInfo(),
                             NextKeyboardType.Alphabet);
                 }

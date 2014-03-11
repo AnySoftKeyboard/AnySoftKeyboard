@@ -25,6 +25,7 @@ import android.support.v4.preference.PreferenceFragment;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.FragmentChauffeurActivity;
+import net.evendanan.pushingpixels.PassengerFragmentSupport;
 
 public class AdditionalLanguageSettingsFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener {
 
@@ -38,8 +39,7 @@ public class AdditionalLanguageSettingsFragment extends PreferenceFragment imple
     @Override
     public void onStart() {
         super.onStart();
-        Activity activity = getActivity();
-        activity.setTitle(getString(R.string.languages_cat));
+	    PassengerFragmentSupport.setActivityTitle(this, getString(R.string.languages_cat));
     }
 
     @Override

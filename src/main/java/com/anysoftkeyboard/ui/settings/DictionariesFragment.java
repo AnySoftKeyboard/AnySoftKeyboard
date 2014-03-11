@@ -27,6 +27,7 @@ import com.anysoftkeyboard.ui.settings.wordseditor.UserDictionaryEditorFragment;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.FragmentChauffeurActivity;
+import net.evendanan.pushingpixels.PassengerFragmentSupport;
 
 public class DictionariesFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener {
 
@@ -41,8 +42,7 @@ public class DictionariesFragment extends PreferenceFragment implements Preferen
     @Override
     public void onStart() {
         super.onStart();
-        Activity activity = getActivity();
-        activity.setTitle(getString(R.string.special_dictionaries_group));
+	    PassengerFragmentSupport.setActivityTitle(this, getString(R.string.special_dictionaries_group));
     }
 
     @Override

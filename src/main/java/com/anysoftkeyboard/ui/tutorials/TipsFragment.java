@@ -39,6 +39,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.FragmentChauffeurActivity;
 import net.evendanan.pushingpixels.PassengerFragment;
+import net.evendanan.pushingpixels.PassengerFragmentSupport;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,7 +134,7 @@ public class TipsFragment extends PassengerFragment {
     @Override
     public void onStart() {
         super.onStart();
-        getActivity().setTitle(getString(R.string.tips_title));
+	    PassengerFragmentSupport.setActivityTitle(this, getString(R.string.tips_title));
     }
     private class TipFragmentAdapter extends FragmentStatePagerAdapter {
 

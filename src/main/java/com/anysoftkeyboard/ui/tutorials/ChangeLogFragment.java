@@ -36,6 +36,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.FragmentChauffeurActivity;
 import net.evendanan.pushingpixels.PassengerFragment;
+import net.evendanan.pushingpixels.PassengerFragmentSupport;
 
 public class ChangeLogFragment extends PassengerFragment {
 
@@ -152,7 +153,7 @@ public class ChangeLogFragment extends PassengerFragment {
     @Override
     public void onStart() {
         super.onStart();
-        getActivity().setTitle(getString(R.string.changelog));
+	    PassengerFragmentSupport.setActivityTitle(this, getString(R.string.changelog));
     }
 
     public static class CardedChangeLogFragment extends ChangeLogFragment {

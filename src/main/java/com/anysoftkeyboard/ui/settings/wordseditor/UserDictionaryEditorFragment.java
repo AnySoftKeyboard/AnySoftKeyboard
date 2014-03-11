@@ -51,6 +51,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.AsyncTaskWithProgressWindow;
 import net.evendanan.pushingpixels.FragmentChauffeurActivity;
+import net.evendanan.pushingpixels.PassengerFragmentSupport;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -166,7 +167,7 @@ public class UserDictionaryEditorFragment extends Fragment
     @Override
     public void onStart() {
         super.onStart();
-        getActivity().setTitle(getString(R.string.user_dict_settings_titlebar));
+	    PassengerFragmentSupport.setActivityTitle(this, getString(R.string.user_dict_settings_titlebar));
         fillLanguagesSpinner();
     }
 

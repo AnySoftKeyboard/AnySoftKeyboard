@@ -30,6 +30,7 @@ import com.anysoftkeyboard.ui.settings.widget.AddOnListPreference;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.FragmentChauffeurActivity;
+import net.evendanan.pushingpixels.PassengerFragmentSupport;
 
 public class AdditionalUiSettingsFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener {
 
@@ -43,9 +44,8 @@ public class AdditionalUiSettingsFragment extends PreferenceFragment implements 
     @Override
     public void onStart() {
         super.onStart();
-        Activity activity = getActivity();
-        activity.setTitle(getString(R.string.more_ui_settings_group));
-        Context appContext = activity.getApplicationContext();
+	    PassengerFragmentSupport.setActivityTitle(this, getString(R.string.more_ui_settings_group));
+        Context appContext = getActivity().getApplicationContext();
         //updating the data in the add-on selectors
         AddOnListPreference bottomRow = (AddOnListPreference) findPreference(getString(R.string.settings_key_ext_kbd_bottom_row_key));
         AddOnListPreference.populateAddOnListPreference(bottomRow,

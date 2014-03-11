@@ -26,6 +26,7 @@ import com.anysoftkeyboard.ui.dev.DeveloperToolsFragment;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.FragmentChauffeurActivity;
+import net.evendanan.pushingpixels.PassengerFragmentSupport;
 
 public class UiTweaksFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener {
 
@@ -41,8 +42,7 @@ public class UiTweaksFragment extends PreferenceFragment implements Preference.O
     @Override
     public void onStart() {
         super.onStart();
-        Activity activity = getActivity();
-        activity.setTitle(getString(R.string.tweaks_group));
+	    PassengerFragmentSupport.setActivityTitle(this, getString(R.string.tweaks_group));
     }
 
     @Override

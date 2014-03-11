@@ -23,6 +23,8 @@ import android.support.v4.preference.PreferenceFragment;
 
 import com.menny.android.anysoftkeyboard.R;
 
+import net.evendanan.pushingpixels.PassengerFragmentSupport;
+
 public class GesturesSettingsFragment extends PreferenceFragment {
 
     @Override
@@ -34,7 +36,6 @@ public class GesturesSettingsFragment extends PreferenceFragment {
     @Override
     public void onStart() {
         super.onStart();
-        Activity activity = getActivity();
-        activity.setTitle(getString(R.string.swipe_tweak_group));
+	    PassengerFragmentSupport.setActivityTitle(this, getString(R.string.swipe_tweak_group));
     }
 }

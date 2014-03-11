@@ -25,6 +25,7 @@ import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 public class KeyboardSwitcher {
@@ -726,12 +727,25 @@ public class KeyboardSwitcher {
         return mRightToLeftMode;
     }
 
-    public boolean isKeyRequireSwitchToAlphabet(int primaryCode) {
-        if (primaryCode == KeyCodes.ENTER || primaryCode == KeyCodes.SPACE) {
-            return (!isAlphabetMode())
-                    && AnyApplication.getConfig().getSwitchKeyboardOnSpace();
-        } else
-            return false;
+    public boolean isKeyCodeRequireSwitchingToAlphabet(int primaryCode) {
+	    if (BuildConfig.DEBUG) {
+		    if (primaryCode == KeyCodes.ENTER || primaryCode == KeyCodes.SPACE) {
+			    Log.d(TAG, "isKeyCodeRequireSwitchingToAlphabet was called with a interesting key-code");
+			    if (!isAlphabetMode()) {
+				    Log.d(TAG, "isKeyCodeRequireSwitchingToAlphabet was called while in symbols mode");
+				    if (AnyApplication.getConfig().getSwitchKeyboardOnSpace()) {
+					    Log.d(TAG, "isKeyCodeRequireSwitchingToAlphabet was called while config flag is ON");
+					    return true;
+				    }
+			    }
+		    }
+	    }
+
+        if ((primaryCode == KeyCodes.ENTER || primaryCode == KeyCodes.SPACE) &&
+		        (!isAlphabetMode() && AnyApplication.getConfig().getSwitchKeyboardOnSpace()))
+	        return true;
+
+	    return false;
     }
 
     public boolean shouldPopupForLanguageSwitch() {

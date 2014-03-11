@@ -34,6 +34,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.AsyncTaskWithProgressWindow;
 import net.evendanan.pushingpixels.FragmentChauffeurActivity;
+import net.evendanan.pushingpixels.PassengerFragmentSupport;
 
 import java.io.File;
 
@@ -84,7 +85,7 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
     public void onStart() {
         super.onStart();
         updateTracingState();
-        getActivity().setTitle(getString(R.string.developer_tools));
+	    PassengerFragmentSupport.setActivityTitle(this, getString(R.string.developer_tools));
     }
 
     private void updateTracingState() {
