@@ -18,7 +18,11 @@ package com.anysoftkeyboard.ui.settings;
 
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -26,6 +30,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
@@ -40,8 +46,12 @@ import net.evendanan.pushingpixels.FragmentChauffeurActivity;
 public class MainSettingsActivity extends FragmentChauffeurActivity {
 
     private static final String TAG = "ASK_MAIN";
+	private static final String SP_KEY_TIMES_MENU_TUTORIAL_SHOWN = "SP_KEY_TIMES_MENU_TUTORIAL_SHOWN";
+	private static final int TIMES_MENU_TUTORIAL_TO_BE_SHOWN = 2;
+	private static final long TUTORIAL_SHOWING_DELAY = 1500;
+	private static final int MSG_KEY_SHOW_MENU_TUTORIAL_POPUP = 2341;
 
-    private DrawerLayout mDrawerRootLayout;
+	private DrawerLayout mDrawerRootLayout;
     private ActionBarDrawerToggle mDrawerToggle;
 
     private CharSequence mTitle;
@@ -52,8 +62,30 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
             updateMenuExtraData();
         }
     };
+	private PopupWindow mTutorialPopup = null;
+	private Handler mHandler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			if (!isChaufferActivityVisible()) return;
+			switch (msg.what) {
+				case MSG_KEY_SHOW_MENU_TUTORIAL_POPUP:
+					if (mDrawerRootLayout.isDrawerOpen(Gravity.LEFT)) return;
+					mTutorialPopup = new PopupWindow(MainSettingsActivity.this);
+					mTutorialPopup.setWindowLayoutMode(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+					View content = getLayoutInflater().inflate(R.layout.tutorial_menu_opening, mDrawerRootLayout, false);
+					mTutorialPopup.setContentView(content);
+					Drawable background = getResources().getDrawable(R.drawable.lean_dark_popup_keyboard_background);
+					mTutorialPopup.setBackgroundDrawable(background);
+					mTutorialPopup.setAnimationStyle(R.style.TutorialWindowAnimation);
+					mTutorialPopup.showAtLocation(findViewById(getFragmentRootUiElementId()),
+							Gravity.TOP, -(background.getIntrinsicWidth()/4), background.getIntrinsicHeight());
+					break;
+			}
+		}
+	};
 
-    @Override
+	@Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.main_ui);
@@ -89,6 +121,14 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         AnyApplication.getConfig().addChangedListener(menuExtraUpdaterOnConfigChange);
+
+
+	    //menu tutorial
+	    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+	    int timesMenuTutorialShown = sp.getInt(SP_KEY_TIMES_MENU_TUTORIAL_SHOWN, 0);
+	    if (timesMenuTutorialShown < TIMES_MENU_TUTORIAL_TO_BE_SHOWN) {
+		    mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_KEY_SHOW_MENU_TUTORIAL_POPUP), TUTORIAL_SHOWING_DELAY);
+	    }
     }
 
     @Override
@@ -120,6 +160,7 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+	    dismissTutorialPopupWindow();
         AnyApplication.getConfig().removeChangedListener(menuExtraUpdaterOnConfigChange);
     }
 
@@ -147,6 +188,7 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
         // Pass the event to ActionBarDrawerToggle, if it returns
         // true, then it has handled the app icon touch event
         if (mDrawerToggle.onOptionsItemSelected(item)) {
+	        dismissTutorialPopupWindow();
             return true;
         }
         // Handle your other action bar items...
@@ -154,7 +196,23 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
+	private void dismissTutorialPopupWindow() {
+		if (mTutorialPopup != null && mTutorialPopup.isShowing()) {
+			mTutorialPopup.dismiss();
+			markMenuTutorialShown();
+		}
+		mTutorialPopup = null;
+	}
+
+	private void markMenuTutorialShown() {
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+		int timesMenuTutorialShown = sp.getInt(SP_KEY_TIMES_MENU_TUTORIAL_SHOWN, 0);
+		SharedPreferences.Editor editor = sp.edit();
+		editor.putInt(SP_KEY_TIMES_MENU_TUTORIAL_SHOWN, timesMenuTutorialShown+1);
+		editor.commit();
+	}
+
+	@Override
     public void setTitle(CharSequence title) {
         mTitle = title;
         getSupportActionBar().setTitle(mTitle);

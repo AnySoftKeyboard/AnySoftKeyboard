@@ -62,6 +62,8 @@
     <color name="menu_background_disabled">#FFF</color>
     <color name="menu_background_pressed">#BBB</color>
 
+    <color name="tutorial_background">#AA77DD</color>
+
     <color name="menu_divider">#663399</color>
     <color name="menu_item_divider">#77663399</color>
     <color name="generic_disabled_background_color">#A777</color>
