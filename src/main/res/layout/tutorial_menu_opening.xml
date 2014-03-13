@@ -5,7 +5,6 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textColor="@android:color/white"
-          android:padding="4dp"
           android:drawablePadding="4dp"
           android:drawableLeft="@drawable/ic_left_arrow"
-          android:text="The icon opens Settings"/>
+          android:text="@string/tutorial_menu_open_menu"/>

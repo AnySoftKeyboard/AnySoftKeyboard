@@ -788,4 +788,6 @@
     <string name="setup_wizard_step_two">Step two:</string>
     <string name="setup_wizard_step_three">Step three:</string>
     <string name="about_donate">Donate:</string>
+    <string name="tutorial_menu_open_menu">The icon opens Settings</string>
+    <string name="tutorial_menu_close_menu">And also closes it</string>
 </resources>
