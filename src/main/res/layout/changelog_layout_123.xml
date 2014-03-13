@@ -23,7 +23,7 @@
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="* Extension keyboard fix for Android 4.4 devices.\n* Localization:."
+        android:text="* Extension keyboard fix for Android 4.4 devices.\n* A simple tutorial about Settings menu.\n* Some visual refinements.\n* Localization: NO, DA."
         style="@style/Ask.Text.Normal"
         tools:ignore="HardcodedText" />
 
