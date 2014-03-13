@@ -49,7 +49,10 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
 	private static final String SP_KEY_TIMES_MENU_TUTORIAL_SHOWN = "SP_KEY_TIMES_MENU_TUTORIAL_SHOWN";
 	private static final int TIMES_MENU_TUTORIAL_TO_BE_SHOWN = 2;
 	private static final long TUTORIAL_SHOWING_DELAY = 1500;
-	private static final int MSG_KEY_SHOW_MENU_TUTORIAL_POPUP = 2341;
+	private static final int MSG_KEY_MENU_TUTORIAL_STEP_SHOW_POPUP_TO_OPEN = 2341;
+	private static final int MSG_KEY_MENU_TUTORIAL_STEP_OPEN_MENU = 2342;
+	private static final int MSG_KEY_MENU_TUTORIAL_STEP_CLOSE_MENU = 2344;
+	private static final int MSG_KEY_MENU_TUTORIAL_STEP_DISMISS_POPUP = 2345;
 
 	private DrawerLayout mDrawerRootLayout;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -69,19 +72,45 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
 			super.handleMessage(msg);
 			if (!isChaufferActivityVisible()) return;
 			switch (msg.what) {
-				case MSG_KEY_SHOW_MENU_TUTORIAL_POPUP:
+				case MSG_KEY_MENU_TUTORIAL_STEP_SHOW_POPUP_TO_OPEN:
 					if (mDrawerRootLayout.isDrawerOpen(Gravity.LEFT)) return;
-					mTutorialPopup = new PopupWindow(MainSettingsActivity.this);
-					mTutorialPopup.setWindowLayoutMode(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-					View content = getLayoutInflater().inflate(R.layout.tutorial_menu_opening, mDrawerRootLayout, false);
-					mTutorialPopup.setContentView(content);
-					Drawable background = getResources().getDrawable(R.drawable.lean_dark_popup_keyboard_background);
-					mTutorialPopup.setBackgroundDrawable(background);
-					mTutorialPopup.setAnimationStyle(R.style.TutorialWindowAnimation);
-					mTutorialPopup.showAtLocation(findViewById(getFragmentRootUiElementId()),
-							Gravity.TOP, -(background.getIntrinsicWidth()/4), background.getIntrinsicHeight());
+					createTutorialPopup(R.layout.tutorial_menu_opening);
+					//showing to the user how it done, in 4..3..2..1
+					mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_KEY_MENU_TUTORIAL_STEP_OPEN_MENU), 3000);
+					break;
+				case MSG_KEY_MENU_TUTORIAL_STEP_OPEN_MENU:
+					if (mTutorialPopup != null && mTutorialPopup.isShowing() && !mDrawerRootLayout.isDrawerOpen(Gravity.LEFT)) {
+						mDrawerRootLayout.openDrawer(Gravity.LEFT);
+						createTutorialPopup(R.layout.tutorial_menu_closing);
+						//showing to the user how it done, in 4..3..2..1
+						mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_KEY_MENU_TUTORIAL_STEP_CLOSE_MENU), 2000);
+					}
+					break;
+				case MSG_KEY_MENU_TUTORIAL_STEP_CLOSE_MENU:
+					if (mTutorialPopup != null && mTutorialPopup.isShowing() && mDrawerRootLayout.isDrawerOpen(Gravity.LEFT)) {
+						mDrawerRootLayout.closeDrawer(Gravity.LEFT);
+						mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_KEY_MENU_TUTORIAL_STEP_DISMISS_POPUP), 250);
+					}
+					break;
+				case MSG_KEY_MENU_TUTORIAL_STEP_DISMISS_POPUP:
+					dismissTutorialPopupWindow();
 					break;
 			}
+		}
+
+		private void createTutorialPopup(int layout) {
+			if (mTutorialPopup != null)
+				mTutorialPopup.dismiss();
+
+			mTutorialPopup = new PopupWindow(MainSettingsActivity.this);
+			mTutorialPopup.setWindowLayoutMode(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+			View content = getLayoutInflater().inflate(layout, mDrawerRootLayout, false);
+			mTutorialPopup.setContentView(content);
+			Drawable background = getResources().getDrawable(R.drawable.lean_dark_popup_keyboard_background);
+			mTutorialPopup.setBackgroundDrawable(background);
+			mTutorialPopup.setAnimationStyle(R.style.TutorialWindowAnimation);
+			mTutorialPopup.showAtLocation(findViewById(getFragmentRootUiElementId()),
+					Gravity.TOP, -(background.getIntrinsicWidth()/4), background.getIntrinsicHeight());
 		}
 	};
 
@@ -127,7 +156,7 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
 	    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 	    int timesMenuTutorialShown = sp.getInt(SP_KEY_TIMES_MENU_TUTORIAL_SHOWN, 0);
 	    if (timesMenuTutorialShown < TIMES_MENU_TUTORIAL_TO_BE_SHOWN) {
-		    mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_KEY_SHOW_MENU_TUTORIAL_POPUP), TUTORIAL_SHOWING_DELAY);
+		    mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_KEY_MENU_TUTORIAL_STEP_SHOW_POPUP_TO_OPEN), TUTORIAL_SHOWING_DELAY);
 	    }
     }
 
@@ -200,6 +229,10 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
 		if (mTutorialPopup != null && mTutorialPopup.isShowing()) {
 			mTutorialPopup.dismiss();
 			markMenuTutorialShown();
+			mHandler.removeMessages(MSG_KEY_MENU_TUTORIAL_STEP_SHOW_POPUP_TO_OPEN);
+			mHandler.removeMessages(MSG_KEY_MENU_TUTORIAL_STEP_OPEN_MENU);
+			mHandler.removeMessages(MSG_KEY_MENU_TUTORIAL_STEP_CLOSE_MENU);
+			mHandler.removeMessages(MSG_KEY_MENU_TUTORIAL_STEP_DISMISS_POPUP);
 		}
 		mTutorialPopup = null;
 	}
