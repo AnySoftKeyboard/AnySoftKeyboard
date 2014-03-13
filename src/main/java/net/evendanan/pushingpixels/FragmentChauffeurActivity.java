@@ -52,9 +52,12 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
             intent.putExtra(KEY_FRAGMENT_ARGS_TO_ADD, fragmentArgs);
     }
 
+	private boolean mIsActivityShown = false;
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+	    mIsActivityShown = true;
         if (savedInstanceState == null) {
             //setting up the root of the UI.
             setRootFragment(createRootFragmentInstance());
@@ -85,7 +88,9 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
     protected abstract Fragment createRootFragmentInstance();
 
     public void returnToRootFragment() {
-        getSupportFragmentManager().popBackStackImmediate(ROOT_FRAGMENT_TAG, 0 /*don't pop the root*/);
+	    if (!mIsActivityShown) return;
+
+	    getSupportFragmentManager().popBackStackImmediate(ROOT_FRAGMENT_TAG, 0 /*don't pop the root*/);
     }
 
     public void setRootFragment(Fragment fragment) {
@@ -111,6 +116,8 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
      * @param originateView a hint view which will be used to fine-tune the ExpandedItem animation
      */
     public void addFragmentToUi(@Nonnull Fragment fragment, FragmentUiContext experience, @Nullable View originateView) {
+	    if (!mIsActivityShown) return;
+
         if (experience == FragmentUiContext.RootFragment) {
             //in this case, I need to pop all the other fragments till the root.
             returnToRootFragment();
@@ -181,4 +188,20 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
             finish();
         }
     }
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		mIsActivityShown = true;
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		mIsActivityShown = false;
+	}
+
+	public final boolean isChaufferActivityVisible() {
+		return mIsActivityShown;
+	}
 }
