@@ -19,13 +19,13 @@ package com.anysoftkeyboard.keyboards;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
+
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnImpl;
 import com.anysoftkeyboard.addons.IconHolder;
 import com.anysoftkeyboard.addons.ScreenshotHolder;
 import com.anysoftkeyboard.utils.Log;
-
-import javax.annotation.Nullable;
 
 public class KeyboardAddOnAndBuilder extends AddOnImpl implements IconHolder, ScreenshotHolder {
 

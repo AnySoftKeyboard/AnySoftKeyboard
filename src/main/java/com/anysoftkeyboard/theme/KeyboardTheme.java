@@ -19,11 +19,11 @@ package com.anysoftkeyboard.theme;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
+
 import com.anysoftkeyboard.addons.AddOnImpl;
 import com.anysoftkeyboard.addons.ScreenshotHolder;
 import com.anysoftkeyboard.utils.Log;
-
-import javax.annotation.Nullable;
 
 public class KeyboardTheme extends AddOnImpl implements ScreenshotHolder {
 

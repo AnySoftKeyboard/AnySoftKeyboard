@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.ui.settings.wordseditor;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +17,6 @@ import com.menny.android.anysoftkeyboard.R;
 import net.evendanan.pushingpixels.PassengerFragmentSupport;
 
 import java.util.List;
-
-import javax.annotation.Nullable;
 
 public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFragment {
 

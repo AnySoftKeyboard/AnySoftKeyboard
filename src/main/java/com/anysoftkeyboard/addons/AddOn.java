@@ -17,8 +17,7 @@
 package com.anysoftkeyboard.addons;
 
 import android.content.Context;
-
-import javax.annotation.Nullable;
+import android.support.annotation.Nullable;
 
 public interface AddOn {
     public static final int INVALID_RES_ID = 0;

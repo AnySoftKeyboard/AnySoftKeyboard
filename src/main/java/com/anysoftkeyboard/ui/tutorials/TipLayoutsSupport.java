@@ -3,6 +3,7 @@ package com.anysoftkeyboard.ui.tutorials;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -15,11 +16,6 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
-/**
- * Created by menny on 10/24/13.
- */
 public class TipLayoutsSupport {
     private static final String TAG = "TipLayoutsSupport";
 
@@ -53,7 +49,7 @@ public class TipLayoutsSupport {
         }
     }
 
-    public static void addTipToCandidate(final Context appContext, @Nonnull final TextView tipsNotification, @Nonnull final String TIPS_NOTIFICATION_KEY, final View.OnClickListener onClickListener) {
+    public static void addTipToCandidate(final Context appContext, @NonNull final TextView tipsNotification, @NonNull final String TIPS_NOTIFICATION_KEY, final View.OnClickListener onClickListener) {
         if (AnyApplication.getConfig().hasNotificationClicked(TIPS_NOTIFICATION_KEY)) {
             tipsNotification.setVisibility(View.GONE);
             ViewGroup p = tipsNotification.getParent() instanceof ViewGroup? (ViewGroup)tipsNotification.getParent() : null;

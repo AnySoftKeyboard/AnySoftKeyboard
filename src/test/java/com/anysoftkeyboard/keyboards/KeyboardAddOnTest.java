@@ -1,35 +1,31 @@
 package com.anysoftkeyboard.keyboards;
 
-import android.content.Context;
-import android.test.AndroidTestCase;
 import android.text.TextUtils;
-import android.util.Log;
+
+import com.anysoftkeyboard.RobolectricAPI18TestRunner;
 import com.menny.android.anysoftkeyboard.R;
 
-import java.lang.reflect.Method;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
+
 import java.util.ArrayList;
 
-public class KeyboardAddOnTest extends AndroidTestCase {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+@RunWith(RobolectricAPI18TestRunner.class)
+public class KeyboardAddOnTest {
 
     public static final String ASK_ENGLISH_1 = "c7535083-4fe6-49dc-81aa-c5438a1a343a";
     public static final String TESTER_KEYBOARD_1 = "aef7f690-f485-11e2-b778-0800200c9a60";
     public static final String TESTER_KEYBOARD_2 = "aef7f690-f485-11e2-b778-0800200c9a61";
     public static final String TESTER_KEYBOARD_3 = "aef7f690-f485-11e2-b778-0800200c9a62";
-    private Context mTesterContext;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-
-        try {
-            Method m = AndroidTestCase.class.getMethod("getTestContext", new Class[] {});
-            mTesterContext = (Context) m.invoke(this, (Object[]) null);
-        } catch (Exception x) {
-            throw x;
-        }
-    }
-
-    public void testKeyboardAddOneApiAttributeValues() throws Exception {
+	@Test
+	public void testKeyboardAddOneApiAttributeValues() throws Exception {
         //since I suppose to be backward compatible, these attributes values MUST NOT change!
         assertEquals(R.styleable.KeyboardLayout_android_horizontalGap, 2);
         assertEquals(R.styleable.KeyboardLayout_android_verticalGap, 3);
@@ -58,14 +54,15 @@ public class KeyboardAddOnTest extends AndroidTestCase {
         assertEquals(R.styleable.KeyboardLayout_Row_android_rowEdgeFlags, 0);
     }
 
-    public void testGetKeyboardDefaultEnabled() throws Exception {
-        ArrayList<KeyboardAddOnAndBuilder> enabledKeyboards =  KeyboardFactory.getEnabledKeyboards(getContext());
+	@Test
+	public void testGetKeyboardDefaultEnabled() throws Exception {
+        ArrayList<KeyboardAddOnAndBuilder> enabledKeyboards =  KeyboardFactory.getEnabledKeyboards(Robolectric.application);
         //checking that ASK English is enabled
         boolean askEnglishEnabled = false;
         for(KeyboardAddOnAndBuilder addOnAndBuilder : enabledKeyboards) {
             if (addOnAndBuilder.getId().contains(ASK_ENGLISH_1)) {
                 assertTrue(addOnAndBuilder.getKeyboardDefaultEnabled());
-                assertEquals(addOnAndBuilder.getPackageName(), getContext().getPackageName());
+                assertEquals(addOnAndBuilder.getPackageName(), Robolectric.application.getPackageName());
                 askEnglishEnabled = true;
             }
         }
@@ -76,7 +73,7 @@ public class KeyboardAddOnTest extends AndroidTestCase {
         for(KeyboardAddOnAndBuilder addOnAndBuilder : enabledKeyboards) {
             if (addOnAndBuilder.getId().contains(TESTER_KEYBOARD_1)) {
                 assertTrue(addOnAndBuilder.getKeyboardDefaultEnabled());
-                assertEquals(addOnAndBuilder.getPackageName(), mTesterContext.getPackageName());
+                assertEquals(addOnAndBuilder.getPackageName(), Robolectric.application.getPackageName());
                 testerEnglishEnabled = true;
             }
         }
@@ -93,7 +90,7 @@ public class KeyboardAddOnTest extends AndroidTestCase {
     }
 
     private KeyboardAddOnAndBuilder getKeyboardFromFactory(String id) {
-        ArrayList<KeyboardAddOnAndBuilder> keyboards =  KeyboardFactory.getAllAvailableKeyboards(getContext());
+        ArrayList<KeyboardAddOnAndBuilder> keyboards =  KeyboardFactory.getAllAvailableKeyboards(Robolectric.application);
 
         for(KeyboardAddOnAndBuilder addOnAndBuilder : keyboards) {
             if (addOnAndBuilder.getId().equals(KeyboardAddOnAndBuilder.KEYBOARD_PREF_PREFIX + id)) {
@@ -104,7 +101,8 @@ public class KeyboardAddOnTest extends AndroidTestCase {
         return null;
     }
 
-    public void testGetKeyboardLocale() throws Exception {
+	@Test
+	public void testGetKeyboardLocale() throws Exception {
         KeyboardAddOnAndBuilder askEnglish = getKeyboardFromFactory(ASK_ENGLISH_1);
         assertNotNull(askEnglish);
         assertEquals(askEnglish.getKeyboardLocale(), "en");

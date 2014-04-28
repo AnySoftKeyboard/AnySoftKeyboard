@@ -24,6 +24,8 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.AbsSavedState;
@@ -51,9 +53,6 @@ import net.evendanan.pushingpixels.ListPreference;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 /*using this import requires using the Android Library from https://github.com/menny/PushingPixels*/
 
 public class AddOnListPreference extends ListPreference {
@@ -66,8 +65,10 @@ public class AddOnListPreference extends ListPreference {
         preference.setSelectedAddOn(selectedAddOn);
     }
 
-    private @Nullable AddOn[] mAddOns;
-    private @Nullable AddOn mSelectedAddOn;
+    @Nullable
+    private AddOn[] mAddOns;
+    @Nullable
+    private AddOn mSelectedAddOn;
 
     public AddOnListPreference(Context context) {
         super(context);
@@ -90,7 +91,7 @@ public class AddOnListPreference extends ListPreference {
         super.onPrepareDialogBuilder(builder);
     }
 
-    public void setAddOnsList(@Nonnull AddOn[] addOns) {
+    public void setAddOnsList(@NonNull AddOn[] addOns) {
         mAddOns = addOns;
 
         String[] ids = new String[mAddOns.length];

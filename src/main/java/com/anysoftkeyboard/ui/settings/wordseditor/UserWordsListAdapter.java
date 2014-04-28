@@ -1,6 +1,8 @@
 package com.anysoftkeyboard.ui.settings.wordseditor;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -18,20 +20,17 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 /**
  * List adapter to be used with the words editor fragment.
  */
 class UserWordsListAdapter extends ArrayAdapter<UserWordsListAdapter.Word> implements View.OnClickListener {
 
     public static class Word {
-        @Nonnull
+        @NonNull
         public final String word;
         public final int frequency;
 
-        public Word(@Nonnull String word, int frequency) {
+        public Word(@NonNull String word, int frequency) {
             this.word = word;
             this.frequency = frequency;
         }
@@ -221,7 +220,7 @@ class UserWordsListAdapter extends ArrayAdapter<UserWordsListAdapter.Word> imple
 
     @Override
     public final void onClick(View v) {
-        @Nullable final Word word = (Word) ((View) v.getParent()).getTag();
+        final Word word = (Word) ((View) v.getParent()).getTag();
         switch (v.getId()) {
             case R.id.delete_user_word:
                 onWordDeleted(word);

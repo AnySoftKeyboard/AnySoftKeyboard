@@ -18,6 +18,8 @@ package net.evendanan.pushingpixels;
 
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.animation.Animation;
@@ -29,9 +31,6 @@ import com.anysoftkeyboard.utils.Log;
 import com.anysoftkeyboard.utils.PointFCompat;
 import com.menny.android.anysoftkeyboard.R;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 public abstract class PassengerFragmentSupport {
 
     private static final String TAG = "PassengerFragment";
@@ -39,7 +38,7 @@ public abstract class PassengerFragmentSupport {
     private static final String EXTRA_ORIGINATE_VIEW_CENTER = "EXTRA_ORIGINATE_VIEW_CENTER";
     private static final String EXTRA_ORIGINATE_VIEW_SCALE = "EXTRA_ORIGINATE_VIEW_SCALE";
 
-    public static void setItemExpandExtraData(@Nonnull Fragment passengerFragment, float originateViewCenterX, float originateViewCenterY,
+    public static void setItemExpandExtraData(@NonNull Fragment passengerFragment, float originateViewCenterX, float originateViewCenterY,
                                        float originateViewWidthScale, float originateViewHeightScale) {
         Bundle bundle = passengerFragment.getArguments();
         if (bundle == null) bundle = new Bundle();
@@ -53,7 +52,8 @@ public abstract class PassengerFragmentSupport {
         passengerFragment.setArguments(bundle);
     }
 
-    public static @Nullable Animation onCreateAnimation(@Nonnull Fragment passengerFragment, int transit, boolean enter, int nextAnim) {
+    @Nullable
+    public static Animation onCreateAnimation(@NonNull Fragment passengerFragment, int transit, boolean enter, int nextAnim) {
         Log.d(TAG, "onCreateAnimation: transit: " + transit + ", enter: " + enter + ", nextAnim: " + nextAnim);
         final boolean validTransitionToModify =
                 nextAnim == R.anim.ui_context_expand_add_in || nextAnim == R.anim.ui_context_expand_pop_out;

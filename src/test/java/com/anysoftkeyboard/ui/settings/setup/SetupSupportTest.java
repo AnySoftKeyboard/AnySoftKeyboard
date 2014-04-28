@@ -1,9 +1,19 @@
 package com.anysoftkeyboard.ui.settings.setup;
 
 import android.content.ComponentName;
-import android.test.AndroidTestCase;
 
-public class SetupSupportTest extends AndroidTestCase {
+import com.anysoftkeyboard.RobolectricAPI18TestRunner;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+@RunWith(RobolectricAPI18TestRunner.class)
+public class SetupSupportTest {
+
+	@Test
     public void testIsThisKeyboardSetAsDefaultIME() throws Exception {
         final String MY_IME_PACKAGE = "net.evendanan.ime";
         assertFalse(SetupSupport.isThisKeyboardSetAsDefaultIME(new ComponentName("net.some.one.else", "net.some.one.else.IME").flattenToString(), MY_IME_PACKAGE));

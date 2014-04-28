@@ -18,14 +18,13 @@ package com.anysoftkeyboard.utils;
 
 import android.annotation.TargetApi;
 import android.os.Build;
+import android.support.annotation.NonNull;
 
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.FeaturesSet;
 
 import java.util.ArrayList;
-
-import javax.annotation.Nonnull;
 
 public class Log {
     private static final boolean DEBUG = FeaturesSet.DEBUG_LOG;
@@ -50,7 +49,7 @@ public class Log {
         }
     }
 
-    @Nonnull
+    @NonNull
     public synchronized static ArrayList<String> getAllLogLinesList() {
         ArrayList<String> lines = new ArrayList<String>(msLogs.length);
         if (msLogs.length > 0) {
@@ -68,7 +67,7 @@ public class Log {
         return lines;
     }
 
-    @Nonnull
+    @NonNull
     public synchronized static String getAllLogLines() {
         if (DEBUG) {
             ArrayList<String> lines = getAllLogLinesList();

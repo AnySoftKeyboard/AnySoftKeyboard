@@ -21,6 +21,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,8 +39,6 @@ import net.evendanan.pushingpixels.PassengerFragmentSupport;
 
 import java.io.File;
 
-import javax.annotation.Nonnull;
-
 public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithProgressWindow.AsyncTaskOwner, View.OnClickListener {
 
     private abstract static class DeveloperAsyncTask<Params, Progress, Result>
@@ -52,11 +51,11 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
 
     }
 
-    @Nonnull
+    @NonNull
     private Button mFlipper;
-    @Nonnull
+    @NonNull
     private View mProgressIndicator;
-    @Nonnull
+    @NonNull
     private View mShareButton;
 
     @Override

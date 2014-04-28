@@ -17,6 +17,7 @@
 package com.anysoftkeyboard.dictionaries.sqlite;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.anysoftkeyboard.WordComposer;
@@ -27,8 +28,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.annotation.Nonnull;
 
 public class AbbreviationsDictionary extends SQLiteUserDictionaryBase {
 
@@ -85,11 +84,11 @@ public class AbbreviationsDictionary extends SQLiteUserDictionaryBase {
 	    }
     }
 
-    public static String getAbbreviation(@Nonnull String word, int frequency) {
+    public static String getAbbreviation(@NonNull String word, int frequency) {
         return word.substring(0, frequency);
     }
 
-    public static String getExplodedSentence(@Nonnull String word, int frequency) {
+    public static String getExplodedSentence(@NonNull String word, int frequency) {
         return word.substring(frequency);
     }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -18,8 +19,6 @@ import android.widget.RelativeLayout;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.PassengerFragment;
-
-import javax.annotation.Nullable;
 
 /**
  * This fragment will guide the user through the process of enabling, switch to and configuring AnySoftKeyboard.
@@ -61,7 +60,8 @@ public class SetUpKeyboardWizardFragment extends PassengerFragment {
     };
 
     //this is null on tablet!
-    private @Nullable ViewPager mWizardPager;
+    private @Nullable
+    ViewPager mWizardPager;
     private Context mAppContext;
 
     private final ContentObserver mSecureSettingsChanged = new ContentObserver(null) {

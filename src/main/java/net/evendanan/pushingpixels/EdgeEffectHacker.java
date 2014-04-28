@@ -3,8 +3,7 @@ package net.evendanan.pushingpixels;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-
-import javax.annotation.Nonnull;
+import android.support.annotation.NonNull;
 
 public class EdgeEffectHacker {
 
@@ -14,7 +13,7 @@ public class EdgeEffectHacker {
 	 * @param context The application's Context
 	 * @param brandColor The color you wish to apply.
 	 */
-	public static void brandGlowEffect(@Nonnull Context context, int brandColor) {
+	public static void brandGlowEffect(@NonNull Context context, int brandColor) {
 		//glow
 		int glowDrawableId = context.getResources().getIdentifier("overscroll_glow", "drawable", "android");
 		if (glowDrawableId != 0) {

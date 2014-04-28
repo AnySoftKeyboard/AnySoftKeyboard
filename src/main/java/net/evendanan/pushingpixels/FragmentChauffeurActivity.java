@@ -18,6 +18,8 @@ package net.evendanan.pushingpixels;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -26,9 +28,6 @@ import android.view.View;
 
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public abstract class FragmentChauffeurActivity extends ActionBarActivity {
 
@@ -46,7 +45,7 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
     private static final String KEY_FRAGMENT_CLASS_TO_ADD = "KEY_FRAGMENT_CLASS_TO_ADD";
     private static final String KEY_FRAGMENT_ARGS_TO_ADD = "KEY_FRAGMENT_ARGS_TO_ADD";
 
-    public static void addIntentArgsForAddingFragmentToUi(@Nonnull Intent intent, @Nonnull Class<? extends Fragment> fragmentClass, @Nullable Bundle fragmentArgs) {
+    public static void addIntentArgsForAddingFragmentToUi(@NonNull Intent intent, @NonNull Class<? extends Fragment> fragmentClass, @Nullable Bundle fragmentArgs) {
         intent.putExtra(KEY_FRAGMENT_CLASS_TO_ADD, fragmentClass);
         if (fragmentArgs != null)
             intent.putExtra(KEY_FRAGMENT_ARGS_TO_ADD, fragmentArgs);
@@ -104,7 +103,7 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
         transaction.commit();
     }
 
-    public void addFragmentToUi(@Nonnull Fragment fragment, FragmentUiContext experience) {
+    public void addFragmentToUi(@NonNull Fragment fragment, FragmentUiContext experience) {
         addFragmentToUi(fragment, experience, null);
     }
 
@@ -115,7 +114,7 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
      * @param experience
      * @param originateView a hint view which will be used to fine-tune the ExpandedItem animation
      */
-    public void addFragmentToUi(@Nonnull Fragment fragment, FragmentUiContext experience, @Nullable View originateView) {
+    public void addFragmentToUi(@NonNull Fragment fragment, FragmentUiContext experience, @Nullable View originateView) {
 	    if (!mIsActivityShown) return;
 
         if (experience == FragmentUiContext.RootFragment) {

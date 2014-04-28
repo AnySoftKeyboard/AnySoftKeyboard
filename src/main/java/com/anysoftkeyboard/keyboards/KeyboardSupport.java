@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.util.SparseIntArray;
 import android.util.TypedValue;
 
@@ -14,8 +15,6 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-
-import javax.annotation.Nonnull;
 
 public class KeyboardSupport {
     private static final String TAG = "KeyboardSupport";
@@ -77,7 +76,7 @@ public class KeyboardSupport {
      * @param attributeIdMap a mapping between the remote-id -> local-id
      * @return Always returns the remote version of localStyleableArray
      */
-    public static int[] createBackwardCompatibleStyleable(@Nonnull int[] localStyleableArray, @Nonnull Context localContext, @Nonnull Context remoteContext, @Nonnull SparseIntArray attributeIdMap) {
+    public static int[] createBackwardCompatibleStyleable(@NonNull int[] localStyleableArray, @NonNull Context localContext, @NonNull Context remoteContext, @NonNull SparseIntArray attributeIdMap) {
         final String remotePackageName = remoteContext.getPackageName();
         if (localContext.getPackageName().equals(remotePackageName)) {
             Log.d(TAG, "This is a local context ("+remotePackageName+"), optimization will be done.");
