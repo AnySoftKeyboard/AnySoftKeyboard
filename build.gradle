@@ -112,8 +112,6 @@ android {
 }
 
 dependencies {
-    //https://groups.google.com/d/msg/adt-dev/nQobKd2Gl_8/Z5yWAvCh4h4J
-    compile fileTree(dir: 'libs', include: 'native_libs.jar')
     repositories {
         mavenCentral()
         maven {
