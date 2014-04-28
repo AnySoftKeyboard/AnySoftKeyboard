@@ -16,20 +16,7 @@
 
 package com.anysoftkeyboard.devicespecific;
 
-import android.annotation.TargetApi;
-import android.os.StrictMode;
-
-public final class StrictModeImpl implements StrictModeAble {
-    @TargetApi(19)//This class will be created only on API19 devices (using FrankenRobot)
-    public void setupStrictMode() {
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-				.detectAll()
-				.penaltyLog()
-                .penaltyFlashScreen()
-				.build());
-		StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-				.detectAll()
-				.penaltyLog()
-				.build());
-    }
+public final class StrictModeEmptyImpl implements StrictModeAble {
+	public void setupStrictMode() {
+	}
 }

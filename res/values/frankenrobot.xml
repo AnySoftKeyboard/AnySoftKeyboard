@@ -14,5 +14,5 @@
     <string name="frankenrobot_dictionary_observer_implementation" translatable="false">com.anysoftkeyboard.dictionaries.DictionaryContentObserver</string>
     <string name="frankenrobot_voice_input_implementation" translatable="false">com.anysoftkeyboard.voice.VoiceInputEmptyImpl</string>
     <string name="frankenrobot_clipboard_implementation" translatable="false">com.anysoftkeyboard.devicespecific.ClipboardV3</string>
-    <string name="frankenrobot_strict_mode_implementation" translatable="false">@null</string>
+    <string name="frankenrobot_strict_mode_implementation" translatable="false">com.anysoftkeyboard.devicespecific.StrictModeEmptyImpl</string>
 </resources>
