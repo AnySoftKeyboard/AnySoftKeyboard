@@ -1,0 +1,16 @@
+language: java
+jdk:
+    - oraclejdk7
+install:
+    - sudo apt-get install -u lib32stdc++6 lib32z1
+    - ./gradlew clean assemble
+before_script:
+    - mkdir -p shippable/testresults
+script:
+    - ./gradlew check
+after_script:
+    - cp -r build/test-results/* shippable/testresults/
+notifications:
+    email:
+        recipients:
+            - mennyed@gmail.com
