@@ -3,10 +3,12 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.8.+'
+        classpath 'com.android.tools.build:gradle:0.9.+'
+        classpath 'com.jakewharton.sdkmanager:gradle-plugin:0.9.+'
     }
 }
 
+apply plugin: 'android-sdk-manager'
 apply plugin: 'android-library'
 
 repositories {
@@ -19,7 +21,12 @@ group 'net.evendanan.anysoftkeyboard'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.0.1"
+    buildToolsVersion "19.0.3"
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
 
     defaultConfig {
         minSdkVersion 4
