@@ -1,5 +1,6 @@
 AnySoftKeyboard
 ====================
+[![Build Status](https://api.shippable.com/projects/535e7eb0456b81c100ad4860/badge/master)](https://www.shippable.com/projects/535e7eb0456b81c100ad4860)
 
 Android (f/w 1.5+) on screen keyboard for multiple languages.  
 This application is also available in the Android Play Store, and it is recommended to download it from there:  
