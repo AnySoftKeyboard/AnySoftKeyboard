@@ -24,8 +24,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <include layout="@layout/main_fragment_top_info_layout"
-            android:layout_margin="8dp"/>
+        <include layout="@layout/main_fragment_top_info_layout"/>
 
         <!-- this box will be should shown
          only if the keyboard is not fully enabled in the system. -->
