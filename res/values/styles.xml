@@ -166,6 +166,20 @@
         <item name="keyTextStyle">bold</item>
     </style>
 
+    <style name="LeanDarkBig" parent="@style/LeanDark2">
+        <item name="keyNormalHeight">@dimen/big_key_height</item>
+        <item name="keySmallHeight">@dimen/big_key_half_height</item>
+        <item name="keyLargeHeight">@dimen/big_key_tall_height</item>
+        <item name="keyTextSize">@dimen/lean_big_key_text_size</item>
+    </style>
+
+    <style name="LeanDarkPopupBig" parent="@style/LeanDarkPopup2">
+        <item name="keyNormalHeight">@dimen/big_key_height</item>
+        <item name="keySmallHeight">@dimen/big_key_half_height</item>
+        <item name="keyLargeHeight">@dimen/big_key_tall_height</item>
+        <item name="keyTextSize">@dimen/lean_big_key_text_size</item>
+    </style>
+
     <style name="PlainDarkAnySoftKeyboard" parent="@style/AnyKeyboardBaseTheme">
         <item name="android:background">@drawable/dark_background</item>
         <item name="keyBackground">@drawable/dark_btn_key</item>

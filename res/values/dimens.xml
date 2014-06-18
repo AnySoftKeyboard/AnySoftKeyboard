@@ -28,6 +28,10 @@
     <dimen name="default_key_half_height">32dp</dimen>
     <dimen name="default_key_tall_height">54dp</dimen>
 
+    <dimen name="big_key_height">58dp</dimen>
+    <dimen name="big_key_half_height">42dp</dimen>
+    <dimen name="big_key_tall_height">64dp</dimen>
+
     <dimen name="default_key_vertical_gap">2dp</dimen>
     <dimen name="default_key_horizontal_gap">1dp</dimen>
     <dimen name="plain_theme_key_horizontal_gap">3dp</dimen>
@@ -35,6 +39,7 @@
 
     <dimen name="key_text_size">21sp</dimen>
     <dimen name="lean_key_text_size">18sp</dimen>
+    <dimen name="lean_big_key_text_size">24sp</dimen>
     <dimen name="key_label_text_size">14sp</dimen>
     <dimen name="key_hint_text_size">7sp</dimen>
     <dimen name="keyboard_name_text_size">10sp</dimen>
