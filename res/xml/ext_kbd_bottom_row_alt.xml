@@ -10,8 +10,7 @@
              ask:hintLabel=" " android:keyEdgeFlags="left"/>
         <Key ask:isFunctional="true" android:codes="@integer/key_code_quick_text" ask:hintLabel=" "/>
         <Key ask:isFunctional="true" android:codes="44" android:popupCharacters=";:-'" ask:hintLabel="; : -"/>
-        <Key android:keyWidth="45%p" android:codes="@integer/key_code_space" android:isRepeatable="true"
-             ask:hintLabel=" "/>
+        <Key android:keyWidth="45%p" android:codes="@integer/key_code_space" ask:hintLabel=" "/>
         <Key ask:isFunctional="true" android:codes="." android:popupCharacters="\?!" ask:hintLabel="\? !"/>
         <Key android:keyWidth="15%p" ask:isFunctional="true" android:codes="@integer/key_code_enter"
              ask:longPressCode="@integer/key_code_settings" ask:hintLabel=" " android:keyEdgeFlags="right"/>
@@ -22,8 +21,7 @@
              ask:hintLabel=" " android:keyEdgeFlags="left"/>
         <Key ask:isFunctional="true" android:codes="@integer/key_code_quick_text" ask:hintLabel=" "/>
         <Key ask:isFunctional="true" android:codes="44" android:popupCharacters=";:-'" ask:hintLabel="; : -"/>
-        <Key android:keyWidth="45%p" android:codes="@integer/key_code_space" android:isRepeatable="true"
-             ask:hintLabel=" "/>
+        <Key android:keyWidth="45%p" android:codes="@integer/key_code_space" ask:hintLabel=" "/>
         <Key ask:isFunctional="true" android:codes="." android:popupCharacters="\?!" ask:hintLabel="\? !"/>
         <Key android:keyWidth="15%p" ask:isFunctional="true" android:codes="@integer/key_code_enter"
              ask:longPressCode="@integer/key_code_settings" ask:hintLabel=" " android:keyEdgeFlags="right"/>
@@ -36,8 +34,7 @@
         <Key ask:isFunctional="true" android:codes=":" android:popupCharacters="\u002C;-" ask:hintLabel=", ; -"/>
         <Key ask:isFunctional="true" android:codes="/" android:popupCharacters="~_+\u003D$%\u0026\@"
              ask:hintLabel="~ _ +"/>
-        <Key android:keyWidth="25%p" android:codes="@integer/key_code_space" android:isRepeatable="true"
-             ask:hintLabel=" "/>
+        <Key android:keyWidth="25%p" android:codes="@integer/key_code_space" ask:hintLabel=" "/>
         <Key ask:isFunctional="true" android:codes="@integer/key_code_domain" ask:hintLabel=" "/>
         <Key ask:isFunctional="true" android:codes="." android:popupCharacters="\?!" ask:hintLabel="\? !"/>
         <Key android:keyWidth="15%p" ask:isFunctional="true" android:codes="@integer/key_code_enter"
@@ -51,8 +48,7 @@
         <Key ask:isFunctional="true" android:codes="44" android:popupCharacters=";:-'" ask:hintLabel="; : -"/>
         <Key ask:isFunctional="true" android:codes="\@" android:popupCharacters="~_+\u003D$%\u0026"
              ask:hintLabel="~ _ +"/>
-        <Key android:keyWidth="25%p" android:codes="@integer/key_code_space" android:isRepeatable="true"
-             ask:hintLabel=" "/>
+        <Key android:keyWidth="25%p" android:codes="@integer/key_code_space" ask:hintLabel=" "/>
         <Key ask:isFunctional="true" android:codes="@integer/key_code_domain" ask:hintLabel=" "/>
         <Key ask:isFunctional="true" android:codes="." android:popupCharacters="\?!" ask:hintLabel="\? !"/>
         <Key android:keyWidth="15%p" ask:isFunctional="true" android:codes="@integer/key_code_enter"
