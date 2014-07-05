@@ -88,14 +88,23 @@ public class MainFragment extends Fragment {
         clickHere.setMovementMethod(LinkMovementMethod.getInstance());
         clickHere.setText(sb);
 
-	    ClickableSpan gplusLink = new ClickableSpan() {
-		    @Override
-		    public void onClick(View widget) {
-			    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.main_site_url)));
-			    startActivity(browserIntent);
-		    }
-	    };
-	    setupLink(getView(), R.id.ask_gplus_link, gplusLink, false);
+        ClickableSpan gplusLink = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.main_site_url)));
+                startActivity(browserIntent);
+            }
+        };
+        setupLink(getView(), R.id.ask_gplus_link, gplusLink, false);
+
+        ClickableSpan openSettingsLink = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                MainSettingsActivity mainSettingsActivity = (MainSettingsActivity) getActivity();
+	            mainSettingsActivity.openDrawer();
+            }
+        };
+        setupLink(getView(), R.id.open_settings_view, openSettingsLink, false);
     }
 
     public static void setupLink(View root, int showMoreLinkId, ClickableSpan clickableSpan, boolean reorderLinkToLastChild) {
@@ -116,7 +125,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-	    PassengerFragmentSupport.setActivityTitle(this, getString(R.string.how_to_pointer_title));
+        PassengerFragmentSupport.setActivityTitle(this, getString(R.string.how_to_pointer_title));
 
         View notConfiguredBox = getView().findViewById(R.id.not_configured_click_here);
         //checking if the IME is configured

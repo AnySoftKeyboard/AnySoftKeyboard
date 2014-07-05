@@ -792,4 +792,5 @@
     <string name="about_donate">Donate:</string>
     <string name="tutorial_menu_open_menu">The icon opens Settings</string>
     <string name="tutorial_menu_close_menu">And also closes it</string>
+    <string name="main_fragment_go_to_settings_button">Go to Settings</string>
 </resources>

@@ -18,11 +18,7 @@ package com.anysoftkeyboard.ui.settings;
 
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -30,8 +26,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
@@ -46,13 +40,6 @@ import net.evendanan.pushingpixels.FragmentChauffeurActivity;
 public class MainSettingsActivity extends FragmentChauffeurActivity {
 
     private static final String TAG = "ASK_MAIN";
-	private static final String SP_KEY_TIMES_MENU_TUTORIAL_SHOWN = "SP_KEY_TIMES_MENU_TUTORIAL_SHOWN";
-	private static final int TIMES_MENU_TUTORIAL_TO_BE_SHOWN = 2;
-	private static final long TUTORIAL_SHOWING_DELAY = 1500;
-	private static final int MSG_KEY_MENU_TUTORIAL_STEP_SHOW_POPUP_TO_OPEN = 2341;
-	private static final int MSG_KEY_MENU_TUTORIAL_STEP_OPEN_MENU = 2342;
-	private static final int MSG_KEY_MENU_TUTORIAL_STEP_CLOSE_MENU = 2344;
-	private static final int MSG_KEY_MENU_TUTORIAL_STEP_DISMISS_POPUP = 2345;
 
 	private DrawerLayout mDrawerRootLayout;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -65,54 +52,6 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
             updateMenuExtraData();
         }
     };
-	private PopupWindow mTutorialPopup = null;
-	private Handler mHandler = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-			if (!isChaufferActivityVisible()) return;
-			switch (msg.what) {
-				case MSG_KEY_MENU_TUTORIAL_STEP_SHOW_POPUP_TO_OPEN:
-					if (mDrawerRootLayout.isDrawerOpen(Gravity.LEFT)) return;
-					createTutorialPopup(R.layout.tutorial_menu_opening);
-					//showing to the user how it done, in 4..3..2..1
-					mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_KEY_MENU_TUTORIAL_STEP_OPEN_MENU), 3000);
-					break;
-				case MSG_KEY_MENU_TUTORIAL_STEP_OPEN_MENU:
-					if (mTutorialPopup != null && mTutorialPopup.isShowing() && !mDrawerRootLayout.isDrawerOpen(Gravity.LEFT)) {
-						mDrawerRootLayout.openDrawer(Gravity.LEFT);
-						createTutorialPopup(R.layout.tutorial_menu_closing);
-						//showing to the user how it done, in 4..3..2..1
-						mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_KEY_MENU_TUTORIAL_STEP_CLOSE_MENU), 2000);
-					}
-					break;
-				case MSG_KEY_MENU_TUTORIAL_STEP_CLOSE_MENU:
-					if (mTutorialPopup != null && mTutorialPopup.isShowing() && mDrawerRootLayout.isDrawerOpen(Gravity.LEFT)) {
-						mDrawerRootLayout.closeDrawer(Gravity.LEFT);
-						mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_KEY_MENU_TUTORIAL_STEP_DISMISS_POPUP), 250);
-					}
-					break;
-				case MSG_KEY_MENU_TUTORIAL_STEP_DISMISS_POPUP:
-					dismissTutorialPopupWindow();
-					break;
-			}
-		}
-
-		private void createTutorialPopup(int layout) {
-			if (mTutorialPopup != null)
-				mTutorialPopup.dismiss();
-
-			mTutorialPopup = new PopupWindow(MainSettingsActivity.this);
-			mTutorialPopup.setWindowLayoutMode(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-			View content = getLayoutInflater().inflate(layout, mDrawerRootLayout, false);
-			mTutorialPopup.setContentView(content);
-			Drawable background = getResources().getDrawable(R.drawable.lean_dark_popup_keyboard_background);
-			mTutorialPopup.setBackgroundDrawable(background);
-			mTutorialPopup.setAnimationStyle(R.style.TutorialWindowAnimation);
-			mTutorialPopup.showAtLocation(findViewById(getFragmentRootUiElementId()),
-					Gravity.TOP, -(background.getIntrinsicWidth()/4), background.getIntrinsicHeight());
-		}
-	};
 
 	@Override
     protected void onCreate(Bundle icicle) {
@@ -150,14 +89,6 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         AnyApplication.getConfig().addChangedListener(menuExtraUpdaterOnConfigChange);
-
-
-	    //menu tutorial
-	    SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-	    int timesMenuTutorialShown = sp.getInt(SP_KEY_TIMES_MENU_TUTORIAL_SHOWN, 0);
-	    if (timesMenuTutorialShown < TIMES_MENU_TUTORIAL_TO_BE_SHOWN) {
-		    mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_KEY_MENU_TUTORIAL_STEP_SHOW_POPUP_TO_OPEN), TUTORIAL_SHOWING_DELAY);
-	    }
     }
 
     @Override
@@ -189,7 +120,6 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-	    dismissTutorialPopupWindow();
         AnyApplication.getConfig().removeChangedListener(menuExtraUpdaterOnConfigChange);
     }
 
@@ -217,33 +147,11 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
         // Pass the event to ActionBarDrawerToggle, if it returns
         // true, then it has handled the app icon touch event
         if (mDrawerToggle.onOptionsItemSelected(item)) {
-	        dismissTutorialPopupWindow();
-            return true;
+	        return true;
         }
-        // Handle your other action bar items...
 
         return super.onOptionsItemSelected(item);
     }
-
-	private void dismissTutorialPopupWindow() {
-		if (mTutorialPopup != null && mTutorialPopup.isShowing()) {
-			mTutorialPopup.dismiss();
-			markMenuTutorialShown();
-			mHandler.removeMessages(MSG_KEY_MENU_TUTORIAL_STEP_SHOW_POPUP_TO_OPEN);
-			mHandler.removeMessages(MSG_KEY_MENU_TUTORIAL_STEP_OPEN_MENU);
-			mHandler.removeMessages(MSG_KEY_MENU_TUTORIAL_STEP_CLOSE_MENU);
-			mHandler.removeMessages(MSG_KEY_MENU_TUTORIAL_STEP_DISMISS_POPUP);
-		}
-		mTutorialPopup = null;
-	}
-
-	private void markMenuTutorialShown() {
-		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-		int timesMenuTutorialShown = sp.getInt(SP_KEY_TIMES_MENU_TUTORIAL_SHOWN, 0);
-		SharedPreferences.Editor editor = sp.edit();
-		editor.putInt(SP_KEY_TIMES_MENU_TUTORIAL_SHOWN, timesMenuTutorialShown+1);
-		editor.commit();
-	}
 
 	@Override
     public void setTitle(CharSequence title) {
