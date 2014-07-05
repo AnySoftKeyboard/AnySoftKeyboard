@@ -24,7 +24,7 @@
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="* Fix for a rare settings App crash.\n* Add a dot symbol in the Symbols keyboard (you\'re welcome).\n* A large font theme variant.\n* Localization: CA, DE, IT, KA, LT, NL, NO, PT."
+        android:text="* Fix for a rare settings App crash.\n* Add a dot symbol in the Symbols keyboard (you\'re welcome).\n* A large font theme variant.\n* Added a button to open side-menu.\n* A bunch of additional long-press accent characters (thanks to andrewshadura@github).\n* Localization: CA, DE, IT, KA, LT, NL, NO, PT."
         style="@style/Ask.Text.Normal"
         tools:ignore="HardcodedText" />
 
