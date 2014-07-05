@@ -44,7 +44,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:drawablePadding="4dp"/>
-        
+
         <!-- replaces
             android:name="com.anysoftkeyboard.ui.tutorials.ChangeLogFragment$CardedChangeLogFragment"
             tools:layout="@layout/changelog_layout_114" -->
