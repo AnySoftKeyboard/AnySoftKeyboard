@@ -30,6 +30,17 @@
          only if the keyboard is not fully enabled in the system. -->
         <include layout="@layout/main_fragment_not_configured_info_layout" />
 
+        <TextView
+            android:id="@+id/open_settings_view"
+            style="@style/Ask.Text.Normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_fragment_go_to_settings_button"
+            android:drawableLeft="@drawable/sym_keyboard_feedback_settings"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:drawablePadding="4dp"/>
+
         <LinearLayout
             android:layout_marginTop="8dp"
             android:layout_width="match_parent"
