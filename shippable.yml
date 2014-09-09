@@ -2,6 +2,7 @@ language: java
 jdk:
     - oraclejdk7
 install:
+    - sudo apt-get update
     - sudo apt-get install -u lib32stdc++6 lib32z1
     - ./gradlew clean assemble
 before_script:
