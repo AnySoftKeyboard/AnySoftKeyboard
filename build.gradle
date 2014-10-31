@@ -1,3 +1,4 @@
+//some help from https://github.com/Goddchen/Android-Gradle-Examples/blob/master/Gradle%20Build%20Configs/build.gradle
 buildscript {
     repositories {
         mavenLocal()
@@ -7,9 +8,9 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.12.+'
-        classpath 'org.robolectric:robolectric-gradle-plugin:0.11.+'
-        classpath 'com.jakewharton.sdkmanager:gradle-plugin:0.12.+'
+        classpath 'com.android.tools.build:gradle:0.13.3'
+        classpath 'org.robolectric:robolectric-gradle-plugin:0.13.2'
+        classpath 'com.jakewharton.sdkmanager:gradle-plugin:0.12.0'
     }
 }
 
@@ -17,7 +18,7 @@ apply plugin: 'android-sdk-manager'
 apply plugin: 'com.android.application'
 apply plugin: 'robolectric'
 
-version utils.Utils.buildVersionName(1, 2, false)
+version utils.Utils.buildVersionName(1, 3, false)
 group 'net.evendanan'
 
 def localproperties.LocalPropertiesFile localExtraProperties = new localproperties.LocalPropertiesFile(new File(projectDir, 'local.extra.properties'))
@@ -31,11 +32,11 @@ android {
         exclude 'META-INF/NOTICE'
     }
 
-    compileSdkVersion 20
-    buildToolsVersion "20.0.0"
+    compileSdkVersion 21
+    buildToolsVersion "21.0.2"
 
     defaultConfig {
-        versionCode 125
+        versionCode 126
         versionName project.version
 
         minSdkVersion 7
