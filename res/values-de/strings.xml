@@ -414,6 +414,7 @@
   <string name="eng_dictionary">Englisch</string>
   <string name="simley_key_name">Smiley-Taste</string>
   <string name="default_quick_text_key_name">Einfache Emoticons</string>
+  <string name="unicode_quick_text_key_name">Unicode Emoticons</string>
   <string name="multitap_timeout_title">Multi-Tap-Timeout</string>
   <string name="multitap_timeout_summary">Timeout zwischen den Tippvorgängen</string>
   <string name="settings_multitap_timeout_disabled">Deaktiviert</string>
