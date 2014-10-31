@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard"
+          android:keyHeight="@integer/key_normal_height"
+          android:keyWidth="15%p">
+
+    <Row android:rowEdgeFlags="top">
+        <Key
+                android:keyEdgeFlags="left"
+                android:keyLabel="\uD83D\uDE1B"
+                android:keyOutputText="\uD83D\uDE1B\u0020"/><!-- FACE WITH STUCK-OUT TONGUE (U+1F61B) -->
+        <Key
+                android:keyLabel="\uD83D\uDE20"
+                android:keyOutputText="\uD83D\uDE20\u0020"/><!-- ANGRY FACE (U+1F620) -->
+        <Key
+                android:keyLabel="\uD83C\uDF39"
+                android:keyOutputText="\uD83C\uDF39\u0020"/><!-- ROSE (U+1F339) -->
+        <Key
+                android:keyLabel="\uD83D\uDC4D"
+                android:keyOutputText="\uD83D\uDC4D\u0020"/><!-- THUMBS UP SIGN (U+1F44D) -->
+        <Key
+                android:keyLabel="\uD83D\uDC11"
+                android:keyOutputText="\uD83D\uDC11\u0020"/><!-- SHEEP (U+1F411) -->
+        <Key
+                android:keyEdgeFlags="right"
+                android:keyLabel="\uD83D\uDCA8"
+                android:keyOutputText="\uD83D\uDCA8\u0020"/><!-- DASH SYMBOL (U+1F4A8) -->
+    </Row>
+    <Row>
+        <Key
+                android:keyEdgeFlags="left"
+                android:keyLabel="\uD83D\uDE20"
+                android:keyOutputText="\uD83D\uDE20\u0020"/><!-- ANGRY FACE (U+1F620) -->
+        <Key
+                android:keyLabel="\uD83D\uDE17"
+                android:keyOutputText="\uD83D\uDE17\u0020"/><!-- KISSING FACE (U+1F617) -->
+        <Key
+                android:keyLabel="\uD83D\uDE18"
+                android:keyOutputText="\uD83D\uDE18\u0020"/><!-- FACE THROWING A KISS (U+1F618) -->
+        <Key
+                android:keyLabel="\uD83D\uDE08"
+                android:keyOutputText="\uD83D\uDE08"/><!-- SMILING FACE WITH HORNS (U+1F608) -->
+        <Key
+                android:keyLabel="\uD83D\uDE2E"
+                android:keyOutputText="\uD83D\uDE2E\u0020"/><!-- FACE WITH OPEN MOUTH (U+1F62E) -->
+        <Key
+                android:keyEdgeFlags="right"
+                android:keyLabel="\uD83D\uDE31"
+                android:keyOutputText="\uD83D\uDE31\u0020"/><!-- FACE SCREAMING IN FEAR (U+1F631) -->
+    </Row>
+    <Row android:rowEdgeFlags="bottom">
+        <Key
+                android:keyEdgeFlags="left"
+                android:keyLabel="\uD83D\uDE1E"
+                android:keyOutputText="\uD83D\uDE1E\u0020"/><!-- DISAPPOINTED FACE (U+1F61E) -->
+        <Key
+                android:keyLabel="\uD83D\uDE09"
+                android:keyOutputText="\uD83D\uDE09\u0020"/><!-- WINKING FACE (U+1F609) -->
+        <Key
+                android:keyLabel="\uD83D\uDE22"
+                android:keyOutputText="\uD83D\uDE22\u0020"/><!-- CRYING FACE (U+1F622) -->
+        <Key
+                android:keyLabel="\uD83D\uDE03"
+                android:keyOutputText="\uD83D\uDE03\u0020"/><!-- SMILING FACE WITH OPEN MOUTH (U+1F603) -->
+        <Key
+                android:keyLabel="\uD83D\uDE02"
+                android:keyOutputText="\uD83D\uDE02\u0020"/><!-- FACE WITH TEARS OF JOY (U+1F602) -->
+        <Key
+                android:keyEdgeFlags="right"
+                android:keyLabel="\uD83D\uDE32"
+                android:keyOutputText="\uD83D\uDE32\u0020"/><!-- ASTONISHED FACE (U+1F632) -->
+    </Row>
+
+</Keyboard>
