@@ -1,74 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard"
           android:keyHeight="@integer/key_normal_height"
-          android:keyWidth="15%p">
+          android:keyWidth="10%p">
 
     <Row android:rowEdgeFlags="top">
         <Key
-                android:keyEdgeFlags="left"
-                android:keyLabel="\uD83D\uDE1B"
-                android:keyOutputText="\uD83D\uDE1B\u0020"/><!-- FACE WITH STUCK-OUT TONGUE (U+1F61B) -->
+            android:keyEdgeFlags="left"
+            android:keyLabel="\uD83C\uDF39"
+            android:keyOutputText="\uD83C\uDF39"/>
         <Key
-                android:keyLabel="\uD83D\uDE20"
-                android:keyOutputText="\uD83D\uDE20\u0020"/><!-- ANGRY FACE (U+1F620) -->
+            android:keyLabel="\uD83C\uDF81"
+            android:keyOutputText="\uD83C\uDF81"/>
         <Key
-                android:keyLabel="\uD83C\uDF39"
-                android:keyOutputText="\uD83C\uDF39\u0020"/><!-- ROSE (U+1F339) -->
+            android:keyLabel="\uD83C\uDF89"
+            android:keyOutputText="\uD83C\uDF89"/>
         <Key
-                android:keyLabel="\uD83D\uDC4D"
-                android:keyOutputText="\uD83D\uDC4D\u0020"/><!-- THUMBS UP SIGN (U+1F44D) -->
+            android:keyLabel="\uD83D\uDCA9"
+            android:keyOutputText="\uD83D\uDCA9"/>
         <Key
-                android:keyLabel="\uD83D\uDC11"
-                android:keyOutputText="\uD83D\uDC11\u0020"/><!-- SHEEP (U+1F411) -->
+            android:keyLabel="\u2615"
+            android:keyOutputText="\u2615"/>
         <Key
-                android:keyEdgeFlags="right"
-                android:keyLabel="\uD83D\uDCA8"
-                android:keyOutputText="\uD83D\uDCA8\u0020"/><!-- DASH SYMBOL (U+1F4A8) -->
+            android:keyLabel="\uD83C\uDF70"
+            android:keyOutputText="\uD83C\uDF70"/>
+        <Key
+            android:keyLabel="\uD83C\uDF55"
+            android:keyOutputText="\uD83C\uDF55"/>
+        <Key
+            android:keyEdgeFlags="right"
+            android:keyLabel="\uD83C\uDF7B"
+            android:keyOutputText="\uD83C\uDF7B"/>
     </Row>
     <Row>
         <Key
-                android:keyEdgeFlags="left"
-                android:keyLabel="\uD83D\uDE20"
-                android:keyOutputText="\uD83D\uDE20\u0020"/><!-- ANGRY FACE (U+1F620) -->
+            android:keyEdgeFlags="left"
+            android:keyLabel="\u2600"
+            android:keyOutputText="\u2600"/>
         <Key
-                android:keyLabel="\uD83D\uDE17"
-                android:keyOutputText="\uD83D\uDE17\u0020"/><!-- KISSING FACE (U+1F617) -->
+            android:keyLabel="\u26C5"
+            android:keyOutputText="\u26C5"/>
         <Key
-                android:keyLabel="\uD83D\uDE18"
-                android:keyOutputText="\uD83D\uDE18\u0020"/><!-- FACE THROWING A KISS (U+1F618) -->
+            android:keyLabel="\u2601"
+            android:keyOutputText="\u2601"/>
         <Key
-                android:keyLabel="\uD83D\uDE08"
-                android:keyOutputText="\uD83D\uDE08"/><!-- SMILING FACE WITH HORNS (U+1F608) -->
+            android:keyLabel="\u2614"
+            android:keyOutputText="\u2614"/>
         <Key
-                android:keyLabel="\uD83D\uDE2E"
-                android:keyOutputText="\uD83D\uDE2E\u0020"/><!-- FACE WITH OPEN MOUTH (U+1F62E) -->
+            android:keyLabel="\u2744"
+            android:keyOutputText="\u2744"/>
         <Key
-                android:keyEdgeFlags="right"
-                android:keyLabel="\uD83D\uDE31"
-                android:keyOutputText="\uD83D\uDE31\u0020"/><!-- FACE SCREAMING IN FEAR (U+1F631) -->
+            android:keyLabel="\u26A1"
+            android:keyOutputText="\u26A1"/>
+        <Key
+            android:keyLabel="\uD83C\uDFE0"
+            android:keyOutputText="\uD83C\uDFE0"/>
+        <Key
+            android:keyEdgeFlags="right"
+            android:keyLabel="\u2708"
+            android:keyOutputText="\u2708"/>
+    </Row>
+    <Row>
+        <Key
+            android:keyEdgeFlags="left"
+            android:keyLabel="\u270B"
+            android:keyOutputText="\u270B"/>
+        <Key
+            android:keyLabel="\u270A"
+            android:keyOutputText="\u270A"/>
+        <Key
+            android:keyLabel="\uD83D\uDC4F"
+            android:keyOutputText="\uD83D\uDC4F"/>
+        <Key
+            android:keyLabel="\uD83D\uDC4D"
+            android:keyOutputText="\uD83D\uDC4D"/>
+        <Key
+            android:keyLabel="\uD83D\uDC4E"
+            android:keyOutputText="\uD83D\uDC4E"/>
+        <Key
+            android:keyLabel="\uD83D\uDE4F"
+            android:keyOutputText="\uD83D\uDE4F"/>
+        <Key
+            android:keyLabel="\u2764"
+            android:keyOutputText="\u2764"/>
+        <Key
+            android:keyEdgeFlags="right"
+            android:keyLabel="\uD83D\uDC94"
+            android:keyOutputText="\uD83D\uDC94"/>
+    </Row>
+    <Row>
+        <Key
+            android:keyEdgeFlags="left"
+            android:keyLabel="\uD83D\uDE31"
+            android:keyOutputText="\uD83D\uDE31"/>
+        <Key
+            android:keyLabel="\uD83D\uDE0E"
+            android:keyOutputText="\uD83D\uDE0E"/>
+        <Key
+            android:keyLabel="\uD83D\uDE18"
+            android:keyOutputText="\uD83D\uDE18"/>
+        <Key
+            android:keyLabel="\uD83D\uDE0A"
+            android:keyOutputText="\uD83D\uDE0A"/>
+        <Key
+            android:keyLabel="\uD83D\uDE07"
+            android:keyOutputText="\uD83D\uDE07"/>
+        <Key
+            android:keyLabel="\uD83D\uDE34"
+            android:keyOutputText="\uD83D\uDE34"/>
+        <Key
+            android:keyLabel="\uD83D\uDC78"
+            android:keyOutputText="\uD83D\uDC78"/>
+        <Key
+            android:keyEdgeFlags="right"
+            android:keyLabel="\uD83D\uDC7D"
+            android:keyOutputText="\uD83D\uDC7D"/>
     </Row>
     <Row android:rowEdgeFlags="bottom">
         <Key
-                android:keyEdgeFlags="left"
-                android:keyLabel="\uD83D\uDE1E"
-                android:keyOutputText="\uD83D\uDE1E\u0020"/><!-- DISAPPOINTED FACE (U+1F61E) -->
+            android:keyEdgeFlags="left"
+            android:keyLabel="\uD83D\uDE1E"
+            android:keyOutputText="\uD83D\uDE1E"/>
         <Key
-                android:keyLabel="\uD83D\uDE09"
-                android:keyOutputText="\uD83D\uDE09\u0020"/><!-- WINKING FACE (U+1F609) -->
+            android:keyLabel="\uD83D\uDE22"
+            android:keyOutputText="\uD83D\uDE22"/>
         <Key
-                android:keyLabel="\uD83D\uDE22"
-                android:keyOutputText="\uD83D\uDE22\u0020"/><!-- CRYING FACE (U+1F622) -->
+            android:keyLabel="\uD83D\uDE20"
+            android:keyOutputText="\uD83D\uDE20"/>
         <Key
-                android:keyLabel="\uD83D\uDE03"
-                android:keyOutputText="\uD83D\uDE03\u0020"/><!-- SMILING FACE WITH OPEN MOUTH (U+1F603) -->
+            android:keyLabel="\uD83D\uDE01"
+            android:keyOutputText="\uD83D\uDE01"/>
         <Key
-                android:keyLabel="\uD83D\uDE02"
-                android:keyOutputText="\uD83D\uDE02\u0020"/><!-- FACE WITH TEARS OF JOY (U+1F602) -->
+            android:keyLabel="\uD83D\uDE06"
+            android:keyOutputText="\uD83D\uDE06"/>
         <Key
-                android:keyEdgeFlags="right"
-                android:keyLabel="\uD83D\uDE32"
-                android:keyOutputText="\uD83D\uDE32\u0020"/><!-- ASTONISHED FACE (U+1F632) -->
+            android:keyLabel="\uD83D\uDE09"
+            android:keyOutputText="\uD83D\uDE09"/>
+        <Key
+            android:keyLabel="\uD83D\uDE1C"
+            android:keyOutputText="\uD83D\uDE1C"/>
+        <Key
+            android:keyEdgeFlags="right"
+            android:keyLabel="\uD83D\uDE12"
+            android:keyOutputText="\uD83D\uDE12"/>
     </Row>
 
 </Keyboard>
