@@ -24,14 +24,7 @@
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="* New Emoji popup (for Android 4.4+)"
-        style="@style/Ask.Text.Normal"
-        tools:ignore="HardcodedText" />
-
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:text="* Small bug fixes"
+        android:text="* New Emoji popup (for Android 4.4+)\n* Small bug fixes\n*Localization: DE, NO, and VI."
         style="@style/Ask.Text.Normal"
         tools:ignore="HardcodedText" />
 
