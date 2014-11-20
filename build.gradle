@@ -130,7 +130,7 @@ dependencies {
     compile 'com.android.support:support-annotations:+'
     androidTestCompile 'junit:junit:4.11'
 
-    androidTestCompile('org.robolectric:robolectric:2.4-SNAPSHOT') {
+    androidTestCompile('org.robolectric:robolectric:2.4') {
         exclude module: 'classworlds'
         exclude module: 'maven-artifact'
         exclude module: 'maven-artifact-manager'

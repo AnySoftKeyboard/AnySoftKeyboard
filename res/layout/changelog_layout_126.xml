@@ -19,12 +19,12 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:tag="">
+    android:tag="1.3.20141120">
 
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="* New Emoji popup (for Android 4.4+)\n* Small bug fixes\n*Localization: DE, NO, and VI."
+        android:text="* New Emoji popup (for Android 4.4+)\n* Small bug fixes\n* Localization: DE, NO, and VI."
         style="@style/Ask.Text.Normal"
         tools:ignore="HardcodedText" />
 
