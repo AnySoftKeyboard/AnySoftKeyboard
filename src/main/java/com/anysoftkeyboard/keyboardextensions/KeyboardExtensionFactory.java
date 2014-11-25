@@ -123,8 +123,7 @@ public class KeyboardExtensionFactory extends AddOnsFactory<KeyboardExtension> {
         super("ASK_EKF", "com.anysoftkeyboard.plugin.EXTENSION_KEYBOARD",
                 "com.anysoftkeyboard.plugindata.extensionkeyboard",
                 "ExtensionKeyboards", "ExtensionKeyboard",
-                R.xml.extension_keyboards, true);// At this point in time, I do
-        // not allow external packs
+                R.xml.extension_keyboards, true);
     }
 
     @Override
