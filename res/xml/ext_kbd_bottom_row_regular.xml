@@ -2,7 +2,7 @@
 
 <Keyboard
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard">
+        xmlns:ask="http://schemas.android.com/apk/res-auto">
     <!-- Generic bottom row -->
     <Row android:keyboardMode="@integer/keyboard_mode_normal" android:rowEdgeFlags="bottom" android:keyWidth="10%p"
          android:keyHeight="@integer/key_normal_height">
