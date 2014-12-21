@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:ask="http://schemas.android.com/apk/res/com.menny.android.anysoftkeyboard"
+          xmlns:ask="http://schemas.android.com/apk/res-auto"
           android:keyWidth="25%p"
           android:keyHeight="@integer/key_normal_height">
     <Row>
