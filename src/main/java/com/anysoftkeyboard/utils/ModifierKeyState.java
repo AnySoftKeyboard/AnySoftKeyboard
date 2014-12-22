@@ -16,31 +16,83 @@
 
 package com.anysoftkeyboard.utils;
 
+import android.os.SystemClock;
+
 public class ModifierKeyState {
-    private static final int RELEASING = 0;
-    private static final int PRESSING = 1;
-    private static final int MOMENTARY = 2;
+	private static final int RELEASING = 0;
+	private int mPhysicalState = RELEASING;
+	private static final int PRESSING = 1;
+	private static final int INACTIVE = 0;
+	private int mLogicalState = INACTIVE;
+	private static final int ACTIVE = 1;
+	private static final int LOCKED = 2;
+	private long mActiveStateStartTime = 0l;
+	private boolean mMomentaryPress = false;
 
-    private int mState = RELEASING;
+	public void onPress() {
+		mPhysicalState = PRESSING;
+	}
 
-    public void onPress() {
-        mState = PRESSING;
-    }
+	public void onOtherKeyPressed() {
+		if (mPhysicalState == PRESSING) {
+			mMomentaryPress = true;
+		}
+	}
 
-    public void onRelease() {
-        mState = RELEASING;
-    }
+	public void onRelease(final int doubleClickTime) {
+		mPhysicalState = RELEASING;
+		if (mMomentaryPress) {
+			mLogicalState = INACTIVE;
+		} else {
+			switch (mLogicalState) {
+				case INACTIVE:
+					mLogicalState = ACTIVE;
+					mActiveStateStartTime = SystemClock.elapsedRealtime();
+					break;
+				case ACTIVE:
+					if (doubleClickTime > (SystemClock.elapsedRealtime() - mActiveStateStartTime)) {
+						mLogicalState = LOCKED;
+					} else {
+						mLogicalState = INACTIVE;
+					}
+					break;
+				case LOCKED:
+					mLogicalState = INACTIVE;
+					break;
+			}
+		}
+		mMomentaryPress = false;
+	}
 
-    public void reset() {
-        mState = RELEASING;
-    }
+	public void reset() {
+		mPhysicalState = RELEASING;
+		mMomentaryPress = false;
+		mLogicalState = INACTIVE;
+		mActiveStateStartTime = 0l;
+	}
 
-    public void onOtherKeyPressed() {
-        if (mState == PRESSING)
-            mState = MOMENTARY;
-    }
+	public boolean isPressed() {
+		return mPhysicalState == PRESSING;
+	}
 
-    public boolean isMomentary() {
-        return mState == MOMENTARY;
-    }
+	public boolean isActive() {
+		return mPhysicalState == PRESSING || mLogicalState != INACTIVE;
+	}
+
+	public boolean isLocked() {
+		return mPhysicalState != PRESSING && mLogicalState == LOCKED;
+	}
+
+	/**
+	 * Sets the modifier state to active (or inactive) if possible.
+	 * By possible, I mean, if it is LOCKED, it will stay locked.
+	 */
+	public void setActiveState(boolean active) {
+		if (mLogicalState == LOCKED) return;
+		mLogicalState = active ? ACTIVE : INACTIVE;
+
+		if (mLogicalState == ACTIVE) {
+			mActiveStateStartTime = SystemClock.elapsedRealtime();
+		}
+	}
 }

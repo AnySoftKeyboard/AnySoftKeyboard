@@ -56,7 +56,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.anysoftkeyboard.Configuration.AnimationsLevel;
+import com.anysoftkeyboard.AskPrefs.AnimationsLevel;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
 import com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel;
