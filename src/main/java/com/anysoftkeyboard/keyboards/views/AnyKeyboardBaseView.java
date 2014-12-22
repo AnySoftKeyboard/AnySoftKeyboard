@@ -294,8 +294,8 @@ public class AnyKeyboardBaseView extends View implements
             mParentKeyboard.get().mKeyboardActionListener.onMultiTapStarted();
         }
 
-        public void onMultiTapEndeded() {
-            mParentKeyboard.get().mKeyboardActionListener.onMultiTapEndeded();
+        public void onMultiTapEnded() {
+            mParentKeyboard.get().mKeyboardActionListener.onMultiTapEnded();
         }
 
         public void onText(CharSequence text) {

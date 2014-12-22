@@ -520,7 +520,7 @@ public class PointerTracker {
                     listener.onKey(code, key, mTapCount, nearByKeyCodes, x >= 0 || y >= 0);
                     listener.onRelease(code);
                     if (multiTapStarted)
-                        mListener.onMultiTapEndeded();
+                        mListener.onMultiTapEnded();
                 }
             }
             mLastSentIndex = index;

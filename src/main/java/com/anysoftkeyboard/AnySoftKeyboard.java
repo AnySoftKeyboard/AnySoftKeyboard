@@ -1568,7 +1568,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mInputView.setShifted(mLastCharacterWasShifted);
 	}
 
-	public void onMultiTapEndeded() {
+	public void onMultiTapEnded() {
 		final InputConnection ic = getCurrentInputConnection();
 		if (ic != null)
 			ic.endBatchEdit();
@@ -1577,10 +1577,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 	public void onKey(int primaryCode, Key key, int multiTapIndex,
 	                  int[] nearByKeyCodes, boolean fromUI) {
 		Log.d(TAG, "onKey " + primaryCode);
-		// Thread.dumpStack();
 		final InputConnection ic = getCurrentInputConnection();
 
 		switch (primaryCode) {
+			case KeyCodes.ENTER:
+				//shortcut. Nothing more.
+				handleSeparator(primaryCode);
+				break;
 			case KeyCodes.DELETE_WORD:
 				if (ic == null)// if we don't want to do anything, lets check
 					// null first.
@@ -2338,12 +2341,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			// elision
 			// requires the last vowel to be removed.
 			//Also, ACTION does not invoke default picking. See https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/198
-			if (mAutoCorrectOn && primaryCode != '\'' && primaryCode != KeyCodes.ENTER
-			/*
-			 * && (mJustRevertedSeparator == null ||
-			 * mJustRevertedSeparator.length() == 0 ||
-			 * mJustRevertedSeparator.charAt(0) != primaryCode)
-			 */) {
+			if (mAutoCorrectOn && primaryCode != '\'' && primaryCode != KeyCodes.ENTER) {
 				pickedDefault = pickDefaultSuggestion();
 				// Picked the suggestion by the space key. We consider this
 				// as "added an auto space".
@@ -2365,7 +2363,14 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mJustAddedAutoSpace = false;
 		}
 
-		sendKeyChar((char) primaryCode);
+		final EditorInfo ei = getCurrentInputEditorInfo();
+		if (primaryCode == KeyCodes.ENTER && mShiftKeyState.isActive() && ic != null && ei != null && (ei.imeOptions & EditorInfo.IME_MASK_ACTION) != EditorInfo.IME_ACTION_NONE) {
+			//power-users feature ahead: Shift+Enter
+			//getting away from firing the default editor action, by forcing newline
+			ic.commitText("\n", 1);
+		} else {
+			sendKeyChar((char) primaryCode);
+		}
 
 		// Handle the case of ". ." -> " .." with auto-space if necessary
 		// before changing the TextEntryState.

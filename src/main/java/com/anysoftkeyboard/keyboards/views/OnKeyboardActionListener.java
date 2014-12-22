@@ -57,7 +57,7 @@ public interface OnKeyboardActionListener {
 
     void onMultiTapStarted();
 
-    void onMultiTapEndeded();
+    void onMultiTapEnded();
 
     /**
      * Sends a sequence of characters to the listener.
