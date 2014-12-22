@@ -2789,9 +2789,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void setKeyboardFinalStuff(EditorInfo currentEditorInfo,
 	                                   KeyboardSwitcher.NextKeyboardType type, AnyKeyboard currentKeyboard) {
-		updateShiftKeyState(currentEditorInfo);
 		mShiftKeyState.reset();
 		mControlKeyState.reset();
+		updateShiftKeyState(currentEditorInfo);
 		// changing dictionary
 		setDictionariesForCurrentKeyboard();
 		// Notifying if needed
