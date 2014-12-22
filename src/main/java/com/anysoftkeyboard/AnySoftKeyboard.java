@@ -1478,7 +1478,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	}
 
-	private void reswapPeriodAndSpace() {
+	private void swapPeriodAndSpace() {
 		final InputConnection ic = getCurrentInputConnection();
 		if (ic == null)
 			return;
@@ -2369,9 +2369,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		// Handle the case of ". ." -> " .." with auto-space if necessary
 		// before changing the TextEntryState.
-		if (TextEntryState.getState() == TextEntryState.State.PUNCTUATION_AFTER_ACCEPTED
-				&& primaryCode == '.') {
-			reswapPeriodAndSpace();
+		if (mJustAddedAutoSpace && primaryCode == '.') {
+			swapPeriodAndSpace();
 		}
 
 		TextEntryState.typedCharacter((char) primaryCode, true);
