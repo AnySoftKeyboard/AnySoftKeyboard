@@ -102,6 +102,7 @@ import com.menny.android.anysoftkeyboard.FeaturesSet;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -165,7 +166,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	 */
     private boolean mCompletionOn;
     private boolean mAutoSpace;
-    private boolean mAutoCorrectOn;
+	private boolean mAutoCorrectOn;
     private boolean mAllowSuggestionsRestart = true;
     private boolean mCurrentlyAllowSuggestionRestart = true;
     private boolean mJustAutoAddedWord = false;
@@ -660,8 +661,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         mPredictionOn = mPredictionOn && (mShowSuggestions/* || mQuickFixes */);
 
-        if (mCandidateView != null)
-            mCandidateView.setSuggestions(null, false, false, false);
+        setSuggestions(null, false, false, false);
 
         if (mPredictionOn) {
             if ((SystemClock.elapsedRealtime() - mLastDictionaryRefresh) > MINIMUM_REFRESH_TIME_FOR_DICTIONARIES)
@@ -959,7 +959,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             if (completions == null) {
                 Log.v(TAG,
                         "Received completions: completion is NULL. Clearing suggestions.");
-                mCandidateView.setSuggestions(null, false, false, false);
+                setSuggestions(null, false, false, false);
                 return;
             }
 
@@ -1025,7 +1025,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         if (mCandidateView != null) {
             mCandidateView.setSuggestions(suggestions, completions,
-                    typedWordValid, haveMinimalSuggestion);
+                    typedWordValid, haveMinimalSuggestion && mAutoCorrectOn);
         }
     }
 
@@ -1609,8 +1609,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                 handleBackword(ic);
                 break;
             case KeyCodes.DELETE:
-                if (ic == null)// if we don't want to do anything, lets check
-                    // null first.
+                if (ic == null)// if we don't want to do anything, lets check null first.
                     break;
                 // we do backword if the shift is pressed while pressing
                 // backspace (like in a PC)
@@ -1619,8 +1618,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                 if (mInputView != null
                         && mInputView.isShifted()
                         && !mInputView.getKeyboard().isShiftLocked()
-                        && ((mDistinctMultiTouch && mShiftKeyState.isMomentary()) || mConfig
-                        .useBackword())) {
+                        && ((mDistinctMultiTouch && mShiftKeyState.isMomentary()) || mConfig.useBackword())) {
                     handleBackword(ic);
                 } else {
                     handleDeleteLastCharacter(false);
@@ -2266,6 +2264,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             mPredicting = true;
             mUndoCommitCursorPosition = -2;// so it will be marked the next time
             mWord.reset();
+	        mAutoCorrectOn = mAutoComplete;
         }
 
         mLastCharacterWasShifted = (mInputView != null)
@@ -2521,8 +2520,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             mCandidateCloseText.setVisibility(View.GONE);
 
         if (!mPredicting) {
-            if (mCandidateView != null)
-                mCandidateView.setSuggestions(null, false, false, false);
+            setSuggestions(null, false, false, false);
             return;
         }
 
@@ -2543,8 +2541,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         correctionAvailable &= !mWord.isMostlyCaps();
         correctionAvailable &= !TextEntryState.isCorrecting();
 
-        mCandidateView.setSuggestions(stringList, false, typedWordValid,
-                correctionAvailable);
+        setSuggestions(stringList, false, typedWordValid, correctionAvailable);
         if (stringList.size() > 0) {
             if (correctionAvailable && !typedWordValid && stringList.size() > 1) {
                 mWord.setPreferredWord(stringList.get(1));
@@ -2570,7 +2567,6 @@ public class AnySoftKeyboard extends InputMethodService implements
         if (!TextUtils.isEmpty(bestWord)) {
             final CharSequence typedWord = mWord.getTypedWord();
             TextEntryState.acceptedDefault(typedWord, bestWord);
-            // mJustAccepted = true;
             final boolean fixed = !typedWord.equals(pickSuggestion(bestWord, !bestWord.equals(typedWord)));
             if (!fixed) {//if the word typed was auto-replaced, we should not learn it.
                 // Add the word to the auto dictionary if it's not a known word
@@ -2684,9 +2680,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
         mPredicting = false;
         mCommittedLength = suggestion.length();
-        if (mCandidateView != null) {
-            mCandidateView.setSuggestions(null, false, false, false);
-        }
+        setSuggestions(null, false, false, false);
         // If we just corrected a word, then don't show punctuations
         if (!correcting) {
             setNextSuggestions();
@@ -2728,6 +2722,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         final int length = mWord.length();// mComposing.length();
         if (!mPredicting && length > 0) {
+	        mAutoCorrectOn = false;
             final CharSequence typedWord = mWord.getTypedWord();
             final InputConnection ic = getCurrentInputConnection();
             mPredicting = true;
@@ -2800,8 +2795,8 @@ public class AnySoftKeyboard extends InputMethodService implements
     // }
     // }
 
-    private static final List<CharSequence> msEmptyNextSuggestions = new ArrayList<CharSequence>(
-            0);
+    private static final List<CharSequence> msEmptyNextSuggestions = Arrays.asList(
+		    (CharSequence)".", ",", "?", "!", ":");
 
     private void setNextSuggestions() {
         setSuggestions(
@@ -3104,12 +3099,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                 getResources().getBoolean(
                         R.bool.settings_default_allow_suggestions_restart));
 
-        mAutoCorrectOn = /* mSuggest != null && *//*
-												 * Suggestion always exists,
-												 * maybe not at the moment, but
-												 * shortly
-												 */
-                (mAutoComplete/* || mQuickFixes */);
+        mAutoCorrectOn = mAutoComplete;
 
         // mCorrectionMode = mAutoComplete ? 2
         // : (/*mShowSuggestions*/ mQuickFixes ? 1 : 0);
