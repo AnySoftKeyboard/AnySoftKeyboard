@@ -390,6 +390,15 @@ public class CandidateView extends View {
         invalidate();
     }
 
+	/**
+	 * Setup what's to display in the suggestions strip
+	 * @param suggestions the list of words to show
+	 * @param completions
+	 * @param typedWordValid the typed word (word at index 0) is a valid word
+	 * @param haveMinimalSuggestion the list of suggestions contains a valid word. So, either
+	 *                              highlight the first word (typedWordValid == true), or
+	 *                              highlight the second word (typedWordValid != true)
+	 */
     public void setSuggestions(List<CharSequence> suggestions,
                                boolean completions, boolean typedWordValid,
                                boolean haveMinimalSuggestion) {
