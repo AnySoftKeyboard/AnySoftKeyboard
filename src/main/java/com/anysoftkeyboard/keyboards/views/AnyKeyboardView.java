@@ -31,8 +31,9 @@ import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.TextView;
-import com.anysoftkeyboard.Configuration;
-import com.anysoftkeyboard.Configuration.AnimationsLevel;
+
+import com.anysoftkeyboard.AskPrefs;
+import com.anysoftkeyboard.AskPrefs.AnimationsLevel;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboards.*;
@@ -386,7 +387,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
                             mGesturePreviewTextColorBlue);
             mPreviewText.setTextColor(color);
             final int swipeKeyTarget;
-            final Configuration cfg = AnyApplication.getConfig();
+            final AskPrefs cfg = AnyApplication.getConfig();
             switch (slide & 0xFF00) {// removing distance
                 case DIRECTION_UP:
                     swipeKeyTarget = cfg.getGestureSwipeUpKeyCode(true);

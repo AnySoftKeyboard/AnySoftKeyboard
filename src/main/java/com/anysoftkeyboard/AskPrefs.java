@@ -18,7 +18,7 @@ package com.anysoftkeyboard;
 
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 
-public interface Configuration {
+public interface AskPrefs {
 
     boolean alwaysUseFallBackUserDictionary();
 

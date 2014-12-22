@@ -24,8 +24,8 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
 
-import com.anysoftkeyboard.Configuration;
-import com.anysoftkeyboard.ConfigurationImpl;
+import com.anysoftkeyboard.AskPrefs;
+import com.anysoftkeyboard.AskPrefsImpl;
 import com.anysoftkeyboard.backup.CloudBackupRequester;
 import com.anysoftkeyboard.backup.CloudBackupRequesterDiagram;
 import com.anysoftkeyboard.devicespecific.DeviceSpecific;
@@ -41,7 +41,7 @@ import net.evendanan.frankenrobot.Lab;
 public class AnyApplication extends Application implements OnSharedPreferenceChangeListener {
 
     private static final String TAG = "ASK_APP";
-    private static Configuration msConfig;
+    private static AskPrefs msConfig;
     private static FrankenRobot msFrank;
     private static DeviceSpecific msDeviceSpecific;
     private static CloudBackupRequester msCloudBackupRequester;
@@ -59,7 +59,7 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
                 strictMode.setupStrictMode();
         }
 
-        msConfig = new ConfigurationImpl(this);
+        msConfig = new AskPrefsImpl(this);
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         sp.registerOnSharedPreferenceChangeListener(this);
@@ -75,7 +75,7 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        ((ConfigurationImpl) msConfig).onSharedPreferenceChanged(sharedPreferences, key);
+        ((AskPrefsImpl) msConfig).onSharedPreferenceChanged(sharedPreferences, key);
         //should we disable the Settings App? com.menny.android.anysoftkeyboard.LauncherSettingsActivity
         if (key.equals(getString(R.string.settings_key_show_settings_app))) {
             PackageManager pm = getPackageManager();
@@ -87,7 +87,7 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
     }
 
 
-    public static Configuration getConfig() {
+    public static AskPrefs getConfig() {
         return msConfig;
     }
 

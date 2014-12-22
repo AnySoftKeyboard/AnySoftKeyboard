@@ -37,7 +37,7 @@ import com.menny.android.anysoftkeyboard.R;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-public class ConfigurationImpl implements Configuration, OnSharedPreferenceChangeListener {
+public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener {
     static final String TAG = "ASK_Cfg";
 
     private static final String CONFIGURATION_VERSION = "configurationVersion";
@@ -98,7 +98,7 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
     private int mAutoDictionaryInsertionThreshold = 9;
     private boolean mIsStickyExtensionKeyboard = false;
     private boolean mDrawExtensionKeyboardAboveMainKeyboard = true;
-    private Configuration.AnimationsLevel mAnimationsLevel = AnimationsLevel.Full;
+    private AskPrefs.AnimationsLevel mAnimationsLevel = AnimationsLevel.Full;
     private int mLongPressTimeout = 350;
     private int mMultiTapTimeout = 700;
 
@@ -115,7 +115,7 @@ public class ConfigurationImpl implements Configuration, OnSharedPreferenceChang
 
     private final LinkedList<OnSharedPreferenceChangeListener> mPreferencesChangedListeners = new LinkedList<SharedPreferences.OnSharedPreferenceChangeListener>();
 
-    public ConfigurationImpl(Context context) {
+    public AskPrefsImpl(Context context) {
         mContext = context;
 
         String version = "NONE";
