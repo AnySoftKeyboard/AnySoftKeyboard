@@ -621,8 +621,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 				final int textFlag = attribute.inputType
 						& EditorInfo.TYPE_MASK_FLAGS;
 				switch (textFlag) {
-					case 0x00080000:// FROM API
-						// 5:EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS:
+					case EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS:
 					case EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE:
 						Log.d(TAG,
 								"Input requested NO_SUGGESTIONS, or it is AUTO_COMPLETE by itself.");
