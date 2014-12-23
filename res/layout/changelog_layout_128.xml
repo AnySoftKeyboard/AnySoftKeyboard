@@ -19,12 +19,12 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:tag="1.3.20141125">
+    android:tag="1.3.20141223">
 
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="* Bug fixes.\n* Localization updates: MY."
+        android:text="* Bug fixes.\n* Power users: SHIFT+ENTER will force newline.\n* Localization updates: MY."
         style="@style/Ask.Text.Normal"
         tools:ignore="HardcodedText" />
 
