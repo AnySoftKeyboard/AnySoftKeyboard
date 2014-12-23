@@ -334,7 +334,7 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.AskApp.Popup" parent="Theme.AskApp">
+    <style name="Theme.AskApp.Popup" parent="Base.Theme.AppCompat.Light.Dialog.FixedSize">
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:maxWidth">320dp</item>
         <item name="android:windowBackground">@drawable/window_popup_background</item>
