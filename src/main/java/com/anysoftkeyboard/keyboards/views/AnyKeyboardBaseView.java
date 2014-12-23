@@ -1410,7 +1410,7 @@ public class AnyKeyboardBaseView extends View implements
         mDrawOperation.setCanvas(canvas);
 
         if (mDrawPending || mBuffer == null || mKeyboardChanged) {
-            GCUtils.getInstance().peformOperationWithMemRetry(TAG, mDrawOperation, true);
+            GCUtils.getInstance().performOperationWithMemRetry(TAG, mDrawOperation, true);
         }
         // maybe there is no buffer, since drawing was not done.
         if (mBuffer != null)
