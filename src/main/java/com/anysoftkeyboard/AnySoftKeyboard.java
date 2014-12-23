@@ -379,7 +379,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mInputView.onViewNotRequired();
 		mInputView = null;
 
-		GCUtils.getInstance().peformOperationWithMemRetry(TAG,
+		GCUtils.getInstance().performOperationWithMemRetry(TAG,
 				new MemRelatedOperation() {
 					public void operation() {
 						mInputView = (AnyKeyboardView) getLayoutInflater()
