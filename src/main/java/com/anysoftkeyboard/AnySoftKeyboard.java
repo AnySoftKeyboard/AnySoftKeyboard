@@ -122,7 +122,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private static final String KEYBOARD_NOTIFICATION_ALWAYS = "1";
 	private static final String KEYBOARD_NOTIFICATION_ON_PHYSICAL = "2";
 	private static final String KEYBOARD_NOTIFICATION_NEVER = "3";
-	private static final List<CharSequence> msEmptyNextSuggestions = Arrays.asList((CharSequence) ".", ",", "?", "!", ":", "'", "\"", "@", "#", "&", "()");
+	//Arrays.asList((CharSequence) ".", ",", "?", "!", ":", "'", "\"", "@", "#", "&", "()");
+	private static final List<CharSequence> msEmptyNextSuggestions = Arrays.asList(/*empty for now*/);
 	private final AskPrefs mAskPrefs;
 	private final ModifierKeyState mShiftKeyState = new ModifierKeyState();
 	private final ModifierKeyState mControlKeyState = new ModifierKeyState();
@@ -255,14 +256,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (!BuildConfig.DEBUG && BuildConfig.VERSION_NAME.endsWith("-SNAPSHOT"))
 			throw new RuntimeException("You can not run a 'RELEASE' build with a SNAPSHOT postfix!");
 
-		// I'm handling animations. No need for any nifty ROMs assistance.
-		// I can't use this function with my own animations, since the
-		// WindowManager can
-		// only use system resources.
-		/*
-		 * Not right now... performance of my animations is lousy..
-		 * getWindow().getWindow().setWindowAnimations(0);
-		 */
+		if (mAskPrefs.getAnimationsLevel() != AskPrefs.AnimationsLevel.None) {
+			final int fancyAnimation = getResources().getIdentifier("Animation_InputMethodFancy", "style", "android");
+			if (fancyAnimation != 0) {
+				Log.i(TAG, "Found Animation_InputMethodFancy as %d, so I'll use this", fancyAnimation);
+				getWindow().getWindow().setWindowAnimations(fancyAnimation);
+			} else {
+				Log.w(TAG, "Could not find Animation_InputMethodFancy, using default animation");
+				getWindow().getWindow().setWindowAnimations(android.R.style.Animation_InputMethod);
+			}
+		}
+
 		mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 		mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 		updateRingerMode();
@@ -282,7 +286,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mSentenceSeparators = getCurrentKeyboard().getSentenceSeparators();
 
 		if (mSuggest == null) {
-			initSuggest(/* getResources().getConfiguration().locale.toString() */);
+			initSuggest();
 		}
 
 		if (mKeyboardChangeNotificationType
