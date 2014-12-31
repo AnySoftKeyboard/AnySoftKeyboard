@@ -1823,13 +1823,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 				if (isWordSeparator(primaryCode)) {
 					handleSeparator(primaryCode);
 				} else {
-
-					if (mInputView != null && mInputView.isControl()
-							&& primaryCode >= 32 && primaryCode < 127) {
+					if (mControlKeyState.isActive() && primaryCode >= 32 && primaryCode < 127) {
 						// http://en.wikipedia.org/wiki/Control_character#How_control_characters_map_to_keyboards
 						int controlCode = primaryCode & 31;
-						Log.d(TAG, "CONTROL state: Char was " + primaryCode
-								+ " and now it is " + controlCode);
+						Log.d(TAG, "CONTROL state: Char was %d and now it is %d", primaryCode, controlCode);
 						if (controlCode == 9) {
 							sendTab();
 						} else {
@@ -1839,9 +1836,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 						handleCharacter(primaryCode, key, multiTapIndex,
 								nearByKeyCodes);
 					}
-					// reseting the mSpaceSent, which is set to true upon
-					// selecting
-					// candidate
+					// resetting the mSpaceSent, which is set to true upon selecting candidate
 					mJustAddedAutoSpace = false;
 				}
 				break;
@@ -2153,12 +2148,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 	 * updateShiftKeyState(getCurrentInputEditorInfo()); break; } }
 	 */
 	private void handleControl(boolean reset) {
-		if (mInputView == null)
-			return;
-		if (reset) {
-			mInputView.setControl(false);
-		} else {
-			mInputView.setControl(!mInputView.isControl());
+		if (mInputView != null && mKeyboardSwitcher.isAlphabetMode()) {
+			if (reset) {
+				mControlKeyState.reset();
+			}
+			mInputView.setControl(mControlKeyState.isActive());
 		}
 	}
 
@@ -2953,19 +2947,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 			mControlKeyState.onRelease(mAskPrefs.getMultiTapTimeout());
 			handleControl(false);
 		}
-	    /*
-        // the user lifted the finger, let's handle the shift
-        if (primaryCode != KeyCodes.SHIFT)
-            updateShiftKeyState(getCurrentInputEditorInfo());
-        // and set the control state. Checking if the inputview is null
-        // this is weird, I agree, how can onRelease be called, if the inputview
-        // is null
-        // well, there are some cases where the onRelease is called with a
-        // delayed message, and in this case the view may already be disposed!
-        // Issue #94.
-        if (primaryCode != KeyCodes.CTRL && mInputView != null)
-            mInputView.setControl(mControlKeyState.isMomentary());
-        */
 	}
 
 	// update flags for silent mode
