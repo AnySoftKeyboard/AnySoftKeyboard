@@ -24,6 +24,7 @@ import android.preference.Preference;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -100,26 +101,26 @@ public abstract class PreferenceFragment extends Fragment implements
                 false);
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+	@Override
+	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
 
-        if (mHavePrefs) {
-            bindPreferences();
-        }
+		if (mHavePrefs) {
+			bindPreferences();
+		}
 
-        mInitDone = true;
+		mInitDone = true;
 
-        if (savedInstanceState != null) {
-            Bundle container = savedInstanceState.getBundle(PREFERENCES_TAG);
-            if (container != null) {
-                final PreferenceScreen preferenceScreen = getPreferenceScreen();
-                if (preferenceScreen != null) {
-                    preferenceScreen.restoreHierarchyState(container);
-                }
-            }
-        }
-    }
+		if (savedInstanceState != null) {
+			Bundle container = savedInstanceState.getBundle(PREFERENCES_TAG);
+			if (container != null) {
+				final PreferenceScreen preferenceScreen = getPreferenceScreen();
+				if (preferenceScreen != null) {
+					preferenceScreen.restoreHierarchyState(container);
+				}
+			}
+		}
+	}
 
     @Override
     public void onStart() {
