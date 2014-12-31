@@ -372,7 +372,9 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
                 mContext.getString(R.string.settings_default_custom_hint_valign_value));
         Log.d(TAG, "** mCustomHintVAlign: " + mCustomHintVAlign);
 
-        mSwitchKeyboardOnSpace = sp.getBoolean("switch_keyboard_on_space", false);
+        mSwitchKeyboardOnSpace = sp.getBoolean(
+		        mContext.getString(R.string.settings_key_switch_keyboard_on_space),
+		        mContext.getResources().getBoolean(R.bool.settings_default_switch_to_alphabet_on_space));
         Log.d(TAG, "** mSwitchKeyboardOnSpace: " + mSwitchKeyboardOnSpace);
 
         mUseFullScreenInputInLandscape = sp.getBoolean(mContext.getString(R.string.settings_key_landscape_fullscreen),
@@ -650,10 +652,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         return mDomainText;
     }
 
-    //	public String getChangeLayoutKeysSize() {
-//		return mLayoutChangeKeysSize;
-//	}
-//	
     public boolean getShowKeyPreview() {
         return mShowKeyPreview;
     }
