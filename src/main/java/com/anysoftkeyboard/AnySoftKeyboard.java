@@ -1584,8 +1584,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		switch (primaryCode) {
 			case KeyCodes.ENTER:
+			case KeyCodes.SPACE:
 				//shortcut. Nothing more.
 				handleSeparator(primaryCode);
+				//should we switch to alphabet keyboard?
+				if (!mKeyboardSwitcher.isAlphabetMode()) {
+					Log.d(TAG, "SPACE/ENTER while in symbols mode");
+					if (mAskPrefs.getSwitchKeyboardOnSpace()) {
+						Log.d(TAG, "Switching to Alphabet is required by the user");
+						mKeyboardSwitcher.nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Alphabet);
+					}
+				}
 				break;
 			case KeyCodes.DELETE_WORD:
 				if (ic == null)// if we don't want to do anything, lets check
@@ -1834,12 +1843,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 					// selecting
 					// candidate
 					mJustAddedAutoSpace = false;
-				}
-				// Cancel the just reverted state
-				// mJustRevertedSeparator = null;
-				if (mKeyboardSwitcher.isKeyCodeRequireSwitchingToAlphabet(primaryCode)) {
-					mKeyboardSwitcher.nextKeyboard(getCurrentInputEditorInfo(),
-							NextKeyboardType.Alphabet);
 				}
 				break;
 		}
