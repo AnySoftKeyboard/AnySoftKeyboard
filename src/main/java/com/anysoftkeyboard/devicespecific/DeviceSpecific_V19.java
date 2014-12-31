@@ -20,7 +20,10 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.view.GestureDetector;
 
+import com.anysoftkeyboard.IndirectlyInstantiated;
+
 @TargetApi(19)
+@IndirectlyInstantiated
 public class DeviceSpecific_V19 extends DeviceSpecific_V11 {
 	@Override
 	public String getApiLevel() {

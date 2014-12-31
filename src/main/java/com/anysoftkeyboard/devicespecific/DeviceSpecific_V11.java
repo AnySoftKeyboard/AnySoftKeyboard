@@ -20,9 +20,12 @@ import android.annotation.TargetApi;
 import android.graphics.Canvas;
 import android.view.inputmethod.CorrectionInfo;
 import android.view.inputmethod.InputConnection;
+
+import com.anysoftkeyboard.IndirectlyInstantiated;
 import com.anysoftkeyboard.WordComposer;
 
 @TargetApi(11)
+@IndirectlyInstantiated
 public class DeviceSpecific_V11 extends DeviceSpecific_V8 {
     @Override
     public String getApiLevel() {

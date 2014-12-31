@@ -17,8 +17,12 @@
 package com.anysoftkeyboard.devicespecific;
 
 import android.content.Context;
+
+import com.anysoftkeyboard.IndirectlyInstantiated;
+
 import net.evendanan.frankenrobot.Diagram;
 
+@IndirectlyInstantiated
 public interface Clipboard {
     public static class ClipboardDiagram extends Diagram<Clipboard> {
         private final Context mContext;
