@@ -22,7 +22,10 @@ import android.content.pm.PackageManager;
 import android.view.GestureDetector;
 import android.widget.AbsListView;
 
+import com.anysoftkeyboard.IndirectlyInstantiated;
+
 @TargetApi(8)
+@IndirectlyInstantiated
 public class DeviceSpecific_V8 extends DeviceSpecific_V7 {
     @Override
     public String getApiLevel() {

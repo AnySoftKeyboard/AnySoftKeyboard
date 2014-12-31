@@ -24,9 +24,11 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 
+import com.anysoftkeyboard.IndirectlyInstantiated;
 import com.anysoftkeyboard.utils.Log;
 
 @TargetApi(8)
+@IndirectlyInstantiated
 public class AskV8GestureDetector extends GestureDetector {
     private static final String TAG = "AskV8GestureDetector";
 

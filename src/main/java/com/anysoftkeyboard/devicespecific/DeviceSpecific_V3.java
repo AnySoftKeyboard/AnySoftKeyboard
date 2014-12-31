@@ -24,9 +24,11 @@ import android.view.GestureDetector;
 import android.view.inputmethod.InputConnection;
 import android.widget.AbsListView;
 
+import com.anysoftkeyboard.IndirectlyInstantiated;
 import com.anysoftkeyboard.WordComposer;
 
 @TargetApi(3)
+@IndirectlyInstantiated
 public class DeviceSpecific_V3 implements DeviceSpecific {
     public DeviceSpecific_V3() {
     }

@@ -22,8 +22,10 @@ import android.view.GestureDetector;
 import android.view.inputmethod.InputConnection;
 import android.widget.AbsListView;
 
+import com.anysoftkeyboard.IndirectlyInstantiated;
 import com.anysoftkeyboard.WordComposer;
 
+@IndirectlyInstantiated
 public interface DeviceSpecific {
 
     public String getApiLevel();

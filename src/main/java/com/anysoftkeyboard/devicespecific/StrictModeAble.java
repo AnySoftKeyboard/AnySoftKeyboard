@@ -16,6 +16,9 @@
 
 package com.anysoftkeyboard.devicespecific;
 
+import com.anysoftkeyboard.IndirectlyInstantiated;
+
+@IndirectlyInstantiated
 public interface StrictModeAble {
     void setupStrictMode();
 }

@@ -15,3 +15,12 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+-keep,allowobfuscation class com.anysoftkeyboard.IndirectlyInstantiated
+-keepclasseswithmembernames class * extends @com.anysoftkeyboard.IndirectlyInstantiated * {
+     public protected <init>(...);
+}
