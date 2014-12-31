@@ -61,7 +61,7 @@
     <string name="settings_default_should_swap_punctuation_and_space">yes</string>
 
     <bool name="settings_default_allow_suggestions_restart">true</bool>
-
+    <bool name="settings_default_switch_to_alphabet_on_space">true</bool>
 
     <string name="swipe_action_value_shift">shift</string>
     <string name="swipe_action_value_none">none</string>

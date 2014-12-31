@@ -212,6 +212,8 @@
     <string name="settings_key_min_length_for_word_correction__">settings_key_min_length_for_word_correction__</string>
 
     <string name="settings_key_allow_suggestions_restart">settings_key_allow_suggestions_restart</string>
+    <string name="settings_key_switch_keyboard_on_space">settings_key_switch_keyboard_on_space</string>
+
 
     <string name="settings_key_first_app_version_installed">settings_key_first_app_version_installed</string>
     <string name="settings_key_first_time_app_installed">settings_key_first_time_app_installed</string>
