@@ -358,33 +358,6 @@ public class KeyboardSwitcher {
         return mAlphabetMode;
     }
 
-    // void toggleShift()
-    // {
-    // Keyboard currentKeyboard = mInputView.getKeyboard();
-    //
-    // if (currentKeyboard ==
-    // mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_REGULAR_INDEX])
-    // {
-    // mLastSelectedSymbolsKeyboard = 1;
-    // }
-    // else if (currentKeyboard ==
-    // mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_SHIFTED_INDEX])
-    // {
-    // mLastSelectedSymbolsKeyboard = 0;
-    // }
-    // else return;
-    //
-    // AnyKeyboard nextKeyboard =
-    // getSymbolsKeyboard(mLastSelectedSymbolsKeyboard);
-    // boolean shiftStateToSet = currentKeyboard ==
-    // mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_REGULAR_INDEX];
-    // currentKeyboard.setShifted(shiftStateToSet);
-    // mInputView.setKeyboard(nextKeyboard);
-    // nextKeyboard.setShifted(shiftStateToSet);
-    // nextKeyboard.setImeOptions(mContext.getResources()/*, mMode*/,
-    // mImeOptions);
-    // }
-
     public AnyKeyboard nextAlphabetKeyboard(EditorInfo currentEditorInfo,
                                             String keyboardId) {
         AnyKeyboard current = getLockedKeyboard(currentEditorInfo);
@@ -725,27 +698,6 @@ public class KeyboardSwitcher {
 
     public boolean isRightToLeftMode() {
         return mRightToLeftMode;
-    }
-
-    public boolean isKeyCodeRequireSwitchingToAlphabet(int primaryCode) {
-	    if (BuildConfig.DEBUG) {
-		    if (primaryCode == KeyCodes.ENTER || primaryCode == KeyCodes.SPACE) {
-			    Log.d(TAG, "isKeyCodeRequireSwitchingToAlphabet was called with a interesting key-code");
-			    if (!isAlphabetMode()) {
-				    Log.d(TAG, "isKeyCodeRequireSwitchingToAlphabet was called while in symbols mode");
-				    if (AnyApplication.getConfig().getSwitchKeyboardOnSpace()) {
-					    Log.d(TAG, "isKeyCodeRequireSwitchingToAlphabet was called while config flag is ON");
-					    return true;
-				    }
-			    }
-		    }
-	    }
-
-        if ((primaryCode == KeyCodes.ENTER || primaryCode == KeyCodes.SPACE) &&
-		        (!isAlphabetMode() && AnyApplication.getConfig().getSwitchKeyboardOnSpace()))
-	        return true;
-
-	    return false;
     }
 
     public boolean shouldPopupForLanguageSwitch() {
