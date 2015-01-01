@@ -24,7 +24,7 @@
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="* Bug fixes.\n* Localization updates: ."
+        android:text="* Control key fix.\n* Rare Settings App crash fix.\n* Other bug fixes."
         style="@style/Ask.Text.Normal"
         tools:ignore="HardcodedText" />
 
