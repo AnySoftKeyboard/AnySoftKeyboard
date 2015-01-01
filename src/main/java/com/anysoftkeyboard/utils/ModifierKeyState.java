@@ -29,6 +29,12 @@ public class ModifierKeyState {
 	private long mActiveStateStartTime = 0l;
 	private boolean mMomentaryPress = false;
 
+	private final boolean mSupportsLockedState;
+
+	public ModifierKeyState(boolean supportsLockedState) {
+		mSupportsLockedState = supportsLockedState;
+	}
+
 	public void onPress() {
 		mPhysicalState = PRESSING;
 	}
@@ -36,6 +42,14 @@ public class ModifierKeyState {
 	public void onOtherKeyPressed() {
 		if (mPhysicalState == PRESSING) {
 			mMomentaryPress = true;
+		}
+	}
+
+	public void onOtherKeyReleased() {
+		if (mPhysicalState != PRESSING && mLogicalState == ACTIVE) {
+			//another key was pressed and release while this key was active:
+			//it means that this modifier key was consumed
+			mLogicalState = INACTIVE;
 		}
 	}
 
@@ -50,7 +64,7 @@ public class ModifierKeyState {
 					mActiveStateStartTime = SystemClock.elapsedRealtime();
 					break;
 				case ACTIVE:
-					if (doubleClickTime > (SystemClock.elapsedRealtime() - mActiveStateStartTime)) {
+					if (mSupportsLockedState && doubleClickTime > (SystemClock.elapsedRealtime() - mActiveStateStartTime)) {
 						mLogicalState = LOCKED;
 					} else {
 						mLogicalState = INACTIVE;
