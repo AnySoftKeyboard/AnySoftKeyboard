@@ -1,71 +1,71 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:orientation="vertical">
+              android:orientation="vertical"
+              android:layout_gravity="center"
+              android:layout_margin="16dp"
+              android:padding="8dp"
+              android:background="#666">
 
     <TextView
-            style="@android:style/TextAppearance.Medium"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingBottom="6dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingTop="12dp"
-            android:text="@string/voice_input_not_installed_title"/>
+        style="@android:style/TextAppearance.Medium"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/voice_input_not_installed_title"/>
 
     <TextView
-            style="@android:style/TextAppearance.Small"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="12dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:text="@string/voice_input_not_installed_text"/>
+        style="@android:style/TextAppearance.Small"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="12dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="@string/voice_input_not_installed_text"/>
 
     <LinearLayout
-            android:id="@+id/close_button_layout"
-            android:layout_width="fill_parent"
+        android:id="@+id/close_button_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#555"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:weightSum="3">
+
+        <View
+            android:layout_width="0px"
+            android:layout_height="1px"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/no_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#555"
-            android:orientation="horizontal"
-            android:padding="4dp"
-            android:weightSum="3">
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:minWidth="100dp"
+            android:padding="8dp"
+            android:text="@string/voice_input_not_installed_action_do_not_install"/>
 
         <View
-                android:layout_width="0px"
-                android:layout_height="1px"
-                android:layout_weight="1"/>
+            android:layout_width="0px"
+            android:layout_height="1px"
+            android:layout_weight="1"/>
 
         <Button
-                android:id="@+id/install_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:minWidth="100dp"
-                android:padding="8dp"
-                android:text="@string/voice_input_not_installed_action_install"/>
+            android:id="@+id/install_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:minWidth="100dp"
+            android:padding="8dp"
+            android:text="@string/voice_input_not_installed_action_install"/>
 
         <View
-                android:layout_width="0px"
-                android:layout_height="1px"
-                android:layout_weight="1"/>
-
-        <Button
-                android:id="@+id/no_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:minWidth="100dp"
-                android:padding="8dp"
-                android:text="@string/voice_input_not_installed_action_do_not_install"/>
-
-        <View
-                android:layout_width="0px"
-                android:layout_height="1px"
-                android:layout_weight="1"/>
+            android:layout_width="0px"
+            android:layout_height="1px"
+            android:layout_weight="1"/>
     </LinearLayout>
 
 </LinearLayout>

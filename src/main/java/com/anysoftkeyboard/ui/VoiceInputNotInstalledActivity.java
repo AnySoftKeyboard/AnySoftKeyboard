@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard.voice;
+package com.anysoftkeyboard.ui;
 
 import android.app.Activity;
 import android.content.Intent;

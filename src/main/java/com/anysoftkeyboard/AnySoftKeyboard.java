@@ -87,6 +87,7 @@ import com.anysoftkeyboard.receivers.SoundPreferencesChangedReceiver;
 import com.anysoftkeyboard.receivers.SoundPreferencesChangedReceiver.SoundPreferencesChangedListener;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
+import com.anysoftkeyboard.ui.VoiceInputNotInstalledActivity;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.anysoftkeyboard.ui.tutorials.TipLayoutsSupport;
@@ -96,7 +97,7 @@ import com.anysoftkeyboard.utils.IMEUtil.GCUtils.MemRelatedOperation;
 import com.anysoftkeyboard.utils.Log;
 import com.anysoftkeyboard.utils.ModifierKeyState;
 import com.anysoftkeyboard.utils.Workarounds;
-import com.anysoftkeyboard.voice.VoiceInput;
+import com.google.android.voiceime.VoiceRecognitionTrigger;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.FeaturesSet;
@@ -203,7 +204,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private CharSequence mJustAddOnText = null;
 	private boolean mLastCharacterWasShifted = false;
 	private InputMethodManager mInputMethodManager;
-	private VoiceInput mVoiceRecognitionTrigger;
+	private VoiceRecognitionTrigger mVoiceRecognitionTrigger;
 
 	public AnySoftKeyboard() {
 		mAskPrefs = AnyApplication.getConfig();
@@ -296,8 +297,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			notifyKeyboardChangeIfNeeded();
 		}
 
-		mVoiceRecognitionTrigger = AnyApplication.getFrankenRobot().embody(
-				new VoiceInput.VoiceInputDiagram(this));
+		mVoiceRecognitionTrigger = new VoiceRecognitionTrigger(this);
 
 		mSwitchAnimator = new LayoutSwitchAnimationListener(this);
 	}
@@ -1675,10 +1675,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 				}
 				break;
 			case KeyCodes.VOICE_INPUT:
-				if (mVoiceRecognitionTrigger != null)
-					mVoiceRecognitionTrigger
-							.startVoiceRecognition(getCurrentKeyboard()
-									.getDefaultDictionaryLocale());
+				if (mVoiceRecognitionTrigger.isInstalled()) {
+					mVoiceRecognitionTrigger.startVoiceRecognition(getCurrentKeyboard().getDefaultDictionaryLocale());
+				} else {
+					Intent voiceInputNotInstalledIntent = new Intent(getApplicationContext(), VoiceInputNotInstalledActivity.class);
+					voiceInputNotInstalledIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					startActivity(voiceInputNotInstalledIntent);
+				}
 				break;
 			case KeyCodes.CANCEL:
 				if (mOptionsDialog == null || !mOptionsDialog.isShowing()) {
