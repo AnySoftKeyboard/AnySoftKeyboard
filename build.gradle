@@ -129,6 +129,7 @@ dependencies {
     compile 'com.android.support:support-v4:21.0.3'
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.android.support:support-annotations:21.0.0'
+    compile fileTree(dir: 'libs', include: '*.jar')
     androidTestCompile 'junit:junit:4.11'
 
     androidTestCompile('org.robolectric:robolectric:2.4') {

@@ -2,6 +2,5 @@
 <resources>
     <string name="frankenrobot_device_specific_implementation" translatable="false">com.anysoftkeyboard.devicespecific.DeviceSpecific_V11
     </string>
-    <string name="frankenrobot_voice_input_implementation" translatable="false">com.anysoftkeyboard.voice.VoiceRecognitionTriggerV11</string>
     <string name="frankenrobot_clipboard_implementation" translatable="false">com.anysoftkeyboard.devicespecific.ClipboardV11</string>
 </resources>

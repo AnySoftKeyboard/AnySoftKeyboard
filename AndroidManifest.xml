@@ -50,21 +50,10 @@
                 android:name="android.view.im"
                 android:resource="@xml/method"/>
         </service>
-        <!--
-        Not ready for prime-time
-        <service android:name="com.anysoftkeyboard.spellcheck.AnySpellCheckerService"
-                 android:label="@string/spell_checker_service_name"
-                 android:permission="android.permission.BIND_TEXT_SERVICE">
-            <intent-filter>
-                <action android:name="android.service.textservice.SpellCheckerService" />
-            </intent-filter>
-            <meta-data android:name="android.view.textservice.scs" android:resource="@xml/spellchecker" />
-        </service>
-        -->
 
         <!-- ui activities -->
         <!-- settings ui activities -->
-        <!-- this is ajust a proxy activit, it does nothing but direct to the actual setting ativity
+        <!-- this is just a proxy activity, it does nothing but direct to the actual setting ativity
         I use this, so I can 'disable' this activity at runtime, and so remove ASK from the launcher's icons -->
         <activity android:theme="@style/Theme.AskApp"
             android:name="com.menny.android.anysoftkeyboard.LauncherSettingsActivity"
@@ -97,29 +86,20 @@
             android:icon="@drawable/ic_launcher"
             android:label="@string/ime_name">
         </activity>
-        <!--
-         <activity android:name="com.anysoftkeyboard.ui.settings.SpellCheckerSettingsActivity"
-                  android:label="@string/spell_checker_settings"
-                  android:icon="@drawable/ic_launcher_settings">
-        </activity>
-        -->
         <!-- for voice -->
+        <service android:name="com.google.android.voiceime.ServiceHelper" />
         <activity
-            android:name="com.anysoftkeyboard.voice.VoiceInputNotInstalledActivity"
-            android:icon="@drawable/ic_launcher"
-            android:label="@string/ime_name"
-            android:theme="@style/Theme.AskApp.Popup.NoTitle"/>
-
-        <service android:name="com.anysoftkeyboard.voice.ServiceHelper"/>
-
-        <activity
-            android:name="com.anysoftkeyboard.voice.ActivityHelper"
-            android:configChanges="keyboard|keyboardHidden|navigation|orientation"
+            android:name="com.google.android.voiceime.ActivityHelper"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:excludeFromRecents="true"
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:finishOnTaskLaunch="true"
+            android:configChanges="keyboard|keyboardHidden|navigation|orientation"/>
+        <activity
+            android:name="com.anysoftkeyboard.ui.VoiceInputNotInstalledActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:icon="@drawable/ic_launcher"
-            android:theme="@style/Theme.AskApp.Popup.NoTitle"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:label="@string/ime_name"/>
     </application>
 
 </manifest>

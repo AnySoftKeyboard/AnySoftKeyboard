@@ -204,10 +204,8 @@
 
     <!-- voice -->
     <string name="voice_input_not_support_in_this_os_version">Voice input is supported in Android 2.2+</string>
-    <string name="voice_input_not_installed_title">Voice input not installed</string>
-    <string name="voice_input_not_installed_text">It is required to install Google\'s Voice Input from the Market before
-        using this feature.
-    </string>
+    <string name="voice_input_not_installed_title">Voice Is Not Installed</string>
+    <string name="voice_input_not_installed_text">Google\'s Voice Input is not installed on your device.\nThat can be easily fixed: install it now from Play Store.</string>
     <string name="voice_input_not_installed_action_install">Install</string>
     <string name="voice_input_not_installed_action_do_not_install">No</string>
     <string name="voice_input_not_voice_pack_in_market">I can not find voice input (com.google.android.voicesearch) in
