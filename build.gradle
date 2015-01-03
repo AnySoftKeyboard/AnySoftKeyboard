@@ -34,10 +34,10 @@ android {
     }
 
     compileSdkVersion 21
-    buildToolsVersion "21.1.1"
+    buildToolsVersion "21.1.2"
 
     defaultConfig {
-        versionCode 129
+        versionCode 130
         versionName project.version
 
         minSdkVersion 7
