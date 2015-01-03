@@ -94,6 +94,9 @@
             android:excludeFromRecents="true"
             android:windowSoftInputMode="stateAlwaysHidden"
             android:finishOnTaskLaunch="true"
+            android:documentLaunchMode="never"
+            android:clearTaskOnLaunch="true"
+            android:launchMode="singleInstance"
             android:configChanges="keyboard|keyboardHidden|navigation|orientation"/>
         <activity
             android:name="com.anysoftkeyboard.ui.VoiceInputNotInstalledActivity"
