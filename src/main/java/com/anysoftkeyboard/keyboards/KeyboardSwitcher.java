@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 Menny Even-Danan
+ * Copyright (c) 2015 Menny Even-Danan
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -342,6 +342,7 @@ public class KeyboardSwitcher {
 
         switch (variation) {
             case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
+	        case EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
                 return mLastKeyboardMode = KEYBOARDMODE_EMAIL;
             case EditorInfo.TYPE_TEXT_VARIATION_URI:
                 return mLastKeyboardMode = KEYBOARDMODE_URL;
