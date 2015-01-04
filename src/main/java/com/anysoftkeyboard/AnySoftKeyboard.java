@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 Menny Even-Danan
+ * Copyright (c) 2015 Menny Even-Danan
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -223,6 +223,10 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private static boolean isBackwordStopChar(int c) {
 		return !Character.isLetter(c);// c == 32 ||
 		// PUNCTUATION_CHARACTERS.contains(c);
+	}
+
+	private static String getDictionaryOverrideKey(AnyKeyboard currentKeyboard) {
+		return currentKeyboard.getKeyboardPrefId() + "_override_dictionary";
 	}
 
 	@Override
@@ -2135,14 +2139,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 	}
 
-	// private void postRestartWordSuggestion(int cursorPosition)
-	// {
-	// mHandler.removeMessages(MSG_RESTART_NEW_WORD_SUGGESTIONS);
-	// Message msg = mHandler.obtainMessage(MSG_RESTART_NEW_WORD_SUGGESTIONS);
-	// msg.arg1 = cursorPosition;
-	// mHandler.sendMessageDelayed(msg, 600);
-	// }
-
 	private void handleCharacter(final int primaryCode, Key key,
 	                             int multiTapIndex, int[] nearByKeyCodes) {
 		Log.d(TAG, "handleCharacter: " + primaryCode + ", isPredictionOn:"
@@ -2403,7 +2399,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		CharSequence typedWord = mWord.getTypedWord();
 		// If we're in basic correct
 		boolean typedWordValid = mSuggest.isValidWord(typedWord);/*
-	            || (preferCapitalization() && mSuggest.isValidWord(typedWord
+		        || (preferCapitalization() && mSuggest.isValidWord(typedWord
                 .toString().toLowerCase()));*/
 
 		if (mShowSuggestions || mQuickFixes) {
@@ -2449,41 +2445,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 		return false;
 	}
-
-	// private void setOldSuggestions() {
-	// //mShowingVoiceSuggestions = false;
-	// if (mCandidateView != null &&
-	// mCandidateView.isShowingAddToDictionaryHint()) {
-	// return;
-	// }
-	// InputConnection ic = getCurrentInputConnection();
-	// if (ic == null) return;
-	// if (!mPredicting) {
-	// // Extract the selected or touching text
-	// EditingUtil.SelectedWord touching =
-	// EditingUtil.getWordAtCursorOrSelection(ic,
-	// mLastSelectionStart, mLastSelectionEnd, mWordSeparators);
-	//
-	// if (touching != null && touching.word.length() > 1) {
-	// ic.beginBatchEdit();
-	//
-	// if (!applyVoiceAlternatives(touching) &&
-	// !applyTypedAlternatives(touching)) {
-	// abortCorrection(true);
-	// } else {
-	// TextEntryState.selectedForCorrection();
-	// EditingUtil.underlineWord(ic, touching);
-	// }
-	//
-	// ic.endBatchEdit();
-	// } else {
-	// abortCorrection(true);
-	// setNextSuggestions(); // Show the punctuation suggestions list
-	// }
-	// } else {
-	// abortCorrection(true);
-	// }
-	// }
 
 	public void pickSuggestionManually(int index, CharSequence suggestion) {
 		Log.d(TAG, "pickSuggestionManually: index " + index
@@ -3030,10 +2991,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 				}
 			}
 		}
-	}
-
-	private static String getDictionaryOverrideKey(AnyKeyboard currentKeyboard) {
-		return currentKeyboard.getKeyboardPrefId()+ "_override_dictionary";
 	}
 
 	private void launchSettings() {
