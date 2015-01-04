@@ -27,6 +27,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -83,15 +84,12 @@ public class Suggest implements Dictionary.WordCallback {
             mStringPool.add(sb);
         }
 
-        String[] initialSuggestions = context.getResources().getStringArray(
-                R.array.english_initial_suggestions);
+        String[] initialSuggestions = context.getResources().getStringArray(R.array.english_initial_suggestions);
         if (initialSuggestions != null) {
-            mDefaultInitialSuggestions = new ArrayList<>(
-                    initialSuggestions.length);
-            for (String suggestion : initialSuggestions)
-                mDefaultInitialSuggestions.add(suggestion);
+            mDefaultInitialSuggestions = new ArrayList<>(initialSuggestions.length);
+	        Collections.addAll(mDefaultInitialSuggestions, initialSuggestions);
         } else {
-            mDefaultInitialSuggestions = new ArrayList<>(0);
+            mDefaultInitialSuggestions = Collections.emptyList();
         }
     }
 
@@ -233,7 +231,6 @@ public class Suggest implements Dictionary.WordCallback {
         mIsAllUpperCase = wordComposer.isAllUpperCase();
         collectGarbage();
         Arrays.fill(mPriorities, 0);
-        // mIncludeTypedWordIfValid = includeTypedWordIfValid;
 
         // Save a lowercase version of the original word
         mOriginalWord = wordComposer.getTypedWord();
