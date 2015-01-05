@@ -4,7 +4,8 @@
     android:id="@+id/root"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    tools:ignore="HardcodedText,TextFields">
 
     <LinearLayout
         android:padding="4dp"
@@ -24,8 +25,7 @@
             style="@style/Ask.Text.SubTitle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Memory"
-            tools:ignore="HardcodedText" />
+            android:text="Memory"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -39,8 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="8dp"
-                android:text="Dump to SD-Card"
-                tools:ignore="HardcodedText" />
+                android:text="Dump to SD-Card"/>
 
             <Button
                 android:id="@+id/dev_share_mem_file"
@@ -49,16 +48,14 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="8dp"
                 android:enabled="false"
-                android:text="Send"
-                tools:ignore="HardcodedText" />
+                android:text="Send" />
         </LinearLayout>
 
         <TextView
             style="@style/Ask.Text.SubTitle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Tracing"
-            tools:ignore="HardcodedText" />
+            android:text="Tracing" />
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -72,8 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="8dp"
-                android:text="Enable tracing"
-                tools:ignore="HardcodedText" />
+                android:text="Enable tracing"/>
 
             <ProgressBar
                 android:id="@+id/dev_tracing_running_progress_bar"
@@ -90,16 +86,14 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="8dp"
                 android:enabled="false"
-                android:text="Send"
-                tools:ignore="HardcodedText" />
+                android:text="Send" />
         </LinearLayout>
 
         <TextView
             style="@style/Ask.Text.SubTitle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="LogCat"
-            tools:ignore="HardcodedText" />
+            android:text="LogCat"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -107,15 +101,13 @@
             android:orientation="horizontal"
             android:paddingBottom="8dp">
 
-
             <Button
                 android:id="@+id/show_logcat_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="8dp"
-                android:text="Show LogCat"
-                tools:ignore="HardcodedText" />
+                android:text="Show LogCat"/>
 
             <Button
                 android:id="@+id/share_logcat_button"
@@ -124,9 +116,412 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="8dp"
                 android:enabled="true"
-                android:text="Send"
-                tools:ignore="HardcodedText" />
+                android:text="Send"/>
         </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Legal.Title"
+            android:text="EditText Playground"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="default inputType"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=none"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=text"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=textAutoCorrect"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textAutoCorrect"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=textCapCharacters"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapCharacters"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=textCapSentences"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=textCapWords"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=textEmailAddress"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=textNoSuggestions"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textNoSuggestions"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=textPassword"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=textVisiblePassword"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textVisiblePassword"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=textShortMessage"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textShortMessage"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=textLongMessage"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textLongMessage"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=textPersonName"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=textUri"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textUri"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=textWebEditText"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textWebEditText"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=textWebEmailAddress"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textWebEmailAddress"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=textWebPassword"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textWebPassword"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=textPostalAddress"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPostalAddress"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=date"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=datetime"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="datetime"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=time"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="time"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=number"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=numberDecimal"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=numberPassword"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberPassword"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=numberSigned"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="inputType=phone"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="imeOptions=normal"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="normal"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="imeOptions=actionNone"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNone"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="imeOptions=actionDone"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="imeOptions=actionGo"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionGo"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="imeOptions=actionNext"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="imeOptions=actionPrevious"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionPrevious"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="imeOptions=actionSearch"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionSearch"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="imeOptions=actionSend"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionSend"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="imeOptions=actionUnspecified"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionUnspecified"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="imeOptions=flagNoEnterAction"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="flagNoEnterAction"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="imeOptions=flagNoFullscreen"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="flagNoFullscreen"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="imeOptions=flagNoExtractUi"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="flagNoExtractUi"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Ask.Text.SubTitle"
+            android:text="imeOptions=flagNoAccessoryAction"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="flagNoAccessoryAction"/>
     </LinearLayout>
 
 </ScrollView>
