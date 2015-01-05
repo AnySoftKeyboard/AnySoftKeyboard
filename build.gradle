@@ -37,7 +37,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        versionCode 130
+        versionCode 131
         versionName project.version
 
         minSdkVersion 7
