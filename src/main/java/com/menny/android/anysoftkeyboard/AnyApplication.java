@@ -65,8 +65,7 @@ public class AnyApplication extends Application implements OnSharedPreferenceCha
         sp.registerOnSharedPreferenceChangeListener(this);
 
 
-        msDeviceSpecific = msFrank.embody(new Diagram<DeviceSpecific>() {
-        });
+        msDeviceSpecific = msFrank.embody(DeviceSpecific.class);
         Log.i(TAG, "Loaded DeviceSpecific " + msDeviceSpecific.getApiLevel() + " concrete class " + msDeviceSpecific.getClass().getName());
 
         msCloudBackupRequester = msFrank.embody(new CloudBackupRequesterDiagram(getApplicationContext()));
