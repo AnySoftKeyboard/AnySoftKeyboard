@@ -17,16 +17,14 @@
 package com.anysoftkeyboard.dictionaries;
 
 import android.database.ContentObserver;
+
+import com.anysoftkeyboard.IndirectlyInstantiated;
 import com.anysoftkeyboard.utils.Log;
 import net.evendanan.frankenrobot.Diagram;
 
 import java.lang.ref.WeakReference;
 
-/**
- * User: menny
- * Date: 3/10/13
- * Time: 11:48 PM
- */
+@IndirectlyInstantiated
 public class DictionaryContentObserver extends ContentObserver {
 
     public static final class DictionaryContentObserverDiagram extends Diagram<DictionaryContentObserver> {
@@ -45,7 +43,7 @@ public class DictionaryContentObserver extends ContentObserver {
 
     public DictionaryContentObserver(DictionaryContentObserverDiagram diagram) {
         super(null);
-        mDictionary = new WeakReference<BTreeDictionary>(diagram.getOwningDictionary());
+        mDictionary = new WeakReference<>(diagram.getOwningDictionary());
     }
 
     @Override

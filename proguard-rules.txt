@@ -39,18 +39,17 @@
 -keep class sun.misc.Unsafe { *; }
 ## https://code.google.com/p/google-gson/source/browse/trunk/examples/android-proguard-example/proguard.cfg
 -keepattributes Signature
--keepattributes *Annotation*
-
--keepnames enum * {
-    public static **[] values();
-    public static ** valueOf(java.lang.String);
-}
 
 -keep public class * extends android.app.Application
 -keep public class * extends android.app.Service
 -keep public class * extends android.content.BroadcastReceiver
 
--keep,allowobfuscation class com.anysoftkeyboard.IndirectlyInstantiated
--keepclasseswithmembernames class * extends @com.anysoftkeyboard.IndirectlyInstantiated * {
-     public protected <init>(...);
+-keep class com.anysoftkeyboard.IndirectlyInstantiated
+-keepclasseswithmembernames @com.anysoftkeyboard.IndirectlyInstantiated interface *
+-keep @com.anysoftkeyboard.IndirectlyInstantiated class * {
+     <init>(...);
+}
+
+-keepclasseswithmembernames @com.anysoftkeyboard.IndirectlyInstantiated class * {
+     <init>(...);
 }

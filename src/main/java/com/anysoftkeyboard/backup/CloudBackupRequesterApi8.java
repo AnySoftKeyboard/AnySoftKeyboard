@@ -19,7 +19,10 @@ package com.anysoftkeyboard.backup;
 import android.annotation.TargetApi;
 import android.app.backup.BackupManager;
 
+import com.anysoftkeyboard.IndirectlyInstantiated;
+
 @TargetApi(8)
+@IndirectlyInstantiated
 public class CloudBackupRequesterApi8 implements CloudBackupRequester {
 
     private final BackupManager mBackuper;
