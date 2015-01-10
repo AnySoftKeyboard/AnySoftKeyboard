@@ -89,7 +89,7 @@ android {
             zipAlignEnabled true
 
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.txt'
         }
 
         debug {
@@ -99,11 +99,7 @@ android {
         }
     }
     sourceSets {
-        main {
-            manifest.srcFile 'AndroidManifest.xml'
-            res.srcDirs = ['res']
-        }
-        robolectric {
+        androidTest {
             setRoot('src/test')
         }
     }
