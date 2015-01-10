@@ -1,16 +1,19 @@
+archive: true
 language: java
 jdk:
-    - oraclejdk7
+    - oraclejdk8
 install:
     - sudo apt-get update
     - sudo apt-get install -u lib32stdc++6 lib32z1
     - ./gradlew clean assemble
 before_script:
     - mkdir -p shippable/testresults
+    - mkdir -p shippable/apks
 script:
     - ./gradlew check
 after_script:
     - cp -r build/test-results/* shippable/testresults/
+    - cp build/outputs/apk/ shippable/apks/
 notifications:
     email:
         recipients:
