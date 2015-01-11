@@ -127,6 +127,7 @@ dependencies {
     compile 'com.android.support:support-annotations:21.0.0'
     compile fileTree(dir: 'libs', include: '*.jar')
     androidTestCompile 'junit:junit:4.11'
+    androidTestCompile 'net.evendanan.anysoftkeyboard:api:1.2.3@aar'
 
     androidTestCompile('org.robolectric:robolectric:2.4') {
         exclude module: 'classworlds'
