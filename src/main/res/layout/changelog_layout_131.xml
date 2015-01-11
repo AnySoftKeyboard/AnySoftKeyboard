@@ -25,7 +25,7 @@
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="* Bug fixes."
+        android:text="* Slimmer app size.\n* Bug fixes.\n* Build system upgrades."
         style="@style/Ask.Text.Normal"
         tools:ignore="HardcodedText" />
 
