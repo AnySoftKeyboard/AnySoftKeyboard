@@ -17,7 +17,6 @@
 */
 
 #define LOG_TAG "BinaryDictionary"
-//#include "utils/Log.h"
 
 #include <stdio.h>
 #include <assert.h>
@@ -25,8 +24,6 @@
 #include <fcntl.h>
 
 #include <jni.h>
-//#include "utils/AssetManager.h"
-//#include "utils/Asset.h"
 
 #include "dictionary.h"
 
@@ -51,7 +48,7 @@ static void throwException(JNIEnv *env, const char* ex, const char* fmt, int dat
     }
 }
 
-static jint nativeime_BinaryDictionary_open
+static jlong nativeime_BinaryDictionary_open
         (JNIEnv *env, jobject object, jobject fileDescriptor, jlong offset, jlong length,
          jint typedLetterMultiplier, jint fullWordMultiplier)
 {
@@ -73,13 +70,12 @@ static jint nativeime_BinaryDictionary_open
     }
     // FIXME check: need to close fd?
     Dictionary *dictionary = new Dictionary(dict, typedLetterMultiplier, fullWordMultiplier);
-    //dictionary->setAsset(dictAsset);
 
-    return (jint) dictionary;
+    return (jlong) dictionary;
 }
 
 static int nativeime_BinaryDictionary_getSuggestions(
-        JNIEnv *env, jobject object, jint dict, jintArray inputArray, jint arraySize,
+        JNIEnv *env, jobject object, jlong dict, jintArray inputArray, jint arraySize,
         jcharArray outputArray, jintArray frequencyArray, jint maxWordLength, jint maxWords,
         jint maxAlternatives, jint skipPos)
 {
@@ -102,7 +98,7 @@ static int nativeime_BinaryDictionary_getSuggestions(
 }
 
 static jboolean nativeime_BinaryDictionary_isValidWord
-        (JNIEnv *env, jobject object, jint dict, jcharArray wordArray, jint wordLength)
+        (JNIEnv *env, jobject object, jlong dict, jcharArray wordArray, jint wordLength)
 {
     Dictionary *dictionary = (Dictionary*) dict;
     if (dictionary == NULL) return (jboolean) false;
@@ -114,8 +110,7 @@ static jboolean nativeime_BinaryDictionary_isValidWord
     return result;
 }
 
-static void nativeime_BinaryDictionary_close
-        (JNIEnv *env, jobject object, jint dict)
+static void nativeime_BinaryDictionary_close(JNIEnv *env, jobject object, jlong dict)
 {
     Dictionary *dictionary = (Dictionary*) dict;
     delete dictionary->getDictBuffer();
@@ -125,11 +120,10 @@ static void nativeime_BinaryDictionary_close
 // ----------------------------------------------------------------------------
 
 static JNINativeMethod gMethods[] = {
-    {"openNative",           "(Ljava/io/FileDescriptor;JJII)I",
-                                          (void*)nativeime_BinaryDictionary_open},
-    {"closeNative",          "(I)V",            (void*)nativeime_BinaryDictionary_close},
-    {"getSuggestionsNative", "(I[II[C[IIIII)I",  (void*)nativeime_BinaryDictionary_getSuggestions},
-    {"isValidWordNative",    "(I[CI)Z",         (void*)nativeime_BinaryDictionary_isValidWord}
+    {"openNative",           "(Ljava/io/FileDescriptor;JJII)J", (void*)nativeime_BinaryDictionary_open},
+    {"closeNative",          "(J)V",            (void*)nativeime_BinaryDictionary_close},
+    {"getSuggestionsNative", "(J[II[C[IIIII)I",  (void*)nativeime_BinaryDictionary_getSuggestions},
+    {"isValidWordNative",    "(J[CI)Z",         (void*)nativeime_BinaryDictionary_isValidWord}
 };
 
 static int registerNativeMethods(JNIEnv* env, const char* className,

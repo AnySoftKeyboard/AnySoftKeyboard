@@ -51,7 +51,7 @@ public class ResourceBinaryDictionary extends Dictionary {
     private static final boolean ENABLE_MISSED_CHARACTERS = true;
     private final Context mAppContext;
     private final int mDictResId;
-    private volatile int mNativeDict;
+    private volatile long mNativeDict;
     private int mDictLength;
     private final int[] mInputCodes = new int[MAX_WORD_LENGTH * MAX_ALTERNATIVES];
     private final char[] mOutputChars = new char[MAX_WORD_LENGTH * MAX_WORDS];
@@ -88,13 +88,13 @@ public class ResourceBinaryDictionary extends Dictionary {
         mDictResId = resId;
     }
 
-    private native int openNative(ByteBuffer bb, int typedLetterMultiplier, int fullWordMultiplier);
+    private native long openNative(ByteBuffer bb, int typedLetterMultiplier, int fullWordMultiplier);
 
-    private native void closeNative(int dict);
+    private native void closeNative(long dictPointer);
 
-    private native boolean isValidWordNative(int nativeData, char[] word, int wordLength);
+    private native boolean isValidWordNative(long dictPointer, char[] word, int wordLength);
 
-    private native int getSuggestionsNative(int dict, int[] inputCodes, int codesSize, char[] outputChars, int[] frequencies, int maxWordLength, int maxWords, int maxAlternatives, int skipPos, int[] nextLettersFrequencies, int nextLettersSize);
+    private native int getSuggestionsNative(long dictPointer, int[] inputCodes, int codesSize, char[] outputChars, int[] frequencies, int maxWordLength, int maxWords, int maxAlternatives, int skipPos, int[] nextLettersFrequencies, int nextLettersSize);
 
     @Override
     protected void loadAllResources() {
