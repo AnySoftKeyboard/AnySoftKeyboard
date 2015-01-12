@@ -5,6 +5,12 @@ jdk:
 install:
     - sudo apt-get update
     - sudo apt-get install -u lib32stdc++6 lib32z1
+    - echo "Downloading NDK (may take awhile)..."
+    - wget http://dl.google.com/android/ndk/android-ndk-r10d-linux-x86_64.bin > download_ndk.log
+    - chmod +x android-ndk-r10d-linux-x86_64.bin
+    - echo "Extracting NDK (may take awhile)..."
+    - ./android-ndk-r10d-linux-x86_64.bin > extract_ndk.log
+    - echo "ndk.dir=`pwd`/android-ndk-r10d" >> local.properties
     - ./gradlew clean assemble
 before_script:
     - mkdir -p shippable/testresults
