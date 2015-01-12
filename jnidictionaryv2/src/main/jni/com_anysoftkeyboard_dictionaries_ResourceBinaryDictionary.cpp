@@ -40,7 +40,7 @@ static void throwException(JNIEnv *env, const char* ex, const char* fmt, int dat
     }
 }
 
-static jint nativeime_ResourceBinaryDictionary_open
+static jlong nativeime_ResourceBinaryDictionary_open
         (JNIEnv *env, jobject object, jobject dictDirectBuffer,
          jint typedLetterMultiplier, jint fullWordMultiplier)
 {
@@ -50,11 +50,11 @@ static jint nativeime_ResourceBinaryDictionary_open
         return 0;
     }
     Dictionary *dictionary = new Dictionary(dict, typedLetterMultiplier, fullWordMultiplier);
-    return (jint) dictionary;
+    return (jlong) dictionary;
 }
 
 static int nativeime_ResourceBinaryDictionary_getSuggestions(
-        JNIEnv *env, jobject object, jint dict, jintArray inputArray, jint arraySize,
+        JNIEnv *env, jobject object, jlong dict, jintArray inputArray, jint arraySize,
         jcharArray outputArray, jintArray frequencyArray, jint maxWordLength, jint maxWords,
         jint maxAlternatives, jint skipPos, jintArray nextLettersArray, jint nextLettersSize)
 {
@@ -82,7 +82,7 @@ static int nativeime_ResourceBinaryDictionary_getSuggestions(
 }
 
 static int nativeime_ResourceBinaryDictionary_getBigrams
-        (JNIEnv *env, jobject object, jint dict, jcharArray prevWordArray, jint prevWordLength,
+        (JNIEnv *env, jobject object, jlong dict, jcharArray prevWordArray, jint prevWordLength,
          jintArray inputArray, jint inputArraySize, jcharArray outputArray,
          jintArray frequencyArray, jint maxWordLength, jint maxBigrams, jint maxAlternatives)
 {
@@ -108,7 +108,7 @@ static int nativeime_ResourceBinaryDictionary_getBigrams
 
 
 static jboolean nativeime_ResourceBinaryDictionary_isValidWord
-        (JNIEnv *env, jobject object, jint dict, jcharArray wordArray, jint wordLength)
+        (JNIEnv *env, jobject object, jlong dict, jcharArray wordArray, jint wordLength)
 {
     Dictionary *dictionary = (Dictionary*) dict;
     if (dictionary == NULL) return (jboolean) false;
@@ -121,7 +121,7 @@ static jboolean nativeime_ResourceBinaryDictionary_isValidWord
 }
 
 static void nativeime_ResourceBinaryDictionary_close
-        (JNIEnv *env, jobject object, jint dict)
+        (JNIEnv *env, jobject object, jlong dict)
 {
     Dictionary *dictionary = (Dictionary*) dict;
     delete (Dictionary*) dict;
@@ -130,11 +130,10 @@ static void nativeime_ResourceBinaryDictionary_close
 // ----------------------------------------------------------------------------
 
 static JNINativeMethod gMethods[] = {
-    {"openNative",           "(Ljava/nio/ByteBuffer;II)I",
-                                          (void*)nativeime_ResourceBinaryDictionary_open},
-    {"closeNative",          "(I)V",            (void*)nativeime_ResourceBinaryDictionary_close},
-    {"getSuggestionsNative", "(I[II[C[IIIII[II)I",  (void*)nativeime_ResourceBinaryDictionary_getSuggestions},
-    {"isValidWordNative",    "(I[CI)Z",         (void*)nativeime_ResourceBinaryDictionary_isValidWord}/*,
+    {"openNative",           "(Ljava/nio/ByteBuffer;II)J",(void*)nativeime_ResourceBinaryDictionary_open},
+    {"closeNative",          "(J)V",            (void*)nativeime_ResourceBinaryDictionary_close},
+    {"getSuggestionsNative", "(J[II[C[IIIII[II)I",  (void*)nativeime_ResourceBinaryDictionary_getSuggestions},
+    {"isValidWordNative",    "(J[CI)Z",         (void*)nativeime_ResourceBinaryDictionary_isValidWord}/*,
     {"getBigramsNative",    "(I[CI[II[C[IIII)I",         (void*)nativeime_ResourceBinaryDictionary_getBigrams}*/
 };
 
