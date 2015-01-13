@@ -2611,6 +2611,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			notifyKeyboardChangeIfNeeded();
 		}
 		postUpdateSuggestions();
+		updateShiftStateNow();
 	}
 
 	public void onSwipeRight(boolean onSpaceBar, boolean twoFingersGesture) {
