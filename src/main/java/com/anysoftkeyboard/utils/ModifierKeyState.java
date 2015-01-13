@@ -112,7 +112,9 @@ public class ModifierKeyState {
 		mLogicalState = active ? ACTIVE : INACTIVE;
 
 		if (mLogicalState == ACTIVE) {
-			mActiveStateStartTime = SystemClock.elapsedRealtime();
+			//setting the start time to zero, so LOCKED state will not
+			//be activated without actual user's double-clicking
+			mActiveStateStartTime = 0;
 			mConsumed = false;
 		}
 	}

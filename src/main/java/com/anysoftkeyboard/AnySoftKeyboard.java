@@ -2746,18 +2746,18 @@ public class AnySoftKeyboard extends InputMethodService implements
 		Log.d(TAG, "onRelease:" + primaryCode);
 		if (primaryCode == KeyCodes.SHIFT) {
 			mShiftKeyState.onRelease(mAskPrefs.getMultiTapTimeout());
+			handleShift();
 		} else {
 			mShiftKeyState.onOtherKeyReleased();
 		}
-		handleShift();
 
 		if (primaryCode == KeyCodes.CTRL) {
 			sendKeyUp(ic, 113); // KeyEvent.KEYCODE_CTRL_LEFT
 			mControlKeyState.onRelease(mAskPrefs.getMultiTapTimeout());
+			handleControl();
 		} else {
 			mControlKeyState.onOtherKeyReleased();
 		}
-		handleControl();
 	}
 
 	// update flags for silent mode
