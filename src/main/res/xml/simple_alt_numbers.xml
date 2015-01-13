@@ -5,37 +5,36 @@
           android:keyWidth="20%p"
           android:keyHeight="@integer/key_normal_height">
     <Row>
-        <Key android:codes="41" android:keyWidth="15%p" android:popupCharacters="}]" android:keyEdgeFlags="left"/>
-
-        <Key android:codes="49" android:horizontalGap="5%p"/>
+        <Key android:codes="40" android:keyWidth="10%p" android:popupCharacters="{[" android:keyEdgeFlags="left"/>
+        <Key android:codes="41" android:keyWidth="10%p" android:popupCharacters="}]"/>
+        <Key android:codes="49"/>
         <Key android:codes="50"/>
         <Key android:codes="51"/>
-        <Key android:codes="43" android:keyEdgeFlags="right"/>
+        <Key android:codes="@integer/key_code_space" android:keyEdgeFlags="right"/>
     </Row>
     <Row>
-        <Key android:codes="40" android:keyWidth="15%p" android:popupCharacters="{[" android:keyEdgeFlags="left"/>
-
-        <Key android:codes="52" android:horizontalGap="5%p"/>
+        <Key android:codes="43" android:keyWidth="10%p" android:keyEdgeFlags="left"/>
+        <Key android:codes="45" android:keyWidth="10%p"/>
+        <Key android:codes="52"/>
         <Key android:codes="53"/>
-        <Key android:codes="54"/>
-        <Key android:codes="45" android:keyEdgeFlags="right"/>
+        <Key android:codes="54" android:keyEdgeFlags="right"/>
     </Row>
 
     <Row>
-        <Key android:codes="47" android:keyWidth="15%p" android:popupCharacters="%" android:keyEdgeFlags="left"/>
-
-        <Key android:codes="55" android:horizontalGap="5%p"/>
+        <Key android:codes="47" android:keyWidth="10%p" android:popupCharacters="\\" android:keyEdgeFlags="left"/>
+        <Key android:codes="37" android:keyWidth="10%p"/>
+        <Key android:codes="55"/>
         <Key android:codes="56"/>
         <Key android:codes="57"/>
-        <Key android:codes="-5" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+        <Key android:codes="@integer/key_code_delete" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
 
     <Row android:rowEdgeFlags="bottom">
-        <Key  android:codes="-6" android:keyWidth="15%p" android:keyLabel="..." android:keyEdgeFlags="left"/>
+        <Key  android:codes="@integer/key_code_alt" android:keyWidth="15%p" android:keyLabel="..." android:keyEdgeFlags="left"/>
 
         <Key android:codes="42" android:horizontalGap="5%p" android:keyLabel="*"/>
         <Key android:codes="48"/>
         <Key android:codes="46" android:popupCharacters=","/>
-        <Key android:codes="10" android:keyEdgeFlags="right" ask:longPressCode="-100"/>
+        <Key android:codes="@integer/key_code_enter" android:keyEdgeFlags="right" ask:longPressCode="@integer/key_code_settings"/>
     </Row>
 </Keyboard>
