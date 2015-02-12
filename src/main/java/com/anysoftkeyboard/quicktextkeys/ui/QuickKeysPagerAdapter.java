@@ -1,32 +1,83 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
 import android.content.Context;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
+import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.keyboards.KeyboardDimens;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.List;
 
 public class QuickKeysPagerAdapter extends PagerAdapter {
 
+	private static final String TAG = "QuickKeysPagerAdapter";
+
 	private final OnKeyboardActionListener mKeyboardActionListener;
 	@NonNull
 	private final LayoutInflater mLayoutInflater;
 	@NonNull
 	private final QuickTextKey[] mQuickTextKeys;
+	private final int mKeySize;
+	private final KeyboardDimens mEmptyDimens = new KeyboardDimens() {
+		@Override
+		public int getKeyboardMaxWidth() {
+			return mKeySize;
+		}
+
+		@Override
+		public int getKeyMaxWidth() {
+			return mKeySize;
+		}
+
+		@Override
+		public float getKeyHorizontalGap() {
+			return 0;
+		}
+
+		@Override
+		public float getRowVerticalGap() {
+			return 0;
+		}
+
+		@Override
+		public int getNormalKeyHeight() {
+			return mKeySize;
+		}
+
+		@Override
+		public int getSmallKeyHeight() {
+			return mKeySize;
+		}
+
+		@Override
+		public int getLargeKeyHeight() {
+			return mKeySize;
+		}
+	};
+	private final View.OnClickListener mKeyViewClickedHandler = new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			Keyboard.Key key = (Keyboard.Key) v.getTag();
+			mKeyboardActionListener.onText(key.text);
+		}
+	};
 
 	public QuickKeysPagerAdapter(@NonNull Context context, @NonNull List<QuickTextKey> quickTextKeys, OnKeyboardActionListener keyboardActionListener) {
 		mKeyboardActionListener = keyboardActionListener;
 		mQuickTextKeys = quickTextKeys.toArray(new QuickTextKey[quickTextKeys.size()]);
 		mLayoutInflater = LayoutInflater.from(context);
+		mKeySize = context.getResources().getDimensionPixelSize(R.dimen.quick_key_size);
 	}
 
 	@Override
@@ -36,20 +87,44 @@ public class QuickKeysPagerAdapter extends PagerAdapter {
 
 	@Override
 	public Object instantiateItem(ViewGroup container, int position) {
-		TextView root = (TextView) mLayoutInflater.inflate(R.layout.quick_text_popup_keyboard_view, container, false);
+		View root = mLayoutInflater.inflate(R.layout.quick_text_popup_keyboard_view, container, false);
+		container.addView(root);
+
+		final ViewGroup rowsContainer = (ViewGroup) root.findViewById(R.id.keys_container);
 		QuickTextKey quickTextKey = mQuickTextKeys[position];
 		root.setTag(quickTextKey);
 
-		root.setText(quickTextKey.getName());
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-			root.setCompoundDrawablesRelativeWithIntrinsicBounds(quickTextKey.getKeyIconResId(), 0, 0, 0);
-		} else {
-			root.setCompoundDrawablesWithIntrinsicBounds(quickTextKey.getKeyIconResId(), 0, 0, 0);
+		AnyPopupKeyboard popupKeyboard = new AnyPopupKeyboard(container.getContext(), quickTextKey.getPackageContext(),
+											quickTextKey.getPopupKeyboardResId(), mEmptyDimens);
+
+		final List<Keyboard.Key> keys = popupKeyboard.getKeys();
+		Log.d(TAG, "popupKeyboard has %d keys", keys.size());
+		Log.d(TAG, "Container width is %s", container.getMeasuredWidth());
+		final int keysPerRow = container.getMeasuredWidth()/mKeySize;
+		Log.d(TAG, "We'll have %d keys per row", keysPerRow);
+
+		LinearLayout row = createRowView(rowsContainer, keysPerRow);
+		for (int keyIndex=0; keyIndex<keys.size(); keyIndex++) {
+			if (row.getChildCount() == keysPerRow) row = createRowView(rowsContainer, keysPerRow);
+
+			Keyboard.Key key = keys.get(keyIndex);
+			TextView keyView = new TextView(container.getContext());
+			keyView.setTextAppearance(container.getContext(), R.style.Ask_Text_Large);
+			keyView.setTag(key);
+			keyView.setText(key.label);
+			keyView.setLayoutParams(new LinearLayout.LayoutParams(0, mKeySize, 1.0f));
+			keyView.setOnClickListener(mKeyViewClickedHandler);
+			row.addView(keyView);
 		}
-
-		container.addView(root);
-
 		return root;
+	}
+
+	private LinearLayout createRowView(ViewGroup container, int keysPerRow) {
+		LinearLayout row = new LinearLayout(container.getContext());
+		row.setOrientation(LinearLayout.HORIZONTAL);
+		row.setWeightSum(keysPerRow);
+		container.addView(row);
+		return row;
 	}
 
 	@Override
