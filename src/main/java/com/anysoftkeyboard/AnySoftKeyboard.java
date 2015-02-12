@@ -177,7 +177,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private boolean mAllowSuggestionsRestart = true;
 	private boolean mCurrentlyAllowSuggestionRestart = true;
 	private boolean mJustAutoAddedWord = false;
-	private boolean mFlipQuickTextKeyAndPopupFunctionality;
+	private boolean mDoNotFlipQuickTextKeyAndPopupFunctionality;
 	private String mOverrideQuickTextText = null;
 	private boolean mAutoCap;
 	private boolean mQuickFixes;
@@ -1626,17 +1626,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 				onText(mAskPrefs.getDomainText());
 				break;
 			case KeyCodes.QUICK_TEXT:
-				if (mFlipQuickTextKeyAndPopupFunctionality) {
-					openQuickTextPopup(key);
-				} else {
+				if (mDoNotFlipQuickTextKeyAndPopupFunctionality) {
 					outputCurrentQuickTextKey();
+				} else {
+					openQuickTextPopup(key);
 				}
 				break;
 			case KeyCodes.QUICK_TEXT_POPUP:
-				if (mFlipQuickTextKeyAndPopupFunctionality) {
-					outputCurrentQuickTextKey();
-				} else {
+				if (mDoNotFlipQuickTextKeyAndPopupFunctionality) {
 					openQuickTextPopup(key);
+				} else {
+					outputCurrentQuickTextKey();
 				}
 				break;
 			case KeyCodes.MODE_SYMOBLS:
@@ -2808,24 +2808,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		mAutoCorrectOn = mAutoComplete;
 
-		// mCorrectionMode = mAutoComplete ? 2
-		// : (/*mShowSuggestions*/ mQuickFixes ? 1 : 0);
+		mDoNotFlipQuickTextKeyAndPopupFunctionality =
+				sp.getBoolean(getString(R.string.settings_key_do_not_flip_quick_key_codes_functionality),
+						getResources().getBoolean(R.bool.settings_default_do_not_flip_quick_keys_functionality));
 
-		mFlipQuickTextKeyAndPopupFunctionality = sp
-				.getBoolean(
-						getString(R.string.settings_key_emoticon_long_press_opens_popup),
-						getResources()
-								.getBoolean(
-										R.bool.settings_default_emoticon_long_press_opens_popup));
-		// mSmileyPopupType =
-		// sp.getString(getString(R.string.settings_key_smiley_popup_type),
-		// getString(R.string.settings_default_smiley_popup_type));
-		mOverrideQuickTextText = sp.getString(
-				getString(R.string.settings_key_emoticon_default_text), null);
+		mOverrideQuickTextText = sp.getString(getString(R.string.settings_key_emoticon_default_text), null);
 
-		mMinimumWordCorrectionLength = sp
-				.getInt(getString(R.string.settings_key_min_length_for_word_correction__),
-						2);
+		mMinimumWordCorrectionLength = sp.getInt(getString(R.string.settings_key_min_length_for_word_correction__), 2);
 		if (mSuggest != null)
 			mSuggest.setMinimumWordLengthForCorrection(mMinimumWordCorrectionLength);
 

@@ -105,8 +105,8 @@
             android:title="@string/default_domain_text"/>
 
         <CheckBoxPreference
-            android:defaultValue="@bool/settings_default_emoticon_long_press_opens_popup"
-            android:key="@string/settings_key_emoticon_long_press_opens_popup"
+            android:defaultValue="@bool/settings_default_do_not_flip_quick_keys_functionality"
+            android:key="@string/settings_key_do_not_flip_quick_key_codes_functionality"
             android:persistent="true"
             android:summaryOff="@string/emoticon_long_press_opens_popup_off_summary"
             android:summaryOn="@string/emoticon_long_press_opens_popup_on_summary"
