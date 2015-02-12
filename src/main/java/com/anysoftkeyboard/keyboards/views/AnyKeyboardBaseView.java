@@ -272,21 +272,21 @@ public class AnyKeyboardBaseView extends FrameLayout implements
     private static final class MiniKeyboardActionListener implements
             OnKeyboardActionListener {
 
+	    private boolean mInOneShot;
         private final AnyKeyboardBaseView mParentKeyboard;
 
         public MiniKeyboardActionListener(AnyKeyboardBaseView parentKeyboard) {
             mParentKeyboard = parentKeyboard;
         }
 
-        private AnyPopupKeyboard getMyKeyboard() {
-            return (AnyPopupKeyboard) mParentKeyboard.mMiniKeyboard.getKeyboard();
-        }
+		public void setInOneShot(boolean inOneShot) {
+			mInOneShot = inOneShot;
+		}
 
         public void onKey(int primaryCode, Key key, int multiTapIndex,int[] nearByKeyCodes, boolean fromUI) {
             mParentKeyboard.mKeyboardActionListener.onKey(primaryCode,
                     key, multiTapIndex, nearByKeyCodes, fromUI);
-            if (getMyKeyboard().isOneKeyEventPopup())
-                mParentKeyboard.dismissPopupKeyboard();
+            if (mInOneShot) mParentKeyboard.dismissPopupKeyboard();
         }
 
         public void onMultiTapStarted() {
@@ -299,8 +299,7 @@ public class AnyKeyboardBaseView extends FrameLayout implements
 
         public void onText(CharSequence text) {
             mParentKeyboard.mKeyboardActionListener.onText(text);
-            if (getMyKeyboard().isOneKeyEventPopup())
-                mParentKeyboard.dismissPopupKeyboard();
+            if (mInOneShot) mParentKeyboard.dismissPopupKeyboard();
         }
 
         public void onCancel() {
@@ -1108,9 +1107,6 @@ public class AnyKeyboardBaseView extends FrameLayout implements
         mScrollYDistanceThreshold = mSwipeYDistanceThreshold / 8;
     }
 
-	public OnKeyboardActionListener getKeyboardActionListener() {
-		return mKeyboardActionListener;
-	}
     public void setOnKeyboardActionListener(OnKeyboardActionListener listener) {
         mKeyboardActionListener = listener;
         for (PointerTracker tracker : mPointerTrackers) {
@@ -2254,7 +2250,7 @@ public class AnyKeyboardBaseView extends FrameLayout implements
                     popupKey.popupResId,
                     mMiniKeyboard.getThemedKeyboardDimens());
         }
-        keyboard.setIsOneKeyEventPopup(!isSticky);
+	    ((MiniKeyboardActionListener)mMiniKeyboard.getOnKeyboardActionListener()).setInOneShot(!isSticky);
 
         if (isSticky)
             mMiniKeyboard.setKeyboard(keyboard, mVerticalCorrection);
@@ -2362,12 +2358,13 @@ public class AnyKeyboardBaseView extends FrameLayout implements
 		mMiniKeyboard.removeAllViews();
 		mMiniKeyboard.setKeyboard(null);
 
-		View innerView = QuickTextViewFactory.createQuickTextView(getContext(), mMiniKeyboard, mMiniKeyboard.getKeyboardActionListener());
+		View innerView = QuickTextViewFactory.createQuickTextView(getContext(), mMiniKeyboard, mMiniKeyboard.getOnKeyboardActionListener());
 		mMiniKeyboard.addView(innerView);
 
 		mMiniKeyboard.measure(View.MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.EXACTLY),
 				View.MeasureSpec.makeMeasureSpec(getHeight(), MeasureSpec.AT_MOST));
 
+		((MiniKeyboardActionListener)mMiniKeyboard.getOnKeyboardActionListener()).setInOneShot(false);
 		setPopupWithView(popupKey, mMiniKeyboard);
 	}
 

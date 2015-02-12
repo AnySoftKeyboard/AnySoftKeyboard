@@ -99,4 +99,5 @@
     <dimen name="max_item_extra_width" >100dp</dimen>
     <dimen name="comfortable_min_row_height">44dp</dimen>
     <dimen name="drawer_width">280dp</dimen>
+    <dimen name="quick_key_size">50dp</dimen>
 </resources>
