@@ -792,4 +792,5 @@
     <string name="tutorial_menu_open_menu">The icon opens Settings</string>
     <string name="tutorial_menu_close_menu">And also closes it</string>
     <string name="main_fragment_go_to_settings_button">Go to Settings</string>
+    <string name="quick_text_tab_title_template"><xliff:g id="first_key">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
 </resources>
