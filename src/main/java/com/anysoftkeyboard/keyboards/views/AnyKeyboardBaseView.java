@@ -52,6 +52,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -68,6 +69,7 @@ import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
 import com.anysoftkeyboard.keyboards.KeyboardSupport;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
+import com.anysoftkeyboard.quicktextkeys.ui.QuickTextViewFactory;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.utils.IMEUtil.GCUtils;
@@ -84,7 +86,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AnyKeyboardBaseView extends View implements
+public class AnyKeyboardBaseView extends FrameLayout implements
         PointerTracker.UIProxy, OnSharedPreferenceChangeListener {
     static final String TAG = "ASKKbdViewBase";
 
@@ -199,7 +201,7 @@ public class AnyKeyboardBaseView extends View implements
     int mSwipeVelocityThreshold;
     int mSwipeXDistanceThreshold;
     int mSwipeYDistanceThreshold;
-	int mSwipeSpaceXDistanceThreshold;
+    int mSwipeSpaceXDistanceThreshold;
     int mScrollXDistanceThreshold;
     int mScrollYDistanceThreshold;
 
@@ -230,8 +232,8 @@ public class AnyKeyboardBaseView extends View implements
     private final Rect mKeyBackgroundPadding;
     private final Rect mClipRegion = new Rect(0, 0, 0, 0);
     /*
-	 * NOTE: this field EXISTS ONLY AFTER THE CTOR IS FINISHED!
-	 */
+     * NOTE: this field EXISTS ONLY AFTER THE CTOR IS FINISHED!
+     */
 
     private final UIHandler mHandler = new UIHandler(this);
 
@@ -270,43 +272,39 @@ public class AnyKeyboardBaseView extends View implements
     private static final class MiniKeyboardActionListener implements
             OnKeyboardActionListener {
 
-        private final WeakReference<AnyKeyboardBaseView> mParentKeyboard;
+        private final AnyKeyboardBaseView mParentKeyboard;
 
         public MiniKeyboardActionListener(AnyKeyboardBaseView parentKeyboard) {
-            mParentKeyboard = new WeakReference<AnyKeyboardBaseView>(
-                    parentKeyboard);
+            mParentKeyboard = parentKeyboard;
         }
 
         private AnyPopupKeyboard getMyKeyboard() {
-            return (AnyPopupKeyboard) mParentKeyboard.get().mMiniKeyboard
-                    .getKeyboard();
+            return (AnyPopupKeyboard) mParentKeyboard.mMiniKeyboard.getKeyboard();
         }
 
-        public void onKey(int primaryCode, Key key, int multiTapIndex,
-                          int[] nearByKeyCodes, boolean fromUI) {
-            mParentKeyboard.get().mKeyboardActionListener.onKey(primaryCode,
+        public void onKey(int primaryCode, Key key, int multiTapIndex,int[] nearByKeyCodes, boolean fromUI) {
+            mParentKeyboard.mKeyboardActionListener.onKey(primaryCode,
                     key, multiTapIndex, nearByKeyCodes, fromUI);
             if (getMyKeyboard().isOneKeyEventPopup())
-                mParentKeyboard.get().dismissPopupKeyboard();
+                mParentKeyboard.dismissPopupKeyboard();
         }
 
         public void onMultiTapStarted() {
-            mParentKeyboard.get().mKeyboardActionListener.onMultiTapStarted();
+            mParentKeyboard.mKeyboardActionListener.onMultiTapStarted();
         }
 
         public void onMultiTapEnded() {
-            mParentKeyboard.get().mKeyboardActionListener.onMultiTapEnded();
+            mParentKeyboard.mKeyboardActionListener.onMultiTapEnded();
         }
 
         public void onText(CharSequence text) {
-            mParentKeyboard.get().mKeyboardActionListener.onText(text);
+            mParentKeyboard.mKeyboardActionListener.onText(text);
             if (getMyKeyboard().isOneKeyEventPopup())
-                mParentKeyboard.get().dismissPopupKeyboard();
+                mParentKeyboard.dismissPopupKeyboard();
         }
 
         public void onCancel() {
-            mParentKeyboard.get().mKeyboardActionListener.onCancel();
-            mParentKeyboard.get().dismissPopupKeyboard();
+            mParentKeyboard.dismissPopupKeyboard();
         }
 
         public void onSwipeLeft(boolean onSpacebar, boolean twoFingers) {
@@ -328,11 +326,11 @@ public class AnyKeyboardBaseView extends View implements
         }
 
         public void onPress(int primaryCode) {
-            mParentKeyboard.get().mKeyboardActionListener.onPress(primaryCode);
+            mParentKeyboard.mKeyboardActionListener.onPress(primaryCode);
         }
 
         public void onRelease(int primaryCode) {
-            mParentKeyboard.get().mKeyboardActionListener
+            mParentKeyboard.mKeyboardActionListener
                     .onRelease(primaryCode);
         }
     }
@@ -719,7 +717,7 @@ public class AnyKeyboardBaseView extends View implements
         mGestureDetector.setIsLongpressEnabled(false);
 
         MultiTouchSupportLevel multiTouchSupportLevel =
-		        AnyApplication.getDeviceSpecific().getMultiTouchSupportLevel(getContext());
+                AnyApplication.getDeviceSpecific().getMultiTouchSupportLevel(getContext());
 
         mHasDistinctMultitouch = multiTouchSupportLevel == MultiTouchSupportLevel.Distinct;
 
@@ -1096,7 +1094,7 @@ public class AnyKeyboardBaseView extends View implements
         Keyboard kbd = getKeyboard();
         if (kbd != null) {
             mSwipeYDistanceThreshold = (int) (mSwipeXDistanceThreshold *
-		            (((float) kbd.getHeight()) / ((float) getWidth())));
+                    (((float) kbd.getHeight()) / ((float) getWidth())));
         } else {
             mSwipeYDistanceThreshold = 0;
         }
@@ -1104,12 +1102,15 @@ public class AnyKeyboardBaseView extends View implements
             mSwipeYDistanceThreshold = mSwipeXDistanceThreshold;
 
         mSwipeSpaceXDistanceThreshold = mSwipeXDistanceThreshold / 2;
-	    mSwipeYDistanceThreshold = mSwipeYDistanceThreshold / 2;
+        mSwipeYDistanceThreshold = mSwipeYDistanceThreshold / 2;
 
         mScrollXDistanceThreshold = mSwipeXDistanceThreshold / 8;
         mScrollYDistanceThreshold = mSwipeYDistanceThreshold / 8;
     }
 
+	public OnKeyboardActionListener getKeyboardActionListener() {
+		return mKeyboardActionListener;
+	}
     public void setOnKeyboardActionListener(OnKeyboardActionListener listener) {
         mKeyboardActionListener = listener;
         for (PointerTracker tracker : mPointerTrackers) {
@@ -1325,8 +1326,9 @@ public class AnyKeyboardBaseView extends View implements
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         // Round up a little
         if (mKeyboard == null) {
-            setMeasuredDimension(getPaddingLeft() + getPaddingRight(),
-                    getPaddingTop() + getPaddingBottom());
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+            /*setMeasuredDimension(getPaddingLeft() + getPaddingRight(),
+                    getPaddingTop() + getPaddingBottom());*/
         } else {
             int width = mKeyboard.getMinWidth() + getPaddingLeft()
                     + getPaddingRight();
@@ -1355,17 +1357,12 @@ public class AnyKeyboardBaseView extends View implements
             return;
         int length = keys.length;
         int dimensionSum = 0;
-        for (int i = 0; i < length; i++) {
-            Key key = keys[i];
-            dimensionSum += Math.min(key.width, key.height/*
-														 * +
-														 * mKeyboardVerticalGap
-														 */) + key.gap;
+        for (Key key : keys) {
+            dimensionSum += Math.min(key.width, key.height) + key.gap;
         }
         if (dimensionSum < 0 || length == 0)
             return;
-        mKeyDetector
-                .setProximityThreshold((int) (dimensionSum * 1.4f / length));
+        mKeyDetector.setProximityThreshold((int) (dimensionSum * 1.4f / length));
     }
 
     @Override
@@ -2226,10 +2223,10 @@ public class AnyKeyboardBaseView extends View implements
     }
 
     private boolean openPopupIfRequired(int keyIndex, PointerTracker tracker) {
-		/*
-		 * this is a uselss code.. // Check if we have a popup layout specified
-		 * first. if (mPopupLayout == 0) { return false; }
-		 */
+        /*
+         * this is a uselss code.. // Check if we have a popup layout specified
+         * first. if (mPopupLayout == 0) { return false; }
+         */
         Key popupKey = tracker.getKey(keyIndex);
         if (popupKey == null)
             return false;
@@ -2287,14 +2284,14 @@ public class AnyKeyboardBaseView extends View implements
      */
     protected boolean onLongPress(Context packageContext, Key popupKey,
                                   boolean isSticky, boolean requireSlideInto) {
-        if (popupKey.popupResId == 0)
-            return false;
+        if (popupKey.popupResId == 0) return false;
 
         if (mMiniKeyboard == null) {
             createMiniKeyboard();
         }
+	    mMiniKeyboard.removeAllViews();
+
         AnyPopupKeyboard popupKeyboard = setupMiniKeyboardContainer(packageContext, popupKey, isSticky);
-        mMiniKeyboardVisible = true;
         if (mWindowOffset == null) {
             mWindowOffset = new int[2];
             getLocationInWindow(mWindowOffset);
@@ -2343,12 +2340,6 @@ public class AnyKeyboardBaseView extends View implements
         mMiniKeyboard.setShifted(mKeyboard != null && mKeyboard.isShifted());
         // Mini keyboard needs no pop-up key preview displayed.
         mMiniKeyboard.setPreviewEnabled(false);
-        // animation switching required?
-        mMiniKeyboardPopup.setContentView(mMiniKeyboard);
-        mMiniKeyboardPopup.setWidth(mMiniKeyboard.getMeasuredWidth());
-        mMiniKeyboardPopup.setHeight(mMiniKeyboard.getMeasuredHeight());
-        mMiniKeyboardPopup.showAtLocation(this, Gravity.NO_GRAVITY, adjustedX, y);
-
         if (requireSlideInto) {
             // Inject down event on the key to mini keyboard.
             long eventTime = SystemClock.uptimeMillis();
@@ -2360,29 +2351,66 @@ public class AnyKeyboardBaseView extends View implements
             downEvent.recycle();
         }
 
-        invalidateAllKeys();
+        setPopupKeyboardWithView(adjustedX, y, mMiniKeyboard);
         return true;
     }
 
+	public void showQuickKeysView(Key popupKey) {
+		if (mMiniKeyboard == null) {
+			createMiniKeyboard();
+		}
+		mMiniKeyboard.removeAllViews();
+		mMiniKeyboard.setKeyboard(null);
+
+		View innerView = QuickTextViewFactory.createQuickTextView(getContext(), mMiniKeyboard, mMiniKeyboard.getKeyboardActionListener());
+		mMiniKeyboard.addView(innerView);
+
+		mMiniKeyboard.measure(View.MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.EXACTLY),
+				View.MeasureSpec.makeMeasureSpec(getHeight(), MeasureSpec.AT_MOST));
+
+		setPopupWithView(popupKey, mMiniKeyboard);
+	}
+
+    private void setPopupWithView(Key popupKey, View contentView) {
+        if (mWindowOffset == null) {
+            mWindowOffset = new int[2];
+            getLocationInWindow(mWindowOffset);
+        }
+
+        int popupY = popupKey.y + mWindowOffset[1];
+        popupY += getPaddingTop();
+        popupY -= contentView.getMeasuredHeight();
+        popupY -= contentView.getPaddingBottom();
+
+        mMiniKeyboardOriginX = mWindowOffset[0];
+        mMiniKeyboardOriginY = popupY - mWindowOffset[1];
+
+        setPopupKeyboardWithView(0, popupY, contentView);
+    }
+
+    private void setPopupKeyboardWithView(int x, int y, View contentView) {
+        mMiniKeyboardVisible = true;
+
+        mMiniKeyboardPopup.setContentView(contentView);
+        mMiniKeyboardPopup.setWidth(contentView.getMeasuredWidth());
+        mMiniKeyboardPopup.setHeight(contentView.getMeasuredHeight());
+        mMiniKeyboardPopup.showAtLocation(this, Gravity.NO_GRAVITY, x, y);
+
+        invalidateAllKeys();
+    }
+
     public void createMiniKeyboard() {
-        LayoutInflater inflater = (LayoutInflater) getContext()
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mMiniKeyboard = (AnyKeyboardBaseView) inflater.inflate(
-                R.layout.popup_keyboard_layout, null);
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mMiniKeyboard = (AnyKeyboardBaseView) inflater.inflate(R.layout.popup_keyboard_layout, null);
 
         mMiniKeyboard.setPopupParent(this);
         // hack: this will ensure that the key of a popup is no wider than a
         // thumb's width.
-        ((KeyboardDimensFromTheme) mMiniKeyboard.getThemedKeyboardDimens())
-                .setKeyMaxWidth(mMiniKeyboard.getThemedKeyboardDimens()
-                        .getNormalKeyHeight());
+        ((KeyboardDimensFromTheme) mMiniKeyboard.getThemedKeyboardDimens()).setKeyMaxWidth(mMiniKeyboard.getThemedKeyboardDimens().getNormalKeyHeight());
 
-        mMiniKeyboard
-                .setOnKeyboardActionListener(new MiniKeyboardActionListener(
-                        this));
+        mMiniKeyboard.setOnKeyboardActionListener(new MiniKeyboardActionListener(this));
         // Override default ProximityKeyDetector.
-        mMiniKeyboard.mKeyDetector = new MiniKeyboardKeyDetector(
-                mMiniKeyboardSlideAllowance);
+        mMiniKeyboard.mKeyDetector = new MiniKeyboardKeyDetector(mMiniKeyboardSlideAllowance);
         // Remove gesture detector on mini-keyboard
         mMiniKeyboard.mGestureDetector = null;
     }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v4.view.ViewPager android:id="@+id/quick_text_keyboards_pager"
+                                       android:layout_width="match_parent"
+                                       android:layout_height="wrap_content">
+
+        <android.support.v4.view.PagerTabStrip
+            android:id="@+id/pager_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"/>
+    </android.support.v4.view.ViewPager>
+    <ImageView
+        android:id="@+id/quick_keys_popup_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:contentDescription="@string/close_button"
+        android:src="@drawable/close_suggestions_strip_icon"/>
+</FrameLayout>
