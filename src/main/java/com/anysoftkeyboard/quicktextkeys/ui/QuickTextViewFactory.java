@@ -17,7 +17,10 @@ public class QuickTextViewFactory {
 	public static View createQuickTextView(Context context, ViewGroup root, final OnKeyboardActionListener keyboardActionListener) {
 		LayoutInflater inflater = LayoutInflater.from(context);
 		View rootView = inflater.inflate(R.layout.quick_text_popup_root_view, root, false);
-		rootView.findViewById(R.id.quick_keys_popup_close).setOnClickListener(new CloseKeyboardViewClickListener(keyboardActionListener));
+		FrameKeyboardViewClickListener frameKeyboardViewClickListener = new FrameKeyboardViewClickListener(keyboardActionListener);
+		rootView.findViewById(R.id.quick_keys_popup_close).setOnClickListener(frameKeyboardViewClickListener);
+		rootView.findViewById(R.id.quick_keys_popup_backspace).setOnClickListener(frameKeyboardViewClickListener);
+		rootView.findViewById(R.id.quick_keys_popup_return).setOnClickListener(frameKeyboardViewClickListener);
 		ArrayList<QuickTextKey> list = QuickTextKeyFactory.getAllEnabledQuickKeys(context);
 		ViewPager pager = (ViewPager) rootView.findViewById(R.id.quick_text_keyboards_pager);
 		QuickKeysPagerAdapter adapter = new QuickKeysPagerAdapter(context, list, keyboardActionListener);

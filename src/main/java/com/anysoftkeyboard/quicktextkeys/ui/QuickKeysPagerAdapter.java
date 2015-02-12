@@ -3,6 +3,9 @@ package com.anysoftkeyboard.quicktextkeys.ui;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +17,11 @@ import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
-import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.List;
 
 public class QuickKeysPagerAdapter extends PagerAdapter {
-
-	private static final String TAG = "QuickKeysPagerAdapter";
 
 	private final OnKeyboardActionListener mKeyboardActionListener;
 	@NonNull
@@ -29,6 +29,8 @@ public class QuickKeysPagerAdapter extends PagerAdapter {
 	@NonNull
 	private final QuickTextKey[] mQuickTextKeys;
 	private final int mKeySize;
+	private final int mKeysPerRow;
+
 	private final KeyboardDimens mEmptyDimens = new KeyboardDimens() {
 		@Override
 		public int getKeyboardMaxWidth() {
@@ -65,6 +67,7 @@ public class QuickKeysPagerAdapter extends PagerAdapter {
 			return mKeySize;
 		}
 	};
+
 	private final View.OnClickListener mKeyViewClickedHandler = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
@@ -78,6 +81,7 @@ public class QuickKeysPagerAdapter extends PagerAdapter {
 		mQuickTextKeys = quickTextKeys.toArray(new QuickTextKey[quickTextKeys.size()]);
 		mLayoutInflater = LayoutInflater.from(context);
 		mKeySize = context.getResources().getDimensionPixelSize(R.dimen.quick_key_size);
+		mKeysPerRow = context.getResources().getInteger(R.integer.quick_keys_per_row);
 	}
 
 	@Override
@@ -98,14 +102,10 @@ public class QuickKeysPagerAdapter extends PagerAdapter {
 											quickTextKey.getPopupKeyboardResId(), mEmptyDimens);
 
 		final List<Keyboard.Key> keys = popupKeyboard.getKeys();
-		Log.d(TAG, "popupKeyboard has %d keys", keys.size());
-		Log.d(TAG, "Container width is %s", container.getMeasuredWidth());
-		final int keysPerRow = container.getMeasuredWidth()/mKeySize;
-		Log.d(TAG, "We'll have %d keys per row", keysPerRow);
 
-		LinearLayout row = createRowView(rowsContainer, keysPerRow);
+		LinearLayout row = createRowView(rowsContainer, mKeysPerRow);
 		for (int keyIndex=0; keyIndex<keys.size(); keyIndex++) {
-			if (row.getChildCount() == keysPerRow) row = createRowView(rowsContainer, keysPerRow);
+			if (row.getChildCount() == mKeysPerRow) row = createRowView(rowsContainer, mKeysPerRow);
 
 			Keyboard.Key key = keys.get(keyIndex);
 			TextView keyView = new TextView(container.getContext());
@@ -136,7 +136,13 @@ public class QuickKeysPagerAdapter extends PagerAdapter {
 
 	@Override
 	public CharSequence getPageTitle(int position) {
-		return mQuickTextKeys[position].getName();
+		QuickTextKey quickTextKey = mQuickTextKeys[position];
+		SpannableStringBuilder builder = new SpannableStringBuilder();
+		builder.append("  ").append(quickTextKey.getName());
+		builder.setSpan(new ImageSpan(quickTextKey.getPackageContext(), quickTextKey.getKeyIconResId()),
+				0, 2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+		return builder;
 	}
 
 	@Override
