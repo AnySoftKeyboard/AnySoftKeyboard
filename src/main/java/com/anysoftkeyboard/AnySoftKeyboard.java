@@ -177,7 +177,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private boolean mAllowSuggestionsRestart = true;
 	private boolean mCurrentlyAllowSuggestionRestart = true;
 	private boolean mJustAutoAddedWord = false;
-	private boolean mSmileyOnShortPress;
+	private boolean mFlipQuickTextKeyAndPopupFunctionality;
 	private String mOverrideQuickTextText = null;
 	private boolean mAutoCap;
 	private boolean mQuickFixes;
@@ -1626,43 +1626,19 @@ public class AnySoftKeyboard extends InputMethodService implements
 				onText(mAskPrefs.getDomainText());
 				break;
 			case KeyCodes.QUICK_TEXT:
-			case KeyCodes.QUICK_TEXT_POPUP:
-				if (mInputView != null) {
-					mInputView.showQuickKeysView(key);
-				}
-				break;
-			/*case KeyCodes.QUICK_TEXT:
-				QuickTextKey quickTextKey = QuickTextKeyFactory.getCurrentQuickTextKey(this);
-
-				if (mSmileyOnShortPress) {
-					if (TextUtils.isEmpty(mOverrideQuickTextText))
-						onText(quickTextKey.getKeyOutputText());
-					else
-						onText(mOverrideQuickTextText);
+				if (mFlipQuickTextKeyAndPopupFunctionality) {
+					openQuickTextPopup(key);
 				} else {
-					if (quickTextKey.isPopupKeyboardUsed()) {
-						showQuickTextKeyPopupKeyboard(quickTextKey);
-					} else {
-						showQuickTextKeyPopupList(quickTextKey);
-					}
+					outputCurrentQuickTextKey();
 				}
 				break;
 			case KeyCodes.QUICK_TEXT_POPUP:
-				quickTextKey = QuickTextKeyFactory.getCurrentQuickTextKey(this);
-				if (quickTextKey.getId().equals(SMILEY_PLUGIN_ID)
-						&& !mSmileyOnShortPress) {
-					if (TextUtils.isEmpty(mOverrideQuickTextText))
-						onText(quickTextKey.getKeyOutputText());
-					else
-						onText(mOverrideQuickTextText);
+				if (mFlipQuickTextKeyAndPopupFunctionality) {
+					outputCurrentQuickTextKey();
 				} else {
-					if (quickTextKey.isPopupKeyboardUsed()) {
-						showQuickTextKeyPopupKeyboard(quickTextKey);
-					} else {
-						showQuickTextKeyPopupList(quickTextKey);
-					}
+					openQuickTextPopup(key);
 				}
-				break;*/
+				break;
 			case KeyCodes.MODE_SYMOBLS:
 				nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Symbols);
 				break;
@@ -1741,6 +1717,20 @@ public class AnySoftKeyboard extends InputMethodService implements
 				}
 				break;
 		}
+	}
+
+	private void openQuickTextPopup(Key key) {
+		if (mInputView != null) {
+			mInputView.showQuickKeysView(key);
+		}
+	}
+
+	private void outputCurrentQuickTextKey() {
+		QuickTextKey quickTextKey = QuickTextKeyFactory.getCurrentQuickTextKey(this);
+		if (TextUtils.isEmpty(mOverrideQuickTextText))
+			onText(quickTextKey.getKeyOutputText());
+		else
+			onText(mOverrideQuickTextText);
 	}
 
 	private boolean isConnectBot() {
@@ -2821,7 +2811,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// mCorrectionMode = mAutoComplete ? 2
 		// : (/*mShowSuggestions*/ mQuickFixes ? 1 : 0);
 
-		mSmileyOnShortPress = sp
+		mFlipQuickTextKeyAndPopupFunctionality = sp
 				.getBoolean(
 						getString(R.string.settings_key_emoticon_long_press_opens_popup),
 						getResources()
