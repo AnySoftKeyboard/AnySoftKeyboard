@@ -66,13 +66,15 @@ public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey> {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			return getAllEnabledQuickKeysOrdered(applicationContext);
 		} else {
-			ArrayList<QuickTextKey> singleKey = new ArrayList<>(1);
-			singleKey.add(getEnabledQuickKey(applicationContext));
-			return singleKey;
+			ArrayList<QuickTextKey> allKeys = getAllAvailableQuickKeys(applicationContext);
+			QuickTextKey activeKey = getEnabledQuickKeyForLegacy(applicationContext);
+			allKeys.remove(activeKey);
+			allKeys.add(0, activeKey);
+			return allKeys;
 		}
 	}
 
-	private static QuickTextKey getEnabledQuickKey(Context applicationContext) {
+	private static QuickTextKey getEnabledQuickKeyForLegacy(Context applicationContext) {
 		ArrayList<QuickTextKey> quickTextKeys = msInstance.getAllAddOns(applicationContext);
 
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext);
