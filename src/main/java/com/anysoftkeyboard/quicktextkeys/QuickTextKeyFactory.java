@@ -66,10 +66,15 @@ public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey> {
         return selectedKey;
     }
 
-    public static ArrayList<QuickTextKey> getAllAvailableQuickKeys(
-            Context applicationContext) {
+    public static ArrayList<QuickTextKey> getAllAvailableQuickKeys(Context applicationContext) {
         return msInstance.getAllAddOns(applicationContext);
     }
+
+	public static ArrayList<QuickTextKey> getAllEnabledQuickKeys(Context applicationContext) {
+		ArrayList<QuickTextKey> quickTextKeys = msInstance.getAllAddOns(applicationContext);
+		//TODO: filter out all the disabled keys
+		return quickTextKeys;
+	}
 
     private static final String XML_POPUP_KEYBOARD_RES_ID_ATTRIBUTE = "popupKeyboard";
     private static final String XML_POPUP_LIST_TEXT_RES_ID_ATTRIBUTE = "popupListText";

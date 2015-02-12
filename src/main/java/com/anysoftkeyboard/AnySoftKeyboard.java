@@ -987,25 +987,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public boolean onKeyDown(final int keyCode, @NonNull KeyEvent event) {
 		final boolean shouldTranslateSpecialKeys = isInputViewShown();
-		Log.d(TAG, "isInputViewShown=%s", shouldTranslateSpecialKeys);
+		Log.d(TAG, "isInputViewShown=%s, keycode=%d", shouldTranslateSpecialKeys, keyCode);
 
 		if (event.isPrintingKey())
 			onPhysicalKeyboardKeyPressed();
 		mHardKeyboardAction.initializeAction(event, mMetaState);
 
 		InputConnection ic = getCurrentInputConnection();
-		Log.d(TAG,
-				"Event: Key:"
-						+ event.getKeyCode()
-						+ " Shift:"
-						+ ((event.getMetaState() & KeyEvent.META_SHIFT_ON) != 0)
-						+ " ALT:"
-						+ ((event.getMetaState() & KeyEvent.META_ALT_ON) != 0)
-						+ " Repeats:" + event.getRepeatCount());
 
 		switch (keyCode) {
 			/****
-			 * SPEACIAL translated HW keys If you add new keys here, do not forget
+			 * SPECIAL translated HW keys If you add new keys here, do not forget
 			 * to add to the
 			 */
 			case KeyEvent.KEYCODE_CAMERA:
@@ -1043,26 +1035,19 @@ public class AnySoftKeyboard extends InputMethodService implements
 				// mark
 				return super.onKeyDown(keyCode, event);
 			/****
-			 * END of SPEACIAL translated HW keys code section
+			 * END of SPECIAL translated HW keys code section
 			 */
 			case KeyEvent.KEYCODE_BACK:
 				if (event.getRepeatCount() == 0 && mInputView != null) {
 					if (mInputView.handleBack()) {
 						// consuming the meta keys
 						if (ic != null) {
-							ic.clearMetaKeyStates(Integer.MAX_VALUE);// translated,
-							// so we
-							// also take
-							// care of
-							// the
-							// metakeys.
+							// translated, so we also take care of the metakeys
+							ic.clearMetaKeyStates(Integer.MAX_VALUE);
 						}
 						mMetaState = 0;
 						return true;
-					} /*
-				 * else if (mTutorial != null) { mTutorial.close(); mTutorial =
-				 * null; }
-				 */
+					}
 				}
 				break;
 			case 0x000000cc:// API 14: KeyEvent.KEYCODE_LANGUAGE_SWITCH
@@ -1227,6 +1212,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	@Override
 	public boolean onKeyUp(int keyCode, @NonNull KeyEvent event) {
+		Log.d(TAG, "onKeyUp keycode=%d", keyCode);
 		switch (keyCode) {
 			// Issue 248
 			case KeyEvent.KEYCODE_VOLUME_DOWN:
@@ -1640,8 +1626,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 				onText(mAskPrefs.getDomainText());
 				break;
 			case KeyCodes.QUICK_TEXT:
-				QuickTextKey quickTextKey = QuickTextKeyFactory
-						.getCurrentQuickTextKey(this);
+			case KeyCodes.QUICK_TEXT_POPUP:
+				if (mInputView != null) {
+					mInputView.showQuickKeysView(key);
+				}
+				break;
+			/*case KeyCodes.QUICK_TEXT:
+				QuickTextKey quickTextKey = QuickTextKeyFactory.getCurrentQuickTextKey(this);
 
 				if (mSmileyOnShortPress) {
 					if (TextUtils.isEmpty(mOverrideQuickTextText))
@@ -1671,7 +1662,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 						showQuickTextKeyPopupList(quickTextKey);
 					}
 				}
-				break;
+				break;*/
 			case KeyCodes.MODE_SYMOBLS:
 				nextKeyboard(getCurrentInputEditorInfo(), NextKeyboardType.Symbols);
 				break;
@@ -3207,11 +3198,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void showQuickTextKeyPopupKeyboard(QuickTextKey quickTextKey) {
 		if (mInputView != null) {
-            /*if (quickTextKey.getPackageContext() == getApplicationContext()) {
-                mInputView.simulateLongPress(KeyCodes.QUICK_TEXT);
-            } else {*/
 			mInputView.showQuickTextPopupKeyboard(quickTextKey);
-            /*}*/
 		}
 	}
 
@@ -3320,7 +3307,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	public void onCancel() {
-		// don't know what to do here.
+		hideWindow();
 	}
 
 	public void resetKeyboardView(boolean recreateView) {
