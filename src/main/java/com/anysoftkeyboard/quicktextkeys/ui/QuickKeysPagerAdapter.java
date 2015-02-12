@@ -17,15 +17,14 @@ import java.util.List;
 
 public class QuickKeysPagerAdapter extends PagerAdapter {
 
-	@NonNull
-	private final Context mContext;
+	private final OnKeyboardActionListener mKeyboardActionListener;
 	@NonNull
 	private final LayoutInflater mLayoutInflater;
 	@NonNull
 	private final QuickTextKey[] mQuickTextKeys;
 
 	public QuickKeysPagerAdapter(@NonNull Context context, @NonNull List<QuickTextKey> quickTextKeys, OnKeyboardActionListener keyboardActionListener) {
-		mContext = context;
+		mKeyboardActionListener = keyboardActionListener;
 		mQuickTextKeys = quickTextKeys.toArray(new QuickTextKey[quickTextKeys.size()]);
 		mLayoutInflater = LayoutInflater.from(context);
 	}
@@ -48,6 +47,8 @@ public class QuickKeysPagerAdapter extends PagerAdapter {
 			root.setCompoundDrawablesWithIntrinsicBounds(quickTextKey.getKeyIconResId(), 0, 0, 0);
 		}
 
+		container.addView(root);
+
 		return root;
 	}
 
@@ -65,6 +66,6 @@ public class QuickKeysPagerAdapter extends PagerAdapter {
 
 	@Override
 	public boolean isViewFromObject(View view, Object object) {
-		return view.getTag() == object;
+		return view == object;
 	}
 }
