@@ -2243,12 +2243,12 @@ public class AnyKeyboardBaseView extends FrameLayout implements
         if (popupKey.popupCharacters != null) {
             keyboard = new AnyPopupKeyboard(getContext()
                     .getApplicationContext(), popupKey.popupCharacters,
-                    mMiniKeyboard.getThemedKeyboardDimens());
+                    mMiniKeyboard.getThemedKeyboardDimens(), null);
         } else {
             keyboard = new AnyPopupKeyboard(getContext().getApplicationContext(),
                     popupKey.externalResourcePopupLayout ? packageContext : getContext().getApplicationContext(),
                     popupKey.popupResId,
-                    mMiniKeyboard.getThemedKeyboardDimens());
+                    mMiniKeyboard.getThemedKeyboardDimens(), null);
         }
 	    ((MiniKeyboardActionListener)mMiniKeyboard.getOnKeyboardActionListener()).setInOneShot(!isSticky);
 
@@ -2365,24 +2365,22 @@ public class AnyKeyboardBaseView extends FrameLayout implements
 				View.MeasureSpec.makeMeasureSpec(getHeight(), MeasureSpec.AT_MOST));
 
 		((MiniKeyboardActionListener)mMiniKeyboard.getOnKeyboardActionListener()).setInOneShot(false);
-		setPopupWithView(popupKey, mMiniKeyboard);
-	}
 
-    private void setPopupWithView(Key popupKey, View contentView) {
         if (mWindowOffset == null) {
             mWindowOffset = new int[2];
             getLocationInWindow(mWindowOffset);
         }
 
         int popupY = popupKey.y + mWindowOffset[1];
+	    popupY += popupKey.height;//this is shown at the bottom of the key
         popupY += getPaddingTop();
-        popupY -= contentView.getMeasuredHeight();
-        popupY -= contentView.getPaddingBottom();
+        popupY -= mMiniKeyboard.getMeasuredHeight();
+        popupY -= mMiniKeyboard.getPaddingBottom();
 
         mMiniKeyboardOriginX = mWindowOffset[0];
         mMiniKeyboardOriginY = popupY - mWindowOffset[1];
 
-        setPopupKeyboardWithView(0, popupY, contentView);
+        setPopupKeyboardWithView(0, popupY, mMiniKeyboard);
     }
 
     private void setPopupKeyboardWithView(int x, int y, View contentView) {
