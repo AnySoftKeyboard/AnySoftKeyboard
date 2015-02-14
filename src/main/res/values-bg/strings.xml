@@ -221,9 +221,6 @@
   <string name="selected_add_on_summary">В момента се ползва \'<xliff:g id="addOnName">%s</xliff:g>\'</string>
   <string name="additional_addons_group">Допълнителни добавки</string>
   <string name="quick_text_keys_group">Клавиш за бързи символи</string>
-  <string name="quick_text_key_active">Активен клавиш за бързи символи</string>
-  <string name="quick_text_key_dialog_title">Изберете клавиш за бързи символи</string>
-  <string name="quick_text_key_summary">Текущ клавиш за бързи символи: %s</string>
   <string name="top_generic_row_group">Избран вид на горния ред</string>
   <string name="top_generic_row_summary">Избран вид на горния ред: %s</string>
   <string name="bottom_generic_row_group">Избран вид на долния ред</string>

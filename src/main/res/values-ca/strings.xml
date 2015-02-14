@@ -430,9 +430,6 @@
     </string>
   <string name="additional_addons_group">Complements addicionals</string>
   <string name="quick_text_keys_group">Tecla de funció especial</string>
-  <string name="quick_text_key_active">Inserció avançada</string>
-  <string name="quick_text_key_dialog_title">Trieu una opció</string>
-  <string name="quick_text_key_summary">Tecla de selecció de text ràpid: %s</string>
   <string name="extension_keyboards_group">Teclats addicioonals</string>
   <string name="extension_keyboards_summary">Selecció de la fila o l\'extensió de teclat</string>
   <string name="top_generic_row_group">Fila superior genèrica</string>

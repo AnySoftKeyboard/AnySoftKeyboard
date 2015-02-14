@@ -258,9 +258,6 @@
   <string name="keyboard_change_locked">לא זמין</string>
   <string name="additional_addons_group">תוספים</string>
   <string name="quick_text_keys_group">לחצני טקסט מהיר</string>
-  <string name="quick_text_key_active">לחצני טקסט מהיר פעילים</string>
-  <string name="quick_text_key_dialog_title">בחר סוג</string>
-  <string name="quick_text_key_summary">כפתור טקסט מהיר בשימוש: %s</string>
   <string name="extension_keyboards_group">מקלדות הרחבה</string>
   <string name="extension_keyboards_summary">בחר הרחבות למקלדת</string>
   <string name="top_generic_row_group">שורת מקשים עליונה</string>

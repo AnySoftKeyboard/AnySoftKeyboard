@@ -75,7 +75,7 @@ public class DragSortRecycler extends RecyclerView.ItemDecoration implements Rec
 
 	public interface OnItemMovedListener
 	{
-		public void onItemMoved(int from, int to);
+		public void onItemMoved(RecyclerView rv, int from, int to);
 	}
 
 	public interface OnDragStateChangedListener {
@@ -354,7 +354,7 @@ public class DragSortRecycler extends RecyclerView.ItemDecoration implements Rec
 			{
 				int newPos = getNewPostion(rv);
 				if (moveInterface != null)
-					moveInterface.onItemMoved(selectedDragItemPos, newPos);
+					moveInterface.onItemMoved(rv, selectedDragItemPos, newPos);
 			}
 
 			setIsDragging(false);

@@ -62,7 +62,7 @@ public class QuickTextViewFactory {
 		rootView.findViewById(R.id.quick_keys_popup_close).setOnClickListener(frameKeyboardViewClickListener);
 		rootView.findViewById(R.id.quick_keys_popup_backspace).setOnClickListener(frameKeyboardViewClickListener);
 		rootView.findViewById(R.id.quick_keys_popup_return).setOnClickListener(frameKeyboardViewClickListener);
-		ArrayList<QuickTextKey> list = QuickTextKeyFactory.getAllEnabledQuickKeys(context);
+		ArrayList<QuickTextKey> list = QuickTextKeyFactory.getOrderedEnabledQuickKeys(context);
 		AnyPopupKeyboard[] keyboards = new AnyPopupKeyboard[list.size()];
 		for (int keyboardIndex=0; keyboardIndex<list.size(); keyboardIndex++) {
 			QuickTextKey key = list.get(keyboardIndex);

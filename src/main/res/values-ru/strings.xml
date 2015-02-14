@@ -210,8 +210,6 @@
   <string name="eng_keyboard_16keys">16 Keys English</string>
   <string name="additional_addons_group">Доп. дополнения</string>
   <string name="quick_text_keys_group">Клавиши быстрого текста</string>
-  <string name="quick_text_key_active">Текущая клавиша быстрого текста</string>
-  <string name="quick_text_key_dialog_title">Выберите клавишу</string>
   <string name="extension_keyboards_group">Доп. клавиши</string>
   <string name="extension_keyboards_summary">Выбрать верхнюю и нижнию строку и дополнительную клавиатуру</string>
   <string name="top_generic_row_group">Общий верхний ряд</string>

@@ -1,6 +1,5 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
-import android.view.KeyEvent;
 import android.view.View;
 
 import com.anysoftkeyboard.api.KeyCodes;

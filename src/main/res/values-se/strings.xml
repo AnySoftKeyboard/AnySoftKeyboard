@@ -185,9 +185,6 @@
     <string name="eng_keyboard">Engelskt</string>
     <string name="eng_keyboard_16keys">16 Keys English</string>
     <string name="quick_text_keys_group">Quick text keys</string>
-    <string name="quick_text_key_active">Active quick text key</string>
-    <string name="quick_text_key_dialog_title">Select key</string>
-    <string name="quick_text_key_summary">Select quick text key to show on keyboards</string>
     <string name="show_tutorial_on_startup">Visa den här handledningen vid uppstart</string>
     <string name="tutorial_swipe_title">Dra fingret för att byta tangentbordsupplägg</string>
     <string name="tutorial_swipe_text">Tangenbordslayout kan ändras genom att dra ditt finger över tangentbordet, dra

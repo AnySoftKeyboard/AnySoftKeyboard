@@ -352,9 +352,6 @@
   <string name="selected_add_on_summary">Benutze nun \'<xliff:g id="addOnName">%s</xliff:g>\'</string>
   <string name="additional_addons_group">Zusätzliche Add-ons</string>
   <string name="quick_text_keys_group">Schnell Text-Tasten</string>
-  <string name="quick_text_key_active">Aktive schnelle Textschlüssel</string>
-  <string name="quick_text_key_dialog_title">Select-Taste</string>
-  <string name="quick_text_key_summary">Ausgewählte Quicktext Schlüssel: %s</string>
   <string name="extension_keyboards_group">Erweiterte Tastatur</string>
   <string name="extension_keyboards_summary">Wählen Sie die obere, untere Zeilen oder Erweiterungs tastatur</string>
   <string name="top_generic_row_group">Allgemeine oberste generische Reihe</string>
