@@ -541,9 +541,9 @@
     <string name="additional_addons_group">Additional add-ons</string>
     <!-- settings - quick text keys -->
     <string name="quick_text_keys_group">Quick text keys</string>
-    <string name="quick_text_key_active">Active quick text key</string>
-    <string name="quick_text_key_dialog_title">Select key</string>
-    <string name="quick_text_key_summary">Selected Quick Text key: %s</string>
+    <string name="quick_text_keys_order">Order of Quick Text groups</string>
+    <string name="quick_text_keys_order_dialog_title">Define groups order</string>
+    <string name="quick_text_keys_order_summary">The order in which the Quick Text groups will be shown in the popup.</string>
 
     <!-- settings - extension keyboards -->
     <string name="extension_keyboards_group">Extension keyboards</string>

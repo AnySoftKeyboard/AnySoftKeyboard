@@ -134,7 +134,6 @@
   <string name="keyboards_group">Тастатури</string>
   <string name="eng_keyboard">Англиски</string>
   <string name="eng_keyboard_16keys">Англиски со 16</string>
-  <string name="quick_text_key_dialog_title">Изберете копче</string>
   <string name="show_tutorial_on_startup">Прикажи го ова упатство на почеток</string>
   <string name="tutorial_swipe_title">Повлечи (swipe) за промена на тастатура</string>
   <string name="tutorial_swipe_text">Тастатурата може да се смени со повлекување (swipe) преку тастатурата. Повлечи од лево кон десно за промена на абецеда, а од десно кон лево за промена на симболи.</string>

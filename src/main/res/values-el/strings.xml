@@ -359,9 +359,6 @@
     </string>
   <string name="additional_addons_group">Επιπλέον πρόσθετα</string>
   <string name="quick_text_keys_group">Πλήκτρο ταχείας γραφής κειμένου</string>
-  <string name="quick_text_key_active">Ενεργοποίηση πλήκτρου ταχείας γραφής</string>
-  <string name="quick_text_key_dialog_title">Επιλέξτε πλήκτρο</string>
-  <string name="quick_text_key_summary">Επιλεγμένο πλήκτρο γρήγορου κειμένου: %s</string>
   <string name="extension_keyboards_group">Επέκταση πληκτρολογίων</string>
   <string name="extension_keyboards_summary">Επιλέξτε επάνω, κάτω γραμμές ή επέκταση πληκτρολογίου</string>
   <string name="top_generic_row_group">Κοινή πάνω γενική σειρά</string>

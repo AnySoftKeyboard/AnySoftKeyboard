@@ -327,9 +327,6 @@
   <string name="selected_add_on_summary">الآن يستخدم</string>
   <string name="additional_addons_group">إضافات إضافية</string>
   <string name="quick_text_keys_group">مفاتيح النص السريع</string>
-  <string name="quick_text_key_active">مفتاح النص السريع النشط</string>
-  <string name="quick_text_key_dialog_title">مفتاح الإختيار</string>
-  <string name="quick_text_key_summary">تم اختيار زر النص السريع:</string>
   <string name="extension_keyboards_group">لوحات مفاتيح موسعة</string>
   <string name="extension_keyboards_summary">إختر الصفوف العلوية والسفلية أو لوحة مفاتيح موسعة</string>
   <string name="top_generic_row_group">الصف العلوي المشترك</string>

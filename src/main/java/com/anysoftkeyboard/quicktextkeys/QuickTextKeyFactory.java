@@ -16,11 +16,10 @@
 
 package com.anysoftkeyboard.quicktextkeys;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 
 import com.anysoftkeyboard.addons.AddOnsFactory;
@@ -28,8 +27,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.List;
 
 public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey> {
 
@@ -55,54 +53,40 @@ public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey> {
 	}
 
 	public static QuickTextKey getCurrentQuickTextKey(Context context) {
-		return getAllEnabledQuickKeys(context).get(0);
+		return getOrderedEnabledQuickKeys(context).get(0);
 	}
 
 	public static ArrayList<QuickTextKey> getAllAvailableQuickKeys(Context applicationContext) {
 		return msInstance.getAllAddOns(applicationContext);
 	}
 
-	public static ArrayList<QuickTextKey> getAllEnabledQuickKeys(Context applicationContext) {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			return getAllEnabledQuickKeysOrdered(applicationContext);
-		} else {
-			ArrayList<QuickTextKey> allKeys = getAllAvailableQuickKeys(applicationContext);
-			QuickTextKey activeKey = getEnabledQuickKeyForLegacy(applicationContext);
-			allKeys.remove(activeKey);
-			allKeys.add(0, activeKey);
-			return allKeys;
-		}
-	}
-
-	private static QuickTextKey getEnabledQuickKeyForLegacy(Context applicationContext) {
-		ArrayList<QuickTextKey> quickTextKeys = msInstance.getAllAddOns(applicationContext);
-
+	public static void storeOrderedEnabledQuickKeys(Context applicationContext, ArrayList<QuickTextKey> orderedKeys) {
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext);
-		String settingKey = applicationContext.getString(R.string.settings_key_active_quick_text_key);
+		String settingKey = applicationContext.getString(R.string.settings_key_ordered_active_quick_text_keys);
 
-		String activeQuickKey = sharedPreferences.getString(settingKey, quickTextKeys.get(0).getId());
-
-		for (QuickTextKey key : quickTextKeys) {
-			if (key.getId().equals(activeQuickKey)) return key;
+		List<String> quickKeyIdOrder = new ArrayList<>(orderedKeys.size());
+		for (QuickTextKey key : orderedKeys) {
+			quickKeyIdOrder.add(key.getId());
 		}
-
-		return quickTextKeys.get(0);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		editor.putString(settingKey, TextUtils.join(",", quickKeyIdOrder)).commit();
 	}
 
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	private static ArrayList<QuickTextKey> getAllEnabledQuickKeysOrdered(Context applicationContext) {
+	public static ArrayList<QuickTextKey> getOrderedEnabledQuickKeys(Context applicationContext) {
 		ArrayList<QuickTextKey> quickTextKeys = msInstance.getAllAddOns(applicationContext);
 
 		//now, reading the ordered array of active keys
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext);
 		String settingKey = applicationContext.getString(R.string.settings_key_ordered_active_quick_text_keys);
 
-		Set<String> defaultOrder = new LinkedHashSet<>(quickTextKeys.size());
-		for (QuickTextKey key : quickTextKeys) defaultOrder.add(key.getId());
+		List<String> quickKeyIdDefaultOrder = new ArrayList<>(quickTextKeys.size());
+		for (QuickTextKey key : quickTextKeys) {
+			quickKeyIdDefaultOrder.add(key.getId());
+		}
+		String quickKeyIdsOrderValue = sharedPreferences.getString(settingKey, TextUtils.join(",", quickKeyIdDefaultOrder));
+		String[] quickKeyIdsOrder = TextUtils.split(quickKeyIdsOrderValue, ",");
 
-		Set<String> quickKeyIdsOrder = sharedPreferences.getStringSet(settingKey, defaultOrder);
-
-		ArrayList<QuickTextKey> orderedQuickTextKeys = new ArrayList<>(quickKeyIdsOrder.size());
+		ArrayList<QuickTextKey> orderedQuickTextKeys = new ArrayList<>(quickKeyIdsOrder.length);
 		for (String keyId : quickKeyIdsOrder) {
 			Iterator<QuickTextKey> iterator = quickTextKeys.iterator();
 			while (iterator.hasNext()) {

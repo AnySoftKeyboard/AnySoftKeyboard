@@ -354,9 +354,6 @@ törlődik, teljesen lenyomva az utolsó szó</string>
     </string>
   <string name="additional_addons_group">További kiegészítők</string>
   <string name="quick_text_keys_group">Gyors gombok</string>
-  <string name="quick_text_key_active">Az aktuális gyors-szöveg gomb</string>
-  <string name="quick_text_key_dialog_title">Gomb kiválasztása</string>
-  <string name="quick_text_key_summary">Kiválasztott Gyorsszöveg-billentyű: %s</string>
   <string name="extension_keyboards_group">Kiegészítő billentyűzetek</string>
   <string name="extension_keyboards_summary">Válasszon alsó, felső sorokat és kiegészítő billentyűzetet</string>
   <string name="top_generic_row_group">Felső billentyűzet sor</string>

@@ -284,9 +284,6 @@
   <string name="eng_keyboard_16keys">Angielski 16 klawiszy</string>
   <string name="additional_addons_group">Dodatkowe rozszerzenia</string>
   <string name="quick_text_keys_group">Klawisze szybkiego tekstu</string>
-  <string name="quick_text_key_active">Aktywny klawisz szybkiego tekstu</string>
-  <string name="quick_text_key_dialog_title">Wybierz klawisz</string>
-  <string name="quick_text_key_summary">Wybrany klawisz szybkiego tekstu: %s</string>
   <string name="extension_keyboards_group">Klawiatury rozszerzające</string>
   <string name="extension_keyboards_summary">Wybierz górne albo dolne wiersze lub klawiaturę rozszerzającą</string>
   <string name="top_generic_row_group">Górny wiersz funkcyjny</string>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="?android:listPreferredItemHeight">
+
+    <ImageView
+        android:id="@+id/orderedListSlider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_slider_icon"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:id="@+id/orderedListTitle"
+        style="@style/Ask.Text.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/orderedListSlider"
+        android:layout_toEndOf="@id/orderedListSlider"
+        android:layout_alignParentTop="true"/>
+
+    <TextView
+        android:id="@+id/orderedListSubTitle"
+        style="@style/Ask.Text.SubTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/orderedListSlider"
+        android:layout_toEndOf="@id/orderedListSlider"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

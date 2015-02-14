@@ -380,9 +380,6 @@
     </string>
   <string name="additional_addons_group">Outras extras</string>
   <string name="quick_text_keys_group">Teclas de texto rápido</string>
-  <string name="quick_text_key_active">Tecla de texto rápido ativa</string>
-  <string name="quick_text_key_dialog_title">Escolha a tecla</string>
-  <string name="quick_text_key_summary">Tecla escolhida: %s</string>
   <string name="extension_keyboards_group">Teclados extensivos</string>
   <string name="extension_keyboards_summary">Escolha linha superior, inferior ou teclado extensivo</string>
   <string name="top_generic_row_group">Linha superior comum</string>

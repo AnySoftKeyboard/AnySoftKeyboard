@@ -61,11 +61,6 @@ public class AdditionalUiSettingsFragment extends PreferenceFragment implements 
         AddOnListPreference.populateAddOnListPreference(extKeyboard,
                 KeyboardExtensionFactory.getAllAvailableExtensions(appContext, KeyboardExtension.TYPE_EXTENSION),
                 KeyboardExtensionFactory.getCurrentKeyboardExtension(appContext, KeyboardExtension.TYPE_EXTENSION));
-
-        AddOnListPreference quickTextKey = (AddOnListPreference) findPreference(getString(R.string.settings_key_active_quick_text_key));
-        AddOnListPreference.populateAddOnListPreference(quickTextKey,
-                QuickTextKeyFactory.getAllAvailableQuickKeys(appContext),
-                QuickTextKeyFactory.getCurrentQuickTextKey(appContext));
     }
 
     @Override

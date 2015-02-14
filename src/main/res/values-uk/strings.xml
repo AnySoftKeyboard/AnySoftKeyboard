@@ -294,9 +294,6 @@
   <string name="eng_keyboard_16keys">Англійська 16 клавіш</string>
   <string name="additional_addons_group">Додаткові застосування</string>
   <string name="quick_text_keys_group">Клавіші швидкого тексту</string>
-  <string name="quick_text_key_active">Поточна клавіша швидкого тексту</string>
-  <string name="quick_text_key_dialog_title">Виберіть клавішу</string>
-  <string name="quick_text_key_summary">Вибрана клавіша швидкого текст: %s</string>
   <string name="extension_keyboards_group">Розширення клавіатур</string>
   <string name="extension_keyboards_summary">Вибрати верхній, нижній рядок або додаткову клавіатуру</string>
   <string name="top_generic_row_group">Загальний верхній ряд</string>

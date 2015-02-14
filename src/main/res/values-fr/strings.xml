@@ -396,9 +396,6 @@
     <string name="eng_keyboard_16keys">Clavier 16 touches en anglais</string>
     <string name="additional_addons_group">Extensions additionnelles</string>
     <string name="quick_text_keys_group">Texte rapide</string>
-    <string name="quick_text_key_active">Touche de texte rapide active</string>
-    <string name="quick_text_key_dialog_title">Sélection de la touche</string>
-    <string name="quick_text_key_summary">Sélectionner la touche de texte rapide à afficher sur les claviers</string>
     <string name="extension_keyboards_group">Extension du clavier</string>
     <string name="extension_keyboards_summary">Sélectionnez la rangée du bas, du haut ou l’extension de clavier</string>
     <string name="top_generic_row_group">Rangée du haut habituelle</string>
