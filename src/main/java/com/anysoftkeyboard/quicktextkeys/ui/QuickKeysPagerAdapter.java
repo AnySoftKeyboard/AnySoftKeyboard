@@ -79,10 +79,10 @@ public class QuickKeysPagerAdapter extends PagerAdapter {
 		}
 	};
 
-	public QuickKeysPagerAdapter(@NonNull Context context, @NonNull ArrayList<QuickTextKey> keyAddoOns, OnKeyboardActionListener keyboardActionListener) {
+	public QuickKeysPagerAdapter(@NonNull Context context, @NonNull ArrayList<QuickTextKey> keyAddOns, OnKeyboardActionListener keyboardActionListener) {
 		mContext = context;
 		mKeyboardActionListener = keyboardActionListener;
-		mAddOns = keyAddoOns.toArray(new QuickTextKey[keyAddoOns.size()]);
+		mAddOns = keyAddOns.toArray(new QuickTextKey[keyAddOns.size()]);
 		mPopupKeyboards = new AnyPopupKeyboard[mAddOns.length];
 		mLayoutInflater = LayoutInflater.from(context);
 		mKeySize = context.getResources().getDimensionPixelSize(R.dimen.quick_key_size);
