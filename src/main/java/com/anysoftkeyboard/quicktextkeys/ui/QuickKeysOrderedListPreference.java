@@ -102,6 +102,10 @@ public class QuickKeysOrderedListPreference extends DialogPreference {
 		return false;
 	}
 
+	public void performOnClick() {
+		onClick();
+	}
+
 	protected String getPersistString() {
 		return getSharedPreferences().getString(getKey(), "");
 	}

@@ -21,7 +21,8 @@
     <LinearLayout
         android:layout_width="@dimen/quick_key_size"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1">
         <ImageView
             android:id="@+id/quick_keys_popup_close"
             android:layout_width="@dimen/quick_key_size"
@@ -37,6 +38,19 @@
             android:contentDescription="@string/close_button"
             android:scaleType="centerInside"
             android:src="@drawable/dark_key_delete_set"/>
+
+        <ImageView
+            android:id="@+id/quick_keys_popup_quick_keys_settings"
+            android:layout_width="@dimen/quick_key_size"
+            android:layout_height="@dimen/quick_key_size"
+            android:contentDescription="@string/quick_text_keys_group"
+            android:scaleType="centerInside"
+            android:src="@drawable/dark_key_settings_set"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="0px"
+            android:layout_weight="1" />
 
         <ImageView
             android:id="@+id/quick_keys_popup_return"

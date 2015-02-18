@@ -59,9 +59,7 @@ public class QuickTextViewFactory {
 		LayoutInflater inflater = LayoutInflater.from(context);
 		View rootView = inflater.inflate(R.layout.quick_text_popup_root_view, root, false);
 		FrameKeyboardViewClickListener frameKeyboardViewClickListener = new FrameKeyboardViewClickListener(keyboardActionListener);
-		rootView.findViewById(R.id.quick_keys_popup_close).setOnClickListener(frameKeyboardViewClickListener);
-		rootView.findViewById(R.id.quick_keys_popup_backspace).setOnClickListener(frameKeyboardViewClickListener);
-		rootView.findViewById(R.id.quick_keys_popup_return).setOnClickListener(frameKeyboardViewClickListener);
+		frameKeyboardViewClickListener.registerOnViews(rootView);
 		ArrayList<QuickTextKey> list = QuickTextKeyFactory.getOrderedEnabledQuickKeys(context);
 		AnyPopupKeyboard[] keyboards = new AnyPopupKeyboard[list.size()];
 		for (int keyboardIndex=0; keyboardIndex<list.size(); keyboardIndex++) {
