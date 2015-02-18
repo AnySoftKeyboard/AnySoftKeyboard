@@ -643,7 +643,8 @@
 
     <string name="simley_key_name">Smiley key</string>
     <string name="default_quick_text_key_name">Simple Emoticons</string>
-    <string name="unicode_quick_text_key_name">Unicode Emoticons</string>
+    <string name="unicode_quick_text_key_name">Emoticons</string>
+    <string name="unicode_people_quick_text_key_name">People</string>
 
     <string name="multitap_timeout_title">Multi-tap timeout</string>
     <string name="multitap_timeout_summary">Timeout between key taps</string>

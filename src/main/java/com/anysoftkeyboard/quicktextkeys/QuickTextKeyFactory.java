@@ -108,22 +108,22 @@ public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey> {
 	@Override
 	protected QuickTextKey createConcreteAddOn(Context askContext, Context context, String prefId, int nameResId, String description, int sortIndex, AttributeSet attrs) {
 		final int popupKeyboardResId = attrs.getAttributeResourceValue(null,
-				XML_POPUP_KEYBOARD_RES_ID_ATTRIBUTE, -1);
+				XML_POPUP_KEYBOARD_RES_ID_ATTRIBUTE, 0);
 		final int popupListTextResId = attrs.getAttributeResourceValue(null,
-				XML_POPUP_LIST_TEXT_RES_ID_ATTRIBUTE, -1);
+				XML_POPUP_LIST_TEXT_RES_ID_ATTRIBUTE, 0);
 		final int popupListOutputResId = attrs.getAttributeResourceValue(null,
-				XML_POPUP_LIST_OUTPUT_RES_ID_ATTRIBUTE, -1);
+				XML_POPUP_LIST_OUTPUT_RES_ID_ATTRIBUTE, 0);
 		final int popupListIconsResId = attrs.getAttributeResourceValue(null,
-				XML_POPUP_LIST_ICONS_RES_ID_ATTRIBUTE, -1);
+				XML_POPUP_LIST_ICONS_RES_ID_ATTRIBUTE, 0);
 		final int iconResId = attrs.getAttributeResourceValue(null,
-				XML_ICON_RES_ID_ATTRIBUTE, -1); // Maybe should make a default
+				XML_ICON_RES_ID_ATTRIBUTE, 0); // Maybe should make a default
 		// icon
 		final int keyLabelResId = attrs.getAttributeResourceValue(null,
-				XML_KEY_LABEL_RES_ID_ATTRIBUTE, -1);
+				XML_KEY_LABEL_RES_ID_ATTRIBUTE, 0);
 		final int keyOutputTextResId = attrs.getAttributeResourceValue(null,
-				XML_KEY_OUTPUT_TEXT_RES_ID_ATTRIBUTE, -1);
+				XML_KEY_OUTPUT_TEXT_RES_ID_ATTRIBUTE, 0);
 		final int keyIconPreviewResId = attrs.getAttributeResourceValue(null,
-				XML_ICON_PREVIEW_RES_ID_ATTRIBUTE, -1);
+				XML_ICON_PREVIEW_RES_ID_ATTRIBUTE, 0);
 
 		if (((popupKeyboardResId == -1) && ((popupListTextResId == -1) || (popupListOutputResId == -1)))
 				|| ((iconResId == -1) && (keyLabelResId == -1))

@@ -172,5 +172,69 @@
         <Key
             android:keyLabel="\uD83D\uDE2B"
             android:keyOutputText="\uD83D\uDE2B"/>
+        <Key
+            android:keyLabel="\uD83D\uDE4B"
+            android:keyOutputText="\uD83D\uDE4B"/>
+        <Key
+            android:keyLabel="\uD83D\uDE4C"
+            android:keyOutputText="\uD83D\uDE4C"/>
+        <Key
+            android:keyLabel="\uD83D\uDE4D"
+            android:keyOutputText="\uD83D\uDE4D"/>
+        <Key
+            android:keyLabel="\uD83D\uDE45"
+            android:keyOutputText="\uD83D\uDE45"/>
+        <Key
+            android:keyLabel="\uD83D\uDE46"
+            android:keyOutputText="\uD83D\uDE46"/>
+        <Key
+            android:keyLabel="\uD83D\uDE47"
+            android:keyOutputText="\uD83D\uDE47"/>
+        <Key
+            android:keyLabel="\uD83D\uDE4E"
+            android:keyOutputText="\uD83D\uDE4E"/>
+        <Key
+            android:keyLabel="\uD83D\uDE4F"
+            android:keyOutputText="\uD83D\uDE4F"/>
+        <Key
+            android:keyLabel="\uD83D\uDE3A"
+            android:keyOutputText="\uD83D\uDE3A"/>
+        <Key
+            android:keyLabel="\uD83D\uDE3C"
+            android:keyOutputText="\uD83D\uDE3C"/>
+        <Key
+            android:keyLabel="\uD83D\uDE38"
+            android:keyOutputText="\uD83D\uDE38"/>
+        <Key
+            android:keyLabel="\uD83D\uDE39"
+            android:keyOutputText="\uD83D\uDE39"/>
+        <Key
+            android:keyLabel="\uD83D\uDE3B"
+            android:keyOutputText="\uD83D\uDE3B"/>
+        <Key
+            android:keyLabel="\uD83D\uDE3D"
+            android:keyOutputText="\uD83D\uDE3D"/>
+        <Key
+            android:keyLabel="\uD83D\uDE3F"
+            android:keyOutputText="\uD83D\uDE3F"/>
+        <Key
+            android:keyLabel="\uD83D\uDE3E"
+            android:keyOutputText="\uD83D\uDE3E"/>
+        <Key
+            android:keyLabel="\uD83D\uDE40"
+            android:keyOutputText="\uD83D\uDE40"/>
+        <Key
+            android:keyLabel="\uD83D\uDE48"
+            android:keyOutputText="\uD83D\uDE48"/>
+        <Key
+            android:keyLabel="\uD83D\uDE49"
+            android:keyOutputText="\uD83D\uDE49"/>
+        <Key
+            android:keyLabel="\uD83D\uDE4A"
+            android:keyOutputText="\uD83D\uDE4A"/>
+        <Key
+            android:keyLabel="\uD83D\uDCA9"
+            android:keyOutputText="\uD83D\uDCA9"/>
     </Row>
+
 </Keyboard>
