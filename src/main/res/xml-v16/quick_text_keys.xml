@@ -3,7 +3,7 @@
     <QuickTextKey
         id="698b8c20-19df-11e1-bddb-0800200c9a66"
         nameResId="@string/unicode_quick_text_key_name"
-        popupKeyboard="@xml/popup_unicode_quick_text"
+        popupKeyboard="@xml/quick_text_unicode_emoticons"
         keyIcon="@drawable/sym_keyboard_smiley"
         keyLabel="@string/quick_text_smiley_key_label"
         keyOutputText="@string/quick_text_smiley_key_unicode_output"
