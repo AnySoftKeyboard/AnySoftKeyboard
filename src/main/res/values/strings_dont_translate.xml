@@ -6,6 +6,8 @@
     <string name="quick_text_smiley_key_output">:-)\u0020</string>
     <string name="quick_text_smiley_key_unicode_output">\uD83D\uDE03</string>
     <string name="quick_text_smiley_key_unicode_people_output">\uD83D\uDC76</string>
+    <string name="quick_text_smiley_key_unicode_gestures_output">\uD83D\uDC8B</string>
+    <string name="quick_text_smiley_key_unicode_accessories_output">\uD83D\uDC84</string>
 
     <string name="copyright_owner">Menny Even-Danan</string>
 

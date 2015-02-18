@@ -19,6 +19,24 @@
         description=""
         index="2"/>
     <QuickTextKey
+        id="afc6265c-0a12-443c-a160-f60025f0953c"
+        nameResId="@string/unicode_gestures_quick_text_key_name"
+        popupKeyboard="@xml/quick_text_unicode_gestures"
+        keyIcon="@drawable/sym_keyboard_smiley"
+        keyLabel="@string/quick_text_smiley_key_unicode_gestures_output"
+        keyOutputText="@string/quick_text_smiley_key_unicode_gestures_output"
+        description=""
+        index="3"/>
+    <QuickTextKey
+        id="913d2e9a-2c77-46f3-a966-5ce17a3150ef"
+        nameResId="@string/unicode_accessories_quick_text_key_name"
+        popupKeyboard="@xml/quick_text_unicode_accessories"
+        keyIcon="@drawable/sym_keyboard_smiley"
+        keyLabel="@string/quick_text_smiley_key_unicode_accessories_output"
+        keyOutputText="@string/quick_text_smiley_key_unicode_accessories_output"
+        description=""
+        index="3"/>
+    <QuickTextKey
         id="698b8c20-19df-11e1-bddb-0800200c9a67"
         nameResId="@string/default_quick_text_key_name"
         popupKeyboard="@xml/popup_default_quick_text"
@@ -26,7 +44,7 @@
         keyLabel="@string/quick_text_smiley_key_label"
         keyOutputText="@string/quick_text_smiley_key_output"
         description=""
-        index="3"/>
+        index="4"/>
     <QuickTextKey
         id="0077b34d-770f-4083-83e4-081957e06c27"
         nameResId="@string/simley_key_name"
@@ -35,5 +53,5 @@
         keyLabel="@string/quick_text_smiley_key_label"
         keyOutputText="@string/quick_text_smiley_key_output"
         description=""
-        index="4"/>
+        index="5"/>
 </QuickTextKeys>
