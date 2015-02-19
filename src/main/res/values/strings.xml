@@ -648,6 +648,7 @@
     <string name="unicode_gestures_quick_text_key_name">Gestures</string>
     <string name="unicode_accessories_quick_text_key_name">Accessories</string>
     <string name="unicode_animals_quick_text_key_name">Animals</string>
+    <string name="unicode_food_quick_text_key_name">Food</string>
 
     <string name="multitap_timeout_title">Multi-tap timeout</string>
     <string name="multitap_timeout_summary">Timeout between key taps</string>
