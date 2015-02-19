@@ -46,6 +46,17 @@
         description=""
         index="5"/>
     <QuickTextKey
+        id="1057806d-4f6e-42aa-8dfd-eea57995c2ee"
+        nameResId="@string/unicode_food_quick_text_key_name"
+        popupKeyboard="@xml/quick_text_unicode_food"
+        keyIcon="@drawable/sym_keyboard_smiley"
+        keyLabel="@string/quick_text_smiley_key_unicode_food_output"
+        keyOutputText="@string/quick_text_smiley_key_unicode_food_output"
+        description=""
+        index="5"/>
+
+
+    <QuickTextKey
         id="698b8c20-19df-11e1-bddb-0800200c9a67"
         nameResId="@string/default_quick_text_key_name"
         popupKeyboard="@xml/popup_default_quick_text"
