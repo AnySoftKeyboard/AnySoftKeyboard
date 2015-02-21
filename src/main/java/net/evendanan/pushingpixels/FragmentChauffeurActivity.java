@@ -60,29 +60,38 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
         if (savedInstanceState == null) {
             //setting up the root of the UI.
             setRootFragment(createRootFragmentInstance());
-            //now, checking if there is a request to add a fragment on-top of this one.
-            Bundle activityArgs = getIntent().getExtras();
-            if (activityArgs != null && activityArgs.containsKey(KEY_FRAGMENT_CLASS_TO_ADD)) {
-                Class<? extends Fragment> fragmentClass = (Class<? extends Fragment>) activityArgs.get(KEY_FRAGMENT_CLASS_TO_ADD);
-                //not sure that this is a best-practice, but I still need to remove this from the activity's args
-                activityArgs.remove(KEY_FRAGMENT_CLASS_TO_ADD);
-                try {
-                    Fragment fragment = fragmentClass.newInstance();
-                    if (activityArgs.containsKey(KEY_FRAGMENT_ARGS_TO_ADD)) {
-                        fragment.setArguments(activityArgs.getBundle(KEY_FRAGMENT_ARGS_TO_ADD));
-                        activityArgs.remove(KEY_FRAGMENT_CLASS_TO_ADD);
-                    }
-                    addFragmentToUi(fragment, FragmentUiContext.RootFragment);
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 
-    protected abstract int getFragmentRootUiElementId();
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		setIntent(intent);
+		handleFragmentIntentValues();
+	}
+
+	private void handleFragmentIntentValues() {
+		Bundle activityArgs = getIntent().getExtras();
+		if (activityArgs != null && activityArgs.containsKey(KEY_FRAGMENT_CLASS_TO_ADD)) {
+		    Class<? extends Fragment> fragmentClass = (Class<? extends Fragment>) activityArgs.get(KEY_FRAGMENT_CLASS_TO_ADD);
+		    //not sure that this is a best-practice, but I still need to remove this from the activity's args
+		    activityArgs.remove(KEY_FRAGMENT_CLASS_TO_ADD);
+		    try {
+		        Fragment fragment = fragmentClass.newInstance();
+		        if (activityArgs.containsKey(KEY_FRAGMENT_ARGS_TO_ADD)) {
+		            fragment.setArguments(activityArgs.getBundle(KEY_FRAGMENT_ARGS_TO_ADD));
+		            activityArgs.remove(KEY_FRAGMENT_CLASS_TO_ADD);
+		        }
+		        addFragmentToUi(fragment, FragmentUiContext.RootFragment);
+		    } catch (InstantiationException e) {
+		        e.printStackTrace();
+		    } catch (IllegalAccessException e) {
+		        e.printStackTrace();
+		    }
+		}
+	}
+
+	protected abstract int getFragmentRootUiElementId();
 
     protected abstract Fragment createRootFragmentInstance();
 
@@ -192,6 +201,8 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
 	protected void onStart() {
 		super.onStart();
 		mIsActivityShown = true;
+		//now, checking if there is a request to add a fragment on-top of this one.
+		handleFragmentIntentValues();
 	}
 
 	@Override
