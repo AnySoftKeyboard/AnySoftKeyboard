@@ -111,13 +111,11 @@ public class QuickKeysOrderedListPreference extends DialogPreference {
 	}
 
 	private static class OrderedListViewHolder extends RecyclerView.ViewHolder {
-		public final TextView titleView;
-		public final TextView subtitleVew;
+		private final TextView title;
 
 		public OrderedListViewHolder(View itemView) {
 			super(itemView);
-			titleView = (TextView) itemView.findViewById(R.id.orderedListTitle);
-			subtitleVew = (TextView) itemView.findViewById(R.id.orderedListSubTitle);
+			title = (TextView) itemView.findViewById(R.id.orderedListTitle);
 		}
 	}
 
@@ -136,8 +134,7 @@ public class QuickKeysOrderedListPreference extends DialogPreference {
 		@Override
 		public void onBindViewHolder(OrderedListViewHolder viewHolder, int position) {
 			QuickTextKey value = mQuickKeysAddOnsToStore.get(position);
-			viewHolder.titleView.setText(value.getName());
-			viewHolder.subtitleVew.setText(value.getDescription());
+			viewHolder.title.setText(value.getName());
 		}
 
 		@Override
