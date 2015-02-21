@@ -73,7 +73,7 @@ public class AdditionalUiSettingsFragment extends PreferenceFragment implements 
                 KeyboardExtensionFactory.getCurrentKeyboardExtension(appContext, KeyboardExtension.TYPE_EXTENSION));
 
 	    Bundle args = getArguments();
-	    if (args.containsKey(ARG_KEY_START_QUICK_TEXT_KEYS) && args.getBoolean(ARG_KEY_START_QUICK_TEXT_KEYS)) {
+	    if (args != null && args.containsKey(ARG_KEY_START_QUICK_TEXT_KEYS) && args.getBoolean(ARG_KEY_START_QUICK_TEXT_KEYS)) {
 		    args.remove(ARG_KEY_START_QUICK_TEXT_KEYS);
 		    QuickKeysOrderedListPreference quickKeys = (QuickKeysOrderedListPreference) findPreference(getString(R.string.settings_key_active_quick_text_key));
 		    quickKeys.performOnClick();
