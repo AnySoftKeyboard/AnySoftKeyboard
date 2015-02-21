@@ -649,6 +649,7 @@
     <string name="unicode_accessories_quick_text_key_name">Accessories</string>
     <string name="unicode_animals_quick_text_key_name">Animals</string>
     <string name="unicode_food_quick_text_key_name">Food</string>
+    <string name="unicode_nature_quick_text_key_name">Nature</string>
 
     <string name="multitap_timeout_title">Multi-tap timeout</string>
     <string name="multitap_timeout_summary">Timeout between key taps</string>
