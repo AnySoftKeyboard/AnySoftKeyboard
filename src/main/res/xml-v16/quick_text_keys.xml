@@ -62,8 +62,16 @@
         keyLabel="@string/quick_text_smiley_key_unicode_nature_output"
         keyOutputText="@string/quick_text_smiley_key_unicode_nature_output"
         description=""
-        index="6"/>
-
+        index="7"/>
+    <QuickTextKey
+        id="032e0d3f-9281-4514-8c7c-c6cf3ff8b45b"
+        nameResId="@string/unicode_transport_quick_text_key_name"
+        popupKeyboard="@xml/quick_text_unicode_transport"
+        keyIcon="@drawable/sym_keyboard_smiley"
+        keyLabel="@string/quick_text_smiley_key_unicode_transport_output"
+        keyOutputText="@string/quick_text_smiley_key_unicode_transport_output"
+        description=""
+        index="8"/>
 
     <QuickTextKey
         id="698b8c20-19df-11e1-bddb-0800200c9a67"
@@ -73,7 +81,7 @@
         keyLabel="@string/quick_text_smiley_key_label"
         keyOutputText="@string/quick_text_smiley_key_output"
         description=""
-        index="6"/>
+        index="9"/>
     <QuickTextKey
         id="0077b34d-770f-4083-83e4-081957e06c27"
         nameResId="@string/simley_key_name"
@@ -82,5 +90,5 @@
         keyLabel="@string/quick_text_smiley_key_label"
         keyOutputText="@string/quick_text_smiley_key_output"
         description=""
-        index="7"/>
+        index="10"/>
 </QuickTextKeys>
