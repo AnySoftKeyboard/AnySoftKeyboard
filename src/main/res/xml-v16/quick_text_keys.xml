@@ -72,7 +72,6 @@
         keyOutputText="@string/quick_text_smiley_key_unicode_transport_output"
         description=""
         index="8"/>
-
     <QuickTextKey
         id="698b8c20-19df-11e1-bddb-0800200c9a67"
         nameResId="@string/default_quick_text_key_name"

@@ -11,7 +11,7 @@
         android:src="@drawable/ic_slider_icon"
         android:layout_gravity="center_vertical"/>
 
-    <TextView
+    <CheckBox
         style="@style/Ask.Text.Title"
         android:layout_gravity="center_vertical"
         android:id="@+id/orderedListTitle"

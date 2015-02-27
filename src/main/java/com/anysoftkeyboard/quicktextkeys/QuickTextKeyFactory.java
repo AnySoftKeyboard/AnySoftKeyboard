@@ -22,6 +22,7 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
+import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -56,7 +57,7 @@ public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey> {
 		return getOrderedEnabledQuickKeys(context).get(0);
 	}
 
-	public static ArrayList<QuickTextKey> getAllAvailableQuickKeys(Context applicationContext) {
+	public static List<QuickTextKey> getAllAvailableQuickKeys(Context applicationContext) {
 		return msInstance.getAllAddOns(applicationContext);
 	}
 
@@ -72,8 +73,8 @@ public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey> {
 		editor.putString(settingKey, TextUtils.join(",", quickKeyIdOrder)).commit();
 	}
 
-	public static ArrayList<QuickTextKey> getOrderedEnabledQuickKeys(Context applicationContext) {
-		ArrayList<QuickTextKey> quickTextKeys = msInstance.getAllAddOns(applicationContext);
+	public static List<QuickTextKey> getOrderedEnabledQuickKeys(Context applicationContext) {
+		List<QuickTextKey> quickTextKeys = new ArrayList<>(msInstance.getAllAddOns(applicationContext));
 
 		//now, reading the ordered array of active keys
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext);
@@ -107,30 +108,20 @@ public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey> {
 
 	@Override
 	protected QuickTextKey createConcreteAddOn(Context askContext, Context context, String prefId, int nameResId, String description, int sortIndex, AttributeSet attrs) {
-		final int popupKeyboardResId = attrs.getAttributeResourceValue(null,
-				XML_POPUP_KEYBOARD_RES_ID_ATTRIBUTE, 0);
-		final int popupListTextResId = attrs.getAttributeResourceValue(null,
-				XML_POPUP_LIST_TEXT_RES_ID_ATTRIBUTE, 0);
-		final int popupListOutputResId = attrs.getAttributeResourceValue(null,
-				XML_POPUP_LIST_OUTPUT_RES_ID_ATTRIBUTE, 0);
-		final int popupListIconsResId = attrs.getAttributeResourceValue(null,
-				XML_POPUP_LIST_ICONS_RES_ID_ATTRIBUTE, 0);
-		final int iconResId = attrs.getAttributeResourceValue(null,
-				XML_ICON_RES_ID_ATTRIBUTE, 0); // Maybe should make a default
+		final int popupKeyboardResId = attrs.getAttributeResourceValue(null, XML_POPUP_KEYBOARD_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
+		final int popupListTextResId = attrs.getAttributeResourceValue(null, XML_POPUP_LIST_TEXT_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
+		final int popupListOutputResId = attrs.getAttributeResourceValue(null, XML_POPUP_LIST_OUTPUT_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
+		final int popupListIconsResId = attrs.getAttributeResourceValue(null, XML_POPUP_LIST_ICONS_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
+		final int iconResId = attrs.getAttributeResourceValue(null, XML_ICON_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID); // Maybe should make a default
 		// icon
-		final int keyLabelResId = attrs.getAttributeResourceValue(null,
-				XML_KEY_LABEL_RES_ID_ATTRIBUTE, 0);
-		final int keyOutputTextResId = attrs.getAttributeResourceValue(null,
-				XML_KEY_OUTPUT_TEXT_RES_ID_ATTRIBUTE, 0);
-		final int keyIconPreviewResId = attrs.getAttributeResourceValue(null,
-				XML_ICON_PREVIEW_RES_ID_ATTRIBUTE, 0);
+		final int keyLabelResId = attrs.getAttributeResourceValue(null, XML_KEY_LABEL_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
+		final int keyOutputTextResId = attrs.getAttributeResourceValue(null, XML_KEY_OUTPUT_TEXT_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
+		final int keyIconPreviewResId = attrs.getAttributeResourceValue(null, XML_ICON_PREVIEW_RES_ID_ATTRIBUTE, AddOn.INVALID_RES_ID);
 
-		if (((popupKeyboardResId == -1) && ((popupListTextResId == -1) || (popupListOutputResId == -1)))
-				|| ((iconResId == -1) && (keyLabelResId == -1))
-				|| (keyOutputTextResId == -1)) {
-			String detailMessage = String
-					.format("Missing details for creating QuickTextKey! prefId %s\n"
-									+ "popupKeyboardResId: %d, popupListTextResId: %d, popupListOutputResId: %d, (iconResId: %d, keyLabelResId: %d), keyOutputTextResId: %d",
+		if (((popupKeyboardResId == AddOn.INVALID_RES_ID) && ((popupListTextResId == AddOn.INVALID_RES_ID) || (popupListOutputResId == AddOn.INVALID_RES_ID)))
+				|| ((iconResId == AddOn.INVALID_RES_ID) && (keyLabelResId == AddOn.INVALID_RES_ID))
+				|| (keyOutputTextResId == AddOn.INVALID_RES_ID)) {
+			String detailMessage = String.format("Missing details for creating QuickTextKey! prefId %s, popupKeyboardResId: %d, popupListTextResId: %d, popupListOutputResId: %d, (iconResId: %d, keyLabelResId: %d), keyOutputTextResId: %d",
 							prefId, popupKeyboardResId, popupListTextResId,
 							popupListOutputResId, iconResId, keyLabelResId,
 							keyOutputTextResId);
