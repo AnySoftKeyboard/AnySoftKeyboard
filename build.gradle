@@ -8,15 +8,15 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.0.0'
-        classpath 'org.robolectric:robolectric-gradle-plugin:0.13.2'
+        classpath 'com.android.tools.build:gradle:1.1.0'
+        classpath 'org.robolectric:robolectric-gradle-plugin:1.0.0'
         classpath 'com.jakewharton.sdkmanager:gradle-plugin:0.12.0'
     }
 }
 
 apply plugin: 'android-sdk-manager'
 apply plugin: 'com.android.application'
-apply plugin: 'robolectric'
+apply plugin: 'org.robolectric'
 apply plugin: 'pmd'
 
 version utils.Utils.buildVersionName(1, 3, false)
