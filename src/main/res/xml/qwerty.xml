@@ -21,11 +21,11 @@
     <Row>
         <Key android:codes="113" android:popupCharacters="1" android:keyEdgeFlags="left"/>
         <Key android:codes="119" android:popupCharacters="2ŵ"/>
-        <Key android:codes="101" android:popupCharacters="3èéêëęē€"/>
+        <Key android:codes="101" android:popupKeyboard="@xml/popup_qwerty_e"/>
         <Key android:codes="114" android:popupCharacters="4řŕ"/>
         <Key android:codes="116" android:popupCharacters="5țť\u0163"/>
         <Key android:codes="121" android:popupCharacters="6ýÿ"/>
-        <Key android:codes="117" android:popupCharacters="7ùúûüŭűū"/>
+        <Key android:codes="117" android:popupKeyboard="@xml/popup_qwerty_u"/>
         <Key android:codes="105" android:popupCharacters="8ìíîïłī"/>
         <Key android:codes="111" android:popupCharacters="9òóôõöøőœō"/>
         <Key android:codes="112" android:popupCharacters="0" android:keyEdgeFlags="right"/>
