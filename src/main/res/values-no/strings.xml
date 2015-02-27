@@ -37,17 +37,17 @@
   <string name="tip_6_bottom_rows_tip">På samme måte som toppraden, kan bunnraden byttes ut. Anysoftkeyboard har flere typer å velge mellom. Det finnes med eller uten mikrofontast, iPhone-type med mer.</string>
   <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Bytt bunnrad nå</string>
   <string name="tip_7_voice_input">Snakk til meg*</string>
-  <string name="tip_7_voice_input_tip">Å skrive er fint, men det er også støtte for tale. Vil du diktere teksten I stedet? Klikk på mikrofontasten, og snakk i veil\nVi benytter Roofless talegjenkjenning slike at du kan være trygg på at det virker :)
+  <string name="tip_7_voice_input_tip">Å skrive er fint, men det er også støtte for tale. Vil du diktere teksten I stedet? Klikk på mikrofontasten, og snakk i vei!\nVi benytter Googles talegjenkjenning slike at du kan være trygg på at det virker :)    
     </string>
   <string name="tip_7_voice_input_tip_dont_forget_bottom_row">Hvis du ønsker at mikrofontasten alltid skal være synlig må du velge den riktige bunnraden. Se forrige tips!\nUansett vil mikrofontasten slltid være tilgjengelig på det skjulte tilleggstastaturet. Sveip fingeren opp fra mellomromstasten så finner du den!</string>
   <string name="tip_7_voice_input_tip_note">*Krever Android 2.2 eller høyere, og internettforbindelse.</string>
   <string name="tip_8_suggestions">Jeg fullfører det du skriver</string>
-  <string name="tip_8_suggestions_tip">Avhengig av støtten ditt språk har kan AnySoftKeyboard hjelpe deg fullføre dine ord og korrigere dine skrivefeil. Når du begynner å skrive foreslår AnySoftKeyboard ord basert på det du allerede har skrevet.
+  <string name="tip_8_suggestions_tip">Avhengig av støtten ditt språk har kan AnySoftKeyboard hjelpe deg å fullføre dine ord, og korrigere dine skrivefeil. Når du begynner å skrive foreslår AnySoftKeyboard ord basert på det du allerede har skrevet.
     </string>
   <string name="tip_8_suggestions_editor">Hvis jeg ikke vet et ord, kan du lære meg det! Skriv inn ordet og klikk i forslag-stripen. Jeg vil huske det. \nDu kan også redigere disse brukerordene i våre innebygde redigeringsverktøy. Se etter verktøyet i AnySoftKeyboards ordbokinnstillinger.
     </string>
   <string name="tip_9_suggestions_restart">Foreslår omstart</string>
-  <string name="tip_9_suggestions_restart_tip">AnySoftKeyboard foreslår ord basert på hva du skrev.  Men AnySoftKeyboard kan også gi deg forslag på allerede inntastede ord! Tapp på ordet, og forlagstripen oppdateres.
+  <string name="tip_9_suggestions_restart_tip">AnySoftKeyboard foreslår ord basert på hva du skrev.  Men AnySoftKeyboard kan også gi deg forslag på allerede inntastede ord! Tapp på ordet, og forslagstripen oppdateres.
     </string>
   <string name="main_tab_welcome">Velkommen</string>
   <string name="main_tab_links">Lenker</string>

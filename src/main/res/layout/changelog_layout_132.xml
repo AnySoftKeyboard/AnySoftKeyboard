@@ -25,7 +25,7 @@
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="* Many more emoticons and better settings for those.\n* Bug fixes."
+        android:text="* Many more emoticons and better settings for those.\n* Localization: ES, NO.\n* Bug fixes."
         style="@style/Ask.Text.Normal"
         tools:ignore="HardcodedText" />
 
