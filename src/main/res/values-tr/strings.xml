@@ -94,7 +94,6 @@ bulamıyorum. Bu özellik cihazınızda çalışamaz, üzgünüz.</string>
   <string name="keyboards_group">Klavyeler</string>
   <string name="eng_keyboard">İngilizce</string>
   <string name="eng_keyboard_16keys">16 Tuş İngilizce</string>
-  <string name="quick_text_key_dialog_title">Tuş seç</string>
   <string name="extension_keyboard_dialog_title">Klavyeyi seçin</string>
   <string name="extension_keyboard_list_title">Klavyeyi seçin</string>
   <string name="keyboard_theme_group">Klavye Temaları</string>

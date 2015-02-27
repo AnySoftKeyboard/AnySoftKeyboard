@@ -211,8 +211,7 @@ public class UserDictionaryEditorFragment extends Fragment
             protected Void doAsyncTask(Void[] params) throws Exception {
                 ArrayList<DictionaryLocale> languagesList = new ArrayList<>();
 
-                ArrayList<KeyboardAddOnAndBuilder> keyboards =
-		                KeyboardFactory.getEnabledKeyboards(getActivity().getApplicationContext());
+                List<KeyboardAddOnAndBuilder> keyboards = KeyboardFactory.getEnabledKeyboards(getActivity().getApplicationContext());
                 for (KeyboardAddOnAndBuilder kbd : keyboards) {
                     String locale = kbd.getKeyboardLocale();
                     if (TextUtils.isEmpty(locale))

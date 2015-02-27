@@ -216,25 +216,36 @@ public abstract class AddOnsFactory<E extends AddOn> {
         return mAddOnsById.get(id);
     }
 
-    public synchronized final ArrayList<E> getAllAddOns(Context askContext) {
-
+    public synchronized final List<E> getAllAddOns(Context askContext) {
+	    Log.d(TAG, "getAllAddOns has %d add on for %s", mAddOns.size(), getClass().getName());
         if (mAddOns.size() == 0) {
             loadAddOns(askContext);
         }
-        return mAddOns;
+	    Log.d(TAG, "getAllAddOns will return %d add on for %s", mAddOns.size(), getClass().getName());
+        return Collections.unmodifiableList(mAddOns);
     }
 
     protected void loadAddOns(final Context askContext) {
         clearAddOnList();
 
-        mAddOns.addAll(getAddOnsFromResId(askContext, askContext, mBuildInAddOnsResId));
-        mAddOns.addAll(getExternalAddOns(askContext));
+	    ArrayList<E> local = getAddOnsFromResId(askContext, askContext, mBuildInAddOnsResId);
+	    for (E addon : local) {
+		    Log.d(TAG, "Local add-on %s loaded", addon.getId());
+	    }
+        mAddOns.addAll(local);
+	    ArrayList<E> external = getExternalAddOns(askContext);
+	    for (E addon : external) {
+		    Log.d(TAG, "External add-on %s loaded", addon.getId());
+	    }
+	    mAddOns.addAll(external);
+		Log.d(TAG, "Have %d add on for %s", mAddOns.size(), getClass().getName());
 
         buildOtherDataBasedOnNewAddOns(mAddOns);
 
         //sorting the keyboards according to the requested
         //sort order (from minimum to maximum)
         Collections.sort(mAddOns, new AddOnsComparator(askContext));
+	    Log.d(TAG, "Have %d add on for %s (after sort)", mAddOns.size(), getClass().getName());
     }
 
     protected void buildOtherDataBasedOnNewAddOns(ArrayList<E> newAddOns) {
@@ -243,7 +254,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
     }
 
     private ArrayList<E> getExternalAddOns(Context askContext) {
-        final ArrayList<E> externalAddOns = new ArrayList<E>();
+        final ArrayList<E> externalAddOns = new ArrayList<>();
 
         if (!mReadExternalPacksToo)//this will disable external packs (API careful stage)
             return externalAddOns;
@@ -264,7 +275,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
             if (!receiver.activityInfo.enabled || !receiver.activityInfo.applicationInfo.enabled) continue;
 
             try {
-                final Context externalPackageContext = askContext.createPackageContext(receiver.activityInfo.packageName, PackageManager.GET_META_DATA);
+                final Context externalPackageContext = askContext.createPackageContext(receiver.activityInfo.packageName, Context.CONTEXT_IGNORE_SECURITY);
                 final ArrayList<E> packageAddOns = getAddOnsFromActivityInfo(askContext, externalPackageContext, receiver.activityInfo);
 
                 externalAddOns.addAll(packageAddOns);
@@ -280,19 +291,19 @@ public abstract class AddOnsFactory<E extends AddOn> {
     private ArrayList<E> getAddOnsFromResId(Context askContext, Context context, int addOnsResId) {
         final XmlPullParser xml = context.getResources().getXml(addOnsResId);
         if (xml == null)
-            return new ArrayList<E>();
+            return new ArrayList<>();
         return parseAddOnsFromXml(askContext, context, xml);
     }
 
     private ArrayList<E> getAddOnsFromActivityInfo(Context askContext, Context context, ActivityInfo ai) {
         final XmlPullParser xml = ai.loadXmlMetaData(context.getPackageManager(), RECEIVER_META_DATA);
         if (xml == null)//issue 718: maybe a bad package?
-            return new ArrayList<E>();
+            return new ArrayList<>();
         return parseAddOnsFromXml(askContext, context, xml);
     }
 
     private ArrayList<E> parseAddOnsFromXml(Context askContext, Context context, XmlPullParser xml) {
-        final ArrayList<E> addOns = new ArrayList<E>();
+        final ArrayList<E> addOns = new ArrayList<>();
         try {
             int event;
             boolean inRoot = false;

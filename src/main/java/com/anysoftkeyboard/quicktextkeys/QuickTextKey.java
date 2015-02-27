@@ -45,27 +45,27 @@ public class QuickTextKey extends AddOnImpl {
         Resources resources = packageContext.getResources();
 
         this.mPopupKeyboardResId = popupKeyboardResId;
-        if (popupKeyboardResId <= 0) {
+        if (popupKeyboardResId == 0) {
             this.mPopupListNames = resources.getStringArray(popupListNamesResId);
             this.mPopupListValues = resources.getStringArray(popupListValuesResId);
 
-            if (popupListIconsResId > 0) {
+            if (popupListIconsResId != 0) {
                 TypedArray arr = resources.obtainTypedArray(popupListIconsResId);
                 mPopupListIconResIds = new int[arr.length()];
                 for (int pos = 0; pos < mPopupListIconResIds.length; pos++) {
-                    mPopupListIconResIds[pos] = arr.getResourceId(pos, -1);
+                    mPopupListIconResIds[pos] = arr.getResourceId(pos, 0);
                 }
                 arr.recycle();
             }
         }
         this.mKeyIconResId = keyIconResId;
-        this.mKeyLabel = keyLabelResId > 0 ? resources.getString(keyLabelResId) : null;
-        this.mKeyOutputText = keyOutputTextResId > 0 ? resources.getString(keyOutputTextResId) : null;
+        this.mKeyLabel = keyLabelResId != 0 ? resources.getString(keyLabelResId) : null;
+        this.mKeyOutputText = keyOutputTextResId != 0 ? resources.getString(keyOutputTextResId) : null;
         this.mIconPreviewResId = iconPreviewResId;
     }
 
     public boolean isPopupKeyboardUsed() {
-        return mPopupKeyboardResId > 0;
+        return mPopupKeyboardResId != 0;
     }
 
     public int getPopupKeyboardResId() {

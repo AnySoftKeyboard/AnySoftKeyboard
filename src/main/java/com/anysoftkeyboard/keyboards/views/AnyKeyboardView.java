@@ -190,16 +190,9 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     final protected boolean isFirstDownEventInsideSpaceBar() {
         return mIsFirstDownEventInsideSpaceBar;
     }
-/*
-    public void simulateLongPress(int keyCode) {
-        Key key = findKeyByKeyCode(keyCode);
-        if (key != null)
-            super.onLongPress(getKeyboard().getKeyboardContext(), key, false, true);
-    }
-*/
+
     private boolean invokeOnKey(int primaryCode, Key key, int multiTapIndex) {
-        getOnKeyboardActionListener().onKey(primaryCode, key, multiTapIndex,
-                null, false);
+        getOnKeyboardActionListener().onKey(primaryCode, key, multiTapIndex, null, false);
         return true;
     }
 
@@ -228,7 +221,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         if (key != null && key instanceof AnyKey) {
             AnyKey anyKey = (AnyKey) key;
             if (anyKey.longPressCode != 0) {
-                invokeOnKey(anyKey.longPressCode, null, 0);
+                invokeOnKey(anyKey.longPressCode, anyKey, 0);
                 return true;
             } else if (anyKey.codes[0] == KeyCodes.QUICK_TEXT) {
                 invokeOnKey(KeyCodes.QUICK_TEXT_POPUP, null, 0);

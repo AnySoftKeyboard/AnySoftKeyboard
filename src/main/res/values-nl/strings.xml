@@ -424,9 +424,6 @@ karakter, volledig indrukken verwijderd laatste woord
     </string>
   <string name="additional_addons_group">Extra add-ons</string>
   <string name="quick_text_keys_group">Snel teksttoetsen</string>
-  <string name="quick_text_key_active">Actieve snel teksttoets</string>
-  <string name="quick_text_key_dialog_title">Kies toets</string>
-  <string name="quick_text_key_summary">Geselecteerde sneltoets: %s</string>
   <string name="extension_keyboards_group">Uitbreidingstoetsenborden</string>
   <string name="extension_keyboards_summary">Kies de bovenste, onderste rij of uitbreidingstoetsenbord</string>
   <string name="top_generic_row_group">Algemene bovenste rij</string>

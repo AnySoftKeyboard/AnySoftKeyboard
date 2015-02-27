@@ -231,9 +231,6 @@
     <string name="eng_keyboard_16keys">16 näppäimen Englanti</string>
     <string name="additional_addons_group">Additional add-ons</string>
     <string name="quick_text_keys_group">Pikatekstinäppäimet</string>
-    <string name="quick_text_key_active">Aktiivinen pikatekstinäppäin</string>
-    <string name="quick_text_key_dialog_title">Valitse näppäin</string>
-    <string name="quick_text_key_summary">Valitse pikatekstinäppäin, joka näkyy näppäimistöissä</string>
     <string name="extension_keyboards_group">Extension keyboards</string>
     <string name="extension_keyboards_summary">Select top, bottom rows or extension keyboard</string>
     <string name="top_generic_row_group">Common top generic row</string>

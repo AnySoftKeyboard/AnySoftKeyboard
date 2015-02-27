@@ -26,6 +26,7 @@ import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class KeyboardExtensionFactory extends AddOnsFactory<KeyboardExtension> {
 
@@ -73,7 +74,7 @@ public class KeyboardExtensionFactory extends AddOnsFactory<KeyboardExtension> {
         String selectedKeyId = sharedPreferences.getString(settingKey,
                 defaultValue);
         KeyboardExtension selectedKeyboard = null;
-        ArrayList<KeyboardExtension> keys = msInstance.getAllAddOns(context);
+        List<KeyboardExtension> keys = msInstance.getAllAddOns(context);
 
         if (selectedKeyId != null) {
             for (KeyboardExtension aKey : keys) {
@@ -105,7 +106,7 @@ public class KeyboardExtensionFactory extends AddOnsFactory<KeyboardExtension> {
 
     public static ArrayList<KeyboardExtension> getAllAvailableExtensions(
             Context applicationContext, final int type) {
-        ArrayList<KeyboardExtension> all = msInstance
+        List<KeyboardExtension> all = msInstance
                 .getAllAddOns(applicationContext);
         ArrayList<KeyboardExtension> onlyAsked = new ArrayList<KeyboardExtension>();
         for (KeyboardExtension e : all) {

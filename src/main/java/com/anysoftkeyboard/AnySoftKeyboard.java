@@ -177,7 +177,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private boolean mAllowSuggestionsRestart = true;
 	private boolean mCurrentlyAllowSuggestionRestart = true;
 	private boolean mJustAutoAddedWord = false;
-	private boolean mSmileyOnShortPress;
+	private boolean mDoNotFlipQuickTextKeyAndPopupFunctionality;
 	private String mOverrideQuickTextText = null;
 	private boolean mAutoCap;
 	private boolean mQuickFixes;
@@ -987,25 +987,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public boolean onKeyDown(final int keyCode, @NonNull KeyEvent event) {
 		final boolean shouldTranslateSpecialKeys = isInputViewShown();
-		Log.d(TAG, "isInputViewShown=%s", shouldTranslateSpecialKeys);
+		Log.d(TAG, "isInputViewShown=%s, keycode=%d", shouldTranslateSpecialKeys, keyCode);
 
 		if (event.isPrintingKey())
 			onPhysicalKeyboardKeyPressed();
 		mHardKeyboardAction.initializeAction(event, mMetaState);
 
 		InputConnection ic = getCurrentInputConnection();
-		Log.d(TAG,
-				"Event: Key:"
-						+ event.getKeyCode()
-						+ " Shift:"
-						+ ((event.getMetaState() & KeyEvent.META_SHIFT_ON) != 0)
-						+ " ALT:"
-						+ ((event.getMetaState() & KeyEvent.META_ALT_ON) != 0)
-						+ " Repeats:" + event.getRepeatCount());
 
 		switch (keyCode) {
 			/****
-			 * SPEACIAL translated HW keys If you add new keys here, do not forget
+			 * SPECIAL translated HW keys If you add new keys here, do not forget
 			 * to add to the
 			 */
 			case KeyEvent.KEYCODE_CAMERA:
@@ -1043,26 +1035,19 @@ public class AnySoftKeyboard extends InputMethodService implements
 				// mark
 				return super.onKeyDown(keyCode, event);
 			/****
-			 * END of SPEACIAL translated HW keys code section
+			 * END of SPECIAL translated HW keys code section
 			 */
 			case KeyEvent.KEYCODE_BACK:
 				if (event.getRepeatCount() == 0 && mInputView != null) {
 					if (mInputView.handleBack()) {
 						// consuming the meta keys
 						if (ic != null) {
-							ic.clearMetaKeyStates(Integer.MAX_VALUE);// translated,
-							// so we
-							// also take
-							// care of
-							// the
-							// metakeys.
+							// translated, so we also take care of the metakeys
+							ic.clearMetaKeyStates(Integer.MAX_VALUE);
 						}
 						mMetaState = 0;
 						return true;
-					} /*
-				 * else if (mTutorial != null) { mTutorial.close(); mTutorial =
-				 * null; }
-				 */
+					}
 				}
 				break;
 			case 0x000000cc:// API 14: KeyEvent.KEYCODE_LANGUAGE_SWITCH
@@ -1227,6 +1212,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	@Override
 	public boolean onKeyUp(int keyCode, @NonNull KeyEvent event) {
+		Log.d(TAG, "onKeyUp keycode=%d", keyCode);
 		switch (keyCode) {
 			// Issue 248
 			case KeyEvent.KEYCODE_VOLUME_DOWN:
@@ -1640,36 +1626,17 @@ public class AnySoftKeyboard extends InputMethodService implements
 				onText(mAskPrefs.getDomainText());
 				break;
 			case KeyCodes.QUICK_TEXT:
-				QuickTextKey quickTextKey = QuickTextKeyFactory
-						.getCurrentQuickTextKey(this);
-
-				if (mSmileyOnShortPress) {
-					if (TextUtils.isEmpty(mOverrideQuickTextText))
-						onText(quickTextKey.getKeyOutputText());
-					else
-						onText(mOverrideQuickTextText);
+				if (mDoNotFlipQuickTextKeyAndPopupFunctionality) {
+					outputCurrentQuickTextKey();
 				} else {
-					if (quickTextKey.isPopupKeyboardUsed()) {
-						showQuickTextKeyPopupKeyboard(quickTextKey);
-					} else {
-						showQuickTextKeyPopupList(quickTextKey);
-					}
+					openQuickTextPopup(key);
 				}
 				break;
 			case KeyCodes.QUICK_TEXT_POPUP:
-				quickTextKey = QuickTextKeyFactory.getCurrentQuickTextKey(this);
-				if (quickTextKey.getId().equals(SMILEY_PLUGIN_ID)
-						&& !mSmileyOnShortPress) {
-					if (TextUtils.isEmpty(mOverrideQuickTextText))
-						onText(quickTextKey.getKeyOutputText());
-					else
-						onText(mOverrideQuickTextText);
+				if (mDoNotFlipQuickTextKeyAndPopupFunctionality) {
+					openQuickTextPopup(key);
 				} else {
-					if (quickTextKey.isPopupKeyboardUsed()) {
-						showQuickTextKeyPopupKeyboard(quickTextKey);
-					} else {
-						showQuickTextKeyPopupList(quickTextKey);
-					}
+					outputCurrentQuickTextKey();
 				}
 				break;
 			case KeyCodes.MODE_SYMOBLS:
@@ -1750,6 +1717,20 @@ public class AnySoftKeyboard extends InputMethodService implements
 				}
 				break;
 		}
+	}
+
+	private void openQuickTextPopup(Key key) {
+		if (mInputView != null) {
+			mInputView.showQuickKeysView(key);
+		}
+	}
+
+	private void outputCurrentQuickTextKey() {
+		QuickTextKey quickTextKey = QuickTextKeyFactory.getCurrentQuickTextKey(this);
+		if (TextUtils.isEmpty(mOverrideQuickTextText))
+			onText(quickTextKey.getKeyOutputText());
+		else
+			onText(mOverrideQuickTextText);
 	}
 
 	private boolean isConnectBot() {
@@ -2827,24 +2808,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 		mAutoCorrectOn = mAutoComplete;
 
-		// mCorrectionMode = mAutoComplete ? 2
-		// : (/*mShowSuggestions*/ mQuickFixes ? 1 : 0);
+		mDoNotFlipQuickTextKeyAndPopupFunctionality =
+				sp.getBoolean(getString(R.string.settings_key_do_not_flip_quick_key_codes_functionality),
+						getResources().getBoolean(R.bool.settings_default_do_not_flip_quick_keys_functionality));
 
-		mSmileyOnShortPress = sp
-				.getBoolean(
-						getString(R.string.settings_key_emoticon_long_press_opens_popup),
-						getResources()
-								.getBoolean(
-										R.bool.settings_default_emoticon_long_press_opens_popup));
-		// mSmileyPopupType =
-		// sp.getString(getString(R.string.settings_key_smiley_popup_type),
-		// getString(R.string.settings_default_smiley_popup_type));
-		mOverrideQuickTextText = sp.getString(
-				getString(R.string.settings_key_emoticon_default_text), null);
+		mOverrideQuickTextText = sp.getString(getString(R.string.settings_key_emoticon_default_text), null);
 
-		mMinimumWordCorrectionLength = sp
-				.getInt(getString(R.string.settings_key_min_length_for_word_correction__),
-						2);
+		mMinimumWordCorrectionLength = sp.getInt(getString(R.string.settings_key_min_length_for_word_correction__), 2);
 		if (mSuggest != null)
 			mSuggest.setMinimumWordLengthForCorrection(mMinimumWordCorrectionLength);
 
@@ -3207,11 +3177,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	private void showQuickTextKeyPopupKeyboard(QuickTextKey quickTextKey) {
 		if (mInputView != null) {
-            /*if (quickTextKey.getPackageContext() == getApplicationContext()) {
-                mInputView.simulateLongPress(KeyCodes.QUICK_TEXT);
-            } else {*/
 			mInputView.showQuickTextPopupKeyboard(quickTextKey);
-            /*}*/
 		}
 	}
 
@@ -3320,7 +3286,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	}
 
 	public void onCancel() {
-		// don't know what to do here.
+		hideWindow();
 	}
 
 	public void resetKeyboardView(boolean recreateView) {

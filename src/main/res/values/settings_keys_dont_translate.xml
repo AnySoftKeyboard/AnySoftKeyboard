@@ -27,7 +27,7 @@
     <string name="settings_key_emoticon_default_text">settings_key_emoticon_default_text</string>
     <string name="settings_key_smiley_icon_on_smileys_key">settings_key_smiley_icon_on_smileys_key</string>
 
-    <string name="settings_key_emoticon_long_press_opens_popup">emoticon_long_press_opens_popup</string>
+    <string name="settings_key_do_not_flip_quick_key_codes_functionality">settings_key_do_not_flip_quick_key_codes_functionality</string>
 
     <string name="settings_key_show_tips_notification">settings_key_show_tips_notification</string>
 
@@ -64,6 +64,7 @@
     <string name="settings_key_use_contacts_dictionary">settings_key_use_contacts_dictionary</string>
 
     <string name="settings_key_active_quick_text_key">settings_key_active_quick_text_key</string>
+    <string name="settings_key_ordered_active_quick_text_keys">settings_key_ordered_active_quick_text_keys</string>
 
     <string name="settings_key_ext_kbd_top_row_key">settings_key_ext_kbd_top_row_key</string>
     <string name="settings_key_ext_kbd_bottom_row_key">settings_key_ext_kbd_bottom_row_key</string>
