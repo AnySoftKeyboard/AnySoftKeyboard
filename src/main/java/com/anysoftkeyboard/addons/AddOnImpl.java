@@ -64,7 +64,7 @@ public abstract class AddOnImpl implements AddOn {
         Context c = mPackageContext.get();
         if (c == null) {
             try {
-                c = mAskAppContext.createPackageContext(mPackageName, PackageManager.GET_META_DATA);
+                c = mAskAppContext.createPackageContext(mPackageName, Context.CONTEXT_IGNORE_SECURITY);
                 mPackageContext = new WeakReference<>(c);
             } catch (NameNotFoundException e) {
 	            Log.w(TAG, "Failed to find package %s!", mPackageName);
@@ -81,4 +81,15 @@ public abstract class AddOnImpl implements AddOn {
     public String getName() {
         return mName;
     }
+
+	@Override
+	public int hashCode() {
+		return getId().hashCode();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		return o instanceof AddOn &&
+				((AddOn) o).getId().equals(getId());
+	}
 }

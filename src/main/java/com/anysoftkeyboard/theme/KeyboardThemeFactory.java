@@ -25,7 +25,7 @@ import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
 
@@ -41,7 +41,7 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
 
         String selectedThemeId = sharedPreferences.getString(settingKey, appContext.getString(R.string.settings_default_keyboard_theme_key));
         KeyboardTheme selectedTheme = null;
-        ArrayList<KeyboardTheme> themes = msInstance.getAllAddOns(appContext);
+        List<KeyboardTheme> themes = msInstance.getAllAddOns(appContext);
         if (selectedThemeId != null) {
             //Find the builder in the array by id. Mayne would've been better off with a HashSet
             for (KeyboardTheme aTheme : themes) {
@@ -65,7 +65,7 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
     }
 
 
-    public static ArrayList<KeyboardTheme> getAllAvailableThemes(Context applicationContext) {
+    public static List<KeyboardTheme> getAllAvailableThemes(Context applicationContext) {
         return msInstance.getAllAddOns(applicationContext);
     }
 
@@ -106,7 +106,7 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
 
     public static KeyboardTheme getFallbackTheme(Context appContext) {
         final String defaultThemeId = appContext.getString(R.string.settings_default_keyboard_theme_key);
-        ArrayList<KeyboardTheme> themes = msInstance.getAllAddOns(appContext);
+        List<KeyboardTheme> themes = msInstance.getAllAddOns(appContext);
         if (defaultThemeId != null) {
             //Find the builder in the array by id. Maybe would've been better off with a HashSet
             for (KeyboardTheme aTheme : themes) {

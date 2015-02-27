@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -26,7 +26,7 @@ public class KeyboardAddOnTest {
 	@Ignore("For some reason Robolectric(?) doesn't like missing attributes, although Android is fine with that")
 	@Test
 	public void testGetKeyboardDefaultEnabled() throws Exception {
-		ArrayList<KeyboardAddOnAndBuilder> enabledKeyboards = KeyboardFactory.getEnabledKeyboards(Robolectric.application);
+		List<KeyboardAddOnAndBuilder> enabledKeyboards = KeyboardFactory.getEnabledKeyboards(Robolectric.application);
 		//checking that ASK English is enabled
 		boolean askEnglishEnabled = false;
 		for (KeyboardAddOnAndBuilder addOnAndBuilder : enabledKeyboards) {
@@ -60,7 +60,7 @@ public class KeyboardAddOnTest {
 	}
 
 	private KeyboardAddOnAndBuilder getKeyboardFromFactory(String id) {
-		ArrayList<KeyboardAddOnAndBuilder> keyboards = KeyboardFactory.getAllAvailableKeyboards(Robolectric.application);
+		List<KeyboardAddOnAndBuilder> keyboards = KeyboardFactory.getAllAvailableKeyboards(Robolectric.application);
 
 		for (KeyboardAddOnAndBuilder addOnAndBuilder : keyboards) {
 			if (addOnAndBuilder.getId().equals(KeyboardAddOnAndBuilder.KEYBOARD_PREF_PREFIX + id)) {

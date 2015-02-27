@@ -16,7 +16,6 @@ import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.menny.android.anysoftkeyboard.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class QuickKeysPagerAdapter extends PagerAdapter {
@@ -79,7 +78,7 @@ public class QuickKeysPagerAdapter extends PagerAdapter {
 		}
 	};
 
-	public QuickKeysPagerAdapter(@NonNull Context context, @NonNull ArrayList<QuickTextKey> keyAddOns, OnKeyboardActionListener keyboardActionListener) {
+	public QuickKeysPagerAdapter(@NonNull Context context, @NonNull List<QuickTextKey> keyAddOns, @NonNull OnKeyboardActionListener keyboardActionListener) {
 		mContext = context;
 		mKeyboardActionListener = keyboardActionListener;
 		mAddOns = keyAddOns.toArray(new QuickTextKey[keyAddOns.size()]);

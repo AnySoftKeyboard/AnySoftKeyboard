@@ -23,11 +23,11 @@ import android.util.AttributeSet;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.anysoftkeyboard.utils.Log;
-import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.FeaturesSet;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder> {
@@ -50,12 +50,12 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder> {
         msInstance = new KeyboardFactory();
     }
 
-    public static ArrayList<KeyboardAddOnAndBuilder> getAllAvailableKeyboards(Context askContext) {
+    public static List<KeyboardAddOnAndBuilder> getAllAvailableKeyboards(Context askContext) {
         return msInstance.getAllAddOns(askContext);
     }
 
-    public static ArrayList<KeyboardAddOnAndBuilder> getEnabledKeyboards(Context askContext) {
-        final ArrayList<KeyboardAddOnAndBuilder> allAddOns = msInstance.getAllAddOns(askContext);
+    public static List<KeyboardAddOnAndBuilder> getEnabledKeyboards(Context askContext) {
+        final List<KeyboardAddOnAndBuilder> allAddOns = msInstance.getAllAddOns(askContext);
         Log.i(TAG, "Creating enabled addons list. I have a total of " + allAddOns.size() + " addons");
 
         //getting shared prefs to determine which to create.
