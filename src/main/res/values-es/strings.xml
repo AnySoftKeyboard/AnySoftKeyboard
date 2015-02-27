@@ -348,9 +348,6 @@
     </string>
   <string name="additional_addons_group">Complementos adicionales</string>
   <string name="quick_text_keys_group">Teclas de texto rápido</string>
-  <string name="quick_text_key_active">Tecla de texto rápido activa</string>
-  <string name="quick_text_key_dialog_title">Seleccione la tecla</string>
-  <string name="quick_text_key_summary">Tecla seleccionada para texto rápido: %s</string>
   <string name="extension_keyboards_group">Teclados de extensión</string>
   <string name="extension_keyboards_summary">Seleccione las filas arriba, abajo o teclado de extensión</string>
   <string name="top_generic_row_group">Fila superior genérica común</string>

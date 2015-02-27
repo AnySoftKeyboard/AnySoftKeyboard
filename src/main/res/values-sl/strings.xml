@@ -149,9 +149,6 @@
     <string name="eng_keyboard">Angleška</string>
     <string name="eng_keyboard_16keys">16 Tipk Angleščina</string>
     <string name="quick_text_keys_group">Tipke hitro besedilo</string>
-    <string name="quick_text_key_active">Aktiviraj tipko hitro besedilo</string>
-    <string name="quick_text_key_dialog_title">Izberite tipko</string>
-    <string name="quick_text_key_summary">Izberite tipko hitro besedilo za prikaz na tipkovnici</string>
     <string name="keyboard_theme_list_title">Izberite temo</string>
     <string name="extension_kbd_top_small">Majhne tipke</string>
     <string name="extension_kbd_extension_numbers_symbols">Številke in simboli</string>

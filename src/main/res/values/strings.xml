@@ -541,9 +541,9 @@
     <string name="additional_addons_group">Additional add-ons</string>
     <!-- settings - quick text keys -->
     <string name="quick_text_keys_group">Quick text keys</string>
-    <string name="quick_text_key_active">Active quick text key</string>
-    <string name="quick_text_key_dialog_title">Select key</string>
-    <string name="quick_text_key_summary">Selected Quick Text key: %s</string>
+    <string name="quick_text_keys_order">Order of Quick Text groups</string>
+    <string name="quick_text_keys_order_dialog_title">Define groups order</string>
+    <string name="quick_text_keys_order_summary">The order in which the Quick Text groups will be shown in the popup.</string>
 
     <!-- settings - extension keyboards -->
     <string name="extension_keyboards_group">Extension keyboards</string>
@@ -643,7 +643,14 @@
 
     <string name="simley_key_name">Smiley key</string>
     <string name="default_quick_text_key_name">Simple Emoticons</string>
-    <string name="unicode_quick_text_key_name">Unicode Emoticons</string>
+    <string name="unicode_quick_text_key_name">Emoticons</string>
+    <string name="unicode_people_quick_text_key_name">People</string>
+    <string name="unicode_gestures_quick_text_key_name">Gestures</string>
+    <string name="unicode_accessories_quick_text_key_name">Accessories</string>
+    <string name="unicode_animals_quick_text_key_name">Animals</string>
+    <string name="unicode_food_quick_text_key_name">Food</string>
+    <string name="unicode_nature_quick_text_key_name">Nature</string>
+    <string name="unicode_transport_quick_text_key_name">Transport</string>
 
     <string name="multitap_timeout_title">Multi-tap timeout</string>
     <string name="multitap_timeout_summary">Timeout between key taps</string>
@@ -792,4 +799,5 @@
     <string name="tutorial_menu_open_menu">The icon opens Settings</string>
     <string name="tutorial_menu_close_menu">And also closes it</string>
     <string name="main_fragment_go_to_settings_button">Go to Settings</string>
+    <string name="quick_text_tab_title_template"><xliff:g id="first_key">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
 </resources>

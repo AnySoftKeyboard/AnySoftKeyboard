@@ -291,8 +291,6 @@
   <string name="eng_keyboard_16keys">16 Tasti Inglese</string>
   <string name="additional_addons_group">Ulteriori add-on</string>
   <string name="quick_text_keys_group">Tasti testo rapido</string>
-  <string name="quick_text_key_active">Attiva tasto testo rapido</string>
-  <string name="quick_text_key_dialog_title">Seleziona tasto</string>
   <string name="extension_keyboards_group">Estensione tastiere</string>
   <string name="extension_keyboards_summary">Seleziona riga superiore o inferiore o estensione della tastiera</string>
   <string name="top_generic_row_group">Riga superiore generica comune</string>

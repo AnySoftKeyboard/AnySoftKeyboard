@@ -5,6 +5,13 @@
     <string name="quick_text_smiley_key_label">:-)</string>
     <string name="quick_text_smiley_key_output">:-)\u0020</string>
     <string name="quick_text_smiley_key_unicode_output">\uD83D\uDE03</string>
+    <string name="quick_text_smiley_key_unicode_people_output">\uD83D\uDC76</string>
+    <string name="quick_text_smiley_key_unicode_gestures_output">\uD83D\uDC8B</string>
+    <string name="quick_text_smiley_key_unicode_accessories_output">\uD83D\uDC84</string>
+    <string name="quick_text_smiley_key_unicode_animals_output">\uD83D\uDC15</string>
+    <string name="quick_text_smiley_key_unicode_food_output">\uD83C\uDF55</string>
+    <string name="quick_text_smiley_key_unicode_nature_output">\uD83C\uDF3B</string>
+    <string name="quick_text_smiley_key_unicode_transport_output">\uD83D\uDE97</string>
 
     <string name="copyright_owner">Menny Even-Danan</string>
 

@@ -118,8 +118,6 @@
   <string name="eng_keyboard">Engelsk</string>
   <string name="additional_addons_group">Yderligere tilføjelser</string>
   <string name="quick_text_keys_group">Hurtig tekst taster</string>
-  <string name="quick_text_key_active">Aktiv hurtig tekst knap</string>
-  <string name="quick_text_key_dialog_title">Vælg knap</string>
   <string name="extension_keyboards_group">Udvidelse tastaturer</string>
   <string name="extension_keyboards_summary">Vælg top, bund rækker eller udvidelse tastatur</string>
   <string name="top_generic_row_group">Fælles top generiske række</string>

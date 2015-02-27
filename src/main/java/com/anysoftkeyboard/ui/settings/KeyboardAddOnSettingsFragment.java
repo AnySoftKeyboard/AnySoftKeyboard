@@ -28,7 +28,8 @@ import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.PassengerFragmentSupport;
 
-import java.util.ArrayList;
+
+import java.util.List;
 
 public class KeyboardAddOnSettingsFragment extends PreferenceFragment {
 
@@ -46,7 +47,7 @@ public class KeyboardAddOnSettingsFragment extends PreferenceFragment {
         Activity activity = getActivity();
 	    PassengerFragmentSupport.setActivityTitle(this, getString(R.string.keyboards_group));
         // getting all keyboards
-        final ArrayList<KeyboardAddOnAndBuilder> creators = KeyboardFactory.getAllAvailableKeyboards(activity.getApplicationContext());
+        final List<KeyboardAddOnAndBuilder> creators = KeyboardFactory.getAllAvailableKeyboards(activity.getApplicationContext());
 
         keyboardsGroup.removeAll();
 

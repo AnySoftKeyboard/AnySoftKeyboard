@@ -26,6 +26,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndBuilder> {
 
@@ -44,7 +45,7 @@ public class ExternalDictionaryFactory extends AddOnsFactory<DictionaryAddOnAndB
         msInstance = new ExternalDictionaryFactory();
     }
 
-    public static ArrayList<DictionaryAddOnAndBuilder> getAllAvailableExternalDictionaries(Context askContext) {
+    public static List<DictionaryAddOnAndBuilder> getAllAvailableExternalDictionaries(Context askContext) {
         return msInstance.getAllAddOns(askContext);
     }
 

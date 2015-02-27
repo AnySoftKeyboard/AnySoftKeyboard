@@ -373,9 +373,6 @@
     </string>
   <string name="additional_addons_group">Další doplňky</string>
   <string name="quick_text_keys_group">Klávesy rychlého textu</string>
-  <string name="quick_text_key_active">Aktivní klávesa rychlého textu</string>
-  <string name="quick_text_key_dialog_title">Vyberte klávesu</string>
-  <string name="quick_text_key_summary">Vybraná klávesa rychlého textu: %s</string>
   <string name="extension_keyboards_group">Rozšiřující klávesnice</string>
   <string name="extension_keyboards_summary">Vyberte horní, dolní řádky nebo rozšiřující klávesnici</string>
   <string name="top_generic_row_group">Společná horní řádka</string>

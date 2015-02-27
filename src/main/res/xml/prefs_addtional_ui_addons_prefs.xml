@@ -3,6 +3,21 @@
     android:key="prefs_addons_screen">
 
     <PreferenceCategory
+        android:key="top_row_addons_group"
+        android:title="@string/top_generic_row_group">
+
+        <com.anysoftkeyboard.ui.settings.widget.AddOnListPreference
+            android:defaultValue="@string/settings_default_top_row_key"
+            android:dialogTitle="@string/top_generic_row_dialog_title"
+            android:entries="@array/pref_list_empty_types"
+            android:entryValues="@array/pref_list_empty_values"
+            android:key="@string/settings_key_ext_kbd_top_row_key"
+            android:persistent="true"
+            android:summary="@string/top_generic_row_summary"
+            android:title="@string/top_generic_row_list_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:key="bottom_row_addons_group"
         android:title="@string/bottom_generic_row_group"
         android:summary="@string/bottom_generic_row_group_summary">
@@ -16,21 +31,6 @@
             android:persistent="true"
             android:summary="@string/bottom_generic_row_summary"
             android:title="@string/bottom_generic_row_list_title" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:key="top_row_addons_group"
-        android:title="@string/top_generic_row_group">
-
-        <com.anysoftkeyboard.ui.settings.widget.AddOnListPreference
-            android:defaultValue="@string/settings_default_top_row_key"
-            android:dialogTitle="@string/top_generic_row_dialog_title"
-            android:entries="@array/pref_list_empty_types"
-            android:entryValues="@array/pref_list_empty_values"
-            android:key="@string/settings_key_ext_kbd_top_row_key"
-            android:persistent="true"
-            android:summary="@string/top_generic_row_summary"
-            android:title="@string/top_generic_row_list_title" />
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -52,15 +52,12 @@
         android:key="quick_key_addons_group"
         android:title="@string/quick_text_keys_group">
 
-        <com.anysoftkeyboard.ui.settings.widget.AddOnListPreference
-            android:defaultValue="@string/settings_default_quick_text_key"
-            android:dialogTitle="@string/quick_text_key_dialog_title"
-            android:entries="@array/pref_list_empty_types"
-            android:entryValues="@array/pref_list_empty_values"
+        <com.anysoftkeyboard.quicktextkeys.ui.QuickKeysOrderedListPreference
+            android:dialogTitle="@string/quick_text_keys_order_dialog_title"
             android:key="@string/settings_key_active_quick_text_key"
             android:persistent="true"
-            android:summary="@string/quick_text_key_summary"
-            android:title="@string/quick_text_key_active"/>
+            android:summary="@string/quick_text_keys_order_summary"
+            android:title="@string/quick_text_keys_order"/>
 
         <!-- putting this at the end, so the user will get some kind of context -->
         <com.anysoftkeyboard.ui.settings.widget.AddOnStoreSearchPreference
