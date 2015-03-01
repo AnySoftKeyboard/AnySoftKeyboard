@@ -23,7 +23,7 @@ public class QuickTextViewFactory {
 		List<QuickTextKey> list = QuickTextKeyFactory.getOrderedEnabledQuickKeys(context);
 
 		ViewPager pager = (ViewPager) rootView.findViewById(R.id.quick_text_keyboards_pager);
-		QuickKeysPagerAdapter adapter = new QuickKeysPagerAdapter(context, list, keyboardActionListener);
+		QuickKeysAsTextViewsPagerAdapter adapter = new QuickKeysAsTextViewsPagerAdapter(context, list, keyboardActionListener);
 		pager.setAdapter(adapter);
 
 		return rootView;
