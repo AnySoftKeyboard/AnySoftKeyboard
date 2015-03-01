@@ -18,7 +18,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.util.List;
 
-public class QuickKeysPagerAdapter extends PagerAdapter {
+public class QuickKeysAsTextViewsPagerAdapter extends PagerAdapter {
 
 	private static final KeyboardDimens msEmptyDimens = new KeyboardDimens() {
 		@Override
@@ -78,7 +78,7 @@ public class QuickKeysPagerAdapter extends PagerAdapter {
 		}
 	};
 
-	public QuickKeysPagerAdapter(@NonNull Context context, @NonNull List<QuickTextKey> keyAddOns, @NonNull OnKeyboardActionListener keyboardActionListener) {
+	public QuickKeysAsTextViewsPagerAdapter(@NonNull Context context, @NonNull List<QuickTextKey> keyAddOns, @NonNull OnKeyboardActionListener keyboardActionListener) {
 		mContext = context;
 		mKeyboardActionListener = keyboardActionListener;
 		mAddOns = keyAddOns.toArray(new QuickTextKey[keyAddOns.size()]);
