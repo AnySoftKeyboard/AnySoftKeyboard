@@ -16,22 +16,18 @@
 
 package com.anysoftkeyboard.utils;
 
+import android.annotation.TargetApi;
+import android.os.Build;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Locale;
 
 public class CompatUtils {
     private static final String TAG = "ASK CMPT_UTILS";
-
-    public static Class<?> getClass(String className) {
-        try {
-            return Class.forName(className);
-        } catch (ClassNotFoundException e) {
-            return null;
-        }
-    }
 
     public static Method getMethod(Class<?> targetClass, String name,
                                    Class<?>... parameterTypes) {
@@ -46,42 +42,7 @@ public class CompatUtils {
         return null;
     }
 
-    public static Field getField(Class<?> targetClass, String name) {
-        if (targetClass == null || TextUtils.isEmpty(name)) return null;
-        try {
-            return targetClass.getField(name);
-        } catch (SecurityException e) {
-            // ignore
-        } catch (NoSuchFieldException e) {
-            // ignore
-        }
-        return null;
-    }
-
-    public static Constructor<?> getConstructor(Class<?> targetClass, Class<?>... types) {
-        if (targetClass == null || types == null) return null;
-        try {
-            return targetClass.getConstructor(types);
-        } catch (SecurityException e) {
-            // ignore
-        } catch (NoSuchMethodException e) {
-            // ignore
-        }
-        return null;
-    }
-
-    public static Object newInstance(Constructor<?> constructor, Object... args) {
-        if (constructor == null) return null;
-        try {
-            return constructor.newInstance(args);
-        } catch (Exception e) {
-            Log.e(TAG, "Exception in newInstance: " + e.getClass().getSimpleName());
-        }
-        return null;
-    }
-
-    public static Object invoke(
-            Object receiver, Object defaultValue, Method method, Object... args) {
+    public static Object invoke(Object receiver, Object defaultValue, Method method, Object... args) {
         if (method == null) return defaultValue;
         try {
             return method.invoke(receiver, args);
@@ -91,22 +52,20 @@ public class CompatUtils {
         return defaultValue;
     }
 
-    public static Object getFieldValue(Object receiver, Object defaultValue, Field field) {
-        if (field == null) return defaultValue;
-        try {
-            return field.get(receiver);
-        } catch (Exception e) {
-            Log.e(TAG, "Exception in getFieldValue: " + e.getClass().getSimpleName());
-        }
-        return defaultValue;
-    }
-
-    public static void setFieldValue(Object receiver, Field field, Object value) {
-        if (field == null) return;
-        try {
-            field.set(receiver, value);
-        } catch (Exception e) {
-            Log.e(TAG, "Exception in setFieldValue: " + e.getClass().getSimpleName());
-        }
-    }
+	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+	public static Locale getLocaleForLanguageTag(@Nullable String locale) {
+		Locale parsedLocale = Locale.getDefault();
+		if (!TextUtils.isEmpty(locale)) {
+			try {
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+					parsedLocale = Locale.forLanguageTag(locale);
+				} else {
+					parsedLocale = new Locale(locale);
+				}
+			} catch (Exception e) {
+				Log.d(TAG, "Failed to parse locale '%s'. Defaulting to %s", parsedLocale);
+			}
+		}
+		return parsedLocale;
+	}
 }

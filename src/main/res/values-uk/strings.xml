@@ -6,7 +6,7 @@
   <string name="spell_checker_service_name">Перевірка орфографії AnySoftKeyboard</string>
   <string name="spell_checker_settings">Орфографічні налаштування AnySoftKeyboard</string>
   <string name="subtype_generic">Правопис-загальне</string>
-  <string name="copyright_text">Авторське право © <xliff:g id="year">%s</xliff:g> <xliff:g id="owner">%s</xliff:g></string>
+  <string name="copyright_text">Авторське право © <xliff:g id="year">%d</xliff:g> <xliff:g id="owner">%s</xliff:g></string>
   <string name="version_text"><xliff:g id="version_name">%s</xliff:g> (v<xliff:g id="version_number">%s</xliff:g>)</string>
   <string name="additional_licenses"><u>Додаткові ліцензії…</u></string>
   <string name="debug_tracing_starting">Трасування почалося!\nПереконайтеся, що ви зупините його в якийсь момент.</string>

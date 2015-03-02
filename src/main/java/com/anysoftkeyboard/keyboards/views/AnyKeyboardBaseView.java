@@ -1292,22 +1292,12 @@ public class AnyKeyboardBaseView extends View implements
     }
 
     private CharSequence adjustCase(AnyKey key) {
-        // if (mKeyboard.isShifted() && label != null && label.length() < 3
-        // && Character.isLowerCase(label.charAt(0))) {
-        // label = label.toString().toUpperCase();
-        // }
         CharSequence label = key.label;
-        // if (mKeyboard.isShifted() &&
-        // (!TextUtils.isEmpty(label)) &&
-        // Character.isLowerCase(label.charAt(0))) {
-        // label = label.toString().toUpperCase();
-        // }
         if (mKeyboard.isShifted()) {
             if (!TextUtils.isEmpty(key.shiftedKeyLabel))
                 label = key.shiftedKeyLabel;
-            else if (!TextUtils.isEmpty(label)
-                    && Character.isLowerCase(label.charAt(0)))
-                label = label.toString().toUpperCase();
+            else if (!TextUtils.isEmpty(label) && Character.isLowerCase(label.charAt(0)))
+                label = label.toString().toUpperCase(getKeyboard().getLocale());
         }
         return label;
     }
@@ -1700,12 +1690,11 @@ public class AnyKeyboardBaseView extends View implements
                     }
 
                     if (mKeyboard.isShifted())
-                        hintText = hintText.toUpperCase();
+                        hintText = hintText.toUpperCase(getKeyboard().getLocale());
 
                     // now draw hint
                     paint.setTypeface(Typeface.DEFAULT);
-                    paint.setColor(hintColor.getColorForState(drawableState,
-                            0xFF000000));
+                    paint.setColor(hintColor.getColorForState(drawableState, 0xFF000000));
                     paint.setTextSize(mHintTextSize);
                     // get the hint text font metrics so that we know the size
                     // of the hint when
@@ -1722,7 +1711,7 @@ public class AnyKeyboardBaseView extends View implements
                     // a little more room
                     // in case the theme designer didn't account for the hint
                     // label location
-                    if (hintAlign == Gravity.LEFT) {
+                    if (hintAlign == Gravity.START) {
                         // left
                         paint.setTextAlign(Paint.Align.LEFT);
                         hintX = mKeyBackgroundPadding.left + (float) 0.5;

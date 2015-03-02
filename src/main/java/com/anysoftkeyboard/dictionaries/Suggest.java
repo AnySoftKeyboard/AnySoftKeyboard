@@ -17,10 +17,13 @@
 package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.anysoftkeyboard.WordComposer;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
+import com.anysoftkeyboard.utils.CompatUtils;
 import com.anysoftkeyboard.utils.IMEUtil;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
@@ -29,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * This class loads a dictionary and provides a list of suggestions for a given
@@ -39,6 +43,8 @@ public class Suggest implements Dictionary.WordCallback {
     private static final String TAG = "ASK Suggest";
 
     private Dictionary mMainDict;
+	@NonNull
+	private Locale mLocale = Locale.getDefault();
     private AutoText mAutoText;
 
     private int mMinimumWordSizeToStartCorrecting = 2;
@@ -109,15 +115,13 @@ public class Suggest implements Dictionary.WordCallback {
         mUserDictionary = userDictionary;
     }
 
-    public void setMainDictionary(Context askContext, DictionaryAddOnAndBuilder dictionaryBuilder) {
-        Log.d(TAG,
-                "Suggest: Got main dictionary! Type: "
-                        + ((dictionaryBuilder == null) ? "NULL"
-                        : dictionaryBuilder.getName()));
+    public void setMainDictionary(Context askContext, @Nullable DictionaryAddOnAndBuilder dictionaryBuilder) {
+        Log.d(TAG, "Suggest: Got main dictionary! Type: " + ((dictionaryBuilder == null) ? "NULL" : dictionaryBuilder.getName()));
         if (mMainDict != null) {
             mMainDict.close();
             mMainDict = null;
         }
+	    mLocale = CompatUtils.getLocaleForLanguageTag(dictionaryBuilder == null? null : dictionaryBuilder.getLanguage());
 
         if (mAbbreviationDictionary != null) {
             mAbbreviationDictionary.close();
@@ -222,9 +226,7 @@ public class Suggest implements Dictionary.WordCallback {
      *
      * @return list of suggestions.
      */
-    public List<CharSequence> getSuggestions(
-            /* View view, */WordComposer wordComposer,
-            boolean includeTypedWordIfValid) {
+    public List<CharSequence> getSuggestions(/* View view, */WordComposer wordComposer, boolean includeTypedWordIfValid) {
 	    mExplodedAbbreviations.clear();
 	    mHaveCorrection = false;
         mIsFirstCharCapitalized = wordComposer.isFirstCharCapitalized();
@@ -236,7 +238,7 @@ public class Suggest implements Dictionary.WordCallback {
         mOriginalWord = wordComposer.getTypedWord();
         if (mOriginalWord.length() > 0) {
             mOriginalWord = mOriginalWord.toString();
-            mLowerOriginalWord = mOriginalWord.toString().toLowerCase();
+            mLowerOriginalWord = mOriginalWord.toString().toLowerCase(mLocale);
         } else {
             mLowerOriginalWord = "";
         }
@@ -297,7 +299,7 @@ public class Suggest implements Dictionary.WordCallback {
         if (!mMainDictionaryEnabled && mAutoTextEnabled)
             max = 1;
         while (i < mSuggestions.size() && i < max) {
-            String suggestedWord = mSuggestions.get(i).toString().toLowerCase();
+            String suggestedWord = mSuggestions.get(i).toString().toLowerCase(mLocale);
 
             CharSequence autoText = mAutoTextEnabled && mAutoText != null ? mAutoText
                     .lookup(suggestedWord, 0, suggestedWord.length()) : null;
@@ -332,8 +334,7 @@ public class Suggest implements Dictionary.WordCallback {
 
         if (originalLength == length) {
             for (int i = 0; i < originalLength; i++) {
-                if (lowerOriginalWord.charAt(i) != Character
-                        .toLowerCase(word[offset + i])) {
+                if (lowerOriginalWord.charAt(i) != Character.toLowerCase(word[offset + i])) {
                     return false;
                 }
             }
@@ -381,7 +382,7 @@ public class Suggest implements Dictionary.WordCallback {
                 .remove(poolSize - 1) : new StringBuilder(32);
         sb.setLength(0);
         if (mIsAllUpperCase) {
-            sb.append(new String(word, offset, length).toUpperCase());
+            sb.append(new String(word, offset, length).toUpperCase(mLocale));
         } else if (mIsFirstCharCapitalized) {
             sb.append(Character.toUpperCase(word[offset]));
             if (length > 1) {

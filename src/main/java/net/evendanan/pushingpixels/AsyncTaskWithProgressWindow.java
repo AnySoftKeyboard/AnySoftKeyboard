@@ -32,7 +32,7 @@ public abstract class AsyncTaskWithProgressWindow<Params, Progress, Result, A ex
         Activity getActivity();
     }
 
-    private static final String TAG = "AsyncTaskWithProgressWindow";
+    private static final String TAG = "ATaskProgressWindow";
 
     private final WeakReference<A> mActivity;
 

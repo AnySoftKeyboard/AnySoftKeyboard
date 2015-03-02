@@ -18,6 +18,7 @@ package com.anysoftkeyboard.keyboards;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Xml;
@@ -28,6 +29,7 @@ import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
+import com.anysoftkeyboard.utils.CompatUtils;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
@@ -35,6 +37,7 @@ import org.xmlpull.v1.XmlPullParser;
 
 import java.text.ParseException;
 import java.util.HashSet;
+import java.util.Locale;
 
 public class ExternalAnyKeyboard extends AnyKeyboard implements
 		HardKeyboardTranslator {
@@ -58,6 +61,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements
 	private final String mName;
 	private final int mIconId;
 	private final String mDefaultDictionary;
+	private final Locale mLocale;
 	private final HardKeyboardSequenceHandler mHardKeyboardTranslator;
 	private final HashSet<Character> mAdditionalIsLetterExceptions;
 	private final HashSet<Character> mSentenceSeparators;
@@ -77,6 +81,8 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements
 		mName = name;
 		mIconId = iconResId;
 		mDefaultDictionary = defaultDictionary;
+		mLocale = CompatUtils.getLocaleForLanguageTag(mDefaultDictionary);
+
 		if (qwertyTranslationId != AddOn.INVALID_RES_ID) {
 			Log.d(TAG, "Creating qwerty mapping:" + qwertyTranslationId);
 			mHardKeyboardTranslator = createPhysicalTranslatorFromResourceId(
@@ -85,16 +91,14 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements
 			mHardKeyboardTranslator = null;
 		}
 
-		mAdditionalIsLetterExceptions = new HashSet<Character>(
-				additionalIsLetterExceptions != null ? additionalIsLetterExceptions
-						.length() : 0);
+		mAdditionalIsLetterExceptions = new HashSet<>(
+				additionalIsLetterExceptions != null ? additionalIsLetterExceptions.length() : 0);
 		if (additionalIsLetterExceptions != null) {
 			for (int i = 0; i < additionalIsLetterExceptions.length(); i++)
 				mAdditionalIsLetterExceptions.add(additionalIsLetterExceptions
 						.charAt(i));
 		}
-		mSentenceSeparators = new HashSet<Character>(
-				sentenceSeparators != null ? sentenceSeparators.length() : 0);
+		mSentenceSeparators = new HashSet<>(sentenceSeparators != null ? sentenceSeparators.length() : 0);
 		if (sentenceSeparators != null) {
 			for (int i = 0; i < sentenceSeparators.length(); i++)
 				mSentenceSeparators.add(sentenceSeparators.charAt(i));
@@ -257,6 +261,10 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements
 	@Override
 	public String getDefaultDictionaryLocale() {
 		return mDefaultDictionary;
+	}
+
+	public Locale getLocale() {
+		return mLocale;
 	}
 
 	@Override
