@@ -2274,9 +2274,7 @@ public class AnyKeyboardBaseView extends View implements
                                   boolean isSticky, boolean requireSlideInto) {
         if (popupKey.popupResId == 0) return false;
 
-        if (mMiniKeyboard == null) {
-            createMiniKeyboard();
-        }
+	    ensureMiniKeyboardInitialized();
 
         AnyPopupKeyboard popupKeyboard = setupMiniKeyboardContainer(packageContext, popupKey, isSticky);
         if (mWindowOffset == null) {
@@ -2343,8 +2341,10 @@ public class AnyKeyboardBaseView extends View implements
     }
 
 	public void showQuickKeysView(Key popupKey) {
-		View innerView = QuickTextViewFactory.createQuickTextView(getContext(), null, mChildKeyboardActionListener);
-
+		ensureMiniKeyboardInitialized();
+		View innerView = QuickTextViewFactory.createQuickTextView(getContext(), mChildKeyboardActionListener);
+		innerView.setBackgroundDrawable(mMiniKeyboard.getBackground());
+		
 		innerView.measure(
 				View.MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.EXACTLY),
 				View.MeasureSpec.makeMeasureSpec(getHeight(), MeasureSpec.AT_MOST));
@@ -2379,7 +2379,9 @@ public class AnyKeyboardBaseView extends View implements
         invalidateAllKeys();
     }
 
-    public void createMiniKeyboard() {
+    public void ensureMiniKeyboardInitialized() {
+	    if (mMiniKeyboard != null) return;
+
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mMiniKeyboard = (AnyKeyboardBaseView) inflater.inflate(R.layout.popup_keyboard_layout, null);
 
