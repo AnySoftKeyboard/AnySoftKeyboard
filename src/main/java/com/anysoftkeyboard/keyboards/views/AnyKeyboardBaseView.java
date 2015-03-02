@@ -1126,7 +1126,7 @@ public class AnyKeyboardBaseView extends View implements
      * @see Keyboard
      * @see #getKeyboard()
      */
-    public void setKeyboard(AnyKeyboard keyboard) {
+    public final void setKeyboard(AnyKeyboard keyboard) {
         setKeyboard(keyboard, mVerticalCorrection);
     }
 
