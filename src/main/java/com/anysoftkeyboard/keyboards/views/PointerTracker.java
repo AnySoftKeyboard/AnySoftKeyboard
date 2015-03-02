@@ -189,8 +189,8 @@ public class PointerTracker {
     }
 
     public void setKeyboard(Key[] keys, float keyHysteresisDistance) {
-        if (keys == null || keyHysteresisDistance < 0)
-            throw new IllegalArgumentException();
+        if (keys == null || keyHysteresisDistance < 0) throw new IllegalArgumentException();
+
         mKeys = keys;
         mKeyHysteresisDistanceSquared = (int) (keyHysteresisDistance * keyHysteresisDistance);
         // Mark that keyboard layout has been changed.

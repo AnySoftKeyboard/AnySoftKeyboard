@@ -35,6 +35,7 @@ import android.graphics.drawable.NinePatchDrawable;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.support.v4.view.MotionEventCompat;
 import android.text.Layout.Alignment;
 import android.text.StaticLayout;
@@ -172,7 +173,6 @@ public class AnyKeyboardBaseView extends View implements
     private int mMiniKeyboardOriginY;
     private long mMiniKeyboardPopupTime;
     private int[] mWindowOffset;
-    private final float mMiniKeyboardSlideAllowance;
     private int mMiniKeyboardTrackerId;
     protected AnimationsLevel mAnimationLevel = AnyApplication.getConfig()
             .getAnimationsLevel();
@@ -193,7 +193,7 @@ public class AnyKeyboardBaseView extends View implements
     private long mLastTimeHadTwoFingers = 0;
     private int mOldPointerCount = 1;
 
-    protected KeyDetector mKeyDetector = new ProximityKeyDetector();
+    private final KeyDetector mKeyDetector;
 
     // Swipe gesture detector
     private GestureDetector mGestureDetector;
@@ -517,8 +517,7 @@ public class AnyKeyboardBaseView extends View implements
     }
 
     public AnyKeyboardBaseView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-
+	    super(context, attrs, defStyle);
         //creating the KeyDrawableStateProvider, as it suppose to be backward compatible
         int keyTypeFunctionAttrId = R.attr.key_type_function;
         int keyActionAttrId = R.attr.key_type_action;
@@ -699,8 +698,8 @@ public class AnyKeyboardBaseView extends View implements
 
         reloadSwipeThresholdsSettings(res);
 
-        mMiniKeyboardSlideAllowance = res.getDimension(R.dimen.mini_keyboard_slide_allowance);
-
+	    final float slide = res.getDimension(R.dimen.mini_keyboard_slide_allowance);
+		mKeyDetector = createKeyDetector(slide);
         AskOnGestureListener listener = new AskGestureEventsListener(this);
 
         mGestureDetector = AnyApplication.getDeviceSpecific()
@@ -717,7 +716,11 @@ public class AnyKeyboardBaseView extends View implements
         AnyApplication.getConfig().addChangedListener(this);
     }
 
-    protected ViewGroup inflatePreviewWindowLayout(LayoutInflater inflate) {
+	protected KeyDetector createKeyDetector(final float slide) {
+		return new MiniKeyboardKeyDetector(slide);
+	}
+
+	protected ViewGroup inflatePreviewWindowLayout(LayoutInflater inflate) {
         return (ViewGroup) inflate.inflate(R.layout.key_preview, null);
     }
 
@@ -1138,8 +1141,7 @@ public class AnyKeyboardBaseView extends View implements
         mKeyboard = keyboard;
         mKeyboardName = keyboard != null ? keyboard.getKeyboardName() : null;
         mKeys = mKeyDetector.setKeyboard(keyboard);
-        mKeyDetector.setCorrection(-getPaddingLeft(), -getPaddingTop()
-                + verticalCorrection);
+        mKeyDetector.setCorrection(-getPaddingLeft(), -getPaddingTop() + verticalCorrection);
         for (PointerTracker tracker : mPointerTrackers) {
             tracker.setKeyboard(mKeys, mKeyHysteresisDistance);
         }
@@ -2344,7 +2346,7 @@ public class AnyKeyboardBaseView extends View implements
 		ensureMiniKeyboardInitialized();
 		View innerView = QuickTextViewFactory.createQuickTextView(getContext(), mChildKeyboardActionListener);
 		innerView.setBackgroundDrawable(mMiniKeyboard.getBackground());
-		
+
 		innerView.measure(
 				View.MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.EXACTLY),
 				View.MeasureSpec.makeMeasureSpec(getHeight(), MeasureSpec.AT_MOST));
@@ -2391,8 +2393,6 @@ public class AnyKeyboardBaseView extends View implements
         ((KeyboardDimensFromTheme) mMiniKeyboard.getThemedKeyboardDimens()).setKeyMaxWidth(mMiniKeyboard.getThemedKeyboardDimens().getNormalKeyHeight());
 
         mMiniKeyboard.setOnKeyboardActionListener(mChildKeyboardActionListener);
-        // Override default ProximityKeyDetector.
-        mMiniKeyboard.mKeyDetector = new MiniKeyboardKeyDetector(mMiniKeyboardSlideAllowance);
         // Remove gesture detector on mini-keyboard
         mMiniKeyboard.mGestureDetector = null;
     }
@@ -2429,8 +2429,7 @@ public class AnyKeyboardBaseView extends View implements
         // Create pointer trackers until we can get 'id+1'-th tracker, if
         // needed.
         for (int i = pointers.size(); i <= id; i++) {
-            final PointerTracker tracker = new PointerTracker(i, mHandler,
-                    mKeyDetector, this, getResources());
+            final PointerTracker tracker = new PointerTracker(i, mHandler, mKeyDetector, this, getResources());
             if (keys != null)
                 tracker.setKeyboard(keys, mKeyHysteresisDistance);
             if (listener != null)
@@ -2450,7 +2449,7 @@ public class AnyKeyboardBaseView extends View implements
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent nativeMotionEvent) {
+    public boolean onTouchEvent(@NonNull MotionEvent nativeMotionEvent) {
         if (mKeyboard == null)//I mean, if there isn't any keyboard I'm handling, what's the point?
             return false;
         final int action = MotionEventCompat.getActionMasked(nativeMotionEvent);
@@ -2611,9 +2610,7 @@ public class AnyKeyboardBaseView extends View implements
             if (index >= 0) {
                 mPointerQueue.releaseAllPointersOlderThan(tracker, eventTime);
             } else {
-                Log.w(TAG,
-                        "onUpEvent: corresponding down event not found for pointer "
-                                + tracker.mPointerId);
+                Log.w(TAG, "onUpEvent: corresponding down event not found for pointer " + tracker.mPointerId);
                 return;
             }
         }
