@@ -10,6 +10,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
+import org.robolectric.annotation.Config;
 import org.robolectric.RobolectricTestRunner;
 
 import java.util.HashSet;
@@ -41,6 +42,7 @@ public class AddOnsFactoryTest {
 
 	@Ignore()
 	@Test(expected = UnsupportedOperationException.class)
+	@Config(reportSdk = 18, emulateSdk = 18)
 	public void testGetAllAddOns() throws Exception {
 		TestableAddOnsFactory factory = new TestableAddOnsFactory();
 		List<TestAddOn> list = factory.getAllAddOns(Robolectric.application);

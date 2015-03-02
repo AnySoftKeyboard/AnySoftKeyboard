@@ -23,6 +23,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
+import org.robolectric.annotation.Config;
 import org.robolectric.RobolectricTestRunner;
 
 import static org.junit.Assert.assertNotNull;
@@ -40,6 +41,7 @@ public class BTreeDictionaryTest {
 	}
 
 	@Test
+	@Config(reportSdk = 18, emulateSdk = 18)
 	public void testLoadDictionary() throws Exception {
 		//no words now
 		Assert.assertFalse(mDictionaryUnderTest.isValidWord((String) TestableBTreeDictionary.STORAGE[0][1]));

@@ -2300,9 +2300,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// || mCorrectionMode == mSuggest.CORRECTION_FULL;
 		CharSequence typedWord = mWord.getTypedWord();
 		// If we're in basic correct
-		boolean typedWordValid = mSuggest.isValidWord(typedWord);/*
-		        || (preferCapitalization() && mSuggest.isValidWord(typedWord
-                .toString().toLowerCase()));*/
+		boolean typedWordValid = mSuggest.isValidWord(typedWord);
 
 		if (mShowSuggestions || mQuickFixes) {
 			correctionAvailable |= typedWordValid;
@@ -2390,8 +2388,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 					// that the word was
 					// auto-added upon
 					// picking
-					&& !mSuggest.isValidWord(suggestion.toString()
-					.toLowerCase());
+					&& !mSuggest.isValidWord(suggestion.toString().toLowerCase(getCurrentKeyboard().getLocale()));
 
 			if (!mJustAutoAddedWord) {
 				/*
@@ -2428,7 +2425,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private CharSequence pickSuggestion(CharSequence suggestion,
 	                                    boolean correcting) {
 		if (mShiftKeyState.isLocked()) {
-			suggestion = suggestion.toString().toUpperCase();
+			suggestion = suggestion.toString().toUpperCase(getCurrentKeyboard().getLocale());
 		} else if (preferCapitalization()
 				|| (mKeyboardSwitcher.isAlphabetMode() && (mInputView != null) && mInputView
 				.isShifted())) {

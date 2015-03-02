@@ -222,18 +222,18 @@ public class WordComposer {
             codes[0] = primaryCode;
         }*/
         if (nearByKeyCodes != null && nearByKeyCodes.length > 1 && primaryCode != nearByKeyCodes[0] && primaryCode != Character.toLowerCase((char) nearByKeyCodes[0])) {
-            int swapedItem = nearByKeyCodes[0];
+            int swappedItem = nearByKeyCodes[0];
             nearByKeyCodes[0] = primaryCode;
             boolean found = false;
             for (int i = 1; i < nearByKeyCodes.length; i++) {
                 if (nearByKeyCodes[i] == primaryCode) {
-                    nearByKeyCodes[i] = swapedItem;
+                    nearByKeyCodes[i] = swappedItem;
                     found = true;
                     break;
                 }
             }
             if (!found) //reverting
-                nearByKeyCodes[0] = swapedItem;
+                nearByKeyCodes[0] = swappedItem;
         }
     }
 

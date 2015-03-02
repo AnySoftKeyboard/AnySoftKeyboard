@@ -9,7 +9,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.1.0'
-        classpath 'org.robolectric:robolectric-gradle-plugin:1.0.0'
+        classpath 'org.robolectric:robolectric-gradle-plugin:1.0.1'
         classpath 'com.jakewharton.sdkmanager:gradle-plugin:0.12.0'
     }
 }
@@ -50,7 +50,7 @@ android {
 
         buildConfigField "String", "CRASH_REPORT_EMAIL_ADDRESS", '"'+support_email_address+'"'
 
-        testInstrumentationRunner "com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
@@ -98,11 +98,6 @@ android {
             debuggable true
         }
     }
-    sourceSets {
-        androidTest {
-            setRoot('src/test')
-        }
-    }
 }
 
 robolectric {
@@ -130,36 +125,9 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:21.0.3'
     compile 'com.android.support:support-annotations:21.0.0'
     compile fileTree(dir: 'libs', include: '*.jar')
-    androidTestCompile 'junit:junit:4.11'
-    androidTestCompile 'net.evendanan.anysoftkeyboard:api:1.2.3@aar'
 
-    androidTestCompile('org.robolectric:robolectric:2.4') {
-        exclude module: 'classworlds'
-        exclude module: 'maven-artifact'
-        exclude module: 'maven-artifact-manager'
-        exclude module: 'maven-error-diagnostics'
-        exclude module: 'maven-model'
-        exclude module: 'maven-plugin-registry'
-        exclude module: 'maven-profile'
-        exclude module: 'maven-project'
-        exclude module: 'maven-settings'
-        exclude module: 'nekohtml'
-        exclude module: 'plexus-container-default'
-        exclude module: 'plexus-interpolation'
-        exclude module: 'plexus-utils'
-        exclude module: 'wagon-file'
-        exclude module: 'wagon-http-lightweight'
-        exclude module: 'wagon-http-shared'
-        exclude module: 'wagon-provider-api'
-    }
-    androidTestCompile 'org.mockito:mockito-core:1.9.5'
-    androidTestCompile 'com.squareup:fest-android:1.0.8'
-}
-
-apply plugin: 'idea'
-
-idea {
-    module {
-        testOutputDir = file('build/test-classes/debug')
-    }
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.robolectric:robolectric:2.4'
+    testCompile 'org.mockito:mockito-core:1.9.5'
+    testCompile 'com.squareup:fest-android:1.0.8'
 }

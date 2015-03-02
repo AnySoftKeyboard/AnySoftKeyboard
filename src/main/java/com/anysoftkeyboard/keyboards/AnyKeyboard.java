@@ -43,11 +43,12 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 
 public abstract class AnyKeyboard extends Keyboard {
     private final static String TAG = "ASK - AK";
 
-    public interface HardKeyboardAction {
+	public interface HardKeyboardAction {
         int getKeyCode();
 
         boolean isAltActive();
@@ -464,6 +465,10 @@ public abstract class AnyKeyboard extends Keyboard {
     }
 
     public abstract String getDefaultDictionaryLocale();
+
+	public Locale getLocale() {
+		return Locale.getDefault();
+	}
 
     // this function is called from within the super constructor.
     @Override
