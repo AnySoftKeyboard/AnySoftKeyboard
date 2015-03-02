@@ -26,6 +26,7 @@ def localproperties.LocalPropertiesFile localExtraProperties = new localproperti
 def localproperties.LocalPropertiesFile localSigningProperties = new localproperties.LocalPropertiesFile(new File(projectDir, 'local.signing.properties'))
 
 android {
+
     packagingOptions {
         exclude 'LICENSE.txt'
         exclude 'META-INF/LICENSE'
@@ -37,6 +38,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
+        applicationId 'com.menny.android.anysoftkeyboard'
         versionCode 132
         versionName project.version
 
@@ -98,14 +100,6 @@ android {
             debuggable true
         }
     }
-}
-
-robolectric {
-    include '**/*Test.class'
-    exclude '**/espresso/**/*.class'
-
-    // configure max heap size of the test JVM
-    maxHeapSize = "2048m"
 }
 
 dependencies {
