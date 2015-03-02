@@ -105,17 +105,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         mGesturePreviewTextColorBlue = mGesturePreviewTextColor & 0x000000FF;
     }
 
-	/*
-     * protected void createGestureSlideAnimation() {
-	 * mGestureSlideReachedAnimation =
-	 * AnimationUtils.loadAnimation(getContext().getApplicationContext(),
-	 * R.anim.gesture_slide_threshold_reached); }
-	 */
-
-    protected String getKeyboardViewNameForLogging() {
-        return "AnyKeyboardView";
-    }
-
     @Override
     protected ViewGroup inflatePreviewWindowLayout(LayoutInflater inflate) {
         ViewGroup v = super.inflatePreviewWindowLayout(inflate);
@@ -133,12 +122,12 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     }
 
     @Override
-    public void setKeyboard(AnyKeyboard newKeyboard) {
+    public void setKeyboard(AnyKeyboard newKeyboard, float verticalCorrection) {
         mExtensionKey = null;
         mExtensionVisible = false;
 
         mUtilityKey = null;
-        super.setKeyboard(newKeyboard);
+        super.setKeyboard(newKeyboard, verticalCorrection);
         if (newKeyboard != null && newKeyboard instanceof GenericKeyboard
                 && ((GenericKeyboard) newKeyboard).disableKeyPreviews()) {
             // Phone keyboard never shows popup preview (except language
@@ -158,15 +147,17 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         // mLastRowY = (newKeyboard.getHeight() * 3) / 4;
         // setKeyboardLocal(newKeyboard);
 
-        // looking for the spacebar, so I'll be able to detect swipes starting
+        // looking for the space-bar, so I'll be able to detect swipes starting
         // at it
         mSpaceBarKey = null;
-        for (Key aKey : newKeyboard.getKeys()) {
-            if (aKey.codes[0] == (int) ' ') {
-                mSpaceBarKey = aKey;
-                break;
-            }
-        }
+	    if (newKeyboard != null) {
+		    for (Key aKey : newKeyboard.getKeys()) {
+			    if (aKey.codes[0] == (int) ' ') {
+				    mSpaceBarKey = aKey;
+				    break;
+			    }
+		    }
+	    }
     }
 
     @Override
@@ -200,14 +191,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     private boolean invokeOnKey(int primaryCode, Key key, int multiTapIndex) {
         getOnKeyboardActionListener().onKey(primaryCode, key, multiTapIndex, null, false);
         return true;
-    }
-
-    public boolean isShiftLocked() {
-        AnyKeyboard keyboard = getKeyboard();
-        if (keyboard != null) {
-            return keyboard.isShiftLocked();
-        }
-        return false;
     }
 
     public boolean setShiftLocked(boolean shiftLocked) {
@@ -579,23 +562,15 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
      * /heads/master
      * /core/java/android/view/animation/DecelerateInterpolator.java
      */
-    private float getPopOutAnimationInterpolator(float input) {
-        float result;
-        if (mPopOutAnimationFactor == 1.0f) {
-            result = (float) (1.0f - (1.0f - input) * (1.0f - input));
-        } else {
-            result = (float) (1.0f - Math.pow((1.0f - input),
-                    2 * mPopOutAnimationFactor));
-        }
-        return result;
+    private static float getPopOutAnimationInterpolator(float input) {
+        return (1.0f - (1.0f - input) * (1.0f - input));
     }
 
     private CharSequence mPopOutText = null;
     private long mPopOutTime = 0;
     private final Point mPopOutStartPoint = new Point();
-    private float mPopOutAnimationFactor = 1.0f;
 
-    public void popTextOutOfKey(CharSequence text) {
+	public void popTextOutOfKey(CharSequence text) {
         if (TextUtils.isEmpty(text)) {
             Log.w(TAG, "Call for popTextOutOfKey with missing text argument!");
             return;

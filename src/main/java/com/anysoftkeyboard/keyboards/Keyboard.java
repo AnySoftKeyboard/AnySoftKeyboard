@@ -738,6 +738,21 @@ public abstract class Keyboard {
         return mTotalWidth;
     }
 
+	public void resetDimensions() {
+		mTotalWidth = 0;
+		mTotalHeight = 0;
+		for (Key key : mKeys) {
+			int x = key.x + key.gap + key.width;
+			if (x > mTotalWidth) {
+				mTotalWidth = x;
+			}
+			int y = key.y + key.height;
+			if (y > mTotalHeight) {
+				mTotalHeight = y;
+			}
+		}
+	}
+
     public boolean setShifted(boolean shiftState) {
         if (mShiftKey != null) {
             mShiftKey.on = shiftState;

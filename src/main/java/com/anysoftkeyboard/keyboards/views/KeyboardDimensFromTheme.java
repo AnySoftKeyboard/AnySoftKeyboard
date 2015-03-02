@@ -63,8 +63,8 @@ class KeyboardDimensFromTheme implements KeyboardDimens {
         mMaxKeyboardWidth = maxKeyboardWidth;
     }
 
-    void setHorizontalKeyGap(float themeHorizotalKeyGap) {
-        mKeyHorizontalGap = themeHorizotalKeyGap;
+    void setHorizontalKeyGap(float themeHorizontalKeyGap) {
+        mKeyHorizontalGap = themeHorizontalKeyGap;
     }
 
     void setVerticalRowGap(float themeVerticalRowGap) {
