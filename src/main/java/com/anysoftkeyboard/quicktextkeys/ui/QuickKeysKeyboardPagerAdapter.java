@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
-import com.anysoftkeyboard.keyboards.views.AutoRowsKeyboardView;
+import com.anysoftkeyboard.keyboards.views.QuickKeysKeyboardView;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.menny.android.anysoftkeyboard.R;
@@ -46,7 +46,7 @@ public class QuickKeysKeyboardPagerAdapter extends PagerAdapter {
 		View root = mLayoutInflater.inflate(R.layout.quick_text_popup_autorowkeyboard_view, container, false);
 		container.addView(root);
 
-		final AutoRowsKeyboardView keyboardView = (AutoRowsKeyboardView) root.findViewById(R.id.keys_container);
+		final QuickKeysKeyboardView keyboardView = (QuickKeysKeyboardView) root.findViewById(R.id.keys_container);
 		keyboardView.setOnKeyboardActionListener(mKeyboardActionListener);
 		QuickTextKey addOn = mAddOns[position];
 		AnyPopupKeyboard keyboard = mPopupKeyboards[position];
@@ -55,7 +55,6 @@ public class QuickKeysKeyboardPagerAdapter extends PagerAdapter {
 			keyboard = mPopupKeyboards[position];
 		}
 		keyboardView.setKeyboard(keyboard);
-
 		return root;
 	}
 

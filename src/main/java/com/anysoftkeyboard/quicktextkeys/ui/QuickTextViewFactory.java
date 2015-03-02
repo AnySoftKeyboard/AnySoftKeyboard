@@ -16,9 +16,9 @@ import java.util.List;
 
 public class QuickTextViewFactory {
 
-	public static View createQuickTextView(Context context, ViewGroup root, final OnKeyboardActionListener keyboardActionListener) {
+	public static View createQuickTextView(Context context, final OnKeyboardActionListener keyboardActionListener) {
 		LayoutInflater inflater = LayoutInflater.from(context);
-		View rootView = inflater.inflate(R.layout.quick_text_popup_root_view, root, false);
+		View rootView = inflater.inflate(R.layout.quick_text_popup_root_view, null, false);
 		FrameKeyboardViewClickListener frameKeyboardViewClickListener = new FrameKeyboardViewClickListener(keyboardActionListener);
 		frameKeyboardViewClickListener.registerOnViews(rootView);
 		List<QuickTextKey> list = QuickTextKeyFactory.getOrderedEnabledQuickKeys(context);
