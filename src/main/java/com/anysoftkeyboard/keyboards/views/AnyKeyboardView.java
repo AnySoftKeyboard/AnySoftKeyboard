@@ -23,6 +23,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -121,6 +122,11 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         mPreviewText = (TextView) v.findViewById(R.id.key_preview_text);
         return v;
     }
+
+	@Override
+	protected KeyDetector createKeyDetector(final float slide) {
+		return new ProximityKeyDetector();
+	}
 
     public void setKeyboardSwitcher(KeyboardSwitcher switcher) {
         mSwitcher = switcher;
@@ -245,7 +251,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     private long mExtensionKeyboardAreaEntranceTime = -1;
 
     @Override
-    public boolean onTouchEvent(MotionEvent me) {
+    public boolean onTouchEvent(@NonNull MotionEvent me) {
         Log.d(TAG, "onTouchEvent with "+me.getPointerCount()+" points");
         if (getKeyboard() == null)//I mean, if there isn't any keyboard I'm handling, what's the point?
             return false;
