@@ -1,6 +1,7 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
 import android.content.Context;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +24,7 @@ public class QuickTextViewFactory {
 		List<QuickTextKey> list = QuickTextKeyFactory.getOrderedEnabledQuickKeys(context);
 
 		ViewPager pager = (ViewPager) rootView.findViewById(R.id.quick_text_keyboards_pager);
-		QuickKeysAsTextViewsPagerAdapter adapter = new QuickKeysAsTextViewsPagerAdapter(context, list, keyboardActionListener);
+		PagerAdapter adapter = new QuickKeysKeyboardPagerAdapter(context, list, keyboardActionListener);
 		pager.setAdapter(adapter);
 
 		return rootView;

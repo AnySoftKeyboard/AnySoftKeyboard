@@ -49,7 +49,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 public class AnyKeyboardView extends AnyKeyboardBaseView {
 
-    private static final int DELAY_BEFORE_POPING_UP_EXTENSION_KBD = 35;// milliseconds
+    private static final int DELAY_BEFORE_POPPING_UP_EXTENSION_KBD = 35;// milliseconds
     private final static String TAG = "AnyKeyboardView";
 
     private boolean mExtensionVisible = false;
@@ -59,7 +59,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     private Key mExtensionKey;
     private Key mUtilityKey;
     private Key mSpaceBarKey = null;
-    private Point mFirstTouchPont = new Point(0, 0);
+    private Point mFirstTouchPoint = new Point(0, 0);
     private boolean mIsFirstDownEventInsideSpaceBar = false;
     private Animation mInAnimation;
 
@@ -231,21 +231,15 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 
         if (mAnimationLevel == AnimationsLevel.None) {
             mMiniKeyboardPopup.setAnimationStyle(0);
-        } else if (mExtensionVisible
-                && mMiniKeyboardPopup.getAnimationStyle() != R.style.ExtensionKeyboardAnimation) {
-            Log.d(TAG,
-                    "Switching mini-keyboard animation to ExtensionKeyboardAnimation");
-            mMiniKeyboardPopup
-                    .setAnimationStyle(R.style.ExtensionKeyboardAnimation);
-        } else if (!mExtensionVisible
-                && mMiniKeyboardPopup.getAnimationStyle() != R.style.MiniKeyboardAnimation) {
-            Log.d(TAG,
-                    "Switching mini-keyboard animation to MiniKeyboardAnimation");
+        } else if (mExtensionVisible && mMiniKeyboardPopup.getAnimationStyle() != R.style.ExtensionKeyboardAnimation) {
+            Log.d(TAG, "Switching mini-keyboard animation to ExtensionKeyboardAnimation");
+            mMiniKeyboardPopup.setAnimationStyle(R.style.ExtensionKeyboardAnimation);
+        } else if (!mExtensionVisible && mMiniKeyboardPopup.getAnimationStyle() != R.style.MiniKeyboardAnimation) {
+            Log.d(TAG, "Switching mini-keyboard animation to MiniKeyboardAnimation");
             mMiniKeyboardPopup.setAnimationStyle(R.style.MiniKeyboardAnimation);
         }
 
-        return super.onLongPress(packageContext, key, isSticky,
-                requireSlideInto);
+        return super.onLongPress(packageContext, key, isSticky, requireSlideInto);
     }
 
     private long mExtensionKeyboardAreaEntranceTime = -1;
@@ -260,10 +254,10 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
             return super.onTouchEvent(me);
 
         if (me.getAction() == MotionEvent.ACTION_DOWN) {
-            mFirstTouchPont.x = (int) me.getX();
-            mFirstTouchPont.y = (int) me.getY();
+            mFirstTouchPoint.x = (int) me.getX();
+            mFirstTouchPoint.y = (int) me.getY();
             mIsFirstDownEventInsideSpaceBar =
-		            mSpaceBarKey != null && mSpaceBarKey.isInside(mFirstTouchPont.x, mFirstTouchPont.y);
+		            mSpaceBarKey != null && mSpaceBarKey.isInside(mFirstTouchPoint.x, mFirstTouchPoint.y);
         } else if (mIsFirstDownEventInsideSpaceBar) {
             if (me.getAction() == MotionEvent.ACTION_MOVE) {
                 setGesturePreviewText(mSwitcher, me);
@@ -305,7 +299,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
             if (mExtensionKeyboardAreaEntranceTime <= 0)
                 mExtensionKeyboardAreaEntranceTime = System.currentTimeMillis();
 
-            if (System.currentTimeMillis() - mExtensionKeyboardAreaEntranceTime > DELAY_BEFORE_POPING_UP_EXTENSION_KBD) {
+            if (System.currentTimeMillis() - mExtensionKeyboardAreaEntranceTime > DELAY_BEFORE_POPPING_UP_EXTENSION_KBD) {
                 KeyboardExtension extKbd = ((ExternalAnyKeyboard) getKeyboard()).getExtensionLayout();
                 if (extKbd == null || extKbd.getKeyboardResId() == -1) {
                     return super.onTouchEvent(me);
@@ -425,9 +419,9 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     private final static int DIRECTION_RIGHT = 0x0800;
 
     private int getSlideDistance(MotionEvent me) {
-        final int horizontalSlide = ((int) me.getX()) - mFirstTouchPont.x;
+        final int horizontalSlide = ((int) me.getX()) - mFirstTouchPoint.x;
         final int horizontalSlideAbs = Math.abs(horizontalSlide);
-        final int verticalSlide = ((int) me.getY()) - mFirstTouchPont.y;
+        final int verticalSlide = ((int) me.getY()) - mFirstTouchPoint.y;
         final int verticalSlideAbs = Math.abs(verticalSlide);
 
         final int direction;
@@ -607,8 +601,8 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         // and not the original object which I fear is a reference copy (hence may be changed).
         mPopOutText = text.toString();
         mPopOutTime = SystemClock.elapsedRealtime();
-        mPopOutStartPoint.x = mFirstTouchPont.x;
-        mPopOutStartPoint.y = mFirstTouchPont.y;
+        mPopOutStartPoint.x = mFirstTouchPoint.x;
+        mPopOutStartPoint.y = mFirstTouchPoint.y;
         // it is ok to wait for the next loop.
         postInvalidate();
     }

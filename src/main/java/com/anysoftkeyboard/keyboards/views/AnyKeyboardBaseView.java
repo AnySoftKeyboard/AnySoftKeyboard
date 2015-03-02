@@ -52,7 +52,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -86,7 +85,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AnyKeyboardBaseView extends FrameLayout implements
+public class AnyKeyboardBaseView extends View implements
         PointerTracker.UIProxy, OnSharedPreferenceChangeListener {
     static final String TAG = "ASKKbdViewBase";
 
@@ -143,7 +142,7 @@ public class AnyKeyboardBaseView extends FrameLayout implements
     private Key[] mKeys;
 
     // Key preview popup
-    private ViewGroup mPreviewLayut;
+    private ViewGroup mPreviewLayout;
     private TextView mPreviewText;
     private ImageView mPreviewIcon;
     private PopupWindow mPreviewPopup;
@@ -181,7 +180,8 @@ public class AnyKeyboardBaseView extends FrameLayout implements
     /**
      * Listener for {@link OnKeyboardActionListener}.
      */
-    OnKeyboardActionListener mKeyboardActionListener;
+    protected OnKeyboardActionListener mKeyboardActionListener;
+	private final MiniKeyboardActionListener mChildKeyboardActionListener = new MiniKeyboardActionListener(this);
 
     private final ArrayList<PointerTracker> mPointerTrackers = new ArrayList<>();
 
@@ -269,8 +269,7 @@ public class AnyKeyboardBaseView extends FrameLayout implements
         mTouchesAreDisabledTillLastFingerIsUp = true;
     }
 
-    private static final class MiniKeyboardActionListener implements
-            OnKeyboardActionListener {
+    private static final class MiniKeyboardActionListener implements OnKeyboardActionListener {
 
 	    private boolean mInOneShot;
         private final AnyKeyboardBaseView mParentKeyboard;
@@ -284,9 +283,8 @@ public class AnyKeyboardBaseView extends FrameLayout implements
 		}
 
         public void onKey(int primaryCode, Key key, int multiTapIndex,int[] nearByKeyCodes, boolean fromUI) {
-            mParentKeyboard.mKeyboardActionListener.onKey(primaryCode,
-                    key, multiTapIndex, nearByKeyCodes, fromUI);
-            if (mInOneShot) mParentKeyboard.dismissPopupKeyboard();
+            mParentKeyboard.mKeyboardActionListener.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
+            if (mInOneShot || primaryCode == KeyCodes.ENTER) mParentKeyboard.dismissPopupKeyboard();
         }
 
         public void onMultiTapStarted() {
@@ -306,16 +304,16 @@ public class AnyKeyboardBaseView extends FrameLayout implements
             mParentKeyboard.dismissPopupKeyboard();
         }
 
-        public void onSwipeLeft(boolean onSpacebar, boolean twoFingers) {
+        public void onSwipeLeft(boolean onSpaceBar, boolean twoFingers) {
         }
 
-        public void onSwipeRight(boolean onSpacebar, boolean twoFingers) {
+        public void onSwipeRight(boolean onSpaceBar, boolean twoFingers) {
         }
 
-        public void onSwipeUp(boolean onSpacebar) {
+        public void onSwipeUp(boolean onSpaceBar) {
         }
 
-        public void onSwipeDown(boolean onSpacebar) {
+        public void onSwipeDown(boolean onSpaceBar) {
         }
 
         public void onPinch() {
@@ -329,8 +327,7 @@ public class AnyKeyboardBaseView extends FrameLayout implements
         }
 
         public void onRelease(int primaryCode) {
-            mParentKeyboard.mKeyboardActionListener
-                    .onRelease(primaryCode);
+            mParentKeyboard.mKeyboardActionListener.onRelease(primaryCode);
         }
     }
 
@@ -341,12 +338,12 @@ public class AnyKeyboardBaseView extends FrameLayout implements
         private static final int MSG_POPUP_PREVIEW = 1;
         private static final int MSG_DISMISS_PREVIEW = 2;
         private static final int MSG_REPEAT_KEY = 3;
-        private static final int MSG_LONGPRESS_KEY = 4;
+        private static final int MSG_LONG_PRESS_KEY = 4;
 
         private boolean mInKeyRepeat;
 
         public UIHandler(AnyKeyboardBaseView keyboard) {
-            mKeyboard = new WeakReference<AnyKeyboardBaseView>(keyboard);
+            mKeyboard = new WeakReference<>(keyboard);
         }
 
         @Override
@@ -368,7 +365,7 @@ public class AnyKeyboardBaseView extends FrameLayout implements
                             tracker);
                     break;
                 }
-                case MSG_LONGPRESS_KEY: {
+                case MSG_LONG_PRESS_KEY: {
                     final PointerTracker tracker = (PointerTracker) msg.obj;
                     keyboard.openPopupIfRequired(msg.arg1, tracker);
                     break;
@@ -383,7 +380,7 @@ public class AnyKeyboardBaseView extends FrameLayout implements
                 return;
             removeMessages(MSG_POPUP_PREVIEW);
             if (keyboard.mPreviewPopup.isShowing()
-                    && keyboard.mPreviewLayut.getVisibility() == VISIBLE) {
+                    && keyboard.mPreviewLayout.getVisibility() == VISIBLE) {
                 // Show right away, if it's already visible and finger is moving
                 // around
                 keyboard.showKey(keyIndex, tracker);
@@ -426,14 +423,14 @@ public class AnyKeyboardBaseView extends FrameLayout implements
 
         public void startLongPressTimer(long delay, int keyIndex,
                                         PointerTracker tracker) {
-            removeMessages(MSG_LONGPRESS_KEY);
+            removeMessages(MSG_LONG_PRESS_KEY);
             sendMessageDelayed(
-                    obtainMessage(MSG_LONGPRESS_KEY, keyIndex, 0, tracker),
+                    obtainMessage(MSG_LONG_PRESS_KEY, keyIndex, 0, tracker),
                     delay);
         }
 
         public void cancelLongPressTimer() {
-            removeMessages(MSG_LONGPRESS_KEY);
+            removeMessages(MSG_LONG_PRESS_KEY);
         }
 
         public void cancelKeyTimers() {
@@ -449,7 +446,7 @@ public class AnyKeyboardBaseView extends FrameLayout implements
     }
 
     static class PointerQueue {
-        private LinkedList<PointerTracker> mQueue = new LinkedList<PointerTracker>();
+        private LinkedList<PointerTracker> mQueue = new LinkedList<>();
 
         public void add(PointerTracker tracker) {
             mQueue.add(tracker);
@@ -481,8 +478,7 @@ public class AnyKeyboardBaseView extends FrameLayout implements
             }
         }
 
-        public void releaseAllPointersExcept(PointerTracker tracker,
-                                             long eventTime) {
+        public void releaseAllPointersExcept(PointerTracker tracker, long eventTime) {
             for (PointerTracker t : mQueue) {
                 if (t == tracker)
                     continue;
@@ -648,10 +644,10 @@ public class AnyKeyboardBaseView extends FrameLayout implements
         // settings.
         // don't forget that there are TWO paddings, the theme's and the
         // background image's padding!
-        Drawable keyboardBabground = super.getBackground();
-        if (keyboardBabground != null) {
+        Drawable keyboardBackground = super.getBackground();
+        if (keyboardBackground != null) {
             Rect backgroundPadding = new Rect();
-            keyboardBabground.getPadding(backgroundPadding);
+            keyboardBackground.getPadding(backgroundPadding);
             padding[0] += backgroundPadding.left;
             padding[1] += backgroundPadding.top;
             padding[2] += backgroundPadding.right;
@@ -666,18 +662,16 @@ public class AnyKeyboardBaseView extends FrameLayout implements
         if (mPreviewKeyTextSize > 0) {
             if (mPreviewLabelTextSize <= 0)
                 mPreviewLabelTextSize = mPreviewKeyTextSize;
-            mPreviewLayut = inflatePreviewWindowLayout(inflate);
-            mPreviewText = (TextView) mPreviewLayut
-                    .findViewById(R.id.key_preview_text);
+            mPreviewLayout = inflatePreviewWindowLayout(inflate);
+            mPreviewText = (TextView) mPreviewLayout.findViewById(R.id.key_preview_text);
             mPreviewText.setTextColor(mPreviewKeyTextColor);
             mPreviewText.setTypeface(mKeyTextStyle);
-            mPreviewIcon = (ImageView) mPreviewLayut
-                    .findViewById(R.id.key_preview_icon);
+            mPreviewIcon = (ImageView) mPreviewLayout.findViewById(R.id.key_preview_icon);
             mPreviewPopup.setBackgroundDrawable(mPreviewKeyBackground);
-            mPreviewPopup.setContentView(mPreviewLayut);
-            mShowPreview = mPreviewLayut != null;
+            mPreviewPopup.setContentView(mPreviewLayout);
+            mShowPreview = mPreviewLayout != null;
         } else {
-            mPreviewLayut = null;
+            mPreviewLayout = null;
             mPreviewText = null;
             mShowPreview = false;
         }
@@ -692,9 +686,7 @@ public class AnyKeyboardBaseView extends FrameLayout implements
         mMiniKeyboardPopup = new PopupWindow(context.getApplicationContext());
         mMiniKeyboardPopup.setBackgroundDrawable(null);
 
-        mMiniKeyboardPopup
-                .setAnimationStyle((mAnimationLevel == AnimationsLevel.None) ? 0
-                        : R.style.MiniKeyboardAnimation);
+        mMiniKeyboardPopup.setAnimationStyle((mAnimationLevel == AnimationsLevel.None) ? 0 : R.style.MiniKeyboardAnimation);
 
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
@@ -737,7 +729,7 @@ public class AnyKeyboardBaseView extends FrameLayout implements
                     Drawable keyboardBackground = remoteTypedArray.getDrawable(remoteTypedArrayIndex);
                     Log.d(TAG, "AnySoftKeyboardTheme_android_background "
                             + (keyboardBackground != null));
-                    super.setBackgroundDrawable(keyboardBackground);
+                    setBackgroundDrawable(keyboardBackground);
                     break;
                 case android.R.attr.paddingLeft:
                     padding[0] = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0);
@@ -2065,10 +2057,10 @@ public class AnyKeyboardBaseView extends FrameLayout implements
         }
 
         if (mPreviewPaddingHeight < 0) {
-            mPreviewPaddingWidth = mPreviewLayut.getPaddingLeft()
-                    + mPreviewLayut.getPaddingRight();
-            mPreviewPaddingHeight = mPreviewLayut.getPaddingTop()
-                    + mPreviewLayut.getPaddingBottom();
+            mPreviewPaddingWidth = mPreviewLayout.getPaddingLeft()
+                    + mPreviewLayout.getPaddingRight();
+            mPreviewPaddingHeight = mPreviewLayout.getPaddingTop()
+                    + mPreviewLayout.getPaddingBottom();
 
             if (mPreviewKeyBackground != null) {
                 Rect padding = new Rect();
@@ -2152,7 +2144,7 @@ public class AnyKeyboardBaseView extends FrameLayout implements
         // placed at the right
         // position.
         // So I'm fixing
-        mPreviewLayut.setVisibility(VISIBLE);
+        mPreviewLayout.setVisibility(VISIBLE);
 
         // Set the preview background state
         if (mPreviewKeyBackground != null) {
@@ -2161,10 +2153,10 @@ public class AnyKeyboardBaseView extends FrameLayout implements
                             : EMPTY_STATE_SET);
         }
 
-        // LayoutParams lp = mPreviewLayut.getLayoutParams();
+        // LayoutParams lp = mPreviewLayout.getLayoutParams();
         // lp.width = popupWidth;
-        mPreviewLayut.requestLayout();
-        mPreviewLayut.invalidate();
+        mPreviewLayout.requestLayout();
+        mPreviewLayout.invalidate();
     }
 
     private void setKeyPreviewText(Key key, CharSequence label) {
@@ -2250,7 +2242,7 @@ public class AnyKeyboardBaseView extends FrameLayout implements
                     popupKey.popupResId,
                     mMiniKeyboard.getThemedKeyboardDimens(), null);
         }
-	    ((MiniKeyboardActionListener)mMiniKeyboard.getOnKeyboardActionListener()).setInOneShot(!isSticky);
+	    mChildKeyboardActionListener.setInOneShot(!isSticky);
 
         if (isSticky)
             mMiniKeyboard.setKeyboard(keyboard, mVerticalCorrection);
@@ -2285,7 +2277,6 @@ public class AnyKeyboardBaseView extends FrameLayout implements
         if (mMiniKeyboard == null) {
             createMiniKeyboard();
         }
-	    mMiniKeyboard.removeAllViews();
 
         AnyPopupKeyboard popupKeyboard = setupMiniKeyboardContainer(packageContext, popupKey, isSticky);
         if (mWindowOffset == null) {
@@ -2352,19 +2343,13 @@ public class AnyKeyboardBaseView extends FrameLayout implements
     }
 
 	public void showQuickKeysView(Key popupKey) {
-		if (mMiniKeyboard == null) {
-			createMiniKeyboard();
-		}
-		mMiniKeyboard.removeAllViews();
-		mMiniKeyboard.setKeyboard(null);
+		View innerView = QuickTextViewFactory.createQuickTextView(getContext(), null, mChildKeyboardActionListener);
 
-		View innerView = QuickTextViewFactory.createQuickTextView(getContext(), mMiniKeyboard, mMiniKeyboard.getOnKeyboardActionListener());
-		mMiniKeyboard.addView(innerView);
-
-		mMiniKeyboard.measure(View.MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.EXACTLY),
+		innerView.measure(
+				View.MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.EXACTLY),
 				View.MeasureSpec.makeMeasureSpec(getHeight(), MeasureSpec.AT_MOST));
 
-		((MiniKeyboardActionListener)mMiniKeyboard.getOnKeyboardActionListener()).setInOneShot(false);
+		mChildKeyboardActionListener.setInOneShot(false);
 
         if (mWindowOffset == null) {
             mWindowOffset = new int[2];
@@ -2374,13 +2359,13 @@ public class AnyKeyboardBaseView extends FrameLayout implements
         int popupY = popupKey.y + mWindowOffset[1];
 	    popupY += popupKey.height;//this is shown at the bottom of the key
         popupY += getPaddingTop();
-        popupY -= mMiniKeyboard.getMeasuredHeight();
-        popupY -= mMiniKeyboard.getPaddingBottom();
+        popupY -= innerView.getMeasuredHeight();
+        popupY -= innerView.getPaddingBottom();
 
         mMiniKeyboardOriginX = mWindowOffset[0];
         mMiniKeyboardOriginY = popupY - mWindowOffset[1];
 
-        setPopupKeyboardWithView(0, popupY, mMiniKeyboard);
+        setPopupKeyboardWithView(0, popupY, innerView);
     }
 
     private void setPopupKeyboardWithView(int x, int y, View contentView) {
@@ -2403,7 +2388,7 @@ public class AnyKeyboardBaseView extends FrameLayout implements
         // thumb's width.
         ((KeyboardDimensFromTheme) mMiniKeyboard.getThemedKeyboardDimens()).setKeyMaxWidth(mMiniKeyboard.getThemedKeyboardDimens().getNormalKeyHeight());
 
-        mMiniKeyboard.setOnKeyboardActionListener(new MiniKeyboardActionListener(this));
+        mMiniKeyboard.setOnKeyboardActionListener(mChildKeyboardActionListener);
         // Override default ProximityKeyDetector.
         mMiniKeyboard.mKeyDetector = new MiniKeyboardKeyDetector(mMiniKeyboardSlideAllowance);
         // Remove gesture detector on mini-keyboard
@@ -2725,12 +2710,8 @@ public class AnyKeyboardBaseView extends FrameLayout implements
         }
 
         mAnimationLevel = AnyApplication.getConfig().getAnimationsLevel();
-        mPreviewPopup
-                .setAnimationStyle((mAnimationLevel == AnimationsLevel.None) ? 0
-                        : R.style.KeyPreviewAnimation);
-        mMiniKeyboardPopup
-                .setAnimationStyle((mAnimationLevel == AnimationsLevel.None) ? 0
-                        : R.style.MiniKeyboardAnimation);
+        mPreviewPopup.setAnimationStyle((mAnimationLevel == AnimationsLevel.None) ? 0 : R.style.KeyPreviewAnimation);
+        mMiniKeyboardPopup.setAnimationStyle((mAnimationLevel == AnimationsLevel.None) ? 0 : R.style.MiniKeyboardAnimation);
 
     }
 
