@@ -1,6 +1,8 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 
@@ -67,5 +69,19 @@ public class QuickKeysKeyboardView extends AnyKeyboardBaseView {
 	public void setExternalDecorationHorizontalSize(int size) {
 		KeyboardDimensFromTheme dimens = (KeyboardDimensFromTheme) getThemedKeyboardDimens();
 		dimens.setKeyboardMaxWidth(dimens.getKeyboardMaxWidth() - size);
+	}
+
+	@Override
+	protected void setPaintForLabelText(Paint paint) {
+		super.setPaintForLabelText(paint);
+		//here, in the quick-text keyboard, the since characters are much bigger
+		paint.setTextSize(paint.getTextSize() * 2.0f);
+	}
+
+	@Override
+	protected void setPaintToKeyText(Paint paint) {
+		super.setPaintToKeyText(paint);
+		//here, in the quick-text keyboard, the since characters are much bigger
+		paint.setTextSize(paint.getTextSize() * 2.0f);
 	}
 }
