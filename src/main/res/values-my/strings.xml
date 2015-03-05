@@ -33,10 +33,13 @@
         top row includes symbols key (<i>123</i>), left and right arrow keys, and language key (<i>ABC</i>). You can
         replace this row in settings.
     </string>
+  <string name="tip_4_top_generic_row_go_to_top_row_settings">အ​ပေါ်ဆုံးတန်းကို ပြောင်းပါ</string>
   <string name="tip_5_key_feedback">အကြံပြုပါ။</string>
   <string name="tip_5_key_feedback_test">ဝေဖန်အကြံပြုချက်ကို စမ်းသပ်မလား?</string>
   <string name="tip_6_bottom_rows">အောက်ခြေတန်း</string>
+  <string name="tip_6_top_generic_row_go_to_bottom_row_settings">အောက်ဆုံးတန်းကို ပြင်ပါ</string>
   <string name="tip_7_voice_input">ကျွနု်ပ်ကိုပြောပါ</string>
+  <string name="tip_8_suggestions">ကျွန်ုပ် ဖြည့်ပေးပါ့မယ်</string>
   <string name="main_tab_welcome">ကြိုဆိုပါတယ်</string>
   <string name="main_tab_links">လခ့်များ</string>
   <string name="main_tab_credits">သက်ဆိုင်ခွင့်ရှိသူ</string>
