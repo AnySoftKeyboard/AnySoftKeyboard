@@ -1548,13 +1548,13 @@ public class AnyKeyboardBaseView extends View implements
                         mKeyboardNameFM = paint.getFontMetrics();
                     fm = mKeyboardNameFM;
                 } else if (label.length() > 1 && key.codes.length < 2) {
-                    paint.setTextSize(mLabelTextSize);
-                    paint.setTypeface(Typeface.DEFAULT_BOLD);
-                    if (mLabelFM == null)
-                        mLabelFM = paint.getFontMetrics();
+	                setPaintForLabelText(paint);
+                    if (mLabelFM == null) mLabelFM = paint.getFontMetrics();
                     fm = mLabelFM;
                 } else {
-                    fm = setPaintToKeyText(paint);
+	                setPaintToKeyText(paint);
+	                if (mTextFM == null) mTextFM = paint.getFontMetrics();
+                    fm = mTextFM;
                 }
 
                 final float labelHeight = -fm.top;
@@ -1776,14 +1776,14 @@ public class AnyKeyboardBaseView extends View implements
         mDirtyRect.setEmpty();
     }
 
-    protected FontMetrics setPaintToKeyText(final Paint paint) {
-        final FontMetrics fm;
+	protected void setPaintForLabelText(Paint paint) {
+		paint.setTextSize(mLabelTextSize);
+		paint.setTypeface(Typeface.DEFAULT_BOLD);
+	}
+
+	protected void setPaintToKeyText(final Paint paint) {
         paint.setTextSize(mKeyTextSize);
         paint.setTypeface(mKeyTextStyle);
-        if (mTextFM == null)
-            mTextFM = paint.getFontMetrics();
-        fm = mTextFM;
-        return fm;
     }
 
     protected static boolean isSpaceKey(final AnyKey key) {
