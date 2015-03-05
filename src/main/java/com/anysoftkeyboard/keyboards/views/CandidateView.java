@@ -172,8 +172,7 @@ public class CandidateView extends View {
         mMinTouchableWidth = (int) context.getResources().getDimension(
                 R.dimen.candidate_min_touchable_width);
 
-        mGestureDetector = new GestureDetector(
-                new CandidateStripGestureListener(mMinTouchableWidth));
+        mGestureDetector = new GestureDetector(context, new CandidateStripGestureListener(mMinTouchableWidth));
         setWillNotDraw(false);
         setHorizontalScrollBarEnabled(false);
         setVerticalScrollBarEnabled(false);
