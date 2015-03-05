@@ -462,8 +462,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			});
 		}
 
-		final TextView tipsNotification = (TextView) candidateViewContainer
-				.findViewById(R.id.tips_notification_on_candidates);
+		final TextView tipsNotification = (TextView) candidateViewContainer.findViewById(R.id.tips_notification_on_candidates);
 		if (tipsNotification != null) {// why? in API 3 it is not supported
 			if (mAskPrefs.getShowTipsNotification()
 					&& TutorialsProvider.shouldShowTips(getApplicationContext())) {
@@ -976,6 +975,11 @@ public class AnySoftKeyboard extends InputMethodService implements
 
 	@Override
 	public boolean onEvaluateFullscreenMode() {
+		if (getCurrentInputEditorInfo() != null && (getCurrentInputEditorInfo().imeOptions & EditorInfo.IME_FLAG_NO_FULLSCREEN) != 0) {
+			//if the view DOES NOT want fullscreen, then do what it wants
+			return false;
+		}
+
 		switch (mOrientation) {
 			case Configuration.ORIENTATION_LANDSCAPE:
 				return mAskPrefs.getUseFullScreenInputInLandscape();
