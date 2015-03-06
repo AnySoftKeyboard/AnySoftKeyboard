@@ -17,7 +17,6 @@
 package com.anysoftkeyboard.keyboards.views;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -41,7 +40,6 @@ import com.anysoftkeyboard.keyboards.*;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.Keyboard.Row;
-import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -458,26 +456,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         mExtensionKeyboardAreaEntranceTime = -1;
         mExtensionVisible = false;
         return super.dismissPopupKeyboard();
-    }
-
-    public void showQuickTextPopupKeyboard(QuickTextKey key) {
-        Key popupKey = findKeyByKeyCode(KeyCodes.QUICK_TEXT);
-        popupKey.popupResId = key.getPopupKeyboardResId();
-        popupKey.externalResourcePopupLayout = popupKey.popupResId != 0;
-        super.onLongPress(key.getPackageContext(), popupKey, false, true);
-    }
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
-                                          String key) {
-        super.onSharedPreferenceChanged(sharedPreferences, key);
-		/*
-		 * if (mAnimationLevel == AnimationsLevel.None &&
-		 * mGestureSlideReachedAnimation != null) {
-		 * mGestureSlideReachedAnimation = null; } else if (mAnimationLevel !=
-		 * AnimationsLevel.None && mGestureSlideReachedAnimation == null) {
-		 * createGestureSlideAnimation(); }
-		 */
     }
 
     public void openUtilityKeyboard() {
