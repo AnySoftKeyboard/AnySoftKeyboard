@@ -21,6 +21,7 @@ import android.content.res.TypedArray;
 import android.graphics.*;
 import android.graphics.Paint.Align;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.text.Layout.Alignment;
 import android.text.StaticLayout;
 import android.text.TextPaint;
@@ -46,8 +47,7 @@ public class CandidateView extends View {
 
     private static final String TAG = "ASK CandidateView";
 
-    // private static final int OUT_OF_BOUNDS_WORD_INDEX = -1;
-    private static final int OUT_OF_BOUNDS_X_COORD = -1;
+    private static final int OUT_OF_BOUNDS_X_CORD = -1;
 
     private AnySoftKeyboard mService;
     private boolean mNoticing = false;
@@ -56,7 +56,7 @@ public class CandidateView extends View {
     private CharSequence mSelectedString;
     private CharSequence mJustAddedWord;
     private int mSelectedIndex;
-    private int mTouchX = OUT_OF_BOUNDS_X_COORD;
+    private int mTouchX = OUT_OF_BOUNDS_X_CORD;
     private final Drawable mSelectionHighlight;
     private boolean mTypedWordValid;
 
@@ -64,9 +64,6 @@ public class CandidateView extends View {
 
     private Rect mBgPadding;
 
-    // private final TextView mPreviewText;
-    // private final PopupWindow mPreviewPopup;
-    // private int mCurrentWordIndex;
     private Drawable mDivider;
 
     private static final int MAX_SUGGESTIONS = 32;
@@ -74,10 +71,7 @@ public class CandidateView extends View {
 
     private final int[] mWordWidth = new int[MAX_SUGGESTIONS];
     private final int[] mWordX = new int[MAX_SUGGESTIONS];
-    // private int mPopupPreviewX;
-    // private int mPopupPreviewY;
 
-    // private static final int X_GAP = 30;
     private final float mXGap;
     private final int mColorNormal;
     private final int mColorRecommended;
@@ -90,8 +84,6 @@ public class CandidateView extends View {
 
     private int mTargetScrollX;
 
-    private final int mMinTouchableWidth;
-
     private int mTotalWidth;
 
     private final GestureDetector mGestureDetector;
@@ -102,9 +94,6 @@ public class CandidateView extends View {
 
     /**
      * Construct a CandidateView for showing suggested words for completion.
-     *
-     * @param context
-     * @param attrs
      */
     public CandidateView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -169,10 +158,8 @@ public class CandidateView extends View {
         mPaint.setStrokeWidth(0);
         mPaint.setTextAlign(Align.CENTER);
         mTextPaint = new TextPaint(mPaint);
-        mMinTouchableWidth = (int) context.getResources().getDimension(
-                R.dimen.candidate_min_touchable_width);
-
-        mGestureDetector = new GestureDetector(context, new CandidateStripGestureListener(mMinTouchableWidth));
+		final int minTouchableWidth = context.getResources().getDimensionPixelOffset(R.dimen.candidate_min_touchable_width);
+        mGestureDetector = new GestureDetector(context, new CandidateStripGestureListener(minTouchableWidth));
         setWillNotDraw(false);
         setHorizontalScrollBarEnabled(false);
         setVerticalScrollBarEnabled(false);
@@ -230,8 +217,6 @@ public class CandidateView extends View {
 
     /**
      * A connection back to the service to communicate with the text field
-     *
-     * @param listener
      */
     public void setService(AnySoftKeyboard listener) {
         mService = listener;
@@ -263,7 +248,7 @@ public class CandidateView extends View {
                     mDivider.getIntrinsicHeight());
         }
 
-        final int dividerYOffest = (height - mDivider.getMinimumHeight()) / 2;
+        final int dividerYOffset = (height - mDivider.getMinimumHeight()) / 2;
         final int count = mSuggestions.size();
         final Rect bgPadding = mBgPadding;
         final Paint paint = mPaint;
@@ -306,7 +291,7 @@ public class CandidateView extends View {
 
             mWordX[i] = x;
 
-            if (touchX != OUT_OF_BOUNDS_X_COORD && !scrolled
+            if (touchX != OUT_OF_BOUNDS_X_CORD && !scrolled
                     && touchX + scrollX >= x
                     && touchX + scrollX < x + wordWidth) {
                 if (canvas != null && !mShowingAddToDictionary) {
@@ -349,9 +334,9 @@ public class CandidateView extends View {
                 // Draw a divider unless it's after the hint
                 //or the last suggested word
                 if (count > 1 && (!mShowingAddToDictionary) && i != (count - 1)) {
-                    canvas.translate(0, dividerYOffest);
+                    canvas.translate(0, dividerYOffset);
                     mDivider.draw(canvas);
-                    canvas.translate(0, -dividerYOffest);
+                    canvas.translate(0, -dividerYOffset);
                 }
                 canvas.translate(-x - wordWidth, 0);
             }
@@ -392,7 +377,6 @@ public class CandidateView extends View {
 	/**
 	 * Setup what's to display in the suggestions strip
 	 * @param suggestions the list of words to show
-	 * @param completions
 	 * @param typedWordValid the typed word (word at index 0) is a valid word
 	 * @param haveMinimalSuggestion the list of suggestions contains a valid word. So, either
 	 *                              highlight the first word (typedWordValid == true), or
@@ -415,18 +399,12 @@ public class CandidateView extends View {
         scrollTo(0, getScrollY());
         mTargetScrollX = 0;
         mHaveMinimalSuggestion = haveMinimalSuggestion;
-        // Compute the total width
-        //draw(null);
+	    //re-drawing required.
         invalidate();
-        //requestLayout();
-    }
-
-    public boolean isShowingAddToDictionaryHint() {
-        return mShowingAddToDictionary;
     }
 
     public void showAddToDictionaryHint(CharSequence word) {
-        ArrayList<CharSequence> suggestions = new ArrayList<CharSequence>();
+        ArrayList<CharSequence> suggestions = new ArrayList<>();
         suggestions.add(word);
         suggestions.add(mAddToDictionaryHint);
         setSuggestions(suggestions, false, false, false);
@@ -449,7 +427,7 @@ public class CandidateView extends View {
         // in LatinIME.pickSuggestionManually().
         mSuggestions.clear();
         mNoticing = false;
-        mTouchX = OUT_OF_BOUNDS_X_COORD;
+        mTouchX = OUT_OF_BOUNDS_X_CORD;
         mSelectedString = null;
         mSelectedIndex = -1;
         mShowingAddToDictionary = false;
@@ -459,7 +437,7 @@ public class CandidateView extends View {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent me) {
+    public boolean onTouchEvent(@NonNull MotionEvent me) {
 
         if (mGestureDetector.onTouchEvent(me)) {
             return true;
@@ -522,20 +500,14 @@ public class CandidateView extends View {
                             }
                             mService.pickSuggestionManually(mSelectedIndex,
                                     mSelectedString);
-                        } else /*if (mNoticing)*/ {
-                            if (action == MotionEvent.ACTION_UP && mSelectedIndex == 1
-                                    && !TextUtils.isEmpty(mJustAddedWord)) {
+                        } else if (mSelectedIndex == 1 && !TextUtils.isEmpty(mJustAddedWord)) {
                                 // 1 is the index of "Remove?"
-                                Log.d(TAG, "User wants to remove an added word "
-                                        + mJustAddedWord);
+                                Log.d(TAG, "User wants to remove an added word '%s'", mJustAddedWord);
                                 mService.removeFromUserDictionary(mJustAddedWord.toString());
-                            }
                         }
                     }
                 }
-			/*
-			 * mSelectedString = null; mSelectedIndex = -1; requestLayout();
-			 */
+
                 // hidePreview();
                 invalidate();
                 break;
@@ -545,18 +517,16 @@ public class CandidateView extends View {
 
     public void notifyAboutWordAdded(CharSequence word) {
         mJustAddedWord = word;
-        ArrayList<CharSequence> notice = new ArrayList<CharSequence>(2);
-        notice.add(getContext().getResources().getString(R.string.added_word,
-                mJustAddedWord));
-        notice.add(getContext().getResources().getString(
-                R.string.revert_added_word_question));
+        ArrayList<CharSequence> notice = new ArrayList<>(2);
+        notice.add(getContext().getResources().getString(R.string.added_word, mJustAddedWord));
+        notice.add(getContext().getResources().getString(R.string.revert_added_word_question));
         setSuggestions(notice, false, true, false);
         mNoticing = true;
     }
 
     public void notifyAboutRemovedWord(CharSequence word) {
         mJustAddedWord = null;
-        ArrayList<CharSequence> notice = new ArrayList<CharSequence>(1);
+        ArrayList<CharSequence> notice = new ArrayList<>(1);
         notice.add(getContext().getResources().getString(R.string.removed_word, word));
         setSuggestions(notice, false, true, false);
         mNoticing = true;
