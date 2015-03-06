@@ -420,10 +420,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 		}
 		a.recycle();
 
-		mCandidateCloseText = (TextView) candidateViewContainer
-				.findViewById(R.id.close_suggestions_strip_text);
-		View closeIcon = candidateViewContainer
-				.findViewById(R.id.close_suggestions_strip_icon);
+		mCandidateCloseText = (TextView) candidateViewContainer.findViewById(R.id.close_suggestions_strip_text);
+		View closeIcon = candidateViewContainer.findViewById(R.id.close_suggestions_strip_icon);
 
 		if (mCandidateCloseText != null && closeIcon != null) {// why? In API3
 			// it is not
@@ -910,8 +908,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// or if the physical keyboard supports candidates
 		// (mPredictionLandscape)
 		final boolean shouldShow = shouldCandidatesStripBeShown() && shown;
-		final boolean currentlyShown = mCandidatesParent != null
-				&& mCandidatesParent.getVisibility() == View.VISIBLE;
+		final boolean currentlyShown = mCandidatesParent != null && mCandidatesParent.getVisibility() == View.VISIBLE;
 		super.setCandidatesViewShown(shouldShow);
 		if (shouldShow != currentlyShown) {
 			// I believe (can't confirm it) that candidates animation is kinda
@@ -933,8 +930,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public void setCandidatesView(@NonNull View view) {
 		super.setCandidatesView(view);
-		mCandidatesParent = view.getParent() instanceof View ? (View) view
-				.getParent() : null;
+		mCandidatesParent = view.getParent() instanceof View ? (View) view.getParent() : null;
 	}
 
 	private void clearSuggestions() {
@@ -944,18 +940,9 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private void setSuggestions(List<CharSequence> suggestions,
 	                            boolean completions, boolean typedWordValid,
 	                            boolean haveMinimalSuggestion) {
-
 		if (mCandidateView != null) {
 			mCandidateView.setSuggestions(suggestions, completions,
 					typedWordValid, haveMinimalSuggestion && mAutoCorrectOn);
-		}
-	}
-
-	@Override
-	public void onComputeInsets(@NonNull InputMethodService.Insets outInsets) {
-		super.onComputeInsets(outInsets);
-		if (!isFullscreenMode()) {
-			outInsets.contentTopInsets = outInsets.visibleTopInsets;
 		}
 	}
 
@@ -3177,8 +3164,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	@Override
 	public boolean onEvaluateInputViewShown() {
 		Configuration config = getResources().getConfiguration();
-		return config.keyboard == Configuration.KEYBOARD_NOKEYS
-				|| config.hardKeyboardHidden == Configuration.KEYBOARDHIDDEN_YES;
+		return config.keyboard == Configuration.KEYBOARD_NOKEYS || config.hardKeyboardHidden == Configuration.KEYBOARDHIDDEN_YES;
 	}
 
 	public void onCancel() {
