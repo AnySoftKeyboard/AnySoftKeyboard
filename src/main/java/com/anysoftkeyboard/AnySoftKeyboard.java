@@ -25,7 +25,6 @@ import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.inputmethodservice.InputMethodService;
 import android.media.AudioManager;
 import android.net.Uri;
@@ -51,8 +50,6 @@ import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ImageView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -105,29 +102,24 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 
 /**
- * Input method implementation for Qwerty'ish keyboard.
+ * Input method implementation for QWERTY-ish keyboard.
  */
 public class AnySoftKeyboard extends InputMethodService implements
 		OnKeyboardActionListener, OnSharedPreferenceChangeListener,
 		AnyKeyboardContextProvider, SoundPreferencesChangedListener {
 
 	private final static String TAG = "ASK";
-	// private View mRestartSuggestionsView;
 	private static final long MINIMUM_REFRESH_TIME_FOR_DICTIONARIES = 30 * 1000;
-	private static final String SMILEY_PLUGIN_ID = "0077b34d-770f-4083-83e4-081957e06c27";
 	private static final String KEYBOARD_NOTIFICATION_ALWAYS = "1";
 	private static final String KEYBOARD_NOTIFICATION_ON_PHYSICAL = "2";
 	private static final String KEYBOARD_NOTIFICATION_NEVER = "3";
 	//Arrays.asList((CharSequence) ".", ",", "?", "!", ":", "'", "\"", "@", "#", "&", "()");
 	private static final List<CharSequence> msEmptyNextSuggestions = Arrays.asList(/*empty for now*/);
 	private static final long ONE_FRAME_DELAY = 1000l / 60l;
-	private static final long HALF_FRAME_DELAY = ONE_FRAME_DELAY / 2l;
 	private final AskPrefs mAskPrefs;
 	private final ModifierKeyState mShiftKeyState = new ModifierKeyState(true/*supports locked state*/);
 	private final ModifierKeyState mControlKeyState = new ModifierKeyState(false/*does not support locked state*/);
@@ -151,7 +143,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private Suggest mSuggest;
 	private CompletionInfo[] mCompletions;
 	private AlertDialog mOptionsDialog;
-	private AlertDialog mQuickTextKeyDialog;
 	private long mMetaState;
 	private HashSet<Character> mSentenceSeparators = new HashSet<>();
 	// private BTreeDictionary mContactsDictionary;
@@ -391,7 +382,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 				}, true);
 		// resetting token users
 		mOptionsDialog = null;
-		mQuickTextKeyDialog = null;
 
 		mKeyboardSwitcher.setInputView(mInputView);
 		mInputView.setOnKeyboardActionListener(this);
@@ -638,10 +628,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		if (mOptionsDialog != null && mOptionsDialog.isShowing()) {
 			mOptionsDialog.dismiss();
 			mOptionsDialog = null;
-		}
-		if (mQuickTextKeyDialog != null && mQuickTextKeyDialog.isShowing()) {
-			mQuickTextKeyDialog.dismiss();
-			mQuickTextKeyDialog = null;
 		}
 
 		super.hideWindow();
@@ -1143,11 +1129,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 								final int translatedChar = mHardKeyboardAction
 										.getKeyCode();
 								// typing my own.
-								onKey(translatedChar, null, -1,
-										new int[]{translatedChar}, true/*
-																	 * simualting
-																	 * fromUI
-																	 */);
+								onKey(translatedChar, null, -1, new int[]{translatedChar}, true/*faking from UI*/);
 								// my handling
 								// we are at a regular key press, so we'll
 								// update
@@ -3174,93 +3156,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 		mKeyboardSwitcher.onLowMemory();
 		// DictionaryFactory.getInstance().onLowMemory(mSuggest.getMainDictionary());
 		super.onLowMemory();
-	}
-
-	private void showQuickTextKeyPopupKeyboard(QuickTextKey quickTextKey) {
-		if (mInputView != null) {
-			mInputView.showQuickTextPopupKeyboard(quickTextKey);
-		}
-	}
-
-	private void showQuickTextKeyPopupList(@NonNull final QuickTextKey key) {
-		if (mQuickTextKeyDialog == null) {
-			String[] names = key.getPopupListNames();
-			final String[] texts = key.getPopupListValues();
-			int[] icons = key.getPopupListIconResIds();
-
-			final int N = names.length;
-
-			List<Map<String, ?>> entries = new ArrayList<>();
-			for (int i = 0; i < N; i++) {
-				HashMap<String, Object> entry = new HashMap<>();
-
-				entry.put("name", names[i]);
-				entry.put("text", texts[i]);
-				if (icons != null)
-					entry.put("icons", icons[i]);
-
-				entries.add(entry);
-			}
-
-			int layout;
-			String[] from;
-			int[] to;
-			if (icons == null) {
-				layout = R.layout.quick_text_key_menu_item_without_icon;
-				from = new String[]{"name", "text"};
-				to = new int[]{R.id.quick_text_name, R.id.quick_text_output};
-			} else {
-				layout = R.layout.quick_text_key_menu_item_with_icon;
-				from = new String[]{"name", "text", "icons"};
-				to = new int[]{R.id.quick_text_name, R.id.quick_text_output,
-						R.id.quick_text_icon};
-			}
-			final SimpleAdapter a = new SimpleAdapter(this, entries, layout,
-					from, to);
-			SimpleAdapter.ViewBinder viewBinder = new SimpleAdapter.ViewBinder() {
-				public boolean setViewValue(View view, Object data,
-				                            String textRepresentation) {
-					if (view instanceof ImageView) {
-						Context packageContext = key.getPackageContext();
-						if (packageContext != null) {
-							Drawable img = packageContext.getResources().getDrawable((Integer) data);
-							((ImageView) view).setImageDrawable(img);
-						}
-						return true;
-					}
-					return false;
-				}
-			};
-			a.setViewBinder(viewBinder);
-
-			AlertDialog.Builder b = new AlertDialog.Builder(this);
-
-			b.setTitle(getString(R.string.menu_insert_smiley));
-
-			b.setCancelable(true);
-			b.setAdapter(a, new DialogInterface.OnClickListener() {
-				@SuppressWarnings("unchecked")
-				// I know, I know, it is not safe to cast, but I created the
-				// list, and willing to pay the price.
-				public final void onClick(DialogInterface dialog, int which) {
-					HashMap<String, Object> item = (HashMap<String, Object>) a
-							.getItem(which);
-					onText((String) item.get("text"));
-
-					dialog.dismiss();
-				}
-			});
-
-			mQuickTextKeyDialog = b.create();
-			Window window = mQuickTextKeyDialog.getWindow();
-			WindowManager.LayoutParams lp = window.getAttributes();
-			lp.token = mInputView.getWindowToken();
-			lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
-			window.setAttributes(lp);
-			window.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-		}
-
-		mQuickTextKeyDialog.show();
 	}
 
 	public boolean promoteToUserDictionary(String word, int frequency) {
