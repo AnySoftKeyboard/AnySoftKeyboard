@@ -921,18 +921,14 @@ If they complain about the top of the app's UI panned-out, I'll re-enabled this 
 		final boolean currentlyShown = mCandidatesParent != null && mCandidatesParent.getVisibility() == View.VISIBLE;
 		super.setCandidatesViewShown(shouldShow);
 		if (shouldShow != currentlyShown) {
-			// I believe (can't confirm it) that candidates animation is kinda
-			// rare,
-			// and it is better to load it on demand, then to keep it in memory
-			// always..
+			// I believe (can't confirm it) that candidates animation is kinda rare,
+			// and it is better to load it on demand, then to keep it in memory always..
 			if (shouldShow) {
-				mCandidatesParent.setAnimation(AnimationUtils.loadAnimation(
-						getApplicationContext(),
-						R.anim.candidates_bottom_to_up_enter));
+				mCandidatesParent.setAnimation(
+						AnimationUtils.loadAnimation(this, R.anim.candidates_bottom_to_up_enter));
 			} else {
-				mCandidatesParent.setAnimation(AnimationUtils.loadAnimation(
-						getApplicationContext(),
-						R.anim.candidates_up_to_bottom_exit));
+				mCandidatesParent.setAnimation(
+						AnimationUtils.loadAnimation(this, R.anim.candidates_up_to_bottom_exit));
 			}
 		}
 	}
@@ -958,9 +954,17 @@ If they complain about the top of the app's UI panned-out, I'll re-enabled this 
 
 	@Override
 	public boolean onEvaluateFullscreenMode() {
-		if (getCurrentInputEditorInfo() != null && (getCurrentInputEditorInfo().imeOptions & EditorInfo.IME_FLAG_NO_FULLSCREEN) != 0) {
-			//if the view DOES NOT want fullscreen, then do what it wants
-			return false;
+		if (getCurrentInputEditorInfo() != null) {
+			final EditorInfo editorInfo = getCurrentInputEditorInfo();
+			if ((editorInfo.imeOptions & EditorInfo.IME_FLAG_NO_FULLSCREEN) != 0) {
+				//if the view DOES NOT want fullscreen, then do what it wants
+				Log.d(TAG, "Will not go to Fullscreen because input view requested IME_FLAG_NO_FULLSCREEN");
+				return false;
+			} else if ((editorInfo.imeOptions & EditorInfo.IME_FLAG_NO_EXTRACT_UI) != 0) {
+				Log.d(TAG, "Will not go to Fullscreen because input view requested IME_FLAG_NO_EXTRACT_UI");
+				return false;
+
+			}
 		}
 
 		switch (mOrientation) {
@@ -974,10 +978,9 @@ If they complain about the top of the app's UI panned-out, I'll re-enabled this 
 	@Override
 	public boolean onKeyDown(final int keyCode, @NonNull KeyEvent event) {
 		final boolean shouldTranslateSpecialKeys = isInputViewShown();
-		Log.d(TAG, "isInputViewShown=%s, keycode=%d", shouldTranslateSpecialKeys, keyCode);
 
-		if (event.isPrintingKey())
-			onPhysicalKeyboardKeyPressed();
+		if (event.isPrintingKey()) onPhysicalKeyboardKeyPressed();
+
 		mHardKeyboardAction.initializeAction(event, mMetaState);
 
 		InputConnection ic = getCurrentInputConnection();
