@@ -20,12 +20,12 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:tag="1.3.20150113">
+    android:tag="1.3.20150308">
 
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="* Many more emoticons and better settings for those.\n* Localization: ES, NO, CA, EO, IT, MK, MY, NL, TR.\n* Bug fixes."
+        android:text="* Many more emoticons and better settings for those.\n* Localization: ES, NO, CA, EO, IT, MK, MY, NL, TR, SL, RU.\n* Bug fixes."
         style="@style/Ask.Text.Normal"
         tools:ignore="HardcodedText" />
 
