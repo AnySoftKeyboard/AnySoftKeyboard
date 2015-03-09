@@ -859,9 +859,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 		// to clear the underline.
 		abortCorrection(true, false);
 	}
-/*
-Let's see what users say about this.
-If they complain about the top of the app's UI panned-out, I'll re-enabled this code.
+
 	@Override
 	public void onComputeInsets(@NonNull InputMethodService.Insets outInsets) {
 		super.onComputeInsets(outInsets);
@@ -869,7 +867,7 @@ If they complain about the top of the app's UI panned-out, I'll re-enabled this 
 			outInsets.contentTopInsets = outInsets.visibleTopInsets;
 		}
 	}
-*/
+	
 	@Override
 	public void onDisplayCompletions(CompletionInfo[] completions) {
 		if (FeaturesSet.DEBUG_LOG) {
