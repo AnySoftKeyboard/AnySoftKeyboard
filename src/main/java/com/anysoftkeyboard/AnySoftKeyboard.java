@@ -867,7 +867,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			outInsets.contentTopInsets = outInsets.visibleTopInsets;
 		}
 	}
-	
+
 	@Override
 	public void onDisplayCompletions(CompletionInfo[] completions) {
 		if (FeaturesSet.DEBUG_LOG) {

@@ -6,7 +6,7 @@
 
     <Row android:keyWidth="10%p" android:keyboardMode="@integer/keyboard_mode_normal" android:rowEdgeFlags="bottom">
         <Key ask:isFunctional="true" android:codes="@integer/key_code_mode_alphabet"
-             ask:longPressCode="@integer/key_code_cancel" android:keyIcon="@drawable/sym_keyboard_and_cancel"
+             ask:longPressCode="@integer/key_code_cancel" android:keyIcon="@drawable/sym_keyboard_cancel"
              ask:hintLabel=" " android:keyEdgeFlags="left"/>
         <Key ask:isFunctional="true" android:codes="@integer/key_code_voice_input"/>
         <Key ask:isFunctional="true" android:codes="@integer/key_code_quick_text" ask:hintLabel=" "/>
@@ -18,7 +18,7 @@
     </Row>
     <Row android:keyWidth="10%p" android:keyboardMode="@integer/keyboard_mode_im" android:rowEdgeFlags="bottom">
         <Key ask:isFunctional="true" android:codes="@integer/key_code_mode_alphabet"
-             ask:longPressCode="@integer/key_code_cancel" android:keyIcon="@drawable/sym_keyboard_and_cancel"
+             ask:longPressCode="@integer/key_code_cancel" android:keyIcon="@drawable/sym_keyboard_cancel"
              ask:hintLabel=" " android:keyEdgeFlags="left"/>
         <Key ask:isFunctional="true" android:codes="@integer/key_code_voice_input"/>
         <Key ask:isFunctional="true" android:codes="@integer/key_code_quick_text" ask:hintLabel=" "/>
@@ -30,7 +30,7 @@
     </Row>
     <Row android:keyWidth="10%p" android:keyboardMode="@integer/keyboard_mode_url" android:rowEdgeFlags="bottom">
         <Key ask:isFunctional="true" android:codes="@integer/key_code_mode_alphabet"
-             ask:longPressCode="@integer/key_code_cancel" android:keyIcon="@drawable/sym_keyboard_and_cancel"
+             ask:longPressCode="@integer/key_code_cancel" android:keyIcon="@drawable/sym_keyboard_cancel"
              ask:hintLabel=" " android:keyEdgeFlags="left"/>
         <Key ask:isFunctional="true" android:codes="@integer/key_code_voice_input"/>
         <Key ask:isFunctional="true" android:codes="@integer/key_code_quick_text" ask:hintLabel=" "/>
@@ -45,7 +45,7 @@
     </Row>
     <Row android:keyWidth="10%p" android:keyboardMode="@integer/keyboard_mode_email" android:rowEdgeFlags="bottom">
         <Key ask:isFunctional="true" android:codes="@integer/key_code_mode_alphabet"
-             ask:longPressCode="@integer/key_code_cancel" android:keyIcon="@drawable/sym_keyboard_and_cancel"
+             ask:longPressCode="@integer/key_code_cancel" android:keyIcon="@drawable/sym_keyboard_cancel"
              ask:hintLabel=" " android:keyEdgeFlags="left"/>
         <Key ask:isFunctional="true" android:codes="@integer/key_code_voice_input"/>
         <Key ask:isFunctional="true" android:codes="@integer/key_code_quick_text" ask:hintLabel=" "/>
