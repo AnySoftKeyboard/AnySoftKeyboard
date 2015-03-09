@@ -29,7 +29,7 @@
             android:layout_height="@dimen/quick_key_size"
             android:contentDescription="@string/close_button"
             android:scaleType="centerInside"
-            android:src="@drawable/close_suggestions_strip_icon"/>
+            android:src="@drawable/sym_keyboard_cancel"/>
 
         <ImageView
             android:id="@+id/quick_keys_popup_backspace"
