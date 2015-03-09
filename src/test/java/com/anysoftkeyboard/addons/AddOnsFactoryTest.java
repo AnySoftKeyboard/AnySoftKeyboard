@@ -40,9 +40,7 @@ public class AddOnsFactoryTest {
 		}
 	}
 
-	@Ignore()
 	@Test(expected = UnsupportedOperationException.class)
-	@Config(reportSdk = 18, emulateSdk = 18)
 	public void testGetAllAddOns() throws Exception {
 		TestableAddOnsFactory factory = new TestableAddOnsFactory();
 		List<TestAddOn> list = factory.getAllAddOns(Robolectric.application);
@@ -56,7 +54,6 @@ public class AddOnsFactoryTest {
 		}
 	}
 
-	@Ignore()
 	@Test(expected = UnsupportedOperationException.class)
 	public void testGetAllAddOnsReturnsUnmodifiableList() throws Exception {
 		TestableAddOnsFactory factory = new TestableAddOnsFactory();

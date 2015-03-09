@@ -41,7 +41,6 @@ public class BTreeDictionaryTest {
 	}
 
 	@Test
-	@Config(reportSdk = 18, emulateSdk = 18)
 	public void testLoadDictionary() throws Exception {
 		//no words now
 		Assert.assertFalse(mDictionaryUnderTest.isValidWord((String) TestableBTreeDictionary.STORAGE[0][1]));
