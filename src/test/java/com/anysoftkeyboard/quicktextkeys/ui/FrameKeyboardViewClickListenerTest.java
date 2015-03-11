@@ -41,16 +41,4 @@ public class FrameKeyboardViewClickListenerTest {
 		Mockito.verify(keyboardActionListener).onKey(KeyCodes.DELETE, null, 0, null, true);
 		Mockito.verifyNoMoreInteractions(keyboardActionListener);
 	}
-
-	@Test
-	public void testOnClickEnter() throws Exception {
-		OnKeyboardActionListener keyboardActionListener = Mockito.mock(OnKeyboardActionListener.class);
-		FrameKeyboardViewClickListener listener = new FrameKeyboardViewClickListener(keyboardActionListener);
-		Mockito.verifyZeroInteractions(keyboardActionListener);
-		View view = new View(Robolectric.application);
-		view.setId(R.id.quick_keys_popup_return);
-		listener.onClick(view);
-		Mockito.verify(keyboardActionListener).onKey(KeyCodes.ENTER, null, 0, null, true);
-		Mockito.verifyNoMoreInteractions(keyboardActionListener);
-	}
 }

@@ -17,17 +17,17 @@
 package com.anysoftkeyboard.utils;
 
 import android.annotation.TargetApi;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.View;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Locale;
 
 public class CompatUtils {
-    private static final String TAG = "ASK CMPT_UTILS";
+    private static final String TAG = "ASK CompatUtils";
 
     public static Method getMethod(Class<?> targetClass, String name,
                                    Class<?>... parameterTypes) {
@@ -67,5 +67,15 @@ public class CompatUtils {
 			}
 		}
 		return parsedLocale;
+	}
+
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+	public static void setViewBackgroundDrawable(View view, Drawable drawable) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+			view.setBackground(drawable);
+		} else {
+			//noinspection deprecation
+			view.setBackgroundDrawable(drawable);
+		}
 	}
 }
