@@ -20,7 +20,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:tag="1.3.20150308">
+    android:tag="1.3.20150310">
 
     <TextView
         android:layout_height="wrap_content"
