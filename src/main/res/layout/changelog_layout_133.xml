@@ -35,6 +35,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autoLink="web"
-        android:text="More details: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/v132"
+        android:text="More details: https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/v133"
         tools:ignore="HardcodedText" />
 </LinearLayout>
