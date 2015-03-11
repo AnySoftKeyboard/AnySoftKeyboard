@@ -27,9 +27,6 @@ public class FrameKeyboardViewClickListener implements View.OnClickListener {
 			case R.id.quick_keys_popup_backspace:
 				mKeyboardActionListener.onKey(KeyCodes.DELETE, null, 0, null, true);
 				break;
-			case R.id.quick_keys_popup_return:
-				mKeyboardActionListener.onKey(KeyCodes.ENTER, null, 0, null, true);
-				break;
 			case R.id.quick_keys_popup_quick_keys_settings:
 				//starting the MainSettings activity, with TipsFragment
 				Intent i = new Intent(v.getContext(), MainSettingsActivity.class);
@@ -44,7 +41,6 @@ public class FrameKeyboardViewClickListener implements View.OnClickListener {
 	public void registerOnViews(View rootView) {
 		rootView.findViewById(R.id.quick_keys_popup_close).setOnClickListener(this);
 		rootView.findViewById(R.id.quick_keys_popup_backspace).setOnClickListener(this);
-		rootView.findViewById(R.id.quick_keys_popup_return).setOnClickListener(this);
 		rootView.findViewById(R.id.quick_keys_popup_quick_keys_settings).setOnClickListener(this);
 	}
 }
