@@ -508,6 +508,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 			return;
 		}
 
+		mInputView.dismissPopupKeyboard();
 		mInputView.setKeyboardActionType(attribute.imeOptions);
 		mKeyboardSwitcher.makeKeyboards(false);
 

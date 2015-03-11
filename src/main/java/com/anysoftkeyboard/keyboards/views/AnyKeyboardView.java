@@ -452,7 +452,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     }
 
     @Override
-    protected boolean dismissPopupKeyboard() {
+    public boolean dismissPopupKeyboard() {
         mExtensionKeyboardAreaEntranceTime = -1;
         mExtensionVisible = false;
         return super.dismissPopupKeyboard();

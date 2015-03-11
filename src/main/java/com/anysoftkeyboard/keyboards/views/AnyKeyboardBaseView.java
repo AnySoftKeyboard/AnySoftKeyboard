@@ -1736,11 +1736,7 @@ public class AnyKeyboardBaseView extends View implements
     public void setKeyboardActionType(final int imeOptions) {
         Log.d(TAG, "setKeyboardActionType imeOptions:" + imeOptions
                 + " action:" + (imeOptions & EditorInfo.IME_MASK_ACTION));
-        if ((imeOptions & EditorInfo.IME_FLAG_NO_ENTER_ACTION) != 0)// this is
-            // usually a
-            // multi-line
-            // edittext
-            // box
+        if ((imeOptions & EditorInfo.IME_FLAG_NO_ENTER_ACTION) != 0)
             mKeyboardActionType = EditorInfo.IME_ACTION_UNSPECIFIED;
         else
             mKeyboardActionType = (imeOptions & EditorInfo.IME_MASK_ACTION);
@@ -2653,8 +2649,9 @@ public class AnyKeyboardBaseView extends View implements
         return mMiniKeyboardPopup != null && mMiniKeyboardVisible;
     }
 
-    protected boolean dismissPopupKeyboard() {
+    public boolean dismissPopupKeyboard() {
         if (isPopupShowing()) {
+	        mMiniKeyboard.closing();
             mMiniKeyboardPopup.dismiss();
             mMiniKeyboardVisible = false;
             mMiniKeyboardOriginX = 0;
