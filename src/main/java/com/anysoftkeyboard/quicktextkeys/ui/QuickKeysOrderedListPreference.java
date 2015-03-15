@@ -97,6 +97,8 @@ public class QuickKeysOrderedListPreference extends DialogPreference {
 				//a moved item MUST BE ENABLED
 				mEnabledAddOns.add(temp.getId());
 				rv.getAdapter().notifyItemMoved(from, to);
+				//making sure `to` is visible
+				rv.scrollToPosition(to);
 			}
 		});
 
