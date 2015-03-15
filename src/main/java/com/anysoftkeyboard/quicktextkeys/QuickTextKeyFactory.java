@@ -27,6 +27,7 @@ import com.anysoftkeyboard.addons.AddOnsFactory;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -58,7 +59,16 @@ public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey> {
 	}
 
 	public static List<QuickTextKey> getAllAvailableQuickKeys(Context applicationContext) {
-		return msInstance.getAllAddOns(applicationContext);
+		List<QuickTextKey> list = msInstance.getAllAddOns(applicationContext);
+		//for now, only supporting popup-keyboard addons.
+		List<QuickTextKey> filteredList = new ArrayList<>(list.size());
+		for (QuickTextKey quickTextKey : list) {
+			if (quickTextKey.isPopupKeyboardUsed()) {
+				filteredList.add(quickTextKey);
+			}
+		}
+
+		return Collections.unmodifiableList(filteredList);
 	}
 
 	public static void storeOrderedEnabledQuickKeys(Context applicationContext, ArrayList<QuickTextKey> orderedKeys) {
@@ -74,7 +84,7 @@ public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey> {
 	}
 
 	public static List<QuickTextKey> getOrderedEnabledQuickKeys(Context applicationContext) {
-		List<QuickTextKey> quickTextKeys = new ArrayList<>(msInstance.getAllAddOns(applicationContext));
+		List<QuickTextKey> quickTextKeys = new ArrayList<>(getAllAvailableQuickKeys(applicationContext));
 
 		//now, reading the ordered array of active keys
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext);
@@ -92,7 +102,7 @@ public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey> {
 			Iterator<QuickTextKey> iterator = quickTextKeys.iterator();
 			while (iterator.hasNext()) {
 				QuickTextKey nextQuickKey = iterator.next();
-				if (nextQuickKey.getId().equals(keyId)) {
+				if (nextQuickKey.getId().equals(keyId) && nextQuickKey.isPopupKeyboardUsed()/*only popup addons for now*/) {
 					orderedQuickTextKeys.add(nextQuickKey);
 					iterator.remove();
 					break;
