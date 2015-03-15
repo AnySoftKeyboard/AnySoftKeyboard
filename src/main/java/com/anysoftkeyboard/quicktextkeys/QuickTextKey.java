@@ -45,11 +45,11 @@ public class QuickTextKey extends AddOnImpl {
         Resources resources = packageContext.getResources();
 
         this.mPopupKeyboardResId = popupKeyboardResId;
-        if (popupKeyboardResId == 0) {
+        if (popupKeyboardResId == INVALID_RES_ID) {
             this.mPopupListNames = resources.getStringArray(popupListNamesResId);
             this.mPopupListValues = resources.getStringArray(popupListValuesResId);
 
-            if (popupListIconsResId != 0) {
+            if (popupListIconsResId != INVALID_RES_ID) {
                 TypedArray arr = resources.obtainTypedArray(popupListIconsResId);
                 mPopupListIconResIds = new int[arr.length()];
                 for (int pos = 0; pos < mPopupListIconResIds.length; pos++) {
