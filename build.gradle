@@ -90,7 +90,7 @@ android {
             signingConfig signingConfigs.release
             zipAlignEnabled true
 
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.txt'
         }
 
