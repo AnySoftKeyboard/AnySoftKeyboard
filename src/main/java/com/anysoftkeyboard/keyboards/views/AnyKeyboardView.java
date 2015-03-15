@@ -280,7 +280,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         // coming even before the first MOVE event into the extension area
         if (!mIsFirstDownEventInsideSpaceBar
                 && me.getY() < mExtensionKeyboardYActivationPoint
-                && !isPopupShowing()
+                && !mMiniKeyboardPopup.isShowing()
                 && !mExtensionVisible
                 && me.getAction() == MotionEvent.ACTION_MOVE) {
             if (mExtensionKeyboardAreaEntranceTime <= 0)

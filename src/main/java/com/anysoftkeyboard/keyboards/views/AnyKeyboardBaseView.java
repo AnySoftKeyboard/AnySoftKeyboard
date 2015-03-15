@@ -162,18 +162,16 @@ public class AnyKeyboardBaseView extends View implements
     private final int mDelayAfterPreview;
 
     // Popup mini keyboard
-    protected PopupWindow mMiniKeyboardPopup;
+    protected final PopupWindow mMiniKeyboardPopup;
     protected AnyKeyboardBaseView mMiniKeyboard = null;
 
-    private boolean mMiniKeyboardVisible = false;
     private View mMiniKeyboardParent;
     private int mMiniKeyboardOriginX;
     private int mMiniKeyboardOriginY;
     private long mMiniKeyboardPopupTime;
     private int[] mWindowOffset;
     private int mMiniKeyboardTrackerId;
-    protected AnimationsLevel mAnimationLevel = AnyApplication.getConfig()
-            .getAnimationsLevel();
+    protected AnimationsLevel mAnimationLevel = AnyApplication.getConfig().getAnimationsLevel();
 
     /**
      * Listener for {@link OnKeyboardActionListener}.
@@ -1190,7 +1188,7 @@ public class AnyKeyboardBaseView extends View implements
      *         attached, it returns false.
      */
     public boolean isShifted() {
-        if (isPopupShowing())
+        if (mMiniKeyboardPopup.isShowing())
             return mMiniKeyboard.isShifted();
 
 	    //if there no keyboard is set, then the shift state is false
@@ -1688,7 +1686,7 @@ public class AnyKeyboardBaseView extends View implements
 	    }
         mInvalidatedKey = null;
         // Overlay a dark rectangle to dim the keyboard
-        if (mMiniKeyboard != null && mMiniKeyboardVisible) {
+        if (mMiniKeyboardPopup.isShowing()) {
             paint.setColor((int) (mBackgroundDimAmount * 0xFF) << 24);
             canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
         }
@@ -2306,8 +2304,6 @@ public class AnyKeyboardBaseView extends View implements
     }
 
     private void setPopupKeyboardWithView(int x, int y, View contentView) {
-        mMiniKeyboardVisible = true;
-
         mMiniKeyboardPopup.setContentView(contentView);
         mMiniKeyboardPopup.setWidth(contentView.getMeasuredWidth());
         mMiniKeyboardPopup.setHeight(contentView.getMeasuredHeight());
@@ -2376,7 +2372,7 @@ public class AnyKeyboardBaseView extends View implements
     }
 
     public boolean isInSlidingKeyInput() {
-        if (mMiniKeyboard != null && mMiniKeyboardVisible) {
+        if (mMiniKeyboard != null && mMiniKeyboardPopup.isShowing()) {
             return mMiniKeyboard.isInSlidingKeyInput();
         } else {
             return mPointerQueue.isInSlidingKeyInput();
@@ -2413,8 +2409,7 @@ public class AnyKeyboardBaseView extends View implements
 
         // Gesture detector must be enabled only when mini-keyboard is not
         // on the screen.
-        if (!mMiniKeyboardVisible && mGestureDetector != null
-                && (mGestureDetector.onTouchEvent(nativeMotionEvent))) {
+        if (!mMiniKeyboardPopup.isShowing() && mGestureDetector != null && mGestureDetector.onTouchEvent(nativeMotionEvent)) {
             Log.d(TAG, "Gesture detected!");
             mHandler.cancelKeyTimers();
             dismissKeyPreview();
@@ -2430,7 +2425,7 @@ public class AnyKeyboardBaseView extends View implements
         // Needs to be called after the gesture detector gets a turn, as it
         // may have
         // displayed the mini keyboard
-        if (mMiniKeyboard != null && mMiniKeyboardVisible) {
+        if (mMiniKeyboard != null && mMiniKeyboardPopup.isShowing()) {
             final int miniKeyboardPointerIndex = nativeMotionEvent.findPointerIndex(mMiniKeyboardTrackerId);
             if (miniKeyboardPointerIndex >= 0
                     && miniKeyboardPointerIndex < pointerCount) {
@@ -2645,15 +2640,10 @@ public class AnyKeyboardBaseView extends View implements
 
     }
 
-    protected boolean isPopupShowing() {
-        return mMiniKeyboardPopup != null && mMiniKeyboardVisible;
-    }
-
     public boolean dismissPopupKeyboard() {
-        if (isPopupShowing()) {
-	        mMiniKeyboard.closing();
+        if (mMiniKeyboardPopup.isShowing()) {
+	        if (mMiniKeyboard != null) mMiniKeyboard.closing();
             mMiniKeyboardPopup.dismiss();
-            mMiniKeyboardVisible = false;
             mMiniKeyboardOriginX = 0;
             mMiniKeyboardOriginY = 0;
             invalidateAllKeys();
