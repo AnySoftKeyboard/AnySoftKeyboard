@@ -211,7 +211,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
                 invokeOnKey(anyKey.longPressCode, anyKey, 0);
                 return true;
             } else if (anyKey.codes[0] == KeyCodes.QUICK_TEXT) {
-                invokeOnKey(KeyCodes.QUICK_TEXT_POPUP, null, 0);
+                invokeOnKey(KeyCodes.QUICK_TEXT_POPUP, anyKey, 0);
                 return true;
             }
         }
