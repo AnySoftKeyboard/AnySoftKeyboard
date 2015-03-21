@@ -19,14 +19,15 @@ package com.anysoftkeyboard.keyboards;
 import android.content.Context;
 import com.menny.android.anysoftkeyboard.R;
 
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 public class AnyPopupKeyboard extends AnyKeyboard {
 
     private int mAdditionalWidth = 0;
     private boolean mOneKeyPressPopup = true;
-    private static final HashSet<Character> msEmptySet = new HashSet<Character>(0);
+    private static final Set<Character> msEmptySet = Collections.emptySet();
 	private final String mKeyboardName;
 
 	public AnyPopupKeyboard(Context askContext, Context context,//note: the context can be from a different package!
@@ -118,7 +119,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 
 
     @Override
-    public HashSet<Character> getSentenceSeparators() {
+    public Set<Character> getSentenceSeparators() {
         return msEmptySet;
     }
 
