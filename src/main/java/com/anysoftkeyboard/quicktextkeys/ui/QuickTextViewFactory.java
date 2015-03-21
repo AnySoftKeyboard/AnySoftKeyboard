@@ -29,6 +29,7 @@ public class QuickTextViewFactory {
 		PagerTabStrip pagerTabStrip = (PagerTabStrip) pager.findViewById(R.id.pager_tabs);
 		pagerTabStrip.setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTitleTextSize);
 		pagerTabStrip.setTextColor(tabTitleTextColor.getDefaultColor());
+		pagerTabStrip.setTabIndicatorColor(tabTitleTextColor.getDefaultColor());
 		final int decorationWidthSize = context.getResources().getDimensionPixelSize(R.dimen.quick_key_size);
 		PagerAdapter adapter = new QuickKeysKeyboardPagerAdapter(context, list, keyboardActionListener, decorationWidthSize);
 		pager.setAdapter(adapter);
