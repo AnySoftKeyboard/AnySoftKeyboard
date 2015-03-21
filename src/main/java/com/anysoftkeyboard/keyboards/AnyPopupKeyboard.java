@@ -26,7 +26,6 @@ import java.util.Set;
 public class AnyPopupKeyboard extends AnyKeyboard {
 
     private int mAdditionalWidth = 0;
-    private boolean mOneKeyPressPopup = true;
     private static final Set<Character> msEmptySet = Collections.emptySet();
 	private final String mKeyboardName;
 
@@ -146,14 +145,6 @@ public class AnyPopupKeyboard extends AnyKeyboard {
     @Override
     public String getKeyboardPrefId() {
         return "keyboard_popup";
-    }
-
-    public boolean isOneKeyEventPopup() {
-        return mOneKeyPressPopup;
-    }
-
-    public void setIsOneKeyEventPopup(boolean oneKey) {
-        mOneKeyPressPopup = oneKey;
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
+import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.keyboards.views.QuickKeysKeyboardView;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
@@ -26,6 +27,8 @@ public class QuickKeysKeyboardPagerAdapter extends PagerAdapter {
 	@NonNull
 	private final AnyPopupKeyboard[] mPopupKeyboards;
 	@NonNull
+	private final boolean[] mIsAutoFitKeyboards;
+	@NonNull
 	private final QuickTextKey[] mAddOns;
 	private final int mDecorationWidthSize;
 
@@ -35,6 +38,7 @@ public class QuickKeysKeyboardPagerAdapter extends PagerAdapter {
 		mDecorationWidthSize = decorationWidthSize;
 		mAddOns = keyAddOns.toArray(new QuickTextKey[keyAddOns.size()]);
 		mPopupKeyboards = new AnyPopupKeyboard[mAddOns.length];
+		mIsAutoFitKeyboards = new boolean[mAddOns.length];
 		mLayoutInflater = LayoutInflater.from(context);
 	}
 
@@ -56,8 +60,26 @@ public class QuickKeysKeyboardPagerAdapter extends PagerAdapter {
 		if (keyboard == null) {
 			mPopupKeyboards[position] = new AnyPopupKeyboard(mContext, addOn.getPackageContext(), addOn.getPopupKeyboardResId(), keyboardView.getThemedKeyboardDimens(), addOn.getName());
 			keyboard = mPopupKeyboards[position];
+			final int keyboardViewMaxWidth = keyboardView.getThemedKeyboardDimens().getKeyboardMaxWidth();
+			mIsAutoFitKeyboards[position] = keyboard.getMinWidth() > keyboardViewMaxWidth;
+			if (mIsAutoFitKeyboards[position]) {
+				//fixing up the keyboard, so it will fit nicely in the width
+				int currentY = 0;
+				int xSub = 0;
+				for (Keyboard.Key key : keyboard.getKeys()) {
+					key.y = currentY;
+					key.x -= xSub;
+					if (key.x + key.width > keyboardViewMaxWidth) {
+						currentY += key.height;
+						xSub += key.x;
+						key.y = currentY;
+						key.x = 0;
+					}
+				}
+				keyboard.resetDimensions();
+			}
 		}
-		keyboardView.setKeyboard(keyboard);
+		keyboardView.setKeyboard(keyboard, mIsAutoFitKeyboards[position]);
 		return root;
 	}
 
