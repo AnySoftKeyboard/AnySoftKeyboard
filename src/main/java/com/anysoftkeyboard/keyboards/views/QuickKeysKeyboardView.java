@@ -41,7 +41,7 @@ public class QuickKeysKeyboardView extends AnyKeyboardBaseView {
 
 	public void setKeyboard(AnyKeyboard keyboard, boolean doubleKeyFontSize) {
 		mDoubleKeyFontSize = doubleKeyFontSize;
-		setKeyboard(keyboard);
+		setKeyboard(keyboard, 0/*no vertical correct here*/);
 	}
 
 	public void setExternalDecorationHorizontalSize(int size) {
