@@ -102,8 +102,9 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Input method implementation for QWERTY-ish keyboard.
@@ -144,7 +145,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 	private CompletionInfo[] mCompletions;
 	private AlertDialog mOptionsDialog;
 	private long mMetaState;
-	private HashSet<Character> mSentenceSeparators = new HashSet<>();
+	private Set<Character> mSentenceSeparators = Collections.emptySet();
 	// private BTreeDictionary mContactsDictionary;
 	private EditableDictionary mUserDictionary;
 	private AutoDictionary mAutoDictionary;
@@ -3014,12 +3015,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 			// new WxH. need new object.
 			mSentenceSeparators = getCurrentKeyboard().getSentenceSeparators();
 
-			if (mKeyboardChangeNotificationType
-					.equals(KEYBOARD_NOTIFICATION_ALWAYS))// should
-				// it
-				// be
-				// always
-				// on?
+			// should it be always on?
+			if (mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS))
 				notifyKeyboardChangeIfNeeded();
 		}
 

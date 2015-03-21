@@ -41,9 +41,9 @@ import com.menny.android.anysoftkeyboard.R;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 public abstract class AnyKeyboard extends Keyboard {
     private final static String TAG = "ASK - AK";
@@ -537,7 +537,7 @@ public abstract class AnyKeyboard extends Keyboard {
         return Character.isLetter(keyValue) || (keyValue == '\'');
     }
 
-    public abstract HashSet<Character> getSentenceSeparators();
+    public abstract Set<Character> getSentenceSeparators();
 
     /**
      * This looks at the ime options given by the current editor, to set the
