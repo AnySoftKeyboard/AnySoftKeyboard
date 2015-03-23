@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="prefs_quick_text_addons_screen">
+    <com.anysoftkeyboard.quicktextkeys.ui.QuickKeysOrderedListPreference
+        android:dialogTitle="@string/quick_text_keys_order_dialog_title"
+        android:key="@string/settings_key_active_quick_text_key"
+        android:persistent="true"
+        android:summary="@string/quick_text_keys_order_summary"
+        android:title="@string/quick_text_keys_order"/>
+
+    <!-- putting this at the end, so the user will get some kind of context -->
+    <com.anysoftkeyboard.ui.settings.widget.AddOnStoreSearchPreference
+        android:key="quick key"
+        android:persistent="false"
+        android:title="@string/search_market_for_quick_key_addons" />
+</PreferenceScreen>

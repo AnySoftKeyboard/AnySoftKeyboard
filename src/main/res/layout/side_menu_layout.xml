@@ -105,6 +105,13 @@
         <View style="@style/Ask.Menu.Item.Divider" />
 
         <TextView
+            style="@style/Ask.Menu.Item"
+            android:text="@string/quick_text_keys_group"
+            android:onClick="onNavigateToQuickTextSettings" />
+
+        <View style="@style/Ask.Menu.Item.Divider" />
+
+        <TextView
             style="@style/Ask.Menu.Item.More"
             android:text="@string/menu_even_more_settings"
             android:onClick="onNavigateToUserInterfaceSettings" />
