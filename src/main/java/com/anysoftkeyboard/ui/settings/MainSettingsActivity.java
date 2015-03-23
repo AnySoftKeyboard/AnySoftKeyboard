@@ -196,6 +196,11 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
         addFragmentToUi(new GesturesSettingsFragment(), FragmentUiContext.RootFragment);
     }
 
+	public void onNavigateToQuickTextSettings(View v) {
+		mDrawerRootLayout.closeDrawers();
+		addFragmentToUi(new QuickTextSettingsFragment(), FragmentUiContext.RootFragment);
+	}
+
     public void onNavigateToUserInterfaceSettings(View v) {
         mDrawerRootLayout.closeDrawers();
         addFragmentToUi(new AdditionalUiSettingsFragment(), FragmentUiContext.RootFragment);

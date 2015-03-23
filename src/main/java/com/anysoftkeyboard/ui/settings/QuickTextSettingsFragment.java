@@ -23,17 +23,17 @@ import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.PassengerFragmentSupport;
 
-public class GesturesSettingsFragment extends PreferenceFragment {
+public class QuickTextSettingsFragment extends PreferenceFragment {
 
 	@Override
 	public void onCreate(Bundle paramBundle) {
 		super.onCreate(paramBundle);
-		addPreferencesFromResource(R.xml.prefs_gestures_prefs);
+		addPreferencesFromResource(R.xml.prefs_quick_text_addons_prefs);
 	}
 
 	@Override
 	public void onStart() {
 		super.onStart();
-		PassengerFragmentSupport.setActivityTitle(this, getString(R.string.swipe_tweak_group));
+		PassengerFragmentSupport.setActivityTitle(this, getString(R.string.quick_text_keys_group));
 	}
 }
