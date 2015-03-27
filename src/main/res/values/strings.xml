@@ -20,76 +20,6 @@
     <string name="menu_about_item">About</string>
 
     <string name="click_to_restart_suggestions">Click for suggestions</string>
-    <!-- tips -->
-    <string name="tips_notification_text">Click for tips!</string>
-    <string name="tips_button">How to use</string>
-    <string name="tips_button_description">A few tips about how to use AnySoftKeyboard</string>
-    <string name="tips_title">AnySoftKeyboard tips</string>
-    <string name="tips_pager_swipe_hint">&#2190;\u0020Swipe left or right for more tips&#2192;</string>
-    <!-- tip 1 -->
-    <string name="tip_1_welcome_to_ask">Welcome to AnySoftKeyboard!</string>
-    <string name="tip_1_how_to_access_settings">To access the settings; long press the ENTER key. You\'ll find a world
-        of customizations there!
-    </string>
-    <!-- tip 2 -->
-    <string name="tip_2_gestures">I support gestures!</string>
-    <string name="tip_2_gestures_tip">With a swipe, you can do a lot! Swipe from left to right will switch languages,
-        swiping to the left will switch to symbols layout, swiping from the spacebar up will show up a utility keyboard,
-        and swiping down will hide the keyboard.\nIt is configurable in the settings (remember? Long pressing the ENTER
-        key).
-    </string>
-    <!-- tip 3 -->
-    <string name="tip_3_hidden_kbds">Hidden gems</string>
-    <string name="tip_3_hidden_kbds_tip">There are some hidden keyboards:\n1) Swipe your finger from the spacebar and
-        up, you\'ll get a utility keyboard with arrows and microphone (for voice input).\n2) Swipe your finger up
-        outside the keyboard, and keep it pressed. This is the extension keyboard, with numbers and symbols.
-    </string>
-    <!-- tip 4 -->
-    <string name="tip_4_top_generic_row">Top row</string>
-    <string name="tip_4_top_generic_row_tip">The top row is the same on all layouts, and it can be changed! The default
-        top row includes symbols key (<i>123</i>), left and right arrow keys, and language key (<i>ABC</i>). You can
-        replace this row in settings.
-    </string>
-    <string name="tip_4_top_generic_row_go_to_top_row_settings">Change top row now</string>
-    <!-- tip 5 -->
-    <string name="tip_5_key_feedback">Feedback</string>
-    <string name="tip_5_key_feedback_tip">Sometimes it is nice to get a non-visual feedback about key presses. I support
-        that. So here you go, you can have vibration or sound, or both.
-    </string>
-    <string name="tip_5_key_feedback_test">Want to test the feedback?</string>
-    <!-- tip 6 -->
-    <string name="tip_6_bottom_rows">Bottom row</string>
-    <string name="tip_6_bottom_rows_tip">As the top row, the bottom row can also be replaced. AnySoftKeyboard has
-        several types - with or without a mic, iPhone style, etc.
-    </string>
-    <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Change bottom row now</string>
-    <!-- tip 7 -->
-    <string name="tip_7_voice_input">Talk to me*</string>
-    <string name="tip_7_voice_input_tip">Typing is nice, but there is also support for voice input! Want to dictate the
-        text? Click the microphone key, and talk away!\nThis feature uses Google\'s state-of-the-art voice recognition
-        technology, so be sure it works :)
-    </string>
-    <string name="tip_7_voice_input_tip_dont_forget_bottom_row">If you want to always have the mic icon, make sure you
-        have the correct bottom row (previous tip, remember?).\nAnyway, mic is always accessible via the hidden utility
-        keyboard (swipe up from the spacebar).
-    </string>
-    <string name="tip_7_voice_input_tip_note">* Requires Android 2.2+ and Internet connection to work.</string>
-    <!-- tip 8 -->
-    <string name="tip_8_suggestions">I complete you</string>
-    <string name="tip_8_suggestions_tip">Depending on your language support level, AnySoftKeyboard can help you finish
-        your words and correct your typos. As you start typing, AnySoftKeyboard will suggest words based on what you
-        already typed.
-    </string>
-    <string name="tip_8_suggestions_editor">If I don\'t know a word, you can teach me! Type that word, and click it in
-        the suggestions strip. I\'ll remember it.\nYou can also edit those User-Words in our built-in editor. Look for
-        the editor in AnySoftKeyboard Dictionary Settings.
-    </string>
-    <!-- tip 9 -->
-    <string name="tip_9_suggestions_restart">Suggestions Restarting</string>
-    <string name="tip_9_suggestions_restart_tip">AnySoftKeyboard provides word completion suggestions based on what you
-        typed. But, AnySoftKeyboard can also provide suggestions on already typed words! Tap the word, and
-        AnySoftKeyboard will refresh the suggestions strip.
-    </string>
     <!-- main form -->
     <string name="main_tab_welcome">Welcome</string>
     <string name="main_tab_links">Links</string>
@@ -432,10 +362,6 @@
     <string name="is_extesion_keyboard_above_keyboard">Top extension keyboard</string>
     <string name="is_extesion_keyboard_above_keyboard_on_summary">Drawn above main keyboard</string>
     <string name="is_extesion_keyboard_above_keyboard_off_summary">Drawn on main keyboard</string>
-
-    <string name="show_new_tips_notifications_again">Notify on new tips</string>
-    <string name="show_new_tips_notifications_again_on_summary">Will notify you when unseen tips are available to read</string>
-    <string name="show_new_tips_notifications_again_off_summary">Will not notify you when a new tip is available</string>
 
     <string name="show_settings_app_in_launcher">Settings app</string>
     <string name="settings_key_show_settings_app_on_summary">Settings app will be visible in the launcher (may require

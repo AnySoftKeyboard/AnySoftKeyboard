@@ -87,7 +87,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     private boolean mIsDoubleSpaceChangesToPeroid = true;
     private boolean mShouldPopupForLanguageSwitch = false;
     private boolean mHideSoftKeyboardWhenPhysicalKeyPressed = true;
-    private boolean mShowTipsNotification = true;
     private boolean mUse16KeysSymbolsKeyboard = false;
     private boolean mUseBackword = true;
     //		private boolean mShowIconForSmileyKey = false;
@@ -461,10 +460,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
                 mContext.getResources().getBoolean(R.bool.settings_default_hide_soft_when_physical));
         Log.d(TAG, "** mHideSoftKeyboardWhenPhysicalKeyPressed: " + mHideSoftKeyboardWhenPhysicalKeyPressed);
 
-        mShowTipsNotification = sp.getBoolean(mContext.getString(R.string.settings_key_show_tips_notification),
-                mContext.getResources().getBoolean(R.bool.settings_default_show_tips_notification));
-        Log.d(TAG, "** mShowTipsNotification: " + mShowTipsNotification);
-
         mUse16KeysSymbolsKeyboard = sp.getBoolean(mContext.getString(R.string.settings_key_use_16_keys_symbols_keyboards),
                 mContext.getResources().getBoolean(R.bool.settings_default_use_16_keys_symbols_keyboards));
         Log.d(TAG, "** mUse16KeysSymbolsKeyboard: " + mUse16KeysSymbolsKeyboard);
@@ -472,10 +467,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         mUseBackword = sp.getBoolean(mContext.getString(R.string.settings_key_use_backword),
                 mContext.getResources().getBoolean(R.bool.settings_default_use_backword));
         Log.d(TAG, "** mUseBackword: " + mUseBackword);
-		
-/*			mShowIconForSmileyKey = sp.getBoolean(mContext.getString(R.string.settings_key_smiley_icon_on_smileys_key),
-					mContext.getResources().getBoolean(R.bool.settings_default_smiley_icon_on_smileys_key));
-			Log.d(TAG, "** mShowIconForSmileyKey: "+mShowIconForSmileyKey);*/
 
         mCycleOverAllSymbolsKeyboard = sp.getBoolean(mContext.getString(R.string.settings_key_cycle_all_symbols),
                 mContext.getResources().getBoolean(R.bool.settings_default_cycle_all_symbols));
@@ -734,19 +725,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     public boolean hideSoftKeyboardWhenPhysicalKeyPressed() {
         return mHideSoftKeyboardWhenPhysicalKeyPressed;
     }
-
-    public boolean getShowTipsNotification() {
-        return mShowTipsNotification;
-    }
-
-    public void setShowTipsNotification(boolean show) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(mContext);
-        Editor e = sp.edit();
-        e.putBoolean(mContext.getString(R.string.settings_key_show_tips_notification), show);
-        mShowTipsNotification = show;
-        e.commit();
-    }
-
 
     public boolean use16KeysSymbolsKeyboards() {
         return mUse16KeysSymbolsKeyboard;
