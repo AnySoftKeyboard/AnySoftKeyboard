@@ -15,42 +15,33 @@
     </string>
   <string name="menu_about_item">Σχετικά</string>
   <string name="click_to_restart_suggestions">Κάντε κλικ για υποδείξεις</string>
-  <string name="tips_notification_text">Κάντε κλικ για συμβουλές!</string>
-  <string name="tips_button">Τρόπος χρήσης</string>
-  <string name="tips_button_description">Μερικές συμβουλές για το πώς να χρησιμοποιήσετε το AnySoftKeyboard</string>
-  <string name="tips_title">Συμβουλές του AnySoftKeyboard</string>
-  <string name="tips_pager_swipe_hint">ࢎ\u0020Σύρετε αριστερά ή δεξιά για περισσότερα μικρά μυστικά࢐</string>
-  <string name="tip_1_welcome_to_ask">Καλώς ήλθατε στο AnySoftKeyboard!</string>
-  <string name="tip_1_how_to_access_settings">Για να αποκτήσετε πρόσβαση στις ρυθμίσεις, παρατεταμένο πάτημα του πλήκτρου ENTER. Θα βρείτε έναν κόσμο από προσαρμογές εκεί!
-    </string>
-  <string name="tip_2_gestures">Υποστηρίζω κινήσεις!</string>
-  <string name="tip_2_gestures_tip">Με ένα σύρσιμο, μπορείτε να κάνετε πολλά! Σύρσιμο από αριστερά προς τα δεξιά θα αλλάξει η γλώσσα, σύρσιμο προς τα αριστερά θα αλλάξει σε διάταξη με σύμβολα, σύρσιμο από το πλήκτρο διαστήματος και πάνω θα παρουσιάσει ένα εργαλείο πληκτρολογίου και σύρσιμο προς τα κάτω θα κρύψει το πληκτρολόγιο.\nΜπορεί να διαμορφωθεί στις ρυθμίσεις (θυμάστε; Παρατεταμένη πίεση στο πλήκτρο ENTER).
-    </string>
-  <string name="tip_3_hidden_kbds">Κρυμμένα διαμάντια</string>
-  <string name="tip_3_hidden_kbds_tip">Υπάρχουν μερικά κρυμμένα πληκτρολόγια:\n1) Σέρνοντας το δάχτυλό σας από το πλήκτρο διαστήματος και πάνω, θα πάρετε ένα εργαλείο πληκτρολογίου με βέλη και μικρόφωνο (για την φωνητική εισαγωγή).\n2) Σύρετε το δάχτυλό σας προς τα πάνω και έξω από το πληκτρολόγιο και κρατήστε το πατημένο. Αυτή είναι η επέκταση πληκτρολογίου, με αριθμούς και σύμβολα.
-    </string>
-  <string name="tip_4_top_generic_row">Πάνω σειρά</string>
-  <string name="tip_4_top_generic_row_tip">Η πάνω σειρά είναι ίδια σε όλες τις διατάξεις, και μπορεί να αλλάξει! Από προεπιλογή η πάνω σειρά περιλαμβάνει σύμβολα (<i>123</i>), αριστερό και δεξιό βέλος, και το πλήκτρο γλώσσας (<i>ABC</i>). Μπορείτε να αντικαταστήσετε αυτή τη γραμμή στις ρυθμίσεις.
-    </string>
-  <string name="tip_4_top_generic_row_go_to_top_row_settings">Αλλαγή πάνω σειράς τώρα</string>
-  <string name="tip_5_key_feedback">Ανταπόκριση</string>
-  <string name="tip_5_key_feedback_tip">Μερικές φορές είναι ωραίο να πάρετε μια μη οπτική ανταπόκριση για πιέσεις πλήκτρων. Οπότε ορίστε, μπορείτε να έχετε δόνηση ή ήχο, ή και τα δύο.
-    </string>
-  <string name="tip_5_key_feedback_test">Θέλετε να δοκιμάσετε την ανταπόκριση;</string>
-  <string name="tip_6_bottom_rows">Κάτω σειρά</string>
-  <string name="tip_6_bottom_rows_tip">Όπως η πάνω σειρά, μπορεί να αντικατασταθεί επίσης και η κάτω σειρά. Το AnySoftKeyboard έχει πολλά είδη - με ή χωρίς μικρόφωνο, στυλ iPhone, κ.λπ.
-    </string>
-  <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Αλλαγή κάτω σειράς τώρα</string>
-  <string name="tip_7_voice_input">Μίλησε σε μένα*</string>
-  <string name="tip_7_voice_input_tip_note">* Απαιτεί Android 2.2+ και σύνδεση στο Διαδίκτυο για να λειτουργήσει.</string>
-  <string name="tip_8_suggestions">Σας συμπληρώνω</string>
-  <string name="tip_8_suggestions_tip">Ανάλογα με το επίπεδο της γλωσσικής υποστήριξης, Το AnySoftKeyboard μπορεί να σας βοηθήσει να ολοκληρώσετε τις λέξεις σας και να διορθώσετε τα λάθη σας. Μόλις αρχίσετε να πληκτρολογείτε, το AnySoftKeyboard θα υποδείξει λέξεις με βάση αυτά που έχετε ήδη πληκτρολογήσει.
-    </string>
-  <string name="tip_8_suggestions_editor">Αν δεν γνωρίζω μια λέξη, μπορείτε να με διδάξετε! Πληκτρολογήστε αυτή τη λέξη και κάντε κλικ στη λωρίδα υποδείξεις. Θα το θυμάμαι.\nΜπορείτε επίσης να επεξεργαστείτε αυτές τις λέξεις χρήστη στο ενσωματωμένο πρόγραμμα επεξεργασίας. Αναζητήστε το πρόγραμμα επεξεργασίας στις ρυθμίσεις λεξικού του AnySoftKeyboard.
-    </string>
-  <string name="tip_9_suggestions_restart">Επανέναρξη υποδείξεων</string>
-  <string name="tip_9_suggestions_restart_tip">Το AnySoftKeyboard παρέχει υποδείξεις ολοκλήρωσης λέξεων που βασίζονται σε ότι πληκτρολογήσατε. Αλλά το AnySoftKeyboard μπορεί επίσης να παρέχει υποδείξεις που βασίζονται σε ήδη πληκτρολογημένες λέξεις! Επιλέξτε τη λέξη και το AnySoftKeyboard θα ανανεώσει την γραμμή υποδείξεων.
-    </string>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <string name="main_tab_welcome">Καλώς ήλθατε</string>
   <string name="main_tab_links">Σύνδεσμοι</string>
   <string name="main_tab_credits">Συντελεστές</string>
@@ -278,7 +269,7 @@
   <string name="is_extesion_keyboard_above_keyboard">Πάνω επέκταση πληκτρολογίου</string>
   <string name="is_extesion_keyboard_above_keyboard_on_summary">Σχεδίαση πάνω απ΄ το κύριο πληκτρολόγιο</string>
   <string name="is_extesion_keyboard_above_keyboard_off_summary">Σχεδίαση στο κύριο πληκτρολόγιο</string>
-  <string name="show_new_tips_notifications_again_off_summary">Δεν θα σας ειδοποιήσουμε όταν υπάρχει διαθέσιμη μια νέα συμβουλή</string>
+  
   <string name="show_settings_app_in_launcher">Ρυθμίσεις εφαρμογής</string>
   <string name="settings_key_show_settings_app_off_summary">Απόκρυψη ρυθμίσεων εφαρμογής (μπορεί να χρειαστεί επανεκκίνηση)</string>
   <string name="show_crash_notification">Αναφορά διακοπής λειτουργίας</string>

@@ -15,36 +15,35 @@
     </string>
   <string name="menu_about_item">O aplikaci</string>
   <string name="click_to_restart_suggestions">Klikněte pro návrhy</string>
-  <string name="tips_notification_text">Klikněte pro tipy!</string>
-  <string name="tips_button">Jak používat</string>
-  <string name="tips_button_description">Pár tipů, používat AnySoftKeyboard</string>
-  <string name="tips_title">Tipy pro AnySoftKeyboard</string>
-  <string name="tips_pager_swipe_hint">ࢎ\u0020Posuňte vlevo nebo vpravo pro další tipy࢐</string>
-  <string name="tip_1_welcome_to_ask">Vítejte v AnySoftKeyboard!</string>
-  <string name="tip_1_how_to_access_settings">Přístup k nastavení; dlouze stiskněte klávesu ENTER. Najdete tam celý svět přizpůsobení!</string>
-  <string name="tip_2_gestures">Podporuji gesta!</string>
-  <string name="tip_2_gestures_tip">Tažením můžete udělat dost! Tažením zleva doprava budete přepínat jazyky, tažením doleva budete přepínat na rozložení se symboly, tažením z mezerníku nahoru zobrazíte pomocnou klávesnici a tažením dolů klávesnici skryjete.\nLze to nakonfigurovat v nastavení (Pamatujete? Dlouhý stisk klávesy ENTER).</string>
-  <string name="tip_3_hidden_kbds">Skryté perly</string>
-  <string name="tip_3_hidden_kbds_tip">Existují skryté klávesnice:\n1) Táhněte prstem z mezerníku nahoru a dostanete pomocnou klávesnici se šipkami a mikrofonem (pro hlasový vstup).\n2) Táhněte prstem nahoru mimo klávesnici a držte. To je rozšiřující klávesnice s čísly a symboly.</string>
-  <string name="tip_4_top_generic_row">Horní řádek</string>
-  <string name="tip_4_top_generic_row_tip">Horní řádek je stejný ve všech rozloženích a lze ho změnit! Výchozí horní řádek zahrnuje klávesy symbolů (<i>123</i>), levou a pravou kurzorovou klávesu a jazykovou klávesu (<i>ABC</i>). Tento řádek můžete nahradit v nastavení.   </string>
-  <string name="tip_4_top_generic_row_go_to_top_row_settings">Změnit horní řádek nyní</string>
-  <string name="tip_5_key_feedback">Zpětná vazba</string>
-  <string name="tip_5_key_feedback_tip">Někdy je příjemné dostávat nevizuální zpětnou vazbu při stisku kláves. Já to podporuji. Tady to je, můžete mít vibrace nebo zvuk nebo obojí.</string>
-  <string name="tip_5_key_feedback_test">Chcete vyzkoušet zpětnou vazbu?</string>
-  <string name="tip_6_bottom_rows">Dolní řádek</string>
-  <string name="tip_6_bottom_rows_tip">Jako horní řádek lze také nahradit spodní řádek. AnySoftKeyboard má několik typů - s nebo bez mikrofonu, styl iPhone, atd.</string>
-  <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Změnit dolní řádek nyní</string>
-  <string name="tip_7_voice_input">Mluv na mne*</string>
-  <string name="tip_7_voice_input_tip">Psaní je hezké, ale také je tu podpora pro hlasové zadávání! Chcete diktovat text? Klikněte na klávesu mikrofonu a mluvte!\nTato vlastnost používá nejmodernější technologii pro rozpoznávání hlasu Google, takže to funguje :)
-    </string>
-  <string name="tip_7_voice_input_tip_dont_forget_bottom_row">Pokud chcete mít vždy ikonu mikrofonu, přesvědčte se, že máte správný dolní řádek (předchozí tip, pamatujete?).\nV každém případě je mikrofon vždy dostupný na skryté pomocné klávesnici (táhněte nahoru z mezerníku).</string>
-  <string name="tip_7_voice_input_tip_note">* Pro fungování vyžaduje Android 2.2+ a připojení na Internet.</string>
-  <string name="tip_8_suggestions">Doplňuji vás</string>
-  <string name="tip_8_suggestions_tip">AnySoftKeyboard vám může pomoci dokončit vaše slova a opravit vaše chyby v závislosti na úrovni vaší jazykové podpory. Když začnete psát,  AnySoftKeyboard bude navrhovat slova na základě toho, co jste už zadali.</string>
-  <string name="tip_8_suggestions_editor">Pokud slovo neznám, můžete mě ho naučit! Zadejte toto slovo a klikněte na něj v návrhovém pruhu. Zapamatuji si ho.\nMůžete také tato uživatelská slova upravit v našem vestavěném editoru. Hledejte editor v nastavení slovníku AnySoftKeyboard.</string>
-  <string name="tip_9_suggestions_restart">Nové spuštění návrhů</string>
-  <string name="tip_9_suggestions_restart_tip">AnySoftKeyboard poskytuje návrhy doplňování slov založené na tom, co jste zadali. Ale AnySoftKeyboard může také poskytovat návrhy k již napsaným slovům! Klepněte na slovo a AnySoftKeyboard bude aktualizovat pruh návrhů.</string>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <string name="main_tab_welcome">Vítejte</string>
   <string name="main_tab_links">Odkazy</string>
   <string name="main_tab_credits">Kredity</string>
@@ -284,9 +283,9 @@
   <string name="is_extesion_keyboard_above_keyboard">Horní rozš. klávesnice</string>
   <string name="is_extesion_keyboard_above_keyboard_on_summary">Vykreslena nad hlavní klávesnicí</string>
   <string name="is_extesion_keyboard_above_keyboard_off_summary">Vykreslena na hlavní klávesnici</string>
-  <string name="show_new_tips_notifications_again">Oznámit nové tipy</string>
-  <string name="show_new_tips_notifications_again_on_summary">Bude vám oznamovat, když  jsou dostupné ještě nezobrazené tipy</string>
-  <string name="show_new_tips_notifications_again_off_summary">Bude vám oznamovat, když  je dostupný nový tip</string>
+  
+  
+  
   <string name="show_settings_app_in_launcher">Nastavení aplikace</string>
   <string name="settings_key_show_settings_app_on_summary">Nastavení aplikace bude viditelné v seznamu aplikací (může vyžadovat restart)
     </string>

@@ -4,26 +4,26 @@
   <string name="ime_name">AnySoftKeyboard</string>
   <string name="settings_app_name">AnySoftKeyboard настройки</string>
   <string name="click_to_restart_suggestions">Натиснете за предложения</string>
-  <string name="tips_notification_text">Натиснете за съвети!</string>
-  <string name="tips_button">Как да използвате съветите</string>
-  <string name="tips_button_description">Натиснете за съвети за AnySoftKeyboard</string>
-  <string name="tips_title">Съвети за AnySoftKeyboard</string>
-  <string name="tip_1_welcome_to_ask">Добре дошли в AnySoftKeyboard!</string>
-  <string name="tip_1_how_to_access_settings">За достъп до настройките; задръжте клавиша ENTER. Там ще намерите всички възможности за персонализация!</string>
-  <string name="tip_2_gestures">Аз поддържам жестове!</string>
-  <string name="tip_2_gestures_tip">С едно плъзгане можете да направите много! Плъзгане отляво надясно ще смени езика на писане, плъзгане наляво ще превключи към символната подредба, плъзгане от клавиша за интервал нагоре ще покаже клавиатурата и плъзгане надолу ще я скрие.\nМожете да променяте това в настройките (Нали запомнихте? Задръжате клавиша Enter).</string>
-  <string name="tip_3_hidden_kbds">Скрити екстри</string>
-  <string name="tip_3_hidden_kbds_tip">Има няколко скрити клавиатури:\n1) Плъзнете с пръст от клавиша за интервал нагоре и ще получите мини клавиатура със стрелки и микрофон (за гласово въвеждане).\n2) Плъзнете с пръст нагоре извън полето на клавиатурата и задръжте натиснато. Това е допълнителната клавиатура с цифри и символи.</string>
-  <string name="tip_4_top_generic_row">Горния ред</string>
-  <string name="tip_4_top_generic_row_tip">Горния ред е единакъв при всички подредби и може да бъде променян! Стандартно горния ред включва клавиша за символи (<i>123</i>), лява и дясна стрелка и езиковия клавиш (<i>ABC</i>). Можете да замените този ред в настройките.</string>
-  <string name="tip_4_top_generic_row_go_to_top_row_settings">Промени горния ред сега</string>
-  <string name="tip_5_key_feedback">Обратна връзка</string>
-  <string name="tip_5_key_feedback_tip">ПОнякога е хубаво да се получава невизуална информация за натиснатите клавиши. Аз поддържам това. Затова можете да ползвате вибрация или звук или и двете.</string>
-  <string name="tip_5_key_feedback_test">Искате ли да тествате?</string>
-  <string name="tip_6_bottom_rows">Долния ред</string>
-  <string name="tip_6_bottom_rows_tip">Също както горния, така и долния ред може да бъде заменен. В AnySoftKeyboard има няколко типа - със или без микрофон, тип iPhone и други.</string>
-  <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Промени долния ред сега</string>
-  <string name="tip_7_voice_input_tip_note">* Изисква Android 2.2 + и интернет връзка, за да работи.</string>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <string name="main_tab_welcome">Добре дошли</string>
   <string name="main_tab_links">Връзки</string>
   <string name="main_tab_credits">Заслуги</string>
@@ -156,7 +156,7 @@
   <string name="custom_hint_valign">Вертикално подравняване на подсказващите символи</string>
   <string name="custom_hint_valign_summary">Подравняване на символите отгоре или отдолу на клавиша</string>
   <string name="settings_custom_hint_valign_dialog_title">Изберете вертикално подравняване за подсказващите символи</string>
-  <string name="show_new_tips_notifications_again">Показвай новите съвети</string>
+  
   <string name="use_keyrepeat">Използвай повторение на клавиши</string>
   <string name="use_keyrepeat_on_summary">Повторение на клавиши е включено</string>
   <string name="use_keyrepeat_off_summary">Повторение на клавиши е изключено</string>

@@ -3,9 +3,9 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="ime_name">AnySoftKeyboard</string>
     <string name="settings_app_name">настройкі AnySoftKeyboard</string>
-    <string name="tips_notification_text">Націсьніце на парады!</string>
-    <string name="tips_button">Як выкарыстоўваць парады</string>
-    <string name="tip_7_voice_input">Паразмаўляй са мной*</string>
+    
+    
+    
     <string name="main_tab_welcome">Вітаем</string>
     <string name="main_tab_links">Спасылкі</string>
     <string name="main_tab_credits">Падзякі</string>
@@ -123,7 +123,7 @@
     <string name="show_hint_text_on_summary">Паказваць падказкі на клявішах, калі тэма дазваляе</string>
     <string name="show_hint_text_off_summary">Ніколі не паказваць падказкі на клявішах</string>
     <string name="is_sticky_extesion_keyboard_off_summary">Зачыняецца пасьля націсканьня</string>
-    <string name="show_new_tips_notifications_again">Паказаць новыя парады</string>
+    
     <string name="show_settings_app_in_launcher">Настройкі праграмы</string>
     <string name="auto_caps">Аўтаматычныя вялікія літары</string>
     <string name="grammer_group">Граматыка</string>

@@ -10,26 +10,26 @@
   <string name="additional_licenses"><u>Altre licenze…</u></string>
   <string name="menu_about_item">Info</string>
   <string name="click_to_restart_suggestions">Clicca per i suggerimenti</string>
-  <string name="tips_notification_text">Clicca per i suggerimenti!</string>
-  <string name="tips_button">Modo d\'uso</string>
-  <string name="tips_button_description">Qualche consiglio sull\'uso di AnySoftKeyboard</string>
-  <string name="tips_title">Suggerimenti AnySoftKeyboard</string>
-  <string name="tip_1_welcome_to_ask">Benvenuti in AnySoftKeyboard!</string>
-  <string name="tip_1_how_to_access_settings">Per accedere alle impostazioni premi a lungo il tasto INVIO. Ci troverai un mondo di presonalizzazioni!</string>
-  <string name="tip_2_gestures">Supporta le gesture!</string>
-  <string name="tip_3_hidden_kbds">Gemme nascoste</string>
-  <string name="tip_4_top_generic_row">Riga superiore</string>
-  <string name="tip_4_top_generic_row_go_to_top_row_settings">Cambia la riga superiore adesso</string>
-  <string name="tip_5_key_feedback">Feedback</string>
-  <string name="tip_5_key_feedback_tip">A volte è bello avere un feedback non visivo per i tasti premuti. Io ne sono convinto. Quindi a te la scelta, puoi avere la vibrazione o un suono, o entrambi.</string>
-  <string name="tip_5_key_feedback_test">Vuoi testare il feedback?</string>
-  <string name="tip_6_bottom_rows">Riga inferiore</string>
-  <string name="tip_6_bottom_rows_tip">Come la riga superiore, anche quella inferiore può essere sostituita. AnySoftKeyboard ne ha diversi tipi - con o senza microfono, stile iPhone, etc.</string>
-  <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Cambia la riga inferiore adesso</string>
-  <string name="tip_7_voice_input">Parla con me *</string>
-  <string name="tip_7_voice_input_tip_note">* Richiede Android 2.2+ e connessione internet per funzionare.</string>
-  <string name="tip_8_suggestions">Posso completare</string>
-  <string name="tip_9_suggestions_restart">Riavvio Suggerimenti</string>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <string name="main_tab_welcome">Benvenuti</string>
   <string name="main_tab_links">Collegamenti</string>
   <string name="main_tab_credits">Crediti</string>

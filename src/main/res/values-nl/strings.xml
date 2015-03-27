@@ -15,46 +15,35 @@
 <xliff:g id="trace_file">%s</xliff:g></string>
   <string name="menu_about_item">Over</string>
   <string name="click_to_restart_suggestions">Klik voor suggesties</string>
-  <string name="tips_notification_text">Klik voor tips!</string>
-  <string name="tips_button">Hoe te gebruiken</string>
-  <string name="tips_button_description">Enige tips over het gebruik van AnySoftKeyboard</string>
-  <string name="tips_title">AnySoftKeyboard tips</string>
-  <string name="tips_pager_swipe_hint">ࢎ\u0020Veeg links of rechts voor more tips࢐</string>
-  <string name="tip_1_welcome_to_ask">Welkom bij AnySoftKeyboard!</string>
-  <string name="tip_1_how_to_access_settings">Toegang krijgen tot de instellingen: ENTER-toets lang indrukken. U vindt daar een woud van aanpassingen!
-    </string>
-  <string name="tip_2_gestures">Ik ondersteun gebaren!</string>
-  <string name="tip_2_gestures_tip">Met vegen kunt u een hoop doen. Veeg van links naar rechts voor het wisselen van talen, veeg naar links voor de symbolen lay-out, veeg naar boven vanuit de spatiebalk voor een extra toetsenbord en veeg naar beneden voor het verbergen van het toetsenbord.\nHet is configureerbaar in de instellingen (ENTER toets lang indrukken).
-    </string>
-  <string name="tip_3_hidden_kbds">Verborgen pareltjes</string>
-  <string name="tip_3_hidden_kbds_tip">Er zijn een paar verborgen toetsenborden:\n1) Veeg uw vinger van de spatiebalk omhoog, u krijgt dan een toetsenbord met pijltjes en een microfoon (voor steminvoer).\n2) Veeg uw vinger buiten het toetsenbord omhoog en blijf drukken. Dit is het toetsenbord met getallen en symbolen.
-    </string>
-  <string name="tip_4_top_generic_row">Bovenste rij</string>
-  <string name="tip_4_top_generic_row_tip">De bovenste rij is hetzelfde op alle lay-outs en kan worden veranderd! Standaard bevat de bovenste rij de symbolen toets (<i>123</i>), pijltje links en rechts en de taal toest(<i>ABC</i>). U kunt dit aanpassen in de instellingen.
-    </string>
-  <string name="tip_4_top_generic_row_go_to_top_row_settings">Verander bovenste rij</string>
-  <string name="tip_5_key_feedback">Terugkoppeling</string>
-  <string name="tip_5_key_feedback_tip">Soms is het fijn om een niet visuele terugkoppeling bij toetsaanslagen te krijgen. Dat wordt ondersteund. Dus u kunt vibratie, geluid of allebei krijgen.
-    </string>
-  <string name="tip_5_key_feedback_test">De terugkoppeling testen?</string>
-  <string name="tip_6_bottom_rows">Onderste rij</string>
-  <string name="tip_6_bottom_rows_tip">De onderste rij kan ook vervangen worden. AnySoftKeyboard heeft verschillende soorten - met of zonder microfoon, iPhone stijl, enz.
-    </string>
-  <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Verander onderste rij</string>
-  <string name="tip_7_voice_input">Praat tegen me*</string>
-  <string name="tip_7_voice_input_tip">Typen is leuk maar er is ook ondersteuning voor stem invoer. Wilt u tekst dicteren? Druk op de microfoon toets en praat maar raak!\nDeze functie gebruikt Google\'s state-of-the-art stem herkenningstechnologie dus het werkt :)
-    </string>
-  <string name="tip_7_voice_input_tip_dont_forget_bottom_row">Als u altijd het microfoon pictogram wilt hebben zorg dan dat u de juiste onderste rij heeft (vorige tip).\nDe microfoon is altijd beschikbaar via het verborgen toetsenbord (veeg omhoog vanaf de spatiebalk).
-    </string>
-  <string name="tip_7_voice_input_tip_note">* Vereist Android 2.2+ en een internet verbinding.</string>
-  <string name="tip_8_suggestions">Ik zorg dat je compleet bent</string>
-  <string name="tip_8_suggestions_tip">Afhankelijk van uw taal ondersteuningsniveau kan AnySoftKeybord u helpen voor het aanvullen en corrigeren van woorden. Zodra u begint zal AnySoftKeyboard woorden voorstellen op basis van wat u al heeft getypt.
-    </string>
-  <string name="tip_8_suggestions_editor">Als er een onbekend woord wordt ingevoerd dan kunt u dat toevoegen. Typ het woord en klik erop in de suggesties strip. Het wordt dan toegevoegd aan de woordenlijst.\nU kunt deze woordenlijst wijzigen via de ingebouwde editor. De editor staat in de AnySoftKeyboard woordenlijst instellingen.
-    </string>
-  <string name="tip_9_suggestions_restart">Suggesties wordt opnieuw gestart</string>
-  <string name="tip_9_suggestions_restart_tip">AnySoftKeyboard heeft woordaanvulling gebaseerd op hetgeen al ingevoerd is. Maar AnySoftKeyboard kan ook suggesties leveren voor woorden die al ingevoerd zijn. Tik op het woord en AnySoftKeyboard zal de suggesties strip vernieuwen.
-    </string>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <string name="main_tab_welcome">Welkom</string>
   <string name="main_tab_links">Links</string>
   <string name="main_tab_credits">Credits</string>
@@ -334,9 +323,9 @@ karakter, volledig indrukken verwijderd laatste woord
   <string name="is_extesion_keyboard_above_keyboard">Uitbreidingstoetsenbord</string>
   <string name="is_extesion_keyboard_above_keyboard_on_summary">Wordt getekend boven hoofdtoetsenbord</string>
   <string name="is_extesion_keyboard_above_keyboard_off_summary">Wordt getekend op hoofdtoetsenbord</string>
-  <string name="show_new_tips_notifications_again">Melden als er nieuwe tips zijn</string>
-  <string name="show_new_tips_notifications_again_on_summary">Zal u melden als er ongelezen tips beschikbaar zijn</string>
-  <string name="show_new_tips_notifications_again_off_summary">Niet waarschuwen als er nieuwe tips zijn</string>
+  
+  
+  
   <string name="show_settings_app_in_launcher">Instellingen app</string>
   <string name="settings_key_show_settings_app_on_summary">Instellingen app zal op het thuiszcherm beschikbaar zijn (misschien is herztart nodig)
     </string>

@@ -16,39 +16,35 @@
     </string>
   <string name="menu_about_item">Om</string>
   <string name="click_to_restart_suggestions">Se etter forslag</string>
-  <string name="tips_notification_text">Klikk for tips!</string>
-  <string name="tips_button">Hvordan bruke</string>
-  <string name="tips_button_description">Noen få tips om hvordan man bruker AnySoftKeyboard</string>
-  <string name="tips_title">AnySoftKeyboard tips</string>
-  <string name="tips_pager_swipe_hint">ࢎ\u0020Sveip til venste eller høyre for flere tips࢐</string>
-  <string name="tip_1_welcome_to_ask">Velkommen til AnySoftKeyboard!</string>
-  <string name="tip_1_how_to_access_settings">For tilgang til innstillinger, hold ENTER tasten. Det er en verden av muligheter der!</string>
-  <string name="tip_2_gestures">Jeg støttsveiping!</string>
-  <string name="tip_2_gestures_tip">Med et shell over tastaturet kan du gjøre mye! Sveip fra venstre mit høyre vil skifte språk.</string>
-  <string name="tip_3_hidden_kbds">Skjulte skatter</string>
-  <string name="tip_3_hidden_kbds_tip">Det finnes også skjulte tastaturer:\n1)Dra fra mellomromstasten og oppover og det kommer fram et praktisk minitastatur med piltaster og en mikrofontast (for talekommandoer).\n2) Sveip opp og forbi øverste rad og vent et øyeblikk. Da åpnes et tilleggstastatur med tall og symboler. </string>
-  <string name="tip_4_top_generic_row">Toprad</string>
-  <string name="tip_4_top_generic_row_tip">Toppraden er lik i alle layout, og kan endres! Standard topprad inneholder knapp for tataturvalg (<i>123</i>), venstre og høyre piltast og språktasten (<i>ABC</i>). Du kan bytte ut denne raden i innstillingsmenyen. </string>
-  <string name="tip_4_top_generic_row_go_to_top_row_settings">Bytt toprad nå</string>
-  <string name="tip_5_key_feedback">Tilbkemelding</string>
-  <string name="tip_5_key_feedback_tip">Noen ganger er det fint å få følbar respons på tastetrykk. Jeg støtter det også. Det er ditt valg, du kan få vibrasjon, lyd, eller begge deler. </string>
-  <string name="tip_5_key_feedback_test">Har du lyst til å føle responsen?</string>
-  <string name="tip_6_bottom_rows">Bunnrad</string>
-  <string name="tip_6_bottom_rows_tip">På samme måte som toppraden, kan bunnraden byttes ut. Anysoftkeyboard har flere typer å velge mellom. Det finnes med eller uten mikrofontast, iPhone-type med mer.</string>
-  <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Bytt bunnrad nå</string>
-  <string name="tip_7_voice_input">Snakk til meg*</string>
-  <string name="tip_7_voice_input_tip">Å skrive er fint, men det er også støtte for tale. Vil du diktere teksten I stedet? Klikk på mikrofontasten, og snakk i vei!\nVi benytter Googles talegjenkjenning slike at du kan være trygg på at det virker :)    
-    </string>
-  <string name="tip_7_voice_input_tip_dont_forget_bottom_row">Hvis du ønsker at mikrofontasten alltid skal være synlig må du velge den riktige bunnraden. Se forrige tips!\nUansett vil mikrofontasten slltid være tilgjengelig på det skjulte tilleggstastaturet. Sveip fingeren opp fra mellomromstasten så finner du den!</string>
-  <string name="tip_7_voice_input_tip_note">*Krever Android 2.2 eller høyere, og internettforbindelse.</string>
-  <string name="tip_8_suggestions">Jeg fullfører det du skriver</string>
-  <string name="tip_8_suggestions_tip">Avhengig av støtten ditt språk har kan AnySoftKeyboard hjelpe deg å fullføre dine ord, og korrigere dine skrivefeil. Når du begynner å skrive foreslår AnySoftKeyboard ord basert på det du allerede har skrevet.
-    </string>
-  <string name="tip_8_suggestions_editor">Hvis jeg ikke vet et ord, kan du lære meg det! Skriv inn ordet og klikk i forslag-stripen. Jeg vil huske det. \nDu kan også redigere disse brukerordene i våre innebygde redigeringsverktøy. Se etter verktøyet i AnySoftKeyboards ordbokinnstillinger.
-    </string>
-  <string name="tip_9_suggestions_restart">Foreslår omstart</string>
-  <string name="tip_9_suggestions_restart_tip">AnySoftKeyboard foreslår ord basert på hva du skrev.  Men AnySoftKeyboard kan også gi deg forslag på allerede inntastede ord! Tapp på ordet, og forslagstripen oppdateres.
-    </string>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <string name="main_tab_welcome">Velkommen</string>
   <string name="main_tab_links">Lenker</string>
   <string name="main_tab_credits">Takk</string>

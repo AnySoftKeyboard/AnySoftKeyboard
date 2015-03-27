@@ -6,21 +6,21 @@
   <string name="spell_checker_service_name">Moduł sprawdzania pisowni AnySoftKeyboard</string>
   <string name="spell_checker_settings">Ustawienia sprawdzania pisowni</string>
   <string name="click_to_restart_suggestions">Kliknij dla sugestii</string>
-  <string name="tips_notification_text">Kliknij, aby uzyskać porady!</string>
-  <string name="tips_title">Porady AnySoftKeyboard</string>
-  <string name="tip_1_welcome_to_ask">Witaj w AnySoftKeyboard!</string>
-  <string name="tip_2_gestures">Obsługuję gesty!</string>
-  <string name="tip_3_hidden_kbds">Ukryte klejnoty</string>
-  <string name="tip_4_top_generic_row">Górny wiersz</string>
-  <string name="tip_4_top_generic_row_go_to_top_row_settings">Zmień teraz górny wiersz</string>
-  <string name="tip_5_key_feedback">Reakcja</string>
-  <string name="tip_5_key_feedback_test">Czy chcesz przetestować reakcje?</string>
-  <string name="tip_6_bottom_rows">Dolny wiersz</string>
-  <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Zmień teraz dolny wiersz</string>
-  <string name="tip_7_voice_input">Mów do mnie*</string>
-  <string name="tip_7_voice_input_tip_note">* Wymaga Androida 2.2+ i połączenia z Internetem do działania.</string>
-  <string name="tip_8_suggestions">Uzupełniam Cię</string>
-  <string name="tip_9_suggestions_restart">Restartowanie sugestii</string>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <string name="main_tab_welcome">Witaj</string>
   <string name="main_tab_links">Łącza</string>
   <string name="main_tab_credits">Autorzy</string>
@@ -207,8 +207,8 @@
   <string name="is_extesion_keyboard_above_keyboard">Górna klawiatura rozszerzająca</string>
   <string name="is_extesion_keyboard_above_keyboard_on_summary">Rysuj nad główną klawiaturą</string>
   <string name="is_extesion_keyboard_above_keyboard_off_summary">Rysuj na głównej klawiaturze</string>
-  <string name="show_new_tips_notifications_again">Pokaż nowe porady</string>
-  <string name="show_new_tips_notifications_again_on_summary">Gdy dostępne będą nowe porady, zostaną one wyświetlone</string>
+  
+  
   <string name="show_settings_app_in_launcher">Aplikacja ustawień</string>
   <string name="settings_key_show_settings_app_off_summary">Ukryj aplikację ustawień (może wymagać restartu)</string>
   <string name="show_crash_notification">Raportowanie awarii</string>

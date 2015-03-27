@@ -11,22 +11,22 @@
   <string name="additional_licenses"><u>Licențe adiționale…</u></string>
   <string name="menu_about_item">Despre</string>
   <string name="click_to_restart_suggestions">Click pentru sugestii</string>
-  <string name="tips_notification_text">Click pentru sfaturi!</string>
-  <string name="tips_button">Cum se folosește</string>
-  <string name="tips_button_description">Câteva sfaturi despre cum să folosești AnySoftKeyboard</string>
-  <string name="tips_title">Sfaturi AnySoftKeyboard</string>
-  <string name="tips_pager_swipe_hint">ࢎ\u0020Pentru mai multe sfaturi glisează stânga sau dreapta࢐</string>
-  <string name="tip_1_welcome_to_ask">Bun venit la AnySoftKeyboard!</string>
-  <string name="tip_2_gestures">Pot folosi gesturi!</string>
-  <string name="tip_4_top_generic_row">Rândul de sus</string>
-  <string name="tip_4_top_generic_row_go_to_top_row_settings">Schimbă acum rândul de sus</string>
-  <string name="tip_5_key_feedback">Feedback</string>
-  <string name="tip_5_key_feedback_test">Vrei să testezi feedback-ul?</string>
-  <string name="tip_6_bottom_rows">Rândul de jos</string>
-  <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Modifică rândul de jos acum</string>
-  <string name="tip_7_voice_input">Vorbește cu mine*</string>
-  <string name="tip_7_voice_input_tip_note">* Pentru a funcționa este necesar Android 2.2+ și conexiune la internet.</string>
-  <string name="tip_9_suggestions_restart">Repornesc sugestiile</string>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <string name="main_tab_welcome">Bine aţi venit</string>
   <string name="main_tab_links">Legături</string>
   <string name="main_tab_credits">Credite</string>
@@ -164,7 +164,7 @@
   <string name="settings_min_length_for_word_correction">Lungimea minimă a cuvântului pentru corectare</string>
   <string name="show_keyboard_name_text">Afișează numele tastaturii</string>
   <string name="is_sticky_extesion_keyboard_off_summary">Se închide după apăsarea tastei</string>
-  <string name="show_new_tips_notifications_again">Notifică sfaturile noi</string>
+  
   <string name="show_settings_app_in_launcher">Setări aplicație</string>
   <string name="tweak_animations_level_title">Animații</string>
   <string name="tweak_animations_level_types_full">Întreg</string>

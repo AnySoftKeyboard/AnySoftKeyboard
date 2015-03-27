@@ -17,27 +17,25 @@
     </string>
   <string name="menu_about_item">Hakkında</string>
   <string name="click_to_restart_suggestions">Öneriler için tıklayın</string>
-  <string name="tips_notification_text">İpuçları için tıklayın!</string>
-  <string name="tips_button">Nasıl kullanılır</string>
-  <string name="tips_button_description">AnySoftKeyboard kullanılmıyla ilgili bazı ipuçları</string>
-  <string name="tips_title">AnySoftKeyboard ipuçları</string>
-  <string name="tips_pager_swipe_hint">ࢎ\u0020Swipe daha fazla tips࢐ için sağa veya sola</string>
-  <string name="tip_1_welcome_to_ask">AnySoftKeyboard a hoş geldiniz!</string>
-  <string name="tip_1_how_to_access_settings">Ayarlara erişmek için; ENTER tuşuna basılı tutun. Burayı kişiselleştirmek için bir dünya bulacaksınız!
-    !
-    </string>
-  <string name="tip_2_gestures">I Çizgisel giriş desteği!</string>
-  <string name="tip_3_hidden_kbds">Gizli cehverler</string>
-  <string name="tip_4_top_generic_row">Üst sıra</string>
-  <string name="tip_4_top_generic_row_go_to_top_row_settings">Üst satırı şimdi değiştir</string>
-  <string name="tip_5_key_feedback">Geribildirim</string>
-  <string name="tip_5_key_feedback_test">Geribildirimi denemek ister misiniz?</string>
-  <string name="tip_6_bottom_rows">Alt satır</string>
-  <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Alt satırı değiştir</string>
-  <string name="tip_7_voice_input">Konuş benimle*</string>
-  <string name="tip_7_voice_input_tip_note">* Çalışabilmek için Android 2.2+ ve internet bağlantısı gerektirir.</string>
-  <string name="tip_8_suggestions">Seninle bütünleştim</string>
-  <string name="tip_9_suggestions_restart">Öneriler Yeniden Başlatılıyor</string>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <string name="main_tab_welcome">Hoşgeldiniz</string>
   <string name="main_tab_links">Linkler</string>
   <string name="main_tab_credits">Künye</string>

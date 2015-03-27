@@ -15,36 +15,34 @@
         <xliff:g id="trace_file">%s</xliff:g>
     </string>
   <string name="click_to_restart_suggestions">Kattints a javaslatokért</string>
-  <string name="tips_notification_text">Tippek!</string>
-  <string name="tips_button">Használati utasítás</string>
-  <string name="tips_button_description">Néhány tipp az AnySoftKeyboard használatához</string>
-  <string name="tips_title">AnySoftKeyboard tippek</string>
-  <string name="tip_1_welcome_to_ask">Üdvözöl az AnySoftKeyboard!</string>
-  <string name="tip_1_how_to_access_settings">A beállításokhoz nyomd hosszan az ENTER gombot. Egy rakás személyre 
-szabható dolgot fogsz találni!</string>
-  <string name="tip_2_gestures">Támogatjuk a gesztusokat!</string>
-  <string name="tip_2_gestures_tip">Csúsztasd az ujjad! Balról jobbra: nyelvek között válthatsz, míg jobbról balra csúsztatva a szimbólumkiosztást kaphatod. A szóközről felfele csúsztatva az eszköztár jön fel, lefele csúsztatva pedig elrejtheted a billentyűzetet. \nMindez persze átállítható (emlékszel? Hosszan nyomni az ENTER-t).</string>
-  <string name="tip_3_hidden_kbds">Rejtett funkciók</string>
-  <string name="tip_3_hidden_kbds_tip">Van egy rejtett billentyűzet is:\n1)Csúsztasd az ujjad a szóközről felfele, és megjelenik egy billentyűzet nyilakkal ill. mikrofonnal (a hangvezérléshez). \n2)Csúsztasd felfele, ki a billentyűzetről az ujjad, és tartsd ott. Ez a bővített billentyűzetet hozza elő, számokkal, szimbólumokkal.</string>
-  <string name="tip_4_top_generic_row">Felső sor</string>
-  <string name="tip_4_top_generic_row_tip">A felső sor minden kiosztásban azonos, és megváltoztatható! Alapesetben szimbólumokat tartalmaz  (<i>123</i>), bal-jobb nyilakat, és a nyelvválasztó gombot (<i>ABC</i>).
-A beállításokban ezt megváltoztathatod.</string>
-  <string name="tip_4_top_generic_row_go_to_top_row_settings">A felső sor lecserélése</string>
-  <string name="tip_5_key_feedback">Visszajelzés</string>
-  <string name="tip_5_key_feedback_tip">Néha megnyugtató egy nem-vizuális visszajelzést kapni a billentyűk lenyomásáról. Most ezt megteheted, állíts be vibrálást, hangot, vagy mindkettőt egyszerre!</string>
-  <string name="tip_5_key_feedback_test">Ki akarja próbálni a visszejelzést?</string>
-  <string name="tip_6_bottom_rows">Alsó sor</string>
-  <string name="tip_6_bottom_rows_tip">A felső sorhoz hasonlóan az alsó sor is cserélhető. AnySoftKeyboard több típust is támogat - mikrofonnal, vagy nélküle, iPhone stílus, stb.</string>
-  <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Az alsó sor lecserélése</string>
-  <string name="tip_7_voice_input">Beszélj hozzám*</string>
-  <string name="tip_7_voice_input_tip">Pötyögni frankó, de hangalapú bevitel még menőbb! Diktálni szeretnél? Nyomj rá a mikrofon gombra, és beszélj!\nEz a funkció a Google hangfelismerő rutinját használja, úgyhogy légy nyugodt - működik! :)</string>
-  <string name="tip_7_voice_input_tip_dont_forget_bottom_row">Ha sűrűn használod a mikrofont, állítsd be fixre az alsó sorban (előző tipp, emlékszel?).\nA mikrofon egyébként bármikor elérhető a rejtett billentyűzetről (csúsztass felfele a szóközről).</string>
-  <string name="tip_7_voice_input_tip_note">* Android 2.2+ és internet kapcsolat szükséges hozzá.</string>
-  <string name="tip_8_suggestions">Kiegészítések</string>
-  <string name="tip_8_suggestions_tip">A kiválasztott nyelv támogatottságától függően, AnySoftKeyboard képes a beírt szavakat automatikusan befejezni, vagy korrigálni az elírásaidat. Ahogy elkezdesz gépelni, AnySoftKeyboard javaslatokat tesz a szó befejezésére, hogy azt ne kelljen végigírnod.</string>
-  <string name="tip_8_suggestions_editor">Ha nem ismerek egy szót, tanítsd meg nekem! Írd be az új szót, majd kattints rá a javaslat-szalagon. Ezután emlékezni fogok rá. A már letárolt szavakat szerkesztheted is az AnySoftKeyboard Szótárban.</string>
-  <string name="tip_9_suggestions_restart">A javaslatok újraindítása</string>
-  <string name="tip_9_suggestions_restart_tip">AnySoftKeyboard a már beírt szótöredék alapján javaslatokat tud tenni annak befejezésére. Emellett a már leírt szavakat is ki tudod cserélni hozzájuk hasonlóra: nyomj rá a beírt szóra, és a javasló-szalagon feltűnnek az alternatívák!</string>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <string name="main_tab_welcome">Üdvözöljük</string>
   <string name="main_tab_links">Linkek</string>
   <string name="main_tab_credits">Szerzők</string>
@@ -269,9 +267,9 @@ törlődik, teljesen lenyomva az utolsó szó</string>
   <string name="is_extesion_keyboard_above_keyboard">Felső kiegészítő billentyűzet</string>
   <string name="is_extesion_keyboard_above_keyboard_on_summary">Megjelenítés a fő billentyűzet felett</string>
   <string name="is_extesion_keyboard_above_keyboard_off_summary">Megjelenítés a fő billentyűzeten</string>
-  <string name="show_new_tips_notifications_again">Mutasd a tippeket</string>
-  <string name="show_new_tips_notifications_again_on_summary">Megjeleníti a legújabb tippeket</string>
-  <string name="show_new_tips_notifications_again_off_summary">Nem kapsz értesítést, ha új tipp érhető el</string>
+  
+  
+  
   <string name="show_settings_app_in_launcher">Beállító alkalmazás</string>
   <string name="settings_key_show_settings_app_on_summary">A beállító-alkalmazás elérhető lesz a gyorsindítóból (újraindításra lehet szükség)</string>
   <string name="settings_key_show_settings_app_off_summary">Beállító alkalmazás elrejtése (újraindítás szükséges)</string>

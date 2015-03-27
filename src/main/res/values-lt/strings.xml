@@ -3,10 +3,10 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
   <string name="settings_app_name">AnySoftKeyboard nustatymai</string>
   <string name="menu_about_item">Apie</string>
-  <string name="tips_button">Kaip naudotis</string>
-  <string name="tip_4_top_generic_row">Viršutinė eilutė</string>
-  <string name="tip_6_bottom_rows">Apatinė eilutė</string>
-  <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Pakeisti apatinę eilutę</string>
+  
+  
+  
+  
   <string name="main_tab_welcome">Sveiki</string>
   <string name="main_tab_links">Nuorodos</string>
   <string name="how_to_pointer_title">Sveiki prisijungę prie AnySoftKeyboard</string>

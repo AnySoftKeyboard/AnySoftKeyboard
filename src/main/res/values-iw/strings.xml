@@ -6,23 +6,23 @@
   <string name="spell_checker_service_name">בודק האיות של AnySoftKeyboard</string>
   <string name="spell_checker_settings">הגדרות בודק האיות</string>
   <string name="click_to_restart_suggestions">לחץ לקבלת הצעות</string>
-  <string name="tips_notification_text">טיפים!</string>
-  <string name="tips_button">כיצד להשתמש</string>
-  <string name="tips_button_description">מספר טיפים כיצד להשתמש ב-AnySoftKeyboard</string>
-  <string name="tips_title">טיפים ל AnySoftKeyboard</string>
-  <string name="tip_1_welcome_to_ask">ברוכים הבאים ל-AnySoftKeyboard!</string>
-  <string name="tip_1_how_to_access_settings">לכניסה להגדרות: לחץ לחיצה ארוכה על מקש אנטר. תמצא שם עולם שלם של התאמות אישיות.</string>
-  <string name="tip_2_gestures">אני תומך מחוות!</string>
-  <string name="tip_3_hidden_kbds">פנינים נסתרות</string>
-  <string name="tip_4_top_generic_row">שורה עליונה</string>
-  <string name="tip_4_top_generic_row_go_to_top_row_settings">שינוי השורה העליונה כעת</string>
-  <string name="tip_5_key_feedback">משוב</string>
-  <string name="tip_5_key_feedback_test">רוצה לבדוק את המשוב?</string>
-  <string name="tip_6_bottom_rows">שורה תחתונה</string>
-  <string name="tip_6_top_generic_row_go_to_bottom_row_settings">שנה שורה תחתונה כעת</string>
-  <string name="tip_7_voice_input">דבר איתי*</string>
-  <string name="tip_7_voice_input_tip_note">* דורש אנדרויד 2.2+ וחיבור לאינטרנט.</string>
-  <string name="tip_8_suggestions">משלים אותך</string>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <string name="main_tab_welcome">ברוכים הבאים</string>
   <string name="main_tab_links">קישורים</string>
   <string name="main_tab_credits">תודות</string>
@@ -185,9 +185,9 @@
   <string name="show_hint_text_off_summary">לעולם אל תציג רמזים על המקשים</string>
   <string name="is_sticky_extesion_keyboard_off_summary">סגור לאחר לחיצה על מקש</string>
   <string name="is_extesion_keyboard_above_keyboard">מקלדת הרחבה עליונה</string>
-  <string name="show_new_tips_notifications_again">הצג עצות חדשות</string>
-  <string name="show_new_tips_notifications_again_on_summary">טיפים חדשים יוצגו</string>
-  <string name="show_new_tips_notifications_again_off_summary">לא יודיע לך כאשר טיפ חדש זמין</string>
+  
+  
+  
   <string name="show_settings_app_in_launcher">הגדרות יישום</string>
   <string name="settings_key_show_settings_app_on_summary">קיצור דרך להגדרות יופיע במגירת האפליקציות (נדרשת הפעלה מחדש)</string>
   <string name="settings_key_show_settings_app_off_summary">הסתר קיצור דרך להגדרות (דורש הפעלה מחדש)</string>

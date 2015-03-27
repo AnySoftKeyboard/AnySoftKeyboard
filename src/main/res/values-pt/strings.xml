@@ -17,37 +17,35 @@
     </string>
   <string name="menu_about_item">Sobre</string>
   <string name="click_to_restart_suggestions">Clique para sugestões</string>
-  <string name="tips_notification_text">Clique para dicas!</string>
-  <string name="tips_button">Como utilizar</string>
-  <string name="tips_button_description">Algumas dicas de utilização do AnySoftKeyboard</string>
-  <string name="tips_title">Dicas AnySoftKeyboard</string>
-  <string name="tips_pager_swipe_hint">ࢎ\u0020Deslize da esquerda para a direita para mais dicas࢐</string>
-  <string name="tip_1_welcome_to_ask">Bem-vindo ao AnySoftKeyboard!</string>
-  <string name="tip_1_how_to_access_settings">Para aceder às definições, clique longo na tecla ENTER. Encontrará diversas opções de personalização!
-    </string>
-  <string name="tip_2_gestures">Com suporte a gestos!</string>
-  <string name="tip_2_gestures_tip">Com um deslizar no ecrã, pode efetuar diversas ações! Deslizar da esquerda para a direita troca de idioma, da direita para a esquerda troca o esquema de símbolos, da barra de espaço para cima mostra o teclado e de cima para baixo oculta o teclado.\nAs ações podem ser editadas nas definições (toque longo na tecla Enter, lembra-se?).
-    </string>
-  <string name="tip_3_hidden_kbds">Jóias escondidas</string>
-  <string name="tip_3_hidden_kbds_tip">Há alguns teclados ocultos:\n1) Deslize da barra de espaço para cima e terá um teclado com setas e microfone (para entrada de voz).\n2) Deslize para cima e mantenha a pressão. Este é o teclado de extensão, com números e símbolos.</string>
-  <string name="tip_4_top_generic_row">Linha superior</string>
-  <string name="tip_4_top_generic_row_tip">A linha superior é igual em todos os esquemas e pode ser alterada! A linha superior pré-definida inclui as teclas (<i>123</i>), as setas para os lados e a tecla de idioma (<i>ABC</i>). Pode substituir esta linha nas definições.</string>
-  <string name="tip_4_top_generic_row_go_to_top_row_settings">Alterar linha superior agora</string>
-  <string name="tip_5_key_feedback">Resposta</string>
-  <string name="tip_5_key_feedback_tip">Às vezes pode ser útil obter uma reação sonora ou vibratória ao tocar nas teclas. O AnySoftKeyboard possibilita essa reação. Pode ativar sons, vibrações ou ambos.</string>
-  <string name="tip_5_key_feedback_test">Pretende testar a resposta?</string>
-  <string name="tip_6_bottom_rows">Linha inferior</string>
-  <string name="tip_6_bottom_rows_tip">A linha inferior também pode ser substituída. O AnySoftKeyboard possui diversos tipos de linha - com ou sem microfone, estilo iPhone...</string>
-  <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Alterar linha inferior agora</string>
-  <string name="tip_7_voice_input">Fale comigo*</string>
-  <string name="tip_7_voice_input_tip">Escrever é bom mas o teclado também tem suporte a entrada de voz. Quer dizer o texto? Clique na tecla do microfone e fale.\nEsta função utiliza o reconhecimento de voz da Google, por isso é melhor verificar se funciona corretamente.</string>
-  <string name="tip_7_voice_input_tip_dont_forget_bottom_row">Se quiser que o ícone do microfone esteja sempre disponível, certifique-se que escolheu corretamente a linha inferior (dica anterior, lembra-se?).\nDe qualquer das formas, o microfone pode ser acedido através do utilitário oculto do teclado (deslize desde a barra de espaço para cima).</string>
-  <string name="tip_7_voice_input_tip_note">* Para funcionar, requer Android 2.2+ e ligação à Internet.</string>
-  <string name="tip_8_suggestions">Eu ajudo-o</string>
-  <string name="tip_8_suggestions_tip">Dependendo do seu idioma, o AnySoftKeyboard pode concluir automaticamente as palavras e corrigir erros. Assim que começar a escrever o texto, o AnySoftKeyboard sugere as palavras tendo por base o que tenha sido escrito por si.</string>
-  <string name="tip_8_suggestions_editor">Se o teclado não reconhecer a palavra, pode ensiná-lo! Escreva a palavra e clique na barra de sugestões.\nTambém pode editar as palavras do utilizador no editor incorporado. Procure-o nas definições de dicionário do AnySoftKeyboard.</string>
-  <string name="tip_9_suggestions_restart">A reiniciar sugestões</string>
-  <string name="tip_9_suggestions_restart_tip">O AnySoftKeyboard disponibiliza a conclusão de palavras tendo por base o que por si tenha sido escrito. Também pode utilizar as sugestões nas palavras já escritas! Clique na palavra e o AnySoftKeyboard irá atualizar a barra de sugestões.</string>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <string name="main_tab_welcome">Bem-vindo</string>
   <string name="main_tab_links">Ligações</string>
   <string name="main_tab_credits">Créditos</string>
@@ -294,9 +292,9 @@
   <string name="is_extesion_keyboard_above_keyboard">Local do teclado extensivo</string>
   <string name="is_extesion_keyboard_above_keyboard_on_summary">Por cima do teclado principal</string>
   <string name="is_extesion_keyboard_above_keyboard_off_summary">Cobre o teclado principal</string>
-  <string name="show_new_tips_notifications_again">Notificar novas dicas</string>
-  <string name="show_new_tips_notifications_again_on_summary">Será notificado se existirem dicas não lidas</string>
-  <string name="show_new_tips_notifications_again_off_summary">Não será notificado se forem adicionadas novas dicas</string>
+  
+  
+  
   <string name="show_settings_app_in_launcher">Definições</string>
   <string name="settings_key_show_settings_app_off_summary">Ocultar aplicação de definições na lista (poderá ter de reiniciar)</string>
   <string name="show_crash_notification">Reportar erros</string>
