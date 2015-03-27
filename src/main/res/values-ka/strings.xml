@@ -5,8 +5,8 @@
   <string name="settings_app_name">AnySoftKeyboard პარამეტრები</string>
   <string name="spell_checker_settings">AnySoftKeyboard მართლწერის შემოწმების პარამეტრები</string>
   <string name="menu_about_item">შესახებ</string>
-  <string name="tips_notification_text">დააწკაპუნეთ რჩევებისათვის!</string>
-  <string name="tips_button">გამოყენების წესები</string>
+  
+  
   <string name="main_tab_welcome">სალამი</string>
   <string name="main_tab_links">ბმულები</string>
   <string name="main_tab_credits">ავტორები</string>

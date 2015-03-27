@@ -15,31 +15,26 @@
     </string>
   <string name="menu_about_item">မှတ်တမ်း</string>
   <string name="click_to_restart_suggestions">အကြံပြုချက်အတွက် နှိပ်ပါ</string>
-  <string name="tips_notification_text">အချက် သိရန် နှိပ်ပါ!</string>
-  <string name="tips_button">ဘယ်လိုအသုံးပြုရမလဲ</string>
-  <string name="tips_button_description">AnySoftKeyboard သုံးစွဲရန်အတွက် အညွှန်းများ</string>
-  <string name="tips_title">AnySoftKeyboard အတွက် သိထားသင့်သည့် အချက်များ</string>
-  <string name="tips_pager_swipe_hint">ࢎ\u0020 ဘယ်သို့မဟုတ်ညာသို့ပွတ်ဆွဲခြင်းဖြင့်အချက်များရယူပါ࢐</string>
-  <string name="tip_1_welcome_to_ask">AnySoftKeyboard မှ ကြိုဆိုပါတယ်!</string>
-  <string name="tip_1_how_to_access_settings">Settings ကို သွားရန် ; ENTER ခလုပ်ကို ကြာကြာနှိပ်ပါ။ စိတ်ကြိုက်ပြင်ဆင်နိုင်တဲ့ ကမ္ဘာတခု သင် တွေ့ရပါလိမ့်မည်။
-    </string>
-  <string name="tip_2_gestures">အမူအရာများကို လက်ခံသည်!</string>
-  <string name="tip_2_gestures_tip">ပွတ်ဆွဲခြင်းတစ်ခုမျှဖြင့်တော်တော်များများလုပ်ဆောင်နိုင်ပါတယ်။ဘယ်မှညာသို့ပွတ်ဆွဲခြင်းဖြင့်ဘာသာစကားများပြောင်းလဲနိုင်ပြီး        ဘယ်သို့ပွတ်ဆွဲခြင်းသည်သင်္ကေတများလက်ကွက်သို့ပြောင်းလဲပြီးစပေ့ဘားအပေါ်သို့ပွတ်ခြင်းဖြင့် အသုံးချမှုဆိုင်ရာကီးဘုတ်ကိုပြသလာမည်ဖြစ်သည်။         နောက်ပြီး အောက်သို့ပွတ်ဆွဲခြင်းဖြင့်ကီးဘုတ်အားဖျောက်လိုက်မည်ဖြစ်သည်။\nဒီလုပ်ဆောင်ချက်ကိုပြုပြင်မှုဆိုင်ရာတွင်ပြင်ဆင်နိုင်မည်ဖြစ်သည်။(မှတ်မိသလား?enter        ကိုအတော်ကြာကြာဖိထားပါ။)
-    </string>
-  <string name="tip_3_hidden_kbds">လျှို့ဝှက် ရတနာများ</string>
-  <string name="tip_3_hidden_kbds_tip">ကီးဘုတ်အချို့ဖြောက်ထားသည်:\n1) spacebar မှလက်ချောင်းဖြင့်ပွတ်လိုက်ပြီးလျှင် မျှားများနှင့်မိုက် (အသံထည့်ရန်) ပါဝင်သောအသုံးဝင်သောကီးဘုတ်ရလာမည်။\n2) လက်ချောင်းဖြင့်ကီးဘုတ်အပြင်ဖက်အထိပွတ်လိုက်ပြီးဆက်၍ဖိထားလျှင်ဂဏန်းနှင့်သင်္ကတများပါဝင်သောဆက်ကီးဘုတ်ရလာမည်။</string>
-  <string name="tip_4_top_generic_row">အပေါ်တန်း</string>
-  <string name="tip_4_top_generic_row_tip">အပေါ် တန်း သည်အကွက်အားလုံးတွင်အတူတူဖြစ်ပြီး ပြောင်း၍ရပါသည်! The default
-        top row includes symbols key (<i>123</i>), left and right arrow keys, and language key (<i>ABC</i>). You can
-        replace this row in settings.
-    </string>
-  <string name="tip_4_top_generic_row_go_to_top_row_settings">အ​ပေါ်ဆုံးတန်းကို ပြောင်းပါ</string>
-  <string name="tip_5_key_feedback">အကြံပြုပါ။</string>
-  <string name="tip_5_key_feedback_test">ဝေဖန်အကြံပြုချက်ကို စမ်းသပ်မလား?</string>
-  <string name="tip_6_bottom_rows">အောက်ခြေတန်း</string>
-  <string name="tip_6_top_generic_row_go_to_bottom_row_settings">အောက်ဆုံးတန်းကို ပြင်ပါ</string>
-  <string name="tip_7_voice_input">ကျွနု်ပ်ကိုပြောပါ</string>
-  <string name="tip_8_suggestions">ကျွန်ုပ် ဖြည့်ပေးပါ့မယ်</string>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <string name="main_tab_welcome">ကြိုဆိုပါတယ်</string>
   <string name="main_tab_links">လခ့်များ</string>
   <string name="main_tab_credits">သက်ဆိုင်ခွင့်ရှိသူ</string>

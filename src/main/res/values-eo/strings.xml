@@ -10,56 +10,31 @@
   <string name="additional_licenses"><u>Pliaj permesiloj…</u></string>
   <string name="menu_about_item">Pri</string>
   <string name="click_to_restart_suggestions">Klaku por sugestoj</string>
-  <string name="tips_notification_text">Klaku por vidi konsilojn!</string>
-  <string name="tips_button">Kiel uzi</string>
-  <string name="tips_button_description">Kelkaj konsiloj pri kiel uzi AnySoftKeyboard</string>
-  <string name="tips_title">Konsiloj de AnySoftKeyboard</string>
-  <string name="tips_pager_swipe_hint">ࢎ\u0020Ŝovu maldekstren aŭ dekstren por pliaj konsiloj࢐</string>
-  <string name="tip_1_welcome_to_ask">Bonvenon al AnySoftKeyboard!</string>
-  <string name="tip_1_how_to_access_settings">Por aliri al la agordoj; premadu la ENIGAN KLAVON.  Vi trovos multajn\'
-        agordajn eblojn tie!
-    </string>
-  <string name="tip_2_gestures_tip">Vi povas fari multon per ŝovo! Ŝovu de maldekstre dekstren por ŝanĝi lingvojn,
-        ŝovu maldekstren por ŝanĝi la aranĝon de la simboloj, ŝovu de la spacostango supren por vidi la utilaĵojn de la klavaro,
-        kaj ŝovu malsupren por kaŝi la klavaron.\nTio ĉi agordeblas el Agordoj (Ĉu vi memoras? Longa premo sur la ENIGA 
-        KLAVO).
-    </string>
-  <string name="tip_3_hidden_kbds">Kaŝitaj gemoj</string>
-  <string name="tip_4_top_generic_row">Supra linio</string>
-  <string name="tip_4_top_generic_row_tip">La supra linio estas la sama en ĉiuj aranĝoj, kaj vi povas ĝin ŝanĝi! La defaŭlta
-        supra linio enhavas la klavon de simboloj (<i>123</i>), la dekstra kaj maldekstra sagoj, kaj la lingva klavo (<i>ABC</i>).
-        Vi povas anstataŭigi ĉi tiun linion en la agordoj.
-    </string>
-  <string name="tip_4_top_generic_row_go_to_top_row_settings">Ŝanĝu la supran linion nun</string>
-  <string name="tip_5_key_feedback">Komentoj</string>
-  <string name="tip_5_key_feedback_tip">Kelkfoje estas bone scii kiam oni premas klavojn. Mi ebligas tion
-        Do jen, vi povas havi vibradon aŭ sonon, aŭ ambaŭ.
-    </string>
-  <string name="tip_5_key_feedback_test">Ĉu vi volas provi la agordon nun?</string>
-  <string name="tip_6_bottom_rows">Malsupra linio</string>
-  <string name="tip_6_bottom_rows_tip">Same kiel la supra linio, la malsupra ankaŭ anstataŭeblas. AnySoftKeyboard 
-        havas plurajn tipojn - kun aŭ sen mikrofono, iPhone-tipa, ktp.
-    </string>
-  <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Ŝanĝu la malsupran linion nun</string>
-  <string name="tip_7_voice_input">Parolu al mi*</string>
-  <string name="tip_7_voice_input_tip">Tajpi bonas, sed ĉi tie ankaŭ ni subtenas voĉan enigon! Ĉu vi volas dikti la
-        tekston? Klaku la mikrofonan klavon kaj ekparolu! \nĈi tiu trajto uzas la teĥnologion
-de Google\' pri voĉ-rekonado
-        do estu certa ke ĝi funkcias :)
-    </string>
-  <string name="tip_7_voice_input_tip_note">* Postulas Android 2.2+ kaj aliron al la reto por funkcii.</string>
-  <string name="tip_8_suggestions">Mi kompletigas vin</string>
-  <string name="tip_8_suggestions_tip">Depende de la subteno al via lingvo, AnySoftKeyboard povas helpi vin fini
-        viajn vortojn kaj korekti viajn mistajpojn. Kiam vi ektajpas, AnySoftKeyboard  sugestos
-vortojn bazitaj sur tio, kio vi
-        jam tajpis.
-    </string>
-  <string name="tip_8_suggestions_editor">Se mi ne konas iun vorton, vi povas instrui al mi! Tajpu la vorton, kaj klaku sur
-        la sugesta breto. Mi memoros ĝin.\n Vi povas ankaŭ redakti tiajn uzant-vortojn ĉe nia
-vortara redaktilo. Serĉu la
-        redaktilon en la Vortaraj agordoj de AnySoftKeyboard.
-    </string>
-  <string name="tip_9_suggestions_restart">Restartigante sugestojn</string>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <string name="main_tab_welcome">Bonvenon</string>
   <string name="main_tab_links">Ligiloj</string>
   <string name="main_tab_credits">Agnosko</string>

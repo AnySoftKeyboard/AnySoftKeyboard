@@ -15,41 +15,35 @@
 <xliff:g id="trace_file">%s</xliff:g></string>
   <string name="menu_about_item">Über</string>
   <string name="click_to_restart_suggestions">Vorschläge durch Klicken</string>
-  <string name="tips_notification_text">Für Tipps klicken!</string>
-  <string name="tips_button">Anleitung</string>
-  <string name="tips_button_description">EIn paar Tipps zur Nutzung von AnySoftKeyboard</string>
-  <string name="tips_title">AnySoftKeyboard Tipps</string>
-  <string name="tips_pager_swipe_hint">ࢎ\u0020Swipe nach links oder rechts für weitere Tipps࢐</string>
-  <string name="tip_1_welcome_to_ask">Willkommen bei AnySoftKeyboard!</string>
-  <string name="tip_1_how_to_access_settings">Um zu den Einstellungen zu gelangen, lange auf ENTER drücken. Dort wirst du ein Berg an Anpassungen finden!</string>
-  <string name="tip_2_gestures">Ich unterstütze Gesten!</string>
-  <string name="tip_2_gestures_tip">Mit einem Swipe lässt sich viel machen! Von links nach rechts streichen (swipen) ändert die Sprache, ein Streich von rechts nach links wechselt zum Symbolmenü. von der Leertaste hoch streichen öffnet eine Werkzeug-Tastatur und nach untenstreichen versteckt die Tastatur\nEs ist in den Einstellungen konfigurierbar (Errinerst du dich? langer Druck auf die EINGABETASTE).</string>
-  <string name="tip_3_hidden_kbds">Verborgene Schätze</string>
-  <string name="tip_3_hidden_kbds_tip">Es gibt einige versteckte Tastaturen:\n1) Zieh den Finger von der Leertaste nach oben, um eine Werkzeug-Tastatur mit Pfeilen und  einer Mikrofontaste (für Spracheingabe) aufzurufen.\n2) Zieh den Finger nach oben über die Tastatur und halte gedrückt. Das öffnet die Erweiterte Tastatur mit Zahlen und Symbolen.
-    </string>
-  <string name="tip_4_top_generic_row">Kopfzeile</string>
-  <string name="tip_4_top_generic_row_tip">Die oberste Zeile bleibt bei allen Layouts gleich, und sie kann verändert werden! Standartmäßig enthält sie einen Symbolknopf (<i>123</i>), ein Links- und ein Rechtsknopf und einen Sprachknopf  (<i>ABC</i>). Mann kann diese Zeile in den Einstellungen ändern.</string>
-  <string name="tip_4_top_generic_row_go_to_top_row_settings">Kopfzeile jetzt ändern</string>
-  <string name="tip_5_key_feedback">Reaktionen</string>
-  <string name="tip_5_key_feedback_tip">Manchmal ist es schön, auf Tastendruck eine nicht-visuelle Reaktion zu erhalten. Das unterstütze ich. Also Bitte sehr, zur Auswahl stehen Vibration, Ton oder beides.
-    </string>
-  <string name="tip_5_key_feedback_test">Reaktion testen?</string>
-  <string name="tip_6_bottom_rows">Fußzeile</string>
-  <string name="tip_6_bottom_rows_tip">Wie die oberste Zeile kann auch die unterste Zeile ersetzt werden. AnySoftKeyboard hat mehrere Typen - mit oder ohne Mikrofon, iPhone-Stil usw.
-    </string>
-  <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Fußzeile jetzt ändern</string>
-  <string name="tip_7_voice_input">Sprich mit mir*</string>
-  <string name="tip_7_voice_input_tip">Die Tastatur ist nett, aber es wird auch Spracheingabe unterstützt! Lieber diktieren? Die Mikrofon-Taste drücken und lossprechen!\nDiese Funktion verwendet Googles state-of-the-art Spracherkennung, es ist also sicher, dass es funktioniert :)
-    </string>
-  <string name="tip_7_voice_input_tip_dont_forget_bottom_row">Wenn du das Mikrofon-Symbol immer dahaben wilst, stelle sicher, dass du die korrekte unterste Zeile eingestellt hast (vorheriger Tipp, erinnerst du dich?).\nDas Mikro ist aber sowieso immer über die versteckte utility Tastatur erreichbar(ein Swipe von der Leertaste hoch).</string>
-  <string name="tip_7_voice_input_tip_note">* Erfordert Android 2.2+ und eine Internetverbindung.</string>
-  <string name="tip_8_suggestions">Ich vervollständige</string>
-  <string name="tip_8_suggestions_tip">Je nach Sprachsupport Level kann AnySoftKeyboard Worte beenden und Tippfehlerer korrigieren. Wenn du zu schreiben beginnst wird AnySoftKeyboard ,basierend auf die bereits eingegebenen Wörter, Wörter vorschlagen.
-    </string>
-  <string name="tip_8_suggestions_editor">Wenn ich ein Wort nicht kenne, kannst du es mir beibringen! Gib das Wort ein und drücke den Vorschlag-Streifen. Ich werde es mir merken.\nDu kannst diese Wörter auch im eingebauten Editor bearbeiten. Such in den Wörterbucheinstellungen nach dem Editor.
-    </string>
-  <string name="tip_9_suggestions_restart">Vorschläge Neustarten</string>
-  <string name="tip_9_suggestions_restart_tip">AnySoftKeyboard bietet Wortvervollständigung an, basierend auf dem, was Sie gerade eingeben. Aber AnySoftKeyboard kann auch Vorschläge auf bereits eingegebe Wörter geben! Tippen Sie auf das Wort, und AnySoftKeyboard wird im den Vorschlag-Streifen aktualisieren.</string>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <string name="main_tab_welcome">Willkommen</string>
   <string name="main_tab_links">Links</string>
   <string name="main_tab_credits">Danksagungen</string>

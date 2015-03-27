@@ -16,47 +16,35 @@
     </string>
   <string name="menu_about_item">Quant a...</string>
   <string name="click_to_restart_suggestions">Toc per a suggeriments</string>
-  <string name="tips_notification_text">Consell del dia!</string>
-  <string name="tips_button">Com utilitzar l\'ASK</string>
-  <string name="tips_button_description">Suggeriments d\'us de l\'AnySoftKeyboard</string>
-  <string name="tips_title">AnySoftKeyboard - Trucs</string>
-  <string name="tips_pager_swipe_hint">\u0020Llisqueu a l\'esquerra o dreta per a més suggeriments</string>
-  <string name="tip_1_welcome_to_ask">Us donem la benvinguda a AnySoftKeyboard!</string>
-  <string name="tip_1_how_to_access_settings">Per accedir a la configuració mantingueu premuda la tecla INTRO. Trobareu moltes opcions de personalització aquí!
-    </string>
-  <string name="tip_2_gestures">Suport per a gestos!</string>
-  <string name="tip_2_gestures_tip">Amb un toc podeu fer molt! Llisqueu cap a la dreta per canviar d\'idioma al teclat, cap a l\'esquerra trobareu el teclat numèric, cap amunt si us mostrarà un teclat addicional i cap avall amagareu el teclat.\nTot això es pot configurar a les opcions (recordeu? Prement prolongadament la tecla INTRO).
-    </string>
-  <string name="tip_3_hidden_kbds">Trucs i consells</string>
-  <string name="tip_3_hidden_kbds_tip">Trobareu teclats amagats:\n1) Llisqueu el dit des de la barra d\'espai fins dalt i trobareu un teclat amb cursors i micròfon (per a la síntesi de veu).\n2) Llisqueu el dit cap amunt i fora del teclat mentre mantigueu premut. Aquest és el teclat numèric i simbòlic.
-    </string>
-  <string name="tip_4_top_generic_row">Fila superior</string>
-  <string name="tip_4_top_generic_row_tip">La part superior del teclat és la mateixa per a tots els teclats, però es pot modificar! Podem canviar la barra (<i>123</i>) i (<i>ABC</i>) al nostre gust des del menú de configuració.
-    </string>
-  <string name="tip_4_top_generic_row_go_to_top_row_settings">Modifica l\'aparença</string>
-  <string name="tip_5_key_feedback">Vibració i so</string>
-  <string name="tip_5_key_feedback_tip">De vegades es millor tenir una referència per saber que hem premut una tecla sense haver de mirar al teclat. Podem triar entre una vibració, so, o totes dues opcions alhora.
-    </string>
-  <string name="tip_5_key_feedback_test">Voleu provar la configuració?</string>
-  <string name="tip_6_bottom_rows">Fila inferior</string>
-  <string name="tip_6_bottom_rows_tip">De la mateixa manera que la columna superior, també podem fer canvis a la inferior. L\'AnySoftKeyboard té diverses interfícies; amb o sense micròfon, estil iPhone, etc.
-    </string>
-  <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Modifica l\'aparença</string>
-  <string name="tip_7_voice_input">«Se\'m escolta bé?»</string>
-  <string name="tip_7_voice_input_tip">Escriure és entretingut, però és realment divertit fer-ho amb la veu! Voleu dictar el text? Toqueu la tecla del micròfon, i digueu el que volgueu!\nAquesta característica utilitza la tecnologia Google, per tant funcionarà sense problemes :)
-    </string>
-  <string name="tip_7_voice_input_tip_dont_forget_bottom_row">Si voleu tenir sempre accés al micròfon, assegureu-vos que teniu la columna inferior adient per aquesta tasca (recordeu el consell anterior?).\nIgualment, el micròfon romandrà disponible des del teclat amagat (lliscant amunt el dit des de la barra d\'espai).
-    </string>
-  <string name="tip_7_voice_input_tip_note">* Necessari Android 2.2+ i connexió a Internet perquè funcioni.</string>
-  <string name="tip_8_suggestions">Suggeriments</string>
-  <string name="tip_8_suggestions_tip">Segons l\'idioma triat, l\'AnySoftKeyboard us pot ajudar a finalitzar les paraules que esteu escrivint i corregir els errors tipogràfics. Tanmateix comenceu a escriure l\'AnySoftKeyboard us suggerirà paraules que prèviament hegueu inserit.
-    </string>
-  <string name="tip_8_suggestions_editor">Si una paraula és desconeguda, podeu entrenar el teclat! Inseriu la paraula i toqueu a la barra de suggeriments i serà recordada.\nPodeu editar les paraules des de l\'editor del diccionari que trobareu a les opcions de l\'AnySoftKeyboard.
-    </string>
-  <string name="tip_9_suggestions_restart">Reinicia els suggerits</string>
-  <string name="tip_9_suggestions_restart_tip">L\'AnySoftKeyboard us facilita l\'escriptura suggerint-vos paraules segons el que esteu escrivint, però també podeu modificar el text que heu escrit! Només cal que toqueu la paraula que voleu modificar i se us mostraran més paraules a la barra de suggeriments.
-    .
-    </string>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <string name="main_tab_welcome">Benvinguda</string>
   <string name="main_tab_links">Enllaços</string>
   <string name="main_tab_credits">Crèdits</string>
@@ -339,9 +327,9 @@
   <string name="is_extesion_keyboard_above_keyboard">Comportament del teclat</string>
   <string name="is_extesion_keyboard_above_keyboard_on_summary">Mostra a sobre del teclat principal</string>
   <string name="is_extesion_keyboard_above_keyboard_off_summary">Mostra al teclat principal</string>
-  <string name="show_new_tips_notifications_again">Notificar en nous consells</string>
-  <string name="show_new_tips_notifications_again_on_summary">Us avisarà quan consells no vists siguin disponibles per llegir</string>
-  <string name="show_new_tips_notifications_again_off_summary">No us avisarem quan hi hagin consells nous disponibles</string>
+  
+  
+  
   <string name="show_settings_app_in_launcher">Configuració de l\'aplicació</string>
   <string name="settings_key_show_settings_app_on_summary">La configuració de l\'aplicació serà visible al llançador (pot ser necessari reiniciar)
     </string>

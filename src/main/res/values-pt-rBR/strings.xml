@@ -3,17 +3,15 @@
 <resources>
     <string name="ime_name">AnySoftKeyboard</string>
     <string name="settings_app_name">Configurações do AnySoftKeyboard</string>
-    <string name="tips_notification_text">Clique para obter dicas!</string>
-    <string name="tips_button">Dicas de utilização</string>
-    <string name="tips_button_description">Clique para obter dicas sobre o AnySoftKeyboard</string>
-    <string name="tips_title">Dicas AnySoftKeyboard</string>
-    <string name="tip_1_welcome_to_ask">Bem-vindo ao AnySoftKeyboard!</string>
-    <string name="tip_1_how_to_access_settings">Para acessar às configurações mantenha a tecla ENTER pressionada. Você
-        encontrará um mundo de personalizações!
-    </string>
-    <string name="tip_2_gestures">Suporto gestos!</string>
-    <string name="tip_5_key_feedback">Comentários</string>
-    <string name="tip_5_key_feedback_test">Deseja testar o comentário?</string>
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="main_tab_welcome">Bem-vindo</string>
     <string name="main_tab_links">Links</string>
     <string name="main_tab_credits">Créditos</string>
@@ -103,13 +101,9 @@
     <string name="tweak_sound_group">Ajustes de som</string>
     <string name="tweak_physical_keyboard_group">Ajustes do teclado físico</string>
     <string name="tweak_ui_group">Ajustes gráficos</string>
-    <string name="show_new_tips_notifications_again">Mostrar novas dicas</string>
-    <string name="show_new_tips_notifications_again_on_summary">Serão mostradas novas dicas quando estiverem
-        disponíveis
-    </string>
-    <string name="show_new_tips_notifications_again_off_summary">Não será notificado quando estiverem disponíveis novas
-        dicas
-    </string>
+    
+    
+    
     <string name="insert_space_after_word_suggestion_selection_off_summary"/>
     <string name="candidates_on">Mostrar sugestões</string>
     <string name="quick_fix">Correções rápidas</string>

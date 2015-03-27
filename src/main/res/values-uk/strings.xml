@@ -15,26 +15,24 @@
 <xliff:g id="trace_file">%s</xliff:g>
     </string>
   <string name="click_to_restart_suggestions">Натисніть для підказок</string>
-  <string name="tips_notification_text">Натисніть для підказки!</string>
-  <string name="tips_button">Як використовувати</string>
-  <string name="tips_button_description">Кілька порад про те, як використовувати AnySoftKeyboard</string>
-  <string name="tips_title">Підказки AnySoftKeyboard</string>
-  <string name="tip_1_welcome_to_ask">Ласкаво просимо до AnySoftKeyboard!</string>
-  <string name="tip_1_how_to_access_settings">Для доступу до налаштувань; тривало натисніть на клавішу ENTER. Там ви 
-	    знайдете море налаштувань!
-    </string>
-  <string name="tip_2_gestures">Підтримую жести!</string>
-  <string name="tip_3_hidden_kbds">Приховані цікавинки</string>
-  <string name="tip_4_top_generic_row">Верхній ряд</string>
-  <string name="tip_4_top_generic_row_go_to_top_row_settings">Змінити верхній ряд</string>
-  <string name="tip_5_key_feedback">Відгук</string>
-  <string name="tip_5_key_feedback_test">Хочете спробувати відгук?</string>
-  <string name="tip_6_bottom_rows">Нижній  ряд</string>
-  <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Змінити нижній ряд</string>
-  <string name="tip_7_voice_input">Говори зі мною*</string>
-  <string name="tip_7_voice_input_tip_note">*Потрібен Android 2.2 + і підключення до Інтернету.</string>
-  <string name="tip_8_suggestions">Завершення</string>
-  <string name="tip_9_suggestions_restart">Пророзиції</string>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <string name="main_tab_welcome">Ласкаво просимо</string>
   <string name="main_tab_links">Посилання</string>
   <string name="main_tab_credits">Про авторів</string>
@@ -221,8 +219,8 @@
   <string name="is_extesion_keyboard_above_keyboard">Додаткові клавіші</string>
   <string name="is_extesion_keyboard_above_keyboard_on_summary">Показувати над основною клавіатурою</string>
   <string name="is_extesion_keyboard_above_keyboard_off_summary">Показувати на основній клавіатурі</string>
-  <string name="show_new_tips_notifications_again">Показувати нові підказки</string>
-  <string name="show_new_tips_notifications_again_on_summary">Коли нові підказки доступні, вони будуть показані</string>
+  
+  
   <string name="show_settings_app_in_launcher">Налаштування додатку</string>
   <string name="settings_key_show_settings_app_off_summary">Сховати налаштування додатку (може знадобитися перезавантаження)</string>
   <string name="show_crash_notification">Звіт про помилку</string>

@@ -4,67 +4,33 @@
     <string name="ime_name">AnySoftKeyboard</string>
     <string name="settings_app_name">Paramètres de AnySoftKeyboard</string>
     <string name="click_to_restart_suggestions">Cliquez ici pour les suggestions</string>
-    <string name="tips_notification_text">Cliquez pour lire les astuces !</string>
-    <string name="tips_button">Comment utiliser les astuces</string>
-    <string name="tips_button_description">Cliquer pour les astuces à propos d’AnySoftKeyboard</string>
-    <string name="tips_title">Astuces AnySoftKeyboard</string>
-    <string name="tip_1_welcome_to_ask">Bienvenue sur AnySoftKeyboard !</string>
-    <string name="tip_1_how_to_access_settings">Pour accéder aux paramètres ; appuyer longtemps sur la touche entrée.
-        Vous y trouverez de nombreuses options de configuration !
-    </string>
-    <string name="tip_2_gestures">Vous pouvez utiliser des gestes !</string>
-    <string name="tip_2_gestures_tip">Vous pouvez faire beaucoup avec un glissé ! Glisser de gauche à droite change de
-        langue, glisser vers la gauche passe aux symboles, glisser depuis la barre d’espace affichera un clavier
-        d’utilitaires, et glisser vers le bas cachera le clavier.\n Ces réglages sont configurables (vous vous
-        souvenez ? Il suffit d’appuyer longtemps sur la touche ENTRER).
-    </string>
-    <string name="tip_3_hidden_kbds">Trésors cachés</string>
-    <string name="tip_3_hidden_kbds_tip">Il y a des claviers cachés :\n1)Glissez votre doigt vers le haut depuis la
-        barre d’espace, vous obtiendrez un clavier avec les touches de direction et la touche micro (saisie
-        vocale) ;\n2)Glissez votre doigt vers le haut jusqu’en dehors du clavier, et maintenez le appuyé. Voici
-        l’extension de clavier avec les chiffres et les symboles.
-    </string>
-    <string name="tip_4_top_generic_row">Rangée du haut</string>
-    <string name="tip_4_top_generic_row_tip">La ligne du haut est la même sur toutes les dispositions, mais elle peut
-        être changée ! La ligne du haut par défaut comprend la touche des symboles (<i>123</i>), les flèches vers la
-        gauche et la droite et la touche des lettres (<i>ABC</i>). Vous pouvez modifier cette ligne dans les paramètres.
-    </string>
-    <string name="tip_4_top_generic_row_go_to_top_row_settings">Changer la rangée du haut</string>
-    <string name="tip_5_key_feedback">Envoyer des commentaires</string>
-    <string name="tip_5_key_feedback_tip">Parfois il est agréable d’avoir de retour autre que visuel à l’appuie sur les
-        touches. C’est possible ! Vous pouvez choisir un son, une vibration, ou les deux.
-    </string>
-    <string name="tip_5_key_feedback_test">Voulez-vous tester l’envoi de commentaires ?</string>
-    <string name="tip_6_bottom_rows">Rangée inférieure</string>
-    <string name="tip_6_bottom_rows_tip">Tout comme la ligne du haut, celle du bas peut être remplacée. AnySoftKeyboard
-        vous en propose plusieurs types — avec et sans micro, thème iphone, etc.
-    </string>
-    <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Modifier la rangée du bas maintenant</string>
-    <string name="tip_7_voice_input">Parlez-moi*</string>
-    <string name="tip_7_voice_input_tip">Taper est pratique mais vous pouvez aussi utiliser la saisie vocale ! Vous
-        voulez dicter un texte ? Cliquez sur le microphone et parlez ! \nCette fonction utilise la reconnaissance vocale
-        crée par Google, vous pouvez être certain qu’elle fonctionne :)
-    </string>
-    <string name="tip_7_voice_input_tip_dont_forget_bottom_row">Si vous souhaitez toujours avoir l\'icône micro,
-        assurez-vous d’avoir la rangée du bas correspondante (astuce précédente, souvenez-vous).\nQuoi qu’il en soit, le
-        micro est toujours accessible via le clavier d’utilitaire cachée (glissez vers le haut à partir de la barre
-        d\'espace).
-    </string>
-    <string name="tip_7_voice_input_tip_note">* Requiert Android 2.2+ et une connexion à Internet pour fonctionner.
-    </string>
-    <string name="tip_8_suggestions_tip">Fonction du support pour votre langue, AnySoftKeybard peut vous aider à finir
-        vos mots et corriger vos fautes de frappe. Dès que vous commencez à taper AnySoftKeyboard vous suggèrera des
-        mots en fonction de ce que vous avez déjà saisi.
-    </string>
-    <string name="tip_8_suggestions_editor">Si je ne connais pas un mot, vous pouvez me l’apprendre ! Écrivez ce mot et
-        cliquer sur la suggestion qui lui correspond ; elle sera mémorisée.\nVous pouvez aussi éditer ce dictionnaire
-        personnel dans l’éditeur fourni. Cherchez l’éditeur dans les paramètres du dictionnaire d’AnySoftKeyboard.
-    </string>
-    <string name="tip_9_suggestions_restart">Redémarrage des suggestions</string>
-    <string name="tip_9_suggestions_restart_tip">AnyGoftKeyboard permet de compléter les mots avec des suggestions
-        fondées sur ce que vous tapez. Mais AnySoftKeyboard peut aussi vous faire des suggestions sur les mots déjà
-        tapés ! Tapez sur un mot et AnySoftKeybard affichera les suggestion pour le mot sélectionné.
-    </string>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="main_tab_welcome">Bienvenue</string>
     <string name="main_tab_links">Liens</string>
     <string name="main_tab_credits">Crédits</string>
@@ -301,13 +267,9 @@
     <string name="is_extesion_keyboard_above_keyboard">Extension haute du clavier</string>
     <string name="is_extesion_keyboard_above_keyboard_on_summary">Dessiner au dessus du clavier principal</string>
     <string name="is_extesion_keyboard_above_keyboard_off_summary">Dessiner sur le clavier principal</string>
-    <string name="show_new_tips_notifications_again">Afficher les nouvelles astuces</string>
-    <string name="show_new_tips_notifications_again_on_summary">Lorsque de nouvelles astuces sont disponibles, ils
-        seront affichées
-    </string>
-    <string name="show_new_tips_notifications_again_off_summary">Ne pas être prévenu de la disponibilité de nouvelles
-        astuces
-    </string>
+    
+    
+    
     <string name="show_settings_app_in_launcher">Application « paramètres »</string>
     <string name="settings_key_show_settings_app_on_summary">Application « paramètres » visibles dans le lanceur
         d’applications (peut nécessité un redémarrage)
