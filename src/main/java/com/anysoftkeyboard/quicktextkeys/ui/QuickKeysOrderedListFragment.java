@@ -1,13 +1,11 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
-import android.preference.DialogPreference;
-import android.support.annotation.NonNull;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +18,16 @@ import com.anysoftkeyboard.utils.Log;
 import com.emtronics.dragsortrecycler.DragSortRecycler;
 import com.menny.android.anysoftkeyboard.R;
 
+import net.evendanan.pushingpixels.PassengerFragmentSupport;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class QuickKeysOrderedListPreference extends DialogPreference {
-	private static final String TAG = "QuickKeysOrderedListPreference";
+public class QuickKeysOrderedListFragment extends Fragment {
+	private static final String TAG = "QuickKeysOrderedListFragment";
 
 	private final HashSet<String> mEnabledAddOns = new HashSet<>();
-	private List<QuickTextKey> mAllQuickKeysAddOns;
 	private final CompoundButton.OnCheckedChangeListener mOnItemCheckedListener = new CompoundButton.OnCheckedChangeListener() {
 		@Override
 		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -40,39 +39,24 @@ public class QuickKeysOrderedListPreference extends DialogPreference {
 			}
 		}
 	};
+	private List<QuickTextKey> mAllQuickKeysAddOns;
 
-	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public QuickKeysOrderedListPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-		super(context, attrs, defStyleAttr, defStyleRes);
-		setDialogLayoutResource(R.layout.ordered_list_pref);
-	}
-
-	public QuickKeysOrderedListPreference(Context context, AttributeSet attrs, int defStyleAttr) {
-		super(context, attrs, defStyleAttr);
-		setDialogLayoutResource(R.layout.ordered_list_pref);
-	}
-
-	public QuickKeysOrderedListPreference(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		setDialogLayoutResource(R.layout.ordered_list_pref);
-	}
-
-	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public QuickKeysOrderedListPreference(Context context) {
-		super(context);
-		setDialogLayoutResource(R.layout.ordered_list_pref);
+	@Override
+	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		return inflater.inflate(R.layout.ordered_list_pref, container, false);
 	}
 
 	@Override
-	protected void onBindDialogView(@NonNull View view) {
-		super.onBindDialogView(view);
-		mAllQuickKeysAddOns = QuickTextKeyFactory.getOrderedEnabledQuickKeys(getContext());
+	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		Context appContext = getActivity().getApplicationContext();
+		mAllQuickKeysAddOns = QuickTextKeyFactory.getOrderedEnabledQuickKeys(appContext);
 		Log.d(TAG, "Got %d enabled quick-key addons", mAllQuickKeysAddOns.size());
 		for (QuickTextKey quickTextKey : mAllQuickKeysAddOns) {
 			mEnabledAddOns.add(quickTextKey.getId());
 			Log.d(TAG, "Adding %s to enabled hash-set", quickTextKey.getId());
 		}
-		for (QuickTextKey quickTextKey : QuickTextKeyFactory.getAllAvailableQuickKeys(getContext())) {
+		for (QuickTextKey quickTextKey : QuickTextKeyFactory.getAllAvailableQuickKeys(appContext)) {
 			Log.d(TAG, "Checking if %s is in enabled hash-set", quickTextKey.getId());
 			if (!mEnabledAddOns.contains(quickTextKey.getId())) {
 				Log.d(TAG, "%s is not in the enabled list, adding it to the end of the list", quickTextKey.getId());
@@ -81,7 +65,7 @@ public class QuickKeysOrderedListPreference extends DialogPreference {
 		}
 		RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
 		recyclerView.setHasFixedSize(true);
-		recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+		recyclerView.setLayoutManager(new LinearLayoutManager(appContext));
 		recyclerView.setAdapter(new Adapter());
 
 		recyclerView.setItemAnimator(null);
@@ -108,21 +92,21 @@ public class QuickKeysOrderedListPreference extends DialogPreference {
 	}
 
 	@Override
-	protected void onDialogClosed(boolean positiveResult) {
-		if (positiveResult) {
-			ArrayList<QuickTextKey> enabledAddons = new ArrayList<>(mEnabledAddOns.size());
-			for (QuickTextKey key : mAllQuickKeysAddOns) {
-				if (mEnabledAddOns.contains(key.getId())) {
-					enabledAddons.add(key);
-				}
-			}
-			QuickTextKeyFactory.storeOrderedEnabledQuickKeys(getContext(), enabledAddons);
-		}
-		super.onDialogClosed(positiveResult);
+	public void onStart() {
+		super.onStart();
+		PassengerFragmentSupport.setActivityTitle(this, getString(R.string.quick_text_keys_order_dialog_title));
 	}
 
-	public void performOnClick() {
-		onClick();
+	@Override
+	public void onStop() {
+		super.onStop();
+		ArrayList<QuickTextKey> enabledAddons = new ArrayList<>(mEnabledAddOns.size());
+		for (QuickTextKey key : mAllQuickKeysAddOns) {
+			if (mEnabledAddOns.contains(key.getId())) {
+				enabledAddons.add(key);
+			}
+		}
+		QuickTextKeyFactory.storeOrderedEnabledQuickKeys(getActivity(), enabledAddons);
 	}
 
 	private static class OrderedListViewHolder extends RecyclerView.ViewHolder {
@@ -139,7 +123,7 @@ public class QuickKeysOrderedListPreference extends DialogPreference {
 		private final LayoutInflater mLayoutInflater;
 
 		Adapter() {
-			mLayoutInflater = LayoutInflater.from(getContext());
+			mLayoutInflater = LayoutInflater.from(getActivity());
 		}
 
 		@Override
