@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools"
-           tools:ignore="MissingTranslation">
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2" xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="ime_name">AnySoftKeyboard</string>
     <string name="settings_app_name">AnySoftKeyboard Settings</string>
     <string name="spell_checker_service_name">AnySoftKeyboard Spell Checker</string>
@@ -288,7 +286,7 @@
         character, full press deletes last word
     </string>
 
-    <string name="menu_even_more_settings">Even more&#8230;</string>
+    <string name="menu_even_more_settings">Even more…</string>
 
     <string name="more_ui_settings_group">User Interface</string>
 
@@ -553,15 +551,15 @@
     <string name="label_home_key">Home</string>
     <string name="label_end_key">End</string>
 
-    <string name="change_lang_wide">&#8594; ABC &#8594;</string>
+    <string name="change_lang_wide">→ ABC →</string>
     <string name="change_lang_regular">ABC</string>
-    <string name="change_symbols_wide">&#8592; 123 &#8592;</string>
+    <string name="change_symbols_wide">← 123 ←</string>
     <string name="change_symbols_regular">123</string>
 
     <string name="please_wait">Please wait</string>
-    <string name="toast_lengthy_words_long_operation">Loading dictionary&#8230;</string>
-    <string name="toast_lengthy_start_up_operation">Starting AnySoftKeyboard&#8230;</string>
-    <string name="lengthy_creating_keyboard_operation">Creating keyboards&#8230;</string>
+    <string name="toast_lengthy_words_long_operation">Loading dictionary…</string>
+    <string name="toast_lengthy_start_up_operation">Starting AnySoftKeyboard…</string>
+    <string name="lengthy_creating_keyboard_operation">Creating keyboards…</string>
 
     <string name="select_keyboard_popup_title">Select keyboard</string>
     <!-- dictionaries -->

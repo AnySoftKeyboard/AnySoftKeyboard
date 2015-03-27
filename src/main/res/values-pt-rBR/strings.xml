@@ -95,11 +95,11 @@
     <string name="use_user_dictionary_on_summary">Sugerir palavras adicionadas pelo usuário (toque longo na sugestão
         para adicionar)
     </string>
-    <string name="use_user_dictionary_off_summary"></string>
+    <string name="use_user_dictionary_off_summary"/>
     <string name="use_auto_dictionary">Dicionário automático</string>
     <string name="use_contacts_dictionary">Dicionário de contatos</string>
     <string name="use_contacts_dictionary_on_summary">Sugerir nomes da lista de contatos</string>
-    <string name="use_contacts_dictionary_off_summary"></string>
+    <string name="use_contacts_dictionary_off_summary"/>
     <string name="tweak_sound_group">Ajustes de som</string>
     <string name="tweak_physical_keyboard_group">Ajustes do teclado físico</string>
     <string name="tweak_ui_group">Ajustes gráficos</string>
@@ -110,7 +110,7 @@
     <string name="show_new_tips_notifications_again_off_summary">Não será notificado quando estiverem disponíveis novas
         dicas
     </string>
-    <string name="insert_space_after_word_suggestion_selection_off_summary"></string>
+    <string name="insert_space_after_word_suggestion_selection_off_summary"/>
     <string name="candidates_on">Mostrar sugestões</string>
     <string name="quick_fix">Correções rápidas</string>
     <string name="keyboard_sandbox">Clique para testar a escrita</string>
@@ -140,9 +140,9 @@
     <string name="change_symbols_wide">← 123 ←</string>
     <string name="change_symbols_regular">123</string>
     <string name="please_wait">Aguarde</string>
-    <string name="toast_lengthy_words_long_operation">Carregando dicionário&#8230;</string>
-    <string name="toast_lengthy_start_up_operation">Iniciando AnySoftKeyboard&#8230;</string>
-    <string name="lengthy_creating_keyboard_operation">Criando teclados&#8230;</string>
+    <string name="toast_lengthy_words_long_operation">Carregando dicionário…</string>
+    <string name="toast_lengthy_start_up_operation">Iniciando AnySoftKeyboard…</string>
+    <string name="lengthy_creating_keyboard_operation">Criando teclados…</string>
     <string name="select_keyboard_popup_title">Selecione o teclado</string>
     <string name="eng_dictionary">Inglês</string>
     <string name="settings_multitap_timeout_faster">Muito rápida</string>
@@ -157,7 +157,7 @@
     <string name="settings_long_press_timeout_slower">Muito lenta</string>
     <string name="settings_long_press_timeout_never">Nunca</string>
     <string name="user_dictionary_select_locale">Idioma:</string>
-    <string name="user_dictionary_read_please_wait">Lendo palavras&#8230;</string>
+    <string name="user_dictionary_read_please_wait">Lendo palavras…</string>
     <string name="user_dict_settings_titlebar">Dicionário do usuário</string>
     <string name="user_dict_editor">Editor de palavras</string>
     <string name="user_dict_settings_add_dialog_title">Adicionar ao dicionário</string>
@@ -166,7 +166,7 @@
         adicionar uma palavra através do menu.
     </string>
     <string name="fast_scroll_alphabet">ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
-    <string name="should_swap_punctuation_and_space_summary"></string>
+    <string name="should_swap_punctuation_and_space_summary"/>
     <string name="should_swap_punctuation_and_space_yes">Sim</string>
     <string name="should_swap_punctuation_and_space_no">Não</string>
     <string-array name="physical_keyboard_change_notification_types">

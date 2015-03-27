@@ -384,7 +384,7 @@
   <string name="settings_split_state_split_in_landscape">Почати ділити в ландшафт</string>
   <string name="settings_split_state_split_always">Почати ділити</string>
   <string name="user_dictionary_select_locale">Мова:</string>
-  <string name="user_dictionary_read_please_wait">Читання слів&#8230;</string>
+  <string name="user_dictionary_read_please_wait">Читання слів…</string>
   <string name="user_dict_settings_titlebar">Словник користувача</string>
   <string name="user_dict_editor">Редактор слів</string>
   <string name="user_dict_settings_add_dialog_title">Додати в словник</string>

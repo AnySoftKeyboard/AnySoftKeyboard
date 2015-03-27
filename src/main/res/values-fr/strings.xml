@@ -450,9 +450,9 @@
     <string name="change_symbols_wide">← 123 ←</string>
     <string name="change_symbols_regular">123</string>
     <string name="please_wait">Veuillez patienter</string>
-    <string name="toast_lengthy_words_long_operation">Dictionnaire en cours de chargement&#8230;</string>
-    <string name="toast_lengthy_start_up_operation">Démarrage d\'AnySoftKeyboard&#8230;</string>
-    <string name="lengthy_creating_keyboard_operation">Création de claviers &#8230;</string>
+    <string name="toast_lengthy_words_long_operation">Dictionnaire en cours de chargement…</string>
+    <string name="toast_lengthy_start_up_operation">Démarrage d\'AnySoftKeyboard…</string>
+    <string name="lengthy_creating_keyboard_operation">Création de claviers …</string>
     <string name="select_keyboard_popup_title">Sélectionnez le clavier</string>
     <string name="eng_dictionary">Anglais</string>
     <string name="simley_key_name">Touche émoticône</string>
@@ -482,7 +482,7 @@
     <string name="settings_split_state_split_in_landscape">Démarrer scindé en mode paysage</string>
     <string name="settings_split_state_split_always">Démarrer scindé</string>
     <string name="user_dictionary_select_locale">Langue :</string>
-    <string name="user_dictionary_read_please_wait">Lecture des mots&#8230;</string>
+    <string name="user_dictionary_read_please_wait">Lecture des mots…</string>
     <string name="user_dict_settings_titlebar">Dictionnaire personnel</string>
     <string name="user_dict_editor">Éditeur de mots</string>
     <string name="user_dict_settings_add_dialog_title">Ajouter au dictionnaire</string>

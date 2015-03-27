@@ -8,7 +8,7 @@
   <string name="subtype_generic">speller-generic</string>
   <string name="copyright_text">Copyright © <xliff:g id="year">%d</xliff:g> <xliff:g id="owner">%s</xliff:g></string>
   <string name="version_text"><xliff:g id="version_name">%s</xliff:g> (v<xliff:g id="version_number">%s</xliff:g>)</string>
-  <string name="additional_licenses"><u>További licenszek&#8230;</u></string>
+  <string name="additional_licenses"><u>További licenszek…</u></string>
   <string name="debug_tracing_starting">Trace indult. \nNe felejtsd el majd leállítani</string>
   <string name="debug_tracing_starting_failed">Trace indítása sikertelen! Nézz bele a logokba.</string>
   <string name="debug_tracing_finished">Trace befejeződött!\nTrace file:
@@ -416,9 +416,9 @@ Balról jobbra: nyelv-váltás; jobbról balra: szimbólumok.</string>
   <string name="change_symbols_wide">← 123 ←</string>
   <string name="change_symbols_regular">123</string>
   <string name="please_wait">Kérlek várj</string>
-  <string name="toast_lengthy_words_long_operation">Szótár betöltése&#8230;</string>
-  <string name="toast_lengthy_start_up_operation">AnySoftKeyboard indítása&#8230; </string>
-  <string name="lengthy_creating_keyboard_operation">Billentyűzetek létrehozása&#8230;</string>
+  <string name="toast_lengthy_words_long_operation">Szótár betöltése…</string>
+  <string name="toast_lengthy_start_up_operation">AnySoftKeyboard indítása… </string>
+  <string name="lengthy_creating_keyboard_operation">Billentyűzetek létrehozása…</string>
   <string name="select_keyboard_popup_title">Billentyűzet kiválasztása</string>
   <string name="eng_dictionary">Angol</string>
   <string name="simley_key_name">Hangulatjel gomb</string>
@@ -450,7 +450,7 @@ Balról jobbra: nyelv-váltás; jobbról balra: szimbólumok.</string>
   <string name="settings_split_state_split_in_landscape">Fekvőben osztott</string>
   <string name="settings_split_state_split_always">Mindig osztott</string>
   <string name="user_dictionary_select_locale">Nyelv:</string>
-  <string name="user_dictionary_read_please_wait">Szavak beolvasása&#8230;</string>
+  <string name="user_dictionary_read_please_wait">Szavak beolvasása…</string>
   <string name="user_dict_settings_titlebar">Felhasználói szótár</string>
   <string name="user_dict_editor">Szó szerkesztő</string>
   <string name="user_dict_settings_add_dialog_title">Szótár bővítése</string>
