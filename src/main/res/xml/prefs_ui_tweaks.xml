@@ -147,14 +147,6 @@
     </PreferenceCategory>
 
     <CheckBoxPreference
-        android:defaultValue="@bool/settings_default_show_tips_notification"
-        android:key="@string/settings_key_show_tips_notification"
-        android:persistent="true"
-        android:summaryOff="@string/show_new_tips_notifications_again_off_summary"
-        android:summaryOn="@string/show_new_tips_notifications_again_on_summary"
-        android:title="@string/show_new_tips_notifications_again"/>
-
-    <CheckBoxPreference
         android:defaultValue="@bool/settings_default_show_settings_app"
         android:key="@string/settings_key_show_settings_app"
         android:persistent="true"

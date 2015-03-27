@@ -39,21 +39,6 @@
                android:src="@drawable/close_suggestions_strip_icon" android:scaleType="centerInside"/>
 
     <TextView
-            android:id="@+id/tips_notification_on_candidates"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="4dp"
-            android:paddingRight="8dp" android:paddingLeft="8dp"
-            android:paddingTop="4dp" android:paddingBottom="4dp"
-            android:layout_toLeftOf="@id/close_suggestions_strip_icon"
-            android:background="@drawable/tips_notification_background"
-            android:text="@string/tips_notification_text"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:visibility="gone"/>
-
-    <TextView
             android:id="@+id/close_suggestions_strip_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

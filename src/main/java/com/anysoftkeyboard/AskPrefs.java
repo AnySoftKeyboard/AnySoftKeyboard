@@ -92,10 +92,6 @@ public interface AskPrefs {
 
     boolean hideSoftKeyboardWhenPhysicalKeyPressed();
 
-    boolean getShowTipsNotification();
-
-    void setShowTipsNotification(boolean show);
-
     boolean use16KeysSymbolsKeyboards();
 
     boolean useBackword();

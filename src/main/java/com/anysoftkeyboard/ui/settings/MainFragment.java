@@ -23,7 +23,6 @@ import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.settings.setup.SetUpKeyboardWizardFragment;
 import com.anysoftkeyboard.ui.settings.setup.SetupSupport;
 import com.anysoftkeyboard.ui.tutorials.ChangeLogFragment;
-import com.anysoftkeyboard.ui.tutorials.TipsFragment;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.FragmentChauffeurActivity;
@@ -49,7 +48,6 @@ public class MainFragment extends Fragment {
             FragmentManager fragmentManager = getChildFragmentManager();
             fragmentManager.beginTransaction()
                     .replace(R.id.change_log_fragment, new ChangeLogFragment.CardedChangeLogFragment())
-                    .replace(R.id.tip_fragment, new TipsFragment.RandomTipFragment())
                     .commit();
         }
     }

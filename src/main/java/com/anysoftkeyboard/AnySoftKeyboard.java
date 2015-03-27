@@ -87,8 +87,6 @@ import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.VoiceInputNotInstalledActivity;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
-import com.anysoftkeyboard.ui.tutorials.TipLayoutsSupport;
-import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 import com.anysoftkeyboard.utils.IMEUtil.GCUtils;
 import com.anysoftkeyboard.utils.IMEUtil.GCUtils.MemRelatedOperation;
 import com.anysoftkeyboard.utils.Log;
@@ -449,21 +447,6 @@ public class AnySoftKeyboard extends InputMethodService implements
 					abortCorrection(true, true);
 				}
 			});
-		}
-
-		final TextView tipsNotification = (TextView) candidateViewContainer.findViewById(R.id.tips_notification_on_candidates);
-		if (tipsNotification != null) {// why? in API 3 it is not supported
-			if (mAskPrefs.getShowTipsNotification()
-					&& TutorialsProvider.shouldShowTips(getApplicationContext())) {
-
-				final String TIPS_NOTIFICATION_KEY = "TIPS_NOTIFICATION_KEY";
-				TipLayoutsSupport.addTipToCandidate(getApplicationContext(), tipsNotification, TIPS_NOTIFICATION_KEY, new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						TutorialsProvider.showTips(getApplicationContext());
-					}
-				});
-			}
 		}
 
 		return candidateViewContainer;
