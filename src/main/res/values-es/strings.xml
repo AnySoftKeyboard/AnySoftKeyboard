@@ -17,42 +17,6 @@
     </string>
   <string name="menu_about_item">Acerca de</string>
   <string name="click_to_restart_suggestions">Haz clic para sugerencias</string>
-  <string name="tips_notification_text">¡Haz clic para ver consejos!</string>
-  <string name="tips_button">Cómo utilizarlo</string>
-  <string name="tips_button_description">Algunos consejos para utilizar AnySoftKeyboard</string>
-  <string name="tips_title">Consejos de AnySoftKeyboard</string>
-  <string name="tips_pager_swipe_hint">ࢎ\u0020Desliza a izquierda o derecha para más consejos࢐</string>
-  <string name="tip_1_welcome_to_ask">Bienvenid@ a AnySoftKeyboard!</string>
-  <string name="tip_1_how_to_access_settings">Para acceder a ajustes; mantén la tecla INTRO. ¡Encontrarás un mundo de opciones personalizables!
-    </string>
-  <string name="tip_2_gestures">¡Con soporte de gestos!</string>
-  <string name="tip_2_gestures_tip">¡Con un gesto puede hacer mucho! Desliza de izquierda a derecha para cambiar de idioma, desliza hacia la izquierda para cambiar la disposición de símbolos, desliza sobre la barra espaciadora hacia arriba y aparecerán teclas de utilidad y desliza hacia abajo para ocultar el teclado.\nPuedes configurarlo mediante las preferencias (¿recuerdas? pulsando un instante la tecla INTRO).
-    </string>
-  <string name="tip_3_hidden_kbds">Gemas ocultas</string>
-  <string name="tip_3_hidden_kbds_tip">Hay algunas teclas ocultas: \n1) Desliza tu dedo en la barra espaciadora hacia arriba, aparecerán las teclas de utilidad con flechas y micrófono (para entrada de voz). \n2) Desliza tu dedo hacia arriba completamente fuera del teclado, mantenlo presionado; este es el teclado extendido, con números y símbolos.
-    </string>
-  <string name="tip_4_top_generic_row">Fila superior</string>
-  <string name="tip_4_top_generic_row_tip">¡La fila superior es la misma en todos los diseños y la puedes cambiar! Por defecto incluye símbolos (<i>123</i>), flechas de izquierda, derecha y una tecla de cambio de idioma (<i>ABC</i>). Puedes reemplazar esta fila en los ajustes.
-    </string>
-  <string name="tip_4_top_generic_row_go_to_top_row_settings">Cambiar fila superior ahora</string>
-  <string name="tip_5_key_feedback">Comentarios</string>
-  <string name="tip_5_key_feedback_tip">A veces es bueno obtener una señal no visual sobre las pulsaciones en las teclas. Me gusta eso. Así que aquí vamos, puedes tener vibración, sonido o ambos.
-    </string>
-  <string name="tip_5_key_feedback_test">¿Desea probar las señales?</string>
-  <string name="tip_6_bottom_rows">Fila inferior</string>
-  <string name="tip_6_bottom_rows_tip">Al igual que la fila superior, también puede sustituirse la fila inferior. AnySoftKeyboard tiene varios tipos: con o sin un micrófono, estilo iPhone, etc.
-    </string>
-  <string name="tip_6_top_generic_row_go_to_bottom_row_settings">Cambiar fila inferior ahora</string>
-  <string name="tip_7_voice_input">Habla conmigo*</string>
-  <string name="tip_7_voice_input_tip">Escribir es bonito, ¡pero también hay soporte para entrada de voz! ¿Quieres dictar el texto? ¡Haz clic en la tecla del micrófono y ponte a hablar!\nEsta función utiliza tecnología de reconocimiento cedida por Google, así que no dudes de su funcionamiento :)
-    </string>
-  <string name="tip_7_voice_input_tip_dont_forget_bottom_row">Si quieres tener siempre el icono del micrófono, asegúrate de tener la fila inferior correcta (¿te acuerdas del consejo anterior?).\nComo sea, el micrófono siempre es accesible a través de las funciones ocultas (deslizando hacia arriba en la barra espaciadora).
-    </string>
-  <string name="tip_7_voice_input_tip_note">* Requiere Android 2.2+ y conexión a Internet.</string>
-  <string name="tip_8_suggestions">Yo te completo</string>
-  <string name="tip_8_suggestions_tip">Dependiendo del nivel de soporte de su idioma, AnySoftKeyboard puede ayudarle a terminar sus palabras y corregir sus errores. Cuando comience a escribir, AnySoftKeyboard sugerirá palabras partiendo de lo que ya ha escrito.
-    </string>
-  <string name="tip_9_suggestions_restart">Reiniciando sugerencias</string>
   <string name="main_tab_welcome">Bienvenid@</string>
   <string name="main_tab_links">Enlaces</string>
   <string name="main_tab_credits">Créditos</string>
@@ -284,8 +248,6 @@
   <string name="is_extesion_keyboard_above_keyboard">Extensión del teclado arriba</string>
   <string name="is_extesion_keyboard_above_keyboard_on_summary">Aparece encima del teclado principal</string>
   <string name="is_extesion_keyboard_above_keyboard_off_summary">Dibujado en el teclado principal</string>
-  <string name="show_new_tips_notifications_again">Notificar sobre nuevos consejos</string>
-  <string name="show_new_tips_notifications_again_off_summary">No se notificara cuando nuevos conejos estén disponibles</string>
   <string name="show_settings_app_in_launcher">Configuración de la aplicación</string>
   <string name="settings_key_show_settings_app_off_summary">Ocultar la aplicación de configuración (puede requerir el reinicio del sistema)</string>
   <string name="show_crash_notification">Informar de cuelgue</string>
