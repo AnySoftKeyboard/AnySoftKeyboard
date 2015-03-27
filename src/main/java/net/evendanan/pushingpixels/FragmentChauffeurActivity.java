@@ -44,12 +44,23 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
 
     private static final String KEY_FRAGMENT_CLASS_TO_ADD = "KEY_FRAGMENT_CLASS_TO_ADD";
     private static final String KEY_FRAGMENT_ARGS_TO_ADD = "KEY_FRAGMENT_ARGS_TO_ADD";
+	private static final String KEY_FRAGMENT_AS_ROOT = "KEY_FRAGMENT_AS_ROOT";
 
     public static void addIntentArgsForAddingFragmentToUi(@NonNull Intent intent, @NonNull Class<? extends Fragment> fragmentClass, @Nullable Bundle fragmentArgs) {
         intent.putExtra(KEY_FRAGMENT_CLASS_TO_ADD, fragmentClass);
-        if (fragmentArgs != null)
-            intent.putExtra(KEY_FRAGMENT_ARGS_TO_ADD, fragmentArgs);
+        if (fragmentArgs != null) {
+	        intent.putExtra(KEY_FRAGMENT_ARGS_TO_ADD, fragmentArgs);
+        }
+	    intent.putExtra(KEY_FRAGMENT_AS_ROOT, false);
     }
+
+	public static void addIntentArgsForSettingRootFragmentToUi(@NonNull Intent intent, @NonNull Class<? extends Fragment> fragmentClass, @Nullable Bundle fragmentArgs) {
+		intent.putExtra(KEY_FRAGMENT_CLASS_TO_ADD, fragmentClass);
+		if (fragmentArgs != null) {
+			intent.putExtra(KEY_FRAGMENT_ARGS_TO_ADD, fragmentArgs);
+		}
+		intent.putExtra(KEY_FRAGMENT_AS_ROOT, true);
+	}
 
 	private boolean mIsActivityShown = false;
 
@@ -57,9 +68,12 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 	    mIsActivityShown = true;
-        if (savedInstanceState == null) {
-            //setting up the root of the UI.
-            setRootFragment(createRootFragmentInstance());
+	    if (savedInstanceState == null) {
+		    Bundle activityArgs = getIntent().getExtras();
+		    if (activityArgs == null || (!activityArgs.containsKey(KEY_FRAGMENT_CLASS_TO_ADD)) || (!activityArgs.getBoolean(KEY_FRAGMENT_AS_ROOT, false))) {
+		        //setting up the root of the UI.
+		        setRootFragment(createRootFragmentInstance());
+	        }
         }
     }
 
@@ -82,7 +96,11 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
 		            fragment.setArguments(activityArgs.getBundle(KEY_FRAGMENT_ARGS_TO_ADD));
 		            activityArgs.remove(KEY_FRAGMENT_CLASS_TO_ADD);
 		        }
-		        addFragmentToUi(fragment, FragmentUiContext.RootFragment);
+			    if (activityArgs.getBoolean(KEY_FRAGMENT_AS_ROOT, false)) {
+				    setRootFragment(fragment);
+			    } else {
+				    addFragmentToUi(fragment, FragmentUiContext.RootFragment);
+			    }
 		    } catch (InstantiationException e) {
 		        e.printStackTrace();
 		    } catch (IllegalAccessException e) {

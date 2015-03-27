@@ -16,24 +16,41 @@
 
 package com.anysoftkeyboard.ui.settings;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.support.v4.preference.PreferenceFragment;
 
+import com.anysoftkeyboard.quicktextkeys.ui.QuickKeysOrderedListFragment;
 import com.menny.android.anysoftkeyboard.R;
 
+import net.evendanan.pushingpixels.FragmentChauffeurActivity;
 import net.evendanan.pushingpixels.PassengerFragmentSupport;
 
-public class QuickTextSettingsFragment extends PreferenceFragment {
+public class QuickTextSettingsFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener {
 
 	@Override
 	public void onCreate(Bundle paramBundle) {
 		super.onCreate(paramBundle);
 		addPreferencesFromResource(R.xml.prefs_quick_text_addons_prefs);
+		findPreference(getString(R.string.settings_key_active_quick_text_key)).setOnPreferenceClickListener(this);
 	}
 
 	@Override
 	public void onStart() {
 		super.onStart();
 		PassengerFragmentSupport.setActivityTitle(this, getString(R.string.quick_text_keys_group));
+	}
+
+	@Override
+	public boolean onPreferenceClick(Preference preference) {
+		if (preference.getKey().equals(getString(R.string.settings_key_active_quick_text_key))) {
+			Activity activity = getActivity();
+			if (activity != null && activity instanceof FragmentChauffeurActivity) {
+				((FragmentChauffeurActivity)activity).addFragmentToUi(new QuickKeysOrderedListFragment(), FragmentChauffeurActivity.FragmentUiContext.DeeperExperience);
+				return true;
+			}
+		}
+		return false;
 	}
 }

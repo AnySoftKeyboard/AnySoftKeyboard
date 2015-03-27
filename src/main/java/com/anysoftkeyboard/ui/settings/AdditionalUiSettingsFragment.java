@@ -25,8 +25,6 @@ import android.support.v4.preference.PreferenceFragment;
 
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
-import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
-import com.anysoftkeyboard.quicktextkeys.ui.QuickKeysOrderedListPreference;
 import com.anysoftkeyboard.ui.settings.widget.AddOnListPreference;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -34,15 +32,6 @@ import net.evendanan.pushingpixels.FragmentChauffeurActivity;
 import net.evendanan.pushingpixels.PassengerFragmentSupport;
 
 public class AdditionalUiSettingsFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener {
-
-
-	private static final String ARG_KEY_START_QUICK_TEXT_KEYS = "ARG_KEY_START_QUICK_TEXT_KEYS";
-
-	public static Bundle createArgsForConfiguringQuickTextKeys() {
-		Bundle args = new Bundle();
-		args.putBoolean(ARG_KEY_START_QUICK_TEXT_KEYS, true);
-		return args;
-	}
 
     @Override
     public void onCreate(Bundle paramBundle) {
@@ -71,13 +60,6 @@ public class AdditionalUiSettingsFragment extends PreferenceFragment implements 
         AddOnListPreference.populateAddOnListPreference(extKeyboard,
                 KeyboardExtensionFactory.getAllAvailableExtensions(appContext, KeyboardExtension.TYPE_EXTENSION),
                 KeyboardExtensionFactory.getCurrentKeyboardExtension(appContext, KeyboardExtension.TYPE_EXTENSION));
-
-	    Bundle args = getArguments();
-	    if (args != null && args.containsKey(ARG_KEY_START_QUICK_TEXT_KEYS) && args.getBoolean(ARG_KEY_START_QUICK_TEXT_KEYS)) {
-		    args.remove(ARG_KEY_START_QUICK_TEXT_KEYS);
-		    QuickKeysOrderedListPreference quickKeys = (QuickKeysOrderedListPreference) findPreference(getString(R.string.settings_key_active_quick_text_key));
-		    quickKeys.performOnClick();
-	    }
     }
 
     @Override
