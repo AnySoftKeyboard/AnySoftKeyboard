@@ -13,6 +13,7 @@
     <string name="quick_text_smiley_key_unicode_nature_output">\uD83C\uDF3B</string>
     <string name="quick_text_smiley_key_unicode_transport_output">\uD83D\uDE97</string>
     <string name="quick_text_smiley_key_unicode_signs_output">\u2648</string>
+    <string name="quick_text_smiley_key_unicode_sports_output">\uD83C\uDFC0</string>
 
     <string name="copyright_owner">Menny Even-Danan</string>
 

@@ -82,6 +82,15 @@
         description=""
         index="9"/>
     <QuickTextKey
+        id="abc2eafe-1451-4eca-99ae-28fc5bb15e1a"
+        nameResId="@string/unicode_sports_quick_text_key_name"
+        popupKeyboard="@xml/quick_text_unicode_sports"
+        keyIcon="@drawable/sym_keyboard_smiley"
+        keyLabel="@string/quick_text_smiley_key_unicode_sports_output"
+        keyOutputText="@string/quick_text_smiley_key_unicode_sports_output"
+        description=""
+        index="10"/>
+    <QuickTextKey
         id="698b8c20-19df-11e1-bddb-0800200c9a67"
         nameResId="@string/default_quick_text_key_name"
         popupKeyboard="@xml/popup_default_quick_text"
@@ -89,7 +98,7 @@
         keyLabel="@string/quick_text_smiley_key_label"
         keyOutputText="@string/quick_text_smiley_key_output"
         description=""
-        index="10"/>
+        index="11"/>
     <QuickTextKey
         id="0077b34d-770f-4083-83e4-081957e06c27"
         nameResId="@string/simley_key_name"
@@ -98,5 +107,5 @@
         keyLabel="@string/quick_text_smiley_key_label"
         keyOutputText="@string/quick_text_smiley_key_output"
         description=""
-        index="11"/>
+        index="12"/>
 </QuickTextKeys>
