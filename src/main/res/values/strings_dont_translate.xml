@@ -12,12 +12,13 @@
     <string name="quick_text_smiley_key_unicode_food_output">\uD83C\uDF55</string>
     <string name="quick_text_smiley_key_unicode_nature_output">\uD83C\uDF3B</string>
     <string name="quick_text_smiley_key_unicode_transport_output">\uD83D\uDE97</string>
+    <string name="quick_text_smiley_key_unicode_signs_output">\u2648</string>
 
     <string name="copyright_owner">Menny Even-Danan</string>
 
     <string name="beta_tester_message">This is a\u0020<b>testing build</b>. It may contain bugs, and it may be non-backward
-        compatible!\nIt may also include\u0020<i>DRAGONS</i>!\u0020And they tend to eat features.\nPlease, report\u0020<b>any problem</b>
-        you encounter at http://s.evendanan.net/ask_issues.\n\nThank you for testing a development build.
+        compatible!\nIt may also include\u0020&#x1f409;\u0020<i>DRAGONS</i>!\u0020And they tend to eat features.\nPlease, report\u0020<b>any problem</b>
+        you encounter at http://s.evendanan.net/ask_issues.\n\nThank you for testing a development build.\u0020&#x1f409;
     </string>
     <string name="about_copyright_text">Copyright\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020Menny Even-Danan</string>
     <string name="main_site_url">https://plus.google.com/u/0/communities/106050362696748221135</string>
