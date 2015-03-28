@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+          android:keyHeight="@integer/key_normal_height"
+          android:keyWidth="20%p">
+<!-- https://ideone.com/LgRyEG -->
+    <Row>
+        <Key android:keyLabel="\uD83C\uDFE0" android:keyOutputText="\uD83C\uDFE0"/>
+        <Key android:keyLabel="\uD83C\uDFE1" android:keyOutputText="\uD83C\uDFE1"/>
+        <Key android:keyLabel="\uD83C\uDFE2" android:keyOutputText="\uD83C\uDFE2"/>
+        <Key android:keyLabel="\uD83C\uDFE3" android:keyOutputText="\uD83C\uDFE3"/>
+        <Key android:keyLabel="\uD83C\uDFE4" android:keyOutputText="\uD83C\uDFE4"/>
+        <Key android:keyLabel="\uD83C\uDFE5" android:keyOutputText="\uD83C\uDFE5"/>
+        <Key android:keyLabel="\uD83C\uDFE6" android:keyOutputText="\uD83C\uDFE6"/>
+        <Key android:keyLabel="\uD83C\uDFE7" android:keyOutputText="\uD83C\uDFE7"/>
+        <Key android:keyLabel="\uD83C\uDFE8" android:keyOutputText="\uD83C\uDFE8"/>
+        <Key android:keyLabel="\uD83C\uDFE9" android:keyOutputText="\uD83C\uDFE9"/>
+        <Key android:keyLabel="\uD83C\uDFEA" android:keyOutputText="\uD83C\uDFEA"/>
+        <Key android:keyLabel="\uD83C\uDFEB" android:keyOutputText="\uD83C\uDFEB"/>
+        <Key android:keyLabel="\u26EA" android:keyOutputText="\u26EA"/>
+        <Key android:keyLabel="\u26F2" android:keyOutputText="\u26F2"/>
+        <Key android:keyLabel="\uD83C\uDFEC" android:keyOutputText="\uD83C\uDFEC"/>
+        <Key android:keyLabel="\uD83C\uDFEF" android:keyOutputText="\uD83C\uDFEF"/>
+        <Key android:keyLabel="\uD83C\uDFF0" android:keyOutputText="\uD83C\uDFF0"/>
+        <Key android:keyLabel="\uD83C\uDFED" android:keyOutputText="\uD83C\uDFED"/>
+        <Key android:keyLabel="\uD83D\uDDFB" android:keyOutputText="\uD83D\uDDFB"/>
+        <Key android:keyLabel="\uD83D\uDDFC" android:keyOutputText="\uD83D\uDDFC"/>
+        <Key android:keyLabel="\uD83D\uDDFD" android:keyOutputText="\uD83D\uDDFD"/>
+        <Key android:keyLabel="\uD83D\uDDFE" android:keyOutputText="\uD83D\uDDFE"/>
+        <Key android:keyLabel="\uD83D\uDDFF" android:keyOutputText="\uD83D\uDDFF"/>
+        <Key android:keyLabel="\u2693" android:keyOutputText="\u2693"/>
+        <Key android:keyLabel="\uD83C\uDFEE" android:keyOutputText="\uD83C\uDFEE"/>
+        <Key android:keyLabel="\uD83D\uDC88" android:keyOutputText="\uD83D\uDC88"/>
+        <Key android:keyLabel="\uD83D\uDD27" android:keyOutputText="\uD83D\uDD27"/>
+        <Key android:keyLabel="\uD83D\uDD28" android:keyOutputText="\uD83D\uDD28"/>
+        <Key android:keyLabel="\uD83D\uDD29" android:keyOutputText="\uD83D\uDD29"/>
+        <Key android:keyLabel="\uD83D\uDEBF" android:keyOutputText="\uD83D\uDEBF"/>
+        <Key android:keyLabel="\uD83D\uDEC1" android:keyOutputText="\uD83D\uDEC1"/>
+        <Key android:keyLabel="\uD83D\uDEC0" android:keyOutputText="\uD83D\uDEC0"/>
+        <Key android:keyLabel="\uD83D\uDEBD" android:keyOutputText="\uD83D\uDEBD"/>
+        <Key android:keyLabel="\uD83D\uDEBE" android:keyOutputText="\uD83D\uDEBE"/>
+    </Row>
+
+</Keyboard>
