@@ -577,6 +577,7 @@
     <string name="unicode_transport_quick_text_key_name">Transport</string>
     <string name="unicode_signs_quick_text_key_name">Signs</string>
     <string name="unicode_sports_quick_text_key_name">Sports</string>
+    <string name="unicode_city_quick_text_key_name">City</string>
 
     <string name="multitap_timeout_title">Multi-tap timeout</string>
     <string name="multitap_timeout_summary">Timeout between key taps</string>
