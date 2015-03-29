@@ -4,6 +4,26 @@
           android:keyWidth="20%p">
 <!-- https://ideone.com/LgRyEG -->
     <Row>
+        <Key android:keyLabel="\uD83C\uDFBD" android:keyOutputText="\uD83C\uDFBD"/>
+        <Key android:keyLabel="\uD83C\uDFA3" android:keyOutputText="\uD83C\uDFA3"/>
+        <Key android:keyLabel="\uD83C\uDFB1" android:keyOutputText="\uD83C\uDFB1"/>
+        <Key android:keyLabel="\uD83C\uDFB3" android:keyOutputText="\uD83C\uDFB3"/>
+        <Key android:keyLabel="\u26BE" android:keyOutputText="\u26BE"/>
+        <Key android:keyLabel="\u26F3" android:keyOutputText="\u26F3"/>
+        <Key android:keyLabel="\uD83C\uDFBE" android:keyOutputText="\uD83C\uDFBE"/>
+        <Key android:keyLabel="\u26BD" android:keyOutputText="\u26BD"/>
+        <Key android:keyLabel="\uD83C\uDFBF" android:keyOutputText="\uD83C\uDFBF"/>
+        <Key android:keyLabel="\uD83C\uDFC0" android:keyOutputText="\uD83C\uDFC0"/>
+        <Key android:keyLabel="\uD83C\uDFC1" android:keyOutputText="\uD83C\uDFC1"/>
+        <Key android:keyLabel="\uD83C\uDFC2" android:keyOutputText="\uD83C\uDFC2"/>
+        <Key android:keyLabel="\uD83C\uDFC3" android:keyOutputText="\uD83C\uDFC3"/>
+        <Key android:keyLabel="\uD83C\uDFC4" android:keyOutputText="\uD83C\uDFC4"/>
+        <Key android:keyLabel="\uD83C\uDFC6" android:keyOutputText="\uD83C\uDFC6"/>
+        <Key android:keyLabel="\uD83C\uDFC7" android:keyOutputText="\uD83C\uDFC7"/>
+        <Key android:keyLabel="\uD83D\uDC0E" android:keyOutputText="\uD83D\uDC0E"/>
+        <Key android:keyLabel="\uD83C\uDFC8" android:keyOutputText="\uD83C\uDFC8"/>
+        <Key android:keyLabel="\uD83C\uDFC9" android:keyOutputText="\uD83C\uDFC9"/>
+        <Key android:keyLabel="\uD83C\uDFCA" android:keyOutputText="\uD83C\uDFCA"/>
         <Key android:keyLabel="\u26FA" android:keyOutputText="\u26FA"/>
         <Key android:keyLabel="\uD83C\uDFA1" android:keyOutputText="\uD83C\uDFA1"/>
         <Key android:keyLabel="\uD83C\uDFA2" android:keyOutputText="\uD83C\uDFA2"/>
