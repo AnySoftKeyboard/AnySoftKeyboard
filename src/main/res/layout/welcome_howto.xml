@@ -134,7 +134,7 @@
             android:id="@+id/close_button_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/tips_bottom_background"
+            android:background="@drawable/rounded_corners_background"
             android:orientation="horizontal"
             android:padding="4dp"
             android:weightSum="2">
