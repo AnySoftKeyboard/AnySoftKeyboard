@@ -105,6 +105,11 @@ android {
             setRoot('src/test')
         }
     }
+    splits {
+        density {
+            enable true
+        }
+    }
 }
 
 robolectric {
