@@ -82,15 +82,6 @@
         description=""
         index="9"/>
     <QuickTextKey
-        id="abc2eafe-1451-4eca-99ae-28fc5bb15e1a"
-        nameResId="@string/unicode_sports_quick_text_key_name"
-        popupKeyboard="@xml/quick_text_unicode_sports"
-        keyIcon="@drawable/sym_keyboard_smiley"
-        keyLabel="@string/quick_text_smiley_key_unicode_sports_output"
-        keyOutputText="@string/quick_text_smiley_key_unicode_sports_output"
-        description=""
-        index="10"/>
-    <QuickTextKey
         id="dfb6fc74-f20e-4a6a-8d17-198220bf9fb1"
         nameResId="@string/unicode_city_quick_text_key_name"
         popupKeyboard="@xml/quick_text_unicode_city"
@@ -98,7 +89,7 @@
         keyLabel="@string/quick_text_smiley_key_unicode_city_output"
         keyOutputText="@string/quick_text_smiley_key_unicode_city_output"
         description=""
-        index="11"/>
+        index="10"/>
     <QuickTextKey
         id="a4dac174-81cf-41e6-a925-4ed3a32270c5"
         nameResId="@string/unicode_activity_quick_text_key_name"
@@ -107,7 +98,7 @@
         keyLabel="@string/quick_text_smiley_key_unicode_activity_output"
         keyOutputText="@string/quick_text_smiley_key_unicode_activity_output"
         description=""
-        index="12"/>
+        index="11"/>
     <QuickTextKey
         id="df479326-1728-44e8-a797-8e40ff0e2a41"
         nameResId="@string/unicode_office_quick_text_key_name"
@@ -116,7 +107,7 @@
         keyLabel="@string/quick_text_smiley_key_unicode_office_output"
         keyOutputText="@string/quick_text_smiley_key_unicode_office_output"
         description=""
-        index="13"/>
+        index="12"/>
     <QuickTextKey
         id="f8bfef54-db96-42e5-b3aa-d9e2ebd57a3a"
         nameResId="@string/unicode_occasions_quick_text_key_name"
@@ -125,7 +116,7 @@
         keyLabel="@string/quick_text_smiley_key_unicode_occasions_output"
         keyOutputText="@string/quick_text_smiley_key_unicode_occasions_output"
         description=""
-        index="14"/>
+        index="13"/>
     <QuickTextKey
         id="698b8c20-19df-11e1-bddb-0800200c9a67"
         nameResId="@string/default_quick_text_key_name"
@@ -134,7 +125,7 @@
         keyLabel="@string/quick_text_smiley_key_label"
         keyOutputText="@string/quick_text_smiley_key_output"
         description=""
-        index="15"/>
+        index="14"/>
     <QuickTextKey
         id="0077b34d-770f-4083-83e4-081957e06c27"
         nameResId="@string/simley_key_name"
@@ -143,5 +134,5 @@
         keyLabel="@string/quick_text_smiley_key_label"
         keyOutputText="@string/quick_text_smiley_key_output"
         description=""
-        index="16"/>
+        index="15"/>
 </QuickTextKeys>
