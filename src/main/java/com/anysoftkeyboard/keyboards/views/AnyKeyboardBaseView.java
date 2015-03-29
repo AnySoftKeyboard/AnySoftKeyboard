@@ -1793,6 +1793,7 @@ public class AnyKeyboardBaseView extends View implements
         }
     }
 
+	@NonNull
     private CharSequence guessLabelForKey(int keyCode) {
         switch (keyCode) {
             case KeyCodes.ENTER:
@@ -1848,7 +1849,7 @@ public class AnyKeyboardBaseView extends View implements
             case KeyCodes.ARROW_UP:
                 return "\u2191";
             default:
-                return null;
+                return "";
         }
     }
 
