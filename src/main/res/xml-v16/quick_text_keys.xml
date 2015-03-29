@@ -118,6 +118,15 @@
         description=""
         index="13"/>
     <QuickTextKey
+        id="f8bfef54-db96-42e5-b3aa-d9e2ebd57a3a"
+        nameResId="@string/unicode_occasions_quick_text_key_name"
+        popupKeyboard="@xml/quick_text_unicode_occasions"
+        keyIcon="@drawable/sym_keyboard_smiley"
+        keyLabel="@string/quick_text_smiley_key_unicode_occasions_output"
+        keyOutputText="@string/quick_text_smiley_key_unicode_occasions_output"
+        description=""
+        index="14"/>
+    <QuickTextKey
         id="698b8c20-19df-11e1-bddb-0800200c9a67"
         nameResId="@string/default_quick_text_key_name"
         popupKeyboard="@xml/popup_default_quick_text"
@@ -125,7 +134,7 @@
         keyLabel="@string/quick_text_smiley_key_label"
         keyOutputText="@string/quick_text_smiley_key_output"
         description=""
-        index="14"/>
+        index="15"/>
     <QuickTextKey
         id="0077b34d-770f-4083-83e4-081957e06c27"
         nameResId="@string/simley_key_name"
@@ -134,5 +143,5 @@
         keyLabel="@string/quick_text_smiley_key_label"
         keyOutputText="@string/quick_text_smiley_key_output"
         description=""
-        index="15"/>
+        index="16"/>
 </QuickTextKeys>
