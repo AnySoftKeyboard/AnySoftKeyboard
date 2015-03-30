@@ -35,7 +35,7 @@ public class QuickTextViewFactory {
 		final int decorationWidthSize = context.getResources().getDimensionPixelSize(R.dimen.quick_key_size);
 		PagerAdapter adapter = new QuickKeysKeyboardPagerAdapter(context, list, keyboardActionListener, decorationWidthSize);
 		pager.setAdapter(adapter);
-		pager.setCurrentItem(getPositionForAddOnId(list, quickTextUserPrefs.getLastSelectedAddOnId()));
+		pager.setCurrentItem(quickTextUserPrefs.getStartPageIndex(list));
 		pager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
 			@Override
 			public void onPageSelected(int position) {
@@ -45,15 +45,5 @@ public class QuickTextViewFactory {
 			}
 		});
 		return rootView;
-	}
-
-	private static int getPositionForAddOnId(List<QuickTextKey> list, String initialAddOnId) {
-		for (int addOnIndex = 0; addOnIndex < list.size(); addOnIndex++) {
-			final QuickTextKey quickTextKey = list.get(addOnIndex);
-			if (quickTextKey.getId().equals(initialAddOnId)) {
-				return addOnIndex;
-			}
-		}
-		return 0;
 	}
 }

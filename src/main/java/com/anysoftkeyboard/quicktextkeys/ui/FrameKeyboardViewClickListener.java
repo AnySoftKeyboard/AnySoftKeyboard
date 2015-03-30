@@ -6,6 +6,7 @@ import android.view.View;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
+import com.anysoftkeyboard.ui.settings.QuickTextSettingsFragment;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.FragmentChauffeurActivity;
@@ -29,7 +30,7 @@ public class FrameKeyboardViewClickListener implements View.OnClickListener {
 			case R.id.quick_keys_popup_quick_keys_settings:
 				Intent i = new Intent(v.getContext(), MainSettingsActivity.class);
 				i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-				FragmentChauffeurActivity.addIntentArgsForSettingRootFragmentToUi(i, QuickKeysOrderedListFragment.class, null);
+				FragmentChauffeurActivity.addIntentArgsForSettingRootFragmentToUi(i, QuickTextSettingsFragment.class, null);
 				v.getContext().startActivity(i);
 				mKeyboardActionListener.onCancel();
 				break;
