@@ -20,8 +20,6 @@
         <View
             style="@style/Ask.Legal.Divider" />
 
-
-
         <TextView
             style="@style/Ask.Legal.Title"
             android:text="@string/legal_this_app_uses_frankenrobot_title"/>
@@ -33,8 +31,6 @@
 
         <View
             style="@style/Ask.Legal.Divider" />
-
-
 
         <TextView
             style="@style/Ask.Legal.Title"
@@ -48,8 +44,6 @@
         <View
             style="@style/Ask.Legal.Divider" />
 
-
-
         <TextView
             style="@style/Ask.Legal.Title"
             android:text="@string/legal_this_app_uses_pushing_pixels_title"/>
@@ -62,8 +56,6 @@
         <View
             style="@style/Ask.Legal.Divider" />
 
-
-
         <TextView
             style="@style/Ask.Legal.Title"
             android:text="@string/legal_this_app_uses_jsr305_title"/>
@@ -72,9 +64,9 @@
             android:text="@string/legal_this_app_uses_jsr305_license"/>
 
 
+
         <View
             style="@style/Ask.Legal.Divider" />
-
 
         <TextView
             style="@style/Ask.Legal.Title"
@@ -83,9 +75,10 @@
             style="@style/Ask.Legal.Text"
             android:text="@string/legal_this_app_uses_greek_jni_ime_license"/>
 
+
+
         <View
             style="@style/Ask.Legal.Divider" />
-
 
         <TextView
             style="@style/Ask.Legal.Title"
@@ -93,5 +86,16 @@
         <TextView
             style="@style/Ask.Legal.Text"
             android:text="@string/legal_this_app_uses_drag_sort_recycler_license"/>
+
+
+        <View
+            style="@style/Ask.Legal.Divider" />
+
+        <TextView
+            style="@style/Ask.Legal.Title"
+            android:text="@string/legal_this_app_uses_voiceime_utils_title"/>
+        <TextView
+            style="@style/Ask.Legal.Text"
+            android:text="@string/legal_this_app_uses_voiceime_utils_license"/>
     </LinearLayout>
 </ScrollView>
