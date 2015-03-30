@@ -22,6 +22,8 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 
+import com.anysoftkeyboard.utils.Log;
+
 /**
  * Handles the connection, and the method call, and the call backs between the IME and the activity.
  */
@@ -50,7 +52,12 @@ class ServiceBridge {
             @Override
             public void onResult(final String recognitionResult) {
                 mCallback.onRecognitionResult(recognitionResult);
-                context.unbindService(conReq);
+	            try {
+		            context.unbindService(conReq);
+	            } catch (IllegalArgumentException e) {
+		            //https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/432
+		            Log.w(TAG, "Failed to unbind from service! Swallowing.", e);
+	            }
             }
         });
 
