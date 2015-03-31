@@ -819,17 +819,12 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         return mKeyPreviewAboveKey;
     }
 
-    public boolean shouldswapPunctuationAndSpace() {
+    public boolean shouldSwapPunctuationAndSpace() {
         return mSwapPunctuationAndSpace;
     }
 
     public AnimationsLevel getAnimationsLevel() {
         return mAnimationsLevel;
-    }
-
-    @Override
-    public int getCurrentAppVersion() {
-        return mCurrentAppVersion;
     }
 
     @Override
@@ -850,25 +845,5 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     @Override
     public boolean alwaysUseFallBackUserDictionary() {
         return mAlwaysUseFallBackUserDictionary;
-    }
-
-    @Override
-    public boolean hasNotificationAnimated(String notificationKey) {
-        return mInstanceStorage.get(NOTIFICATION_ANIMATION_KEY_PREFIX+notificationKey) != null;
-    }
-
-    @Override
-    public void setNotificationAnimated(String notificationKey) {
-        mInstanceStorage.put(NOTIFICATION_ANIMATION_KEY_PREFIX + notificationKey, Integer.valueOf(mCurrentAppVersion));
-    }
-
-    @Override
-    public void setNotificationClicked(String notificationKey) {
-        mInstanceStorage.put(NOTIFICATION_CLICKED_KEY_PREFIX + notificationKey, Integer.valueOf(mCurrentAppVersion));
-    }
-
-    @Override
-    public boolean hasNotificationClicked(String notificationKey) {
-        return mInstanceStorage.get(NOTIFICATION_CLICKED_KEY_PREFIX+notificationKey) != null;
     }
 }

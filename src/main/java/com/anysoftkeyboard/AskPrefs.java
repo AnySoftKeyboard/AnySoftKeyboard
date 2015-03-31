@@ -22,14 +22,6 @@ public interface AskPrefs {
 
     boolean alwaysUseFallBackUserDictionary();
 
-    boolean hasNotificationAnimated(String notificationKey);
-
-    void setNotificationAnimated(String notificationKey);
-
-    void setNotificationClicked(String notificationKey);
-
-    boolean hasNotificationClicked(String notificationKey);
-
     public static enum AnimationsLevel {
         Full,
         Some,
@@ -82,10 +74,6 @@ public interface AskPrefs {
 
     boolean getActionKeyInvisibleWhenRequested();
 
-    int getDeviceOrientation();
-
-    //String getRtlWorkaroundConfiguration();
-
     boolean isDoubleSpaceChangesToPeriod();
 
     boolean shouldShowPopupForLanguageSwitch();
@@ -108,8 +96,6 @@ public interface AskPrefs {
 
     boolean isStickyExtensionKeyboard();
 
-    boolean drawExtensionKeyboardAboveMainKeyboard();
-
     int getSwipeVelocityThreshold();
 
     int getSwipeDistanceThreshold();
@@ -130,9 +116,7 @@ public interface AskPrefs {
 
     void removeChangedListener(OnSharedPreferenceChangeListener listener);
 
-    boolean shouldswapPunctuationAndSpace();
-
-    int getCurrentAppVersion();
+    boolean shouldSwapPunctuationAndSpace();
 
     int getFirstAppVersionInstalled();
 
