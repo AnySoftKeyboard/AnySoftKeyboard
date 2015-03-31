@@ -16,30 +16,28 @@
 
 package com.anysoftkeyboard.dictionaries;
 
-import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class)
+@Config(constants = BuildConfig.class, emulateSdk = 21, reportSdk = 21, manifest = "src/main/AndroidManifest.xml")
 public class BTreeDictionaryTest {
 
 	TestableBTreeDictionary mDictionaryUnderTest;
 
 	@Before
 	public void setup() throws Exception {
-		MainSettingsActivity activity = Robolectric.buildActivity(MainSettingsActivity.class).create().resume().get();
-		mDictionaryUnderTest = new TestableBTreeDictionary("TEST", activity);
+		mDictionaryUnderTest = new TestableBTreeDictionary("TEST", RuntimeEnvironment.application);
 	}
 
 	@Test

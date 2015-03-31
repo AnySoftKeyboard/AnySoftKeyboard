@@ -1,7 +1,5 @@
 package com.anysoftkeyboard.utils;
 
-import junit.framework.TestCase;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -91,7 +89,7 @@ public class ModifierKeyStateTest {
 		Assert.assertFalse(state.isLocked());
 		Assert.assertTrue(state.isPressed());
 
-		millis += doubleTapTime+1;
+		millis += doubleTapTime + 1;
 		ShadowSystemClock.setCurrentTimeMillis(millis);
 		state.onRelease(doubleTapTime);
 
