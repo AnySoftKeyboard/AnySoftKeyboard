@@ -17,19 +17,21 @@
 package com.anysoftkeyboard.dictionaries;
 
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
+import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
+import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
-import org.robolectric.RobolectricTestRunner;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(constants = BuildConfig.class)
 public class BTreeDictionaryTest {
 
 	TestableBTreeDictionary mDictionaryUnderTest;

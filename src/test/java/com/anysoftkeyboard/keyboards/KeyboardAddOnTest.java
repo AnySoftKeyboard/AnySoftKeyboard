@@ -5,8 +5,8 @@ import android.text.TextUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 
 import java.util.List;
 
@@ -26,13 +26,13 @@ public class KeyboardAddOnTest {
 	@Ignore("For some reason Robolectric(?) doesn't like missing attributes, although Android is fine with that")
 	@Test
 	public void testGetKeyboardDefaultEnabled() throws Exception {
-		List<KeyboardAddOnAndBuilder> enabledKeyboards = KeyboardFactory.getEnabledKeyboards(Robolectric.application);
+		List<KeyboardAddOnAndBuilder> enabledKeyboards = KeyboardFactory.getEnabledKeyboards(RuntimeEnvironment.application);
 		//checking that ASK English is enabled
 		boolean askEnglishEnabled = false;
 		for (KeyboardAddOnAndBuilder addOnAndBuilder : enabledKeyboards) {
 			if (addOnAndBuilder.getId().contains(ASK_ENGLISH_1)) {
 				assertTrue(addOnAndBuilder.getKeyboardDefaultEnabled());
-				assertEquals(addOnAndBuilder.getPackageName(), Robolectric.application.getPackageName());
+				assertEquals(addOnAndBuilder.getPackageName(), RuntimeEnvironment.application.getPackageName());
 				askEnglishEnabled = true;
 			}
 		}
@@ -43,7 +43,7 @@ public class KeyboardAddOnTest {
 		for (KeyboardAddOnAndBuilder addOnAndBuilder : enabledKeyboards) {
 			if (addOnAndBuilder.getId().contains(TESTER_KEYBOARD_1)) {
 				assertTrue(addOnAndBuilder.getKeyboardDefaultEnabled());
-				assertEquals(addOnAndBuilder.getPackageName(), Robolectric.application.getPackageName());
+				assertEquals(addOnAndBuilder.getPackageName(), RuntimeEnvironment.application.getPackageName());
 				testerEnglishEnabled = true;
 			}
 		}
@@ -60,7 +60,7 @@ public class KeyboardAddOnTest {
 	}
 
 	private KeyboardAddOnAndBuilder getKeyboardFromFactory(String id) {
-		List<KeyboardAddOnAndBuilder> keyboards = KeyboardFactory.getAllAvailableKeyboards(Robolectric.application);
+		List<KeyboardAddOnAndBuilder> keyboards = KeyboardFactory.getAllAvailableKeyboards(RuntimeEnvironment.application);
 
 		for (KeyboardAddOnAndBuilder addOnAndBuilder : keyboards) {
 			if (addOnAndBuilder.getId().equals(KeyboardAddOnAndBuilder.KEYBOARD_PREF_PREFIX + id)) {
