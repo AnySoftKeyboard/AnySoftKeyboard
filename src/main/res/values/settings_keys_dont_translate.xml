@@ -90,6 +90,8 @@
         <item>@string/should_swap_punctuation_and_space_no</item>
     </string-array>
 
+    <string name="settings_key_one_shot_quick_text_popup">settings_key_one_shot_quick_text_popup</string>
+
     <string name="settings_key_initial_quick_text_tab">settings_key_initial_quick_text_tab</string>
     <string-array name="settings_key_initial_quick_text_tab_values">
         <item>always_first</item>

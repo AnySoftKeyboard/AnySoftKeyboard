@@ -184,6 +184,9 @@
     <string name="switch_keyboard_on_space_off_summary">Do not switch from symbols/numbers to alphabet when pressing
         space
     </string>
+    <string name="one_shot_quick_text_popup">Auto close after key</string>
+    <string name="one_shot_quick_text_popup_on_summary">Close Quick-Text popup after pressing a key</string>
+    <string name="one_shot_quick_text_popup_off_summary">Keep Quick-Text popup open until Close key is pressed</string>
     <string name="hide_soft_when_physical">Hide keyboard on physical key</string>
     <string name="hide_soft_when_physical_on_summary">Hide soft keyboard when physical keyboard is used</string>
     <string name="hide_soft_when_physical_off_summary">Show soft keyboard when physical keyboard is used</string>

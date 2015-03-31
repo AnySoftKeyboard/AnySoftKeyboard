@@ -6,6 +6,14 @@
                 android:title="@string/quick_text_keys_order"
                 android:summary="@string/quick_text_keys_order_summary"/>
 
+    <CheckBoxPreference
+        android:defaultValue="@bool/settings_default_one_shot_quick_text_popup"
+        android:key="@string/settings_key_one_shot_quick_text_popup"
+        android:persistent="true"
+        android:summaryOff="@string/one_shot_quick_text_popup_off_summary"
+        android:summaryOn="@string/one_shot_quick_text_popup_on_summary"
+        android:title="@string/one_shot_quick_text_popup"/>
+
     <net.evendanan.pushingpixels.ListPreference
         android:defaultValue="@string/settings_default_initial_quick_text_tab"
         android:dialogTitle="@string/initial_quick_text_tab_title"

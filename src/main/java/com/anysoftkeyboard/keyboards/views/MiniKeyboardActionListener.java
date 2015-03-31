@@ -3,10 +3,7 @@ package com.anysoftkeyboard.keyboards.views;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard;
 
-/**
-* Created by menny on 3/30/15.
-*/
-final class MiniKeyboardActionListener implements OnKeyboardActionListener {
+public final class MiniKeyboardActionListener implements OnKeyboardActionListener {
 
 	private boolean mInOneShot;
     private final AnyKeyboardBaseView mParentKeyboard;
@@ -21,7 +18,7 @@ final class MiniKeyboardActionListener implements OnKeyboardActionListener {
 
     public void onKey(int primaryCode, Keyboard.Key key, int multiTapIndex,int[] nearByKeyCodes, boolean fromUI) {
         mParentKeyboard.mKeyboardActionListener.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);
-        if (mInOneShot || primaryCode == KeyCodes.ENTER) mParentKeyboard.dismissPopupKeyboard();
+        if ((mInOneShot && primaryCode != KeyCodes.DELETE) || primaryCode == KeyCodes.ENTER) mParentKeyboard.dismissPopupKeyboard();
     }
 
     public void onMultiTapStarted() {

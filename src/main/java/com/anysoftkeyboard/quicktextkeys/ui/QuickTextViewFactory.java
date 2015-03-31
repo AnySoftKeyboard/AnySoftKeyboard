@@ -9,7 +9,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
+import com.anysoftkeyboard.keyboards.views.MiniKeyboardActionListener;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
 import com.menny.android.anysoftkeyboard.R;
@@ -18,7 +18,7 @@ import java.util.List;
 
 public class QuickTextViewFactory {
 
-	public static View createQuickTextView(final Context context, final OnKeyboardActionListener keyboardActionListener, float tabTitleTextSize, ColorStateList tabTitleTextColor) {
+	public static View createQuickTextView(final Context context, final MiniKeyboardActionListener keyboardActionListener, float tabTitleTextSize, ColorStateList tabTitleTextColor) {
 		LayoutInflater inflater = LayoutInflater.from(context);
 		View rootView = inflater.inflate(R.layout.quick_text_popup_root_view, null, false);
 		FrameKeyboardViewClickListener frameKeyboardViewClickListener = new FrameKeyboardViewClickListener(keyboardActionListener);
@@ -26,6 +26,8 @@ public class QuickTextViewFactory {
 		final List<QuickTextKey> list = QuickTextKeyFactory.getOrderedEnabledQuickKeys(context);
 
 		final QuickTextUserPrefs quickTextUserPrefs = new QuickTextUserPrefs(context);
+
+		keyboardActionListener.setInOneShot(quickTextUserPrefs.isOneShotQuickTextPopup());
 
 		ViewPager pager = (ViewPager) rootView.findViewById(R.id.quick_text_keyboards_pager);
 		PagerTabStrip pagerTabStrip = (PagerTabStrip) pager.findViewById(R.id.pager_tabs);
@@ -36,7 +38,7 @@ public class QuickTextViewFactory {
 		PagerAdapter adapter = new QuickKeysKeyboardPagerAdapter(context, list, keyboardActionListener, decorationWidthSize);
 		pager.setAdapter(adapter);
 		pager.setCurrentItem(quickTextUserPrefs.getStartPageIndex(list));
-		pager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+		pager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 			@Override
 			public void onPageSelected(int position) {
 				super.onPageSelected(position);
