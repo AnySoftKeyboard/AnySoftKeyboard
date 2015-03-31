@@ -25,7 +25,7 @@
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="* Lots of additional Emojis. Enable them in Settings.\n* Small UI fix for Emoji settings.\n* Reduced APK size.\n Removal of tips.\n* Localization update: RU, AR, ES."
+        android:text="* Lots of additional Emojis. Enable them in Settings.\n* Small UI fix for Emoji settings.\n* Reduced APK size.\n* Removed Tips popup.\n* Localization update: RU, AR, ES."
         style="@style/Ask.Text.Normal"
         tools:ignore="HardcodedText" />
 
