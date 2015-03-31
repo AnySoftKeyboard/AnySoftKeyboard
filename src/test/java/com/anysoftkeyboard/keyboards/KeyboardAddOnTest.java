@@ -2,11 +2,13 @@ package com.anysoftkeyboard.keyboards;
 
 import android.text.TextUtils;
 
-import org.junit.Ignore;
+import com.menny.android.anysoftkeyboard.BuildConfig;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
+import org.robolectric.annotation.Config;
 
 import java.util.List;
 
@@ -15,7 +17,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(RobolectricGradleTestRunner.class)
+@Config(constants = BuildConfig.class, emulateSdk = 21, reportSdk = 21, manifest = "src/main/AndroidManifest.xml")
+
 public class KeyboardAddOnTest {
 
 	public static final String ASK_ENGLISH_1 = "c7535083-4fe6-49dc-81aa-c5438a1a343a";
@@ -23,7 +27,6 @@ public class KeyboardAddOnTest {
 	public static final String TESTER_KEYBOARD_2 = "aef7f690-f485-11e2-b778-0800200c9a61";
 	public static final String TESTER_KEYBOARD_3 = "aef7f690-f485-11e2-b778-0800200c9a62";
 
-	@Ignore("For some reason Robolectric(?) doesn't like missing attributes, although Android is fine with that")
 	@Test
 	public void testGetKeyboardDefaultEnabled() throws Exception {
 		List<KeyboardAddOnAndBuilder> enabledKeyboards = KeyboardFactory.getEnabledKeyboards(RuntimeEnvironment.application);
@@ -71,7 +74,6 @@ public class KeyboardAddOnTest {
 		return null;
 	}
 
-	@Ignore("For some reason Robolectric(?) doesn't like missing attributes, although Android is fine with that")
 	@Test
 	public void testGetKeyboardLocale() throws Exception {
 		KeyboardAddOnAndBuilder askEnglish = getKeyboardFromFactory(ASK_ENGLISH_1);
@@ -96,7 +98,6 @@ public class KeyboardAddOnTest {
 
 	}
 
-	@Ignore("For some reason Robolectric(?) doesn't like missing attributes, although Android is fine with that")
 	@Test
 	public void testHasScreenshot() throws Exception {
 		KeyboardAddOnAndBuilder askEnglish = getKeyboardFromFactory(ASK_ENGLISH_1);
