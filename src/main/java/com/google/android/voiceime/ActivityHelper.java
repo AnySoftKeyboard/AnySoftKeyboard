@@ -16,6 +16,7 @@
 
 package com.google.android.voiceime;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -24,6 +25,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+
+import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import java.util.ArrayList;
 
@@ -46,9 +49,8 @@ public class ActivityHelper extends Activity {
         mServiceBridge = new ServiceBridge();
 
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, getClass().getPackage().getName());
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra("calling_package"/*RecognizerIntent.EXTRA_CALLING_PACKAGE*/, BuildConfig.APPLICATION_ID);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5);
 
         // Specify the recognition language if provided.
@@ -73,6 +75,7 @@ public class ActivityHelper extends Activity {
         }
     }
 
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private Dialog createResultDialog(final String[] recognitionResults) {
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {

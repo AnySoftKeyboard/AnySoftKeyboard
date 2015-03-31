@@ -65,7 +65,7 @@ class IntentApiTrigger implements Trigger {
             }
         });
 
-        mUpperCaseChars = new HashSet<Character>();
+        mUpperCaseChars = new HashSet<>();
         mUpperCaseChars.add('.');
         mUpperCaseChars.add('!');
         mUpperCaseChars.add('?');
