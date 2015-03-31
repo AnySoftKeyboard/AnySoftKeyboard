@@ -22,10 +22,19 @@ import java.util.List;
 	private final String mStartUpTypePrefKey;
 	private final String mStartUpTypePrefDefault;
 
+	private final String mOneShotQuickTextPopupKey;
+	private final boolean mOneShotQuickTextPopupDefault;
+
 	public QuickTextUserPrefs(Context context) {
 		mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 		mStartUpTypePrefKey = context.getString(R.string.settings_key_initial_quick_text_tab);
 		mStartUpTypePrefDefault = context.getString(R.string.settings_default_initial_quick_text_tab);
+		mOneShotQuickTextPopupKey = context.getString(R.string.settings_key_one_shot_quick_text_popup);
+		mOneShotQuickTextPopupDefault = context.getResources().getBoolean(R.bool.settings_default_one_shot_quick_text_popup);
+	}
+
+	public boolean isOneShotQuickTextPopup() {
+		return mSharedPreferences.getBoolean(mOneShotQuickTextPopupKey, mOneShotQuickTextPopupDefault);
 	}
 
 	public int getStartPageIndex(List<QuickTextKey> allAddOns) {
