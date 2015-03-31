@@ -661,10 +661,10 @@
     <string name="should_swap_punctuation_and_space_yes">Yes</string>
     <string name="should_swap_punctuation_and_space_no">No</string>
 
-    <string name="initial_quick_text_tab_title">Initial tab</string>
-    <string name="initial_quick_text_tab_summary">Quick-Text tab to start with: %s</string>
+    <string name="initial_quick_text_tab_title">Initial group</string>
+    <string name="initial_quick_text_tab_summary">Quick-Text group to start with: %s</string>
     <string name="initial_quick_text_tab_always_first_tab">Always start with first</string>
-    <string name="initial_quick_text_tab_last_used_tab">Start with the last used tab</string>
+    <string name="initial_quick_text_tab_last_used_tab">Start with the last used group</string>
 
 
     <string name="developer_tools">Developer tools</string>
