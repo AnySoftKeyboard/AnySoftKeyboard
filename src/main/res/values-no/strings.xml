@@ -16,35 +16,6 @@
     </string>
   <string name="menu_about_item">Om</string>
   <string name="click_to_restart_suggestions">Se etter forslag</string>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <string name="main_tab_welcome">Velkommen</string>
   <string name="main_tab_links">Lenker</string>
   <string name="main_tab_credits">Takk</string>
@@ -119,6 +90,11 @@
   <string name="physical_keyboard_change_notification_summary">Varslingstype for det aktuelle tastaturoppsettet. Nå: %s
     </string>
   <string name="physical_keyboard_change_notification_dialog_title">Velg varslingstype</string>
+  <string-array name="physical_keyboard_change_notification_types">
+    <item>Vis alltid oppsettikonet for</item>
+    <item>Endre fysisk tastatur</item>
+    <item>Ingen varsling</item>
+  </string-array>
   <string name="lengthy_operations_toast_notification">Gi varsling ved langvarige handlinger</string>
   <string name="lengthy_operations_toast_notification_summary">Vis korte varslinger ved langvarige operasjoner</string>
   <string name="voice_input_not_support_in_this_os_version">Stemmekontrollert skriving er støttet i Android 2.2+</string>
@@ -147,6 +123,12 @@
   <string name="vibrate_on_key_press_title">Vibrere ved tastetrykk</string>
   <string name="vibrate_on_key_press_summary">Vibrasjonsnivå for tastetrykk. For øyeblikket: %s</string>
   <string name="vibrate_on_key_press_dialog_title">Velg vibrasjonstype</string>
+  <string-array name="vibrate_on_key_press_types">
+    <item>Ingen</item>
+    <item>Lett</item>
+    <item>Middels</item>
+    <item>Kraftig</item>
+  </string-array>
   <string name="sound_on">Lyd ved tastetrykk</string>
   <string name="sound_on_summary">Lydeffekter ved mykt tastetrykk.</string>
   <string name="use_custom_sound_volume">Sett egendefinert volum</string>
@@ -161,10 +143,16 @@
   <string name="switch_keyboard_on_space_off_summary">Ikke bytt fra symboler/tall til alfabet ved trykk på
         mellomromstasten
     </string>
+  <string name="one_shot_quick_text_popup">Lukk automatisk etter tastetrykk</string>
   <string name="hide_soft_when_physical">Skjul tastaturet når fysisk tastatur er tilkoblet</string>
   <string name="hide_soft_when_physical_on_summary">Skjul skjermtastaturet når et fysisk tastatur er tilkoblet og i bruk</string>
   <string name="hide_soft_when_physical_off_summary">Vis skjermtastaturet også når fysisk tastatur er tilkoblet og i bruk</string>
   <string name="fullscreen_input_connection_supported">Bruk landskapsmodus ved fullskjerm</string>
+  <string name="fullscreen_input_connection_supported_on_summary">Fullskjerm-tastatur i landskapsmodus</string>
+  <string name="fullscreen_input_connection_supported_off_summary">Ikke bruk fullskjerm-tastatur i landskapsmodus</string>
+  <string name="swipe_up_action">Swipe oppover</string>
+  <string name="swipe_up_action_summary">Definer swipe operasjon. Nå: %s</string>
+  <string name="swipe_up_action_title">Velg swipe operasjon</string>
   <string-array name="custom_hint_align_types">
     <item>Venstre</item>
     <item>Senter</item>

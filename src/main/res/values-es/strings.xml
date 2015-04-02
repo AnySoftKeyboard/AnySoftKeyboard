@@ -42,6 +42,8 @@
     </string>
   <string name="how_to_enable_dialog_show_me">¡Demuéstramelo!</string>
   <string name="how_to_enable_dialog_dont_show_me">Más tarde</string>
+  <string name="how_to_simple_howto_preface">Android requiere que usted (el usuario) manualmente habilite y active teclados externos. Aquí está cómo:    </string>
+  <string name="how_to_simple_howto_enable_ask">Paso 1: Habilitar AnySoftKeyboard (se le advertirá sobre el posible registro de texto, no te preocupes, AnySoftKeyboard no guarda datos, ni son enviados, a ningún lado) :    </string>
   <string name="how_to_simple_howto_enable_ask_button">Activar AnySoftKeyboard</string>
   <string name="how_to_simple_howto_press_back_to_return_tip">Pulsa ATRÁS una vez hecho para volver a las
         instrucciones de activación
@@ -66,6 +68,7 @@
   <string name="search_market_for_addons">Búsqueda de complementos</string>
   <string name="search_market_for_keyboard_addons">Consigue más teclados en la <i>Play Store</i>…</string>
   <string name="search_market_for_quick_key_addons">Consigue más extensiones de <i>texto rápido</i> en la <i>Play Store</i>…</string>
+  <string name="no_market_store_available"><b>* No se pudo encontrar Google Play Store en su dispositivo. Incapaz de buscar complementos!</b></string>
   <string name="theme_addons_settings">Ajustes de tema del teclado</string>
   <string name="keyboard_theme_tweak_group">Ajustes</string>
   <string name="keyboard_theme_tweak_hints_group">Ajustes de texto de sugerencia</string>
@@ -98,16 +101,21 @@
   <string name="lengthy_operations_toast_notification_summary">Mostrar notificaciones cortas en operaciones largas</string>
   <string name="voice_input_not_support_in_this_os_version">Se admite la entrada de voz en Android 2.2+</string>
   <string name="voice_input_not_installed_title">Entrada de voz no instalada</string>
+  <string name="voice_input_not_installed_text">Entrada de voz de Google no está instalado en tu dispositivo. \nEso se puede reparar fácilmente: instalar ahora desde Play Store.</string>
   <string name="voice_input_not_installed_action_install">Instalar</string>
   <string name="voice_input_not_installed_action_do_not_install">No</string>
+  <string name="voice_input_not_voice_pack_in_market">No puedo encontrar la entrada de voz (com.google.android.voicesearch) en Google Play. Lo siento, no funciona entrada de voz en su dispositivo.
+    </string>
   <string name="change_ime">Cambiar el método de entrada</string>
   <string name="override_dictionary">Reemplazar diccionario predeterminado</string>
+  <string name="override_dictionary_title">Ignorar <xliff:g id="word">%s </xliff:g> Diccionario     </string>
   <string name="override_dictionary_default">Predeterminado</string>
   <string name="override_disabled">Anulación desactivada</string>
   <string name="gesture_settings">Gestos</string>
   <string name="effects_group">Efectos</string>
   <string name="ime_settings">Configuración del teclado</string>
   <string name="vibrate_on_key_press_title">Vibrar en la pulsación de teclas</string>
+  <string name="vibrate_on_key_press_summary">Nivel de vibración de retroalimentacion para pulsación de teclas. Actualmente: %s</string>
   <string name="vibrate_on_key_press_dialog_title">Seleccione el tipo de vibración</string>
   <string-array name="vibrate_on_key_press_types">
     <item>Ninguno</item>
@@ -119,9 +127,14 @@
   <string name="sound_on_summary">Efectos de sonido suave en el teclado virtual.</string>
   <string name="use_custom_sound_volume">Establecer volumen personalizado</string>
   <string name="use_custom_sound_volume_on_summary">El volumen de los efectos de sonido es personalizado.</string>
+  <string name="use_custom_sound_volume_off_summary">El volumen de los efectos de sonido es el mismo que el volumen de las notificaciones del sistema.
+    </string>
   <string name="custom_sound_volume">Volumen personalizado en pulsación de teclas</string>
   <string name="speacial_fetures_group">Características especiales</string>
   <string name="switch_keyboard_on_space">El espacio cambia teclados</string>
+  <string name="switch_keyboard_on_space_on_summary">Cambiar de símbolos/números a alfabeto cuando se pulsa espacio
+    </string>
+  <string name="switch_keyboard_on_space_off_summary">No cambiar de símbolos/números a alfabeto pulsando espacio     </string>
   <string name="hide_soft_when_physical">Ocultar el teclado al pulsar una tecla física</string>
   <string name="hide_soft_when_physical_on_summary">Ocultar teclado en pantalla cuando el teclado físico sea utilizado</string>
   <string name="hide_soft_when_physical_off_summary">Mostrar teclado en pantalla cuando el teclado físico se utiliza</string>
@@ -137,6 +150,7 @@
   <string name="backword_support_off_summary">Retroceso + Mayus borrará el último carácter</string>
   <string name="swipe_tweak_group">Cambiar las acciones de los gestos</string>
   <string name="swipe_up_action">Delizar hacia arriba</string>
+  <string name="swipe_up_action_summary">Definir la accion  del gesto delizar hacia arriba. Actualmente, %s</string>
   <string name="swipe_up_action_title">Seleccionar acción de desliz hacia arriba</string>
   <string name="swipe_up_from_spacebar_action">Deslizamiento hacia arriba en barra espaciadora</string>
   <string name="swipe_up_from_spacebar_action_summary">Define el deslizamiento hacia arriba en barra espaciadora. Actualmente, %s</string>
@@ -153,6 +167,9 @@
   <string name="swipe_left_space_bar_action">Deslizamiento izquierdo en barra espaciadora</string>
   <string name="swipe_left_space_bar_action_summary">Define el deslizamiento derecho en barra espaciadora. Actualmente, %s</string>
   <string name="swipe_left_space_bar_action_title">Deslizamiento izquierdo en barra espaciadora</string>
+  <string name="swipe_left_two_fingers_action_title">Seleccionar acción de desliz a la izquierda</string>
+  <string name="swipe_right_two_fingers_action">Deslizar 2 dedos a la derecha</string>
+  <string name="swipe_right_two_fingers_action_title">Seleccionar acción de desliz a la derecha</string>
   <string name="pinch_gesture_action">Gesto de pellizcar</string>
   <string name="pinch_gesture_action_title">Seleccione la acción del gesto de pellizcar</string>
   <string name="separate_gesture_action">Gesto de estiramiento</string>
@@ -175,14 +192,18 @@
   <string name="swipe_action_name_other_keyboards_mode">Cambiar disposición</string>
   <string name="swipe_action_name_split_layout">Dividir disposición</string>
   <string name="swipe_action_name_merge_layout">Disposición compacta</string>
+  <string name="swipe_action_name_compact_layout_to_right">Diseño compacto a derecha</string>
+  <string name="swipe_action_name_compact_layout_to_left">Diseño compacto a la izquierda</string>
   <string name="swipe_action_name_utility_keyboard">Mostrar utilidad del teclado</string>
   <string name="settings_swipe_velocity_threshold_title">Umbral de velocidad de desliz</string>
+  <string name="settings_swipe_velocity_threshold_summary">La velocidad minima de gesto barrido. Actualmente, %s</string>
   <string name="settings_swipe_velocity_very_slow">Muy lento</string>
   <string name="settings_swipe_velocity_slow">Lento</string>
   <string name="settings_swipe_velocity_normal">Normal</string>
   <string name="settings_swipe_velocity_fast">Rápido</string>
   <string name="settings_swipe_velocity_very_fast">Muy rápido</string>
   <string name="settings_swipe_distance_threshold_title">Umbral de distancia de deliz</string>
+  <string name="settings_swipe_distance_threshold_summary">La distancia de mínimo del gesto barrido. Actualmente, %s</string>
   <string name="settings_swipe_distance_very_short">Muy corto</string>
   <string name="settings_swipe_distance_short">Corto</string>
   <string name="settings_swipe_distance_normal">Normal</string>
@@ -399,6 +420,8 @@
   <string name="eng_dictionary">Inglés</string>
   <string name="simley_key_name">Tecla de smiley</string>
   <string name="default_quick_text_key_name">Emoticonos simples</string>
+  <string name="unicode_people_quick_text_key_name">Gente</string>
+  <string name="unicode_gestures_quick_text_key_name">Gestos</string>
   <string name="multitap_timeout_title">Tiempo de espera de múltiples pulsaciones</string>
   <string name="multitap_timeout_summary">Tiempo de espera entre las presiónes de tecla</string>
   <string name="settings_multitap_timeout_disabled">Desactivado</string>
