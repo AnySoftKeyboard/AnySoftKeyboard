@@ -16,35 +16,6 @@
     </string>
   <string name="menu_about_item">Quant a...</string>
   <string name="click_to_restart_suggestions">Toc per a suggeriments</string>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <string name="main_tab_welcome">Benvinguda</string>
   <string name="main_tab_links">Enllaços</string>
   <string name="main_tab_credits">Crèdits</string>
@@ -175,6 +146,9 @@
     </string>
   <string name="switch_keyboard_on_space_off_summary">No canviïs del teclat simbòlic/numèric a l\'alfabètic en prémer la tecla «Espai»
     </string>
+  <string name="one_shot_quick_text_popup">Tanca automàticament després de la tecla</string>
+  <string name="one_shot_quick_text_popup_on_summary">Tanca el requadre de text ràpid després de pitjar la teclat</string>
+  <string name="one_shot_quick_text_popup_off_summary">Mantén el requadre de text ràpid obert fins prémer la tecla de tancament</string>
   <string name="hide_soft_when_physical">Amaga el teclat</string>
   <string name="hide_soft_when_physical_on_summary">No mostris l\'AnySoftKeyboard en emprar el teclat físic</string>
   <string name="hide_soft_when_physical_off_summary">Mostra l\'AnySoftKeyboard en emprar el teclat físic</string>
@@ -327,9 +301,6 @@
   <string name="is_extesion_keyboard_above_keyboard">Comportament del teclat</string>
   <string name="is_extesion_keyboard_above_keyboard_on_summary">Mostra a sobre del teclat principal</string>
   <string name="is_extesion_keyboard_above_keyboard_off_summary">Mostra al teclat principal</string>
-  
-  
-  
   <string name="show_settings_app_in_launcher">Configuració de l\'aplicació</string>
   <string name="settings_key_show_settings_app_on_summary">La configuració de l\'aplicació serà visible al llançador (pot ser necessari reiniciar)
     </string>
@@ -504,6 +475,11 @@
   <string name="unicode_food_quick_text_key_name">Menjar</string>
   <string name="unicode_nature_quick_text_key_name">Natura</string>
   <string name="unicode_transport_quick_text_key_name">Transport</string>
+  <string name="unicode_signs_quick_text_key_name">Signes</string>
+  <string name="unicode_city_quick_text_key_name">Ciutat</string>
+  <string name="unicode_activity_quick_text_key_name">Activitat</string>
+  <string name="unicode_office_quick_text_key_name">Oficina</string>
+  <string name="unicode_occasions_quick_text_key_name">Ocasions</string>
   <string name="multitap_timeout_title">Multi toc</string>
   <string name="multitap_timeout_summary">Temps d\'espera entre pulsacions</string>
   <string name="settings_multitap_timeout_disabled">Desactivat</string>
@@ -561,6 +537,10 @@
   <string name="should_swap_punctuation_and_space_title">Intercanvia el punt i l\'espai</string>
   <string name="should_swap_punctuation_and_space_yes">Sí</string>
   <string name="should_swap_punctuation_and_space_no">No</string>
+  <string name="initial_quick_text_tab_title">Grup inicial</string>
+  <string name="initial_quick_text_tab_summary">El grup de text ràpid comença amb: %s</string>
+  <string name="initial_quick_text_tab_always_first_tab">Comença sempre amb el primer</string>
+  <string name="initial_quick_text_tab_last_used_tab">Comença amb l\'últim grup usat</string>
   <string name="developer_tools">Eines de desenvolupadors</string>
   <string name="click_for_developer_features">Eines de desenvolupadors</string>
   <string name="click_for_developer_features_summary">Diverses opcions per als desenvolupadors de l\'AnySoftKeyboard</string>

@@ -20,12 +20,12 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:tag="1.3.20150327">
+    android:tag="1.3.20150402">
 
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="* Lots of additional Emojis. Enable them in Settings.\n* Small UI fix for Emoji settings.\n* Reduced APK size.\n* Removed Tips popup.\n* Localization update: RU, AR, ES."
+        android:text="* Lots of additional Emojis. Enable them in Settings.\n* Small UI fix for Emoji settings.\n* Reduced APK size.\n* Removed Tips popup.\n* Localization update: RU, AR, ES, CA, NO, TR."
         style="@style/Ask.Text.Normal"
         tools:ignore="HardcodedText" />
 
