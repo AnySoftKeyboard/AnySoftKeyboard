@@ -1,3 +1,5 @@
+import com.android.build.OutputFile;
+
 buildscript {
     repositories {
         mavenLocal()
@@ -21,6 +23,17 @@ group 'net.evendanan'
 
 def localproperties.LocalPropertiesFile localExtraProperties = new localproperties.LocalPropertiesFile(new File(projectDir, 'local.extra.properties'))
 def localproperties.LocalPropertiesFile localSigningProperties = new localproperties.LocalPropertiesFile(new File(projectDir, 'local.signing.properties'))
+
+//support for density split
+ext.versionCodes = [all:0, ldpi:1, mdpi:2, hdpi:3, xhdpi:4]
+android.applicationVariants.all { variant ->
+    // assign different version code for each output
+    variant.outputs.each { output ->
+        def key = output.getFilter(OutputFile.DENSITY) == null ? "all" : output.getFilter(OutputFile.DENSITY)
+        output.versionCodeOverride = project.ext.versionCodes.get(key) + android.defaultConfig.versionCode
+        output.versionNameOverride = android.defaultConfig.versionName+"-"+key
+    }
+}
 
 android {
 
@@ -105,6 +118,9 @@ android {
     splits {
         density {
             enable true
+            //these will merged into the universal APK
+            //I'm trying to really reduce the size of the low densities.
+            exclude "tvdpi", "xxhdpi", "xxxhdpi"
         }
     }
 }
