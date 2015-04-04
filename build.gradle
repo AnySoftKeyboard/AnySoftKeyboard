@@ -49,7 +49,7 @@ android {
 
     defaultConfig {
         applicationId 'com.menny.android.anysoftkeyboard'
-        versionCode 140
+        versionCode 141
         versionName project.version
 
         minSdkVersion 7
