@@ -51,15 +51,14 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
         boolean ignore = false;
 
         // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/15
+	    //https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/433
         String stackTrace = Log.getStackTrace(ex);
-        if (ex instanceof NullPointerException
-                && stackTrace != null
-                && stackTrace
-                .contains("android.inputmethodservice.IInputMethodSessionWrapper.executeMessage(IInputMethodSessionWrapper.java")) {
-            // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/15
-            Log.w(TAG,
-                    "An OS bug has been adverted. Move along, there is nothing to see here.");
-            ignore = true;
+        if (ex instanceof NullPointerException && stackTrace != null) {
+	        if (stackTrace.contains("android.inputmethodservice.IInputMethodSessionWrapper.executeMessage(IInputMethodSessionWrapper.java") ||
+			        stackTrace.contains("android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java")) {
+		        Log.w(TAG, "An OS bug has been adverted. Move along, there is nothing to see here.");
+		        ignore = true;
+	        }
         }
 
         if (!ignore && AnyApplication.getConfig().useChewbaccaNotifications()) {
