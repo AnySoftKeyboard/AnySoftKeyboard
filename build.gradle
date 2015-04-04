@@ -101,7 +101,7 @@ android {
             zipAlignEnabled true
 
             minifyEnabled true
-            proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.txt'
+            proguardFiles 'proguard-android-optimize.txt', 'proguard-android-samsung-app-compact-fix.txt', 'proguard-rules.txt'
         }
 
         debug {
