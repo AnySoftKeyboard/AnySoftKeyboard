@@ -1,4 +1,5 @@
 import com.android.build.OutputFile;
+import localproperties.LocalPropertiesFile;
 
 buildscript {
     repositories {
@@ -18,11 +19,13 @@ apply plugin: 'android-sdk-manager'
 apply plugin: 'com.android.application'
 apply plugin: 'pmd'
 
-version utils.Utils.buildVersionName(1, 3, false)
+version versionbuilder.VersionBuilder.buildGitVersionName()
 group 'net.evendanan'
 
-def localproperties.LocalPropertiesFile localExtraProperties = new localproperties.LocalPropertiesFile(new File(projectDir, 'local.extra.properties'))
-def localproperties.LocalPropertiesFile localSigningProperties = new localproperties.LocalPropertiesFile(new File(projectDir, 'local.signing.properties'))
+println "Building AnySoftKeyboard "+version
+
+def localExtraProperties = new LocalPropertiesFile(new File(projectDir, 'local.extra.properties'))
+def localSigningProperties = new LocalPropertiesFile(new File(projectDir, 'local.signing.properties'))
 
 //support for density split
 ext.versionCodes = [all:0, ldpi:1, mdpi:2, hdpi:3, xhdpi:4]
@@ -32,6 +35,8 @@ android.applicationVariants.all { variant ->
         def key = output.getFilter(OutputFile.DENSITY) == null ? "all" : output.getFilter(OutputFile.DENSITY)
         output.versionCodeOverride = project.ext.versionCodes.get(key) + android.defaultConfig.versionCode
         output.versionNameOverride = android.defaultConfig.versionName+"-"+key
+        def fileName = output.outputFile.name.replace(".apk", "-" + output.versionNameOverride + ".apk")
+        output.outputFile = new File(output.outputFile.parent, fileName)
     }
 }
 
@@ -49,7 +54,7 @@ android {
 
     defaultConfig {
         applicationId 'com.menny.android.anysoftkeyboard'
-        versionCode 141
+        versionCode versionbuilder.VersionBuilder.buildGitVersionNumber()
         versionName project.version
 
         minSdkVersion 7
@@ -110,14 +115,9 @@ android {
             debuggable true
         }
     }
-    sourceSets {
-        androidTest {
-            setRoot('src/test')
-        }
-    }
     splits {
         density {
-            enable true
+            enable false
             //these will merged into the universal APK
             //I'm trying to really reduce the size of the low densities.
             exclude "tvdpi", "xxhdpi", "xxxhdpi"
@@ -148,3 +148,4 @@ dependencies {
     testCompile 'org.mockito:mockito-core:1.9.5'
     testCompile 'com.squareup:fest-android:1.0.8'
 }
+

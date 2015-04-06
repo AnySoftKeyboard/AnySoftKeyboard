@@ -188,9 +188,6 @@ public class ChangeLogFragment extends PassengerFragment {
         protected void updateEntryText(TextView entryHeader, Object tag, int versionCode, String layoutResourceName) {
             if (tag == null && !BuildConfig.DEBUG)
                 throw new IllegalStateException("In RELEASE mode, all change log items must have a tag. Please include the version name in layout " + layoutResourceName);
-	        //this method is only called from the main fragment, when the latest release data is shown
-			if (versionCode != BuildConfig.VERSION_CODE)
-				throw new IllegalStateException("This method should only be called when the versionCode parameter is the same as the build version code");
 
             String cardedHeader = getString(R.string.change_log_card_title_template, BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME);
             entryHeader.setText(cardedHeader);
