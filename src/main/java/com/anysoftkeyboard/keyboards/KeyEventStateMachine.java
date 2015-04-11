@@ -75,7 +75,7 @@ public class KeyEventStateMachine {
 
     public static enum State {RESET, REWIND, NO_MATCH, PART_MATCH, FULL_MATCH}
 
-	private class NFAPart {
+    private class NFAPart {
 
         KeyEventState state;
         int iVisibleSequenceLength;
@@ -210,19 +210,19 @@ public class KeyEventStateMachine {
     }
 
     public void addSequence(int[] sequence, int result) {
-	    addSpecialKeySequence(sequence, 0/*no special key*/, result);
+        addSpecialKeySequence(sequence, 0/*no special key*/, result);
     }
 
     public void addSpecialKeySequence(int[] sequence, int specialKey, int result) {
-	    KeyEventState c = this.start;
+        KeyEventState c = this.start;
 
         for (int i = 0; i < sequence.length; i++) {
-	        if (specialKey != 0) {
-		        //special key first
-		        c = addNextState(c, specialKey);
-	        }
-	        //the sequence second
-	        c = addNextState(c, sequence[i]);
+            if (specialKey != 0) {
+                //special key first
+                c = addNextState(c, specialKey);
+            }
+            //the sequence second
+            c = addNextState(c, sequence[i]);
         }
         c.setCharacter(result);
     }

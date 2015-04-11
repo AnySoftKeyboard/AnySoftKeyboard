@@ -35,6 +35,6 @@ public class EffectsSettingsFragment extends PreferenceFragment {
     @Override
     public void onStart() {
         super.onStart();
-	    PassengerFragmentSupport.setActivityTitle(this, getString(R.string.effects_group));
+        PassengerFragmentSupport.setActivityTitle(this, getString(R.string.effects_group));
     }
 }

@@ -91,16 +91,16 @@ public abstract class PassengerFragmentSupport {
         return set;
     }
 
-	/**
-	 * Will set the title in the hosting Activity's title.
-	 * Will only set the title if the fragment is hosted by the Activity's manager, and not inner one.
-	 * @param fragment
-	 * @param title
-	 */
-	public static void setActivityTitle(Fragment fragment, CharSequence title) {
-		FragmentActivity activity = fragment.getActivity();
-		if (activity.getSupportFragmentManager() == fragment.getFragmentManager()) {
-			activity.setTitle(title);
-		}
-	}
+    /**
+     * Will set the title in the hosting Activity's title.
+     * Will only set the title if the fragment is hosted by the Activity's manager, and not inner one.
+     * @param fragment
+     * @param title
+     */
+    public static void setActivityTitle(Fragment fragment, CharSequence title) {
+        FragmentActivity activity = fragment.getActivity();
+        if (activity.getSupportFragmentManager() == fragment.getFragmentManager()) {
+            activity.setTitle(title);
+        }
+    }
 }

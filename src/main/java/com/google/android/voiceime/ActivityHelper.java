@@ -75,7 +75,7 @@ public class ActivityHelper extends Activity {
         }
     }
 
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private Dialog createResultDialog(final String[] recognitionResults) {
         AlertDialog.Builder builder;
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {

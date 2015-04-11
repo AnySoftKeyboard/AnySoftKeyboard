@@ -89,7 +89,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     private boolean mHideSoftKeyboardWhenPhysicalKeyPressed = true;
     private boolean mUse16KeysSymbolsKeyboard = false;
     private boolean mUseBackword = true;
-    //		private boolean mShowIconForSmileyKey = false;
+    //      private boolean mShowIconForSmileyKey = false;
     private boolean mCycleOverAllSymbolsKeyboard = true;
     private boolean mUseVolumeKeyForLeftRight = false;
     private boolean mUseCameraKeyForBackspaceBackword = false;
@@ -177,40 +177,40 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     }
 
     private void customizeSettingValues(Context context, SharedPreferences sp) {
-//			final int customizationLevel = sp.getInt(CUSTOMIZATION_LEVEL, 0);
-//			if (customizationLevel < 1)
-//			{
-//				Editor e = sp.edit();
-//				
-//				e.putBoolean(context.getString(R.string.settings_key_lang_key_shows_popup), true);
-//				e.putBoolean(context.getString(R.string.settings_key_show_version_notification), false);
-//				e.putBoolean(context.getString(R.string.settings_key_use_16_keys_symbols_keyboards), true);
-//				e.putBoolean(context.getString(R.string.settings_key_landscape_fullscreen), true);
-//				e.putBoolean(context.getString(R.string.settings_key_portrait_fullscreen), true);
-//				//enabling 16keys, disabling english
-//				e.putBoolean("keyboard_12335055-4aa6-49dc-8456-c7d38a1a5123", true);
-//				e.putBoolean("keyboard_c7535083-4fe6-49dc-81aa-c5438a1a343a", false);
-//				
-//				//enabling external Hebrew
-//				e.putBoolean("keyboard_8958fb12-6558-4e96-9aa6-0e90101570b3", true);
-//				
-//				//sound on
-//				e.putBoolean(context.getString(R.string.settings_key_sound_on), true);
-//				//custom volume: mid
-//				e.putBoolean("use_custom_sound_volume", true);
-//				e.putInt("custom_sound_volume", 50);
-//				//vibrate on (hard)
-//				e.putString(context.getString(R.string.settings_key_vibrate_on_key_press_duration), "50");
-//				//no RTL fixes
-//				e.putString("rtl_workaround_detection", "no_workaround");
-//				//no backword
-//				e.putBoolean(context.getString(R.string.settings_key_use_backword), false);
-//				//portrait height
-//				e.putString("zoom_factor_keys_in_portrait", "1.4");
-//				//saving customization level
-//				e.putInt(CUSTOMIZATION_LEVEL, 1);
-//				e.commit();
-//			}
+//          final int customizationLevel = sp.getInt(CUSTOMIZATION_LEVEL, 0);
+//          if (customizationLevel < 1)
+//          {
+//              Editor e = sp.edit();
+//              
+//              e.putBoolean(context.getString(R.string.settings_key_lang_key_shows_popup), true);
+//              e.putBoolean(context.getString(R.string.settings_key_show_version_notification), false);
+//              e.putBoolean(context.getString(R.string.settings_key_use_16_keys_symbols_keyboards), true);
+//              e.putBoolean(context.getString(R.string.settings_key_landscape_fullscreen), true);
+//              e.putBoolean(context.getString(R.string.settings_key_portrait_fullscreen), true);
+//              //enabling 16keys, disabling english
+//              e.putBoolean("keyboard_12335055-4aa6-49dc-8456-c7d38a1a5123", true);
+//              e.putBoolean("keyboard_c7535083-4fe6-49dc-81aa-c5438a1a343a", false);
+//              
+//              //enabling external Hebrew
+//              e.putBoolean("keyboard_8958fb12-6558-4e96-9aa6-0e90101570b3", true);
+//              
+//              //sound on
+//              e.putBoolean(context.getString(R.string.settings_key_sound_on), true);
+//              //custom volume: mid
+//              e.putBoolean("use_custom_sound_volume", true);
+//              e.putInt("custom_sound_volume", 50);
+//              //vibrate on (hard)
+//              e.putString(context.getString(R.string.settings_key_vibrate_on_key_press_duration), "50");
+//              //no RTL fixes
+//              e.putString("rtl_workaround_detection", "no_workaround");
+//              //no backword
+//              e.putBoolean(context.getString(R.string.settings_key_use_backword), false);
+//              //portrait height
+//              e.putString("zoom_factor_keys_in_portrait", "1.4");
+//              //saving customization level
+//              e.putInt(CUSTOMIZATION_LEVEL, 1);
+//              e.commit();
+//          }
     }
 
     /**
@@ -231,16 +231,16 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
 
     private void upgradeSettingsValues(SharedPreferences sp) {
         Log.d(TAG, "Checking if configuration upgrade is needed.");
-//		String topRowNewIdValue = sp.getString(mContext.getString(R.string.settings_key_top_keyboard_row_id), null);
-//		String topRowOldIdValue = sp.getString("keyboard_layout_change_method", null);
-//		if (topRowNewIdValue == null && topRowOldIdValue != null)
-//		{
-//		    if (AnyApplication.DEBUG)Log.d(TAG, "Top row type is using the old configuration key. Switching...");
-//			Editor e = sp.edit();
-//			e.putString(mContext.getString(R.string.settings_key_top_keyboard_row_id), topRowOldIdValue);
-//			e.remove("keyboard_layout_change_method");
-//			e.commit();
-//		}
+//      String topRowNewIdValue = sp.getString(mContext.getString(R.string.settings_key_top_keyboard_row_id), null);
+//      String topRowOldIdValue = sp.getString("keyboard_layout_change_method", null);
+//      if (topRowNewIdValue == null && topRowOldIdValue != null)
+//      {
+//          if (AnyApplication.DEBUG)Log.d(TAG, "Top row type is using the old configuration key. Switching...");
+//          Editor e = sp.edit();
+//          e.putString(mContext.getString(R.string.settings_key_top_keyboard_row_id), topRowOldIdValue);
+//          e.remove("keyboard_layout_change_method");
+//          e.commit();
+//      }
 
         //please note: the default value should be the last version.
         //upgrading should only be done when actually need to be done.
@@ -372,8 +372,8 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         Log.d(TAG, "** mCustomHintVAlign: " + mCustomHintVAlign);
 
         mSwitchKeyboardOnSpace = sp.getBoolean(
-		        mContext.getString(R.string.settings_key_switch_keyboard_on_space),
-		        mContext.getResources().getBoolean(R.bool.settings_default_switch_to_alphabet_on_space));
+                mContext.getString(R.string.settings_key_switch_keyboard_on_space),
+                mContext.getResources().getBoolean(R.bool.settings_default_switch_to_alphabet_on_space));
         Log.d(TAG, "** mSwitchKeyboardOnSpace: " + mSwitchKeyboardOnSpace);
 
         mUseFullScreenInputInLandscape = sp.getBoolean(mContext.getString(R.string.settings_key_landscape_fullscreen),
@@ -446,9 +446,9 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         mActionKeyInvisibleWhenRequested = sp.getBoolean("action_key_invisible_on_disable", false);
         Log.d(TAG, "** mActionKeyInvisibleWhenRequested: " + mActionKeyInvisibleWhenRequested);
 
-		/*mRtlWorkaround = sp.getString("rtl_workaround_detection", "auto");
-		Log.d(TAG, "** mRtlWorkaround: "+mRtlWorkaround);
-		*/
+        /*mRtlWorkaround = sp.getString("rtl_workaround_detection", "auto");
+        Log.d(TAG, "** mRtlWorkaround: "+mRtlWorkaround);
+        */
         mIsDoubleSpaceChangesToPeroid = sp.getBoolean("double_space_to_period", true);
         Log.d(TAG, "** mIsDoubleSpaceChangesToPeroid: " + mIsDoubleSpaceChangesToPeroid);
 
@@ -733,11 +733,11 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     public boolean useBackword() {
         return mUseBackword;
     }
-	
-/*		@Override
-		public boolean showIconForSmileyKey() {
-			return mShowIconForSmileyKey;
-		}*/
+    
+/*      @Override
+        public boolean showIconForSmileyKey() {
+            return mShowIconForSmileyKey;
+        }*/
 
     public boolean getCycleOverAllSymbols() {
         return mCycleOverAllSymbolsKeyboard;

@@ -27,14 +27,14 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 
     private int mAdditionalWidth = 0;
     private static final Set<Character> msEmptySet = Collections.emptySet();
-	private final String mKeyboardName;
+    private final String mKeyboardName;
 
-	public AnyPopupKeyboard(Context askContext, Context context,//note: the context can be from a different package!
+    public AnyPopupKeyboard(Context askContext, Context context,//note: the context can be from a different package!
                             int xmlLayoutResId,
                             final KeyboardDimens keyboardDimens,
                             String keyboardName) {
         super(askContext, context, xmlLayoutResId, -1);
-		mKeyboardName = keyboardName;
+        mKeyboardName = keyboardName;
         loadKeyboard(keyboardDimens);
     }
 
@@ -42,7 +42,7 @@ public class AnyPopupKeyboard extends AnyKeyboard {
                             final KeyboardDimens keyboardDimens,
                             String keyboardName) {
         super(askContext, askContext, getPopupLayout(popupCharacters));
-	    mKeyboardName = keyboardName;
+        mKeyboardName = keyboardName;
         loadKeyboard(keyboardDimens);
 
         final int rowsCount = getPopupRowsCount(popupCharacters);

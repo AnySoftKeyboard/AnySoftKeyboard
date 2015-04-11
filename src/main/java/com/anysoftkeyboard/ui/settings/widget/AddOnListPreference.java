@@ -172,10 +172,10 @@ public class AddOnListPreference extends ListPreference {
             RadioButton tb = (RadioButton) row
                     .findViewById(R.id.addon_checkbox);
             tb.setClickable(false);
-	        if (mSelectedAddOn != null)
+            if (mSelectedAddOn != null)
                 tb.setChecked(addOn.getId().equals(mSelectedAddOn.getId()));
-	        else
-	            tb.setChecked(false);
+            else
+                tb.setChecked(false);
 
             return row;
         }

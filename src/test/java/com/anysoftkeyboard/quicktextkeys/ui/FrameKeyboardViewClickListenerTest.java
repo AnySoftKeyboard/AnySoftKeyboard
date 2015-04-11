@@ -15,27 +15,27 @@ import org.robolectric.RuntimeEnvironment;
 @RunWith(RobolectricTestRunner.class)
 public class FrameKeyboardViewClickListenerTest {
 
-	@Test
-	public void testOnClickClose() throws Exception {
-		OnKeyboardActionListener keyboardActionListener = Mockito.mock(OnKeyboardActionListener.class);
-		FrameKeyboardViewClickListener listener = new FrameKeyboardViewClickListener(keyboardActionListener);
-		Mockito.verifyZeroInteractions(keyboardActionListener);
-		View view = new View(RuntimeEnvironment.application);
-		view.setId(R.id.quick_keys_popup_close);
-		listener.onClick(view);
-		Mockito.verify(keyboardActionListener).onCancel();
-		Mockito.verifyNoMoreInteractions(keyboardActionListener);
-	}
+    @Test
+    public void testOnClickClose() throws Exception {
+        OnKeyboardActionListener keyboardActionListener = Mockito.mock(OnKeyboardActionListener.class);
+        FrameKeyboardViewClickListener listener = new FrameKeyboardViewClickListener(keyboardActionListener);
+        Mockito.verifyZeroInteractions(keyboardActionListener);
+        View view = new View(RuntimeEnvironment.application);
+        view.setId(R.id.quick_keys_popup_close);
+        listener.onClick(view);
+        Mockito.verify(keyboardActionListener).onCancel();
+        Mockito.verifyNoMoreInteractions(keyboardActionListener);
+    }
 
-	@Test
-	public void testOnClickBackSpace() throws Exception {
-		OnKeyboardActionListener keyboardActionListener = Mockito.mock(OnKeyboardActionListener.class);
-		FrameKeyboardViewClickListener listener = new FrameKeyboardViewClickListener(keyboardActionListener);
-		Mockito.verifyZeroInteractions(keyboardActionListener);
-		View view = new View(RuntimeEnvironment.application);
-		view.setId(R.id.quick_keys_popup_backspace);
-		listener.onClick(view);
-		Mockito.verify(keyboardActionListener).onKey(KeyCodes.DELETE, null, 0, null, true);
-		Mockito.verifyNoMoreInteractions(keyboardActionListener);
-	}
+    @Test
+    public void testOnClickBackSpace() throws Exception {
+        OnKeyboardActionListener keyboardActionListener = Mockito.mock(OnKeyboardActionListener.class);
+        FrameKeyboardViewClickListener listener = new FrameKeyboardViewClickListener(keyboardActionListener);
+        Mockito.verifyZeroInteractions(keyboardActionListener);
+        View view = new View(RuntimeEnvironment.application);
+        view.setId(R.id.quick_keys_popup_backspace);
+        listener.onClick(view);
+        Mockito.verify(keyboardActionListener).onKey(KeyCodes.DELETE, null, 0, null, true);
+        Mockito.verifyNoMoreInteractions(keyboardActionListener);
+    }
 }

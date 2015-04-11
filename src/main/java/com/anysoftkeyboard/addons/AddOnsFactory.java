@@ -217,35 +217,35 @@ public abstract class AddOnsFactory<E extends AddOn> {
     }
 
     public synchronized final List<E> getAllAddOns(Context askContext) {
-	    Log.d(TAG, "getAllAddOns has %d add on for %s", mAddOns.size(), getClass().getName());
+        Log.d(TAG, "getAllAddOns has %d add on for %s", mAddOns.size(), getClass().getName());
         if (mAddOns.size() == 0) {
             loadAddOns(askContext);
         }
-	    Log.d(TAG, "getAllAddOns will return %d add on for %s", mAddOns.size(), getClass().getName());
+        Log.d(TAG, "getAllAddOns will return %d add on for %s", mAddOns.size(), getClass().getName());
         return Collections.unmodifiableList(mAddOns);
     }
 
     protected void loadAddOns(final Context askContext) {
         clearAddOnList();
 
-	    ArrayList<E> local = getAddOnsFromResId(askContext, askContext, mBuildInAddOnsResId);
-	    for (E addon : local) {
-		    Log.d(TAG, "Local add-on %s loaded", addon.getId());
-	    }
+        ArrayList<E> local = getAddOnsFromResId(askContext, askContext, mBuildInAddOnsResId);
+        for (E addon : local) {
+            Log.d(TAG, "Local add-on %s loaded", addon.getId());
+        }
         mAddOns.addAll(local);
-	    ArrayList<E> external = getExternalAddOns(askContext);
-	    for (E addon : external) {
-		    Log.d(TAG, "External add-on %s loaded", addon.getId());
-	    }
-	    mAddOns.addAll(external);
-		Log.d(TAG, "Have %d add on for %s", mAddOns.size(), getClass().getName());
+        ArrayList<E> external = getExternalAddOns(askContext);
+        for (E addon : external) {
+            Log.d(TAG, "External add-on %s loaded", addon.getId());
+        }
+        mAddOns.addAll(external);
+        Log.d(TAG, "Have %d add on for %s", mAddOns.size(), getClass().getName());
 
         buildOtherDataBasedOnNewAddOns(mAddOns);
 
         //sorting the keyboards according to the requested
         //sort order (from minimum to maximum)
         Collections.sort(mAddOns, new AddOnsComparator(askContext));
-	    Log.d(TAG, "Have %d add on for %s (after sort)", mAddOns.size(), getClass().getName());
+        Log.d(TAG, "Have %d add on for %s (after sort)", mAddOns.size(), getClass().getName());
     }
 
     protected void buildOtherDataBasedOnNewAddOns(ArrayList<E> newAddOns) {

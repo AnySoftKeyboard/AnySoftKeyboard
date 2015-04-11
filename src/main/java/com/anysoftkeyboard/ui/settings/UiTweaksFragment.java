@@ -32,7 +32,7 @@ public class UiTweaksFragment extends PreferenceFragment implements Preference.O
 
     public static final String DEV_TOOLS_KEY = "dev_tools";
 
-	@Override
+    @Override
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         addPreferencesFromResource(R.xml.prefs_ui_tweaks);
@@ -42,7 +42,7 @@ public class UiTweaksFragment extends PreferenceFragment implements Preference.O
     @Override
     public void onStart() {
         super.onStart();
-	    PassengerFragmentSupport.setActivityTitle(this, getString(R.string.tweaks_group));
+        PassengerFragmentSupport.setActivityTitle(this, getString(R.string.tweaks_group));
     }
 
     @Override

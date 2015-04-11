@@ -25,15 +25,15 @@ import net.evendanan.pushingpixels.PassengerFragmentSupport;
 
 public class GesturesSettingsFragment extends PreferenceFragment {
 
-	@Override
-	public void onCreate(Bundle paramBundle) {
-		super.onCreate(paramBundle);
-		addPreferencesFromResource(R.xml.prefs_gestures_prefs);
-	}
+    @Override
+    public void onCreate(Bundle paramBundle) {
+        super.onCreate(paramBundle);
+        addPreferencesFromResource(R.xml.prefs_gestures_prefs);
+    }
 
-	@Override
-	public void onStart() {
-		super.onStart();
-		PassengerFragmentSupport.setActivityTitle(this, getString(R.string.swipe_tweak_group));
-	}
+    @Override
+    public void onStart() {
+        super.onStart();
+        PassengerFragmentSupport.setActivityTitle(this, getString(R.string.swipe_tweak_group));
+    }
 }

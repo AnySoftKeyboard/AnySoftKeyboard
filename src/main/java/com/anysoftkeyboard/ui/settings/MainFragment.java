@@ -99,7 +99,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View widget) {
                 MainSettingsActivity mainSettingsActivity = (MainSettingsActivity) getActivity();
-	            mainSettingsActivity.openDrawer();
+                mainSettingsActivity.openDrawer();
             }
         };
         setupLink(getView(), R.id.open_settings_view, openSettingsLink, false);

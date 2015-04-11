@@ -128,22 +128,22 @@ public class WordComposer {
     /*
     public boolean hasUserMovedCursor(int cursorPosition)
     {
-    	if (AnyApplication.DEBUG)
-    	{
-    		Log.d(TAG, "Current cursor position inside word is "+mCursorPosition+", and word starts at "+mCandidatesStartPosition+". Input's cursor is at "+cursorPosition);
-    	}
-    	return (cursorPosition != (mCursorPosition + mCandidatesStartPosition));
+        if (AnyApplication.DEBUG)
+        {
+            Log.d(TAG, "Current cursor position inside word is "+mCursorPosition+", and word starts at "+mCandidatesStartPosition+". Input's cursor is at "+cursorPosition);
+        }
+        return (cursorPosition != (mCursorPosition + mCandidatesStartPosition));
     }
     
     public boolean hasUserMovedCursorInsideOfWord(int cursorPosition)
     {
-    	if (AnyApplication.DEBUG)
-    	{
-    		Log.d(TAG, "Current word length is "+mTypedWord.length()+", and word starts at "+mCandidatesStartPosition+". Input's cursor is at "+cursorPosition);
-    	}
-    	return (cursorPosition >= mCandidatesStartPosition &&  cursorPosition <= (mCandidatesStartPosition+mTypedWord.length()));
+        if (AnyApplication.DEBUG)
+        {
+            Log.d(TAG, "Current word length is "+mTypedWord.length()+", and word starts at "+mCandidatesStartPosition+". Input's cursor is at "+cursorPosition);
+        }
+        return (cursorPosition >= mCandidatesStartPosition &&  cursorPosition <= (mCandidatesStartPosition+mTypedWord.length()));
     }
-	*/
+    */
 
     /**
      * Returns the codes at a particular position in the word.
@@ -166,10 +166,10 @@ public class WordComposer {
         mTypedWord.insert(mCursorPosition, (char) primaryCode);
         /*if (codes != null)
         {
-        	for(int i=0; i<codes.length; i++)
-        	{
-        		if (codes[i] > 32) codes[i] = Character.toLowerCase(codes[i]);
-        	}
+            for(int i=0; i<codes.length; i++)
+            {
+                if (codes[i] > 32) codes[i] = Character.toLowerCase(codes[i]);
+            }
         }*/
 
         correctPrimaryJuxtapos(primaryCode, codes);

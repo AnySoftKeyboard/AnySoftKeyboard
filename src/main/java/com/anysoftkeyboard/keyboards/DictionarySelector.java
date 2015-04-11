@@ -34,16 +34,16 @@ class DefaultDictionarySelector implements DictionarySelector {
 
 //class LocaleSensitiveDictionarySelector implements DictionarySelector
 //{
-//	private final Map<String, Language> mLanguagesMap;
-//	private final Language mDefaultLanguage;
-//	private final Configuration mConfig;
-//	
-//	public LocaleSensitiveDictionarySelector(Map<String, Language> languagesMap, Language defaultLanguage)
-//	{
-//		mDefaultLanguage = defaultLanguage;
-//		mLanguagesMap = languagesMap;
-//	}
-//	public Language getDictionaryLanguage() {
-//		return mDefaultLanguage;
-//	}	
+//  private final Map<String, Language> mLanguagesMap;
+//  private final Language mDefaultLanguage;
+//  private final Configuration mConfig;
+//  
+//  public LocaleSensitiveDictionarySelector(Map<String, Language> languagesMap, Language defaultLanguage)
+//  {
+//      mDefaultLanguage = defaultLanguage;
+//      mLanguagesMap = languagesMap;
+//  }
+//  public Language getDictionaryLanguage() {
+//      return mDefaultLanguage;
+//  }   
 //}

@@ -25,13 +25,13 @@ import com.anysoftkeyboard.IndirectlyInstantiated;
 @TargetApi(19)
 @IndirectlyInstantiated
 public class DeviceSpecific_V19 extends DeviceSpecific_V11 {
-	@Override
-	public String getApiLevel() {
-		return "DeviceSpecific_V19";
-	}
+    @Override
+    public String getApiLevel() {
+        return "DeviceSpecific_V19";
+    }
 
-	@Override
-	public GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener) {
-		return new AskV19GestureDetector(appContext, listener);
-	}
+    @Override
+    public GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener) {
+        return new AskV19GestureDetector(appContext, listener);
+    }
 }

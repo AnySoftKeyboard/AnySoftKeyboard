@@ -42,7 +42,7 @@ public class DictionariesFragment extends PreferenceFragment implements Preferen
     @Override
     public void onStart() {
         super.onStart();
-	    PassengerFragmentSupport.setActivityTitle(this, getString(R.string.special_dictionaries_group));
+        PassengerFragmentSupport.setActivityTitle(this, getString(R.string.special_dictionaries_group));
     }
 
     @Override

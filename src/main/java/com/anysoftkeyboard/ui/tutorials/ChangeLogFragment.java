@@ -97,7 +97,7 @@ public class ChangeLogFragment extends PassengerFragment {
         //looking for logs to show
         Resources res = getResources();
 
-	    int currentVersionCode = BuildConfig.VERSION_CODE;
+        int currentVersionCode = BuildConfig.VERSION_CODE;
 
         while (currentVersionCode > 0) {
             final String layoutResourceName = "changelog_layout_" + currentVersionCode;
@@ -133,27 +133,27 @@ public class ChangeLogFragment extends PassengerFragment {
     }
 
     protected void updateEntryText(TextView entryHeader, Object tag, int versionCode, String layoutResourceName) {
-	    if (!BuildConfig.DEBUG && tag == null)
-		    throw new IllegalStateException("In RELEASE mode, all change log items must have a tag. Please include the version name in layout " + layoutResourceName);
+        if (!BuildConfig.DEBUG && tag == null)
+            throw new IllegalStateException("In RELEASE mode, all change log items must have a tag. Please include the version name in layout " + layoutResourceName);
 
-	    if (BuildConfig.VERSION_CODE == versionCode) {
-		    if (!BuildConfig.DEBUG && !BuildConfig.VERSION_NAME.equals(tag.toString()))
-			    throw new IllegalStateException("In RELEASE mode, the tag MUST be equals to the VERSION_NAME!");
-		    entryHeader.setText(getString(R.string.change_log_entry_header_template, BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME));
-	    } else {
-		    String versionName = tag == null? null : tag.toString();
-		    if (TextUtils.isEmpty(versionName)) {
-			    entryHeader.setText(getString(R.string.change_log_entry_header_template_without_name, versionCode));
-		    } else {
-			    entryHeader.setText(getString(R.string.change_log_entry_header_template, versionCode, versionName));
-		    }
-	    }
+        if (BuildConfig.VERSION_CODE == versionCode) {
+            if (!BuildConfig.DEBUG && !BuildConfig.VERSION_NAME.equals(tag.toString()))
+                throw new IllegalStateException("In RELEASE mode, the tag MUST be equals to the VERSION_NAME!");
+            entryHeader.setText(getString(R.string.change_log_entry_header_template, BuildConfig.VERSION_CODE, BuildConfig.VERSION_NAME));
+        } else {
+            String versionName = tag == null? null : tag.toString();
+            if (TextUtils.isEmpty(versionName)) {
+                entryHeader.setText(getString(R.string.change_log_entry_header_template_without_name, versionCode));
+            } else {
+                entryHeader.setText(getString(R.string.change_log_entry_header_template, versionCode, versionName));
+            }
+        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-	    PassengerFragmentSupport.setActivityTitle(this, getString(R.string.changelog));
+        PassengerFragmentSupport.setActivityTitle(this, getString(R.string.changelog));
     }
 
     public static class CardedChangeLogFragment extends ChangeLogFragment {

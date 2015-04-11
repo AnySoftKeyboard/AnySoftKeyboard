@@ -26,13 +26,13 @@ public final class StrictModeImpl implements StrictModeAble {
     @TargetApi(19)//This class will be created only on API19 devices (using FrankenRobot)
     public void setupStrictMode() {
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-				.detectAll()
-				.penaltyLog()
+                .detectAll()
+                .penaltyLog()
                 .penaltyFlashScreen()
-				.build());
-		StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
-				.detectAll()
-				.penaltyLog()
-				.build());
+                .build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectAll()
+                .penaltyLog()
+                .build());
     }
 }

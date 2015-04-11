@@ -41,7 +41,7 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
 
     private static final String TAG = "ASK_MAIN";
 
-	private DrawerLayout mDrawerRootLayout;
+    private DrawerLayout mDrawerRootLayout;
     private ActionBarDrawerToggle mDrawerToggle;
 
     private CharSequence mTitle;
@@ -53,7 +53,7 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
         }
     };
 
-	@Override
+    @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         setContentView(R.layout.main_ui);
@@ -95,8 +95,8 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
-	    //applying my very own Edge-Effect color
-	    EdgeEffectHacker.brandGlowEffect(getApplicationContext(), getResources().getColor(R.color.menu_divider));
+        //applying my very own Edge-Effect color
+        EdgeEffectHacker.brandGlowEffect(getApplicationContext(), getResources().getColor(R.color.menu_divider));
     }
 
     @Override
@@ -146,13 +146,13 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
         // Pass the event to ActionBarDrawerToggle, if it returns
         // true, then it has handled the app icon touch event
         if (mDrawerToggle.onOptionsItemSelected(item)) {
-	        return true;
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-	@Override
+    @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
         getSupportActionBar().setTitle(mTitle);
@@ -196,10 +196,10 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
         addFragmentToUi(new GesturesSettingsFragment(), FragmentUiContext.RootFragment);
     }
 
-	public void onNavigateToQuickTextSettings(View v) {
-		mDrawerRootLayout.closeDrawers();
-		addFragmentToUi(new QuickTextSettingsFragment(), FragmentUiContext.RootFragment);
-	}
+    public void onNavigateToQuickTextSettings(View v) {
+        mDrawerRootLayout.closeDrawers();
+        addFragmentToUi(new QuickTextSettingsFragment(), FragmentUiContext.RootFragment);
+    }
 
     public void onNavigateToUserInterfaceSettings(View v) {
         mDrawerRootLayout.closeDrawers();

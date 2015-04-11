@@ -52,18 +52,18 @@ public class PackagesChangedReceiver extends BroadcastReceiver {
 
     public IntentFilter createFilterToRegisterOn() {
         /*
-		receiver android:name="com.anysoftkeyboard.receivers.PackagesChangedReceiver">
-	    	<intent-filter>
-	    		<category android:name="android.intent.category.DEFAULT" />
-	    		<action android:name="android.intent.action.PACKAGE_CHANGED"/>
-	    		<action android:name="android.intent.action.PACKAGE_REMOVED"/>
-	    		<action android:name="android.intent.action.PACKAGE_ADDED"/>
-	    		<action android:name="android.intent.action.PACKAGE_INSTALL"/>
-	    		<action android:name="android.intent.action.PACKAGE_REPLACED"/>
-	    		<data android:scheme="package" />
-	    	</intent-filter>	    	
-	    </receiver>
-		 */
+        receiver android:name="com.anysoftkeyboard.receivers.PackagesChangedReceiver">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.intent.action.PACKAGE_CHANGED"/>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+                <action android:name="android.intent.action.PACKAGE_ADDED"/>
+                <action android:name="android.intent.action.PACKAGE_INSTALL"/>
+                <action android:name="android.intent.action.PACKAGE_REPLACED"/>
+                <data android:scheme="package" />
+            </intent-filter>            
+        </receiver>
+         */
         IntentFilter filter = new IntentFilter();
         filter.addCategory(Intent.CATEGORY_DEFAULT);
 

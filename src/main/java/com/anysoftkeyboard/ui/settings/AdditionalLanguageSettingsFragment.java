@@ -39,7 +39,7 @@ public class AdditionalLanguageSettingsFragment extends PreferenceFragment imple
     @Override
     public void onStart() {
         super.onStart();
-	    PassengerFragmentSupport.setActivityTitle(this, getString(R.string.languages_cat));
+        PassengerFragmentSupport.setActivityTitle(this, getString(R.string.languages_cat));
     }
 
     @Override

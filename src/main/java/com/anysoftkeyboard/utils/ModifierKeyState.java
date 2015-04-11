@@ -19,103 +19,103 @@ package com.anysoftkeyboard.utils;
 import android.os.SystemClock;
 
 public class ModifierKeyState {
-	private static final int RELEASING = 0;
-	private int mPhysicalState = RELEASING;
-	private static final int PRESSING = 1;
-	private static final int INACTIVE = 0;
-	private int mLogicalState = INACTIVE;
-	private static final int ACTIVE = 1;
-	private static final int LOCKED = 2;
-	private long mActiveStateStartTime = 0l;
-	private boolean mMomentaryPress = false;
-	private boolean mConsumed = false;
+    private static final int RELEASING = 0;
+    private int mPhysicalState = RELEASING;
+    private static final int PRESSING = 1;
+    private static final int INACTIVE = 0;
+    private int mLogicalState = INACTIVE;
+    private static final int ACTIVE = 1;
+    private static final int LOCKED = 2;
+    private long mActiveStateStartTime = 0l;
+    private boolean mMomentaryPress = false;
+    private boolean mConsumed = false;
 
-	private final boolean mSupportsLockedState;
+    private final boolean mSupportsLockedState;
 
-	public ModifierKeyState(boolean supportsLockedState) {
-		mSupportsLockedState = supportsLockedState;
-	}
+    public ModifierKeyState(boolean supportsLockedState) {
+        mSupportsLockedState = supportsLockedState;
+    }
 
-	public void onPress() {
-		mPhysicalState = PRESSING;
-		mConsumed = false;
-	}
+    public void onPress() {
+        mPhysicalState = PRESSING;
+        mConsumed = false;
+    }
 
-	public void onOtherKeyPressed() {
-		if (mPhysicalState == PRESSING) {
-			mMomentaryPress = true;
-		} else if (mLogicalState == ACTIVE) {
-			mConsumed = true;
-		}
-	}
+    public void onOtherKeyPressed() {
+        if (mPhysicalState == PRESSING) {
+            mMomentaryPress = true;
+        } else if (mLogicalState == ACTIVE) {
+            mConsumed = true;
+        }
+    }
 
-	public void onOtherKeyReleased() {
-		if (mPhysicalState != PRESSING && mLogicalState == ACTIVE && mConsumed) {
-			//another key was pressed and release while this key was active:
-			//it means that this modifier key was consumed
-			mLogicalState = INACTIVE;
-		}
-	}
+    public void onOtherKeyReleased() {
+        if (mPhysicalState != PRESSING && mLogicalState == ACTIVE && mConsumed) {
+            //another key was pressed and release while this key was active:
+            //it means that this modifier key was consumed
+            mLogicalState = INACTIVE;
+        }
+    }
 
-	public void onRelease(final int doubleClickTime) {
-		mPhysicalState = RELEASING;
-		if (mMomentaryPress) {
-			mLogicalState = INACTIVE;
-		} else {
-			switch (mLogicalState) {
-				case INACTIVE:
-					mLogicalState = ACTIVE;
-					mActiveStateStartTime = SystemClock.elapsedRealtime();
-					mConsumed = false;
-					break;
-				case ACTIVE:
-					if (mSupportsLockedState && doubleClickTime > (SystemClock.elapsedRealtime() - mActiveStateStartTime)) {
-						mLogicalState = LOCKED;
-					} else {
-						mLogicalState = INACTIVE;
-					}
-					break;
-				case LOCKED:
-					mLogicalState = INACTIVE;
-					break;
-			}
-		}
-		mMomentaryPress = false;
-	}
+    public void onRelease(final int doubleClickTime) {
+        mPhysicalState = RELEASING;
+        if (mMomentaryPress) {
+            mLogicalState = INACTIVE;
+        } else {
+            switch (mLogicalState) {
+                case INACTIVE:
+                    mLogicalState = ACTIVE;
+                    mActiveStateStartTime = SystemClock.elapsedRealtime();
+                    mConsumed = false;
+                    break;
+                case ACTIVE:
+                    if (mSupportsLockedState && doubleClickTime > (SystemClock.elapsedRealtime() - mActiveStateStartTime)) {
+                        mLogicalState = LOCKED;
+                    } else {
+                        mLogicalState = INACTIVE;
+                    }
+                    break;
+                case LOCKED:
+                    mLogicalState = INACTIVE;
+                    break;
+            }
+        }
+        mMomentaryPress = false;
+    }
 
-	public void reset() {
-		mPhysicalState = RELEASING;
-		mMomentaryPress = false;
-		mLogicalState = INACTIVE;
-		mActiveStateStartTime = 0l;
-		mConsumed = false;
-	}
+    public void reset() {
+        mPhysicalState = RELEASING;
+        mMomentaryPress = false;
+        mLogicalState = INACTIVE;
+        mActiveStateStartTime = 0l;
+        mConsumed = false;
+    }
 
-	public boolean isPressed() {
-		return mPhysicalState == PRESSING;
-	}
+    public boolean isPressed() {
+        return mPhysicalState == PRESSING;
+    }
 
-	public boolean isActive() {
-		return mPhysicalState == PRESSING || mLogicalState != INACTIVE;
-	}
+    public boolean isActive() {
+        return mPhysicalState == PRESSING || mLogicalState != INACTIVE;
+    }
 
-	public boolean isLocked() {
-		return mPhysicalState != PRESSING && mLogicalState == LOCKED;
-	}
+    public boolean isLocked() {
+        return mPhysicalState != PRESSING && mLogicalState == LOCKED;
+    }
 
-	/**
-	 * Sets the modifier state to active (or inactive) if possible.
-	 * By possible, I mean, if it is LOCKED, it will stay locked.
-	 */
-	public void setActiveState(boolean active) {
-		if (mLogicalState == LOCKED) return;
-		mLogicalState = active ? ACTIVE : INACTIVE;
+    /**
+     * Sets the modifier state to active (or inactive) if possible.
+     * By possible, I mean, if it is LOCKED, it will stay locked.
+     */
+    public void setActiveState(boolean active) {
+        if (mLogicalState == LOCKED) return;
+        mLogicalState = active ? ACTIVE : INACTIVE;
 
-		if (mLogicalState == ACTIVE) {
-			//setting the start time to zero, so LOCKED state will not
-			//be activated without actual user's double-clicking
-			mActiveStateStartTime = 0;
-			mConsumed = false;
-		}
-	}
+        if (mLogicalState == ACTIVE) {
+            //setting the start time to zero, so LOCKED state will not
+            //be activated without actual user's double-clicking
+            mActiveStateStartTime = 0;
+            mConsumed = false;
+        }
+    }
 }

@@ -5,16 +5,16 @@ import com.anysoftkeyboard.keyboards.Keyboard;
 
 public final class MiniKeyboardActionListener implements OnKeyboardActionListener {
 
-	private boolean mInOneShot;
+    private boolean mInOneShot;
     private final AnyKeyboardBaseView mParentKeyboard;
 
     public MiniKeyboardActionListener(AnyKeyboardBaseView parentKeyboard) {
         mParentKeyboard = parentKeyboard;
     }
 
-		public void setInOneShot(boolean inOneShot) {
-			mInOneShot = inOneShot;
-		}
+        public void setInOneShot(boolean inOneShot) {
+            mInOneShot = inOneShot;
+        }
 
     public void onKey(int primaryCode, Keyboard.Key key, int multiTapIndex,int[] nearByKeyCodes, boolean fromUI) {
         mParentKeyboard.mKeyboardActionListener.onKey(primaryCode, key, multiTapIndex, nearByKeyCodes, fromUI);

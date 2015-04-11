@@ -18,34 +18,34 @@ import java.util.List;
 
 public class QuickTextViewFactory {
 
-	public static View createQuickTextView(final Context context, final MiniKeyboardActionListener keyboardActionListener, float tabTitleTextSize, ColorStateList tabTitleTextColor) {
-		LayoutInflater inflater = LayoutInflater.from(context);
-		View rootView = inflater.inflate(R.layout.quick_text_popup_root_view, null, false);
-		FrameKeyboardViewClickListener frameKeyboardViewClickListener = new FrameKeyboardViewClickListener(keyboardActionListener);
-		frameKeyboardViewClickListener.registerOnViews(rootView);
-		final List<QuickTextKey> list = QuickTextKeyFactory.getOrderedEnabledQuickKeys(context);
+    public static View createQuickTextView(final Context context, final MiniKeyboardActionListener keyboardActionListener, float tabTitleTextSize, ColorStateList tabTitleTextColor) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View rootView = inflater.inflate(R.layout.quick_text_popup_root_view, null, false);
+        FrameKeyboardViewClickListener frameKeyboardViewClickListener = new FrameKeyboardViewClickListener(keyboardActionListener);
+        frameKeyboardViewClickListener.registerOnViews(rootView);
+        final List<QuickTextKey> list = QuickTextKeyFactory.getOrderedEnabledQuickKeys(context);
 
-		final QuickTextUserPrefs quickTextUserPrefs = new QuickTextUserPrefs(context);
+        final QuickTextUserPrefs quickTextUserPrefs = new QuickTextUserPrefs(context);
 
-		keyboardActionListener.setInOneShot(quickTextUserPrefs.isOneShotQuickTextPopup());
+        keyboardActionListener.setInOneShot(quickTextUserPrefs.isOneShotQuickTextPopup());
 
-		ViewPager pager = (ViewPager) rootView.findViewById(R.id.quick_text_keyboards_pager);
-		PagerTabStrip pagerTabStrip = (PagerTabStrip) pager.findViewById(R.id.pager_tabs);
-		pagerTabStrip.setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTitleTextSize);
-		pagerTabStrip.setTextColor(tabTitleTextColor.getDefaultColor());
-		pagerTabStrip.setTabIndicatorColor(tabTitleTextColor.getDefaultColor());
-		final int decorationWidthSize = context.getResources().getDimensionPixelSize(R.dimen.quick_key_size);
-		PagerAdapter adapter = new QuickKeysKeyboardPagerAdapter(context, list, keyboardActionListener, decorationWidthSize);
-		pager.setAdapter(adapter);
-		pager.setCurrentItem(quickTextUserPrefs.getStartPageIndex(list));
-		pager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-			@Override
-			public void onPageSelected(int position) {
-				super.onPageSelected(position);
-				QuickTextKey selectedKey = list.get(position);
-				quickTextUserPrefs.setLastSelectedAddOnId(selectedKey.getId());
-			}
-		});
-		return rootView;
-	}
+        ViewPager pager = (ViewPager) rootView.findViewById(R.id.quick_text_keyboards_pager);
+        PagerTabStrip pagerTabStrip = (PagerTabStrip) pager.findViewById(R.id.pager_tabs);
+        pagerTabStrip.setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTitleTextSize);
+        pagerTabStrip.setTextColor(tabTitleTextColor.getDefaultColor());
+        pagerTabStrip.setTabIndicatorColor(tabTitleTextColor.getDefaultColor());
+        final int decorationWidthSize = context.getResources().getDimensionPixelSize(R.dimen.quick_key_size);
+        PagerAdapter adapter = new QuickKeysKeyboardPagerAdapter(context, list, keyboardActionListener, decorationWidthSize);
+        pager.setAdapter(adapter);
+        pager.setCurrentItem(quickTextUserPrefs.getStartPageIndex(list));
+        pager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                QuickTextKey selectedKey = list.get(position);
+                quickTextUserPrefs.setLastSelectedAddOnId(selectedKey.getId());
+            }
+        });
+        return rootView;
+    }
 }

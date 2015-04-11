@@ -80,14 +80,14 @@ public class UserDictionaryEditorFragment extends Fragment
     EditableDictionary mCurrentDictionary;
 
     AbsListView mWordsListView;//this may be either ListView or GridView (in tablets)
-	private static final Comparator<UserWordsListAdapter.Word> msWordsComparator = new Comparator<UserWordsListAdapter.Word>() {
-		@Override
-		public int compare(UserWordsListAdapter.Word lhs, UserWordsListAdapter.Word rhs) {
-			return lhs.word.compareTo(rhs.word);
-		}
-	};
+    private static final Comparator<UserWordsListAdapter.Word> msWordsComparator = new Comparator<UserWordsListAdapter.Word>() {
+        @Override
+        public int compare(UserWordsListAdapter.Word lhs, UserWordsListAdapter.Word rhs) {
+            return lhs.word.compareTo(rhs.word);
+        }
+    };
 
-	@Override
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
@@ -167,7 +167,7 @@ public class UserDictionaryEditorFragment extends Fragment
     @Override
     public void onStart() {
         super.onStart();
-	    PassengerFragmentSupport.setActivityTitle(this, getString(R.string.user_dict_settings_titlebar));
+        PassengerFragmentSupport.setActivityTitle(this, getString(R.string.user_dict_settings_titlebar));
         fillLanguagesSpinner();
     }
 
@@ -311,8 +311,8 @@ public class UserDictionaryEditorFragment extends Fragment
                     mWordsList.add(word);
                     cursor.moveToNext();
                 }
-	            //now, sorting the word list alphabetically
-	            Collections.sort(mWordsList, msWordsComparator);
+                //now, sorting the word list alphabetically
+                Collections.sort(mWordsList, msWordsComparator);
                 return null;
             }
 
@@ -320,10 +320,10 @@ public class UserDictionaryEditorFragment extends Fragment
                 ListAdapter adapter = getWordsListAdapter(mWordsList);
                 //AbsListView introduced the setAdapter method in API11, so I'm required to check the instance type
                 if (mWordsListView instanceof ListView) {
-	                //this is NOT a redundant cast!
+                    //this is NOT a redundant cast!
                     ((ListView)mWordsListView).setAdapter(adapter);
                 } else if (mWordsListView instanceof GridView) {
-	                //this is NOT a redundant cast!
+                    //this is NOT a redundant cast!
                     ((GridView)mWordsListView).setAdapter(adapter);
                 } else {
                     throw new ClassCastException("Unknown mWordsListView type "+mWordsListView.getClass());

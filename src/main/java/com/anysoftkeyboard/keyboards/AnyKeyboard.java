@@ -48,7 +48,7 @@ import java.util.Set;
 public abstract class AnyKeyboard extends Keyboard {
     private final static String TAG = "ASK - AK";
 
-	public interface HardKeyboardAction {
+    public interface HardKeyboardAction {
         int getKeyCode();
 
         boolean isAltActive();
@@ -201,10 +201,10 @@ public abstract class AnyKeyboard extends Keyboard {
                                     previewResId);
                         }
 
-					/*
+                    /*
                      * Popup resource may be from another context, requires
-					 * special handling when the key is long-pressed!
-					 */
+                     * special handling when the key is long-pressed!
+                     */
                         key.popupResId = quickKey.getPopupKeyboardResId();
                         key.externalResourcePopupLayout = key.popupResId != 0;
                         break;
@@ -307,13 +307,13 @@ public abstract class AnyKeyboard extends Keyboard {
                 // the key may be offseted now (generic rows)
             }
         }/*
-		 * else { // The height should not include any gap below that last row
-		 * // this corresponds to // mTotalHeight = y - mDefaultVerticalGap; //
-		 * in the Keyboard class from Android sources // Note that we are using
-		 * keyboard default vertical gap (instead of row vertical gap) // as
-		 * this is done also in Android sources. mGenericRowsHeight -=
-		 * getVerticalGap(); }
-		 */
+         * else { // The height should not include any gap below that last row
+         * // this corresponds to // mTotalHeight = y - mDefaultVerticalGap; //
+         * in the Keyboard class from Android sources // Note that we are using
+         * keyboard default vertical gap (instead of row vertical gap) // as
+         * this is done also in Android sources. mGenericRowsHeight -=
+         * getVerticalGap(); }
+         */
     }
 
     private KeyboardMetadata addKeyboardRow(Context context, int rowResId,
@@ -424,7 +424,7 @@ public abstract class AnyKeyboard extends Keyboard {
         }
     }
 
-	/* required overrides */
+    /* required overrides */
 
     @Override
     public int getHeight() {
@@ -466,9 +466,9 @@ public abstract class AnyKeyboard extends Keyboard {
 
     public abstract String getDefaultDictionaryLocale();
 
-	public Locale getLocale() {
-		return Locale.getDefault();
-	}
+    public Locale getLocale() {
+        return Locale.getDefault();
+    }
 
     // this function is called from within the super constructor.
     @Override
@@ -525,7 +525,7 @@ public abstract class AnyKeyboard extends Keyboard {
 
     private boolean isAlphabetKey(Key key) {
         return (!key.modifier) && (!key.sticky) && (!key.repeatable) &&
-		/* (key.icon == null) && */
+        /* (key.icon == null) && */
                 (key.codes[0] > 0);
     }
 

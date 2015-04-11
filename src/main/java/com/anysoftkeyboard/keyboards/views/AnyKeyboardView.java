@@ -110,10 +110,10 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         return v;
     }
 
-	@Override
-	protected KeyDetector createKeyDetector(final float slide) {
-		return new ProximityKeyDetector();
-	}
+    @Override
+    protected KeyDetector createKeyDetector(final float slide) {
+        return new ProximityKeyDetector();
+    }
 
     public void setKeyboardSwitcher(KeyboardSwitcher switcher) {
         mSwitcher = switcher;
@@ -148,14 +148,14 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         // looking for the space-bar, so I'll be able to detect swipes starting
         // at it
         mSpaceBarKey = null;
-	    if (newKeyboard != null) {
-		    for (Key aKey : newKeyboard.getKeys()) {
-			    if (aKey.codes[0] == (int) ' ') {
-				    mSpaceBarKey = aKey;
-				    break;
-			    }
-		    }
-	    }
+        if (newKeyboard != null) {
+            for (Key aKey : newKeyboard.getKeys()) {
+                if (aKey.codes[0] == (int) ' ') {
+                    mSpaceBarKey = aKey;
+                    break;
+                }
+            }
+        }
     }
 
     @Override
@@ -244,7 +244,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
             mFirstTouchPoint.x = (int) me.getX();
             mFirstTouchPoint.y = (int) me.getY();
             mIsFirstDownEventInsideSpaceBar =
-		            mSpaceBarKey != null && mSpaceBarKey.isInside(mFirstTouchPoint.x, mFirstTouchPoint.y);
+                    mSpaceBarKey != null && mSpaceBarKey.isInside(mFirstTouchPoint.x, mFirstTouchPoint.y);
         } else if (mIsFirstDownEventInsideSpaceBar) {
             if (me.getAction() == MotionEvent.ACTION_MOVE) {
                 setGesturePreviewText(mSwitcher, me);
@@ -548,7 +548,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     private long mPopOutTime = 0;
     private final Point mPopOutStartPoint = new Point();
 
-	public void popTextOutOfKey(CharSequence text) {
+    public void popTextOutOfKey(CharSequence text) {
         if (TextUtils.isEmpty(text)) {
             Log.w(TAG, "Call for popTextOutOfKey with missing text argument!");
             return;

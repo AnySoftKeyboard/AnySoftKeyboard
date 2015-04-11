@@ -84,7 +84,7 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
     public void onStart() {
         super.onStart();
         updateTracingState();
-	    PassengerFragmentSupport.setActivityTitle(this, getString(R.string.developer_tools));
+        PassengerFragmentSupport.setActivityTitle(this, getString(R.string.developer_tools));
     }
 
     private void updateTracingState() {

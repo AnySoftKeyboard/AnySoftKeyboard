@@ -36,6 +36,6 @@ public class LanguageTweaksFragment extends PreferenceFragment {
     @Override
     public void onStart() {
         super.onStart();
-	    PassengerFragmentSupport.setActivityTitle(this, getString(R.string.tweaks_group));
+        PassengerFragmentSupport.setActivityTitle(this, getString(R.string.tweaks_group));
     }
 }

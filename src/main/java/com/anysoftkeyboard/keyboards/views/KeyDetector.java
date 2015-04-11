@@ -44,7 +44,7 @@ abstract class KeyDetector {
         if (keyboard == null) return new Key[0];
         mKeyboard = keyboard;
         List<Key> keys = mKeyboard.getKeys();
-	    mKeys = keys.toArray(new Key[keys.size()]);
+        mKeys = keys.toArray(new Key[keys.size()]);
         return mKeys;
     }
 

@@ -44,79 +44,79 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
 
     private static final String KEY_FRAGMENT_CLASS_TO_ADD = "KEY_FRAGMENT_CLASS_TO_ADD";
     private static final String KEY_FRAGMENT_ARGS_TO_ADD = "KEY_FRAGMENT_ARGS_TO_ADD";
-	private static final String KEY_FRAGMENT_AS_ROOT = "KEY_FRAGMENT_AS_ROOT";
+    private static final String KEY_FRAGMENT_AS_ROOT = "KEY_FRAGMENT_AS_ROOT";
 
     public static void addIntentArgsForAddingFragmentToUi(@NonNull Intent intent, @NonNull Class<? extends Fragment> fragmentClass, @Nullable Bundle fragmentArgs) {
         intent.putExtra(KEY_FRAGMENT_CLASS_TO_ADD, fragmentClass);
         if (fragmentArgs != null) {
-	        intent.putExtra(KEY_FRAGMENT_ARGS_TO_ADD, fragmentArgs);
+            intent.putExtra(KEY_FRAGMENT_ARGS_TO_ADD, fragmentArgs);
         }
-	    intent.putExtra(KEY_FRAGMENT_AS_ROOT, false);
+        intent.putExtra(KEY_FRAGMENT_AS_ROOT, false);
     }
 
-	public static void addIntentArgsForSettingRootFragmentToUi(@NonNull Intent intent, @NonNull Class<? extends Fragment> fragmentClass, @Nullable Bundle fragmentArgs) {
-		intent.putExtra(KEY_FRAGMENT_CLASS_TO_ADD, fragmentClass);
-		if (fragmentArgs != null) {
-			intent.putExtra(KEY_FRAGMENT_ARGS_TO_ADD, fragmentArgs);
-		}
-		intent.putExtra(KEY_FRAGMENT_AS_ROOT, true);
-	}
+    public static void addIntentArgsForSettingRootFragmentToUi(@NonNull Intent intent, @NonNull Class<? extends Fragment> fragmentClass, @Nullable Bundle fragmentArgs) {
+        intent.putExtra(KEY_FRAGMENT_CLASS_TO_ADD, fragmentClass);
+        if (fragmentArgs != null) {
+            intent.putExtra(KEY_FRAGMENT_ARGS_TO_ADD, fragmentArgs);
+        }
+        intent.putExtra(KEY_FRAGMENT_AS_ROOT, true);
+    }
 
-	private boolean mIsActivityShown = false;
+    private boolean mIsActivityShown = false;
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-	    mIsActivityShown = true;
-	    if (savedInstanceState == null) {
-		    Bundle activityArgs = getIntent().getExtras();
-		    if (activityArgs == null || (!activityArgs.containsKey(KEY_FRAGMENT_CLASS_TO_ADD)) || (!activityArgs.getBoolean(KEY_FRAGMENT_AS_ROOT, false))) {
-		        //setting up the root of the UI.
-		        setRootFragment(createRootFragmentInstance());
-	        }
+        mIsActivityShown = true;
+        if (savedInstanceState == null) {
+            Bundle activityArgs = getIntent().getExtras();
+            if (activityArgs == null || (!activityArgs.containsKey(KEY_FRAGMENT_CLASS_TO_ADD)) || (!activityArgs.getBoolean(KEY_FRAGMENT_AS_ROOT, false))) {
+                //setting up the root of the UI.
+                setRootFragment(createRootFragmentInstance());
+            }
         }
     }
 
-	@Override
-	protected void onNewIntent(Intent intent) {
-		super.onNewIntent(intent);
-		setIntent(intent);
-		handleFragmentIntentValues();
-	}
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        handleFragmentIntentValues();
+    }
 
-	private void handleFragmentIntentValues() {
-		Bundle activityArgs = getIntent().getExtras();
-		if (activityArgs != null && activityArgs.containsKey(KEY_FRAGMENT_CLASS_TO_ADD)) {
-		    Class<? extends Fragment> fragmentClass = (Class<? extends Fragment>) activityArgs.get(KEY_FRAGMENT_CLASS_TO_ADD);
-		    //not sure that this is a best-practice, but I still need to remove this from the activity's args
-		    activityArgs.remove(KEY_FRAGMENT_CLASS_TO_ADD);
-		    try {
-		        Fragment fragment = fragmentClass.newInstance();
-		        if (activityArgs.containsKey(KEY_FRAGMENT_ARGS_TO_ADD)) {
-		            fragment.setArguments(activityArgs.getBundle(KEY_FRAGMENT_ARGS_TO_ADD));
-		            activityArgs.remove(KEY_FRAGMENT_CLASS_TO_ADD);
-		        }
-			    if (activityArgs.getBoolean(KEY_FRAGMENT_AS_ROOT, false)) {
-				    setRootFragment(fragment);
-			    } else {
-				    addFragmentToUi(fragment, FragmentUiContext.RootFragment);
-			    }
-		    } catch (InstantiationException e) {
-		        e.printStackTrace();
-		    } catch (IllegalAccessException e) {
-		        e.printStackTrace();
-		    }
-		}
-	}
+    private void handleFragmentIntentValues() {
+        Bundle activityArgs = getIntent().getExtras();
+        if (activityArgs != null && activityArgs.containsKey(KEY_FRAGMENT_CLASS_TO_ADD)) {
+            Class<? extends Fragment> fragmentClass = (Class<? extends Fragment>) activityArgs.get(KEY_FRAGMENT_CLASS_TO_ADD);
+            //not sure that this is a best-practice, but I still need to remove this from the activity's args
+            activityArgs.remove(KEY_FRAGMENT_CLASS_TO_ADD);
+            try {
+                Fragment fragment = fragmentClass.newInstance();
+                if (activityArgs.containsKey(KEY_FRAGMENT_ARGS_TO_ADD)) {
+                    fragment.setArguments(activityArgs.getBundle(KEY_FRAGMENT_ARGS_TO_ADD));
+                    activityArgs.remove(KEY_FRAGMENT_CLASS_TO_ADD);
+                }
+                if (activityArgs.getBoolean(KEY_FRAGMENT_AS_ROOT, false)) {
+                    setRootFragment(fragment);
+                } else {
+                    addFragmentToUi(fragment, FragmentUiContext.RootFragment);
+                }
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-	protected abstract int getFragmentRootUiElementId();
+    protected abstract int getFragmentRootUiElementId();
 
     protected abstract Fragment createRootFragmentInstance();
 
     public void returnToRootFragment() {
-	    if (!mIsActivityShown) return;
+        if (!mIsActivityShown) return;
 
-	    getSupportFragmentManager().popBackStackImmediate(ROOT_FRAGMENT_TAG, 0 /*don't pop the root*/);
+        getSupportFragmentManager().popBackStackImmediate(ROOT_FRAGMENT_TAG, 0 /*don't pop the root*/);
     }
 
     public void setRootFragment(Fragment fragment) {
@@ -142,7 +142,7 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
      * @param originateView a hint view which will be used to fine-tune the ExpandedItem animation
      */
     public void addFragmentToUi(@NonNull Fragment fragment, FragmentUiContext experience, @Nullable View originateView) {
-	    if (!mIsActivityShown) return;
+        if (!mIsActivityShown) return;
 
         if (experience == FragmentUiContext.RootFragment) {
             //in this case, I need to pop all the other fragments till the root.
@@ -215,21 +215,21 @@ public abstract class FragmentChauffeurActivity extends ActionBarActivity {
         }
     }
 
-	@Override
-	protected void onStart() {
-		super.onStart();
-		mIsActivityShown = true;
-		//now, checking if there is a request to add a fragment on-top of this one.
-		handleFragmentIntentValues();
-	}
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mIsActivityShown = true;
+        //now, checking if there is a request to add a fragment on-top of this one.
+        handleFragmentIntentValues();
+    }
 
-	@Override
-	protected void onStop() {
-		super.onStop();
-		mIsActivityShown = false;
-	}
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mIsActivityShown = false;
+    }
 
-	public final boolean isChaufferActivityVisible() {
-		return mIsActivityShown;
-	}
+    public final boolean isChaufferActivityVisible() {
+        return mIsActivityShown;
+    }
 }

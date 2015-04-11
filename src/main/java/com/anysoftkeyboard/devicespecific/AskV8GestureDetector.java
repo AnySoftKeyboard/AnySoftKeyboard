@@ -62,14 +62,14 @@ public class AskV8GestureDetector extends GestureDetector {
 
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent ev) {
-	    int singleFingerEventPointerId = mSingleFingerEventPointerId;
+        int singleFingerEventPointerId = mSingleFingerEventPointerId;
 
         //I want to keep track on the first finger (https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/300)
         switch (MotionEventCompat.getActionMasked(ev)){
             case MotionEvent.ACTION_DOWN:
                 if (ev.getPointerCount() == 1) {
                     mSingleFingerEventPointerId = ev.getPointerId(0);
-	                singleFingerEventPointerId = mSingleFingerEventPointerId;
+                    singleFingerEventPointerId = mSingleFingerEventPointerId;
                 }
                 break;
             case MotionEvent.ACTION_CANCEL:

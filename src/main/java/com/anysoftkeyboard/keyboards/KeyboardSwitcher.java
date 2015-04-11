@@ -342,7 +342,7 @@ public class KeyboardSwitcher {
 
         switch (variation) {
             case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS:
-	        case EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
+            case EditorInfo.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS:
                 return mLastKeyboardMode = KEYBOARDMODE_EMAIL;
             case EditorInfo.TYPE_TEXT_VARIATION_URI:
                 return mLastKeyboardMode = KEYBOARDMODE_URL;
@@ -526,11 +526,11 @@ public class KeyboardSwitcher {
         if (mContext == null)
             return current;
         /*
-		 * //all keyboards start as un-shifted, except the second symbols //due
-		 * to lazy loading the keyboards, the symbols may not be created yet.
-		 * current.setShifted(current ==
-		 * mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_ALT_INDEX]);
-		 */
+         * //all keyboards start as un-shifted, except the second symbols //due
+         * to lazy loading the keyboards, the symbols may not be created yet.
+         * current.setShifted(current ==
+         * mSymbolsKeyboardsArray[SYMBOLS_KEYBOARD_ALT_INDEX]);
+         */
         current.setImeOptions(mContext.getResources(), currentEditorInfo);
         // current.setTextVariation(mContext.getResources(),
         // currentEditorInfo.inputType);

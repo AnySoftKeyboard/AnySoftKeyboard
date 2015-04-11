@@ -20,6 +20,6 @@ import com.anysoftkeyboard.IndirectlyInstantiated;
 
 @IndirectlyInstantiated
 public final class StrictModeEmptyImpl implements StrictModeAble {
-	public void setupStrictMode() {
-	}
+    public void setupStrictMode() {
+    }
 }

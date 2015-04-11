@@ -127,11 +127,11 @@ public abstract class BTreeDictionary extends EditableDictionary {
         return true;
     }
 
-	protected int getMaxWordLength() {
-		return MAX_WORD_LENGTH;
-	}
+    protected int getMaxWordLength() {
+        return MAX_WORD_LENGTH;
+    }
 
-	protected void onStorageChanged() {
+    protected void onStorageChanged() {
         if (isClosed()) return;
         clearDictionary();
         DictionaryASyncLoader loader = new DictionaryASyncLoader(null);

@@ -105,10 +105,10 @@ public class AddOnCheckBoxPreference extends Preference implements
             try {
                 PackageManager packageManager = getContext().getPackageManager();
                 PackageInfo packageInfo = packageManager.getPackageInfo(mAddOn.getPackageName(), 0);
-	            if (packageInfo != null) {
-		            Log.w(TAG, "Failed to locate add-on package (which is weird, we DID load the add-on object from it).");
+                if (packageInfo != null) {
+                    Log.w(TAG, "Failed to locate add-on package (which is weird, we DID load the add-on object from it).");
                     icon = packageInfo.applicationInfo.loadIcon(packageManager);
-	            }
+                }
             } catch (PackageManager.NameNotFoundException e) {
                 icon = null;
                 Log.w(TAG, "Failed to locate add-on package (which is weird, we DID load the add-on object from it).");

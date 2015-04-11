@@ -34,10 +34,10 @@ final class AskGestureEventsListener implements
 
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
         if (mKeyboardView.isAtTwoFingersState()) {
-	        //in two fingers state we might still want to report a scroll, if BOTH pointers are moving in the same direction
-	        if (!pointersMovingInTheSameDirection(e1, e2)) {
-		        return false;
-	        }
+            //in two fingers state we might still want to report a scroll, if BOTH pointers are moving in the same direction
+            if (!pointersMovingInTheSameDirection(e1, e2)) {
+                return false;
+            }
         }
 
         final float scrollXDistance = Math.abs(e2.getX() - e1.getX());
@@ -58,12 +58,12 @@ final class AskGestureEventsListener implements
                     if (e2.getX() > e1.getX()) {
                         //to right
                         mKeyboardView.mKeyboardActionListener.onSwipeRight(
-		                        mKeyboardView.isFirstDownEventInsideSpaceBar(),
-		                        mKeyboardView.isAtTwoFingersState());
+                                mKeyboardView.isFirstDownEventInsideSpaceBar(),
+                                mKeyboardView.isAtTwoFingersState());
                     } else {
                         mKeyboardView.mKeyboardActionListener.onSwipeLeft(
-		                        mKeyboardView.isFirstDownEventInsideSpaceBar(),
-		                        mKeyboardView.isAtTwoFingersState());
+                                mKeyboardView.isFirstDownEventInsideSpaceBar(),
+                                mKeyboardView.isAtTwoFingersState());
                     }
                     return true;
                 }
@@ -72,57 +72,57 @@ final class AskGestureEventsListener implements
         return false;
     }
 
-	private static final int DIRECTION_NONE = -1;
-	private static final int DIRECTION_UP = 0;
-	private static final int DIRECTION_DOWN = 1;
-	private static final int DIRECTION_LEFT = 2;
-	private static final int DIRECTION_RIGHT = 3;
+    private static final int DIRECTION_NONE = -1;
+    private static final int DIRECTION_UP = 0;
+    private static final int DIRECTION_DOWN = 1;
+    private static final int DIRECTION_LEFT = 2;
+    private static final int DIRECTION_RIGHT = 3;
 
-	private static int getPointerDirection(MotionEvent e1, MotionEvent e2, final int pointerIndex) {
-		final int pointerId = e1.getPointerId(pointerIndex);
-		final int secondPointerIndex = e2.findPointerIndex(pointerId);
-		if (secondPointerIndex == -1) return DIRECTION_NONE;
+    private static int getPointerDirection(MotionEvent e1, MotionEvent e2, final int pointerIndex) {
+        final int pointerId = e1.getPointerId(pointerIndex);
+        final int secondPointerIndex = e2.findPointerIndex(pointerId);
+        if (secondPointerIndex == -1) return DIRECTION_NONE;
 
-		final float xDistance = e2.getX(secondPointerIndex) - e1.getX(pointerIndex);
-		final float yDistance = e2.getY(secondPointerIndex) - e1.getY(pointerIndex);
-		if (xDistance == yDistance) return DIRECTION_NONE;
-		if (Math.abs(xDistance) > Math.abs(yDistance)) {
-			//major movement in the X axis
-			if (xDistance > 0)
-				return DIRECTION_RIGHT;
-			else
-				return DIRECTION_LEFT;
-		} else {
-			if (yDistance > 0)
-				return DIRECTION_DOWN;
-			else
-				return DIRECTION_UP;
-		}
-	}
+        final float xDistance = e2.getX(secondPointerIndex) - e1.getX(pointerIndex);
+        final float yDistance = e2.getY(secondPointerIndex) - e1.getY(pointerIndex);
+        if (xDistance == yDistance) return DIRECTION_NONE;
+        if (Math.abs(xDistance) > Math.abs(yDistance)) {
+            //major movement in the X axis
+            if (xDistance > 0)
+                return DIRECTION_RIGHT;
+            else
+                return DIRECTION_LEFT;
+        } else {
+            if (yDistance > 0)
+                return DIRECTION_DOWN;
+            else
+                return DIRECTION_UP;
+        }
+    }
 
-	private static boolean pointersMovingInTheSameDirection(MotionEvent e1, MotionEvent e2) {
-		//TODO: PROBLEM, the first event should be the first event with TWO fingers.
+    private static boolean pointersMovingInTheSameDirection(MotionEvent e1, MotionEvent e2) {
+        //TODO: PROBLEM, the first event should be the first event with TWO fingers.
 
-		final int direction = getPointerDirection(e1, e2, 0);
-		for(int pointerIndex = 1; pointerIndex<e2.getPointerCount(); pointerIndex++) {
-			final int otherPointerDirection = getPointerDirection(e1, e2, pointerIndex);
-			if (otherPointerDirection != direction)
-				return false;
-		}
-		//if we got here, it means that all pointers are moving in the same direction
-		return true;
-	}
+        final int direction = getPointerDirection(e1, e2, 0);
+        for(int pointerIndex = 1; pointerIndex<e2.getPointerCount(); pointerIndex++) {
+            final int otherPointerDirection = getPointerDirection(e1, e2, pointerIndex);
+            if (otherPointerDirection != direction)
+                return false;
+        }
+        //if we got here, it means that all pointers are moving in the same direction
+        return true;
+    }
 
 
-	public boolean onFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
+    public boolean onFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
         if (mKeyboardView.isAtTwoFingersState()) {
-	        Log.v(TAG, "onFling ignored due to isAtTwoFingersState");
-	        return false;
+            Log.v(TAG, "onFling ignored due to isAtTwoFingersState");
+            return false;
         }
 
-	    final boolean isHorizontalFling = Math.abs(velocityX) > Math.abs(velocityY);
+        final boolean isHorizontalFling = Math.abs(velocityX) > Math.abs(velocityY);
 
-	    Log.d(TAG, "onFling vx %f, vy %f, isHorizontalFling: %s", velocityX, velocityY, Boolean.toString(isHorizontalFling));
+        Log.d(TAG, "onFling vx %f, vy %f, isHorizontalFling: %s", velocityX, velocityY, Boolean.toString(isHorizontalFling));
 
         float deltaX = me2.getX() - me1.getX();
         float deltaY = me2.getY() - me1.getY();

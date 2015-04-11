@@ -49,7 +49,7 @@ final class KeyboardUIStateHandler extends Handler {
         AnySoftKeyboard ask = mKeyboard.get();
         if (ask == null)// delayed posts and such may result in the reference gone
             return;
-	    final InputConnection ic = ask.getCurrentInputConnection();
+        final InputConnection ic = ask.getCurrentInputConnection();
 
         switch (msg.what) {
             case MSG_UPDATE_SUGGESTIONS:

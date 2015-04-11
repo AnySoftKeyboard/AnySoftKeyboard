@@ -43,8 +43,8 @@ public class Suggest implements Dictionary.WordCallback {
     private static final String TAG = "ASK Suggest";
 
     private Dictionary mMainDict;
-	@NonNull
-	private Locale mLocale = Locale.getDefault();
+    @NonNull
+    private Locale mLocale = Locale.getDefault();
     private AutoText mAutoText;
 
     private int mMinimumWordSizeToStartCorrecting = 2;
@@ -93,7 +93,7 @@ public class Suggest implements Dictionary.WordCallback {
         String[] initialSuggestions = context.getResources().getStringArray(R.array.english_initial_suggestions);
         if (initialSuggestions != null) {
             mDefaultInitialSuggestions = new ArrayList<>(initialSuggestions.length);
-	        Collections.addAll(mDefaultInitialSuggestions, initialSuggestions);
+            Collections.addAll(mDefaultInitialSuggestions, initialSuggestions);
         } else {
             mDefaultInitialSuggestions = Collections.emptyList();
         }
@@ -121,7 +121,7 @@ public class Suggest implements Dictionary.WordCallback {
             mMainDict.close();
             mMainDict = null;
         }
-	    mLocale = CompatUtils.getLocaleForLanguageTag(dictionaryBuilder == null? null : dictionaryBuilder.getLanguage());
+        mLocale = CompatUtils.getLocaleForLanguageTag(dictionaryBuilder == null? null : dictionaryBuilder.getLanguage());
 
         if (mAbbreviationDictionary != null) {
             mAbbreviationDictionary.close();
@@ -227,8 +227,8 @@ public class Suggest implements Dictionary.WordCallback {
      * @return list of suggestions.
      */
     public List<CharSequence> getSuggestions(/* View view, */WordComposer wordComposer, boolean includeTypedWordIfValid) {
-	    mExplodedAbbreviations.clear();
-	    mHaveCorrection = false;
+        mExplodedAbbreviations.clear();
+        mHaveCorrection = false;
         mIsFirstCharCapitalized = wordComposer.isFirstCharCapitalized();
         mIsAllUpperCase = wordComposer.isAllUpperCase();
         collectGarbage();
@@ -279,7 +279,7 @@ public class Suggest implements Dictionary.WordCallback {
         }
         if (mExplodedAbbreviations.size() > 0) {
             //typed at zero, exploded at 1 index.
-	        for(String explodedWord : mExplodedAbbreviations)
+            for(String explodedWord : mExplodedAbbreviations)
                 mSuggestions.add(1, explodedWord);
 
             mHaveCorrection = true;//so the exploded text will be auto-committed.
@@ -347,7 +347,7 @@ public class Suggest implements Dictionary.WordCallback {
                            final int length, final int freq, final Dictionary from) {
         Log.v(TAG, "Suggest::addWord");
         if (from == mAbbreviationDictionary) {
-	        mExplodedAbbreviations.add(new String(word, offset, length));
+            mExplodedAbbreviations.add(new String(word, offset, length));
             return true;
         }
         int pos = 0;

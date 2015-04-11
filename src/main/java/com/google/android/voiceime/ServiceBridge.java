@@ -52,12 +52,12 @@ class ServiceBridge {
             @Override
             public void onResult(final String recognitionResult) {
                 mCallback.onRecognitionResult(recognitionResult);
-	            try {
-		            context.unbindService(conReq);
-	            } catch (IllegalArgumentException e) {
-		            //https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/432
-		            Log.w(TAG, "Failed to unbind from service! Swallowing.", e);
-	            }
+                try {
+                    context.unbindService(conReq);
+                } catch (IllegalArgumentException e) {
+                    //https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/432
+                    Log.w(TAG, "Failed to unbind from service! Swallowing.", e);
+                }
             }
         });
 

@@ -27,8 +27,8 @@ import java.lang.ref.WeakReference;
 
 public abstract class AddOnImpl implements AddOn {
 
-	private static final String TAG = "ASK_AddOnImpl";
-	private final String mId;
+    private static final String TAG = "ASK_AddOnImpl";
+    private final String mId;
     private final String mName;
     private final String mDescription;
     private final String mPackageName;
@@ -67,8 +67,8 @@ public abstract class AddOnImpl implements AddOn {
                 c = mAskAppContext.createPackageContext(mPackageName, Context.CONTEXT_IGNORE_SECURITY);
                 mPackageContext = new WeakReference<>(c);
             } catch (NameNotFoundException e) {
-	            Log.w(TAG, "Failed to find package %s!", mPackageName);
-	            Log.w(TAG, "Failed to find package! ", e);
+                Log.w(TAG, "Failed to find package %s!", mPackageName);
+                Log.w(TAG, "Failed to find package! ", e);
             }
         }
         return c;
@@ -82,14 +82,14 @@ public abstract class AddOnImpl implements AddOn {
         return mName;
     }
 
-	@Override
-	public int hashCode() {
-		return getId().hashCode();
-	}
+    @Override
+    public int hashCode() {
+        return getId().hashCode();
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		return o instanceof AddOn &&
-				((AddOn) o).getId().equals(getId());
-	}
+    @Override
+    public boolean equals(Object o) {
+        return o instanceof AddOn &&
+                ((AddOn) o).getId().equals(getId());
+    }
 }

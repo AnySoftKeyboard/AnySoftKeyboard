@@ -30,7 +30,7 @@ public interface AddOn {
 
     String getPackageName();
 
-	@Nullable
+    @Nullable
     Context getPackageContext();
 
     int getSortIndex();

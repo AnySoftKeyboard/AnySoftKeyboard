@@ -21,7 +21,7 @@ import java.util.Arrays;
 
 public class ArraysCompatUtils {
     private static final Method METHOD_Arrays_binarySearch =
-		    CompatUtils.getMethod(Arrays.class, "binarySearch", int[].class, int.class, int.class, int.class);
+            CompatUtils.getMethod(Arrays.class, "binarySearch", int[].class, int.class, int.class, int.class);
 
     public static int binarySearch(int[] array, int startIndex, int endIndex, int value) {
         if (METHOD_Arrays_binarySearch != null) {

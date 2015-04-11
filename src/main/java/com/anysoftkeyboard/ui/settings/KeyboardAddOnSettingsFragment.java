@@ -45,7 +45,7 @@ public class KeyboardAddOnSettingsFragment extends PreferenceFragment {
 
         PreferenceCategory keyboardsGroup = (PreferenceCategory) findPreference("keyboard_addons_group");
         Activity activity = getActivity();
-	    PassengerFragmentSupport.setActivityTitle(this, getString(R.string.keyboards_group));
+        PassengerFragmentSupport.setActivityTitle(this, getString(R.string.keyboards_group));
         // getting all keyboards
         final List<KeyboardAddOnAndBuilder> creators = KeyboardFactory.getAllAvailableKeyboards(activity.getApplicationContext());
 

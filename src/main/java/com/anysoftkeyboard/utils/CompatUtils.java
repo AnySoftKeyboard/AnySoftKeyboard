@@ -52,30 +52,30 @@ public class CompatUtils {
         return defaultValue;
     }
 
-	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public static Locale getLocaleForLanguageTag(@Nullable String locale) {
-		Locale parsedLocale = Locale.getDefault();
-		if (!TextUtils.isEmpty(locale)) {
-			try {
-				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-					parsedLocale = Locale.forLanguageTag(locale);
-				} else {
-					parsedLocale = new Locale(locale);
-				}
-			} catch (Exception e) {
-				Log.d(TAG, "Failed to parse locale '%s'. Defaulting to %s", parsedLocale);
-			}
-		}
-		return parsedLocale;
-	}
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public static Locale getLocaleForLanguageTag(@Nullable String locale) {
+        Locale parsedLocale = Locale.getDefault();
+        if (!TextUtils.isEmpty(locale)) {
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    parsedLocale = Locale.forLanguageTag(locale);
+                } else {
+                    parsedLocale = new Locale(locale);
+                }
+            } catch (Exception e) {
+                Log.d(TAG, "Failed to parse locale '%s'. Defaulting to %s", parsedLocale);
+            }
+        }
+        return parsedLocale;
+    }
 
-	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-	public static void setViewBackgroundDrawable(View view, Drawable drawable) {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-			view.setBackground(drawable);
-		} else {
-			//noinspection deprecation
-			view.setBackgroundDrawable(drawable);
-		}
-	}
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    public static void setViewBackgroundDrawable(View view, Drawable drawable) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            view.setBackground(drawable);
+        } else {
+            //noinspection deprecation
+            view.setBackgroundDrawable(drawable);
+        }
+    }
 }

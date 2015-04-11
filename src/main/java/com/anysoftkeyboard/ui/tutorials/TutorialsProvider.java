@@ -33,73 +33,73 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 public class TutorialsProvider {
-	//public static final String TUTORIALS_SP_FILENAME = "tutorials";
+    //public static final String TUTORIALS_SP_FILENAME = "tutorials";
 
-	private static final String TAG = "ASK Turorial";
+    private static final String TAG = "ASK Turorial";
 
-	private static final int TUTORIALS_NOTIFICATION_ID_BASE = 102431;
+    private static final int TUTORIALS_NOTIFICATION_ID_BASE = 102431;
 
 
-	public static void showDragonsIfNeeded(Context context) {
-		if (BuildConfig.DEBUG && firstTestersTimeVersionLoaded(context)) {
-			Log.i(TAG, "TESTERS VERSION added");
+    public static void showDragonsIfNeeded(Context context) {
+        if (BuildConfig.DEBUG && firstTestersTimeVersionLoaded(context)) {
+            Log.i(TAG, "TESTERS VERSION added");
 
-			Intent i = new Intent(context, TestersNoticeActivity.class);
-			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            Intent i = new Intent(context, TestersNoticeActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-			showNotificationIcon(context, new IntentToLaunch(
-					TUTORIALS_NOTIFICATION_ID_BASE + 1, i, R.drawable.notification_icon_beta_version,
-					R.string.ime_name_beta, R.string.notification_text_testers));
-		}
-	}
+            showNotificationIcon(context, new IntentToLaunch(
+                    TUTORIALS_NOTIFICATION_ID_BASE + 1, i, R.drawable.notification_icon_beta_version,
+                    R.string.ime_name_beta, R.string.notification_text_testers));
+        }
+    }
 
-	private static boolean firstTestersTimeVersionLoaded(Context context) {
-		final String KEY = "testers_version_version_hash";
-		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
-		final String lastDebugVersionHash = sp.getString(KEY, "NONE");
-		String currentHash = "";
-		try {
-			PackageInfo pi = DeveloperUtils.getPackageInfo(context);
-			currentHash = pi.versionName + " code " + pi.versionCode;
-		} catch (NameNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    private static boolean firstTestersTimeVersionLoaded(Context context) {
+        final String KEY = "testers_version_version_hash";
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        final String lastDebugVersionHash = sp.getString(KEY, "NONE");
+        String currentHash = "";
+        try {
+            PackageInfo pi = DeveloperUtils.getPackageInfo(context);
+            currentHash = pi.versionName + " code " + pi.versionCode;
+        } catch (NameNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
-		Editor e = sp.edit();
-		e.putString(KEY, currentHash);
-		e.commit();
+        Editor e = sp.edit();
+        e.putString(KEY, currentHash);
+        e.commit();
 
-		return !currentHash.equals(lastDebugVersionHash);
-	}
+        return !currentHash.equals(lastDebugVersionHash);
+    }
 
-	public static int getPackageVersion(Context context) {
-		try {
-			PackageInfo pi = DeveloperUtils.getPackageInfo(context);
-			return pi.versionCode;
-		} catch (NameNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return 0;
-		}
-	}
+    public static int getPackageVersion(Context context) {
+        try {
+            PackageInfo pi = DeveloperUtils.getPackageInfo(context);
+            return pi.versionCode;
+        } catch (NameNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return 0;
+        }
+    }
 
-	public synchronized static void showNotificationIcon(Context context, IntentToLaunch notificationData) {
-		final NotificationManager mngr = ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE));
+    public synchronized static void showNotificationIcon(Context context, IntentToLaunch notificationData) {
+        final NotificationManager mngr = ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE));
 
-		Notification notification = new Notification(notificationData.NotificationIcon, context.getText(notificationData.NotificationText), System.currentTimeMillis());
+        Notification notification = new Notification(notificationData.NotificationIcon, context.getText(notificationData.NotificationText), System.currentTimeMillis());
 
-		PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationData.IntentToStart, 0);
+        PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationData.IntentToStart, 0);
 
-		notification.setLatestEventInfo(context,
-				context.getText(notificationData.NotificationTitle), context.getText(notificationData.NotificationText),
-				contentIntent);
-		notification.defaults = 0;// no sound, vibrate, etc.
-		//Cancel on click
-		notification.flags = Notification.FLAG_AUTO_CANCEL;
-		// notifying
-		//need different id for each notification, so we can cancel easily
-		mngr.notify(notificationData.NotificationID, notification);
-	}
+        notification.setLatestEventInfo(context,
+                context.getText(notificationData.NotificationTitle), context.getText(notificationData.NotificationText),
+                contentIntent);
+        notification.defaults = 0;// no sound, vibrate, etc.
+        //Cancel on click
+        notification.flags = Notification.FLAG_AUTO_CANCEL;
+        // notifying
+        //need different id for each notification, so we can cancel easily
+        mngr.notify(notificationData.NotificationID, notification);
+    }
 
 }
