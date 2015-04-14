@@ -2,13 +2,11 @@ package com.anysoftkeyboard.keyboards;
 
 import android.text.TextUtils;
 
-import com.menny.android.anysoftkeyboard.BuildConfig;
+import com.menny.android.anysoftkeyboard.AskGradleTestRunner;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
-import org.robolectric.annotation.Config;
 
 import java.util.List;
 
@@ -17,9 +15,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-@RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class, emulateSdk = 21, reportSdk = 21, manifest = "src/main/AndroidManifest.xml")
-
+@RunWith(AskGradleTestRunner.class)
 public class KeyboardAddOnTest {
 
     public static final String ASK_ENGLISH_1 = "c7535083-4fe6-49dc-81aa-c5438a1a343a";

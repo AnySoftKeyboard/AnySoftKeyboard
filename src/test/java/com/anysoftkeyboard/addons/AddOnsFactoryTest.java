@@ -3,18 +3,18 @@ package com.anysoftkeyboard.addons;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import com.menny.android.anysoftkeyboard.AskGradleTestRunner;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
 import java.util.HashSet;
 import java.util.List;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AskGradleTestRunner.class)
 public class AddOnsFactoryTest {
     @Test(expected = UnsupportedOperationException.class)
     public void testGetAllAddOns() throws Exception {

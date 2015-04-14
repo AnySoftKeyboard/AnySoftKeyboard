@@ -2,14 +2,15 @@ package com.anysoftkeyboard.ui.settings.setup;
 
 import android.content.ComponentName;
 
+import com.menny.android.anysoftkeyboard.AskGradleTestRunner;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricTestRunner;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-@RunWith(RobolectricTestRunner.class)
+@RunWith(AskGradleTestRunner.class)
 public class SetupSupportTest {
 
     @Test
