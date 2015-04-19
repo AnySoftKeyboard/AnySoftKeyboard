@@ -56,7 +56,7 @@
   <string name="how_to_pointer_site">Všeobecné informace:</string>
   <string name="how_to_pointer_changelog">Podrobnosti o nejnovější verzi:</string>
   <string name="change_log_card_title_template">Poslední změny pro v<xliff:g id="code">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
-  <string name="change_log_entry_header_template">v<xliff:g id="code">%s</xliff:g>\u0020-\u0020<xliff:g id="name">%s</xliff:g></string>
+  
   <string name="change_log_entry_header_template_without_name">v<xliff:g id="code">%s</xliff:g></string>
   <string name="how_to_pointer_issues">Hlášení chyb:</string>
   <string name="main_tab_credits_title">Tato aplikace byla vytvořena za pomoci následujících lidí-</string>

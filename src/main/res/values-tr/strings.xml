@@ -28,7 +28,7 @@
   <string name="how_to_pointer_site">Genel ayrıntılar:</string>
   <string name="how_to_pointer_changelog">Son sürüm hakkında detaylar:</string>
   <string name="change_log_card_title_template">V <xliff:g id="code">%s </xliff:g> \u0020 <xliff:g id="name"> %s </xliff:g> için son değişiklikler</string>
-  <string name="change_log_entry_header_template">v <xliff:g id="code">%s </xliff:g> \u0020-\u0020 <xliff:g id="name"> %s </xliff:g></string>
+  
   <string name="change_log_entry_header_template_without_name">v <xliff:g id="code">%s </xliff:g></string>
   <string name="how_to_pointer_issues">Hata raporlama:</string>
   <string name="main_tab_credits_title">Bu uygulama aşağıdaki kişilerin destekleriyle geliştirilmiştir-</string>

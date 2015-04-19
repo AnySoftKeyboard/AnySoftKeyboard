@@ -54,7 +54,7 @@
   <string name="how_to_pointer_site">Γενικές λεπτομέρειες:</string>
   <string name="how_to_pointer_changelog">Λεπτομέρειες σχετικά με την πιο πρόσφατη έκδοση:</string>
   <string name="change_log_card_title_template">Τελευταίες αλλαγές για v<xliff:g id="code">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
-  <string name="change_log_entry_header_template">v<xliff:g id="code">%s</xliff:g>\u0020-\u0020<xliff:g id="name">%s</xliff:g></string>
+  
   <string name="how_to_pointer_issues">Αναφορά σφαλμάτων:</string>
   <string name="main_tab_credits_title">Αυτή η εφαρμογή δημιουργήθηκε με τη βοήθεια των παρακάτω ατόμων-</string>
   <string name="main_tab_credits_created_by">Δημιουργήθηκε από:</string>

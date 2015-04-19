@@ -55,7 +55,7 @@
   <string name="how_to_pointer_site">Allgemeine Details:</string>
   <string name="how_to_pointer_changelog">Details zur neuesten Version:</string>
   <string name="change_log_card_title_template">Letzte Änderungen für v <xliff:g id="code"> %s </xliff:g> \u0020 <xliff:g id="name"> %s </xliff:g></string>
-  <string name="change_log_entry_header_template">v<xliff:g id="code"> %s </xliff:g> \u0020-\u0020 <xliff:g id="name"> %s </xliff:g></string>
+  
   <string name="change_log_entry_header_template_without_name">V <xliff:g id="code"> %s </xliff:g></string>
   <string name="how_to_pointer_issues">Fehler melden:</string>
   <string name="main_tab_credits_title">Diese Anwendung wurde mit Hilfe folgender Personen erstellt:</string>
