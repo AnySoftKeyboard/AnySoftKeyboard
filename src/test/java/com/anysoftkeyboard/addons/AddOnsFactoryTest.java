@@ -16,47 +16,48 @@ import java.util.List;
 
 @RunWith(AskGradleTestRunner.class)
 public class AddOnsFactoryTest {
-    @Test(expected = UnsupportedOperationException.class)
-    public void testGetAllAddOns() throws Exception {
-        TestableAddOnsFactory factory = new TestableAddOnsFactory();
-        List<TestAddOn> list = factory.getAllAddOns(RuntimeEnvironment.application);
-        Assert.assertTrue(list.size() > 0);
 
-        HashSet<String> seenIds = new HashSet<>();
-        for (AddOn addOn : list) {
-            Assert.assertNotNull(addOn);
-            Assert.assertFalse(seenIds.contains(addOn.getId()));
-            seenIds.add(addOn.getId());
-        }
-    }
+	@Test
+	public void testGetAllAddOns() throws Exception {
+		TestableAddOnsFactory factory = new TestableAddOnsFactory();
+		List<TestAddOn> list = factory.getAllAddOns(RuntimeEnvironment.application);
+		Assert.assertTrue(list.size() > 0);
 
-    @Test(expected = UnsupportedOperationException.class)
-    public void testGetAllAddOnsReturnsUnmodifiableList() throws Exception {
-        TestableAddOnsFactory factory = new TestableAddOnsFactory();
-        List<TestAddOn> list = factory.getAllAddOns(RuntimeEnvironment.application);
+		HashSet<String> seenIds = new HashSet<>();
+		for (AddOn addOn : list) {
+			Assert.assertNotNull(addOn);
+			Assert.assertFalse(seenIds.contains(addOn.getId()));
+			seenIds.add(addOn.getId());
+		}
+	}
 
-        list.remove(0);
-    }
+	@Test(expected = UnsupportedOperationException.class)
+	public void testGetAllAddOnsReturnsUnmodifiableList() throws Exception {
+		TestableAddOnsFactory factory = new TestableAddOnsFactory();
+		List<TestAddOn> list = factory.getAllAddOns(RuntimeEnvironment.application);
 
-    private static class TestAddOn extends AddOnImpl {
+		list.remove(0);
+	}
 
-        protected TestAddOn(Context askContext, Context packageContext, String id, int nameResId, String description, int sortIndex) {
-            super(askContext, packageContext, id, nameResId, description, sortIndex);
-        }
-    }
+	private static class TestAddOn extends AddOnImpl {
 
-    private static class TestableAddOnsFactory extends AddOnsFactory<TestAddOn> {
+		protected TestAddOn(Context askContext, Context packageContext, String id, int nameResId, String description, int sortIndex) {
+			super(askContext, packageContext, id, nameResId, description, sortIndex);
+		}
+	}
 
-        protected TestableAddOnsFactory() {
-            super("ASK_TADF",
-                    "com.anysoftkeyboard.plugin.QUICK_TEXT_KEY",
-                    "com.anysoftkeyboard.plugindata.quicktextkeys",
-                    "QuickTextKeys", "QuickTextKey", R.xml.quick_text_keys, true);
-        }
+	private static class TestableAddOnsFactory extends AddOnsFactory<TestAddOn> {
 
-        @Override
-        protected TestAddOn createConcreteAddOn(Context askContext, Context context, String prefId, int nameId, String description, int sortIndex, AttributeSet attrs) {
-            return new TestAddOn(askContext, context, prefId, nameId, description, sortIndex);
-        }
-    }
+		protected TestableAddOnsFactory() {
+			super("ASK_TADF",
+					"com.anysoftkeyboard.plugin.QUICK_TEXT_KEY",
+					"com.anysoftkeyboard.plugindata.quicktextkeys",
+					"QuickTextKeys", "QuickTextKey", R.xml.quick_text_keys, true);
+		}
+
+		@Override
+		protected TestAddOn createConcreteAddOn(Context askContext, Context context, String prefId, int nameId, String description, int sortIndex, AttributeSet attrs) {
+			return new TestAddOn(askContext, context, prefId, nameId, description, sortIndex);
+		}
+	}
 }
