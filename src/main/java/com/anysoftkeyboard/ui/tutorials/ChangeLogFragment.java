@@ -107,7 +107,7 @@ public class ChangeLogFragment extends PassengerFragment {
 				"Crash fixes.",
 				"Reduced APK size.",
 				"More closely following http://semver.org/.",
-				"Localization update: "));
+				"Localization update: TH, RU."));
 
 		log.add(new VersionChangeLog(1, 3, "20150402", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/v140"),
 				"Lots of additional Emojis. Enable them in Settings.",

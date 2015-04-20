@@ -19,10 +19,14 @@
   <string name="main_tab_credits">Об авторах</string>
   <string name="how_to_pointer_title">Добро пожаловать в AnySoftKeyboard</string>
   <string name="how_to_pointer_version_prefix">Версия:</string>
+  <string name="how_to_pointer_not_app">AnySoftKeyboard не регулярно применяется - эта экранная клавиатура замена. </string>
   <string name="how_to_pointer_go_to_links">Посетите раздел ссылок для более подробной информации.</string>
   <string name="how_to_pointer_how_to_url">Инстркуция по эксплуатации:</string>
   <string name="how_to_pointer_site">Подробнее о программе:</string>
   <string name="how_to_pointer_changelog">Изменения в версиях:</string>
+  <string name="change_log_card_title_template">Последние изменения для v <xliff:g id="code">%s </xliff:g> \u0020 <xliff:g id="name"> %s </xliff:g></string>
+  <string name="change_log_entry_header_template">v <xliff:g id="code">%s </xliff:g> \u0020-\u0020 <xliff:g id="name"> %s </xliff:g></string>
+  <string name="change_log_entry_header_template_without_name">v <xliff:g id="code">%s </xliff:g></string>
   <string name="how_to_pointer_issues">Сообщить о дефекте:</string>
   <string name="main_tab_credits_title">Эта программа была создана с помощью:</string>
   <string name="main_tab_credits_created_by">Автор:</string>
@@ -100,6 +104,7 @@
   <string name="effects_group">Эффекты</string>
   <string name="ime_settings">Настройки Клавиатуры</string>
   <string name="vibrate_on_key_press_title">Вибрация при нажатии</string>
+  <string name="vibrate_on_key_press_summary">Уровень вибрации для нажатия кнопки. В настоящее время: %s</string>
   <string name="vibrate_on_key_press_dialog_title">Выбор типа и силы вибрации</string>
   <string-array name="vibrate_on_key_press_types">
     <item>Не вибрировать</item>
@@ -111,9 +116,16 @@
   <string name="sound_on_summary">Звуковой эффект при нажатии клавиш на виртуальной клавиатуре.</string>
   <string name="use_custom_sound_volume">Выставить громкость вручную</string>
   <string name="use_custom_sound_volume_on_summary">Громкость выставленна вручную.</string>
+  <string name="use_custom_sound_volume_off_summary">Звуковые эффекты являются системными уведомления.     </string>
   <string name="custom_sound_volume">Громкость при нажатии</string>
   <string name="speacial_fetures_group">Возможности</string>
   <string name="switch_keyboard_on_space">Пробел Переключает Раскладку</string>
+  <string name="switch_keyboard_on_space_on_summary">Переключение с символы/цифры алфавит при нажатии ПРОБЕЛ
+    </string>
+  <string name="switch_keyboard_on_space_off_summary">Не перейти от символы/цифры алфавита при нажатии ПРОБЕЛ    </string>
+  <string name="one_shot_quick_text_popup">Автоматическое закрытие после нажатия клавиши</string>
+  <string name="one_shot_quick_text_popup_on_summary">Закрыть всплывающее окно Quick-Text после нажатия клавиши</string>
+  <string name="one_shot_quick_text_popup_off_summary">Держите Quick-Text всплывающее окно открытым, пока не будет нажата Клавиша закрытия</string>
   <string name="hide_soft_when_physical">Скрыть виртуальную при аппаратной</string>
   <string name="hide_soft_when_physical_on_summary">Скрыть виртуальную клавиатуру при использовании аппаратной</string>
   <string name="hide_soft_when_physical_off_summary">Показывать виртуальную клавиатуру даже при использовании аппаратной</string>
@@ -140,6 +152,7 @@
   <string name="swipe_left_action_summary">Выберите действие, выполняемое при жесте вниз. Текущее действие: %s</string>
   <string name="swipe_left_action_title">Выбрать действие</string>
   <string name="swipe_right_action">Жест вправо</string>
+  <string name="swipe_right_action_summary">Выберите действие, выполняемое при жесте вправо. Текущее действие: %s</string>
   <string name="swipe_right_action_title">Выбрать действие</string>
   <string name="swipe_right_space_bar_action">Жест вправо от пробела</string>
   <string name="swipe_right_space_bar_action_summary">Выберите действие, выполняемое при жесте вправо от пробела. Текущее действие: %s</string>
@@ -230,17 +243,31 @@
   <string name="show_keyboard_name_on_summary">Показывать название раскладки на клавише пробела</string>
   <string name="show_keyboard_name_off_summary">Никогда не показывать название раскладки клавиатуры</string>
   <string name="use_custom_keytext_color">Изменить цвет ключегово текста</string>
+  <string name="use_custom_keytext_color_on_summary">Использовать цвет текста пользовательской кнопки</string>
+  <string name="use_custom_keytext_color_off_summary">Использовать цвет текста темы</string>
   <string name="show_hint_text">Показывать подсказки</string>
   <string name="show_hint_text_on_summary">Буквы-подсказки на клавишах видны, если тема поддерживает</string>
   <string name="show_hint_text_off_summary">Буквы-подсказки на клавишах не показываются</string>
+  <string name="use_custom_hint_color">Переопределить цвет подсказки</string>
+  <string name="use_custom_hint_color_on_summary">Использовать цвет текста пользовательской подсказки</string>
+  <string name="use_custom_hint_color_off_summary">Использовать цвет текста подсказки темы</string>
+  <string name="use_custom_hint_align">Переопределить позицию подсказки</string>
+  <string name="use_custom_hint_align_on_summary">Использовать пользовательские подсказки позиции текста</string>
+  <string name="use_custom_hint_align_off_summary">Использовать положение текста подсказки темы.</string>
+  <string name="custom_hint_align">Выровнять пользовательские подсказки в горизонтали</string>
+  <string name="custom_hint_align_summary">Выровнять текст подсказки слева, по центру или справа от кнопки</string>
+  <string name="settings_custom_hint_align_dialog_title">Выберите выравнивание текста подсказки для горизонтали</string>
   <string-array name="custom_hint_align_types">
     <item>Налево</item>
     <item>По центру</item>
     <item>Направо</item>
   </string-array>
+  <string name="custom_hint_valign">Выровнять пользовательские подсказки в вертикальном</string>
+  <string name="custom_hint_valign_summary">Выровнять текст подсказки в верхней или нижней части кнопки</string>
+  <string name="settings_custom_hint_valign_dialog_title">Выберите выравнивание текста подсказки для вертикальной</string>
   <string-array name="custom_hint_valign_types">
     <item>Верх</item>
-    <item>Bottom</item>
+    <item>Снизу</item>
   </string-array>
   <string name="is_sticky_extesion_keyboard">Прилепленная расширенная клавиатура</string>
   <string name="is_sticky_extesion_keyboard_on_summary">Остается видимой, пока не закрыто пользователем</string>
@@ -249,6 +276,11 @@
   <string name="is_extesion_keyboard_above_keyboard_on_summary">Отображать над основной клавиатурой</string>
   <string name="is_extesion_keyboard_above_keyboard_off_summary">Отображать прямо на основной клавиатуре</string>
   <string name="show_settings_app_in_launcher">Настройки</string>
+  <string name="settings_key_show_settings_app_on_summary">Настройки приложения будут видны в Лаунчере (может потребоваться перезагрузка)     </string>
+  <string name="settings_key_show_settings_app_off_summary">Скрыть настройки приложения (может потребоваться перезагрузка)</string>
+  <string name="show_crash_notification">Отчет о аварии</string>
+  <string name="show_crash_notification_on_summary">После аварии ASK откройте диалоговое окно Отчет аварии</string>
+  <string name="show_crash_notification_off_summary">Молча поглощать аварий</string>
   <string name="use_keyrepeat">Повторять клавиши</string>
   <string name="use_keyrepeat_on_summary">Повторение клавиш включено</string>
   <string name="use_keyrepeat_off_summary">Повторение клавиш выключено</string>
@@ -272,11 +304,17 @@
   <string name="zoom_factor_keys_in_portrait">Фактор высоты кнопок в вертикальном режиме</string>
   <string name="zoom_factor_keys_in_landscape">Фактор высоты кнопок в горизонтальном режиме</string>
   <string name="insert_space_after_word_suggestion_selection">Пробел После Совета</string>
+  <string name="insert_space_after_word_suggestion_selection_on_summary">Вставлять пробел после предложенного слова    </string>
   <string name="double_space_to_period">Двойной пробел в точку</string>
   <string name="double_space_to_period_summary">Нажатие на пробел дважды будет превращено в точку с пробелом</string>
   <string name="action_key_invisible_on_disable">Кнопка действия невидима</string>
   <string name="action_key_invisible_on_disable_on_summary">Кнопка действия будет невидимой, когда интерфейс запросит</string>
   <string name="action_key_invisible_on_disable_off_summary">Кнопка действия будет видимой, даже если интерфейс запросит спрятать</string>
+  <string name="tweak_animations_level_title">Анимация</string>
+  <string name="tweak_animations_level_summary">Сколько должна использоваться анимация. В настоящее время: %s</string>
+  <string name="tweak_animations_level_types_full">Полная</string>
+  <string name="tweak_animations_level_types_some">Некоторые</string>
+  <string name="tweak_animations_level_types_none">Нет</string>
   <string name="cycle_all_symbols_keyboards">Циклировать по всем символам</string>
   <string name="cycle_all_symbols_keyboards_on_summary">Кнопка символов будет циклировать через все символьные клавиатуры</string>
   <string name="cycle_all_symbols_keyboards_off_summary">Кнопка символов покажет только основную символьную клавиатуру</string>
@@ -285,9 +323,14 @@
   <string name="lang_key_shows_popup_off_summary">Кнопка языка будет циклировать через включенные языки</string>
   <string name="auto_caps">Авто-заглавные</string>
   <string name="grammer_group">Грамматика</string>
+  <string name="keyboard_behavior_group">Поведение клавиатуры</string>
   <string name="candidates_on">Показывать Советы</string>
+  <string name="candidates_on_summary">Будет отображен список предлагаемых слов над клавиатурой</string>
+  <string name="candidates_off_summary">Предложения не будут показываться</string>
   <string name="quick_fix">Быстрые исправления и аббревиатуры</string>
   <string name="quick_fix_summary">Исправлять часто вводимые ошибки и расшифровывать аббревиатуры, сокращения</string>
+  <string name="allow_suggestions_restart">Предложение перезагрузить</string>
+  <string name="allow_suggestions_restart_summary">Перезапуск предложенного слова при движении курсора</string>
   <string name="auto_complete">Автоисправление</string>
   <string name="auto_complete_summary">Нажатие пробела выберет предложенное слово</string>
   <string name="physical_keyboard_suggestions">Советы Встроенной Клавиатуры</string>
@@ -299,7 +342,10 @@
   <string name="auto_dict">Автоматический словарь</string>
   <string name="auto_dict_summary">Автоматически добавлять часто используюемые или отмеченные слова в словарь</string>
   <string name="no_extrenal_packs_support_title">Не поддерживается</string>
+  <string name="no_extrenal_packs_support_message">В настоящее время, AnySoftKeyboard не позволяет внешних блоков этого типа. \nOnce API спецификации были определены, эта функция будет открыта.\n Оставайтесь с нами.</string>
+  <string name="keyboards_group_extra_template"><xliff:g id="enabledLayouts">%s </xliff:g> / <xliff:g id="totalLayouts"> %s </xliff:g></string>
   <string name="keyboards_group">Языки Раскладок</string>
+  <string name="keyboards_group_summary">Раскладки клавиатуры для использования в AnySoftKeyboard</string>
   <string name="symbols_keyboard">123!#()</string>
   <string name="symbols_alt_keyboard">{}\_</string>
   <string name="symbols_alt_num_keyboard">123</string>
@@ -307,43 +353,77 @@
   <string name="symbols_numbers_keyboard">123</string>
   <string name="symbols_time_keyboard">время</string>
   <string name="eng_keyboard">Английский</string>
+  <string name="eng_keyboard_qwertywithsymbols">Английский с символами</string>
   <string name="eng_keyboard_16keys">16 Keys English</string>
   <string name="keyboard_change_locked">нет данных</string>
+  <string name="selected_add_on_summary">Теперь используется \'%s <xliff:g id="addOnName"> </xliff:g> \'     </string>
   <string name="additional_addons_group">Доп. дополнения</string>
   <string name="quick_text_keys_group">Клавиши быстрого текста</string>
+  <string name="quick_text_keys_order">Порядок быстрого создания текстовых групп</string>
+  <string name="quick_text_keys_order_dialog_title">Определить порядок групп</string>
+  <string name="quick_text_keys_order_summary">Порядок, в котором Быстрый Текстовые группы будут показаны в новом окне.</string>
   <string name="extension_keyboards_group">Доп. клавиши</string>
   <string name="extension_keyboards_summary">Выбрать верхнюю и нижнию строку и дополнительную клавиатуру</string>
   <string name="top_generic_row_group">Общий верхний ряд</string>
   <string name="top_generic_row_active">Активный верхний ряд</string>
   <string name="top_generic_row_dialog_title">Выбрать набор кнопок</string>
+  <string name="top_generic_row_summary">Выберите верхний ряд: %s</string>
   <string name="top_generic_row_list_title">Выбрать набор кнопок</string>
   <string name="bottom_generic_row_group">Общий нижний ряд</string>
+  <string name="bottom_generic_row_group_summary">Общий Нижний ряд кнопок во всех ваших клавиатурах</string>
   <string name="bottom_generic_row_active">Активный нижний ряд</string>
   <string name="bottom_generic_row_dialog_title">Выбрать набор кнопок</string>
+  <string name="bottom_generic_row_summary">Выберите нижний ряд: %s</string>
   <string name="bottom_generic_row_list_title">Выбрать тип кнопок</string>
   <string name="extension_keyboard_group">Доп. клавиши</string>
   <string name="extension_keyboard_active">Активная доп. клавиатура</string>
   <string name="extension_keyboard_dialog_title">Выбрать клавиатуру</string>
+  <string name="extension_keyboard_summary">Выберите расширения клавиатуры: %s</string>
   <string name="extension_keyboard_list_title">Выбрать клавиатуру</string>
   <string name="keyboard_theme_group">Темы оформления</string>
+  <string name="keyboard_themes_group_summary">Различные темы оформления для вашей экранной клавиатуры</string>
   <string name="keyboard_theme_active">Активная тема</string>
   <string name="keyboard_theme_dialog_title">Выбрать тему</string>
+  <string name="keyboard_theme_summary">Выбранная тема: %s</string>
   <string name="keyboard_theme_list_title">Темы на выбор</string>
   <string name="dark_plain_keyboard_theme_name">Плоская тёмная</string>
   <string name="dark_plain_keyboard_theme_description">Тёмные тона, простая графика</string>
   <string name="light_plain_keyboard_theme_name">Плоская светлая</string>
   <string name="light_plain_keyboard_theme_description">Светлые тона, простая графика</string>
+  <string name="blacktheme_keyboard_theme_name">Простой черный блеск</string>
+  <string name="blacktheme_keyboard_theme_description">Простая Черная тема с цветной подсветкой</string>
+  <string name="lean_dark_keyboard_theme_name">Простая черная</string>
+  <string name="lean_dark_keyboard_theme_description">Темная тема с минимальными элементами пользовательского интерфейса</string>
+  <string name="lean_dark_2_keyboard_theme_name">Простая черная - вариант 2</string>
+  <string name="lean_dark_big_keyboard_theme_name">Простая черная - с большими клавишами</string>
+  <string name="lean_dark_big_keyboard_theme_description">То же темная тема, но с большими клавишами.</string>
   <string name="extension_kbd_top_none">Без верхней строки</string>
   <string name="extension_kbd_top_small">Маленькие кнопки</string>
   <string name="extension_kbd_top_regular">Обычные кнопки</string>
   <string name="extension_kbd_top_small_numbers">Цифры</string>
+  <string name="extension_kbd_top_numbers_alt">Альтернативные цифровые кнопки</string>
+  <string name="extension_kbd_top_nav">Клавиши навигации</string>
+  <string name="extension_kbd_bottom_regular_with_voice">Обычные</string>
+  <string name="extension_kbd_bottom_regular">Классический (без микрофона)</string>
+  <string name="extension_kbd_bottom_iphone">iPhone стиль (без микрофона)</string>
+  <string name="extension_kbd_bottom_iphone_with_voice">iPhone стиль с микрофоном</string>
+  <string name="extension_kbd_bottom_alt">Альтернативный (без микрофона)</string>
+  <string name="extension_kbd_bottom_alt_with_mic">Альтернативный с микрофоном</string>
+  <string name="extension_kbd_bottom_ng">Новая генерация - тестирование</string>
+  <string name="extension_kbd_bottom_ng_desc">Игра вокруг с новой нижней строки</string>
   <string name="extension_kbd_extension_numbers_symbols">Цифры и символы</string>
   <string name="show_tutorial_on_startup">Показывать помощь при запуске</string>
   <string name="tutorial_swipe_title">Провод пальцем для изменения раскладки</string>
+  <string name="tutorial_swipe_text">Раскладку клавиатуры можно изменить свайпом по клавиатуре. Смахните слева направо, чтобы изменить язык, проведите пальцем справа налево для изменения символов.     </string>
   <string name="label_go_key">Пуск</string>
   <string name="label_next_key">Следующий</string>
+  <string name="label_previous_key">Пред</string>
   <string name="label_send_key">Отправить</string>
+  <string name="label_search_key">Поиск</string>
   <string name="label_done_key">Закончено</string>
+  <string name="label_tab_key">Закладка</string>
+  <string name="label_home_key">Главная</string>
+  <string name="label_end_key">Конец</string>
   <string name="change_lang_wide">→ АБВ →</string>
   <string name="change_lang_regular">АБВ</string>
   <string name="change_symbols_wide">← 123 ←</string>
@@ -356,16 +436,28 @@
   <string name="eng_dictionary">English</string>
   <string name="simley_key_name">Кнопка смайликов</string>
   <string name="default_quick_text_key_name">Простые смайлики</string>
+  <string name="unicode_quick_text_key_name">Смайлики</string>
   <string name="unicode_people_quick_text_key_name">Люди</string>
   <string name="unicode_gestures_quick_text_key_name">Жесты</string>
+  <string name="unicode_accessories_quick_text_key_name">Аксессуары</string>
   <string name="unicode_animals_quick_text_key_name">Животные</string>
   <string name="unicode_food_quick_text_key_name">Питание</string>
   <string name="unicode_nature_quick_text_key_name">Природа</string>
   <string name="unicode_transport_quick_text_key_name">Транспорт</string>
+  <string name="unicode_signs_quick_text_key_name">Знаки</string>
+  <string name="unicode_city_quick_text_key_name">Город</string>
+  <string name="unicode_activity_quick_text_key_name">Деятельность</string>
+  <string name="unicode_office_quick_text_key_name">Офис</string>
+  <string name="unicode_occasions_quick_text_key_name">Торжественные</string>
   <string name="multitap_timeout_title">Скорость многонажатия</string>
   <string name="multitap_timeout_summary">Время срабатывания режима "одна буква в два нажатия"</string>
+  <string name="settings_multitap_timeout_disabled">Отключено</string>
+  <string name="settings_multitap_timeout_faster">Быстрее</string>
+  <string name="settings_multitap_timeout_fast">Быстро</string>
+  <string name="settings_multitap_timeout_normal">Нормальное</string>
   <string name="settings_multitap_timeout_slow">Медленно</string>
   <string name="settings_multitap_timeout_slower">Медленней</string>
+  <string name="settings_multitap_timeout_never">Ждать вечно</string>
   <string name="long_press_timeout_title">Время долгого нажатия</string>
   <string name="long_press_timeout_summary">Время срабатывания долгого нажатия</string>
   <string name="settings_long_press_timeout_faster">Быстрее</string>
@@ -374,30 +466,71 @@
   <string name="settings_long_press_timeout_slow">Медленно</string>
   <string name="settings_long_press_timeout_slower">Медленней</string>
   <string name="settings_long_press_timeout_never">Никогда</string>
+  <string name="tweak_workarounds_group">Временные решения</string>
+  <string name="workaround_disable_rtl_fix">Отключить обработку справа-налево</string>
+  <string name="workaround_disable_rtl_fix_summary_on">Использование ОС RTL обработки (для SE телефонов)</string>
+  <string name="workaround_disable_rtl_fix_summary_off">Использование обработки AnySoftKeyboard RTL </string>
   <string name="settings_split_state_title">Начальное состояние разорванности</string>
+  <string name="settings_split_state_summary">Определите, разделена ли клавиатура по умолчанию. Сейчас: %s</string>
   <string name="settings_split_state_merged_always">Склеенная во всех положениях</string>
   <string name="settings_split_state_split_in_landscape">Разорванная когда в горизонтальном</string>
   <string name="settings_split_state_split_always">Разорванная во всех положениях</string>
+  <string name="settings_split_state_compact_right_always">Начать уплотнение направо</string>
+  <string name="settings_split_state_compact_left_always">Начать уплотнение налево</string>
   <string name="user_dictionary_select_locale">Язык:</string>
+  <string name="user_dictionary_read_please_wait">Чтение слов...</string>
+  <string name="user_dict_settings_titlebar">Словарь пользователя</string>
+  <string name="user_dict_editor">Редактор слов</string>
   <string name="abbreviation_dict_settings_titlebar">Редактор аббревиатур</string>
   <string name="abbreviation_dict_editor">Редактор аббревиатур</string>
+  <string name="abbreviation_dict_word_template"><i><xliff:g id="abbreviation">%s </xliff:g></i> \u0020\u2192\u0020 <i><xliff:g id="target"> %s </xliff:g></i></string>
+  <string name="user_dict_settings_add_dialog_title">Добавить в словарь</string>
+  <string name="user_dict_settings_edit_dialog_title">Изменить слово</string>
+  <string name="user_dict_settings_empty_text">Не имеют каких-либо слов в словаре пользователя. Теперь вы можете добавить ваше первое слово.</string>
+  <string name="user_dict_backup_success_title">Резервное копирование сделано!</string>
+  <string name="user_dict_backup_success_text">Ваши слова успешно хранятся на устройстве в /Android/data/com.menny.android.anysoftkeyboard/files/     </string>
+  <string name="user_dict_backup_fail_title">Сбой резервного копирования!</string>
+  <string name="user_dict_backup_fail_text">Не удалось сохранить ваши файлы!  Используется для хранения?</string>
+  <string name="user_dict_backup_fail_text_with_error">Не удалось сохранить слова из-за: <xliff:g id="error"> %s </xliff:g>
+    </string>
   <string name="user_dict_restore_success_title">Восстановление завершено!</string>
+  <string name="user_dict_restore_success_text">Успешно восстановлены ваши слова.</string>
   <string name="user_dict_restore_fail_title">Восстановление потерпело неудачу!</string>
+  <string name="user_dict_restore_fail_text">Не удалось прочитать файлы резервной копии! Используется для хранения?</string>
+  <string name="user_dict_restore_fail_text_with_error">Не удается восстановить слова из-за: <xliff:g id="error">%s </xliff:g> </string>
+  <string name="fast_scroll_alphabet">ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+  <string name="should_swap_punctuation_and_space_title">Замена пунктуации и пробела</string>
   <string name="should_swap_punctuation_and_space_yes">Да</string>
   <string name="should_swap_punctuation_and_space_no">Нет</string>
+  <string name="initial_quick_text_tab_title">Начальная группа</string>
+  <string name="initial_quick_text_tab_summary">Быстрый-текст группы начать с: %s</string>
+  <string name="initial_quick_text_tab_always_first_tab">Всегда начинать с первой</string>
+  <string name="initial_quick_text_tab_last_used_tab">Начать использовать с последней группы </string>
   <string name="developer_tools">Инструменты разработчика</string>
   <string name="click_for_developer_features">Инструменты разработчика</string>
+  <string name="click_for_developer_features_summary">Различные инструменты для разработчиков AnySoftKeyboard</string>
+  <string name="failed_to_create_mem_dump">Не удалось создать файл дампа памяти из-за: <xliff:g id="message">%s </xliff:g>     </string>
+  <string name="created_mem_dump_file">Создан файл дампа памяти в: <xliff:g id="file_path">%s </xliff:g>     </string>
+  <string name="drawer_open">Открыть меню</string>
+  <string name="drawer_close">Закрыть меню</string>
   <string name="not_configured_with_click_here">AnySoftKeyboard не включен. Нажмите здесь, чтобы включить.</string>
   <string name="not_configured_with_just_click_here">Нажмите здесь</string>
+  <string name="click_for_more">Подробнее...</string>
   <string name="back_button_label">Назад</string>
   <string name="next_button_label">Вперёд</string>
+  <string name="skip_button_label">Пропустить</string>
   <string name="word_editor_action_add_word">Добавить слово</string>
   <string name="word_editor_action_backup_words">Резервировать</string>
+  <string name="word_editor_action_restore_words">Восстановить</string>
+  <string name="click_to_add_new_word">Нажмите, чтобы добавить новое слово</string>
+  <string name="enter_word_hint">Введите новое слово здесь</string>
   <string name="enter_abbreviation_hint">Аббревиатура</string>
   <string name="enter_abbreviation_target_hint">Полное предложение</string>
   <string name="toggle_button_on">Вкл</string>
   <string name="toggle_button_off">Выкл</string>
+  <string name="about_additional_software_licenses">Дополнительные лицензии на программное обеспечение</string>
   <string name="wizard_step_previous_step_not_complete_title">Предыдущий шаг установки не выполнен</string>
+  <string name="wizard_step_previous_step_not_complete_text">Пожалуйста, проведите к предыдущему шагу, и следуйте инструкциям на экране.</string>
   <string name="wizard_step_this_step_complete_title">Шаг выполнен!</string>
   <string name="wizard_step_this_step_complete_text_enabled"><i>AnySoftKeyboard</i> включен.</string>
   <string name="wizard_step_this_step_complete_text_switched"><i>AnySoftKeyboard</i> является клавиатурой по умолчанию. Вы желаете воспользоваться дополнительными возможностями: установить языки, поменять тему?</string>
@@ -418,12 +551,18 @@
   <string name="setup_wizard_step_three_action_languages">Установка языков…</string>
   <string name="setup_wizard_step_three_action_themes">Выбрать тему...</string>
   <string name="setup_wizard_step_three_action_all_settings">Персональные настройки…</string>
+  <string name="ime_crashed_title">AnySoftKeyboard разбился!</string>
+  <string name="ime_crashed_sub_text">К сожалению, не видел, что идет ...</string>
+  <string name="ime_crashed_ticker">К сожалению, AnySoftKeyboard разбился, не видел, что идет ...</string>
+  <string name="ime_crashed_text">К сожалению, есть проблема с <i>AnySoftKeyboard</i>. Не паникуйте, есть что-то <b> вы </b> может сделать, чтобы помочь решить эту проблему: послать нам отчет по аварии, и мы \ \'сделаем  самое лучшее для того чтобы решить эту аварию и вы получите обратно с удивительным опытом клавиатуры! \ N \ N с искренним извинением, команда Dev.</string>
   <string name="ime_crashed_send_button">Отправить</string>
   <string name="ime_crashed_cancel_button">Отменить</string>
+  <string name="ime_crashed_intent_selector_title">Отправить отчет аварии через</string>
   <string name="setup_wizard_step_one">Шаг 1:</string>
   <string name="setup_wizard_step_two">Шаг 2:</string>
   <string name="setup_wizard_step_three">Шаг 3:</string>
   <string name="about_donate">Пожертвования:</string>
+  <string name="tutorial_menu_open_menu">Кнопка открывает Настройки</string>
   <string name="tutorial_menu_close_menu">И также закрывает их</string>
   <string name="main_fragment_go_to_settings_button">Перейти в настройки</string>
   <string name="quick_text_tab_title_template"><xliff:g id="first_key">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
