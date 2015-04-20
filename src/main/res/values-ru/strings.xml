@@ -25,7 +25,7 @@
   <string name="how_to_pointer_site">Подробнее о программе:</string>
   <string name="how_to_pointer_changelog">Изменения в версиях:</string>
   <string name="change_log_card_title_template">Последние изменения для v <xliff:g id="code">%s </xliff:g> \u0020 <xliff:g id="name"> %s </xliff:g></string>
-  <string name="change_log_entry_header_template">v <xliff:g id="code">%s </xliff:g> \u0020-\u0020 <xliff:g id="name"> %s </xliff:g></string>
+  
   <string name="change_log_entry_header_template_without_name">v <xliff:g id="code">%s </xliff:g></string>
   <string name="how_to_pointer_issues">Сообщить о дефекте:</string>
   <string name="main_tab_credits_title">Эта программа была создана с помощью:</string>
