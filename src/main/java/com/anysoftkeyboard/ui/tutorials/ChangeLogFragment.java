@@ -19,10 +19,8 @@ package com.anysoftkeyboard.ui.tutorials;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.TextUtils;
 import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,28 +34,7 @@ import net.evendanan.pushingpixels.FragmentChauffeurActivity;
 import net.evendanan.pushingpixels.PassengerFragment;
 import net.evendanan.pushingpixels.PassengerFragmentSupport;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 public class ChangeLogFragment extends PassengerFragment {
-
-	private static class VersionChangeLog {
-		public final String versionName;
-		public final String[] changes;
-		public final Uri changesWebUrl;
-
-		public VersionChangeLog(int major, int minor, String qualifier, Uri changesWebUrl, String... changes) {
-			if (TextUtils.isEmpty(qualifier)) {
-				this.versionName = String.format(Locale.US, "%d.%d", major, minor);
-			} else {
-				this.versionName = String.format(Locale.US, "%d.%d-%s", major, minor, qualifier);
-			}
-
-			this.changes = changes;
-			this.changesWebUrl = changesWebUrl;
-		}
-	}
 
 	private static final String EXTRA_LOGS_TO_SHOW = "EXTRA_LOGS_TO_SHOW";
 
@@ -101,24 +78,6 @@ public class ChangeLogFragment extends PassengerFragment {
 		return R.layout.changelog;
 	}
 
-	private static List<VersionChangeLog> createChangeLog() {
-		List<VersionChangeLog> log = new ArrayList<>();
-		log.add(new VersionChangeLog(1, 4, "", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.4"),
-				"Crash fixes.",
-				"Reduced APK size.",
-				"More closely following http://semver.org/.",
-				"Localization update: TH, RU."));
-
-		log.add(new VersionChangeLog(1, 3, "20150402", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/v140"),
-				"Lots of additional Emojis. Enable them in Settings.",
-				"Small UI fix for Emoji settings.",
-				"Reduced APK size.",
-				"Removed Tips popup.",
-				"Localization update: RU, AR, ES, CA, NO, TR."));
-
-		return log;
-	}
-
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
@@ -129,7 +88,7 @@ public class ChangeLogFragment extends PassengerFragment {
 
 		mAppPrefs = PreferenceManager.getDefaultSharedPreferences(appContext);
 
-		for (VersionChangeLog change : createChangeLog()) {
+		for (VersionChangeLogs.VersionChangeLog change : VersionChangeLogs.createChangeLog()) {
 			View logHeader = inflater.inflate(R.layout.changelogentry_header, mLogContainer, false);
 			TextView versionName = (TextView) logHeader.findViewById(R.id.changelog_version_title);
 			versionName.setPaintFlags(versionName.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
