@@ -137,8 +137,7 @@ dependencies {
 
     compile 'net.evendanan.anysoftkeyboard:api:1.2.3@aar'
     compile 'net.evendanan:frankenrobot:1.1.3@aar'
-    compile 'com.android.support:support-v4:22.0.0'
-    compile 'com.android.support:appcompat-v7:22.0.0'
+    compile 'com.android.support:appcompat-v7:22.1.0'
     compile 'com.android.support:recyclerview-v7:21.0.3'
     compile 'com.android.support:support-annotations:21.0.0'
     compile fileTree(dir: 'libs', include: '*.jar')
