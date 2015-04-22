@@ -27,7 +27,7 @@
   <string name="how_to_pointer_how_to_url">Informació quant a l\'ús d\'aquest teclat:</string>
   <string name="how_to_pointer_site">Informació del projecte:</string>
   <string name="how_to_pointer_changelog">Notes de la versió:</string>
-  <string name="change_log_card_title_template">Darrers canvis per <xliff:g id="code"> %s </xliff:g> \u0020 <xliff:g id="name"> %s </xliff:g></string>
+  
   
   <string name="change_log_entry_header_template_without_name">v<xliff:g id="code">%s</xliff:g></string>
   <string name="how_to_pointer_issues">Com informar d\'errors:</string>

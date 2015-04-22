@@ -153,7 +153,7 @@ public class ChangeLogFragment extends PassengerFragment {
 
 		@Override
 		protected void setTitleText(TextView titleView, String versionName) {
-			titleView.setText(getString(R.string.change_log_card_title_template, versionName));
+			titleView.setText(getString(R.string.change_log_card_version_title_template, versionName));
 		}
 	}
 }

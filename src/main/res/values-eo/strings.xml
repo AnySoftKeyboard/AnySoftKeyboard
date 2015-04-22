@@ -47,7 +47,7 @@
   <string name="how_to_pointer_how_to_url">Detaloj pri kiel uzi ĉi tiun klavaron:</string>
   <string name="how_to_pointer_site">Ĝeneralaj detaloj:</string>
   <string name="how_to_pointer_changelog">Detaloj pri la lasta versio:</string>
-  <string name="change_log_card_title_template">Lastaj ŝanĝoj pri v<xliff:g id="code">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
+  
   <string name="how_to_pointer_issues">Cima reportado:</string>
   <string name="main_tab_credits_created_by">Kreita de:</string>
   <string name="main_tab_credits_GUI_by">Interfacaj bildoj fare de:</string>

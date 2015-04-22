@@ -27,7 +27,7 @@
   <string name="how_to_pointer_how_to_url">Veiledning om hvordan man bruker dette tastaturet:</string>
   <string name="how_to_pointer_site">Generelle detaljer:</string>
   <string name="how_to_pointer_changelog">Detaljer om den siste versjonen:</string>
-  <string name="change_log_card_title_template">Siste endringer for v <xliff:g id="code"> %s </xliff:g> \u0020 <xliff:g id="name"> %s </xliff:g></string>
+  
   
   <string name="change_log_entry_header_template_without_name">v <xliff:g id="code"> %s </xliff:g></string>
   <string name="how_to_pointer_issues">Feilrapportering:</string>
