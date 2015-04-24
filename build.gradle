@@ -18,6 +18,7 @@ buildscript {
 apply plugin: 'android-sdk-manager'
 apply plugin: 'com.android.application'
 apply plugin: 'pmd'
+apply plugin: 'jacoco'
 
 version versionbuilder.VersionBuilder.buildGitVersionName()
 group 'net.evendanan'
@@ -41,7 +42,6 @@ android.applicationVariants.all { variant ->
 }
 
 android {
-
     packagingOptions {
         exclude 'LICENSE.txt'
         exclude 'META-INF/LICENSE'
@@ -113,7 +113,11 @@ android {
             signingConfig signingConfigs.release
             zipAlignEnabled true
             debuggable true
+            testCoverageEnabled false
         }
+    }
+    jacoco {
+        version "0.7.1.201405082137"
     }
     splits {
         density {
@@ -121,6 +125,43 @@ android {
             //these will merged into the universal APK
             //I'm trying to really reduce the size of the low densities.
             exclude "tvdpi", "xxhdpi", "xxxhdpi"
+        }
+    }
+}
+
+jacoco {
+    toolVersion "0.7.1.201405082137"
+}
+
+// Define coverage source.
+// If you have rs/aidl etc... add them here.
+def coverageSourceDirs = [
+        'src/main/java',
+]
+
+task jacocoTestReport(type: JacocoReport, dependsOn: "testDebug") {
+    group = "Reporting"
+    description = "Generate Jacoco coverage reports after running tests."
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+    classDirectories = fileTree(
+            dir: './build/intermediates/classes/debug',
+            excludes: ['**/R*.class',
+                       '**/*$InjectAdapter.class',
+                       '**/*$ModuleAdapter.class',
+                       '**/*$ViewInjector*.class'
+            ])
+    sourceDirectories = files(coverageSourceDirs)
+    executionData = files("$buildDir/jacoco/testDebug.exec")
+    // Bit hacky but fixes https://code.google.com/p/android/issues/detail?id=69174.
+    // We iterate through the compiled .class tree and rename $$ to $.
+    doFirst {
+        new File("$buildDir/intermediates/classes/").eachFileRecurse { file ->
+            if (file.name.contains('$$')) {
+                file.renameTo(file.path.replace('$$', '$'))
+            }
         }
     }
 }
