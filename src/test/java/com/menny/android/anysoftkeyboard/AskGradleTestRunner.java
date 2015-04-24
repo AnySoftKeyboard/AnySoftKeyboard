@@ -16,8 +16,7 @@ public class AskGradleTestRunner extends RobolectricGradleTestRunner {
 	@Override
 	public Config getConfig(Method method) {
 		Config config = super.getConfig(method);
-		/*
-		Fixing up the Config:
+		/* Fixing up the Config:
 		* SDK can not be higher than 21
 		* constants must point to a real BuildConfig class
 		 */
@@ -25,6 +24,7 @@ public class AskGradleTestRunner extends RobolectricGradleTestRunner {
 				config.emulateSdk()),
 				config.manifest(),
 				config.qualifiers(),
+				config.packageName(),
 				config.resourceDir(),
 				config.assetDir(),
 				ensureSdkLevel(config.reportSdk()),
