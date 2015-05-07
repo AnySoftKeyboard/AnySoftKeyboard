@@ -3,6 +3,7 @@ package com.menny.android.anysoftkeyboard;
 import org.junit.runners.model.InitializationError;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
+import org.robolectric.manifest.AndroidManifest;
 
 import java.lang.reflect.Method;
 
@@ -14,20 +15,23 @@ public class AskGradleTestRunner extends RobolectricGradleTestRunner {
 	}
 
 	@Override
+	protected int pickSdkVersion(Config config, AndroidManifest manifest) {
+		return ensureSdkLevel(super.pickSdkVersion(config, manifest));
+	}
+
+	@Override
 	public Config getConfig(Method method) {
 		Config config = super.getConfig(method);
 		/* Fixing up the Config:
-		* SDK can not be higher than 21
 		* constants must point to a real BuildConfig class
 		 */
-		config = new Config.Implementation(ensureSdkLevel(
-				config.emulateSdk()),
+		config = new Config.Implementation(
+				config.sdk(),
 				config.manifest(),
 				config.qualifiers(),
 				config.packageName(),
 				config.resourceDir(),
 				config.assetDir(),
-				ensureSdkLevel(config.reportSdk()),
 				config.shadows(),
 				config.application(),
 				config.libraries(),
