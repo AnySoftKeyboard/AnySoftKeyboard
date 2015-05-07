@@ -313,8 +313,9 @@ public class PointerTracker {
         if (mKeyAlreadyProcessed)
             return;
         final KeyState keyState = mKeyState;
+        final int oldKeyIndex = keyState.getKeyIndex();
         int keyIndex = keyState.onMoveKey(x, y);
-        final Key oldKey = getKey(keyState.getKeyIndex());
+        final Key oldKey = getKey(oldKeyIndex);
         if (isValidKeyIndex(keyIndex)) {
             if (oldKey == null) {
                 // The pointer has been slid in to the new key, but the finger was not on any keys.
@@ -351,6 +352,9 @@ public class PointerTracker {
                 }
                 keyState.onMoveToNewKey(keyIndex, x, y);
                 startLongPressTimer(keyIndex);
+                if (oldKeyIndex != keyIndex) {
+                    mProxy.hidePreview(oldKeyIndex, this);
+                }
             }
         } else {
             if (oldKey != null && !isMinorMoveBounce(x, y, keyIndex)) {
@@ -362,6 +366,9 @@ public class PointerTracker {
                 resetMultiTap();
                 keyState.onMoveToNewKey(keyIndex, x, y);
                 mHandler.cancelLongPressTimer();
+                if (oldKeyIndex != keyIndex) {
+                    mProxy.hidePreview(oldKeyIndex, this);
+                }
             }
         }
         showKeyPreviewAndUpdateKey(keyState.getKeyIndex());
