@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="maximum_instances_of_preview_popups">4</integer>
+    <integer name="maximum_instances_of_preview_popups">5</integer>
 </resources>

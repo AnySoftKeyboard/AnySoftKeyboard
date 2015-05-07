@@ -108,6 +108,7 @@ public class PreviewPopupManager {
 	}
 
 	public void cancelAllPreviews() {
+		Thread.dumpStack();
 		mUIHandler.cancelAllMessages();
 		for (PreviewPopup previewPopup : mActivePreviewPopups) {
 			previewPopup.dismiss();
