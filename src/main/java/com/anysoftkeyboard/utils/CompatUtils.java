@@ -78,4 +78,8 @@ public class CompatUtils {
             view.setBackgroundDrawable(drawable);
         }
     }
+
+    public static void unbindDrawable(Drawable d) {
+        if (d != null) d.setCallback(null);
+    }
 }

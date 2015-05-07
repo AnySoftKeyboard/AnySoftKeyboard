@@ -30,11 +30,13 @@ public class PointerTracker {
     private static final boolean DEBUG_MOVE = false;
 
     public interface UIProxy {
-        public void invalidateKey(Key key);
+        void invalidateKey(Key key);
 
-        public void showPreview(int keyIndex, PointerTracker tracker);
+        void showPreview(int keyIndex, PointerTracker tracker);
 
-        public boolean hasDistinctMultitouch();
+        void hidePreview(int keyIndex, PointerTracker tracker);
+
+        boolean hasDistinctMultitouch();
     }
 
     public final int mPointerId;
@@ -368,12 +370,12 @@ public class PointerTracker {
     public void onUpEvent(int x, int y, long eventTime) {
         debugLog("onUpEvent  :", x, y);
         mHandler.cancelKeyTimers();
-        mHandler.cancelPopupPreview();
         showKeyPreviewAndUpdateKey(NOT_A_KEY);
         mIsInSlidingKeyInput = false;
         if (mKeyAlreadyProcessed)
             return;
         int keyIndex = mKeyState.onUpKey(x, y);
+        mProxy.hidePreview(keyIndex, this);
         if (isMinorMoveBounce(x, y, keyIndex)) {
             // Use previous fixed key index and coordinates.
             keyIndex = mKeyState.getKeyIndex();
@@ -391,12 +393,11 @@ public class PointerTracker {
     public void onCancelEvent(int x, int y, long eventTime) {
         debugLog("onCancelEvt:", x, y);
         mHandler.cancelKeyTimers();
-        mHandler.cancelPopupPreview();
+        int keyIndex = mKeyState.getKeyIndex();
+        mProxy.hidePreview(keyIndex, this);
         showKeyPreviewAndUpdateKey(NOT_A_KEY);
         mIsInSlidingKeyInput = false;
-        int keyIndex = mKeyState.getKeyIndex();
-        if (isValidKeyIndex(keyIndex))
-            mProxy.invalidateKey(mKeys[keyIndex]);
+        if (isValidKeyIndex(keyIndex)) mProxy.invalidateKey(mKeys[keyIndex]);
     }
 
     public void repeatKey(int keyIndex) {
@@ -460,14 +461,7 @@ public class PointerTracker {
 
     private void showKeyPreviewAndUpdateKey(int keyIndex) {
         updateKey(keyIndex);
-        // The modifier key, such as shift key, should not be shown as preview when multi-touch is
-        // supported. On the other hand, if multi-touch is not supported, the modifier key should
-        // be shown as preview.
-        if (mHasDistinctMultitouch && isModifier()) {
-            mProxy.showPreview(NOT_A_KEY, this);
-        } else {
-            mProxy.showPreview(keyIndex, this);
-        }
+        mProxy.showPreview(keyIndex, this);
     }
 
     private void startLongPressTimer(int keyIndex) {

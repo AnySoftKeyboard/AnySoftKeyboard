@@ -45,17 +45,13 @@ import android.util.AttributeSet;
 import android.util.FloatMath;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
-import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
-import android.widget.TextView;
 
 import com.anysoftkeyboard.AskPrefs.AnimationsLevel;
 import com.anysoftkeyboard.api.KeyCodes;
@@ -69,6 +65,7 @@ import com.anysoftkeyboard.keyboards.Keyboard.Key;
 import com.anysoftkeyboard.keyboards.KeyboardDimens;
 import com.anysoftkeyboard.keyboards.KeyboardSupport;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
+import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupManager;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextViewFactory;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
@@ -99,8 +96,6 @@ public class AnyKeyboardBaseView extends View implements
 
     // Miscellaneous constants
     public static final int NOT_A_KEY = -1;
-
-    private static final int[] LONG_PRESSABLE_STATE_SET = {android.R.attr.state_long_pressable};
 
     private final KeyDrawableStateProvider mDrawableStatesProvider;
 
@@ -133,7 +128,6 @@ public class AnyKeyboardBaseView extends View implements
     private float mBackgroundDimAmount;
     private float mKeyHysteresisDistance;
     private float mVerticalCorrection;
-    private int mPreviewOffset;
 
     // Main keyboard
     private AnyKeyboard mKeyboard;
@@ -141,25 +135,7 @@ public class AnyKeyboardBaseView extends View implements
 
     private Key[] mKeys;
 
-    // Key preview popup
-    private ViewGroup mPreviewLayout;
-    private TextView mPreviewText;
-    private ImageView mPreviewIcon;
-    private PopupWindow mPreviewPopup;
-    private int mPreviewKeyTextSize;
-    private int mPreviewLabelTextSize;
-    private int mPreviewPaddingWidth = -1;
-    private int mPreviewPaddingHeight = -1;
-    // private int mPreviewTextSizeLarge;
-    private int[] mOffsetInWindow;
-    private int mOldPreviewKeyIndex = NOT_A_KEY;
-    private boolean mShowPreview = true;
-    private int mPopupPreviewOffsetX;
-    private int mPopupPreviewOffsetY;
-    private int mWindowY;
-    private int mPopupPreviewDisplayedY;
-    private final int mDelayBeforePreview;
-    private final int mDelayAfterPreview;
+    PreviewPopupManager mPreviewPopupManager;
 
     // Popup mini keyboard
     protected final PopupWindow mMiniKeyboardPopup;
@@ -233,10 +209,6 @@ public class AnyKeyboardBaseView extends View implements
 
     private final UIHandler mHandler = new UIHandler(this);
 
-    private Drawable mPreviewKeyBackground;
-
-    private int mPreviewKeyTextColor;
-
     private final KeyboardDimensFromTheme mKeyboardDimens = new KeyboardDimensFromTheme();
     private boolean mTouchesAreDisabledTillLastFingerIsUp = false;
 
@@ -253,7 +225,7 @@ public class AnyKeyboardBaseView extends View implements
 
     public void disableTouchesTillFingersAreUp() {
         mHandler.cancelAllMessages();
-        mHandler.dismissPreview(0);
+        mPreviewPopupManager.cancelAllPreviews();
         dismissPopupKeyboard();
 
         for(PointerTracker tracker : mPointerTrackers) {
@@ -269,8 +241,6 @@ public class AnyKeyboardBaseView extends View implements
 
         private final WeakReference<AnyKeyboardBaseView> mKeyboard;
 
-        private static final int MSG_POPUP_PREVIEW = 1;
-        private static final int MSG_DISMISS_PREVIEW = 2;
         private static final int MSG_REPEAT_KEY = 3;
         private static final int MSG_LONG_PRESS_KEY = 4;
 
@@ -286,12 +256,6 @@ public class AnyKeyboardBaseView extends View implements
             if (keyboard == null)
                 return;
             switch (msg.what) {
-                case MSG_POPUP_PREVIEW:
-                    keyboard.showKey(msg.arg1, (PointerTracker) msg.obj);
-                    break;
-                case MSG_DISMISS_PREVIEW:
-                    keyboard.mPreviewPopup.dismiss();
-                    break;
                 case MSG_REPEAT_KEY: {
                     final PointerTracker tracker = (PointerTracker) msg.obj;
                     tracker.repeatKey(msg.arg1);
@@ -305,38 +269,6 @@ public class AnyKeyboardBaseView extends View implements
                     break;
                 }
             }
-        }
-
-        public void popupPreview(long delay, int keyIndex,
-                                 PointerTracker tracker) {
-            AnyKeyboardBaseView keyboard = mKeyboard.get();
-            if (keyboard == null)
-                return;
-            removeMessages(MSG_POPUP_PREVIEW);
-            if (keyboard.mPreviewPopup.isShowing()
-                    && keyboard.mPreviewLayout.getVisibility() == VISIBLE) {
-                // Show right away, if it's already visible and finger is moving
-                // around
-                keyboard.showKey(keyIndex, tracker);
-            } else {
-                sendMessageDelayed(
-                        obtainMessage(MSG_POPUP_PREVIEW, keyIndex, 0, tracker),
-                        delay);
-            }
-        }
-
-        public void cancelPopupPreview() {
-            removeMessages(MSG_POPUP_PREVIEW);
-        }
-
-        public void dismissPreview(long delay) {
-            if (mKeyboard.get().mPreviewPopup.isShowing()) {
-                sendMessageDelayed(obtainMessage(MSG_DISMISS_PREVIEW), delay);
-            }
-        }
-
-        public void cancelDismissPreview() {
-            removeMessages(MSG_DISMISS_PREVIEW);
         }
 
         public void startKeyRepeatTimer(long delay, int keyIndex,
@@ -374,8 +306,6 @@ public class AnyKeyboardBaseView extends View implements
 
         public void cancelAllMessages() {
             cancelKeyTimers();
-            cancelPopupPreview();
-            cancelDismissPreview();
         }
     }
 
@@ -452,6 +382,7 @@ public class AnyKeyboardBaseView extends View implements
 
     public AnyKeyboardBaseView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        mPreviewPopupManager = new PreviewPopupManager(context, this);
         //creating the KeyDrawableStateProvider, as it suppose to be backward compatible
         int keyTypeFunctionAttrId = R.attr.key_type_function;
         int keyActionAttrId = R.attr.key_type_action;
@@ -459,13 +390,6 @@ public class AnyKeyboardBaseView extends View implements
         int keyActionTypeSearchAttrId = R.attr.action_search;
         int keyActionTypeGoAttrId = R.attr.action_go;
 
-        LayoutInflater inflate = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        // int previewLayout = 0;
-        mPreviewKeyTextSize = -1;
-        mPreviewLabelTextSize = -1;
-        mPreviewKeyBackground = null;
-        mPreviewKeyTextColor = 0xFFF;
         final int[] padding = new int[]{0, 0, 0, 0};
 
         KeyboardTheme theme = KeyboardThemeFactory
@@ -589,31 +513,7 @@ public class AnyKeyboardBaseView extends View implements
         super.setPadding(padding[0], padding[1], padding[2], padding[3]);
 
         final Resources res = getResources();
-        mKeyboardDimens.setKeyboardMaxWidth(res.getDisplayMetrics().widthPixels
-                - padding[0] - padding[2]);
-        mPreviewPopup = new PopupWindow(context);
-        if (mPreviewKeyTextSize > 0) {
-            if (mPreviewLabelTextSize <= 0)
-                mPreviewLabelTextSize = mPreviewKeyTextSize;
-            mPreviewLayout = inflatePreviewWindowLayout(inflate);
-            mPreviewText = (TextView) mPreviewLayout.findViewById(R.id.key_preview_text);
-            mPreviewText.setTextColor(mPreviewKeyTextColor);
-            mPreviewText.setTypeface(mKeyTextStyle);
-            mPreviewIcon = (ImageView) mPreviewLayout.findViewById(R.id.key_preview_icon);
-            mPreviewPopup.setBackgroundDrawable(mPreviewKeyBackground);
-            mPreviewPopup.setContentView(mPreviewLayout);
-            mShowPreview = mPreviewLayout != null;
-        } else {
-            mPreviewLayout = null;
-            mPreviewText = null;
-            mShowPreview = false;
-        }
-        mPreviewPopup.setTouchable(false);
-        mPreviewPopup
-                .setAnimationStyle((mAnimationLevel == AnimationsLevel.None) ? 0
-                        : R.style.KeyPreviewAnimation);
-        mDelayBeforePreview = 0;
-        mDelayAfterPreview = 10;
+        mKeyboardDimens.setKeyboardMaxWidth(res.getDisplayMetrics().widthPixels - padding[0] - padding[2]);
 
         mMiniKeyboardParent = this;
         mMiniKeyboardPopup = new PopupWindow(context.getApplicationContext());
@@ -652,10 +552,6 @@ public class AnyKeyboardBaseView extends View implements
 
     protected KeyDetector createKeyDetector(final float slide) {
         return new MiniKeyboardKeyDetector(slide);
-    }
-
-    protected ViewGroup inflatePreviewWindowLayout(LayoutInflater inflate) {
-        return (ViewGroup) inflate.inflate(R.layout.key_preview, null);
     }
 
     public boolean setValueFromTheme(TypedArray remoteTypedArray, final int[] padding,
@@ -703,29 +599,29 @@ public class AnyKeyboardBaseView extends View implements
                             + mVerticalCorrection);
                     break;
                 case R.attr.keyPreviewBackground:
-                    mPreviewKeyBackground = remoteTypedArray.getDrawable(remoteTypedArrayIndex);
+                    mPreviewPopupManager.getPreviewPopupTheme().setPreviewKeyBackground(remoteTypedArray.getDrawable(remoteTypedArrayIndex));
                     Log.d(TAG, "AnySoftKeyboardTheme_keyPreviewBackground "
-                            + (mPreviewKeyBackground != null));
+                            + (mPreviewPopupManager.getPreviewPopupTheme().getPreviewKeyBackground() != null));
                     break;
                 case R.attr.keyPreviewTextColor:
-                    mPreviewKeyTextColor = remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFFF);
+                    mPreviewPopupManager.getPreviewPopupTheme().setPreviewKeyTextColor(remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFFF));
                     Log.d(TAG, "AnySoftKeyboardTheme_keyPreviewTextColor "
-                            + mPreviewKeyTextColor);
+                            + mPreviewPopupManager.getPreviewPopupTheme().getPreviewKeyTextColor());
                     break;
                 case R.attr.keyPreviewTextSize:
-                    mPreviewKeyTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0);
+                    mPreviewPopupManager.getPreviewPopupTheme().setPreviewKeyTextSize(remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0));
                     Log.d(TAG, "AnySoftKeyboardTheme_keyPreviewTextSize "
-                            + mPreviewKeyTextSize);
+                            + mPreviewPopupManager.getPreviewPopupTheme().getPreviewKeyTextSize());
                     break;
                 case R.attr.keyPreviewLabelTextSize:
-                    mPreviewLabelTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0);
+                    mPreviewPopupManager.getPreviewPopupTheme().setPreviewLabelTextSize(remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0));
                     Log.d(TAG, "AnySoftKeyboardTheme_keyPreviewLabelTextSize "
-                            + mPreviewLabelTextSize);
+                            + mPreviewPopupManager.getPreviewPopupTheme().getPreviewLabelTextSize());
                     break;
                 case R.attr.keyPreviewOffset:
-                    mPreviewOffset = remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0);
+                    mPreviewPopupManager.getPreviewPopupTheme().setVerticalOffset(remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0));
                     Log.d(TAG, "AnySoftKeyboardTheme_keyPreviewOffset "
-                            + mPreviewOffset);
+                            + mPreviewPopupManager.getPreviewPopupTheme().getVerticalOffset());
                     break;
                 case R.attr.keyTextSize:
                     mKeyTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 18);
@@ -833,6 +729,7 @@ public class AnyKeyboardBaseView extends View implements
                             mKeyTextStyle = Typeface.defaultFromStyle(textStyle);
                             break;
                     }
+                    mPreviewPopupManager.getPreviewPopupTheme().setKeyStyle(mKeyTextStyle);
                     Log.d(TAG, "AnySoftKeyboardTheme_keyTextStyle " + mKeyTextStyle);
                     break;
                 case R.attr.keyHorizontalGap:
@@ -1065,7 +962,7 @@ public class AnyKeyboardBaseView extends View implements
         }
         // Remove any pending messages, except dismissing preview
         mHandler.cancelKeyTimers();
-        mHandler.cancelPopupPreview();
+        mPreviewPopupManager.cancelAllPreviews();
         mKeyboard = keyboard;
         mKeyboardName = keyboard != null ? keyboard.getKeyboardName() : null;
         mKeys = mKeyDetector.setKeyboard(keyboard);
@@ -1159,17 +1056,11 @@ public class AnyKeyboardBaseView extends View implements
      * @param previewEnabled whether or not to enable the key feedback popup
      */
     protected void setPreviewEnabled(boolean previewEnabled) {
-        mShowPreview = mPreviewText != null && previewEnabled;
+        mPreviewPopupManager.setEnabled(previewEnabled);
     }
 
     public void setPopupParent(View v) {
         mMiniKeyboardParent = v;
-    }
-
-    public void setPopupOffset(int x, int y) {
-        mPopupPreviewOffsetX = x;
-        mPopupPreviewOffsetY = y;
-        mPreviewPopup.dismiss();
     }
 
     /**
@@ -1859,12 +1750,19 @@ public class AnyKeyboardBaseView extends View implements
     void dismissKeyPreview() {
         for (PointerTracker tracker : mPointerTrackers)
             tracker.updateKey(NOT_A_KEY);
-        showPreview(NOT_A_KEY, null);
+        mPreviewPopupManager.cancelAllPreviews();
     }
 
+    @Override
+    public void hidePreview(int keyIndex, PointerTracker tracker) {
+        final Key key = tracker.getKey(keyIndex);
+        if (keyIndex != NOT_A_KEY && key != null) {
+            mPreviewPopupManager.hidePreviewForKey(key);
+        }
+    }
+
+    @Override
     public void showPreview(int keyIndex, PointerTracker tracker) {
-        int oldKeyIndex = mOldPreviewKeyIndex;
-        mOldPreviewKeyIndex = keyIndex;
         // We should re-draw popup preview when 1) we need to hide the preview,
         // 2) we will show
         // the space key preview and 3) pointer moves off the space key to other
@@ -1873,168 +1771,23 @@ public class AnyKeyboardBaseView extends View implements
         final boolean hidePreviewOrShowSpaceKeyPreview = (tracker == null);
         // If key changed and preview is on or the key is space (language switch
         // is enabled)
-        if (oldKeyIndex != keyIndex && mShowPreview) {
-            final Key key = hidePreviewOrShowSpaceKeyPreview? null : tracker.getKey(keyIndex);
-            //this will ensure that in case the key is marked as NO preview, we will just dismiss the previous popup.
-            if (keyIndex == NOT_A_KEY || key == null || !key.showPreview) {
-                mHandler.cancelPopupPreview();
-                mHandler.dismissPreview(mDelayAfterPreview);
+        final Key key = hidePreviewOrShowSpaceKeyPreview? null : tracker.getKey(keyIndex);
+        //this will ensure that in case the key is marked as NO preview, we will just dismiss the previous popup.
+        if (keyIndex != NOT_A_KEY && key != null) {
+            Drawable iconToDraw = getIconToDrawForKey(key, true);
+
+            // Should not draw hint icon in key preview
+            if (iconToDraw != null) {
+                mPreviewPopupManager.showPreviewForKey(key, iconToDraw);
             } else {
-                mHandler.popupPreview(mDelayBeforePreview, keyIndex, tracker);
+                CharSequence label = tracker.getPreviewText(key, mKeyboard.isShifted());
+                if (TextUtils.isEmpty(label)) {
+                    label = guessLabelForKey(key.codes[0]);
+                }
+
+                mPreviewPopupManager.showPreviewForKey(key, label);
             }
         }
-    }
-
-    private void showKey(final int keyIndex, PointerTracker tracker) {
-        Key key = tracker.getKey(keyIndex);
-        if (key == null || !mShowPreview)
-            return;
-
-        int popupWidth;
-        int popupHeight;
-        // Should not draw hint icon in key preview
-        Drawable iconToDraw = getIconToDrawForKey(key, true);
-        if (iconToDraw != null) {
-            // Here's an annoying bug for you (explanation at the end of the
-            // hack)
-            mPreviewIcon.setImageState(iconToDraw.getState(), false);
-            // end of hack. You see, the drawable comes with a state, this state
-            // is overridden by the ImageView. No more.
-            mPreviewIcon.setImageDrawable(iconToDraw);
-            mPreviewIcon.measure(
-                    MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
-                    MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
-            popupWidth = Math.max(mPreviewIcon.getMeasuredWidth(), key.width);
-            popupHeight = Math.max(mPreviewIcon.getMeasuredHeight(), key.height);
-            mPreviewText.setText(null);
-        } else {
-            CharSequence label = tracker.getPreviewText(key, mKeyboard.isShifted());
-            if (TextUtils.isEmpty(label)) {
-                label = guessLabelForKey(key.codes[0]);
-            }
-            mPreviewIcon.setImageDrawable(null);
-            mPreviewText.setTextColor(mPreviewKeyTextColor);
-            setKeyPreviewText(key, label);
-            popupWidth = Math.max(mPreviewText.getMeasuredWidth(), key.width);
-            popupHeight = Math.max(mPreviewText.getMeasuredHeight(), key.height);
-        }
-
-        if (mPreviewPaddingHeight < 0) {
-            mPreviewPaddingWidth = mPreviewLayout.getPaddingLeft()
-                    + mPreviewLayout.getPaddingRight();
-            mPreviewPaddingHeight = mPreviewLayout.getPaddingTop()
-                    + mPreviewLayout.getPaddingBottom();
-
-            if (mPreviewKeyBackground != null) {
-                Rect padding = new Rect();
-                mPreviewKeyBackground.getPadding(padding);
-                mPreviewPaddingWidth += (padding.left + padding.right);
-                mPreviewPaddingHeight += (padding.top + padding.bottom);
-            }
-        }
-        popupWidth += mPreviewPaddingWidth;
-        popupHeight += mPreviewPaddingHeight;
-
-        // and checking that the width and height are big enough for the
-        // background.
-        if (mPreviewKeyBackground != null) {
-            popupWidth = Math.max(mPreviewKeyBackground.getMinimumWidth(),
-                    popupWidth);
-            popupHeight = Math.max(mPreviewKeyBackground.getMinimumHeight(),
-                    popupHeight);
-        }
-
-        final boolean showPopupAboveKey = AnyApplication.getConfig()
-                .showKeyPreviewAboveKey();
-        int popupPreviewX = showPopupAboveKey ? key.x
-                - ((popupWidth - key.width) / 2)
-                : (getWidth() - popupWidth) / 2;
-        int popupPreviewY = (showPopupAboveKey ? key.y : 0) - popupHeight
-                - mPreviewOffset;
-
-        mHandler.cancelDismissPreview();
-        if (mOffsetInWindow == null) {
-            mOffsetInWindow = new int[]{0, 0};
-            getLocationInWindow(mOffsetInWindow);
-            Log.d(TAG, "mOffsetInWindow " + mOffsetInWindow[0] + ", "
-                    + mOffsetInWindow[1]);
-            mOffsetInWindow[0] += mPopupPreviewOffsetX; // Offset may be zero
-            mOffsetInWindow[1] += mPopupPreviewOffsetY; // Offset may be zero
-            int[] windowLocation = new int[2];
-            getLocationOnScreen(windowLocation);
-            mWindowY = windowLocation[1];
-        }
-        popupPreviewX += mOffsetInWindow[0];
-        popupPreviewY += mOffsetInWindow[1];
-
-        // If the popup cannot be shown above the key, put it on the side
-        if (popupPreviewY + mWindowY < 0) {
-            // If the key you're pressing is on the left side of the keyboard,
-            // show the popup on
-            // the right, offset by enough to see at least one key to the
-            // left/right.
-            if (key.x + key.width <= getWidth() / 2) {
-                popupPreviewX += (int) (key.width * 2.5);
-            } else {
-                popupPreviewX -= (int) (key.width * 2.5);
-            }
-            popupPreviewY += popupHeight;
-        }
-
-        if (mPreviewPopup.isShowing()) {
-            mPreviewPopup.update(popupPreviewX, popupPreviewY, popupWidth,
-                    popupHeight);
-        } else {
-            mPreviewPopup.setWidth(popupWidth);
-            mPreviewPopup.setHeight(popupHeight);
-            try {
-                // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/6
-                // I don't understand why this should happen, and only with MIUI
-                // ROMs.
-                // anyhow, it easy to hide :)
-                mPreviewPopup.showAtLocation(mMiniKeyboardParent,
-                        Gravity.NO_GRAVITY, popupPreviewX, popupPreviewY);
-            } catch (RuntimeException e) {
-                // nothing to do here. I think.
-            }
-
-        }
-        // Record pop-up preview position to display mini-keyboard later at the
-        // same position
-        mPopupPreviewDisplayedY = popupPreviewY
-                + (showPopupAboveKey ? 0 : key.y);// the popup keyboard should
-        // be
-        // placed at the right
-        // position.
-        // So I'm fixing
-        mPreviewLayout.setVisibility(VISIBLE);
-
-        // Set the preview background state
-        if (mPreviewKeyBackground != null) {
-            mPreviewKeyBackground
-                    .setState(key.popupResId != 0 ? LONG_PRESSABLE_STATE_SET
-                            : EMPTY_STATE_SET);
-        }
-
-        // LayoutParams lp = mPreviewLayout.getLayoutParams();
-        // lp.width = popupWidth;
-        mPreviewLayout.requestLayout();
-        mPreviewLayout.invalidate();
-    }
-
-    private void setKeyPreviewText(Key key, CharSequence label) {
-        mPreviewText.setText(label);
-        if (label.length() > 1 && key.codes.length < 2) {
-            mPreviewText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                    mPreviewLabelTextSize);
-        } else {
-            mPreviewText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                    mPreviewKeyTextSize);
-        }
-
-        mPreviewText.measure(
-                MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
-                MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
     }
 
     /**
@@ -2163,9 +1916,7 @@ public class AnyKeyboardBaseView extends View implements
         popupY -= mMiniKeyboard.getMeasuredHeight();
         popupY -= mMiniKeyboard.getPaddingBottom();
         final int x = popupX;
-        final int y = mShowPreview && mOldPreviewKeyIndex != NOT_A_KEY
-                && isOneRowKeys(mMiniKeyboard.getKeyboard().getKeys()) ? mPopupPreviewDisplayedY
-                : popupY;
+        final int y = popupY;
 
         int adjustedX = x;
         boolean shouldMirrorKeys = false;
@@ -2191,9 +1942,6 @@ public class AnyKeyboardBaseView extends View implements
         mMiniKeyboardOriginY =
                 y + mMiniKeyboard.getPaddingTop() - mWindowOffset[1];
 
-        //I'm not sure I need to do this, but in any case - this is to sync the popup window
-        //to align to the mini-keyboard position
-        mMiniKeyboard.setPopupOffset(adjustedX, y);
         // NOTE:I'm checking the main keyboard shift state directly!
         // Not anything else.
         mMiniKeyboard.setShifted(mKeyboard != null && mKeyboard.isShifted());
@@ -2505,7 +2253,7 @@ public class AnyKeyboardBaseView extends View implements
     }
 
     public boolean closing() {
-        mPreviewPopup.dismiss();
+        mPreviewPopupManager.cancelAllPreviews();
         mHandler.cancelAllMessages();
 
         return !dismissPopupKeyboard();
@@ -2517,32 +2265,27 @@ public class AnyKeyboardBaseView extends View implements
         // releasing some memory
         for (int i = 0; i < mKeysIcons.size(); i++) {
             Drawable d = mKeysIcons.valueAt(i);
-            unbindDrawable(d);
+            CompatUtils.unbindDrawable(d);
         }
         mKeysIcons.clear();
-    }
-
-    private static void unbindDrawable(Drawable d) {
-        if (d != null)
-            d.setCallback(null);
     }
 
     public void onViewNotRequired() {
+        closing();
         AnyApplication.getConfig().removeChangedListener(this);
         // cleaning up memory
-        unbindDrawable(mPreviewPopup.getBackground());
-        unbindDrawable(getBackground());
+        CompatUtils.unbindDrawable(getBackground());
         for (int i = 0; i < mKeysIcons.size(); i++) {
             Drawable d = mKeysIcons.valueAt(i);
-            unbindDrawable(d);
+            CompatUtils.unbindDrawable(d);
         }
         mKeysIcons.clear();
         mKeysIconBuilders.clear();
-        unbindDrawable(mPreviewKeyBackground);
-        unbindDrawable(mKeyBackground);
+        CompatUtils.unbindDrawable(mKeyBackground);
+        mPreviewPopupManager.resetAllPreviews();
+        mPreviewPopupManager = null;
         mMiniKeyboardParent = null;
-        if (mMiniKeyboard != null)
-            mMiniKeyboard.onViewNotRequired();
+        if (mMiniKeyboard != null) mMiniKeyboard.onViewNotRequired();
         mMiniKeyboard = null;
 
         mKeyboardActionListener = null;
@@ -2550,8 +2293,6 @@ public class AnyKeyboardBaseView extends View implements
         mKeyboard = null;
 
         mSwitcher = null;
-
-        closing();
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
@@ -2572,9 +2313,7 @@ public class AnyKeyboardBaseView extends View implements
         }
 
         mAnimationLevel = AnyApplication.getConfig().getAnimationsLevel();
-        mPreviewPopup.setAnimationStyle((mAnimationLevel == AnimationsLevel.None) ? 0 : R.style.KeyPreviewAnimation);
         mMiniKeyboardPopup.setAnimationStyle((mAnimationLevel == AnimationsLevel.None) ? 0 : R.style.MiniKeyboardAnimation);
-
     }
 
     public boolean dismissPopupKeyboard() {

@@ -62,7 +62,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     private boolean mIsFirstDownEventInsideSpaceBar = false;
     private Animation mInAnimation;
 
-    private TextView mPreviewText;
     private float mGesturePreviewTextSize;
     private int mGesturePreviewTextColor, mGesturePreviewTextColorRed,
             mGesturePreviewTextColorGreen, mGesturePreviewTextColorBlue;
@@ -101,13 +100,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         mGesturePreviewTextColorRed = (mGesturePreviewTextColor & 0x00FF0000) >> 16;
         mGesturePreviewTextColorGreen = (mGesturePreviewTextColor & 0x0000FF00) >> 8;
         mGesturePreviewTextColorBlue = mGesturePreviewTextColor & 0x000000FF;
-    }
-
-    @Override
-    protected ViewGroup inflatePreviewWindowLayout(LayoutInflater inflate) {
-        ViewGroup v = super.inflatePreviewWindowLayout(inflate);
-        mPreviewText = (TextView) v.findViewById(R.id.key_preview_text);
-        return v;
     }
 
     @Override
@@ -340,6 +332,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     private static final int SLIDE_RATIO_FOR_GESTURE = 250;
 
     private void setGesturePreviewText(KeyboardSwitcher switcher, MotionEvent me) {
+        /*
         if (mPreviewText == null)
             return;
         // started at SPACE, so I stick with the position. This is used
@@ -347,12 +340,12 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         // we'll also add the current gesture, with alpha [0...200,255].
         // if any
         final int slide = getSlideDistance(me);
-        final int slideDisatance = slide & 0x00FF;// removing direction
+        final int slideDistance = slide & 0x00FF;// removing direction
 
-        if (slideDisatance >= 20) {
-            final boolean isGesture = slideDisatance > SLIDE_RATIO_FOR_GESTURE;
+        if (slideDistance >= 20) {
+            final boolean isGesture = slideDistance > SLIDE_RATIO_FOR_GESTURE;
 
-            final int alpha = isGesture ? 255 : slideDisatance / 2;
+            final int alpha = isGesture ? 255 : slideDistance / 2;
             mPreviewText.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                     mGesturePreviewTextSize);
             int color = Color
@@ -398,6 +391,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
         } else {
             mPreviewText.setText("");
         }
+        */
     }
 
     private final static int DIRECTION_UP = 0x0100;
