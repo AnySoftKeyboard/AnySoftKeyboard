@@ -72,7 +72,7 @@
         <item name="android:paddingRight">0dp</item>
         <item name="android:paddingBottom">6dp</item>
 
-        <!-- key preview (feeback) -->
+        <!-- key preview (feedback) -->
         <item name="keyPreviewBackground">@drawable/dark_btn_key_preview_background</item>
         <item name="keyPreviewTextColor">#FFFFFFFF</item>
         <item name="keyPreviewTextSize">36sp</item>

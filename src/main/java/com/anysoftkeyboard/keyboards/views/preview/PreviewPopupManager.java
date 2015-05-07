@@ -5,6 +5,7 @@ import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView;
@@ -36,7 +37,7 @@ public class PreviewPopupManager {
 		mContext = context;
 		mKeyboardView = keyboardView;
 		mMaxPopupInstances = context.getResources().getInteger(R.integer.maximum_instances_of_preview_popups);
-		mUIHandler = new UIHandler(this);
+		mUIHandler = new UIHandler(this, context.getResources().getInteger(R.integer.preview_in_animation_duration));
 	}
 
 	public void setEnabled(boolean enabled) {
@@ -50,19 +51,24 @@ public class PreviewPopupManager {
 
 	public void showPreviewForKey(Keyboard.Key key, Drawable icon) {
 		if (!mEnabled) return;
-		PreviewPopup popup = getPopupForKey(key);
-		Point previewPosition = PreviewPopupPositionCalculator.calculatePositionForPreview(key, mPreviewPopupTheme, mKeyboardView);
-		popup.showPreviewForKey(key, icon, previewPosition);
+		PreviewPopup popup = getPopupForKey(key, true);
+		if (popup != null) {
+			Point previewPosition = PreviewPopupPositionCalculator.calculatePositionForPreview(key, mPreviewPopupTheme, mKeyboardView);
+			popup.showPreviewForKey(key, icon, previewPosition);
+		}
 	}
 
 	public void showPreviewForKey(Keyboard.Key key, CharSequence label) {
 		if (!mEnabled) return;
-		PreviewPopup popup = getPopupForKey(key);
-		Point previewPosition = PreviewPopupPositionCalculator.calculatePositionForPreview(key, mPreviewPopupTheme, mKeyboardView);
-		popup.showPreviewForKey(key, label, previewPosition);
+		PreviewPopup popup = getPopupForKey(key, true);
+		if (popup != null) {
+			Point previewPosition = PreviewPopupPositionCalculator.calculatePositionForPreview(key, mPreviewPopupTheme, mKeyboardView);
+			popup.showPreviewForKey(key, label, previewPosition);
+		}
 	}
 
-	private PreviewPopup getPopupForKey(Keyboard.Key key) {
+	@Nullable
+	private PreviewPopup getPopupForKey(Keyboard.Key key, boolean createIfNeeded) {
 		if (!mActivePopups.containsKey(key)) {
 			//the key is not active.
 			//we have several options how to fetch a popup
@@ -128,8 +134,10 @@ public class PreviewPopupManager {
 		private final WeakReference<PreviewPopupManager> mPopupManagerWeakReference;
 
 		private static final int MSG_DISMISS_PREVIEW = R.id.popup_manager_dismiss_preview_message_id;
+		private final long mDelayBeforeDismiss;
 
-		public UIHandler(PreviewPopupManager popupManager) {
+		public UIHandler(PreviewPopupManager popupManager, long delayBeforeDismiss) {
+			mDelayBeforeDismiss = delayBeforeDismiss;
 			mPopupManagerWeakReference = new WeakReference<>(popupManager);
 		}
 
@@ -140,8 +148,10 @@ public class PreviewPopupManager {
 				return;
 			switch (msg.what) {
 				case MSG_DISMISS_PREVIEW:
-					PreviewPopup popup = popupManager.getPopupForKey((Keyboard.Key) msg.obj);
-					popup.dismiss();
+					PreviewPopup popup = popupManager.getPopupForKey((Keyboard.Key) msg.obj, false);
+					if (popup != null) {
+						popup.dismiss();
+					}
 					break;
 			}
 		}
@@ -151,7 +161,7 @@ public class PreviewPopupManager {
 		}
 
 		public void dismissPreview(Keyboard.Key key) {
-			sendMessageDelayed(obtainMessage(MSG_DISMISS_PREVIEW, key), 10);
+			sendMessageDelayed(obtainMessage(MSG_DISMISS_PREVIEW, key), mDelayBeforeDismiss);
 		}
 	}
 }

@@ -33,8 +33,8 @@
     </style>
 
     <style name="KeyPreviewAnimation">
-        <item name="android:windowEnterAnimation">@anim/key_preview_fadein</item>
-        <item name="android:windowExitAnimation">@anim/key_preview_fadeout</item>
+        <item name="android:windowEnterAnimation">@anim/key_preview_in</item>
+        <item name="android:windowExitAnimation">@anim/key_preview_out</item>
     </style>
 
     <style name="MiniKeyboardAnimation">

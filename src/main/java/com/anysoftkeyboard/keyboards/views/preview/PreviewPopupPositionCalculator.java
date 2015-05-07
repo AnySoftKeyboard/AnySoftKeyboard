@@ -15,7 +15,7 @@ public class PreviewPopupPositionCalculator {
 		keyboardView.getLocationOnScreen(windowLocation);
 		Log.d("PreviewPopupPositionCalculator", "getLocationOnScreen (%d, %d)", windowLocation[0], windowLocation[1]);
 
-		Point point = new Point(key.x + (key.width/2), key.y + theme.getVerticalOffset() + offsetInWindow[1]);
+		Point point = new Point(key.x + (key.width/2), key.y + offsetInWindow[1] + key.height);
 		Log.d("PreviewPopupPositionCalculator", "point (%d, %d)", point.x, point.y);
 		return point;
 	}

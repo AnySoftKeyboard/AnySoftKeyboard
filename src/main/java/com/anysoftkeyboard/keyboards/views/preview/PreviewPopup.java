@@ -73,9 +73,7 @@ public class PreviewPopup {
 				View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
 				View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
 
-		int contentWidth = Math.max(mPreviewText.getMeasuredWidth(), key.width);
-		int contentHeight = Math.max(mPreviewText.getMeasuredHeight(), key.height);
-		showPopup(key, contentWidth, contentHeight, previewPosition);
+		showPopup(key, mPreviewText.getMeasuredWidth(), mPreviewText.getMeasuredHeight(), previewPosition);
 	}
 
 	public void showPreviewForKey(Keyboard.Key key, Drawable icon, Point previewPosition) {
@@ -86,17 +84,18 @@ public class PreviewPopup {
 		mPreviewIcon.measure(
 				View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
 				View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-		int contentWidth = Math.max(mPreviewIcon.getMeasuredWidth(), key.width);
-		int contentHeight = Math.max(mPreviewIcon.getMeasuredHeight(), key.height);
 		mPreviewText.setText(null);
-		showPopup(key, contentWidth, contentHeight, previewPosition);
+		showPopup(key, mPreviewIcon.getMeasuredWidth(), mPreviewIcon.getMeasuredHeight(), previewPosition);
 	}
 
 	private void showPopup(Keyboard.Key key, int contentWidth, int contentHeight, Point previewPosition) {
+		contentWidth = Math.max(contentWidth, key.width);
+		contentHeight = Math.max(contentHeight+key.height, key.height);
+		mPreviewLayout.setPadding(0, 0, 0, key.height);
 		final Drawable previewKeyBackground = mPreviewPopupTheme.getPreviewKeyBackground();
 		if (mPreviewPaddingHeight < 0) {
-			mPreviewPaddingWidth = mPreviewLayout.getPaddingLeft() + mPreviewLayout.getPaddingRight();
-			mPreviewPaddingHeight = mPreviewLayout.getPaddingTop() + mPreviewLayout.getPaddingBottom();
+			mPreviewPaddingWidth = 0;
+			mPreviewPaddingHeight = 0;
 
 			if (previewKeyBackground != null) {
 				Rect padding = new Rect();

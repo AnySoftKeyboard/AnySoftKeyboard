@@ -6,5 +6,8 @@
 
     <integer name="popupAnimTime">70</integer>
 
+    <integer name="preview_in_animation_duration">30</integer>
+    <integer name="preview_out_animation_duration">70</integer>
+
     <integer name="extendingAnimTime">110</integer>
 </resources>
