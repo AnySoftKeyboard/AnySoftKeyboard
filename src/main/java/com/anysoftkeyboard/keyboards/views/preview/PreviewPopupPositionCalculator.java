@@ -7,7 +7,7 @@ import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.utils.Log;
 
 public class PreviewPopupPositionCalculator {
-	public static Point calculatePositionForPreview(Keyboard.Key key, PreviewPopupTheme theme, View keyboardView) {
+	public static Point calculatePositionForPreview(Keyboard.Key key, View keyboardView) {
 		int[] offsetInWindow = new int[]{0, 0};
 		keyboardView.getLocationInWindow(offsetInWindow);
 		Log.d("PreviewPopupPositionCalculator", "getLocationInWindow (%d, %d)", offsetInWindow[0], offsetInWindow[1]);

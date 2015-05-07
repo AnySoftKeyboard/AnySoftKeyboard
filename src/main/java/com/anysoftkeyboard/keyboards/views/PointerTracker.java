@@ -103,8 +103,8 @@ public class PointerTracker {
         private int mLastX;
         private int mLastY;
 
-        public KeyState(KeyDetector keyDetecor) {
-            mKeyDetector = keyDetecor;
+        public KeyState(KeyDetector keyDetector) {
+            mKeyDetector = keyDetector;
         }
 
         public int getKeyIndex() {
@@ -213,11 +213,7 @@ public class PointerTracker {
 
     private boolean isModifierInternal(int keyIndex) {
         Key key = getKey(keyIndex);
-        if (key == null)
-            return false;
-        /*int primaryCode = key.codes[0];
-        return primaryCode == KeyCodes.SHIFT
-                || primaryCode == KeyCodes.MODE_ALPHABET;*/
+        if (key == null) return false;
         return key.modifier;
     }
 
@@ -377,12 +373,12 @@ public class PointerTracker {
     public void onUpEvent(int x, int y, long eventTime) {
         debugLog("onUpEvent  :", x, y);
         mHandler.cancelKeyTimers();
+        mProxy.hidePreview(mKeyState.getKeyIndex(), this);
         showKeyPreviewAndUpdateKey(NOT_A_KEY);
         mIsInSlidingKeyInput = false;
         if (mKeyAlreadyProcessed)
             return;
         int keyIndex = mKeyState.onUpKey(x, y);
-        mProxy.hidePreview(keyIndex, this);
         if (isMinorMoveBounce(x, y, keyIndex)) {
             // Use previous fixed key index and coordinates.
             keyIndex = mKeyState.getKeyIndex();
