@@ -25,14 +25,9 @@ import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.widget.TextView;
 
-import com.anysoftkeyboard.AskPrefs;
 import com.anysoftkeyboard.AskPrefs.AnimationsLevel;
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
@@ -292,7 +287,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
                     cancel.recycle();
 
                     mExtensionVisible = true;
-                    dismissKeyPreview();
+                    dismissAllKeyPreviews();
                     if (mExtensionKey == null) {
                         mExtensionKey = new AnyKey(new Row(getKeyboard()),
                                 getThemedKeyboardDimens());
@@ -453,7 +448,7 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
     }
 
     public void openUtilityKeyboard() {
-        dismissKeyPreview();
+        dismissAllKeyPreviews();
         if (mUtilityKey == null) {
             mUtilityKey = new AnyKey(new Row(getKeyboard()),
                     getThemedKeyboardDimens());

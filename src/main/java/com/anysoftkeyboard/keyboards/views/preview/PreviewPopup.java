@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.support.v7.graphics.drawable.DrawableWrapper;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -45,7 +46,7 @@ public class PreviewPopup {
 			mPreviewText.setTextColor(mPreviewPopupTheme.getPreviewKeyTextColor());
 			mPreviewText.setTypeface(mPreviewPopupTheme.getKeyStyle());
 			mPreviewIcon = (ImageView) mPreviewLayout.findViewById(R.id.key_preview_icon);
-			mPopupWindow.setBackgroundDrawable(mPreviewPopupTheme.getPreviewKeyBackground());
+			mPopupWindow.setBackgroundDrawable(mPreviewPopupTheme.getPreviewKeyBackground().getConstantState().newDrawable(context.getResources()));
 			mPopupWindow.setContentView(mPreviewLayout);
 		} else {
 			mPreviewIcon = null;

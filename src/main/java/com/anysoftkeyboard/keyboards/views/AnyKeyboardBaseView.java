@@ -958,7 +958,7 @@ public class AnyKeyboardBaseView extends View implements
     public void setKeyboard(AnyKeyboard keyboard, float verticalCorrection) {
         mKeysIcons.clear();
         if (mKeyboard != null) {
-            dismissKeyPreview();
+            dismissAllKeyPreviews();
         }
         // Remove any pending messages, except dismissing preview
         mHandler.cancelKeyTimers();
@@ -1747,7 +1747,7 @@ public class AnyKeyboardBaseView extends View implements
         return icon;
     }
 
-    void dismissKeyPreview() {
+    void dismissAllKeyPreviews() {
         for (PointerTracker tracker : mPointerTrackers)
             tracker.updateKey(NOT_A_KEY);
         mPreviewPopupManager.cancelAllPreviews();
@@ -1836,7 +1836,7 @@ public class AnyKeyboardBaseView extends View implements
             return false;
         boolean result = onLongPress(getKeyboard().getKeyboardContext(), popupKey, false, true);
         if (result) {
-            dismissKeyPreview();
+            dismissAllKeyPreviews();
             mMiniKeyboardTrackerId = tracker.mPointerId;
             // Mark this tracker "already processed" and remove it from the
             // pointer queue
@@ -2097,7 +2097,7 @@ public class AnyKeyboardBaseView extends View implements
         if (!mMiniKeyboardPopup.isShowing() && mGestureDetector != null && mGestureDetector.onTouchEvent(nativeMotionEvent)) {
             Log.d(TAG, "Gesture detected!");
             mHandler.cancelKeyTimers();
-            dismissKeyPreview();
+            dismissAllKeyPreviews();
             return true;
         }
 
