@@ -23,6 +23,6 @@
     android:interpolator="@android:anim/decelerate_interpolator">
     <alpha android:fromAlpha="0.0" android:toAlpha="1.0" android:duration="@integer/preview_in_animation_duration"/>
     <scale android:duration="@integer/preview_in_animation_duration"
-           android:fromXScale="0.9" android:toXScale="1.0" android:fromYScale="0.75" android:toYScale="1.0"
-           android:pivotX="0.5" android:pivotY="1.0"/>
+           android:fromXScale="0.9" android:toXScale="1.0" android:fromYScale="0.5" android:toYScale="1.0"
+           android:pivotX="50%" android:pivotY="100%"/>
 </set>

@@ -54,7 +54,7 @@ public class PreviewPopupManager {
 		if (!mEnabled) return;
 		PreviewPopup popup = getPopupForKey(key, false);
 		if (popup != null) {
-			Point previewPosition = PreviewPopupPositionCalculator.calculatePositionForPreview(key, mKeyboardView);
+			Point previewPosition = PreviewPopupPositionCalculator.calculatePositionForPreview(key, mKeyboardView, mPreviewPopupTheme);
 			popup.showPreviewForKey(key, icon, previewPosition);
 		}
 	}
@@ -63,7 +63,7 @@ public class PreviewPopupManager {
 		if (!mEnabled) return;
 		PreviewPopup popup = getPopupForKey(key, false);
 		if (popup != null) {
-			Point previewPosition = PreviewPopupPositionCalculator.calculatePositionForPreview(key, mKeyboardView);
+			Point previewPosition = PreviewPopupPositionCalculator.calculatePositionForPreview(key, mKeyboardView, mPreviewPopupTheme);
 			popup.showPreviewForKey(key, label, previewPosition);
 		}
 	}
