@@ -51,7 +51,7 @@ public class PreviewPopupManager {
 	}
 
 	public void showPreviewForKey(Keyboard.Key key, Drawable icon) {
-		if (!mEnabled) return;
+		if (isDisabled()) return;
 		PreviewPopup popup = getPopupForKey(key, false);
 		if (popup != null) {
 			Point previewPosition = PreviewPopupPositionCalculator.calculatePositionForPreview(key, mKeyboardView, mPreviewPopupTheme);
@@ -59,8 +59,12 @@ public class PreviewPopupManager {
 		}
 	}
 
+	private boolean isDisabled() {
+		return !mEnabled || mPreviewPopupTheme.getPreviewKeyTextSize() <= 0;
+	}
+
 	public void showPreviewForKey(Keyboard.Key key, CharSequence label) {
-		if (!mEnabled) return;
+		if (isDisabled()) return;
 		PreviewPopup popup = getPopupForKey(key, false);
 		if (popup != null) {
 			Point previewPosition = PreviewPopupPositionCalculator.calculatePositionForPreview(key, mKeyboardView, mPreviewPopupTheme);
