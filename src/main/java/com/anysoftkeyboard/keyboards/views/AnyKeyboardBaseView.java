@@ -42,7 +42,6 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.FloatMath;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.GestureDetector;
@@ -81,13 +80,11 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 
 public class AnyKeyboardBaseView extends View implements
         PointerTracker.UIProxy, OnSharedPreferenceChangeListener {
     static final String TAG = "ASKKbdViewBase";
 
-    public static final int NOT_A_TOUCH_COORDINATE = -1;
     private static final int[] ACTION_KEY_TYPES = new int[]{R.attr.action_done, R.attr.action_search, R.attr.action_go};
     private static final int[] KEY_TYPES = new int[]{R.attr.key_type_function, R.attr.key_type_action};
 
@@ -141,7 +138,6 @@ public class AnyKeyboardBaseView extends View implements
     protected final PopupWindow mMiniKeyboardPopup;
     protected AnyKeyboardBaseView mMiniKeyboard = null;
 
-    private View mMiniKeyboardParent;
     private int mMiniKeyboardOriginX;
     private int mMiniKeyboardOriginY;
     private long mMiniKeyboardPopupTime;
@@ -357,23 +353,6 @@ public class AnyKeyboardBaseView extends View implements
         public void remove(PointerTracker tracker) {
             mQueue.remove(tracker);
         }
-
-        public boolean isInSlidingKeyInput() {
-            for (final PointerTracker tracker : mQueue) {
-                if (tracker.isInSlidingKeyInput())
-                    return true;
-            }
-            return false;
-        }
-
-        public void cancelAllTrackers() {
-            final long time = System.currentTimeMillis();
-            for (PointerTracker t : mQueue) {
-                t.onCancelEvent(NOT_A_TOUCH_COORDINATE, NOT_A_TOUCH_COORDINATE,
-                        time);
-            }
-            mQueue.clear();
-        }
     }
 
     public AnyKeyboardBaseView(Context context, AttributeSet attrs) {
@@ -515,7 +494,6 @@ public class AnyKeyboardBaseView extends View implements
         final Resources res = getResources();
         mKeyboardDimens.setKeyboardMaxWidth(res.getDisplayMetrics().widthPixels - padding[0] - padding[2]);
 
-        mMiniKeyboardParent = this;
         mMiniKeyboardPopup = new PopupWindow(context.getApplicationContext());
         mMiniKeyboardPopup.setBackgroundDrawable(null);
 
@@ -633,13 +611,9 @@ public class AnyKeyboardBaseView extends View implements
                     // the key size.
                     // the whole factor maybe too much, so I ease that a bit.
                     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-                        mKeyTextSize = mKeyTextSize
-                                * FloatMath.sqrt(AnyApplication.getConfig()
-                                .getKeysHeightFactorInLandscape());
+                        mKeyTextSize = (float) (mKeyTextSize * Math.sqrt(AnyApplication.getConfig().getKeysHeightFactorInLandscape()));
                     else
-                        mKeyTextSize = mKeyTextSize
-                                * FloatMath.sqrt(AnyApplication.getConfig()
-                                .getKeysHeightFactorInPortrait());
+                        mKeyTextSize = (float) (mKeyTextSize * Math.sqrt(AnyApplication.getConfig().getKeysHeightFactorInPortrait()));
                     Log.d(TAG, "AnySoftKeyboardTheme_keyTextSize " + mKeyTextSize);
                     break;
                 case R.attr.keyTextColor:
@@ -655,28 +629,18 @@ public class AnyKeyboardBaseView extends View implements
                 case R.attr.labelTextSize:
                     mLabelTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 14);
                     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-                        mLabelTextSize = mLabelTextSize
-                                * AnyApplication.getConfig()
-                                .getKeysHeightFactorInLandscape();
+                        mLabelTextSize = mLabelTextSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape();
                     else
-                        mLabelTextSize = mLabelTextSize
-                                * AnyApplication.getConfig()
-                                .getKeysHeightFactorInPortrait();
-                    Log.d(TAG, "AnySoftKeyboardTheme_labelTextSize "
-                            + mLabelTextSize);
+                        mLabelTextSize = mLabelTextSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
+                    Log.d(TAG, "AnySoftKeyboardTheme_labelTextSize " + mLabelTextSize);
                     break;
                 case R.attr.keyboardNameTextSize:
                     mKeyboardNameTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 10);
                     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-                        mKeyboardNameTextSize = mKeyboardNameTextSize
-                                * AnyApplication.getConfig()
-                                .getKeysHeightFactorInLandscape();
+                        mKeyboardNameTextSize = mKeyboardNameTextSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape();
                     else
-                        mKeyboardNameTextSize = mKeyboardNameTextSize
-                                * AnyApplication.getConfig()
-                                .getKeysHeightFactorInPortrait();
-                    Log.d(TAG, "AnySoftKeyboardTheme_keyboardNameTextSize "
-                            + mKeyboardNameTextSize);
+                        mKeyboardNameTextSize = mKeyboardNameTextSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
+                    Log.d(TAG, "AnySoftKeyboardTheme_keyboardNameTextSize " + mKeyboardNameTextSize);
                     break;
                 case R.attr.keyboardNameTextColor:
                     mKeyboardNameTextColor = remoteTypedArray.getColorStateList(remoteTypedArrayIndex);
@@ -765,13 +729,9 @@ public class AnyKeyboardBaseView extends View implements
                     mHintTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0);
                     Log.d(TAG, "AnySoftKeyboardTheme_hintTextSize " + mHintTextSize);
                     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-                        mHintTextSize = mHintTextSize
-                                * AnyApplication.getConfig()
-                                .getKeysHeightFactorInLandscape();
+                        mHintTextSize = mHintTextSize * AnyApplication.getConfig().getKeysHeightFactorInLandscape();
                     else
-                        mHintTextSize = mHintTextSize
-                                * AnyApplication.getConfig()
-                                .getKeysHeightFactorInPortrait();
+                        mHintTextSize = mHintTextSize * AnyApplication.getConfig().getKeysHeightFactorInPortrait();
                     Log.d(TAG, "AnySoftKeyboardTheme_hintTextSize with factor "
                             + mHintTextSize);
                     break;
@@ -1057,10 +1017,6 @@ public class AnyKeyboardBaseView extends View implements
      */
     protected void setPreviewEnabled(boolean previewEnabled) {
         mPreviewPopupManager.setEnabled(previewEnabled);
-    }
-
-    public void setPopupParent(View v) {
-        mMiniKeyboardParent = v;
     }
 
     /**
@@ -1482,28 +1438,24 @@ public class AnyKeyboardBaseView extends View implements
                     if (hintAlign == Gravity.START) {
                         // left
                         paint.setTextAlign(Align.LEFT);
-                        hintX = mKeyBackgroundPadding.left + (float) 0.5;
+                        hintX = mKeyBackgroundPadding.left + 0.5f;
                     } else if (hintAlign == Gravity.CENTER) {
                         // center
                         paint.setTextAlign(Align.CENTER);
                         hintX = mKeyBackgroundPadding.left
-                                + (key.width - mKeyBackgroundPadding.left - mKeyBackgroundPadding.right)
-                                / 2;
+                                + (key.width - mKeyBackgroundPadding.left - mKeyBackgroundPadding.right) / 2;
                     } else {
                         // right
                         paint.setTextAlign(Align.RIGHT);
-                        hintX = key.width - mKeyBackgroundPadding.right
-                                - (float) 0.5;
+                        hintX = key.width - mKeyBackgroundPadding.right - 0.5f;
                     }
 
                     if (hintVAlign == Gravity.TOP) {
                         // above
-                        hintY = mKeyBackgroundPadding.top - mHintTextFM.top
-                                + (float) 0.5;
+                        hintY = mKeyBackgroundPadding.top - mHintTextFM.top + 0.5f;
                     } else {
                         // below
-                        hintY = key.height - mKeyBackgroundPadding.bottom
-                                - mHintTextFM.bottom - (float) 0.5;
+                        hintY = key.height - mKeyBackgroundPadding.bottom - mHintTextFM.bottom - 0.5f;
                     }
 
                     canvas.drawText(hintText, hintX, hintY, paint);
@@ -1880,10 +1832,6 @@ public class AnyKeyboardBaseView extends View implements
         return mKeyboardDimens;
     }
 
-    public float getKeyTextSize() {
-        return mKeyTextSize;
-    }
-
     public float getLabelTextSize() {
         return mLabelTextSize;
     }
@@ -2007,7 +1955,6 @@ public class AnyKeyboardBaseView extends View implements
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mMiniKeyboard = (AnyKeyboardBaseView) inflater.inflate(R.layout.popup_keyboard_layout, null);
 
-        mMiniKeyboard.setPopupParent(this);
         // hack: this will ensure that the key of a popup is no wider than a
         // thumb's width.
         ((KeyboardDimensFromTheme) mMiniKeyboard.getThemedKeyboardDimens()).setKeyMaxWidth(mMiniKeyboard.getThemedKeyboardDimens().getNormalKeyHeight());
@@ -2015,24 +1962,6 @@ public class AnyKeyboardBaseView extends View implements
         mMiniKeyboard.setOnKeyboardActionListener(mChildKeyboardActionListener);
         // Remove gesture detector on mini-keyboard
         mMiniKeyboard.mGestureDetector = null;
-    }
-
-    private static boolean isOneRowKeys(List<Key> keys) {
-        if (keys.size() == 0)
-            return false;
-        final int edgeFlags = keys.get(0).edgeFlags;
-        // HACK: The first key of mini keyboard which was inflated from xml and
-        // has multiple rows,
-        // does not have both top and bottom edge flags on at the same time. On
-        // the other hand,
-        // the first key of mini keyboard that was created with popupCharacters
-        // must have both top
-        // and bottom edge flags on.
-        // When you want to use one row mini-keyboard from xml file, make sure
-        // that the row has
-        // both top and bottom edge flags set.
-        return (edgeFlags & Keyboard.EDGE_TOP) != 0
-                && (edgeFlags & Keyboard.EDGE_BOTTOM) != 0;
     }
 
     private MotionEvent generateMiniKeyboardMotionEvent(int action, int x,
@@ -2058,14 +1987,6 @@ public class AnyKeyboardBaseView extends View implements
         }
 
         return pointers.get(id);
-    }
-
-    public boolean isInSlidingKeyInput() {
-        if (mMiniKeyboard != null && mMiniKeyboardPopup.isShowing()) {
-            return mMiniKeyboard.isInSlidingKeyInput();
-        } else {
-            return mPointerQueue.isInSlidingKeyInput();
-        }
     }
 
     @Override
@@ -2288,7 +2209,6 @@ public class AnyKeyboardBaseView extends View implements
         CompatUtils.unbindDrawable(mKeyBackground);
         mPreviewPopupManager.resetAllPreviews();
         mPreviewPopupManager = null;
-        mMiniKeyboardParent = null;
         if (mMiniKeyboard != null) mMiniKeyboard.onViewNotRequired();
         mMiniKeyboard = null;
 

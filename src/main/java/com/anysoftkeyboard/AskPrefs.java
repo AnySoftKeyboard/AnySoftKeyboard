@@ -22,7 +22,7 @@ public interface AskPrefs {
 
     boolean alwaysUseFallBackUserDictionary();
 
-    public static enum AnimationsLevel {
+    enum AnimationsLevel {
         Full,
         Some,
         None

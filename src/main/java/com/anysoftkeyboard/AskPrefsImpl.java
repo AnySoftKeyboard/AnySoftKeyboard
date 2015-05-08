@@ -34,7 +34,6 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.FeaturesSet;
 import com.menny.android.anysoftkeyboard.R;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 
 public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener {
@@ -42,14 +41,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
 
     private static final String CONFIGURATION_VERSION = "configurationVersion";
 
-    private static final String NOTIFICATION_CLICKED_KEY_PREFIX = "NOTIFICATION_CLICKED_KEY_PREFIX";
-    private static final String NOTIFICATION_ANIMATION_KEY_PREFIX = "NOTIFICATION_ANIMATION_KEY_PREFIX";
-
-    private static final HashMap<String, Object> mInstanceStorage = new HashMap<String, Object>();
-
-    //private static final String CUSTOMIZATION_LEVEL = "customizationLevel";
     private final Context mContext;
-
 
     private String mDomainText = ".com";
     //private String mLayoutChangeKeysSize = "Small";
@@ -112,7 +104,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     private long mFirstTimeCurrentVersionInstalled;
     private int mFirstAppVersionInstalled;
 
-    private final LinkedList<OnSharedPreferenceChangeListener> mPreferencesChangedListeners = new LinkedList<SharedPreferences.OnSharedPreferenceChangeListener>();
+    private final LinkedList<OnSharedPreferenceChangeListener> mPreferencesChangedListeners = new LinkedList<>();
 
     public AskPrefsImpl(Context context) {
         mContext = context;
@@ -218,7 +210,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
      * This is required since the Preferences xml UI elements can not take computed values, only static ones, as default.
      * So, the computed default could be one, and the static default may be another!
      * See https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/110
-      * @param sp
      */
     private void initializeComputedValues(SharedPreferences sp){
         boolean drawType = sp.getBoolean(mContext.getString(R.string.settings_key_workaround_disable_rtl_fix),
@@ -549,7 +540,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         Log.d(TAG, "** mAlwaysUseFallBackUserDictionary: " + mAlwaysUseFallBackUserDictionary);
 
         //Some preferences cause rebuild of the keyboard, hence changing the listeners list
-        final LinkedList<OnSharedPreferenceChangeListener> disconnectedList = new LinkedList<SharedPreferences.OnSharedPreferenceChangeListener>(mPreferencesChangedListeners);
+        final LinkedList<OnSharedPreferenceChangeListener> disconnectedList = new LinkedList<>(mPreferencesChangedListeners);
         for (OnSharedPreferenceChangeListener listener : disconnectedList) {
             listener.onSharedPreferenceChanged(sp, key);
         }
@@ -705,15 +696,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         return mActionKeyInvisibleWhenRequested;
     }
 
-    public int getDeviceOrientation() {
-        return mContext.getApplicationContext().getResources().getConfiguration().orientation;
-    }
-
-    /*
-        public String getRtlWorkaroundConfiguration() {
-            return mRtlWorkaround;
-        }
-    */
     public boolean isDoubleSpaceChangesToPeriod() {
         return mIsDoubleSpaceChangesToPeroid;
     }
