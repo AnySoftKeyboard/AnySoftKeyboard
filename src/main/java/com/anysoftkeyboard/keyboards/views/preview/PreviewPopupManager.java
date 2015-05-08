@@ -38,7 +38,7 @@ public class PreviewPopupManager {
 		mContext = context;
 		mKeyboardView = keyboardView;
 		mMaxPopupInstances = context.getResources().getInteger(R.integer.maximum_instances_of_preview_popups);
-		mUIHandler = new UIHandler(this, context.getResources().getInteger(R.integer.preview_in_animation_duration));
+		mUIHandler = new UIHandler(this, context.getResources().getInteger(R.integer.preview_dismiss_delay));
 	}
 
 	public void setEnabled(boolean enabled) {
@@ -74,6 +74,8 @@ public class PreviewPopupManager {
 
 	@Nullable
 	private PreviewPopup getPopupForKey(Keyboard.Key key, boolean onlyActivePopups) {
+		if (shouldNotShowPreview(key)) return null;
+
 		if (!mActivePopupByKeyMap.containsKey(key) && !onlyActivePopups) {
 			//the key is not active.
 			//we have several options how to fetch a popup
@@ -109,6 +111,13 @@ public class PreviewPopupManager {
 			}
 		}
 		return mActivePopupByKeyMap.get(key);
+	}
+
+	private boolean shouldNotShowPreview(Keyboard.Key key) {
+		return key == null ||
+				key.modifier ||
+				key.codes.length == 0 ||
+				(key.codes.length == 1 && key.codes[0] <= 0);
 	}
 
 	public void cancelAllPreviews() {
