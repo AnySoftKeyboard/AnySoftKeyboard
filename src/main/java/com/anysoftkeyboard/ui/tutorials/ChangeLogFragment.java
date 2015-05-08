@@ -144,6 +144,7 @@ public class ChangeLogFragment extends PassengerFragment {
 				@Override
 				public void onClick(View v) {
 					FragmentChauffeurActivity activity = (FragmentChauffeurActivity) getActivity();
+					if (activity == null) return;
 					activity.addFragmentToUi(ChangeLogFragment.createFragment(ChangeLogFragment.SHOW_ALL_CHANGELOG),
 							FragmentChauffeurActivity.FragmentUiContext.ExpandedItem,
 							getView());
