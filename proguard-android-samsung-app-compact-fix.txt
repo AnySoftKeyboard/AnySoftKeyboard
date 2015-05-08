@@ -1,2 +1,0 @@
-# https://code.google.com/p/android/issues/detail?id=78377
--keep class !android.support.v7.internal.view.menu.**,** {*;}

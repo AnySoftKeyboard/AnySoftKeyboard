@@ -24,9 +24,6 @@
   <string name="how_to_pointer_how_to_url">Инстркуция по эксплуатации:</string>
   <string name="how_to_pointer_site">Подробнее о программе:</string>
   <string name="how_to_pointer_changelog">Изменения в версиях:</string>
-  
-  
-  <string name="change_log_entry_header_template_without_name">v <xliff:g id="code">%s </xliff:g></string>
   <string name="how_to_pointer_issues">Сообщить о дефекте:</string>
   <string name="main_tab_credits_title">Эта программа была создана с помощью:</string>
   <string name="main_tab_credits_created_by">Автор:</string>
