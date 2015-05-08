@@ -14,54 +14,22 @@
   <string name="debug_tracing_finished">Tracing beendet!\nDie Datei ist 
 <xliff:g id="trace_file">%s</xliff:g></string>
   <string name="menu_about_item">Über</string>
-  <string name="click_to_restart_suggestions">Vorschläge durch Klicken</string>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  <string name="click_to_restart_suggestions">Klicken für Vorschläge</string>
   <string name="main_tab_welcome">Willkommen</string>
   <string name="main_tab_links">Links</string>
   <string name="main_tab_credits">Danksagungen</string>
-  <string name="how_to_pointer_title">Willkommen im AnySoftKeyboard</string>
+  <string name="how_to_pointer_title">Willkommen in der AnySoftKeyboard</string>
   <string name="how_to_pointer_version_prefix">Version: </string>
   <string name="how_to_pointer_not_app">AnySoftKeyboard ist keine normale Anwendung - es ist ein Ersatz der Standart Bildschirmtastatur.</string>
   <string name="how_to_pointer_go_to_links">Für weitere Informationen gehen Sie zum Reiter "Links".</string>
   <string name="how_to_pointer_how_to_url">Details zur Verwendung dieser Tastatur:</string>
   <string name="how_to_pointer_site">Allgemeine Details:</string>
-  <string name="how_to_pointer_changelog">Details zur neuesten Version:</string>
-  
-  
-  <string name="change_log_entry_header_template_without_name">V <xliff:g id="code"> %s </xliff:g></string>
+  <string name="how_to_pointer_changelog">Details über die neueste Version:</string>
   <string name="how_to_pointer_issues">Fehler melden:</string>
   <string name="main_tab_credits_title">Diese Anwendung wurde mit Hilfe folgender Personen erstellt:</string>
   <string name="main_tab_credits_created_by">Erstellt von:</string>
   <string name="main_tab_credits_additional_work_by">Weitere Programmierung durch:</string>
-  <string name="main_tab_credits_localization_by">Übersetzung durch:</string>
+  <string name="main_tab_credits_localization_by">Übersetzt durch:</string>
   <string name="main_tab_credits_GUI_by">Interface-Grafiken von:</string>
   <string name="how_to_enable_dialog_title">AnySoftKeyboard aktivieren\?</string>
   <string name="how_to_enable_dialog_text">AnySoftKeyboard ist noch nicht aktiviert. Soll ich dir zeigen, wie es geht?</string>
@@ -79,7 +47,7 @@
   <string name="how_to_simple_howto_go_to_settings_button">AnySoftKeyboard Einstellungen</string>
   <string name="ime_name_beta">AnySoftKeyboard BETA</string>
   <string name="notification_text_testers">Dies ist eine Beta-Version. Verwenden Sie diese mit Vorsicht!</string>
-  <string name="notification_text_changelog">Klicken Sie, um zu sehen was neu ist.</string>
+  <string name="notification_text_changelog">Klicken Sie hier um zu sehen was neu ist.</string>
   <string name="notification_title_how_to_enable">Willkommen bei AnySoftKeyboard</string>
   <string name="notification_text_how_to_enable">Lernen Sie, wie man es aktivieren kann.</string>
   <string name="testers_version">Testversion erstellen!</string>
@@ -87,8 +55,8 @@
   <string name="languages_cat">Sprachen</string>
   <string name="about">Über</string>
   <string name="changelog">Änderungsprotokoll</string>
-  <string name="search_market_for_addons">Nach Add-ons suchen</string>
-  <string name="search_market_for_keyboard_addons">Erhalte mehr Keyboards im <i>Play Store</i>…</string>
+  <string name="search_market_for_addons">Nach Erweiterungen suchen</string>
+  <string name="search_market_for_keyboard_addons">Erhalte mehr Tastaturen im <i>Play Store</i>…</string>
   <string name="search_market_for_quick_key_addons">Erhalte weitere <i>Quick-Text</i> Add-ons im <i>Play Store</i>…</string>
   <string name="no_market_store_available"><b>* Konnte keine Google Play App auf dem Telefon finden. Es ist nicht möglich, nach Add-ons suchen!</b></string>
   <string name="theme_addons_settings">Tastatur Design Einstellungen</string>
@@ -113,14 +81,14 @@
     </string>
   <string name="physical_keyboard_change_notification_dialog_title">Benachrichtigungsart auswählen</string>
   <string-array name="physical_keyboard_change_notification_types">
-    <item>Zeige das Layout-Symbol immer</item>
+    <item>Zeige immer das Layout-Symbol.</item>
     <item>Nur beim Wechsel des Tastaturlayouts</item>
-    <item>Nur bei Benachrichtigung</item>
+    <item>Keine Benachrichtigung</item>
   </string-array>
   <string name="lengthy_operations_toast_notification">Benachrichtigung bei zeitintensiven Operationen</string>
   <string name="lengthy_operations_toast_notification_summary">Zeige kurze Benachrichtigung bei zeitintensiven Operationen</string>
-  <string name="voice_input_not_support_in_this_os_version">Spracheingabe wird in Android 2.2 + unterstützt</string>
-  <string name="voice_input_not_installed_title">Spracheingabe ist nicht installiert</string>
+  <string name="voice_input_not_support_in_this_os_version">Spracheingabe wird ab Android 2.2 + unterstützt</string>
+  <string name="voice_input_not_installed_title">Sprachpaket ist nicht installiert</string>
   <string name="voice_input_not_installed_text">Du musst dir erst Google\'s Voice Input vom Markt installieren, bevor du diese Funktion nutzen kannst.</string>
   <string name="voice_input_not_installed_action_install">Installieren</string>
   <string name="voice_input_not_installed_action_do_not_install">Nein</string>
@@ -134,70 +102,77 @@
   <string name="gesture_settings">Gesten</string>
   <string name="effects_group">Effekte</string>
   <string name="ime_settings">Tastatureinstellungen</string>
-  <string name="vibrate_on_key_press_title">Vibration beim Anschlag</string>
-  <string name="vibrate_on_key_press_summary">Vibrationslevel für den Tastendruck. Aktuell: %s</string>
-  <string name="vibrate_on_key_press_dialog_title">Vibrationsdauer</string>
+  <string name="vibrate_on_key_press_title">Vibrieren bei Tastendruck</string>
+  <string name="vibrate_on_key_press_summary">Vibrationsstärke für den Tastendruck. Aktuell: %s</string>
+  <string name="vibrate_on_key_press_dialog_title">Vibrationsstärke </string>
   <string-array name="vibrate_on_key_press_types">
     <item>Keine Vibration</item>
     <item>leicht</item>
     <item>Mittel</item>
-    <item>Fett</item>
+    <item>Stark</item>
   </string-array>
   <string name="sound_on">Ton bei Tastenanschlag</string>
-  <string name="sound_on_summary">Toneffekte bei Software-Tastenanschlag.</string>
-  <string name="use_custom_sound_volume">Benutzerdefinierten Ton einstellen</string>
+  <string name="sound_on_summary">Toneffekte bei Software-Tastendruck.</string>
+  <string name="use_custom_sound_volume">Benutzerdefinierten Ton festlegen</string>
   <string name="use_custom_sound_volume_on_summary">Toneffekt-Lautstärke ist Benutzerdefiniert.</string>
   <string name="use_custom_sound_volume_off_summary">Lautstärke der Soundeffekte ist die Systemlautstärke.</string>
   <string name="custom_sound_volume">Eigene Tastendruck-Lautstärke</string>
   <string name="speacial_fetures_group">Spezial-Funktionen</string>
   <string name="switch_keyboard_on_space">Leerzeichen wechselt Tastaturen</string>
-  <string name="switch_keyboard_on_space_on_summary">Wechsel von Zahlen/Symbolen zum Alfabet beim drücken der Leertaste</string>
-  <string name="switch_keyboard_on_space_off_summary">Wechsel nicht von Zahlen/Symbolen zum Alfabet beim drücken der Leertaste</string>
+  <string name="switch_keyboard_on_space_on_summary">Wechsel von Zahlen/Symbolen zum Alphabet beim drücken der Leertaste    </string>
+  <string name="switch_keyboard_on_space_off_summary">Wechsel nicht von Zahlen/Symbolen zum Alphabet beim drücken der Leertaste    </string>
+  <string name="one_shot_quick_text_popup">Nach Eingabe automtisch schließen</string>
+  <string name="one_shot_quick_text_popup_on_summary">Schließe Emoji-Popup nach Tastendruck</string>
+  <string name="one_shot_quick_text_popup_off_summary">Emoji-Popup geöffnet halten bis die Beenden-Taste gedrückt wird</string>
   <string name="hide_soft_when_physical">Ausblenden der Tastatur auf einer physikalische Taste</string>
-  <string name="hide_soft_when_physical_on_summary">Blendet die Bildschirmtastatur aus, wenn eine physische Tastatur verwendet wird</string>
-  <string name="hide_soft_when_physical_off_summary">Zeige die Softwaretastatur, wenn eine physische Tastatur verwendet wird</string>
-  <string name="fullscreen_input_connection_supported">Verwenden des Breitbildes im Vollbildmodus</string>
-  <string name="fullscreen_input_connection_supported_on_summary">Bildschirmeingabe im Querformat</string>
-  <string name="fullscreen_input_connection_supported_off_summary">Verwenden Sie Vollbild-Eingabe nicht im Querformat</string>
-  <string name="fullscreen_portrait_input_connection_supported">Vollbild-Modus verwenden</string>
-  <string name="fullscreen_portrait_input_connection_supported_on_summary">Vollbild-Eingabe im Portrait-Modus</string>
-  <string name="fullscreen_portrait_input_connection_supported_off_summary">Verwende keine Vollbild Eingabe im Hochformat</string>
-  <string name="backword_support">Wort-zurück-Unterstützung</string>
+  <string name="hide_soft_when_physical_on_summary">Blendet die Bildschirmtastatur aus, wenn eine Hardware-Tastatur verwendet wird</string>
+  <string name="hide_soft_when_physical_off_summary">Zeige die Software-Tastatur, wenn eine Hardware-Tastatur verwendet wird</string>
+  <string name="fullscreen_input_connection_supported">Benutze Querformat in der Vollbildansicht</string>
+  <string name="fullscreen_input_connection_supported_on_summary">Eingabe im Querformat in Vollbildansicht</string>
+  <string name="fullscreen_input_connection_supported_off_summary">Keine Vollbildeingabe im Querformat verwenden</string>
+  <string name="fullscreen_portrait_input_connection_supported">Benutze Portrait-Vollbildansicht</string>
+  <string name="fullscreen_portrait_input_connection_supported_on_summary">Eingabe im Portrait-Modus in Vollbildansicht</string>
+  <string name="fullscreen_portrait_input_connection_supported_off_summary">Verwende keine bildschirmfüllende Eingabe im Hochformat    </string>
+  <string name="backword_support">Wort zurück-Unterstützung</string>
   <string name="backword_support_on_summary">Umschalten + Rückschritt löscht letztes Wort</string>
   <string name="backword_support_off_summary">Umschalten + Rückschritt löscht letzten Buchstaben</string>
-  <string name="swipe_tweak_group">Einstellen der Streichgesten</string>
-  <string name="swipe_up_action">Streichen nach oben</string>
-  <string name="swipe_up_action_summary">Definiere die Swipe geste Aktion. Aktuell %s</string>
-  <string name="swipe_up_action_title">Wähle Aktion für das Streichen nach oben</string>
-  <string name="swipe_up_from_spacebar_action">Schiebe die Leertaste hoch</string>
-  <string name="swipe_up_from_spacebar_action_summary">Definiere die Aktion der Geste von der Leertaste nach oben. Aktuell %s</string>
-  <string name="swipe_up_from_spacebar_action_title">Leertaste-aufwärts-wischen-Aktion wählen</string>
+  <string name="swipe_tweak_group">Einstellen der Wischgesten</string>
+  <string name="swipe_up_action">Nach oben wischen</string>
+  <string name="swipe_up_action_summary">Definiere die Wischgeste-Aktion nach oben. Aktuell %s</string>
+  <string name="swipe_up_action_title">Wähle Aktion für das wischen nach oben</string>
+  <string name="swipe_up_from_spacebar_action">Wische die Leertaste nach oben</string>
+  <string name="swipe_up_from_spacebar_action_summary">Definiere die Aktion der Wischgeste von der Leertaste nach oben. Aktuell %s</string>
+  <string name="swipe_up_from_spacebar_action_title">Aktion für die Wischgeste Leertaste nach oben wählen</string>
   <string name="swipe_down_action">Streichen nach unten</string>
   <string name="swipe_down_action_summary">Definiere die Aktion der Geste nach unten. Aktuell %s</string>
-  <string name="swipe_down_action_title">Wähle Aktion für das Streichen nach unten</string>
-  <string name="swipe_left_action">Streichen nach links</string>
-  <string name="swipe_left_action_summary">Definiere die Aktion der Geste nach links. Aktuell %s</string>
-  <string name="swipe_left_action_title">Wähle Aktion für das Streichen nach liks</string>
-  <string name="swipe_right_action">Streichen nach rechts</string>
+  <string name="swipe_down_action_title">Wähle Aktion für das wischen nach unten</string>
+  <string name="swipe_left_action">Wischen nach links</string>
+  <string name="swipe_left_action_summary">Definiere die Aktion der Wischgeste nach links. Aktuell %s</string>
+  <string name="swipe_left_action_title">Wähle Aktion für das wischen nach links</string>
+  <string name="swipe_right_action">Nach rechts wischen</string>
   <string name="swipe_right_action_summary">Definiere die Aktion der Geste nach rechts. Aktuell %s</string>
-  <string name="swipe_right_action_title">Wähle Aktion für das Streichen nach rechts</string>
-  <string name="swipe_right_space_bar_action">von Leertaste nach rechts swipen</string>
-  <string name="swipe_right_space_bar_action_summary">Definiere die Aktion der Geste von der Leertaste nach rechts. Aktuell %s</string>
-  <string name="swipe_right_space_bar_action_title">Wählen Sie eine Aktion für das von der Leertaste nach rechts swipen</string>
-  <string name="swipe_left_space_bar_action">von Leertaste nach links swipen</string>
-  <string name="swipe_left_space_bar_action_summary">Definiere die Aktion der Geste von der Leertaste nach links. Aktuell %s</string>
-  <string name="swipe_left_space_bar_action_title">Wählen Sie eine Aktion für das von der Leertaste nach links swipen</string>
-  <string name="swipe_left_two_fingers_action">Zweifinger-swipe nach Links</string>
-  <string name="swipe_left_two_fingers_action_title">Wählen Sie die links Wischgeste</string>
-  <string name="pinch_gesture_action">Zusammenführen</string>
-  <string name="pinch_gesture_action_title">Wähle die Aktion der Pinchgeste</string>
-  <string name="pinch_gesture_action_summary">Definiere die Aktion der Pinchgeste. Aktuell %s</string>
-  <string name="separate_gesture_action">Streck Geste</string>
-  <string name="separate_gesture_action_title">Wähle die Aktion der Streckgeste</string>
-  <string name="separate_gesture_action_summary">Definiere die Aktion der Streckgeste. Aktuell, %s</string>
+  <string name="swipe_right_action_title">Aktion wählen für das wischen nach rechts</string>
+  <string name="swipe_right_space_bar_action">von der Leertaste nach rechts wischen</string>
+  <string name="swipe_right_space_bar_action_summary">Definiere die Aktion der Wischgeste von der Leertaste nach rechts. Aktuell %s</string>
+  <string name="swipe_right_space_bar_action_title">Aktion wählen für das wischen der Leertaste nach rechts</string>
+  <string name="swipe_left_space_bar_action">von Leertaste nach links wischen</string>
+  <string name="swipe_left_space_bar_action_summary">Definiere die Aktion der Wischgeste von der Leertaste nach links. Aktuell %s</string>
+  <string name="swipe_left_space_bar_action_title">Aktion wählen für das wischen der Leertaste nach links</string>
+  <string name="swipe_left_two_fingers_action">Zweifinger-Wisch nach links</string>
+  <string name="swipe_left_two_fingers_action_summary">Definiere Die Zwei-Finger Wischgesten Aktion nach links. Derzeit, %s</string>
+  <string name="swipe_left_two_fingers_action_title">Aktion wählen für die Wischgeste nach links</string>
+  <string name="swipe_right_two_fingers_action">Mit zwei Fingern nach rechts wischen</string>
+  <string name="swipe_right_two_fingers_action_summary">Definiere Die Zwei-Finger Wischgesten Aktion nach rechts. Derzeit, %s</string>
+  <string name="swipe_right_two_fingers_action_title">Wähle rechte Wischgesten Aktion</string>
+  <string name="pinch_gesture_action">Zusammenschieben-Wischgeste</string>
+  <string name="pinch_gesture_action_title">Wähle die Aktion der Zusammenschieben-Wischgeste</string>
+  <string name="pinch_gesture_action_summary">Definiere die Aktion der Zusammenschieben-Wischgeste. Aktuell %s</string>
+  <string name="separate_gesture_action">auseinanderziehen-Wischgeste</string>
+  <string name="separate_gesture_action_title">Wähle die Aktion der auseinanderziehen-Wischgeste</string>
+  <string name="separate_gesture_action_summary">Definiere die Aktion der auseinanderziehen-Wischgeste. Aktuell, %s</string>
   <string name="swipe_action_name_none">Keine Aktion</string>
   <string name="swipe_action_name_next_alphabet">Nächste Alphabetische-Tastatur</string>
-  <string name="swipe_action_name_next_symbols">Nächste Symbole Tastatur</string>
+  <string name="swipe_action_name_next_symbols">Nächste Symbole-Tastatur</string>
   <string name="swipe_action_name_next_inside_mode">Weiter im aktuellen Modus</string>
   <string name="swipe_action_name_cycle_keyboards">Durchlauf aller Tastaturen</string>
   <string name="swipe_action_name_reverse_cycle_keyboards">Rückwärts durch alle Tastaturen</string>
@@ -206,13 +181,15 @@
   <string name="swipe_action_name_backspace">Schritt zurück</string>
   <string name="swipe_action_name_backword">Wort zurück</string>
   <string name="swipe_action_name_clear_input">Lösche den gesamten Text</string>
-  <string name="swipe_action_name_cursor_up">Bewegt Cursor nach oben</string>
-  <string name="swipe_action_name_cursor_down">Bewegt Cursor nach unten</string>
-  <string name="swipe_action_name_cursor_left">Bewegt Cursor nach links</string>
-  <string name="swipe_action_name_cursor_right">Bewegt Cursor rechts</string>
-  <string name="swipe_action_name_other_keyboards_mode">Schalten des Layout-Modus</string>
+  <string name="swipe_action_name_cursor_up">Bewegt den Cursor nach oben</string>
+  <string name="swipe_action_name_cursor_down">Bewegt den Cursor nach unten</string>
+  <string name="swipe_action_name_cursor_left">Bewegt den Cursor nach links</string>
+  <string name="swipe_action_name_cursor_right">Bewegt den Cursor rechts</string>
+  <string name="swipe_action_name_other_keyboards_mode">Layout Modus umschalten</string>
   <string name="swipe_action_name_split_layout">Layout aufteilen</string>
   <string name="swipe_action_name_merge_layout">Layout zusammenführen</string>
+  <string name="swipe_action_name_compact_layout_to_right">Kompaktes Layout nach rechts</string>
+  <string name="swipe_action_name_compact_layout_to_left">Kompaktes Layout linke Seite</string>
   <string name="swipe_action_name_utility_keyboard">zeige die Utility Tastatur</string>
   <string name="settings_swipe_velocity_threshold_title">Streich-Geschwindigkeits-Schwellenwert</string>
   <string name="settings_swipe_velocity_threshold_summary">Die minimale Geschwindigkeit einer Swipe-Geste. Aktuell %s</string>
@@ -234,12 +211,16 @@
   <string name="volume_key_for_left_right_support_off_summary">der Lauterknopf dreht den Cursor nach links, der Leiserknopf nach rechts</string>
   <string name="camera_key_for_backspace_backword_support">Kameratasten für Rückschritt / Wort zurück</string>
   <string name="camera_key_for_backspace_backword_support_on_summary">Funktion Kameratasten wiederherstellen</string>
+  <string name="camera_key_for_backspace_backword_support_off_summary">Zur hälfte gedrückte Kamerataste löscht letzte    Zeichen, die ganze Taste gedrückt löscht das letzte Wort    </string>
   <string name="menu_even_more_settings">Noch mehr…</string>
   <string name="more_ui_settings_group">Benutzeroberfläche</string>
   <string name="special_dictionaries_group">Fachwörterbücher</string>
   <string name="special_dictionaries_group_summary">In AnySoftKeyboard verwendete Wörterbücher</string>
   <string name="use_user_dictionary">Benutzerwörterbuch</string>
+  <string name="use_user_dictionary_on_summary">Schlägt vom Benutzer hinzugefügte Wörter vor (Doppelklick um eigenes eingetipptes Wort hinzuzufügen)</string>
   <string name="always_use_fallback_user_dictionary">Benutzer-Fallback-Wörterbuch verwenden</string>
+  <string name="always_use_fallback_user_dictionary_on_summary">Verwenden Sie nur AnySoftKeyboard\'s integrierte Benutzerwörterbuch ab Werk (nicht empfohlen).</string>
+  <string name="always_use_fallback_user_dictionary_off_summary">Versuche Android\'s integriertes Benutzerwörterbuch zuerst zu verwenden (empfohlen).</string>
   <string name="use_auto_dictionary">Auto Wörterbuch</string>
   <string name="use_auto_dictionary_dialog_title">Lernmethode wählen</string>
   <string name="use_auto_dictionary_summary">Neue Wörter automatisch lernen. Lernmethode: %s</string>
@@ -259,9 +240,14 @@
   <string name="show_keyboard_name_text">Tastaturnamen anzeigen</string>
   <string name="show_keyboard_name_on_summary">Tastaturname auf Leertaste anzeigen</string>
   <string name="show_keyboard_name_off_summary">Tastaturname nicht anzeigen</string>
+  <string name="use_custom_keytext_color">Überschreibe Schlüsseltextfarbe</string>
+  <string name="use_custom_keytext_color_on_summary">Verwende benutzerdefinierte Schlüsseltextfarbe</string>
   <string name="show_hint_text">Hinweistext anzeigen</string>
   <string name="show_hint_text_on_summary">Hinweise zu Tasten anzeigen, wenn es Hilfen dazu gibt</string>
   <string name="show_hint_text_off_summary">Nie Hinweise zu Tasten anzeigen</string>
+  <string name="use_custom_hint_color">Überschreibe Hinweisfarbe</string>
+  <string name="use_custom_hint_color_on_summary">Verwende benutzerdefinierte Hinweistextfarbe</string>
+  <string name="use_custom_hint_align">Hinweisposition überschreiben</string>
   <string-array name="custom_hint_align_types">
     <item>Links</item>
     <item>Mittig</item>
@@ -277,6 +263,10 @@
   <string name="is_extesion_keyboard_above_keyboard">Erweiterungstastatur oben</string>
   <string name="is_extesion_keyboard_above_keyboard_on_summary">Über der Tastatur gezeichnet</string>
   <string name="is_extesion_keyboard_above_keyboard_off_summary">Bezeichnet als Haupttastatur</string>
+  <string name="show_settings_app_in_launcher">Einstellungs-App</string>
+  <string name="settings_key_show_settings_app_off_summary">Versteckt die Einstellungen der App (eventuell Neustart erforderlich)</string>
+  <string name="show_crash_notification">Bericht über den Absturz</string>
+  <string name="show_crash_notification_on_summary">Falls ASK abstürzt, öffnet sich der Fehlerbericht</string>
   <string name="use_keyrepeat">Verwende Tastenwiederholung</string>
   <string name="use_keyrepeat_on_summary">Tastenwiederholung ist aktiviert</string>
   <string name="use_keyrepeat_off_summary">Tastenwiederholung ist deaktiviert</string>
@@ -287,9 +277,12 @@
   <string name="emoticon_popup_type_summary">Wählen Sie die Typ des Popups zur Anzeige der Emoticon-Auswahl</string>
   <string name="default_smiley_text">Smiley-Text</string>
   <string name="default_domain_text">Domänen-Text</string>
-  <string name="smiley_icon_on_smileys_key">Icons für Smiley Codes anzeigen</string>
+  <string name="smiley_icon_on_smileys_key">Benutze Symbol für Smileytaste</string>
   <string name="smiley_icon_on_smileys_key_on_summary">Smiley-Icons werden angezeigt</string>
   <string name="smiley_icon_on_smileys_key_off_summary">Smiley-Text wird angezeigt</string>
+  <string name="key_preview_position_override">Position der Tastenvorschau</string>
+  <string name="key_preview_position_override_summary">Über die gedrückte Taste oder über die gesamte Tastatur</string>
+  <string name="key_preview_position_override_above_key">Über die gedrückte Taste</string>
   <string name="key_preview_position_override_above_keyboard">Über der Tastatur</string>
   <string name="key_press_preview_popup">Tastenauswahl-Vorschau</string>
   <string name="key_press_preview_popup_on_summary">Zeige Vorschau bei Tastendruck</string>
@@ -318,7 +311,10 @@
   <string name="grammer_group">Grammatik</string>
   <string name="keyboard_behavior_group">Tastaturverhalten</string>
   <string name="candidates_on">Zeige Wortvorschläge</string>
+  <string name="candidates_on_summary">Oberhalb der Tastatur wird eine Liste der vorgeschlagenen Wörter angezeigt</string>
   <string name="candidates_off_summary">Es werden keine Vorschläge angezeigt werden</string>
+  <string name="quick_fix">Wortkorrekturen und Abkürzungen</string>
+  <string name="quick_fix_summary">Korrigiert typische Schreibfehler und zeigt bei Eingabe der festgelegten Abkürzung den individuellen Text als Wortvorschlag an</string>
   <string name="allow_suggestions_restart">Vorschläge neustarten</string>
   <string name="allow_suggestions_restart_summary">Wortvorschläge bei Zeigerbewegung neustarten</string>
   <string name="auto_complete">Automatische Auswahl von Wortvorschlägen</string>
@@ -329,9 +325,11 @@
   <string name="keyboard_sandbox_title">Schreiben sie etwas in das Eingabefeld um die Einstellungen zu testen</string>
   <string name="contacts_dict">Kontakte Wörterbuch</string>
   <string name="contacts_dict_summary">Vorschläge enthalten Namen aus Kontakte</string>
-  <string name="auto_dict">Auto Wörterbuch</string>
+  <string name="auto_dict">Auto-Wörterbuch</string>
   <string name="auto_dict_summary">Oft verwendete Wörter automatisch ins Wörterbuch aufnehmen</string>
   <string name="no_extrenal_packs_support_title">Nicht unterstützt</string>
+  <string name="no_extrenal_packs_support_message">Vorerst erlaubt AnySoftKeyboard keine externenPakete der    Art.\nWenn die API-Spezifikationen festgelegt wurden, wird diese Funktion geöffnet.\nBleiben Sie dran!
+             </string>
   <string name="keyboards_group">Tastaturen</string>
   <string name="symbols_keyboard">123!#()</string>
   <string name="symbols_alt_keyboard">{}\_</string>
@@ -344,8 +342,11 @@
   <string name="eng_keyboard_16keys">16 Tasten Englisch</string>
   <string name="keyboard_change_locked">n/a</string>
   <string name="selected_add_on_summary">Benutze nun \'<xliff:g id="addOnName">%s</xliff:g>\'</string>
-  <string name="additional_addons_group">Zusätzliche Add-ons</string>
-  <string name="quick_text_keys_group">Schnell Text-Tasten</string>
+  <string name="additional_addons_group">Zusätzliche Erweiterungen</string>
+  <string name="quick_text_keys_group">Emoji Einstellungen</string>
+  <string name="quick_text_keys_order">Reihenfolge der Emoji-Gruppen</string>
+  <string name="quick_text_keys_order_dialog_title">Emoji-Gruppen sortieren</string>
+  <string name="quick_text_keys_order_summary">Die Reihenfolge festlegen, in der die Emoji-Gruppen angezeigt werden sollen.</string>
   <string name="extension_keyboards_group">Erweiterte Tastatur</string>
   <string name="extension_keyboards_summary">Wählen Sie die obere, untere Zeilen oder Erweiterungs tastatur</string>
   <string name="top_generic_row_group">Allgemeine oberste generische Reihe</string>
@@ -411,6 +412,17 @@
   <string name="eng_dictionary">Englisch</string>
   <string name="simley_key_name">Smiley-Taste</string>
   <string name="default_quick_text_key_name">Einfache Emoticons</string>
+  <string name="unicode_people_quick_text_key_name">Menschen</string>
+  <string name="unicode_accessories_quick_text_key_name">Accessoires</string>
+  <string name="unicode_animals_quick_text_key_name">Tiere</string>
+  <string name="unicode_food_quick_text_key_name">Essen</string>
+  <string name="unicode_nature_quick_text_key_name">Natur</string>
+  <string name="unicode_transport_quick_text_key_name">Verkehr</string>
+  <string name="unicode_signs_quick_text_key_name">Zeichen</string>
+  <string name="unicode_city_quick_text_key_name">Stadt</string>
+  <string name="unicode_activity_quick_text_key_name">Aktivität</string>
+  <string name="unicode_office_quick_text_key_name">Büro</string>
+  <string name="unicode_occasions_quick_text_key_name">Gelegenheiten</string>
   <string name="multitap_timeout_title">Multi-Tap-Timeout</string>
   <string name="multitap_timeout_summary">Timeout zwischen den Tippvorgängen</string>
   <string name="settings_multitap_timeout_disabled">Deaktiviert</string>
@@ -433,14 +445,21 @@
   <string name="workaround_disable_rtl_fix_summary_on">Verwende OS RTL Handling (SE-Telefone)</string>
   <string name="workaround_disable_rtl_fix_summary_off">Verwenden Sie AnySoftKeyboard RTL Handling</string>
   <string name="settings_split_state_title">Geteilt/Zusammen Anfangsstadium</string>
+  <string name="settings_split_state_summary">Legen Sie fest ob die Tastatur standardmäßig geteilt wird. Jetzt: %s</string>
   <string name="settings_split_state_merged_always">Normaler Start</string>
-  <string name="settings_split_state_split_in_landscape">Im Landscape-Modus teilen</string>
+  <string name="settings_split_state_split_in_landscape">Im Querformat-Modus teilen</string>
   <string name="settings_split_state_split_always">Geteilt starten</string>
+  <string name="settings_split_state_compact_right_always">Starte kompakt rechts</string>
+  <string name="settings_split_state_compact_left_always">Starte kompakt links</string>
   <string name="user_dictionary_select_locale">Sprache:</string>
+  <string name="user_dictionary_read_please_wait">Wörter lesen...</string>
   <string name="user_dict_settings_titlebar">Benutzerwörterbuch</string>
   <string name="user_dict_editor">Wörtereditor</string>
+  <string name="abbreviation_dict_settings_titlebar">Kurzzeichen Editor</string>
+  <string name="abbreviation_dict_editor">Abkürzungen erstellen</string>
   <string name="user_dict_settings_add_dialog_title">Zum Wörterbuch hinzufügen</string>
   <string name="user_dict_settings_edit_dialog_title">Wort bearbeiten</string>
+  <string name="user_dict_settings_empty_text">Sie haben keine Wörter im Benutzerwörterbuch. Sie können jetzt Ihr erstes Wort eingeben.</string>
   <string name="user_dict_backup_success_title">Backup erfolgreich!</string>
   <string name="user_dict_backup_fail_title">Backup fehlgeschlagen!</string>
   <string name="user_dict_backup_fail_text">Daten konnten nicht gespeichert werden. Ist der Speicher verfügbar?</string>
@@ -452,17 +471,38 @@
   <string name="should_swap_punctuation_and_space_title">Satzzeichen und Leertaste tauschen</string>
   <string name="should_swap_punctuation_and_space_yes">Ja</string>
   <string name="should_swap_punctuation_and_space_no">Nein</string>
+  <string name="initial_quick_text_tab_summary">Emoji Gruppe mit der gestartet wird: %s</string>
+  <string name="initial_quick_text_tab_always_first_tab">Immer mit der ersten starten</string>
+  <string name="initial_quick_text_tab_last_used_tab">Mit der letzten benutzten Gruppe starten</string>
+  <string name="developer_tools">Entwickler-Werkzeug</string>
+  <string name="click_for_developer_features">Entwickler-Werkzeug</string>
+  <string name="click_for_developer_features_summary">Verschiedene Werkzeuge für AnySoftKeyboard Entwickler</string>
+  <string name="drawer_open">Menü öffnen</string>
+  <string name="drawer_close">Menü schließen</string>
+  <string name="not_configured_with_just_click_here">Hier klicken</string>
+  <string name="click_for_more">mehr...</string>
   <string name="back_button_label">Zurück</string>
+  <string name="skip_button_label">Überspringen</string>
+  <string name="word_editor_action_add_word">Wort hinzufügen</string>
+  <string name="word_editor_action_backup_words">Sicherung</string>
+  <string name="word_editor_action_restore_words">Wiederherstellen</string>
+  <string name="click_to_add_new_word">Hier klicken, um ein neues Wort hinzufügen</string>
+  <string name="enter_word_hint">Geben Sie hier das neue Wort</string>
+  <string name="enter_abbreviation_hint">Abkürzung</string>
+  <string name="enter_abbreviation_target_hint">Ganzer Satz</string>
   <string name="toggle_button_on">An</string>
   <string name="toggle_button_off">Aus</string>
   <string name="about_additional_software_licenses">Zusätzliche Softwarelizenzen</string>
   <string name="wizard_step_previous_step_not_complete_title">der Vorherige Setupschritt ist nicht vollständig</string>
   <string name="wizard_step_previous_step_not_complete_text">Swipe bitte zum vorherigen Schritt, und folge den Anweisungen.</string>
   <string name="wizard_step_this_step_complete_title">Schritt fertig!</string>
+  <string name="wizard_step_this_step_complete_text_switched"><i>AnySoftKeyboard</i> ist die Standardtastatur. Eventuell wollen Sie zusätzliche Dinge, wie Themen oder Sprachen hinzufügen?</string>
+  <string name="wizard_step_swipe_to_next">Wische zur nächsten Seite.</string>
   <string name="setup_wizard_step_one_title">AnySoftKeyboard aktivieren</string>
   <string name="setup_wizard_step_small_sub_title">Das ist der erste Schritt, aber keine Sorge. Es gibt nur drei ,ganz einfache, Schritte.</string>
   <string name="setup_wizard_step_one_details">In diesem Schritt, wirst musst <i>AnySoftKeyboard</i> aktivieren. Bitte hake <i>\'AnySoftKeyboard\'</i> im <i>Sprache und Texteingabe</i> Ordner ab. Das ermöglicht der App auf dem Gerät zu laufen.</string>
   <string name="setup_wizard_step_one_action">Gehe zu deinem  <i>Sprache und Texteingabe</i> Ordner…</string>
+  <string name="setup_wizard_step_one_action_error_no_settings_activity">Fehler: Dein Gerät unterstützt keine Drittanbieter-Tastatur. AnySoftKeyboard kann nicht aktiviert werden!</string>
   <string name="setup_wizard_top_title">Installiere\nAnySoftKeyboard\nzum Benutzen</string>
   <string name="setup_wizard_step_two_title">zu AnySoftKeyboard wechseln</string>
   <string name="setup_wizard_step_two_small_sub_title">Schritt zwei von drei</string>
@@ -472,5 +512,15 @@
   <string name="setup_wizard_step_three_details">Danke, dass du <i>AnySoftKeyboard</i> ausgewählt hast.\nDiese Tastatur zeichnet sich durch ein grosses Grad an Anpassungsfähigkeit aus. Personalisiere es:</string>
   <string name="setup_wizard_step_three_action_languages">Sprachen Installieren...</string>
   <string name="setup_wizard_step_three_action_themes">Thema wählen...</string>
-  <string name="setup_wizard_step_three_action_all_settings">Etwas anderes EInstellen...</string>
+  <string name="setup_wizard_step_three_action_all_settings">Etwas anderes konfigurieren...</string>
+  <string name="ime_crashed_title">AnySoftKeyboard ist abgestürzt!</string>
+  <string name="ime_crashed_sub_text">Uups, das habe ich nicht kommen sehen...</string>
+  <string name="ime_crashed_ticker">Hoppla, das habe ich nicht kommen sehen...</string>
+  <string name="ime_crashed_send_button">Senden</string>
+  <string name="ime_crashed_cancel_button">Abbrechen</string>
+  <string name="ime_crashed_intent_selector_title">Senden Sie den Fehlerbericht per</string>
+  <string name="setup_wizard_step_two">2. Schritt:</string>
+  <string name="setup_wizard_step_three">3. Schritt:</string>
+  <string name="about_donate">Spenden:</string>
+  <string name="main_fragment_go_to_settings_button">Zu den Einstellungen</string>
 </resources>
