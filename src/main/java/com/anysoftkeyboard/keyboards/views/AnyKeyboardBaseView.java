@@ -1813,8 +1813,12 @@ public class AnyKeyboardBaseView extends View implements
             if (builder == null)
                 return null;
             icon = builder.buildDrawable();
-            mKeysIcons.put(keyCode, icon);
-            Log.d(TAG, "Current drawable cache size is %d", mKeysIcons.size());
+            if (icon != null) {
+                mKeysIcons.put(keyCode, icon);
+                Log.d(TAG, "Current drawable cache size is %d", mKeysIcons.size());
+            } else {
+                Log.w(TAG, "Can not find drawable for keyCode %d. Context lost?", keyCode);
+            }
         }
         // maybe a drawable state is required
         if (icon != null) {

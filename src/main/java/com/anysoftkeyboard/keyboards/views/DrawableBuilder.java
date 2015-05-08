@@ -16,8 +16,11 @@
 
 package com.anysoftkeyboard.keyboards.views;
 
+import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
+
 import com.anysoftkeyboard.theme.KeyboardTheme;
 
 public class DrawableBuilder {
@@ -29,8 +32,11 @@ public class DrawableBuilder {
         mDrawableResourceId = drawableResId;
     }
 
+    @Nullable
     public Drawable buildDrawable() {
-        return mTheme.getPackageContext().getResources().getDrawable(mDrawableResourceId);
+        final Context packageContext = mTheme.getPackageContext();
+        if (packageContext == null) return null;
+        return packageContext.getResources().getDrawable(mDrawableResourceId);
     }
 
     public static DrawableBuilder build(KeyboardTheme theme, TypedArray a, final int index) {
