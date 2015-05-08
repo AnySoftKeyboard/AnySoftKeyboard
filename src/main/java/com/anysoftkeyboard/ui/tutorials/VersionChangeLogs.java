@@ -10,6 +10,9 @@ import java.util.Locale;
 public class VersionChangeLogs {
 	static List<VersionChangeLog> createChangeLog() {
 		List<VersionChangeLog> log = new ArrayList<>();
+		log.add(new VersionChangeLog(1, 5, "", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.5"),
+				"New and improved key preview, with tasty animations and stuff."));
+
 		log.add(new VersionChangeLog(1, 4, "r2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.4_r2"),
 				"Even more crash fixes.",
 				"Build system update.",
