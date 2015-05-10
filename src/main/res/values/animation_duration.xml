@@ -7,7 +7,6 @@
     <integer name="popupAnimTime">70</integer>
 
     <integer name="preview_dismiss_delay">70</integer>
-
     <integer name="preview_in_animation_duration">40</integer>
     <integer name="preview_out_animation_duration">100</integer>
 

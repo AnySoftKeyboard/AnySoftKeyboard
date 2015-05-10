@@ -28,6 +28,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.FontMetrics;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -65,6 +66,7 @@ import com.anysoftkeyboard.keyboards.KeyboardDimens;
 import com.anysoftkeyboard.keyboards.KeyboardSupport;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupManager;
+import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupPositionCalculator;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextViewFactory;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
@@ -141,7 +143,7 @@ public class AnyKeyboardBaseView extends View implements
     private int mMiniKeyboardOriginX;
     private int mMiniKeyboardOriginY;
     private long mMiniKeyboardPopupTime;
-    private int[] mWindowOffset;
+    private int[] mThisWindowOffset;
     private int mMiniKeyboardTrackerId;
     protected AnimationsLevel mAnimationLevel = AnyApplication.getConfig().getAnimationsLevel();
 
@@ -1802,7 +1804,7 @@ public class AnyKeyboardBaseView extends View implements
         return result;
     }
 
-    private AnyPopupKeyboard setupMiniKeyboardContainer(Context packageContext, Key popupKey, boolean isSticky) {
+    private void setupMiniKeyboardContainer(Context packageContext, Key popupKey, boolean isSticky) {
         final AnyPopupKeyboard keyboard;
         if (popupKey.popupCharacters != null) {
             keyboard = new AnyPopupKeyboard(getContext()
@@ -1824,8 +1826,6 @@ public class AnyKeyboardBaseView extends View implements
         mMiniKeyboard.measure(
                 MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.AT_MOST),
                 MeasureSpec.makeMeasureSpec(getHeight(), MeasureSpec.AT_MOST));
-
-        return keyboard;
     }
 
     public KeyboardDimens getThemedKeyboardDimens() {
@@ -1853,46 +1853,19 @@ public class AnyKeyboardBaseView extends View implements
                                   boolean isSticky, boolean requireSlideInto) {
         if (popupKey.popupResId == 0) return false;
 
+        int[] windowOffset = getLocationInWindow();
+
         ensureMiniKeyboardInitialized();
 
-        AnyPopupKeyboard popupKeyboard = setupMiniKeyboardContainer(packageContext, popupKey, isSticky);
-        if (mWindowOffset == null) {
-            mWindowOffset = new int[2];
-            getLocationInWindow(mWindowOffset);
-        }
+        setupMiniKeyboardContainer(packageContext, popupKey, isSticky);
 
-        int popupX = popupKey.x + mWindowOffset[0];
-        popupX -= mMiniKeyboard.getPaddingLeft();
-        int popupY = popupKey.y + mWindowOffset[1];
-        popupY += getPaddingTop();
-        popupY -= mMiniKeyboard.getMeasuredHeight();
-        popupY -= mMiniKeyboard.getPaddingBottom();
-        final int x = popupX;
-        final int y = popupY;
+        Point miniKeyboardPosition = PreviewPopupPositionCalculator.calculatePositionForPopupKeyboard(popupKey, this, mMiniKeyboard, mPreviewPopupManager.getPreviewPopupTheme(), windowOffset);
 
-        int adjustedX = x;
-        boolean shouldMirrorKeys = false;
-        //now we need to see the the popup is positioned correctly:
-        //1) if the right edge is off the screen, then we'll try to put the right edge over the popup key
-        if (adjustedX > (getMeasuredWidth() - mMiniKeyboard.getMeasuredWidth())) {
-            adjustedX = popupKey.x + mWindowOffset[0] - mMiniKeyboard.getMeasuredWidth();
-            //adding the width of the key - now the right most popup key is above the finger
-            adjustedX += popupKey.width;
-            adjustedX += mMiniKeyboard.getPaddingRight();
-            shouldMirrorKeys = true;
-        }
-        //2) if it is still negative, then let's put it at the beginning (shouldn't happen)
-        if (adjustedX < 0) {
-            adjustedX = 0;
-            shouldMirrorKeys = false;
-        }
-        if (shouldMirrorKeys)
-            popupKeyboard.mirrorKeys();
+        final int x = miniKeyboardPosition.x;
+        final int y = miniKeyboardPosition.y;
 
-        mMiniKeyboardOriginX =
-                adjustedX + mMiniKeyboard.getPaddingLeft() - mWindowOffset[0];
-        mMiniKeyboardOriginY =
-                y + mMiniKeyboard.getPaddingTop() - mWindowOffset[1];
+        mMiniKeyboardOriginX = x + mMiniKeyboard.getPaddingLeft() - windowOffset[0];
+        mMiniKeyboardOriginY = y + mMiniKeyboard.getPaddingTop() - windowOffset[1];
 
         // NOTE:I'm checking the main keyboard shift state directly!
         // Not anything else.
@@ -1910,8 +1883,16 @@ public class AnyKeyboardBaseView extends View implements
             downEvent.recycle();
         }
 
-        setPopupKeyboardWithView(adjustedX, y, mMiniKeyboard);
+        setPopupKeyboardWithView(x, y, mMiniKeyboard);
         return true;
+    }
+
+    public int[] getLocationInWindow() {
+        if (mThisWindowOffset == null) {
+            mThisWindowOffset = new int[2];
+            getLocationInWindow(mThisWindowOffset);
+        }
+        return mThisWindowOffset;
     }
 
     public void showQuickKeysView(Key popupKey) {
@@ -1923,19 +1904,15 @@ public class AnyKeyboardBaseView extends View implements
                 View.MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.EXACTLY),
                 View.MeasureSpec.makeMeasureSpec(getHeight(), MeasureSpec.AT_MOST));
 
-        if (mWindowOffset == null) {
-            mWindowOffset = new int[2];
-            getLocationInWindow(mWindowOffset);
-        }
-
-        int popupY = popupKey.y + mWindowOffset[1];
+        final int[] locationInWindow = getLocationInWindow();
+        int popupY = popupKey.y + locationInWindow[1];
         popupY += popupKey.height;//this is shown at the bottom of the key
         popupY += getPaddingTop();
         popupY -= innerView.getMeasuredHeight();
         popupY -= innerView.getPaddingBottom();
 
-        mMiniKeyboardOriginX = mWindowOffset[0];
-        mMiniKeyboardOriginY = popupY - mWindowOffset[1];
+        mMiniKeyboardOriginX = locationInWindow[0];
+        mMiniKeyboardOriginY = popupY - locationInWindow[1];
 
         setPopupKeyboardWithView(0, popupY, innerView);
     }

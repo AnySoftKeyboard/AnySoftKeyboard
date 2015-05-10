@@ -2,7 +2,7 @@
 <!--
 /*
 **
-** Copyright 2012, AnySoftKeyboard
+** Copyright 2015, AnySoftKeyboard
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -17,31 +17,35 @@
 ** limitations under the License.
 */
 -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_margin="0px"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:padding="0px">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:gravity="center"
+             android:layout_margin="0px"
+             android:padding="0px">
+
     <TextView
-            android:id="@+id/key_preview_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="0px"
-            android:padding="0px"
-            android:gravity="center"
-            android:layout_centerInParent="true"
-            />
-    <ImageView android:id="@+id/key_preview_icon"
-               android:layout_width="fill_parent"
-               android:layout_height="wrap_content"
-               android:layout_margin="0px"
-               android:padding="0px"
-               android:scaleType="centerInside"
-               android:duplicateParentState="false"
-               android:clickable="false"
-               android:layout_centerInParent="true"/>
-</RelativeLayout>
+        android:id="@+id/key_preview_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="0px"
+        android:padding="0px"
+        android:layout_marginBottom="16dp"
+        android:layout_gravity="center"
+        android:gravity="center"/>
+
+    <ImageView
+        android:id="@+id/key_preview_icon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="0px"
+        android:padding="0px"
+        android:scaleType="centerInside"
+        android:duplicateParentState="false"
+        android:clickable="false"
+        android:layout_marginBottom="16dp"
+        android:layout_gravity="center"
+        android:gravity="center"/>
+</FrameLayout>
 
 

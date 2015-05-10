@@ -57,6 +57,8 @@ public class PreviewPopup {
 	}
 
 	public void showPreviewForKey(Keyboard.Key key, CharSequence label, Point previewPosition) {
+		mPreviewIcon.setVisibility(View.GONE);
+		mPreviewText.setVisibility(View.VISIBLE);
 		mPreviewIcon.setImageDrawable(null);
 		mPreviewText.setTextColor(mPreviewPopupTheme.getPreviewKeyTextColor());
 
@@ -77,6 +79,8 @@ public class PreviewPopup {
 	}
 
 	public void showPreviewForKey(Keyboard.Key key, Drawable icon, Point previewPosition) {
+		mPreviewIcon.setVisibility(View.VISIBLE);
+		mPreviewText.setVisibility(View.GONE);
 		mPreviewIcon.setImageState(icon.getState(), false);
 		// end of hack. You see, the drawable comes with a state, this state
 		// is overridden by the ImageView. No more.
