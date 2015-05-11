@@ -1702,19 +1702,26 @@ public class AnySoftKeyboard extends InputMethodService implements
             onText(key, mOverrideQuickTextText);
     }
 
-    private boolean isConnectBot() {
+    private boolean isTerminalEmulation() {
         EditorInfo ei = getCurrentInputEditorInfo();
-        String pkg = ei.packageName;
-        return ((pkg.equalsIgnoreCase("org.connectbot")
-                || pkg.equalsIgnoreCase("org.woltage.irssiconnectbot") || pkg
-                .equalsIgnoreCase("com.pslib.connectbot")) && ei.inputType == 0);
+        if (ei == null) return false;
+
+        switch(ei.packageName) {
+            case "org.connectbot":
+            case "org.woltage.irssiconnectbot":
+            case "com.pslib.connectbot":
+            case "com.sonelli.juicessh":
+                return ei.inputType == 0;
+            default:
+                return false;
+        }
     }
 
     private void sendTab() {
         InputConnection ic = getCurrentInputConnection();
         if (ic == null)
             return;
-        boolean tabHack = isConnectBot();
+        boolean tabHack = isTerminalEmulation();
 
         // Note: tab and ^I don't work in ConnectBot, hackish workaround
         if (tabHack) {
@@ -1737,7 +1744,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         InputConnection ic = getCurrentInputConnection();
         if (ic == null)
             return;
-        if (isConnectBot()) {
+        if (isTerminalEmulation()) {
             sendKeyChar((char) 27);
         } else {
             ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, 111 /* KEYCODE_ESCAPE */));
@@ -2695,7 +2702,9 @@ public class AnySoftKeyboard extends InputMethodService implements
             mShiftKeyState.onRelease(mAskPrefs.getMultiTapTimeout());
             handleShift();
         } else {
-            mShiftKeyState.onOtherKeyReleased();
+            if (mShiftKeyState.onOtherKeyReleased()) {
+                updateShiftStateNow();
+            }
         }
 
         if (primaryCode == KeyCodes.CTRL) {

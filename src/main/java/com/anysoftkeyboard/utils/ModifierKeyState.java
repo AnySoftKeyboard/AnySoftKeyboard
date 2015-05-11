@@ -49,12 +49,14 @@ public class ModifierKeyState {
         }
     }
 
-    public void onOtherKeyReleased() {
+    public boolean onOtherKeyReleased() {
         if (mPhysicalState != PRESSING && mLogicalState == ACTIVE && mConsumed) {
             //another key was pressed and release while this key was active:
             //it means that this modifier key was consumed
             mLogicalState = INACTIVE;
+            return true;
         }
+        return false;
     }
 
     public void onRelease(final int doubleClickTime) {
