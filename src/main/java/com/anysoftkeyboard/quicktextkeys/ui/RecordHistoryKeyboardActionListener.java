@@ -6,13 +6,13 @@ import android.text.TextUtils;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.MiniKeyboardActionListener;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
-import com.anysoftkeyboard.quicktextkeys.RecentQuickTextKey;
+import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
 
-public class RecordRecentKeyboardActionListener implements OnKeyboardActionListener {
+public class RecordHistoryKeyboardActionListener implements OnKeyboardActionListener {
 	private final Context mContext;
 	private final MiniKeyboardActionListener mKeyboardActionListener;
 
-	public RecordRecentKeyboardActionListener(Context context, MiniKeyboardActionListener keyboardActionListener) {
+	public RecordHistoryKeyboardActionListener(Context context, MiniKeyboardActionListener keyboardActionListener) {
 		mContext = context;
 		mKeyboardActionListener = keyboardActionListener;
 	}
@@ -49,7 +49,7 @@ public class RecordRecentKeyboardActionListener implements OnKeyboardActionListe
 		String name = String.valueOf(key.label);
 		String value = String.valueOf(text);
 
-		RecentQuickTextKey.recordUsedKey(name, value);
+		HistoryQuickTextKey.recordUsedKey(name, value);
 	}
 
 	@Override

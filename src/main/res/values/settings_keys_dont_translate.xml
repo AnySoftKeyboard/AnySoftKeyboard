@@ -96,10 +96,12 @@
     <string-array name="settings_key_initial_quick_text_tab_values">
         <item>always_first</item>
         <item>last_used</item>
+        <item>history</item>
     </string-array>
     <string-array name="settings_key_initial_quick_text_tab_names">
         <item>@string/initial_quick_text_tab_always_first_tab</item>
         <item>@string/initial_quick_text_tab_last_used_tab</item>
+        <item>@string/initial_quick_text_tab_history_tab</item>
     </string-array>
 
     <string-array name="tweak_animations_level_types">

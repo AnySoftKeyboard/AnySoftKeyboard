@@ -62,7 +62,6 @@ public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey> {
 		List<QuickTextKey> list = msInstance.getAllAddOns(applicationContext);
 		//for now, only supporting popup-keyboard addons.
 		List<QuickTextKey> filteredList = new ArrayList<>(list.size());
-		filteredList.add(new RecentQuickTextKey(applicationContext));
 		for (QuickTextKey quickTextKey : list) {
 			filteredList.add(quickTextKey);
 		}

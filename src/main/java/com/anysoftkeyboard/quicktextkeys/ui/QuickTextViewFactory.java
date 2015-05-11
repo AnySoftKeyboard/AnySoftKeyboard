@@ -12,8 +12,10 @@ import android.view.View;
 import com.anysoftkeyboard.keyboards.views.MiniKeyboardActionListener;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
+import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
 import com.menny.android.anysoftkeyboard.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuickTextViewFactory {
@@ -23,7 +25,11 @@ public class QuickTextViewFactory {
         View rootView = inflater.inflate(R.layout.quick_text_popup_root_view, null, false);
         FrameKeyboardViewClickListener frameKeyboardViewClickListener = new FrameKeyboardViewClickListener(keyboardActionListener);
         frameKeyboardViewClickListener.registerOnViews(rootView);
-        final List<QuickTextKey> list = QuickTextKeyFactory.getOrderedEnabledQuickKeys(context);
+        final List<QuickTextKey> list = new ArrayList<>();
+        //always starting with Recent
+        list.add(new HistoryQuickTextKey(context));
+        //then all the rest
+        list.addAll(QuickTextKeyFactory.getOrderedEnabledQuickKeys(context));
 
         final QuickTextUserPrefs quickTextUserPrefs = new QuickTextUserPrefs(context);
 
@@ -35,7 +41,7 @@ public class QuickTextViewFactory {
         pagerTabStrip.setTextColor(tabTitleTextColor.getDefaultColor());
         pagerTabStrip.setTabIndicatorColor(tabTitleTextColor.getDefaultColor());
         final int decorationWidthSize = context.getResources().getDimensionPixelSize(R.dimen.quick_key_size);
-        PagerAdapter adapter = new QuickKeysKeyboardPagerAdapter(context, list, new RecordRecentKeyboardActionListener(context, keyboardActionListener), decorationWidthSize);
+        PagerAdapter adapter = new QuickKeysKeyboardPagerAdapter(context, list, new RecordHistoryKeyboardActionListener(context, keyboardActionListener), decorationWidthSize);
         pager.setAdapter(adapter);
         pager.setCurrentItem(quickTextUserPrefs.getStartPageIndex(list));
         pager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {

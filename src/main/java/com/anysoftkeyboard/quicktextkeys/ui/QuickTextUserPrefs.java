@@ -16,6 +16,9 @@ import java.util.List;
     /*package*/ static final String KEY_QUICK_TEXT_PREF_LAST_SELECTED_TAB_ADD_ON_ID = "KEY_QUICK_TEXT_PREF_LAST_SELECTED_TAB_ADD_ON_ID";
     /*package*/ static final String PREF_VALUE_INITIAL_TAB_ALWAYS_FIRST = "always_first";
     /*package*/ static final String PREF_VALUE_INITIAL_TAB_LAST_USED = "last_used";
+    /*package*/ static final String PREF_VALUE_INITIAL_TAB_HISTORY = "history";
+    /*package*/  static final int FIRST_USER_TAB_INDEX = 1;
+    /*package*/  static final int HISTORY_TAB_INDEX = 0;
 
     private final SharedPreferences mSharedPreferences;
 
@@ -47,7 +50,9 @@ import java.util.List;
             case PREF_VALUE_INITIAL_TAB_LAST_USED:
                 return getPositionForAddOnId(allAddOns, getLastSelectedAddOnId());
             case PREF_VALUE_INITIAL_TAB_ALWAYS_FIRST:
-                return 0;
+                return FIRST_USER_TAB_INDEX;
+            case PREF_VALUE_INITIAL_TAB_HISTORY:
+                return HISTORY_TAB_INDEX;
             default:
                 Log.d("QuickTextUserPrefs", "Unrecognized %s value: %s. Defaulting to %s", mStartUpTypePrefKey, startupType, mStartUpTypePrefDefault);
                 return getTabIndexByStartUpType(allAddOns, mStartUpTypePrefDefault);
@@ -65,7 +70,7 @@ import java.util.List;
 
     private static int getPositionForAddOnId(List<QuickTextKey> list, @Nullable String initialAddOnId) {
         if (TextUtils.isEmpty(initialAddOnId)) {
-            return 0;
+            return FIRST_USER_TAB_INDEX;
         }
 
         for (int addOnIndex = 0; addOnIndex < list.size(); addOnIndex++) {
@@ -75,6 +80,6 @@ import java.util.List;
             }
         }
 
-        return 0;
+        return FIRST_USER_TAB_INDEX;
     }
 }

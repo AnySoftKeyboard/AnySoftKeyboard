@@ -8,20 +8,20 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.util.LinkedHashSet;
 
-public class RecentQuickTextKey extends QuickTextKey {
-	public RecentQuickTextKey(Context askContext) {
-		super(askContext, askContext, "b0316c86-ffa2-49e9-85f7-6cb6e63e18f9", R.string.recent_quick_text_key_name,
+public class HistoryQuickTextKey extends QuickTextKey {
+	public HistoryQuickTextKey(Context askContext) {
+		super(askContext, askContext, "b0316c86-ffa2-49e9-85f7-6cb6e63e18f9", R.string.history_quick_text_key_name,
 				AddOn.INVALID_RES_ID, AddOn.INVALID_RES_ID, AddOn.INVALID_RES_ID, AddOn.INVALID_RES_ID,
-				R.drawable.sym_keyboard_smiley, R.string.quick_text_smiley_key_recent_output, R.string.quick_text_smiley_key_recent_output,
-				AddOn.INVALID_RES_ID, askContext.getResources().getString(R.string.recent_quick_text_key_name), 0);
+				R.drawable.sym_keyboard_smiley, R.string.quick_text_smiley_key_history_output, R.string.quick_text_smiley_key_history_output,
+				AddOn.INVALID_RES_ID, askContext.getResources().getString(R.string.history_quick_text_key_name), 0);
 	}
 
 	@Override
 	protected String[] getStringArrayFromNamesResId(int popupListNamesResId, Resources resources) {
 		String[] names = new String[msLastUsed.size()];
 		int index = names.length-1;
-		for (RecentKey recentKey : msLastUsed) {
-			names[index] = recentKey.name;
+		for (HistoryKey historyKey : msLastUsed) {
+			names[index] = historyKey.name;
 			index--;
 		}
 		return names;
@@ -31,26 +31,25 @@ public class RecentQuickTextKey extends QuickTextKey {
 	protected String[] getStringArrayFromValuesResId(int popupListValuesResId, Resources resources) {
 		String[] values = new String[msLastUsed.size()];
 		int index = values.length-1;
-		for (RecentKey recentKey : msLastUsed) {
-			values[index] = recentKey.value;
+		for (HistoryKey historyKey : msLastUsed) {
+			values[index] = historyKey.value;
 			index--;
 		}
 		return values;
 	}
 
-	private static class RecentKey {
+	private static class HistoryKey {
 		public final String name;
 		public final String value;
 
-		private RecentKey(String name, String value) {
+		private HistoryKey(String name, String value) {
 			this.name = name;
 			this.value = value;
 		}
 
 		@Override
 		public boolean equals(Object o) {
-			if (o instanceof RecentKey) return ((RecentKey) o).name.equals(name);
-			return false;
+			return o instanceof HistoryKey && ((HistoryKey) o).name.equals(name);
 		}
 
 		@Override
@@ -59,7 +58,7 @@ public class RecentQuickTextKey extends QuickTextKey {
 		}
 	}
 
-	private static final LinkedHashSet<RecentKey> msLastUsed;
+	private static final LinkedHashSet<HistoryKey> msLastUsed;
 	static {
 		msLastUsed = new LinkedHashSet<>(20);
 		//must have at least one!
@@ -67,7 +66,7 @@ public class RecentQuickTextKey extends QuickTextKey {
 	}
 
 	public static void recordUsedKey(String name, String value) {
-		RecentKey usedKey = new RecentKey(name, value);
+		HistoryKey usedKey = new HistoryKey(name, value);
 		if (msLastUsed.contains(usedKey)) msLastUsed.remove(usedKey);
 		msLastUsed.add(usedKey);
 	}
