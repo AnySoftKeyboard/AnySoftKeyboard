@@ -63,7 +63,7 @@ public class QuickKeysKeyboardPagerAdapter extends PagerAdapter {
             if (addOn.isPopupKeyboardUsed()) {
                 keyboard = new AnyPopupKeyboard(mContext, addOn.getPackageContext(), addOn.getPopupKeyboardResId(), keyboardView.getThemedKeyboardDimens(), addOn.getName());
             } else {
-                keyboard = new PopupListKeyboard(mContext, addOn.getPackageContext(), keyboardView.getThemedKeyboardDimens(), addOn.getPopupListNames(), addOn.getPopupListValues(), addOn.getName());
+                keyboard = new PopupListKeyboard(mContext, keyboardView.getThemedKeyboardDimens(), addOn.getPopupListNames(), addOn.getPopupListValues(), addOn.getName());
             }
             mPopupKeyboards[position] = keyboard;
             final int keyboardViewMaxWidth = keyboardView.getThemedKeyboardDimens().getKeyboardMaxWidth();
