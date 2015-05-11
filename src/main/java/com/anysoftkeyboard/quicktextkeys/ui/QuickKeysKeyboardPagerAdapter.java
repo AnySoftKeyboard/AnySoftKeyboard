@@ -12,6 +12,7 @@ import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.PopupListKeyboard;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.keyboards.views.QuickKeysKeyboardView;
+import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -66,7 +67,7 @@ public class QuickKeysKeyboardPagerAdapter extends PagerAdapter {
             }
             mPopupKeyboards[position] = keyboard;
             final int keyboardViewMaxWidth = keyboardView.getThemedKeyboardDimens().getKeyboardMaxWidth();
-            mIsAutoFitKeyboards[position] = keyboard.getMinWidth() > keyboardViewMaxWidth;
+            mIsAutoFitKeyboards[position] = keyboard.getMinWidth() > keyboardViewMaxWidth || addOn instanceof HistoryQuickTextKey;
             if (mIsAutoFitKeyboards[position]) {
                 //fixing up the keyboard, so it will fit nicely in the width
                 int currentY = 0;
