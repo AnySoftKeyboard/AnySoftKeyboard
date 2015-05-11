@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.keyboards.PopupListKeyboard;
 import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.keyboards.views.QuickKeysKeyboardView;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
@@ -58,8 +59,12 @@ public class QuickKeysKeyboardPagerAdapter extends PagerAdapter {
         QuickTextKey addOn = mAddOns[position];
         AnyPopupKeyboard keyboard = mPopupKeyboards[position];
         if (keyboard == null) {
-            mPopupKeyboards[position] = new AnyPopupKeyboard(mContext, addOn.getPackageContext(), addOn.getPopupKeyboardResId(), keyboardView.getThemedKeyboardDimens(), addOn.getName());
-            keyboard = mPopupKeyboards[position];
+            if (addOn.isPopupKeyboardUsed()) {
+                keyboard = new AnyPopupKeyboard(mContext, addOn.getPackageContext(), addOn.getPopupKeyboardResId(), keyboardView.getThemedKeyboardDimens(), addOn.getName());
+            } else {
+                keyboard = new PopupListKeyboard(mContext, addOn.getPackageContext(), keyboardView.getThemedKeyboardDimens(), addOn.getPopupListNames(), addOn.getPopupListValues(), addOn.getName());
+            }
+            mPopupKeyboards[position] = keyboard;
             final int keyboardViewMaxWidth = keyboardView.getThemedKeyboardDimens().getKeyboardMaxWidth();
             mIsAutoFitKeyboards[position] = keyboard.getMinWidth() > keyboardViewMaxWidth;
             if (mIsAutoFitKeyboards[position]) {

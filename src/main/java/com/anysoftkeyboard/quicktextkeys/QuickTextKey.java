@@ -46,8 +46,8 @@ public class QuickTextKey extends AddOnImpl {
 
         this.mPopupKeyboardResId = popupKeyboardResId;
         if (popupKeyboardResId == INVALID_RES_ID) {
-            this.mPopupListNames = resources.getStringArray(popupListNamesResId);
-            this.mPopupListValues = resources.getStringArray(popupListValuesResId);
+            this.mPopupListNames = getStringArrayFromNamesResId(popupListNamesResId, resources);
+            this.mPopupListValues = getStringArrayFromValuesResId(popupListValuesResId, resources);
 
             if (popupListIconsResId != INVALID_RES_ID) {
                 TypedArray arr = resources.obtainTypedArray(popupListIconsResId);
@@ -62,6 +62,14 @@ public class QuickTextKey extends AddOnImpl {
         this.mKeyLabel = keyLabelResId != INVALID_RES_ID ? resources.getString(keyLabelResId) : null;
         this.mKeyOutputText = keyOutputTextResId != INVALID_RES_ID ? resources.getString(keyOutputTextResId) : null;
         this.mIconPreviewResId = iconPreviewResId;
+    }
+
+    protected String[] getStringArrayFromValuesResId(int popupListValuesResId, Resources resources) {
+        return resources.getStringArray(popupListValuesResId);
+    }
+
+    protected String[] getStringArrayFromNamesResId(int popupListNamesResId, Resources resources) {
+        return resources.getStringArray(popupListNamesResId);
     }
 
     public boolean isPopupKeyboardUsed() {

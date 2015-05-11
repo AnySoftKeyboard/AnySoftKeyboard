@@ -566,6 +566,7 @@
     <string name="eng_dictionary">English</string>
 
     <string name="simley_key_name">Smiley key</string>
+    <string name="recent_quick_text_key_name">Recent</string>
     <string name="default_quick_text_key_name">Simple Emoticons</string>
     <string name="unicode_quick_text_key_name">Emoticons</string>
     <string name="unicode_people_quick_text_key_name">People</string>
