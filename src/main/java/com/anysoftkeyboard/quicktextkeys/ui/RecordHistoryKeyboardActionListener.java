@@ -1,6 +1,5 @@
 package com.anysoftkeyboard.quicktextkeys.ui;
 
-import android.content.Context;
 import android.text.TextUtils;
 
 import com.anysoftkeyboard.keyboards.Keyboard;
@@ -9,11 +8,11 @@ import com.anysoftkeyboard.keyboards.views.OnKeyboardActionListener;
 import com.anysoftkeyboard.quicktextkeys.HistoryQuickTextKey;
 
 public class RecordHistoryKeyboardActionListener implements OnKeyboardActionListener {
-	private final Context mContext;
+	private final HistoryQuickTextKey mHistoryQuickTextKey;
 	private final MiniKeyboardActionListener mKeyboardActionListener;
 
-	public RecordHistoryKeyboardActionListener(Context context, MiniKeyboardActionListener keyboardActionListener) {
-		mContext = context;
+	public RecordHistoryKeyboardActionListener(HistoryQuickTextKey HistoryQuickTextKey, MiniKeyboardActionListener keyboardActionListener) {
+		mHistoryQuickTextKey = HistoryQuickTextKey;
 		mKeyboardActionListener = keyboardActionListener;
 	}
 
@@ -49,7 +48,7 @@ public class RecordHistoryKeyboardActionListener implements OnKeyboardActionList
 		String name = String.valueOf(key.label);
 		String value = String.valueOf(text);
 
-		HistoryQuickTextKey.recordUsedKey(name, value);
+		mHistoryQuickTextKey.recordUsedKey(name, value);
 	}
 
 	@Override

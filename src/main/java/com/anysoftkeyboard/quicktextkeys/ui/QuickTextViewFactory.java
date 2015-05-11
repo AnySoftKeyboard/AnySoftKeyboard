@@ -27,7 +27,8 @@ public class QuickTextViewFactory {
         frameKeyboardViewClickListener.registerOnViews(rootView);
         final List<QuickTextKey> list = new ArrayList<>();
         //always starting with Recent
-        list.add(new HistoryQuickTextKey(context));
+        final HistoryQuickTextKey historyQuickTextKey = new HistoryQuickTextKey(context);
+        list.add(historyQuickTextKey);
         //then all the rest
         list.addAll(QuickTextKeyFactory.getOrderedEnabledQuickKeys(context));
 
@@ -41,7 +42,8 @@ public class QuickTextViewFactory {
         pagerTabStrip.setTextColor(tabTitleTextColor.getDefaultColor());
         pagerTabStrip.setTabIndicatorColor(tabTitleTextColor.getDefaultColor());
         final int decorationWidthSize = context.getResources().getDimensionPixelSize(R.dimen.quick_key_size);
-        PagerAdapter adapter = new QuickKeysKeyboardPagerAdapter(context, list, new RecordHistoryKeyboardActionListener(context, keyboardActionListener), decorationWidthSize);
+        PagerAdapter adapter = new QuickKeysKeyboardPagerAdapter(
+                context, list, new RecordHistoryKeyboardActionListener(historyQuickTextKey, keyboardActionListener), decorationWidthSize);
         pager.setAdapter(adapter);
         pager.setCurrentItem(quickTextUserPrefs.getStartPageIndex(list));
         pager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
