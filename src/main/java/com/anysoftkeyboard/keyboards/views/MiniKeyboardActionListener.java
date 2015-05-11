@@ -29,8 +29,8 @@ public final class MiniKeyboardActionListener implements OnKeyboardActionListene
         mParentKeyboard.mKeyboardActionListener.onMultiTapEnded();
     }
 
-    public void onText(CharSequence text) {
-        mParentKeyboard.mKeyboardActionListener.onText(text);
+    public void onText(Keyboard.Key key, CharSequence text) {
+        mParentKeyboard.mKeyboardActionListener.onText(key, text);
         if (mInOneShot) mParentKeyboard.dismissPopupKeyboard();
     }
 

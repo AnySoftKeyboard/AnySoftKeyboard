@@ -1592,11 +1592,11 @@ public class AnySoftKeyboard extends InputMethodService implements
                 }
                 break;
             case KeyCodes.DOMAIN:
-                onText(mAskPrefs.getDomainText());
+                onText(key, mAskPrefs.getDomainText());
                 break;
             case KeyCodes.QUICK_TEXT:
                 if (mDoNotFlipQuickTextKeyAndPopupFunctionality) {
-                    outputCurrentQuickTextKey();
+                    outputCurrentQuickTextKey(key);
                 } else {
                     openQuickTextPopup(key);
                 }
@@ -1605,7 +1605,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                 if (mDoNotFlipQuickTextKeyAndPopupFunctionality) {
                     openQuickTextPopup(key);
                 } else {
-                    outputCurrentQuickTextKey();
+                    outputCurrentQuickTextKey(key);
                 }
                 break;
             case KeyCodes.MODE_SYMOBLS:
@@ -1647,7 +1647,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                         new Clipboard.ClipboardDiagram(getApplicationContext()));
                 CharSequence clipboardText = cp.getText();
                 if (!TextUtils.isEmpty(clipboardText)) {
-                    onText(clipboardText);
+                    onText(key, clipboardText);
                 }
                 break;
             case KeyCodes.TAB:
@@ -1694,12 +1694,12 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
     }
 
-    private void outputCurrentQuickTextKey() {
+    private void outputCurrentQuickTextKey(Key key) {
         QuickTextKey quickTextKey = QuickTextKeyFactory.getCurrentQuickTextKey(this);
         if (TextUtils.isEmpty(mOverrideQuickTextText))
-            onText(quickTextKey.getKeyOutputText());
+            onText(key, quickTextKey.getKeyOutputText());
         else
-            onText(mOverrideQuickTextText);
+            onText(key, mOverrideQuickTextText);
     }
 
     private boolean isConnectBot() {
@@ -1799,7 +1799,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         mOptionsDialog.show();
     }
 
-    public void onText(CharSequence text) {
+    public void onText(Key key, CharSequence text) {
         Log.d(TAG, "onText: '%s'", text);
         InputConnection ic = getCurrentInputConnection();
         if (ic == null)

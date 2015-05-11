@@ -64,7 +64,7 @@ public interface OnKeyboardActionListener {
      *
      * @param text the sequence of characters to be displayed.
      */
-    void onText(CharSequence text);
+    void onText(Key key, CharSequence text);
 
     /**
      * Called when user released a finger outside any key.

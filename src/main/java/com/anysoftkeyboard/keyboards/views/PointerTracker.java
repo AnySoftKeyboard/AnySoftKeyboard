@@ -486,7 +486,7 @@ public class PointerTracker {
         } else {
             if (key.text != null) {
                 if (listener != null) {
-                    listener.onText(key.text);
+                    listener.onText(key, key.text);
                     listener.onRelease(0); // dummy key code
                 }
             } else {
