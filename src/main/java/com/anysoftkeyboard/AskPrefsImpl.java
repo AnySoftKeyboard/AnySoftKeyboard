@@ -235,7 +235,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
 
         //please note: the default value should be the last version.
         //upgrading should only be done when actually need to be done.
-        int configurationVersion = sp.getInt(CONFIGURATION_VERSION, 6);
+        int configurationVersion = sp.getInt(CONFIGURATION_VERSION, 7);
         if (configurationVersion < 1) {
             boolean oldLandscapeFullScreenValue = sp.getBoolean("fullscreen_input_connection_supported",
                     mContext.getResources().getBoolean(R.bool.settings_default_landscape_fullscreen));
@@ -309,6 +309,16 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
             e.remove(mContext.getString(R.string.settings_key_allow_suggestions_restart));
             //saving config level
             e.putInt(CONFIGURATION_VERSION, 6);
+            e.commit();
+        }
+
+        if (configurationVersion < 7) {
+            Editor e = sp.edit();
+            Log.i(TAG, "Resetting settings_key_ordered_active_quick_text_keys...");
+            //read issue https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/406
+            e.remove(mContext.getString(R.string.settings_key_ordered_active_quick_text_keys));
+            //saving config level
+            e.putInt(CONFIGURATION_VERSION, 7);
             e.commit();
         }
     }
