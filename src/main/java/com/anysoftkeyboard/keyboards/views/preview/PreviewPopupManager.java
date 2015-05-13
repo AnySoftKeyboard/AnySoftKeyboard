@@ -74,6 +74,7 @@ public class PreviewPopupManager {
 
 	@Nullable
 	private PreviewPopup getPopupForKey(Keyboard.Key key, boolean onlyActivePopups) {
+		mUIHandler.cancelDismissForKey(key);
 		if (shouldNotShowPreview(key)) return null;
 
 		if (!mActivePopupByKeyMap.containsKey(key) && !onlyActivePopups) {
@@ -169,7 +170,12 @@ public class PreviewPopupManager {
 		}
 
 		public void dismissPreview(Keyboard.Key key) {
+			cancelDismissForKey(key);
 			sendMessageDelayed(obtainMessage(MSG_DISMISS_PREVIEW, key), mDelayBeforeDismiss);
+		}
+
+		public void cancelDismissForKey(Keyboard.Key key) {
+			removeMessages(MSG_DISMISS_PREVIEW, key);
 		}
 	}
 
