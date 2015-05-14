@@ -498,6 +498,7 @@ public class AnyKeyboardBaseView extends View implements
         mKeyboardDimens.setKeyboardMaxWidth(res.getDisplayMetrics().widthPixels - padding[0] - padding[2]);
 
         mMiniKeyboardPopup = new PopupWindow(context.getApplicationContext());
+        CompatUtils.setPopupUnattachedToDecod(mMiniKeyboardPopup);
         mMiniKeyboardPopup.setBackgroundDrawable(null);
 
         mMiniKeyboardPopup.setAnimationStyle((mAnimationLevel == AnimationsLevel.None) ? 0 : R.style.MiniKeyboardAnimation);
@@ -1920,6 +1921,7 @@ public class AnyKeyboardBaseView extends View implements
 
     private void setPopupKeyboardWithView(int x, int y, View contentView) {
         mMiniKeyboardPopup.setContentView(contentView);
+        CompatUtils.setPopupUnattachedToDecod(mMiniKeyboardPopup);
         mMiniKeyboardPopup.setWidth(contentView.getMeasuredWidth());
         mMiniKeyboardPopup.setHeight(contentView.getMeasuredHeight());
         mMiniKeyboardPopup.showAtLocation(this, Gravity.NO_GRAVITY, x, y);

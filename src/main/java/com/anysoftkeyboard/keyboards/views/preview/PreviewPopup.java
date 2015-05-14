@@ -1,9 +1,11 @@
 package com.anysoftkeyboard.keyboards.views.preview;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 
 import com.anysoftkeyboard.AskPrefs;
 import com.anysoftkeyboard.keyboards.Keyboard;
+import com.anysoftkeyboard.utils.CompatUtils;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -39,6 +42,7 @@ public class PreviewPopup {
 		mParentView = parentView;
 		mPreviewPopupTheme = previewPopupTheme;
 		mPopupWindow = new PopupWindow(context);
+		CompatUtils.setPopupUnattachedToDecod(mPopupWindow);
 		LayoutInflater inflate = LayoutInflater.from(context);
 		if (mPreviewPopupTheme.getPreviewKeyTextSize() > 0) {
 			mPreviewLayout = (ViewGroup) inflate.inflate(R.layout.key_preview, null);
@@ -56,6 +60,8 @@ public class PreviewPopup {
 		mOffsetContentByKeyHeight = AnyApplication.getConfig().showKeyPreviewAboveKey();
 		mPopupWindow.setTouchable(false);
 		mPopupWindow.setAnimationStyle((AnyApplication.getConfig().getAnimationsLevel() == AskPrefs.AnimationsLevel.None) ? 0 : R.style.KeyPreviewAnimation);
+
+		CompatUtils.setPopupUnattachedToDecod(mPopupWindow);
 	}
 
 	public void showPreviewForKey(Keyboard.Key key, CharSequence label, Point previewPosition) {

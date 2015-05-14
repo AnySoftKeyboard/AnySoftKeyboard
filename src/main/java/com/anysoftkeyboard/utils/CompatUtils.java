@@ -20,8 +20,10 @@ import android.annotation.TargetApi;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.PopupWindowCompat;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.PopupWindow;
 
 import java.lang.reflect.Method;
 import java.util.Locale;
@@ -76,6 +78,13 @@ public class CompatUtils {
         } else {
             //noinspection deprecation
             view.setBackgroundDrawable(drawable);
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP_MR1)
+    public static void setPopupUnattachedToDecod(PopupWindow popupWindow) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+            popupWindow.setAttachedInDecor(false);
         }
     }
 
