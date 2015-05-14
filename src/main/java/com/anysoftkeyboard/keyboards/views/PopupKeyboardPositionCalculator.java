@@ -1,27 +1,16 @@
-package com.anysoftkeyboard.keyboards.views.preview;
+package com.anysoftkeyboard.keyboards.views;
 
 import android.graphics.Point;
-import android.graphics.Rect;
 import android.view.View;
 
 import com.anysoftkeyboard.keyboards.AnyPopupKeyboard;
 import com.anysoftkeyboard.keyboards.Keyboard;
-import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView;
+import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupTheme;
 
-public class PreviewPopupPositionCalculator {
-	public static Point calculatePositionForPreview(Keyboard.Key key, PreviewPopupTheme theme, int[] windowOffset) {
-		Point point = calculateBasePosition(key, windowOffset);
-
-		Rect padding = new Rect();
-		theme.getPreviewKeyBackground().getPadding(padding);
-
-		point.offset((key.width / 2), key.height + padding.bottom);
-
-		return point;
-	}
+public class PopupKeyboardPositionCalculator {
 
 	public static Point calculatePositionForPopupKeyboard(Keyboard.Key key, View keyboardView, AnyKeyboardBaseView popupKeyboardView, PreviewPopupTheme theme, int[] windowOffset) {
-		Point point = calculateBasePosition(key, windowOffset);
+		Point point = new Point(key.x + windowOffset[0], key.y + windowOffset[1]);
 		point.offset(0, theme.getVerticalOffset());
 		//moving the keyboard to the left, so the first key will be above the initial X
 		point.offset(-popupKeyboardView.getPaddingLeft(), 0);
@@ -47,12 +36,8 @@ public class PreviewPopupPositionCalculator {
 			shouldMirrorKeys = false;
 		}
 
-		if (shouldMirrorKeys) ((AnyPopupKeyboard)popupKeyboardView.getKeyboard()).mirrorKeys();
+		if (shouldMirrorKeys) ((AnyPopupKeyboard) popupKeyboardView.getKeyboard()).mirrorKeys();
 
 		return point;
-	}
-
-	private static Point calculateBasePosition(Keyboard.Key key, int[] windowOffset) {
-		return new Point(key.x + windowOffset[0], key.y + windowOffset[1]);
 	}
 }

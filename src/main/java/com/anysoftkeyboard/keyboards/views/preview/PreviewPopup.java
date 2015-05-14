@@ -33,6 +33,7 @@ public class PreviewPopup {
 	private final View mParentView;
 	private final PopupWindow mPopupWindow;
 	private final PreviewPopupTheme mPreviewPopupTheme;
+	private final boolean mOffsetContentByKeyHeight;
 
 	public PreviewPopup(Context context, View parentView, PreviewPopupTheme previewPopupTheme) {
 		mParentView = parentView;
@@ -52,6 +53,7 @@ public class PreviewPopup {
 			mPreviewLayout = null;
 			mPreviewText = null;
 		}
+		mOffsetContentByKeyHeight = AnyApplication.getConfig().showKeyPreviewAboveKey();
 		mPopupWindow.setTouchable(false);
 		mPopupWindow.setAnimationStyle((AnyApplication.getConfig().getAnimationsLevel() == AskPrefs.AnimationsLevel.None) ? 0 : R.style.KeyPreviewAnimation);
 	}
@@ -94,8 +96,9 @@ public class PreviewPopup {
 
 	private void showPopup(Keyboard.Key key, int contentWidth, int contentHeight, Point previewPosition) {
 		contentWidth = Math.max(contentWidth, key.width);
-		contentHeight = Math.max(contentHeight+key.height, key.height);
-		mPreviewLayout.setPadding(0, 0, 0, key.height);
+		if (mOffsetContentByKeyHeight) contentHeight += key.height;
+		contentHeight = Math.max(contentHeight, key.height);
+		mPreviewLayout.setPadding(0, 0, 0, mOffsetContentByKeyHeight? key.height : 0);
 		final Drawable previewKeyBackground = mPreviewPopupTheme.getPreviewKeyBackground();
 		if (mPreviewPaddingHeight < 0) {
 			mPreviewPaddingWidth = 0;

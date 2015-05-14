@@ -7,9 +7,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 
+import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.Keyboard;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView;
-import com.anysoftkeyboard.utils.CompatUtils;
+import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import junit.framework.Assert;
@@ -23,7 +24,7 @@ import java.util.Queue;
 public class PreviewPopupManager {
 
 	private final int mMaxPopupInstances;
-	private PreviewPopupTheme mPreviewPopupTheme = new PreviewPopupTheme();
+	private final PreviewPopupTheme mPreviewPopupTheme;
 
 	private final Queue<PreviewPopup> mFreePreviewPopups = new LinkedList<>();
 	private final Queue<PreviewPopup> mActivePreviewPopups = new LinkedList<>();
@@ -33,12 +34,17 @@ public class PreviewPopupManager {
 	private final UIHandler mUIHandler;
 
 	private boolean mEnabled = true;
+	private final PositionCalculator mPositionCalculator;
 
-	public PreviewPopupManager(Context context, AnyKeyboardBaseView keyboardView) {
+	public PreviewPopupManager(Context context, AnyKeyboardBaseView keyboardView, PreviewPopupTheme previewPopupTheme) {
+		mPreviewPopupTheme = previewPopupTheme;
 		mContext = context;
 		mKeyboardView = keyboardView;
-		mMaxPopupInstances = context.getResources().getInteger(R.integer.maximum_instances_of_preview_popups);
+		mMaxPopupInstances = AnyApplication.getConfig().showKeyPreviewAboveKey() ?
+				context.getResources().getInteger(R.integer.maximum_instances_of_preview_popups) : 1;
 		mUIHandler = new UIHandler(this, context.getResources().getInteger(R.integer.preview_dismiss_delay));
+		mPositionCalculator = AnyApplication.getConfig().showKeyPreviewAboveKey() ?
+				new AboveKeyPositionCalculator() : new AboveKeyboardPositionCalculator();
 	}
 
 	public void setEnabled(boolean enabled) {
@@ -54,7 +60,7 @@ public class PreviewPopupManager {
 		if (isDisabled()) return;
 		PreviewPopup popup = getPopupForKey(key, false);
 		if (popup != null) {
-			Point previewPosition = PreviewPopupPositionCalculator.calculatePositionForPreview(key, mPreviewPopupTheme, mKeyboardView.getLocationInWindow());
+			Point previewPosition = mPositionCalculator.calculatePositionForPreview(key, mKeyboardView, mPreviewPopupTheme, mKeyboardView.getLocationInWindow());
 			popup.showPreviewForKey(key, icon, previewPosition);
 		}
 	}
@@ -67,7 +73,7 @@ public class PreviewPopupManager {
 		if (isDisabled()) return;
 		PreviewPopup popup = getPopupForKey(key, false);
 		if (popup != null) {
-			Point previewPosition = PreviewPopupPositionCalculator.calculatePositionForPreview(key, mPreviewPopupTheme, mKeyboardView.getLocationInWindow());
+			Point previewPosition = mPositionCalculator.calculatePositionForPreview(key, mKeyboardView, mPreviewPopupTheme, mKeyboardView.getLocationInWindow());
 			popup.showPreviewForKey(key, label, previewPosition);
 		}
 	}
@@ -118,7 +124,11 @@ public class PreviewPopupManager {
 		return key == null ||
 				key.modifier ||
 				key.codes.length == 0 ||
-				(key.codes.length == 1 && key.codes[0] <= 0);
+				(key.codes.length == 1 && isKeyCodeShouldNotBeShown(key.codes[0]));
+	}
+
+	private boolean isKeyCodeShouldNotBeShown(int code) {
+		return code <= 0 || code == KeyCodes.ENTER;
 	}
 
 	public void cancelAllPreviews() {
@@ -131,13 +141,8 @@ public class PreviewPopupManager {
 		mActivePopupByKeyMap.clear();
 	}
 
-	public PreviewPopupTheme getPreviewPopupTheme() {
-		return mPreviewPopupTheme;
-	}
-
 	public void resetAllPreviews() {
 		cancelAllPreviews();
-		CompatUtils.unbindDrawable(mPreviewPopupTheme.getPreviewKeyBackground());
 		mActivePreviewPopups.clear();
 	}
 

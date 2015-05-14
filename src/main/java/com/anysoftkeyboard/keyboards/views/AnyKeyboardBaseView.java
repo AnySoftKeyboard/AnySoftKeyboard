@@ -66,7 +66,7 @@ import com.anysoftkeyboard.keyboards.KeyboardDimens;
 import com.anysoftkeyboard.keyboards.KeyboardSupport;
 import com.anysoftkeyboard.keyboards.KeyboardSwitcher;
 import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupManager;
-import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupPositionCalculator;
+import com.anysoftkeyboard.keyboards.views.preview.PreviewPopupTheme;
 import com.anysoftkeyboard.quicktextkeys.ui.QuickTextViewFactory;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
@@ -134,7 +134,8 @@ public class AnyKeyboardBaseView extends View implements
 
     private Key[] mKeys;
 
-    PreviewPopupManager mPreviewPopupManager;
+    private final PreviewPopupTheme mPreviewPopupTheme = new PreviewPopupTheme();
+    private PreviewPopupManager mPreviewPopupManager;
 
     // Popup mini keyboard
     protected final PopupWindow mMiniKeyboardPopup;
@@ -363,7 +364,7 @@ public class AnyKeyboardBaseView extends View implements
 
     public AnyKeyboardBaseView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        mPreviewPopupManager = new PreviewPopupManager(context, this);
+        mPreviewPopupManager = new PreviewPopupManager(context, this, mPreviewPopupTheme);
         //creating the KeyDrawableStateProvider, as it suppose to be backward compatible
         int keyTypeFunctionAttrId = R.attr.key_type_function;
         int keyActionAttrId = R.attr.key_type_action;
@@ -579,29 +580,29 @@ public class AnyKeyboardBaseView extends View implements
                             + mVerticalCorrection);
                     break;
                 case R.attr.keyPreviewBackground:
-                    mPreviewPopupManager.getPreviewPopupTheme().setPreviewKeyBackground(remoteTypedArray.getDrawable(remoteTypedArrayIndex));
+                    mPreviewPopupTheme.setPreviewKeyBackground(remoteTypedArray.getDrawable(remoteTypedArrayIndex));
                     Log.d(TAG, "AnySoftKeyboardTheme_keyPreviewBackground "
-                            + (mPreviewPopupManager.getPreviewPopupTheme().getPreviewKeyBackground() != null));
+                            + (mPreviewPopupTheme.getPreviewKeyBackground() != null));
                     break;
                 case R.attr.keyPreviewTextColor:
-                    mPreviewPopupManager.getPreviewPopupTheme().setPreviewKeyTextColor(remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFFF));
+                    mPreviewPopupTheme.setPreviewKeyTextColor(remoteTypedArray.getColor(remoteTypedArrayIndex, 0xFFF));
                     Log.d(TAG, "AnySoftKeyboardTheme_keyPreviewTextColor "
-                            + mPreviewPopupManager.getPreviewPopupTheme().getPreviewKeyTextColor());
+                            + mPreviewPopupTheme.getPreviewKeyTextColor());
                     break;
                 case R.attr.keyPreviewTextSize:
-                    mPreviewPopupManager.getPreviewPopupTheme().setPreviewKeyTextSize(remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0));
+                    mPreviewPopupTheme.setPreviewKeyTextSize(remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0));
                     Log.d(TAG, "AnySoftKeyboardTheme_keyPreviewTextSize "
-                            + mPreviewPopupManager.getPreviewPopupTheme().getPreviewKeyTextSize());
+                            + mPreviewPopupTheme.getPreviewKeyTextSize());
                     break;
                 case R.attr.keyPreviewLabelTextSize:
-                    mPreviewPopupManager.getPreviewPopupTheme().setPreviewLabelTextSize(remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0));
+                    mPreviewPopupTheme.setPreviewLabelTextSize(remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 0));
                     Log.d(TAG, "AnySoftKeyboardTheme_keyPreviewLabelTextSize "
-                            + mPreviewPopupManager.getPreviewPopupTheme().getPreviewLabelTextSize());
+                            + mPreviewPopupTheme.getPreviewLabelTextSize());
                     break;
                 case R.attr.keyPreviewOffset:
-                    mPreviewPopupManager.getPreviewPopupTheme().setVerticalOffset(remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0));
+                    mPreviewPopupTheme.setVerticalOffset(remoteTypedArray.getDimensionPixelOffset(remoteTypedArrayIndex, 0));
                     Log.d(TAG, "AnySoftKeyboardTheme_keyPreviewOffset "
-                            + mPreviewPopupManager.getPreviewPopupTheme().getVerticalOffset());
+                            + mPreviewPopupTheme.getVerticalOffset());
                     break;
                 case R.attr.keyTextSize:
                     mKeyTextSize = remoteTypedArray.getDimensionPixelSize(remoteTypedArrayIndex, 18);
@@ -695,7 +696,7 @@ public class AnyKeyboardBaseView extends View implements
                             mKeyTextStyle = Typeface.defaultFromStyle(textStyle);
                             break;
                     }
-                    mPreviewPopupManager.getPreviewPopupTheme().setKeyStyle(mKeyTextStyle);
+                    mPreviewPopupTheme.setKeyStyle(mKeyTextStyle);
                     Log.d(TAG, "AnySoftKeyboardTheme_keyTextStyle " + mKeyTextStyle);
                     break;
                 case R.attr.keyHorizontalGap:
@@ -1859,7 +1860,7 @@ public class AnyKeyboardBaseView extends View implements
 
         setupMiniKeyboardContainer(packageContext, popupKey, isSticky);
 
-        Point miniKeyboardPosition = PreviewPopupPositionCalculator.calculatePositionForPopupKeyboard(popupKey, this, mMiniKeyboard, mPreviewPopupManager.getPreviewPopupTheme(), windowOffset);
+        Point miniKeyboardPosition = PopupKeyboardPositionCalculator.calculatePositionForPopupKeyboard(popupKey, this, mMiniKeyboard, mPreviewPopupTheme, windowOffset);
 
         final int x = miniKeyboardPosition.x;
         final int y = miniKeyboardPosition.y;
@@ -2185,6 +2186,7 @@ public class AnyKeyboardBaseView extends View implements
         mKeysIconBuilders.clear();
         CompatUtils.unbindDrawable(mKeyBackground);
         mPreviewPopupManager.resetAllPreviews();
+        CompatUtils.unbindDrawable(mPreviewPopupTheme.getPreviewKeyBackground());
         mPreviewPopupManager = null;
         if (mMiniKeyboard != null) mMiniKeyboard.onViewNotRequired();
         mMiniKeyboard = null;
@@ -2200,17 +2202,18 @@ public class AnyKeyboardBaseView extends View implements
                                           String key) {
         Resources res = getResources();
 
-        if (key.equals(res
-                .getString(R.string.settings_key_swipe_distance_threshold))
-                || key.equals(res
-                .getString(R.string.settings_key_swipe_velocity_threshold))) {
+        if (key.equals(res.getString(R.string.settings_key_swipe_distance_threshold))
+                || key.equals(res.getString(R.string.settings_key_swipe_velocity_threshold))) {
             reloadSwipeThresholdsSettings(res);
-        } else if (key.equals(res
-                .getString(R.string.settings_key_long_press_timeout))
-                || key.equals(res
-                .getString(R.string.settings_key_multitap_timeout))) {
+        } else if (key.equals(res.getString(R.string.settings_key_long_press_timeout))
+                || key.equals(res.getString(R.string.settings_key_multitap_timeout))) {
             closing();
             mPointerTrackers.clear();
+        } else if (key.equals(res.getString(R.string.settings_key_key_press_preview_popup_position))
+                || key.equals(res.getString(R.string.settings_key_key_press_shows_preview_popup))
+                || key.equals(res.getString(R.string.settings_key_tweak_animations_level))) {
+            mPreviewPopupManager.cancelAllPreviews();
+            mPreviewPopupManager = new PreviewPopupManager(getContext(), this, mPreviewPopupTheme);
         }
 
         mAnimationLevel = AnyApplication.getConfig().getAnimationsLevel();
