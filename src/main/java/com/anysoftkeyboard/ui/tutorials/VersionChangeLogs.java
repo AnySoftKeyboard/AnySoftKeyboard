@@ -14,7 +14,8 @@ public class VersionChangeLogs {
 				"New and improved key preview, with tasty animations and stuff.",
 				"Emoji History tab: your recently used emojis are closer than ever.",
 				"Support for List-Quick-Text has been re-enabled.",
-				"A few bug fixes."));
+				"A few bug fixes.",
+				"Localization update: CA, DE, ES, NL, RU."));
 
 		log.add(new VersionChangeLog(1, 4, "r2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.4_r2"),
 				"Even more crash fixes.",

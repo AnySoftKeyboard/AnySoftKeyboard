@@ -28,9 +28,7 @@
   <string name="how_to_pointer_how_to_url">Detalles acerca de cómo utilizar este teclado:</string>
   <string name="how_to_pointer_site">Datos generales:</string>
   <string name="how_to_pointer_changelog">Detalles sobre la última versión:</string>
-  
-  
-  <string name="change_log_entry_header_template_without_name">v<xliff:g id="code">%s</xliff:g></string>
+  <string name="change_log_card_version_title_template">\u0020\u0020Ultimos cambios para v <xliff:g id="name">%s </xliff:g> \u0020\u0020</string>
   <string name="how_to_pointer_issues">Informe de errores:</string>
   <string name="main_tab_credits_title">Esta aplicación fue creada con la ayuda de las siguientes personas:</string>
   <string name="main_tab_credits_created_by">Creado por:</string>
@@ -135,6 +133,7 @@
   <string name="switch_keyboard_on_space_on_summary">Cambiar de símbolos/números a alfabeto cuando se pulsa espacio
     </string>
   <string name="switch_keyboard_on_space_off_summary">No cambiar de símbolos/números a alfabeto pulsando espacio     </string>
+  <string name="one_shot_quick_text_popup">Auto cierre después de llave</string>
   <string name="hide_soft_when_physical">Ocultar el teclado al pulsar una tecla física</string>
   <string name="hide_soft_when_physical_on_summary">Ocultar teclado en pantalla cuando el teclado físico sea utilizado</string>
   <string name="hide_soft_when_physical_off_summary">Mostrar teclado en pantalla cuando el teclado físico se utiliza</string>

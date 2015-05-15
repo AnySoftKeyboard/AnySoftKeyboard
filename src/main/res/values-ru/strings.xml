@@ -24,6 +24,8 @@
   <string name="how_to_pointer_how_to_url">Инстркуция по эксплуатации:</string>
   <string name="how_to_pointer_site">Подробнее о программе:</string>
   <string name="how_to_pointer_changelog">Изменения в версиях:</string>
+  <string name="change_log_card_version_title_template">\u0020\u0020Последние изменения для v<xliff:g id="name">%s </xliff:g>\u0020\u0020</string>
+  <string name="change_log_entry_header_template_without_name">\u0020\u0020v<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
   <string name="how_to_pointer_issues">Сообщить о дефекте:</string>
   <string name="main_tab_credits_title">Эта программа была создана с помощью:</string>
   <string name="main_tab_credits_created_by">Автор:</string>
@@ -54,14 +56,14 @@
   <string name="about">О нас</string>
   <string name="changelog">Список изменений</string>
   <string name="search_market_for_addons">Поиск дополнений</string>
-  <string name="search_market_for_keyboard_addons">Найдите больше клавиатур в <i>Play Store</i>…</string>
+  <string name="search_market_for_keyboard_addons">Найти ещё клавиатуры в <i>Play Store</i>…</string>
   <string name="search_market_for_quick_key_addons">Найдите больше <i>Quick-Text</i> дополнения в <i>Play Store</i>…</string>
   <string name="no_market_store_available"><b>* Не удалось найти Google Play Store на вашем устройстве. Нет возможности искать дополнения!</b></string>
   <string name="theme_addons_settings">Настройки темы клавиатуры</string>
   <string name="keyboard_theme_tweak_group">Детали</string>
   <string name="keyboard_theme_tweak_hints_group">Хитрости подсказок</string>
   <string name="bottom_row_addons_settings">Настройки нижней строки</string>
-  <string name="top_row_addons_settings">Параметры верхней строки</string>
+  <string name="top_row_addons_settings">Настройки верхней строки</string>
   <string name="close_button">Закрыть</string>
   <string name="how_to_active_text">Как активировать AnySoftKeyboard</string>
   <string name="added_word">Сохранено:\u0020<xliff:g id="word">%s </xliff:g></string>

@@ -331,6 +331,7 @@
   <string name="no_extrenal_packs_support_message">Vorerst erlaubt AnySoftKeyboard keine externenPakete der    Art.\nWenn die API-Spezifikationen festgelegt wurden, wird diese Funktion geöffnet.\nBleiben Sie dran!
              </string>
   <string name="keyboards_group">Tastaturen</string>
+  <string name="keyboards_group_summary">Tastaturlayouts für den Einsatz in AnySoftKeyboard</string>
   <string name="symbols_keyboard">123!#()</string>
   <string name="symbols_alt_keyboard">{}\_</string>
   <string name="symbols_alt_num_keyboard">123</string>
