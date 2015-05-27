@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/Ask.Card"
     android:orientation="vertical"
-    android:gravity="center_vertical">
+    android:gravity="center">
 
     <ImageView
         android:id="@+id/delete_user_word"

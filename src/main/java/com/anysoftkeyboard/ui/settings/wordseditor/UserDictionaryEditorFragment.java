@@ -23,6 +23,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -116,7 +117,12 @@ public class UserDictionaryEditorFragment extends Fragment
 
         mWordsRecyclerView = (RecyclerView) view.findViewById(R.id.words_recycler_view);
         mWordsRecyclerView.setHasFixedSize(false);
-        mWordsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        final int wordsEditorColumns = getResources().getInteger(R.integer.words_editor_columns_count);
+        if (wordsEditorColumns > 1) {
+            mWordsRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), wordsEditorColumns));
+        } else {
+            mWordsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        }
     }
 
     @Override

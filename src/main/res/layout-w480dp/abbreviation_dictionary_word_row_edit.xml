@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:minHeight="@dimen/comfortable_min_row_height"
+    android:gravity="center_vertical"
+    android:weightSum="1">
+
+    <EditText
+        style="@style/Ask.Text.Normal"
+        android:id="@+id/word_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minEms="6"
+        android:singleLine="true"
+        android:maxLength="16"
+        android:lines="1"
+        android:hint="@string/enter_abbreviation_hint"
+        android:imeOptions="actionNext"
+        android:inputType="textNoSuggestions|text"
+        android:layout_gravity="center_vertical"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="6dp"
+        android:text="\u2192"
+        tools:ignore="HardcodedText" />
+
+    <EditText
+        style="@style/Ask.Text.Normal"
+        android:id="@+id/word_target_view"
+        android:layout_width="0px"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:maxLength="230"
+        android:lines="1"
+        android:hint="@string/enter_abbreviation_target_hint"
+        android:imeOptions="actionDone"
+        android:inputType="textNoSuggestions|text"
+        android:layout_gravity="center_vertical"/>
+
+    <ImageView
+        android:id="@+id/approve_user_word"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_accept"
+        android:background="@drawable/transparent_click_feedback_background"/>
+    <ImageView
+        android:id="@+id/cancel_user_word"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_cancel"
+        android:background="@drawable/transparent_click_feedback_background"/>
+</LinearLayout>

@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-     Copyright (C) 2008 The Android Open Source Project
-     Copyright (C) 2013 Menny Even-Danan
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2015 Menny Even-Danan
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -15,12 +15,7 @@
      limitations under the License.
 -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/words_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-</FrameLayout>
+<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+                                        android:id="@+id/words_recycler_view"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"/>
