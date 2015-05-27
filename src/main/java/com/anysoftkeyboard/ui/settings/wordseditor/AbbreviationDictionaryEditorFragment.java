@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.anysoftkeyboard.dictionaries.EditableDictionary;
@@ -32,60 +31,61 @@ public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFr
     }
 
     @Override
-    protected ListAdapter getWordsListAdapter(List<UserWordsListAdapter.Word> wordsList) {
-        return new AbbreviationWordsListAdapter(
-                getActivity(),
-                wordsList,
-                this);
+    protected EditorWordsAdapter createAdapterForWords(List<EditorWord> wordsList) {
+        return new AbbreviationEditorWordsAdapter(wordsList, getActivity());
     }
 
-    private static class AbbreviationWordsListAdapter extends UserWordsListAdapter {
+    private static class AbbreviationEditorWordsAdapter extends EditorWordsAdapter {
 
-        public AbbreviationWordsListAdapter(Context context, List<Word> words, AdapterCallbacks callbacks) {
-            super(context, words, callbacks);
+        private final Context mContext;
+
+        public AbbreviationEditorWordsAdapter(List<EditorWord> editorWords, Context context) {
+            super(editorWords, LayoutInflater.from(context));
+            mContext = context;
         }
 
-        private static String getAbbreviation(@Nullable Word word) {
+        @Override
+        protected EditorWord.Editing createEmptyNewEditing() {
+            return new EditorWord.Editing("", 0);
+        }
+
+        protected void bindNormalWordViewText(TextView wordView, EditorWord editorWord) {
+            wordView.setText(mContext.getString(R.string.abbreviation_dict_word_template,
+                    getAbbreviation(editorWord), getExplodedSentence(editorWord)));
+        }
+
+        @Override
+        protected View inflateEditingRowView(LayoutInflater layoutInflater, ViewGroup parent) {
+            return layoutInflater.inflate(R.layout.abbreviation_dictionary_word_row_edit, parent, false);
+        }
+
+        @Override
+        protected void bindEditingWordViewText(EditText wordView, EditorWord editorWord) {
+            wordView.setText(getAbbreviation(editorWord));
+            EditText explodedSentence = (EditText) ((View)wordView.getParent()).findViewById(R.id.word_target_view);
+            explodedSentence.setText(getExplodedSentence(editorWord));
+        }
+
+        @Override
+        protected EditorWord createNewEditorWord(EditText wordView, EditorWord oldEditorWord) {
+            EditText explodedSentenceView = (EditText) ((View)wordView.getParent()).findViewById(R.id.word_target_view);
+            final String newAbbreviation = wordView.getText().toString();
+            final String newExplodedSentence = explodedSentenceView.getText().toString();
+            if (TextUtils.isEmpty(newAbbreviation) || TextUtils.isEmpty(newExplodedSentence)) {
+                return oldEditorWord;
+            } else {
+                return new EditorWord(newAbbreviation + newExplodedSentence, newAbbreviation.length());
+            }
+        }
+
+        private static String getAbbreviation(@Nullable EditorWord word) {
             if (word == null) return "";
             return AbbreviationsDictionary.getAbbreviation(word.word, word.frequency);
         }
 
-        private static String getExplodedSentence(@Nullable Word word) {
+        private static String getExplodedSentence(@Nullable EditorWord word) {
             if (word == null) return "";
             return AbbreviationsDictionary.getExplodedSentence(word.word, word.frequency);
         }
-
-        @Override
-        protected void updateEditedWordRow(View rootView, TextView wordView, Word word) {
-            wordView.setText(getAbbreviation(word));
-            EditText explodedSentence = (EditText)rootView.findViewById(R.id.word_target_view);
-            explodedSentence.setText(getExplodedSentence(word));
-        }
-
-        @Override
-        protected void updateNormalWordRow(View rootView, TextView wordView, Word word) {
-            wordView.setText(getContext().getString(R.string.abbreviation_dict_word_template,
-                    getAbbreviation(word), getExplodedSentence(word)));
-        }
-
-        @Override
-        protected View inflateEditedWordRow(LayoutInflater inflater, ViewGroup parent) {
-            return inflater.inflate(R.layout.abbreviation_dictionary_word_row_edit, parent, false);
-        }
-
-        @Override
-        protected Word onWordEditApproved(View approveButton, @Nullable Word oldWord) {
-            View parent = ((View) approveButton.getParent());
-            EditText abbreviationView = (EditText) parent.findViewById(R.id.word_view);
-            EditText explodedSentenceView = (EditText) parent.findViewById(R.id.word_target_view);
-            final String newAbbreviation = abbreviationView.getText().toString();
-            final String newExplodedSentence = explodedSentenceView.getText().toString();
-            if (TextUtils.isEmpty(newAbbreviation) || TextUtils.isEmpty(newExplodedSentence)) {
-                return null;
-            } else {
-                return new Word(newAbbreviation+newExplodedSentence, newAbbreviation.length());
-            }
-        }
     }
-
 }

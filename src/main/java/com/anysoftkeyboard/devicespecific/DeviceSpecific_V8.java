@@ -20,7 +20,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.view.GestureDetector;
-import android.widget.AbsListView;
 
 import com.anysoftkeyboard.IndirectlyInstantiated;
 
@@ -51,10 +50,5 @@ public class DeviceSpecific_V8 extends DeviceSpecific_V7 {
     public GestureDetector createGestureDetector(Context appContext,
                                                  AskOnGestureListener listener) {
         return new AskV8GestureDetector(appContext, listener);
-    }
-
-    @Override
-    public void performListScrollToPosition(AbsListView listView, int position) {
-        listView.smoothScrollToPosition(position);
     }
 }

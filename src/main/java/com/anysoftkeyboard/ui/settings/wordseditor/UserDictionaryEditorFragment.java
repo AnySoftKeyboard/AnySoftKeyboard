@@ -23,21 +23,18 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.GridView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.anysoftkeyboard.dictionaries.EditableDictionary;
@@ -46,7 +43,6 @@ import com.anysoftkeyboard.dictionaries.WordsCursor;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.utils.Log;
-import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.AsyncTaskWithProgressWindow;
@@ -59,7 +55,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class UserDictionaryEditorFragment extends Fragment
-        implements AsyncTaskWithProgressWindow.AsyncTaskOwner, AdapterView.OnItemClickListener, UserWordsListAdapter.AdapterCallbacks {
+        implements AsyncTaskWithProgressWindow.AsyncTaskOwner {
 
     private Dialog mDialog;
 
@@ -79,10 +75,11 @@ public class UserDictionaryEditorFragment extends Fragment
     private String mSelectedLocale = null;
     EditableDictionary mCurrentDictionary;
 
-    AbsListView mWordsListView;//this may be either ListView or GridView (in tablets)
-    private static final Comparator<UserWordsListAdapter.Word> msWordsComparator = new Comparator<UserWordsListAdapter.Word>() {
+    RecyclerView mWordsRecyclerView;
+
+    private static final Comparator<EditorWord> msWordsComparator = new Comparator<EditorWord>() {
         @Override
-        public int compare(UserWordsListAdapter.Word lhs, UserWordsListAdapter.Word rhs) {
+        public int compare(EditorWord lhs, EditorWord rhs) {
             return lhs.word.compareTo(rhs.word);
         }
     };
@@ -117,19 +114,9 @@ public class UserDictionaryEditorFragment extends Fragment
             }
         });
 
-        View emptyView = view.findViewById(R.id.empty_user_dictionary);
-        emptyView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createEmptyItemForAdd();
-            }
-        });
-
-        mWordsListView = (AbsListView) view.findViewById(android.R.id.list);
-        mWordsListView.setFastScrollEnabled(true);
-        //this is for the "empty state" - it will allow the user to quickly add the first word.
-        mWordsListView.setEmptyView(emptyView);
-        mWordsListView.setOnItemClickListener(this);
+        mWordsRecyclerView = (RecyclerView) view.findViewById(R.id.words_recycler_view);
+        mWordsRecyclerView.setHasFixedSize(false);
+        mWordsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
     @Override
@@ -157,12 +144,9 @@ public class UserDictionaryEditorFragment extends Fragment
     }
 
     private void createEmptyItemForAdd() {
-        UserWordsListAdapter adapter = (UserWordsListAdapter) mWordsListView.getAdapter();
+        EditorWordsAdapter adapter = (EditorWordsAdapter) mWordsRecyclerView.getAdapter();
         if (adapter == null || !isResumed()) return;
-        final int addWordItemIndex = adapter.getCount() == 0 ? 0 : adapter.getCount() - 1;
-        //will use smooth scrolling on API8+
-        AnyApplication.getDeviceSpecific().performListScrollToPosition(mWordsListView, addWordItemIndex);
-        onItemClick(mWordsListView, null, addWordItemIndex, 0l);
+        adapter.addNewWordAtEnd(mWordsRecyclerView);
     }
 
     @Override
@@ -275,15 +259,11 @@ public class UserDictionaryEditorFragment extends Fragment
                 }).create();
     }
 
-    private void deleteWord(String word) {
-        mCurrentDictionary.deleteWord(word);
-    }
-
     private void fillWordsList() {
         Log.d(TAG, "Selected locale is " + mSelectedLocale);
         new UserWordsEditorAsyncTask(this) {
             private EditableDictionary mNewDictionary;
-            private List<UserWordsListAdapter.Word> mWordsList;
+            private List<EditorWord> mWordsList;
 
             @Override
             protected void onPreExecute() {
@@ -306,7 +286,7 @@ public class UserDictionaryEditorFragment extends Fragment
                 mWordsList = new ArrayList<>(mCursor.getCursor().getCount());
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()) {
-                    UserWordsListAdapter.Word word = new UserWordsListAdapter.Word(
+                    EditorWord word = new EditorWord(
                             mCursor.getCurrentWord(),
                             mCursor.getCurrentWordFrequency());
                     mWordsList.add(word);
@@ -318,39 +298,21 @@ public class UserDictionaryEditorFragment extends Fragment
             }
 
             protected void applyResults(Void result, Exception backgroundException) {
-                ListAdapter adapter = getWordsListAdapter(mWordsList);
-                //AbsListView introduced the setAdapter method in API11, so I'm required to check the instance type
-                if (mWordsListView instanceof ListView) {
-                    //this is NOT a redundant cast!
-                    ((ListView)mWordsListView).setAdapter(adapter);
-                } else if (mWordsListView instanceof GridView) {
-                    //this is NOT a redundant cast!
-                    ((GridView)mWordsListView).setAdapter(adapter);
-                } else {
-                    throw new ClassCastException("Unknown mWordsListView type "+mWordsListView.getClass());
-                }
+                mWordsRecyclerView.setAdapter(createAdapterForWords(mWordsList));
             }
         }.execute();
     }
 
-    protected ListAdapter getWordsListAdapter(List<UserWordsListAdapter.Word> wordsList) {
-        return new UserWordsListAdapter(
-                getActivity(),
-                wordsList,
-                this);
+    protected EditorWordsAdapter createAdapterForWords(List<EditorWord> wordsList) {
+        return new EditorWordsAdapter(wordsList, LayoutInflater.from(getActivity()));
     }
 
     protected EditableDictionary getEditableDictionary(String locale) {
         return new UserDictionary(getActivity().getApplicationContext(), locale);
     }
-
+/*
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        ((UserWordsListAdapter) mWordsListView.getAdapter()).onItemClicked(parent, position);
-    }
-
-    @Override
-    public void onWordDeleted(final UserWordsListAdapter.Word word) {
+    public void onWordDeleted(final EditorWord word) {
         new UserWordsEditorAsyncTask(this) {
             @Override
             protected Void doAsyncTask(Void[] params) throws Exception {
@@ -365,8 +327,12 @@ public class UserDictionaryEditorFragment extends Fragment
         }.execute();
     }
 
+    private void deleteWord(String word) {
+        mCurrentDictionary.deleteWord(word);
+    }
+
     @Override
-    public void onWordUpdated(final String oldWord, final UserWordsListAdapter.Word newWord) {
+    public void onWordUpdated(final String oldWord, final EditorWord newWord) {
 
         new UserWordsEditorAsyncTask(this) {
             @Override
@@ -383,10 +349,5 @@ public class UserDictionaryEditorFragment extends Fragment
                 fillWordsList();
             }
         }.execute();
-    }
-
-    @Override
-    public void performDiscardEdit() {
-        ((UserWordsListAdapter) mWordsListView.getAdapter()).onItemClicked(mWordsListView, -1/*doesn't really matter what position it is*/);
-    }
+    }*/
 }

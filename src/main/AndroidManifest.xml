@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.menny.android.anysoftkeyboard">
+          package="com.menny.android.anysoftkeyboard">
 
     <supports-screens
         android:anyDensity="true"
@@ -55,7 +55,8 @@
         <!-- settings ui activities -->
         <!-- this is just a proxy activity, it does nothing but direct to the actual setting ativity
         I use this, so I can 'disable' this activity at runtime, and so remove ASK from the launcher's icons -->
-        <activity android:theme="@style/Theme.AskApp"
+        <activity
+            android:theme="@style/Theme.AskApp"
             android:name="com.menny.android.anysoftkeyboard.LauncherSettingsActivity"
             android:icon="@drawable/ic_launcher_settings"
             android:launchMode="singleTop"
@@ -66,10 +67,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:theme="@style/Theme.AskApp"
+        <activity
+            android:theme="@style/Theme.AskApp"
             android:name="com.anysoftkeyboard.ui.settings.MainSettingsActivity"
             android:icon="@drawable/ic_launcher_settings"
             android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan"
             android:label="@string/ime_name">
         </activity>
 
@@ -81,13 +84,15 @@
             android:theme="@style/Theme.AskApp.Popup">
         </activity>
         <!-- ui when a crash happens -->
-        <activity android:theme="@style/Theme.AskApp.NoTitle"
+        <activity
+            android:theme="@style/Theme.AskApp.NoTitle"
             android:name="com.anysoftkeyboard.ui.SendBugReportUiActivity"
             android:icon="@drawable/ic_launcher"
             android:label="@string/ime_name">
         </activity>
         <!-- for voice -->
-        <service android:name="com.google.android.voiceime.ServiceHelper" />
+        <service android:name="com.google.android.voiceime.ServiceHelper"/>
+
         <activity
             android:name="com.google.android.voiceime.ActivityHelper"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"

@@ -20,7 +20,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.view.GestureDetector;
 import android.view.inputmethod.InputConnection;
-import android.widget.AbsListView;
 
 import com.anysoftkeyboard.IndirectlyInstantiated;
 import com.anysoftkeyboard.WordComposer;
@@ -28,15 +27,13 @@ import com.anysoftkeyboard.WordComposer;
 @IndirectlyInstantiated
 public interface DeviceSpecific {
 
-    public String getApiLevel();
+    String getApiLevel();
 
-    public MultiTouchSupportLevel getMultiTouchSupportLevel(Context appContext);
+    MultiTouchSupportLevel getMultiTouchSupportLevel(Context appContext);
 
-    public GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener);
+    GestureDetector createGestureDetector(Context appContext, AskOnGestureListener listener);
 
-    public void commitCorrectionToInputConnection(InputConnection ic, WordComposer word);
+    void commitCorrectionToInputConnection(InputConnection ic, WordComposer word);
 
-    public void performListScrollToPosition(AbsListView listView, int position);
-
-    public boolean isHardwareAcceleratedCanvas(Canvas canvas);
+    boolean isHardwareAcceleratedCanvas(Canvas canvas);
 }

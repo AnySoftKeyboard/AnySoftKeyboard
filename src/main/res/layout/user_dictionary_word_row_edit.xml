@@ -31,4 +31,14 @@
         android:scaleType="centerInside"
         android:src="@drawable/ic_accept"
         android:background="@drawable/transparent_click_feedback_background"/>
+
+    <ImageView
+        android:id="@+id/cancel_user_word"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_cancel"
+        android:background="@drawable/transparent_click_feedback_background"/>
 </LinearLayout>

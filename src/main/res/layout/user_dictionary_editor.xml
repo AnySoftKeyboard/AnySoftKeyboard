@@ -19,23 +19,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/user_dictionary_editor_abslistview" />
-
-    <LinearLayout
-        android:id="@+id/empty_user_dictionary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:visibility="gone"
-        android:background="@drawable/transparent_click_feedback_background">
-        <TextView
-            style="@style/Ask.Text.SubTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/user_dict_settings_empty_text"
-            android:drawablePadding="12dp"
-            android:drawableTop="@drawable/ic_large_new" />
-    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/words_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </FrameLayout>
