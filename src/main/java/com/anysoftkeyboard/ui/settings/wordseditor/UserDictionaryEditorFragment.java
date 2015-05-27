@@ -18,8 +18,10 @@ package com.anysoftkeyboard.ui.settings.wordseditor;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -103,8 +105,7 @@ public class UserDictionaryEditorFragment extends Fragment
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mLanguagesSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                       int arg2, long arg3) {
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 mSelectedLocale = ((DictionaryLocale) arg0.getItemAtPosition(arg2)).getLocale();
                 fillWordsList();
             }
@@ -119,6 +120,7 @@ public class UserDictionaryEditorFragment extends Fragment
         mWordsRecyclerView.setHasFixedSize(false);
         final int wordsEditorColumns = getResources().getInteger(R.integer.words_editor_columns_count);
         if (wordsEditorColumns > 1) {
+            mWordsRecyclerView.addItemDecoration(new MarginDecoration(getActivity()));
             mWordsRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), wordsEditorColumns));
         } else {
             mWordsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -353,5 +355,18 @@ public class UserDictionaryEditorFragment extends Fragment
             protected void applyResults(Void aVoid, Exception backgroundException) {
             }
         }.execute();
+    }
+
+    private static class MarginDecoration extends RecyclerView.ItemDecoration {
+        private final int mMargin;
+
+        public MarginDecoration(Context context) {
+            mMargin = context.getResources().getDimensionPixelSize(R.dimen.global_content_padding_side);
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            outRect.set(mMargin, mMargin, mMargin, mMargin);
+        }
     }
 }
