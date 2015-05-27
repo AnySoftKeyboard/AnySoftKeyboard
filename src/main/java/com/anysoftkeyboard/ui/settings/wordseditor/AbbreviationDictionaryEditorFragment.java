@@ -32,15 +32,15 @@ public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFr
 
     @Override
     protected EditorWordsAdapter createAdapterForWords(List<EditorWord> wordsList) {
-        return new AbbreviationEditorWordsAdapter(wordsList, getActivity());
+        return new AbbreviationEditorWordsAdapter(wordsList, getActivity(), this);
     }
 
     private static class AbbreviationEditorWordsAdapter extends EditorWordsAdapter {
 
         private final Context mContext;
 
-        public AbbreviationEditorWordsAdapter(List<EditorWord> editorWords, Context context) {
-            super(editorWords, LayoutInflater.from(context));
+        public AbbreviationEditorWordsAdapter(List<EditorWord> editorWords, Context context, DictionaryCallbacks dictionaryCallbacks) {
+            super(editorWords, LayoutInflater.from(context), dictionaryCallbacks);
             mContext = context;
         }
 

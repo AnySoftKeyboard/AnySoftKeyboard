@@ -55,7 +55,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class UserDictionaryEditorFragment extends Fragment
-        implements AsyncTaskWithProgressWindow.AsyncTaskOwner {
+        implements AsyncTaskWithProgressWindow.AsyncTaskOwner, EditorWordsAdapter.DictionaryCallbacks {
 
     private Dialog mDialog;
 
@@ -180,7 +180,7 @@ public class UserDictionaryEditorFragment extends Fragment
     }
 
     void fillLanguagesSpinner() {
-        new UserWordsEditorAsyncTask(this) {
+        new UserWordsEditorAsyncTask(this, true) {
             private ArrayAdapter<DictionaryLocale> mAdapter;
 
             @Override
@@ -261,7 +261,7 @@ public class UserDictionaryEditorFragment extends Fragment
 
     private void fillWordsList() {
         Log.d(TAG, "Selected locale is " + mSelectedLocale);
-        new UserWordsEditorAsyncTask(this) {
+        new UserWordsEditorAsyncTask(this, true) {
             private EditableDictionary mNewDictionary;
             private List<EditorWord> mWordsList;
 
@@ -304,16 +304,16 @@ public class UserDictionaryEditorFragment extends Fragment
     }
 
     protected EditorWordsAdapter createAdapterForWords(List<EditorWord> wordsList) {
-        return new EditorWordsAdapter(wordsList, LayoutInflater.from(getActivity()));
+        return new EditorWordsAdapter(wordsList, LayoutInflater.from(getActivity()), this);
     }
 
     protected EditableDictionary getEditableDictionary(String locale) {
         return new UserDictionary(getActivity().getApplicationContext(), locale);
     }
-/*
+
     @Override
     public void onWordDeleted(final EditorWord word) {
-        new UserWordsEditorAsyncTask(this) {
+        new UserWordsEditorAsyncTask(this, false) {
             @Override
             protected Void doAsyncTask(Void[] params) throws Exception {
                 deleteWord(word.word);
@@ -322,7 +322,6 @@ public class UserDictionaryEditorFragment extends Fragment
 
             @Override
             protected void applyResults(Void aVoid, Exception backgroundException) {
-                fillWordsList();
             }
         }.execute();
     }
@@ -334,7 +333,7 @@ public class UserDictionaryEditorFragment extends Fragment
     @Override
     public void onWordUpdated(final String oldWord, final EditorWord newWord) {
 
-        new UserWordsEditorAsyncTask(this) {
+        new UserWordsEditorAsyncTask(this, false) {
             @Override
             protected Void doAsyncTask(Void[] params) throws Exception {
                 if (!TextUtils.isEmpty(oldWord))//it can be empty in case it's a new word.
@@ -346,8 +345,7 @@ public class UserDictionaryEditorFragment extends Fragment
 
             @Override
             protected void applyResults(Void aVoid, Exception backgroundException) {
-                fillWordsList();
             }
         }.execute();
-    }*/
+    }
 }

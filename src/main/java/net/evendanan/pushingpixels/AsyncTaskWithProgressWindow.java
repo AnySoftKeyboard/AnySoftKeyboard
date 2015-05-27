@@ -28,21 +28,26 @@ import java.lang.ref.WeakReference;
 public abstract class AsyncTaskWithProgressWindow<Params, Progress, Result, A extends AsyncTaskWithProgressWindow.AsyncTaskOwner>
         extends AsyncTask<Params, Progress, Result> {
 
-    public static interface AsyncTaskOwner {
+    public interface AsyncTaskOwner {
         Activity getActivity();
     }
 
     private static final String TAG = "ATaskProgressWindow";
 
     private final WeakReference<A> mActivity;
-
-    protected AsyncTaskWithProgressWindow(A activity) {
-        mActivity = new WeakReference<A>(activity);
-    }
+    private final boolean mShowProgressDialog;
 
     private Dialog mProgressDialog;
-
     private Exception mBackgroundException;
+
+    protected AsyncTaskWithProgressWindow(A activity, boolean showProgressDialog) {
+        mActivity = new WeakReference<>(activity);
+        mShowProgressDialog = showProgressDialog;
+    }
+
+    protected AsyncTaskWithProgressWindow(A activity) {
+        this(activity, true);
+    }
 
     protected final A getOwner() {
         A a = mActivity.get();
@@ -57,14 +62,16 @@ public abstract class AsyncTaskWithProgressWindow<Params, Progress, Result, A ex
         if (a == null)
             return;
 
-        mProgressDialog = new Dialog(a.getActivity(), R.style.ProgressDialog);
-        mProgressDialog.setContentView(R.layout.progress_window);
-        mProgressDialog.setTitle(null);
-        mProgressDialog.setCancelable(false);
+        if (mShowProgressDialog) {
+            mProgressDialog = new Dialog(a.getActivity(), R.style.ProgressDialog);
+            mProgressDialog.setContentView(R.layout.progress_window);
+            mProgressDialog.setTitle(null);
+            mProgressDialog.setCancelable(false);
 
-        mProgressDialog.setOwnerActivity(a.getActivity());
+            mProgressDialog.setOwnerActivity(a.getActivity());
 
-        mProgressDialog.show();
+            mProgressDialog.show();
+        }
     }
 
     @Override
@@ -84,16 +91,15 @@ public abstract class AsyncTaskWithProgressWindow<Params, Progress, Result, A ex
     protected final void onPostExecute(Result result) {
         super.onPostExecute(result);
         try {
-            if (mProgressDialog != null && mProgressDialog.isShowing())
+            if (mShowProgressDialog && mProgressDialog != null && mProgressDialog.isShowing()) {
                 mProgressDialog.dismiss();
+            }
         } catch (IllegalArgumentException e) {
             // just swallowing it.
-            Log.w(TAG,
-                    "Caught an exception while trying to dismiss the progress dialog. Not important?");
+            Log.w(TAG, "Caught an exception while trying to dismiss the progress dialog. Not important?");
         }
         applyResults(result, mBackgroundException);
     }
 
-    protected abstract void applyResults(Result result,
-                                         Exception backgroundException);
+    protected abstract void applyResults(Result result, Exception backgroundException);
 }

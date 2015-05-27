@@ -43,10 +43,8 @@ final class BackupUserWordsAsyncTask extends UserWordsEditorAsyncTask {
     private UserDictionary mDictionary;
     private final Context mAppContext;
 
-    BackupUserWordsAsyncTask(
-            UserDictionaryEditorFragment callingFragment,
-            String filename) {
-        super(callingFragment);
+    BackupUserWordsAsyncTask(UserDictionaryEditorFragment callingFragment, String filename) {
+        super(callingFragment, true);
         mAppContext = callingFragment.getActivity().getApplicationContext();
         mFilename = filename;
     }

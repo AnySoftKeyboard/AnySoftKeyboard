@@ -17,11 +17,12 @@ public class EditorWordsAdapter extends RecyclerView.Adapter<EditorWordsAdapter.
 
     protected final List<EditorWord> mEditorWords;
     private final LayoutInflater mLayoutInflater;
-
-    public EditorWordsAdapter(List<EditorWord> editorWords, LayoutInflater layoutInflater) {
+    private final DictionaryCallbacks mDictionaryCallbacks;
+    public EditorWordsAdapter(List<EditorWord> editorWords, LayoutInflater layoutInflater, DictionaryCallbacks dictionaryCallbacks) {
         mEditorWords = new ArrayList<>(editorWords);
         mEditorWords.add(new EditorWord.AddNew());
         mLayoutInflater = layoutInflater;
+        mDictionaryCallbacks = dictionaryCallbacks;
     }
 
     @Override
@@ -152,8 +153,9 @@ public class EditorWordsAdapter extends RecyclerView.Adapter<EditorWordsAdapter.
                 mEditorWords.add(itemPosition, new EditorWord.Editing(editorWord.word, editorWord.frequency));
                 notifyItemChanged(itemPosition);
             } else if (v.getId() == R.id.delete_user_word) {
-                mEditorWords.remove(itemPosition);
+                EditorWord editorWord = mEditorWords.remove(itemPosition);
                 notifyItemRemoved(itemPosition);
+                mDictionaryCallbacks.onWordDeleted(editorWord);
             }
         }
     }
@@ -187,13 +189,20 @@ public class EditorWordsAdapter extends RecyclerView.Adapter<EditorWordsAdapter.
                 }
             } else if (v.getId() == R.id.approve_user_word) {
                 EditorWord editorWord = mEditorWords.remove(itemPosition);
-                mEditorWords.add(itemPosition, createNewEditorWord(mWordView, editorWord));
+                EditorWord newEditorWord = createNewEditorWord(mWordView, editorWord);
+                mEditorWords.add(itemPosition, newEditorWord);
                 if (addNewRow) {
                     mEditorWords.add(new EditorWord.AddNew());
                     notifyItemInserted(mEditorWords.size() - 1);
                 }
+                mDictionaryCallbacks.onWordUpdated(editorWord.word, newEditorWord);
             }
             notifyItemChanged(itemPosition);
         }
+    }
+
+    public interface DictionaryCallbacks {
+        void onWordDeleted(final EditorWord word);
+        void onWordUpdated(final String oldWord, final EditorWord newWord);
     }
 }

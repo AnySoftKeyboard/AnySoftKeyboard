@@ -20,7 +20,7 @@ import net.evendanan.pushingpixels.AsyncTaskWithProgressWindow;
 
 public abstract class UserWordsEditorAsyncTask extends AsyncTaskWithProgressWindow<Void, Void, Void, UserDictionaryEditorFragment> {
 
-    protected UserWordsEditorAsyncTask(UserDictionaryEditorFragment userDictionaryEditor) {
-        super(userDictionaryEditor);
+    protected UserWordsEditorAsyncTask(UserDictionaryEditorFragment userDictionaryEditor, boolean showProgressDialog) {
+        super(userDictionaryEditor, showProgressDialog);
     }
 }

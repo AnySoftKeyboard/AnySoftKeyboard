@@ -44,9 +44,8 @@ final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
     private String mLocale;
     private UserDictionary mDictionary;
 
-    RestoreUserWordsAsyncTask(
-            UserDictionaryEditorFragment callingFragment, String filename) {
-        super(callingFragment);
+    RestoreUserWordsAsyncTask(UserDictionaryEditorFragment callingFragment, String filename) {
+        super(callingFragment, true);
         mAppContext = callingFragment.getActivity().getApplicationContext();
         mFilename = filename;
     }
