@@ -19,12 +19,11 @@ package com.anysoftkeyboard.dictionaries.jni;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.util.Log;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
-import com.anysoftkeyboard.utils.IMEUtil.GCUtils;
-import com.anysoftkeyboard.utils.IMEUtil.GCUtils.MemRelatedOperation;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.base.utils.GCUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -114,7 +113,7 @@ public class ResourceBinaryDictionary extends Dictionary {
             a.recycle();
         }
 
-        GCUtils.getInstance().performOperationWithMemRetry(TAG, new MemRelatedOperation() {
+        GCUtils.getInstance().performOperationWithMemRetry(TAG, new GCUtils.MemRelatedOperation() {
             public void operation() {
                 // The try-catch is for issue 878:
                 // http://code.google.com/p/softkeyboard/issues/detail?id=878
@@ -151,7 +150,7 @@ public class ResourceBinaryDictionary extends Dictionary {
             if (got != total) {
                 Log.e(TAG, "Read " + got + " bytes, expected " + total);
             } else {
-                mNativeDict = openNative(mNativeDictDirectBuffer, TYPED_LETTER_MULTIPLIER, FULL_WORD_FREQ_MULTIPLIER);
+                mNativeDict = openNative(mNativeDictDirectBuffer, Dictionary.TYPED_LETTER_MULTIPLIER, Dictionary.FULL_WORD_FREQ_MULTIPLIER);
                 mDictLength = total;
             }
         } catch (IOException e) {

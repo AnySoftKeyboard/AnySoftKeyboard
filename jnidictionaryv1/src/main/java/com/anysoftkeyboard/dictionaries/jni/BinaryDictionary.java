@@ -17,10 +17,10 @@
 package com.anysoftkeyboard.dictionaries.jni;
 
 import android.content.res.AssetFileDescriptor;
+import android.util.Log;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
-import com.anysoftkeyboard.utils.Log;
 
 import java.io.FileDescriptor;
 import java.util.Arrays;
@@ -65,7 +65,7 @@ public class BinaryDictionary extends Dictionary {
         try {
             mNativeDict = 0;
             long startTime = System.currentTimeMillis();
-            mNativeDict = openNative(mAfd.getFileDescriptor(), mAfd.getStartOffset(), mAfd.getLength(), TYPED_LETTER_MULTIPLIER, FULL_WORD_FREQ_MULTIPLIER);
+            mNativeDict = openNative(mAfd.getFileDescriptor(), mAfd.getStartOffset(), mAfd.getLength(), Dictionary.TYPED_LETTER_MULTIPLIER, Dictionary.FULL_WORD_FREQ_MULTIPLIER);
             Log.d(TAG, "Loaded dictionary in " + (System.currentTimeMillis() - startTime) + "ms");
         } catch (UnsatisfiedLinkError ex) {
             Log.w(TAG, "Failed to load binary JNI connection! Error: " + ex.getMessage());
