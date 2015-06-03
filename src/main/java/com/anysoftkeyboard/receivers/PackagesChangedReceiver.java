@@ -47,7 +47,11 @@ public class PackagesChangedReceiver extends BroadcastReceiver {
             String text = mSB.append("Package '").append(intent.getData()).append("' have been changed.").toString();
             Log.d(TAG, text);
         }
-        AddOnsFactory.onPackageChanged(intent, mIme);
+        try {
+            AddOnsFactory.onPackageChanged(intent, mIme);
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to parse changed package. Ignoring.", e);
+        }
     }
 
     public IntentFilter createFilterToRegisterOn() {
