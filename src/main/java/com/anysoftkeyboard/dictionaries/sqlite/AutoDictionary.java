@@ -18,7 +18,7 @@ package com.anysoftkeyboard.dictionaries.sqlite;
 
 import android.content.Context;
 import com.anysoftkeyboard.AnySoftKeyboard;
-import com.anysoftkeyboard.WordComposer;
+import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 

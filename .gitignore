@@ -1,4 +1,4 @@
-/build/
+build/
 .gradle/
 /local.signing.properties
 /.idea/

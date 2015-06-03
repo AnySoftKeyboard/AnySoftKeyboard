@@ -1,6 +1,8 @@
 package com.anysoftkeyboard.dictionaries;
 
 import android.os.AsyncTask;
+
+import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.utils.Log;
 
 import java.lang.ref.WeakReference;
@@ -17,7 +19,7 @@ public class DictionaryASyncLoader extends AsyncTask<Dictionary, Void, Dictionar
     private Exception mException = null;
 
     public DictionaryASyncLoader(Listener listener) {
-        mListener = new WeakReference<Listener>(listener);
+        mListener = new WeakReference<>(listener);
     }
 
     @Override
@@ -53,9 +55,8 @@ public class DictionaryASyncLoader extends AsyncTask<Dictionary, Void, Dictionar
         }
     }
 
-    public static interface Listener {
+    public interface Listener {
         void onDictionaryLoadingDone(Dictionary dictionary);
-
         void onDictionaryLoadingFailed(Dictionary dictionary, Exception exception);
     }
 }

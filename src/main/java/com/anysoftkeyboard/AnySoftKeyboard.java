@@ -55,9 +55,10 @@ import android.widget.Toast;
 
 import com.anysoftkeyboard.LayoutSwitchAnimationListener.AnimationType;
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.devicespecific.Clipboard;
 import com.anysoftkeyboard.dictionaries.DictionaryAddOnAndBuilder;
-import com.anysoftkeyboard.dictionaries.EditableDictionary;
+import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.dictionaries.ExternalDictionaryFactory;
 import com.anysoftkeyboard.dictionaries.Suggest;
 import com.anysoftkeyboard.dictionaries.TextEntryState;

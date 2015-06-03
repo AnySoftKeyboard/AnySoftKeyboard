@@ -39,6 +39,7 @@ import javax.xml.parsers.SAXParserFactory;
 final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
     protected static final String TAG = "ASK RestoreUDict";
 
+    private final Object mLoadMonitor = new Object();
     private final Context mAppContext;
     private final String mFilename;
     private String mLocale;
@@ -87,9 +88,8 @@ final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
 
                         if (localName.equals("wordlist")) {
                             mLocale = attributes.getValue("locale");
-                            synchronized (mLocale) {
-                                Log.d(TAG, "Building dictionary for locale "
-                                        + mLocale);
+                            synchronized (mLoadMonitor) {
+                                Log.d(TAG, "Building dictionary for locale " + mLocale);
                                 publishProgress();
                                 // waiting for dictionary to be ready.
                                 try {
@@ -127,7 +127,7 @@ final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
     @Override
     protected void onProgressUpdate(Void... values) {
         super.onProgressUpdate(values);
-        synchronized (mLocale) {
+        synchronized (mLoadMonitor) {
             if (mDictionary != null) {
                 mDictionary.close();
             }
@@ -166,7 +166,7 @@ final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
                 activity.fillLanguagesSpinner();
         } catch (BadTokenException e) {
             // activity gone away!
-            // nevermind
+            // never mind
         }
     }
 }

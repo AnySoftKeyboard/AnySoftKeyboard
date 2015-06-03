@@ -21,7 +21,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-import com.anysoftkeyboard.WordComposer;
+import com.anysoftkeyboard.base.dictionaries.Dictionary;
+import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
 import com.anysoftkeyboard.utils.CompatUtils;
 import com.anysoftkeyboard.utils.IMEUtil;
@@ -184,7 +185,6 @@ public class Suggest implements Dictionary.WordCallback {
      * Number of suggestions to generate from the input key sequence. This has
      * to be a number between 1 and 100 (inclusive).
      *
-     * @param maxSuggestions
      * @throws IllegalArgumentException if the number is out of range
      */
     public void setMaxSuggestions(int maxSuggestions) {

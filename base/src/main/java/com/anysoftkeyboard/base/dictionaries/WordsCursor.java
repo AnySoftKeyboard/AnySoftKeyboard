@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard.dictionaries;
+package com.anysoftkeyboard.base.dictionaries;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;

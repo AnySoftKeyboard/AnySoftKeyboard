@@ -14,12 +14,7 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard;
-
-import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionary;
-import com.anysoftkeyboard.keyboards.views.AnyKeyboardBaseView;
-import com.anysoftkeyboard.utils.Log;
-import com.menny.android.anysoftkeyboard.FeaturesSet;
+package com.anysoftkeyboard.base.dictionaries;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,23 +25,23 @@ import java.util.List;
  */
 public class WordComposer {
     private static final String CHEWBACCAONTHEDRUMS = "chewbacca";
-    private static final String TAG = "ASK _WC";
+    public static final int NOT_A_KEY_INDEX = -1;
     /**
      * The list of unicode values for each keystroke (including surrounding keys)
      */
-    private final ArrayList<int[]> mCodes = new ArrayList<>(AndroidUserDictionary.MAX_WORD_LENGTH);
+    private final ArrayList<int[]> mCodes = new ArrayList<>(Dictionary.MAX_WORD_LENGTH);
 
     /**
      * This holds arrays for reuse. Will not exceed AndroidUserDictionary.MAX_WORD_LENGTH
      */
-    private final List<int[]> mArraysToReuse = new ArrayList<>(AndroidUserDictionary.MAX_WORD_LENGTH);
+    private final List<int[]> mArraysToReuse = new ArrayList<>(Dictionary.MAX_WORD_LENGTH);
 
     /**
      * The word chosen from the candidate list, until it is committed.
      */
     private CharSequence mPreferredWord;
 
-    private final StringBuilder mTypedWord = new StringBuilder(AndroidUserDictionary.MAX_WORD_LENGTH);
+    private final StringBuilder mTypedWord = new StringBuilder(Dictionary.MAX_WORD_LENGTH);
 
     private int mCursorPosition;
     private int mGlobalCursorPosition;
@@ -115,9 +110,8 @@ public class WordComposer {
     }
 
     public boolean setCursorPostion(int position/*, int candidatesStartPosition*/) {
-        if (position < 0 || position > length())//note: the cursor can be AFTER the word, so it can be equal to size()
-        {
-            Log.w(TAG, "New cursor position is invalid! It is outside the word (size " + length() + ", new position " + position + ". Disregarding!!!!");
+        if (position < 0 || position > length()) {
+            //note: the cursor can be AFTER the word, so it can be equal to size()
             return false;
         }
         final boolean changed = mCursorPosition != position;
@@ -195,13 +189,11 @@ public class WordComposer {
             if (possibleArray.length >= codes.length) {
                 System.arraycopy(codes, 0, possibleArray, 0, codes.length);
                 if (possibleArray.length > codes.length)
-                    Arrays.fill(possibleArray, codes.length, possibleArray.length, AnyKeyboardBaseView.NOT_A_KEY);
-                Log.d(TAG, "Found an array to reuse with length " + possibleArray.length);
+                    Arrays.fill(possibleArray, codes.length, possibleArray.length, NOT_A_KEY_INDEX);
                 return possibleArray;
             }
         }
         //if I got here, it means that the reusableArray does not contain a long enough array
-        Log.d(TAG, "Creating a new array with length " + codes.length);
         int[] newArray = new int[codes.length];
         mArraysToReuse.add(newArray);
         return getReusableArray(codes);
@@ -289,8 +281,6 @@ public class WordComposer {
 
     /**
      * Stores the user's selected word, before it is actually committed to the text field.
-     *
-     * @param preferred
      */
     public void setPreferredWord(CharSequence preferred) {
         mPreferredWord = preferred;
@@ -326,16 +316,17 @@ public class WordComposer {
         return mAutoCapitalized;
     }
 
-    public void logCodes() {
-        if (!FeaturesSet.DEBUG_LOG) return;
-        Log.d(TAG, "Word: " + mTypedWord + ", prefered word:" + mPreferredWord);
+    public String logCodes() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Word: ").append(mTypedWord).append(", preferred word:").append(mPreferredWord);
         int i = 0;
         for (int[] codes : mCodes) {
-            String codesString = "Codes #" + i + ": ";
+            stringBuilder.append("\n");
+            stringBuilder.append("Codes #").append(i).append(": ");
             for (int c : codes) {
-                codesString += "" + c + ",";
+                stringBuilder.append(c).append(",");
             }
-            Log.d(TAG, codesString);
         }
+        return stringBuilder.toString();
     }
 }

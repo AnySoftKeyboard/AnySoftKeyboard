@@ -1,1 +1,1 @@
-include ':jnidictionaryv1', ':jnidictionaryv2'
+include ':base', ':jnidictionaryv1', ':jnidictionaryv2'

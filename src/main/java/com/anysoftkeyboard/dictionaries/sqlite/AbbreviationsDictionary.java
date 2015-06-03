@@ -18,13 +18,10 @@ package com.anysoftkeyboard.dictionaries.sqlite;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 
-import com.anysoftkeyboard.WordComposer;
-import com.anysoftkeyboard.dictionaries.Dictionary;
+import com.anysoftkeyboard.base.dictionaries.WordComposer;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard.dictionaries;
-
-import com.anysoftkeyboard.WordComposer;
+package com.anysoftkeyboard.base.dictionaries;
 
 /**
  * Abstract base class for a dictionary that can do a fuzzy search for words based on a set of key
@@ -25,6 +23,7 @@ import com.anysoftkeyboard.WordComposer;
 abstract public class Dictionary {
     private static final String TAG = "ASK_DICT";
 
+    public static final int MAX_WORD_LENGTH = 32;
     public static final int MAX_WORD_FREQUENCY = 255;
 
     /**
@@ -81,7 +80,7 @@ abstract public class Dictionary {
      *
      * @param composer the key sequence to match
      * @param callback the callback object to send matched words to as possible candidates
-     * @see WordCallback#addWord(char[], int, int, int, com.anysoftkeyboard.dictionaries.Dictionary)
+     * @see WordCallback#addWord(char[], int, int, int, Dictionary)
      */
     abstract public void getWords(final WordComposer composer, final WordCallback callback);
 
@@ -102,7 +101,7 @@ abstract public class Dictionary {
      * @param typedWord the word to compare with
      * @return true if they are the same, false otherwise.
      */
-    static protected final boolean same(final char[] word, final int length, final CharSequence typedWord) {
+    static protected boolean same(final char[] word, final int length, final CharSequence typedWord) {
         if (typedWord.length() != length) {
             return false;
         }

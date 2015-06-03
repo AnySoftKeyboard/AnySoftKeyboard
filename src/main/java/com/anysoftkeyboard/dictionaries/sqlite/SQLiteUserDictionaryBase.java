@@ -20,8 +20,9 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.database.sqlite.SQLiteException;
+
+import com.anysoftkeyboard.base.dictionaries.WordsCursor;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
-import com.anysoftkeyboard.dictionaries.WordsCursor;
 import com.anysoftkeyboard.utils.Log;
 
 public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {

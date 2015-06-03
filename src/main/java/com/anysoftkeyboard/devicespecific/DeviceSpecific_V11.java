@@ -22,7 +22,7 @@ import android.view.inputmethod.CorrectionInfo;
 import android.view.inputmethod.InputConnection;
 
 import com.anysoftkeyboard.IndirectlyInstantiated;
-import com.anysoftkeyboard.WordComposer;
+import com.anysoftkeyboard.base.dictionaries.WordComposer;
 
 @TargetApi(11)
 @IndirectlyInstantiated
@@ -33,8 +33,7 @@ public class DeviceSpecific_V11 extends DeviceSpecific_V8 {
     }
 
     @Override
-    public void commitCorrectionToInputConnection(InputConnection ic,
-                                                  WordComposer word) {
+    public void commitCorrectionToInputConnection(InputConnection ic, WordComposer word) {
         super.commitCorrectionToInputConnection(ic, word);
         CorrectionInfo correctionInfo = new CorrectionInfo(
                 word.globalCursorPosition() - word.getTypedWord().length(),
@@ -45,6 +44,6 @@ public class DeviceSpecific_V11 extends DeviceSpecific_V8 {
 
     @Override
     public boolean isHardwareAcceleratedCanvas(Canvas canvas) {
-        return canvas != null || canvas.isHardwareAccelerated();
+        return canvas != null && canvas.isHardwareAccelerated();
     }
 }

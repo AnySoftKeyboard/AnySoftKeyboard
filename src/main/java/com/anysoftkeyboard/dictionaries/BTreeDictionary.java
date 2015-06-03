@@ -22,7 +22,10 @@ import android.database.ContentObserver;
 import android.database.Cursor;
 import android.text.TextUtils;
 
-import com.anysoftkeyboard.WordComposer;
+import com.anysoftkeyboard.base.dictionaries.Dictionary;
+import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
+import com.anysoftkeyboard.base.dictionaries.WordComposer;
+import com.anysoftkeyboard.base.dictionaries.WordsCursor;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.FeaturesSet;
@@ -207,7 +210,7 @@ public abstract class BTreeDictionary extends EditableDictionary {
     protected abstract void AddWordToStorage(String word, int frequency);
 
     @Override
-    public void getWords(final WordComposer codes, final WordCallback callback) {
+    public void getWords(final WordComposer codes, final Dictionary.WordCallback callback) {
         if (isLoading() || isClosed()) return;
         mInputLength = codes.length();
         mMaxDepth = mInputLength * 2;

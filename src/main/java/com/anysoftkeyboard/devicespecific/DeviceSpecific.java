@@ -22,7 +22,7 @@ import android.view.GestureDetector;
 import android.view.inputmethod.InputConnection;
 
 import com.anysoftkeyboard.IndirectlyInstantiated;
-import com.anysoftkeyboard.WordComposer;
+import com.anysoftkeyboard.base.dictionaries.WordComposer;
 
 @IndirectlyInstantiated
 public interface DeviceSpecific {

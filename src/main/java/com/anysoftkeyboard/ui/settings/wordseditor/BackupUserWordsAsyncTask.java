@@ -23,8 +23,8 @@ import android.provider.UserDictionary.Words;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.anysoftkeyboard.base.dictionaries.WordsCursor;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
-import com.anysoftkeyboard.dictionaries.WordsCursor;
 import com.anysoftkeyboard.utils.Log;
 import com.anysoftkeyboard.utils.XmlWriter;
 import com.menny.android.anysoftkeyboard.R;

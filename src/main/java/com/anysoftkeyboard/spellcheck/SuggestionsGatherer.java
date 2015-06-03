@@ -16,8 +16,7 @@
 
 package com.anysoftkeyboard.spellcheck;
 
-import com.anysoftkeyboard.dictionaries.Dictionary;
-import com.anysoftkeyboard.dictionaries.Dictionary.WordCallback;
+import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.utils.ArraysCompatUtils;
 import com.anysoftkeyboard.utils.IMEUtil;
 import com.anysoftkeyboard.utils.Log;
@@ -25,7 +24,7 @@ import com.anysoftkeyboard.utils.Log;
 import java.util.ArrayList;
 import java.util.Collections;
 
-class SuggestionsGatherer implements WordCallback {
+class SuggestionsGatherer implements Dictionary.WordCallback {
     public static class Result {
         public final String[] mSuggestions;
         public final boolean mHasLikelySuggestions;

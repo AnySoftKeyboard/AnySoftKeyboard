@@ -23,8 +23,8 @@ import android.database.ContentObserver;
 import android.database.Cursor;
 import android.provider.ContactsContract.Contacts;
 
+import com.anysoftkeyboard.base.dictionaries.WordsCursor;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
-import com.anysoftkeyboard.dictionaries.WordsCursor;
 
 @TargetApi(7)
 public class ContactsDictionary extends BTreeDictionary {

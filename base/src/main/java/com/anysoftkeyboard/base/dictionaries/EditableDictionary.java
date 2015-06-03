@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard.dictionaries;
+package com.anysoftkeyboard.base.dictionaries;
 
 
 public abstract class EditableDictionary extends Dictionary {
@@ -30,7 +30,6 @@ public abstract class EditableDictionary extends Dictionary {
      *                  recognize it as a capitalized word when searched.
      * @param frequency the frequency of occurrence of the word. A frequency of 255 is considered
      *                  the highest.
-     * @TODO use a higher or float range for frequency
      */
     public abstract boolean addWord(String word, int frequency);
 

@@ -17,8 +17,9 @@
 package com.anysoftkeyboard.dictionaries.jni;
 
 import android.content.res.AssetFileDescriptor;
-import com.anysoftkeyboard.WordComposer;
-import com.anysoftkeyboard.dictionaries.Dictionary;
+
+import com.anysoftkeyboard.base.dictionaries.Dictionary;
+import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.utils.Log;
 
 import java.io.FileDescriptor;

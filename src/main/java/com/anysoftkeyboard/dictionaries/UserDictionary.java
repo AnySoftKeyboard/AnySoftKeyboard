@@ -17,7 +17,10 @@
 package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
-import com.anysoftkeyboard.WordComposer;
+
+import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
+import com.anysoftkeyboard.base.dictionaries.WordComposer;
+import com.anysoftkeyboard.base.dictionaries.WordsCursor;
 import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.FallbackUserDictionary;
 import com.anysoftkeyboard.utils.Log;
@@ -46,10 +49,7 @@ public class UserDictionary extends EditableDictionary {
 
     @Override
     public final boolean isValidWord(CharSequence word) {
-        if (mActualDictionary != null)
-            return mActualDictionary.isValidWord(word);
-        else
-            return false;
+        return mActualDictionary != null && mActualDictionary.isValidWord(word);
     }
 
     @Override

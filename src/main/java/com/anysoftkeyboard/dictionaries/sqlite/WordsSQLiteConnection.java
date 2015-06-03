@@ -22,7 +22,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
-import com.anysoftkeyboard.dictionaries.WordsCursor;
+
+import com.anysoftkeyboard.base.dictionaries.WordsCursor;
 import com.anysoftkeyboard.utils.Log;
 
 public class WordsSQLiteConnection extends SQLiteOpenHelper {
@@ -128,8 +129,6 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
 
     /**
      * This is a compatibility function: SQLiteOpenHelper.getDatabaseName exists only in API14
-     *
-     * @return
      */
     public String getDbFilename() {
         return mDbName;

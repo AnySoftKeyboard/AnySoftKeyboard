@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.anysoftkeyboard.dictionaries.EditableDictionary;
+import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
 import com.menny.android.anysoftkeyboard.R;
 

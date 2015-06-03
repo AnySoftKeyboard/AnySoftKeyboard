@@ -20,8 +20,8 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 
-import com.anysoftkeyboard.WordComposer;
-import com.anysoftkeyboard.dictionaries.Dictionary;
+import com.anysoftkeyboard.base.dictionaries.Dictionary;
+import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.utils.IMEUtil.GCUtils;
 import com.anysoftkeyboard.utils.IMEUtil.GCUtils.MemRelatedOperation;
 import com.anysoftkeyboard.utils.Log;

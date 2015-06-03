@@ -40,9 +40,9 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.anysoftkeyboard.dictionaries.EditableDictionary;
+import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
+import com.anysoftkeyboard.base.dictionaries.WordsCursor;
 import com.anysoftkeyboard.dictionaries.UserDictionary;
-import com.anysoftkeyboard.dictionaries.WordsCursor;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
 import com.anysoftkeyboard.keyboards.KeyboardFactory;
 import com.anysoftkeyboard.utils.Log;

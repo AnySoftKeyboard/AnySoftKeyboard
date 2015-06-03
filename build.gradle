@@ -173,6 +173,7 @@ dependencies {
             url 'https://oss.sonatype.org/content/repositories/snapshots/'
         }
     }
+    compile project(':base')
     compile project(':jnidictionaryv1')
     compile project(':jnidictionaryv2')
 
