@@ -24,6 +24,8 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Debug;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+
+import com.anysoftkeyboard.base.utils.Log;
 import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -33,7 +35,7 @@ import java.io.IOException;
 
 public class DeveloperUtils {
 
-    public static final String NEW_LINE = System.getProperty("line.separator");
+    public static final String NEW_LINE = Log.NEW_LINE;
 
     private static final String KEY_SDCARD_TRACING_ENABLED = "KEY_SDCARD_TRACING_ENABLED";
     private static final String ASK_TRACE_FILENAME = "AnySoftKeyboard_tracing.trace";
@@ -78,8 +80,7 @@ public class DeveloperUtils {
 
     public static File getTraceFile() {
         File extFolder = Environment.getExternalStorageDirectory();
-        File target = new File(extFolder, ASK_TRACE_FILENAME);
-        return target;
+        return new File(extFolder, ASK_TRACE_FILENAME);
     }
 
     public static String getSysInfo() {

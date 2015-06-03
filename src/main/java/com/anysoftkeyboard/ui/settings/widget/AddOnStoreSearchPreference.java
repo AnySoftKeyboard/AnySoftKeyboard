@@ -35,7 +35,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.base.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
 public class AddOnStoreSearchPreference extends Preference implements OnClickListener {

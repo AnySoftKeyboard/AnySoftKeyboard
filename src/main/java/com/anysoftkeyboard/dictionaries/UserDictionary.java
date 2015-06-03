@@ -23,7 +23,7 @@ import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.base.dictionaries.WordsCursor;
 import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.FallbackUserDictionary;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.base.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 public class UserDictionary extends EditableDictionary {

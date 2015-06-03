@@ -19,11 +19,11 @@ package com.anysoftkeyboard.utils;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.text.TextUtils;
-import android.text.format.DateUtils;
 import android.view.inputmethod.InputMethodManager;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.base.utils.Log;
 import com.menny.android.anysoftkeyboard.FeaturesSet;
 
 import java.util.ArrayList;

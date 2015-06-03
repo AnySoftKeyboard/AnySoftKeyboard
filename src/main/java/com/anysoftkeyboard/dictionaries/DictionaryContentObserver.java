@@ -19,7 +19,7 @@ package com.anysoftkeyboard.dictionaries;
 import android.database.ContentObserver;
 
 import com.anysoftkeyboard.IndirectlyInstantiated;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.base.utils.Log;
 import net.evendanan.frankenrobot.Diagram;
 
 import java.lang.ref.WeakReference;

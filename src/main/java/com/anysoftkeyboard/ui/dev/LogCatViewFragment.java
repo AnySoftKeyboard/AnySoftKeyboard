@@ -24,7 +24,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.ArrayAdapter;
 
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.base.utils.Log;
 
 import net.evendanan.pushingpixels.PassengerFragmentSupport;
 import net.evendanan.pushingpixels.Passengerable;

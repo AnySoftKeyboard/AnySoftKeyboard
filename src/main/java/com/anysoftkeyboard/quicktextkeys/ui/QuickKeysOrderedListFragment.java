@@ -14,7 +14,7 @@ import android.widget.CompoundButton;
 
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.base.utils.Log;
 import com.emtronics.dragsortrecycler.DragSortRecycler;
 import com.menny.android.anysoftkeyboard.R;
 

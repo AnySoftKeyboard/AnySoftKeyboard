@@ -3,7 +3,7 @@ package com.anysoftkeyboard.dictionaries;
 import android.os.AsyncTask;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.base.utils.Log;
 
 import java.lang.ref.WeakReference;
 

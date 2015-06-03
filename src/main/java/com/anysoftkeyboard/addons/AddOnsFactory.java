@@ -27,7 +27,7 @@ import android.util.AttributeSet;
 import android.util.Xml;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.base.utils.Log;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;

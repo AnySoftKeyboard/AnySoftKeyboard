@@ -20,10 +20,11 @@ import android.annotation.TargetApi;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.PopupWindowCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.PopupWindow;
+
+import com.anysoftkeyboard.base.utils.Log;
 
 import java.lang.reflect.Method;
 import java.util.Locale;

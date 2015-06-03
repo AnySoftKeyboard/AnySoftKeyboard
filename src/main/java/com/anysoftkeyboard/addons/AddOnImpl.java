@@ -17,11 +17,10 @@
 package com.anysoftkeyboard.addons;
 
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.support.annotation.Nullable;
 
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.base.utils.Log;
 
 import java.lang.ref.WeakReference;
 

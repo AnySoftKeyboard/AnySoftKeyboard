@@ -14,25 +14,36 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard.utils;
+package com.anysoftkeyboard.base.utils;
 
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.support.annotation.NonNull;
 
-import com.anysoftkeyboard.ui.dev.DeveloperUtils;
-import com.menny.android.anysoftkeyboard.BuildConfig;
-import com.menny.android.anysoftkeyboard.FeaturesSet;
-
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class Log {
-    private static final boolean DEBUG = FeaturesSet.DEBUG_LOG;
+    public static final String NEW_LINE = System.getProperty("line.separator");
+
+    private static final boolean DEBUG;
+    static {
+        boolean reflectionDebugValue;
+        try {
+            //https://code.google.com/p/android/issues/detail?id=52962
+            Class<?> clazz = Class.forName("com.menny.android.anysoftkeyboard.BuildConfig");
+            Field field = clazz.getField("DEBUG");
+            reflectionDebugValue = (boolean)field.get(null);
+        } catch (Exception e) {
+            reflectionDebugValue = true;
+        }
+        DEBUG = reflectionDebugValue;
+    }
 
     private static final StringBuilder msFormatBuilder = new StringBuilder(1024);
     private static final java.util.Formatter msFormatter =  new java.util.Formatter(msFormatBuilder);
 
-    private static final String[] msLogs = new String[FeaturesSet.DEBUG_LOG ? 225 : 0];
+    private static final String[] msLogs = new String[DEBUG ? 225 : 0];
     private static int msLogIndex = 0;
 
     private synchronized static void addLog(String level, String tag, String message) {
@@ -51,7 +62,7 @@ public class Log {
 
     @NonNull
     public synchronized static ArrayList<String> getAllLogLinesList() {
-        ArrayList<String> lines = new ArrayList<String>(msLogs.length);
+        ArrayList<String> lines = new ArrayList<>(msLogs.length);
         if (msLogs.length > 0) {
             int index = msLogIndex;
             do {
@@ -73,10 +84,9 @@ public class Log {
             ArrayList<String> lines = getAllLogLinesList();
             //now to build the string
             StringBuilder sb = new StringBuilder("Log contains " + lines.size() + " lines:");
-            final String newline = DeveloperUtils.NEW_LINE;
             while (lines.size() > 0) {
                 String line = lines.remove(lines.size() - 1);
-                sb.append(newline);
+                sb.append(NEW_LINE);
                 sb.append(line);
             }
             return sb.toString();
@@ -191,7 +201,7 @@ public class Log {
         addLog(LVL_WTF, TAG, msg);
         if (Build.VERSION.SDK_INT >= 8)
             android.util.Log.wtf(TAG, msg);
-        else if (BuildConfig.DEBUG)
+        else if (DEBUG)
             throw new RuntimeException(msg);
         else
             android.util.Log.e(TAG, msg);
@@ -202,7 +212,7 @@ public class Log {
         addLog(LVL_WTF, TAG, text, t);
         if (Build.VERSION.SDK_INT >= 8)
             android.util.Log.wtf(TAG, text, t);
-        else if (BuildConfig.DEBUG)
+        else if (DEBUG)
             throw new RuntimeException(text, t);
         else
             android.util.Log.e(TAG, text, t);
@@ -215,7 +225,7 @@ public class Log {
 
         for (StackTraceElement element : stackTrace) {
             sb.append(element.toString());
-            sb.append('\n');
+            sb.append(NEW_LINE);
         }
 
         if (ex.getCause() == null)
@@ -223,12 +233,12 @@ public class Log {
         else {
             ex = ex.getCause();
             String cause = getStackTrace(ex);
-            sb.append("*** Cause: " + ex.getClass().getName());
-            sb.append('\n');
-            sb.append("** Message: " + ex.getMessage());
-            sb.append('\n');
-            sb.append("** Stack track: " + cause);
-            sb.append('\n');
+            sb.append("*** Cause: ").append(ex.getClass().getName());
+            sb.append(NEW_LINE);
+            sb.append("** Message: ").append(ex.getMessage());
+            sb.append(NEW_LINE);
+            sb.append("** Stack track: ").append(cause);
+            sb.append(NEW_LINE);
             return sb.toString();
         }
     }

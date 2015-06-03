@@ -19,11 +19,11 @@ package com.anysoftkeyboard.dictionaries.jni;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.util.Log;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.base.utils.GCUtils;
+import com.anysoftkeyboard.base.utils.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -65,13 +65,13 @@ public class ResourceBinaryDictionary extends Dictionary {
         try {
             System.loadLibrary("anysoftkey2_jni");
         } catch (UnsatisfiedLinkError ule) {
-            Log.e(TAG, "******** Could not load native library nativeim ********");
-            Log.e(TAG, "******** Could not load native library nativeim ********", ule);
-            Log.e(TAG, "******** Could not load native library nativeim ********");
+            Log.e(TAG, "******** Could not load native library anysoftkey2_jni ********");
+            Log.e(TAG, "******** Could not load native library anysoftkey2_jni ********", ule);
+            Log.e(TAG, "******** Could not load native library anysoftkey2_jni ********");
         } catch (Throwable t) {
-            Log.e(TAG, "******** Failed to load native dictionary library ********");
-            Log.e(TAG, "******** Failed to load native dictionary library *******", t);
-            Log.e(TAG, "******** Failed to load native dictionary library ********");
+            Log.e(TAG, "******** Failed to load native dictionary anysoftkey2_jni ********");
+            Log.e(TAG, "******** Failed to load native dictionary anysoftkey2_jni *******", t);
+            Log.e(TAG, "******** Failed to load native dictionary anysoftkey2_jni ********");
         }
     }
 

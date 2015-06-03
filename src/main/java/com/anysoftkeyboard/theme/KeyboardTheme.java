@@ -23,7 +23,7 @@ import android.support.annotation.Nullable;
 
 import com.anysoftkeyboard.addons.AddOnImpl;
 import com.anysoftkeyboard.addons.ScreenshotHolder;
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.base.utils.Log;
 
 public class KeyboardTheme extends AddOnImpl implements ScreenshotHolder {
 

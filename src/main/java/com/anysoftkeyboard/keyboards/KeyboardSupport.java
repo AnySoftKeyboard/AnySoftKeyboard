@@ -9,7 +9,7 @@ import android.support.annotation.NonNull;
 import android.util.SparseIntArray;
 import android.util.TypedValue;
 
-import com.anysoftkeyboard.utils.Log;
+import com.anysoftkeyboard.base.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import java.util.ArrayList;

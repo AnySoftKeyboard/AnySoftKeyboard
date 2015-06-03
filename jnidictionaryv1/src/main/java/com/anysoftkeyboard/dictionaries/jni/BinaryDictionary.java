@@ -17,10 +17,10 @@
 package com.anysoftkeyboard.dictionaries.jni;
 
 import android.content.res.AssetFileDescriptor;
-import android.util.Log;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
+import com.anysoftkeyboard.base.utils.Log;
 
 import java.io.FileDescriptor;
 import java.util.Arrays;
@@ -44,13 +44,13 @@ public class BinaryDictionary extends Dictionary {
         try {
             System.loadLibrary("anysoftkey_jni");
         } catch (UnsatisfiedLinkError ule) {
-            Log.e(TAG, "******** Could not load native library nativeim ********");
-            Log.e(TAG, "******** Could not load native library nativeim ********", ule);
-            Log.e(TAG, "******** Could not load native library nativeim ********");
+            Log.e(TAG, "******** Could not load native library anysoftkey_jni ********");
+            Log.e(TAG, "******** Could not load native library anysoftkey_jni ********", ule);
+            Log.e(TAG, "******** Could not load native library anysoftkey_jni ********");
         } catch (Throwable t) {
-            Log.e(TAG, "******** Failed to load native dictionary library ********");
-            Log.e(TAG, "******** Failed to load native dictionary library *******", t);
-            Log.e(TAG, "******** Failed to load native dictionary library ********");
+            Log.e(TAG, "******** Failed to load native dictionary library anysoftkey_jni ********");
+            Log.e(TAG, "******** Failed to load native dictionary library anysoftkey_jni *******", t);
+            Log.e(TAG, "******** Failed to load native dictionary library anysoftkey_jni ********");
         }
     }
 
