@@ -5,6 +5,7 @@
   <string name="settings_app_name">ကီးဘုတ် အပြင်အဆင်</string>
   <string name="spell_checker_service_name">စာလုံးပေါင်း စစ်ဆေးခြင်း</string>
   <string name="spell_checker_settings">စာလုံးပေါင်းစစ်ဆေးခြင်း အပြင်အဆင်</string>
+  <string name="subtype_generic">ယေဘူယျ စာလုံးပေါင်း</string>
   <string name="copyright_text">မူပိုင်ခွင့်\u0020©\u0020<xliff:g id="year">%d</xliff:g>\u0020<xliff:g id="owner">%s</xliff:g></string>
   <string name="version_text"><xliff:g id="version_name">%s</xliff:g>\u0020(v<xliff:g id="version_number">%s</xliff:g>)</string>
   <string name="additional_licenses"><u>ပိုကြည့်ရန် လိုင်စင်များ</u></string>
@@ -15,35 +16,18 @@
     </string>
   <string name="menu_about_item">မှတ်တမ်း</string>
   <string name="click_to_restart_suggestions">အကြံပြုချက်အတွက် နှိပ်ပါ</string>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   <string name="main_tab_welcome">ကြိုဆိုပါတယ်</string>
   <string name="main_tab_links">လခ့်များ</string>
   <string name="main_tab_credits">သက်ဆိုင်ခွင့်ရှိသူ</string>
   <string name="how_to_pointer_title">AnySoftKeyboard မှ ကြိုဆိုပါတယ်</string>
   <string name="how_to_pointer_version_prefix">ဗားရှင်း</string>
+  <string name="how_to_pointer_not_app">AnySoftKeyboard ဆိုသည်မှာ ပုံမှန်ကီးဘုတ်မျိုး မဟုတ်ပါ။ ၎င်းဟာ ဖန်သားပြင်ပေါ်တွင် အစားထိုးပေးသော ကီးဘုတ်အမျိုးအစားတစ်ခုပဲဖြစ်ပါတယ်</string>
   <string name="how_to_pointer_go_to_links">အသေးစိတ်သိလိုပါက လခ့်များရှိသော နေရာတွင်ကြည့်ပါ။</string>
   <string name="how_to_pointer_how_to_url">လမ်းညွှန်ချက်အသေးစိတ်မှာ:</string>
   <string name="how_to_pointer_site">အထွေထွေ အကြောင်းအရာများ:</string>
   <string name="how_to_pointer_changelog">နောက်ဆုံးထွက် ဗားရှင်းမှာ အကြောင်းများ:</string>
+  <string name="change_log_card_version_title_template">ဗားရှင်း<xliff:g id="name">%s</xliff:g>\u0020\u0020အတွက် \u0020\u0020နောက်ဆုံးအပြောင်းအလဲ</string>
+  <string name="change_log_entry_header_template_without_name">\u0020\u0020ဗားရှင်း<xliff:g id="code">%s</xliff:g>\u0020\u0020</string>
   <string name="how_to_pointer_issues">အမှားများ တင်ပြရန်:</string>
   <string name="main_tab_credits_title">ဤလက်ကွက်အား အောက်ဖော်ပြပါ သူများ၏ ကူညီမှုဖြင့် ပြုလုပ်ခဲ့သည်-</string>
   <string name="main_tab_credits_created_by">ဖန်တီးခဲ့သူမှာ:</string>
@@ -51,30 +35,50 @@
   <string name="main_tab_credits_localization_by">ဘာသာပြန်ခဲ့သူမှာ:</string>
   <string name="main_tab_credits_GUI_by">အသုံးပြု ရုပ်ပြပုံများမှာ:</string>
   <string name="how_to_enable_dialog_title">AnySoftKeyboard ကိုဖွင့်မလား?</string>
+  <string name="how_to_enable_dialog_text">AnySoftKeyboard ကိုအတည်မပြုရသေးပါ။ ဘယ်လိုအတည်ပြုရမလဲဆိုတာကို သင် ကျွန်ုပ်ကို လမ်းညွှန်စေချင်ပါသလား?</string>
   <string name="how_to_enable_dialog_show_me">ကျွန်ုပ်ကိုပြပါ!</string>
   <string name="how_to_enable_dialog_dont_show_me">နောင်အခါ</string>
+  <string name="how_to_simple_howto_preface">အန်းဒရိုက်ဖုန်းတွင် ပြင်ပကီးဘုတ်များကို အတည်ပြုထည့်သွင်းရန် အသုံးပြုသူမှအဆင့်လိုက် လုပ်ဆောင်ပေးရန်လိုအပ်ပါသည်။ ဘယ်လိုဆိုတာကို ဒီမှာကြည့်ပါ:</string>
+  <string name="how_to_simple_howto_enable_ask">အဆင့်(၁)။ ။ AnySoftKeyboard ထည့်သွင်းရန် (၎င်းဟာ ဖြစ်နိုင်ခြေရှိသော ကီးများထည့်သွင်းခြင်းကြောင့် သင့်အားသတိပေးလိမ့်မည်၊ မစိုးရိမ်ပါနဲ့။ AnySoftKeyboard တွင် အချက်အလက်များကို မည်သည့်နေရာများသို့ ပေးပို့ခြင်း သိမ်းဆည်းခြင်းမရှိပါ။)</string>
+  <string name="how_to_simple_howto_enable_ask_button">AnySoftKeyboard ထည့်သွင်းရန်</string>
+  <string name="how_to_simple_howto_press_back_to_return_tip">အတည်ပြုအချက်အလက်များကို ရယူရန်  BACK ကိုပြန်နှိပ်ပါ</string>
+  <string name="how_to_simple_howto_switch_to_ask">အဆင့်(၂)။ ။ သင့်ရဲ့ ထည့်သွင်းခြင်းအဖြစ် AnySoftKeyboard ကိုရွေးချယ်ပါ</string>
   <string name="how_to_simple_howto_switch_to_ask_button_after_step_1">AnySoftKeyboard သို့ပြောင်းပါ</string>
   <string name="how_to_simple_howto_switch_to_ask_button_before_step_1">အဆင့် ၁ ကိုအရင် လုပ်ဆောင်ပါ</string>
+  <string name="how_to_simple_howto_go_to_settings">အဆင့်(၃)မှတ်သားရန်။ ။ AnySoftKeyboard သည် အထူးပြုလုပ်ထားသော ကီးဘုတ်ဖြစ်သည်။ အပြင်အဆင်ပြောင်းလဲသတ်မှတ်ရန်! ENTER ကီးကို ကြာကြာဖိထားခြင်းဖြင့် ဝင်ရောက်ပြင်ဆင်နိုင်သည်</string>
+  <string name="how_to_simple_howto_go_to_settings_button">AnySoftKeyboard၏ အပြင်အဆင်များ</string>
   <string name="ime_name_beta">ဘာသာစုံလက်ကွက်စနစ် စမ်းသပ်ဗားရှင်း</string>
   <string name="notification_text_testers">သတိထားပါ။ စမ်းသပ်ဗားရှင်းသာဖြစ်ပါသည်!</string>
+  <string name="notification_text_changelog">အသစ်ထပ်ဖြည့်ထားသည်များကို လေ့လာရန် နှိပ်ပါ</string>
   <string name="notification_title_how_to_enable">AnySoftKeyboard မှ ကြိုဆိုပါတယ်</string>
   <string name="notification_text_how_to_enable">မည်သို့ခွင့်ပြုချက်ပေးရန် လေ့လာပါ</string>
+  <string name="testers_version">စမ်းသပ်သူများ ပြုလုပ်ထားမှု!</string>
   <string name="license_title">လိုင်စင်</string>
   <string name="languages_cat">ဘာသာစကားများ</string>
   <string name="about">အကြောင်းအရာ</string>
   <string name="changelog">ပြောင်းလဲမှုမှတ်တမ်း</string>
   <string name="search_market_for_addons">တွဲဖတ်သုံးကိရိယာ ရှာရန်</string>
   <string name="search_market_for_keyboard_addons"><i>Play Store</i>မှ အခြားကီးဘုတ်များ ရယူပါ…</string>
+  <string name="search_market_for_quick_key_addons"><i>ပလေးစတိုး</i>မှ <i>လိုအပ်သော</i>add-onsများ ရယူရန်…</string>
+  <string name="no_market_store_available"><b>*သင့်ရဲ့ ဖုန်းပေါ်တွင် <i>ပလေးစတိုး</i>မရှိပါ။ Add-ons ရှာဖွေခြင်းမပြုလုပ်နိုင်ပါ!</b></string>
   <string name="theme_addons_settings">လက်ကွက်ပုံ အမြင်ပြင်ဆင်မှုများ</string>
   <string name="keyboard_theme_tweak_group">ပြုပြင်ချက်များ</string>
+  <string name="keyboard_theme_tweak_hints_group">အမြန်ပြန်လည်ခေါ်ယူနိုင်သော စကားလုံးများ</string>
   <string name="bottom_row_addons_settings">အောက်ခြေတန်း ပြင်ဆင်မှုများ</string>
   <string name="top_row_addons_settings">အပေါ်တန်း ပြင်ဆင်မှုများ</string>
   <string name="close_button">ပိတ်ပါ</string>
+  <string name="how_to_active_text">AnySoftKeyboard ကို ဘယ်လို လှုပ်ဆောင်စေမလဲ</string>
+  <string name="added_word">\u0020<xliff:g id="word">%s</xliff:g>ကို သိမ်းဆည်းပါ</string>
   <string name="revert_added_word_question">ဖျတ်ရန်?</string>
+  <string name="removed_word">\u0020<xliff:g id="word">%s</xliff:g>ကို ရှင်းလင်းပါ</string>
+  <string name="hint_add_to_dictionary">\u2190 သိမ်းဆည်းရန် နောက်တစ်ကြိမ် ထပ်နှိပ်ပါ</string>
+  <string name="hint_double_tap_to_close">အကြံပေးချက်များ နောက်တစ်ကြိမ်ဖယ်ရှားရန်</string>
   <string name="menu_insert_smiley">ခံစားချက် ထည့်သွင်းရန်</string>
   <string name="click_for_help">အကူညီရယူရန်</string>
+  <string name="click_for_help_summary">AnySoftKeyboard အကြောင်းအရာများအတွက် အကူညီရယူရန်</string>
   <string name="ui_group">သုံးစွဲမှု အပြင်အဆင်</string>
   <string name="physical_keyboard_change_notification_title">ကီးဘုတ် လက်ကွက် အကြောင်းကြားခြင်း</string>
+  <string name="physical_keyboard_change_notification_summary">လှုပ်ဆောင်မှုအကြောင်း အသိပေးချက်ပုံစံ. အခု%s</string>
   <string name="physical_keyboard_change_notification_dialog_title">အကြောင်းကြားမှုကို ရွေးပါ</string>
   <string-array name="physical_keyboard_change_notification_types">
     <item>လက်ကွက်ပုံစံ အမြဲပြနေပါ။</item>
@@ -84,16 +88,24 @@
   <string name="lengthy_operations_toast_notification">အသေးစိတ် အကြောင်းကြားခြင်း</string>
   <string name="lengthy_operations_toast_notification_summary">လိုတိုရှင်းသာ အကြောင်းကြားပါ</string>
   <string name="voice_input_not_support_in_this_os_version">Android 2.2+ နောက်ပိုင်းထွက်များတွင် အသံဖြင့်စာရိုက်သည့်နည်းစနစ်ပါရှိပါသည်။</string>
+  <string name="voice_input_not_installed_title">အသံ ထည့်သွင်းခြင်းမရှိခဲ့ပါ</string>
+  <string name="voice_input_not_installed_text">သင်၏ဖုန်းတွင် "Google၏အသံဖြင့်ဘာသာစကား" ထည့်သွင်းမှုမရှိပါ။ <i>ပလေးစိုး</i>မှပြန်လည်ထည့်သွင်းခြင်းဖြင့် \n၎င်းကိုလွယ်ကူစွာဖြေရှင်းနိုင်ပါတယ်</string>
   <string name="voice_input_not_installed_action_install">ထည့်သွင်းရန်</string>
   <string name="voice_input_not_installed_action_do_not_install">မဟုတ်</string>
+  <string name="voice_input_not_voice_pack_in_market">ကျွနှ်ပ် <i>ပလေးစတိုး</i>မှ (com.google.android.voicesearch) အသံဖြင့်ဘာသာစကားကို မတွေ့ရပါ။ ဝမ်းနည်းပါတယ်, သင့်ရဲ့ဖုန်းတွင် အသံဖြင့်ဘာသာစကားထည့်သွင်းမှု အလုပ်မလုပ်နိုင်ပါ</string>
   <string name="change_ime">လက်ကွက်ပုံစံပြောင်းခြင်း</string>
   <string name="override_dictionary">မှုလ အဘိဓာန်ကို မသုံးပါ</string>
+  <string name="override_dictionary_title">သတ်ပုံကျမ်း
+      <xliff:g id="word">%s</xliff:g>
+       ကိုထပ်မံပြင်ဆင်ပါ</string>
   <string name="override_dictionary_default">မှုလ</string>
   <string name="override_disabled">ပြင်ဆင်ထားမှုများ ဖျတ်ရှင်းပြီးပါပြီ</string>
+  <string name="override_enabled"><xliff:g id="word">%s</xliff:g>သို့ ထပ်မံပြင်ဆင်ခြင်း</string>
   <string name="gesture_settings">အမူအရာများ</string>
   <string name="effects_group">ဖန်တီးမှု</string>
   <string name="ime_settings">လက်ကွက်အပြင်အဆင်</string>
   <string name="vibrate_on_key_press_title">နှိပ်လျှင် တုန်ခါပါ</string>
+  <string name="vibrate_on_key_press_summary">ခလုတ်နှိပ်ခြင်း တုန်ခါမှုအဆင့် ပြသနာကို ပေးပို့ရန်။ လက်ရှိ %s</string>
   <string name="vibrate_on_key_press_dialog_title">တုန်ခါမှု အမျိုးအစား</string>
   <string-array name="vibrate_on_key_press_types">
     <item>မရှိပါ။</item>
@@ -105,9 +117,15 @@
   <string name="sound_on_summary">အသံထွက်များ။</string>
   <string name="use_custom_sound_volume">အသံချိန်ပါ</string>
   <string name="use_custom_sound_volume_on_summary">အသံထွက်အား စိတ်ကြိုက်ချိန်ထားသည်။</string>
+  <string name="use_custom_sound_volume_off_summary">အသံအချက်ပေးမှု ပုံစံသည် စနစ်၏ အသံအသိပေးချက်ပင် ဖြစ်သည်</string>
   <string name="custom_sound_volume">အသံထွက်မှု အနှိမ့်အမြင့်</string>
   <string name="speacial_fetures_group">အထူးပြုလုပ်ချက်များ</string>
   <string name="switch_keyboard_on_space">စပေ့ရိုက်၍ လက်ကွက်ပုံစံပြောင်းပါ</string>
+  <string name="switch_keyboard_on_space_on_summary">Space ကို နှိပ်သောအခါ သင်္ကေတများ၊ နံပါတ်များမှ စာလုံးများသို့ ပြောင်းပေးရန်</string>
+  <string name="switch_keyboard_on_space_off_summary">Space ကိုနှိပ်ခြင်းဖြင့် သင်္ကေတများ၊ နံပါတ်များမှ စာလုံးများသို့ မပြောင်းရန်</string>
+  <string name="one_shot_quick_text_popup">ခလုတ်နှိပ်ပြီးနောက် အလိုအလျှောက်ပိတ်ပါ</string>
+  <string name="one_shot_quick_text_popup_on_summary">ခလုတ်တစ်ခုနှိပ်ပြီးနောက် အမြန်ပေါ်စာသားများ ပိတ်ရန်</string>
+  <string name="one_shot_quick_text_popup_off_summary">အပိတ်ခလုတ် နှိပ်သည့်တိုင်အောင် အမြန်ပေါ်စာသားပုံစံကို ဖွင့်လျှက်ရှိစေရန်</string>
   <string name="fullscreen_portrait_input_connection_supported">ဒေါင်လိုက်တွင် မျက်မှာပြင် အပြည့်သုံးပါ</string>
   <string name="fullscreen_portrait_input_connection_supported_on_summary">ဒေါင်လိုက်တွင် မျက်မှာပြင် အပြည့်သုံးပါ</string>
   <string name="backword_support">နောက်ပြန် စာလုံး အထောက်အပံ့</string>

@@ -20,11 +20,13 @@
   <string name="main_tab_credits">Danksagungen</string>
   <string name="how_to_pointer_title">Willkommen in der AnySoftKeyboard</string>
   <string name="how_to_pointer_version_prefix">Version: </string>
-  <string name="how_to_pointer_not_app">AnySoftKeyboard ist keine normale Anwendung - es ist ein Ersatz der Standart Bildschirmtastatur.</string>
+  <string name="how_to_pointer_not_app">AnySoftKeyboard ist keine normale Anwendung - sie ist ein Ersatz der Standard-Bildschirmtastatur.    </string>
   <string name="how_to_pointer_go_to_links">Für weitere Informationen gehen Sie zum Reiter "Links".</string>
   <string name="how_to_pointer_how_to_url">Details zur Verwendung dieser Tastatur:</string>
   <string name="how_to_pointer_site">Allgemeine Details:</string>
-  <string name="how_to_pointer_changelog">Details über die neueste Version:</string>
+  <string name="how_to_pointer_changelog">Details zur neuesten Version:</string>
+  <string name="change_log_card_version_title_template">\u0020\u0020Neueste Änderungen für v <xliff:g id="name">%s </xliff:g> \u0020\u0020</string>
+  <string name="change_log_entry_header_template_without_name">\u0020\u0020v <xliff:g id="code">%s </xliff:g> \u0020\u0020</string>
   <string name="how_to_pointer_issues">Fehler melden:</string>
   <string name="main_tab_credits_title">Diese Anwendung wurde mit Hilfe folgender Personen erstellt:</string>
   <string name="main_tab_credits_created_by">Erstellt von:</string>
@@ -32,7 +34,7 @@
   <string name="main_tab_credits_localization_by">Übersetzt durch:</string>
   <string name="main_tab_credits_GUI_by">Interface-Grafiken von:</string>
   <string name="how_to_enable_dialog_title">AnySoftKeyboard aktivieren\?</string>
-  <string name="how_to_enable_dialog_text">AnySoftKeyboard ist noch nicht aktiviert. Soll ich dir zeigen, wie es geht?</string>
+  <string name="how_to_enable_dialog_text">AnySoftKeyboard ist noch nicht aktiviert worden. Soll ich dir zeigen, wie es geht?</string>
   <string name="how_to_enable_dialog_show_me">Zeig es mir!</string>
   <string name="how_to_enable_dialog_dont_show_me">Später</string>
   <string name="how_to_simple_howto_preface">Android erfordert, dass du (der Benutzer) externe Tastaturen manuell aktivierst. So geht\'s:</string>
@@ -61,7 +63,7 @@
   <string name="no_market_store_available"><b>* Konnte keine Google Play App auf dem Telefon finden. Es ist nicht möglich, nach Add-ons suchen!</b></string>
   <string name="theme_addons_settings">Tastatur Design Einstellungen</string>
   <string name="keyboard_theme_tweak_group">Anpassungen</string>
-  <string name="keyboard_theme_tweak_hints_group">Hinweistext-Anpassungen</string>
+  <string name="keyboard_theme_tweak_hints_group">Hinweistext optimieren</string>
   <string name="bottom_row_addons_settings">Einstellungen untere Zeile </string>
   <string name="top_row_addons_settings">Einstellungen oberste Zeile </string>
   <string name="close_button">Schließen</string>
@@ -119,8 +121,8 @@
   <string name="custom_sound_volume">Eigene Tastendruck-Lautstärke</string>
   <string name="speacial_fetures_group">Spezial-Funktionen</string>
   <string name="switch_keyboard_on_space">Leerzeichen wechselt Tastaturen</string>
-  <string name="switch_keyboard_on_space_on_summary">Wechsel von Zahlen/Symbolen zum Alphabet beim drücken der Leertaste    </string>
-  <string name="switch_keyboard_on_space_off_summary">Wechsel nicht von Zahlen/Symbolen zum Alphabet beim drücken der Leertaste    </string>
+  <string name="switch_keyboard_on_space_on_summary">Wechsel von Zahlen/Symbolen zum Alphabet beim Drücken der Leertaste    </string>
+  <string name="switch_keyboard_on_space_off_summary">Wechsel nicht von Zahlen/Symbolen zum Alphabet beim Drücken der Leertaste</string>
   <string name="one_shot_quick_text_popup">Nach Eingabe automtisch schließen</string>
   <string name="one_shot_quick_text_popup_on_summary">Schließe Emoji-Popup nach Tastendruck</string>
   <string name="one_shot_quick_text_popup_off_summary">Emoji-Popup geöffnet halten bis die Beenden-Taste gedrückt wird</string>
@@ -242,17 +244,27 @@
   <string name="show_keyboard_name_off_summary">Tastaturname nicht anzeigen</string>
   <string name="use_custom_keytext_color">Überschreibe Schlüsseltextfarbe</string>
   <string name="use_custom_keytext_color_on_summary">Verwende benutzerdefinierte Schlüsseltextfarbe</string>
+  <string name="use_custom_keytext_color_off_summary">Verwenden Sie das Thema Tastentext-Farbe</string>
   <string name="show_hint_text">Hinweistext anzeigen</string>
   <string name="show_hint_text_on_summary">Hinweise zu Tasten anzeigen, wenn es Hilfen dazu gibt</string>
   <string name="show_hint_text_off_summary">Nie Hinweise zu Tasten anzeigen</string>
   <string name="use_custom_hint_color">Überschreibe Hinweisfarbe</string>
   <string name="use_custom_hint_color_on_summary">Verwende benutzerdefinierte Hinweistextfarbe</string>
+  <string name="use_custom_hint_color_off_summary">Verwenden Sie das Thema  Hinweistext-Farbe</string>
   <string name="use_custom_hint_align">Hinweisposition überschreiben</string>
+  <string name="use_custom_hint_align_on_summary">Verwenden Sie benutzerdefinierte Hinweistext-Position</string>
+  <string name="use_custom_hint_align_off_summary">Verwenden Sie das Thema Hinweistext-Position</string>
+  <string name="custom_hint_align">Benutzerdefinierte horizontale Ausrichtung für den Hinweis</string>
+  <string name="custom_hint_align_summary">Hinweistext links, mittig oder rechts an der Taste anzeigen</string>
+  <string name="settings_custom_hint_align_dialog_title">Wählen Sie die horizontale Ausrichtung für den Hinweistext</string>
   <string-array name="custom_hint_align_types">
     <item>Links</item>
     <item>Mittig</item>
     <item>Rechts</item>
   </string-array>
+  <string name="custom_hint_valign">Benutzerdefinierte vertikale Hinweis-Ausrichtung</string>
+  <string name="custom_hint_valign_summary">Hinweistext über oder unter der Taste anzeigen</string>
+  <string name="settings_custom_hint_valign_dialog_title">Wählen Sie die vertikale Ausrichtung für den Hinweistext</string>
   <string-array name="custom_hint_valign_types">
     <item>Oben</item>
     <item>Unten</item>
@@ -264,9 +276,11 @@
   <string name="is_extesion_keyboard_above_keyboard_on_summary">Über der Tastatur gezeichnet</string>
   <string name="is_extesion_keyboard_above_keyboard_off_summary">Bezeichnet als Haupttastatur</string>
   <string name="show_settings_app_in_launcher">Einstellungs-App</string>
+  <string name="settings_key_show_settings_app_on_summary">Einstellungs-App wird im Startbereich angezeigt (eventueller Neustart erforderlich)     </string>
   <string name="settings_key_show_settings_app_off_summary">Versteckt die Einstellungen der App (eventuell Neustart erforderlich)</string>
   <string name="show_crash_notification">Bericht über den Absturz</string>
   <string name="show_crash_notification_on_summary">Falls ASK abstürzt, öffnet sich der Fehlerbericht</string>
+  <string name="show_crash_notification_off_summary">Abstürze im Hintergrund aufzeichnen ohne Benachrichtigung</string>
   <string name="use_keyrepeat">Verwende Tastenwiederholung</string>
   <string name="use_keyrepeat_on_summary">Tastenwiederholung ist aktiviert</string>
   <string name="use_keyrepeat_off_summary">Tastenwiederholung ist deaktiviert</string>
@@ -330,6 +344,7 @@
   <string name="no_extrenal_packs_support_title">Nicht unterstützt</string>
   <string name="no_extrenal_packs_support_message">Vorerst erlaubt AnySoftKeyboard keine externenPakete der    Art.\nWenn die API-Spezifikationen festgelegt wurden, wird diese Funktion geöffnet.\nBleiben Sie dran!
              </string>
+  <string name="keyboards_group_extra_template"><xliff:g id="aktivierteLayouts">%s </xliff:g> / <xliff:g id="totalLayouts"> %s </xliff:g></string>
   <string name="keyboards_group">Tastaturen</string>
   <string name="keyboards_group_summary">Tastaturlayouts für den Einsatz in AnySoftKeyboard</string>
   <string name="symbols_keyboard">123!#()</string>
@@ -340,7 +355,7 @@
   <string name="symbols_time_keyboard">Zeit</string>
   <string name="eng_keyboard">Englisch</string>
   <string name="eng_keyboard_qwertywithsymbols">Englisch mit Symbolen</string>
-  <string name="eng_keyboard_16keys">16 Tasten Englisch</string>
+  <string name="eng_keyboard_16keys">16 Tasten-Englisch</string>
   <string name="keyboard_change_locked">n/a</string>
   <string name="selected_add_on_summary">Benutze nun \'<xliff:g id="addOnName">%s</xliff:g>\'</string>
   <string name="additional_addons_group">Zusätzliche Erweiterungen</string>
@@ -356,14 +371,18 @@
   <string name="top_generic_row_summary">Ausgewählte oberste Zeile: %s</string>
   <string name="top_generic_row_list_title">Wählen Sie den Zeilentyp</string>
   <string name="bottom_generic_row_group">Allgemeine untere generische Reihe</string>
+  <string name="bottom_generic_row_group_summary">Gemeinsame untere Tastenreihe über alle Ihre Tastaturen</string>
   <string name="bottom_generic_row_active">Aktive unteren Zeile</string>
   <string name="bottom_generic_row_dialog_title">Wählen Sie den Zeilentyp</string>
+  <string name="bottom_generic_row_summary">Ausgewählte untere Reihe: %s</string>
   <string name="bottom_generic_row_list_title">Zeilentyp wählen </string>
   <string name="extension_keyboard_group">Erweiterungstastatur</string>
   <string name="extension_keyboard_active">Aktive Erweiterung der Tastatur</string>
   <string name="extension_keyboard_dialog_title">Wählen Sie die Tastatur</string>
+  <string name="extension_keyboard_summary">Ausgewählte Erweiterungs-Tastatur: %s</string>
   <string name="extension_keyboard_list_title">Wählen Sie die Tastatur</string>
   <string name="keyboard_theme_group">Tastaturthemen</string>
+  <string name="keyboard_themes_group_summary">Verschiedene Erscheinungsbilder für Ihre Bildschirmtastatur</string>
   <string name="keyboard_theme_active">Aktives Tastaturthema</string>
   <string name="keyboard_theme_dialog_title">Thema auswählen</string>
   <string name="keyboard_theme_summary">Ausgewähltes Thema: %s</string>
@@ -374,9 +393,11 @@
   <string name="light_plain_keyboard_theme_description">Helle Farben, einfache Grafiken</string>
   <string name="blacktheme_keyboard_theme_name">Einfach, Schwarz, Glanz</string>
   <string name="blacktheme_keyboard_theme_description">Einfaches schwarzes Theme mit farblichen Hervorhebungen</string>
-  <string name="lean_dark_keyboard_theme_name">Schlank, Dunkel</string>
-  <string name="lean_dark_keyboard_theme_description">Dunkles Theme mit minimalen Elementen</string>
-  <string name="lean_dark_2_keyboard_theme_name">Schlank, Dunkel - Variante 2</string>
+  <string name="lean_dark_keyboard_theme_name">Schlank &amp; Schwarz</string>
+  <string name="lean_dark_keyboard_theme_description">Schwarzes Theme mit minimalen Elementen</string>
+  <string name="lean_dark_2_keyboard_theme_name">Schlank &amp; Schwarz - Variante 2</string>
+  <string name="lean_dark_big_keyboard_theme_name">Schlank und Schwarz - Große Tasten</string>
+  <string name="lean_dark_big_keyboard_theme_description">Gleiches schwarzes Thema, aber mit größeren Tasten.</string>
   <string name="extension_kbd_top_none">Keine Kopfzeile</string>
   <string name="extension_kbd_top_small">Kleine Tasten</string>
   <string name="extension_kbd_top_regular">Normale große Tasten</string>
@@ -389,9 +410,12 @@
   <string name="extension_kbd_bottom_iphone_with_voice">iPhone Stil mit Mikrofon</string>
   <string name="extension_kbd_bottom_alt">Alternativ (ohne Mikrofon)</string>
   <string name="extension_kbd_bottom_alt_with_mic">Alternativ mit Mikrofon</string>
+  <string name="extension_kbd_bottom_ng">Neue Generation - wird erprobt</string>
+  <string name="extension_kbd_bottom_ng_desc">Herumspielen mit einer neuen unteren Reihe</string>
   <string name="extension_kbd_extension_numbers_symbols">Zahlen und Symbole</string>
   <string name="show_tutorial_on_startup">Zeige diese Einfühung beim Start</string>
   <string name="tutorial_swipe_title">Wischen für Tastaturwechsel</string>
+  <string name="tutorial_swipe_text">Tastatur-Layout kann durch Wischen mit dem Finger über die Tastatur geändert werden. Wischen     von "links nach-rechts" ändert die Sprache, wischen von "rechts-nach-links" die Symbole.       </string>
   <string name="label_go_key">Los</string>
   <string name="label_next_key">Nächstes</string>
   <string name="label_previous_key">Vorh.</string>
@@ -413,7 +437,9 @@
   <string name="eng_dictionary">Englisch</string>
   <string name="simley_key_name">Smiley-Taste</string>
   <string name="default_quick_text_key_name">Einfache Emoticons</string>
+  <string name="unicode_quick_text_key_name">Emojis</string>
   <string name="unicode_people_quick_text_key_name">Menschen</string>
+  <string name="unicode_gestures_quick_text_key_name">Gesten</string>
   <string name="unicode_accessories_quick_text_key_name">Accessoires</string>
   <string name="unicode_animals_quick_text_key_name">Tiere</string>
   <string name="unicode_food_quick_text_key_name">Essen</string>
@@ -425,7 +451,7 @@
   <string name="unicode_office_quick_text_key_name">Büro</string>
   <string name="unicode_occasions_quick_text_key_name">Gelegenheiten</string>
   <string name="multitap_timeout_title">Multi-Tap-Timeout</string>
-  <string name="multitap_timeout_summary">Timeout zwischen den Tippvorgängen</string>
+  <string name="multitap_timeout_summary">Unterbrechung zwischen den Tippvorgängen</string>
   <string name="settings_multitap_timeout_disabled">Deaktiviert</string>
   <string name="settings_multitap_timeout_faster">Schneller</string>
   <string name="settings_multitap_timeout_fast">Schnell</string>
@@ -458,31 +484,41 @@
   <string name="user_dict_editor">Wörtereditor</string>
   <string name="abbreviation_dict_settings_titlebar">Kurzzeichen Editor</string>
   <string name="abbreviation_dict_editor">Abkürzungen erstellen</string>
+  <string name="abbreviation_dict_word_template"><i><xliff:g id="Abkürzung">%s </xliff:g></i> \u0020\u2192\u0020 <i><xliff:g id="target"> %s </xliff:g></i></string>
   <string name="user_dict_settings_add_dialog_title">Zum Wörterbuch hinzufügen</string>
   <string name="user_dict_settings_edit_dialog_title">Wort bearbeiten</string>
   <string name="user_dict_settings_empty_text">Sie haben keine Wörter im Benutzerwörterbuch. Sie können jetzt Ihr erstes Wort eingeben.</string>
   <string name="user_dict_backup_success_title">Backup erfolgreich!</string>
+  <string name="user_dict_backup_success_text">Ihre erfolgreich gespeicherten Worte finden Sie im Gerätespeicher unter    /Android/data/com.menny.android.anysoftkeyboard/files/ erfolgreich gespeichert           </string>
   <string name="user_dict_backup_fail_title">Backup fehlgeschlagen!</string>
   <string name="user_dict_backup_fail_text">Daten konnten nicht gespeichert werden. Ist der Speicher verfügbar?</string>
+  <string name="user_dict_backup_fail_text_with_error">    Fehler beim Speichern des Wortes durch: <xliff:g id="error">%s </xliff:g>             </string>
   <string name="user_dict_restore_success_title">Wiederherstellen erfolgreich!</string>
   <string name="user_dict_restore_success_text">Worte erfolgreich wiederhergestellt.</string>
   <string name="user_dict_restore_fail_title">Wiederherstellen fehlgeschlagen!</string>
   <string name="user_dict_restore_fail_text">Konnte keine Backup-Dateien lesen! Ist der Speicher verfügbar?</string>
+  <string name="user_dict_restore_fail_text_with_error">Fehler beim wiederherstellen des Wortes durch: <xliff:g id="error">%s </xliff:g>
+    </string>
   <string name="fast_scroll_alphabet">ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
   <string name="should_swap_punctuation_and_space_title">Satzzeichen und Leertaste tauschen</string>
   <string name="should_swap_punctuation_and_space_yes">Ja</string>
   <string name="should_swap_punctuation_and_space_no">Nein</string>
+  <string name="initial_quick_text_tab_title">Erste Gruppe</string>
   <string name="initial_quick_text_tab_summary">Emoji Gruppe mit der gestartet wird: %s</string>
   <string name="initial_quick_text_tab_always_first_tab">Immer mit der ersten starten</string>
   <string name="initial_quick_text_tab_last_used_tab">Mit der letzten benutzten Gruppe starten</string>
   <string name="developer_tools">Entwickler-Werkzeug</string>
   <string name="click_for_developer_features">Entwickler-Werkzeug</string>
   <string name="click_for_developer_features_summary">Verschiedene Werkzeuge für AnySoftKeyboard Entwickler</string>
+  <string name="failed_to_create_mem_dump">Fehler beim Erstellen des Inhalts der Arbeitsspeicher-Datei durch: <xliff:g id="message">%s </xliff:g>     </string>
+  <string name="created_mem_dump_file">Erstellten Inhalt der Arbeitsspeicher-Datei an: <xliff:g id="file_path">%s </xliff:g>         </string>
   <string name="drawer_open">Menü öffnen</string>
   <string name="drawer_close">Menü schließen</string>
+  <string name="not_configured_with_click_here">AnySoftKeyboard wurde noch nicht vollständig für den Einsatz konfiguriert. Klicken Sie hier, um die Tastatur einzurichten.</string>
   <string name="not_configured_with_just_click_here">Hier klicken</string>
   <string name="click_for_more">mehr...</string>
   <string name="back_button_label">Zurück</string>
+  <string name="next_button_label">als Nächstes</string>
   <string name="skip_button_label">Überspringen</string>
   <string name="word_editor_action_add_word">Wort hinzufügen</string>
   <string name="word_editor_action_backup_words">Sicherung</string>
@@ -497,6 +533,7 @@
   <string name="wizard_step_previous_step_not_complete_title">der Vorherige Setupschritt ist nicht vollständig</string>
   <string name="wizard_step_previous_step_not_complete_text">Swipe bitte zum vorherigen Schritt, und folge den Anweisungen.</string>
   <string name="wizard_step_this_step_complete_title">Schritt fertig!</string>
+  <string name="wizard_step_this_step_complete_text_enabled"><i>AnySoftKeyboard</i> wird aktiviert. Sie sind nur einen Schritt entfernt um <i>AnySoftKeyboard</i> auf ihrem großartigen Gerät zu nutzen!</string>
   <string name="wizard_step_this_step_complete_text_switched"><i>AnySoftKeyboard</i> ist die Standardtastatur. Eventuell wollen Sie zusätzliche Dinge, wie Themen oder Sprachen hinzufügen?</string>
   <string name="wizard_step_swipe_to_next">Wische zur nächsten Seite.</string>
   <string name="setup_wizard_step_one_title">AnySoftKeyboard aktivieren</string>
@@ -505,6 +542,7 @@
   <string name="setup_wizard_step_one_action">Gehe zu deinem  <i>Sprache und Texteingabe</i> Ordner…</string>
   <string name="setup_wizard_step_one_action_error_no_settings_activity">Fehler: Dein Gerät unterstützt keine Drittanbieter-Tastatur. AnySoftKeyboard kann nicht aktiviert werden!</string>
   <string name="setup_wizard_top_title">Installiere\nAnySoftKeyboard\nzum Benutzen</string>
+  <string name="setup_wizard_top_title_tablet">AnySoftKeyboard für die Benutzung einrichten</string>
   <string name="setup_wizard_step_two_title">zu AnySoftKeyboard wechseln</string>
   <string name="setup_wizard_step_two_small_sub_title">Schritt zwei von drei</string>
   <string name="setup_wizard_step_two_details">Das Gerät kann nun <i>AnySoftKeyboard</i> verwenden, aber es ist nicht als Aktive Tastatur eingestellt.\nnach dem wechseln wird <i>AnySoftKeyboard</i> deine neue Bildschirmatastatur mit all seinen Funktionen sein!</string>
@@ -517,11 +555,16 @@
   <string name="ime_crashed_title">AnySoftKeyboard ist abgestürzt!</string>
   <string name="ime_crashed_sub_text">Uups, das habe ich nicht kommen sehen...</string>
   <string name="ime_crashed_ticker">Hoppla, das habe ich nicht kommen sehen...</string>
+  <string name="ime_crashed_text">Leider gibt es ein Problem mit <i>AnySoftKeyboard</i>. Keine Panik, es gibt etwas dass <b>Sie</b> tun können, um uns zu helfen dieses Problem zu beheben: Senden Sie uns den Absturzbericht und wit tun unser Bestes, um dieses Problem zu beheben, damit sie wieder in den Genuss einer großartige Tastatur-Erfahrung kommen!\n\nWir bitten um Entschuldigung, Ihr Entwicker-Team.</string>
   <string name="ime_crashed_send_button">Senden</string>
   <string name="ime_crashed_cancel_button">Abbrechen</string>
   <string name="ime_crashed_intent_selector_title">Senden Sie den Fehlerbericht per</string>
+  <string name="setup_wizard_step_one">Schritt Eins:</string>
   <string name="setup_wizard_step_two">2. Schritt:</string>
   <string name="setup_wizard_step_three">3. Schritt:</string>
   <string name="about_donate">Spenden:</string>
+  <string name="tutorial_menu_open_menu">Das Symbol öffnet die Einstellungen</string>
+  <string name="tutorial_menu_close_menu">Und ebenso geschlossen wird</string>
   <string name="main_fragment_go_to_settings_button">Zu den Einstellungen</string>
+  <string name="quick_text_tab_title_template"><xliff:g id="Erste_Taste">%s </xliff:g> \u0020 <xliff:g id="name"> %s </xliff:g></string>
 </resources>
