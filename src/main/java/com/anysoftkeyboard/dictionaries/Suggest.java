@@ -32,6 +32,7 @@ import com.menny.android.anysoftkeyboard.R;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -52,7 +53,7 @@ public class Suggest implements Dictionary.WordCallback {
 
     private final DictionaryFactory mDictionaryFactory;
 
-    private Dictionary mUserDictionary;
+    private UserDictionary mUserDictionary;
 
     private Dictionary mAutoDictionary;
 
@@ -83,6 +84,19 @@ public class Suggest implements Dictionary.WordCallback {
     // private int mCorrectionMode = CORRECTION_FULL;
     private boolean mAutoTextEnabled = true;
     private boolean mMainDictionaryEnabled = true;
+    private final Dictionary.WordCallback mNextWordsCallback = new Dictionary.WordCallback() {
+        @Override
+        public boolean addWord(char[] word, int wordOffset, int wordLength, int frequency, Dictionary from) {
+            if (mSuggestions.size() < mPrefMaxSuggestions) {
+                String nextWord = new String(word, wordOffset, wordLength);
+                if (mIsAllUpperCase) nextWord = nextWord.toUpperCase(mLocale);
+                mSuggestions.add(nextWord);
+                return true;
+            } else {
+                return false;
+            }
+        }
+    };
 
     public Suggest(Context context) {
         mDictionaryFactory = new DictionaryFactory();
@@ -113,7 +127,7 @@ public class Suggest implements Dictionary.WordCallback {
         if (mUserDictionary != userDictionary && mUserDictionary != null)
             mUserDictionary.close();
 
-        mUserDictionary = userDictionary;
+        mUserDictionary = (UserDictionary)userDictionary;
     }
 
     public void setMainDictionary(Context askContext, @Nullable DictionaryAddOnAndBuilder dictionaryBuilder) {
@@ -161,8 +175,7 @@ public class Suggest implements Dictionary.WordCallback {
     public void setContactsDictionary(Context context, boolean enabled) {
         if (!enabled && mContactsDictionary != null) {
             // had one, but now config says it should be off
-            Log.i(TAG,
-                    "Contacts dictionary has been disabled! Closing resources.");
+            Log.i(TAG, "Contacts dictionary has been disabled! Closing resources.");
             mContactsDictionary.close();
             mContactsDictionary = null;
         } else if (enabled && mContactsDictionary == null) {
@@ -216,8 +229,29 @@ public class Suggest implements Dictionary.WordCallback {
         return distance <= 1;
     }
 
-    public List<CharSequence> getInitialSuggestions() {
-        return mInitialSuggestions;
+    /**
+     * Returns a list of suggested next words for the given typed word
+     *
+     * @return list of suggestions.
+     */
+    public List<CharSequence> getNextSuggestions(WordComposer wordComposerOfCompletedWord) {
+        if (mUserDictionary == null || wordComposerOfCompletedWord.length() < mMinimumWordSizeToStartCorrecting) return Collections.emptyList();
+
+        mHaveCorrection = false;
+        mIsFirstCharCapitalized = false;
+        mIsAllUpperCase = wordComposerOfCompletedWord.isAllUpperCase();
+        collectGarbage();
+        Arrays.fill(mPriorities, 0);
+
+        mUserDictionary.getNextWords(wordComposerOfCompletedWord, mNextWordsCallback);
+
+        int initialsFromDefaultToAdd = mPrefMaxSuggestions - mSuggestions.size();
+        final Iterator<CharSequence> initialsIterator = mInitialSuggestions.iterator();
+        while (initialsIterator.hasNext() && initialsFromDefaultToAdd > 0) {
+            initialsFromDefaultToAdd--;
+            mSuggestions.add(initialsIterator.next());
+        }
+        return mSuggestions;
     }
 
     /**
@@ -226,7 +260,7 @@ public class Suggest implements Dictionary.WordCallback {
      *
      * @return list of suggestions.
      */
-    public List<CharSequence> getSuggestions(/* View view, */WordComposer wordComposer, boolean includeTypedWordIfValid) {
+    public List<CharSequence> getSuggestions(WordComposer wordComposer, boolean includeTypedWordIfValid) {
         mExplodedAbbreviations.clear();
         mHaveCorrection = false;
         mIsFirstCharCapitalized = wordComposer.isFirstCharCapitalized();

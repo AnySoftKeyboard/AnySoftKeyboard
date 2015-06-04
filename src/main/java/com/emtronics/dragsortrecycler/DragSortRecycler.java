@@ -399,7 +399,7 @@ public class DragSortRecycler extends RecyclerView.ItemDecoration implements OnI
 
     @Override
     public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-        
+
     }
 
     private void setIsDragging(final boolean dragging) {

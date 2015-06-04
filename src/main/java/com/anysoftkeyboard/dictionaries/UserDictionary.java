@@ -18,10 +18,12 @@ package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
 
+import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.base.dictionaries.WordsCursor;
 import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionary;
+import com.anysoftkeyboard.dictionaries.nextword.NextWordDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.FallbackUserDictionary;
 import com.anysoftkeyboard.base.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
@@ -30,6 +32,7 @@ public class UserDictionary extends EditableDictionary {
 
     private static final String TAG = "ASK_SUD";
     private volatile BTreeDictionary mActualDictionary;
+    private Dictionary mNextWordDictionary;
 
     private final Context mContext;
     private final String mLocale;
@@ -41,10 +44,12 @@ public class UserDictionary extends EditableDictionary {
     }
 
     @Override
-    public final void getWords(WordComposer composer,
-                                      WordCallback callback) {
-        if (mActualDictionary != null)
-            mActualDictionary.getWords(composer, callback);
+    public final void getWords(WordComposer composer, WordCallback callback) {
+        if (mActualDictionary != null) mActualDictionary.getWords(composer, callback);
+    }
+
+    public final void getNextWords(WordComposer composer, WordCallback callback) {
+        if (mNextWordDictionary != null) mNextWordDictionary.getWords(composer, callback);
     }
 
     @Override
@@ -54,12 +59,15 @@ public class UserDictionary extends EditableDictionary {
 
     @Override
     protected final void closeAllResources() {
-        if (mActualDictionary != null)
-            mActualDictionary.close();
+        if (mActualDictionary != null) mActualDictionary.close();
+        if (mNextWordDictionary != null) mNextWordDictionary.close();
     }
 
     @Override
     protected final void loadAllResources() {
+        mNextWordDictionary = new NextWordDictionary(mLocale);
+        mNextWordDictionary.loadDictionary();
+
         AndroidUserDictionary androidBuiltIn = null;
         try {
             //The only reason I see someone uses this, is for development or debugging.
@@ -78,8 +86,7 @@ public class UserDictionary extends EditableDictionary {
                 } catch (Exception buildInCloseException) {
                     // it's an half-baked object, no need to worry about it
                     buildInCloseException.printStackTrace();
-                    Log.w(TAG,
-                            "Failed to close the build-in user dictionary properly, but it should be fine.");
+                    Log.w(TAG, "Failed to close the build-in user dictionary properly, but it should be fine.");
                 }
             }
             FallbackUserDictionary fallback = new FallbackUserDictionary(mContext, mLocale);
@@ -112,5 +119,4 @@ public class UserDictionary extends EditableDictionary {
         if (mActualDictionary != null)
             mActualDictionary.deleteWord(word);
     }
-
 }

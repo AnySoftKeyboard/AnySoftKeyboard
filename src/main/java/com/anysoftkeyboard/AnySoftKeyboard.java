@@ -2399,15 +2399,11 @@ public class AnySoftKeyboard extends InputMethodService implements
      *                   field
      * @param correcting whether this is due to a correction of an existing word.
      */
-    private CharSequence pickSuggestion(CharSequence suggestion,
-                                        boolean correcting) {
+    private CharSequence pickSuggestion(CharSequence suggestion, boolean correcting) {
         if (mShiftKeyState.isLocked()) {
             suggestion = suggestion.toString().toUpperCase(getCurrentKeyboard().getLocale());
-        } else if (preferCapitalization()
-                || (mKeyboardSwitcher.isAlphabetMode() && (mInputView != null) && mInputView
-                .isShifted())) {
-            suggestion = Character.toUpperCase(suggestion.charAt(0))
-                    + suggestion.subSequence(1, suggestion.length()).toString();
+        } else if (preferCapitalization() || (mKeyboardSwitcher.isAlphabetMode() && mShiftKeyState.isActive())) {
+            suggestion = Character.toUpperCase(suggestion.charAt(0)) + suggestion.subSequence(1, suggestion.length()).toString();
         }
 
         mWord.setPreferredWord(suggestion);
@@ -2429,6 +2425,8 @@ public class AnySoftKeyboard extends InputMethodService implements
         if (!correcting) {
             setNextSuggestions();
         }
+
+        setSuggestions(mSuggest.getNextSuggestions(mWord), false, false, false);
 
         return suggestion;
     }
@@ -2812,38 +2810,30 @@ public class AnySoftKeyboard extends InputMethodService implements
                 // It null at the creation of the application.
                 if ((mKeyboardSwitcher != null)
                         && mKeyboardSwitcher.isAlphabetMode()) {
-                    AnyKeyboard currentKeyobard = mKeyboardSwitcher
-                            .getCurrentKeyboard();
+                    AnyKeyboard currentKeyboard = mKeyboardSwitcher.getCurrentKeyboard();
 
                     // if there is a mapping in the settings, we'll use that,
                     // else we'll
                     // return the default
-                    String mappingSettingsKey = getDictionaryOverrideKey(currentKeyobard);
-                    String defaultDictionary = currentKeyobard
-                            .getDefaultDictionaryLocale();
-                    String dictionaryValue = mPrefs.getString(
-                            mappingSettingsKey, null);
+                    String mappingSettingsKey = getDictionaryOverrideKey(currentKeyboard);
+                    String defaultDictionary = currentKeyboard.getDefaultDictionaryLocale();
+                    String dictionaryValue = mPrefs.getString(mappingSettingsKey, null);
 
                     final DictionaryAddOnAndBuilder dictionaryBuilder;
 
                     if (dictionaryValue == null) {
-                        dictionaryBuilder = ExternalDictionaryFactory
-                                .getDictionaryBuilderByLocale(currentKeyobard
-                                                .getDefaultDictionaryLocale(),
-                                        getApplicationContext());
+                        dictionaryBuilder = ExternalDictionaryFactory.getDictionaryBuilderByLocale(
+                                currentKeyboard.getDefaultDictionaryLocale(), getApplicationContext());
                     } else {
                         Log.d(TAG, "Default dictionary '%s' for keyboard '%s' has been overridden to '%s'",
-                                defaultDictionary, currentKeyobard.getKeyboardPrefId(), dictionaryValue);
-                        dictionaryBuilder =
-                                ExternalDictionaryFactory.getDictionaryBuilderById(dictionaryValue, getApplicationContext());
+                                defaultDictionary, currentKeyboard.getKeyboardPrefId(), dictionaryValue);
+                        dictionaryBuilder = ExternalDictionaryFactory.getDictionaryBuilderById(dictionaryValue, getApplicationContext());
                     }
 
                     mSuggest.setMainDictionary(getApplicationContext(), dictionaryBuilder);
-                    String localeForSupportingDictionaries = dictionaryBuilder != null ? dictionaryBuilder
-                            .getLanguage() : defaultDictionary;
-                    mUserDictionary = mSuggest.getDictionaryFactory()
-                            .createUserDictionary(getApplicationContext(),
-                                    localeForSupportingDictionaries);
+                    String localeForSupportingDictionaries = dictionaryBuilder != null ?
+                            dictionaryBuilder.getLanguage() : defaultDictionary;
+                    mUserDictionary = mSuggest.getDictionaryFactory().createUserDictionary(getApplicationContext(), localeForSupportingDictionaries);
                     mSuggest.setUserDictionary(mUserDictionary);
 
                     mAutoDictionary = mSuggest.getDictionaryFactory().createAutoDictionary(getApplicationContext(), localeForSupportingDictionaries);
