@@ -68,7 +68,9 @@ public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
         }
     }
 
-    protected abstract WordsSQLiteConnection createStorage(String locale);
+    protected WordsSQLiteConnection createStorage(String locale) {
+        return new WordsSQLiteConnection(mContext, getDictionaryName()+".db", locale);
+    }
 
     @Override
     protected final void AddWordToStorage(String word, int frequency) {

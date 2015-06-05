@@ -19,6 +19,16 @@ public class NextWordsContainer {
         this.word = word;
     }
 
+    public NextWordsContainer(String word, List<String> nextWords) {
+        this.word = word;
+        int frequency = nextWords.size();
+        for (String nextWordText : nextWords) {
+            NextWord nextWord = new NextWord(nextWordText, frequency);
+            mNextWordLookup.put(nextWordText, nextWord);
+            mOrderedNextWord.add(nextWord);
+        }
+    }
+
     public void markWordAsUsed(String word) {
         NextWord nextWord = mNextWordLookup.get(word);
         if (nextWord == null) {

@@ -11,6 +11,11 @@ class NextWord {
         mUsedCount = 1;
     }
 
+    public NextWord(String nextWord, int usedCount) {
+        this.nextWord = nextWord;
+        mUsedCount = usedCount;
+    }
+
     public void markAsUsed() {
         mUsedCount++;
     }

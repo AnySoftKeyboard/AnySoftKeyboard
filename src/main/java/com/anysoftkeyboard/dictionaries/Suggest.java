@@ -243,7 +243,10 @@ public class Suggest implements Dictionary.WordCallback {
         collectGarbage();
         Arrays.fill(mPriorities, 0);
 
-        mUserDictionary.getNextWords(wordComposerOfCompletedWord, mNextWordsCallback);
+        //only adding VALID words
+        if (isValidWord(wordComposerOfCompletedWord.getPreferredWord())) {
+            mUserDictionary.getNextWords(wordComposerOfCompletedWord, mNextWordsCallback);
+        }
 
         int initialsFromDefaultToAdd = mPrefMaxSuggestions - mSuggestions.size();
         final Iterator<CharSequence> initialsIterator = mInitialSuggestions.iterator();

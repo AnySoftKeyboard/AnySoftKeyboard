@@ -65,7 +65,7 @@ public class UserDictionary extends EditableDictionary {
 
     @Override
     protected final void loadAllResources() {
-        mNextWordDictionary = new NextWordDictionary(mLocale);
+        mNextWordDictionary = new NextWordDictionary(mContext, mLocale);
         mNextWordDictionary.loadDictionary();
 
         AndroidUserDictionary androidBuiltIn = null;
