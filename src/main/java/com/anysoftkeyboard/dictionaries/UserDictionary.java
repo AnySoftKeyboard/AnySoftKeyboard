@@ -18,19 +18,21 @@ package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
 
+import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.base.dictionaries.WordsCursor;
 import com.anysoftkeyboard.base.utils.Log;
 import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.FallbackUserDictionary;
+import com.anysoftkeyboard.nextword.NextWordDictionary;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 public class UserDictionary extends EditableDictionary {
 
     private static final String TAG = "ASK_SUD";
     private volatile BTreeDictionary mActualDictionary;
-    //private Dictionary mNextWordDictionary;
+    private Dictionary mNextWordDictionary;
 
     private final Context mContext;
     private final String mLocale;
@@ -47,7 +49,7 @@ public class UserDictionary extends EditableDictionary {
     }
 
     public final void getNextWords(WordComposer composer, WordCallback callback) {
-        //if (mNextWordDictionary != null) mNextWordDictionary.getWords(composer, callback);
+        if (mNextWordDictionary != null) mNextWordDictionary.getWords(composer, callback);
     }
 
     @Override
@@ -58,13 +60,13 @@ public class UserDictionary extends EditableDictionary {
     @Override
     protected final void closeAllResources() {
         if (mActualDictionary != null) mActualDictionary.close();
-        //if (mNextWordDictionary != null) mNextWordDictionary.close();
+        if (mNextWordDictionary != null) mNextWordDictionary.close();
     }
 
     @Override
     protected final void loadAllResources() {
-        /*mNextWordDictionary = new NextWordDictionary(mContext, mLocale);
-        mNextWordDictionary.loadDictionary();*/
+        mNextWordDictionary = new NextWordDictionary(mContext, mLocale);
+        mNextWordDictionary.loadDictionary();
 
         AndroidUserDictionary androidBuiltIn = null;
         try {
