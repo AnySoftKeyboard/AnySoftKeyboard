@@ -1,4 +1,4 @@
-package com.anysoftkeyboard.dictionaries.nextword;
+package com.anysoftkeyboard.nextword;
 
 import java.util.Comparator;
 

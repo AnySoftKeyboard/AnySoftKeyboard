@@ -23,7 +23,7 @@ import com.anysoftkeyboard.dictionaries.jni.BinaryDictionary;
 import com.anysoftkeyboard.dictionaries.jni.ResourceBinaryDictionary;
 import com.anysoftkeyboard.base.utils.Log;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DictionaryAddOnAndBuilder extends AddOnImpl {
@@ -89,17 +89,13 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
         }
     }
 
-    public List<CharSequence> createInitialSuggestions() {
+    public List<String> createInitialSuggestions() {
         if (mInitialSuggestionsResId == INVALID_RES_ID) {
             return null;
         } else {
             String[] initialSuggestions = getPackageContext().getResources().getStringArray(mInitialSuggestionsResId);
             if (initialSuggestions != null) {
-                List<CharSequence> suggestionsList = new ArrayList<CharSequence>(initialSuggestions.length);
-                for (String suggestion : initialSuggestions)
-                    suggestionsList.add(suggestion);
-
-                return suggestionsList;
+                return Arrays.asList(initialSuggestions);
             } else {
                 return null;
             }

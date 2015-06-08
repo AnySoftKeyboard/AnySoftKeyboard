@@ -63,8 +63,8 @@ public class Suggest implements Dictionary.WordCallback {
 
     private int mPrefMaxSuggestions = 12;
 
-    private final List<CharSequence> mDefaultInitialSuggestions;
-    private List<CharSequence> mInitialSuggestions = new ArrayList<>();
+    private final List<String> mFallbackInitialSuggestions;
+    private List<String> mInitialSuggestions = new ArrayList<>();
 
     private int[] mPriorities = new int[mPrefMaxSuggestions];
     private List<CharSequence> mSuggestions = new ArrayList<>();
@@ -105,13 +105,7 @@ public class Suggest implements Dictionary.WordCallback {
             mStringPool.add(sb);
         }
 
-        String[] initialSuggestions = context.getResources().getStringArray(R.array.english_initial_suggestions);
-        if (initialSuggestions != null) {
-            mDefaultInitialSuggestions = new ArrayList<>(initialSuggestions.length);
-            Collections.addAll(mDefaultInitialSuggestions, initialSuggestions);
-        } else {
-            mDefaultInitialSuggestions = Collections.emptyList();
-        }
+        mFallbackInitialSuggestions = Arrays.asList(context.getResources().getStringArray(R.array.english_initial_suggestions));
     }
 
     public void setCorrectionMode(boolean autoText, boolean mainDictionary) {
@@ -147,7 +141,7 @@ public class Suggest implements Dictionary.WordCallback {
             mMainDict = null;
             mAutoText = null;
             mAbbreviationDictionary = null;
-            mInitialSuggestions = mDefaultInitialSuggestions;
+            mInitialSuggestions = mFallbackInitialSuggestions;
         } else {
             try {
                 System.gc();
@@ -160,8 +154,7 @@ public class Suggest implements Dictionary.WordCallback {
             }
             mAutoText = dictionaryBuilder.createAutoText();
             mInitialSuggestions = dictionaryBuilder.createInitialSuggestions();
-            if (mInitialSuggestions == null)
-                mInitialSuggestions = mDefaultInitialSuggestions;
+            if (mInitialSuggestions == null) mInitialSuggestions = mFallbackInitialSuggestions;
 
             mAbbreviationDictionary = new AbbreviationsDictionary(askContext, dictionaryBuilder.getLanguage());
             DictionaryASyncLoader loader = new DictionaryASyncLoader(null);
@@ -249,7 +242,7 @@ public class Suggest implements Dictionary.WordCallback {
         }
 
         int initialsFromDefaultToAdd = mPrefMaxSuggestions - mSuggestions.size();
-        final Iterator<CharSequence> initialsIterator = mInitialSuggestions.iterator();
+        final Iterator<String> initialsIterator = mInitialSuggestions.iterator();
         while (initialsIterator.hasNext() && initialsFromDefaultToAdd > 0) {
             initialsFromDefaultToAdd--;
             mSuggestions.add(initialsIterator.next());
