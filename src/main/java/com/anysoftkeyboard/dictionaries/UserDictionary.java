@@ -17,6 +17,8 @@
 package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
+import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
@@ -26,7 +28,13 @@ import com.anysoftkeyboard.base.utils.Log;
 import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.FallbackUserDictionary;
 import com.anysoftkeyboard.nextword.NextWordDictionary;
+import com.anysoftkeyboard.nextword.Utils;
 import com.menny.android.anysoftkeyboard.AnyApplication;
+import com.menny.android.anysoftkeyboard.R;
+
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 public class UserDictionary extends EditableDictionary {
 
@@ -36,11 +44,21 @@ public class UserDictionary extends EditableDictionary {
 
     private final Context mContext;
     private final String mLocale;
+    @Utils.NextWordsSuggestionType
+    private final String mNextWordSuggestionType;
+    private final List<String> mFallbackInitialSuggestions;
 
     public UserDictionary(Context context, String locale) {
         super("UserDictionary");
         mLocale = locale;
         mContext = context;
+
+        mNextWordSuggestionType = Utils.getNextWordSuggestionTypeFromPrefs(context.getResources(), PreferenceManager.getDefaultSharedPreferences(context));
+        if (Utils.NEXT_WORD_SUGGESTION_WORDS_AND_PUNCTUATIONS.equals(mNextWordSuggestionType)) {
+            mFallbackInitialSuggestions = Arrays.asList(context.getResources().getStringArray(R.array.english_initial_suggestions));
+        } else {
+            mFallbackInitialSuggestions = null;
+        }
     }
 
     @Override
@@ -48,8 +66,20 @@ public class UserDictionary extends EditableDictionary {
         if (mActualDictionary != null) mActualDictionary.getWords(composer, callback);
     }
 
-    public final void getNextWords(WordComposer composer, WordCallback callback) {
-        if (mNextWordDictionary != null) mNextWordDictionary.getWords(composer, callback);
+    public final void getNextWords(WordComposer composer, WordCallback callback, int maxSuggestions, List<CharSequence> suggestions, @Nullable Iterable<String> localeSpecificPunctuations) {
+        if (mNextWordDictionary != null) {
+            mNextWordDictionary.getWords(composer, callback);
+
+            if (Utils.NEXT_WORD_SUGGESTION_WORDS_AND_PUNCTUATIONS.equals(mNextWordSuggestionType)) {
+                if (localeSpecificPunctuations == null) localeSpecificPunctuations = mFallbackInitialSuggestions;
+                int initialsFromDefaultToAdd = maxSuggestions - suggestions.size();
+                final Iterator<String> initialsIterator = localeSpecificPunctuations.iterator();
+                while (initialsIterator.hasNext() && initialsFromDefaultToAdd > 0) {
+                    initialsFromDefaultToAdd--;
+                    suggestions.add(initialsIterator.next());
+                }
+            }
+        }
     }
 
     @Override

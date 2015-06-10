@@ -304,6 +304,11 @@
     <string name="auto_dictionary_threshold_type_after_a_while">After some usage</string>
     <string name="auto_dictionary_threshold_type_immediately">Immediately after I type it</string>
     <string name="auto_dictionary_threshold_type_off">Do not learn new words</string>
+    <string name="use_next_words_dictionary">Next word suggestions</string>
+    <string name="next_words_dictionary_off">Do not suggest next word</string>
+    <string name="next_words_dictionary_words_only">Suggest next words</string>
+    <string name="next_words_dictionary_words_punctuations">Suggest next words and punctuations</string>
+    <string name="next_words_dictionary_summary">Use the previous word to make suggestions: %s</string>
     <string name="use_contacts_dictionary">Contacts dictionary</string>
     <string name="use_contacts_dictionary_on_summary">Suggest names from contacts list</string>
     <string name="use_contacts_dictionary_off_summary"/>

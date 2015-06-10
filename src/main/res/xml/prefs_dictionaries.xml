@@ -28,6 +28,16 @@
         android:dependency="candidates_on">
     </Preference>
 
+    <net.evendanan.pushingpixels.ListPreference
+        android:key="@string/settings_key_next_word_dictionary_type"
+        android:defaultValue="@string/settings_default_next_words_dictionary"
+        android:dialogTitle="@string/use_next_words_dictionary"
+        android:entries="@array/next_word_dictionary_types"
+        android:entryValues="@array/next_word_dictionary_type_values"
+        android:summary="@string/next_words_dictionary_summary"
+        android:title="@string/use_next_words_dictionary"
+        android:dependency="candidates_on"/>
+
     <CheckBoxPreference
         android:defaultValue="true"
         android:dependency="candidates_on"

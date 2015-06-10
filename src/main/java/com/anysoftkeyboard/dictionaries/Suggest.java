@@ -23,16 +23,14 @@ import android.text.TextUtils;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
+import com.anysoftkeyboard.base.utils.Log;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
 import com.anysoftkeyboard.utils.CompatUtils;
 import com.anysoftkeyboard.utils.IMEUtil;
-import com.anysoftkeyboard.base.utils.Log;
-import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -41,7 +39,6 @@ import java.util.Locale;
  * sequence of characters. This includes corrections and completions.
  */
 public class Suggest implements Dictionary.WordCallback {
-
     private static final String TAG = "ASK Suggest";
 
     private Dictionary mMainDict;
@@ -63,8 +60,8 @@ public class Suggest implements Dictionary.WordCallback {
 
     private int mPrefMaxSuggestions = 12;
 
-    private final List<String> mFallbackInitialSuggestions;
-    private List<String> mInitialSuggestions = new ArrayList<>();
+    @Nullable
+    private List<String> mLocaleSpecificPunctuations = null;
 
     private int[] mPriorities = new int[mPrefMaxSuggestions];
     private List<CharSequence> mSuggestions = new ArrayList<>();
@@ -104,8 +101,6 @@ public class Suggest implements Dictionary.WordCallback {
             StringBuilder sb = new StringBuilder(32);
             mStringPool.add(sb);
         }
-
-        mFallbackInitialSuggestions = Arrays.asList(context.getResources().getStringArray(R.array.english_initial_suggestions));
     }
 
     public void setCorrectionMode(boolean autoText, boolean mainDictionary) {
@@ -121,7 +116,7 @@ public class Suggest implements Dictionary.WordCallback {
         if (mUserDictionary != userDictionary && mUserDictionary != null)
             mUserDictionary.close();
 
-        mUserDictionary = (UserDictionary)userDictionary;
+        mUserDictionary = (UserDictionary) userDictionary;
     }
 
     public void setMainDictionary(Context askContext, @Nullable DictionaryAddOnAndBuilder dictionaryBuilder) {
@@ -130,7 +125,7 @@ public class Suggest implements Dictionary.WordCallback {
             mMainDict.close();
             mMainDict = null;
         }
-        mLocale = CompatUtils.getLocaleForLanguageTag(dictionaryBuilder == null? null : dictionaryBuilder.getLanguage());
+        mLocale = CompatUtils.getLocaleForLanguageTag(dictionaryBuilder == null ? null : dictionaryBuilder.getLanguage());
 
         if (mAbbreviationDictionary != null) {
             mAbbreviationDictionary.close();
@@ -141,7 +136,7 @@ public class Suggest implements Dictionary.WordCallback {
             mMainDict = null;
             mAutoText = null;
             mAbbreviationDictionary = null;
-            mInitialSuggestions = mFallbackInitialSuggestions;
+            mLocaleSpecificPunctuations = null;
         } else {
             try {
                 System.gc();
@@ -153,8 +148,7 @@ public class Suggest implements Dictionary.WordCallback {
                 e.printStackTrace();
             }
             mAutoText = dictionaryBuilder.createAutoText();
-            mInitialSuggestions = dictionaryBuilder.createInitialSuggestions();
-            if (mInitialSuggestions == null) mInitialSuggestions = mFallbackInitialSuggestions;
+            mLocaleSpecificPunctuations = dictionaryBuilder.createInitialSuggestions();
 
             mAbbreviationDictionary = new AbbreviationsDictionary(askContext, dictionaryBuilder.getLanguage());
             DictionaryASyncLoader loader = new DictionaryASyncLoader(null);
@@ -228,7 +222,8 @@ public class Suggest implements Dictionary.WordCallback {
      * @return list of suggestions.
      */
     public List<CharSequence> getNextSuggestions(WordComposer wordComposerOfCompletedWord) {
-        if (mUserDictionary == null || wordComposerOfCompletedWord.length() < mMinimumWordSizeToStartCorrecting) return Collections.emptyList();
+        if (mUserDictionary == null || wordComposerOfCompletedWord.length() < mMinimumWordSizeToStartCorrecting)
+            return Collections.emptyList();
 
         mHaveCorrection = false;
         mIsFirstCharCapitalized = false;
@@ -238,14 +233,7 @@ public class Suggest implements Dictionary.WordCallback {
 
         //only adding VALID words
         if (isValidWord(wordComposerOfCompletedWord.getPreferredWord())) {
-            mUserDictionary.getNextWords(wordComposerOfCompletedWord, mNextWordsCallback);
-        }
-
-        int initialsFromDefaultToAdd = mPrefMaxSuggestions - mSuggestions.size();
-        final Iterator<String> initialsIterator = mInitialSuggestions.iterator();
-        while (initialsIterator.hasNext() && initialsFromDefaultToAdd > 0) {
-            initialsFromDefaultToAdd--;
-            mSuggestions.add(initialsIterator.next());
+            mUserDictionary.getNextWords(wordComposerOfCompletedWord, mNextWordsCallback, mPrefMaxSuggestions, mSuggestions, mLocaleSpecificPunctuations);
         }
         return mSuggestions;
     }
@@ -309,7 +297,7 @@ public class Suggest implements Dictionary.WordCallback {
         }
         if (mExplodedAbbreviations.size() > 0) {
             //typed at zero, exploded at 1 index.
-            for(String explodedWord : mExplodedAbbreviations)
+            for (String explodedWord : mExplodedAbbreviations)
                 mSuggestions.add(1, explodedWord);
 
             mHaveCorrection = true;//so the exploded text will be auto-committed.

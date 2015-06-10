@@ -59,6 +59,13 @@
         <item>@string/auto_dictionary_threshold_type_immediately</item>
         <item>@string/auto_dictionary_threshold_type_off</item>
     </string-array>
+
+    <string-array name="next_word_dictionary_types">
+        <item>@string/next_words_dictionary_off</item>
+        <item>@string/next_words_dictionary_words_only</item>
+        <item>@string/next_words_dictionary_words_punctuations</item>
+    </string-array>
+
     <string name="settings_key_use_contacts_dictionary">settings_key_use_contacts_dictionary</string>
 
     <string name="settings_key_active_quick_text_key">settings_key_active_quick_text_key</string>

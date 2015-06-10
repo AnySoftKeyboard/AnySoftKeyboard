@@ -1,0 +1,9 @@
+<resources>
+    <string name="settings_key_next_word_dictionary_type">settings_key_next_word_dictionary_type</string>
+    <string-array name="next_word_dictionary_type_values">
+        <item>off</item>
+        <item>words</item>
+        <item>words_punctuations</item>
+    </string-array>
+    <string name="settings_default_next_words_dictionary">off</string>
+</resources>
