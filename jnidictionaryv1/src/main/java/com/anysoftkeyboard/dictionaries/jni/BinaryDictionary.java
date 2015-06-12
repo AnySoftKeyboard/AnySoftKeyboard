@@ -17,10 +17,10 @@
 package com.anysoftkeyboard.dictionaries.jni;
 
 import android.content.res.AssetFileDescriptor;
+import android.util.Log;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
-import com.anysoftkeyboard.base.utils.Log;
 
 import java.io.FileDescriptor;
 import java.util.Arrays;

@@ -90,7 +90,7 @@ import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.ui.settings.MainSettingsActivity;
 import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.base.utils.GCUtils.MemRelatedOperation;
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 import com.anysoftkeyboard.utils.ModifierKeyState;
 import com.anysoftkeyboard.utils.Workarounds;
 import com.google.android.voiceime.VoiceRecognitionTrigger;
@@ -100,7 +100,6 @@ import com.menny.android.anysoftkeyboard.FeaturesSet;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -117,8 +116,6 @@ public class AnySoftKeyboard extends InputMethodService implements
     private static final String KEYBOARD_NOTIFICATION_ALWAYS = "1";
     private static final String KEYBOARD_NOTIFICATION_ON_PHYSICAL = "2";
     private static final String KEYBOARD_NOTIFICATION_NEVER = "3";
-    //Arrays.asList((CharSequence) ".", ",", "?", "!", ":", "'", "\"", "@", "#", "&", "()");
-    private static final List<CharSequence> msEmptyNextSuggestions = Arrays.asList(/*empty for now*/);
     private static final long ONE_FRAME_DELAY = 1000l / 60l;
     private final AskPrefs mAskPrefs;
     private final ModifierKeyState mShiftKeyState = new ModifierKeyState(true/*supports locked state*/);
@@ -686,7 +683,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                     // cursor position and shift state
                     // inside the currently selected word
                     int cursorPosition = newSelEnd - candidatesStart;
-                    if (mWord.setCursorPostion(cursorPosition)) {
+                    if (mWord.setCursorPosition(cursorPosition)) {
                         Log.d(TAG, "onUpdateSelection: cursor moving inside the predicting word");
                     }
                 } else {
@@ -822,7 +819,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                 ic.setSelection(cursorPosition, cursorPosition);
             }
 
-            mWord.setCursorPostion(toLeft.length());
+            mWord.setCursorPosition(toLeft.length());
             ic.endBatchEdit();
             postUpdateSuggestions();
         } else {
@@ -2410,9 +2407,8 @@ public class AnySoftKeyboard extends InputMethodService implements
         InputConnection ic = getCurrentInputConnection();
         if (ic != null) {
             if (correcting) {
-                AnyApplication.getDeviceSpecific()
-                        .commitCorrectionToInputConnection(ic, mWord);
-                // and drawing popout text
+                AnyApplication.getDeviceSpecific().commitCorrectionToInputConnection(ic, mWord);
+                // and drawing pop-out text
                 mInputView.popTextOutOfKey(mWord.getPreferredWord());
             } else {
                 ic.commitText(suggestion, 1);
@@ -2420,11 +2416,6 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
         mPredicting = false;
         mCommittedLength = suggestion.length();
-        setSuggestions(null, false, false, false);
-        // If we just corrected a word, then don't show punctuations
-        if (!correcting) {
-            setNextSuggestions();
-        }
 
         //setSuggestions(mSuggest.getNextSuggestions(mWord), false, false, false);
 
@@ -2495,12 +2486,6 @@ public class AnySoftKeyboard extends InputMethodService implements
             sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
             // mJustRevertedSeparator = null;
         }
-    }
-
-    private void setNextSuggestions() {
-        setSuggestions(
-        /* mSuggest.getInitialSuggestions() */msEmptyNextSuggestions, false,
-                false, false);
     }
 
     public boolean isWordSeparator(int code) {

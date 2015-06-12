@@ -23,15 +23,15 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
-public abstract class FragmentChauffeurActivity extends ActionBarActivity {
+public abstract class FragmentChauffeurActivity extends AppCompatActivity {
 
-    public static enum FragmentUiContext {
+    public enum FragmentUiContext {
         RootFragment,
         DeeperExperience,
         ExpandedItem,

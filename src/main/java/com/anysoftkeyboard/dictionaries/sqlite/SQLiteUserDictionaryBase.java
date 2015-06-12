@@ -23,7 +23,7 @@ import android.database.sqlite.SQLiteException;
 
 import com.anysoftkeyboard.base.dictionaries.WordsCursor;
 import com.anysoftkeyboard.dictionaries.BTreeDictionary;
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 
 public abstract class SQLiteUserDictionaryBase extends BTreeDictionary {
     private static final String TAG = "SQLiteUserDictionaryBase";

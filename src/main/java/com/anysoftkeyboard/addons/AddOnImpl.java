@@ -20,7 +20,7 @@ import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.support.annotation.Nullable;
 
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 
 import java.lang.ref.WeakReference;
 

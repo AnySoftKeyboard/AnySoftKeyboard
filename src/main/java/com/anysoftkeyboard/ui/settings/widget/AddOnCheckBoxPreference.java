@@ -46,7 +46,7 @@ import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.IconHolder;
 import com.anysoftkeyboard.addons.ScreenshotHolder;
 import com.anysoftkeyboard.keyboards.KeyboardAddOnAndBuilder;
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.Banner;
@@ -76,8 +76,8 @@ public class AddOnCheckBoxPreference extends Preference implements
 
     @Override
     protected View onCreateView(ViewGroup parent) {
-        LayoutInflater inflator = LayoutInflater.from(getContext());
-        ViewGroup layout = (ViewGroup) inflator.inflate(R.layout.addon_checkbox_pref, parent, false);
+        LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+        ViewGroup layout = (ViewGroup) layoutInflater.inflate(R.layout.addon_checkbox_pref, parent, false);
 
         mCheckBox = (CheckBox) layout.findViewById(R.id.addon_checkbox);
         mCheckBox.setOnCheckedChangeListener(this);

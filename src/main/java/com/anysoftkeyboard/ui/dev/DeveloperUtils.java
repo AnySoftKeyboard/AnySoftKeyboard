@@ -21,11 +21,13 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Configuration;
 import android.os.Debug;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -83,7 +85,7 @@ public class DeveloperUtils {
         return new File(extFolder, ASK_TRACE_FILENAME);
     }
 
-    public static String getSysInfo() {
+    public static String getSysInfo(@Nullable Context context) {
         StringBuilder sb = new StringBuilder();
         sb.append("BRAND:").append(android.os.Build.BRAND).append(NEW_LINE);
         sb.append("DEVICE:").append(android.os.Build.DEVICE).append(NEW_LINE);
@@ -99,6 +101,12 @@ public class DeveloperUtils {
                 .append(NEW_LINE);
         sb.append("VERSION.SDK_INT:").append(Workarounds.getApiLevel())
                 .append(NEW_LINE);
+        if (context != null && context.getResources() != null && context.getResources().getConfiguration() != null) {
+            Configuration configuration = context.getResources().getConfiguration();
+            sb.append("Locale:").append(configuration.locale).append(NEW_LINE);
+            sb.append("configuration:").append(configuration.toString()).append(NEW_LINE);
+        }
+
         sb.append("That's all I know.");
         return sb.toString();
     }
@@ -108,8 +116,7 @@ public class DeveloperUtils {
         try {
             PackageInfo info = appContext.getPackageManager().getPackageInfo(
                     appContext.getPackageName(), 0);
-            appName = appName + " v" + info.versionName + " release "
-                    + info.versionCode;
+            appName = appName + " v" + info.versionName + " release " + info.versionCode;
             appName = appName +". Installed on " + AnyApplication.getConfig().getTimeCurrentVersionInstalled()
                     + ", first release installed was "+AnyApplication.getConfig().getFirstAppVersionInstalled()+".";
         } catch (NameNotFoundException e) {

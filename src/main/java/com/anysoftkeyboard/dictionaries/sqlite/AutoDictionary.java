@@ -19,7 +19,7 @@ package com.anysoftkeyboard.dictionaries.sqlite;
 import android.content.Context;
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 /**
@@ -32,7 +32,7 @@ public class AutoDictionary extends SQLiteUserDictionaryBase {
 
     protected static final String TAG = "ASK ADict";
 
-    public static enum AdditionType {
+    public enum AdditionType {
         Picked,
         Typed
     }
@@ -75,7 +75,7 @@ public class AutoDictionary extends SQLiteUserDictionaryBase {
     public boolean addWord(WordComposer word, AdditionType type, AnySoftKeyboard callingIme) {
         synchronized (mResourceMonitor) {
             if (isClosed()) {
-                Log.d(TAG, "Dictionary (type "+this.getClass().getName()+") "+this.getDictionaryName()+" is closed! Can not add word.");
+                Log.d(TAG, "Dictionary (type " + this.getClass().getName() + ") " + this.getDictionaryName() + " is closed! Can not add word.");
                 return false;
             }
             final int length = word.length();

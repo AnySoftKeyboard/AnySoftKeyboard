@@ -9,7 +9,7 @@ import android.support.annotation.NonNull;
 import android.util.SparseIntArray;
 import android.util.TypedValue;
 
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 import java.util.ArrayList;
@@ -88,7 +88,7 @@ public class KeyboardSupport {
         }
         final Resources localRes = localContext.getResources();
         final Resources remoteRes = remoteContext.getResources();
-        List<Integer> styleableIdList = new ArrayList<Integer>(localStyleableArray.length);
+        List<Integer> styleableIdList = new ArrayList<>(localStyleableArray.length);
         for(int attrId : localStyleableArray) {
             final boolean isAndroidAttribute = localRes.getResourcePackageName(attrId).equals("android");
             final int remoteAttrId;

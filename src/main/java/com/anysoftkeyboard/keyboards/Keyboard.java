@@ -30,7 +30,7 @@ import android.util.Xml;
 
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.keyboards.views.KeyDrawableStateProvider;
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -567,10 +567,6 @@ public abstract class Keyboard {
          */
         public void onReleased(boolean inside) {
             pressed = false;
-            /*
-             * No need for this code, I handle this expicitly in setShifted code
-             * if (sticky) { on = !on; }
-             */
         }
 
         /**

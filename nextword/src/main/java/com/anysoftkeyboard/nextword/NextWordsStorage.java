@@ -2,8 +2,7 @@ package com.anysoftkeyboard.nextword;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-
-import com.anysoftkeyboard.base.utils.Log;
+import android.util.Log;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -21,7 +20,7 @@ public class NextWordsStorage {
     public NextWordsStorage(@NonNull Context context, @NonNull String locale) {
         mContext = context;
         mLocale = locale;
-        mNextWordsStorageFilename = "next_words.txt";
+        mNextWordsStorageFilename = "next_words_"+mLocale+".txt";
     }
 
     @NonNull
@@ -40,15 +39,17 @@ public class NextWordsStorage {
                     parser = new NextWordsFileParserV1();
                     break;
                 default:
-                    Log.w(TAG, "Version %d is not supported!", version);
+                    Log.w(TAG, String.format("Version %d is not supported!", version));
                     return Collections.emptyList();
             }
             return parser.loadStoredNextWords(inputStream);
         } catch (FileNotFoundException e) {
-            Log.w(TAG, e, "Failed to find %s. Maybe it's just the first time.", mNextWordsStorageFilename);
+            Log.w(TAG, e);
+            Log.w(TAG, String.format("Failed to find %s. Maybe it's just the first time.", mNextWordsStorageFilename));
             return Collections.emptyList();
         } catch (IOException e) {
-            Log.w(TAG, e, "Failed to open %s. Maybe it's just the first time.", mNextWordsStorageFilename);
+            Log.w(TAG, e);
+            Log.w(TAG, String.format("Failed to open %s. Maybe it's just the first time.", mNextWordsStorageFilename));
             return Collections.emptyList();
         } finally {
             if (inputStream != null) try {
@@ -66,7 +67,8 @@ public class NextWordsStorage {
             parser.storeNextWords(nextWords, outputStream);
             outputStream.flush();
         } catch (IOException e) {
-            Log.w(TAG, e, "Failed to store to %s. Deleting", mNextWordsStorageFilename);
+            Log.w(TAG, e);
+            Log.w(TAG, String.format("Failed to store to %s. Deleting", mNextWordsStorageFilename));
             mContext.deleteFile(mNextWordsStorageFilename);
         } finally {
             if (outputStream != null) try {

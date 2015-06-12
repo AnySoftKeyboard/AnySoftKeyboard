@@ -26,8 +26,8 @@ import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
 import com.anysoftkeyboard.utils.CompatUtils;
 import com.anysoftkeyboard.utils.IMEUtil;
-import com.anysoftkeyboard.base.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
+import com.anysoftkeyboard.utils.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;

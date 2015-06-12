@@ -29,7 +29,7 @@ import com.anysoftkeyboard.keyboardextensions.KeyboardExtension;
 import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.utils.CompatUtils;
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -38,10 +38,7 @@ import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Locale;
 
-public class ExternalAnyKeyboard extends AnyKeyboard implements
-        HardKeyboardTranslator {
-
-    public static final int KEYCODE_EXTENSION_KEYBOARD = -210;
+public class ExternalAnyKeyboard extends AnyKeyboard implements HardKeyboardTranslator {
 
     private final static String TAG = "ASK - EAK";
 
@@ -156,21 +153,20 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements
                             target = Integer.valueOf(targetCharCode);
 
                         // asserting
-                        if ((keyCodes == null) || (keyCodes.length == 0)
-                                || (target == null)) {
+                        if ((keyCodes == null) || (keyCodes.length == 0) || (target == null)) {
                             Log.e(TAG,
                                     "Physical translator sequence does not include mandatory fields "
                                             + XML_KEYS_ATTRIBUTE + " or "
                                             + XML_TARGET_ATTRIBUTE);
                         } else {
                             if (!isAlt && !isShift) {
-                                translator.addSequence(keyCodes, target.intValue());
+                                translator.addSequence(keyCodes, target);
                                 // http://code.google.com/p/softkeyboard/issues/detail?id=734
                                 translator.addShiftSequence(keyCodes, Character.toUpperCase(target.intValue()));
                             } else if (isAlt) {
-                                translator.addAltSequence(keyCodes, target.intValue());
-                            } else if (isShift) {
-                                translator.addShiftSequence(keyCodes, target.intValue());
+                                translator.addAltSequence(keyCodes, target);
+                            } else {
+                                translator.addShiftSequence(keyCodes, target);
                             }
                         }
                     } else if (inTranslations && XML_MULTITAP_TAG.equals(tag)) {
@@ -202,7 +198,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements
                                     translator.addShiftSequence(multiTapCodes, Character.toUpperCase(target));
                                 } else if (isAlt) {
                                     translator.addAltSequence(keyCodes, target);
-                                } else if (isShift) {
+                                } else {
                                     translator.addShiftSequence(keyCodes, target);
                                 }
                             } else {
@@ -212,7 +208,7 @@ public class ExternalAnyKeyboard extends AnyKeyboard implements
                                     translator.addShiftSequence(multiTapCodes, KeyEventStateMachine.KEYCODE_FIRST_CHAR);
                                 } else if (isAlt) {
                                     translator.addAltSequence(keyCodes, KeyEventStateMachine.KEYCODE_FIRST_CHAR);
-                                } else if (isShift) {
+                                } else {
                                     translator.addShiftSequence(keyCodes, KeyEventStateMachine.KEYCODE_FIRST_CHAR);
                                 }
                             }

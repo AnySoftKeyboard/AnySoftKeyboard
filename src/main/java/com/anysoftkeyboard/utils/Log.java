@@ -14,34 +14,21 @@
  * limitations under the License.
  */
 
-package com.anysoftkeyboard.base.utils;
+package com.anysoftkeyboard.utils;
 
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.support.annotation.NonNull;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
+
+import static com.menny.android.anysoftkeyboard.BuildConfig.DEBUG;
 
 public class Log {
     public static final String NEW_LINE = System.getProperty("line.separator");
 
-    private static final boolean DEBUG;
-    static {
-        boolean reflectionDebugValue;
-        try {
-            //https://code.google.com/p/android/issues/detail?id=52962
-            Class<?> clazz = Class.forName("com.menny.android.anysoftkeyboard.BuildConfig");
-            Field field = clazz.getField("DEBUG");
-            reflectionDebugValue = (boolean)field.get(null);
-        } catch (Exception e) {
-            reflectionDebugValue = true;
-        }
-        DEBUG = reflectionDebugValue;
-    }
-
     private static final StringBuilder msFormatBuilder = new StringBuilder(1024);
-    private static final java.util.Formatter msFormatter =  new java.util.Formatter(msFormatBuilder);
+    private static final java.util.Formatter msFormatter = new java.util.Formatter(msFormatBuilder);
 
     private static final String[] msLogs = new String[DEBUG ? 225 : 0];
     private static int msLogIndex = 0;
@@ -103,7 +90,7 @@ public class Log {
 
     public static void v(String TAG, String text, Object... args) {
         if (DEBUG) {
-            String msg = args == null? text : msFormatter.format(text, args).toString();
+            String msg = args == null ? text : msFormatter.format(text, args).toString();
             msFormatBuilder.setLength(0);
             android.util.Log.v(TAG, msg);
             addLog(LVL_V, TAG, msg);
@@ -128,7 +115,7 @@ public class Log {
 
     public static void d(String TAG, String text, Object... args) {
         if (DEBUG) {
-            String msg = args == null? text : msFormatter.format(text, args).toString();
+            String msg = args == null ? text : msFormatter.format(text, args).toString();
             msFormatBuilder.setLength(0);
             android.util.Log.d(TAG, msg);
             addLog(LVL_D, TAG, msg);
@@ -145,7 +132,7 @@ public class Log {
     private static String LVL_I = "I";
 
     public static void i(String TAG, String text, Object... args) {
-        String msg = args == null? text : msFormatter.format(text, args).toString();
+        String msg = args == null ? text : msFormatter.format(text, args).toString();
         msFormatBuilder.setLength(0);
         android.util.Log.i(TAG, msg);
         addLog(LVL_I, TAG, msg);
@@ -159,7 +146,7 @@ public class Log {
     private static String LVL_W = "W";
 
     public static void w(String TAG, String text, Object... args) {
-        String msg = args == null? text : msFormatter.format(text, args).toString();
+        String msg = args == null ? text : msFormatter.format(text, args).toString();
         msFormatBuilder.setLength(0);
         android.util.Log.w(TAG, msg);
         addLog(LVL_W, TAG, msg);
@@ -173,7 +160,7 @@ public class Log {
     private static String LVL_E = "E";
 
     public static void e(String TAG, String text, Object... args) {
-        String msg = args == null? text : msFormatter.format(text, args).toString();
+        String msg = args == null ? text : msFormatter.format(text, args).toString();
         msFormatBuilder.setLength(0);
         android.util.Log.e(TAG, msg);
         addLog(LVL_E, TAG, msg);
@@ -186,7 +173,7 @@ public class Log {
     }
 
     public static void w(String TAG, Throwable e, String text, Object... args) {
-        String msg = args == null? text : msFormatter.format(text, args).toString();
+        String msg = args == null ? text : msFormatter.format(text, args).toString();
         msFormatBuilder.setLength(0);
         android.util.Log.e(TAG, msg, e);
         addLog(LVL_E, TAG, msg);
@@ -196,7 +183,7 @@ public class Log {
 
     @TargetApi(8)
     public static void wtf(String TAG, String text, Object... args) {
-        String msg = args == null? text : msFormatter.format(text, args).toString();
+        String msg = args == null ? text : msFormatter.format(text, args).toString();
         msFormatBuilder.setLength(0);
         addLog(LVL_WTF, TAG, msg);
         if (Build.VERSION.SDK_INT >= 8)

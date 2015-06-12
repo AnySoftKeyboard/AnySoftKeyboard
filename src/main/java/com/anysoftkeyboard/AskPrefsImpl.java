@@ -20,15 +20,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.Gravity;
 
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.FeaturesSet;
@@ -99,7 +97,6 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
 
     private boolean mAlwaysUseFallBackUserDictionary = false;
 
-    private final int mCurrentAppVersion;
     private long mFirstTimeAppInstalled;
     private long mFirstTimeCurrentVersionInstalled;
     private int mFirstAppVersionInstalled;
@@ -109,18 +106,9 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     public AskPrefsImpl(Context context) {
         mContext = context;
 
-        String version = "NONE";
-        int releaseNumber = 0;
-        try {
-            PackageInfo info = mContext.getPackageManager().getPackageInfo(mContext.getPackageName(), 0);
-            version = info.versionName;
-            releaseNumber = info.versionCode;
-        } catch (NameNotFoundException e) {
-            Log.e(TAG, "Failed to locate package information! This is very weird... I'm installed.");
-        }
-        mCurrentAppVersion = releaseNumber;
-        Log.i(TAG, "** Version: " + version);
-        Log.i(TAG, "** Release code: " + mCurrentAppVersion);
+        int currentAppVersion = BuildConfig.VERSION_CODE;
+        Log.i(TAG, "** Version: " + BuildConfig.VERSION_NAME);
+        Log.i(TAG, "** Release code: " + currentAppVersion);
         Log.i(TAG, "** Debug: " + BuildConfig.DEBUG);
         Log.i(TAG, "** DEBUG_LOG: " + FeaturesSet.DEBUG_LOG);
         Log.i(TAG, "** CUTTING_EDGE: " + FeaturesSet.CUTTING_EDGE);

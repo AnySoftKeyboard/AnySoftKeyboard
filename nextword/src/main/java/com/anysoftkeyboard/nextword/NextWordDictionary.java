@@ -1,22 +1,24 @@
 package com.anysoftkeyboard.nextword;
 
 import android.content.Context;
+import android.support.v4.util.ArrayMap;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Random;
 
 public class NextWordDictionary extends Dictionary {
+    private static final Random msRandom = new Random();
 
     private static final int MAX_NEXT_SUGGESTIONS = 8;
+    private static final int MAX_NEXT_WORD_CONTAINERS = 900;
 
     private final NextWordsStorage mStorage;
 
     private String mPreviousWord = null;
 
-    private final Map<String, NextWordsContainer> mNextWordMap = new HashMap<>();
+    private final ArrayMap<String, NextWordsContainer> mNextWordMap = new ArrayMap<>();
 
     public NextWordDictionary(Context context, String locale) {
         super("NextWordDictionary_" + locale);
@@ -30,6 +32,10 @@ public class NextWordDictionary extends Dictionary {
         if (mPreviousWord != null) {
             NextWordsContainer previousSet = mNextWordMap.get(mPreviousWord);
             if (previousSet == null) {
+                if (mNextWordMap.size() > MAX_NEXT_WORD_CONTAINERS) {
+                    String randomWordToDelete = mNextWordMap.keyAt(msRandom.nextInt(mNextWordMap.size()));
+                    mNextWordMap.remove(randomWordToDelete);
+                }
                 previousSet = new NextWordsContainer(mPreviousWord);
                 mNextWordMap.put(mPreviousWord, previousSet);
             }

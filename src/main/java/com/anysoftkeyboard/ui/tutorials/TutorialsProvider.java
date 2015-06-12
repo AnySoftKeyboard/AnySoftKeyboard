@@ -28,7 +28,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.preference.PreferenceManager;
 
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -85,7 +85,7 @@ public class TutorialsProvider {
     }
 
     public synchronized static void showNotificationIcon(Context context, IntentToLaunch notificationData) {
-        final NotificationManager mngr = ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE));
+        final NotificationManager manager = ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE));
 
         Notification notification = new Notification(notificationData.NotificationIcon, context.getText(notificationData.NotificationText), System.currentTimeMillis());
 
@@ -99,7 +99,7 @@ public class TutorialsProvider {
         notification.flags = Notification.FLAG_AUTO_CANCEL;
         // notifying
         //need different id for each notification, so we can cancel easily
-        mngr.notify(notificationData.NotificationID, notification);
+        manager.notify(notificationData.NotificationID, notification);
     }
 
 }

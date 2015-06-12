@@ -20,7 +20,7 @@ import android.content.Context;
 import android.text.format.DateFormat;
 
 import com.anysoftkeyboard.keyboards.Keyboard.Key;
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.FeaturesSet;
 

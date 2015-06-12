@@ -21,9 +21,9 @@ import android.content.Context;
 import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.base.dictionaries.WordsCursor;
-import com.anysoftkeyboard.base.utils.Log;
 import com.anysoftkeyboard.dictionaries.content.AndroidUserDictionary;
 import com.anysoftkeyboard.dictionaries.sqlite.FallbackUserDictionary;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 
 public class UserDictionary extends EditableDictionary {
@@ -76,8 +76,7 @@ public class UserDictionary extends EditableDictionary {
             androidBuiltIn.loadDictionary();
             mActualDictionary = androidBuiltIn;
         } catch (Exception e) {
-            Log.w(TAG,
-                    "Can not load Android's built-in user dictionary (since '" + e.getMessage() + "'). FallbackUserDictionary to the rescue!");
+            Log.w(TAG, "Can not load Android's built-in user dictionary (since '%s'). FallbackUserDictionary to the rescue!", e.getMessage());
             if (androidBuiltIn != null) {
                 try {
                     androidBuiltIn.close();

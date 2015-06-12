@@ -33,7 +33,7 @@ import com.anysoftkeyboard.keyboardextensions.KeyboardExtensionFactory;
 import com.anysoftkeyboard.keyboards.views.KeyDrawableStateProvider;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
@@ -184,8 +184,7 @@ public abstract class AnyKeyboard extends Keyboard {
                                 .getCurrentQuickTextKey(askContext);
                         if (quickKey == null) { // No plugins. Weird, but we
                             // can't do anything
-                            Log.w(TAG,
-                                    "Could not locate any quick key plugins! Hopefully nothing will crash...");
+                            Log.w(TAG, "Could not locate any quick key plugins! Hopefully nothing will crash...");
                             break;
                         }
 

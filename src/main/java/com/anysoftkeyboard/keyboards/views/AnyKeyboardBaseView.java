@@ -73,7 +73,7 @@ import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.utils.CompatUtils;
 import com.anysoftkeyboard.base.utils.GCUtils;
 import com.anysoftkeyboard.base.utils.GCUtils.MemRelatedOperation;
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
@@ -228,7 +228,7 @@ public class AnyKeyboardBaseView extends View implements
         dismissPopupKeyboard();
 
         for(PointerTracker tracker : mPointerTrackers) {
-            Log.d(TAG, "Canceling tracker "+tracker.getKeyIndex());
+            Log.d(TAG, "Canceling tracker " + tracker.getKeyIndex());
             sendOnXEvent(MotionEvent.ACTION_CANCEL, 0, 0, 0, tracker);
             tracker.setAlreadyProcessed();
         }

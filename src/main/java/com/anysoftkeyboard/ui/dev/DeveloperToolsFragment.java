@@ -30,7 +30,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.AsyncTaskWithProgressWindow;
@@ -174,13 +174,7 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
     private void onUserClickedShareMemoryDump(View v) {
         File memDump = (File) v.getTag();
 
-        StringBuilder sb = new StringBuilder(
-                "Hi! Here is a memory dump file for ");
-        sb.append(DeveloperUtils.getAppDetails(getActivity().getApplicationContext()));
-        sb.append(DeveloperUtils.NEW_LINE);
-        sb.append(DeveloperUtils.getSysInfo());
-
-        shareFile(memDump, "AnySoftKeyboard Memory Dump File", sb.toString());
+        shareFile(memDump, "AnySoftKeyboard Memory Dump File", "Hi! Here is a memory dump file for " + DeveloperUtils.getAppDetails(getActivity().getApplicationContext()) + DeveloperUtils.NEW_LINE + DeveloperUtils.getSysInfo(getActivity()));
     }
 
     private void onUserClickedFlipTracing() {
@@ -214,13 +208,8 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
     }
 
     private void onUserClickedShareTracingFile() {
-        StringBuilder sb = new StringBuilder("Hi! Here is a tracing file for ");
-        sb.append(DeveloperUtils.getAppDetails(getActivity().getApplicationContext()));
-        sb.append(DeveloperUtils.NEW_LINE);
-        sb.append(DeveloperUtils.getSysInfo());
-
         shareFile(DeveloperUtils.getTraceFile(), "AnySoftKeyboard Trace File",
-                sb.toString());
+                "Hi! Here is a tracing file for " + DeveloperUtils.getAppDetails(getActivity().getApplicationContext()) + DeveloperUtils.NEW_LINE + DeveloperUtils.getSysInfo(getActivity()));
     }
 
     private void onUserClickedShowLogCat(View v) {
@@ -228,15 +217,8 @@ public class DeveloperToolsFragment extends Fragment implements AsyncTaskWithPro
     }
 
     private void onUserClickedShareLogCat() {
-        StringBuilder sb = new StringBuilder("Hi! Here is a LogCat snippet for ");
-        sb.append(DeveloperUtils.getAppDetails(getActivity().getApplicationContext()));
-        sb.append(DeveloperUtils.NEW_LINE);
-        sb.append(DeveloperUtils.getSysInfo());
-        sb.append(DeveloperUtils.NEW_LINE);
-        sb.append(Log.getAllLogLines());
-
         shareFile(null, "AnySoftKeyboard LogCat",
-                sb.toString());
+                "Hi! Here is a LogCat snippet for " + DeveloperUtils.getAppDetails(getActivity().getApplicationContext()) + DeveloperUtils.NEW_LINE + DeveloperUtils.getSysInfo(getActivity()) + DeveloperUtils.NEW_LINE + Log.getAllLogLines());
     }
 
     private void shareFile(File fileToShare, String title, String message) {
