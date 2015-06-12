@@ -1305,8 +1305,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                             mWord.getTypedWord(), 1);
                 }
                 mCommittedLength = mWord.length();// mComposing.length();
-                TextEntryState
-                        .acceptedTyped(mWord.getTypedWord());
+                TextEntryState.acceptedTyped(mWord.getTypedWord());
                 addToDictionaries(mWord, AutoDictionary.AdditionType.Typed);
             }
             if (mHandler.hasMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS)) {
@@ -1402,6 +1401,7 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     public void removeFromUserDictionary(String word) {
+        mJustAutoAddedWord = false;
         if (mUserDictionary != null) {
             mUserDictionary.deleteWord(word);
             abortCorrection(true, false);
@@ -2007,6 +2007,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             mWord.reset();
             mPredicting = false;
             mJustAddedAutoSpace = false;
+            mJustAutoAddedWord = false;
             if (forever) {
                 Log.d(TAG, "abortCorrection will abort correct forever");
                 mPredictionOn = false;
@@ -2121,6 +2122,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             sendKeyChar((char) primaryCodeForShow);
         }
         TextEntryState.typedCharacter((char) primaryCodeForShow, false);
+        mJustAutoAddedWord = false;
     }
 
     private void handleSeparator(int primaryCode) {
@@ -2128,8 +2130,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         // Should dismiss the "Touch again to save" message when handling
         // separator
-        if (mCandidateView != null
-                && mCandidateView.dismissAddToDictionaryHint()) {
+        if (mCandidateView != null && mCandidateView.dismissAddToDictionaryHint()) {
             postUpdateSuggestions();
         }
 
@@ -2197,8 +2198,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             doubleSpace();
         }
         if (pickedDefault && mWord.getPreferredWord() != null) {
-            TextEntryState.acceptedDefault(mWord.getTypedWord(),
-                    mWord.getPreferredWord());
+            TextEntryState.acceptedDefault(mWord.getTypedWord(), mWord.getPreferredWord());
         }
         if (ic != null) {
             ic.endBatchEdit();
@@ -2476,10 +2476,6 @@ public class AnySoftKeyboard extends InputMethodService implements
                 // now...
                 // Since the user revert the committed word, and ASK auto-added
                 // that word, this word will need to be removed.
-                Log.i(TAG,
-                        "Since the word '"
-                                + typedWord
-                                + "' was auto-added to the user-dictionary, it will not be deleted.");
                 removeFromUserDictionary(typedWord.toString());
             }
         } else {
