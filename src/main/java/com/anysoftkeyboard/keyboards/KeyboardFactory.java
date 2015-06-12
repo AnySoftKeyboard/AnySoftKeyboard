@@ -22,7 +22,7 @@ import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import com.anysoftkeyboard.addons.AddOn;
 import com.anysoftkeyboard.addons.AddOnsFactory;
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.FeaturesSet;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -61,7 +61,7 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder> {
         //getting shared prefs to determine which to create.
         final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(askContext);
 
-        final ArrayList<KeyboardAddOnAndBuilder> enabledAddOns = new ArrayList<KeyboardAddOnAndBuilder>();
+        final ArrayList<KeyboardAddOnAndBuilder> enabledAddOns = new ArrayList<>();
         for (int addOnIndex = 0; addOnIndex < allAddOns.size(); addOnIndex++) {
             final KeyboardAddOnAndBuilder addOn = allAddOns.get(addOnIndex);
 
@@ -136,13 +136,11 @@ public class KeyboardFactory extends AddOnsFactory<KeyboardAddOnAndBuilder> {
                                 + " iconResId:" + iconResId + " defaultDictionary:"
                                 + defaultDictionary);
             }
-            final KeyboardAddOnAndBuilder creator = new KeyboardAddOnAndBuilder(askContext, context,
+            return new KeyboardAddOnAndBuilder(askContext, context,
                     prefId, nameId, layoutResId, landscapeLayoutResId,
                     defaultDictionary, iconResId, physicalTranslationResId,
                     additionalIsLetterExceptions, sentenceSeparators,
                     description, sortIndex, keyboardDefault, screenshotResId);
-
-            return creator;
         }
     }
 

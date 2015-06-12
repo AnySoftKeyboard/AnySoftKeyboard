@@ -14,7 +14,7 @@ import android.widget.CompoundButton;
 
 import com.anysoftkeyboard.quicktextkeys.QuickTextKey;
 import com.anysoftkeyboard.quicktextkeys.QuickTextKeyFactory;
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 import com.emtronics.dragsortrecycler.DragSortRecycler;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -40,6 +40,8 @@ public class QuickKeysOrderedListFragment extends Fragment {
         }
     };
     private List<QuickTextKey> mAllQuickKeysAddOns;
+    private RecyclerView mRecyclerView;
+    private DragSortRecycler mDragSortRecycler;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,17 +65,17 @@ public class QuickKeysOrderedListFragment extends Fragment {
                 mAllQuickKeysAddOns.add(quickTextKey);
             }
         }
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(appContext));
-        recyclerView.setAdapter(new Adapter());
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(appContext));
+        mRecyclerView.setAdapter(new Adapter());
 
-        recyclerView.setItemAnimator(null);
+        mRecyclerView.setItemAnimator(null);
 
-        DragSortRecycler dragSortRecycler = new DragSortRecycler();
-        dragSortRecycler.setViewHandleId(R.id.orderedListSlider);
+        mDragSortRecycler = new DragSortRecycler();
+        mDragSortRecycler.setViewHandleId(R.id.orderedListSlider);
 
-        dragSortRecycler.setOnItemMovedListener(new DragSortRecycler.OnItemMovedListener() {
+        mDragSortRecycler.setOnItemMovedListener(new DragSortRecycler.OnItemMovedListener() {
             @Override
             public void onItemMoved(RecyclerView rv, int from, int to) {
                 QuickTextKey temp = mAllQuickKeysAddOns.remove(from);
@@ -86,9 +88,9 @@ public class QuickKeysOrderedListFragment extends Fragment {
             }
         });
 
-        recyclerView.addItemDecoration(dragSortRecycler);
-        recyclerView.addOnItemTouchListener(dragSortRecycler);
-        recyclerView.setOnScrollListener(dragSortRecycler.getScrollListener());
+        mRecyclerView.addItemDecoration(mDragSortRecycler);
+        mRecyclerView.addOnItemTouchListener(mDragSortRecycler);
+        mRecyclerView.addOnScrollListener(mDragSortRecycler.getScrollListener());
     }
 
     @Override
@@ -107,6 +109,12 @@ public class QuickKeysOrderedListFragment extends Fragment {
             }
         }
         QuickTextKeyFactory.storeOrderedEnabledQuickKeys(getActivity(), enabledAddons);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mRecyclerView.removeOnScrollListener(mDragSortRecycler.getScrollListener());
     }
 
     private static class OrderedListViewHolder extends RecyclerView.ViewHolder {

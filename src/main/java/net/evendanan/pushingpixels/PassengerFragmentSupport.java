@@ -27,7 +27,7 @@ import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.view.animation.ScaleAnimation;
 
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 import com.anysoftkeyboard.utils.PointFCompat;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -94,8 +94,6 @@ public abstract class PassengerFragmentSupport {
     /**
      * Will set the title in the hosting Activity's title.
      * Will only set the title if the fragment is hosted by the Activity's manager, and not inner one.
-     * @param fragment
-     * @param title
      */
     public static void setActivityTitle(Fragment fragment, CharSequence title) {
         FragmentActivity activity = fragment.getActivity();

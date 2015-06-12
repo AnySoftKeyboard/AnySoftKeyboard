@@ -27,7 +27,7 @@ import android.text.format.DateFormat;
 
 import com.anysoftkeyboard.ui.SendBugReportUiActivity;
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 
 import java.io.File;
 import java.lang.Thread.UncaughtExceptionHandler;
@@ -47,7 +47,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
     }
 
     public void uncaughtException(Thread thread, Throwable ex) {
-        Log.e(TAG, "Caught an unhandled exception!!! ", ex);
+        Log.e(TAG, "Caught an unhandled exception!!!", ex);
         boolean ignore = false;
 
         // https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/15
@@ -88,7 +88,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
                     + newline + "****** Trace trace:" + newline + stackTrace + newline;
             logText += "******************************" + newline
                     + "****** Device information:" + newline
-                    + DeveloperUtils.getSysInfo();
+                    + DeveloperUtils.getSysInfo(mApp);
             if (ex instanceof OutOfMemoryError
                     || (ex.getCause() != null && ex.getCause() instanceof OutOfMemoryError)) {
                 logText += "******************************\n"
@@ -103,8 +103,7 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
             notificationIntent.putExtra(SendBugReportUiActivity.EXTRA_KEY_BugReportDetails,
                     (Parcelable) new SendBugReportUiActivity.BugReportDetails(ex, logText));
 
-            PendingIntent contentIntent = PendingIntent.getActivity(mApp, 0,
-                    notificationIntent, 0);
+            PendingIntent contentIntent = PendingIntent.getActivity(mApp, 0, notificationIntent, 0);
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(mApp);
             builder.setSmallIcon(R.drawable.notification_error_icon).

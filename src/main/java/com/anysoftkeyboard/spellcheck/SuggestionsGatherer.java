@@ -19,7 +19,7 @@ package com.anysoftkeyboard.spellcheck;
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.utils.ArraysCompatUtils;
 import com.anysoftkeyboard.utils.IMEUtil;
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -3,15 +3,12 @@ package com.anysoftkeyboard.dictionaries;
 import android.os.AsyncTask;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 
 import java.lang.ref.WeakReference;
 
 /**
  * A generic AsyncTask to load AnySoftKeyboard's dictionary object.
- * User: menny
- * Date: 3/19/13
- * Time: 11:52 AM
  */
 public class DictionaryASyncLoader extends AsyncTask<Dictionary, Void, Dictionary> {
     private static final String TAG = "ASK_DictionaryASyncLoader";

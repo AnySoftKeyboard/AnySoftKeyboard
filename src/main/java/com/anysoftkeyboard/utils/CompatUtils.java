@@ -24,8 +24,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.PopupWindow;
 
-import com.anysoftkeyboard.base.utils.Log;
-
 import java.lang.reflect.Method;
 import java.util.Locale;
 

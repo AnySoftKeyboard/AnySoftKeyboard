@@ -27,7 +27,7 @@ import android.util.AttributeSet;
 import android.util.Xml;
 
 import com.anysoftkeyboard.AnySoftKeyboard;
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -63,7 +63,7 @@ public abstract class AddOnsFactory<E extends AddOn> {
         }
     }
 
-    private final static ArrayList<AddOnsFactory<?>> mActiveInstances = new ArrayList<AddOnsFactory<?>>();
+    private final static ArrayList<AddOnsFactory<?>> mActiveInstances = new ArrayList<>();
 
     private static final String sTAG = "AddOnsFactory";
 
@@ -112,8 +112,8 @@ public abstract class AddOnsFactory<E extends AddOn> {
      */
     private final String RECEIVER_META_DATA;
 
-    private final ArrayList<E> mAddOns = new ArrayList<E>();
-    private final HashMap<String, E> mAddOnsById = new HashMap<String, E>();
+    private final ArrayList<E> mAddOns = new ArrayList<>();
+    private final HashMap<String, E> mAddOnsById = new HashMap<>();
 
     private final boolean mReadExternalPacksToo;
     private final String ROOT_NODE_TAG;

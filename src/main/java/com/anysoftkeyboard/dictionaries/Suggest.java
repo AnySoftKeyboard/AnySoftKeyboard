@@ -23,10 +23,10 @@ import android.text.TextUtils;
 
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
-import com.anysoftkeyboard.base.utils.Log;
 import com.anysoftkeyboard.dictionaries.sqlite.AbbreviationsDictionary;
 import com.anysoftkeyboard.utils.CompatUtils;
 import com.anysoftkeyboard.utils.IMEUtil;
+import com.anysoftkeyboard.utils.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -232,7 +232,9 @@ public class Suggest implements Dictionary.WordCallback {
         Arrays.fill(mPriorities, 0);
 
         //only adding VALID words
-        if (isValidWord(wordComposerOfCompletedWord.getPreferredWord())) {
+        final CharSequence preferredWord = wordComposerOfCompletedWord.getPreferredWord();
+        if (isValidWord(preferredWord)) {
+            wordComposerOfCompletedWord.setPreferredWord(preferredWord.toString().toLowerCase(mLocale));
             mUserDictionary.getNextWords(wordComposerOfCompletedWord, mNextWordsCallback, mPrefMaxSuggestions, mSuggestions, mLocaleSpecificPunctuations);
         }
         return mSuggestions;

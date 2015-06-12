@@ -22,7 +22,7 @@ import android.view.inputmethod.EditorInfo;
 import com.anysoftkeyboard.AnySoftKeyboard;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.keyboards.views.AnyKeyboardView;
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
@@ -139,8 +139,7 @@ public class KeyboardSwitcher {
         makeKeyboards(true);
     }
 
-    private synchronized AnyKeyboard getSymbolsKeyboard(int keyboardIndex,
-                                                        int mode) {
+    private synchronized AnyKeyboard getSymbolsKeyboard(int keyboardIndex, int mode) {
         makeKeyboards(false);
         AnyKeyboard keyboard = mSymbolsKeyboardsArray[keyboardIndex];
 
@@ -189,6 +188,8 @@ public class KeyboardSwitcher {
                             mContext.getString(R.string.symbols_time_keyboard),
                             "datetime_symbols_keyboard", mode, false);
                     break;
+                default:
+                    throw new IllegalArgumentException("Unknown keyboardIndex "+keyboardIndex);
             }
             mSymbolsKeyboardsArray[keyboardIndex] = keyboard;
             mLastSelectedSymbolsKeyboard = keyboardIndex;
@@ -379,8 +380,7 @@ public class KeyboardSwitcher {
             }
         }
 
-        Log.w(TAG, "For some reason, I can't find keyboard with ID "
-                + keyboardId);
+        Log.w(TAG, "For some reason, I can't find keyboard with ID " + keyboardId);
         return null;
     }
 

@@ -21,7 +21,7 @@ import com.anysoftkeyboard.addons.AddOnImpl;
 import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.dictionaries.jni.BinaryDictionary;
 import com.anysoftkeyboard.dictionaries.jni.ResourceBinaryDictionary;
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 
 import java.util.Arrays;
 import java.util.List;
@@ -93,7 +93,9 @@ public class DictionaryAddOnAndBuilder extends AddOnImpl {
         if (mInitialSuggestionsResId == INVALID_RES_ID) {
             return null;
         } else {
-            String[] initialSuggestions = getPackageContext().getResources().getStringArray(mInitialSuggestionsResId);
+            final Context packageContext = getPackageContext();
+            if (packageContext == null) return null;
+            String[] initialSuggestions = packageContext.getResources().getStringArray(mInitialSuggestionsResId);
             if (initialSuggestions != null) {
                 return Arrays.asList(initialSuggestions);
             } else {

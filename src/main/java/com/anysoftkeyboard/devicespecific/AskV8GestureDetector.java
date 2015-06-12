@@ -25,7 +25,7 @@ import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 
 import com.anysoftkeyboard.IndirectlyInstantiated;
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 
 @TargetApi(8)
 @IndirectlyInstantiated

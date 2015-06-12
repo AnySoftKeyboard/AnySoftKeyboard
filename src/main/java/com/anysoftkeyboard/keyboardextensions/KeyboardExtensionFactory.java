@@ -22,7 +22,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import com.anysoftkeyboard.addons.AddOnsFactory;
-import com.anysoftkeyboard.base.utils.Log;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
@@ -67,23 +67,19 @@ public class KeyboardExtensionFactory extends AddOnsFactory<KeyboardExtension> {
                 defaultValue = "";
                 break;
             default:
-                throw new RuntimeException("No such extension keyboard type: "
-                        + type);
+                throw new RuntimeException("No such extension keyboard type: " + type);
         }
 
-        String selectedKeyId = sharedPreferences.getString(settingKey,
-                defaultValue);
+        String selectedKeyId = sharedPreferences.getString(settingKey, defaultValue);
         KeyboardExtension selectedKeyboard = null;
         List<KeyboardExtension> keys = msInstance.getAllAddOns(context);
 
-        if (selectedKeyId != null) {
-            for (KeyboardExtension aKey : keys) {
-                if (aKey.getExtensionType() != type)
-                    continue;
-                if (aKey.getId().equals(selectedKeyId)) {
-                    selectedKeyboard = aKey;
-                    break;
-                }
+        for (KeyboardExtension aKey : keys) {
+            if (aKey.getExtensionType() != type)
+                continue;
+            if (aKey.getId().equals(selectedKeyId)) {
+                selectedKeyboard = aKey;
+                break;
             }
         }
 
@@ -96,9 +92,11 @@ public class KeyboardExtensionFactory extends AddOnsFactory<KeyboardExtension> {
                 // one keyboard
                 break;
             }
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(settingKey, selectedKeyboard.getId());
-            editor.commit();
+            if (selectedKeyboard != null) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(settingKey, selectedKeyboard.getId());
+                editor.commit();
+            }
         }
 
         return selectedKeyboard;
@@ -108,7 +106,7 @@ public class KeyboardExtensionFactory extends AddOnsFactory<KeyboardExtension> {
             Context applicationContext, final int type) {
         List<KeyboardExtension> all = msInstance
                 .getAllAddOns(applicationContext);
-        ArrayList<KeyboardExtension> onlyAsked = new ArrayList<KeyboardExtension>();
+        ArrayList<KeyboardExtension> onlyAsked = new ArrayList<>();
         for (KeyboardExtension e : all) {
             if (e.getExtensionType() == type)
                 onlyAsked.add(e);
@@ -142,10 +140,7 @@ public class KeyboardExtensionFactory extends AddOnsFactory<KeyboardExtension> {
             extensionType = attrs.getAttributeIntValue(null,
                     XML_EXT_KEYBOARD_TYPE_ATTRIBUTE, -2);
         }
-        Log.d(TAG,
-                String.format(
-                        "Parsing Extension Keyboard! prefId %s, keyboardResId %d, type %d",
-                        prefId, keyboardResId, extensionType));
+        Log.d(TAG, "Parsing Extension Keyboard! prefId %s, keyboardResId %d, type %d", prefId, keyboardResId, extensionType);
 
         if ((keyboardResId == -2) || (extensionType == -2)) {
             String detailMessage = String.format(
