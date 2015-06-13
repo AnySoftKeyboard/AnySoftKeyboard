@@ -1,6 +1,8 @@
 package com.anysoftkeyboard.nextword;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,22 +15,29 @@ import java.util.LinkedList;
  * [1 byte VERSION (HAS TO BE 1]
  * [ENTRIES]
  * [1 byte Word length] [n bytes UTF8 word]
+ * [1 byte count of next words]
  * [1 byte Next word length] [n bytes UTF8 word], if n==0 no more next-words
  * ... more entries
  */
 public class NextWordsFileParserV1 implements NextWordsFileParser {
 
+    private static final String TAG = "NextWordsFileParserV1";
+
     @NonNull
     @Override
-    public Iterable<NextWordsContainer> loadStoredNextWords(InputStream inputStream) throws IOException {
+    public Iterable<NextWordsContainer> loadStoredNextWords(@NonNull InputStream inputStream) throws IOException {
         final byte[] buffer = new byte[256];
         //assuming that VERSION was read, and InputStream points to the next byte
         LinkedList<NextWordsContainer> loadedEntries = new LinkedList<>();
         String word;
         while (null != (word = readWord(buffer, inputStream))) {
-            final ArrayList<String> nextWords = new ArrayList<>();
+            if (Utils.DEBUG) Log.d(TAG, "Reading word "+word);
+            final int nextWordsCount = inputStream.read();
+            if (Utils.DEBUG) Log.d(TAG, "Word "+word+" has "+nextWordsCount+" next-words");
+            if (nextWordsCount <= 0) break;
+            final ArrayList<String> nextWords = new ArrayList<>(nextWordsCount);
             String nextWord;
-            while (null != (nextWord = readWord(buffer, inputStream))) {
+            while (nextWordsCount > nextWords.size() && null != (nextWord = readWord(buffer, inputStream))) {
                 nextWords.add(nextWord);
             }
             loadedEntries.add(new NextWordsContainer(word, nextWords));
@@ -37,7 +46,8 @@ public class NextWordsFileParserV1 implements NextWordsFileParser {
         return loadedEntries;
     }
 
-    private String readWord(byte[] buffer, InputStream inputStream) throws IOException {
+    @Nullable
+    private String readWord(@NonNull byte[] buffer, @NonNull InputStream inputStream) throws IOException {
         final int bytesToRead = inputStream.read();
         if (bytesToRead < 1) return null;
         final int actualReadBytes = inputStream.read(buffer, 0, bytesToRead);
@@ -49,13 +59,17 @@ public class NextWordsFileParserV1 implements NextWordsFileParser {
     }
 
     @Override
-    public void storeNextWords(@NonNull Iterable<NextWordsContainer> nextWords, OutputStream outputStream) throws IOException {
+    public void storeNextWords(@NonNull Iterable<NextWordsContainer> nextWords, @NonNull OutputStream outputStream) throws IOException {
         //assuming output stream is pointing to the start of the file
         outputStream.write(1/*VERSION*/);
         for (NextWordsContainer nextWordsContainer : nextWords) {
+            if (Utils.DEBUG) Log.d(TAG, "Storing "+nextWordsContainer);
             writeWord(outputStream, nextWordsContainer.word);
-            int maxWordsToStore = 12;
+            int maxWordsToStore = Math.min(12/*the maximum words we want to store*/, nextWordsContainer.getNextWordSuggestions().size());
+            outputStream.write(maxWordsToStore);
+            if (Utils.DEBUG) Log.d(TAG, "Has "+maxWordsToStore+" words to store");
             for (NextWord nextWord : nextWordsContainer.getNextWordSuggestions()) {
+                if (Utils.DEBUG) Log.d(TAG, "Storing word "+nextWord.nextWord);
                 writeWord(outputStream, nextWord.nextWord);
                 maxWordsToStore--;
                 if (maxWordsToStore == 0) break;

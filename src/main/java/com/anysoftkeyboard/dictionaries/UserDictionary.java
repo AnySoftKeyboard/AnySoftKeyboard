@@ -20,7 +20,6 @@ import android.content.Context;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 
-import com.anysoftkeyboard.base.dictionaries.Dictionary;
 import com.anysoftkeyboard.base.dictionaries.EditableDictionary;
 import com.anysoftkeyboard.base.dictionaries.WordComposer;
 import com.anysoftkeyboard.base.dictionaries.WordsCursor;
@@ -33,14 +32,13 @@ import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 public class UserDictionary extends EditableDictionary {
 
     private static final String TAG = "ASK_SUD";
     private volatile BTreeDictionary mActualDictionary;
-    private Dictionary mNextWordDictionary;
+    private NextWordDictionary mNextWordDictionary;
 
     private final Context mContext;
     private final String mLocale;
@@ -66,17 +64,25 @@ public class UserDictionary extends EditableDictionary {
         if (mActualDictionary != null) mActualDictionary.getWords(composer, callback);
     }
 
-    public final void getNextWords(WordComposer composer, WordCallback callback, int maxSuggestions, List<CharSequence> suggestions, @Nullable Iterable<String> localeSpecificPunctuations) {
+    public final void resetNextWordMemory() {
+        if (mNextWordDictionary != null) mNextWordDictionary.resetSentence();
+    }
+
+    public final void getNextWords(String currentWord, int maxSuggestions, List<CharSequence> suggestionsHolder, @Nullable Iterable<String> localeSpecificPunctuations) {
         if (mNextWordDictionary != null) {
-            mNextWordDictionary.getWords(composer, callback);
+            for (String nextWordSuggestion : mNextWordDictionary.getNextWords(currentWord)) {
+                suggestionsHolder.add(nextWordSuggestion);
+                maxSuggestions--;
+                if (maxSuggestions == 0) return;
+            }
 
             if (Utils.NEXT_WORD_SUGGESTION_WORDS_AND_PUNCTUATIONS.equals(mNextWordSuggestionType)) {
-                if (localeSpecificPunctuations == null) localeSpecificPunctuations = mFallbackInitialSuggestions;
-                int initialsFromDefaultToAdd = maxSuggestions - suggestions.size();
-                final Iterator<String> initialsIterator = localeSpecificPunctuations.iterator();
-                while (initialsIterator.hasNext() && initialsFromDefaultToAdd > 0) {
-                    initialsFromDefaultToAdd--;
-                    suggestions.add(initialsIterator.next());
+                if (localeSpecificPunctuations == null)
+                    localeSpecificPunctuations = mFallbackInitialSuggestions;
+                for (String evenMoreSuggestions : localeSpecificPunctuations) {
+                    suggestionsHolder.add(evenMoreSuggestions);
+                    maxSuggestions--;
+                    if (maxSuggestions == 0) return;
                 }
             }
         }
@@ -90,13 +96,13 @@ public class UserDictionary extends EditableDictionary {
     @Override
     protected final void closeAllResources() {
         if (mActualDictionary != null) mActualDictionary.close();
-        if (mNextWordDictionary != null) mNextWordDictionary.close();
+        if (mNextWordDictionary != null) mNextWordDictionary.saveToStorage();
     }
 
     @Override
     protected final void loadAllResources() {
         mNextWordDictionary = new NextWordDictionary(mContext, mLocale);
-        mNextWordDictionary.loadDictionary();
+        mNextWordDictionary.loadFromStorage();
 
         AndroidUserDictionary androidBuiltIn = null;
         try {

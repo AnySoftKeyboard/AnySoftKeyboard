@@ -45,4 +45,9 @@ public class NextWordsContainer {
 
         return mOrderedNextWord;
     }
+
+    @Override
+    public String toString() {
+        return "("+word+") -> ["+mOrderedNextWord.toString()+"]";
+    }
 }

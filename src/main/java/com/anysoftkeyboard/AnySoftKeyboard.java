@@ -1991,6 +1991,8 @@ public class AnySoftKeyboard extends InputMethodService implements
     }
 
     private void abortCorrection(boolean force, boolean forever) {
+        mSuggest.resetNextWordSentence();
+        mJustAutoAddedWord = false;
         if (force || TextEntryState.isCorrecting()) {
             Log.d(TAG, "abortCorrection will actually abort correct");
             mHandler.removeMessages(KeyboardUIStateHandler.MSG_UPDATE_SUGGESTIONS);
@@ -2007,7 +2009,6 @@ public class AnySoftKeyboard extends InputMethodService implements
             mWord.reset();
             mPredicting = false;
             mJustAddedAutoSpace = false;
-            mJustAutoAddedWord = false;
             if (forever) {
                 Log.d(TAG, "abortCorrection will abort correct forever");
                 mPredictionOn = false;

@@ -2,17 +2,17 @@ package com.anysoftkeyboard.nextword;
 
 import android.content.Context;
 import android.support.v4.util.ArrayMap;
+import android.util.Log;
 
-import com.anysoftkeyboard.base.dictionaries.Dictionary;
-import com.anysoftkeyboard.base.dictionaries.WordComposer;
-
+import java.util.Iterator;
 import java.util.Random;
 
-public class NextWordDictionary extends Dictionary {
+public class NextWordDictionary {
     private static final Random msRandom = new Random();
 
     private static final int MAX_NEXT_SUGGESTIONS = 8;
     private static final int MAX_NEXT_WORD_CONTAINERS = 900;
+    private static final String TAG = "NextWordDictionary";
 
     private final NextWordsStorage mStorage;
 
@@ -20,14 +20,13 @@ public class NextWordDictionary extends Dictionary {
 
     private final ArrayMap<String, NextWordsContainer> mNextWordMap = new ArrayMap<>();
 
+    private final String[] mReusableNextWordsResponse = new String[MAX_NEXT_SUGGESTIONS];
+
     public NextWordDictionary(Context context, String locale) {
-        super("NextWordDictionary_" + locale);
         mStorage = new NextWordsStorage(context, locale);
     }
 
-    @Override
-    public void getWords(WordComposer wordComposer, WordCallback callback) {
-        final String currentWord = wordComposer.getPreferredWord().toString();
+    public Iterable<String> getNextWords(String currentWord) {
         //firstly, updating the relations to the previous word
         if (mPreviousWord != null) {
             NextWordsContainer previousSet = mNextWordMap.get(mPreviousWord);
@@ -45,34 +44,65 @@ public class NextWordDictionary extends Dictionary {
 
         //secondly, get a list of suggestions
         NextWordsContainer nextSet = mNextWordMap.get(currentWord);
+        int suggestionsCount = 0;
         if (nextSet != null) {
-            int frequency = Dictionary.MAX_WORD_FREQUENCY;
-            final int minFrequency = frequency - MAX_NEXT_SUGGESTIONS;
             for (NextWord nextWord : nextSet.getNextWordSuggestions()) {
-                final String suggestion = nextWord.nextWord;
-                if (!callback.addWord(suggestion.toCharArray(), 0, suggestion.length(), frequency--, this))
-                    break;
-                if (frequency == minFrequency) break;
+                mReusableNextWordsResponse[suggestionsCount] = nextWord.nextWord;
+                suggestionsCount++;
+                if (suggestionsCount == MAX_NEXT_SUGGESTIONS) break;
             }
         }
 
         mPreviousWord = currentWord;
+
+        return new SimpleIterable(mReusableNextWordsResponse, suggestionsCount);
     }
 
-    @Override
-    public boolean isValidWord(CharSequence word) {
-        return false;
-    }
-
-    @Override
-    protected void closeAllResources() {
+    public void saveToStorage() {
         mStorage.storeNextWords(mNextWordMap.values());
     }
 
-    @Override
-    protected void loadAllResources() {
+    public void loadFromStorage() {
         for (NextWordsContainer container : mStorage.loadStoredNextWords()) {
+            if (Utils.DEBUG) Log.d(TAG, "Loaded "+container);
             mNextWordMap.put(container.word, container);
+        }
+    }
+
+    public void resetSentence() {
+        mPreviousWord = null;
+    }
+
+    private static class SimpleIterable implements Iterable<String> {
+        private final String[] mStrings;
+        private final int mLength;
+
+        public SimpleIterable(String[] strings, int length) {
+            mStrings = strings;
+            mLength = length;
+        }
+
+        @Override
+        public Iterator<String> iterator() {
+
+            return new Iterator<String>() {
+                private int mIndex = 0;
+
+                @Override
+                public boolean hasNext() {
+                    return mIndex < mLength;
+                }
+
+                @Override
+                public String next() {
+                    return mStrings[mIndex++];
+                }
+
+                @Override
+                public void remove() {
+                    throw new UnsupportedOperationException("Not supporting remove right now");
+                }
+            };
         }
     }
 }

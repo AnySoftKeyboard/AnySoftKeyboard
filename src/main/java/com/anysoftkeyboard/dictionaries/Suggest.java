@@ -81,19 +81,6 @@ public class Suggest implements Dictionary.WordCallback {
     // private int mCorrectionMode = CORRECTION_FULL;
     private boolean mAutoTextEnabled = true;
     private boolean mMainDictionaryEnabled = true;
-    private final Dictionary.WordCallback mNextWordsCallback = new Dictionary.WordCallback() {
-        @Override
-        public boolean addWord(char[] word, int wordOffset, int wordLength, int frequency, Dictionary from) {
-            if (mSuggestions.size() < mPrefMaxSuggestions) {
-                String nextWord = new String(word, wordOffset, wordLength);
-                if (mIsAllUpperCase) nextWord = nextWord.toUpperCase(mLocale);
-                mSuggestions.add(nextWord);
-                return true;
-            } else {
-                return false;
-            }
-        }
-    };
 
     public Suggest(Context context) {
         mDictionaryFactory = new DictionaryFactory();
@@ -216,6 +203,9 @@ public class Suggest implements Dictionary.WordCallback {
         return distance <= 1;
     }
 
+    public void resetNextWordSentence() {
+        if (mUserDictionary != null) mUserDictionary.resetNextWordMemory();
+    }
     /**
      * Returns a list of suggested next words for the given typed word
      *
@@ -224,18 +214,18 @@ public class Suggest implements Dictionary.WordCallback {
     public List<CharSequence> getNextSuggestions(WordComposer wordComposerOfCompletedWord) {
         if (mUserDictionary == null || wordComposerOfCompletedWord.length() < mMinimumWordSizeToStartCorrecting)
             return Collections.emptyList();
-
-        mHaveCorrection = false;
-        mIsFirstCharCapitalized = false;
-        mIsAllUpperCase = wordComposerOfCompletedWord.isAllUpperCase();
         collectGarbage();
-        Arrays.fill(mPriorities, 0);
+        mIsAllUpperCase = wordComposerOfCompletedWord.isAllUpperCase();
 
         //only adding VALID words
         final CharSequence preferredWord = wordComposerOfCompletedWord.getPreferredWord();
         if (isValidWord(preferredWord)) {
-            wordComposerOfCompletedWord.setPreferredWord(preferredWord.toString().toLowerCase(mLocale));
-            mUserDictionary.getNextWords(wordComposerOfCompletedWord, mNextWordsCallback, mPrefMaxSuggestions, mSuggestions, mLocaleSpecificPunctuations);
+            mUserDictionary.getNextWords(preferredWord.toString().toLowerCase(mLocale), mPrefMaxSuggestions, mSuggestions, mLocaleSpecificPunctuations);
+            if (mIsAllUpperCase) {
+                for (int suggestionIndex=0; suggestionIndex<mSuggestions.size(); suggestionIndex++) {
+                    mSuggestions.set(suggestionIndex, mSuggestions.get(suggestionIndex).toString().toUpperCase(mLocale));
+                }
+            }
         }
         return mSuggestions;
     }
@@ -363,9 +353,9 @@ public class Suggest implements Dictionary.WordCallback {
         return false;
     }
 
+    @Override
     public boolean addWord(final char[] word, final int offset,
                            final int length, final int freq, final Dictionary from) {
-        Log.v(TAG, "Suggest::addWord");
         if (from == mAbbreviationDictionary) {
             mExplodedAbbreviations.add(new String(word, offset, length));
             return true;
@@ -394,8 +384,7 @@ public class Suggest implements Dictionary.WordCallback {
         if (pos >= prefMaxSuggestions) {
             return true;
         }
-        System.arraycopy(priorities, pos, priorities, pos + 1,
-                prefMaxSuggestions - pos - 1);
+        System.arraycopy(priorities, pos, priorities, pos + 1, prefMaxSuggestions - pos - 1);
         priorities[pos] = freq;
         int poolSize = mStringPool.size();
         StringBuilder sb = poolSize > 0 ? (StringBuilder) mStringPool

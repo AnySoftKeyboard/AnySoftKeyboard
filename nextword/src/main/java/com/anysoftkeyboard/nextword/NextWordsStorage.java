@@ -27,10 +27,11 @@ public class NextWordsStorage {
     public Iterable<NextWordsContainer> loadStoredNextWords() {
         FileInputStream inputStream = null;
         try {
+            if (Utils.DEBUG) Log.d(TAG, "Loading words from "+mNextWordsStorageFilename);
             inputStream = mContext.openFileInput(mNextWordsStorageFilename);
             final int version = inputStream.read();
             if (version < 1) {
-                Log.w(TAG, "Failed to read version from file.");
+                Log.w(TAG, "Failed to read version from file "+mNextWordsStorageFilename);
                 return Collections.emptyList();
             }
             final NextWordsFileParser parser;
@@ -63,6 +64,7 @@ public class NextWordsStorage {
         NextWordsFileParser parser = new NextWordsFileParserV1();
         FileOutputStream outputStream = null;
         try {
+            Log.d(TAG, "Storing next-words into "+mNextWordsStorageFilename);
             outputStream = mContext.openFileOutput(mNextWordsStorageFilename, Context.MODE_PRIVATE);
             parser.storeNextWords(nextWords, outputStream);
             outputStream.flush();

@@ -26,4 +26,9 @@ class NextWord {
             return lhs.mUsedCount - rhs.mUsedCount;
         }
     }
+
+    @Override
+    public String toString() {
+        return "["+nextWord+":"+mUsedCount+"]";
+    }
 }
