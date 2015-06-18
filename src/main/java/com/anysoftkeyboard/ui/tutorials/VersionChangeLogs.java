@@ -10,6 +10,11 @@ import java.util.Locale;
 public class VersionChangeLogs {
 	static List<VersionChangeLog> createChangeLog() {
 		List<VersionChangeLog> log = new ArrayList<>();
+
+		log.add(new VersionChangeLog(1, 5, "r2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/v1.5_r2"),
+				"A few crashes gone missing with this release.",
+				"An annoying bug went looking for the crashes and never seen again."));
+
 		log.add(new VersionChangeLog(1, 5, "r1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/v1.5_r1"),
 				"A few UI improvements.",
 				"A few crashes evasions.",
