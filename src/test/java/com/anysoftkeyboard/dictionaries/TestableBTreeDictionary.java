@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.AbstractCursor;
 import android.database.ContentObserver;
 
+import com.anysoftkeyboard.base.dictionaries.WordsCursor;
 import com.anysoftkeyboard.dictionaries.sqlite.WordsSQLiteConnection;
 
 import java.lang.reflect.Field;
