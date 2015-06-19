@@ -2416,7 +2416,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
         mPredicting = false;
         mCommittedLength = suggestion.length();
-
+        setSuggestions(null, false, false, false);
         //setSuggestions(mSuggest.getNextSuggestions(mWord), false, false, false);
 
         return suggestion;
