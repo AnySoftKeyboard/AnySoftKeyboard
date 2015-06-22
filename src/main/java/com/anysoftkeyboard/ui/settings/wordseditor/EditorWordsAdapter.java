@@ -148,6 +148,8 @@ public class EditorWordsAdapter extends RecyclerView.Adapter<EditorWordsAdapter.
         @Override
         public void onClick(View v) {
             final int itemPosition = getItemPosition();
+            if (itemPosition < 0) return;//this means that the view has already detached from the window.
+
             if (v == mWordView) {
                 EditorWord editorWord = mEditorWords.remove(itemPosition);
                 mEditorWords.add(itemPosition, new EditorWord.Editing(editorWord.word, editorWord.frequency));
