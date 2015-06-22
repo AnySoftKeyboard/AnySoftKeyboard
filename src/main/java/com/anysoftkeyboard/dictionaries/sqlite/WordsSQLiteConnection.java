@@ -31,9 +31,6 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
     private final static String TABLE_NAME = "WORDS";//was FALL_BACK_USER_DICTIONARY;
     protected final Context mContext;
     private final String mCurrentLocale;
-    //This monitor will help us control the IO access to the (very highly non-thread-safe)
-    //sqlite file. Hence, reducing SQL file corruption errors. Hopefully.
-    private final static String mDbCreationMonitor = "GLOBAL LOCK FOR IO";
     private final String mDbName;
 
     public WordsSQLiteConnection(Context context, String DbFilename, String currentLocale) {
@@ -45,14 +42,14 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        synchronized (mDbCreationMonitor) {
+        synchronized (mDbName) {
             db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + Words._ID + " INTEGER PRIMARY KEY," + Words.WORD + " TEXT," + Words.FREQUENCY + " INTEGER," + Words.LOCALE + " TEXT" + ");");
         }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        synchronized (mDbCreationMonitor) {
+        synchronized (mDbName) {
             // Please note: don't use class level constants here, since they may
             // change.
             // if you upgrade from one version to another, make sure you use the
@@ -84,7 +81,7 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
         }
     }
 
-    public synchronized void addWord(String word, int freq) {
+    public void addWord(String word, int freq) {
         synchronized (mDbName) {
             SQLiteDatabase db = getWritableDatabase();
 
@@ -103,7 +100,7 @@ public class WordsSQLiteConnection extends SQLiteOpenHelper {
         }
     }
 
-    public synchronized void deleteWord(String word) {
+    public void deleteWord(String word) {
         synchronized (mDbName) {
             SQLiteDatabase db = getWritableDatabase();
 

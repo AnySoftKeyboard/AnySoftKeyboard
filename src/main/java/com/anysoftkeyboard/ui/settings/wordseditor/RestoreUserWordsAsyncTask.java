@@ -93,7 +93,7 @@ final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
                                 publishProgress();
                                 // waiting for dictionary to be ready.
                                 try {
-                                    mLocale.wait();
+                                    mLoadMonitor.wait();
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
@@ -133,7 +133,7 @@ final class RestoreUserWordsAsyncTask extends UserWordsEditorAsyncTask {
             }
             mDictionary = new UserDictionary(mAppContext, mLocale);
             mDictionary.loadDictionary();
-            mLocale.notifyAll();
+            mLoadMonitor.notifyAll();
         }
     }
 

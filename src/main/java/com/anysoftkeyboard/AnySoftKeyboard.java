@@ -2009,6 +2009,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             mWord.reset();
             mPredicting = false;
             mJustAddedAutoSpace = false;
+            mJustAutoAddedWord = false;
             if (forever) {
                 Log.d(TAG, "abortCorrection will abort correct forever");
                 mPredictionOn = false;
