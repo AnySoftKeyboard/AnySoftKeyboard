@@ -1,47 +1,19 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.11.+'
-        classpath 'com.jakewharton.sdkmanager:gradle-plugin:0.10.+'
+        classpath 'com.android.tools.build:gradle:1.2.3'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
     }
 }
 
-apply plugin: 'android-sdk-manager'
-apply plugin: 'android-library'
-
-repositories {
-    mavenCentral()
-    mavenLocal()
-}
-
-version '1.2.3'
-group 'net.evendanan.anysoftkeyboard'
-
-android {
-    compileSdkVersion 19
-    buildToolsVersion "19.1.0"
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
-    }
-
-    defaultConfig {
-        minSdkVersion 4
+allprojects {
+    repositories {
+        jcenter()
     }
 }
-
-/*
- * Uplaod archives with "./gradlew uploadArchives"
- * After uploading the archive,
- * 1. Login to the Nexus UI at https://oss.sonatype.org.
- * 2. Go to Staging Repositories page.
- * 3. Select a staging repository.  The staging repository name should look like your groupId without punctuation followed by a number (orgmygroupid-1000).  If you just finished performing your release, it may take a minute or two for the staging repository to appear on the Staging Repositories page.  Also, if there is a long listing of staging repositories with names like central_bundles-*, make sure that you scroll through the listing to find one that bears a name resembling your groupId.
- * 4. Click the Close button.
- * 5. Check the closed staged artifact, and click Release.
- * more details here: https://docs.sonatype.org/display/Repository/Sonatype+OSS+Maven+Repository+Usage+Guide
- */
-
-apply from: 'https://raw.githubusercontent.com/menny/gradle-mvn-push/master/gradle-mvn-push.gradle'

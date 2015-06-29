@@ -1,10 +1,7 @@
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
 /build
-/.gradle
-/.idea
-local.properties
-local.signing.properties
-local.maven.properties
-/bin/
-/gen/
-
-*.iml
+/captures
