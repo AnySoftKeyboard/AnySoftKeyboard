@@ -21,7 +21,7 @@
         <Key android:codes="9" android:keyIcon="@drawable/sym_keyboard_tab" android:keyEdgeFlags="left"/>
         <Key android:codes="161" android:keyLabel="¡"/>
         <Key android:codes="191" android:keyLabel="¿"/>
-        <Key android:codes="9829" android:keyLabel="&#9829;" android:popupCharacters="&#9830;&#9827;&#9824;&#9733;/>
+        <Key android:codes="9829" android:keyLabel="&#9829;" android:popupCharacters="&#9830;&#9827;&#9824;&#9733;"/>
         <Key android:codes="169" android:keyLabel="©"/>
         <Key android:codes="174" android:keyLabel="®"/>
         <Key android:codes="@integer/key_code_arrow_left"/>
