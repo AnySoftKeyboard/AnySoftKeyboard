@@ -211,6 +211,7 @@ public class Log {
         StringBuilder sb = new StringBuilder();
 
         for (StackTraceElement element : stackTrace) {
+            sb.append("at ");//this is required for easy Proguard decoding.
             sb.append(element.toString());
             sb.append(NEW_LINE);
         }
