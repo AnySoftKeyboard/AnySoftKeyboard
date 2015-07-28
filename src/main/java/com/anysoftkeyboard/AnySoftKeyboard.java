@@ -562,14 +562,10 @@ public class AnySoftKeyboard extends InputMethodService implements
                 }
 
                 final int textFlag = attribute.inputType & EditorInfo.TYPE_MASK_FLAGS;
-                switch (textFlag) {
-                    case EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS:
-                    case EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE:
+                if ((textFlag & EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS) == EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS ||
+                        (textFlag & EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE) == EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE) {
                         Log.d(TAG, "Input requested NO_SUGGESTIONS, or it is AUTO_COMPLETE by itself.");
                         mPredictionOn = false;
-                        break;
-                    default:
-                        // we'll keep the previous mPredictionOn value
                 }
 
                 break;
