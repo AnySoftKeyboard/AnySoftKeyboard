@@ -220,7 +220,6 @@ public class AnyKeyboardView extends AnyKeyboardBaseView {
 
     @Override
     public boolean onTouchEvent(@NonNull MotionEvent me) {
-        Log.d(TAG, "onTouchEvent with "+me.getPointerCount()+" points");
         if (getKeyboard() == null)//I mean, if there isn't any keyboard I'm handling, what's the point?
             return false;
 
