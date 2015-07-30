@@ -23,6 +23,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.SparseIntArray;
 import android.util.TypedValue;
@@ -315,7 +316,8 @@ public abstract class Keyboard {
          * All the key codes (unicode or custom code) that this key could
          * generate, zero'th being the most important.
          */
-        public int[] codes;
+        @NonNull
+        protected int[] codes = new int[0];
 
         /**
          * Label to display
@@ -444,7 +446,7 @@ public abstract class Keyboard {
             width = Math.min(keyboardDimens.getKeyMaxWidth(), parent.defaultWidth);
             height = KeyboardSupport.getKeyHeightFromHeightCode(keyboardDimens, parent.defaultHeightCode, askResources.getConfiguration().orientation);
             gap = parent.defaultHorizontalGap;
-            codes = null;
+            codes = new int[0];
             iconPreview = null;
             popupCharacters = null;
             popupResId = 0;
@@ -476,7 +478,7 @@ public abstract class Keyboard {
                 setDataFromTypedArray(parent, keyboardDimens, askResources, a, remoteIndex, localAttrId);
             }
             externalResourcePopupLayout = popupResId != 0;
-            if (codes == null && !TextUtils.isEmpty(label)) {
+            if (codes.length == 0 && !TextUtils.isEmpty(label)) {
                 codes = new int[]{ label.charAt(0) };
             }
             a.recycle();
@@ -545,6 +547,18 @@ public abstract class Keyboard {
             } catch(Exception e){
                 Log.w(TAG, "Failed to load keyboard layout! ", e);
             }
+        }
+
+        public int getPrimaryCode() {
+            return codes.length > 0? codes[0] : 0;
+        }
+
+        public int getCodeAtIndex(int index, boolean isShifted) {
+            return codes[index];
+        }
+
+        public int getCodesCount() {
+            return codes.length;
         }
 
         /**
@@ -873,11 +887,11 @@ public abstract class Keyboard {
                         key.width -= keyHorizontalGap;// the gap is on both
                         // sides
                         mKeys.add(key);
-                        if (key.codes[0] == KeyCodes.SHIFT) {
+                        if (key.getPrimaryCode() == KeyCodes.SHIFT) {
                             mShiftKey = key;
                             mShiftKeyIndex = mKeys.size() - 1;
                             mModifierKeys.add(key);
-                        } else if (key.codes[0] == KeyCodes.ALT) {
+                        } else if (key.getPrimaryCode() == KeyCodes.ALT) {
                             mModifierKeys.add(key);
                         }
                     } else if (TAG_KEYBOARD.equals(tag)) {

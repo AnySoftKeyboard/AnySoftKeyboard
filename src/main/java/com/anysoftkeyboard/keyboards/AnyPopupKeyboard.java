@@ -57,23 +57,31 @@ public class AnyPopupKeyboard extends AnyKeyboard {
 
     private void addPopupKeysToList(int baseKeyIndex, KeyboardDimens keyboardDimens, List<Key> keys, CharSequence popupCharacters, int characterOffset, int keysPerRow) {
         int rowWidth = 0;
-        Key baseKey = keys.get(baseKeyIndex);
+        AnyKey baseKey = (AnyKey)keys.get(baseKeyIndex);
         Row row = baseKey.row;
         //now adding the popups
         final float y = baseKey.y;
         final float keyHorizontalGap = row.defaultHorizontalGap;
-        baseKey.codes = new int[]{(int) popupCharacters.charAt(characterOffset)};
-        baseKey.label = "" + popupCharacters.charAt(characterOffset);
+        char popupCharacter = popupCharacters.charAt(characterOffset);
+        baseKey.codes = new int[]{(int) popupCharacter};
+        baseKey.label = Character.toString(popupCharacter);
+        char upperCasePopupCharacter = Character.toUpperCase(popupCharacter);
+        baseKey.shiftedCodes = new int[]{(int) upperCasePopupCharacter};
+        baseKey.shiftedKeyLabel = Character.toString(upperCasePopupCharacter);
         float x = baseKey.width;
-        Key aKey = null;
+        AnyKey aKey = null;
         for (int popupCharIndex = characterOffset+1;
              popupCharIndex < characterOffset+keysPerRow && popupCharIndex < popupCharacters.length();
              popupCharIndex++) {
             x += (keyHorizontalGap / 2);
 
             aKey = new AnyKey(row, keyboardDimens);
-            aKey.codes = new int[]{(int) popupCharacters.charAt(popupCharIndex)};
-            aKey.label = "" + popupCharacters.charAt(popupCharIndex);
+            popupCharacter = popupCharacters.charAt(popupCharIndex);
+            aKey.codes = new int[]{(int) popupCharacter};
+            aKey.label = Character.toString(popupCharacter);
+            upperCasePopupCharacter = Character.toUpperCase(popupCharacter);
+            aKey.shiftedCodes = new int[]{(int) upperCasePopupCharacter};
+            aKey.shiftedKeyLabel = Character.toString(upperCasePopupCharacter);
             aKey.x = (int) x;
             aKey.width -= keyHorizontalGap;//the gap is on both sides
             aKey.y = (int) y;

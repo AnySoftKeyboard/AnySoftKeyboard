@@ -125,8 +125,8 @@ public class PreviewPopupManager {
     private boolean shouldNotShowPreview(Keyboard.Key key) {
         return key == null ||
                 key.modifier ||
-                key.codes.length == 0 ||
-                (key.codes.length == 1 && isKeyCodeShouldNotBeShown(key.codes[0]));
+                key.getCodesCount() == 0 ||
+                (key.getCodesCount() == 1 && isKeyCodeShouldNotBeShown(key.getPrimaryCode()));
     }
 
     private boolean isKeyCodeShouldNotBeShown(int code) {

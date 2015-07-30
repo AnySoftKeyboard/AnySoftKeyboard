@@ -10,9 +10,15 @@ import java.util.Locale;
 public class VersionChangeLogs {
     static List<VersionChangeLog> createChangeLog() {
         List<VersionChangeLog> log = new ArrayList<>();
+
         log.add(new VersionChangeLog(1, 6, "", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6"),
                 "Next Words prediction is here! It learns from your typing (so, give it a little time to start suggesting).",
                 "Localization update: "));
+
+        log.add(new VersionChangeLog(1, 5, "r3", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/v1.5_r3"),
+                "...and then pressing SHIFT changed symbols on the bottom row.",
+                "Heard of some crashes hanging around in the keyboard. Crushed them!",
+                "Not going the extra mile anymore - no longer suggesting words if the App said not to."));
 
         log.add(new VersionChangeLog(1, 5, "r2", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/v1.5_r2"),
                 "A few crashes gone missing with this release.",
@@ -65,7 +71,6 @@ public class VersionChangeLogs {
             } else {
                 this.versionName = String.format(Locale.US, "%d.%d-%s", major, minor, qualifier);
             }
-
             this.changes = changes;
             this.changesWebUrl = changesWebUrl;
         }

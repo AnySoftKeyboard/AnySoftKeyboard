@@ -1,5 +1,6 @@
 package com.anysoftkeyboard.ui.settings.wordseditor;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -32,7 +33,9 @@ public class AbbreviationDictionaryEditorFragment extends UserDictionaryEditorFr
 
     @Override
     protected EditorWordsAdapter createAdapterForWords(List<EditorWord> wordsList) {
-        return new AbbreviationEditorWordsAdapter(wordsList, getActivity(), this);
+        Activity activity = getActivity();
+        if (activity == null) return null;
+        return new AbbreviationEditorWordsAdapter(wordsList, activity, this);
     }
 
     private static class AbbreviationEditorWordsAdapter extends EditorWordsAdapter {

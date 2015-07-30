@@ -37,6 +37,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.view.MotionEventCompat;
 import android.text.Layout.Alignment;
 import android.text.StaticLayout;
@@ -1034,13 +1035,16 @@ public class AnyKeyboardBaseView extends View implements
         mKeyDetector.setProximityCorrectionEnabled(enabled);
     }
 
-    private CharSequence adjustCase(AnyKey key) {
+    private CharSequence adjustLabelToShiftState(AnyKey key) {
         CharSequence label = key.label;
         if (mKeyboard.isShifted()) {
-            if (!TextUtils.isEmpty(key.shiftedKeyLabel))
-                label = key.shiftedKeyLabel;
-            else if (!TextUtils.isEmpty(label) && Character.isLowerCase(label.charAt(0)))
-                label = label.toString().toUpperCase(getKeyboard().getLocale());
+            if (!TextUtils.isEmpty(key.shiftedKeyLabel)) {
+                return key.shiftedKeyLabel;
+            } else if (label != null && label.length() == 1) {
+                label = Character.toString((char)key.getCodeAtIndex(0, true));
+            }
+            //remembering for next time
+            key.shiftedKeyLabel = label;
         }
         return label;
     }
@@ -1218,7 +1222,7 @@ public class AnyKeyboardBaseView extends View implements
             keyBackground.setState(drawableState);
 
             // Switch the character to uppercase if shift is pressed
-            CharSequence label = key.label == null ? null : adjustCase(key).toString();
+            CharSequence label = key.label == null ? null : adjustLabelToShiftState(key);
 
             final Rect bounds = keyBackground.getBounds();
             if ((key.width != bounds.right) || (key.height != bounds.bottom)) {
@@ -1259,13 +1263,7 @@ public class AnyKeyboardBaseView extends View implements
                 } else {
                     // ho... no icon.
                     // I'll try to guess the text
-                    label = guessLabelForKey(key.codes[0]);
-                    if (TextUtils.isEmpty(label)) {
-                        Log.w(TAG, "That's unfortunate, for key "
-                                + key.codes[0] + " at (" + key.x + ", " + key.y
-                                + ") there is no icon nor label. Action ID is "
-                                + mKeyboardActionType);
-                    }
+                    label = guessLabelForKey(key.getPrimaryCode());
                 }
             }
 
@@ -1279,7 +1277,7 @@ public class AnyKeyboardBaseView extends View implements
                     if (mKeyboardNameFM == null)
                         mKeyboardNameFM = paint.getFontMetrics();
                     fm = mKeyboardNameFM;
-                } else if (label.length() > 1 && key.codes.length < 2) {
+                } else if (label.length() > 1 && key.getCodesCount() < 2) {
                     setPaintForLabelText(paint);
                     if (mLabelFM == null) mLabelFM = paint.getFontMetrics();
                     fm = mLabelFM;
@@ -1304,23 +1302,12 @@ public class AnyKeyboardBaseView extends View implements
                 // 2) if still too large, divide by 2.5
                 // 3) show no text
                 if (textWidth > key.width) {
-                    Log.d(TAG, "Label '"
-                            + label
-                            + "' is too large for the key. Reducing by 1.5.");
                     paint.setTextSize(mKeyTextSize / 1.5f);
                     textWidth = paint.measureText(label, 0, label.length());
                     if (textWidth > key.width) {
-                        Log.d(TAG,
-                                "Label '"
-                                        + label
-                                        + "' is too large for the key. Reducing by 2.5.");
                         paint.setTextSize(mKeyTextSize / 2.5f);
                         textWidth = paint.measureText(label, 0, label.length());
                         if (textWidth > key.width) {
-                            Log.d(TAG,
-                                    "Label '"
-                                            + label
-                                            + "' is too large for the key. Showing no text.");
                             paint.setTextSize(0f);
                             textWidth = paint.measureText(label, 0,
                                     label.length());
@@ -1350,7 +1337,6 @@ public class AnyKeyboardBaseView extends View implements
                     // location
                     textY = centerY - ((labelHeight - paint.descent()) / 2);
                     canvas.translate(textX, textY);
-                    Log.d(TAG, "Using RTL fix for key draw '" + label + "'");
                     // RTL fix. But it costs, let do it when in need (more than
                     // 1 character)
                     StaticLayout labelText = new StaticLayout(label,
@@ -1511,7 +1497,7 @@ public class AnyKeyboardBaseView extends View implements
     }
 
     protected static boolean isSpaceKey(final AnyKey key) {
-        return key.codes.length > 0 && key.codes[0] == KeyCodes.SPACE;
+        return key.getPrimaryCode() == KeyCodes.SPACE;
     }
 
     int mKeyboardActionType = EditorInfo.IME_ACTION_UNSPECIFIED;
@@ -1529,7 +1515,7 @@ public class AnyKeyboardBaseView extends View implements
     }
 
     private void setSpecialKeysIconsAndLabels() {
-        Key enterKey = findKeyByKeyCode(KeyCodes.ENTER);
+        Key enterKey = findKeyByPrimaryKeyCode(KeyCodes.ENTER);
         if (enterKey != null) {
             enterKey.icon = null;
             enterKey.iconPreview = null;
@@ -1540,7 +1526,7 @@ public class AnyKeyboardBaseView extends View implements
                 enterKey.icon = icon;
                 enterKey.iconPreview = icon;
             } else {
-                CharSequence label = guessLabelForKey(enterKey.codes[0]);
+                CharSequence label = guessLabelForKey(enterKey.getPrimaryCode());
                 enterKey.label = label;
                 ((AnyKey) enterKey).shiftedKeyLabel = label;
             }
@@ -1566,11 +1552,11 @@ public class AnyKeyboardBaseView extends View implements
     }
 
     private void setSpecialKeyIconOrLabel(int keyCode) {
-        Key key = findKeyByKeyCode(keyCode);
+        Key key = findKeyByPrimaryKeyCode(keyCode);
         if (key != null) {
             if (TextUtils.isEmpty(key.label)) {
                 if (key.dynamicEmblem == Keyboard.KEY_EMBLEM_TEXT) {
-                    key.label = guessLabelForKey(key.codes[0]);
+                    key.label = guessLabelForKey(keyCode);
                 } else {
                     key.icon = getIconForKeyCode(keyCode);
                 }
@@ -1647,7 +1633,7 @@ public class AnyKeyboardBaseView extends View implements
         if (key.icon != null)
             return key.icon;
 
-        return getIconForKeyCode(key.codes[0]);
+        return getIconForKeyCode(key.getPrimaryCode());
     }
 
     private Drawable getIconForKeyCode(int keyCode) {
@@ -1742,7 +1728,7 @@ public class AnyKeyboardBaseView extends View implements
             } else {
                 CharSequence label = tracker.getPreviewText(key, mKeyboard.isShifted());
                 if (TextUtils.isEmpty(label)) {
-                    label = guessLabelForKey(key.codes[0]);
+                    label = guessLabelForKey(key.getPrimaryCode());
                 }
 
                 mPreviewPopupManager.showPreviewForKey(key, label);
@@ -2144,15 +2130,14 @@ public class AnyKeyboardBaseView extends View implements
         mPointerQueue.remove(tracker);
     }
 
-    protected Key findKeyByKeyCode(int keyCode) {
+    @Nullable
+    protected Key findKeyByPrimaryKeyCode(int keyCode) {
         if (getKeyboard() == null) {
             return null;
         }
 
         for (Key key : getKeyboard().getKeys()) {
-            if (key.codes != null && key.codes.length > 0
-                    && key.codes[0] == keyCode)
-                return key;
+            if (key.getPrimaryCode() == keyCode) return key;
         }
         return null;
     }

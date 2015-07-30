@@ -27,6 +27,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class KeyboardExtensionFactory extends AddOnsFactory<KeyboardExtension> {
 
@@ -143,7 +144,7 @@ public class KeyboardExtensionFactory extends AddOnsFactory<KeyboardExtension> {
         Log.d(TAG, "Parsing Extension Keyboard! prefId %s, keyboardResId %d, type %d", prefId, keyboardResId, extensionType);
 
         if ((keyboardResId == -2) || (extensionType == -2)) {
-            String detailMessage = String.format(
+            String detailMessage = String.format(Locale.US,
                     "Missing details for creating Extension Keyboard! prefId %s\n"
                             + "keyboardResId: %d, type: %d", prefId,
                     keyboardResId, extensionType);

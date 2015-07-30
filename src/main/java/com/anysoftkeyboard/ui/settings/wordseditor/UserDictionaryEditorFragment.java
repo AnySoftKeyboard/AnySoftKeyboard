@@ -16,6 +16,7 @@
 
 package com.anysoftkeyboard.ui.settings.wordseditor;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -306,13 +307,18 @@ public class UserDictionaryEditorFragment extends Fragment
             }
 
             protected void applyResults(Void result, Exception backgroundException) {
-                mWordsRecyclerView.setAdapter(createAdapterForWords(mWordsList));
+                RecyclerView.Adapter adapter = createAdapterForWords(mWordsList);
+                if (adapter != null) {
+                    mWordsRecyclerView.setAdapter(adapter);
+                }
             }
         }.execute();
     }
 
     protected EditorWordsAdapter createAdapterForWords(List<EditorWord> wordsList) {
-        return new EditorWordsAdapter(wordsList, LayoutInflater.from(getActivity()), this);
+        Activity activity = getActivity();
+        if (activity == null) return null;
+        return new EditorWordsAdapter(wordsList, LayoutInflater.from(activity), this);
     }
 
     protected EditableDictionary getEditableDictionary(String locale) {
