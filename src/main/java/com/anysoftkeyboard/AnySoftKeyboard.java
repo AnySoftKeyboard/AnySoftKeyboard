@@ -65,7 +65,6 @@ import com.anysoftkeyboard.dictionaries.TextEntryState;
 import com.anysoftkeyboard.dictionaries.TextEntryState.State;
 import com.anysoftkeyboard.dictionaries.sqlite.AutoDictionary;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
-import com.anysoftkeyboard.keyboards.AnyKeyboard.AnyKey;
 import com.anysoftkeyboard.keyboards.AnyKeyboard.HardKeyboardTranslator;
 import com.anysoftkeyboard.keyboards.CondenseType;
 import com.anysoftkeyboard.keyboards.GenericKeyboard;
@@ -2027,41 +2026,26 @@ public class AnySoftKeyboard extends InputMethodService implements
             mAutoCorrectOn = mAutoComplete;
         }
 
-        mLastCharacterWasShifted = (mInputView != null)
-                && mInputView.isShifted();
+        mLastCharacterWasShifted = (mInputView != null) && mInputView.isShifted();
 
-        // if (mLastSelectionStart == mLastSelectionEnd &&
-        // TextEntryState.isCorrecting()) {
-        // abortCorrection(false);
-        // }
-
-        final int primaryCodeForShow;
-        if (mInputView != null) {
-            if (mInputView.isShifted()) {
-                if (key != null && key instanceof AnyKey) {
-                    AnyKey anyKey = (AnyKey) key;
-                    int[] shiftCodes = anyKey.shiftedCodes;
-                    primaryCodeForShow = shiftCodes != null
-                            && shiftCodes.length > multiTapIndex ? shiftCodes[multiTapIndex]
-                            : Character.toUpperCase(primaryCode);
-                } else {
-                    primaryCodeForShow = Character.toUpperCase(primaryCode);
-                }
+        final int primaryCodeToOutput;
+        if (mShiftKeyState.isActive()) {
+            if (key != null) {
+                primaryCodeToOutput = key.getCodeAtIndex(multiTapIndex, true);
             } else {
-                primaryCodeForShow = primaryCode;
+                primaryCodeToOutput = Character.toUpperCase(primaryCode);
             }
         } else {
-            primaryCodeForShow = primaryCode;
+            primaryCodeToOutput = primaryCode;
         }
 
         if (mPredicting) {
-            if ((mInputView != null) && mInputView.isShifted()
-                    && mWord.cursorPosition() == 0) {
+            if (mShiftKeyState.isActive() && mWord.cursorPosition() == 0) {
                 mWord.setFirstCharCapitalized(true);
             }
 
             final InputConnection ic = getCurrentInputConnection();
-            if (mWord.add(primaryCodeForShow, nearByKeyCodes)) {
+            if (mWord.add(primaryCodeToOutput, nearByKeyCodes)) {
                 Toast note = Toast
                         .makeText(
                                 getApplicationContext(),
@@ -2107,7 +2091,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             }
             // this should be done ONLY if the key is a letter, and not a inner
             // character (like ').
-            if (Character.isLetter((char) primaryCodeForShow)) {
+            if (Character.isLetter((char) primaryCodeToOutput)) {
                 postUpdateSuggestions();
             } else {
                 // just replace the typed word in the candidates view
@@ -2115,9 +2099,9 @@ public class AnySoftKeyboard extends InputMethodService implements
                     mCandidateView.replaceTypedWord(mWord.getTypedWord());
             }
         } else {
-            sendKeyChar((char) primaryCodeForShow);
+            sendKeyChar((char) primaryCodeToOutput);
         }
-        TextEntryState.typedCharacter((char) primaryCodeForShow, false);
+        TextEntryState.typedCharacter((char) primaryCodeToOutput, false);
         mJustAutoAddedWord = false;
     }
 

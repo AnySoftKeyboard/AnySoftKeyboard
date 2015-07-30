@@ -21,6 +21,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.SparseIntArray;
 import android.util.Xml;
@@ -145,17 +146,13 @@ public abstract class AnyKeyboard extends Keyboard {
         remoteKeyboardKeyLayoutStyleable = null;
     }
 
-    ;
-
     private void initKeysMembers(Context askContext) {
         for (final Key key : getKeys()) {
             if (key.y == 0)
                 key.edgeFlags |= Keyboard.EDGE_TOP;
 
-            // Log.d(TAG,
-            // "Key x:"+key.x+" y:"+key.y+" width:"+key.width+" height:"+key.height);
-            if ((key.codes != null) && (key.codes.length > 0)) {
-                final int primaryCode = key.codes[0];
+            if (key.codes.length > 0) {
+                final int primaryCode = key.getPrimaryCode();
                 if (key instanceof AnyKey) {
                     switch (primaryCode) {
                         case KeyCodes.DELETE:
@@ -188,8 +185,7 @@ public abstract class AnyKeyboard extends Keyboard {
                             break;
                         }
 
-                        Resources quickTextKeyResources = quickKey
-                                .getPackageContext().getResources();
+                        Resources quickTextKeyResources = quickKey.getPackageContext().getResources();
 
                         key.label = quickKey.getKeyLabel();
 
@@ -322,11 +318,10 @@ public abstract class AnyKeyboard extends Keyboard {
         boolean inKey = false;
         boolean inRow = false;
         // boolean leftMostKey = false;
-        boolean skipRow = false;
+        boolean skipRow;
 
         final float keyHorizontalGap = keyboardDimens.getKeyHorizontalGap();
         final float rowVerticalGap = keyboardDimens.getRowVerticalGap();
-        int row = 0;
         float x = 0;
         float y = rowVerticalGap;
         Key key = null;
@@ -398,9 +393,6 @@ public abstract class AnyKeyboard extends Keyboard {
                         y += currentRow.verticalGap;
                         y += m.rowHeight;
                         y += rowVerticalGap;
-                        row++;
-                    } else {
-                        // TODO: error or extend?
                     }
                 }
             }
@@ -477,7 +469,7 @@ public abstract class AnyKeyboard extends Keyboard {
         AnyKey key = new AnyKey(askContext, keyboardContext, parent, keyboardDimens, x, y,
                 parser);
 
-        if ((key.codes != null) && (key.codes.length > 0)) {
+        if (key.codes.length > 0) {
             final int primaryCode = key.codes[0];
 
             // creating less sensitive keys if required
@@ -525,7 +517,7 @@ public abstract class AnyKeyboard extends Keyboard {
     private boolean isAlphabetKey(Key key) {
         return (!key.modifier) && (!key.sticky) && (!key.repeatable) &&
         /* (key.icon == null) && */
-                (key.codes[0] > 0);
+                (key.getPrimaryCode() > 0);
     }
 
     public boolean isStartOfWordLetter(char keyValue) {
@@ -672,7 +664,8 @@ public abstract class AnyKeyboard extends Keyboard {
 
     public static class AnyKey extends Keyboard.Key {
 
-        public int[] shiftedCodes;
+        @NonNull
+        private int[] shiftedCodes = new int[0];
         public CharSequence shiftedKeyLabel;
         public CharSequence hintLabel;
         public int longPressCode;
@@ -690,7 +683,6 @@ public abstract class AnyKeyboard extends Keyboard {
             //setting up some defaults
             mEnabled = true;
             mFunctionalKey = false;
-            shiftedCodes = null;
             longPressCode = 0;
             shiftedKeyLabel = null;
             hintLabel = null;
@@ -728,10 +720,10 @@ public abstract class AnyKeyboard extends Keyboard {
             a.recycle();
 
             // ensuring codes and shiftedCodes are the same size
-            if (shiftedCodes != null && shiftedCodes.length != codes.length) {
+            if (shiftedCodes.length != codes.length) {
                 int[] wrongSizedShiftCodes = shiftedCodes;
                 shiftedCodes = new int[codes.length];
-                int i = 0;
+                int i;
                 for (i = 0; i < wrongSizedShiftCodes.length && i < codes.length; i++)
                     shiftedCodes[i] = wrongSizedShiftCodes[i];
                 for (/* starting from where i finished above */; i < codes.length; i++) {
@@ -750,6 +742,10 @@ public abstract class AnyKeyboard extends Keyboard {
             }
         }
 
+        public int getCodeAtIndex(int index, boolean isShifted) {
+            return isShifted? shiftedCodes[index] : codes[index];
+        }
+
         public void enable() {
             mEnabled = true;
         }
@@ -762,10 +758,7 @@ public abstract class AnyKeyboard extends Keyboard {
         }
 
         public boolean isInside(int clickedX, int clickedY) {
-            if (mEnabled)
-                return super.isInside(clickedX, clickedY);
-            else
-                return false;// disabled.
+            return mEnabled && super.isInside(clickedX, clickedY);
         }
 
         public void setAsFunctional() {

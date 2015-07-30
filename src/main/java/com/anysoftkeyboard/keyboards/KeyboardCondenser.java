@@ -149,7 +149,7 @@ public class KeyboardCondenser {
 
             int targetWidth = (int) (k.width * condensingFactor);
             int keyMidPoint = (k.gap + k.x + (k.width / 2));
-            if (k.codes[0] == KeyCodes.SPACE &&
+            if (k.getPrimaryCode() == KeyCodes.SPACE &&
                     (k.gap + k.x) < watershedLineX &&//one side is to the left,
                     (k.gap + k.x+ k.width) > watershedLineX) { //the other side of the key is to the right of the watershed-line
                 // space is a special case, I want to make it as wide as

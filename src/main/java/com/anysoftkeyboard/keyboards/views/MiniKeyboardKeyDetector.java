@@ -53,7 +53,7 @@ class MiniKeyboardKeyDetector extends KeyDetector {
             }
         }
         if (allKeys != null && closestKeyIndex != AnyKeyboardBaseView.NOT_A_KEY)
-            allKeys[0] = keys[closestKeyIndex].codes[0];
+            allKeys[0] = keys[closestKeyIndex].getCodeAtIndex(0, mKeyboard.isShifted());
         return closestKeyIndex;
     }
 }
