@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
 import java.lang.reflect.Field;
+import java.util.Locale;
 
 public class Workarounds {
     //Determine whether this device has the fix for RTL in the suggestions list
@@ -61,7 +62,7 @@ public class Workarounds {
     }
 
     public static boolean isAltSpaceLangSwitchNotPossible() {
-        String model = android.os.Build.MODEL.toLowerCase();
+        String model = android.os.Build.MODEL.toLowerCase(Locale.US);
         if (model.equals("milestone") || model.equals("droid")) {
             return true;
         }

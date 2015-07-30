@@ -26,6 +26,7 @@ import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.List;
+import java.util.Locale;
 
 public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
 
@@ -92,7 +93,7 @@ public class KeyboardThemeFactory extends AddOnsFactory<KeyboardTheme> {
                 XML_POPUP_KEYBOARD_ICONS_THEME_RES_ID_ATTRIBUTE, 0);
 
         if (keyboardThemeResId == -1) {
-            String detailMessage = String.format("Missing details for creating Keyboard theme! prefId %s, " +
+            String detailMessage = String.format(Locale.US, "Missing details for creating Keyboard theme! prefId %s, " +
                     "keyboardThemeResId: %d, keyboardThemeScreenshotResId: %d",
                     prefId, keyboardThemeResId, keyboardThemeScreenshotResId);
 

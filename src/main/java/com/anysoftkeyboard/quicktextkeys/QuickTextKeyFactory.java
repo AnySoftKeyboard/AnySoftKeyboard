@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey> {
 
@@ -129,7 +130,7 @@ public class QuickTextKeyFactory extends AddOnsFactory<QuickTextKey> {
 		if (((popupKeyboardResId == AddOn.INVALID_RES_ID) && ((popupListTextResId == AddOn.INVALID_RES_ID) || (popupListOutputResId == AddOn.INVALID_RES_ID)))
 				|| ((iconResId == AddOn.INVALID_RES_ID) && (keyLabelResId == AddOn.INVALID_RES_ID))
 				|| (keyOutputTextResId == AddOn.INVALID_RES_ID)) {
-			String detailMessage = String.format("Missing details for creating QuickTextKey! prefId %s, popupKeyboardResId: %d, popupListTextResId: %d, popupListOutputResId: %d, (iconResId: %d, keyLabelResId: %d), keyOutputTextResId: %d",
+			String detailMessage = String.format(Locale.US, "Missing details for creating QuickTextKey! prefId %s, popupKeyboardResId: %d, popupListTextResId: %d, popupListOutputResId: %d, (iconResId: %d, keyLabelResId: %d), keyOutputTextResId: %d",
 					prefId, popupKeyboardResId, popupListTextResId,
 					popupListOutputResId, iconResId, keyLabelResId,
 					keyOutputTextResId);

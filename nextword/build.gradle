@@ -16,7 +16,7 @@ dependencies {
     repositories {
         mavenCentral()
     }
-    compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'net.evendanan.anysoftkeyboard:api:1.2.3'
     compile project(':base')
 }
