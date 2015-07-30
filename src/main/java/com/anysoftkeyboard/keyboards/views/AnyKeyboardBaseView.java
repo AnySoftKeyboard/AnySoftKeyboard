@@ -1035,13 +1035,16 @@ public class AnyKeyboardBaseView extends View implements
         mKeyDetector.setProximityCorrectionEnabled(enabled);
     }
 
-    private CharSequence adjustCase(AnyKey key) {
+    private CharSequence adjustLabelToShiftState(AnyKey key) {
         CharSequence label = key.label;
         if (mKeyboard.isShifted()) {
-            if (!TextUtils.isEmpty(key.shiftedKeyLabel))
-                label = key.shiftedKeyLabel;
-            else if (!TextUtils.isEmpty(label) && Character.isLowerCase(label.charAt(0)))
-                label = label.toString().toUpperCase(getKeyboard().getLocale());
+            if (!TextUtils.isEmpty(key.shiftedKeyLabel)) {
+                return key.shiftedKeyLabel;
+            } else if (label != null && label.length() == 1) {
+                label = Character.toString((char)key.getCodeAtIndex(0, true));
+            }
+            //remembering for next time
+            key.shiftedKeyLabel = label;
         }
         return label;
     }
@@ -1219,7 +1222,7 @@ public class AnyKeyboardBaseView extends View implements
             keyBackground.setState(drawableState);
 
             // Switch the character to uppercase if shift is pressed
-            CharSequence label = key.label == null ? null : adjustCase(key).toString();
+            CharSequence label = key.label == null ? null : adjustLabelToShiftState(key);
 
             final Rect bounds = keyBackground.getBounds();
             if ((key.width != bounds.right) || (key.height != bounds.bottom)) {

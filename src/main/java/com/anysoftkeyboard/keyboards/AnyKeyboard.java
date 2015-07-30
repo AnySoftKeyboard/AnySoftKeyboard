@@ -219,7 +219,7 @@ public abstract class AnyKeyboard extends Keyboard {
                                 // check the ASCII table, everything below 32,
                                 // is not printable
                                 if (code > 31 && !Character.isWhitespace(code))
-                                    key.label = "" + code;
+                                    key.label = Character.toString(code);
                             }
                         }
                 }
@@ -665,7 +665,7 @@ public abstract class AnyKeyboard extends Keyboard {
     public static class AnyKey extends Keyboard.Key {
 
         @NonNull
-        private int[] shiftedCodes = new int[0];
+        protected int[] shiftedCodes = new int[0];
         public CharSequence shiftedKeyLabel;
         public CharSequence hintLabel;
         public int longPressCode;
