@@ -38,6 +38,7 @@ import android.os.Message;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.util.ArrayMap;
 import android.support.v4.view.MotionEventCompat;
 import android.text.Layout.Alignment;
 import android.text.StaticLayout;
@@ -56,6 +57,8 @@ import android.widget.PopupWindow;
 
 import com.anysoftkeyboard.AskPrefs.AnimationsLevel;
 import com.anysoftkeyboard.api.KeyCodes;
+import com.anysoftkeyboard.base.utils.GCUtils;
+import com.anysoftkeyboard.base.utils.GCUtils.MemRelatedOperation;
 import com.anysoftkeyboard.devicespecific.AskOnGestureListener;
 import com.anysoftkeyboard.devicespecific.MultiTouchSupportLevel;
 import com.anysoftkeyboard.keyboards.AnyKeyboard;
@@ -72,8 +75,6 @@ import com.anysoftkeyboard.quicktextkeys.ui.QuickTextViewFactory;
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.utils.CompatUtils;
-import com.anysoftkeyboard.base.utils.GCUtils;
-import com.anysoftkeyboard.base.utils.GCUtils.MemRelatedOperation;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.AnyApplication;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -83,6 +84,8 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
 
 public class AnyKeyboardBaseView extends View implements
         PointerTracker.UIProxy, OnSharedPreferenceChangeListener {
@@ -228,7 +231,7 @@ public class AnyKeyboardBaseView extends View implements
         mPreviewPopupManager.cancelAllPreviews();
         dismissPopupKeyboard();
 
-        for(PointerTracker tracker : mPointerTrackers) {
+        for (PointerTracker tracker : mPointerTrackers) {
             Log.d(TAG, "Canceling tracker " + tracker.getKeyIndex());
             sendOnXEvent(MotionEvent.ACTION_CANCEL, 0, 0, 0, tracker);
             tracker.setAlreadyProcessed();
@@ -388,7 +391,7 @@ public class AnyKeyboardBaseView extends View implements
                         ACTION_KEY_TYPES.length + KEY_TYPES.length);
 
         final int[] remoteKeyboardThemeStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
-                        R.styleable.AnyKeyboardViewTheme, context, theme.getPackageContext(), attributeIdMap);
+                R.styleable.AnyKeyboardViewTheme, context, theme.getPackageContext(), attributeIdMap);
         final int[] remoteKeyboardIconsThemeStyleable = KeyboardSupport.createBackwardCompatibleStyleable(
                 R.styleable.AnyKeyboardViewIconsTheme, context, theme.getPackageContext(), attributeIdMap);
 
@@ -543,7 +546,7 @@ public class AnyKeyboardBaseView extends View implements
             switch (localAttrId) {
                 case android.R.attr.background:
                     Drawable keyboardBackground = remoteTypedArray.getDrawable(remoteTypedArrayIndex);
-                    Log.d(TAG, "AnySoftKeyboardTheme_android_background "+ (keyboardBackground != null));
+                    Log.d(TAG, "AnySoftKeyboardTheme_android_background " + (keyboardBackground != null));
                     CompatUtils.setViewBackgroundDrawable(this, keyboardBackground);
                     break;
                 case android.R.attr.paddingLeft:
@@ -845,7 +848,7 @@ public class AnyKeyboardBaseView extends View implements
             }
             if (keyCode == 0) {
                 if (BuildConfig.DEBUG)
-                    throw new IllegalArgumentException("No valid keycode for attr "+remoteTypeArray.getResourceId(remoteTypedArrayIndex, 0));
+                    throw new IllegalArgumentException("No valid keycode for attr " + remoteTypeArray.getResourceId(remoteTypedArrayIndex, 0));
                 Log.w(TAG, "No valid keycode for attr %d", remoteTypeArray.getResourceId(remoteTypedArrayIndex, 0));
                 return false;
             } else {
@@ -984,8 +987,8 @@ public class AnyKeyboardBaseView extends View implements
      * Returns the state of the shift key of the keyboard, if any.
      *
      * @return true if the shift is in a pressed state, false otherwise. If
-     *         there is no shift key on the keyboard or there is no keyboard
-     *         attached, it returns false.
+     * there is no shift key on the keyboard or there is no keyboard
+     * attached, it returns false.
      */
     public boolean isShifted() {
         if (mMiniKeyboardPopup.isShowing())
@@ -1000,7 +1003,7 @@ public class AnyKeyboardBaseView extends View implements
      *
      * @param control whether or not to enable the state of the control key
      * @return true if the control key state changed, false if there was no
-     *         change
+     * change
      */
     public boolean setControl(boolean control) {
         if (mKeyboard != null) {
@@ -1041,7 +1044,7 @@ public class AnyKeyboardBaseView extends View implements
             if (!TextUtils.isEmpty(key.shiftedKeyLabel)) {
                 return key.shiftedKeyLabel;
             } else if (label != null && label.length() == 1) {
-                label = Character.toString((char)key.getCodeAtIndex(0, true));
+                label = Character.toString((char) key.getCodeAtIndex(0, true));
             }
             //remembering for next time
             key.shiftedKeyLabel = label;
@@ -1292,28 +1295,7 @@ public class AnyKeyboardBaseView extends View implements
                 paint.setShadowLayer(mShadowRadius, mShadowOffsetX,
                         mShadowOffsetY, mShadowColor);
 
-                // (+)This is the trick to get RTL/LTR text correct
-                // no matter what: StaticLayout
-                // this should be in the top left corner of the key
-                float textWidth = paint.measureText(label, 0, label.length());
-                // I'm going to try something if the key is too small for the
-                // text:
-                // 1) divide the text size by 1.5
-                // 2) if still too large, divide by 2.5
-                // 3) show no text
-                if (textWidth > key.width) {
-                    paint.setTextSize(mKeyTextSize / 1.5f);
-                    textWidth = paint.measureText(label, 0, label.length());
-                    if (textWidth > key.width) {
-                        paint.setTextSize(mKeyTextSize / 2.5f);
-                        textWidth = paint.measureText(label, 0, label.length());
-                        if (textWidth > key.width) {
-                            paint.setTextSize(0f);
-                            textWidth = paint.measureText(label, 0,
-                                    label.length());
-                        }
-                    }
-                }
+                final float textWidth = adjustTextSizeForLabel(paint, label, key.width);
 
                 // the center of the drawable space, which is value used
                 // previously for vertically
@@ -1463,27 +1445,98 @@ public class AnyKeyboardBaseView extends View implements
         }
 
         /**code to show touch points
-        if (FeaturesSet.DEBUG_LOG) {
-            for (PointerTracker tracker : mPointerTrackers) {
-                int startX = tracker.getStartX();
-                int startY = tracker.getStartY();
-                int lastX = tracker.getLastX();
-                int lastY = tracker.getLastY();
-                paint.setAlpha(128);
-                paint.setColor(0xFFFF0000);
-                canvas.drawCircle(startX, startY, 3, paint);
-                canvas.drawLine(startX, startY, lastX, lastY, paint);
-                paint.setColor(0xFF0000FF);
-                canvas.drawCircle(lastX, lastY, 3, paint);
-                paint.setColor(0xFF00FF00);
-                canvas.drawCircle((startX + lastX) / 2,
-                        (startY + lastY) / 2, 2, paint);
-            }
-        }
-        */
+         if (FeaturesSet.DEBUG_LOG) {
+         for (PointerTracker tracker : mPointerTrackers) {
+         int startX = tracker.getStartX();
+         int startY = tracker.getStartY();
+         int lastX = tracker.getLastX();
+         int lastY = tracker.getLastY();
+         paint.setAlpha(128);
+         paint.setColor(0xFFFF0000);
+         canvas.drawCircle(startX, startY, 3, paint);
+         canvas.drawLine(startX, startY, lastX, lastY, paint);
+         paint.setColor(0xFF0000FF);
+         canvas.drawCircle(lastX, lastY, 3, paint);
+         paint.setColor(0xFF00FF00);
+         canvas.drawCircle((startX + lastX) / 2,
+         (startY + lastY) / 2, 2, paint);
+         }
+         }
+         */
 
         mDrawPending = false;
         mDirtyRect.setEmpty();
+    }
+
+    private static class TextWidthCacheValue {
+        private final float mTextSize;
+        private final float mTextWidth;
+
+        private TextWidthCacheValue(float textSize, float textWidth) {
+            mTextSize = textSize;
+            mTextWidth = textWidth;
+        }
+
+        public float setCachedValues(Paint paint) {
+            paint.setTextSize(mTextSize);
+            return mTextWidth;
+        }
+    }
+
+    private static class TextWidthCacheKey {
+        private final CharSequence mLabel;
+        private final int mKeyWidth;
+
+        private TextWidthCacheKey(CharSequence label, int keyWidth) {
+            mLabel = label;
+            mKeyWidth = keyWidth;
+        }
+
+        @Override
+        public int hashCode() {
+            return mLabel.hashCode() + mKeyWidth;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            return (o instanceof TextWidthCacheKey
+                    && ((TextWidthCacheKey) o).mKeyWidth == mKeyWidth
+                    && ((TextWidthCacheKey) o).mLabel.equals(mLabel));
+        }
+    }
+
+    private final Map<TextWidthCacheKey, TextWidthCacheValue> mTextWidthCache = new ArrayMap<>();
+
+    private float adjustTextSizeForLabel(final Paint paint, final CharSequence label, final int width) {
+        TextWidthCacheKey cacheKey = new TextWidthCacheKey(label, width);
+        if (mTextWidthCache.containsKey(cacheKey)) {
+            return mTextWidthCache.get(cacheKey).setCachedValues(paint);
+        }
+        float textSize = paint.getTextSize();
+        float textWidth = paint.measureText(label, 0, label.length());
+        // I'm going to try something if the key is too small for the
+        // text:
+        // 1) divide the text size by 1.5
+        // 2) if still too large, divide by 2.5
+        // 3) show no text
+        if (textWidth > width) {
+            textSize = mKeyTextSize / 1.5f;
+            paint.setTextSize(textSize);
+            textWidth = paint.measureText(label, 0, label.length());
+            if (textWidth > width) {
+                textSize = mKeyTextSize / 2.5f;
+                paint.setTextSize(textSize);
+                textWidth = paint.measureText(label, 0, label.length());
+                if (textWidth > width) {
+                    textSize = 0f;
+                    paint.setTextSize(textSize);
+                    textWidth = paint.measureText(label, 0, label.length());
+                }
+            }
+        }
+
+        mTextWidthCache.put(cacheKey, new TextWidthCacheValue(textSize, textWidth));
+        return textWidth;
     }
 
     protected void setPaintForLabelText(Paint paint) {
@@ -1549,6 +1602,8 @@ public class AnyKeyboardBaseView extends View implements
         setSpecialKeyIconOrLabel(KeyCodes.MODE_ALPHABET);
         setSpecialKeyIconOrLabel(KeyCodes.MODE_SYMOBLS);
         setSpecialKeyIconOrLabel(KeyCodes.KEYBOARD_MODE_CHANGE);
+
+        mTextWidthCache.clear();
     }
 
     private void setSpecialKeyIconOrLabel(int keyCode) {
@@ -1627,7 +1682,7 @@ public class AnyKeyboardBaseView extends View implements
     private Drawable getIconToDrawForKey(Key key, boolean feedback) {
         if (key.dynamicEmblem == Keyboard.KEY_EMBLEM_TEXT)
             return null;
-        
+
         if (feedback && key.iconPreview != null)
             return key.iconPreview;
         if (key.icon != null)
@@ -1717,7 +1772,7 @@ public class AnyKeyboardBaseView extends View implements
         final boolean hidePreviewOrShowSpaceKeyPreview = (tracker == null);
         // If key changed and preview is on or the key is space (language switch
         // is enabled)
-        final Key key = hidePreviewOrShowSpaceKeyPreview? null : tracker.getKey(keyIndex);
+        final Key key = hidePreviewOrShowSpaceKeyPreview ? null : tracker.getKey(keyIndex);
         //this will ensure that in case the key is marked as NO preview, we will just dismiss the previous popup.
         if (keyIndex != NOT_A_KEY && key != null) {
             Drawable iconToDraw = getIconToDrawForKey(key, true);
@@ -1765,7 +1820,7 @@ public class AnyKeyboardBaseView extends View implements
         // onBufferDraw.
         mDirtyRect.union(key.x + getPaddingLeft(), key.y + getPaddingTop(),
                 key.x + key.width + getPaddingLeft(), key.y + key.height
-                + getPaddingTop());
+                        + getPaddingTop());
         // doOnBufferDrawWithMemProtection(mCanvas);
         invalidate(key.x + getPaddingLeft(), key.y + getPaddingTop(), key.x
                 + key.width + getPaddingLeft(), key.y + key.height
@@ -1825,8 +1880,9 @@ public class AnyKeyboardBaseView extends View implements
     }
 
     public ColorStateList getKeyTextColor() {
-        return  mKeyTextColor;
+        return mKeyTextColor;
     }
+
     /**
      * Called when a key is long pressed. By default this will open any popup
      * keyboard associated with this key through the attributes popupLayout and
@@ -1834,8 +1890,8 @@ public class AnyKeyboardBaseView extends View implements
      *
      * @param popupKey the key that was long pressed
      * @return true if the long press is handled, false otherwise. Subclasses
-     *         should call the method on the base class if the subclass doesn't
-     *         wish to handle the call.
+     * should call the method on the base class if the subclass doesn't
+     * wish to handle the call.
      */
     protected boolean onLongPress(Context packageContext, Key popupKey,
                                   boolean isSticky, boolean requireSlideInto) {
@@ -1967,8 +2023,8 @@ public class AnyKeyboardBaseView extends View implements
             mLastTimeHadTwoFingers = SystemClock.elapsedRealtime();//marking the time. Read isAtTwoFingersState()
 
         if (mTouchesAreDisabledTillLastFingerIsUp) {
-            if ( mOldPointerCount == 1 &&
-                (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP)) {
+            if (mOldPointerCount == 1 &&
+                    (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP)) {
                 mTouchesAreDisabledTillLastFingerIsUp = false;
             }
 
