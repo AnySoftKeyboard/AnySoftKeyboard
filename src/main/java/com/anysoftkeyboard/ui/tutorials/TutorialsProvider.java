@@ -16,7 +16,6 @@
 
 package com.anysoftkeyboard.ui.tutorials;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -26,6 +25,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.utils.Log;
@@ -73,33 +73,20 @@ public class TutorialsProvider {
         return !currentHash.equals(lastDebugVersionHash);
     }
 
-    public static int getPackageVersion(Context context) {
-        try {
-            PackageInfo pi = DeveloperUtils.getPackageInfo(context);
-            return pi.versionCode;
-        } catch (NameNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
     public synchronized static void showNotificationIcon(Context context, IntentToLaunch notificationData) {
         final NotificationManager manager = ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE));
 
-        Notification notification = new Notification(notificationData.NotificationIcon, context.getText(notificationData.NotificationText), System.currentTimeMillis());
-
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationData.IntentToStart, 0);
 
-        notification.setLatestEventInfo(context,
-                context.getText(notificationData.NotificationTitle), context.getText(notificationData.NotificationText),
-                contentIntent);
-        notification.defaults = 0;// no sound, vibrate, etc.
-        //Cancel on click
-        notification.flags = Notification.FLAG_AUTO_CANCEL;
-        // notifying
-        //need different id for each notification, so we can cancel easily
-        manager.notify(notificationData.NotificationID, notification);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
+        notificationBuilder.setSmallIcon(notificationData.NotificationIcon)
+                .setContentText(context.getText(notificationData.NotificationText))
+                .setWhen(System.currentTimeMillis())
+                .setContentIntent(contentIntent)
+                .setDefaults(0/*no sound, vibrate, etc*/)
+                .setAutoCancel(true);
+
+        manager.notify(notificationData.NotificationID, notificationBuilder.build());
     }
 
 }

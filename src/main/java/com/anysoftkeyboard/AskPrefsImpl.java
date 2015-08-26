@@ -25,7 +25,6 @@ import android.text.TextUtils;
 import android.view.Gravity;
 
 import com.anysoftkeyboard.api.KeyCodes;
-import com.anysoftkeyboard.ui.tutorials.TutorialsProvider;
 import com.anysoftkeyboard.utils.Log;
 import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.BuildConfig;
@@ -127,15 +126,13 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
         boolean firstAppInstall = false;
         boolean firstVersionInstall = false;
 
-        final int currentAppVersion = TutorialsProvider.getPackageVersion(context);
-
         final String FIRST_APP_VERSION_INSTALL = context.getString(R.string.settings_key_first_app_version_installed);
         if (!sp.contains(FIRST_APP_VERSION_INSTALL)) {
             firstAppInstall = true;
         }
 
         final String LAST_APP_VERSION_INSTALLED = context.getString(R.string.settings_key_last_app_version_installed);
-        if (sp.getInt(LAST_APP_VERSION_INSTALLED, 0) != currentAppVersion) {
+        if (sp.getInt(LAST_APP_VERSION_INSTALLED, 0) != BuildConfig.VERSION_CODE) {
             firstVersionInstall = true;
         }
 
@@ -144,12 +141,12 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
 
             final long installTime = System.currentTimeMillis();
             if (firstAppInstall) {
-                editor.putInt(FIRST_APP_VERSION_INSTALL, currentAppVersion);
+                editor.putInt(FIRST_APP_VERSION_INSTALL, BuildConfig.VERSION_CODE);
                 editor.putLong(context.getString(R.string.settings_key_first_time_app_installed), installTime);
             }
 
             if (firstVersionInstall) {
-                editor.putInt(LAST_APP_VERSION_INSTALLED, currentAppVersion);
+                editor.putInt(LAST_APP_VERSION_INSTALLED, BuildConfig.VERSION_CODE);
                 editor.putLong(context.getString(R.string.settings_key_first_time_current_version_installed), installTime);
             }
             editor.commit();
@@ -199,7 +196,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
      * So, the computed default could be one, and the static default may be another!
      * See https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/110
      */
-    private void initializeComputedValues(SharedPreferences sp){
+    private void initializeComputedValues(SharedPreferences sp) {
         boolean drawType = sp.getBoolean(mContext.getString(R.string.settings_key_workaround_disable_rtl_fix),
                 getAlwaysUseDrawTextDefault());
 
@@ -665,7 +662,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     }
 
     public int getGestureSwipeUpKeyCode(boolean fromSpaceBar) {
-        return fromSpaceBar? mSwipeUpFromSpaceBarKeyCode : mSwipeUpKeyCode;
+        return fromSpaceBar ? mSwipeUpFromSpaceBarKeyCode : mSwipeUpKeyCode;
     }
 
     public int getGestureSwipeDownKeyCode() {
@@ -673,13 +670,13 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
     }
 
     public int getGestureSwipeLeftKeyCode(boolean fromSpaceBar, boolean withTwoFingers) {
-        return fromSpaceBar? mSwipeLeftFromSpaceBarKeyCode :
-                withTwoFingers? mSwipeLeftWithTwoFingersKeyCode : mSwipeLeftKeyCode;
+        return fromSpaceBar ? mSwipeLeftFromSpaceBarKeyCode :
+                withTwoFingers ? mSwipeLeftWithTwoFingersKeyCode : mSwipeLeftKeyCode;
     }
 
     public int getGestureSwipeRightKeyCode(boolean fromSpaceBar, boolean withTwoFingers) {
-        return fromSpaceBar? mSwipeRightFromSpaceBarKeyCode :
-                withTwoFingers? mSwipeRightWithTwoFingersKeyCode : mSwipeRightKeyCode;
+        return fromSpaceBar ? mSwipeRightFromSpaceBarKeyCode :
+                withTwoFingers ? mSwipeRightWithTwoFingersKeyCode : mSwipeRightKeyCode;
     }
 
     public int getGesturePinchKeyCode() {
