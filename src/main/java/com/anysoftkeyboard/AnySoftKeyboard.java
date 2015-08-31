@@ -2683,21 +2683,21 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private void loadSettings() {
         // Get the settings preferences
-        SharedPreferences sp = PreferenceManager
-                .getDefaultSharedPreferences(this);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 
-        mVibrationDuration = Integer
-                .parseInt(sp
-                        .getString(
-                                getString(R.string.settings_key_vibrate_on_key_press_duration),
-                                getString(R.string.settings_default_vibrate_on_key_press_duration)));
+        mVibrationDuration = Integer.parseInt(sp.getString(getString(R.string.settings_key_vibrate_on_key_press_duration), getString(R.string.settings_default_vibrate_on_key_press_duration)));
 
         mSoundOn = sp.getBoolean(getString(R.string.settings_key_sound_on),
                 getResources().getBoolean(R.bool.settings_default_sound_on));
         if (mSoundOn) {
-            Log.i(TAG,
-                    "Loading sounds effects from AUDIO_SERVICE due to configuration change.");
-            mAudioManager.loadSoundEffects();
+            Log.i(TAG, "Loading sounds effects from AUDIO_SERVICE due to configuration change.");
+            try {
+                mAudioManager.loadSoundEffects();
+            } catch (SecurityException e) {
+                //for unknown reason loadSoundEffects may throw SecurityException (happened on a HuaweiG750-U10/4.2.2).
+                Log.w(TAG, "SecurityException swallowed. ", e);
+                mSoundOn = false;
+            }
         }
         // checking the volume
         boolean customVolume = sp.getBoolean("use_custom_sound_volume", false);
