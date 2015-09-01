@@ -290,21 +290,26 @@ Dictionary::getWordsRec(int pos, int depth, int maxDepth, bool completion, int s
     if (diffs > mMaxEditDistance) {
         return;
     }
-    int count = getCount(&pos);
+    const int count = getCount(&pos);
     int *currentChars = NULL;
     if (mInputLength <= inputIndex) {
         completion = true;
     } else {
+        //currentChars will point to the current character TYPED by the user
+        //and after that all the alternative characters (e.g., near-by keys)
+        //note that the alternative will include the letter but in lower case!
+        // so, F will have f,e,r,t,g,b,v,c,d
+        //and f will have f,e,r,t,g,b,v,c,d
         currentChars = mInputCodes + (inputIndex * mMaxAlternatives);
     }
 
     for (int i = 0; i < count; i++) {
         // -- at char
-        unsigned short c = getChar(&pos);
+        const unsigned short c = getChar(&pos);
         // -- at flag/add
-        unsigned short lowerC = toLowerCase(c);
-        bool terminal = getTerminal(&pos);
-        int childrenAddress = getAddress(&pos);
+        const unsigned short lowerC = toLowerCase(c);
+        const bool terminal = getTerminal(&pos);
+        const int childrenAddress = getAddress(&pos);
         // -- after address or flag
         int freq = 1;
         if (terminal) freq = getFreq(&pos);
@@ -332,7 +337,8 @@ Dictionary::getWordsRec(int pos, int depth, int maxDepth, bool completion, int s
         } else {
             int j = 0;
             while (currentChars[j] > 0) {
-                if (currentChars[j] == lowerC || currentChars[j] == c) {
+                const unsigned short currentChar = (const unsigned short) currentChars[j];
+                if (currentChar == lowerC || currentChar == c || toLowerCase(currentChar) == lowerC) {
                     int addedWeight = j == 0 ? mTypedLetterMultiplier : 1;
                     mWord[depth] = c;
                     if (mInputLength == inputIndex + 1) {

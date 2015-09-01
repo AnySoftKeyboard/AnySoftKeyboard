@@ -21,7 +21,6 @@
 #include <stdio.h>
 #include <assert.h>
 #include <unistd.h>
-#include <fcntl.h>
 
 #include <jni.h>
 
