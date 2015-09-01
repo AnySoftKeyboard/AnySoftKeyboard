@@ -326,12 +326,6 @@ public class Suggest implements Dictionary.WordCallback {
             // Is that correction already the current prediction (or original
             // word)?
             boolean canAdd = (!TextUtils.isEmpty(autoText)) && (!TextUtils.equals(autoText, mOriginalWord));
-            // Is that correction already the next predicted word?
-            for (int suggestionIndex = 0; canAdd && suggestionIndex<mSuggestions.size(); suggestionIndex++) {
-                if (TextUtils.equals(autoText, mSuggestions.get(suggestionIndex))) {
-                    canAdd = false;
-                }
-            }
             if (canAdd) {
                 mHaveCorrection = true;
                 if (mSuggestions.size() == 0) {
@@ -341,6 +335,13 @@ public class Suggest implements Dictionary.WordCallback {
             }
         }
 
+        //removing possible duplicates
+        final int maxSearch = Math.min(5, mSuggestions.size());
+        for (int suggestionIndex = 1; suggestionIndex<maxSearch; suggestionIndex++) {
+            if (TextUtils.equals(mOriginalWord, mSuggestions.get(suggestionIndex))) {
+                mSuggestions.remove(suggestionIndex);
+            }
+        }
         return mSuggestions;
     }
 
