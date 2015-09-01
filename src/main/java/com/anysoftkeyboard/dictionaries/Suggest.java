@@ -272,6 +272,7 @@ public class Suggest implements Dictionary.WordCallback {
         } else {
             mLowerOriginalWord = "";
         }
+
         // Search the dictionary only if there are at least mMinimumWordSizeToStartCorrecting (configurable)
         // characters
         if (wordComposer.length() >= mMinimumWordSizeToStartCorrecting) {
@@ -298,26 +299,18 @@ public class Suggest implements Dictionary.WordCallback {
             if (/*mMainDictionaryEnabled &&*/ mSuggestions.size() > 0) {
                 mHaveCorrection = true;
             }
-
-            if (mOriginalWord != null) {
-                mSuggestions.add(0, mOriginalWord.toString());
-            }
-
-            if (mExplodedAbbreviations.size() > 0) {
-                //typed at zero, exploded at 1 index.
-                for(String explodedWord : mExplodedAbbreviations)
-                    mSuggestions.add(1, explodedWord);
-
-                mHaveCorrection = true;//so the exploded text will be auto-committed.
-            }
+        }
+        
+        if (!TextUtils.isEmpty(mOriginalWord)) {
+            mSuggestions.add(0, mOriginalWord.toString());
         }
 
-        // Check if the first suggestion has a minimum number of characters in
-        // common
-        if (mMainDictionaryEnabled && mSuggestions.size() > 1 && mExplodedAbbreviations.size() == 0) {
-            if (!haveSufficientCommonality(mLowerOriginalWord, mSuggestions.get(1))) {
-                mHaveCorrection = false;
-            }
+        if (mExplodedAbbreviations.size() > 0) {
+            //typed at zero, exploded at 1 index.
+            for(String explodedWord : mExplodedAbbreviations)
+                mSuggestions.add(1, explodedWord);
+
+            mHaveCorrection = true;//so the exploded text will be auto-committed.
         }
 
         if (mLowerOriginalWord.length() > 0) {
@@ -341,6 +334,14 @@ public class Suggest implements Dictionary.WordCallback {
             if (TextUtils.equals(mOriginalWord, mSuggestions.get(suggestionIndex))) {
                 mSuggestions.remove(suggestionIndex);
                 maxSearchIndex--;
+            }
+        }
+
+        // Check if the first suggestion has a minimum number of characters in
+        // common
+        if (mMainDictionaryEnabled && mSuggestions.size() > 1 && mExplodedAbbreviations.size() == 0) {
+            if (!haveSufficientCommonality(mLowerOriginalWord, mSuggestions.get(1))) {
+                mHaveCorrection = false;
             }
         }
         return mSuggestions;
