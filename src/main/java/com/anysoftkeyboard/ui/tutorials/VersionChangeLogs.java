@@ -12,7 +12,8 @@ public class VersionChangeLogs {
         List<VersionChangeLog> log = new ArrayList<>();
 
         log.add(new VersionChangeLog(1, 5, "r4", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/v1.5_r4"),
-                "People complained about crashes. I fixed them. #TheCustomerAlwaysRight",
+                "Linguistics say 'Help' and 'help' are the same word. Completion will take care of that now. #TheCustomerAlwaysRight",
+                "People complained about crashes. I fixed them. #TheCustomerAlwaysRight2",
                 "Updating build tools - yes, it's that boring."));
 
         log.add(new VersionChangeLog(1, 5, "r3", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/v1.5_r3"),
