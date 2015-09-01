@@ -29,7 +29,6 @@ import android.net.Uri;
 import android.preference.Preference;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -45,13 +44,14 @@ public class AddOnStoreSearchPreference extends Preference implements OnClickLis
 
     public AddOnStoreSearchPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setLayoutResource(R.layout.addon_store_search_pref);
         setPersistent(false);
     }
 
     @Override
     protected View onCreateView(ViewGroup parent) {
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        View layout = inflater.inflate(R.layout.addon_store_search_pref, parent, false);
+        View layout = super.onCreateView(parent);
+
         layout.setOnClickListener(this);
         CharSequence title = getTitle();
         if (!TextUtils.isEmpty(title)) {

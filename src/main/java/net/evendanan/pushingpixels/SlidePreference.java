@@ -23,16 +23,15 @@
  */
 package net.evendanan.pushingpixels;
 
-import android.app.Service;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.preference.Preference;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
 import com.menny.android.anysoftkeyboard.R;
 
 
@@ -41,13 +40,12 @@ public class SlidePreference extends Preference implements SeekBar.OnSeekBarChan
     private SeekBar mSeekBar;
     private TextView mMaxValue, mCurrentValue, mMinValue;
     private String mTitle;
-    private Context mContext;
 
     private int mDefault = 50, mMax = 100, mMin = 0, mValue = 0;
 
     public SlidePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mContext = context;
+        setLayoutResource(R.layout.slide_pref);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.SlidePreferenceAttributes);
         mDefault = array.getInteger(R.styleable.SlidePreferenceAttributes_android_defaultValue, 0);
         mMax = array.getInteger(R.styleable.SlidePreferenceAttributes_slideMaximum, 100);
@@ -62,8 +60,7 @@ public class SlidePreference extends Preference implements SeekBar.OnSeekBarChan
 
     @Override
     protected View onCreateView(ViewGroup parent) {
-        LayoutInflater inflator = (LayoutInflater) mContext.getSystemService(Service.LAYOUT_INFLATER_SERVICE);
-        ViewGroup mySeekBarLayout = (ViewGroup) inflator.inflate(R.layout.slide_pref, null);
+        View mySeekBarLayout = super.onCreateView(parent);
         mSeekBar = (SeekBar) mySeekBarLayout.findViewById(R.id.pref_seekbar);
         if (shouldPersist())
             mValue = getPersistedInt(mDefault);
