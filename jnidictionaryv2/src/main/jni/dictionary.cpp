@@ -338,7 +338,14 @@ Dictionary::getWordsRec(int pos, int depth, int maxDepth, bool completion, int s
             int j = 0;
             while (currentChars[j] > 0) {
                 const unsigned short currentChar = (const unsigned short) currentChars[j];
-                if (currentChar == lowerC || currentChar == c || toLowerCase(currentChar) == lowerC) {
+                const unsigned short lowerCurrentChar = toLowerCase(currentChar);
+                //currentChar can be upper or lower
+                //c can be upper or lower
+                //lowerC is lower or c (in the case where we do not know how to convert to lower)
+                //lowerCurrentChar is lower or c  (in the case where we do not know how to convert to lower)
+                //so, c must be checked against currentChar (in cases where we do not know how to convert)
+                //and lowerCurrent should be compared to lowerC (will verify the cases where we do know how to convert)
+                if (lowerCurrentChar == lowerC || currentChar == c) {
                     int addedWeight = j == 0 ? mTypedLetterMultiplier : 1;
                     mWord[depth] = c;
                     if (mInputLength == inputIndex + 1) {
@@ -566,7 +573,7 @@ Dictionary::isValidWord(unsigned short *word, int length)
 
     if (!isValid) {
         //checking the special case when the word is capitalized
-        unsigned short lowerCaseFirstCharacter = toLowerCase(word[0]);
+        const unsigned short lowerCaseFirstCharacter = toLowerCase(word[0]);
         if (lowerCaseFirstCharacter == word[0])
             return false;
 
@@ -587,9 +594,9 @@ Dictionary::isValidWordRec(int pos, unsigned short *word, int offset, int length
     // return -99 if not found
 
     int count = getCount(&pos);
-    unsigned short currentChar = (unsigned short) word[offset];
+    const unsigned short currentChar = word[offset];
     for (int j = 0; j < count; j++) {
-        unsigned short c = getChar(&pos);
+        const unsigned short c = getChar(&pos);
         int terminal = getTerminal(&pos);
         int childPos = getAddress(&pos);
         if (c == currentChar) {

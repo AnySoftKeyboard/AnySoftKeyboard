@@ -226,8 +226,15 @@ Dictionary::getWordsRec(int pos, int depth, int maxDepth, bool completion, int s
         } else {
             int j = 0;
             while (currentChars[j] > 0) {
-                const int currentChar = currentChars[j];
-                if (currentChar == lowerC || currentChar == c || toLowerCase((unsigned short)currentChar) == lowerC) {
+                const unsigned short currentChar = (const unsigned short) currentChars[j];
+                const unsigned short lowerCurrentChar = toLowerCase(currentChar);
+                //currentChar can be upper or lower
+                //c can be upper or lower
+                //lowerC is lower or c (in the case where we do not know how to convert to lower)
+                //lowerCurrentChar is lower or c  (in the case where we do not know how to convert to lower)
+                //so, c must be checked against currentChar (in cases where we do not know how to convert)
+                //and lowerCurrent should be compared to lowerC (will verify the cases where we do know how to convert)
+                if (lowerCurrentChar == lowerC || currentChar == c) {
                     int addedWeight = j == 0 ? mTypedLetterMultiplier : 1;
                     mWord[depth] = c;
                     if (mInputLength == inputIndex + 1) {
@@ -264,12 +271,14 @@ Dictionary::isValidWord(unsigned short *word, int length)
 bool
 Dictionary::isValidWordRec(int pos, unsigned short *word, int offset, int length) {
     int count = getCount(&pos);
-    unsigned short currentChar = (unsigned short) word[offset];
+    const unsigned short currentChar = word[offset];
+    const unsigned short lowerCurrentChar = toLowerCase(currentChar);
     for (int j = 0; j < count; j++) {
-        unsigned short c = getChar(&pos);
+        const unsigned short c = getChar(&pos);
+        const unsigned short lowerC = toLowerCase(c);
         int terminal = getTerminal(&pos);
         int childPos = getAddress(&pos);
-        if (c == currentChar) {
+        if (lowerCurrentChar == lowerC || currentChar == c) {
             if (offset == length - 1) {
                 if (terminal) {
                     return true;
