@@ -336,10 +336,11 @@ public class Suggest implements Dictionary.WordCallback {
         }
 
         //removing possible duplicates
-        final int maxSearch = Math.min(5, mSuggestions.size());
-        for (int suggestionIndex = 1; suggestionIndex<maxSearch; suggestionIndex++) {
+        int maxSearchIndex = Math.min(5, mSuggestions.size());
+        for (int suggestionIndex = 1; suggestionIndex<maxSearchIndex; suggestionIndex++) {
             if (TextUtils.equals(mOriginalWord, mSuggestions.get(suggestionIndex))) {
                 mSuggestions.remove(suggestionIndex);
+                maxSearchIndex--;
             }
         }
         return mSuggestions;
