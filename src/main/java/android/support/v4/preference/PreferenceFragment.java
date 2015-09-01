@@ -35,11 +35,33 @@ import android.widget.ListView;
 
 import com.menny.android.anysoftkeyboard.R;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Taken from https://github.com/kolavar/android-support-v4-preferencefragment
  */
 public abstract class PreferenceFragment extends Fragment implements
         PreferenceManagerCompat.OnPreferenceTreeClickListener {
+
+    private static class BindHandler extends Handler {
+        private final WeakReference<PreferenceFragment> mWeakFragment;
+
+        public BindHandler(PreferenceFragment preferenceFragment) {
+            mWeakFragment = new WeakReference<>(preferenceFragment);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            PreferenceFragment fragment = mWeakFragment.get();
+            if (fragment == null) return;
+
+            switch (msg.what) {
+                case MSG_BIND_PREFERENCES:
+                    fragment.bindPreferences();
+                    break;
+            }
+        }
+    }
 
     private static final String PREFERENCES_TAG = "android:preferences";
 
@@ -54,17 +76,7 @@ public abstract class PreferenceFragment extends Fragment implements
     private static final int FIRST_REQUEST_CODE = 100;
 
     private static final int MSG_BIND_PREFERENCES = 1;
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-
-                case MSG_BIND_PREFERENCES:
-                    bindPreferences();
-                    break;
-            }
-        }
-    };
+    private final Handler mHandler = new BindHandler(this);
 
     final private Runnable mRequestFocus = new Runnable() {
         public void run() {
@@ -170,6 +182,7 @@ public abstract class PreferenceFragment extends Fragment implements
 
     /**
      * Returns the {@link PreferenceManager} used by this fragment.
+     *
      * @return The {@link PreferenceManager}.
      */
     public PreferenceManager getPreferenceManager() {
@@ -194,7 +207,7 @@ public abstract class PreferenceFragment extends Fragment implements
      * Gets the root of the preference hierarchy that this fragment is showing.
      *
      * @return The {@link PreferenceScreen} that is the root of the preference
-     *         hierarchy.
+     * hierarchy.
      */
     public PreferenceScreen getPreferenceScreen() {
         return PreferenceManagerCompat.getPreferenceScreen(mPreferenceManager);
@@ -233,7 +246,7 @@ public abstract class PreferenceFragment extends Fragment implements
         //if (preference.getFragment() != null &&
         if (
                 getActivity() instanceof OnPreferenceStartFragmentCallback) {
-            return ((OnPreferenceStartFragmentCallback)getActivity()).onPreferenceStartFragment(
+            return ((OnPreferenceStartFragmentCallback) getActivity()).onPreferenceStartFragment(
                     this, preference);
         }
         return false;
@@ -290,7 +303,7 @@ public abstract class PreferenceFragment extends Fragment implements
                     "Content has view with id attribute 'android.R.id.list' "
                             + "that is not a ListView class");
         }
-        mList = (ListView)rawListView;
+        mList = (ListView) rawListView;
         if (mList == null) {
             throw new RuntimeException(
                     "Your content must have a ListView whose id attribute is " +

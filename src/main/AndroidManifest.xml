@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="com.menny.android.anysoftkeyboard">
 
     <supports-screens
@@ -25,13 +26,15 @@
     <application
         android:name=".AnyApplication"
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:backupAgent="com.anysoftkeyboard.backup.AnyBackupAgent"
         android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
         android:installLocation="internalOnly"
         android:label="@string/ime_name"
         android:restoreAnyVersion="true"
-        android:theme="@style/Theme.AskApp">
+        android:theme="@style/Theme.AskApp"
+        tools:ignore="UnusedAttribute">
 
         <!-- used to backup the settings and SQL to the cloud -->
         <meta-data
