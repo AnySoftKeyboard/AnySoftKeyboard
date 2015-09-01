@@ -207,17 +207,16 @@ public class Suggest implements Dictionary.WordCallback {
         }
     }
 
-    private boolean haveSufficientCommonality(String original,
-                                              CharSequence suggestion) {
-        final int originalLength = original.length();
-        final int suggestionLength = suggestion.length();
+    private static boolean haveSufficientCommonality(String typedWord, CharSequence toBeAutoPickedSuggestion) {
+        final int originalLength = typedWord.length();
+        final int suggestionLength = toBeAutoPickedSuggestion.length();
         final int lengthDiff = suggestionLength - originalLength;
 
         if (lengthDiff == 0 || lengthDiff == 1) {
             return true;
         }
 
-        final int distance = IMEUtil.editDistance(original, suggestion);
+        final int distance = IMEUtil.editDistance(typedWord, toBeAutoPickedSuggestion);
 
         return distance <= 1;
     }
@@ -300,7 +299,7 @@ public class Suggest implements Dictionary.WordCallback {
                 mHaveCorrection = true;
             }
         }
-        
+
         if (!TextUtils.isEmpty(mOriginalWord)) {
             mSuggestions.add(0, mOriginalWord.toString());
         }
@@ -337,9 +336,8 @@ public class Suggest implements Dictionary.WordCallback {
             }
         }
 
-        // Check if the first suggestion has a minimum number of characters in
-        // common
-        if (mMainDictionaryEnabled && mSuggestions.size() > 1 && mExplodedAbbreviations.size() == 0) {
+        // Check if the first suggestion has a minimum number of characters in common
+        if (mHaveCorrection && mMainDictionaryEnabled && mSuggestions.size() > 1 && mExplodedAbbreviations.size() == 0) {
             if (!haveSufficientCommonality(mLowerOriginalWord, mSuggestions.get(1))) {
                 mHaveCorrection = false;
             }
