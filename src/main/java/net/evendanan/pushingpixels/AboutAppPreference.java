@@ -23,20 +23,17 @@
  */
 package net.evendanan.pushingpixels;
 
-import android.app.Service;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.preference.Preference;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.SeekBar;
 import android.widget.TextView;
-import com.menny.android.anysoftkeyboard.AnyApplication;
+
 import com.menny.android.anysoftkeyboard.R;
 
 import java.util.Calendar;
@@ -50,6 +47,7 @@ public class AboutAppPreference extends Preference {
 
     public AboutAppPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setLayoutResource(R.layout.about_app_pref);
         setSelectable(false);
         setPersistent(false);
 
@@ -78,17 +76,16 @@ public class AboutAppPreference extends Preference {
 
     @Override
     protected View onCreateView(ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Service.LAYOUT_INFLATER_SERVICE);
-        ViewGroup rootLayout = (ViewGroup) inflater.inflate(R.layout.about_app_pref, null);
+        View rootLayout = super.onCreateView(parent);
 
-        ImageView appIcon = (ImageView)rootLayout.findViewById(R.id.app_icon);
+        ImageView appIcon = (ImageView) rootLayout.findViewById(R.id.app_icon);
         if (mAppIconResId == 0) {
             appIcon.setVisibility(View.GONE);
         } else {
             appIcon.setImageResource(mAppIconResId);
         }
 
-        TextView name = (TextView)rootLayout.findViewById(R.id.app_name);
+        TextView name = (TextView) rootLayout.findViewById(R.id.app_name);
         name.setText(mAppName);
 
         String appVersionName = "";
@@ -100,10 +97,10 @@ public class AboutAppPreference extends Preference {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        TextView version = (TextView)rootLayout.findViewById(R.id.app_version);
+        TextView version = (TextView) rootLayout.findViewById(R.id.app_version);
         version.setText(getContext().getString(R.string.version_text, appVersionName, appVersionNumber));
 
-        TextView appCopyright = (TextView)rootLayout.findViewById(R.id.app_copyright);
+        TextView appCopyright = (TextView) rootLayout.findViewById(R.id.app_copyright);
         if (mAppOwner == null) {
             appCopyright.setVisibility(View.GONE);
         } else {

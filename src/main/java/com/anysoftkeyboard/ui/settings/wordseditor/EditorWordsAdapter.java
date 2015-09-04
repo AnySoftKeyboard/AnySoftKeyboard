@@ -181,6 +181,8 @@ public class EditorWordsAdapter extends RecyclerView.Adapter<EditorWordsAdapter.
         @Override
         public void onClick(View v) {
             final int itemPosition = getItemPosition();
+            if (itemPosition == -1) return;//somehow, the word is not in the list of words anymore.
+            
             final boolean addNewRow = (itemPosition == mEditorWords.size()-1);
             if (v.getId() == R.id.cancel_user_word || TextUtils.isEmpty(mWordView.getText())) {
                 EditorWord editorWord = mEditorWords.remove(itemPosition);

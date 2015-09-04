@@ -20,8 +20,9 @@
         android:layout_margin="8dp"
         android:padding="8dp"
         android:autoLink="web"
-        android:layout_gravity="top|left"
+        android:layout_gravity="top|start"
         android:drawableLeft="@drawable/gplus"
+        android:drawableStart="@drawable/gplus"
         android:text="@string/ime_name"
         android:drawablePadding="6dp"
         android:background="#3FFF" />

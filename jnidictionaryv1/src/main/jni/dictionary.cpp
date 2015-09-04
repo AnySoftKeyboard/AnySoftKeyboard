@@ -18,15 +18,9 @@
 
 #include <stdio.h>
 #include <fcntl.h>
-#include <sys/mman.h>
-#include <string.h>
-//#include <cutils/log.h>
 
-//#include <unicode/uchar.h>
 #include "basechars.h"
 #include "lowerchars.h"
-
-//#define USE_ASSET_MANAGER
 
 #ifdef USE_ASSET_MANAGER
 #include <utils/AssetManager.h>
@@ -167,7 +161,7 @@ Dictionary::sameAsTyped(unsigned short *word, int length)
     if (length != mInputLength) {
         return false;
     }
-    int *inputCodes = mInputCodes;
+    const int *inputCodes = mInputCodes;
     while (length--) {
         if ((unsigned int) *inputCodes != (unsigned int) *word) {
             return false;
@@ -178,7 +172,7 @@ Dictionary::sameAsTyped(unsigned short *word, int length)
     return true;
 }
 
-static char QUOTE = '\'';
+const static char QUOTE = '\'';
 
 void
 Dictionary::getWordsRec(int pos, int depth, int maxDepth, bool completion, int snr, int inputIndex,
@@ -196,16 +190,16 @@ Dictionary::getWordsRec(int pos, int depth, int maxDepth, bool completion, int s
     if (mInputLength <= inputIndex) {
         completion = true;
     } else {
-    	//currentChars will point to the current character TYPED by the user
-    	//and after that all the alternative characters (e.g., near-by keys)
-    	//note that the alternative will include the letter but in lower case!
-    	//so, F will have f,e,r,t,g,b,v,c,d
-    	//and f will have f,e,r,t,g,b,v,c,d
+        //currentChars will point to the current character TYPED by the user
+        //and after that all the alternative characters (e.g., near-by keys)
+        //note that the alternative will include the letter but in lower case!
+        //so, F will have f,e,r,t,g,b,v,c,d
+        //and f will have f,e,r,t,g,b,v,c,d
         currentChars = mInputCodes + (inputIndex * mMaxAlternatives);
     }
 
     for (int i = 0; i < count; i++) {
-    	//c is a letter from the dictionary
+        //c is a letter from the dictionary
         unsigned short c = getChar(&pos);
         //lowerC the dictionary letter, but in lowercase
         unsigned short lowerC = toLowerCase(c);
@@ -232,13 +226,20 @@ Dictionary::getWordsRec(int pos, int depth, int maxDepth, bool completion, int s
         } else {
             int j = 0;
             while (currentChars[j] > 0) {
-                if (currentChars[j] == lowerC || currentChars[j] == c) {
+                const unsigned short currentChar = (const unsigned short) currentChars[j];
+                const unsigned short lowerCurrentChar = toLowerCase(currentChar);
+                //currentChar can be upper or lower
+                //c can be upper or lower
+                //lowerC is lower or c (in the case where we do not know how to convert to lower)
+                //lowerCurrentChar is lower or c  (in the case where we do not know how to convert to lower)
+                //so, c must be checked against currentChar (in cases where we do not know how to convert)
+                //and lowerCurrent should be compared to lowerC (will verify the cases where we do know how to convert)
+                if (lowerCurrentChar == lowerC || currentChar == c) {
                     int addedWeight = j == 0 ? mTypedLetterMultiplier : 1;
                     mWord[depth] = c;
                     if (mInputLength == inputIndex + 1) {
                         if (terminal) {
-                            if (//INCLUDE_TYPED_WORD_IF_VALID ||
-                                !sameAsTyped(mWord, depth + 1)) {
+                            if (!sameAsTyped(mWord, depth + 1)) {
                                 int finalFreq = freq * snr * addedWeight;
                                 if (mSkipPos < 0) finalFreq *= mFullWordMultiplier;
                                 addWord(mWord, depth + 1, finalFreq);
@@ -270,12 +271,14 @@ Dictionary::isValidWord(unsigned short *word, int length)
 bool
 Dictionary::isValidWordRec(int pos, unsigned short *word, int offset, int length) {
     int count = getCount(&pos);
-    unsigned short currentChar = (unsigned short) word[offset];
+    const unsigned short currentChar = word[offset];
+    const unsigned short lowerCurrentChar = toLowerCase(currentChar);
     for (int j = 0; j < count; j++) {
-        unsigned short c = getChar(&pos);
+        const unsigned short c = getChar(&pos);
+        const unsigned short lowerC = toLowerCase(c);
         int terminal = getTerminal(&pos);
         int childPos = getAddress(&pos);
-        if (c == currentChar) {
+        if (lowerCurrentChar == lowerC || currentChar == c) {
             if (offset == length - 1) {
                 if (terminal) {
                     return true;

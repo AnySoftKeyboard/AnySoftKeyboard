@@ -87,8 +87,7 @@
     <string name="search_market_for_addons">Search for add-ons</string>
     <string name="search_market_for_keyboard_addons">Get more keyboards at <i>Google Play Store</i>…</string>
     <string name="search_market_for_quick_key_addons">Get more <i>Quick-Text</i> add-ons at <i>Google Play Store</i>…</string>
-    <string name="no_market_store_available"><b>* Could not find <i>Google Play Store</i> on your device. Unable to search for
-        add-ons!</b></string>
+    <string name="no_market_store_available">Could not find <i>Google Play Store</i> on your device.\nUnable to search for add-ons!</string>
     <string name="theme_addons_settings">Keyboard theme settings</string>
     <string name="keyboard_theme_tweak_group">Tweaks</string>
     <string name="keyboard_theme_tweak_hints_group">Hint text tweaks</string>
@@ -742,4 +741,5 @@
     <string name="tutorial_menu_close_menu">And also closes it</string>
     <string name="main_fragment_go_to_settings_button">Go to Settings</string>
     <string name="quick_text_tab_title_template"><xliff:g id="first_key">%s</xliff:g>\u0020<xliff:g id="name">%s</xliff:g></string>
+    <string name="accessibility_item_reorder_slider">Item re-order slider</string>
 </resources>

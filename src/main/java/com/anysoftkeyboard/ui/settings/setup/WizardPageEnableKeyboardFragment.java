@@ -18,11 +18,11 @@ import com.menny.android.anysoftkeyboard.R;
 
 public class WizardPageEnableKeyboardFragment extends WizardPageBaseFragment {
 
-
     private static final int KEY_MESSAGE_UNREGISTER_LISTENER = 447;
     private static final int KEY_MESSAGE_RETURN_TO_APP = 446;
 
 
+    @SuppressWarnings("HandlerLeak"/*I want this fragment to stay in memory as long as possible*/)
     private Handler mGetBackHereHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {

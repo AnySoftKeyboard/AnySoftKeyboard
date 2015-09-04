@@ -13,6 +13,7 @@
      limitations under the License.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:orientation="vertical"
@@ -38,8 +39,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:gravity="left"
-                android:text="0"/>
+                android:gravity="start"
+                android:text="0"
+                tools:ignore="HardcodedText"/>
 
         <TextView
                 android:id="@+id/pref_current_value"
@@ -49,7 +51,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="0"/>
+                android:text="0"
+                tools:ignore="HardcodedText"/>
 
         <TextView
                 android:id="@+id/pref_max_value"
@@ -58,8 +61,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:gravity="right"
-                android:text="0"/>
+                android:gravity="end"
+                android:text="0"
+                tools:ignore="HardcodedText"/>
     </LinearLayout>
 
     <SeekBar

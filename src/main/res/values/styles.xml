@@ -242,6 +242,7 @@
 
     <style name="Ask.Text.Small.Error" parent="Ask.Text.Small">
         <item name="android:textColor">#F46</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="Ask.Card">

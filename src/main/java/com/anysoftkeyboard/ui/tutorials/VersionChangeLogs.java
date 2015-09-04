@@ -15,6 +15,11 @@ public class VersionChangeLogs {
                 "Next Words prediction is here! It learns from your typing (so, give it a little time to start suggesting).",
                 "Localization update: "));
 
+        log.add(new VersionChangeLog(1, 5, "r4", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/v1.5_r4"),
+                "Linguistics say 'Help' and 'help' are the same word. Completion will take care of that now. #TheCustomerAlwaysRight",
+                "People complained about crashes. I fixed them. #TheCustomerAlwaysRight2",
+                "Updating build tools - yes, it's that boring."));
+
         log.add(new VersionChangeLog(1, 5, "r3", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/v1.5_r3"),
                 "...and then pressing SHIFT changed symbols on the bottom row.",
                 "Heard of some crashes hanging around in the keyboard. Crushed them!",

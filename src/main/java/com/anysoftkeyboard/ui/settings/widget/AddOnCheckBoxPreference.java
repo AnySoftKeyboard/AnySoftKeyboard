@@ -71,13 +71,13 @@ public class AddOnCheckBoxPreference extends Preference implements
 
     public AddOnCheckBoxPreference(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        setLayoutResource(R.layout.addon_checkbox_pref);
         setPersistent(true);
     }
 
     @Override
     protected View onCreateView(ViewGroup parent) {
-        LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-        ViewGroup layout = (ViewGroup) layoutInflater.inflate(R.layout.addon_checkbox_pref, parent, false);
+        View layout = super.onCreateView(parent);
 
         mCheckBox = (CheckBox) layout.findViewById(R.id.addon_checkbox);
         mCheckBox.setOnCheckedChangeListener(this);
@@ -170,7 +170,7 @@ public class AddOnCheckBoxPreference extends Preference implements
                     popup.dismiss();
                 }
             });
-            ((Banner)layout.findViewById(R.id.addon_screenshot)).setImageDrawable(screenshot);
+            ((Banner) layout.findViewById(R.id.addon_screenshot)).setImageDrawable(screenshot);
             popup.showAtLocation(view, Gravity.CENTER, 0, 0);
         }
     }

@@ -290,21 +290,26 @@ Dictionary::getWordsRec(int pos, int depth, int maxDepth, bool completion, int s
     if (diffs > mMaxEditDistance) {
         return;
     }
-    int count = getCount(&pos);
+    const int count = getCount(&pos);
     int *currentChars = NULL;
     if (mInputLength <= inputIndex) {
         completion = true;
     } else {
+        //currentChars will point to the current character TYPED by the user
+        //and after that all the alternative characters (e.g., near-by keys)
+        //note that the alternative will include the letter but in lower case!
+        // so, F will have f,e,r,t,g,b,v,c,d
+        //and f will have f,e,r,t,g,b,v,c,d
         currentChars = mInputCodes + (inputIndex * mMaxAlternatives);
     }
 
     for (int i = 0; i < count; i++) {
         // -- at char
-        unsigned short c = getChar(&pos);
+        const unsigned short c = getChar(&pos);
         // -- at flag/add
-        unsigned short lowerC = toLowerCase(c);
-        bool terminal = getTerminal(&pos);
-        int childrenAddress = getAddress(&pos);
+        const unsigned short lowerC = toLowerCase(c);
+        const bool terminal = getTerminal(&pos);
+        const int childrenAddress = getAddress(&pos);
         // -- after address or flag
         int freq = 1;
         if (terminal) freq = getFreq(&pos);
@@ -332,7 +337,15 @@ Dictionary::getWordsRec(int pos, int depth, int maxDepth, bool completion, int s
         } else {
             int j = 0;
             while (currentChars[j] > 0) {
-                if (currentChars[j] == lowerC || currentChars[j] == c) {
+                const unsigned short currentChar = (const unsigned short) currentChars[j];
+                const unsigned short lowerCurrentChar = toLowerCase(currentChar);
+                //currentChar can be upper or lower
+                //c can be upper or lower
+                //lowerC is lower or c (in the case where we do not know how to convert to lower)
+                //lowerCurrentChar is lower or c  (in the case where we do not know how to convert to lower)
+                //so, c must be checked against currentChar (in cases where we do not know how to convert)
+                //and lowerCurrent should be compared to lowerC (will verify the cases where we do know how to convert)
+                if (lowerCurrentChar == lowerC || currentChar == c) {
                     int addedWeight = j == 0 ? mTypedLetterMultiplier : 1;
                     mWord[depth] = c;
                     if (mInputLength == inputIndex + 1) {
@@ -560,7 +573,7 @@ Dictionary::isValidWord(unsigned short *word, int length)
 
     if (!isValid) {
         //checking the special case when the word is capitalized
-        unsigned short lowerCaseFirstCharacter = toLowerCase(word[0]);
+        const unsigned short lowerCaseFirstCharacter = toLowerCase(word[0]);
         if (lowerCaseFirstCharacter == word[0])
             return false;
 
@@ -581,9 +594,9 @@ Dictionary::isValidWordRec(int pos, unsigned short *word, int offset, int length
     // return -99 if not found
 
     int count = getCount(&pos);
-    unsigned short currentChar = (unsigned short) word[offset];
+    const unsigned short currentChar = word[offset];
     for (int j = 0; j < count; j++) {
-        unsigned short c = getChar(&pos);
+        const unsigned short c = getChar(&pos);
         int terminal = getTerminal(&pos);
         int childPos = getAddress(&pos);
         if (c == currentChar) {
