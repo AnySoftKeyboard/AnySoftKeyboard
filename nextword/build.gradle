@@ -15,8 +15,9 @@ android {
 dependencies {
     repositories {
         mavenCentral()
+        maven { url "https://jitpack.io" }
     }
     compile 'com.android.support:appcompat-v7:23.0.0'
-    compile 'net.evendanan.anysoftkeyboard:api:1.2.3'
+    compile 'com.github.AnySoftKeyboard:AnySoftKeyboard-API:1.2.4'
     compile project(':base')
 }
