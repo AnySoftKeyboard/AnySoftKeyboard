@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
 
 
 /**
@@ -33,30 +34,31 @@ public abstract class LayoutChangedBroadcastReceiver extends BroadcastReceiver {
         String pack = intent.getExtras().getString(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_PACKAGE);
         if (!currentPackage.equals(pack)) {
             String ns = Context.NOTIFICATION_SERVICE;
-            NotificationManager nm =
-                    (NotificationManager) ctx.getSystemService(ns);
+            NotificationManager nm = (NotificationManager) ctx.getSystemService(ns);
             nm.cancel(1);
             return;
         }
 
         int icon = intent.getExtras().getInt(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_RESID);
         String name = intent.getExtras().getString(NOTIFY_LAYOUT_SWITCH_CURRENT_LAYOUT_NAME);
+        String title = intent.getExtras().getString(NOTIFY_LAYOUT_SWITCH_NOTIFICATION_TITLE);
         int flags = intent.getExtras().getInt(NOTIFY_LAYOUT_SWITCH_NOTIFICATION_FLAGS);
 
         //prepare notification
-        String ns = Context.NOTIFICATION_SERVICE;
-        NotificationManager nm =
-                (NotificationManager) ctx.getSystemService(ns);
-        long when = System.currentTimeMillis();
-        Notification notification =
-                new Notification(icon, name, when);
-        notification.defaults = 0;
-        notification.flags = flags;
-
-
         Intent i = new Intent(ctx, InfoActivity.class);
         PendingIntent pi = PendingIntent.getActivity(ctx, 0, i, 0);
-        notification.setLatestEventInfo(ctx, intent.getExtras().getString(NOTIFY_LAYOUT_SWITCH_NOTIFICATION_TITLE), name, pi);
+
+        String ns = Context.NOTIFICATION_SERVICE;
+        NotificationManager nm = (NotificationManager) ctx.getSystemService(ns);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(ctx);
+        builder.setSmallIcon(icon);
+        builder.setContentTitle(title);
+        builder.setContentText(name);
+        builder.setDefaults(0);
+        builder.setContentIntent(pi);
+        Notification notification = builder.build();
+        notification.flags = flags;
+
         nm.notify(1, notification);
     }
 
