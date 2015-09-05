@@ -50,7 +50,7 @@ android {
     }
 
     compileSdkVersion 23
-    buildToolsVersion "23.0.0"
+    buildToolsVersion "23.0.1"
 
     defaultConfig {
         applicationId 'com.menny.android.anysoftkeyboard'
@@ -181,9 +181,9 @@ dependencies {
 
     compile 'com.github.AnySoftKeyboard:AnySoftKeyboard-API:1.2.4'
     compile 'com.github.menny:FrankenRobot:1.1.5'
-    compile 'com.android.support:appcompat-v7:23.0.0'
-    compile 'com.android.support:recyclerview-v7:23.0.0'
-    compile 'com.android.support:support-annotations:23.0.0'
+    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.android.support:recyclerview-v7:23.0.1'
+    compile 'com.android.support:support-annotations:23.0.1'
     compile fileTree(dir: 'libs', include: '*.jar')
 
     testCompile 'junit:junit:4.12'
