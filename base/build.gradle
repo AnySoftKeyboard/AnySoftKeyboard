@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.0"
+    buildToolsVersion "23.0.1"
 
     defaultConfig {
         minSdkVersion 7
@@ -18,5 +18,5 @@ dependencies {
         maven { url "https://jitpack.io" }
     }
     compile 'com.github.AnySoftKeyboard:AnySoftKeyboard-API:1.2.4'
-    compile 'com.android.support:support-annotations:23.0.0'
+    compile 'com.android.support:support-annotations:23.0.1'
 }

@@ -11,6 +11,9 @@ public class VersionChangeLogs {
     static List<VersionChangeLog> createChangeLog() {
         List<VersionChangeLog> log = new ArrayList<>();
 
+        log.add(new VersionChangeLog(1, 5, "r4.1", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.5_r4_1"),
+                "Someone else's code made troubles with Android 4.0, they fixed it and we've updated."));
+
         log.add(new VersionChangeLog(1, 5, "r4", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/v1.5_r4"),
                 "Linguistics say 'Help' and 'help' are the same word. Completion will take care of that now. #TheCustomerAlwaysRight",
                 "People complained about crashes. I fixed them. #TheCustomerAlwaysRight2",
