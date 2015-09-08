@@ -17,6 +17,8 @@
 package com.anysoftkeyboard.dictionaries;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 
@@ -44,6 +46,8 @@ public class UserDictionary extends EditableDictionary {
     private final String mLocale;
     @Utils.NextWordsSuggestionType
     private final String mNextWordSuggestionType;
+    private final int mMaxNextWordSuggestionsCount;
+    private final int mMinWordUsage;
     private final List<String> mFallbackInitialSuggestions;
 
     public UserDictionary(Context context, String locale) {
@@ -51,9 +55,13 @@ public class UserDictionary extends EditableDictionary {
         mLocale = locale;
         mContext = context;
 
-        mNextWordSuggestionType = Utils.getNextWordSuggestionTypeFromPrefs(context.getResources(), PreferenceManager.getDefaultSharedPreferences(context));
+        final Resources resources = context.getResources();
+        final SharedPreferences defaultSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        mNextWordSuggestionType = Utils.getNextWordSuggestionTypeFromPrefs(resources, defaultSharedPreferences);
+        mMaxNextWordSuggestionsCount = Utils.getNextWordSuggestionCountFromPrefs(resources, defaultSharedPreferences);
+        mMinWordUsage = Utils.getNextWordSuggestionMinUsageFromPrefs(resources, defaultSharedPreferences);
         if (Utils.NEXT_WORD_SUGGESTION_WORDS_AND_PUNCTUATIONS.equals(mNextWordSuggestionType)) {
-            mFallbackInitialSuggestions = Arrays.asList(context.getResources().getStringArray(R.array.english_initial_suggestions));
+            mFallbackInitialSuggestions = Arrays.asList(resources.getStringArray(R.array.english_initial_suggestions));
         } else {
             mFallbackInitialSuggestions = null;
         }
@@ -70,7 +78,7 @@ public class UserDictionary extends EditableDictionary {
 
     public final void getNextWords(String currentWord, int maxSuggestions, List<CharSequence> suggestionsHolder, @Nullable Iterable<String> localeSpecificPunctuations) {
         if (mNextWordDictionary != null) {
-            for (String nextWordSuggestion : mNextWordDictionary.getNextWords(currentWord, 8, 1)) {
+            for (String nextWordSuggestion : mNextWordDictionary.getNextWords(currentWord, mMaxNextWordSuggestionsCount, mMinWordUsage)) {
                 suggestionsHolder.add(nextWordSuggestion);
                 maxSuggestions--;
                 if (maxSuggestions == 0) return;

@@ -308,6 +308,13 @@
     <string name="next_words_dictionary_words_only">Suggest next words</string>
     <string name="next_words_dictionary_words_punctuations">Suggest next words and punctuations</string>
     <string name="next_words_dictionary_summary">Use the previous word to make suggestions: %s</string>
+
+    <string name="use_next_words_dictionary_aggressiveness">Next word aggressiveness</string>
+    <string name="use_next_words_dictionary_aggressiveness_minimal">Minimal suggestions</string>
+    <string name="use_next_words_dictionary_aggressiveness_medium">Medium aggressiveness</string>
+    <string name="use_next_words_dictionary_aggressiveness_maximum">Show many suggestions</string>
+    <string name="use_next_words_dictionary_aggressiveness_summary">Next word suggestion aggressiveness: %s</string>
+
     <string name="use_contacts_dictionary">Contacts dictionary</string>
     <string name="use_contacts_dictionary_on_summary">Suggest names from contacts list</string>
     <string name="use_contacts_dictionary_off_summary"/>

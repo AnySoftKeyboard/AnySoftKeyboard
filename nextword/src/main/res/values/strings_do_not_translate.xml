@@ -5,5 +5,13 @@
         <item>words</item>
         <item>words_punctuations</item>
     </string-array>
-    <string name="settings_default_next_words_dictionary">off</string>
+    <string name="settings_default_next_words_dictionary_type">off</string>
+
+    <string name="settings_key_next_word_suggestion_aggressiveness">settings_key_next_word_suggestion_aggressiveness</string>
+    <string-array name="next_word_suggestion_aggressiveness_values">
+        <item>minimal_aggressiveness</item>
+        <item>medium_aggressiveness</item>
+        <item>maximum_aggressiveness</item>
+    </string-array>
+    <string name="settings_default_next_word_suggestion_aggressiveness">minimal</string>
 </resources>
