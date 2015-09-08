@@ -70,7 +70,7 @@ public class UserDictionary extends EditableDictionary {
 
     public final void getNextWords(String currentWord, int maxSuggestions, List<CharSequence> suggestionsHolder, @Nullable Iterable<String> localeSpecificPunctuations) {
         if (mNextWordDictionary != null) {
-            for (String nextWordSuggestion : mNextWordDictionary.getNextWords(currentWord)) {
+            for (String nextWordSuggestion : mNextWordDictionary.getNextWords(currentWord, 8, 1)) {
                 suggestionsHolder.add(nextWordSuggestion);
                 maxSuggestions--;
                 if (maxSuggestions == 0) return;

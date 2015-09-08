@@ -21,12 +21,15 @@ public class NextWordDictionary {
     private final ArrayMap<String, NextWordsContainer> mNextWordMap = new ArrayMap<>();
 
     private final String[] mReusableNextWordsResponse = new String[MAX_NEXT_SUGGESTIONS];
+    private final SimpleIterable mReusableNextWordsIterable;
 
     public NextWordDictionary(Context context, String locale) {
         mStorage = new NextWordsStorage(context, locale);
+        mReusableNextWordsIterable = new SimpleIterable(mReusableNextWordsResponse);
     }
 
-    public Iterable<String> getNextWords(String currentWord) {
+    public Iterable<String> getNextWords(String currentWord, int maxResults, final int minWordUsage) {
+        maxResults = Math.min(MAX_NEXT_SUGGESTIONS, maxResults);
         //firstly, updating the relations to the previous word
         if (mPreviousWord != null) {
             NextWordsContainer previousSet = mNextWordMap.get(mPreviousWord);
@@ -47,15 +50,18 @@ public class NextWordDictionary {
         int suggestionsCount = 0;
         if (nextSet != null) {
             for (NextWord nextWord : nextSet.getNextWordSuggestions()) {
+                if (nextWord.getUsedCount() < minWordUsage) continue;
+
                 mReusableNextWordsResponse[suggestionsCount] = nextWord.nextWord;
                 suggestionsCount++;
-                if (suggestionsCount == MAX_NEXT_SUGGESTIONS) break;
+                if (suggestionsCount == maxResults) break;
             }
         }
 
         mPreviousWord = currentWord;
 
-        return new SimpleIterable(mReusableNextWordsResponse, suggestionsCount);
+        mReusableNextWordsIterable.setArraySize(suggestionsCount);
+        return mReusableNextWordsIterable;
     }
 
     public void saveToStorage() {
@@ -75,11 +81,15 @@ public class NextWordDictionary {
 
     private static class SimpleIterable implements Iterable<String> {
         private final String[] mStrings;
-        private final int mLength;
+        private int mLength;
 
-        public SimpleIterable(String[] strings, int length) {
+        public SimpleIterable(String[] strings) {
             mStrings = strings;
-            mLength = length;
+            mLength = 0;
+        }
+
+        public void setArraySize(int arraySize) {
+            mLength = arraySize;
         }
 
         @Override

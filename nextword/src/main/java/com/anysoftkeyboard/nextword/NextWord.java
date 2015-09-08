@@ -20,6 +20,10 @@ class NextWord {
         mUsedCount++;
     }
 
+    public int getUsedCount() {
+        return mUsedCount;
+    }
+
     public static class NextWordComparator implements Comparator<NextWord> {
         @Override
         public int compare(NextWord lhs, NextWord rhs) {
