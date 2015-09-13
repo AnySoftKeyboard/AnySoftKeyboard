@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.util.ArrayMap;
 import android.util.Log;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
 
