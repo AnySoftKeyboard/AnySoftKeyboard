@@ -2401,6 +2401,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         setSuggestions(mSuggest.getNextSuggestions(mWord), false, false, false);
 
+        mWord.setFirstCharCapitalized(false);
+
         return suggestion;
     }
 

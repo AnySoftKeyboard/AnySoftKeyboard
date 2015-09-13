@@ -64,7 +64,8 @@ public class Suggest implements Dictionary.WordCallback {
     private List<String> mLocaleSpecificPunctuations = null;
 
     private int[] mPriorities = new int[mPrefMaxSuggestions];
-    private List<CharSequence> mSuggestions = new ArrayList<>();
+    private final List<CharSequence> mSuggestions = new ArrayList<>();
+    private final List<CharSequence> mNextSuggestions = new ArrayList<>();
     // private boolean mIncludeTypedWordIfValid;
     private List<CharSequence> mStringPool = new ArrayList<>();
     // private Context mContext;
@@ -213,20 +214,20 @@ public class Suggest implements Dictionary.WordCallback {
     public List<CharSequence> getNextSuggestions(WordComposer wordComposerOfCompletedWord) {
         if (mUserDictionary == null || wordComposerOfCompletedWord.length() < mMinimumWordSizeToStartCorrecting)
             return Collections.emptyList();
-        collectGarbage();
+        mNextSuggestions.clear();
         mIsAllUpperCase = wordComposerOfCompletedWord.isAllUpperCase();
 
         //only adding VALID words
         final CharSequence preferredWord = wordComposerOfCompletedWord.getPreferredWord();
         if (isValidWord(preferredWord)) {
-            mUserDictionary.getNextWords(preferredWord.toString().toLowerCase(mLocale), mPrefMaxSuggestions, mSuggestions, mLocaleSpecificPunctuations);
+            mUserDictionary.getNextWords(preferredWord.toString().toLowerCase(mLocale), mPrefMaxSuggestions, mNextSuggestions, mLocaleSpecificPunctuations);
             if (mIsAllUpperCase) {
-                for (int suggestionIndex=0; suggestionIndex<mSuggestions.size(); suggestionIndex++) {
-                    mSuggestions.set(suggestionIndex, mSuggestions.get(suggestionIndex).toString().toUpperCase(mLocale));
+                for (int suggestionIndex=0; suggestionIndex<mNextSuggestions.size(); suggestionIndex++) {
+                    mNextSuggestions.set(suggestionIndex, mNextSuggestions.get(suggestionIndex).toString().toUpperCase(mLocale));
                 }
             }
         }
-        return mSuggestions;
+        return mNextSuggestions;
     }
 
     /**
@@ -280,12 +281,23 @@ public class Suggest implements Dictionary.WordCallback {
             }
         }
 
+        //now, we'll look at the next-words-suggestions list, and add all the ones that begins
+        //with the typed word. These suggestions are top priority, so they will be added
+        //at the top of the list
+        final int typedWordLength = mLowerOriginalWord.length();
+        for (CharSequence nextWordSuggestion : mNextSuggestions) {
+            if (nextWordSuggestion.subSequence(0, typedWordLength).equals(mOriginalWord)) {
+                mSuggestions.add(0, nextWordSuggestion);
+            }
+        }
+
+        //adding the typed word at the head of the suggestions list
         if (!TextUtils.isEmpty(mOriginalWord)) {
             mSuggestions.add(0, mOriginalWord.toString());
         }
 
         if (mExplodedAbbreviations.size() > 0) {
-            //typed at zero, exploded at 1 index.
+            //typed at zero, exploded at 1 index. These are super high priority
             for (String explodedWord : mExplodedAbbreviations)
                 mSuggestions.add(1, explodedWord);
 
