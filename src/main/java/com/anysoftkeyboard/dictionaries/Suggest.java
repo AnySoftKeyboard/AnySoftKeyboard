@@ -204,7 +204,10 @@ public class Suggest implements Dictionary.WordCallback {
     }
 
     public void resetNextWordSentence() {
-        if (mUserDictionary != null) mUserDictionary.resetNextWordMemory();
+        if (mUserDictionary != null) {
+            mNextSuggestions.clear();
+            mUserDictionary.resetNextWordMemory();
+        }
     }
     /**
      * Returns a list of suggested next words for the given typed word
@@ -286,7 +289,7 @@ public class Suggest implements Dictionary.WordCallback {
         //at the top of the list
         final int typedWordLength = mLowerOriginalWord.length();
         for (CharSequence nextWordSuggestion : mNextSuggestions) {
-            if (nextWordSuggestion.subSequence(0, typedWordLength).equals(mOriginalWord)) {
+            if (nextWordSuggestion.length() >= typedWordLength && nextWordSuggestion.subSequence(0, typedWordLength).equals(mOriginalWord)) {
                 mSuggestions.add(0, nextWordSuggestion);
             }
         }

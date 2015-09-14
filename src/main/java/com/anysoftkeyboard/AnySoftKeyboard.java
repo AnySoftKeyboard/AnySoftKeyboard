@@ -1352,13 +1352,13 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
     }
 
-    private void doubleSpace() {
+    private boolean doubleSpace() {
         // if (!mAutoPunctuate) return;
         if (!mAskPrefs.isDoubleSpaceChangesToPeriod())
-            return;
+            return false;
         final InputConnection ic = getCurrentInputConnection();
         if (ic == null)
-            return;
+            return false;
         CharSequence lastThree = ic.getTextBeforeCursor(3, 0);
         if (lastThree != null && lastThree.length() == 3
                 && Character.isLetterOrDigit(lastThree.charAt(0))
@@ -1369,7 +1369,9 @@ public class AnySoftKeyboard extends InputMethodService implements
             ic.commitText(". ", 1);
             ic.endBatchEdit();
             mJustAddedAutoSpace = true;
+            return true;
         }
+        return false;
     }
 
     private void removeTrailingSpace() {
@@ -1844,6 +1846,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         if (mPredicting) {
             mWord.reset();
+            mSuggest.resetNextWordSentence();
             mPredicting = false;
             ic.setComposingText("", 1);
             postUpdateSuggestions();
@@ -2110,6 +2113,8 @@ public class AnySoftKeyboard extends InputMethodService implements
     private void handleSeparator(int primaryCode) {
         Log.d(TAG, "handleSeparator: " + primaryCode);
 
+        boolean dismissNextWordSuggestion = (primaryCode == KeyCodes.ENTER || mSentenceSeparators.contains(Character.valueOf((char)primaryCode)));
+
         // Should dismiss the "Touch again to save" message when handling
         // separator
         if (mCandidateView != null && mCandidateView.dismissAddToDictionaryHint()) {
@@ -2173,17 +2178,25 @@ public class AnySoftKeyboard extends InputMethodService implements
         }
 
         TextEntryState.typedCharacter((char) primaryCode, true);
+
         if (TextEntryState.getState() == TextEntryState.State.PUNCTUATION_AFTER_ACCEPTED
                 && primaryCode != KeyCodes.ENTER) {
             swapPunctuationAndSpace();
         } else if (/* isPredictionOn() && */primaryCode == ' ') {
-            doubleSpace();
+            if (doubleSpace()) {
+                dismissNextWordSuggestion = true;
+            }
         }
         if (pickedDefault && mWord.getPreferredWord() != null) {
             TextEntryState.acceptedDefault(mWord.getTypedWord(), mWord.getPreferredWord());
         }
         if (ic != null) {
             ic.endBatchEdit();
+        }
+
+        if (dismissNextWordSuggestion) {
+            mSuggest.resetNextWordSentence();
+            clearSuggestions();
         }
     }
 
@@ -2518,9 +2531,10 @@ public class AnySoftKeyboard extends InputMethodService implements
         setKeyboardFinalStuff(type);
     }
 
-    private void setKeyboardFinalStuff( KeyboardSwitcher.NextKeyboardType type) {
+    private void setKeyboardFinalStuff(KeyboardSwitcher.NextKeyboardType type) {
         mShiftKeyState.reset();
         mControlKeyState.reset();
+        mSuggest.resetNextWordSentence();
         // changing dictionary
         setDictionariesForCurrentKeyboard();
         // Notifying if needed
