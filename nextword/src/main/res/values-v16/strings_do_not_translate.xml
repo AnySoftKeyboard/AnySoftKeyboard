@@ -1,4 +1,4 @@
 <resources>
     <string name="settings_default_next_words_dictionary_type">words</string>
-    <string name="settings_default_next_word_suggestion_aggressiveness">medium</string>
+    <string name="settings_default_next_word_suggestion_aggressiveness">medium_aggressiveness</string>
 </resources>

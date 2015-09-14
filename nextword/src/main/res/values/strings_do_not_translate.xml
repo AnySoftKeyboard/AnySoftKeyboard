@@ -13,5 +13,5 @@
         <item>medium_aggressiveness</item>
         <item>maximum_aggressiveness</item>
     </string-array>
-    <string name="settings_default_next_word_suggestion_aggressiveness">minimal</string>
+    <string name="settings_default_next_word_suggestion_aggressiveness">minimal_aggressiveness</string>
 </resources>
