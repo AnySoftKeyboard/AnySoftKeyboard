@@ -288,23 +288,30 @@ public class Suggest implements Dictionary.WordCallback {
         //with the typed word. These suggestions are top priority, so they will be added
         //at the top of the list
         final int typedWordLength = mLowerOriginalWord.length();
+        //since the next-word-suggestions are order by usage, we'd like to add them at the
+        //same order
+        int nextWordInsertionIndex = 0;
         for (CharSequence nextWordSuggestion : mNextSuggestions) {
             if (nextWordSuggestion.length() >= typedWordLength && nextWordSuggestion.subSequence(0, typedWordLength).equals(mOriginalWord)) {
-                mSuggestions.add(0, nextWordSuggestion);
+                mSuggestions.add(nextWordInsertionIndex, nextWordSuggestion);
+                nextWordInsertionIndex++;//next next-word will have lower usage, so it should be added after this one.
             }
         }
 
         //adding the typed word at the head of the suggestions list
         if (!TextUtils.isEmpty(mOriginalWord)) {
             mSuggestions.add(0, mOriginalWord.toString());
-        }
 
-        if (mExplodedAbbreviations.size() > 0) {
-            //typed at zero, exploded at 1 index. These are super high priority
-            for (String explodedWord : mExplodedAbbreviations)
-                mSuggestions.add(1, explodedWord);
+            if (mExplodedAbbreviations.size() > 0) {
+                //typed at zero, exploded at 1 index. These are super high priority
+                int explodedWordInsertionIndex = 1;
+                for (String explodedWord : mExplodedAbbreviations) {
+                    mSuggestions.add(explodedWordInsertionIndex, explodedWord);
+                    explodedWordInsertionIndex++;
+                }
 
-            mHaveCorrection = true;//so the exploded text will be auto-committed.
+                mHaveCorrection = true;//so the exploded text will be auto-committed.
+            }
         }
 
         if (mLowerOriginalWord.length() > 0) {
@@ -322,7 +329,7 @@ public class Suggest implements Dictionary.WordCallback {
             }
         }
 
-        //removing possible duplicates
+        //removing possible duplicates to typed.
         int maxSearchIndex = Math.min(5, mSuggestions.size());
         for (int suggestionIndex = 1; suggestionIndex<maxSearchIndex; suggestionIndex++) {
             if (TextUtils.equals(mOriginalWord, mSuggestions.get(suggestionIndex))) {
