@@ -9,6 +9,9 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        ndk {
+            moduleName "anysoftkey_next_word_jni"
+        }
     }
 }
 
