@@ -37,6 +37,7 @@ public class DictionariesFragment extends PreferenceFragment implements Preferen
         addPreferencesFromResource(R.xml.prefs_dictionaries);
         findPreference(getString(R.string.user_dict_editor_key)).setOnPreferenceClickListener(this);
         findPreference(getString(R.string.abbreviation_dict_editor_key)).setOnPreferenceClickListener(this);
+        findPreference(getString(R.string.next_word_dict_settings_key)).setOnPreferenceClickListener(this);
     }
 
     @Override
@@ -57,6 +58,12 @@ public class DictionariesFragment extends PreferenceFragment implements Preferen
             Activity activity = getActivity();
             if (activity != null && activity instanceof FragmentChauffeurActivity) {
                 ((FragmentChauffeurActivity)activity).addFragmentToUi(new AbbreviationDictionaryEditorFragment(), FragmentChauffeurActivity.FragmentUiContext.DeeperExperience);
+                return true;
+            }
+        } else if (preference.getKey().equals(getString(R.string.next_word_dict_settings_key))) {
+            Activity activity = getActivity();
+            if (activity != null && activity instanceof FragmentChauffeurActivity) {
+                ((FragmentChauffeurActivity)activity).addFragmentToUi(new NextWordSettingsFragment(), FragmentChauffeurActivity.FragmentUiContext.DeeperExperience);
                 return true;
             }
         }
