@@ -54,4 +54,13 @@
         themeScreenshot="@drawable/dark_lean_large_screenshot"
         description="@string/lean_dark_big_keyboard_theme_description"
         index="6"/>
+    <KeyboardTheme
+        id="c38a9214-4338-4cb0-b68e-11d1683d4424"
+        nameResId="@string/lean_light_keyboard_theme_name"
+        themeRes="@style/LeanLight"
+        popupThemeRes="@style/LeanLightPopup"
+        iconsThemeRes="@style/LeanLightKeyIconTheme"
+        themeScreenshot="@drawable/lean_light_theme_screenshot"
+        description="@string/lean_light_keyboard_theme_description"
+        index="7"/>
 </KeyboardThemes>
