@@ -17,6 +17,6 @@ dependencies {
         mavenCentral()
         maven { url "https://jitpack.io" }
     }
-    compile 'com.github.AnySoftKeyboard:AnySoftKeyboard-API:1.2.4'
+    compile 'com.github.AnySoftKeyboard:AnySoftKeyboard-API:1.2.6'
     compile 'com.android.support:support-annotations:23.1.0'
 }
