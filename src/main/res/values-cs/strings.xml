@@ -343,8 +343,8 @@
   <string name="quick_fix_summary">Opravuje běžně zadávané chyby a rozvinuje zkratky</string>
   <string name="allow_suggestions_restart">Nové spuštění návrhů</string>
   <string name="allow_suggestions_restart_summary">Znovu spustit návrhy po pohybu kurzoru</string>
-  <string name="auto_complete">Autom. volba návrhu</string>
-  <string name="auto_complete_summary">Mezerník vybere zvýrazněný návrh</string>
+  
+  
   <string name="physical_keyboard_suggestions">Návrhy u fyzické klávesnice</string>
   <string name="physical_keyboard_suggestions_summary">Zobrazovat návrhy při použití fyzické klávesnice</string>
   <string name="keyboard_sandbox">Klikněte pro testování zadávání</string>

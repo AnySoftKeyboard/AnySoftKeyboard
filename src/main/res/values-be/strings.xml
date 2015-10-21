@@ -150,8 +150,8 @@
   <string name="auto_caps">Аўтаматычныя вялікія літары</string>
   <string name="grammer_group">Граматыка</string>
   <string name="candidates_on">Паказаць прапановы</string>
-  <string name="auto_complete">Аўтаматычна абіраць прапановы</string>
-  <string name="auto_complete_summary">Прабел будзе абіраць вылучаную прапанову</string>
+  
+  
   <string name="keyboard_sandbox">Націсьніце для тэставаньня тэксту</string>
   <string name="contacts_dict">Слоўнік кантактаў</string>
   <string name="contacts_dict_summary">Дадаць імёны кантактаў да прапаноў</string>

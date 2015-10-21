@@ -170,8 +170,8 @@
     <string name="candidates_on">Visa förslag</string>
     <string name="quick_fix">Snabbfixar</string>
     <string name="quick_fix_summary">Rätta vanligt felskrivna ord</string>
-    <string name="auto_complete">Automatisk val av förslag</string>
-    <string name="auto_complete_summary">Mellanslag väljer automatisk förslag</string>
+    
+    
     <string name="physical_keyboard_suggestions">Förslag vid hårdvarutangentbord</string>
     <string name="physical_keyboard_suggestions_summary">Visa förslag när hårdvarutangentbordet används</string>
     <string name="keyboard_sandbox">Klicka för test av inmatning</string>

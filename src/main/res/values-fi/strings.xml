@@ -211,8 +211,8 @@
     <string name="candidates_on">Näytä ehdotukset</string>
     <string name="quick_fix">Pikkukorjaukset</string>
     <string name="quick_fix_summary">Korjaa yleisimmät kirjoitusvirheet</string>
-    <string name="auto_complete">Ehdotuksen autom. valinta</string>
-    <string name="auto_complete_summary">Väilyönti valitsee automaattisesti korostelun ehdotuksen</string>
+    
+    
     <string name="physical_keyboard_suggestions">Ehdotukset laitteen näppäimistöllä</string>
     <string name="physical_keyboard_suggestions_summary">Näytä ehdotukset käytettäessä laitteen näppäimistöä</string>
     <string name="keyboard_sandbox">Tarkasta oikeinkirjoitus klikkaamalla</string>

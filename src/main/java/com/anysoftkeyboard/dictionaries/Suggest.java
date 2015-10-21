@@ -83,6 +83,9 @@ public class Suggest implements Dictionary.WordCallback {
     private boolean mAutoTextEnabled = true;
     private boolean mMainDictionaryEnabled = true;
 
+    private int mCommonalityMaxLengthDiff = 1;
+    private int mCommonalityMaxDisatance = 1;
+
     public Suggest(Context context) {
         mDictionaryFactory = new DictionaryFactory();
         for (int i = 0; i < mPrefMaxSuggestions; i++) {
@@ -189,18 +192,18 @@ public class Suggest implements Dictionary.WordCallback {
         }
     }
 
-    private static boolean haveSufficientCommonality(String typedWord, CharSequence toBeAutoPickedSuggestion) {
+    public void setSufficientCommonalitySettings(int maxLengthDiff, int maxDistance) {
+        mCommonalityMaxLengthDiff = maxLengthDiff;
+        mCommonalityMaxDisatance = maxDistance;
+    }
+
+    private boolean haveSufficientCommonality(String typedWord, CharSequence toBeAutoPickedSuggestion) {
         final int originalLength = typedWord.length();
         final int suggestionLength = toBeAutoPickedSuggestion.length();
         final int lengthDiff = suggestionLength - originalLength;
 
-        if (lengthDiff == 0 || lengthDiff == 1) {
-            return true;
-        }
-
-        final int distance = IMEUtil.editDistance(typedWord, toBeAutoPickedSuggestion);
-
-        return distance <= 1;
+        return lengthDiff <= mCommonalityMaxLengthDiff &&
+                IMEUtil.editDistance(typedWord, toBeAutoPickedSuggestion) <= mCommonalityMaxDisatance;
     }
 
     public void resetNextWordSentence() {

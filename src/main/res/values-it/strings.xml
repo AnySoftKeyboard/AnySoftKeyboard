@@ -274,8 +274,8 @@
   <string name="candidates_on">Mostra suggerimenti</string>
   <string name="allow_suggestions_restart">Riavvia suggerimenti</string>
   <string name="allow_suggestions_restart_summary">Riavvia il suggerimento delle parole quando il cursore si sposta</string>
-  <string name="auto_complete">Selezione automatica suggerimento</string>
-  <string name="auto_complete_summary">Lo spazio selezionerà il suggerimento evidenziato</string>
+  
+  
   <string name="physical_keyboard_suggestions">Suggerimenti nella tastiera del dispositivo</string>
   <string name="physical_keyboard_suggestions_summary">Mostra suggerimenti quando si usa la tastiera del dispositivo</string>
   <string name="keyboard_sandbox">Clicca per provare il testo</string>

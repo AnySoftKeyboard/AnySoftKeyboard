@@ -349,8 +349,8 @@
   <string name="quick_fix">Correções rápidas e abreviaturas</string>
   <string name="allow_suggestions_restart">Reiniciar sugestões</string>
   <string name="allow_suggestions_restart_summary">Reiniciar sugestões ao mover o cursor</string>
-  <string name="auto_complete">Sugestão automática</string>
-  <string name="auto_complete_summary">Tecla Espaço escolhe a sugestão destacada</string>
+  
+  
   <string name="physical_keyboard_suggestions">Sugestões no teclado</string>
   <string name="physical_keyboard_suggestions_summary">Mostrar sugestões ao utilizar o teclado</string>
   <string name="keyboard_sandbox">Teste de escrita</string>

@@ -315,6 +315,14 @@
     <string name="use_next_words_dictionary_aggressiveness_maximum">Show many suggestions</string>
     <string name="use_next_words_dictionary_aggressiveness_summary">Next word suggestion aggressiveness: %s</string>
 
+    <string name="auto_pick_suggestion_aggressiveness_title">Auto-select suggestion aggressiveness</string>
+    <string name="auto_pick_suggestion_aggressiveness_none">Off</string>
+    <string name="auto_pick_suggestion_aggressiveness_minimal">Minimal aggressiveness</string>
+    <string name="auto_pick_suggestion_aggressiveness_medium">Medium aggressiveness</string>
+    <string name="auto_pick_suggestion_aggressiveness_high">High aggressiveness</string>
+    <string name="auto_pick_suggestion_aggressiveness_extreme">Extreme aggressiveness</string>
+    <string name="auto_pick_suggestion_aggressiveness_summary">Aggressiveness level: %s</string>
+
     <string name="use_contacts_dictionary">Contacts dictionary</string>
     <string name="use_contacts_dictionary_on_summary">Suggest names from contacts list</string>
     <string name="use_contacts_dictionary_off_summary"/>
@@ -441,8 +449,8 @@
     <string name="quick_fix_summary">Corrects commonly typed mistakes, and expands abbreviations</string>
     <string name="allow_suggestions_restart">Suggestions restart</string>
     <string name="allow_suggestions_restart_summary">Restart word suggestion upon cursor movement</string>
-    <string name="auto_complete">Auto select suggestion</string>
-    <string name="auto_complete_summary">Space will select highlighted suggestion</string>
+    
+    
     <string name="physical_keyboard_suggestions">Suggestions in device keyboard</string>
     <string name="physical_keyboard_suggestions_summary">Show suggestions when using device keyboard</string>
     <string name="keyboard_sandbox">Click for text testing</string>

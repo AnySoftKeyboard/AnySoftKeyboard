@@ -330,8 +330,8 @@
   <string name="quick_fix_summary">Исправлять часто вводимые ошибки и расшифровывать аббревиатуры, сокращения</string>
   <string name="allow_suggestions_restart">Предложение перезагрузить</string>
   <string name="allow_suggestions_restart_summary">Перезапуск предложенного слова при движении курсора</string>
-  <string name="auto_complete">Автоисправление</string>
-  <string name="auto_complete_summary">Нажатие пробела выберет предложенное слово</string>
+  
+  
   <string name="physical_keyboard_suggestions">Советы Встроенной Клавиатуры</string>
   <string name="physical_keyboard_suggestions_summary">Показывать советы при использовании встроенной клавиатуры</string>
   <string name="keyboard_sandbox">Проверка ввода текста</string>

@@ -334,8 +334,8 @@
     <string name="quick_fix">Corrections rapides</string>
     <string name="quick_fix_summary">Corrige les erreurs couramment tapé</string>
     <string name="allow_suggestions_restart">Redémarrage des suggestions</string>
-    <string name="auto_complete">Sélection automatique du mot suggéré</string>
-    <string name="auto_complete_summary">Espace sélectionnera la suggestion en surbrillance</string>
+    
+    
     <string name="physical_keyboard_suggestions">Suggestions avec le clavier physique</string>
     <string name="physical_keyboard_suggestions_summary">Afficher les suggestions lorsque le clavier physique est
         utilisé

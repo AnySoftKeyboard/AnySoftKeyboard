@@ -71,7 +71,7 @@
   <string name="double_space_to_period">Dvigubas tarpas į tašką</string>
   <string name="grammer_group">Gramatika</string>
   <string name="candidates_on">Rodyti pasiūlymus</string>
-  <string name="auto_complete">Automatiškai parinkti pasiūlymą</string>
+  
   <string name="keyboards_group">Klaviatūros</string>
   <string name="eng_keyboard">Anglų</string>
   <string name="eng_keyboard_16keys">16 klavišų angliška</string>

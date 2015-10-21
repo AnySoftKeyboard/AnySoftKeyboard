@@ -353,8 +353,8 @@ karakter, volledig indrukken verwijderd laatste woord
   <string name="quick_fix_summary">Corrigeert algemeen getypte fouten en breidt afkortingen uit</string>
   <string name="allow_suggestions_restart">Herstart suggesties</string>
   <string name="allow_suggestions_restart_summary">Herstart woord suggesties bij cursor verplaatsing</string>
-  <string name="auto_complete">Selecteer suggestie automatisch</string>
-  <string name="auto_complete_summary">Spatiebalk selecteerd gemarkeerde woord</string>
+  
+  
   <string name="physical_keyboard_suggestions">Suggesties in fysiek toetsenbord</string>
   <string name="physical_keyboard_suggestions_summary">Toon suggesties bij gebruik van fysiek toetsenbord</string>
   <string name="keyboard_sandbox">Testen van tekst invoer</string>

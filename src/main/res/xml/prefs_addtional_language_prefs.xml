@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:key="prefs_addons_screen">
+                  android:key="prefs_addons_screen">
 
     <PreferenceCategory
         android:key="grammer_group"
@@ -20,14 +20,15 @@
             android:summaryOn="@string/candidates_on_summary"
             android:summaryOff="@string/candidates_off_summary"/>
 
-        <CheckBoxPreference
-            android:defaultValue="true"
+        <net.evendanan.pushingpixels.ListPreference
+            android:key="@string/settings_key_auto_pick_suggestion_aggressiveness"
             android:dependency="candidates_on"
-            android:key="auto_complete"
-            android:persistent="true"
-            android:summaryOff=""
-            android:summaryOn="@string/auto_complete_summary"
-            android:title="@string/auto_complete"/>
+            android:defaultValue="@string/settings_default_auto_pick_suggestion_aggressiveness"
+            android:dialogTitle="@string/auto_pick_suggestion_aggressiveness_title"
+            android:entries="@array/auto_pick_suggestion_aggressiveness_types"
+            android:entryValues="@array/auto_pick_suggestion_aggressiveness_values"
+            android:summary="@string/auto_pick_suggestion_aggressiveness_summary"
+            android:title="@string/auto_pick_suggestion_aggressiveness_title"/>
 
     </PreferenceCategory>
 
@@ -82,7 +83,8 @@
             android:title="@string/volume_key_for_left_right_support"/>
     </PreferenceCategory>
 
-    <Preference android:key="@string/tweaks_group_key"
+    <Preference
+        android:key="@string/tweaks_group_key"
         android:title="@string/tweaks_group"/>
 
 </PreferenceScreen>

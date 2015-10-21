@@ -67,8 +67,8 @@
   <string name="auto_caps">ავტო-capitalization</string>
   <string name="grammer_group">გრამატიკა</string>
   <string name="candidates_on">შეთავაზებების ჩვენება</string>
-  <string name="auto_complete">შემოთავაზებების ავტომატურად არჩევა</string>
-  <string name="auto_complete_summary">პრობელი მონიშნავს ხაზგასმულ შემოთავაზებას</string>
+  
+  
   <string name="physical_keyboard_suggestions">შემოთავაზებები მოწყობილობის კლავიატურაზე</string>
   <string name="physical_keyboard_suggestions_summary">შემოთავაზებების ჩვენება წერისას</string>
   <string name="keyboard_sandbox">აირჩიეთ წერის ტესტირებისთვის</string>

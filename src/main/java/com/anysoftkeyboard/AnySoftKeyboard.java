@@ -3016,11 +3016,9 @@ public class AnySoftKeyboard extends InputMethodService implements
         Log.d(TAG, "onSharedPreferenceChanged - key:" + key);
         AnyApplication.requestBackupToCloud();
 
-        boolean isKeyboardKey = key
-                .startsWith(KeyboardAddOnAndBuilder.KEYBOARD_PREF_PREFIX);
-        boolean isDictionaryKey = key.startsWith("dictionary_");
-        boolean isQuickTextKey = key
-                .equals(getString(R.string.settings_key_active_quick_text_key));
+        final boolean isKeyboardKey = key.startsWith(KeyboardAddOnAndBuilder.KEYBOARD_PREF_PREFIX);
+        final boolean isDictionaryKey = key.startsWith("dictionary_");
+        final boolean isQuickTextKey = key.equals(getString(R.string.settings_key_active_quick_text_key));
         if (isKeyboardKey || isDictionaryKey || isQuickTextKey) {
             mKeyboardSwitcher.makeKeyboards(true);
         }
@@ -3031,35 +3029,24 @@ public class AnySoftKeyboard extends InputMethodService implements
                 || key.equals(getString(R.string.settings_key_use_contacts_dictionary))
                 || key.equals(getString(R.string.settings_key_auto_dictionary_threshold))) {
             setDictionariesForCurrentKeyboard();
-        } else if (
-            // key.equals(getString(R.string.settings_key_top_keyboard_row_id)) ||
-                key.equals(getString(R.string.settings_key_ext_kbd_bottom_row_key))
-                        || key.equals(getString(R.string.settings_key_ext_kbd_top_row_key))
-                        || key.equals(getString(R.string.settings_key_ext_kbd_ext_ketboard_key))
-                        || key.equals(getString(R.string.settings_key_ext_kbd_hidden_bottom_row_key))
-                        || key.equals(getString(R.string.settings_key_keyboard_theme_key))
-                        || key.equals("zoom_factor_keys_in_portrait")
-                        || key.equals("zoom_factor_keys_in_landscape")
-                        || key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key))
-                        || key.equals(getString(R.string.settings_key_long_press_timeout))
-                        || key.equals(getString(R.string.settings_key_multitap_timeout))
-                        || key.equals(getString(R.string.settings_key_default_split_state))) {
+        } else if (key.equals(getString(R.string.settings_key_ext_kbd_bottom_row_key))
+                || key.equals(getString(R.string.settings_key_ext_kbd_top_row_key))
+                || key.equals(getString(R.string.settings_key_ext_kbd_ext_ketboard_key))
+                || key.equals(getString(R.string.settings_key_ext_kbd_hidden_bottom_row_key))
+                || key.equals(getString(R.string.settings_key_keyboard_theme_key))
+                || key.equals("zoom_factor_keys_in_portrait")
+                || key.equals("zoom_factor_keys_in_landscape")
+                || key.equals(getString(R.string.settings_key_smiley_icon_on_smileys_key))
+                || key.equals(getString(R.string.settings_key_long_press_timeout))
+                || key.equals(getString(R.string.settings_key_multitap_timeout))
+                || key.equals(getString(R.string.settings_key_default_split_state))) {
             // in some cases we do want to force keyboards recreations
-            resetKeyboardView(key
-                    .equals(getString(R.string.settings_key_keyboard_theme_key)));
+            resetKeyboardView(key.equals(getString(R.string.settings_key_keyboard_theme_key)));
+        } else if (key.equals(getString(R.string.settings_key_auto_pick_suggestion_aggressiveness))) {
+            //TODO: setup mSuggest via mSuggest.setCorrectionMode
         }
     }
 
-    /*
-     * public void appendCharactersToInput(CharSequence textToCommit) { if
-     * (DEBUG) Log.d(TAG, "appendCharactersToInput: '"+ textToCommit+"'");
-     * for(int index=0; index<textToCommit.length(); index++) { final char c =
-     * textToCommit.charAt(index); mWord.add(c, new int[]{c}); }
-     * //mComposing.append(textToCommit); if (mPredictionOn)
-     * getCurrentInputConnection().setComposingText(mWord.getTypedWord(),
-     * textToCommit.length()); else commitTyped(getCurrentInputConnection());
-     * updateShiftKeyState(getCurrentInputEditorInfo()); }
-     */
     public void deleteLastCharactersFromInput(int countToDelete) {
         if (countToDelete == 0)
             return;
@@ -3069,16 +3056,12 @@ public class AnySoftKeyboard extends InputMethodService implements
         if (currentLength > 0) {
             shouldDeleteUsingCompletion = true;
             if (currentLength > countToDelete) {
-                // mComposing.delete(currentLength - countToDelete,
-                // currentLength);
-
                 int deletesLeft = countToDelete;
                 while (deletesLeft > 0) {
                     mWord.deleteLast();
                     deletesLeft--;
                 }
             } else {
-                // mComposing.setLength(0);
                 mWord.reset();
             }
         } else {
@@ -3088,7 +3071,6 @@ public class AnySoftKeyboard extends InputMethodService implements
         if (ic != null) {
             if (mPredictionOn && shouldDeleteUsingCompletion) {
                 ic.setComposingText(mWord.getTypedWord()/* mComposing */, 1);
-                // updateCandidates();
             } else {
                 ic.deleteSurroundingText(countToDelete, 0);
             }
@@ -3109,10 +3091,8 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     @Override
     public void onLowMemory() {
-        Log.w(TAG,
-                "The OS has reported that it is low on memory!. I'll try to clear some cache.");
+        Log.w(TAG, "The OS has reported that it is low on memory!. I'll try to clear some cache.");
         mKeyboardSwitcher.onLowMemory();
-        // DictionaryFactory.getInstance().onLowMemory(mSuggest.getMainDictionary());
         super.onLowMemory();
     }
 

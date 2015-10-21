@@ -237,8 +237,8 @@
   <string name="quick_fix_summary">תקן אוטומטית שגיאות נפוצות</string>
   <string name="allow_suggestions_restart">אתחול הצעות</string>
   <string name="allow_suggestions_restart_summary">כאשר מזיזים את סמן הטקסט, יופיעו הצעות חדשות</string>
-  <string name="auto_complete">בחר מילה מוצעת אוטומטית</string>
-  <string name="auto_complete_summary">בחר מילה מוצעת אוטומטית</string>
+  
+  
   <string name="physical_keyboard_suggestions">הצעות עם המקדלת הפיזית</string>
   <string name="physical_keyboard_suggestions_summary">הראה הצעות מילים בשימוש במקלדת הפיזית</string>
   <string name="keyboard_sandbox">איזור לבדיקת ההגדרות</string>

@@ -331,8 +331,8 @@
   <string name="quick_fix_summary">Korrigiert typische Schreibfehler und zeigt bei Eingabe der festgelegten Abkürzung den individuellen Text als Wortvorschlag an</string>
   <string name="allow_suggestions_restart">Vorschläge neustarten</string>
   <string name="allow_suggestions_restart_summary">Wortvorschläge bei Zeigerbewegung neustarten</string>
-  <string name="auto_complete">Automatische Auswahl von Wortvorschlägen</string>
-  <string name="auto_complete_summary">Leerzeichen wählt hervorgehobenen Wortvorschlag</string>
+  
+  
   <string name="physical_keyboard_suggestions">Wortvorschlag in der Gerätetastatur</string>
   <string name="physical_keyboard_suggestions_summary">Zeige Wortvorschläge bei Verwendung der Gerätetastatur</string>
   <string name="keyboard_sandbox">Hier klicken für Test der Eingabe</string>

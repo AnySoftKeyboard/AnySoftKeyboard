@@ -166,8 +166,8 @@
   <string name="auto_caps">Samodejno velike črke</string>
   <string name="grammer_group">Slovnica</string>
   <string name="candidates_on">Prikaži predloge</string>
-  <string name="auto_complete">Samodejna izbira predloga</string>
-  <string name="auto_complete_summary">Presledek bo izbral označen predlog</string>
+  
+  
   <string name="physical_keyboard_suggestions">Predlogi za fizično tipkovnico</string>
   <string name="physical_keyboard_suggestions_summary">Prikaži predloge ko je v uporabi fizična tipkovnica</string>
   <string name="keyboard_sandbox">Pritisni za testiranje vnosa besedila</string>

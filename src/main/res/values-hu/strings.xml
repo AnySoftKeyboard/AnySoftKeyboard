@@ -324,8 +324,8 @@ törlődik, teljesen lenyomva az utolsó szó</string>
   <string name="quick_fix_summary">A gyakori hibákat kijavítja</string>
   <string name="allow_suggestions_restart">Javalatok újraindítása</string>
   <string name="allow_suggestions_restart_summary">Szó javaslatot újraindítás kurzor mozgatáskor</string>
-  <string name="auto_complete">Automatikus javaslatok</string>
-  <string name="auto_complete_summary">Szóközre a javasolt szó használata</string>
+  
+  
   <string name="physical_keyboard_suggestions">Javaslatok fizikai billentyűzethez</string>
   <string name="physical_keyboard_suggestions_summary">Javaslatok megjelenítése a készülék billentyűzetének használatakor</string>
   <string name="keyboard_sandbox">Kattints ide a teszteléshez</string>

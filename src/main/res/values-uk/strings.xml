@@ -337,8 +337,8 @@
   <string name="quick_fix_summary">Виправляє помилки надрукованих слів і розширює абревіатури</string>
   <string name="allow_suggestions_restart">Пропозиції заміни</string>
   <string name="allow_suggestions_restart_summary">Замінити на пропоноване слово рухом курсора</string>
-  <string name="auto_complete">Авто-вибір пропозицій</string>
-  <string name="auto_complete_summary">Пробіл вибирає відмічену пропозицію</string>
+  
+  
   <string name="physical_keyboard_suggestions">Пропозиції для апаратної клавіатури</string>
   <string name="physical_keyboard_suggestions_summary">Показувати пропозиції для апаратної клавіатури</string>
   <string name="keyboard_sandbox">Натисніть для перевірки набору тексту</string>

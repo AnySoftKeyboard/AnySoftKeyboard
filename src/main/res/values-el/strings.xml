@@ -322,8 +322,8 @@
   <string name="quick_fix_summary">Διορθώνει συχνά σφάλματα πληκτρολόγησης</string>
   <string name="allow_suggestions_restart">Επανεκκίνηση υποδείξεων</string>
   <string name="allow_suggestions_restart_summary">Επανεκκίνηση υποδείξεων λέξεων κατά την κίνηση του δρομέα</string>
-  <string name="auto_complete">Αυτόματη επιλογή υπόδειξης</string>
-  <string name="auto_complete_summary">Το πλήκτρο διαστήματος θα επιλέγει την φωτισμένη υπόδειξη</string>
+  
+  
   <string name="physical_keyboard_suggestions">Υποδείξεις στο πληκτρολόγιο της συσκευής</string>
   <string name="physical_keyboard_suggestions_summary">Εμφάνιση υποδείξεων όταν χρησιμοποιείται το πληκτρολόγιο της συσκευής</string>
   <string name="keyboard_sandbox">Κάντε κλικ για δοκιμή κειμένου</string>

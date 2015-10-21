@@ -201,8 +201,8 @@
   <string name="candidates_on">Показвай предложения</string>
   <string name="quick_fix">Бързи поправки</string>
   <string name="quick_fix_summary">Поправяй честите грешки</string>
-  <string name="auto_complete">Автоматично избиране</string>
-  <string name="auto_complete_summary">Интервал ще избере подчертаното предложение</string>
+  
+  
   <string name="physical_keyboard_suggestions">Предложения от хардуерната клавиатура</string>
   <string name="physical_keyboard_suggestions_summary">Показвай предложения от хардуерната клавиатура</string>
   <string name="keyboard_sandbox">Натиснете за тестване</string>
