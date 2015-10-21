@@ -14,6 +14,7 @@ public class VersionChangeLogs {
         log.add(new VersionChangeLog(1, 6, "", Uri.parse("https://github.com/AnySoftKeyboard/AnySoftKeyboard/milestones/1.6"),
                 "Next Words prediction is here! It learns from your typing (so, give it a little time to start suggesting).",
                 "And, yes, previous line was auto-completed using Next Words prediction.",
+                "You requested and someone did it: new Lean Light theme is here.",
                 "YABTU (Yet another build tools update).",
                 "Localization update: "));
 
