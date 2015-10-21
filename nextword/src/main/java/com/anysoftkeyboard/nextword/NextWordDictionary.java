@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.v4.util.ArrayMap;
 import android.util.Log;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -71,7 +70,7 @@ public class NextWordDictionary {
 
     public void loadFromStorage() {
         for (NextWordsContainer container : mStorage.loadStoredNextWords()) {
-            if (Utils.DEBUG) Log.d(TAG, "Loaded "+container);
+            if (Utils.DEBUG) Log.d(TAG, "Loaded " + container);
             mNextWordMap.put(container.word, container);
         }
     }
