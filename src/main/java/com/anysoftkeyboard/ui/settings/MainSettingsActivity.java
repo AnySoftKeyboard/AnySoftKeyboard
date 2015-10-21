@@ -21,6 +21,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Gravity;
@@ -96,7 +97,7 @@ public class MainSettingsActivity extends FragmentChauffeurActivity {
         // Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
         //applying my very own Edge-Effect color
-        EdgeEffectHacker.brandGlowEffect(getApplicationContext(), getResources().getColor(R.color.menu_divider));
+        EdgeEffectHacker.brandGlowEffect(getApplicationContext(), ContextCompat.getColor(this, R.color.app_accent));
     }
 
     @Override

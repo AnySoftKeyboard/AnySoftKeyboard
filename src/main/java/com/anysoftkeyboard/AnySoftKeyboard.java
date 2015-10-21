@@ -1433,8 +1433,7 @@ public class AnySoftKeyboard extends InputMethodService implements
             ic.endBatchEdit();
     }
 
-    public void onKey(int primaryCode, Key key, int multiTapIndex,
-                      int[] nearByKeyCodes, boolean fromUI) {
+    public void onKey(int primaryCode, Key key, int multiTapIndex, int[] nearByKeyCodes, boolean fromUI) {
         Log.d(TAG, "onKey " + primaryCode);
         final InputConnection ic = getCurrentInputConnection();
 

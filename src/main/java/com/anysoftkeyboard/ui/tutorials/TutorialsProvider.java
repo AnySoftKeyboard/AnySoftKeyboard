@@ -22,13 +22,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 
-import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
@@ -45,12 +43,14 @@ public class TutorialsProvider {
             final NotificationManager manager = ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE));
 
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
-            notificationBuilder.setSmallIcon(R.drawable.notification_icon_beta_version)
+            notificationBuilder.setSmallIcon(
+                    Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB ?
+                            R.drawable.notification_icon_beta_version : R.drawable.ic_notification_debug_version)
                     .setContentText(context.getText(R.string.notification_text_testers))
                     .setContentTitle(context.getText(R.string.ime_name_beta))
                     .setWhen(System.currentTimeMillis())
                     .setContentIntent(contentIntent)
-                    .setColor(ContextCompat.getColor(context, R.color.menu_divider))
+                    .setColor(ContextCompat.getColor(context, R.color.notification_background_debug_version))
                     .setDefaults(0/*no sound, vibrate, etc*/)
                     .setAutoCancel(true);
 
@@ -62,14 +62,7 @@ public class TutorialsProvider {
         final String KEY = "testers_version_version_hash";
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         final String lastDebugVersionHash = sp.getString(KEY, "NONE");
-        String currentHash = "";
-        try {
-            PackageInfo pi = DeveloperUtils.getPackageInfo(context);
-            currentHash = pi.versionName + " code " + pi.versionCode;
-        } catch (NameNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        String currentHash = BuildConfig.VERSION_NAME + " code " + BuildConfig.VERSION_CODE;
 
         Editor e = sp.edit();
         e.putString(KEY, currentHash);

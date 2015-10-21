@@ -17,4 +17,6 @@
     <item name="word_editor_view_type_empty_view_row" type="id" />
 
     <item name="notification_icon_debug_version" type="id" />
+
+    <item name="notification_icon_app_error" type="id" />
 </resources>

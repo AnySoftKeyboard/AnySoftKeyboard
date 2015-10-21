@@ -34,7 +34,7 @@ import com.menny.android.anysoftkeyboard.R;
 
 public class SendBugReportUiActivity extends FragmentActivity {
 
-    public static class BugReportDetails  implements Parcelable {
+    public static class BugReportDetails implements Parcelable {
         public final Throwable throwable;
         public final String crashReportText;
 

@@ -68,4 +68,9 @@
     <color name="menu_item_divider">#77663399</color>
     <color name="generic_disabled_background_color">#A777</color>
     <color name="generic_clicked_background_color">#2000</color>
+
+    <color name="app_accent">#663399</color>
+
+    <color name="notification_background_error">#F33</color>
+    <color name="notification_background_debug_version">#FF3399</color>
 </resources>

@@ -21,8 +21,10 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Parcelable;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.format.DateFormat;
 
 import com.anysoftkeyboard.ui.SendBugReportUiActivity;
@@ -100,13 +102,15 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
             String crashType = ex.getClass().getSimpleName() + ": " + ex.getMessage();
             Intent notificationIntent = new Intent(mApp, SendBugReportUiActivity.class);
             notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            notificationIntent.putExtra(SendBugReportUiActivity.EXTRA_KEY_BugReportDetails,
-                    (Parcelable) new SendBugReportUiActivity.BugReportDetails(ex, logText));
+            final Parcelable reportDetailsExtra = new SendBugReportUiActivity.BugReportDetails(ex, logText);
+            notificationIntent.putExtra(SendBugReportUiActivity.EXTRA_KEY_BugReportDetails, reportDetailsExtra);
 
             PendingIntent contentIntent = PendingIntent.getActivity(mApp, 0, notificationIntent, 0);
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(mApp);
-            builder.setSmallIcon(R.drawable.notification_error_icon).
+            builder.setSmallIcon(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB?
+                    R.drawable.notification_error_icon : R.drawable.ic_notification_error).
+                    setColor(ContextCompat.getColor(mApp, R.color.notification_background_error)).
                     setTicker(mApp.getText(R.string.ime_crashed_ticker)).
                     setContentTitle(mApp.getText(R.string.ime_name)).
                     setContentText(mApp.getText(R.string.ime_crashed_sub_text)).
@@ -118,10 +122,10 @@ class ChewbaccaUncaughtExceptionHandler implements UncaughtExceptionHandler {
                     setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
 
             // notifying
-            NotificationManager notificationManager = (NotificationManager) mApp
-                    .getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager notificationManager =
+                    (NotificationManager) mApp.getSystemService(Context.NOTIFICATION_SERVICE);
 
-            notificationManager.notify(1, builder.build());
+            notificationManager.notify(R.id.notification_icon_app_error, builder.build());
         }
         // and sending to the OS
         if (!ignore && mOsDefaultHandler != null) {
