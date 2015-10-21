@@ -530,6 +530,8 @@
     <string name="lean_dark_2_keyboard_theme_name">Lean Dark - Option 2</string>
     <string name="lean_dark_big_keyboard_theme_name">Lean Dark - Large Keys</string>
     <string name="lean_dark_big_keyboard_theme_description">Same Dark theme, but with larger keys.</string>
+    <string name="lean_light_keyboard_theme_name">Lean Light</string>
+    <string name="lean_light_keyboard_theme_description">Light theme, with minimal UI elements</string>
 
     <!-- extension keyboard type -->
     <string name="extension_kbd_top_none">No top row</string>
