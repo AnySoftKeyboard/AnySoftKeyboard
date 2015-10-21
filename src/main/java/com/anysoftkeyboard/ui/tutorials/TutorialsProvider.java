@@ -26,6 +26,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 
 import com.anysoftkeyboard.ui.dev.DeveloperUtils;
 import com.anysoftkeyboard.utils.Log;
@@ -33,23 +34,27 @@ import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.R;
 
 public class TutorialsProvider {
-    //public static final String TUTORIALS_SP_FILENAME = "tutorials";
-
-    private static final String TAG = "ASK Turorial";
-
-    private static final int TUTORIALS_NOTIFICATION_ID_BASE = 102431;
-
+    private static final String TAG = "ASK Tutorial";
 
     public static void showDragonsIfNeeded(Context context) {
         if (BuildConfig.DEBUG && firstTestersTimeVersionLoaded(context)) {
             Log.i(TAG, "TESTERS VERSION added");
 
-            Intent i = new Intent(context, TestersNoticeActivity.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            PendingIntent contentIntent = PendingIntent.getActivity(context, 0, new Intent(context, TestersNoticeActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK), 0);
 
-            showNotificationIcon(context, new IntentToLaunch(
-                    TUTORIALS_NOTIFICATION_ID_BASE + 1, i, R.drawable.notification_icon_beta_version,
-                    R.string.ime_name_beta, R.string.notification_text_testers));
+            final NotificationManager manager = ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE));
+
+            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
+            notificationBuilder.setSmallIcon(R.drawable.notification_icon_beta_version)
+                    .setContentText(context.getText(R.string.notification_text_testers))
+                    .setContentTitle(context.getText(R.string.ime_name_beta))
+                    .setWhen(System.currentTimeMillis())
+                    .setContentIntent(contentIntent)
+                    .setColor(ContextCompat.getColor(context, R.color.menu_divider))
+                    .setDefaults(0/*no sound, vibrate, etc*/)
+                    .setAutoCancel(true);
+
+            manager.notify(R.id.notification_icon_debug_version, notificationBuilder.build());
         }
     }
 
@@ -72,21 +77,4 @@ public class TutorialsProvider {
 
         return !currentHash.equals(lastDebugVersionHash);
     }
-
-    public synchronized static void showNotificationIcon(Context context, IntentToLaunch notificationData) {
-        final NotificationManager manager = ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE));
-
-        PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationData.IntentToStart, 0);
-
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
-        notificationBuilder.setSmallIcon(notificationData.NotificationIcon)
-                .setContentText(context.getText(notificationData.NotificationText))
-                .setWhen(System.currentTimeMillis())
-                .setContentIntent(contentIntent)
-                .setDefaults(0/*no sound, vibrate, etc*/)
-                .setAutoCancel(true);
-
-        manager.notify(notificationData.NotificationID, notificationBuilder.build());
-    }
-
 }
