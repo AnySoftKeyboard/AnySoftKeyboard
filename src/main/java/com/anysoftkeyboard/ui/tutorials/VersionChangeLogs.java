@@ -15,6 +15,7 @@ public class VersionChangeLogs {
                 "Next Words prediction is here! It learns from your typing (so, give it a little time to start suggesting).",
                 "And, yes, previous line was auto-completed using Next Words prediction.",
                 "You requested and someone did it: new Lean Light theme is here.",
+                "I keep finding crashes, but then they magically go away.",
                 "YABTU (Yet another build tools update).",
                 "Localization update: "));
 
