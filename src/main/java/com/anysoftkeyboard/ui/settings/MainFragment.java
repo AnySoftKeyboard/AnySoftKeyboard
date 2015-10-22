@@ -1,5 +1,6 @@
 package com.anysoftkeyboard.ui.settings;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
@@ -17,12 +18,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anysoftkeyboard.theme.KeyboardTheme;
 import com.anysoftkeyboard.theme.KeyboardThemeFactory;
 import com.anysoftkeyboard.ui.settings.setup.SetUpKeyboardWizardFragment;
 import com.anysoftkeyboard.ui.settings.setup.SetupSupport;
 import com.anysoftkeyboard.ui.tutorials.ChangeLogFragment;
+import com.anysoftkeyboard.utils.Log;
 import com.menny.android.anysoftkeyboard.R;
 
 import net.evendanan.pushingpixels.FragmentChauffeurActivity;
@@ -90,7 +93,15 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View widget) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.main_site_url)));
-                startActivity(browserIntent);
+                try {
+                    startActivity(browserIntent);
+                } catch (ActivityNotFoundException weirdException) {
+                    //https://github.com/AnySoftKeyboard/AnySoftKeyboard/issues/516
+                    //this means that there is nothing on the device
+                    //that can handle Intent.ACTION_VIEW with "https" schema..
+                    //silently swallowing it
+                    Log.w(TAG, "Can not open '%' since there is nothing on the device that can handle it.", browserIntent.getData());
+                }
             }
         };
         setupLink(getView(), R.id.ask_gplus_link, gplusLink, false);
