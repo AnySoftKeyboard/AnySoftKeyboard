@@ -539,18 +539,6 @@ public abstract class AnyKeyboard extends Keyboard {
             return;
         }
 
-        // Issue 254: we know of a known Android Messaging bug
-        // http://code.google.com/p/android/issues/detail?id=2739
-        if (Workarounds.doubleActionKeyDisableWorkAround(editor)) {// package:
-            // com.android.mms,
-            // id:2131361817
-            mEnterKey.disable();
-            return;
-        }
-        // int options = (editor == null)? 0 : editor.imeOptions;
-        // CharSequence imeLabel = (editor == null)? null :editor.actionLabel;
-        // int imeActionId = (editor == null)? -1 :editor.actionId;
-
         mEnterKey.enable();
     }
 

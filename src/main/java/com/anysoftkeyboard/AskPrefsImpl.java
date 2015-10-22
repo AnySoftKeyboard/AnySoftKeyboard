@@ -20,13 +20,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.Gravity;
 
 import com.anysoftkeyboard.api.KeyCodes;
 import com.anysoftkeyboard.utils.Log;
-import com.anysoftkeyboard.utils.Workarounds;
 import com.menny.android.anysoftkeyboard.BuildConfig;
 import com.menny.android.anysoftkeyboard.FeaturesSet;
 import com.menny.android.anysoftkeyboard.R;
@@ -230,7 +230,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
 
         if (configurationVersion < 3) {
             Editor e = sp.edit();
-            if (Workarounds.getApiLevel() <= 7) {
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ECLAIR_MR1) {
                 Log.i(TAG, "In API7 or lower, bottom row needs to be changed to not include mic...");
                 final String bottomRowKey = mContext.getString(R.string.settings_key_ext_kbd_bottom_row_key);
                 String currentBottomRowId = sp.getString(bottomRowKey, mContext.getString(R.string.settings_default_ext_kbd_bottom_row_key));
@@ -539,7 +539,7 @@ public class AskPrefsImpl implements AskPrefs, OnSharedPreferenceChangeListener 
 
     private boolean getAlwaysUseDrawTextDefault() {
         if (android.os.Build.BRAND.contains("SEMC")//SE phones have fix for that, but more important, their StaticLayout class is bugged
-                || Workarounds.getApiLevel() > 11) //Android has native fix for API level 11! Ya
+                || Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) //Android has native fix for API level 11! Ya
             return true;
         else
             return mContext.getResources().getBoolean(R.bool.settings_default_workaround_disable_rtl_fix);

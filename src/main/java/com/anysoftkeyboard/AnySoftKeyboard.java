@@ -28,6 +28,7 @@ import android.content.res.TypedArray;
 import android.inputmethodservice.InputMethodService;
 import android.media.AudioManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
@@ -1504,11 +1505,8 @@ public class AnySoftKeyboard extends InputMethodService implements
                 sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_DOWN);
                 break;
             case KeyCodes.MOVE_HOME:
-                if (Workarounds.getApiLevel() >= 11) {
-                    sendDownUpKeyEvents(0x0000007a/*
-                                             * API 11:
-                                             * KeyEvent.KEYCODE_MOVE_HOME
-                                             */);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    sendDownUpKeyEvents(0x0000007a/*API 11:KeyEvent.KEYCODE_MOVE_HOME*/);
                 } else {
                     if (ic != null) {
                         CharSequence textBefore = ic.getTextBeforeCursor(1024, 0);
@@ -1529,7 +1527,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                 }
                 break;
             case KeyCodes.MOVE_END:
-                if (Workarounds.getApiLevel() >= 11) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                     //API 11: KeyEvent.KEYCODE_MOVE_END
                     sendDownUpKeyEvents(0x0000007b);
                 } else {
@@ -2652,15 +2650,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                 if (mSoundVolume > 0) {
                     volume = mSoundVolume;
                     maxVolume = 100;
-                    // pre-eclair
-                    // volume is between 0..8 (float)
-                    // eclair
-                    // volume is between 0..1 (float)
-                    if (Workarounds.getApiLevel() >= 5) {
-                        fxVolume = ((float) volume) / ((float) maxVolume);
-                    } else {
-                        fxVolume = 8 * ((float) volume) / ((float) maxVolume);
-                    }
+                    fxVolume = ((float) volume) / ((float) maxVolume);
                 } else {
                     fxVolume = -1.0f;
                 }
