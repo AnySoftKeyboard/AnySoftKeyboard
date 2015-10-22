@@ -168,6 +168,8 @@ public class AnySoftKeyboard extends InputMethodService implements
     private String mOverrideQuickTextText = null;
     private boolean mAutoCap;
     private boolean mQuickFixes;
+    private int mCalculatedCommonalityMaxLengthDiff;
+    private int mCalculatedCommonalityMaxDistance;
     /*
      * Configuration flag. Should we support dictionary suggestions
      */
@@ -293,7 +295,7 @@ public class AnySoftKeyboard extends InputMethodService implements
 
     private void initSuggest() {
         mSuggest = new Suggest(this);
-        mSuggest.setCorrectionMode(mQuickFixes, mShowSuggestions);
+        mSuggest.setCorrectionMode(mQuickFixes, mShowSuggestions, mCalculatedCommonalityMaxLengthDiff, mCalculatedCommonalityMaxDistance);
         mSuggest.setMinimumWordLengthForCorrection(mMinimumWordCorrectionLength);
         setDictionariesForCurrentKeyboard();
     }
@@ -581,7 +583,7 @@ public class AnySoftKeyboard extends InputMethodService implements
         setCandidatesViewShown(false);
 
         if (mSuggest != null) {
-            mSuggest.setCorrectionMode(mQuickFixes, mShowSuggestions);
+            mSuggest.setCorrectionMode(mQuickFixes, mShowSuggestions, mCalculatedCommonalityMaxLengthDiff, mCalculatedCommonalityMaxDistance);
         }
 
         mPredictionOn = mPredictionOn && (mShowSuggestions/* || mQuickFixes */);
@@ -2012,7 +2014,7 @@ public class AnySoftKeyboard extends InputMethodService implements
                 mPredictionOn = false;
                 setCandidatesViewShown(false);
                 if (mSuggest != null) {
-                    mSuggest.setCorrectionMode(false, false);
+                    mSuggest.setCorrectionMode(false, false, 0, 0);
                 }
             }
         }
@@ -2729,18 +2731,16 @@ public class AnySoftKeyboard extends InputMethodService implements
         mSoundVolume = newVolume;
 
         // in order to support the old type of configuration
-        mKeyboardChangeNotificationType = sp
-                .getString(
-                        getString(R.string.settings_key_physical_keyboard_change_notification_type),
-                        getString(R.string.settings_default_physical_keyboard_change_notification_type));
+        mKeyboardChangeNotificationType = sp.getString(
+                getString(R.string.settings_key_physical_keyboard_change_notification_type),
+                getString(R.string.settings_default_physical_keyboard_change_notification_type));
 
         // now clearing the notification, and it will be re-shown if needed
         mInputMethodManager.hideStatusIcon(mImeToken);
-        // mNotificationManager.cancel(KEYBOARD_NOTIFICATION_ID);
         // should it be always on?
-        if (mKeyboardChangeNotificationType
-                .equals(KEYBOARD_NOTIFICATION_ALWAYS))
+        if (mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS)) {
             notifyKeyboardChangeIfNeeded();
+        }
 
         mAutoCap = sp.getBoolean("auto_caps", true);
 
@@ -2748,27 +2748,55 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         setDictionariesForCurrentKeyboard();
 
-        mAutoComplete = sp.getBoolean("auto_complete", true)
-                && mShowSuggestions;
+        final String autoPickAggressiveness = sp.getString(
+                getString(R.string.settings_key_auto_pick_suggestion_aggressiveness),
+                getString(R.string.settings_default_auto_pick_suggestion_aggressiveness));
+
+        switch (autoPickAggressiveness) {
+            case "none":
+                mCalculatedCommonalityMaxLengthDiff = 0;
+                mCalculatedCommonalityMaxDistance = 0;
+                mAutoComplete = false;
+                break;
+            case "minimal_aggressiveness":
+                mCalculatedCommonalityMaxLengthDiff = 1;
+                mCalculatedCommonalityMaxDistance = 1;
+                mAutoComplete = true;
+                break;
+            case "high_aggressiveness":
+                mCalculatedCommonalityMaxLengthDiff = 3;
+                mCalculatedCommonalityMaxDistance = 4;
+                mAutoComplete = true;
+                break;
+            case "extreme_aggressiveness":
+                mCalculatedCommonalityMaxLengthDiff = 5;
+                mCalculatedCommonalityMaxDistance = 5;
+                mAutoComplete = true;
+                break;
+            default:
+                mCalculatedCommonalityMaxLengthDiff = 2;
+                mCalculatedCommonalityMaxDistance = 3;
+                mAutoComplete = true;
+        }
+        mAutoCorrectOn = mAutoComplete = mAutoComplete && mShowSuggestions;
 
         mQuickFixes = sp.getBoolean("quick_fix", true);
 
         mAllowSuggestionsRestart = sp.getBoolean(
                 getString(R.string.settings_key_allow_suggestions_restart),
-                getResources().getBoolean(
-                        R.bool.settings_default_allow_suggestions_restart));
-
-        mAutoCorrectOn = mAutoComplete;
-
-        mDoNotFlipQuickTextKeyAndPopupFunctionality =
-                sp.getBoolean(getString(R.string.settings_key_do_not_flip_quick_key_codes_functionality),
-                        getResources().getBoolean(R.bool.settings_default_do_not_flip_quick_keys_functionality));
-
-        mOverrideQuickTextText = sp.getString(getString(R.string.settings_key_emoticon_default_text), null);
+                getResources().getBoolean(R.bool.settings_default_allow_suggestions_restart));
 
         mMinimumWordCorrectionLength = sp.getInt(getString(R.string.settings_key_min_length_for_word_correction__), 2);
-        if (mSuggest != null)
+        if (mSuggest != null) {
             mSuggest.setMinimumWordLengthForCorrection(mMinimumWordCorrectionLength);
+            mSuggest.setCorrectionMode(mQuickFixes, mShowSuggestions, mCalculatedCommonalityMaxLengthDiff, mCalculatedCommonalityMaxDistance);
+        }
+
+        mDoNotFlipQuickTextKeyAndPopupFunctionality = sp.getBoolean(
+                getString(R.string.settings_key_do_not_flip_quick_key_codes_functionality),
+                getResources().getBoolean(R.bool.settings_default_do_not_flip_quick_keys_functionality));
+
+        mOverrideQuickTextText = sp.getString(getString(R.string.settings_key_emoticon_default_text), null);
 
         setInitialCondensedState(getResources().getConfiguration());
     }

@@ -94,9 +94,11 @@ public class Suggest implements Dictionary.WordCallback {
         }
     }
 
-    public void setCorrectionMode(boolean autoText, boolean mainDictionary) {
+    public void setCorrectionMode(boolean autoText, boolean mainDictionary, int maxLengthDiff, int maxDistance) {
         mAutoTextEnabled = autoText;
         mMainDictionaryEnabled = mainDictionary;
+        mCommonalityMaxLengthDiff = maxLengthDiff;
+        mCommonalityMaxDisatance = maxDistance;
     }
 
     /**
@@ -190,11 +192,6 @@ public class Suggest implements Dictionary.WordCallback {
             StringBuilder sb = new StringBuilder(32);
             mStringPool.add(sb);
         }
-    }
-
-    public void setSufficientCommonalitySettings(int maxLengthDiff, int maxDistance) {
-        mCommonalityMaxLengthDiff = maxLengthDiff;
-        mCommonalityMaxDisatance = maxDistance;
     }
 
     private boolean haveSufficientCommonality(String typedWord, CharSequence toBeAutoPickedSuggestion) {
