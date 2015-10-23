@@ -92,6 +92,11 @@ public class NextWordDictionary {
         return new NextWordStatistics(firstWordCount, secondWordCount);
     }
 
+    public void clearData() {
+        mNextWordMap.clear();
+        saveToStorage();
+    }
+
     private static class SimpleIterable implements Iterable<String> {
         private final String[] mStrings;
         private int mLength;

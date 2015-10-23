@@ -84,7 +84,7 @@ public class Suggest implements Dictionary.WordCallback {
     private boolean mMainDictionaryEnabled = true;
 
     private int mCommonalityMaxLengthDiff = 1;
-    private int mCommonalityMaxDisatance = 1;
+    private int mCommonalityMaxDistance = 1;
 
     public Suggest(Context context) {
         mDictionaryFactory = new DictionaryFactory();
@@ -98,7 +98,7 @@ public class Suggest implements Dictionary.WordCallback {
         mAutoTextEnabled = autoText;
         mMainDictionaryEnabled = mainDictionary;
         mCommonalityMaxLengthDiff = maxLengthDiff;
-        mCommonalityMaxDisatance = maxDistance;
+        mCommonalityMaxDistance = maxDistance;
     }
 
     /**
@@ -110,6 +110,20 @@ public class Suggest implements Dictionary.WordCallback {
             mUserDictionary.close();
 
         mUserDictionary = (UserDictionary) userDictionary;
+    }
+
+    public void closeDictionaries() {
+        Log.d(TAG, "closeDictionaries");
+        if (mMainDict != null) mMainDict.close();
+        mMainDict = null;
+        if (mAbbreviationDictionary != null) mAbbreviationDictionary.close();
+        mAbbreviationDictionary = null;
+        if (mAutoDictionary != null) mAutoDictionary.close();
+        mAutoDictionary = null;
+        if (mContactsDictionary != null) mContactsDictionary.close();
+        mContactsDictionary = null;
+        if (mUserDictionary != null) mUserDictionary.close();
+        mUserDictionary = null;
     }
 
     public void setMainDictionary(Context askContext, @Nullable DictionaryAddOnAndBuilder dictionaryBuilder) {
@@ -200,7 +214,7 @@ public class Suggest implements Dictionary.WordCallback {
         final int lengthDiff = suggestionLength - originalLength;
 
         return lengthDiff <= mCommonalityMaxLengthDiff &&
-                IMEUtil.editDistance(typedWord, toBeAutoPickedSuggestion) <= mCommonalityMaxDisatance;
+                IMEUtil.editDistance(typedWord, toBeAutoPickedSuggestion) <= mCommonalityMaxDistance;
     }
 
     public void resetNextWordSentence() {

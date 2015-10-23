@@ -14,22 +14,46 @@ import com.anysoftkeyboard.nextword.NextWordDictionary;
 import com.anysoftkeyboard.nextword.NextWordStatistics;
 import com.menny.android.anysoftkeyboard.R;
 
+import net.evendanan.pushingpixels.AsyncTaskWithProgressWindow;
+import net.evendanan.pushingpixels.AsyncTaskWithProgressWindow.AsyncTaskOwner;
 import net.evendanan.pushingpixels.PassengerFragmentSupport;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NextWordSettingsFragment extends PreferenceFragment {
+public class NextWordSettingsFragment extends PreferenceFragment implements AsyncTaskOwner {
 
-    private AsyncTask<Void, ProgressReport, Void> mNextWordStatsLoader;
+    private AsyncTask<Void, ProgressReport, List<String>> mNextWordStatsLoader;
+    private final Preference.OnPreferenceClickListener mClearDataListener = new Preference.OnPreferenceClickListener() {
+        @Override
+        public boolean onPreferenceClick(Preference preference) {
+            new AsyncTaskWithProgressWindow<Void, Void, Void, NextWordSettingsFragment>(NextWordSettingsFragment.this, true) {
+
+                @Override
+                protected void applyResults(Void o, Exception backgroundException) {
+                    loadUsageStatistics();
+                }
+
+                @Override
+                protected Void doAsyncTask(Void[] params) throws Exception {
+                    Context appContext = getActivity().getApplicationContext();
+                    for (String locale : mDeviceLocales) {
+                        NextWordDictionary nextWordDictionary = new NextWordDictionary(appContext, locale);
+                        nextWordDictionary.clearData();
+                    }
+                    return null;
+                }
+            }.execute();
+            return true;
+        }
+    };
+    private List<String> mDeviceLocales;
 
     private static class ProgressReport {
-
         public final DictionaryAddOnAndBuilder dictionaryBuilderByLocale;
         public final NextWordStatistics nextWordStatistics;
 
         public ProgressReport(DictionaryAddOnAndBuilder dictionaryBuilderByLocale, NextWordStatistics nextWordStatistics) {
-
             this.dictionaryBuilderByLocale = dictionaryBuilderByLocale;
             this.nextWordStatistics = nextWordStatistics;
         }
@@ -39,13 +63,18 @@ public class NextWordSettingsFragment extends PreferenceFragment {
     public void onCreate(Bundle paramBundle) {
         super.onCreate(paramBundle);
         addPreferencesFromResource(R.xml.prefs_next_word);
+        findPreference("clear_next_word_data").setOnPreferenceClickListener(mClearDataListener);
     }
 
     @Override
     public void onStart() {
         super.onStart();
         PassengerFragmentSupport.setActivityTitle(this, getString(R.string.next_word_dict_settings));
-        mNextWordStatsLoader = new AsyncTask<Void, ProgressReport, Void>() {
+        loadUsageStatistics();
+    }
+
+    protected void loadUsageStatistics() {
+        mNextWordStatsLoader = new AsyncTask<Void, ProgressReport, List<String>>() {
 
             private PreferenceCategory mStatsCategory;
             private Context mApplicationContext;
@@ -55,10 +84,12 @@ public class NextWordSettingsFragment extends PreferenceFragment {
                 super.onPreExecute();
                 mApplicationContext = getActivity().getApplicationContext();
                 mStatsCategory = (PreferenceCategory) findPreference("next_word_stats");
+                mStatsCategory.removeAll();
+                findPreference("clear_next_word_data").setEnabled(false);
             }
 
             @Override
-            protected Void doInBackground(Void... params) {
+            protected List<String> doInBackground(Void... params) {
                 final List<DictionaryAddOnAndBuilder> dictionaries = ExternalDictionaryFactory.getAllAvailableExternalDictionaries(mApplicationContext);
                 final List<String> deviceLocales = new ArrayList<>();
                 for (DictionaryAddOnAndBuilder builder : dictionaries) {
@@ -78,7 +109,7 @@ public class NextWordSettingsFragment extends PreferenceFragment {
                     publishProgress(new ProgressReport(dictionaryBuilderByLocale, nextWordDictionary.dumpDictionaryStatistics()));
                 }
 
-                return null;
+                return deviceLocales;
             }
 
             @Override
@@ -87,7 +118,7 @@ public class NextWordSettingsFragment extends PreferenceFragment {
                 if (isCancelled()) return;
                 for (ProgressReport progressReport : values) {
                     Preference localeData = new Preference(getActivity());
-                    localeData.setKey("stats_" + progressReport.dictionaryBuilderByLocale.getLanguage());
+                    localeData.setKey(progressReport.dictionaryBuilderByLocale.getLanguage());
                     localeData.setTitle(progressReport.dictionaryBuilderByLocale.getLanguage() + " - " + progressReport.dictionaryBuilderByLocale.getName());
                     if (progressReport.nextWordStatistics.firstWordCount == 0) {
                         localeData.setSummary(R.string.next_words_statistics_no_usage);
@@ -100,7 +131,13 @@ public class NextWordSettingsFragment extends PreferenceFragment {
 
                     mStatsCategory.addPreference(localeData);
                 }
+            }
 
+            @Override
+            protected void onPostExecute(List<String> deviceLocale) {
+                super.onPostExecute(deviceLocale);
+                findPreference("clear_next_word_data").setEnabled(true);
+                mDeviceLocales = deviceLocale;
             }
         }.execute();
     }

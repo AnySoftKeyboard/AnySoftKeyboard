@@ -314,16 +314,13 @@ public class AnySoftKeyboard extends InputMethodService implements
 
         mInputMethodManager.hideStatusIcon(mImeToken);
 
-        if (mInputView != null)
-            mInputView.onViewNotRequired();
+        if (mInputView != null) mInputView.onViewNotRequired();
         mInputView = null;
 
         mKeyboardSwitcher.setInputView(null);
 
-        mSuggest.setAutoDictionary(null);
-        mSuggest.setContactsDictionary(getApplicationContext(), false);
-        mSuggest.setMainDictionary(getApplicationContext(), null);
-        mSuggest.setUserDictionary(null);
+
+        mSuggest.closeDictionaries();
 
         if (DeveloperUtils.hasTracingStarted()) {
             DeveloperUtils.stopTracing();
@@ -623,10 +620,10 @@ public class AnySoftKeyboard extends InputMethodService implements
             mInputView.closing();
         }
 
-        if (!mKeyboardChangeNotificationType
-                .equals(KEYBOARD_NOTIFICATION_ALWAYS)) {
+        if (!mKeyboardChangeNotificationType.equals(KEYBOARD_NOTIFICATION_ALWAYS)) {
             mInputMethodManager.hideStatusIcon(mImeToken);
         }
+        mSuggest.closeDictionaries();
     }
 
     /*
