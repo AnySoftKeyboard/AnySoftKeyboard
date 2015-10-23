@@ -5,6 +5,7 @@ import android.support.v4.util.ArrayMap;
 import android.util.Log;
 
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Random;
 
 public class NextWordDictionary {
@@ -77,6 +78,18 @@ public class NextWordDictionary {
 
     public void resetSentence() {
         mPreviousWord = null;
+    }
+
+    public NextWordStatistics dumpDictionaryStatistics() {
+        int firstWordCount = 0;
+        int secondWordCount = 0;
+
+        for (Map.Entry<String, NextWordsContainer> entry : mNextWordMap.entrySet()) {
+            firstWordCount++;
+            secondWordCount += entry.getValue().getNextWordSuggestions().size();
+        }
+
+        return new NextWordStatistics(firstWordCount, secondWordCount);
     }
 
     private static class SimpleIterable implements Iterable<String> {

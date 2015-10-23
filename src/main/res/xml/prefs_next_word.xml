@@ -26,4 +26,8 @@
             android:title="@string/use_next_words_dictionary_aggressiveness"/>
 
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="next_word_stats"
+        android:title="@string/next_word_stats_group" />
 </PreferenceScreen>

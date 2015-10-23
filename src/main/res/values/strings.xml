@@ -761,4 +761,7 @@
     <string name="accessibility_item_reorder_slider">Item re-order slider</string>
     <string name="next_word_dict_settings">Next Word settings</string>
     <string name="next_word_settings_group">Settings</string>
+    <string name="next_word_stats_group">Next Word Usage Statistics</string>
+    <string name="next_words_statistics_count">Initial word count:\u0020<xliff:g id="first_word">%d</xliff:g>\nAverage next word count:\u0020<xliff:g id="second_word">%d</xliff:g></string>
+    <string name="next_words_statistics_no_usage">No usage yet. Type a bit more.</string>
 </resources>
